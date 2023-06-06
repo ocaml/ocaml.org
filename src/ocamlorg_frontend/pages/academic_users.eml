@@ -1,4 +1,4 @@
-let render (users : Ood.Academic_institution.t list) =
+let render (users : Data.Academic_institution.t list) =
 Layout.render
 ~title:"Academic Users of OCaml"
 ~description:"OCaml is taught all around the world and used every day by programming language researchers. Learn more about the strong academic roots of the language."
@@ -19,25 +19,23 @@ Layout.render
     <div class="flex justify-between mb-0 md:mb-10 lg:mb-20 lg:flex-row flex-col items-center">
       <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0">30+ Academic Entries</h2>
       <div class="flex justify-between flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto">
-        <form action="<%s Url.academic_users %>" method="GET" class="form-input">
-          <div class="form-input__icon">
-            <%s! Icons.magnifying_glass "h-5 w-5 text-body-400" %>
-          </div>
-          <label for="q2" class="sr-only">Institutions</label>
-          <input class="focus:ring-orange-500" id="q2" name="q" type="search" placeholder="Search institutions">
+        <form action="<%s Url.academic_users %>" method="GET">
+        <%s! Forms.search_input
+          ~name:"q"
+          ~label:"Search institutions"
+          ~button_attrs:{|type="submit"|}
+          "h-12"
+         %>
+
         </form>
-        <div class="relative h-14">
-          <select class="w-full lg:w-auto appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-14 h-full" name="All Regions" x-model="continent">
-            <option>All</option>
-            <option>North America</option>
-            <option>Europe</option>
-            <option>Asia</option>
-          </select>
-        </div>
+        <%s! Forms.select
+          ~attrs:{|name="All Regions" x-model="continent"|}
+          ~options:[("All", "All"); ("North America", "North America"); ("Europe", "Europe"); ("Asia", "Asia")]
+          "" %>
       </div>
     </div>
     <div :class="continent != 'All' ? 'hidden' : 'grid-logos'">
-      <% users |> List.iter (fun (item : Ood.Academic_institution.t) -> let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
+      <% users |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
         <img src="<%s logo %>" class="m-auto" alt="">
         <div class="font-bold mt-8"><%s item.name %></div>
@@ -46,7 +44,7 @@ Layout.render
     </div>
 
     <div :class="continent != 'North America' ? 'hidden' : 'grid-logos'">
-      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "North America") |> List.iter (fun (item : Ood.Academic_institution.t) -> let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
+      <% users |> List.filter (fun x -> x.Data.Academic_institution.continent = "North America") |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
         <img src="<%s logo %>" class="m-auto" alt="">
         <div class="font-bold mt-8"><%s item.name %></div>
@@ -54,7 +52,7 @@ Layout.render
       <% ); %>
     </div>
     <div :class="continent != 'Europe' ? 'hidden' : 'grid-logos'">
-      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Europe") |> List.iter (fun (item : Ood.Academic_institution.t) -> let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
+      <% users |> List.filter (fun x -> x.Data.Academic_institution.continent = "Europe") |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
         <img src="<%s logo %>" class="m-auto" alt="">
         <div class="font-bold mt-8"><%s item.name %></div>
@@ -62,7 +60,7 @@ Layout.render
       <% ); %>
     </div>
     <div :class="continent != 'Asia' ? 'hidden' : 'grid-logos'">
-      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Asia") |> List.iter (fun (item : Ood.Academic_institution.t) -> let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
+      <% users |> List.filter (fun x -> x.Data.Academic_institution.continent = "Asia") |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
         <img src="<%s logo %>" class="m-auto" alt="">
         <div class="font-bold mt-8"><%s item.name %></div>
@@ -104,7 +102,7 @@ Layout.render
       <h2 class="mb-6 font-bold">Our Influence</h2>
       <div>See where we are located around the world at an academic level.</div>
       <div class="mt-24 relative">
-        <img src="/img/academic/map.svg" alt="A world map that illustrates where OCaml is taught or used for research.">
+        <img src="<%s Ocamlorg_static.Asset.url "img/academic/map.svg" %>" alt="A world map that illustrates where OCaml is taught or used for research.">
       </div>
     </div>
   </div>

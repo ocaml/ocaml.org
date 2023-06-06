@@ -1,0 +1,22 @@
+let render (planet : Data.Planet.t) =
+Layout.render
+~title:planet.title
+~description:(Option.value ~default:planet.title planet.description)
+~canonical:(Url.blog_post planet.slug)
+~active_top_nav_item:Blog @@
+<div class="bg-white py-24">
+  <div class="container-fluid">
+    <div class="mx-auto max-w-5xl">
+      <a href="<%s Url.blog %>"
+        class="flex justify-start space-x-3 items-center text-primary-600 hover:underline font-semibold mb-4 h-12">
+        <%s! Icons.arrow_left "h-5 w-5" %>
+        <div>Back to Blog</div>
+      </a>
+    </div>
+
+    <div class="prose prose-orange mx-auto max-w-5xl">
+      <h1><%s planet.title %></h1>
+      <%s! planet.body_html %>
+    </div>
+  </div>
+</div>

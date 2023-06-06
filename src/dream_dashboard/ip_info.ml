@@ -17,8 +17,7 @@ let digest ip =
   Digestif.SHA256.digest_string ip |> Digestif.SHA256.to_raw_string
 
 let query_dbip ip =
-  let open Lwt.Syntax in
-  let+ response =
+  let response =
     Hyper.get
       ~headers:
         [
@@ -47,17 +46,16 @@ let get ip =
 
      - Store the errors in the cache, so we don't query the same IP if the
      answer is an error. *)
-  let open Lwt.Syntax in
   let ip_digest = digest ip in
   match Hashtbl.find_opt cache ip_digest with
   | Some x -> Lwt.return (Some x)
   | None -> (
-      let+ result = query_dbip ip in
+      let result = query_dbip ip in
       match result with
       | Ok x ->
           Hashtbl.add cache ip_digest x;
-          Some x
+          Lwt.return (Some x)
       | Error err ->
           Dream.error (fun m ->
               m "Could not get the location from the IP address: %s" err);
-          None)
+          Lwt.return None)

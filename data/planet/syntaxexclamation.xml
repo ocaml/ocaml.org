@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://syntaxexclamation.wordpress.com/tag/ocaml/feed/</id><title type="text">syntaxexclamation</title><updated>2023-06-05T05:46:01-00:00</updated><entry><link href="https://syntaxexclamation.wordpress.com/2014/06/27/parametric-hoas-with-first-class-modules/" rel="alternate"/><contributor><uri>https://syntaxexclamation.wordpress.com/tag/ocaml/feed/</uri><name>syntaxexclamation</name></contributor><content type="html">&lt;p&gt;One of the first choice to make when starting the development of a compiler, or any program manipulating syntax&amp;nbsp;with binders (e.g. programs with functions and variables), is how to&amp;nbsp;represent these terms. Some specialized programming languages, like &lt;a href=&quot;http://complogic.cs.mcgill.ca/beluga/&quot; title=&quot;Beluga&quot;&gt;Beluga&lt;/a&gt;, have built-in facilities for this. But if you choose a general-purpose one, like OCaml, then you have plenty of choices: Named terms, De Bruijn indices, Locally nameless, Higher-order abstract syntax (HOAS)&amp;hellip; each with their idiosyncrasies, inconvenients etc. This issue is pervasive in PL research and almost formed a subfield of itself. If you are interested, there is a wealth of literature on the topic; a documented discussion happened on LtU &lt;a href=&quot;http://lambda-the-ultimate.org/node/3627&quot; title=&quot;A Type-theoretic Foundation for Programming with Higher-order Abstract Syntax and First-class Substitutions&quot;&gt;some years back&lt;/a&gt; (already), which is probably a good starting point, although of course some has&amp;nbsp;happened since then.&lt;/p&gt;
+&lt;p&gt;Today I will be looking at implementing&amp;nbsp;in OCaml one of the most recent and praised ones: Parametric HOAS (PHOAS). For some reason that I detail hereafter, the traditional way of implementing PHOAS can be cumbersome, and I propose an alternative here, which happens to be one of my very first uses of first-class modules.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h4&gt;Parametric HOAS, the traditional way&lt;/h4&gt;
+&lt;p&gt;The idea of Parametric HOAS goes back &lt;a href=&quot;http://dx.doi.org/10.1145/1411204.1411226&quot; title=&quot;Boxes go bananas&quot;&gt;Geoffrey Washburn and Stephanie Weirich&lt;/a&gt;, at least, and was named this way and formalized in Coq by &lt;a href=&quot;http://dx.doi.org/10.1145/1411204.1411226&quot; title=&quot;Parametric higher-order abstract syntax for mechanized semantics&quot;&gt;Adam Chlipala&lt;/a&gt;&amp;nbsp;(I recommend the latter, which is a good read). In a nutshell, you encode binders in the language by OCaml binders (like in HOAS), but the term data structure is parameterized by the type &lt;code&gt;'x&lt;/code&gt; of variables. We will call these &lt;em&gt;pre-terms&lt;/em&gt;:&lt;/p&gt;
+&lt;pre&gt;type 'x t = (* pre-term *)
+  | Lam of ('x -&amp;gt; 'x t)
+  | App of 'x t * 'x t
+  | Var of 'x&lt;/pre&gt;
+&lt;p&gt;For instance, this is a perfectly valid pre-term:&lt;/p&gt;
+&lt;pre&gt;let ex : float t = Lam (fun x -&amp;gt; App (Var 3.14, Var x))&lt;/pre&gt;
+&lt;p&gt;Its variables have floats dangling from them. But for a pre-term to become a &lt;em&gt;real&lt;/em&gt; term, it has to make no assumption on the type of variables. Let&amp;rsquo;s encode this with an explicit universal&amp;nbsp;quantification&amp;nbsp;in a record:&lt;/p&gt;
+&lt;pre&gt;type tm = {t : 'x. 'x t}&lt;/pre&gt;
+&lt;p&gt;This parametrization rules out the previous pre-term. It is also what makes it impossible to define so-called &amp;ldquo;exotic&amp;rdquo; terms. &lt;a href=&quot;http://bentnib.org/syntaxforfree.html&quot; title=&quot;Syntax for Free: Representing Syntax with Binding Using Parametricity&quot;&gt;In fact&lt;/a&gt;, there are as many inhabitant to this type than there are &amp;lambda;-terms.&lt;/p&gt;
+&lt;h4&gt;Examples&lt;/h4&gt;
+&lt;p&gt;This is an example of a&amp;nbsp;&lt;em&gt;real&lt;/em&gt; term:&lt;/p&gt;
+&lt;pre&gt;let ex : tm = {t = Lam (fun x -&amp;gt; Lam (fun y -&amp;gt; App (Var x, Var y)))}&lt;/pre&gt;
+&lt;p&gt;So, each term comes in a little package that seals the representation of variables to &amp;ldquo;unknown&amp;rdquo;. If you open this little box, you can set it however you want, as long as, when you close it back, it is back to &amp;ldquo;unknown&amp;rdquo;. This is how you define recursive functions on terms: a main function opens the package, and an auxiliary one works with the pre-term inside, instantiating variables as it pleases. Here, the classic example&amp;nbsp;function counting the number of variables in a term:&lt;/p&gt;
+&lt;pre&gt;let count : tm -&amp;gt; int =
+  let rec aux : unit t -&amp;gt; int = function
+    | Var () -&amp;gt; 1
+    | App (m, n) -&amp;gt; aux m + aux n
+    | Lam f -&amp;gt; aux (f ())
+  in fun {t} -&amp;gt; aux t&lt;/pre&gt;
+&lt;p&gt;When I go under a&amp;nbsp;&amp;lambda;-abstraction, I fill the open holes with &lt;code&gt;()&lt;/code&gt; (because here there is no information to carry); so during the recursion, the pre-term can have variables instantiated with&amp;nbsp;&lt;code&gt;().&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;The issue&lt;/h4&gt;
+&lt;p&gt;This is all well and good, but this encoding can be quite cumbersome for practical reasons. Look again at the definition of pre-terms. Imagine that there is not 3 but 30 constructors, with not one but five kinds of variables, i.e. five parameters: each time, I would have to pass them to each subterm. Who wants to read 30 lines of code of this kind?&lt;/p&gt;
+&lt;pre&gt;type ('x, 'y, 'z, 't, 'u) t =
+ | Var1 of 'x
+ | Var2 of 'y
+ | App of ('x, 'y, 'z, 't, 'u) t * ('x, 'y, 'z, 't, 'u) t&lt;/pre&gt;
+&lt;p&gt;Variable types are never changed, and just passed on untouched to the next subterm. It is like defining a recursive function which never let&amp;nbsp;one of its arguments vary: you want to &lt;a href=&quot;http://www.brics.dk/RS/99/27/BRICS-RS-99-27.pdf&quot; title=&quot;Lambda-Dropping: Transforming Recursive Equations into Programs with Block Structure&quot;&gt;lambda-drop&lt;/a&gt; it. In Coq, this is easy thanks to sections, which give you the illusion of lambda-dropping, but OCaml does not have this feature. Nonetheless, let us do exactly this: lambda-drop a parametric type definition into&amp;hellip; a module.&lt;/p&gt;
+&lt;h4&gt;First-class modules to the rescue&lt;/h4&gt;
+&lt;p&gt;First, we are going to factor out all these occurrences of the &amp;lsquo;x type parameter by lifting type t into a functor.&lt;/p&gt;
+&lt;pre&gt;module type X = sig type x end
+
+module Tm (X : X) = struct open X
+  type t =
+    | Lam of (x -&amp;gt; t)
+    | App of t * t
+    | Var of x
+end&lt;/pre&gt;
+&lt;p&gt;Pre-term is not a parametric type, it is a functor (a parametric structure). Note that the type of variables is &amp;ldquo;lambda-dropped&amp;rdquo; to the parameter of the functor, so the definition of type t is much less verbose; and it would stay as concise&amp;nbsp;with 5 different kinds of variables. For instance, this is a valid pre-term:&lt;/p&gt;
+&lt;pre&gt;module Pt = T (struct type x = float end)
+let ex : Pt.t = Pt.(Lam (fun x -&amp;gt; App (Var x, Var 3.14)))&lt;/pre&gt;
+&lt;p&gt;OCaml does not let us instantiate functors in type definitions, so we must do this in two steps: first declare the module by instantiating the functor, and then giving an inhabitant to it.&lt;/p&gt;
+&lt;p&gt;Once again, For a pre-term to become a real term, it has to make no assumption on its &amp;ldquo;variable type&amp;rdquo; module. Let&amp;rsquo;s encode this by a functor, from the structure defining variables to a structure defining an inhabitant of the pre-term type:&lt;/p&gt;
+&lt;pre&gt;module type TM = functor (X:X) -&amp;gt; sig val t : Tm(X).t end&lt;/pre&gt;
+&lt;p&gt;Now, thanks to first-class modules, we have the ability to treat an inhabitant of this module type as an usual value:&lt;/p&gt;
+&lt;pre&gt;type tm = (module TM)&lt;/pre&gt;
+&lt;p&gt;Here it is, that&amp;rsquo;s our type of terms.&lt;/p&gt;
+&lt;h4&gt;Examples&lt;/h4&gt;
+&lt;p&gt;Let me give you an example of term:&lt;/p&gt;
+&lt;pre&gt;let ex : tm = (module functor (X:X) -&amp;gt; struct module T = Tm(X) let t =
+    T.(Lam (fun x -&amp;gt; Lam (fun y -&amp;gt; App (Var x, Var y))))
+  end : TM)&lt;/pre&gt;
+&lt;p&gt;The value is a first-class module that is a functor, just like the &lt;code&gt;TM&lt;/code&gt; module type dictates. Yes, it is substantially more to write than in the previous section, but the overhead is fixed. Note that the type annotation on the module is necessary (I don&amp;rsquo;t know why).&lt;/p&gt;
+&lt;p&gt;A function on this term representation, e.g. the count example from before, has to first unpack the first class module Tm and instantiate it with the right kind of variable X, grab the pre-term t contained in it; Then an auxiliary recursive function can traverse this pre-term. All in all, we get:&lt;/p&gt;
+&lt;pre&gt;let count : tm -&amp;gt; int = fun (module Tm) -&amp;gt;
+  let module X = struct type x = unit end in
+  let module TmX = Tm(X) in
+  let module TX = T(X) in let open TX in
+  let rec aux : T(X).t -&amp;gt; int = function
+    | Lam f -&amp;gt; aux (f ())
+    | App (t, u) -&amp;gt; aux t + aux u
+    | Var () -&amp;gt; 1
+  in aux TmX.t&lt;/pre&gt;
+&lt;p&gt;Again, it seems like a lot to type, but the overhead is constant, so it has better chances to&amp;nbsp;scale.&lt;/p&gt;
+&lt;h4&gt;Epilogue&lt;/h4&gt;
+&lt;p&gt;Here was my implementation of PHOAS with &amp;ldquo;lambda-lifting&amp;rdquo; of type arguments, thanks to first-class modules. I guess that this trick could be useful for other large type definitions involving constant parameters, for instance, do you know the &lt;a href=&quot;http://www.cs.cmu.edu/~tom7/papers/recursion-abstract.html&quot; title=&quot;Functional Pearl: Programming With Recursion Schemes&quot;&gt;recursion scheme&lt;/a&gt; programming pattern?&amp;nbsp;Also,&amp;nbsp;try to encode the&amp;nbsp;&lt;em&gt;typed&lt;/em&gt;&amp;nbsp;&amp;lambda;-calculus this way, &lt;a href=&quot;https://syntaxexclamation.wordpress.com/2014/04/12/representing-pattern-matching-with-gadts/&quot; title=&quot;Representing pattern-matching with GADTs&quot;&gt;using GADTs&lt;/a&gt;; you will need type x to be parametric on a type &amp;lsquo;a, therefore encoding rank-2 polymorphism. I did not get there yet.&lt;/p&gt;
+&lt;p&gt;As a bonus, here is the boring but still relevant identity function on&amp;nbsp;&amp;lambda;-terms, which has the advantage of returning a term (unlike &lt;code&gt;count&lt;/code&gt;):&lt;/p&gt;
+&lt;pre&gt;let id : tm -&amp;gt; tm = fun (module Tm) -&amp;gt; 
+  (module functor (X:X) -&amp;gt; struct let t =
+    let module TmX = Tm(X) in
+    let module TX = T(X) in let open TX in
+    let rec id : t -&amp;gt; t = function
+      | Lam f -&amp;gt; Lam (fun x -&amp;gt; id (f x))
+      | App (t, u) -&amp;gt; App (id t, id u)
+      | Var x -&amp;gt; Var x
+    in id TmX.t
+  end)&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+</content><id>https://syntaxexclamation.wordpress.com/2014/06/27/parametric-hoas-with-first-class-modules/</id><title type="text">Parametric HOAS with first-class modules</title><updated>2014-06-27T21:17:37-00:00</updated><author><name>syntaxexclamation</name></author></entry><entry><link href="https://syntaxexclamation.wordpress.com/2014/06/26/escaping-continuations/" rel="alternate"/><contributor><uri>https://syntaxexclamation.wordpress.com/tag/ocaml/feed/</uri><name>syntaxexclamation</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;https://www.mpi-sws.org/~beta/Research.html&quot;&gt;Beta&lt;/a&gt;&amp;nbsp;had a funny joke at POPL last year; he said: &amp;ldquo;you exit a monad like you exit a building on fire: by running&amp;rdquo;. I recently got myself in the stressful situation of being trapped in a monad&amp;mdash;the continuation monad&amp;mdash;but without a possibility to &amp;ldquo;run&amp;rdquo;. There&amp;nbsp;an exit nonetheless: just jump out! This is the (short) story of an escape.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h4&gt;A&amp;nbsp;seemingly&amp;nbsp;inescapable monad&lt;/h4&gt;
+&lt;p&gt;Say we have a continuation monad, but its&amp;nbsp;answer type &lt;code&gt;o&lt;/code&gt; is fixed in advance:&lt;/p&gt;
+&lt;pre&gt;type o
+type 'a m = ('a -&amp;gt; o) -&amp;gt; o
+
+let ret : 'a. 'a -&amp;gt; 'a m = fun v k -&amp;gt; k v
+let bind : 'a 'b. 'a m -&amp;gt; ('a -&amp;gt; 'b m) -&amp;gt; 'b m = 
+  fun x f k -&amp;gt; x (fun v -&amp;gt; f v (fun v -&amp;gt; k v))&lt;/pre&gt;
+&lt;p&gt;Usually, we consider &lt;code&gt;o&lt;/code&gt;, the type of final answers to CPS, to be universally quantified, so that it can be instantiated to whatever we want. Then, as usual, we can run the computation by applying the identity continuation, i.e. we can instantiate type &lt;code&gt;o&lt;/code&gt; with &lt;code&gt;'a&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;let run : 'a. 'a m -&amp;gt; 'a = fun f -&amp;gt; f (fun x -&amp;gt; x)&lt;/pre&gt;
+&lt;p&gt;But here, we specified explicitly that &lt;code&gt;o&lt;/code&gt; was&amp;nbsp;&lt;em&gt;not&lt;/em&gt; our choice but was fixed (it is abstract), so the previous line gives a typing error: the identity function is&amp;nbsp;&lt;em&gt;not&lt;/em&gt; a valid continuation to give to our monadic value. I have seen this situation when using delimited continuations: the answer type gets instantiated when you use a local effect somewhere in your program. For instance, &lt;a href=&quot;http://www.brics.dk/RS/07/6/index.html&quot; title=&quot;On One-Pass CPS Transformations&quot;&gt;one-pass&lt;/a&gt; &lt;a href=&quot;ftp://ftp.daimi.au.dk/BRICS/RS/02/52/BRICS-RS-02-52.pdf&quot; title=&quot;A New One-Pass Transformation into Monadic Normal Form&quot;&gt;transformations&lt;/a&gt; are of this form; their type is in the lines of&amp;nbsp;&lt;code&gt;exp -&amp;gt; (triv -&amp;gt; ser) -&amp;gt; ser&lt;/code&gt; (&lt;code&gt;triv&lt;/code&gt; is for trivial term, &lt;code&gt;ser&lt;/code&gt; for serious term), because when they return from&amp;nbsp;their final continuation, they must be in the context of a serious term.&lt;/p&gt;
+&lt;h4&gt;Taking the Midnight Express&lt;/h4&gt;
+&lt;p&gt;What to do then? how do you run a CPS computation when you cannot choose the answer type? Well, there is a way out, involving exceptions: instead of the identity continuation, pass a &amp;ldquo;trick continuation&amp;rdquo; that, when called at the end of the computation, will jump out of it (raise an exception) and return to a top-level exception handler. If the initial continuation is actually called, and in the dynamic scope of the exception handler, then we&amp;rsquo;ll have our result. Here it is:&lt;/p&gt;
+&lt;pre&gt;let jump : 'a 'b. ('a -&amp;gt; 'b m) -&amp;gt; 'a -&amp;gt; 'b = fun (type b) f x -&amp;gt;
+  let module M = struct exception E of b end in
+  try ignore (f x (fun x -&amp;gt; raise (M.E x))); failwith &amp;quot;f was not pure&amp;quot;
+  with M.E i -&amp;gt; i&lt;/pre&gt;
+&lt;p&gt;A local exception is defined, which contains a value of the return type &lt;code&gt;b&lt;/code&gt;. This exception is eventually raised in the initial continuation, and the actual return value of function &lt;code&gt;f&lt;/code&gt; is ignored, because it is not supposed to return anymore.&lt;/p&gt;
+&lt;p&gt;So, as you see, &lt;code&gt;jump&lt;/code&gt; is turning a function defined in CPS, &lt;code&gt;f&lt;/code&gt;, into an &amp;ldquo;equivalent&amp;rdquo; direct style function, &lt;code&gt;jump f&lt;/code&gt;. Careful! It is equivalent if &lt;code&gt;f&lt;/code&gt; is applying its initial continuation, i.e. if &lt;code&gt;f&lt;/code&gt; has a pure, direct style counterpart. Otherwise, e.g. if &lt;code&gt;f&lt;/code&gt; drops&amp;nbsp;its continuation at one point, then the exception might not be raised, &lt;code&gt;f&lt;/code&gt; might terminate and &lt;code&gt;jump f&lt;/code&gt; fail with my error &lt;code&gt;Failure(&amp;quot;f was not pure&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+&lt;h4&gt;Examples&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s define the function&amp;nbsp;&amp;lambda;&lt;em&gt;x&lt;/em&gt;. (&lt;em&gt;x&lt;/em&gt;&amp;nbsp;+ 1) = 0 in CPS and then test it on 1:&lt;/p&gt;
+&lt;pre&gt;let isz x = ret (x=0)
+let succ x = ret (x+1)
+
+let () = assert (jump (fun x -&amp;gt; bind (succ x) isz) 0 = false)&lt;/pre&gt;
+&lt;p&gt;I can even use &lt;code&gt;callcc&lt;/code&gt; in my programs, which proves that &lt;em&gt;some&lt;/em&gt; effects are actually OK:&lt;/p&gt;
+&lt;pre&gt;let callcc : 'a 'b. (('a -&amp;gt; 'b m) -&amp;gt; 'a m) -&amp;gt; 'a m =
+ fun f k -&amp;gt; f (fun v x -&amp;gt; k v) (fun v -&amp;gt; k v)
+
+let () =  assert (jump (fun x -&amp;gt; 
+  callcc (fun k -&amp;gt; bind (k x) (fun v -&amp;gt; ret (1 + v)))) 1 = 1)&lt;/pre&gt;
+&lt;p&gt;What I cannot do is instantiate &lt;code&gt;o&lt;/code&gt; and bypass the initial continuation:&lt;/p&gt;
+&lt;pre&gt;type o = An_inhabitant
+let () = ignore (jump (fun x k -&amp;gt; An_inhabitant) 1)&lt;/pre&gt;
+&lt;p&gt;This last example raises the exception &lt;code&gt;Failure(&amp;quot;f was not pure&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;Open questions&lt;/h4&gt;
+&lt;p&gt;Now my questions to you, acute and knowledgeable reader, are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;First, is this &lt;code&gt;jump&lt;/code&gt; operator as well-behaved as I think? Precisely what kind of effects can trigger an error? Also, can we make the exception &lt;code&gt;M.E&lt;/code&gt; escape its scope?&lt;/li&gt;
+&lt;li&gt;Secondly, what does this mean, on the other side of the Curry-Howard looking glass? How can I interpret this result proof-theoretically? &lt;code&gt;jump&lt;/code&gt; is a theorem close to, but weaker than double negation elimination it seems.&lt;/li&gt;
+&lt;/ul&gt;
+</content><id>https://syntaxexclamation.wordpress.com/2014/06/26/escaping-continuations/</id><title type="text">Escaping continuations</title><updated>2014-06-26T21:59:46-00:00</updated><author><name>syntaxexclamation</name></author></entry><entry><link href="https://syntaxexclamation.wordpress.com/2014/04/18/547/" rel="alternate"/><contributor><uri>https://syntaxexclamation.wordpress.com/tag/ocaml/feed/</uri><name>syntaxexclamation</name></contributor><content type="html">&lt;p&gt;This is the answer to &lt;a href=&quot;https://syntaxexclamation.wordpress.com/2014/04/15/big-step-disjunctive-normal-forms/&quot; title=&quot;Big-step disjunctive normal forms&quot;&gt;last post&amp;rsquo;s puzzle&lt;/a&gt;. I gave an algorithm to put a formula in disjunctive normal form, and suggested to prove it correct &lt;i&gt;in OCaml&lt;/i&gt;, thanks to GADTs. My solution happens to include a wealth of little exercises that could be reused I think, so here it is.&lt;/p&gt;
+&lt;p&gt;I put the code snippets in the order that I think is more pedagogical, and leave to the reader to reorganize them in the right one.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;First, as I hinted previously, we are annotating formulas, conjunctions and disjunctions with their corresponding OCaml type, in order to reason on these types:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type 'a atom = int
+
+type 'a form =
+  | X : 'a atom -&amp;gt; 'a form
+  | And : 'a form * 'b form -&amp;gt; ('a * 'b) form
+  | Or : 'a form * 'b form -&amp;gt; ('a, 'b) union form
+
+type 'a conj =
+  | X : 'a atom -&amp;gt; 'a conj
+  | And : 'a atom * 'b conj -&amp;gt; ('a * 'b) conj
+
+type 'a disj =
+  | Conj : 'a conj -&amp;gt; 'a disj
+  | Or : 'a conj * 'b disj -&amp;gt; ('a, 'b) union disj
+&lt;/pre&gt;
+&lt;p&gt;What we are eventually looking for is a function &lt;code&gt;dnf&lt;/code&gt; mapping an &lt;code&gt;'a form&amp;nbsp;&lt;/code&gt;to a &lt;code&gt;'b disj&lt;/code&gt;, but now these two must be related: they must represent two &lt;i&gt;equivalent&lt;/i&gt; formulae. So, correcting what I just said: &lt;code&gt;dnf&lt;/code&gt; must return the pair of a &lt;code&gt;'b disj&lt;/code&gt; and a proof that &lt;code&gt;'a&lt;/code&gt; and &lt;code&gt;'b&lt;/code&gt; are equivalent. This pair is an existential type, which is easily coded with a GADT (we do similarly for conjunctions):&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type 'a cnj = Cnj : 'b conj * ('a, 'b) equiv -&amp;gt; 'a cnj
+type 'a dsj = Dsj : 'b disj * ('a, 'b) equiv -&amp;gt; 'a dsj
+&lt;/pre&gt;
+&lt;p&gt;Let&amp;rsquo;s leave out the definition of &lt;code&gt;equiv&lt;/code&gt; for a while. Now the code from the previous post is fairly easily adapted:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec conj : type a b. a conj -&amp;gt; b conj -&amp;gt; (a * b) cnj =
+  fun xs ys -&amp;gt; match xs with
+  | X x -&amp;gt; Cnj (And (x, ys), refl)
+  | And (x, xs) -&amp;gt;
+    let Cnj (zs, e) = conj xs ys in
+    Cnj (And (x, zs), lemma0 e)
+
+let rec disj : type a b. a disj -&amp;gt; b disj -&amp;gt; (a, b) union dsj =
+  fun xs ys -&amp;gt; match xs with
+  | Conj c -&amp;gt; Dsj (Or (c, ys), refl)
+  | Or (x, xs) -&amp;gt;
+    let Dsj (zs, e) = disj xs ys in
+    Dsj (Or (x, zs), lemma1 e)
+
+let rec map : type a b. a conj -&amp;gt; b disj -&amp;gt; (a * b) dsj =
+  fun x -&amp;gt; function
+  | Conj y -&amp;gt;
+    let Cnj (z, e) = conj x y in
+    Dsj (Conj z, e)
+  | Or (y, ys) -&amp;gt;
+    let Cnj (z, e1) = conj x y in
+    let Dsj (t, e2) = map x ys in
+    Dsj (Or (z, t), lemma2 e1 e2)
+
+let rec cart : type a b. a disj -&amp;gt; b disj -&amp;gt; (a * b) dsj =
+  fun xs ys -&amp;gt; match xs with
+  | Conj c -&amp;gt; map c ys
+  | Or (x, xs) -&amp;gt;
+    let Dsj (z, e1) = map x ys in
+    let Dsj (t, e2) = cart xs ys in
+    let Dsj (u, e3) = disj z t in
+    Dsj (u, lemma3 e1 e2 e3)
+
+let rec dnf : type a. a form -&amp;gt; a dsj = function
+  | X x -&amp;gt; Dsj (Conj (X x), refl)
+  | Or (a, b) -&amp;gt;
+    let Dsj (c, e1) = dnf a in
+    let Dsj (d, e2) = dnf b in
+    let Dsj (e, e3) = disj c d in
+    Dsj (e, lemma4 e1 e2 e3)
+  | And (a, b) -&amp;gt;
+    let Dsj (c, e1) = dnf a in
+    let Dsj (d, e2) = dnf b in
+    let Dsj (e, e3) = cart c d in
+    Dsj (e, lemma5 e1 e2 e3)
+&lt;/pre&gt;
+&lt;p&gt;It seems more verbose, but since the functions now return existentials, we need to deconstruct them and pass them around. I abstracted over the combinators that compose the proofs of equivalence &lt;code&gt;lemma1&lt;/code&gt;&amp;hellip;&lt;code&gt;lemma5&lt;/code&gt;, we&amp;rsquo;ll deal with them in a moment. For now, you can replace them by &lt;code&gt;Obj.magic&lt;/code&gt; and read off their types with &lt;code&gt;C-c C-t&lt;/code&gt; to see if they make sense logically. Look at the last function&amp;rsquo;s type. It states, as expected: for any formula &lt;img src=&quot;https://s0.wp.com/latex.php?latex=A&amp;amp;bg=fff&amp;amp;fg=444444&amp;amp;s=0&amp;amp;c=20201002&quot; srcset=&quot;https://s0.wp.com/latex.php?latex=A&amp;amp;bg=fff&amp;amp;fg=444444&amp;amp;s=0&amp;amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=A&amp;amp;bg=fff&amp;amp;fg=444444&amp;amp;s=0&amp;amp;c=20201002&amp;amp;zoom=4.5 4x&quot; alt=&quot;A&quot; class=&quot;latex&quot;/&gt;, there exists a disjuctive normal form &lt;img src=&quot;https://s0.wp.com/latex.php?latex=B&amp;amp;bg=fff&amp;amp;fg=444444&amp;amp;s=0&amp;amp;c=20201002&quot; srcset=&quot;https://s0.wp.com/latex.php?latex=B&amp;amp;bg=fff&amp;amp;fg=444444&amp;amp;s=0&amp;amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=B&amp;amp;bg=fff&amp;amp;fg=444444&amp;amp;s=0&amp;amp;c=20201002&amp;amp;zoom=4.5 4x&quot; alt=&quot;B&quot; class=&quot;latex&quot;/&gt; such that &lt;img src=&quot;https://s0.wp.com/latex.php?latex=A%20%5CLeftrightarrow%20B&amp;amp;bg=fff&amp;amp;fg=444444&amp;amp;s=0&amp;amp;c=20201002&quot; srcset=&quot;https://s0.wp.com/latex.php?latex=A+%5CLeftrightarrow+B&amp;amp;bg=fff&amp;amp;fg=444444&amp;amp;s=0&amp;amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=A+%5CLeftrightarrow+B&amp;amp;bg=fff&amp;amp;fg=444444&amp;amp;s=0&amp;amp;c=20201002&amp;amp;zoom=4.5 4x&quot; alt=&quot;A \Leftrightarrow B&quot; class=&quot;latex&quot;/&gt;.&lt;/p&gt;
+&lt;p&gt;Now on this subject, what is it for two types to be equivalent? Well, that&amp;rsquo;s the &amp;ldquo;trick&amp;rdquo;: let&amp;rsquo;s just use our dear old Curry-Howard correspondence! &lt;code&gt;'a&lt;/code&gt; and &lt;code&gt;'b&lt;/code&gt; are equivalent if there are two functions &lt;code&gt;'a -&amp;gt; 'b&lt;/code&gt; and &lt;code&gt;'b -&amp;gt; 'a&lt;/code&gt; (provided of course that we swear to use only the purely functional core of OCaml when giving them):&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type ('a, 'b) equiv = ('a -&amp;gt; 'b) * ('b -&amp;gt; 'a)
+&lt;/pre&gt;
+&lt;p&gt;Now we can state and prove a number of small results on equivalence with respect to the type constructors we&amp;rsquo;re using (pairs and unions). Just help yourself&amp;nbsp;into these if you&amp;rsquo;re preparing an exercise sheet on Curry-Howard :)&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+(* a = a *)
+let refl : type a. (a, a) equiv =
+  (fun a -&amp;gt; a), (fun a -&amp;gt; a)
+
+(* a = b -&amp;gt; b = a *)
+let sym : type a b. (a, b) equiv -&amp;gt; (b, a) equiv =
+  fun (ab, ba) -&amp;gt; (fun b -&amp;gt; ba b), (fun a -&amp;gt; ab a)
+
+(* a = b -&amp;gt; b = c -&amp;gt; a = c *)
+let trans : type a b c. (b, c) equiv -&amp;gt; (a, b) equiv -&amp;gt; (a, c) equiv =
+  fun (bc, cb) (ab, ba) -&amp;gt; (fun a -&amp;gt; bc (ab a)), (fun c -&amp;gt; ba (cb c))
+
+(* a = b -&amp;gt; c = d -&amp;gt; c * a = d * b *)
+let conj_morphism : type a b c d. (a, b) equiv -&amp;gt; (c, d) equiv -&amp;gt;
+  (c * a, d * b) equiv = fun (ab, ba) (cd, dc) -&amp;gt;
+    (fun (c, a) -&amp;gt; cd c, ab a),
+    (fun (c, b) -&amp;gt; dc c, ba b)
+
+let conj_comm : type a b. (a * b, b * a) equiv =
+  (fun (x, y) -&amp;gt; y, x), (fun (x, y) -&amp;gt; y, x)
+
+(* (a * b) * c = a * (b * c) *)
+let conj_assoc : type a b c. ((a * b) * c, a * (b * c)) equiv =
+  (fun ((x, y), z) -&amp;gt; x, (y, z)),
+  (fun (x, (y, z)) -&amp;gt; (x, y), z)
+
+(* a = b -&amp;gt; c + a = c + b *)
+let disj_morphism : type a b c d. (a, b) equiv -&amp;gt; (c, d) equiv -&amp;gt;
+  ((c, a) union, (d, b) union) equiv =
+  fun (ab, ba) (cd, dc) -&amp;gt;
+    (function Inl c -&amp;gt; Inl (cd c) | Inr a -&amp;gt; Inr (ab a)),
+    (function Inl d -&amp;gt; Inl (dc d) | Inr b -&amp;gt; Inr (ba b))
+
+(* (a + b) + c = a + (b + c) *)
+let disj_assoc : type a b c. (((a, b) union, c) union,
+                              (a, (b, c) union) union) equiv =
+  (function Inl (Inl a) -&amp;gt; Inl a
+          | Inl (Inr b) -&amp;gt; Inr (Inl b)
+          | Inr c -&amp;gt; Inr (Inr c)),
+  (function Inl a -&amp;gt; Inl (Inl a)
+          | Inr (Inl b) -&amp;gt; Inl (Inr b)
+          | Inr (Inr c) -&amp;gt; Inr c)
+
+(* a * (b + c) = (a * b) + (a * c) *)
+let conj_distrib : type a b c. (a * (b, c) union,
+                               (a * b, a * c) union) equiv =
+  (function a, Inl b -&amp;gt; Inl (a, b)
+          | a, Inr c -&amp;gt; Inr (a, c)),
+  (function Inl (a, b) -&amp;gt; a, Inl b
+          | Inr (a, c) -&amp;gt; a, Inr c)
+&lt;/pre&gt;
+&lt;p&gt;Finally, thanks to these primitive combinators, we can prove the lemmas we needed. Again, these are amusing little exercises.&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let lemma0 : type a b c d. (a * b, c) equiv -&amp;gt; ((d * a) * b, d * c) equiv =
+  fun e -&amp;gt; trans (conj_morphism e refl) conj_assoc
+
+let lemma1 : type a b c d. ((a, b) union, d) equiv -&amp;gt;
+  (((c, a) union, b) union, (c, d) union) equiv =
+  fun e -&amp;gt; trans (disj_morphism e refl) disj_assoc
+
+let lemma2 : type a c d u v. (a * c, u) equiv -&amp;gt; (a * d, v) equiv -&amp;gt;
+  (a * (c, d) union, (u, v) union) equiv =
+  fun e1 e2 -&amp;gt; trans (disj_morphism e2 e1) conj_distrib
+
+let lemma3 : type a b c d e f. (a * b, c) equiv -&amp;gt; (d * b, e) equiv -&amp;gt;
+((c, e) union, f) equiv -&amp;gt; ((a, d) union * b, f) equiv =
+  fun e1 e2 e3 -&amp;gt;
+    trans e3
+      (trans (disj_morphism e2 e1)
+         (trans (disj_morphism conj_comm conj_comm)
+            (trans conj_distrib
+               conj_comm)))
+
+let lemma4 : type a b c d e. (a, c) equiv -&amp;gt; (b, d) equiv -&amp;gt;
+  ((c, d) union, e) equiv -&amp;gt; ((a, b) union, e) equiv =
+  fun e1 e2 e3 -&amp;gt; trans e3 (disj_morphism e2 e1)
+
+let lemma5 : type a b c d e. (a, c) equiv -&amp;gt;
+(b, d) equiv -&amp;gt; (c * d, e) equiv -&amp;gt; ((a * b), e) equiv =
+  fun e1 e2 e3 -&amp;gt; trans e3 (conj_morphism e2 e1)
+&lt;/pre&gt;
+&lt;p&gt;Note that I only needed the previous primitives to prove these lemmas (and as such to define my functions), so we can even make the type &lt;code&gt;equiv&lt;/code&gt; abstract, provided that we are giving a complete set of primitives (which is not the case here). Although I&amp;rsquo;m not sure what it would buy us&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Anyway. That&amp;rsquo;s my solution! What&amp;rsquo;s yours?&lt;/p&gt;
+</content><id>https://syntaxexclamation.wordpress.com/2014/04/18/547/</id><title type="text">Typeful disjunctive normal form</title><updated>2014-04-18T16:13:34-00:00</updated><author><name>syntaxexclamation</name></author></entry><entry><link href="https://syntaxexclamation.wordpress.com/2014/04/15/big-step-disjunctive-normal-forms/" rel="alternate"/><contributor><uri>https://syntaxexclamation.wordpress.com/tag/ocaml/feed/</uri><name>syntaxexclamation</name></contributor><content type="html">&lt;p&gt;This is probably a second-semester functional programming exercise, but I found it surprisingly hard, and could not find a solution online. So at the risk of depriving a TA from a problem for its mid-term exam, here is my take on it, that I painfully put together yesterday.&lt;/p&gt;
+&lt;p&gt;Given a formula built out of conjunction, disjunction and atoms, return its &lt;a href=&quot;http://en.wikipedia.org/wiki/Disjunctive_normal_form&quot;&gt;disjunctive normal form&lt;/a&gt;, &lt;i&gt;in big step&lt;/i&gt; or &lt;i&gt;natural semantics&lt;/i&gt;, that is, not applying repetitively the distributivity and associativity rules, but in a single function run. Before you go any further, please give it a try and send me your solution!&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Formulas are described by the type &lt;code&gt;form&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type atom = int
+
+type form =
+  | X of atom
+  | And of form * form
+  | Or of form * form
+&lt;/pre&gt;
+&lt;p&gt;To ensure the correctness of the result, I represent disjunctive normal form by a restriction of this type, &lt;code&gt;disj&lt;/code&gt;, by stratifying it into conjunctions and disjunctions:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type conj = X of atom | And of atom * conj
+type disj = Conj of conj | Or of conj * disj
+&lt;/pre&gt;
+&lt;p&gt;There are actually two restrictions at stake here: first, conjunctions cannot contain disjunctions, and second, all operators are necessarily right-associative. Constructor &lt;code&gt;Conj&lt;/code&gt; is just a logically silent coercion. If you look carefully enough, you will notice that &lt;code&gt;conj&lt;/code&gt; (resp. &lt;code&gt;disj&lt;/code&gt;) is isomorphic to a non-empty list of &lt;code&gt;atom&lt;/code&gt;s (resp. &lt;code&gt;conj&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;The first step is to lift the second restriction (associativity), and prove that we can always build a conjunction of &lt;code&gt;conj&lt;/code&gt;, resp. a disjunction of &lt;code&gt;disj&lt;/code&gt;. Easy enough if you think about lists: these functions look like concatenation.&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec conj : conj -&amp;gt; conj -&amp;gt; conj = fun xs ys -&amp;gt; match xs with
+  | X x -&amp;gt; And (x, ys)
+  | And (x, xs) -&amp;gt; And (x, conj xs ys)
+
+let rec disj : disj -&amp;gt; disj -&amp;gt; disj = fun xs ys -&amp;gt; match xs with
+  | Conj c -&amp;gt; Or (c, ys)
+  | Or (x, xs) -&amp;gt; Or (x, disj xs ys)
+&lt;/pre&gt;
+&lt;p&gt;Then, we will lift the second restriction, using distributivity. We must show that it is always possible to form a conjunction. First, we show how to build the conjunction of a &lt;code&gt;conj&lt;/code&gt; and a &lt;code&gt;disj&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec map : conj -&amp;gt; disj -&amp;gt; disj = fun x -&amp;gt; function
+  | Conj y -&amp;gt; Conj (conj x y)
+  | Or (y, ys) -&amp;gt; Or (conj x y, map x ys)
+&lt;/pre&gt;
+&lt;p&gt;The first case is trivial, the second reads as the distributivity of conjunction over disjunction. By analogy to lists again, I called this function &lt;code&gt;map&lt;/code&gt; because it maps function &lt;code&gt;conj x&lt;/code&gt; to all cells of the list.&lt;/p&gt;
+&lt;p&gt;Next, we show how to build the conjunction of two &lt;code&gt;disj&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec cart : disj -&amp;gt; disj -&amp;gt; disj = fun xs ys -&amp;gt; match xs with
+  | Conj c -&amp;gt; map c ys
+  | Or (x, xs) -&amp;gt; disj (map x ys) (cart xs ys)
+&lt;/pre&gt;
+&lt;p&gt;Considering the meaning of the previously defined functions, the first case is trivial, and the second, again, reads as distributivity, only in the other direction. I called this function &lt;code&gt;cart&lt;/code&gt; because it computes the cartesian product of the two &amp;ldquo;lists&amp;rdquo; passed as arguments (only on non-empty lists).&lt;/p&gt;
+&lt;p&gt;Now we can easily put together the final function computing the DNF:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec dnf : form -&amp;gt; disj = function
+  | X x -&amp;gt; Conj (X x)
+  | Or (a, b) -&amp;gt; disj (dnf a) (dnf b)
+  | And (a, b) -&amp;gt; cart (dnf a) (dnf b)
+&lt;/pre&gt;
+&lt;p&gt;It is easy to see that all function terminate: they are primitive recursive.&lt;/p&gt;
+&lt;p&gt;Wait, let&amp;rsquo;s not forget to test our contraption:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let () =
+  assert (dnf (Or (And (X 1, X 2), X 3)) =
+          Or (And (1, X 2), Conj (X 3)));
+  assert (dnf (And (Or (X 1, X 2), X 3)) =
+          Or (And (1, X 3), Conj (And (2, X 3))));
+  assert (dnf (And (Or (And (X 0, X 1), X 2), And (X 3, X 4))) =
+          Or (And (0, And (1, And (3, X 4))), Conj (And (2, And (3, X 4)))))
+&lt;/pre&gt;
+&lt;p&gt;That&amp;rsquo;s my solution. Reader, is there another one? Is there a better explanation, for instance based on Danvy&amp;rsquo;s small-step to big-step derivation? I believe there is&amp;hellip;&lt;/p&gt;
+&lt;h4&gt;Supplementary exercise&lt;/h4&gt;
+&lt;p&gt;Technically, there still could be bugs in this code. Prove that it is correct wrt. the small-step rewrite rules, using only OCaml and GADTs. Here is the beginning of an idea: annotate &lt;code&gt;form&lt;/code&gt;, &lt;code&gt;conj&lt;/code&gt; and &lt;code&gt;disj&lt;/code&gt; with their meaning in terms of OCaml types:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type ('a, 'b) union = Inl of 'a | Inr of 'b
+
+type 'a atom = int
+
+type 'a form =
+  | X : 'a atom -&amp;gt; 'a form
+  | And : 'a form * 'b form -&amp;gt; ('a * 'b) form
+  | Or : 'a form * 'b form -&amp;gt; ('a, 'b) union form
+
+type 'a conj =
+  | X : 'a atom -&amp;gt; 'a conj
+  | And : 'a atom * 'b conj -&amp;gt; ('a * 'b) conj
+
+type 'a disj =
+  | Conj : 'a conj -&amp;gt; 'a disj
+  | Or : 'a conj * 'b disj -&amp;gt; ('a, 'b) union disj
+&lt;/pre&gt;
+&lt;p&gt;(the definition of &lt;code&gt;union&lt;/code&gt; is irrelevant here), state the relation between equivalent types as a type:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+  type ('a, 'b) equiv =
+    | Refl : ('a, 'a) equiv
+    | Trans : ('a, 'b) equiv * ('b, 'c) equiv -&amp;gt; ('a, 'c) equiv
+    | AssocA : (('a * 'b) * 'c, 'a * ('b * 'c)) equiv
+    | AssocO : ((('a, 'b) union, 'c) union, ('a, ('b, 'c) union) union) equiv
+    | DistribL : ('a * ('b, 'c) union, ('a, 'b) union * ('a, 'c) union) equiv
+    | DistribR : (('b, 'c) union * 'a, ('b, 'a) union * ('c, 'a) union) equiv
+&lt;/pre&gt;
+&lt;p&gt;pack up a solution as an existential: an equivalence proof together with a DNF:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type 'a dnf = Dnf : ('a, 'b) equiv * 'b disj -&amp;gt; 'a dnf
+&lt;/pre&gt;
+&lt;p&gt;and code a function:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let dnf : type a. a form -&amp;gt; a dnf =
+  function _ -&amp;gt; (assert false)   (* TODO *)
+&lt;/pre&gt;
+&lt;p&gt;Ok fair enough, it&amp;rsquo;s not an exercise, it&amp;rsquo;s something I haven&amp;rsquo;t been able to put together yet ;)&lt;/p&gt;
+</content><id>https://syntaxexclamation.wordpress.com/2014/04/15/big-step-disjunctive-normal-forms/</id><title type="text">Disjunctive normal forms in big steps</title><updated>2014-04-15T20:14:55-00:00</updated><author><name>syntaxexclamation</name></author></entry><entry><link href="https://syntaxexclamation.wordpress.com/2014/04/12/representing-pattern-matching-with-gadts/" rel="alternate"/><contributor><uri>https://syntaxexclamation.wordpress.com/tag/ocaml/feed/</uri><name>syntaxexclamation</name></contributor><content type="html">&lt;p&gt;Here is a little programming pearl. I&amp;rsquo;ve been wanting to work on pattern-matching for a while now, and it seems like I will finally have this opportunity here at my new (academic) home, &lt;a href=&quot;http://cs.mcgill.ca/&quot;&gt;McGill&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Encoding some simply-typed languages with GADTs is now routine for a lot of OCaml programmers. You can even take (kind of) advantage of (some form of) convenient binding representation, like (weak) HOAS; you then use OCaml variables to denote your language&amp;rsquo;s variables. But what about pattern-matching? Patterns are possibly &amp;ldquo;deep&amp;rdquo;, i.e. they bind several variables at a time, and they don&amp;rsquo;t respect the usual discipline that a variable is bound for exactly its subterm in the AST.&lt;/p&gt;
+&lt;p&gt;It turns out that there is an adequate encoding, that relies on two simple ideas. The first is to treat variables in patterns as nameless placeholders bound by &amp;lambda;-abstractions on the right side of the arrow (this is how e.g. Coq encodes matches: &lt;code&gt;match E&amp;#8321; with (y, z) -&amp;gt; E&amp;#8322;&lt;/code&gt; actually is sugar for &lt;code&gt;match E&amp;#8321; with (_, _) -&amp;gt; fun x y -&amp;gt; E&amp;#8322;&lt;/code&gt;); the second is to thread and accumulate type arguments in a GADT, much like we demonstrated in our &lt;code&gt;printf&lt;/code&gt; example &lt;a href=&quot;https://syntaxexclamation.wordpress.com/2014/02/14/update-on-typeful-normalization-by-evaluation/&quot;&gt;recently&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The ideas probably extends seamlessly to De Bruijn indices, by threading an explicit environment throughout the term. It stemmed from a discussion on LF encodings of pattern-matching with &lt;a href=&quot;http://www.cs.mcgill.ca/~fferre8/&quot;&gt;Francisco&lt;/a&gt; over lunch yesterday: what I will show enables also to represent adequately pattern-matching in LF, which I do not think was ever done this way before.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s start with two basic type definitions:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type ('a, 'b) union = Inl of 'a | Inr of 'b
+type ('a, 'b) pair = Pair of 'a * 'b
+&lt;/pre&gt;
+&lt;h3&gt;The encoding&lt;/h3&gt;
+&lt;p&gt;First, I encode simply-typed &amp;lambda;-expressions with sums and products, in the very standard way with GADTs: I annotate every constructor by the (OCaml) type of its denotation.&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type 'a exp =
+  | Lam : ('a exp -&amp;gt; 'b exp) -&amp;gt; ('a -&amp;gt; 'b) exp
+  | App : ('a -&amp;gt; 'b) exp * 'a exp -&amp;gt; 'b exp
+  | Var : 'a -&amp;gt; 'a exp
+  | Pair : 'a exp * 'b exp -&amp;gt; ('a, 'b) pair exp
+  | Inl : 'a exp -&amp;gt; (('a, 'b) union) exp
+  | Inr : 'b exp -&amp;gt; ('a, 'b) union exp
+  | Unit : unit exp
+&lt;/pre&gt;
+&lt;p&gt;At this point, I only included data type &lt;i&gt;constructors&lt;/i&gt;, not their &lt;i&gt;destructors&lt;/i&gt;. These are replaced by a pattern-matching construct: it takes a scrutinee of type &lt;code&gt;'s&lt;/code&gt;, and a list of branches, each returning a value of the same type &lt;code&gt;'c&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+  | Match : 's exp * ('s, 'c) branch list -&amp;gt; 'c exp
+&lt;/pre&gt;
+&lt;p&gt;Now, each branch is the pair of a pattern, possibly deep, possibly containing variables, and an expression where all these variables are bound.&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+(* 's = type of scrutinee; 'c = type of return *)
+and ('s, 'c) branch =
+  | Branch : ('s, 'a, 'c exp) patt * 'a -&amp;gt; ('s, 'c) branch
+&lt;/pre&gt;
+&lt;p&gt;To account for these bindings, I use a trick when defining patterns that is similar to the one used for &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=6017&quot;&gt;printf with GADTs&lt;/a&gt;. In the type of the &lt;code&gt;Branch&lt;/code&gt; constructor, the type &lt;code&gt;'a&lt;/code&gt; is an &amp;ldquo;accumulator&amp;rdquo; for all variables appearing in the pattern, eventually returning a &lt;code&gt;'c exp&lt;/code&gt;. For instance, annotation &lt;code&gt;'a&lt;/code&gt; for a pattern that binds two variables of type &lt;code&gt;'a -&amp;gt; 'b&lt;/code&gt; and &lt;code&gt;'a&lt;/code&gt; would be &lt;code&gt;('a -&amp;gt; 'b) exp -&amp;gt; 'a exp -&amp;gt; 'c exp&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s define type &lt;code&gt;patt&lt;/code&gt;. Note that it also carries and checks the annotation &lt;code&gt;'s&lt;/code&gt; for the type of the scrutinee. The first three cases are quite easy:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+(* 's = type of scrutinee;
+   'a = accumulator for to bind variables;
+   'c = type of return *)
+and ('s, 'a, 'c) patt =
+  | PUnit : (unit, 'c, 'c) patt
+  | PInl : ('s, 'a, 'c) patt -&amp;gt; (('s, 't) union, 'a, 'c) patt
+  | PInr : ('t, 'a, 'c) patt -&amp;gt; (('s, 't) union, 'a, 'c) patt
+&lt;/pre&gt;
+&lt;p&gt;Now, the variable case is just a nameless dummy that &amp;ldquo;stacks up&amp;rdquo; one more argument in the &amp;ldquo;accumulator&amp;rdquo;, i.e. what will be the type of the right-hand side of the branch:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+  | X : ('s, 's exp -&amp;gt; 'c, 'c) patt
+&lt;/pre&gt;
+&lt;p&gt;Finally, the pair case is the only binary node. It need to thread the accumulator, to the left node, then to the right.&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+  | PPair : ('s, 'a, 'b) patt * ('t, 'b, 'c) patt 
+    -&amp;gt; (('s, 't) pair, 'a, 'c) patt
+&lt;/pre&gt;
+&lt;p&gt;Note that it is possible to swap the two sides of the pair; we would then bind variables in the opposite order on the right-hand side.&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s the encoding. Note that it ensures only well-typing of terms, not exhaustiveness of patterns (which is another story that I would like to tell in a future post).&lt;/p&gt;
+&lt;h3&gt;Examples&lt;/h3&gt;
+&lt;p&gt;Here are a couple of example encoded terms: first the shallow, OCaml value, then its representation:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let ex1 : = fun x -&amp;gt; match x with
+  | Inl x -&amp;gt; Inr x
+  | Inr x -&amp;gt; Inl x
+
+let ex1_encoded : 'a 'b. (('a, 'b) union -&amp;gt; ('b, 'a) union) exp =
+  Lam (fun x -&amp;gt; Match (x, [
+      Branch (PInl X, fun x -&amp;gt; Inr x);
+      Branch (PInr X, fun x -&amp;gt; Inl x);
+    ]))
+
+let ex2 : 'a 'b. ((('a, 'b) union, ('a, 'b) union) pair
+    -&amp;gt; ('a, 'b) union) =
+  fun x -&amp;gt; match x with
+    | Pair (x, Inl _) -&amp;gt; x
+    | Pair (Inr _, x) -&amp;gt; x
+    | Pair (_, Inr x) -&amp;gt; Inr x
+
+let ex2_encoded : 'a 'b. ((('a, 'b) union, ('a, 'b) union) pair 
+    -&amp;gt; ('a, 'b) union) exp =
+  Lam (fun x -&amp;gt; Match (x, [
+      Branch (PPair (X, PInl X), (fun x _ -&amp;gt; x));
+      Branch (PPair (PInr X, X), (fun _ x -&amp;gt; x));
+      Branch (PPair (X, PInr X), (fun _ x -&amp;gt; Inr x));
+    ]))
+&lt;/pre&gt;
+&lt;h3&gt;An interpreter&lt;/h3&gt;
+&lt;p&gt;Finally, we can code an evaluator for this language. It takes an expression to its (well-typed) denotation. The first few lines are standard:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec eval : type a. a exp -&amp;gt; a = function
+  | Lam f -&amp;gt; fun x -&amp;gt; eval (f (Var x))
+  | App (m, n) -&amp;gt; eval m (eval n)
+  | Var x -&amp;gt; x
+  | Pair (m, n) -&amp;gt; Pair (eval m, eval n)
+  | Inl m -&amp;gt; Inl (eval m)
+  | Inr m -&amp;gt; Inr (eval m)
+  | Unit -&amp;gt; ()
+  | Match (m, bs) -&amp;gt; branches (eval m) bs
+&lt;/pre&gt;
+&lt;p&gt;Now for pattern-matching, we call an auxilliary function &lt;code&gt;branches&lt;/code&gt; that will try each branch sequentially:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+and branches : type s a. s -&amp;gt; (s, a) branch list -&amp;gt; a = fun v -&amp;gt; function
+  | [] -&amp;gt; failwith &amp;quot;pattern-matching failure&amp;quot;
+  | Branch (p, e) :: bs -&amp;gt; 
+    try eval (branch e (p, v)) with Not_found -&amp;gt; branches v bs
+&lt;/pre&gt;
+&lt;p&gt;A branch is tested by function &lt;code&gt;branch&lt;/code&gt;, which is where the magic happens: it matches the pattern and the value of the scrutinee, and returns a (potentially only) partially applied resulting expression. The first cases are self-explanatory:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+and branch : type s a c. a -&amp;gt; (s, a, c) patt * s -&amp;gt; c = fun e -&amp;gt; function
+  | PUnit, () -&amp;gt; e
+  | PInl p, Inl v -&amp;gt; branch e (p, v)
+  | PInr p, Inr v -&amp;gt; branch e (p, v)
+  | PInl _, Inr _ -&amp;gt; raise Not_found
+  | PInr _, Inl _ -&amp;gt; raise Not_found
+&lt;/pre&gt;
+&lt;p&gt;In the variable case, we know that &lt;code&gt;e&lt;/code&gt; is a function that expects an argument: the value &lt;code&gt;v&lt;/code&gt; of the scrutinee.&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+  | X, v -&amp;gt; e (Var v)
+&lt;/pre&gt;
+&lt;p&gt;The pair case is simple and beautiful: we just compose the application of &lt;code&gt;branch&lt;/code&gt; on both sub-patterns.&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+  | PPair (p, q), Pair (v, w) -&amp;gt; branch (branch e (p, v)) (q, w)
+&lt;/pre&gt;
+&lt;p&gt;That&amp;rsquo;s it. Nice eh? There are two obvious questions that I leave for future posts: can we compile this encoding down to simple case statement, with the guarantee of type preservation? and could we enhance the encoding such as to guarantee statically exhaustiveness?&lt;/p&gt;
+&lt;p&gt;See you soon!&lt;/p&gt;
+</content><id>https://syntaxexclamation.wordpress.com/2014/04/12/representing-pattern-matching-with-gadts/</id><title type="text">Representing pattern-matching with GADTs</title><updated>2014-04-11T22:38:56-00:00</updated><author><name>syntaxexclamation</name></author></entry><entry><link href="https://syntaxexclamation.wordpress.com/2014/02/14/update-on-typeful-normalization-by-evaluation/" rel="alternate"/><contributor><uri>https://syntaxexclamation.wordpress.com/tag/ocaml/feed/</uri><name>syntaxexclamation</name></contributor><content type="html">&lt;p&gt;In October, I publicized here&amp;nbsp;&lt;a href=&quot;https://syntaxexclamation.wordpress.com/2013/10/29/new-draft-on-normalization-by-evaluation-using-gadts/&quot; title=&quot;New draft on Normalization by Evaluation using&amp;nbsp;GADTs&quot;&gt;a new draft on normalization by evaluation&lt;/a&gt;, which provoked some very helpful comments and constructive criticisms. Together with &lt;a href=&quot;http://cs.au.dk/~chkeller&quot; title=&quot;Chantal Keller&quot;&gt;Chantal&lt;/a&gt; and &lt;a href=&quot;http://cs.au.dk/~danvy/&quot; title=&quot;Olivier Danvy&quot;&gt;Olivier&lt;/a&gt;, we thus revised the draft profoundly and a &lt;a href=&quot;http://cs.au.dk/~mpuech/typeful.pdf&quot; title=&quot;Typeful Normalization by Evaluation&quot;&gt;revamped version is available&lt;/a&gt; on my &lt;a href=&quot;http://cs.au.dk/~mpuech&quot; title=&quot;Matthias Puech&quot;&gt;web site&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Besides the enhanced form and better explanations, we included a completely new section on what it means for NbE to be written in Continuation-Passing Style, that I am particularly excited about. This allowed us to extend our typeful NbE formalization beyond the minimal &amp;lambda;-calculus to sums and &lt;strong&gt;call/cc&lt;/strong&gt; (which is known to be difficult). Taking our code, you can write a program with &lt;strong&gt;call/cc&lt;/strong&gt; and &lt;strong&gt;if&lt;/strong&gt; statements, and partially evaluate it: all redexes will be removed and your code will be specialized. All this, as before, is done &lt;em&gt;typefully&lt;/em&gt;, thanks to OCaml&amp;rsquo;s GADTs: this means that the transformation is guaranteed to map well-typed terms to well-typed normal forms.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;What I really liked about working on program transformations with GADTs, is that they enable an efficient methodology to devise your tranformations, and read off of them the (typed) target language. Let me give you an example. Say we write the canonical, direct-style evaluator for the &amp;lambda;-calculus:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec eval = function
+  | Lam f -&amp;gt; Fun (fun x -&amp;gt; eval (f (Var x)))
+  | App (m, n) -&amp;gt; let Fun f = eval m in f (eval n)
+  | Var x -&amp;gt; x
+&lt;/pre&gt;
+&lt;p&gt;If the input language is simply typed:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type 'a tm =
+  | Lam : ('a tm -&amp;gt; 'b tm) -&amp;gt; ('a -&amp;gt; 'b) tm
+  | App : ('a -&amp;gt; 'b) tm * 'a tm -&amp;gt; 'b tm
+  | Var : 'a vl -&amp;gt; 'a tm
+&lt;/pre&gt;
+&lt;p&gt;then so can be the output language:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type 'a vl = Fun : ('a vl -&amp;gt; 'b vl) -&amp;gt; ('a -&amp;gt; 'b) vl
+&lt;/pre&gt;
+&lt;p&gt;and the type of &lt;code&gt;eval&lt;/code&gt; then guarantees to preserve types: &lt;code&gt;type a. a tm -&amp;gt; a vl&lt;/code&gt;. Up to here, no big news. Now what if I CPS-transform the code above? Following the usual, call-by value CPS transformation, I get:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type o
+
+let rec eval : type a. a tm -&amp;gt; (a vl -&amp;gt; o) -&amp;gt; o = function
+  | Lam f -&amp;gt; fun k -&amp;gt; k (Fun (fun x k -&amp;gt; eval (f (Var x)) k))
+  | App (m, n) -&amp;gt; fun k -&amp;gt; eval m (fun (Fun v1) -&amp;gt; 
+                           eval n (fun v2 -&amp;gt; v1 v2 k))
+  | Var x -&amp;gt; fun k -&amp;gt; k x
+&lt;/pre&gt;
+&lt;p&gt;My input language is unchanged, but what about the output values? As you can hint from the &lt;code&gt;Lam&lt;/code&gt; and &lt;code&gt;App&lt;/code&gt; cases, the type of constructor &lt;code&gt;Fun&lt;/code&gt; has been changed. Using type inference, type errors and &lt;code&gt;C-c C-t&lt;/code&gt; in my &lt;code&gt;tuareg-mode&lt;/code&gt;, I can read off the new type it should have:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type 'a vl = Fun : ('a vl -&amp;gt; ('b vl -&amp;gt; o) -&amp;gt; o) -&amp;gt; ('a -&amp;gt; 'b) vl
+&lt;/pre&gt;
+&lt;p&gt;Yes, this is the type of CPS values! For instance, I can write the CPS-transformed applicator:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let app : type a b. ((a -&amp;gt; b) -&amp;gt; a -&amp;gt; b) vl =
+  Fun (fun (Fun f) k -&amp;gt; k (Fun (fun x k -&amp;gt; f x k)))
+&lt;/pre&gt;
+&lt;p&gt;The same way, if I write the usual Normalization by Evaluation algorithm from typed values to typed normal forms and CPS-transform it, I can deduce the specialized syntax of normal forms in CPS:&lt;br/&gt;
+&lt;code&gt;&lt;br/&gt;
+S ::= let v = R M in S | return k M&lt;br/&gt;
+M ::= &amp;lambda;xk. S | R&lt;br/&gt;
+R ::= x | v&lt;br/&gt;
+&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If this excites you or puzzles you, come read our draft, and do not hesitate to leave any comment below!&lt;/p&gt;
+</content><id>https://syntaxexclamation.wordpress.com/2014/02/14/update-on-typeful-normalization-by-evaluation/</id><title type="text">Update on Typeful Normalization by Evaluation</title><updated>2014-02-14T19:11:50-00:00</updated><author><name>syntaxexclamation</name></author></entry><entry><link href="https://syntaxexclamation.wordpress.com/2013/11/21/quick-dirty-and-shallow-definitions/" rel="alternate"/><contributor><uri>https://syntaxexclamation.wordpress.com/tag/ocaml/feed/</uri><name>syntaxexclamation</name></contributor><content type="html">&lt;p&gt;Here is a quick hack. &lt;a href=&quot;https://syntaxexclamation.wordpress.com/2013/05/04/malloc-is-the-new-gensym/&quot; title=&quot;malloc() is the new&amp;nbsp;gensym()&quot;&gt;A few months ago&lt;/a&gt;, I advocated for pointer equality in OCaml (==) as a way to deal with fresh symbols in a toy compiler. Today, I&amp;rsquo;ll show another application of pointer equality: how to trivially implement a mechanism of definitions, to e.g. pretty-print programs in a more readable way. Once again, this is really easy, but I never heard of such a trick, so here it is.&lt;span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Have you ever implemented an quick prototype for a language, and be annoyed by the lack of definition mechanism? For instance, you define a small&amp;nbsp;calculus and encode a few constructs to test it, but end up with outputs like:&lt;/p&gt;
+&lt;pre&gt;((\n. \p. \f. \x. n f (p f x)) (\f. \x. f (f x)) (\f. \x. f (f x)))
+(\b. (\b. \x. \y. b x y) b (\x. \y. x) (\x. \y. x))&lt;/pre&gt;
+&lt;p&gt;when you only wanted the system to print:&lt;/p&gt;
+&lt;pre&gt;2 + 2&lt;/pre&gt;
+&lt;p&gt;(these two constants being Church-encoded in the &amp;lambda;-calculus, FWIW).&lt;/p&gt;
+&lt;p&gt;One possibility, the Right One&lt;img src=&quot;https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/2122.png&quot; alt=&quot;&amp;trade;&quot; class=&quot;wp-smiley&quot; style=&quot;height: 1em; max-height: 1em;&quot;/&gt;, is to add a definition construct to your language, together with a map from name to definition:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type exp =
+  | ...
+  | Def of string
+
+type env = (string * exp) list
+type program = env * exp
+&lt;/pre&gt;
+&lt;p&gt;Some would call this a &lt;i&gt;deep encoding&lt;/i&gt; of definitions. But it is unfortunately very boring: for each function traversing your programs, you will now have to add a case that traverses constructs by looking up their definitions.&lt;/p&gt;
+&lt;p&gt;Here is another, &lt;i&gt;shallow&lt;/i&gt; solution: keep the expressions as they are, and just have a global, reverse map from expression pointers to names. Each time you want to pretty-print a term, first look if it is not associated with a name in the table. Let me implement that.&lt;/p&gt;
+&lt;p&gt;First, we will need a simplistic map module with pointer equality comparison:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+module QMap (T : sig type t type u end) : sig open T
+ val register : u -&amp;gt; t -&amp;gt; t
+ val lookup_or : (t -&amp;gt; u) -&amp;gt; t -&amp;gt; u
+end = struct
+ let tbl = ref []
+ let register v x = tbl := (x, v) :: !tbl; x
+ let lookup_or f x = try List.assq x !tbl with Not_found -&amp;gt; f x
+end
+&lt;/pre&gt;
+&lt;p&gt;It is implemented as a list (we can&amp;rsquo;t really do better than this), and the &lt;code&gt;lookup&lt;/code&gt; function first tries to find a match with the same memory address (function &lt;code&gt;List.assq&lt;/code&gt;), or applies a certain function in case of failure.&lt;/p&gt;
+&lt;p&gt;Then we define our language (here the &amp;lambda;-calculus), and instantiate the functor with a target type of strings:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+
+type exp =
+  | Lam of string * exp
+  | App of exp * exp
+  | Var of string
+
+include QMap (struct type t = exp type u = string end)
+&lt;/pre&gt;
+&lt;p&gt;Let&amp;rsquo;s now encode some (classic) example expressions for testing:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+(* church numerals *)
+let num n =
+  let rec aux = function
+    | 0 -&amp;gt; Var &amp;quot;x&amp;quot;
+    | n -&amp;gt; App (Var &amp;quot;f&amp;quot;, aux (n-1)) in
+  register (string_of_int n) (Lam (&amp;quot;f&amp;quot;, Lam (&amp;quot;x&amp;quot;, aux n)))
+
+(* addition *)
+let add = register &amp;quot;add&amp;quot;
+    (Lam (&amp;quot;n&amp;quot;, Lam (&amp;quot;p&amp;quot;, Lam (&amp;quot;f&amp;quot;, Lam (&amp;quot;x&amp;quot;,
+                                        App (App (Var &amp;quot;n&amp;quot;, Var &amp;quot;f&amp;quot;),
+                                             App (App (Var &amp;quot;p&amp;quot;, Var &amp;quot;f&amp;quot;),
+                                                  Var &amp;quot;x&amp;quot;)))))))&lt;/pre&gt;
+&lt;p&gt;Notice how, as we define these encodings, we give them a name by registering them in the map. Now defining the pretty-printer:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec to_string () =
+  let rec lam = function
+      | Lam (x, m) -&amp;gt; &amp;quot;\\&amp;quot; ^ x ^ &amp;quot;. &amp;quot; ^ lam m
+      | e -&amp;gt; app e
+  and app = function
+    | App (m, n) -&amp;gt; app m ^ &amp;quot; &amp;quot; ^ to_string () n
+    | f -&amp;gt; to_string () f
+  in lookup_or (function
+    | Var s -&amp;gt;  s
+    | m -&amp;gt; &amp;quot;(&amp;quot; ^ lam m ^ &amp;quot;)&amp;quot;)
+&lt;/pre&gt;
+&lt;p&gt;Notice the use of function &lt;code&gt;lookup_or&lt;/code&gt;? At each iteration, we look in the table for a name, and either return it or continue pretty-printing. (Before you ask, the unit argument to &lt;code&gt;to_string&lt;/code&gt; is there to convince OCaml that we are indeed defining a proper recursive function, which I wish it could find out by itself).&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s it! Now we can ask, say, to print a large term composed by our previous definitions:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+ print_string (to_string () (App (App (add, num 2), num 2)));;
+&lt;/pre&gt;
+&lt;p&gt;and get this output:&lt;/p&gt;
+&lt;pre&gt;(add 2 2)&lt;/pre&gt;
+&lt;p&gt;while retaining the structure of the underlying term. I could then go ahead and define various transformations, interpreters etc. As long as they preserve the memory location of unchanged terms, (i.e. do not reallocate too much), my pretty-printing will be well&amp;hellip; pretty.&lt;/p&gt;
+&lt;p&gt;Does this scale up? Probably not. What else can we do with this trick? Memoization anyone?&lt;/p&gt;
+</content><id>https://syntaxexclamation.wordpress.com/2013/11/21/quick-dirty-and-shallow-definitions/</id><title type="text">Quick, dirty and shallow definitions</title><updated>2013-11-21T14:21:29-00:00</updated><author><name>syntaxexclamation</name></author></entry><entry><link href="https://syntaxexclamation.wordpress.com/2013/10/29/new-draft-on-normalization-by-evaluation-using-gadts/" rel="alternate"/><contributor><uri>https://syntaxexclamation.wordpress.com/tag/ocaml/feed/</uri><name>syntaxexclamation</name></contributor><content type="html">&lt;p&gt;There is a &lt;a href=&quot;http://cs.au.dk/~mpuech/typeful.pdf&quot; title=&quot;Tagless and Typeful Normalization by Evaluation using Generalized Algebraic Data Types&quot;&gt;new draft&lt;/a&gt; on my web page! It is called &lt;em&gt;Tagless and Typeful Normalization by Evaluation using Generalized Algebraic Data Types&lt;/em&gt;, which is a mouthful, but only describes accurately the cool new OCaml development we elaborated together with &lt;a href=&quot;http://www.cs.au.dk/~danvy/&quot; title=&quot;Olivier Danvy&quot;&gt;Olivier&lt;/a&gt; and &lt;a href=&quot;http://cs.au.dk/~chkeller&quot; title=&quot;Chantal Keller&quot;&gt;Chantal&lt;/a&gt;. The world of Normalization by Evaluation (NbE) is still relatively new to me, but its wonders keep amazing me. It&amp;rsquo;s a program specialization algorithm&amp;hellip; no, it&amp;rsquo;s a completeness proof for first-order logic&amp;hellip; wait, it&amp;rsquo;s a technique to turn an interpreter into a compiler! Definitely, Aarhus University, my new home, is not the worst place to learn about it.&lt;/p&gt;
+&lt;p&gt;Since the introduction of GADTs in OCaml, a whole new realm of applications emerged, the most well-known being to faithfully represent typed languages: it allows to define compact and correct interpreters, and type-preserving program transformations. Ok, if you never saw this, here is a small snippet that should be self-explanatory:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type _ exp =
+  | Val : 'a -&amp;gt; 'a exp
+  | Eq : 'a exp * 'a exp -&amp;gt; bool exp
+  | Add : int exp * int exp -&amp;gt; int exp
+
+let rec eval : type a. a exp -&amp;gt; a = function
+  | Val x -&amp;gt; x
+  | Eq (e1, e2) -&amp;gt; eval e1 = eval e2
+  | Add (e1, e2) -&amp;gt; eval e1 + eval e2
+;;
+assert (eval (Eq (Add (Val 2, Val 2), Val 4)))
+&lt;/pre&gt;
+&lt;p&gt;Nice, isn&amp;rsquo;t it? Our question was: if we can so beautifully go from typed syntax (expressions) to typed semantics (OCaml values), can we do the converse, i.e., go from an OCaml value back to a (normal) expression of the same type? In other words, can we implement NbE in a typeful manner, using GADTs?&lt;/p&gt;
+&lt;p&gt;The answer is a proud &amp;ldquo;yes&amp;rdquo;, but more interestingly, we all learned some interesting GADT techniques and puzzling logical interpretations on the way. Read on to know more!&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;&lt;a href=&quot;http://cs.au.dk/~mpuech/typeful.pdf&quot;&gt;&lt;strong&gt;Tagless and Typeful Normalization by Evaluation using Generalized Algebraic Data Types&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;We present the first tagless and typeful implementation of normalization by evaluation for the simply typed &amp;lambda;-calculus in OCaml, using Generalized Algebraic Data Types (GADTs). In contrast to normalization by reduction, which is operationally carried out by repeated instances of one-step reduction, normalization by evaluation uses a non-standard model to internalize intermediate results: it is defined by composing a non-standard evaluation function with a reification function that maps the denotation of a term into the normal form of this term. So far, normalization by evaluation has been implemented either in dependently-typed languages such as Coq or Agda, or in general-purpose languages such as Scheme, ML or Haskell. In the latter case, denotations are either tagged or Church-encoded. Tagging means injecting denotations, either implicitly or explicitly, into a universal domain of values; Church encoding is based on the impredicativity of the metalanguage. Here, we show how to obtain not only tagless values, making evaluation efficient, but also typeful reification, guaranteeing type preservation and &amp;eta;-long, &amp;beta;-normal forms. To this end, we put OCaml&amp;rsquo;s GADTs to work. Furthermore, our implementation does not depend on any particular representation of binders (HOAS, de Bruijn levels or indices) nor on the style (direct style, continuation-passing style, etc.) of the non-standard evaluation function.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;PS: My previous draft, &lt;a href=&quot;https://syntaxexclamation.wordpress.com/2013/06/17/new-draft-proofs-upside-down/&quot; title=&quot;New draft: Proofs, upside&amp;nbsp;down&quot;&gt;Proofs, upside down&lt;/a&gt; was accepted for presentation at &lt;a href=&quot;http://aplas2013.soic.indiana.edu/&quot; title=&quot;APLAS 2013&quot;&gt;APLAS 2013&lt;/a&gt;. See you in Melbourne!&lt;/p&gt;
+</content><id>https://syntaxexclamation.wordpress.com/2013/10/29/new-draft-on-normalization-by-evaluation-using-gadts/</id><title type="text">New draft on Normalization by Evaluation using GADTs</title><updated>2013-10-29T13:10:26-00:00</updated><author><name>syntaxexclamation</name></author></entry><entry><link href="https://syntaxexclamation.wordpress.com/2013/06/17/new-draft-proofs-upside-down/" rel="alternate"/><contributor><uri>https://syntaxexclamation.wordpress.com/tag/ocaml/feed/</uri><name>syntaxexclamation</name></contributor><content type="html">&lt;p&gt;There is a new draft on my &lt;a href=&quot;http://www.pps.univ-paris-diderot.fr/~puech/&quot;&gt;web page&lt;/a&gt;, that should be of interest to those who enjoyed my posts about &lt;a href=&quot;https://syntaxexclamation.wordpress.com/2011/08/31/reversing-data-structures/&quot; title=&quot;Reversing data&amp;nbsp;structures&quot;&gt;reversing data structures&lt;/a&gt; and the &lt;a href=&quot;https://syntaxexclamation.wordpress.com/2011/09/01/reverse-natural-deduction-and-get-sequent-calculus/&quot; title=&quot;Reverse natural deduction and get sequent&amp;nbsp;calculus&quot;&gt;relation between natural deduction and sequent calculus&lt;/a&gt;. It is an article submitted to &lt;a href=&quot;http://aplas2013.soic.indiana.edu/&quot;&gt;APLAS 2013&lt;/a&gt;, and it is called&amp;nbsp;&lt;em&gt;&lt;a href=&quot;http://www.pps.univ-paris-diderot.fr/~puech/upside.pdf&quot; title=&quot;Proofs, upside down&quot;&gt;Proofs, upside down.&lt;/a&gt;&lt;/em&gt; In a nutshell, I am arguing for the use of functional PL tools, in particular classic functional program transformations, to understand and explain proof theory phenomena. Here, I show that there is the same relationship between natural deduction and (a restriction of) the sequent calculus than between this recursive function:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec tower_rec = function
+  | [] -&amp;gt; 1
+  | x :: xs -&amp;gt; x &amp;lowast;&amp;lowast; tower_rec xs
+
+let tower xs = tower_rec xs
+&lt;/pre&gt;
+&lt;p&gt;written in &amp;ldquo;direct style&amp;rdquo;, and that equivalent, iterative version:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec tower_acc acc = function
+  | [] -&amp;gt; acc
+  | x :: xs -&amp;gt; tower_acc (x &amp;lowast;&amp;lowast; acc) xs
+
+let tower xs = tower_acc 1 (List.rev xs)
+&lt;/pre&gt;
+&lt;p&gt;written in &amp;ldquo;accumulator-passing style&amp;rdquo;. And that relationship is the composition of CPS-transformation, defunctionalization and reforestation, the well-known transformations we all came to know and love!&lt;/p&gt;
+&lt;p&gt;I hope you enjoy it. Of course, any comment will be &lt;i&gt;much&lt;/i&gt; appreciated, so don&amp;rsquo;t hesitate to drop a line below!&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;
+&lt;strong&gt;Proofs, upside down&lt;/strong&gt;&lt;br/&gt;
+&lt;strong&gt;A functional correspondence between&amp;nbsp;natural deduction and the sequent calculus&lt;/strong&gt;&lt;br/&gt;
+It is well-known in proof theory that sequent calculus proofs&amp;nbsp;differ from natural deduction proofs by &amp;ldquo;reversing&amp;rdquo; elimination rules&amp;nbsp;upside down into left introduction rules. It is also well-known that to&amp;nbsp;each recursive, functional program corresponds an equivalent iterative,&amp;nbsp;accumulator-passing program, where the accumulator stores the continuation of the iteration, in &amp;ldquo;reversed&amp;rdquo; order. Here, we compose these remarks and show that a restriction of the intuitionistic sequent calculus,&amp;nbsp;LJT, is exactly an accumulator-passing version of intuitionistic natural&amp;nbsp;deduction NJ. More precisely, we obtain this correspondence by applying&amp;nbsp;a series of off-the-shelf program transformations &amp;agrave; la Danvy et al. on&amp;nbsp;a type checker for the bidirectional &amp;lambda;-calculus, and get a type checker&amp;nbsp;for the &amp;lambda;-calculus, the proof term assignment of LJT. This functional&amp;nbsp;correspondence revisits the relationship between natural deduction and&amp;nbsp;the sequent calculus by systematically deriving the rules of the latter&amp;nbsp;from the former, and allows to derive new sequent calculus rules from&amp;nbsp;the introduction and elimination rules of new logical connectives.
+&lt;/p&gt;&lt;/blockquote&gt;
+</content><id>https://syntaxexclamation.wordpress.com/2013/06/17/new-draft-proofs-upside-down/</id><title type="text">New draft: Proofs, upside down</title><updated>2013-06-17T13:17:44-00:00</updated><author><name>syntaxexclamation</name></author></entry><entry><link href="https://syntaxexclamation.wordpress.com/2013/05/04/malloc-is-the-new-gensym/" rel="alternate"/><contributor><uri>https://syntaxexclamation.wordpress.com/tag/ocaml/feed/</uri><name>syntaxexclamation</name></contributor><content type="html">&lt;p&gt;Teaching an introductory course to &amp;ldquo;compilation&amp;rdquo; this semester (actually it was called  &lt;a href=&quot;http://www.pps.univ-paris-diderot.fr/~puech/ens/mv6.html&quot;&gt;Virtual Machines&lt;/a&gt;, but it was really about compiling expressions to stack machines), I realized something I hadn&amp;rsquo;t heard before, and wish I had been told when I first learned OCaml many years ago. Here it is: as soon as you are programming in a functional language with physical equality (i.e. pointer equality, the &lt;code&gt;(==)&lt;/code&gt; operator in OCaml), then you are actually working in a &amp;ldquo;weakly impure&amp;rdquo; language, and you can for example implement a limited form of &lt;code&gt;gensym&lt;/code&gt;. What? &lt;code&gt;gensym&lt;/code&gt; is this classic &amp;ldquo;innocuously effectful&amp;rdquo; function returning a different &lt;i&gt;symbol&lt;/i&gt;&amp;mdash;usually a string&amp;mdash;each time it is called. It is used pervasively to generate fresh variable names, in compilers notably. How? well, you actually don&amp;rsquo;t have much to do, except let the runtime call &lt;code&gt;malloc&lt;/code&gt;: it will return a &amp;ldquo;fresh&amp;rdquo; pointer where to store your data. &lt;code&gt;malloc&lt;/code&gt; and the garbage collector together ensures this freshness condition, and you can then compare two pointers with &lt;code&gt;(==)&lt;/code&gt;. As a bonus, you can even store data along your fresh symbol.&lt;/p&gt;
+&lt;p&gt;In this post, I&amp;rsquo;ll exploit that simple idea to develop an assembler for a little stack machine close to that of OCaml.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;The idea&lt;/h3&gt;
+&lt;p&gt;In OCaml, something as simple as this is a &lt;code&gt;gensym&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type 'a sym = C of 'a
+let gensym x = C x
+&lt;/pre&gt;
+&lt;p&gt;Each call to say &lt;code&gt;gensym ()&lt;/code&gt; will allocate one new data block in memory; you can then compare two symbols with the physical equality &lt;code&gt;(==)&lt;/code&gt;.What we care about here is not the content of that memory span, but its &lt;i&gt;address&lt;/i&gt;, which is unique.&lt;/p&gt;
+&lt;p&gt;A few warnings first: in OCaml, the constructor must have arguments, otherwise the compiler optimizes the representation to a simple integer and nothing is allocated. Also, don&amp;rsquo;t replace the argument &lt;code&gt;x&lt;/code&gt; to &lt;code&gt;C&lt;/code&gt; by a constant, say &lt;code&gt;()&lt;/code&gt;, in the function code: if you do so, the compiler will place value &lt;code&gt;C ()&lt;/code&gt; in the data segment of the program, and calling &lt;code&gt;gensym&lt;/code&gt; will not trigger an allocation either. There is an excellent and already classic series of blog post about OCaml&amp;rsquo;s value representation &lt;a href=&quot;http://rwmj.wordpress.com/2009/08/04/ocaml-internals/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Another way of saying the same thing is that (non-cyclic) values in OCaml are not trees, as they can be thought of considering the purely functional fragment, but DAGs, that is trees with sharing. &lt;/p&gt;
+&lt;p&gt;I think that not many beginner/intermediate OCaml programmers realize the power of this, so I&amp;rsquo;d like to show a cool application of this remark. We will code a small compiler from a arithmetic language to a stack machine. Bear with me, it&amp;rsquo;s going to be fun!&lt;/p&gt;
+&lt;h3&gt;An application: compiling expressions to a stack machine&lt;/h3&gt;
+&lt;p&gt;The input language of expressions is:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type expr =
+  | Int of int
+  | Plus of expr * expr
+  | If of expr * expr * expr
+&lt;/pre&gt;
+&lt;p&gt;Its semantics should be clear, except for the fact that &lt;code&gt;If&lt;/code&gt; are like in C: if their condition is different than 0, then their first branch is taken; if it is 0, then the second is taken. Because we have these conditionals, the stack machine will need instructions to jump around in the code. The instructions of this stack machine are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Push i&lt;/code&gt; pushes &lt;code&gt;i&lt;/code&gt; on the stack;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Add&lt;/code&gt; pops two values off the stack and pushes their sum;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Halt&lt;/code&gt; stops the machine and returning the (supposedly unique) stack value;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Branch o&lt;/code&gt; skips the next &lt;code&gt;o&lt;/code&gt; instructions in the code;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Branchif o&lt;/code&gt; skips the next &lt;code&gt;o&lt;/code&gt; instructions &lt;i&gt;if&lt;/i&gt; the top of the stack is not &lt;code&gt;0&lt;/code&gt;, and has no effect otherwise
+&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;For instance, the expression &lt;i&gt;1 + (if 0 then 2 else (3+3))&lt;/i&gt; is compiled into:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+[Push 1; Push 0; Branchif 3; 
+   Push 3; Push 3; Add; Branch 1;
+   Push 2;
+ Add; Halt]
+&lt;/pre&gt;
+&lt;p&gt;and evaluates of course to &lt;code&gt;7&lt;/code&gt;. Notice how the two branches of the &lt;code&gt;If&lt;/code&gt; are turned around in the code? First, we&amp;rsquo;ve got the code of expression &lt;i&gt;2&lt;/i&gt;, then the code of &lt;i&gt;3+3&lt;/i&gt;. In general, expression &lt;i&gt;if e1 then e2 else e3&lt;/i&gt; will be compiled to [&lt;i&gt;c1&lt;/i&gt;; &lt;code&gt;Branchif&lt;/code&gt; (|&lt;i&gt;c3&lt;/i&gt;|+1); &lt;i&gt;c3&lt;/i&gt;; &lt;code&gt;Branch&lt;/code&gt; |&lt;i&gt;c2&lt;/i&gt;|; &lt;i&gt;c2&lt;/i&gt;; &amp;hellip;] where &lt;i&gt;ci&lt;/i&gt; is the compiled code of &lt;i&gt;ei&lt;/i&gt;, and |&lt;i&gt;l&lt;/i&gt;| is the size of code &lt;i&gt;l&lt;/i&gt;. But I&amp;rsquo;m getting ahead of myself.&lt;/p&gt;
+&lt;h3&gt;Compilation&lt;/h3&gt;
+&lt;p&gt;Now, compiling an &lt;code&gt;expr&lt;/code&gt; to a list of instructions in one pass would be a little bit messy, because we have to compute these integer offset for jumps. Let&amp;rsquo;s follow instead the common practice and first compile expressions to an assembly language where some suffixes of the code have &lt;i&gt;labels&lt;/i&gt;, which are the names referred to by instructions &lt;code&gt;Branch&lt;/code&gt; and &lt;code&gt;Branchif&lt;/code&gt;. This assembly language &lt;code&gt;asm&lt;/code&gt; will then be well&amp;hellip; assembled into actual &lt;code&gt;code&lt;/code&gt;, where jumps are translated to integer offsets. But instead of generating label names by side-effect as customary, let&amp;rsquo;s use our trick: we will refer to them by a unique &lt;i&gt;pointer&lt;/i&gt; to the code attached to it. In other words, the arguments to &lt;code&gt;Branch&lt;/code&gt; and &lt;code&gt;Branchif&lt;/code&gt; will actually be pointers to &lt;code&gt;asm&lt;/code&gt; programs, comparable by &lt;code&gt;(==)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To represent the &lt;code&gt;code&lt;/code&gt; and &lt;code&gt;asm&lt;/code&gt; data structures, we generalize over the notion of label:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type 'label instr =
+  | Push of int
+  | Add
+  | Branchif of 'label
+  | Branch of 'label
+  | Halt
+&lt;/pre&gt;
+&lt;p&gt;An assembly program is a list of instruction where labels are themselves assembly programs (the &lt;code&gt;-rectypes&lt;/code&gt; option of OCaml is required here):&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type asm = asm instr list
+&lt;/pre&gt;
+&lt;p&gt;For instance, taking our previous example,&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+Plus (Int 1, If (Int 0, Int 2, Plus (Int 3, Int 3)))
+&lt;/pre&gt;
+&lt;p&gt;is compiled to the (shared) value:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+Push 1 :: Push 0 :: 
+  let k = [Add; Halt] in 
+  Branchif (Push 2 :: k) :: 
+  Push 3 :: Push 3 :: Add :: k
+&lt;/pre&gt;
+&lt;p&gt;See how the suffix &lt;code&gt;k&lt;/code&gt; (the continuation of the &lt;code&gt;If&lt;/code&gt;) is shared among the &lt;code&gt;Branchif&lt;/code&gt; and the main branch? In call-by-value, this is a value: if you reduce it any further by inlining &lt;code&gt;k&lt;/code&gt;, you will get a different value, that can be told apart from the first by using &lt;code&gt;(==)&lt;/code&gt;. So don&amp;rsquo;t let OCaml&amp;rsquo;s pretty-printing of values fool you: this is not a tree, the sharing of &lt;code&gt;k&lt;/code&gt; &lt;i&gt;is&lt;/i&gt; important! What you get is the DAG of all possible execution traces of your program; they eventually all merge in one point, the code suffix &lt;code&gt;k = [Add; Halt]&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The compilation function is relatively straightforward; it&amp;rsquo;s an accumulator-based function:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec compile e k = match e with
+  | Int i -&amp;gt; Push i :: k
+  | Plus (e1, e2) -&amp;gt; compile e1 (compile e2 (Add :: k))
+  | If (e1, e2, e3) -&amp;gt;
+    compile e1 (Branchif (compile e2 k) :: compile e3 k)
+
+let compile e = compile e [Halt]
+&lt;/pre&gt;
+&lt;p&gt;The sharing discussed above is realized here in the &lt;code&gt;If&lt;/code&gt; case, by compiling its two branches using the accumulator (continuation) &lt;code&gt;k&lt;/code&gt; twice. Again, many people think of this erroneously as &lt;i&gt;duplicating&lt;/i&gt; a piece of value. Actually, this is only mentioning twice a pointer to an already-allocated unique piece of value; and since we can compare pointers, we have a way to know that they are the same. Note also that this compilation function is purely compositional: to each subexpression corresponds a contiguous span of assembly code.&lt;/p&gt;
+&lt;h3&gt;Assembly&lt;/h3&gt;
+&lt;p&gt;Now, real code for our machine is simply a list of instructions where labels are represented by (positive) integers:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+type code = int instr list
+&lt;/pre&gt;
+&lt;p&gt;Why positive? Well, since we have no way to make a loop, code can be arranged such that all jumps are made &lt;i&gt;forward&lt;/i&gt; in the code.&lt;/p&gt;
+&lt;p&gt;The assembly function took me a while to figure out. It &amp;ldquo;linearizes&amp;rdquo; the assembly, a DAG, into a list by traversing it depth-first. The tricky part is that we don&amp;rsquo;t want to repeat the common suffixes of all branches; that&amp;rsquo;s where we use the fact that they are at the same memory address, which we can check with &lt;code&gt;(==)&lt;/code&gt;. If a piece of input code has already been compiled &lt;i&gt;n&lt;/i&gt; instructions ahead in the output code, instead of repeating it we just emit a &lt;code&gt;Branch&lt;/code&gt; &lt;i&gt;n&lt;/i&gt;.&lt;/p&gt;
+&lt;p&gt;So practically, we must keep as an argument an association list &lt;code&gt;k&lt;/code&gt; mapping already-compiled suffixes of the input to the corresponding output instruction; think of it as a kind of &amp;ldquo;cache&amp;rdquo; of the function. It also doubles as the &lt;i&gt;result&lt;/i&gt; of the process: it is what&amp;rsquo;s eventually returned by &lt;code&gt;assemble&lt;/code&gt;. For each input &lt;code&gt;is&lt;/code&gt;, we first traverse that list &lt;code&gt;k&lt;/code&gt; looking for the pointer &lt;code&gt;is&lt;/code&gt;; if we find it, then we have our &lt;code&gt;Branch&lt;/code&gt; instruction; otherwise, we assemble the next instruction. This first part of the job corresponds to the &lt;code&gt;assemble&lt;/code&gt; function:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec assemble is k =
+  try (is, Branch (List.index (fun (is', _) -&amp;gt; is == is') k)) :: k
+  with Not_found -&amp;gt; assem is k
+&lt;/pre&gt;
+&lt;p&gt;(&lt;code&gt;List.index p xs&lt;/code&gt; returns the index of the first element &lt;code&gt;x&lt;/code&gt; of &lt;code&gt;xs&lt;/code&gt; such that &lt;code&gt;p x&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt;). &lt;/p&gt;
+&lt;p&gt;Now the auxiliary function &lt;code&gt;assem&lt;/code&gt; actually assembles instructions into a list of pairs of source programs and target instruction:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+and assem asm k = match asm with
+  | (Push _ | Add | Halt as i) :: is -&amp;gt;
+    (asm, i) :: assemble is k
+  | Branchif is :: js -&amp;gt;
+    let k = assemble is k in
+    let k' = assemble js k in
+    (asm, Branchif (List.length k' - List.length k)) :: k'
+  | Branch _ :: _ -&amp;gt; assert false
+  | [] -&amp;gt; k
+&lt;/pre&gt;
+&lt;p&gt;Think of the arguments &lt;code&gt;asm&lt;/code&gt; and &lt;code&gt;k&lt;/code&gt; as one unique list &lt;code&gt;asm @ k&lt;/code&gt; that is &amp;ldquo;open&amp;rdquo; for insertion in two places: at top-level, as usual, and in the middle, between &lt;code&gt;asm&lt;/code&gt; and &lt;code&gt;k&lt;/code&gt;. The &lt;code&gt;k&lt;/code&gt; part is the already-processed suffix, and &lt;code&gt;asm&lt;/code&gt; is what remains to be processed. The first case inserts the non-branching instructions &lt;code&gt;Push, Add, Halt&lt;/code&gt; at top-level in the output (together with their corresponding assembly suffix of course). The second one, &lt;code&gt;Branchif&lt;/code&gt;, begins by inserting the branch &lt;code&gt;is&lt;/code&gt; at top-level, and then inserts the remainder &lt;code&gt;js&lt;/code&gt; in front of it. Note that when assembling this remainder, we can discover sharing that was recorded in &lt;code&gt;k&lt;/code&gt; when compiling the branch. Note also that there can&amp;rsquo;t be any &lt;code&gt;Branch&lt;/code&gt; in the assembly since it would not make much sense (everything after a &lt;code&gt;Branch&lt;/code&gt; instruction would be dead code), hence the &lt;code&gt;assert false&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Finally, we can strip off the &amp;ldquo;cached&amp;rdquo; information in the returned list, keeping only the target instructions:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let assemble is = snd (List.split (assemble is []))
+&lt;/pre&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;That&amp;rsquo;s it, we have a complete compilation chain for our expression language! We can execute the target code on this machine:&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+let rec exec = function
+  | s, Push i :: c -&amp;gt; exec (i :: s, c)
+  | i :: j :: s, Add :: c -&amp;gt; exec (i + j :: s, c)
+  | s, Branch n :: c -&amp;gt; exec (s, List.drop n c)
+  | i :: s, Branchif n :: c -&amp;gt; exec (s, List.drop (if i&amp;lt;&amp;gt;0 then n else 0) c)
+  | [i], Halt :: _ -&amp;gt; i
+  | _ -&amp;gt; failwith &amp;quot;error&amp;quot;
+
+let exec c = exec ([], c)
+&lt;/pre&gt;
+&lt;p&gt;The idea of using labels that are actual pointers to the code seems quite natural and seems to scale well (I implemented a compiler from a mini-ML to a virtual machine close to OCaml&amp;rsquo;s bytecode). In terms of performance however, &lt;code&gt;assemble&lt;/code&gt; is quadratic: before assembling each instruction, we look up if we didn&amp;rsquo;t assemble it already. When we have real (string) labels, we can represent the &amp;ldquo;cache&amp;rdquo; as a data structure with faster lookup; unfortunately, if labels are pointers, we can&amp;rsquo;t really do this because we don&amp;rsquo;t have a total order on pointers, only equality &lt;code&gt;(==)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This is only one example of how we can exploit pointer equality in OCaml to mimick a name generator. I&amp;rsquo;m sure there are lots of other applications to be discovered, or that I don&amp;rsquo;t know of (off the top of my head: to represent variables in the lambda-calculus). The big unknown for me is the nature of the language we&amp;rsquo;ve been working in, functional OCaml + pointer equality. Can we still consider it a functional language? How to reason on its programs? The comment section is right below!&lt;/p&gt;
+</content><id>https://syntaxexclamation.wordpress.com/2013/05/04/malloc-is-the-new-gensym/</id><title type="text">malloc() is the new gensym()</title><updated>2013-05-04T15:15:44-00:00</updated><author><name>syntaxexclamation</name></author></entry></feed>

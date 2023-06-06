@@ -1,9 +1,10 @@
 name: Scrape
 
 on:
+  workflow_dispatch:
   schedule:
     # Run every day
-    - cron: 0 12 * * *
+    - cron: 36 5 * * *
 
 jobs:
   scrape:
@@ -17,7 +18,7 @@ jobs:
         os:
           - ubuntu-latest
         ocaml-compiler:
-          - ocaml-base-compiler.4.14.0
+          - ocaml-base-compiler.4.14.1
 
     steps:
       - name: Checkout code
@@ -28,9 +29,9 @@ jobs:
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
-
-      - name: Install system dependencies (Linux)
-        run: sudo apt-get install libev-dev libonig-dev
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#9cf27a6683dc4e56ccf7e35c008198828bd5c267
+          opam-disable-sandboxing: true
 
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
@@ -42,12 +43,17 @@ jobs:
 
       - name: Run scrapers
         run: |
-          opam exec -- dune exec tool/ood-gen/bin/scrape.exe rss
+          opam exec -- dune exec tool/ood-gen/bin/scrape.exe planet
           opam exec -- dune exec tool/ood-gen/bin/watch_scrape.exe > data/watch.yml
-          opam exec -- dune build src/ocamlorg_data/rss.ml
+          opam exec -- dune build src/ocamlorg_data/planet.ml
           opam exec -- dune build src/ocamlorg_data/watch.ml
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v5
         with:
           title: 'Update scraped data'
+          add-paths: |
+            asset/feed.xml
+            data/watch.yml
+            data/planet/*.xml
+            data/planet/*/*.md

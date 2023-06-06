@@ -41,7 +41,7 @@ would have no effect.
 In this guide, we explain the different mechanism behind preprocessors in OCaml,
 with as few prerequisite as possible. If you are only interested in how to use a
 PPX in your project, jump to [this section](#using-ppxs) or to the [dune
-doc](https://dune.readthedocs.io/en/stable/concepts.html#preprocessing-specification).
+doc](https://dune.readthedocs.io/en/stable/reference/preprocessing-spec.html).
 If you are interested in writing a PPX, jump to [this section](#writing-a-ppx).
 
 ## Preprocessing in OCaml
@@ -240,8 +240,10 @@ val x : int = 3
 
 Note that the Parsetree is an internal representation of the code that happens
 before typing the program, so an ill-typed program can be rewritten. The
-internal representation after the typing is called the `Typedtree`, and it can be
-inspected using the `-dtypedtree` option of `ocaml` and `utop`. In what follows,
+internal representation after the typing is called the `Typedtree`. You can
+inspect it by using the `-dtypedtree` option of `ocaml`.
+When using `utop-full`, you can enable `-dtypedtree` within the REPL by running
+`Clflags.dump_typedtree := true`. In what follows,
 we will use AST to refer to the parsetree.
 
 ### PPX Rewriters

@@ -4,9 +4,10 @@
 
 @import "./partials/buttons.css";
 @import "./partials/cards.css";
-@import "./partials/forms.css";
+@import "./partials/dropdown.css";
 @import "./partials/grid_logos.css";
-@import "./partials/search.css";
+@import "./partials/htmx.css";
+@import "./partials/in_package_search.css";
 @import "./partials/package_breadcrumbs.css";
 @import "./partials/shadows.css";
 @import "./partials/tags.css";
@@ -26,7 +27,13 @@ body {
 }
 
 .container-fluid {
-  @apply max-w-7xl w-full mx-auto px-6;
+  @apply max-w-7xl w-full mx-auto px-4;
+}
+
+@media (min-width: 40em) {
+  .container-fluid {
+    @apply px-6;
+  }
 }
 
 .container-fluid.wide {
@@ -83,7 +90,7 @@ body {
 }
 
 .code-preview {
-  font-family: "Menlo", monospace;
+  font-family: Roboto Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
 }
 .code-blue {
     color: #569CD6;
@@ -155,6 +162,10 @@ body {
   font-size: 1rem;
 }
 
+tt {
+  font-family: Roboto Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+}
+
 .sidebar a.active {
   @apply text-primary-600 bg-primary-100;
 }
@@ -222,4 +233,27 @@ summary::marker {
 
 .output-container {
     height: calc(100% - 60px);
+}
+
+/* summary & details expandable section */
+
+details summary svg {
+  transform: rotate(90deg);
+}
+details[open] summary svg {
+  transform: rotate(-90deg);
+}
+
+details[open] summary ~ *
+{	animation: ease-opacity-t-b .5s ease}
+
+summary {
+  cursor: pointer;
+}
+details summary svg svg {
+  transition: all 0.3s;
+}
+
+summary::-webkit-details-marker {
+  display: none;
 }

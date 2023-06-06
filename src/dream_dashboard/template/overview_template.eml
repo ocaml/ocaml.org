@@ -9,6 +9,7 @@ let render
   ~dream_version
   ~dashboard_version
   ~uptime
+  ~commit
   ~os_version
   ~(memory_list : My_metrics.memory list)
   ~(loadavg_list : My_metrics.loadavg list)
@@ -41,12 +42,18 @@ Layout_template.render ~prefix ~title:"Overview" ~nav:Overview @@
   </div>
 
   <div class="px-6 py-5 shadow rounded-lg overflow-hidden sm:p-6 space-y-12 cards">
+    <dt class="text-base font-semibold truncate">OS Version</dt>
     <span class="text-lg font-semibold"><%s os_version %></span>
+  </div>
+
+  <div class="px-6 py-5 shadow rounded-lg overflow-hidden sm:p-6 space-y-12 cards">
+    <dt class="text-base font-semibold truncate">Git Commit Hash</dt>
+    <a target="_blank" href="https://github.com/ocaml/ocaml.org/commit/<%s commit %>" class="text-lg underline font-semibold"><%s commit %></a>
   </div>
 
   <div>
     <div class="flex mb-6 justify-between">
-      <h3 class="leading-5 text-lg font-semibold">Memory Usage (Percentage)</h3>
+      <h3 class="leading-5 text-lg font-semibold">Memory Usage (MiB)</h3>
     </div>
     <div class="flex items-center justify-center py-8 px-4 shadow rounded-lg cards">
       <div class="w-full">
@@ -98,7 +105,7 @@ Layout_template.render ~prefix ~title:"Overview" ~nav:Overview @@
           borderColor: "#18BDFB",
           data: [
           <% memory_list |> List.iter (fun (x : My_metrics.memory) -> %>
-            <%f 100. *. float_of_int x.free /. float_of_int x.total %>,
+            <%f float_of_int (x.total - x.free) /. 1048576. %>,
           <% ); %>
           ],
           borderWidth: "2",

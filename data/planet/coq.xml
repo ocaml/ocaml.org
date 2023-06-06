@@ -1,0 +1,1169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://coq.inria.fr/rss.xml</id><title type="text">coq</title><updated>2023-06-05T05:45:59-00:00</updated><entry><link href="https://coq.inria.fr/news/coq-platform-2021.02.0-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+
+&lt;p&gt;
+The Coq development team is proud to announce the immediate availability of
+the &lt;a href=&quot;https://github.com/coq/platform/releases/tag/2021.02.0&quot;&gt;Coq Platform 2021.02.0&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+The Coq platform is a distribution of the Coq proof assistant together
+with a selection of Coq libraries. It provides a set of scripts to
+compile and install OPAM, Coq, Coq libraries and Coq plugins on MacOS,
+Windows and many Linux distributions in a reliable way with consistent
+results.
+&lt;/p&gt;
+
+&lt;p&gt;
+This release is based on Coq 8.13.1 and provides binary installers
+for Windows and Linux. We plan to release 2021.02.1 as soon as the
+MacOS installer is ready. The following point releases, starting with
+2021.02.2, will focus on including more Coq libraries (and no
+breaking change).
+&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-platform-2021.02.0-is-out.html</id><title type="text">Coq Platform 2021.02.0 is out</title><updated>2021-02-26T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-13-1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+
+&lt;p&gt;
+The Coq development team is proud to announce the immediate availability of
+&lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.13.1&quot;&gt;Coq 8.13.1&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Hotfix:
+&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;Fix arities of VM opcodes for some floating-point operations
+  that could cause memory corruption &lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;p&gt;Please see &lt;a href=&quot;https://coq.github.io/doc/v8.13/refman/changes.html#version-8-13&quot; rel=&quot;nofollow&quot;&gt;the changelog&lt;/a&gt; to learn more about this release.&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-8-13-1-is-out.html</id><title type="text">Coq 8.13.1 is out</title><updated>2021-02-22T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-13-0-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+
+&lt;p&gt;
+The Coq development team is proud to announce the immediate availability of
+&lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.13.0&quot;&gt;Coq 8.13.0&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Highlights:
+&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;Introduction of primitive persistent arrays in the core language, implemented using imperative persistent arrays. &lt;/li&gt;
+&lt;li&gt;Introduction of definitional proof irrelevance for the equality type defined in the SProp sort. &lt;/li&gt;
+&lt;li&gt;Many improvements to the handling of notations, including number notations, recursive notations and notations with bindings. A new algorithm chooses the most precise notation available to print an expression, which might introduce changes in printing behavior.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;p&gt;Please see &lt;a href=&quot;https://coq.github.io/doc/v8.13/refman/changes.html#version-8-13&quot; rel=&quot;nofollow&quot;&gt;the changelog&lt;/a&gt; to learn more about this release.&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-8-13-0-is-out.html</id><title type="text">Coq 8.13.0 is out</title><updated>2021-01-07T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-12-2-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+
+&lt;p&gt;We are happy to announce the &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.12.2&quot;&gt;release of Coq
+8.12.2&lt;/a&gt;.
+
+&lt;/p&gt;&lt;p&gt;This release fixes two impacting 8.12 regressions (in notations and
+the implicit argument inference of the exists tactic).  See the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.12.2/refman/changes.html#changes-in-8-12-2&quot;&gt;changelog&lt;/a&gt;
+for details.&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-8-12-2-is-out.html</id><title type="text">Coq 8.12.2 is out</title><updated>2020-12-11T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-13beta1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+
+&lt;p&gt;
+The Coq development team is proud to announce the immediate availability of
+&lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.13+beta1&quot;&gt;Coq 8.13+beta1&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Here the &lt;a href=&quot;https://coq.github.io/doc/v8.13/refman/changes.html#version-8-13&quot;&gt;full list of changes&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+We encourage our users to test this beta release, in particular:
+&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;
+ The windows installer is now based on the Coq platform: This
+  greatly simplifies its build process and makes it easy to add 
+  more packages. At the same time this new installer was only
+  tested by two people, so if you use Windows please give us
+  feedback on any problem you may encounter.
+&lt;/li&gt;
+
+&lt;li&gt;
+ The notation system received many fixes and improvements, in
+  particular the way notations are selected for printing changed:
+  Coq now prefers notations which match a larger part of the term to
+  abbreviate, and takes into account the order in which notations are 
+  imported in the current scope only in a second instance.
+  The new rules were designed together with power users, and tested
+  by some of them, but our automatic testing infrastructure for 
+  regressions in notation printing is still weak. If your Coq library
+  makes heavy use of notations, please give us feedback on any 
+  regression.
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;
+The 8.13.0 release is expected to occur about one month from now.
+&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-8-13beta1-is-out.html</id><title type="text">Coq 8.13+beta1 is out</title><updated>2020-12-07T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-12-1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+
+&lt;p&gt;We are happy to announce the &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.12.1&quot;&gt;release of Coq
+8.12.1&lt;/a&gt;.
+
+&lt;/p&gt;&lt;p&gt;This release contains numerous bug fixes and documentation improvements. Some bug fix highlights:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Polymorphic side-effects inside monomorphic definitions were incorrectly handled as not inlined. This allowed deriving an inconsistency.
+&lt;/li&gt;&lt;li&gt;Regression in error reporting after SSReflect's &lt;code&gt;case&lt;/code&gt; tactic. A generic error message &amp;quot;Could not fill dependent hole in apply&amp;quot; was reported for any error following &lt;code&gt;case&lt;/code&gt; or &lt;code&gt;elim&lt;/code&gt;.
+&lt;/li&gt;&lt;li&gt;Several bugs with &lt;code&gt;Search&lt;/code&gt;.
+&lt;/li&gt;&lt;li&gt;The &lt;code&gt;details&lt;/code&gt; environment introduced in coqdoc in Coq 8.12 can now be used as advertised in the reference manual.
+&lt;/li&gt;&lt;li&gt;View menu &amp;quot;Display parentheses&amp;quot; introduced in CoqIDE in Coq 8.12 now works correctly.
+&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;See the &lt;a href=&quot;https://coq.inria.fr/refman/changes.html#changes-in-8-12-1&quot;&gt;changelog&lt;/a&gt; for details and a more complete list.&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-8-12-1-is-out.html</id><title type="text">Coq 8.12.1 is out</title><updated>2020-11-16T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-12-0-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+
+&lt;p&gt;We are happy to announce the &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.12.0&quot;&gt;release of Coq
+8.12.0&lt;/a&gt;.
+
+&lt;/p&gt;&lt;p&gt;Some highlights from this release are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;a new binder notation for non-maximal implicit arguments;&lt;/li&gt;
+&lt;li&gt;an improved &lt;code&gt;Search&lt;/code&gt; command which accepts more complex queries;&lt;/li&gt;
+&lt;li&gt;many additions to the standard library;&lt;/li&gt;
+&lt;li&gt;a restructured reference manual;&lt;/li&gt;
+&lt;li&gt;the deprecation of the &lt;code&gt;omega&lt;/code&gt; tactic in favor the &lt;code&gt;lia&lt;/code&gt; tactic.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Please see &lt;a href=&quot;https://coq.github.io/doc/v8.12/refman/changes.html#version-8-12&quot; rel=&quot;nofollow&quot;&gt;the changelog&lt;/a&gt; to learn more about this release.&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-8-12-0-is-out.html</id><title type="text">Coq 8.12.0 is out</title><updated>2020-07-27T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-12beta1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+
+&lt;p&gt;We are happy to announce the &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.12+beta1&quot;&gt;first
+beta release of Coq 8.12&lt;/a&gt;.
+
+&lt;/p&gt;&lt;p&gt;This new version integrates many usability improvements, in
+particular to notations, scopes and implicit arguments, along with
+many bug fixes and major improvements to the reference manual. See the
+&lt;a href=&quot;https://coq.github.io/doc/v8.12/refman/changes.html#version-8-12&quot;&gt;changelog&lt;/a&gt;
+for details.
+
+&lt;/p&gt;&lt;p&gt;As usual, we are looking for &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;feedback from beta
+testers&lt;/a&gt;.  In addition, we are looking for beta readers of the &lt;a href=&quot;https://coq.github.io/doc/v8.12/refman/&quot;&gt;updated reference
+manual&lt;/a&gt;.
+
+&lt;/p&gt;&lt;p&gt;The 8.12 improvements to the reference manual are the start of an
+effort to improve Coq documentation.  We believe the documentation
+needs considerable work to better serve the needs of the Coq
+community.  Better documentation will encourage more people to learn,
+teach and use Coq.  We need your help for this.  We're looking for
+volunteers who will help rewrite or add new material (such as better
+explanations and new examples) to the new pages. Writers do not have
+to be experts on their topic: we can pair writers with experts that
+can answer questions and provide examples. Indeed, it's a great way to
+learn more about Coq.  We'd also appreciate specific feedback, perhaps
+detailed, on what needs to be improved, what's missing and what things
+to improve first.  If you are willing to help, please see the &lt;a href=&quot;https://github.com/coq/coq/wiki/Refman-improvements-in-8.12-and-beyond&quot;&gt;dedicated
+wiki page&lt;/a&gt; to learn more.
+
+ &lt;/p&gt;</content><id>https://coq.inria.fr/news/coq-8-12beta1-is-out.html</id><title type="text">Coq 8.12+beta1 is out</title><updated>2020-06-17T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-11-2-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.11.2&quot;&gt;8.11.2 release of Coq&lt;/a&gt; is available.&lt;/p&gt;
+
+&lt;p&gt;This version brings in a few minor fixes. See the &lt;a href=&quot;https://coq.github.io/doc/V8.11.2/refman/changes.html#changes-in-8-11-2&quot;&gt;changelog&lt;/a&gt; for more details.&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-8-11-2-is-out.html</id><title type="text">Coq 8.11.2 is out</title><updated>2020-06-09T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-11-1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.11.1&quot;&gt;8.11.1 release of Coq&lt;/a&gt; is available.&lt;/p&gt;
+
+&lt;p&gt;The most salient change in the 8.11.1 release is support for OCaml 4.10.0. See the &lt;a href=&quot;https://coq.github.io/doc/V8.11.1/refman/changes.html#changes-in-8-11-1&quot;&gt;changelog&lt;/a&gt; for more details.&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-8-11-1-is-out.html</id><title type="text">Coq 8.11.1 is out</title><updated>2020-04-24T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-11-0-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.11.0&quot;&gt;8.11.0 release of Coq&lt;/a&gt; is available.&lt;/p&gt;
+
+&lt;p&gt;There are two main changes brought by Coq 8.11.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;It introduces Ltac2, a new tactic language for writing more robust larger scale
+tactics, with built-in support for datatypes and the multi-goal tactic monad.&lt;/li&gt;
+&lt;li&gt;Primitive floats are integrated in terms and follow the binary64 format
+of the IEEE 754 standard, as specified in the `Coq.Float.Floats` library.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+Many other cleanups and improvements have been performed and are further described in
+the &lt;a href=&quot;https://coq.github.io/doc/v8.11/refman/changes.html#version-8-11&quot;&gt;reference manual&lt;/a&gt;.
+&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-8-11-0-is-out.html</id><title type="text">Coq 8.11.0 is out</title><updated>2020-01-28T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-11beta1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.11+beta1&quot;&gt;first
+beta release of Coq 8.11&lt;/a&gt; is available for testing.&lt;/p&gt;
+
+&lt;p&gt;There are two main changes brought by Coq version 8.11.
+First, it introduces Ltac2, a new tactic language for writing more robust larger scale
+tactics, with built-in support for datatypes and the multi-goal tactic monad.
+Second, primitive floats are integrated in terms and follow the binary64 format
+of the IEEE 754 standard, as specified in the `Coq.Float.Floats` library.
+Many other cleanups and improvements have been performed and are further described in
+the &lt;a href=&quot;https://coq.github.io/doc/v8.11/refman/changes.html#version-8-11&quot;&gt;reference manual&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug
+reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-8-11beta1-is-out.html</id><title type="text">Coq 8.11+beta1 is out</title><updated>2019-12-06T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-10-2-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.10.2&quot;&gt;8.10.2 release of Coq&lt;/a&gt; is available.&lt;/p&gt;
+&lt;p&gt;Main changes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Fixed a critical bug of template polymorphism and nonlinear universes&lt;/li&gt;
+&lt;li&gt;Fixed a few anomalies&lt;/li&gt;
+&lt;li&gt;Fixed an 8.10 regression related to the printing of coercions associated to notations&lt;/li&gt;
+&lt;li&gt;Fixed uneven dimensions of CoqIDE panels when window has been resized&lt;/li&gt;
+&lt;li&gt;Fixed queries in CoqIDE&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All details can be found in the &lt;a href=&quot;https://coq.github.io/doc/V8.10.2/refman/changes.html#changes-in-8-10-2&quot;&gt;user manual&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-8-10-2-is-out.html</id><title type="text">Coq 8.10.2 is out</title><updated>2019-11-29T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-10-1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.10.1&quot;&gt;8.10.1 release of Coq&lt;/a&gt; is available.&lt;/p&gt;
+&lt;p&gt;Main changes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;fix proof of False when using SProp;&lt;/li&gt;
+&lt;li&gt;fix an anomaly when unsolved evar in Add Ring;&lt;/li&gt;
+&lt;li&gt;fix Ltac regression in binding free names in uconstr;&lt;/li&gt;
+&lt;li&gt;fix handling of unicode input before space;&lt;/li&gt;
+&lt;li&gt;fix custom extraction of inductives to JSON.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All details can be found in the &lt;a href=&quot;https://coq.github.io/doc/V8.10.1/refman/changes.html#changes-in-8-10-1&quot;&gt;user manual&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-8-10-1-is-out.html</id><title type="text">Coq 8.10.1 is out</title><updated>2019-10-25T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-10-0-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.10.0&quot;&gt;8.10.0 release of Coq&lt;/a&gt; is available.&lt;/p&gt;
+&lt;p&gt;Main changes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;some quality-of-life bug fixes;&lt;/li&gt;
+&lt;li&gt;a critical bug fix related to template polymorphism;&lt;/li&gt;
+&lt;li&gt;native 63-bit machine integers;&lt;/li&gt;
+&lt;li&gt;a new sort of definitionally proof-irrelevant propositions: SProp;&lt;/li&gt;
+&lt;li&gt;private universes for opaque polymorphic constants;&lt;/li&gt;
+&lt;li&gt;string notations and numeral notations;&lt;/li&gt;
+&lt;li&gt;a new simplex-based proof engine for the tactics lia, nia, lra and nra;&lt;/li&gt;
+&lt;li&gt;new introduction patterns for SSReflect;&lt;/li&gt;
+&lt;li&gt;a tactic to rewrite under binders: under;&lt;/li&gt;
+&lt;li&gt;easy input of non-ASCII symbols in CoqIDE, which now uses GTK3.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All details can be found in the &lt;a href=&quot;https://coq.github.io/doc/V8.10.0/refman/changes.html#version-8-10&quot;&gt;user manual&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-8-10-0-is-out.html</id><title type="text">Coq 8.10.0 is out</title><updated>2019-10-07T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-10beta3-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.10+beta3&quot;&gt;third
+beta release of Coq 8.10&lt;/a&gt; is available for testing.&lt;/p&gt;
+
+&lt;p&gt;This third &amp;beta; version includes various bug fixes and improvements, including:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;improved warning on coercion path ambiguity;&lt;/li&gt;
+&lt;li&gt;support for OCaml extraction of primitive machine integers;&lt;/li&gt;
+&lt;li&gt;fix for the soundness issue with template polymorphism;&lt;/li&gt;
+&lt;li&gt;fix extraction of dependent record projections to OCaml.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More details are given in the &lt;a href=&quot;https://coq.github.io/doc/V8.10+beta3/refman/changes.html#changes-in-8-10-beta3&quot;&gt;user manual&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug
+reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-8-10beta3-is-out.html</id><title type="text">Coq 8.10+beta3 is out</title><updated>2019-09-16T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-10beta2-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.10+beta2&quot;&gt;second
+beta release of Coq 8.10&lt;/a&gt; is available for testing.&lt;/p&gt;
+
+&lt;p&gt;This second &amp;beta; version includes many bug fixes and documentation
+improvements; more details are given in the &lt;a href=&quot;https://coq.github.io/doc/V8.10+beta2/refman/changes.html#changes-in-8-10-beta2&quot;&gt;reference manual&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug
+reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-8-10beta2-is-out.html</id><title type="text">Coq 8.10+beta2 is out</title><updated>2019-06-20T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-891-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.9.1&quot;&gt;8.9.1 release of Coq&lt;/a&gt; is available.&lt;/p&gt;
+&lt;p&gt;Main changes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;some quality-of-life bug fixes,&lt;/li&gt;
+&lt;li&gt;many improvements to the documentation,&lt;/li&gt;
+&lt;li&gt;a critical bug fix related to primitive projections and native_compute,&lt;/li&gt;
+&lt;li&gt;several additional Coq libraries shipped with the Windows installer.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-891-is-out.html</id><title type="text">Coq 8.9.1 is out</title><updated>2019-05-20T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-8-10beta1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.10+beta1&quot;&gt;first
+beta release of Coq 8.10&lt;/a&gt; is available for testing.&lt;/p&gt;
+
+&lt;p&gt;Coq version 8.10 contains two major new features: support for a native
+machine integer type and a new sort SProp, a definitionally proof irrelevant
+universe. It is also the result of refinements and stabilization of previous
+features, deprecations or removals of deprecated features, cleanups of the
+internals of the system and API, and many documentation improvements. This
+release includes many user-visible changes, including deprecations and new
+features. A more detailed list of changes appears in the &lt;a href=&quot;https://coq.github.io/doc/v8.10/refman/changes.html#version-8-10&quot;&gt;reference
+manual&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug
+reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-8-10beta1-is-out.html</id><title type="text">Coq 8.10+beta1 is out</title><updated>2019-05-15T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-890-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.9.0&quot;&gt;8.9.0
+release of Coq&lt;/a&gt; is available.&lt;/p&gt;
+
+&lt;p&gt;It features many quality-of-life improvements, including goal
+differences as well as numeral and custom notations. For details, see the
+&lt;a href=&quot;https://github.com/coq/coq/blob/V8.9.0/CHANGES.md&quot;&gt;CHANGES&lt;/a&gt;
+file.&lt;/p&gt;
+
+&lt;p&gt;Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug
+reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-890-is-out.html</id><title type="text">Coq 8.9.0 is out</title><updated>2019-01-18T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-89beta1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.9+beta1&quot;&gt;first
+beta release of Coq 8.9&lt;/a&gt; is available for testing.&lt;/p&gt;
+
+&lt;p&gt;It features many quality-of-life improvements, including goal
+differences as well as numeral and custom notations. For details, see the
+&lt;a href=&quot;https://github.com/coq/coq/blob/V8.9+beta1/CHANGES.md&quot;&gt;CHANGES&lt;/a&gt;
+file.&lt;/p&gt;
+
+&lt;p&gt;Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug
+reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-89beta1-is-out.html</id><title type="text">Coq 8.9+beta1 is out</title><updated>2018-11-02T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-882-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.8.2&quot;&gt;8.8.2 release of Coq&lt;/a&gt; is available.&lt;/p&gt;
+&lt;p&gt;Main changes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The kernel does not tolerate capture of global universes by polymorphic universe binders, fixing a soundness break (triggered only through custom plugins)&lt;/li&gt;
+&lt;li&gt;A PDF version of the reference manual is available once again.&lt;/li&gt;
+&lt;li&gt;The coq-makefile targets &lt;code&gt;print-pretty-timed&lt;/code&gt;, &lt;code&gt;print-pretty-timed-diff&lt;/code&gt;, and &lt;code&gt;print-pretty-single-time-diff&lt;/code&gt; now correctly label the &amp;quot;before&amp;quot; and &amp;quot;after&amp;quot; columns, rather than swapping them.&lt;/li&gt;
+&lt;li&gt;The Windows installer now includes many more external packages that can be individually selected for installation.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Many other bug fixes and lots of documentation improvements (for details, see the &lt;a href=&quot;https://github.com/coq/coq/milestone/15?closed=1&quot;&gt;8.8.2 milestone&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-882-is-out.html</id><title type="text">Coq 8.8.2 is out</title><updated>2018-09-26T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-881-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.8.1&quot;&gt;8.8.1 release of Coq&lt;/a&gt; is available.&lt;/p&gt;
+
+&lt;p&gt;It includes four critical bug fixes, many other bug fixes, documentation improvements
+and user message improvements.&lt;/p&gt;
+
+&lt;p&gt;For details, see &lt;a href=&quot;https://github.com/coq/coq/blob/V8.8.1/CHANGES&quot;&gt;CHANGES&lt;/a&gt;
+and the &lt;a href=&quot;https://github.com/coq/coq/milestone/13?closed=1&quot;&gt;8.8.1 milestone&lt;/a&gt;.
+Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-881-is-out.html</id><title type="text">Coq 8.8.1 is out</title><updated>2018-07-09T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-88-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.8.0&quot;&gt;final release of Coq 8.8.0&lt;/a&gt; is
+available. It features better performances, tactic improvements, many
+enhancements for universe users, a new Export modifier for setting options,
+support for goal selectors in front of focusing brackets and a new experimental
+-mangle-names option for linting proof scripts.
+
+Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.
+
+
+ </content><id>https://coq.inria.fr/news/coq-88-is-out.html</id><title type="text">Coq 8.8.0 is out</title><updated>2018-04-17T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-88beta1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://github.com/coq/coq/releases/tag/V8.8+beta1&quot;&gt;first beta
+release of Coq 8.8&lt;/a&gt; is available for testing. It features better
+performances, tactic improvements, many enhancements for universe users, a new
+Export modifier for setting options, support for goal selectors in front of
+focusing brackets and a new experimental -mangle-names option for linting proof
+scripts.
+
+Feedback and &lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.
+
+
+ </content><id>https://coq.inria.fr/news/coq-88beta1-is-out.html</id><title type="text">Coq 8.8+beta1 is out</title><updated>2018-03-19T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-872-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+
+&lt;p&gt;&lt;a href=&quot;https://coq.inria.fr/coq-87&quot;&gt;Version 8.7.2 of Coq&lt;/a&gt; is available. It fixes a critical bug in the VM handling of universes. This bug affected all releases since 8.5.&lt;/p&gt;
+
+&lt;p&gt;Other changes include improved support for building with OCaml 4.06.0 and external num package, many other bug fixes, documentation improvements, and user message improvements (for details, see the &lt;a href=&quot;https://github.com/coq/coq/milestone/11?closed=1&quot;&gt;8.7.2 milestone&lt;/a&gt;).&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-872-is-out.html</id><title type="text">Coq 8.7.2 is out</title><updated>2018-02-17T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/142.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The macOS installer for Coq 8.7.1 was updated on 2018-01-08 to fix frequent crashes of CoqIDE due to the use of an outdated dependency. Direct link to the new version:
+&lt;a href=&quot;https://github.com/coq/coq/releases/download/V8.7.1/coq-8.7.1-1-installer-macos.dmg&quot;&gt;
+coq-8.7.1-1-installer-macos.dmg&lt;/a&gt;.
+
+ &lt;/p&gt;</content><id>https://coq.inria.fr/news/142.html</id><title type="text">MacOS package updated</title><updated>2018-01-09T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-871-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+
+&lt;a href=&quot;https://coq.inria.fr/coq-87&quot;&gt;Version 8.7.1 of Coq&lt;/a&gt; is available. It brings compatibility with OCaml 4.06.0, many bug fixes, documentation improvements, and user message improvements (for details see the &lt;a href=&quot;https://github.com/coq/coq/milestone/10?closed=1&quot;&gt;8.7.1 milestone&lt;/a&gt;).
+
+
+ </content><id>https://coq.inria.fr/news/coq-871-is-out.html</id><title type="text">Coq 8.7.1 is out</title><updated>2017-12-15T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/140.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;After several years of using GitHub specifically for its pull request system,
+the Coq development team has migrated the
+&lt;a href=&quot;https://github.com/coq/coq/issues&quot;&gt;Coq bug tracker&lt;/a&gt; and
+&lt;a href=&quot;https://github.com/coq/coq/wiki&quot;&gt;Cocorico, the Coq wiki&lt;/a&gt;
+to GitHub as well.&lt;/p&gt;
+
+&lt;p&gt;More information about the migration of the Coq bug tracker may be found in this
+&lt;a href=&quot;https://www.theozimmermann.net/2017/10/bugzilla-to-github/&quot;&gt;blog post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;More information about the migration of Cocorico, the Coq wiki, may be found on this
+&lt;a href=&quot;https://github.com/coq/coq/wiki/WikiMigration&quot;&gt;wiki page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Finally, the GitHub repository is now the repository we push to
+(as opposed to a mirror). Make sure that your git clone is tracking
+&lt;a href=&quot;https://github.com/coq/coq&quot;&gt;https://github.com/coq/coq.git&lt;/a&gt;
+to be always up-to-date.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/140.html</id><title type="text">Migration to GitHub is complete</title><updated>2017-11-21T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-870-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://coq.inria.fr/coq-87&quot;&gt;final release of Coq 8.7.0&lt;/a&gt; is available.
+
+Coq 8.7 includes:
+
+&lt;ul&gt;
+  &lt;li&gt;A large amount of work on cleaning and speeding up the code base, notably
+    the work of Pierre-Marie P&amp;eacute;drot on making the tactic-level system
+    insensitive to existential variable expansion, providing a safer API to
+    plugin writers and making the code more robust.&lt;/li&gt;
+  &lt;li&gt;New tactics:
+    &lt;ul&gt;
+      &lt;li&gt;Variants of tactics supporting existential variables &lt;tt&gt;eassert&lt;/tt&gt;,
+        &lt;tt&gt;eenough&lt;/tt&gt;, etc. by Hugo Herbelin;&lt;/li&gt;
+      &lt;li&gt;Tactics &lt;tt&gt;extensionality in H&lt;/tt&gt; and &lt;tt&gt;inversion_sigma&lt;/tt&gt; by
+        Jason Gross;&lt;/li&gt;
+      &lt;li&gt;&lt;tt&gt;specialize with&lt;/tt&gt; accepting partial bindings by Pierre
+        Courtieu.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Cumulative Polymorphic Inductive Types, allowing cumulativity of
+    universes to go through applied inductive types, by Amin Timany and
+    Matthieu Sozeau.&lt;/li&gt;
+  &lt;li&gt;The SSReflect plugin by Georges Gonthier, Assia Mahboubi and Enrico Tassi
+    was integrated (with its documentation in the reference manual) by Maxime
+    D&amp;eacute;n&amp;egrave;s, Assia Mahboubi and Enrico Tassi.&lt;/li&gt;
+  &lt;li&gt;The &lt;tt&gt;coq_makefile&lt;/tt&gt; tool was completely redesigned to improve its
+    maintainability and the extensibility of generated Makefiles, and to make
+    &lt;tt&gt;_CoqProject&lt;/tt&gt; files more palatable to IDEs by Enrico Tassi.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More information can be found in the &lt;a href=&quot;https://github.com/coq/coq/blob/V8.7.0/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and
+&lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+&lt;p&gt;This is the second release of Coq developed on a time-based development
+  cycle. Its development spanned 9 months from the release of Coq 8.6 and was
+  based on a public road-map. It attracted many external contributions. Code
+  reviews and continuous integration testing were systematically used before
+  integration of new features, with an important focus given to compatibility
+  and performance issues.&lt;/p&gt;
+&lt;ul&gt;
+
+
+ &lt;/ul&gt;</content><id>https://coq.inria.fr/news/coq-870-is-out.html</id><title type="text">Coq 8.7.0 is out</title><updated>2017-10-17T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-87beta2-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://coq.inria.fr/coq-87&quot;&gt;second beta release of Coq 8.7&lt;/a&gt; is available for
+testing.
+
+Coq 8.7 includes:
+
+&lt;ul&gt;
+  &lt;li&gt;A large amount of work on cleaning and speeding up the code base, notably
+    the work of Pierre-Marie P&amp;eacute;drot on making the tactic-level system
+    insensitive to existential variable expansion, providing a safer API to
+    plugin writers and making the code more robust.&lt;/li&gt;
+  &lt;li&gt;New tactics:
+    &lt;ul&gt;
+      &lt;li&gt;Variants of tactics supporting existential variables &lt;tt&gt;eassert&lt;/tt&gt;,
+        &lt;tt&gt;eenough&lt;/tt&gt;, etc. by Hugo Herbelin;&lt;/li&gt;
+      &lt;li&gt;Tactics &lt;tt&gt;extensionality in H&lt;/tt&gt; and &lt;tt&gt;inversion_sigma&lt;/tt&gt; by
+        Jason Gross;&lt;/li&gt;
+      &lt;li&gt;&lt;tt&gt;specialize with&lt;/tt&gt; accepting partial bindings by Pierre
+        Courtieu.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Cumulative Polymorphic Inductive Types, allowing cumulativity of
+    universes to go through applied inductive types, by Amin Timany and
+    Matthieu Sozeau.&lt;/li&gt;
+  &lt;li&gt;The SSReflect plugin by Georges Gonthier, Assia Mahboubi and Enrico Tassi
+    was integrated (with its documentation in the reference manual) by Maxime
+    D&amp;eacute;n&amp;egrave;s, Assia Mahboubi and Enrico Tassi.&lt;/li&gt;
+  &lt;li&gt;The &lt;tt&gt;coq_makefile&lt;/tt&gt; tool was completely redesigned to improve its
+    maintainability and the extensibility of generated Makefiles, and to make
+    &lt;tt&gt;_CoqProject&lt;/tt&gt; files more palatable to IDEs by Enrico Tassi.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More information can be found in the &lt;a href=&quot;https://github.com/coq/coq/blob/V8.7+beta2/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and
+&lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+&lt;p&gt;This is the second release of Coq developed on a time-based development
+  cycle. Its development spanned 9 months from the release of Coq 8.6 and was
+  based on a public road-map. It attracted many external contributions. Code
+  reviews and continuous integration testing were systematically used before
+  integration of new features, with an important focus given to compatibility
+  and performance issues.&lt;/p&gt;
+&lt;ul&gt;
+
+
+ &lt;/ul&gt;</content><id>https://coq.inria.fr/news/coq-87beta2-is-out.html</id><title type="text">Coq 8.7+beta2 is out</title><updated>2017-10-06T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-87beta1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://coq.inria.fr/coq-87&quot;&gt;first beta release of Coq 8.7&lt;/a&gt; is available for
+testing.
+
+Coq 8.7 includes:
+
+&lt;ul&gt;
+  &lt;li&gt;A large amount of work on cleaning and speeding up the code base, notably
+    the work of Pierre-Marie P&amp;eacute;drot on making the tactic-level system
+    insensitive to existential variable expansion, providing a safer API to
+    plugin writers and making the code more robust.&lt;/li&gt;
+  &lt;li&gt;New tactics:
+    &lt;ul&gt;
+      &lt;li&gt;Variants of tactics supporting existential variables &lt;tt&gt;eassert&lt;/tt&gt;,
+        &lt;tt&gt;eenough&lt;/tt&gt;, etc. by Hugo Herbelin;&lt;/li&gt;
+      &lt;li&gt;Tactics &lt;tt&gt;extensionality in H&lt;/tt&gt; and &lt;tt&gt;inversion_sigma&lt;/tt&gt; by
+        Jason Gross;&lt;/li&gt;
+      &lt;li&gt;&lt;tt&gt;specialize with&lt;/tt&gt; accepting partial bindings by Pierre
+        Courtieu.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Cumulative Polymorphic Inductive Types, allowing cumulativity of
+    universes to go through applied inductive types, by Amin Timany and
+    Matthieu Sozeau.&lt;/li&gt;
+  &lt;li&gt;The SSReflect plugin by Georges Gonthier, Assia Mahboubi and Enrico Tassi
+    was integrated (with its documentation in the reference manual) by Maxime
+    D&amp;eacute;n&amp;egrave;s, Assia Mahboubi and Enrico Tassi.&lt;/li&gt;
+  &lt;li&gt;The &lt;tt&gt;coq_makefile&lt;/tt&gt; tool was completely redesigned to improve its
+    maintainability and the extensibility of generated Makefiles, and to make
+    &lt;tt&gt;_CoqProject&lt;/tt&gt; files more palatable to IDEs by Enrico Tassi.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More information can be found in the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.7+beta1/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and
+&lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+&lt;p&gt;This is the second release of Coq developed on a time-based development
+  cycle. Its development spanned 9 months from the release of Coq 8.6 and was
+  based on a public road-map. It attracted many external contributions. Code
+  reviews and continuous integration testing were systematically used before
+  integration of new features, with an important focus given to compatibility
+  and performance issues.&lt;/p&gt;
+&lt;ul&gt;
+
+
+ &lt;/ul&gt;</content><id>https://coq.inria.fr/news/coq-87beta1-is-out.html</id><title type="text">Coq 8.7 beta 1 is out</title><updated>2017-09-06T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/136.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The alleged &amp;quot;hack&amp;quot; of coq.inria.fr that led to several days of downtime
+for investigations was nothing more than a spam bug report. More details
+&lt;a href=&quot;https://sympa.inria.fr/sympa/arc/coq-club/2017-08/msg00040.html&quot;&gt;here&lt;/a&gt;.
+
+ </content><id>https://coq.inria.fr/news/136.html</id><title type="text">Alleged &quot;hack&quot; of our site: just a spam</title><updated>2017-08-23T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-861-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;a href=&quot;https://coq.inria.fr/coq-86&quot;&gt;Version 8.6.1 of Coq&lt;/a&gt; is available. It fixes several bugs
+of version 8.6. More information can be found in the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.6.1/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and
+&lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.
+
+ </content><id>https://coq.inria.fr/news/coq-861-is-out.html</id><title type="text">Coq 8.6.1 is out</title><updated>2017-07-25T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-86-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://coq.inria.fr/coq-86&quot;&gt;final release of Coq 8.6&lt;/a&gt; is available.
+
+Coq 8.6 includes:
+
+&lt;ul&gt;
+&lt;li&gt;A new, faster state-of-the-art universe constraint checker by
+  Jacques-Henri Jourdan.&lt;/li&gt;
+&lt;li&gt;In CoqIDE and other asynchronous interfaces, more fine-grained
+  asynchronous processing and error reporting by Enrico Tassi, making
+  Coq capable of recovering from errors and continuing to process the
+  document.&lt;/li&gt;
+&lt;li&gt;Better access to the proof engine features from Ltac: goal management
+  primitives, range selectors and a typeclasses eauto engine handling
+  multiple goals and multiple successes, by Cyprien Mangin, Matthieu
+  Sozeau and Arnaud Spiwack.&lt;/li&gt;
+&lt;li&gt;Tactic behavior uniformization and specification, generalization of
+  intro-patterns by Hugo Herbelin and others.&lt;/li&gt;
+&lt;li&gt;A brand new warning system allowing to control warnings, turn them
+  into errors or ignore them selectively by Maxime D&amp;eacute;n&amp;egrave;s, Guillaume
+  Melquiond, Pierre-Marie P&amp;eacute;drot and others.&lt;/li&gt;
+&lt;li&gt;Irrefutable patterns in abstractions, by Daniel de Rauglaudre.&lt;/li&gt;
+&lt;li&gt;The ssreflect subterm selection algorithm by Georges Gonthier and
+  Enrico Tassi, now accessible to tactic writers through the
+  ssrmatching plugin.&lt;/li&gt;
+&lt;li&gt;LtacProf, a profiler for Ltac by Jason Gross, Paul Steckler, Enrico
+  Tassi and Tobias Tebbi.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More information can be found in the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.6/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and
+&lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+&lt;p&gt;Coq 8.6 initiates a time-based release cycle, with a major version being
+released every 10 months. The roadmap is also made public.&lt;/p&gt;
+
+&lt;p&gt;To date, Coq 8.6 contains more external contributions than any previous
+Coq version. Code reviews were systematically done before integration
+of new features, with an important focus given to compatibility and
+performance issues.&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-86-is-out.html</id><title type="text">Coq 8.6 is out</title><updated>2016-12-14T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-86rc1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://coq.inria.fr/coq-86&quot;&gt;first release candidate of Coq 8.6&lt;/a&gt; is available for
+testing.
+
+Coq 8.6 includes:
+
+&lt;ul&gt;
+&lt;li&gt;A new, faster state-of-the-art universe constraint checker by
+  Jacques-Henri Jourdan.&lt;/li&gt;
+&lt;li&gt;In CoqIDE and other asynchronous interfaces, more fine-grained
+  asynchronous processing and error reporting by Enrico Tassi, making
+  Coq capable of recovering from errors and continuing to process the
+  document.&lt;/li&gt;
+&lt;li&gt;Better access to the proof engine features from Ltac: goal management
+  primitives, range selectors and a typeclasses eauto engine handling
+  multiple goals and multiple successes, by Cyprien Mangin, Matthieu
+  Sozeau and Arnaud Spiwack.&lt;/li&gt;
+&lt;li&gt;Tactic behavior uniformization and specification, generalization of
+  intro-patterns by Hugo Herbelin and others.&lt;/li&gt;
+&lt;li&gt;A brand new warning system allowing to control warnings, turn them
+  into errors or ignore them selectively by Maxime D&amp;eacute;n&amp;egrave;s, Guillaume
+  Melquiond, Pierre-Marie P&amp;eacute;drot and others.&lt;/li&gt;
+&lt;li&gt;Irrefutable patterns in abstractions, by Daniel de Rauglaudre.&lt;/li&gt;
+&lt;li&gt;The ssreflect subterm selection algorithm by Georges Gonthier and
+  Enrico Tassi, now accessible to tactic writers through the
+  ssrmatching plugin.&lt;/li&gt;
+&lt;li&gt;LtacProf, a profiler for Ltac by Jason Gross, Paul Steckler, Enrico
+  Tassi and Tobias Tebbi.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More information can be found in the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.6rc1/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and
+&lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+&lt;p&gt;Coq 8.6 initiates a time-based release cycle, with a major version being
+released every 10 months. The roadmap is also made public.&lt;/p&gt;
+
+&lt;p&gt;To date, Coq 8.6 contains more external contributions than any previous
+Coq version. Code reviews were systematically done before integration
+of new features, with an important focus given to compatibility and
+performance issues.&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-86rc1-is-out.html</id><title type="text">Coq 8.6 rc 1 is out</title><updated>2016-12-08T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-86beta1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://coq.inria.fr/coq-86&quot;&gt;first beta release of Coq 8.6&lt;/a&gt; is available for
+testing.
+
+Coq 8.6 includes:
+
+&lt;ul&gt;
+&lt;li&gt;A new, faster state-of-the-art universe constraint checker by
+  Jacques-Henri Jourdan.&lt;/li&gt;
+&lt;li&gt;In CoqIDE and other asynchronous interfaces, more fine-grained
+  asynchronous processing and error reporting by Enrico Tassi, making
+  Coq capable of recovering from errors and continuing to process the
+  document.&lt;/li&gt;
+&lt;li&gt;Better access to the proof engine features from Ltac: goal management
+  primitives, range selectors and a typeclasses eauto engine handling
+  multiple goals and multiple successes, by Cyprien Mangin, Matthieu
+  Sozeau and Arnaud Spiwack.&lt;/li&gt;
+&lt;li&gt;Tactic behavior uniformization and specification, generalization of
+  intro-patterns by Hugo Herbelin and others.&lt;/li&gt;
+&lt;li&gt;A brand new warning system allowing to control warnings, turn them
+  into errors or ignore them selectively by Maxime D&amp;eacute;n&amp;egrave;s, Guillaume
+  Melquiond, Pierre-Marie P&amp;eacute;drot and others.&lt;/li&gt;
+&lt;li&gt;Irrefutable patterns in abstractions, by Daniel de Rauglaudre.&lt;/li&gt;
+&lt;li&gt;The ssreflect subterm selection algorithm by Georges Gonthier and
+  Enrico Tassi, now accessible to tactic writers through the
+  ssrmatching plugin.&lt;/li&gt;
+&lt;li&gt;LtacProf, a profiler for Ltac by Jason Gross, Paul Steckler, Enrico
+  Tassi and Tobias Tebbi.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More information can be found in the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.6beta1/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and
+&lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.&lt;/p&gt;
+
+&lt;p&gt;Coq 8.6 initiates a time-based release cycle, with a major version being
+released every 10 months. The roadmap is also made public.&lt;/p&gt;
+
+&lt;p&gt;To date, Coq 8.6 contains more external contributions than any previous
+Coq version. Code reviews were systematically done before integration
+of new features, with an important focus given to compatibility and
+performance issues.&lt;/p&gt;
+
+
+ </content><id>https://coq.inria.fr/news/coq-86beta1-is-out.html</id><title type="text">Coq 8.6 beta 1 is out</title><updated>2016-11-19T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-85pl3-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;a href=&quot;https://coq.inria.fr/coq-85&quot;&gt;Version 8.5pl3 of Coq&lt;/a&gt; is available. It fixes several bugs
+of version 8.5pl2, including one critical bug. More information can be found in
+the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.5pl3/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and
+&lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.
+
+ </content><id>https://coq.inria.fr/news/coq-85pl3-is-out.html</id><title type="text">Coq 8.5pl3 is out</title><updated>2016-10-27T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-85pl2-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;a href=&quot;https://coq.inria.fr/coq-85&quot;&gt;Version 8.5pl2 of Coq&lt;/a&gt; is available. It fixes several bugs
+of version 8.5pl1, including one critical bug. More information can be found in
+the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.5pl2/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and
+&lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.
+
+ </content><id>https://coq.inria.fr/news/coq-85pl2-is-out.html</id><title type="text">Coq 8.5pl2 is out</title><updated>2016-07-11T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-85pl1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;a href=&quot;https://coq.inria.fr/coq-85&quot;&gt;Version 8.5pl1 of Coq&lt;/a&gt; is available. It fixes several bugs
+of version 8.5, including one critical bug. It also brings various performance
+improvements.  More information can be found in the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.5pl1/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and &lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome.
+
+ </content><id>https://coq.inria.fr/news/coq-85pl1-is-out.html</id><title type="text">Coq 8.5pl1 is out</title><updated>2016-04-10T00:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-85-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://coq.inria.fr/coq-85&quot;&gt;final release of Coq 8.5&lt;/a&gt; is available! The 8.5 version
+brings several major features to Coq:
+
+&lt;ul&gt;
+&lt;li&gt;asynchronous edition of documents under CoqIDE to keep working on a proof
+  while Coq checks the other proofs in the background (by Enrico Tassi);&lt;/li&gt;
+&lt;li&gt;universe polymorphism making it possible to reuse the same definitions at
+  various universe levels (by Matthieu Sozeau);&lt;/li&gt;
+&lt;li&gt;primitive projections improving space and time efficiency of records, and
+  adding eta-conversion for records (by Matthieu Sozeau);&lt;/li&gt;
+ &lt;li&gt;a new tactic engine allowing dependent subgoals, fully backtracking
+  tactics, as well as tactics which can consider multiple goals together (by
+  Arnaud Spiwack);&lt;/li&gt;
+&lt;li&gt;a new reduction procedure called &lt;tt&gt;native_compute&lt;/tt&gt; to evaluate terms
+  using the OCaml native compiler, for proofs with large computational
+  steps (by Maxime D&amp;eacute;n&amp;egrave;s).&lt;/li&gt;
+&lt;/ul&gt;
+
+More information about the changes from 8.4 to 8.5 can be found in the
+&lt;a href=&quot;https://coq.inria.fr/distrib/V8.5/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and
+&lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome. Enjoy!  
+ </content><id>https://coq.inria.fr/news/coq-85-is-out.html</id><title type="text">Coq 8.5 is out!</title><updated>2016-01-21T21:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-85rc1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://coq.inria.fr/coq-85&quot;&gt;first release candidate of Coq 8.5&lt;/a&gt; is available for
+testing. The 8.5 version brings several major features to Coq:
+
+&lt;ul&gt;
+&lt;li&gt;asynchronous edition of documents under CoqIDE to keep working on a proof
+  while Coq checks the other proofs in the background (by Enrico Tassi);&lt;/li&gt;
+&lt;li&gt;universe polymorphism making it possible to reuse the same definitions at
+  various universe levels (by Matthieu Sozeau);&lt;/li&gt;
+&lt;li&gt;primitive projections improving space and time efficiency of records, and
+  adding eta-conversion for records (by Matthieu Sozeau);&lt;/li&gt;
+ &lt;li&gt;a new tactic engine allowing dependent subgoals, fully backtracking
+  tactics, as well as tactics which can consider multiple goals together (by
+  Arnaud Spiwack);&lt;/li&gt;
+&lt;li&gt;a new reduction procedure called &lt;tt&gt;native_compute&lt;/tt&gt; to evaluate terms
+  using the OCaml native compiler, for proofs with large computational
+  steps (by Maxime D&amp;eacute;n&amp;egrave;s).&lt;/li&gt;
+&lt;/ul&gt;
+
+More information about the changes from 8.4 to 8.5 and since the
+beta releases can be found in the
+&lt;a href=&quot;https://coq.inria.fr/distrib/V8.5rc1/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and
+&lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome. Enjoy!  
+ </content><id>https://coq.inria.fr/news/coq-85rc1-is-out.html</id><title type="text">Coq 8.5 rc 1 is out!</title><updated>2015-11-11T19:30:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-85beta3-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://coq.inria.fr/coq-85&quot;&gt;third beta release of Coq 8.5&lt;/a&gt; is available for
+testing. The 8.5 version brings several major features to Coq:
+
+&lt;ul&gt;
+&lt;li&gt;asynchronous edition of documents under CoqIDE to keep working on a proof
+  while Coq checks the other proofs in the background (by Enrico Tassi);&lt;/li&gt;
+&lt;li&gt;universe polymorphism making it possible to reuse the same definitions at
+  various universe levels (by Matthieu Sozeau);&lt;/li&gt;
+&lt;li&gt;primitive projections improving space and time efficiency of records, and
+  adding eta-conversion for records (by Matthieu Sozeau);&lt;/li&gt;
+ &lt;li&gt;a new tactic engine allowing dependent subgoals, fully backtracking
+  tactics, as well as tactics which can consider multiple goals together (by
+  Arnaud Spiwack);&lt;/li&gt;
+&lt;li&gt;a new reduction procedure called &lt;tt&gt;native_compute&lt;/tt&gt; to evaluate terms
+  using the OCaml native compiler, for proofs with large computational
+  steps (by Maxime D&amp;eacute;n&amp;egrave;s).&lt;/li&gt;
+&lt;/ul&gt;
+
+More information about the changes from 8.4 to 8.5 and since the first two
+beta releases can be found in the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.5beta3/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and &lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome. Enjoy!  
+ </content><id>https://coq.inria.fr/news/coq-85beta3-is-out.html</id><title type="text">Coq 8.5 beta 3 is out!</title><updated>2015-11-11T19:30:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-85beta2-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://coq.inria.fr/coq-85&quot;&gt;second beta release of Coq 8.5&lt;/a&gt; is available for
+testing. The 8.5 version brings several major features to Coq:
+
+&lt;ul&gt;
+&lt;li&gt;asynchronous edition of documents under CoqIDE to keep working on a proof
+  while Coq checks the other proofs in the background (by Enrico Tassi);&lt;/li&gt;
+&lt;li&gt;universe polymorphism making it possible to reuse the same definitions at
+  various universe levels (by Matthieu Sozeau);&lt;/li&gt;
+&lt;li&gt;primitive projections improving space and time efficiency of records, and
+  adding eta-conversion for records (by Matthieu Sozeau);&lt;/li&gt;
+ &lt;li&gt;a new tactic engine allowing dependent subgoals, fully backtracking
+  tactics, as well as tactics which can consider multiple goals together (by
+  Arnaud Spiwack);&lt;/li&gt;
+&lt;li&gt;a new reduction procedure called &lt;tt&gt;native_compute&lt;/tt&gt; to evaluate terms
+  using the OCaml native compiler, for proofs with large computational
+  steps (by Maxime D&amp;eacute;n&amp;egrave;s).&lt;/li&gt;
+&lt;/ul&gt;
+
+More information about the changes from 8.4 to 8.5 and since the first
+beta release can be found in the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.5beta2/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and &lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome. Enjoy!  
+ </content><id>https://coq.inria.fr/news/coq-85beta2-is-out.html</id><title type="text">Coq 8.5 beta 2 is out!</title><updated>2015-04-22T19:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-84pl6-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;Version &lt;a href=&quot;https://coq.inria.fr/coq-84&quot;&gt;8.4pl6&lt;/a&gt; of Coq fixes several bugs of version 8.4pl5. More information to be found in the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.4pl6/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-84pl6-is-out.html</id><title type="text">Coq 8.4pl6 is out</title><updated>2015-04-09T16:25:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-85beta1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+The &lt;a href=&quot;https://coq.inria.fr/coq-85&quot;&gt;first beta release of Coq 8.5&lt;/a&gt; is available for
+testing. The 8.5 version brings several major features to Coq:
+
+&lt;ul&gt;
+&lt;li&gt;asynchronous edition of documents under CoqIDE to keep working on a proof
+  while Coq checks the other proofs in the background (by Enrico Tassi);&lt;/li&gt;
+&lt;li&gt;universe polymorphism making it possible to reuse the same definitions at
+  various universe levels (by Matthieu Sozeau);&lt;/li&gt;
+&lt;li&gt;primitive projections improving space and time efficiency of records, and
+  adding eta-conversion for records (by Matthieu Sozeau);&lt;/li&gt;
+ &lt;li&gt;a new tactic engine allowing dependent subgoals, fully backtracking
+  tactics, as well as tactics which can consider multiple goals together (by
+  Arnaud Spiwack);&lt;/li&gt;
+&lt;li&gt;a new reduction procedure called &lt;tt&gt;native_compute&lt;/tt&gt; to evaluate terms
+  using the OCaml native compiler, for proofs with large computational
+  steps (by Maxime D&amp;eacute;n&amp;egrave;s).&lt;/li&gt;
+&lt;/ul&gt;
+
+More information about the changes from 8.4 to 8.5 can be found in
+the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.5beta1/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file. Feedback and
+&lt;a href=&quot;https://coq.inria.fr/bugs&quot;&gt;bug reports&lt;/a&gt; are extremely welcome. Enjoy!
+
+ </content><id>https://coq.inria.fr/news/coq-85beta1-is-out.html</id><title type="text">Coq 8.5 beta 1 is out!</title><updated>2015-01-21T15:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-84pl5-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;Version &lt;a href=&quot;https://coq.inria.fr/coq-84&quot;&gt;8.4pl5&lt;/a&gt; of Coq fixes several bugs of version 8.4pl4 including the compatibility with OCaml 4.02. More information to be found in the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.4pl5/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-84pl5-is-out.html</id><title type="text">Coq 8.4pl5 is out</title><updated>2014-10-31T06:11:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-is-hiring-a-specialized-engineer-for-2-years.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;As part of the ADT Coq-API, we are now offering a 2-year position for a specialized engineer.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-is-hiring-a-specialized-engineer-for-2-years.html</id><title type="text">Coq is hiring a specialized engineer for 2 years</title><updated>2014-07-18T11:41:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-84pl4-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;Version 8.4pl4 of Coq fixes several bugs of version 8.4pl3 including 3 critical ones. More information to be found in the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.4pl4/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file.&lt;/p&gt;
+&lt;p&gt;WARNING: The current logic of Coq is now known to be inconsistent with Axiom prop_extensionality :&lt;br/&gt;
+forall A B:Prop, (A &amp;lt;-&amp;gt; B) -&amp;gt; A = B.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-84pl4-is-out.html</id><title type="text">Coq 8.4pl4 is out</title><updated>2014-05-12T11:11:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-received-acm-software-system-2013-award.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;After the &lt;a href=&quot;https://coq.inria.fr/news/coq-received-acm-sigplan-programming-languages-software-2013-award&quot;&gt;ACM SIGPLAN Programming Languages Sofware 2013 Award&lt;/a&gt;, Coq received the &lt;a href=&quot;http://awards.acm.org/software_system/&quot;&gt;ACM Software System 2013 award&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The recipients of the award are thanking all &lt;a href=&quot;https://coq.inria.fr/who-did-what-in-coq&quot;&gt;developers&lt;/a&gt; who contributed to the success of Coq, the users who illustrated how to use Coq for so many impressive projects in formal certification, programming, logic, formalization of mathematics and teaching as well as the whole surrounding scientific community in proof theory, type theory, programming languages, interactive theorem proving.&lt;/p&gt;
+&lt;p&gt;All over 30 years, Coq also benefited from the trust and support from Inria and from its partners, CNRS, ENS Lyon, University Paris-Sud, &amp;Eacute;cole Polytechnique, University Paris-Diderot.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-received-acm-software-system-2013-award.html</id><title type="text">Coq received ACM Software System 2013 award</title><updated>2014-04-19T08:45:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-source-repository-migrated-to-git.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The main source repository for Coq on &lt;a href=&quot;http://coq.gforge.inria.fr&quot;&gt;gforge.inria.fr&lt;/a&gt; is now using git instead of subversion.&lt;/p&gt;
+&lt;p&gt;For accessing this new repository, see the &lt;a href=&quot;https://gforge.inria.fr/scm/?group_id=269&quot;&gt;&amp;quot;sources&amp;quot; page&lt;/a&gt; of the &lt;a href=&quot;http://coq.gforge.inria.fr&quot;&gt;coq project on gforge&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;More details could be found on the &lt;a href=&quot;https://coq.inria.fr/cocorico/MigrationGit&quot;&gt;wiki page&lt;/a&gt; about this transition.&lt;/p&gt;
+&lt;p&gt;Happy git cloning :-)&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-source-repository-migrated-to-git.html</id><title type="text">Coq source repository migrated to git</title><updated>2013-11-22T15:08:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-received-acm-sigplan-programming-languages-software-2013-award.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The development of Coq has been initiated in 1984 at INRIA by Thierry Coquand and G&amp;eacute;rard Huet, then joined by Christine Paulin-Mohring and more than 40 direct &lt;a href=&quot;https://coq.inria.fr/who-did-what-in-coq&quot;&gt;contributors&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The first public release was CoC 4.10 in 1989. Extended with native inductive types, it was renamed Coq in 1991.&lt;/p&gt;
+&lt;p&gt;Since then, a growing community of users has shared its enthousiasm in the originality of the concepts of Coq and of its various features, as a richly-typed programming language and as an interactive theorem prover.&lt;/p&gt;
+&lt;p&gt;Look &lt;a href=&quot;http://www.sigplan.org/Awards/Software/Main&quot;&gt;here&lt;/a&gt; for more on the award.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-received-acm-sigplan-programming-languages-software-2013-award.html</id><title type="text">Coq received ACM SIGPLAN Programming Languages Software 2013 award</title><updated>2013-06-30T16:26:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-84-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The final release of Coq 8.4 is now &lt;a href=&quot;https://coq.inria.fr/coq-84&quot;&gt;available&lt;/a&gt;. Its features among other things a modular and uniform extension of the arithmetical libraries and a new proof engine providing bullets. See the &lt;a href=&quot;https://coq.inria.fr/coq-84&quot;&gt;dedicated&lt;/a&gt; page or &lt;a href=&quot;https://coq.inria.fr/download&quot;&gt;download&lt;/a&gt; page for more details.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-84-is-out.html</id><title type="text">Coq 8.4 is out!</title><updated>2012-08-12T12:16:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/release-candidate-of-coq-84-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;Coq 8.4 is available as a release candidate. More on the &lt;a href=&quot;https://coq.inria.fr/coq-84&quot;&gt;Coq 8.4&lt;/a&gt; web page...&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/release-candidate-of-coq-84-is-out.html</id><title type="text">Release candidate of Coq 8.4 is out</title><updated>2012-08-08T21:28:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/beta-release-of-coq-84.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;Coq 8.4 is available for beta-testing. More on the &lt;a href=&quot;https://coq.inria.fr/coq-84&quot;&gt;Coq 8.4&lt;/a&gt; web page...&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/beta-release-of-coq-84.html</id><title type="text">Beta-release of Coq 8.4</title><updated>2011-12-27T19:38:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-83pl3-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;Version 8.3pl3 of Coq fixes several bugs of version 8.3pl2. At the same time, new patch-level releases of 8.1 and 8.2 have been released to fix critical bugs related to sort-polymorphism of inductive types.&lt;/p&gt;
+&lt;p&gt;For 8.3pl3, see the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.3pl3/CHANGES.updated&quot;&gt;CHANGES&lt;/a&gt; file for a selected list of changes since 8.3pl2.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-83pl3-is-out.html</id><title type="text">Coq 8.3pl3 is out</title><updated>2011-12-27T10:30:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-workshop-2011.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;http://www.cs.ru.nl/~spitters/coqw.html&quot;&gt;Coq Workshop 2011&lt;/a&gt; will be held on August 26 at Nijmegen, as part of ITP 2011.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-workshop-2011.html</id><title type="text">Coq Workshop 2011</title><updated>2011-04-25T17:53:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/3rd-asian-pacific-summer-school-on-formal-methods.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;http://kyhcs.ustcsz.edu.cn/fmschool-2011&quot;&gt;3rd Asian-Pacific Summer School on Formal Methods&lt;/a&gt; will be held in Suzhou, China in August 13-21, 2011. &lt;/p&gt;
+&lt;p&gt;The objective is to teach students the principles and practice of programming with the proof assistant Coq, as in previous years (2009 and 2010), and to show them the state of art applications of proof assistants and theorem provers in formal methods.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/3rd-asian-pacific-summer-school-on-formal-methods.html</id><title type="text">3rd Asian-Pacific Summer School on Formal Methods</title><updated>2011-04-25T17:53:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-83pl2-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;Version 8.3pl2 of Coq fixes several bugs of version 8.3pl1. In particular, it provides compatibility for compiling Coq from sources with the latest versions of Objective Caml and Camlp5. More information to be found in the &lt;a href=&quot;https://coq.inria.fr/distrib/8.3pl2/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-83pl2-is-out.html</id><title type="text">Coq 8.3pl2 is out</title><updated>2011-04-25T17:44:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-83-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;We are pleased to announce the final release of &lt;a href=&quot;https://coq.inria.fr/download&quot;&gt;Coq 8.3&lt;/a&gt; which includes a new tactic (&lt;code&gt;nsatz&lt;/code&gt;, standing for Hilbert's NullStellensatz, that extends &lt;code&gt;ring&lt;/code&gt; to systems of polynomial equations) and a few new libraries (a certification of mergesort, a new library of finite sets with computational and logical contents separated).&lt;/p&gt;
+&lt;p&gt;This version also comes with many improvements of existing features, especially regarding the tactics, the module system, extraction, the type classes, the program command, libraries, coqdoc. Here is an excerpt:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;new operator &lt;code&gt;&amp;lt;+&lt;/code&gt; for conveniently chaining application of functors&lt;/li&gt;
+&lt;li&gt;new round of extension of the modular library of arithmetic&lt;/li&gt;
+&lt;li&gt;support for matching terms with binders in Ltac,&lt;/li&gt;
+&lt;li&gt;linking notations in coqdoc,&lt;/li&gt;
+&lt;li&gt;quote tactic now working on arbitrary expressions,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Lemma&lt;/code&gt; and co accept parameters that are automatically introduced,&lt;/li&gt;
+&lt;li&gt;interactive proofs in module types,&lt;/li&gt;
+&lt;li&gt;a beautifying coqc option for pretty-printing files&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;See the file &lt;a href=&quot;https://coq.inria.fr/distrib/V8.3/CHANGES&quot;&gt;CHANGES&lt;/a&gt; for a full log of changes.&lt;/p&gt;
+&lt;p&gt;Even if we try to preserve compatibility as much as possible with Coq 8.2, we had to arbitrate for a break of behavior in some situations. The major incompatibilities can be easily treated by using the new &lt;code&gt;-compat 8.2&lt;/code&gt; option or by setting/unsetting adequate options. See &lt;a href=&quot;https://coq.inria.fr/distrib/V8.3/COMPATIBILITY&quot;&gt;COMPATIBILITY&lt;/a&gt; for details and migration recommendations.&lt;/p&gt;
+&lt;p&gt;In addition to the &amp;quot;ssreflect&amp;quot; plugin, extension packages we are aware about include the following (but probably there are more):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the &lt;code&gt;Heq&lt;/code&gt; library for smooth rewriting using heterogeneous equality by C.-K. Hur;&lt;/li&gt;
+&lt;li&gt;the &lt;code&gt;aac_tactics&lt;/code&gt; plugin for rewriting modulo associativity and commutativity by T. Braibant and D. Pous.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Note also the following user contributions submitted since 8.2 was released:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Projective geometry in plane and space (N. Magaud, J. Narboux, P. Schreck)&lt;/li&gt;
+&lt;li&gt;Proofs of Quicksort's worst- and average-case complexity (Eelis)&lt;/li&gt;
+&lt;li&gt;Tactic that helps to prove inductive lemmas by fixpoint &amp;quot;descente infinie&amp;quot; functions (M. Li)&lt;/li&gt;
+&lt;li&gt;A tactic for deciding Kleene algebras (T. Braibant and D. Pous)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you want to try it, go to the &lt;a href=&quot;https://coq.inria.fr/download&quot;&gt;download&lt;/a&gt; page.&lt;/p&gt;
+&lt;p&gt;The Coq development team&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-83-is-out.html</id><title type="text">Coq 8.3 is out !</title><updated>2010-10-14T16:45:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/alpha-release-of-coq-modulo-theories.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;Coq Modulo Theories (CoqMT) is an extension of the Coq proof assistant (8.2) that embeds, in its computational mechanism, validity entailment for user-defined first-order equational theories.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;http://pierre-yves.strub.nu/research/coqmt/&quot;&gt;alpha-release&lt;/a&gt; is out.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/alpha-release-of-coq-modulo-theories.html</id><title type="text">Alpha-release of Coq Modulo Theories</title><updated>2010-06-22T22:10:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/2nd-asian-pacific-coq-summer-school.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;http://web.archive.org/web/20121013110608/http://formes.asia/cms/coqschool/2010&quot;&gt;2nd Asian-Pacific Coq Summer School&lt;/a&gt; will take place from the 20th to the 27th of August 2010 at Tsinghua University, Beijing, China.&lt;/p&gt;
+&lt;p&gt;This summer school will provide an up-to-date one-week introduction by European experts to the Coq proof assistant. This course is intended to Master and PhD students, and professors and researchers interested in learning how to use this state-of-the-art tool.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/2nd-asian-pacific-coq-summer-school.html</id><title type="text">2nd Asian-Pacific Coq Summer School</title><updated>2010-06-09T09:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-workshop-2010.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The Coq Workshop 2010 will be held on July 9 at Edinburgh. The program is &lt;a href=&quot;https://coq.inria.fr/coq-workshop/2010&quot;&gt;out&lt;/a&gt;.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-workshop-2010.html</id><title type="text">Coq Workshop 2010</title><updated>2010-05-27T23:18:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-83-beta-version.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The Coq developpers are pleased to announce the release of the &lt;em&gt;beta&lt;/em&gt; version of Coq 8.3. This release intends to give the curious and impatient users of Coq a flavour of what Coq 8.3 will be. To see what is new in this version of Coq, please refer to the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.3-beta0/CHANGES&quot;&gt;CHANGES&lt;/a&gt; file.&lt;/p&gt;
+&lt;p&gt;Please be aware that this release should be considered as &lt;strong&gt;unstable&lt;/strong&gt;, and should not be used as a production environment. &lt;/p&gt;
+&lt;p&gt;Now that you have been warned, you can download the &lt;a href=&quot;https://coq.inria.fr/distrib/V8.3-beta0/files/coq-8.3-beta0-1.tar.gz&quot;&gt;source files&lt;/a&gt;.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-83-beta-version.html</id><title type="text">Coq 8.3 beta version</title><updated>2010-02-16T17:44:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/announcing-ssreflect-version-12.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The Mathematical Components Team, at the Microsoft Research-Inria Joint Center released a new version of Ssreflect, an powerful extension for Coq. For more information, read the official announcement:&lt;/p&gt;
+&lt;p&gt;&amp;laquo;&lt;br/&gt;
+We are pleased to announce the new release of the Ssreflect&lt;br/&gt;
+extension library for the Coq proof assistant, version&lt;br/&gt;
+8.2/8.2pl1. This release includes:&lt;br/&gt;
+- an update of the tactic language which complies with the new version&lt;br/&gt;
+  of Coq;&lt;br/&gt;
+- an update of the combinatoric libraries distributed in the previous&lt;br/&gt;
+  release of ssreflect;&lt;br/&gt;
+- a new set of libraries for abstract algebra.&lt;/p&gt;
+&lt;p&gt;The name Ssreflect stands for &amp;quot;small scale reflection&amp;quot;, a style of&lt;br/&gt;
+proof that evolved from the computer-checked proof of the Four Colour&lt;br/&gt;
+Theorem and which leverages the higher-order nature of Coq's&lt;br/&gt;
+underlying logic to provide effective automation for many small,&lt;br/&gt;
+clerical proof steps. This is often accomplished by restating&lt;br/&gt;
+(&amp;quot;reflecting&amp;quot;) problems in a more concrete form, hence the name. For&lt;br/&gt;
+example, in the Ssreflect library arithmetic comparison is not an&lt;br/&gt;
+abstract predicate, but a function computing a boolean.&lt;/p&gt;
+&lt;p&gt;Along with documentation, also available at&lt;br/&gt;
+&lt;a href=&quot;https://hal.inria.fr/inria-00258384&quot; title=&quot;https://hal.inria.fr/inria-00258384&quot;&gt;https://hal.inria.fr/inria-00258384&lt;/a&gt; the Ssreflect distribution&lt;br/&gt;
+comprises two parts:&lt;br/&gt;
+- A new tactic language, which promotes more structured, concise and&lt;br/&gt;
+  robust proof scripts, and is in fact independent from the &amp;quot;reflection&amp;quot;&lt;br/&gt;
+  proof style. It is implemented as a linkable extension to the Coq&lt;br/&gt;
+  system.&lt;br/&gt;
+- A set of Coq libraries that provide core &amp;quot;reflection-oriented&amp;quot;&lt;br/&gt;
+  theories for&lt;br/&gt;
+  + basic combinatorics: arithmetic, lists, graphs, and finite sets.&lt;br/&gt;
+  + abstract algebra: an algebraic hierarchy from&lt;br/&gt;
+    additive groups to closed fields, polynomials, matrix,&lt;br/&gt;
+    basic finite group theory, infrastructure for finite summations,...)&lt;/p&gt;
+&lt;p&gt;Some features of the tactic language:&lt;br/&gt;
+- It provides tacticals for most structural steps (e.g., moving&lt;br/&gt;
+  assumptions), so that script steps mostly match logical steps.&lt;br/&gt;
+- It provides tactics and tatical to support structured layout,&lt;br/&gt;
+  including reordering subgoals and supporting &amp;quot;without loss of&lt;br/&gt;
+  generality&amp;quot; arguments.&lt;br/&gt;
+- It provides a powerful rewriting tactic that supports chained&lt;br/&gt;
+  rules, automatic unfolding of definitions and conditional rewriting,&lt;br/&gt;
+  as well as precise control over where and how much rewriting occurs.&lt;br/&gt;
+- It can be used in combination with the classic Coq tactic language.&lt;/p&gt;
+&lt;p&gt;Some features of the library:&lt;br/&gt;
+- Exploits advanced features of Coq such as coercions and canonical&lt;br/&gt;
+  projections to build generic theories (e.g., for decidable equality).&lt;br/&gt;
+- Uses rewrite rules and dependent predicate families to state&lt;br/&gt;
+  lemmas that can be applied deeply and bidirectionally. This means&lt;br/&gt;
+  fewer structural steps and a smaller library, respectively.&lt;br/&gt;
+- Uses boolean functions to represent sets (i.e., comprehensions),&lt;br/&gt;
+  rather than an ad hoc set algebra.&lt;/p&gt;
+&lt;p&gt;The Ssreflect 1.2 distribution is available at&lt;br/&gt;
+   &lt;a href=&quot;http://www.msr-inria.inria.fr/projects/mathematical-components-2/&quot; title=&quot;http://www.msr-inria.inria.fr/projects/mathematical-components-2/&quot;&gt;http://www.msr-inria.inria.fr/projects/mathematical-components-2/&lt;/a&gt;&lt;br/&gt;
+It is distributed under either one (your choice) of the CeCILL-B or CeCILL&lt;br/&gt;
+version 2 licences (the French equivalent of the BSD and GNU GPL licenses,&lt;br/&gt;
+respectively).&lt;/p&gt;
+&lt;p&gt;The tactic language is quite stable; we have been using it&lt;br/&gt;
+internally for three years essentially without change. We will support&lt;br/&gt;
+new releases of Coq in due course. We also plan to extend the core&lt;br/&gt;
+library as our more advanced work on general and linear algebra&lt;br/&gt;
+progresses.&lt;/p&gt;
+&lt;p&gt;Comments and bug reports are of course most welcome, and can be&lt;br/&gt;
+directed at ssreflect(at-sign)msr-inria.inria.fr. To subscribe, either&lt;br/&gt;
+send an email to &lt;a href=&quot;mailto:sympa@msr-inria.inria.fr&quot;&gt;sympa@msr-inria.inria.fr&lt;/a&gt;, whose title contains the&lt;br/&gt;
+word ssreflect, or use the following web interface:&lt;br/&gt;
+&lt;a href=&quot;https://sympa.inria.fr/sympa/info/ssreflect&quot; title=&quot;https://sympa.inria.fr/sympa/info/ssreflect&quot;&gt;https://sympa.inria.fr/sympa/info/ssreflect&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Enjoy!&lt;/p&gt;
+&lt;p&gt;The Mathematical Components Team, at the Microsoft Research-Inria&lt;br/&gt;
+Joint Center&lt;br/&gt;
+&amp;raquo;&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/announcing-ssreflect-version-12.html</id><title type="text">Announcing Ssreflect version 1.2</title><updated>2009-08-19T12:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/coq-82pl1-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;A new patch level for Coq 8.2 is now available. You can get it from the &lt;a href=&quot;https://coq.inria.fr/download&quot;&gt;download&lt;/a&gt; page.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/coq-82pl1-is-out.html</id><title type="text">Coq 8.2pl1 is out !</title><updated>2009-07-04T03:47:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/a-tactic-for-deciding-kleene-algebras.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;Thomas Braibant and Damien Pous are pleased to announce the first release of ATBR, a Coq library whose aim is to provide tools for working with various algebraic structures, including non-commutative idempotent semirings and Kleene algebras.&lt;/p&gt;
+&lt;p&gt;The main tactic they provide in this library is a reflexive tactic for solving (in)equations in Kleene algebras. The decision procedure goes through standard finite automata constructions, that they formalized.&lt;/p&gt;
+&lt;p&gt;For example, this tactic automatically solves goals of the form &lt;code&gt;a#*(b+a#*(1+c))# == (a+b+c)# or a*b*c*a*b*c*a# &amp;lt;= a#*(b*c+a)#&lt;/code&gt;, where &lt;code&gt;a&lt;/code&gt;, &lt;code&gt;b&lt;/code&gt;, and &lt;code&gt;c&lt;/code&gt; are elements of an arbitrary Kleene algebra (binary relations, regular languages, min-max expressions...), &lt;code&gt;#&lt;/code&gt; is the (postfix) star operation, &lt;code&gt;*&lt;/code&gt; is the infix product or concatenation operation, &lt;code&gt;+&lt;/code&gt; is the sum or union operation, and &lt;code&gt;1&lt;/code&gt; is the neutral element for &lt;code&gt;*&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;In order to define this tactic, they had to work with matrices, so that the ATBR library also contains a new formalisation of matrices in Coq along with a set of tools (notably, &amp;quot;ring&amp;quot;-like tactic for matrices whose dimensions are not necessarily uniform).&lt;/p&gt;
+&lt;p&gt;More details can be found from &lt;a href=&quot;https://github.com/coq-contribs/atbr&quot;&gt; Coq user contribution web-page&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In particular, a Coq file illustrating the kind of tools we provide can be found &lt;a href=&quot;https://github.com/coq-contribs/atbr/blob/master/Examples.v&quot;&gt;there&lt;/a&gt;.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/a-tactic-for-deciding-kleene-algebras.html</id><title type="text">A tactic for deciding Kleene algebras</title><updated>2009-06-09T20:58:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/first-asian-pacific-coq-summer-school.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The first &lt;a href=&quot;http://web.archive.org/web/20090816082838/http://coqschool-asia.org/wiki/Start/&quot;&gt;Asian-Pacific Coq summer school&lt;/a&gt; will be held in China, in the Future Internet Technology Research Center (FIT) of Tsinghua University, from 24&lt;sup&gt;th&lt;/sup&gt; to 30&lt;sup&gt;th&lt;/sup&gt;, august 2009.&lt;/p&gt;
+
+&lt;p&gt;More information and registration on the &lt;a href=&quot;http://web.archive.org/web/20090816082838/http://coqschool-asia.org/wiki/Start/&quot;&gt;Asian-Pacific Coq summer school&lt;/a&gt; web page.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/first-asian-pacific-coq-summer-school.html</id><title type="text">First Asian-Pacific Coq Summer School</title><updated>2009-03-31T14:21:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/the-coq-workshop-2009.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;h3&gt;Call for papers&lt;/h3&gt;
+&lt;p&gt;The Coq workshop will bring together Coq users, developers and&lt;br/&gt;
+contributors. The workshop will be organized from submitted papers,&lt;br/&gt;
+invited talks and a plenary discussion on the evolution and design of&lt;br/&gt;
+Coq. Topics for submitting a paper include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Language or tactics features&lt;/li&gt;
+&lt;li&gt;Theory and implementation of the Calculus of Inductive Constructions&lt;/li&gt;
+&lt;li&gt;Applications and experience in education and industry&lt;/li&gt;
+&lt;li&gt;Tools, platforms built on Coq&lt;/li&gt;
+&lt;li&gt;Plugins, libraries for Coq&lt;/li&gt;
+&lt;li&gt;Interfacing with Coq&lt;/li&gt;
+&lt;li&gt;Formalization tricks and Coq pearls&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Authors should send their papers to &lt;a href=&quot;mailto:Hugo.Herbelin@inria.fr&quot;&gt;Hugo.Herbelin@inria.fr&lt;/a&gt;. Submitted&lt;br/&gt;
+papers should be in (postscript or) portable document format. Papers&lt;br/&gt;
+should not exceed 12 pages in length in single-column full-page 11pt A4&lt;br/&gt;
+style.&lt;/p&gt;
+&lt;p&gt;If there is sufficient demand, we will try to organize a time slot for&lt;br/&gt;
+demonstrations. Similarly, we may also organize a session on the lessons&lt;br/&gt;
+learned from teaching Coq. If you are interested, please send a brief&lt;br/&gt;
+proposal.&lt;/p&gt;
+&lt;h3&gt;Venue:&lt;/h3&gt;
+&lt;p&gt; &lt;a href=&quot;http://itp2013.inria.fr/history.html&quot;&gt;TPHOLs 2009&lt;/a&gt;, Munich, Germany&lt;/p&gt;
+&lt;h3&gt;Important Dates:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Papers Due: May 11, 2009&lt;/li&gt;
+&lt;li&gt;Acceptance Notification: June 23, 2009&lt;/li&gt;
+&lt;li&gt;Workshop: August 21, 2009&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Program committee:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Yves Bertot&lt;/li&gt;
+&lt;li&gt;Fr&amp;eacute;d&amp;eacute;ric Blanqui&lt;/li&gt;
+&lt;li&gt;Jacek Chrz&amp;#261;czsz&lt;/li&gt;
+&lt;li&gt;Eduardo Gim&amp;eacute;nez&lt;/li&gt;
+&lt;li&gt;Georges Gonthier&lt;/li&gt;
+&lt;li&gt;Hugo Herbelin (chair)&lt;/li&gt;
+&lt;li&gt;Greg Morrisett&lt;/li&gt;
+&lt;li&gt;David Nowak&lt;/li&gt;
+&lt;li&gt;Benjamin Pierce&lt;/li&gt;
+&lt;/ul&gt;
+
+ </content><id>https://coq.inria.fr/news/the-coq-workshop-2009.html</id><title type="text">The Coq workshop 2009</title><updated>2009-03-25T12:37:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/announcing-lngen.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;Stephanie Weirich and Brian Aydemir are pleased to announce 
+&lt;a href=&quot;http://web.archive.org/web/20100716005113/http://www.cis.upenn.edu/~baydemir/papers/lngen/&quot;&gt;LNgen&lt;/a&gt;, 
+a prototype tool for generating Coq code for the infrastructure associated with a
+locally nameless representation. This work builds upon their work with
+Chargu&amp;eacute;raud, Pierce, and Pollack on Engineering Formal Metatheory,
+where they described a locally nameless strategy for representing
+languages with binding.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://web.archive.org/web/20100716005113/http://www.cis.upenn.edu/~baydemir/papers/lngen/&quot;&gt;LNgen&lt;/a&gt; uses a subset of the &lt;a href=&quot;http://www.cl.cam.ac.uk/~pes20/ott/&quot;&gt;Ott specification language&lt;/a&gt; as its input
+language. Currently, it supports the definition of syntax with single
+binders. Compared to the recently announced &lt;a href=&quot;http://www.di.ens.fr/~zappa/projects/ln_ott/&quot;&gt;locally nameless backend
+for Ott&lt;/a&gt;, LNgen does not handle the definition of relations, but it
+does generate a large collection of &amp;quot;infrastructure&amp;quot; lemmas and their
+proofs, e.g., facts about substitution.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/announcing-lngen.html</id><title type="text">Announcing LNgen</title><updated>2009-03-11T20:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/a-locally-nameless-backend-for-ott.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;a href=&quot;http://www.cl.cam.ac.uk/~pes20/ott/&quot;&gt;Ott&lt;/a&gt; tool, 
+developed by  Peter Sewell and Francesco Zappa Nardelli,
+has recently been extended to compile language definitions
+to a Coq representation in locally-nameless style with cofinite 
+quantification, as popularised in Engineering Formal Metatheory by
+Aydemir, Chargu&amp;eacute;raud, Pierce, Pollack and Weirich. It deals with the
+single-binder case only.&lt;/p&gt;
+&lt;p&gt;Some examples (including STLC, Fsub, and the nu-calculus of Pitts and
+Stark) and the documentation are available from the &lt;a href=&quot;http://www.di.ens.fr/~zappa/projects/ln_ott/&quot;&gt;ln-ott page&lt;/a&gt; and the 
+&lt;a href=&quot;http://www.cl.cam.ac.uk/~pes20/ott/&quot;&gt;project web-site&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This is related to the recent &lt;a href=&quot;http://web.archive.org/web/20100716005113/http://www.cis.upenn.edu/~baydemir/papers/lngen/&quot;&gt;LNgen&lt;/a&gt; tool of Brian Aydemir and Stephanie Weirich.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/a-locally-nameless-backend-for-ott.html</id><title type="text">A locally-nameless backend for Ott</title><updated>2009-03-10T12:29:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/68.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;Coq 8.2 brings Haskell-style type classes, various evolutions of the arithmetic libraries, and many other various improvements and extensions regarding the module system, tactics, syntax, etc. You can download it from &lt;a href=&quot;https://coq.inria.fr/download&quot;&gt;this page&lt;/a&gt;.&lt;br/&gt;
+Enjoy!&lt;/p&gt;
+&lt;p&gt;The Coq development team&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/68.html</id><title type="text">Coq 8.2 has arrived</title><updated>2009-02-15T12:08:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/67.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;A release candidate for Coq 8.2 is now out ! You can download it from &lt;a href=&quot;https://coq.inria.fr/coq-82-rc&quot;&gt;this page&lt;/a&gt;.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/67.html</id><title type="text">Coq 8.2 release candidate</title><updated>2009-01-23T20:27:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/65.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The patch level 4 release of Coq 8.1 is out. See the download page.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/65.html</id><title type="text">Bug-fix release for Coq 8.1</title><updated>2008-12-08T16:09:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/62.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The &lt;em&gt;beta&lt;/em&gt; release of Coq 8.2 is now out. For more informations, look at this &lt;a href=&quot;https://coq.inria.fr/coq-82-beta&quot;&gt;page&lt;/a&gt;.&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/62.html</id><title type="text">Release of Coq 8.2 (beta)</title><updated>2008-06-17T11:23:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/59.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;The Microsoft Research-Inria Joint Center is pleased to announce&lt;br/&gt;
+the first full release of the Ssreflect extension library for the Coq&lt;br/&gt;
+proof assistant, version 8.1.&lt;/p&gt;
+&lt;p&gt;The name Ssreflect stands for &amp;quot;small scale reflection&amp;quot;, a style of&lt;br/&gt;
+proof that evolved from the computer-checked proof of the Four Colour&lt;br/&gt;
+Theorem and which leverages the higher-order nature of Coq's&lt;br/&gt;
+underlying logic to provide effective automation for many small,&lt;br/&gt;
+clerical proof steps. This is often accomplished by restating&lt;br/&gt;
+(&amp;quot;reflecting&amp;quot;) problems in a more concrete form, hence the name. For&lt;br/&gt;
+example, in the Ssreflect library arithmetic comparison is not an&lt;br/&gt;
+abstract predicate, but a function computing a boolean.&lt;/p&gt;
+&lt;p&gt;Along with documentation, also available at&lt;br/&gt;
+   &lt;a href=&quot;https://hal.inria.fr/inria-00258384&quot; title=&quot;https://hal.inria.fr/inria-00258384&quot;&gt;https://hal.inria.fr/inria-00258384&lt;/a&gt; the Ssreflect distribution&lt;br/&gt;
+comprises two parts:&lt;br/&gt;
+- A new tactic language, which promotes more structured, concise and&lt;br/&gt;
+robust proof scripts, and is in fact independent from the &amp;quot;reflection&amp;quot;&lt;br/&gt;
+proof style. It is implemented as a linkable extension to the Coq&lt;br/&gt;
+system.&lt;br/&gt;
+- A set of Coq libraries that provide core &amp;quot;reflection-oriented&amp;quot;&lt;br/&gt;
+theories for basic combinatorics (roughly: arithmetic, lists, and&lt;br/&gt;
+finite sets).&lt;/p&gt;
+&lt;p&gt;Some features of the tactic language:&lt;br/&gt;
+- It provides tacticals for most structural steps (e.g., moving&lt;br/&gt;
+assumptions), so that script steps mostly match logical steps.&lt;br/&gt;
+- It provides tactics and tactical to support structured layout,&lt;br/&gt;
+including reordering subgoals and supporting &amp;quot;without loss of&lt;br/&gt;
+generality&amp;quot; arguments.&lt;br/&gt;
+- It provides a powerful rewriting tactic that supports chained&lt;br/&gt;
+rules, automatic unfolding of definitions and conditional rewriting,&lt;br/&gt;
+as well as precise control over where and how much rewriting occurs.&lt;br/&gt;
+- It can be used in combination with the classic Coq tactic&lt;br/&gt;
+language.&lt;/p&gt;
+&lt;p&gt;Some features of the library:&lt;br/&gt;
+- Exploits advanced features of Coq such as coercions an canonical&lt;br/&gt;
+projections to build generic theories (e.g., for decidable equality).&lt;br/&gt;
+- Uses rewrite rules and dependent predicate families to state&lt;br/&gt;
+lemmas that can be applied deeply and bidirectionally. This means&lt;br/&gt;
+fewer structural steps and a smaller library, respectively.&lt;br/&gt;
+- Uses boolean functions to represent sets (i.e., comprehensions),&lt;br/&gt;
+rather than an ad hoc set algebra.&lt;/p&gt;
+&lt;p&gt;The Ssreflect 1.1 distribution is available at&lt;br/&gt;
+ &lt;a href=&quot;http://www.msr-inria.inria.fr/projects/mathematical-components-2/&quot; title=&quot;http://www.msr-inria.inria.fr/projects/mathematical-components-2/&quot;&gt;http://www.msr-inria.inria.fr/projects/mathematical-components-2/&lt;/a&gt;. It is&lt;br/&gt;
+distributed under the CeCill-B license (the French equivalent of the&lt;br/&gt;
+BSD license).&lt;/p&gt;
+&lt;p&gt;The tactic language is quite stable; we have been using it&lt;br/&gt;
+internally for two years essentially without change. We will support&lt;br/&gt;
+new releases of Coq in due course. We also plan to extend the core&lt;br/&gt;
+library as our more advanced work on general and linear algebra&lt;br/&gt;
+progresses.&lt;/p&gt;
+&lt;p&gt;Comments and bug reports are of course most welcome, and can be&lt;br/&gt;
+directed at ssreflect(at-sign)msr-inria.inria.fr. To subscribe, either&lt;br/&gt;
+send an email to &lt;a href=&quot;mailto:sympa@msr-inria.inria.fr&quot;&gt;sympa@msr-inria.inria.fr&lt;/a&gt;, whose title contains the&lt;br/&gt;
+word ssreflect, or use the following web interface:&lt;br/&gt;
+ &lt;a href=&quot;https://sympa.inria.fr/sympa/info/ssreflect&quot; title=&quot;https://sympa.inria.fr/sympa/info/ssreflect&quot;&gt;https://sympa.inria.fr/sympa/info/ssreflect&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Enjoy!&lt;/p&gt;
+&lt;p&gt;The Mathematical Components Team,&lt;br/&gt;
+at the Microsoft Research-Inria Joint Center&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/59.html</id><title type="text">Announcing Ssreflect 1.1</title><updated>2008-06-06T12:52:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/58.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+Fr&amp;eacute;d&amp;eacute;ric Blanqui is pleased to announce  a new release of CoLoR.
+&lt;br/&gt; You can download it and find more details on &lt;a href=&quot;http://color.loria.fr/&quot;&gt;http://color.loria.fr/&lt;/a&gt;.
+&lt;br/&gt; The most important new features are:
+&lt;br/&gt;&lt;br/&gt;
+&lt;ul&gt;
+&lt;li&gt; arctic matrix interpretations [Koprowski, Waldmann]&lt;/li&gt;
+
+&lt;li&gt; strongly connected components of a graph [Ducas]&lt;/li&gt;
+
+&lt;li&gt; decomposition of a termination problem into sub-problems using the SCC decomposition of its dependency graph [Ducas]&lt;/li&gt;
+
+&lt;li&gt; some support for classical reasoning [Blanqui]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;&lt;br/&gt;
+enjoy!
+
+ </content><id>https://coq.inria.fr/news/58.html</id><title type="text">New CoLoR release</title><updated>2008-05-09T13:00:00-00:00</updated><author><name>coq</name></author></entry><entry><link href="https://coq.inria.fr/news/20.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+&lt;p&gt;Apr&amp;egrave;s des mois douloureux de gestation, le nouveau site de Coq est
+  enfin en ligne. Enjoy it !&lt;/p&gt;
+
+ </content><id>https://coq.inria.fr/news/20.html</id><title type="text">Le nouveau site est en ligne !</title><updated>2008-02-15T18:22:00-00:00</updated><author><name>coq</name></author></entry></feed>

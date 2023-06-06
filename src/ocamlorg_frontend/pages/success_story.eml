@@ -1,4 +1,4 @@
-let render (story : Ood.Success_story.t) =
+let render (story : Data.Success_story.t) =
 Layout.render
 ~title:(Printf.sprintf "%s · Success Stories" story.title)
 ~description:story.synopsis
@@ -20,7 +20,7 @@ Layout.render
           </a>
         </div>
         <div class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-4 lg:flex lg:items-center">
-          <img src="/media/<%s story.logo %>" alt="">
+          <img src="<%s Ocamlorg_static.Media.url story.logo %>" alt="">
         </div>
       </div>
     </div>

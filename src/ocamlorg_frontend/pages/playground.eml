@@ -1,5 +1,4 @@
-let render
-() =
+let render ~default_code =
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,15 +15,17 @@ let render
     <meta name="color-scheme" content="white">
     <meta name="”robots”" content="noindex, nofollow">
     <link rel="canonical" href="https://ocaml.org<%s Url.playground %>">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="<%s Ocamlorg_static.Asset.url "favicon.ico" %>">
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/main.css" %>">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/codemirror.css" %>">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
+    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/roboto-mono.css" %>">
     <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
     <script id="playground-script"
       data-merlin-url="<%s Ocamlorg_static.Playground.url "merlin.min.js" %>"
       data-worker-url="<%s Ocamlorg_static.Playground.url "worker.min.js" %>"
+      data-default-code="<%s default_code %>"
       src="<%s Ocamlorg_static.Playground.url "playground.min.js" %>" defer></script>
     <title>OCaml Playground</title>
   </head>
@@ -40,12 +41,13 @@ let render
             <div
               class="bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4 absolute w-full bottom-0 z-10"
             >
-              <div class="flex w-full justify-end items-center px-4">
+              <div class="flex gap-7 w-full justify-end items-center px-4">
                 <button
                   id="share"
-                  class="mr-7 hover:bg-white hover:bg-opacity-10 active:bg-primary-100 active:text-primary-600 p-2 rounded-md text-gray-400"
+                  class="flex gap-2 hover:bg-white hover:bg-opacity-10 active:bg-primary-100 active:text-primary-600 p-2 rounded-md text-gray-400"
                 >
                   <%s! Icons.playground_share "h-6 w-6 stroke-current" %>
+                  Share
                 </button>
                 <button id="run" class="btn btn-md btn-secondary">
                   <span>Run</span>
@@ -88,7 +90,7 @@ let render
             <div x-show="editor && mobile">
               <div class="text-center">
                 <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Coming Soon!</h3>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-100">The OCaml playground does not support mobile yet.</p>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-100">The OCaml Playground does not support mobile yet.</p>
               </div>
             </div>
             <div

@@ -1,3 +1,9 @@
+let search_instructions_html () =
+  <div class="prose text-sm">
+    <p>To focus the search input from anywhere on the page, press the 'S' key.</p>
+    <p>in-package search v0.1.0</p>
+  </div>
+
 let render
 ?styles
 ~(path: Package_breadcrumbs.path)
@@ -8,6 +14,7 @@ let render
 ?page
 ~(package : Package.package)
 ~(documentation_status: Package.documentation_status)
+~(search_index_digest: string option)
 ~left_sidebar_html
 ~right_sidebar_html
 inner =
@@ -17,76 +24,302 @@ Layout.render
 ~title
 ~description
 ?canonical
-~active_top_nav_item:Header.Packages @@
-<div class="bg-white">
-  <div class="py-5 lg:py-6">
-    <div class="container-fluid">
+~active_top_nav_item:Header.Packages
+~footer_html:(Fixed_footer.render ()) @@
+<div class="bg-white"
+  x-on:click="search_instructions = false"
+  x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, 'search_instructions': false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches"
+  >
+  <div class="pt-6">
+    <div class="container-fluid wide">
       <div class="flex justify-between flex-col md:flex-row">
-        <div class="flex flex-col items-baseline">
-          <%s! Package_breadcrumbs.render ~path ?hash ?page package %>
+        <div class="flex flex-col items-baseline" id="htmx-breadcrumbs">
+          <%s! Package_breadcrumbs.render_package_and_version ~path ?hash ?page package %>
         </div>
       </div>
-      <div x-data="{ open: false, sidebar: window.innerWidth >= 768 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth >= 768" x-on:close-sidebar="sidebar=window.innerWidth >= 768 && true">
-        <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed md:hidden right-10"
-        x-on:click="sidebar = ! sidebar">
-          <%s! Icons.sidebar_menu "h-8 w-8" %>
-          <span class="hidden md:flex font-semibold px-2">side menu</span>
-        </button>
-        <div class="fixed z-10 inset-0 bg-background-dark-blue/20 backdrop-blur-sm md:hidden"
-          :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar">
-        </div>
+      <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed md:hidden right-10"
+      x-on:click="sidebar = ! sidebar">
+        <%s! Icons.sidebar_menu "h-8 w-8" %>
+        <span class="hidden md:flex font-semibold px-2">side menu</span>
+      </button>
+      <div class="fixed z-10 inset-0 bg-background-dark-blue/20 backdrop-blur-sm md:hidden"
+        :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar">
+      </div>
 
-        <div class="flex gap-4 xl:gap-8 flex-col md:flex-row mt-6">
-          <ol class="flex w-full md:w-60 lg:w-72 flex-shrink-0">
+      <button title="search" class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-36 fixed md:hidden right-10"
+      x-on:click="document.getElementById('in-package-search-input').focus();">
+        <%s! Icons.magnifying_glass "h-8 w-8" %>
+        <span class="hidden md:flex font-semibold px-2">search</span>
+      </button>
+
+      <div class="flex gap-4 xl:gap-10 flex-col md:flex-row mt-6">
+        <ol class="flex w-full md:w-60 lg:w-72 flex-shrink-0">
+          <li class="flex flex-auto">
+            <a class="w-full h-10 flex justify-center rounded-l-lg p-1 items-center font-semibold border border-r-0 border-primary-700 <%s (match path with | Overview _ -> "bg-primary-700 text-white" | _ -> "text-primary-700")%>" href="<%s Url.Package.overview package.name ?version:(Package.url_version package) %>">Overview</a>
+          </li>
+            <% (match documentation_status with
+            | Success -> %>
             <li class="flex flex-auto">
-              <a class="w-full h-10 flex justify-center rounded-l-lg p-1 items-center font-semibold border border-r-0 border-primary-700 <%s (match path with | Overview _ -> "bg-primary-700 text-white" | _ -> "text-primary-700")%>" href="<%s Url.Package.overview package.name ?version:(Package.url_version package) %>">Overview</a>
+              <a class="w-full h-10 flex justify-center rounded-r-lg p-1 items-center font-semibold border border-l-0  border-primary-700 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-primary-700")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>">Docs</a>
             </li>
-              <% (match documentation_status with
-              | Success -> %>
-              <li class="flex flex-auto">
-                <a class="w-full h-10 flex justify-center rounded-r-lg p-1 items-center font-semibold border border-l-0  border-primary-700 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-primary-700")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>">Docs</a>
-              </li>
-              <% | Unknown -> ( %>
-              <li class="flex flex-auto">
-                <a title="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-background-default")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
-              </li>
-              <% )
-              | Failure -> ( %>
-              <li class="flex flex-auto">
-                <a title="Documentation failed to build!" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0  border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-background-default")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
-              </li>
-              <% ));%>
+            <% | Unknown -> ( %>
+            <li class="flex flex-auto">
+              <a title="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-background-default")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
             </li>
-          </ol>
+            <% )
+            | Failure -> ( %>
+            <li class="flex flex-auto">
+              <a title="Documentation failed to build!" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0  border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-background-default")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
+            </li>
+            <% ));%>
+          </li>
+        </ol>
 
-          <div title="Sorry, in-package search is not yet implemented, but this is where it's going to appear." class="flex w-full items-center">
-            <input disabled type="search" name="q" class="focus:border-gray-800 text-gray-800 bg-gray-300 border-gray-300 h-10 rounded-l-md appearance-none px-4 flex-grow"
-              autocomplete="off"
-              placeholder="Sorry, in-package search is not yet implemented, but this is where it's going to appear :-)">
-            <button disabled aria-label="search" class="h-10 rounded-r-md bg-gray-300 text-gray-800 flex items-center justify-center px-4">
-              <%s! Icons.magnifying_glass "w-6 h-6" %>
-            </button>
+        <div id="in-package-search" class="relative w-full">
+          <div class="flex w-full items-center overflow-hidden">
+            <% if Option.is_some search_index_digest then (%>
+              <input id="in-package-search-input" type="search" name="q" class="min-w-0 focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
+                autocomplete="off"
+                aria-owns="in-package-search-results"
+                aria-expanded="false"
+                aria-autocomplete="list"
+                aria-describedby="search-instructions"
+                placeholder="Search names in this package..."
+                onfocus="this.select(); this.setAttribute('aria-expanded', true)"
+                onblur="this.setAttribute('aria-expanded', false)"
+                >
+              <div aria-hidden="true" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
+                <%s! Icons.magnifying_glass "w-6 h-6" %>
+              </div>
+              <button class="ml-4 btn btn-sm" @click.prevent.stop="search_instructions = !search_instructions" title="show search instructions">
+              <%s! Icons.question_mark_circle "w-6 h-6" %>
+              </button>
+            <% ); %>
+          </div>
+
+          <div id="search-instructions" x-show="search_instructions" class="absolute top-12 p-4 right-0 left-0 bg-white z-[22] w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
+            <%s! search_instructions_html () %>
+          </div>
+
+          <div id="in-package-search-results" class="absolute top-12 right-0 left-0 bg-white z-20 w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
           </div>
         </div>
+      </div>
 
-        <div class="flex md:gap-4 xl:gap-8">
-          <div
-            class="p-10 z-20 bg-white flex-col fixed h-screen overflow-auto md:flex left-0 top-0 md:sticky w-80 md:w-60 lg:w-72 md:p-0 md:pt-6"
-            x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
-            x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
-            x-transition:leave-end="-translate-x-full">
-            <%s! left_sidebar_html %>
-          </div>
-          <div class="flex-1 z-0 z- min-w-0 pt-6">
-            <%s! inner %>
-          </div>
-          <% (if right_sidebar_html <> "" then %>
-          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-52 overflow-auto">
-            <%s! right_sidebar_html %>
-          </div>
-          <% ); %>
+      <div class="flex md:gap-4 xl:gap-10">
+        <div
+          class="p-10 z-20 bg-white flex-col fixed h-screen overflow-auto md:flex left-0 top-0 md:sticky w-80 md:w-60 lg:w-72 md:px-0 md:pt-6 md:pb-24"
+          x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
+          x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
+          x-transition:leave-end="-translate-x-full">
+          <%s! left_sidebar_html %>
         </div>
+
+        <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh]">
+          <%s! inner %>
+        </div>
+        <% (if right_sidebar_html <> "" then %>
+        <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24">
+          <%s! right_sidebar_html %>
+        </div>
+        <% ); %>
       </div>
     </div>
   </div>
 </div>
+<%s! Toc.script %>
+<% (match search_index_digest with | Some(digest) -> %>
+<script src="<%s Ocamlorg_static.Asset. url "vendors/minisearch.min.js" %>"></script>
+<script>
+  function Fuse() {}
+</script>
+<script>
+  {
+    let miniSearch;
+    let results = [];
+
+    function goToUrl(event, location) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (location.indexOf("#") != -1) {
+        let [url, hash] = location.split("#");
+        if (window.location.pathname.startsWith(url)) {
+          window.location.hash = hash;
+
+          setTimeout(() => {
+            var el = document.getElementById(hash);
+            var targetPosition = el.getBoundingClientRect().top + window.scrollY - 70;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: "instant"
+            })
+          }, 10);
+
+          return;
+        }
+      }
+
+      window.location = location;
+    }
+
+    function shortness_factor(r) {
+      return 1 + 2*Math.log(1 + 1/(r.prefixname.length + r.name.length));
+    }
+
+    function perform_search() {
+      let q = document.getElementById("in-package-search-input").value;
+      results = miniSearch.search(q, {
+        fields: ['name', 'prefixname', 'comment'], 
+        prefix: true,
+        boost: {
+          name: 6,
+          prefixname: 2.5,
+          comment: 0.8,
+        },
+        fuzzy: 0.15,
+      }).slice(0,50);
+      results = results.map(r => {return {...r, score: r.score * shortness_factor(r), shortness: shortness_factor(r)}}).sort((r1,r2) => r2.score - r1.score);
+      let container = document.getElementById("in-package-search-results");
+
+      container.innerHTML = ``;
+      let search_results = document.createElement("ol");
+
+      results.map((entry) => {
+          let kind = document.createElement("tt");
+          kind.innerText = entry.kind
+            .replace("module type", "mty").replace("root", "mod").replace("module", "mod")
+            .replace("method", "mtd").replace("class type", "cty").replace("class", "cls")
+            .replace("core type", "typ").replace("type", "typ")
+            .replace("exception", "exc").replace("core exception", "exc")
+            .replace("parameter", "par")
+            .replace("leaf page", "man").replace("page", "man");
+          kind.title = entry.kind;
+          kind.classList.add("entry-kind");
+
+          let list_item = document.createElement("li");
+          let a = document.createElement("a");
+          let href = "/" + entry.url;
+          a.href = href;
+          a.id = "search-result-"+entry.id;
+          a.classList.add("search-entry", kind.innerText.slice(0,3));
+          let title = document.createElement("div");
+          title.classList.add("entry-title");
+
+          let prefixname = document.createElement("tt");
+          prefixname.innerText = entry.prefixname + (entry.prefixname != "" ? ".": "");
+          prefixname.classList.add("prefix-name");
+          let name = document.createElement("tt");
+          name.classList.add("entry-name");
+          name.innerText =  entry.name;
+
+          title.appendChild(kind);
+          title.appendChild(prefixname);
+          title.appendChild(name);
+
+          let comment = document.createElement("div");
+          comment.innerText = entry.comment;
+          comment.classList.add("entry-comment");
+
+          a.appendChild(title);
+          a.appendChild(comment);
+
+          a.addEventListener("click", (event) => goToUrl(event, href));
+
+          list_item.appendChild(a);
+
+          search_results.appendChild(list_item);
+      });
+      container.appendChild(search_results);
+
+      search_results_position = null;
+    }
+
+    function init_search() {
+      documents = documents.map((d, i) => {return {...d, id: i}});
+
+      miniSearch = new MiniSearch({
+        fields: ['name', 'prefixname', 'comment'],
+        storeFields: ['name', 'prefixname', 'kind', 'url', 'comment'],
+      });
+
+      miniSearch.addAll(documents);
+
+      document.getElementById("in-package-search-input").addEventListener("input", perform_search);
+      perform_search();
+    }
+
+    function user_interacts() {
+      let scriptTag = document.createElement("script");
+      scriptTag.src = "<%s Url.Package.search_index ?version:(Package.url_version package) package.name ~digest %>";
+      scriptTag.addEventListener("load", init_search);
+      document.body.appendChild(scriptTag);
+
+      let container = document.getElementById("in-package-search-results");
+      container.innerHTML = `<div class="px-4 py-2">Loading...</div>`;
+
+      document.getElementById("in-package-search-input").removeEventListener("focus", user_interacts);
+    }
+
+    document.getElementById("in-package-search-input").addEventListener("focus", user_interacts);
+
+
+    let search_results_position = null;
+    function adjust_position(event) {
+      if (results.length == 0) return;
+
+      if (event.key == "ArrowDown") {
+        if (search_results_position === null) {
+          search_results_position = 0;
+          return;
+        }
+        if (search_results_position < results.length - 1) {
+          search_results_position++;
+          return;
+        }
+      } else if (event.key == "ArrowUp") {
+        if (search_results_position === null) return;
+
+        if (search_results_position == 0) {
+          search_results_position = null;
+          return;
+        }
+
+        search_results_position--;
+        return;
+      }
+    }
+
+    function keydown(event) {
+      event.stopPropagation();
+      if (event.key == "Enter") {
+        if (results.length > 0) {
+          let url = "/"+results[search_results_position || 0].url;
+          goToUrl(event, url)
+        }
+        return false;
+      }
+
+      if (search_results_position !== null) document.getElementById("search-result-"+results[search_results_position].id).classList.remove("active");
+      adjust_position(event);
+      document.getElementById("in-package-search-input").setAttribute("aria-activedescendant", search_results_position === null ? null : "search-result-"+results[search_results_position].id);
+      if (search_results_position !== null) {
+        let el = document.getElementById("search-result-"+results[search_results_position].id);
+        el.classList.add("active");
+        el.scrollIntoView({block: "end"});
+      }
+    }
+
+    document.getElementById("in-package-search-input").addEventListener("keydown", keydown);
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key == "s") {
+        document.getElementById("in-package-search-input").focus();
+        document.getElementById("in-package-search-input").select();
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    })
+  }
+</script>
+<% | _ -> () ); %>

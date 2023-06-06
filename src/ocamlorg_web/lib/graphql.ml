@@ -34,7 +34,9 @@ let packages_list ?contains ?(sort_by_popularity = false) offset limit
   let results =
     match contains with
     | None -> all_packages
-    | Some q -> Package.search ~sort_by_popularity t q
+    | Some q ->
+        Package.search ~is_author_match:Handler.is_author_match
+          ~sort_by_popularity t q
   in
   List.filteri (fun i _ -> offset <= i && i < offset + limit) results
 
@@ -107,29 +109,6 @@ let info =
             ~resolve:(fun _ (i : package_info) -> i.constraints);
         ])
 
-let owners =
-  Graphql_lwt.Schema.(
-    obj "owners"
-      ~fields:
-        [
-          field "name" ~doc:"Owner's name"
-            ~args:Arg.[]
-            ~typ:(non_null string)
-            ~resolve:(fun _ user -> user.Ood.Opam_user.name);
-          field "email" ~doc:"Owner's email"
-            ~args:Arg.[]
-            ~typ:string
-            ~resolve:(fun _ user -> user.Ood.Opam_user.email);
-          field "githubUsername" ~doc:"Owner's GitHub username"
-            ~args:Arg.[]
-            ~typ:string
-            ~resolve:(fun _ user -> user.Ood.Opam_user.github_username);
-          field "avatar" ~doc:"Owner's avatar image URL"
-            ~args:Arg.[]
-            ~typ:string
-            ~resolve:(fun _ user -> user.Ood.Opam_user.avatar);
-        ])
-
 let url =
   Graphql_lwt.Schema.(
     obj "url"
@@ -190,13 +169,13 @@ let package =
               info.Package.Info.tags);
           field "authors" ~doc:"The authors of the package"
             ~args:Arg.[]
-            ~typ:(non_null (list (non_null owners)))
+            ~typ:(non_null (list (non_null string)))
             ~resolve:(fun _ p ->
               let info = Package.info p in
               info.Package.Info.authors);
           field "maintainers" ~doc:"The maintainers of the package"
             ~args:Arg.[]
-            ~typ:(non_null (list (non_null owners)))
+            ~typ:(non_null (list (non_null string)))
             ~resolve:(fun _ p ->
               let info = Package.info p in
               info.Package.Info.maintainers);

@@ -1,4 +1,4 @@
-let render (release : Ood.Release.t) =
+let render (release : Data.Release.t) =
 Layout.render
 ~title:(Printf.sprintf "OCaml %s Release Notes" release.version)
 ~description:(Printf.sprintf "OCaml %s was released on %s. Learn more about this in the release notes." release.version release.date)

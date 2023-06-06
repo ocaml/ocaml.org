@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://www.donadeo.net/facets/programming-languages/objective-caml/feed/</id><title type="text">pdonadeo</title><updated>2023-06-05T05:46:01-00:00</updated><entry><link href="https://www.donadeo.net/post/2014/installing-opam-1-1-1-on-a-cenos-6-5" rel="alternate"/><contributor><uri>http://www.donadeo.net/facets/programming-languages/objective-caml/feed/</uri><name>pdonadeo</name></contributor><content type="html">&lt;div&gt;
+&lt;p class=&quot;noindent&quot;&gt;I'm in this situation: I need to compile an OCaml program on a CentOS 6.5 server. This is actually quite problematic, because CentOS 6.5 provide out of the box a very old OCaml 3.11.2, released by INRIA in January 2010, more than four years ago.&lt;/p&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;No problem, &lt;a href=&quot;https://opam.ocaml.org/&quot; title=&quot;OPAM -  Home&quot;&gt;OPAM&lt;/a&gt; come to the rescue! No. The OPAM team doesn't provide a binary executable compatible with the (actually very old) system libraries present in CentOS.
+&lt;/p&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;Ok, step back: OPAM can be compiled from sources (&lt;a href=&quot;https://opam.ocaml.org/doc/Advanced_Install.html&quot; title=&quot;OPAM -  Advanced Install&quot;&gt;instructions here&lt;/a&gt;) so it's just a matter of minutes. Again: nope. To compile OPAM you need at least OCaml 3.12.1, while in CentOS we have only 3.11.2.&lt;/p&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;Step back: first compile and install OCaml from sources. This time I say no, because the whole point of OPAM is to get an up and running OCaml environment in a few minutes, which is &lt;strong&gt;actually true&lt;/strong&gt; in most cases.&lt;/p&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;I decide to install OCaml using &lt;a href=&quot;https://godi.camlcity.org/godi/get_godi.html&quot; title=&quot;Get GODI&quot;&gt;GODI&lt;/a&gt;, the &amp;ldquo;old&amp;rdquo; OCaml source distribution, the one everybody used before OPAM was born. So the fastest steps to have an OPAM and OCaml environment on a CentOS server are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;download and install GODI;&lt;/li&gt;
+  &lt;li&gt;clone the &lt;a href=&quot;https://github.com/ocaml/opam&quot; title=&quot;GITHUB - ocaml/opam&quot;&gt;OPAM repository&lt;/a&gt;, compile and install it; it will find a &amp;ldquo;system&amp;rdquo; compiler provided by GODI;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;$ opam switch 4.01.0&lt;/code&gt; will recompile a new environment;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;$ opam switch remove system&lt;/code&gt; to delete the &amp;ldquo;system&amp;rdquo; environment;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;$ rm -Rf ~/godi&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;No root access is required in this process, I usually install OPAM in &lt;code&gt;~/opam&lt;/code&gt;, and GODI in &lt;code&gt;~/godi&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;There is an irony in all this story: GODI has been &lt;strong&gt;the&lt;/strong&gt; OCaml source distribution for years, and the coming of OPAM, which is actually newer and has some important features missing in GODI, has produced many frictions in the OCaml community, that in the end caused the &lt;a href=&quot;https://blog.camlcity.org/blog/godi_shutdown.html&quot; title=&quot;GODI is shutting down&quot;&gt;shut down of GODI&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;The moral part here is: embrace the new things, but don't be too impatient in throwing out the window the precious work that, in the end, still works.&lt;/p&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;In any case, I want to thank both Gerd Stolpmann (author of GODI) and the OPAM team: they gave to the OCaml community a mature, industrial grade, set of tools to use OCaml.&lt;/p&gt;
+&lt;/div&gt;</content><id>https://www.donadeo.net/post/2014/installing-opam-1-1-1-on-a-cenos-6-5</id><title type="text">Installing OPAM 1.1.1 on a CentOS 6.5</title><updated>2014-05-21T23:00:00-00:00</updated><author><email>p.donadeo@gmail.com (Paolo Donadeo)</email><name>pdonadeo</name></author></entry><entry><link href="https://www.donadeo.net/post/2012/first-release-of-ocaml-lua" rel="alternate"/><contributor><uri>http://www.donadeo.net/facets/programming-languages/objective-caml/feed/</uri><name>pdonadeo</name></contributor><content type="html">&lt;div&gt;
+&lt;p class=&quot;noindent&quot;&gt;I'm happy to announce the first release of ocaml-lua, the OCaml binding of the Lua library. With ocaml-lua you can embed a Lua interpreter in an OCaml program in a few lines of code, and use Lua for configuration or customization purposes.&lt;/p&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;Here are some references:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The homepage of the project is hosted on &lt;a href=&quot;https://ocaml-lua.forge.ocamlcore.org/&quot;&gt;OCaml Forge&lt;/a&gt;;&lt;/li&gt;
+
+  &lt;li&gt;The complete library reference (ocamldoc generated) is &lt;a href=&quot;%20https://ocaml-lua.forge.ocamlcore.org/api-lua/&quot;&gt;here&lt;/a&gt;;&lt;/li&gt;
+
+  &lt;li&gt;Source tarballs are on the download page on &lt;a href=&quot;https://forge.ocamlcore.org/frs/?group_id=167&quot;&gt;OCaml Forge&lt;/a&gt;;&lt;/li&gt;
+
+  &lt;li&gt;The official GIT repository is &lt;a href=&quot;https://forge.ocamlcore.org/scm/browser.php?group_id=167&quot;&gt;here&lt;/a&gt;;&lt;/li&gt;
+
+  &lt;li&gt;Bug reports and feature requests are on my page on &lt;a href=&quot;https://github.com/pdonadeo/ocaml-lua/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;I hope it could be useful.&lt;/p&gt;
+&lt;/div&gt;</content><id>https://www.donadeo.net/post/2012/first-release-of-ocaml-lua</id><title type="text">First release of OCaml binding of Lua library</title><updated>2012-09-01T14:06:00-00:00</updated><author><email>p.donadeo@gmail.com (Paolo Donadeo)</email><name>pdonadeo</name></author></entry><entry><link href="https://www.donadeo.net/post/2012/debugging-memory-in-ocaml-any-advice" rel="alternate"/><contributor><uri>http://www.donadeo.net/facets/programming-languages/objective-caml/feed/</uri><name>pdonadeo</name></contributor><content type="html">&lt;div&gt;
+&lt;a href=&quot;https://www.donadeo.net/static/2012/02/server_rss.png&quot; title=&quot;Memory consumption chart&quot; class=&quot;zoom-box-image&quot;&gt;&lt;img src=&quot;https://www.donadeo.net/static/2012/02/server_rss_small.png&quot; class=&quot;little left&quot; alt=&quot;Memory consumption chart&quot;/&gt;&lt;/a&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;A server I just deployed (written in OCaml, of course) seems to eat RAM at breakfast. This is the chart of the RSS field of &amp;quot;ps&amp;quot; in the past 24h (click to enlarge). The program starts with almost 6 Mb and is now reaching 40 Mb, in a linear trend that has nothing good to say.&lt;/p&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;Any advice on how to debug the memory consumption?&lt;/p&gt;
+&lt;/div&gt;</content><id>https://www.donadeo.net/post/2012/debugging-memory-in-ocaml-any-advice</id><title type="text">Debugging memory in OCaml: any advice?</title><updated>2012-02-27T23:37:00-00:00</updated><author><email>p.donadeo@gmail.com (Paolo Donadeo)</email><name>pdonadeo</name></author></entry><entry><link href="https://www.donadeo.net/post/2010/installing-batteries" rel="alternate"/><contributor><uri>http://www.donadeo.net/facets/programming-languages/objective-caml/feed/</uri><name>pdonadeo</name></contributor><content type="html">&lt;div&gt;
+&lt;p class=&quot;noindent&quot;&gt;In this post I want to help OCaml newcomers to install Batteries. The task is trivial under Linux, while it's a bit tricky under Windows, because OCaml still lacks a self-contained Windows installer.&lt;/p&gt;
+
+&lt;p&gt;My assumption is that the reader is a coder, so I will not explain &lt;em&gt;everything&lt;/em&gt;&amp;hellip; Let's start with the easy part: Linux.&lt;/p&gt;
+
+&lt;h4&gt;Linux&lt;/h4&gt;
+&lt;p class=&quot;noindent&quot;&gt;The installation of OCaml + Batteries under a Debian/Ubuntu system couldn't be easier, thanks the the hard work of the &lt;a href=&quot;https://wiki.debian.org/Teams/OCamlTaskForce&quot;&gt;Debian OCaml Task Force&lt;/a&gt;. So open a terminal and type:&lt;/p&gt;
+
+&lt;pre class=&quot;brush: bash&quot;&gt;
+$ sudo aptitude install ocaml-batteries-included
+&lt;/pre&gt;
+
+&lt;p&gt;That's all for Debian/Ubuntu. I don't know how Fedora works, but I think it's easy to install Batteries using YUM, something like:&lt;/p&gt;
+
+&lt;pre class=&quot;brush: bash&quot;&gt;
+$ yum install ocaml-batteries-included
+&lt;/pre&gt;
+
+&lt;p&gt;If a RPM package for Batteries wasn't available, you could still install OCaml, Camomile (the Unicode library), and compile Batteries from sources, as described below for the Windows OS.&lt;/p&gt;
+
+&lt;h4&gt;Windows&lt;/h4&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;As said, this OS still lacks a self contained installer which is in progress, at least for installing OCaml. Since &lt;a href=&quot;https://caml.inria.fr/ocaml/release.en.html#id2268363&quot;&gt;many OCaml versions&lt;/a&gt; are available for Windows, with different &lt;a href=&quot;https://caml.inria.fr/ocaml/portability.en.html#windows&quot;&gt;pros and cons&lt;/a&gt;, I had to decide which one to use, and I decided to follow the simplest path to reach the goal of installing all the stuff we need. The Cygwin port is by far the simplest way.&lt;/p&gt;
+
+&lt;ol&gt;
+
+&lt;li&gt;Download &lt;a href=&quot;https://www.cygwin.com/setup.exe&quot;&gt;Cygwin setup&lt;/a&gt; and double click the executable. In Windows Vista/7 (I made my test on a Windows 7 64bit box) you will be required to allow the program to be run a couple of times, as usual ;-) &amp;hellip;&lt;/li&gt;
+
+&lt;li&gt;when the list of available packages appears, select: each and every package containing &amp;quot;caml&amp;quot; (see the screenshot below), and also &lt;kbd&gt;make&lt;/kbd&gt;, &lt;kbd&gt;m4&lt;/kbd&gt;, &lt;kbd&gt;libncurses-devel&lt;/kbd&gt;, &lt;kbd&gt;git&lt;/kbd&gt;, &lt;kbd&gt;wget&lt;/kbd&gt; and &lt;kbd&gt;rlwrap&lt;/kbd&gt;;
+
+&lt;br/&gt;
+
+&lt;a href=&quot;https://www.donadeo.net/static/2010/12/install_cygwin.png&quot; title=&quot;Necessary Cygwin packages&quot; class=&quot;zoom-box-image&quot;&gt;&lt;img src=&quot;https://www.donadeo.net/static/2010/12/install_cygwin_small.png&quot; class=&quot;little left&quot; alt=&quot;Necessary Cygwin packages&quot;/&gt;&lt;/a&gt;
+&lt;br style=&quot;clear:both;&quot;/&gt;
+&lt;/li&gt;
+
+&lt;li&gt;open the Cygwin shell;&lt;/li&gt;
+
+&lt;li&gt;download the Findlib library, version 1.2.6:
+&lt;pre class=&quot;brush: bash&quot;&gt;
+$ wget https://download.camlcity.org/download/findlib-1.2.6.tar.gz
+&lt;/pre&gt;
+&lt;/li&gt;
+
+&lt;li&gt;unpack, compile and install Findlib:
+&lt;pre class=&quot;brush: bash&quot;&gt;
+$ tar -xpzf findlib-1.2.6.tar.gz
+$ cd findlib-1.2.6/
+$ ./configure
+$ make
+$ make install
+&lt;/pre&gt;
+&lt;/li&gt;
+
+&lt;li&gt;download, unpack, compile and install Camomile 0.8.1:
+&lt;pre class=&quot;brush: bash&quot;&gt;
+$ wget https://prdownloads.sourceforge.net/camomile/camomile-0.8.1.tar.bz2
+$ tar -xpjf camomile-0.8.1.tar.bz2
+$ cd camomile-0.8.1/
+$ ./configure
+$ make
+$ make install
+&lt;/pre&gt;
+&lt;/li&gt;
+
+&lt;li&gt;the last step is to download compile and install Batteries itself. I wasn't able to compile the latest stable release (1.2.2), for an obscure preprocessor error, but using the latest GIT branch everything went smoothly. So here are the steps:
+&lt;pre class=&quot;brush: bash&quot;&gt;
+$ git clone git://github.com/ocaml-batteries-team/batteries-included.git
+$ cd batteries-included/
+$ make camomile82
+$ make all doc
+$ make install install-doc
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4&gt;Testing the installation&lt;/h4&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;Before starting to play with the library and the &lt;em&gt;toplevel&lt;/em&gt; (the OCaml &lt;a href=&quot;https://en.wikipedia.org/wiki/Read-eval-print_loop&quot;&gt;REPL&lt;/a&gt; is called toplevel) let's put into action a couple of helpers.&lt;/p&gt;
+
+&lt;ol&gt;
+
+&lt;li&gt;The OCaml toplevel doesn't support readline. To get this feature back we add an alias to &lt;kbd&gt;.bashrc&lt;/kbd&gt;. This works in both Linux and Windows:
+
+&lt;pre class=&quot;brush: bash&quot;&gt;
+alias ocaml='rlwrap -H /home/paolo/.ocaml_history -D 2 -i -s 10000 ocaml'
+&lt;/pre&gt;
+
+restart the terminal or load another bash;
+&lt;/li&gt;
+
+&lt;li&gt;we need to load Batteries in the toplevel. This is not strictly necessary, but it helps a lot and the Batteries ASCII logo is wonderful &lt;kbd&gt;:-)&lt;/kbd&gt;. All we need is to create a file named &lt;kbd&gt;.ocamlinit&lt;/kbd&gt; in the home directory. Open your favorite editor and put this &lt;em&gt;phrases&lt;/em&gt; in &lt;kbd&gt;~/.ocamlinit&lt;/kbd&gt;:
+
+&lt;pre class=&quot;brush: ocaml&quot;&gt;
+let interactive = !Sys.interactive;;
+Sys.interactive := false;; (*Pretend to be in non-interactive mode*)
+#use &amp;quot;topfind&amp;quot;;;
+Sys.interactive := interactive;; (*Return to regular interactive mode*)
+
+Toploop.use_silently 
+             Format.err_formatter (Filename.concat (Findlib.package_directory 
+             &amp;quot;batteries&amp;quot;) &amp;quot;battop.ml&amp;quot;);;
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If everything went well you can now type &lt;kbd&gt;ocaml&lt;/kbd&gt; and something like this should appear:&lt;/p&gt;
+
+&lt;pre style=&quot;background-color: #fffdbf; font-weight: bold;&quot;&gt;
+$ ocaml
+        Objective Caml version 3.11.2
+
+      _________________________
+    [| +   | |   Batteries   - |
+     |_____|_|_________________|
+      _________________________
+     | -  Type '#help;;' | | + |]
+     |___________________|_|___|
+
+
+Loading syntax extensions...
+	Camlp4 Parsing version 3.11.2
+&lt;/pre&gt;
+
+&lt;h4&gt;Conclusions&lt;/h4&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;This (rather boring) post has been devoted to the installation details of Batteries under Windows, where it presents some difficulties for newbies. Next time we will start on exploring the library with simple examples to exploit its strength.&lt;/p&gt;
+&lt;/div&gt;</content><id>https://www.donadeo.net/post/2010/installing-batteries</id><title type="text">Installing OCaml Batteries</title><updated>2010-12-13T22:55:00-00:00</updated><author><email>p.donadeo@gmail.com (Paolo Donadeo)</email><name>pdonadeo</name></author></entry><entry><link href="https://www.donadeo.net/post/2010/batteries-1" rel="alternate"/><contributor><uri>http://www.donadeo.net/facets/programming-languages/objective-caml/feed/</uri><name>pdonadeo</name></contributor><content type="html">&lt;div&gt;
+&lt;img src=&quot;https://www.donadeo.net/static/2010/11/batteries_logo.png&quot; class=&quot;little left&quot; alt=&quot;OCaml Batteries logo&quot;/&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;&lt;a href=&quot;https://caml.inria.fr/ocaml/index.en.html&quot;&gt;OCaml&lt;/a&gt; is known to be a powerful functional programming language, but one of its presumed weakness is a relatively poor standard library.&lt;/p&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;By accident, I'm one of the few people on the planet considering this very clean and virtually bug free library a feature and not a bug, but this is only an opinion.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://caml.inria.fr/pub/docs/manual-ocaml/manual034.html&quot;&gt;The standard library&lt;/a&gt; contains everything you need to build applications and other libraries, but it's &lt;em&gt;essential&lt;/em&gt;, forget something like the Python standard library and things like &amp;ldquo;sending an email in one line of code&amp;rdquo;. Instead, think of the C standard library (plus some important data structures missing in the libc).&lt;/p&gt;
+
+&lt;p&gt;More than two years ago the OCaml community decided to start the development of a library containing all the conveniences that are missing in the standard library. The project is &lt;a href=&quot;https://batteries.forge.ocamlcore.org/&quot;&gt;OCaml Batteries Included&lt;/a&gt; and I'd like to introduce the reader with a series of posts, aimed to cast a light on various aspects of the library, without pretending to be an exhaustive tutorial.&lt;/p&gt;
+
+&lt;p&gt;The posts will be targeted at novice OCaml programmers because I think that an experienced OCaml hacker already uses &amp;quot;Batteries&amp;quot; or, in any case, he understand the library API and doesn't need help from this blog.&lt;/p&gt;
+
+&lt;p&gt;Before starting with the (boring) installation details, I want to give you a taste of Batteries, to show how a simple task could be written in a more natural way using Batteries modules, in comparison with a &lt;em&gt;vanilla&lt;/em&gt; implementation. Let's take this simple task: we want to read a file by lines and print on the terminal only those lines containing a particular substring.&lt;/p&gt;
+
+&lt;p&gt;A simple and actually working solution is proposed by the &lt;a href=&quot;https://pleac.sourceforge.net/pleac_ocaml/&quot;&gt;PLEAC-Objective CAML&lt;/a&gt; project, it's the very first example of the &lt;a href=&quot;https://pleac.sourceforge.net/pleac_ocaml/fileaccess.html&quot;&gt;file access&lt;/a&gt; section. Here is the proposed code:&lt;/p&gt;
+
+&lt;pre class=&quot;brush: ocaml;&quot;&gt;
+let () =
+  let in_channel = open_in &amp;quot;/usr/local/widgets/data&amp;quot; in
+  try
+    while true do
+      let line = input_line in_channel in
+      try
+        ignore (Str.search_forward (Str.regexp_string &amp;quot;blue&amp;quot;) line 0);
+        print_endline line
+      with Not_found -&amp;gt; ()
+    done
+  with End_of_file -&amp;gt;
+    close_in in_channel
+&lt;/pre&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;Now let's rephrase using Batteries:&lt;/p&gt;
+
+&lt;pre class=&quot;brush: ocaml;&quot;&gt;
+Enum.iter
+  (fun l -&amp;gt;
+    if BatString.exists l &amp;quot;blue&amp;quot;
+    then print_endline l)
+  (open_in &amp;quot;/usr/local/widgets/data&amp;quot; |&amp;gt; BatIO.lines_of)
+&lt;/pre&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;The result is the same, but the code is much cleaner and far more idiomatic for a functional language.&lt;/p&gt;
+
+&lt;p&gt;Next time we will see how to install OCaml and Batteries, under Linux of course, but hopefully even under Windows.&lt;/p&gt;&lt;/div&gt;</content><id>https://www.donadeo.net/post/2010/batteries-1</id><title type="text">Pearls of OCaml Batteries (1)</title><updated>2010-12-05T15:15:00-00:00</updated><author><email>p.donadeo@gmail.com (Paolo Donadeo)</email><name>pdonadeo</name></author></entry><entry><link href="https://www.donadeo.net/post/2010/ocaml-per-programmatori-python" rel="alternate"/><contributor><uri>http://www.donadeo.net/facets/programming-languages/objective-caml/feed/</uri><name>pdonadeo</name></contributor><content type="html">&lt;div&gt;&lt;p class=&quot;noindent&quot;&gt;Sorry for English speaking people, but this post makes sense only for Italians, so it's in Italian :-)&lt;/p&gt;
+
+&lt;p&gt;Qualche mese fa, precisamente a fine Febbraio, mi &amp;egrave; stato chiesto di presentare in un breve workshop il linguaggio &lt;a href=&quot;https://caml.inria.fr/ocaml/index.en.html&quot;&gt;Objective Caml&lt;/a&gt; che, manco a dirlo, &amp;egrave; il mio linguaggio di programmazione preferito. Mi ero riproposto di scrivere qualcosa in merito, ma una serie di problemi me lo ha impedito, cos&amp;igrave; colmo con qualche mese di ritardo la lacuna.&lt;/p&gt;
+
+&lt;p&gt;L'invito mi &amp;egrave; arrivato da &lt;a href=&quot;https://www.develer.com/website/en&quot;&gt;Develer&lt;/a&gt;, un'azienda con sede &lt;a href=&quot;https://www.develer.com/website/en/location/&quot;&gt;vicino Firenze&lt;/a&gt; molto attenta alla formazione ed alle novit&amp;agrave; nel mondo delle tecnologie informatiche. In questo caso la novit&amp;agrave; non sta tanto nel linguaggio OCaml, che ha ormai 14 anni, quanto nel volersi avvicinare alla programmazione funzionale con uno sguardo pragmatico.&lt;/p&gt;
+
+&lt;p&gt;Develer &amp;egrave; poi l'azienda che contribuisce in maniera sostanziale alla realizzazione del &lt;a href=&quot;https://www.pycon.it/&quot;&gt;PyCon Italia&lt;/a&gt;, una splendida manifestazione che &amp;egrave; un unicum nel panorama culturale italiano, e non solo per i programmatori appassionati di Python, ma per tutti gli sviluppatori e smanettoni sufficientemente &lt;em&gt;smart&lt;/em&gt; da non ignorare Python.&lt;/p&gt;
+
+&lt;p&gt;Il background culturale legato a Python e l'assoluto digiuno di programmazione funzionale hanno portato ad un workshop in cui ho cercato di mostrare alcuni dei concetti della &lt;a href=&quot;https://en.wikipedia.org/wiki/Functional_programming&quot;&gt;FP&lt;/a&gt;, utilizzando OCaml, e spiegandone nel contempo la sintassi in estrema sintesi, mostrando qualche parallelo con Python.&lt;/p&gt;
+
+&lt;p&gt;Non so se il risultato sia stato positivo per Develer, perch&amp;eacute; da un lato non sono un vero esperto OCaml, e dall'altro ho dovuto (voluto?) concentrare in poco tempo una serie di concetti non banali, per cui forse non &amp;egrave; stato facile per i presenti seguire il discorso. Comunque sia, nessuno mi ha tirato pomodori :-)&lt;/p&gt;
+
+&lt;p&gt;Per il workshop ho ovviamente preparato una piccola presentazione che potete &lt;a href=&quot;https://www.donadeo.net/static/2010/08/ocaml_per_prog_python.pdf&quot;&gt;scaricare in formato PDF&lt;/a&gt;, sperando possa essere utile a qualcuno, non fosse altro per l'elenco di link a risorse relative ad OCaml. La presentazione &amp;egrave; distribuita con licenza &lt;a href=&quot;https://creativecommons.org/licenses/by-sa/2.5/it/deed&quot;&gt;Creative Commons (Attribuzione, condividi allo stesso modo)&lt;/a&gt;, il che vuol dire che se siete cos&amp;igrave; matti da copiarne dei pezzi, almeno ricordatevi di citarmi tra gli autori.&lt;/p&gt;&lt;/div&gt;</content><id>https://www.donadeo.net/post/2010/ocaml-per-programmatori-python</id><title type="text">OCaml per programmatori Python</title><updated>2010-08-22T22:08:00-00:00</updated><author><email>p.donadeo@gmail.com (Paolo Donadeo)</email><name>pdonadeo</name></author></entry><entry><link href="https://www.donadeo.net/post/2010/blog-source" rel="alternate"/><contributor><uri>http://www.donadeo.net/facets/programming-languages/objective-caml/feed/</uri><name>pdonadeo</name></contributor><content type="html">&lt;div&gt;&lt;p class=&quot;noindent&quot;&gt;
+Following my previous post, some people &lt;a href=&quot;https://www.donadeo.net/post/2010/my-new-blog-in-objective-caml#commentary&quot;&gt;asked me&lt;/a&gt; to show the source code of this blog, so here it is:&lt;br/&gt;
+
+&lt;a href=&quot;https://github.com/pdonadeo/personal_blog&quot;&gt;https://github.com/pdonadeo/personal_blog&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A general warning: the project wasn't thought to be published and so the code is a pile of scripts kept together in some way. Many parameters are present in the SQLite DB, but if you want to use the blog, expect to find my name, surname or email in the HTML templates, or even in some .ml files.&lt;/p&gt;
+
+&lt;p&gt;Moreover, the source code is not homogeneous and the style changes from module to module, because I changed my way (and skill) of programming in OCaml in time.&lt;/p&gt;
+
+&lt;p&gt;In any case, I hope you will find it interesting.&lt;/p&gt;&lt;/div&gt;</content><id>https://www.donadeo.net/post/2010/blog-source</id><title type="text">Source repository of this blog</title><updated>2010-08-08T16:55:00-00:00</updated><author><email>p.donadeo@gmail.com (Paolo Donadeo)</email><name>pdonadeo</name></author></entry><entry><link href="https://www.donadeo.net/post/2010/my-new-blog-in-objective-caml" rel="alternate"/><contributor><uri>http://www.donadeo.net/facets/programming-languages/objective-caml/feed/</uri><name>pdonadeo</name></contributor><content type="html">&lt;div&gt;&lt;p class=&quot;noindent&quot;&gt;More than a year ago I decided to dismiss my Wordpress blog, and to write a new one from scratch in OCaml. Unfortunately my spare time for programming projects is getting less and less, so this simple work took a lot of time to reach an usable state.&lt;/p&gt;
+
+&lt;p&gt;I put online a preliminary release a month ago and immediately several bugs and little problems have arose, so I had to pass through the usual karma of recurring corrections. Now it seems stable.&lt;/p&gt;
+
+&lt;h4&gt;Software design (strong words, actually!)&lt;/h4&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;To write this blog I decided to use &lt;a href=&quot;https://projects.camlcity.org/projects/ocamlnet.html&quot;&gt;Ocamlnet&lt;/a&gt; to produce a FastCGI server, providing dynamic contents through Apache, leaving the HTTP server alone to serve static resources, like Javascript, CSS and images.&lt;/p&gt;
+
+&lt;p&gt;Ocamlnet is an excellent network framework, but it offers a low level interface, if compared with &lt;a href=&quot;https://ocsigen.org/&quot;&gt;Ocsigen&lt;/a&gt;, which is web specific. Ocsigen (&lt;a href=&quot;https://ocsigen.org/eliom/manual/1.3.0/&quot;&gt;Eliom&lt;/a&gt;, actually) is a complete, modern and mature web framework, and I was afraid I couldn't use it, but AFAIK it lacks the possibility to create a FastCGI executable. I need this kind of setup because the blog runs on a production server of mine, where Apache is already installed and many virtual hosts are configured to run several sites and web apps, written in Django (Python) or even PHP.
+&lt;/p&gt;
+
+&lt;p&gt;To write the blog &lt;del&gt;I stole many ideas&lt;/del&gt; I was inspired by many ideas taken here and there. It's fair to list them, and to thank the authors:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;from Eliom I took the idea of a way to create the parameters of the web page in a type safe way, using &lt;a href=&quot;https://ocsigen.org/docu/1.3.0/Eliom_parameters.html&quot;&gt;some combinators&lt;/a&gt; that describe the expected type of the parameter and rebuild it from the CGI string from the browser. The implementation present in Eliom is of course outstanding, while my piece of code just solves a small subset of the problem of parameters reconstruction;&lt;/li&gt;
+  &lt;li&gt;the blog of &lt;a href=&quot;https://eigenclass.org/R2/&quot;&gt;Mauricio Fern&amp;aacute;ndez&lt;/a&gt; is written with Ocsigen (&lt;a href=&quot;https://github.com/mfp/ocsiblog&quot;&gt;source here&lt;/a&gt;) and contains a simple &lt;a href=&quot;https://eigenclass.org/R2/writings/fast-extensible-simplified-markdown-in-ocaml&quot;&gt;markdown-like language processor&lt;/a&gt; used to format comments. I wrote something like that, but I'm learning to write parsers combinators so my implementation only processes a subset of the language recognized by Mauricio's parser;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ambassadortothecomputers.blogspot.com/&quot;&gt;Jake Donham&lt;/a&gt; wrote lwt-equeue as part of the &lt;a href=&quot;https://github.com/jaked/orpc&quot;&gt;orpc&lt;/a&gt; project. It's a module providing the same interface of &lt;a href=&quot;https://ocsigen.org/lwt/&quot;&gt;Lwt&lt;/a&gt;, but runs on &lt;a href=&quot;https://projects.camlcity.org/projects/dl/ocamlnet-2.2.9/doc/html-main/Equeue.html&quot;&gt;equeue&lt;/a&gt;, the low level event loop engine of Ocamlnet, and I used it to write a simple SMTP client in a monadic way without having to drop Ocamlnet and FastCGI;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://batteries.forge.ocamlcore.org/&quot;&gt;Batteries&lt;/a&gt; is of course used almost everywhere;&lt;/li&gt;
+  &lt;li&gt;as a template engine to render HTML I used &lt;a href=&quot;https://forge.ocamlcore.org/projects/camltemplate/&quot;&gt;CamlTemplate&lt;/a&gt; by Benjamin Geer (maintained by Dmitry Grebeniuk).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The resulting software is far from being well structured and designed, but I wrote yet another blog exactly to have the opportunity to test many libraries and programming paradigms in OCaml and, with respect to this goal, the result is a success :-)&lt;/p&gt;
+
+&lt;h4&gt;Blog features&lt;/h4&gt;
+&lt;p class=&quot;noindent&quot;&gt;While the code is a mess, the blog itself has many useful features: a very simple administration to edit posts, RSS feeds, comments, &lt;a href=&quot;https://akismet.com/&quot;&gt;antispam&lt;/a&gt;, and a completely useless URL shortening service available at &lt;a href=&quot;https://www.donadeo.net/u&quot;&gt;https://www.donadeo.net/u&lt;/a&gt;.&lt;/p&gt;
+
+
+&lt;h4&gt;Performance&lt;/h4&gt;
+&lt;p class=&quot;noindent&quot;&gt;What about the performance of the whole object? I don't know how to realistically test the blog, because using the classical &lt;code&gt;ab&lt;/code&gt; is rather pointless, since it is generally used with static resources that, in my case, are served by Apache. If someone has some good ideas about 1) how to make a stress test and 2) have some good reference in term of expected hit per second, please don't hesitate and contact me, of course to blame me about how the blog is slow.&lt;/p&gt;
+
+
+&lt;h4&gt;Conclusions&lt;/h4&gt;
+&lt;p class=&quot;noindent&quot;&gt;The blog is up and running and I don't see any particular bug. In the next months I'll probably add some features, like the possibility to follow comments via email, or a decent XML site map.&lt;/p&gt;&lt;/div&gt;</content><id>https://www.donadeo.net/post/2010/my-new-blog-in-objective-caml</id><title type="text">My new blog… in Objective Caml</title><updated>2010-08-03T08:26:00-00:00</updated><author><email>p.donadeo@gmail.com (Paolo Donadeo)</email><name>pdonadeo</name></author></entry></feed>

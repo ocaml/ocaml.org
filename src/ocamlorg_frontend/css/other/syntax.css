@@ -34,3 +34,26 @@ span[class*="string"] {
 span[class*="numeric"] {
   color: #ff5683;
 }
+
+
+/* Diff */
+
+.diff-punctuation-definition-deleted {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.diff-punctuation-definition-inserted {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.diff-markup-deleted {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.diff-markup-inserted {
+  color: #aff5b4;
+  background-color: #033a16;
+}

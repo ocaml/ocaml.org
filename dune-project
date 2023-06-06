@@ -1,4 +1,4 @@
-(lang dune 2.8)
+(lang dune 3.6)
 
 (name ocamlorg)
 
@@ -38,8 +38,6 @@
   bos
   crunch
   mirage-kv-mem
-  (dream
-   (>= 1.0.0~alpha3))
   dream-accept
   dream-encoding
   (graphql
@@ -48,10 +46,10 @@
   fmt
   logs
   (omd
-   (= "2.0.0~alpha2"))
+   (= "2.0.0~alpha3"))
   opam-format
   (timedesc
-   (>= 0.8.0))
+   (>= 1.1.1))
   yojson
   lwt
   tailwindcss
@@ -65,9 +63,9 @@
     (>= 1.10.0)))
   ; src/ocamlorg_dasbhoard
   (dream
-   (>= 1.0.0~alpha3))
+   (>= 1.0.0~alpha5))
   (hyper
-   (>= 1.0.0~alpha1))
+   (= 1.0.0~alpha2))
   dune-build-info
   luv
   metrics-lwt
@@ -76,8 +74,6 @@
   ppx_deriving_yojson
   ppx_stable
   yojson
-  (timedesc
-   (>= 0.8.0))
   ; tools/ood-gen
   ppx_deriving_yaml
   ppx_show

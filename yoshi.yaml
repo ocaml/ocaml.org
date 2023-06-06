@@ -1,0 +1,19 @@
+data:
+  - name: watch
+    source: data/watch.yml
+    format: yaml
+    fields:
+      - name: name
+        type: string
+      - name: description
+        type: string option
+      - name: embed_path
+        type: string
+      - name: thumbnail_path
+        type: string
+      - name: published_at
+        type: string
+      - name: language
+        type: string
+      - name: category
+        type: string

@@ -18,7 +18,7 @@ Whereas `#` denoted a comment and `$` the command prompt in the
 when in the `ocaml` or `utop` toplevel, the command prompt appears as a `#`, as shown
 in the following examples.
 
-Also remember that a code an expression must end with `;;`
+Also remember that an expression must end with `;;`
 for OCaml to evaluate it. Unless these examples start with a `#` toplevel prompt and 
 end with `;;`, it isn't an expression to evaluate but rather an example of code structure.
 
@@ -328,7 +328,7 @@ Here is 42, stored inside an `option` using the data carrying constructor
 - : int option = Some 42
 ```
 
-The `None` constructor means no data is availble.
+The `None` constructor means no data is available.
 
 In other words, a value of type `t option` for some type `t` represents:
 
@@ -346,9 +346,9 @@ since its inception.
 The function `Sys.getenv : string -> string` from the OCaml standard library
 allows us to query the value of an environment variable; however, it throws an
 exception if the variable is not defined. On the other hand, the function
-`Sys.getenv_opt : string -> string opt` does the same, except it returns `None`
-as the variable is not defined. Here is what may happen if we try to access an
-undefined environment variable:
+`Sys.getenv_opt : string -> string option` does the same, except it returns
+`None` as the variable is not defined. Here is what may happen if we try to
+access an undefined environment variable:
 
 ```ocaml
 # Sys.getenv "UNDEFINED_ENVIRONMENT_VARIABLE";;

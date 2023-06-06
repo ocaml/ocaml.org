@@ -382,8 +382,8 @@ val range : first:int -> last:int -> int list = <fun>
 ```
 
 Recall that `~foo` on its own is short for `~foo:foo`. This applies also
-when calling functions as well as declaring the arguments to functions. 
-Hence in the above, the highlighted red `~last` is short for
+when calling functions as well as declaring the arguments to functions.
+In the above the `~last` is short for
 `~last:last`.
 
 ### Using `?foo` in a Function Call

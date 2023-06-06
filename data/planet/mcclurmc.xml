@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://mcclurmc.wordpress.com/feed/</id><title type="text">mcclurmc</title><updated>2023-06-05T05:46:01-00:00</updated><entry><link href="https://mcclurmc.wordpress.com/2012/12/18/ocaml-pattern-easy-functor/" rel="alternate"/><contributor><uri>https://mcclurmc.wordpress.com/feed/</uri><name>mcclurmc</name></contributor><content type="html">&lt;p&gt;I&amp;rsquo;ve recently stumbled upon a useful OCaml design pattern for functorizing an existing module, without changing the way existing clients of that module use it. This is really useful for stubbing out dependencies when you&amp;rsquo;re refactoring code for unit tests. Here&amp;rsquo;s a simplified example from a bit of code that I refactored today.&lt;/p&gt;
+&lt;pre class=&quot;brush: plain; title: ; notranslate&quot;&gt;
+module Ovs = struct
+
+  let vsctl args = call_cmd &amp;quot;ovs-vsctl&amp;quot; args
+
+  let create_bond name bridges interfaces props =
+    let prop_args = make_bond_properties name props in
+    let iface_args = do_stuff_with interfaces prop_args in
+    let bridge_args = do_other_stuff_with bridges in
+    vsctl [ bridge_args; iface_args ]
+
+end
+&lt;/pre&gt;
+&lt;p&gt;The above code is loosely based on &lt;a href=&quot;https://mcclurmc.wordpress.com/feed/github.com/xen-org/xen-api&quot;&gt;xen-api&amp;rsquo;s&lt;/a&gt; network daemon, a service which configures an XCP host&amp;rsquo;s networking. The above module is for the Open vSwitch backend, which uses the ovs-vsctl command line tool to convigure the vSwitch controller. I just implemented some new functionality in the make_bond_properties function (not shown above), and I want to test that ovs-vsctl command is being invoked properly.&lt;/p&gt;
+&lt;p&gt;I want to be able to test that the list of arguments we&amp;rsquo;re passing to the vsctl function is correct, but this function calls vsctl directly with the arguements, so I can&amp;rsquo;t &amp;ldquo;see&amp;rdquo; them in my test case. We could just split create_bond into create_bond_arguments and do_create_bond functions. But if we ever write unit tests for the other 20 functions that call vsctl, we&amp;rsquo;ll have to do the exact same thing for all of them. Instead, we&amp;rsquo;ll refactor the Ovs module so that we can pass in an alternative implementation of vsctl.&lt;/p&gt;
+&lt;pre class=&quot;brush: plain; title: ; notranslate&quot;&gt;
+module Ovs = struct
+  module Cli = struct
+    let vsctl args = call_cmd &amp;quot;ovs-vsctl&amp;quot; args
+  end
+
+  module type Cli_S = module type of Cli
+
+  module Make(Cli : Cli_S) =
+
+    (* continue with original definition of Ovs *)
+    let create_bond name bridge interfaces props =
+      let prop_args = make_bond_properties name props in
+      let per_iface_args = do_stuff_with interfaces prop_args in
+      vsctl [ bridge; per_iface_args ]
+
+  end
+
+  include Make(Cli)
+
+end
+&lt;/pre&gt;
+&lt;p&gt;You can see that we&amp;rsquo;ve just inserted a few lines of code around the original Ovs module implementation. We moved the vsctl function into Ovs.Cli, and we moved the rest of the definition of Ovs into Ovs.Make(Cli : Cli_S). The neat bit is at the end, when we include Make(Cli) inside of module Ovs. This calls the Make functor with a module that contains the original definition of the vsctl function, and includes that in the Ovs definition. Now we have a functorized module, which we can customize in our test cases. Yet we haven&amp;rsquo;t changed the definition of the original Ovs module at all, so we don&amp;rsquo;t have to change any of the code that depends on the Ovs module! This trick also works on toplevel modules in *.ml files, too.&lt;/p&gt;
+&lt;p&gt;Now our testcase is easy to write:&lt;/p&gt;
+&lt;pre class=&quot;brush: plain; title: ; notranslate&quot;&gt;
+module TestCli = struct
+  let vsctl args = assert_args_are_correct args
+end
+
+let test_create_bond =
+  let module Ovs = Ovs.Make(TestCli) in
+  let test_properties = ... in
+  Ovs.create_bond &amp;quot;bond0&amp;quot; &amp;quot;xapi0&amp;quot; [&amp;quot;eth0&amp;quot;; &amp;quot;eth1&amp;quot;] test_properties
+&lt;/pre&gt;
+&lt;p&gt;So the test is actually performed by the vsctl command, which we injected into the Ovs module using the Ovs.Make functor. Easy!&lt;/p&gt;
+&lt;p&gt;One more thought: I had considered using first class modules to inject test dependencies into a module like Ovs. This would have worked as well, but I couldn&amp;rsquo;t think of a good way to do it that wouldn&amp;rsquo;t have required rewriting all the Ovs call sites (I didn&amp;rsquo;t think to hard about it, so maybe it&amp;rsquo;s easier than I think). Also, first class modules are really meant for swapping dependencies at runtime, more akin to what Java programmers mean when they say &amp;ldquo;dependency injection.&amp;rdquo; In this case, we really would rather have the dependency injection done at compile time, so there&amp;rsquo;s no real benefit to using first class modules.&lt;/p&gt;
+</content><id>https://mcclurmc.wordpress.com/2012/12/18/ocaml-pattern-easy-functor/</id><title type="text">OCaml Design Pattern: Easy functorization refactoring for unit testing</title><updated>2012-12-18T23:31:33-00:00</updated><author><name>mcclurmc</name></author></entry><entry><link href="https://mcclurmc.wordpress.com/2012/11/05/go-lang-and-juju/" rel="alternate"/><contributor><uri>https://mcclurmc.wordpress.com/feed/</uri><name>mcclurmc</name></contributor><content type="html">&lt;p&gt;So this title probably doesn&amp;rsquo;t even parse correctly if you haven&amp;rsquo;t heard of Google&amp;rsquo;s &lt;a href=&quot;http://golang.org/&quot;&gt;Go language&lt;/a&gt; our Ubuntu&amp;rsquo;s &lt;a href=&quot;https://juju.ubuntu.com/&quot;&gt;Juju&lt;/a&gt; service orchestration software. I&amp;rsquo;ve been toying with the idea of writing a Juju service provider for the &lt;a href=&quot;http://docs.vmd.citrix.com/XenServer/6.0.0/1.0/en_gb/api/&quot;&gt;XenAPI&lt;/a&gt;. This would allow people to use Juju to provision services on a pool of &lt;a href=&quot;http://xen.org/products/cloudxen.html&quot;&gt;XCP&lt;/a&gt; or XenServer hosts. Since the Juju team have recently completed the rewrite of Juju from Python to Go, this gives me the perfect reason to teach myself Go.&lt;/p&gt;
+&lt;p&gt;And I had the perfect opportunity to learn both Go and Juju at last week&amp;rsquo;s &lt;a href=&quot;http://uds.ubuntu.com/&quot;&gt;Ubuntu Developer Summit&lt;/a&gt; in Copenhagen, where I got to meet most of the Juju core team. After one of the Juju planning meetings, Roger Peppe gave me a hands on intro to setting up a Go environment and building Juju. Now I&amp;rsquo;ll share the notes I took, to help would-be Go/Juju hackers to get started. (This isn&amp;rsquo;t an introduction to the Go language, by the way. This is just instructions for setting up the tools necessary for compiling Juju. Check out the &lt;a href=&quot;http://tour.golang.org/#1&quot;&gt;Go Tour&lt;/a&gt; for help learning Go.)&lt;/p&gt;
+&lt;p&gt;The first thing to do, of course, is to install Go:&lt;/p&gt;
+&lt;pre class=&quot;brush: plain; title: ; notranslate&quot;&gt;
+# Install go
+sudo aptitude install golang golang-mode
+&lt;/pre&gt;
+&lt;p&gt;I haven&amp;rsquo;t been able to get Vim to highlight my Go files, but Emacs and golang-mode work. I&amp;rsquo;ve managed to get go-mode confused a bit, though, including one weird hang that forced me to kill Emacs.&lt;/p&gt;
+&lt;p&gt;It turns out that Go isn&amp;rsquo;t just a compiler, it&amp;rsquo;s an entire packaging system too. So before you start using Go, you&amp;rsquo;ll need to set up your GOPATH environment variable to point to some directory (any directory will do; I put mine in ~/go). This is where all your Go source code and compiled binaries will live.&lt;/p&gt;
+&lt;pre class=&quot;brush: plain; title: ; notranslate&quot;&gt;
+# Set up go environment (add this to .bashrc)
+export GOPATH=~/go
+export PATH=${GOPATH}/go/bin:${PATH}
+&lt;/pre&gt;
+&lt;p&gt;Here&amp;rsquo;s where the package management system comes in. Instead of doing a &amp;lsquo;bzr clone lp:juju-core&amp;rsquo; like I imagined I would, instead you tell Go to go fetch your source code:&lt;/p&gt;
+&lt;pre class=&quot;brush: plain; title: ; notranslate&quot;&gt;
+# Get juju-core and its dependencies
+go get -v launchpad.net/juju-core/...
+&lt;/pre&gt;
+&lt;p&gt;This will tell Go to go to Launchpad and fetch everything under the juju-core path. It will even use bzr to clone the source repo, so you can make changes and commit back to Launchpad. Note the use of the &amp;lsquo;&amp;hellip;&amp;rsquo; wildcard feature. This will match any path after juju-core/. You could also put the &amp;lsquo;&amp;hellip;&amp;rsquo; characters in the middle of a path, as in foo/&amp;hellip;/bar, and it will match paths such as foo/baz/bar and foo/boz/buz/bar. This reminds me a bit of Xpath&amp;rsquo;s &amp;lsquo;//&amp;rsquo; search feature.&lt;/p&gt;
+&lt;p&gt;Juju-core isn&amp;rsquo;t the only thing that Go downloaded for us. Go ahead and check out your $GOPATH/src directory. There should be a directory called launchpad.net which contains juju-core, but there will also be another directory called labix.org. Where did this come from? It turns out that Go will scan the source files it downloads looking for external dependencies. If those dependencies are prefixed with a network address, go will try to download those as well.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m not sure how I feel about this, to be honest. It&amp;rsquo;s pretty cool that it can just go out and find dependencies. But how does it deal with version pinning? I&amp;rsquo;m sure there&amp;rsquo;s a good answer to this out there somewhere. (Update: Rog Peppe tells me that the standard way to do this is to encode versions in the library path. I wonder if this would work with a git branch on Github&amp;hellip;)&lt;/p&gt;
+&lt;p&gt;The &amp;lsquo;go get&amp;rsquo; command both fetched the Juju source and built and installed it. To see how to build Go source on your own, we&amp;rsquo;ll nuke the compiled libraries and tell Go to build and install them again.&lt;/p&gt;
+&lt;pre class=&quot;brush: plain; title: ; notranslate&quot;&gt;
+# Build and install Juju
+rm -rf ${GOPATH}/pkg/linux_amd64/launchpad.net/
+cd ${GOPATH}/src/launchpad.net/juju-core
+go install ./...
+&lt;/pre&gt;
+&lt;p&gt;One of the best things about Go (and the primary reason Rob Pike developed Go, actually) is the fast compile times. That command above took less than 9 seconds on my laptop. That&amp;rsquo;s all it takes for Go to compile all the juju-core source code, and all its external depedencies. Doing a quick and dirty &amp;lsquo;find ${GOPATH}/src -name &amp;ldquo;*.go&amp;rdquo; | xargs sed &amp;lsquo;/^\s*\/\//d;/^\s*$/d&amp;rsquo; | wc -l&amp;rsquo; gives me 72135 lines of code, so 9 seconds sounds pretty good.&lt;/p&gt;
+&lt;p&gt;Go also has a great online help feature. Not only can you get help on the core tools through man pages, but you can get library docs &amp;mdash; even for libraries you just downloaded &amp;mdash; using the &amp;lsquo;godoc&amp;rsquo; command. Here&amp;rsquo;s documentation for the entire ec2 package:&lt;/p&gt;
+&lt;pre class=&quot;brush: plain; title: ; notranslate&quot;&gt;
+# Check out documentation for a package
+go doc launchpad.net/.../ec2
+&lt;/pre&gt;
+&lt;p&gt;And here&amp;rsquo;s documentation for a particular exported name of that package:&lt;/p&gt;
+&lt;pre class=&quot;brush: plain; title: ; notranslate&quot;&gt;
+# Documentation for a type or function (notice we call godoc directly)
+godoc launchpad.net/goamz/ec2 Instance
+&lt;/pre&gt;
+&lt;p&gt;If you&amp;rsquo;d rather read your package docs on the web, a great resource is &lt;a href=&quot;http://go.pkgdoc.org/&quot;&gt;http://go.pkgdoc.org/&lt;/a&gt;, which has docs for the standard library as well as many, many third party libraries.&lt;/p&gt;
+&lt;p&gt;Go will also format your code for you. You can run &amp;lsquo;go fmt &amp;lt;file.go&amp;gt;&amp;rsquo; to format a file in place, or use &amp;lsquo;M-x gofmt&amp;rsquo; in Emacs. I really should bind that to a shortcut.&lt;/p&gt;
+&lt;pre class=&quot;brush: plain; title: ; notranslate&quot;&gt;
+# Reformat your code
+go fmt &amp;lt;file.go&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;And on top of all that, Go also has a built in test framework. Files which end with _test.go are special and are considered test cases. You can use the command &amp;lsquo;go test&amp;rsquo; to build and execute these tests. There is a built in unit testing library which I won&amp;rsquo;t cover here (because I don&amp;rsquo;t know now to use it yet).&lt;/p&gt;
+&lt;pre class=&quot;brush: plain; title: ; notranslate&quot;&gt;
+# Run tests in a given directory
+go test
+&lt;/pre&gt;
+&lt;p&gt;So that&amp;rsquo;s all you need to get started with Go development for Juju. For a good tutorial on bootstrapping Juju, you can take a look at Juju&amp;rsquo;s &lt;a href=&quot;https://juju.ubuntu.com/docs/getting-started.html&quot;&gt;Getting Started&lt;/a&gt; document.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ll hopefully follow this blog up with a status report on my XenAPI service provider for Juju, and how I&amp;rsquo;ve modified &lt;a href=&quot;https://github.com/kolo/xmlrpc&quot;&gt;Dmitry Maksimov&amp;rsquo;s&lt;/a&gt; XMLRPC library to work with the XenAPI.&lt;/p&gt;
+</content><id>https://mcclurmc.wordpress.com/2012/11/05/go-lang-and-juju/</id><title type="text">Getting started with Go and Juju</title><updated>2012-11-05T10:07:29-00:00</updated><author><name>mcclurmc</name></author></entry><entry><link href="https://mcclurmc.wordpress.com/2010/03/21/creating-stream-combinators/" rel="alternate"/><contributor><uri>https://mcclurmc.wordpress.com/feed/</uri><name>mcclurmc</name></contributor><content type="html">&lt;p&gt;So I took a look at the Haskell &lt;a href=&quot;http://www.cse.unsw.edu.au/~dons/papers/CLS07.html&quot;&gt;Stream Fusion&lt;/a&gt; &lt;a href=&quot;http://hackage.haskell.org/packages/archive/stream-fusion/0.1.2.2/doc/html/Data-Stream.html&quot;&gt;library&lt;/a&gt; the other day, and got the idea to write a new &lt;code&gt;append&lt;/code&gt; combinator that would merge the two streams in sort order. This seemed simple enough to code directly using Streams, but my first instinct is always to write the code using lists, and then translate it into the more complicated syntax. Here&amp;rsquo;s what a sorting merge function looks like over lists:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;merge :: Ord a =&amp;gt; [a] -&amp;gt; [a] -&amp;gt; [a]
+merge []     bs                 = bs
+merge as     []                 = as
+merge (a:as) (b:bs) | a &amp;lt; b     = a : merge as (b:bs)
+                    | otherwise = b : merge (a:as) bs
+&lt;/pre&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;We have two base cases where either one of the argument lists may be null, in which case we just return the other. For the recursive case, we just &lt;code&gt;cons&lt;/code&gt; the lesser of the two list heads onto the rest of the list, and leave the other list head attached to its list in-place. Simple and elegant.&lt;/p&gt;
+&lt;p&gt;So the Stream version should be just as easy, right? Let&amp;rsquo;s see.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;mergeS_wrong :: Ord a =&amp;gt; Stream a -&amp;gt; Stream a -&amp;gt; Stream a
+mergeS_wrong (Stream nexta sa0) (Stream nextb sb0) = Stream next (sa0, sb0)
+    where
+      next (sa0, sb0) =
+          case (nexta sa0, nextb sb0) of
+            (Done, sb) -&amp;gt;
+                case sb of
+                  Done        -&amp;gt; Done
+                  Skip sb'    -&amp;gt; Skip    (sa0, sb')
+                  Yield b sb' -&amp;gt; Yield b (sa0, sb')
+            (sa, Done) -&amp;gt;
+                case sa of
+                  Done        -&amp;gt; Done
+                  Skip sa'    -&amp;gt; Skip    (sa', sb0)
+                  Yield a sa' -&amp;gt; Yield a (sa', sb0)
+            (sa, sb) -&amp;gt;
+                case sa of 
+                  Done        -&amp;gt; Done -- shouldn't happen
+                  Skip sa'    -&amp;gt; Skip    (sa', sb0)
+                  Yield a sa' -&amp;gt;
+                      case sb of
+                        Done                    -&amp;gt; Done -- shouldn't happen
+                        Skip sb'                -&amp;gt; Yield a (sa', sb')
+                        Yield b sb' | a &amp;lt; b     -&amp;gt; Yield a (sa', sb0)
+                                    | otherwise -&amp;gt; Yield b (sa0, sb')
+&lt;/pre&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;Looks like a wordier version of the first. We take the first element of each stream, and use a case expression to check each of our cases. The first two base cases are a little longer this time because we can&amp;rsquo;t just return the other stream, but instead have to either &lt;code&gt;Skip&lt;/code&gt; or &lt;code&gt;Yield&lt;/code&gt; over the remainder of the Stream. In the third case, we must &lt;code&gt;Skip&lt;/code&gt; over the first Stream until we &lt;code&gt;Yield&lt;/code&gt; a value, and then do the same for the second stream. We compare the two values, &lt;code&gt;Yield&lt;/code&gt; the lesser, and return the two remaining Streams.&lt;/p&gt;
+&lt;p&gt;The only problem is that this won&amp;rsquo;t compile. &lt;code&gt;GHCi&lt;/code&gt; gives us the following error message:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;*Main&amp;gt; :load &amp;quot;/home/mike/Projects/Haskell_SVN/NumWords.hs&amp;quot;
+[1 of 1] Compiling Main             ( /home/mike/Projects/Haskell_SVN/NumWords.hs, interpreted )
+
+/home/mike/Projects/Haskell_SVN/NumWords.hs:59:53:
+    Could not deduce (Data.Stream.Unlifted (s, s1))
+      from the context (Data.Stream.Unlifted s1)
+      arising from a use of `Stream'
+&lt;/pre&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;What&amp;rsquo;s this &lt;code&gt;Data.Stream.Unlifted&lt;/code&gt; type? Turns out that our Stream data type is encapsulated by a universally quantified type &lt;code&gt;s&lt;/code&gt; that is an instance of the hidden type class &lt;code&gt;Unlifted&lt;/code&gt;. The standard Haskell pair type &lt;code&gt;(,)&lt;/code&gt; isn&amp;rsquo;t, unfortunately, an exposed instance of this class. Which means that we can&amp;rsquo;t make a Stream out of a pair of Streams, as we did on the second line of code with &lt;code&gt;Stream next (sa0, sb0)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Or so I thought. That is, until I realized (after much hand wringing) that the library did expose a data type that would allow us to use our own types &amp;mdash; or, indeed, all of the standard Haskell types, such as pair. The type we need is&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;data L a = L a
+instance Unlifted (L a) where
+  expose (L _) s = s
+&lt;/pre&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;Now we have a wrapper data type that acts as a dummy instance of class &lt;code&gt;Unlifted&lt;/code&gt;! So (after about four hours of head scratching), we can make the following small changes to our code:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;mergeS :: Ord a =&amp;gt; Stream a -&amp;gt; Stream a -&amp;gt; Stream a
+mergeS (Stream nexta sa0) (Stream nextb sb0) = Stream next &lt;strong&gt;(L (sa0, sb0))&lt;/strong&gt;
+    where
+      next &lt;strong&gt;(L (sa0, sb0))&lt;/strong&gt; =
+          case (nexta sa0, nextb sb0) of
+            (Done, sb) -&amp;gt;
+                case sb of
+                  Done        -&amp;gt; Done
+                  Skip sb'    -&amp;gt; Skip    &lt;strong&gt;(L (sa0, sb'))&lt;/strong&gt;
+                  Yield b sb' -&amp;gt; Yield b &lt;strong&gt;(L (sa0, sb'))&lt;/strong&gt;
+            (sa, Done) -&amp;gt;
+                case sa of
+                  Done        -&amp;gt; Done
+                  Skip sa'    -&amp;gt; Skip    &lt;strong&gt;(L (sa', sb0))&lt;/strong&gt;
+                  Yield a sa' -&amp;gt; Yield a &lt;strong&gt;(L (sa', sb0))&lt;/strong&gt;
+            (sa, sb) -&amp;gt;
+                case sa of 
+                  Done        -&amp;gt; Done -- shouldn't happen
+                  Skip sa'    -&amp;gt; Skip    &lt;strong&gt;(L (sa', sb0))&lt;/strong&gt;
+                  Yield a sa' -&amp;gt;
+                      case sb of
+                        Done                    -&amp;gt; Done -- Shouldn't happen
+                        Skip sb'                -&amp;gt; Yield a &lt;strong&gt;(L (sa', sb'))&lt;/strong&gt;
+                        Yield b sb' | a &amp;lt; b     -&amp;gt; Yield a &lt;strong&gt;(L (sa', sb0))&lt;/strong&gt;
+                                    | otherwise -&amp;gt; Yield b &lt;strong&gt;(L (sa0, sb'))&lt;/strong&gt;
+&lt;/pre&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;All we had to do was wrap our Stream pairs in the type constructor &lt;code&gt;L&lt;/code&gt; to give our Stream pairs access to &amp;ldquo;free&amp;rdquo; instance deriving from the &lt;code&gt;Unlifted&lt;/code&gt; class. Easy? Well, once you notice that unassuming &lt;code&gt;data L a = L a&lt;/code&gt; in the documentation. But hey, it sure beats trying to do something like this in C!&lt;/p&gt;
+</content><id>https://mcclurmc.wordpress.com/2010/03/21/creating-stream-combinators/</id><title type="text">Creating Stream Combinators in Haskell’s Stream Fusion Library</title><updated>2010-03-21T21:42:12-00:00</updated><author><name>mcclurmc</name></author></entry><entry><link href="https://mcclurmc.wordpress.com/2010/02/12/java-concurrency-annotations/" rel="alternate"/><contributor><uri>https://mcclurmc.wordpress.com/feed/</uri><name>mcclurmc</name></contributor><content type="html">&lt;p&gt;I&amp;rsquo;ve been reading a series of papers by &lt;a href=&quot;http://www.citeulike.org/user/mcclurmc/author/Boyapati:C&quot;&gt;Chandrasekhar Boyapati&lt;/a&gt; on extensions to the Java type system. I found his papers on ensuring race-free programs by specifying that objects are either immutable thread local, or referenced by a unique pointer. There&amp;rsquo;s also the paper &lt;a href=&quot;http://www.citeulike.org/user/mcclurmc/article/6658634&quot;&gt;A Type and Effect System for Deterministic Parallel Java&lt;/a&gt;, from OOPSLA 2009. I&amp;rsquo;m fascinated by the idea of creating a type system that could ease the burden of writing threaded program, and this seems like a really promising idea to me.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;d like to combine this approach to concurrency with &lt;a href=&quot;http://www.citeulike.org/user/mcclurmc/article/6658568&quot;&gt;Hybrid Type Checking&lt;/a&gt;. While I&amp;rsquo;d prefer to do as much at compile time as possible, I have a suspicion that we&amp;rsquo;ll always need to do some locking and unlocking at compile time, and that a system using both static types and runtime contracts might be our best bet.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m taking a stab at implementing these ideas in Java &amp;mdash; but instead of modifying the compiler itself, I&amp;rsquo;ll be writing an annotation processor that will run before the compiler. The idea is that we could extend the Java type system using annotations. We could even go so far as to generate code at compile time that could do either runtime contract checking, or even lock and thread management. This is similar to the project &lt;a href=&quot;http://sourceforge.net/projects/jdefprog/&quot;&gt;Java Defensive Programming&lt;/a&gt;. If I can get this project off the ground, I&amp;rsquo;ll have to see if Federico would like to incorporate some of my code in his project.&lt;/p&gt;
+</content><id>https://mcclurmc.wordpress.com/2010/02/12/java-concurrency-annotations/</id><title type="text">Java Concurrency Annotations</title><updated>2010-02-12T20:21:54-00:00</updated><author><name>mcclurmc</name></author></entry><entry><link href="https://mcclurmc.wordpress.com/2010/02/09/xml-for-resumes/" rel="alternate"/><contributor><uri>https://mcclurmc.wordpress.com/feed/</uri><name>mcclurmc</name></contributor><content type="html">&lt;p&gt;I hate writing resumes because there are no good tools for the job. I would prefer to use an open source word processor, such as Open Office, but companies often ask for MS Word format, which OO doesn&amp;rsquo;t do particularly well. I&amp;rsquo;ve thought about LaTeX, but unless you&amp;rsquo;re doing a lot of math that&amp;rsquo;s kind of overkill. Besides, I want to be able to keep the content of my resume separate from the formatting of the resume. I also want good revision control, and I want to be able to select content for my resume based on the particular job I&amp;rsquo;m applying for (such as leaving off my DoD clearance from non-DoD job applications).&lt;/p&gt;
+&lt;p&gt;All of this sounds like a job for XML &amp;ndash; though I&amp;rsquo;m sure some would find this more overkill than LaTeX. But with a simple XML language, or perhaps even XHTML with class and span tags, I think I can make this happen. There are already two open &amp;ldquo;standards&amp;rdquo; for the job, &lt;a href=&quot;http://xmlresume.sourceforge.net/&quot;&gt;XML Resume&lt;/a&gt; and &lt;a href=&quot;http://microformats.org/wiki/hresume&quot;&gt;hResume&lt;/a&gt; microformats, but I use the word &amp;ldquo;standards&amp;rdquo; very loosely. The XML Resume project on SourceForge hasn&amp;rsquo;t been updated since 2005, and I&amp;rsquo;m not convinced that the microformats solution completely solves the problem of keeping content and formatting orthogonal &amp;ndash; though it gives us the great benefit of having a fully indexable online resume.&lt;/p&gt;
+&lt;p&gt;My idea is to use either XML Resume or hResume (or some bastard of the two) to write the content of the resume, but then use an OO plugin to import the resume language into OO, where we can use it&amp;rsquo;s great formatting tools. If I can get this rolling, we could also write a corresponding plugin for MS Word, so that I can send off resumes to Microsoft shops.&lt;/p&gt;
+&lt;p&gt;Now that I think about it, this is basically the model-view-controller pattern. The model is the XML representation of the resume, and all the different data points that you may want to include at some point in a real resume. The word processor is the view, where you can make your resume look as pretty as you want. The controller is the plugin that allows you to have your pretty resume template backed by data in the XML file &amp;ndash; and, if the plugin does what I want it to do, display certain bullet points while hiding others, change the order of items, etc.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;d really like to get this project started, but every time I think about it it&amp;rsquo;s because I need to work on my resume. And so I find myself in the programmer&amp;rsquo;s endless dilemma: do I build a tool to solve the problem for me, or do I just solve the problem? My resume is looking pretty good, so I hope I&amp;rsquo;ll find some time to work on this plugin.&lt;/p&gt;
+</content><id>https://mcclurmc.wordpress.com/2010/02/09/xml-for-resumes/</id><title type="text">XML for Resumes</title><updated>2010-02-10T00:01:53-00:00</updated><author><name>mcclurmc</name></author></entry><entry><link href="https://mcclurmc.wordpress.com/2010/01/19/emacs/" rel="alternate"/><contributor><uri>https://mcclurmc.wordpress.com/feed/</uri><name>mcclurmc</name></contributor><content type="html">&lt;p&gt;I love Emacs. I&amp;rsquo;ve been using it ever since I took my first programming language theory class in college. I had played around with it before then, but it took my professor&amp;rsquo;s recommendation and half a class worth of a tutorial and I was hooked.&lt;/p&gt;
+&lt;p&gt;We studied Scheme in that class, which is why my prof recommended that we all use Emacs. Scheme is a variant of Lisp, which is the language that Emacs is built around. And Elisp, as it&amp;rsquo;s called, is a great embedded language for customizing Emacs. You could think of it as Visual Basic for Applications, which is Microsoft&amp;rsquo;s language for customizing Office products, but much more simple and powerful to use (as long as parentheses don&amp;rsquo;t scare you).&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve only got one or two friends that might consider themselves to be Emacs gurus, and one of them wrote me the other day with a challenge. &amp;ldquo;I believe this problem is trivial,&amp;rdquo; he said, which is never a good sign, &amp;ldquo;but I&amp;rsquo;ve only had 20 minutes to think about and I&amp;rsquo;ve got to run.&amp;rdquo; He had been working on an Emacs library to help him configure a massive Ant build script. Part of his build process involved him logging into numerous test and dev machines, and he wanted to automate that in Emacs. He had written a list of interactive functions that would allow him to &lt;tt&gt;rlogin&lt;/tt&gt; into each machine by typing &lt;tt&gt;M-x machine&lt;/tt&gt; (&lt;tt&gt;M&lt;/tt&gt; stands for &lt;tt&gt;Alt&lt;/tt&gt;, or &lt;tt&gt;Meta&lt;/tt&gt;, in Emacs, and is used to specify commands from the keyboard). These functions were each defined with syntax like the following:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;(defun machine1 ()
+  (interactive)
+  (rlogin &amp;quot;machine1&amp;quot; &amp;quot;*machine1*&amp;quot;))&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;This list of functions had grown quite a bit in the months since he implemented this feature, and he wanted to find a way to automatically define a function that would log him into a specified machine by simply typing &lt;tt&gt;M-x machine&lt;/tt&gt;. Easy, right?&lt;/p&gt;
+&lt;h2&gt;A first attempt&lt;/h2&gt;
+&lt;p&gt;My first approach to this problem was to create an association list of functions and their names. We would create a single interactive function that would select and run the appropriate generated function.&lt;/p&gt;
+&lt;div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;(defun my-login (fn)
+&amp;nbsp; (interactive &amp;quot;sWhich function? &amp;quot;)
+&amp;nbsp; (funcall
+    (cdr (assoc (read fn) my-fnassoc)))))&lt;/pre&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;There are a few things going on in this function. The &lt;tt&gt;(interactive &amp;quot;sWhich function? &amp;quot;)&lt;/tt&gt; statement tells Emacs that this function can be called interactively using the &lt;tt&gt;M-x my-login&lt;/tt&gt; syntax. The strange string &amp;ldquo;sWhich function? &amp;rdquo; is just a format string telling Emacs to prompt the user for a string argument (the &amp;ldquo;s&amp;rdquo;) with the prompt &amp;ldquo;Which function? &amp;ldquo;. If this were a multivariate function, we would simply break each format string with a &amp;ldquo;\n&amp;rdquo; character in order to prompt for each of our arguments. The &lt;tt&gt;read&lt;/tt&gt; function just turns our argument string into a symbol, and the call &lt;tt&gt;(cdr (assoc (read fn) fnassoc))&lt;/tt&gt; looks the symbol up in the association list &lt;tt&gt;my-fnassoc&lt;/tt&gt;. &lt;tt&gt;funcall&lt;/tt&gt; executes the returned function. Now we just need to build &lt;tt&gt;my-fnassoc&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;(defun mkfunls (name)
+  (let* ((host (prin1-to-string name))
+         (buff (format &amp;quot;*%s*&amp;quot; host)))
+    `(,name . (lambda () (rlogin ,host ,buff)))))&lt;/pre&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;This function creates a single association pair of the form &lt;tt&gt;(host . login-function)&lt;/tt&gt;. Since our &lt;tt&gt;name&lt;/tt&gt; parameter is a symbol, we need to convert it to a string using &lt;tt&gt;prin1-to-string&lt;/tt&gt;. The Emacs &lt;tt&gt;rlogin&lt;/tt&gt; command allows us to specify the name of the buffer in which we spawn the remote shell. We can use the  &lt;tt&gt;format&lt;/tt&gt; function to create a standard buffer name for each &lt;tt&gt;rlogin&lt;/tt&gt; session we create.&lt;/p&gt;
+&lt;p&gt;The final line of &lt;tt&gt;mkfunls&lt;/tt&gt; takes advantage of Lisp&amp;rsquo;s backquoting feature. The syntax looks a little strange at first, but if you can put up with Lisp&amp;rsquo;s other oddities then there&amp;rsquo;s no sense not learning about backquoting too. Quoting in Lisp, accomplished with either the &lt;tt&gt;quote&lt;/tt&gt; special form or the abbreviation &lt;tt&gt;'&lt;/tt&gt; (a single apostrophe). Quoting prevents evaluation of the form being quoted, so evaluating &lt;code&gt;(+ 1 2)&lt;/code&gt; returns the value 3, while evaluating &lt;code&gt;(quote (+ 1 2))&lt;/code&gt;, or the equivalent &lt;code&gt;'(+ 1 2)&lt;/code&gt;, returns the value &lt;code&gt;(+ 1 2)&lt;/code&gt; instead.&lt;/p&gt;
+&lt;p&gt;Backquoting accomplishes the same thing, but allows the programmer to  selectively specify which parts of a list are to be evaluated and which parts aren&amp;rsquo;t. It&amp;rsquo;s called backquoting because we use a backwards apostrophe (&lt;code&gt;`&lt;/code&gt; &amp;mdash; found under the tilde) instead of &lt;code&gt;quote&lt;/code&gt; or the regular apostrophe. We select the forms we want to evaluate using a comma. So the line &lt;code&gt;`(,name . (lambda () (rlogin ,host ,buff)))&lt;/code&gt; evaluates the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;host&lt;/code&gt;, and &lt;code&gt;buff&lt;/code&gt; variables but quotes all the rest of the symbols. So the call &lt;code&gt;(mkfunls 'machine1)&lt;/code&gt; evaluates to &lt;code&gt;(machine1 lambda nil (rlogin &amp;quot;machine1&amp;quot; &amp;quot;*machine1*&amp;quot;))&lt;/code&gt;. Now all that&amp;rsquo;s left is to create our host/rlogin association list and we&amp;rsquo;ll be able to log in to remote hosts with a single command.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;(setq my-fnassoc (mapcar 'mkfunls '(m1 m2 m3)))&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This creates an association list with the host names &lt;code&gt;m1, m2, m3&lt;/code&gt; and sets the variable &lt;code&gt;my-fnassoc&lt;/code&gt;. The function &lt;code&gt;mapcar&lt;/code&gt; applies it&amp;rsquo;s first argument, in the case the function &lt;code&gt;mkfunls&lt;/code&gt;, to it&amp;rsquo;s second argument, which must be a list.&lt;/p&gt;
+&lt;p&gt;Now when we type &lt;code&gt;M-x my-login&lt;/code&gt; we receive the prompt &amp;ldquo;Which host?&amp;rdquo;, to which we can reply with any of the hosts we specified in the &lt;code&gt;my-fnassoc&lt;/code&gt; list above.&lt;/p&gt;
+&lt;p&gt;But this doesn&amp;rsquo;t quite solve my buddy&amp;rsquo;s problem, does it? His list of login functions, while a little cumbersome to maintain, defined interactive functions at the top level, which allowed him to run &lt;code&gt;M-x machine1&lt;/code&gt; instead of the more indirect call to &lt;code&gt;M-x my-login&lt;/code&gt; above.&lt;/p&gt;
+&lt;h2&gt;A better solution&lt;/h2&gt;
+&lt;p&gt;What we want is to automatically generate named, interactive functions. My initial thought was that this was a perfect task for macros, but it turns out that we don&amp;rsquo;t even have to bother with macros to make this work. Instead, we&amp;rsquo;ll use the backquoting syntax from above to build up &lt;code&gt;defuns&lt;/code&gt; and then evaluate them.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;(defun mkdefun (name)
+  (let* ((host (prin1-to-string name))
+         (buff (format &amp;quot;*%s*&amp;quot; host)))
+    (eval
+     `(defun ,name () (interactive) (rlogin ,host ,buff)))))&lt;/pre&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;This is very similar to our &lt;code&gt;mkfunls&lt;/code&gt; function above. Instead of returning an association list, we&amp;rsquo;re evaluating a &lt;code&gt;defun&lt;/code&gt;. We use the backquote syntax to selectively evaluate the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;host&lt;/code&gt;, and &lt;code&gt;buff&lt;/code&gt; variables. &lt;code&gt;eval&lt;/code&gt; then evaluates the &lt;code&gt;defun&lt;/code&gt; for us and creates a new top level definition. We can then map over a list of function names like we did before:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;(mapc 'mkdefun '(m1 m2 m3))&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mapc&lt;/code&gt; is like &lt;code&gt;mapcar&lt;/code&gt;, except that it doesn&amp;rsquo;t return the a list of the results of the function evaluations. This is useful when we only care about a function&amp;rsquo;s side effect and not its results.&lt;/p&gt;
+&lt;p&gt;So now we have a simple method to automatically generate repetitive Emacs commands. All we have to do is append new function names to the list in the &lt;code&gt;mapc&lt;/code&gt; command and we have a new function!&lt;/p&gt;
+</content><id>https://mcclurmc.wordpress.com/2010/01/19/emacs/</id><title type="text">Emacs!</title><updated>2010-01-19T06:43:00-00:00</updated><author><name>mcclurmc</name></author></entry></feed>

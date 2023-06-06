@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://dutherenverseauborddelatable.wordpress.com/category/ocaml/feed/</id><title type="text">dutherenverseauborddelatable</title><updated>2023-06-05T05:45:59-00:00</updated><entry><link href="https://dutherenverseauborddelatable.wordpress.com/2011/10/20/javascript-this-static-language-part-1/" rel="alternate"/><contributor><uri>https://dutherenverseauborddelatable.wordpress.com/category/ocaml/feed/</uri><name>dutherenverseauborddelatable</name></contributor><content type="html">&lt;h2 style=&quot;text-align:justify;&quot;&gt;tl;dr&lt;/h2&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;JavaScript is a dynamic language. However, by borrowing a few pages from static languages &amp;ndash; and a few existing tools &amp;ndash; we can considerable improve reliability and maintainability.&lt;/p&gt;
+&lt;h2 style=&quot;text-align:justify;&quot;&gt;&amp;laquo; Writing one million lines of code of JavaScript is simply impossible &amp;raquo;&lt;/h2&gt;
+&lt;p style=&quot;text-align:right;&quot;&gt;(source: speaker in a recent open-source conference)&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;JavaScript is a dynamic language &amp;ndash; a very dynamic one, in which programs can rewrite themselves, objects may lose or gain methods through side-effects on themselves on on their prototypes, and, more generally, nothing is fixed.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;And dynamic languages are fun. They make writing code simple and fast. They are vastly more suited to prototyping than static languages. Dynamism also makes it possible to write extremely powerful tools that can perform JIT translation from other syntaxes, add missing features to existing classes and functions and more generally fully customize the experience of the developer.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Unfortunately, such dynamism comes with severe drawbacks. Safety-minded developers will tell you that, because of this dynamism, they simply cannot trust any snippet, as this snippet may behave in a manner that does not match its source code. They will conclude that you cannot write safe, or even modular, applications in JavaScript.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Many engineering-minded developers will also tell you that they simply cannot work in JavaScript, and they will not have much difficulty finding examples of situations in which the use of a dynamic language in a complex project can, effectively, kill the project. If you do not believe them, consider a large codebase, and the (rather common) case of a large transversal refactoring, for instance to replace an obsolete API by a newer one. Do this in Java (or, even better, in a more modern mostly-static language such as OCaml, Haskell, F# or Scala), and you can use the compiler to automatically and immediately spot any place where the API has not been updated, and will spot a number of errors that you may have made with the refactoring. Even better, if the API was designed to be safe-by-design, the compiler will automatically spot even complex errors that you may have done during refactoring, including calling functions/methods in the wrong order, or ownership errors. Do the same in JavaScript and, while your code will be written faster, you should expect to be hunting bugs weeks or even months later.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;I know that the Python community has considerably suffered from such problems during version transitions. I am less familiar with the world of PHP, but I believe this is no accident that Facebook is progressively arming itself with PHP static analysis tools. I also believe that this is no accident that Google is now &lt;a href=&quot;https://dutherenverseauborddelatable.wordpress.com/2011/10/13/first-look-at-google-dart/&quot; title=&quot;First look at Google&amp;nbsp;Dart&quot; target=&quot;_blank&quot;&gt;introducing a typed language as a candidate replacement for JavaScript&lt;/a&gt;.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;That is because today is the turn of JavaScript, or if not today, surely tomorrow. I have seen applications consisting in hundreds of thousands of lines of JavaScript. And if just maintaining these applications is not difficult enough, the rapid release cycles of both&amp;nbsp; Mozilla and Chrome, mean that external and internal APIs are now changing every six weeks. This means breakage. And, more precisely, this means that we need new tools to help us predict breakages and help developers (both add-on developers and browser contributors) react before these breakages hit their users.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;So let&amp;rsquo;s do something about it. Let&amp;rsquo;s make &lt;em&gt;our&lt;/em&gt; JavaScript a strongly, statically typed language!&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Or let&amp;rsquo;s do something a little smarter.&lt;/p&gt;
+&lt;h2 style=&quot;text-align:justify;&quot;&gt;JavaScript, with discipline&lt;/h2&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;At this point, I would like to ask readers to please kindly stop preparing tar and feathers for me. I realize fully that JavaScript is a dynamic language and that turning it into a static language will certainly result in something quite disagreeable to use. Something that is verbose, has lost most of the power of JavaScript, and gained no safety guarantees.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Trust me on this, there is a way to obtain the best of both worlds, without sacrificing anything. Before discussing the manner in which we can attain this, let us first set objectives that we can hope to achieve with a type-disciplined JavaScript.&lt;/p&gt;
+&lt;h3 style=&quot;text-align:justify;&quot;&gt;Finding errors&lt;/h3&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;The main benefit of strong, static typing, is that it helps find errors.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li style=&quot;text-align:justify;&quot;&gt;Even the simplest analyses can find &lt;em&gt;all&lt;/em&gt; syntax errors, &lt;em&gt;all&lt;/em&gt; unbound variables, &lt;em&gt;all&lt;/em&gt; variables bound several times and consequently almost all scoping errors, which can already save considerable time for developers. Such an analysis requires no human intervention from the developer besides, of course, fixing any error that has been thus detected. As a bonus, in most cases, the analysis can suggest fixes.&lt;/li&gt;
+&lt;li style=&quot;text-align:justify;&quot;&gt;Similarly trivial forms of analysis can also detect suspicious calls to break or continue, weird uses of &lt;code&gt;switch()&lt;/code&gt;, suspicious calls to private fields of objects, as well as suspicious occurrences of &lt;code&gt;eval&lt;/code&gt; &amp;ndash; in my book, eval is always suspicious.&lt;/li&gt;
+&lt;li style=&quot;text-align:justify;&quot;&gt;Slightly more sophisticated analyses can find &lt;em&gt;most occurrences&lt;/em&gt; of functions or methods invoked with the wrong number of arguments. Again, this is without human intervention. With type annotations/documentation, we can move from &lt;em&gt;most occurrences&lt;/em&gt; to &lt;em&gt;all occurrences&lt;/em&gt;.&lt;/li&gt;
+&lt;li style=&quot;text-align:justify;&quot;&gt;This same analysis, when applied to public APIs, can provide developers with more informations regarding how their code can be (mis)used.&lt;/li&gt;
+&lt;li style=&quot;text-align:justify;&quot;&gt;At the same level of complexity, analysis can find &lt;em&gt;most&lt;/em&gt; erroneous access to fields/methods, suspicious array traversals, suspicious calls to iterators/generators, etc. Again, with type annotations/documentation, we can move from &lt;em&gt;most&lt;/em&gt; to &lt;em&gt;all&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Going a little further in complexity, analysis can find fragile uses of &lt;code&gt;this&lt;/code&gt;, uncaught exceptions, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;/h3&gt;
+&lt;h3&gt;Types as documentation&lt;/h3&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Public APIs must be documented. This is true in any language, no matter where it stands on the static/dynamic scale. In static languages, one may observe how documentation generation tools insert type information, either from annotations provided by the user (as in Java/JavaDoc) or from type information inferred by the compiler (as in OCaml/OCamlDoc). But look at the documentation of Python, Erlang or JavaScript libraries and you will find the exact same information, either clearly labelled or hidden somewhere in the prose: every single value/function/method comes with a form of type signature, whether formal or informal.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;In other words, type information is a critical piece of documentation. If JavaScript developers provide explicit type annotations along with their public APIs, they have simply advanced the documentation, not wasted time. Even better, if such type can be automatically inferred from the source code, this piece of documentation can be automatically written by the type-checker.&lt;/p&gt;
+&lt;h3 style=&quot;text-align:justify;&quot;&gt;Types as QA metric&lt;/h3&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;While disciples of type-checking tend to consider typing as something boolean, the truth is more subtle: it quite possible that one piece of code does not pass type-checking while the rest of the code does. Indeed, with advanced type systems that do not support decidable type inference, this is only to be expected.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;The direct consequence is that type-checking can be seen as a spectrum of quality. A code can be seen as &lt;em&gt;failing&lt;/em&gt; if the static checking phrase can detect evident errors, typically unbound values or out-of-scope break, continue, etc. Otherwise, every attempt to type a value that results in a type error is a hint of poor QA practice that can be reported to the developer. This yields a percentage of values that can be typed &amp;ndash; obtain 100% and get a QA stamp of approval for this specific metric.&lt;/p&gt;
+&lt;h2 style=&quot;text-align:justify;&quot;&gt;&lt;/h2&gt;
+&lt;h2&gt;Typed JavaScript, in practice&lt;/h2&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Most of the previous paragraphs are already possible in practice, with existing tools. Indeed, I have personally experienced using JavaScript static type checking as a bug-finding tool and a QA metric. On the first day, this technique has helped me find both plenty of dead code and 750+ errors, with only a dozen false positives.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;For this purpose, I have used Google&amp;rsquo;s &lt;a href=&quot;http://www.slideshare.net/pascallouis/type-checking-javascript&quot; target=&quot;_blank&quot;&gt;Closure Compiler&lt;/a&gt;. This tool detects errors, supports a simple vocabulary for documentation/annotations, fails only if very clear errors are detected (typically syntax errors) and provides as metric a percentage of well-typed code. It does not accept JavaScript 1.7 yet, unfortunately, but this can certainly be added.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;I also know of existing academic work to provide static type-checking for JavaScript, although I am unsure as to the maturity of such works.&lt;/p&gt;
+&lt;p&gt;Finally, Mozilla is currently working on a different type inference mechanism for JavaScript. While this mechanism is not primarily aimed at finding errors, my personal intuition is that it may be possible to repurpose it.&lt;/p&gt;
+&lt;h2&gt;&lt;/h2&gt;
+&lt;h2&gt;What&amp;rsquo;s next?&lt;/h2&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;I hope that I have convinced you of the interest of investigating manners of introducing static, strong type-checking to JavaScript. In a second part, I will detail how and where I believe that this can be done in Mozilla.&lt;/p&gt;
+</content><id>https://dutherenverseauborddelatable.wordpress.com/2011/10/20/javascript-this-static-language-part-1/</id><title type="text">JavaScript, this static language (part 1)</title><updated>2011-10-20T13:31:36-00:00</updated><author><name>dutherenverseauborddelatable</name></author></entry><entry><link href="https://dutherenverseauborddelatable.wordpress.com/2011/09/06/goodbye-mlstate-goodbye-opa/" rel="alternate"/><contributor><uri>https://dutherenverseauborddelatable.wordpress.com/category/ocaml/feed/</uri><name>dutherenverseauborddelatable</name></contributor><content type="html">&lt;p&gt;Tides come and tides go.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Two years ago, I accepted to join MLstate, to take lead of the R&amp;amp;D group, and turn Opa from a promising early-stage demo into a world-class technology. And I am happy to say that we succeeded. Certainly, there are still many things that we would like to improve in Opa, but looking back on those two years, I am proud of the work we have accomplished, of the number of topics upon which we have pushed forward the state of the art, and even of many of the mistakes we have made, because they have expanded our understanding so much.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Now, after two years at MLstate, I am leaving. Our work is accomplished and I do not feel that I can contribute in any meaningful way to what MLstate has now become, nor that today&amp;rsquo;s MLstate can keep me excited and interested any longer. In the past few days, Opa has been featured on Lambda the Ultimate, on Hacker News and on Slashdot. Small and large high-tech companies have tried and enjoyed the technology. What better time than this to set sail and say goodbye to these two exciting years of my life?&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;As of today, I am not the Head of Research &amp;amp; Development, Chief Scientific Officer or Technological Evangelist at MLstate anymore. I will keep a distant eye on Opa, but I will not design or supervise its future versions. &lt;a href=&quot;http://www.linkedin.com/pub/mathieu-baudet/9/6b0/a52&quot;&gt;Mathieu Baudet&lt;/a&gt;, our COO, is replacing me as the supervisor for the development of Opa, while &lt;a href=&quot;http://adam-koprowski.net/&quot;&gt;Adam Koprowski&lt;/a&gt; is replacing me as Technological Evangelist. Mathieu is a very intelligent security researcher and I am sure that he will impose a new style to the Opa team, and Adam is a bright and enthusiastic researcher/developer, and certainly the best person at MLstate to carry on Opa advocacy.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;I would like to thank my University for supporting this foray into the exciting world of start-ups. I would like to thank our CEO for recruiting such a talented team. I would also like to thank Mehdi Ben Soltane, our CFO/HR director, who managed to do his job with a nice and welcome pinch of humor, even in the toughest of times. And mostly, I would like to thank all the R&amp;amp;D team: Maxime Audouin, Mathieu Barbin, Vincent Benayoun, Anthonin Bonnefoy, Raja Boujbel, Quentin Bourgerie, S&amp;eacute;bastien Briais, Valentin Gatien-Baron, Louis Gesbert, Nicolas Glondu, Hugo Heuzard, Adrien Jonquet, Mikolaj Konarski, Adam Koprowski, Laurent LeBrun, Sarah Maarek, Gr&amp;eacute;goire Makridis, Fran&amp;ccedil;ois Pessaux, Guillem Rieu, Pascal Rigaux, Norman Scaife, Rudy Sicard, Fran&amp;ccedil;ois-R&amp;eacute;gis Sinot, C&amp;eacute;dric Soulas, Quickie Squeaky, Hugo Venturini, Fr&amp;eacute;d&amp;eacute;ric Ye, and all our successive generations of interns[1]: you are the best team I have ever had the chance to join, it really was an honor and a pleasure working with you all and I hope that those among you who have chosen to remain in MLstate have as much fun working under Mathieu&amp;rsquo;s leadership as I had working with you all.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Time to set sail! My next missive should arrive from the next port.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;[1] Sorry, I do not have the list of interns at hand. But do not worry, I enjoyed working with you, too &lt;img src=&quot;https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/1f642.png&quot; alt=&quot;&amp;#128578;&quot; class=&quot;wp-smiley&quot; style=&quot;height: 1em; max-height: 1em;&quot;/&gt;&lt;/p&gt;
+</content><id>https://dutherenverseauborddelatable.wordpress.com/2011/09/06/goodbye-mlstate-goodbye-opa/</id><title type="text">Goodbye MLstate, goodbye Opa</title><updated>2011-09-06T15:36:40-00:00</updated><author><name>dutherenverseauborddelatable</name></author></entry><entry><link href="https://dutherenverseauborddelatable.wordpress.com/2011/08/28/opa-advocacy/" rel="alternate"/><contributor><uri>https://dutherenverseauborddelatable.wordpress.com/category/ocaml/feed/</uri><name>dutherenverseauborddelatable</name></contributor><content type="html">&lt;p style=&quot;text-align:justify;&quot;&gt;Opa advocacy and tutorials have moved to &lt;a href=&quot;http://blog.opalang.org/&quot;&gt;their own, dedicated blog&lt;/a&gt;. The topics are now covered by Adam Koprowski. Thanks for handling this, Adam!&lt;/p&gt;
+</content><id>https://dutherenverseauborddelatable.wordpress.com/2011/08/28/opa-advocacy/</id><title type="text">Opa advocacy</title><updated>2011-08-28T04:34:44-00:00</updated><author><name>dutherenverseauborddelatable</name></author></entry><entry><link href="https://dutherenverseauborddelatable.wordpress.com/2011/08/28/opa-on-lambda-the-ultimate/" rel="alternate"/><contributor><uri>https://dutherenverseauborddelatable.wordpress.com/category/ocaml/feed/</uri><name>dutherenverseauborddelatable</name></contributor><content type="html">&lt;p style=&quot;text-align:justify;&quot;&gt;There is a &lt;a href=&quot;http://lambda-the-ultimate.org/node/4336&quot;&gt;nice discussion on Opa on Lambda the Ultimate forums&lt;/a&gt;. If you are not familiar with &lt;a href=&quot;http://lambda-the-ultimate.org/&quot;&gt;Lambda the Ultimate&lt;/a&gt;, know that this is &lt;em&gt;the&lt;/em&gt; place for discussing new and exotic programming languages and programming concepts, so the simple fact of seeing a thread on LtU is something of an honor for us.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;See also&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://news.ycombinator.com/item?id=2925609&quot;&gt;the Hacker News thread spawned by this LtU thread&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://developers.slashdot.org/story/11/08/27/2115210/Announcing-Opa-Making-Web-Programming-Transparent&quot;&gt;the Slashdot thread spawned by this LtU thread&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;&lt;strong&gt;Edit&lt;/strong&gt; Added the Slashdot thread.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;&lt;strong&gt;Edit&lt;/strong&gt; Gasp, Slashdot is down. Hey, GeekNet, if you need a scalable programming language for the next version of Slashcode, just ping us &lt;img src=&quot;https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/1f642.png&quot; alt=&quot;&amp;#128578;&quot; class=&quot;wp-smiley&quot; style=&quot;height: 1em; max-height: 1em;&quot;/&gt;&lt;/p&gt;
+</content><id>https://dutherenverseauborddelatable.wordpress.com/2011/08/28/opa-on-lambda-the-ultimate/</id><title type="text">Opa on Lambda the Ultimate (and now Slashdot)</title><updated>2011-08-28T04:31:52-00:00</updated><author><name>dutherenverseauborddelatable</name></author></entry><entry><link href="https://dutherenverseauborddelatable.wordpress.com/2011/06/07/centralizing-opa-applications/" rel="alternate"/><contributor><uri>https://dutherenverseauborddelatable.wordpress.com/category/ocaml/feed/</uri><name>dutherenverseauborddelatable</name></contributor><content type="html">&lt;p style=&quot;text-align:justify;&quot;&gt;&lt;strong&gt;Short update&lt;/strong&gt; The &lt;a href=&quot;http://opalang.org&quot;&gt;opalang&lt;/a&gt; website now lists &lt;a href=&quot;http://opalang.org/protected/see.html&quot;&gt;applications developed in Opa&lt;/a&gt; (registration required &amp;ndash; part of the closed preview). If you are developing an application in Opa, please consider submitting this to the list.&lt;/p&gt;
+</content><id>https://dutherenverseauborddelatable.wordpress.com/2011/06/07/centralizing-opa-applications/</id><title type="text">Listing Opa applications</title><updated>2011-06-07T15:27:50-00:00</updated><author><name>dutherenverseauborddelatable</name></author></entry><entry><link href="https://dutherenverseauborddelatable.wordpress.com/2011/05/30/crowdsourcing-the-syntax/" rel="alternate"/><contributor><uri>https://dutherenverseauborddelatable.wordpress.com/category/ocaml/feed/</uri><name>dutherenverseauborddelatable</name></contributor><content type="html">&lt;p style=&quot;text-align:justify;&quot;&gt;&lt;em&gt;Feedback from Opa testers suggests that we can improve the syntax and make it easier for developers new to Opa to read and write code. We have spent some time both inside the Opa team and with the testers designing two possible revisions to the syntax. Feedback on both possible revisions, as well as alternative ideas, are welcome.&lt;/em&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;A few days ago, we announced the &lt;a href=&quot;http://www.opalang.org&quot;&gt;Opa platform&lt;/a&gt;, and I&amp;rsquo;m happy to announce that things are going very well. We have received numerous applications for the closed preview &amp;ndash; we now have onboard people from Mozilla, Google and Twitter, to quote but a few, from many startups, and even from famous defense contractors &amp;ndash; and I&amp;rsquo;d like to start this post by thanking all the applicants. It&amp;rsquo;s really great to have you guys &amp;amp; gals and your feedback. We are still accepting applications, by the way.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Speaking of feedback, we got plenty of it, too, on just about everything Opa, much of it on the syntax. This focus on syntax is only fair, as syntax is both the first thing a new developer sees of a language and something that they have to live with daily. And feedback on the syntax indicates rather clearly that our syntax, while being extremely concise, was perceived as too exotic by many developers.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Well, we aim to please, so we have spent some time with our testers working on possible syntax revisions, and we have converged on two possible syntaxes. In this post, I will walk you through syntax changes. Please keep in mind that we are very much interested in feedback, so do not hesitate to contact us, either by leaving comments on this blog, by &lt;a href=&quot;irc://irc.freenode.net/#opalang&quot;&gt;IRC&lt;/a&gt;, or at &lt;a href=&quot;mailto:feedback@opalang.org&quot;&gt;feedback@opalang.org&lt;/a&gt; .&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;padding-left:30px;&quot;&gt;&lt;strong&gt;Important note&lt;/strong&gt;: that we will continue supporting the previous syntax for some time and we will provide tools to automatically convert from the previous syntax to the revised syntax.&lt;/p&gt;
+&lt;p&gt;Let me walk you through syntax changes.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h2&gt;Edit&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Fixed typoes.&lt;/li&gt;
+&lt;li&gt;Removed most comments from revised versions, they were redundant.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Hello, web&lt;/h2&gt;
+&lt;h3&gt;Original syntax&lt;/h3&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+start() = &amp;lt;&amp;gt;Hello, web!&amp;lt;/&amp;gt;
+server = one_page_server(&amp;quot;Hello&amp;quot;, start)
+&lt;/pre&gt;
+&lt;p&gt;or, equivalently,&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+server = one_page_server(&amp;quot;Hello&amp;quot;, -&amp;gt; &amp;lt;&amp;gt;Hello, web!&amp;lt;/&amp;gt;)
+&lt;/pre&gt;
+&lt;p&gt;This application involves the following operations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;define some HTML content &amp;ndash; note that this is actually a data structure, &lt;em&gt;not&lt;/em&gt; inline HTML;&lt;/li&gt;
+&lt;li&gt;put this content in a either a function called start (first version) or an anonymous function (second version);&lt;/li&gt;
+&lt;li&gt;call function one_page_server to build a server;&lt;/li&gt;
+&lt;li&gt;use this server as our main server.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Revised syntax, candidate 1&lt;/h3&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+/**
+ * The function defining our user interface.
+ */
+start() {
+  &amp;lt;&amp;gt;Hello, web!&amp;lt;/&amp;gt; //HTML-like content.
+  //As the last value of the function, this is the result.
+}
+
+/**
+ * Create and start a server delivering user interface [start]
+ */
+start_server(one_page_server(&amp;quot;Hello&amp;quot;, start))
+&lt;/pre&gt;
+&lt;p style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://gist.github.com/995020&quot;&gt;Fork me on github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;or, equivalently&lt;/p&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+/**
+ * The function defining our user interface.
+ */
+start = -&amp;gt; &amp;lt;&amp;gt;Hello, web!&amp;lt;/&amp;gt; //HTML-like content.
+  //Using the syntax for anonymous functions
+
+/**
+ * Create and start a server delivering user interface [start]
+ */
+start_server(one_page_server(&amp;quot;Hello&amp;quot;, start))
+&lt;/pre&gt;
+&lt;p style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://gist.github.com/998663&quot;&gt;Fork me on github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;or, equivalently&lt;/p&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+start_server(one_page_server(&amp;quot;Hello&amp;quot;, -&amp;gt; &amp;lt;&amp;gt;Hello, web!&amp;lt;/&amp;gt; ));
+&lt;/pre&gt;
+&lt;p style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://gist.github.com/995032&quot;&gt;Fork me on github&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;Rationale of the redesign&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;JS-style &lt;strong&gt;{}&lt;/strong&gt; around function bodies indicate clearly where a function starts and where a function ends, which makes it easier for people who do not know the language to make sense of source code;&lt;/li&gt;
+&lt;li&gt;an explicit call to function start_server makes it more discoverable and intelligible that you can define several servers in one application.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Not redesigned&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;the HTML-like for user interface &amp;ndash; feedback indicates that developers understand it immediately;&lt;/li&gt;
+&lt;li&gt;anonymous functions can still be written with &lt;strong&gt;-&amp;gt;&lt;/strong&gt; &amp;ndash; this syntax is both lightweight and readable;&lt;/li&gt;
+&lt;li&gt;the fact that the last value of a function is its result &amp;ndash; now that we have the curly braces, it&amp;rsquo;s clear, and it fits much better with our programming paradigm than a &lt;strong&gt;return&lt;/strong&gt; that would immediately stop the flow of the function and would not interact too nicely with our concurrency model;&lt;/li&gt;
+&lt;li&gt;the syntax of comments &amp;ndash; it works as it is.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Revised syntax, candidate 2&lt;/h3&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+/**
+ * The function defining our user interface.
+ */
+def start():
+  &amp;lt;&amp;gt;Hello, web!&amp;lt;/&amp;gt; //HTML-like content.
+  //As the last value of the function, this is the result.
+
+/**
+ * Create and start a server delivering user interface [start]
+ */
+server:
+   one_page_server(&amp;quot;Hello&amp;quot;, start)
+&lt;/pre&gt;
+&lt;p style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://gist.github.com/998667&quot;&gt;Fork me on github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;or, equivalently&lt;/p&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+server:
+   one_page_server(&amp;quot;Hello&amp;quot;, def(): &amp;lt;&amp;gt;Hello, web!&amp;lt;/&amp;gt;)
+&lt;/pre&gt;
+&lt;p style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://gist.github.com/998669&quot;&gt;Fork me on github&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;Redesign and rationale&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Python-style meaningful indents force readable pagination;&lt;/li&gt;
+&lt;li&gt;in the second version, Python-inspired anonymous &amp;ldquo;&lt;strong&gt;def&lt;/strong&gt;&amp;rdquo; makes it easier to spot anonymous functions and their arguments &amp;ndash; note that this is not quite Python &amp;ldquo;&lt;strong&gt;lambda&lt;/strong&gt;&amp;ldquo;, as there is no semantic difference between what an anonymous function can do and what a named function can do ;&lt;/li&gt;
+&lt;li&gt;Keyword &lt;strong&gt;server:&lt;/strong&gt; is clearer than declaration &lt;strong&gt;server =&lt;/strong&gt; .&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Not redesigned&lt;/h4&gt;
+&lt;p&gt;as above&lt;/p&gt;
+&lt;h2&gt;Distributed key-value store&lt;/h2&gt;
+&lt;h3&gt;Original syntax&lt;/h3&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+/**
+ * Add a path called [/storage] to the schema of our
+ * graph database.
+ *
+ * This path is used to store one value with type
+ * [stringmap(option(string))]. A [stringmap] is a dictionary.
+ * An [option(string)] is an optional [string],
+ * i.e. a value that may either be a string or omitted.
+ *
+ * This path therefore stores an association from [string]
+ * (the key) to either a [string] (the value) or nothing
+ * (no value).
+ */
+db /storage: stringmap(option(string))
+&lt;/pre&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;This extract adds a path to the database schema and provides the type of the value stored at this path. Note that Opa offers a graph database. Each path contains exactly &lt;em&gt;one&lt;/em&gt; value. To store several values at one path, we actually store a container, which integrates nicely into the graph. Here, Opa will detect that what we are storing is essentially a table, and will automatically optimize storage to take advantage of this information.&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+/**
+ * Handle requests.
+ *
+ * @param request The uri of the request. The URI is converted
+ * to a key in [/storage], the method determines what should be
+ * done, and in the case of [{post}] requests, the body is used
+ * to set the value in the db
+ *
+ * @return If the request is rejected, [{method_not_allowed}].
+ * If the request is a successful [{get}], a &amp;quot;text/plain&amp;quot;
+ * resource with the value previously stored. If the request
+ * is a [{get}] to an unknown key, a [{wrong_address}].
+ * Otherwise, a [{success}].
+ */
+dispatch(request) =
+(
+  key = List.to_string(request.uri.path)
+  match request.method with
+   | {some = {get}}    -&amp;gt;
+     match /storage[key] with
+       | {none}        -&amp;gt; Resource.raw_status({wrong_address})
+       | {some = value}-&amp;gt; Resource.raw_response(value,
+               &amp;quot;text/plain&amp;quot;, {success})
+     end
+   | {some = {post}}   -&amp;gt;
+         do /storage[key] &amp;lt;- request.body
+         Resource.raw_status({success})
+   | {some = {delete}} -&amp;gt;
+         do Db.remove(@/storage[key])
+         Resource.raw_status({success})
+   | _ -&amp;gt; Resource.raw_status({method_not_allowed})
+  end
+)
+&lt;/pre&gt;
+&lt;p&gt;This extract&amp;nbsp; inspects the HTTP method of the request to decide what to do with the request &amp;ndash; this is called &amp;ldquo;pattern-matching&amp;rdquo;. First case handles GET and performs further matching on the database to determine whether the key is already associated to a value.&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+/**
+ * Main entry point: launching the server.
+ */
+server = Server.simple_request_dispatch(dispatch)
+&lt;/pre&gt;
+&lt;p&gt;Finally, this extract launches the server.&lt;/p&gt;
+&lt;h3&gt;Revised syntax, candidate 1&lt;/h3&gt;
+&lt;p style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://gist.github.com/993180&quot;&gt;Fork me on github&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+db {
+  option&amp;lt;string&amp;gt; /storage[string];
+}
+&lt;/pre&gt;
+&lt;p&gt;or, equivalently,&lt;/p&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+db option&amp;lt;string&amp;gt; /storage[string];
+&lt;/pre&gt;
+&lt;h4&gt;Redesigns and rationale&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The type of the value appears before the value &amp;ndash; this is more understandable by developers used to C-style syntax.&lt;/li&gt;
+&lt;li&gt;Syntactic sugar makes it clear that the path is indexed by strings &amp;ndash; this syntax matches the syntax used to place requests or to update the value.&lt;/li&gt;
+&lt;li&gt;Allowing braces around schema declaration is a good visual clue.&lt;/li&gt;
+&lt;li&gt;We now use &amp;lt;&amp;gt; for generics syntax &amp;ndash; again, this matches the syntax of C++, Java, C# and statically typed JS extensions.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Not redesigned&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Keyword &lt;strong&gt;db&lt;/strong&gt; &amp;ndash; we need a keyword to make it clear that we are talking about the database.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+dispatch(request) {
+  key = List.to_string(request.uri.path);
+  match(request.method) {
+    case {some: {get}}:
+       &amp;nbsp;match(/storage[key]) {
+           case {none}:  Resource.raw_status({wrong_address});
+           case {some: value}: Resource.raw_response(value,
+              &amp;quot;text/plain&amp;quot;, {success});
+        }
+    case {some: {post}}: {
+         /storage[key] &amp;lt;- request.body;
+         Resource.raw_status({success})
+    }
+    case {some: {delete}}: {
+         Db.remove(@/storage[key]);
+         Resource.raw_status({success});
+    }
+    case *: Resource.raw_status({method_not_allowed});
+  }
+}
+&lt;/pre&gt;
+&lt;h4&gt;Redesigns and rationale&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Pattern-matching syntax&amp;nbsp; becomes&amp;nbsp; &lt;strong&gt;match&lt;/strong&gt;(&amp;hellip;) { &lt;strong&gt;case&lt;/strong&gt; case_1: &amp;hellip;; &lt;strong&gt;case&lt;/strong&gt; case_2: &amp;hellip;; &amp;hellip; } &amp;ndash; this syntax resembles that of &lt;strong&gt;switch&lt;/strong&gt;(), and is therefore more understandable by developers who are not accustomed to pattern-matching. Note that pattern-matching is both more powerful than switch and has a different branching mechanism, so reusing keywords switch and default would have mislead developers.&lt;/li&gt;
+&lt;li&gt;Records now use &lt;strong&gt;:&lt;/strong&gt; instead of &lt;strong&gt;=&lt;/strong&gt;, as in JavaScript &amp;ndash; now that we use curly braces, this is necessary to ensure that there is a visual difference between blocks and structures.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Not redesigned&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Operator &lt;strong&gt;&amp;lt;-&lt;/strong&gt; for updating a database path &amp;ndash; we want developers to be aware that this operation is very different from =, which serves to define new values.&lt;/li&gt;
+&lt;li&gt;The syntax for paths &amp;ndash; it&amp;rsquo;s simple, concise and it&amp;rsquo;s an immediate cue that we are dealing with a persistent value.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+start_server(Server.simple_request_dispatch(dispatch))
+&lt;/pre&gt;
+&lt;p&gt;No additional redesigns or rationales.&lt;/p&gt;
+&lt;h3&gt;Revised syntax, candidate 2&lt;/h3&gt;
+&lt;p style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://gist.github.com/993279&quot;&gt;Fork me on github&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+db:
+ &amp;nbsp;/storage[string] as option(string)
+&lt;/pre&gt;
+&lt;h4&gt;Redesigns and rationale&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Again, Python-style meaningful indents force readable pagination;&lt;/li&gt;
+&lt;li&gt;syntactic sugar makes it clear that the path is indexed by strings &amp;ndash; this syntax matches the syntax used to place requests or to update the value;&lt;/li&gt;
+&lt;li&gt;keyword &lt;strong&gt;as&lt;/strong&gt; (inspired by Boo) replaces &lt;strong&gt;:&lt;/strong&gt; (which is used pervasively in Python syntax);&lt;/li&gt;
+&lt;li&gt;python-style keyword &lt;strong&gt;db:&lt;/strong&gt; is more visible than &lt;strong&gt;db&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Not redesigned&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;We still use parentheses for generic types &amp;ndash; no need to clutter the syntax with Java-like Foo&amp;lt;Bar&amp;gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+def dispatch(request):
+  key = List.to_string(request.uri.path)
+  match request.method:
+    case {some = {get}}:
+       match /storage[key]:
+          case {none}:        Resource.raw_status({wrong_address})
+          case {some: value}: Resource.raw_response(value,
+                &amp;quot;text/plain&amp;quot;, {success});
+    case {some = {post}}:
+         /storage[key] &amp;lt;- request.body
+         Resource.raw_status({success})
+    case {some = {delete}}:
+         Db.remove(@/storage[key])
+         Resource.raw_status({success})
+    case *:
+         Resource.raw_status({method_not_allowed})
+&lt;/pre&gt;
+&lt;h4&gt;Redesigns and rationale&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Pattern-matching syntax&amp;nbsp; becomes&amp;nbsp; &lt;strong&gt;match&lt;/strong&gt;: and &lt;strong&gt;case&lt;/strong&gt; &amp;hellip;: &amp;hellip; .&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Not redesigned&lt;/h4&gt;
+&lt;p&gt;As above&lt;/p&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+server:
+   Server.simple_request_dispatch(dispatch)
+&lt;/pre&gt;
+&lt;p&gt;No further redesign.&lt;/p&gt;
+&lt;h2&gt;Web chat&lt;/h2&gt;
+&lt;h3&gt;Original syntax&lt;/h3&gt;
+&lt;pre class=&quot;brush: csharp; title: ; notranslate&quot;&gt;
+/**
+ * {1 Network infrastructure}
+ */
+
+/**
+ * The type of messages sent by a client to the chatroom
+ */
+type message = {author: string /**Arbitrary, untrusted, name*/
+              ; text: string&amp;nbsp; /**Content entered by the user*/}
+
+/**
+ * A structure for routing and broadcasting values of type
+ * [message].
+ *
+ * Clients can send values to be broadcasted or register
+ * callbacks to be informed of the broadcast. Note that
+ * this routing can work cross-client and cross-server.
+ *
+ * For distribution purposes, this network will be
+ * registered to the network as &amp;quot;mushroom&amp;quot;.
+ */
+room = Network.cloud(&amp;quot;mushroom&amp;quot;): Network.network(message)
+&lt;/pre&gt;
+&lt;p&gt;In this extract, we define a type and the distribution infrastructure to broadcast value changes between servers or between clients and servers. Needless to say, these two lines hide some very powerful core concepts of Opa.&lt;/p&gt;
+&lt;pre class=&quot;brush: csharp; title: ; notranslate&quot;&gt;
+/**
+ * Update the user interface in reaction to reception
+ * of a message.
+ *
+ * This function is meant to be registered with [room]
+ * as a callback. Its sole role is to display the new message
+ * in [#conversation].
+ *
+ * @param x The message received from the chatroom
+ */
+user_update(x) =
+(
+  line = &amp;lt;div&amp;gt;
+     &amp;lt;div&amp;gt;{x.author}:&amp;lt;/div&amp;gt;
+     &amp;lt;div&amp;gt;{x.text}&amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+  do Dom.transform([#conversation +&amp;lt;- line ])
+  Dom.scroll_to_bottom(#conversation)
+)
+
+/**
+ * Broadcast text to the [room].
+ *
+ * Read the contents of [#entry], clear these contents and send
+ * the message to [room].
+ *
+ * @param author The name of the author. Will be included in the
+ * message broadcasted.
+ */
+broadcast(author) =
+  do Network.broadcast({author=author
+     text=Dom.get_value(#entry)}, room)
+  Dom.clear_value(#entry)
+
+/**
+ * Build the user interface for a client.
+ *
+ * Pick a random author name which will be used throughout
+ * the chat.
+ *
+ * @return The user interface, ready to be sent by the server to
+ * the client on connection.
+ */
+start() =
+(
+    author = Random.string(8)
+    &amp;lt;div id=#conversation
+     onready={_ -&amp;gt; Network.add_callback(user_update, room)}&amp;gt;&amp;lt;/div&amp;gt;
+    &amp;lt;input id=#entry  onnewline={_ -&amp;gt; broadcast(author)}/&amp;gt;
+    &amp;lt;div onclick={_ -&amp;gt; broadcast(author)}&amp;gt;Send!&amp;lt;/div&amp;gt;
+)
+&lt;/pre&gt;
+&lt;p&gt;In this extract, we define the user interface and connect it to the aforementioned distribution mechanism. Again, we describe the user interface as a datastructure in a HTML-like syntax.&lt;/p&gt;
+&lt;pre class=&quot;brush: csharp; title: ; notranslate&quot;&gt;
+/**
+ * Main entry point.
+ *
+ * Construct an application called &amp;quot;Chat&amp;quot; (users
+ * will see the name in the title bar), embedding
+ * statically the contents of directory &amp;quot;resources&amp;quot;,
+ * using the global stylesheet &amp;quot;resources/css.css&amp;quot;
+ * and the user interface defined in [start].
+ */
+server = Server.one_page_bundle(&amp;quot;Chat&amp;quot;,
+    [@static_resource_directory(&amp;quot;resources&amp;quot;)],
+    [&amp;quot;resources/css.css&amp;quot;], start)
+&lt;/pre&gt;
+&lt;p&gt;Finally, as usual, we define our main entry point, with our user interface and a bundle of resources.&lt;/p&gt;
+&lt;h3&gt;Revised syntax, candidate 1&lt;/h3&gt;
+&lt;p style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://gist.github.com/993179&quot;&gt;Fork me on github&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+type message = {author: string /**Arbitrary, untrusted, name*/
+               ,text:   string} /**Content entered by the user*/
+
+Network.network&amp;lt;message&amp;gt; room = Network.cloud(&amp;quot;mushroom&amp;quot;)
+
+user_update(x) {
+  line = &amp;lt;div&amp;gt;
+     &amp;lt;div&amp;gt;{x.author}:&amp;lt;/div&amp;gt;
+     &amp;lt;div&amp;gt;{x.text}&amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;;
+  Dom.transform([#conversation +&amp;lt;- line ]);//Note: If we want to change the syntax of actions, now is the right time
+  Dom.scroll_to_bottom(#conversation)
+}
+
+broadcast(author){
+  Network.broadcast({author=author,
+    text:Dom.get_value(#entry)}, room);
+  Dom.clear_value(#entry)
+}
+
+start() {
+  author = Random.string(8);
+  &amp;lt;div id=#conversation
+    onready={ * -&amp;gt; Network.add_callback(user_update, room) }&amp;gt;&amp;lt;/div&amp;gt;
+  &amp;lt;input id=#entry&amp;nbsp; onnewline={ * -&amp;gt; broadcast(author) }/&amp;gt;
+  &amp;lt;div onclick={ * -&amp;gt; broadcast(author) }&amp;gt;Send!&amp;lt;/div&amp;gt;
+}
+
+start_server(Server.one_page_bundle(&amp;quot;Chat&amp;quot;,
+   [@static_resource_directory(&amp;quot;resources&amp;quot;)],
+   [&amp;quot;resources/css.css&amp;quot;], start))
+
+&lt;/pre&gt;
+&lt;h3&gt;Revised syntax, candidate 2&lt;/h3&gt;
+&lt;p style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://gist.github.com/993277&quot;&gt;Fork me on github&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+type message:
+   author as string //Arbitrary, untrusted, name
+   text   as string   //Content entered by the user
+
+room = Network.cloud(&amp;quot;mushroom&amp;quot;) as Network.network(message)
+&lt;/pre&gt;
+&lt;h4&gt;Redesign and rationale&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;We introduce a Python-ish/Boo-ish syntax for defining types.&lt;/li&gt;
+&lt;li&gt;Again, we use &lt;strong&gt;as&lt;/strong&gt; instead of &lt;strong&gt;:&lt;/strong&gt; for type annotations.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+def user_update(x):
+  line = &amp;lt;div&amp;gt;
+    &amp;lt;div&amp;gt;{x.author}:&amp;lt;/div&amp;gt;
+    &amp;lt;div&amp;gt;{x.text}&amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+  Dom.transform([#conversation +&amp;lt;- line ])//Note: If we want to change the syntax of actions, now is the right time
+  Dom.scroll_to_bottom(#conversation)
+
+def broadcast(author):
+   message = new:
+      author: author
+      text:   Dom.get_value(#entry)
+   Network.broadcast(message, room)
+   Dom.clear_value(#entry)
+&lt;/pre&gt;
+&lt;h4&gt;Redesign and rationale&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;We introduce a new keyword &lt;strong&gt;new:&lt;/strong&gt; to define immediate records &amp;ndash; we find this both clearer than the Python syntax for defining objects as dictionaries, and more suited to both our paradigm and our automated analysis.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+def start():
+   author = Random.string(8)
+   html:
+    &amp;lt;div id=#conversation onready={def *: Network.add_callback(user_update, room)}&amp;gt;&amp;lt;/div&amp;gt;
+    &amp;lt;input id=$entry onnewline={def *: broadcast(author)}/&amp;gt;
+    &amp;lt;div onclick={def *: broadcast(author)}&amp;gt;Send!&amp;lt;/div&amp;gt;
+&lt;/pre&gt;
+&lt;h4&gt;Redesign and rationale&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;We introduce keyword &lt;strong&gt;html:&lt;/strong&gt; to introduce a block of HTML-like notations. A similar keyword &lt;strong&gt;xml:&lt;/strong&gt; will be used when producing XML documents with a XML-like notation.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;brush: jscript; title: ; notranslate&quot;&gt;
+server:
+  Server.one_page_bundle(&amp;quot;Chat&amp;quot;,
+    [@static_resource_directory(&amp;quot;resources&amp;quot;)],
+    [&amp;quot;resources/css.css&amp;quot;], start)
+&lt;/pre&gt;
+&lt;p&gt;No additional change here.&lt;/p&gt;
+&lt;h2&gt;What now?&lt;/h2&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;At this stage, we have not switched syntax yet and we have the following options:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;keep our current syntax;&lt;/li&gt;
+&lt;li&gt;adopt revised syntax 1, &lt;em&gt;or a variant thereof&lt;/em&gt; &amp;ndash; so, start coding a conversion tool, the new syntax itself, and start updating the documentation;&lt;/li&gt;
+&lt;li&gt;adopt revised syntax 2, &lt;em&gt;or a variant thereof&lt;/em&gt; &amp;ndash; so, start coding a conversion tool, the new syntax itself, and start updating the documentation;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Yes, I mention variants, because I am certain that many among you will have interesting ideas. So please feel free to express yourselves.&lt;/p&gt;
+&lt;p&gt;You can provide feedback:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;on this blog;&lt;/li&gt;
+&lt;li&gt;by e-mail, at feedback@opalang.org;&lt;/li&gt;
+&lt;li&gt;on &lt;a href=&quot;irc://irc.freenode.net/#opalang&quot;&gt;IRC&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Remember, we are still &lt;a href=&quot;http://opalang.org&quot;&gt;accepting applications for the preview&lt;/a&gt;.&lt;/p&gt;
+</content><id>https://dutherenverseauborddelatable.wordpress.com/2011/05/30/crowdsourcing-the-syntax/</id><title type="text">Crowdsourcing the syntax</title><updated>2011-05-30T10:22:24-00:00</updated><author><name>dutherenverseauborddelatable</name></author></entry><entry><link href="https://dutherenverseauborddelatable.wordpress.com/2011/05/24/a-few-opa-applications/" rel="alternate"/><contributor><uri>https://dutherenverseauborddelatable.wordpress.com/category/ocaml/feed/</uri><name>dutherenverseauborddelatable</name></contributor><content type="html">&lt;p style=&quot;text-align:justify;&quot;&gt;A few open-source Opa applications, written by beta testers or Opa team members, have been open-sourced in the past few days. Expect a few other releases in the upcoming days/weeks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Yoric/OpaChat&quot;&gt;OpaChat&lt;/a&gt; &amp;ndash; simple real-time web chat (works)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Yoric/OpaStorage&quot;&gt;OpaStorage&lt;/a&gt; &amp;ndash; simple distributed key/value store (works)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/mattgu74/opaCas&quot;&gt;opaCAS&lt;/a&gt; &amp;ndash; single sign-on (in progress)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/AltGr/Contre-jour&quot;&gt;Contre-Jour&lt;/a&gt; &amp;ndash; thumbnail viewer (works)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/mattgu74/OpaTetris&quot;&gt;OpaTetris&lt;/a&gt; &amp;ndash; I&amp;rsquo;m sure you can guess what it&amp;rsquo;s about &amp;ndash; based on HTML5 canvas (works) &lt;img src=&quot;https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/1f642.png&quot; alt=&quot;&amp;#128578;&quot; class=&quot;wp-smiley&quot; style=&quot;height: 1em; max-height: 1em;&quot;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Know of any other open-source Opa app? Then let me know!&lt;/p&gt;
+</content><id>https://dutherenverseauborddelatable.wordpress.com/2011/05/24/a-few-opa-applications/</id><title type="text">A few Opa applications</title><updated>2011-05-24T17:50:41-00:00</updated><author><name>dutherenverseauborddelatable</name></author></entry><entry><link href="https://dutherenverseauborddelatable.wordpress.com/2011/05/23/unbreaking-scalable-web-development-one-loc-at-a-time/" rel="alternate"/><contributor><uri>https://dutherenverseauborddelatable.wordpress.com/category/ocaml/feed/</uri><name>dutherenverseauborddelatable</name></contributor><content type="html">&lt;p style=&quot;text-align:justify;&quot;&gt;&lt;em&gt;The Opa platform was created to address the problem of developing secure, scalable web applications. Opa is a commercially supported open-source programming language designed for web, concurrency, distribution, scalability and security. We have entered closed beta and the code will be released soon on &lt;a href=&quot;http://opalang.org&quot; target=&quot;_blank&quot;&gt;http://opalang.org&lt;/a&gt;, as an &lt;a href=&quot;http://owasp.org&quot;&gt;Owasp project&lt;/a&gt; .&lt;br/&gt;
+&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Edit&lt;/strong&gt; The video spawned a conversation on &lt;a href=&quot;http://www.reddit.com/r/programming/comments/hidsa/opa_one_language_for_all_the_stack_forget/&quot;&gt;Reddit&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Edit&lt;/strong&gt; Interesting followup on &lt;a href=&quot;http://news.ycombinator.com/item?id=2575939&quot;&gt;Hacker News&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Edit&lt;/strong&gt; Reworked source code &amp;amp; comments for clarity. Thanks for the feedback.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Edit&lt;/strong&gt;Come and chat with us &lt;a href=&quot;irc://irc.freenode.net/#opalang&quot;&gt;on Freenode, channel #opalang &lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;If you are a true coder, sometimes, you meet a problem so irritating, or a solution so clumsy, that challenging it is a matter of engineering pride. I assume that many of the greatest technologies we have today were born from such challenges, from OpenGL to the web itself. The pain of pure LAMP-based web development begat Ruby on Rails, Django or Node.js, as well as the current NoSQL generation. Similarly, the pains of scalable large system development with raw tools begat Erlang, Map/Reduce or Project Voldemort.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Opa was born from the pains of developing scalable, secure web applications. Because, for all the merits of existing solutions, we just knew that we could do much, much better.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Unsurprisingly, getting there was quite a challenge. Between the initial idea and an actual platform lay blood, sweat and code, many experiments and failed prototypes, but finally, we got there. After years of development and real-scale testing, we are now getting ready to release the result.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;The parents are proud to finally introduce &lt;a href=&quot;http://opalang.org&quot;&gt;Opa&lt;/a&gt;.&lt;span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h2 style=&quot;text-align:justify;&quot;&gt;Different means to different ends&lt;/h2&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Opa is a new approach to scalable, secure web development.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;The core idea behind Opa is that &lt;strong&gt;&lt;em&gt;once you use the right paradigm, scalability, security and the web model just happen naturally&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;To implement our idea, we had to provide developers with a programming language that was:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;powerful enough to describe the complete behavior of the web application, including user interface, interactivity, concurrency, general-purpose computations and database manipulation;&lt;/li&gt;
+&lt;li&gt;clean enough to support automated security analysis;&lt;/li&gt;
+&lt;li&gt;high-level enough to support transparent distribution, optimization and injection of security checks;&lt;/li&gt;
+&lt;li&gt;understandable by any developer.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;This is not a benign idea. Most approaches to web development, to security or scalability rely either on libraries, external tiers, or reflexivity. For all their merits, and even when applied to the best/most modular/most extensible programming languages available, these techniques are still heavily rooted on whichever paradigm is best handled by that language. Some of the results can be impressive &amp;ndash; including your favorite framework, whichever it may be &amp;ndash; but in the end, they are necessarily limited by the underlying tools. Unfortunately, we could not find any existing language &amp;ndash; whether static, dynamic or hybrid &amp;ndash; that could fit all criteria. So, we had to build our own.&lt;/p&gt;
+&lt;p&gt;This is also not an easy idea for us. We spent years designing, testing, fine-tuning our paradigm, as well as ensuring that the result was indeed usable by any developer.&lt;/p&gt;
+&lt;h3 style=&quot;text-align:justify;&quot;&gt;&lt;strong&gt;Opa is a new programming language&lt;/strong&gt; and its runtime environment&lt;/h3&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;With Opa, write your complete application in just one language, and the compiler will transform it into a self-sufficient executable containing:&lt;/p&gt;
+&lt;ul style=&quot;text-align:justify;&quot;&gt;
+&lt;li&gt;server-side code;&lt;/li&gt;
+&lt;li&gt;client-side code (cross-browser JavaScript and HTML, generated automatically from your source code);&lt;/li&gt;
+&lt;li&gt;database code (compiled queries for our own NoSQL, scalable database);&lt;/li&gt;
+&lt;li&gt;distribution code;&lt;/li&gt;
+&lt;li&gt;all the glue to connect everything to everything else;&lt;/li&gt;
+&lt;li&gt;security checks at boundaries;&lt;/li&gt;
+&lt;li&gt;the HTTP server itself;&lt;/li&gt;
+&lt;li&gt;the database engine itself;&lt;/li&gt;
+&lt;li&gt;the distribution layers themselves.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Launch this executable locally, or ask it to deploy itself on any number of servers, and your web application is running. &lt;em&gt;Do not&lt;/em&gt; deploy or configure a DBMS. &lt;em&gt;Do not&lt;/em&gt; deploy or configure a web server. &lt;em&gt;Do not&lt;/em&gt; deploy or configure a distributed file system. It just works.&lt;/p&gt;
+&lt;h2 style=&quot;text-align:justify;&quot;&gt;Programming with Opa&lt;/h2&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Opa may be a new language, but it is quite understandable if you have notions of web development. Let me show you a few simple but complete applications. Should you wish to play with them, I have uploaded the source code of each application on github as AGPL.&lt;/p&gt;
+&lt;h3&gt;Hello, web&lt;/h3&gt;
+&lt;p&gt;First variant: 1 eloc&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+ server = one_page_server(&amp;quot;Hello&amp;quot;, -&amp;gt; &amp;lt;&amp;gt;Hello, web!&amp;lt;/&amp;gt;)
+&lt;/pre&gt;
+&lt;div style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://gist.github.com/985817&quot;&gt;Fork me on github&lt;/a&gt;&lt;/div&gt;
+&lt;p&gt;Second variant: 2 eloc&lt;/p&gt;
+&lt;pre class=&quot;brush: fsharp; title: ; notranslate&quot;&gt;
+server = Server.simple_dispatch(_ -&amp;gt;
+  html(&amp;quot;Hello&amp;quot;, &amp;lt;&amp;gt;Hello, web!&amp;lt;/&amp;gt;)
+)
+&lt;/pre&gt;
+&lt;div style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://gist.github.com/985820&quot;&gt;Fork me on github&lt;/a&gt;&lt;/div&gt;
+&lt;p&gt;Build &amp;amp; launch:&lt;/p&gt;
+&lt;pre class=&quot;brush: bash; title: ; notranslate&quot;&gt;
+$ opa hello_web.opa
+$ ./hello_web.exe
+&lt;/pre&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;That&amp;rsquo;s it. Your application is launched, you can connect with any (recent) browser.&lt;/p&gt;
+&lt;h3&gt;A minimal (distributed, load-balanced) key-value store&lt;/h3&gt;
+&lt;p&gt;Source code, in 17 eloc:&lt;/p&gt;
+&lt;pre class=&quot;brush: csharp; title: ; notranslate&quot;&gt;
+/**
+ * Add a path called [/storage] to the schema of our graph database.
+ *
+ * This path is used to store one value with type
+ * [stringmap(option(string))]. A [stringmap] is a dictionary.
+ * An [option(string)] is an optional [string],
+ * i.e. a value that may either be a string or omitted.
+ *
+ * This path therefore stores an association from [string]
+ * (the key) to either a [string] (the value) or nothing
+ * (no value).
+ */
+db /storage: stringmap(option(string))
+
+/**
+ * Handle requests.
+ *
+ * @param request The uri of the request. The URI is converted to
+ * a key in [/storage], the method determines what should be done,
+ * and in the case of [{post}] requests, the body is used to set
+ * the value in the db
+ *
+ * @return If the request is rejected, [{method_not_allowed}].
+ * If the request is a successful [{get}], a &amp;quot;text/plain&amp;quot; resource
+ * with the value previously stored. If the request is a [{get}] to
+ * an unknown key, a [{wrong_address}].
+ * Otherwise, a [{success}].
+ */
+dispatch(request) =
+(
+  key = List.to_string(request.uri.path)
+  match request.method with
+   | {some = {get}}    -&amp;gt;
+     match /storage[key] with
+       | {none}        -&amp;gt; Resource.raw_status({wrong_address})
+       | {some = value}-&amp;gt; Resource.raw_response(value,
+               &amp;quot;text/plain&amp;quot;, {success})
+     end
+   | {some = {post}}   -&amp;gt;
+         do /storage[key] &amp;lt;- request.body
+         Resource.raw_status({success})
+   | {some = {delete}} -&amp;gt;
+         do /storage[key]
+         do Db.remove(@/storage[key])
+         Resource.raw_status({success})
+   | _ -&amp;gt; Resource.raw_status({method_not_allowed})
+  end
+)
+
+/**
+ * Main entry point: launching the server.
+ */
+server = Server.simple_request_dispatch(dispatch)
+&lt;/pre&gt;
+&lt;div style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://github.com/Yoric/OpaStorage#fork_box&quot;&gt;Fork me on github&lt;/a&gt;&lt;/div&gt;
+&lt;p&gt;Build:&lt;/p&gt;
+&lt;pre class=&quot;brush: bash; title: ; notranslate&quot;&gt;
+$ opa opa_storage.opa
+&lt;/pre&gt;
+&lt;p&gt;Launch on one server&lt;/p&gt;
+&lt;pre class=&quot;brush: bash; title: ; notranslate&quot;&gt;
+$ ./opa_storage.exe
+&lt;/pre&gt;
+&lt;p&gt;Or auto-deploy and launch on several servers:&lt;/p&gt;
+&lt;pre class=&quot;brush: bash; title: ; notranslate&quot;&gt;
+$ opa-cloud opa_storage.exe --host localhost --host me@host1 --host me@host2
+&lt;/pre&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Again, that&amp;rsquo;s it. Key/value pairs are replicated/distributed on the various nodes (default settings are generally ok, but replication factor can be configured if necessary), requests are load-balanced and it just works.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Just as importantly, note that we have not written any single line of code for ensuring security with respect to database injection. By construction, Opa ensures automatically that such injections cannot happen.&lt;/p&gt;
+&lt;h3&gt;Real-time web chat&lt;/h3&gt;
+&lt;p&gt;Source code, in 20 eloc:&lt;/p&gt;
+&lt;pre class=&quot;brush: csharp; title: ; notranslate&quot;&gt;
+/**
+ * {1 Network infrastructure}
+ */
+
+/**
+ * The type of messages sent by a client to the chatroom
+ */
+type message = {author: string /**Arbitrary, untrusted, name*/
+              ; text: string&amp;nbsp; /**Content entered by the user*/}
+
+/**
+ * A structure for routing and broadcasting values of type
+ * [message].
+ *
+ * Clients can send values to be broadcasted or register
+ * callbacks to be informed of the broadcast. Note that
+ * this routing can work cross-client and cross-server.
+ *
+ * For distribution purposes, this network will be
+ * registered to the network as &amp;quot;mushroom&amp;quot;.
+ */
+room = Network.cloud(&amp;quot;mushroom&amp;quot;): Network.network(message)
+
+/**
+ * {1 User interface}
+ */
+
+/**
+ * Update the user interface in reaction to reception of a message.
+ *
+ * This function is meant to be registered with [room] as a callback.
+ * Its sole role is to display the new message in [#conversation].
+ *
+ * @param x The message received from the chatroom
+ */
+user_update(x) =
+(
+  line = &amp;lt;div&amp;gt;
+     &amp;lt;div&amp;gt;{x.author}:&amp;lt;/div&amp;gt;
+     &amp;lt;div&amp;gt;{x.text}&amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+  do Dom.transform([#conversation +&amp;lt;- line ])
+  Dom.scroll_to_bottom(#conversation)
+)
+
+/**
+ * Broadcast text to the [room].
+ *
+ * Read the contents of [#entry], clear these contents and send
+ * the message to [room].
+ *
+ * @param author The name of the author. Will be included in the
+ * message broadcasted.
+ */
+broadcast(author) =
+  do Network.broadcast({author=author text=Dom.get_value(#entry)}, room)
+  Dom.clear_value(#entry)
+
+/**
+ * Build the user interface for a client.
+ *
+ * Pick a random author name which will be used throughout the chat.
+ *
+ * @return The user interface, ready to be sent by the server to the client
+ * on connection.
+ */
+start() =
+(
+    author = Random.string(8)
+    &amp;lt;div id=#conversation
+     onready={_ -&amp;gt; Network.add_callback(user_update, room)}&amp;gt;&amp;lt;/div&amp;gt;
+   &amp;lt;input id=#entry  onnewline={_ -&amp;gt; broadcast(author)}/&amp;gt;
+   &amp;lt;div class=&amp;quot;button&amp;quot; onclick={_ -&amp;gt; broadcast(author)}&amp;gt;Send!&amp;lt;/div&amp;gt;
+)
+
+/**
+ * {1 Application}
+ */
+
+/**
+ * Main entry point.
+ *
+ * Construct an application called &amp;quot;Chat&amp;quot; (users will see the name in the title bar),
+ * embedding statically the contents of directory &amp;quot;resources&amp;quot;, using the global
+ * stylesheet &amp;quot;resources/css.css&amp;quot; and the user interface defined in [start].
+ */
+server = Server.one_page_bundle(&amp;quot;Chat&amp;quot;,
+    [@static_resource_directory(&amp;quot;resources&amp;quot;)],
+    [&amp;quot;resources/css.css&amp;quot;], start)
+&lt;/pre&gt;
+&lt;p style=&quot;text-align:right;&quot;&gt;&lt;a href=&quot;https://github.com/Yoric/OpaChat#fork_box&quot;&gt;Fork me on github&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Build and launch as above:&lt;/p&gt;
+&lt;pre class=&quot;brush: bash; title: ; notranslate&quot;&gt;
+$ opa opa_chat.opa
+
+$ opa-cloud opa_chat.exe --host localhost --host me@host1 --host me@host2
+&lt;/pre&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Users connecting to the launch server are load-balanced among servers. Users connecting to one server can chat transparently with users connected to other servers.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Just as importantly, note that we have not written any single line of code for ensuring security with respect to Cross-Site Scripting. Still, you can try and inject code in this application &amp;ndash; and you will fail. Opa has transparently ensured that this cannot happen.&lt;/p&gt;
+&lt;h2&gt;Our experience with Opa&lt;/h2&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;We have used Opa to develop a number of web applications, including CMSes, online games, high-security communication tools or e-Commerce apps.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;What can I tell you? In our experience, Opa is awesome &lt;img src=&quot;https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/1f642.png&quot; alt=&quot;&amp;#128578;&quot; class=&quot;wp-smiley&quot; style=&quot;height: 1em; max-height: 1em;&quot;/&gt; It saves us considerable amounts of time and pain and it vastly extended the size of projects that we could undertake with small agile teams.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Firstly, Opa handles transparently all communications between the client and the server, and can generate JavaScript or server binary code from the same source, depending on what is required. This considerably simplifies prototyping and agile development, by letting us concentrate on getting things to work first, experimenting and showing to clients second, and freezing the design only much later. Countless times, this also made us very much more flexible with respect to design changes, by letting us instantaneously move (or reuse) server code on the client, or in the database, or vice-versa, without having to port from one language to another, or to reimplement communication protocols, or validation, or to redesign for asynchronicity. The added benefit of automated XSS protection also considerably improved our confidence in such agile code.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Secondly, Opa&amp;rsquo;s paradigm is a natural match for scalability concerns. It favors stateless services, makes sure that state can be easily marked as local (e.g. caches) or shared (e.g. accounts), and it also makes it quite easy to place local caches in front of anything shared. Most of our applications written on one server worked even better on several servers, out-of-the-box. To push scalability even further, marking data as local/shared/cached is extremely simple, which has always helped us experiment quickly, before deciding whether to push such optimizations into production.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;On the security side, I&amp;rsquo;m not sure exactly how many men&amp;middot;months Opa saved us by guaranteeing that we were automatically safe against injections (including XSS and SQL/SQL-like), and I&amp;rsquo;m not quite sure how to measure it, but this definitely relieved us of plenty of work, stress and emergency calls.&lt;/p&gt;
+&lt;h2&gt;How does this work?&lt;/h2&gt;
+&lt;p&gt;We make it work &lt;img src=&quot;https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/1f642.png&quot; alt=&quot;&amp;#128578;&quot; class=&quot;wp-smiley&quot; style=&quot;height: 1em; max-height: 1em;&quot;/&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;More seriously, last time we counted, including testing, around 100 man&amp;middot;years of R&amp;amp;D had been spent on Opa. We took advantage of that time to make Opa the best solution we could imagine. I&amp;rsquo;ll try and explain some of the key techniques progressively, in a series of blog entries.&lt;/p&gt;
+&lt;h2&gt;Limitations&lt;/h2&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;We are extremely proud of everything that is possible with Opa, but, as any product, Opa has limitations.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Firstly, while the Opa compiler and runtime can perform very aggressive optimizations on distribution and database requests for instance, for the moment, some of these optimizations cannot be performed automatically. In such cases, a developer needs to annotate the code here and there, to mark code chunks as safe for such optimizations. We have a number of plans to push forward the automation of these optimizations, but we haven&amp;rsquo;t had a chance to implement them yet.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Other limitations are related to our objectives. Opa is designed for security on the web. Consequently, a number of primitives that are just too dangerous are not accessible for Opa developers, so don&amp;rsquo;t expect to encounter &lt;code&gt;innerHTML&lt;/code&gt;, &lt;code&gt;eval()&lt;/code&gt;, &lt;code&gt;document.print()&lt;/code&gt; or &lt;code&gt;execvp()&lt;/code&gt;, for instance. These primitives are available as part of the platform, should you wish to work on extending the runtime, but not as part of the language/library.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Also, as we dedicated Opa to the web, do not look too hard for Gtk or DirectX bindings &amp;ndash; nothing prevent such system bindings, but we have no plans on introducing these ones. Similarly, Opa is designed for scalability, so the language favors stateless programming, or when state is required, as in our web chat, states that can be shared between several instances of a server. So, while Opa will let you write an application with messy state, the design of the language will try and guide you on another way.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;We also have a few other limitations, that may be considered anecdotical in this day and age. For instance, the client side of Opa applications that have a client (i.e. non-pure web services) requires JavaScript and will not work with IE6 or Lynx.&lt;/p&gt;
+&lt;h2&gt;Show me the code!&lt;/h2&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Soon, but not quite yet.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;We&amp;rsquo;re working full-time on the open-source release. If you are interested, I suggest you visit &lt;a href=&quot;http://opalang.org&quot;&gt;opalang.org&lt;/a&gt; to find some information and documentation or to request invitations to the closed beta. You can also follow our updates&amp;nbsp;&lt;a href=&quot;http://twitter.com/#!/opalang&quot;&gt;on Twitter&lt;/a&gt; or come and chat with us &lt;a href=&quot;irc://irc.freenode.net/#opalang&quot;&gt;on IRC&lt;/a&gt;.&lt;/p&gt;
+</content><id>https://dutherenverseauborddelatable.wordpress.com/2011/05/23/unbreaking-scalable-web-development-one-loc-at-a-time/</id><title type="text">Unbreaking Scalable Web Development, One Loc at a Time</title><updated>2011-05-23T12:59:29-00:00</updated><author><name>dutherenverseauborddelatable</name></author></entry><entry><link href="https://dutherenverseauborddelatable.wordpress.com/2010/06/28/post-owasp-appsec-research/" rel="alternate"/><contributor><uri>https://dutherenverseauborddelatable.wordpress.com/category/ocaml/feed/</uri><name>dutherenverseauborddelatable</name></contributor><content type="html">&lt;p&gt;Well, I&amp;rsquo;m just back from the &lt;a href=&quot;http://maps.google.fr/maps?f=q&amp;amp;source=s_q&amp;amp;hl=fr&amp;amp;geocode=&amp;amp;q=valhallav%C3%A4gen,%20stockholm,%20sweden&amp;amp;sll=59.341703,18.085642&amp;amp;sspn=0.011554,0.038581&amp;amp;ie=UTF8&amp;amp;hq=&amp;amp;hnear=Valhallav%C3%A4gen,%20Stockholm,%20Su%C3%A8de&amp;amp;z=14&amp;amp;layer=c&amp;amp;cbll=59.342492,18.082905&amp;amp;panoid=eR1USBvCpPGSpsXEMaH3cg&amp;amp;cbp=12,0,,0,5&quot;&gt;Way to Valhalla&lt;/a&gt; and &lt;a href=&quot;http://www.owasp.org/index.php/OWASP_AppSec_Research_2010_-_Stockholm,_Sweden&quot;&gt;OWASP AppSec Research 2010&lt;/a&gt;.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;The welcome was great, with plenty of people interested in &lt;a href=&quot;http://www.mlstate.com&quot;&gt;OPA&lt;/a&gt; &amp;mdash; some of them actually looking enthusiastic. I was quite surprised to realize that a number of researchers, developers and consultants in the web security community are very much aware of the limitations of current-generation approaches to security, but just don&amp;rsquo;t have the resources to start working on a next-generation approach. Speaking of resources, we&amp;rsquo;re now getting close to being 7 years into the OPA project, a commitment that not many research groups or companies could make.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Interestingly, during his talk, Dave Wichers, the editor for the &lt;a href=&quot;http://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project&quot;&gt;OWASP Top 10 Web Application Security Risks&lt;/a&gt; project, mentioned that the solution was certainly to &lt;em&gt;switch language and paradigm&lt;/em&gt;, to something cleaner and easier to secure. This is, of course, exactly what we have been working on during all these years.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;All the slides and videos of the conference should be uploaded soon on the official website. In the meantime, I have uploaded &lt;a href=&quot;http://www.slideshare.net/IamYoric/opa-owasp-2010&quot;&gt;my slides&lt;/a&gt;. I&amp;rsquo;ll try and add some sound if I can work out some sound problems I&amp;rsquo;ve been encountering recently with my presentations.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;&lt;strong&gt;Edit&lt;/strong&gt; The presentation of OPA &lt;a href=&quot;http://www.dailymotion.com/opabymlstate&quot;&gt;available on Dailymotion&lt;/a&gt; had sound issues. I&amp;rsquo;ve finally managed to fix them. Enjoy!&lt;/p&gt;
+</content><id>https://dutherenverseauborddelatable.wordpress.com/2010/06/28/post-owasp-appsec-research/</id><title type="text">Post-OWASP AppSec Research</title><updated>2010-06-28T09:28:53-00:00</updated><author><name>dutherenverseauborddelatable</name></author></entry><entry><link href="https://dutherenverseauborddelatable.wordpress.com/2010/05/31/offres-demploi-pour-informaticiens-de-haut-niveau/" rel="alternate"/><contributor><uri>https://dutherenverseauborddelatable.wordpress.com/category/ocaml/feed/</uri><name>dutherenverseauborddelatable</name></contributor><content type="html">&lt;p style=&quot;text-align:justify;&quot;&gt;MLstate est une jeune entreprise innovante en campagne depuis 2008 pour la reconqu&amp;ecirc;te du web. Notre objectif : r&amp;eacute;inventer les bases technologiques et scientifiques des applications web, pour une toile plus saine, plus s&amp;ucirc;re et plus s&amp;eacute;curis&amp;eacute;e. Notre &amp;eacute;quipe R&amp;amp;D compte une vingtaine de passionn&amp;eacute;s, docteurs ou ing&amp;eacute;nieurs en informatique, et est sur le point de s&amp;rsquo;agrandir.&lt;/p&gt;
+&lt;p style=&quot;text-align:justify;&quot;&gt;Si vous &amp;ecirc;tes informaticien de haut niveau, inspir&amp;eacute; et ing&amp;eacute;nieux, si vous &amp;ecirc;tes dot&amp;eacute; d&amp;rsquo;une forte culture informatique et scientifique, d&amp;rsquo;une grande connaissance des langages fonctionnels et imp&amp;eacute;ratifs, de la compilation, des syst&amp;egrave;mes de types, contactez-nous. Le candidat id&amp;eacute;al, docteur ou non, avec ou sans exp&amp;eacute;rience industrielle, aura aussi des connaissances en distribution, parall&amp;eacute;lisme, bases de donn&amp;eacute;es, sera capable d&amp;rsquo;&amp;eacute;voluer dans un environnement polyglotte et disposera de la finesse n&amp;eacute;cessaire pour construire des produits finis.&lt;/p&gt;
+&lt;p&gt;Les probl&amp;egrave;mes &amp;agrave; r&amp;eacute;soudre sont difficiles. Pour relever le d&amp;eacute;fi, contactez-nous &amp;agrave; &lt;a href=&quot;http://www.mlstate.com&quot;&gt;careers@mlstate.com&lt;/a&gt; .&lt;/p&gt;
+</content><id>https://dutherenverseauborddelatable.wordpress.com/2010/05/31/offres-demploi-pour-informaticiens-de-haut-niveau/</id><title type="text">Offres d’emploi pour informaticiens de haut niveau</title><updated>2010-05-31T12:22:31-00:00</updated><author><name>dutherenverseauborddelatable</name></author></entry></feed>

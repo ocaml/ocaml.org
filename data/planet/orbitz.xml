@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</id><title type="text">orbitz</title><updated>2023-06-05T05:46:01-00:00</updated><entry><link href="http://functional-orbitz.blogspot.com/2013/12/genserver-in-ocaml.html" rel="alternate"/><contributor><uri>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</uri><name>orbitz</name></contributor><content type="html">&lt;p&gt;
+&lt;i&gt;Note, this post is written against the 2.0.1 version of &lt;code&gt;gen_server&lt;/code&gt;&lt;/i&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Erlang comes with a rich set of small concurrency primitives to make handling and manipulating state easier.  The most generic of the frameworks is the &lt;code&gt;gen_server&lt;/code&gt; which is also the most commonly used.  A &lt;code&gt;gen_server&lt;/code&gt; provides a way to control state over multiple requests.  It serializes operations and handles both synchronous and asynchronous communication with clients.  The strength of a &lt;code&gt;gen_server&lt;/code&gt; is the ability to create multiple, lightweight, servers inside an application where each operation inside of it runs in serial but individually the &lt;code&gt;gen_server&lt;/code&gt;s run concurrently.  
+&lt;/p&gt;
+
+&lt;p&gt;
+While it is not possible to provide all of the Erlang semantics in Ocaml, we can create something roughly analogous.  We can also get some properties that Erlang can not give us.  In particular, the implementation of &lt;code&gt;gen_server&lt;/code&gt; provided here:
+&lt;/p&gt;
+
+&lt;a name=&quot;more&quot;&gt;&lt;/a&gt;
+
+&lt;p&gt;
+&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;Does not have the concept of a process or a process id.  A &lt;code&gt;gen_server&lt;/code&gt; is an abstract type that is parameterized by a message type.&lt;/li&gt;
+&lt;li&gt;Uses queues to communicate messages between clients and servers.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gen_server&lt;/code&gt;s are typesafe, only messages that they can handle can be sent to them.&lt;/li&gt;
+&lt;li&gt;You can only communicate with &lt;code&gt;gen_server&lt;/code&gt;s in your own process,  there is no concept of location ignorance.&lt;/li&gt;
+&lt;li&gt;Only provides an asynchronous communication function, called &lt;code&gt;send&lt;/code&gt; that has pushback.  That means a &lt;code&gt;send&lt;/code&gt; will be evaluated when the &lt;code&gt;gen_server&lt;/code&gt; accepts the message but will not wait for the &lt;code&gt;gen_server&lt;/code&gt; to complete the processing of the message.&lt;/li&gt;
+&lt;li&gt;Has the concept of process linking, however it is not preemptive.  When a &lt;code&gt;gen_server&lt;/code&gt; stops, for any reason, any calls to &lt;code&gt;send&lt;/code&gt; will return an error stating the &lt;code&gt;gen_server&lt;/code&gt; has closed itself.  This will not force the termination of any other &lt;code&gt;gen_server&lt;/code&gt;s in Ocaml, but the termination can at least be detected.&lt;/li&gt;
+&lt;li&gt;Any thrown exceptions are handled by the &lt;code&gt;gen_server&lt;/code&gt; framework and result in the &lt;code&gt;gen_server&lt;/code&gt; being gracefully terminated.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;
+Relative to Erlang the Ocaml version isn't very impressive, however it's still a useful technique for encapsulating state in a concurrent environment.
+&lt;/p&gt;
+
+&lt;p&gt;
+This implementation of &lt;code&gt;gen_server&lt;/code&gt; is on top of Jane St's Async.  What does it look like?  The primary interface looks like this:
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;val&lt;/font&gt;&lt;/b&gt; start  &lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;
+    'i &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;'i&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; 's&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; 'm&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; 'ie&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; 'he&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Server&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;t &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;'m t&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[&amp;gt;&lt;/font&gt; 'ie init_ret &lt;font color=&quot;#990000&quot;&gt;])&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Deferred&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;t
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;val&lt;/font&gt;&lt;/b&gt; stop   &lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;
+    'm t &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;unit&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[&amp;gt;&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;Closed&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;])&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Deferred&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;t
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;val&lt;/font&gt;&lt;/b&gt; send   &lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;
+    'm t &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+    'm &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;'m&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[&amp;gt;&lt;/font&gt; send_ret &lt;font color=&quot;#990000&quot;&gt;])&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Deferred&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+The interface is only three functions: &lt;code&gt;start&lt;/code&gt;, &lt;code&gt;stop&lt;/code&gt; and &lt;code&gt;send&lt;/code&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;start&lt;/code&gt; function is a bit harry looking but don't be put off by the server type parameterized on five type variables.  The &lt;code&gt;start&lt;/code&gt; function takes two parameters, the first is the initial parameters to pass to the &lt;code&gt;gen_server&lt;/code&gt;, the second is the callbacks of the &lt;code&gt;gen_server&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stop&lt;/code&gt; takes a &lt;code&gt;gen_server&lt;/code&gt; and returns &lt;code&gt;Ok ()&lt;/code&gt; on success and &lt;code&gt;Error `Closed&lt;/code&gt; if the &lt;code&gt;gen_server&lt;/code&gt; is not running.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;send&lt;/code&gt; takes a &lt;code&gt;gen_server&lt;/code&gt; and a message.  The message must be the same type the &lt;code&gt;gen_server&lt;/code&gt; accepts.  It returns &lt;code&gt;Ok msg&lt;/code&gt; on success and &lt;code&gt;Error `Closed&lt;/code&gt; if the &lt;code&gt;gen_server&lt;/code&gt; is not running.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;
+The most confusion part is probably the &lt;code&gt;('i, 's, 'm, 'ie, 'he) Server.t&lt;/code&gt;.  This is the type that the implementer of the &lt;code&gt;gen_server&lt;/code&gt; writes.  It is three callbacks: &lt;code&gt;init&lt;/code&gt;, &lt;code&gt;handle_call&lt;/code&gt; and &lt;code&gt;terminate&lt;/code&gt;.  Let's breakdown the type variables:
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;'i - This is the type of the variable that you pass to &lt;code&gt;start&lt;/code&gt; and will be given to the &lt;code&gt;init&lt;/code&gt; callback.&lt;/li&gt;
+&lt;li&gt;'s - This is the type of the state that the &lt;code&gt;gen_server&lt;/code&gt; will encapsulate.  This will be passed to &lt;code&gt;handle_call&lt;/code&gt; and &lt;code&gt;terminate&lt;/code&gt;.  The &lt;code&gt;handle_call&lt;/code&gt; callback will manipulate the state and return a new one.&lt;/li&gt;
+&lt;li&gt;'m - This is the message type that the &lt;code&gt;gen_server&lt;/code&gt; will accept.&lt;/li&gt;
+&lt;li&gt;'ie - This is the type of error that the &lt;code&gt;init&lt;/code&gt; callback can return.&lt;/li&gt;
+&lt;li&gt;'he - This is the type of error that the &lt;code&gt;handle_call&lt;/code&gt; callback can return.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;
+While the server type looks complicated, as you can see each variable corresponds to all of the type information needed to understand a &lt;code&gt;gen_server&lt;/code&gt;.  So what does a server look like?  While the types are big it's actually not too bad.  Below is an example of a call to &lt;code&gt;start&lt;/code&gt;.  The full source code can be found &lt;a href=&quot;https://github.com/orbitz/gen_server/blob/master/examples/simple.ml&quot;&gt;here&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Package the callbacks *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; callbacks &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Gen_server&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Server&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;init&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; handle_call&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; terminate &lt;font color=&quot;#FF0000&quot;&gt;}&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; start &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Gen_server&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;start &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; callbacks
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+And what do the callbacks look like?  Below is a simplified version of what a set of callbacks could look like, with comments.
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Resp&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Gen_server&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Response&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Gs&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Gen_server&lt;/font&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Callbacks *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; init self init &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Deferred&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;return &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Ok&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;())&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; handle_call self state &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;function&lt;/font&gt;&lt;/b&gt;
+  &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Msg&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Msg1&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+    &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Success *)&lt;/font&gt;&lt;/i&gt;
+    &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Deferred&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;return &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Resp&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Ok&lt;/font&gt; state&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+  &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Msg&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Msg2&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+    &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Error *)&lt;/font&gt;&lt;/i&gt;
+    &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Deferred&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;return &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Resp&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;reason&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; state&lt;font color=&quot;#990000&quot;&gt;))&lt;/font&gt;
+  &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Msg&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Msg3&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+    &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Exceptions can be thrown too *)&lt;/font&gt;&lt;/i&gt;
+    failwith &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;blowin' up&amp;quot;&lt;/font&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Exceptions thrown from terminate are silently ignored *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; terminate reason state &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+   &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;match&lt;/font&gt;&lt;/b&gt; reason &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+     &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Gs&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Server&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Normal&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+       &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Things exited normally *)&lt;/font&gt;&lt;/i&gt;
+       &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Deferred&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;unit&lt;/font&gt;
+     &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Gs&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Server&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Exn&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;exn&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+       &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* An exception was thrown *)&lt;/font&gt;&lt;/i&gt;
+       &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Deferred&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;unit&lt;/font&gt;
+     &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Gs&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Server&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; err &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+       &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* User returned an error *)&lt;/font&gt;&lt;/i&gt;
+       &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Deferred&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;unit&lt;/font&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+There isn't much more to it than that.
+&lt;/p&gt;
+
+&lt;p&gt;
+A functor implementation is also provided. I prefer the non-functor version, I think it's a bit less verbose and easier to work with, but some people like them.
+&lt;/p&gt;
+
+&lt;h1&gt;How To Get It?&lt;/h1&gt;
+&lt;p&gt;
+You can install &lt;code&gt;gen_server&lt;/code&gt; through &lt;code&gt;opam&lt;/code&gt;, simply: &lt;code&gt;opam install gen_server&lt;/code&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+The source can be found &lt;a href=&quot;https://github.com/orbitz/gen_server&quot;&gt;here&lt;/a&gt;.  Only the tags should be trusted as working.
+&lt;/p&gt;
+
+&lt;p&gt;
+There are a few examples &lt;a href=&quot;https://github.com/orbitz/gen_server/tree/master/examples&quot;&gt;here&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+Enjoy.
+&lt;/p&gt;
+</content><id>http://functional-orbitz.blogspot.com/2013/12/genserver-in-ocaml.html</id><title type="text">Gen_server in Ocaml</title><updated>2013-12-23T23:17:00-00:00</updated><author><email>noreply@blogger.com (Unknown)</email><name>orbitz</name></author></entry><entry><link href="http://functional-orbitz.blogspot.com/2013/07/experimenting-in-api-design-riakc.html" rel="alternate"/><contributor><uri>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</uri><name>orbitz</name></contributor><content type="html">&lt;p&gt;
+&lt;i&gt;
+Disclaimer: Riakc's API is in flux so not all of the code here is guaranteed to work by the time you read this post.  However the general principles should hold.
+&lt;/i&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+While not perfect, Riakc attempts to provide an API that is very hard to use incorrectly, and hopefully easy to use correctly.  The idea being that using Riakc incorrectly will result in a compile-time error.  Riakc derives its strength from being written in Ocaml, a language with a very expressive type system.  Here are some examples of where I think Riakc is successful.
+&lt;/p&gt;
+
+&lt;h1&gt;Siblings&lt;/h1&gt;
+&lt;p&gt;
+In Riak, when you perform a &lt;code&gt;GET&lt;/code&gt; you can get back multiple values associated with the a single key.  This is known as siblings.  However, a &lt;code&gt;PUT&lt;/code&gt; can only associate one value with a key.  However, it is convenient to use the same object type for both &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;PUT&lt;/code&gt;.  In the case of Riakc, that is a &lt;code&gt;Riakc.Robj.t&lt;/code&gt;.  But, what to do if you create a &lt;code&gt;Robj.t&lt;/code&gt; with siblings and try to &lt;code&gt;PUT&lt;/code&gt;?  In the Ptyhon client you will get a runtime error.  Riakc solves this by using phantom types.  A &lt;code&gt;Robj.t&lt;/code&gt; isn't actually just that, it's a &lt;code&gt;'a Robj.t&lt;/code&gt;.  The API requires that &lt;code&gt;'a&lt;/code&gt; to be something specific at different parts of the code.  Here is the simplified type for &lt;code&gt;GET&lt;/code&gt;:
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;val&lt;/font&gt;&lt;/b&gt; get &lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;
+  t &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  b&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;font color=&quot;#990000&quot;&gt;([&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;Maybe_siblings&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;]&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Robj&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;t&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; error&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Deferred&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+And here is the simplified type for &lt;code&gt;PUT&lt;/code&gt;:
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;val&lt;/font&gt;&lt;/b&gt; put &lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;
+  t &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  b&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;font color=&quot;#990000&quot;&gt;?&lt;/font&gt;k&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;font color=&quot;#990000&quot;&gt;[&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;No_siblings&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;]&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Robj&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;t &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;font color=&quot;#990000&quot;&gt;(([&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;Maybe_siblings&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;]&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Robj&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;t &lt;font color=&quot;#990000&quot;&gt;*&lt;/font&gt; key&lt;font color=&quot;#990000&quot;&gt;),&lt;/font&gt; error&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Deferred&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+The important part of the API is that &lt;code&gt;GET&lt;/code&gt; returns a &lt;code&gt;[ `Maybe_siblings ] Riak.t&lt;/code&gt; and &lt;code&gt;PUT&lt;/code&gt; takes a &lt;code&gt;[ `No_siblings ] Riak.t&lt;/code&gt;.  How does one convert something that might have siblings to something that definitely doesn't?  With &lt;code&gt;Riakc.Robj.set_content&lt;/code&gt;
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;val&lt;/font&gt;&lt;/b&gt; set_content  &lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Content&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;t &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; 'a t &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;No_siblings&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;]&lt;/font&gt; t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+&lt;code&gt;set_content&lt;/code&gt; takes any kind of &lt;code&gt;Robj.t&lt;/code&gt;, and a single &lt;code&gt;Content.t&lt;/code&gt; and produces a &lt;code&gt;[ `No_siblings ] Riak.t&lt;/code&gt;, because if you set contents to one value obviously you cannot have siblings.  Now the type system can ensure that any call to &lt;code&gt;PUT&lt;/code&gt; must have a &lt;code&gt;set_content&lt;/code&gt; prior to it.
+&lt;/p&gt;
+
+&lt;h1&gt;Setting 2i&lt;/h1&gt;
+&lt;p&gt;
+If you use the LevelDB backend you can use secondary indices, known as 2i, which allow you to find a set of keys based on some mapping.  When you create an object you specify the mappings to which it belongs.  Two types are supported in Riak: bin and int.  And two query types are supported: equal and range.  For example, if you encoded the time as an int you could use a range query to find all those keys that occurred within a range of times.
+&lt;/p&gt;
+
+&lt;p&gt;
+Riak encodes the type of the index in the name.  As an example, if you want to allow people to search by a field called &amp;quot;foo&amp;quot; which is a binary secondary index, you would name that index &amp;quot;foo_bin&amp;quot;.  In the Python Riak client, one sets an index with something like the following code:
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;obj&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000000&quot;&gt;add_index&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;'field1_bin'&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;'val1'&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+obj&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000000&quot;&gt;add_index&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;'field2_int'&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; &lt;font color=&quot;#993399&quot;&gt;100000&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+In Riakc, the naming convention is hidden from the user.  Instead, the the name the field will become is encoded in the value.  The Python code looks like the following in Riakc:
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;R&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Riakc&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Robj&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; index1 &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;R&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;index_create
+    &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;k&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;field1&amp;quot;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;v&lt;font color=&quot;#990000&quot;&gt;:(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;R&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Index&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;String&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;val1&amp;quot;&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; index2 &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;R&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;index_create
+    &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;k&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;field2&amp;quot;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;v&lt;font color=&quot;#990000&quot;&gt;:(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;R&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Index&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Integer&lt;/font&gt; &lt;font color=&quot;#993399&quot;&gt;10000&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;R&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;set_content
+  &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;R&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Content&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;set_indices &lt;font color=&quot;#990000&quot;&gt;[&lt;/font&gt;index1&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; index2&lt;font color=&quot;#990000&quot;&gt;]&lt;/font&gt; content&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+  robj
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+When the &lt;code&gt;Robj.t&lt;/code&gt; is written to the DB, &amp;quot;field1&amp;quot; and &amp;quot;field2&amp;quot; will be transformed into their appropriate names.
+&lt;/p&gt;
+
+&lt;p&gt;
+Reading from Riak results in the same translation happening.  If Riakc cannot determine the type of the value from the field name, for example if Riak gets a new index type, the field name maintains its precise name it got from Riak and the value is a &lt;code&gt;Riakc.Robj.Index.Unknown string&lt;/code&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+In this way, we are guaranteed at compile-time that the name of the field will always match its type.
+&lt;/p&gt;
+
+&lt;h1&gt;2i Searching&lt;/h1&gt;
+&lt;p&gt;
+With objects containing 2i entries, it is possible to search by values in those fields.  Riak allows for searching fields by their exact value or ranges of values.  While it's unclear from the Riak docs, Riakc enforces the two values in a range query are of the same type.  Also, like in setting 2i values, the field name is generated from the type of the value.  It is more verbose than the Python client but it enforces constraints. 
+&lt;/p&gt;
+
+&lt;p&gt;
+Here is a Python 2i search followed by the equivalent search in Riakc.
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;results &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; client&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000000&quot;&gt;index&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;'mybucket'&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;'field1_bin'&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;'val1'&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;'val5'&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;).&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000000&quot;&gt;run&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Riakc&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Conn&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;index_search
+  conn
+  &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;b&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;mybucket&amp;quot;&lt;/font&gt;
+  &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;index&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;field1&amp;quot;&lt;/font&gt;
+  &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;range_string
+     &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;min&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;val1&amp;quot;&lt;/font&gt;
+     &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;max&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;val2&amp;quot;&lt;/font&gt;
+     &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;return_terms&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;false&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;
+It's a bit unfair comparing an Ocaml API to a Python one, but hopefully this has demonstrated that with a reasonable type system one can express safe and powerful APIs without being inconvenient.
+&lt;/p&gt;
+</content><id>http://functional-orbitz.blogspot.com/2013/07/experimenting-in-api-design-riakc.html</id><title type="text">Experimenting in API Design: Riakc</title><updated>2013-07-09T18:37:00-00:00</updated><author><email>noreply@blogger.com (Unknown)</email><name>orbitz</name></author></entry><entry><link href="http://functional-orbitz.blogspot.com/2013/07/riakc-in-five-minutes.html" rel="alternate"/><contributor><uri>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</uri><name>orbitz</name></contributor><content type="html">&lt;p&gt;
+This is a simple example using Riakc to PUT a key into a Riak database.  It assumes that you already have a Riak database up and running.
+&lt;/p&gt;
+
+&lt;p&gt;
+First you need to install riakc.  Simply do: &lt;code&gt;opam install riakc&lt;/code&gt;.  As of this writing, the latest version of riakc is 2.0.0 and the code given depends on that version.
+&lt;/p&gt;
+
+&lt;p&gt;
+Now, the code.  The following is a complete CLI tool that will PUT a key and print back the result from Riak.  It handles all errors that the library can generate as well as outputting siblings correctly.
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(*&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * This example is valid for version 2.0.0, and possibly later&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Core&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Std&lt;/font&gt;
+&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Async&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Std&lt;/font&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(*&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * Take a string of bytes and convert them to hex string&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * representation&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; hex_of_string &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;String&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;concat_map &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;f&lt;font color=&quot;#990000&quot;&gt;:(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; c &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; sprintf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;%X&amp;quot;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Char&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;to_int c&lt;font color=&quot;#990000&quot;&gt;))&lt;/font&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(*&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * An Robj can have multiple values in it, each one with its&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * own content type, encoding, and value.  This just prints&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * the value, which is a string blob&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; print_contents contents &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;iter
+    &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;f&lt;font color=&quot;#990000&quot;&gt;:(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; content &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;C&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Riakc&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Robj&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Content&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+      printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;VALUE: %s\n&amp;quot;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;C&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;value content&lt;font color=&quot;#990000&quot;&gt;))&lt;/font&gt;
+    contents
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; fail s &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;%s\n&amp;quot;&lt;/font&gt; s&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+  shutdown &lt;font color=&quot;#993399&quot;&gt;1&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; exec &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; host &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Sys&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;argv&lt;font color=&quot;#990000&quot;&gt;.(&lt;/font&gt;&lt;font color=&quot;#993399&quot;&gt;1&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; port &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Int&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;of_string &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Sys&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;argv&lt;font color=&quot;#990000&quot;&gt;.(&lt;/font&gt;&lt;font color=&quot;#993399&quot;&gt;2&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(*&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * [with_conn] is a little helper function that will&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * establish a connection, run a function on the connection&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * and tear it down when done&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Riakc&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Conn&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;with_conn
+    &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;host
+    &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;port
+    &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; c &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;R&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Riakc&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Robj&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; content  &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;R&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Content&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;create &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;some random data&amp;quot;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; robj     &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;R&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;create &lt;font color=&quot;#990000&quot;&gt;[]&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;|&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;R&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;set_content content &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+      &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(*&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       * Put takes a bucket, a key, and an optional list of&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       * options.  In this case we are setting the&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       * [Return_body] option which returns what the key&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       * looks like after the put.  It is possible that&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       * siblings were created.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       *)&lt;/font&gt;&lt;/i&gt;
+      &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Riakc&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Conn&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;put
+        c
+        &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;b&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;test_bucket&amp;quot;&lt;/font&gt;
+        &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;k&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;test_key&amp;quot;&lt;/font&gt;
+        &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;opts&lt;font color=&quot;#990000&quot;&gt;:[&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Riakc&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Opts&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Put&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Return_body&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;]&lt;/font&gt;
+        robj&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; eval &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  exec &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;|&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;function&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Ok&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;robj&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; key&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;begin&lt;/font&gt;&lt;/b&gt;
+      &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(*&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       * [put] returns a [Riakc.Robj.t] and a [string&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       * option], which is the key if Riak had to generate&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       * it&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       *)&lt;/font&gt;&lt;/i&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;R&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Riakc&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Robj&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+      &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(*&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       * Extract the vclock, if it exists, and convert it to&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       * to something printable&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       *)&lt;/font&gt;&lt;/i&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; vclock &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+ &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Option&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;value
+   &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;default&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;&amp;lt;none&amp;gt;&amp;quot;&lt;/font&gt;
+   &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Option&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;map &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;f&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;hex_of_string &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;R&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vclock robj&lt;font color=&quot;#990000&quot;&gt;))&lt;/font&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; key &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Option&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;value &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;default&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;&amp;lt;none&amp;gt;&amp;quot;&lt;/font&gt; key &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+      printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;KEY: %s\n&amp;quot;&lt;/font&gt; key&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+      printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;VCLOCK: %s\n&amp;quot;&lt;/font&gt; vclock&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+      print_contents &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;R&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;contents robj&lt;font color=&quot;#990000&quot;&gt;);&lt;/font&gt;
+      shutdown &lt;font color=&quot;#993399&quot;&gt;0&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;end&lt;/font&gt;&lt;/b&gt;
+    &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(*&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;     * These are the various errors that can be returned.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;     * Many of then come directly from the ProtoBuf layer&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;     * since there aren't really any more semantics to apply&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;     * to the data if it matches the PB frame.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;     *)&lt;/font&gt;&lt;/i&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;Bad_conn&lt;/font&gt;           &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; fail &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Bad_conn&amp;quot;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;Bad_payload&lt;/font&gt;        &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; fail &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Bad_payload&amp;quot;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;Incomplete_payload&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; fail &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Incomplete_payload&amp;quot;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;Notfound&lt;/font&gt;           &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; fail &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Notfound&amp;quot;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;Incomplete&lt;/font&gt;         &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; fail &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Incomplete&amp;quot;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;Overflow&lt;/font&gt;           &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; fail &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Overflow&amp;quot;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;Unknown_type&lt;/font&gt;       &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; fail &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Unknown_type&amp;quot;&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; `&lt;font color=&quot;#009900&quot;&gt;Wrong_type&lt;/font&gt;         &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; fail &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Wrong_type&amp;quot;&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  ignore &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;eval &lt;font color=&quot;#990000&quot;&gt;());&lt;/font&gt;
+  never_returns &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Scheduler&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;go &lt;font color=&quot;#990000&quot;&gt;())&lt;/font&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;p&gt;
+Now compile it:
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ocamlfind ocamlopt -thread -I +camlp4 -package riakc -c demo.ml
+ocamlfind ocamlopt -package riakc -thread -linkpkg \
+-o demo.native demo.cmx
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+Finally, you can run it: &lt;code&gt;./demo.native &lt;i&gt;hostname&lt;/i&gt; &lt;i&gt;port&lt;/i&gt;&lt;/code&gt;
+&lt;/p&gt;
+
+&lt;h1&gt;...And More Detail&lt;/h1&gt;
+&lt;p&gt;
+The API for Riakc is broken up into two modules: &lt;code&gt;Riakc.Robj&lt;/code&gt; and &lt;code&gt;Riakc.Conn&lt;/code&gt; with &lt;code&gt;Riakc.Opts&lt;/code&gt; being a third helper module.  Below is in reference to version 2.0.0 of Riakc.
+&lt;/p&gt;
+
+&lt;h2&gt;Riakc.Robj&lt;/h2&gt;
+&lt;p&gt;
+&lt;code&gt;Riakc.Robj&lt;/code&gt; defines a representation of an object stored in Riak.  &lt;code&gt;Robj&lt;/code&gt; is completely pure code.  The API can be found &lt;a href=&quot;https://github.com/orbitz/ocaml-riakc/blob/2.0.0/lib/riakc/robj.mli&quot;&gt;here&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;h2&gt;Riakc.Conn&lt;/h2&gt;
+&lt;p&gt;
+This is the I/O layer.  All interaction with the actual database happens through this module.  &lt;code&gt;Riakc.Conn&lt;/code&gt; is somewhat clever in that it has a compile-time requirement that you have called &lt;code&gt;Riakc.Robj.set_content&lt;/code&gt; on any value you want to PUT.  This guarantees you have resolved all siblings, somehow.  Its API can be found &lt;a href=&quot;https://github.com/orbitz/ocaml-riakc/blob/2.0.0/lib/riakc/conn.mli&quot;&gt;here&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;h2&gt;Riakc.Opts&lt;/h2&gt;
+&lt;p&gt;
+Finally, various options are defined in &lt;code&gt;Riakc.Opts&lt;/code&gt;.  These are options that GET and PUT take.  Not all of them are actually supported but support is planned.  The API can be viewed &lt;a href=&quot;https://github.com/orbitz/ocaml-riakc/blob/2.0.0/lib/riakc/opts.mli&quot;&gt;here&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+Hopefully Riakc has a fairly straight forward API.  While the example code might be longer than other clients, it is complete and correct (I hope).
+&lt;/p&gt;</content><id>http://functional-orbitz.blogspot.com/2013/07/riakc-in-five-minutes.html</id><title type="text">Riakc In Five Minutes</title><updated>2013-07-04T17:01:00-00:00</updated><author><email>noreply@blogger.com (Unknown)</email><name>orbitz</name></author></entry><entry><link href="http://functional-orbitz.blogspot.com/2013/03/ann-riakc-000.html" rel="alternate"/><contributor><uri>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</uri><name>orbitz</name></contributor><content type="html">&lt;p&gt;&lt;i&gt;
+Note, since writing this post, Riakc 1.0.0 has already been released and merged into opam.  It fixes the below issue of Links (there is a typo in the release notes, 'not' should be 'now'.  The source code can be found &lt;a href=&quot;https://github.com/orbitz/ocaml-riakc/tree/1.0.0&quot;&gt;here&lt;/a&gt;.  The 1.0.0 version number does not imply any stability or completeness of the library, just that it is not backwards compatible with 0.0.0.
+&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;
+Riakc is a Riak Protobuf client for Ocaml.  Riakc uses Jane St Core/Async for concurrency.  Riakc is in early development and so far supports a subset of the Riak API.  The supported methods are:
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;ping&lt;/li&gt;
+&lt;li&gt;client_id&lt;/li&gt;
+&lt;li&gt;server_info&lt;/li&gt;
+&lt;li&gt;list_buckets&lt;/li&gt;
+&lt;li&gt;list_keys&lt;/li&gt;
+&lt;li&gt;bucket_props&lt;/li&gt;
+&lt;li&gt;get&lt;/li&gt;
+&lt;li&gt;put&lt;/li&gt;
+&lt;li&gt;delete&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;A note on GET&lt;/h2&gt;
+&lt;p&gt;
+Links are currently dropped all together in the implementation, so if you read a value with links and write it back, you will have lost them.  This will be fixed in the very near future.
+&lt;/p&gt;
+
+&lt;p&gt;
+As with anything, please feel free to submit issues and pull requests.
+&lt;/p&gt;
+
+&lt;p&gt;
+The source code can be found &lt;a href=&quot;https://github.com/orbitz/ocaml-riakc/tree/0.0.0&quot;&gt;here&lt;/a&gt;.  Riakc is in opam and you can install it by doing &lt;code&gt;opam install riakc&lt;/code&gt;.
+&lt;/p&gt;
+
+&lt;h1&gt;Usage&lt;/h1&gt;
+&lt;p&gt;
+There are two API modules in Riakc.  Examples of all existing API functions can be found &lt;a href=&quot;https://github.com/orbitz/ocaml-riakc/tree/0.0.0/examples&quot;&gt;here&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;h2&gt;Riakc.Conn&lt;/h2&gt;
+&lt;p&gt;
+&lt;code&gt;Riakc.Conn&lt;/code&gt; provides the API for performing actions on the database.  The module interface can be read &lt;a href=&quot;https://github.com/orbitz/ocaml-riakc/blob/0.0.0/lib/riakc/conn.mli&quot;&gt;here&lt;/a&gt;.  
+&lt;/p&gt;
+
+&lt;h2&gt;Riakc.Robj&lt;/h2&gt;
+&lt;p&gt;
+&lt;code&gt;Riakc.Robj&lt;/code&gt; provides the API for objects stored in Riak.  The module interface can be read &lt;a href=&quot;https://github.com/orbitz/ocaml-riakc/blob/0.0.0/lib/riakc/robj.mli&quot;&gt;here&lt;/a&gt;.  &lt;code&gt;Riakc.Conn.get&lt;/code&gt; returns a &lt;code&gt;Riakc.Robj.t&lt;/code&gt; and &lt;code&gt;Riakc.Conn.put&lt;/code&gt; takes one.  &lt;code&gt;Robj.t&lt;/code&gt; supports representing siblings, however &lt;code&gt;Riakc.Conn.put&lt;/code&gt; cannot PUT objects with siblings, this is enforced using phantom types.  A value of &lt;code&gt;Riakc.Robj.t&lt;/code&gt; that might have siblings is converted to one that doesn't using &lt;code&gt;Riakc.Robj.set_content&lt;/code&gt;.
+&lt;/p&gt;</content><id>http://functional-orbitz.blogspot.com/2013/03/ann-riakc-000.html</id><title type="text">[ANN] Riakc 0.0.0</title><updated>2013-03-17T14:42:00-00:00</updated><author><email>noreply@blogger.com (Unknown)</email><name>orbitz</name></author></entry><entry><link href="http://functional-orbitz.blogspot.com/2013/03/ann-protobuf-002.html" rel="alternate"/><contributor><uri>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</uri><name>orbitz</name></contributor><content type="html">&lt;p&gt;
+Protobuf is an Ocaml library for communicating with Google's protobuf format.  It provides a method for writing parsers and builders.  There is no protoc support, yet and writing it is not a top goal right now.  Protobuf is meant to be fairly lightweight and straight forward to use.  The only other Protobuf support for Ocaml I am aware of is through &lt;a href=&quot;http://piqi.org/&quot;&gt;piqi&lt;/a&gt;, however that was too heavy for my needs.
+&lt;/p&gt;
+
+&lt;p&gt;
+Protobuf is meant to be very low level, mostly dealing with representation of values and not semantics.  For example, the &lt;code&gt;fixed32&lt;/code&gt; and &lt;code&gt;sfixed32&lt;/code&gt; values are both parsed as &lt;code&gt;Int32.t&lt;/code&gt;'s.  Dealing with being signed or not is left up to the user.
+&lt;/p&gt;
+
+&lt;p&gt;
+The source code can be viewed &lt;a href=&quot;https://github.com/orbitz/ocaml-protobuf/tree/0.0.2&quot;&gt;here&lt;/a&gt;.  Protobuf is in opam, to install it &lt;code&gt;opam install protobuf&lt;/code&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+The hope is that parsers and builders look reasonably close to the &lt;code&gt;.proto&lt;/code&gt; files such that translation is straight forward, at least until protoc support is added.  This is an early release and, without a doubt, has bugs in it please submit pull requests and issues.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href=&quot;https://github.com/orbitz/ocaml-protobuf/tree/0.0.2/&quot;&gt;https://github.com/orbitz/ocaml-protobuf/tree/0.0.2/&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;h1&gt;Examples&lt;/h1&gt;
+&lt;p&gt;
+The best collection of examples right now is the &lt;a href=&quot;https://github.com/orbitz/ocaml-protobuf/blob/0.0.2/lib/protobuf/protobuf_test.ml&quot;&gt;tests&lt;/a&gt;.  An example from the file:
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;/p&gt;&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; simple &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;P&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;int32&lt;/font&gt; &lt;font color=&quot;#993399&quot;&gt;1&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;P&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;return
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; complex &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;P&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;int32&lt;/font&gt; &lt;font color=&quot;#993399&quot;&gt;1&lt;/font&gt;           &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; num &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;P&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt; &lt;font color=&quot;#993399&quot;&gt;2&lt;/font&gt;          &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; s &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;P&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;embd_msg &lt;font color=&quot;#993399&quot;&gt;3&lt;/font&gt; simple &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; emsg &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;P&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;return &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;num&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; s&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; emsg&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; run_complex str &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Monad_infix&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;P&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;State&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;create &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Bitstring&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;bitstring_of_string str&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+  &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; s &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;P&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;run complex s
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;p&gt;
+The builder for this message looks like:
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;/p&gt;&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; build_simple i &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Monad_infix&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; b &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;B&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;create &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;B&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;int32&lt;/font&gt; b &lt;font color=&quot;#993399&quot;&gt;1&lt;/font&gt; i &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;font color=&quot;#009900&quot;&gt;Ok&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;B&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;to_string b&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; build_complex &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;i1&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; s&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; i2&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Monad_infix&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; b &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;B&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;create &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;B&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;int32&lt;/font&gt; b &lt;font color=&quot;#993399&quot;&gt;1&lt;/font&gt; i1                 &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;B&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt; b &lt;font color=&quot;#993399&quot;&gt;2&lt;/font&gt; s                 &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;B&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;embd_msg b &lt;font color=&quot;#993399&quot;&gt;3&lt;/font&gt; i2 build_simple &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;font color=&quot;#009900&quot;&gt;Ok&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;B&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;to_string b&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+&lt;/code&gt;&lt;/pre&gt;
+</content><id>http://functional-orbitz.blogspot.com/2013/03/ann-protobuf-002.html</id><title type="text">[ANN] Protobuf 0.0.2</title><updated>2013-03-17T14:21:00-00:00</updated><author><email>noreply@blogger.com (Unknown)</email><name>orbitz</name></author></entry><entry><link href="http://functional-orbitz.blogspot.com/2013/02/ann-ocaml-vclock-000.html" rel="alternate"/><contributor><uri>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</uri><name>orbitz</name></contributor><content type="html">&lt;p&gt;
+I ported some Erlang vector clock code to Ocaml for fun and learning.  It's not well tested and it hasn't any performance optimizations.  I'm not ready yet but I have some projects in mind to use it so it will likely get fleshed out more.
+&lt;/p&gt;
+
+&lt;p&gt;
+Vector clocks are a system for determining the partial ordering of events in a distributed environment.  You can determine if one value is the ancestor of another, equal, or was concurrently updated.  It is one mechanism that distributed databases, such as Riak, use to automatically resolve some conflicts in data while maintaining availability.
+&lt;/p&gt;
+
+&lt;p&gt;
+The vector clock implementation allows for user defined site id type.  It also allows metadata to be encoded in the site id, which is useful if you want your vector clock to be prunable by encoding timestamps in it.
+&lt;/p&gt;
+
+&lt;p&gt;
+The repo can be found &lt;a href=&quot;https://github.com/orbitz/ocaml-vclock/tree/0.0.0&quot;&gt;here&lt;/a&gt;.  If you'd like to learn more about vector clocks read the wikipedia page &lt;a href=&quot;http://en.wikipedia.org/wiki/Vector_clock&quot;&gt;here&lt;/a&gt;.  The Riak website also has some content on vector clocks &lt;a href=&quot;http://docs.basho.com/riak/latest/references/appendices/concepts/Vector-Clocks/&quot;&gt;here&lt;/a&gt;.
+&lt;/p&gt;</content><id>http://functional-orbitz.blogspot.com/2013/02/ann-ocaml-vclock-000.html</id><title type="text">[ANN] ocaml-vclock - 0.0.0</title><updated>2013-02-07T21:52:00-00:00</updated><author><email>noreply@blogger.com (Unknown)</email><name>orbitz</name></author></entry><entry><link href="http://functional-orbitz.blogspot.com/2013/01/experiences-using-resultt-vs-exceptions.html" rel="alternate"/><contributor><uri>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</uri><name>orbitz</name></contributor><content type="html">&lt;p&gt;
+&lt;i&gt;Disclaimer: I have not compiled any of the example code in this post.  Mostly because they are snippets meant to illustrate a point rather than be complete on their own.  If they have any errors then apologies.&lt;/i&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Previously I gave an &lt;a href=&quot;http://functional-orbitz.blogspot.se/2013/01/introduction-to-resultt-vs-exceptions.html&quot;&gt;introduction to return values vs exceptions&lt;/a&gt; in Ocaml.  But a lot of ideas in software engineering sound good, how does this particular one work out in real software?
+&lt;/p&gt;
+
+&lt;p&gt;
+I have used this style in two projects.  The first is a project that was originally written using exceptions and I have converted most of it to using return values.  The second is one that was written from the start using return values.  They can be found &lt;a href=&quot;http://code.google.com/p/para-mugsy/&quot;&gt;here&lt;/a&gt; and &lt;a href=&quot;https://github.com/orbitz/opass&quot;&gt;here&lt;/a&gt;.  &lt;i&gt;I make no guarantees about the quality of the code, in fact I believe some of it to be junk.  These are just my subjective opinions in writing software with a particular attribute&lt;/i&gt;.
+&lt;/p&gt;
+
+&lt;h1&gt;The Good&lt;/h1&gt;
+&lt;h3&gt;Expected Result&lt;/h3&gt;
+&lt;p&gt;
+The whole system worked as expected.  I get compile-time errors for all failure cases I do not handle.  This has helped me catch some failure cases I had forgotten about previously, some of which would require an unlikely chain of events to hit, which would have made finding in a test harder, but obviously not impossible.  In particular, ParaMugsy is (although the current rewrite does not cover this yet) meant to run in a distributed environment, which increases the cost of errors.  Both in debugging and reproducing.  In the case of opass, writing the DB is important to get right. Missing handling a failure here can mean the users database of passwords can be lost, a tragic event.
+&lt;/p&gt;
+
+&lt;h3&gt;Not Cumbersome&lt;/h3&gt;
+&lt;p&gt;
+In the Introduction I showed that for a simple program, return-values are no more cumbersome than exceptions.  In these larger projects the same holds. This shouldn't really be a surprise though, as the monadic operators actually simulate the exact flow of exception code.  But the 'not cumbersome' is half of a lie, which is explained more below.
+&lt;/p&gt;
+
+&lt;h3&gt;Refactoring Easier&lt;/h3&gt;
+&lt;p&gt;
+Ocaml is a great language when it comes to refactoring.  Simply make the change you want and iterate on compiler errors.  This style has made it even easier for me.  I can add new failures to my functions and work through the compiler errors to make sure the change is handled in every location.
+&lt;/p&gt;
+
+&lt;h3&gt;Works No Matter The Concurrent Framework&lt;/h3&gt;
+&lt;p&gt;
+The original implementation of ParaMugsy used Lwt.  In the rewrite I decided to use Core's Async library.  Both are monadic.  And both handle exceptions quite differently.  Porting functions over that did return-values was much easier because they didn't rely on the framework to handle and propagate failures.  Exceptions are tricky in a concurrent framework and concurrency is purely library based in Ocaml rather than being part of the language, which means libraries can choose incompatible ways to handle them.  Return-values give one less thing to worry about when porting code or trying to get code to work in multiple frameworks.
+&lt;/p&gt;
+
+&lt;h1&gt;The Bad&lt;/h1&gt;
+&lt;h3&gt;Prototyping Easier With Exceptions&lt;/h3&gt;
+&lt;p&gt;
+The whole idea is to make it hard to miss an error case.  But that can be annoying when you just want to get something running.  Often times we write software in such a way that the success path is the first thing we write and we handle the errors after that.  I don't think there is necessarily a good reason for this other than it's much more satisfying to see the results of the hard work sooner rather than later.  In this case, my solution is to relax the ban on exceptions temporarily.  Any place that I will return an &lt;code&gt;Error&lt;/code&gt; I instead write &lt;code&gt;failwith &amp;quot;not yet implemented&amp;quot;&lt;/code&gt;.  That way there is an easily grepable string to ensure I have replaced all exceptions with &lt;code&gt;Error&lt;/code&gt;'s when I am done.  This is an annoyance but thankfully with a fairly simple solution.
+&lt;/p&gt;
+
+&lt;h3&gt;Cannot Express All Invariants In Type System&lt;/h3&gt;
+&lt;p&gt;
+Sometimes there are sections of code where I know something is true, but it is not expressible in the type system.  For example, perhaps I have a data structure that updates multiple pieces of information together.  I know when I access one piece of information it will be in the other place.  Or perhaps I have a pattern match that I need to handle due to exhaustiveness but I know that it cannot happen given some invariants I have established earlier.  In the case where I am looking up data that I know will exist, I will use a lookup function that can throw an exception if it is easiest.  In the case where I have a pattern match that I know will never happen, I use &lt;code&gt;assert&lt;/code&gt;.  But note, these are cases where I have metaphysical certitude that such events will not happen.  Not cases where I'm just pretty sure they work.
+&lt;/p&gt;
+
+&lt;h3&gt;Many Useful Libraries Throw Exceptions&lt;/h3&gt;
+&lt;p&gt;
+Obviously a lot of libraries throw exceptions.  Luckily the primary library I use is Jane St's Core Suite, where they share roughly the same aversion of exceptions.  Some functions still do throw exceptions though, most notably &lt;code&gt;In_channel.with_file&lt;/code&gt; and &lt;code&gt;Out_channel.with_file&lt;/code&gt;.  This can be solved by wrapping those functions in return-value ones.  The problem comes in: what happens when the function being wrapped is poorly documented or at some point can throw more exceptional cases than when it was originally wrapped.  One option is to always catch &lt;code&gt;_&lt;/code&gt; and turn it into a fairly generic variant type.  Or maybe a function only has a few logical failure conditions so collapsing them to a few variant types makes sense.  I'm not aware of any really good solution here.
+&lt;/p&gt;
+
+&lt;h1&gt;A Few Examples&lt;/h1&gt;
+&lt;p&gt;
+There are a few transformations that come up often when converting exception code to return-value code.  Here are some in detail.
+&lt;/p&gt;
+
+&lt;h3&gt;Building Things&lt;/h3&gt;
+&lt;p&gt;
+It's common to want to do some work and then construct a value from it.  In exception-land that is as simple, just something like &lt;code&gt;Constructor (thing_that_may_throw_exception ())&lt;/code&gt;.  This doesn't work with return-values.  Instead we have to do what we did in the Introduction post.  Here is an example:
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; f &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Monad_infix&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  thing_that_may_fail &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; v &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  &lt;font color=&quot;#009900&quot;&gt;Ok&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Constructor&lt;/font&gt; v&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Looping&lt;/h3&gt;
+&lt;p&gt;
+Some loops cannot be written in their most obvious style.  Consider an implementation of &lt;code&gt;map&lt;/code&gt; that expects the function passed to it to use &lt;code&gt;Result.t&lt;/code&gt; to signal failures.  The very naive implementation of &lt;code&gt;map&lt;/code&gt; is:
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; map f &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;function&lt;/font&gt;&lt;/b&gt;
+  &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[]&lt;/font&gt;    &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[]&lt;/font&gt;
+  &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; x&lt;font color=&quot;#990000&quot;&gt;::&lt;/font&gt;xs &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;f x&lt;font color=&quot;#990000&quot;&gt;)::(&lt;/font&gt;map xs&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+There are two ways to write this.  The first requires two passes over the elements.  The first pass applies the function and the second one checks which value each function returned or the first error that was hit.
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; map f l &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;all &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;map f l&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+&lt;code&gt;Result.all&lt;/code&gt; has the type &lt;code&gt;('a, 'b) Core.Std.Result.t list -&amp;gt; ('a list, 'b) Core.Std.Result.t&lt;/code&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+The above is simple but could be inefficient. The entire map is preformed regardless of failure and then walked again.  If the function being applied is expensive this could be a problem.  The other solution is a pretty standard pattern in Ocaml of using an accumulator and reversing it on output.  The monadic operator could be replaced by a &lt;code&gt;match&lt;/code&gt; in this example, I just prefer the operator.
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; map f l &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;rec&lt;/font&gt;&lt;/b&gt; map' f acc &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;function&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[]&lt;/font&gt;    &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Ok&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;rev acc&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; x&lt;font color=&quot;#990000&quot;&gt;::&lt;/font&gt;xs &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;begin&lt;/font&gt;&lt;/b&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Monad_infix&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+      f x &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; v &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      map' f &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;v&lt;font color=&quot;#990000&quot;&gt;::&lt;/font&gt;acc&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; xs
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;end&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  map' f &lt;font color=&quot;#990000&quot;&gt;[]&lt;/font&gt; l
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+I'm sure someone cleverer in Ocaml probably has a superior solution but this has worked well for me.
+&lt;/p&gt;
+
+&lt;h3&gt;try/with&lt;/h3&gt;
+&lt;p&gt;
+A lot of exception code looks like the following.
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;try&lt;/font&gt;&lt;/b&gt;
+    thing1 &lt;font color=&quot;#990000&quot;&gt;();&lt;/font&gt;
+    thing2 &lt;font color=&quot;#990000&quot;&gt;();&lt;/font&gt;
+    thing3 &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error1&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; handle_error1 &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error2&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; handle_error2 &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error3&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; handle_error3 &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+The scheme I use would break this into two functions.  The one inside the try and the one handling its result.  This might sound heavy but the syntax to define a new function in Ocaml is very light.  In my experience this hasn't been a problem.
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; do_things &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Monad_infix&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  thing1 &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  thing2 &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+  thing3
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;match&lt;/font&gt;&lt;/b&gt; do_things &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Ok&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error1&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; handle_error1 &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error2&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; handle_error2 &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Error3&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; handle_error3 &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;
+Using return-values instead of exceptions in my Ocaml projects has had nearly the exact output I anticipated.  I have compile-time guarantees for handling failure cases and the cost to my code has been minimal.  Any difficulties I've run into have had straight forward solutions.  In some cases it's simply a matter of thinking about the problems from a new perspective and the solution is clear.  I plan on continuing to develop code with these principles and creating larger projects.  I believe that this style scales well in larger projects and actually becomes less cumbersome as the project increases since the guarantees can help make it easier to reason about the project.
+&lt;/p&gt;</content><id>http://functional-orbitz.blogspot.com/2013/01/experiences-using-resultt-vs-exceptions.html</id><title type="text">Experiences using Result.t vs Exceptions in Ocaml</title><updated>2013-01-04T20:37:00-00:00</updated><author><email>noreply@blogger.com (Unknown)</email><name>orbitz</name></author></entry><entry><link href="http://functional-orbitz.blogspot.com/2013/01/introduction-to-resultt-vs-exceptions.html" rel="alternate"/><contributor><uri>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</uri><name>orbitz</name></contributor><content type="html">&lt;p&gt;
+&lt;i&gt;This post uses Jane St's Core suite.  Specifically the &lt;code&gt;Result&lt;/code&gt; module.  It assumes some basic knowledge of Ocaml.  Please check out &lt;a href=&quot;http://ocaml.org&quot;&gt;Ocaml.org&lt;/a&gt; for more Ocaml reading material.&lt;/i&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+There are several articles and blog posts out there arguing for or against return values over exceptions.  I'll add to the discussion with my reasons for using return values in the place of exceptions in Ocaml.
+&lt;/p&gt;
+
+&lt;h3&gt;What's the difference?&lt;/h3&gt;
+&lt;p&gt;
+Why does the debate even exist?  Because each side has decent arguments for why their preference is superior when it comes to writing reliable software.  Pro-return-value developers, for example, argue that their code is easier identify if the code is wrong simply by reading it (if it isn't handling a return value of a function, it's wrong), while exception based code requires understanding all of the functions called to determine if and how they will fail.  Pro-exception developers argue that it is much harder to get their program into an undefined state because an exception has to be handled or else the program fails, where in return based code one can simply forget to check a function's return value and the program continues on in an undefined state. 
+&lt;/p&gt;
+
+&lt;p&gt;
+I believe that Ocaml has several features that make return values the preferable way to handle errors.  Specifically variants, polymorphic variants, exhaustive pattern matching, and a powerful static type system make return values attractive.
+&lt;/p&gt;
+
+&lt;p&gt;
+This debate is only worth your time if you are really passionate about writing software that has fairly strong guarantees about its quality in the face of errors.  For a majority of software, it doesn't matter which paradigm you choose.  Most errors will be stumbled upon during debugging and fairly soon after going into production or through writing unit and integration tests.  But, tests cannot catch everything.  And in distributed and concurrent code rare errors can now become common errors and it can be near impossible to reconstruct the conditions that caused it.  But in some cases it is possible to make whole classes of errors either impossible or catchable at compile-time with some discipline.  Ocaml is at least one language that makes this possible.
+&lt;/p&gt;
+
+&lt;h3&gt;Checked exceptions&lt;/h3&gt;
+&lt;p&gt;
+A quick aside on checked exceptions, as in Java.  Checked exceptions provide some of the functionality I claim is valuable, the main problem with how checked exceptions are implemented in Java (the only language I have any experience in that uses them), is they have a very heavy syntax, to the point where using them can seem too burdensome.
+&lt;/p&gt;
+
+&lt;h3&gt;The Claim&lt;/h3&gt;
+&lt;p&gt;
+The claim is that if one cares about ensuring they are handling all failure cases in their software, return-values are superior to exceptions because, with the help of a good type system, their handling can be validated at compile-time.  Ocaml provides a fairly light, non intrusive, syntax to make this feasible.
+&lt;/p&gt;
+
+&lt;h3&gt;Good Returns&lt;/h3&gt;
+&lt;p&gt;
+The goal of a good return value based error handling system is to make sure that all errors are handled at compile-time.  This is because there is no way to enforce this at run-time, as an exception does.  This is a good reason to prefer exceptions in a dynamically typed language like Python or Ruby, your static analyzers are few and far between.
+&lt;/p&gt;
+
+&lt;p&gt;
+In C this is generally accomplished by using a linting tool that will report an error if a function's return value is ignored in a call.  This is why you might see &lt;code&gt;printf&lt;/code&gt; casted to &lt;code&gt;void&lt;/code&gt; in some code, to make it clear the return value is meant to be ignored.  But a problem with this solution is that it only enforces that the developer handles the return value, not all possible errors.  For example, POSIX functions return a value saying the function failed and put the actual failure in &lt;code&gt;errno&lt;/code&gt;.  How, then, to enforce that all of the possible failures are handled?  Without encoding all of that information in a linting tool, the options in C (and most languages) are pretty weak. Linting tools are also separate from the compiler and vary in quality.  Writing code that takes proper advantage of a linting tool, in C, is a skill all of its own as well.
+&lt;/p&gt;
+
+&lt;h3&gt;Better Returns&lt;/h3&gt;
+&lt;p&gt;
+Ocaml supports exceptions but the compiler provides no guarantees that the exceptions are actually handled anywhere in the code.  So what happens if the documentation of a function is incomplete or a dependent function is changed to add a new exception being thrown?  The compiler won't help you.
+&lt;/p&gt;
+
+&lt;p&gt;
+But Ocaml's rich type system, combined with some discipline, gives you more power than a C linter.  The primary strength is that Ocaml lets you encode information in your types.  For example, in POSIX many functions return an integer to indicate error.  But an &lt;code&gt;int&lt;/code&gt; has no interesting meaning to the compiler other than it holds values between &lt;code&gt;INT_MIN&lt;/code&gt; and &lt;code&gt;INT_MAX&lt;/code&gt;.  In Ocaml, we can instead create a type to represent the errors a function can return and the compiler can enforce that all possible errors are handled in some way thanks to exhaustive pattern matching.
+&lt;/p&gt;
+
+&lt;h3&gt;An Example&lt;/h3&gt;
+&lt;p&gt;
+What does all of this look like?  Below a contrived example. The goal is to provide a function, called &lt;code&gt;parse_person&lt;/code&gt; that takes a string and turns it into a &lt;code&gt;person&lt;/code&gt; record.  The requirements of the code is that if a valid person cannot be parsed out, the part of the string that failed is specified in the error message.
+&lt;/p&gt;
+
+&lt;p&gt;
+Here is a version using exceptions, &lt;a href=&quot;https://github.com/orbitz/blog_post_src/blob/master/intro_return_t/ex1.ml&quot;&gt;ex1.ml&lt;/a&gt;:
+&lt;/p&gt;
+
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Core&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Std&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;exception&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Int_of_string&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;of&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;exception&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Bad_line&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;of&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;exception&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Bad_name&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;of&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;exception&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Bad_age&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;of&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;exception&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Bad_zip&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;of&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;type&lt;/font&gt;&lt;/b&gt; person &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; name &lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;*&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+              &lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; age  &lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Int&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;t
+              &lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; zip  &lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;string&lt;/font&gt;
+              &lt;font color=&quot;#FF0000&quot;&gt;}&lt;/font&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* A little helper function *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; int_of_string s &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;try&lt;/font&gt;&lt;/b&gt;
+    &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Int&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;of_string s
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Failure&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      raise &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Int_of_string&lt;/font&gt; s&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; parse_name name &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;match&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;String&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;lsplit2 &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;on&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;' ' name &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Some&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;first_name&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; last_name&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;first_name&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; last_name&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;None&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      raise &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Bad_name&lt;/font&gt; name&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; parse_age age &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;try&lt;/font&gt;&lt;/b&gt;
+    int_of_string age
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Int_of_string&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      raise &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Bad_age&lt;/font&gt; age&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; parse_zip zip &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;try&lt;/font&gt;&lt;/b&gt;
+    ignore &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;int_of_string zip&lt;font color=&quot;#990000&quot;&gt;);&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;if&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;String&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;length zip &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#993399&quot;&gt;5&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;then&lt;/font&gt;&lt;/b&gt;
+      zip
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;else&lt;/font&gt;&lt;/b&gt;
+      raise &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Bad_zip&lt;/font&gt; zip&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Int_of_string&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      raise &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Bad_zip&lt;/font&gt; zip&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; parse_person s &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;match&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;String&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;split &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;on&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;'&lt;font color=&quot;#990000&quot;&gt;\&lt;/font&gt;t' s &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[&lt;/font&gt;name&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; age&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; zip&lt;font color=&quot;#990000&quot;&gt;]&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      &lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; name &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; parse_name name
+      &lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; age  &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; parse_age age
+      &lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; zip  &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; parse_zip zip
+      &lt;font color=&quot;#FF0000&quot;&gt;}&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      raise &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Bad_line&lt;/font&gt; s&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Pretend input came from user *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; input &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Joe Mama\t25\t11425&amp;quot;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;try&lt;/font&gt;&lt;/b&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; person &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; parse_person input &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+    printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Name: %s %s\nAge: %d\nZip: %s\n&amp;quot;&lt;/font&gt;
+      &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;fst person&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;name&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+      &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;snd person&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;name&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+      person&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;age
+      person&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;zip
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Bad_line&lt;/font&gt; l &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Bad line: '%s'\n&amp;quot;&lt;/font&gt; l
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Bad_name&lt;/font&gt; name &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Bad name: '%s'\n&amp;quot;&lt;/font&gt; name
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Bad_age&lt;/font&gt; age &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Bad age: '%s'\n&amp;quot;&lt;/font&gt; age
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Bad_zip&lt;/font&gt; zip &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;Bad zip: '%s'\n&amp;quot;&lt;/font&gt; zip
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+&lt;a href=&quot;https://github.com/orbitz/blog_post_src/blob/master/intro_return_t/ex2.ml&quot;&gt;ex2.ml&lt;/a&gt; is a basic translation of the above but using variants.  The benefit is that the type system will ensure that all failure case are handled.  The problem is the code is painful to read and modify.  Every function that can fail has its own variant type to represent success and error.  Composing the functions is painful since every thing returns a different type.  We have to create a type that can represent all of the failures the other functions returned.  It would be nice if each function could return an error and we could use that value instead.  It would also be nice if everything read as a series of steps, rather than pattern matching on a tuple which makes it hard to read.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href=&quot;https://github.com/orbitz/blog_post_src/blob/master/intro_return_t/ex3.ml&quot;&gt;ex3.ml&lt;/a&gt; introduces Core's &lt;code&gt;Result.t&lt;/code&gt; type.  The useful addition is that we only need to define a type for &lt;code&gt;parse_person&lt;/code&gt;.  Every other function only has one error condition so we can just encode the error in the &lt;code&gt;Error&lt;/code&gt; variant.  This is still hard to read, though.  The helper functions aren't so bad but the main function is still painful.
+&lt;/p&gt;
+
+&lt;p&gt;
+While the previous solutions have solved the problem of ensuring that all errors are handled, they introduced the problem of being painful to develop with.  The main problem is that nothing composes.  The helpers have their own error types and for every call to them we have to check their return and then encompass their error in any function above it.  What would be nice is if the compiler could automatically union all of the error codes we want to return from itself and any function it called.  Enter polymorphic variants.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href=&quot;https://github.com/orbitz/blog_post_src/blob/master/intro_return_t/ex4.ml&quot;&gt;ex4.ml&lt;/a&gt; Shows the version with polymorphic variants.  The nice bit of refactoring we were able to do is in &lt;code&gt;parse_person&lt;/code&gt;.  Rather than an ugly match, the calls to the helper functions can be sequenced:
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; parse_person s &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;match&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;String&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;split &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;on&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;'&lt;font color=&quot;#990000&quot;&gt;\&lt;/font&gt;t' s &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[&lt;/font&gt;name&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; age&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; zip&lt;font color=&quot;#990000&quot;&gt;]&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Result&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Monad_infix&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+      parse_name name &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; name &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      parse_age  age  &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; age  &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      parse_zip  zip  &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&amp;gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; zip  &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      &lt;font color=&quot;#009900&quot;&gt;Ok&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; name&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; age&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; zip &lt;font color=&quot;#FF0000&quot;&gt;}&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      &lt;font color=&quot;#009900&quot;&gt;Error&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;`&lt;font color=&quot;#009900&quot;&gt;Bad_line&lt;/font&gt; s&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+Don't worry about the monad syntax, it's really just to avoid the nesting to make the sequencing easier on the eyes.  Except for the &lt;code&gt;&amp;gt;&amp;gt;=&lt;/code&gt;, this looks a lot like code using exceptions.  There is a nice linear flow and only the success path is shown.  But! The compiler will ensure that all failures are handled.
+&lt;/p&gt;
+
+&lt;p&gt;
+The final version of the code is &lt;a href=&quot;https://github.com/orbitz/blog_post_src/blob/master/intro_return_t/ex5.ml&quot;&gt;ex5.ml&lt;/a&gt;.  This takes ex4 and rewrites portions of it to be prettier.  As a disclaimer, I'm sure someone else would consider writing this differently even with the same restrictions I put on it, I might even write it different on a different day, but this version of the code demonstrates the points I am making.
+&lt;/p&gt;
+
+&lt;p&gt;
+A few points of comparison between ex1 and ex5:
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;The body of &lt;code&gt;parse_person&lt;/code&gt; is definitely simpler and easier to read in the exception code.  It is short and concise.&lt;/li&gt;
+&lt;li&gt;The rest of the helper functions are a bit of a toss-up between the exception and return-value code.  I think one could argue either direction.&lt;/li&gt;
+&lt;li&gt;The return-value code has fulfilled my requirements in terms of handling failures.  The compiler will complain if any failure &lt;code&gt;parse_person&lt;/code&gt; could return is not handled.  If I add another error type the code will not compile.  It also fulfilled the requirements without bloating the code.  The return-value code and exception code are roughly the same number of lines.  Their flows are roughly equal.  But the return-value code is much safer.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;Two Points&lt;/h3&gt;
+&lt;p&gt;
+It's not all sunshine and lollipops.  There are two issues to consider:
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;Performance&lt;/b&gt; - Exceptions in Ocaml are really, really, fast.  Like any performance issue, I suggest altering code only when needed based on measurements and encapsulating those changes as well as possible.  This also means if you want to provide a safe and an exception version of a function, you should probably implement the safe version in terms of the exception verson.&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Discipline&lt;/b&gt; - I referred to discipline a few times above.  This whole scheme is very easy to mess up with a single mistake: pattern matching on anything (&lt;code&gt;_&lt;/code&gt;).  The power of exhaustive pattern matching means you need to match on every error individually.  This is effectively for the same reason catching the exception base class in other languages is such a bad idea, you lose a lot of information.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;
+The example given demonstrates an important point: code can become much safer at compile time without detriment to its length or readability.  The cost is low and the benefit is high.  This is a strong reason to prefer a return-value based solution over exceptions in Ocaml.
+&lt;/p&gt;
+</content><id>http://functional-orbitz.blogspot.com/2013/01/introduction-to-resultt-vs-exceptions.html</id><title type="text">Introduction to Result.t vs Exceptions in Ocaml</title><updated>2013-01-03T22:55:00-00:00</updated><author><email>noreply@blogger.com (Unknown)</email><name>orbitz</name></author></entry></feed>

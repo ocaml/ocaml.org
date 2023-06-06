@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://lpw25.net/rss.xml</id><title type="text">lpw25</title><updated>2023-06-05T05:46:01-00:00</updated><entry><link href="http://lpw25.net/2013/03/10/ocaml-namespaces" rel="alternate"/><contributor><uri>http://lpw25.net/rss.xml</uri><name>lpw25</name></contributor><content type="html">&lt;div class=&quot;well well-small&quot;&gt;
+  &lt;h4&gt;
+Contents
+&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#problems-with-pack&quot;&gt;Problems with pack&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#formal-semantics&quot;&gt;Formal semantics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#design-goals&quot;&gt;Design goals&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#design-choices&quot;&gt;Design choices&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#flat-or-hierarchical&quot;&gt;Flat or hierarchical?&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#should-namespaces-be-opened-explicitly-in-source-code&quot;&gt;Should namespaces be opened explicitly in source code?&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#how-should-the-compiler-find-modules-in-the-presence-of-namespaces&quot;&gt;How should the compiler find modules in the presence of namespaces?&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#how-should-namespaces-specified&quot;&gt;How should namespaces specified?&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#how-rich-should-a-description-language-be&quot;&gt;How rich should a description language be?&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#should-namespaces-support-automatically-opened-members&quot;&gt;Should namespaces support automatically opened members?&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#proposal&quot;&gt;Proposal&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#simple-namespaces-through-filenames&quot;&gt;Simple namespaces through filenames&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#an-alternative-to-search-paths&quot;&gt;An alternative to search paths&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#the--name-argument&quot;&gt;The &amp;ldquo;-name&amp;rdquo; argument&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://lpw25.net/rss.xml#the--open-argument&quot;&gt;The &amp;ldquo;-open&amp;rdquo; argument&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;Recently there has been a lot of discussion on
+&lt;a href=&quot;http://lists.ocaml.org/listinfo/platform&quot;&gt;platform@lists.ocaml.org&lt;/a&gt; about
+proposals for adding namespaces to OCaml. I&amp;rsquo;ve written this post to summarise
+the design decisions for such a proposal and to make my own proposal.&lt;/p&gt;
+
+&lt;p&gt;Before discussing what namespaces are and the issues surrounding their
+implementation, it is important to explain why they are needed in the first
+place.&lt;/p&gt;
+
+&lt;p&gt;The most important reason for adding namespaces is to provide some means for
+grouping the components of a library together. Up to now this has been
+achieved using the OCaml module system. Since the components of an OCaml
+library are modules, a module can be created that contains all the components
+of the library as sub-modules. The &amp;ldquo;-pack&amp;rdquo; option for the compiler was created
+to allow this module to be created while still keeping each component of the
+library in its own file.&lt;/p&gt;
+
+&lt;h3&gt;Problems with pack&lt;/h3&gt;
+
+&lt;p&gt;There are some critical problems with using &amp;ldquo;-pack&amp;rdquo; to create a single module
+containing the whole library:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The packed module is a single unit that has to be linked or not as a
+unit. This means that any program using part of the library must include the
+entire library.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The packed module is a choke-point in the dependency graph.  If a file
+depends on one thing in the packed module then it needs to be recompiled if
+anything in the packed module changes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Opening a large packed module is very slow and can seriously affect build
+performance.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These problems are all caused by the fact that pack creates an OCaml
+module. To understand this consider the run-time semantics of the module
+system.&lt;/p&gt;
+
+&lt;p&gt;At run-time a module is a record. Initialising a module involves initialising
+every component of the module and placing them in this record.  Initialising
+these components can involve executing arbitrary code; in fact the execution
+of an OCaml program is simply the initialisation of all its modules.&lt;/p&gt;
+
+&lt;p&gt;The problems with pack are related to these dynamic semantics. In order to
+be a module pack must create a record to represent this module. This means
+that it must initialise all of its components. It is this (rather than any
+detail of pack&amp;rsquo;s implementation) that causes the problems identified above.&lt;/p&gt;
+
+&lt;p&gt;Access to the components of a top-level module could proceed without the
+existence of this record. However, the record is required in order to &amp;ldquo;alias&amp;rdquo;
+the module, use the module as a first-class value or use it as the argument to
+a functor.&lt;/p&gt;
+
+&lt;p&gt;Any attempt to overcome the problems with pack, whilst still maintaining
+the illusion that the &amp;ldquo;pack&amp;rdquo; is a normal module, would result (at the very
+least) in one of the following unhealthy situations:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The module type of the &amp;ldquo;packed module&amp;rdquo; would depend on which of its
+components were accessed by the program.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Any use of the &amp;ldquo;packed module&amp;rdquo; other than as a simple container
+(e.g.
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;CS&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;Core&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Std&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; 
+) could have a dramatic effect on what was
+linked into the program and potentially on the semantics of the program.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Namespaces are basically modules that can only be used as a simple
+container. This means that they do not need a corresponding record at
+run-time (or any other run-time representation). This avoids the problems
+with pack as well as enabling other useful features.&lt;/p&gt;
+
+&lt;h3&gt;Formal semantics&lt;/h3&gt;
+
+&lt;p&gt;Following the semantics and description language for namespaces described by
+&lt;a href=&quot;http://gallium.inria.fr/~scherer/namespaces/spec.pdf&quot;&gt;Gabriel Scherer et al&lt;/a&gt;,
+I will consider namespaces to be name-labelled trees whose leaves are
+compilation units. I will use 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; 
+to represent projection on namespaces, so the 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+member of the 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+namespace will be referred to as 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;.&lt;/p&gt;
+
+&lt;h3&gt;Design goals&lt;/h3&gt;
+
+&lt;p&gt;Some design goals that we might want from a proposal for adding namespaces to
+OCaml include:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Allow library components to be grouped together without creating a module
+containing them.&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Allow users to group together modules from different libraries as they see
+fit.&lt;/strong&gt; This means letting people change which namespace a library module is
+in.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Allow library components to be given multiple names.&lt;/strong&gt; For example
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Lib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+and 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Lib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Stable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+, where 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Lib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Stable&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+is a namespace containing only those components whose interfaces are stable.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Be simple and easy to explain to beginners.&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Allow multiple source files to share the same filename.&lt;/strong&gt; Each module that
+is linked into an OCaml program must have a unique name. Currently, a
+module&amp;rsquo;s name is completely determined by its filename. This forces library
+developers to either use pack (which gives its components new long names) or
+give their source files long names like &amp;ldquo;libName_Foo.ml&amp;rdquo;. A namespaces
+proposal may be able to alleviate this problem.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Allow libraries to control which modules are open by default.&lt;/strong&gt; By default
+OCaml opens the standard library&amp;rsquo;s 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Pervasives&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+module. Libraries that wish to replace the standard library may also wish to
+provide their own
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Pervasives&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+module and have it opened by default.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Support libraries that wish to remain compatible with versions of OCaml
+without namespaces.&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Require minimal changes to existing build systems.&lt;/strong&gt; Since a namespace
+proposal changes how a library&amp;rsquo;s components are named, it may require
+changes to some build systems. If these changes are too invasive then users
+of some build systems will probably be unable to use namespaces in the near
+future.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Design choices&lt;/h3&gt;
+
+&lt;h4&gt;Flat or hierarchical?&lt;/h4&gt;
+
+&lt;p&gt;In order to replace pack, namespaces must be able to contain modules. It is
+not clear, however, whether they need to be able to contain other
+namespaces. We call namespaces that can contain other namespaces
+&lt;em&gt;hierarchical&lt;/em&gt;, as opposed to &lt;em&gt;flat&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;In favour of flat namespaces:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hierarchical namespaces might lead to arbitrary categorising of components
+(e.g.&lt;br/&gt;
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Array&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+). These add syntactic clutter and do not bring any real benefit.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hierarchical namespaces might lead to deep java-style hierarchies
+(e.g.&lt;br/&gt;
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Janestreet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Core&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Std&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+). These add syntactic clutter without adding any actual information.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In favour of hierarchical namespaces:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+A library may wish to provide multiple versions of some of its components. For
+example:
+
+&lt;ul&gt;
+&lt;li&gt;    
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Async&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;IO&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+ and 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Lwt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;IO&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Windows&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Directories&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+and 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Unix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Directories&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Core&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Mutex&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+and 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Core&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Testing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Mutex&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+In such situations it is useful to be able to write both
+
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Core&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[...]&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Testing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Mutex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+and
+
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Core&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Testing&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[...]&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;Mutex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+None of the systems of namespaces that have been proposed have any
+additional cost for supporting hierarchical namespaces.
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;Should namespaces be opened explicitly in source code?&lt;/h4&gt;
+
+&lt;p&gt;There was some debate on the platform mailing list about whether to support
+opening namespaces explicitly in source code. This means allowing a syntax
+like:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;that allows the members of namespace 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+to be referenced directly (i.e.
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+can be referred to as 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;).&lt;/p&gt;
+
+&lt;p&gt;The alternative would be to only support opening namespaces through a
+command-line argument.&lt;/p&gt;
+
+&lt;p&gt;In favour of supporting explicit opens:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;If you open two namespaces with commonly named sub-components then the order
+of those opens matters. If the opens are command-line arguments then the
+order of those command-line arguments (often determined by build systems and
+other tools) matters. This is potentially very fragile.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Explicit opens in a source file give valuable information about which
+libraries are being used by that source file. If a file contains &amp;ldquo;open
+namespace Core&amp;rdquo; then you know it uses the Core library.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Local namespace opens provide users more precise control over their naming
+environment.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Against supporting explicit opens:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;They require a new syntactic construct.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;How should the compiler find modules in the presence of namespaces?&lt;/h4&gt;
+
+&lt;p&gt;Currently, when looking for a module 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+that is not in the current environment, the OCaml compiler will search the
+directories in its search path for a file called &amp;ldquo;bar.cmi&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;In the presence of namespaces this becomes more complicated: how does the
+compiler find the module 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+?&lt;/p&gt;
+
+&lt;p&gt;The suggested possible methods for finding modules in the presence of
+namespaces fall into four categories.&lt;/p&gt;
+
+&lt;h5&gt;Using filenames&lt;/h5&gt;
+
+&lt;p&gt;By storing the interface for 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+in a file named &amp;ldquo;foo-bar.cmi&amp;rdquo; the compiler can continue to simply look-up
+modules in its search path.&lt;/p&gt;
+
+&lt;p&gt;Note that &amp;ldquo;-&amp;ldquo; is an illegal character in module names so there is no risk of
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+being confused with a module called 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo-bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;This simple scheme does not support placing a module within multiple
+namespaces or allowing users to put existing modules in a new namespace.&lt;/p&gt;
+
+&lt;h5&gt;Checking multiple &amp;ldquo;.cmi&amp;rdquo; files&lt;/h5&gt;
+
+&lt;p&gt;The name of the namespace containing a compilation unit could be included in
+the &amp;ldquo;.cmi&amp;rdquo; file of that unit. Then, when looking for a module 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+, the compiler would try every &amp;ldquo;bar.cmi&amp;rdquo; file in its search path until it
+found one that was part of the &amp;ldquo;Foo&amp;rdquo; namespace. This may require the compiler
+to open all the &amp;ldquo;bar.cmi&amp;rdquo; files on its search path, which could be expensive
+on certain operating systems.&lt;/p&gt;
+
+&lt;p&gt;This scheme does not support allowing users to put existing modules in a new
+namespace, but can support placing a module in multiple namespaces.&lt;/p&gt;
+
+&lt;p&gt;It is difficult to detect typos in namespace open statements using this
+scheme. For example, detecting that
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Core&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Sdt&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; 
+should have been
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Core&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Std&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+would require the compiler to check every file in its search path for one that
+was part of namespace
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Core&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Sdt&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;.&lt;/p&gt;
+
+&lt;h5&gt;Using namespace description files&lt;/h5&gt;
+
+&lt;p&gt;The compiler could find a member of a namespace by consulting a file that
+describes the members of that namespace.&lt;/p&gt;
+
+&lt;p&gt;For example, if namespace 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+was described by a file &amp;ldquo;foo.ns&amp;rdquo; that was on the compiler&amp;rsquo;s search path then
+the compiler could find
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+by locating &amp;ldquo;foo.ns&amp;rdquo; and using it to look-up the location of the &amp;ldquo;.cmi&amp;rdquo; file
+for
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;These namespace description files could be created automatically by some
+tool. However, they must be produced before detecting dependencies with
+OCamlDep, which could complicate the build process.&lt;/p&gt;
+
+&lt;h5&gt;Using environment description files&lt;/h5&gt;
+
+&lt;p&gt;The compiler could find a member of a namespace by consulting a file that
+describes a mapping between module names and &amp;ldquo;.cmi&amp;rdquo; files.&lt;/p&gt;
+
+&lt;p&gt;For example, if a file &amp;ldquo;foo.mlpath&amp;rdquo; included the mapping &amp;ldquo;Foo#Bar:
+foo/bar.cmi&amp;rdquo; then that file could be passed as a command-line argument to the
+compiler and used to look up the &amp;ldquo;bar.cmi&amp;rdquo; file directly.&lt;/p&gt;
+
+&lt;p&gt;Looking up modules using this scheme may speed up compilation by avoiding the
+need to scan directories for files.&lt;/p&gt;
+
+&lt;h4&gt;How should namespaces specified?&lt;/h4&gt;
+
+&lt;p&gt;Perhaps the most important question for any namespaces proposal is how
+namespaces are specified. It is closely related to the above question of how
+the compiler finds modules in the presence of namespaces.&lt;/p&gt;
+
+&lt;p&gt;The suggested possible methods for specifying namespaces fall into five
+categories.&lt;/p&gt;
+
+&lt;h5&gt;Explicitly in the source files&lt;/h5&gt;
+
+&lt;p&gt;Namespaces could be specified by adding a line like:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;to the beginning of each compilation unit that is part of the 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; 
+namespace.&lt;/p&gt;
+
+&lt;p&gt;This has the benefit of making namespaces explicitly part of the language
+itself, however it does mean that the full name of a module is specified in
+two locations: partly in the filename and partly within the file itself.&lt;/p&gt;
+
+&lt;h5&gt;Through command-line arguments&lt;/h5&gt;
+
+&lt;p&gt;Namespaces could be specified by passing a command-line argument to the
+compiler. For example, 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; 
+could be compiled with the command-line:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;ocamlc -c -namespace Foo bar.ml &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This scheme also means that the full name of a module is specified in two
+locations: partly in the build system and partly in the filename.&lt;/p&gt;
+
+&lt;h5&gt;Through filenames&lt;/h5&gt;
+
+&lt;p&gt;Namespaces could be specified using the filenames of source files. For
+example, 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; 
+would be created by compiling a file &amp;ldquo;foo-bar.ml&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;This scheme is simple and very similar to how modules are currently named, but
+it would require all source files to have long unique names.&lt;/p&gt;
+
+&lt;h5&gt;Through namespace description files&lt;/h5&gt;
+
+&lt;p&gt;Namespaces could be specified using namespace description files. The 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+namespace would be specified by a file &amp;ldquo;foo.ns&amp;rdquo; that described the members of
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module Bar = &amp;quot;foo_bar.cmi&amp;quot;
+namespace Testing = &amp;quot;testing.ns&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5&gt;Through environment description files&lt;/h5&gt;
+
+&lt;p&gt;Namespaces could be specified using environment description files. A namespace
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+would be defined by passing an environment description file to the compiler
+that included mappings for each of the members of
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;. For example:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Foo#Bar: &amp;quot;foo_bar.cmi&amp;quot;
+Foo#Testing#Bar: &amp;quot;foo_testing_bar.cmi&amp;quot;
+Baz: &amp;quot;baz.cmi&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In addition to specifying namespaces, this system allows users (or a tool like
+OCamlFind) to have complete control the naming environment of a program.&lt;/p&gt;
+
+&lt;h4&gt;How rich should a description language be?&lt;/h4&gt;
+
+&lt;p&gt;For namespace proposals that use namespace or environment description files,
+they must decide how rich their description language should be.&lt;/p&gt;
+
+&lt;p&gt;For example, &lt;a href=&quot;http://gallium.inria.fr/~scherer/namespaces/spec.pdf&quot;&gt;Gabriel Scherer et
+al&lt;/a&gt; describe a very rich
+environment description language including many different operations that can
+be performed on namespaces.&lt;/p&gt;
+
+&lt;p&gt;A rich description language can produce shorter descriptions. However, the
+more operations a language supports the more syntax that users must understand
+in order to read description files. The majority of description files are
+unlikely to require complex operations.&lt;/p&gt;
+
+&lt;h4&gt;Should namespaces support automatically opened members?&lt;/h4&gt;
+
+&lt;p&gt;A feature of namespaces that has been proposed on the mailing list is to allow
+some modules within a namespace to be automatically opened when the namespace
+is also opened. This makes it seem that the namespace has values and types as
+members.&lt;/p&gt;
+
+&lt;p&gt;This feature is based on the current design of Jane Street&amp;rsquo;s Core
+library. Users of the Core library are expected to open the
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Core&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;Std&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+ module before using the library. Opening this module provides access to all
+the other modules of the library (much like opening a namespace), but it also
+provides types and values similar to those provided by the standard library&amp;rsquo;s
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Pervasives&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; module.&lt;/p&gt;
+
+&lt;p&gt;Supporting auto-opened modules would allow 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Core&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;Std&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+to be directly replaced by a namespace. However, the semantics of this feature
+could be awkward due to potential conflicts between members of the namespace
+and sub-modules of the auto-opened modules. It also increases the overlap
+between namespaces and modules.&lt;/p&gt;
+
+&lt;h3&gt;Proposal&lt;/h3&gt;
+
+&lt;p&gt;In the last section of this post I will outline a namespaces proposal that I
+think satisfies the design goals set out earlier.&lt;/p&gt;
+
+&lt;p&gt;I think that satisfying these design goals requires a combination of
+extensions to OCaml. My proposal is made up of four such extensions. To keep
+things simple for users to understand, I have tried to keep each of these
+extensions completely independent of the others and with a clearly defined
+goal.&lt;/p&gt;
+
+&lt;h4&gt;Simple namespaces through filenames&lt;/h4&gt;
+
+&lt;p&gt;Currently, the name of a module is completely defined by its filename, and
+modules are looked up using a simple search path. While it has some problems,
+this simple paradigm has served OCaml well and I think that it is important to
+provide some support for namespaces within this paradigm.&lt;/p&gt;
+
+&lt;p&gt;This means allowing simple namespaces to be specified using source file
+names. For example, to create a module 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+within the namespace 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+developers can simply create an implementation file &amp;ldquo;foo-bar.ml&amp;rdquo; and an
+interface file &amp;ldquo;foo-bar.mli&amp;rdquo;. This interface file would be compiled to a
+&amp;ldquo;foo-bar.cmi&amp;rdquo; file. Hierarchical namespaces would be created by files with
+names like &amp;ldquo;foo-bar-baz.ml&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;These namespaced modules can be referred to using the syntax 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;. 
+This syntax simply causes the compiler to look in its search path for a
+&amp;ldquo;foo-bar.cmi&amp;rdquo; file.&lt;/p&gt;
+
+&lt;p&gt;I also propose supporting a namespace opening syntax like:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;
+[...]
+&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4&gt;An alternative to search paths&lt;/h4&gt;
+
+&lt;p&gt;Forcing the name of a module to be completely defined by its (compiled)
+filename makes it easy to look-up modules in a search path. However, it
+prevents modules from being given multiple names or being renamed by users. So
+I propose supporting an alternative look-up mechanism.&lt;/p&gt;
+
+&lt;p&gt;I propose supporting environment description files called &lt;em&gt;search path
+files&lt;/em&gt;. These files would have a syntax like:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Foo#Bar : &amp;quot;other_bar.cmi&amp;quot;
+Foo#Baz : Foo#Bar
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This file can be given to the &amp;ldquo;-I&amp;rdquo; command-line argument instead of a
+directory and used to look-up the locations of &amp;ldquo;.cmi&amp;rdquo; files for given module
+names.&lt;/p&gt;
+
+&lt;p&gt;These search path files can be used to alias modules and to create new
+namespaces. They also allow a module to be available under multiple namespaces.&lt;/p&gt;
+
+&lt;p&gt;I envisage two particular modes of use:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Library authors can write &amp;ldquo;.mlpath&amp;rdquo; files and tell OCamlFind to use that
+file as its search path instead of a list of directories.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A user (or potentially OCamlFind) can create search path files to define
+their entire naming environment as they see fit.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;The &amp;ldquo;-name&amp;rdquo; argument&lt;/h4&gt;
+
+&lt;p&gt;While the hard link between a module&amp;rsquo;s name and the name of its source file
+makes life easier for build systems (&amp;ldquo;list.cmi&amp;rdquo; can only be produced by
+compiling &amp;ldquo;list.ml&amp;rdquo;), it forces library authors to give their source files long
+unique names.&lt;/p&gt;
+
+&lt;p&gt;I propose adding a &amp;ldquo;-name&amp;rdquo; command-line argument to the OCaml compiler. This
+would be used as follows:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;ocamlc -c -name Foo#Bar other.ml&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This command would produce a &amp;ldquo;foo-bar.cmi&amp;rdquo; file defining a module named
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+. This means that &amp;ldquo;.cmi&amp;rdquo; files would still be expected to be unique, but
+source files could be named however the developer wants.&lt;/p&gt;
+
+&lt;p&gt;Obviously, any tools that assume that a module 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Bar&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+must be compiled from a file called &amp;ldquo;bar.ml&amp;rdquo; will not work in this
+situation. However, the only OCaml tool that absolutely relies on this
+assumption is &amp;ldquo;OCamlDep&amp;rdquo; when it is producing makefile formatted output.&lt;/p&gt;
+
+&lt;p&gt;Build systems would not be required to support the &amp;ldquo;-name&amp;rdquo; argument, however
+it would make it easy for them to provide features such as:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Creating namespaces to reflect a directory structure (e.g. &amp;ldquo;foo/bar.mli&amp;rdquo; becomes &amp;ldquo;foo-bar.cmi&amp;rdquo;).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Placing all the modules of a library under a common namespace (e.g. &amp;ldquo;bar.mli&amp;rdquo; becomes &amp;ldquo;foo-bar.cmi&amp;rdquo;)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This would mean that the names of source files could be kept conveniently
+short.&lt;/p&gt;
+
+&lt;h4&gt;The &amp;ldquo;-open&amp;rdquo; argument&lt;/h4&gt;
+
+&lt;p&gt;My proposals do not include support for automatically opened modules within
+namespaces. I feel that this feature conflates two separate issues and it
+would be better to solve the problem of automatically opened modules elsewhere.&lt;/p&gt;
+
+&lt;p&gt;Auto-opened modules are meant to allow libraries to provide their own
+equivalent of the standard library&amp;rsquo;s 
+&lt;span class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Pervasives&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;
+module. I think that it would be more appropriate to have these &amp;ldquo;pervasive&amp;rdquo;
+modules opened by default in any program compiled using one of these
+libraries.&lt;/p&gt;
+
+&lt;p&gt;I propose adding a command-line argument &amp;ldquo;-open&amp;rdquo; that could be used to open a
+module by default:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;ocamlc -c -open core-pervasives.cmi foo.ml&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;By adding support for this feature to OCamlFind, libraries could add this
+argument to every program compiled using them. This amounts to having
+automatically opened modules as part of the package system rather than part of
+the namespace system.&lt;/p&gt;
+</content><id>http://lpw25.net/2013/03/10/ocaml-namespaces</id><title type="text">Adding namespaces to OCaml</title><updated>2013-03-10T00:00:00-00:00</updated><author><email>leo@lpw25.net (Leo White)</email><name>lpw25</name></author></entry><entry><link href="http://lpw25.net/2013/02/05/camlp4-alternative-part-2" rel="alternate"/><contributor><uri>http://lpw25.net/rss.xml</uri><name>lpw25</name></contributor><content type="html">&lt;p&gt;In my &lt;a href=&quot;http://lpw25.net/2013/01/23/camlp4-alternative-part-1.html&quot;&gt;previous blog post&lt;/a&gt; I
+discussed how we might use AST transformers, attributes and quotations as a
+simpler alternative to camlp4. While AST transformers are much simpler to use
+than camlp4 they still require knowledge of the OCaml syntax tree, and they are
+still implemented outside of the language as preprocessors.&lt;/p&gt;
+
+&lt;p&gt;In this post I&amp;rsquo;ll explore how to implement extensions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;within the language itself without external preprocessors&lt;/li&gt;
+  &lt;li&gt;without the need for detailed knowledge of the OCaml syntax tree&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;By including these extensions in the language itself the increasing number of
+tools being built to support OCaml (e.g. typerex) can handle them directly. For
+instance, IDEs could show the expansions of quotations by using the information
+in &amp;ldquo;.cmt&amp;rdquo; files.&lt;/p&gt;
+
+&lt;p&gt;I will start with quotations, which can be implemented without any knowledge of
+the OCaml syntax tree, and then expand my proposal to include other kinds of
+extension.&lt;/p&gt;
+
+&lt;p&gt;Since my previous post, there has been a lot of discussion on
+&lt;a href=&quot;http://lists.ocaml.org/listinfo/wg-camlp4&quot;&gt;wg-camlp4@lists.ocaml.org&lt;/a&gt; about
+possible syntaxes for quotations and attributes and other kinds of extension. In
+keeping with those ongoing discussions, I will use &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;/code&gt; as the
+syntax for quotations (which transform a string into an AST node) and &lt;code class=&quot;highlighter-rouge&quot;&gt;(:id
+expr)&lt;/code&gt; as the syntax for extensions that transform an OCaml expression into an
+AST node.&lt;/p&gt;
+
+&lt;p&gt;Note that the proposals in this post are more long-term than the &amp;ldquo;ppx&amp;rdquo; solution
+discussed in the previous post. Moving an extension from ppx to the mechanism
+described in this post would require only minimal work. So in the short/medium
+term extension authors should implement their extensions using ppx.&lt;/p&gt;
+
+&lt;h4&gt;Quotations&lt;/h4&gt;
+
+&lt;p&gt;A quotation is simply a function which takes a string and returns an AST
+node. To provide built-in support we need to, for every quotation &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:foo&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;find a function that corresponds to &lt;code class=&quot;highlighter-rouge&quot;&gt;foo&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;apply it to the string &amp;ldquo; bar &amp;ldquo;&lt;/li&gt;
+  &lt;li&gt;copy the resulting AST node in place of the original quotation&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5&gt;Quotations in modules&lt;/h5&gt;
+
+&lt;p&gt;We might want to find the function corresponding to quotation &lt;code class=&quot;highlighter-rouge&quot;&gt;foo&lt;/code&gt; by simply
+looking in the current module, or one of the other modules in our environment,
+for a function called &lt;code class=&quot;highlighter-rouge&quot;&gt;foo&lt;/code&gt;. However there are a few problems with this simple
+scheme:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The function we call must exist and be compiled before we can use it.&lt;/li&gt;
+  &lt;li&gt;There is no clear separation between what is being executed at compile-time
+and what is being executed and run-time.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The first problem basically means that we can only use functions defined in
+other files. The other problem is more subtle.&lt;/p&gt;
+
+&lt;p&gt;OCaml modules do not really exist at compile time. They are created at run-time,
+and their creation encompasses the entire execution of the program. For example,
+consider this simple module:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(* main.ml *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Hello, world!&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;To create the &lt;code class=&quot;highlighter-rouge&quot;&gt;Main&lt;/code&gt; module, we must create its member &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;. Once the creation of
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Main&lt;/code&gt; is finished the &lt;code class=&quot;highlighter-rouge&quot;&gt;printf&lt;/code&gt; has been executed and the whole program has
+completed. Now if we add a quotation function &lt;code class=&quot;highlighter-rouge&quot;&gt;foo&lt;/code&gt; to this module:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(* main.ml *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Hello, world!&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keywords&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Hashtbl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* Some expression using keywords *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;How do we distinguish between data such as &lt;code class=&quot;highlighter-rouge&quot;&gt;keywords&lt;/code&gt; which are needed at
+compile-time when the quotation is run, and data like &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; whose creation is
+meant to drive the program at run-time? There is nothing explicit in the
+definitions of &lt;code class=&quot;highlighter-rouge&quot;&gt;foo&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;keywords&lt;/code&gt; that indicates that they are intended for
+compile-time execution.&lt;/p&gt;
+
+&lt;p&gt;These problems are related to the fact that OCaml is an impure language. Any
+expression (including module definitions) can have side-effects, and the
+run-time behaviour of the program is simply the combination of all these
+side-effects. This makes it difficult to separate the side-effects that are
+related to a quotation from the side-effects that are part of the program&amp;rsquo;s
+execution.&lt;/p&gt;
+
+&lt;p&gt;Despite appearing alongside other functions in the program, &lt;code class=&quot;highlighter-rouge&quot;&gt;foo&lt;/code&gt; must be
+executed in a completely separate environment. Any side-effects (e.g. mutable
+state, I/O) that are produced while creating and executing &lt;code class=&quot;highlighter-rouge&quot;&gt;foo&lt;/code&gt; will be
+completely separate from the side-effects of the other functions in its module.&lt;/p&gt;
+
+&lt;h5&gt;Where can we put them?&lt;/h5&gt;
+
+&lt;p&gt;If we don&amp;rsquo;t want to put quotation functions in our modules, where should we put
+them? The module system provides the only mechanism for referring to functions in
+other files, how can we refer to functions which are not included in a module?&lt;/p&gt;
+
+&lt;p&gt;The answer to these questions comes from the idea of &lt;em&gt;namespaces&lt;/em&gt;. Namespaces
+are a way to give longer names to top-level modules without changing the
+module&amp;rsquo;s filename. They also allow these top-level modules to be grouped
+together.&lt;/p&gt;
+
+&lt;p&gt;The details of proposals for namespaces vary on their details, but they
+basically allow you to take the module defined by a file &amp;ldquo;baz.ml&amp;rdquo; and refer to
+it as &amp;ldquo;Bar.Baz&amp;rdquo;. Here &amp;ldquo;Bar&amp;rdquo; is not a module (it cannot be used as the argument
+to a functor) but a namespace.&lt;/p&gt;
+
+&lt;p&gt;Namespaces seem likely to be included in OCaml in the near future,
+and they provide a convenient way to refer to quotations without putting
+quotations within modules.&lt;/p&gt;
+
+&lt;p&gt;The idea is to write quotations in a &amp;ldquo;bar.mlq&amp;rdquo; file (compiled to
+&amp;ldquo;bar.cmq&amp;rdquo;). These quotations would then be placed in the namespace &amp;ldquo;Bar&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;Quotations would be defined with a syntax like:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(* bar.mlq *)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;quotation&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This could then be used with the syntax:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;o&quot;&gt;{:&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This will make it easy for quotations to be provided by libraries. So that the
+following code would perfectly possible:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;o&quot;&gt;{:&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Core&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Web&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;world&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;}}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h5&gt;Quotations in different contexts&lt;/h5&gt;
+
+&lt;p&gt;So far, we have ignored the question of what type is used to represent an AST
+node. The standard library would need to provide such a type so that quotations
+could be written without linking to compiler-libs. There would also need to be
+different types for different kinds of AST nodes. We do not want a quotation
+used as an expression returning an AST node that represents a pattern&lt;/p&gt;
+
+&lt;p&gt;However, we also might want to create quotations that can be used as both
+expressions and patterns. This means that the quotation must return a different
+type depending on where it is used.&lt;/p&gt;
+
+&lt;p&gt;The solution to this issue is to give quotations the type &lt;code class=&quot;highlighter-rouge&quot;&gt;'a ctx -&amp;gt; string -&amp;gt;
+'a&lt;/code&gt;.  The &lt;code class=&quot;highlighter-rouge&quot;&gt;ctx&lt;/code&gt; type would be a GADT that described what context a quotation was
+being used from. It could also contain other information about the context, such
+as its location in the source file.&lt;/p&gt;
+
+&lt;h5&gt;Building Quotations&lt;/h5&gt;
+
+&lt;p&gt;Creating the quotation functions requires some facility for creating AST
+nodes. For this purpose, the standard library would include special quotations,
+for example: &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:Ast.expr{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;/code&gt;. These quotations would be implemented
+directly using the compiler&amp;rsquo;s lexer and parser.&lt;/p&gt;
+
+&lt;p&gt;It would also be useful (especially for handling anti-quotations) to allow
+quotations to be built from other quotations. For this we could provide another
+syntax: &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; that would refer directly to the quotation function
+&lt;code class=&quot;highlighter-rouge&quot;&gt;foo&lt;/code&gt;. Obviously, this syntax would only be allowed within &amp;ldquo;.mlq&amp;rdquo; files.&lt;/p&gt;
+
+&lt;h4&gt;Other extensions&lt;/h4&gt;
+
+&lt;p&gt;This system could easily be extended to other kinds of extension. Rather than
+declaring &amp;ldquo;quotations&amp;rdquo; with type &lt;code class=&quot;highlighter-rouge&quot;&gt;'a ctx -&amp;gt; string -&amp;gt; 'a&lt;/code&gt;, we could declare
+&lt;em&gt;templates&lt;/em&gt; with type &lt;code class=&quot;highlighter-rouge&quot;&gt;'a ctx -&amp;gt; 'a&lt;/code&gt;. The context would contain the arguments to
+the template (a string for quotations, an AST node for other templates).&lt;/p&gt;
+
+&lt;p&gt;So a template declared as:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(* bar.mlq *)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;could be used with the syntax:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;o&quot;&gt;(:&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Unlike quotations, more general templates must be able to interpret AST nodes
+themselves. This means we must provide mechanisms for handling AST nodes. For
+this purpose, the standard library would include a simpler version of the
+&lt;code class=&quot;highlighter-rouge&quot;&gt;AstMapper&lt;/code&gt; module that is in compiler-libs.&lt;/p&gt;
+
+&lt;p&gt;We could also allow the AST quotations (e.g. `Ast.expr) to be used as
+patterns. This approach can be a bit fragile because syntactic sugar can cause a
+pattern to match ASTs that it was not expected to match. However, for matching
+simple AST nodes it is probably fairly robust.&lt;/p&gt;
+
+&lt;h4&gt;Summary&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Allow extensions to be written as OCaml functions within &amp;ldquo;.mlq&amp;rdquo; files.&lt;/li&gt;
+  &lt;li&gt;Refer to these functions by attaching them directly to namespaces.&lt;/li&gt;
+  &lt;li&gt;Require these functions to have type &lt;code class=&quot;highlighter-rouge&quot;&gt;'a ctx -&amp;gt; 'a&lt;/code&gt;, where &lt;code class=&quot;highlighter-rouge&quot;&gt;ctx&lt;/code&gt; includes a
+GADT describing the context that the extension has been used in.&lt;/li&gt;
+  &lt;li&gt;Provide AST quotations in the standard library (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:Ast.expr{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;/code&gt;)
+which use the compiler&amp;rsquo;s own lexer and parser.&lt;/li&gt;
+&lt;/ol&gt;
+</content><id>http://lpw25.net/2013/02/05/camlp4-alternative-part-2</id><title type="text">An alternative to camlp4 - Part 2</title><updated>2013-02-05T00:00:00-00:00</updated><author><email>leo@lpw25.net (Leo White)</email><name>lpw25</name></author></entry><entry><link href="http://lpw25.net/2013/01/23/camlp4-alternative-part-1" rel="alternate"/><contributor><uri>http://lpw25.net/rss.xml</uri><name>lpw25</name></contributor><content type="html">&lt;p&gt;Since its creation camlp4 has proven to be a very useful tool. People have used
+it to experiment with new features for OCaml and to provide interesting
+meta-programming facilities. However, there is general agreement that camlp4 is
+too powerful and complex for the applications that it is most commonly used for,
+and there is a growing movement to provide a simpler alternative.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://lists.ocaml.org/listinfo/wg-camlp4&quot;&gt;wg-camlp4@lists.ocaml.org&lt;/a&gt;
+mailing list has been created to discuss implementing this simpler
+alternative. This blog post is a way of kick-starting the discussion on this
+list, by explaining my thoughts on what needs to be done.&lt;/p&gt;
+
+&lt;p&gt;Personally, I think that providing a real alternative to camlp4 involves two
+phases. The first phase is to provide support for implementing the most popular
+camlp4 extensions without camlp4. Since the people who have implemented these
+extensions already require good knowledge of the OCaml grammar it is not
+unreasonable to expect a similar level of expertise to use the alternative. This
+phase can easily be implemented before the next OCaml release, and I will
+discuss what I think that will involve in the remainder of this post.&lt;/p&gt;
+
+&lt;p&gt;The second phase involves extending this support to allow general OCaml
+programmers to write extensions, and to include such extensions within the
+language itself rather than as part of a pre-processor. I will discuss my
+thoughts on this phase in a later blog post.&lt;/p&gt;
+
+&lt;h4&gt;Camlp4 in the wild&lt;/h4&gt;
+
+&lt;p&gt;Camlp4 works by producing pre-processors that parse an OCaml file and then output
+a syntax tree directly into the compiler. Extensions are written by extending
+the default OCaml parser and converting any new syntax tree nodes into existing
+OCaml nodes. Most of the complexity in camlp4 comes from its extensible
+grammars, which gives camlp4 the ability to extend the OCaml syntax
+arbitrarily. However, most applications do not need this ability.&lt;/p&gt;
+
+&lt;p&gt;From an ad-hoc survey of camlp4 extensions in the OPAM repository, most of the
+popular camlp4 extensions seem to fall into one of three categories:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+Type-conv style extensions such as 
+&lt;a href=&quot;https://bitbucket.org/yminsky/ocaml-core/wiki/Home&quot;&gt;sexplib&lt;/a&gt;, 
+&lt;a href=&quot;https://github.com/mirage/orm&quot;&gt;ORM&lt;/a&gt; and 
+&lt;a href=&quot;https://github.com/mirage/dyntype&quot;&gt;dyntype&lt;/a&gt;. 
+These extend the syntax to allow code such as:
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sexp_drop_default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sexp_drop_if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z_test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sexp&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+Extensions using camlp4's quotations syntax such as 
+&lt;a href=&quot;https://github.com/mirage/ocaml-cow&quot;&gt;COW&lt;/a&gt;. These look like:
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;world&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+Other syntax extensions that could be expressed using existing syntax or the
+camlp4 quotation syntax. For example, 
+&lt;a href=&quot;http://ocsigen.org/js_of_ocaml/&quot;&gt;js_of_ocaml&lt;/a&gt; provides a
+&lt;code&gt;##&lt;/code&gt; operator for accessing javascript objects. This could easily be replaced by
+a valid operator such as &lt;code&gt;%%&lt;/code&gt;.
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;By providing support for these specific kinds of extension, we can provide an
+alternative to camlp4 for the majority of its applications.&lt;/p&gt;
+
+&lt;h4&gt;AST transformers, attributes and quotations&lt;/h4&gt;
+
+&lt;p&gt;A much simpler alternative to allowing arbitrary syntax extensions is to use
+&lt;em&gt;AST transformers&lt;/em&gt;, &lt;em&gt;attributes&lt;/em&gt; and &lt;em&gt;quotations&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;AST transformers are simply functions that perform transformations on the OCaml
+syntax tree. These can already be implemented using the new
+&amp;ldquo;&lt;a href=&quot;http://www.lexifi.com/blog/syntax-extensions-without-camlp4-lets-do-it&quot;&gt;-ppx&lt;/a&gt;&amp;rdquo;
+command line option that has been included on the OCaml development trunk by
+Alain Frisch. This option accepts a program as an argument, and pipes the syntax
+tree through that program after parsing and before type checking.&lt;/p&gt;
+
+&lt;p&gt;Attributes are places in the grammar where generic data can be attached to the
+syntax tree. This data is simply ignored by the main OCaml compiler, but it can
+used be AST transformers to control transformations.&lt;/p&gt;
+
+&lt;p&gt;Quotations are any construct that is not lexed or parsed by the compiler. These
+can be attributes, expressions, patterns etc. The contents of a quotation can be
+lexed and parsed by an AST transformer and converted into a regular AST node.&lt;/p&gt;
+
+&lt;p&gt;Before support for attributes and quotations can be added to the compiler
+decisions need to be made about what kinds of attributes and quotations to
+support. Personally I prefer quotation attributes to attributes that are parsed
+by the compiler because they are more flexible. However there is no reason that
+both kinds cannot be supported by the compiler using different syntax.&lt;/p&gt;
+
+&lt;p&gt;I think that it is important to support at least the following kinds of attribute:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+Simple named quotations for expressions, patterns and type expressions:
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;:&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+Type constructor quotation attributes:
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+Type-conv style definition attributes:
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* some valid expression *)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+Annotating types with syntactically valid expressions:
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* some valid expression *)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once support for these attributes and quotations is added to OCaml I think that
+the majority of camlp4 applications could be easily converted into AST
+transformers.&lt;/p&gt;
+
+&lt;p&gt;In order to make this transition easy, work must also be done to provide tools
+for manipulating OCaml&amp;rsquo;s AST and parsing quotations. It would also be worthwhile
+trying to normalise some of the stranger corners of the OCaml syntax tree. This
+will make writing AST transformers simpler and more robust&lt;/p&gt;
+
+&lt;p&gt;Finally, the &amp;ldquo;-ppx&amp;rdquo; option must be integrated into the many OCaml build
+systems.&lt;/p&gt;
+
+&lt;h4&gt;Join the discussion&lt;/h4&gt;
+
+&lt;p&gt;The above suggestions are just the attributes and quotations that I think will
+be necessary to provide a viable alternative to camlp4. However, I suspect that
+they are not sufficient. It would be very useful to hear from anyone who has
+written camlp4 extensions about what kind of extensions they have written, and
+what they think would be necessary to support their extensions without
+camlp4. So please join the
+&lt;a href=&quot;http://lists.ocaml.org/listinfo/wg-camlp4&quot;&gt;wg-camlp4@lists.ocaml.org&lt;/a&gt; list and post
+your thoughts.&lt;/p&gt;
+</content><id>http://lpw25.net/2013/01/23/camlp4-alternative-part-1</id><title type="text">An alternative to camlp4 - Part 1</title><updated>2013-01-23T00:00:00-00:00</updated><author><email>leo@lpw25.net (Leo White)</email><name>lpw25</name></author></entry></feed>

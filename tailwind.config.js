@@ -41,6 +41,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+        mono: ["Roboto Mono", ...defaultTheme.fontFamily.mono],
       },
       outline: {
         primary: "2px solid #EE6A1A"

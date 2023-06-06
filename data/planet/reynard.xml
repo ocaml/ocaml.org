@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://reynard.io/feed.xml</id><title type="text">reynard</title><updated>2023-06-05T05:46:00-00:00</updated><entry><link href="http://reynard.io/2017/05/19/CompHackingRoundup.html" rel="alternate"/><contributor><uri>http://reynard.io/feed.xml</uri><name>reynard</name></contributor><content type="html">&lt;p&gt;Thanks to everyone who joined us for OCaml Compiler Hacking in the (incredibly warm!) Old Library at Pembroke College this week.&lt;/p&gt;
+
+&lt;p&gt;Prior to the event, we attempted a temporary update of the &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;&amp;ldquo;Things to Work On&amp;rdquo;&lt;/a&gt; wiki page, and added some projects needing attention (thank you to Mark Shinwell, David Allsopp and Anil Madhavapeddy). We will go through the list in more detail this month and update the remaining items. If you have any suggestions for compiler projects, please join the discussion on the &lt;a href=&quot;http://lists.ocaml.org/listinfo/cam-compiler-hacking&quot;&gt;mailing list&lt;/a&gt;, or in the &lt;a href=&quot;https://discuss.ocaml.org/t/ocaml-compiler-hacking-event/140&quot;&gt;OCaml Discourse Forum&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;img src=&quot;http://reynard.io/images/CompHackMay17.jpg&quot; alt=&quot;Stage 1&quot; width=&quot;200&quot;/&gt;
+&lt;/p&gt;
+
+&lt;h3&gt;Newcomers&lt;/h3&gt;
+
+&lt;p&gt;Christian Lindig brought some of his team from Citrix to discuss OCaml and Opam with the compiler developers from OCaml Labs and Jane Street. XenServer is Citrix&amp;rsquo;s virtualisation platform based on Xen and CentOS. Christian described how their internal set-up at Citrix means they still need to rely on RPM in some areas, but how switching some projects over to Opam has improved their workflow, and overall has been a huge success. The toolstack layer of the XenServer platform is implemented in OCaml, with code available as Opam packages in their &lt;a href=&quot;https://github.com/xapi-project/xs-opam&quot;&gt;own Opam repository&lt;/a&gt;. Other code is available as RPM packages which are released as open source, but are not part of the repository.&lt;/p&gt;
+
+&lt;p&gt;Fred is new to OCaml, and spent time reading through the &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Getting-started&quot;&gt;&amp;ldquo;Getting Started&amp;rdquo;&lt;/a&gt; page, and started looking at the &lt;a href=&quot;https://caml.inria.fr/mantis/view.php?id=6504&quot;&gt;CAML-DEBUG-SOCKET documentation&lt;/a&gt; item in the Mantis &lt;a href=&quot;https://caml.inria.fr/mantis/view_all_bug_page.php&quot;&gt;Junior Jobs&lt;/a&gt; list. It&amp;rsquo;s always a great opportunity to work with newcomers to the language, and Fred commented, &amp;ldquo;The atmosphere there made it a great learning environment for a beginner like me, and so I&amp;rsquo;m afraid I was getting constantly distracted by new topics I was hearing about and asking questions and pretty much going on every possible tangent that my curiosity led me&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;Gabor and Marcello started working on cleaning up their &lt;a href=&quot;https://github.com/xapi-project/xs-opam&quot;&gt;own Opam packages&lt;/a&gt; in the &lt;a href=&quot;https://github.com/ocaml/opam&quot;&gt;main Opam repository&lt;/a&gt; and &lt;a href=&quot;https://github.com/ocaml/opam-repository/pull/9206&quot;&gt;submitted a PR&lt;/a&gt; to remove the relevant outdated packages. Another PR is likely to follow, to update packages used by other members of the OCaml community to their most recent versions.&lt;/p&gt;
+
+&lt;p&gt;Edwin isn&amp;rsquo;t new to the OCaml compiler - last year he wrote a &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/916&quot;&gt;tool&lt;/a&gt; to update the compiler documentation - but decided to dive into OCaml Multicore by tackling an issue to enable the &lt;code class=&quot;highlighter-rouge&quot;&gt;Domain.join&lt;/code&gt; primitive, and submitted a &lt;a href=&quot;https://github.com/ocamllabs/ocaml-multicore/pull/130&quot;&gt;PR&lt;/a&gt; for the implementation.&lt;/p&gt;
+
+&lt;h3&gt;Compiler Projects&lt;/h3&gt;
+
+&lt;p&gt;KC and Mark spent some time working on DWARF support for handlers in Multicore, an issue which is scheduled for &lt;a href=&quot;https://github.com/ocamllabs/ocaml-multicore/projects/1#card-2897910&quot;&gt;Multicore Alpha&lt;/a&gt;. They had some initial success and have a prototype implementation which backtraces through the handler stack. This builds on &lt;a href=&quot;http://ocamllabs.io/doc/dwarf-debugging.html&quot;&gt;previous work&lt;/a&gt; that enabled the native-code OCaml compiler to emit DWARF debugging information.&lt;/p&gt;
+
+&lt;p&gt;Stephen and Jeremy spent most of the evening discussing a workshop submission based on subtyping witnesses, and the &amp;ldquo;hairy bits of OCaml typechecking&amp;rdquo; related to &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/556&quot;&gt;PR#556&lt;/a&gt; and &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/1142&quot;&gt;#1142&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3&gt;Bug Fixing&lt;/h3&gt;
+
+&lt;p&gt;David and Mark worked on closing PRs, including one to tidy up and fix parsing by &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/1012&quot;&gt;ocamlyacc code&lt;/a&gt; - In David&amp;rsquo;s words &amp;ldquo;ocamlyacc is due to be retired soon in favour of using Menhir directly in the compiler codebase, but it&amp;rsquo;s still nice for the old dear to get a little love before put out to pasture&amp;rdquo;. Some of the GitHub PRs merged that evening had subsequent issues with Inria&amp;rsquo;s CI, so David followed them up on Wednesday morning.&lt;/p&gt;
+
+&lt;p&gt;Mark also started looking at &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/1063&quot;&gt;PR#1063&lt;/a&gt; to fix dynlinking, but it looks like it will require further investigation since an important part of functionality is currently missing.&lt;/p&gt;
+
+&lt;h3&gt;Other projects&lt;/h3&gt;
+
+&lt;p&gt;Liang continued to increase the flexibility of the OCaml numerical library, &lt;a href=&quot;https://github.com/ryanrhymes/owl&quot;&gt;Owl&lt;/a&gt;, by extending the Algorithmic Differentiation module (&lt;a href=&quot;https://github.com/ryanrhymes/owl/wiki/Tutorial:-Algorithmic-Differentiation&quot;&gt;Algodiff&lt;/a&gt;) to support N-dimensional array. The AD module calculates the exact derivative of a given function, and is especially useful for fast prototyping in machine learning research. Owl has quite a few users now, and it&amp;rsquo;s great to see contributions from them, and see development influenced by them.&lt;/p&gt;
+
+&lt;p&gt;Taka continued work on benchmarking MirageOS performance by writing a script to deploy multiple pairs of unikernels to conduct parallel throughput measurements using &lt;a href=&quot;https://github.com/TImada/mirage_iperf&quot;&gt;iperf&lt;/a&gt; automatically. He and KC also discussed the idea of doing batched I/O operations using effect handlers to minimise the context switching between VM and Dom0.&lt;/p&gt;
+</content><id>http://reynard.io/2017/05/19/CompHackingRoundup.html</id><title type="text">OCaml Compiler Hacking May 2017 - Activity Summaries</title><updated>2017-05-19T00:00:00-00:00</updated><author><name>reynard</name></author></entry><entry><link href="http://reynard.io/events/2017/03/27/DataboxLaunchMarch2017.html" rel="alternate"/><contributor><uri>http://reynard.io/feed.xml</uri><name>reynard</name></contributor><content type="html">&lt;p&gt;The team working on the &lt;a href=&quot;http://www.databoxproject.uk/&quot;&gt;Databox Project&lt;/a&gt; hosted their Cambridge open-source community launch on Friday 24th March at &lt;a href=&quot;https://www.darwin.cam.ac.uk/&quot;&gt;Darwin College&lt;/a&gt;, Cambridge.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;UPDATE: &lt;a href=&quot;https://www.databoxproject.uk/2017/03/28/databox-open-source-software-community-launch-2/&quot;&gt;Slides and notes&lt;/a&gt; from the event are now available&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The event served to introduce the motives behind Databox, the structure of the project and to gauge use cases within the community and potential application developers. The team presented the initial release of a working open source Databox platform, which includes basic data collection support through mobile sensing libraries and selected APIs, provides basic data flow policing and privacy policy enforcement, and supports installation and operation of simple personal data processing apps.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;img src=&quot;http://reynard.io/images/databox.jpg&quot; alt=&quot;Stage 1&quot; width=&quot;200&quot;/&gt;
+&lt;img src=&quot;http://reynard.io/images/databox2.jpg&quot; alt=&quot;Stage 1&quot; width=&quot;200&quot;/&gt;
+&lt;img src=&quot;http://reynard.io/images/databox3.jpg&quot; alt=&quot;Stage 1&quot; width=&quot;200&quot;/&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Photos courtesy of &lt;a href=&quot;https://twitter.com/realhamed&quot;&gt;Hamed Haddadi&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;Can we do detailed, user-centric, contextual analytics at a scalable rate without privacy disasters and legal challenges?&amp;rdquo;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The morning session began with a formal introduction by &lt;a href=&quot;https://twitter.com/realhamed&quot;&gt;Hamed Haddadi&lt;/a&gt; into the research project itself, explaining the high-level goals of the project: &amp;ldquo;Can we do detailed, user-centric, contextual analytics at a scalable rate without privacy disasters and legal challenges?&amp;rdquo; &lt;a href=&quot;https://github.com/mor1&quot;&gt;Richard Mortier&lt;/a&gt; followed with a summary of the technical architecture of the Databox and described the driving motive as an open-source, personal networked system, &lt;strong&gt;NOT&lt;/strong&gt; another data silo that acts as a honey pot - the focus being to move computation to where the data is, thus reducing the movement of data itself. &lt;a href=&quot;https://github.com/Toshbrown&quot;&gt;Tosh Brown&lt;/a&gt; and &lt;a href=&quot;https://github.com/yousefamar&quot;&gt;Yousef Amar&lt;/a&gt; then followed with (working!) demonstrations of the Databox SDK and UI, and development of drivers and applications at the container level.&lt;/p&gt;
+
+&lt;p&gt;The afternoon session was driven by the attendees, who were all asked to propose applications for and uses of the Databox, with small focus groups facilitating this development.&lt;/p&gt;
+
+&lt;p&gt;See my raw notes from the event below.&lt;/p&gt;
+
+&lt;p&gt;Thank you to all those who attended, the Databox Project team, and to the staff at Darwin College.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Contribute to the open-source software Databox project&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You can contribute to the open-source Databox prototype by visiting the &lt;a href=&quot;https://github.com/me-box&quot;&gt;repository&lt;/a&gt; and checking out the:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/me-box/databox&quot;&gt;code&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/me-box/documents&quot;&gt;docs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/me-box/databox-app-template-node&quot;&gt;application&lt;/a&gt; templates&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/me-box/databox-driver-template-node&quot;&gt;driver&lt;/a&gt; templates&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Join the community discussion in the &lt;a href=&quot;https://forum.databoxproject.uk/&quot;&gt;Databox Discourse&lt;/a&gt; forum.&lt;/p&gt;
+
+&lt;hr/&gt;
+
+&lt;h2&gt;Motivations&lt;/h2&gt;
+
+&lt;p&gt;The Databox seeks to collate, curate and mediate third-party access to your personal data, whilst creating a user-friendly environment to effectively manage your data. We are generating data more than ever in the form of wearables, social media etc, and our digital footprint can be used by third parties to infer a wealth of information about us. Currently the user has little choice about which data is shared and with whom it is shared - we need a privacy-aware data analytics platform.&lt;/p&gt;
+
+&lt;h2&gt;Technical Architecture and Design Principles&lt;/h2&gt;
+
+&lt;p&gt;Performing local data processing and moving data as little as possible has benefits including:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;context retention&lt;/li&gt;
+  &lt;li&gt;reduction of honey pot effects&lt;/li&gt;
+  &lt;li&gt;efficiency, and latency reduction&lt;/li&gt;
+  &lt;li&gt;more varied sources of accessible data: Twitter, home IoT devices, smartphone sensing etc&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Design principles:&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;clear separation of components
+    &lt;ul&gt;
+      &lt;li&gt;intercommunication via specified applications&lt;/li&gt;
+      &lt;li&gt;use of containers e.g. docker&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;distinct data sources represented by distinct data stores - if one is leaked, only that data is exposed, not all data&lt;/li&gt;
+  &lt;li&gt;components are disconnected by default - reduces the attack surface - containers cannot talk to arbitrary cloud services - they will have to go through an export service&lt;/li&gt;
+  &lt;li&gt;data flow logged for audit - log store for audit with tools to process logging information
+    &lt;ul&gt;
+      &lt;li&gt;how is data being used and moved/exported&lt;/li&gt;
+      &lt;li&gt;data processing is transparent to users to allow better control and understanding&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Platform components that form the core:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;container manager: managing apps, starting/stopping containers - UI/dashboard&lt;/li&gt;
+  &lt;li&gt;log store (separate container currently) to log all actions&lt;/li&gt;
+  &lt;li&gt;arbiter: minting tokens, permissions (separate container atm), root level catalogue uses hypercat with nested catalogues&lt;/li&gt;
+  &lt;li&gt;export service: data is taken off the box and sent elsewhere - specific set of requirements meaning that no data can leave the box without being permitted to do so by the user&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Dynamic components that you may install to interact with services and data:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;drivers - interact with services e.g. Hue, Twitter - drivers are containers. Interaction via RestAPI with a data store attached for those logs&lt;/li&gt;
+  &lt;li&gt;apps process the data, where the computation is. Apps installed as containers with explicit permissions upon installation and provided by the arbiter to allow them to access specific data.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;UI and SDK&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://sdk.iotdatabox.com/login&quot;&gt;SDK&lt;/a&gt; provides a user-friendly cloud environment for building Databox applications quickly, and finding approved applications to use on your own Databox - you simply require a GitHub login to access it. The graphical programming environment allows you drag in and connect nodes, view the function output, and debug if needed. There are other useful details such as built-in virtualisations that allow you to view your data as graphs, lists etc, and application manifests which include any resources your app needs and different levels of functionality to correspond with existing devices. Current applications include Hue lights, a mobile sensing driver and Twitter.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;img src=&quot;http://reynard.io/images/DataboxSDK.png&quot; alt=&quot;Stage 1&quot; width=&quot;200&quot;/&gt;
+&lt;/p&gt;
+
+&lt;h2&gt;Apps and Drivers&lt;/h2&gt;
+
+&lt;p&gt;In the Databox, an application can talk interact with 3 areas:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;stores (both data and driver)&lt;/li&gt;
+  &lt;li&gt;arbiter&lt;/li&gt;
+  &lt;li&gt;export service&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;An application includes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;app manifests: description, resources required, metadata, textual representation of permissions that the app might request, standard dockerfile (+ databox label, and UI port exposure details) to build app&lt;/li&gt;
+  &lt;li&gt;environment variables: urls for containers to connect to, data source metadata in &lt;a href=&quot;http://www.hypercat.io/&quot;&gt;Hypercat&lt;/a&gt; format, url for data source store, CA root certificate for the container for use over https (and a private key if you want to host on https server)&lt;/li&gt;
+&lt;/ul&gt;
+</content><id>http://reynard.io/events/2017/03/27/DataboxLaunchMarch2017.html</id><title type="text">Databox Open-Source Software Community Launch</title><updated>2017-03-27T00:00:00-00:00</updated><author><name>reynard</name></author></entry><entry><link href="http://reynard.io/2017/03/10/OCamlCollection.html" rel="alternate"/><contributor><uri>http://reynard.io/feed.xml</uri><name>reynard</name></contributor><content type="html">&lt;p&gt;Over the last year I&amp;rsquo;ve worked on a few t-shirt designs to represent specific releases and/or events.&lt;/p&gt;
+
+&lt;p&gt;It would be great to get some more ideas/designs for the future - perhaps even a community-led competition!&lt;/p&gt;
+
+&lt;p&gt;Huge thanks to &lt;a href=&quot;http://www.indigoclothing.com/&quot;&gt;Indigo Clothing&lt;/a&gt; who printed all of our t-shirts with a super-quick turnaround.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;img src=&quot;http://reynard.io/images/ArchMarrakechTransparent.png&quot; alt=&quot;MirageOS 2017 Hack Retreat design&quot; width=&quot;200&quot;/&gt;
+&lt;img src=&quot;http://reynard.io/images/CamelRugTransparentBox.png&quot; alt=&quot;Design 2&quot; width=&quot;200&quot;/&gt;
+&lt;br/&gt;
+&lt;img src=&quot;http://reynard.io/images/GirlScarfTransparent.png&quot; alt=&quot;Design 3&quot; width=&quot;200&quot;/&gt;
+&lt;img src=&quot;http://reynard.io/images/spacetime-png-proof.png&quot; alt=&quot;OCaml 4.04&quot; width=&quot;200&quot;/&gt;
+&lt;/p&gt;
+</content><id>http://reynard.io/2017/03/10/OCamlCollection.html</id><title type="text">My OCaml Collection</title><updated>2017-03-10T00:00:00-00:00</updated><author><name>reynard</name></author></entry><entry><link href="http://reynard.io/2017/03/07/MaintaineratiWontFix.html" rel="alternate"/><contributor><uri>http://reynard.io/feed.xml</uri><name>reynard</name></contributor><content type="html">&lt;p&gt;Last month I was very lucky to attend the first &lt;a href=&quot;https://github.com/maintainerati/events/tree/master/wontfix_cabal&quot;&gt;Wontfix_Cabal&lt;/a&gt;, organised by &lt;a href=&quot;https://maintainerati.org/&quot;&gt;Maintainerati&lt;/a&gt; and hosted at GitHub HQ in San Francisco.&lt;/p&gt;
+
+&lt;p&gt;It was totally awesome - and this is why.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href=&quot;http://reynard.io/images/GHHQGem.jpg&quot;&gt;&lt;img src=&quot;http://reynard.io/images/GHHQGem-thumb.png&quot; alt=&quot;Stage 1&quot; width=&quot;200&quot;/&gt;&lt;/a&gt;
+&lt;a href=&quot;http://reynard.io/images/Octocat.jpg&quot;&gt;&lt;img src=&quot;http://reynard.io/images/Octocat-thumb.png&quot; alt=&quot;Stage 2&quot; width=&quot;200&quot;/&gt;&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;h2&gt;Concept &amp;amp; Style&lt;/h2&gt;
+
+&lt;p&gt;This event was in the style of an &amp;ldquo;&lt;a href=&quot;https://en.wikipedia.org/wiki/Unconference&quot;&gt;unconference&lt;/a&gt;&amp;rdquo; and was organised BY open source software maintainers FOR open source software maintainers. The event organiser &lt;a href=&quot;https://twitter.com/jessfraz&quot;&gt;Jess Frazelle&lt;/a&gt; explains the concept behind it as a place &amp;ldquo;where attendees could discuss topics candidly with their peers from other open source communities&amp;rdquo;. You can read Jess&amp;rsquo; &lt;a href=&quot;https://opensource.googleblog.com/2017/03/by-maintainers-for-maintainers.html?m=1&quot;&gt;blog post&lt;/a&gt; for more of her insight into the event, where she also references the response to a previous &lt;a href=&quot;https://blog.jessfraz.com/post/the-art-of-closing/&quot;&gt;blog post&lt;/a&gt; she published that appears to have unlocked the concept in her mind. It seemed to her that many maintainers were all coming up against the same issues, and they needed a space to vent - this is where Maintainerati and the Wonfix_Cabal were born.&lt;/p&gt;
+
+&lt;p&gt;The verb to &lt;a href=&quot;https://en.oxforddictionaries.com/definition/vent&quot;&gt;&amp;ldquo;vent&amp;rdquo;&lt;/a&gt; refers to &amp;ldquo;giving free expression to (a strong emotion)&amp;rdquo;, and this is definitely applicable here. Everyone in the room had at least one burning issue they wanted to address, and the simple question &amp;ldquo;What would you like to discuss?&amp;rdquo; allowed the process to begin without censorship.&lt;/p&gt;
+
+&lt;p&gt;The event was a huge success, and I think this is mainly due to the style of event, and this focus on free expression.&lt;/p&gt;
+
+&lt;h2&gt;Topics &amp;amp; Discussion&lt;/h2&gt;
+
+&lt;p&gt;Attendees were invited to add themselves to the &lt;a href=&quot;https://github.com/maintainerati/events/blob/master/wontfix_cabal/participants.md&quot;&gt;participants&lt;/a&gt; list in the preceding weeks, with the &lt;a href=&quot;https://github.com/maintainerati/events/blob/master/wontfix_cabal/schedule.md&quot;&gt;schedule&lt;/a&gt; deliberately very low key, and led by direct contribution on the day.&lt;/p&gt;
+
+&lt;p&gt;The process went a little something like this:&lt;/p&gt;
+
+&lt;p&gt;1: Suggest topics for discussion&lt;br/&gt;
+2: Vote on topics you REALLY REALLY want to discuss&lt;br/&gt;
+3: Join the focus group for one of the topics and discuss!&lt;br/&gt;
+4: Summarise points for the larger group&lt;br/&gt;
+5: Feel a new sense of acceptance, understanding and justification - HOORAY!&lt;br/&gt;
+6: And repeat!&lt;/p&gt;
+
+&lt;p&gt;Disclaimer: Others may not have experienced #5 as strongly as me, but I hope they did!&lt;/p&gt;
+
+&lt;p style=&quot;vertical-align: text-top&quot;&gt;
+&lt;a href=&quot;http://reynard.io/images/PostIts.jpg&quot;&gt;&lt;img src=&quot;http://reynard.io/images/PostIts-thumb.png&quot; alt=&quot;Stage 1&quot; width=&quot;200&quot;/&gt;&lt;/a&gt;
+&lt;a href=&quot;http://reynard.io/images/ViewFromTheContainer.jpg&quot;&gt;&lt;img src=&quot;http://reynard.io/images/ViewFromTheContainer-thumb.png&quot; alt=&quot;Stage 2&quot; width=&quot;200&quot;/&gt;&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Topics included:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Metrics in OSS and community health&lt;/li&gt;
+  &lt;li&gt;Ethics and work&lt;/li&gt;
+  &lt;li&gt;Documentation&lt;/li&gt;
+  &lt;li&gt;Onboarding/finding maintainers&lt;/li&gt;
+  &lt;li&gt;Toxicity within communities&lt;/li&gt;
+  &lt;li&gt;Saying no&lt;/li&gt;
+  &lt;li&gt;Sole maintainers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can find &lt;a href=&quot;https://github.com/maintainerati/events/tree/master/wontfix_cabal&quot;&gt;session summaries in the repo&lt;/a&gt; for more details.&lt;/p&gt;
+
+&lt;p&gt;There were many, many interesting and useful talking points of the day, and I&amp;rsquo;ve added the things that resonated most with me below.&lt;/p&gt;
+
+&lt;h3&gt;&amp;ldquo;Being a maintainer is like being a politician&amp;rdquo;&lt;/h3&gt;
+
+&lt;p&gt;Someone (I can&amp;rsquo;t recall who) offered this little gem, and I couldn&amp;rsquo;t agree more. I&amp;rsquo;d also possibly add &amp;ldquo;like being a parent&amp;rdquo; in the sense that you can expect your community to behave in a way that is both modelled and accepted by its members.&lt;/p&gt;
+
+&lt;p&gt;As a maintainer you will likely spend a lot of time engaging your diplomatic side - from dealing with questions such as &amp;ldquo;Is this project still maintained?&amp;rdquo; to interacting with disgruntled developers whose PR probably won&amp;rsquo;t be accepted, or users with far-fetched feature requests.&lt;/p&gt;
+
+&lt;h3&gt;Management of expectations seems key&lt;/h3&gt;
+
+&lt;p&gt;Whether you&amp;rsquo;re dealing with toxic behaviours in your community, how to contribute to a project (yours or others), onboarding new users/members or writing documentation - setting expectations will go a long way to making a smooth(er), happier life.&lt;/p&gt;
+
+&lt;p&gt;Some specific takeaways were:&lt;/p&gt;
+
+&lt;h4&gt;Community behaviour&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;negative personal statements should be explicitly unacceptable&lt;/li&gt;
+  &lt;li&gt;informal hierarchies rarely work as they can allow privileges to determine power, instead have a clear hierarchy and escalation policy&lt;/li&gt;
+  &lt;li&gt;use a bot for some responses e.g. easy PR checks. This removes the emotive aspect and the possibility to take it personally&lt;/li&gt;
+  &lt;li&gt;highlight good/non-toxic behaviours&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;Contribution - Ensure you respect contributors time&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;establish and maintain a list of easy but high impact/value projects and issues&lt;/li&gt;
+  &lt;li&gt;highlight and value non-technical contributions&lt;/li&gt;
+  &lt;li&gt;create a guide for contribution that clearly outlines the expected process, including ongoing maintenance&lt;/li&gt;
+  &lt;li&gt;get to know your members and their individual motivations&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;Documentation&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;something is better than nothing, and if it is expected of everyone then everyone is more likely to do it&lt;/li&gt;
+  &lt;li&gt;just do it&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Learn from your peers and lead by example&lt;/h3&gt;
+
+&lt;p&gt;We are all in the same boat, as demonstrated by the success of this event, and the topics discussed at length and with great interest and passion. We can make the changes we would like to see, and we can start with ourselves!&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href=&quot;http://reynard.io/images/ObviousCoffee.jpg&quot;&gt;&lt;img src=&quot;http://reynard.io/images/ObviousCoffee-thumb.png&quot; alt=&quot;Stage 1&quot; width=&quot;200&quot;/&gt;&lt;/a&gt;
+&lt;/p&gt;
+</content><id>http://reynard.io/2017/03/07/MaintaineratiWontFix.html</id><title type="text">Wontfix Cabal by Maintainerati</title><updated>2017-03-07T00:00:00-00:00</updated><author><name>reynard</name></author></entry><entry><link href="http://reynard.io/2017/02/10/CompHackSummary.html" rel="alternate"/><contributor><uri>http://reynard.io/feed.xml</uri><name>reynard</name></contributor><content type="html">&lt;p&gt;Thanks to everyone who joined us for a relaxed but productive evening of &lt;a href=&quot;https://ocamllabs.github.io/compiler-hacking/&quot;&gt;OCaml compiler hacking&lt;/a&gt; on Tuesday 7th February. We focussed on fixing bugs and tidying up documentation during this session, and we had a high proportion of people who are relatively new to OCaml getting stuck into the internals.&lt;/p&gt;
+
+&lt;div&gt;
+&lt;img src=&quot;http://reynard.io/images/FebCHPembroke.JPG&quot; style=&quot;float:right; -webkit-transform:rotate(90deg); transform:rotate(90deg);&quot; alt=&quot;Olivier, Maxime, David and Fred talk all things compiler&quot; width=&quot;200&quot;/&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Compiler Projects&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Mark Shinwell focussed on the next version of &lt;a href=&quot;https://blogs.janestreet.com/flambda/&quot;&gt;Flambda&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Olivier Nicole and Maxime Lesourd continued with their work on a &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on#signatured-open-command&quot;&gt;signatured open command&lt;/a&gt;. They didn&amp;rsquo;t quite manage to finish it, but spent some time thinking of the best way to implement it &lt;a href=&quot;https://github.com/OlivierNicole/ocaml/commits/signatured_open&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Bug Fixing&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tadeu Zagallo from &lt;a href=&quot;https://www.uber.com/en-GB/cities/london/&quot;&gt;Uber&lt;/a&gt; &lt;a href=&quot;http://reynard.io/2016/11/16/CompHack.html&quot;&gt;returned&lt;/a&gt; with increased OCaml knowledge and found a fix for &lt;a href=&quot;https://caml.inria.fr/mantis/view.php?id=7060&quot;&gt;printing exceptions that happen within custom printers installed in the OCaml toplevel&lt;/a&gt; (which are currently being swallowed). A PR will be on the way soon for review.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Marek Bern&amp;aacute;t from &lt;a href=&quot;http://metail.com/&quot;&gt;Metail&lt;/a&gt; joined us for the first time to learn more about OCaml, and perused some Mantis bugs. He worked on finding a fix for &lt;a href=&quot;https://caml.inria.fr/mantis/view.php?id=6604&quot;&gt;expressions ignored by the toplevel and compiler&lt;/a&gt; and prepared a change that issues warnings when the line directive is found in inappropriate positions or with inappropriate arguments. A PR will be incoming soon - this is great progress for a first session, with little prior understanding of the OCaml compiler!&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Documentation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Dhruv Makwana worked on updating our &lt;a href=&quot;https://github.com/ocamllabs/ocaml-internals/wiki&quot;&gt;compiler documentation&lt;/a&gt; by starting writing up about the &lt;a href=&quot;https://github.com/ocamllabs/ocaml-internals/wiki/The-Parse-Tree-(AST)&quot;&gt;Parse Tree&lt;/a&gt;, and completing the &lt;a href=&quot;https://github.com/ocamllabs/ocaml-internals/wiki/Source-code&quot;&gt;Source Code&lt;/a&gt; section.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Other projects&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Frederic Bour worked on some &lt;a href=&quot;https://github.com/ocaml/merlin&quot;&gt;Merlin&lt;/a&gt; fixes, specifically:
+    &lt;ul&gt;
+      &lt;li&gt;Emacs mode rewrite fixes:
+        &lt;ul&gt;
+          &lt;li&gt;To do syntax highlighting, merlin-mode checks if tuareg-mode or caml-mode are enabled and use the same mode for highlighting information reported to the user. Mode detection was broken, hence no more colors in Merlin interactions. This is fixed.&lt;/li&gt;
+          &lt;li&gt;A simple heuristic determines whether information should be reported in mini-buffer or in a split window: 8 lines or less go into the mini-buffer, anything bigger goes into its own window. Except this check was mostly ignored and everything went to minibuffer.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;General OCaml-Merlin fixes:
+        &lt;ul&gt;
+          &lt;li&gt;When completing an identifier, Merlin didn&amp;rsquo;t put parentheses around operators (e.g when completing &lt;code class=&quot;highlighter-rouge&quot;&gt;Monad.(&amp;gt;&amp;gt;=)&lt;/code&gt;. Now it checks whether the completion is a qualified operator and add parentheses accordingly.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;He also managed to finally track a tricky regression he&amp;rsquo;d been chasing for some time: When asking for the signature of a module alias or when asking for the type of an expression, Merlin would just refuse to load a module. It turned out to be related to the printing of types in the compiler(!). short-path is a feature that finds the shortest alias that refer to a given type. This is mostly useful with large libraries, such as Core or Async, where canonical names of types can be very long. Previous versions of the compiler would load new modules to look for shorter names, causing &lt;a href=&quot;https://caml.inria.fr/mantis/view.php?id=7134&quot;&gt;inconsistent behaviors&lt;/a&gt;, (depending on modules that are not directly used by the current file).
+So a new feature, &lt;code class=&quot;highlighter-rouge&quot;&gt;Env.without_cmis&lt;/code&gt; prevent the compiler from loading new modules when in &amp;ldquo;printing mode&amp;rdquo;. This broke Merlin which roughly works this way: read input file, set the printing environment to where the user cursor is, then process the query. So any query requiring the use of new modules would fail. That&amp;rsquo;s no longer the case thanks to &lt;code class=&quot;highlighter-rouge&quot;&gt;Env.with_cmis&lt;/code&gt; when a module is really needed.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Christian Lindig and I talked about his plans to use some &lt;a href=&quot;https://github.com/ocaml/opam&quot;&gt;OPAM&lt;/a&gt; features in his next project at Citrix - Thomas Gazagnaire will follow up.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Takayuki Imada continued with delving into &lt;a href=&quot;https://github.com/TImada&quot;&gt;MirageOS performance&lt;/a&gt;, specifically looking at if and how server-side virtualisation might be a factor.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Ciaran Lawlor and Matt Harrison were busy with their Part II projects and preparing for presentations next week. Ciaran is working on incremental parsing under the supervision of Stephen Dolan, whilst Matt&amp;rsquo;s project aims to provide secure, user-controlled sharing of personal data. Matt is supervised by KC Sivaramakrishnan and is linked with the &lt;a href=&quot;http://www.databoxproject.uk/&quot;&gt;Databox&lt;/a&gt; project.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content><id>http://reynard.io/2017/02/10/CompHackSummary.html</id><title type="text">OCaml Compiler Hacking Feb 2017 - Activity Summaries</title><updated>2017-02-10T00:00:00-00:00</updated><author><name>reynard</name></author></entry><entry><link href="http://reynard.io/2017/01/18/MirageIRCFeedback.html" rel="alternate"/><contributor><uri>http://reynard.io/feed.xml</uri><name>reynard</name></contributor><content type="html">&lt;p&gt;As referenced in a &lt;a href=&quot;http://reynard.io/2016/11/01/MirageOSFeedback.html&quot;&gt;previous post&lt;/a&gt; I wanted to check in with &lt;a href=&quot;https://mirage.io/&quot;&gt;MirageOS&lt;/a&gt; community members to gauge current opinion about the fortnightly &lt;a href=&quot;https://irclog.whitequark.org/mirage/2016-02-13&quot;&gt;IRC meetings&lt;/a&gt;, and to see if there were any positive changes we could make. The main focus of the questions was directed specifically at the meeting itself, and other more general MirageOS community questions that help gauge the sample and to see where respondents currently access MirageOS information.&lt;/p&gt;
+
+&lt;p&gt;The feedback poll was online and accessible for 6 weeks, and I received 16 distinct responses. As I chose to keep the results anonymous we cannot tell if those distinct responses represent distinct individuals, but the data provides a starting point.&lt;/p&gt;
+
+&lt;h2&gt;Generalisability to a larger population&lt;/h2&gt;
+
+&lt;p&gt;It is a small sample size, so I do not wish to generalise the results to the whole MirageOS community - the sample is likely limited to core users and developers, and to those that already join or actively participate in the meetings. It is therefore important to bear this in mind when reading the following report. Feedback and suggestions relating to the fortnightly meetings are still of interest despite the small sample, as they provide specific insight from current users and apply directly to that context.&lt;/p&gt;
+
+&lt;hr/&gt;
+
+&lt;h2&gt;TL;DR&lt;/h2&gt;
+
+&lt;h3&gt;Overall Conclusions&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The call provides a way to check the current state of MirageOS projects and a time and place to get consensus on decisions&lt;/li&gt;
+  &lt;li&gt;Some respondents join the call but don&amp;rsquo;t participate directly due to a self-identified lack of specific knowledge&lt;/li&gt;
+  &lt;li&gt;Summaries in addition to the logs would be helpful and will help create a rounded view of current projects alongside the mailing list&lt;/li&gt;
+  &lt;li&gt;Items discussed in the meeting appear to be appropriate and providing more structure would be a benefit&lt;/li&gt;
+  &lt;li&gt;The mailing list and #mirage IRC on Freenode are the most common areas the respondents access for MirageOS information&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Possible future actions based on feedback&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Continue with IRC for the fortnightly calls until a suitable open source alternative is available&lt;/li&gt;
+  &lt;li&gt;Post the &lt;a href=&quot;https://github.com/mirage/mirage-www/wiki/Call-Agenda&quot;&gt;agenda&lt;/a&gt; online (wiki and mirage.io?) 2-3 days prior to call&lt;/li&gt;
+  &lt;li&gt;More structured agenda - with additional background information for topics, and prioritisation of burning issues that require discussion/decision&lt;/li&gt;
+  &lt;li&gt;Follow up other discussion items regularly on the &lt;a href=&quot;https://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel&quot;&gt;mailing list&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Call summaries alongside &lt;a href=&quot;http://canopy.mirage.io/irclogs&quot;&gt;IRC logs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Publicise calls to the wider community&lt;/li&gt;
+  &lt;li&gt;Add more details of topics of discussion for participants to read before the call - linked from agenda perhaps?&lt;/li&gt;
+  &lt;li&gt;Provide documentation and tutorials for newcomers&lt;/li&gt;
+  &lt;li&gt;Set up a calendar invite for each call to encourage attendance&lt;/li&gt;
+  &lt;li&gt;Provide details of how to contribute to the call and to MirageOS itself - ensure &lt;a href=&quot;https://mirage.io/wiki/contributing&quot;&gt;current information&lt;/a&gt; is up to date&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr/&gt;
+
+&lt;h2&gt;Results&lt;/h2&gt;
+
+&lt;p&gt;The results have been loosely categorised where possible (this refers to similar wording or similar concepts) - while this is not wholly systematic and relies on the conclusions I have drawn, it is useful data when considered along with the sample size and background of the respondents (see Q1 of the general Mirage questions below). Please do study the data and come to your own conclusions - then let me know!&lt;/p&gt;
+
+&lt;p&gt;Thanks to everyone who participated - your feedback is extremely valuable! Please continue to tell us your thoughts and suggestions by emailing the MirageOS &lt;a href=&quot;https://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel&quot;&gt;mailing list&lt;/a&gt; or feel free to &lt;a href=&quot;http://reynard.io/about/&quot;&gt;contact me&lt;/a&gt; directly.&lt;/p&gt;
+
+&lt;h2&gt;MirageOS Call Questions&lt;/h2&gt;
+
+&lt;p&gt;16 respondents for most questions, stated next to the answers.&lt;/p&gt;
+
+&lt;h3&gt;1: Do you join the fortnightly calls?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Yes: 8/16&lt;/li&gt;
+  &lt;li&gt;No: 8/16&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;2: If you answered no, please explain why.&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;N/A (these people do attend): 6/16&lt;/li&gt;
+  &lt;li&gt;Conflict (timezone/work/family): 6/16&lt;/li&gt;
+  &lt;li&gt;Unsure of schedule: 2/16&lt;/li&gt;
+  &lt;li&gt;Dislike IRC: 1/16&lt;/li&gt;
+  &lt;li&gt;Prefer async communication: 1/16&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTE: 2 of the respondents who previously said they attended also provided reasons for not joining.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Conclusions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Of those not who do not join the call, just over half (6/10) stated that the main reason was due to a timing conflict of some kind, including other work, family and timezone.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Actions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Personal preferences, timezones and conflict constraints are out of our control, but ensuring that the call is scheduled at a regular time each fortnight and scheduling details are available in obvious, public places may encourage further participation.&lt;/p&gt;
+
+&lt;h3&gt;3: Do you feel able to participate in the call?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Yes: 10/16&lt;/li&gt;
+  &lt;li&gt;No: 6/16&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;4: If not, why not?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;N/A: 12/16&lt;/li&gt;
+  &lt;li&gt;Lack of knowledge: 3/16&lt;/li&gt;
+  &lt;li&gt;Distraction/concurrent discussions: 1/16&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTE: There may have been some confusion here - I should have made this clearer that it should be those who usually attend the call feel they can participate, not those who would not usually attend. Perhaps the following wording would have been better: &amp;ldquo;When you join the call do you feel able to contribute your ideas or questions?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Conclusions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Of those respondents that provided an answer, the majority said they did not feel able to participate due to a lack of MirageOS or OCaml-specific knowledge. It is difficult to determine if this is wholly negative - perhaps people feel less involved due to a lack of knowledge, or perhaps they prefer to listen to others who do know more.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Actions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This point warrants further discussion, but one area of focus could be to ensure documentation, tutorials are up to date and prominently displayed on &lt;a href=&quot;https://mirage.io/&quot;&gt;mirage.io&lt;/a&gt;, along with more details of current MirageOS users and projects for members of the community to explore between calls.&lt;/p&gt;
+
+&lt;h3&gt;5: What is the main value of the call for you?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;N/A: 2/16&lt;/li&gt;
+  &lt;li&gt;Get up to date: 8/16&lt;/li&gt;
+  &lt;li&gt;Synchronous decisions: 6/16&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Conclusions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Of those that didn&amp;rsquo;t answer &amp;lsquo;N/A&amp;rsquo;, the majority (8/16) of respondents value the call as a way to check the current state of MirageOS projects (although one did say that high-level issues should receive more focus), with the remainder stating that having a significant number of core developers and users in one (virtual) room for synchronous agreement on issues was valuable.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Actions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Respondents says continue! The calls provide a sync point for decision making and allow community members to keep up to date with activity. Ensuring that the agenda includes items requiring discussion and decision would be appropriate based on this feedback.&lt;/p&gt;
+
+&lt;h3&gt;6: Do you feel that the call addresses appropriate items of discussion?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;N/A: 3/16&lt;/li&gt;
+  &lt;li&gt;Yes: 11/16&lt;/li&gt;
+  &lt;li&gt;Unstructured: 2/16&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTE: Of those who answered yes, there were some caveats: Sometimes the content is highly technical and difficult to follow, especially for newcomers; the content is generated by those intending to attend and casting a wider net for discussion might be beneficial.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Conclusions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The majority of those who answered feel that the items discussed are appropriate, bearing in mind the above notes. It looks like we are discussing the right things, and providing more structure would be a benefit.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Actions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Rather than making the discussion less technical, we could provide more background to proposed agenda items before the call for people to refer to. Regularly looping back and highlighting where specific projects, features and issues sit in the MirageOS ecosystem would be relatively easy to do, and might target this concern. Based on the answers from Question 5 above, deciding which burning issues should be addressed in the call and which items are for wider/more general discussion (such as roadmap items, feature wish-lists etc) on the &lt;a href=&quot;https://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel&quot;&gt;mailing list&lt;/a&gt; or via &lt;a href=&quot;https://github.com/mirage/mirage/issues&quot;&gt;Issues&lt;/a&gt; would be a benefit.&lt;/p&gt;
+
+&lt;p&gt;This links to repository management and organisation - specifically providing information on how to contribute, and a process by which topics are discussed, decided upon and re-visited if necessary. My &lt;a href=&quot;http://reynard.io/2016/12/13/OSSWorkflow.html&quot;&gt;post&lt;/a&gt; about using GitHub features and tools for repository management outlines our experimentation with providing public roadmaps, monitoring ongoing project progress and encouraging wider discussion through community empowerment.&lt;/p&gt;
+
+&lt;h3&gt;7: Currently we use IRC to conduct the call/chat. Do you use IRC for other channels/chats?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Yes: 12/16&lt;/li&gt;
+  &lt;li&gt;No: 4/16&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The majority of respondents use IRC for other purposes.&lt;/p&gt;
+
+&lt;h3&gt;8: What would be your preferred platform for Mirage call?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;N/A: 1/16&lt;/li&gt;
+  &lt;li&gt;IRC: 11/16&lt;/li&gt;
+  &lt;li&gt;Slack/Discord: 2/16&lt;/li&gt;
+  &lt;li&gt;Video: 1/16&lt;/li&gt;
+  &lt;li&gt;No preference: 1/16&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The majority of our sample have a preference for using IRC for the MirageOS meetings for reasons such as low overhead, easy to stick to an agenda, easy to join mid-way through, and can follow up with logs/minutes (if available). &lt;a href=&quot;https://slack.com/&quot;&gt;Slack&lt;/a&gt; or &lt;a href=&quot;https://discordapp.com/&quot;&gt;Discord&lt;/a&gt;, mainly due to a nicer UI, with one stating a strong preference for an OSS version. One person prefers video calls, but acknowledges that most video call software has problems.&lt;/p&gt;
+
+&lt;p&gt;It is worth noting that &lt;a href=&quot;https://github.com/reasonml&quot;&gt;ReasonML&lt;/a&gt; from Facebook have an active public channel on &lt;a href=&quot;https://discordapp.com/channels/235176658175262720/235176658175262720&quot;&gt;Discord&lt;/a&gt; - it would be interesting to find out what their team have found most valuable from using it as a Platform.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Actions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Responses suggest we should stick with IRC for now - if an OSS version of a platform such as Slack appears, then there will be the option to switch (if it is reliable).&lt;/p&gt;
+
+&lt;h3&gt;10: If you could make one improvement to the call what would it be?&lt;/h3&gt;
+
+&lt;p&gt;The main suggestions for improvements in descending order were:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;N/A: 2/16&lt;/li&gt;
+  &lt;li&gt;Put the agenda up sooner: 3/16&lt;/li&gt;
+  &lt;li&gt;Provide a summary of the call along with the IRC logs: 2/16&lt;/li&gt;
+  &lt;li&gt;Advertise to and encourage a wider group of people to join the call: 2/14&lt;/li&gt;
+  &lt;li&gt;No improvements, it&amp;rsquo;s great as it is!: 2/14&lt;/li&gt;
+  &lt;li&gt;Provide a calendar invite: 1/16&lt;/li&gt;
+  &lt;li&gt;More structure (no further details provided): 1/16&lt;/li&gt;
+  &lt;li&gt;Use the mailing list for support and questions, not the call: 1/16&lt;/li&gt;
+  &lt;li&gt;Improve the flow of conversation: 1/16&lt;/li&gt;
+  &lt;li&gt;Change the time and day: 1/16&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;11: Do you read the IRC call logs?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Yes: 10/16&lt;/li&gt;
+  &lt;li&gt;No: 4/16&lt;/li&gt;
+  &lt;li&gt;Didn&amp;rsquo;t know they existed: 2/16&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;12: Do the IRC logs provide a good overview of current MirageOS projects?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;N/A: 5/16&lt;/li&gt;
+  &lt;li&gt;Yes: 6/16&lt;/li&gt;
+  &lt;li&gt;Yes but additional summary needed: 3/16&lt;/li&gt;
+  &lt;li&gt;No: 2/16&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Conclusions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Of those who read the logs (didn&amp;rsquo;t answer N/A), the majority agree that they provide a good overview of the current projects. A summary in addition to the logs would be helpful - the logs are not particularly easy to skim or quickly read. One person did suggest that if you weren&amp;rsquo;t on the mailing list or were new to the community the logs don&amp;rsquo;t provide a good sense of the project as a whole.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Actions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Making the location and existence of the logs more obvious and figuring out a way to add a call summary to accompany the logs would be beneficial.&lt;/p&gt;
+
+&lt;h3&gt;13: Anything to add?&lt;/h3&gt;
+
+&lt;p&gt;We had 6 further responses, with 5 people saying that the community is great and they value being part of it and to keep up the good work, and 1 person saying simply &amp;ldquo;IRC is great!&amp;rdquo;.&lt;/p&gt;
+
+&lt;hr/&gt;
+
+&lt;h2&gt;General MirageOS Questions&lt;/h2&gt;
+
+&lt;p&gt;These questions and responses have less to do with direct actions, but provide insight into our community and its members.&lt;/p&gt;
+
+&lt;h3&gt;1: To what extent do you use MirageOS?&lt;/h3&gt;
+
+&lt;p&gt;Respondents self-identified as the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Experienced MirageOS developers: 6/16&lt;/li&gt;
+  &lt;li&gt;Interested parties: 6/16&lt;/li&gt;
+  &lt;li&gt;MirageOS users: 2/16&lt;/li&gt;
+  &lt;li&gt;None of the above: 1/16&lt;/li&gt;
+  &lt;li&gt;Developer of other unikernels: 1/16&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;2: When did you first hear about MirageOS?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;At inception!: 5/14&lt;/li&gt;
+  &lt;li&gt;MirageOS release: 2/14&lt;/li&gt;
+  &lt;li&gt;The OCaml community: 2/14&lt;/li&gt;
+  &lt;li&gt;Talks/presentations on MirageOS: 1/14&lt;/li&gt;
+  &lt;li&gt;The OSS community: 1/14&lt;/li&gt;
+  &lt;li&gt;Unikernel news: 1/14&lt;/li&gt;
+  &lt;li&gt;Reddit: 1/14&lt;/li&gt;
+  &lt;li&gt;A friend: 1/14&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;3: Where do you find answers to your MirageOS questions?&lt;/h3&gt;
+
+&lt;p&gt;The majority of responses included a combination of the following, so I&amp;rsquo;ve created a tally instead.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mailing list: 7&lt;/li&gt;
+  &lt;li&gt;IRC: 6&lt;/li&gt;
+  &lt;li&gt;Slack: 3&lt;/li&gt;
+  &lt;li&gt;Personal enquiries: 3&lt;/li&gt;
+  &lt;li&gt;GitHub: 2&lt;/li&gt;
+  &lt;li&gt;Source code: 2&lt;/li&gt;
+  &lt;li&gt;Blogs 2&lt;/li&gt;
+  &lt;li&gt;Mirage.io 1&lt;/li&gt;
+  &lt;li&gt;Google 1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The mailing list and #mirage IRC on Freenode receive the most hits from this particular group.&lt;/p&gt;
+
+&lt;h3&gt;4: Do you find the MirageOS mailing list helpful?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Yes: 13/15&lt;/li&gt;
+  &lt;li&gt;No: 2/15&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;5: If not please elaborate why.&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTE: Only 3 responses to this question.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Traffic on the mailing list is sporadic&lt;/li&gt;
+  &lt;li&gt;Dislike of mailing lists&lt;/li&gt;
+  &lt;li&gt;No context&lt;/li&gt;
+&lt;/ul&gt;
+</content><id>http://reynard.io/2017/01/18/MirageIRCFeedback.html</id><title type="text">MirageOS Fortnightly IRC Call Feedback</title><updated>2017-01-18T00:00:00-00:00</updated><author><name>reynard</name></author></entry><entry><link href="http://reynard.io/2016/12/13/OSSWorkflow.html" rel="alternate"/><contributor><uri>http://reynard.io/feed.xml</uri><name>reynard</name></contributor><content type="html">&lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We are experimenting with using GitHub Issues, Labels and Milestones to manage our distributed open source projects&lt;/li&gt;
+  &lt;li&gt;Utilising tools that your team already uses is beneficial&lt;/li&gt;
+  &lt;li&gt;Good for collaborative workflows with many contributors and interested parties&lt;/li&gt;
+  &lt;li&gt;Requires consistent input and tweaking&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr/&gt;
+
+&lt;h2&gt;My Role&lt;/h2&gt;
+
+&lt;p&gt;I am new to open source maintenance and management, and my position at OCaml Labs is operational rather than technical. It&amp;rsquo;s important for me to grasp the general idea of a project enough to see how it fits within our larger goals, and then help it move forward without administrative blockers. Figuring out how I can fit in this highly technical environment has been interesting and challenging (that&amp;rsquo;s a whole other post!), but I&amp;rsquo;ve recently implemented a few changes that (I hope) will start to positively impact our projects and our research.&lt;/p&gt;
+
+&lt;h2&gt;Motivation&lt;/h2&gt;
+
+&lt;p&gt;Keeping track of administrative details and the ~40 projects our distributed team is working on requires a consistent approach to reduce the likelihood of tasks being dropped, stuck in a bottleneck, or lost in the noise. Our projects are highly collaborative and receive input from developers, students, researchers and support staff - we need a method of maintenance that promotes this direct interaction and goal-oriented development.&lt;/p&gt;
+
+&lt;h2&gt;My Workflow&lt;/h2&gt;
+
+&lt;p&gt;I started by looking at my own daily tasklists to explore how I might manage them more efficiently, then chose one of our internal projects that might be applicable for a similar process.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve tried many methods of to-do list management, including:&lt;/p&gt;
+
+&lt;h3&gt;Ye Olde Paper &amp;amp; Pen&lt;/h3&gt;
+&lt;p&gt;I can write pages and pages of lists, but there is little organisation to it and my scrawlings are not always legible to others. I still use a scribble pad to jot down the individual tasks I need to complete that day - physically crossing off items on a list is always satisfying! - but carting around a messy, poorly organised notebook to and from meetings is not especially helpful for sharing progress and interacting with colleagues.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;UPDATE: I have succumbed to maintaining a bullet journal! It is no longer a messy, poorly organised notebook, and is the perfect complement to my online workflow&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3&gt;Inbox To Do List&lt;/h3&gt;
+&lt;p&gt;I must confess that my inbox was managed rather appallingly until recently. Although I dealt with important or time-sensitive emails quickly I seemed unable to decide on a strategy for managing emails that were a collection of useful details, or decisions that I would need to make at some point in the future - all of the non-immediate tasks. I tried using my inbox as a todo list by using Gmail labels, but that quickly got out of hand and I ended up just avoiding looking at my email, missing the entire point! It&amp;rsquo;s also very easy to unintentionally filter out important conversations, especially if every query or pending decision is part of a long, in-depth thread.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;http://kanbanblog.com/explained/&quot;&gt;Kanban&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Hello &lt;a href=&quot;https://trello.com/&quot;&gt;Trello&lt;/a&gt;! I found this idea worked for the most part, but I couldn&amp;rsquo;t get everyone to join Trello and interact with my board, which meant overall it was not useful and got abandoned. I liked the idea of having a process that individual tasks pass through - the standard set-up is &amp;ldquo;Todo&amp;rdquo;, &amp;ldquo;Doing&amp;rdquo;, &amp;ldquo;Done&amp;rdquo;, or similar variations - and clicking and dragging cards between columns is helpful. Perhaps I could apply this principle elsewhere?&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The majority of developers on our team use GitHub to release code and maintain our open source repositories, so this seemed like a useful place to start. I wanted to try implementing a management workflow within an existing structure to increase the likelihood of long term adoption and success. Initially I looked at the myriad of project management extensions and apps that have been developed as plugins for GitHub, but I was keen to avoid the Trello problem we faced when using another external application. Fortunately GitHub released their Projects feature around this time, and this together with using Labels and Milestones addresses most of my needs directly.&lt;/p&gt;
+
+&lt;h3&gt;GitHub Issues, Labels, Milestones and Projects&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://guides.github.com/features/issues/&quot;&gt;Issues&lt;/a&gt; are essentially tasks, and can be organised as bugs or todo items depending on the type of project. All members with access to a repository will be able to view, create and comment on Issues. Colour-coded &lt;a href=&quot;https://guides.github.com/features/issues/#filtering&quot;&gt;Labels and Milestones&lt;/a&gt; allow you to further manage your Issues, and assign them to specific individuals and timeframes.&lt;/p&gt;
+
+&lt;p&gt;GitHub Projects aim to apply the Trello/Kanban management style to repositories, and I experimented by using them in conjunction with my Issues. Any Issues that are created in a repository are available to use directly within a Project. You can add them to one or more active projects, and progress them through your workflow as you see fit.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;It is worth noting that in this administrative repository all of the Issues are created as todo items, which is slightly different to a standard repository featuring code - here Issues are added to highlight a problem or bug, and don&amp;rsquo;t necessarily represent a todo list as such.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The approach I currently use is also slightly different to the usual Kanban method in that my columns represent tasks I need to complete &amp;ldquo;Today&amp;rdquo;, &amp;ldquo;Tomorrow&amp;rdquo; &amp;ldquo;This Week&amp;rdquo;, in the &amp;ldquo;Future&amp;rdquo; as well as a &amp;ldquo;Completed&amp;rdquo; column on the far side.&lt;/p&gt;
+
+&lt;p&gt;This process allows me to prioritise my todo items and for anyone on my immediate core team (those who have access to the repository) to see exactly what I am working on at the moment, the state it is currently in, and what is next on my agenda/workflow. I move issues/cards between the columns and update comments on them to provide incremental updates on the topic itself. I have given permission for my immediate team to also add issues to the workflow management process on the basis that they use it in a similar way - essentially it is a shared todo list that is updated on the fly.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example process:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1:&lt;/strong&gt; I create an Issue for &amp;ldquo;Create a list of internship projects for 2017&amp;rdquo;. Everyone who has access to the repository will be able to see that is a current Issue&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2:&lt;/strong&gt; Under Projects, I click through to the Project entitled &amp;ldquo;Gemma&amp;rsquo;s Workflow&amp;rdquo; and click &amp;ldquo;+ Add Cards&amp;rdquo; on the top right. A drop down menu of all Issues appear, and I can drag the one I need into the column that is most appropriate, for example &amp;ldquo;This Week&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3:&lt;/strong&gt; Everyone can see from this overview that I would like to address this task at some point within the next week&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4:&lt;/strong&gt; I add a description with some details of what we need to do, and @ someone on my team who I want to check it over next&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5:&lt;/strong&gt; They can see the Issue, add a comment, move the Issue around within the Project workflow, or close it if complete&lt;/p&gt;
+
+&lt;p&gt;Everyone can see the current status of the todo task, and it is easily passed between team members whose input is required. The vast majority of my team is on GitHub regularly, so items are addressed in a timely and effective manner - if one person is blocked, it can quickly and easily be redirected.&lt;/p&gt;
+
+&lt;p&gt;The combination of Issues, Labels and Milestones together with the prioritisation in the Projects workflow has so far been very useful for my workflow, but I was interested to see how we might apply it to our code-based open source projects.&lt;/p&gt;
+
+&lt;h2&gt;Applying this workflow to the Merlin repository&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://the-lambda-church.github.io/merlin/&quot;&gt;Merlin&lt;/a&gt; is an editor service that provides modern IDE features for OCaml. It is maintained by &lt;a href=&quot;https://github.com/let-def&quot;&gt;Frederic Bour&lt;/a&gt; and &lt;a href=&quot;https://github.com/the-lambda-church/merlin/blob/master/README.md&quot;&gt;various contributors&lt;/a&gt; and relies on community support.&lt;/p&gt;
+
+&lt;p&gt;The workflow application to Merlin is still a work in progress, but Fred and I collectively are looking at the most applicable labels, and looked at how we might use the Projects method in this case.&lt;/p&gt;
+
+&lt;h3&gt;Process&lt;/h3&gt;
+
+&lt;p&gt;New project features tend to go through the following process:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Idea/discussion&lt;/li&gt;
+  &lt;li&gt;Build&lt;/li&gt;
+  &lt;li&gt;Test&lt;/li&gt;
+  &lt;li&gt;Documentation&lt;/li&gt;
+  &lt;li&gt;Release&lt;/li&gt;
+  &lt;li&gt;Manual testing/feedback&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The Merlin Issue tracker was initially arranged in the basic format that GitHub suggests: Labels such as &amp;ldquo;Bug&amp;rdquo; and &amp;ldquo;Feature request&amp;rdquo; were present, but as time progressed, some issues were pushed to the bottom and left unresolved.
+We decided to represent the above stages of development as Labels, and now ensure that each issue goes through this process to avoid losing track. Thanks to the &lt;a href=&quot;https://github.com/docker/for-mac/labels&quot;&gt;Docker for Mac and Windows&lt;/a&gt; repository for inspiration!&lt;/p&gt;
+
+&lt;h3&gt;Labels&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Area%2FEmacs&quot;&gt;Area/Emacs&lt;/a&gt;: Related to Emacs&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Area%2FVim&quot;&gt;Area/Vim&lt;/a&gt;: Related to Vim&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Kind%2FBug&quot;&gt;Kind/Bug&lt;/a&gt;: This issue describes a problem&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Kind%2FDocs&quot;&gt;Kind/Docs&lt;/a&gt;: This issue describes a documentation change&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Kind%2FFeature-request&quot;&gt;Kind/Feature-Request&lt;/a&gt;: Solving this issue requires implementing a new feature&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Kind%2FTo-discuss&quot;&gt;Kind/To-discuss&lt;/a&gt;: Discussion needed to converge on a solution; often aesthetic. See mailing list for discussion&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Status%2F0-More-info-needed&quot;&gt;Status/0-More-info-needed&lt;/a&gt;: More information is needed before this issue can be triaged&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Status%2F0-Triage&quot;&gt;Status/0-Triage&lt;/a&gt;: This issue needs triaging&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Status%2F1-Acknowledged&quot;&gt;Status/1-Acknowledged&lt;/a&gt;: This issue has been triaged and is being investigated&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Status%2F2-Regression&quot;&gt;Status/2-Regression&lt;/a&gt;: Known workaround to be applied and tested&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Status%2F3-Fixed-need-test&quot;&gt;Status/3-Fixed-need-test&lt;/a&gt;: This issue has been fixed and needs checking&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Status%2F4-Fixed&quot;&gt;Status/4-Fixed&lt;/a&gt;: This issue has been fixed!&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/the-lambda-church/merlin/labels/Status%2F5-Awaiting-feedback&quot;&gt;Status/5-Awaiting-feedback&lt;/a&gt;: This issue requires feedback on a previous fix&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Roadmap&lt;/h3&gt;
+
+&lt;p&gt;We are using the &lt;a href=&quot;https://github.com/the-lambda-church/merlin/projects/1&quot;&gt;Project&lt;/a&gt; area as a scratchpad to note future work and 3 month roadmaps, by having a column assigned to each upcoming month in the quarter. It&amp;rsquo;s easier to update than a normal list in the repo Wiki and you can quickly edit and move cards between columns. Currently there is a disparity between the roadmap and the actual issues - it will take some time working with it to see what works best.&lt;/p&gt;
+
+&lt;h3&gt;Contribution&lt;/h3&gt;
+
+&lt;p&gt;Checking in with the Issue tracker regularly is key, and we have updated the &lt;a href=&quot;https://github.com/the-lambda-church/merlin/blob/master/README.md&quot;&gt;README&lt;/a&gt; to reflect the new management process to provide clarity, and to encourage others to contribute in specific ways to help the project. These changes align the desire to efficiently manage our shared repositories with the aim of encouraging and acknowledging contributions to the projects. We will further test and refine this process with other repositories that we manage and projects to see what works.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;After some research with different approaches we are experimenting with using a combination of GitHub Issues, Labels, Milestones and Projects to manage our open source project workflow management.&lt;/p&gt;
+
+&lt;h3&gt;Benefits&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Collaborative: Use the @ function to directly involve others in the conversation. This is good for specific queries or for when you need to ping that person to engage with the task - they will receive a notification and can respond appropriately.&lt;/li&gt;
+  &lt;li&gt;Potentially reduces the number of meetings you will need to have: We have been able to reduce the number of admin sync meetings we need to have as incremental updates on the Issues and the overview from the Projects area provides a good snapshot of what is happening currently and what is planned next. We have yet to see if it will do the same for other repositories&amp;hellip;&lt;/li&gt;
+  &lt;li&gt;Works well with a distributed team: It is utilising a tool already in use in the daily life of our team, and is an effective alternative when you can&amp;rsquo;t have a physical meeting or call.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Some problems&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Difficult to link the larger roadmap plans with individual issues/todo items: Still difficult to assess progress based on goals.&lt;/li&gt;
+  &lt;li&gt;If you don&amp;rsquo;t have one large mono-repository, you cannot have Labels and Projects linked across repositories: You have to set up a workflow management system on a per-repository basis which does little to improve the organisational overview of ALL projects.&lt;/li&gt;
+  &lt;li&gt;Assigning Issues to more than one individual at any one time simply creates noise and reduces clarity: Stick with one assignee at a time.&lt;/li&gt;
+&lt;/ul&gt;
+</content><id>http://reynard.io/2016/12/13/OSSWorkflow.html</id><title type="text">OSS Repository Maintenance and Management</title><updated>2016-12-13T00:00:00-00:00</updated><author><name>reynard</name></author></entry><entry><link href="http://reynard.io/2016/11/30/MirageLogo.html" rel="alternate"/><contributor><uri>http://reynard.io/feed.xml</uri><name>reynard</name></contributor><content type="html">&lt;p&gt;With the new MirageOS 3.0 release on the horizon I looked at some ideas for a new logo. It will be a shame to lose our well-loved llama but it&amp;rsquo;s also a great time for a new shiny logo!&lt;/p&gt;
+
+&lt;p&gt;I wanted the design to evoke the blurry appearance of a mirage, and also incorporate the &amp;lsquo;M&amp;rsquo;. The bright blue of the desert sky is a pleasing complement to the OCaml orange.&lt;/p&gt;
+
+&lt;p&gt;After talking with Anil, we thought it might interesting to have the logo also represent phases of completion or development, so I designed a hand drawn &amp;lsquo;draft image for stage 1, a half coloured image for stage 2, and a complete image for the final stage.&lt;/p&gt;
+
+&lt;p&gt;They could potentially be used as badges for builds passing CI, or for Mirage libraries at different levels of development etc.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;img src=&quot;http://reynard.io/images/DraftMirageLogos/DraftMirageLogoStage1.png&quot; alt=&quot;Stage 1&quot; width=&quot;200&quot;/&gt;
+&lt;img src=&quot;http://reynard.io/images/DraftMirageLogos/DraftMirageLogoStage2.png&quot; alt=&quot;Stage 2&quot; width=&quot;200&quot;/&gt;
+&lt;br/&gt;
+&lt;img src=&quot;http://reynard.io/images/DraftMirageLogos/DraftMirageLogoStage3.png&quot; alt=&quot;Complete!&quot; width=&quot;200&quot;/&gt;
+&lt;img src=&quot;http://reynard.io/images/DraftMirageLogos/DraftMirageLogoOutlineSmall.png&quot; alt=&quot;Small and outlined&quot; width=&quot;200&quot;/&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Still a work in progress - let me know what you think! @gemmag&lt;/p&gt;
+</content><id>http://reynard.io/2016/11/30/MirageLogo.html</id><title type="text">Mirage Logo Fun</title><updated>2016-11-30T00:00:00-00:00</updated><author><name>reynard</name></author></entry><entry><link href="http://reynard.io/2016/11/18/CUCLFair.html" rel="alternate"/><contributor><uri>http://reynard.io/feed.xml</uri><name>reynard</name></contributor><content type="html">&lt;p&gt;Cambridge Computer Lab runs a &lt;a href=&quot;https://www.cl.cam.ac.uk/supporters-club/members.html&quot;&gt;Supporters Club&lt;/a&gt; for a &lt;a href=&quot;https://www.cl.cam.ac.uk/supporters-club/members.html&quot;&gt;group of companies&lt;/a&gt;, ranging from the very small to the large, which actively support teaching or research in the Computer Laboratory.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;img src=&quot;http://reynard.io/images/BusyEnd.JPG&quot; alt=&quot;Fair in full swing&quot; width=&quot;200&quot;/&gt;
+&lt;/p&gt;
+
+&lt;p&gt;I attended the annual Computer Lab Supporters Club &lt;a href=&quot;https://www.cl.cam.ac.uk/supporters-club/recruitment-fair.html&quot;&gt;Recruitment Fair&lt;/a&gt; this morning, and was (almost literally) bowled over by the size of the crowd and level of interest in projects related to and disseminating from the Lab. This is the largest fair to date - so large in fact it had to be spread over two days: Thursday 17th and Friday 18th November. The Lab welcomed 84 different companies showcasing their work and current vacancies, eager to talk to the current students and staff. Present members included huge companies such as &lt;a href=&quot;https://www.amazon.jobs/location/cambridge-uk&quot;&gt;Amazon&lt;/a&gt;, &lt;a href=&quot;http://www.apple.com/jobs/uk/&quot;&gt;Apple&lt;/a&gt;, &lt;a href=&quot;http://www.citigroup.com/citi/&quot;&gt;Citi&lt;/a&gt;, &lt;a href=&quot;https://www.arm.com/&quot;&gt;ARM&lt;/a&gt;; and smaller local companies &lt;a href=&quot;https://geospock.com/&quot;&gt;Geospock&lt;/a&gt;, &lt;a href=&quot;https://www.bromium.com/&quot;&gt;Bromium&lt;/a&gt;, &lt;a href=&quot;https://cydarmedical.com/&quot;&gt;Cydar&lt;/a&gt;, &lt;a href=&quot;http://www.telensa.com/&quot;&gt;Telensa&lt;/a&gt; and &lt;a href=&quot;http://www.argondesign.com/&quot;&gt;Argon Design&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;img src=&quot;http://reynard.io/images/OverheadRotated.png&quot; alt=&quot;View from the top&quot; width=&quot;200&quot;/&gt;
+&lt;img src=&quot;http://reynard.io/images/Overhead2Rotated.png&quot; alt=&quot;More from the top&quot; width=&quot;200&quot;/&gt;
+&lt;br/&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Financial and trading companies often utilise software and hardware researched and developed at the Computer Lab, and this time OCaml was well represented by Jane Street and Aesthetic Integration.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;img src=&quot;http://reynard.io/images/JaneStreetRotated.png&quot; alt=&quot;Jane Street&quot; width=&quot;200&quot;/&gt;
+&lt;img src=&quot;http://reynard.io/images/AestheticIntegrationRotated.png&quot; alt=&quot;Aesthetic Integration&quot; width=&quot;200&quot;/&gt;
+&lt;br/&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.janestreet.com/&quot;&gt;Jane Street&lt;/a&gt; use OCaml and regularly release patches and features upstream. Their &lt;a href=&quot;https://blogs.janestreet.com/category/ocaml/&quot;&gt;Tech Blog&lt;/a&gt; details many of the OCaml features they use and develop in-house, and many of these are collaborative projects within the OCaml Labs. We work closely with their development team on compiler and runtime improvements, language features and teaching resources for interns and students.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.imandra.ai/&quot;&gt;Aesthetic Integration&lt;/a&gt; developed the Imandra Modelling Language (IML) which combines a programming language with mathematical verification logic to reason about a large scale system. IML is based on a subset of OCaml and introduces a powerful automated theorem proving engine which can be applied to a huge range of industry areas - currently financial markets.&lt;/p&gt;
+
+&lt;p&gt;I was excited to see such a huge range of innovative projects and opportunities for our students, and also excited by the future of possibilities the fair promised.&lt;/p&gt;
+</content><id>http://reynard.io/2016/11/18/CUCLFair.html</id><title type="text">CUCL Recruitment Fair 2016</title><updated>2016-11-18T00:00:00-00:00</updated><author><name>reynard</name></author></entry><entry><link href="http://reynard.io/2016/11/16/CompHack.html" rel="alternate"/><contributor><uri>http://reynard.io/feed.xml</uri><name>reynard</name></contributor><content type="html">&lt;p&gt;Thank you to everyone who attended the &lt;a href=&quot;http://reynard.io/2016/11/02/CompilerHack.html&quot;&gt;hack event&lt;/a&gt; last night! We had over 20 attendees who came to work on issues related to the &lt;a href=&quot;http://ocaml.org/&quot;&gt;OCaml&lt;/a&gt; compiler or &lt;a href=&quot;https://mirage.io/&quot;&gt;MirageOS&lt;/a&gt;, from varied organisations including the &lt;a href=&quot;https://www.cl.cam.ac.uk/&quot;&gt;University of Cambridge&lt;/a&gt;, &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt;, &lt;a href=&quot;https://www.janestreet.com/technology/&quot;&gt;Jane Street&lt;/a&gt;, &lt;a href=&quot;https://www.citrix.co.uk/&quot;&gt;Citrix&lt;/a&gt;, &lt;a href=&quot;https://www.uber.com/en-GB/cities/london/&quot;&gt;Uber&lt;/a&gt; and &lt;a href=&quot;http://www.hitachi.com/&quot;&gt;Hitachi&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;img src=&quot;http://reynard.io/images/CompHack9:11:16.JPG&quot; alt=&quot;Pembroke Hack Event&quot; width=&quot;200&quot;/&gt;
+&lt;img src=&quot;http://reynard.io/images/2CompHack9:11:16.JPG&quot; alt=&quot;Pembroke College&quot; width=&quot;200&quot;/&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Friendly conversation, wine and one eye on the &lt;a href=&quot;http://www.bbc.co.uk/news/election-us-2016-37932231&quot;&gt;political&lt;/a&gt; &lt;a href=&quot;http://www.databoxproject.uk/&quot;&gt;news&lt;/a&gt; of the day led to a productive evening of PRs, merges, documentation and project discussion.&lt;/p&gt;
+
+&lt;p&gt;Join us for our next hack event at Pembroke College on 7th February 2017, more details to follow.&lt;/p&gt;
+
+&lt;h3&gt;First commits&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Joel Jakubovic &lt;a href=&quot;https://github.com/ocaml/opam-repository/pulls/7789&quot;&gt;published&lt;/a&gt; his first OPAM package to finish his summer internship work. The &lt;code class=&quot;highlighter-rouge&quot;&gt;ansi-parse&lt;/code&gt; library converts ANSI escape sequences into human-readable HTML.&lt;/li&gt;
+  &lt;li&gt;Liang Wang released a new version of his numerical library &lt;a href=&quot;https://github.com/ryanrhymes/owl&quot;&gt;Owl&lt;/a&gt; into OPAM.  It supports sparse matrix operations, linear algebra and other statistical functions such as Markov chain Monte Carlo methods.  He also submitted his &lt;a href=&quot;https://github.com/mirage/mirage/pulls/662&quot;&gt;first PR&lt;/a&gt; to &lt;a href=&quot;https://mirage.io&quot;&gt;MirageOS&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Dhruv Makwana took on the &lt;a href=&quot;https://caml.inria.fr/mantis/view.php?id=6975&quot;&gt;Buffer.truncate&lt;/a&gt; junior_job tagged bug in Mantis and submitted his &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/902&quot;&gt;first PR&lt;/a&gt; to OCaml.&lt;/li&gt;
+  &lt;li&gt;Tadeu Zagallo took a look at the Mantis list and found a fix for &lt;a href=&quot;https://caml.inria.fr/mantis/view.php?id=6608&quot;&gt;functional record updates&lt;/a&gt; and submitted his &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/901&quot;&gt;first PR&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;MirageOS and OPAM&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Thomas Gazagnaire and Hannes Mehnert took the &lt;a href=&quot;https://github.com/avsm/mirage-ci&quot;&gt;mirage-ci&lt;/a&gt; and made it work on a local machine without needing a GitHub bridge.  Hannes also got it building locally on FreeBSD!&lt;/li&gt;
+  &lt;li&gt;Takayuki Imada worked through the &lt;a href=&quot;https://github.com/mirage/mirage-tcpip&quot;&gt;Mirage TCP/IP&lt;/a&gt; stack and started reading papers on &lt;a href=&quot;http://info.iet.unipi.it/~luigi/netmap/&quot;&gt;Netmap&lt;/a&gt; to build a pure OCaml version for Mirage networking.&lt;/li&gt;
+  &lt;li&gt;David Scott worked on a first OPAM release of the &lt;a href=&quot;https://github.com/docker/vpnkit&quot;&gt;VPNKit&lt;/a&gt;. This requires upstreaming some patches to related repositories so that there can be a stable release.&lt;/li&gt;
+  &lt;li&gt;Marcin Wojcik looked at the onboarding process of Mirage with Gemma and proposed a project on latency optimisation of running &lt;a href=&quot;https://www.torproject.org&quot;&gt;TOR&lt;/a&gt; protocol using MirageOS and NetFPGA for Tor nodes.&lt;/li&gt;
+  &lt;li&gt;Matt Harrison worked on some documentation and tweaking of the build setup for his dissertation project on personal data silos using MirageOS and updated a post on setting up Travis for an OCaml project.&lt;/li&gt;
+  &lt;li&gt;Jon Ludlam and Christian Lindig who visited from Citrix introduced us to Marcello Seri and talked about plans to use OPAM in the build process at Citrix and possible internship subjects that overlap with Jane Street and &lt;a href=&quot;http://reynard.io/ocaml.io&quot;&gt;OCaml Labs&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;OCaml&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Maxime Lesourd and Olivier Nicole found a junior job to work on &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on#signatured-open-command&quot;&gt;signatured open command&lt;/a&gt; and got about halfway through the process.&lt;/li&gt;
+  &lt;li&gt;Dave Tucker started using &lt;a href=&quot;https://github.com/ocamllabs/ocaml-ctypes&quot;&gt;ocaml-ctypes&lt;/a&gt; to build inverted stubs for MacOS X libraries for remote forwarding.&lt;/li&gt;
+  &lt;li&gt;Magnus Sjekgstad started work on OCaml bindings to the &lt;a href=&quot;https://github.com/MagnusS/ocaml-utun&quot;&gt;utun&lt;/a&gt; device.&lt;/li&gt;
+  &lt;li&gt;Gemma Gordon worked on the Merlin editor &lt;a href=&quot;https://github.com/the-lambda-church/merlin/projects/1&quot;&gt;project roadmap&lt;/a&gt; and &lt;a href=&quot;https://github.com/the-lambda-church/merlin/issues&quot;&gt;issue labelling&lt;/a&gt; workflow.&lt;/li&gt;
+  &lt;li&gt;David Allsopp reviewed and merged the &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/866&quot;&gt;PR&lt;/a&gt; related to merging build systems in the stdlib directory.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;Thanks to the people who provided updates on their work, and to Anil Madhavapeddy for co-authoring this article.&lt;/em&gt;&lt;/p&gt;
+</content><id>http://reynard.io/2016/11/16/CompHack.html</id><title type="text">Hack Event Nov 2016 - Activity Update</title><updated>2016-11-16T00:00:00-00:00</updated><author><name>reynard</name></author></entry></feed>

@@ -2,3 +2,7 @@
   @apply text-gray-400;
   content: "/";
 }
+
+.package-breadcrumbs .breadcrumbs-tag {
+  @apply text-sm px-3 py-0.5 rounded font-bold text-white inline-block;
+}

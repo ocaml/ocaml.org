@@ -24,9 +24,11 @@ let page_routes =
     [ Dream_dashboard.analytics (); Dream_encoding.compress ]
     [
       Dream.get Url.index Handler.index;
+      Dream.get Url.install Handler.install;
       Dream.get Url.learn Handler.learn;
       Dream.get Url.platform Handler.platform;
       Dream.get Url.community Handler.community;
+      Dream.get Url.changelog Handler.changelog;
       Dream.get (Url.success_story ":id") Handler.success_story;
       Dream.get Url.industrial_users Handler.industrial_users;
       Dream.get Url.academic_users Handler.academic_users;
@@ -36,9 +38,11 @@ let page_routes =
       Dream.get (Url.release ":id") Handler.release;
       Dream.get (Url.workshop ":id") Handler.workshop;
       Dream.get Url.blog Handler.blog;
+      Dream.get (Url.blog_post ":id") Handler.blog_post;
       Dream.get Url.news Handler.news;
       Dream.get (Url.news_post ":id") Handler.news_post;
       Dream.get Url.jobs Handler.jobs;
+      Dream.get Url.outreachy Handler.outreachy;
       Dream.get Url.carbon_footprint Handler.carbon_footprint;
       Dream.get Url.privacy_policy Handler.privacy_policy;
       Dream.get Url.governance Handler.governance;
@@ -73,6 +77,9 @@ let package_route t =
            ~version:":version")
         ((Handler.package_documentation t) Handler.Universe);
       Dream.get
+        (Url.Package.search_index ":name" ~version:":version" ~digest:":digest")
+        ((Handler.package_search_index t) Handler.Package);
+      Dream.get
         (Url.Package.file ":name" ~version:":version" ~filepath:"**")
         ((Handler.package_file t) Handler.Package);
       Dream.get
@@ -81,12 +88,14 @@ let package_route t =
         ((Handler.package_file t) Handler.Package);
     ]
 
+let sitemap_routes = Dream.scope "" [] [ Dream.get Url.sitemap Handler.sitemap ]
+
 let graphql_route t =
   Dream.scope ""
     [ Dream_encoding.compress ]
     [
-      Dream.any "/api" (Dream.graphql Lwt.return (Graphql.schema t));
-      Dream.get "/graphiql" (Dream.graphiql "/api");
+      Dream.any "/graphql" (Dream.graphql Lwt.return (Graphql.schema t));
+      Dream.get "/graphiql" (Dream.graphiql "/graphql");
     ]
 
 let router t =
@@ -97,6 +106,7 @@ let router t =
       page_routes;
       package_route t;
       graphql_route t;
+      sitemap_routes;
       Dream.scope ""
         [ Dream_encoding.compress ]
         [ Dream.get "/media/**" (Dream.static ~loader:media_loader "") ];

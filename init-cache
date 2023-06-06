@@ -1,0 +1,10 @@
+#!/bin/sh
+
+STATE=$1
+
+rm -f $STATE
+touch  $STATE
+opam exec -- dune exec src/ocamlorg_web/bin/main.exe &
+PID=$!
+echo PID=$PID
+inotifywait -e close_write $STATE

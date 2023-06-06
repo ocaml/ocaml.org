@@ -1,4 +1,5 @@
-open Ocamlorg.Import
+module Import = Import
+open Import
 module Name = OpamPackage.Name
 module Version = OpamPackage.Version
 module Info = Info
@@ -16,7 +17,6 @@ type state = {
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
   mutable stats : Statistics.t option;
-  mutable featured : t list option;
 }
 
 let mockup_state (pkgs : t list) =
@@ -35,7 +35,6 @@ let mockup_state (pkgs : t list) =
     packages;
     opam_repository_commit = None;
     stats = None;
-    featured = None;
   }
 
 let read_versions package_name versions =
@@ -70,11 +69,12 @@ let read_packages () =
 let try_load_state () =
   let exception Invalid_version in
   let state_path = Config.package_state_path in
+  Logs.info (fun m -> m "State cache file: %s" (Fpath.to_string state_path));
   try
     let channel = open_in (Fpath.to_string state_path) in
     Fun.protect
       (fun () ->
-        let v = Marshal.from_channel channel in
+        let v = (Marshal.from_channel channel : state) in
         if Info.version <> v.version then raise Invalid_version;
         Logs.info (fun f ->
             f "Package state loaded (%d packages, opam commit %s)"
@@ -89,7 +89,6 @@ let try_load_state () =
       version = Info.version;
       packages = Name.Map.empty;
       stats = None;
-      featured = None;
     }
 
 let save_state t =
@@ -125,18 +124,12 @@ let update ~commit t =
   let* packages = Info.of_opamfiles packages in
   Logs.info (fun f -> f "Computing packages statistics...");
   let+ stats = Statistics.compute packages in
-  let featured =
-    Ood.Packages.all.featured
-    |> List.filter_map (fun p -> get_latest' packages (Name.of_string p))
-  in
   t.packages <- packages;
   t.stats <- Some stats;
-  t.featured <- Some featured;
   Logs.info (fun m -> m "Loaded %d packages" (Name.Map.cardinal packages))
 
-let maybe_update t =
+let maybe_update t commit =
   let open Lwt.Syntax in
-  let* commit = Opam_repository.last_commit () in
   match t.opam_repository_commit with
   | Some v when v = commit -> Lwt.return ()
   | _ ->
@@ -144,35 +137,31 @@ let maybe_update t =
       let+ () = update ~commit t in
       save_state t
 
-let poll_for_opam_packages ~polling v =
+let rec poll_for_opam_packages ~polling v =
   let open Lwt.Syntax in
-  let rec updater () =
-    let* () = Lwt_unix.sleep (float_of_int polling) in
-    let* () =
-      Lwt.catch
-        (fun () ->
-          Logs.info (fun m -> m "Opam repo: git pull");
-          let* () = Opam_repository.pull () in
-          maybe_update v)
-        (fun exn ->
-          Logs.err (fun m ->
-              m "Failed to update the opam package list: %s"
-                (Printexc.to_string exn));
-          Lwt.return ())
-    in
-    updater ()
+  let* () = Lwt_unix.sleep (float_of_int polling) in
+  let* () =
+    Lwt.catch
+      (fun () ->
+        Logs.info (fun m -> m "Opam repo: git pull");
+        let* commit = Opam_repository.pull () in
+        maybe_update v commit)
+      (fun exn ->
+        Logs.err (fun m ->
+            m "Failed to update the opam package list: %s"
+              (Printexc.to_string exn));
+        Lwt.return ())
   in
-  updater ()
+  poll_for_opam_packages ~polling v
 
 let init ?(disable_polling = false) () =
+  let open Lwt.Syntax in
   let state = try_load_state () in
-  if Sys.file_exists (Fpath.to_string Config.opam_repository_path) then
-    Lwt.async (fun () -> maybe_update state)
-  else Lwt.async Opam_repository.clone;
-  if disable_polling then ()
-  else
-    Lwt.async (fun () ->
-        poll_for_opam_packages ~polling:Config.opam_polling state);
+  Lwt.async (fun () ->
+      let* commit = Opam_repository.(if exists () then pull else clone) () in
+      let* () = maybe_update state commit in
+      if disable_polling then Lwt.return_unit
+      else poll_for_opam_packages ~polling:Config.opam_polling state);
   state
 
 let all_latest t =
@@ -198,8 +187,6 @@ let get t name version =
   t.packages |> Name.Map.find_opt name |> fun x ->
   Option.bind x (Version.Map.find_opt version)
   |> Option.map (fun info -> { version; info; name })
-
-let featured t = t.featured
 
 module Documentation = struct
   type toc = { title : string; href : string; children : toc list }
@@ -355,6 +342,19 @@ let file ~kind t path =
   let url = package_url ^ path ^ ".json" in
   odoc_page ~url
 
+let search_index ~kind t =
+  let package_url =
+    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
+  in
+  let url = package_url ^ "index.js" in
+  let open Lwt.Syntax in
+  let* content = http_get url in
+  match content with
+  | Ok content -> Lwt.return (Some content)
+  | Error _ ->
+      Logs.info (fun m -> m "Failed to fetch search index at %s" url);
+      Lwt.return None
+
 let maybe_file ~kind t filename =
   let open Lwt.Syntax in
   let+ doc = file ~kind t filename in
@@ -436,7 +436,10 @@ module Search : sig
   type search_request
 
   val to_request : string -> search_request
-  val match_request : search_request -> t -> bool
+
+  val match_request :
+    is_author_match:(string -> string -> bool) -> search_request -> t -> bool
+
   val compare : search_request -> t -> t -> int
   val compare_by_popularity : search_request -> t -> t -> int
 end = struct
@@ -500,31 +503,25 @@ end = struct
     match_ f package.info.description pattern
 
   let match_author ?(f = String.contains_s) pattern package =
-    let match_opt s =
-      match s with Some s -> match_ f s pattern | None -> false
-    in
-    List.exists
-      (fun (author : Ood.Opam_user.t) ->
-        match_opt (Some author.name)
-        || match_opt author.email
-        || match_opt author.github_username)
-      package.info.authors
+    List.exists (fun tag -> match_ f tag pattern) package.info.authors
 
-  let match_constraint (package : t) (cst : search_constraint) =
+  let match_constraint ~is_author_match (package : t) (cst : search_constraint)
+      =
     match cst with
     | Tag pattern -> match_tag pattern package
     | Name pattern -> match_name pattern package
     | Synopsis pattern -> match_synopsis pattern package
     | Description pattern -> match_description pattern package
-    | Author pattern -> match_author pattern package
+    | Author pattern -> match_author ~f:is_author_match pattern package
     | Any pattern ->
-        match_author pattern package
+        match_author ~f:is_author_match pattern package
         || match_description pattern package
         || match_name pattern package
         || match_synopsis pattern package
         || match_tag pattern package
 
-  let match_request c package = List.for_all (match_constraint package) c
+  let match_request ~is_author_match c package =
+    List.for_all (match_constraint ~is_author_match package) c
 
   type score = {
     name : int;
@@ -589,11 +586,11 @@ end = struct
     Float.compare s2 s1
 end
 
-let search ?(sort_by_popularity = false) t query =
+let search ~is_author_match ?(sort_by_popularity = false) t query =
   let compare =
     Search.(if sort_by_popularity then compare_by_popularity else compare)
   in
   let request = Search.to_request query in
   all_latest t
-  |> List.filter (Search.match_request request)
+  |> List.filter (Search.match_request ~is_author_match request)
   |> List.sort (compare request)

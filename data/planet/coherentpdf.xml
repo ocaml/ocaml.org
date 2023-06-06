@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://coherentpdf.com/blog/?tag=ocaml&amp;feed=rss2</id><title type="text">coherentpdf</title><updated>2023-06-05T05:45:59-00:00</updated><entry><link href="https://coherentpdf.com/blog/?p=68" rel="alternate"/><contributor><uri>https://coherentpdf.com/blog/?tag=ocaml&amp;feed=rss2</uri><name>coherentpdf</name></contributor><content type="html">&lt;p&gt;The&amp;nbsp;&lt;code&gt;cpdf&lt;/code&gt;&amp;nbsp;tool has been available commercially since 2007, and is widely used in industry and government. The same technology is used in the&amp;nbsp;&lt;a href=&quot;http://www.coherentpdf.com/proview.html&quot;&gt;Proview PDF Editor&lt;/a&gt;&amp;nbsp;for the mac.&lt;/p&gt;
+&lt;p&gt;Now we&amp;rsquo;re releasing it for free, under a&amp;nbsp;special not-for-commercial-use license.&lt;/p&gt;
+&lt;p&gt;Binaries for Windows, Mac and Linux, OCaml source code, and full documentation are all available &lt;a href=&quot;http://community.coherentpdf.com/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The Coherent PDF Command Line Tools allow you to manipulate existing PDF files in a variety of ways. For example:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Merge PDF files together, or split them apart&lt;/li&gt;
+&lt;li&gt;Encrypt and decrypt&lt;/li&gt;
+&lt;li&gt;Scale, crop and rotate pages&lt;/li&gt;
+&lt;li&gt;Read and set document info and metadata&lt;/li&gt;
+&lt;li&gt;Copy, add or remove bookmarks&lt;/li&gt;
+&lt;li&gt;Stamp logos, text, dates, page numbers&lt;/li&gt;
+&lt;li&gt;Add or remove attachments&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+</content><id>https://coherentpdf.com/blog/?p=68</id><title type="text">Community Release of PDF Command Line Tools</title><updated>2013-09-05T13:15:21-00:00</updated><author><name>coherentpdf</name></author></entry><entry><link href="https://coherentpdf.com/blog/?p=60" rel="alternate"/><contributor><uri>https://coherentpdf.com/blog/?tag=ocaml&amp;feed=rss2</uri><name>coherentpdf</name></contributor><content type="html">&lt;p&gt;Some of our coherence 2D graphics renderer examples used to rely on being able to robustly intersect and union polygons.&lt;/p&gt;
+&lt;p&gt;For this, we used an interface to the &lt;a href=&quot;http://www.cs.man.ac.uk/~toby/gpc/&quot;&gt;General Polygon Clipper&lt;/a&gt;, which is a fast C library for such operations. Unfortunately, it&amp;rsquo;s only free for non-commercial use. And so, to use our OCaml interface in commercial applications, you need to obtain a license from the University of Manchester.&lt;/p&gt;
+&lt;p&gt;Our interface is up at &lt;a href=&quot;https://github.com/johnwhitington/camlgpc&quot;&gt;github&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The easiest way to install is through OPAM:&lt;/p&gt;
+&lt;p&gt;opam install camlgpc&lt;/p&gt;
+
+</content><id>https://coherentpdf.com/blog/?p=60</id><title type="text">CamlGPC: An interface to Alan Murta’s GPC Polygon Clipper</title><updated>2013-08-21T14:29:53-00:00</updated><author><name>coherentpdf</name></author></entry><entry><link href="https://coherentpdf.com/blog/?p=59" rel="alternate"/><contributor><uri>https://coherentpdf.com/blog/?tag=ocaml&amp;feed=rss2</uri><name>coherentpdf</name></contributor><content type="html">&lt;p&gt;I&amp;rsquo;ve been packaging up some little pieces of previously-released software as OPAM packages, hoping that will make them more widely used.&lt;/p&gt;
+&lt;p&gt;GraphicsPDF is just like Graphics, but it outputs a PDF file of the commands, instead of displaying them on screen.&lt;/p&gt;
+&lt;p&gt;The development repository is &lt;a href=&quot;https://github.com/johnwhitington/graphicspdf&quot;&gt;at github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The easiest way to install is through OPAM:&lt;/p&gt;
+&lt;p&gt;opam install graphicspdf&lt;/p&gt;
+&lt;p&gt;It was originally described in &lt;a href=&quot;https://coherentpdf.com/blog/?p=45&quot;&gt;this blog post&lt;/a&gt; some years ago.&lt;/p&gt;
+
+</content><id>https://coherentpdf.com/blog/?p=59</id><title type="text">GraphicsPDF: A version of Ocaml’s Graphics module which outputs PDF</title><updated>2013-08-21T13:50:15-00:00</updated><author><name>coherentpdf</name></author></entry><entry><link href="https://coherentpdf.com/blog/?p=58" rel="alternate"/><contributor><uri>https://coherentpdf.com/blog/?tag=ocaml&amp;feed=rss2</uri><name>coherentpdf</name></contributor><content type="html">&lt;p&gt;The first new release of the CamlPDF library for a while is here:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.github.com/johnwhitington/camlpdf&quot; class=&quot;moz-txt-link-freetext&quot;&gt;http://www.github.com/johnwhitington/camlpdf&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;(Or, shortly, via OPAM.)&lt;/p&gt;
+&lt;p&gt;The documentation is online here:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.coherentpdf.com/camlpdf&quot; class=&quot;moz-txt-link-freetext&quot;&gt;http://www.coherentpdf.com/camlpdf&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A little introduction is here:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.coherentpdf.com/introduction_to_camlpdf.pdf&quot; class=&quot;moz-txt-link-freetext&quot;&gt;http://www.coherentpdf.com/introduction_to_camlpdf.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Most importantly, CamlPDF is now open source, being under a standard  LGPL with linking exception licence.&lt;/p&gt;
+&lt;p&gt;This release is much cleaner: development has moved to Github for  transparency, ocamlfind is supported, and it should compile  out-of-the-box with no dependencies on Windows, Mac and Linux.  Documentation is much improved.&lt;/p&gt;
+&lt;p&gt;And, of course, there&amp;rsquo;s lots of new functionality, such as 256 bit AES  encryption, reading of malformed files, support for writing with object  streams, and new modules for merging files, bookmarks, destinations.  It&amp;rsquo;s also very much faster.&lt;/p&gt;
+&lt;p&gt;There have, however, been significant non-backward-compatible API  changes. These will be minimized in the future. Contact me directly or  via the Github issue system if you need help updating code from a  previous version.&lt;/p&gt;
+
+</content><id>https://coherentpdf.com/blog/?p=58</id><title type="text">CamlPDF 1.7</title><updated>2013-08-15T11:26:51-00:00</updated><author><name>coherentpdf</name></author></entry><entry><link href="https://coherentpdf.com/blog/?p=56" rel="alternate"/><contributor><uri>https://coherentpdf.com/blog/?tag=ocaml&amp;feed=rss2</uri><name>coherentpdf</name></contributor><content type="html">&lt;p&gt;I&amp;rsquo;ve written a concise but self-contained introduction to writing  computer programs with OCaml, suitable for the talented beginner to  programming, or someone trying functional programming or OCaml for the  first time.&lt;/p&gt;
+&lt;p&gt;On your local Amazon: &lt;a href=&quot;http://asin.info/a/0957671105&quot; class=&quot;moz-txt-link-freetext&quot;&gt;http://asin.info/a/0957671105&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;E-book: &lt;a href=&quot;http://www.ocaml-book.com&quot; class=&quot;moz-txt-link-freetext&quot;&gt;http://www.ocaml-book.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Sample chapters also at &lt;a href=&quot;http://www.ocaml-book.com&quot; class=&quot;moz-txt-link-freetext&quot;&gt;http://www.ocaml-book.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Thanks to all those who reviewed and proof-read earlier drafts.&lt;/p&gt;
+&lt;p&gt;Reviews on Amazon are always very useful &amp;ndash; my understanding is that if  you have an amazon account, you can review the book based on having read  the e-book, without buying a printed copy. Do please consider adding a  review, especially if you like the book!&lt;/p&gt;
+&lt;p&gt;Some of the data might not have yet propagated to all Amazon subsidiaries, but it ought to do so over the next few hours or days.&lt;/p&gt;
+
+</content><id>https://coherentpdf.com/blog/?p=56</id><title type="text">New book: OCaml from the Very Beginning</title><updated>2013-06-10T09:59:00-00:00</updated><author><name>coherentpdf</name></author></entry><entry><link href="https://coherentpdf.com/blog/?p=54" rel="alternate"/><contributor><uri>https://coherentpdf.com/blog/?tag=ocaml&amp;feed=rss2</uri><name>coherentpdf</name></contributor><content type="html">&lt;p&gt;Our new book about PDF has just been published. You can find it at &lt;a href=&quot;http://shop.oreilly.com/product/0636920021483.do&quot; title=&quot;PDF Explained&quot; target=&quot;_blank&quot;&gt;O&amp;rsquo;Reilly&amp;rsquo;s own site&lt;/a&gt; in printed and ebook form, or from Amazon and other booksellers.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;Here&amp;rsquo;s the publisher&amp;rsquo;s description:&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;At last, here&amp;rsquo;s an approachable introduction to the widely used Portable Document Format. PDFs are everywhere, both online and in printed form, but few people take advantage of the useful features or grasp the nuances of this format. This concise book provides a hands-on tour of the world&amp;rsquo;s leading page-description language for programmers, power users, and professionals in the search, electronic publishing, and printing industries. Illustrated with lots of examples, this book is the documentation you need to fully understand PDF.&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Build a simple PDF file from scratch in a text editor&lt;/li&gt;
+&lt;li&gt;Learn the layout and content of a PDF file, as well as the syntax of its objects&lt;/li&gt;
+&lt;li&gt;Examine the logical structure of PDF objects, and learn how pages and their resources are arranged into a document&lt;/li&gt;
+&lt;li&gt;Create vector graphics and raster images in PDF, and deal with transparency, color spaces, and patterns&lt;/li&gt;
+&lt;li&gt;Explore PDF operators for building and showing text strings&lt;/li&gt;
+&lt;li&gt;Get up to speed on bookmarks, metadata, hyperlinks, annotations, and file attachments&lt;/li&gt;
+&lt;li&gt;Learn how encryption and document permissions work in PDF&lt;/li&gt;
+&lt;li&gt;Use the pdftk program to process PDF files from the command line&lt;/li&gt;
+&lt;/ul&gt;
+
+</content><id>https://coherentpdf.com/blog/?p=54</id><title type="text">PDF Explained, now available from O’Reilly</title><updated>2011-12-11T11:45:45-00:00</updated><author><name>coherentpdf</name></author></entry><entry><link href="https://coherentpdf.com/blog/?p=53" rel="alternate"/><contributor><uri>https://coherentpdf.com/blog/?tag=ocaml&amp;feed=rss2</uri><name>coherentpdf</name></contributor><content type="html">&lt;p&gt;The latest version of our command line tools for processing PDF files has just been released.&lt;/p&gt;
+&lt;p&gt;New Feature Highlights:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Speed improvements on large, complex files&lt;/li&gt;
+&lt;li&gt;Many robustness improvements, deals with more malformed files&lt;/li&gt;
+&lt;li&gt;Detect low resolution images and missing fonts&lt;/li&gt;
+&lt;li&gt;Add text relative to cropbox, add diagonal text&lt;/li&gt;
+&lt;li&gt;Better support for non-ASCII character sets&lt;/li&gt;
+&lt;li&gt;Copy boxes (e.g media box, crop box)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div&gt;Updates to customers with support contracts will go out in the next week. The new demonstration version is available now from the &lt;a href=&quot;http://www.coherentpdf.com/&quot; title=&quot;PDF Command Line Tools&quot; target=&quot;_blank&quot;&gt;website&lt;/a&gt;.&lt;/div&gt;
+
+</content><id>https://coherentpdf.com/blog/?p=53</id><title type="text">PDF Command Line Tools 1.6</title><updated>2011-03-17T14:43:35-00:00</updated><author><name>coherentpdf</name></author></entry><entry><link href="https://coherentpdf.com/blog/?p=52" rel="alternate"/><contributor><uri>https://coherentpdf.com/blog/?tag=ocaml&amp;feed=rss2</uri><name>coherentpdf</name></contributor><content type="html">&lt;p&gt;Coherent Graphics Ltd is pleased to introduce a commercial, supported, faster pdf command line tool with the same interface as the popular open source PDFTK tool.&lt;/p&gt;
+&lt;p&gt;Download the demo &lt;a href=&quot;http://www.coherentpdf.com/pdftk/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Merge PDFs&lt;/li&gt;
+&lt;li&gt;Split into mutiple pages&lt;/li&gt;
+&lt;li&gt;Rotate pages&lt;/li&gt;
+&lt;li&gt;Decrypt and Encrypt Documents&lt;/li&gt;
+&lt;li&gt;Apply background watermarks and foreground stamps&lt;/li&gt;
+&lt;li&gt;List and update Metadata&lt;/li&gt;
+&lt;li&gt;Attach files to the document or individual pages&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For Mac OS X, Windows, Linux, Solaris. Other plaforms by request. Coherent PDF CPDFTK 1.6 is available for $200 for a single license or $40 for a non-commercial use license.&lt;/p&gt;
+&lt;p&gt;The free trial is fully functional but places the word &amp;ldquo;DEMO&amp;rdquo; over any file it writes.&lt;/p&gt;
+
+</content><id>https://coherentpdf.com/blog/?p=52</id><title type="text">CPDFTK: Supported, Faster PDFTK</title><updated>2010-12-07T13:08:02-00:00</updated><author><name>coherentpdf</name></author></entry><entry><link href="https://coherentpdf.com/blog/?p=51" rel="alternate"/><contributor><uri>https://coherentpdf.com/blog/?tag=ocaml&amp;feed=rss2</uri><name>coherentpdf</name></contributor><content type="html">&lt;p&gt;We&amp;rsquo;re writing a front end for our PDF tools with the same command line interface as &lt;a href=&quot;http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/&quot;&gt;pdftk&lt;/a&gt;, so that it can be used as a drop-in replacement for pdftk for people who can&amp;rsquo;t compile pdftk on their system and don&amp;rsquo;t want to change to our normal command line system cpdf, or who want a supported, commercial pdftk.&lt;/p&gt;
+&lt;p&gt;We&amp;rsquo;re looking for people who used pdftk regularly, either manually or as part of automated systems, to join in testing.&lt;/p&gt;
+&lt;p&gt;If you&amp;rsquo;re interested please use the contact form on the front page at &lt;a href=&quot;http://www.coherentpdf.com/&quot;&gt; http://www.coherentpdf.com/&lt;/a&gt; and send a couple of sentences about how you use pdftk. &lt;/p&gt;
+
+</content><id>https://coherentpdf.com/blog/?p=51</id><title type="text">Commercial, Supported, Faster PDFtk – Beta Testers Wanted</title><updated>2010-11-08T19:16:34-00:00</updated><author><name>coherentpdf</name></author></entry><entry><link href="https://coherentpdf.com/blog/?p=49" rel="alternate"/><contributor><uri>https://coherentpdf.com/blog/?tag=ocaml&amp;feed=rss2</uri><name>coherentpdf</name></contributor><content type="html">&lt;p&gt;The new version of the &lt;a href=&quot;http://www.coherentpdf.com/proview.html&quot;&gt;Proview PDF Editor&lt;/a&gt; for Mac OS X is now available for download. The update is free for existing users &amp;ndash; your license key will still work &amp;ndash; just download and install from the website.&lt;/p&gt;
+&lt;p&gt;New features include Visual Crop and the setting of crop and trim boxes on individual pages. It&amp;rsquo;s also about twice as fast as before.&lt;/p&gt;
+
+</content><id>https://coherentpdf.com/blog/?p=49</id><title type="text">Proview PDF Editor 1.2 Released</title><updated>2010-08-18T11:35:08-00:00</updated><author><name>coherentpdf</name></author></entry></feed>

@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://rwmj.wordpress.com/tag/ocaml/feed/</id><title type="text">rjones</title><updated>2023-06-05T05:46:01-00:00</updated><entry><link href="https://rwmj.wordpress.com/2020/04/24/ocaml-risc-v-port-is-now-upstream/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/commit/8f3833c4d0ef656c826359f4137c1eb3d46ea0ef&quot;&gt;https://github.com/ocaml/ocaml/commit/8f3833c4d0ef656c826359f4137c1eb3d46ea0ef&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;We&amp;rsquo;ve been &lt;a href=&quot;https://rwmj.wordpress.com/2016/11/19/ocaml-4-04-risc-v-s390-power-and-more/&quot;&gt;using this patch in Fedora since Nov 2016&lt;/a&gt;.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2020/04/24/ocaml-risc-v-port-is-now-upstream/</id><title type="text">OCaml RISC-V port is now upstream!</title><updated>2020-04-24T14:34:36-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2017/06/04/new-in-libguestfs-rewriting-bits-of-the-daemon-in-ocaml/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;http://libguestfs.org/&quot;&gt;libguestfs&lt;/a&gt; is a C library for creating and editing disk images.  In the most common (but not the only) configuration, it uses KVM to sandbox access to disk images.  The C library talks to a separate daemon running inside a KVM appliance, as in this Unicode-art diagram taken from the &lt;a href=&quot;http://libguestfs.org/guestfs-internals.1.html#architecture&quot;&gt;fine manual&lt;/a&gt;:&lt;/p&gt;
+&lt;pre&gt;
+ &amp;#9484;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9488;
+ &amp;#9474; main program      &amp;#9474;
+ &amp;#9474;                   &amp;#9474;
+ &amp;#9474;                   &amp;#9474;           child process / appliance
+ &amp;#9474;                   &amp;#9474;          &amp;#9484;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9488;
+ &amp;#9474;                   &amp;#9474;          &amp;#9474; qemu                     &amp;#9474;
+ &amp;#9500;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9508;   RPC    &amp;#9474;      &amp;#9484;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9488; &amp;#9474;
+ &amp;#9474; libguestfs  &amp;#9664;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9549;&amp;#9654; guestfsd        &amp;#9474; &amp;#9474;
+ &amp;#9474;                   &amp;#9474;          &amp;#9474;      &amp;#9500;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9508; &amp;#9474;
+ &amp;#9492;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9496;          &amp;#9474;      &amp;#9474; Linux kernel    &amp;#9474; &amp;#9474;
+                                &amp;#9474;      &amp;#9492;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9516;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9496; &amp;#9474;
+                                &amp;#9492;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9474;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9496;
+                                                &amp;#9474;
+                                                &amp;#9474; virtio-scsi
+                                         &amp;#9484;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9524;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9488;
+                                         &amp;#9474;  Device or  &amp;#9474;
+                                         &amp;#9474;  disk image &amp;#9474;
+                                         &amp;#9492;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9472;&amp;#9496;
+&lt;/pre&gt;
+&lt;p&gt;The library has to be written in C because it needs to be linked to any main program.  The daemon (&lt;code&gt;guestfsd&lt;/code&gt; in the diagram) is also written in C.  But there&amp;rsquo;s not so much a specific reason for that, except that&amp;rsquo;s what we did historically.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/libguestfs/libguestfs/tree/master/daemon&quot;&gt;The daemon is essentially a big pile of functions&lt;/a&gt;, most corresponding to a libguestfs API.  Writing the daemon in C is painful to say the least.  Because it&amp;rsquo;s a long-running process running in a memory-constrained environment, we have to be very careful about memory management, religiously checking every return from &lt;code&gt;malloc&lt;/code&gt;, &lt;code&gt;strdup&lt;/code&gt; etc., making even the simplest task non-trivial and full of untested code paths.&lt;/p&gt;
+&lt;p&gt;So last week I modified libguestfs so you can now write APIs in &lt;a href=&quot;https://ocaml.org/&quot;&gt;OCaml&lt;/a&gt; if you want to.  OCaml is a high level language that compiles down to object files, and it&amp;rsquo;s entirely possible to link the daemon from a mix of C object files and OCaml object files.  Another advantage of OCaml is that you can call from C &lt;img src=&quot;https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/2194.png&quot; alt=&quot;&amp;harr;&quot; class=&quot;wp-smiley&quot; style=&quot;height: 1em; max-height: 1em;&quot;/&gt; OCaml with relatively little glue code (although a &lt;i&gt;dis&lt;/i&gt;advantage is that you still need to write that glue mostly by hand).  Most &lt;a href=&quot;https://camltastic.blogspot.co.uk/2008/08/tip-calling-c-functions-directly-with.html&quot;&gt;simple calls turn into direct CALL instructions&lt;/a&gt; with just a simple bitshift required to convert between ints and bools on the C and OCaml sides.  More complex calls passing strings and structures are not too difficult either.&lt;/p&gt;
+&lt;p&gt;OCaml also turns memory errors into a single exception, which unwinds the stack cleanly, so we don&amp;rsquo;t litter the code with memory handling.  We can still run the mixed C/OCaml binary under valgrind.&lt;/p&gt;
+&lt;p&gt;Code gets quite a bit shorter.  For example the &lt;a href=&quot;http://libguestfs.org/guestfs.3.html#guestfs_case_sensitive_path&quot;&gt;case_sensitive_path&lt;/a&gt; API &amp;mdash; all string handling and directory lookups &amp;mdash; &lt;a href=&quot;https://www.redhat.com/archives/libguestfs/2017-June/msg00019.html&quot;&gt;goes from 183 lines of C code to 56 lines of OCaml code&lt;/a&gt; (and much easier to understand too).&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m reimplementing a few APIs in OCaml, but the plan is definitely not to convert them all.  I think we&amp;rsquo;ll have C and OCaml APIs in the daemon for a very long time to come.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2017/06/04/new-in-libguestfs-rewriting-bits-of-the-daemon-in-ocaml/</id><title type="text">New in libguestfs: Rewriting bits of the daemon in OCaml</title><updated>2017-06-04T13:14:17-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2016/11/19/ocaml-4-04-risc-v-s390-power-and-more/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;I pushed &lt;a href=&quot;https://ocaml.org/releases/4.04.html&quot;&gt;OCaml 4.04.0&lt;/a&gt; &lt;a href=&quot;https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/X63CN5B7FMFES3SCQKVUWTQO6TGVK7KU/&quot;&gt;to Fedora Rawhide&lt;/a&gt; last week.  There are loads of new features for OCaml users, but the ones that particularly affect Fedora are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt; New, upstream POWER (ppc64, ppc64le) backend, replacing the downstream one that we have maintained for a few years.  I was quite apprehensive about this change because I had tried the new backend during the OCaml 4.03 release cycle and found it to be quite unstable.  However the latest version looks rock solid and has no problem compiling the entire Fedora+OCaml software suite.
+&lt;/li&gt;&lt;li&gt; New, upstream S/390x backend.  I actually &lt;a href=&quot;https://caml.inria.fr/mantis/view.php?id=7405&quot;&gt;found and fixed&lt;/a&gt; a bug, go me!
+&lt;/li&gt;&lt;li&gt; New, &lt;a href=&quot;https://github.com/nojb/riscv-ocaml&quot;&gt;non-upstream RISC-V backend&lt;/a&gt;.  I &lt;a href=&quot;https://github.com/nojb/riscv-ocaml/issues/1&quot;&gt;found a bug&lt;/a&gt; in this backend too, but it proved to be easy to fix.  You can now install and run most of the OCaml packages &lt;a href=&quot;https://fedoraproject.org/wiki/Architectures/RISC-V&quot;&gt;on Fedora/RISC-V&lt;/a&gt;.
+&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;And talking about Fedora/RISC-V, it took a month, but the &lt;a href=&quot;https://fedorapeople.org/groups/risc-v/logs/status-2.html&quot;&gt;mass-rebuild of all Fedora packages&lt;/a&gt; completed, and now we&amp;rsquo;ve got about &amp;#8532;rds of all Fedora packages available for RISC-V.  That&amp;rsquo;s quite a lot:&lt;/p&gt;
+&lt;pre&gt;
+$ &lt;b&gt;du -sh SRPMS/ RPMS/&lt;/b&gt;
+&lt;b&gt;31G&lt;/b&gt;	&lt;a href=&quot;https://fedorapeople.org/groups/risc-v/SRPMS/&quot;&gt;SRPMS/&lt;/a&gt;
+&lt;b&gt;27G&lt;/b&gt;	&lt;a href=&quot;https://fedorapeople.org/groups/risc-v/RPMS/&quot;&gt;RPMS/&lt;/a&gt;
+&lt;/pre&gt;
+</content><id>https://rwmj.wordpress.com/2016/11/19/ocaml-4-04-risc-v-s390-power-and-more/</id><title type="text">OCaml 4.04, RISC-V, S/390, POWER and more …</title><updated>2016-11-19T14:46:11-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2016/01/08/half-baked-ideas-c-strings-with-implicit-length-field/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;&lt;i&gt;For more half-baked ideas, see &lt;a href=&quot;https://rwmj.wordpress.com/tag/ideas/&quot;&gt;the ideas tag&lt;/a&gt;.&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;If you prefer just to see the code, then it&amp;rsquo;s &lt;a href=&quot;http://git.annexia.org/?p=ilenstr.git%3Ba=summary&quot;&gt;here&lt;/a&gt;.&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;Chris Siebenmann wrote a couple of interesting articles about &lt;a href=&quot;https://utcc.utoronto.ca/~cks/space/blog/programming/CNullStringsDefense&quot;&gt;C&amp;rsquo;s null terminated strings&lt;/a&gt; and &lt;a href=&quot;https://utcc.utoronto.ca/~cks/space/blog/unix/UnixEarlyStrings&quot;&gt;how they pre-date C&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Chris notes an alternative is a length + string representation, as used in Pascal.  Although there are libraries for this in C, there are several drawbacks and approximately no one uses them.&lt;/p&gt;
+&lt;p&gt;However it&amp;rsquo;s possible to have the best of both worlds: &lt;b&gt;Strings using an &lt;i&gt;implicit length field&lt;/i&gt; that takes up no extra storage.  These strings are backwards compatible with ordinary C strings &amp;mdash; you can literally pass them to legacy functions or cast them to &lt;code&gt;char&amp;nbsp;*&lt;/code&gt; &amp;mdash; yet the equivalent of a strlen operation is O(1).&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;There are two ideas here: Firstly, when you use the C malloc function, &lt;a href=&quot;https://stackoverflow.com/questions/5813078/is-it-possible-to-find-the-memory-allocated-to-the-pointer-without-searching-fo/5813450#5813450&quot;&gt;malloc stashes some extra metadata about your allocation&lt;/a&gt;, and with most malloc implementations there is a function to obtain the size of the allocation from a pointer.  In glibc, the function is called &lt;code&gt;malloc_usable_size&lt;/code&gt;.  Note that because of alignment concerns, the amount allocated is usually larger than the amount you originally requested.&lt;/p&gt;
+&lt;p&gt;The second idea comes from OCaml.  &lt;a href=&quot;https://rwmj.wordpress.com/2009/08/05/ocaml-internals-part-2-strings-and-other-types/&quot;&gt;OCaml stores strings in a clever internal representation&lt;/a&gt; which is both backwards compatible with C (a fancy way to say they are null terminated), and it allows you to get the real length of the string even though OCaml &amp;mdash; like C &amp;mdash; allocates more than requested for alignment reasons.&lt;/p&gt;
+&lt;p&gt;So here&amp;rsquo;s how we do it: When allocating an &amp;ldquo;implicit length string&amp;rdquo; (&lt;code&gt;ilenstr&lt;/code&gt;) we store extra data in the final byte of the &amp;ldquo;full&amp;rdquo; malloced space, in the byte marked &lt;b&gt;B&lt;/b&gt; in the diagram below:&lt;/p&gt;
+&lt;pre&gt;
++-------------------------+----+------------+----+
+| the string              | \0 |   ....     | B  |
++-------------------------+----+------------+----+
+&amp;lt;----- malloc we requested ----&amp;gt;
+&amp;lt;----------- malloc actually allocated ----------&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;If malloc allocated exactly the same amount of space as is used by our string + terminating null, then B is simply the terminating &lt;code&gt;\0&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;
++-------------------------+----+
+| the string              | \0 |
++-------------------------+----+
+&lt;/pre&gt;
+&lt;p&gt;If malloc allocated 1 spare byte, we store B = 1:&lt;/p&gt;
+&lt;pre&gt;
++-------------------------+----+----+
+| the string              | \0 | 1  |
++-------------------------+----+----+
+&lt;/pre&gt;
+&lt;p&gt;If malloc allocated 4 spare bytes, we store B = 4:&lt;/p&gt;
+&lt;pre&gt;
++-------------------------+----+----+----+----+----+
+| the string              | \0 |   ....       | 4  |
++-------------------------+----+----+----+----+----+
+&lt;/pre&gt;
+&lt;p&gt;Getting the true length of the string is simply a matter of asking malloc for the allocated length (ie. calling &lt;code&gt;malloc_usable_size&lt;/code&gt;), finding the last byte (B) and subtracting it.  So we can get the true string length in an O(1) operation (usually, although this may depend on your malloc implementation).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ilenstr&lt;/code&gt; strings can contain &lt;code&gt;\0&lt;/code&gt; characters within the string.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ilenstr&lt;/code&gt; strings are also backwards compatible, in that we can pass one to any &amp;ldquo;legacy&amp;rdquo; C function, and assuming the string itself doesn&amp;rsquo;t contain any &lt;code&gt;\0&lt;/code&gt; inside it, everything just works.&lt;/p&gt;
+&lt;p&gt;Alright.  This is terrible.  &lt;b&gt;DO NOT USE IT IN PRODUCTION CODE!&lt;/b&gt;  It breaks all kinds of standards, is unportable etc.  There are security issues with allowing \0-containing strings to be passed to legacy functions.  Still, it&amp;rsquo;s a nice idea.  With proper cooperation from libc, standards authorities and so on, it could be made to work.&lt;/p&gt;
+&lt;p&gt;Here is my git repo:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://git.annexia.org/?p=ilenstr.git%3Ba=summary&quot;&gt;http://git.annexia.org/?p=ilenstr.git;a=summary&lt;/a&gt;&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2016/01/08/half-baked-ideas-c-strings-with-implicit-length-field/</id><title type="text">Half-baked ideas: C strings with implicit length field</title><updated>2016-01-08T17:12:06-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2015/06/19/new-in-nbdkit-1-1-10-ocaml-plugins/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/libguestfs/nbdkit/blob/master/plugins/ocaml/nbdkit-ocaml-plugin.pod&quot;&gt;You can now write OCaml plugins&lt;/a&gt; for &lt;a href=&quot;https://github.com/libguestfs/nbdkit&quot;&gt;nbdkit&lt;/a&gt; &amp;ndash; the liberally licensed NBD server.  You will, however, need OCaml &amp;ge; 4.02.2+rc1 because of &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=6693&quot;&gt;this fix&lt;/a&gt;.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2015/06/19/new-in-nbdkit-1-1-10-ocaml-plugins/</id><title type="text">New in nbdkit 1.1.10: OCaml plugins</title><updated>2015-06-19T13:29:54-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2015/03/23/mini-cloudcluster-v2-0/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;https://rwmj.wordpress.com/2014/05/09/mini-cluster-mclu-command-line-tool/#content&quot;&gt;Last year&lt;/a&gt; I wrote and &lt;a href=&quot;https://rwmj.wordpress.com/2014/05/12/mini-cluster-mclu-rewritten-to-use-ansible/#content&quot;&gt;rewrote&lt;/a&gt; a little command line tool for managing my &lt;a href=&quot;https://rwmj.wordpress.com/2014/04/28/caseless-virtualization-cluster-part-5/#content&quot;&gt;virtualization cluster&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Of course I could use &lt;a href=&quot;https://www.rdoproject.org/&quot;&gt;OpenStack RDO&lt;/a&gt; but OpenStack is a vast box of somewhat working bits and pieces. I think for a small cluster like mine you can get the essential functionality of OpenStack a lot more simply &amp;mdash; in 1300 lines of code as it turns out.&lt;/p&gt;
+&lt;p&gt;The first thing that small cluster management software &lt;b&gt;doesn&amp;rsquo;t&lt;/b&gt; need is any permanent daemon running on the nodes. The reason is that we already have &lt;a href=&quot;https://en.wikipedia.org/wiki/Secure_Shell&quot;&gt;sshd&lt;/a&gt; (for secure management access) and &lt;a href=&quot;https://libvirt.org/remote.html&quot;&gt;libvirtd&lt;/a&gt; (to manage the guests) out of the box.  That&amp;rsquo;s quite sufficient to manage all the state we care about. &lt;a href=&quot;http://git.annexia.org/?p=mclu.git%3Ba=summary&quot;&gt;My Mini Cloud/Cluster&lt;/a&gt; software just goes out and queries each node for that information whenever it needs it (in parallel of course).  Nodes that are switched off are handled by ignoring them.&lt;/p&gt;
+&lt;p&gt;The second thing is that for a small cloud we can toss features that aren&amp;rsquo;t needed at all: multi-user/multi-tenant, failover, VLANs, a nice GUI.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;http://git.annexia.org/?p=mclu.git%3Ba=summary&quot;&gt;old mclu (Mini Cluster) v1.0&lt;/a&gt; was written in Python and used &lt;a href=&quot;https://rwmj.wordpress.com/2014/05/12/mini-cluster-mclu-rewritten-to-use-ansible/#content&quot;&gt;Ansible&lt;/a&gt; to query nodes. If you&amp;rsquo;re not familiar with Ansible, it&amp;rsquo;s basically parallel ssh on steroids. This was convenient to get the implementation working, but I ended up &lt;a href=&quot;http://git.annexia.org/?p=mclu.git%3Ba=blob%3Bf=parallel.ml%3Bhb=HEAD&quot;&gt;rewriting this essential feature of Ansible in ~ 60 lines of code&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The huge down-side of Python is that even such a small program has loads of hidden bugs, because there&amp;rsquo;s no safety at all. The rewrite (in OCaml) is 1,300 lines of code, so a fraction larger, but I have a far higher confidence that it is mostly bug free.&lt;/p&gt;
+&lt;p&gt;I also changed around the way the software works to make it more &amp;ldquo;cloud like&amp;rdquo; (and hence the name change from &amp;ldquo;Mini Cluster&amp;rdquo; to &amp;ldquo;Mini Cloud&amp;rdquo;). Guests are now created from templates &lt;a href=&quot;http://libguestfs.org/virt-builder.1.html&quot;&gt;using virt-builder&lt;/a&gt;, and are stateless &amp;ldquo;cattle&amp;rdquo; (although you can mix in &amp;ldquo;pets&amp;rdquo; and mclu will manage those perfectly well because all it&amp;rsquo;s doing is remote libvirt-over-ssh commands).&lt;/p&gt;
+&lt;pre&gt;
+$ &lt;b&gt;mclu status&lt;/b&gt;
+ham0                     on
+                           total: 8pcpus 15.2G
+                            used: 8vcpus 8.0G by 2 guest(s)
+                            free: 6.2G
+ham1                     on
+                           total: 8pcpus 15.2G
+                            free: 14.2G
+ham2                     on
+                           total: 8pcpus 30.9G
+                            free: 29.9G
+ham3                     off
+&lt;/pre&gt;
+&lt;p&gt;You can grab &lt;a href=&quot;http://git.annexia.org/?p=mclu.git%3Ba=summary&quot;&gt;mclu v2.0 from the git repository&lt;/a&gt;.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2015/03/23/mini-cloudcluster-v2-0/</id><title type="text">Mini Cloud/Cluster v2.0</title><updated>2015-03-23T14:26:06-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2014/08/29/virt-v2v-better-living-through-new-technology/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;If you ever used the old version of &lt;a href=&quot;http://libguestfs.org/virt-v2v/&quot;&gt;virt-v2v&lt;/a&gt;, our software that converts guests to run on KVM, then you probably found it slow, but worse still it was slow and could fail at the end of the conversion (after possibly an hour or more).  No one liked that, least of all the developers and support people who had to help people use it.&lt;/p&gt;
+&lt;p&gt;A V2V conversion is intrinsically going to take a long time, because it always involves copying huge disk images around.  These can be gigabytes or even terabytes in size.&lt;/p&gt;
+&lt;p&gt;My main aim with the rewrite was to do all the work up front (and if the conversion is going to fail, then fail early), and leave the huge copy to the last step.  The second aim was to work much harder to minimize the amount of data that we need to copy, so the copy is quicker.  I achieved both of these aims using a lot of new technology that we developed for qemu in RHEL 7.&lt;/p&gt;
+&lt;p&gt;Virt-v2v works (now) by putting an overlay on top of the source disk.  This overlay protects the source disk from being modified.  All the writes done to the source disk during conversion (eg. modifying config files and adding device drivers) are saved into the overlay.  Then we &lt;a href=&quot;http://linux.die.net/man/1/qemu-img&quot;&gt;qemu-img convert&lt;/a&gt; the overlay to the final target.  Although this sounds simple and possibly obvious, none of this could have been done when we wrote old virt-v2v.  It is possible now because:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt; qcow2 overlays can now have virtual backing files that come from HTTPS or &lt;a href=&quot;https://rwmj.wordpress.com/2013/03/21/qemu-ssh-block-device/#content&quot;&gt;SSH&lt;/a&gt; sources.  This allows us to place the overlay on top of (eg) a VMware vCenter Server source without having to copy the whole disk from the source first.
+&lt;/li&gt;&lt;li&gt; qcow2 overlays can perform copy-on-read.  This means you only need to read each block of data from the source once, and then it is cached in the overlay, making things much faster.
+&lt;/li&gt;&lt;li&gt; qemu now has excellent &lt;a href=&quot;https://rwmj.wordpress.com/2014/03/13/new-in-virt-sparsify-in-place-sparsification/#content&quot;&gt;discard and trim support&lt;/a&gt;.  To minimize the amount of data that we copy, we first &lt;a href=&quot;http://libguestfs.org/guestfs.3.html#guestfs_fstrim&quot;&gt;fstrim the filesystems&lt;/a&gt;.  This causes the overlay to remember which bits of the filesystem are used and only copy those bits.
+&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;https://www.mail-archive.com/ntfs-3g-devel@lists.sourceforge.net/msg01060.html&quot;&gt;I added support for fstrim to ntfs-3g&lt;/a&gt; so this works for Windows guests too.
+&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;http://libguestfs.org/guestfs.3.html#remote-storage&quot;&gt;libguestfs has support for remote storage&lt;/a&gt;, &lt;a href=&quot;https://rwmj.wordpress.com/2013/09/02/new-in-libguestfs-allow-cache-mode-to-be-selected/#content&quot;&gt;cachemode&lt;/a&gt;, discard, copy-on-read and more, meaning we can use all these features in virt-v2v.
+&lt;/li&gt;&lt;li&gt; We use OCaml &amp;mdash; not C, and not type-unsafe languages &amp;mdash; to ensure that the compiler is helping us to find bugs in the code that we write, and also to ensure that we end up with an optimized, standalone binary that requires no runtime support/interpreters and can be shipped everywhere.
+&lt;/li&gt;&lt;/ul&gt;
+</content><id>https://rwmj.wordpress.com/2014/08/29/virt-v2v-better-living-through-new-technology/</id><title type="text">virt-v2v: better living through new technology</title><updated>2014-08-29T21:26:08-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2014/07/23/libguestfs-now-works-on-64-bit-arm/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;https://rwmj.files.wordpress.com/2014/07/arm.jpg&quot;&gt;&lt;img src=&quot;https://rwmj.files.wordpress.com/2014/07/arm.jpg?w=500&quot; data-attachment-id=&quot;5374&quot; data-permalink=&quot;https://rwmj.wordpress.com/2014/07/23/libguestfs-now-works-on-64-bit-arm/arm/&quot; data-orig-file=&quot;https://rwmj.files.wordpress.com/2014/07/arm.jpg&quot; data-orig-size=&quot;320,240&quot; data-comments-opened=&quot;1&quot; data-image-meta=&quot;{&amp;quot;aperture&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;credit&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;camera&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;caption&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;created_timestamp&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;copyright&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;focal_length&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;iso&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;shutter_speed&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;title&amp;quot;:&amp;quot;&amp;quot;}&quot; data-image-title=&quot;arm&quot; data-image-description=&quot;&quot; data-image-caption=&quot;&quot; data-medium-file=&quot;https://rwmj.files.wordpress.com/2014/07/arm.jpg?w=320&quot; data-large-file=&quot;https://rwmj.files.wordpress.com/2014/07/arm.jpg?w=320&quot; alt=&quot;arm&quot; class=&quot;aligncenter size-full wp-image-5374&quot; srcset=&quot;https://rwmj.files.wordpress.com/2014/07/arm.jpg 320w, https://rwmj.files.wordpress.com/2014/07/arm.jpg?w=150 150w&quot; sizes=&quot;(max-width: 320px) 100vw, 320px&quot;/&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Pictured above is my 64 bit ARM server.  It&amp;rsquo;s under NDA so I cannot tell you who supplied it or even show you a proper photo.&lt;/p&gt;
+&lt;p&gt;However it runs Fedora 21 &amp;amp; Rawhide:&lt;/p&gt;
+&lt;pre&gt;
+Linux arm64.home.annexia.org 3.16.0-0.rc6.git1.1.efirtcfix1.fc22.aarch64 #1 SMP Wed Jul 23 12:15:58 BST 2014 aarch64 aarch64 aarch64 GNU/Linux
+&lt;/pre&gt;
+&lt;p&gt;libvirt and libguestfs run fine, with full KVM acceleration, although right now you have to use qemu from git as the Rawhide version of qemu is not new enough.&lt;/p&gt;
+&lt;p&gt;Also OCaml 4.02.0 beta works (after we found and fixed a few bugs in the arm64 native code generator last week).&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2014/07/23/libguestfs-now-works-on-64-bit-arm/</id><title type="text">libguestfs now works on 64 bit ARM</title><updated>2014-07-23T20:49:26-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2014/05/28/pgocaml-2-0-has-been-released/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;http://pgocaml.forge.ocamlcore.org/&quot;&gt;PG&amp;rsquo;OCaml&lt;/a&gt; is a type-safe macro binding to PostgreSQL from OCaml that I wrote many moons ago.&lt;/p&gt;
+&lt;p&gt;You can write code like:&lt;/p&gt;
+&lt;pre&gt;
+let hostid = 33 in
+let name = &amp;quot;john.smith&amp;quot; in
+let rows = PGSQL(dbh)
+    &amp;quot;select id, subject from contacts
+     where hostid = $hostid and name = $name&amp;quot;
+&lt;/pre&gt;
+&lt;p&gt;and the compiler checks (at compile time) that &lt;code&gt;hostid&lt;/code&gt; and &lt;code&gt;name&lt;/code&gt; have the correct types in the program to match the database schema.  And it&amp;rsquo;ll ensure that the type of &lt;code&gt;rows&lt;/code&gt; is something like &lt;code&gt;(int * string) list&lt;/code&gt;, and integrate that with type inference in the rest of the program.&lt;/p&gt;
+&lt;p&gt;The program won&amp;rsquo;t compile if you use the wrong types.  It integrates OCaml&amp;rsquo;s type safety and type inference with the PostgreSQL database engine.&lt;/p&gt;
+&lt;p&gt;It also avoids SQL injection by automatically creating a safe prepared statement.  What is executed when the program runs will have: &lt;code&gt;... where hostid = ? and name = ?&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;As a side-effect of the type checking, it also verifies that the SQL code is syntactically correct.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2014/05/28/pgocaml-2-0-has-been-released/</id><title type="text">PG’OCaml 2.0 has been released</title><updated>2014-05-28T16:57:56-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2013/12/31/fedora-21-has-a-working-ocaml-arm64/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;&lt;b&gt;Update:&lt;/b&gt; Thanks to Peter Robinson, there is now a &lt;a href=&quot;http://arm.koji.fedoraproject.org/koji/buildinfo?buildID=183283&quot;&gt;build of OCaml for aarch64 in the Fedora repository&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I have &lt;a href=&quot;https://git.fedorahosted.org/git/fedora-ocaml.git&quot;&gt;backported the upstream ARM64 support&lt;/a&gt; into &lt;a href=&quot;http://pkgs.fedoraproject.org/cgit/ocaml.git/commit/?id=2b6c21aaa3d43c784fa5c10d9edc0e80093d3a2f&quot;&gt;Fedora 21&amp;rsquo;s OCaml&lt;/a&gt;, so you can now use it to generate native ARM64/AArch64 binaries.  If you don&amp;rsquo;t have hardware, &lt;a href=&quot;https://rwmj.wordpress.com/2013/12/22/how-to-run-aarch64-binaries-on-an-x86-64-host-using-qemu-userspace-emulation/&quot;&gt;use qemu to emulate it instead&lt;/a&gt;.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2013/12/31/fedora-21-has-a-working-ocaml-arm64/</id><title type="text">Fedora 21 has a working OCaml ARM64</title><updated>2013-12-31T13:24:42-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2013/12/14/writing-a-planner-to-solve-a-tricky-programming-optimization-problem/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;Suppose a monkey is in one corner of a room, a box is in another corner of a room, and a banana is hanging from the ceiling in the middle of the room.  The monkey can&amp;rsquo;t reach the banana without standing on the box, but he first has to move the box under the banana.  The problem of how to get a computer to work out that the monkey has to move the box first, then climb on the box second, was solved by Nils Nilsson&amp;rsquo;s &lt;a href=&quot;https://en.wikipedia.org/wiki/STRIPS&quot;&gt;STRIPS&lt;/a&gt; system in 1971.  STRIPS is now an A.I. standard, and is used in &lt;a href=&quot;http://web.media.mit.edu/~jorkin/goap.html&quot;&gt;game A.I.&lt;/a&gt; and elsewhere.&lt;/p&gt;
+&lt;p&gt;Suppose you have a disk image template that you want to uncompress, convert to another format, and resize.  You can run &lt;code&gt;xzcat&lt;/code&gt;, followed by &lt;code&gt;qemu-img convert&lt;/code&gt; followed by &lt;a href=&quot;http://libguestfs.org/virt-resize.1.html&quot;&gt;virt-resize&lt;/a&gt;.  But &lt;code&gt;virt-resize&lt;/code&gt; can also do format conversion, so you don&amp;rsquo;t need to run &lt;code&gt;qemu-img convert&lt;/code&gt;.  Unless the user was happy with the original size, in which case &lt;code&gt;qemu-img convert&lt;/code&gt; is faster than virt-resize.  But what if the original template &lt;i&gt;isn&amp;rsquo;t&lt;/i&gt; compressed and is already in the right format and size?  You can just run &lt;code&gt;cp&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i0.wp.com/libguestfs.org/virt-builder.svg&quot; width=&quot;200&quot; style=&quot;float:right;&quot;/&gt; How can a computer work out the right sequence of steps to convert the disk image most efficiently?  &lt;a href=&quot;http://libguestfs.org/virt-builder.1.html&quot;&gt;Virt-builder&lt;/a&gt; has exactly this problem, and it solves it using a STRIPS-inspired planner.&lt;/p&gt;
+&lt;p&gt;The STRIPS planner in virt-builder is only 50 lines of code, was easy to write, finds the near optimal plan for almost any user input, and is a useful technique that can be applied to many programming problems.  This article will explain how it works.  I have changed some of the academic terms and simplified things to make this easier to understand.&lt;/p&gt;
+&lt;p&gt;First of all I&amp;rsquo;ll introduce &lt;q&gt;tags&lt;/q&gt; on the original template.  These define the state of that template:&lt;/p&gt;
+&lt;p&gt;Input tags: &lt;b&gt;&amp;#10010;xz&lt;/b&gt; &lt;b&gt;&amp;#10010;template&lt;/b&gt; &lt;b&gt;&amp;#10010;size=4G&lt;/b&gt; &lt;b&gt;&amp;#10010;format=raw&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Secondly I&amp;rsquo;ll set up my goal state:&lt;/p&gt;
+&lt;p&gt;Goal tags: &lt;b&gt;&lt;img src=&quot;https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/274c.png&quot; alt=&quot;&amp;#10060;&quot; class=&quot;wp-smiley&quot; style=&quot;height: 1em; max-height: 1em;&quot;/&gt;xz&lt;/b&gt; &lt;b&gt;&lt;img src=&quot;https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/274c.png&quot; alt=&quot;&amp;#10060;&quot; class=&quot;wp-smiley&quot; style=&quot;height: 1em; max-height: 1em;&quot;/&gt;template&lt;/b&gt; &lt;b&gt;&amp;#10010;size=4G&lt;/b&gt; &lt;b&gt;&amp;#10010;format=qcow2&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;where &lt;b&gt;&lt;img src=&quot;https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/274c.png&quot; alt=&quot;&amp;#10060;&quot; class=&quot;wp-smiley&quot; style=&quot;height: 1em; max-height: 1em;&quot;/&gt;&lt;/b&gt; means the tag MUST NOT exist in the final state.&lt;/p&gt;
+&lt;p&gt;I want my planner to find me the best path from my input state to my goal.  As it can&amp;rsquo;t go straight from the input to the goal in one step, I have to tell the planner what &lt;q&gt;transitions&lt;/q&gt; are possible, using a function:&lt;/p&gt;
+&lt;pre&gt;
+transitions (input_tags) {
+  if &amp;#10010;xz then {
+    you could run 'xzcat'
+        which will &amp;#10060;xz and &amp;#10060;template;
+  }
+  else /* no xz tag */ {
+    you could run 'virt-resize'
+       which will change &amp;#10010;format and &amp;#10010;size, and &amp;#10060;template;
+    or:
+    you could run 'qemu-img convert'
+       which will change &amp;#10010;format, and &amp;#10060;template;
+    or:
+    etc...
+  }
+
+  or:
+  you could run 'cp'
+      which will &amp;#10060;template;
+}
+&lt;/pre&gt;
+&lt;p&gt;Notice that the transitions function returns a list of all possible transitions from the input state.  It&amp;rsquo;s not judgemental about which one should be taken, although it won&amp;rsquo;t return impossible transitions (for example, running &lt;code&gt;virt-resize&lt;/code&gt; is not possible on xz-compressed files).  The actual transitions function also returns a weight for each transition, so that the planner can choose the least expensive plan if there are several plans possible.&lt;/p&gt;
+&lt;p&gt;The &lt;b&gt;&amp;#10010;template&lt;/b&gt; tag may appear a bit mysterious.  It&amp;rsquo;s there to make sure that the planner always copies the original template, even if the original template already has the desired goal size and format.  Since &lt;code&gt;xzcat&lt;/code&gt;, &lt;code&gt;virt-resize&lt;/code&gt; and &lt;code&gt;qemu-img convert&lt;/code&gt; always copy the disk image, they drop the template tag (&lt;b&gt;&lt;img src=&quot;https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/274c.png&quot; alt=&quot;&amp;#10060;&quot; class=&quot;wp-smiley&quot; style=&quot;height: 1em; max-height: 1em;&quot;/&gt;template&lt;/b&gt;).&lt;/p&gt;
+&lt;p&gt;The transitions function in virt-builder can be found &lt;a href=&quot;https://github.com/libguestfs/libguestfs/blob/62cc7d3361127b4e007f8e23028213852be09124/builder/builder.ml#L308&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The planner does a breadth-first search over the tree of transitions, starting with the input state, finishing when it finds any branch that satisfies the output goals, or when it reaches a maximum depth in which case it gives up (and the user sees an error message).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i0.wp.com/oirase.annexia.org/rwmj.wp.com/strips.svg&quot; width=&quot;400&quot;/&gt;&lt;/p&gt;
+&lt;p&gt;The planner in virt-builder (50 lines of code) can be found &lt;a href=&quot;https://github.com/libguestfs/libguestfs/blob/62cc7d3361127b4e007f8e23028213852be09124/mllib/planner.ml#L28&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If the planner finds several paths that satisfy the goals, the planner chooses the one with the smallest weight.  However my planner is not clever enough to look deeper in the tree to see if a longer path might have a smaller weight (it&amp;rsquo;s not very likely in virt-builder).&lt;/p&gt;
+&lt;p&gt;Also my planner is not smart enough to prune bogus paths.  For example, if a path runs &lt;code&gt;cp&lt;/code&gt; in adjacent steps, then that path should be pruned.&lt;/p&gt;
+&lt;p&gt;Nevertheless the planner always gets the right result, and it is considerably simpler than the original hand-written code.  The old code had become unmaintainable and wasn&amp;rsquo;t even efficient: it sometimes made unnecessary copies in order to make the code simpler, wasting end-user time.  Because of the ease of maintenance I was able to add new functionality: virt-builder can now run &lt;code&gt;qemu-img resize&lt;/code&gt; to expand a disk by &amp;lt; 256&amp;nbsp;MB, a case where virt-resize doesn&amp;rsquo;t work (previously the user would have got an error).&lt;/p&gt;
+&lt;p&gt;Applying old academic techniques like this one doesn&amp;rsquo;t need to be hard and can help with real world problems.  I hope this technique helps others with similar optimization problems.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; The &lt;a href=&quot;https://news.ycombinator.com/item?id=6905887&quot;&gt;Hacker News discussion&lt;/a&gt; includes links to alternative solving tools.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2013/12/14/writing-a-planner-to-solve-a-tricky-programming-optimization-problem/</id><title type="text">Writing a Planner to solve a tricky programming optimization problem</title><updated>2013-12-14T13:54:49-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2013/11/11/why-is-virt-builder-written-in-ocaml/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;&lt;img src=&quot;https://i0.wp.com/libguestfs.org/virt-builder.svg&quot; width=&quot;250&quot; style=&quot;float:right;&quot;/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://news.ycombinator.com/item?id=6709517&quot;&gt;Docker is written in Go.&lt;/a&gt;  &lt;a href=&quot;http://libguestfs.org/virt-builder.1.html&quot;&gt;virt-builder&lt;/a&gt; is written in OCaml.  Why?  (Or as someone at work asked me &amp;mdash; apparently seriously &amp;mdash; why did you write it in a language which only you can use?)&lt;/p&gt;
+&lt;p&gt;Virt-builder is a fairly thin wrapper around &lt;a href=&quot;http://libguestfs.org&quot;&gt;libguestfs&lt;/a&gt; and libguestfs has bindings for a dozen languages, and I&amp;rsquo;m pretty handy in most programming languages, so it could have been done in Python or C or even Go.  In this case there are reasons why OCaml is a much better choice:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt; It&amp;rsquo;s a language I&amp;rsquo;m familiar with and happy programming in.  Never underestimate how much that matters.
+&lt;/li&gt;&lt;li&gt; OCaml is strongly typed, helping to eliminate many errors.  If it had been written in Python we&amp;rsquo;d be running into bugs at customer sites that could have been eliminated by the compiler before anything shipped.  That doesn&amp;rsquo;t mean virt-builder is bug free, but if the compiler can help to remove a bug, why not have the compiler do that?
+&lt;/li&gt;&lt;li&gt; Virt-builder has to be fast, and OCaml is fast.  Python is fucking slow.
+&lt;/li&gt;&lt;li&gt; I had some C code for doing &lt;a href=&quot;http://git.annexia.org/?p=pxzcat.git%3Ba=summary&quot;&gt;parallel xzcat&lt;/a&gt; and with OCaml I can just link the C code and the OCaml code together directly into a single native binary.  Literally you just mix C object files and OCaml object files together on the linker command line.  Doing this in, say, Perl/Python/Ruby would be far more hassle.  We would have ended up with either a slow interpreted implementation, or having to ship a separate .so file and have the virt-builder program find it and dynamically load it.  Ugh.
+&lt;/li&gt;&lt;li&gt; There was a little bit of common code used by another utility called &lt;a href=&quot;http://libguestfs.org/virt-sysprep.1.html&quot;&gt;virt-sysprep&lt;/a&gt; which started out as a shell script but is now also written in OCaml.  Virt-sysprep regularly gets outside contributions, despite being written in OCaml.  I could have written the small amount of common code in C to get around this, but every little helps.
+&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Is OCaml a language that only I can understand?  Judge for yourself by &lt;a href=&quot;https://github.com/libguestfs/libguestfs/blob/master/builder/builder.ml&quot;&gt;looking at the source code&lt;/a&gt;.  I think if you cannot understand that enough to at least make small changes, you should hand in your programmer&amp;rsquo;s card at the door.&lt;/p&gt;
+&lt;p&gt;Edit: &lt;a href=&quot;https://news.ycombinator.com/item?id=6711893&quot;&gt;Hacker News discussion of this article&lt;/a&gt;.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2013/11/11/why-is-virt-builder-written-in-ocaml/</id><title type="text">Why is virt-builder written in OCaml?</title><updated>2013-11-11T15:00:42-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2013/09/20/goaljobs-part-4/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;In &lt;a href=&quot;https://rwmj.wordpress.com/2013/09/20/goaljobs-part-3/&quot;&gt;part 3&lt;/a&gt; I described how to write targets which can access network resources, and how to use memoization to make them run fast.  In this (last) part of the series, I&amp;rsquo;ll describe the final feature of goaljobs &amp;mdash; periodic jobs.&lt;/p&gt;
+&lt;p&gt;If you wanted to use &lt;code&gt;make&lt;/code&gt; to monitor a git repository and do a build when a new commit appears there would I guess be three choices: You could just run the &lt;code&gt;make&lt;/code&gt; command manually over and over again.  You could have a git hook that runs &lt;code&gt;make&lt;/code&gt;.  Or you have a cron job the periodically checks the git repository.&lt;/p&gt;
+&lt;p&gt;The git hook is the ideal solution for goaljobs too, but goaljobs also has cron-like &lt;b&gt;periodic jobs&lt;/b&gt; built in, and they are very easy to use:&lt;/p&gt;
+&lt;pre&gt;
+every 30 minutes (fun () -&amp;gt;
+  let commit =
+    shout &amp;quot;cd %s &amp;amp;&amp;amp; git rev-parse HEAD&amp;quot; repo in
+  require (git_commit_tested commit)
+)
+&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;every 30 minutes&lt;/code&gt; is self-explanatory (right?).  The function that runs every half-an-hour is two lines of code.  The first line uses &lt;code&gt;shout&lt;/code&gt; to run a &lt;b&gt;sh&lt;/b&gt;ell command and capture the &lt;b&gt;out&lt;/b&gt;put.  In this case git prints the current commit.  The second command requires that the &lt;code&gt;git_commit_tested&lt;/code&gt; goal is reached for this commit.&lt;/p&gt;
+&lt;p&gt;One way to implement this goal would be:&lt;/p&gt;
+&lt;pre&gt;
+let goal git_commit_tested commit =
+  let key = sprintf &amp;quot;repo-tested-%s&amp;quot; commit in
+  target (memory_exists key);
+
+  sh &amp;quot;
+      git clone %s test
+      cd test
+      ./configure
+      make
+      make check
+  &amp;quot; repo_url;
+
+  memory_set key &amp;quot;1&amp;quot;
+&lt;/pre&gt;
+&lt;p&gt;This code clones the repository and runs &lt;code&gt;make check&lt;/code&gt; to test it.  It uses the Memory (ie. memoization) to ensure that the tests are run at most once per commit.&lt;/p&gt;
+&lt;p&gt;Actually this is not quite true: the tests run successfully once, but if the test fails, it will keep running every 30 minutes and nag you about it.  It&amp;rsquo;s trivial to change the memoization to remember failures as well as successes, or you could consider the repeated nagging to be a feature not a bug &amp;hellip;&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s it!  The goaljobs website &lt;i&gt;will&lt;/i&gt; be this (I&amp;rsquo;ve not uploaded it yet, but will do in the next day or two):&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://people.redhat.com/~rjones/goaljobs&quot; rel=&quot;nofollow&quot;&gt;http://people.redhat.com/~rjones/goaljobs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You can also download the code from the &lt;a href=&quot;http://git.annexia.org/?p=goaljobs.git%3Ba=summary&quot;&gt;git repository&lt;/a&gt; and the goals I&amp;rsquo;ve written from &lt;a href=&quot;http://git.annexia.org/?p=goals.git%3Ba=summary&quot;&gt;this repository&lt;/a&gt;.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2013/09/20/goaljobs-part-4/</id><title type="text">Goaljobs, part 4</title><updated>2013-09-20T20:57:21-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2013/09/20/goaljobs-part-3/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;In &lt;a href=&quot;https://rwmj.wordpress.com/2013/09/20/goaljobs-part-2/&quot;&gt;part 2&lt;/a&gt; I introduced an example goaljobs script that can rebuild a set of packages in Fedora in the right order.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s time to take a closer look at &lt;b&gt;targets&lt;/b&gt; &amp;mdash; the promise that you make that some condition will be true by the time a goal has run.&lt;/p&gt;
+&lt;p&gt;In the Fedora rebuild script the goal targets looked like this:&lt;/p&gt;
+&lt;pre&gt;
+let goal rebuilt pkg =
+  &lt;b&gt;target (koji_build_state (fedora_verrel pkg branch)
+               == `Complete);&lt;/b&gt;
+  ...
+&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;koji_build_state&lt;/code&gt; is a regular function.  It&amp;rsquo;s implemented using the &lt;code&gt;koji buildinfo&lt;/code&gt; command line tool for querying &lt;a href=&quot;http://koji.fedoraproject.org/koji/&quot;&gt;the Koji build system&lt;/a&gt;.  (The koji command line tool is annoyingly hard to automate, but as we&amp;rsquo;ve got a complete programming language available &amp;mdash; not just bash &amp;mdash; &lt;a href=&quot;http://git.annexia.org/?p=goals.git%3Ba=blob%3Bf=fedora.ml%3Bhb=HEAD&quot;&gt;the implementation of &lt;code&gt;koji_build_state&lt;/code&gt;&lt;/a&gt; is tedious and long, but doable).&lt;/p&gt;
+&lt;p&gt;Querying Koji takes a few seconds and we don&amp;rsquo;t want to do it every time we check a goal.  Goaljobs offers a feature called &amp;ldquo;The Memory&amp;rdquo; which lets you &lt;a href=&quot;http://perl.plover.com/Memoize/doc.html#description&quot;&gt;memoize&lt;/a&gt; functions.  &amp;ldquo;The Memory&amp;rdquo; is just a fancy name for a key/value store which is kept in &lt;code&gt;~/.goaljobs-memory&lt;/code&gt; and persists across goaljobs sessions:&lt;/p&gt;
+&lt;pre&gt;
+let koji_build_state verrel =
+  let key = sprintf &amp;quot;koji_build_complete_%s&amp;quot; verrel in
+  if &lt;b&gt;memory_exists key&lt;/b&gt; then
+    `Complete
+  else (
+    &lt;i&gt;(* tedious code to query koji *)&lt;/i&gt;
+    if state == `Complete then
+      &lt;b&gt;memory_set key &amp;quot;1&amp;quot;&lt;/b&gt;;
+    state
+  )
+&lt;/pre&gt;
+&lt;p&gt;With strategic use of memoization, evaluating goaljobs goals can be very fast and doesn&amp;rsquo;t change the fundamental contract of targets.&lt;/p&gt;
+&lt;p&gt;Finally in this part: a note on how targets are implemented.&lt;/p&gt;
+&lt;p&gt;A target is a boolean expression which is evaluated once near the beginning of the goal.  If it evaluates to true at the beginning of the goal then the rest of the goal can be skipped because the goal has already been achieved / doesn&amp;rsquo;t need to be repeated.&lt;/p&gt;
+&lt;p&gt;And since targets are just general expressions, they can be anything at all, from accessing a remote server (as here) to checking the existence of a local file (like make).  As long as something can be tested quickly, or can be tested slowly and memoized, it&amp;rsquo;s suitable to be a target.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2013/09/20/goaljobs-part-3/</id><title type="text">Goaljobs, part 3</title><updated>2013-09-20T11:03:05-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2013/09/20/goaljobs-part-2/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;https://rwmj.wordpress.com/2013/09/19/goaljobs-part-1/&quot;&gt;In part 1&lt;/a&gt; I showed how a simple make rule could be converted to a special &amp;ldquo;goal&amp;rdquo; function and I hinted that we were not limited to just the &amp;ldquo;file is older than&amp;rdquo; semantics implicit in make.&lt;/p&gt;
+&lt;p&gt;So let&amp;rsquo;s have a look at &lt;a href=&quot;http://git.annexia.org/?p=goals.git%3Ba=tree&quot;&gt;the goals I wrote&lt;/a&gt; to &lt;a href=&quot;https://rwmj.wordpress.com/2013/09/14/ocaml-4-01-0-entering-rawhide/&quot;&gt;automate the recent OCaml rebuild in Fedora&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Recall from part 1: Targets are a contractual promise that you make in goaljobs.  They are a promise that some condition will be true after running the goal.  Requirements are conditions that must be true before the goal can start running.&lt;/p&gt;
+&lt;p&gt;For a Fedora package to achieve the goal of being rebuilt, the target is that the Koji build state of the current release must be &amp;ldquo;Completed&amp;rdquo;.  The requirements are that every dependency of the package has been rebuilt.  So:&lt;/p&gt;
+&lt;pre&gt;
+let goal &lt;b&gt;rebuilt pkg&lt;/b&gt; =
+  &lt;b&gt;target (koji_build_state (fedora_verrel pkg branch)
+               == `Complete);&lt;/b&gt;
+
+  &lt;i&gt;(* Require the rebuild to have started: *)&lt;/i&gt;
+  &lt;b&gt;require (rebuild_started pkg);&lt;/b&gt;
+
+  &lt;i&gt;... some code to wait for the build to finish ...&lt;/i&gt;
+&lt;/pre&gt;
+&lt;p&gt;The above code is not complete (it&amp;rsquo;s a complex, real-world working example after all).&lt;/p&gt;
+&lt;p&gt;I split the &lt;code&gt;rebuilt&lt;/code&gt; goal into two separate goals for reasons that will become clear later.  But the first goal above says that the package rebuild must have been started off, and we&amp;rsquo;ll wait for the package build to complete.&lt;/p&gt;
+&lt;p&gt;Note that once the build is complete, the target promise is true.&lt;/p&gt;
+&lt;p&gt;The subgoal &lt;code&gt;rebuild_started&lt;/code&gt; is defined like this:&lt;/p&gt;
+&lt;pre&gt;
+let goal &lt;b&gt;rebuild_started pkg&lt;/b&gt; =
+  &lt;i&gt;(* The dependencies of this package: *)&lt;/i&gt;
+  let deps = List.assoc pkg pkg_deps in
+
+  &lt;b&gt;target (
+     match koji_build_state (fedora_verrel pkg branch) with
+          | `Building | `Complete -&amp;gt; true
+          | _ -&amp;gt; false
+    );&lt;/b&gt;
+
+  &lt;i&gt;(* All dependent packages must have been fully rebuilt: *)&lt;/i&gt;
+  List.iter (fun dep -&amp;gt; &lt;b&gt;require (rebuilt dep)&lt;/b&gt;) deps;
+
+  &lt;i&gt;(* Rebuild the package in Koji. *)&lt;/i&gt;
+  koji_build pkg branch
+&lt;/pre&gt;
+&lt;p&gt;It&amp;rsquo;s saying that the target (promise) will be that the Koji package will either be building or may even be complete.  And that we first of all require that every build dependency of this package has been completely, successfully rebuilt.  If those requirements are met, we tell Koji to start building the package (but in this goal we don&amp;rsquo;t need to wait for it to complete).&lt;/p&gt;
+&lt;p&gt;Why did I split the goal into two parts?&lt;/p&gt;
+&lt;p&gt;The reason is that I want to define a make-like &lt;code&gt;all&lt;/code&gt; goal:&lt;/p&gt;
+&lt;pre&gt;
+let goal &lt;b&gt;all&lt;/b&gt; () =
+  List.iter (fun pkg -&amp;gt; &lt;b&gt;require (rebuild_started pkg)&lt;/b&gt;)
+    source_packages
+&lt;/pre&gt;
+&lt;p&gt;This iterates over all my source packages and &lt;i&gt;starts&lt;/i&gt; rebuilding them.&lt;/p&gt;
+&lt;p&gt;Note it doesn&amp;rsquo;t wait for each one to be rebuilt &amp;hellip; &lt;i&gt;unless&lt;/i&gt; they are required as dependencies of another package, in which case the &lt;code&gt;require (rebuilt dep)&lt;/code&gt; will kick in and wait for them before rebuilding the dependent package.&lt;/p&gt;
+&lt;p&gt;In other words, this code automatically resolves dependencies, waiting where necessary, but otherwise just kicking off builds, which is exactly what I wanted.&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;Finally a bit about how you use a goaljobs script.  Unlike &lt;code&gt;make&lt;/code&gt; you have to compile the script into a binary.  To compile the script, use the convenient wrapper &lt;code&gt;goaljobs&lt;/code&gt; (it&amp;rsquo;s a simple shell script that invokes the OCaml compiler):&lt;/p&gt;
+&lt;pre&gt;
+goaljobs fedora_ocaml_rebuild.ml
+&lt;/pre&gt;
+&lt;p&gt;This makes a binary called &lt;code&gt;fedora_ocaml_rebuild&lt;/code&gt; which is the program for mass-rebuilding the whole of Fedora&amp;rsquo;s OCaml subset.&lt;/p&gt;
+&lt;p&gt;When you run it with no arguments, it searches for a goal called &lt;code&gt;all&lt;/code&gt; and &amp;ldquo;requires&amp;rdquo; that goal (just like &lt;code&gt;make&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;You can also run other goals directly.  Any goal which is &amp;ldquo;published&amp;rdquo; can be run from the command line.  All goals that have no parameters &amp;mdash; such as &lt;code&gt;all&lt;/code&gt; &amp;mdash; are published automatically.&lt;/p&gt;
+&lt;p&gt;For goals that take parameters, if you want to use them from the command line you have to publish them manually.  The reason is that you have to provide a small code snippet to convert the command line parameters to goal parameters, which may involve type conversion or other checks (since OCaml is strongly typed and parameters can be any type, not just strings or filenames).&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2013/09/20/goaljobs-part-2/</id><title type="text">Goaljobs, part 2</title><updated>2013-09-20T09:04:11-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2013/09/19/goaljobs-part-1/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;A little more than a year ago I released &lt;a href=&quot;http://people.redhat.com/~rjones/whenjobs/&quot;&gt;whenjobs&lt;/a&gt; which was an attempt to create a practical language for automating complex &amp;ldquo;business rules&amp;rdquo;.  The kind of thing I&amp;rsquo;m talking about is managing the many diverse steps between me &lt;a href=&quot;https://github.com/libguestfs/libguestfs/commit/4d955be4fb9fe304d5ab4222f0e9592f5fc1ef5b&quot;&gt;tagging a libguestfs commit with a version number&lt;/a&gt; and a &lt;a href=&quot;http://libguestfs.org/download/1.23-development/&quot;&gt;fully tested tarball appearing on the website&lt;/a&gt;.  Or the hundreds of steps that go into &lt;a href=&quot;https://rwmj.wordpress.com/2013/09/14/ocaml-4-01-0-entering-rawhide/&quot;&gt;100 OCaml packages being updated and rebuilt for Rawhide&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Whenjobs wasn&amp;rsquo;t the right answer.  &lt;a href=&quot;http://git.annexia.org/?p=goaljobs.git%3Ba=summary&quot;&gt;Goaljobs [very early alpha]&lt;/a&gt; might possibly be.&lt;/p&gt;
+&lt;p&gt;What I need is something which is flexible, can deal with failures (both hard and intermittent), and can be killed and restarted at any point.&lt;/p&gt;
+&lt;p&gt;The first observation is that &lt;a href=&quot;https://en.wikipedia.org/wiki/Make_(software)&quot;&gt;make&lt;/a&gt; is nearly the right tool.  It&amp;rsquo;s goal-based, meaning that you set down a target that you want to have happen, and some rules to make that happen, and this lets you break down a problem from the larger goal (&amp;ldquo;build my program!&amp;rdquo;) to smaller subgoals (&amp;ldquo;compile this source file&amp;rdquo;).&lt;/p&gt;
+&lt;pre&gt;
+program: main.o utils.o
+  cc $^ -o $@
+&lt;/pre&gt;
+&lt;p&gt;The goal is &amp;ldquo;&lt;code&gt;program&lt;/code&gt; is built&amp;rdquo;.  There are some requirements (&lt;code&gt;main.o&lt;/code&gt;, &lt;code&gt;utils.o&lt;/code&gt;), and there&amp;rsquo;s a recipe (run &lt;code&gt;cc&lt;/code&gt;).  You can also kill make in the middle and restart it, and it&amp;rsquo;ll usually continue from where it left off.&lt;/p&gt;
+&lt;p&gt;Make also lets you parameterize goals, although only in very simple ways:&lt;/p&gt;
+&lt;pre&gt;
+%.o: %.c
+  cc -c $&amp;lt; -o $@
+&lt;/pre&gt;
+&lt;p&gt;Implicit in the &amp;ldquo;:&amp;rdquo; (colon) character is make&amp;rsquo;s one simple rule, which is roughly this: &amp;ldquo;if the target file doesn&amp;rsquo;t exist, or the prerequisite files are newer than the target, run the recipe below&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;In fact you could translate the first make rule into an ordinary function which would look something like this:&lt;/p&gt;
+&lt;pre&gt;
+function build_program ()
+{
+  if (!file_exists (&amp;quot;program&amp;quot;) ||
+      file_older (&amp;quot;program&amp;quot;, &amp;quot;main.o&amp;quot;) ||
+      file_older (&amp;quot;program&amp;quot;, &amp;quot;utils.o&amp;quot;)) {
+    shell (&amp;quot;cc -c %s -o %s&amp;quot;, &amp;quot;main.o utils.o&amp;quot;,
+           &amp;quot;program&amp;quot;);
+  }
+}
+&lt;/pre&gt;
+&lt;p&gt;Some points arise here:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt; Why can&amp;rsquo;t we change the target test to something other than &amp;ldquo;file exists or is newer&amp;rdquo;?&lt;br/&gt;How about &amp;ldquo;remote URL exists&amp;rdquo; (and if not, we need to upload a file)?&lt;br/&gt;How about &amp;ldquo;Koji build completed successfully&amp;rdquo; (and if not we need to do a Fedora build)?
+&lt;/li&gt;&lt;li&gt; What could happen if we could add parameters to &lt;code&gt;build_program&lt;/code&gt;?
+&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Goaljobs attempts to answer these questions by turning make-style rules into &amp;ldquo;goals&amp;rdquo;, where goals are specialized functions similar to the one above that have a target, requirement(s), a recipe to implement them, and any number of parameters.&lt;/p&gt;
+&lt;p&gt;For example, a &lt;a href=&quot;http://git.annexia.org/?p=goaljobs.git%3Ba=blob%3Bf=examples/compile-c/compile.ml%3Bh=151e8b79ec3ca82aecbff533bcf514be2cfb8ff2%3Bhb=HEAD&quot;&gt;&amp;ldquo;compile *.c to *.o&amp;rdquo; goal&lt;/a&gt; looks like this:&lt;/p&gt;
+&lt;pre&gt;
+let goal compiled c_file =
+  &lt;i&gt;(* convert c_file &amp;quot;foo.c&amp;quot; -&amp;gt; &amp;quot;foo.o&amp;quot;: *)&lt;/i&gt;
+  let o_file = change_file_extension &amp;quot;o&amp;quot; c_file in
+
+  target (more_recent [o_file] [c_file]);
+
+  sh &amp;quot;
+    cd $builddir
+    cc -c %s -o %s
+  &amp;quot; c_file o_file
+&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;goal&lt;/code&gt; is called &lt;code&gt;compiled&lt;/code&gt; and it has exactly one parameter, the name of the C source file that must be compiled.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;target&lt;/code&gt; is a promise that after the recipe has been run the *.o file will be more recent than the *.c file.  The target is both a check used to skip the rule if it&amp;rsquo;s already true, but also a contractual promise that the developer makes (and which is checked by goaljobs) that some condition holds true at the end of the goal.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sh&lt;/code&gt; is a lightweight way to run a shell script fragment, with printf-like semantics.&lt;/p&gt;
+&lt;p&gt;And the whole thing is wrapped in a proper programming language (preprocessed OCaml) so you can do things which are more complicated than are easily done in shell.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2013/09/19/goaljobs-part-1/</id><title type="text">Goaljobs, part 1</title><updated>2013-09-19T22:16:03-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2013/09/14/ocaml-4-01-0-entering-rawhide/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;After using OCaml for around 10 years it is still my favourite language, and it&amp;rsquo;s amazing how far ahead of other programming languages it remains to this day.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://sympa.inria.fr/sympa/arc/caml-list/2013-09/msg00173.html&quot;&gt;OCaml 4.01.0 was released on Thursday&lt;/a&gt; and I&amp;rsquo;m putting it into Fedora Rawhide over this weekend.&lt;/p&gt;
+&lt;p&gt;Debuginfo is now (partially) enabled.  &lt;a href=&quot;http://www.ocamlpro.com/blog/2012/08/20/ocamlpro-and-4.00.0.html&quot;&gt;The OCaml code generator has produced good quality DWARF information for a while&lt;/a&gt;, and now you are able to debug OCaml programs in gdb under Fedora:&lt;/p&gt;
+&lt;pre&gt;
+$ &lt;b&gt;sudo debuginfo-install ocaml ocaml-findlib&lt;/b&gt;
+$ &lt;b&gt;gdb /usr/bin/ocamlfind&lt;/b&gt;
+[...]
+Reading symbols from /usr/bin/ocamlfind...
+Reading symbols from /usr/lib/debug/usr/bin/ocamlfind.debug...done.
+done.
+(gdb) &lt;b&gt;break frontend.ml:469&lt;/b&gt;
+Breakpoint 1 at 0x432500: file frontend.ml, line 469.
+(gdb) &lt;b&gt;run query findlib -l&lt;/b&gt;
+Starting program: /usr/bin/ocamlfind query findlib -l
+
+Breakpoint 1, camlFrontend__query_package_1199 () at frontend.ml:469
+469	let query_package () =
+(gdb) &lt;b&gt;bt&lt;/b&gt;
+#0  camlFrontend__query_package_1199 () at frontend.ml:469
+#1  0x000000000043a4b4 in camlFrontend__main_1670 () at frontend.ml:2231
+#2  0x000000000043aa86 in camlFrontend__entry () at frontend.ml:2283
+#3  0x000000000042adc9 in caml_program ()
+#4  0x00000000004834be in caml_start_program ()
+#5  0x000000000048365d in __libc_csu_init ()
+#6  0x0000003979821b75 in __libc_start_main (main=0x42aa60 &amp;lt;main&amp;gt;, argc=4, 
+    ubp_av=0x7fffffffde38, init=&amp;lt;optimized out&amp;gt;, fini=&amp;lt;optimized out&amp;gt;, 
+    rtld_fini=&amp;lt;optimized out&amp;gt;, stack_end=0x7fffffffde28) at libc-start.c:258
+#7  0x000000000042aaa9 in _start ()
+(gdb) &lt;b&gt;list&lt;/b&gt;
+464	;;
+465	
+466	
+467	(************************** QUERY SUBCOMMAND ***************************)
+468	
+469	let query_package () =
+470	
+471	  let long_format =
+472	    &amp;quot;package:     %p\ndescription: %D\nversion:     %v\narchive(s):  %A\nlinkopts:    %O\nlocation:    %d\n&amp;quot; in
+473	  let i_format =
+&lt;/pre&gt;
+&lt;p&gt;GDB only understands location data at the moment, so you can&amp;rsquo;t yet query variables (although I understand OCaml generates the correct DWARF info for this, GDB just doesn&amp;rsquo;t know how to print OCaml expressions).&lt;/p&gt;
+&lt;p&gt;There will also be some limitations on the debuginfo built at first.  At the moment it doesn&amp;rsquo;t include debuginfo for OCaml libraries called from an OCaml program, because of problems that need to be worked out with the toolchain.  Mixed OCaml binary / C library debuginfo does work.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2013/09/14/ocaml-4-01-0-entering-rawhide/</id><title type="text">OCaml 4.01.0 entering Rawhide</title><updated>2013-09-14T06:08:55-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2013/02/07/more-static-analysis-with-cil/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;Years ago I &lt;a href=&quot;http://people.redhat.com/~rjones/cil-analysis-of-libvirt/&quot;&gt;played around&lt;/a&gt; with &lt;a href=&quot;http://www.cs.berkeley.edu/~necula/cil/&quot;&gt;CIL&lt;/a&gt; to analyze &lt;a href=&quot;http://libvirt.org&quot;&gt;libvirt&lt;/a&gt;.  More recently &lt;a href=&quot;https://rwmj.wordpress.com/2009/05/15/dan-uses-ocaml-cil-to-analyze-libvirts-locking-patterns/&quot;&gt;Dan used CIL to analyze libvirt&amp;rsquo;s locking code&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We didn&amp;rsquo;t get so far either time, but I&amp;rsquo;ve been taking a deeper look at CIL in an attempt to verify error handling in &lt;a href=&quot;http://libguestfs.org/&quot;&gt;libguestfs&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here is my partly working code so far.&lt;/p&gt;
+&lt;pre&gt;
+&lt;tt&gt;&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(*&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * Analyse libguestfs APIs to find error overwriting.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * Copyright (C) 2008-2013 Red Hat, Inc.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * This library is free software; you can redistribute it and/or&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * modify it under the terms of the GNU Lesser General Public&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * License as published by the Free Software Foundation; either&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * version 2.1 of the License, or (at your option) any later version.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * This library is distributed in the hope that it will be useful,&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * but WITHOUT ANY WARRANTY; without even the implied warranty of&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * Lesser General Public License for more details.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * You should have received a copy of the GNU Lesser General Public&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * License along with this library.  If not, see&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * &amp;lt;http://www.gnu.org/licenses/&amp;gt;.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * Author: Daniel P. Berrange &amp;lt;berrange@redhat.com&amp;gt;&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * Author: Richard W.M. Jones &amp;lt;rjones@redhat.com&amp;gt;&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *)&lt;/font&gt;&lt;/i&gt;
+
+&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Unix&lt;/font&gt;
+&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Printf&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;open&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Cil&lt;/font&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; debug &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;ref&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;false&lt;/font&gt;&lt;/b&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Set of ints. *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;IntSet&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Set&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Make&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;struct&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;type&lt;/font&gt;&lt;/b&gt; t &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;int&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; compare &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; compare &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;end&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* A module for storing any set (unordered list) of functions. *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;FunctionSet&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Set&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Make&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;struct&lt;/font&gt;&lt;/b&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;type&lt;/font&gt;&lt;/b&gt; t &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; varinfo
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; compare v1 v2 &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; compare v1&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vid v2&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vid
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;end&lt;/font&gt;&lt;/b&gt;
+&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Directed graph of functions.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * Function = a node in the graph&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * FunctionDigraph = the directed graph&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * FunctionPathChecker = path checker module using Dijkstra's algorithm&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Function&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;struct&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;type&lt;/font&gt;&lt;/b&gt; t &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; varinfo
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; compare f1 f2 &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; compare f1&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vid f2&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vid
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; hash f &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Hashtbl&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;hash f&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vid
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; equal f1 f2 &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; f1&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vid &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; f2&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vid
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;end&lt;/font&gt;&lt;/b&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;FunctionDigraph&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Graph&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Imperative&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Digraph&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Concrete&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Function&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;FunctionPathChecker&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Graph&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Path&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Check&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;FunctionDigraph&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Module used to analyze the paths through each function. *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;ErrorCounter&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;struct&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; name &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;ErrorCounter&amp;quot;&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; debug &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; debug
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Our current state is very simple, just the number of error&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * function calls did encountered up to this statement.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;type&lt;/font&gt;&lt;/b&gt; t &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;int&lt;/font&gt;
+
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; copy errcalls &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; errcalls
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Start data for each statement. *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; stmtStartData &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Inthash&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;create &lt;font color=&quot;#993399&quot;&gt;97&lt;/font&gt;
+
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; printable errcalls &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; sprintf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;(errcalls=%d)&amp;quot;&lt;/font&gt; errcalls
+
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; pretty &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; t &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Pretty&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;text &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;printable t&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; computeFirstPredecessor stmt x &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; x &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* XXX??? *)&lt;/font&gt;&lt;/i&gt;
+
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; combinePredecessors stmt &lt;font color=&quot;#990000&quot;&gt;~&lt;/font&gt;old&lt;font color=&quot;#990000&quot;&gt;:&lt;/font&gt;old_t new_t &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;if&lt;/font&gt;&lt;/b&gt; old_t &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; new_t &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;then&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;None&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;else&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Some&lt;/font&gt; new_t
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* This will be initialized after we have calculated the set of all&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * functions which can call an error function, in main() below.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; error_functions_set &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;ref&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;FunctionSet&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;empty
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Handle a Cil.Instr. *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; doInstr instr _ &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;match&lt;/font&gt;&lt;/b&gt; instr &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+    &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* A call to an error function. *)&lt;/font&gt;&lt;/i&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Call&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;_&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Lval&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Var&lt;/font&gt; callee&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;),&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+        &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;when&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;FunctionSet&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;mem callee &lt;font color=&quot;#990000&quot;&gt;!&lt;/font&gt;error_functions_set &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Dataflow&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Post&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; errcalls &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; errcalls&lt;font color=&quot;#990000&quot;&gt;+&lt;/font&gt;&lt;font color=&quot;#993399&quot;&gt;1&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Dataflow&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Default&lt;/font&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Handle a Cil.Stmt. *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; doStmt _ _ &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Dataflow&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;SDefault&lt;/font&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Handle a Cil.Guard. *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; doGuard _ _ &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Dataflow&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;GDefault&lt;/font&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Filter statements we've seen already to prevent loops. *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; filter_set &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;ref&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;IntSet&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;empty
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; filterStmt &lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; sid &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; sid &lt;font color=&quot;#FF0000&quot;&gt;}&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;if&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;IntSet&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;mem sid &lt;font color=&quot;#990000&quot;&gt;!&lt;/font&gt;filter_set &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;then&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;false&lt;/font&gt;&lt;/b&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;else&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+      filter_set &lt;font color=&quot;#990000&quot;&gt;:=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;IntSet&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;add sid &lt;font color=&quot;#990000&quot;&gt;!&lt;/font&gt;filter_set&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;true&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Initialize the module before each function that we examine. *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; init stmts &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+    filter_set &lt;font color=&quot;#990000&quot;&gt;:=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;IntSet&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;empty&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Inthash&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;clear stmtStartData&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+    &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Add the initial statement(s) to the hash. *)&lt;/font&gt;&lt;/i&gt;
+    &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;iter &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; stmt &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Inthash&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;add stmtStartData stmt&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;sid &lt;font color=&quot;#993399&quot;&gt;0&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; stmts
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;end&lt;/font&gt;&lt;/b&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;module&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;ForwardsErrorCounter&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Dataflow&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;ForwardsDataFlow&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;ErrorCounter&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* The always useful filter + map function. *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;rec&lt;/font&gt;&lt;/b&gt; filter_map f &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;function&lt;/font&gt;&lt;/b&gt;
+  &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[]&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[]&lt;/font&gt;
+  &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; x &lt;font color=&quot;#990000&quot;&gt;::&lt;/font&gt; xs &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;match&lt;/font&gt;&lt;/b&gt; f x &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+      &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Some&lt;/font&gt; y &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; y &lt;font color=&quot;#990000&quot;&gt;::&lt;/font&gt; filter_map f xs
+      &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;None&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; filter_map f xs
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;rec&lt;/font&gt;&lt;/b&gt; main &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Read the list of input C files. *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; files &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; chan &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; open_process_in &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;find src -name '*.i' | sort&amp;quot;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; files &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; input_chan chan &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;if&lt;/font&gt;&lt;/b&gt; close_process_in chan &lt;font color=&quot;#990000&quot;&gt;&amp;lt;&amp;gt;&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;WEXITED&lt;/font&gt; &lt;font color=&quot;#993399&quot;&gt;0&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;then&lt;/font&gt;&lt;/b&gt;
+      failwith &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;failed to read input list of files&amp;quot;&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;if&lt;/font&gt;&lt;/b&gt; files &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[]&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;then&lt;/font&gt;&lt;/b&gt;
+      failwith &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;no input files; is the program running from the top directory? did you compile with make -C src CFLAGS=\&amp;quot;-save-temps\&amp;quot;?&amp;quot;&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+    files &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Load and parse each input file. *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; files &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;map &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; filename &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+        printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;loading %s\n%!&amp;quot;&lt;/font&gt; filename&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+        &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Frontc&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;parse filename &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; files &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Merge the files. *)&lt;/font&gt;&lt;/i&gt;
+  printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;merging files\n%!&amp;quot;&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; sourcecode &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Mergecil&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;merge files &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;libguestfs&amp;quot;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* CFG analysis. *)&lt;/font&gt;&lt;/i&gt;
+  printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;computing control flow\n%!&amp;quot;&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Cfg&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;computeFileCFG sourcecode&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; functions &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+    filter_map &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;function&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;GFun&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;f&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; loc&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Some&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;f&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; loc&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;None&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+      sourcecode&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;globals &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Examine which functions directly call which other functions. *)&lt;/font&gt;&lt;/i&gt;
+  printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;computing call graph\n%!&amp;quot;&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; call_graph &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; make_call_graph functions &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(*&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;  FunctionDigraph.iter_edges (&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;    fun caller callee -&amp;gt;&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;      printf &amp;quot;%s calls %s\n&amp;quot; caller.vname callee.vname&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;  ) call_graph;&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;  *)&lt;/font&gt;&lt;/i&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* The libguestfs error functions.  These are global function names,&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * but to be any use to us we have to look these up in the list of&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * all global functions (ie. 'functions') and turn them into the&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * corresponding varinfo structures.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; error_function_names &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;guestfs_error_errno&amp;quot;&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+                               &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;guestfs_perrorf&amp;quot;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;]&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; find_function name &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;try&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;find &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; svar &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; vname &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; n &lt;font color=&quot;#FF0000&quot;&gt;}}&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; n &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; name&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; functions
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Not_found&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; failwith &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;function '&amp;quot;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;^&lt;/font&gt; name &lt;font color=&quot;#990000&quot;&gt;^&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;' does not exist&amp;quot;&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; error_function_names &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;map &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; f &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;fst &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;find_function f&lt;font color=&quot;#990000&quot;&gt;)).&lt;/font&gt;svar
+  &lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; error_function_names &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Get a list of functions that might (directly or indirectly) call&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * one of the error functions.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; error_functions&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; non_error_functions &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+    functions_which_call call_graph error_function_names functions &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(*&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;  List.iter (&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;    fun f -&amp;gt; printf &amp;quot;%s can call an error function\n&amp;quot; f.vname&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;  ) error_functions;&lt;/font&gt;&lt;/i&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;  List.iter (&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;    fun f -&amp;gt; printf &amp;quot;%s can NOT call an error function\n&amp;quot; f.vname&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;  ) non_error_functions;&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;  *)&lt;/font&gt;&lt;/i&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Save the list of error functions in a global set for fast lookups. *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; set &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;fold_left &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; set elt &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;FunctionSet&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;add elt set
+    &lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;FunctionSet&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;empty error_functions &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;ErrorCounter&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;error_functions_set &lt;font color=&quot;#990000&quot;&gt;:=&lt;/font&gt; set&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Analyze each top-level function to ensure it calls an error&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * function exactly once on error paths, and never on normal return&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * paths.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   *)&lt;/font&gt;&lt;/i&gt;
+  printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;analyzing correctness of error paths\n%!&amp;quot;&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;iter compute_error_paths functions&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+
+  &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Make a directed graph of which functions directly call which other&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * functions.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;and&lt;/font&gt;&lt;/b&gt; make_call_graph functions &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; graph &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;FunctionDigraph&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;create &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;iter &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; svar &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; caller&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; sallstmts &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; sallstmts &lt;font color=&quot;#FF0000&quot;&gt;}&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Evaluate which other functions 'caller' calls.  First pull&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       * out every 'Call' instruction anywhere in the function.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;       *)&lt;/font&gt;&lt;/i&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; insns &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;concat &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+        filter_map &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+          &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;function&lt;/font&gt;&lt;/b&gt;
+          &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; skind &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Instr&lt;/font&gt; insns &lt;font color=&quot;#FF0000&quot;&gt;}&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Some&lt;/font&gt; insns
+          &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;None&lt;/font&gt;
+        &lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; sallstmts
+      &lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; calls &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;filter &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;function&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;Call&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;true&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;false&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; insns &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+      &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Then examine what function is being called at each place. *)&lt;/font&gt;&lt;/i&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; callees &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; filter_map &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+        &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;function&lt;/font&gt;&lt;/b&gt;
+        &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Call&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;_&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Lval&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Var&lt;/font&gt; callee&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;),&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Some&lt;/font&gt; callee
+        &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;None&lt;/font&gt;
+      &lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; calls &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+
+      &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;iter &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+        &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; callee &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+          &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;FunctionDigraph&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;add_edge graph caller callee
+      &lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; callees
+  &lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; functions&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+
+  graph
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* [functions_which_call g endpoints functions] partitions the&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * [functions] list, returning those functions that call directly or&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * indirectly one of the functions in [endpoints], and a separate list&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * of functions which do not.  [g] is the direct call graph.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;and&lt;/font&gt;&lt;/b&gt; functions_which_call g endpoints functions &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; functions &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;map &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; svar &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; svar &lt;font color=&quot;#FF0000&quot;&gt;}&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; svar&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; functions &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; checker &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;FunctionPathChecker&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;create g &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;partition &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; f &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Does a path exist from f to any of the endpoints? *)&lt;/font&gt;&lt;/i&gt;
+      &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;exists &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+        &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; endpoint &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+          &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;try&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;FunctionPathChecker&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;check_path checker f endpoint
+          &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+          &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* It appears safe to ignore this exception.  It seems to&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;           * mean that this function is in a part of the graph which&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;           * is completely disconnected from the other part of the graph&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;           * that contains the endpoint.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;           *)&lt;/font&gt;&lt;/i&gt;
+          &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Invalid_argument&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;[ocamlgraph] iter_succ&amp;quot;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;false&lt;/font&gt;&lt;/b&gt;
+      &lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; endpoints
+  &lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; functions
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;and&lt;/font&gt;&lt;/b&gt; compute_error_paths &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; svar &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; svar &lt;font color=&quot;#FF0000&quot;&gt;}&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;as&lt;/font&gt;&lt;/b&gt; f&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; loc&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(*ErrorCounter.debug := true;*)&lt;/font&gt;&lt;/i&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Find the initial statement in this function (assumes that the&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * function can only be entered in one place, which is normal for C&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   * functions).&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;   *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; initial_stmts &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;match&lt;/font&gt;&lt;/b&gt; f&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;sbody&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;bstmts &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[]&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[]&lt;/font&gt;
+    &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; first&lt;font color=&quot;#990000&quot;&gt;::&lt;/font&gt;_ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[&lt;/font&gt;first&lt;font color=&quot;#990000&quot;&gt;]&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Initialize ErrorCounter. *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;ErrorCounter&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;init initial_stmts&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Compute the error counters along paths through the function. *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;ForwardsErrorCounter&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;compute initial_stmts&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+
+  &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Process all Return statements in this function. *)&lt;/font&gt;&lt;/i&gt;
+  &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;iter &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;
+    &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;fun&lt;/font&gt;&lt;/b&gt; stmt &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;try&lt;/font&gt;&lt;/b&gt;
+        &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; errcalls &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Inthash&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;find &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;ErrorCounter&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;stmtStartData stmt&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;sid &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+
+        &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;match&lt;/font&gt;&lt;/b&gt; stmt &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+        &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* return -1; *)&lt;/font&gt;&lt;/i&gt;
+        &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; skind &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Return&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Some&lt;/font&gt; i&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; loc&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;}&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;when&lt;/font&gt;&lt;/b&gt; is_literal_minus_one i &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+          &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;if&lt;/font&gt;&lt;/b&gt; errcalls &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#993399&quot;&gt;0&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;then&lt;/font&gt;&lt;/b&gt;
+            printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;%s:%d: %s: may return an error code without calling error/perrorf\n&amp;quot;&lt;/font&gt;
+              loc&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;file loc&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;line svar&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vname
+          &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;else&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;if&lt;/font&gt;&lt;/b&gt; errcalls &lt;font color=&quot;#990000&quot;&gt;&amp;gt;&lt;/font&gt; &lt;font color=&quot;#993399&quot;&gt;1&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;then&lt;/font&gt;&lt;/b&gt;
+            printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;%s:%d: %s: may call error/perrorf %d times (more than once) along an error path\n&amp;quot;&lt;/font&gt;
+          loc&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;file loc&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;line svar&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vname errcalls
+
+        &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* return 0; *)&lt;/font&gt;&lt;/i&gt;
+        &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; skind &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Return&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;Some&lt;/font&gt; i&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; loc&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;}&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;when&lt;/font&gt;&lt;/b&gt; is_literal_zero i &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+          &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;if&lt;/font&gt;&lt;/b&gt; errcalls &lt;font color=&quot;#990000&quot;&gt;&amp;gt;=&lt;/font&gt; &lt;font color=&quot;#993399&quot;&gt;1&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;then&lt;/font&gt;&lt;/b&gt;
+            printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;%s:%d: %s: may call error/perrorf along a non-error return path\n&amp;quot;&lt;/font&gt;
+              loc&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;file loc&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;line svar&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vname
+
+        &lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* return; (void return) *)&lt;/font&gt;&lt;/i&gt;
+        &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;{&lt;/font&gt; skind &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Return&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;None&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; loc&lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; &lt;font color=&quot;#FF0000&quot;&gt;}&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+          &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;if&lt;/font&gt;&lt;/b&gt; errcalls &lt;font color=&quot;#990000&quot;&gt;&amp;gt;=&lt;/font&gt; &lt;font color=&quot;#993399&quot;&gt;1&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;then&lt;/font&gt;&lt;/b&gt;
+            printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;%s:%d: %s: may call error/perrorf and return void\n&amp;quot;&lt;/font&gt;
+              loc&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;file loc&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;line svar&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vname
+
+        &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+
+      &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt;
+        &lt;font color=&quot;#009900&quot;&gt;Not_found&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+          printf &lt;font color=&quot;#FF0000&quot;&gt;&amp;quot;%s:%d: %s: may contain unreachable code\n&amp;quot;&lt;/font&gt;
+            loc&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;file loc&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;line svar&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;vname
+  &lt;font color=&quot;#990000&quot;&gt;)&lt;/font&gt; f&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;sallstmts
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Some convenience CIL matching functions. *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;and&lt;/font&gt;&lt;/b&gt; is_literal_minus_one &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;function&lt;/font&gt;&lt;/b&gt;
+  &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Const&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;CInt64&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(-&lt;/font&gt;&lt;font color=&quot;#993399&quot;&gt;1L&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;))&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;true&lt;/font&gt;&lt;/b&gt;
+  &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;false&lt;/font&gt;&lt;/b&gt;
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;and&lt;/font&gt;&lt;/b&gt; is_literal_zero &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;function&lt;/font&gt;&lt;/b&gt;
+  &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;Const&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#009900&quot;&gt;CInt64&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;font color=&quot;#993399&quot;&gt;0L&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;,&lt;/font&gt; _&lt;font color=&quot;#990000&quot;&gt;))&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;true&lt;/font&gt;&lt;/b&gt;
+  &lt;font color=&quot;#990000&quot;&gt;|&lt;/font&gt; _ &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;false&lt;/font&gt;&lt;/b&gt;
+
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt;(* Convenient routine to load the contents of a channel into a list of&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; * strings.&lt;/font&gt;&lt;/i&gt;
+&lt;i&gt;&lt;font color=&quot;#9A1900&quot;&gt; *)&lt;/font&gt;&lt;/i&gt;
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;and&lt;/font&gt;&lt;/b&gt; input_chan chan &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; lines &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; &lt;font color=&quot;#009900&quot;&gt;ref&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[]&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;try&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;while&lt;/font&gt;&lt;/b&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;true&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;do&lt;/font&gt;&lt;/b&gt; lines &lt;font color=&quot;#990000&quot;&gt;:=&lt;/font&gt; input_line chan &lt;font color=&quot;#990000&quot;&gt;::&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;!&lt;/font&gt;lines &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;done&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;[]&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#009900&quot;&gt;End_of_file&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;List&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;rev &lt;font color=&quot;#990000&quot;&gt;!&lt;/font&gt;lines
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;and&lt;/font&gt;&lt;/b&gt; input_file filename &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; chan &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; open_in filename &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; r &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt; input_chan chan &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;in&lt;/font&gt;&lt;/b&gt;
+  close_in chan&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+  r
+
+&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;let&lt;/font&gt;&lt;/b&gt; &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;=&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;try&lt;/font&gt;&lt;/b&gt; main &lt;font color=&quot;#990000&quot;&gt;()&lt;/font&gt;
+  &lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;with&lt;/font&gt;&lt;/b&gt; 
+    &lt;font color=&quot;#009900&quot;&gt;exn&lt;/font&gt; &lt;font color=&quot;#990000&quot;&gt;-&amp;gt;&lt;/font&gt;
+      prerr_endline &lt;font color=&quot;#990000&quot;&gt;(&lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Printexc&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;to_string &lt;font color=&quot;#009900&quot;&gt;exn&lt;/font&gt;&lt;font color=&quot;#990000&quot;&gt;);&lt;/font&gt;
+      &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Printexc&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;print_backtrace &lt;b&gt;&lt;font color=&quot;#000080&quot;&gt;Pervasives&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#990000&quot;&gt;.&lt;/font&gt;stderr&lt;font color=&quot;#990000&quot;&gt;;&lt;/font&gt;
+      exit &lt;font color=&quot;#993399&quot;&gt;1&lt;/font&gt;
+&lt;/tt&gt;
+&lt;/pre&gt;
+</content><id>https://rwmj.wordpress.com/2013/02/07/more-static-analysis-with-cil/</id><title type="text">More static analysis with CIL</title><updated>2013-02-07T18:18:35-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2012/09/26/ocaml-users-and-developers-slides-and-videos/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;http://oud.ocaml.org/2012/#schedule&quot;&gt;http://oud.ocaml.org/2012/#schedule&lt;/a&gt; (thanks Anil).&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2012/09/26/ocaml-users-and-developers-slides-and-videos/</id><title type="text">OCaml Users and Developers slides and videos</title><updated>2012-09-26T09:11:12-00:00</updated><author><name>rjones</name></author></entry><entry><link href="https://rwmj.wordpress.com/2012/06/13/xavierbot-lives/" rel="alternate"/><contributor><uri>https://rwmj.wordpress.com/tag/ocaml/feed/</uri><name>rjones</name></contributor><content type="html">&lt;p&gt;Or at least he now has his own &lt;a href=&quot;http://git.annexia.org/?p=xavierbot.git%3Ba=summary&quot;&gt;git repository&lt;/a&gt;.&lt;/p&gt;
+</content><id>https://rwmj.wordpress.com/2012/06/13/xavierbot-lives/</id><title type="text">xavierbot lives!</title><updated>2012-06-13T21:23:31-00:00</updated><author><name>rjones</name></author></entry></feed>

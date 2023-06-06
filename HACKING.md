@@ -4,6 +4,18 @@
 
 ### Setting up the Project
 
+Before starting to hack you need a properly configured development environment. Linux and macOS are supported and used daily by the core team. System dependencies include:
+* Libev: http://software.schmorp.de/pkg/libev.html
+* Oniguruma: https://github.com/kkos/oniguruma
+* OpenSSL: https://www.openssl.org/
+* GNU Multiple Precision: https://gmplib.org/
+
+The project [`Dockerfile`](./Dockerfile) contains up-to-date system configuration instructions, as used to ship into production. It is written for the Alpine Linux distribution but is meant to be adapted to other environments such as Ubuntu, macOS+Homebrew or others. The GitHub workflow file [`.github/workflows/ci.yml`](.github/workflows/ci.yml) also contains useful commands for Ubuntu and macOS. Since ocaml.org is mostly written in OCaml, a properly configured OCaml development environment is also required, but is not detailed here. Although Docker is used to ship, it is not a requirement to begin hacking. Currently, ocaml.org doesn't yet compile using OCaml 5, version 4.14 of the language is used. It is possible to run workflow files in `.github/workflows` using the [nektos/act](https://github.com/nektos/act) tool. For instance, run the following command to run the CI checks run by GitHub on each pull request (where `ghghgh` is replace by an _ad-hoc_ GitHub token, see: https://github.com/nektos/act#github_token)
+```
+act -s GITHUB_TOKEN=ghghgh .github/workflows/ci.yml -j build
+```
+
+
 The `Makefile` contains many commands that can get you up and running, a typical workflow will be to clone the repository after forking it.
 
 ```
@@ -55,25 +67,21 @@ make test
 
 ### Building the Playground
 
-The OCaml playground is compiled separately from the rest of the server and the generated assets can be found in
+The OCaml Playground is compiled separately from the rest of the server and the generated assets can be found in
 [`playground/asset/`](./playground/asset/).
 
-To regenerate the playground, you will need to set up an OCaml 5 switch:
+You can build the playground from the root of the project, there is no need to move to the `./playground/` directory for the following commands.
+
+To regenerate the playground, you need to install the playground's dependencies first:
 
 ```
-opam switch create 5.0.0 5.0.0 --no-install
-```
-
-You can then go in the `playground/` directory and install the dependencies:
-
-```
-opam install . --deps-only
+make deps -C playground
 ```
 
 After the dependencies have been installed, simply build the project to re-generate the JavaScript assets:
 
 ```
-dune build --root .
+make playground
 ```
 
 Once the compilation is complete and successuful, the newly generated assets have to be git committed
@@ -81,20 +89,52 @@ in ocaml.org and merged as a pull request.
 
 ### Deploying
 
-Commits added on `main` are automatically deployed on <https://ocaml.org/>.
+Commits added on some branches are automatically deployed:
+- `main` on <https://ocaml.org/>.
+- `staging` on <https://staging.ocaml.org/>.
 
-The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer> which listens to the `main` branch and builds the site using the `Dockerfile` at the root of the project.
+The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer> which listens to the `main` and `staging` branches and builds the site using the `Dockerfile` at the root of the project.
 
 To test the deployment locally, you can run the following commands:
 
 ```
-docker build -t ocaml.org .
-docker run -p 8080:8080  ocaml.org
+docker build -t ocamlorg .
+docker run -p 8080:8080  ocamlorg
 ```
 
 This will build the docker image and run a docker container with the port `8080` mapped to the HTTP server.
 
 With the docker container running, you can visit the site at <http://localhost:8080/>.
+
+The docker images automatically build from the `live` and `staging` branches, and are then pushed to Docker Hub: https://hub.docker.com/r/ocurrent/v3.ocaml.org-server
+
+### Staging Pull Requests
+
+We [aim to keep the `staging` branch as close as possible to the `main`
+branch](doc/FOR_MAINTAINERS.md#how-we-maintain-the-staging-branch), with only a few PRs added on top of it.
+
+The maintainers will add your pull request to `staging` if it is worthwhile
+to do so. For example, documentation PRs or new features where we need testing
+and feedback from the community will generally be live on `staging` for a while
+before they get merged.
+
+### Managing dependencies
+
+ocaml.org is using an Opam switch which is local and bound to a pinned commit in opam-repository. This is intended to protect the build from upstream regressions. The Opam repository is specified in three (3) places:
+```
+Dockerfile
+Makefile
+.github/workflows/*.yml
+```
+
+When bringing up ocaml.org to a newer pin, the commit hash found it those files must be changed all at once.
+
+Once the opam repo pin is updated, the local switch must be updated using the following command:
+```sh
+opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>
+```
+
+Where `<commit-hash>` is the pinned hash specified in the files mentioned above.
 
 ## Repository structure
 
@@ -109,31 +149,34 @@ The following snippet describes the repository structure.
 |   Data used by ocaml.org in Yaml and Markdown format.
 │
 ├── playground/
-|   The source and generated assets for the OCaml Playground
-|
+│   The source and generated assets for the OCaml Playground
+│
 ├── src
+│   ├── global
+│   │   Project wide definitions
+│   │
 │   ├── dream_dashboard
-|   |   A monitoring and analytics dashboard for dream.
-|   |
+│   │   A monitoring and analytics dashboard for dream.
+│   │
 │   ├── ocamlorg_data
-|   |   The result of compiling all of the information in `/data` into OCaml modules.
-|   |
+│   │   The result of compiling all of the information in `/data` into OCaml modules.
+│   │
 │   ├── ocamlorg_frontend
-|   |   All of the front-end code primarily using .eml files (OCaml + HTML).
-|   |
+│   │   All of the front-end code primarily using .eml files (OCaml + HTML).
+│   │
 │   ├── ocamlorg_package
-|   |   The library for constructing opam-repository statistics and information (e.g. rev deps).
-|   |
+│   │   The library for constructing opam-repository statistics and information (e.g. rev deps).
+│   │
 │   └── ocamlorg_web
-|       The main entry-point of the server.
+│       The main entry-point of the server.
 │
 ├── tool/
-|   Sources for development tools such as the `ocamlorg_data` code generator.
+│   Sources for development tools such as the `ocamlorg_data` code generator.
 │
 ├── dune
 ├── dune-project
-|   Dune file used to mark the root of the project and define project-wide parameters.
-|   For the documentation of the syntax, see https://dune.readthedocs.io/en/stable/dune-files.html#dune-project.
+│   Dune file used to mark the root of the project and define project-wide parameters.
+│   For the documentation of the syntax, see https://dune.readthedocs.io/en/stable/dune-files.html#dune-project.
 │
 ├── ocamlorg.opam
 ├── ocamlorg.opam.template
@@ -142,14 +185,14 @@ The following snippet describes the repository structure.
 ├── CONTRIBUTING.md
 │
 ├── Dockerfile
-|   Dockerfile used to build and deploy the site in production.
+│   Dockerfile used to build and deploy the site in production.
 │
 ├── LICENSE
 ├── LICENSE-3RD-PARTY
-|   Licenses of the source code, data and vendored third-party projects.
+│   Licenses of the source code, data and vendored third-party projects.
 │
 ├── Makefile
-|   `Makefile` containing common development commands.
+│   `Makefile` containing common development commands.
 │
 ├── README.md
 │

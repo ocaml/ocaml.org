@@ -1,0 +1,11 @@
+data:
+  - name: videos
+    source: test_input.yaml
+    format: yaml
+    fields:
+      - name: title
+        type: string
+      - name: author
+        type: string option
+      - name: duration
+        type: int

@@ -13,13 +13,31 @@
  (libraries merlin-js.worker))
 
 (rule
+ (target cmis.ml)
+ (deps gen_cmis_ml.sh ../asset/stdlib)
+ (action
+  (with-stdout-to
+   %{target}
+   (run ./gen_cmis_ml.sh))))
+
+(rule
+ (targets export.txt)
+ (deps worker.bc)
+ (action
+  (run jsoo_listunits -o %{targets} stdlib)))
+
+(rule
  (targets worker.js)
  (action
   (run
    %{bin:js_of_ocaml}
    --toplevel
+   --export
+   %{dep:export.txt}
+   --no-cmis
    --pretty
    --enable=effects
+   --linkall
    +toplevel.js
    +dynlink.js
    %{dep:worker.bc}

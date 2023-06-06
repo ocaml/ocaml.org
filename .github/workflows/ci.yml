@@ -22,7 +22,7 @@ jobs:
           - macos-latest
           - ubuntu-latest
         ocaml-compiler:
-          - ocaml-base-compiler.4.14.0
+          - ocaml-base-compiler.4.14.1
 
     steps:
       - name: Checkout code
@@ -34,7 +34,8 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
           opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#b457e9f3d6
+            pin: git+https://github.com/ocaml/opam-repository#9cf27a6683dc4e56ccf7e35c008198828bd5c267
+          opam-disable-sandboxing: true
 
       - name: Install system dependencies (Linux)
         run: sudo apt-get install libev-dev libonig-dev
@@ -48,7 +49,7 @@ jobs:
         run: opam install --deps-only --with-test .
 
       - name: Install ocamlformat
-        run: opam install ocamlformat.0.24.1
+        run: opam install ocamlformat.0.25.1
 
       - name: Build project
         run: opam exec -- dune build @install

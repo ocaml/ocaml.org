@@ -7,6 +7,7 @@ let render
 ~title
 ?canonical
 ?(active_top_nav_item: Header.active_nav_item option)
+?(footer_html = Footer.render ())
 inner =
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@ inner =
     <% (match canonical with | Some canonical -> %>
     <link rel="canonical" href="https://ocaml.org<%s canonical %>">
     <% | None -> ()); %>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="<%s Ocamlorg_static.Asset.url "favicon.ico" %>">
     <link rel="manifest" href="/manifest.json">
     <% (match styles with | Some styles -> styles |> List.iter (fun style -> %>
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url style %>">
@@ -39,6 +40,8 @@ inner =
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/main.css" %>">
     <% ); %>
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
+    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/roboto-mono.css" %>">
+    <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine-clipboard.js" %>"></script>
     <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
     <script defer src="<%s Ocamlorg_static.Asset.url "vendors/htmx.min.js" %>"></script>
     <% if use_swiper then ( %>
@@ -54,11 +57,14 @@ inner =
     <div class="relative bg-background-dark-blue">
       <div class="mx-auto py-3 px-6 sm:px-16 max-w-6xl sm:text-center">
         <p class="font-medium text-white">
-          <span class="md:hidden">OCaml 5.0 is available!</span>
-          <span class="hidden md:inline">OCaml 5.0 is available! This release of OCaml comes with support for shared-memory parallelism through domains and direct-style concurrency through effect handlers!</span>
+          <span class="md:hidden">We've released the OCaml Changelog!</span>
+          <span class="hidden md:inline">
+            <strong class="font-semibold">OCaml Changelog</strong><svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>
+            The OCaml Changelog is a feed of the latest releases and features of official OCaml projects.
+          </span>
           <span class="block sm:ml-2 sm:inline-block">
-            <a href="<%s Url.news_post "ocaml-5.0" %>" class="font-bold text-white underline">
-              Try it now
+            <a href="<%s Url.changelog %>" class="font-bold text-white underline">
+              Read it now
               <span aria-hidden="true"> &rarr;</span>
             </a>
           </span>
@@ -71,6 +77,6 @@ inner =
 
     <main><%s! inner %></main>
 
-    <%s! Footer.render () %>
+    <%s! footer_html %>
   </body>
 </html>

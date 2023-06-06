@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://math.andrej.com/feed.xml</id><title type="text">andrej</title><updated>2023-06-05T05:45:59-00:00</updated><entry><link href="http://math.andrej.com/2023/02/13/formalizing-invisible-mathematics/" rel="alternate"/><contributor><uri>http://math.andrej.com/feed.xml</uri><name>andrej</name></contributor><content type="html">&lt;p&gt;I am at the &lt;a href=&quot;http://www.ipam.ucla.edu/programs/workshops/machine-assisted-proofs/&quot;&gt;Machine assisted proofs&lt;/a&gt; workshop at the &lt;a href=&quot;http://www.ipam.ucla.edu&quot;&gt;UCLA Institute for Pure and Applied Mathematics&lt;/a&gt;, where I am about to give a talk on &amp;ldquo;Formalizing invisible mathematics&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;Here are the &lt;a href=&quot;http://math.andrej.com/asset/data/formalizing-invisible-mathematics.pdf&quot;&gt;slides with speaker notes&lt;/a&gt; and the &lt;a href=&quot;https://youtu.be/wZSvuCJBaFU&quot;&gt;video recording of the talk&lt;/a&gt;.&lt;/p&gt;
+
+
+
+&lt;p&gt;&lt;strong&gt;Abstract:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It has often been said that all of mathematics can in principle be formalized in a suitably chosen foundation, such as first-order logic with set theory, higher-order logic, or type theory. When one attempts to actually do so on a large scale, the true meaning of the qualifier &amp;ldquo;in principle&amp;rdquo; is revealed: mathematical practice consists not only of text written on paper, however detailed they might be, but also of unspoken conventions and techniques that enable efficient communication and understanding of mathematical texts. While students may be able to learn these through observation and imitation, the same cannot be expected of computers, yet.&lt;/p&gt;
+
+&lt;p&gt;In this talk we will first review some of the informal mathematical practices and relate them to corresponding techniques in proof assistants, such as implicit arguments, type classes, and tactics. We shall then ask more generally whether these need be just a bag of tricks, or can they be organized into a proper mathematical theory.&lt;/p&gt;</content><id>http://math.andrej.com/2023/02/13/formalizing-invisible-mathematics/</id><title type="text">Formalizing invisible mathematics</title><updated>2023-02-13T08:00:00-00:00</updated><author><name>Andrej Bauer</name></author></entry><entry><link href="http://math.andrej.com/2023/02/10/exploring-strange-new-worlds/" rel="alternate"/><contributor><uri>http://math.andrej.com/feed.xml</uri><name>andrej</name></contributor><content type="html">&lt;p&gt;On February 10, 2023, I gave my &lt;a href=&quot;https://www.wpi.edu/news/calendar/events/mathematical-sciences-department-levi-l-conant-lecture-series-2023-andrej-bauer-university-ljubljana&quot;&gt;Levi L. Conant Lectur Series talk&lt;/a&gt; &amp;ldquo;Exploring strange new worlds of mathematics&amp;rdquo;, at the &lt;a href=&quot;https://www.wpi.edu/academics/departments/mathematical-sciences&quot;&gt;math department of  Worcester Polytechnic Institute&lt;/a&gt;. Here are the &lt;a href=&quot;http://math.andrej.com/asset/data/exploring-strange-new-worlds.pdf&quot;&gt;slides with speaker notes&lt;/a&gt; and the &lt;a href=&quot;https://echo360.org/media/2685fce0-74f9-4304-88d7-f58820b5bcfe/public&quot;&gt;video&lt;/a&gt; recording of the talk.&lt;/p&gt;
+
+
+
+&lt;p&gt;&lt;a href=&quot;http://katja.not.si&quot;&gt;Katja Ber&amp;#269;i&amp;#269;&lt;/a&gt; made a super cool logo for my talk:&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;http://math.andrej.com/asset/data/vulcan-exploring.png&quot; style=&quot;width: 50%&quot;/&gt;&lt;/center&gt;
+
+&lt;p&gt;Thank you, Katja! If you are a Trekkie you should figure it out.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Abstract:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In the 19th century Carl Friedrich Gauss, Nikolai Lobachevsky, and J&amp;aacute;nos Bolyai discovered geometries that violated the parallel postulate. Initially these were considered inferior to Euclid's geometry, which was generally recognized as the true geometry of physical space. Subsequently, the work of Bernhard Riemann, Albert Einstein, and others, liberated geometry from the shackles of dogma, and allowed it to flourish beyond anything that the inventors of non-euclidean geometry could imagine.&lt;/p&gt;
+
+&lt;p&gt;A century later history repeated itself, this time with entire worlds of mathematics at stake. The ideal of one true mathematics was challenged by the schism between intuitionstic and classical mathematics, as personified in the story of rivalry between L.E.J. Brouwer and David Hilbert. Not long afterwards, Kurt G&amp;ouml;del's work in logic implied the inevitability of a multitude of worlds of mathematics. These could hardly be dismissed as logical sophistry, as they provided answers to fundamental questions about set theory and foundations of mathematics. The second half of the 20th century brought gave us many more worlds of mathematics: Cohen's set-theoretic forcing, Alexander Grothnedieck's sheaves, F. William Lawvere's and Myles Tierney's elementary toposes, Martin Hyland's effective topos, and a plethora of others.&lt;/p&gt;
+
+&lt;p&gt;We shall explore but a small corner of the vast multiverse of mathematics, observing in each the quintessential mathematical object, the field of real numbers. There is a universe in which the reals contain Leibniz's infinitesimals, in another they are all computable, there is one in which they are cannot be separated into two disjoint subsets, and one in which all subsets are measurable. There is even a universe in which the reals are countable. The spectrum of possibilities is bewildering, but also inspiring. It leads to the idea of synthetic mathematics: just like geometers and physicists choose a geometry that is best for the situation at hand, mathematicians can choose to work in a mathematical universe made to order, or synthesized, that best captures the essence and nature of the topic of interest.&lt;/p&gt;</content><id>http://math.andrej.com/2023/02/10/exploring-strange-new-worlds/</id><title type="text">Exploring strange new worlds of mathematics</title><updated>2023-02-10T08:00:00-00:00</updated><author><name>Andrej Bauer</name></author></entry><entry><link href="http://math.andrej.com/2022/10/11/happy-birthday-dana/" rel="alternate"/><contributor><uri>http://math.andrej.com/feed.xml</uri><name>andrej</name></contributor><content type="html">&lt;p&gt;Today &lt;a href=&quot;https://www.cmu.edu/math/people/faculty/scott.html&quot;&gt;Dana Scott&lt;/a&gt; is celebrating the 90th birthday today. &lt;strong&gt;Happy birthday, Dana!&lt;/strong&gt; I am forever grateful for your kindness and the knowledge that I received from you. I hope to pass at least a part of it onto my students.&lt;/p&gt;
+
+&lt;p&gt;On the occasion &lt;a href=&quot;https://awodey.github.io&quot;&gt;Steve Awodey&lt;/a&gt; assembled selected works by Dana Scott at &lt;a href=&quot;https://github.com/CMU-HoTT/scott&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CMU-HoTT/scott&lt;/code&gt;&lt;/a&gt; repository. It is an amazing collection of papers that had deep impact on logic, set theory, computation, and programming languages. I hope in the future we can extend it and possibly present it in better format.&lt;/p&gt;
+
+&lt;p&gt;As a special treat, I recount here the story the invention of the famous $D_\infty$ model of the untyped $\lambda$-calculus.
+I heard it first when I was Dana's student. In 2008 I asked Dana to recount it in the form of a short interview.&lt;/p&gt;
+
+
+
+&lt;p&gt;&lt;strong&gt;These days domain theory is a mature branch of mathematics. It has had profound influence on the theory and practice of programming languages. When did you start working on it and why?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Dana Scott:&lt;/strong&gt; I was in Amsterdam in 1968/69 with my family. I met Strachey at IFIP WG2.2 in summer of 1969. I arranged leave from Princeton to work with him in the fall of 1969 in Oxford. I was trying to convince Strachey to use a type theory based on domains.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;One of your famous results is the construction of a domain $D_\infty$ which is isomorphic to its own continuous function space $D_\infty \to D_\infty$. How did you invent it?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;D. S.:&lt;/strong&gt; $D_\infty$ did not come until later. I remember it was a quiet Saturday in November 1969 at home. I had proved that if domains $D$ and $E$ have a countable basis of finite elements, then so does the continuous function space $D \to E$. In understanding how often the basis for $D \to E$ was more complicated than the bases for $D$ and $E$, I then thought, &amp;ldquo;Oh, no, there must exist a bad $D$ with a basis so 'dense' that the basis for $D \to D$ is just as complicated &amp;ndash; in fact, isomorphic.&amp;rdquo; But I never proved the existence of models exactly that way because I soon saw that the iteration of $X \mapsto (X \to X)$ constructed a suitable basis in the limit. That was the actual $D_\infty$ construction.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Why do you say &amp;ldquo;oh no&amp;rdquo;? It was an important discovery!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;D. S.:&lt;/strong&gt; Since, I had claimed for years that the type-free $\lambda$-calculus has no &amp;ldquo;mathematical&amp;rdquo; models (as distinguished from term models), I said to myself, &amp;ldquo;Oh, no, now I will have to eat my own words!&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The existence of term models is guaranteed by the Church-Rosser theorem from 1936 which implies that the untyped lambda calculus is consistent?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;D. S.:&lt;/strong&gt; Yes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The domain $D_\infty$ is an involved construction which gives a model for the calculus with both $\beta$- and $\eta$-rules. Is it easier to give a model which satisfies the $\beta$-rule only?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;D. S.:&lt;/strong&gt; Since the powerset of natural numbers $P\omega$ (with suitable topology) is universal for countably-based $T_0$-spaces, and since a continuous lattice is a retract of every superspace, it follows that $P\omega \to P\omega$ is a retract of $P\omega$. This gives a non-$\eta$ model without any infinity-limit constructions. But continuous lattices had not yet been invented in 1969 &amp;ndash; that I knew of.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Where can the interested readers read more about this topic?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;D.S.:&lt;/strong&gt; I would recommend these two:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Scott, D. &lt;a href=&quot;https://github.com/CMU-HoTT/scott/blob/main/pdfs/1993-a-type-theoretical-aternative-to-ISWIM-CUCH-OWHY.pdf&quot;&gt;A type-theoretical alternative to ISWIM, CUCH, OWHY&lt;/a&gt;. Theoretical Computer Science, vol. 121 (1993), pp. 411-440.&lt;/li&gt;
+  &lt;li&gt;Scott, D. &lt;a href=&quot;https://doi.org/10.1023/A:1010018211714&quot;&gt;Some Reflections on Strachey and his Work&lt;/a&gt;. A Special Issue Dedicated to Christopher Strachey, edited by O. Danvy and C. Talcott. Higer-Order and Symbolic Computation, vol. 13 (2000), pp. 103-114.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Thank you very much!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Dana Scott:&lt;/strong&gt; You are welcome.&lt;/p&gt;</content><id>http://math.andrej.com/2022/10/11/happy-birthday-dana/</id><title type="text">Happy birthday, Dana!</title><updated>2022-10-11T07:00:00-00:00</updated><author><name>Andrej Bauer</name></author></entry><entry><link href="http://math.andrej.com/2022/05/20/one-syntax-to-rule-them-all/" rel="alternate"/><contributor><uri>http://math.andrej.com/feed.xml</uri><name>andrej</name></contributor><content type="html">&lt;p&gt;I am at the &lt;a href=&quot;https://europroofnet.github.io/wg6-kickoff-stockholm/&quot;&gt;Syntax and Semantics of Type Theory&lt;/a&gt; workshop in Stockholm, a kickoff meeting for &lt;a href=&quot;https://europroofnet.github.io/wg6/&quot;&gt;WG6&lt;/a&gt; of the &lt;a href=&quot;https://europroofnet.github.io&quot;&gt;EuroProofNet&lt;/a&gt; COST network, where I am giving a talk &amp;ldquo;One syntax to rule them all&amp;rdquo; based on joint work with &lt;a href=&quot;https://danel.ahman.ee&quot;&gt;Danel Ahman&lt;/a&gt;.&lt;/p&gt;
+
+
+
+&lt;p&gt;&lt;strong&gt;Abstract:&lt;/strong&gt;
+The raw syntax of a type theory, or more generally of a formal system with binding constructs, involves not only free and bound variables, but also meta-variables, which feature in inference rules. Each notion of variable has an associated notion of substitution. A syntactic translation from one type theory to another brings in one more level of substitutions, this time mapping type-theoretic constructors to terms. Working with three levels of substitution, each depending on the previous one, is cumbersome and repetitive. One gets the feeling that there should be a better way to deal with syntax.&lt;/p&gt;
+
+&lt;p&gt;In this talk I will present a relative monad capturing higher-rank syntax which takes care of all notions of substitution and binding-preserving syntactic transformations in one fell swoop. The categorical structure of the monad corresponds precisely to the desirable syntactic properties of binding and substitution. Special cases of syntax, such as ordinary first-order variables, or second-order syntax with variables and meta-variables, are obtained easily by precomposition of the relative monad with a suitable inclusion of restricted variable contexts into the general ones. The meta-theoretic properties of syntax transfer along the inclusion.&lt;/p&gt;
+
+&lt;p&gt;The relative monad is sufficiently expressive to give a notion of intrinsic syntax for simply typed theories. It remains to be seen how one could refine the monad to account for intrinsic syntax of dependent type theories.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Talk notes:&lt;/strong&gt;
+Here are the hand-written &lt;a href=&quot;http://math.andrej.com/asset/data/one-syntax-to-rule-them-all.pdf&quot;&gt;talk notes&lt;/a&gt;, which cover more than I could say during the talk.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Formalization:&lt;/strong&gt;
+I have the beginning of a formalization of the higher-rank syntax, but it hits a problem, see below. Can someone suggest a solution? (You can download &lt;a href=&quot;http://math.andrej.com/asset/data/Syntax.agda&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Syntax.agda&lt;/code&gt;&lt;/a&gt;.)&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{-
+   An attempt at formalization of (raw) higher-rank syntax.
+
+   We define a notion of syntax which allows for higher-rank binders,
+   variables and substitutions. Ordinary notions of variables are
+   special cases:
+
+   * order 1: ordinary variables and substitutions, for example those of
+     &amp;lambda;-calculus
+   * order 2: meta-variables and their instantiations
+   * order 3: symbols (term formers) in dependent type theory, such as
+     &amp;Pi;, &amp;Sigma;, W, and syntactic transformations between theories
+
+   The syntax is parameterized by a type Class of syntactic classes. For
+   example, in dependent type theory there might be two syntactic
+   classes, ty and tm, corresponding to type and term expressions.
+-}
+
+module Syntax (Class : Set) where
+
+  {- Shapes can also be called &amp;ldquo;syntactic variable contexts&amp;rdquo;, as they assign to
+     each variable its syntactic arity, but no typing information.
+
+     An arity is a binding shape with a syntactic class. The shape specifies
+     how many arguments the variable takes and how it binds the argument's variables.
+     The class specifies the syntactic class of the variable, and therefore of the
+     expression formed by it.
+
+     We model shapes as binary trees so that it is easy to concatenate
+     two of them. A more traditional approach models shapes as lists, in
+     which case one has to append lists.
+  -}
+
+  infixl 6 _&amp;oplus;_
+
+  data Shape : Set where
+    &amp;#120792; : Shape -- the empty shape
+    [_,_] : &amp;forall; (&amp;gamma; : Shape) (cl : Class) &amp;rarr; Shape -- the shape with precisely one variable
+    _&amp;oplus;_ : &amp;forall; (&amp;gamma; : Shape) (&amp;delta; : Shape) &amp;rarr; Shape -- disjoint sum of shapes
+
+  infix 5 [_,_]&amp;isin;_
+
+  {- The de Bruijn indices are binary numbers because shapes are binary
+     trees. [ &amp;delta; , cl ]&amp;isin; &amp;gamma; is the set of variable indices in &amp;gamma; whose arity
+     is (&amp;delta;, cl). -}
+
+  data [_,_]&amp;isin;_ : Shape &amp;rarr; Class &amp;rarr; Shape &amp;rarr; Set where
+    var-here : &amp;forall; {&amp;theta;} {cl} &amp;rarr; [ &amp;theta; , cl ]&amp;isin;  [ &amp;theta; , cl ]
+    var-left :  &amp;forall; {&amp;theta;} {cl} {&amp;gamma;} {&amp;delta;} &amp;rarr; [ &amp;theta; , cl ]&amp;isin; &amp;gamma; &amp;rarr; [ &amp;theta; , cl ]&amp;isin; &amp;gamma; &amp;oplus; &amp;delta;
+    var-right : &amp;forall; {&amp;theta;} {cl} {&amp;gamma;} {&amp;delta;} &amp;rarr; [ &amp;theta; , cl ]&amp;isin; &amp;delta; &amp;rarr; [ &amp;theta; , cl ]&amp;isin; &amp;gamma; &amp;oplus; &amp;delta;
+
+  {- Examples:
+
+  postulate ty : Class -- type class
+  postulate tm : Class -- term class
+
+  ordinary-variable-arity : Class &amp;rarr; Shape
+  ordinary-variable-arity c = [ &amp;#120792; , c ]
+
+  binary-type-metavariable-arity : Shape
+  binary-type-metavariable-arity = [ [ &amp;#120792; , tm ] &amp;oplus; [ &amp;#120792; , tm ] , ty ]
+
+  &amp;Pi;-arity : Shape
+  &amp;Pi;-arity = [ [ &amp;#120792; , ty ] &amp;oplus; [ [ &amp;#120792; , tm ] , ty ] , ty ]
+
+  -}
+
+  {- Because everything is a variable, even symbols, there is a single
+     expression constructor _`_ which forms and expression by applying
+     the variable x to arguments ts. -}
+
+  -- Expressions
+
+  infix 9 _`_
+
+  data Expr : Shape &amp;rarr; Class &amp;rarr; Set where
+    _`_ : &amp;forall; {&amp;gamma;} {&amp;delta;} {cl} (x : [ &amp;delta; , cl ]&amp;isin; &amp;gamma;) &amp;rarr;
+            (ts : &amp;forall; {&amp;theta;} {B} (y : [ &amp;theta; , B ]&amp;isin; &amp;delta;) &amp;rarr; Expr (&amp;gamma; &amp;oplus; &amp;theta;) B) &amp;rarr; Expr &amp;gamma; cl
+
+  -- Renamings
+
+  infix 5 _&amp;rarr;&amp;#691;_
+
+  _&amp;rarr;&amp;#691;_ : Shape &amp;rarr; Shape &amp;rarr; Set
+  &amp;gamma; &amp;rarr;&amp;#691; &amp;delta; = &amp;forall; {&amp;theta;} {cl} (x : [ &amp;theta; , cl ]&amp;isin; &amp;gamma;) &amp;rarr; [ &amp;theta; , cl ]&amp;isin; &amp;delta;
+
+  -- identity renaming
+
+  &amp;#120793;&amp;#691; : &amp;forall; {&amp;gamma;} &amp;rarr; &amp;gamma; &amp;rarr;&amp;#691; &amp;gamma;
+  &amp;#120793;&amp;#691; x = x
+
+  -- composition of renamings
+
+  infixl 7 _&amp;#8728;&amp;#691;_
+
+  _&amp;#8728;&amp;#691;_ : &amp;forall; {&amp;gamma;} {&amp;delta;} {&amp;eta;} &amp;rarr; (&amp;delta; &amp;rarr;&amp;#691; &amp;eta;) &amp;rarr; (&amp;gamma; &amp;rarr;&amp;#691; &amp;delta;) &amp;rarr; (&amp;gamma; &amp;rarr;&amp;#691; &amp;eta;)
+  (r &amp;#8728;&amp;#691; s) x =  r (s x)
+
+  -- renaming extension
+
+  &amp;uArr;&amp;#691; : &amp;forall; {&amp;gamma;} {&amp;delta;} {&amp;Theta;} &amp;rarr; (&amp;gamma; &amp;rarr;&amp;#691; &amp;delta;) &amp;rarr; (&amp;gamma; &amp;oplus; &amp;Theta; &amp;rarr;&amp;#691; &amp;delta; &amp;oplus; &amp;Theta;)
+  &amp;uArr;&amp;#691; r (var-left x) =  var-left (r x)
+  &amp;uArr;&amp;#691; r (var-right y) = var-right y
+
+  -- the action of a renaming on an expression
+
+  infixr 6 [_]&amp;#691;_
+
+  [_]&amp;#691;_ : &amp;forall; {&amp;gamma;} {&amp;delta;} {cl} (r : &amp;gamma; &amp;rarr;&amp;#691; &amp;delta;) &amp;rarr; Expr &amp;gamma; cl &amp;rarr; Expr &amp;delta; cl
+  [ r ]&amp;#691; (x ` ts) = r x ` &amp;lambda; { y &amp;rarr; [ &amp;uArr;&amp;#691; r ]&amp;#691; ts y }
+
+  -- substitution
+  infix 5 _&amp;rarr;&amp;#738;_
+
+  _&amp;rarr;&amp;#738;_ : Shape &amp;rarr; Shape &amp;rarr; Set
+  &amp;gamma; &amp;rarr;&amp;#738; &amp;delta; = &amp;forall; {&amp;Theta;} {cl} (x : [ &amp;Theta; , cl ]&amp;isin; &amp;gamma;) &amp;rarr; Expr (&amp;delta; &amp;oplus; &amp;Theta;) cl
+
+  -- side-remark: notice that the ts in the definition of Expr is just a substituition
+
+  -- We now hit a problem when trying to define the identity substitution in a naive
+  -- fashion. Agda rejects the definition, as it is not structurally recursive.
+  -- {-# TERMINATING #-}
+  &amp;#120793;&amp;#738; : &amp;forall; {&amp;gamma;} &amp;rarr; &amp;gamma; &amp;rarr;&amp;#738; &amp;gamma;
+  &amp;#120793;&amp;#738; x = var-left x ` &amp;lambda; y &amp;rarr;  [ &amp;uArr;&amp;#691; var-right ]&amp;#691; &amp;#120793;&amp;#738; y
+
+  {- What is the best way to deal with the non-termination problem? I have tried:
+
+     1. sized types: got mixed results, perhaps I don't know how to use them
+     2. well-founded recursion: it gets messy and unpleasant to use
+     3. reorganizing the above definitions, but non-structural recursion always sneeks in
+
+     A solution which makes the identity substitition compute is highly preferred.
+
+     The problem persists with other operations on substitutions, such as composition
+     and the action of a substitution.
+  -}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><id>http://math.andrej.com/2022/05/20/one-syntax-to-rule-them-all/</id><title type="text">One syntax to rule them all</title><updated>2022-05-20T07:00:00-00:00</updated><author><name>Andrej Bauer</name></author></entry><entry><link href="http://math.andrej.com/2022/01/12/two-new-doctors/" rel="alternate"/><contributor><uri>http://math.andrej.com/feed.xml</uri><name>andrej</name></contributor><content type="html">&lt;p&gt;Within a month two of my students defended their theses: &lt;a href=&quot;https://anjapetkovic.com&quot;&gt;Dr. Anja Petkovi&amp;#263; Komel&lt;/a&gt; just before Christmas, and &lt;a href=&quot;https://haselwarter.org&quot;&gt;Dr. Philipp Haselwarter&lt;/a&gt; just yesterday. I am very proud of them. Congratulations!&lt;/p&gt;
+
+
+
+&lt;p&gt;Philipp's thesis &lt;a href=&quot;https://haselwarter.org/assets/pdfs/effective-metatheory-for-type-theory.pdf&quot;&gt;An Effective Metatheory for Type Theory&lt;/a&gt; has three parts:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;A formulation and a study of the notion of &lt;strong&gt;finitary type theories&lt;/strong&gt; and &lt;strong&gt;standard type theories&lt;/strong&gt;. These are closely related to the &lt;a href=&quot;https://arxiv.org/abs/2009.05539&quot;&gt;general type theories&lt;/a&gt; that were developed with &lt;a href=&quot;http://peterlefanulumsdaine.com&quot;&gt;Peter Lumsdaine&lt;/a&gt;, but are tailored for implementation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A formulation and the study of &lt;strong&gt;context-free finitary type theories&lt;/strong&gt;, which are type theories without explicit contexts. Instead, the variables are annotated with their types. Philipp shows that one can pass between the two versions of type theory.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A novel effectful meta-language &lt;strong&gt;Andromeda meta-language&lt;/strong&gt; (AML) for proof assistants which uses algebraic effects and handlers to allow flexible interaction between a generic proof assistant and the user.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Anja's thesis &lt;a href=&quot;https://anjapetkovic.com/img/doctoralThesis.pdf&quot;&gt;Meta-analysis of type theories with an application to the design of formal proofs&lt;/a&gt; also has three parts:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;A formulation and a study of &lt;strong&gt;transformations of finitary type theories&lt;/strong&gt; with an associated category of finitary type theories.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A &lt;strong&gt;user-extensible equality checking algorithm&lt;/strong&gt; for standard type theories which specializes to several existing equality checking algorithms for specific type theories.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A &lt;strong&gt;general elaboration theorem&lt;/strong&gt; in which the transformation of type theories are used to prove that every finitary type theory (not necessarily fully annotated) can be elaborated to a standard type theory (fully annotated one).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In addition, Philipp has done a great amount of work on implementing context-free type theories and the effective meta-language in &lt;a href=&quot;http://www.andromeda-prover.org&quot;&gt;Andromeda 2&lt;/a&gt;, and Anja implemented the generic equality checking algorithm. In the final push to get the theses out the implementation suffered a little bit and is lagging behind. I hope we can bring it up to speed and make it usable. Anja has ideas on how to implement transformations of type theories in a proof assistant.&lt;/p&gt;
+
+&lt;p&gt;Of course, I am very happy with the particular results, but I am even happier with the fact that Philipp and Anja made an important step in the development of type theory as a branch of mathematics and computer science: they did not study a &lt;em&gt;particular&lt;/em&gt; type theory or a narrow family of them, as has hitherto been the norm, but &lt;em&gt;dependent type theories in general&lt;/em&gt;. Their theses contain interesting non-trivial meta-theorems that apply to large classes of type theories, and can no doubt be generalized even further.
+There is lots of low-hanging fruit out there.&lt;/p&gt;</content><id>http://math.andrej.com/2022/01/12/two-new-doctors/</id><title type="text">Two new doctors!</title><updated>2022-01-12T08:00:00-00:00</updated><author><name>Andrej Bauer</name></author></entry><entry><link href="http://math.andrej.com/2022/01/12/projective-setoids/" rel="alternate"/><contributor><uri>http://math.andrej.com/feed.xml</uri><name>andrej</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;https://t.co/pr2rfOaFQ8&quot;&gt;Jacques Carette&lt;/a&gt; &lt;a href=&quot;https://twitter.com/jjcarett2/status/1478883775555723267?s=20&quot;&gt;asked on Twitter&lt;/a&gt; for a refence to the fact that countable choice holds in setoids. I then spent a day formalizing &lt;a href=&quot;https://gist.github.com/andrejbauer/65ee1ae98167e6411e512d3e5a36c086#file-setoidchoice-agda&quot;&gt;facts about the axiom of choice in setoids&lt;/a&gt; in Agda. I noticed something interesting that is worth blogging about.&lt;/p&gt;
+
+
+
+&lt;p&gt;We are going to work in pure Martin-L&amp;ouml;f type theory and the straightforward propostions-as-types interpretation of logic, so no univalence, propostional truncation and other goodies are available. Our primary objects of interest are &lt;a href=&quot;https://en.wikipedia.org/wiki/Setoid&quot;&gt;setoids&lt;/a&gt;, and &lt;a href=&quot;https://agda.github.io/agda-stdlib/Relation.Binary.Bundles.html#1009&quot;&gt;Agda's setoids&lt;/a&gt; in particular. 
+The content of the post has been formalized in &lt;a href=&quot;https://gist.github.com/andrejbauer/65ee1ae98167e6411e512d3e5a36c086&quot;&gt;this gist&lt;/a&gt;. I am not going to bother to reproduce here the careful tracking of universe levels that the formalization carries out (because it must).&lt;/p&gt;
+
+&lt;p&gt;In general, a type, set, or an object $X$ of some sort is said to &lt;strong&gt;satisfy choice&lt;/strong&gt; when every total relation $R \subseteq X \times Y$ has a choice function:
+$$(\forall x \in X . \exists y \in Y . R(x,y)) \Rightarrow \exists f : X \to Y . \forall x \in X . R(x, f\,x). \tag{AC}$$
+In Agda this is transliterated for a setoid $A$ as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;satisfies-choice : &amp;forall; c' &amp;#8467;' r &amp;rarr; Set (c &amp;#8852; &amp;#8467; &amp;#8852; suc c' &amp;#8852; suc &amp;#8467;' &amp;#8852; suc r)
+satisfies-choice c' &amp;#8467;' r = &amp;forall; (B : Setoid c' &amp;#8467;') (R : SetoidRelation r A B) &amp;rarr;
+                             (&amp;forall; x &amp;rarr; &amp;Sigma; (Setoid.Carrier B) (rel R x)) &amp;rarr; &amp;Sigma; (A &amp;#10230; B) (&amp;lambda; f &amp;rarr; &amp;forall; x &amp;rarr; rel R x (f &amp;#10216;$&amp;#10217; x))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note the long arrow in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A &amp;#10230; B&lt;/code&gt; which denotes &lt;strong&gt;setoid maps&lt;/strong&gt;, i.e., the choice map $f$ must respect the setoid equivalence relations $\sim_A$ and $\sim_B$.&lt;/p&gt;
+
+&lt;p&gt;A category theorist would instead prefer to say that $A$ satisfies choice if every epi $e : B \to A$ splits:
+$$(\forall B . \forall e : B \to A . \text{$e$ epi} \Rightarrow \exists s : A \to B . e \circ s = \mathrm{id}_A. \tag{PR}.$$
+Such objects are known as &lt;em&gt;projective&lt;/em&gt;. The Agda code for this is&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;surjective : &amp;forall; {c&amp;#8321; &amp;#8467;&amp;#8321; c&amp;#8322; &amp;#8467;&amp;#8322;} {A : Setoid c&amp;#8321; &amp;#8467;&amp;#8321;} {B : Setoid c&amp;#8322; &amp;#8467;&amp;#8322;} &amp;rarr; A &amp;#10230; B &amp;rarr; Set (c&amp;#8321; &amp;#8852; c&amp;#8322; &amp;#8852; &amp;#8467;&amp;#8322;)
+surjective {B = B} f = &amp;forall; y &amp;rarr; &amp;Sigma; _ (&amp;lambda; x &amp;rarr; Setoid._&amp;asymp;_ B (f &amp;#10216;$&amp;#10217; x) y)
+
+split : &amp;forall; {c&amp;#8321; &amp;#8467;&amp;#8321; c&amp;#8322; &amp;#8467;&amp;#8322;} {A : Setoid c&amp;#8321; &amp;#8467;&amp;#8321;} {B : Setoid c&amp;#8322; &amp;#8467;&amp;#8322;} &amp;rarr; A &amp;#10230; B &amp;rarr; Set (c&amp;#8321; &amp;#8852; &amp;#8467;&amp;#8321; &amp;#8852; c&amp;#8322; &amp;#8852; &amp;#8467;&amp;#8322;)
+split {A = A} {B = B} f = &amp;Sigma; (B &amp;#10230; A) (&amp;lambda; g &amp;rarr; &amp;forall; y &amp;rarr; Setoid._&amp;asymp;_ B (f &amp;#10216;$&amp;#10217; (g &amp;#10216;$&amp;#10217; y)) y)
+
+projective : &amp;forall; c' &amp;#8467;' &amp;rarr; Set (c &amp;#8852; &amp;#8467; &amp;#8852; suc c' &amp;#8852; suc &amp;#8467;')
+projective c' &amp;#8467;' = &amp;forall; (B : Setoid c' &amp;#8467;') (f : B &amp;#10230; A) &amp;rarr; surjective f &amp;rarr; split f
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;(If anyone can advise me how to to avoid the ugly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Setoid._&amp;asymp;_ B&lt;/code&gt; above using just what is available in the standard library, please do. I know how to introduce my own notation, but why should I?)&lt;/p&gt;
+
+&lt;p&gt;Actually, the above code uses surjectivity in place of being epimorphic, so we should verify that the two notions coincide in setoids, which is done in &lt;a href=&quot;https://gist.github.com/andrejbauer/65ee1ae98167e6411e512d3e5a36c086#file-epimorphism-agda&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Epimorphism.agda&lt;/code&gt;&lt;/a&gt;. The human proof goes as follows, where we write $=_A$ or just $=$ for the equivalence relation on a setoid $A$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem:&lt;/strong&gt; &lt;em&gt;A setoid morphism $f : A \to B$ is epi if, and only if, $\Pi (y : B) . \Sigma (x : A) . f \, x =_B y$.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Proof.&lt;/em&gt; (&amp;rArr;) I &lt;a href=&quot;https://mathoverflow.net/a/178804/1176&quot;&gt;wrote up the proof on MathOverflow&lt;/a&gt;. That one works for toposes, but is easy to transliterate to setoids, just replace the subobject classifier $\Omega$ with the setoid of propositions $(\mathrm{Type}, {\leftrightarrow})$.&lt;/p&gt;
+
+&lt;p&gt;(&amp;lArr;) Suppose $\sigma : \Pi (y : B) . \Sigma (x : A) . f \, x =_B y$ and $g \circ f = h \circ f$ for some $g, h : B \to C$. Given any $y : B$ we have
+$$g(y) =_C g(f(\mathrm{fst}(\sigma\, y))) =_C h(f(\mathrm{fst}(\sigma\, y))) =_C h(y).$$
+QED.&lt;/p&gt;
+
+&lt;p&gt;Every type $T$ may be construed as a setoid $\Delta T = (T, \mathrm{Id}_T)$, which is &lt;a href=&quot;https://agda.github.io/agda-stdlib/Relation.Binary.Bundles.html#1615&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setoid&lt;/code&gt;&lt;/a&gt; in Agda.&lt;/p&gt;
+
+&lt;p&gt;Say that a setoid $A$ has &lt;strong&gt;canonical elements&lt;/strong&gt; when there is a map $c : A \to A$ such that $x =_A y$ implies $\mathrm{Id}_A(c\,x , c\,y)$, and $c\, x =_A x$ for all $x : A$. In other words, the map $c$ takes each element to a canonical representative of its equivalence class. In Agda:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;record canonical-elements : Set (c &amp;#8852; &amp;#8467;) where
+  field
+    canon : Carrier &amp;rarr; Carrier
+    canon-&amp;asymp; : &amp;forall; x &amp;rarr; canon x &amp;asymp; x
+    canon-&amp;equiv; : &amp;forall; x y &amp;rarr; x &amp;asymp; y &amp;rarr; canon x &amp;equiv; canon y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Based on my experience with realizability models, I always thought that the following were equivalent:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;$A$ satisfies choice (AC)&lt;/li&gt;
+  &lt;li&gt;$A$ is projective (PR)&lt;/li&gt;
+  &lt;li&gt;$A$ is isomorphic to a some $\Delta T$&lt;/li&gt;
+  &lt;li&gt;$A$ has canonical elements.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;But there is a snag! The implication (2 &amp;rArr; 3) seemingly requires extra conditions that I do not know how to get rid of. Before discussing these, let me just point out that &lt;a href=&quot;https://gist.github.com/andrejbauer/65ee1ae98167e6411e512d3e5a36c086#file-setoidchoice-agda&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SetoidChoice.agda&lt;/code&gt;&lt;/a&gt; formalizes (1 &amp;hArr; 2) and (3 &amp;rArr; 4 &amp;rArr; 1) unconditionally. In particular any $\Delta T$ is projective.&lt;/p&gt;
+
+&lt;p&gt;The implication (2 &amp;rArr; 3) I could prove under the additional assumption that the underlying type of $A$ is an h-set. Let us take a closer look.
+Suppose $(A, {=_A})$ is a projective setoid. How could we get a type $T$ such that $A \cong \Delta T$? The following construction suggests itself. The setoid map&lt;/p&gt;
+
+&lt;p&gt;\begin{align}
+  r &amp;amp;: (A, \mathrm{Id}_A) \to (A, {=_A})  \notag \\\&lt;br/&gt;
+  r &amp;amp;: x \mapsto x \notag
+\end{align}&lt;/p&gt;
+
+&lt;p&gt;is surjective, therefore epi. Because $A$ is projective, the map splits, so we have a setoid morphism $s : (A, {=_A}) \to (A, \mathrm{Id}_A)$ such that $r \circ s = \mathrm{id}$. The endomap $s \circ r : A \to A$ is a choice of canonical representatives of equivalence classes of $(A, {=_A})$, so we expect $(A, {=_A})$ to be isomorphic to $\Delta T$ where
+$$T = \Sigma (x : A) . \mathrm{Id}_A(s (r \, x), x).$$
+The mediating isomorphisms are&lt;/p&gt;
+
+&lt;p&gt;\begin{align}
+  i &amp;amp;: A \to T                              &amp;amp;   j &amp;amp;: T \to A \notag \\\&lt;br/&gt;
+  i &amp;amp;: x \mapsto (s (r \, x), \zeta \, x)   &amp;amp;   j &amp;amp;: (x, \xi) \mapsto x \notag
+\end{align}&lt;/p&gt;
+
+&lt;p&gt;where $\zeta \, x : \mathrm{Id}(s (r (s (r \, x))), s (r \, x)))$ is constructed from the proof that $s$ splits $r$. This &lt;em&gt;almost&lt;/em&gt; works! It is easy to verify that $j (i \, x) =_A x$, but then I got stuck on showing that $\mathrm{Id}_T(i (j (x, \xi), (x, \xi))$, which amounts to inhabiting
+$$
+  \mathrm{Id}_T((x, \zeta x), (x, \xi)). \tag{1}
+$$
+There is no a priori reason why $\zeta x$ and $\xi$ would be equal.
+If $A$ is an h-set then we are done because they will be equal by fiat. But what do to in general? I do not know and I leave you with an open problem:&lt;/p&gt;
+
+&lt;center&gt;
+&lt;b&gt;Is every projective setoids isomorphic to a type?&lt;/b&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Egbert Rijke and I spent one tea-time thinking about producing a counter-example by using circles and other HoTT gadgets, but we failed. Just a word of warning: in HoTT/UF the map $1 \to S^1$ from the unit type to the circle is onto (in the HoTT sense) &lt;em&gt;but&lt;/em&gt; $\Delta 1 \to \Delta S^1$ is &lt;em&gt;not&lt;/em&gt; epi in setoids, because that would split $1 \to S^1$.&lt;/p&gt;
+
+&lt;p&gt;Here is an obvious try: use the propositional truncation and define
+$$
+T = \Sigma (x : A) . \|\mathrm{Id}_A(s (r \, x), x) \|.
+$$
+Now (1) does not pose a problem anymore. However, in order for $\Delta T$ to be isomorphic to $(A, {=_A})$ we will need to know that $x =_A y$ is an h-proposition for all $x, y : A$.&lt;/p&gt;
+
+&lt;p&gt;This is as far as I wish to descend into the setoid hell.&lt;/p&gt;</content><id>http://math.andrej.com/2022/01/12/projective-setoids/</id><title type="text">Is every projective setoid isomorphic to a type?</title><updated>2022-01-12T08:00:00-00:00</updated><author><name>Andrej Bauer</name></author></entry><entry><link href="http://math.andrej.com/2021/11/20/proof-assistants-stackexchange-site/" rel="alternate"/><contributor><uri>http://math.andrej.com/feed.xml</uri><name>andrej</name></contributor><content type="html">&lt;p&gt;Proof assistant communities have grown quite a bit lately. They have active Zulip chats: &lt;a href=&quot;https://leanprover.zulipchat.com/&quot;&gt;Lean&lt;/a&gt;, &lt;a href=&quot;https://coq.zulipchat.com/&quot;&gt;Coq&lt;/a&gt;, &lt;a href=&quot;https://agda.zulipchat.com/&quot;&gt;Agda&lt;/a&gt;, &lt;a href=&quot;https://isabelle.zulipchat.com/&quot;&gt;Isabelle&lt;/a&gt;. These are good for discussions, but less so for knowledge accumulation and organization, and are not indexed by the search engines.&lt;/p&gt;
+
+&lt;p&gt;I have therefore created a &lt;a href=&quot;https://area51.stackexchange.com/proposals/126242/proof-assistants?referrer=YjczN2ZjMzMyYWRkYjYwOTMzMzJhMjRmZDNiZDJkZGQ1ZGE4MzFiZWQ3YzRlMjYzMzdiMTMxZTBkOTg1ZWNkMdt2-If5yCiayS9kTjQT0iElh8l0mRnZ3CnkNXRmWJGq0&quot;&gt;proposal for a new &amp;ldquo;Proof assistants&amp;rdquo;&lt;/a&gt; StackExchange site. I believe that such a site would complement very well various Zulips dedicated to specific proof assistants. If you favor the idea, please support it by visiting the proposal and&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;becoming a follower (you have to be a registered user with a verified email account),&lt;/li&gt;
+  &lt;li&gt;asking sample questions, and&lt;/li&gt;
+  &lt;li&gt;upvoting good sample questions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To pass the first stage, we need 60 followers and 40 questions with at least 10 votes to proceed to the next stage.&lt;/p&gt;</content><id>http://math.andrej.com/2021/11/20/proof-assistants-stackexchange-site/</id><title type="text">The proposal for a proof assistants StackExchange site</title><updated>2021-11-20T08:00:00-00:00</updated><author><name>Andrej Bauer</name></author></entry><entry><link href="http://math.andrej.com/2021/06/24/the-dawn-of-formalized-mathematics/" rel="alternate"/><contributor><uri>http://math.andrej.com/feed.xml</uri><name>andrej</name></contributor><content type="html">&lt;p&gt;Here are the slides of my talk &lt;a href=&quot;https://8ecm.si/system/admin/abstracts/pdfs/000/001/117/original/andrej-bauer.pdf&quot;&gt;&amp;quot;The dawn of formalized mathematics&amp;quot;&lt;/a&gt; from the &lt;a href=&quot;https://8ecm.si&quot;&gt;8th European Congress of Mathematics&lt;/a&gt;, which is taking place online and in Protoro&amp;#382;, Slovenia, from June 20 to 26, 2021:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.icloud.com/keynote/0Gkr1yM7XY-31aQleWf-fiW7A#The_Dawn_of_Formalized_Mathematics&quot;&gt;&lt;strong&gt;Keynote presentation&lt;/strong&gt;&lt;/a&gt;, viewable online in your browser. Turn on the speaker notes by clicking on the rectangular icon in the top-left corner.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://math.andrej.com/asset/data/the-dawn-of-formalized-mathematics.pdf&quot;&gt;&lt;strong&gt;Slides with speaker notes&lt;/strong&gt;&lt;/a&gt; (PDF). Unfortunately, Keynote does not make the hyperlinks active when exporting PDF.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://youtu.be/zp6WleEjHUg&quot;&gt;&lt;strong&gt;Video recording&lt;/strong&gt;&lt;/a&gt; of the talk.&lt;/li&gt;
+&lt;/ul&gt;</content><id>http://math.andrej.com/2021/06/24/the-dawn-of-formalized-mathematics/</id><title type="text">The dawn of formalized mathematics</title><updated>2021-06-24T07:00:00-00:00</updated><author><name>Andrej Bauer</name></author></entry><entry><link href="http://math.andrej.com/2021/05/18/computing-an-integer-using-a-sheaf-topos/" rel="alternate"/><contributor><uri>http://math.andrej.com/feed.xml</uri><name>andrej</name></contributor><content type="html">&lt;p&gt;A while ago, my former student &lt;a href=&quot;https://cj-xu.github.io/&quot;&gt;Chuangjie Xu&lt;/a&gt; and I computed an integer using a &lt;a href=&quot;https://ncatlab.org/nlab/show/Grothendieck+topos&quot;&gt;sheaf topos&lt;/a&gt;. For that purpose,&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;we developed our mathematics constructively,&lt;/li&gt;
+  &lt;li&gt;we formalized our mathematics in Martin-L&amp;ouml;f type theory, in &lt;a href=&quot;https://wiki.portal.chalmers.se/agda/pmwiki.php&quot;&gt;Agda&lt;/a&gt; notation,&lt;/li&gt;
+  &lt;li&gt;we pressed a button, and&lt;/li&gt;
+  &lt;li&gt;after a few seconds we saw the integer we expected in front of us.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Well, it was a few seconds for the computer in steps (3)-(4), but three years for us in steps (1)-(2).&lt;/p&gt;
+
+
+
+&lt;h4&gt;Why formalize?&lt;/h4&gt;
+
+&lt;p&gt;Most people formalize mathematics (in Automath, NuPrl, Coq, Agda, Lean, ...) to get confidence in the correctness of mathematics - or so they claim. The reality is that formalizing mathematics is intellectually fun.&lt;/p&gt;
+
+&lt;p&gt;Entertaining considerations aside, my initial motivation for computer formalization, about 10 years ago, was to write algorithms derived from work on game theory with &lt;a href=&quot;https://www.eecs.qmul.ac.uk/~pbo/&quot;&gt;Paulo Oliva&lt;/a&gt;. In particular, this had applications to proof theory, such as &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/pigeon/&quot;&gt;getting programs from classical proofs&lt;/a&gt;. Our first version of a (manually) extracted program from a classical proof was written in Haskell, in a train journey coming back from a visit to our collaborators &lt;a href=&quot;https://www.swansea.ac.uk/staff/science/computer-science/m.seisenberger/&quot;&gt;Monika Seisenberger&lt;/a&gt; and &lt;a href=&quot;http://www-compsci.swan.ac.uk/~csulrich/&quot;&gt;Ulrich Berger&lt;/a&gt; in Swansea. The train journey was long enough for us to be able to complete the program. But when we ran it, it didn't work. I had been learning Agda for about one year by then, and I told Paulo that it would be easier to write the mathematics in Agda, and hence be sure it will work before we ran it, than to debug the Haskell program. And that was the case.&lt;/p&gt;
+
+&lt;p&gt;Before then I was the kind of person who dismissed formalization, and would say so to people who did formalization (it is probably too late to apologize now). I trusted my own mathematics, and if I wanted to derive programs from my mathematical work, I would just write them manually. Since then, my attitude has changed considerably.&lt;/p&gt;
+
+&lt;p&gt;I now &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/&quot;&gt;use Agda as a &amp;quot;blackboard&amp;quot;&lt;/a&gt; to develop my work. For example, the following were conceived and developed directly in Agda before they were written in mathematical vernacular: &lt;a href=&quot;https://www.cambridge.org/core/journals/mathematical-structures-in-computer-science/article/injective-types-in-univalent-mathematics/AFCBBABE47F29ED7AFB4C262929D8810&quot;&gt;Injective types in univalent mathematics&lt;/a&gt;, &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/papers/compact-ordinals-Types-2019-abstract.pdf&quot;&gt;Compact, totally separated and well-ordered types in univalent mathematics&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/2002.07079&quot;&gt;The Cantor-Schr&amp;ouml;der-Bernstein Theorem for &amp;infin;-groupoids&lt;/a&gt;, &lt;a href=&quot;http://math.andrej.com/2021/02/22/burali-forti-in-hott-uf/&quot;&gt;The Burali-Forti argument in HoTT/UF&lt;/a&gt; and &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/dialogue/dialogue.pdf&quot;&gt;Continuity of G&amp;ouml;del's system T functionals via effectful forcing&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Other people will have different reasons to formalize. For example, wouldn't it be wonderful if the whole &lt;a href=&quot;https://wwwf.imperial.ac.uk/~buzzard/xena/&quot;&gt;undergraduate mathematical curriculum were formalized&lt;/a&gt;? Wouldn't it be wonderful to archive all mathematical knowledge not just as text but in a more structured way, so that it can be used by both people and computers? Wouldn't it be wonderful if when we submit a paper, the referee didn't need to check correctness, but only novelty, significance and so on? Did you ever woke up in the middle of the night after you submitted a paper, with doubts about the crucial lemma? Or worse, after it was published?&lt;/p&gt;
+
+&lt;p&gt;But for the purposes of this post, I will concentrate on only one aspect of formalization: a formalized piece of constructive mathematics is automatically a computer program that you can run in practice.&lt;/p&gt;
+
+&lt;h4&gt;Constructive mathematics&lt;/h4&gt;
+
+&lt;p&gt;Constructive mathematics begins by removing the principle of excluded middle, and therefore the axiom of choice, because choice implies excluded middle.
+&lt;a href=&quot;http://math.andrej.com/2016/10/10/five-stages-of-accepting-constructive-mathematics/&quot;&gt;But why would anybody do such an outrageous thing?&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I particularly like the analogy with &lt;a href=&quot;https://en.wikipedia.org/wiki/Euclidean_geometry&quot;&gt;Euclidean geometry&lt;/a&gt;. If we remove the parallel postulate, we get &lt;a href=&quot;https://en.wikipedia.org/wiki/Absolute_geometry&quot;&gt;absolute geometry&lt;/a&gt;, also known as &lt;em&gt;neutral&lt;/em&gt; geometry. If after we remove the parallel postulate, we add a suitable axiom, we get &lt;a href=&quot;https://en.wikipedia.org/wiki/Hyperbolic_geometry&quot;&gt;hyperbolic geometry&lt;/a&gt;, but if we instead add a different suitable axiom we get &lt;a href=&quot;https://en.wikipedia.org/wiki/Elliptic_geometry&quot;&gt;elliptic geometry&lt;/a&gt;. Every theorem of neutral geometry is a theorem of these three geometries, and more geometries. So a neutral proof is more general.&lt;/p&gt;
+
+&lt;p&gt;When I say that I am interested in constructive mathematics, most of the time I mean that I am interested in &lt;a href=&quot;http://logic.math.su.se/mloc-2019/&quot;&gt;neutral mathematics&lt;/a&gt;, so that we simply remove excluded middle and choice, and we don't add anything to replace them. So my constructive definitions and theorems are also definitions and theorems of classical mathematics.&lt;/p&gt;
+
+&lt;p&gt;Occasionally, I flirt with axioms that &lt;em&gt;contradict&lt;/em&gt; the principle of excluded middle, such as Brouwerian intuitionistic axioms that imply that &amp;quot;all functions $(\mathbb{N} \to 2) &amp;rarr; \mathbb{N}$ are uniformly continuous&amp;quot;, when we equip the set $2$ with the discrete topology and $\mathbb{N} \to 2$ with the product topology, so that we get the Cantor space. The contradiction with classical logic, of course, is that using excluded middle we can define non-continuous functions by cases. Brouwerian intuitionistic mathematics is analogous to hyperbolic or elliptic geometry in this respect. The &amp;quot;constructive&amp;quot; mathematics I am talking about in this post is like neutral geometry, and I would rather call it &amp;quot;neutral mathematics&amp;quot;, but then nobody would know what I am talking about. That's not to say that the majority of mathematicians will know what I am talking about if I just say &amp;quot;constructive mathematics&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;But it is not (only) the generality of neutral mathematics that I find attractive. Somehow magically, constructions and proofs that don't use excluded middle or choice are &lt;em&gt;automatically&lt;/em&gt; programs. The only way to define non-computable things is to use excluded middle or choice. There is no other way. At least not in the underlying type theories of proof assistants such as NuPrl, Coq, Agda and Lean. We don't need to consider Turing machines to establish computability. What is a computable sheaf, anyway? I don't want to pause to consider this question in order to use a sheaf topos to compute a number. We only need to consider sheaves in the usual mathematical sense.&lt;/p&gt;
+
+&lt;p&gt;Sometimes people ask me whether I &lt;em&gt;believe&lt;/em&gt; in the principle of excluded middle. That would be like asking me whether I believe in the parallel postulate. It is clearly true in Euclidean geometry, clearly false in elliptic and in hyperbolic geometries, and deliberately undecided in neutral geometry. Not only that, in the same way as the parallel postulate &lt;em&gt;defines&lt;/em&gt; Euclidean geometry, the principle of excluded middle and the axiom of choice &lt;em&gt;define&lt;/em&gt; classical mathematics.&lt;/p&gt;
+
+&lt;p&gt;The undecidedness of excluded middle in my neutral mathematics allows me to prove, for example, &amp;quot;if excluded middle holds, then the Cantor-Schr&amp;ouml;der-Bernstein Theorem for &amp;infin;-groupoids &lt;a href=&quot;https://arxiv.org/abs/2002.07079&quot;&gt;holds&lt;/a&gt;&amp;quot;. If excluded middle were false, I would be proving a counter-factual - I would be proving that an implication is true simply because its premise is false. But this is not what I am doing. What I am really proving is that the CSB theorem holds for the objects of &lt;em&gt;boolean&lt;/em&gt; &amp;infin;-toposes.
+And why did I use excluded middle? Because somebody else showed that &lt;a href=&quot;https://arxiv.org/abs/1904.09193&quot;&gt;there is no other way&lt;/a&gt;. But also sometimes I use excluded middle or choice when &lt;em&gt;I don't know&lt;/em&gt; whether there is another way (in fact, I believe that more than half of my publications use classical logic).&lt;/p&gt;
+
+&lt;p&gt;So, am I a constructivist? There is only one mathematics, of which classical and constructive mathematics are particular branches. I enjoy exploring the whole landscape. I am particularly fond of constructive mathematics, and I wouldn't practice it, however useful it may be for applications, if I didn't enjoy it. But this is probably my bad taste.&lt;/p&gt;
+
+&lt;h4&gt;Toposes as provinces of the mathematical world&lt;/h4&gt;
+
+&lt;p&gt;Toposes are generalized (sober) spaces. But also toposes can be considered as provinces of the mathematical world.&lt;/p&gt;
+
+&lt;p&gt;Hyland's &lt;a href=&quot;https://ncatlab.org/nlab/show/effective+topos&quot;&gt;effective topos&lt;/a&gt; is a province where &amp;quot;everything is computable&amp;quot;.
+This is an elementary topos, which is not a Grothendieck topos, built from &lt;em&gt;classical&lt;/em&gt; ingredients: we use excluded middle and choice, with Turing machines to talk about computability. But, as it turns out, although everybody agrees which functions $\mathbb{N} \to \mathbb{N}$ are computable and which ones aren't, there is disagreement among classical mathematicians working on computability theory about
+&lt;a href=&quot;https://www.springer.com/gp/book/9783662479919&quot;&gt;what counts as &amp;quot;computable&amp;quot; for more general mathematical objects&lt;/a&gt;, such as functions $(\mathbb{N} \to \mathbb{N}) \to \mathbb{N}$. No problem. Just consider other provinces, called &lt;a href=&quot;https://ncatlab.org/nlab/show/realizability+topos&quot;&gt;realizability toposes&lt;/a&gt;, which include the effective topos as an example.&lt;/p&gt;
+
+&lt;p&gt;Johnstone's &lt;a href=&quot;https://ncatlab.org/nlab/show/Johnstone's+topological+topos&quot;&gt;topological topos&lt;/a&gt; is a topos &lt;em&gt;of&lt;/em&gt; spaces. It fully embeds a large category of topological spaces, where the objects outside the image of the embedding can be considered as generalized spaces (which include the &lt;a href=&quot;https://ncatlab.org/nlab/show/subsequential+space&quot;&gt;Kuratowski limit spaces&lt;/a&gt; and more). In this province of the mathematical world, &amp;quot;all functions are continuous&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;There are also provinces where &lt;a href=&quot;https://ncatlab.org/nlab/show/synthetic+differential+geometry&quot;&gt;there are infinitesimals&lt;/a&gt; and &amp;quot;all functions are smooth&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;A more boring, but important, province, is the topos of classical sets. This is where classical mathematics takes place.&lt;/p&gt;
+
+&lt;p&gt;These provinces of mathematics have an &lt;em&gt;internal language&lt;/em&gt;. We use a certain &lt;a href=&quot;https://ncatlab.org/nlab/show/subobject+classifier&quot;&gt;subobject classifier&lt;/a&gt; to collect the things that count as truth values in the province, and we devise a kind of type theory whose types are interpreted as objects and whose mathematical statements are interpreted as truth values in the province. Then a mathematical statement in this type theory is true in some toposes, false in other toposes, and undecided in yet other toposes. This internal language, or type theory, is very rich. Starting from natural numbers we can construct the integers, the rationals, the real numbers, free groups etc., and then do e.g. analysis and group theory and so on. The internal language of the &lt;a href=&quot;https://ncatlab.org/nlab/show/free+topos&quot;&gt;free topos&lt;/a&gt; can be considered as a type theory for neutral mathematics: whatever we prove in the free type theory is true in all mathematical provinces, including classical set theory.&lt;/p&gt;
+
+&lt;p&gt;In the above first three provinces, the principle of excluded middle fails, but for different reasons, with respectively computability, continuity and infinitesimals to blame.&lt;/p&gt;
+
+&lt;h4&gt;Our topos&lt;/h4&gt;
+
+&lt;p&gt;Now our plot has a twist: we work within &lt;em&gt;neutral&lt;/em&gt; mathematics to build a province of &amp;quot;biased&amp;quot; constructive mathematics where Brouwerian principles hold, such as &amp;quot;all functions $(\mathbb{N} \to 2) &amp;rarr; \mathbb{N}$ are uniformly continuous&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://academic.oup.com/plms/article-abstract/s3-38/2/237/1484548&quot;&gt;Johnstone's topological topos (1979)&lt;/a&gt; would do the job, except that it is built using classical ingredients. This topos has siblings by &lt;a href=&quot;http://homepages.inf.ed.ac.uk/mfourman/research/publications/pdf/fourman82-notions-of-choice-sequence.pdf&quot;&gt;Mike Fourman (1982)&lt;/a&gt; and &lt;a href=&quot;https://www.sciencedirect.com/science/article/pii/0168007284900356&quot;&gt;van der Hoeven and Moerdijk (1984)&lt;/a&gt; with aims similar to ours, as explained in our own &lt;a href=&quot;https://cj-xu.github.io/papers/xu-escardo-model-uc.pdf&quot;&gt;2013&lt;/a&gt; and &lt;a href=&quot;https://www.sciencedirect.com/science/article/pii/S0168007216300410&quot;&gt;2016&lt;/a&gt; papers, which give a third sibling.&lt;/p&gt;
+
+&lt;p&gt;Johnstone's topological topos is very easy to describe: take the monoid of continuous endomaps of the one-point compactification of the discrete natural numbers, considered as a category, then take sheaves for the canonical coverage.
+Van der Hoeven and Moerdijk's topos is similar: this time take the monoid of continuous endomaps of the Baire space,
+with the &amp;quot;open-cover coverage&amp;quot;. Fourman's topos is constructed from a site of formal spaces or locales, with a similar coverage.&lt;/p&gt;
+
+&lt;p&gt;Our topos is also similar: we take the monoid of uniformly continuous endomaps of the Cantor space.
+Because it is not provable in neutral mathematics that continuous functions on the Cantor space are automatically uniformly continuous, we explicitly ask for uniform continuity rather than just continuity. As for our coverage, we initially considered coverings of finitely many jointly surjective maps. But an equivalent, smaller coverage makes the mathematics (and the formalization) simpler: for each natural number $n$ we consider a cover with $2^n$ functions, namely the concatenation maps $(\mathbb{N} \to 2) \to (\mathbb{N} \to 2)$ defined by $\alpha \mapsto s \alpha$ for each finite binary sequence $s$ of length $n$. These functions are jointly surjective, and, moreover, have disjoint images, considerably simplifying the checking of the sheaf condition. Moreover, the coverage axiom is not only satisfied, but also is equivalent to the fact that the morphisms in our site are uniformly continuous functions. So this is a sort of &amp;quot;uniform-continuity coverage&amp;quot;. Our &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/.talks/ihp2014/escardo-ihp2014.pdf&quot;&gt;slides (2014)&lt;/a&gt; illustrate these ideas with pictures and examples.&lt;/p&gt;
+
+&lt;p&gt;The details of the mathematics can be found in the &lt;a href=&quot;https://www.sciencedirect.com/science/article/pii/S0168007216300410&quot;&gt;above paper&lt;/a&gt;, and the Agda formalization can be found at &lt;a href=&quot;https://cj-xu.github.io/&quot;&gt;Chuangjie's page&lt;/a&gt;. A few years later, &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/chuangjie-xu-thesis-cubical/html/&quot;&gt;we ported part of this formalization&lt;/a&gt; to &lt;a href=&quot;https://agda.readthedocs.io/en/v2.6.1.3/language/cubical.html&quot;&gt;Cubical Agda&lt;/a&gt; to deal properly with function extensionality (which we originally dealt with in &lt;em&gt;ad hoc&lt;/em&gt; ways).&lt;/p&gt;
+
+&lt;h4&gt;The integer we compute&lt;/h4&gt;
+
+&lt;p&gt;After we construct the sheaf topos, we define a simple type theory and we interpret it in the topos. We define a &amp;quot;function&amp;quot; $(\mathbb{N} \to 2) \to \mathbb{N}$ in this type theory, without proving that it is uniformly continuous, and apply the interpretation map to get a morphism of the topos, which amounts to a uniformly continuous function. From this morphism we get the modulus of uniform continuity, which is the integer we are interested in.
+The interested reader can find the details in the &lt;a href=&quot;https://www.sciencedirect.com/science/article/pii/S0168007216300410&quot;&gt;above paper&lt;/a&gt; and &lt;a href=&quot;http://www.cs.bham.ac.uk/~mhe/papers/kleene-kreisel/&quot;&gt;Agda code for the paper&lt;/a&gt; or the substantially more comprehensive &lt;a href=&quot;http://cj-xu.github.io/ContinuityType/&quot;&gt;Agda code&lt;/a&gt; for &lt;a href=&quot;http://cj-xu.github.io/ContinuityType/xu-thesis.pdf&quot;&gt;Chuangjie's thesis&lt;/a&gt;.&lt;/p&gt;</content><id>http://math.andrej.com/2021/05/18/computing-an-integer-using-a-sheaf-topos/</id><title type="text">Computing an integer using a Grothendieck topos</title><updated>2021-05-18T07:00:00-00:00</updated><author><name>Martin Escardo</name></author></entry><entry><link href="http://math.andrej.com/2021/02/22/burali-forti-in-hott-uf/" rel="alternate"/><contributor><uri>http://math.andrej.com/feed.xml</uri><name>andrej</name></contributor><content type="html">&lt;p&gt;This is joint work with &lt;a href=&quot;https://www.uib.no/en/persons/Marcus.Aloysius.Bezem&quot;&gt;Marc Bezem&lt;/a&gt;, &lt;a href=&quot;https://www.cse.chalmers.se/~coquand/&quot;&gt;Thierry Coquand&lt;/a&gt;, &lt;a href=&quot;https://www.cse.chalmers.se/~peterd/&quot;&gt;Peter Dybjer&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We use the
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Burali-Forti_paradox&quot;&gt;Burali-Forti&lt;/a&gt;
+argument to show that, in &lt;a href=&quot;https://homotopytypetheory.org/&quot;&gt;homotopy type theory and univalent foundations&lt;/a&gt;,
+the embedding $$ \mathcal{U} \to \mathcal{U}^+$$ of a universe
+$\mathcal{U}$ into its successor $\mathcal{U}^+$ is not an
+equivalence.  We also establish this for the types of sets, magmas, monoids and
+groups. The arguments in this post are also &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/BuraliForti.html#Burali-Forti&quot;&gt;written&lt;/a&gt; in
+&lt;a href=&quot;https://agda.readthedocs.io/en/v2.6.1.3/&quot;&gt;Agda&lt;/a&gt;.&lt;/p&gt;
+
+
+
+&lt;h4&gt;Ordinals in univalent type theory&lt;/h4&gt;
+
+&lt;p&gt;The Burali-Forti paradox is about the collection of all ordinals. In set theory, this collection cannot be a set, because it is too big, and this is what the Burali-Forti argument shows. This collection is a &lt;a href=&quot;https://en.wikipedia.org/wiki/Class_(set_theory)&quot;&gt;proper class&lt;/a&gt; in set theory.&lt;/p&gt;
+
+&lt;p&gt;In univalent type theory, we can collect all ordinals of a universe $\mathcal{U}$ in
+a type $\operatorname{Ordinal}\,\mathcal{U}$ that lives in the
+successor universe $\mathcal{U}^+$: $$
+\operatorname{Ordinal}\,\mathcal{U} : \mathcal{U}^+.$$ See Chapter
+10.3 of the &lt;a href=&quot;https://homotopytypetheory.org/book/&quot;&gt;HoTT book&lt;/a&gt;, which
+uses univalence to show that this type is a set in the sense of
+univalent foundations (meaning that its equality is proposition valued).&lt;/p&gt;
+
+&lt;p&gt;The analogue in type theory of the notion of proper
+class in set theory is that of &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/UF-Size.html#is-large&quot;&gt;large
+type&lt;/a&gt;,
+that is, a type in a successor universe $\mathcal{U}^+$ that doesn't
+have a copy in the universe $\mathcal{U}$. In this post we show that the type of ordinals is large and derive some consequences from this.&lt;/p&gt;
+
+&lt;p&gt;We have two further uses of univalence, at least:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;to adapt the Burali-Forti argument from set theory to our type theory, and&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;to resize down the values of the order relation of the ordinal
+of ordinals, to conclude that the ordinal of ordinals is large.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;There are also a number of uses of univalence via functional and
+propositional extensionality.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://unimath.github.io/bham2017/UniMath_origins-present-future.pdf&quot;&gt;Propositional resizing&lt;/a&gt;
+rules or axioms are not needed, thanks to (2).&lt;/p&gt;
+
+&lt;p&gt;An ordinal in a universe $\mathcal{U}$ is a type $X : \mathcal{U}$ equipped with a relation
+$$ - \prec - : X \to X \to \mathcal{U}$$&lt;/p&gt;
+
+&lt;p&gt;required to be&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;proposition valued,&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;transitive,&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;extensional (any two points with same lower set are the same),&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;well founded (every element is accessible, or, equivalently, the
+principle of &lt;a href=&quot;https://en.wikipedia.org/wiki/Transfinite_induction&quot;&gt;transfinite
+induction&lt;/a&gt;
+holds).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The HoTT book additionally requires $X$ to be a set, but this &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/OrdinalNotions.html#extensionally-ordered-types-are-sets&quot;&gt;follows
+automatically&lt;/a&gt; from the above requirements for the order.&lt;/p&gt;
+
+&lt;p&gt;The underlying type of an ordinal $\alpha$ is denoted by $\langle
+\alpha \rangle$ and its order relation is denoted by $\prec_{\alpha}$ or simply $\prec$ when we believe the reader will be able to infer the missing subscript.&lt;/p&gt;
+
+&lt;p&gt;Equivalence of ordinals in universes $\mathcal{U}$ and $\mathcal{V}$,
+$$    -\simeq_o- : \operatorname{Ordinal}\,\mathcal{U} \to \operatorname{Ordinal}\,\mathcal{V} \to \mathcal{U} \sqcup \mathcal{V},$$
+means that there is an equivalence of the underlying types that
+preserves and reflects order. Here we denote by $\mathcal{U} \sqcup \mathcal{V}$ the least upper bound of the two universes $\mathcal{U}$ and $\mathcal{V}$. The precise definition of the type theory we adopt here, including the handling of universes, can be found in &lt;a href=&quot;https://www.cambridge.org/core/journals/mathematical-structures-in-computer-science/article/injective-types-in-univalent-mathematics/AFCBBABE47F29ED7AFB4C262929D8810&quot;&gt;Section 2 of this paper&lt;/a&gt; and also in our &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/HoTT-UF-in-Agda-Lecture-Notes/index.html&quot;&gt;Midlands Graduate School 2019 lecture notes&lt;/a&gt; in Agda form.&lt;/p&gt;
+
+&lt;p&gt;For ordinals $\alpha$ and $\beta$ in the &lt;strong&gt;same&lt;/strong&gt; universe, their
+identity type $\alpha = \beta$ is canonically equivalent to the
+ordinal-equivalence type $\alpha \simeq_o \beta$, by univalence.&lt;/p&gt;
+
+&lt;p&gt;The lower set of a point $x : \langle \alpha \rangle$ is written
+$\alpha \downarrow x$, and is itself an ordinal under the inherited
+order. The ordinals in a universe $\mathcal{U}$ form an ordinal in the
+successor universe $\mathcal{U}^+$, denoted by
+$$ \operatorname{OO}\,\mathcal{U} : \operatorname{Ordinal}\,\mathcal{U}^+,$$
+for &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/OrdinalOfOrdinals.html#OO&quot;&gt;ordinal of ordinals&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Its underlying type is $\operatorname{Ordinal}\,\mathcal{U}$ and
+its order relation is denoted by $-\triangleleft-$ and is defined by
+$$\alpha \triangleleft \beta = \Sigma b : \langle \beta \rangle , \alpha = (\beta \downarrow b).$$&lt;/p&gt;
+
+&lt;p&gt;This order has type $$-\triangleleft- : \operatorname{Ordinal}\,\mathcal{U} \to
+\operatorname{Ordinal}\,\mathcal{U} \to \mathcal{U}^+,$$ as required for it to make the
+type $\operatorname{\operatorname{Ordinal}} \mathcal{U}$ into an ordinal in the next
+universe.&lt;/p&gt;
+
+&lt;p&gt;By univalence, this order is equivalent to the
+order defined by
+$$\alpha \triangleleft^- \beta = \Sigma b : \langle \beta \rangle , \alpha \simeq_o (\beta \downarrow b).$$
+This has the more general type
+$$ -\triangleleft^-- : \operatorname{\operatorname{Ordinal}}\,\mathcal{U} \to \operatorname{\operatorname{Ordinal}}\,\mathcal{V} \to \mathcal{U} \sqcup \mathcal{V},$$
+so that we can compare ordinals in different universes. But also when the universes $\mathcal{U}$ and $\mathcal{V}$ are the same, this order has values in $\mathcal{U}$ rather than $\mathcal{U}^+$. The existence of such a resized-down order is crucial for our
+corollaries of Burali-Forti, but not for Burali-Forti itself.&lt;/p&gt;
+
+&lt;p&gt;For any $\alpha : \operatorname{Ordinal}\,\mathcal{U}$ we have
+$$ \alpha \simeq_o (\operatorname{OO}\,\mathcal{U} \downarrow \alpha),$$
+so that $\alpha$ is an initial segment of the ordinal of ordinals, and hence
+$$ \alpha \triangleleft^- \operatorname{OO}\,\mathcal{U}.$$&lt;/p&gt;
+
+&lt;h4&gt;The Burali-Forti theorem in HoTT/UF&lt;/h4&gt;
+
+&lt;p&gt;We adapt the original formulation and argument from set theory.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt;. No ordinal in a universe $\mathcal{U}$ can be equivalent to the ordinal of all ordinals in $\mathcal{U}$.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof.&lt;/strong&gt; Suppose, for the &lt;a href=&quot;http://math.andrej.com/2010/03/29/proof-of-negation-and-proof-by-contradiction/&quot;&gt;sake of
+deriving
+absurdity&lt;/a&gt;,
+that there is an ordinal $\alpha \simeq_o \operatorname{OO}\,\mathcal{U}$ in the universe
+$\mathcal{U}$.  By the above discussion, $\alpha \simeq_o \operatorname{OO}\,\mathcal{U} \downarrow
+\alpha$, and, hence, by symmetry and transitivity, $\operatorname{OO}\,\mathcal{U} \simeq_o \operatorname{OO}\,\mathcal{U} \downarrow
+\alpha$. Therefore, by univalence, $\operatorname{OO}\,\mathcal{U} = \operatorname{OO}\,\mathcal{U} \downarrow \alpha$. But this
+means that $\operatorname{OO}\,\mathcal{U} \triangleleft \operatorname{OO}\,\mathcal{U}$, which is impossible as any accessible
+relation is irreflexive. $\square$&lt;/p&gt;
+
+&lt;p&gt;Some corollaries follow.&lt;/p&gt;
+
+&lt;h4&gt;The type of ordinals is large&lt;/h4&gt;
+
+&lt;p&gt;We say that a type in the successor universe $\mathcal{U}^+$ is &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/UF-Size.html#is-small&quot;&gt;&lt;strong&gt;small&lt;/strong&gt;&lt;/a&gt; if it is
+equivalent to some type in the universe $\mathcal{U}$, and &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/UF-Size.html#is-large&quot;&gt;&lt;strong&gt;large&lt;/strong&gt;&lt;/a&gt; otherwise.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt;. The type of ordinals of any universe is large.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof.&lt;/strong&gt; Suppose the type of ordinals in the universe $\mathcal{U}$
+is small, so that there is a type $X : \mathcal{U}$ equivalent to the
+type $\operatorname{Ordinal}\, \mathcal{U} : \mathcal{U}^+$. We can
+then transport the ordinal structure from the type $\operatorname{Ordinal}\,
+\mathcal{U}$ to $X$ along this equivalence to get an ordinal in
+$\mathcal{U}$ equivalent to the ordinal of ordinals in $\mathcal{U}$,
+which is impossible by the Burali-Forti theorem.&lt;/p&gt;
+
+&lt;p&gt;But the proof is not concluded yet, because we have to say how we transport the ordinal structure.  At first sight &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/OrdinalsWellOrderTransport.html#transport-ordinal-structure&quot;&gt;we should be able to simply apply univalence&lt;/a&gt;. However, this is not possible because the types $X : \mathcal{U}$ and $\operatorname{Ordinal}\,\mathcal{U} :\mathcal{U}^+$ live in different universes. The problem is that only elements of the same type can be compared for equality.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the cumulative universe hierarchy of the HoTT book, we
+automatically have that $X : \mathcal{U}^+$ and hence, being
+equivalent to the type $\operatorname{Ordinal}\,\mathcal{U} :
+\mathcal{U}^+$, the type $X$ is equal to the type
+$\operatorname{Ordinal}\,\mathcal{U}$ by univalence. But this
+equality is an element of an identity type of the universe
+$\mathcal{U}^+$. Therefore when we transport the ordinal structure
+on the type $\operatorname{Ordinal}\,\mathcal{U}$ to the type $X$
+along this equality and equip $X$ with it, we get an ordinal in the
+successor universe $\mathcal{U}^+$. But, in order to get the desired
+contradiction, we need to get an ordinal in $\mathcal{U}$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the non-cumulative universe hierarchy we adopt here, we face
+essentially the same difficulty. We cannot assert that $X :
+\mathcal{U}^+$ but we can promote $X$ to an equivalent type in the
+universe $\mathcal{U}^+$, and from this point on we reach the same
+obstacle as in the cumulative case.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So we have to transfer the ordinal structure from $\operatorname{Ordinal}\,\mathcal{U}$ to $X$ &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/OrdinalsWellOrderTransport.html&quot;&gt;manually&lt;/a&gt; along the given equivalence, call it
+$$f : X \to \operatorname{Ordinal}\,\mathcal{U}.$$
+We define the order of $X$ from that of $\operatorname{Ordinal}\,\mathcal{U}$ by
+$$
+x \prec y = f(x) \triangleleft f(y).
+$$
+It is &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/OrdinalsWellOrderTransport.html#transfer-structure&quot;&gt;laborious but not hard to see&lt;/a&gt; that this order satisfies the required axioms for making $X$ into an ordinal, except that it has values in $\mathcal{U}^+$ rather than $\mathcal{U}$. But this problem is solved by instead using the resized-down relation $\triangleleft^-$ discussed above, which is equivalent to $\triangleleft$ by univalence.
+$\square$&lt;/p&gt;
+
+&lt;h4&gt;There are more types and sets in $\mathcal{U}^+$ than in $\mathcal{U}$&lt;/h4&gt;
+
+&lt;p&gt;By a &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/UF-UniverseEmbedding.html#is-universe-embedding&quot;&gt;&lt;strong&gt;universe embedding&lt;/strong&gt;&lt;/a&gt; we mean a map
+$$f : \mathcal{U} \to \mathcal{V}$$
+of universes such that, for all $X : \mathcal{U}$,
+$$f(X) \simeq X.$$ Of course, any two universe embeddings of $\mathcal{U}$ into $\mathcal{V}$ are equal,
+by univalence, so that there is at most one universe embedding between
+any two universes.  Moreover, universe embeddings &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/UF-UniverseEmbedding.html&quot;&gt;are automatically
+type embeddings&lt;/a&gt; (meaning that they have propositional fibers).&lt;/p&gt;
+
+&lt;p&gt;So the following says that the universe $\mathcal{U}^+$ is strictly larger than the
+universe $\mathcal{U}$:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Theorem.&lt;/strong&gt; The universe embedding $\mathcal{U} \to \mathcal{U}^+$ doesn't have a section and therefore is not an equivalence.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof.&lt;/strong&gt; A section would give a type in the universe $\mathcal{U}$ equivalent to the type of ordinals in $\mathcal{U}$, but we have seen that there is no such type. $\square$&lt;/p&gt;
+
+&lt;p&gt;(However, by Theorem 29 of &lt;a href=&quot;https://www.cambridge.org/core/journals/mathematical-structures-in-computer-science/article/injective-types-in-univalent-mathematics/AFCBBABE47F29ED7AFB4C262929D8810&quot;&gt;Injective types in univalent mathematics&lt;/a&gt;, if propositional resizing holds then the universe embedding $\mathcal{U} \to \mathcal{U}^+$
+&lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/UF-Size.html#Lift-is-section&quot;&gt;is a section&lt;/a&gt;.)&lt;/p&gt;
+
+&lt;p&gt;The same argument of the above theorem shows that there are more sets
+in $\mathcal{U}^+$ than in $\mathcal{U}$, because the type of ordinals
+is a set. For a universe $\mathcal{U}$ define the type
+$$\operatorname{hSet}\,\mathcal{U} : \mathcal{U}^+$$
+by
+$$ \operatorname{hSet}\,\mathcal{U} = \Sigma A : \mathcal{U} , \text{$A$ is a set}.$$
+By an &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/UF-UniverseEmbedding.html#is-hSet-embedding&quot;&gt;&lt;strong&gt;hSet embedding&lt;/strong&gt;&lt;/a&gt; we mean a map
+$$f : \operatorname{hSet}\,\mathcal{U} &amp;rarr; \operatorname{hSet}\,\mathcal{V}$$
+such that the underlying type of $f(\mathbb{X})$ is equivalent to the underlying type of $\mathbb{X}$ for every $\mathbb{X} : \operatorname{hSet}\,\mathcal{U}$, that is,
+$$
+\operatorname{pr_1} (f (\mathbb{X})) &amp;#8771; \operatorname{pr_1}(\mathbb{X}).
+$$
+Again &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/UF-UniverseEmbedding.html#at-most-one-hSet-embedding&quot;&gt;there is at most one hSet-embedding&lt;/a&gt; between any two universes, hSet-embeddings are type embeddings, and we have:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Theorem.&lt;/strong&gt; The hSet-embedding $\operatorname{hSet}\,\mathcal{U} \to \operatorname{hSet}\,\mathcal{U}^+$ doesn't have a section and therefore is not an equivalence.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4&gt;There are more magmas and monoids in $\mathcal{U}^+$ than in $\mathcal{U}$&lt;/h4&gt;
+
+&lt;p&gt;This is because the type of ordinals is a monoid under
+addition with the ordinal zero as its neutral element, and hence also a magma.  If the
+inclusion of the type of magmas (respectively monoids) of one universe into that of the
+next were an equivalence, then we would have a small copy of the type of ordinals.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/BuraliForti.html&quot;&gt;&lt;strong&gt;Theorem.&lt;/strong&gt;&lt;/a&gt; The canonical embeddings $\operatorname{Magma}\,\mathcal{U} &amp;rarr; \operatorname{Magma}\,\mathcal{U}^+$ and $\operatorname{Monoid}\,\mathcal{U} &amp;rarr; \operatorname{Monoid}\,\mathcal{U}^+$ don't have sections and hence are not equivalences.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4&gt;There are more groups in $\mathcal{U}^+$ than in $\mathcal{U}$&lt;/h4&gt;
+
+&lt;p&gt;This case is more interesting.&lt;/p&gt;
+
+&lt;p&gt;The axiom of choice is equivalent to the statement that &lt;a href=&quot;https://en.wikipedia.org/wiki/Group_structure_and_the_axiom_of_choice&quot;&gt;any non-empty set can
+be given the structure of a
+group&lt;/a&gt;. So
+if we assumed the axiom of choice we would be done. But we are brave
+and work without assuming excluded middle, and hence without choice, so that our results &lt;a href=&quot;https://arxiv.org/abs/1904.07004&quot;&gt;hold in any $\infty$-topos&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It is also  the case that &lt;a href=&quot;https://homotopytypetheory.org/2021/01/23/can-the-type-of-truth-values-be-given-the-structure-of-a-group/&quot;&gt;the type of propositions can be given the structure of a group&lt;/a&gt; if and only if the principle of excluded middle holds. And &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/OrdinalArithmetic-Properties.html#retract-%CE%A9-of-Ordinal&quot;&gt;the type of propositions is a retract of the type of ordinals&lt;/a&gt;, which makes it unlikely that the type of ordinals can be given the structure of a group without excluded middle.&lt;/p&gt;
+
+&lt;p&gt;So our strategy is to embed the type of ordinals into a group, and the free group does the job.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;First we need to show that the inclusion of generators, or the
+universal map into the free group, &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/FreeGroup.html&quot;&gt;is an
+embedding&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;But having a large type $X$ embedded into a type $Y$ is not enough
+to conclude that $Y$ is also large. For example, if $P$ is a
+proposition then the unique map $P \to \mathbb{1}$ is an embedding,
+and the unit type $\mathbb{1}$ is small but $P$ may be large.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;So more work is needed to show that the group freely generated by
+the type of ordinals is large. We say that a map is &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/UF-Size.html#is-small&quot;&gt;&lt;strong&gt;small&lt;/strong&gt;&lt;/a&gt; if
+each of its fibers is small, and &lt;strong&gt;large&lt;/strong&gt; otherwise.
+&lt;a href=&quot;https://arxiv.org/abs/2102.08812&quot;&gt;De Jong and Escardo&lt;/a&gt; showed that
+if a map $X \to Y$ is small and the type $Y$ is small, &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/UF-Size.html#is-small&quot;&gt;then so is
+the type
+$X$&lt;/a&gt;,
+and hence if $X$ is large then so is $Y$. Therefore our approach is
+to show that the universal map into the free group is small. To &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/FreeGroupOfLargeLocallySmallSet.html&quot;&gt;do
+this&lt;/a&gt;,
+we exploit the fact that the type of ordinals is &lt;a href=&quot;https://arxiv.org/abs/1701.07538&quot;&gt;locally
+small&lt;/a&gt; (&lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/BuraliForti.html#the-type-of-ordinals-is-locally-small&quot;&gt;its identity types are
+all equivalent to small
+types&lt;/a&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;But we want to be as general as possible, and hence work with a spartan univalent type theory which doesn't include higher inductive types other than propositional truncation. We include the empty type, the unit type, natural numbers, list types (&lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/agda-new/Fin.html#vec&quot;&gt;which can actually be constructed from the other type formers&lt;/a&gt;), coproduct types, $\Sigma$-types, $\Pi$-types, identity types and a sequence of universes. We also assume the univalence axiom (from which we automatically get functional and propositional extensionality) and the axiom of existence of propositional truncations.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;We &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/FreeGroup.html&quot;&gt;construct the free
+group&lt;/a&gt;
+as a quotient of a type of words following &lt;a href=&quot;https://www.springer.com/gb/book/9780387966403&quot;&gt;Mines, Richman and
+Ruitenburg&lt;/a&gt;. To
+prove that the universal map is an embedding, one first proves a
+Church-Rosser property for the equivalence relation on words. It is
+remarkable that this can be done without assuming that the set of
+generators has decidable equality.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Quotients &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/agda-new/UF-Quotient.html&quot;&gt;can be constructed from propositional
+truncation&lt;/a&gt;. This
+construction increases the universe level by one, but eliminates
+into any universe.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/FreeGroupOfLargeLocallySmallSet.html#resize-free-group&quot;&gt;resize back&lt;/a&gt; the quotient used to construct the group freely
+generated by the type of ordinals to the original universe, we
+exploit the fact that the type of ordinals is locally small.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;As above, we have to transfer &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/Groups.html#transport-Group-structure&quot;&gt;&lt;strong&gt;manually&lt;/strong&gt;&lt;/a&gt; group structures between equivalent types of different universes, because univalence can't be applied.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Putting the above together, and leaving many steps to the &lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/BuraliForti.html&quot;&gt;Agda code&lt;/a&gt;, we get the following in our spartan univalent type theory.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/FreeGroupOfLargeLocallySmallSet.html&quot;&gt;&lt;strong&gt;Theorem.&lt;/strong&gt;&lt;/a&gt; For any large, locally small set, the free group is also large and locally small.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/BuraliForti.html&quot;&gt;&lt;strong&gt;Corollary.&lt;/strong&gt;&lt;/a&gt; In any  successor universe $\mathcal{U}^+$ there is a group which is not isomorphic to any group in the universe $\mathcal{U}$.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.cs.bham.ac.uk/~mhe/TypeTopology/BuraliForti.html&quot;&gt;&lt;strong&gt;Corollary.&lt;/strong&gt;&lt;/a&gt; The canonical embedding $\operatorname{Group}\,\mathcal{U} &amp;rarr; \operatorname{Group}\,\mathcal{U}^+$ doesn't have a section and hence is not an equivalence.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Can we formulate and prove a general theorem of this kind that
+specializes to a wide variety of mathematical structures that occur in
+practice?&lt;/p&gt;</content><id>http://math.andrej.com/2021/02/22/burali-forti-in-hott-uf/</id><title type="text">The Burali-Forti argument in HoTT/UF</title><updated>2021-02-22T08:00:00-00:00</updated><author><name>Martin Escardo</name></author></entry></feed>

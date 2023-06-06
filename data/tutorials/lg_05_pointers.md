@@ -11,23 +11,24 @@ date: 2021-05-27T21:07:30-00:00
 
 ## Status of Pointers in OCaml
 Pointers exist in OCaml, and in fact they spread all over the place.
-They are used either implicitly (in the most cases), or explicitly (in
+They are used either implicitly (in most cases) or explicitly (in
 the rare occasions where implicit pointers are not more handy). The vast
-majority of pointers usages that are found in usual programming
-languages simply disappear in OCaml, or more exactly, those pointers are
-totally automatically handled by the compiler. Thus, the OCaml programmer
+majority of situations where you would use pointers in usual programming
+languages do not require explicitly using pointers in OCaml: The pointers
+used in the compiled machine code representation of your program are
+an implementation-detail that is handled by the compiler. Thus, the OCaml programmer
 can safely ignore the existence of pointers, focusing on the semantics of their
 program.
 
 For instance, lists or trees are defined without explicit pointers using
 a concrete datatype definition. The underlying implementation uses
-pointers, but this is hidden from the programmer since pointer
-handling is done by the compiler.
+pointers, but this is hidden from the programmer since the compiler handles
+these pointers.
 
 In the rare occasions where explicit pointers are needed (the most
-common case is when translating into OCaml an algorithm described in a
-classic imperative language), OCaml provides references that are
-full-fledged pointers, even first class citizen pointers (references can
+common case is when translating an algorithm described in a
+classic imperative language into OCaml), OCaml provides references that are
+full-fledged pointers and even first-class citizen pointers (references can
 be passed as argument, embedded into arbitrary data structures, and
 returned as function results).
 
@@ -57,7 +58,7 @@ type
   tl: cell;
  end;
 ```
-We can translate this in OCaml, using a sum type definition, without
+We can translate this in OCaml, using a `sum` type definition, without
 pointers:
 
 ```ocaml
@@ -66,12 +67,12 @@ type list = Nil | Cons of int * list
 ```
 
 Cell lists are thus represented as pairs, and the recursive structure of
-lists is evident, with the two alternatives, empty list (the
-`Nil`constructor) and non empty list (the `Cons` constructor).
+lists is evident with these two alternatives: empty list (the
+`Nil`constructor) and non-empty list (the `Cons` constructor).
 
 Automatic management of pointers and automatic memory allocation shine
-when allocating list values: one just writes `Cons (x, l)` to add `x` in
-front of the list `l`. In C, you need to write this function, to
+when allocating list values. One simply writes `Cons (x, l)` to add `x` in
+front of the list `l`. In C, you must write this function to
 allocate a new cell and then fill its fields. For instance:
 
 ```C
@@ -101,15 +102,15 @@ function cons (x: integer; l: list): list;
     cons := p
   end;
 ```
-We thus see that fields of list cells in the C program have to be
-mutable, otherwise initialization is impossible. By contrast in OCaml,
-allocation and initialization are merged into a single basic operation:
+Fields of list cells in the C program have to be
+mutable, otherwise initialisation is impossible. By contrast in OCaml,
+allocation and initialisation are merged into a single basic operation:
 constructor application. This way, immutable data structures are
 definable (those data types are often referred to as “pure” or
 “functional” data structures). If physical modifications are necessary
-for other reasons than mere initialization, OCaml provides records with
-mutable fields. For instance, a list type defining lists whose elements
-can be in place modified could be written:
+for other reasons than mere initialisation, OCaml provides records with
+mutable fields. For instance, a list type that defines lists whose elements
+can be modified could be written:
 
 ```ocaml
 # type list = Nil | Cons of cell
@@ -128,33 +129,35 @@ type list = Nil | Cons of cell
 and cell = { mutable hd : int; mutable tl : list; }
 ```
 
-Physical assignments are still useless to allocate mutable data: you
+Physical assignments are still useless to allocate mutable data: 
 write `Cons {hd = 1; tl = l}` to add `1` to the list `l`. Physical
-assignments that remain in OCaml programs should be just those
-assignments that are mandatory to implement the algorithm at hand.
+assignments that remain in OCaml programs should just be mandatory ones
+that implement the algorithm at hand.
 
 Very often, pointers are used to implement physical modification of data
-structures. In OCaml programs this means using vectors or mutable fields
+structures. In OCaml programs, this means using vectors or mutable fields
 in records.
 
-**In conclusion:** You can use explicit pointers in OCaml, exactly as in C, but
-this is not natural, since you get back the usual drawbacks and difficulties of
+**In conclusion:** you can use explicit pointers in OCaml, exactly as in C, but
+this is not natural because they have the usual drawbacks and difficulties of
 explicit pointers manipulation of classical algorithmic languages. See a more
 complete example below.
 
 ## Defining Pointers in OCaml
 The general pointer type can be defined using the definition of a
-pointer: a pointer is either null, or a pointer to an assignable memory
+pointer. A pointer is either null, or a pointer has an assignable memory
 location:
 
 ```ocaml
 # type 'a pointer = Null | Pointer of 'a ref;;
 type 'a pointer = Null | Pointer of 'a ref
 ```
-Explicit dereferencing (or reading the pointer's designated value) and
-pointer assignment (or writing to the pointer's designated memory
-location) are easily defined. We define dereferencing as a prefix
-operator named `!^`, and assignment as the infix `^:=`.
+Explicit dereferencing (reading the pointer's designated value) and
+pointer assignment (writing to the pointer's designated memory
+location) are easily defined. 
+
+Let's define dereferencing as a prefix
+operator named `!^` and assignment as the infix `^:=`.
 
 ```ocaml
 # let ( !^ ) = function
@@ -169,7 +172,7 @@ val ( !^ ) : 'a pointer -> 'a = <fun>
 val ( ^:= ) : 'a pointer -> 'a -> unit = <fun>
 ```
 
-Now we define the allocation of a new pointer initialized to point to a
+Now let's define the allocation of a new pointer initialised to point to a
 given value:
 
 ```ocaml
@@ -197,7 +200,7 @@ languages:
 type ilist = cell pointer
 and cell = { mutable hd : int; mutable tl : ilist; }
 ```
-We then define allocation of a new cell, the list constructor and its
+We then define allocation of a new cell, the list constructor, and its
 associated destructors.
 
 ```ocaml
@@ -215,9 +218,9 @@ val hd : ilist -> int = <fun>
 val tl : ilist -> ilist = <fun>
 ```
 
-We can now write all kind of classical algorithms, based on pointers
-manipulation, with their associated loops, their unwanted sharing
-problems and their null pointer errors. For instance, list
+Next, let's write a variety of classical algorithms based on pointers
+manipulation with their associated loops, their unwanted sharing
+problems, and their null pointer errors. For instance, list
 concatenation, as often described in literature, physically modifies
 its first list argument, hooking the second list to the end of the
 first:
@@ -256,13 +259,13 @@ Pointer
       {contents = {hd = 2; tl = Pointer {contents = {hd = 3; tl = Null}}}}}}
 ```
 
-Just a nasty side effect of physical list concatenation: `l1` now
+A nasty side effect of physical list concatenation: `l1` now
 contains the concatenation of the two lists `l1` and `l2`, thus the list
-`l1` no longer exists: in some sense `append` *consumes* its first
+`l1` no longer exists. In one sense, `append` *consumes* its first
 argument. In other words, the value of a list data now depends on its
-history, that is on the sequence of function calls that use the value.
+history, or the sequence of function calls that use the value.
 This strange behaviour leads to a lot of difficulties when explicitly
-manipulating pointers. Try for instance, the seemingly harmless:
+manipulating pointers. For instance, try the seemingly harmless:
 
 ```ocaml
 # append l1 l1;;
@@ -283,7 +286,7 @@ Pointer
 ```
 
 ## Polymorphic Lists
-We can define polymorphic lists using pointers; here is a simple implementation
+We can also define polymorphic lists using pointers. Here is a simple implementation
 of those polymorphic mutable lists:
 
 ```ocaml
@@ -313,24 +316,24 @@ val append : 'a lists -> 'a lists -> unit = <fun>
 ```
 
 ## Null Pointers
-So you've got a survey on your website which asks your readers for their
-names and ages. Only problem is that for some reason a few of your
-readers don't want to give you their age - they stubbornly refuse to
+Imagine you have a website survey that asks for your readers'
+names and ages. What if for some reason a few of your
+readers don't want to give you their age? They stubbornly refuse to
 fill that field in. What's a poor database administrator to do?
 
-Assume that the age is represented by an `int`, there are two possible
+Assume that the age is represented by an `int`, so there are two possible
 ways to solve this problem. The most common one (and the most *wrong*
-one) is to assume some sort of "special" value for the age which means
-that the age information wasn't collected. So if, say, age = -1 then the
-data wasn't collected, otherwise the data was collected (even if it's
-not valid!). This method kind of works until you start, for example,
+one) is to assume some sort of "special" value for the age, which means
+that information wasn't collected. For example, if age = -1, then the
+data wasn't collected; otherwise the data was collected (even if it's
+not valid!). This method could work until you start
 calculating the mean age of visitors to your website. Since you forgot
-to take into account your special value, you conclude that the mean age
+to take into account your special values, you conclude that the mean age
 of visitors is 7½ years old, and you employ web designers to remove all
 the long words and use primary colours everywhere.
 
-The other, correct method is to store the age in a field which has type
-"int or null". Here's a SQL table for storing ages:
+The correct method is to store the age in a field which has type
+"int or null." Here's a SQL table for storing ages:
 
 ```SQL
 create table users
@@ -346,14 +349,14 @@ special SQL `NULL` value. SQL ignores this automatically when you ask it
 to compute averages and so on.
 
 Programming languages also support nulls, although they may be easier to
-use in some than in others. In Java, any reference to
-an object can be null, so it might make sense in Java to store the
-age as an `Integer` and allow references to the age to be null. In C
-pointers can, of course, be null, but if you wanted a simple integer to
+use in some more than in others. In Java, any reference to
+an object can be null, so it might make sense to store the
+age as an `Integer` and allow references to the age to be null. In C,
+pointers can be null, but if you wanted a simple integer to
 be null, you'd have to first box it up into an object allocated by
 `malloc` on the heap.
 
-OCaml has an elegant solution to the problem of nulls, using a simple
+OCaml has an elegant solution to the problem of nulls. It uses a simple
 polymorphic variant type defined (in `Stdlib`) as:
 
 ```ocaml
@@ -369,13 +372,13 @@ A "null pointer" is written `None`. The type of age in our example above
 - : int option = Some 3
 ```
 
-What about a list of optional ints?
+A list of optional ints can be written:
 
 ```ocaml
 # [None; Some 3; Some 6; None];;
 - : int option list/2 = [None; Some 3; Some 6; None]
 ```
-And what about an optional list of ints?
+And an optional list of ints looks like this:
 
 ```ocaml
 # Some [1; 2; 3];;

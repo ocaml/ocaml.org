@@ -19,22 +19,21 @@ doc: "https://ocaml.github.io/ocaml.org/"
 bug-reports: "https://github.com/ocaml/ocaml.org/issues"
 depends: [
   "ocaml" {>= "4.14.0"}
-  "dune" {>= "2.8"}
+  "dune" {>= "3.6"}
   "cohttp"
   "cohttp-lwt-unix"
   "bos"
   "crunch"
   "mirage-kv-mem"
-  "dream" {>= "1.0.0~alpha3"}
   "dream-accept"
   "dream-encoding"
   "graphql" {>= "0.14.0"}
   "fpath"
   "fmt"
   "logs"
-  "omd" {= "2.0.0~alpha2"}
+  "omd" {= "2.0.0~alpha3"}
   "opam-format"
-  "timedesc" {>= "0.8.0"}
+  "timedesc" {>= "1.1.1"}
   "yojson"
   "lwt"
   "tailwindcss"
@@ -43,8 +42,8 @@ depends: [
   "syndic"
   "alcotest" {with-test}
   "mdx" {with-test & >= "1.10.0"}
-  "dream" {>= "1.0.0~alpha3"}
-  "hyper" {>= "1.0.0~alpha1"}
+  "dream" {>= "1.0.0~alpha5"}
+  "hyper" {= "1.0.0~alpha2"}
   "dune-build-info"
   "luv"
   "metrics-lwt"
@@ -53,7 +52,6 @@ depends: [
   "ppx_deriving_yojson"
   "ppx_stable"
   "yojson"
-  "timedesc" {>= "0.8.0"}
   "ppx_deriving_yaml"
   "ppx_show"
   "ezjsonm"
@@ -81,4 +79,5 @@ build: [
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
   ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#7ef5bebbf48958370051b2368a4dd57b69627cf6"]
+  ["hilite.dev" "git+https://github.com/tmattio/hilite#019d8a94d1981af19ca8d72e3d0bfde9dae6b284"]
 ]

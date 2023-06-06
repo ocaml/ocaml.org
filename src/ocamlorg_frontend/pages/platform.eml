@@ -1,5 +1,5 @@
 let render
-(tools : Ood.Tool.t list)
+(tools : Data.Tool.t list)
 ~tutorials
 =
 Learn_layout.render
@@ -67,7 +67,7 @@ Learn_layout.render
       </div>
       <div class="flex h-full justify-center" x-show="!isPlaying">
         <div class="z-10 mb-10 lg:mb-0">
-          <img width="160" class="m-auto mt-10 md:mt-20" src="/logo-with-name.svg" alt="OCaml logo">
+          <img width="160" class="m-auto mt-10 md:mt-20" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml logo">
           <div class="text-body-400 mt-2">OCaml Workshop 2020</div>
           <h3 class="font-bold mt-16">State of the OCaml Platform 2020</h3>
           <div class="mt-16 flex justify-center">
@@ -96,7 +96,7 @@ Learn_layout.render
         The work-horse tools that are used daily with strong backwards compatibility guarantees from the community.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
-        <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Active) |> List.iter (fun (item : Ood.Tool.t) -> %>
+        <% tools |> List.filter (fun (item : Data.Tool.t) -> item.lifecycle = `Active) |> List.iter (fun (item : Data.Tool.t) -> %>
         <a href="<%s item.source %>" class="flex items-center">
           <div class="flex flex-col pr-5 w-full">
             <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
@@ -113,7 +113,7 @@ Learn_layout.render
         New tools that fill a gap in the ecosystem but are not quite ready for wide-scale release and adoption.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
-        <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Incubate) |> List.iter (fun (item : Ood.Tool.t) -> %>
+        <% tools |> List.filter (fun (item : Data.Tool.t) -> item.lifecycle = `Incubate) |> List.iter (fun (item : Data.Tool.t) -> %>
         <a href="<%s item.source %>" class="flex items-center">
           <div class="flex flex-col pr-5 w-full">
             <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
@@ -131,7 +131,7 @@ Learn_layout.render
         developed.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
-        <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Sustain) |> List.iter (fun (item : Ood.Tool.t) -> %>
+        <% tools |> List.filter (fun (item : Data.Tool.t) -> item.lifecycle = `Sustain) |> List.iter (fun (item : Data.Tool.t) -> %>
         <a href="<%s item.source %>" class="flex items-center">
           <div class="flex flex-col pr-5 w-full">
             <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
@@ -148,7 +148,7 @@ Learn_layout.render
         Tools that are gradually being phased out, with clear paths to better workflows.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
-        <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Deprecate) |> List.iter (fun (item : Ood.Tool.t) -> %>
+        <% tools |> List.filter (fun (item : Data.Tool.t) -> item.lifecycle = `Deprecate) |> List.iter (fun (item : Data.Tool.t) -> %>
         <a href="<%s item.source %>" class="flex items-center">
           <div class="flex flex-col pr-5 w-full">
             <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>

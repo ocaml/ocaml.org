@@ -1,3 +1,5 @@
+open Ocamlorg
+
 module Store = struct
   module type S = sig
     val create_event : Event.t -> (unit, string) result Lwt.t
@@ -23,7 +25,8 @@ module Handler = struct
       (Overview_template.render ~prefix ~ocaml_version:Info.ocaml_version
          ~dream_version:(Info.dream_version ())
          ~dashboard_version:(Info.version ()) ~uptime:(Info.uptime_string ())
-         ~os_version:(Info.os_version ()) ~loadavg_list ~memory_list ())
+         ~commit:Commit.hash ~os_version:(Info.os_version ()) ~loadavg_list
+         ~memory_list ())
 
   let analytics ~store ~prefix _req =
     let open Lwt.Syntax in

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://upsilon.cc/~zack/tags/ocaml/index.rss</id><title type="text">szacchiroli</title><updated>2023-06-05T05:46:01-00:00</updated><entry><link href="http://upsilon.cc/~zack/blog/posts/2010/10/ocaml-http_has_moved/" rel="alternate"/><contributor><uri>https://upsilon.cc/~zack/tags/ocaml/index.rss</uri><name>szacchiroli</name></contributor><content type="html">&lt;h1&gt;OCaml HTTP is now on the OCaml forge&lt;/h1&gt;
+&lt;p&gt;It's been a &lt;a href=&quot;http://upsilon.cc/~zack/blog/posts/2009/03/ocaml-http_is_looking_for_a_new_maintainer/&quot;&gt;
+long time&lt;/a&gt;. But finally OCaml HTTP has a &lt;a href=&quot;http://ocaml-http.forge.ocamlcore.org/&quot;&gt;new home&lt;/a&gt; and a new
+maintainer.&lt;/p&gt;
+&lt;p&gt;Please welcome me in thanking &lt;a href=&quot;http://arlen.co/&quot;&gt;Arlen
+Cuss&lt;/a&gt; who has kindly agreed to become the new maintainer.&lt;/p&gt;
+
+</content><id>http://upsilon.cc/~zack/blog/posts/2010/10/ocaml-http_has_moved/</id><title type="text">ocaml-http has moved</title><updated>2010-10-20T11:09:22-00:00</updated><author><name>szacchiroli</name></author></entry><entry><link href="http://upsilon.cc/~zack/blog/posts/2010/03/ocaml_batteries_included_1.1.0_is_in_debian_now/" rel="alternate"/><contributor><uri>https://upsilon.cc/~zack/tags/ocaml/index.rss</uri><name>szacchiroli</name></contributor><content type="html">&lt;h1&gt;OCaml Batteries Included 1.1.0 has arrived in Debian&lt;/h1&gt;
+&lt;p&gt;I've just uploaded the &lt;strong&gt;Debian package of &lt;a href=&quot;https://forge.ocamlcore.org/forum/forum.php?forum_id=552&quot;&gt;OCaml
+Batteries Included 1.1.0&lt;/a&gt;&lt;/strong&gt; to the Debian unstable
+archive; hopefully, it will quickly enter testing to be released
+with the next Debian stable release. This is the first release in
+Debian of the &amp;quot;new generation&amp;quot; of Batteries Included, which has
+followed a strict diet, and now has &lt;a href=&quot;http://camomile.sourceforge.net/&quot;&gt;Camomile&lt;/a&gt; as its only
+external dependency.&lt;/p&gt;
+&lt;p&gt;It took me a while to package it due to an intertwining
+transition to OCaml 3.11.2 (during which we have fleshed out the
+last remaining few bits of transition to &lt;a href=&quot;http://upsilon.cc/~zack/blog/posts/2009/11/Enforcing_type-safe_linking_using_package_dependencies/&quot;&gt;
+our new dependency system&lt;/a&gt;). Also, I had to fix some typical
+build issue with upstream, which kindly coordinated with me to have
+the fixes included in 1.1.0.&lt;/p&gt;
+&lt;p&gt;So go, enjoy Batteries 1.1.0, and let me know your feedback:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    # apt-get install ocaml-batteries-included
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;small&gt;(check that it will install 1.1.0 though, it might take a
+few days to hit your favorite architecture and mirror)&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Tip:&lt;/strong&gt; starting from this version you will need
+the following to use Batteries in place of the legacy standard
+library in your sources:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    open Batteries_uni
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;for multi-threaded programs you should rather use &lt;code&gt;open
+Batteries&lt;/code&gt;. Check the &lt;code&gt;FAQ&lt;/code&gt; file installed under
+&lt;code&gt;/usr/share/doc/libbatteries-ocaml-dev/&lt;/code&gt; for more quick
+start information.&lt;/p&gt;
+
+</content><id>http://upsilon.cc/~zack/blog/posts/2010/03/ocaml_batteries_included_1.1.0_is_in_debian_now/</id><title type="text">ocaml batteries included 1.1.0 is in debian now</title><updated>2010-03-06T16:39:15-00:00</updated><author><name>szacchiroli</name></author></entry><entry><link href="http://upsilon.cc/~zack/blog/posts/2009/12/camljava_for_recent_JVMs/" rel="alternate"/><contributor><uri>https://upsilon.cc/~zack/tags/ocaml/index.rss</uri><name>szacchiroli</name></contributor><content type="html">&lt;h1&gt;resurrecting CamlJava (testers welcome)&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;http://pauillac.inria.fr/~xleroy/software.html#camljava&quot;&gt;&lt;strong&gt;CamlJava&lt;/strong&gt;&lt;/a&gt;
+is a great project by &lt;a href=&quot;http://pauillac.inria.fr/~xleroy/&quot;&gt;almighty Xavier&lt;/a&gt; that
+&lt;strong&gt;bridges the OCaml and Java worlds&lt;/strong&gt; via the
+respective C interfaces (Caml/C interface for OCaml and JNI for
+Java).&lt;/p&gt;
+&lt;p&gt;Unfortunately, the last stable release was a bit out of date and
+seemed not to work with recent JDK (both in terms of buildability
+and of runtime correctness, i.e., segfaults). With the tremendous
+help of &lt;a href=&quot;http://www.pps.jussieu.fr/~henry/&quot;&gt;Gr&amp;eacute;goire
+Henry&lt;/a&gt;, I've managed to prepare &lt;a href=&quot;http://git.debian.org/?p=pkg-ocaml-maint/packages/camljava.git%3Ba=tree%3Bf=debian/patches&quot;&gt;
+&lt;strong&gt;a set of patches&lt;/strong&gt;&lt;/a&gt; that enables to build (and
+use without segfaults ...) CamlJava with &lt;strong&gt;recent
+JVM&lt;/strong&gt;: in particular it &lt;em&gt;seems&lt;/em&gt; now to work with both
+Sun's JVM and OpenJDK.&lt;/p&gt;
+&lt;p&gt;A &lt;strong&gt;Debian package&lt;/strong&gt; &lt;a href=&quot;http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=558090&quot;&gt;has been
+prepared&lt;/a&gt;; while it gets processed by archive manager, you can
+get an equivalent unofficial package from my APT repo:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    deb http://people.debian.org/~zack/debian zack-unstable/
+    deb-src http://people.debian.org/~zack/debian zack-unstable/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Any form of &lt;strong&gt;testing is very welcome&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;In case you want to try &lt;a href=&quot;http://www.pps.jussieu.fr/~henry/ojacare/index.en.html&quot;&gt;O'Jacare&lt;/a&gt;
+on top of CamlJava however, you need to wait a bit more: Gr&amp;eacute;goire
+is working on it, but in the process he banged his head against
+bugs in both CamlP4 and CamlP5 (the only two available porting
+paths from the last stable release of O'Jacare) &lt;img src=&quot;http://upsilon.cc/~zack/smileys/smile.png&quot; alt=&quot;:-)&quot;/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update 1&lt;/strong&gt;: we made into &lt;a href=&quot;http://alan.petitepomme.net/cwn/2009.12.08.html#1&quot;&gt;this week Caml
+Weekly News&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update 2&lt;/strong&gt;: even if I haven't been contacted yet,
+&lt;a href=&quot;https://forge.ocamlcore.org/projects/camljava/&quot;&gt;Xavier has
+registered a Caml/Java project&lt;/a&gt; on the OCaml forge, good sign!
+&lt;img src=&quot;http://upsilon.cc/~zack/smileys/smile.png&quot; alt=&quot;:-)&quot;/&gt;&lt;/p&gt;
+
+</content><id>http://upsilon.cc/~zack/blog/posts/2009/12/camljava_for_recent_JVMs/</id><title type="text">camljava for recent JVMs</title><updated>2009-12-01T14:25:37-00:00</updated><author><name>szacchiroli</name></author></entry><entry><link href="http://upsilon.cc/~zack/blog/posts/2009/11/Enforcing_type-safe_linking_using_package_dependencies/" rel="alternate"/><contributor><uri>https://upsilon.cc/~zack/tags/ocaml/index.rss</uri><name>szacchiroli</name></contributor><content type="html">&lt;h1&gt;Eclectic paper: dh-ocaml&lt;/h1&gt;
+&lt;p&gt;In my day job as a researcher, I mostly &lt;a href=&quot;http://upsilon.cc/~zack/research/publications/&quot;&gt;publish papers&lt;/a&gt; along the lines
+of my main research interests (theorem proving, web technologies,
+formal methods applied to software engineering, ...). Some time
+though, I just come up to some &lt;strong&gt;eclectic idea&lt;/strong&gt;, not
+strictly related to my job, that I feel like cooking up as a paper
+to be reviewed by some scientific venue.&lt;/p&gt;
+&lt;p&gt;It happened some weeks ago with &lt;a href=&quot;http://packages.debian.org/sid/dh-ocaml&quot;&gt;&lt;strong&gt;dh-ocaml&lt;/strong&gt;&lt;/a&gt;,
+the package implementing the &lt;strong&gt;new dependency scheme for
+OCaml-related packages&lt;/strong&gt; in Debian. It took us (as in
+&lt;a href=&quot;http://wiki.debian.org/Teams/OCamlTaskForce&quot;&gt;Debian OCaml
+maintainers&lt;/a&gt;) several years to get it right and satisfactory for
+maintainers, users, release team, etc.&lt;/p&gt;
+&lt;p&gt;The problem which dh-ocaml addresses is that, differently than C
+and other system-level languages, &lt;strong&gt;OCaml breaks ABI
+compatibility very often&lt;/strong&gt;, due to the need of ensuring type
+safety across different libraries at link time. Other similar
+strongly typed languages, such as Haskell, behave similarly. This
+is at odds with the implicit assumption of forward-compatibility
+(unless otherwise &amp;quot;stated&amp;quot;, e.g. with soname changes) that is
+relied upon by versioned dependencies in distributions like
+Debian.&lt;/p&gt;
+&lt;p&gt;This discussion, the analysis of possible solutions, and the
+description of the solution we have actually implemented in
+dh-ocaml (called &lt;strong&gt;ABI approximation&lt;/strong&gt;) turned out to
+be interesting for the French functional programming academic
+community: the &lt;a href=&quot;http://upsilon.cc/~zack/research/publications/jfla10-dh-ocaml.pdf&quot;&gt;&lt;strong&gt;paper on
+dh-ocaml&lt;/strong&gt;&lt;/a&gt; has been accepted at forthcoming &lt;a href=&quot;http://jfla.inria.fr/2010/&quot;&gt;JFLA 2010&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;It is no rocket science &lt;img src=&quot;http://upsilon.cc/~zack/smileys/smile.png&quot; alt=&quot;:-)&quot;/&gt; , but people maintaining programs and libraries written in
+languages with concerns similar to OCaml's (e.g. Haskell, hello
+&lt;a href=&quot;http://www.joachim-breitner.de/blog/&quot;&gt;nomeata&lt;/a&gt;) might
+want to have a look.&lt;/p&gt;
+
+</content><id>http://upsilon.cc/~zack/blog/posts/2009/11/Enforcing_type-safe_linking_using_package_dependencies/</id><title type="text">Enforcing type-safe linking using package dependencies</title><updated>2009-11-28T13:00:16-00:00</updated><author><name>szacchiroli</name></author></entry><entry><link href="http://upsilon.cc/~zack/blog/posts/2009/11/jane_street_core_0.6.0_has_arrived/" rel="alternate"/><contributor><uri>https://upsilon.cc/~zack/tags/ocaml/index.rss</uri><name>szacchiroli</name></contributor><content type="html">&lt;h1&gt;Debian &amp;quot;Core&amp;quot; 0.6.0 packages ready&lt;/h1&gt;
+&lt;p&gt;I've completed the packaging of the new release of &lt;a href=&quot;http://www.janestreet.com/ocaml&quot;&gt;&lt;strong&gt;(Jane Street)
+Core&lt;/strong&gt;&lt;/a&gt;, version &lt;strong&gt;0.6.0&lt;/strong&gt;. Core is (yet
+another) extended / alternative standard library for OCaml,
+integrating not only the much needed &amp;quot;everyday functions&amp;quot; but also
+offering consistent abstractions throughout all stdlib modules
+(with a lot of inspiration from well-known type classes from the
+Haskell stdlib), consistent naming conventions (e.g. all functions
+using exceptions as meaningful return values ends in
+&lt;code&gt;_exn&lt;/code&gt;), and significant syntax extensions.&lt;/p&gt;
+&lt;p&gt;While I've been thus far an &lt;a href=&quot;http://batteries.forge.ocamlcore.org/&quot;&gt;OCaml &lt;strong&gt;Batteries
+Included&lt;/strong&gt;&lt;/a&gt; fanboy, I confess that nowadays I'm more
+&lt;strong&gt;skeptical about its success&lt;/strong&gt; than in the past, in
+spite of having contributed a tad of code to it. The reason is
+simply that &lt;a href=&quot;https://lists.ocamlcore.org/pipermail/batteries-devel/2009-September/000879.html&quot;&gt;
+the lead of the project is now gone&lt;/a&gt; and, more importantly, has
+done so without having (yet?) clearly appointed/found a new lead.
+That does not change the fact that David has only to be kudoed for
+his amount of impressive work on Batteries. Still, as a matter of
+fact right there is no stable release yet and there is no one that
+will be taking the project to deliver one, since no one else has
+stepped forward (yet?).&lt;/p&gt;
+&lt;p&gt;In this interim the OCaml problems in delivering, on top of an
+amazing core language, an amazing development platform in which
+programmers are not forced to reinvent wheels, stand. Core fills
+such a gap properly. I was preferring Batteries to it due to its
+more open development process, but in spite of that Core is a
+pretty damn good stdlib. Long life to Jane Street that currently
+maintains it &lt;img src=&quot;http://upsilon.cc/~zack/smileys/smile.png&quot; alt=&quot;:-)&quot;/&gt;&lt;/p&gt;
+&lt;p&gt;Now, back to the main topic of this post, &lt;strong&gt;Debian
+packages for Core 0.6.0 are now available&lt;/strong&gt;; you will be
+able to get it from the main/unstable archive soon (some manual NEW
+processing is required). In the meantime they can be fetched from
+my personal APT repository, as usual:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    deb http://people.debian.org/~zack/debian zack-unstable/
+    deb-src http://people.debian.org/~zack/debian zack-unstable/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A few &lt;strong&gt;noteworthy changes&lt;/strong&gt; from the past package
+releases:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;There is now a new set of packages
+(&lt;code&gt;libcore-extended-ocaml{,-dev}&lt;/code&gt;) that contains
+&lt;strong&gt;Core_extended&lt;/strong&gt;. It is a new subset of Core, which
+offers more features on top of Core, but which has more
+dependencies (most notably Pcre-OCaml) and is declared to be less
+thoroughly peer-reviewed than Core itself.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;There is now a separate &lt;strong&gt;documentation&lt;/strong&gt; package
+(&lt;code&gt;libcore-ocaml-doc&lt;/code&gt;) which contains the built ocamldoc
+HTML API reference for Core and Core_extended.&lt;/p&gt;
+&lt;p&gt;Note that it is not exactly the same doc that &lt;a href=&quot;http://ocaml.janestreet.com/?q=node/74&quot;&gt;has been recently
+announced&lt;/a&gt; by Jane Street and that is now &lt;a href=&quot;http://www.janestreet.com/ocaml/janestreet-ocamldocs/&quot;&gt;available
+on the web&lt;/a&gt;. The latter is comprehensive of all other Jane
+Street libraries (sexplib, bin-prot, ...). I'll be probably
+packaging that too, but first &lt;a href=&quot;http://lists.debian.org/debian-ocaml-maint/2009/11/msg00101.html&quot;&gt;&lt;em&gt;
+some licensing problems&lt;/em&gt;&lt;/a&gt; need to be solved.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt; 18/10/2009: core 0.6.0 and all its
+components have passed through NEW, they are now available in the
+Debian archive as usual&lt;/p&gt;
+
+</content><id>http://upsilon.cc/~zack/blog/posts/2009/11/jane_street_core_0.6.0_has_arrived/</id><title type="text">jane street core 0.6.0 has arrived</title><updated>2009-11-13T15:47:57-00:00</updated><author><name>szacchiroli</name></author></entry><entry><link href="http://upsilon.cc/~zack/blog/posts/2009/10/ocaml-autoconf_1.1/" rel="alternate"/><contributor><uri>https://upsilon.cc/~zack/tags/ocaml/index.rss</uri><name>szacchiroli</name></contributor><content type="html">&lt;h1&gt;new OCaml Autoconf release: 1.1&lt;/h1&gt;
+&lt;p&gt;We have just released &lt;a href=&quot;http://forge.ocamlcore.org/frs/download.php/282/ocaml-autoconf-1.1.tar.gz&quot;&gt;
+version 1.1&lt;/a&gt; of &lt;a href=&quot;http://ocaml-autoconf.forge.ocamlcore.org/&quot;&gt;OCaml Autoconf&lt;/a&gt;: a
+set of M4 macros for integrating your OCaml project with autoconf.
+It is mostly a regular maintenance release with some bug fixes,
+some new features, and most notably a new mini-tutorial and example
+by Richard Jones (including how to deal with automake).&lt;/p&gt;
+&lt;p&gt;Check the &lt;a href=&quot;http://forge.ocamlcore.org/forum/forum.php?forum_id=443&quot;&gt;news&lt;/a&gt;
+for more info.&lt;/p&gt;
+
+</content><id>http://upsilon.cc/~zack/blog/posts/2009/10/ocaml-autoconf_1.1/</id><title type="text">ocaml-autoconf 1.1</title><updated>2009-10-12T13:43:58-00:00</updated><author><name>szacchiroli</name></author></entry><entry><link href="http://upsilon.cc/~zack/blog/posts/2009/08/ocaml_3.11.1_in_testing/" rel="alternate"/><contributor><uri>https://upsilon.cc/~zack/tags/ocaml/index.rss</uri><name>szacchiroli</name></contributor><content type="html">&lt;h1&gt;... and other Debian OCaml bits&lt;/h1&gt;
+&lt;p&gt;As &lt;a href=&quot;http://blogs.turmzimmer.net/2009/08/03#squeeze-1&quot;&gt;anticipated by
+Aba&lt;/a&gt;, today the &lt;strong&gt;OCaml 3.11.1 transition to testing has
+finished&lt;/strong&gt;. Beside turning the latest stable OCaml version
+into a release-ready product, this transition has also
+&lt;strong&gt;switched the standard library path&lt;/strong&gt; to
+&lt;code&gt;/usr/lib/ocaml&lt;/code&gt; (it used to be
+&lt;code&gt;/usr/lib/ocaml/X.Y.Z&lt;/code&gt;). The change is justified by the
+observation that, in fact, we have never supported (and never will)
+more than one OCaml ABI at the same time in a given Debian
+release.&lt;/p&gt;
+&lt;p&gt;Some more OCaml bit(s):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;during &lt;a href=&quot;http://debconf9.debconf.org&quot;&gt;DebCamp&lt;/a&gt;, the
+&lt;a href=&quot;http://wiki.debian.org/Teams/OCamlTaskForce&quot;&gt;OCaml
+team&lt;/a&gt; has worked on &lt;strong&gt;revising OCaml dependency
+schema&lt;/strong&gt;, on the basis of &lt;a href=&quot;http://upsilon.cc/~zack/stuff/ocaml-debian-deps.pdf&quot;&gt;a
+proposal&lt;/a&gt; I advanced a while ago. Once implemented, the proposal
+in essence will mean:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;linkability ensured by regular Debian dependencies (no longer
+&amp;quot;inconsistent assumptions ...&amp;quot; errors, as long as your package
+manager is happy)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;automatic computation of dependencies between OCaml-related
+packages (i.e., &lt;code&gt;${ocaml:Depends}&lt;/code&gt; substvar)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Beside (maybe) some tiny teeny supervision bits, all the kudos
+for that goes to Sylvain Le Gall, Mehdi Dogguy, and Stephane
+Glondu; the 3 of them have worked tirelessly during all DebConf on
+the design bits that were needing changes as well as on the
+implementation / revamp of involved tools (e.g.
+&lt;code&gt;dh_ocaml&lt;/code&gt;, which I drafted (too) many years ago for not
+being in production yet).&lt;br/&gt;
+I guess you'll soon hear from them for more details.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As observed by Stephane, the transition to the new schema and
+tools do not need to be &amp;quot;all or nothing&amp;quot;.&lt;br/&gt;
+Hence, the current plan is to release in Squeeze most of the
+packages migrated to the new infrastructure, while not necessarily
+all of them.&lt;/p&gt;
+
+</content><id>http://upsilon.cc/~zack/blog/posts/2009/08/ocaml_3.11.1_in_testing/</id><title type="text">ocaml 3.11.1 in testing</title><updated>2009-08-04T19:48:32-00:00</updated><author><name>szacchiroli</name></author></entry><entry><link href="http://upsilon.cc/~zack/blog/posts/2009/07/ocaml.m4_is_now_in_the_ocaml-tools_package/" rel="alternate"/><contributor><uri>https://upsilon.cc/~zack/tags/ocaml/index.rss</uri><name>szacchiroli</name></contributor><content type="html">&lt;h1&gt;ocaml-autoconf Debian packaged&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;http://upsilon.cc/~zack/blog/posts/2009/04/ocaml_autoconf_1.0/&quot;&gt;A while
+ago&lt;/a&gt;, me and &lt;a href=&quot;http://www.annexia.org/richard_w.m._jones&quot;&gt;Richard Jones&lt;/a&gt; have
+federated the various stubs for OCaml autoconf support in the
+&lt;a href=&quot;http://ocaml-autoconf.forge.ocamlcore.org/&quot;&gt;ocaml-autoconf&lt;/a&gt;
+project.&lt;/p&gt;
+&lt;p&gt;Having almost forgot about that for a while, here at &lt;a href=&quot;http://debconf9.debconf.org/&quot;&gt;DebCamp9&lt;/a&gt; I've just catched up
+and &lt;a href=&quot;http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=512834&quot;&gt;shipped
+it in Debian&lt;/a&gt;. Instead of creating a package of its own, which
+would have been ridicolously small, I've added the macros and their
+docs to &lt;a href=&quot;http://packages.debian.org/sid/ocaml-tools&quot;&gt;ocaml-tools&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You can find &lt;code&gt;ocaml.m4&lt;/code&gt; and friends in that package,
+starting from version &lt;code&gt;20090719-1&lt;/code&gt;, which I've just
+uploaded to unstable.&lt;/p&gt;
+
+</content><id>http://upsilon.cc/~zack/blog/posts/2009/07/ocaml.m4_is_now_in_the_ocaml-tools_package/</id><title type="text">ocaml.m4 is now in the ocaml-tools package</title><updated>2009-07-19T18:17:01-00:00</updated><author><name>szacchiroli</name></author></entry><entry><link href="http://upsilon.cc/~zack/blog/posts/2009/04/ocaml_3.11_in_testing/" rel="alternate"/><contributor><uri>https://upsilon.cc/~zack/tags/ocaml/index.rss</uri><name>szacchiroli</name></contributor><content type="html">&lt;h1&gt;OCaml 3.11 has migrated to testing&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;http://lists.debian.org/debian-ocaml-maint/2009/04/msg00029.html&quot;&gt;Quoting&lt;/a&gt;
+from &lt;a href=&quot;http://chistera.yi.org/~adeodato/blog/planetd.html&quot;&gt;Dato&lt;/a&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;* St&amp;eacute;phane Glondu [Sat, 04 Apr 2009 14:01:35 +0200]:
+&amp;gt; Adeodato Sim&amp;oacute; a &amp;eacute;crit :
+&amp;gt; &amp;gt;&amp;gt; Please schedule the attached requests for the OCaml 3.11.0 transition.
+&amp;gt; &amp;gt; Scheduled, with the glitches noted below. Please get back to us with the
+&amp;gt; &amp;gt; needed wanna-build actions.
+&amp;gt; All packages that needed recompilation or sourceful uploads for the
+&amp;gt; OCaml 3.11.0 transition are now compiled and available in unstable.
+&amp;gt; I guess migrating ocaml to testing can now be considered...
+
+This is now done:
+
+ocaml  | 3.11.0-5 | testing
+ocaml  | 3.11.0-5 | unstable
+
+Congratulations for making of this transition one of the less painful
+I&amp;rsquo;ve ever had to deal with, though I guess being a quite self-contained
+set of packages and not having ties to other ongoing
+transitions really
+helped. ;-)
+
+Thanks!,
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;IOW &lt;strong&gt;OCaml 3.11 has just migrated to Debian
+testing&lt;/strong&gt; YAY \o/&lt;/p&gt;
+&lt;p&gt;Congrats and thanks to all the people who contributed. Special
+kudos go to the (not so) newbies of the &lt;a href=&quot;http://wiki.debian.org/Teams/OCamlTaskForce&quot;&gt;Debian OCaml Task
+Force&lt;/a&gt;, and in particular to &lt;em&gt;Stephane Glondu&lt;/em&gt; and
+&lt;em&gt;Mehdi Dogguy&lt;/em&gt;: they have contributed work to a lot of
+packages and have also developed &lt;a href=&quot;http://glondu.net/debian/ocaml_transition_monitor.html&quot;&gt;new
+tools&lt;/a&gt; which helped monitoring the transition effectively.&lt;/p&gt;
+&lt;p&gt;Keep up the good work.&lt;/p&gt;
+
+</content><id>http://upsilon.cc/~zack/blog/posts/2009/04/ocaml_3.11_in_testing/</id><title type="text">ocaml 3.11 in testing</title><updated>2009-04-06T13:17:11-00:00</updated><author><name>szacchiroli</name></author></entry><entry><link href="http://upsilon.cc/~zack/blog/posts/2009/04/ocaml_batteries_in_Debian_unstable/" rel="alternate"/><contributor><uri>https://upsilon.cc/~zack/tags/ocaml/index.rss</uri><name>szacchiroli</name></contributor><content type="html">&lt;h1&gt;batteries approaching Beta 1: now in unstable&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;http://upsilon.cc/~zack/blog/posts/2008/10/ocaml_batteries_included_debian_packages/&quot;&gt;
+It's been a while&lt;/a&gt;, but work on &lt;a href=&quot;http://batteries.forge.ocamlcore.org&quot;&gt;OCaml batteries included&lt;/a&gt;
+has continued steadily in the past months. We are now approaching
+the first &lt;strong&gt;Beta release&lt;/strong&gt;, which is due in a few
+days.&lt;/p&gt;
+&lt;p&gt;In the meantime, a couple of days ago I've uploaded the Debian
+&lt;a href=&quot;http://packages.debian.org/sid/ocaml-batteries-included&quot;&gt;&lt;strong&gt;ocaml-batteries
+package&lt;/strong&gt;&lt;/a&gt; to the unstable archive for the first time (it
+was only available from experimental thus far). It is an &amp;ldquo;almost
+Beta&amp;rdquo; release which you are &lt;strong&gt;encouraged to test&lt;/strong&gt;
+both for packaging aspects and for having a feeling of what
+batteries will look like in its final shape.&lt;/p&gt;
+&lt;p&gt;To &lt;strong&gt;get started&lt;/strong&gt; just do the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# aptitude install ocaml-batteries-included
+$ ledit ocaml-batteries
+&lt;/code&gt;&lt;/pre&gt;
+</content><id>http://upsilon.cc/~zack/blog/posts/2009/04/ocaml_batteries_in_Debian_unstable/</id><title type="text">ocaml batteries in Debian unstable</title><updated>2009-04-03T10:35:02-00:00</updated><author><name>szacchiroli</name></author></entry></feed>

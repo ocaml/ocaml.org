@@ -56,10 +56,27 @@ URL:       https://rsms.me/inter/
 License:   MIT License
 Copyright: Copyright (c) 2016-2020 The Inter Project Authors.
 
+
+asset/vendors/font-files/RobotoMono-Italic.woff2
+asset/vendors/font-files/RobotoMono-Italic.woff
+asset/vendors/font-files/RobotoMono-Regular.woff2
+asset/vendors/font-files/RobotoMono-Regular.woff
+asset/vendors/font-files/RobotoMono-SemiBoldItalic.woff2
+asset/vendors/font-files/RobotoMono-SemiBoldItalic.woff
+asset/vendors/font-files/RobotoMono-SemiBold.woff2
+asset/vendors/font-files/RobotoMono-SemiBold.woff
+asset/vendors/font-files/roboto-mono.css:
+
+Name:      Roboto Mono
+URL:       https://fonts.google.com/specimen/Roboto+Mono/about
+License:   Apache License, Version 2.0
+Copyright: Copyright (c) 2015 Google. Designed by Christian Robertson
+
+
 asset/vendors/alpine.min.js:
 
 Name:      Alpine
-Version:   2.8.2
+Version:   3.12.0
 URL:       https://alpinejs.dev/
 License:   MIT License
 Copyright: Copyright © 2019-2021 Caleb Porzio and contributors
@@ -75,8 +92,14 @@ Copyright: Copyright (c) 2020 Ryan Chandler and contributors
 asset/vendors/htmx.min.js:
 
 Name:      Htmx
-Version:   1.8.4
+Version:   1.9.0
 URL:       https://htmx.org/
+License:   BSD 2-Clause License
+Copyright: Copyright (c) 2020 Big Sky Software
+
+Name:      Htmx Multi-swap extension
+Version:   1.9.0
+URL:       https://htmx.org/extensions/multi-swap/
 License:   BSD 2-Clause License
 Copyright: Copyright (c) 2020 Big Sky Software
 
@@ -88,6 +111,14 @@ Version:   7.4.1
 URL:       https://swiperjs.com/
 License:   MIT License
 Copyright: Copyright 2014-2021 Vladimir Kharlampidi
+
+asset/vendors/minisearch.min.js:
+
+Name:      Minisearch
+Version:   6.0.1
+URL:       https://github.com/lucaong/minisearch
+License:   MIT License
+Copyright: Copyright 2022 Luca Ongaro
 
 --------------------------------------------------------------------------
 Licenses

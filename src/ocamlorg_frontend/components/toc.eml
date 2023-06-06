@@ -7,23 +7,48 @@ children : toc list
 type t = toc list
 
 let render (t : t) =
-  <div>
+  <div
+    x-data='toc'
+    @scroll.window="scrollY = window.scrollY"
+    @resize.window="setTimeout(() => sectionYPositions = computeSectionYPositions($el), 10)"
+    x-init="setTimeout(() => sectionYPositions = computeSectionYPositions($el), 10)"
+    >
     <% (match t with [] ->  %>
     <% | _ -> %>
     <div class="font-semibold text-gray-500 text-sm mb-4">On This Page</div>
-    <ol class="leading-6 space-y-3 text-sm">
+    <ol class="leading-6 text-sm border-l">
       <% t |> List.iter begin fun item -> %>
         <li>
-          <a href="<%s item.href %>" class="font-normal text-gray-900 py-1 md:p-0 block transition-colors hover:text-orange-600">
+          <a href="<%s item.href %>" class="text-gray-900 py-1 pl-2 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
+            :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary-700 text-primary-700 bg-primary-200": "hover:text-primary-700"'
+            :style='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "letter-spacing: -0.012em;" : ""'
+          >
             <%s! item.title %>
           </a>
             <% match item.children with [] -> () | items -> %>
             <ol>
               <% items |> List.iter begin fun item -> %>
-              <li class="ml-2">
-                <a href="<%s item.href %>" class="font-normal text-body-600 py-1 md:p-0 block transition-colors hover:text-orange-600">
+              <li>
+                <a href="<%s item.href %>" class="text-body-600 py-1 md:py-0 pl-5 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
+                  :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary-700 text-primary-700 bg-primary-200": "hover:text-primary-700"'
+                  :style='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "letter-spacing: -0.012em;" : ""'
+                >
                   <%s! item.title %>
                 </a>
+                <% match item.children with [] -> () | items -> %>
+                <ol>
+                  <% items |> List.iter begin fun item -> %>
+                  <li>
+                    <a href="<%s item.href %>" class="text-body-600 py-1 md:py-0 pl-8 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
+                      :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary-700 text-primary-700 bg-primary-200": "hover:text-primary-700"'
+                      :style='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "letter-spacing: -0.012em;" : ""'
+                    >
+                      <%s! item.title %>
+                    </a>
+                  </li>
+                  <% end; %>
+                </ol>
+                <% ; %>
               </li>
               <% end; %>
             </ol>
@@ -33,3 +58,48 @@ let render (t : t) =
     </ol>
     <% ); %>
   </div>
+  
+let script =
+  <script>
+    document.addEventListener('alpine:init', () => {
+
+      function computeSectionYPositions(toc_el) {
+        function get_y(href) {
+          let heading = document.getElementById(href.substring(1));
+          return heading.getBoundingClientRect().top + window.scrollY - 60;
+        }
+
+        let sections = {};
+
+        let els = toc_el.querySelectorAll("a");
+        let l = els.length;
+        for (let i=0; i<l; i++) {
+          let target_href = els[i].getAttribute("href");
+          let next_el_href = i < l-1 ? els[i+1].getAttribute("href") : null;
+
+          sections[target_href] = {
+            start: get_y(target_href),
+            end: next_el_href ? get_y(next_el_href) : null,
+          }
+        }
+
+        return sections;
+      }
+
+      function isWithin(scrollY, href, sectionYPositions) {
+        if (sectionYPositions == null) return false;
+        return scrollY > sectionYPositions[href].start
+          && (scrollY <= sectionYPositions[href].end || sectionYPositions[href].end == null)
+      }
+
+      Alpine.data('toc', () => (
+        {
+          scrollY: window.scrollY,
+          sectionYPositions: null,
+
+          isWithin,
+          computeSectionYPositions,
+        }
+      ))
+    })
+  </script>

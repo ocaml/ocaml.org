@@ -1,5 +1,5 @@
 let render
-(best_practices : Ood.Workflow.t list)
+(best_practices : Data.Workflow.t list)
 ~tutorials
 =
 Learn_layout.render
@@ -15,7 +15,7 @@ Learn_layout.render
         Workflows presented on this page assume <a href="<%s Url.getting_started %>">OCaml is Up and Running</a>.
         </p>
     </div>
-    <% best_practices |> List.iter (fun (item : Ood.Workflow.t) -> %>
+    <% best_practices |> List.iter (fun (item : Data.Workflow.t) -> %>
     <div class="outline-none accordion-section mt-6" x-data="{accordion: false}">
         <div @click="accordion = !accordion"
             class="flex justify-between h-20 rounded-md border border-gray-200 px-8 py-4 items-center transition cursor-pointer relative">

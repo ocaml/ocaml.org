@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://ox.tuxfamily.org/feed/</id><title type="text">xmpp</title><updated>2023-06-02T05:46:07-00:00</updated><entry><link href="http://ox.tuxfamily.org/2011/03/27/using-camlp4-for-conditional-compilation/" rel="alternate"/><contributor><uri>http://ox.tuxfamily.org/feed/</uri><name>xmpp</name></contributor><content type="html">&lt;p&gt;Hi,&lt;/p&gt;
+&lt;p&gt;so I have been wondering for quite some time: &lt;strong&gt;how to do conditional compilation in Ocaml as simple as in C?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;As a reader of a library development log, you probably know that one would typically use preprocessing to modify a code before it gets compiled. There are a few cases in particular when one wishes to do so:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;When code on various platform would differ: a typical OCaml example would be the use of the &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/manual035.html&quot;&gt;Unix&lt;/a&gt; module which is not fully implemented in Win32 OSes. Hence we might want to have an alternative implementation on Win32 but keep the simpler or faster &lt;em&gt;Unix&lt;/em&gt; implementation when relevant.&lt;/li&gt;
+&lt;li&gt;When optimization is more important than genericity of code, in particular if we can use material specificities of the underlining architecture: for instance by having specialized 32 bits or 64 bits version, more generally direct access to a material interface, and so on.&lt;/li&gt;
+&lt;li&gt;To create environment-specific behavior. This is mostly used during implementation where we might want to have a &amp;ldquo;debug mode&amp;rdquo; providing development information, disabling it for release without having to edit the code&lt;/li&gt;
+&lt;li&gt;To provide options, in particular if this prevents from linking some non-mandatory or problematic library.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Unfortunately though C/C++ make it easy, Objective Caml preprocessing feature (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-camlp4/index.html&quot; title=&quot;Camlp4 Reference Manual&quot;&gt;Camlp4&lt;/a&gt;) wants us to make our own grammar! Actually the various documentation and tutorial found on the subject compares Camlp4 rather to &lt;a href=&quot;http://dinosaur.compilertools.net/&quot;&gt;lex/yacc&lt;/a&gt; (flex/bison in the Free Software world) lexer and parser, than to the C preprocessor.&lt;/p&gt;
+&lt;p&gt;Though it is most certainly nice and powerful (I admit, I didn&amp;rsquo;t read the whole Camlp4&amp;prime;s documentation), I only needed a very simple conditional compilation for my current use case.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ll discuss below how I did it for people needing this kind of feature as well as the limitation of this &amp;ldquo;simple&amp;rdquo; method.&lt;br/&gt;
+Then I&amp;rsquo;ll discuss more generally on conditional compilation, why it can be a good idea; yet why we should be careful about this; and finally alternatives.&lt;/p&gt;
+&lt;h2&gt;OCaml and simple conditional compilation&lt;/h2&gt;
+&lt;h3&gt;Documentation Flaws&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s admit, while OCaml is great, and has a good enough &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/&quot;&gt;official documentation&lt;/a&gt; and a few &lt;a href=&quot;http://caml.inria.fr/pub/docs/oreilly-book/html/&quot;&gt;great alternative ones&lt;/a&gt; out there, most of it is rather outdated, or very limited and imprecise. Camlp4 follows the rule. The official manual and &lt;a href=&quot;http://caml.inria.fr/pub/docs/tutorial-camlp4/index.html&quot;&gt;tutorial&lt;/a&gt; both date from 2003, Ocaml version 3.07 (we are in 2011 and version 3.12 has been published for 7 months now!) and all other information I found were in similar state. Moreover documentation really focuses on extensive use of Camlp4, barely explaining how to use the easy pre-implemented grammars.&lt;/p&gt;
+&lt;h3&gt;Default Preprocessing Grammar for Macros&lt;/h3&gt;
+&lt;p&gt;There is indeed one grammar for macro support, written with Camlp4 and provided with the official OCaml release, which one can optionally load during compilation: &lt;strong&gt;pa_macro&lt;/strong&gt;. That is what I got interested into. Sadly the best documentation to see how to use it and the full range of possibilities was&amp;hellip; comments in the compiler source code.&lt;br/&gt;
+Not to clutter this log anymore, I uploaded the relevant comment in a &lt;a href=&quot;http://download.tuxfamily.org/ocamlxmpp/Camlp4MacroParser_doc.txt&quot;&gt;separate file&lt;/a&gt; for people to easily check on this.&lt;/p&gt;
+&lt;h4&gt;What it can do&lt;/h4&gt;
+&lt;p&gt;It allows to:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;define MACROs to be tested for existence or to be replaced by code;&lt;/li&gt;
+&lt;li&gt;compile some code depending on the existence of macros.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;And that&amp;rsquo;s basically all (nearly).&lt;/p&gt;
+&lt;h4&gt;What it cannot do&lt;/h4&gt;
+&lt;p&gt;In particular it cannot do these very basic uses of macros:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;Test values of macros.&lt;/dt&gt;
+&lt;dd&gt;You cannot test the value of a macro and run some code depending on it. The only testable condition is existence/absence.&lt;br/&gt;
+In my case for instance, I wanted to use a different type in a module depending whether I was on a 32 bits or a 64 bits platform. My first idea was to run:&lt;br/&gt;
+&lt;code&gt;ARCH=`uname -m`&lt;/code&gt;&lt;br/&gt;
+in the Makefile, then add this as a macro and check value while preprocessing. That&amp;rsquo;s not possible.&lt;br/&gt;
+Instead I had to make the test in the Makefile:&lt;br/&gt;
+&lt;code&gt;ifeq(`uname -m`,x86_64)&lt;/code&gt;&lt;br/&gt;
+and depending on this condition, I set or not the ARCH_64 macro. Then I test its existence.
+&lt;/dd&gt;
+&lt;dt&gt;Replace macros with nothing&lt;/dt&gt;
+&lt;dd&gt;On C, you could have macros set to nothing so that would simply disappear when embedded in the code. This is impossible with &lt;em&gt;pa_macro&lt;/em&gt;.&lt;br/&gt;
+If I try &lt;code&gt;DEFINE MY_MACRO=&lt;/code&gt;, it would raise a preprocessing error.&lt;br/&gt;
+If I simply define the macro (without &amp;lsquo;=&amp;rsquo;), and try to use it in the code, it would not be replaced, hence this time, the compiler raises a constructor error.&lt;br/&gt;
+There is a predefined macro called &lt;em&gt;NOTHING&lt;/em&gt; but apparently it can be used only as a function argument that you want to erase (and I did not really understand the use case for it). I cannot set:&lt;br/&gt;
+&lt;code&gt;DEFINE MY_MACRO=NOTHING&lt;/code&gt;
+&lt;p&gt;Hence my solution was this:&lt;br/&gt;
+&lt;code&gt;DEFINE MY_MACRO(x)=x&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You could say: but why would I want this? In my code, I have a TO_INT macro. On a 32 bits architecture, I want it to be &lt;code&gt;Int32.to_int&lt;/code&gt; whereas on 64 bits, I would use the int type, then TO_INT is the identity function (and if I can avoid a useless function call&amp;hellip;).
+&lt;/p&gt;&lt;/dd&gt;
+&lt;dt&gt;Flawed check on constants&lt;/dt&gt;
+&lt;dd&gt;In the algorithm I implemented (SHA1), there are some constants. Some of them are very big and are over &lt;code&gt;max_int&lt;/code&gt; on a 32 bits platform.&lt;br/&gt;
+But as I said, in such a case, I use Int32, so all is fine. So I had this kind of test:
+&lt;pre&gt;
+IFNDEF ARCH_64 THEN
+    0x8F1BBCDCl
+ELSE
+    0x8F1BBCDC
+ENDIF
+&lt;/pre&gt;
+&lt;p&gt;The problem I encountered was that camlp4o was raising an error while compiling on a 32 bits machine, telling me that 0x8F1BBCDC was bigger than max_int!&lt;br/&gt;
+I don&amp;rsquo;t know why it tried to check the validity of the constant while this code was not going to be compiled. In my opinion, it should stick to its &amp;ldquo;syntax work&amp;rdquo;, then pass the result to the compiler. This one will check validity of constants and if I made an error (which I did not), it would tell me. No need to make this check twice, especially when the check is flawed! That&amp;rsquo;s a clear limitation in pa_macro that I could only work around by making this constant as a macro that I pass from my Makefile. That&amp;rsquo;s not clean, clearly, but I did not find a better solution.
+&lt;/p&gt;&lt;/dd&gt;
+&lt;dt&gt;&amp;ldquo;parser&amp;rdquo; is a keyword&lt;/dt&gt;
+&lt;dd&gt;I had a class called &lt;code&gt;XML.parser&lt;/code&gt;. I had to rename it because &amp;mdash;&amp;nbsp;when using Camlp4&amp;nbsp;&amp;mdash; &lt;code&gt;parser&lt;/code&gt; becomes a keyword (used to filter streams) and cannot be used anymore to name entities. This is not an error, but just so that you know that &lt;code&gt;camlp4o&lt;/code&gt; can cause this kind of issues. Yet it does not change the original syntax. On the other hand, &lt;code&gt;camlp4r&lt;/code&gt; (&amp;lsquo;&lt;strong&gt;r&lt;/strong&gt;&amp;lsquo; as &amp;ldquo;revised&amp;rdquo;) does change the basic syntax. So use only camlp4o if you wish to continue using the original OCaml!&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;h4&gt;How it looks&lt;/h4&gt;
+&lt;p&gt;So in the end, my file has this kind of code:&lt;/p&gt;
+&lt;pre&gt;
+IFNDEF ARCH_64 THEN
+  DEFINE LOGAND=Int32.logand
+  DEFINE LOGOR=Int32.logor
+  DEFINE TO_INT=Int32.to_int
+  DEFINE OCTET=0xFFl
+&lt;em&gt;[&amp;hellip;]&lt;/em&gt;
+ELSE
+  DEFINE LOGAND=(land)
+  DEFINE LOGOR=(lor)
+  DEFINE TO_INT(i)= i
+  DEFINE OCTET=0xFF
+&lt;em&gt;[&amp;hellip;]&lt;/em&gt;
+ENDIF
+&lt;em&gt;[&amp;hellip;]&lt;/em&gt;
+let rem = TO_INT (LOGAND div OCTET) in
+  w.[i] &amp;lt;- Char.unsafe_chr rem;
+&lt;em&gt;[&amp;hellip;]&lt;/em&gt;
+&lt;/pre&gt;
+&lt;h3&gt;How to compile this&lt;/h3&gt;
+&lt;p&gt;And my Makefile contains such code:&lt;/p&gt;
+&lt;pre&gt;
+ARCH64_PP_FLAGS=-DARCH_64 -DHEX_8F1BBCDC=0x8F1BBCDC
+# You remember the ugly workaround I told about because
+# Camlp4 was forbidding me to write big integers? Here it is.
+
+ifeq ($(shell uname -m),x86_64)
+PP_FLAGS=$(ARCH64_PP_FLAGS)
+else ifeq ($(shell uname -m),ia64)
+PP_FLAGS=$(ARCH64_PP_FLAGS)
+&lt;em&gt;[&amp;hellip;]&lt;/em&gt;
+else
+PP_FLAGS=-UARCH_64
+endif
+
+all:
+    ocamlopt -pp &amp;quot;camlp4o pa_macro.cmo $(PP_FLAGS)&amp;quot; sha1.mli sha1.ml
+&lt;/pre&gt;
+&lt;p&gt;Here we simply tell the compiler to use camlp4o as a preprocessor (-pp) with the grammar pa_macro.cmo and we set (or unset) a few macros.&lt;/p&gt;
+&lt;h2&gt;Conditional Compilation: when should it be used?&lt;/h2&gt;
+&lt;p&gt;Here are a few examples of bad and good use of conditional compilation.&lt;/p&gt;
+&lt;h3&gt;Creates parallel Code versions&lt;/h3&gt;
+&lt;p&gt;In particular, it generate &amp;ldquo;logical&amp;rdquo; code versions (not the physical code, as I will show, when well done, it can in fact factorize it, which is good) which makes as though you had several different programs to maintain. Indeed in my example, I already have 2 versions of my code: 32 and 64 bits. What it means in particular is that my code compiling on a 32 bits architecture does not mean anymore it compiles on a 64 bits one (and reciprocally) because the compiler is not given anymore the whole code at once but a part which has been &amp;ldquo;dumped&amp;rdquo; by Camlp4 (hence &amp;ldquo;&lt;strong&gt;pre&lt;/strong&gt;-processing&amp;rdquo;).&lt;/p&gt;
+&lt;p&gt;Here that&amp;rsquo;s still ok because I have only 2 versions. But when a software multiplies conditional compilations instead of writing generic code, it can easily end up with dozens of outputs depending on platforms or user options (and many software out there are this way).&lt;/p&gt;
+&lt;h3&gt;Pass through files&lt;/h3&gt;
+&lt;p&gt;Variables, constants&amp;hellip; they all have limitations imposed by the language: they cannot get out of a file, a module, a class, etc. That&amp;rsquo;s good. That&amp;rsquo;s one reason why we use a strict language: to have better control of what we want in and out.&lt;/p&gt;
+&lt;p&gt;Macros on the other hand are not controlled by the language. They have their own syntax and are managed by the preprocessor. It means they usually pass files. As I could not find any documentation on this point for Camlp4, I made some tests and I can gladly say &lt;em&gt;pa_macro&lt;/em&gt; hasn&amp;rsquo;t got this issue, but I will explain it as general information about macros.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s suppose that I create a ZERO macro (which I did) to be worth either the integer &lt;em&gt;0&lt;/em&gt; or the Int32 &lt;em&gt;0l&lt;/em&gt;. In a further file, I might make some day another ZERO, which is actually not a macro, but some constructor and I completely forgot that I had this macro set. Then it is replaced at compilation time by the macro value and fails; or worse, for some reason the replacement is a correct or possible type, it compiles, but later it fails at runtime making it difficult to diagnose.&lt;/p&gt;
+&lt;p&gt;Fortunately &lt;em&gt;pa_macro&lt;/em&gt;&amp;lsquo;s macros do not get out of files (external files of macros must be explicitly INCLUDEd). But the issue can still occur from command-line macros.&lt;/p&gt;
+&lt;p&gt;So if some of them are supposed to be global with specific name (like ARCH_64), it is usually ok. But if ever you were passing macros on the command line with very generic names, that you wanted to be used only in a single module, it might become a problem.&lt;/p&gt;
+&lt;h3&gt; Comparison to Runtime tests&lt;/h3&gt;
+&lt;p&gt;Some people oppose the macro solution to in-code conditional tests.&lt;br/&gt;
+But this has flaws too:&lt;/p&gt;
+&lt;h4&gt;Code forbidden&lt;/h4&gt;
+&lt;p&gt;I told it, sometimes some code is forbidden on some platform. For instance if my very big integer constant was to make it up to the compiler, it would fail to compile (and this time, with a good reason). In such cases, runtime tests are impossible.&lt;/p&gt;
+&lt;h4&gt;Performance&lt;/h4&gt;
+&lt;p&gt;Why I made a conditional compilation was because logical computation on int was faster than on Int32, but I could not use int on a 32 bits platform (Ocaml has 31 bits int on 32 bits). So even supposing it were possible to do runtime condition tests (but it&amp;rsquo;s not as I demonstrated in the previous point), doing so would impact performance for no reason while I was doing it for the opposite reason! Fully interpreted language have no other solutions, whereas we use a compiled language. So let&amp;rsquo;s make good use of the tools we are given.&lt;/p&gt;
+&lt;h4&gt;Code clarity&lt;/h4&gt;
+&lt;p&gt;Sometimes heavy use and/or bad use of macros can lead to very obscure code. But it can also lead to clearer code when well used.&lt;/p&gt;
+&lt;p&gt;For instance my example above avoids any code duplication with many conditional everywhere.&lt;br/&gt;
+I think we will agree that having only this:&lt;br/&gt;
+&lt;code&gt;let rem = TO_INT (LOGAND div OCTET) in&lt;/code&gt;&lt;br/&gt;
+is far nicer than something like this:&lt;/p&gt;
+&lt;pre&gt;
+let rem =
+  if arch_64
+  then
+    div land 0xFFFFFFFF
+  else
+    Int32.to_int (Int32.logand div 0xFFFFFFFFl)
+  in
+&lt;/pre&gt;
+&lt;p&gt;The first code is factorized and the whole logics of conditional is hidden in the macros which are simply switched at compilation time. Moreover if I change my code, I need to change only one line instead of 2 (code duplication is a common source of bug when we fix something only at one place while the same code is copied over somewhere else).&lt;/p&gt;
+&lt;h2&gt;Alternate Solutions&lt;/h2&gt;
+&lt;p&gt;Other solutions exist to run different piece of code in different cases. Nearly none of them are all good or all bad, they may depend mostly on use case.&lt;/p&gt;
+&lt;h3&gt;Again runtime tests&lt;/h3&gt;
+&lt;p&gt;Yes it strikes again! Though I seem to have said a lot of bad things of it, it is still a pretty good solution in many cases.&lt;br/&gt;
+In particular, if you want to be able to switch behavior as often as you wish, it is far better to make it runtime.&lt;/p&gt;
+&lt;p&gt;Debug for instance is a common feature which you can see either set as a compilation option or a runtime. Making it runtime allows you to never have debug but when you want it, you just switch a &amp;ldquo;-debug&amp;rdquo; option.&lt;br/&gt;
+Note that if you have a lot of debug set in your program, it means there will be a lot of useless tests on the boolean value of some debug variable (&lt;code&gt;if debug then&lt;/code&gt;). I told that&amp;rsquo;s a slight performance issue maybe not suitable for all use. A common solution is then to have debug both compilation AND runtime. At compilation, you can decide whether or not you have the &amp;ldquo;-debug&amp;rdquo; option, and if not, all tests won&amp;rsquo;t be compiled.&lt;/p&gt;
+&lt;h3&gt;Makefile&lt;/h3&gt;
+&lt;p&gt;The Makefile can deal with selecting between 2 files which have a different implementation of a single feature. Then depending on the platform, it can compile against one or the other implementation.&lt;br/&gt;
+The advantage is obvious: 2 files completely not encumbered with macros or conditional code of anysort (neither preprocessing code, nor runtime code). The drawback is that you may have code duplication (unless the 2 implementations are actually very different logics, which can happen).&lt;/p&gt;
+&lt;h3&gt;Code generation&lt;/h3&gt;
+&lt;p&gt;Another solution is code generation, which is often some kind of code completion. This is actually a logic close to the macro logic. A common tool is &lt;strong&gt;autoconf&lt;/strong&gt;, which replaces variables on the fly. You can often see some code with &lt;code&gt;@VERSION@&lt;/code&gt; in it. These are usually variables replaced by autoconf before compilation (check for AC_SUBST and AC_CONFIG_FILES in autoconf documentation). Though this is a pretty useless example, this kind of behavior can be pretty well extended to generate conditional code depending on a platform in a way similar to what the macros did in my example.&lt;/p&gt;
+&lt;p&gt;To get the full power of autoconf, think of how it generates a full Makefile from some very basic template.&lt;/p&gt;
+&lt;h3&gt;Camlp4&lt;/h3&gt;
+&lt;p&gt;I described the easy way with Camlp4, which is using the existing pa_macro. But of course if that&amp;rsquo;s not enough for you, you can write your own macro grammar.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;So we saw that conditional compilation can be good for several reason, among them optimization, or even portability when no common code exist to do a single action between 2 platforms.&lt;br/&gt;
+But as all good things, it must be used parsimoniously. In particular:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Is optimization always necessary? My example was a cryptographic example, the kind of code which can be run thousands of time every seconds in some kind of software and where the gain of speed can be from 1 to 1000 depending on the implementation. Optimization can be critical on cryptography algorithms.&lt;br/&gt;
+On other kind of feature, &lt;strong&gt;when you have a piece of code that you will run only once in a while, it is unconditionally better to have a very readable code than a fast and complicated one&lt;/strong&gt;, even more if the gain in time you would obtain with optimization is so small that none will make the difference when it is run once every hour.&lt;/li&gt;
+&lt;li&gt;When portability is the goal, &lt;strong&gt;aim rather for generic code than for conditional compilation&lt;/strong&gt;. So your current code is platform specific? Before looking for the equivalent platform-specific code in that other platform you support, try to look if there does not exist a generic code which works on both.&lt;/li&gt;
+&lt;li&gt;So there is no generic code possible? Optimization is too critical here? Or else the generic code exists but makes thing more ugly/complicated or bring other issues? Fine, conditional compilation is for you. But try to &lt;strong&gt;encapsulate it&lt;/strong&gt; in a single file. If this is for a function you&amp;rsquo;ll want to use in many places, then place this function in its own file and hide any conditional compilation there so that it is seen as a black box. Once done, you won&amp;rsquo;t have to worry a single bit anymore about how it actually works. Doing this makes the &amp;ldquo;parallel logical code&amp;rdquo; much less an issue.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It is sad Ocaml does not advertize better some &amp;ldquo;easy&amp;rdquo; solution for this kind of use case. But multiple solutions still exist and they are not that difficult, as long as there is some documentation.&lt;br/&gt;
+So I hope my little ticket here will help other people to write great program in Ocaml (or whatever other language, as long as your program is great&amp;hellip; and Free&amp;hellip; as in Free Speech!).&lt;/p&gt;
+</content><id>http://ox.tuxfamily.org/2011/03/27/using-camlp4-for-conditional-compilation/</id><title type="text">Using Camlp4 for conditional compilation</title><updated>2011-03-26T17:55:07-00:00</updated><author><name>xmpp</name></author></entry><entry><link href="http://ox.tuxfamily.org/2011/03/15/hello-world/" rel="alternate"/><contributor><uri>http://ox.tuxfamily.org/feed/</uri><name>xmpp</name></contributor><content type="html">&lt;p&gt;Hi all,&lt;/p&gt;
+&lt;p&gt;this is the first official development log for &lt;strong&gt;OX&lt;/strong&gt;, alias &lt;em&gt;Ocaml XMPP&lt;/em&gt;, a &lt;a href=&quot;http://www.xmpp.org&quot; title=&quot;XSF website: the XMPP Standards Foundation&quot;&gt;XMPP&lt;/a&gt; library (client only, for now at least) for the &lt;a href=&quot;http://caml.inria.fr/ocaml/index.fr.html&quot; title=&quot;Ocaml&quot;&gt;Objective Caml&lt;/a&gt; language in order to connect to and do various things with XMPP servers (also informally known as &lt;em&gt;Jabber&lt;/em&gt;. XMPP is the Instant Messaging IETF standard*, used among others by &lt;a href=&quot;http://www.google.com/talk/&quot; title=&quot;Google Talk&quot;&gt;Google&lt;/a&gt;, &lt;a href=&quot;http://www.livejournal.com/chat/&quot; title=&quot;LJ Talk&quot;&gt;LiveJournal&lt;/a&gt;, &lt;a href=&quot;http://www.facebook.com/sitetour/chat.php&quot; title=&quot;Facebook Chat&quot;&gt;Facebook&lt;/a&gt; (though this service is closed on itself), the well-known &lt;a href=&quot;http://www.bbc.co.uk/blogs/radiolabs/2009/11/pushfeeds.shtml&quot; title=&quot;LiveText via IP&quot;&gt;BBC&lt;/a&gt; radio, or even in-game (and out-game!) chat like in &lt;a href=&quot;http://eve-mail.net/&quot; title=&quot;eve-mail&quot;&gt;EveOnline&lt;/a&gt;, or the Quake Live gaming platform&amp;hellip; And so many others!).&lt;/p&gt;
+&lt;p&gt;According to my own repository, the first code ever written was in 11th of July of 2008! But after some code which led only to a basic example (it was simply connecting in TLS + PLAIN), I left the project on the side, using my time for other parts of my life&amp;hellip; until this very month!&lt;/p&gt;
+&lt;p&gt;I have indeed now been back on the horse for about the last 2 weeks! A lot of rewriting of the bases, plus a few additional features (like SASL SCRAM for authentication, I&amp;rsquo;ll talk about this soon!) has been done in these few weeks.&lt;/p&gt;
+&lt;p&gt;Don&amp;rsquo;t try to download the code yet if you are looking for a ready-to-use library. It is still ugly and not really usable in a real (even small) project, as I am in heavy work of putting everything up to date with a solid interface. It won&amp;rsquo;t get you anywhere right now.&lt;/p&gt;
+&lt;p&gt;I hope to be able to provide the version 0.1, the first official release very soon (hopefully in less than a month).&lt;br/&gt;
+Until then, stay up to date!&lt;/p&gt;
+&lt;p&gt;* one would say, the IETF has actually 2 standards for Instant Messaging and Media over IP: XMPP and &lt;a href=&quot;http://www.ietf.org/rfc/rfc3261.txt&quot; title=&quot;Session Initiation Protocol (SIP)&quot;&gt;SIP&lt;/a&gt;. &lt;a href=&quot;http://tools.ietf.org/html/draft-veikkolainen-sip-xmpp-coex-reqs-02&quot; title=&quot;draft-veikkolainen-sip-xmpp-coex-reqs-02&quot;&gt;Work is in progress&lt;/a&gt; to make them interoperable.&lt;/p&gt;
+</content><id>http://ox.tuxfamily.org/2011/03/15/hello-world/</id><title type="text">&lt;presence from=”jehan@tuxfamily/OX” id=”hello” to=”world” /&gt;</title><updated>2011-03-15T05:11:21-00:00</updated><author><name>xmpp</name></author></entry></feed>

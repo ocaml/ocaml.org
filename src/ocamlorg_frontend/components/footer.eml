@@ -4,7 +4,7 @@ let render () =
   <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
       <div class="space-y-8">
-        <img class="h-8" src="/logo-with-name.svg" alt="OCaml">
+        <a href="<%s Url.index %>"><img class="h-8" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
         <p class="text-base leading-6 text-gray-600">Innovation. Community. Security.</p>
         <div class="flex space-x-6">
           <a href="https://github.com/ocaml/ocaml" class="text-gray-400 hover:text-gray-500">
@@ -55,6 +55,10 @@ let render () =
             <h3 class="text-base font-semibold leading-6 text-gray-900">Resources</h3>
             <ul class="mt-6 space-y-4">
               <li>
+                <a href="<%s Url.install %>" class="text-base leading-6 text-gray-600">Install OCaml</a>
+              </li>
+
+              <li>
                 <a href="<%s Url.getting_started %>" class="text-base leading-6 text-gray-600">Get Started</a>
               </li>
 
@@ -82,6 +86,10 @@ let render () =
             <ul class="mt-6 space-y-4">
               <li>
                 <a href="<%s Url.blog %>" class="text-base leading-6 text-gray-600">Blog</a>
+              </li>
+
+              <li>
+                <a href="<%s Url.changelog %>" class="text-base leading-6 text-gray-600">Changelog</a>
               </li>
 
               <li>

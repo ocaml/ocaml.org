@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://www.blogger.com/feeds/9108979482982930820/posts/default/-/OCaml</id><title type="text">cburnout</title><updated>2023-06-05T05:45:59-00:00</updated><entry><link href="https://cranialburnout.blogspot.com/2014/03/gui-event-handling-with-functional.html" rel="alternate"/><contributor><uri>http://www.blogger.com/feeds/9108979482982930820/posts/default/-/OCaml</uri><name>cburnout</name></contributor><content type="html">&lt;div dir=&quot;ltr&quot; style=&quot;text-align: left;&quot; trbidi=&quot;on&quot;&gt;
+&lt;br/&gt;
+A journey toward a state-machine without mutable state, but enough flexibility to express GUI behaviors. This is nothing new in it's parts, but maybe as a whole. In scouring GUI lore there is very little in a functional style.&lt;br/&gt;
+&lt;br/&gt;
+I had a &amp;quot;feel&amp;quot; for how I wanted event handling to be, but it wasn't clear. Initially I wrote some wishful thinking pseudo-code:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; tooltip &lt;span class=&quot;Label&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;1&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;Label&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;5&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;Label&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;tooltip_style&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; text &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;
+    on_enter &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;fun&lt;/span&gt; id &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt;
+      after delay &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;fun&lt;/span&gt; id &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; tip &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; make_tooltip style text &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+        after show &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;fun&lt;/span&gt; id &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; delete tip &lt;span class=&quot;Comment&quot;&gt;(* and what is the active state now? *)&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+I like the style of chaining functions which are awaiting events to continue. Another variation I considered was with a &lt;i&gt;yield&lt;/i&gt;-like operation, but that looked like a vertical stack of statements without clear structure.&lt;br/&gt;
+&lt;br/&gt;
+Anyway, the above example was really declaring a state-machine with each state able to return a replacement state.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h3 style=&quot;text-align: left;&quot;&gt;
+&lt;u&gt;Playing with State Machines&lt;/u&gt;&lt;/h3&gt;
+&lt;br/&gt;
+I drew some state diagrams, and they were as messy as they always seem to be -- special cases and redundant states to deal with &amp;quot;one thing is different, even though mostly things are the same as this other state&amp;quot;. After a lot of futzing about I realized some details: to avoid a redundant explosion of states I could leverage parent states which have child states and the parent transitioning also cleans up the children. This is because state machines often have exception-like transitions. Here is an example of the full tooltip:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;        start:(on_enter)
+                  |
+                  v
+    (on_leave (on_use (after delay)))
+        |         |        |
+        v         v        v
+      start      ( )  (after show)
+                           |
+                           v
+                          ( )
+&lt;/pre&gt;
+&lt;br/&gt;
+So, at &amp;quot;start&amp;quot;, we are awaiting &lt;code&gt;on_enter&lt;/code&gt;. Once that triggers, we replace the current state with one having a (parent (parent (child))) chain of &lt;code&gt;on_leave&lt;/code&gt;, &lt;code&gt;on_use&lt;/code&gt;, and &lt;code&gt;after delay&lt;/code&gt;. This means the delayed show and hide of the tooltip is on its own, but can be interrupted by either &lt;code&gt;on_use&lt;/code&gt; (say, clicking the button) or &lt;code&gt;on_leave&lt;/code&gt;. For example, if the initial delay is passed, the tooltip is displayed and the current state is:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;    (on_leave (on_use (after show)))
+        |         |        |
+&lt;/pre&gt;
+&lt;br/&gt;
+Here, &lt;code&gt;after show&lt;/code&gt; has replaced &lt;code&gt;after delay&lt;/code&gt;. Now if on_use occurs, it transitions (to nothing) and also removes its child state, leaving us with:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;    (on_leave)
+&lt;/pre&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h3 style=&quot;text-align: left;&quot;&gt;
+&lt;u&gt;And in Code&lt;/u&gt;&lt;/h3&gt;
+&lt;br/&gt;
+First, a general n-ary tree, and a type &lt;code&gt;consumed&lt;/code&gt; to specify whether a matching event terminates at this handler, or propagates onward.&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;type&lt;/span&gt; 'a tree &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Child&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;of&lt;/span&gt; 'a &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Parent&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;of&lt;/span&gt; 'a &lt;span class=&quot;Operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;'a tree&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;list&lt;/span&gt;
+
+  &lt;span class=&quot;Keyword&quot;&gt;type&lt;/span&gt; consumed &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;bool&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+Then the recursive types to express these hierarchical states and transitions:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;type&lt;/span&gt; state &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Structure&quot;&gt;{&lt;/span&gt;
+    handler : handler&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+    cleanup : &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; state tree &lt;span class=&quot;Type&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;Structure&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;Keyword&quot;&gt;and&lt;/span&gt; handler &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; id &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; event &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; consumed &lt;span class=&quot;Operator&quot;&gt;*&lt;/span&gt; return
+  &lt;span class=&quot;Keyword&quot;&gt;and&lt;/span&gt; return  &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Retain&lt;/span&gt; &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Stop&lt;/span&gt; &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Follow&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;of&lt;/span&gt; state tree &lt;span class=&quot;Type&quot;&gt;list&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+It might be easier to see how it works with an example. Here is the corresponding code for the &amp;quot;tooltip&amp;quot; handler:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; tooltip &lt;span class=&quot;Label&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0.6&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;Label&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;5&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; create_fn &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Event&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;rec&lt;/span&gt; start &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Comment&quot;&gt;(* start needs an argument to constrain recursion *)&lt;/span&gt;
+      on_enter &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;fun&lt;/span&gt; id &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Follow&lt;/span&gt;
+        &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Parent&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;on_leave &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Follow&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;Constant&quot;&gt;Child&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;start &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;,
+          &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Parent&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;on_use &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Stop&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;,
+            &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Child&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;after delay id
+                &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;fun&lt;/span&gt; id &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt;
+                  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; tip &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; create_fn id &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+                  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; cleanup &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; delete tip&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+                  &lt;span class=&quot;Constant&quot;&gt;Follow&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Child&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;after show id &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;cleanup&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Stop&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt; start &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+A little clunkier than my wishful thinking at the start, but I prefer this because it works! Also because it's clear about some things that the first-guess didn't cover. It deals with &amp;quot;on use&amp;quot; (interacting with something should make the tooltip go away), and has proper cleanup. The optional &lt;code&gt;cleanup&lt;/code&gt; function is called when a state exits, including due to a parent expiring.&lt;br/&gt;
+&lt;br/&gt;
+Note the square brackets everywhere: a bit noisy, but the returned replacement state is actually a list. An event handler is really a list of handlers which can each have children... so it's a full tree. Even the cleanup function returns such a list, empty &lt;code&gt;&lt;span class=&quot;Constant&quot;&gt;[]&lt;/span&gt;&lt;/code&gt; in this case.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h3 style=&quot;text-align: left;&quot;&gt;
+&lt;u&gt;Composing Event Handlers&lt;/u&gt;&lt;/h3&gt;
+&lt;br/&gt;
+With my initial wishful thinking I didn't know if I could practically declare an event handler &amp;quot;tooltip&amp;quot; and simply attach it where I want it... but that's exactly how it works:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Include&quot;&gt;Event&lt;/span&gt;.set button
+    &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Event&lt;/span&gt;.&lt;span class=&quot;Constant&quot;&gt;Child&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;click_to_toggle &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;Include&quot;&gt;Event&lt;/span&gt;.&lt;span class=&quot;Constant&quot;&gt;Child&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;hover_fade &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0.85&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.95&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;Include&quot;&gt;Event&lt;/span&gt;.&lt;span class=&quot;Constant&quot;&gt;Child&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;tooltip &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;label &lt;span class=&quot;String&quot;&gt;&amp;quot;Toggle me on or off&amp;quot;&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; class=&quot;tr-caption-container&quot; style=&quot;float: left; margin-right: 1em; text-align: left;&quot;&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;http://2.bp.blogspot.com/-fQqHiEE-jtk/UxY6XetmVlI/AAAAAAAAAEE/kaRH8asimSk/s1600/ttip.png&quot; imageanchor=&quot;1&quot; style=&quot;clear: left; margin-bottom: 1em; margin-left: auto; margin-right: auto;&quot;&gt;&lt;img src=&quot;http://2.bp.blogspot.com/-fQqHiEE-jtk/UxY6XetmVlI/AAAAAAAAAEE/kaRH8asimSk/s1600/ttip.png&quot; border=&quot;0&quot;/&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;tr-caption&quot; style=&quot;text-align: center;&quot;&gt;Tooltip in action&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+This is attaching three root-level event handlers to &lt;code&gt;button&lt;/code&gt;, which each work independently and go through their state transitions. Processing an event returns a new list of handlers which replace the current handler (if there was a change).&lt;br/&gt;
+&lt;br/&gt;
+I think what I ended up with is a fairly standard hierarchical state machine, implemented functionally (except where I bind a list of handlers with an ID, but that's part of the nature of the component database).&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+I don't have experience with GTK, Qt, Windows-anything. I've written simple hard-coded interfaces for some games, but usually avoid even that -- linking character behavior to (abstracted) device inputs. Now I'm working on a game which needs more mousey interaction. I know I should have looked into existing systems at least to inform myself, but those libraries are huge and I never liked the first taste. Maybe I'm also fearful that if I got to know them I'd want to have all the features they have... Experienced comments are welcome!&lt;br/&gt;
+&lt;br/&gt;&lt;/div&gt;
+</content><id>https://cranialburnout.blogspot.com/2014/03/gui-event-handling-with-functional.html</id><title type="text">GUI Event Handling with a Functional Hierarchical State Machine</title><updated>2014-03-04T21:01:00-00:00</updated><author><name>Tony Tavener</name></author></entry><entry><link href="https://cranialburnout.blogspot.com/2014/03/a-component-based-gui-with-functional.html" rel="alternate"/><contributor><uri>http://www.blogger.com/feeds/9108979482982930820/posts/default/-/OCaml</uri><name>cburnout</name></contributor><content type="html">&lt;div dir=&quot;ltr&quot; style=&quot;text-align: left;&quot; trbidi=&quot;on&quot;&gt;
+&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; class=&quot;tr-caption-container&quot; style=&quot;float: right; margin-left: 1em; text-align: right;&quot;&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;http://1.bp.blogspot.com/-DqbG0LlxpXE/UxWbAtjz7wI/AAAAAAAAAD0/UWDHWQ5Z7Rs/s1600/certa.png&quot; imageanchor=&quot;1&quot; style=&quot;clear: right; margin-bottom: 1em; margin-left: auto; margin-right: auto;&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-DqbG0LlxpXE/UxWbAtjz7wI/AAAAAAAAAD0/UWDHWQ5Z7Rs/s1600/certa.png&quot; border=&quot;0&quot; height=&quot;320&quot; width=&quot;217&quot;/&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;tr-caption&quot; style=&quot;text-align: center;&quot;&gt;An example of the GUI in use.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;br/&gt;
+There are plenty of existing GUIs -- why write my own?&lt;br/&gt;
+&lt;br/&gt;
+Two technical reasons:&lt;br/&gt;
+&lt;ol style=&quot;text-align: left;&quot;&gt;
+&lt;li&gt;To have a rendering back-end which is compatible with my game.&lt;/li&gt;
+&lt;li&gt;Limiting dependencies to SDL and OpenGL, which are widely supported.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;br/&gt;
+For me, the most important reason, and not a technical one, is that whenever I look at GUI APIs my brain wants to jump out of my skull. Mind you, my own mess here might have the same effect if I were to encounter it afresh. Maybe let me know what your outside perspective is?&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h3 style=&quot;text-align: left;&quot;&gt;
+&lt;u&gt;
+Oh, oh, Gooey -- or is it OO GUI?&lt;/u&gt;&lt;/h3&gt;
+&lt;br/&gt;
+I once believed the standard claim that OOP is natural for GUIs -- the one thing OOP might really be suited to. My initial take on a GUI in OCaml was based on objects: defining widget classes and layering complexity with inheritance. There were some issues... composition of functionality rarely works well with objects because they're wedded to internal state, and that is frustrating. But there was another pitfall lurking in the shadows. Initially a lot of details were hard-coded: font, colors, borders, etc. The day came when I wanted to control these details... A default font for everything... maybe setting another font for some group of things, and overriding that in specific cases... well ain't &lt;i&gt;this&lt;/i&gt; a mess!&lt;br/&gt;
+&lt;br/&gt;
+&lt;b&gt;Update&lt;/b&gt;: Leo White, in the comments, has clued me in to using &lt;a href=&quot;https://realworldocaml.org/v1/en/html/classes.html#mixins&quot; target=&quot;_blank&quot;&gt;OCaml objects with the mixin technique&lt;/a&gt; -- which seems to offer similar composability and inheritance, but retaining the power of the type-system. I'll make a future post comparing the approaches. An early impression/summary: nearly identical expressiveness, while the differences are similar to the trade-offs between static and dynamic typing.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h3 style=&quot;text-align: left;&quot;&gt;
+&lt;u&gt;
+I'm Destined to Use Databases for Everything&lt;/u&gt;&lt;/h3&gt;
+&lt;i&gt;(to atone for disparaging remarks about DB programmers in my past)&lt;/i&gt;&lt;br/&gt;
+&lt;br/&gt;
+It didn't take too long before I realized that I want properties: arbitrarily aggregating and inheritable properties... a.k.a. components. (The component system I'm using is described&amp;nbsp;&lt;a href=&quot;http://cranialburnout.blogspot.ca/2013/09/database-radiation-hazard.html&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.)&amp;nbsp;Well then, what if all of my &amp;quot;widgets&amp;quot; were just IDs with associated components? What would it look like?&lt;br/&gt;
+&lt;br/&gt;
+Here's the &amp;quot;default font&amp;quot; I wanted...&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; normal_font &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; new_id &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Font&lt;/span&gt;.s fnt
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Fontgradient&lt;/span&gt;.s &lt;span class=&quot;Constant&quot;&gt;`Crisp&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+Now &amp;quot;normal_font&amp;quot; is something to inherit from: a convenient bundle of properties. If I set the Font to something else during runtime, everything which inherits and doesn't otherwise override Font will get the change.&lt;br/&gt;
+&lt;br/&gt;
+I'll set a bunch of global defaults called &amp;quot;gui_base&amp;quot;...&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; gui_base &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; new_id &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Anchor&lt;/span&gt;.s &lt;span class=&quot;Include&quot;&gt;Vec2&lt;/span&gt;.null
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Color&lt;/span&gt;.s &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0.5&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.5&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Shape&lt;/span&gt;.s rounded_rectangle
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Gradient&lt;/span&gt;.s &lt;span class=&quot;Constant&quot;&gt;`FramedUnderlay&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Underlay&lt;/span&gt;.s &lt;span class=&quot;Constant&quot;&gt;Default&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Border&lt;/span&gt;.s &lt;span class=&quot;Float&quot;&gt;6&lt;/span&gt;.
+&lt;/pre&gt;
+&lt;br/&gt;
+So far, these properties are just data -- mostly related to rendering options.&lt;br/&gt;
+&lt;br/&gt;
+Next we'll use inheritance, and add an event handler. This sets up properties for a particular class of buttons:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; hover_button &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;
+    new_child_of &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; gui_base &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Fontsize&lt;/span&gt;.s &lt;span class=&quot;Float&quot;&gt;18&lt;/span&gt;.
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Fontcolor&lt;/span&gt;.s &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;1&lt;/span&gt;.,&lt;span class=&quot;Float&quot;&gt;0.95&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.9&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Shadow&lt;/span&gt;.s &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Constant&quot;&gt;`Shadow&lt;/span&gt;,black,&lt;span class=&quot;Float&quot;&gt;0.5&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;1.5&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;2&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Event&lt;/span&gt;.s &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Event&lt;/span&gt;.&lt;span class=&quot;Constant&quot;&gt;Child&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;hover_fade &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0.8&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.7&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+Now anything inheriting from this, and placed on-screen, will respond to pointer &amp;quot;hover&amp;quot; with an animated color-fade. Event handlers aren't masked, so I usually keep them near &amp;quot;leaf&amp;quot; nodes of inheritance. As a silly test, I made a right-click menu for color-changing in gui_base... so everything could have it's color changed. It worked, if a bit heavy handed. Still, something like that could be useful to create a configuration mode.&lt;br/&gt;
+&lt;br/&gt;
+You might realize by now that there are no specific &lt;i&gt;button&lt;/i&gt;, &lt;i&gt;label&lt;/i&gt;, or &lt;i&gt;textbox&lt;/i&gt; widgets. Any GUI element is defined by its cumulative properties. In practice, there are convenient &amp;quot;widgets&amp;quot; which I build functions for, like this color_button:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; color_button color name &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;
+    new_child_of &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; hover_button&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; normal_font &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Color&lt;/span&gt;.s color
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Text&lt;/span&gt;.s_string name
+&lt;/pre&gt;
+&lt;br/&gt;
+I'm using components with multiple inheritance, and this function creates a button by inheriting both&amp;nbsp;hover_button&amp;nbsp;and normal_font, as well as adding a given color and name.&lt;br/&gt;
+&lt;br/&gt;
+Well this looks promising to me. Properties, via components, provide a reasonable way to build GUI elements, ample support for hierarchical styles, and there's no need for optional parameters on every creation function -- a free-form chain of components serves as the optional parameters for any/all creation. For example, I can use the &amp;quot;color_button&amp;quot; above, but override the font, almost like a labeled parameter:&lt;br/&gt;
+&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+&lt;a href=&quot;http://4.bp.blogspot.com/-YUFMm_hgNqg/UxWF9do5AAI/AAAAAAAAADc/egjy6rh6sDA/s1600/launch.png&quot; imageanchor=&quot;1&quot; style=&quot;clear: right; float: right; margin-bottom: 1em; margin-left: 1em;&quot;&gt;&lt;img src=&quot;http://4.bp.blogspot.com/-YUFMm_hgNqg/UxWF9do5AAI/AAAAAAAAADc/egjy6rh6sDA/s1600/launch.png&quot; border=&quot;0&quot;/&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;pre&gt;    color_button red &lt;span class=&quot;String&quot;&gt;&amp;quot;LAUNCH&amp;quot;&lt;/span&gt; &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Font&lt;/span&gt;.s dangerfont
+&lt;/pre&gt;
+&lt;br/&gt;
+Furthermore, when new components are created to implement features... there's no need to update functions with new parameters. I've often been running competing components in parallel, until one is deprecated. Purely modular bliss.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h3 style=&quot;text-align: left;&quot;&gt;
+&lt;u&gt;
+Model-View-Controller... or something else?&lt;/u&gt;&lt;/h3&gt;
+&lt;br/&gt;
+GUIs which separate declaration, control, and behavior all over the place drive me nuts. This would be the typical implementation of a Model-View-Controller pattern which is so beloved.&lt;br/&gt;
+&lt;br/&gt;
+With MVC, and the numerous other GUI-pattern varieties (MVVM, MVP, etc), the principle notion is separation of concerns. Each particular pattern identifies different concerns and separations. I'm usually rather keen on separation of concerns -- modular, composable, understandable, no stepping on toes. I find with GUIs that I desire &lt;i&gt;tighter&lt;/i&gt; coupling. An extreme in this regard is&amp;nbsp;&lt;a href=&quot;http://iki.fi/sol/imgui/&quot; target=&quot;_blank&quot;&gt;ImGUI&lt;/a&gt;, which goes too far for my usual preferences -- with it, view is stateless and coupled to execution-flow.&lt;br/&gt;
+&lt;br/&gt;
+What I want, is to declare everything in a stream. We can break things down into sub-parts, as usual with programming. What I don't want, are code and declarations scattered in different places, files, or even languages... held together by message-spaghetti. Using the color_button again, here's a larger GUI object:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; framed_colors &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; blue   &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; color_button &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0.1&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.1&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;Blue&amp;quot;&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; red    &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; color_button &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;1.0&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.0&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;Red&amp;quot;&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; green  &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; color_button &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0.1&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.9&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;Green&amp;quot;&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; yellow &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; color_button &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0.9&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.9&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;Yellow&amp;quot;&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; black  &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; color_button &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0.0&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.0&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;Black&amp;quot;&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+    new_child_of &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; gui_base &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Pos&lt;/span&gt;.s &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt;Vec2&lt;/span&gt;.make &lt;span class=&quot;Float&quot;&gt;40&lt;/span&gt;. &lt;span class=&quot;Float&quot;&gt;20&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Dim&lt;/span&gt;.s &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt;Vec2&lt;/span&gt;.make &lt;span class=&quot;Float&quot;&gt;240&lt;/span&gt;. &lt;span class=&quot;Float&quot;&gt;120&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Pad&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;s &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;frame &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt;Layout&lt;/span&gt;.gap &lt;span class=&quot;Float&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)))&lt;/span&gt;
+      &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Border&lt;/span&gt;.s &lt;span class=&quot;Float&quot;&gt;12&lt;/span&gt;.
+      &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Layout&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;s
+          &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;vspread
+            &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; hcenter &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Constant&quot;&gt;Id&lt;/span&gt; blue&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+              hbox &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;I&lt;/span&gt; green&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;G&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;gap &lt;span class=&quot;Float&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;I&lt;/span&gt; yellow&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;G&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;Float&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;I&lt;/span&gt; black &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+              hcenter &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Constant&quot;&gt;Id&lt;/span&gt; red&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;))&lt;/span&gt;
+      &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Event&lt;/span&gt;.s
+          &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Event&lt;/span&gt;.&lt;span class=&quot;Constant&quot;&gt;Child&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;drag_size &lt;span class=&quot;Constant&quot;&gt;RIGHT&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;Include&quot;&gt;Event&lt;/span&gt;.&lt;span class=&quot;Constant&quot;&gt;Child&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;drag_move &lt;span class=&quot;Constant&quot;&gt;LEFT&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+&lt;table align=&quot;center&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; class=&quot;tr-caption-container&quot; style=&quot;margin-left: auto; margin-right: auto; text-align: center;&quot;&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;http://2.bp.blogspot.com/-ZjN-nm0vjPY/UxWGIL_fBTI/AAAAAAAAADk/9L2D5Sq_eUw/s1600/colorbox.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img src=&quot;http://2.bp.blogspot.com/-ZjN-nm0vjPY/UxWGIL_fBTI/AAAAAAAAADk/9L2D5Sq_eUw/s1600/colorbox.png&quot; border=&quot;0&quot;/&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;tr-caption&quot; style=&quot;text-align: center;&quot;&gt;Layout uses a &amp;quot;boxes and glue&amp;quot; approach.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+All in one, an object is declared with nested elements. It has a defined (yet flexible) layout, and responds to move and resize operations; the buttons have their own event handlers. The event handlers (as I'll get into in another post) are just functions. The point is that the composition of this is as for any typical code: functions. No out-of-band stuff... no layout in some other file keyed on string-names, no messages/signals/slots. There are events, but event-generation is from outside (SDL), so the only part we're concerned with is right here -- the event handlers.&lt;br/&gt;
+&lt;br/&gt;
+I guess what I'm trying to minimize, is spooky-action-at-a-distance. To jump ahead a bit, when I call a menu function, it returns a result based on the user's selection (pausing this execution path while awaiting user response, via coroutines), rather than changing a state variable or firing off a message. Functions returning values.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h3 style=&quot;text-align: left;&quot;&gt;
+&lt;u&gt;
+Parts of a GUI&lt;/u&gt;&lt;/h3&gt;
+&lt;ol style=&quot;text-align: left;&quot;&gt;
+&lt;li&gt;Renderer&lt;/li&gt;
+&lt;li&gt;Description/Layout&lt;/li&gt;
+&lt;li&gt;Event Handling&lt;/li&gt;
+&lt;/ol&gt;
+Oh hey... View, Model, and Controller. D'oh!&lt;br/&gt;
+&lt;br/&gt;
+I'll go into more depth in future posts, leaving off with just a note about each...&lt;br/&gt;
+&lt;br/&gt;
+The renderer is a thin layer leveraging the game's renderer. It mows over the GUI scenegraph, rendering relevant components it encounters. It's entirely possible for the renderer to have alternate interpretations of the data -- and, in fact, I do this: to render for &amp;quot;picking&amp;quot;. Effectively I render the &amp;quot;Event&amp;quot; view, including pass-through or &amp;quot;transparent&amp;quot; events. Some details about render layers and stenciling will be their own topic.&lt;br/&gt;
+&lt;br/&gt;
+Declaration of elements leverages &amp;quot;components&amp;quot; as in the examples given above. For layout, I've always had a fondness for TeX's boxes and glue -- I ride Knuth's coat-tails in matters of typesetting. A hint of this is in the Layout component for the box of color_buttons. I'll probably cover layout or line-splitting in another post.&lt;br/&gt;
+&lt;br/&gt;
+Event Handling. One of my favorite parts, and a separate post:&amp;nbsp;&lt;a href=&quot;http://cranialburnout.blogspot.ca/2014/03/gui-event-handling-with-functional.html&quot; target=&quot;_blank&quot;&gt;GUI Event Handling with a Functional Hierarchical State Machine&lt;/a&gt;.&lt;br/&gt;
+&lt;br/&gt;
+There's something missing still...&lt;br/&gt;
+&lt;br/&gt;
+&amp;nbsp; &amp;nbsp; &amp;nbsp; 4. &amp;nbsp;The UI Code&lt;br/&gt;
+&lt;br/&gt;
+What I mean is the flow of code which triggers GUI element creation, awaits user responses, and does things with them. This could be done as a state machine, but I prefer keeping the flow continuous (as if the user always has an immediate answer), using coroutines. This is yet another topic for another day.&lt;br/&gt;
+&lt;br/&gt;
+I haven't made a complex UI, so there might be a point beyond which I have to rely on messages -- really, I keep anticipating this, but it hasn't happened... yet.&lt;/div&gt;
+</content><id>https://cranialburnout.blogspot.com/2014/03/a-component-based-gui-with-functional.html</id><title type="text">A Component-based GUI with Functional Flavour</title><updated>2014-03-04T09:30:00-00:00</updated><author><name>Tony Tavener</name></author></entry><entry><link href="https://cranialburnout.blogspot.com/2013/09/database-radiation-hazard.html" rel="alternate"/><contributor><uri>http://www.blogger.com/feeds/9108979482982930820/posts/default/-/OCaml</uri><name>cburnout</name></contributor><content type="html">&lt;div dir=&quot;ltr&quot; style=&quot;text-align: left;&quot; trbidi=&quot;on&quot;&gt;
+&lt;br/&gt;
+Now that I've shat on mutability in prior posts, let's talk about how it pervades my game code.&lt;br/&gt;
+&lt;br/&gt;
+I'm a fan of the component model for game-objects. Basically, an object is a unique ID, and there is a database of properties associated to IDs. This isn't a disk-based database. Rather, it's an in-memory key-value store, often implemented by hashtable (though anything fitting the &lt;code&gt;STORE&lt;/code&gt; signature can be provided).&lt;br/&gt;
+&lt;br/&gt;
+This database is where most mutation is, hence the title of this post. So far this has been a nice fusion &amp;mdash; functional code for the most part, with game-state held in a database. Updating/setting values in the database is typically done by high-level code, based on calculations performed by all the workhorse functions.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;b&gt;&lt;u&gt;Components (a.k.a. properties)&lt;/u&gt;&lt;/b&gt;&lt;br/&gt;
+&lt;br/&gt;
+Here's a character (pruned for brevity):&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; make_severin &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;Include&quot;&gt;Db&lt;/span&gt;.get_id_by_name &lt;span class=&quot;String&quot;&gt;&amp;quot;Severin&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Characteristics&lt;/span&gt;.s &lt;span class=&quot;Structure&quot;&gt;{&lt;/span&gt;int&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;per&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;str&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;sta&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;pre&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;com&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;dex&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;qik&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Structure&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Size&lt;/span&gt;.s &lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Age&lt;/span&gt;.s &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;62&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;35&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Confidence&lt;/span&gt;.s &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;Float&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Nature&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;s human&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Fatigue&lt;/span&gt;.&lt;span class=&quot;Include&quot;&gt;Levels&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;s standard&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Virtue&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;s &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;Constant&quot;&gt;TheGift&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;Constant&quot;&gt;HermeticMagus&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;Constant&quot;&gt;PlaguedBySupernaturalEntity&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Db&lt;/span&gt;.get_id_by_name &lt;span class=&quot;String&quot;&gt;&amp;quot;Peripeteia&amp;quot;&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Ability&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;s &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt;
+        of_score &lt;span class=&quot;Constant&quot;&gt;ArtesLiberales&lt;/span&gt; &lt;span class=&quot;Float&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;geometry&amp;quot;&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        of_score &lt;span class=&quot;Constant&quot;&gt;Chirurgy&lt;/span&gt; &lt;span class=&quot;Float&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;self&amp;quot;&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        of_score &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Constant&quot;&gt;AreaLore&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;String&quot;&gt;&amp;quot;Fallen Covenant&amp;quot;&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;Float&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;defences&amp;quot;&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        of_score &lt;span class=&quot;Constant&quot;&gt;MagicTheory&lt;/span&gt; &lt;span class=&quot;Float&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;shapeshifting&amp;quot;&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        of_score &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Constant&quot;&gt;Language&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Constant&quot;&gt;French&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;Float&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;grogs&amp;quot;&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        of_score &lt;span class=&quot;Constant&quot;&gt;ParmaMagica&lt;/span&gt; &lt;span class=&quot;Float&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;Terram&amp;quot;&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        of_score &lt;span class=&quot;Constant&quot;&gt;SingleWeapon&lt;/span&gt; &lt;span class=&quot;Float&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;Staff&amp;quot;&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        of_score &lt;span class=&quot;Constant&quot;&gt;Survival&lt;/span&gt; &lt;span class=&quot;Float&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;desert&amp;quot;&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Hermetic&lt;/span&gt;.&lt;span class=&quot;Include&quot;&gt;House&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;s &lt;span class=&quot;Constant&quot;&gt;Tytalus&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Hermetic&lt;/span&gt;.&lt;span class=&quot;Include&quot;&gt;Arts&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;s &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;of_score &lt;span class=&quot;Structure&quot;&gt;{&lt;/span&gt; cr&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; it&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; mu&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; pe&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; re&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;20&lt;/span&gt;
+                                  &lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; an&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; aq&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; au&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; co&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; he&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;15&lt;/span&gt;
+                                  &lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; ig&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; im&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; me&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; te&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; vi&lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;Structure&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Hermetic&lt;/span&gt;.&lt;span class=&quot;Include&quot;&gt;KnownSpells&lt;/span&gt;.s &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;Include&quot;&gt;Spell&lt;/span&gt;.mastery &lt;span class=&quot;Float&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;String&quot;&gt;&amp;quot;Acorns for Amusement&amp;quot;&lt;/span&gt;
+          &lt;span class=&quot;Include&quot;&gt;Hermetic&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;Constant&quot;&gt;FastCasting&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;Constant&quot;&gt;MultipleCasting&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;Constant&quot;&gt;QuietCasting&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;Constant&quot;&gt;StillCasting&lt;/span&gt;&lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;Include&quot;&gt;Spell&lt;/span&gt;.name &lt;span class=&quot;String&quot;&gt;&amp;quot;Carved Assassin&amp;quot;&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;Include&quot;&gt;Spell&lt;/span&gt;.name &lt;span class=&quot;String&quot;&gt;&amp;quot;Wall of Thorns&amp;quot;&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;Include&quot;&gt;Spell&lt;/span&gt;.name &lt;span class=&quot;String&quot;&gt;&amp;quot;Circular Ward Against Demons&amp;quot;&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; equip_and_inv &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;String&quot;&gt;&amp;quot;Wizardly Robes&amp;quot;&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;String&quot;&gt;&amp;quot;Staff&amp;quot;&lt;/span&gt;&lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;String&quot;&gt;&amp;quot;Small Pouch&amp;quot;&lt;/span&gt;&lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+Each of the modules here represents a component which objects may have. So Severin's Age is (62,35) &amp;mdash; that is actual age and apparent age (Wizards age slowly).&lt;br/&gt;
+&lt;br/&gt;
+The function make_severin will return an ID. The first line &lt;code&gt;Db.get_id_by_name &amp;quot;Severin&amp;quot;&lt;/code&gt; looks up an ID for that name, or generates a new ID if none exists. Each component module has a function &amp;quot;s&amp;quot;, which is the same as &amp;quot;set&amp;quot; except it returns the given ID. It's a convenience function for setting multiple component values at once for the same ID &amp;mdash; which is exactly what's happening here, with Severin's ID being threaded through all of these property-setting calls.&lt;br/&gt;
+&lt;br/&gt;
+This is the signature common to all components:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;module type &lt;/span&gt;&lt;span class=&quot;Include&quot;&gt;Sig&lt;/span&gt; = &lt;span class=&quot;Include&quot;&gt;sig&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;type&lt;/span&gt; t
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; get : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; t             &lt;span class=&quot;Comment&quot;&gt;(* get, obeying table's inheritance setting *)&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; get_personal : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; t    &lt;span class=&quot;Comment&quot;&gt;(* ignore inheritance *)&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; get_inheritable : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; t &lt;span class=&quot;Comment&quot;&gt;(* permit inheritance (overriding default) *)&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; get_all : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; t &lt;span class=&quot;Type&quot;&gt;list&lt;/span&gt;    &lt;span class=&quot;Comment&quot;&gt;(* for a stacked component *)&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; set : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; t &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt;     &lt;span class=&quot;Comment&quot;&gt;(* set value on key; stacking is possible *)&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; s : t &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; key        &lt;span class=&quot;Comment&quot;&gt;(* set, but an alternate calling signature *)&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; del : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt;          &lt;span class=&quot;Comment&quot;&gt;(* delete this component from key *)&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; iter : &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; t &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; fold : &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; t &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Identifier&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Identifier&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Identifier&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Identifier&quot;&gt;'a&lt;/span&gt;
+  &lt;span class=&quot;Include&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+I've used first-class modules so I can unpack a table implementation inside a module, making it a &amp;quot;component&amp;quot;. For example, in the file hermetic.ml I have this:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt; House&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;struct&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;type&lt;/span&gt; s &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Bjornaer&lt;/span&gt; &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Bonisagus&lt;/span&gt; &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Criamon&lt;/span&gt;  &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;ExMiscellanea&lt;/span&gt;
+           &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Flambeau&lt;/span&gt; &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Guernicus&lt;/span&gt; &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Jerbiton&lt;/span&gt; &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Mercere&lt;/span&gt;
+           &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Merinita&lt;/span&gt; &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Tremere&lt;/span&gt;   &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Tytalus&lt;/span&gt;  &lt;span class=&quot;Operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;Verditius&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;include&lt;/span&gt; (&lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt;Db&lt;/span&gt;.&lt;span class=&quot;Include&quot;&gt;Hashtbl&lt;/span&gt;.create &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;: &lt;span class=&quot;Include&quot;&gt;Db.Sig&lt;/span&gt; with type t = s)
+  &lt;span class=&quot;Include&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+Now the Hermetic.House module has functions to set/get it's values by ID. In the definition of the character, earlier, you can see &lt;code&gt;Hermetic.House.(s Tytalus)&lt;/code&gt;.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+This manner of database, organized by modules, has been very pleasant to use. It's easy to create a new &lt;i&gt;component-module&lt;/i&gt;, adding it's own types and extra functions. It doesn't need to be centrally defined unless other modules are genuinely dependent on it. In practice, I define these components where they make sense. There's no need to &amp;quot;open&amp;quot; modules, thanks to the relatively recent local-open syntax of: &lt;code&gt;Module.(in_module_scope)&lt;/code&gt;. Variants and record-fields are neatly accessed while keeping them in their appropriate module.&lt;br/&gt;
+&lt;br/&gt;
+One of the rationales behind a component-model like this is that you can process or collect things by property. This is where the iter and fold are useful. It's easy to grab all entity IDs which have a Wound component (and is therefore able to be injured), for example.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;b&gt;&lt;u&gt;Database&lt;/u&gt;&lt;/b&gt;&lt;br/&gt;
+&lt;br/&gt;
+The database, conceptually, is the collection of components. In practice though, I want the components to be non-centrally declared otherwise all datatypes would be centralized as well &amp;mdash; so instead, the database is ID management and table-instantiation functors.&lt;br/&gt;
+&lt;br/&gt;
+First, you create a database of a particular key type...&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;&lt;span class=&quot;Comment&quot;&gt;(* Gamewide 'Db' is based on IDs of type 'int' *)&lt;/span&gt;
+&lt;span class=&quot;Keyword&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt; Db&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Database.Make&lt;/span&gt; (&lt;span class=&quot;Include&quot;&gt;Database.IntKey&lt;/span&gt;)
+&lt;/pre&gt;
+&lt;br/&gt;
+The resulting signature has functions related to IDs, and table-instantiation, something like this (I've removed the generic table interfaces, for brevity):&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt; Db&lt;/span&gt; : &lt;span class=&quot;Include&quot;&gt;sig&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;type&lt;/span&gt; key &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Database&lt;/span&gt;.&lt;span class=&quot;Include&quot;&gt;IntKey&lt;/span&gt;.t
+
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; persistent_id : &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; key
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; transient_id : &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; key
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; find_id_by_name : &lt;span class=&quot;Identifier&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; key
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; get_id_by_name : &lt;span class=&quot;Type&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; key
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; get_name : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;string&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; string_of_id : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;string&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; delete : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt;
+    &lt;span class=&quot;Comment&quot;&gt;(* &amp;lt;snip&amp;gt; module type Sig *)&lt;/span&gt;
+
+    &lt;span class=&quot;Keyword&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Hashtbl&lt;/span&gt; :&lt;span class=&quot;Include&quot;&gt; sig&lt;/span&gt;
+      &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; create : &lt;span class=&quot;Label&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;size&lt;/span&gt;:&lt;span class=&quot;Type&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Label&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;default&lt;/span&gt;:&lt;span class=&quot;Identifier&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Label&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;nhrt&lt;/span&gt;:&lt;span class=&quot;Type&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt; Sig&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;type&lt;/span&gt; t &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Identifier&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Include&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;SingleInherit&lt;/span&gt; :&lt;span class=&quot;Include&quot;&gt; sig&lt;/span&gt;
+      &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; get_parent : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; key
+      &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; set_parent : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt;
+      &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; del_parent : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt;
+      &lt;span class=&quot;Comment&quot;&gt;(* &amp;lt;snip&amp;gt; Hashtbl.create... *)&lt;/span&gt;
+    &lt;span class=&quot;Include&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;MultiInherit&lt;/span&gt; :&lt;span class=&quot;Include&quot;&gt; sig&lt;/span&gt;
+      &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; get_parents : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; key &lt;span class=&quot;Type&quot;&gt;list&lt;/span&gt;
+      &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; set_parents : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; key &lt;span class=&quot;Type&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt;
+      &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; add_parents : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; key &lt;span class=&quot;Type&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt;
+      &lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; del_parent : key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; key &lt;span class=&quot;Function&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;Type&quot;&gt;unit&lt;/span&gt;
+      &lt;span class=&quot;Comment&quot;&gt;(* &amp;lt;snip&amp;gt; Hashtbl.create... *)&lt;/span&gt;
+    &lt;span class=&quot;Include&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;Include&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+Creating a component (aka table, or property) can be as simple as:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;&lt;span class=&quot;Comment&quot;&gt;(* A basic property is just a table with an already-known type *)&lt;/span&gt;
+&lt;span class=&quot;Keyword&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt; Size&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; (&lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt;Db&lt;/span&gt;.&lt;span class=&quot;Include&quot;&gt;Hashtbl&lt;/span&gt;.create &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;default&lt;/span&gt;:&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;: &lt;span class=&quot;Include&quot;&gt;Db.Sig&lt;/span&gt; with type t = int)
+&lt;/pre&gt;
+&lt;br/&gt;
+A common alternative is shown in the &lt;code&gt;House&lt;/code&gt; example earlier, where the first-class module is unpacked and included within an existing module.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;b&gt;&lt;u&gt;Inheritance&lt;/u&gt;&lt;/b&gt;&lt;br/&gt;
+&lt;br/&gt;
+There are three kinds of tables which can be instantiated: no inheritance, single inheritance, and multiple inheritance. Oh, did that last one make your hair stand on end? Haha. Well, multiple inheritance of data or properties can be a lot more sensible than the OO notion of it.&lt;br/&gt;
+&lt;br/&gt;
+The way inheritance works is that an ID may have a parent ID (or a list of IDs for multiple). If a component is not found on ID, it's parent is checked. So if I:&amp;nbsp;&lt;code&gt;Size.get target&lt;/code&gt;, then target might inherit from a basic_human which has the size (among other &amp;quot;basic human&amp;quot; traits).&lt;br/&gt;
+&lt;br/&gt;
+Multiple inheritance allows for the use of &lt;i&gt;property collections&lt;/i&gt;. You might see the value of this when considering the basic_human example... say you wanted to also declare foot_soldier properties which imparted some equipment, skills, and credentials. To make a basic_human foot_soldier with multiple inheritance, they're both parents (list-order gives a natural priority).&lt;br/&gt;
+&lt;br/&gt;
+&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+&lt;a href=&quot;http://4.bp.blogspot.com/-AaVcyyAosxU/UjFRnhc-zHI/AAAAAAAAADE/3XI_Ien7VWg/s1600/inherit.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img src=&quot;http://4.bp.blogspot.com/-AaVcyyAosxU/UjFRnhc-zHI/AAAAAAAAADE/3XI_Ien7VWg/s1600/inherit.png&quot; border=&quot;0&quot;/&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+On the other hand, if only humans could reasonably be foot_soldiers, then you might be okay with single inheritance for this case &amp;mdash; setting basic_human as the parent of foot_soldier.&lt;br/&gt;
+&lt;br/&gt;
+Currently I'm not using inheritance for the bulk of the game, but the GUI (work in progress) is based on components and uses multiple-inheritance. This is a fragment of the GUI code, so Prop becomes the module used for instantiating components, and it also has the parent-related functions. I've included a few of the components too:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;&lt;span class=&quot;Comment&quot;&gt;(* GUI uses multiple-inheritance (of data), so style and properties may be&lt;/span&gt;
+&lt;span class=&quot;Comment&quot;&gt; * mixed from multiple parents, with parents functioning as property-sets. *)&lt;/span&gt;
+&lt;span class=&quot;Keyword&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt; Prop&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Db.MultiInherit&lt;/span&gt;
+
+&lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; new_child_of parents &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; id &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; new_id &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;Include&quot;&gt;Prop&lt;/span&gt;.set_parents id parents&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+  id
+
+&lt;span class=&quot;Keyword&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt; Font&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; (&lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt;Prop&lt;/span&gt;.&lt;span class=&quot;Include&quot;&gt;Hashtbl&lt;/span&gt;.create &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;: &lt;span class=&quot;Include&quot;&gt;Db.Sig&lt;/span&gt; with type t = &lt;span class=&quot;Include&quot;&gt;Fnt2&lt;/span&gt;.&lt;span class=&quot;Include&quot;&gt;t&lt;/span&gt;)
+&lt;span class=&quot;Keyword&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt; Pos&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; (&lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt;Prop&lt;/span&gt;.&lt;span class=&quot;Include&quot;&gt;Hashtbl&lt;/span&gt;.create &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;: &lt;span class=&quot;Include&quot;&gt;Db.Sig&lt;/span&gt; with type t = &lt;span class=&quot;Include&quot;&gt;Vec2&lt;/span&gt;.&lt;span class=&quot;Include&quot;&gt;t&lt;/span&gt;)
+&lt;span class=&quot;Keyword&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt; Color&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; (&lt;span class=&quot;Keyword&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt;Prop&lt;/span&gt;.&lt;span class=&quot;Include&quot;&gt;Hashtbl&lt;/span&gt;.create &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;default&lt;/span&gt;:&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;1&lt;/span&gt;.,&lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;.,&lt;span class=&quot;Float&quot;&gt;1&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;:
+               &lt;span class=&quot;Include&quot;&gt;Db.Sig&lt;/span&gt; with type t = float*float*float)
+&lt;/pre&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;b&gt;&lt;u&gt;Delete&lt;/u&gt;&lt;/b&gt;&lt;br/&gt;
+&lt;br/&gt;
+It's not all roses. One big pain-in-the-tuchus is deleting an ID. This means removing every entry it has in any of these tables. To do this, when a table is instantiated, it's also registered with the database. The delete operation for any table only needs to know ID, the signature being &lt;code&gt;key -&amp;gt; unit&lt;/code&gt;. The real ugly part is what this means at runtime: doing a find-and-remove on every table - every time an entity is deleted. Various optimizations are possible, but for now I'm keeping it brute force.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;b&gt;&lt;u&gt;The Source&lt;/u&gt;&lt;/b&gt;&lt;br/&gt;
+&lt;br/&gt;
+If you want to see the source, or to &lt;i&gt;*gasp*&lt;/i&gt; use it, here is a&amp;nbsp;&lt;a href=&quot;https://gist.github.com/atavener/6533969&quot; target=&quot;_blank&quot;&gt;gist of database.ml / mli&lt;/a&gt;. It's very unpolished, needing fleshing-out and useful documentation. I intend to release it at some future point, along with some other code. But if you have tips or suggestions, please share them! I've been going solo with OCaml and suspect that's limiting me &amp;mdash; I could be doing crazy or nonsensical things. Well, I'm sure I am in a few places... maybe right here with this code!&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;&lt;/div&gt;
+</content><id>https://cranialburnout.blogspot.com/2013/09/database-radiation-hazard.html</id><title type="text">Database - radiation hazard</title><updated>2013-09-12T07:39:00-00:00</updated><author><name>Tony Tavener</name></author></entry><entry><link href="https://cranialburnout.blogspot.com/2013/09/programming-game-in-ocaml.html" rel="alternate"/><contributor><uri>http://www.blogger.com/feeds/9108979482982930820/posts/default/-/OCaml</uri><name>cburnout</name></contributor><content type="html">&lt;div dir=&quot;ltr&quot; style=&quot;text-align: left;&quot; trbidi=&quot;on&quot;&gt;
+Herein I'll provide an introductory taste of what it's been like making a game in OCaml.&lt;br/&gt;
+&lt;br/&gt;
+I've been developing a &amp;quot;Tactical RPG&amp;quot; game, which is based on the &lt;a href=&quot;http://www.atlas-games.com/arm5/&quot; target=&quot;_blank&quot;&gt;Ars Magica&lt;/a&gt; roleplaying setting and rules. Developement name is &amp;quot;Ars Tactica&amp;quot;. (I haven't sought out Atlas Games about legal ramifications, deals, or licensing &amp;mdash; not until I have something worthwhile to share!)&lt;br/&gt;
+&lt;br/&gt;
+There isn't much to show off now, but here's a screenshot:&lt;br/&gt;
+&lt;br/&gt;
+&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+&lt;a href=&quot;http://2.bp.blogspot.com/-A6Z4RA27kWk/UjDl4WuVIPI/AAAAAAAAACw/ZF3IJfPd-a8/s1600/at.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img src=&quot;http://2.bp.blogspot.com/-A6Z4RA27kWk/UjDl4WuVIPI/AAAAAAAAACw/ZF3IJfPd-a8/s1600/at.png&quot; border=&quot;0&quot;/&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+The figures are placeholders. They're from photos of painted miniatures, found online. At this point I'm using other people's images, fonts, and game system &amp;mdash; so what am &lt;i&gt;I&lt;/i&gt; doing?&lt;br/&gt;
+&lt;br/&gt;
+I'm writing code, in a language which should be better known: &lt;a href=&quot;http://ocaml.org/&quot; target=&quot;_blank&quot;&gt;OCaml&lt;/a&gt;.&lt;br/&gt;
+&lt;br/&gt;
+OCaml is an unusual choice for games. Almost all games are written in C++; before that it was C, and before that ASM. Now we have games being made in C#, Java, Python, and more... and these are imperative languages. OCaml is an unusual choice because, at heart, it's functional.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;div style=&quot;text-align: left;&quot;&gt;
+&lt;b&gt;&lt;u&gt;
+Rising awareness&lt;/u&gt;&lt;/b&gt;&lt;/div&gt;
+&lt;br/&gt;
+In the past couple of years I've watched the growing interest in functional programming with some elation. Game developers have been making forays into it for a bit longer. Chris Hecker tried OCaml way back around 2005. Tim Sweeney did a presentation: &lt;a href=&quot;http://www.st.cs.uni-saarland.de/edu/seminare/2005/advanced-fp/docs/sweeny.pdf&quot; target=&quot;_blank&quot;&gt;The Next Mainstream Programming Language&lt;/a&gt; (link is to a PDF of the slides). Carmack has addressed the value of functional techniques applied toward games numerous times: &lt;a href=&quot;http://www.altdevblogaday.com/2012/04/26/functional-programming-in-c/&quot; target=&quot;_blank&quot;&gt;Functional Programming in C++&lt;/a&gt; (blog post), &lt;a href=&quot;http://youtu.be/1PhArSujR_A?t=2m07s&quot; target=&quot;_blank&quot;&gt;Portion of 2013 keynote&lt;/a&gt; (youtube). Of course, there's also Naughty Dog with their scripting language being Scheme-like... since Crash Bandicoot?&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;div style=&quot;text-align: left;&quot;&gt;
+&lt;b&gt;&lt;u&gt;
+How do you make a game in a functional language?&lt;/u&gt;&lt;/b&gt;&lt;/div&gt;
+&lt;br/&gt;
+When I was first looking into OCaml (2005), it was beyond my comprehension how a (non-trivial) game could be made. What does functional game code look like!?&lt;br/&gt;
+&lt;br/&gt;
+Functional code favors return-values, rather than changing a variable in-place. However, typical game code looks like a whole bunch of loops, controlled by counters or other changing variables, with the loop bodies mutating data in-place, step by step. Probably easy to imagine if you think of a loop over &amp;quot;all active game pieces&amp;quot;, calling some &lt;i&gt;update&lt;/i&gt; function on each &amp;mdash; which might loop over sub-components, updating those in turn.&lt;br/&gt;
+&lt;br/&gt;
+So how do you even do a loop in functional code without some kind of mutable counter? (Well, a practical language like OCaml does support imperative loops... but I rarely use them.) Recursion works...&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;rec&lt;/span&gt; loop count &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;Include&quot;&gt;Printf&lt;/span&gt;.printf &lt;span class=&quot;String&quot;&gt;&amp;quot;Countdown: %d\n%!&amp;quot;&lt;/span&gt; count&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;Conditional&quot;&gt;if&lt;/span&gt; count &lt;span class=&quot;Operator&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;Conditional&quot;&gt;then&lt;/span&gt; loop &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;count&lt;span class=&quot;Operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;Float&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;Operator&quot;&gt;;;&lt;/span&gt;
+
+  loop &lt;span class=&quot;Float&quot;&gt;10&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+This will loop with a count-down, feeding back the new count each time. If you think this is pretty terrible, I'll agree &amp;mdash; a while or for-loop would be more straight-forward in this trivial example.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+Here's a bit of my current main-loop, showing its overall form:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;rec&lt;/span&gt; mainloop &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;stage&lt;/span&gt; &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;actors&lt;/span&gt; &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;controls&lt;/span&gt; &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;lasttime&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; t &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; time &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; dt &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; min &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;t &lt;span class=&quot;Operator&quot;&gt;-.&lt;/span&gt; lasttime&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; dt_max &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;Comment&quot;&gt;(* ... *)&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; controls' &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Control&lt;/span&gt;.run controls surface dt &lt;span class=&quot;Keyword&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;Comment&quot;&gt;(* ... *)&lt;/span&gt;
+    &lt;span class=&quot;Conditional&quot;&gt;if&lt;/span&gt; run_state &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;StateQuit&lt;/span&gt; &lt;span class=&quot;Conditional&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;Constant&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;Keyword&quot;&gt;else&lt;/span&gt; mainloop &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;stage&lt;/span&gt; &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;actors&lt;/span&gt; &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;controls&lt;/span&gt;:controls' &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;lasttime&lt;/span&gt;:t
+
+
+  mainloop
+    &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;stage&lt;/span&gt;
+    &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;actors&lt;/span&gt;: ordered
+    &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;controls&lt;/span&gt;: &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;Include&quot;&gt;Control&lt;/span&gt;.init &lt;span class=&quot;Type&quot;&gt;[&lt;/span&gt; exit_control&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; time_control&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt; game_control cam_id &lt;span class=&quot;Type&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;Label&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;Identifier&quot;&gt;lasttime&lt;/span&gt;: &lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;.
+&lt;/pre&gt;
+&lt;br/&gt;
+It follows the same structure as the simple recursive countdown: initial value(s), a terminal condition, and feeding-back the changing state.&lt;br/&gt;
+&lt;br/&gt;
+I used labeled parameters here (eg &lt;code&gt;~controls&lt;/code&gt;) to help make it clear what can change from frame-to-frame. Since almost everything can change in a game, the data hiding under &lt;code&gt;stage&lt;/code&gt; (for example) might be quite extensive.&lt;br/&gt;
+&lt;br/&gt;
+Now it might be apparent how functional code looks: rather than updating things in-place, you create new values, (old values are discarded if unused, via garbage-collection). This might seem atrocious from a game-programming perspective: you've already allocated space &amp;mdash; re-use it!&lt;br/&gt;
+&lt;br/&gt;
+Honestly, it took me a while to be able to put aside that concern and just accept the garbage collector. But over time, the continual feedback was a combination of: fewer bugs, more pleasant code with less worry, and the garbage-collector was quiet enough that I rarely notice it. Much like acquiring a taste for a suspicious food, I was hooked once the suspicion was put to rest and the taste turned out to be good.&lt;br/&gt;
+&lt;br/&gt;
+Note that a sufficiently smart compiler could re-use allocations, effectively generating the same code as in-place mutation &amp;mdash; and only in cases where it has deemed this to be safe! I don't know if OCaml does this in any cases, but its garbage collector has been handling my massive per-frame allocations surprisingly well.&lt;br/&gt;
+&lt;br/&gt;
+Returning to looping, most loops aren't explicit like my &lt;code&gt;mainloop&lt;/code&gt;. Instead they are abstracted as a &lt;code&gt;fold&lt;/code&gt;, &lt;code&gt;map&lt;/code&gt;, or &lt;code&gt;iter&lt;/code&gt;. These abstractions are enough to cover most use-cases, but you don't see them in imperative languages because they rely on higher-order functions.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+OCaml has imperative features. You can modify values in-place, and I'll sometimes use global references for changable state until I figure out a better fit:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;  &lt;span class=&quot;Keyword&quot;&gt;let&lt;/span&gt; g_screenwid &lt;span class=&quot;Keyword&quot;&gt;=&lt;/span&gt; ref &lt;span class=&quot;Float&quot;&gt;0&lt;/span&gt;
+  g_screenwid &lt;span class=&quot;Keyword&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;Float&quot;&gt;800&lt;/span&gt;&lt;span class=&quot;Keyword&quot;&gt;;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;br/&gt;
+Arrays are mutable by default, and I use these for image and vertex data. Most of my game logic and data-structures are immutable lists, trees, zips, or queues.&lt;br/&gt;
+&lt;br/&gt;
+I've made another post with some of my take on:&amp;nbsp;&lt;a href=&quot;http://cranialburnout.blogspot.ca/2013/09/avoiding-mutable-state.html&quot; target=&quot;_blank&quot;&gt;What is bad about mutable state?&lt;/a&gt;&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+With most of the code striving for immutability, I get to enjoy easier composition of functions. Some of the most elegant code (I think) ends up piping data. An example from the game is part of the &amp;quot;casting score&amp;quot; calculation:&lt;br/&gt;
+&lt;br/&gt;
+&lt;pre&gt;    &lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;value,botch&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; fast_cast fastcasting
+                  &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; raw_vis pawns
+                  &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Realm&lt;/span&gt;.&lt;span class=&quot;Delimiter&quot;&gt;(&lt;/span&gt;apply_aura aura &lt;span class=&quot;Constant&quot;&gt;Magic&lt;/span&gt;&lt;span class=&quot;Delimiter&quot;&gt;)&lt;/span&gt;
+                  &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;Include&quot;&gt;Modifier&lt;/span&gt;.apply magus score'k
+                  &lt;span class=&quot;Operator&quot;&gt;|&amp;gt;&lt;/span&gt; apply_mastery mastery
+&lt;/pre&gt;
+&lt;br/&gt;
+Here, the computed &lt;code&gt;(value,botch)&lt;/code&gt; pair is further modified by circumstances, passed through other systems, finally returning the result of &lt;code&gt;apply_mastery mastery&lt;/code&gt;. This is a simple case of such piping, in that the type of input and output is the same at each stage (an integer pair). Often there will be a transformative aspect, which works as long as an output type is matched to the input type in each stage.&lt;br/&gt;
+&lt;br/&gt;
+This post may be a bit haphazard and rambling, as I'm not clear who my audience might be... game-developers looking into functional programming, or OCaml programmers looking to make a game? I think I tried to cut a middle-ground. I expect future posts will be much more focused.&lt;br/&gt;
+&lt;br/&gt;&lt;/div&gt;
+</content><id>https://cranialburnout.blogspot.com/2013/09/programming-game-in-ocaml.html</id><title type="text">Programming a Game in OCaml</title><updated>2013-09-12T01:02:00-00:00</updated><author><name>Tony Tavener</name></author></entry></feed>

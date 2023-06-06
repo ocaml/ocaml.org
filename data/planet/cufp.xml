@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://cufp.org/blog/all.rss.xml</id><title type="text">cufp</title><updated>2023-06-05T05:45:59-00:00</updated><entry><link href="http://cufp.org/blog/2015-02-13_call-for-presentations.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;CUFP 2015 will be held in Vancouver, Canada. It is co-located with &lt;a href=&quot;http://icfpconference.org/icfp2015/&quot;&gt;ICFP 2015&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The call for presentations is available &lt;a href=&quot;http://cufp.org/2015/call-for-presentations.html&quot;&gt;here&lt;/a&gt;. Submissions are due by June 14.&lt;/p&gt;
+&lt;p&gt;This year's program committee is:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Edward Kmett (McGraw Hill Financial), co-chair&lt;/li&gt;&lt;li&gt;Katie Miller (Facebook), co-chair&lt;/li&gt;&lt;li&gt;Michael Fogus (Cognitect)&lt;/li&gt;&lt;li&gt;Rein Henrichs (PivotMail)&lt;/li&gt;&lt;li&gt;Jessica Kerr (Outpace Systems)&lt;/li&gt;&lt;li&gt;Tony Morris (NICTA)&lt;/li&gt;&lt;li&gt;Max Swadling&lt;/li&gt;&lt;/ul&gt;
+
+&lt;p&gt;This year's tutorials are organized by:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Thomas Arts (Quviq AB)&lt;/li&gt;&lt;li&gt;Roman Gonzalez (Unbounce)&lt;/li&gt;&lt;/ul&gt;
+
+&lt;p&gt;We look forward to hearing from you.&lt;/p&gt;
+</content><id>http://cufp.org/blog/2015-02-13_call-for-presentations.html</id><title type="text">CUFP 2015 Call for Presentations</title><updated>2015-02-13T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2014-05-12_call_for_tutorials.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;Do you have what it takes to give a CUFP tutorial? If so, we want to
+hear from you. Beginner and advanced subjects alike covering areas
+which might interest commercial users of functional programming. We
+are seeking proposals for half-day tutorials to be presented during
+the first two days of the meeting, 4 and 5 September. Submission
+deadline is May 30th, but the earlier you submit, the better! The 2014
+call for tutorials is available at
+&lt;a href=&quot;http://cufp.org/2014/call-for-tutorials.html&quot;&gt;http://cufp.org/2014/call-for-tutorials.html&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We look forward to hearing from you!&lt;/p&gt;
+</content><id>http://cufp.org/blog/2014-05-12_call_for_tutorials.html</id><title type="text">CUFP 2014 Call for Tutorials</title><updated>2014-05-12T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2014-04-20_call-for-presentations.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;CUFP 2014 will be held in Gothenburg, Sweden. It is co-located with
+ICFP 2014.&lt;/p&gt;
+&lt;p&gt;The call for presentations is available
+&lt;a href=&quot;http://cufp.org/2014/call-for-presentations.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This year's program committee is:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Edward Kmett (McGraw Hill Financial), co-chair&lt;/li&gt;&lt;li&gt;Marius Eriksen (Twitter, Inc), co-chair&lt;/li&gt;&lt;li&gt;Ozgun Ataman (Soostone, Inc.)&lt;/li&gt;&lt;li&gt;Tim Chevalier (AlephCloud)&lt;/li&gt;&lt;li&gt;Derek Elkins (Now Business Intelligence)&lt;/li&gt;&lt;li&gt;Matthew Might (University of Utah)&lt;/li&gt;&lt;li&gt;Richard Minerich (Bayard Rock)&lt;/li&gt;&lt;li&gt;Audrey Tang (Apple, Inc.)&lt;/li&gt;&lt;li&gt;Jason Zaugg (Typesafe)&lt;/li&gt;&lt;/ul&gt;
+
+&lt;p&gt;This year's tutorials are organized by:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Francesco Cesarini (Erlang Solutions)&lt;/li&gt;&lt;li&gt;Thomas Arts, Quviq AB&lt;/li&gt;&lt;/ul&gt;</content><id>http://cufp.org/blog/2014-04-20_call-for-presentations.html</id><title type="text">CUFP 2014 Call for Presentations</title><updated>2014-04-20T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2013-07-03_cufp-2013-registration-information.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;The ICFP conference registration process has opened, and we've posted
+detailed information on how to register for CUFP
+&lt;a href=&quot;http://cufp.org/2013/registration.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</content><id>http://cufp.org/blog/2013-07-03_cufp-2013-registration-information.html</id><title type="text">CUFP 2013 Registration</title><updated>2013-07-03T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2013-07-03_villalobos-villalobos-profile.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html"></content><id>http://cufp.org/blog/2013-07-03_villalobos-villalobos-profile.html</id><title type="text">CUFP 2013 Registration Information</title><updated>2013-07-03T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2013-03-06_bradford-bradford-profile.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html"></content><id>http://cufp.org/blog/2013-03-06_bradford-bradford-profile.html</id><title type="text">CUFP 2013 Call for Tutorials</title><updated>2013-03-06T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2013-03-04_thurston-thurston-profile.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html"></content><id>http://cufp.org/blog/2013-03-04_thurston-thurston-profile.html</id><title type="text">CUFP 2013 Call for Presentations</title><updated>2013-03-04T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2012-09-17_cufp-2012-videos-now-available.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;CUFP 2012 was a very successful and fun gathering in Copenhagen this year, with impeccable local arrangements (and the best conference lunches ever, by wide acclaim!).&lt;/p&gt;
+&lt;p&gt;All of the talk videos are now &lt;a href=&quot;http://cufp.org/2012/&quot;&gt;available online for
+free&lt;/a&gt; in our video section, including the
+&lt;a href=&quot;http://cufp.org/2012/keynote-kresten-krab-thorup-cto-trifork-adopting-f.html&quot;&gt;keynote&lt;/a&gt;
+by Kresten Thorup from Trifork. This year had an interesting emphasis
+on &lt;a href=&quot;http://cufp.org/videos/keyword/2270.html&quot;&gt;biological computing&lt;/a&gt;
+and &lt;a href=&quot;http://cufp.org/videos/keyword/2273.html&quot;&gt;critical
+infrastructure&lt;/a&gt; from a
+variety of companies and universities, showing off the impact of
+functional programming on very important areas of
+society. Additionally, we welcomed back some old faces from the early
+days of CUFP to give us updates on the progress of functional
+programming in established organisations such as &lt;a href=&quot;http://cufp.org/2012/yaron-minsky-jane-street-jane-street-status-report.html&quot;&gt;Jane Street
+Capital&lt;/a&gt;
+and
+&lt;a href=&quot;http://cufp.org/2012/matthias-gorgens-citrix-haskell-xenclient.html&quot;&gt;Citrix&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Thanks to all the speakers and attendees for making this year such a success, and see you in Boston in 2013!&lt;/p&gt;
+&lt;p&gt;Michael Sperber and Anil Madhavapeddy&lt;/p&gt;
+</content><id>http://cufp.org/blog/2012-09-17_cufp-2012-videos-now-available.html</id><title type="text">CUFP 2012 Videos now available</title><updated>2012-09-17T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2012-08-29_icfpcufp-2012-industrial-reception-thursday-sep-13-630pm.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;ICFP/CUFP will host an industrial reception on Thursday, September 13
+at 6:30PM that will be open to all registrants of an ICFP-affiliated
+event on Thursday, Friday, or Saturday.  (I.e. if you're registered
+for any CUFP event, you're good to go.)  It will happen at &lt;a href=&quot;http://www.bojesen.dk/BOJESEN-AT-AXELBORG.95.aspx&quot;&gt;Bojesen,
+Axelborg&lt;/a&gt;, Vesterbrogade 4A, DK-1620 K&amp;oslash;benhavn V.&lt;/p&gt;
+&lt;p&gt;Thanks to our generous sponsors, there'll be snacks and drinks on the
+premises!&lt;/p&gt;
+&lt;p&gt;This reception will have two purposes:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;&lt;p&gt;Companies that are hiring can connect with ICFP/CUFP attendees looking
+ for a job.&lt;/p&gt;
+&lt;/li&gt;&lt;li&gt;&lt;p&gt;Companies offering FP services (such as training or development) can
+ advertise them.&lt;/p&gt;
+&lt;/li&gt;&lt;/ul&gt;
+
+&lt;p&gt;If you represent a company that wants to do one of those two things,
+please send Mike Sperber (sperber(at)deinprogramm(dot)de) and Anil Madhavapeddy
+(avsm2(at)cl(dot)cam(dot)ac(dot)uk) a short e-mail saying so.  If you're a sponsor of
+ICFP, we'd appreciate if you could remind us in that e-mail, too.&lt;/p&gt;
+&lt;p&gt;There will be up to 20 posterboards (approx. 900 mm wide and 1800
+mm high, dark blue cloth, usable on both sides) available for
+displaying posters of size up to A1 (any orientation) or A0 (only
+portrait orientation).  If you're a sponsor, you'll be able to reserve
+one of those.  Also, if you're not a sponsor but would like to put up
+a poster, please let me know ASAP, as we'll hand out the slots on a
+first-come first-serve basis.&lt;/p&gt;
+&lt;p&gt;We'll also do a short round of introductions with 1-3 sentences each.
+If you represent a gold or platinum sponsor, you'll get the
+opportunity to say more.  Again, we'd appreciate if you remind us of
+that fact so we can do a reasonable job of MCing the event.&lt;/p&gt;
+&lt;p&gt;See you in Copenhagen!&lt;/p&gt;
+</content><id>http://cufp.org/blog/2012-08-29_icfpcufp-2012-industrial-reception-thursday-sep-13-630pm.html</id><title type="text">ICFP/CUFP 2012 industrial reception on Thursday, Sep 13, 6:30PM</title><updated>2012-08-29T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2012-08-16_f-and-scala-tutorials-available-lower-registration-costs.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;Due to the generosity of our sponsors, we can now open
+the &lt;a href=&quot;http://cufp.org/2012/functional-concepts-real-world-f-tomas-petricek-un.html&quot;&gt;F#&lt;/a&gt; and &lt;a href=&quot;http://cufp.org/2012/scala-primer-heiko-seeberger-typesafe.html&quot;&gt;Scala&lt;/a&gt; tutorials up to day passes at a greatly reduced rate!&lt;/p&gt;
+&lt;p&gt;Registration fees are at $200 for SIGPLAN members, $250 for non-members, and $150 for students.&lt;/p&gt;
+&lt;p&gt;Check the &lt;a href=&quot;http://cufp.org/2012/registration.html&quot;&gt;registration info page&lt;/a&gt; for details!&lt;/p&gt;
+</content><id>http://cufp.org/blog/2012-08-16_f-and-scala-tutorials-available-lower-registration-costs.html</id><title type="text">F# and Scala tutorials available at lower registration costs!</title><updated>2012-08-16T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2012-07-22_final-cufp-2012-schedule-available.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;The final schedule for CUFP is available &lt;a href=&quot;http://cufp.org/2012/index.html#Day1ThuSep13thTutorials&quot;&gt;here&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;Full abstracts for all presentations will be available soon!&lt;/p&gt;
+</content><id>http://cufp.org/blog/2012-07-22_final-cufp-2012-schedule-available.html</id><title type="text">Final CUFP 2012 Schedule Available!</title><updated>2012-07-22T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2012-07-17_preliminary-program-cufp-2012-talks-available.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;The final program for CUFP 2012 Talks on September 15 is now available &lt;a href=&quot;http://cufp.org/2012/index.html#Day3SatSep15thTalks&quot;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</content><id>http://cufp.org/blog/2012-07-17_preliminary-program-cufp-2012-talks-available.html</id><title type="text">Preliminary Program for CUFP 2012 Talks available!</title><updated>2012-07-17T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2012-07-11_cufp-2012-tutorial-schedule-registration-now.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;Work an assembling an exciting CUFP program is progressing!&lt;/p&gt;
+&lt;p&gt;We'll have a stellar set of tutorials from world-renowned experts in
+functional programming. New this year are three extended introductory
+tutorials for attendees (relatively) new to functional programming:
+Check out the intro tutorials on
+&lt;a href=&quot;http://cufp.org/2012/introductory-haskell-concurrent-haskell-jeremy-gib-day1.html&quot;&gt;Haskell&lt;/a&gt;,
+&lt;a href=&quot;http://cufp.org/2012/functional-concepts-real-world-f-tomas-petricek-un.html&quot;&gt;F#&lt;/a&gt;,
+and
+&lt;a href=&quot;http://cufp.org/2012/scala-primer-heiko-seeberger-typesafe.html&quot;&gt;Scala&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here is the complete &lt;a href=&quot;http://cufp.org/2012/index.html#Day1ThuSep13thTutorials&quot;&gt;tutorial schedule&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Registration is also open - before doing that, be sure to check out &lt;a href=&quot;http://cufp.org/2012/registration.html&quot;&gt;this page&lt;/a&gt;.&lt;/p&gt;
+</content><id>http://cufp.org/blog/2012-07-11_cufp-2012-tutorial-schedule-registration-now.html</id><title type="text">CUFP 2012 Tutorial Schedule &amp; Registration is now up!</title><updated>2012-07-11T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2012-03-27_cufp-2011-videos-and-scribe-report-now-available.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;After a very successful CUFP 2011 in Tokyo, the videos are now available &lt;a href=&quot;http://cufp.org/2011/&quot;&gt;online&lt;/a&gt;. Thanks to Marius Eriksen's excellent scribe notes, we have also published a &lt;a href=&quot;http://journals.cambridge.org/repo_A85vaWut&quot;&gt;formal report&lt;/a&gt; summarising the event in the Journal of Functional Programming.&lt;/p&gt;
+&lt;p&gt;CUFP 2012 will be held in &lt;a href=&quot;http://cufp.org/2012/&quot;&gt;Denmark&lt;/a&gt;, and the &lt;a href=&quot;http://cufp.org/2012/call-presentations.html&quot;&gt;Call for Presentations&lt;/a&gt; is still open until the 29th June!&lt;/p&gt;
+&lt;p&gt;Anil Madhavapeddy, Yaron Minsky&lt;/p&gt;
+</content><id>http://cufp.org/blog/2012-03-27_cufp-2011-videos-and-scribe-report-now-available.html</id><title type="text">CUFP 2011 videos and scribe report now available</title><updated>2012-03-27T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2012-02-19_cufp-2012-call-presentations-out.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;The &lt;a href=&quot;http://cufp.org/2012/call-presentations.html&quot;&gt;Call for Presentations&lt;/a&gt; for &lt;a href=&quot;http://cufp.org/2012/&quot;&gt;CUFP
+2012&lt;/a&gt; is out - please &lt;a href=&quot;http://cufp.org/2012/call-presentations.html&quot;&gt;submit a
+proposal&lt;/a&gt;!&lt;/p&gt;
+</content><id>http://cufp.org/blog/2012-02-19_cufp-2012-call-presentations-out.html</id><title type="text">CUFP 2012 Call for Presentations is out!</title><updated>2012-02-19T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2012-01-23_cufp-2012-way.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;The date for CUFP 2012 is now set: It will happen September 13-15, and be co-located with &lt;a href=&quot;http://icfpconference.org/icfp2012/&quot;&gt;ICFP 2012&lt;/a&gt; in Copenhagen, Denmark.&lt;/p&gt;
+&lt;p&gt;Mike Sperber and Anil Madhavapeddy will co-chair the conference; Duncan Coutts and &lt;a href=&quot;http://www.cs.kent.ac.uk/people/staff/sjt/&quot;&gt;Simon Thompson&lt;/a&gt; will organize the tutorials.&lt;/p&gt;
+&lt;p&gt;We're busy putting together a program committee. Expect more news in the near future!&lt;/p&gt;
+</content><id>http://cufp.org/blog/2012-01-23_cufp-2012-way.html</id><title type="text">CUFP 2012 is on the way</title><updated>2012-01-23T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2011-09-13_propose-bof.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;CUFP will again be having Bird-of-a-Feather sessions to discuss a variety of FP topics.  Last year's BOFs were a lot of fun, with topics ranging from meta-programming to packaging systems.&lt;/p&gt;
+&lt;p&gt;But we need you to help!  The BOFs only happen if people propose them.  Click &lt;a href=&quot;http://cufp.org/2011/bofs.html&quot;&gt;here&lt;/a&gt; to learn more about the BOFs and to find out how to propose a topic.&lt;/p&gt;
+</content><id>http://cufp.org/blog/2011-09-13_propose-bof.html</id><title type="text">Propose a BOF!</title><updated>2011-09-13T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2011-07-28_cufp-2011-call-participation-0.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;The &lt;a href=&quot;http://cufp.org/2011/call-participation.html&quot;&gt;Call for Participation&lt;/a&gt; is out!
+You can read it to see what talks are planned, or see a more detailed
+breakdown of the schedule &lt;a href=&quot;http://cufp.org/2011/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We hope to see you at the conference! Register now at the &lt;a href=&quot;https://regmaster3.com/2011conf/ICFP11/register.php&quot;&gt;ICFP
+registration
+site&lt;/a&gt;.&lt;/p&gt;
+</content><id>http://cufp.org/blog/2011-07-28_cufp-2011-call-participation-0.html</id><title type="text">CUFP 2011 Call for Participation</title><updated>2011-07-28T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2011-03-22_cufp-2011-call-proposals.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;The &lt;a href=&quot;http://cufp.org/2011/call-presentations.html&quot;&gt;call for proposals&lt;/a&gt; for CUFP 2011
+is now available. If you are using functional programming to solve
+real-world problems and wish to discuss your experiences or
+techniques, then consider submitting a talk proposal by June 15th
+2011. CUFP is co-located with the ACM
+&lt;a href=&quot;http://www.icfpconference.org/icfp2011/&quot;&gt;ICFP&lt;/a&gt; conference in Tokyo in
+September, the first time that the event is being held in Asia.&lt;/p&gt;
+&lt;p&gt;More information available in the
+&lt;a href=&quot;http://cufp.org/2011/call-presentations.html&quot;&gt;CFP&lt;/a&gt;, and we look forward to hearing
+from you!&lt;/p&gt;
+</content><id>http://cufp.org/blog/2011-03-22_cufp-2011-call-proposals.html</id><title type="text">CUFP 2011 Call for Proposals</title><updated>2011-03-22T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2011-01-10_cufp-2010-videos-now-available-online.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;The videos of the CUFP 2010 talks are now available for viewing online for free, and cover solving real-world problems by programming in F#, Scala, Clojure, OCaml, SML, Haskell and custom domain-specific languages.  Enjoy!&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://cufp.org/2010/keynote-f-embracing-functional-programming-visual-.html&quot;&gt;F#: Embracing Functional Programming in Visual Studio 2010&lt;/a&gt;&lt;/strong&gt; by &lt;a href=&quot;http://blogs.msdn.com/b/lukeh/&quot;&gt;Luke Hoban&lt;/a&gt; from &lt;a href=&quot;http://www.microsoft.com/&quot;&gt;Microsoft&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://cufp.org/2010/scaling-scala-twitter.html&quot;&gt;Scaling Scala at Twitter&lt;/a&gt;&lt;/strong&gt; by &lt;a href=&quot;http://monkey.org/~marius/&quot;&gt;Marius Eriksen&lt;/a&gt; from &lt;a href=&quot;http://twitter.com&quot;&gt;Twitter&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://cufp.org/2010/cryptol-dsl-cryptographic-algorithms.html&quot;&gt;Cryptol, a DSL for Cryptographic Algorithms&lt;/a&gt;&lt;/strong&gt; by Sally Browning from &lt;a href=&quot;http://www.galois.com&quot;&gt;Galois&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://cufp.org/2010/naivete-vs-experience-or-how-we-thought-we-could-u.html&quot;&gt;Na&amp;iuml;vet&amp;eacute; vs. Experience &amp;ndash; or, How We Thought We Could Use Scala and Clojure and How We Actually Did&lt;/a&gt;&lt;/strong&gt; by &lt;a href=&quot;http://blog.fogus.me/&quot;&gt;Michael Fogus&lt;/a&gt; from &lt;a href=&quot;http://www.saic.com&quot;&gt;SAIC&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://cufp.org/2010/functional-language-compiler-experiences-intel.html&quot;&gt;Functional Language Compiler Experiences&lt;/a&gt;&lt;/strong&gt; by Neal Glew at &lt;a href=&quot;http://www.intel.com&quot;&gt;Intel&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://cufp.org/2010/functional-programming-freebase.html&quot;&gt;Functional Programming at Freebase&lt;/a&gt;&lt;/strong&gt; by Warren Harris from Metaweb (now part of &lt;a href=&quot;http://www.google.com&quot;&gt;Google&lt;/a&gt;)&lt;/p&gt;
+&lt;/li&gt;&lt;/ul&gt;</content><id>http://cufp.org/blog/2011-01-10_cufp-2010-videos-now-available-online.html</id><title type="text">CUFP 2010 Videos now available online</title><updated>2011-01-10T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2010-08-25_erlangcamp-date-and-venue-announced.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;The Chicago 2010 ErlangCamp workshop will be held on October 23rd and 24th at the dowtown Loyola campus.  More information available on &lt;a href=&quot;http://erlangcamp.com&quot;&gt;erlangcamp.com&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://erlangcamp.com/&quot;&gt;&lt;img src=&quot;http://erlangcamp.com/image/lib/images/logo.gif()(807B97A50ABED83D97F1CE567BA97922).gif&quot; alt=&quot;ErlangCamp logo&quot;/&gt;&lt;/a&gt;&lt;/p&gt;
+</content><id>http://cufp.org/blog/2010-08-25_erlangcamp-date-and-venue-announced.html</id><title type="text">ErlangCamp Date and Venue Announced</title><updated>2010-08-25T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2010-08-03_registration-now-available.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;You can register for CUFP 2010 &lt;a href=&quot;https://regmaster3.com/2010conf/ICFP10/register.php&quot;&gt;here&lt;/a&gt; using ICFP's registration system.  Register by Aug. 30th to get the reduced rates.  The final registration deadline is Sep. 22nd.&lt;/p&gt;
+</content><id>http://cufp.org/blog/2010-08-03_registration-now-available.html</id><title type="text">Registration is now available</title><updated>2010-08-03T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2010-07-30_cufp-talks-are.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;The CUFP schedule is now complete!  Go &lt;a href=&quot;http://cufp.org/2010/&quot;&gt;here&lt;/a&gt; for a complete schedule, including both the talks and the tutorials.  You can also see the abstracts for the talks as well.&lt;/p&gt;
+&lt;p&gt;We had a really impressive set of submissions this year, and we had some very tough choices to make.  We definitely rejected talks that I would love to hear.  We're very proud of the list of talks we ended up with, and we're looking forward to a great workshop in October!&lt;/p&gt;
+</content><id>http://cufp.org/blog/2010-07-30_cufp-talks-are.html</id><title type="text">CUFP Talks are up</title><updated>2010-07-30T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2010-07-12_cufp-2010-tutorials-schedule.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;The schedule for the CUFP 2010 Tutorials on Friday, Oct. 1, is now &lt;a href=&quot;http://cufp.org/2010/index.html#Day1FridayOct1stTutorialsandBoFs&quot;&gt;online&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;There will be six specifically selected exciting hands-on tutorials on topics of
+interest to professional software developers.  The day features two
+sessions with three concurrent tutorials each:&lt;/p&gt;
+&lt;h4&gt;Morning session&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://cufp.org/2010/clojure-tutorial.html&quot;&gt;Clojure Tutorial (Aaron Bedra)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://cufp.org/2010/building-robust-servers-erlang.html&quot;&gt;Building robust servers with Erlang (Martin Logan)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://cufp.org/2010/high-performance-haskell.html&quot;&gt;High-Performance Haskell (Johan Tibell)&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+
+&lt;h4&gt;Afternoon session&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://cufp.org/2010/f-20-day-beach.html&quot;&gt;F# 2.0 - A day at the beach (Rick Minerich)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://cufp.org/2010/implementing-web-sites-scala-and-lift.html&quot;&gt;Implementing web sites with Scala and Lift (David Pollak)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://cufp.org/2010/camlp4-and-template-haskell.html&quot;&gt;Camlp4 and Template Haskell (Nicolas Pouillard, Jake Donham)&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+
+&lt;p&gt;See you in Baltimore!&lt;/p&gt;
+</content><id>http://cufp.org/blog/2010-07-12_cufp-2010-tutorials-schedule.html</id><title type="text">CUFP 2010 Tutorials schedule is up</title><updated>2010-07-12T00:00:00-00:00</updated><author><name>cufp</name></author></entry><entry><link href="http://cufp.org/blog/2010-02-27_call-presentations.html" rel="alternate"/><contributor><uri>http://cufp.org/blog/all.rss.xml</uri><name>cufp</name></contributor><content type="html">
+
+&lt;p&gt;The call for presentations for CUFP Talks is out! CUFP Talks is a
+great venue for sharing experiences in using functional programming in
+the real-world applications. If you're interested in giving a talk, or
+know someone who you think would be a good speaker, then check out the
+call &lt;a href=&quot;http://cufp.org/2010/call-presentations.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</content><id>http://cufp.org/blog/2010-02-27_call-presentations.html</id><title type="text">Call for Presentations</title><updated>2010-02-27T00:00:00-00:00</updated><author><name>cufp</name></author></entry></feed>

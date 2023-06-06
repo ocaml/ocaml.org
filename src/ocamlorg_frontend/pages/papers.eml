@@ -1,4 +1,4 @@
-let render ?(search = "") ~(recommended_papers : Ood.Paper.t list) (papers : Ood.Paper.t list) =
+let render ?(search = "") ~(recommended_papers : Data.Paper.t list) (papers : Data.Paper.t list) =
 Layout.render
 ~title:"OCaml Papers"
 ~description:"A selection of papers grouped by popular categories."
@@ -22,7 +22,7 @@ Layout.render
                 <h2 class="font-bold text-primary-600 mb-16">Recommended Papers</h2>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                <% recommended_papers |> List.iter (fun (paper : Ood.Paper.t) -> %>
+                <% recommended_papers |> List.iter (fun (paper : Data.Paper.t) -> %>
                     <a href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 p-6 pb-4 border border-gray-200 rounded-xl bg-white card-hover">
                         <div class="font-semibold text-base mb-3">
                             <%s paper.title %>
@@ -53,12 +53,13 @@ Layout.render
             <div class="flex justify-between items-center flex-col md:flex-row">
                 <% let paper_num = match List.length papers with 0 -> "No Paper" | 1 -> "1 Paper" | l -> Printf.sprintf "%i Papers" l in %>
                 <h5 class="font-bold mb-5 md:mb-0"><%s paper_num %></h5>
-                <form action="<%s Url.papers %>" method="GET" class="form-input">
-                    <div class="form-input__icon">
-                        <%s! Icons.magnifying_glass "h-5 w-5 text-body-400" %>
-                    </div>
-                    <label for="q" class="sr-only">Papers</label>
-                    <input class="focus:ring-orange-500" id="q" name="q" type="search" placeholder="Search for a paper" value="<%s search %>">
+                <form action="<%s Url.papers %>" method="GET">
+                    <%s! Forms.search_input
+                        ~name:"q"
+                        ~label:"Search for a paper"
+                        ~button_attrs:{|type="submit"|}
+                        ""
+                        %>
                 </form>
             </div>
             <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">
@@ -81,7 +82,7 @@ Layout.render
                         </tr>
                     </thead>
                     <tbody>
-                        <% papers |> List.iter (fun (paper : Ood.Paper.t) -> %>
+                        <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
                             <tr>
                                 <td class="py-4 px-6 font-semibold">
                                     <div class="font-semibold">
@@ -108,7 +109,7 @@ Layout.render
                                     <%s String.concat ", " paper.authors %>
                                 </td>
                                 <td class="py-4 px-6 align-top">
-                                    <% paper.links |> List.iter (fun (link : Ood.Paper.link) -> %>
+                                    <% paper.links |> List.iter (fun (link : Data.Paper.link) -> %>
                                         <a href="<%s link.uri %>" class="text-primary-600 font-medium block whitespace-nowrap">
                                             <%s link.description %>
                                         </a>

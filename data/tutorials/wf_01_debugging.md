@@ -9,7 +9,7 @@ date: 2021-05-27T21:07:30-00:00
 
 # Debugging
 
-This tutorial presents three techniques for debugging OCaml programs:
+This tutorial presents four techniques for debugging OCaml programs:
 
 * [Tracing functions calls](#tracing-functions-calls-in-the-toplevel),
   which work in the interactive toplevel.
@@ -18,6 +18,7 @@ This tutorial presents three techniques for debugging OCaml programs:
 * [How to get a back trace for an uncaught
   exception](#printing-a-back-trace-for-an-uncaught-exception) in an
   OCaml program
+* [Using Thread Sanitizer to detect a data race](#detecting-a-data-race-with-thread-sanitizer) in an OCaml 5 program
 
 
 ## Tracing Functions Calls in the Toplevel
@@ -391,4 +392,142 @@ Fatal error: exception Not_found
 Raised at Stdlib__List.assoc in file "list.ml", line 191, characters 10-25
 Called from Dune__exe__Uncaught.find_address in file "uncaught.ml" (inlined), line 3, characters 24-42
 Called from Dune__exe__Uncaught in file "uncaught.ml", line 8, characters 15-37
+```
+
+
+## Detecting a Data Race with Thread Sanitizer
+
+With the introduction of Multicore parallelism in OCaml 5, comes the
+risk of introducing data races among the involved `Domain`s. Luckily
+the Thread Sanitizer (TSan) mode for OCaml is helpful to catch and
+report these.
+
+### Installing a TSan Switch
+
+To install the TSan mode
+1. Install the [`libunwind`](https://github.com/libunwind/libunwind)
+   dependency. On macOS `libunwind` should already be installed by default.
+   On a Linux system with the `apt` package manager, installing
+   `libunwind` should be as simple as `sudo apt install libunwind-dev`.
+2. Create a TSan switch by running `opam switch create 5.0.0+tsan`.
+
+To confirm that the TSan switch is installed correctly, run `opam
+switch show` and confirm that it prints `5.0.0+tsan`.
+
+Note: TSan is only supported on x86-64 architectures for now.
+
+### Detecting a Data Race
+
+Now consider the following OCaml program written in the file `race.ml`:
+
+```ocaml
+(* file race.ml *)
+type t = { mutable x : int }
+
+let v = { x = 0 }
+
+let () =
+  let t1 = Domain.spawn (fun () -> v.x <- 10; Unix.sleep 1) in
+  let t2 = Domain.spawn (fun () -> v.x <- 11; Unix.sleep 1) in
+  Domain.join t1;
+  Domain.join t2;
+  Printf.printf "v.x is %i\n" v.x
+```
+
+It builds a record `v` with a mutable field `x` initialized to `0`.
+Next, it spawns two parallel `Domain`s `t1` and `t2` that both update
+the field `v.x`.
+
+Here is a corresponding `dune` file:
+```dune
+(executable
+ (name race)
+ (modules race)
+ (libraries unix))
+```
+
+If we compile and run the program using `dune` under a regular `5.0.0` switch the
+program appears to work:
+```
+$ dune build ./race.exe
+$ dune exec ./race.exe
+v.x is 11
+```
+
+However, if we compile and run the program with Dune from the new
+`5.0.0+tsan` switch TSan warns us of a data race:
+```
+$ opam switch 5.0.0+tsan
+$ dune build ./race.exe
+$ dune exec ./race.exe
+==================
+WARNING: ThreadSanitizer: data race (pid=19414)
+  Write of size 8 at 0x7fb9d72fe498 by thread T4 (mutexes: write M87):
+    #0 camlDune__exe__Race__fun_560 /home/user/race/_build/default/race.ml:6 (race.exe+0x60c65)
+    #1 camlStdlib__Domain__body_696 /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/stdlib/domain.ml:202 (race.exe+0x9c38c)
+    #2 caml_start_program <null> (race.exe+0x110117)
+    #3 caml_callback_exn runtime/callback.c:168 (race.exe+0xe00fe)
+    #4 caml_callback runtime/callback.c:256 (race.exe+0xe0bb8)
+    #5 domain_thread_func runtime/domain.c:1093 (race.exe+0xe3e83)
+
+  Previous write of size 8 at 0x7fb9d72fe498 by thread T1 (mutexes: write M83):
+    #0 camlDune__exe__Race__fun_556 /home/user/race/_build/default/race.ml:5 (race.exe+0x60c05)
+    #1 camlStdlib__Domain__body_696 /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/stdlib/domain.ml:202 (race.exe+0x9c38c)
+    #2 caml_start_program <null> (race.exe+0x110117)
+    #3 caml_callback_exn runtime/callback.c:168 (race.exe+0xe00fe)
+    #4 caml_callback runtime/callback.c:256 (race.exe+0xe0bb8)
+    #5 domain_thread_func runtime/domain.c:1093 (race.exe+0xe3e83)
+
+  Mutex M87 (0x560c0b4fc438) created at:
+    #0 pthread_mutex_init ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1295 (libtsan.so.2+0x50468)
+    #1 caml_plat_mutex_init runtime/platform.c:54 (race.exe+0x1022f8)
+  [...]
+
+SUMMARY: ThreadSanitizer: data race (/tmp/race/race.exe+0x4efb15) in camlRace__fun_560
+==================
+v.x is 11
+ThreadSanitizer: reported 1 warnings
+```
+
+Note that since TSan instrumentation operates in a separate switch;
+this required no change to our `dune` file.
+
+The TSan report warns of a data race between two uncoordinated writes
+happening in parallel and prints a back trace for both:
+- The first back trace reports a write at `race.ml` in line
+  6 of `thread T4` and
+- the second back trace reports a previous write at
+  `race.ml` in line 5 of `thread T1`
+
+Looking again at our program, we realize that these two writes are in
+fact not coordinated. One possible fix is to replace our mutable
+record field with an `Atomic` that guarantees each such write to
+happen fully, one after the other:
+
+```ocaml
+(* file race.ml *)
+let v = Atomic.make 0
+
+let () =
+  let t1 = Domain.spawn (fun () -> Atomic.set v 10; Unix.sleep 1) in
+  let t2 = Domain.spawn (fun () -> Atomic.set v 11; Unix.sleep 1) in
+  Domain.join t1;
+  Domain.join t2;
+  Printf.printf "v is %i\n" (Atomic.get v)
+```
+
+If we recompile and run our program with this change, it now completes
+without TSan warnings:
+```
+$ dune build ./race.exe
+$ dune exec ./race.exe
+v is 11
+```
+
+The TSan instrumentation benefits from compiling programs with debug
+information, which happens by default under `dune`. To manually invoke
+the `ocamlopt` compiler under our `5.0.0+tsan` switch it is thus
+suffient to pass it the `-g` flag:
+```
+$ ocamlopt -g -o race.exe -I +unix unix.cmxa race.ml
 ```

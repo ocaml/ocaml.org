@@ -1,0 +1,124 @@
+#in-package-search-results ol {
+  @apply m-0 p-0 list-none text-sm;
+}
+
+#in-package-search-results li {
+  @apply m-0 p-0 border-b;
+}
+
+#in-package-search-results br {
+  @apply hidden;
+}
+
+#in-package-search-results .search-entry {
+  @apply px-4 py-1 font-normal text-body-600 flex flex-col;
+  --entry-color: gray;
+}
+
+#in-package-search-results li:first-child .search-entry {
+  @apply pt-2;
+}
+
+#in-package-search-results li:last-child .search-entry {
+  @apply pb-2;
+}
+
+#in-package-search-results .search-entry:hover {
+  text-decoration: none;
+  background: #f4f4f4;
+}
+
+/*
+@media (min-width: 64em) {
+  #in-package-search-results .search-entry {
+    @apply flex-row;
+  }
+
+  #in-package-search-results .search-entry .entry-title {
+    @apply shrink-0 w-1/2;
+  }
+}
+*/
+
+#in-package-search-results .search-entry .entry-kind {
+  @apply py-0.5 px-1 bg-body-600 text-white rounded mr-2 text-sm;
+}
+
+#in-package-search-results .search-entry .entry-kind {
+    background: var(--entry-color);
+}
+
+#in-package-search-results .search-entry.mod {
+  --entry-color: rgb(204, 78, 12);
+}
+
+#in-package-search-results .search-entry.mty {
+  --entry-color: #027491;
+}
+
+#in-package-search-results .search-entry.mtd {
+  --entry-color: #327d8e;
+}
+
+#in-package-search-results .search-entry.typ {
+  --entry-color: rgb(42, 84, 183);
+}
+
+#in-package-search-results .search-entry.val {
+  --entry-color: green;
+}
+
+#in-package-search-results .search-entry.par {
+  --entry-color: green;
+}
+
+#in-package-search-results .search-entry.cls {
+  --entry-color: rgb(163, 34, 34);
+}
+
+#in-package-search-results .search-entry.cty {
+  --entry-color: rgb(32, 68, 165);
+}
+
+#in-package-search-results .search-entry.exc {
+  --entry-color: #370c62;
+}
+
+#in-package-search-results .search-entry.man {
+  --entry-color: #47424b;
+}
+
+#in-package-search-results .search-entry .entry-title {
+  overflow-wrap: anywhere;
+}
+
+#in-package-search-results .search-entry .entry-name {
+  @apply font-bold;
+  color: var(--entry-color);
+}
+
+#in-package-search-results .search-entry .prefix-name {
+  @apply font-semibold;
+}
+
+#in-package-search-results .entry-comment {
+  @apply overflow-hidden text-ellipsis max-h-[10rem];
+}
+
+@media (min-width: 40em) {
+  #in-package-search-results .search-entry:not(.active):not(.open) .entry-comment {
+    @apply whitespace-nowrap;
+  }
+}
+
+#in-package-search-results .active {
+  @apply bg-primary-100;
+}
+
+#in-package-search #in-package-search-results {
+  @apply hidden;
+}
+
+#in-package-search:focus-within #in-package-search-results {
+  @apply block;
+}
