@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://upsilon.cc/~zack/tags/ocaml/index.rss</id><title type="text">szacchiroli</title><updated>2023-06-05T05:46:01-00:00</updated><entry><link href="http://upsilon.cc/~zack/blog/posts/2010/10/ocaml-http_has_moved/" rel="alternate"/><contributor><uri>https://upsilon.cc/~zack/tags/ocaml/index.rss</uri><name>szacchiroli</name></contributor><content type="html">&lt;h1&gt;OCaml HTTP is now on the OCaml forge&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://upsilon.cc/~zack/tags/ocaml/index.rss</id><title type="text">szacchiroli</title><updated>2023-06-06T05:48:29-00:00</updated><entry><link href="http://upsilon.cc/~zack/blog/posts/2010/10/ocaml-http_has_moved/" rel="alternate"/><contributor><uri>https://upsilon.cc/~zack/tags/ocaml/index.rss</uri><name>szacchiroli</name></contributor><content type="html">&lt;h1&gt;OCaml HTTP is now on the OCaml forge&lt;/h1&gt;
 &lt;p&gt;It's been a &lt;a href=&quot;http://upsilon.cc/~zack/blog/posts/2009/03/ocaml-http_is_looking_for_a_new_maintainer/&quot;&gt;
 long time&lt;/a&gt;. But finally OCaml HTTP has a &lt;a href=&quot;http://ocaml-http.forge.ocamlcore.org/&quot;&gt;new home&lt;/a&gt; and a new
 maintainer.&lt;/p&gt;

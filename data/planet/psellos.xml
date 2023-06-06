@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://psellos.com/atom.xml</id><title type="text">psellos</title><updated>2023-06-05T05:46:01-00:00</updated><entry><link href="http://psellos.com/2020/08/2020.08.east-van-girls.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;August 26, 2020&lt;/div&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://psellos.com/atom.xml</id><title type="text">psellos</title><updated>2023-06-06T05:48:29-00:00</updated><entry><link href="http://psellos.com/2020/08/2020.08.east-van-girls.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;August 26, 2020&lt;/div&gt;
 
 &lt;p&gt;Since last year I&amp;rsquo;ve been using BuckleScript to build web apps in OCaml
 and have been enjoying it very much. However, when I went to the
