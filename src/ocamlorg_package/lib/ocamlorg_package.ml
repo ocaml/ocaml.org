@@ -174,7 +174,6 @@ let http_get url =
       Error (`Msg "Failed to fetch the documentation page")
 
 let ( let>& ) opt some = Option.fold ~none:(Lwt.return false) ~some opt
-
 let if_fresher new_x old_x = if Some new_x = old_x then None else Some new_x
 
 let maybe_update_repo state =
@@ -190,7 +189,7 @@ let maybe_update_build_check state =
   let>& data = Result.to_option data in
   let digest = data |> String.to_bytes |> Digest.bytes in
   Logs.info (fun m -> m "Build check: Digest %s" (digest |> Digest.to_hex));
-  let>& digest = if_fresher digest state.build_check_digest  in
+  let>& digest = if_fresher digest state.build_check_digest in
   update_build_check state (data, digest)
 
 let threads state =
