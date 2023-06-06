@@ -1,7 +1,7 @@
 let env_with_default k v = Sys.getenv_opt k |> Option.value ~default:v
 
 let opam_polling =
-  env_with_default "OCAMLORG_OPAM_POLLING" "300" |> int_of_string
+  env_with_default "OCAMLORG_OPAM_POLLING" "3600" |> int_of_string
 
 let documentation_url =
   Sys.getenv_opt "OCAMLORG_DOC_URL"
