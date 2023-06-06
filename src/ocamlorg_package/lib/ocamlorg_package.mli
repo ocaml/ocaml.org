@@ -3,6 +3,8 @@
    uses the output of the occurent documentation pipeline to render packages
    documentation. *)
 
+module Import = Import
+
 (** The name of an opam package. *)
 module Name : sig
   type t
@@ -33,8 +35,8 @@ module Info : sig
   type t = {
     synopsis : string;
     description : string;
-    authors : Data.Opam_user.t list;
-    maintainers : Data.Opam_user.t list;
+    authors : string list;
+    maintainers : string list;
     license : string;
     homepage : string list;
     tags : string list;
@@ -182,7 +184,12 @@ val latest_documented_version : state -> Name.t -> Version.t option Lwt.t
 val is_latest_version : state -> Name.t -> Version.t -> bool
 (** Returns a bool if the given version is the latest version of a package. **)
 
-val search : ?sort_by_popularity:bool -> state -> string -> t list
+val search :
+  is_author_match:(string -> string -> bool) ->
+  ?sort_by_popularity:bool ->
+  state ->
+  string ->
+  t list
 (** Search package that match the given string.
 
     Packages returned contain the string either in the name, tags, synopsis or
@@ -193,7 +200,7 @@ val search : ?sort_by_popularity:bool -> state -> string -> t list
       packages whose synopsis contain the given string - packages whose
       description contain the given string.
 
-    A call to this function call Lazy.force on every package info. *)
+    - Function is_author_match is used decide if a search string correspond to a
+      package author
 
-val featured : state -> t list option
-(** A list of packages to highlight on the Packages page. *)
+    A call to this function call Lazy.force on every package info. *)

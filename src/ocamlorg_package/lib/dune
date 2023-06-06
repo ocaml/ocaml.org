@@ -1,7 +1,6 @@
 (library
  (name ocamlorg_package)
  (libraries
-  ocamlorg.global
   opam-format
   bos
   fpath
@@ -11,5 +10,4 @@
   lwt.unix
   yojson
   cohttp
-  cohttp-lwt-unix
-  ocamlorg.data))
+  cohttp-lwt-unix))

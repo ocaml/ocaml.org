@@ -1,3 +1,5 @@
+open Ocamlorg_package.Import
+
 let json =
   {|{
     "libraries": [
@@ -41,8 +43,6 @@ let json =
     ]
   }
 |}
-
-open Ocamlorg.Import
 
 let test_case n = Alcotest.test_case n `Quick
 

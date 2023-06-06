@@ -157,7 +157,9 @@ let package_versions_result_test name from upto total_packages () =
 let state_test () =
   let state = Package.mockup_state packages in
   let pkg =
-    Package.search state "abt" |> List.map Package.name
+    Package.search ~is_author_match:Ocamlorg_web.Handler.is_author_match state
+      "abt"
+    |> List.map Package.name
     |> List.map Package.Name.to_string
   in
   let expect = [ "abt" ] in

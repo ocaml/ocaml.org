@@ -1,4 +1,4 @@
-open Ocamlorg.Import
+open Import
 open Lwt.Syntax
 
 type package_stat = {
@@ -130,7 +130,7 @@ let most_revdeps_hidden = function
   | _ -> false
 
 let compute_most_revdeps n packages =
-  let module Acc = Acc_biggest (struct
+  let module Acc = Acc.Make (struct
     type t = package_stat * int
 
     let compare (_, a) (_, b) = Int.compare a b

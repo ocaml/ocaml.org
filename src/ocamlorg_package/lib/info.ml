@@ -2,13 +2,13 @@ type url = { uri : string; checksum : string list }
 
 (* This is used to invalidate the package state cache if the type [Info.t]
    changes. *)
-let version = "2"
+let version = "3"
 
 type t = {
   synopsis : string;
   description : string;
-  authors : Data.Opam_user.t list;
-  maintainers : Data.Opam_user.t list;
+  authors : string list;
+  maintainers : string list;
   license : string;
   homepage : string list;
   tags : string list;
@@ -146,18 +146,8 @@ let make ~package ~packages ~rev_deps ~timestamps opam =
   let open OpamFile.OPAM in
   {
     synopsis = synopsis opam |> Option.value ~default:"No synopsis";
-    authors =
-      author opam
-      |> List.map (fun name ->
-             Option.value
-               (Data.Opam_user.find_by_name name)
-               ~default:(Data.Opam_user.make ~name ()));
-    maintainers =
-      maintainer opam
-      |> List.map (fun name ->
-             Option.value
-               (Data.Opam_user.find_by_name name)
-               ~default:(Data.Opam_user.make ~name ()));
+    authors = author opam;
+    maintainers = maintainer opam;
     license = license opam |> String.concat "; ";
     description =
       descr opam |> Option.map OpamFile.Descr.body |> Option.value ~default:"";

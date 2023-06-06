@@ -1,4 +1,5 @@
-open Ocamlorg.Import
+module Import = Import
+open Import
 module Name = OpamPackage.Name
 module Version = OpamPackage.Version
 module Info = Info
@@ -16,7 +17,6 @@ type state = {
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
   mutable stats : Statistics.t option;
-  mutable featured : t list option;
 }
 
 let mockup_state (pkgs : t list) =
@@ -35,7 +35,6 @@ let mockup_state (pkgs : t list) =
     packages;
     opam_repository_commit = None;
     stats = None;
-    featured = None;
   }
 
 let read_versions package_name versions =
@@ -90,7 +89,6 @@ let try_load_state () =
       version = Info.version;
       packages = Name.Map.empty;
       stats = None;
-      featured = None;
     }
 
 let save_state t =
@@ -126,13 +124,8 @@ let update ~commit t =
   let* packages = Info.of_opamfiles packages in
   Logs.info (fun f -> f "Computing packages statistics...");
   let+ stats = Statistics.compute packages in
-  let featured =
-    Data.Packages.all.featured
-    |> List.filter_map (fun p -> get_latest' packages (Name.of_string p))
-  in
   t.packages <- packages;
   t.stats <- Some stats;
-  t.featured <- Some featured;
   Logs.info (fun m -> m "Loaded %d packages" (Name.Map.cardinal packages))
 
 let maybe_update t commit =
@@ -194,8 +187,6 @@ let get t name version =
   t.packages |> Name.Map.find_opt name |> fun x ->
   Option.bind x (Version.Map.find_opt version)
   |> Option.map (fun info -> { version; info; name })
-
-let featured t = t.featured
 
 module Documentation = struct
   type toc = { title : string; href : string; children : toc list }
@@ -445,7 +436,10 @@ module Search : sig
   type search_request
 
   val to_request : string -> search_request
-  val match_request : search_request -> t -> bool
+
+  val match_request :
+    is_author_match:(string -> string -> bool) -> search_request -> t -> bool
+
   val compare : search_request -> t -> t -> int
   val compare_by_popularity : search_request -> t -> t -> int
 end = struct
@@ -509,31 +503,25 @@ end = struct
     match_ f package.info.description pattern
 
   let match_author ?(f = String.contains_s) pattern package =
-    let match_opt s =
-      match s with Some s -> match_ f s pattern | None -> false
-    in
-    List.exists
-      (fun (author : Data.Opam_user.t) ->
-        match_opt (Some author.name)
-        || match_opt author.email
-        || match_opt author.github_username)
-      package.info.authors
+    List.exists (fun tag -> match_ f tag pattern) package.info.authors
 
-  let match_constraint (package : t) (cst : search_constraint) =
+  let match_constraint ~is_author_match (package : t) (cst : search_constraint)
+      =
     match cst with
     | Tag pattern -> match_tag pattern package
     | Name pattern -> match_name pattern package
     | Synopsis pattern -> match_synopsis pattern package
     | Description pattern -> match_description pattern package
-    | Author pattern -> match_author pattern package
+    | Author pattern -> match_author ~f:is_author_match pattern package
     | Any pattern ->
-        match_author pattern package
+        match_author ~f:is_author_match pattern package
         || match_description pattern package
         || match_name pattern package
         || match_synopsis pattern package
         || match_tag pattern package
 
-  let match_request c package = List.for_all (match_constraint package) c
+  let match_request ~is_author_match c package =
+    List.for_all (match_constraint ~is_author_match package) c
 
   type score = {
     name : int;
@@ -598,11 +586,11 @@ end = struct
     Float.compare s2 s1
 end
 
-let search ?(sort_by_popularity = false) t query =
+let search ~is_author_match ?(sort_by_popularity = false) t query =
   let compare =
     Search.(if sort_by_popularity then compare_by_popularity else compare)
   in
   let request = Search.to_request query in
   all_latest t
-  |> List.filter (Search.match_request request)
+  |> List.filter (Search.match_request ~is_author_match request)
   |> List.sort (compare request)

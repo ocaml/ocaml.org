@@ -317,6 +317,11 @@ module Package_helper = struct
         (fun (name, _, _versions) -> Ocamlorg_package.Name.to_string name)
         info.Ocamlorg_package.Info.rev_deps
     in
+    let owner name =
+      Option.value
+        (Data.Opam_user.find_by_name name)
+        ~default:(Data.Opam_user.make ~name ())
+    in
     Ocamlorg_frontend.Package.
       {
         name = Ocamlorg_package.Name.to_string name;
@@ -332,8 +337,8 @@ module Package_helper = struct
           info.Ocamlorg_package.Info.description |> Omd.of_string |> Omd.to_html;
         tags = info.tags;
         rev_deps;
-        authors = info.authors;
-        maintainers = info.maintainers;
+        authors = List.map owner info.authors;
+        maintainers = List.map owner info.maintainers;
         license = info.license;
         publication = info.publication;
         homepages = info.Ocamlorg_package.Info.homepage;
@@ -435,18 +440,31 @@ let packages state _req =
                most_revdeps = List.map package_pair t.most_revdeps;
              })
   and featured =
-    (* TODO: Should be cached ? *)
-    match Ocamlorg_package.featured state with
-    | Some pkgs -> List.map (Package_helper.frontend_package state) pkgs
-    | None -> []
+    Data.Packages.all.featured
+    |> List.filter_map
+         Ocamlorg_package.(
+           fun name ->
+             get_latest state (Name.of_string name)
+             |> Option.map (Package_helper.frontend_package state))
   in
   Dream.html (Ocamlorg_frontend.packages stats featured)
+
+let is_author_match name pattern =
+  let match_opt = function
+    | Some s -> String.contains_s s pattern
+    | None -> false
+  in
+  match Data.Opam_user.find_by_name name with
+  | None -> false
+  | Some { name; email; github_username; _ } ->
+      match_opt (Some name) || match_opt email || match_opt github_username
 
 let packages_search t req =
   match Dream.query req "q" with
   | Some search ->
       let packages =
-        Ocamlorg_package.search ~sort_by_popularity:true t search
+        Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true t
+          search
       in
       let total = List.length packages in
       let results = List.map (Package_helper.frontend_package t) packages in
@@ -458,7 +476,8 @@ let packages_autocomplete_fragment t req =
   match Dream.query req "q" with
   | Some search when search <> "" ->
       let packages =
-        Ocamlorg_package.search ~sort_by_popularity:true t search
+        Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true t
+          search
       in
       let results = List.map (Package_helper.frontend_package t) packages in
       let top_5 = results |> List.take 5 in

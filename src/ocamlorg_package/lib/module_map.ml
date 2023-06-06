@@ -1,4 +1,4 @@
-open Ocamlorg.Import
+open Import
 
 type kind =
   | Module
