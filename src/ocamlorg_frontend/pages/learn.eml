@@ -1,6 +1,6 @@
 let render
 ~(papers : Data.Paper.t list)
-~(release : Data.Release.t) ~(books : Data.Book.t list)
+~(books : Data.Book.t list)
 ~tutorials
 =
 Learn_layout.render
