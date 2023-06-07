@@ -315,6 +315,7 @@ OCaml 4.14. Beware books and documentation written before may still mention it.
 * [Streams](/problems#100)
 * [Diagonal](/problems#101)
 
+<!--
 ## Credits
 
 * Authors:
@@ -330,3 +331,4 @@ OCaml 4.14. Beware books and documentation written before may still mention it.
   * Guillaume Petiot [@gpetiot](https://github.com/gpetiot)
   * Xavier Van de Woestyne [@xvw](https://github.com/xvw)
   * Simon Cruanes [@c-cube](https://github.com/c-cube)
+-->
