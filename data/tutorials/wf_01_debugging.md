@@ -419,7 +419,8 @@ Note: TSan is only supported on x86-64 architectures for now.
 ### Detecting a Data Race
 
 Now consider the following OCaml program written in the file `race.ml`:
-
+<!-- TODO: remove skip stanza when building with OCaml 5 -->
+<!-- $MDX skip -->
 ```ocaml
 (* file race.ml *)
 type t = { mutable x : int }
@@ -503,7 +504,8 @@ Looking again at our program, we realize that these two writes are in
 fact not coordinated. One possible fix is to replace our mutable
 record field with an `Atomic` that guarantees each such write to
 happen fully, one after the other:
-
+<!-- TODO: remove skip stanza when building with OCaml 5 -->
+<!-- $MDX skip -->
 ```ocaml
 (* file race.ml *)
 let v = Atomic.make 0

@@ -24,7 +24,7 @@ using the [OCaml Playground](https://ocaml.org/play), with no installation requi
 On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive toplevel. Plus, it's free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS).
 
 **Note**: The OCaml code examples in this tutorial start with a prompt
-
+<!-- $MDX skip -->
 ```ocaml
 #
 ```
@@ -160,7 +160,7 @@ Note that `let` ... `in` ... and `let` ... are two fundamentally different thing
 which is bound in the toplevel.
 * `let x = 50 in x * x;;` is an *expression that includes a variable declaration*: The variable `x`
 is only bound within the expression following the `in` keyword.
-
+<!-- $MDX skip -->
 ```ocaml
 # let y = 50 in y * y;;
 - : int = 2500
