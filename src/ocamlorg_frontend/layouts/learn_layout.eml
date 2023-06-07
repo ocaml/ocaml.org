@@ -112,8 +112,8 @@ inner_html
              id="htmx-content">
           <%s! inner_html %>
         </div>
-        <div class="hidden xl:flex top-0 sticky h-screen overflow-auto lg:pt-6 lg:pb-72" id="htmx-right-sidebar">
-          <div class="<%s Option.fold ~none:"" ~some:(fun _ -> "flex-col w-60") right_sidebar_html %>">
+        <div class="hidden xl:block top-0 sticky h-screen overflow-auto lg:pt-6" id="htmx-right-sidebar">
+          <div class="<%s Option.fold ~none:"" ~some:(fun _ -> "w-60 lg:pb-72") right_sidebar_html %>">
             <%s! Option.value ~default:"" right_sidebar_html %>
           </div>
         </div>
