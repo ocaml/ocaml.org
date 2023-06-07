@@ -10,9 +10,7 @@ let rec tutorial_toc_to_toc (toc : Data.Tutorial.toc) =
 let right_sidebar
 (tutorial : Data.Tutorial.t)
 =
-  <div>
-    <%s! Toc.render (List.map tutorial_toc_to_toc tutorial.toc) %>
-  </div>
+  <%s! Toc.render (List.map tutorial_toc_to_toc tutorial.toc) %>
 
 let render
 (tutorial : Data.Tutorial.t)
