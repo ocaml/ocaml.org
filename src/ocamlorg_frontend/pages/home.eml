@@ -1,5 +1,6 @@
 let render () =
 Layout.render
+~(release : Data.Release.t)
 ~use_swiper:true
 ~title:"Welcome to a World of OCaml"
 ~description:"OCaml is a general-purpose, industrial-strength programming language with an emphasis on expressiveness and safety."
@@ -245,6 +246,27 @@ Layout.render
     </div>
   </div>
 </div>
+
+<div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
+  <h3 class="font-bold">Releases</h3>
+  <div class="mt-6 text-body-400 text-lg">
+      The history of OCaml releases with a summary and a complete changelog, as well as the manual at that time.
+  </div>
+  <div class="bg-pattern p-6 mt-8 rounded-xl w-full lg:w-2/3 text-white">
+    <a href="<%s Url.release release.version %>">
+      <div class="text-primary-600 text-sm mb-4 uppercase">Recent Release</div>
+      <h3 class="font-bold mb-6">
+        <%s release.version %> <span class="text-sm font-medium">(<%s release.date %>)</span>
+      </h3>
+    </a>
+    <div class="prose prose-sm text-white"><%s! release.highlights_html %></div>
+  </div>
+  <a href="<%s Url.releases %>" class="btn btn-lg btn-secondary mt-8">
+    <span>See all Releases</span>
+    <%s! Icons.chevron_right "h-5 w-5" %>
+  </a>
+</div>
+
 <div class="bg-pattern py-24 overflow-hidden">
   <div class="container-fluid">
     <div class="">
