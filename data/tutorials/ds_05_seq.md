@@ -77,12 +77,14 @@ ultimately periodic.
 The OCaml standard library contains a module on sequences called
 [`Seq`](/releases/5.0/api/Seq.html). It contains a `Seq.iter` function, which
 has the same behaviour as `List.iter`. Writing this:
+<!-- $MDX skip -->
 ```ocaml
 # Seq.iter print_int (ints 0);;
 ```
 in an OCaml toplevel, this means “print integers forever,” and you have to press
 `Ctrl-C` to interrupt the execution. Perhaps more interestingly, the following
 code is also an infinite loop:
+<!-- $MDX skip -->
 ```ocaml
 # Seq.iter ignore (ints 0);;
 ```
