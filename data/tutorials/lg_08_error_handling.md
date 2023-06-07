@@ -920,7 +920,8 @@ of taste. But opinionated OCaml code is also fine, so it's a balance.
 - “Add "finally" function to Pervasives”, Marcello Seri, GitHub PR, [ocaml/ocaml/pull/1855](https://github.com/ocaml/ocaml/pull/1855)
 - “A guide to recover from interrupts”, Guillaume Munch-Maccagnoni, parf the [`memprof-limits`](https://gitlab.com/gadmm/memprof-limits/) documentation
 
-# Acknowledgements
+<!--
+Acknowledgements
 
 - Authors
   1. Simon Cruanes [@c-cube](https://github.com/c-cubeauthored)
@@ -942,3 +943,4 @@ of taste. But opinionated OCaml code is also fine, so it's a balance.
   * Christine Rose [@christinerose](https://github.com/christinerose)
   * Riku Silvola [@rikusilvola](https://github.com/rikusilvola)
   * Guillaume Petiot [@gpetiot](https://github.com/gpetiot)
+-->
