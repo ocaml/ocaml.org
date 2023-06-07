@@ -22,6 +22,7 @@ and using sequences.
 One way to look at a value of type `'a Seq.t` is to consider it as a list, with
 a twist when it's not empty: a frozen tail. To understand this analogy,
 consider how sequences are defined in the standard library:
+<!-- $MDX skip -->
 ```ocaml
 type 'a node =
   | Nil
@@ -30,6 +31,7 @@ and 'a t = unit -> 'a node
 ```
 This is the mutually recursive definition of two types: `Seq.node`, which is
 almost the same as `list`:
+<!-- $MDX skip -->
 ```ocaml
 type 'a list =
   | []
@@ -119,9 +121,9 @@ This can be used to print integers without looping forever, as shown previously:
 ```ocaml
 # Seq.ints 0 |> Seq.take 43 |> List.of_seq;;
 - : int list =
-[0; 1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14; 15; 16; 17; 18; 19; 20; 21;
- 22; 23; 24; 25; 26; 27; 28; 29; 30; 31; 32; 33; 34; 35; 36; 37; 38; 39; 40;
- 41; 42]
+[0; 1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14; 15; 16; 17; 18; 19; 20;
+ 21; 22; 23; 24; 25; 26; 27; 28; 29; 30; 31; 32; 33; 34; 35; 36; 37; 38; 39;
+ 40; 41; 42]
 ```
 
 The `Seq` module also has a function `Seq.filter`:
@@ -134,8 +136,9 @@ It builds a sequence of elements satisfying a condition.
 Using `Seq.filter`, it is possible to make a straightforward implementation of
 the [Sieve of
 Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes). Here it is:
+<!-- $MDX part-begin=sieve -->
 ```ocaml
-let rec sieve seq () = match seq () with
+# let rec sieve seq () = match seq () with
   | Seq.Cons (m, seq) -> Seq.Cons (m, sieve (Seq.filter (fun n -> n mod m > 0) seq))
   | seq -> seq
 let primes = Seq.ints 2 |> sieve;;
@@ -145,6 +148,7 @@ val primes : int Seq.t = <fun>
 
 This code can be used to generate lists of prime numbers. For instance, here is
 the list of 100 first prime numbers:
+<!-- $MDX part=sieve -->
 ```ocaml
 # primes |> Seq.take 100 |> List.of_seq;;
 - : int list =
@@ -154,8 +158,9 @@ the list of 100 first prime numbers:
  239; 241; 251; 257; 263; 269; 271; 277; 281; 283; 293; 307; 311; 313; 317;
  331; 337; 347; 349; 353; 359; 367; 373; 379; 383; 389; 397; 401; 409; 419;
  421; 431; 433; 439; 443; 449; 457; 461; 463; 467; 479; 487; 491; 499; 503;
- 509; 521; 523]
+ 509; 521; 523; 541]
 ```
+<!-- $MDX part-end=sieve -->
 
 The function `sieve` is recursive in OCaml and common sense. It is defined using
 the `rec` keyword and calls itself. However, some call that kind of function
@@ -178,10 +183,11 @@ OCaml 4.11, there is something which isn't (yet) available on other types:
 `unfold`. Here is how it is implemented:
 ```ocaml
 let rec unfold f seq () = match f seq with
-  | None -> Nil
-  | Some (x, seq) -> Cons (x, unfold f seq)
+  | None -> Seq.Nil
+  | Some (x, seq) -> Seq.Cons (x, unfold f seq)
 ```
 And here is its type:
+<!-- $MDX skip -->
 ```ocaml
 val unfold : ('a -> ('b * 'a) option) -> 'a -> 'b Seq.t = <fun>
 ```
@@ -215,12 +221,14 @@ let input_line_opt chan =
   with End_of_file -> close_in chan; None
 ```
 It is possible to read a file using `Seq.unfold`:
+<!-- $MDX skip -->
 ```ocaml
 "README.md" |> open_in |> Seq.unfold input_line_opt |> Seq.iter print_endline
 ```
 
 Although this can be an appealing style, bear in mind that it does not prevent
 taking care of open files. While the code above is fine, this one no longer is:
+<!-- $MDX skip -->
 ```ocaml
 "README.md" |> open_in |> Seq.unfold input_line_opt |> Seq.take 10 |> Seq.iter print_endline
 ```
@@ -261,6 +269,7 @@ applied function is immediately returned as a
 [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
 
 Sequences are functions, as stated by their type:
+<!-- $MDX skip -->
 ```ocaml
 # #show Seq.t;;
 type 'a t = unit -> 'a Seq.node

@@ -582,8 +582,8 @@ adding information to each node using mutually-recursive types, one of which is
 a tuple or record. For example:
 
 ```ocaml
-# type t' = Int of int | Add of t * t
-  and t = {annotation : string; data : t'}
+type t' = Int of int | Add of t * t
+and t = {annotation : string; data : t'}
 ```
 
 Values of such mutually-recursive data type are manipulated by accompanying
@@ -609,7 +609,7 @@ associated with it, and the second is a constructor with one tuple associated wi
 it. There are two ways this matters: the memory layout differs between the two
 (a tuple is an extra indirection) and the ability to create or match using a
 tuple:
-
+<!-- $MDX skip -->
 ```ocaml
 # type t = T of int * int;;
 type t = T of int * int
@@ -638,7 +638,7 @@ Error: The constructor T expects 2 argument(s),
 
 Please note, however, that OCaml allows us to use the always-matching `_` in either
 version:
-
+<!-- $MDX skip -->
 ```ocaml
 # match T2 (1, 2) with T2 _ -> 0;;
 - : int = 0

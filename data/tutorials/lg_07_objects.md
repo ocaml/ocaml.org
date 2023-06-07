@@ -254,7 +254,7 @@ label or an image, depending on what is displayed on the button).
 `widget` is the virtual superclass for all widgets. I want every widget
 to have a name (just a string) which is constant over the life of that
 widget. This was my first attempt:
-
+<!-- $MDX skip -->
 ```ocaml
 # class virtual widget name =
   object (self)
@@ -318,7 +318,7 @@ by using `class virtual ...`.
 
 As in C++ and Java, virtual classes cannot be directly instantiated
 using `new`:
-
+<!-- $MDX skip -->
 ```ocaml
 # let w = new widget "my widget";;
 Error: Cannot instantiate the virtual class widget
@@ -377,7 +377,7 @@ Notes:
 Would this modify the private internal representation of my `container`
 class, by prepending `x` to the list of widgets? No it wouldn't. If you run 
 the above code, you'll see it throws an error:
-
+<!-- $MDX skip -->
 ```ocaml
 Error: Unbound value container
 ```
@@ -494,7 +494,7 @@ class label :
   string -> object method get_name : string method repaint : unit end
 ```
 Let's create a label which says "Press me!" and add it to the button:
-
+<!-- $MDX skip -->
 ```ocaml
 # let l = new label "label" "Press me!";;
 val l : label = <obj>
@@ -527,7 +527,7 @@ the class and require the reference to `self`. There is no penalty for
 having it.
 
 ### Inheritance and Coercions
-
+<!-- $MDX skip -->
 ```ocaml
 # let b = new button "button";;
 val b : button = <obj>
@@ -542,7 +542,7 @@ We created a button `b` and a label `l` and then tried to create a list
 containing both, but we got an error. Yet `b` and `l` are both `widget`s,
 so maybe we can't put them into the same list because OCaml can't guess
 that we want a `widget list`. Let's try telling it:
-
+<!-- $MDX skip -->
 ```ocaml
 # let wl = ([] : widget list);;
 val wl : widget list = []
@@ -561,7 +561,7 @@ Error: This expression has type widget list
 It turns out that OCaml doesn't coerce subclasses to the superclass type
 by default, but you can tell it to by using the `:>`
 (coercion) operator:
-
+<!-- $MDX skip -->
 ```ocaml
 # let wl = (b :> widget) :: wl;;
 val wl : widget list = [<obj>]
@@ -698,7 +698,7 @@ val l : t list = [<obj>; <obj>]
 
 Mixing objects that share a common subtype can be done, but it requires
 explicit type coercion using the `:>` operator:
-
+<!-- $MDX skip -->
 ```ocaml
 # let x = object method get = 123 end;;
 val x : < get : int > = <obj>
