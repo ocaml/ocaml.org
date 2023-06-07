@@ -18,7 +18,7 @@ Layout.render
         </p>
         <div class="space-x-0 lg:space-x-6">
           <a class="btn btn-lg mb-4 lg:mb-0" href="<%s Url.install %>">Install</a>
-          <a class="btn btn-lg btn-secondary text-body-600" href="<%s Url.about %>">
+          <a class="btn btn-lg btn-secondary" href="<%s Url.about %>">
             About OCaml
           </a>
         </div>

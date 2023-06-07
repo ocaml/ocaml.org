@@ -89,7 +89,7 @@ Layout.render
 
           <p>Now you are ready to write some OCaml code!</p>
         </div>
-        <a class="btn text-white mt-6 flex gap-2" href="<%s Url.tutorial "up-and-running" %>#first-steps-with-ocaml">First Steps with OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
+        <a class="btn mt-6 flex gap-2" href="<%s Url.tutorial "up-and-running" %>#first-steps-with-ocaml">First Steps with OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
 
         <div class="prose mt-6">
           <p>If the instructions on this page did not work for you, or you want to know more, you can find
@@ -115,7 +115,7 @@ Layout.render
                 provided in the <a href="<%s Url.ocaml_on_windows %>">"OCaml on Windows" guide</a>.
               </p>
 
-              <a class="btn !text-white hover:no-underline gap-2" href="https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.2.0/setup-diskuv-ocaml-windows_x86_64-1.2.0.exe">
+              <a class="btn hover:no-underline gap-2" href="https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.2.0/setup-diskuv-ocaml-windows_x86_64-1.2.0.exe">
                 <%s! Icons.download "h-6 w-6" %> Download DKML Installer
               </a>
 
@@ -137,7 +137,7 @@ Layout.render
 
         <p>Now you are ready to write some OCaml code!</p>
       </div>
-      <a class="btn text-white mt-6 flex gap-2" href="<%s Url.tutorial "up-and-running" %>#first-steps-with-ocaml">First Steps with OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
+      <a class="btn mt-6 flex gap-2" href="<%s Url.tutorial "up-and-running" %>#first-steps-with-ocaml">First Steps with OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
 
       <div class="prose mt-6">
         <p>If the instructions on this page did not work for you, or you want to know more, you can find
