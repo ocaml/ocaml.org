@@ -11,4 +11,4 @@
     %{workspace_root}
     (run tailwindcss -m -c %{config} -i %{input} -o %{target})))))
 
-(data_only_dirs playground data asset)
+(data_only_dirs playground asset)
