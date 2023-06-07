@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://ocsigen.org/feed.xml</id><title type="text">ocsigen</title><updated>2023-06-06T05:48:29-00:00</updated><entry><link href="https://ocsigen.github.io/blog/2020/05/05/os/" rel="alternate"/><contributor><uri>https://ocsigen.org/feed.xml</uri><name>ocsigen</name></contributor><content type="html">&lt;p&gt;New release: Ocsigen Start 2.18&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://ocsigen.org/feed.xml</id><title type="text">ocsigen</title><updated>2023-06-07T05:45:50-00:00</updated><entry><link href="https://ocsigen.github.io/blog/2020/05/05/os/" rel="alternate"/><contributor><uri>https://ocsigen.org/feed.xml</uri><name>ocsigen</name></contributor><content type="html">&lt;p&gt;New release: Ocsigen Start 2.18&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://ocsigen.org/ocsigen-start/&quot;&gt;Ocsigen Start&lt;/a&gt; is a template for client-server Web and/or mobile app in OCaml or ReasonML.
 It contains many standard features like user management, notifications, and many code examples.

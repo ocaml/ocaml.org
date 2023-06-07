@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://ox.tuxfamily.org/feed/</id><title type="text">xmpp</title><updated>2023-06-06T05:48:29-00:00</updated><entry><link href="http://ox.tuxfamily.org/2011/03/27/using-camlp4-for-conditional-compilation/" rel="alternate"/><contributor><uri>http://ox.tuxfamily.org/feed/</uri><name>xmpp</name></contributor><content type="html">&lt;p&gt;Hi,&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://ox.tuxfamily.org/feed/</id><title type="text">xmpp</title><updated>2023-06-07T05:45:50-00:00</updated><entry><link href="http://ox.tuxfamily.org/2011/03/27/using-camlp4-for-conditional-compilation/" rel="alternate"/><contributor><uri>http://ox.tuxfamily.org/feed/</uri><name>xmpp</name></contributor><content type="html">&lt;p&gt;Hi,&lt;/p&gt;
 &lt;p&gt;so I have been wondering for quite some time: &lt;strong&gt;how to do conditional compilation in Ocaml as simple as in C?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;As a reader of a library development log, you probably know that one would typically use preprocessing to modify a code before it gets compiled. There are a few cases in particular when one wishes to do so:&lt;/p&gt;
 &lt;ol&gt;
