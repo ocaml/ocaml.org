@@ -33,7 +33,7 @@ be finite or infinite.
 
 The goal of this exercise is to define a type `'a stream` which only contains
 infinite sequences. Using this type, define the following functions:
-```ocaml
+```ocaml file=stream.mli
 val hd : 'a stream -> 'a
 (** Returns the first element of a stream *)
 val tl : 'a stream -> 'a stream
