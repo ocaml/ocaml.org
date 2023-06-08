@@ -44,7 +44,7 @@ let render ~default_code =
               <div class="flex gap-7 w-full justify-end items-center px-4">
                 <button
                   id="share"
-                  class="flex gap-2 hover:bg-white hover:bg-opacity-10 active:bg-primary-100 active:text-primary-600 p-2 rounded-md text-gray-400"
+                  class="flex gap-2 hover:bg-default dark:bg-dark-default hover:bg-opacity-10 active:bg-primary-100 active:text-primary-600 p-2 rounded-md text-lighter"
                 >
                   <%s! Icons.playground_share "h-6 w-6 stroke-current" %>
                   Share
@@ -89,7 +89,7 @@ let render ~default_code =
           <div class="shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] output-container overflow-auto">
             <div x-show="editor && mobile">
               <div class="text-center">
-                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Coming Soon!</h3>
+                <h3 class="mt-2 text-sm font-medium text-default dark:text-white">Coming Soon!</h3>
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-100">The OCaml Playground does not support mobile yet.</p>
               </div>
             </div>

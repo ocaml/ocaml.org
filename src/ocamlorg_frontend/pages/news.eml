@@ -4,7 +4,7 @@ Layout.render
 ~description:"Read the latest news, releases, and updates from the OCaml community."
 ~canonical:(Url.news ^ if page = 1 then "" else "?p=" ^ string_of_int page)
 ~active_top_nav_item:Header.Blog @@
-<div class="bg-white py-24">
+<div class="bg-default dark:bg-dark-default py-24">
   <div class="container-fluid">
     <div>
       <a href="<%s Url.blog %>"
@@ -13,7 +13,7 @@ Layout.render
         <div>Back to Blog</div>
       </a>
       <h2 class="font-bold">Community News</h2>
-      <p class="text-lg text-body-400 mt-6">Read the latest news, releases, and updates from the OCaml community.</p>
+      <p class="text-lg text-lighter mt-6">Read the latest news, releases, and updates from the OCaml community.</p>
     </div>
 
     <div class="mt-20">
@@ -25,10 +25,10 @@ Layout.render
                   <a href="<%s Url.news_post item.slug %>"
                       class="block text-xl font-semibold hover:text-primary-600"><%s item.title %></a>
               </div>
-              <a href="<%s Url.news_post item.slug %>" class="text-body-400">
+              <a href="<%s Url.news_post item.slug %>" class="text-lighter">
                   <%s item.description %>
               </a>
-              <div class="text-body-400 flex space-x-2.5 text-sm">
+              <div class="text-lighter flex space-x-2.5 text-sm">
                   <div><%s item.date %></div>
               </div>
           </div>
@@ -37,7 +37,7 @@ Layout.render
 
         <div class="pt-16 flex items-center justify-center space-x-2.5">
           <a href="<%s Url.news %>?p=<%i page - 1 %>"
-              class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-body-400 hover:bg-gray-50 hover:no-underline">
+              class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-lighter hover:bg-gray-50 hover:no-underline">
               <%s! Icons.chevron_left "h-5 w-5" %>
           </a>
           <% (for i = 1 to (pages_number - 1) do
@@ -48,12 +48,12 @@ Layout.render
           </a>
           <% ) else ( %>
           <a href="<%s Url.news %>?p=<%i i %>"
-              class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-body-400 hover:bg-gray-50 hover:no-underline">
+              class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-lighter hover:bg-gray-50 hover:no-underline">
               <%i i %>
           </a>
           <% ) done); %>
           <a href="<%s Url.news %>?p=<%i page + 1 %>"
-              class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-body-400 hover:bg-gray-50 hover:no-underline">
+              class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-lighter hover:bg-gray-50 hover:no-underline">
               <%s! Icons.chevron_right "h-5 w-5" %>
           </a>
         </div>

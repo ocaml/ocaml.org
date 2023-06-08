@@ -14,7 +14,7 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-white py-0 md:pt-10 lg:pt-20 lg:pb-0">
+<div class="bg-default dark:bg-dark-default py-0 md:pt-10 lg:pt-20 lg:pb-0">
   <div class="container-fluid" x-data="{ continent: 'All' }">
     <div class="flex justify-between mb-0 md:mb-10 lg:mb-20 lg:flex-row flex-col items-center">
       <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0">30+ Academic Entries</h2>

@@ -24,12 +24,12 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-white py-32">
+<div class="bg-default dark:bg-dark-default py-32">
   <div class="container-fluid">
     <div class=" ">
       <div class="text-center">
-        <h2 class="font-bold text-body-600 mb-6">Join Our Communities!</h2>
-        <div class="font-normal text-lg text-body-400">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators.</div>
+        <h2 class="font-bold text-default mb-6">Join Our Communities!</h2>
+        <div class="font-normal text-lg text-lighter">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators.</div>
       </div>
       <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 md:gap-4 md:px-10 lg:px-20 mt-12">
         <a href="https://discuss.ocaml.org/" class="border-gray-200 border p-8 rounded-xl card-hover">
@@ -98,7 +98,7 @@ Layout.render
           </div>
           <div class="flex flex-col lg:flex-row items-center justify-center gap-10 mt-12 flex-wrap">
               <% upcoming_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
-              <a href="<%s Url.workshop workshop.slug %>" class="w-full lg:w-96 bg-white p-8 rounded-xl transition-transform hover:scale-105">
+              <a href="<%s Url.workshop workshop.slug %>" class="w-full lg:w-96 bg-default dark:bg-dark-default p-8 rounded-xl transition-transform hover:scale-105">
                   <div class="font-semibold"><%s workshop.title %></div>
                   <div class="mt-4">
                       <div class="flex items-center space-x-2">
@@ -119,7 +119,7 @@ Layout.render
           <% ); %>
           <div class="flex flex-col lg:flex-row items-center justify-center gap-10 mt-12 flex-wrap">
               <% old_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
-              <a href="<%s Url.workshop workshop.slug %>" class="w-full lg:w-96 bg-white p-8 rounded-xl transition-transform hover:scale-105">
+              <a href="<%s Url.workshop workshop.slug %>" class="w-full lg:w-96 bg-default dark:bg-dark-default p-8 rounded-xl transition-transform hover:scale-105">
                   <div class="font-semibold"><%s workshop.title %></div>
                   <div class="mt-4">
                       <div class="flex items-center space-x-2">
@@ -137,7 +137,7 @@ Layout.render
       </div>
   </div>
 </div>
-<div class="bg-white py-0 pt-20 md:pt-10 lg:p-20 pb-10 md:pb-20">
+<div class="bg-default dark:bg-dark-default py-0 pt-20 md:pt-10 lg:p-20 pb-10 md:pb-20">
   <div class="container-fluid">
       <div class="text-center">
         <h2 class="font-bold">Meetups</h2>
@@ -176,7 +176,7 @@ Layout.render
   </div>
 </div>
 
-<div class="bg-beige">
+<div class="bg-mild-contrast">
   <div class="container-fluid">
     <div class="text-center text-black lg:p-16 py-10">
       <h3 class="font-bold mb-6">OCaml Outreachy Internships</h3>

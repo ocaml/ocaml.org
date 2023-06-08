@@ -15,10 +15,10 @@ Package_layout.render
 ~right_sidebar_html:"" @@
   let version = Package.url_version package in
   <div class="sm:flex max-w-max mx-auto">
-    <p class="text-4xl font-extrabold text-orange-600 sm:text-5xl">404</p>
+    <p class="text-4xl font-extrabold text-primary-600 sm:text-5xl">404</p>
     <div class="sm:ml-6">
       <div class="sm:border-l sm:border-gray-200 sm:pl-6">
-        <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">Page not found</h1>
+        <h1 class="text-4xl font-extrabold text-default tracking-tight sm:text-5xl">Page not found</h1>
         <p class="mt-1 text-base text-gray-500">We're sorry, for some reason we don't have the documentation for this package.</p>
       </div>
       <div class="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">

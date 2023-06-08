@@ -19,7 +19,7 @@ let render (t : t) =
     <ol class="leading-6 text-sm border-l">
       <% t |> List.iter begin fun item -> %>
         <li>
-          <a href="<%s item.href %>" class="text-gray-900 py-1 pl-2 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
+          <a href="<%s item.href %>" class="text-default py-1 pl-2 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
             :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary-700 text-primary-700 bg-primary-200": "hover:text-primary-700"'
             :style='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "letter-spacing: -0.012em;" : ""'
           >
@@ -29,7 +29,7 @@ let render (t : t) =
             <ol>
               <% items |> List.iter begin fun item -> %>
               <li>
-                <a href="<%s item.href %>" class="text-body-600 py-1 md:py-0 pl-5 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
+                <a href="<%s item.href %>" class="text-default py-1 md:py-0 pl-5 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
                   :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary-700 text-primary-700 bg-primary-200": "hover:text-primary-700"'
                   :style='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "letter-spacing: -0.012em;" : ""'
                 >
@@ -39,7 +39,7 @@ let render (t : t) =
                 <ol>
                   <% items |> List.iter begin fun item -> %>
                   <li>
-                    <a href="<%s item.href %>" class="text-body-600 py-1 md:py-0 pl-8 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
+                    <a href="<%s item.href %>" class="text-default py-1 md:py-0 pl-8 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
                       :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary-700 text-primary-700 bg-primary-200": "hover:text-primary-700"'
                       :style='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "letter-spacing: -0.012em;" : ""'
                     >

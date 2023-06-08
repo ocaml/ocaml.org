@@ -4,7 +4,7 @@ Layout.render
 ~description:(Option.value ~default:planet.title planet.description)
 ~canonical:(Url.blog_post planet.slug)
 ~active_top_nav_item:Blog @@
-<div class="bg-white py-24">
+<div class="bg-default dark:bg-dark-default py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">
       <a href="<%s Url.blog %>"

@@ -50,16 +50,16 @@ let render
         id="package-autocomplete-<%s string_of_int i %>-0"
         :aria-selected="row == <%s string_of_int i %> && col == 0"
         href="<%s Url.Package.overview package.name %>"
-        :class='row == <%s string_of_int i %> && col == 0 ? "bg-background-mid-blue text-white": ""'
+        :class='row == <%s string_of_int i %> && col == 0 ? "bg-search-keyboard-cursor text-white": ""'
         class="flex-grow px-2 py-2 leading-6 font-semibold hover:bg-primary-100 hover:text-primary-700 inline-block"
       >
-        <%s! Search.highlight_search_terms ~class_:"bg-background-light-blue text-gray-800 font-normal" ~search package.name %>
+        <%s! Search.highlight_search_terms ~class_:"bg-search-term-highlight text-gray-800 font-normal" ~search package.name %>
       </a>
       <a
         id="package-autocomplete-<%s string_of_int i %>-1"
         :aria-selected="row == <%s string_of_int i %> && col == 1"
         href="<%s Url.Package.documentation package.name %>"
-        :class='row == <%s string_of_int i %> && col == 1 ? "bg-background-mid-blue text-white": ""'
+        :class='row == <%s string_of_int i %> && col == 1 ? "bg-search-keyboard-cursor text-white": ""'
         class="justify-self-end px-2 py-2 leading-6 font-semibold hover:bg-primary-100 hover:text-primary-700">
         docs
       </a>

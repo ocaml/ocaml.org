@@ -1,5 +1,5 @@
 .resources-card {
-  @apply rounded-xl py-12 px-8 text-white bg-opacity-5 bg-white;
+  @apply rounded-xl py-12 px-8 text-white bg-opacity-5 bg-default dark:bg-dark-default;
 }
 
 .card-hover {
@@ -7,7 +7,7 @@
 }
 
 .success-card {
-  @apply text-body-400 text-base text-white p-8 overflow-hidden rounded-xl relative bg-cover;
+  @apply text-lighter text-base text-white p-8 overflow-hidden rounded-xl relative bg-cover;
   height: 440px;
 }
 

@@ -47,13 +47,13 @@ Layout.render
 % let render_number_stat ?(first=false) label number =
     <div class="flex items-center flex-col md:px-12 <%s if first then "" else "md:border-l border-gray-200" %>">
       <div class="font-bold text-4xl text-primary-600"><%d number %></div>
-      <div class="text-sm text-body-600 text-center"><%s label %></div>
+      <div class="text-sm text-default text-center"><%s label %></div>
     </div>
 % in
 % ( match stats with
 % | Some stats ->
               <div class="flex justify-center md:px-20 lg:px-56 mt-12">
-                <div class="bg-white p-4 md:p-0 md:py-10 rounded-xl flex flex-col md:flex-row md:w-full lg:w-auto md:justify-center  space-y-4 md:space-y-0 md:items-start">
+                <div class="bg-default dark:bg-dark-default p-4 md:p-0 md:py-10 rounded-xl flex flex-col md:flex-row md:w-full lg:w-auto md:justify-center  space-y-4 md:space-y-0 md:items-start">
 %     render_number_stat ~first:true "Packages" stats.nb_packages;
 %     render_number_stat "New packages this month" stats.nb_packages_month;
 %     render_number_stat "Updates this week" stats.nb_update_week;
@@ -71,10 +71,10 @@ Layout.render
                 Discover new and OCaml packages from featured community packages.
             </p>
 % let render_featured_package pkg =
-    <a href="<%s href_package pkg %>" class="bg-white card-hover rounded-md p-6 text-body-600 text-left">
+    <a href="<%s href_package pkg %>" class="bg-default dark:bg-dark-default card-hover rounded-md p-6 text-default text-left">
       <p class="font-semibold mb-2"><%s pkg.name %></p>
-      <p class="mb-3 text-sm text-body-400"><%s pkg.synopsis %></p>
-      <p class="text-sm text-body-400 flex space-x-2">
+      <p class="mb-3 text-sm text-lighter"><%s pkg.synopsis %></p>
+      <p class="text-sm text-lighter flex space-x-2">
         <%s! Icons.tag "h-5 w-5 pr-1" %> <%s Package.render_version pkg %>
       </p>
     </a>
@@ -89,12 +89,12 @@ Layout.render
         </div>
     </div>
 </div>
-<div class="bg-white py-20 lg:py-32">
+<div class="bg-default dark:bg-dark-default py-20 lg:py-32">
 % let render_package_stat pkg render_extra_stats =
     <a href="<%s href_package pkg %>"
-        class="block bg-white border border-gray-200 rounded-xl py-6 px-7 text-body-600 text-left card-hover">
+        class="block bg-default dark:bg-dark-default border border-gray-200 rounded-xl py-6 px-7 text-default text-left card-hover">
       <div class="font-semibold mb-2"><%s pkg.name %></div>
-      <div class="mb-3 text-sm text-body-400"><%s pkg.synopsis %></div>
+      <div class="mb-3 text-sm text-lighter"><%s pkg.synopsis %></div>
 % render_extra_stats ();
     </a>
 % in
@@ -106,7 +106,7 @@ Layout.render
                 <h3 class="font-bold text-center mb-8">Most Used Packages</h3>
 % let render_package_most_revdeps (pkg, nb_revdeps) =
 %   render_package_stat pkg (fun () ->
-      <div class="text-sm text-body-400 flex space-x-2">
+      <div class="text-sm text-lighter flex space-x-2">
         <%s! Icons.star "h-5 w-5 pr-1" %>
         Used by <%d nb_revdeps %> other packages
       </div>
@@ -119,7 +119,7 @@ Layout.render
                 <h3 class="font-bold text-center mb-8">New Packages</h3>
 % let render_newest_package (pkg, date) =
 %   render_package_stat pkg (fun () ->
-      <div class="text-sm text-body-400 flex space-x-2">
+      <div class="text-sm text-lighter flex space-x-2">
         <%s! Icons.calendar "h-5 w-5 pr-1" %> <%s date %>
       </div>
 %   )
@@ -130,7 +130,7 @@ Layout.render
                 <h3 class="font-bold text-center mb-8">Recently Updated</h3>
 % let render_package_recently_updated pkg =
 %   render_package_stat pkg (fun () ->
-      <div class="text-sm text-body-400 flex space-x-2">
+      <div class="text-sm text-lighter flex space-x-2">
         <%s! Icons.refresh "h-5 w-5 pr-1" %> Version <%s Package.render_version pkg %>
       </div>
 %   )
@@ -144,7 +144,7 @@ Layout.render
         <div class="flex flex-col text-center">
             <div class="text-primary-600 mb-4 font-bold">STABLE ECOSYSTEM</div>
             <h3 class="font-bold mb-8">Focus on Your Code, and Opam Takes Care of Distributing It.</h3>
-            <div class="text-lg text-body-400">Our users have the highest standards for the OCaml ecosystem to run
+            <div class="text-lg text-lighter">Our users have the highest standards for the OCaml ecosystem to run
                 mission-critical applications across a variety of operating systems, and they expect that a package that
                 compiles today will still work a decade from now.</div>
         </div>
@@ -154,7 +154,7 @@ Layout.render
                     <%s! Icons.beaker "h-6 w-6 text-white" %>
                 </div>
                 <div class="text-lg font-semibold mb-4">Continuous Integration</div>
-                <div class="text-base text-body-400">Before any package update, we run sandboxed matrix builds for
+                <div class="text-base text-lighter">Before any package update, we run sandboxed matrix builds for
                     boundaries of the dependencies and for each of the dependent packages. A package publication will
                     never break the rest of the ecosystem.</div>
             </div>
@@ -163,7 +163,7 @@ Layout.render
                     <%s! Icons.refresh "h-6 w-6 text-white" %>
                 </div>
                 <div class="text-lg font-semibold mb-4">State of the Art</div>
-                <div class="text-base text-body-400">Opam supports publishing multiple versions of packages
+                <div class="text-base text-lighter">Opam supports publishing multiple versions of packages
                     simultaneously to specify the version constraints, so only compatible revisions are
                     chosen for a build. It comes with a performant constraint solver, a flexible CLI, a well-specified
                     metadata format, and an easy access to the package manager logic via OCaml libraries.</div>
@@ -173,7 +173,7 @@ Layout.render
                     <%s! Icons.shield_check "h-6 w-6 text-white" %>
                 </div>
                 <div class="text-lg font-semibold mb-4">Stability</div>
-                <div class="text-base text-body-400">The Opam project and package repository is maintained by a team of
+                <div class="text-base text-lighter">The Opam project and package repository is maintained by a team of
                     developers who ensure that everything is not only running smoothly, but also curated to maintain a high
                     degree of metadata quality. This makes it one of the most stable package repositories available
                     today.</div>

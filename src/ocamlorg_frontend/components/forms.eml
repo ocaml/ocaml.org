@@ -1,6 +1,6 @@
 let search_input ?button_attrs ?input_attrs ?dropdown_html ~label ~name _class =
   let form_dropdown html = 
-    <div class="dropdown z-10 absolute rounded-md w-full top-1 mt-10 p-2 bg-white border border-primary-600">
+    <div class="dropdown z-10 absolute rounded-md w-full top-1 mt-10 p-2 bg-default dark:bg-dark-default border border-primary-600">
         <%s! html %>
     </div>
   in
@@ -25,7 +25,7 @@ let search_input ?button_attrs ?input_attrs ?dropdown_html ~label ~name _class =
 
 let select ~options ?attrs ?selected _class =
     <select
-        class="w-full appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-14 h-12 <%s _class %>"
+        class="w-full appearance-none text-default border rounded-md py-3 pl-6 border-gray-200 pr-14 h-12 <%s _class %>"
         <%s! Option.value ~default:"" attrs %>
         >
         <% options |> List.iter (fun (value, display) -> %>
