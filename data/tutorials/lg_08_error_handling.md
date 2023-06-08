@@ -169,6 +169,7 @@ unwise to catch this exception, particularly for beginners), this
 results in the program stopping and printing out the source file and
 line number where the error occurred. An example:
 
+<!-- $MDX skip -->
 ```ocaml
 # assert (Sys.os_type = "Win32");;
 Exception: Assert_failure ("//toplevel//", 1, 1).

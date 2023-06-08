@@ -136,19 +136,17 @@ It builds a sequence of elements satisfying a condition.
 Using `Seq.filter`, it is possible to make a straightforward implementation of
 the [Sieve of
 Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes). Here it is:
-<!-- $MDX part-begin=sieve -->
 ```ocaml
 # let rec sieve seq () = match seq () with
   | Seq.Cons (m, seq) -> Seq.Cons (m, sieve (Seq.filter (fun n -> n mod m > 0) seq))
-  | seq -> seq
-let primes = Seq.ints 2 |> sieve;;
+  | seq -> seq;;
 val sieve : int Seq.t -> int Seq.t = <fun>
+# let primes = Seq.ints 2 |> sieve;;
 val primes : int Seq.t = <fun>
 ```
 
 This code can be used to generate lists of prime numbers. For instance, here is
 the list of 100 first prime numbers:
-<!-- $MDX part=sieve -->
 ```ocaml
 # primes |> Seq.take 100 |> List.of_seq;;
 - : int list =
@@ -160,7 +158,6 @@ the list of 100 first prime numbers:
  421; 431; 433; 439; 443; 449; 457; 461; 463; 467; 479; 487; 491; 499; 503;
  509; 521; 523; 541]
 ```
-<!-- $MDX part-end=sieve -->
 
 The function `sieve` is recursive in OCaml and common sense. It is defined using
 the `rec` keyword and calls itself. However, some call that kind of function
