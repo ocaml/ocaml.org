@@ -859,6 +859,7 @@ exception, particularly for beginners), this causes the program to stop and
 print the source file and line number where the error occurred. An
 example:
 
+<!-- $MDX skip -->
 ```ocaml
 # assert (Sys.os_type = "Win32");;
 Exception: Assert_failure ("//toplevel//", 1, 0).
