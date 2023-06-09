@@ -63,13 +63,6 @@ jobs:
       - Remote
     company: Solvuu
     company_logo: https://solvuu.com/static/media/logo-color.92a01b9f.svg
-  - title: Computer Scientist
-    link: https://frama-c.com/jobs/2022-02-01-permanent-computer-scientist-cyber-security-verification.html
-    locations:
-      - France
-    publication_date: 2022-02-01
-    company: CEA
-    company_logo: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/CEA_logo_nouveau.svg/1255px-CEA_logo_nouveau.svg.png
   - title: Senior Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203826
     locations:
@@ -114,7 +107,14 @@ jobs:
       - France
     publication_date: 2023-02-20
     company: CEA
-    company_logo: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/CEA_logo_nouveau.svg/1255px-CEA_logo_nouveau.svg.png
+    company_logo: https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/LOGO_CEA_ORIGINAL.svg/langfr-130px-LOGO_CEA_ORIGINAL.svg.png
+  - title: Engineers and Computer Scientists
+    link: https://www.frama-c.com/html/jobs.html
+    locations:
+      - France
+    publication_date: 2023-02-28
+    company: CEA
+    company_logo: https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/LOGO_CEA_ORIGINAL.svg/langfr-130px-LOGO_CEA_ORIGINAL.svg.png
   - title: OCaml Developer (several positions)
     link: https://trust-in-soft.com/careers/#jobs
     locations:
