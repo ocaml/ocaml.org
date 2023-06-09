@@ -56,7 +56,7 @@ required:
 
 Here is how to create the configuration files, build the source, and run the
 executable.
-<!-- $MDX dir=examples -->
+<!-- $MDX skip -->
 ```bash
 $ echo "(lang dune 3.4)" > dune-project
 $ echo "(executable (name bmodule))" > dune
@@ -207,7 +207,7 @@ The .`mli` files must be compiled before the matching `.ml` files. This is done
 automatically by Dune. We update the `dune` file to allow the compilation
 of this example aside of the previous one.
 
-<!-- $MDX dir=examples -->
+<!-- $MDX skip -->
 ```bash
 $ echo "(executables (names bmodule bmodule2))" > dune
 $ dune build
