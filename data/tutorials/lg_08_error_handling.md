@@ -119,6 +119,7 @@ are intended to be raised by user-written functions:
 
 Functions are provided by the standard library to raise `Invalid_argument` and
 `Failure` using a string parameter:
+<!-- $MDX file=examples/stdlib.mli -->
 ```ocaml
 val invalid_arg : string -> 'a
 (** @raise Invalid_argument *)
@@ -140,6 +141,7 @@ desirable for errors that must be handled at the client level.
 ### Using `Fun.protect`
 
 The `Fun` module of the standard library contains the following defintion:
+<!-- $MDX file=examples/fun.mli -->
 ```ocaml
 val protect : finally:(unit -> unit) -> (unit -> 'a) -> 'a
 ```
@@ -148,6 +150,7 @@ _after_ a computation is complete, either it succeded or failed. Any computation
 can be postponed by wrapping it into a dummy function with only `()` as
  parameter. Here, the computation triggered by passing `x` to `f` (including its
  side effects) will not take place:
+<!-- $MDX skip -->
 ```ocaml
 let work () = f x
 ```
@@ -350,6 +353,7 @@ val find_opt : ('a -> bool) -> 'a list -> 'a option = <fun>
 ```
 We can try those functions:
 
+<!-- $MDX skip -->
 ```ocaml
 # 1 / 0;;
 Exception: Division_by_zero.
@@ -377,6 +381,7 @@ function: one raising exception, the other returning an option. In the above
 examples, the convention of the standard library is used: adding an `_opt`
 suffix to name of the version of the function that returns an option instead of
 raising exceptions.
+<!-- $MDX file=examples/list_1.mli -->
 ```ocaml
 val find: ('a -> bool) -> 'a list -> 'a
 (** @raise Not_found *)
@@ -388,6 +393,7 @@ However, some projects tend to avoid or reduce the usage of exceptions. In such
 a context, reversing the convention is a relatively common idiom. It is the
 version of the function that raises exceptions that is suffixed with `_exn`.
 Using the same functions, that would be the specification
+<!-- $MDX file=examples/list_2.mli -->
 ```ocaml
 val find_exn: ('a -> bool) -> 'a list -> 'a
 (** @raise Not_found *)
@@ -405,6 +411,7 @@ versa_.
 
 ```ocaml
 # 21 + Some 21;;
+Line 1, characters 6-13:
 Error: This expression has type 'a option
        but an expression was expected of type int
 ```
@@ -412,6 +419,7 @@ Error: This expression has type 'a option
 In order to combine option values with other values, conversion functions are
 needed. Here are the functions provided by the **`option`** module to extract the
 data contained in an option:
+<!-- $MDX file=examples/option_2.mli -->
 ```ocaml
 val get : 'a t -> 'a
 val value : 'a t -> default:'a -> 'a
@@ -435,6 +443,7 @@ val value : default:'a -> 'a option -> 'a = <fun>
 ```
 
 It is also possible to perform pattern matching on option values:
+<!-- $MDX skip -->
 ```ocaml
 match opt with
 | None -> ...    (* Something *)
@@ -507,6 +516,7 @@ claim it is worse.
 Before showing how to improve this code, we need to explain how `Option.map` and
 `Option.bind` work. Here are their types:
 
+<!-- $MDX file=examples/option.mli -->
 ```ocaml
 val map : ('a -> 'b) -> 'a option -> 'b option
 val bind : 'a option -> ('a -> 'b option) -> 'b option
@@ -613,6 +623,7 @@ parameters don't carry any data. Which isn't the case in **`result`** with its
 `Error`, it also behaves like identity.
 
 Here is its type:
+<!-- $MDX file=examples/result_map.mli -->
 ```ocaml
 val map : ('a -> 'b) -> ('a, 'c) result -> ('b, 'c) result
 ```
@@ -627,8 +638,9 @@ The **`result`** module has two map functions: the one we've just seen and anoth
 one, with the same logic, applied to `Error`
 
 Here is its type:
+<!-- $MDX file=examples/result_map_error.mli -->
 ```ocaml
-val map : ('c -> 'd) -> ('a, 'c) result -> ('a, 'd) result
+val map_error : ('c -> 'd) -> ('a, 'c) result -> ('a, 'd) result
 ```
 And here is how it is written:
 ```ocaml
@@ -640,6 +652,7 @@ let map_error f = function
 The same reasoning applies to `Result.bind`, except there's no `bind_error`.
 Using those functions, here is an hypothetical example of code using [Anil
 Madhavapeddy OCaml Yaml library](https://github.com/avsm/ocaml-yaml):
+<!-- $MDX skip -->
 ```ocaml
 let file_opt = File.read_opt path in
 let file_res = Option.to_result ~none:(`Msg "File not found") file_opt in begin
@@ -651,17 +664,18 @@ end |> Result.map_error (Printf.sprintf "%s, error: %s: " path)
 ```
 
 Here are the types of the involved functions:
+<!-- $MDX file=examples/foo.mli -->
 ```ocaml
-val File.read_opt : string -> string option
-val Yaml.of_string : string -> (Yaml.value, [`Msg of string]) result
-val Yaml.Util.find : string -> Yaml.value -> (Yaml.value option, [`Msg of string]) result
-val Option.to_result : none:'e -> 'a option -> ('a, 'e) result
+val read_opt : string -> string option
+val of_string : string -> (Yaml.value, [`Msg of string]) result
+val find : string -> Yaml.value -> (Yaml.value option, [`Msg of string]) result
+val to_result : none:'e -> 'a option -> ('a, 'e) result
 ```
 
 - `File.read_opt` is supposed to open a file, read its contents and return it as
 a string wrapped in an option, if anything goes wrong `None` is returned.
 - `Yaml.of_string` parses a string an turns into an ad-hoc OCaml type
-- `Yaml.find` recursively searches a key in a Yaml tree, if found, it returns
+- `Yaml.Util.find` recursively searches a key in a Yaml tree, if found, it returns
   the corresponding data, wrapped in an option
 - `Option.to_result` performs conversion of an **`option`** into a **`result`**.
 - Finally, `let*` stands for `Result.bind`.
@@ -678,8 +692,9 @@ into an `Error` and `Result.map_error` will never turn an `Error` into an `Ok`.
 On the other hand, functions passed to `Result.bind` are allowed to fail. As
 stated before there isn't a `Result.bind_error`. One way to make sense out of
 that absence is to consider its type, it would have to be:
+<!-- $MDX skip -->
 ```ocaml
-val Result.bind_error : ('a, 'e) result -> ('e -> ('a, 'f) result) -> ('a, 'f) result
+val bind_error : ('a, 'e) result -> ('e -> ('a, 'f) result) -> ('a, 'f) result
 ```
 We would have:
 * `Result.map_error f (Ok x) = Ok x`
@@ -694,7 +709,9 @@ That behaviour can be achieved by defining the following function:
 
 ```ocaml
 # let recover f = Result.(fold ~ok:ok ~error:(fun (e : 'e) -> Option.to_result ~none:e (f e)));;
-val recover : ('e -> 'a option) -> ('a, 'e) result -> ('a, 'e) result = <fun>
+val recover :
+  ('e -> 'a option) -> ('a, 'e) Stdlib.result -> ('a, 'e) Stdlib.result =
+  <fun>
 ```
 
 Although any kind of data can be wrapped as a **`result`** `Error`, it is
@@ -732,13 +749,15 @@ languages, and specially in Haskell.
 
 Assuming `a` and `b` are valid OCaml expressions, the following three pieces of
 source code are functionally identical:
-
+<!-- $MDX skip -->
 ```ocaml
 bind a (fun x -> b)
 ```
+<!-- $MDX skip -->
 ```ocaml
 let* x = a in b
 ```
+<!-- $MDX skip -->
 ```ocaml
 a >>= fun x -> b
 ```
@@ -746,14 +765,17 @@ a >>= fun x -> b
 It may seem pointless. To make sense, one must look at expressions where several
 calls to `bind` are chained. The following three are also equivalent:
 
+<!-- $MDX skip -->
 ```ocaml
 bind a (fun x -> bind b (fun y -> c))
 ```
+<!-- $MDX skip -->
 ```ocaml
 let* x = a in
 let* y = b in
 c
 ```
+<!-- $MDX skip -->
 ```ocaml
 a >>= fun x -> b >>= fun y -> c
 ```
@@ -764,10 +786,12 @@ one is harder to read, as `>>=` associates to the right in order to avoid
 parenthesis in that precise case, but it's easy to get lost. Nevertheless, it
 has some appeal when named functions are used. It looks a bit like good old Unix
 pipes:
+<!-- $MDX skip -->
 ```ocaml
 a >>= f >>= g
 ```
 looks better than:
+<!-- $MDX skip -->
 ```ocaml
 let* x = a in
 let* y = f x in
@@ -780,6 +804,7 @@ Go, Rust, Swift or even modern Java, where it would be looking like:
 
 Here is the same code as presented at the end of the previous section, rewritten
 using `Result.bind` as a binary opeator:
+<!-- $MDX skip -->
 ```ocaml
 File.read_opt path
 |> Option.to_result ~none:(`Msg "File not found")
