@@ -376,7 +376,6 @@ module, such as `List`:
 
 ```ocaml
 # #show List;;
-module List = List
 module List :
   sig
     type 'a t = 'a list = [] | (::) of 'a * 'a list
