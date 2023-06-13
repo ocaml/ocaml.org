@@ -580,6 +580,16 @@ let from_v2 =
     ("/releases/index.fr.html", Url.releases);
     ("/releases/index.html", Url.releases);
     ("/releases", Url.releases);
+    ("/releases/lts", Url.release "4.14.1");
+    ("/releases/lts/index.html", Url.release "4.14.1");
+    ("/releases/lts/manual.html", Url.manual_with_version "4.14.1");
+    ("/releases/lts/manual", Url.manual_with_version "4.14.1");
+    ("/releases/lts/manual/index.html", Url.manual_with_version "4.14.1");
+    ("/releases/lts/htmlman", Url.manual_with_version "4.14.1");
+    ("/releases/lts/htmlman/index.html", Url.manual_with_version "4.14.1");
+    ("/releases/lts/api", Url.api_with_version "4.14.1");
+    ("/releases/lts/pi/index.html", Url.api_with_version "4.14.1");
+    ("/releases/latest", Url.release "5.0.0");
     ("/releases/latest/index.html", Url.release "5.0.0");
     ("/releases/latest/manual.html", Url.manual_with_version "5.0.0");
     ("/releases/latest/manual", Url.manual_with_version "5.0.0");
