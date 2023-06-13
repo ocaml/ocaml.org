@@ -51,7 +51,6 @@ doc: ## Generate odoc documentation
 .PHONY: fmt
 fmt: ## Format the codebase with ocamlformat
 	opam exec -- dune build --root . --auto-promote @fmt
-	make -C playground fmt
 
 .PHONY: watch
 watch: ## Watch for the filesystem and rebuild on every change
