@@ -33,13 +33,6 @@ module.exports = {
             'h3 code': {
               fontSize: "1em",
             },
-            a: {
-              color: "#EE6A1A",
-              textDecoration: "none",
-              "&:hover": {
-                textDecoration: "underline",
-              }
-            }
           }]
         },
       },
