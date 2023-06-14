@@ -22,12 +22,11 @@ let timeout_container () =
           ])
   | None -> ()
 
-let cmi_urls () = List.map (fun cmi ->
-  Printf.sprintf "stdlib/%s" cmi) Cmis.cmis
+let cmi_urls () = List.map (fun cmi -> Printf.sprintf "stdlib/%s" cmi) Cmis.cmis
 
 let initialise s callback =
   let rpc = Js_top_worker_client.start s 100000 callback in
-  let* _ = Toprpc.init rpc Toplevel_api.{ cmas = []; cmi_urls = cmi_urls() } in
+  let* _ = Toprpc.init rpc Toplevel_api.{ cmas = []; cmi_urls = cmi_urls () } in
   Lwt.return rpc
 
 let or_raise = function
@@ -54,8 +53,10 @@ let default_code = get_script_data "data-default-code"
 
 module Merlin = Merlin_codemirror.Make (struct
   let worker_url = merlin_url
+
   let cmis =
-    let dcs_toplevel_modules = [
+    let dcs_toplevel_modules =
+      [
         "CamlinternalFormat";
         "CamlinternalFormatBasics";
         "CamlinternalLazy";
@@ -65,13 +66,13 @@ module Merlin = Merlin_codemirror.Make (struct
         "Stdlib";
         "Unix";
         "UnixLabels";
-    ]
+      ]
     in
     let dcs_url = "stdlib/" in
-    let dcs_file_prefixes = ["stdlib__"] in
-    { Protocol.static_cmis = [];
-      dynamic_cmis = Some {
-        dcs_url; dcs_toplevel_modules; dcs_file_prefixes }
+    let dcs_file_prefixes = [ "stdlib__" ] in
+    {
+      Protocol.static_cmis = [];
+      dynamic_cmis = Some { dcs_url; dcs_toplevel_modules; dcs_file_prefixes };
     }
 end)
 
