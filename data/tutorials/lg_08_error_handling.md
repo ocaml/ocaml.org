@@ -722,8 +722,10 @@ Karlton's famous quote:
 > There are only two hard things in Computer Science: cache invalidation and
 > naming things.
 
-Improperly handling errors always makes the code harder to read. The right
-tools, data, and functions can help. Use them.
+Handling errors necessarily complicates code, making it harder to read and
+understand than simple code that behaves incorrectly or fails under exceptional
+conditions. The right tools, data, and functions can help you ensure correct
+behavior with minimal loss of clarity. Use them.
 
 ## `bind` as a Binary Operator
 
