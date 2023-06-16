@@ -3,10 +3,15 @@ name: Docker Build and Release
 on:
   workflow_dispatch:
     inputs:
-      description: 'Branch to use'
-      required: true
-      default: 'main'
-      type: choice
+      builtBranch:
+        description: 'Branch to build image from'
+        required: true
+        default: 'main'
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
 
 jobs:
   build-and-release:
