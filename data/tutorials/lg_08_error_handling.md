@@ -32,7 +32,7 @@ instance, in Unix systems, here what is contained in `man 2 read`:
 >
 > On error, -1 is returned, and `errno` is set to indicate the error.
 
-Great software was written using this style. However, since correct and error
+Great software was written using this style. However, since expected and error
 values can't be distinguished, nothing but the programmer's discipline ensures
 errors aren't ignored. This has been the cause of many bugs, some with dire
 consequences. This is not the proper way to deal with errors in OCaml.
@@ -149,7 +149,7 @@ val protect : finally:(unit -> unit) -> (unit -> 'a) -> 'a
 ```
 This function is meant to be used when something _always_ needs to be done
 _after_ a computation is complete, whether it succeeds or fails. The unlabeled
-function argument is called first, then the function passed as the 
+function argument is called first, then the function passed as the
 [labeled argument](/docs/labels) `finally` is called. `protect` then returns the
 same value as the unlabeled argument or raises the same exception that
 function raised.
@@ -160,7 +160,7 @@ be wrapped in a function `fun () -> f x`. As always, the body of the function
 won't be evaluated until the function is called.
 
 The `finally` function is only expected to perform some side-effect, and should
-not raise any exception itself. If `finally` does throw some exception `e`,
+not raise any exception itself. If `finally` does throw an exception `e`,
 `protect` will raise `Finally_raised e`, wrapped to make it clear that the
 exception is not coming from the protected function.
 
@@ -642,7 +642,7 @@ let map_error f = function
 
 The same reasoning applies to `Result.bind`, except there's no `bind_error`.
 Using those functions, here is an hypothetical example of code using [Anil
-Madhavapeddy's OCaml Yaml library](https://github.com/avsm/ocaml-yaml):
+Madhavapeddy's OCaml YAML library](https://github.com/avsm/ocaml-yaml):
 ```ocaml
 let file_opt = File.read_opt path in
 let file_res = Option.to_result ~none:(`Msg "File not found") file_opt in begin
@@ -883,7 +883,7 @@ fail, unless during debugging or truly extraordinary circumstances that
 absolutely prevent the execution from making any kind of progress.
 
 When the execution reaches conditions which can't be handled, the right thing to
-do is to throw a `Failure`, using `failwith "error message"`. Assertions aren't
+do is to throw a `Failure`, by using `failwith "error message"`. Assertions aren't
 meant to handle those cases. For instance, in the following code:
 
 <!-- $MDX skip -->
