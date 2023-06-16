@@ -8,10 +8,6 @@ on:
         required: true
         default: 'main'
         type: choice
-        options:
-          - info
-          - warning
-          - debug
 
 jobs:
   build-and-release:
