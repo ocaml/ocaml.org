@@ -11,7 +11,7 @@ date: 2021-05-27T21:07:30-00:00
 
 In OCaml, errors can be handled in several ways. This document presents most of
 the available means. However, handling errors using the effect handlers
-introduced in OCaml 5 isn't addressed yet. This topic is also addressed in the
+introduced in OCaml 5 hasn't been addressed yet. This topic is also addressed in the
 [_Error Handling_](https://dev.realworldocaml.org/error-handling.html) chapter
 of the _Real World OCaml_ book by Yaron Minsky and Anil Madhavapeddy (see
 references).
@@ -151,11 +151,11 @@ This function is meant to be used when something _always_ needs to be done
 _after_ a computation is complete, whether it succeeds or fails. The unlabeled
 function argument is called first, then the function passed as the 
 [labeled argument](/docs/labels) `finally` is called. `protect` then returns the
-same value as the unlabeled argument, or raises the same exception that that
+same value as the unlabeled argument or raises the same exception that
 function raised.
 
 Note that functions passed to `protect` take only `()` as a parameter. This
-does not limit the cases where `protect` can be used; any computation `f x` can
+does not limit the cases where `protect` can be used. Any computation `f x` can
 be wrapped in a function `fun () -> f x`. As always, the body of the function
 won't be evaluated until the function is called.
 
@@ -204,7 +204,7 @@ they are loosely or not at all related with the program logic, it mostly doesn't
 make sense to track the place where an asynchronous exceptions was thrown, as it
 could be anywhere. Deciding if an application needs to catch those exceptions
 and how it should be done is beyond the scope of this tutorial. Interested
-readers may refer to Guillaume Munch-Maccagnoni [A Guide to recover from
+readers may refer to Guillaume Munch-Maccagnoni's [A Guide to recover from
 interrupts](https://guillaume.munch.name/software/ocaml/memprof-limits/recovering.html).
 
 ### Documentation
@@ -482,7 +482,7 @@ whole fully qualified domain name (FQDN) as a fallback, but only if it isn't
 the empty string.
 
 Note that generally `String.sub` may throw `Invalid_argument`. Fortunately, this
-can't happen when calculating `fqdn`: in the worst case, the `@` character is
+can't happen when calculating `fqdn`. In the worst case, the `@` character is
 the last one, when `fqdn_pos` is off range by one but `fqdn_len` is null, and
 that combination of parameters gives an empty string rather than an exception.
 
@@ -580,16 +580,16 @@ robustness. A couple of observations:
 When used to handling errors with catch statements, it requires some time to get
 used the latter style. The key idea is avoiding or deferring looking directly
 into option values. Instead, pass them along using ad hoc pipes (such as `map`
-and `bind`). Erik Meijer calls that style “following the happy path”. Visually,
+and `bind`). Erik Meijer calls that style “following the happy path.” Visually,
 it also resembles the “early return“ pattern often found in C.
 
-One of the limitations of the option type is it doesn't record the reason which
+One of the limitations of the option type is that it doesn't record the reason that
 prevented having a return value. `None` is silent, it doesn't say anything about
 what went wrong. For this reason, functions returning option values should
 document the circumstances under which they may return `None`. Such
 documentation is likely to resemble that required for exceptions using `@raise`.
 The **`result`** type, described in the next section, is intended to fill this
-gap: manage errors in data like option values, but also provide information on
+gap: manage errors in data like option values and provide information on
 errors like exceptions.
 
 ## Using the **`result`** Type for Errors
@@ -672,7 +672,7 @@ a string wrapped in an option, if anything goes wrong `None` is returned.
 Since both functions from the `Yaml` module return **`result`** data, it is
 easier to write a pipe which processes that type all along. That's why
 `Option.to_result` needs to be used. Stages which produce **`result`** must be
-chained using `bind`, stages which do not must be chained using some map
+chained using `bind`; stages which do not must be chained using some map
 function to wrap their values back into a **`result`**.
 
 The map functions of the **`result`** module allows processing of data or errors,
@@ -763,8 +763,8 @@ c
 a >>= fun x -> b >>= fun y -> c
 ```
 Variables `x` and `y` may appear in `c` in the three cases. The first form isn't
-very convenient, it uses a lot of parentheses. The second one is often the
-preferred one due to its resemblance with regular local definitions. The third
+very convenient, as it uses a lot of parentheses. The second one is often the
+preferred due to its resemblance with regular local definitions. The third
 one is harder to read, as `>>=` associates to the right in order to avoid
 parentheses in that precise case, but it's easy to get lost. Nevertheless, it
 has some appeal when named functions are used. It looks a bit like good old Unix
@@ -780,7 +780,7 @@ g y
 ```
 Writing `x >>= f` is very close to what is found in functionally tainted
 programming languages which have methods and receivers such as Kotlin, Scala,
-Go, Rust, Swift or even modern Java, where it would look like:
+Go, Rust, Swift, or even modern Java, where it would look like:
 `x.bind(f)`.
 
 Here is the same code as presented at the end of the previous section, rewritten
@@ -796,12 +796,12 @@ File.read_opt path
 
 By the way, this style is called [tacit
 programming](https://en.wikipedia.org/wiki/Tacit_programming). Thanks to the
-associativity priorities of the `>>=` and `|>` operators, no parenthesized
+associativity priorities of the `>>=` and `|>` operators, no parenthesised
 expression extends beyond a single line.
 
 OCaml has a strict typing discipline, not a strict styling discipline;
 therefore, picking the right style is left to the author's decision. That
-applies error handling, pick a style knowingly. See the [OCaml Programming
+applies error handling, so pick a style knowingly. See the [OCaml Programming
 Guidelines](/docs/guidelines) for more details on those matters.
 
 ## Conversions Between Errors
@@ -875,7 +875,7 @@ Running this on Win32, of course, won't throw an error.
 
 Writing `assert false` would just stop your program. This idiom is sometimes
 used to indicate [dead code](https://en.wikipedia.org/wiki/Dead_code), parts of
-the program that must be written (often for type-checking or pattern matching
+the program that must be written (often for type-checking or pattern-matching
 completeness) but are unreachable at run time.
 
 Asserts should be understood as executable comments. They aren't supposed to
@@ -913,10 +913,10 @@ of an application, and can't be isolated in a dedicated module. In contrast to
 several other mainstream languages, OCaml provides several mechanisms to handle
 exceptional events, all with good runtime performance and code
 understandability. Using them properly requires some initial learning and
-practice. Later, it always requires some thinking, which is good since proper
+practice. Later, it always requires some thinking, which is beneficial because proper
 error management shouldn't ever be overlooked. No error handling mechanism is
-always better than the others, and choosing one to use should be matter of
-fitting the context rather than of taste. But opinionated OCaml code is also
+always better than the others, and choosing one to use should be a matter of
+fitting the context rather than that of taste. But opinionated OCaml code is also
 fine, so it's a balance.
 
 # External Ressources
