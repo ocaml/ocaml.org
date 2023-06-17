@@ -76,9 +76,8 @@ OCaml Platform to Anil Madhavapeddy, who has accepted this Role.*
 
 ### C. Maintainers
 
-Projects under OCaml.org and within the OCaml Platform will have their own
-Maintainers, who have commit access to relevant repositories and are responsible
-for:
+Projects under OCaml governance will have their own Maintainers, who have commit
+access to relevant repositories and are responsible for:
 
 - Managing the specific project.
 - Writing code directly to repositories.
@@ -94,19 +93,17 @@ a Project will be invited to become Maintainers.
 ### D. Contributors
 
 Contributors are wider members of the OCaml community who make valuable
-contributions to projects under OCaml.org or within the OCaml Platform, but
-generally do not have authority to make direct changes to a Project's codebase
-or documentation. Anyone can become a Contributor and there is no expectation of
-commitment, no specific skill requirement, and no selection process. The only
-necessary step is to make or suggest some improvement or change to the Project.
+contributions to projects under OCaml governance, but generally do not have
+authority to make direct changes to a Project's codebase or documentation.
+Anyone can become a Contributor and there is no expectation of commitment, no
+specific skill requirement, and no selection process. The only necessary step is
+to make or suggest some improvement or change to the Project.
 
 Contributors can interact with a Project via tools such as email lists, issue
-trackers, and wiki pages, for example. The main email list for OCaml.org is
-[infrastructure@lists.ocaml.org](mailto:infrastructure@lists.ocaml.org) and is
-open to all. Maintainers are free to direct discussion to their own dedicated
-mailing lists, as they feel appropriate. Those whose contributions become part
-of a public Git repository will be recognised in some form on a public website
-as thanks.
+trackers, and wiki pages, for example. Maintainers are free to direct discussion
+to their own dedicated mailing lists or preferred communication platform, as
+they feel appropriate. Those whose contributions become part of a public Git
+repository will be recognised in some form on a public website as thanks.
 
 It is expected that regular Contributors to specific Projects may be asked if
 they wish to become Maintainers, as described above. There is no obligation to
@@ -115,10 +112,10 @@ accept such an offer.
 ### E. Users
 
 Users are the most important group and it includes the much wider community of
-anyone who interacts with OCaml.org in any way. This covers all web-visitors,
-users of the Platform tools, package users and members of mailing lists. Without
-Users, the Projects serve no purpose, so the impact of any major decisions on
-this group should be assessed.
+anyone who interacts with OCaml Projects in any way. This covers all
+web-visitors, users of the Platform tools, package users and members of mailing
+lists. Without Users, the Projects serve no purpose, so the impact of any major
+decisions on this group should be assessed.
 
 Wherever practicable, Users should be encouraged to provide feedback and
 participate in the Projects as much as possible. Users who engage a lot with a
@@ -134,14 +131,14 @@ It is expected that the majority of new work will fall under an existing
 subdomain and will therefore already have a set of Maintainers and Contributors
 (as described above).
 
-**Communication** - All Maintainers of Projects must join the Infrastructure
-mailing list (infrastructure@lists.ocaml.org). This list is the primary way that
-information and decisions surrounding OCaml.org will be discussed and
-disseminated. If Projects wish to set up their own lists, they may do so on
-lists.ocaml.org (see below).
+**Communication** - All Maintainers of Projects must monitor the
+[`ocaml/infrastructure`](https://github.com/ocaml/infrastructure/) GitHub issue
+tracker. The issue tracker is the primary mode of exchanging information and
+decisions concerning OCaml.org Projects. In case Projects wish to establish
+their own issue trackers, they are free to do so on GitHub (see below).
 
 **Governance** - Projects are free to choose their mode of governance provided
-it is compatible with the governance and guiding principles of OCaml.org.
+it is compatible with the governance and guiding principles of OCaml governance.
 
 ### A. Disambiguation - The Meaning of OCaml.org
 
@@ -153,10 +150,10 @@ the meaning of the term *for this document* is also explained.
 'OCaml.org', which has associated sub-domains and records (NB: Just for clarity
 and edification, the top-level domain here is '.org').
 
-*Community website* - This is the community facing website, which can be found
+*Community website* - This is the community-facing website, which can be found
 at [ocaml.org](//ocaml.org) and is often referred to as simply 'OCaml.org'.
 
-*Infrastructure* - This may refer to the virtual machines (VMs), services, or
+*Infrastructure* - This may refer to virtual machines (VMs), services, or
 other things that are somehow routed via the second-level domain name itself. An
 obvious example is the VM that hosts the community website, but another would be
 the VMs and systems that host the tarballs and files used by the Opam package
@@ -177,9 +174,10 @@ redirect to [ocaml.org](//ocaml.org).
 
 ### B. Initiating a Project 
 
-Any proposal for new work should be raised and discussed on the Infrastructure
-mailing list. If there is consensus among Maintainers that the work fits within
-an existing Project, then the Maintainers of that Project can take it forward.
+Any proposal for new work should be raised and discussed on the
+[`ocaml/infrastructure`](https://github.com/ocaml/infrastructure/) GitHub issue
+tracker. If there is consensus among Maintainers that the work fits within an
+existing Project, then the Maintainers of that Project can proceed with it.
 
 If a new subdomain is required, then a brief proposal should be made on the
 Infrastructure list that covers:
@@ -385,31 +383,26 @@ To be considered for deprecation, a tool must meet the following requirements:
 
 The preferred approach for most discussions is through
 [rough consensus and running code](http://en.wikipedia.org/wiki/Rough_consensus).
-Discussions should be public and take place on either the Infrastructure mailing
-list, the relevant Project mailing-list, or on relevant issue trackers. Users
-and Contributors are encouraged to take part and voice their opinions.
-Typically, the Maintainers of a Project will make the final decision, having
-accounted for wider views.
+Discussions should be public and take place on either the OCaml Discuss forum,
+the relevant Project mailing-list, or on relevant issue trackers. Users and
+Contributors are encouraged to take part and voice their opinions. Typically,
+the Maintainers of a Project will make the final decision, having accounted for
+wider views.
 
-All Projects under OCaml.org are to be documented such that Users can find out
-about them and understand both the purpose and how they can contribute.
+All Projects under the OCaml governance are to be documented such that Users can
+find out about them and understand both the purpose and how they can contribute.
 
 ### B. Contribution Process and Licensing
 
-Contributions to OCaml.org will primarily be to one or more of its Projects.
-Each Project under OCaml.org needs to define a clear contribution process and
-licensing agreement so that Contributors understand how to engage with the
-Maintainers. Typically, this will cover where communication occurs and the
-process for submitting patches. Contributions from the community are encouraged
-and can take many forms including, bug fixes, new features, content, or  
-documentation.
+Each Project under the OCaml governance needs to define a clear contribution
+process and licensing agreement so that Contributors understand how to engage
+with the Maintainers. Typically, this will cover where communication occurs and
+the process for submitting patches. Contributions from the community are
+encouraged and can take many forms including, bug fixes, new features, content,  
+or documentation.
 
-All Projects under OCaml.org are expected to be open source, and the licensing
-arrangements should reflect this.
-
-Contributions to OCaml.org itself may be in the form of resources that can be
-shared by Projects and can be discussed with Owner/Delegate and Project
-Maintainers on the Infrastructure mailing list.
+All Projects under the OCaml governance are expected to be open source, and the
+licensing arrangements should reflect this.
 
 ### C. Dispute Resolution
 
@@ -422,7 +415,7 @@ forward, the following approach is suggested:
 
 - The specific issue(s) will need to be articulated, so it is clear what needs
   to be discussed.
-- Other Maintainers of OCaml.org projects will be asked for their views.
+- Other Maintainers of OCaml Projects will be asked for their views.
 - If the discussion still cannot be resolved, the Owner (or their Delegate) will
   act as arbitrator.
 
@@ -455,3 +448,6 @@ or see the [related issue](https://github.com/ocaml/v2.ocaml.org/issues/700).
 
 - Include the OCaml Platform governance.
 - Rename from "OCaml.org Governance" to "OCaml Governance".
+- Update the governance of OCaml.org to reflect the use of the
+  `ocaml/infrastructure` GitHub issue tracker in place of the infrastructure
+  mailing list.
