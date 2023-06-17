@@ -875,7 +875,7 @@ Running this on Win32, of course, won't throw an error.
 
 Writing `assert false` would just stop your program. This idiom is sometimes
 used to indicate [dead code](https://en.wikipedia.org/wiki/Dead_code), parts of
-the program that must be written (often for type-checking or pattern-matching
+the program that must be written (often for type checking or pattern matching
 completeness) but are unreachable at run time.
 
 Asserts should be understood as executable comments. They aren't supposed to
