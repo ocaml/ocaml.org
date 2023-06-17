@@ -444,10 +444,11 @@ or see the [related issue](https://github.com/ocaml/v2.ocaml.org/issues/700).
 
 - Addressed consistency in title case and grammar.
 
-***Version 2.0.0 — May 2023***
+***Version 2.0.0 — June 2023***
 
 - Include the OCaml Platform governance.
-- Rename from "OCaml.org Governance" to "OCaml Governance".
+- Rename the document "OCaml Governance" to reflect the inclusion of the OCaml
+  Platform.
 - Update the governance of OCaml.org to reflect the use of the
   `ocaml/infrastructure` GitHub issue tracker in place of the infrastructure
   mailing list.
