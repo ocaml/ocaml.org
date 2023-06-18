@@ -9,6 +9,8 @@ env:
   
 jobs:
   build-and-release:
+    permissions: write-all
+    
     name: Build and push docker image to ghcr.io    
     runs-on: ubuntu-latest
     
