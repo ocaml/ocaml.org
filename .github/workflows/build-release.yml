@@ -3,7 +3,7 @@ name: Docker Build and Release
 on:
   workflow_dispatch:
     inputs:
-      builtBranch:
+      branch:
         description: 'Branch to build image from'
         required: true
         default: 'main'
