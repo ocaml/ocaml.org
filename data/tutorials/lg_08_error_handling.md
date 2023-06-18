@@ -32,8 +32,7 @@ instance, in Unix systems, here what is contained in `man 2 read`:
 >
 > On error, -1 is returned, and `errno` is set to indicate the error.
 
-Great software was written using this style. However, since correct and error
-values can't be distinguished, nothing but the programmer's discipline ensures
+Great software was written using this style. However, as expected return values can't be distinguished from values representing errors, nothing but the programmer's discipline ensures
 errors aren't ignored. This has been the cause of many bugs, some with dire
 consequences. This is not the proper way to deal with errors in OCaml.
 
@@ -763,7 +762,7 @@ c
 a >>= fun x -> b >>= fun y -> c
 ```
 Variables `x` and `y` may appear in `c` in the three cases. The first form isn't
-very convenient, as it uses a lot of parentheses. The second one is often the
+very convenient, as it uses a lot of parentheses. The second one is often
 preferred due to its resemblance with regular local definitions. The third
 one is harder to read, as `>>=` associates to the right in order to avoid
 parentheses in that precise case, but it's easy to get lost. Nevertheless, it
