@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }}
           
       - name: Build and push Docker image
-        uses: docker/build-push-action
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: false
