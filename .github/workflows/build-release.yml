@@ -2,9 +2,6 @@ name: Docker Build and Release
 
 on:
   workflow_dispatch:
-    inputs:
-      branch:
-        required: true
 
 jobs:
   build-and-release:
