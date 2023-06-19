@@ -71,4 +71,4 @@ docker: ## Generate docker container
 
 .PHONY: linkcheck
 linkcheck:
-	opam exec -- dune exec --root . tool/olinkcheck/bin/main.exe md data
+	opam exec -- dune exec --root . olinkcheck md data
