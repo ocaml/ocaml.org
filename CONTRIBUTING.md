@@ -1,25 +1,25 @@
-# How to contribute
+# How to Contribute
 
-Welcome to Ocaml.org's contributing guide.
+Welcome to OCaml.org's contributing guide.
 
 This guide documents the best way to contribute to the project. If you're looking for a guide on how to setup the project and submit a contribution, you can refer to our [HACKING](./HACKING.md) guide.
 
-Thank you for taking the time to read the contributing guide. Your help with Ocaml.org is extremely welcome. If you get stuck, please don’t hesitate to [ask questions on discuss](https://discuss.ocaml.org/) or [raise an issue](https://github.com/ocaml/ocaml.org/issues/new).
+Thank you for taking the time to read the contributing guide. Your help with OCaml.org is extremely welcome. If you get stuck, please don’t hesitate to [ask questions on discuss](https://discuss.ocaml.org/) or [raise an issue](https://github.com/ocaml/ocaml.org/issues/new).
 
 We are particularly motivated to support new contributors and people who are looking to learn and develop their skills.
 
 - **Good First Issues**: issues marked as a `good first issue` are ideal for people who are either new to the repository or still getting started with OCaml in general.
 - **Fixing or Suggesting Content**: most of the content for the site is stored in the `data` directory as markdown or yaml. To fix this content you can edit those files directly and rebuild the website. This will promote the content into their `.ml` counterparts. If you would like to suggest entirely new content please open an issue to discuss it first.
-- **Implementing pages**: most pages are implemented in `src/ocamlorg_frontend/pages` using the [.eml templating preprocessor](https://aantron.github.io/dream/#templates). This is mixture or OCaml and HTML.
+- **Implementing Pages**: most pages are implemented in `src/ocamlorg_frontend/pages` using the [.eml templating preprocessor](https://aantron.github.io/dream/#templates). This is mixture or OCaml and HTML.
 - **Translating content or pages**: for now we are focusing on getting OCaml.org ready for launch and will add more information about translation later.
 
-## Reporting bugs
+## Reporting Bugs
 
 We use GitHub issues to track all bugs and feature requests; feel free to open an issue over [here](https://github.com/ocaml/ocaml.org/issues/new) if you have found a bug or wish to see a feature implemented.
 
 Please include images and browser-specific information if the bug is related to some visual aspect of the site. This tends to make it easier to reproduce and fix.
 
-## Contributing content
+## Contributing Content
 
 Here's a list of the content that is community driven and how you can contribute to it:
 
@@ -32,14 +32,14 @@ Here's a list of the content that is community driven and how you can contribute
 - [The featured packages](#content-package)
 - [The OCaml Changelog](#content-package)
 
-### <a name="content-blog"></a> Add an RSS feed to the blog
+### <a name="content-blog"></a> Add an RSS Feed to the Blog
 
 > Contribute to the [OCaml Blog](https://ocaml.org/blog).
 
 The blog is composed of two type of content:
 
-- Community blog posts fetched from RSS feeds.
-- Original blog posts.
+- Community blog posts fetched from RSS feeds
+- Original blog posts
 
 If you write about OCaml and have an RSS or Atom feed, you can add your feed to [`data/planet-sources.yml`](data/planet-sources.yml).
 
@@ -49,7 +49,7 @@ Please, make sure your feed only contains articles about OCaml.
 
 To contribute an original blog post (refer to as News on the site), you can add a new markdown file in [`data/news/`](/data/news/). For instance: [`multicore-2021-12.md`](data/news/multicore/multicore-2021-12.md).
 
-If you want to re-publish an blog post you previously posted on Discuss, you can fetch it using Discuss API:
+If you want to republish an blog post you previously posted on Discuss, you can fetch it using Discuss API:
 
 ```
 curl https://discuss.ocaml.org/raw/<id> > data/news/<fname>.md
@@ -57,7 +57,7 @@ curl https://discuss.ocaml.org/raw/<id> > data/news/<fname>.md
 
 Where `<id>` is the ID of the Discuss post.
 
-### <a name="content-job"></a> Add an entry to the job board
+### <a name="content-job"></a> Add an Entry to the Job Board
 
 > Contribute to the [Job Board](https://ocaml.org/jobs).
 
@@ -69,7 +69,7 @@ Please make sure that the job involves mostly writing OCaml. Contributions to ad
 
 If you notice that a job opportunity is outdated (e.g. already fulfilled, or not opened anymore), PRs to remove it are welcome as well.
 
-### <a name="content-success-story"></a> Add a success story
+### <a name="content-success-story"></a> Add a Success Story
 
 > Contribute to the [Success Stories](https://ocaml.org/success-stories).
 
@@ -84,7 +84,7 @@ The success stories should be structured in the following way:
 
 You can read [Ahref's success story](https://ocaml.org/success-stories/peta-byte-scale-web-crawler) for an examplary success story.
 
-### <a name="content-user"></a> Add an academic or industrial user
+### <a name="content-user"></a> Add an Academic or Industrial User
 
 > Contribute to the [Academic Users](https://ocaml.org/academic-users) and [Industrial Users](https://ocaml.org/industrial-users).
 
@@ -92,19 +92,19 @@ You can add a new academic user by creating a new markdown file in [data/industr
 
 You can add a new industrial user by creating a new markdown file in [data/academic_institutions/](data/academic_institutions). For instance: [cornell.md](data/academic_institutions/en/cornell.md).
 
-### <a name="content-book"></a> Add a book
+### <a name="content-book"></a> Add a Book
 
 > Contribute to the [OCaml Books](https://ocaml.org/books).
 
 You can add a new OCaml book by creating a new markdown file in [data/books/](data/books/). For instance: [ocaml-from-the-very-beginning.md](data/industrial_users/en/ocaml-from-the-very-beginning.md).
 
-### <a name="content-event"></a> Add an event
+### <a name="content-event"></a> Add an Event
 
 > Contribute to the [Community Events](https://ocaml.org/community).
 
 You can add a new community event by creating a new markdown file in [data/meetups.yml](data/meetups.yml).
 
-### <a name="content-package"></a> Add a featured packages
+### <a name="content-package"></a> Add a Featured Package
 
 > Contribute to the [Featured Packages](https://ocaml.org/packages).
 
@@ -125,7 +125,7 @@ The announcement is proofread by the OCaml.org team, who will also suggest highl
 
 To contribute to a new release announcement or feature highlight, add a markdown file in `data/changelog/`.
 
-## Git and GitHub workflow
+## Git and GitHub Workflow
 
 The preferred workflow for contributing to a repository is to fork the main repository on GitHub, clone, and develop on a new branch.
 
