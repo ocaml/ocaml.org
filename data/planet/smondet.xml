@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://seb.mondet.org/b/OCaml.rss</id><title type="text">smondet</title><updated>2023-06-07T05:45:50-00:00</updated><entry><link href="https://seb.mondet.org/b/0012-tzcomet-token-viewer.html" rel="alternate"/><contributor><uri>https://seb.mondet.org/b/OCaml.rss</uri><name>smondet</name></contributor><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://seb.mondet.org/b/OCaml.rss</id><title type="text">smondet</title><updated>2023-06-19T05:47:24-00:00</updated><entry><link href="https://seb.mondet.org/b/0012-tzcomet-token-viewer.html" rel="alternate"/><contributor><uri>https://seb.mondet.org/b/OCaml.rss</uri><name>smondet</name></contributor><content type="html">
     TZComet and CleanNFT Metadata: a generic token-viewer &amp;#9732;
     Also new domain tzcomet.io &amp;#127776;
    </content><id>https://seb.mondet.org/b/0012-tzcomet-token-viewer.html</id><title type="text">TZComet's New Token Viewer</title><updated>2021-03-25T13:00:42-00:00</updated><author><name>smondet</name></author></entry><entry><link href="https://seb.mondet.org/b/0010-delphi-challenge-post-vivum.html" rel="alternate"/><contributor><uri>https://seb.mondet.org/b/OCaml.rss</uri><name>smondet</name></contributor><content type="html">

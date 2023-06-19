@@ -1,5 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://gallium.inria.fr/blog/index.rss</id><title type="text">gallium</title><updated>2023-06-07T05:45:50-00:00</updated><entry><link href="http://cambium.inria.fr/blog/florian-compiler-weekly-2023-05-06" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://gallium.inria.fr/blog/index.rss</id><title type="text">gallium</title><updated>2023-06-19T05:47:22-00:00</updated><entry><link href="http://cambium.inria.fr/blog/florian-compiler-weekly-2023-06-12" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
+
+
+&lt;p&gt;This series of blog post aims to give a short weekly glimpse into my
+(Florian Angeletti) daily work on the OCaml compiler. This week, the
+focus is on my roadmap for OCaml 5.2.0 .&lt;/p&gt;
+
+
+  
+
+&lt;h3&gt;My roadmap for 5.2.0&lt;/h3&gt;
+&lt;p&gt;With the stabilisation of OCaml 5.1.0, I have been taking the time to
+write down some of my main objectives for OCaml 5.2. There are two
+improvements on the compiler interfaces, that I really want to see
+materialise in OCaml 5.2: a structured output for compiler messages and
+an unified &lt;code&gt;short-paths&lt;/code&gt; implementation between Merlin and
+the compiler.&lt;/p&gt;
+&lt;h4&gt;A structured output
+for compiler messages.&lt;/h4&gt;
+&lt;p&gt;In order to better communicate with the various OCaml development
+tools, it should be possible to emit compiler messages in a structured
+format (JSON or SEXP). One of the Outreachy internship that I mentored
+implemented a &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/9979&quot;&gt;first
+version of JSON messages&lt;/a&gt; few years ago in 2020.&lt;/p&gt;
+&lt;p&gt;However, one criticism of this approach was that it was not clear if
+the format would be useful for tools like dune. Similarly, it was not
+clear if this format could evolve in a backward compatible way.&lt;/p&gt;
+&lt;p&gt;After discussing the issue further with dune developers, the
+conclusion was that if any kind of structured output would be useful for
+dune, a versioned and backward compatible output would be
+&lt;em&gt;really&lt;/em&gt; helpful.&lt;/p&gt;
+&lt;p&gt;This is why I am planning to go back on my structured output work in
+OCaml 5.2 while focusing on a versioned and structured log facility,
+that can be connected to various backend.&lt;/p&gt;
+&lt;h4&gt;Unified short paths in
+compiler messages&lt;/h4&gt;
+&lt;p&gt;When printing type paths in error messages, it is useful to print
+user-friendly type names like &lt;code&gt;M.t&lt;/code&gt; and not whatever path the
+typechecker stumbled upon after various expansions like
+&lt;code&gt;A.Very.Long(Type).Application.t&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Both the compiler type pretty-printer and Merlin have an
+implementation for discovering and computing canonical type paths in
+error messages, which is enabled by the &lt;code&gt;-short-paths&lt;/code&gt;
+option.&lt;/p&gt;
+&lt;p&gt;However, the implementation of this path normalisation is completely
+different between Merlin and the compiler. Having two implementations is
+painful in term of both maintenance and evolution of this feature.
+Moreover, the compiler implementation was originally meant to be a
+temporary prototype for OCaml 4.01.0, ten years ago.&lt;/p&gt;
+&lt;p&gt;This is why I am hoping to find the time to finally upstream Merlin&amp;rsquo;s
+implementation of the &lt;code&gt;-short-path&lt;/code&gt; flag.&lt;/p&gt;
+&lt;h3&gt;Updating
+&lt;code&gt;ppxlib&lt;/code&gt; after a parsetree refinement&lt;/h3&gt;
+&lt;p&gt;Last week, I also spent some of my time working with the ppxlib team
+to iron out the last wrinkles of the second alpha for 5.1.0.&lt;/p&gt;
+&lt;p&gt;From the point of view of ppxlib, one of the interesting challenge
+introduced by the &lt;code&gt;value binding&lt;/code&gt; parsetree change in 5.1.0
+is that it added a new way to represent an old construct&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;let x : typ = expr
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;rather than a completely new construct.&lt;/p&gt;
+&lt;p&gt;Indeed, before OCaml 5.1, this construct was desugared to&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;let (x:&amp;oslash;. typ) = (expr:typ)
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;whereas in OCaml 5.1, this construct is a new distinct parsetree
+node.&lt;/p&gt;
+&lt;p&gt;This new parsetree node lead to some interesting questions when
+migrating Abstract Syntax Tree between version:&lt;/p&gt;
+&lt;h4&gt;When
+migrating from the 5.1 to 5.0, can we reproduce the old encoding down to
+the location&lt;/h4&gt;
+&lt;p&gt;information?&lt;/p&gt;
+&lt;p&gt;Maybe surprisingly, the answer is &lt;em&gt;no&lt;/em&gt;. This is due to the
+ghost location used in the ghost constraint node: when desugaring
+&lt;code&gt;let x: (((int))) = 0&lt;/code&gt; to&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;&amp;oslash;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;the 5.0 parser attributed to the pattern &lt;code&gt;x:&amp;oslash;. typ&lt;/code&gt; the
+ghost location&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;((((&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))))&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;^^^^^^^^^^^^^^^&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;But the new parsetree node only contains the location of the type
+&lt;code&gt;int&lt;/code&gt; and not the location of the end of the parentheses. We
+are thus losing a bit of information because the former encoding was
+using a concrete syntax tree location that we no longer have access to.
+Fortunately, this only happens on a ghost location of a ghost parsetree
+node.&lt;/p&gt;
+&lt;h4&gt;Is
+the migration from the 5.1 parsetree to the 5.0 parsetree always
+injective?&lt;/h4&gt;
+&lt;p&gt;Most of the time, it is possible to map an OCaml 5.1 value binding
+onto an unique OCaml 5.0 encoded value binding. This works because the
+encoding used for value bindings in 5.0 constructs type expressions of
+the form &lt;code&gt;&amp;oslash;. typ&lt;/code&gt; that are not allowed in OCaml. We can thus
+use those special type expressions to recognise desugared value
+bindings.&lt;/p&gt;
+&lt;p&gt;Unfortunately, this is only the case when binding variables. Indeed,
+as soon as the pattern in the value binding is not a variable&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;the 5.0 parser desugars this value binding to&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;without any encoding of the type constraint. This means in particular
+that the 5.0 parser creates the same AST node for both&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;and&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;which are two different constructs in OCaml 5.1.&lt;/p&gt;
+&lt;p&gt;Consequently, when we migrate a 5.0 parsetree of this form to the
+5.1, we have to decide if we should migrate this syntactic construct to
+the old parsetree node or to the new node. In this case, since the new
+syntactic node corresponds to a &amp;ldquo;more pleasant&amp;rdquo; syntactic form, we
+decided to favour this form.&lt;/p&gt;
+
+</content><id>http://cambium.inria.fr/blog/florian-compiler-weekly-2023-06-12</id><title type="text">Florian's OCaml compiler weekly, 12 June 2023</title><updated>2023-06-12T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry><entry><link href="http://cambium.inria.fr/blog/florian-compiler-weekly-2023-05-06" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
 
 
 &lt;p&gt;This series of blog post aims to give a short weekly glimpse into my
@@ -1320,796 +1446,4 @@ ocamltest for some time, and recently converged towards a new
 version.&lt;/p&gt;
 
 
-  </content><id>http://gallium.inria.fr/blog/florian-compiler-weekly-2023-03-27</id><title type="text">OCaml compiler weekly, 27 March 2023</title><updated>2023-03-27T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry><entry><link href="http://gallium.inria.fr/blog/measuring-compilation-time/" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
-
-
-It can be tricky to evaluate the effect of invidual commits or pull requests on
-the speed of the OCaml compiler. In this blog post, I (Florian Angeletti) report my
-experience on measuring such impact with some degree of statistical significance.
-
-
-  
-
-  &lt;p&gt;The OCaml typechecker is an important piece of the OCaml compiler
-pipeline which accounts for a significant portion of time spent on
-compiling an OCaml program (see the &lt;a href=&quot;http://gallium.inria.fr/blog/index.rss#compilation-profile&quot;&gt;appendices&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;The code of the typechecker is also quite optimised, sometimes to the
-detriment of the readability of the code. Recently, Jacques Garrigue and
-Takafumi Saikawa have worked on a series of pull requests to improve the
-readability of the typechecker (&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/10337&quot;&gt;#10337&lt;/a&gt;, &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/10474&quot;&gt;#10474&lt;/a&gt;, &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/10541&quot;&gt;#10541&lt;/a&gt;).
-Unfortunately, those improvements are also expected to increase the
-typechecking time of OCaml programs because they add abstraction
-barriers, and remove some optimisations that were breaking the
-abstraction barriers.&lt;/p&gt;
-&lt;p&gt;The effect is particularly pronounced on &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/10337&quot;&gt;#10337&lt;/a&gt;. Due to the
-improvement of the readability of the typechecker, this pull request has
-been merged after some quick tests to check that the compilation time
-increase was not too dire.&lt;/p&gt;
-&lt;p&gt;However, the discussion on this pull request highlighted the fact
-that it was difficult to measure OCaml compilation time on a scale large
-enough to enable good statistical analysis and that it would be
-useful.&lt;/p&gt;
-&lt;p&gt;Consequently, I decided to try my hand at a statistical analysis of
-OCaml compilation time, using this pull request &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/10337&quot;&gt;#10337&lt;/a&gt; as a case
-study. Beyond this specific PR, I think that it is interesting to write
-down a process and a handful of tools for measuring OCaml compilation
-time on the opam ecosystem.&lt;/p&gt;
-&lt;p&gt;Before doing any kind of analysis, the first step is to find an easy
-way to collect the data of interest. Fortunately, the OCaml compiler can
-emit timing information with flag &lt;code&gt;-dtimings&lt;/code&gt;. However, this
-information is emitted on stdout, whereas my ideal sampling process
-would be to just pick an opam package, launch a build process and
-recover the timing information for each file. This doesn&amp;rsquo;t work if the
-data is sent to the stdout, and never see again. This first step is thus
-to create a version of the OCaml compiler that can output the timing
-information of the compilation to a specific directory. With this change
-(&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/10575&quot;&gt;#10575&lt;/a&gt;),
-installing an opam package with&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;OCAMLPARAM=&amp;quot;,_,timings=1,dump-dir= /tmp/pkgnname&amp;quot; opam install pkgname&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;outputs all profiling information to &lt;code&gt;/tmp/pkgname&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;This makes it possible to collect large number of data points on
-compilation times by using opam, and the canonical installation process
-of each package without the need of much glue code.&lt;/p&gt;
-&lt;p&gt;For this case study, I am using 5 core packages
-&lt;code&gt;containers&lt;/code&gt;, &lt;code&gt;dune&lt;/code&gt;, &lt;code&gt;tyxml&lt;/code&gt;,
-&lt;code&gt;coq&lt;/code&gt; and &lt;code&gt;base&lt;/code&gt;. Once their dependencies are
-added, I end up with&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;ocamlfind&lt;/li&gt;
-&lt;li&gt;num&lt;/li&gt;
-&lt;li&gt;zarith&lt;/li&gt;
-&lt;li&gt;seq&lt;/li&gt;
-&lt;li&gt;containers&lt;/li&gt;
-&lt;li&gt;coq&lt;/li&gt;
-&lt;li&gt;dune&lt;/li&gt;
-&lt;li&gt;re&lt;/li&gt;
-&lt;li&gt;ocamlbuild&lt;/li&gt;
-&lt;li&gt;uchar&lt;/li&gt;
-&lt;li&gt;topkg&lt;/li&gt;
-&lt;li&gt;uutf&lt;/li&gt;
-&lt;li&gt;tyxml&lt;/li&gt;
-&lt;li&gt;sexplib0&lt;/li&gt;
-&lt;li&gt;base&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Then it is a matter of repeatedly installing those packages, and
-measuring the compilation times before and after &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/10337&quot;&gt;#10337&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;In order to get more reliable statistics on each file, each package
-was compiled 250 times leading to 1,6 millions of data points (available
-&lt;a href=&quot;http://gallium.inria.fr/static/longer_complex.log.xz&quot;&gt;here&lt;/a&gt;) after slightly more
-than a week-end of computation.&lt;/p&gt;
-&lt;p&gt;In order to try to reduce the noise induced by the operating system
-scheduler, the compilation process is run with &lt;code&gt;OPAMJOBS=1&lt;/code&gt;.
-Similarly, the compilation process was isolated as much as possible from
-the other process using the &lt;code&gt;cset&lt;/code&gt; Linux utility to reserve
-one full physical core to the opam processes.&lt;/p&gt;
-&lt;p&gt;The code for collecting samples, analyzing them, and plotting the
-graphs below is available at &lt;a href=&quot;https://github.com/Octachron/ocaml-perfomance-monitoring&quot;&gt;https://github.com/Octachron/ocaml-perfomance-monitoring&lt;/a&gt;.&lt;/p&gt;
-&lt;h2&gt;Comparing averages, files by
-files&lt;/h2&gt;
-&lt;p&gt;With the data at hand, we can compute the average compilation by
-files, and by stage of the OCaml compiler pipeline. In our case, we are
-mostly interested in the typechecking stage, and global compilation
-time, since #10337 should only alter the time spent on typechecking. It
-is therefore useful to split the compilation time into
-&lt;code&gt;typechecking + other=total&lt;/code&gt;. Then for each files in the 15
-packages above, we can can compute the average time for each of those
-stages and the relative change of average compilation time:
-&lt;code&gt;time after/time before&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Rendering those relative changes for the typechecking time, file by
-file (with the corresponding 90% confidence interval) yields&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/mean_ratio.svg&quot; alt=&quot;Relative change in average typechecking time by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Relative change in average typechecking
-time by files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;To avoid noise, I have removed files for which the average
-typechecking time was inferior to one microsecond on the reference
-version of the compiler.&lt;/p&gt;
-&lt;p&gt;In the graph above, there are few remarkable points:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;As expected, the average typechecking time increased for almost all
-files&lt;/li&gt;
-&lt;li&gt;A significant portion of points are stuck to the line
-&amp;ldquo;after/before=1&amp;rdquo;. This means that for those files there was no changes
-at all of the typechecking times.&lt;/li&gt;
-&lt;li&gt;The standard deviation time varies wildly across packages. The
-typechecking of some dune files tend to have a very high variances.
-However outside of those files, the standard deviation seems moderate,
-and the mean estimator seem to have converged.&lt;/li&gt;
-&lt;li&gt;For a handful a files for which the typechecking time more than
-doubled. However the relative typechecking time does seem to be confined
-in the &lt;code&gt;[1,1.2]&lt;/code&gt; range for a majority of files.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Since the data is quite noisy, it is useful before trying to
-interpret it to check that we are not looking only at noise.
-Fortunately, we have the data on the time spent outside of the
-typechecking stage available, and those times should be mostly noise. We
-have thus a baseline, that looks like&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/other_ratio.svg&quot; alt=&quot;Relative change in average non-typechecking time by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Relative change in average
-non-typechecking time by files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;This cloud of points look indeed much noisier. More importantly, it
-seems centred around the line &lt;code&gt;after/before=1&lt;/code&gt;. This means
-that our hypothesis that the compilation time outside of the
-typechecking stage has not been altered is not visibly invalidated by
-our data points. An other interesting point is that the high variance
-points seems to be shared between the typechecking and other graphs.&lt;/p&gt;
-&lt;p&gt;We can even check on the graphs for the average total compilation
-(file by file)&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/total_ratio.svg&quot; alt=&quot;Relative change in average total time by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Relative change in average total time by
-files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;that those points still have a high variance here. However, outside
-of this cluster of points, we have a quite more compact distribution of
-points for the total compilation time: it seems that we have a quite
-consistent increase of the total compilation time of around 3%.&lt;/p&gt;
-&lt;p&gt;And this is reflected in the averages:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;Typechecking average&lt;/th&gt;
-&lt;th&gt;Other average&lt;/th&gt;
-&lt;th&gt;Total average&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;1.06641&lt;/td&gt;
-&lt;td&gt;1.01756&lt;/td&gt;
-&lt;td&gt;1.03307&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;There is thus an increase of around 6.6% of typechecking time which
-translates to an increase of 3.3% of total time. However, the
-non-typechecking time also increased by 1.7% in average. The average is
-thus either tainted by some structural bias or the relative variance
-(mean/ratio) is still enough for the distribution of the ratio to be
-ill-behaved (literature seems to indicate that a relative variance &amp;lt;
-10% is required for the distribution of ratio to be Gaussian-like).
-Anyway, we probably cannot count on a precision of more than 1.7%. Even
-with this caveat, we still have a visible effect on the total
-compilation time.&lt;/p&gt;
-&lt;p&gt;We might better served by comparing the geometric average. Indeed, we
-are comparing ratio of time, with possibly a heavy-tailed noise. By
-using the geometric average (which compute the exponential of the
-arithmetic mean of the logarithms of our ratio), we can check that rare
-events don&amp;rsquo;t have an undue influence on the average. In our case the
-geometric means looks like&lt;/p&gt;
-&lt;table&gt;
-&lt;colgroup&gt;
-&lt;col style=&quot;width: 36%&quot;/&gt;
-&lt;col style=&quot;width: 30%&quot;/&gt;
-&lt;col style=&quot;width: 32%&quot;/&gt;
-&lt;/colgroup&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;Typechecking geometric average&lt;/th&gt;
-&lt;th&gt;Other geometric average&lt;/th&gt;
-&lt;th&gt;Total geometric average&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;1.05963&lt;/td&gt;
-&lt;td&gt;1.01513&lt;/td&gt;
-&lt;td&gt;1.03215&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;All geometric averages have decreased compared to the arithmetic
-means, which is a sign that the compilation time distribution is skewed
-towards high compilation times. However, the changes are small and do
-not alter our previous interpretation.&lt;/p&gt;
-&lt;p&gt;We can somewhat refine those observations by looking at the medians
-(which are even less affected by the heavy-tailness of
-distributions)&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;Typechecking median&lt;/th&gt;
-&lt;th&gt;Other median&lt;/th&gt;
-&lt;th&gt;Total media&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;1.03834&lt;/td&gt;
-&lt;td&gt;1.00852&lt;/td&gt;
-&lt;td&gt;1.02507&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;Here, the non-typechecking times seems far less affected by the
-structural bias (with an increase of 0.9%) whereas the increase of
-typechecking time and total compilation time are reduced but still here
-at 3.8% and 2.5% respectively.&lt;/p&gt;
-&lt;h2&gt;Comparing averages, quantiles&lt;/h2&gt;
-&lt;p&gt;We can refine our analysis by looking at the quantiles of those
-relative changes of compilation time&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/mean_quantiles.svg&quot; alt=&quot;Quantiles of the relative change of average typechecking time by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Quantiles of the relative change of
-average typechecking time by files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;%&lt;/th&gt;
-&lt;th&gt;mean quantiles&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;1%&lt;/td&gt;
-&lt;td&gt;0.875097&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;10%&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;25%&lt;/td&gt;
-&lt;td&gt;1.001&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;50%&lt;/td&gt;
-&lt;td&gt;1.03834&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;75%&lt;/td&gt;
-&lt;td&gt;1.08826&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;90%&lt;/td&gt;
-&lt;td&gt;1.162&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;99%&lt;/td&gt;
-&lt;td&gt;1.51411&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;99.9%&lt;/td&gt;
-&lt;td&gt;2.76834&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;Here we see that the typechecking time of around 25% of files is
-simply not affected at all by the changes. And for half of the files,
-the compilation time is inferior to 9%. Contrarily, there is 1% of files
-for which the typechecking time increases by more than 50% (with
-outliers around 200%-400% increase).&lt;/p&gt;
-&lt;p&gt;However, looking at the total compilation does seems to reduce the
-overall impact of the change&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/total_quantiles.svg&quot; alt=&quot;Quantiles of the relative change in average total time by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Quantiles of the relative change in
-average total time by files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;%&lt;/th&gt;
-&lt;th&gt;total quantiles&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;1%&lt;/td&gt;
-&lt;td&gt;0.945555&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;10%&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;25%&lt;/td&gt;
-&lt;td&gt;1.00707&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;50%&lt;/td&gt;
-&lt;td&gt;1.02507&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;75%&lt;/td&gt;
-&lt;td&gt;1.05&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;90%&lt;/td&gt;
-&lt;td&gt;1.07895&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;99%&lt;/td&gt;
-&lt;td&gt;1.17846&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;99.9%&lt;/td&gt;
-&lt;td&gt;1.4379&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;Indeed, we still have 25% of files not impacted, but for 65% of files
-the relative increase of compilation time is less than 8%. (and the
-outliers stalls at a 50% increase)&lt;/p&gt;
-&lt;p&gt;We can also have a quick look at the quantiles for the
-non-typechecking time&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/other_quantiles.svg&quot; alt=&quot;Quantiles of the relative change in average non-typechecking time by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Quantiles of the relative change in
-average non-typechecking time by files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;%&lt;/th&gt;
-&lt;th&gt;other quantiles&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;1%&lt;/td&gt;
-&lt;td&gt;0.855129&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;10%&lt;/td&gt;
-&lt;td&gt;0.956174&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;25%&lt;/td&gt;
-&lt;td&gt;0.995239&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;50%&lt;/td&gt;
-&lt;td&gt;1.00852&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;75%&lt;/td&gt;
-&lt;td&gt;1.03743&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;90%&lt;/td&gt;
-&lt;td&gt;1.08618&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;99%&lt;/td&gt;
-&lt;td&gt;1.25541&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;99.9%&lt;/td&gt;
-&lt;td&gt;1.67784&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;but here the only curiosity if that the curve is more symmetric and
-we have 25% of files for which the non-typechecking compilation time
-decrease randomly.&lt;/p&gt;
-&lt;h2&gt;Noise models and minima&lt;/h2&gt;
-&lt;p&gt;One issue with our previous analysis is the high variance which is
-observable in the non-typechecking average times across files. A
-possibility to mitigate this issue is to change our noise model. Using
-an average, we implicitly assumed that the compilation time was
-mostly:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;observable_compilation_time = theoretical_computation_time + noise&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;where noise is a random variable with at least a finite variance and
-a mean of &lt;code&gt;0&lt;/code&gt;. Indeed, with this symmetry hypothesis the
-expectation of the observable computation time aligns with the
-theoretical compilation time:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;E[observable_computation_time] = E[theoretical_computation_time] + E[noise] = theoretical_computation_time&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and the variance &lt;code&gt;Var[observable_computation_time]&lt;/code&gt; is
-exactly the variance of the noise &lt;code&gt;Var[noise]&lt;/code&gt;. Then our
-finite variance hypothesis ensure that the empirical average hypothesis
-converges relatively well towards the theoretical expectation.&lt;/p&gt;
-&lt;p&gt;However, we can imagine another noise model with a multiplicative
-noise (due to CPU scheduling for instance),&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;observable_compilation_time = scheduling_noise * theoretical_computation_time + noise&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;with both &lt;code&gt;scheduling_noise&amp;gt;1&lt;/code&gt; and
-&lt;code&gt;noise&amp;gt;1&lt;/code&gt;. With this model, the expectation of the
-observable compilation time does not match up with the theoretical
-computation time:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;E[observable_computation_time] - theoretical_computation_time =
-  (E[scheduling_noise]-1) * theoretical_computation_time + E[noise]&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Thus, in this model, the average observable computation time is a
-structurally biased estimator for the theoretical computation time. This
-bias might be compensated by the fact that we are only looking to ratio.
-Nevertheless, this model also induces a second source of variance&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Var[observable_computation_time] = theoretical_computation_time^2 Var[scheduling_noise] + Var[noise]&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(/assuming the two noises are not correlated), and this variance
-increases with the theoretical computation time. This relative standard
-deviation might be problematic when computing ratio.&lt;/p&gt;
-&lt;p&gt;If this second noise model is closer to reality, using the empirical
-average estimators might be not ideal. However, the positivity of the
-noise opens another avenue for estimators: we can consider the minima of
-a series of independent realisations. Then, we have&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;min(observable_compilation_time) = min(scheduling_noise * theoretical_computation_time) + min(noise) = theoretical_computation_time&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;if the &lt;code&gt;min(scheduling_noise)=1&lt;/code&gt; and
-&lt;code&gt;min(noise)=0&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;This model has another advantage: by assuming that the (essential)
-support of the noise distribution has finite lower bound, we know that
-the empirical minima will converge towards a three-parameter Weibull
-distribution with a strictly positive support. (To be completely
-explicit, we also need to assume some regularity of the distribution
-around this lower bound too).&lt;/p&gt;
-&lt;p&gt;This means that the distribution ratio of the empirical minima will
-not exhibits the infinite moments of the ratio of two Gaussians. Without
-this issue, our estimator should have less variance.&lt;/p&gt;
-&lt;p&gt;However, we cannot use Gaussian confidence intervals for the
-empirical minima. Moreover, estimating the confidence interval for the
-Weibull distribution is more complex. Since we are mostly interested in
-corroborating our previous result, we are bypassing the computation of
-those confidence intervals.&lt;/p&gt;
-&lt;h2&gt;Comparing minima&lt;/h2&gt;
-&lt;p&gt;We can then restart out analysis using the minimal compilation time
-file-by-file. Starting with the minimal typechecking time, we get&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/min_ratio.svg&quot; alt=&quot;Relative change in minimal typechecking time by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Relative change in minimal typechecking
-time by files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;There are notable differences with the average version: - a very
-significant part of our points takes the same time to typecheck before
-and after #10337 - there is a discretization effects going on: data
-points tend to fall on exactly the same value of the ratio&lt;/p&gt;
-&lt;p&gt;Beyond those changes, there is still a visible general increase of
-typechecking time.&lt;/p&gt;
-&lt;p&gt;The same differences are visible for the non typechecking compilation
-time &lt;img src=&quot;http://gallium.inria.fr/blog/images/min_other_ratio.svg&quot; alt=&quot;Relative change in minimal non-typechecking time by files&quot;/&gt;&lt;/p&gt;
-&lt;p&gt;and the total compilation time&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/min_total_ratio.svg&quot; alt=&quot;Relative change in minimal total time by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Relative change in minimal total time by
-files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;but overall the minimal total compilation and non-typechecking time
-mirrors what we had seen with the average. The distribution of the
-non-typechecking times is maybe more evenly centred around a ratio of
-1.&lt;/p&gt;
-&lt;p&gt;We can have a look at the averages and median (across files) to have
-more global point of view&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Typechecking&lt;/th&gt;
-&lt;th&gt;Other&lt;/th&gt;
-&lt;th&gt;Total&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;Average&lt;/td&gt;
-&lt;td&gt;1.06907&lt;/td&gt;
-&lt;td&gt;1.01031&lt;/td&gt;
-&lt;td&gt;1.02901&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;Geometric average&lt;/td&gt;
-&lt;td&gt;1.05998&lt;/td&gt;
-&lt;td&gt;1.00672&lt;/td&gt;
-&lt;td&gt;1.0276&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;Median&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;A striking change is that the median for the typechecking and total
-compilation time is equal to one: more than half of files are not
-affected by the changes when looking at the minimal compilation time.
-This might be an issue with the granularity of time measurement, or it
-could be a genuine fact.&lt;/p&gt;
-&lt;p&gt;More usefully, we still have an increase of average typechecking time
-between 6% and 6.9% depending on the averaging methods, which translates
-to a total compilation time increase between 2.7% and 3.3%. And this
-time, the increase of unrelated compilation time is between 0.7% to
-0.9%. This seems to confirms that do have a real increase of average
-compilation time and 3% increase time is a reasonable number.&lt;/p&gt;
-&lt;h2&gt;Comparing minima, quantiles&lt;/h2&gt;
-&lt;p&gt;With the discretization, the quantiles of the compilation time are
-quite interesting and uncharacteristic.&lt;/p&gt;
-&lt;p&gt;For instance the typechecking quantiles,&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/min_quantiles.svg&quot; alt=&quot;Quantiles of the relative change in minimal typechecking time by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Quantiles of the relative change in
-minimal typechecking time by files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;%&lt;/th&gt;
-&lt;th&gt;min quantiles&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;1%&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;10%&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;25%&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;50%&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;75%&lt;/td&gt;
-&lt;td&gt;1.07692&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;90%&lt;/td&gt;
-&lt;td&gt;1.2&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;99%&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;99.9%&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;are stuck to 1 between the first and 50th centile. In other words the
-minimal typechecking time of more than 50% of the files in our
-experiment is unchanged. For 40% of the files, the increase is less than
-20%. And the most extreme files see only an increase of 100% of the
-typechecking time. On the higher quantiles, the presence of multiple
-jumps is the consequence of the discretization of ratio that was already
-visible on the raw data.&lt;/p&gt;
-&lt;p&gt;When looking at the time spent outside of typechecking,&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/min_other_quantiles.svg&quot; alt=&quot;Quantiles of the relative change in minimal non-typechecking time by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Quantiles of the relative change in
-minimal non-typechecking time by files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;%&lt;/th&gt;
-&lt;th&gt;min_other quantiles&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;1%&lt;/td&gt;
-&lt;td&gt;0.8&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;10%&lt;/td&gt;
-&lt;td&gt;0.947368&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;25%&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;50%&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;75%&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;90%&lt;/td&gt;
-&lt;td&gt;1.11111&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;99%&lt;/td&gt;
-&lt;td&gt;1.33333&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;99.9%&lt;/td&gt;
-&lt;td&gt;1.6&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;we observe that the non-typechecking relation compilation time for
-more than 80% of file is unaffected by the change (or somehow
-accelerated for 10% of files).&lt;/p&gt;
-&lt;p&gt;The quantiles for the total compilation time, &lt;img src=&quot;http://gallium.inria.fr/blog/images/min_total_quantiles.svg&quot; alt=&quot;Quantiles of the relative change in minimal total time by files&quot;/&gt;&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;%&lt;/th&gt;
-&lt;th&gt;min_total quantiles&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;1%&lt;/td&gt;
-&lt;td&gt;0.92&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;10%&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;25%&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;50%&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;75%&lt;/td&gt;
-&lt;td&gt;1.04545&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;90%&lt;/td&gt;
-&lt;td&gt;1.1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;99%&lt;/td&gt;
-&lt;td&gt;1.22727&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;99.9%&lt;/td&gt;
-&lt;td&gt;1.4&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;mostly reflects the trends set by the typechecking time: 55% of files
-are unaffected. For 90% of file the increase is less than 10%, and the
-maximal impact on the compilation time peaks at a 40% relative
-increase.&lt;/p&gt;
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;To sum up, with the available data at hands, it seems sensible to
-conclude that #10337 resulted in an average increase of compilation time
-of the order of 3%, while the average relative increase of typechecking
-time is around 6%. Moreover, for the most impacted files (at the ninth
-decile), the relative increase in compilation time ranges between 10% to
-40%.&lt;/p&gt;
-&lt;h2&gt;Appendices&lt;/h2&gt;
-&lt;h3&gt;Compilation profile&lt;/h3&gt;
-&lt;p&gt;Since we have data for both typechecking time and non-typechecking
-times for a few thousand files, it is interesting to check how much time
-is spent on typechecking. We can start by looking at the data points
-files by files:&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/profile_ratio.svg&quot; alt=&quot;Relative time spent in typechecking by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Relative time spent in typechecking by
-files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;We have here a relatively uniform cloud of points between 20-60% of
-time spent in typechecking compared to total compilation time. This is
-is reflected on the average and median&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;Arithmetic average&lt;/th&gt;
-&lt;th&gt;Median&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;38.8827%&lt;/td&gt;
-&lt;td&gt;39.7336%&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;Both value are quite comparable, the distribution doesn&amp;rsquo;t seem
-significantly skewed.&lt;/p&gt;
-&lt;p&gt;However, we have a clear cluster of files for which typechecking
-accounts for 90% of the total compilation time. Interestingly, this
-cluster of points corresponds to the dune cluster of files with a very
-variance that we had identified earlier. This explains why those files
-have essentially the same profile when looking at the total and
-typechecking compilation time: in their case, typechecking accounts for
-most of the work done during compilation.&lt;/p&gt;
-&lt;p&gt;This relatively uniform distribution is visible both on the quantiles
-(with an affine part of the quantiles)&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/profile_quantiles.svg&quot; alt=&quot;Quantiles of the relative time spent in typechecking by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Quantiles of the relative time spent in
-typechecking by files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;%&lt;/th&gt;
-&lt;th&gt;profile quantiles&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;1%&lt;/td&gt;
-&lt;td&gt;0.111556&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;10%&lt;/td&gt;
-&lt;td&gt;0.16431&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;25%&lt;/td&gt;
-&lt;td&gt;0.283249&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;50%&lt;/td&gt;
-&lt;td&gt;0.397336&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;75%&lt;/td&gt;
-&lt;td&gt;0.487892&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;90%&lt;/td&gt;
-&lt;td&gt;0.573355&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;99%&lt;/td&gt;
-&lt;td&gt;0.749689&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;99.9%&lt;/td&gt;
-&lt;td&gt;0.913336&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;and on the histogram of the relative time spent in typechecking&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/profile_hist.svg&quot; alt=&quot;Histogram of the relative time spent in typechecking by files&quot;/&gt;
-&lt;figcaption aria-hidden=&quot;true&quot;&gt;Histogram of the relative time spent in
-typechecking by files&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;h3&gt;Histograms&lt;/h3&gt;
-&lt;p&gt;Histogram versions for the quantile diagrams are also available. Due
-to the mixture of continuous and discrete distributions they are not
-that easy to read. Note that those histograms have equiprobable bins (in
-other words, constant area) rather than constant width bins.&lt;/p&gt;
-&lt;h3&gt;Average compilation time
-histograms&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;http://gallium.inria.fr/blog/images/mean_hist.svg&quot; alt=&quot;Histogram of the relative change of average typechecking time by files&quot;/&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/other_hist.svg&quot; alt=&quot;Histogram of the relative change in average non-typechecking time by files&quot;/&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/total_hist.svg&quot; alt=&quot;Histogram of the relative change in average total time by files&quot;/&gt;&lt;/p&gt;
-&lt;p&gt;An interesting take-away for those histograms is that the
-typechecking and total compilation time distribution are clearly skewed
-to the right: with very few exceptions, compilation increases.
-Contrarily the non-typechecking time distribution is much more
-symmetric. Since the change here is due to noise, there is no more
-reason for the compilation time to increase or decrease.&lt;/p&gt;
-&lt;h3&gt;Minimal compilation time
-histograms&lt;/h3&gt;
-&lt;p&gt;There is no much change when looking at the histogram for the minimal
-compilation time for a file&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://gallium.inria.fr/blog/images/min_hist.svg&quot; alt=&quot;Histogram of the relative change in minimal typechecking time by files&quot;/&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/min_other_hist.svg&quot; alt=&quot;Histogram of the relative change in minimal non-typechecking time by files&quot;/&gt;
-&lt;img src=&quot;http://gallium.inria.fr/blog/images/min_total_hist.svg&quot; alt=&quot;Histogram of the relative change in minimal total time by files&quot;/&gt;&lt;/p&gt;
-&lt;p&gt;The most notable difference is that the non-typechecking histogram is
-completely dominated by the dirac distribution centred at
-&lt;code&gt;x=1&lt;/code&gt;.&lt;/p&gt;
-
-</content><id>http://gallium.inria.fr/blog/measuring-compilation-time/</id><title type="text">Measuring OCaml compilation speed after a refactoring</title><updated>2021-09-17T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry></feed>
+  </content><id>http://gallium.inria.fr/blog/florian-compiler-weekly-2023-03-27</id><title type="text">OCaml compiler weekly, 27 March 2023</title><updated>2023-03-27T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry></feed>
