@@ -1,7 +1,7 @@
 let search_instructions_html () =
   <div class="prose text-sm">
-    <p>To focus the search input from anywhere on the page, press the 'S' key.</p>
-    <p>in-package search v0.1.0</p>
+    <p>You can search for identifiers within the package.</p>
+    <p>in-package search v0.2.0</p>
   </div>
 
 let render
@@ -46,7 +46,7 @@ Layout.render
         :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar">
       </div>
 
-      <button title="search" class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-36 fixed md:hidden right-10"
+      <button title="search" class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-36 fixed right-10 md:hidden"
       x-on:click="document.getElementById('in-package-search-input').focus();">
         <%s! Icons.magnifying_glass "h-8 w-8" %>
         <span class="hidden md:flex font-semibold px-2">search</span>
@@ -101,7 +101,7 @@ Layout.render
             <%s! search_instructions_html () %>
           </div>
 
-          <div id="in-package-search-results" class="absolute top-12 right-0 left-0 bg-white z-20 w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
+          <div id="in-package-search-results" aria-live="polite" class="absolute top-12 right-0 left-0 bg-white z-20 w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
           </div>
         </div>
       </div>
@@ -230,6 +230,13 @@ Layout.render
 
           search_results.appendChild(list_item);
       });
+
+      if (results.length > 0 || q.trim() != "") {
+        let announce_results = document.createElement("h2");
+        announce_results.innerHTML = results.length + " results"
+        container.appendChild(announce_results);
+      }
+
       container.appendChild(search_results);
 
       search_results_position = null;
@@ -256,7 +263,7 @@ Layout.render
       document.body.appendChild(scriptTag);
 
       let container = document.getElementById("in-package-search-results");
-      container.innerHTML = `<div class="px-4 py-2">Loading...</div>`;
+      container.innerHTML = `<div class="px-4 py-2">Loading search index...</div>`;
 
       document.getElementById("in-package-search-input").removeEventListener("focus", user_interacts);
     }
@@ -311,15 +318,6 @@ Layout.render
     }
 
     document.getElementById("in-package-search-input").addEventListener("keydown", keydown);
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key == "s") {
-        document.getElementById("in-package-search-input").focus();
-        document.getElementById("in-package-search-input").select();
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    })
   }
 </script>
 <% | _ -> () ); %>
