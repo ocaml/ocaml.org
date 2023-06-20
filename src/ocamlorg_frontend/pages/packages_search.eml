@@ -11,7 +11,7 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
             ~name:"q"
             ~label:"Search OCaml packages"
             ~button_attrs:{|type="submit"|}
-            ~input_attrs:("value=\"" ^ search ^ "\"")
+            ~input_attrs:("value=\"" ^ Dream.html_escape search ^ "\"")
             ""
           %>
         </form>
