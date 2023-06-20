@@ -1,3 +1,7 @@
+#in-package-search-results h2 {
+  @apply text-sm font-semibold px-4;
+}
+
 #in-package-search-results ol {
   @apply m-0 p-0 list-none text-sm;
 }

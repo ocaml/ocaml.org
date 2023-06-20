@@ -28,7 +28,7 @@ Layout.render
 
                   <div>
                     <span id="packages-search-indicator" class="htmx-indicator">Searching...</span>
-                    <div id="packages-search-results"></div>
+                    <div id="packages-search-results" aria-live="polite"></div>
                   </div>
                 </form>
             </div>

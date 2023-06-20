@@ -2,7 +2,7 @@
    and the search results HTML fragment (see function [render]). *)
 let form_attributes =
   {js| x-data="{ row: null, col: 0, max: 0, total: 0 }"
-       @submit="if (row === null && total <= 5) row = 0; if (row !== null) { window.location = document.getElementById('package-autocomplete-'+row+'-'+col).getAttribute('href'); $event.stopPropagation(); $event.preventDefault(); return false }" |js}
+       @submit="if (row !== null) { window.location = document.getElementById('package-autocomplete-'+row+'-'+col).getAttribute('href'); $event.stopPropagation(); $event.preventDefault(); return false }" |js}
 
 (* When the user types, htmx fetches the fragment rendered by
    the function [render] below, and and inserts it into the
