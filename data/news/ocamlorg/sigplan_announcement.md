@@ -1,5 +1,5 @@
 ---
-title: OCaml Wins SIGPLAN Software Award
+title: OCaml Wins ACM SIGPLAN Programming Languages Software Award
 description: Announcement of SIGPLAN award
 date: "2023-06-20"
 tags: [blog]
