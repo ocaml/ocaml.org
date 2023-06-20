@@ -11,4 +11,4 @@ The award spotlights fourteen core OCaml developers whose efforts have propelled
 
 We extend our heartfelt congratulations to all the recognized developers for their outstanding contributions to the OCaml programming language. Their work shapes the future of OCaml and inspires a new generation of developers to explore the boundaries of programming language design and implementation.
 
-Read more about the [Software award](https://www.sigplan.org/Awards/Software/) at [sigplan.org](https://www.sigplan.org).
+Read more about the [ACM SIGPLAN Programming Languages Software Award](https://www.sigplan.org/Awards/Software/) at [sigplan.org](https://www.sigplan.org).
