@@ -78,7 +78,7 @@ Layout.render
           contributions to the <strong>OCaml Compiler project</strong>
         </div>
         <div class="inline-flex md:flex gap-8">
-        <a class="btn btn-md" href="<%s Url.blog_post "sigplan_announcement" %>">Read more</a>
+        <a class="btn btn-md" href="<%s Url.news_post "sigplan_announcement" %>">Read more</a>
         <div class="hidden md:block md:flex-grow">
           <img class="ml-auto" src="<%s Ocamlorg_static.Asset.url "img/acm_award_banner/acm_logo.png" %>" alt="illustration of a cup">
         </div>
