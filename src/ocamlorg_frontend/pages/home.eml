@@ -72,10 +72,10 @@ Layout.render
         <img class="mx-auto w-40" src="<%s Ocamlorg_static.Asset.url "img/acm_award_banner/acm_award_cup.svg" %>" alt="illustration of a cup">
       </div>
       <div class="space-y-6">
-        <h2 class="font-regular text-white">The <strong>OCaml Language</strong> has been <strong>recognised</strong> by the <strong>ACM Society</strong> with their prestigious Software Award</h2>
+        <h2 class="font-regular text-white">The <strong>OCaml Language</strong> has been <strong>recognised</strong> by the <strong>ACM Society</strong> with the Programming Languages Software Award</h2>
         <div class="text-xl text-white mt-3 italic">
-          <strong>Fourteen core OCaml developers</strong> are featured for their significant
-          contribution to the <strong>OCaml Compiler project</strong>
+          <strong>Fourteen core OCaml developers</strong> are featured for their
+          contributions to the <strong>OCaml Compiler project</strong>
         </div>
         <div class="inline-flex md:flex gap-8">
         <a class="btn btn-md" href="<%s Url.blog_post "sigplan_announcement" %>">Read more</a>
