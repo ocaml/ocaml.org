@@ -51,6 +51,11 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+.bg-acm-award {
+  background-image: url("/img/acm_award_banner/acm_award_banner.svg");
+  background-size: cover;
+}
+
 .swiper {
   max-width: 100vw;
 }

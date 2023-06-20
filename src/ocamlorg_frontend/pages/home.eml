@@ -63,6 +63,32 @@ Layout.render
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="py-8 md:py-12 py-2 bg-acm-award">
+  <div class="container-fluid space-y-24 lg:space-y-32">
+    <div class="text-center md:text-left flex flex-col md:flex-row gap-6">
+      <div class="md:w-60">
+        <img class="mx-auto w-40" src="<%s Ocamlorg_static.Asset.url "img/acm_award_banner/acm_award_cup.svg" %>" alt="illustration of a cup">
+      </div>
+      <div class="space-y-6">
+        <h2 class="font-regular text-white">The <strong>OCaml Language</strong> has been <strong>recognised</strong> by the <strong>ACM Society</strong> with their prestigious Software Award</h2>
+        <div class="text-xl text-white mt-3 italic">
+          <strong>Fourteen core OCaml developers</strong> are featured for their significant
+          contribution to the <strong>OCaml Compiler project</strong>
+        </div>
+        <div class="inline-flex md:flex gap-8">
+        <a class="btn btn-md" href="<%s Url.blog_post "sigplan_announcement" %>">Read more</a>
+        <div class="hidden md:block md:flex-grow">
+          <img class="ml-auto" src="<%s Ocamlorg_static.Asset.url "img/acm_award_banner/acm_logo.png" %>" alt="illustration of a cup">
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="py-12 lg:py-24 py-2">
+  <div class="container-fluid space-y-24 lg:space-y-32">
     <div class="text-center">
       <h2 class="font-bold text-body-600">Trusted by Industry Leaders</h2>
       <div class="text-body-400 text-base mt-3">
