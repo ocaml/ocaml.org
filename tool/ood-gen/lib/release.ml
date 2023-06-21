@@ -12,6 +12,8 @@ type metadata = {
   kind : Kind.t;
   version : string;
   date : string;
+  is_latest : bool option;
+  is_lts : bool option;
   intro : string;
   highlights : string;
 }
@@ -21,6 +23,8 @@ type t = {
   kind : Kind.t;
   version : string;
   date : string;
+  is_latest : bool option;
+  is_lts : bool option;
   intro_md : string;
   intro_html : string;
   highlights_md : string;
@@ -56,6 +60,22 @@ let all () =
   Utils.map_files decode "releases/" |> List.sort sort_by_decreasing_version
 
 let template () =
+  let all = all () in
+  let latest =
+    try List.find (fun r -> r.is_latest = Some true) all
+    with Not_found ->
+      raise
+        (Invalid_argument
+           "none of the releases in data/releases is marked with is_latest: \
+            true")
+  in
+  let lts =
+    try List.find (fun r -> r.is_lts = Some true) all
+    with Not_found ->
+      raise
+        (Invalid_argument
+           "none of the releases in data/releases is marked with is_lts: true")
+  in
   Format.asprintf
     {|
 type kind = [ `Compiler ]
@@ -64,6 +84,8 @@ type t =
   { kind : kind
   ; version : string
   ; date : string
+  ; is_latest: bool option
+  ; is_lts: bool option
   ; intro_md : string
   ; intro_html : string
   ; highlights_md : string
@@ -73,6 +95,8 @@ type t =
   }
   
 let all = %a
+let latest = %a
+let lts = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    all pp latest pp lts

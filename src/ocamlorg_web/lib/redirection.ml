@@ -580,24 +580,34 @@ let from_v2 =
     ("/releases/index.fr.html", Url.releases);
     ("/releases/index.html", Url.releases);
     ("/releases", Url.releases);
-    ("/releases/lts", Url.release "4.14.1");
-    ("/releases/lts/index.html", Url.release "4.14.1");
-    ("/releases/lts/manual.html", Url.manual_with_version "4.14.1");
-    ("/releases/lts/manual", Url.manual_with_version "4.14.1");
-    ("/releases/lts/manual/index.html", Url.manual_with_version "4.14.1");
-    ("/releases/lts/htmlman", Url.manual_with_version "4.14.1");
-    ("/releases/lts/htmlman/index.html", Url.manual_with_version "4.14.1");
-    ("/releases/lts/api", Url.api_with_version "4.14.1");
-    ("/releases/lts/pi/index.html", Url.api_with_version "4.14.1");
-    ("/releases/latest", Url.release "5.0.0");
-    ("/releases/latest/index.html", Url.release "5.0.0");
-    ("/releases/latest/manual.html", Url.manual_with_version "5.0.0");
-    ("/releases/latest/manual", Url.manual_with_version "5.0.0");
-    ("/releases/latest/manual/index.html", Url.manual_with_version "5.0.0");
-    ("/releases/latest/htmlman", Url.manual_with_version "5.0.0");
-    ("/releases/latest/htmlman/index.html", Url.manual_with_version "5.0.0");
-    ("/releases/latest/api", Url.api_with_version "5.0.0");
-    ("/releases/latest/api/index.html", Url.api_with_version "5.0.0");
+    ("/releases/lts", Url.release Data.Release.lts.version);
+    ("/releases/lts/index.html", Url.release Data.Release.lts.version);
+    ( "/releases/lts/manual.html",
+      Url.manual_with_version Data.Release.lts.version );
+    ("/releases/lts/manual", Url.manual_with_version Data.Release.lts.version);
+    ( "/releases/lts/manual/index.html",
+      Url.manual_with_version Data.Release.lts.version );
+    ("/releases/lts/htmlman", Url.manual_with_version Data.Release.lts.version);
+    ( "/releases/lts/htmlman/index.html",
+      Url.manual_with_version Data.Release.lts.version );
+    ("/releases/lts/api", Url.api_with_version Data.Release.lts.version);
+    ( "/releases/lts/pi/index.html",
+      Url.api_with_version Data.Release.lts.version );
+    ("/releases/latest", Url.release Data.Release.latest.version);
+    ("/releases/latest/index.html", Url.release Data.Release.latest.version);
+    ( "/releases/latest/manual.html",
+      Url.manual_with_version Data.Release.latest.version );
+    ( "/releases/latest/manual",
+      Url.manual_with_version Data.Release.latest.version );
+    ( "/releases/latest/manual/index.html",
+      Url.manual_with_version Data.Release.latest.version );
+    ( "/releases/latest/htmlman",
+      Url.manual_with_version Data.Release.latest.version );
+    ( "/releases/latest/htmlman/index.html",
+      Url.manual_with_version Data.Release.latest.version );
+    ("/releases/latest/api", Url.api_with_version Data.Release.latest.version);
+    ( "/releases/latest/api/index.html",
+      Url.api_with_version Data.Release.latest.version );
   ]
 
 let redirect_p pattern =
