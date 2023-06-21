@@ -12,7 +12,7 @@ As in other OCaml.org documentation, the code examples will either be something 
 an example of code. Code snippets that begin with the CLI prompt `#`, end with `;;`, and have a 
 clear output can be tested in the OCaml toplevel (`ocaml` or `utop`) 
 or pasted into the OCaml playground. If the code doesn't start with `#` and end in `;;`, 
-it's an example of how to write the code. 
+it's an example of how to write the code.
 
 ## If Statements
 OCaml has an `if` statement with two variations:
