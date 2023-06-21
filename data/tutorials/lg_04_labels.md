@@ -229,7 +229,7 @@ in action:
 ```ocaml
 # open_window ~title:"My Application" ();;
 - : window = {title = "My Application"; width = 640; height = 480}
-# open_window ~title:"Clock" ~width:128 ~height:128 ();;
+# let window = open_window ~title:"Clock" ~width:128 ~height:128 ();;
 - : window = {title = "Clock"; width = 128; height = 128}
 ```
 
