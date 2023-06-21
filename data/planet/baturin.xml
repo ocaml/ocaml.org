@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://baturin.org/blog/atom-ocaml.xml</id><title type="text">baturin</title><updated>2023-06-06T05:48:29-00:00</updated><entry><link href="https://www.baturin.org/blog/lua-ml-embedding-and-projection" rel="alternate"/><contributor><uri>https://baturin.org/blog/atom-ocaml.xml</uri><name>baturin</name></contributor><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://baturin.org/blog/atom-ocaml.xml</id><title type="text">baturin</title><updated>2023-06-21T05:46:48-00:00</updated><entry><link href="https://www.baturin.org/blog/lua-ml-embedding-and-projection" rel="alternate"/><contributor><uri>https://baturin.org/blog/atom-ocaml.xml</uri><name>baturin</name></contributor><content type="html">
     One thing I find odd about many interpreter projects is that they are designed as standalone and can't be used as embedded
 scripting languages. Lua-ML is completely different in that regard: it's designed as an extension language first and offers
 some unique features for that use case, including a reconfigurable runtime library. You can remove modules from its standard library or replace

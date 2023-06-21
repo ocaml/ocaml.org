@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://lpw25.net/rss.xml</id><title type="text">lpw25</title><updated>2023-06-19T05:47:24-00:00</updated><entry><link href="http://lpw25.net/2013/03/10/ocaml-namespaces" rel="alternate"/><contributor><uri>http://lpw25.net/rss.xml</uri><name>lpw25</name></contributor><content type="html">&lt;div class=&quot;well well-small&quot;&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://lpw25.net/rss.xml</id><title type="text">lpw25</title><updated>2023-06-21T05:46:48-00:00</updated><entry><link href="https://lpw25.net/2013/03/10/ocaml-namespaces" rel="alternate"/><contributor><uri>http://lpw25.net/rss.xml</uri><name>lpw25</name></contributor><content type="html">&lt;div class=&quot;well well-small&quot;&gt;
   &lt;h4&gt;
 Contents
 &lt;/h4&gt;
@@ -632,7 +632,7 @@ module by default:&lt;/p&gt;
 argument to every program compiled using them. This amounts to having
 automatically opened modules as part of the package system rather than part of
 the namespace system.&lt;/p&gt;
-</content><id>http://lpw25.net/2013/03/10/ocaml-namespaces</id><title type="text">Adding namespaces to OCaml</title><updated>2013-03-10T00:00:00-00:00</updated><author><email>leo@lpw25.net (Leo White)</email><name>lpw25</name></author></entry><entry><link href="http://lpw25.net/2013/02/05/camlp4-alternative-part-2" rel="alternate"/><contributor><uri>http://lpw25.net/rss.xml</uri><name>lpw25</name></contributor><content type="html">&lt;p&gt;In my &lt;a href=&quot;http://lpw25.net/2013/01/23/camlp4-alternative-part-1.html&quot;&gt;previous blog post&lt;/a&gt; I
+</content><id>https://lpw25.net/2013/03/10/ocaml-namespaces</id><title type="text">Adding namespaces to OCaml</title><updated>2013-03-10T00:00:00-00:00</updated><author><email>leo@lpw25.net (Leo White)</email><name>lpw25</name></author></entry><entry><link href="https://lpw25.net/2013/02/05/camlp4-alternative-part-2" rel="alternate"/><contributor><uri>http://lpw25.net/rss.xml</uri><name>lpw25</name></contributor><content type="html">&lt;p&gt;In my &lt;a href=&quot;http://lpw25.net/2013/01/23/camlp4-alternative-part-1.html&quot;&gt;previous blog post&lt;/a&gt; I
 discussed how we might use AST transformers, attributes and quotations as a
 simpler alternative to camlp4. While AST transformers are much simpler to use
 than camlp4 they still require knowledge of the OCaml syntax tree, and they are
@@ -832,7 +832,7 @@ GADT describing the context that the extension has been used in.&lt;/li&gt;
   &lt;li&gt;Provide AST quotations in the standard library (e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{:Ast.expr{ x + 3 }}&lt;/code&gt;)
 which use the compiler&amp;rsquo;s own lexer and parser.&lt;/li&gt;
 &lt;/ol&gt;
-</content><id>http://lpw25.net/2013/02/05/camlp4-alternative-part-2</id><title type="text">An alternative to camlp4 - Part 2</title><updated>2013-02-05T00:00:00-00:00</updated><author><email>leo@lpw25.net (Leo White)</email><name>lpw25</name></author></entry><entry><link href="http://lpw25.net/2013/01/23/camlp4-alternative-part-1" rel="alternate"/><contributor><uri>http://lpw25.net/rss.xml</uri><name>lpw25</name></contributor><content type="html">&lt;p&gt;Since its creation camlp4 has proven to be a very useful tool. People have used
+</content><id>https://lpw25.net/2013/02/05/camlp4-alternative-part-2</id><title type="text">An alternative to camlp4 - Part 2</title><updated>2013-02-05T00:00:00-00:00</updated><author><email>leo@lpw25.net (Leo White)</email><name>lpw25</name></author></entry><entry><link href="https://lpw25.net/2013/01/23/camlp4-alternative-part-1" rel="alternate"/><contributor><uri>http://lpw25.net/rss.xml</uri><name>lpw25</name></contributor><content type="html">&lt;p&gt;Since its creation camlp4 has proven to be a very useful tool. People have used
 it to experiment with new features for OCaml and to provide interesting
 meta-programming facilities. However, there is general agreement that camlp4 is
 too powerful and complex for the applications that it is most commonly used for,
@@ -980,4 +980,4 @@ what they think would be necessary to support their extensions without
 camlp4. So please join the
 &lt;a href=&quot;http://lists.ocaml.org/listinfo/wg-camlp4&quot;&gt;wg-camlp4@lists.ocaml.org&lt;/a&gt; list and post
 your thoughts.&lt;/p&gt;
-</content><id>http://lpw25.net/2013/01/23/camlp4-alternative-part-1</id><title type="text">An alternative to camlp4 - Part 1</title><updated>2013-01-23T00:00:00-00:00</updated><author><email>leo@lpw25.net (Leo White)</email><name>lpw25</name></author></entry></feed>
+</content><id>https://lpw25.net/2013/01/23/camlp4-alternative-part-1</id><title type="text">An alternative to camlp4 - Part 1</title><updated>2013-01-23T00:00:00-00:00</updated><author><email>leo@lpw25.net (Leo White)</email><name>lpw25</name></author></entry></feed>
