@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://coq.inria.fr/rss.xml</id><title type="text">coq</title><updated>2023-06-19T05:47:20-00:00</updated><entry><link href="https://coq.inria.fr/news/coq-platform-2021.02.0-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://coq.inria.fr/rss.xml</id><title type="text">coq</title><updated>2023-06-21T05:46:47-00:00</updated><entry><link href="https://coq.inria.fr/news/coq-platform-2021.02.0-is-out.html" rel="alternate"/><contributor><uri>https://coq.inria.fr/rss.xml</uri><name>coq</name></contributor><content type="html">
 
 &lt;p&gt;
 The Coq development team is proud to announce the immediate availability of

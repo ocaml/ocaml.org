@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</id><title type="text">orbitz</title><updated>2023-06-19T05:47:24-00:00</updated><entry><link href="http://functional-orbitz.blogspot.com/2013/12/genserver-in-ocaml.html" rel="alternate"/><contributor><uri>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</uri><name>orbitz</name></contributor><content type="html">&lt;p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</id><title type="text">orbitz</title><updated>2023-06-21T05:46:48-00:00</updated><entry><link href="http://functional-orbitz.blogspot.com/2013/12/genserver-in-ocaml.html" rel="alternate"/><contributor><uri>http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss</uri><name>orbitz</name></contributor><content type="html">&lt;p&gt;
 &lt;i&gt;Note, this post is written against the 2.0.1 version of &lt;code&gt;gen_server&lt;/code&gt;&lt;/i&gt;
 &lt;/p&gt;
 

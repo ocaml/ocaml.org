@@ -1,5 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://gallium.inria.fr/blog/index.rss</id><title type="text">gallium</title><updated>2023-06-19T05:47:22-00:00</updated><entry><link href="http://cambium.inria.fr/blog/florian-compiler-weekly-2023-06-12" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://gallium.inria.fr/blog/index.rss</id><title type="text">gallium</title><updated>2023-06-21T05:46:47-00:00</updated><entry><link href="http://cambium.inria.fr/blog/florian-compiler-weekly-2023-06-20" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
+
+
+&lt;p&gt;This series of blog posts aims to give a short weekly glimpse into my
+(Florian Angeletti) daily work on the OCaml compiler. This quiet week
+was focused on finishing ongoing tasks and discussing future
+collaborations.&lt;/p&gt;
+
+
+  
+
+&lt;h3&gt;A few finished tasks&lt;/h3&gt;
+&lt;p&gt;Last week was a quiet week, in term of new activities. However, I was
+able to push few of my ongoing tasks over the finish line:&lt;/p&gt;
+&lt;h4&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/12210&quot;&gt;Semantic tag for inline
+code in the compiler&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;I have at last finalized this pull request that introduces an uniform
+quoting style for inline code inside all the messages across the
+compilers. With more than 300 hundred source files (fortunately mostly
+tests) changed, this is the kind of Pull Request that one is glad to see
+merged. At the very least, because this means no more lengthy
+rebasing.&lt;/p&gt;
+&lt;h4&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/12031&quot;&gt;A type for symbol
+identifiers in the bytecode&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Working with S&amp;eacute;bastien Hinderer, I have completed a final review on
+his work on switching to a narrower type for global symbols in the
+bytecode backend. His PR has been merged on last Friday. Hopefully, it
+shall make further work in this area of the compiler simpler by making
+it clearer when global symbols are compilation unit names, or when they
+might be predefined exceptions.&lt;/p&gt;
+&lt;h4&gt;&lt;a href=&quot;https://github.com/ocaml/opam-repository/pull/23965&quot;&gt;ppxlib 0.30
+ready to be&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;In the beginning of the week, I have spent some time with the ppxlib
+team to check that the new version of ppxlib (with the compatibility fix
+for the second alpha release of OCaml 5.1.0) is ready.&lt;/p&gt;
+&lt;p&gt;Once this new version of ppxlib is out-of-the-door, I will restart my
+survey of the state of the opam ecosystem before the release of the
+first beta for OCaml 5.1.0&lt;/p&gt;
+&lt;h3&gt;Discussing future
+collaborations with Tarides&lt;/h3&gt;
+&lt;p&gt;In parallel, I have been discussing with the benchmarking team and
+odoc team at Tarides on collaborating on two subjects in the medium term
+future:&lt;/p&gt;
+&lt;h4&gt;Continuous benchmarks
+for the compiler&lt;/h4&gt;
+&lt;p&gt;A common subject of interest with Tarides benchmarking team is to try
+to set us a pipeline for continuously monitoring the performance of the
+OCaml compiler.&lt;/p&gt;
+&lt;p&gt;Having such continuous monitoring would bring two major advantages
+from my perspective:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;monitoring long term trends: a 0.1% weekly slowdown of the
+compiler speed might not be worth worrying. One year of accumulated 0.1%
+weekly slowdowns &lt;em&gt;is&lt;/em&gt; worrying.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;catching performance accident early: conversely, a significant
+unexpected drop or increase in a Pull Request is a worrying concern that
+we want to detect as early to possible to investigate (and possibly) the
+cause of this change&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Better
+integration of the OCaml manual with &lt;a href=&quot;https://ocaml.org&quot;&gt;ocaml.org&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Currently, the integration of the OCaml manual and API documentation
+within the &lt;a href=&quot;https://ocaml.org&quot;&gt;ocaml.org&lt;/a&gt; is very barebone:
+The main &lt;code&gt;ocaml.org&lt;/code&gt; site links towards the old
+&lt;code&gt;v2.ocaml.org&lt;/code&gt; website where the manual is still hosted
+through redirection.&lt;/p&gt;
+&lt;p&gt;This setup was supposed to be temporary, but I have not yet found the
+time to improve this integration. I hope to fix this in time for the
+release of OCaml 5.1.0 in July. In particular, this would be a good time
+for transitioning the &lt;code&gt;ocaml.org&lt;/code&gt; hosted API reference to the
+odoc version which has been dormant hidden with the compiler repository
+for few years now.&lt;/p&gt;
+
+</content><id>http://cambium.inria.fr/blog/florian-compiler-weekly-2023-06-20</id><title type="text">Florian's OCaml compiler weekly, 20 June 2023</title><updated>2023-06-20T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry><entry><link href="http://cambium.inria.fr/blog/florian-compiler-weekly-2023-06-12" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
 
 
 &lt;p&gt;This series of blog post aims to give a short weekly glimpse into my
@@ -1305,145 +1378,4 @@ available as a small &lt;a href=&quot;https://github.com/Octachron/format-doc&qu
 library.&lt;/p&gt;
 
 
-  </content><id>http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-03</id><title type="text">OCaml compiler weekly, 3 April 2023</title><updated>2023-04-03T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry><entry><link href="http://gallium.inria.fr/blog/florian-compiler-weekly-2023-03-27" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
-
-  &lt;p&gt;This series of blog post aims to give a short weekly glimpse into my
-(Florian Angeletti) work on the OCaml compiler.&lt;/p&gt;
-
-
-  
-
-  
-  &lt;h3&gt;Reviewing github pull
-requests&lt;/h3&gt;
-&lt;p&gt;Last week, I have spent a significant portion of my week reviewing
-pull requests on the compiler and I have been fortunate to merge three
-nice pull requests:&lt;/p&gt;
-&lt;h4&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/12116&quot;&gt;Don&amp;rsquo;t suggest a
-semicolon when the type is not unit&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;This pull request by Jules Aguillon improves the new error report for
-applying a function to too many argument.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;((+)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Error:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'List.map'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;has&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; (&lt;span class=&quot;s&quot;&gt;'a -&amp;gt; '&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;) -&amp;gt; &lt;span class=&quot;s&quot;&gt;'a list -&amp;gt; '&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;
-       &lt;span class=&quot;n&quot;&gt;It&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applied&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;too&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;many&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arguments&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;File&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;test.ml&amp;quot;&lt;/span&gt;, &lt;span class=&quot;nb&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;n&quot;&gt;characters&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;:
-&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;List&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; ((+) &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;) [&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;] [&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;]
-                           ^^
-  &lt;span class=&quot;n&quot;&gt;Hint:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Did&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;forget&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;';'&lt;/span&gt;?
-&lt;span class=&quot;n&quot;&gt;File&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;test.ml&amp;quot;&lt;/span&gt;, &lt;span class=&quot;nb&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;n&quot;&gt;characters&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;:
-&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;List&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; ((+) &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;) [&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;] [&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;]
-                             ^^^^^^^
-  &lt;span class=&quot;n&quot;&gt;This&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;extra&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argument&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;expected&lt;/span&gt;.
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;by removing the hint whenever the expect result type of the
-application is not &lt;code&gt;unit&lt;/code&gt;. This let us with a shorter and
-to-the-point error message:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;((+)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Error:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'List.map'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;has&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; (&lt;span class=&quot;s&quot;&gt;'a -&amp;gt; '&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;) -&amp;gt; &lt;span class=&quot;s&quot;&gt;'a list -&amp;gt; '&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;
-       &lt;span class=&quot;n&quot;&gt;It&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applied&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;too&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;many&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arguments&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;File&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;test.ml&amp;quot;&lt;/span&gt;, &lt;span class=&quot;nb&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;n&quot;&gt;characters&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;:
-&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;List&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; ((+) &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;) [&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;] [&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;]
-                             ^^^^^^^
-  &lt;span class=&quot;n&quot;&gt;This&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;extra&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argument&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;expected&lt;/span&gt;.
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Note that if you don&amp;rsquo;t recognize the error message format, this is
-expected: the previous version had already been considerably improved by
-a previous PR by Jules.&lt;/p&gt;
-&lt;h4&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/12051&quot;&gt;Print the type
-variables that cannot be generalized&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;This pull request by Stefan Muenzel proposed to make more explicit
-the error messages concerning non-generalizable type variables. The new
-error message points explicitly to all non-generalize type variables in
-the involved types.&lt;/p&gt;
-&lt;p&gt;For instance, writing a ml file containing the single line&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Fun&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Fun&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;now raises&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Fun&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Fun&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;w&quot;&gt;        &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;The&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ression&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_weak1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_weak1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_weak2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;option&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;cont&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ains&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;non&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generalizable&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;variable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_weak1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_weak2&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;see&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;manual&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;section&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;6.1.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Moreover whenever the error happens in a submodule, the error message
-now points to the first value with a non-generalizable type:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt; = &lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;x&lt;/span&gt; = &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; [] &lt;span class=&quot;nb&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;File &amp;quot;test.ml&amp;quot;, line 1, characters 0-36:
-1 | module M = struct let x = ref [] end
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Error: The type of this module, sig val x : '_weak1 list ref end,
-       contains non-generalizable type variable(s).
-       (see manual section 6.1.2)
-File &amp;quot;test.ml&amp;quot;, line 1, characters 22-23:
-1 | module M = struct let x = ref [] end
-                          ^
-  The type of this value, '_weak1 list ref,
-  contains the non-generalizable type variable(s) '_weak1.
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h4&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/12125&quot;&gt;Better manual reference
-in error message&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;In order to implement the improved error message above, a better way
-to cite subsections in the manual was needed. Stefan Muenzel took the
-time to improve the manual cross-reference checker tool to handle this
-case. The manual cross-reference test checks that references in error
-messages and warnings are consistent with the section numbering of the
-manual by parsing the latex-generated aux-file. On the OCaml side, the
-test only handled chapter and section numbers.&lt;/p&gt;
-&lt;p&gt;With the change in Stefan&amp;rsquo;s PR, it is now possible to cite uniformly
-chapters, sections and subsections (and subsubsections) of the manual in
-error messages.&lt;/p&gt;
-&lt;h3&gt;My pull requests&lt;/h3&gt;
-&lt;p&gt;Two weeks ago, I finally found the time to propose a small change on
-the OCaml AST node for value bindings.&lt;/p&gt;
-&lt;h4&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/12119&quot;&gt;Explicit type
-constraints in value bindings&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;Consider the following value binding:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;typ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Before my change, the type constraint was stored both in the pattern
-node and (sometimes) in the expression node with a rather complex
-desugaring. This duplication of nodes make handling such constraints in
-ppxs more complicated than it ought to be and it introduced some
-irregular encoding of type expressions.&lt;/p&gt;
-&lt;p&gt;With my change, the type constraint is stored directly in the value
-binding node, and the elaboration has been moved to the typechecker.
-Hopefully, soon we will no longer build parsetree node in the
-typechecker. However, in the meanwhile, the parsetree is now closer to
-the source language and simpler to transform with ppxs.&lt;/p&gt;
-&lt;h3&gt;On-going discussions&lt;/h3&gt;
-&lt;p&gt;In term of medium term projects, I have been discussing two
-interesting projects last week.&lt;/p&gt;
-&lt;h4&gt;Dynlink library&lt;/h4&gt;
-&lt;p&gt;I have spent some time discussing with S&amp;eacute;bastien Hinderer about his
-plans to simplify the build and dependency of OCaml dynlinking library.
-Right now, this library is built with its own version of the compiler
-library (to avoid module name collision) which introduces a lot of
-complexity in the compiler build system. After some discussions with
-S&amp;eacute;bastien, we decided to try to isolate a core &lt;code&gt;linking&lt;/code&gt;
-library that would be shared with both &lt;code&gt;dynlink&lt;/code&gt; and the rest
-of the compiler library.&lt;/p&gt;
-&lt;h4&gt;OCamltest DSL&lt;/h4&gt;
-&lt;p&gt;The ocamltest DSL for the compiler test suite is currently inspired
-by org mode as a generic way to write tree of tests. However, with some
-more distance, it has become clearer that such representation is not
-optimized for most tests in the compiler test suite. In particular,
-tests often have very long sequences of actions that are ill-fit the
-current representation. We have thus been discussing an improved DSL for
-ocamltest for some time, and recently converged towards a new
-version.&lt;/p&gt;
-
-
-  </content><id>http://gallium.inria.fr/blog/florian-compiler-weekly-2023-03-27</id><title type="text">OCaml compiler weekly, 27 March 2023</title><updated>2023-03-27T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry></feed>
+  </content><id>http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-03</id><title type="text">OCaml compiler weekly, 3 April 2023</title><updated>2023-04-03T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry></feed>
