@@ -339,7 +339,7 @@ OCaml plays it safe and doesn't execute `open_window`. Instead, it treats
 it as a partial function application. The expression `open_window`
 literally evaluates to a function value.
 
-Let's go back to the original, working definition of `open_window`,
+Let's go back to the original working definition of `open_window`,
 where we had the extra unlabelled `unit` argument at the end:
 
 ```ocaml
