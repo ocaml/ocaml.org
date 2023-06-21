@@ -268,7 +268,7 @@ to the next section.
 ### `Warning: This optional argument cannot be erased`
 We've just touched upon labels and optional arguments, but even this
 brief explanation might have raised several questions. The first may be: 
-"Why use the extra unit argument to open_window?" Let's try defining this
+"Why use the extra `()` (unit) argument to `open_window`?" Let's try defining this
 function without the extra `unit`:
 
 ```ocaml
