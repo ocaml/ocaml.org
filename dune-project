@@ -61,6 +61,7 @@
    (and
     :with-test
     (>= 1.10.0)))
+  olinkcheck
   ; src/ocamlorg_dasbhoard
   (dream
    (>= 1.0.0~alpha5))
