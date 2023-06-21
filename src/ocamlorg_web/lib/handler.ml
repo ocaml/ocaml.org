@@ -6,15 +6,18 @@ let http_or_404 ?(not_found = Ocamlorg_frontend.not_found) opt f =
 
 (* short-circuiting 404 error operator *)
 let ( let</>? ) opt = http_or_404 opt
-let index _req = Dream.html (Ocamlorg_frontend.home ())
+
+let index _req =
+  let latest_release = List.hd Data.Release.all in
+  Dream.html (Ocamlorg_frontend.home ~latest_release)
+
 let install _req = Dream.html (Ocamlorg_frontend.install ())
 
 let learn _req =
   let papers = Data.Paper.featured in
   let books = Data.Book.featured in
   let tutorials = Data.Tutorial.all in
-  let release = List.hd Data.Release.all in
-  Dream.html (Ocamlorg_frontend.learn ~papers ~books ~release ~tutorials)
+  Dream.html (Ocamlorg_frontend.learn ~papers ~books ~tutorials)
 
 let platform _req =
   let tools = Data.Tool.all in
