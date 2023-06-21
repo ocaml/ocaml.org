@@ -455,7 +455,7 @@ let is_author_match name pattern =
     | None -> false
   in
   match Data.Opam_user.find_by_name name with
-  | None -> false
+  | None -> String.contains_s name pattern
   | Some { name; email; github_username; _ } ->
       match_opt (Some name) || match_opt email || match_opt github_username
 
