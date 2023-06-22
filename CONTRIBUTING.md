@@ -112,8 +112,6 @@ The [OCaml Changelog](https://ocaml.org/changelog) is a feed of the latest relea
 
 - [The OCaml Compiler](https://github.com/ocaml/ocaml)
 - [OCaml Platform Tools](https://ocaml.org/docs/platform)
-- [`ppxlib'](https://github.com/ocaml-ppx/ppxlib)
-- [OMP](https://github.com/ocaml-ppx/ocaml-migrate-parsetree) (that has been deprecated in favour of `ppxlib`)
 
 Before a release of the above tools land on the `opam-repository`, the release manager of the project opens a pull request (PR) on OCaml.org with an announcement for the release.
 
