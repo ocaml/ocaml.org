@@ -16,27 +16,27 @@ Learn_layout.render
 <div class="mt-10 prose prose-orange max-w-3xl">
  <%s! meta.body_html %>
 
-  <ul class="mt-8 px-0 font-light leading-8 text-neutral-800 text-lg">
+  <ul class="mt-8 px-0 font-light leading-8 text-neutral-800 text-lg flex flex-wrap gap-x-4 gap-y-1">
   <% meta.categories |> List.iter (fun (category : Data.Is_ocaml_yet.category) -> %>
-    <li class="inline mr-3">
-      <a href="#<%s Utils.slugify category.name %>" class="font-light leading-10 text-left !text-blue-500 cursor-pointer hover:text-cyan-700"><span class="text-sm"><%s category.status %></span> <%s category.name %></a>
+    <li class="inline-flex m-0 whitespace-nowrap">
+      <a href="#<%s Utils.slugify category.name %>" class="leading-8 no-underline"><span class="text-sm"><%s category.status %></span> <%s category.name %></a>
     </li>
   <% ); %>
   </ul>
-  <ul class="my-4 px-0 font-light leading-8 text-neutral-800 text-sm">
-    <li class="inline mr-3">
+  <ul class="my-4 px-0 font-light leading-8 text-neutral-800 text-sm flex flex-wrap gap-x-3">
+    <li class="inline-flex m-0 whitespace-nowrap">
       🟢 : stable, tested and mature
     </li>
-    <li class="inline mr-3">
+    <li class="inline-flex m-0 whitespace-nowrap">
       🟡 : getting there, stable but still maturing
     </li>
-    <li class="inline mr-3">
+    <li class="inline-flex m-0 whitespace-nowrap">
       🟠 : not yet stable, but progressing
     </li>
-    <li class="inline mr-3">
+    <li class="inline-flex m-0 whitespace-nowrap">
       🔴 : unstable/incomplete, needs work
     </li>
-    <li class="inline mr-3">
+    <li class="inline-flex m-0 whitespace-nowrap">
       🆘 : barely there, needs serious work
     </li>
   </ul>
@@ -44,6 +44,7 @@ Learn_layout.render
   <h2>Details</h2>
   <% meta.categories |> List.iter (fun (category : Data.Is_ocaml_yet.category) -> %>
   <h3 id="<%s Utils.slugify category.name %>">
+    <a class="anchor" href="#<%s Utils.slugify category.name %>"></a>
     <span class="text-base"><%s category.status %></span>
     <%s category.name %>
   </h3>
