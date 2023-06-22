@@ -8,8 +8,9 @@ let http_or_404 ?(not_found = Ocamlorg_frontend.not_found) opt f =
 let ( let</>? ) opt = http_or_404 opt
 
 let index _req =
-  let latest_release = List.hd Data.Release.all in
-  Dream.html (Ocamlorg_frontend.home ~latest_release)
+  Dream.html
+    (Ocamlorg_frontend.home ~latest_release:Data.Release.latest
+       ~lts_release:Data.Release.lts)
 
 let install _req = Dream.html (Ocamlorg_frontend.install ())
 

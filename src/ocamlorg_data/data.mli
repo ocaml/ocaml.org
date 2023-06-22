@@ -351,6 +351,8 @@ module Release : sig
     kind : kind;
     version : string;
     date : string;
+    is_latest : bool option;
+    is_lts : bool option;
     intro_md : string;
     intro_html : string;
     highlights_md : string;
@@ -361,6 +363,8 @@ module Release : sig
 
   val all : t list
   val get_by_version : string -> t option
+  val latest : t
+  val lts : t
 end
 
 module News : sig
