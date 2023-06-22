@@ -2,10 +2,10 @@
  
 Welcome to OCaml.org's contributing guide. Thank you for taking the time to read it! Your help with OCaml.org is extremely welcome. We are particularly motivated to support new contributors and people who are looking to learn and develop their skills. If you get stuck, please don’t hesitate to [ask questions on discuss](https://discuss.ocaml.org/) or [raise an issue](https://github.com/ocaml/ocaml.org/issues/new).
 
-This guide documents the best way to contribute to the project. If you're looking for a guide on how to setup the project and submit a contribution, you can refer to our [HACKING](./HACKING.md) guide.
+This guide documents the best way to contribute to the project when adding things listed below in Contributing Content. If you're looking for a guide on how to setup the project and suggest a change to the code, you can refer to our [HACKING](./HACKING.md) guide, which will also give instructions on how to rebuild the website, if necessary, when making changes. 
 
 - **Good First Issues**: if you are either new to the repository or still getting started with OCaml in general, issues marked as a `good first issue` are ideal.
-- **Fixing or Suggesting Content**: most of the site content is stored in the `data` directory as Markdown or YAML. To fix this content, you can edit those files directly and rebuild the website. This will promote the content into their `.ml` counterparts. If you would like to suggest entirely new content, please open an issue to discuss it first.
+- **Suggesting Changes**: most of the site content is stored in the `data` directory as Markdown or YAML. To suggest a change or update this content, you can edit those files directly and rebuild the website, detailed in the [HACKING](./HACKING.md) guide. This will promote the content into their `.ml` counterparts. If you would like to suggest entirely new website content or code, please [open an issue](https://github.com/ocaml/ocaml.org/issues) to discuss it first.
 - **Implementing Pages**: most pages are implemented in `src/ocamlorg_frontend/pages` using the [.eml templating preprocessor](https://aantron.github.io/dream/#templates). This is mixture or OCaml and HTML.
 - **Translating Content or Pages**: for now we are focusing on getting OCaml.org ready for launch and will add more information about translation later.
 
@@ -17,7 +17,7 @@ Please include images and browser-specific information if the bug is related to 
 
 ## Contributing Content
 
-Here's a list of community-driven content and how you can contribute to it:
+We've provided a list of community-driven content below. When adding content to any of these sections, it's best to fork the repo, add your file, and open a pull request (PR). 
 
 - [The Blog](#content-blog)
 - [Job Board](#content-job)
@@ -27,6 +27,8 @@ Here's a list of community-driven content and how you can contribute to it:
 - [Community Events](#content-event)
 - [Featured Packages](#content-package)
 - [The OCaml Changelog](#content-package)
+
+The following sections give more details on how to contribute to each.
 
 ### <a name="content-blog"></a> Add an RSS Feed to the Blog
 
