@@ -44,7 +44,7 @@ When compiling, the feed entries will be downloaded, and Markdown files for each
 
 Please, make sure your feed only contains articles about OCaml.
 
-To contribute an original blog post (referred to as [News](https://ocaml.org/blog) on the site), you can add a new Markdown file in [`/data/planet/ocamlorg`](/data/planet/ocamlorg/). For instance: [`about-utop.md`](data/planet/ocamlorg/about-utop.md).
+To contribute an original blog post (under [OCaml Community Blog](https://ocaml.org/blog) on the site), you can add a new Markdown file in [`/data/planet/ocamlorg`](/data/planet/ocamlorg/). For instance: [`about-utop.md`](data/planet/ocamlorg/about-utop.md).
 
 If you want to republish an blog post you previously posted on Discuss, you can fetch it using the Discuss API:
 
