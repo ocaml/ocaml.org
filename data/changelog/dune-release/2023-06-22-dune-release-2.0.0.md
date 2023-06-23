@@ -37,3 +37,8 @@ changelog: |
     @Leonidas-from-XIV)
 ---
 
+We're excited to announce the release of Dune-release 2.0.0!
+
+This release brings support for putting your `.opam` files in a `opam/` directory. If your project contains dozens of packages, you'll be able to unclutter your root directory from all of these opam files!
+
+Another notable change is the removal of delegates. Users of dune-release who want to publish their packages to another platform than GitHub can now use the `dune-release delegate-info` and use the output to build their own publication workflows.
