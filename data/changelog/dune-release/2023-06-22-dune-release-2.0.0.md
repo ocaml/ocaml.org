@@ -41,8 +41,7 @@ We're excited to announce the release of Dune-release 2.0.0!
 
 This release brings support for putting your `.opam` files in a `opam/`
 directory. If your project contains dozens of packages, you'll be able to
-unclutter your root directory from all of these opam files! You can make Dune
-them into the `opam/` folder starting with Dune 3.8 using `(opam_file_location
+generate them into the `opam/` folder starting with Dune 3.8 using `(opam_file_location
 inside_opam_directory)` in your `dune-project`.
 
 Another notable change is the removal of delegates. Users of dune-release who
