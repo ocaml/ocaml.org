@@ -12,9 +12,9 @@ For instance:
 (rule
  (action
   (concurrent
-   (with-outputs-to A (echo "I am file A.\n"))
-   (with-outputs-to B (echo "I am certainly file B.\n"))
-   (with-outputs-to C (echo "I am most certainly file C.\n")))))
+   (write-file A "I am file A.\n")
+   (write-file B "I am certainly file B.\n")
+   (write-file C "I am most certainly file C.\n"))))
 ```
 
 will write to files `A`, `B` and `C` concurrently.
