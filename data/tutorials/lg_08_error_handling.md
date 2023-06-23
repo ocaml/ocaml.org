@@ -918,7 +918,7 @@ always better than the others, and choosing one to use should be a matter of
 fitting the context rather than that of taste. But opinionated OCaml code is also
 fine, so it's a balance.
 
-# External Ressources
+# External Resources
 
 - [“Exceptions”](https://v2.ocaml.org/releases/5.0/htmlman/coreexamples.html#s%3Aexceptions) in ”The OCaml Manual, The Core Language”, chapter 1, section 6, December 2022
 - [Module **`option`**](https://v2.ocaml.org/releases/5.0/api/Option.html) in OCaml Library
