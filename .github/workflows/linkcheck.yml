@@ -1,0 +1,52 @@
+name: Check links
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 2 * * MON
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  linkcheck:
+    name: Check broken links
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        ocaml-compiler:
+          - ocaml-base-compiler.4.14.1
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          dune-cache: ${{ matrix.os != 'macos-latest' }}
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#9cf27a6683dc4e56ccf7e35c008198828bd5c267
+          opam-disable-sandboxing: true
+
+      - name: Install olinkcheck
+        run: opam install olinkcheck.~dev
+
+      - name: Annotate broken links
+        run: |
+          opam exec -- olinkcheck --annotate-in-file md data --exclude-list=.github/workflows/exclude.txt
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: 'Check broken links'
+          branch: 'broken-links'
+          add-paths: |
+            data
