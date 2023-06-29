@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://odns.tuxfamily.org/feed/</id><title type="text">odns</title><updated>2023-06-22T05:47:17-00:00</updated><entry><link href="http://odns.tuxfamily.org/2011/03/02/odns-and-ring-version-0-3/" rel="alternate"/><contributor><uri>http://odns.tuxfamily.org/feed/</uri><name>odns</name></contributor><content type="html">&lt;p&gt;So here they are, &lt;a href=&quot;http://download.tuxfamily.org/odns/odns-0.3.tar.gz&quot;&gt;the brand new ODNS library and the ring tool&lt;/a&gt;. Below are the main changes.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://odns.tuxfamily.org/feed/</id><title type="text">odns</title><updated>2023-06-29T05:48:34-00:00</updated><entry><link href="http://odns.tuxfamily.org/2011/03/02/odns-and-ring-version-0-3/" rel="alternate"/><contributor><uri>http://odns.tuxfamily.org/feed/</uri><name>odns</name></contributor><content type="html">&lt;p&gt;So here they are, &lt;a href=&quot;http://download.tuxfamily.org/odns/odns-0.3.tar.gz&quot;&gt;the brand new ODNS library and the ring tool&lt;/a&gt;. Below are the main changes.&lt;/p&gt;
 &lt;h3&gt;ODNS release notes&lt;/h3&gt;
 &lt;dl&gt;
 &lt;dt&gt;Resolver class name changing&lt;/dt&gt;
