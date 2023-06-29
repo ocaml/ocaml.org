@@ -14,9 +14,14 @@ Layout.render
       </a>
     </div>
 
-    <div class="prose prose-orange mx-auto max-w-5xl">
-      <h1><%s planet.title %></h1>
+    <article class="prose prose-orange mx-auto max-w-5xl">
+      <header>
+        <h1><%s planet.title %></h1>
+        <% (match planet.authors with None -> () | Some authors -> %>
+        <i>Authored by: <%s String.concat ", " authors %></i>
+        <% ); %>
+      </header>
       <%s! planet.body_html %>
-    </div>
+    </article>
   </div>
 </div>
