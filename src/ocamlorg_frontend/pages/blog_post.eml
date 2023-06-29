@@ -18,7 +18,7 @@ Layout.render
       <header>
         <h1><%s planet.title %></h1>
         <% (match planet.authors with None -> () | Some authors -> %>
-        Authored by: <%- String.concat ", " authors %>
+        <i>Authored by: <%s String.concat ", " authors %></i>
         <% ); %>
       </header>
       <%s! planet.body_html %>
