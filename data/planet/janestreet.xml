@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://blog.janestreet.com/feed.xml</id><title type="text">janestreet</title><updated>2023-06-29T05:48:33-00:00</updated><entry><link href="https://blog.janestreet.com/oxidizing-ocaml-ownership/" rel="alternate"/><contributor><uri>https://blog.janestreet.com/feed.xml</uri><name>janestreet</name></contributor><content type="html">&lt;p&gt;In &lt;a href=&quot;https://blog.janestreet.com/oxidizing-ocaml-locality&quot;&gt;part one&lt;/a&gt;, we discussed how OCaml&amp;rsquo;s
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://blog.janestreet.com/feed.xml</id><title type="text">janestreet</title><updated>2023-06-30T05:47:25-00:00</updated><entry><link href="https://blog.janestreet.com/oxidizing-ocaml-ownership/" rel="alternate"/><contributor><uri>https://blog.janestreet.com/feed.xml</uri><name>janestreet</name></contributor><content type="html">&lt;p&gt;In &lt;a href=&quot;https://blog.janestreet.com/oxidizing-ocaml-locality&quot;&gt;part one&lt;/a&gt;, we discussed how OCaml&amp;rsquo;s
 locality mode enables safe stack allocation. In this post, we will
 explore additional modes for representing &lt;em&gt;ownership&lt;/em&gt;.&lt;/p&gt;
 

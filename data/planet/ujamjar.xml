@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://www.ujamjar.com/ocaml.xml</id><title type="text">ujamjar</title><updated>2023-06-29T05:48:33-00:00</updated><entry><link href="http://www.ujamjar.com/ocaml/hardcaml/2016/01/15/hardcaml-examples-in-javascript.html" rel="alternate"/><contributor><uri>http://www.ujamjar.com/ocaml.xml</uri><name>ujamjar</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/ujamjar/hardcaml-examples&quot;&gt;hardcaml-examples&lt;/a&gt; 
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://www.ujamjar.com/ocaml.xml</id><title type="text">ujamjar</title><updated>2023-06-30T05:47:25-00:00</updated><entry><link href="http://www.ujamjar.com/ocaml/hardcaml/2016/01/15/hardcaml-examples-in-javascript.html" rel="alternate"/><contributor><uri>http://www.ujamjar.com/ocaml.xml</uri><name>ujamjar</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/ujamjar/hardcaml-examples&quot;&gt;hardcaml-examples&lt;/a&gt; 
 provides a small framework for creating &lt;a href=&quot;https://github.com/ujamjar/hardcaml&quot;&gt;HardCaml&lt;/a&gt; 
 based cores and six example designs.  The framework code provides the general plumbing
 required to create a console based application with features including code generation, 
