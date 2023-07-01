@@ -985,7 +985,7 @@ through the OCaml Package Manager, opam. Please note: you must have OCaml on you
 to follow the tutorial moving forward, not just the OCaml Playground tool.
 
 For these examples, we're going to use module called `Graphics`, which can be
-installed with `opam install graphics`, and the `ocamlfind` program that installed
+installed with `opam install graphics`, and the `ocamlfind` program that is installed
 with `opam install ocamlfind`. The `Graphics` module is a very simple
 cross-platform graphics system which was once part of OCaml itself. Now it's
 available separately through opam.
