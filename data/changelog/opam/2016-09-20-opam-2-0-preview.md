@@ -19,7 +19,7 @@ This version brings many new features and changes, the most notable one being
 that OCaml compiler packages are no longer special entities, and are replaced
 by standard package definition files. This in turn means that <span class="opam">opam</span> users have
 more flexibility in how switches are managed, including for managing non-OCaml
-environments such as [Coq](http://coq.io/opam/) using the same familiar tools.
+environments such as [Coq](http://coq.io/opam/ - [1 Client error: Couldn't connect to server]) using the same familiar tools.
 
 ## A few highlights
 

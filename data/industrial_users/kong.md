@@ -10,4 +10,4 @@ consortium: false
 featured: true
 ---
 
-Kong makes it easy to distribute, monetize, manage and consume cloud APIs. Mashape is building a world-class marketplace for cloud APIs driven by a passionate community of developers from all over the world as well as enterprise API management and analytics products. We use OCaml in our [APIAnalytics](https://apianalytics.com) product — as part of a mission-critical, lightweight HTTP proxy.
+Kong makes it easy to distribute, monetize, manage and consume cloud APIs. Mashape is building a world-class marketplace for cloud APIs driven by a passionate community of developers from all over the world as well as enterprise API management and analytics products. We use OCaml in our [APIAnalytics](https://apianalytics.com - [1 Client error: Couldn't resolve host name]) product — as part of a mission-critical, lightweight HTTP proxy.

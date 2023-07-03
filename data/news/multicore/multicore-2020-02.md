@@ -9,7 +9,7 @@ Welcome to the February 2020 news update from the Multicore OCaml team, spread a
 
 The [release of OCaml 4.10.0](https://discuss.ocaml.org/t/ocaml-4-10-released/5194) has successfully pushed out some prerequisite features into the upstream compiler.  Our work in February has focussed on getting the multicore OCaml branch "feature complete" with respect to the complete OCaml language, and doing extensive benchmarking and stress testing to test our two minor heap implementations.
 
-To this end, a number of significant patches have been merged into the [Multicore OCaml trees](https://github.com/ocaml-multicore/ocaml-multicore) that essentially provide complete coverage of the language features. We encourage you to test the same for regressions and provide any improvements or report shortcomings to us. There are ongoing OCaml PRs and issues that are also under review, and we hope to complete those for the 4.11 release cycle. A new set of parallel benchmarks have been added to our [Sandmark benchmarking suite](https://github.com/ocaml-bench/sandmark) (live instance [here](http://bench2.ocamllabs.io)), including enhancements to the build setup.
+To this end, a number of significant patches have been merged into the [Multicore OCaml trees](https://github.com/ocaml-multicore/ocaml-multicore) that essentially provide complete coverage of the language features. We encourage you to test the same for regressions and provide any improvements or report shortcomings to us. There are ongoing OCaml PRs and issues that are also under review, and we hope to complete those for the 4.11 release cycle. A new set of parallel benchmarks have been added to our [Sandmark benchmarking suite](https://github.com/ocaml-bench/sandmark) (live instance [here](http://bench2.ocamllabs.io - [1 Client error: Timeout was reached])), including enhancements to the build setup.
 
 ## Multicore OCaml
 
@@ -58,7 +58,7 @@ The following PRs have been merged into Multicore OCaml:
 
 ## Benchmarking
 
-[Sandmark](http://bench2.ocamllabs.io/) now has support to run parallel benchmarks. We can also now about GC latency measurements for both stock OCaml and Multicore OCaml compiler.
+[Sandmark](http://bench2.ocamllabs.io/ - [1 Client error: Timeout was reached]) now has support to run parallel benchmarks. We can also now about GC latency measurements for both stock OCaml and Multicore OCaml compiler.
 
 * [ocaml-bench/sandmark#73](https://github.com/ocaml-bench/sandmark/pull/73)
   More parallel benchmarks

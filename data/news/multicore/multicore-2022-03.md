@@ -630,7 +630,7 @@ As always, the Multicore OCaml open and completed tasks are listed first, which 
   ocaml-migrate-parsetree.2.2.0+stock fails to compile with ocaml.5.00.0+trunk
 
   `ocaml-migrate-parsetree` is no longer required for trunk with
-  [ppxlib.0.25.0~5.00preview](https://github.com/kit-ty-kate/opam-alpha-repository/blob/master/packages/ppxlib/ppxlib.0.25.0~5.00preview/opam).
+  [ppxlib.0.25.0~5.00preview](https://github.com/kit-ty-kate/opam-alpha-repository/blob/master/packages/ppxlib/ppxlib.0.25.0~5.00preview/opam - [404 Not Found]).
 
 * [ocaml-bench/sandmark#310](https://github.com/ocaml-bench/sandmark/pull/310)
   Remove `js_of_ocaml`

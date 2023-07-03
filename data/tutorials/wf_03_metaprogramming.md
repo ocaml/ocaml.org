@@ -124,7 +124,7 @@ Hello, Universe!
 
 Dune's build system has a specific stanza to apply preprocessing to files.
 The full documentation can be found
-[here](https://dune.readthedocs.io/en/stable/concepts.html#preprocessing-specification),
+[here](https://dune.readthedocs.io/en/stable/concepts.html#preprocessing-specification - [404 Not Found]),
 and should serve as a reference. In this section, we only give a few examples.
 
 The stanza to apply preprocessing on the source file is `(preprocess (action
