@@ -509,7 +509,7 @@ Multicore OCaml.
 * [Multicore OCaml Runtime Systems Engineer](https://discuss.ocaml.org/t/runtime-systems-engineer-ocaml-labs-uk-tarides-fr-segfault-systems-in-remote/7959)
   OCaml Labs (UK), Tarides (France) and Segfault Systems (India)
 
-* [Benchmark Tooling Engineer](https://tarides.com/jobs/benchmark-tooling-engineer)
+* [Benchmark Tooling Engineer](https://tarides.com/jobs/benchmark-tooling-engineer - [404 Not Found])
   Tarides
 
 Our thanks to all the OCaml users, developers and contributors in the

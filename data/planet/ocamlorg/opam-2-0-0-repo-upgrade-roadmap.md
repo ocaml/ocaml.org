@@ -9,7 +9,7 @@ A few days ago, we released [opam 2.0.0~rc4](https://opam.ocaml.org/blog/opam-2-
 
 ## If you are an opam user, and don't maintain opam packages
 
-- You are encouraged to [upgrade](https://opam.ocaml.org/blog/opam-2-0-0-rc4/)) as soon as comfortable, and get used to the [changes and new features](https://opam.ocaml.org/2.0-preview/doc/Upgrade_guide.html)
+- You are encouraged to [upgrade](https://opam.ocaml.org/blog/opam-2-0-0-rc4/)) as soon as comfortable, and get used to the [changes and new features](https://opam.ocaml.org/2.0-preview/doc/Upgrade_guide.html - [404 Not Found])
 
 - All packages installing in opam 1.2.2 should exist and install fine on 2.0.0~rc4 (if you find one that doesn't, [please report](https://github.com/ocaml/opam/issues)!)
 
