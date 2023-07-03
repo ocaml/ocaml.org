@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://gallium.inria.fr/blog/index.rss</id><title type="text">gallium</title><updated>2023-06-29T05:48:33-00:00</updated><entry><link href="http://cambium.inria.fr/blog/florian-compiler-weekly-2023-06-20" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://gallium.inria.fr/blog/index.rss</id><title type="text">gallium</title><updated>2023-06-30T05:47:26-00:00</updated><entry><link href="http://cambium.inria.fr/blog/florian-compiler-weekly-2023-06-20" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
 
 
 &lt;p&gt;This series of blog posts aims to give a short weekly glimpse into my
