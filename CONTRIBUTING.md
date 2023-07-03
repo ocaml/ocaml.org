@@ -33,19 +33,36 @@ The following sections give more details on how to contribute to each.
 
 > Contribute to the [OCaml Blog](https://ocaml.org/blog).
 
-The blog is composed of two type of content:
+The blog is composed of three types of content:
 
 - Community blog posts fetched from RSS feeds
-- Original blog posts
+- Original blog posts linked from original source
+- Reposted from Discuss
 
+Below are the instructions for each.
+
+#### Fetched from RSS Feed
 If you write about OCaml and have an RSS or Atom feed, you can add your feed to [`data/planet-sources.yml`](data/planet-sources.yml).
 
 When compiling, the feed entries will be downloaded, and Markdown files for each item will be created in [`data/rss`](data/rss/). For instance: [building-ahrefs-codebase-with-melange.md`](data/rss/ahrefs/building-ahrefs-codebase-with-melange.md).
 
 Please, make sure your feed only contains articles about OCaml.
 
-To contribute an original blog post (under [OCaml Community Blog](https://ocaml.org/blog) on the site), you can add a new Markdown file in [`/data/planet/ocamlorg`](/data/planet/ocamlorg/). For instance: [`about-utop.md`](data/planet/ocamlorg/about-utop.md).
+#### Link Original Blog Post
+To contribute an original blog post (under [OCaml Community Blog](https://ocaml.org/blog)), you can add a new Markdown file in [`/data/planet/ocamlorg`](/data/planet/ocamlorg/). For instance: [`about-utop.md`](data/planet/ocamlorg/about-utop.md).
 
+Create an `.md` file with the following header: 
+```
+---
+title: title of your self-hosted post here
+description: one-sentence description
+url: direct URL to your original blog post
+date: 2023-06-13  (this format)
+preview_image: direct link to preview image
+---
+```
+
+#### Republish From Discuss
 If you want to republish an blog post you previously posted on Discuss, you can fetch it using the Discuss API:
 
 ```
