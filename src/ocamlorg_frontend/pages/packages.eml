@@ -173,7 +173,7 @@ Layout.render
                     <%s! Icons.shield_check "h-6 w-6 text-white" %>
                 </div>
                 <div class="text-lg font-semibold mb-4">Stability</div>
-                <div class="text-base text-lighter">The Opam project and package repository is maintained by a team of
+                <div class="text-base text-lighter">The opam project and package repository is maintained by a team of
                     developers who ensure that everything is not only running smoothly, but also curated to maintain a high
                     degree of metadata quality. This makes it one of the most stable package repositories available
                     today.</div>
