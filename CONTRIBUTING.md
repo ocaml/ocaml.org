@@ -45,7 +45,7 @@ When compiling, the feed entries will be downloaded, and Markdown files for each
 Please, make sure your feed only contains articles about OCaml.
 
 #### 2. Link Original Blog Post
-To contribute an original blog post (under [OCaml Community Blog](https://ocaml.org/blog)), you can add a new Markdown file in [`/data/planet/ocamlorg`](/data/planet/ocamlorg/). For instance: [`about-utop.md`](data/planet/ocamlorg/about-utop.md).
+To contribute an original blog post (under [OCaml Community Blog](https://ocaml.org/blog)), you can add a new Markdown file in [`data/planet/-individual_external_links/`](data/planet/-individual_external_links/). 
 
 Create an `.md` file with the following header: 
 ```
