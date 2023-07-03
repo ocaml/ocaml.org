@@ -7,7 +7,7 @@ tags: [opam, platform, release]
 ---
 
 After a few months of development, we are pleased to announce the
-[stable release](https://github.com/the-lambda-church/merlin/blob/master/CHANGELOG) of
+[stable release](https://github.com/the-lambda-church/merlin/blob/master/CHANGELOG - [404 Not Found]) of
 [Merlin 2.0](https://github.com/the-lambda-church/merlin).  
 Supported OCaml versions range from 4.00.1 to 4.02.1.
 
@@ -60,7 +60,7 @@ give, but here are some key points (from an user perspective):
 * automatic reloading of .merlin files (when they are update or created), it
   is no longer necessary to restart Merlin
 * introduced a small refactoring command: rename, who renames all occurences
-  of an identifier. See [here](http://yawdp.com/~host/merlin_rename.webm).
+  of an identifier. See [here](http://yawdp.com/~host/merlin_rename.webm - [1 Client error: Couldn't resolve host name]).
 
 This release also contains contributions from: Yotam Barnoy, Jacques-Pascal
 Deplaix, Geoff Gole, Rudi Grinberg, Steve Purcell and Jan Rehders.

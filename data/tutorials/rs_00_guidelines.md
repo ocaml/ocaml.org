@@ -969,7 +969,7 @@ OCaml and can be freely downnloaded
 ###  How to Compile
 The `make` utility is indispensable for managing the compilation and
 recompilation of programs. Sample `make` files can be found on [The
-Hump](https://caml.inria.fr//cgi-bin/hump.en.cgi). You can also consult
+Hump](https://caml.inria.fr//cgi-bin/hump.en.cgi - [404 Not Found]). You can also consult
 the `Makefiles` for the OCaml compilers.
 
 ###  How to Develop as a Team: Version Control

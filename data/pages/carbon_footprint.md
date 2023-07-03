@@ -6,7 +6,7 @@ meta_description: OCaml.org engagement to reducing its carbon footprint
 ---
 
 A recent study from Lancaster University shows that greenhouse gas (GHG) emissions from global computing might be higher than previously thought. The Information and Communication Technology (ICT) sector produces as much as 3.9% of overall GHG, when taking into account the complete
-lifecycle from manufacturing through computations. If correct, this is higher than even the aviation industry, which is [around 2%](https://www.sciencedaily.com/releases/2021/09/210910121715.htm).
+lifecycle from manufacturing through computations. If correct, this is higher than even the aviation industry, which is [around 2%](https://www.sciencedaily.com/releases/2021/09/210910121715.htm - [403 Forbidden]).
 
 OCaml maintainers are quite aware of its infrastructure’s environmental impact, especially the machines that build Docker base images, run Continuous Integration (CI) checks, and build and deploy this very website. Nearly 1000 CPU cores hosted in various data centres around the world run
 these tasks. While OCaml is open-source, these machines don’t run for free. The cost to manufacture and maintain these machines, not to mention the considerable energy used to power them, is significant.

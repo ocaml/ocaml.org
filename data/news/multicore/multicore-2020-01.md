@@ -73,7 +73,7 @@ The following PRs have been merged into the Multicore OCaml trees:
 
 ## Benchmarking
 
-* The [Sandmark](http://bench2.ocamllabs.io/) performance benchmarking infrastructure has been improved for backfilling data, tracking branches and naming benchmarks.
+* The [Sandmark](http://bench2.ocamllabs.io/ - [1 Client error: Timeout was reached]) performance benchmarking infrastructure has been improved for backfilling data, tracking branches and naming benchmarks.
 
 * Numerical parallel benchmarks have been added to the Multicore compiler. 
   
