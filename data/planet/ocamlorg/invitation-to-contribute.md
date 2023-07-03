@@ -1,7 +1,6 @@
 ---
 author: Christine Rose
 title: "Contribute to the OCaml Community: Share Your Projects, Insights, and Opportunities on OCaml.org!"
-kind: article
 image: ../images/contribute.jpg
 date: "2023-07-05"
 ---
