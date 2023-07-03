@@ -38,7 +38,6 @@ end
 
 let offline = ref false
 let is_offline x = offline := x
-
 let clone_path = Config.opam_repository_path
 let exists () = Result.get_ok (Bos.OS.Path.exists clone_path)
 
@@ -69,10 +68,9 @@ let clone () =
 let pull () =
   let open Lwt.Syntax in
   let* () =
-  if (!offline) then
-    Process.exec ("true", [||])
-  else
-    Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin"; "master" ])
+    if !offline then Process.exec ("true", [||])
+    else
+      Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin"; "master" ])
   in
   last_commit ()
 
