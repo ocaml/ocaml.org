@@ -40,7 +40,7 @@ world. See past events and upcoming ones on this page."
             </div>
             <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 md:px-20 lg:px-56 mt-12">
                 <% upcoming_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
-                <a href="<%s Url.workshop workshop.slug %>" class="bg-white p-8 rounded-xl transition-transform hover:scale-105">
+                <a href="<%s Url.workshop workshop.slug %>" class="bg-default dark:bg-dark-default p-8 rounded-xl transition-transform hover:scale-105">
                     <div class="font-semibold"><%s workshop.title %></div>
                     <div class="mt-4">
                         <div class="flex items-center space-x-2">
@@ -61,7 +61,7 @@ world. See past events and upcoming ones on this page."
             <% ); %>
             <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 mt-12">
                 <% old_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
-                <a href="<%s Url.workshop workshop.slug %>" class="bg-white p-8 rounded-xl transition-transform hover:scale-105">
+                <a href="<%s Url.workshop workshop.slug %>" class="bg-default dark:bg-dark-default p-8 rounded-xl transition-transform hover:scale-105">
                     <div class="font-semibold"><%s workshop.title %></div>
                     <div class="mt-4">
                         <div class="flex items-center space-x-2">
@@ -79,7 +79,7 @@ world. See past events and upcoming ones on this page."
         </div>
     </div>
 </div>
-<div class="bg-white py-0 pt-20 md:pt-10 lg:p-20 pb-10 md:pb-20">
+<div class="bg-default dark:bg-dark-default py-0 pt-20 md:pt-10 lg:p-20 pb-10 md:pb-20">
     <div class="container-fluid">
         <h2 class="font-bold">Meetups</h2>
         <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 mt-12">

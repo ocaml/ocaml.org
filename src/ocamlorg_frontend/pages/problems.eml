@@ -80,7 +80,7 @@ Learn_layout.render
       >
       <div class="flex space-y-4 xl:space-y-0 flex-col xl:flex-row xl:justify-between">
         <span aria-hidden="true" class="danger invisible xl:visible" title="<%s difficulty_to_string problem.difficulty ^ " difficulty" %>"><%s danger problem.difficulty %></span>
-        <h4 class="font-bold text-body-600">
+        <h4 class="font-bold text-default">
           <%s problem.title %>
           <span aria-hidden="true" class="ml-2 visible xl:invisible" title="<%s difficulty_to_string problem.difficulty ^ " difficulty" %>"> <%s danger problem.difficulty %></span>
         </h4>
@@ -89,18 +89,18 @@ Learn_layout.render
           <button
             class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
             x-on:click="statement = true"
-            :class="statement ? 'bg-white text-primary-600': 'text-body-400' "
+            :class="statement ? 'bg-default dark:bg-dark-default text-primary-600': 'text-lighter' "
           >
             <%s! Icons.problem_statement "h-5 w-5" %>
-            <span :class="statement ? 'text-body-600' : 'text-body-400'">Statement</span>
+            <span :class="statement ? 'text-default' : 'text-lighter'">Statement</span>
           </button>
           <button
             class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
             x-on:click="statement = false"
-            :class="statement ? 'text-body-400': 'bg-white text-primary-600' "
+            :class="statement ? 'text-lighter': 'bg-default dark:bg-dark-default text-primary-600' "
           >
             <%s! Icons.problem_solution "h-5 w-5" %>
-            <span :class="statement ? 'text-body-400' : 'text-body-600'">Solution</span>
+            <span :class="statement ? 'text-lighter' : 'text-default'">Solution</span>
           </button>
         </div>
       </div>

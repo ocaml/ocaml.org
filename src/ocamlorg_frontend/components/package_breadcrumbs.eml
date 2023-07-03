@@ -79,7 +79,7 @@ let render_library_path_breadcrumbs
       <a href="<%s! b.href %>" aria-current="page" class="text-gray-800 mr-2"><%s b.name %></a>
   in
   <li>
-    <span tabindex="0" class="text-gray-600"><%s library_name %> lib</span>
+    <span tabindex="0" class="text-lighter"><%s library_name %> lib</span>
   </li>
   <li class="flex flex-wrap items-center">
     <%s! String.concat "<span>.</span>" (path |> List.map library_path_item_to_breadcrumb |> List.mapi render_breadcrumb); %>

@@ -30,10 +30,10 @@ let search_dropdown () =
   </a>
 in
 <header
-  class="h-20 flex items-center dark:bg-[#171717]"
+  class="h-20 flex items-center bg-mild-contrast dark:bg-dark-mild-contrast"
   x-data="{ open: false }">
   <nav class="container-fluid wide header flex justify-between items-center">
-    <ul class="space space-x-5 xl:space-x-8 items-center flex text-body-400 font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
+    <ul class="space space-x-5 xl:space-x-8 items-center flex text-lighter font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
       <li style="width:132px">
         <a href="<%s Url.index %>" class="block pb-2">
           <img src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" width="132" alt="OCaml logo" class="dark:hidden">
@@ -41,7 +41,7 @@ in
         </a>
       </li>
     </ul>
-    <ul class="space ml-5 xl:ml-8 mr-auto space-x-5 xl:space-x-8 items-center hidden lg:flex text-body-400 font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
+    <ul class="space ml-5 xl:ml-8 mr-auto space-x-5 xl:space-x-8 items-center hidden lg:flex text-lighter font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
       <li><%s! menu_link ~active:(active_top_nav_item=Some Learn) ~href:Url.learn ~title:"Learn" () %></li>
       <li><%s! menu_link ~active:(active_top_nav_item=Some Packages) ~href:Url.packages ~title:"Packages" () %></li>
       <li><%s! menu_link ~active:(active_top_nav_item=Some Community) ~href:Url.community ~title:"Community" () %></li>
@@ -69,7 +69,7 @@ in
     </ul>
     <ul class="lg:hidden flex items-center">
       <li
-        class="h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full text-body-400 dark:text-white">
+        class="h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full text-lighter dark:text-white">
         <button aria-label="open menu" @click="open = ! open">
           <%s! Icons.hamburger_menu "h-8 w-8" %>
         </button>
@@ -79,17 +79,17 @@ in
 
   <div class="bg-black fixed w-full h-full left-0 top-0 opacity-60 z-40" x-show='open' x-cloak></div>
 
-  <nav class="z-50 h-full fixed right-0 top-0 max-w-full w-96 bg-white shadow-lg" x-show="open" x-cloak
+  <nav class="z-50 h-full fixed right-0 top-0 max-w-full w-96 bg-default dark:bg-dark-default shadow-lg" x-show="open" x-cloak
     @click.away="open = false" x-transition:enter="transition duration-200 ease-out"
     x-transition:enter-start="translate-x-full" x-transition:leave="transition duration-100 ease-in"
     x-transition:leave-end="translate-x-full">
-    <ul class="text-body-400 p-6 space-y-6 font-semibold">
+    <ul class="text-lighter p-6 space-y-6 font-semibold">
       <li class="flex justify-between items-center">
         <a href="<%s Url.index %>"><img width="132" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt=""></a>
 
         <div class="close lg:hidden h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full"
           x-on:click="open = false">
-          <button aria-label="close" class="text-body-400">
+          <button aria-label="close" class="text-lighter">
             <%s! Icons.close_x "h-8 w-8" %>
           </button>
         </div>

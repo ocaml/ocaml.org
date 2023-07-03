@@ -2,7 +2,7 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
 ~description:"Find the package you need to build your application in the thousands of available OCaml packages."
 ~canonical:(Url.packages_search ^ "?q=" ^ search)
 ~active_top_nav_item:Header.Packages @@
-<div class="bg-white">
+<div class="bg-default dark:bg-dark-default">
   <div class="py-10 lg:py-14">
     <div class="container-fluid">
       <div class="flex flex-col lg:px-28 gap-2 max-w-5xl">
@@ -64,32 +64,32 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
             </div>
 
             <div class="text-sm flex flex-col gap-2">
-              <div><%s! Search.highlight_search_terms ~class_:"bg-background-light-blue" ~search package.synopsis %></div>
+              <div><%s! Search.highlight_search_terms ~class_:"bg-search-term-highlight" ~search package.synopsis %></div>
               <% if List.length package.tags > 0 then ( %>
-              <div class="text-sm flex flex-wrap gap-1 text-body-500">
+              <div class="text-sm flex flex-wrap gap-1 text-default">
                 <% package.tags |> List.iter (fun (tag : string) -> %>
                 <a
                   href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
                   class="px-2 whitespace-nowrap py-0.5 text-primary-700 font-medium bg-primary-100 border border-primary-600 rounded hover:underline"
                 >
-                  <%s! Search.highlight_search_terms ~class_:"bg-background-light-blue" ~search tag %>
+                  <%s! Search.highlight_search_terms ~class_:"bg-search-term-highlight" ~search tag %>
                 </a>
                 <% ); %>
               </div>
               <% ) else (); %>
-              <div class="flex items-center flex-wrap gap-x-3 text-sm text-body-500">
+              <div class="flex items-center flex-wrap gap-x-3 text-sm text-default">
                 <% package.authors |> Ocamlorg.Import.List.take 5 |> List.iter (fun (author : Data.Opam_user.t) -> %>
                 <a
                   href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22"
                   class="hover:underline"
                 >
-                  <%s! Search.highlight_search_terms ~class_:"bg-background-light-blue" ~search author.name %>
+                  <%s! Search.highlight_search_terms ~class_:"bg-search-term-highlight" ~search author.name %>
                 </a>
                 <% ); %>
                 <%s if List.length package.authors > 5 then " et al." else "" %>
               </div>
             </div>
-            <div class="flex items-center gap-x-6 gap-y-2 text-body-500 text-sm flex-wrap justify-start">
+            <div class="flex items-center gap-x-6 gap-y-2 text-default text-sm flex-wrap justify-start">
               <div class="flex items-center gap-1">
                 <%s! Icons.tag "h-5 w-5"; %>
                 <div><%s Package.render_version package %></div>

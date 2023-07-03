@@ -4,7 +4,7 @@
 
 .grid-logos:after {
   content: "";
-  @apply h-px bottom-0 bg-white w-full left-0 absolute;
+  @apply h-px bottom-0 bg-default dark:bg-dark-default w-full left-0 absolute;
 }
 
 .grid-logos > a {

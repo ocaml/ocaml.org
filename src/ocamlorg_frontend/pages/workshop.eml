@@ -34,7 +34,7 @@ Layout.render
         <div class="flex items-center space-x-10">
           <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
           <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
-          <div class="bg-white flex-1 rounded-xl text-body-700 px-4 py-3 items-center flex">
+          <div class="bg-default dark:bg-dark-default flex-1 rounded-xl text-default px-4 py-3 items-center flex">
             <span><%s date.info %></span>
           </div>
         </div>
@@ -43,7 +43,7 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-white">
+<div class="bg-default dark:bg-dark-default">
   <div class="py-10 lg:py-28">
     <div class="container-fluid">
       <div class="prose prose-orange lg:prose-lg max-w-none mb-16">
@@ -141,7 +141,7 @@ Layout.render
 </div>
 <% let videos = List.filter_map (fun (p : Data.Workshop.presentation) -> Hashtbl.find_opt videos p.title)
 workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
-<div class="bg-white py-24">
+<div class="bg-default dark:bg-dark-default py-24">
   <div class="container-fluid">
     <h3 class="font-bold mb-12">Some Videos</h3>
     <div class="grid lg:grid-cols-3 gap-14">

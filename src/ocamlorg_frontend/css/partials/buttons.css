@@ -36,10 +36,10 @@
   }
 
   .btn-tertiary:hover {
-    @apply bg-white bg-opacity-10;
+    @apply bg-default dark:bg-dark-default bg-opacity-10;
   }
 
   .btn-tertiary:active {
-    @apply bg-white bg-opacity-20;
+    @apply bg-default dark:bg-dark-default bg-opacity-20;
   }
 }
