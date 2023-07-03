@@ -162,8 +162,8 @@ let decode (_, (head, body)) =
   Result.map (of_metadata ~body_html) metadata
 
 let all () =
-  (Utils.map_files decode "planet/*/*.md")
-  @ (Utils.map_files decode "planet/*/*/*.md")
+  Utils.map_files decode "planet/*/*.md"
+  @ Utils.map_files decode "planet/*/*/*.md"
   |> List.sort (fun a b -> String.compare b.date a.date)
 
 let template () =
