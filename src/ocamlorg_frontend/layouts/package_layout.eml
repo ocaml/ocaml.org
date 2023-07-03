@@ -26,7 +26,7 @@ Layout.render
 ?canonical
 ~active_top_nav_item:Header.Packages
 ~footer_html:(Fixed_footer.render ()) @@
-<div class="bg-white"
+<div class="bg-default dark:bg-dark-default"
   x-on:click="search_instructions = false"
   x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, 'search_instructions': false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches"
   >
@@ -42,7 +42,7 @@ Layout.render
         <%s! Icons.sidebar_menu "h-8 w-8" %>
         <span class="hidden md:flex font-semibold px-2">side menu</span>
       </button>
-      <div class="fixed z-10 inset-0 bg-background-dark-blue/20 backdrop-blur-sm md:hidden"
+      <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm md:hidden"
         :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar">
       </div>
 
@@ -64,12 +64,12 @@ Layout.render
             </li>
             <% | Unknown -> ( %>
             <li class="flex flex-auto">
-              <a title="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-background-default")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
+              <a title="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-mild-contrast")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
             </li>
             <% )
             | Failure -> ( %>
             <li class="flex flex-auto">
-              <a title="Documentation failed to build!" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0  border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-background-default")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
+              <a title="Documentation failed to build!" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0  border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-mild-contrast")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
             </li>
             <% ));%>
           </li>
@@ -97,18 +97,18 @@ Layout.render
             <% ); %>
           </div>
 
-          <div id="search-instructions" x-show="search_instructions" class="absolute top-12 p-4 right-0 left-0 bg-white z-[22] w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
+          <div id="search-instructions" x-show="search_instructions" class="absolute top-12 p-4 right-0 left-0 bg-default dark:bg-dark-default z-[22] w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
             <%s! search_instructions_html () %>
           </div>
 
-          <div id="in-package-search-results" aria-live="polite" class="absolute top-12 right-0 left-0 bg-white z-20 w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
+          <div id="in-package-search-results" aria-live="polite" class="absolute top-12 right-0 left-0 bg-default dark:bg-dark-default z-20 w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
           </div>
         </div>
       </div>
 
       <div class="flex md:gap-4 xl:gap-10">
         <div
-          class="p-10 z-20 bg-white flex-col fixed h-screen overflow-auto md:flex left-0 top-0 md:sticky w-80 md:w-60 lg:w-72 md:px-0 md:pt-6 md:pb-24"
+          class="p-10 z-20 bg-default dark:bg-dark-default flex-col fixed h-screen overflow-auto md:flex left-0 top-0 md:sticky w-80 md:w-60 lg:w-72 md:px-0 md:pt-6 md:pb-24"
           x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
           x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
           x-transition:leave-end="-translate-x-full">

@@ -29,12 +29,12 @@ let render_user_avatar ~x_show (user: Data.Opam_user.t) =
       <% | Some avatar -> %>
       <img class="shrink-0 inline-flex h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
       <% ); %>
-      <div class="text-sm font-medium text-gray-900"><%s user.name %></div>
+      <div class="text-sm font-medium text-default"><%s user.name %></div>
     </a>
   </li>
 in
 let render_user_list (users: Data.Opam_user.t list) =
-  <div class="mt-3 text-sm text-gray-900" <%s! if List.length users > num_of_users_to_show then "x-data='{ open: false }'" else "" %>>
+  <div class="mt-3 text-sm text-default" <%s! if List.length users > num_of_users_to_show then "x-data='{ open: false }'" else "" %>>
     <ol class="space-y-3">
       <% users |> List.iteri (fun i (user : Data.Opam_user.t) -> %>
       <%s! render_user_avatar ~x_show:(i > num_of_users_to_show - 1) user %>
@@ -45,18 +45,18 @@ let render_user_list (users: Data.Opam_user.t list) =
     <% ) else (); %>
   </div>
 in
-  <div class="text-base text-body-400 mb-6">
+  <div class="text-base text-lighter mb-6">
     <%s package.synopsis %>
   </div>
 
-  <h2 class="inline-flex items-center text-lg font-medium text-gray-900">
-      <%s! Icons.command_line "mr-4 h-6 w-6 text-orange-600" %>
+  <h2 class="inline-flex items-center text-lg font-medium text-default">
+      <%s! Icons.command_line "mr-4 h-6 w-6 text-primary-600" %>
       Install
   </h2>
 
   <%s! Copy_to_clipboard_snippet.render ~id:"install-package" ~class_:"whitespace-nowrap" ("opam install " ^ package.name ^ "." ^ specific_version) %>
 
-  <div class="flex flex-col mt-8 text-sm text-body-400">
+  <div class="flex flex-col mt-8 text-sm text-lighter">
       <% package.homepages |> List.iter (fun homepage -> %>
       <%s! side_box_link ~icon_html:(Icons.package_homepage "h-4 w-4 mr-2 inline-block") ~href:homepage ~title:(Utils.host_of_uri homepage) %>
       <% ); %>
@@ -72,18 +72,18 @@ in
       <%s! side_box_link ~icon_html:(Icons.edit "h-4 w-4 mr-2 inline-block") ~href:(Url.github_opam_file package.name specific_version) ~title:"Edit opam file" %>
   </div>
 
-  <h2 class="mt-8 font-semibold text-base text-body-400">Authors</h2>
+  <h2 class="mt-8 font-semibold text-base text-lighter">Authors</h2>
   <%s! render_user_list package.authors %>
 
-  <h2 class="mt-8 font-semibold text-base text-body-400">Maintainers</h2>
+  <h2 class="mt-8 font-semibold text-base text-lighter">Maintainers</h2>
   <%s! render_user_list package.maintainers %>
 
   <% match package.source with
   | None -> ()
   | Some (uri, checksums) -> %>
-  <h2 class="font-semibold mt-8 mb-3 text-base text-body-400">Sources</h2>
+  <h2 class="font-semibold mt-8 mb-3 text-base text-lighter">Sources</h2>
   <div class="flex flex-col space-y-2 text-sm">
-    <a class="flex font-mono items-center gap-4 text-body-700 hover:text-primary-600 overflow-hidden rounded"
+    <a class="flex font-mono items-center gap-4 text-default hover:text-primary-600 overflow-hidden rounded"
         href="<%s uri %>">
       <span class="flex-grow">
         <%s Filename.basename uri %>
@@ -199,7 +199,7 @@ Package_layout.render
 
       <div class="flex flex-wrap gap-3 mt-4">
         <% (match package.tags with [] -> () | _ ->  %>
-          <h2 class="text-base font-semibold text-body-400">Tags</h2>
+          <h2 class="text-base font-semibold text-lighter">Tags</h2>
           <% package.tags |> List.iter (fun tag -> %>
           <a href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
             class="hover:underline px-2 text-primary-700 border border-primary-600 font-medium bg-primary-100 rounded">
@@ -208,7 +208,7 @@ Package_layout.render
           <% ); %>
         <% ); %>
         <div class="flex-grow"></div>
-        <h2 class="font-semibold text-base text-body-400">Published:
+        <h2 class="font-semibold text-base text-lighter">Published:
           <span class="font-normal"><%s Utils.human_date_of_timestamp package.publication %></span>
         </h2>
       </div>

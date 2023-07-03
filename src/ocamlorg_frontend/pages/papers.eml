@@ -23,7 +23,7 @@ Layout.render
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 <% recommended_papers |> List.iter (fun (paper : Data.Paper.t) -> %>
-                    <a href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 p-6 pb-4 border border-gray-200 rounded-xl bg-white card-hover">
+                    <a href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 p-6 pb-4 border border-gray-200 rounded-xl bg-default dark:bg-dark-default card-hover">
                         <div class="font-semibold text-base mb-3">
                             <%s paper.title %>
                         </div>
@@ -47,7 +47,7 @@ Layout.render
         </div>
     </div>
 </div>
-<div class="bg-white">
+<div class="bg-default dark:bg-dark-default">
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
             <div class="flex justify-between items-center flex-col md:flex-row">
@@ -64,7 +64,7 @@ Layout.render
             </div>
             <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">
                 <% (match List.length papers with | 0 -> %>
-                <div class="flex flex-col items-center justify-center pt-24 space-y-4 text-body-400">
+                <div class="flex flex-col items-center justify-center pt-24 space-y-4 text-lighter">
                     <div>
                         <%s! Icons.magnifying_glass "h-10 w-10" %>
                     </div>
@@ -88,7 +88,7 @@ Layout.render
                                     <div class="font-semibold">
                                         <%s paper.title %>
                                     </div>
-                                    <div class="font-normal text-sm mt-2 text-body-400">
+                                    <div class="font-normal text-sm mt-2 text-lighter">
                                         <%s paper.abstract %>
                                     </div>
                                 </td>

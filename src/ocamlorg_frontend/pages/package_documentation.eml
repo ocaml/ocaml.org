@@ -4,7 +4,7 @@ let sidebar
 ~maptoc
 (package : Package.package)
 =
-  <div class="flex flex-col font-normal text-body-400" id="htmx-sidebar">
+  <div class="flex flex-col font-normal text-lighter" id="htmx-sidebar">
     <% if (toc != []) then ( %>
     <div class="xl:hidden mb-6 xl:mb-0">
     <%s! Toc.render toc %>

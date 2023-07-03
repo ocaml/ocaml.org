@@ -54,7 +54,7 @@ inner =
 
   <body class="light">
     <% if banner then ( %>
-    <div class="relative bg-background-dark-blue">
+    <div class="relative bg-contrast">
       <div class="mx-auto py-3 px-6 sm:px-16 max-w-6xl sm:text-center">
         <p class="font-medium text-white">
           <span class="md:hidden">We've released the OCaml Changelog!</span>

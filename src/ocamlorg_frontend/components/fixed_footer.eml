@@ -1,5 +1,5 @@
 let render () =
-<footer class="bg-background-default border-t border-gray-200 pt-12 pb-20 md:p-0 md:fixed md:bottom-0 md:h-12 md:z-50 w-full" aria-labelledby="footer-heading">
+<footer class="bg-mild-contrast dark:bg-dark-mild-contrast border-t border-gray-200 pt-12 pb-20 md:p-0 md:fixed md:bottom-0 md:h-12 md:z-50 w-full" aria-labelledby="footer-heading">
   <h2 id="footer-heading" class="sr-only">Footer</h2>
   <div class="container-fluid wide">
     <ul class="flex flex-col md:flex-row md:flex-wrap md:h-12 gap-x-6">
@@ -7,23 +7,23 @@ let render () =
         <a class="h-10 md:h-12 flex items-center mb-6 md:mb-0" href="<%s Url.index %>"><img class="h-8 md:h-6 pb-1" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
       </li>
       <li>
-        <a class="h-10 md:h-12 flex items-center text-gray-600" href="<%s Url.getting_started %>" class="text-base leading-6 text-gray-600">Get Started</a>
+        <a class="h-10 md:h-12 flex items-center text-lighter" href="<%s Url.getting_started %>" class="text-base leading-6 text-lighter">Get Started</a>
       </li>
 
       <li>
-        <a class="h-10 md:h-12 flex items-center text-gray-600" href="<%s Url.api %>" class="text-base leading-6 text-gray-600">Standard Library API</a>
+        <a class="h-10 md:h-12 flex items-center text-lighter" href="<%s Url.api %>" class="text-base leading-6 text-lighter">Standard Library API</a>
       </li>
 
       <li>
-        <a class="h-10 md:h-12 flex items-center text-gray-600" href="<%s Url.releases %>" class="text-base leading-6 text-gray-600">Releases</a>
+        <a class="h-10 md:h-12 flex items-center text-lighter" href="<%s Url.releases %>" class="text-base leading-6 text-lighter">Releases</a>
       </li>
 
       <li>
-        <a class="h-10 md:h-12 flex items-center text-gray-600" href="<%s Url.jobs %>" class="text-base leading-6 text-gray-600">Jobs</a>
+        <a class="h-10 md:h-12 flex items-center text-lighter" href="<%s Url.jobs %>" class="text-base leading-6 text-lighter">Jobs</a>
       </li>
 
       <li>
-        <a class="h-10 md:h-12 flex items-center text-gray-600" href="<%s Url.privacy_policy %>">Privacy</a>
+        <a class="h-10 md:h-12 flex items-center text-lighter" href="<%s Url.privacy_policy %>">Privacy</a>
       </li>
     </ul>
   </div>

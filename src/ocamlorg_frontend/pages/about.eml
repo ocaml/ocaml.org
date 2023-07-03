@@ -40,7 +40,7 @@ Layout.render
   </div>
 </div>
 
-<div class="bg-white">
+<div class="bg-default dark:bg-dark-default">
   <div class="py-10 lg:py-28">
     <div class="container-fluid">
       <div class="prose lg:prose-lg mx-auto max-w-5xl">

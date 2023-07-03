@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://roscidus.com/blog/blog/categories/ocaml/atom.xml</id><title type="text">talex5</title><updated>2023-06-29T05:48:34-00:00</updated><entry><link href="https://roscidus.com/blog/blog/2023/04/26/lambda-capabilities/" rel="alternate"/><contributor><uri>http://roscidus.com/blog/blog/categories/ocaml/atom.xml</uri><name>talex5</name></contributor><content type="html">&lt;p&gt;&amp;quot;Is this software safe?&amp;quot; is a question software engineers should be able to answer,
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://roscidus.com/blog/blog/categories/ocaml/atom.xml</id><title type="text">talex5</title><updated>2023-06-30T05:47:26-00:00</updated><entry><link href="https://roscidus.com/blog/blog/2023/04/26/lambda-capabilities/" rel="alternate"/><contributor><uri>http://roscidus.com/blog/blog/categories/ocaml/atom.xml</uri><name>talex5</name></contributor><content type="html">&lt;p&gt;&amp;quot;Is this software safe?&amp;quot; is a question software engineers should be able to answer,
 but doing so can be difficult.
 Capabilities offer an elegant solution, but seem to be little known among functional programmers.
 This post is an introduction to capabilities in the context of ordinary programming

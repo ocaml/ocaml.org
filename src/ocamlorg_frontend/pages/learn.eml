@@ -55,7 +55,7 @@ Learn_layout.render
   </div>
   <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
     <h3 class="font-bold">Papers</h3>
-    <div class="mt-6 text-body-400 text-lg">
+    <div class="mt-6 text-lighter text-lg">
       Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things?
       Check out papers written by leading OCaml researchers:
     </div>
@@ -85,10 +85,10 @@ Learn_layout.render
       <%s! Icons.chevron_right "h-5 w-5" %>
     </a>
   </div>
-  
+
   <div class="mt-10 lg:mt-20">
     <h3 class="font-bold">Recommended Books</h3>
-    <div class="mt-6 text-body-400 mb-12 text-lg">
+    <div class="mt-6 text-lighter mb-12 text-lg">
         What experts programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">

@@ -93,7 +93,7 @@ let render ~prefix ~title ~nav inner =
                   class="<%s if nav = Overview then "bg-gray-900 text-white" else "text-gray-300 hover:bg-gray-700 hover:text-white" %> group flex items-center px-2 py-2 text-base font-medium rounded-md"
                 >
                   <svg
-                    class="text-gray-400 group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6"
+                    class="text-lighter group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6"
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-4 w-4"
                     fill="none"
@@ -115,7 +115,7 @@ let render ~prefix ~title ~nav inner =
                   class="<%s if nav = Analytics then "bg-gray-900 text-white" else "text-gray-300 hover:bg-gray-700 hover:text-white" %> group flex items-center px-2 py-2 text-base font-medium rounded-md"
                 >
                   <svg
-                    class="text-gray-400 group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6"
+                    class="text-lighter group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"

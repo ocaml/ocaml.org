@@ -12,7 +12,7 @@ the community and learn more about how they use OCaml."
       <div class="flex flex-col lg:flex-row  justify-between space-x-0 lg:space-x-10">
           <div class="lg:flex-1 lg:mt-16 my-12">
               <h1 class="font-bold">What Our Users Say About <span class="text-primary-600">OCaml</span></h1>
-              <div class="text-body-400 mt-6 mb-8">Read our success stories to learn how OCaml helped our users
+              <div class="text-lighter mt-6 mb-8">Read our success stories to learn how OCaml helped our users
                   achieve their goals.</div>
               <div class="space-x-6">
                   <a href="<%s Url.academic_users %>" class="btn btn-lg btn-secondary">In Academia</a>
@@ -20,7 +20,7 @@ the community and learn more about how they use OCaml."
           </div>
           <div class="lg:flex-1 cursor-pointer relative rounded-2xl overflow-hidden border-4 border-primary-100 video-shadow"
               x-data="videoFullWidth()">
-              <div class="bg-white text-center relative aspect-w-16 aspect-h-9 h-full" @click="
+              <div class="bg-default dark:bg-dark-default text-center relative aspect-w-16 aspect-h-9 h-full" @click="
                       isPlaying = !isPlaying;
                       $nextTick(() => { $refs.iframeElement.setAttribute('src', iframe_url()) });">
                   <div x-show.transition.in.opacity.duration.500ms="isPlaying">
@@ -47,8 +47,8 @@ the community and learn more about how they use OCaml."
           </div>
       </div>
       <div class="text-center">
-        <h2 class="font-bold text-body-600">Trusted by Industry Leaders</h2>
-        <div class="text-body-400 text-base mt-3">
+        <h2 class="font-bold text-default">Trusted by Industry Leaders</h2>
+        <div class="text-lighter text-base mt-3">
           These companies and organizations rely on OCaml every day — along with thousands of other developers.
         </div>
         <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
@@ -77,11 +77,11 @@ the community and learn more about how they use OCaml."
     </div>
   </div>
 </div>
-<div class="py-10 lg:py-24 bg-white">
+<div class="py-10 lg:py-24 bg-default dark:bg-dark-default">
   <div class="container-fluid">
       <div class="text-center mt-6 lg:mt-0">
           <h2 class="font-bold mb-6">Case Studies</h2>
-          <p class="text-body-400">
+          <p class="text-lighter">
               Read how OCaml users are solving real-world problems and how OCaml was a key to their success.
           </p>
       </div>
@@ -126,7 +126,7 @@ the community and learn more about how they use OCaml."
     <div class="flex justify-between items-end lg:space-x-80 mb-0 md:mb-20 md:flex-row flex-col">
       <div class="text-left">
         <h2 class="font-bold mb-6">Testimonials</h2>
-        <div class="text-body-400">Read What Some Industry Users Say About OCaml.</div>
+        <div class="text-lighter">Read What Some Industry Users Say About OCaml.</div>
       </div>
       <div class="flex justify-between items-center space-x-4 m-auto mt-10 mb-5 md:mb-0">
         <button aria-label="Previous" class="text-primary-600 rounded-full py-4 px-4 hover:bg-primary-100 transition duration-300" @click="swiper.slidePrev()">
@@ -187,13 +187,13 @@ the community and learn more about how they use OCaml."
     </div>
   </div>
 </div>
-<div class="py-10 md:py-20 md:pb-32 bg-white">
+<div class="py-10 md:py-20 md:pb-32 bg-default dark:bg-dark-default">
   <div class="container-fluid">
     <div class="text-center">
       <h2 class="font-bold mb-6">Other Industry Users of OCaml</h2>
-      <div class="text-body-400">With its strong security features and high performance, several companies rely on OCaml to keep<br> their data operating both safely and efficiently. On this page, you can get an overview of the<br> companies in the community and learn more about how they use OCaml.</div>
+      <div class="text-lighter">With its strong security features and high performance, several companies rely on OCaml to keep<br> their data operating both safely and efficiently. On this page, you can get an overview of the<br> companies in the community and learn more about how they use OCaml.</div>
     </div>
-    <div class="grid-logos bg-white mt-20">
+    <div class="grid-logos bg-default dark:bg-dark-default mt-20">
       <% users |> List.iter (fun (item : Data.Industrial_user.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
         <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo">

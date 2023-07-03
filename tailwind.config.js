@@ -1,5 +1,8 @@
 const defaultTheme = require("tailwindcss/defaultTheme")
 
+const colors = require('tailwindcss/colors') // FIXME: remove when finally obsolete
+
+
 module.exports = {
   content: ["**/*.eml"],
   darkMode: 'class',
@@ -9,6 +12,99 @@ module.exports = {
       'md': '48em',
       'lg': '64em',
       'xl': '80em',
+    },
+    textColor: {
+      // Light mode
+
+      default: "#1A202C",
+      "lighter": colors.gray["600"],
+
+      /* FIXME: these should be inlined on home.eml
+         since they only occur there */
+      code: {
+        blue: "rgba(86, 156, 214, 1)",
+        yellow: "rgba(220, 220, 170, 1)",
+        comment: "rgba(255, 255, 255, 0.6)",
+        red: "rgba(252, 129, 129, 1)",
+      },
+
+      // Dark mode
+      dark: {
+        "default": "#666",
+
+        /* TODO: add dark mode colors here when new ones are needed, should
+           usually correspond closely to the light mode color names, but not
+           necessarily always */
+      },
+
+      // FIXME: remove everything below here when it has been replaced
+
+      white: "white",
+      primary: {
+        700: "#DC5402",
+        600: "#EE6A1A",
+      },
+
+      gray: {
+        400: colors.gray["400"],
+      },
+      blue: {
+        500: colors.blue["500"],
+      }
+    },
+    backgroundColor: {
+      default: "white",
+      "mild-contrast": "#FAF8F3",
+      "contrast": "#14294b", // one of the colors from the dark blue contrash patterned background used in various parts of the site
+
+      "search-keyboard-cursor": "#0C3B8C", // background for cursor highlighting in keyboard navigable areas (e.g. package search dropdown)
+      "search-term-highlight": "rgb(221, 232, 251)",
+
+      transparent: "transparent",
+
+      avatar: {
+        0: "#bb452a",
+        1: "#a35829",
+        2: "#926229",
+        3: "#746e29",
+        4: "#367a28",
+        5: "#2a7a54",
+        6: "#2c786d",
+        7: "#2e7587",
+        8: "#336db7",
+        9: "#6855e3",
+        10: "#ad35bc",
+        11: "#c62d69"
+      },
+
+      code: {
+        background: "rgba(30, 30, 30, 1)",
+      },
+
+      // Dark mode
+
+      dark: {
+        default: "#222",
+        "mild-contrast": "#171717",
+
+        /* TODO: add dark mode colors here when new ones are needed, should
+           usually correspond closely to the light mode color names, but not
+           necessarily always */
+      },
+
+      // FIXME: remove everything below here when it has been replaced
+      body: {
+        600: "#1A202C",
+      },
+
+      primary: {
+        800: "#CD4E00",
+        700: "#DC5402",
+        600: "#EE6A1A",
+        100: "rgba(238, 106, 26, 0.1)",
+      },
+
+      ...colors,
     },
     extend: {
       typography: {
@@ -55,19 +151,6 @@ module.exports = {
           200: "rgba(238, 106, 26, 0.15)",
           100: "rgba(238, 106, 26, 0.1)",
         },
-        background: {
-          default: "#FAF8F3",
-          beige: "#FAF8F3",
-          "mid-blue": "#0C3B8C", // background for cursor highlighting in keyboard navigable areas (e.g. package search dropdown)
-          "dark-blue": "#14294b", // one of the colors from the blue patterned background used in various parts of the site
-          "light-blue": "rgb(221, 232, 251)",
-        },
-        body: {
-          700: "#0A0C11",
-          600: "#1A202C",
-          400: "rgba(26, 32, 44, 0.64);",
-          100: "rgba(26, 32, 44, 0.16)",
-        },
         code: {
           blue: "rgba(86, 156, 214, 1)",
           yellow: "rgba(220, 220, 170, 1)",
@@ -87,20 +170,6 @@ module.exports = {
           12: "rgba(26, 32, 44, 0.12)",
           16: "rgba(26, 32, 44, 0.16)",
         },
-        avatar: {
-          0: "#bb452a",
-          1: "#a35829",
-          2: "#926229",
-          3: "#746e29",
-          4: "#367a28",
-          5: "#2a7a54",
-          6: "#2c786d",
-          7: "#2e7587",
-          8: "#336db7",
-          9: "#6855e3",
-          10: "#ad35bc",
-          11: "#c62d69"
-        }
       },
     },
   },

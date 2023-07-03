@@ -15,7 +15,7 @@
 }
 
 #in-package-search-results .search-entry {
-  @apply px-4 py-1 font-normal text-body-600 flex flex-col;
+  @apply px-4 py-1 font-normal text-default flex flex-col;
   --entry-color: gray;
 }
 

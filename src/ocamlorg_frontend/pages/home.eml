@@ -1,3 +1,17 @@
+let package_card ~href ~img_path ~name description =
+  <a href="<%s href %>" target="_blank"
+    class="bg-default dark:bg-dark-default text-default dark:text-dark-default p-6 rounded-xl items-center flex card-hover">
+    <div class="flex items-center">
+      <img src="<%s Ocamlorg_static.Asset.url img_path %>" alt="<%s name %> logo">
+      <div class="flex-col px-6">
+        <div class="text-base font-semibold"><%s name %></div>
+        <div class="font-normal text-xs mt-1">
+          <%s description %>
+        </div>
+      </div>
+    </div>
+  </a>
+  
 let render
 ~(latest_release: Data.Release.t)
 ~(lts_release: Data.Release.t)
@@ -45,16 +59,16 @@ Layout.render
             <div class="text-left overflow-auto">
               <pre id="output" class="flex flex-col w-full code-preview text-white text-sm space-y-1 font-medium">
 <code><span title="prompt">#</span> <span><span class="text-blue-500 ">let</span> <span class="text-code-yellow ">square</span> x = x * x</span>
-<span aria-label="OCaml responds with"><i class="text-gray-400 "><%s "val square : int -> int = < fun >" %></i></span>
+<span aria-label="OCaml responds with"><i class="text-lighter "><%s "val square : int -> int = < fun >" %></i></span>
 <span><span title="prompt">#</span> square 3</span>
-<span aria-label="OCaml responds with"><i class="text-gray-400 ">- : int = 9</i></span>
+<span aria-label="OCaml responds with"><i class="text-lighter ">- : int = 9</i></span>
 <span><span title="prompt">#</span> <span class="text-blue-500 ">let rec</span> <span class="text-code-yellow ">fac</span> x =</span>
 <span><span class="text-blue-500  ml-4">if</span> <%s "x <= 1" %> <span class="text-blue-500 ">then</span> 1 <span class="text-blue-500">else</span> x * fac (x - 1)</span>
-<span aria-label="OCaml responds with"><i class="text-gray-400"><%s "val fac : int -> int = < fun >" %></i></span>
+<span aria-label="OCaml responds with"><i class="text-lighter"><%s "val fac : int -> int = < fun >" %></i></span>
 <span><span title="prompt">#</span> fac 5</span>
-<span aria-label="OCaml responds with"><i class="text-gray-400 ">- : int = 120</i></span>
+<span aria-label="OCaml responds with"><i class="text-lighter ">- : int = 120</i></span>
 <span><span title="prompt">#</span> square 120</span>
-<span aria-label="OCaml responds with"><i class="text-gray-400">- : int = 14400</i></span></code>
+<span aria-label="OCaml responds with"><i class="text-lighter">- : int = 14400</i></span></code>
               </pre>
             </div>
           </div>
@@ -96,8 +110,8 @@ Layout.render
 <div class="py-12 lg:py-24 py-2">
   <div class="container-fluid space-y-24 lg:space-y-32">
     <div class="text-center">
-      <h2 class="font-bold text-body-600">Trusted by Industry Leaders</h2>
-      <div class="text-body-400 text-base mt-3">
+      <h2 class="font-bold text-default">Trusted by Industry Leaders</h2>
+      <div class="text-lighter text-base mt-3">
         These companies and organisations rely on OCaml every day — along with thousands of other developers. See <a href="<%s Url.industrial_users %>" class="link-orange">Success Stories</a>
       </div>
       <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
@@ -127,13 +141,13 @@ Layout.render
   </div>
 </div>
 
-<div class="bg-white">
+<div class="bg-default dark:bg-dark-default">
   <div class="container-fluid">
-    <h2 class="font-bold text-center text-body-600 pt-12">Why OCaml?</h2>
+    <h2 class="font-bold text-center text-default pt-12">Why OCaml?</h2>
     <div class="py-24 lg:pt-24 space-y-20 md:space-y-40">
       <div class="flex gap-10 lg:gap-24 flex-col lg:flex-row-reverse justify-between items-center">
         <div class="lg:flex-1 mt-10 lg:mt-0">
-          <div class="text-body-400 text-base">
+          <div class="text-lighter text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-blue-400 to-blue-600">
               <%s! Icons.shield_check "h-7 w-7 m-auto" %>
             </div>
@@ -141,7 +155,7 @@ Layout.render
               <div class="text-lg my-4 font-bold" style="color: #225b90">
                 RELIABILITY
               </div>
-              <div class="text-body-600 font-bold">Powerful Type Safety Made Simple</div>
+              <div class="text-default font-bold">Powerful Type Safety Made Simple</div>
             </h3>
             <div class="my-4 text-lg">
               OCaml’s lightweight but highly expressive type system catches more bugs at compile time while garbage collection allows you to focus on application logic instead of memory management.
@@ -159,14 +173,14 @@ Layout.render
 
       <div class="flex gap-10 lg:gap-24 flex-col lg:flex-row justify-between">
          <div class="lg:flex-1 mt-10 lg:mt-0 flex items-center">
-          <div class="text-body-400 text-base">
+          <div class="text-lighter text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-purple-400 to-purple-600">
               <%s! Icons.home_tooling "h-7 w-7 m-auto" %>
             </div>
             <div class="text-lg my-4 font-bold text-purple-600">
               PRODUCTIVITY
             </div>
-            <h3 class="text-body-600 font-bold">
+            <h3 class="text-default font-bold">
               First-Class Editor and Tooling
             </h3>
             <div class="my-4 text-lg">
@@ -204,13 +218,13 @@ Layout.render
 
       <div class="flex gap-10 lg:gap-24 flex-col lg:flex-row-reverse justify-between">
         <div class="lg:flex-1">
-          <div class="text-body-400 text-base">
+          <div class="text-lighter text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-teal-400 to-teal-600">
               <%s! Icons.lightning "h-7 w-7 m-auto" %>
             </div>
             <h3>
               <div class="text-lg my-4 font-bold text-teal-800">PERFORMANCE</div>
-              <div class="text-body-600 font-bold">
+              <div class="text-default font-bold">
                 Fast Compiler and Applications
               </div>
             </h3>
@@ -272,8 +286,8 @@ Layout.render
   <div class="container-fluid">
     <div class="">
       <div class="text-center px-15">
-        <h2 class="font-bold text-primary-600 mb-6">The OCaml Ecosystem</h2>
-        <div class="text-lg text-white">
+        <h2 class="font-bold mb-6">The OCaml Ecosystem</h2>
+        <div class="text-lg">
           OCaml has a passionate and diverse community, with more than ten thousand developers
           and over four thousand open source packages.
           Existing packages cover a variety of problem areas,
@@ -286,23 +300,19 @@ Layout.render
     </div>
   </div>
 
-  <div class="w-11/12 m-auto pl-7 md:pl-0 md:w-screen overflow-y-hidden md:overflow-hidden py-16 flex flex-col items-center">
+  <!-- FIXME: remove text-default here after all the package cards are using the component -->
+  <div class="text-default w-11/12 m-auto pl-7 md:pl-0 md:w-screen overflow-y-hidden md:overflow-hidden py-16 flex flex-col items-center">
     <div class="w-full md:w-auto">
       <div class="grid grid-cols-4 gap-6 md:gap-4 md:px-10 lg:px-20 relative left-5 lg:left-28 md:left-16"
         style="width: 1500px">
-        <a href="https://mirage.io/" target="_blank" class="bg-white p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/mirage.png" %>" alt="MirageOS logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">MirageOS</div>
-              <div class="font-normal text-xs mt-1">
-                Library operating system to constructs unikernels
-              </div>
-            </div>
-          </div>
-        </a>
+        <%s! package_card
+          ~href:"https://mirage.io/"
+          ~img_path:"img/home/mirage.png"
+          ~name:"MirageOS"
+          "Library operating system to constructs unikernels" %>
+        <!-- FIXME: package_card component -->
         <a href="http://ocsigen.org/js_of_ocaml/latest/manual/overview" target="_blank"
-          class="bg-white p-6 rounded-xl items-center flex card-hover">
+          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
             <img src="<%s Ocamlorg_static.Asset.url "img/home/js_of_ocaml.png" %>" alt="Js_of_ocaml logo">
             <div class="flex-col px-6">
@@ -313,8 +323,9 @@ Layout.render
             </div>
           </div>
         </a>
+        <!-- FIXME: package_card component -->
         <a href="https://erratique.ch/software/cmdliner" target="_blank"
-          class="bg-white p-6 rounded-xl items-center flex card-hover">
+          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
             <img src="<%s Ocamlorg_static.Asset.url "img/home/cmdliner.png" %>" alt="Cmdliner logo">
             <div class="flex-col px-6">
@@ -325,8 +336,9 @@ Layout.render
             </div>
           </div>
         </a>
+        <!-- FIXME: package_card component -->
         <a href="https://irmin.org/" target="_blank"
-          class="bg-white p-6 rounded-xl items-center flex card-hover">
+          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
             <img src="<%s Ocamlorg_static.Asset.url "img/home/irmin.png" %>" alt="Irmin logo">
             <div class="flex-col px-6">
@@ -341,8 +353,9 @@ Layout.render
 
       <div class="grid grid-cols-4 gap-6 md:gap-4 md:px-10 lg:px-20 mt-6 relative right-5 lg:right-28 md:right-16"
         style="width: 1500px">
+        <!-- FIXME: package_card component -->
         <a href="https://dune.build/" target="_blank"
-          class="bg-white p-6 rounded-xl items-center flex card-hover">
+          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
             <img src="<%s Ocamlorg_static.Asset.url "img/home/dune.png" %>" alt="Dune logo">
             <div class="flex-col px-6">
@@ -353,8 +366,9 @@ Layout.render
             </div>
           </div>
         </a>
+        <!-- FIXME: package_card component -->
         <a href="https://ocsigen.org/lwt/latest/manual/manual" target="_blank"
-          class="bg-white p-6 rounded-xl items-center flex card-hover">
+          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
             <img src="<%s Ocamlorg_static.Asset.url "img/home/lwt.png" %>" alt="Lwt logo">
             <div class="flex-col px-6">
@@ -365,7 +379,8 @@ Layout.render
             </div>
           </div>
         </a>
-        <a href="https://ocaml.xyz/" target="_blank" class="bg-white p-6 rounded-xl items-center flex card-hover">
+        <!-- FIXME: package_card component -->
+        <a href="https://ocaml.xyz/" target="_blank" class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
             <img src="<%s Ocamlorg_static.Asset.url "img/home/owl.png" %>" alt="Owl logo">
             <div class="flex-col px-6">
@@ -376,8 +391,9 @@ Layout.render
             </div>
           </div>
         </a>
+        <!-- FIXME: package_card component -->
         <a href="https://aantron.github.io/dream/" target="_blank"
-          class="bg-white p-6 rounded-xl items-center flex card-hover">
+          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
             <img src="<%s Ocamlorg_static.Asset.url "img/home/dream.png" %>" alt="Dream logo">
             <div class="flex-col px-6">
@@ -392,16 +408,16 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="py-28 bg-white">
+<div class="py-28 bg-default dark:bg-dark-default">
   <div class="container-fluid">
     <div class="text-center px-15">
-      <h2 class="text-body-600 font-bold mb-6">Users of OCaml</h2>
-      <div class="text-lg text-body-400 mb-16">
+      <h2 class="text-default font-bold mb-6">Users of OCaml</h2>
+      <div class="text-lg text-lighter mb-16">
         OCaml is used by thousands of developers, companies, research labs, teachers, and more. Learn how it fits your use case.
       </div>
     </div>
     <div class="flex flex-col lg:flex-row justify-between lg:space-x-20 space-y-10 lg:space-y-0">
-      <div class="shadow-lg p-10 bg-white rounded-xl lg:mb-0">
+      <div class="shadow-lg p-10 bg-default dark:bg-dark-default rounded-xl lg:mb-0">
         <div class="flex flex-row items-center justify-between relative pb-8">
           <h3 class="font-semibold">For Educators</h3>
           <div>
@@ -410,7 +426,7 @@ Layout.render
           </div>
         </div>
         <div>
-          <div class="text-base text-body-600">
+          <div class="text-base text-default">
             With its mathematical roots, OCaml has always had strong ties to academia.
             It is taught in universities around the world, and has accrued an ever-growing body of research.
             Learn more about the academic rigor that defines the culture of OCaml.
@@ -418,7 +434,7 @@ Layout.render
           <a class="btn mt-10" href="<%s Url.academic_users %>">Learn more</a>
         </div>
       </div>
-      <div class="shadow-lg p-10 bg-white rounded-xl">
+      <div class="shadow-lg p-10 bg-default dark:bg-dark-default rounded-xl">
         <div class="flex flex-row items-center justify-between relative pb-8">
           <h3 class="font-semibold">For Industrial Users</h3>
           <div>
@@ -427,7 +443,7 @@ Layout.render
           </div>
         </div>
         <div>
-          <div class="text-base text-body-600">
+          <div class="text-base text-default">
             OCaml's powerful compile-time guarantees and high performance empower
             companies to provide reliable and speedy services and products.
             Learn more about how OCaml is used in the industry: explore success stories and discover companies that use OCaml.
@@ -482,13 +498,13 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-white pt-20 lg:py-20 overflow-hidden">
+<div class="bg-default dark:bg-dark-default pt-20 lg:py-20 overflow-hidden">
   <div class="container-fluid">
     <div class="grid grid-cols-1 lg:grid-cols-2 items-center">
       <div class="space-y-8">
         <div class="space-y-6">
           <h2 class="font-bold">OCaml Packages</h2>
-          <p class="text-lg text-body-400">
+          <p class="text-lg text-lighter">
             Explore thousands of open-source OCaml packages with their
             documentation.
           </p>

@@ -11,7 +11,7 @@ Layout.render
         </div>
     </div>
 </div>
-<div class="bg-white">
+<div class="bg-default dark:bg-dark-default">
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
             <div class="flex justify-between items-center flex-col md:flex-row">
@@ -28,7 +28,7 @@ Layout.render
             </div>
             <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">
                 <% (match List.length releases with | 0 -> %>
-                <div class="flex flex-col items-center justify-center pt-24 space-y-4 text-body-400">
+                <div class="flex flex-col items-center justify-center pt-24 space-y-4 text-lighter">
                     <div>
                         <%s! Icons.magnifying_glass "h-10 w-10" %>
                     </div>

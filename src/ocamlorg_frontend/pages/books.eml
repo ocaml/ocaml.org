@@ -45,7 +45,7 @@ Layout.render
         </div>
     </div>
 </div>
-<div class="bg-white">
+<div class="bg-default dark:bg-dark-default">
     <div class="py-10 lg:py-28">
         <div class="container-fluid"  x-data="{ language: 'english' }">
             <div class="flex justify-between mb-0 md:mb-10 lg:mb-20 lg:flex-row flex-col items-center">

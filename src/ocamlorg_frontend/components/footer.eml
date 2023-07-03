@@ -1,33 +1,40 @@
+let footer_icon_link ~href ~name icon =
+  <a href="<%s href %>" class="text-lighter hover:text-gray-500">
+    <span class="sr-only"><%s name %></span>
+    <%s! icon "h-6 w-6" %>
+  </a>
+
 let render () =
-<footer class="bg-beige" aria-labelledby="footer-heading">
+<footer class="bg-mild-contrast dark:bg-dark-mild-contrast" aria-labelledby="footer-heading">
   <h2 id="footer-heading" class="sr-only">Footer</h2>
   <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
       <div class="space-y-8">
         <a href="<%s Url.index %>"><img class="h-8" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
-        <p class="text-base leading-6 text-gray-600">Innovation. Community. Security.</p>
+        <p class="text-base leading-6 text-lighter">Innovation. Community. Security.</p>
         <div class="flex space-x-6">
-          <a href="https://github.com/ocaml/ocaml" class="text-gray-400 hover:text-gray-500">
-            <span class="sr-only">GitHub</span>
-            <%s! Icons.github "h-6 w-6" %>
-          </a>
+          <%s! footer_icon_link ~href:"https://github.com/ocaml/ocaml" ~name:"GitHub" Icons.github %>
 
-          <a href="https://discord.gg/cCYQbqN" class="text-gray-400 hover:text-gray-500">
+          <!-- FIXME: footer_icon_link component -->
+          <a href="https://discord.gg/cCYQbqN" class="text-lighter hover:text-gray-500">
             <span class="sr-only">Discord</span>
             <%s! Icons.discord "h-6 w-6" %>
           </a>
 
-          <a href="https://twitter.com/ocamllang" class="text-gray-400 hover:text-gray-500">
+          <!-- FIXME: footer_icon_link component -->
+          <a href="https://twitter.com/ocamllang" class="text-lighter hover:text-gray-500">
             <span class="sr-only">Twitter</span>
             <%s! Icons.twitter "h-6 w-6" %>
           </a>
 
-          <a href="https://watch.ocaml.org/" class="text-gray-400 hover:text-gray-500">
+          <!-- FIXME: footer_icon_link component -->
+          <a href="https://watch.ocaml.org/" class="text-lighter hover:text-gray-500">
             <span class="sr-only">Peertube</span>
             <%s! Icons.peertube "h-6 w-6" %>
           </a>
 
-          <a href="/feed.xml" class="text-gray-400 hover:text-gray-500">
+          <!-- FIXME: footer_icon_link component -->
+          <a href="/feed.xml" class="text-lighter hover:text-gray-500">
             <span class="sr-only">RSS</span>
             <%s! Icons.rss "h-6 w-6" %>
           </a>
@@ -36,84 +43,85 @@ let render () =
       <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
         <div class="md:grid md:grid-cols-2 md:gap-8">
           <div>
-            <h3 class="text-base font-semibold leading-6 text-gray-900">About Us</h3>
+            <h3 class="text-base font-semibold leading-6 text-default">About Us</h3>
             <ul class="mt-6 space-y-4">
               <li>
-                <a href="<%s Url.industrial_users %>" class="text-base leading-6 text-gray-600">Industrial Users</a>
+                <!-- TODO: create footer_link component -->
+                <a href="<%s Url.industrial_users %>" class="text-base leading-6 text-lighter">Industrial Users</a>
               </li>
 
               <li>
-                <a href="<%s Url.academic_users %>" class="text-base leading-6 text-gray-600">Academic Users</a>
+                <a href="<%s Url.academic_users %>" class="text-base leading-6 text-lighter">Academic Users</a>
               </li>
 
               <li>
-                <a href="<%s Url.about %>" class="text-base leading-6 text-gray-600">Why OCaml</a>
+                <a href="<%s Url.about %>" class="text-base leading-6 text-lighter">Why OCaml</a>
               </li>
             </ul>
           </div>
           <div class="mt-10 md:mt-0">
-            <h3 class="text-base font-semibold leading-6 text-gray-900">Resources</h3>
+            <h3 class="text-base font-semibold leading-6 text-default">Resources</h3>
             <ul class="mt-6 space-y-4">
               <li>
-                <a href="<%s Url.install %>" class="text-base leading-6 text-gray-600">Install OCaml</a>
+                <a href="<%s Url.install %>" class="text-base leading-6 text-lighter">Install OCaml</a>
               </li>
 
               <li>
-                <a href="<%s Url.getting_started %>" class="text-base leading-6 text-gray-600">Get Started</a>
+                <a href="<%s Url.getting_started %>" class="text-base leading-6 text-lighter">Get Started</a>
               </li>
 
               <li>
-                <a href="<%s Url.manual %>" class="text-base leading-6 text-gray-600">Language Manual</a>
+                <a href="<%s Url.manual %>" class="text-base leading-6 text-lighter">Language Manual</a>
               </li>
 
               <li>
-                <a href="<%s Url.api %>" class="text-base leading-6 text-gray-600">Standard Library API</a>
+                <a href="<%s Url.api %>" class="text-base leading-6 text-lighter">Standard Library API</a>
               </li>
 
               <li>
-                <a href="<%s Url.books %>" class="text-base leading-6 text-gray-600">Books</a>
+                <a href="<%s Url.books %>" class="text-base leading-6 text-lighter">Books</a>
               </li>
 
               <li>
-                <a href="<%s Url.releases %>" class="text-base leading-6 text-gray-600">Releases</a>
+                <a href="<%s Url.releases %>" class="text-base leading-6 text-lighter">Releases</a>
               </li>
             </ul>
           </div>
         </div>
         <div class="md:grid md:grid-cols-2 md:gap-8">
           <div>
-            <h3 class="text-base font-semibold leading-6 text-gray-900">Community</h3>
+            <h3 class="text-base font-semibold leading-6 text-default">Community</h3>
             <ul class="mt-6 space-y-4">
               <li>
-                <a href="<%s Url.blog %>" class="text-base leading-6 text-gray-600">Blog</a>
+                <a href="<%s Url.blog %>" class="text-base leading-6 text-lighter">Blog</a>
               </li>
 
               <li>
-                <a href="<%s Url.changelog %>" class="text-base leading-6 text-gray-600">Changelog</a>
+                <a href="<%s Url.changelog %>" class="text-base leading-6 text-lighter">Changelog</a>
               </li>
 
               <li>
-                <a href="<%s Url.jobs %>" class="text-base leading-6 text-gray-600">Jobs</a>
+                <a href="<%s Url.jobs %>" class="text-base leading-6 text-lighter">Jobs</a>
               </li>
             </ul>
           </div>
           <div class="mt-10 md:mt-0">
-            <h3 class="text-base font-semibold leading-6 text-gray-900">Policies</h3>
+            <h3 class="text-base font-semibold leading-6 text-default">Policies</h3>
             <ul class="mt-6 space-y-4">
               <li>
-                <a href="<%s Url.carbon_footprint %>" class="text-base leading-6 text-gray-600">Carbon Footprint</a>
+                <a href="<%s Url.carbon_footprint %>" class="text-base leading-6 text-lighter">Carbon Footprint</a>
               </li>
 
               <li>
-                <a href="<%s Url.governance %>" class="text-base leading-6 text-gray-600">Governance</a>
+                <a href="<%s Url.governance %>" class="text-base leading-6 text-lighter">Governance</a>
               </li>
 
               <li>
-                <a href="<%s Url.privacy_policy %>" class="text-base leading-6 text-gray-600">Privacy</a>
+                <a href="<%s Url.privacy_policy %>" class="text-base leading-6 text-lighter">Privacy</a>
               </li>
 
               <li>
-                <a href="<%s Url.code_of_conduct %>" class="text-base leading-6 text-gray-600">Code of Conduct</a>
+                <a href="<%s Url.code_of_conduct %>" class="text-base leading-6 text-lighter">Code of Conduct</a>
               </li>
             </ul>
           </div>
