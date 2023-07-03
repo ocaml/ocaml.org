@@ -36,6 +36,10 @@ install: all ## Install the packages on the system
 start: all ## Run the produced executable
 	opam exec -- dune exec src/ocamlorg_web/bin/main.exe
 
+.PHONY: offline
+offline: all ## Run the produced executable without an internet connection. Some functionality will not be avaliable.
+	opam exec -- dune exec src/ocamlorg_web/bin/main.exe -- -offline
+
 .PHONY: test
 test: ## Run the unit tests
 	opam exec -- dune build --root . @runtest
