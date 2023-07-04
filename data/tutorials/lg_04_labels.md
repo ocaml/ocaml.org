@@ -9,6 +9,15 @@ date: 2021-05-27T21:07:30-00:00
 
 # Labels
 
+In this tutorial, we learn how to use labels in OCaml.
+
+As a reminder: throughout this tutorial the code is written in the `ocaml` toplevel
+and the command prompt appears as a `#`.
+
+Also remember that an expression must end with `;;` for OCaml to evaluate it. 
+Unless these examples start with a `#` toplevel prompt and end with `;;`, it isn't an 
+expression to evaluate but rather an example of code structure.
+
 ## Labelled and Optional Arguments to Functions
 
 Python has a nice syntax for writing arguments to functions. Here's
@@ -45,8 +54,8 @@ val range : first:int -> last:int -> int list = <fun>
 ```
 
 (Notice that both `to` and `end` are reserved words in OCaml, so they
-cannot be used as labels. So you cannot have `~from/~to` or
-`~start/~end`.)
+cannot be used as labels. This means you cannot have `~to` or
+`~end`.)
 
 The type of our previous `range` function was:
 
@@ -75,8 +84,8 @@ arguments anymore:
 - : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
 ```
 
-There is also a shorthand way to name the arguments, so that the label
-is the same as the variable in the function definition:
+There is also a shorthand way to name the arguments so that the label
+matches the variable in the function definition:
 
 ```ocaml
 # let may ~f x =
@@ -87,12 +96,12 @@ val may : f:('a -> 'b) -> 'a option -> unit = <fun>
 ```
 
 It's worth spending some time working out exactly what this function
-does, and also working out by hand its type signature. There's a lot
+does, and also working out its type signature by hand. There's a lot
 going on. First of all, the parameter `~f` is just shorthand for `~f:f`
-(ie. the label is `~f` and the variable used in the function is `f`).
-Secondly notice that the function takes two parameters. The second
-parameter (`x`) is unlabelled - it is permitted for a function to take a
-mixture of labelled and unlabelled arguments if you want.
+(i.e., the label is `~f` and the variable used in the function is `f`).
+Secondly, notice that the function takes two parameters. The second
+parameter (`x`) is unlabelled. It is permitted for a function to take a
+mixture of labelled and unlabelled arguments.
 
 What is the type of the labelled `f` parameter? Obviously it's a
 function of some sort.
@@ -107,7 +116,7 @@ This tells us that `f` takes an `'a` parameter, and the return value of
 The `may` function as a whole returns `unit`. Notice in each case of the
 `match` the result is `()`.
 
-Thus the type of the `may` function is (and you can verify this in the
+Thus the type of the `may` function is (you can verify this in the
 OCaml interactive toplevel if you want):
 
 ```ocaml
@@ -126,8 +135,10 @@ hello
 ```
 
 If the unlabelled argument is a “null pointer” then `may` does nothing.
-Otherwise `may` calls the `f` function on the argument. Why is this
-useful? We're just about to find out ...
+Otherwise, `may` calls the `f` function on the argument. 
+
+Why is this
+useful? We're just about to find out...
 
 ### Optional Arguments
 Optional arguments are like labelled arguments, but we use `?` instead
@@ -140,8 +151,8 @@ of `~` in front of them. Here is an example:
 val range : ?step:int -> int -> int -> int list = <fun>
 ```
 
-Note the somewhat confusing syntax, switching between `?` and `~`. We'll
-talk about that in the next section. Here is how you call this function:
+Note the somewhat confusing syntax switching between `?` and `~`. We'll
+talk about that in the next section, but here is how you call this function:
 
 ```ocaml
 # range 1 10;;
@@ -150,10 +161,10 @@ talk about that in the next section. Here is how you call this function:
 - : int list = [1; 3; 5; 7; 9]
 ```
 
-In this case, `?(step=1)` fairly obviously means that `~step` is an
+In this case, `?(step=1)` means that `~step` is an
 optional argument which defaults to 1. We can also omit the default
 value and just have an optional argument. This example is modified from
-lablgtk:
+LablGTK:
 
 ```ocaml
 # type window =
@@ -188,9 +199,9 @@ val open_window :
 ```
 
 This example is significantly complex and quite subtle, but the pattern
-used is very common in the lablgtk source code. Let's concentrate on the
+used is very common in the LablGTK source code. Let's concentrate on the
 simple `create_window` function first. This function takes a `unit` and
-returns a `window`, initialized with default settings for title, width
+returns a `window` initialised with default settings for title, width,
 and height:
 
 ```ocaml
@@ -198,8 +209,8 @@ and height:
 - : window = {title = "none"; width = 640; height = 480}
 ```
 
-The `set_title`, `set_width` and `set_height` functions are impure
-functions which modify the `window` structure, in the obvious way. For
+The `set_title`, `set_width`, and `set_height` functions are impure
+functions which modify the `window` structure. For
 example:
 
 ```ocaml
@@ -209,8 +220,8 @@ example:
 - : window = {title = "My Application"; width = 640; height = 480}
 ```
 
-So far this is just the imperative "mutable records" which we talked
-about in the previous chapter. Now the complex part is the `open_window`
+So far, this is just the imperative "mutable records" that we talked
+about in ["If Statements, Loops, and Recursions"](https://ocaml.org/docs/if-statements-and-loops). Now the complex part is the `open_window`
 function. This function takes *4* arguments, three of them optional,
 followed by a required, unlabelled `unit`. Let's first see this function
 in action:
@@ -218,11 +229,11 @@ in action:
 ```ocaml
 # open_window ~title:"My Application" ();;
 - : window = {title = "My Application"; width = 640; height = 480}
-# open_window ~title:"Clock" ~width:128 ~height:128 ();;
+# let window = open_window ~title:"Clock" ~width:128 ~height:128 ();;
 - : window = {title = "Clock"; width = 128; height = 128}
 ```
 
-It does what you expect, but how?! The secret is in the `may` function
+It does what you expect, but how? The secret is in the `may` function
 (see above) and the fact that the optional parameters *don't* have
 defaults.
 
@@ -230,8 +241,8 @@ When an optional parameter doesn't have a default, then it has type
 `'a option`. The `'a` would normally be inferred by type inference, so
 in the case of `?title` above, this has type `string option`.
 
-Remember the `may` function? It takes a function and an argument, and
-calls the function on the argument provided the argument isn't `None`.
+Remember the `may` function? It takes a function and an argument, and it
+calls the function on the argument, provided that the argument isn't `None`.
 So:
 
 <!-- $MDX skip -->
@@ -241,7 +252,7 @@ So:
 
 If the optional title argument is not specified by the caller, then
 `title` = `None`, so `may` does nothing. But if we call the function
-with, for example,
+with, for example:
 
 ```ocaml
 # open_window ~title:"My Application" ();;
@@ -256,8 +267,8 @@ to the next section.
 
 ### `Warning: This optional argument cannot be erased`
 We've just touched upon labels and optional arguments, but even this
-brief explanation should have raised several questions. The first may be
-why the extra `unit` argument to `open_window`? Let's try defining this
+brief explanation might have raised several questions. The first may be: 
+"Why use the extra `()` (unit) argument to `open_window`?" Let's try defining this
 function without the extra `unit`:
 
 ```ocaml
@@ -267,18 +278,15 @@ function without the extra `unit`:
   may ~f:(set_width window) width;
   may ~f:(set_height window) height;
   window;;
-Line 1, characters 32-38:
 Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
-Line 1, characters 25-30:
 Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
-Line 1, characters 18-23:
 Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
 val open_window : ?title:string -> ?width:int -> ?height:int -> window =
   <fun>
 ```
 
 Although OCaml has compiled the function, it has generated a somewhat
-infamous warning: "This optional argument cannot be erased", referring
+infamous warning: "This optional argument cannot be erased," referring
 to the final `?height` argument. To try to show what's going on here,
 let's call our modified `open_window` function:
 
@@ -289,11 +297,13 @@ let's call our modified `open_window` function:
 - : ?width:int -> ?height:int -> window = <fun>
 ```
 
-Did that work or not? No it didn't. In fact it didn't even run the
+That didn't work. In fact, it didn't even run the
 `open_window` function at all. Instead it printed some strange type
-information. What's going on?
+information. 
 
-Recall currying and uncurrying, and partial application of functions. If
+Let's examine why:
+
+Recall currying, uncurrying, and partial application of functions. Let's say
 we have a function `plus` defined as:
 
 ```ocaml
@@ -301,7 +311,7 @@ we have a function `plus` defined as:
   x + y;;
 val plus : int -> int -> int = <fun>
 ```
-We can partially apply this, for example as `plus 2` which is "the
+We can partially apply this as `plus 2`, for example, which is "the
 function that adds 2 to things":
 
 ```ocaml
@@ -321,15 +331,15 @@ along.
 
 Things are not so clear when we add optional arguments into the mix. The
 call to `open_window;;` above is a case in point. Does the user mean
-"execute `open_window` now"? Or does the user mean to supply some or all
+"execute `open_window` now, or does the user mean to supply some or all
 of the optional arguments later? Is `open_window;;` waiting for extra
 arguments to come along like `plus 2`?
 
-OCaml plays it safe and doesn't execute `open_window`. Instead it treats
+OCaml plays it safe and doesn't execute `open_window`. Instead, it treats
 it as a partial function application. The expression `open_window`
 literally evaluates to a function value.
 
-Let's go back to the original and working definition of `open_window`
+Let's go back to the original working definition of `open_window`,
 where we had the extra unlabelled `unit` argument at the end:
 
 ```ocaml
@@ -372,8 +382,8 @@ val range : first:int -> last:int -> int list = <fun>
 ```
 
 Recall that `~foo` on its own is short for `~foo:foo`. This applies also
-when calling functions as well as declaring the arguments to functions,
-hence in the above the `~last` is short for
+when calling functions as well as declaring the arguments to functions.
+In the above the `~last` is short for
 `~last:last`.
 
 ### Using `?foo` in a Function Call
@@ -383,7 +393,6 @@ write a function around `open_window` to open up an application:
 ```ocaml
 # let open_application ?width ?height () =
   open_window ~title:"My Application" ~width ~height;;
-Line 2, characters 40-45:
 Error: This expression has type 'a option
        but an expression was expected of type int
 ```
@@ -392,8 +401,8 @@ Recall that `~width` is shorthand for `~width:width`. The type of
 `width` is `'a option`, but `open_window ~width:` expects an `int`.
 
 OCaml provides more syntactic sugar. Writing `?width` in the function
-call is shorthand for writing `~width:(unwrap width)` where `unwrap`
-would be a function which would remove the "`option` wrapper" around
+call is shorthand for writing `~width:(unwrap width)`, where `unwrap`
+would be a function which removes the "`option` wrapper" around
 `width` (it's not actually possible to write an `unwrap` function like
 this, but conceptually that's the idea). So the correct way to write
 this function is:
@@ -407,8 +416,8 @@ val open_application : ?width:int -> ?height:int -> unit -> unit -> window =
 
 ### When and When Not to Use `~` and `?`
 The syntax for labels and optional arguments is confusing, and you may
-often wonder when to use `~foo`, when to use `?foo` and when to use
-plain `foo`. It's something of a black art which takes practice to get
+often wonder when to use `~foo`, when to use `?foo`, and when to use
+plain `foo`. It's something of a black art that takes practice to get
 right.
 
 `?foo` is only used when declaring the arguments of a function, ie:
@@ -431,7 +440,7 @@ The declaration `?foo` creates a variable called `foo`, so if you need
 the value of `?foo`, use just `foo`.
 
 The same applies to labels. Only use the `~foo` form when declaring
-arguments of a function, ie:
+arguments of a function, i.e.:
 
 <!-- $MDX skip -->
 ```ocaml
@@ -441,12 +450,12 @@ let f ~foo:foo ... =
 The declaration `~foo:foo` creates a variable called simply `foo`, so if
 you need the value just use plain `foo`.
 
-Things, however, get complicated for two reasons: first, the shorthand
+However, things get complicated for two reasons: first, the shorthand
 form `~foo` (equivalent to `~foo:foo`), and second, when you call a
-function which takes a labelled or optional argument and you use the
+function that takes a labelled or optional argument using the
 shorthand form.
 
-Here is some apparently obscure code from lablgtk to demonstrate all of
+Here is some apparently obscure code from LablGTK to demonstrate all of
 this:
 
 <!-- $MDX skip -->
@@ -457,13 +466,13 @@ this:
   Container.set w ?border_width ?width ?height;            (* line 4 *)
   pack_return (new html w) ~packing ~show                  (* line 5 *);;
 ```
-On line 1 we have the function definition. Notice there are 5 optional
-arguments, and the mandatory `unit` 6<sup>th</sup> argument. Each of the
-optional arguments is going to define a variable, eg. `border_width`, of
+On line 1, we have the function definition. Notice there are 5 optional
+arguments and the mandatory `unit` 6<sup>th</sup> argument. Each of the
+optional arguments is going to define a variable, e.g., `border_width` of
 type `'a option`.
 
-On line 4 we use the special `?foo` form for passing optional arguments
-to functions which take optional arguments. `Container.set` has the
+On line 4, we use the special `?foo` form for passing optional arguments
+to functions that take optional arguments. `Container.set` has the
 following type:
 
 <!-- $MDX skip -->
@@ -472,7 +481,7 @@ module Container = struct
   let set ?border_width ?(width = -2) ?(height = -2) w =
     (* ... *)
 ```
-Line 5 uses the `~`shorthand. Writing this in long form:
+Line 5 uses the `~`shorthand. Let's write this in long form:
 
 ```ocaml
 # pack_return (new html w) ~packing:packing ~show:show;;
@@ -505,7 +514,7 @@ main ()
   close (fd);                                            // line 15
 }
 ```
-When I compile the code I get a whole bunch of errors including:
+When compiling the code, it returns a whole bunch of errors, including:
 
 ```text
 test.c: In function `main':
@@ -513,8 +522,8 @@ test.c:12: error: called object is not a function
 test.c:15: error: called object is not a function
 ```
 This illustrates one problem with enumerated types (enums) in C. In the
-example above, one enum statement reserves *three* symbols, namely
-`lock`, `open` and `close`. Here's another example:
+example above, one `enum` statement reserves *three* symbols, namely
+`lock`, `open`, and `close`. Here's another example:
 
 ```C
 enum lock { open, close };
@@ -528,8 +537,8 @@ test.c:1: error: previous declaration of `open'
 test.c:2: error: conflicting types for `close'
 test.c:1: error: previous declaration of `close'
 ```
-The first enum defines the symbol `open` as something of type
-`enum lock`. You cannot reuse that symbol in another enum.
+The first `enum` defines the symbol `open` as something of type
+`enum lock`. You cannot reuse that symbol in another `enum`.
 
 This will be familiar to most C/C++ programmers, and they won't write
 naive code like that above. However the same issue happens with OCaml
@@ -543,8 +552,8 @@ type lock = Open | Close
 # type door = Open | Close;;
 type door = Open | Close
 ```
-After running those two statements, what is the type of `Open`? We can
-find out easily enough in the toplevel:
+After running those two statements, we can
+find out the type of `Open` easily enough in the toplevel:
 
 ```ocaml
 # type lock = Open | Close;;
@@ -556,16 +565,18 @@ type door = Open | Close
 ```
 
 OCaml uses the most recent definition for `Open`, giving it the type
-`door`. This is actually not such a serious problem because if you
+`door`. This isn't a serious problem because if you
 accidentally tried to use `Open` in the type context of a `lock`, then
-OCaml's wonderful type inference would immediately spot the error and
+OCaml's wonderful type inference would immediately spot the error, and
 you wouldn't be able to compile the code.
 
-So far, so much like C. Now I said that OCaml provides a way to work
+So far, much like C. 
+
+OCaml provides a way to work
 around the constraint that `Open` can only have one type. In other
-words, suppose I want to use `Open` to mean either "the `Open` of type
-`lock`" or "the `Open` of type `door`" and I want OCaml to work out
-which one I mean.
+words, suppose you want to use `Open` to mean either "the `Open` of type
+`lock`" or "the `Open` of type `door`," and you want OCaml to work out
+which one you mean.
 
 The syntax is slightly different, but here is how we do it:
 
@@ -589,7 +600,7 @@ The question naturally arises: What is the type of `` `Open``?
 `` [> `Open] `` can be read as
 `` [ `Open | and some other possibilities which we don't know about ] ``.
 
-The “>” (greater than) sign indicates that the set of possibilities is
+The `>` (greater than) sign indicates that the set of possibilities is
 bigger than those listed (open-ended).
 
 There's nothing special about `` `Open ``. *Any* back-ticked word can be
@@ -629,6 +640,6 @@ correct coding.
 
 This is only an introduction to polymorphic variants. Because of the
 reduction in type safety, it is recommended that you don't use these in
-your code. You will, however, see them in advanced OCaml code quite a
-lot precisely because advanced programmers will sometimes want to weaken
+your code. You will, however, see them in advanced OCaml code quite often, 
+precisely because advanced programmers will sometimes want to weaken
 the type system to write advanced idioms.
