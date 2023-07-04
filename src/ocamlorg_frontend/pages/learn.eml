@@ -15,6 +15,30 @@ Learn_layout.render
   <div class="w-full">
     <%s! Learn_components.api_card_block latest_version %>
   </div>
+  <div class="flex flex-col md:flex-row">
+    <%s! Learn_tutorial_block.left_tutorial_block ~title:"TUTORIAL" ~heading:"Step-by-Step Guidance" 
+            ~description:"Break down topics into easy steps with clarity and confidence" 
+            ~tutorial_links:[
+                {href="www.ocaml.org"; title="Calling C libraries"};
+                {href="www.ocaml.org"; title="File Manipulation"};
+                {href="www.ocaml.org"; title="Calling Fortran Libraries"};
+                {href="www.ocaml.org"; title="Command Line Arguments"}
+            ]
+            ~see_more:"See All Tutorials"
+            "bg-learn-area-dark-green"
+            %>
+    <%s! Learn_tutorial_block.right_tutorial_block ~title:"PLAYGROUND TUTORIAL" ~heading:"Real-World Content" 
+        ~description:"Engage with OCaml, experiment with different scenario" 
+        ~tutorial_links:[
+            {href="www.ocaml.org"; title="Playground Tutorial 1"};
+            {href="www.ocaml.org"; title="Playground Tutorial 2"};
+            {href="www.ocaml.org"; title="Playground Tutorial 3"};
+            {href="www.ocaml.org"; title="Playground Tutorial 4"}
+        ]
+        ~see_more:"See All Playground Tutorials"
+        "bg-blue-700"
+        %>
+  </div>
   <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
     <h3 class="font-bold">Papers</h3>
     <div class="mt-6 text-lighter text-lg">

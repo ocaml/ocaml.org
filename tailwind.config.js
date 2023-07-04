@@ -56,6 +56,7 @@ module.exports = {
       "search-term-highlight": "rgb(221, 232, 251)",
       "learn-area-orange": "#C34711",
       "learn-area-light-blue": "rgba(211, 213, 249, 0.60)",
+      "learn-area-dark-green": "rgba(6, 112, 101, 1)",
 
       transparent: "transparent",
 
@@ -142,6 +143,7 @@ module.exports = {
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
         mono: ["Roboto Mono", ...defaultTheme.fontFamily.mono],
+        lato: ["Lato"]
       },
       outline: {
         primary: "2px solid #EE6A1A"

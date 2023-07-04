@@ -69,3 +69,60 @@ latest_version
     <%s! install_card latest_version %>
     <%s! standard_lib_card %>
   </div>
+
+type link = {href : string; title : string}
+
+let tutorial_block_content 
+~title
+~heading
+~description
+~(tutorial_links: link list)
+~see_more
+= 
+    <div class="w-full md:w-80">
+        <div class="mt-4 text-white text-sm text-left font-medium leading-7 tracking-widest"> <%s title %> </div>
+        <h2 class="mt-2 text-white text-2xl text-left font-normal leading-7"> <%s heading %> </h2>
+        <div class="mt-4 h-16 text-white text-left text-md font-normal leading-7"> <%s description %> </div>
+        <ul class="flex flex-col gap-4 mt-3 items-center">
+            <% tutorial_links |> List.iter (fun link -> %>
+                <li class="w-full">
+                    <a href="<%s link.href %>" class="block bg-default rounded-md p-3 text-primary-700 text-center text-md font-bold">
+                        <%s link.title  %>
+                    </a>
+                </li>
+            <% ); %>
+        </ul>  
+
+        <a href="" class="flex gap-4 mt-4 text-white text-md font-bold inline-flex items-center underline leading-10"> 
+            <%s see_more %>
+            <%s! Icons.arrow_small_right "h-6 w-6" %>
+        </a>
+    </div>
+
+let left_tutorial_block 
+~title
+~heading
+~description
+~(tutorial_links: link list)
+~see_more
+class_
+= 
+    <div class="<%s class_ %> h-[36rem] md:w-1/2">
+        <div class="flex justify-end p-4 md:pr-20">
+            <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
+        </div>
+    </div>
+
+let right_tutorial_block
+~title
+~heading
+~description
+~(tutorial_links: link list)
+~see_more
+class_
+= 
+    <div class="<%s class_ %> h-[36rem] md:w-1/2">
+        <div class="flex justify-start p-4 md:pl-20">
+            <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
+        </div>
+    </div>
