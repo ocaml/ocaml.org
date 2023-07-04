@@ -8,7 +8,7 @@ TMP_FILE="tmp.txt"
 grep -r -o -h -E "text-\w+-[0-9]{2,3}|bg-\w+-[0-9]{2,3}" $DIR > $TMP_FILE
 
 # Filter unique matches and print them
-sort $TMP_FILE | uniq
+sort -u $TMP_FILE
 
 # Remove temporary file
 rm $TMP_FILE
