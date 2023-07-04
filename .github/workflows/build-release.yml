@@ -6,14 +6,14 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  
+
 jobs:
   build-and-release:
     permissions: write-all
-    
-    name: Build and push docker image to ghcr.io    
+
+    name: Build and push docker image to ghcr.io
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

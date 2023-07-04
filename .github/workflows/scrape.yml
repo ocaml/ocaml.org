@@ -2,6 +2,9 @@ name: Scrape
 
 on:
   workflow_dispatch:
+  schedule:
+    # Run every day
+    - cron: 36 5 * * *
 
 jobs:
   scrape:
