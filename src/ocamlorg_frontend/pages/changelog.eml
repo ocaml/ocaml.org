@@ -10,13 +10,6 @@ Layout.render
       </h1>
 
       <p class="text-lg text-lighter mt-6">Read the latest releases and updates from the OCaml ecosystem.</p>
-
-      <p class="text-lg text-lighter mt-6">
-        <i>
-          <b>Note:</b> The OCaml Changelog is experimental and is not yet endorsed by the maintainers of the Compiler, OCaml Platform and other featured projects. <br>
-          We'll work with the maintainers of the projects to agree on the format of the Changelog and the release process as we roll out a stable version.
-        </i>
-      </p>
     </div>
   </div>
 
