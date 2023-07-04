@@ -45,17 +45,12 @@ module.exports = {
         600: "#EE6A1A",
       },
 
-      gray: {
-        400: colors.gray["400"],
-      },
-      blue: {
-        500: colors.blue["500"],
-      }
+      ...colors
     },
     backgroundColor: {
       default: "white",
       "mild-contrast": "#FAF8F3",
-      "contrast": "#14294b", // one of the colors from the dark blue contrash patterned background used in various parts of the site
+      "contrast": "#14294b", // one of the colors from the dark blue contrast patterned background used in various parts of the site
 
       "search-keyboard-cursor": "#0C3B8C", // background for cursor highlighting in keyboard navigable areas (e.g. package search dropdown)
       "search-term-highlight": "rgb(221, 232, 251)",
