@@ -192,9 +192,9 @@ essentially the same. Observe that there is no `fold_right` function. Since
 OCaml 4.11, there is something which isn't (yet) available on other types:
 `unfold`. Here is how it is implemented:
 ```ocaml
-let rec unfold f seq () = match f seq with
-  | None -> Nil
-  | Some (x, seq) -> Cons (x, unfold f seq)
+let rec unfold f x () = match f x with
+  | None -> Seq.Nil
+  | Some (x, seq) -> Seq.Cons (x, unfold f seq)
 ```
 And here is its type:
 ```ocaml
@@ -202,15 +202,20 @@ val unfold : ('a -> ('b * 'a) option) -> 'a -> 'b Seq.t = <fun>
 ```
 Unlike previously mentioned iterators, `Seq.unfold` does not have a sequence
 parameter, but a sequence result. `unfold` provides a general means to build
-sequences. For instance, `Seq.ints` can be implemented using `Seq.unfold` in a
+sequences. The result returned by `Seq.unfold f x` is the sequence built by accumulating the results of successive calls to `f` until it returns `None`. This is:
+```
+(fst p₀, fst p₁, fst p₂, fst p₃, fst p₄, ...)
+```
+where `Some p₀ = f x` and `Some pₙ₊₁ = f (snd pₙ)`.
+
+For instance, `Seq.ints` can be implemented using `Seq.unfold` in a
 fairly compact way:
 ```ocaml
 # let ints = Seq.unfold (fun n -> Some (n, n + 1));;
 val ints : int -> int Seq.t = <fun>
 ```
-<!--
-About Seq.unfold: perhaps the word accumulator should appear in explaining this function?
--->
+
+
 As a fun fact, one should observe `map` over sequences can be implemented using
 `Seq.unfold`. Here is how to write it:
 ```ocaml
