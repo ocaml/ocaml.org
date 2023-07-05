@@ -16,11 +16,9 @@ You should be comfortable with writing functions over lists and options.
 
 Sequences are very much like lists. However from a pragmatic perspective, one
 should imagine they may be infinite. That's the key intuition to understanding
-and using sequences.
-
-<!--
-IMHO, the key idea about sequences is that their elements are computed on-demand, and not stored in memory. I believe this is what should be highlighted in the very first (well, second) sentence of a tutorial. The fact that a sequence might be infinite is a corollary of this. Another corollary, perhaps more frequently used, is that sequences often allow to reduce memory consumption from linear to constant space.
--->
+and using sequences. To achieve this, sequence elements are computed on demand,
+and not stored in memory. Perhaps more frequently, sequences also allow for
+reducing memory consumption from linear to constant space
 
 <!--
 Still in the intro: for people familiar with Python, I believe it would be very useful to mention Python’s generators: OCaml sequences are similar to Python generators. The main difference is that each element of a Python generator is consumed only once and never seen again, while an element in an OCaml sequence can be queried several times, but is re-computed each time (more expressive but opportunity for bugs). Also, OCaml does not have all the convenient syntax that Python has (there is no yield in OCaml [at least, until algebraic effects land in OCaml 5!]). The contrast between list and Seq.t in OCaml is the same as between range and xrange in old Python 2 (or [i for i in range(100)] versus range(100) in Python 3).
