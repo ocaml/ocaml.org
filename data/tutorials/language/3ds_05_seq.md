@@ -18,8 +18,16 @@ Sequences are very much like lists. However from a pragmatic perspective, one
 should imagine they may be infinite. That's the key intuition to understanding
 and using sequences.
 
+<!--
+IMHO, the key idea about sequences is that their elements are computed on-demand, and not stored in memory. I believe this is what should be highlighted in the very first (well, second) sentence of a tutorial. The fact that a sequence might be infinite is a corollary of this. Another corollary, perhaps more frequently used, is that sequences often allow to reduce memory consumption from linear to constant space.
+-->
+
+<!--
+Still in the intro: for people familiar with Python, I believe it would be very useful to mention Python’s generators: OCaml sequences are similar to Python generators. The main difference is that each element of a Python generator is consumed only once and never seen again, while an element in an OCaml sequence can be queried several times, but is re-computed each time (more expressive but opportunity for bugs). Also, OCaml does not have all the convenient syntax that Python has (there is no yield in OCaml [at least, until algebraic effects land in OCaml 5!]). The contrast between list and Seq.t in OCaml is the same as between range and xrange in old Python 2 (or [i for i in range(100)] versus range(100) in Python 3).
+-->
+
 One way to look at a value of type `'a Seq.t` is to consider it as a list, with
-a twist when it's not empty: a frozen tail. To understand this analogy,
+a twist when it's not empty: its tail is frozen. To understand this analogy,
 consider how sequences are defined in the standard library:
 ```ocaml
 type 'a node =
@@ -54,11 +62,10 @@ Frozen-by-function tails explain why sequences may be considered potentially
 infinite. Until a `Seq.Nil` value has been found in the sequence, one can't say
 for sure if some will ever appear. The sequence could be a stream of incoming
 requests in a server, readings from an embedded sensor, or system logs. All have
-unforeseeable termination, and it is easier to consider them infinite.
+unforeseeable termination, and it is easier to consider them potentially infinite.
 
 In OCaml, any value `a` of type `t` can be turned into a constant function by
-writing `fun _ -> a`, which has type `'a -> t`. When writing `fun () -> a`
-instead, we get a function of type `unit -> t`. Such a function is called a
+writing `fun _ -> a` or `fun () -> a`. The latter function is called a
 [_thunk_](https://en.wikipedia.org/wiki/Thunk). Using this terminology, `Seq.t`
 values are thunks. With the analogy used earlier, `a` is frozen in its thunk.
 
@@ -68,10 +75,9 @@ Here is how to build seemingly infinite sequences of integers:
 val ints : int -> int Seq.t = <fun>
 ```
 The function `ints n` looks as if building the infinite sequence `(n; n + 1; n +
-2; n + 3;...)`. In reality, since there isn't an infinite amount of distinct
-values of type `int`, those sequences aren't indefinitely increasing. When
-reaching `max_int`, the values will circle down to `min_int`. They are
-ultimately periodic.
+2; n + 3;...)`. In reality, since machine integers have bounds, the sequence
+isn't indefinitely increasing. When reaching `max_int`, it will circle
+down to `min_int`.
 
 The OCaml standard library contains a module on sequences called
 [`Seq`](/releases/5.0/api/Seq.html). It contains a `Seq.iter` function, which
@@ -79,13 +85,17 @@ has the same behaviour as `List.iter`. Writing this:
 ```ocaml
 # Seq.iter print_int (ints 0);;
 ```
-in an OCaml toplevel, this means “print integers forever,” and you have to press
-`Ctrl-C` to interrupt the execution. Perhaps more interestingly, the following
-code is also an infinite loop:
+in an OCaml toplevel means “print integers forever,” and you have to press
+`Ctrl-C` to interrupt the execution. The following code is the same infinite
+loop without any putput:
 ```ocaml
 # Seq.iter ignore (ints 0);;
 ```
-But the key point is: it doesn't leak memory.
+But the key point is: this doesn't leak memory.
+
+<!--
+This remark deserves to be expanded a bit. This example runs in constant space, it is effectively nothing more than an infinite loop, which can be confirmed by monitoring the space consumption of the program, and by noticing that it spins forever without crashing. Whereas a version of this with a list (let rec ints n = n :: ints (n+1)) would allocate a list of length proportional to the running time, and thus would crash by running out of memory pretty quickly.
+-->
 
 ## Example
 
@@ -93,9 +103,13 @@ The `Seq` module of the OCaml standard library contains the definition of the
 function `Seq.take`, which returns a specified number of elements from the
 beginning of a sequence. Here is a simplified implementation:
 ```ocaml
-let rec take n seq () = match seq () with
-  | Seq.Cons (x, seq) when n > 0 -> Seq.Cons (x, take (n - 1) seq)
-  | _ -> Seq.Nil
+let rec take n seq () =
+  if n <= 0 then
+    Seq.Nil
+  else
+    match seq () with
+    | Seq.Cons (x, seq) -> Seq.Cons (x, take (n - 1) seq)
+    | _ -> Seq.Nil
 ```
 `take n seq` returns, at most, the `n` first elements of the sequence `seq`. If
 `seq` contains less than `n` elements, an identical sequence is returned. In
@@ -161,6 +175,10 @@ emphasise that, by design, it does not terminate. Strictly speaking, the sieve
 of Eratosthenes is not an algorithm either since it does not terminate. This
 implementation behaves the same.
 
+<!--
+Dubious. The sieve of Eratosthenes is commonly presented as acting on an array of numbers up to a given maximum number. It is an algorithm that terminates. The presented code is not a sieve of Eratosthenes (it is a trial division algorithm: every new number is tried for divisibility against all prime numbers found earlier; in a sieve algorithm, as soon as we find a prime, we preemptively remove its later multiples, and thus we avoid any useless divisibility test). This remark seems entirely unnecessary, cut it?
+-->
+
 ## Unfolding Sequences
 
 Standard higher-order iteration functions are available on sequences. For
@@ -190,11 +208,13 @@ fairly compact way:
 # let ints = Seq.unfold (fun n -> Some (n, n + 1));;
 val ints : int -> int Seq.t = <fun>
 ```
-
+<!--
+About Seq.unfold: perhaps the word accumulator should appear in explaining this function?
+-->
 As a fun fact, one should observe `map` over sequences can be implemented using
 `Seq.unfold`. Here is how to write it:
 ```ocaml
-# let map f = Seq.unfold (fun s -> s |> Seq.uncons |> Option.map (fun (x, y) -> (f x, y)));;
+# let map f = Seq.unfold (fun seq -> seq |> Seq.uncons |> Option.map (fun (x, seq) -> (f x, seq)));;
 val map : ('a -> 'b) -> 'a Seq.t -> 'b Seq.t = <fun>
 ```
 Here is a quick check:
@@ -203,7 +223,7 @@ Here is a quick check:
 - : int list = [0; 1; 4; 9; 16; 25; 36; 49; 64; 81]
 ```
 The function `Seq.uncons` returns the head and tail of a sequence if it is not
-empty, or it otherwise returns `None`.
+empty otherwise, it returns `None`.
 
 Using this function:
 ```ocaml
@@ -224,8 +244,51 @@ taking care of open files. While the code above is fine, this one no longer is:
 Here, `close_in` will never be called over the input channel opened on
 `README.md`.
 
+<!--
+True but arguably the mistake is that input_line_opt should not close its input. That’s wonky style. I’m not sure why we would demonstrate it in a beginner’s tutorial.
+-->
+
+<!--
+Suggestion: perhaps it would be enlightening to illustrate the use of Seq.unfold by re-implementing the already seen function primes? Perhaps in an exercise rather than in the main text of the tutorial.
+
+```
+let rec next_prime prime_list n =
+  if List.for_all (fun p -> n mod p <> 0) prime_list then
+    n
+  else next_prime prime_list (n+1)
+
+let primes =
+  Seq.unfold
+    begin fun (prime_list, n) ->
+      let p = next_prime prime_list n in
+      Some (p, (p::prime_list, p+1))
+    end
+    ([], 2)
+```
+
+This example illustrates a non-trivial use of the accumulator, and also the fact that the producer function loops until it finds a new prime to yield, because Seq.unfold does not allow the producer to “skip” a value: it must produce a new element or end the sequence. If we were allowed to skip values, we could more simply do:
+
+```
+let primes =
+  Seq.unfold_skippable
+    begin fun (prime_list, n) ->
+      if List.for_all (fun p -> n mod p <> 0) prime_list then
+        Yield (n, (n::prime_list, n+1))
+      else
+        Skip (prime_list, n+1)
+    end
+    ([], 2)
+```
+-->
+
 ## Sequences Are Functions
 
+<!--
+No need to introduce another mathematical sequence, we can re-use earlier examples (better for pedagogy):
+```
+let rec ints n = Seq.cons n (ints (n+1))
+```
+-->
 Although this looks like a possible way to define the [Fibonacci
 sequence](https://en.wikipedia.org/wiki/Fibonacci_number):
 ```ocaml
@@ -233,11 +296,15 @@ sequence](https://en.wikipedia.org/wiki/Fibonacci_number):
 val fibs : int -> int -> int Seq.t = <fun>
 ```
 It actually isn't. It's a non-ending recursion which blows away the stack.
+
+<!--
+At that point, Seq.cons has not been introduced yet, so the reader only knows fun () -> Seq.Cons … and would not have fallen into the trap of writing Seq.cons … instead. Besides, she may not understand this section at all because Seq.cons is not explained here. The progression of this section should be turned upside down.
+-->
 ```
 # fibs 0 1;;
 Stack overflow during evaluation (looping recursion?).
 ```
-This definition is behaving as expected (spot the differences, there are four):
+This definition is behaving as expected (spot the differences, there are four): <!-- How do you count four? -->
 ```ocaml
 # let rec fibs m n () = Seq.Cons (m, fibs n (n + m));;
 val fibs : int -> int -> int Seq.t = <fun>
@@ -291,7 +358,7 @@ some of those functions:
   val String.to_seq : char Seq.t -> string
   ```
 Similar functions are also provided for sets, maps, hash tables (`Hashtbl`), and
-others (except `Seq`, obviously). When implementing a datatype module, it is
+others. When implementing a datatype module, it is
 advised to expose `to_seq` and `of_seq` functions.
 
 ## Miscellaneous Considerations
