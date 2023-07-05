@@ -85,15 +85,17 @@ has the same behaviour as `List.iter`. Writing this:
 ```
 in an OCaml toplevel means “print integers forever,” and you have to press
 `Ctrl-C` to interrupt the execution. The following code is the same infinite
-loop without any putput:
+loop without any output:
 ```ocaml
 # Seq.iter ignore (ints 0);;
 ```
-But the key point is: this doesn't leak memory.
-
-<!--
-This remark deserves to be expanded a bit. This example runs in constant space, it is effectively nothing more than an infinite loop, which can be confirmed by monitoring the space consumption of the program, and by noticing that it spins forever without crashing. Whereas a version of this with a list (let rec ints n = n :: ints (n+1)) would allocate a list of length proportional to the running time, and thus would crash by running out of memory pretty quickly.
--->
+In both cases, the key point is: it doesn't leak memory. These examples are
+running in constant space, it is effectively nothing more than an infinite loop,
+which can be confirmed by monitoring the space consumption of the program, and
+by noticing that it spins forever without crashing. Whereas a version of this
+with a list `let rec ints n = n :: ints (n + 1)` would allocate a list of length
+proportional to the running time, and thus would crash by running out of memory
+pretty quickly.
 
 ## Example
 
