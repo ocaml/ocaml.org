@@ -89,11 +89,11 @@ loop without any output:
 ```ocaml
 # Seq.iter ignore (ints 0);;
 ```
-In both cases, the key point is: it doesn't leak memory. These examples are
-running in constant space, it is effectively nothing more than an infinite loop,
-which can be confirmed by monitoring the space consumption of the program, and
-by noticing that it spins forever without crashing. Whereas a version of this
-with a list `let rec ints n = n :: ints (n + 1)` would allocate a list of length
+The key point is: it doesn't leak memory. This example is running in constant
+space, it is effectively nothing more than an infinite loop, which can be
+confirmed by monitoring the space consumption of the program, and by noticing
+that it spins forever without crashing. Whereas a version of this with a list
+`let rec ints n = n :: ints (n + 1)` would allocate a list of length
 proportional to the running time, and thus would crash by running out of memory
 pretty quickly.
 
