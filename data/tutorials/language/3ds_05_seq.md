@@ -288,6 +288,12 @@ let primes =
 
 ## Sequences Are Functions
 
+The `Seq` module contains this definition:
+```ocaml
+val cons : 'a -> 'a Seq.t -> 'a Seq.t
+```
+
+Although `Seq.cons x seq` and `Seq.Cons x seq` are the same, `Seq.cons` is a function and `Seq.Cons` is a variant's constructor, which is not the same in OCaml. This can lead to subtle bugs. This section illustrates this.
 <!--
 No need to introduce another mathematical sequence, we can re-use earlier examples (better for pedagogy):
 ```
