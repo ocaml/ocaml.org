@@ -142,20 +142,17 @@ The `Seq` module also has a function `Seq.filter`:
 ```
 It builds a sequence of elements satisfying a condition.
 
-Using `Seq.filter`, it is possible to make a straightforward implementation of
-the [Sieve of
-Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes). Here it is:
+Using `Seq.filter`, taking inspiration from the [trial division](https://en.wikipedia.org/wiki/Trial_division) algorithm, it is possible to define a function which seemingly generates the list of all primes numbers.
 ```ocaml
-let rec sieve seq () = match seq () with
-  | Seq.Cons (m, seq) -> Seq.Cons (m, sieve (Seq.filter (fun n -> n mod m > 0) seq))
+let rec trial_div seq () = match seq () with
+  | Seq.Cons (m, seq) -> Seq.Cons (m, trial_div (Seq.filter (fun n -> n mod m > 0) seq))
   | seq -> seq
-let primes = Seq.ints 2 |> sieve;;
-val sieve : int Seq.t -> int Seq.t = <fun>
+let primes = Seq.ints 2 |> trial_div;;
+val trial_div : int Seq.t -> int Seq.t = <fun>
 val primes : int Seq.t = <fun>
 ```
 
-This code can be used to generate lists of prime numbers. For instance, here is
-the list of 100 first prime numbers:
+For instance, here is the list of 100 first prime numbers:
 ```ocaml
 # primes |> Seq.take 100 |> List.of_seq;;
 - : int list =
@@ -168,16 +165,10 @@ the list of 100 first prime numbers:
  509; 521; 523]
 ```
 
-The function `sieve` is recursive in OCaml and common sense. It is defined using
-the `rec` keyword and calls itself. However, some call that kind of function
-[_corecursive_](https://en.wikipedia.org/wiki/Corecursion). This word is used to
-emphasise that, by design, it does not terminate. Strictly speaking, the sieve
-of Eratosthenes is not an algorithm either since it does not terminate. This
-implementation behaves the same.
-
-<!--
-Dubious. The sieve of Eratosthenes is commonly presented as acting on an array of numbers up to a given maximum number. It is an algorithm that terminates. The presented code is not a sieve of Eratosthenes (it is a trial division algorithm: every new number is tried for divisibility against all prime numbers found earlier; in a sieve algorithm, as soon as we find a prime, we preemptively remove its later multiples, and thus we avoid any useless divisibility test). This remark seems entirely unnecessary, cut it?
--->
+The function `trial_div` is recursive in OCaml and common sense. It is defined
+using the `rec` keyword and calls itself. However, some call that kind of
+function [corecursive](https://en.wikipedia.org/wiki/Corecursion). This word
+is used to emphasise that, although it may not terminate, it can indefinitely produce valid output.
 
 ## Unfolding Sequences
 
