@@ -165,6 +165,22 @@ div.odoc .arrow {
   font-weight: normal;
 }
 
+/* Comment delimiters, hidden but accessible to screen readers and 
+selected for copy/pasting */
+
+div.odoc .comment-delim {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
 /* package explorer navmap and breadcrumb tag */
 
 .navmap:hover ul {
