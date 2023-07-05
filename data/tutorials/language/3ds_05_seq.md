@@ -397,4 +397,5 @@ OCaml 4.14. Beware books and documentation written before may still mention it.
   * Guillaume Petiot [@gpetiot](https://github.com/gpetiot)
   * Xavier Van de Woestyne [@xvw](https://github.com/xvw)
   * Simon Cruanes [@c-cube](https://github.com/c-cube)
+  * Glen Mével [gmevel](https://github.com/c-cube)
 -->
