@@ -33,8 +33,8 @@ let left_tutorial_block
 ~(tutorial_links:string list)
 ~see_more
 = 
-    <div class="container w-1/2 h-[36rem] justify-end">
-        <div class="flex flex-col items-center bg-tutorial-block p-4 pr-20">
+    <div class="container w-1/2 h-[36rem] ">
+        <div class="flex flex-col justify-end bg-tutorial-block p-4">
             <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
         </div>
     </div>
@@ -47,7 +47,7 @@ let right_tutorial_block
 ~see_more
 = 
     <div class="container w-1/2 h-[36rem]">
-        <div class="flex flex-col items-center bg-blue-700 p-4 pr-8 justify-start">
+        <div class="flex flex-col bg-blue-700 p-4 pr-8 justify-start">
             <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
         </div>
     </div>
