@@ -162,13 +162,14 @@ For instance, here is the list of 100 first prime numbers:
  239; 241; 251; 257; 263; 269; 271; 277; 281; 283; 293; 307; 311; 313; 317;
  331; 337; 347; 349; 353; 359; 367; 373; 379; 383; 389; 397; 401; 409; 419;
  421; 431; 433; 439; 443; 449; 457; 461; 463; 467; 479; 487; 491; 499; 503;
- 509; 521; 523]
+ 509; 521; 523; 541]
 ```
 
 The function `trial_div` is recursive in OCaml and common sense. It is defined
 using the `rec` keyword and calls itself. However, some call that kind of
-function [corecursive](https://en.wikipedia.org/wiki/Corecursion). This word
-is used to emphasise that, although it may not terminate, it can indefinitely produce valid output.
+function [corecursive](https://en.wikipedia.org/wiki/Corecursion). This word is
+used to emphasise that, although it may not terminate, it can indefinitely
+produce valid output.
 
 ## Unfolding Sequences
 
@@ -225,24 +226,14 @@ Using this function:
 ```ocaml
 let input_line_opt chan =
   try Some (input_line chan, chan)
-  with End_of_file -> close_in chan; None
+  with End_of_file -> None
 ```
 It is possible to read a file using `Seq.unfold`:
 ```ocaml
-"README.md" |> open_in |> Seq.unfold input_line_opt |> Seq.iter print_endline
+let cin = open_in "README.md" in
+cin |> Seq.unfold input_line_opt |> Seq.iter print_endline;
+close_in cin
 ```
-
-Although this can be an appealing style, bear in mind that it does not prevent
-taking care of open files. While the code above is fine, this one no longer is:
-```ocaml
-"README.md" |> open_in |> Seq.unfold input_line_opt |> Seq.take 10 |> Seq.iter print_endline
-```
-Here, `close_in` will never be called over the input channel opened on
-`README.md`.
-
-<!--
-True but arguably the mistake is that input_line_opt should not close its input. That’s wonky style. I’m not sure why we would demonstrate it in a beginner’s tutorial.
--->
 
 <!--
 Suggestion: perhaps it would be enlightening to illustrate the use of Seq.unfold by re-implementing the already seen function primes? Perhaps in an exercise rather than in the main text of the tutorial.
@@ -284,7 +275,7 @@ The `Seq` module contains this definition:
 val cons : 'a -> 'a Seq.t -> 'a Seq.t
 ```
 
-Although `Seq.cons x seq` and `Seq.Cons x seq` are the same, `Seq.cons` is a function and `Seq.Cons` is a variant's constructor, which is not the same in OCaml. This can lead to subtle bugs. This section illustrates this.
+Although `Seq.cons x seq` and `Seq.Cons (x, seq)` are the same, `Seq.cons` is a function and `Seq.Cons` is a variant's constructor, which is not the same in OCaml. This can lead to subtle bugs. This section illustrates this.
 <!--
 No need to introduce another mathematical sequence, we can re-use earlier examples (better for pedagogy):
 ```
