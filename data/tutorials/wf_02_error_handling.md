@@ -3,7 +3,7 @@ id: error-handling
 title: Error Handling
 description: >
   Discover the different ways you can manage errors in your OCaml programs
-category: "language"
+category: "guides"
 date: 2021-05-27T21:07:30-00:00
 ---
 
