@@ -85,7 +85,10 @@ in
     x-transition:leave-end="translate-x-full">
     <ul class="text-lighter p-6 space-y-6 font-semibold">
       <li class="flex justify-between items-center">
-        <a href="<%s Url.index %>"><img width="132" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt=""></a>
+        <a href="<%s Url.index %>">
+          <img src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" width="132" alt="OCaml logo" class="dark:hidden">
+          <img src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" width="132" alt="OCaml logo" class="hidden dark:inline">
+        </a>
 
         <div class="close lg:hidden h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full"
           x-on:click="open = false">
