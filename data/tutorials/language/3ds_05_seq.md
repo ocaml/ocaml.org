@@ -14,7 +14,7 @@ You should be comfortable with writing functions over lists and options.
 
 ## Introduction
 
-Sequences are very much like lists. However from a pragmatic perspective, one
+Sequences are very much like lists. However, from a pragmatic perspective, one
 should imagine they may be infinite. That's the key intuition to understanding
 and using sequences. To achieve this, sequence elements are computed on demand
 and not stored in memory. Perhaps more frequently, sequences also allow for
