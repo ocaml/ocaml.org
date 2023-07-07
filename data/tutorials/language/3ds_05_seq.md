@@ -16,7 +16,7 @@ You should be comfortable with writing functions over lists and options.
 
 Sequences are very much like lists. However from a pragmatic perspective, one
 should imagine they may be infinite. That's the key intuition to understanding
-and using sequences. To achieve this, sequence elements are computed on demand,
+and using sequences. To achieve this, sequence elements are computed on demand
 and not stored in memory. Perhaps more frequently, sequences also allow for
 reducing memory consumption from linear to constant space
 
@@ -90,8 +90,8 @@ loop without any output:
 # Seq.iter ignore (ints 0);;
 ```
 The key point is: it doesn't leak memory. This example is running in constant
-space, it is effectively nothing more than an infinite loop, which can be
-confirmed by monitoring the space consumption of the program, and by noticing
+space. It is effectively nothing more than an infinite loop, which can be
+confirmed by monitoring the space consumption of the program and by noticing
 that it spins forever without crashing. Whereas a version of this with a list
 `let rec ints n = n :: ints (n + 1)` would allocate a list of length
 proportional to the running time, and thus would crash by running out of memory
@@ -220,7 +220,7 @@ Here is a quick check:
 - : int list = [0; 1; 4; 9; 16; 25; 36; 49; 64; 81]
 ```
 The function `Seq.uncons` returns the head and tail of a sequence if it is not
-empty otherwise, it returns `None`.
+empty. Otherwise, it returns `None`.
 
 Using this function:
 ```ocaml
@@ -277,7 +277,7 @@ val cons : 'a -> 'a Seq.t -> 'a Seq.t
 
 Although `Seq.cons x seq` and `Seq.Cons (x, seq)` are the same, `Seq.cons` is a function and `Seq.Cons` is a variant's constructor, which is not the same in OCaml. This can lead to subtle bugs. This section illustrates this.
 <!--
-No need to introduce another mathematical sequence, we can re-use earlier examples (better for pedagogy):
+No need to introduce another mathematical sequence, we can reuse earlier examples (better for pedagogy):
 ```
 let rec ints n = Seq.cons n (ints (n+1))
 ```
@@ -288,7 +288,7 @@ sequence](https://en.wikipedia.org/wiki/Fibonacci_number):
 # let rec fibs m n = Seq.cons m (fibs n (n + m));;
 val fibs : int -> int -> int Seq.t = <fun>
 ```
-It actually isn't. It's a non-ending recursion which blows away the stack.
+It actually isn't. It's an unending recursion which blows away the stack.
 
 <!--
 At that point, Seq.cons has not been introduced yet, so the reader only knows fun () -> Seq.Cons … and would not have fallen into the trap of writing Seq.cons … instead. Besides, she may not understand this section at all because Seq.cons is not explained here. The progression of this section should be turned upside down.
