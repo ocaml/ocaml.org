@@ -16,6 +16,15 @@ module Process = struct
 
   let check_status cmd = function
     | Unix.WEXITED 0 -> ()
+    | Unix.WEXITED 1 ->
+      if 
+        Pull.is_pull () then
+        prerr_endline
+          "\nPulling from opam repository was not possible. \
+           \nWe will continue by building the package state using the existing local \
+           state of opam-repository.\nSome functionality might not work properly.\n"
+      else
+        Fmt.failwith "%a %a" pp_cmd cmd pp_status (Unix.WEXITED 1)
     | status -> Fmt.failwith "%a %a" pp_cmd cmd pp_status status
 
   let exec cmd =
@@ -36,8 +45,7 @@ module Process = struct
     Lwt.return lines
 end
 
-let offline = ref false
-let is_offline x = offline := x
+
 let clone_path = Config.opam_repository_path
 let exists () = Result.get_ok (Bos.OS.Path.exists clone_path)
 
@@ -66,6 +74,7 @@ let clone () =
   last_commit ()
 
 let pull () =
+  let () = Pull.pull := true in
   let open Lwt.Syntax in
   let* () =
     if !offline then Process.exec ("true", [||])
