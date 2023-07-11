@@ -32,11 +32,14 @@ let render_books books =
     </div>
 
 let render books =
-Layout.render
+Learn_layout.render
 ~title:"OCaml Books"
 ~description:"A selection of books to learn the OCaml programming language."
 ~canonical:Url.books
-~active_top_nav_item:Header.Learn @@
+~active_top_nav_item:Header.Learn 
+~left_sidebar_html:None
+~right_sidebar_html:None
+~current:Books @@
 <div class="intro-section-simple">
     <div class="container-fluid">
         <div class="text-center w-full lg:w-2/3 m-auto">

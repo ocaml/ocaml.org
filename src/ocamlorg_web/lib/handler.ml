@@ -22,8 +22,7 @@ let learn _req =
 
 let platform _req =
   let tools = Data.Tool.all in
-  let tutorials = Data.Tutorial.all in
-  Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
+  Dream.html (Ocamlorg_frontend.platform tools)
 
 let community _req =
   let workshops = Data.Workshop.all in
@@ -291,8 +290,7 @@ let tutorial req =
        tutorial)
 
 let best_practices _req =
-  let tutorials = Data.Tutorial.all in
-  Dream.html (Ocamlorg_frontend.best_practices ~tutorials Data.Workflow.all)
+  Dream.html (Ocamlorg_frontend.best_practices Data.Workflow.all)
 
 let problems req =
   let all_problems = Data.Problem.all in

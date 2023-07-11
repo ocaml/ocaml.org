@@ -11,7 +11,6 @@ let problem_sidebar_links_by_tag ?tag title =
     (Problem.filter_tag ?tag problems |> List.fold_left (fun a b -> a ^ render_problem_link b) "")
   %>
 in
-  <%s! Learn_layout.sidebar_icon_link_block ~current:Exercises %>
 
   <%s! problem_sidebar_links_by_tag ~tag:"list" "Lists" %>
   <%s! problem_sidebar_links_by_tag ~tag:"arithmetic" "Arithmetic" %>
@@ -40,8 +39,9 @@ Learn_layout.render
 ~description:"A list of exercises to work on your OCaml skills."
 ~canonical:Url.problems
 ~active_top_nav_item:Header.Learn
-~left_sidebar_html:(problems_sidebar ~problems)
-~right_sidebar_html:None @@
+~left_sidebar_html:(Some(problems_sidebar ~problems))
+~right_sidebar_html:None
+~current:Exercises @@
   <div class="prose prose-orange max-w-full">
     <h1 class="font-bold mb-8">Exercises</h1>
     <div class="prose prose-orange max-w-full mb-5">

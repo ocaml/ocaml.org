@@ -1,45 +1,41 @@
 type active_icon_link =
-  | Learn
+  | Overview
+  | GetStarted
+  | Platform
+  | BestPractices
   | Exercises
+  | Books
+  
 
-let sidebar_icon_link_block
+let tabs
 ~current =
-  <div class="space-y-4">
-    <a href="<%s Url.learn %>" class="flex justify-start items-center">
-      <div class="bg-primary-600 text-white rounded w-8 h-8 flex items-center justify-center">
-        <%s! Icons.book "h-5 w-5" %>
-      </div>
-      <div class="ml-3 font-semibold <%s if current != Learn then "opacity-70" else "" %>">Learn OCaml</div>
+  let link ~href ~title ~current =
+    <a href="<%s href %>" class="justify-start px-4 py-2 items-center font-semibold border-2 border-b-4 border-transparent rounded <%s if current then "no-underline text-primary-700 border-b-primary-700" else "opacity-80" %>">
+      <%s title %>
     </a>
+  in
+    <div class="bg-tab-overview text-default">
+      <nav class="container-fluid wide flex flex-wrap justify-around">
+        <%s! link ~href:Url.learn ~title:"Overview" ~current:(current = Overview) %>
 
-    <a href="<%s Url.manual %>" class="flex justify-start items-center">
-      <div class="bg-green-600 text-white rounded w-8 h-8 flex items-center justify-center">
-        <%s! Icons.document "h-5 w-5" %>
-      </div>
-      <div class="ml-3 font-semibold opacity-70">Language Manual</div>
-    </a>
+        <%s! link ~href:Url.platform ~title:"Platform Tools" ~current:(current = Platform) %>
 
-    <a href="<%s Url.api %>" class="flex justify-start items-center">
-      <div class="bg-sky-600 text-white rounded w-8 h-8 flex items-center justify-center">
-        <%s! Icons.command_line "h-5 w-5" %>
-      </div>
-      <div class="ml-3 font-semibold opacity-70">Standard Library API</div>
-    </a>
+        <%s! link ~href:Url.best_practices ~title:"Best Practices" ~current:(current = BestPractices) %>
 
-    <a href="<%s Url.problems %>" class="flex justify-start items-center">
-      <div class="bg-indigo-600 text-white rounded w-8 h-8 flex items-center justify-center">
-        <%s! Icons.exclamation_circle "h-5 w-5" %>
-      </div>
-      <div class="ml-3 font-semibold <%s if current != Exercises then "opacity-70" else "" %>">Exercises</div>
-    </a>
+        <%s! link ~href:Url.problems ~title:"Exercises" ~current:(current = Exercises) %>
 
-    <a href="<%s Url.about %>" class="flex justify-start items-center">
-      <div class="bg-primary-600 font-bold text-white rounded w-8 h-8 flex items-center justify-center">
-        ?
-      </div>
-      <div class="ml-3 font-semibold opacity-70">Why OCaml?</div>
-    </a>
-  </div>
+        <%s! link ~href:Url.books ~title:"Books" ~current:(current = Books) %>
+
+        <a href="<%s Url.manual %>" class="flex gap-2 justify-start px-4 py-2 items-center font-semibold opacity-80">
+          <%s! Icons.arrow_top_right_on_square "w-6 h-6" %> Language Manual
+        </a>
+
+        <a href="<%s Url.api %>" class="flex gap-2 justify-start px-4 py-2 items-center font-semibold opacity-80">
+          <%s! Icons.arrow_top_right_on_square "w-6 h-6" %> Standard Library API
+        </a>
+      </nav>
+    </div>
+
 
 let htmx_attributes href
 =
@@ -64,7 +60,7 @@ let sidebar_link_group
 title
 link_html
 =
-  <div class="space-y-2 flex mt-10 flex-col">
+  <div class="space-y-2 flex flex-col">
     <div class="text-sm font-semibold flex px-3 py-2 uppercase"><%s title %></div>
     <%s! link_html %>
     <%s! extra_html %>
@@ -77,8 +73,9 @@ let render
 ~description
 ~canonical
 ?active_top_nav_item
-~(left_sidebar_html: string)
+~(left_sidebar_html: string option)
 ~(right_sidebar_html: string option)
+~current
 inner_html
 =
   Layout.render
@@ -89,7 +86,9 @@ inner_html
   ~canonical
   ~footer_html:(Fixed_footer.render ())
   ?active_top_nav_item @@
+  <%s! tabs ~current %>
   <div class="bg-default dark:bg-dark-default" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
+  <% if left_sidebar_html != None then ( %>  
     <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
       x-on:click="sidebar = ! sidebar">
       <%s! Icons.sidebar_menu "h-8 w-8" %>
@@ -97,15 +96,15 @@ inner_html
     </button>
     <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm lg:hidden"
       :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar"></div>
-
+  <% ); %>
     <div class="container-fluid wide pt-10">
       <div class="flex flex-col lg:flex-row lg:gap-6 xl:gap-12">
         <div
-          class="p-6 z-20 bg-default dark:bg-dark-default flex-col fixed h-screen overflow-auto lg:px-0 lg:flex left-0 top-0 lg:sticky w-80 lg:w-72 lg:px-0 lg:pt-6 lg:pb-72"
+          class="z-20 bg-default dark:bg-dark-default flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky <%s Option.fold ~none:"" ~some:(fun _ -> "p-6 lg:px-0 w-80 lg:w-72 lg:px-0 lg:pt-6 lg:pb-72") left_sidebar_html %>"
           x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
           x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
           x-transition:leave-end="-translate-x-full" id="htmx-sidebar">
-          <%s! left_sidebar_html %>
+          <%s! Option.value ~default:"" left_sidebar_html %>
         </div>
 
         <div class="flex-1 z-0 z- min-w-0 lg:pt-6 pb-12 lg:pb-[70vh] <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>"

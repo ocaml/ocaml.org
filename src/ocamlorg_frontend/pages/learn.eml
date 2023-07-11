@@ -8,8 +8,9 @@ Learn_layout.render
 ~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices, and language manual."
 ~canonical:Url.learn
 ~active_top_nav_item:Header.Learn
-~left_sidebar_html:(Learn_sidebar.render ~tutorials ~current_tutorial:None)
-~right_sidebar_html:None @@
+~left_sidebar_html:(Some(Learn_sidebar.render ~tutorials ~current_tutorial:None))
+~right_sidebar_html:None
+~current:Overview @@
   <h1 class="font-bold mb-8">Learn OCaml</h1>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8 border-b border-gray-200 pb-10">
     <div class="relative flex-1 bg-gradient-to-br from-orange-300 to-orange-500 rounded-xl text-white md:max-h-96 overflow-hidden">
