@@ -17,14 +17,14 @@ module Process = struct
   let check_status cmd = function
     | Unix.WEXITED 0 -> ()
     | Unix.WEXITED 1 ->
-      if 
-        Pull.is_pull () then
-        prerr_endline
-          "\nPulling from opam repository was not possible. \
-           \nWe will continue by building the package state using the existing local \
-           state of opam-repository.\nSome functionality might not work properly.\n"
-      else
-        Fmt.failwith "%a %a" pp_cmd cmd pp_status (Unix.WEXITED 1)
+        if Pull.is_pull () then
+          prerr_endline
+            "\n\
+             Pulling from opam repository was not possible. \n\
+             We will continue by building the package state using the existing \
+             local state of opam-repository.\n\
+             Some functionality might not work properly.\n"
+        else Fmt.failwith "%a %a" pp_cmd cmd pp_status (Unix.WEXITED 1)
     | status -> Fmt.failwith "%a %a" pp_cmd cmd pp_status status
 
   let exec cmd =
@@ -77,9 +77,7 @@ let pull () =
   let () = Pull.pull := true in
   let open Lwt.Syntax in
   let* () =
-    if !offline then Process.exec ("true", [||])
-    else
-      Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin"; "master" ])
+    Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin"; "master" ])
   in
   last_commit ()
 
