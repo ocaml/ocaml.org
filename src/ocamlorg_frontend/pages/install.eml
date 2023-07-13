@@ -67,8 +67,15 @@ Layout.render
             During <code>opam init</code>, you will be asked if you want to add a hook
             to your shell to put the tools available in the current <code>opam</code> switch
             on your PATH.
-            If you answer no, you will need to activate the <code>opam</code> switch
-            by running <code>eval $(opam env)</code>.
+            </p>
+
+          </li>
+          <li>
+            <h3>Activate the <code>opam</code> switch</h3>
+            <p>
+              If you answered no when prompted in the previous step, you need to activate the <code>opam</code> switch
+              by running <code>eval $(opam env)</code> or explicitly execute commands within the switch by using
+              <code>opam exec -- [CMD]</code>.
             </p>
           </li>
         </ol>
