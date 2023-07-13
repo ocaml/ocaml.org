@@ -45,7 +45,6 @@ module Process = struct
     Lwt.return lines
 end
 
-
 let clone_path = Config.opam_repository_path
 let exists () = Result.get_ok (Bos.OS.Path.exists clone_path)
 
