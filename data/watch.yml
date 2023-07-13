@@ -298,6 +298,12 @@
   published_at: 2015-09-18T00:00:00.000Z
   language: English
   category: Science & Technology
+- name: Debugging Native OCaml with Breakpoints and Stepping
+  embed_path: /videos/embed/59d2cdd9-3d1e-4a6a-ae0e-ab9ee2882dd3
+  thumbnail_path: /static/thumbnails/723ee60d-2829-462f-b79d-d5174722430c.jpg
+  published_at: 2023-07-07T17:18:45.492Z
+  language: Unknown
+  category: Unknown
 - name: Deductive Verification of Realistic OCaml Code
   description: We present the formal verification of a subset of the Set module from
     the OCaml standard library. The proof is conducted using Cameleer, a new tool

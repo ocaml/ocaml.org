@@ -1,5 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://gallium.inria.fr/blog/index.rss</id><title type="text">gallium</title><updated>2023-07-05T05:48:05-00:00</updated><entry><link href="http://cambium.inria.fr/blog/florian-compiler-weekly-2023-06-20" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://gallium.inria.fr/blog/index.rss</id><title type="text">gallium</title><updated>2023-07-13T05:47:27-00:00</updated><entry><link href="http://cambium.inria.fr/blog/florian-compiler-weekly-2023-07-05" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
+
+
+&lt;p&gt;This series of blog posts aims to give a short weekly glimpse into my
+(Florian Angeletti) daily work on the OCaml compiler. The subject this
+week is a cartography of the source of opam packages breakage in OCaml
+5.1.0 .&lt;/p&gt;
+
+
+  
+
+&lt;p&gt;With the recent release of the first beta for OCaml 5.1, I have spent
+some time at the state of the opam ecosystem looking for package that
+broke with OCaml 5.1 .&lt;/p&gt;
+&lt;p&gt;Interestingly, for this beta there most of those incompatibility
+stemmed from 7 changes in OCaml 5.1, which is a small enough number that
+I can list all those potentially package-breaking changes in this blog
+post.&lt;/p&gt;
+&lt;h3&gt;Stdlib changes&lt;/h3&gt;
+&lt;p&gt;Unsurprisingly, most of the package build failures finds their source
+in small changes of the standard library. Those changes accounts for at
+least 8 package build failures in the opam repository at the time of the
+first beta release.&lt;/p&gt;
+&lt;h4&gt;Updated module
+types in the standard library&lt;/h4&gt;
+&lt;p&gt;More precisely, one source of build failure is the changes in module
+types defined in the standard library. Such module types are a known
+source of backward compatibility difficulty. Depending on the uses of
+those module types, any change in the module types can create a build
+failure.&lt;/p&gt;
+&lt;p&gt;And OCaml 5.1 updated three of such module types.&lt;/p&gt;
+&lt;p&gt;First, the &lt;code&gt;hash&lt;/code&gt; function inside the
+&lt;code&gt;Hashtbl.SeededHashedType&lt;/code&gt; module type has been renamed to
+&lt;code&gt;seeded_hash&lt;/code&gt;. This changes make it possible for a module to
+implement both &lt;code&gt;Hashtbl.SeededHashedType&lt;/code&gt; and
+&lt;code&gt;Hashtbl.HashedType&lt;/code&gt; (&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/11157&quot;&gt;#11157&lt;/a&gt;).
+Unfortunately, this change breaks modules that were using
+&lt;code&gt;Hashtbl.MakeSeeded&lt;/code&gt; with the previous signature for the
+argument of the functor.&lt;/p&gt;
+&lt;p&gt;When the change was proposed there were only 6 opam packages affected
+by this change. Thus, the improved usability for the
+&lt;code&gt;Hashtbl.MakeSeeded&lt;/code&gt; functor seemed worth the price. And at
+the time of the first beta release, I have only seen two remaining
+packages still affected by this change.&lt;/p&gt;
+&lt;p&gt;Second, a more subtle problem occurred for libraries that were using
+the &lt;code&gt;Map.S&lt;/code&gt; or &lt;code&gt;Set.S&lt;/code&gt; module types: the
+signatures has been expanded with new functions (&lt;code&gt;to_list&lt;/code&gt;
+for &lt;code&gt;Set.S&lt;/code&gt; and &lt;code&gt;to_list&lt;/code&gt; &lt;code&gt;of_list&lt;/code&gt;,
+and &lt;code&gt;add_to_list&lt;/code&gt; for &lt;code&gt;Map.S&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Consequently, three libraries that were defining new &lt;code&gt;Map&lt;/code&gt;
+or &lt;code&gt;Set&lt;/code&gt; functors using this signature as a constraint need
+to add those missing functions to their &lt;code&gt;Map&lt;/code&gt; and
+&lt;code&gt;Set&lt;/code&gt; implementations. Those failures are maybe less
+surprising: if one library use a module type provided by the standard
+library for one of its own implementation, it inevitably couple strongly
+itself to the standard library specification.&lt;/p&gt;
+&lt;h4&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/11581&quot;&gt;New modules in the
+standard library&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Another source of difficulty is that the standard library has been
+added a new &lt;code&gt;Type&lt;/code&gt; module in OCaml 5.1. This new module
+defines the well-know equality GADT (Generalized Abstract Data
+Type):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;type (_, _) eq = Equal : ('a, 'a) eq
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;and type identity witnesses. In other words, this is mostly a module
+for heavy users of GADTs.&lt;/p&gt;
+&lt;p&gt;Normally, adding a new module to the standard library can be done
+painlessly: Standard library modules have a lower priority compared to
+local modules. Thus, if someone has a project which defines a
+&lt;code&gt;Type&lt;/code&gt; module, the non-qualified name &lt;code&gt;Type&lt;/code&gt; will
+refer to the local module, and the standard library module will be
+accessible with &lt;code&gt;Stdlib.Type&lt;/code&gt;. However, this low priority
+behaviour requires some special support in the compiler and alternative
+standard library lacks this support. Consequently, libraries (at least
+three) that are defining a local &lt;code&gt;Type&lt;/code&gt; module while using
+alternative standard library (like &lt;code&gt;base&lt;/code&gt;) might be required
+to find a non-conflicting short-name for their local &lt;code&gt;Type&lt;/code&gt;
+module (which might be as simple as&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Ty&lt;/span&gt; = &lt;span class=&quot;n&quot;&gt;Type&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;! &lt;span class=&quot;n&quot;&gt;Base&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;)&lt;/p&gt;
+&lt;h3&gt;Internal API changes&lt;/h3&gt;
+&lt;p&gt;The second ex &amp;aelig;quo source of build failures in opam packages is the
+changes in internal API, either in the OCaml runtime or in the compiler
+library.&lt;/p&gt;
+&lt;h4&gt;Changes in the runtime
+internal API&lt;/h4&gt;
+&lt;p&gt;The internal runtime function &lt;code&gt;caml_shared_try_alloc&lt;/code&gt; now
+takes the number of reserved bits in the header as a supplementary
+argument. This change affected at least one opam package.&lt;/p&gt;
+&lt;h4&gt;Change in the compiler-libs
+API&lt;/h4&gt;
+&lt;p&gt;To improve the rendering of weakly polymorphic row variables, OCaml
+5.1 has switched its high-level display representation of type aliases
+to make it easier to display &amp;ldquo;weakly polymorphic aliases&amp;rdquo;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; [&amp;gt; `X of int]  as _weak1
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;rather than&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;_[&amp;gt; `X of int]
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This caused a build failure for at least one package that was relying
+on the previous API.&lt;/p&gt;
+&lt;h3&gt;Type system change&lt;/h3&gt;
+&lt;p&gt;The third ex &amp;aelig;quo source of build failures is small changes in the
+type system, where package that were at the frontier of the technically
+correct and bugs ended up falling on the other side of the fence during
+this release.&lt;/p&gt;
+&lt;h4&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/12211&quot;&gt;Inexact explicit type
+annotation for anonymous row variable&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;For instance, due to a bug fix, OCaml 5.1 is stricter when mixing
+explicitly polymorphic type annotations and anonymous row variables.
+Even with all the precautions described in
+http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-28, there
+was at least one opam package that was affected. On the bright side,
+this was probably a bug in the lone affected package.&lt;/p&gt;
+&lt;h4&gt;Generative
+functors must be used generatively&lt;/h4&gt;
+&lt;p&gt;When a functor is defined as an applicative functor&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;App&lt;/span&gt;() = &lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;t&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;OCaml 5.1 forbids now to apply as if it was a generative functor:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Ok&lt;/span&gt; = &lt;span class=&quot;n&quot;&gt;App&lt;/span&gt;(&lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;end&lt;/span&gt;)
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;New_error&lt;/span&gt; = &lt;span class=&quot;n&quot;&gt;App&lt;/span&gt;()
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Previous version of OCaml did not make any difference between
+&lt;code&gt;struct end&lt;/code&gt; or &lt;code&gt;()&lt;/code&gt; in functor applications and
+thus allowed the form &lt;code&gt;App(struct end)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The reverse situation, where a generative functor is applied to
+&lt;code&gt;struct end&lt;/code&gt; is allowed but emits a warning&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Gen&lt;/span&gt;() = &lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;t&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;New_warning&lt;/span&gt; = &lt;span class=&quot;n&quot;&gt;Gen&lt;/span&gt;(&lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;end&lt;/span&gt;)
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Warning&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;73&lt;/span&gt; [&lt;span class=&quot;nv&quot;&gt;generative&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;expects&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;unit&lt;/span&gt;]: &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;generative&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;functor&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;should&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;applied&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;; using '(struct end)' is deprecated.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This restriction is there to make clearer the distinction between
+applicative and generative application. But at least $one opam package
+needed to be updated (at the time of the beta release).&lt;/p&gt;
+&lt;h3&gt;Unique case&lt;/h3&gt;
+&lt;p&gt;Sometimes, there are also backward compatible issue with packages
+that were using the compiler in surprising ways. For instance, this
+time, one package build failed because it was trying to link without
+&lt;code&gt;-for-pack&lt;/code&gt; modules compiled with &lt;code&gt;-for-pack&lt;/code&gt;,
+which happened to sometimes work in previous version of OCaml. OCaml 5.1
+took the decision to stop relying on such happenstance, and mixing
+different &lt;code&gt;-for-pack&lt;/code&gt; mode now always result in an error.&lt;/p&gt;
+
+</content><id>http://cambium.inria.fr/blog/florian-compiler-weekly-2023-07-05</id><title type="text">Florian's OCaml compiler weekly, 5 July 2023</title><updated>2023-07-05T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry><entry><link href="http://cambium.inria.fr/blog/florian-compiler-weekly-2023-06-20" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
 
 
 &lt;p&gt;This series of blog posts aims to give a short weekly glimpse into my
@@ -1246,136 +1406,4 @@ review by S&amp;eacute;bastien Hinderer)&lt;/li&gt;
 &lt;p&gt;since the bug did not require any code source to trigger.&lt;/p&gt;
 
 
-  </content><id>http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-11</id><title type="text">Florian's OCaml compiler weekly, 11 April 2023</title><updated>2023-04-11T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry><entry><link href="http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-03" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
-
-  &lt;p&gt;This series of blog post aims to give a short weekly glimpse into my
-(Florian Angeletti) work on the OCaml compiler: this week, the focus is
-on format string and how to serialize partial error messages while still
-using the formatting engine from the Format module.&lt;/p&gt;
-
-
-  
-
-  
-&lt;p&gt;Last week, beyond some ongoing discussion on the refactorisation of
-Dynlink, and a draft for some future tutorial on GADTs, I spent some
-time refactoring and cleaning up my work on an alternative interpreter
-for OCaml format strings.&lt;/p&gt;
-&lt;h3&gt;A serializable
-data type for Format messages&lt;/h3&gt;
-&lt;p&gt;A medium term objective for me this year is to make it possible for
-the compiler to emit machine-readable messages at the destination of the
-various development tools for OCaml.&lt;/p&gt;
-&lt;p&gt;This would avoid the need for those tools to parse the compiler error
-messages or warnings, and make it simpler for exterior contributors to
-experiment with new error formats.&lt;/p&gt;
-&lt;p&gt;One of the obstacle towards this objective comes from the difficulty
-to have partial messages when using &lt;code&gt;Format&lt;/code&gt; as a formatting
-engine. As an example, imagine that I want to print an error message
-with a prefix&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@[&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;and a main body&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;This&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expression&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;has&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;which&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;record&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;if I want to preserve the newline hint in the main body while making
-the body message starts just after the prefix, I need to print the two
-parts of the error message at the same time, with for instance:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ppf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;%t%t&amp;quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main_body&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;If I rendered ever part of the messages to string before printing I
-would lose the context that the Format module is using for indentation
-and line breaks. Similarly, I cannot start rendering the second message
-before the first. This means that the &lt;code&gt;Format&lt;/code&gt; requires us to
-always print messages in order.&lt;/p&gt;
-&lt;p&gt;This complexity is reflected in the type of the compiler error report
-where partial messages are represented as suspended closure:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;unit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;report&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;report_kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;This representation creates three issues:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;First, one must be very careful that the delayed closure does not
-capture the wrong global state.&lt;/li&gt;
-&lt;li&gt;Second, it is not serializable.&lt;/li&gt;
-&lt;li&gt;Third, it is cumbersome and for instance warning messages where
-never converted to this format.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;As surprising as it may sound, the first grievance rears its head not
-that infrequently in the compiler code base because the pretty-printer
-for types is full of global states (there are some global state to track
-loop, some other state to track naming decision, yet another global
-state to track shortest path name).&lt;/p&gt;
-&lt;p&gt;As a way to circumvent this issue, I have been working on immutable
-interpreter for format strings which translates format strings as a
-sequence of formatting instruction that might be interpreted later by a
-formatting engine.&lt;/p&gt;
-&lt;p&gt;For instance with this interpreter, the format string&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Format_doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Immutable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&amp;quot;@[This is a text with %s,@ breaks and @[%d box@].@]&amp;quot;&lt;/span&gt;
-   &lt;span class=&quot;s2&quot;&gt;&amp;quot;one hole&amp;quot;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-   &lt;span class=&quot;nn&quot;&gt;Format_doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;is rendered to the following sequence of instructions for
-&lt;code&gt;Format&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Open_box&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;This is a text with &amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;one hole&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;,&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Simple_break&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spaces&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;breaks and &amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Open_box&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;2&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot; box&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Close_box&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;.&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Close_box&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;One advantages of this type is that we have transformed the format
-string into data, with no closures in sight. The format is thus
-inherently serializable and does not rely on any captured state.&lt;/p&gt;
-&lt;p&gt;Moreover, with a bit of GADTs, we can create a compatibility layer
-between the classical &lt;code&gt;Format&lt;/code&gt; interpreter and the new
-immutable interpreter.&lt;/p&gt;
-&lt;p&gt;First, we define compatibility formatters as&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdoc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Doc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdoc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdoc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Then the actual printing functions can choose which underlying
-function to call in function of the formatter:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pp_print_string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ppf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ppf&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Format&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ppf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pp_print_string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ppf&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Doc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdoc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rdoc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Immutable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rdoc&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Splitting all primitive functions of the &lt;code&gt;Format&lt;/code&gt; module
-gives us a new &lt;code&gt;fprintf&lt;/code&gt; function with type:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;impl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;impl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;format&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;With this compatibility layer in place, converting a
-&lt;code&gt;Format&lt;/code&gt; printers is a matter of adding a single
-&lt;code&gt;open Format_doc.Compat&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;I am still pondering on the implementation and design of this
-alternative printing module. It is thus probable that I will end up
-tying the final PR on this feature but I have made the implementation
-available as a small &lt;a href=&quot;https://github.com/Octachron/format-doc&quot;&gt;format-doc&lt;/a&gt;
-library.&lt;/p&gt;
-
-
-  </content><id>http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-03</id><title type="text">OCaml compiler weekly, 3 April 2023</title><updated>2023-04-03T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry></feed>
+  </content><id>http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-11</id><title type="text">Florian's OCaml compiler weekly, 11 April 2023</title><updated>2023-04-11T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry></feed>
