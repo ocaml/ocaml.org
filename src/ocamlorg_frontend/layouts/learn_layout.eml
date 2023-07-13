@@ -10,11 +10,11 @@ type active_icon_link =
 let tabs
 ~current =
   let link ~href ~title ~current =
-    <a href="<%s href %>" class="justify-start px-4 py-2 items-center font-semibold border-2 border-b-4 border-transparent rounded <%s if current then "no-underline text-primary-700 border-b-primary-700" else "opacity-80" %>">
+    <a href="<%s href %>" class="justify-start px-4 py-2 text-default items-center font-semibold border-2 border-b-4 border-transparent rounded <%s if current then "no-underline text-primary-700 border-b-primary-700" else "opacity-80" %>">
       <%s title %>
     </a>
   in
-    <div class="bg-tab-overview text-default">
+    <div class="bg-learn-area-light-blue">
       <nav class="container-fluid wide flex flex-wrap justify-around">
         <%s! link ~href:Url.learn ~title:"Overview" ~current:(current = Overview) %>
 
@@ -26,11 +26,11 @@ let tabs
 
         <%s! link ~href:Url.books ~title:"Books" ~current:(current = Books) %>
 
-        <a href="<%s Url.manual %>" class="flex gap-2 justify-start px-4 py-2 items-center font-semibold opacity-80">
+        <a href="<%s Url.manual %>" class="flex gap-2 justify-start px-4 py-2 border-2 border-transparent rounded items-center font-semibold opacity-80">
           <%s! Icons.arrow_top_right_on_square "w-6 h-6" %> Language Manual
         </a>
 
-        <a href="<%s Url.api %>" class="flex gap-2 justify-start px-4 py-2 items-center font-semibold opacity-80">
+        <a href="<%s Url.api %>" class="flex gap-2 justify-start px-4 py-2 items-center font-semibold opacity-80 border-2 border-transparent">
           <%s! Icons.arrow_top_right_on_square "w-6 h-6" %> Standard Library API
         </a>
       </nav>

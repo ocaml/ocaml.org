@@ -9,26 +9,27 @@ let render
   let tutorial_sidebar_links_by_category category =
     tutorials |> List.filter (fun (x : Data.Tutorial.t) -> x.category = category) |> List.map render_tutorial |> String.concat "\n"
   in
+  <div class="flex flex-col gap-10">
+    <%s! Learn_layout.sidebar_link_group "Getting Started"
+      (tutorial_sidebar_links_by_category "getting-started") %>
 
-  <%s! Learn_layout.sidebar_link_group "Getting Started"
-    (tutorial_sidebar_links_by_category "getting-started") %>
+    <%s! Learn_layout.sidebar_link_group "Language"
+      (tutorial_sidebar_links_by_category "language") %>
 
-  <%s! Learn_layout.sidebar_link_group "Language"
-    (tutorial_sidebar_links_by_category "language") %>
+    <%s! Learn_layout.sidebar_link_group "Data Structures"
+      (tutorial_sidebar_links_by_category "data-structures") %>
 
-  <%s! Learn_layout.sidebar_link_group "Data Structures"
-    (tutorial_sidebar_links_by_category "data-structures") %>
+    <%s! Learn_layout.sidebar_link_group "Runtime"
+      (tutorial_sidebar_links_by_category "runtime") %>
 
-  <%s! Learn_layout.sidebar_link_group "Runtime"
-    (tutorial_sidebar_links_by_category "runtime") %>
+    <%s! Learn_layout.sidebar_link_group "Tutorials"
+      (tutorial_sidebar_links_by_category "tutorials") %>
 
-  <%s! Learn_layout.sidebar_link_group "Tutorials"
-    (tutorial_sidebar_links_by_category "tutorials") %>
+    <%s! Learn_layout.sidebar_link_group "Guides"
+      (tutorial_sidebar_links_by_category "guides") %>
 
-  <%s! Learn_layout.sidebar_link_group "Guides"
-    (tutorial_sidebar_links_by_category "guides") %>
-
-  <%s! Learn_layout.sidebar_link_group "Resources"
-    (tutorial_sidebar_links_by_category "resources")
-    ~extra_html:((render_tutorial_link ~title:"Best Practices" ~slug:"best-practices")
-      ^ (render_tutorial_link ~title:"OCaml Platform" ~slug:"platform")) %>
+    <%s! Learn_layout.sidebar_link_group "Resources"
+      (tutorial_sidebar_links_by_category "resources")
+      ~extra_html:((render_tutorial_link ~title:"Best Practices" ~slug:"best-practices")
+        ^ (render_tutorial_link ~title:"OCaml Platform" ~slug:"platform")) %>
+  </div>
