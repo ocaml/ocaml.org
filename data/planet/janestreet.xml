@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://blog.janestreet.com/feed.xml</id><title type="text">janestreet</title><updated>2023-07-05T05:48:04-00:00</updated><entry><link href="https://blog.janestreet.com/oxidizing-ocaml-ownership/" rel="alternate"/><contributor><uri>https://blog.janestreet.com/feed.xml</uri><name>janestreet</name></contributor><content type="html">&lt;p&gt;In &lt;a href=&quot;https://blog.janestreet.com/oxidizing-ocaml-locality&quot;&gt;part one&lt;/a&gt;, we discussed how OCaml&amp;rsquo;s
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://blog.janestreet.com/feed.xml</id><title type="text">janestreet</title><updated>2023-07-13T05:47:26-00:00</updated><entry><link href="https://blog.janestreet.com/were-sponsoring-some3/" rel="alternate"/><contributor><uri>https://blog.janestreet.com/feed.xml</uri><name>janestreet</name></contributor><content type="html">&lt;p&gt;Jane Street is excited to announce our sponsorship of
+&lt;a href=&quot;https://some.3b1b.co/&quot;&gt;SoME3&lt;/a&gt;, Grant Sanderson and James Schloss&amp;rsquo;s
+third Summer of Math Exposition. SoME is a contest that Grant and
+James created to encourage the development of fun and interesting
+mathematics education videos.&lt;/p&gt;
+
+</content><id>https://blog.janestreet.com/were-sponsoring-some3/</id><title type="text">We're sponsoring SoME3</title><updated>2023-07-06T00:00:00-00:00</updated><author><name>janestreet</name></author></entry><entry><link href="https://blog.janestreet.com/oxidizing-ocaml-ownership/" rel="alternate"/><contributor><uri>https://blog.janestreet.com/feed.xml</uri><name>janestreet</name></contributor><content type="html">&lt;p&gt;In &lt;a href=&quot;https://blog.janestreet.com/oxidizing-ocaml-locality&quot;&gt;part one&lt;/a&gt;, we discussed how OCaml&amp;rsquo;s
 locality mode enables safe stack allocation. In this post, we will
 explore additional modes for representing &lt;em&gt;ownership&lt;/em&gt;.&lt;/p&gt;
 
@@ -580,10 +586,4 @@ long. Right now our winter-intern class is ending; in five months we&amp;rsquo;l
 slew of new interns to get up to speed, and a few months after that we&amp;rsquo;ll have
 an incoming class of new hires.&lt;/p&gt;
 
-</content><id>https://blog.janestreet.com/making-making-better/</id><title type="text">Making making better</title><updated>2015-01-31T00:00:00-00:00</updated><author><name>janestreet</name></author></entry><entry><link href="https://blog.janestreet.com/13-virtues/" rel="alternate"/><contributor><uri>https://blog.janestreet.com/feed.xml</uri><name>janestreet</name></contributor><content type="html">&lt;p&gt;Very early on in his life, while on lengthy voyage from London to Philadelphia,
-Ben Franklin created a system of thirteen virtues to live his life by. He spent
-the remainder of his days giving special focus to one virtue per week in a 13
-week cycle, as well as noting the virtues he failed to live up to at the end of
-each day.&lt;/p&gt;
-
-</content><id>https://blog.janestreet.com/13-virtues/</id><title type="text">13 Virtues</title><updated>2015-01-02T00:00:00-00:00</updated><author><name>janestreet</name></author></entry></feed>
+</content><id>https://blog.janestreet.com/making-making-better/</id><title type="text">Making making better</title><updated>2015-01-31T00:00:00-00:00</updated><author><name>janestreet</name></author></entry></feed>

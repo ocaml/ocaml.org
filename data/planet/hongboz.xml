@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://hongboz.wordpress.com/feed/</id><title type="text">hongboz</title><updated>2023-07-05T05:48:05-00:00</updated><entry><link href="https://hongboz.wordpress.com/2013/09/16/code-layout-of-fan-a-metaprogramming-tool-for-ocaml/" rel="alternate"/><contributor><uri>https://hongboz.wordpress.com/feed/</uri><name>hongboz</name></contributor><content type="html">&lt;div&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://hongboz.wordpress.com/feed/</id><title type="text">hongboz</title><updated>2023-07-13T05:47:28-00:00</updated><entry><link href="https://hongboz.wordpress.com/2013/09/16/code-layout-of-fan-a-metaprogramming-tool-for-ocaml/" rel="alternate"/><contributor><uri>https://hongboz.wordpress.com/feed/</uri><name>hongboz</name></contributor><content type="html">&lt;div&gt;
 &lt;p&gt;
 Fan is a metaprogramming tool for OCaml.  I believe it would be an&lt;br/&gt;
 invaluable tool for the community when it&amp;rsquo;s production ready.
