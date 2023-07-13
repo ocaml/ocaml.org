@@ -1,6 +1,6 @@
 let render ~default_code =
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full !max-h-screen">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,29 +19,45 @@ let render ~default_code =
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/main.css" %>">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/codemirror.css" %>">
-    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/playground.css" %>">
-    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
+        <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/roboto-mono.css" %>">
     <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.2/split.min.js"
-            integrity="sha512-to2k78YjoNUq8+hnJS8AwFg/nrLRFLdYYalb18SlcsFRXavCOTfBF3lNyplKkLJeB8YjKVTb1FPHGSy9sXfSdg=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script id="playground-script"
+        <script id="playground-script"
       data-merlin-url="<%s Ocamlorg_static.Playground.url "merlin.min.js" %>"
       data-worker-url="<%s Ocamlorg_static.Playground.url "worker.min.js" %>"
       data-default-code="<%s default_code %>"
       src="<%s Ocamlorg_static.Playground.url "playground.min.js" %>" defer></script>
+    <style>
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #383838 #737373;
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #383838;
+  border-radius: 8px;
+  border: none;
+}
+    </style>
     <title>OCaml Playground</title>
   </head>
 
-  <body class="dark" style="display: flex !important;">
+  <body class="dark !flex flex-col h-full !max-h-screen">
     <%s! Header.render ~show_get_started:true ~active_top_nav_item:Header.Playground () %>
 
-    <div id="content">
-      <div id="panes">
+    <div class="flex h-full overflow-hidden">
+      <div id="panes" class="flex-1 flex max-h-fit">
 
-        <div id="pane-0">
-          <div id="editor1"></div>
+        <div id="pane-0" class="hidden md:flex md:flex-col w-[60%]">
+          <div id="editor1" class="flex-1 flex flex-col overflow-auto"></div>
           <div class="bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4 w-full bottom-0">
             <div class="flex gap-7 w-full justify-end items-center px-4">
               <button
@@ -59,7 +75,7 @@ let render ~default_code =
           </div>
         </div>
 
-        <div id="pane-1">
+        <div id="pane-1" class="flex flex-col w-full md:w-[40%]">
           <div
             class="output-bg w-full min-h-full"
             x-data="{ output: true, editor: window.innerWidth >= 767,mobile: window.innerWidth < 767 }"
@@ -98,7 +114,7 @@ let render ~default_code =
               </div>
               <div
                 id="output"
-                class="code-preview flex-col overflow-auto p-4 text-white"
+                class="h-auto flex-col overflow-auto p-4 text-white"
                 x-show="output && !mobile"
                 ></div>
             </div>
@@ -108,6 +124,3 @@ let render ~default_code =
     </div>
   </body>
 </html>
-<script>
-  Split(['#pane-0', '#pane-1'], { sizes: [60, 40] });
-</script>
