@@ -1,14 +1,17 @@
 ---
-author: Christine Rose
+authors:
+  - "Christine Rose"
 title: "Contribute to OCaml.org: Here's How You Can Participate"
 description: Share Your Projects, Insights, and Opportunities on OCaml.org!
-image: ../../media/contribute.jpg
-date: "2023-07-05"
+date: "2023-07-14"
+tags: [ocamlorg]
 ---
 
 Hello fellow OCaml enthusiasts!
 
 Are you passionate about OCaml and eager to showcase your exciting projects, share your insights, or highlight OCaml-related opportunities? Or are you a newcomer to OCaml wanting to learn more, develop your skills, and become active in the community? Look no further! We invite you to become an active contributor to OCaml.org, the thriving hub for OCaml developers and learners.
+
+![](/media/news/contribute.jpg)
 
 [Discuss](https://discuss.ocaml.org/) on OCaml.org serves as a central platform for the OCaml community, where individuals from all backgrounds come together to share knowledge, discuss ideas, and collaborate on OCaml-related endeavors. As an open and inclusive community, we welcome your unique perspectives, experiences, and contributions.
 
