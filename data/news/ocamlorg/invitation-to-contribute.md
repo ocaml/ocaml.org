@@ -1,7 +1,7 @@
 ---
 author: Christine Rose
-title: "Contribute to the OCaml Community: Share Your Projects, Insights, and Opportunities on OCaml.org!"
-description: Invitation to encourage community members to contribute to OCaml.org
+title: "Contribute to OCaml.org: Here's How You Can Participate"
+description: Share Your Projects, Insights, and Opportunities on OCaml.org!
 image: ../../media/contribute.jpg
 date: "2023-07-05"
 ---
