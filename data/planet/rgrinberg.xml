@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://rgrinberg.com/blog/atom.xml</id><title type="text">rgrinberg</title><updated>2023-07-13T05:47:28-00:00</updated><entry><link href="http://rgrinberg.com/posts/deriving-slowly/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;There&amp;rsquo;s been some recent grumbling about the usability of ppx in OCaml, and
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://rgrinberg.com/blog/atom.xml</id><title type="text">rgrinberg</title><updated>2023-07-14T05:47:25-00:00</updated><entry><link href="http://rgrinberg.com/posts/deriving-slowly/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;There&amp;rsquo;s been some recent grumbling about the usability of ppx in OCaml, and
 instead of just letting it slide again, I&amp;rsquo;ve decided to do something
 constructive about this and write a little tutorial on how to write a
 &lt;code class=&quot;docutils literal notranslate&quot;&gt;&lt;span class=&quot;pre&quot;&gt;deriving&lt;/span&gt;&lt;/code&gt; plugin.&lt;/p&gt;
