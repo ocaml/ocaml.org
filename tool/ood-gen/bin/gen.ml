@@ -20,6 +20,7 @@ let term_templates =
     ("workshops", Ood_gen.Workshop.template);
     ("video", Ood_gen.Video.template);
     ("planet", Ood_gen.Planet.template);
+    ("planet_feed", Ood_gen.Planet.Feed.create_feed);
     ("opam_user", Ood_gen.Opam_user.template);
     ("workflows", Ood_gen.Workflow.template);
     ("pages", Ood_gen.Page.template);

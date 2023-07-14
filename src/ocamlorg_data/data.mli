@@ -257,9 +257,14 @@ module Watch : sig
 end
 
 module Planet : sig
+  module Source : sig
+    type t = { id : string option; name : string; url : string }
+  end
+
   type t = {
     title : string;
     slug : string;
+    source : Source.t;
     description : string option;
     authors : string list option;
     url : string option;

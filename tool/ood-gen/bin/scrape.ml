@@ -1,6 +1,6 @@
 open Cmdliner
 
-let term_scrapers = [ ("planet", Ood_gen.Planet.scrape) ]
+let term_scrapers = [ ("planet", Ood_gen.Planet.Scraper.scrape) ]
 
 let cmds =
   Cmd.group (Cmd.info "ood-scrape")
