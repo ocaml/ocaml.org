@@ -33,7 +33,7 @@ Below are a few ideas for original blog posts that will attract new OCaml users 
 **Other ways to contribute.** Success Stories, Community Events/Meetups, and more! Instructions on how to submit the various contributions can be found in the [CONTRIBUTING.md document](https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md) in the OCaml.org GitHub repo.
 
 ### Participate in OCaml's Discord Channel
-There is now a channel #ocaml.org on [the OCaml Discord server](https://discord.com/channels/436568060288172042/1126433906976112700)! If you're not yet active on Discord, please [follow this invitation link](https://discord.gg/cCYQbqN) to join the OCaml.org channel and claim your Discord profile. 
+There is now a [channel #ocaml.org on the OCaml Discord server](https://discord.com/channels/436568060288172042/1126433906976112700)! If you're not yet active on Discord, please [follow this invitation link](https://discord.gg/cCYQbqN) to join the OCaml Discord server first. 
 
 The channel's purpose is to discuss ideas, proposals, feature requests, and bugs related to OCaml.org. There's already been some great discussions and suggestions in Discord! It's perfect as an informal way to contribute to OCaml.org, and it's a great place to get in contact as well!
 
