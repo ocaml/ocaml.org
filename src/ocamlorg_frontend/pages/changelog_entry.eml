@@ -1,7 +1,7 @@
 let render (change : Data.Changelog.t) =
 Layout.render
-~title:"<%s change.title %> • OCaml Changelog"
-~description:"<%s change.title %>" @@
+~title:(Printf.sprintf "%s • OCaml Changelog" change.title)
+~description:change.title @@
 <div class="bg-default dark:bg-dark-default pt-12 pb-10 lg:py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">
