@@ -8,7 +8,8 @@ date: 2012-12-18T23:31:33-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- mcclurmc
+- Mike McClurg
+source:
 ---
 
 <p>I&rsquo;ve recently stumbled upon a useful OCaml design pattern for functorizing an existing module, without changing the way existing clients of that module use it. This is really useful for stubbing out dependencies when you&rsquo;re refactoring code for unit tests. Here&rsquo;s a simplified example from a bit of code that I refactored today.</p>

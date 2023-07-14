@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2023-03-08-more-than-a-day-how-does-tarides-promot
 date: 2023-03-08T00:00:00-00:00
 preview_image: https://tarides.com/static/2ddb292bf8d2bf872e48454b5315fb49/0132d/March8.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>The aim of <a href="https://www.internationalwomensday.com/About">International Women&rsquo;s Day</a> is to raise awareness of gender inequalities and call for the empowerment of women worldwide. The goal is to forge a gender equal world and advance women&rsquo;s equality in all forms.</p>

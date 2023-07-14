@@ -6,11 +6,12 @@ description: Patrick (@ryyppy) is working with OSS in ReScript and part of the c
   tez amount to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX) Watch live at
   https://www.twitch.tv/emelletv
 url: https://watch.ocaml.org/w/diKYNSqbUGEsDZ6hXxDvck
-date: 2021-10-20T15:44:31+00:00
+date: 2023-03-17T19:00:54-00:00
 preview_image: https://watch.ocaml.org/lazy-static/previews/848210e7-82e6-45f0-b968-e350d8e0d29a.jpg
 featured:
 authors:
-- emelle-tv
+- EmelleTV
+source:
 ---
 
 <p>Patrick (@ryyppy) is working with OSS in ReScript and part of the core team</p>

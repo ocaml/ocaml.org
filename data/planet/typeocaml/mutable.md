@@ -8,7 +8,8 @@ date: 2015-01-21T01:09:42-00:00
 preview_image:
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/01/mutable_2.jpg#hero" alt="mutable"/></p>

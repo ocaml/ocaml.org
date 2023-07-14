@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Vincent Balat
+source:
 ---
 
 <p>This post (and the following one) is a step by step tutorial about

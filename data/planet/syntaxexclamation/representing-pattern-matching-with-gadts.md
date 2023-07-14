@@ -8,7 +8,8 @@ date: 2014-04-11T22:38:56-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- syntaxexclamation
+- Matthias Puech
+source:
 ---
 
 <p>Here is a little programming pearl. I&rsquo;ve been wanting to work on pattern-matching for a while now, and it seems like I will finally have this opportunity here at my new (academic) home, <a href="http://cs.mcgill.ca/">McGill</a>.</p>

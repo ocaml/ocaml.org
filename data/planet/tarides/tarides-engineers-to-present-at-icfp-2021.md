@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2021-08-26-tarides-engineers-to-present-at-icfp-20
 date: 2021-08-26T00:00:00-00:00
 preview_image: https://tarides.com/static/3ffd2661c6cd98ccc55ced480bc5e65a/eee8e/camel_party.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>This year marks the 25th anniversary of the OCaml Language! It's an exciting
@@ -49,7 +52,7 @@ Labs Consultancy), <a href="https://icfp21.sigplan.org/profile/tomkelly">Tom Kel
 Sivaramakrishnan</a> of IIT
 Madras.</p>
 <p>Next up is <strong>Leveraging Formal Specifications to Generate Fuzzing Suites</strong> at
-<strong>11:10 London / 12:10 Paris,</strong> presented by Tarides's own <a href="https://icfp21.sigplan.org/profile/nicolasosborne">Nicolas
+<strong>11:10 London / 12:10 Paris,</strong> presented by Tarides' own <a href="https://icfp21.sigplan.org/profile/nicolasosborne">Nicolas
 Osborne</a> and <a href="https://icfp21.sigplan.org/profile/clementpascutto">Cl&eacute;ment
 Pascutto</a>. They'll discuss
 how developers typically first have to capture the semantics they want when

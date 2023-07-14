@@ -7,7 +7,8 @@ date: 2014-09-11T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- inria
+- Caml INRIA
+source:
 ---
 
 

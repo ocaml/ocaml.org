@@ -6,7 +6,8 @@ date: 2017-01-18T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- reynard
+- Gemma Gordon (OCaml Labs)
+source:
 ---
 
 <p>As referenced in a <a href="http://reynard.io/2016/11/01/MirageOSFeedback.html">previous post</a> I wanted to check in with <a href="https://mirage.io/">MirageOS</a> community members to gauge current opinion about the fortnightly <a href="https://irclog.whitequark.org/mirage/2016-02-13">IRC meetings</a>, and to see if there were any positive changes we could make. The main focus of the questions was directed specifically at the meeting itself, and other more general MirageOS community questions that help gauge the sample and to see where respondents currently access MirageOS information.</p>

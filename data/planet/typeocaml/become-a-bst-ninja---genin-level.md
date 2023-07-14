@@ -7,7 +7,8 @@ date: 2014-12-19T12:28:00-00:00
 preview_image:
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2014/12/bst_ninja.jpg#hero" alt="bst_ninja"/></p>

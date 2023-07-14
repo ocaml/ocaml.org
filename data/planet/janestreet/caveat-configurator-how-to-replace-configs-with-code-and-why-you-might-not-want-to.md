@@ -8,6 +8,9 @@ url: https://blog.janestreet.com/caveat-configurator-how-to-replace-configs-with
 date: 2017-04-25T00:00:00-00:00
 preview_image: https://blog.janestreet.com/caveat-configurator-how-to-replace-configs-with-code-and-why-you-might-not-want-to/dominick-talk.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>We have a new <a href="https://www.janestreet.com/tech-talks/">tech talk</a> coming up on

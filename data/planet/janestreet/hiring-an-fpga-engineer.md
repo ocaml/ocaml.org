@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/hiring-an-fpga-engineer/
 date: 2017-08-16T00:00:00-00:00
 preview_image: https://blog.janestreet.com/hiring-an-fpga-engineer/fpga_hiring.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Jane Street is looking to hire an engineer with experience in both

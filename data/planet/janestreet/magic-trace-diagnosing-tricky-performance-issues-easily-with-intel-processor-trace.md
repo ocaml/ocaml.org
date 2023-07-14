@@ -8,6 +8,9 @@ url: https://blog.janestreet.com/magic-trace/
 date: 2022-01-11T00:00:00-00:00
 preview_image: https://blog.janestreet.com/magic-trace/magic-trace-blog-image.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Intel Processor Trace is a hardware technology that can record all

@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - The Ocsigen Team
+source:
 ---
 
 <p>New release: Ocsigen Toolkit 2.7</p>

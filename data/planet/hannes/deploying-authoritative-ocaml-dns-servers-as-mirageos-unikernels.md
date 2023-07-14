@@ -5,6 +5,9 @@ url: https://hannes.robur.coop/Posts/DnsServer
 date: 2019-12-23T21:30:53-00:00
 preview_image:
 featured:
+authors:
+- hannes
+source:
 ---
 
 <h2>Goal</h2>
@@ -34,7 +37,7 @@ git-repo&gt; git add mirage &amp;&amp; git commit -m initial &amp;&amp; git push
 <p>Let's create a fresh <code>switch</code> for the DNS journey:</p>
 <pre><code class="language-shell">$ opam init
 $ opam update
-$ opam switch create udns 4.09.0
+$ opam switch create udns 4.14.1
 # waiting a bit, a fresh OCaml compiler is getting bootstrapped
 $ eval `opam env` #sets some environment variables
 </code></pre>
@@ -49,29 +52,26 @@ successfully checked zone
 <p>FWIW, <code>ozone</code> accepts <code>--old &lt;filename&gt;</code> to check whether an update from the old zone to the new is fine. This can be used as <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">pre-commit hook</a> in your git repository to avoid bad parse states in your name servers.</p>
 <h3>Getting the primary up</h3>
 <p>The next step is to compile the primary server and run it to serve the domain data. Since the git-via-ssh client is not yet released, we need to add a custom opam repository to this switch.</p>
-<pre><code class="language-shell"># git via ssh is not yet released, but this opam repository contains the branch information
-$ opam repo add git-ssh git+https://github.com/roburio/git-ssh-dns-mirage3-repo.git
-# get the `mirage` application via opam
+<pre><code class="language-shell"># get the `mirage` application via opam
 $ opam install lwt mirage
 
 # get the source code of the unikernels
-$ git clone -b future https://github.com/roburio/unikernels.git
-$ cd unikernels/primary-git
+$ git clone https://github.com/roburio/dns-primary-git.git
+$ cd dns-primary-git
 
 # let's build the server first as unix application
-$ mirage configure --prng fortuna #--no-depext if you have all system dependencies
-$ make depend
+$ mirage configure #--no-depext if you have all system dependencies
 $ make
 
 # run it
-$ ./primary_git
+$ dist/primary-git
 # starts a unix process which clones https://github.com/roburio/udns.git
 # attempts to parse the data as zone files, and fails on parse error
-$ ./primary-git --remote=https://my-public-git-repository
+$ dist/primary-git --remote=https://my-public-git-repository
 # this should fail with ENOACCESS since the DNS server tries to listen on port 53
 
 # which requires a privileged user, i.e. su, sudo or doas
-$ sudo ./primary-git --remote=https://my-public-git-repository
+$ sudo dist/primary-git --remote=https://my-public-git-repository
 # leave it running, run the following programs in a different shell
 
 # test it
@@ -85,27 +85,27 @@ $ dig any mirage @127.0.0.1
 <p>Let's authenticate the access by using ssh, so we feel ready to push data there as well. The primary-git unikernel already includes an experimental <a href="https://github.com/haesbaert/awa-ssh">ssh client</a>, all we need to do is setting up credentials - in the following a RSA keypair and the server fingerprint.</p>
 <pre><code class="language-shell"># collect the RSA host key fingerprint
 $ ssh-keyscan &lt;git-server&gt; &gt; /tmp/git-server-public-keys
-$ ssh-keygen -l -E sha256 -f /tmp/git-server-public-keys | grep RSA
-2048 SHA256:a5kkkuo7MwTBkW+HDt4km0gGPUAX0y1bFcPMXKxBaD0 &lt;git-server&gt; (RSA)
+$ ssh-keygen -l -E sha256 -f /tmp/git-server-public-keys | grep ED25519
+256 SHA256:a5kkkuo7MwTBkW+HDt4km0gGPUAX0y1bFcPMXKxBaD0 &lt;git-server&gt; (ED25519)
 # we're interested in the SHA256:yyy only
 
 # generate a ssh keypair
-$ awa_gen_key # installed by the make depend step above in ~/.opam/udns/bin
-seed is pIKflD07VT2W9XpDvqntcmEW3OKlwZL62ak1EZ0m
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5b2cSSkZ5/MAu7pM6iJLOaX9tJsfA8DB1RI34Zygw6FA0y8iisbqGCv6Z94ZxreGATwSVvrpqGo5p0rsKs+6gQnMCU1+sOC4PRlxy6XKgj0YXvAZcQuxwmVQlBHshuq0CraMK9FASupGrSO8/dW30Kqy1wmd/IrqW9J1Cnw+qf0C/VEhIbo7btlpzlYpJLuZboTvEk1h67lx1ZRw9bSPuLjj665yO8d0caVIkPp6vDX20EsgITdg+cFjWzVtOciy4ETLFiKkDnuzHzoQ4EL8bUtjN02UpvX2qankONywXhzYYqu65+edSpogx2TuWFDJFPHgcyO/ZIMoluXGNgQlP awa@awa.local
+$ awa_gen_key --keytype ed25510 # installed by the make step above in ~/.opam/udns/bin
+private key: ed25519:nO7ervdJqzPfuvdM/J4qImipwVoI5gl53fpqgjZnv9w=
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyliWbwWWXBc1+DRIzReLQ4UFiVGXJ6Paw1Jts+XQte awa@awa.local
 # please run your own awa_gen_key, don't use the numbers above
 </code></pre>
 <p>The public key needs is in standard OpenSSH format and needs to be added to the list of accepted keys on your server - the exact steps depend on your git server, if you're running your own with <a href="https://github.com/tv42/gitosis">gitosis</a>, add it as new public key file and grant that key access to the data repository. If you use gitlab or github, you may want to create a new user account and with the generated key.</p>
-<p>The private key is not displayed, but only the seed required to re-generate it, when using the same random number generator, in our case <a href="http://mirleft.github.io/ocaml-nocrypto/doc/Nocrypto.Rng.html">fortuna implemented by nocrypto</a> - used by both <code>awa_gen_key</code> and <code>primary_git</code>. The seed is provided as command-line argument while starting <code>primary_git</code>:</p>
+<p>The private key is not displayed, but only the seed required to re-generate it, when using the same random number generator, in our case <a href="https://mirage.github.io/mirage-crypto/doc/mirage-crypto-rng/Mirage_crypto_rng/index.html">fortuna implemented by mirage-crypto</a> - used by both <code>awa_gen_key</code> and <code>primary-git</code>. The seed is provided as command-line argument while starting <code>primary-git</code>:</p>
 <pre><code class="language-shell"># execute with git over ssh, authenticator from ssh-keyscan, seed from awa_gen_key
-$ ./primary_git --authenticator=SHA256:a5kkkuo7MwTBkW+HDt4km0gGPUAX0y1bFcPMXKxBaD0 --seed=pIKflD07VT2W9XpDvqntcmEW3OKlwZL62ak1EZ0m --remote=ssh://git@&lt;git-server&gt;/repo-name.git
+$ ./primary-git --authenticator=SHA256:a5kkkuo7MwTBkW+HDt4km0gGPUAX0y1bFcPMXKxBaD0 --ssh-key=ed25519:nO7ervdJqzPfuvdM/J4qImipwVoI5gl53fpqgjZnv9w= --remote=git@&lt;git-server&gt;:repo-name.git
 # started up, you can try the host and dig commands from above if you like
 </code></pre>
 <p>To wrap up, we now have a primary authoritative name server for our zone running as Unix process, which clones a remote git repository via ssh on startup and then serves it.</p>
 <h3>Authenticated data updates</h3>
 <p>Our remote git repository is the source of truth, if you need to add a DNS entry to the zone, you git pull, edit the zone file, remember to increase the serial in the SOA line, run <code>ozone</code>, git commit and push to the repository.</p>
-<p>So, the <code>primary_git</code> needs to be informed of git pushes. This requires a communication channel from the git server (or somewhere else, e.g. your laptop) to the DNS server. I prefer in-protocol solutions over adding yet another protocol stack, no way my DNS server will talk HTTP REST.</p>
-<p>The DNS protocol has an extension for <a href="https://tools.ietf.org/html/rfc1996">notifications of zone changes</a> (as a DNS packet), usually used between the primary and secondary servers. The <code>primary_git</code> accepts these notify requests (i.e. bends the standard slightly), and upon receival pulls the remote git repository, and serves the fresh zone files. Since a git pull may be rather excessive in terms of CPU cycles and network bandwidth, only authenticated notifications are accepted.</p>
+<p>So, the <code>primary-git</code> needs to be informed of git pushes. This requires a communication channel from the git server (or somewhere else, e.g. your laptop) to the DNS server. I prefer in-protocol solutions over adding yet another protocol stack, no way my DNS server will talk HTTP REST.</p>
+<p>The DNS protocol has an extension for <a href="https://tools.ietf.org/html/rfc1996">notifications of zone changes</a> (as a DNS packet), usually used between the primary and secondary servers. The <code>primary-git</code> accepts these notify requests (i.e. bends the standard slightly), and upon receival pulls the remote git repository, and serves the fresh zone files. Since a git pull may be rather excessive in terms of CPU cycles and network bandwidth, only authenticated notifications are accepted.</p>
 <p>The DNS protocol specifies in another extension <a href="https://tools.ietf.org/html/rfc2845">authentication (DNS TSIG)</a> with transaction signatures on DNS packets including a timestamp and fudge to avoid replay attacks. As key material hmac secrets distribued to both the communication endpoints are used.</p>
 <p>To recap, the primary server is configured with command line parameters (for remote repository url and ssh credentials), and serves data from a zonefile. If the secrets would be provided via command line, a restart would be necessary for adding and removing keys. If put into the zonefile, they would be publicly served on request. So instead, we'll use another file, still in zone file format, in the top-level domain <code>_keys</code>, i.e. the <code>mirage._keys</code> file contains keys for the <code>mirage</code> zone. All files ending in <code>._keys</code> are parsed with the normal parser, but put into an authentication store instead of the domain data store, which is served publically.</p>
 <p>For encoding hmac secrets into DNS zone file format, the <a href="https://tools.ietf.org/html/rfc4034#section-2"><code>DNSKEY</code></a> format is used (designed for DNSsec). The <a href="https://www.isc.org/bind/">bind</a> software comes with <code>dnssec-keygen</code> and <code>tsig-keygen</code> to generate DNSKEY output: flags is 0, protocol is 3, and algorithm identifier for SHA256 is 163 (SHA384 164, SHA512 165). This is reused by the OCaml DNS library. The key material itself is base64 encoded.</p>
@@ -120,7 +120,7 @@ git-repo&gt; echo &quot;personal._update.mirage. DNSKEY 0 3 163 kJJqipaQHQWqZL31
 git-repo&gt; git add mirage._keys &amp;&amp; git commit -m &quot;add hmac secret&quot; &amp;&amp; git push
 
 # now we need to restart the primary git to get the git repository with the key
-$ ./primary_git --seed=... # arguments from above, remote git, host key fingerprint, private key seed
+$ ./primary-git --ssh-key=... # arguments from above, remote git, host key fingerprint, private key seed
 
 # now test that a notify results in a git pull
 $ onotify 127.0.0.1 mirage --key=personal._update.mirage:SHA256:kJJqipaQHQWqZL31Raar6uPnepGFIdtpjkXot9rv2xg=
@@ -130,13 +130,16 @@ $ onotify 127.0.0.1 mirage --key=personal._update.mirage:SHA256:kJJqipaQHQWqZL31
 <p>Ok, this onotify command line could be setup as a git post-commit hook, or run manually after each manual git push.</p>
 <h3>Secondary</h3>
 <p>It's time to figure out how to integrate the secondary name server. An already existing bind or something else that accepts notifications and issues zone transfers with hmac-sha256 secrets should work out of the box. If you encounter interoperability issues, please get in touch with me.</p>
-<p>The <code>secondary</code> subdirectory of the cloned <code>unikernels</code> repository is another unikernel that acts as secondary server. It's only command line argument is a list of hmac secrets used for authenticating that the received data originates from the primary server. Data is initially transferred by a <a href="https://tools.ietf.org/html/rfc5936">full zone transfer (AXFR)</a>, later updates (upon refresh timer or notify request sent by the primary) use <a href="https://tools.ietf.org/html/rfc1995">incremental (IXFR)</a>. Zone transfer requests and data are authenticated with transaction signatures again.</p>
+<p>The <code>secondary</code> unikernel is available from another git repository:</p>
+<pre><code class="language-shell"># get the secondary sources
+$ git clone https://github.com/roburio/dns-secondary.git
+$ cd dns-secondary
+</code></pre>
+<p>It's only command line argument is a list of hmac secrets used for authenticating that the received data originates from the primary server. Data is initially transferred by a <a href="https://tools.ietf.org/html/rfc5936">full zone transfer (AXFR)</a>, later updates (upon refresh timer or notify request sent by the primary) use <a href="https://tools.ietf.org/html/rfc1995">incremental (IXFR)</a>. Zone transfer requests and data are authenticated with transaction signatures again.</p>
 <p>Convenience by OCaml DNS is that transfer key names matter, and are of the form <primary-ip>.<secondary-ip>._transfer.domain, i.e. <code>1.1.1.1.2.2.2.2._transfer.mirage</code> if the primary server is 1.1.1.1, and the secondary 2.2.2.2. Encoding the IP address in the name allows both parties to start the communication: the secondary starts by requesting a SOA for all domains for which keys are provided on command line, and if an authoritative SOA answer is received, the AXFR is triggered. The primary server emits notification requests on startup and then on every zone change (i.e. via git pull) to all secondary IP addresses of transfer keys present for the specific zone in addition to the notifications to the NS records in the zone.</secondary-ip></primary-ip></p>
-<pre><code class="language-shell">$ cd ../secondary
-$ mirage configure --prng fortuna
-# make depend should not be needed since all packages are already installed by the primary-git
+<pre><code class="language-shell">$ mirage configure
 $ make
-$ ./secondary
+$ ./dist/secondary
 </code></pre>
 <h3>IP addresses and routing</h3>
 <p>Both primary and secondary serve the data on the DNS port (53) on UDP and TCP. To run both on the same machine and bind them to different IP addresses, we'll use a layer 2 network (ethernet frames) with a host system software switch (bridge interface <code>service</code>), the unikernels as virtual machines (or seccomp-sandboxed) via the <a href="https://github.com/solo5/solo5">solo5</a> backend. Using xen is possible as well. As IP address range we'll use 10.0.42.0/24, and the host system uses the 10.0.42.1.</p>
@@ -179,24 +182,23 @@ ns2	A	10.0.42.3
 git-repo&gt; cat mirage._keys
 personal._update.mirage. DNSKEY 0 3 163 kJJqipaQHQWqZL31Raar6uPnepGFIdtpjkXot9rv2xg=
 10.0.42.2.10.0.42.3._transfer.mirage. DNSKEY 0 3 163 cDK6sKyvlt8UBerZlmxuD84ih2KookJGDagJlLVNo20=
-git-repo&gt; git commit -m &quot;udpates&quot; . &amp;&amp; git push
+git-repo&gt; git commit -m &quot;updates&quot; . &amp;&amp; git push
 </code></pre>
 <p>Ok, the git repository is ready, now we need to compile the unikernels for the virtualisation target (see <a href="https://mirage.io/wiki/hello-world#Building-for-Another-Backend">other targets</a> for further information).</p>
 <pre><code class="language-shell"># back to primary
-$ cd ../primary-git
-$ mirage configure -t hvt --prng fortuna # or e.g. -t spt (and solo5-spt below)
+$ cd ../dns-primary-git
+$ mirage configure -t hvt # or e.g. -t spt (and solo5-spt below)
 # installs backend-specific opam packages, recompiles some
-$ make depend
 $ make
 [...]
-$ solo5-hvt --net:service=tap0 -- primary_git.hvt --ipv4=10.0.42.2/24 --ipv4-gateway=10.0.42.1 --seed=.. --authenticator=.. --remote=ssh+git://...
+$ solo5-hvt --net:service=tap0 -- primary_git.hvt --ipv4=10.0.42.2/24 --ipv4-gateway=10.0.42.1 --seed=.. --authenticator=.. --remote=...
 # should now run as a virtual machine (kvm, bhyve), and clone the git repository
 $ dig any mirage @10.0.42.2
 # should reply with the SOA and NS records, and also the name server address records in the additional section
 
 # secondary
-$ cd ../secondary
-$ mirage configure -t hvt --prng fortuna
+$ cd ../dns-secondary
+$ mirage configure -t hvt
 $ make
 $ solo5-hvt --net:service=tap1 -- secondary.hvt --ipv4=10.0.42.3/24 --keys=10.0.42.2.10.0.42.3._transfer.mirage:SHA256:cDK6sKyvlt8UBerZlmxuD84ih2KookJGDagJlLVNo20=
 # an ipv4-gateway is not needed in this setup, but in real deployment later
@@ -263,9 +265,10 @@ $ dig my-other.mirage @10.0.42.3
 <p>Note that neither the signing request nor the certificate contain private key material, thus it is fine to serve them publically. Please also note, that the service polls for the certificate for the hostname in DNS, which is valid (start and end date) certificate and uses the same public key, this certificate is used and steps 3-10 are not executed.</p>
 <p>The let's encrypt unikernel does not serve anything, it is a reactive system which acts upon notification from the primary. Thus, it can be executed in a private address space (with a NAT). Since the OCaml DNS server stack needs to push notifications to it, it preserves all incoming signed SOA requests as candidates for notifications on update. The let's encrypt unikernel ensures to always have a connection to the primary to receive notifications.</p>
 <pre><code class="language-shell"># getting let's encrypt up and running
-$ cd ../lets-encrypt
-$ mirage configure -t hvt --prng fortuna
-$ make depend
+$ cd ..
+$ git clone https://github.com/roburio/dns-letsencrypt-secondary.git
+$ cd dns-letsencrypt-secondary
+$ mirage configure -t hvt
 $ make
 
 # run it
@@ -278,7 +281,7 @@ $ ocertify 10.0.42.2 foo.mirage
 <p>As fine print, while this tutorial was about the <code>mirage</code> zone, you can stick any number of zones into the git repository. If you use a <code>_keys</code> file (without any domain prefix), you can configure hmac secrets for all zones, i.e. something to use in your let's encrypt unikernel and secondary unikernel. Dynamic addition of zones is supported, just create a new zonefile and notify the primary, the secondary will be notified and pick it up. The primary responds to a signed SOA for the root zone (i.e. requested by the secondary) with the SOA response (not authoritative), and additionally notifications for all domains of the primary.</p>
 <h3>Conclusion and thanks</h3>
 <p>This tutorial presented how to use the OCaml DNS based unikernels to run authoritative name servers for your domain, using a git repository as the source of truth, dynamic authenticated updates, and let's encrypt certificate issuing.</p>
-<p>There are further steps to take, such as monitoring -- have a look at the <code>monitoring</code> branch of the opam repository above, and the <code>future-robur</code> branch of the unikernels repository above, which use a second network interface for reporting syslog and metrics to telegraf / influx / grafana. Some DNS features are still missing, most prominently DNSSec.</p>
-<p>I'd like to thank all people involved in this software stack, without other key components, including <a href="https://github.com/mirage/ocaml-git">git</a>, <a href="https://irmin.io/">irmin 2.0</a>, <a href="https://github.com/mirleft/ocaml-nocrypto">nocrypto</a>, <a href="https://github.com/haesbaert/awa-ssh">awa-ssh</a>, <a href="https://github.com/mirage/ocaml-cohttp">cohttp</a>, <a href="https://github.com/solo5/sol5">solo5</a>, <a href="https://github.com/mirage/mirage">mirage</a>, <a href="https://github.com/mmaker/ocaml-letsencrypt">ocaml-letsencrypt</a>, and more.</p>
+<p>There are further steps to take, such as monitoring (<code>mirage configure --monitoring</code>), which use a second network interface for reporting syslog and metrics to telegraf / influx / grafana. Some DNS features are still missing, most prominently DNSSec.</p>
+<p>I'd like to thank all people involved in this software stack, without other key components, including <a href="https://github.com/mirage/ocaml-git">git</a>, <a href="https://github.com/mirage/mirage-crypto">mirage-crypto</a>, <a href="https://github.com/mirage/awa-ssh">awa-ssh</a>, <a href="https://github.com/solo5/sol5">solo5</a>, <a href="https://github.com/mirage/mirage">mirage</a>, <a href="https://github.com/mmaker/ocaml-letsencrypt">ocaml-letsencrypt</a>, and more.</p>
 <p>If you want to support our work on MirageOS unikernels, please <a href="https://robur.coop/Donate">donate to robur</a>. I'm interested in feedback, either via <a href="https://twitter.com/h4nnes">twitter</a>, <a href="https://mastodon.social/@hannesm">hannesm@mastodon.social</a> or via eMail.</p>
 

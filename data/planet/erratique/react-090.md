@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - "Daniel B\xFCnzli"
+source:
 ---
 
 <p>First release of React, an OCaml module for functional reactive programming (<abbr>FRP</abbr>).</p>

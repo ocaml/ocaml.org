@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2019-09-13-decompress-experiences-with-ocaml-optim
 date: 2019-09-13T00:00:00-00:00
 preview_image: https://tarides.com/static/fff1a2a9a2dbdd9ac7efd7c97ac5aa2a/96c5f/camel_sunset.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>In our <a href="https://tarides.com/blog/2019-08-26-decompress-the-new-decompress-api.html">first article</a> we mostly discussed
@@ -60,11 +63,11 @@ according the run-time representation of your structure. Of course, for integers
 should be only a <code>cmpq</code> assembly instruction. However, some simple code like:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> x <span class="token operator">=</span> min <span class="token number">0</span> <span class="token number">1</span></code></pre></div>
 <p>will produce this CMM and assembly code:</p>
-<div class="gatsby-highlight" data-language="cmm"><pre class="language-cmm"><code class="language-cmm">(let x/1002 (app{main.ml:1,8-15} &quot;camlStdlib__min_1028&quot; 1 3 val)
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">(let x/1002 (app{main.ml:1,8-15} &quot;camlStdlib__min_1028&quot; 1 3 val)
    ...)</code></pre></div>
-<div class="gatsby-highlight" data-language="asm"><pre class="language-asm"><code class="language-asm">.L101:
-        movq    $3, %rbx
-        movq    $1, %rax
+<div class="gatsby-highlight" data-language="nasm"><pre class="language-nasm"><code class="language-nasm"><span class="token label function">.L101:</span>
+        movq    <span class="token number">$3</span>, <span class="token operator">%</span><span class="token register variable">rbx</span>
+        movq    <span class="token number">$1</span>, <span class="token operator">%</span><span class="token register variable">rax</span>
         call    camlStdlib__min_1028@PLT</code></pre></div>
 <p>Note that <em><a href="https://en.wikipedia.org/wiki/Lambda_calculus#Beta_reduction">beta-reduction</a></em>, <em><a href="https://en.wikipedia.org/wiki/Inline_expansion">inlining</a></em> and
 specialization were not done in this code. OCaml does not optimize your code
@@ -75,13 +78,13 @@ very much &ndash; the good point is predictability of the produced assembly outp
 
 <span class="token keyword">let</span> x <span class="token operator">=</span> min <span class="token number">0</span> <span class="token number">1</span></code></pre></div>
 <p>We have:</p>
-<div class="gatsby-highlight" data-language="cmm"><pre class="language-cmm"><code class="language-cmm">(function{main.ml:2,8-43} camlMain__min_1003 (a/1004: val b/1005: val)
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">(function{main.ml:2,8-43} camlMain__min_1003 (a/1004: val b/1005: val)
  (if (&lt;= a/1004 b/1005) a/1004 b/1005))
 
 (function camlMain__entry ()
  (let x/1006 1 (store val(root-init) (+a &quot;camlMain&quot; 8) 1)) 1a)</code></pre></div>
-<div class="gatsby-highlight" data-language="asm"><pre class="language-asm"><code class="language-asm">.L101:
-        cmpq    %rbx, %rax
+<div class="gatsby-highlight" data-language="nasm"><pre class="language-nasm"><code class="language-nasm"><span class="token label function">.L101:</span>
+        cmpq    <span class="token operator">%</span><span class="token register variable">rbx</span>, <span class="token operator">%</span><span class="token register variable">rax</span>
         jg      .L100
         ret</code></pre></div>
 <p>So we have all optimizations, in this produced code, <code>x</code> was evaluated as <code>0</code>
@@ -118,12 +121,12 @@ following (nonsensical) C program:</p>
   <span class="token keyword">char</span> <span class="token operator">*</span>s <span class="token operator">=</span> <span class="token function">calloc</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   s <span class="token operator">=</span> <span class="token function">hide</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token function">memset</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token string">'B'</span><span class="token punctuation">,</span> <span class="token number">100000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">memset</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token char">'B'</span><span class="token punctuation">,</span> <span class="token number">100000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token class-name">clock_t</span> start <span class="token operator">=</span> <span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">1280000</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
-    s<span class="token punctuation">[</span><span class="token function">strlen</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'A'</span><span class="token punctuation">;</span>
+    s<span class="token punctuation">[</span><span class="token function">strlen</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token char">'A'</span><span class="token punctuation">;</span>
 
   <span class="token class-name">clock_t</span> end <span class="token operator">=</span> <span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -133,19 +136,19 @@ following (nonsensical) C program:</p>
 <span class="token punctuation">}</span></code></pre></div>
 <p>We will compile this code with <code>-O2</code> (the second level of optimization in C),
 once with <code>-DHIDE_ALIGNEMENT</code> and once without. The assembly emitted differs:</p>
-<div class="gatsby-highlight" data-language="asm"><pre class="language-asm"><code class="language-asm">.L3:
-	movq	%rbp, %rdi
+<div class="gatsby-highlight" data-language="nasm"><pre class="language-nasm"><code class="language-nasm"><span class="token label function">.L3:</span>
+	movq	<span class="token operator">%</span><span class="token register variable">rbp</span>, <span class="token operator">%</span><span class="token register variable">rdi</span>
 	call	strlen
-	subl	$1, %ebx
-	movb	$65, 0(%rbp,%rax)
+	subl	<span class="token number">$1</span>, <span class="token operator">%</span><span class="token register variable">ebx</span>
+	movb	<span class="token number">$65</span>, <span class="token number">0</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>,<span class="token operator">%</span><span class="token register variable">rax</span>)
 	jne	.L3</code></pre></div>
-<div class="gatsby-highlight" data-language="asm"><pre class="language-asm"><code class="language-asm">.L3:
-	movl	(%rdx), %ecx
-	addq	$4, %rdx
-	leal	-16843009(%rcx), %eax
-	notl	%ecx
-	andl	%ecx, %eax
-	andl	$-2139062144, %eax
+<div class="gatsby-highlight" data-language="nasm"><pre class="language-nasm"><code class="language-nasm"><span class="token label function">.L3:</span>
+	movl	(<span class="token operator">%</span><span class="token register variable">rdx</span>), <span class="token operator">%</span><span class="token register variable">ecx</span>
+	addq	<span class="token number">$4</span>, <span class="token operator">%</span><span class="token register variable">rdx</span>
+	leal	<span class="token operator">-</span><span class="token number">16843009</span>(<span class="token operator">%</span><span class="token register variable">rcx</span>), <span class="token operator">%</span><span class="token register variable">eax</span>
+	notl	<span class="token operator">%</span><span class="token register variable">ecx</span>
+	andl	<span class="token operator">%</span><span class="token register variable">ecx</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
+	andl	<span class="token operator">$</span><span class="token operator">-</span><span class="token number">2139062144</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
 	je	.L3</code></pre></div>
 <p>In the first output (with <code>-DHIDE_ALIGNEMENT</code>), the optimization pass
 decides to disable inlining of <code>strlen</code>; in the second output (without
@@ -193,32 +196,32 @@ operations which can have an impact on performances.</p>
 <code>mod</code> should be the same:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> f a b <span class="token operator">=</span> a <span class="token operator">mod</span> b</code></pre></div>
 <p>The output assembly is:</p>
-<div class="gatsby-highlight" data-language="asm"><pre class="language-asm"><code class="language-asm">.L105:
-        movq    %rdi, %rcx
-        sarq    $1, %rcx     // b &gt;&gt; 1
-        movq    (%rsp), %rax
-        sarq    $1, %rax     // a &gt;&gt; 1
-        testq   %rcx, %rcx   // b != 0
+<div class="gatsby-highlight" data-language="nasm"><pre class="language-nasm"><code class="language-nasm"><span class="token label function">.L105:</span>
+        movq    <span class="token operator">%</span><span class="token register variable">rdi</span>, <span class="token operator">%</span><span class="token register variable">rcx</span>
+        sarq    <span class="token number">$1</span>, <span class="token operator">%</span><span class="token register variable">rcx</span>     <span class="token operator">/</span><span class="token operator">/</span> b <span class="token operator">&gt;</span><span class="token operator">&gt;</span> <span class="token number">1</span>
+        movq    (<span class="token operator">%</span><span class="token register variable">rsp</span>), <span class="token operator">%</span><span class="token register variable">rax</span>
+        sarq    <span class="token number">$1</span>, <span class="token operator">%</span><span class="token register variable">rax</span>     <span class="token operator">/</span><span class="token operator">/</span> a <span class="token operator">&gt;</span><span class="token operator">&gt;</span> <span class="token number">1</span>
+        testq   <span class="token operator">%</span><span class="token register variable">rcx</span>, <span class="token operator">%</span><span class="token register variable">rcx</span>   <span class="token operator">/</span><span class="token operator">/</span> b <span class="token operator">!</span><span class="token operator">=</span> <span class="token number">0</span>
         je      .L107
         cqto
-        idivq   %rcx         // a % b
+        idivq   <span class="token operator">%</span><span class="token register variable">rcx</span>         <span class="token operator">/</span><span class="token operator">/</span> a <span class="token operator">%</span> b
         jmp     .L106
-.L107:
-        movq    caml_backtrace_pos@GOTPCREL(%rip), %rax
-        xorq    %rbx, %rbx
-        movl    %ebx, (%rax)
-        movq    caml_exn_Division_by_zero@GOTPCREL(%rip), %rax
+<span class="token label function">.L107:</span>
+        movq    caml_backtrace_pos@GOTPCREL(<span class="token operator">%</span>rip), <span class="token operator">%</span><span class="token register variable">rax</span>
+        xorq    <span class="token operator">%</span><span class="token register variable">rbx</span>, <span class="token operator">%</span><span class="token register variable">rbx</span>
+        movl    <span class="token operator">%</span><span class="token register variable">ebx</span>, (<span class="token operator">%</span><span class="token register variable">rax</span>)
+        movq    caml_exn_Division_by_zero@GOTPCREL(<span class="token operator">%</span>rip), <span class="token operator">%</span><span class="token register variable">rax</span>
         call    caml_raise_exn@PLT
-.L106:
-        salq    $1, %rdx     // x &lt;&lt; 1
-        incq    %rdx         // x + 1
-        movq    %rbx, %rax</code></pre></div>
+<span class="token label function">.L106:</span>
+        salq    <span class="token number">$1</span>, <span class="token operator">%</span><span class="token register variable">rdx</span>     <span class="token operator">/</span><span class="token operator">/</span> x <span class="token operator">&lt;</span><span class="token operator">&lt;</span> <span class="token number">1</span>
+        incq    <span class="token operator">%</span><span class="token register variable">rdx</span>         <span class="token operator">/</span><span class="token operator">/</span> x <span class="token operator">+</span> <span class="token number">1</span>
+        movq    <span class="token operator">%</span><span class="token register variable">rbx</span>, <span class="token operator">%</span><span class="token register variable">rax</span></code></pre></div>
 <p>where idiomatically the same C code produce:</p>
-<div class="gatsby-highlight" data-language="asm"><pre class="language-asm"><code class="language-asm">.L2:
-        movl    -12(%rbp), %eax
+<div class="gatsby-highlight" data-language="nasm"><pre class="language-nasm"><code class="language-nasm"><span class="token label function">.L2:</span>
+        movl    <span class="token operator">-</span><span class="token number">12</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">eax</span>
         cltd
-        idivl   -8(%rbp)
-        movl    %edx, -4(%rbp)</code></pre></div>
+        idivl   <span class="token operator">-</span><span class="token number">8</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
+        movl    <span class="token operator">%</span><span class="token register variable">edx</span>, <span class="token operator">-</span><span class="token number">4</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)</code></pre></div>
 <p>Of course, we can notice firstly the exception in OCaml (<code>Divided_by_zero</code>) -
 which is pretty good because it protects us against an interrupt from assembly
 (and keep the trace). Then, we need to <em>untag</em> <code>a</code> and <code>b</code> with <code>sarq</code> assembly
@@ -235,7 +238,7 @@ these needed conversions.</p>
 <h3 style="position:relative;"><a href="https://tarides.com/feed.xml#readability-versus-performance" aria-label="readability versus performance permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Readability versus performance</h3>
 <p>We use this optimization only in few parts of the code. In fact, switch
 between <code>int</code> and <code>nativeint</code> is little bit noisy:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml">hold <span class="token operator">:=</span> <span class="token module variable">Nativeint</span><span class="token punctuation">.</span>logor <span class="token operator">!</span>hold <span class="token module variable">Nativeint</span><span class="token punctuation">.</span><span class="token punctuation">(</span>shift_left <span class="token punctuation">(</span>of_int <span class="token punctuation">(</span>unsafe_get_uint8 d<span class="token punctuation">.</span>i <span class="token operator">!</span>i_pos<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!</span>bits<span class="token punctuation">)</span></code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml">hold <span class="token operator">:=</span> Nativeint<span class="token punctuation">.</span>logor <span class="token operator">!</span>hold Nativeint<span class="token punctuation">.</span><span class="token punctuation">(</span>shift_left <span class="token punctuation">(</span>of_int <span class="token punctuation">(</span>unsafe_get_uint8 d<span class="token punctuation">.</span>i <span class="token operator">!</span>i_pos<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!</span>bits<span class="token punctuation">)</span></code></pre></div>
 <p>In the end, we only gained 0.5Mb/s of inflation rate, so it's not worthwhile
 to do systematically this optimization. Especially that the gain is not very
 big. But this case show a more troubling problem: loss of readability.</p>
@@ -266,33 +269,33 @@ it completely breaks the control flow and can be error-prone.</p>
 exception which will be used only inside the function. By this way, we enforce
 the fact that exception should not (and can not) be caught by something else
 than inside the function.</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml">    <span class="token keyword">let</span> <span class="token keyword">exception</span> <span class="token module variable">Break</span> <span class="token keyword">in</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml">    <span class="token keyword">let</span> <span class="token keyword">exception</span> Break <span class="token keyword">in</span>
 
     <span class="token punctuation">(</span> <span class="token keyword">try</span> <span class="token keyword">while</span> <span class="token operator">!</span>max <span class="token operator">&gt;=</span> <span class="token number">1</span> <span class="token keyword">do</span>
-          <span class="token keyword">if</span> bl_count<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">!</span>max<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token keyword">then</span> raise_notrace <span class="token module variable">Break</span>
-        <span class="token punctuation">;</span> decr max <span class="token keyword">done</span> <span class="token keyword">with</span> <span class="token module variable">Break</span> <span class="token operator">-&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">;</span></code></pre></div>
+          <span class="token keyword">if</span> bl_count<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">!</span>max<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token keyword">then</span> raise_notrace Break
+        <span class="token punctuation">;</span> decr max <span class="token keyword">done</span> <span class="token keyword">with</span> Break <span class="token operator">-&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">;</span></code></pre></div>
 <p>This code above produce this assembly code:</p>
-<div class="gatsby-highlight" data-language="asm"><pre class="language-asm"><code class="language-asm">.L105:
-        pushq   %r14
-        movq    %rsp, %r14
-.L103:
-        cmpq    $3, %rdi              // while !max &gt;= 1
+<div class="gatsby-highlight" data-language="nasm"><pre class="language-nasm"><code class="language-nasm"><span class="token label function">.L105:</span>
+        pushq   <span class="token operator">%</span><span class="token register variable">r14</span>
+        movq    <span class="token operator">%</span><span class="token register variable">rsp</span>, <span class="token operator">%</span><span class="token register variable">r14</span>
+<span class="token label function">.L103:</span>
+        cmpq    <span class="token number">$3</span>, <span class="token operator">%</span><span class="token register variable">rdi</span>              <span class="token operator">/</span><span class="token operator">/</span> while <span class="token operator">!</span>max <span class="token operator">&gt;</span><span class="token operator">=</span> <span class="token number">1</span>
         jl      .L102
-        movq    -4(%rbx,%rdi,4), %rsi // bl_count,(!max)
-        cmpq    $1, %rsi              // bl_count.(!max) != 0
+        movq    <span class="token operator">-</span><span class="token number">4</span>(<span class="token operator">%</span><span class="token register variable">rbx</span>,<span class="token operator">%</span><span class="token register variable">rdi</span>,<span class="token number">4</span>), <span class="token operator">%</span><span class="token register variable">rsi</span> <span class="token operator">/</span><span class="token operator">/</span> bl_count,(<span class="token operator">!</span>max)
+        cmpq    <span class="token number">$1</span>, <span class="token operator">%</span><span class="token register variable">rsi</span>              <span class="token operator">/</span><span class="token operator">/</span> bl_count.(<span class="token operator">!</span>max) <span class="token operator">!</span><span class="token operator">=</span> <span class="token number">0</span>
         je      .L104
-        movq    %r14, %rsp
-        popq    %r14
-        ret                           // raise_notrace Break
-.L104:
-        addq    $-2, %rdi             // decr max
-        movq    %rdi, 16(%rsp)
+        movq    <span class="token operator">%</span><span class="token register variable">r14</span>, <span class="token operator">%</span><span class="token register variable">rsp</span>
+        popq    <span class="token operator">%</span><span class="token register variable">r14</span>
+        ret                           <span class="token operator">/</span><span class="token operator">/</span> raise_notrace Break
+<span class="token label function">.L104:</span>
+        addq    <span class="token operator">$</span><span class="token operator">-</span><span class="token number">2</span>, <span class="token operator">%</span><span class="token register variable">rdi</span>             <span class="token operator">/</span><span class="token operator">/</span> decr max
+        movq    <span class="token operator">%</span><span class="token register variable">rdi</span>, <span class="token number">16</span>(<span class="token operator">%</span><span class="token register variable">rsp</span>)
         jmp     .L103</code></pre></div>
 <p>Where the <code>ret</code> is the <code>raise_notrace Break</code>. A <code>raise_notrace</code> is needed,
 otherwise, you will see:</p>
-<div class="gatsby-highlight" data-language="asm"><pre class="language-asm"><code class="language-asm">        movq    caml_backtrace_pos@GOTPCREL(%rip), %rbx
-        xorq    %rdi, %rdi
-        movl    %edi, (%rbx)
+<div class="gatsby-highlight" data-language="nasm"><pre class="language-nasm"><code class="language-nasm">        movq    caml_backtrace_pos@GOTPCREL(<span class="token operator">%</span>rip), <span class="token operator">%</span><span class="token register variable">rbx</span>
+        xorq    <span class="token operator">%</span><span class="token register variable">rdi</span>, <span class="token operator">%</span><span class="token register variable">rdi</span>
+        movl    <span class="token operator">%</span><span class="token register variable">edi</span>, (<span class="token operator">%</span><span class="token register variable">rbx</span>)
         call    caml_raise_exn@PLT</code></pre></div>
 <p>Instead the <code>ret</code> assembly code. Indeed, in this case, we need to store where we
 raised the exception.</p>
@@ -372,13 +375,13 @@ ensure pointer correspondence between minor heap and major heap.</p>
 
 <span class="token keyword">let</span> f t v <span class="token operator">=</span> t<span class="token punctuation">.</span>v <span class="token operator">&lt;-</span> v</code></pre></div>
 <p>We produce this assembly:</p>
-<div class="gatsby-highlight" data-language="asm"><pre class="language-asm"><code class="language-asm">camlExample__f_1004:
-        subq    $8, %rsp
-        movq    %rax, %rdi
-        movq    %rbx, %rsi
+<div class="gatsby-highlight" data-language="nasm"><pre class="language-nasm"><code class="language-nasm"><span class="token label function">camlExample__f_1004:</span>
+        subq    <span class="token number">$8</span>, <span class="token operator">%</span><span class="token register variable">rsp</span>
+        movq    <span class="token operator">%</span><span class="token register variable">rax</span>, <span class="token operator">%</span><span class="token register variable">rdi</span>
+        movq    <span class="token operator">%</span><span class="token register variable">rbx</span>, <span class="token operator">%</span><span class="token register variable">rsi</span>
         call    caml_modify@PLT
-        movq    $1, %rax
-        addq    $8, %rsp
+        movq    <span class="token number">$1</span>, <span class="token operator">%</span><span class="token register variable">rax</span>
+        addq    <span class="token number">$8</span>, <span class="token operator">%</span><span class="token register variable">rsp</span>
         ret</code></pre></div>
 <p>Where we see the call to <code>caml_modify</code> which will be take care about the
 assignment of <code>v</code> into <code>t.v</code>. This call is needed mostly because the type of <code>t.v</code> is not an <em>immediate</em> value like an integer. So, for many values in the
@@ -389,40 +392,40 @@ of <code>caml_modify</code> is not very clear where it is commonly pretty fast.<
 <p>Sometimes, however, it can be a real bottleneck in your computation and
 this depends on how long your values live in the heap. A little program (which is
 not very reproducible) can show that:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> t <span class="token operator">=</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>init <span class="token punctuation">(</span>int_of_string <span class="token module variable">Sys</span><span class="token punctuation">.</span>argv<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token module variable">Random</span><span class="token punctuation">.</span>int <span class="token number">256</span><span class="token punctuation">)</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> t <span class="token operator">=</span> Array<span class="token punctuation">.</span>init <span class="token punctuation">(</span>int_of_string Sys<span class="token punctuation">.</span>argv<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> Random<span class="token punctuation">.</span>int <span class="token number">256</span><span class="token punctuation">)</span>
 
-<span class="token keyword">let</span> pr fmt <span class="token operator">=</span> <span class="token module variable">Format</span><span class="token punctuation">.</span>printf fmt
+<span class="token keyword">let</span> pr fmt <span class="token operator">=</span> Format<span class="token punctuation">.</span>printf fmt
 
 <span class="token keyword">type</span> t0 <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token keyword">mutable</span> v <span class="token punctuation">:</span> int option <span class="token punctuation">}</span>
 <span class="token keyword">type</span> t1 <span class="token operator">=</span> <span class="token punctuation">{</span> v <span class="token punctuation">:</span> int option <span class="token punctuation">}</span>
 
 <span class="token keyword">let</span> f0 <span class="token punctuation">(</span>t0 <span class="token punctuation">:</span> t0<span class="token punctuation">)</span> <span class="token operator">=</span>
-  <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">to</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>length t &ndash; <span class="token number">1</span>
+  <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">to</span> Array<span class="token punctuation">.</span>length t &ndash; <span class="token number">1</span>
   <span class="token keyword">do</span> <span class="token keyword">let</span> v <span class="token operator">=</span> <span class="token keyword">match</span> t0<span class="token punctuation">.</span>v<span class="token punctuation">,</span> t<span class="token punctuation">.</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">with</span>
-             <span class="token operator">|</span> <span class="token module variable">Some</span> <span class="token punctuation">_</span> <span class="token keyword">as</span> v<span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> v
-             <span class="token operator">|</span> <span class="token module variable">None</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token operator">-&gt;</span> <span class="token module variable">Some</span> i
-             <span class="token operator">|</span> <span class="token module variable">None</span><span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token module variable">None</span> <span class="token keyword">in</span>
+             <span class="token operator">|</span> Some <span class="token punctuation">_</span> <span class="token keyword">as</span> v<span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> v
+             <span class="token operator">|</span> None<span class="token punctuation">,</span> <span class="token number">5</span> <span class="token operator">-&gt;</span> Some i
+             <span class="token operator">|</span> None<span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> None <span class="token keyword">in</span>
      t0<span class="token punctuation">.</span>v <span class="token operator">&lt;-</span> v
   <span class="token keyword">done</span><span class="token punctuation">;</span> t0
 
 <span class="token keyword">let</span> f1 <span class="token punctuation">(</span>t1 <span class="token punctuation">:</span> t1<span class="token punctuation">)</span> <span class="token operator">=</span>
   <span class="token keyword">let</span> t1 <span class="token operator">=</span> ref t1 <span class="token keyword">in</span>
-  <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">to</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>length t &ndash; <span class="token number">1</span>
+  <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">to</span> Array<span class="token punctuation">.</span>length t &ndash; <span class="token number">1</span>
   <span class="token keyword">do</span> <span class="token keyword">let</span> v <span class="token operator">=</span> <span class="token keyword">match</span> <span class="token operator">!</span>t1<span class="token punctuation">.</span>v<span class="token punctuation">,</span> t<span class="token punctuation">.</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">with</span>
-             <span class="token operator">|</span> <span class="token module variable">Some</span> <span class="token punctuation">_</span> <span class="token keyword">as</span> v<span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> v
-             <span class="token operator">|</span> <span class="token module variable">None</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token operator">-&gt;</span> <span class="token module variable">Some</span> i
-             <span class="token operator">|</span> <span class="token module variable">None</span><span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token module variable">None</span> <span class="token keyword">in</span>
+             <span class="token operator">|</span> Some <span class="token punctuation">_</span> <span class="token keyword">as</span> v<span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> v
+             <span class="token operator">|</span> None<span class="token punctuation">,</span> <span class="token number">5</span> <span class="token operator">-&gt;</span> Some i
+             <span class="token operator">|</span> None<span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> None <span class="token keyword">in</span>
      t1 <span class="token operator">:=</span> <span class="token punctuation">{</span> v <span class="token punctuation">}</span>
   <span class="token keyword">done</span><span class="token punctuation">;</span> <span class="token operator">!</span>t1
 
 <span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
-  <span class="token keyword">let</span> t0 <span class="token punctuation">:</span> t0 <span class="token operator">=</span> <span class="token punctuation">{</span> v<span class="token operator">=</span> <span class="token module variable">None</span> <span class="token punctuation">}</span> <span class="token keyword">in</span>
-  <span class="token keyword">let</span> t1 <span class="token punctuation">:</span> t1 <span class="token operator">=</span> <span class="token punctuation">{</span> v<span class="token operator">=</span> <span class="token module variable">None</span> <span class="token punctuation">}</span> <span class="token keyword">in</span>
-  <span class="token keyword">let</span> time0 <span class="token operator">=</span> <span class="token module variable">Unix</span><span class="token punctuation">.</span>gettimeofday <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">in</span>
+  <span class="token keyword">let</span> t0 <span class="token punctuation">:</span> t0 <span class="token operator">=</span> <span class="token punctuation">{</span> v<span class="token operator">=</span> None <span class="token punctuation">}</span> <span class="token keyword">in</span>
+  <span class="token keyword">let</span> t1 <span class="token punctuation">:</span> t1 <span class="token operator">=</span> <span class="token punctuation">{</span> v<span class="token operator">=</span> None <span class="token punctuation">}</span> <span class="token keyword">in</span>
+  <span class="token keyword">let</span> time0 <span class="token operator">=</span> Unix<span class="token punctuation">.</span>gettimeofday <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">in</span>
   ignore <span class="token punctuation">(</span>f0 t0<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-  <span class="token keyword">let</span> time1 <span class="token operator">=</span> <span class="token module variable">Unix</span><span class="token punctuation">.</span>gettimeofday <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">in</span>
+  <span class="token keyword">let</span> time1 <span class="token operator">=</span> Unix<span class="token punctuation">.</span>gettimeofday <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">in</span>
   ignore <span class="token punctuation">(</span>f1 t1<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-  <span class="token keyword">let</span> time2 <span class="token operator">=</span> <span class="token module variable">Unix</span><span class="token punctuation">.</span>gettimeofday <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">in</span>
+  <span class="token keyword">let</span> time2 <span class="token operator">=</span> Unix<span class="token punctuation">.</span>gettimeofday <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">in</span>
 
   pr <span class="token string">&quot;f0: %f ns\n%!&quot;</span> <span class="token punctuation">(</span>time1 <span class="token operator">-.</span> time0<span class="token punctuation">)</span> <span class="token punctuation">;</span>
   pr <span class="token string">&quot;f1: %f ns\n%!&quot;</span> <span class="token punctuation">(</span>time2 <span class="token operator">-.</span> time1<span class="token punctuation">)</span> <span class="token punctuation">;</span>
@@ -431,12 +434,12 @@ not very reproducible) can show that:</p>
 <p>In our bare-metal server, if you launch the program with 1000, the <code>f0</code>
 computation, even if it has <code>caml_modify</code> will be the fastest. However, if you
 launch the program with 1000000000, <code>f1</code> will be the fastest.</p>
-<div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">$ ./a.out 1000
-f0: 0.000006 ns
-f1: 0.000015 ns
-$ ./a.out 1000000000
-f0: 7.931782 ns
-f1: 5.719370 ns</code></pre></div>
+<div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">$ ./a.out <span class="token number">1000</span>
+f0: <span class="token number">0.000006</span> ns
+f1: <span class="token number">0.000015</span> ns
+$ ./a.out <span class="token number">1000000000</span>
+f0: <span class="token number">7.931782</span> ns
+f1: <span class="token number">5.719370</span> ns</code></pre></div>
 <h3 style="position:relative;"><a href="https://tarides.com/feed.xml#about-decompress" aria-label="about decompress permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>About <code>decompress</code></h3>
 <p>At the beginning, our choice was made to have, as @dbuenzli does, mutable
 structure to represent state. Then, @yallop did a big patch to update it to an
@@ -464,8 +467,8 @@ a smaller representation. Where <code>len</code> can not be upper than 15 accord
 and when byte can represent only 256 possibilities (and should fit under one
 byte), we can decide to merge them into one integer (which can have, at least,
 31 bits).</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> static_literal_tree <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">|</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">140</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">76</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token operator">|</span><span class="token punctuation">]</span>
-<span class="token keyword">let</span> static_literal_tree <span class="token operator">=</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>map <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">(</span>len<span class="token punctuation">,</span> byte<span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">(</span>len <span class="token operator">lsl</span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">lor</span> byte<span class="token punctuation">)</span> static_literal_tree</code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> static_literal_tree <span class="token operator">=</span> <span class="token operator-like-punctuation punctuation">[|</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">140</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">76</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">..</span><span class="token punctuation">.</span> <span class="token operator-like-punctuation punctuation">|]</span>
+<span class="token keyword">let</span> static_literal_tree <span class="token operator">=</span> Array<span class="token punctuation">.</span>map <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">(</span>len<span class="token punctuation">,</span> byte<span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">(</span>len <span class="token operator">lsl</span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">lor</span> byte<span class="token punctuation">)</span> static_literal_tree</code></pre></div>
 <p>In the code above, we just translate the static dictionary (for a STATIC DEFLATE
 block) to a smaller representation where <code>len</code> will be the left part of the
 integer and <code>byte</code> will be the right part. Of course, it's depends on what you

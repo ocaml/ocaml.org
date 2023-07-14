@@ -8,7 +8,8 @@ date: 2016-01-08T17:12:06-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- rjones
+- Richard Jones
+source:
 ---
 
 <p><i>For more half-baked ideas, see <a href="https://rwmj.wordpress.com/tag/ideas/">the ideas tag</a>.</i></p>

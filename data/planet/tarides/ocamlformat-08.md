@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2018-10-17-ocamlformat-0-8
 date: 2018-10-17T00:00:00-00:00
 preview_image: https://tarides.com/static/9b70dfbba6abba837b47f644a75b33dc/0132d/code_black1.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>We are proud to announce the release of OCamlFormat 0.8 (available on opam). To ease the transition from the previous 0.7 release here are some highlights of the new features of this release. The <a href="https://github.com/ocaml-ppx/ocamlformat/blob/v0.8/CHANGES.md#08-2018-10-09">full changelog</a> is available on the project repository.</p>

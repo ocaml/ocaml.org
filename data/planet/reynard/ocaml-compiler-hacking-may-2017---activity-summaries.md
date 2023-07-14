@@ -6,7 +6,8 @@ date: 2017-05-19T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- reynard
+- Gemma Gordon (OCaml Labs)
+source:
 ---
 
 <p>Thanks to everyone who joined us for OCaml Compiler Hacking in the (incredibly warm!) Old Library at Pembroke College this week.</p>

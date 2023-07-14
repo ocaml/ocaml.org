@@ -6,7 +6,8 @@ date: 2013-09-17T12:49:04-00:00
 preview_image:
 featured:
 authors:
-- ocamllabs
+- OCaml Labs compiler hacking
+source:
 ---
 
 <p><img src="http://ocamllabs.io/compiler-hacking/imgs/2013-09-17.jpg" alt="Compiler Hacking"/></p>

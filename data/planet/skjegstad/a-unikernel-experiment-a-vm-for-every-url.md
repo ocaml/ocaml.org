@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Magnus Skjegstad
+source:
 ---
 
 <p>I recently wrote a DNS server that can boot unikernels on demand called <a href="https://github.com/MagnusS/jitsu">Jitsu</a>. The following diagram shows a simplified version of how Jitsu works. The client sends a DNS query to a DNS server (Jitsu). The DNS server starts a unikernel and sends a DNS response back to the client while the unikernel is booting. When the client receives the DNS response it opens a TCP connection to the unikernel, which now has completed booting and is ready to respond to the TCP connection.</p>

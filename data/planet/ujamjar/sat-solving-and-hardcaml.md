@@ -6,7 +6,8 @@ date: 2015-10-29T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- ujamjar
+- Andy Ray
+source:
 ---
 
 <p>Combining a SAT solver with <a href="https://github.com/ujamjar/hardcaml">HardCaml</a> to prove 

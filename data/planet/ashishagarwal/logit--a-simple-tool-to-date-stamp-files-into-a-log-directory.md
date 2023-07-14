@@ -6,7 +6,8 @@ date: 2010-04-21T18:18:02-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- ashishagarwal
+- Ashish Agarwal
+source:
 ---
 
 <p><a href="http://github.com/agarwal/logit">http://github.com/agarwal/logit</a></p>

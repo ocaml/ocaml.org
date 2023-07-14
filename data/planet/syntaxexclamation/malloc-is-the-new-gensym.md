@@ -8,7 +8,8 @@ date: 2013-05-04T15:15:44-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- syntaxexclamation
+- Matthias Puech
+source:
 ---
 
 <p>Teaching an introductory course to &ldquo;compilation&rdquo; this semester (actually it was called  <a href="http://www.pps.univ-paris-diderot.fr/~puech/ens/mv6.html">Virtual Machines</a>, but it was really about compiling expressions to stack machines), I realized something I hadn&rsquo;t heard before, and wish I had been told when I first learned OCaml many years ago. Here it is: as soon as you are programming in a functional language with physical equality (i.e. pointer equality, the <code>(==)</code> operator in OCaml), then you are actually working in a &ldquo;weakly impure&rdquo; language, and you can for example implement a limited form of <code>gensym</code>. What? <code>gensym</code> is this classic &ldquo;innocuously effectful&rdquo; function returning a different <i>symbol</i>&mdash;usually a string&mdash;each time it is called. It is used pervasively to generate fresh variable names, in compilers notably. How? well, you actually don&rsquo;t have much to do, except let the runtime call <code>malloc</code>: it will return a &ldquo;fresh&rdquo; pointer where to store your data. <code>malloc</code> and the garbage collector together ensures this freshness condition, and you can then compare two pointers with <code>(==)</code>. As a bonus, you can even store data along your fresh symbol.</p>

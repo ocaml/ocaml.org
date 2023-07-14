@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/how-to-build-an-exchange/
 date: 2017-01-11T00:00:00-00:00
 preview_image: https://blog.janestreet.com/how-to-build-an-exchange/build_exchange.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p><strong>UPDATE</strong>: <em>We are full up. Tons of people signed up for the talk, and we&rsquo;re

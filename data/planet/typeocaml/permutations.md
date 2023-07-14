@@ -7,7 +7,8 @@ date: 2015-05-05T19:15:23-00:00
 preview_image:
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/05/permutation3.jpg#hero" alt="hero"/></p>

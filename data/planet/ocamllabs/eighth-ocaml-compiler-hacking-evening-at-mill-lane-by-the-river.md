@@ -6,7 +6,8 @@ date: 2014-09-23T18:00:00-00:00
 preview_image:
 featured:
 authors:
-- ocamllabs
+- OCaml Labs compiler hacking
+source:
 ---
 
 <p><strong>Update: This session will be a joint F#/OCaml hacking event, beginning with a talk from Don Syme about F# compiler and language development!</strong></p>

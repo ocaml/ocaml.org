@@ -1,8 +1,11 @@
 ---
 title: "new opam features: \"opam install <dir>\""
 authors: [ "Louis Gesbert" ]
-date: "2017-05-04"
+date: 2017-05-04T00:00:00-00:00
 description: "Presentation of the new opam install <dir> feature introduced in opam 2.0"
+source:
+  name: Opam blog
+  url: ""
 ---
 
 After the [opam build](../opam-build) feature was announced followed a lot of discussions, mainly having to do with its interface, and misleading name. The base features it offered, though, were still widely asked for:

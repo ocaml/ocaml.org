@@ -7,7 +7,8 @@ date: 2010-03-28T01:19:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>I&rsquo;ve updated my <a href="http://skydeck.com/blog/programming/stack-traces-in-ocaml">backtrace</a> <a href="http://skydeck.com/blog/programming/more-stack-traces-in-ocaml">patch</a> to work with OCaml 3.11.x as well as 3.10.x. The patch provides</p> 

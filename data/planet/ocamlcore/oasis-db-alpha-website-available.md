@@ -6,7 +6,8 @@ date: 2010-08-23T13:51:52-00:00
 preview_image:
 featured:
 authors:
-- ocamlcore
+- OCamlCore.com
+source:
 ---
 
 <p>A prototype version of OASIS-DB is up and running, go to the official OASIS website and follow the link to test it:</p>

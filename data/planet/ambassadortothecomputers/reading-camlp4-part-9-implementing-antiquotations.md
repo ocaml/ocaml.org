@@ -7,7 +7,8 @@ date: 2010-08-06T00:55:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>In this post I want to complicate the JSON quotation library from the <a href="http://ambassadortothecomputers.blogspot.com/2010/08/reading-camlp4-part-8-implementing.html">previous post</a> by adding antiquotations.</p> 

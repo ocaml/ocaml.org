@@ -6,7 +6,8 @@ date: 2015-03-04T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- bap
+- The BAP Blog
+source:
 ---
 
 <p>This post serves to give some guidance on obtaining the disassembly and CFG for

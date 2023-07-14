@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Rudi Grinberg
+source:
 ---
 
 <p>The process of publishing an opam package has come a long way from its

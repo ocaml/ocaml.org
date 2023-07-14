@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2021-11-11-mirageos-workshop-working-with-the-rasp
 date: 2021-11-11T00:00:00-00:00
 preview_image: https://tarides.com/static/da5dfbb0de440a1ed000f0e3d74f9f51/2070e/RP4.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Earlier this week, Romain Calascibetta hosted an in-house MirageOS workshop for employees, both locally and remotely

@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Rudi Grinberg
+source:
 ---
 
 <p>Here&rsquo;s another tip for taming your Emacs config. In particular, how to search

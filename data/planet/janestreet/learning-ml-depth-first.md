@@ -6,6 +6,9 @@ url: https://blog.janestreet.com/learning-ml-depth-first/
 date: 2019-04-17T00:00:00-00:00
 preview_image: https://blog.janestreet.com/learning-ml-depth-first/Depth_First_Realigned.svg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>If you haven&rsquo;t heard of it, <a href="https://www.depthfirstlearning.com/2018/DFL-Fellowship">Depth First

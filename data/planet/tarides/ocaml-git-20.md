@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2018-10-19-ocaml-git-2-0
 date: 2018-10-19T00:00:00-00:00
 preview_image: https://tarides.com/static/1d805022c72839f1abe63b28f225fd32/0132d/mesh.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>I'm very happy to announce a new major release of <code>ocaml-git</code> (2.0).
@@ -132,11 +135,11 @@ representation of B in terms of sub-strings of A.</p>
 regarding the size of the sliding windows) in OCaml. It provides a
 small binary <code>xduff</code> that complies with the format of Git without the <code>zlib</code>
 layer.</p>
-<div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">$ xduff diff source target &gt; target.xduff
-$ xduff patch source &lt; target.xduff &gt; target.new
-$ diff target target.new
-$ echo $?
-0</code></pre></div>
+<div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">$ xduff <span class="token function">diff</span> <span class="token builtin class-name">source</span> target <span class="token operator">&gt;</span> target.xduff
+$ xduff patch <span class="token builtin class-name">source</span> <span class="token operator">&lt;</span> target.xduff <span class="token operator">&gt;</span> target.new
+$ <span class="token function">diff</span> target target.new
+$ <span class="token builtin class-name">echo</span> <span class="token variable">$?</span>
+<span class="token number">0</span></code></pre></div>
 <h3 style="position:relative;"><a href="https://tarides.com/feed.xml#decompress" aria-label="decompress permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>decompress</code></h3>
 <p><a href="https://github.com/mirage/decompress">decompress</a>
 is a pure implementation in OCaml of <code>zlib</code> and

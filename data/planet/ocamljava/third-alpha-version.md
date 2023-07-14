@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Xavier Clerc
+source:
 ---
 
 <p>The third alpha version is finally available, fixing several bugs, and enhancing the Java library.</p>

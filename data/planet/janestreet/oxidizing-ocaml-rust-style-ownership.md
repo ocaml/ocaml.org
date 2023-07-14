@@ -8,7 +8,8 @@ date: 2023-06-21T00:00:00-00:00
 preview_image: https://blog.janestreet.com/oxidizing-ocaml-ownership/oxidizing-ocaml-ownership.png
 featured:
 authors:
-- janestreet
+- Jane Street Tech Blog
+source:
 ---
 
 <p>In <a href="https://blog.janestreet.com/oxidizing-ocaml-locality">part one</a>, we discussed how OCaml&rsquo;s

@@ -6,7 +6,8 @@ date: 2020-07-02T13:00:42-00:00
 preview_image:
 featured:
 authors:
-- smondet
+- Sebastien Mondet
+source:
 ---
 
 Quick OCaml hack to generate some old-school XML.

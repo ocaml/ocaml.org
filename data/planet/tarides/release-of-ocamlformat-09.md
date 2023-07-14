@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2019-03-29-release-of-ocamlformat-0-9
 date: 2019-03-29T00:00:00-00:00
 preview_image: https://tarides.com/static/b0a6eda566f64c66aa1761737cf3ea4a/0132d/ceiling-arches.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>We are pleased to announce the release of OCamlFormat (available on opam).
@@ -62,7 +65,7 @@ a new option <code>--parse-docstrings</code> has been added so that docstrings c
 <p>Here is a small example:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token comment">(** {1 Printers and escapes used by Cmdliner module} *)</span>
 
-<span class="token keyword">val</span> subst_vars <span class="token punctuation">:</span> subst<span class="token punctuation">:</span><span class="token punctuation">(</span>string <span class="token operator">-&gt;</span> string option<span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token module variable">Buffer</span><span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> string <span class="token operator">-&gt;</span> string
+<span class="token keyword">val</span> subst_vars <span class="token punctuation">:</span> subst<span class="token punctuation">:</span><span class="token punctuation">(</span>string <span class="token operator">-&gt;</span> string option<span class="token punctuation">)</span> <span class="token operator">-&gt;</span> Buffer<span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> string <span class="token operator">-&gt;</span> string
 <span class="token comment">(** [subst b ~subst s], using [b], substitutes in [s] variables of the form
     &quot;$(doc)&quot; by their [subst] definition. This leaves escapes and markup
     directives $(markup,...) intact.
@@ -131,19 +134,19 @@ or for the current working directory otherwise.</p>
 around if-then-else branches that spread across multiple lines.</p>
 <p>If this option is set, the following function:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> <span class="token keyword">rec</span> loop count a <span class="token operator">=</span>
-  <span class="token keyword">if</span> count <span class="token operator">&gt;=</span> self#len
+  <span class="token keyword">if</span> count <span class="token operator">&gt;=</span> self<span class="token punctuation">#</span>len
   <span class="token keyword">then</span> a
   <span class="token keyword">else</span>
-    <span class="token keyword">let</span> a' <span class="token operator">=</span> f cur#get count a <span class="token keyword">in</span>
-    cur#incr <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> a' <span class="token operator">=</span> f cur<span class="token punctuation">#</span>get count a <span class="token keyword">in</span>
+    cur<span class="token punctuation">#</span>incr <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     loop <span class="token punctuation">(</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> a'</code></pre></div>
 <p>will be formatted as:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> <span class="token keyword">rec</span> loop count a <span class="token operator">=</span>
-  <span class="token keyword">if</span> count <span class="token operator">&gt;=</span> self#len
+  <span class="token keyword">if</span> count <span class="token operator">&gt;=</span> self<span class="token punctuation">#</span>len
   <span class="token keyword">then</span> a
   <span class="token keyword">else</span> <span class="token punctuation">(</span>
-    <span class="token keyword">let</span> a' <span class="token operator">=</span> f cur#get count a <span class="token keyword">in</span>
-    cur#incr <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> a' <span class="token operator">=</span> f cur<span class="token punctuation">#</span>get count a <span class="token keyword">in</span>
+    cur<span class="token punctuation">#</span>incr <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     loop <span class="token punctuation">(</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> a' <span class="token punctuation">)</span></code></pre></div>
 <h1 style="position:relative;"><a href="https://tarides.com/feed.xml#parentheses-around-tuple-patterns" aria-label="parentheses around tuple patterns permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Parentheses around tuple patterns</h1>
 <p>A new option <code>parens-tuple-patterns</code> has been added, that mimics <code>parens-tuple</code> but only applies to patterns,
@@ -164,23 +167,23 @@ this is the default value.
 <p>For example:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token comment">(* with single-case=compact *)</span>
 <span class="token keyword">try</span> some_irrelevant_expression
-<span class="token keyword">with</span> <span class="token module variable">Undefined_recursive_module</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token boolean">true</span>
+<span class="token keyword">with</span> Undefined_recursive_module <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token boolean">true</span>
 
 <span class="token comment">(* with single-case=sparse *)</span>
 <span class="token keyword">try</span> some_irrelevant_expression
 <span class="token keyword">with</span>
-<span class="token operator">|</span> <span class="token module variable">Undefined_recursive_module</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token boolean">true</span></code></pre></div>
+<span class="token operator">|</span> Undefined_recursive_module <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token boolean">true</span></code></pre></div>
 <h1 style="position:relative;"><a href="https://tarides.com/feed.xml#space-around-collection-expressions" aria-label="space around collection expressions permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Space around collection expressions</h1>
 <p>The new option <code>space-around-collection-expressions</code> decides whether to add a space
 inside the delimiters of collection expressions (lists, arrays, records).</p>
 <p>For example:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token comment">(* by default *)</span>
 <span class="token keyword">type</span> wkind <span class="token operator">=</span> <span class="token punctuation">{</span>f <span class="token punctuation">:</span> <span class="token type-variable function">'a</span><span class="token punctuation">.</span> <span class="token type-variable function">'a</span> tag <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span> kind<span class="token punctuation">}</span>
-<span class="token keyword">let</span> l <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">&quot;Nil&quot;</span><span class="token punctuation">,</span> <span class="token module variable">TCnoarg</span> <span class="token module variable">Thd</span><span class="token punctuation">;</span> <span class="token string">&quot;Cons&quot;</span><span class="token punctuation">,</span> <span class="token module variable">TCarg</span> <span class="token punctuation">(</span><span class="token module variable">Ttl</span> <span class="token module variable">Thd</span><span class="token punctuation">,</span> tcons<span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">let</span> l <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">&quot;Nil&quot;</span><span class="token punctuation">,</span> TCnoarg Thd<span class="token punctuation">;</span> <span class="token string">&quot;Cons&quot;</span><span class="token punctuation">,</span> TCarg <span class="token punctuation">(</span>Ttl Thd<span class="token punctuation">,</span> tcons<span class="token punctuation">)</span><span class="token punctuation">]</span>
 
 <span class="token comment">(* with space-around-collection-expressions *)</span>
 <span class="token keyword">type</span> wkind <span class="token operator">=</span> <span class="token punctuation">{</span> f <span class="token punctuation">:</span> <span class="token type-variable function">'a</span><span class="token punctuation">.</span> <span class="token type-variable function">'a</span> tag <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span> kind <span class="token punctuation">}</span>
-<span class="token keyword">let</span> l <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token string">&quot;Nil&quot;</span><span class="token punctuation">,</span> <span class="token module variable">TCnoarg</span> <span class="token module variable">Thd</span><span class="token punctuation">;</span> <span class="token string">&quot;Cons&quot;</span><span class="token punctuation">,</span> <span class="token module variable">TCarg</span> <span class="token punctuation">(</span><span class="token module variable">Ttl</span> <span class="token module variable">Thd</span><span class="token punctuation">,</span> tcons<span class="token punctuation">)</span> <span class="token punctuation">]</span></code></pre></div>
+<span class="token keyword">let</span> l <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token string">&quot;Nil&quot;</span><span class="token punctuation">,</span> TCnoarg Thd<span class="token punctuation">;</span> <span class="token string">&quot;Cons&quot;</span><span class="token punctuation">,</span> TCarg <span class="token punctuation">(</span>Ttl Thd<span class="token punctuation">,</span> tcons<span class="token punctuation">)</span> <span class="token punctuation">]</span></code></pre></div>
 <h1 style="position:relative;"><a href="https://tarides.com/feed.xml#break-separators" aria-label="break separators permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Break separators</h1>
 <p>The new option <code>break-separators</code> decides whether to break before or after separators such as <code>;</code> in list or record expressions,
 <code>*</code> in tuples or <code>-&gt;</code> in arrow types.
@@ -263,11 +266,11 @@ dir2/ignore_1.ml</code></pre></div>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token comment">(* with doc-comments-tag-only = default *)</span>
 
 <span class="token comment">(** @deprecated  *)</span>
-<span class="token keyword">open</span> <span class="token module variable">Module</span>
+<span class="token keyword">open</span> Module
 
 <span class="token comment">(* with doc-comments-tag-only = fit *)</span>
 
-<span class="token keyword">open</span> <span class="token module variable">Module</span> <span class="token comment">(** @deprecated  *)</span></code></pre></div>
+<span class="token keyword">open</span> Module <span class="token comment">(** @deprecated  *)</span></code></pre></div>
 <h1 style="position:relative;"><a href="https://tarides.com/feed.xml#fit-or-vertical-mode-for-if-then-else" aria-label="fit or vertical mode for if then else permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Fit or vertical mode for if-then-else</h1>
 <p>There is a new value for the option <code>if-then-else</code>: <code>fit-or-vertical</code>.
 <code>fit-or-vertical</code> vertically breaks all branches if they do not fit on a single line.

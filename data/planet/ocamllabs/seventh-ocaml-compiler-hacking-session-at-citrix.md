@@ -6,7 +6,8 @@ date: 2014-07-24T10:00:00-00:00
 preview_image:
 featured:
 authors:
-- ocamllabs
+- OCaml Labs compiler hacking
+source:
 ---
 
 <p>For the seventh Cambridge OCaml compiler-hacking session we'll be meeting at <a href="https://maps.google.co.uk/maps?q=101%20Cambridge%20Science%20Park%20Milton%20Road,%20Cambridge&amp;hl=en&amp;ll=52.232955,0.150338&amp;spn=0.003082,0.006947&amp;sll=52.231717,0.144648&amp;sspn=0.012327,0.027788&amp;oq=101Cambrideg%20Science&amp;t=h&amp;hq=101%20Cambridge%20Science%20Park%20Milton%20Road,&amp;hnear=Cambridge,%20United%20Kingdom&amp;z=18">the Citrix office in the Cambridge Science Park</a> on 6.30pm Friday 1st August.  Thanks to Citrix for supporting and hosting the session!</p>

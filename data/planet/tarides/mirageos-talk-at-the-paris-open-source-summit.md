@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2019-12-04-mirageos-talk-at-the-paris-open-source-
 date: 2019-12-04T00:00:00-00:00
 preview_image: https://tarides.com/static/646b9e94e874374ddd8450022db7c3e2/96c5f/paris_from_window.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>We are thrilled to have been selected by the <a href="https://www.opensourcesummit.paris">Paris Open Source Summit</a>
@@ -39,8 +42,8 @@ at 14:50 &ndash; 15:20 on December 10th, 2019.</p>
 <br/>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/7826ecb5d3f2934a405f25446b1eb1d8/72e01/poss_2019.jpg" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 50%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAKABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAUBAgP/xAAWAQEBAQAAAAAAAAAAAAAAAAACAQP/2gAMAwEAAhADEAAAAbaQxeS0alH/xAAYEAEBAQEBAAAAAAAAAAAAAAABAhIAA//aAAgBAQABBQLRxO5tIfMNZNET3//EABsRAAICAwEAAAAAAAAAAAAAAAECAAMTIZHw/9oACAEDAQE/AXqSpgVmOo7I9yf/xAAYEQADAQEAAAAAAAAAAAAAAAAAAQISIf/aAAgBAgEBPwFU6XTVI//EABoQAAMAAwEAAAAAAAAAAAAAAAABESExMpH/2gAIAQEABj8CuSpVkZoWFo5Xh//EABwQAAICAgMAAAAAAAAAAAAAAAABESExQVGBkf/aAAgBAQABPyHzBTIxowGcD9kdcEMHUGVbR//aAAwDAQACAAMAAAAQ8w//xAAZEQEBAAMBAAAAAAAAAAAAAAABEQAxYUH/2gAIAQMBAT8QLFvXySaMU0V6Y//EABgRAQEAAwAAAAAAAAAAAAAAAAEAEYHw/9oACAECAQE/EExAGBO3f//EABsQAQACAwEBAAAAAAAAAAAAAAEAESExUUFh/9oACAEBAAE/EGo1NNYftdiBKqEympaRAWOfOwWDeEMAQDwDsNrnUM//2Q=='); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/7826ecb5d3f2934a405f25446b1eb1d8/7bf67/poss_2019.jpg" class="gatsby-resp-image-image" alt="Thomas at the Paris Open Source Summit" title="Thomas at the Paris Open Source Summit" srcset="/static/7826ecb5d3f2934a405f25446b1eb1d8/651be/poss_2019.jpg 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 50%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAKABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAUCA//EABUBAQEAAAAAAAAAAAAAAAAAAAID/9oADAMBAAIQAxAAAAHXRSUpasQ//8QAGRAAAwEBAQAAAAAAAAAAAAAAAQISAAMR/9oACAEBAAEFArGAtXMHmoqR6EXf/8QAGxEAAgIDAQAAAAAAAAAAAAAAAQIAAxIhkfD/2gAIAQMBAT8BepKmBWYVHZHuT//EABgRAAMBAQAAAAAAAAAAAAAAAAABAhEh/9oACAECAQE/AVTpdNpH/8QAGhAAAwEAAwAAAAAAAAAAAAAAAAERITEykf/aAAgBAQAGPwK6VKshwhYjqvD/xAAaEAACAwEBAAAAAAAAAAAAAAAAAREhMVGR/9oACAEBAAE/IfEFsiGIRLpwM2y4JMWXBlWL/9oADAMBAAIAAwAAABDo3//EABkRAQEAAwEAAAAAAAAAAAAAAAERADFhQf/aAAgBAwEBPxAoW9fJJoxbRXpj/8QAGBEBAQADAAAAAAAAAAAAAAAAAQARkfD/2gAIAQIBAT8QSECYHt3/xAAcEAEAAgMAAwAAAAAAAAAAAAABABExQVEhYYH/2gAIAQEAAT8QaCtGmPD87FDUWmlMMGKgFM67CAg6EGgGoOy0qfYn/9k='); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/7826ecb5d3f2934a405f25446b1eb1d8/7bf67/poss_2019.jpg" class="gatsby-resp-image-image" alt="Thomas at the Paris Open Source Summit" title="" srcset="/static/7826ecb5d3f2934a405f25446b1eb1d8/651be/poss_2019.jpg 170w,
 /static/7826ecb5d3f2934a405f25446b1eb1d8/d30a3/poss_2019.jpg 340w,
 /static/7826ecb5d3f2934a405f25446b1eb1d8/7bf67/poss_2019.jpg 680w,
 /static/7826ecb5d3f2934a405f25446b1eb1d8/990cb/poss_2019.jpg 1020w,

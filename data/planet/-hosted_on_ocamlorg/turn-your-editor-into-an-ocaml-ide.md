@@ -1,7 +1,7 @@
 ---
 title: "Turn your editor into a full fledged OCaml IDE"
 authors: [ "Frederic Bour", "Thomas Refis" ]
-date: "2014-08-21"
+date: 2014-08-21T00:00:00-00:00
 description: "Presentation of IDE tools and workflows for OCaml"
 ---
 

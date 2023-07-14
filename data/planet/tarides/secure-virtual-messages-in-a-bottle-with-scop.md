@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-03-08-secure-virtual-messages-in-a-bottle-wit
 date: 2022-03-08T00:00:00-00:00
 preview_image: https://tarides.com/static/610748ca5fff5dcffb66e090e6406e2a/88e9c/message_bottle.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>People love to receive mail, especially from loved ones. It&rsquo;s heartwarming to read
@@ -39,8 +42,8 @@ run on a VM) into refined meshes linked by TLS-firm communication pipes,
 as depicted in the image below.</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/6c94ba14bec3537413c603635b78c123/0f98f/Dapsi_4.001.jpg" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 56.470588235294116%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBAwX/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEAMQAAAB3FtiFGD/xAAXEAEBAQEAAAAAAAAAAAAAAAAAEQEQ/9oACAEBAAEFAmdiP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABcQAAMBAAAAAAAAAAAAAAAAAAABICH/2gAIAQEABj8CHs//xAAaEAADAAMBAAAAAAAAAAAAAAAAAREhMVFB/9oACAEBAAE/IbnIrrNmnpcFr0hBHD//2gAMAwEAAgADAAAAENvf/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQMBAT8QV//EABYRAQEBAAAAAAAAAAAAAAAAAAARIf/aAAgBAgEBPxDUf//EABwQAAICAgMAAAAAAAAAAAAAAAERACEQMUFxwf/aAAgBAQABPxDkYEC7gJArJSLXsEpt2YkY2N43/9k='); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/6c94ba14bec3537413c603635b78c123/7bf67/Dapsi_4.001.jpg" class="gatsby-resp-image-image" alt="TLS Communication Pipes" title="TLS Communication Pipes" srcset="/static/6c94ba14bec3537413c603635b78c123/651be/Dapsi_4.001.jpg 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 56.470588235294116%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBAwX/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEAMQAAAB3FtiFGD/xAAXEAEBAQEAAAAAAAAAAAAAAAAAEQEQ/9oACAEBAAEFAmdiP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABcQAAMBAAAAAAAAAAAAAAAAAAABICH/2gAIAQEABj8CHs//xAAbEAADAAIDAAAAAAAAAAAAAAAAAREhMUFRgf/aAAgBAQABPyG5zj0us2ael0LXJCCD/9oADAMBAAIAAwAAABDb3//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oACAEDAQE/EFf/xAAVEQEBAAAAAAAAAAAAAAAAAAAAEf/aAAgBAgEBPxBH/8QAHBAAAgICAwAAAAAAAAAAAAAAABEBITGhQWGB/9oACAEBAAE/EOSyIuBBwK2YLD2Ol+hBjcNnXs//2Q=='); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/6c94ba14bec3537413c603635b78c123/7bf67/Dapsi_4.001.jpg" class="gatsby-resp-image-image" alt="TLS Communication Pipes" title="" srcset="/static/6c94ba14bec3537413c603635b78c123/651be/Dapsi_4.001.jpg 170w,
 /static/6c94ba14bec3537413c603635b78c123/d30a3/Dapsi_4.001.jpg 340w,
 /static/6c94ba14bec3537413c603635b78c123/7bf67/Dapsi_4.001.jpg 680w,
 /static/6c94ba14bec3537413c603635b78c123/990cb/Dapsi_4.001.jpg 1020w,
@@ -207,10 +210,9 @@ Please find more information on SCoP through our blog posts:
 and <a href="https://tarides.com/blog/2021-10-14-scop-selected-for-dapsi-phase2">DAPSI Phase 1</a>.</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/50ddca27efa367497d954f667fc921f8/a76d6/DAPSI_generic.jpg" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 3.5294117647058822%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAABABQDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAIDBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/9oADAMBAAIQAxAAAAHSsFSCf//EABYQAQEBAAAAAAAAAAAAAAAAAAMQM//aAAgBAQABBQIc0n//xAAVEQEBAAAAAAAAAAAAAAAAAAACEP/aAAgBAwEBPwET/8QAFhEAAwAAAAAAAAAAAAAAAAAAARAx/9oACAECAQE/ATV//8QAFxAAAwEAAAAAAAAAAAAAAAAAAAEQgf/aAAgBAQAGPwJGz//EABkQAAMAAwAAAAAAAAAAAAAAAAABQXGhsf/aAAgBAQABPyHdfScSI//aAAwDAQACAAMAAAAQCA//xAAWEQEBAQAAAAAAAAAAAAAAAAAAATH/2gAIAQMBAT8Q3Ef/xAAVEQEBAAAAAAAAAAAAAAAAAAAQMf/aAAgBAgEBPxCx/8QAGhAAAQUBAAAAAAAAAAAAAAAAAAEhMVHwsf/aAAgBAQABPxDUuQwdDgf/2Q=='); background-size: cover; display: block;"></span>
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 3.5294117647058822%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAABABQDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAIDBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/9oADAMBAAIQAxAAAAHSsFSCf//EABYQAQEBAAAAAAAAAAAAAAAAAAMQM//aAAgBAQABBQIc0n//xAAWEQADAAAAAAAAAAAAAAAAAAACEDH/2gAIAQMBAT8BCr//xAAWEQADAAAAAAAAAAAAAAAAAAABEDH/2gAIAQIBAT8BNX//xAAXEAADAQAAAAAAAAAAAAAAAAAAAhCB/9oACAEBAAY/AlNn/8QAGBAAAgMAAAAAAAAAAAAAAAAAALEQMYH/2gAIAQEAAT8hcZXMf//aAAwDAQACAAMAAAAQiA//xAAWEQEBAQAAAAAAAAAAAAAAAAAAATH/2gAIAQMBAT8QyR//xAAVEQEBAAAAAAAAAAAAAAAAAAAQMf/aAAgBAgEBPxCx/8QAGxAAAgEFAAAAAAAAAAAAAAAAAAEhMUGhsfD/2gAIAQEAAT8QzNhT4lFkf//Z'); background-size: cover; display: block;"></span>
   <img src="https://tarides.com/static/50ddca27efa367497d954f667fc921f8/7bf67/DAPSI_generic.jpg" class="gatsby-resp-image-image" alt="Sequence of entity logos: in association with NGI, EU, Zabala, FGS,
-cap-digital, IMT Starter, Fraunhofer IAIS." title="Sequence of entity logos: in association with NGI, EU, Zabala, FGS,
-cap-digital, IMT Starter, Fraunhofer IAIS." srcset="/static/50ddca27efa367497d954f667fc921f8/651be/DAPSI_generic.jpg 170w,
+cap-digital, IMT Starter, Fraunhofer IAIS." title="" srcset="/static/50ddca27efa367497d954f667fc921f8/651be/DAPSI_generic.jpg 170w,
 /static/50ddca27efa367497d954f667fc921f8/d30a3/DAPSI_generic.jpg 340w,
 /static/50ddca27efa367497d954f667fc921f8/7bf67/DAPSI_generic.jpg 680w,
 /static/50ddca27efa367497d954f667fc921f8/990cb/DAPSI_generic.jpg 1020w,

@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Xavier Clerc
+source:
 ---
 
 <p>The new release, namely <em>2.0-alpha2</em>, is mainly a bugfix relase, fixing the following issues:</p>

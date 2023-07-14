@@ -7,7 +7,8 @@ date: 2010-08-13T19:16:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>As a final modification to our running JSON quotation example, I want to repair a problem noted in the <a href="http://ambassadortothecomputers.blogspot.com/2010/08/reading-camlp4-part-8-implementing.html">first post</a>&mdash;that the default lexer does not match the <a href="http://www.ietf.org/rfc/rfc4627.txt">JSON spec</a>&mdash;and in doing so demonstrate the use of custom lexers with Camlp4 grammars. We&rsquo;ll parse UTF8-encoded Javascript using the <a href="http://www.cduce.org/download.html#side">ulex</a> library.</p> 

@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - ""
+source:
 ---
 
 <p>Last week I finally managed to slog through the last remaining issues required

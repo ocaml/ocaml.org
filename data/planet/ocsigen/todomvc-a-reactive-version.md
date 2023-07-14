@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - "St\xE9phane Legrand"
+source:
 ---
 
 <p><a href="http://todomvc.com/">TodoMVC</a> is a project which offers the same Todo

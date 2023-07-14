@@ -8,7 +8,8 @@ date: 2014-08-29T21:26:08-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- rjones
+- Richard Jones
+source:
 ---
 
 <p>If you ever used the old version of <a href="http://libguestfs.org/virt-v2v/">virt-v2v</a>, our software that converts guests to run on KVM, then you probably found it slow, but worse still it was slow and could fail at the end of the conversion (after possibly an hour or more).  No one liked that, least of all the developers and support people who had to help people use it.</p>

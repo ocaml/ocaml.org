@@ -6,7 +6,8 @@ date: 2017-10-03T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- bap
+- The BAP Blog
+source:
 ---
 
 <p>It was a lasting issue that BAP didn&rsquo;t have a tutorial. We have an

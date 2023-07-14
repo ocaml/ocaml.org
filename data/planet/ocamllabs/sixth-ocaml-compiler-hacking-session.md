@@ -6,7 +6,8 @@ date: 2014-06-20T19:50:00-00:00
 preview_image:
 featured:
 authors:
-- ocamllabs
+- OCaml Labs compiler hacking
+source:
 ---
 
 <p>(Update (2014-06-24): Stephen Dolan will be giving a demo of multicore OCaml!)</p>

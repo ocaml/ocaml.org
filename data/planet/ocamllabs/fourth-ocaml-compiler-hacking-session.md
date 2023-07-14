@@ -6,7 +6,8 @@ date: 2014-02-11T12:10:29-00:00
 preview_image:
 featured:
 authors:
-- ocamllabs
+- OCaml Labs compiler hacking
+source:
 ---
 
 <p>It's time for the fourth Cambridge OCaml compiler-hacking session!  We'll be meeting in the <a href="http://www.cl.cam.ac.uk/">Computer Lab</a> again next Tuesday evening.</p>

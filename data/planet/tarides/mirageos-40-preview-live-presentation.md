@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2021-11-09-mirageos-4-0-preview-live-presentation
 date: 2021-11-09T00:00:00-00:00
 preview_image: https://tarides.com/static/619c072d0a24bc8e8421e02cdafca46e/0132d/projector.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>The official release of MirageOS 4.0 quickly approaches! Learn about some general MirageOS concepts and get a
@@ -19,4 +22,4 @@ the PIN: &#8234;288 878 885&#8236;#. You can also find other phone numbers here:
 <p>This presentation will be a great introduction to Romain Calascibetta's forthcoming MirageOS workshop tomorrow.
 Check back on this blog and <a href="https://twitter.com/tarides_">follow us on Twitter</a> to find out more about how to watch
 and participate in this informative workshop tomorrow!</p>
-<p>Until then, check out Lucas's presentation today at 15h CET.</p>
+<p>Until then, check out Lucas' presentation today at 15h CET.</p>

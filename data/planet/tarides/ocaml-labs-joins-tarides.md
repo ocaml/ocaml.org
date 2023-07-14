@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-01-27-ocaml-labs-joins-tarides
 date: 2022-01-27T00:00:00-00:00
 preview_image: https://tarides.com/static/f77149b54403b557e824e316edede0d7/a1920/cambridge.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Today I am incredibly delighted to announce that <a href="https://anil.recoil.org/projects/ocamllabs">OCaml

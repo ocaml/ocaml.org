@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2019-05-09-an-introduction-to-ocaml-ppx-ecosystem
 date: 2019-05-09T00:00:00-00:00
 preview_image: https://tarides.com/static/0e8e776eb4ab9f596324bfe7e318b854/96c5f/circuit_boards.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>These last few months, I spent some time writing new OCaml PPX rewriters or contributing to existing
@@ -159,9 +162,9 @@ for each of them:</p>
 type expressions or signature items (anything you'd find at the top level of a module signature)
 using a <code>:</code> or a pattern using a <code>?</code>.</p>
 <p>Attributes' payload use the same syntax:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token string">'a'</span> <span class="token punctuation">[</span><span class="token operator">@</span>attr expr_or_str_item<span class="token punctuation">]</span>
-<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token string">'b'</span> <span class="token punctuation">[</span><span class="token operator">@</span>attr<span class="token punctuation">:</span> type_expr_or_sig_item<span class="token punctuation">]</span>
-<span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token string">'a'</span> <span class="token punctuation">[</span><span class="token operator">@</span>attr<span class="token operator">?</span> pattern<span class="token punctuation">]</span></code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token char">'a'</span> <span class="token punctuation">[</span><span class="token operator">@</span>attr expr_or_str_item<span class="token punctuation">]</span>
+<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token char">'b'</span> <span class="token punctuation">[</span><span class="token operator">@</span>attr<span class="token punctuation">:</span> type_expr_or_sig_item<span class="token punctuation">]</span>
+<span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token char">'a'</span> <span class="token punctuation">[</span><span class="token operator">@</span>attr<span class="token operator">?</span> pattern<span class="token punctuation">]</span></code></pre></div>
 <p>Some PPX-es rely on other language extensions such as the suffix character you can attach to <code>int</code>
 and <code>float</code> literals (<code>10z</code> could be used by a PPX to turn it into <code>Z.of_string &quot;10&quot;</code> for instance)
 or quoted strings with a specific identifier (<code>{ppx_name|some quoted string|ppx_name}</code> can be used
@@ -172,22 +175,22 @@ barely used but some forms of the infix syntax for extension points are used by 
 it is likely you will encounter some of the following:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> infix_let_extension <span class="token operator">=</span>
   <span class="token keyword">let</span><span class="token operator">%</span>ext x <span class="token operator">=</span> <span class="token number">2</span> <span class="token keyword">in</span>
-  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  <span class="token operator">..</span><span class="token punctuation">.</span>
 
 <span class="token keyword">let</span> infix_match_extension <span class="token operator">=</span>
-  <span class="token keyword">match</span><span class="token operator">%</span>ext y <span class="token keyword">with</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  <span class="token keyword">match</span><span class="token operator">%</span>ext y <span class="token keyword">with</span> <span class="token operator">..</span><span class="token punctuation">.</span>
 
 <span class="token keyword">let</span> infix_try_extension <span class="token operator">=</span>
-  <span class="token keyword">try</span><span class="token operator">%</span>ext f z <span class="token keyword">with</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre></div>
+  <span class="token keyword">try</span><span class="token operator">%</span>ext f z <span class="token keyword">with</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token operator">..</span><span class="token punctuation">.</span></code></pre></div>
 <p>which are syntactic sugar for:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> infix_let_extension <span class="token operator">=</span>
-  <span class="token punctuation">[</span><span class="token operator">%</span>ext <span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">2</span> <span class="token keyword">in</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span>
+  <span class="token punctuation">[</span><span class="token operator">%</span>ext <span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">2</span> <span class="token keyword">in</span> <span class="token operator">..</span><span class="token punctuation">.</span><span class="token punctuation">]</span>
 
 <span class="token keyword">let</span> infix_match_extension <span class="token operator">=</span>
-  <span class="token punctuation">[</span><span class="token operator">%</span>ext <span class="token keyword">match</span> y <span class="token keyword">with</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span>
+  <span class="token punctuation">[</span><span class="token operator">%</span>ext <span class="token keyword">match</span> y <span class="token keyword">with</span> <span class="token operator">..</span><span class="token punctuation">.</span><span class="token punctuation">]</span>
 
 <span class="token keyword">let</span> infix_try_extension <span class="token operator">=</span>
-  <span class="token punctuation">[</span><span class="token operator">%</span>ext <span class="token keyword">try</span> f z <span class="token keyword">with</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span></code></pre></div>
+  <span class="token punctuation">[</span><span class="token operator">%</span>ext <span class="token keyword">try</span> f z <span class="token keyword">with</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token operator">..</span><span class="token punctuation">.</span><span class="token punctuation">]</span></code></pre></div>
 <p>A good example of a PPX making heavy use of these if
 <a href="http://ocsigen.org/lwt/4.1.0/api/Ppx_lwt"><code>lwt_ppx</code></a>. The OCaml manual also contains more examples
 of the infix syntax in the Attributes and Extension points sections mentioned above.</p>
@@ -248,19 +251,19 @@ and derivers.</p>
 function to build an <code>Extension.t</code>, from which you can then build a <code>Context_free.Rule.t</code> before
 registering your transformation so it's actually applied.</p>
 <p>The typical <code>my_ppx_extension.ml</code> will look like:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">open</span> <span class="token module variable">Ppxlib</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">open</span> Ppxlib
 
 <span class="token keyword">let</span> extension <span class="token operator">=</span>
-  <span class="token module variable">Extension</span><span class="token punctuation">.</span>declare
+  Extension<span class="token punctuation">.</span>declare
     <span class="token string">&quot;my_extension&quot;</span>
     some_context
     some_pattern
     expand_function
 
-<span class="token keyword">let</span> rule <span class="token operator">=</span> <span class="token module variable">Context_free</span><span class="token punctuation">.</span><span class="token module variable">Rule</span><span class="token punctuation">.</span>extension extension
+<span class="token keyword">let</span> rule <span class="token operator">=</span> Context_free<span class="token punctuation">.</span>Rule<span class="token punctuation">.</span>extension extension
 
 <span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
-  <span class="token module variable">Driver</span><span class="token punctuation">.</span>register_transformation <span class="token label function">~rules</span><span class="token punctuation">:</span><span class="token punctuation">[</span>rule<span class="token punctuation">]</span> <span class="token string">&quot;my_transformation&quot;</span></code></pre></div>
+  Driver<span class="token punctuation">.</span>register_transformation <span class="token label property">~rules</span><span class="token punctuation">:</span><span class="token punctuation">[</span>rule<span class="token punctuation">]</span> <span class="token string">&quot;my_transformation&quot;</span></code></pre></div>
 <p>To compile it as PPX rewriter you'll need to put the following in your dune file:</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">(library
  (public_name my_ppx)
@@ -268,7 +271,7 @@ registering your transformation so it's actually applied.</p>
  (libraries ppxlib))</code></pre></div>
 <p>Now let's go back a little and look at the important part:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> extension <span class="token operator">=</span>
-  <span class="token module variable">Extension</span><span class="token punctuation">.</span>declare
+  Extension<span class="token punctuation">.</span>declare
     <span class="token string">&quot;my_extension&quot;</span>
     some_context
     some_pattern
@@ -298,9 +301,9 @@ context.</p>
 <p>Let's look at the type of <code>Extension.declare</code>:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> declare <span class="token punctuation">:</span>
   string <span class="token operator">-&gt;</span>
-  <span class="token type-variable function">'context</span> <span class="token module variable">Context</span><span class="token punctuation">.</span>t <span class="token operator">-&gt;</span>
-  <span class="token punctuation">(</span>payload<span class="token punctuation">,</span> <span class="token type-variable function">'a</span><span class="token punctuation">,</span> <span class="token type-variable function">'context</span><span class="token punctuation">)</span> <span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span>t <span class="token operator">-&gt;</span>
-  <span class="token punctuation">(</span>loc<span class="token punctuation">:</span><span class="token module variable">Location</span><span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> path<span class="token punctuation">:</span>string <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span>
+  <span class="token type-variable function">'context</span> Context<span class="token punctuation">.</span>t <span class="token operator">-&gt;</span>
+  <span class="token punctuation">(</span>payload<span class="token punctuation">,</span> <span class="token type-variable function">'a</span><span class="token punctuation">,</span> <span class="token type-variable function">'context</span><span class="token punctuation">)</span> Ast_pattern<span class="token punctuation">.</span>t <span class="token operator">-&gt;</span>
+  <span class="token punctuation">(</span>loc<span class="token punctuation">:</span>Location<span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> path<span class="token punctuation">:</span>string <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span>
   t</code></pre></div>
 <p>Here, the expected pattern first type parameter is <code>payload</code> which means we want a pattern that
 matches <code>payload</code> AST nodes. That makes perfect sense since it is used to describe what your
@@ -318,10 +321,10 @@ type of consumer function in the returned pattern.</p>
 extension that takes an expression as a payload and I want to pass this expression to my expander so
 I can generate code based on its value. I can declare the extension like this:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> extension <span class="token operator">=</span>
-  <span class="token module variable">Extension</span><span class="token punctuation">.</span>declare
+  Extension<span class="token punctuation">.</span>declare
     <span class="token string">&quot;my_extension&quot;</span>
-    <span class="token module variable">Extension</span><span class="token punctuation">.</span><span class="token module variable">Context</span><span class="token punctuation">.</span>expression
-    <span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span><span class="token punctuation">(</span>single_expr_payload __<span class="token punctuation">)</span>
+    Extension<span class="token punctuation">.</span>Context<span class="token punctuation">.</span>expression
+    Ast_pattern<span class="token punctuation">.</span><span class="token punctuation">(</span>single_expr_payload __<span class="token punctuation">)</span>
     expand_function</code></pre></div>
 <p>In this example, <code>Extension.Context.expression</code> has type <code>expression Extension.Context.t</code>, the
 pattern has type <code>(payload, expression -&gt; expression, expression) Ast_pattern.t</code>. The pattern says we
@@ -337,16 +340,16 @@ complex examples. Now say we want to only allow pairs of integer and string cons
 our payload. Instead of just capturing any expression and dealing with the error cases in the
 <code>expand_function</code> we can let <code>Ast_pattern</code> deal with that and pass an <code>int</code> and <code>string</code> along to
 our expander:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span><span class="token punctuation">(</span>single_expr_payload <span class="token punctuation">(</span>pexp_tuple <span class="token punctuation">(</span><span class="token punctuation">(</span>eint __<span class="token punctuation">)</span><span class="token operator">^::</span><span class="token punctuation">(</span>estring __<span class="token punctuation">)</span><span class="token operator">^::</span>nil<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml">Ast_pattern<span class="token punctuation">.</span><span class="token punctuation">(</span>single_expr_payload <span class="token punctuation">(</span>pexp_tuple <span class="token punctuation">(</span><span class="token punctuation">(</span>eint __<span class="token punctuation">)</span><span class="token operator">^::</span><span class="token punctuation">(</span>estring __<span class="token punctuation">)</span><span class="token operator">^::</span>nil<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></div>
 <p>This one's a bit more elaborate but the idea is the same, we use <code>__</code> to capture the int and string
 from the expression and use combinators to specify that the payload should be made of a pair and
 that gives us a: <code>(payload, int -&gt; string -&gt; 'a, 'a) Ast_pattern.t</code> which should be used with a
 <code>loc: Location.t -&gt; path: string -&gt; int -&gt; string -&gt; expression</code> expander.</p>
 <p>We can also specify that our extension should take something else than an expression as a payload,
 say a pattern with no <code>when</code> clause so that it's applied as <code>[%my_ext? some_pattern_payload]</code>:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span><span class="token punctuation">(</span>ppat __ none<span class="token punctuation">)</span></code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml">Ast_pattern<span class="token punctuation">.</span><span class="token punctuation">(</span>ppat __ none<span class="token punctuation">)</span></code></pre></div>
 <p>or no payload at all and it should just be invoked as <code>[%my_ext]</code>:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span><span class="token punctuation">(</span>pstr nil<span class="token punctuation">)</span></code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml">Ast_pattern<span class="token punctuation">.</span><span class="token punctuation">(</span>pstr nil<span class="token punctuation">)</span></code></pre></div>
 <p>You should play with <code>Ast_pattern</code> a bit if you need to express complex patterns as I think it's
 the only way to get the hang of it.</p>
 <h3 style="position:relative;"><a href="https://tarides.com/feed.xml#writing-a-deriver" aria-label="writing a deriver permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Writing a deriver</h3>
@@ -354,22 +357,22 @@ the only way to get the hang of it.</p>
 relatively simple and you will still have to provide the actual implementation in the form of an
 <code>expand</code> function.</p>
 <p>The typical <code>my_ppx_deriver.ml</code> will look like:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">open</span> <span class="token module variable">Ppxlib</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">open</span> Ppxlib
 
 <span class="token keyword">let</span> str_type_decl_generator <span class="token operator">=</span>
-  <span class="token module variable">Deriving</span><span class="token punctuation">.</span><span class="token module variable">Generator</span><span class="token punctuation">.</span>make_no_arg
-    <span class="token label function">~attributes</span>
+  Deriving<span class="token punctuation">.</span>Generator<span class="token punctuation">.</span>make_no_arg
+    <span class="token label property">~attributes</span>
     expand_str
 
 <span class="token keyword">let</span> sig_type_decl_generator <span class="token operator">=</span>
-  <span class="token module variable">Deriving</span><span class="token punctuation">.</span><span class="token module variable">Generator</span><span class="token punctuation">.</span>make_no_arg
-    <span class="token label function">~attributes</span>
+  Deriving<span class="token punctuation">.</span>Generator<span class="token punctuation">.</span>make_no_arg
+    <span class="token label property">~attributes</span>
     expand_sig
 
 <span class="token keyword">let</span> my_deriver <span class="token operator">=</span>
-  <span class="token module variable">Deriving</span><span class="token punctuation">.</span>add
-    <span class="token label function">~str_type_decl</span><span class="token punctuation">:</span>str_type_decl_generator
-    <span class="token label function">~sig_type_decl</span><span class="token punctuation">:</span>sig_type_decl_generator
+  Deriving<span class="token punctuation">.</span>add
+    <span class="token label property">~str_type_decl</span><span class="token punctuation">:</span>str_type_decl_generator
+    <span class="token label property">~sig_type_decl</span><span class="token punctuation">:</span>sig_type_decl_generator
     <span class="token string">&quot;my_deriver&quot;</span></code></pre></div>
 <p>Which you'll need to compile with the following <code>library</code> stanza:</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">(library
@@ -378,13 +381,13 @@ relatively simple and you will still have to provide the actual implementation i
  (libraries ppxlib))</code></pre></div>
 <p>The <code>Deriving.add</code> function is declared as:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> add
-  <span class="token punctuation">:</span>  <span class="token operator">?</span>str_type_decl<span class="token punctuation">:</span><span class="token punctuation">(</span>structure<span class="token punctuation">,</span> rec_flag <span class="token operator">*</span> type_declaration list<span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
-  <span class="token operator">-&gt;</span> <span class="token operator">?</span>str_type_ext <span class="token punctuation">:</span><span class="token punctuation">(</span>structure<span class="token punctuation">,</span> type_extension                  <span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
-  <span class="token operator">-&gt;</span> <span class="token operator">?</span>str_exception<span class="token punctuation">:</span><span class="token punctuation">(</span>structure<span class="token punctuation">,</span> extension_constructor           <span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
-  <span class="token operator">-&gt;</span> <span class="token operator">?</span>sig_type_decl<span class="token punctuation">:</span><span class="token punctuation">(</span>signature<span class="token punctuation">,</span> rec_flag <span class="token operator">*</span> type_declaration list<span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
-  <span class="token operator">-&gt;</span> <span class="token operator">?</span>sig_type_ext <span class="token punctuation">:</span><span class="token punctuation">(</span>signature<span class="token punctuation">,</span> type_extension                  <span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
-  <span class="token operator">-&gt;</span> <span class="token operator">?</span>sig_exception<span class="token punctuation">:</span><span class="token punctuation">(</span>signature<span class="token punctuation">,</span> extension_constructor           <span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
-  <span class="token operator">-&gt;</span> <span class="token operator">?</span>extension<span class="token punctuation">:</span><span class="token punctuation">(</span>loc<span class="token punctuation">:</span><span class="token module variable">Location</span><span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> path<span class="token punctuation">:</span>string <span class="token operator">-&gt;</span> core_type <span class="token operator">-&gt;</span> expression<span class="token punctuation">)</span>
+  <span class="token punctuation">:</span>  <span class="token operator">?</span>str_type_decl<span class="token punctuation">:</span><span class="token punctuation">(</span>structure<span class="token punctuation">,</span> rec_flag <span class="token operator">*</span> type_declaration list<span class="token punctuation">)</span> Generator<span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token operator">?</span>str_type_ext <span class="token punctuation">:</span><span class="token punctuation">(</span>structure<span class="token punctuation">,</span> type_extension                  <span class="token punctuation">)</span> Generator<span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token operator">?</span>str_exception<span class="token punctuation">:</span><span class="token punctuation">(</span>structure<span class="token punctuation">,</span> extension_constructor           <span class="token punctuation">)</span> Generator<span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token operator">?</span>sig_type_decl<span class="token punctuation">:</span><span class="token punctuation">(</span>signature<span class="token punctuation">,</span> rec_flag <span class="token operator">*</span> type_declaration list<span class="token punctuation">)</span> Generator<span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token operator">?</span>sig_type_ext <span class="token punctuation">:</span><span class="token punctuation">(</span>signature<span class="token punctuation">,</span> type_extension                  <span class="token punctuation">)</span> Generator<span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token operator">?</span>sig_exception<span class="token punctuation">:</span><span class="token punctuation">(</span>signature<span class="token punctuation">,</span> extension_constructor           <span class="token punctuation">)</span> Generator<span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token operator">?</span>extension<span class="token punctuation">:</span><span class="token punctuation">(</span>loc<span class="token punctuation">:</span>Location<span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> path<span class="token punctuation">:</span>string <span class="token operator">-&gt;</span> core_type <span class="token operator">-&gt;</span> expression<span class="token punctuation">)</span>
   <span class="token operator">-&gt;</span> string
   <span class="token operator">-&gt;</span> t</code></pre></div>
 <p>It takes a mandatory string argument, here <code>&quot;my_deriver&quot;</code>, which defines how
@@ -419,7 +422,7 @@ myself. Imagine <code>Blob.t</code> is defined as:</p>
   <span class="token punctuation">;</span> id <span class="token punctuation">:</span> int
   <span class="token punctuation">}</span></code></pre></div>
 <p>Without <code>ppx_import</code> I would define somewhere a <code>serializable_blob</code> type as follows:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> serializable_blob <span class="token operator">=</span> <span class="token module variable">Blob</span><span class="token punctuation">.</span>t <span class="token operator">=</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> serializable_blob <span class="token operator">=</span> Blob<span class="token punctuation">.</span>t <span class="token operator">=</span>
   <span class="token punctuation">{</span> <span class="token keyword">value</span> <span class="token punctuation">:</span> string
   <span class="token punctuation">;</span> length <span class="token punctuation">:</span> int
   <span class="token punctuation">;</span> id <span class="token punctuation">:</span> int
@@ -430,7 +433,7 @@ having it here, what I really want is just the <code>to_yojson</code> and <code>
 the type definition changes, I have to update it here manually. Maintaining many such imports can be
 tedious and duplicates a lot of code unnecessarily.</p>
 <p>What I can do instead, thanks to <code>ppx_import</code> is to write it like this:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> serializable_blob <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">%</span>import<span class="token punctuation">:</span> <span class="token module variable">Blob</span><span class="token punctuation">.</span>t<span class="token punctuation">]</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> serializable_blob <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">%</span>import<span class="token punctuation">:</span> Blob<span class="token punctuation">.</span>t<span class="token punctuation">]</span>
 <span class="token punctuation">[</span><span class="token operator">@@</span>deriving yojson<span class="token punctuation">]</span></code></pre></div>
 <p>which will ultimately be expanded into the above using <code>Blob</code>'s definition of the type <code>t</code>.</p>
 <p>Now <code>ppx_import</code> works a bit differently from regular PPX rewriters as it needs a bit more information
@@ -459,12 +462,12 @@ behave normally in any other context.</p>
 <p><code>ppxlib</code> versions <code>0.6.0</code> and higher allow you to do so through the <code>Deriving.Generator.V2</code> API
 which passes an abstract <code>ctxt</code> value to your <code>expand</code> function instead of a <code>loc</code> and a <code>path</code>.
 You can tell whether it is the <code>ocamldep</code> pass from within the <code>expand</code> function like this:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">open</span> <span class="token module variable">Ppxlib</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">open</span> Ppxlib
 
-<span class="token keyword">let</span> expand <span class="token label function">~ctxt</span> input_ast <span class="token operator">=</span>
-  <span class="token keyword">let</span> omp_config <span class="token operator">=</span> <span class="token module variable">Expansion_context</span><span class="token punctuation">.</span><span class="token module variable">Deriver</span><span class="token punctuation">.</span>omp_config ctxt <span class="token keyword">in</span>
-  <span class="token keyword">let</span> is_ocamldep_pass <span class="token operator">=</span> <span class="token module variable">String</span><span class="token punctuation">.</span>equal <span class="token string">&quot;ocamldep&quot;</span> omp_config<span class="token punctuation">.</span><span class="token module variable">Migrate_parsetree</span><span class="token punctuation">.</span><span class="token module variable">Driver</span><span class="token punctuation">.</span>tool_name <span class="token keyword">in</span>
-  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre></div>
+<span class="token keyword">let</span> expand <span class="token label property">~ctxt</span> input_ast <span class="token operator">=</span>
+  <span class="token keyword">let</span> omp_config <span class="token operator">=</span> Expansion_context<span class="token punctuation">.</span>Deriver<span class="token punctuation">.</span>omp_config ctxt <span class="token keyword">in</span>
+  <span class="token keyword">let</span> is_ocamldep_pass <span class="token operator">=</span> String<span class="token punctuation">.</span>equal <span class="token string">&quot;ocamldep&quot;</span> omp_config<span class="token punctuation">.</span>Migrate_parsetree<span class="token punctuation">.</span>Driver<span class="token punctuation">.</span>tool_name <span class="token keyword">in</span>
+  <span class="token operator">..</span><span class="token punctuation">.</span></code></pre></div>
 <h4 style="position:relative;"><a href="https://tarides.com/feed.xml#deriver-attributes" aria-label="deriver attributes permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deriver attributes</h4>
 <p>You'll have noted the <code>attributes</code> parameter in the examples. It's an optional parameter that lets
 you define which attributes your deriver allows the user to attach to various bits of the type,
@@ -483,8 +486,8 @@ the attribute can be attached and <code>'payload</code>, the type of its payload
 To build such an attribute you must use <code>Ppxlib.Attribute.declare</code>:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> declare
   <span class="token punctuation">:</span>  string
-  <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span> <span class="token module variable">Context</span><span class="token punctuation">.</span>t
-  <span class="token operator">-&gt;</span> <span class="token punctuation">(</span>payload<span class="token punctuation">,</span> <span class="token type-variable function">'b</span><span class="token punctuation">,</span> <span class="token type-variable function">'c</span><span class="token punctuation">)</span> <span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span> Context<span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token punctuation">(</span>payload<span class="token punctuation">,</span> <span class="token type-variable function">'b</span><span class="token punctuation">,</span> <span class="token type-variable function">'c</span><span class="token punctuation">)</span> Ast_pattern<span class="token punctuation">.</span>t
   <span class="token operator">-&gt;</span> <span class="token type-variable function">'b</span>
   <span class="token operator">-&gt;</span> <span class="token punctuation">(</span><span class="token type-variable function">'a</span><span class="token punctuation">,</span> <span class="token type-variable function">'c</span><span class="token punctuation">)</span> t</code></pre></div>
 <p>Let's try to declare the <code>default</code> argument from <code>ppx_deriving_yojson</code> I mentioned earlier.</p>
@@ -513,19 +516,19 @@ transform what we extracted using the previous <code>Ast_pattern</code> but in t
 keep the expression as we got it so we'll just use the identity function here.</p>
 <p>We end up with the following:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> default_attribute <span class="token operator">=</span>
-  <span class="token module variable">Attribute</span><span class="token punctuation">.</span>declare
+  Attribute<span class="token punctuation">.</span>declare
     <span class="token string">&quot;ppx_deriving_yojson.of_yojson.default&quot;</span>
-    <span class="token module variable">Attribute</span><span class="token punctuation">.</span><span class="token module variable">Context</span><span class="token punctuation">.</span>label_declaration
-    <span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span><span class="token punctuation">(</span>single_expr_payload __<span class="token punctuation">)</span>
+    Attribute<span class="token punctuation">.</span>Context<span class="token punctuation">.</span>label_declaration
+    Ast_pattern<span class="token punctuation">.</span><span class="token punctuation">(</span>single_expr_payload __<span class="token punctuation">)</span>
     <span class="token punctuation">(</span><span class="token keyword">fun</span> expr <span class="token operator">-&gt;</span> expr<span class="token punctuation">)</span></code></pre></div>
 <p>and that gives us a <code>(label_declaration, expression) Attribute.t</code>.</p>
 <p>You can then use it to collect the attribute payload from a label_declaration:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token module variable">Attribute</span><span class="token punctuation">.</span>get default_attribute label_decl</code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml">Attribute<span class="token punctuation">.</span>get default_attribute label_decl</code></pre></div>
 <p>which will return <code>Some expr</code> if the attribute was attached to <code>label_decl</code> or <code>None</code> otherwise.</p>
 <p>Because of their polymorphic nature, attributes need to be packed, ie to be wrapped with a variant
 to hide the type parameter, so if you want to pass it to <code>Generator.make_no_arg</code> you'll have to do
 it like this:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> attributes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token module variable">Attribute</span><span class="token punctuation">.</span>T default_attribute<span class="token punctuation">]</span></code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> attributes <span class="token operator">=</span> <span class="token punctuation">[</span>Attribute<span class="token punctuation">.</span>T default_attribute<span class="token punctuation">]</span></code></pre></div>
 <h3 style="position:relative;"><a href="https://tarides.com/feed.xml#writing-your-expand-functions" aria-label="writing your expand functions permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Writing your expand functions</h3>
 <p>In the two last sections I mentioned <code>expand</code> functions that would contain the actual <code>deriver</code> or
 <code>extension</code> implementation but didn't actually said anything about how to write those. It will
@@ -542,7 +545,7 @@ You can start by running <code>dumpast</code> on the following file:</p>
   <span class="token punctuation">;</span> b <span class="token punctuation">:</span> string
   <span class="token punctuation">}</span>
 
-<span class="token keyword">let</span> equal_some_record r r' <span class="token operator">=</span> <span class="token module variable">Int64</span><span class="token punctuation">.</span>equal r<span class="token punctuation">.</span>a r'<span class="token punctuation">.</span>a <span class="token operator">&amp;&amp;</span> <span class="token module variable">String</span><span class="token punctuation">.</span>equal r<span class="token punctuation">.</span>b r'<span class="token punctuation">.</span>b</code></pre></div>
+<span class="token keyword">let</span> equal_some_record r r' <span class="token operator">=</span> Int64<span class="token punctuation">.</span>equal r<span class="token punctuation">.</span>a r'<span class="token punctuation">.</span>a <span class="token operator">&amp;&amp;</span> String<span class="token punctuation">.</span>equal r<span class="token punctuation">.</span>b r'<span class="token punctuation">.</span>b</code></pre></div>
 <p>That will give you the AST representation of a record type definition and the equal function you
 want to write so you can figure out how to deconstruct your expander's input to be able to generate
 the right output.</p>
@@ -618,7 +621,7 @@ certainly make your test code unmaintainable, at least given the current tooling
 binary that will parse OCaml code, preprocess the AST with your rewriter and spit it out, formatted as
 code again.</p>
 <p>You just have to write the following <code>pp.ml</code>:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token module variable">Ppxlib</span><span class="token punctuation">.</span><span class="token module variable">Driver</span><span class="token punctuation">.</span>standalone <span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> Ppxlib<span class="token punctuation">.</span>Driver<span class="token punctuation">.</span>standalone <span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre></div>
 <p>and build the binary with the following <code>dune</code> stanza, assuming your rewriter is called
 <code>my_ppx_rewriter</code>:</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">(executable
@@ -735,31 +738,31 @@ is the file we'll include in the main <code>dune</code>. It's also the file to w
 stanza.</p>
 <p>I personally use the following <code>gen_dune_rules.ml</code>:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> output_stanzas filename <span class="token operator">=</span>
-  <span class="token keyword">let</span> base <span class="token operator">=</span> <span class="token module variable">Filename</span><span class="token punctuation">.</span>remove_extension filename <span class="token keyword">in</span>
-  <span class="token module variable">Printf</span><span class="token punctuation">.</span>printf
-    <span class="token punctuation">{</span><span class="token operator">|</span>
-<span class="token punctuation">(</span>library
-  <span class="token punctuation">(</span>name <span class="token operator">%</span>s<span class="token punctuation">)</span>
-  <span class="token punctuation">(</span>modules <span class="token operator">%</span>s<span class="token punctuation">)</span>
-  <span class="token punctuation">(</span>preprocess <span class="token punctuation">(</span>pps ppx_yojson<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">)</span>
+  <span class="token keyword">let</span> base <span class="token operator">=</span> Filename<span class="token punctuation">.</span>remove_extension filename <span class="token keyword">in</span>
+  Printf<span class="token punctuation">.</span>printf
+    <span class="token string">{|
+(library
+  (name %s)
+  (modules %s)
+  (preprocess (pps ppx_yojson))
+)
 
-<span class="token punctuation">(</span>rule
-  <span class="token punctuation">(</span>targets <span class="token operator">%</span>s<span class="token punctuation">.</span>actual<span class="token punctuation">)</span>
-  <span class="token punctuation">(</span>deps <span class="token punctuation">(</span><span class="token punctuation">:</span>pp pp<span class="token punctuation">.</span>exe<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">:</span>input <span class="token operator">%</span>s<span class="token punctuation">.</span>ml<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">(</span>action
-    <span class="token punctuation">(</span><span class="token keyword">with</span><span class="token operator">-</span>stderr<span class="token operator">-</span><span class="token keyword">to</span>
-      <span class="token operator">%%</span><span class="token punctuation">{</span>targets<span class="token punctuation">}</span>
-      <span class="token punctuation">(</span>bash <span class="token string">&quot;./%%{pp} -no-color --impl %%{input} || true&quot;</span><span class="token punctuation">)</span>
-    <span class="token punctuation">)</span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">)</span>
+(rule
+  (targets %s.actual)
+  (deps (:pp pp.exe) (:input %s.ml))
+  (action
+    (with-stderr-to
+      %%{targets}
+      (bash &quot;./%%{pp} -no-color --impl %%{input} || true&quot;)
+    )
+  )
+)
 
-<span class="token punctuation">(</span>alias
-  <span class="token punctuation">(</span>name runtest<span class="token punctuation">)</span>
-  <span class="token punctuation">(</span>action <span class="token punctuation">(</span>diff <span class="token operator">%</span>s<span class="token punctuation">.</span>expected <span class="token operator">%</span>s<span class="token punctuation">.</span>actual<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">)</span>
-<span class="token operator">|</span><span class="token punctuation">}</span>
+(alias
+  (name runtest)
+  (action (diff %s.expected %s.actual))
+)
+|}</span>
     base
     base
     base
@@ -770,14 +773,14 @@ stanza.</p>
 <span class="token keyword">let</span> is_error_test <span class="token operator">=</span> <span class="token keyword">function</span>
   <span class="token operator">|</span> <span class="token string">&quot;pp.ml&quot;</span> <span class="token operator">-&gt;</span> <span class="token boolean">false</span>
   <span class="token operator">|</span> <span class="token string">&quot;gen_dune_rules.ml&quot;</span> <span class="token operator">-&gt;</span> <span class="token boolean">false</span>
-  <span class="token operator">|</span> filename <span class="token operator">-&gt;</span> <span class="token module variable">Filename</span><span class="token punctuation">.</span>check_suffix filename <span class="token string">&quot;.ml&quot;</span>
+  <span class="token operator">|</span> filename <span class="token operator">-&gt;</span> Filename<span class="token punctuation">.</span>check_suffix filename <span class="token string">&quot;.ml&quot;</span>
 
 <span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
-  <span class="token module variable">Sys</span><span class="token punctuation">.</span>readdir <span class="token string">&quot;.&quot;</span>
-  <span class="token operator">|&gt;</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>to_list
-  <span class="token operator">|&gt;</span> <span class="token module variable">List</span><span class="token punctuation">.</span>sort <span class="token module variable">String</span><span class="token punctuation">.</span>compare
-  <span class="token operator">|&gt;</span> <span class="token module variable">List</span><span class="token punctuation">.</span>filter is_error_test
-  <span class="token operator">|&gt;</span> <span class="token module variable">List</span><span class="token punctuation">.</span>iter output_stanzas</code></pre></div>
+  Sys<span class="token punctuation">.</span>readdir <span class="token string">&quot;.&quot;</span>
+  <span class="token operator">|&gt;</span> Array<span class="token punctuation">.</span>to_list
+  <span class="token operator">|&gt;</span> List<span class="token punctuation">.</span>sort String<span class="token punctuation">.</span>compare
+  <span class="token operator">|&gt;</span> List<span class="token punctuation">.</span>filter is_error_test
+  <span class="token operator">|&gt;</span> List<span class="token punctuation">.</span>iter output_stanzas</code></pre></div>
 <p>Nothing spectacular here, we just build the list of all the <code>.ml</code> files in the directory except
 <code>pp.ml</code> and <code>gen_dune_rules.ml</code> itself and then generate the right stanzas for each of them. You'll
 note the extra <code>library</code> stanza which I add to get dune to generate the right <code>.merlin</code> so that I

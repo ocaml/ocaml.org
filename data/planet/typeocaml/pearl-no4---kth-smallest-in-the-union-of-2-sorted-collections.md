@@ -8,7 +8,8 @@ date: 2017-10-19T13:37:30-00:00
 preview_image: http://typeocaml.com/content/images/2017/10/cube-2.jpg
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2017/10/cube-2-1.jpg#hero" alt="hero"/></p>

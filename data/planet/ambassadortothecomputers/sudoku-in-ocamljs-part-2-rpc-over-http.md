@@ -7,7 +7,8 @@ date: 2009-05-04T05:35:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p><a href="http://ambassadortothecomputers.blogspot.com/2009/04/sudoku-in-ocamljs-part-1-dom.html">Last time</a> we made a simple user interface for Sudoku with the <code>Dom</code> module of <a href="http://code.google.com/p/ocamljs">ocamljs</a>. It isn't a very fun game though since there are no pre-filled numbers to constrain the board. So let's add a button to get a new game board; here's the <a href="http://orpc2.googlecode.com/svn/examples/sudoku/index.html">final result</a>.<br/>

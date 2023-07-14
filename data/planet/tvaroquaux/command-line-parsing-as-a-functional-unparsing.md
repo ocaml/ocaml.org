@@ -8,6 +8,7 @@ preview_image:
 featured:
 authors:
 - Till
+source:
 ---
 
 Command line argument parsing is a puzzling subject: it seems simple and small enough that it wouldn&rsquo;t gather much attention yet it pops up regularly through the blogosphere. There are many libraries for argument parsing but none of them seem to be unanimously loved. This has all the hallmarks of a surprisingly sneaky (and thus interesting) problem.

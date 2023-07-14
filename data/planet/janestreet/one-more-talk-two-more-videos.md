@@ -6,9 +6,12 @@ url: https://blog.janestreet.com/one-more-talk-two-more-videos/
 date: 2017-03-15T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
-<p>I&rsquo;m happy to announce our next <a href="https://events.janestreet.com/home/tech-talks/">public tech
+<p>I&rsquo;m happy to announce our next <a href="https://www.janestreet.com/tech-talks/">public tech
 talk</a>, called <strong>Seven
 Implementations of Incremental</strong>, on Wednesday, April 5th, presented by yours
 truly. You can register

@@ -6,7 +6,8 @@ date: 2010-10-20T11:09:22-00:00
 preview_image:
 featured:
 authors:
-- szacchiroli
+- Stefano Zacchiroli
+source:
 ---
 
 <h1>OCaml HTTP is now on the OCaml forge</h1>

@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-10-14-real-world-ocaml-book-giveaway
 date: 2022-10-14T00:00:00-00:00
 preview_image: https://tarides.com/static/df0abfcc235a96544a680387e82a0633/2070e/RWO_Camels.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p><em>Real World OCaml is a fantastic book on OCaml and functional programming &ndash; a great resource for beginners and experienced users alike. At Tarides, we want to support new learners of OCaml as much as we can, making it easier for people to become part of the vibrant community surrounding the language.</em>

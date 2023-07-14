@@ -8,7 +8,8 @@ date: 2013-10-29T13:10:26-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- syntaxexclamation
+- Matthias Puech
+source:
 ---
 
 <p>There is a <a href="http://cs.au.dk/~mpuech/typeful.pdf" title="Tagless and Typeful Normalization by Evaluation using Generalized Algebraic Data Types">new draft</a> on my web page! It is called <em>Tagless and Typeful Normalization by Evaluation using Generalized Algebraic Data Types</em>, which is a mouthful, but only describes accurately the cool new OCaml development we elaborated together with <a href="http://www.cs.au.dk/~danvy/" title="Olivier Danvy">Olivier</a> and <a href="http://cs.au.dk/~chkeller" title="Chantal Keller">Chantal</a>. The world of Normalization by Evaluation (NbE) is still relatively new to me, but its wonders keep amazing me. It&rsquo;s a program specialization algorithm&hellip; no, it&rsquo;s a completeness proof for first-order logic&hellip; wait, it&rsquo;s a technique to turn an interpreter into a compiler! Definitely, Aarhus University, my new home, is not the worst place to learn about it.</p>

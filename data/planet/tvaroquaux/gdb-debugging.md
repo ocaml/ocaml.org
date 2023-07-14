@@ -8,6 +8,7 @@ preview_image:
 featured:
 authors:
 - Till
+source:
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">Last month my <a href="http://gael-varoquaux.info/blog/">brother</a> came to visit and we did what every normal family would do: have beer and talk comp-scy. When he asked me how we debugged programs I had to sheepishly admit that I use printf... Part of the issue is that ocaml doesn't have good support for elf debugging annotation (the patch in <a href="http://caml.inria.fr/mantis/view.php?id=4888">PR#4888</a> hopes to address some of that) but it also comes from the fact that I am just not really up to speed on my debugging tools... Printf debugging has nearly no learning curve but it is slow and painful. Tools like gdb,strace,gprof,valgrind come with a steeper learning curve (especially for higher level languages because they require you to peer under the abstraction) but are the way to go in the long run.<br/>

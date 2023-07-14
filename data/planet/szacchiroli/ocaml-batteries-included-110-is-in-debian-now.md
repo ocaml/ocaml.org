@@ -6,7 +6,8 @@ date: 2010-03-06T16:39:15-00:00
 preview_image:
 featured:
 authors:
-- szacchiroli
+- Stefano Zacchiroli
+source:
 ---
 
 <h1>OCaml Batteries Included 1.1.0 has arrived in Debian</h1>

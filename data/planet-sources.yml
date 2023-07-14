@@ -115,9 +115,6 @@
 - id: ocsigen
   name: Ocsigen project
   url: https://ocsigen.org/feed.xml
-- id: opa
-  name: Opa
-  url: http://www.blogger.com/feeds/2073503406800427577/posts/default
 - id: orbitz
   name: Orbitz
   url: http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss

@@ -7,7 +7,8 @@ date: 2010-05-07T17:47:00-00:00
 preview_image: http://4.bp.blogspot.com/_-BRxxZyoKFE/S-RS60NO3DI/AAAAAAAAAOw/KkXzrR_I14g/w1200-h630-p-k-no-nu/how-froc-works-a.png
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
  

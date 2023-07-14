@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-11-24-solve-the-2022-advent-of-code-puzzles-w
 date: 2022-11-24T00:00:00-00:00
 preview_image: https://tarides.com/static/20794c5088bfe5e21a251bf2f821190f/10057/advent_of_code.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Too many programmers only know OCaml through a functional programming language overview course at university. They erroneously believe OCaml is used primarily in academia rather than in the real world. Not only is OCaml already used in <a href="https://tarides.com/blog/2022-11-22-six-surprising-reasons-the-ocaml-programming-language-is-good-for-business">several prominent businesses</a>, it can also be used for fun projects, like the upcoming Advent of Code.</p>

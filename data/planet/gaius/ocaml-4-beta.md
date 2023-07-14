@@ -8,7 +8,8 @@ date: 2012-06-07T18:17:03-00:00
 preview_image: https://gaiustech.files.wordpress.com/2018/07/cropped-lynx.jpg?w=180
 featured:
 authors:
-- gaius
+- Gaius Hammond
+source:
 ---
 
 <p><a href="http://caml.inria.fr/pub/distrib/ocaml-4.00/">OCaml 4 beta 2</a> has been released, and so I quickly tested <a href="http://gaiustech.github.com/ociml/">OCI*ML</a> with it. Only a couple of minor tweaks were necessary, due to the following <a href="http://caml.inria.fr/pub/distrib/ocaml-4.00/notes/Changes">changes</a>:</p>

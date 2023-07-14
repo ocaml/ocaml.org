@@ -8,7 +8,8 @@ date: 2011-05-24T17:50:41-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- dutherenverseauborddelatable
+- David Teller
+source:
 ---
 
 <p style="text-align:justify;">A few open-source Opa applications, written by beta testers or Opa team members, have been open-sourced in the past few days. Expect a few other releases in the upcoming days/weeks:</p>

@@ -6,7 +6,8 @@ date: 2015-03-31T17:30:00-00:00
 preview_image:
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/03/pearl_3_easter_1-2.jpg#hero" alt=""/></p>

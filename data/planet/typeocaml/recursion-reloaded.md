@@ -7,7 +7,8 @@ date: 2014-12-04T15:44:18-00:00
 preview_image:
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2014/12/infinity-cubes-room.jpg#hero" alt="recursion_reloaded"/></p>

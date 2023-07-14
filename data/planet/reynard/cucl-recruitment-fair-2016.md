@@ -6,7 +6,8 @@ date: 2016-11-18T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- reynard
+- Gemma Gordon (OCaml Labs)
+source:
 ---
 
 <p>Cambridge Computer Lab runs a <a href="https://www.cl.cam.ac.uk/supporters-club/members.html">Supporters Club</a> for a <a href="https://www.cl.cam.ac.uk/supporters-club/members.html">group of companies</a>, ranging from the very small to the large, which actively support teaching or research in the Computer Laboratory.</p>

@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Vincent Balat
+source:
 ---
 
 <p>Following last week release,

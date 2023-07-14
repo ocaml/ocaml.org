@@ -8,7 +8,8 @@ date: 2014-11-13T23:04:59-00:00
 preview_image:
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2014/11/async2.jpg#hero" alt="async"/></p>

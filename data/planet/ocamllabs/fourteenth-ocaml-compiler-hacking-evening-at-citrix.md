@@ -6,7 +6,8 @@ date: 2016-06-26T20:15:00-00:00
 preview_image:
 featured:
 authors:
-- ocamllabs
+- OCaml Labs compiler hacking
+source:
 ---
 
 <p>&#8203;Our summer compiler hacking event will be hosted by Euan and the Citrix Team on Thursday 7th&#8203; July &mdash; come and explore the other side of Cambridge and the Science Park!</p>

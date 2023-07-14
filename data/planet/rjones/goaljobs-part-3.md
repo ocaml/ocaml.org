@@ -8,7 +8,8 @@ date: 2013-09-20T11:03:05-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- rjones
+- Richard Jones
+source:
 ---
 
 <p>In <a href="https://rwmj.wordpress.com/2013/09/20/goaljobs-part-2/">part 2</a> I introduced an example goaljobs script that can rebuild a set of packages in Fedora in the right order.</p>

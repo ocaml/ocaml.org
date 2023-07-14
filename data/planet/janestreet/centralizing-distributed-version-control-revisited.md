@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/centralizing-distributed-version-control-revisi
 date: 2015-03-04T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>7 years ago, I wrote a <a href="https://blog.janestreet.com/centralizing-distributed-version-control/" title="Centralizing Distributed Version Control">blog

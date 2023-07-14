@@ -6,6 +6,9 @@ url: https://blog.janestreet.com/computations-that-differentiate-debug-and-docum
 date: 2022-11-17T00:00:00-00:00
 preview_image: https://blog.janestreet.com/computations-that-differentiate-debug-and-document-themselves/./cover.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>One of the problems we wrestle with at Jane Street is how to

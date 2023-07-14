@@ -7,7 +7,8 @@ date: 2011-04-07T05:03:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>I got a new job where I am hacking some Scala. I thought I would learn something by translating some functional code into Scala, and a friend had recently pointed me to Kiselyov et al.&rsquo;s <a href="http://okmij.org/ftp/Computation/LogicT.pdf">Backtracking, Interleaving, and Terminating Monad Transformers</a>, which provides a foundation for Prolog-style logic programming. Of course, a good translation should use the local idiom. So in this post (and the next) I want to explore an embedded domain-specific language for logic programming in Scala.</p> 

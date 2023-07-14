@@ -8,6 +8,7 @@ preview_image:
 featured:
 authors:
 - Shayne Fletcher
+source:
 ---
 
     <p> Consider the following recursive definition of the factorial

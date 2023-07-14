@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Psellos
+source:
 ---
 
 <div class="date">October 18, 2012</div>

@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Rudi Grinberg
+source:
 ---
 
 <p>In my <a href="http://rgrinberg.com/blog/2014/04/04/introducing-opium/" class="reference external">previous

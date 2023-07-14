@@ -6,7 +6,8 @@ date: 2011-12-14T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- emillon
+- Etienne Millon
+source:
 ---
 
 <h2>Introduction</h2>

@@ -6,7 +6,8 @@ date: 2009-11-13T15:47:57-00:00
 preview_image:
 featured:
 authors:
-- szacchiroli
+- Stefano Zacchiroli
+source:
 ---
 
 <h1>Debian &quot;Core&quot; 0.6.0 packages ready</h1>

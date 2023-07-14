@@ -8,6 +8,7 @@ preview_image:
 featured:
 authors:
 - Till
+source:
 ---
 
 <p>Phantom types are a nifty trick: types are used to store additional

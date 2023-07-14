@@ -7,7 +7,8 @@ date: 2013-01-03T22:55:00-00:00
 preview_image:
 featured:
 authors:
-- orbitz
+- Orbitz
+source:
 ---
 
 <p>

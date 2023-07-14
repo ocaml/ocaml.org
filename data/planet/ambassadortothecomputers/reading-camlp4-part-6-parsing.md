@@ -7,7 +7,8 @@ date: 2010-05-20T04:22:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>In this post I want to discuss Camlp4&rsquo;s <em>stream parsers</em> and <em>grammars</em>. Since the OCaml parsers in Camlp4 (which we touched on <a href="http://ambassadortothecomputers.blogspot.com/2009/01/reading-camlp4-part-3-quotations-in.html">previously</a>) use them, it&rsquo;s necessary to understand them in order to write syntax extensions; independently, they are a nice alternative to <code>ocamlyacc</code> and other parser generators. Stream parsers and grammars are outlined for the old Camlp4 in the <a href="http://caml.inria.fr/pub/docs/tutorial-camlp4/">tutorial</a> and <a href="http://caml.inria.fr/pub/docs/manual-camlp4/">manual</a>, but some of the details have changed, and there are many aspects of grammars which are given only a glancing treatment in that material.</p> 

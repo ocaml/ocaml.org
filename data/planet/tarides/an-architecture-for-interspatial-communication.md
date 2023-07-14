@@ -5,6 +5,9 @@ url: http://kcsrk.info/papers/osmose_feb_18.pdf
 date: 2018-02-14T00:00:00-00:00
 preview_image:
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Position paper on

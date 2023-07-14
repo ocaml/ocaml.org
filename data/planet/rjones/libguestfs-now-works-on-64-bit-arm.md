@@ -8,7 +8,8 @@ date: 2014-07-23T20:49:26-00:00
 preview_image: https://rwmj.files.wordpress.com/2014/07/arm.jpg
 featured:
 authors:
-- rjones
+- Richard Jones
+source:
 ---
 
 <p><a href="https://rwmj.files.wordpress.com/2014/07/arm.jpg"><img src="https://rwmj.files.wordpress.com/2014/07/arm.jpg?w=500" data-attachment-id="5374" data-permalink="https://rwmj.wordpress.com/2014/07/23/libguestfs-now-works-on-64-bit-arm/arm/" data-orig-file="https://rwmj.files.wordpress.com/2014/07/arm.jpg" data-orig-size="320,240" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="arm" data-image-description="" data-image-caption="" data-medium-file="https://rwmj.files.wordpress.com/2014/07/arm.jpg?w=320" data-large-file="https://rwmj.files.wordpress.com/2014/07/arm.jpg?w=320" alt="arm" class="aligncenter size-full wp-image-5374" srcset="https://rwmj.files.wordpress.com/2014/07/arm.jpg 320w, https://rwmj.files.wordpress.com/2014/07/arm.jpg?w=150 150w" sizes="(max-width: 320px) 100vw, 320px"/></a></p>

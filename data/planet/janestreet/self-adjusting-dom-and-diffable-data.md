@@ -6,6 +6,9 @@ url: https://blog.janestreet.com/self-adjusting-dom-and-diffable-data/
 date: 2016-02-10T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>In my last <a href="https://blog.janestreet.com/self-adjusting-dom/">post</a>, I gave some simple examples showing how

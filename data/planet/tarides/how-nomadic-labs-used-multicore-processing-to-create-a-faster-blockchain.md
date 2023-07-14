@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-12-20-how-nomadic-labs-used-multicore-process
 date: 2022-12-20T00:00:00-00:00
 preview_image: https://tarides.com/static/b2f789f4242fe01494746b5c418bfc00/b7eba/Tezos.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>The technology that makes blockchain possible is complex, cutting-edge, and fascinating. Balancing efficiency and security on a knife's edge, it finds perfect harmony between high transaction speeds and safe, predictable results. Blockchain technology is constantly evolving, pushing the boundaries of what&rsquo;s possible, and driving innovation and research. Discover how Tarides helped Nomadic Labs use <a href="https://speakerdeck.com/kayceesrk/retrofitting-concurrency-lessons-from-the-engine-room">OCaml 5</a> to boost blockchain performance with rollup technology.</p>

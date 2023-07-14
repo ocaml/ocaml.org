@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Thomas Leonard
+source:
 ---
 
 <p>In my last post, <a href="https://roscidus.com/blog/blog/2021/03/07/qubes-lite-with-kvm-and-wayland/">Qubes-lite with KVM and Wayland</a>, I described setting up a Qubes-inspired Linux system that runs applications in virtual machines. A Wayland proxy running in each VM connects its applications to the host Wayland compositor over virtwl, allowing them to appear on the desktop alongside normal host applications. In this post, I extend this to support X11 applications using Xwayland.</p>

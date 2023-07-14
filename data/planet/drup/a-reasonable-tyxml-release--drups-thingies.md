@@ -7,7 +7,8 @@ date: 2020-03-06T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- drup
+- Gabriel Radanne
+source:
 ---
 
 

@@ -6,6 +6,9 @@ url: https://blog.janestreet.com/quickcheck-for-core/
 date: 2015-10-26T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Automated testing is a powerful tool for finding bugs and specifying correctness

@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-11-29-ocaml-5-beta2-release
 date: 2022-11-29T00:00:00-00:00
 preview_image: https://tarides.com/static/37eb312d700b065239a4797fa427a8ee/0132d/beta2.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Just about a month after the <a href="https://tarides.com/blog/2022-10-17-ocaml-5-beta-release">OCaml 5 Beta release</a>, the OCaml 5 Beta2 version has been released, taking us one step closer to the full OCaml 5 with Multicore release later this year. The OCaml community's collaboration is coming to fruition! Although we're not quite ready for the RC1 (Release Candidate) version, several things have been added and improved with Beta2.</p>

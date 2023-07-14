@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - "Daniel B\xFCnzli"
+source:
 ---
 
 <p>Release of React 1.0.0, consult the release notes for details.</p>

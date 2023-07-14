@@ -8,7 +8,8 @@ date: 2013-06-17T13:17:44-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- syntaxexclamation
+- Matthias Puech
+source:
 ---
 
 <p>There is a new draft on my <a href="http://www.pps.univ-paris-diderot.fr/~puech/">web page</a>, that should be of interest to those who enjoyed my posts about <a href="https://syntaxexclamation.wordpress.com/2011/08/31/reversing-data-structures/" title="Reversing data&nbsp;structures">reversing data structures</a> and the <a href="https://syntaxexclamation.wordpress.com/2011/09/01/reverse-natural-deduction-and-get-sequent-calculus/" title="Reverse natural deduction and get sequent&nbsp;calculus">relation between natural deduction and sequent calculus</a>. It is an article submitted to <a href="http://aplas2013.soic.indiana.edu/">APLAS 2013</a>, and it is called&nbsp;<em><a href="http://www.pps.univ-paris-diderot.fr/~puech/upside.pdf" title="Proofs, upside down">Proofs, upside down.</a></em> In a nutshell, I am arguing for the use of functional PL tools, in particular classic functional program transformations, to understand and explain proof theory phenomena. Here, I show that there is the same relationship between natural deduction and (a restriction of) the sequent calculus than between this recursive function:</p>

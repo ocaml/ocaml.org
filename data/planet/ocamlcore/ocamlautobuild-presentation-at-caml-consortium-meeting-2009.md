@@ -6,7 +6,8 @@ date: 2009-12-14T16:03:29-00:00
 preview_image:
 featured:
 authors:
-- ocamlcore
+- OCamlCore.com
+source:
 ---
 
 <p>One year ago, OCamlCore has started a project to help creating a fully featured build system: OCamlAutobuild.</p>

@@ -6,7 +6,8 @@ date: 2014-08-02T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- ujamjar
+- Andy Ray
+source:
 ---
 
 <p>Recently I was looking for an Ocaml solution for the Nexus 7. There are a 

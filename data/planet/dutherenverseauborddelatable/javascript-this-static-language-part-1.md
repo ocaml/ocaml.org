@@ -8,7 +8,8 @@ date: 2011-10-20T13:31:36-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- dutherenverseauborddelatable
+- David Teller
+source:
 ---
 
 <h2 style="text-align:justify;">tl;dr</h2>

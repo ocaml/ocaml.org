@@ -6,7 +6,8 @@ date: 2015-02-21T01:24:38-00:00
 preview_image:
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/02/pear-2.jpg#hero" alt="pear-2"/></p>

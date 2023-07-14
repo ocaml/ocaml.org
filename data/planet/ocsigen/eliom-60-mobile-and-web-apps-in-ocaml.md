@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - The Ocsigen Team
+source:
 ---
 
 <p>We are very happy to announce the release of <a href="https://github.com/ocsigen/eliom/releases/tag/6.0.0">Ocsigen Eliom 6.0</a>,

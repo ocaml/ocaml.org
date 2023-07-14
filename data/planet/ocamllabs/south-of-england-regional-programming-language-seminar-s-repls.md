@@ -6,7 +6,8 @@ date: 2015-02-05T12:00:00-00:00
 preview_image:
 featured:
 authors:
-- ocamllabs
+- OCaml Labs compiler hacking
+source:
 ---
 
 <p>If you're within travelling distance of Cambridge and interested in

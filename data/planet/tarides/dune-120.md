@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2018-09-06-dune-1-2-0
 date: 2018-09-06T00:00:00-00:00
 preview_image: https://tarides.com/static/98e7b693b372846010bfcd8d54746146/0132d/sand_dune1.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>After a tiny but important patch release as 1.1.1, the dune team is thrilled to

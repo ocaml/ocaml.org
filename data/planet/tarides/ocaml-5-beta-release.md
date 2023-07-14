@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-10-17-ocaml-5-beta-release
 date: 2022-10-17T00:00:00-00:00
 preview_image: https://tarides.com/static/c910c1b919b507c68aa088930cbe92f8/74bcd/camel_desert.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Back in June, we announced the <a href="https://tarides.com/blog/2022-06-15-ocaml-5-alpha-release">OCaml 5 alpha release</a>, and today we're excited to announce <a href="https://discuss.ocaml.org/t/ocaml-5-0-0-first-beta-release/10623">the first beta release</a>! Now is an excellent time to test it and report positive or negative feedback on your projects (i.e., did it work, did you see impressive performance speed up, did you have issues finding documentation, etc.)</p>

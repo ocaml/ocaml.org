@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2020-09-24-building-portable-user-interfaces-with-
 date: 2020-09-24T00:00:00-00:00
 preview_image: https://tarides.com/static/06fbdcdb40efa879b814b744c5ea3fbf/fcfee/nottui-rain.png
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>At Tarides, we build many tools and writing UI is usually a tedious task. In this post we will see how to write functional UIs in OCaml using the <code>Nottui</code> &amp; <code>Lwd</code> libraries.</p>
@@ -38,49 +41,49 @@ They are used in tandem: <code>Nottui</code> for rendering the UI and <code>Lwd<
 <p>Version 0.1 has just been released on OPAM.</p>
 <h2 style="position:relative;"><a href="https://tarides.com/feed.xml#getting-started" aria-label="getting started permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Getting started!</h2>
 <p>Here is a small example to start using the library. First, install the Nottui library:</p>
-<div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">$ opam install nottui</code></pre></div>
+<div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">$ opam <span class="token function">install</span> nottui</code></pre></div>
 <p>Now we can play in the top-level. We will start with a simple button that counts the number of clicks:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token operator">$</span> utop
-# <span class="token directive important">#require</span> <span class="token string">&quot;nottui&quot;</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
-# <span class="token keyword">open</span> <span class="token module variable">Nottui</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
-# <span class="token keyword">module</span> W <span class="token operator">=</span> <span class="token module variable">Nottui_widgets</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">#</span> <span class="token directive property">#require</span> <span class="token string">&quot;nottui&quot;</span><span class="token punctuation">;;</span>
+<span class="token punctuation">#</span> <span class="token keyword">open</span> Nottui<span class="token punctuation">;;</span>
+<span class="token punctuation">#</span> <span class="token keyword">module</span> W <span class="token operator">=</span> Nottui_widgets<span class="token punctuation">;;</span>
 <span class="token comment">(* State for holding the number of clicks *)</span>
-# <span class="token keyword">let</span> vcount <span class="token operator">=</span> <span class="token module variable">Lwd</span><span class="token punctuation">.</span>var <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">#</span> <span class="token keyword">let</span> vcount <span class="token operator">=</span> Lwd<span class="token punctuation">.</span>var <span class="token number">0</span><span class="token punctuation">;;</span>
 <span class="token comment">(* Image of the button parametrized by the number of clicks *)</span>
-# <span class="token keyword">let</span> button count <span class="token operator">=</span>
-    W<span class="token punctuation">.</span>button <span class="token label function">~attr</span><span class="token punctuation">:</span><span class="token module variable">Notty</span><span class="token punctuation">.</span>A<span class="token punctuation">.</span><span class="token punctuation">(</span>bg green <span class="token operator">++</span> fg black<span class="token punctuation">)</span>
-      <span class="token punctuation">(</span><span class="token module variable">Printf</span><span class="token punctuation">.</span>sprintf <span class="token string">&quot;Clicked %d times!&quot;</span> count<span class="token punctuation">)</span>
-      <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token module variable">Lwd</span><span class="token punctuation">.</span>set vcount <span class="token punctuation">(</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">#</span> <span class="token keyword">let</span> button count <span class="token operator">=</span>
+    W<span class="token punctuation">.</span>button <span class="token label property">~attr</span><span class="token punctuation">:</span>Notty<span class="token punctuation">.</span>A<span class="token punctuation">.</span><span class="token punctuation">(</span>bg green <span class="token operator">++</span> fg black<span class="token punctuation">)</span>
+      <span class="token punctuation">(</span>Printf<span class="token punctuation">.</span>sprintf <span class="token string">&quot;Clicked %d times!&quot;</span> count<span class="token punctuation">)</span>
+      <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> Lwd<span class="token punctuation">.</span>set vcount <span class="token punctuation">(</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;;</span>
 <span class="token comment">(* Run the UI! *)</span>
-# <span class="token module variable">Ui_loop</span><span class="token punctuation">.</span>run <span class="token punctuation">(</span><span class="token module variable">Lwd</span><span class="token punctuation">.</span>map button <span class="token punctuation">(</span><span class="token module variable">Lwd</span><span class="token punctuation">.</span>get vcount<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">;</span></code></pre></div>
+<span class="token punctuation">#</span> Ui_loop<span class="token punctuation">.</span>run <span class="token punctuation">(</span>Lwd<span class="token punctuation">.</span>map button <span class="token punctuation">(</span>Lwd<span class="token punctuation">.</span>get vcount<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;;</span></code></pre></div>
 <p><strong>Note:</strong> to quit the example, you can press Ctrl-Q or Esc.</p>
 <p>We will improve the example and turn it into a mini cookie clicker game.</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token comment">(* Achievements to unlock in the cookie clicker *)</span>
-# <span class="token keyword">let</span> badges <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">15</span><span class="token punctuation">,</span> <span class="token string">&quot;Cursor&quot;</span><span class="token punctuation">;</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token string">&quot;Grandma&quot;</span><span class="token punctuation">;</span> <span class="token number">150</span><span class="token punctuation">,</span> <span class="token string">&quot;Farm&quot;</span><span class="token punctuation">;</span> <span class="token number">300</span><span class="token punctuation">,</span> <span class="token string">&quot;Mine&quot;</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">#</span> <span class="token keyword">let</span> badges <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">15</span><span class="token punctuation">,</span> <span class="token string">&quot;Cursor&quot;</span><span class="token punctuation">;</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token string">&quot;Grandma&quot;</span><span class="token punctuation">;</span> <span class="token number">150</span><span class="token punctuation">,</span> <span class="token string">&quot;Farm&quot;</span><span class="token punctuation">;</span> <span class="token number">300</span><span class="token punctuation">,</span> <span class="token string">&quot;Mine&quot;</span><span class="token punctuation">]</span><span class="token punctuation">;;</span>
 <span class="token comment">(* List the achievements unlocked by the player *)</span>
-# <span class="token keyword">let</span> unlocked_ui count <span class="token operator">=</span>
+<span class="token punctuation">#</span> <span class="token keyword">let</span> unlocked_ui count <span class="token operator">=</span>
     <span class="token comment">(* Filter the achievements *)</span>
     <span class="token keyword">let</span> predicate <span class="token punctuation">(</span>target<span class="token punctuation">,</span> text<span class="token punctuation">)</span> <span class="token operator">=</span>
       <span class="token keyword">if</span> count <span class="token operator">&gt;=</span> target
-      <span class="token keyword">then</span> <span class="token module variable">Some</span> <span class="token punctuation">(</span>W<span class="token punctuation">.</span>printf <span class="token string">&quot;% 4d: %s&quot;</span> target text<span class="token punctuation">)</span>
-      <span class="token keyword">else</span> <span class="token module variable">None</span>
+      <span class="token keyword">then</span> Some <span class="token punctuation">(</span>W<span class="token punctuation">.</span>printf <span class="token string">&quot;% 4d: %s&quot;</span> target text<span class="token punctuation">)</span>
+      <span class="token keyword">else</span> None
     <span class="token keyword">in</span>
     <span class="token comment">(* Concatenate the UI elements vertically *)</span>
-    <span class="token module variable">Ui</span><span class="token punctuation">.</span>vcat <span class="token punctuation">(</span><span class="token module variable">List</span><span class="token punctuation">.</span>filter_map predicate badges<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+    Ui<span class="token punctuation">.</span>vcat <span class="token punctuation">(</span>List<span class="token punctuation">.</span>filter_map predicate badges<span class="token punctuation">)</span><span class="token punctuation">;;</span>
 <span class="token comment">(* Display the next achievement to reach *)</span>
-# <span class="token keyword">let</span> next_ui count <span class="token operator">=</span>
+<span class="token punctuation">#</span> <span class="token keyword">let</span> next_ui count <span class="token operator">=</span>
     <span class="token keyword">let</span> predicate <span class="token punctuation">(</span>target<span class="token punctuation">,</span> <span class="token punctuation">_</span><span class="token punctuation">)</span> <span class="token operator">=</span> target <span class="token operator">&gt;</span> ciybt <span class="token keyword">in</span>
-    <span class="token keyword">match</span> <span class="token module variable">List</span><span class="token punctuation">.</span>find_opt predicate badges <span class="token keyword">with</span>
-    <span class="token operator">|</span> <span class="token module variable">Some</span> <span class="token punctuation">(</span>target<span class="token punctuation">,</span> <span class="token punctuation">_</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span>
-      W<span class="token punctuation">.</span>printf <span class="token label function">~attr</span><span class="token punctuation">:</span><span class="token module variable">Notty</span><span class="token punctuation">.</span>A<span class="token punctuation">.</span><span class="token punctuation">(</span>st bold<span class="token punctuation">)</span> <span class="token string">&quot;% 4d: ???&quot;</span> target
-    <span class="token operator">|</span> <span class="token module variable">None</span> <span class="token operator">-&gt;</span> <span class="token module variable">Ui</span><span class="token punctuation">.</span>empty<span class="token punctuation">;</span><span class="token punctuation">;</span>
+    <span class="token keyword">match</span> List<span class="token punctuation">.</span>find_opt predicate badges <span class="token keyword">with</span>
+    <span class="token operator">|</span> Some <span class="token punctuation">(</span>target<span class="token punctuation">,</span> <span class="token punctuation">_</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span>
+      W<span class="token punctuation">.</span>printf <span class="token label property">~attr</span><span class="token punctuation">:</span>Notty<span class="token punctuation">.</span>A<span class="token punctuation">.</span><span class="token punctuation">(</span>st bold<span class="token punctuation">)</span> <span class="token string">&quot;% 4d: ???&quot;</span> target
+    <span class="token operator">|</span> None <span class="token operator">-&gt;</span> Ui<span class="token punctuation">.</span>empty<span class="token punctuation">;;</span>
 <span class="token comment">(* Let's make use of the fancy let-operators recently added to OCaml *)</span>
-# <span class="token keyword">open</span> <span class="token module variable">Lwd_infix</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
-# <span class="token keyword">let</span> ui <span class="token operator">=</span>
-    <span class="token keyword">let</span><span class="token operator">$</span> count <span class="token operator">=</span> <span class="token module variable">Lwd</span><span class="token punctuation">.</span>get vcount <span class="token keyword">in</span>
-    <span class="token module variable">Ui</span><span class="token punctuation">.</span>vcat <span class="token punctuation">[</span>button count<span class="token punctuation">;</span> unlocked_ui count<span class="token punctuation">;</span> next_ui count<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">#</span> <span class="token keyword">open</span> Lwd_infix<span class="token punctuation">;;</span>
+<span class="token punctuation">#</span> <span class="token keyword">let</span> ui <span class="token operator">=</span>
+    <span class="token keyword">let</span><span class="token operator">$</span> count <span class="token operator">=</span> Lwd<span class="token punctuation">.</span>get vcount <span class="token keyword">in</span>
+    Ui<span class="token punctuation">.</span>vcat <span class="token punctuation">[</span>button count<span class="token punctuation">;</span> unlocked_ui count<span class="token punctuation">;</span> next_ui count<span class="token punctuation">]</span><span class="token punctuation">;;</span>
 <span class="token comment">(* Launch the game! *)</span>
-# <span class="token module variable">Ui_loop</span><span class="token punctuation">.</span>run ui<span class="token punctuation">;</span><span class="token punctuation">;</span></code></pre></div>
+<span class="token punctuation">#</span> Ui_loop<span class="token punctuation">.</span>run ui<span class="token punctuation">;;</span></code></pre></div>
 <div>
   <video controls="controls">
     <source src="./nottui-cookie-clicker.mp4" type="video/mp4"></source>

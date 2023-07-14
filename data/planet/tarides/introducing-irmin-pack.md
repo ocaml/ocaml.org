@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2020-09-01-introducing-irmin-pack
 date: 2020-09-01T00:00:00-00:00
 preview_image: https://tarides.com/static/5dbd4ce5058bf6225c3a8ac98e4dda54/ed842/drawers.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p><code>irmin-pack</code> is an Irmin <a href="https://irmin.org/tutorial/backend">storage backend</a>
@@ -50,8 +53,8 @@ correct reading) and hash (to enable integrity checks). The hash is used to
 resolve internal links inside the pack when nodes are written.</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/65f80d5690bb49cd0ead891e2e7346c8/f989d/pack.png" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 16.470588235294116%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMACSfAAAknwAFlKNyIAAAAwUlEQVQI1x2JXUvDMAAA+///jyB9EATtNupq18GU2NWkMW3TGPop3aZwQh+O47hgyD8YKkvdO9zc4CaLHS2F1ZheUQ9mpRkNpTdIp7FjjfGedmpYFs/fdeC6dPxeegJ3f0cWPvIkDryoHdtzxF6lhElCVr8Sy5hNvuHYpETiwEMWE3/uCPcJkXjm26VYFWOKLbdJEFzEOy6XnFvNV6/QnUL5EmEMupNrl51aX95I3kyO9AUnLVfPc8Uy1vyMFbel5R+3ito8hFIP1gAAAABJRU5ErkJggg=='); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/65f80d5690bb49cd0ead891e2e7346c8/c5bb3/pack.png" class="gatsby-resp-image-image" alt="The pack file" title="The pack file" srcset="/static/65f80d5690bb49cd0ead891e2e7346c8/04472/pack.png 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 16.470588235294116%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMACSfAAAknwAFlKNyIAAAAxElEQVR42hXD2U6DQABAUf7/i0xcEh9caAVBqAYLDAzKPk6BgdBico0nOZYpckyv6UbNaVHo5YfeKApV0YwlnWnoTE071VSnhm9doeaedjihF8W6Dmznict55PdisNT1FYe7Bx7jAFfu2QsbV/rceK8EtYcrHXapTdj6PMch96GDk79w6/nY8ROq92mlQ5Xt2EyCNR/eqD5iPuucTCWI/n/Gu5RILRB9StolFFoQlSlBHnFsI3xxJG4iZvPFOpWYQbKtLX982NrkDApgDQAAAABJRU5ErkJggg=='); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/65f80d5690bb49cd0ead891e2e7346c8/c5bb3/pack.png" class="gatsby-resp-image-image" alt="The pack file" title="" srcset="/static/65f80d5690bb49cd0ead891e2e7346c8/04472/pack.png 170w,
 /static/65f80d5690bb49cd0ead891e2e7346c8/9f933/pack.png 340w,
 /static/65f80d5690bb49cd0ead891e2e7346c8/c5bb3/pack.png 680w,
 /static/65f80d5690bb49cd0ead891e2e7346c8/b12f7/pack.png 1020w,
@@ -88,7 +91,7 @@ the hash. We will go into the details of this later in this post.</p>
 </li>
 <li>
 <p>While hashes are being used as simple objects, their size is not negligible.
-The default hashing function in Irmin is BLAKE2B, which provides 64-byte
+The default hashing function in Irmin is BLAKE2B, which provides 32-byte
 digests.</p>
 </li>
 </ul>
@@ -124,8 +127,8 @@ happen during normal use of <code>irmin-pack</code>, but prevents attacks that w
 the memory grow in an unbounded way.</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/cec17f425cdf458a385babbac24c0c04/f7171/dict.png" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 46.470588235294116%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMACSfAAAknwAFlKNyIAAABvUlEQVQoz22O226bUBBF+f//qdT6qbHjxkl8BQIhjRPwDewkYChwOOcAq4K4T+lIW1oz0mwtw/c8VJYhRU6piq+RxX/vSglqLalrSVOrnrWqMOLRFXI6ZWtPWEVL7MOK5W6KdVhhHZY926GJeVj0/HDh99hFZi8UyTPnk4tI1+jCx9h+/8Z+MODhZsDIu2YezBh7Q355456H7k8mTxOW2yVDp+MbZsGUj8QmCU3W7ohXb8xxMwPpY6Q3Y+R8zs65xYxMzP2c1X7WW3U2nWXHd/51f388Oix204uhT94belTZK7rYYOiypIuqShpqkuJEXqXUTY3QJamIOZcfvOcRcfGGUAVxfkTIApqWpqn71FqhlcTgMm3b8ui6xElKViVkIiEtYqQSNHXdP2styUXOuThzyvZUWqC16n//jdEt3d42mvfQ5WrxiB3aLHb3RB8OiD2qCJC5D9WG43HPyHJZHWY4ocmf9Dc0ivYiZXAphJqm3DC4tbh/mTF5nvB2fgAZQOV/pvYJQ58f9wvu1rcsgiki96BVnx1dYW/IZ6HINgyXHk7kYIXmxXCHLgJUHvSGUbRlZDm4Jxs3sr4Y/gV1k563ex97NwAAAABJRU5ErkJggg=='); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/cec17f425cdf458a385babbac24c0c04/c5bb3/dict.png" class="gatsby-resp-image-image" alt="The dict" title="The dict" srcset="/static/cec17f425cdf458a385babbac24c0c04/04472/dict.png 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 46.470588235294116%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMACSfAAAknwAFlKNyIAAAByklEQVR42m2Q627aQBCFef8nqkL+UEIaDPiCMZcmBHzDlAQCGHvt3bW/CCetUrUjjc7RnJkzo2kFz88oIVCyoFQFUpcNlrr84PoL/9SvqbWk0hqtFVWlqbRqeOtw10WaFtHcwN25TJMx7sbE246ZJA7jxGL2a8IksXG/8MNxgbz4FOcVp9efDaosohXdfCO5vcXrt+k93mP5I3qLLg+PP7CCEXfzDsaTgR1adGcdjGUfMxhyOHq8hBaLSYfVoscuMkFGtN7uvpP3+6zce8zYxIlGWMGAcWThxjZ2OMKJbYbBQ1OfbFys6Go4o7r4iNOS426KOD1RiYiWulzQWYYsMmpqXtOEtDghK0kuM05izyHbsTmuGxQqY5fGiDJDa41SsvndFWVZ0uIzruJiviC9pAh1oVA5WZEilaSu64+eSiFk3ix6y1+bA67ab/0afwypFZvApWPP8bYuVmiw3U+p85gy9RHnNXURsEliup6HkwyZJg7p8Qkq9R9DNCIPaQ88RmuLwcpgf56BDKhLv0m0TxSvaQ9tRqsh49BE5I/NbP2voSLdL7kxPKzQZOD3SV7G1NkamS4pz0sQzwTBirbpYEUDnHBAepz9deE7HPGfVfCYxccAAAAASUVORK5CYII='); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/cec17f425cdf458a385babbac24c0c04/c5bb3/dict.png" class="gatsby-resp-image-image" alt="The dict" title="" srcset="/static/cec17f425cdf458a385babbac24c0c04/04472/dict.png 170w,
 /static/cec17f425cdf458a385babbac24c0c04/9f933/dict.png 340w,
 /static/cec17f425cdf458a385babbac24c0c04/c5bb3/dict.png 680w,
 /static/cec17f425cdf458a385babbac24c0c04/b12f7/dict.png 1020w,
@@ -144,8 +147,8 @@ part of <code>irmin-pack</code>.</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> t
 <span class="token keyword">val</span> v <span class="token punctuation">:</span> readonly<span class="token punctuation">:</span>bool <span class="token operator">-&gt;</span> path<span class="token punctuation">:</span>string <span class="token operator">-&gt;</span> t
 
-<span class="token keyword">val</span> find    <span class="token punctuation">:</span> t <span class="token operator">-&gt;</span> <span class="token module variable">Key</span><span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> <span class="token module variable">Value</span><span class="token punctuation">.</span>t
-<span class="token keyword">val</span> replace <span class="token punctuation">:</span> t <span class="token operator">-&gt;</span> <span class="token module variable">Key</span><span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> <span class="token module variable">Value</span><span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> unit
+<span class="token keyword">val</span> find    <span class="token punctuation">:</span> t <span class="token operator">-&gt;</span> Key<span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> Value<span class="token punctuation">.</span>t
+<span class="token keyword">val</span> replace <span class="token punctuation">:</span> t <span class="token operator">-&gt;</span> Key<span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> Value<span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> unit
 <span class="token comment">(* ... *)</span></code></pre></div>
 <p>It has lead most of our efforts in the development of <code>irmin-pack</code> and is now
 available as a separate library, wisely named <code>index,</code> that you can checkout on
@@ -174,8 +177,8 @@ flushed into a <code>data</code> component, that may already contain flushed dat
 former <code>log</code> overloads. We call this operation a <em>merge</em>.</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/7663e5dd55a9fa612393be5ae1952bf5/e9c53/merges.png" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 28.82352941176471%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAAC4jAAAuIwF4pT92AAABQElEQVQY032RbXOaQBSF+f9/Km0sQTSFpDqQqBt3QUFY5KVKRczydIY23zI5M8+cuefTOXOtKAxYiZDNXpBWKUmZUNYZTa2pq4ymqfiQMQPm3fCVrOT7Hb/WDo5ycISNLWzi1CeLPFI1J083/D63DANUOmW59VBHQVQK1HFDVL6N90dmZVISJYp9kaAbTV7nHKucojigdUpZFRhjaNsLMhd4scPPyMGLpzwqm8fo4Z+rhzG3AuXjyRnLncdrvuTlsCDMFoSHBcv0iV2tYICmObFKQpy3O2ZyMjJXNs+7OX7s4kcuT/EMy4+nzNQEV97jygnu9n5kLn8w3X5jnQX0/W2c3PYnkiYiLiVSC+o/JWYw3N57uuuF7tphbYs1G/0yIvQr4r+vDgHB/pmkium6ntP5zLGsaM8Xrt1tbP3ZU/4C4hC6W7cBBZQAAAAASUVORK5CYII='); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/7663e5dd55a9fa612393be5ae1952bf5/c5bb3/merges.png" class="gatsby-resp-image-image" alt="Merging the index" title="Merging the index" srcset="/static/7663e5dd55a9fa612393be5ae1952bf5/04472/merges.png 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 28.82352941176471%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAAC4jAAAuIwF4pT92AAABOElEQVR42n2RW2+bQBBG+f8/q47dgoNqO059C3dc2GUJhtT1wi4+lYnUt/aTjmY0M+dpnOi0Y58cOKucoimQTUl7qbg0kvYi0VrzyP1+x1o71f/Fib4/4WYebrhgHszZZkvqYkMeetTllkpVGDtie80hWPEmDmRNSFIHpHVI+v5JXJ9QvwTOOYtIZYq8SEQrqVpJ/S5QqqRSBTetMdZSNzXrzMPPXPz028Rzupjw06+48YxQHXH8xGOdPLMTG/byhV35wg+x4bVcsxdbtLkx9IZSiUlyoy948Yxl/MQq91jnS1bZEj9ZEKs3nGmZzD+PJ2E2CY/eTxd0v1usGbGjQXycKdqcqAoQ3U/sOHBnZDA9erhhrMEJqyOhOhH95chjdixeCcSB6+2K7gfaruOju9L3FmPGfz7lD0L+u/4GU3CHAAAAAElFTkSuQmCC'); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/7663e5dd55a9fa612393be5ae1952bf5/c5bb3/merges.png" class="gatsby-resp-image-image" alt="Merging the index" title="" srcset="/static/7663e5dd55a9fa612393be5ae1952bf5/04472/merges.png 170w,
 /static/7663e5dd55a9fa612393be5ae1952bf5/9f933/merges.png 340w,
 /static/7663e5dd55a9fa612393be5ae1952bf5/c5bb3/merges.png 680w,
 /static/7663e5dd55a9fa612393be5ae1952bf5/b12f7/merges.png 1020w,

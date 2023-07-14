@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Andrej Bauer
+source:
 ---
 
 <p>On February 10, 2023, I gave my <a href="https://www.wpi.edu/news/calendar/events/mathematical-sciences-department-levi-l-conant-lecture-series-2023-andrej-bauer-university-ljubljana">Levi L. Conant Lectur Series talk</a> &ldquo;Exploring strange new worlds of mathematics&rdquo;, at the <a href="https://www.wpi.edu/academics/departments/mathematical-sciences">math department of  Worcester Polytechnic Institute</a>. Here are the <a href="http://math.andrej.com/asset/data/exploring-strange-new-worlds.pdf">slides with speaker notes</a> and the <a href="https://echo360.org/media/2685fce0-74f9-4304-88d7-f58820b5bcfe/public">video</a> recording of the talk.</p>

@@ -5,6 +5,9 @@ url: https://hannes.robur.coop/Posts/Monitoring
 date: 2022-03-08T11:26:31-00:00
 preview_image:
 featured:
+authors:
+- hannes
+source:
 ---
 
 <h1>Introduction to monitoring</h1>
@@ -24,7 +27,7 @@ featured:
   keep_alive_period = &quot;5m&quot;
   data_format = &quot;influx&quot;
 </code></pre>
-<p>Use a unikernel that reports to Influx (below the heading &quot;Unikernels (with metrics reported to Influx)&quot; on <a href="https://builds.robur.coop">builds.robur.coop</a>) and provide <code>--monitor=192.168.42.14</code> as boot parameter. Conventionally, these unikernels expect a second network interface (on the &quot;management&quot; bridge) where telegraf (and a syslog sink) are running. You'll need to pass <code>--net=management</code> and <code>--arg='--management-ipv4=192.168.42.x/24'</code> to albatross-client-local.</p>
+<p>Use a unikernel that reports to Influx (below the heading &quot;Unikernels (with metrics reported to Influx)&quot; on <a href="https://builds.robur.coop">builds.robur.coop</a>) and provide <code>--monitor=192.168.42.14</code> as boot parameter. Conventionally, these unikernels expect a second network interface (on the &quot;management&quot; bridge) where telegraf (and a syslog sink) are running. You'll need to pass <code>--net=management</code> and <code>--arg='--management-ipv4=192.168.42.x/24'</code> to albatross-client.</p>
 <p>Albatross provides a <code>albatross-influx</code> daemon that reports information from the host system about the unikernels to influx. Start it with <code>--influx=192.168.42.14</code>.</p>
 <h2>Adding monitoring to your unikernel</h2>
 <p>If you want to extend your own unikernel with metrics, follow along these lines.</p>

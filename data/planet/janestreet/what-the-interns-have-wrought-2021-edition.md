@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/what-the-interns-have-wrought-2021/
 date: 2021-08-09T00:00:00-00:00
 preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2021/internswrought_2021.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>It&rsquo;s the end of another dev internship season, and this one marked

@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/introducing-incremental/
 date: 2015-07-18T00:00:00-00:00
 preview_image: https://blog.janestreet.com/introducing-incremental/introducing_incremental.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>I&rsquo;m pleased to announce the release of

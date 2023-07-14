@@ -7,7 +7,8 @@ date: 2010-03-23T22:32:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>In the <a href="http://github.com/jaked/ocamljs">ocamljs</a> project I wanted to implement the OCaml object system in a way that is interoperable with Javascript objects. Mainly I wanted to be able to call Javascript methods with the OCaml method call syntax, but it is also useful to write objects in OCaml which are callable in the usual way from Javascript.</p> 

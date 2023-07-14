@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2020-12-14-tarides-sponsors-the-oxbridge-women-in-
 date: 2020-12-14T00:00:00-00:00
 preview_image: https://tarides.com/static/683df7e1cdbf16d2cc6e889c9f3c39a5/7d5a2/laptop_overhead.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>The <a href="https://oxbridgewomenincs8.wixsite.com/2020">Oxbridge Women in Computer Science

@@ -7,7 +7,8 @@ date: 2010-03-03T02:09:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>Hey, long time no see!</p> 

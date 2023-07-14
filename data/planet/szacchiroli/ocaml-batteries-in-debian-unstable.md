@@ -6,7 +6,8 @@ date: 2009-04-03T10:35:02-00:00
 preview_image:
 featured:
 authors:
-- szacchiroli
+- Stefano Zacchiroli
+source:
 ---
 
 <h1>batteries approaching Beta 1: now in unstable</h1>

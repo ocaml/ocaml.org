@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Vincent Balat
+source:
 ---
 
 <p>This short tutorial is an example of client-server Eliom application. It gives an example of client-server widgets. You can find the original version of this tutorial (and many others) <a href="http://ocsigen.org/tuto/manual/tutowidgets">here</a>.</p>

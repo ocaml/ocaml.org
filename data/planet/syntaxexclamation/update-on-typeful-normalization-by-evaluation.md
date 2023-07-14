@@ -8,7 +8,8 @@ date: 2014-02-14T19:11:50-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- syntaxexclamation
+- Matthias Puech
+source:
 ---
 
 <p>In October, I publicized here&nbsp;<a href="https://syntaxexclamation.wordpress.com/2013/10/29/new-draft-on-normalization-by-evaluation-using-gadts/" title="New draft on Normalization by Evaluation using&nbsp;GADTs">a new draft on normalization by evaluation</a>, which provoked some very helpful comments and constructive criticisms. Together with <a href="http://cs.au.dk/~chkeller" title="Chantal Keller">Chantal</a> and <a href="http://cs.au.dk/~danvy/" title="Olivier Danvy">Olivier</a>, we thus revised the draft profoundly and a <a href="http://cs.au.dk/~mpuech/typeful.pdf" title="Typeful Normalization by Evaluation">revamped version is available</a> on my <a href="http://cs.au.dk/~mpuech" title="Matthias Puech">web site</a>.</p>

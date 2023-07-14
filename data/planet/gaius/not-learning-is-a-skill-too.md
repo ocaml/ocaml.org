@@ -8,7 +8,8 @@ date: 2018-07-29T12:23:30-00:00
 preview_image: https://gaiustech.files.wordpress.com/2018/07/cropped-lynx.jpg?w=180
 featured:
 authors:
-- gaius
+- Gaius Hammond
+source:
 ---
 
 <p>To be successful in tech, it&rsquo;s well known that you must keep your skills up to date. The onus is on each individual to do this, no-one will do it for you, and companies that provide ongoing personal development are few and far between. Many companies would rather <a href="https://www.theregister.co.uk/2018/02/06/ibm_retracts_agreed_voluntary_redundancies/">&ldquo;remix our skills&rdquo;</a>, which means laying off workers with one skill (on statutory minimum terms) and hiring people with the new skill. Which is short-termist in the extreme; the new workers are no better than the old, they just happened to enter the workforce later, and the churn means there is no accumulation of institutional knowledge. If you were one of the newer workers, why would you voluntarily step onto this treadmill and if you were a client, why would you hire such a firm when it provides no value-add over just hiring the staff you need yourself? Anyway, I digress.</p>

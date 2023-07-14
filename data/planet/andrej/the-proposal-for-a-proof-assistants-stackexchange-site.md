@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Andrej Bauer
+source:
 ---
 
 <p>Proof assistant communities have grown quite a bit lately. They have active Zulip chats: <a href="https://leanprover.zulipchat.com/">Lean</a>, <a href="https://coq.zulipchat.com/">Coq</a>, <a href="https://agda.zulipchat.com/">Agda</a>, <a href="https://isabelle.zulipchat.com/">Isabelle</a>. These are good for discussions, but less so for knowledge accumulation and organization, and are not indexed by the search engines.</p>

@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-11-10-towards-minimal-disk-usage-for-tezos-ba
 date: 2022-11-10T00:00:00-00:00
 preview_image: https://tarides.com/static/f40f61613e381ebad045c51adb0241ed/18869/context-pruning-minimal.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Over the last few months, Tarides has focused on designing,
@@ -51,7 +54,7 @@ that only the unused data is discarded, i.e., <em>all</em> currently used data
 is preserved.</p>
 <p>The GC operation is performed asynchronously with minimal impact on
 the Tezos node. In the rolling node's case, a GC'd context uses less
-disk space and has more stable performance throughout the node's run,
+disk space and has a more stable performance throughout,
 as the protocol operations (such as executing smart contracts or
 computing baking rewards) only need data from the upper layer. As
 such, the nodes that benefit from the store's layered structure don't
@@ -75,8 +78,8 @@ represented by the offset (position) of the earlier object in the
 never updated.</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/3f9db58c8c913ffba792f0457ff4845e/d3deb/J7N0pil.png" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 15.294117647058824%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAXklEQVQI162KOwrAIBBEvf/x7PzBGu1jFTFxnbBCLNKkycKwb5inxhhg5s+I93al9+tE2ze0ksHcofDDcS1APyarGCOccwghzO+9nxE2xix+Yq1druzStdZIKYOIcAOJpOXUa05DkQAAAABJRU5ErkJggg=='); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/3f9db58c8c913ffba792f0457ff4845e/c5bb3/J7N0pil.png" class="gatsby-resp-image-image" alt="J7N0pil" title="J7N0pil" srcset="/static/3f9db58c8c913ffba792f0457ff4845e/04472/J7N0pil.png 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 15.294117647058824%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAWElEQVR42p2KQQrAIAwE/f8LvakJmmM9CRV1SwJC21PpwpBhs26thS/svLs5B/pBOCubu/v4b3qrGL2ZOxFBjBFEhJSSsT2E8OgV3TKzXf0r3nsUEeSccQHjT+dIi6J8tQAAAABJRU5ErkJggg=='); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/3f9db58c8c913ffba792f0457ff4845e/c5bb3/J7N0pil.png" class="gatsby-resp-image-image" alt="J7N0pil" title="" srcset="/static/3f9db58c8c913ffba792f0457ff4845e/04472/J7N0pil.png 170w,
 /static/3f9db58c8c913ffba792f0457ff4845e/9f933/J7N0pil.png 340w,
 /static/3f9db58c8c913ffba792f0457ff4845e/c5bb3/J7N0pil.png 680w,
 /static/3f9db58c8c913ffba792f0457ff4845e/b12f7/J7N0pil.png 1020w,
@@ -91,13 +94,13 @@ never updated.</p>
 objects. A commit, together with the objects reachable from that
 commit, represents the state associated to a Tezos' block.  The
 Tezos node only needs the last commit to process new blocks, but
-bakers will need a lot more comits to compute baking rewards.
+bakers will need a lot more commits to compute baking rewards.
 Objects not reachable from these commits can are unreachable or dead
 objects.</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/ecda34b084e8e0384500bf41aaf273f3/bdcd6/DQJJLll.jpg" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 95.29411764705883%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAATABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAECAwX/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEAMQAAAB7qINAUFWEf/EABkQAAIDAQAAAAAAAAAAAAAAAAAQAREhQf/aAAgBAQABBQIp4QuH/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAwEBPwEf/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAgEBPwEf/8QAFBABAAAAAAAAAAAAAAAAAAAAMP/aAAgBAQAGPwIf/8QAHBAAAgICAwAAAAAAAAAAAAAAAAERMUFRECFx/9oACAEBAAE/IXZLYqHE5PDKdCpm2eP/2gAMAwEAAgADAAAAENAIPv/EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQMBAT8QH//EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQIBAT8QH//EAB4QAQACAQQDAAAAAAAAAAAAAAEAESExQXGRUWHh/9oACAEBAAE/EAIBrhmTC7YUA683N0Wvyy/sZStEPcNpbdu8QrlgZuBz3P/Z'); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/ecda34b084e8e0384500bf41aaf273f3/7bf67/DQJJLll.jpg" class="gatsby-resp-image-image" alt="DQJJLll" title="DQJJLll" srcset="/static/ecda34b084e8e0384500bf41aaf273f3/651be/DQJJLll.jpg 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 95.29411764705883%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAATABQDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAECAwX/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEAMQAAAB91IdAYhWxH//xAAXEAADAQAAAAAAAAAAAAAAAAAAECFB/9oACAEBAAEFAnCPD//EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQMBAT8BH//EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQIBAT8BH//EABQQAQAAAAAAAAAAAAAAAAAAADD/2gAIAQEABj8CH//EABwQAAIBBQEAAAAAAAAAAAAAAAABMRARIUFRgf/aAAgBAQABPyFyWfRQS2ehRgUM63T/2gAMAwEAAgADAAAAENAHvv/EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQMBAT8QH//EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQIBAT8QH//EAB0QAQACAQUBAAAAAAAAAAAAAAEAESExQVFxkWH/2gAIAQEAAT8QAgGumZsL1hoDr3caZF+LZfH2ytaIfZrrbF3jg3cDNw7Z/9k='); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/ecda34b084e8e0384500bf41aaf273f3/7bf67/DQJJLll.jpg" class="gatsby-resp-image-image" alt="DQJJLll" title="" srcset="/static/ecda34b084e8e0384500bf41aaf273f3/651be/DQJJLll.jpg 170w,
 /static/ecda34b084e8e0384500bf41aaf273f3/d30a3/DQJJLll.jpg 340w,
 /static/ecda34b084e8e0384500bf41aaf273f3/7bf67/DQJJLll.jpg 680w,
 /static/ecda34b084e8e0384500bf41aaf273f3/990cb/DQJJLll.jpg 1020w,
@@ -113,7 +116,7 @@ Tezos nodes. An archive node stores the complete blockchain
 history from the genesis block. Currently, this is over <em>2 million</em>
 blocks. Roughly speaking, a block corresponds to a commit. A
 rolling node stores only the last <em>n</em> blocks, where <em>n</em> is chosen
-to keep the total disk usage within some bound. This may be as small
+to keep the total disk usage within some bounds. This may be as small
 as 5 (or even less) or as large as 40,000 or more. Another type of
 node is the &quot;full node,&quot; which is between an archive node and a
 rolling node.</p>
@@ -141,8 +144,8 @@ dead objects and reclaim the space.</p>
 been selected as the commit root for garbage collection:</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/6ec700aa3bc32bb9faa417d7c414e6e4/668c6/ySiXa1r.png" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 28.235294117647058%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAsklEQVQY05VO7QqDMBDz/R9RqP4Q+8EcfrVeq7UZV3FsCBsehDTJXWgBACkl/BrOz53ez6hHBbfSkQHYaIbvBMLQovg8+Ace2gIetkfiqtNPO/xkEIO9XxhjBC10+XkIK/Y9HYV3hs/J08WPq89pQURYlgXMJ1hbazMzpml66+7ZQSqV95xzOZtnC6MlxnFAIaWE1voL7DVNA2NMfgshoJTKKMsSVVXljDXnzG3boq5rvAChG9MYCfH87gAAAABJRU5ErkJggg=='); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/6ec700aa3bc32bb9faa417d7c414e6e4/c5bb3/ySiXa1r.png" class="gatsby-resp-image-image" alt="ySiXa1r" title="ySiXa1r" srcset="/static/6ec700aa3bc32bb9faa417d7c414e6e4/04472/ySiXa1r.png 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 28.235294117647058%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAqElEQVR42p1Q0QqDMAzs/3+iMOrQ2VYdzHZNo8XeaHHDbS9zgeOSS3KBCPwYaeNrmHC2GiHOr14ME3g8YbEGAgeDFsbobx/XVvBksEY6bhhjRAjhS5+ZkVL6z5ACbW9IO0NCSisEM5eLexARvPclz2ytLZz1YRigjUHe80Sl55yDVhfcnYNQSsEY84astW1b8q7rIKWE1rroVVVB1jX6vi/1E3m+aRo8ACET06M7C48pAAAAAElFTkSuQmCC'); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/6ec700aa3bc32bb9faa417d7c414e6e4/c5bb3/ySiXa1r.png" class="gatsby-resp-image-image" alt="ySiXa1r" title="" srcset="/static/6ec700aa3bc32bb9faa417d7c414e6e4/04472/ySiXa1r.png 170w,
 /static/6ec700aa3bc32bb9faa417d7c414e6e4/9f933/ySiXa1r.png 340w,
 /static/6ec700aa3bc32bb9faa417d7c414e6e4/c5bb3/ySiXa1r.png 680w,
 /static/6ec700aa3bc32bb9faa417d7c414e6e4/b12f7/ySiXa1r.png 1020w,
@@ -165,8 +168,8 @@ reachable objects appear earlier in the <code>pack</code> file than the root
 commit.</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/5ae9c879daf866bfd4791176a2e9e4d5/09262/QVeXtOB.png" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 37.05882352941176%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsTAAALEwEAmpwYAAABHklEQVQoz5WQPUvDYBSF83fFxV/h0lVQ3Is4OIiLiKAguFgppqYfUZM3bZOYNG2S1iakSd5HjKQoitILD2e4h8O5V2GDkVJWGq9iemEfkQisQjAOn0iWSyQSZZOwOtBbeWjpI720h5Z2eU77SMpqp9TG2lzrX4H63OBu1kaNHlBjlU7YZhEZFEn0veHX0N9AQlHmqJM2968amv/C40RH9QYEgQWrBCUrMoJFQJql/zas/pclnA9bNO09Tp0GZ+N9joe7XDoHnyfP4hnm1GSZvv1oVxQFeZ6vmccRbhhx49gc+Q1ORjsctrZomttcBQ1kWaL4vo/e1/E9H8/zKmzbrnBdd82Hz7IshGliDAaY3RFG1+H64ha9M8QRU4QQvAMN/hMukTamUwAAAABJRU5ErkJggg=='); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/5ae9c879daf866bfd4791176a2e9e4d5/c5bb3/QVeXtOB.png" class="gatsby-resp-image-image" alt="QVeXtOB" title="QVeXtOB" srcset="/static/5ae9c879daf866bfd4791176a2e9e4d5/04472/QVeXtOB.png 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 37.05882352941176%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAABFklEQVR42p2PzUvDQBBH8xcLHrx6VfDiUcSTBxERBPEoiOhBe7DQmrQx/di0Jtuk2iRtMds02SdJwHPrwGNYfsObHYMtSqOrPssi7NhmpFzcXCDjAeonrTLjP0I/87GUSVd1MZXFUDmgi1qo0X+Dm2rNxOZl9kY7btFK2lhRkzRyKNJ4ux+WtcoVrbCJGfQwp33epw7twGEWTyDPMZarJV7soTK10blf6YK7cYNz/4gbecCtPOZivM/j5Kw+OZpHtXBVC7XWFUVRVGRZVrFer1nME2SU8DDucRUecj3c4/R1h0uxy/P0pNyKIaWkY3UIw7AiCAI8z6sos/JdUmZCCEauy6Br8/kR0Dd9nu4biM4EKb7xpc8vcBETtk7nX+MAAAAASUVORK5CYII='); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/5ae9c879daf866bfd4791176a2e9e4d5/c5bb3/QVeXtOB.png" class="gatsby-resp-image-image" alt="QVeXtOB" title="" srcset="/static/5ae9c879daf866bfd4791176a2e9e4d5/04472/QVeXtOB.png 170w,
 /static/5ae9c879daf866bfd4791176a2e9e4d5/9f933/QVeXtOB.png 340w,
 /static/5ae9c879daf866bfd4791176a2e9e4d5/c5bb3/QVeXtOB.png 680w,
 /static/5ae9c879daf866bfd4791176a2e9e4d5/b12f7/QVeXtOB.png 1020w,
@@ -214,8 +217,8 @@ offset is made persistent as the <code>mapping</code> file.</p>
 reachable objects <code>o1</code> .. <code>o10</code>, (with virtual offsets <em>v1 .. v10</em>, respectively):</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/b1a2c914473284ac9bb2b688a1852562/cb88c/JKWA4ff.png" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 54.70588235294118%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAABe0lEQVQoz6WPf2ubUBSG/f6fY+yvpIGQNUhSzPLbqMU4Ggcz2oJzWQxVF1OTVn2Gt01ZW7rR9eW+3MO95304R+KNKstSuNLNPiPOtmwPO3Ef7m6R3gMMfoWYiYe99bHiS6I0eRvwCBJQSqrDIedq853dIRV/0v/AeKjviWBvvuLeGX8HPpnmTxiQA1FREBc5aQHe9YJV/kXwpX+BnrvSbr9nnabE2Q3X2z3ezwt+lPP7CV8Llo9rPVWe50w0DbnXQ52byMoA2Whh3dbwszlSURQc/RxShbMsI0kS1us1vu/jOA6fVZWeaXLuLjGWVyjOGXr6gVn88eXKR0gcx0RRxGq1IggCYc/zcF2XTRiSJonoz9KUMAgf85Jt2ywWCzRNo9vtMp1OMQwDXdexLAvTNGk2m8iyTL/fFx4MBkwmExRF4dPpKSeNE/RzDWf5Dal6rED1el0EZ7MZnU6H4XAoQq1Wi0ajId5VVaXdbjMajURdueqt1WpigPF4zG+ssj5O9J+i7wAAAABJRU5ErkJggg=='); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/b1a2c914473284ac9bb2b688a1852562/c5bb3/JKWA4ff.png" class="gatsby-resp-image-image" alt="JKWA4ff" title="JKWA4ff" srcset="/static/b1a2c914473284ac9bb2b688a1852562/04472/JKWA4ff.png 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 54.70588235294118%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAABYlAAAWJQFJUiTwAAABbUlEQVR42qWPa0/iQBSG+f9/wq+bbKIkcmkkFpemUKTl0sSoi9poBRVhe8FeoLSPmWFN1A8m4puczMy5PPOeEj9QtErw0pBg/cIiCVitV5R2ARX/z6flgrPwjvOly8B3CF7C3YBvyosCNgXOfEKY+DL3cyBw+e+ay7i9OzAHvDznOcuIgIfgltvk9HvAoihkCMVJwiwM8aIIL0q4f3a4TrWvgW/Dn7XJMgzTpKaqtAd9jv7oKD0FY7nHXXq6Bb7//cNqeU4cxwRBwGw2434y4Wo8pm1ZaLbN0LnhzH1Ad3TM4BeD8PdHhwKaZZmE+L6P53kS5Lou0+kUx3FkLOZzlr5PsdmQxjGPk0fWabZd2bZtRqMRuq6jKAqaptHtdjEMg36/j2VZlMtlqtUqqqrSbDZpnpzQarXk/bBS4eBgn2O1wd/xBSUBEsVarSaBAiLenU6HXq9Ho9GgXq/LvAgBETXTNBkOh9KAmBUmRP8rxR8+zVOJxCgAAAAASUVORK5CYII='); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/b1a2c914473284ac9bb2b688a1852562/c5bb3/JKWA4ff.png" class="gatsby-resp-image-image" alt="JKWA4ff" title="" srcset="/static/b1a2c914473284ac9bb2b688a1852562/04472/JKWA4ff.png 170w,
 /static/b1a2c914473284ac9bb2b688a1852562/9f933/JKWA4ff.png 340w,
 /static/b1a2c914473284ac9bb2b688a1852562/c5bb3/JKWA4ff.png 680w,
 /static/b1a2c914473284ac9bb2b688a1852562/b12f7/JKWA4ff.png 1020w,
@@ -246,8 +249,8 @@ switch takes place almost instantaneously. The hard work is done in
 the worker process as depicted next:</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/34188b669c6289bf79a8b2582e07c9b9/e4900/lob23OH.png" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 106.47058823529412%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6oAAAACXBIWXMAAAsTAAALEwEAmpwYAAADE0lEQVQ4y5WU+2/TZhSG/eful0lIqwZtRRsGBZSqWwaaigYFBpVWcb9VamlLb0lamjbkJpr7pY1zwU5IEyeLiZ1nsmmMQzNGX+mTE/t8j79z3uMjAHS7XXMZys7dxz0yxMbYMIvDP/Hkxx8oRvfNZ7quY48ftAT7H73bpRwJcbDtJbD0mrhnk8jya+qybAHNWOM6aBlABqjVbhPyelBkidNKaLVaVKtVPqkqtXqdjRfPqT2YxXvZgXjrDyqbq9QUhaNajY/VKh/rdQ5CQfZckyxdGmdlwsHixTFeDQ/he/oYIZ/PI8syWqfDP6pKxOshOTNN2OUk4nKSW1qg2W6jNBrU63UazSaFZIL9pw8JPppja/Yv3PfvsjnzJ1GvG6FUKqGqat+xm4pC1O9HKhboHJv1X0omEmj6lxihUChgpN1zT+t2OSoV2Zl/SS2TMm7StTt77HStIBK+N4Nn6iqBG9eRAn4TLIiiaAENFd9H2HVeYu3CKG7HCPFnj9A+v60PKIYCrI+dY9UxwsLPZ/Ddu2PGCYeHhzSbTQtYymTYvPYrwetTrFy+QGBh/kTvGepoGmI8RmrtDemdbdM0M+VcLoeiKNYmqzaxmPWir2F27YfDZs17cUI2m7WARlqarlOMx5i/fYuM7y1oWh/AaK9PmkblIMf7uzfZmbpqdkXF7zMN7AcChVCA5O+TbE+ME526Qmxullg6jSxJlMtlpA8fzL7M+nfxTIyzcfE8q+fPEn44NxhYEUW2bk4Tmr6G2zVJ+M2y2Z/q8erJSL6UTlHa85EPBVGOy9MHtNcoGovRsLlvgXq1HFBPs4aZTKYPaMQdFUSCr55Ti0fRO52BxtiHRG9omCe0Aw2pmkb471nWRodYn3BQOTz4DLBtOgG2/T5xQnPaKArJd34kMW+6/vXGb06bVCpFo9H4ssk4ZatJZMtLyza+vgdmAY0p0pOUTLDrmmTFMcrWlV/IrSyi2z69/wWm02na7bZ1o5xMsP2bk4DLyfL4CHuPH5w+ZaOOkiRhjLKyLJOMRgltrCPnsuZXcZqU/wWSoRyNG4AD7AAAAABJRU5ErkJggg=='); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/34188b669c6289bf79a8b2582e07c9b9/c5bb3/lob23OH.png" class="gatsby-resp-image-image" alt="lob23OH" title="lob23OH" srcset="/static/34188b669c6289bf79a8b2582e07c9b9/04472/lob23OH.png 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 106.47058823529412%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6oAAAACXBIWXMAABYlAAAWJQFJUiTwAAADHUlEQVR42p2U/09aZxTG73+7X5ZsWWpi3BbWTqOzxXZtl7mYqGubucZlzdaYOHRYwzcHVFFAL/JFeuFigNGLwgUucPks7wWUa1m67iQnb/K+533e85z3OUdi1Ho9kk+XcU9+xtbnE7yc+JTnH39EMZ3uH5vmSGjvHRcmjeKZpkn5KIK65yXq2iTt3eVk20Vd065Ahg//m0k3N0Rou9MhFgrS0utjL1kxgAG0ev21CXQEYKvVolarWXS0y0v8Gy8p/7SKf/Y2+aXvqAS86IZBs9FAr9ept1qcx2PIi48IPrhL+Nt7BO7P45m5jezeRlIUhVKpRKfdRm+2ONrdIbe6xOuFOeTHCyjuLS50naqm8bZSoaJVUY7jxNfXOHi+hv/JCr4nK3iWvicdCiIVCgVElqN0LjSN03CIUj5Hu9sdS9ns9RAnJ4kEdV2/2pdUVaXZbF4Vu2uaXBaLRFx/0CyeW/Uf/Ulz8NMXBZXEz0/xOec4WV1Ck48RJ1I+n7dlqB4eEJq7w86dL/B8NUVq4zfr5eHPDqWTex3CPXUL79dfsjnxCcFnq/0Mc7mcHfA0gef+XQ4fOdmadnDk2hwrFaPdJhePkfjTRTLgt2psySabzdooCxO0U/IJDV23Xr0p3lFNxqJR6vVreUlnZ2fXgAKs26WQkNn8cYX8YURsMJqbUEO7a1J5kyW2/AP++WnSy4u8jUb6NbRlCOT3w6QezOOfdpBYmEVeXyOZzfJ3uUyxWKRcLlkyygT3CMw48M042HVMEvt1fTxg6U0W/+Jj9h8usOv8hvirHZqGgTHwIdWOaaImTykE91AiB9QGtC3KjUbDpjHhZ5kMLcMY33o36jlaUymTyVwDikCgWlAJ//6CajppmzBjgU2z72MBRbO32xw+W8HnmMQ3P412fm6fNO8xG+Dwkn55gRz8i6Ki/GegK8B0Om2jLAg26jWifi/Nqvbe+fcOYCqVQh80t7BiQmb/oZNXMw7Czjlynp2BDnv/I0PRevEYgXuz1vjamLrF/otfPihLSZZlhIueFppUVJXjyAER9zZVNY/R6XxQDf8B3JwdY4AqE7UAAAAASUVORK5CYII='); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/34188b669c6289bf79a8b2582e07c9b9/c5bb3/lob23OH.png" class="gatsby-resp-image-image" alt="lob23OH" title="" srcset="/static/34188b669c6289bf79a8b2582e07c9b9/04472/lob23OH.png 170w,
 /static/34188b669c6289bf79a8b2582e07c9b9/9f933/lob23OH.png 340w,
 /static/34188b669c6289bf79a8b2582e07c9b9/c5bb3/lob23OH.png 680w,
 /static/34188b669c6289bf79a8b2582e07c9b9/e4900/lob23OH.png 988w" sizes="(max-width: 680px) 100vw, 680px" style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;" loading="lazy" decoding="async"/>

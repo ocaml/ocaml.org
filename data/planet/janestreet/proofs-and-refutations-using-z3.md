@@ -6,6 +6,9 @@ url: https://blog.janestreet.com/proofs-and-refutations-using-z3/
 date: 2018-02-15T00:00:00-00:00
 preview_image: https://blog.janestreet.com/proofs-and-refutations-using-z3/proof.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>People often think of formal methods and theorem provers as forbidding

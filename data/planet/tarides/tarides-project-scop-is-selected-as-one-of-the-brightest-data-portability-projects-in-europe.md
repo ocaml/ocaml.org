@@ -7,6 +7,9 @@ url: https://tarides.com/blog/2021-04-30-scop-selected-for-dapsi-initiative
 date: 2021-04-30T00:00:00-00:00
 preview_image: https://tarides.com/static/1a54502893f8f38db2c6e37811c75b0c/7d5a2/DAPSI_scop_banner.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p><strong>Tarides is taking part in the Data Portability &amp; Services Incubator (DAPSI), a
@@ -66,10 +69,9 @@ so feel free to contribute to these existing components! Please reach out to <a 
 <br/>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/50ddca27efa367497d954f667fc921f8/a76d6/DAPSI_generic.jpg" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 3.5294117647058822%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAABABQDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAIDBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/9oADAMBAAIQAxAAAAHSsFSCf//EABYQAQEBAAAAAAAAAAAAAAAAAAMQM//aAAgBAQABBQIc0n//xAAVEQEBAAAAAAAAAAAAAAAAAAACEP/aAAgBAwEBPwET/8QAFhEAAwAAAAAAAAAAAAAAAAAAARAx/9oACAECAQE/ATV//8QAFxAAAwEAAAAAAAAAAAAAAAAAAAEQgf/aAAgBAQAGPwJGz//EABkQAAMAAwAAAAAAAAAAAAAAAAABQXGhsf/aAAgBAQABPyHdfScSI//aAAwDAQACAAMAAAAQCA//xAAWEQEBAQAAAAAAAAAAAAAAAAAAATH/2gAIAQMBAT8Q3Ef/xAAVEQEBAAAAAAAAAAAAAAAAAAAQMf/aAAgBAgEBPxCx/8QAGhAAAQUBAAAAAAAAAAAAAAAAAAEhMVHwsf/aAAgBAQABPxDUuQwdDgf/2Q=='); background-size: cover; display: block;"></span>
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 3.5294117647058822%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAABABQDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAIDBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/9oADAMBAAIQAxAAAAHSsFSCf//EABYQAQEBAAAAAAAAAAAAAAAAAAMQM//aAAgBAQABBQIc0n//xAAWEQADAAAAAAAAAAAAAAAAAAACEDH/2gAIAQMBAT8BCr//xAAWEQADAAAAAAAAAAAAAAAAAAABEDH/2gAIAQIBAT8BNX//xAAXEAADAQAAAAAAAAAAAAAAAAAAAhCB/9oACAEBAAY/AlNn/8QAGBAAAgMAAAAAAAAAAAAAAAAAALEQMYH/2gAIAQEAAT8hcZXMf//aAAwDAQACAAMAAAAQiA//xAAWEQEBAQAAAAAAAAAAAAAAAAAAATH/2gAIAQMBAT8QyR//xAAVEQEBAAAAAAAAAAAAAAAAAAAQMf/aAAgBAgEBPxCx/8QAGxAAAgEFAAAAAAAAAAAAAAAAAAEhMUGhsfD/2gAIAQEAAT8QzNhT4lFkf//Z'); background-size: cover; display: block;"></span>
   <img src="https://tarides.com/static/50ddca27efa367497d954f667fc921f8/7bf67/DAPSI_generic.jpg" class="gatsby-resp-image-image" alt="Sequence of entity logos: in association with NGI, EU, Zabala, FGS,
-cap-digital, IMT Starter, Fraunhofer IAIS." title="Sequence of entity logos: in association with NGI, EU, Zabala, FGS,
-cap-digital, IMT Starter, Fraunhofer IAIS." srcset="/static/50ddca27efa367497d954f667fc921f8/651be/DAPSI_generic.jpg 170w,
+cap-digital, IMT Starter, Fraunhofer IAIS." title="" srcset="/static/50ddca27efa367497d954f667fc921f8/651be/DAPSI_generic.jpg 170w,
 /static/50ddca27efa367497d954f667fc921f8/d30a3/DAPSI_generic.jpg 340w,
 /static/50ddca27efa367497d954f667fc921f8/7bf67/DAPSI_generic.jpg 680w,
 /static/50ddca27efa367497d954f667fc921f8/990cb/DAPSI_generic.jpg 1020w,

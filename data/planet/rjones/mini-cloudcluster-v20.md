@@ -8,7 +8,8 @@ date: 2015-03-23T14:26:06-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- rjones
+- Richard Jones
+source:
 ---
 
 <p><a href="https://rwmj.wordpress.com/2014/05/09/mini-cluster-mclu-command-line-tool/#content">Last year</a> I wrote and <a href="https://rwmj.wordpress.com/2014/05/12/mini-cluster-mclu-rewritten-to-use-ansible/#content">rewrote</a> a little command line tool for managing my <a href="https://rwmj.wordpress.com/2014/04/28/caseless-virtualization-cluster-part-5/#content">virtualization cluster</a>.</p>

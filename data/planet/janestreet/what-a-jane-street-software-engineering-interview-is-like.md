@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/what-a-jane-street-dev-interview-is-like/
 date: 2017-02-28T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Are you thinking about

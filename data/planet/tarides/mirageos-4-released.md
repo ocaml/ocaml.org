@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-03-29-mirageos-4-released
 date: 2022-03-29T00:00:00-00:00
 preview_image: https://tarides.com/static/393425633dfedffb8749b36f48537ebd/eee8e/desert_mirage.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Tarides is delighted to announce that <a href="https://mirage.io">MirageOS 4</a> is finally released! As core contributors to the project, we are proud to have been part of the journey to 4.0.</p>

@@ -6,7 +6,8 @@ date: 2017-03-10T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- reynard
+- Gemma Gordon (OCaml Labs)
+source:
 ---
 
 <p>Over the last year I&rsquo;ve worked on a few t-shirt designs to represent specific releases and/or events.</p>

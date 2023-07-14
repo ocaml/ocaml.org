@@ -7,7 +7,8 @@ date: 2015-01-25T13:22:15-00:00
 preview_image:
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/01/knot-1.jpg#hero" alt=""/></p>

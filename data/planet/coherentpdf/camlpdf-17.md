@@ -6,7 +6,8 @@ date: 2013-08-15T11:26:51-00:00
 preview_image:
 featured:
 authors:
-- coherentpdf
+- Coherent Graphics
+source:
 ---
 
 <p>The first new release of the CamlPDF library for a while is here:</p>

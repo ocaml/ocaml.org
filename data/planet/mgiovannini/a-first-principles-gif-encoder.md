@@ -8,6 +8,7 @@ preview_image: //2.bp.blogspot.com/-T0tvKxVPtBA/TqsJCUxziaI/AAAAAAAAAQk/JvmSxw0G
 featured:
 authors:
 - "Mat\xEDas Giovannini"
+source:
 ---
 
 Also, quasicrystals. Have you ever found yourself wanting to do generated animations but didn't know how to visualize them? Since I couldn't find a self-contained GIF encoder, I made myself one. Even though it is not fast, I think its 220 lines are clear enough to be a good reference implementation to build upon. The encoder conforms to the following interface:

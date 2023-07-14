@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/deep-learning-experiments-in-ocaml/
 date: 2018-09-20T00:00:00-00:00
 preview_image: https://blog.janestreet.com/deep-learning-experiments-in-ocaml/camel.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Last year we held a machine learning seminar in our London office,

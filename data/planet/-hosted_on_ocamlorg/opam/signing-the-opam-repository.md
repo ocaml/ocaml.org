@@ -1,8 +1,11 @@
 ---
 title: "Signing the OPAM repository"
 authors: [ "Louis Gesbert", "Hannes Mehnert" ]
-date: "2015-06-05"
+date: 2015-06-05T00:00:00-00:00
 description: "Proposal for a secure distribution of OCaml packages"
+source:
+  name: Opam blog
+  url: ""
 ---
 
 > NOTE (September 2016): updated proposal from OCaml 2016 workshop is

@@ -6,7 +6,8 @@ date: 2009-07-19T18:17:01-00:00
 preview_image:
 featured:
 authors:
-- szacchiroli
+- Stefano Zacchiroli
+source:
 ---
 
 <h1>ocaml-autoconf Debian packaged</h1>

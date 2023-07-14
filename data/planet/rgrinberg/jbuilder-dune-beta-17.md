@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - ""
+source:
 ---
 
 <p>The 17th beta of jbuilder represents a few months of development. While that&rsquo;s a
