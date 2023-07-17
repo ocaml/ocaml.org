@@ -48,10 +48,10 @@ let changelog req =
   in
   Dream.html (Ocamlorg_frontend.changelog ?current_tag ~tags changes)
 
-  let changelog_entry req =
-    let slug = Dream.param req "id" in
-    let</>? change = Data.Changelog.get_by_slug slug in
-    Dream.html (Ocamlorg_frontend.changelog_entry change)
+let changelog_entry req =
+  let slug = Dream.param req "id" in
+  let</>? change = Data.Changelog.get_by_slug slug in
+  Dream.html (Ocamlorg_frontend.changelog_entry change)
 
 let success_story req =
   let slug = Dream.param req "id" in

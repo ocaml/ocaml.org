@@ -64,7 +64,11 @@
  (rule
   (target changelog_entry.ml)
   (action
-   (run %{bin:dream_eml} %{dep:changelog_entry.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:changelog_entry.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target news.ml)
   (action
