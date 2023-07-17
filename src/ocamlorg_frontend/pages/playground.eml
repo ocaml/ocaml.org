@@ -50,7 +50,7 @@ let render ~default_code =
     <title>OCaml Playground</title>
   </head>
 
-  <body class="dark !flex flex-col h-full !max-h-screen">
+  <body class="dark bg-code-background !flex flex-col h-full !max-h-screen">
     <%s! Header.render ~show_get_started:true ~active_top_nav_item:Header.Playground () %>
 
     <div class="flex h-full overflow-hidden">
