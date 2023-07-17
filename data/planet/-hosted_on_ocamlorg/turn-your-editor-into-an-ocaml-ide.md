@@ -21,7 +21,7 @@ The first tool, [ocp-indent](http://www.typerex.org/ocp-indent.html),
 handles the task of indenting your OCaml files.  It is an OCaml executable that
 can be used from the command line or directly from your editor.
 
-The second tool, [merlin](http://the-lambda-church.github.io/merlin/ - [404 Not Found]) performs
+The second tool, [merlin](https://web.archive.org/web/20150101034910/http://the-lambda-church.github.io/merlin/) performs
 "static analysis" of your source files.  The analysis is then used to provide error reporting, source
 browsing, auto-completion and more.
 
@@ -123,10 +123,10 @@ execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 ## Integrating with your project
 
-To maintain synchronization with the compiler, merlin needs some information
+To maintain synchronisation with the compiler, Merlin needs some information
 about the structure of your project: build and source directories, package
 dependencies, syntax extensions.  This structure can be described in a `.merlin` file in the root directory of your project.
-The [`.merlin` file for the merlin project](https://github.com/the-lambda-church/merlin/blob/master/.merlin - [404 Not Found]) illustrates the syntax.
+The `.merlin` file for the Merlin project illustrates the syntax.
 
 The `.merlin` file will be loaded the next time you open an OCaml file in the editor.
 

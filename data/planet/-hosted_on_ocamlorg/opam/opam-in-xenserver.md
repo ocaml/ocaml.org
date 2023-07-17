@@ -11,7 +11,7 @@ source:
 *This is a guest post from an OPAM user about how they use it.  If you would like to post
  about your own use, [please let us know](https://github.com/ocaml/platform-blog/issues).*
 
-[XenServer](http://www.xenserver.org/ - [404 Not Found]) uses the
+[XenServer](https://web.archive.org/web/20150617021106/http://xenserver.org/) uses the
 [Xen project's](http://www.xenproject.org/)
 "[Xapi toolstack](http://www.xenproject.org/developers/teams/xapi.html)":
 a suite of tools written mostly in OCaml which
@@ -36,7 +36,7 @@ The Xapi toolstack is built from a large set of libraries and components
 which are
 developed independently and versioned separately. It's easy for us to
 share code with other open-source projects like
-[Mirage](http://www.openmirage.org/ - [1 Client error: Timeout was reached]), however
+[Mirage](https://web.archive.org/web/20210315014753/http://openmirage.org/), however
 this flexibility comes 
 with a cost: when one binary such as "xapi" (the cluster manager)
 depends on 45 separate libraries,
@@ -213,10 +213,10 @@ Summary
 
 The Xapi toolstack is built from a large set of libraries, independently
 versioned and released, many of them shared with other projects
-(such as [Mirage](http://www.openmirage.org/ - [1 Client error: Timeout was reached])). The libraries are
+(such as [Mirage](https://web.archive.org/web/20210315014753/http://openmirage.org/)). The libraries are
 easy to build and test separately, but the sheer number of dependencies
 makes it difficult to build the whole project -- this is where opam
-really shines. OPAM simplifies our day-to-day lives by
+really shines. Opam simplifies our day-to-day lives by
 
 - automatically rebuilding dependent software when dependencies change
 - allowing us to share 'development remotes' containing bleeding-edge software
