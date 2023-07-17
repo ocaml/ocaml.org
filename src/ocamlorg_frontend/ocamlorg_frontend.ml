@@ -10,6 +10,7 @@ let best_practices = Best_practices.render
 let blog = Blog.render
 let blog_post = Blog_post.render
 let changelog = Changelog.render
+let changelog_entry = Changelog_entry.render
 let books = Books.render
 let community = Community.render
 let home = Home.render

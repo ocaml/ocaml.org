@@ -44,7 +44,7 @@ let decode (fname, (head, body)) =
 
 let all () =
   Utils.map_files decode "changelog/*/*.md"
-  |> List.sort (fun a b -> String.compare b.date a.date)
+  |> List.sort (fun a b -> String.compare b.slug a.slug)
 
 let template () =
   Format.asprintf

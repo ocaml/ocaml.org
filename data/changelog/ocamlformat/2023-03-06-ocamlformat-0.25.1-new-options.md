@@ -1,6 +1,6 @@
 ---
 title: New Formatting Options in OCamlFormat
-date: "2023-03-06-01"
+date: "2023-03-06"
 tags: [ocamlformat, platform, feature]
 ---
 
