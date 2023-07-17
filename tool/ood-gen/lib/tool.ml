@@ -14,10 +14,10 @@ end
 
 type metadata = {
   name : string;
+  slug : string;
   source : string;
   license : string;
   synopsis : string;
-  description : string;
   lifecycle : Lifecycle.t;
 }
 [@@deriving of_yaml]
@@ -28,19 +28,23 @@ type t = {
   source : string;
   license : string;
   synopsis : string;
-  description : string;
   lifecycle : Lifecycle.t;
+  body_md : string;
+  body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~modify:[ description ] ~remove:[ slug ],
+  stable_record ~version:metadata ~remove:[ body_md; body_html ],
     show { with_path = false }]
 
-let of_metadata m =
-  of_metadata m ~slug:(Utils.slugify m.name) ~modify_description:(fun v ->
-      Omd.of_string v |> Omd.to_html)
+let of_metadata m ~body_md ~body_html = of_metadata m ~body_md ~body_html
 
-let decode s = Result.map of_metadata (metadata_of_yaml s)
-let all () = Utils.yaml_sequence_file decode "tools.yml"
+let decode (_fpath, (head, body_md)) =
+  let metadata = metadata_of_yaml head in
+  let omd = Utils.Toc.doc_with_ids (Omd.of_string body_md) in
+  let body_html = Omd.to_html (Hilite.Md.transform omd) in
+  Result.map (of_metadata ~body_md ~body_html) metadata
+
+let all () = Utils.map_files decode "tools/*.md"
 
 let template () =
   Format.asprintf
@@ -52,14 +56,17 @@ type lifecycle =
   | `Deprecate
   ]
 
+type version = { version : string; docs_url : string }
+
 type t =
   { name : string
   ; slug : string
   ; source : string
   ; license : string
   ; synopsis : string
-  ; description : string
   ; lifecycle : lifecycle
+  ; body_md : string
+  ; body_html : string
   }
   
 let all = %a

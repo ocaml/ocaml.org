@@ -1,0 +1,48 @@
+---
+slug: index.html
+title: Manpage index
+description: |
+  man page on index.
+---
+# Opam 2.1.5 man-pages index
+
+  - [opam-admin-add-constraint](opam-admin-add-constraint.html)
+  - [opam-admin-add-hashes](opam-admin-add-hashes.html)
+  - [opam-admin-cache](opam-admin-cache.html)
+  - [opam-admin-check](opam-admin-check.html)
+  - [opam-admin-filter](opam-admin-filter.html)
+  - [opam-admin-help](opam-admin-help.html)
+  - [opam-admin-index](opam-admin-index.html)
+  - [opam-admin-lint](opam-admin-lint.html)
+  - [opam-admin-list](opam-admin-list.html)
+  - [opam-admin-make](opam-admin-make.html)
+  - [opam-admin-upgrade](opam-admin-upgrade.html)
+  - [opam-admin](opam-admin.html)
+  - [opam-clean](opam-clean.html)
+  - [opam-config](opam-config.html)
+  - [opam-env](opam-env.html)
+  - [opam-exec](opam-exec.html)
+  - [opam-help](opam-help.html)
+  - [opam-info](opam-info.html)
+  - [opam-init](opam-init.html)
+  - [opam-install](opam-install.html)
+  - [opam-installer](opam-installer.html)
+  - [opam-lint](opam-lint.html)
+  - [opam-list](opam-list.html)
+  - [opam-lock](opam-lock.html)
+  - [opam-option](opam-option.html)
+  - [opam-pin](opam-pin.html)
+  - [opam-reinstall](opam-reinstall.html)
+  - [opam-remote](opam-remote.html)
+  - [opam-remove](opam-remove.html)
+  - [opam-repository](opam-repository.html)
+  - [opam-search](opam-search.html)
+  - [opam-show](opam-show.html)
+  - [opam-source](opam-source.html)
+  - [opam-switch](opam-switch.html)
+  - [opam-uninstall](opam-uninstall.html)
+  - [opam-unpin](opam-unpin.html)
+  - [opam-update](opam-update.html)
+  - [opam-upgrade](opam-upgrade.html)
+  - [opam-var](opam-var.html)
+  - [opam](opam.html)

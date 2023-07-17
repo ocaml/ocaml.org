@@ -6,7 +6,7 @@ let render
     Learn_layout.sidebar_link ~title ~href:(Url.tutorial slug) ~current:(current_tutorial = Some (slug))
   in
   let render_tutorial (tutorial : Data.Tutorial.t) = render_tutorial_link ~title:tutorial.title ~slug:tutorial.slug in
-  let tutorial_sidebar_links_by_category category =
+  let tutorial_sidebar_links_by_category (category : string) =
     tutorials |> List.filter (fun (x : Data.Tutorial.t) -> x.category = category) |> List.map render_tutorial |> String.concat "\n"
   in
   let categories =

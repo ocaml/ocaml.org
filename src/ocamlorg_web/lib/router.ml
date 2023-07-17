@@ -30,6 +30,9 @@ let page_routes =
       Dream.get Url.learn_language Handler.learn_language;
       Dream.get Url.learn_guides Handler.learn_guides;
       Dream.get Url.platform Handler.platform;
+      Dream.get (Url.platform_tool ":slug") Handler.platform_tool;
+      Dream.get (Url.opam_docs ":version" ":slug") Handler.opam_docs;
+      Dream.get (Url.opam_manpages ":version" ":slug") Handler.opam_docs;
       Dream.get Url.community Handler.community;
       Dream.get Url.changelog Handler.changelog;
       Dream.get (Url.changelog_entry ":id") Handler.changelog_entry;

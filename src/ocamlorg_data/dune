@@ -38,6 +38,13 @@
    (run %{dep:../../tool/ood-gen/bin/gen.exe} meetup))))
 
 (rule
+ (target opam_docs.ml)
+ (action
+  (with-stdout-to
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} opam_docs))))
+
+(rule
  (target industrial_user.ml)
  (action
   (with-stdout-to

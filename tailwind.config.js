@@ -114,6 +114,7 @@ module.exports = {
             'code::after': {
               content: '""',
             },
+            "word-break": "break-word",
           },{
             h1: {
               fontWeight: 700,

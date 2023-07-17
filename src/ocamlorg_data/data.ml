@@ -34,6 +34,12 @@ module Industrial_user = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
+module OpamDocs = struct
+  include Opam_docs
+
+  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+end
+
 module Outreachy = Outreachy
 module Packages = Packages
 

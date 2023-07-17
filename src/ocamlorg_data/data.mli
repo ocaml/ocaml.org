@@ -126,6 +126,25 @@ module Industrial_user : sig
   val get_by_slug : string -> t option
 end
 
+module OpamDocs : sig
+  type toc = { title : string; href : string; children : toc list }
+
+  type t = {
+    version : string;
+    is_manpage : bool;
+    title : string;
+    slug : string;
+    order : int;
+    description : string;
+    body_md : string;
+    toc : toc list;
+    body_html : string;
+  }
+
+  val all : t list
+  val get_by_slug : string -> t option
+end
+
 module Packages : sig
   type t = { featured : string list }
 
@@ -194,8 +213,9 @@ module Tool : sig
     source : string;
     license : string;
     synopsis : string;
-    description : string;
     lifecycle : lifecycle;
+    body_md : string;
+    body_html : string;
   }
 
   val all : t list

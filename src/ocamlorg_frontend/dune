@@ -110,6 +110,14 @@
   (action
    (run %{bin:dream_eml} %{dep:platform.eml} --workspace %{workspace_root})))
  (rule
+  (target platform_tool.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:platform_tool.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
   (target jobs.ml)
   (action
    (run %{bin:dream_eml} %{dep:jobs.eml} --workspace %{workspace_root})))
@@ -177,6 +185,10 @@
     %{dep:success_story.eml}
     --workspace
     %{workspace_root})))
+ (rule
+  (target opam_docs.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:opam_docs.eml} --workspace %{workspace_root})))
  (rule
   (target tutorial.ml)
   (action

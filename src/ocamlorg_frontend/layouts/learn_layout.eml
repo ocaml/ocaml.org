@@ -145,7 +145,7 @@ inner_html
     <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm lg:hidden"
       :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar"></div>
   <% ); %>
-    <div class="container-fluid wide pt-10">
+    <div class="container-fluid wide pt-6">
     <div class="flex flex-col lg:flex-row lg:gap-6 xl:gap-12">
       <div
         class="z-20 bg-default dark:bg-dark-default flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky <%s Option.fold ~none:"" ~some:(fun _ -> "p-6 lg:px-0 w-80 lg:w-72 lg:px-0 lg:pt-6 lg:pb-72") left_sidebar_html %>"

@@ -49,6 +49,23 @@ let platform _req =
   in
   Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
 
+let platform_tool req =
+  let slug = Dream.param req "slug" in
+  let</>? tool = Data.Tool.get_by_slug slug in
+  Dream.html (Ocamlorg_frontend.platform_tool tool ~docs:Data.OpamDocs.all)
+
+let opam_docs req =
+  let version = Dream.param req "version" in
+  let slug = Dream.param req "slug" in
+  let</>? doc =
+    List.find_opt (fun x -> x.Data.OpamDocs.slug = slug && x.version = version) Data.OpamDocs.all
+  in
+  let docs =
+    Data.OpamDocs.all
+    |> List.filter (fun (d : Data.OpamDocs.t) -> d.version = version)
+  in
+  Dream.html (Ocamlorg_frontend.opam_docs ~docs doc)
+
 let community _req =
   let workshops = Data.Workshop.all in
   let meetups = Data.Meetup.all in

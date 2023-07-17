@@ -11,7 +11,6 @@ let problem_sidebar_links_by_tag ?tag title =
     (Problem.filter_tag ?tag problems |> List.fold_left (fun a b -> a ^ render_problem_link b) "")
   %>
 in
-
   <%s! problem_sidebar_links_by_tag ~tag:"list" "Lists" %>
   <%s! problem_sidebar_links_by_tag ~tag:"arithmetic" "Arithmetic" %>
   <%s! problem_sidebar_links_by_tag ~tag:"logic" "Logic and Codes" %>

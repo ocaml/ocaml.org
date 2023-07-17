@@ -71,6 +71,12 @@ let learn_language = "/docs/language"
 let learn_guides = "/docs/guides"
 let local_blog source = "/blog/" ^ source
 let platform = "/docs/platform"
+let platform_tool tool = "/docs/platform/" ^ tool
+let opam_docs version doc = platform_tool "opam" ^ "/" ^ version ^ "/" ^ doc
+
+let opam_manpages version doc =
+  platform_tool "opam" ^ "/" ^ version ^ "/man/" ^ doc
+
 let ocaml_on_windows = "/docs/ocaml-on-windows"
 let tutorial name = "/docs/" ^ name
 let getting_started = tutorial "up-and-running"

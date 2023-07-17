@@ -1,0 +1,65 @@
+let opam_documentation_menu
+~(version : string)
+~(docs : Data.OpamDocs.t list)
+~(doc_slug : string option)
+=
+  let render_doc_link (doc : Data.OpamDocs.t) = 
+  Learn_layout.sidebar_link ~title:(doc.title) ~href:(Url.opam_docs doc.version doc.slug) ~current:(doc_slug = Some (doc.slug))
+  in
+  let render_manpage_link (doc : Data.OpamDocs.t) =
+  Learn_layout.sidebar_link ~title:(doc.title) ~href:(Url.opam_manpages doc.version doc.slug) ~current:(doc_slug = Some (doc.slug))
+  in
+  <%s! Learn_layout.sidebar_link_group ("opam " ^ version ^ " Documentation")
+  ((docs |> List.filter (fun (d : Data.OpamDocs.t) -> d.version = version && not d.is_manpage) |> List.map render_doc_link |> String.concat "\n")
+  ^ (docs |> List.filter (fun (d : Data.OpamDocs.t) -> d.version = version && d.is_manpage && d.slug = "index.html") |> List.map render_manpage_link |> String.concat "\n")) %>
+
+let sidebar
+~(docs : Data.OpamDocs.t list)
+~(doc_slug : string option)
+~(tool_slug : string option)
+=
+  let tool =
+    Data.Tool.all |> List.find (fun (t : Data.Tool.t) -> Some t.slug = tool_slug)
+  in
+  let unique lst =
+    let rec aux seen acc = function
+      | [] -> List.rev acc
+      | x :: xs ->
+        if List.mem x seen then
+          aux seen acc xs
+        else
+          aux (x :: seen) (x :: acc) xs
+    in
+    aux [] [] lst
+  in
+  let opam_versions =
+    docs
+    |> List.map (fun (d : Data.OpamDocs.t) -> d.version)
+    |> unique
+  in
+  <div class="flex flex-col gap-6">
+    <%s! Learn_layout.sidebar_link ~title:tool.name ~href:(Url.platform_tool tool.slug) ~current:(doc_slug = None) %>
+    <% if tool_slug = Some ("opam") then ( %>
+      <% opam_versions |> List.iter (fun version -> %>
+        <%s! opam_documentation_menu ~version ~docs ~doc_slug %>
+      <% ); %>
+    <% ); %>
+  </div>
+
+
+let render
+~(docs: Data.OpamDocs.t list)
+(tool : Data.Tool.t)
+=
+Learn_layout.render
+~title:"OCaml Platform"
+~description:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml."
+~canonical:Url.platform
+~active_top_nav_item:Header.Learn
+~left_sidebar_html:(Some(sidebar ~docs ~doc_slug:None ~tool_slug:(Some tool.slug)))
+~right_sidebar_html:None
+~current:Platform @@
+<div class="prose prose-orange max-w-none">
+  <h1><%s tool.name %></h1>
+  <%s! tool.body_html %>
+</div>

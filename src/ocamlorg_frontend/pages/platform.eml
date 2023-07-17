@@ -4,7 +4,10 @@ let render_sidebar
 ()
 =
   <div class="flex flex-col gap-10">
-    <%s! Learn_sidebar.render ~tutorials ~current_tutorial:active %>
+  <%s! Learn_layout.sidebar_link_group "Documentation" 
+    (Learn_layout.sidebar_link ~title:"opam" ~href:(Url.platform_tool "opam") ~current:(active = Some("opam")))
+    %>
+  <%s! Learn_sidebar.render ~tutorials ~current_tutorial:active %>
   </div>
 
 let render
@@ -13,7 +16,7 @@ let render
 =
 Learn_layout.render
 ~title:"OCaml Platform"
-~description:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml."
+~description:"The OCaml Platform provides tooling for developers to write software in OCaml."
 ~canonical:Url.platform
 ~active_top_nav_item:Header.Learn
 ~left_sidebar_html:(Some(render_sidebar ~tutorials ()))
@@ -22,8 +25,8 @@ Learn_layout.render
   <div class="prose prose-orange max-w-none">
     <h1>The OCaml Platform</h1>
     <p>
-      The OCaml Platform represents the best way for developers, both new and
-      old, to write software in OCaml. It combines the core OCaml compiler with
+      The OCaml Platform provides tooling for developers to write software in OCaml.
+      It combines the core OCaml compiler with
       a coherent set of tools, documentation, libraries, and testing resources.
     </p>
     <p>
