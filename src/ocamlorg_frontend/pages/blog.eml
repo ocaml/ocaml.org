@@ -1,17 +1,29 @@
-let render ~(featured : Data.Planet.t list) ~(planet : Data.Planet.t list) ~planet_pages_number ~planet_page ~(news : Data.News.t list) =
+let render ~(featured : Data.Planet.t list) ~(planet : Data.Planet.t list) ~planet_pages_number ~planet_page ~(news : Data.News.t list) ~filter =
 Layout.render
 ~title:"OCaml Blog"
 ~description:"Recent news and blog posts from the OCaml community."
 ~canonical:(Url.blog ^ if planet_page = 1 then "" else "?p=" ^ string_of_int planet_page)
 ~active_top_nav_item:Header.Blog @@
 <div class="bg-default dark:bg-dark-default py-10">
-    <div class="container-fluid wide">
+    <div class="container-fluid wide" x-data="{ tags: 'All' }">
         <h1 class="sr-only">OCaml Blog</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+
             <div class="col-span-2">
                 <h2 class="text-lg mt-0 font-semibold border-b border-current text-primary-600 pb-3">OCaml Community Blog</h2>
 
+                <div class="border-b border-solid border-zinc-300 leading-5 py-8 text-zinc-800">
+                
+                    <form action="<%s Url.blog %>" method="GET">
+                        <label for="f" class="sr-only">filter blog</label>
+                        <%s! Forms.select
+                          ~attrs:{|id="f" name="f" onchange="this.form.submit()"|}
+                          ~options: (Data.Planet.all_tags |> List.map (fun item -> (item, (String.capitalize_ascii item))))
+                          ~selected:filter
+                          "w-48" %>
+                    </form>
+                </div>
                 <div class="mt-12 space-y-12">
                     <% featured |> List.iter (fun (item : Data.Planet.t) -> %>
                     <div>
@@ -55,9 +67,8 @@ Layout.render
                         <% ); %>
                     </div>
                     <% ); %>
-
-                    <%s! Pagination.render ~total_page_count:planet_pages_number ~page_number:planet_page ~base_url:Url.blog %>
-                </div>
+                    <%s! Pagination.render ~total_page_count:planet_pages_number ~page_number:planet_page ~base_url:Url.blog ~filter %>
+                </div>    
             </div>
             <div class="lg:pl-16 space-y-12">
                 <h2 class="text-lg mt-0 font-semibold border-b border-current text-primary-600 pb-3">News</h2>
