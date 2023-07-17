@@ -15,7 +15,7 @@ let tabs
     </a>
   in
     <div class="bg-learn-area-light-blue">
-      <nav class="container-fluid wide flex flex-wrap justify-around">
+      <nav class="container-fluid wide flex flex-wrap">
         <%s! link ~href:Url.learn ~title:"Overview" ~current:(current = Overview) %>
 
         <%s! link ~href:Url.platform ~title:"Platform Tools" ~current:(current = Platform) %>
