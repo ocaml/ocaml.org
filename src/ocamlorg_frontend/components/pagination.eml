@@ -1,7 +1,7 @@
-let link ~base_url ~page ~current =
+let link ~base_url ~page ~current ~filter =
   let active_class = "border-2 border-current text-primary-600" in
   let non_active_class = "border border-body-100 text-lighter hover:bg-gray-50 hover:no-underline" in
-  <a href="<%s base_url %>?p=<%i page %>"
+  <a href="<%s base_url %>?p=<%i page %>&f=<%s filter %>"
     class="w-10 h-10 lg:w-14 lg:h-14 rounded-lg flex items-center justify-center <%s if page = current then active_class else non_active_class %>">
     <%i page %>
   </a>
@@ -18,19 +18,19 @@ let right_arrow ~base_url page =
     <%s! Icons.chevron_right "h-5 w-5" %>
   </a>
 
-let render ~total_page_count ~page_number ~base_url =
+let render ~total_page_count ~page_number ~base_url ~filter =
   <div class="pt-16 flex items-center justify-center space-x-2.5">
     <%s! if page_number != 1 then (left_arrow ~base_url page_number) else "" %>
-    <%s! link ~base_url ~page:1 ~current:page_number %>
+    <%s! link ~base_url ~page:1 ~current:page_number ~filter %>
     <% if page_number >= 4 then ( %>
     <span class="w-10 h-10 lg:w-14 lg:h-14 border-body-100 rounded-lg flex items-center justify-center text-lighter hover:no-underline">...</span>
     <% ); %>
     <% for page = 2 to (total_page_count - 1) do %>
-    <%s! if (abs (page_number - page) <= 1) || (page_number = 1 && page = 3) || (page_number = total_page_count && total_page_count - page = 2) then (link ~base_url ~page ~current:page_number) else "" %>
+    <%s! if (abs (page_number - page) <= 1) || (page_number = 1 && page = 3) || (page_number = total_page_count && total_page_count - page = 2) then (link ~base_url ~page ~current:page_number ~filter) else "" %>
     <% done; %>
     <% if total_page_count - page_number >= 3 then ( %>
     <span class="w-10 h-10 lg:w-14 lg:h-14 border-body-100 rounded-lg flex items-center justify-center text-lighter hover:no-underline">...</span>
     <% ); %>
-    <%s! link ~base_url ~page:total_page_count ~current:page_number %>
+    <%s! link ~base_url ~page:total_page_count ~current:page_number ~filter %>
     <%s! if page_number != total_page_count then (right_arrow ~base_url page_number) else "" %>
   </div>

@@ -34,10 +34,11 @@ type t = {
   preview_image : string option;
   featured : bool;
   body_html : string;
+  tags : string list;
 }
 [@@deriving
   stable_record ~version:metadata ~modify:[ featured; source ]
-    ~remove:[ slug; body_html ],
+    ~remove:[ slug; body_html; tags ],
     show { with_path = false }]
 
 let all_sources = Source.all ()
@@ -47,13 +48,13 @@ let of_metadata ~source m =
     ~modify_source:(Option.value ~default:source)
     ~modify_featured:(Option.value ~default:false)
 
-let decode (fpath, (head, body)) =
+let decode (path, (head, body)) =
   let metadata = metadata_of_yaml head in
   let body_html =
     Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
   in
   let source =
-    match Str.split (Str.regexp_string "/") fpath with
+    match Str.split (Str.regexp_string "/") path with
     | _ :: second :: _ -> (
         match
           List.find_opt (fun (s : Source.t) -> s.id = Some second) all_sources
@@ -66,16 +67,17 @@ let decode (fpath, (head, body)) =
                 name = "OCaml.org Blog";
                 url = "https://ocaml.org/blog";
               }
-            else failwith ("No source found for: " ^ fpath))
+            else failwith ("No source found for: " ^ path))
     | _ ->
         failwith
-          ("Trying to determine the source for " ^ fpath
+          ("Trying to determine the source for " ^ path
          ^ " but there path is not long enough (should start with \
             data/SOURCE_NAME/...)")
   in
+  let tags = [ List.nth (String.split_on_char '/' path) 1 ] in
   metadata
-  |> Result.map_error (fun (`Msg m) -> `Msg ("In " ^ fpath ^ ": " ^ m))
-  |> Result.map (of_metadata ~source ~body_html)
+  |> Result.map_error (fun (`Msg m) -> `Msg ("In " ^ path ^ ": " ^ m))
+  |> Result.map (of_metadata ~source ~body_html ~tags)
 
 let all () =
   Utils.map_files decode "planet/*/*.md"
@@ -106,6 +108,7 @@ type t =
   ; preview_image : string option
   ; featured : bool
   ; body_html : string
+  ;tags : string list;
   }
   
 let all = %a
