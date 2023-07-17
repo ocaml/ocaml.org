@@ -6,7 +6,8 @@ date: 2016-12-13T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- reynard
+- Gemma Gordon (OCaml Labs)
+source:
 ---
 
 <p><strong>TL;DR</strong></p>

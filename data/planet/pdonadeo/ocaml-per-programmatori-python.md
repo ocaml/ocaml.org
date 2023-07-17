@@ -6,7 +6,8 @@ date: 2010-08-22T22:08:00-00:00
 preview_image:
 featured:
 authors:
-- pdonadeo
+- Paolo Donadeo
+source:
 ---
 
 <div><p class="noindent">Sorry for English speaking people, but this post makes sense only for Italians, so it's in Italian :-)</p>

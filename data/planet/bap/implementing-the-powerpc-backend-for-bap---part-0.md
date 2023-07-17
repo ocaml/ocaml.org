@@ -6,7 +6,8 @@ date: 2017-10-13T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- bap
+- The BAP Blog
+source:
 ---
 
 <p>On this week we started to work on the PowerPC backend. We are

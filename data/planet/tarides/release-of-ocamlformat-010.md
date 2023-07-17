@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2019-06-27-release-of-ocamlformat-0-10
 date: 2019-06-27T00:00:00-00:00
 preview_image: https://tarides.com/static/dd98e4198ca9305bbbd638c382587e5b/eee8e/keyboard.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>We are pleased to announce the release of OCamlFormat 0.10 (available on opam).</p>
@@ -27,17 +30,17 @@ Please note that it is necessary to build <code>ocamlformat</code> with 4.08 to 
 <p><code>align-cases</code> horizontally aligns the match/try cases:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> fooooooooooo <span class="token operator">=</span>
   <span class="token keyword">match</span> foooooooooooooooooooooooo <span class="token keyword">with</span>
-  <span class="token operator">|</span> <span class="token module variable">Bfooooooooooooooooo</span> <span class="token operator">-&gt;</span> foooooooooooo
+  <span class="token operator">|</span> Bfooooooooooooooooo <span class="token operator">-&gt;</span> foooooooooooo
   <span class="token operator">|</span> C <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">)</span>      <span class="token operator">-&gt;</span> fooooooooooooooooooo
   <span class="token operator">|</span> <span class="token punctuation">_</span>                   <span class="token operator">-&gt;</span> fooooooooooooooooooo</code></pre></div>
 <p><code>align-constructors-decl</code> horizontally aligns type declarations:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> t <span class="token operator">=</span>
-  <span class="token operator">|</span> <span class="token punctuation">(</span> <span class="token punctuation">:</span><span class="token punctuation">:</span> <span class="token punctuation">)</span> <span class="token keyword">of</span> a <span class="token operator">*</span> b
+  <span class="token operator">|</span> <span class="token punctuation">(</span> <span class="token punctuation">::</span> <span class="token punctuation">)</span> <span class="token keyword">of</span> a <span class="token operator">*</span> b
   <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>     <span class="token keyword">of</span> looooooooooooooooooooooooooooooooooooooong_break</code></pre></div>
 <p><code>align-variants-decl</code> horizontally aligns variants type declarations:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> x <span class="token operator">=</span>
-  <span class="token punctuation">[</span> <span class="token variant variable">`Foooooooo</span>      <span class="token keyword">of</span> int
-  <span class="token operator">|</span> <span class="token variant variable">`Fooooooooooooo</span> <span class="token keyword">of</span> int <span class="token punctuation">]</span></code></pre></div>
+  <span class="token punctuation">[</span> <span class="token variant symbol">`Foooooooo</span>      <span class="token keyword">of</span> int
+  <span class="token operator">|</span> <span class="token variant symbol">`Fooooooooooooo</span> <span class="token keyword">of</span> int <span class="token punctuation">]</span></code></pre></div>
 <h3 style="position:relative;"><a href="https://tarides.com/feed.xml#preserve-blank-lines-in-sequences" aria-label="preserve blank lines in sequences permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Preserve blank lines in sequences</h3>
 <p>The new option <code>sequence-blank-line</code> decides whether a blank line is preserved between expressions of a sequence. <code>sequence-blank-line=compact</code> will not keep any blank line between expressions of a sequence, this is still the default behavior. <code>sequence-blank-line=preserve</code> will keep a blank line between two expressions of a sequence if the input contains at least one.</p>
 <p>This option can help preserving the readability of the code in this situation:</p>
@@ -60,7 +63,7 @@ Please note that it is necessary to build <code>ocamlformat</code> with 4.08 to 
 <p>The new option <code>max-indent</code> sets the maximum offset (number of columns) added to a new line in addition to the offset of the previous line. If this offset is set to 2 columns, then each new line can only be indented by 2 columns more in addition to the previous line, for example:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
   fooooo
-  <span class="token operator">|&gt;</span> <span class="token module variable">List</span><span class="token punctuation">.</span>iter <span class="token punctuation">(</span><span class="token keyword">fun</span> x <span class="token operator">-&gt;</span>
+  <span class="token operator">|&gt;</span> List<span class="token punctuation">.</span>iter <span class="token punctuation">(</span><span class="token keyword">fun</span> x <span class="token operator">-&gt;</span>
     <span class="token keyword">let</span> x <span class="token operator">=</span> x <span class="token operator">$</span> y <span class="token keyword">in</span>
     fooooooooooo x<span class="token punctuation">)</span></code></pre></div>
 <p>This option is equivalent to the <code>max_indent</code> option of <code>ocp-indent</code>, and it will be set if <code>max_indent</code> is set in an <code>.ocp-indent</code> configuration file.</p>
@@ -108,28 +111,28 @@ The new option <code>type-decl-indent</code> sets the indentation of type declar
 <p>On this example we can see the closing parenthesis delimiting the nested pattern-matchings are on their own line and are aligned with the matching opening parenthesis:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
    <span class="token keyword">match</span> v <span class="token keyword">with</span>
-   <span class="token operator">|</span> <span class="token module variable">None</span> <span class="token operator">-&gt;</span> <span class="token module variable">None</span>
-   <span class="token operator">|</span> <span class="token module variable">Some</span> x <span class="token operator">-&gt;</span>
+   <span class="token operator">|</span> None <span class="token operator">-&gt;</span> None
+   <span class="token operator">|</span> Some x <span class="token operator">-&gt;</span>
        <span class="token punctuation">(</span> <span class="token keyword">match</span> x <span class="token keyword">with</span>
-       <span class="token operator">|</span> <span class="token module variable">None</span> <span class="token operator">-&gt;</span> <span class="token module variable">None</span>
-       <span class="token operator">|</span> <span class="token module variable">Some</span> x <span class="token operator">-&gt;</span>
+       <span class="token operator">|</span> None <span class="token operator">-&gt;</span> None
+       <span class="token operator">|</span> Some x <span class="token operator">-&gt;</span>
            <span class="token punctuation">(</span> <span class="token keyword">match</span> x <span class="token keyword">with</span>
-           <span class="token operator">|</span> <span class="token module variable">None</span> <span class="token operator">-&gt;</span> <span class="token module variable">None</span>
-           <span class="token operator">|</span> <span class="token module variable">Some</span> x <span class="token operator">-&gt;</span> x
+           <span class="token operator">|</span> None <span class="token operator">-&gt;</span> None
+           <span class="token operator">|</span> Some x <span class="token operator">-&gt;</span> x
            <span class="token punctuation">)</span>
        <span class="token punctuation">)</span></code></pre></div>
 <h3 style="position:relative;"><a href="https://tarides.com/feed.xml#formatting-of-literal-strings" aria-label="formatting of literal strings permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Formatting of literal strings</h3>
 <p><code>break-string-literals=newlines</code> now takes into account pretty-printing commands like <code>@,</code>, <code>@;</code> and <code>@\n</code> to produce more readable strings. A new value for this option has been added, <code>break-string-literals=newlines-and-wrap</code>, to break lines at newlines delimiters (including pretty-printing commands) and also wrap the string literals at the margin.</p>
 <p>Here is how <code>break-string-literals=newlines-and-wrap</code> formats a string:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> fooooooooooo <span class="token operator">=</span>
-  &quot;<span class="token module variable">Lorem</span> ipsum dolor sit amet<span class="token punctuation">,</span> consectetur adipiscing elit<span class="token punctuation">,</span> sed <span class="token keyword">do</span> eiusmod \
-   tempor incididunt ut labore et dolore magna aliqua<span class="token punctuation">.</span><span class="token operator">@</span><span class="token punctuation">;</span>\
-   <span class="token module variable">Ut</span> enim ad minim veniam<span class="token punctuation">,</span> quis nostrud exercitation ullamco laboris nisi \
-   ut aliquip ex ea commodo consequat<span class="token punctuation">.</span><span class="token operator">@</span><span class="token punctuation">;</span>\
-   <span class="token module variable">Duis</span> aute irure dolor <span class="token keyword">in</span> reprehenderit <span class="token keyword">in</span> voluptate velit esse cillum \
-   dolore eu fugiat nulla pariatur<span class="token punctuation">.</span><span class="token operator">@</span><span class="token punctuation">;</span>\
-   <span class="token module variable">Excepteur</span> sint occaecat cupidatat non proident<span class="token punctuation">,</span> sunt <span class="token keyword">in</span> culpa qui \
-   officia deserunt mollit anim id est laborum<span class="token punctuation">.</span>&quot;</code></pre></div>
+  <span class="token string">&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod \
+   tempor incididunt ut labore et dolore magna aliqua.@;\
+   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi \
+   ut aliquip ex ea commodo consequat.@;\
+   Duis aute irure dolor in reprehenderit in voluptate velit esse cillum \
+   dolore eu fugiat nulla pariatur.@;\
+   Excepteur sint occaecat cupidatat non proident, sunt in culpa qui \
+   officia deserunt mollit anim id est laborum.&quot;</span></code></pre></div>
 <p><strong>Warning:</strong> the <code>break-string-literals</code> will likely be removed in the next release and the default behavior would be <code>newlines-and-wrap</code>.</p>
 <h3 style="position:relative;"><a href="https://tarides.com/feed.xml#break-before-the-in-keyword" aria-label="break before the in keyword permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Break before the <code>in</code> keyword</h3>
 <p>The new option <code>break-before-in</code> has been added to decide whether the line should break before the <code>in</code> keyword of a <code>let</code> binding. <code>break-before-in=fit-or-vertical</code> will always break the line before the <code>in</code> keyword if the whole <code>let</code> binding does not fit on a single line, it is still the default behavior. <code>break-before-in=auto</code> will only break the line if the <code>in</code> keyword does not fit on the previous line.</p>
@@ -143,11 +146,11 @@ The new option <code>type-decl-indent</code> sets the indentation of type declar
 <p>The new option <code>nested-match</code> defines the style of pattern-matchings nested in the last case of another pattern-matching. <code>nested-match=wrap</code> wraps the nested pattern-matching with parentheses and adds indentation, this is still the default behavior. <code>nested-match=align</code> vertically aligns the nested pattern-matching under the encompassing pattern-matching, for example:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
   <span class="token keyword">match</span> v <span class="token keyword">with</span>
-  <span class="token operator">|</span> <span class="token module variable">None</span> <span class="token operator">-&gt;</span> <span class="token module variable">None</span>
-  <span class="token operator">|</span> <span class="token module variable">Some</span> x <span class="token operator">-&gt;</span>
+  <span class="token operator">|</span> None <span class="token operator">-&gt;</span> None
+  <span class="token operator">|</span> Some x <span class="token operator">-&gt;</span>
   <span class="token keyword">match</span> x <span class="token keyword">with</span>
-  <span class="token operator">|</span> <span class="token module variable">None</span> <span class="token operator">-&gt;</span> <span class="token module variable">None</span>
-  <span class="token operator">|</span> <span class="token module variable">Some</span> x <span class="token operator">-&gt;</span> x</code></pre></div>
+  <span class="token operator">|</span> None <span class="token operator">-&gt;</span> None
+  <span class="token operator">|</span> Some x <span class="token operator">-&gt;</span> x</code></pre></div>
 <p>The new option <code>cases-matching-exp-indent</code> decides the indentation of cases right-hand sides which are <code>match</code> or <code>try</code> expressions. <code>cases-matching-exp-indent=compact</code> forces an indentation of 2, unless <code>nested-match</code> is set to <code>align</code> and this is the last case of the pattern matching. <code>compact</code> is the default behavior. <code>cases-matching-exp-indent=normal</code> indents as it would any other expression.</p>
 <h3 style="position:relative;"><a href="https://tarides.com/feed.xml#whitelist-of-files-to-format" aria-label="whitelist of files to format permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whitelist of files to format</h3>
 <p>A new kind of configuration files is now handled by <code>ocamlformat</code>: <code>.ocamlformat-enable</code> files.
@@ -164,12 +167,12 @@ If the <code>disable</code> option is set, an <code>.ocamlformat-enable</code> f
 For example if this set of or-patterns does not fit on a single line, we get the following output:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> ffffff <span class="token operator">=</span>
   <span class="token keyword">match</span> foooooooooooo <span class="token keyword">with</span>
-  <span class="token operator">|</span> <span class="token module variable">Aaaaaaaaaaaaaaaaa</span>
-  <span class="token operator">|</span> <span class="token module variable">Bbbbbbbbbbbbbbbbb</span>
-  <span class="token operator">|</span> <span class="token module variable">Ccccccccccccccccc</span>
-  <span class="token operator">|</span> <span class="token module variable">Ddddddddddddddddd</span>
-  <span class="token operator">|</span> <span class="token module variable">Eeeeeeeeeeeeeeeee</span> <span class="token operator">-&gt;</span> foooooooooooooooooooo
-  <span class="token operator">|</span> <span class="token module variable">Fffffffffffffffff</span> <span class="token operator">-&gt;</span> fooooooooooooooooo</code></pre></div>
+  <span class="token operator">|</span> Aaaaaaaaaaaaaaaaa
+  <span class="token operator">|</span> Bbbbbbbbbbbbbbbbb
+  <span class="token operator">|</span> Ccccccccccccccccc
+  <span class="token operator">|</span> Ddddddddddddddddd
+  <span class="token operator">|</span> Eeeeeeeeeeeeeeeee <span class="token operator">-&gt;</span> foooooooooooooooooooo
+  <span class="token operator">|</span> Fffffffffffffffff <span class="token operator">-&gt;</span> fooooooooooooooooo</code></pre></div>
 <h3 style="position:relative;"><a href="https://tarides.com/feed.xml#kr-style-for-if-then-else" aria-label="kr style for if then else permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>K&amp;R style for if-then-else</h3>
 <p>The <code>if-then-else</code> option now has a new value <code>k-r</code> that uses parentheses (when necessary) to reproduce a formatting close to the K&amp;R style. For example:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> <span class="token punctuation">_</span> <span class="token operator">=</span>

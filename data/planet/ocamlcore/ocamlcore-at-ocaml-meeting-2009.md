@@ -6,7 +6,8 @@ date: 2008-10-08T09:21:45-00:00
 preview_image:
 featured:
 authors:
-- ocamlcore
+- OCamlCore.com
+source:
 ---
 
 <p>OCaml Meeting 2009 will be sponsored by OCamlCore. This year event takes place in Grenoble just after the <a href="http://jfla.inria.fr/2009/">JFLA</a>.</p>

@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/using-ascii-waveforms-to-test-hardware-designs/
 date: 2020-06-01T00:00:00-00:00
 preview_image: https://blog.janestreet.com/using-ascii-waveforms-to-test-hardware-designs/scientist_testing.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>At Jane Street, an <a href="https://blog.janestreet.com/testing-with-expectations">&ldquo;expect

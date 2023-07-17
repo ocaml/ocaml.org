@@ -6,7 +6,8 @@ date: 2016-01-18T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- bap
+- The BAP Blog
+source:
 ---
 
 <p>This post explores a portion of the BAP API that may be useful when interacting

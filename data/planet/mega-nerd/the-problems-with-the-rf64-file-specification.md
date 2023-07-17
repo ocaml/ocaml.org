@@ -6,7 +6,8 @@ date: 2010-10-07T10:36:00-00:00
 preview_image:
 featured:
 authors:
-- mega-nerd
+- Erik de Castro Lopo
+source:
 ---
 
 

@@ -6,7 +6,8 @@ date: 2017-02-01T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- emillon
+- Etienne Millon
+source:
 ---
 
 <p>Hello! It&rsquo;s 2016, it&rsquo;s November, and apparently it rhymes with <a href="http://nabomamo.botally.net/">#NaBoMaMo</a> 2016,

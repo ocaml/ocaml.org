@@ -1,12 +1,14 @@
 ---
 title: OCaml Users in Paris (OUPS)
-description: "Wed, May 23, 7:00 PM CEST: Le prochain OUPS aura lieu mercredi 23 mai.
-  Le rendez-vous est fix\xE9 \xE0 19h. Le programme sera habituel, expos\xE9s suivis
-  d'une discussion autour d'un pot avec des pizzas.\n\nCe"
+description: Not a Meetup member yet? Log in and find groups that host online or in
+  person events and meet people in your local community who share your interests.
 url: https://www.meetup.com/ocaml-paris/events/250836568/
 date: 2018-05-23T00:00:00-00:00
-preview_image: https://secure-content.meetupstatic.com/images/classic-events/257293542/676x380.jpg
+preview_image: https://secure.meetupstatic.com/next/images/shared/meetup-logo.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Thomas Gazagnaire gave a presentation on MirageOS to the

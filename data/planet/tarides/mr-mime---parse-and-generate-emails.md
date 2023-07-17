@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2019-09-25-mr-mime-parse-and-generate-emails
 date: 2019-09-25T00:00:00-00:00
 preview_image: https://tarides.com/static/14bcc335478eae1bbad1c2f4cdd244af/0132d/mailboxes2.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>We're glad to announce the first release of <a href="https://github.com/mirage/mrmime.git"><code>mrmime</code></a>, a parser and a
@@ -70,46 +73,46 @@ nothing.</p>
 then let the Mr. MIME generator transform this into a stream of characters that
 can be consumed by, for example, an SMTP implementation. The description step
 is quite simple:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token directive important">#require</span> <span class="token string">&quot;mrmime&quot;</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
-<span class="token directive important">#require</span> <span class="token string">&quot;ptime.clock.os&quot;</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token directive property">#require</span> <span class="token string">&quot;mrmime&quot;</span> <span class="token punctuation">;;</span>
+<span class="token directive property">#require</span> <span class="token string">&quot;ptime.clock.os&quot;</span> <span class="token punctuation">;;</span>
 
-<span class="token keyword">open</span> <span class="token module variable">Mrmime</span>
+<span class="token keyword">open</span> Mrmime
 
 <span class="token keyword">let</span> romain_calascibetta <span class="token operator">=</span>
-  <span class="token keyword">let</span> <span class="token keyword">open</span> <span class="token module variable">Mailbox</span> <span class="token keyword">in</span>
-  <span class="token module variable">Local</span><span class="token punctuation">.</span><span class="token punctuation">[</span> w <span class="token string">&quot;romain&quot;</span><span class="token punctuation">;</span> w <span class="token string">&quot;calascibetta&quot;</span> <span class="token punctuation">]</span> <span class="token operator">@</span> <span class="token module variable">Domain</span><span class="token punctuation">.</span><span class="token punctuation">(</span>domain<span class="token punctuation">,</span> <span class="token punctuation">[</span> a <span class="token string">&quot;gmail&quot;</span><span class="token punctuation">;</span> a <span class="token string">&quot;com&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token keyword">let</span> <span class="token keyword">open</span> Mailbox <span class="token keyword">in</span>
+  Local<span class="token punctuation">.</span><span class="token punctuation">[</span> w <span class="token string">&quot;romain&quot;</span><span class="token punctuation">;</span> w <span class="token string">&quot;calascibetta&quot;</span> <span class="token punctuation">]</span> <span class="token operator">@</span> Domain<span class="token punctuation">.</span><span class="token punctuation">(</span>domain<span class="token punctuation">,</span> <span class="token punctuation">[</span> a <span class="token string">&quot;gmail&quot;</span><span class="token punctuation">;</span> a <span class="token string">&quot;com&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
 
 <span class="token keyword">let</span> john_doe <span class="token operator">=</span>
-  <span class="token keyword">let</span> <span class="token keyword">open</span> <span class="token module variable">Mailbox</span> <span class="token keyword">in</span>
-  <span class="token module variable">Local</span><span class="token punctuation">.</span><span class="token punctuation">[</span> w <span class="token string">&quot;john&quot;</span> <span class="token punctuation">]</span> <span class="token operator">@</span> <span class="token module variable">Domain</span><span class="token punctuation">.</span><span class="token punctuation">(</span>domain<span class="token punctuation">,</span> <span class="token punctuation">[</span> a <span class="token string">&quot;doe&quot;</span><span class="token punctuation">;</span> a <span class="token string">&quot;org&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
-  <span class="token operator">|&gt;</span> with_name <span class="token module variable">Phrase</span><span class="token punctuation">.</span><span class="token punctuation">(</span>v <span class="token punctuation">[</span> w <span class="token string">&quot;John&quot;</span><span class="token punctuation">;</span> w <span class="token string">&quot;D.&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token keyword">let</span> <span class="token keyword">open</span> Mailbox <span class="token keyword">in</span>
+  Local<span class="token punctuation">.</span><span class="token punctuation">[</span> w <span class="token string">&quot;john&quot;</span> <span class="token punctuation">]</span> <span class="token operator">@</span> Domain<span class="token punctuation">.</span><span class="token punctuation">(</span>domain<span class="token punctuation">,</span> <span class="token punctuation">[</span> a <span class="token string">&quot;doe&quot;</span><span class="token punctuation">;</span> a <span class="token string">&quot;org&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token operator">|&gt;</span> with_name Phrase<span class="token punctuation">.</span><span class="token punctuation">(</span>v <span class="token punctuation">[</span> w <span class="token string">&quot;John&quot;</span><span class="token punctuation">;</span> w <span class="token string">&quot;D.&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
 
 <span class="token keyword">let</span> now <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
-  <span class="token keyword">let</span> <span class="token keyword">open</span> <span class="token module variable">Date</span> <span class="token keyword">in</span>
-  of_ptime <span class="token label function">~zone</span><span class="token punctuation">:</span><span class="token module variable">Zone</span><span class="token punctuation">.</span><span class="token module variable">GMT</span> <span class="token punctuation">(</span><span class="token module variable">Ptime_clock</span><span class="token punctuation">.</span>now <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token keyword">let</span> <span class="token keyword">open</span> Date <span class="token keyword">in</span>
+  of_ptime <span class="token label property">~zone</span><span class="token punctuation">:</span>Zone<span class="token punctuation">.</span>GMT <span class="token punctuation">(</span>Ptime_clock<span class="token punctuation">.</span>now <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
 <span class="token keyword">let</span> subject <span class="token operator">=</span>
-  <span class="token module variable">Unstructured</span><span class="token punctuation">.</span><span class="token punctuation">[</span> v <span class="token string">&quot;A&quot;</span><span class="token punctuation">;</span> sp <span class="token number">1</span><span class="token punctuation">;</span> v <span class="token string">&quot;Simple&quot;</span><span class="token punctuation">;</span> sp <span class="token number">1</span><span class="token punctuation">;</span> v <span class="token string">&quot;Mail&quot;</span> <span class="token punctuation">]</span>
+  Unstructured<span class="token punctuation">.</span><span class="token punctuation">[</span> v <span class="token string">&quot;A&quot;</span><span class="token punctuation">;</span> sp <span class="token number">1</span><span class="token punctuation">;</span> v <span class="token string">&quot;Simple&quot;</span><span class="token punctuation">;</span> sp <span class="token number">1</span><span class="token punctuation">;</span> v <span class="token string">&quot;Mail&quot;</span> <span class="token punctuation">]</span>
 
 <span class="token keyword">let</span> header <span class="token operator">=</span>
-  <span class="token keyword">let</span> <span class="token keyword">open</span> <span class="token module variable">Header</span> <span class="token keyword">in</span>
-  <span class="token module variable">Field</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token module variable">Subject</span> <span class="token operator">$</span> subject<span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span> <span class="token module variable">Field</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token module variable">Sender</span> <span class="token operator">$</span> romain_calascibetta<span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span> <span class="token module variable">Field</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token module variable">To</span> <span class="token operator">$</span> <span class="token module variable">Address</span><span class="token punctuation">.</span><span class="token punctuation">[</span> mailbox john_doe <span class="token punctuation">]</span><span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span> <span class="token module variable">Field</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token module variable">Date</span> <span class="token operator">$</span> now <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token keyword">let</span> <span class="token keyword">open</span> Header <span class="token keyword">in</span>
+  Field<span class="token punctuation">.</span><span class="token punctuation">(</span>Subject <span class="token operator">$</span> subject<span class="token punctuation">)</span>
+  <span class="token operator">&amp;</span> Field<span class="token punctuation">.</span><span class="token punctuation">(</span>Sender <span class="token operator">$</span> romain_calascibetta<span class="token punctuation">)</span>
+  <span class="token operator">&amp;</span> Field<span class="token punctuation">.</span><span class="token punctuation">(</span>To <span class="token operator">$</span> Address<span class="token punctuation">.</span><span class="token punctuation">[</span> mailbox john_doe <span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token operator">&amp;</span> Field<span class="token punctuation">.</span><span class="token punctuation">(</span>Date <span class="token operator">$</span> now <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
   <span class="token operator">&amp;</span> empty
 
-<span class="token keyword">let</span> stream <span class="token operator">=</span> <span class="token module variable">Header</span><span class="token punctuation">.</span>to_stream header
+<span class="token keyword">let</span> stream <span class="token operator">=</span> Header<span class="token punctuation">.</span>to_stream header
 
 <span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
   <span class="token keyword">let</span> <span class="token keyword">rec</span> go <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
     <span class="token keyword">match</span> stream <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">with</span>
-    <span class="token operator">|</span> <span class="token module variable">Some</span> buf <span class="token operator">-&gt;</span> print_string buf<span class="token punctuation">;</span> go <span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token operator">|</span> <span class="token module variable">None</span> <span class="token operator">-&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token operator">|</span> Some buf <span class="token operator">-&gt;</span> print_string buf<span class="token punctuation">;</span> go <span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token operator">|</span> None <span class="token operator">-&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token keyword">in</span>
   go <span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre></div>
 <p>This code produces the following header:</p>
-<div class="gatsby-highlight" data-language="mail"><pre class="language-mail"><code class="language-mail">Date: 2 Aug 2019 14:10:10 GMT
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">Date: 2 Aug 2019 14:10:10 GMT
 To: John &quot;D.&quot; &lt;john@doe.org&gt;
 Sender: romain.calascibetta@gmail.com
 Subject: A Simple Mail</code></pre></div>

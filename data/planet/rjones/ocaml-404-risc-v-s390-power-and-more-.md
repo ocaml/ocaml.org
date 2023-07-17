@@ -8,7 +8,8 @@ date: 2016-11-19T14:46:11-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- rjones
+- Richard Jones
+source:
 ---
 
 <p>I pushed <a href="https://ocaml.org/releases/4.04.html">OCaml 4.04.0</a> <a href="https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/X63CN5B7FMFES3SCQKVUWTQO6TGVK7KU/">to Fedora Rawhide</a> last week.  There are loads of new features for OCaml users, but the ones that particularly affect Fedora are:</p>

@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - "Daniel B\xFCnzli"
+source:
 ---
 
 <p>First release of Tsdl, thin bindings to SDL for OCaml.</p>

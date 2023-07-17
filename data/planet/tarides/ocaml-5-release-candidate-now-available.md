@@ -1,10 +1,14 @@
 ---
 title: OCaml 5 Release Candidate Now Available!
-description:
+description: "We're in the home stretch for the full OCaml 5 release. Multicore is
+  almost here! Yesterday its Release Candidate (RC) was announced on the\u2026"
 url: https://tarides.com/blog/2022-12-07-ocaml-5-release-candidate-now-available
 date: 2022-12-07T00:00:00-00:00
-preview_image:
+preview_image: https://tarides.com/static/f057ea6b7b626b6a08532b1359916c4a/18869/RC_Camel.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>We're in the home stretch for the full OCaml 5 release. Multicore is almost here! Yesterday its Release Candidate (RC) was announced on the <a href="https://discuss.ocaml.org/t/first-release-candidate-for-ocaml-5-0-0/10922">OCaml Discuss</a>, which is the final step before the major release, expected before Christmas.</p>

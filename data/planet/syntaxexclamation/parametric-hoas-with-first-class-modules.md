@@ -8,7 +8,8 @@ date: 2014-06-27T21:17:37-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- syntaxexclamation
+- Matthias Puech
+source:
 ---
 
 <p>One of the first choice to make when starting the development of a compiler, or any program manipulating syntax&nbsp;with binders (e.g. programs with functions and variables), is how to&nbsp;represent these terms. Some specialized programming languages, like <a href="http://complogic.cs.mcgill.ca/beluga/" title="Beluga">Beluga</a>, have built-in facilities for this. But if you choose a general-purpose one, like OCaml, then you have plenty of choices: Named terms, De Bruijn indices, Locally nameless, Higher-order abstract syntax (HOAS)&hellip; each with their idiosyncrasies, inconvenients etc. This issue is pervasive in PL research and almost formed a subfield of itself. If you are interested, there is a wealth of literature on the topic; a documented discussion happened on LtU <a href="http://lambda-the-ultimate.org/node/3627" title="A Type-theoretic Foundation for Programming with Higher-order Abstract Syntax and First-class Substitutions">some years back</a> (already), which is probably a good starting point, although of course some has&nbsp;happened since then.</p>

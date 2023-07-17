@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-08-26-tarides-goes-on-holiday
 date: 2022-08-26T00:00:00-00:00
 preview_image: https://tarides.com/static/8e5d9d9d99ef418129385ddb45f68bf1/0132d/vacation.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p><em>Relaxing in today&rsquo;s world can be difficult. Taking the time you need to cool off, refocus, and explore something new requires a solid amount of time in which you can disconnect from daily habits and find a new beat.</em></p>

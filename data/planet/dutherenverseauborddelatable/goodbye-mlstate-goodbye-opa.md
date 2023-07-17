@@ -8,7 +8,8 @@ date: 2011-09-06T15:36:40-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- dutherenverseauborddelatable
+- David Teller
+source:
 ---
 
 <p>Tides come and tides go.</p>

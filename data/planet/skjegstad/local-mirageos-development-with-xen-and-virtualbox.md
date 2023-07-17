@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Magnus Skjegstad
+source:
 ---
 
 <p><a href="http://www.openmirage.org">MirageOS</a> is a library operating system. An application written for MirageOS is compiled to an operating system kernel that only contains the specific functionality required by the application - a <a href="http://queue.acm.org/detail.cfm?id=2566628">unikernel</a>. The MirageOS unikernels can be compiled for different targets, including standalone VMs that run under Xen. The Xen unikernels can be deployed directly to common cloud services such as <a href="http://openmirage.org/wiki/xen-boot">Amazon EC2</a> and <a href="http://christopherbothwell.com/ocaml/mirage/linode/2014/12/08/hello-linode.html">Linode</a>.</p>

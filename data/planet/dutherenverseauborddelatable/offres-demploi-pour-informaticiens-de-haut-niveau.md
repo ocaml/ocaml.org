@@ -8,7 +8,8 @@ date: 2010-05-31T12:22:31-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- dutherenverseauborddelatable
+- David Teller
+source:
 ---
 
 <p style="text-align:justify;">MLstate est une jeune entreprise innovante en campagne depuis 2008 pour la reconqu&ecirc;te du web. Notre objectif : r&eacute;inventer les bases technologiques et scientifiques des applications web, pour une toile plus saine, plus s&ucirc;re et plus s&eacute;curis&eacute;e. Notre &eacute;quipe R&amp;D compte une vingtaine de passionn&eacute;s, docteurs ou ing&eacute;nieurs en informatique, et est sur le point de s&rsquo;agrandir.</p>

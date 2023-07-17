@@ -6,7 +6,8 @@ date: 2017-01-24T00:30:00-00:00
 preview_image:
 featured:
 authors:
-- ocamllabs
+- OCaml Labs compiler hacking
+source:
 ---
 
 <p>Happy New Year! Our first compiler hacking event of 2017 will be at Pembroke College.</p>

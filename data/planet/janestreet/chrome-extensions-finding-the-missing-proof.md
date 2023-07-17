@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/chrome-extensions-finding-the-missing-proof/
 date: 2020-04-17T00:00:00-00:00
 preview_image: https://blog.janestreet.com/chrome-extensions-finding-the-missing-proof/magnifying-glass.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Web browsers have supported custom

@@ -5,7 +5,10 @@ description: "Continuing our blog series on Multicore OCaml, this blog provides 
 url: https://tarides.com/blog/2023-03-02-the-journey-to-ocaml-multicore-bringing-big-ideas-to-life
 date: 2023-03-02T00:00:00-00:00
 preview_image: https://tarides.com/static/caf16b04b6417354dc02755abfc245ca/2070e/jack-anstey-zS4lUqLEiNA-unsplash.jpg
-featured: true
+featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Continuing our blog series on <a href="https://tarides.com/blog/2022-12-19-ocaml-5-with-multicore-support-is-here">Multicore OCaml</a>, this blog provides an overview of the road to OCaml Multicore. If you want to know how you can use OCaml 5 in your own projects, please <a href="https://tarides.com/company">contact us</a> for more information. We also recommend watching KC Sivaramakrishnan's ICFP 22' talk <a href="https://www.youtube.com/watch?v=zJ4G0TKwzVc">Retrofitting Concurrency - Lessons from the Engine Room</a></p>
@@ -19,8 +22,8 @@ featured: true
 <p>In the years since the project started, there have been several developments and incremental successes. Below is an overview of the milestones along the road to Multicore OCaml:</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/7a1079030724de99ac8bce15ae51a0e3/9c618/Multicore_timeline_new-01.jpg" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 133.52941176470588%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAbABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAECAwX/xAAWAQEBAQAAAAAAAAAAAAAAAAABAgD/2gAMAwEAAhADEAAAAe3WonQUYxGqwqx//8QAGhAAAgMBAQAAAAAAAAAAAAAAAAECETEhEP/aAAgBAQABBQJkcXl0o4maWV2K69//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AR//xAAXEQEAAwAAAAAAAAAAAAAAAAABAhEg/9oACAECAQE/AWIt4//EABcQAQEBAQAAAAAAAAAAAAAAAAEgEEH/2gAIAQEABj8CjmoT/8QAGxAAAgMAAwAAAAAAAAAAAAAAAAERITFBUWH/2gAIAQEAAT8hxIkSyTGmpulyPwuiTV9+D08NaBRRCwqFcCWP/9oADAMBAAIAAwAAABDbEwH/xAAYEQEBAQEBAAAAAAAAAAAAAAABABEhMf/aAAgBAwEBPxA8yRWO2t//xAAYEQEBAQEBAAAAAAAAAAAAAAABACERMf/aAAgBAgEBPxAAvSMybhf/xAAdEAEAAwEAAgMAAAAAAAAAAAABABEhQTFRYYGh/9oACAEBAAE/EGDTVHuF4hTj35grpvu4o8UaXpBpBgvFp9TCANFUybAA4i2QcDRocfyVx3sQVNqrlEp1CrrwtT//2Q=='); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/7a1079030724de99ac8bce15ae51a0e3/7bf67/Multicore_timeline_new-01.jpg" class="gatsby-resp-image-image" alt="Isabella Leandersson's Graphic" title="Isabella Leandersson's Graphic" srcset="/static/7a1079030724de99ac8bce15ae51a0e3/651be/Multicore_timeline_new-01.jpg 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 133.52941176470588%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAbABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAECAwX/xAAWAQEBAQAAAAAAAAAAAAAAAAABAgD/2gAMAwEAAhADEAAAAe3MhOgijJLVUSY//8QAGxAAAgMAAwAAAAAAAAAAAAAAAAECETEQIUH/2gAIAQEAAQUCZHFxdKOJmlnsV29//8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAwEBPwEf/8QAFxEBAAMAAAAAAAAAAAAAAAAAAQIRIP/aAAgBAgEBPwFiLeP/xAAYEAACAwAAAAAAAAAAAAAAAAABIBARQf/aAAgBAQAGPwJMk0v/xAAbEAACAwEBAQAAAAAAAAAAAAAAAREhMUFhUf/aAAgBAQABPyHEiRLDGmpul0fhEmrq/B/w0mhRRCsKhXBLH//aAAwDAQACAAMAAAAQ29AB/8QAFxEBAQEBAAAAAAAAAAAAAAAAAQARMf/aAAgBAwEBPxA5kisWt//EABgRAQEBAQEAAAAAAAAAAAAAAAEAIREx/9oACAECAQE/EAC9IzJuF//EABwQAQEBAQADAQEAAAAAAAAAAAERIQAxQVGBof/aAAgBAQABPxCRpSH3ikwrj74TyO/byjxDS+zhjGCzyn52UA0SM4i0A4jpwweWDj/OmG33vJKNkveKNrinMFDv/9k='); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/7a1079030724de99ac8bce15ae51a0e3/7bf67/Multicore_timeline_new-01.jpg" class="gatsby-resp-image-image" alt="Isabella Leandersson's Graphic" title="" srcset="/static/7a1079030724de99ac8bce15ae51a0e3/651be/Multicore_timeline_new-01.jpg 170w,
 /static/7a1079030724de99ac8bce15ae51a0e3/d30a3/Multicore_timeline_new-01.jpg 340w,
 /static/7a1079030724de99ac8bce15ae51a0e3/7bf67/Multicore_timeline_new-01.jpg 680w,
 /static/7a1079030724de99ac8bce15ae51a0e3/990cb/Multicore_timeline_new-01.jpg 1020w,

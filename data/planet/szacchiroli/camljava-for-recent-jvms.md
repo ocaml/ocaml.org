@@ -6,7 +6,8 @@ date: 2009-12-01T14:25:37-00:00
 preview_image:
 featured:
 authors:
-- szacchiroli
+- Stefano Zacchiroli
+source:
 ---
 
 <h1>resurrecting CamlJava (testers welcome)</h1>

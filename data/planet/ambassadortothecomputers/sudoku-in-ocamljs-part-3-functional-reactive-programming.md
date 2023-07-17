@@ -7,7 +7,8 @@ date: 2009-05-12T04:51:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>In <a href="http://ambassadortothecomputers.blogspot.com/2009/04/sudoku-in-ocamljs-part-1-dom.html">part 1</a> and <a href="http://ambassadortothecomputers.blogspot.com/2009/05/sudoku-in-ocamljs-part-2-rpc-over-http.html">part 2</a> of this series, we made a simple Sudoku game and connected it to a game server. In this final installment I want to revisit how we check that a board satisfies the Sudoku rules. There's a small change to the UI: instead of a &quot;Check&quot; button, the board is checked continuously as the player enters numbers; any conflicts are highlighted as before. Here's the <a href="http://froc.googlecode.com/svn/examples/froc-dom/sudoku/index.html">final result</a>.<br/>

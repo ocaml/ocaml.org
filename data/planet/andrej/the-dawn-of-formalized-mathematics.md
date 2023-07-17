@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Andrej Bauer
+source:
 ---
 
 <p>Here are the slides of my talk <a href="https://8ecm.si/system/admin/abstracts/pdfs/000/001/117/original/andrej-bauer.pdf">&quot;The dawn of formalized mathematics&quot;</a> from the <a href="https://8ecm.si">8th European Congress of Mathematics</a>, which is taking place online and in Protoro&#382;, Slovenia, from June 20 to 26, 2021:</p>

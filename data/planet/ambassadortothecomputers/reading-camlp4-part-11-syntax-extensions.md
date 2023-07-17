@@ -7,7 +7,8 @@ date: 2010-09-11T00:16:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>In this final (?) post in my series on Camlp4, I want at last to cover syntax extensions. A nontrivial syntax extension involves almost all the topics we have <a href="http://ambassadortothecomputers.blogspot.com/p/reading-camlp4.html">previously covered</a>, so it seems fitting that we treat them last.</p> 

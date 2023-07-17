@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Magnus Skjegstad
+source:
 ---
 
 <p><a href="https://github.com/mirage/jitsu.git">Jitsu</a> - or Just-in-Time Summoning of Unikernels - is a prototype DNS server that can boot virtual machines on demand. When Jitsu receives a DNS query, a virtual machine is booted automatically before the query response is sent back to the client. If the virtual machine is a <a href="http://queue.acm.org/detail.cfm?id=2566628">unikernel</a>, it can boot in milliseconds and be available as soon as the client receives the response. To the client it will look like it was on the whole time. </p>

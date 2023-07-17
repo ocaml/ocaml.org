@@ -7,7 +7,8 @@ date: 2009-05-28T03:28:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>Programming concurrent systems with threads and locks is famously, even fabulously, error-prone. With Lwt's cooperative threads you don't have to worry so much about protecting data structures against concurrent modification, since your code runs atomically between <code>bind</code>s. Still, the standard concurrency primitives (mutexes, condition variables) are sometimes useful; but using them with Lwt is not much less painful than with preemptive threads. In this post I want to explore the combination of Lwt with the concurrency primitives of <a href="http://cml.cs.uchicago.edu/">Concurrent ML</a>. I hope to convince you that CML's primitives are easier to use, and a good match for Lwt.<br/>

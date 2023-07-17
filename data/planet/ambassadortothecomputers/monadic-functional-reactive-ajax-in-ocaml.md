@@ -7,7 +7,8 @@ date: 2009-04-23T17:28:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 Yesterday I released three related projects which I've been working on for a long time:

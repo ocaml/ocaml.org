@@ -9,6 +9,7 @@ preview_image:
 featured:
 authors:
 - Shayne Fletcher
+source:
 ---
 
 <p>

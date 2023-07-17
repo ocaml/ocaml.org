@@ -6,6 +6,9 @@ url: https://blog.janestreet.com/research-internships-tnc/
 date: 2022-03-04T00:00:00-00:00
 preview_image: https://blog.janestreet.com/research-internships-tnc/ResearchInternshipsTnC.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>We are excited to announce research internships in our Tools and

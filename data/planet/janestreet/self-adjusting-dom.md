@@ -6,6 +6,9 @@ url: https://blog.janestreet.com/self-adjusting-dom/
 date: 2016-02-06T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>I&rsquo;ve been <a href="https://blog.janestreet.com/incrementality-and-the-web/">thinking recently</a> about how to

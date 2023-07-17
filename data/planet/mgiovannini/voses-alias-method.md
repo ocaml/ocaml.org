@@ -8,6 +8,7 @@ preview_image:
 featured:
 authors:
 - "Mat\xEDas Giovannini"
+source:
 ---
 
 This is a note regarding the implementation of Vose's Method to construct the alias tables for non-uniform discrete probability sampling presented by Keith Schwartz (as of 2011-12-29). Mr. Schwartz otherwise very informative write-up contains an error in the presentation of the Method. Step 5 of the algorithm fails if the Small list is nonempty but the Large list is. This can happen either:

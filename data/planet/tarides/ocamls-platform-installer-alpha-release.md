@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-10-18-ocaml-s-platform-installer-alpha-releas
 date: 2022-10-18T00:00:00-00:00
 preview_image: https://tarides.com/static/37c1fbd194b159b27cf395d3116c4192/0132d/platform_installer.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Yesterday we announced the <a href="https://tarides.com/blog/2022-10-17-ocaml-5-beta-release">OCaml 5 beta release</a>, and today we're excited to introduce the OCaml Platform Installer! The <a href="https://ocaml.org/docs/platform">OCaml Platform</a> is the recommended toolchain when working with OCaml. This new installer enables programmers to quickly set up the OCaml developer environment, so they don't need to waste precious coding time with a lengthy installation process. If you come across any obstacles, the Platform team encourages you to open a <a href="https://github.com/tarides/ocaml-platform-installer/issues">GitHub Issue</a>.</p>

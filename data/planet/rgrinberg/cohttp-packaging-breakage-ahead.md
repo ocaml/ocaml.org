@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Rudi Grinberg
+source:
 ---
 
 <p>As a follow up to my <a href="http://rgrinberg.com/posts/optional-dependencies-considered-harmful/" class="reference internal"><span class="doc">previous post</span></a> regarding optional

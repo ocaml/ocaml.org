@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2020-09-08-irmin-september-2020-update
 date: 2020-09-08T00:00:00-00:00
 preview_image: https://tarides.com/static/eb48bbf490e4011a9fa8806a56d4098b/0132d/tree_autumn.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>This post will survey the latest design decisions and performance improvements
@@ -105,41 +108,41 @@ instance:</p>
 <span class="token comment">(** [decode t] is the binary decoder of values represented by [t]. *)</span>
 
 <span class="token comment">(** Read an integer from a binary-encoded file. *)</span>
-<span class="token keyword">let</span> int_of_file <span class="token label function">~path</span> <span class="token operator">=</span> open_in_bin path <span class="token operator">|&gt;</span> input_line <span class="token operator">|&gt;</span> decode <span class="token module variable">Irmin</span><span class="token punctuation">.</span><span class="token module variable">Type</span><span class="token punctuation">.</span>int32</code></pre></div>
+<span class="token keyword">let</span> int_of_file <span class="token label property">~path</span> <span class="token operator">=</span> open_in_bin path <span class="token operator">|&gt;</span> input_line <span class="token operator">|&gt;</span> decode Irmin<span class="token punctuation">.</span>Type<span class="token punctuation">.</span>int32</code></pre></div>
 <p>The generic <code>decode</code> takes a <em>representation</em> of the type <code>int32</code> and uses
 this to select the right binary decoder. Unfortunately, we pay the cost of this
 runtime specialisation <em>every time</em> we call <code>int_of_file</code>. If we're invoking
 the decoder for a particular type very often &ndash; such as when serialising store
 values &ndash; it's more efficient to specialise <code>decode</code> once:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token comment">(** Specialised binary decoder for integers. *)</span>
-<span class="token keyword">let</span> decode_int32 <span class="token operator">=</span> decode <span class="token module variable">Irmin</span><span class="token punctuation">.</span><span class="token module variable">Type</span><span class="token punctuation">.</span>int32
+<span class="token keyword">let</span> decode_int32 <span class="token operator">=</span> decode Irmin<span class="token punctuation">.</span>Type<span class="token punctuation">.</span>int32
 
-<span class="token keyword">let</span> int_of_file_fast <span class="token label function">~path</span> <span class="token operator">=</span> open_in_bin path <span class="token operator">|&gt;</span> input_line <span class="token operator">|&gt;</span> decode_int32 contents</code></pre></div>
+<span class="token keyword">let</span> int_of_file_fast <span class="token label property">~path</span> <span class="token operator">=</span> open_in_bin path <span class="token operator">|&gt;</span> input_line <span class="token operator">|&gt;</span> decode_int32 contents</code></pre></div>
 <p>The question then becomes: how can we change <code>decode</code> to encourage it to be
 used in this more-efficient way? We can add a type wrapper &ndash; called <code>staged</code> &ndash;
 to prevent the user from passing two arguments to <code>decode</code> at once:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">module</span> <span class="token module variable">Staged</span> <span class="token punctuation">:</span> <span class="token keyword">sig</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">module</span> Staged <span class="token punctuation">:</span> <span class="token keyword">sig</span>
   <span class="token keyword">type</span> <span class="token operator">+</span><span class="token type-variable function">'a</span> t
   <span class="token keyword">val</span>   stage <span class="token punctuation">:</span> <span class="token type-variable function">'a</span>   <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span> t
   <span class="token keyword">val</span> unstage <span class="token punctuation">:</span> <span class="token type-variable function">'a</span> t <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span>
 <span class="token keyword">end</span>
 
-<span class="token keyword">val</span> decode <span class="token punctuation">:</span> <span class="token type-variable function">'a</span> t <span class="token operator">-&gt;</span> <span class="token punctuation">(</span>string <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span><span class="token punctuation">)</span> <span class="token module variable">Staged</span><span class="token punctuation">.</span>t
+<span class="token keyword">val</span> decode <span class="token punctuation">:</span> <span class="token type-variable function">'a</span> t <span class="token operator">-&gt;</span> <span class="token punctuation">(</span>string <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span><span class="token punctuation">)</span> Staged<span class="token punctuation">.</span>t
 <span class="token comment">(** [decode t] needs to be explicitly unstaged before being used. *)</span></code></pre></div>
 <p>By forcing the user to add a <code>Staged.unstage</code> type coercion when using this
 function, we're encouraging them to hoist such operations out of their
 hot-loops:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token comment">(** The slow implementation no longer type-checks: *)</span>
 
-<span class="token keyword">let</span> int_of_file <span class="token label function">~path</span> <span class="token operator">=</span> open_in_bin path <span class="token operator">|&gt;</span> input_line <span class="token operator">|&gt;</span> decode <span class="token module variable">Irmin</span><span class="token punctuation">.</span><span class="token module variable">Type</span><span class="token punctuation">.</span>int32
+<span class="token keyword">let</span> int_of_file <span class="token label property">~path</span> <span class="token operator">=</span> open_in_bin path <span class="token operator">|&gt;</span> input_line <span class="token operator">|&gt;</span> decode Irmin<span class="token punctuation">.</span>Type<span class="token punctuation">.</span>int32
 <span class="token comment">(* Error: This expression has type (string -&gt; 'a) Staged.t
  *        but an expression was expected of type string -&gt; 'a *)</span>
 
 <span class="token comment">(* Instead, we know to pull [Staged.t] values out of hot-loops: *)</span>
 
-<span class="token keyword">let</span> decode_int32 <span class="token operator">=</span> <span class="token module variable">Staged</span><span class="token punctuation">.</span>unstage <span class="token punctuation">(</span>decode <span class="token module variable">Irmin</span><span class="token punctuation">.</span><span class="token module variable">Type</span><span class="token punctuation">.</span>int32<span class="token punctuation">)</span>
+<span class="token keyword">let</span> decode_int32 <span class="token operator">=</span> Staged<span class="token punctuation">.</span>unstage <span class="token punctuation">(</span>decode Irmin<span class="token punctuation">.</span>Type<span class="token punctuation">.</span>int32<span class="token punctuation">)</span>
 
-<span class="token keyword">let</span> int_of_file_fast <span class="token label function">~path</span> <span class="token operator">=</span> open_in_bin path <span class="token operator">|&gt;</span> input_line <span class="token operator">|&gt;</span> decode_int32 contents</code></pre></div>
+<span class="token keyword">let</span> int_of_file_fast <span class="token label property">~path</span> <span class="token operator">=</span> open_in_bin path <span class="token operator">|&gt;</span> input_line <span class="token operator">|&gt;</span> decode_int32 contents</code></pre></div>
 <p>We made similar changes to the performance-critical generic functions in
 <a href="https://mirage.github.io/irmin/irmin/Irmin/Type/index.html"><code>Irmin.Type</code></a>, and observed significant performance improvements.
 We also added benchmarks for serialising various types.</p>
@@ -180,16 +183,16 @@ supported. We added a migration function for stores created with the previous
 version (version 1) to the new version (version 2) of the store. You can call
 this migration function as follows:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"> <span class="token keyword">let</span> open_store <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
-    <span class="token module variable">Store</span><span class="token punctuation">.</span><span class="token module variable">Repo</span><span class="token punctuation">.</span>v config
+    Store<span class="token punctuation">.</span>Repo<span class="token punctuation">.</span>v config
   <span class="token keyword">in</span>
-  <span class="token module variable">Lwt</span><span class="token punctuation">.</span>catch open_store <span class="token punctuation">(</span><span class="token keyword">function</span>
-      <span class="token operator">|</span> <span class="token module variable">Irmin_pack</span><span class="token punctuation">.</span><span class="token module variable">Unsupported_version</span> <span class="token variant variable">`V1</span> <span class="token operator">-&gt;</span>
-          <span class="token module variable">Logs</span><span class="token punctuation">.</span>app <span class="token punctuation">(</span><span class="token keyword">fun</span> l <span class="token operator">-&gt;</span> l <span class="token string">&quot;migrating store to version 2&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
-          <span class="token module variable">Store</span><span class="token punctuation">.</span>migrate config <span class="token punctuation">;</span>
-          <span class="token module variable">Logs</span><span class="token punctuation">.</span>app <span class="token punctuation">(</span><span class="token keyword">fun</span> l <span class="token operator">-&gt;</span> l <span class="token string">&quot;migration ended, opening store&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+  Lwt<span class="token punctuation">.</span>catch open_store <span class="token punctuation">(</span><span class="token keyword">function</span>
+      <span class="token operator">|</span> Irmin_pack<span class="token punctuation">.</span>Unsupported_version <span class="token variant symbol">`V1</span> <span class="token operator">-&gt;</span>
+          Logs<span class="token punctuation">.</span>app <span class="token punctuation">(</span><span class="token keyword">fun</span> l <span class="token operator">-&gt;</span> l <span class="token string">&quot;migrating store to version 2&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+          Store<span class="token punctuation">.</span>migrate config <span class="token punctuation">;</span>
+          Logs<span class="token punctuation">.</span>app <span class="token punctuation">(</span><span class="token keyword">fun</span> l <span class="token operator">-&gt;</span> l <span class="token string">&quot;migration ended, opening store&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
           open_store <span class="token punctuation">(</span><span class="token punctuation">)</span>
       <span class="token operator">|</span> exn <span class="token operator">-&gt;</span>
-          <span class="token module variable">Lwt</span><span class="token punctuation">.</span>fail exn<span class="token punctuation">)</span></code></pre></div>
+          Lwt<span class="token punctuation">.</span>fail exn<span class="token punctuation">)</span></code></pre></div>
 <p>Relevant PRs: <a href="https://github.com/mirage/index/pull/211">index #211</a>,
 <a href="https://github.com/mirage/irmin/pull/1047">irmin #1047</a>,
 <a href="https://github.com/mirage/irmin/pull/1070">irmin #1070</a> and

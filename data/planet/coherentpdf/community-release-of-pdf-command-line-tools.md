@@ -6,7 +6,8 @@ date: 2013-09-05T13:15:21-00:00
 preview_image:
 featured:
 authors:
-- coherentpdf
+- Coherent Graphics
+source:
 ---
 
 <p>The&nbsp;<code>cpdf</code>&nbsp;tool has been available commercially since 2007, and is widely used in industry and government. The same technology is used in the&nbsp;<a href="http://www.coherentpdf.com/proview.html">Proview PDF Editor</a>&nbsp;for the mac.</p>

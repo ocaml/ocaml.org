@@ -5,6 +5,9 @@ url: https://blog.janestreet.com/hiring-a-developer-educator/
 date: 2021-10-21T00:00:00-00:00
 preview_image: https://blog.janestreet.com/hiring-a-developer-educator/teaching-blog.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>We spend a lot of time on education at Jane Street.  Like, really a

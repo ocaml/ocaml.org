@@ -7,7 +7,8 @@ date: 2023-06-20T00:00:00-00:00
 preview_image: https://tarides.com/static/37764a38e8f54d5c37372b33689f3dab/0132d/mountain.jpg
 featured:
 authors:
-- tarides
+- Tarides
+source:
 ---
 
 <p><a href="https://ocaml.org/">OCaml</a> has received one of the most <a href="https://www.sigplan.org/Awards/Software/">prestigious

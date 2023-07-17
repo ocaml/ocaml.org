@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-06-21-functional-conf-2022
 date: 2022-06-21T00:00:00-00:00
 preview_image: https://tarides.com/static/4d5420ccbe5b1f58d02f3d8dce60eb35/0132d/group_mtg.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>This year, Tarides attended the 2022 <em>Functional Conf</em> in India. Tarides&rsquo;s engineers Sudha Parimala and Shakthi Kannan gave presentations on the OCaml platform and <em>Sandmark</em>, a continuous benchmarking tool for Multicore OCaml.</p>

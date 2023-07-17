@@ -6,7 +6,8 @@ date: 2019-11-19T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- bap
+- The BAP Blog
+source:
 ---
 
 <p>The Carnegie Mellon University <a href="https://github.com/BinaryAnalysisPlatform/bap">Binary Analysis Platform (CMU BAP)</a> is a suite of utilities and libraries that enables analysis of programs in their machine representation. BAP is written in OCaml, relies on dynamically loaded plugins for extensibility, and is widely used for security analysis, program verification, and reverse engineering.</p>

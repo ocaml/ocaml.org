@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2020-08-03-fuzzing-ocamlformat-with-afl-and-crowba
 date: 2020-08-03T00:00:00-00:00
 preview_image: https://tarides.com/static/e6219992a464284115d27348b49c3910/0132d/feather2.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p><a href="https://lcamtuf.coredump.cx/afl/">AFL</a> (and fuzzing in general) is often used
@@ -17,9 +20,9 @@ to an Abstract Syntax Tree (AST) and then applies formatting rules to the AST.</
 <p>It can be tricky to correctly format the output. For example, say we want to
 format <code>(a+b)*c</code>. The corresponding AST will look like <code>Apply(&quot;*&quot;, Apply (&quot;+&quot;, Var &quot;a&quot;, Var &quot;b&quot;), Var &quot;c&quot;)</code>. A naive formatter would look like this:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> <span class="token keyword">rec</span> format <span class="token operator">=</span> <span class="token keyword">function</span>
-  <span class="token operator">|</span> <span class="token module variable">Var</span> s <span class="token operator">-&gt;</span> s
-  <span class="token operator">|</span> <span class="token module variable">Apply</span> <span class="token punctuation">(</span>op<span class="token punctuation">,</span> e1<span class="token punctuation">,</span> e2<span class="token punctuation">)</span> <span class="token operator">-&gt;</span>
-      <span class="token module variable">Printf</span><span class="token punctuation">.</span>sprintf <span class="token string">&quot;%s %s %s&quot;</span> <span class="token punctuation">(</span>format e1<span class="token punctuation">)</span> op <span class="token punctuation">(</span>format e2<span class="token punctuation">)</span></code></pre></div>
+  <span class="token operator">|</span> Var s <span class="token operator">-&gt;</span> s
+  <span class="token operator">|</span> Apply <span class="token punctuation">(</span>op<span class="token punctuation">,</span> e1<span class="token punctuation">,</span> e2<span class="token punctuation">)</span> <span class="token operator">-&gt;</span>
+      Printf<span class="token punctuation">.</span>sprintf <span class="token string">&quot;%s %s %s&quot;</span> <span class="token punctuation">(</span>format e1<span class="token punctuation">)</span> op <span class="token punctuation">(</span>format e2<span class="token punctuation">)</span></code></pre></div>
 <p>But this is not correct, as it will print <code>(a+b)*c</code> as <code>a+b*c</code>, which is a
 different program. In this particular case, the common solution would be to
 track the relative precedence of the expressions and to emit only necessary

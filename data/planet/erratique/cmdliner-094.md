@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - "Daniel B\xFCnzli"
+source:
 ---
 
 <p>Release of Cmdliner 0.9.4, consult the release notes for details.</p>

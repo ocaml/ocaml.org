@@ -6,7 +6,8 @@ date: 2020-04-24T14:34:36-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- rjones
+- Richard Jones
+source:
 ---
 
 <p><a href="https://github.com/ocaml/ocaml/commit/8f3833c4d0ef656c826359f4137c1eb3d46ea0ef">https://github.com/ocaml/ocaml/commit/8f3833c4d0ef656c826359f4137c1eb3d46ea0ef</a></p>

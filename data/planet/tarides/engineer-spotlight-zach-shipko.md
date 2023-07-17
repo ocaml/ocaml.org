@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2023-01-05-engineer-spotlight-zach-shipko
 date: 2023-01-05T00:00:00-00:00
 preview_image: https://tarides.com/static/05e1ac13a4bcc3da2909310f1f777822/0132d/zach_image.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Tarides engineer Zach Shipko answers a few questions about why he decided to learn OCaml and why he's particularly excited about the OCaml 5 release. In celebration of OCaml 5, we've interviewed several engineers about their personal experience with the language and what features they enjoy. It's a great way to get some unique insight into the language from someone who works with it on a daily basis.</p>
@@ -24,7 +27,7 @@ featured:
 <p>Zach emphasises the importance of expanding your horizons as a programmer, learning new languages to give you fresh perspectives and insights. Perhaps especially when learning a language like OCaml. Like the esteemed <a href="https://en.wikipedia.org/wiki/Alan_Perlis">Alan Perlis</a> said, &quot;A language that doesn't affect the way you think about programming is not worth knowing.&quot;</p>
 <p>Zach also studied photography and digital media in college. He took the pictures at the top of this post and said he &quot;typically picks photos like this to have some nature to look at on programming websites.&quot;</p>
 <p>Read <a href="https://tarides.com/blog/2022-12-29-engineer-spotlight-jules-aguillon">Jules Aguillon's</a> interview from 27 December 2022 to learn about his journey to OCaml. Next week, look for our final Engineer Spotlight interview with Sudha Parimala, as well as a post from her on the Benchmarking Game.</p>
-<p>Feel like learning OCaml? Get started with <a href="https://ocaml.org/docs">the tutorials</a> and the <a href="https://www.cambridge.org/core/books/real-world-ocaml-functional-programming-for-the-masses/052E4BCCB09D56A0FE875DD81B1ED571"><em>Real World OCaml</em></a> book. Learn more about effects and other things OCaml 5 has to offer? Watch KC Sivaramamakrishnan <a href="https://youtu.be/6BhmRz7eqiE">keynote</a> and check out the <a href="https://speakerdeck.com/kayceesrk/ocaml-5-dot-0">speaker deck</a> for his talk as well.</p>
+<p>Feel like learning OCaml? Get started with <a href="https://ocaml.org/docs">the tutorials</a> and the <a href="https://www.cambridge.org/core/books/real-world-ocaml-functional-programming-for-the-masses/052E4BCCB09D56A0FE875DD81B1ED571"><em>Real World OCaml</em></a> book. Learn more about effects and other things OCaml 5 has to offer? Watch KC Sivaramamakrishnan <a href="https://youtu.be/zJ4G0TKwzVc">keynote</a> and check out the <a href="https://speakerdeck.com/kayceesrk/ocaml-5-dot-0">speaker deck</a> for his talk as well.</p>
 <blockquote>
 <p><a href="https://tarides.com/company">Contact Tarides</a> to see how OCaml can benefit your business and/or for support while learning OCaml. Follow us on <a href="https://mobile.twitter.com/tarides_">Twitter</a> and <a href="https://www.linkedin.com/company/tarides/">LinkedIn</a> to ensure you never miss a post, and join the OCaml discussion on <a href="https://discuss.ocaml.org">Discuss</a>!</p>
 </blockquote>

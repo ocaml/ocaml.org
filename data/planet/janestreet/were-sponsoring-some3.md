@@ -8,7 +8,8 @@ date: 2023-07-06T00:00:00-00:00
 preview_image: https://blog.janestreet.com/were-sponsoring-some3/techblog-some3.png
 featured:
 authors:
-- janestreet
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Jane Street is excited to announce our sponsorship of

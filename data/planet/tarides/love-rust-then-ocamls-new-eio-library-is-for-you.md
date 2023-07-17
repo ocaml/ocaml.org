@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-12-27-love-rust-then-ocaml-s-new-eio-library-
 date: 2022-12-27T00:00:00-00:00
 preview_image: https://tarides.com/static/21e8c4795a21a77b1e7978361ea10c0c/0132d/charlotte-coneybeer-L9VXW4A9QZM-unsplash.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>We&rsquo;ve come to expect a lot from the programming languages we use. We want the memory safety of Java, the performance of C/C++, and the concurrency of Go. On top of this, we need robust cybersecurity tools to protect us from the many risks and vulnerabilities in the world, all in an intuitive and easy-to-use package for programmers.</p>
@@ -21,8 +24,8 @@ featured:
 Eio brings big performance improvements to concurrent code in OCaml, making use cases like web servers serving requests from users a lot faster. In a speed test comparing Eio&rsquo;s performance to Go&rsquo;s <code>net/http</code> and Rust&rsquo;s <code>hyper</code>, the results show that Eio outperforms Go and closely matches Rust. Eio can reliably serve over one million requests per second on a few cores. Being such a close match in terms of performance, OCaml is a strong contender for users looking to expand beyond using Rust.</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/9f0b97bdb5cfc231e1a387bb218f08c4/133ae/http_load1.png" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 66.47058823529413%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAAByElEQVQ4y5VTy44bIRD0//9YrqtcfbB2I9vzZGiG96N6BWPP2NlDlJZKQNOUugo4Abgxs2Hm9X+BY05gTgB+nWoixsDjLLibiaVceBxHFkKwc46tte9w2+is5eAdk7bcLyujFGbm36cQAlnreBq6Mt//4Ha743w+Y5omgBl/RynlkWYonzGTxjSNOedG+HEiIpqnmWc5YjIdunuHy+WCZVnAW1SCjeIRLhUI0jAkwE4g6aWknDdCpRRViVpr1GQ9V0qp2Dt8EqVcsEgCzQOKleAc2p4PsaSUDsK+H9gY8zyLB/aukCNWOUGMPaKWYOS2UR613ruDUGvdOlzXdT+/R13liEIDgtot+BHxtcPq4TAMTXJz+kUi+xVFTyAvoZKBjRYmaphoduikseil5KeHlbB2WCWX7eo5RgstvyDVFRRWqKCgvIJLDjbZN5hkII08CNd1pWHcPKwZYWdcl09otyA/vPxXvEmOMZIixYsUmMzY8FL7tPLHewQfNjv3cint2xSwkAJf909EHyGEQL0kKSWqt8+xQimFqoaI2rq+V2PMIRkAPbsJPiKXjBACvPe4Xq/o+x7DMDTUedd1jSzGiJy32u0FNRkf34aR8jrbGkXDAAAAAElFTkSuQmCC'); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/9f0b97bdb5cfc231e1a387bb218f08c4/c5bb3/http_load1.png" class="gatsby-resp-image-image" alt="EioImage" title="EioImage" srcset="/static/9f0b97bdb5cfc231e1a387bb218f08c4/04472/http_load1.png 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 66.47058823529413%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAABp0lEQVR42pVT266bQAzM//9c1ZdIfYoSaNPCsjebvbKeIwgVJ03zcIxGvi2jWYxPrbVfACIABjB/Be2ISYBFRL6fRMS01qCNldExiAjGGDjnUEp5i5wzllowx4zBcsPDfpxSSialBDUOMv68out6nM9n3O93iMgLWhNgjyktmPwMpdRBSETGGAtjJ5nm31CTRtd1sNZuL/3PUhVoz5idBpJBpukgZGYzKQVPJGWpu4q24bAHcV0arPPwekALBmh5q+ecnxWO4whmlldFe75UkJ2g1R/k2QJSP3eRUzoIQwhGaw3v/T+Ee9wqmh9QvMY7e1GolFqnuxPK9jxOMiqP4EzQ2cFlB5vs5l3a82wxff6G3nszTdN25SaPeq4R7HpY18MXhsseqUas/UWWZ2ABRXoeyl+FqzAXNXpzAQWN9dS7Sb+9cqnFMM+w1oiNGioqLG3BV+yJcN2UNaKZpB96tNrARIgxblh/+hACYkzbhqy11TPz1tv9Qdha6/d99CFEyiVTCIHmeabL5ULX65X6vqfb7UZd1225UopijFRKIWYmAA5AEZFvH4+X8/tF5WSuAAAAAElFTkSuQmCC'); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/9f0b97bdb5cfc231e1a387bb218f08c4/c5bb3/http_load1.png" class="gatsby-resp-image-image" alt="EioImage" title="" srcset="/static/9f0b97bdb5cfc231e1a387bb218f08c4/04472/http_load1.png 170w,
 /static/9f0b97bdb5cfc231e1a387bb218f08c4/9f933/http_load1.png 340w,
 /static/9f0b97bdb5cfc231e1a387bb218f08c4/c5bb3/http_load1.png 680w,
 /static/9f0b97bdb5cfc231e1a387bb218f08c4/b12f7/http_load1.png 1020w,

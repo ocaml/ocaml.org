@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - KC Sivaramakrishnan
+source:
 ---
 
 <p>Behavioural types such as session types, contracts and choreography describe the

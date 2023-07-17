@@ -6,6 +6,9 @@ url: https://blog.janestreet.com/ppx_core-context-free-rewriters-for-better-sema
 date: 2016-05-23T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>At Jane Street, we have always been heavy users of pre-processors, first with

@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2019-02-08-release-of-base64
 date: 2019-02-08T00:00:00-00:00
 preview_image: https://tarides.com/static/50a0344945c9df2a67b60ef32ee43a0f/0132d/mailboxes.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>MirageOS is a library operating system written from the ground up in OCaml.
@@ -69,8 +72,8 @@ implementation though, so we decided to see if we would get a performance
 regression by switching to this implementation.</p>
 <p>A quick benchmark based on random input revealed the opposite, however!
 <code>nocrypto</code>'s implementation was faster than <code>ocaml-base64</code>:</p>
-<div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">ocaml-base64's implementation on bytes (length: 5000): 466 272.34ns
-nocrypto's implementation on bytes (length: 5000): 137 406.04ns</code></pre></div>
+<div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">ocaml-base64<span class="token string">'s implementation on bytes (length: 5000): 466 272.34ns
+nocrypto'</span>s implementation on bytes <span class="token punctuation">(</span>length: <span class="token number">5000</span><span class="token punctuation">)</span>: <span class="token number">137</span> <span class="token number">406</span>.04ns</code></pre></div>
 <p>Based on all these observations, we thought there was sufficient reason to
 reconsider the <code>ocaml-base64</code> implementation. It's also worth mentioning that
 the last real release (excluding <code>dune</code>/<code>jbuilder</code>/<code>topkg</code> updates) is from Dec.
@@ -85,9 +88,9 @@ according to the RFC, and another about implementation and security issues.</p>
 <h2 style="position:relative;"><a href="https://tarides.com/feed.xml#canonicalization" aria-label="canonicalization permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Canonicalization</h2>
 <p>The biggest problem about RFC 4648 is regarding canonical inputs. Indeed, there
 are cases where two different inputs are associated with the same value:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token module variable">Base64</span><span class="token punctuation">.</span>decode <span class="token string">&quot;Zm9vCg==&quot;</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> a <span class="token operator">=</span> Base64<span class="token punctuation">.</span>decode <span class="token string">&quot;Zm9vCg==&quot;</span> <span class="token punctuation">;;</span>
 <span class="token operator">-</span> <span class="token punctuation">:</span> string <span class="token operator">=</span> <span class="token string">&quot;foo\n&quot;</span>
-<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token module variable">Base64</span><span class="token punctuation">.</span>decode <span class="token string">&quot;Zm9vCh==&quot;</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> b <span class="token operator">=</span> Base64<span class="token punctuation">.</span>decode <span class="token string">&quot;Zm9vCh==&quot;</span> <span class="token punctuation">;;</span>
 <span class="token operator">-</span> <span class="token punctuation">:</span> string <span class="token operator">=</span> <span class="token string">&quot;foo\n&quot;</span></code></pre></div>
 <p>This is mostly because the base64 format encodes the input 6 bits at a time. The
 result is that 4 base64 encoded bytes are equal to 3 decoded bytes (<code>6 * 4 = 8 * 3</code>). Because of this, 2 base64 encoded bytes provide 1 byte plus 4 bits. What do
@@ -112,15 +115,15 @@ implementation to follow suit.</p>
 <p>On the other hand, exceptions can be useful when considered as a more
 constrained form of assembly jump. Of course, they break the control flow, but
 from a performance point of view, it's interesting to use this trick:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">exception</span> <span class="token module variable">Found</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">exception</span> Found
 
 <span class="token keyword">let</span> contains str chr <span class="token operator">=</span>
   <span class="token keyword">let</span> idx <span class="token operator">=</span> ref <span class="token number">0</span> <span class="token keyword">in</span>
-  <span class="token keyword">let</span> len <span class="token operator">=</span> <span class="token module variable">String</span><span class="token punctuation">.</span>length str <span class="token keyword">in</span>
+  <span class="token keyword">let</span> len <span class="token operator">=</span> String<span class="token punctuation">.</span>length str <span class="token keyword">in</span>
   <span class="token keyword">try</span> <span class="token keyword">while</span> <span class="token operator">!</span>idx <span class="token operator">&lt;</span> len
-      <span class="token keyword">do</span> <span class="token keyword">if</span> <span class="token module variable">String</span><span class="token punctuation">.</span>unsafe_get str <span class="token operator">!</span>idx <span class="token operator">=</span> chr <span class="token keyword">then</span> raise <span class="token module variable">Found</span> <span class="token punctuation">;</span> incr idx <span class="token keyword">done</span> <span class="token punctuation">;</span>
-      <span class="token module variable">None</span>
-  <span class="token keyword">with</span> <span class="token module variable">Found</span> <span class="token operator">-&gt;</span> <span class="token module variable">Some</span> <span class="token operator">!</span>idx</code></pre></div>
+      <span class="token keyword">do</span> <span class="token keyword">if</span> String<span class="token punctuation">.</span>unsafe_get str <span class="token operator">!</span>idx <span class="token operator">=</span> chr <span class="token keyword">then</span> raise Found <span class="token punctuation">;</span> incr idx <span class="token keyword">done</span> <span class="token punctuation">;</span>
+      None
+  <span class="token keyword">with</span> Found <span class="token operator">-&gt;</span> Some <span class="token operator">!</span>idx</code></pre></div>
 <p>This kind of code for example is ~20% faster than <code>String.contains</code>.</p>
 <p>As such, exceptions can be a useful tool for performance optimizations, but we
 need to be extra careful not to expose them to the users of the library. This
@@ -143,7 +146,7 @@ the padding; see section 3.2.</p>
 <p>See RFC 4648, section 5</p>
 </blockquote>
 <p>That mostly means that the following kind of input can be valid:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token module variable">Base64</span><span class="token punctuation">.</span>decode <span class="token label function">~pad</span><span class="token punctuation">:</span><span class="token boolean">false</span> <span class="token string">&quot;Zm9vCg&quot;</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> a <span class="token operator">=</span> Base64<span class="token punctuation">.</span>decode <span class="token label property">~pad</span><span class="token punctuation">:</span><span class="token boolean">false</span> <span class="token string">&quot;Zm9vCg&quot;</span>
 <span class="token operator">-</span> <span class="token punctuation">:</span> string <span class="token operator">=</span> <span class="token string">&quot;foo\n&quot;</span></code></pre></div>
 <p>It's only valid in a specific context though: when <em>length is known implicitly</em>.
 Only the caller of <code>decode</code> can determine whether the length is implicitly known
@@ -171,25 +174,25 @@ which specifies the substring to encode. Here's an example:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token comment">(* We want to encode the part 'foo' without prefix or suffix *)</span>
 
 <span class="token comment">(* Old API -- forces allocation *)</span>
-<span class="token module variable">Base64</span><span class="token punctuation">.</span>encode <span class="token punctuation">(</span><span class="token module variable">String</span><span class="token punctuation">.</span>sub <span class="token string">&quot;prefix foo suffix&quot;</span> <span class="token number">7</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+Base64<span class="token punctuation">.</span>encode <span class="token punctuation">(</span>String<span class="token punctuation">.</span>sub <span class="token string">&quot;prefix foo suffix&quot;</span> <span class="token number">7</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token punctuation">;;</span>
 <span class="token operator">-</span> <span class="token punctuation">:</span> string <span class="token operator">=</span> <span class="token string">&quot;Zm9v&quot;</span>
 
 <span class="token comment">(* New API -- avoids allocation *)</span>
-<span class="token module variable">Base64</span><span class="token punctuation">.</span>encode <span class="token label function">~off</span><span class="token punctuation">:</span><span class="token number">7</span> <span class="token label function">~len</span><span class="token punctuation">:</span><span class="token number">3</span> <span class="token string">&quot;prefix foo suffix&quot;</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+Base64<span class="token punctuation">.</span>encode <span class="token label property">~off</span><span class="token punctuation">:</span><span class="token number">7</span> <span class="token label property">~len</span><span class="token punctuation">:</span><span class="token number">3</span> <span class="token string">&quot;prefix foo suffix&quot;</span> <span class="token punctuation">;;</span>
 <span class="token operator">-</span> <span class="token punctuation">:</span> string <span class="token operator">=</span> <span class="token string">&quot;Zm9v&quot;</span></code></pre></div>
 <p>Secondly, a new string is allocated to hold the resulting string. We can
 calculate a bound on the length of this string in the following manner:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token operator">//</span><span class="token punctuation">)</span> x y <span class="token operator">=</span>
-  <span class="token keyword">if</span> y <span class="token operator">&lt;</span> <span class="token number">1</span> <span class="token keyword">then</span> raise <span class="token module variable">Division_by_zero</span> <span class="token punctuation">;</span>
+  <span class="token keyword">if</span> y <span class="token operator">&lt;</span> <span class="token number">1</span> <span class="token keyword">then</span> raise Division_by_zero <span class="token punctuation">;</span>
   <span class="token keyword">if</span> x <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token keyword">then</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>x <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> y<span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token number">0</span>
 
 <span class="token keyword">let</span> encode input <span class="token operator">=</span>
-  <span class="token keyword">let</span> res <span class="token operator">=</span> <span class="token module variable">Bytes</span><span class="token punctuation">.</span>create <span class="token punctuation">(</span><span class="token module variable">String</span><span class="token punctuation">.</span>length input <span class="token operator">//</span> <span class="token number">3</span> <span class="token operator">*</span> <span class="token number">4</span><span class="token punctuation">)</span> <span class="token keyword">in</span>
-  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  <span class="token keyword">let</span> res <span class="token operator">=</span> Bytes<span class="token punctuation">.</span>create <span class="token punctuation">(</span>String<span class="token punctuation">.</span>length input <span class="token operator">//</span> <span class="token number">3</span> <span class="token operator">*</span> <span class="token number">4</span><span class="token punctuation">)</span> <span class="token keyword">in</span>
+  <span class="token operator">..</span><span class="token punctuation">.</span>
 
 <span class="token keyword">let</span> decode input <span class="token operator">=</span>
-  <span class="token keyword">let</span> res <span class="token operator">=</span> <span class="token module variable">Bytes</span><span class="token punctuation">.</span>create <span class="token punctuation">(</span><span class="token module variable">String</span><span class="token punctuation">.</span>length input <span class="token operator">//</span> <span class="token number">4</span> <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token keyword">in</span>
-  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre></div>
+  <span class="token keyword">let</span> res <span class="token operator">=</span> Bytes<span class="token punctuation">.</span>create <span class="token punctuation">(</span>String<span class="token punctuation">.</span>length input <span class="token operator">//</span> <span class="token number">4</span> <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token keyword">in</span>
+  <span class="token operator">..</span><span class="token punctuation">.</span></code></pre></div>
 <p>Unfortunately we cannot know the exact length of the result prior to computing
 it. This forces a call to <code>String.sub</code> at the end of the computation to return a
 string of the correct length. This means we have two allocations rather than
@@ -212,27 +215,27 @@ fuzzing was with the library <a href="https://github.com/mirage/decompress"><cod
 canonicalization into account:</li>
 </ul>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> iso0 input <span class="token operator">=</span>
-  <span class="token keyword">match</span> <span class="token module variable">Base64</span><span class="token punctuation">.</span>decode <span class="token label function">~pad</span><span class="token punctuation">:</span><span class="token boolean">false</span> input <span class="token keyword">with</span>
-  <span class="token operator">|</span> <span class="token module variable">Error</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> fail <span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token operator">|</span> <span class="token module variable">Ok</span> result0 <span class="token operator">-&gt;</span>
-    <span class="token keyword">let</span> result1 <span class="token operator">=</span> <span class="token module variable">Base64</span><span class="token punctuation">.</span>encode_exn result0 <span class="token keyword">in</span>
-    <span class="token keyword">match</span> <span class="token module variable">Base64</span><span class="token punctuation">.</span>decode <span class="token label function">~pad</span><span class="token punctuation">:</span><span class="token boolean">true</span> result1 <span class="token keyword">with</span>
-    <span class="token operator">|</span> <span class="token module variable">Error</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> fail <span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token operator">|</span> <span class="token module variable">Ok</span> result2 <span class="token operator">-&gt;</span> check_eq result0 result2
+  <span class="token keyword">match</span> Base64<span class="token punctuation">.</span>decode <span class="token label property">~pad</span><span class="token punctuation">:</span><span class="token boolean">false</span> input <span class="token keyword">with</span>
+  <span class="token operator">|</span> Error <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> fail <span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token operator">|</span> Ok result0 <span class="token operator">-&gt;</span>
+    <span class="token keyword">let</span> result1 <span class="token operator">=</span> Base64<span class="token punctuation">.</span>encode_exn result0 <span class="token keyword">in</span>
+    <span class="token keyword">match</span> Base64<span class="token punctuation">.</span>decode <span class="token label property">~pad</span><span class="token punctuation">:</span><span class="token boolean">true</span> result1 <span class="token keyword">with</span>
+    <span class="token operator">|</span> Error <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> fail <span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token operator">|</span> Ok result2 <span class="token operator">-&gt;</span> check_eq result0 result2
 
 <span class="token keyword">let</span> iso1 input <span class="token operator">=</span>
-  <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token module variable">Base64</span><span class="token punctuation">.</span>encode_exn input <span class="token keyword">in</span>
-  <span class="token keyword">match</span> <span class="token module variable">Base64</span><span class="token punctuation">.</span>decode <span class="token label function">~pad</span><span class="token punctuation">:</span><span class="token boolean">true</span> result0 <span class="token keyword">with</span>
-  <span class="token operator">|</span> <span class="token module variable">Error</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> fail <span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token operator">|</span> <span class="token module variable">Ok</span> result1 <span class="token operator">-&gt;</span>
-    <span class="token keyword">let</span> result2 <span class="token operator">=</span> <span class="token module variable">Base64</span><span class="token punctuation">.</span>encode_exn result1 <span class="token keyword">in</span>
+  <span class="token keyword">let</span> result <span class="token operator">=</span> Base64<span class="token punctuation">.</span>encode_exn input <span class="token keyword">in</span>
+  <span class="token keyword">match</span> Base64<span class="token punctuation">.</span>decode <span class="token label property">~pad</span><span class="token punctuation">:</span><span class="token boolean">true</span> result0 <span class="token keyword">with</span>
+  <span class="token operator">|</span> Error <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> fail <span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token operator">|</span> Ok result1 <span class="token operator">-&gt;</span>
+    <span class="token keyword">let</span> result2 <span class="token operator">=</span> Base64<span class="token punctuation">.</span>encode_exn result1 <span class="token keyword">in</span>
     check_eq result0 result2</code></pre></div>
 <ul>
 <li>The function <code>decode</code> should <em>never</em> raise an exception, but rather return a
 result type:</li>
 </ul>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> no_exn input <span class="token operator">=</span>
-  <span class="token keyword">try</span> ignore <span class="token operator">@@</span> <span class="token module variable">Base64</span><span class="token punctuation">.</span>decode input <span class="token keyword">with</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> fail <span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre></div>
+  <span class="token keyword">try</span> ignore <span class="token operator">@@</span> Base64<span class="token punctuation">.</span>decode input <span class="token keyword">with</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> fail <span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre></div>
 <ul>
 <li>And finally, we should randomize <code>?off</code> and <code>?len</code> arguments to ensure that we
 don't get an <code>Out_of_bounds</code> exception when accessing input.</li>

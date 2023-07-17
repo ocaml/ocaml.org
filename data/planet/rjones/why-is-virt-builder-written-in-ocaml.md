@@ -8,7 +8,8 @@ date: 2013-11-11T15:00:42-00:00
 preview_image: http://libguestfs.org/virt-builder.svg
 featured:
 authors:
-- rjones
+- Richard Jones
+source:
 ---
 
 <p><img src="https://i0.wp.com/libguestfs.org/virt-builder.svg" width="250" style="float:right;"/></p>

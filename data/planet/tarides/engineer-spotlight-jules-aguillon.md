@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-12-29-engineer-spotlight-jules-aguillon
 date: 2022-12-29T00:00:00-00:00
 preview_image: https://tarides.com/static/a61d6759d838bc618680795eecdc2a88/c030c/image4Jules.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>In celebration of the OCaml 5 release, we decided to interview a few of our talented engineers about OCaml. While it isn't a well-known language outside of the functional programming community, we're striving to get the word out about the great benefits of OCaml and why it's worth your time to try it out, especially with the introduction of <a href="https://tarides.com/blog/2022-12-19-ocaml-5-with-multicore-support-is-here">Multicore support in OCaml 5</a>.</p>

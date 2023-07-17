@@ -1,7 +1,7 @@
 ---
 title: "Improving the OCaml documentation toolchain"
 authors: [ "OCaml Platform Team" ]
-date: "2015-02-20"
+date: 2015-02-20T00:00:00-00:00
 description: "Release announcement for codoc 0.2.0"
 ---
 

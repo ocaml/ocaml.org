@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - "Daniel B\xFCnzli"
+source:
 ---
 
 <p>New release of Xmlm. Changes are detailed in the release notes of the distribution.</p>

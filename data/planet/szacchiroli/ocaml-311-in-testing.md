@@ -6,7 +6,8 @@ date: 2009-04-06T13:17:11-00:00
 preview_image:
 featured:
 authors:
-- szacchiroli
+- Stefano Zacchiroli
+source:
 ---
 
 <h1>OCaml 3.11 has migrated to testing</h1>

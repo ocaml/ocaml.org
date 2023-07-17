@@ -6,7 +6,8 @@ date: 2010-08-08T16:55:00-00:00
 preview_image:
 featured:
 authors:
-- pdonadeo
+- Paolo Donadeo
+source:
 ---
 
 <div><p class="noindent">

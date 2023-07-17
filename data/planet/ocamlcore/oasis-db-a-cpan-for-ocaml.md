@@ -6,7 +6,8 @@ date: 2010-07-15T13:18:22-00:00
 preview_image:
 featured:
 authors:
-- ocamlcore
+- OCamlCore.com
+source:
 ---
 
 <p>OCamlCore, with support from the OCaml enthusiasts at <a href="http://janestreet.com">Jane Street</a>, is working on creating OASIS-DB, a <a href="http://en.wikipedia.org/wiki/CPAN">CPAN</a> for OCaml. The goals of OASIS-DB are to reduce the paperwork required to release and update an OCaml package, and to provide integrated management of library dependencies.</p>

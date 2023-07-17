@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/ocaml-4-03-everything-else/
 date: 2016-03-01T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>In my <a href="https://blog.janestreet.com/flambda">previous post</a> I wrote about Flambda, which is the single

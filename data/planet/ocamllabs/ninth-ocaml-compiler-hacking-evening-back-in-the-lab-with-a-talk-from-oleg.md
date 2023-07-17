@@ -6,7 +6,8 @@ date: 2015-02-05T12:00:00-00:00
 preview_image:
 featured:
 authors:
-- ocamllabs
+- OCaml Labs compiler hacking
+source:
 ---
 
 <p>We'll be meeting in the Computer Lab next Tuesday (10th February 2015) for another evening of compiler hacking.  All welcome!  Please <strong><a href="http://doodle.com/zxmeyn2ih92mke85">add yourself to the Doodle poll</a></strong> if you're planning to come along, and sign up to the <a href="http://lists.ocaml.org/listinfo/cam-compiler-hacking">mailing list</a> to receive updates.</p>

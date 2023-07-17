@@ -6,6 +6,9 @@ url: https://blog.janestreet.com/observations-of-a-functional-programmer/
 date: 2016-10-27T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>I was recently invited to do the keynote at the <a href="http://cufp.org/2016/">Commercial Users of Functional

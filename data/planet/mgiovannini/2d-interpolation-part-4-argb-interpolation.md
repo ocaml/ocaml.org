@@ -8,6 +8,7 @@ preview_image: //4.bp.blogspot.com/-y__nUozm2S4/T-XDJWhHuKI/AAAAAAAAAU8/AnMnevHL
 featured:
 authors:
 - "Mat\xEDas Giovannini"
+source:
 ---
 
 After linearizing all array accesses, interpolating ARGB values is easy from the algorithmic side of things; so easy things first. I'll handle the pixel interpolation proper by abstracting them away in their own little functions. Processing an ARGB source array is just a matter of changing the variable declarations:

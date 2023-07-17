@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Thomas Leonard
+source:
 ---
 
 <p>I've been running QubesOS as my main desktop since 2015.

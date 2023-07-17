@@ -6,7 +6,8 @@ date: 2014-06-17T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- ujamjar
+- Andy Ray
+source:
 ---
 
 <p>A Reed-Solomon encoder and decoder library written in OCaml.</p>

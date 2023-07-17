@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-09-23-tarides-sponsors-high-school-hackers
 date: 2022-09-23T00:00:00-00:00
 preview_image: https://tarides.com/static/ef4a627bd5fecdf6d8f80a4d8054242a/b5854/sunset4paradigm.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Tarides is excited to sponsor the <a href="https://esolangconf.com/">Paradigm Conference</a> (previously EsoLangConf) high school hackathon. This weekend, students from all over the world will team up to solve tricky programming problems, investigate diverse features of a range of programming languages, and build cool things!</p>

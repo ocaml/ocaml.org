@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2022-06-13-adding-merkle-proofs-to-tezos
 date: 2022-06-13T00:00:00-00:00
 preview_image: https://tarides.com/static/2c0480f27aceb19ab86b870835c01b7a/0132d/merkle-tree.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>The Upcoming Tezos <a href="https://tezos.gitlab.io/protocols/013_jakarta.html#protocol-jakarta">Jakarta Protocol</a> will support compact Merkle
@@ -162,8 +165,8 @@ sensitive information about the other customers: only the letter &quot;b&quot;
 is leaked. The hash corresponds to Bob and Ben's subtree.</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/3f72a55ae57b0494cd400fb80392b28a/84cc5/Merkle-Proof.png" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
-    <span class="gatsby-resp-image-background-image" style="padding-bottom: 41.76470588235294%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsTAAALEwEAmpwYAAACYUlEQVQoz12SW0hTcQCHfztdhIQMjXpIRMmHrvRQYD2kFKQvmfQ0obkJ25xh2Nk5uiZaWEkgipfE8oZQbHJyzlnSGA0Na4KWKyGNLgd2OTuX7Wy5HD718A/rqb6X3/fwPf4AAOaPZnSSzm09ACALf9lLCEGIhPA/BRcKUFheuANAHoDdALZ9f9HlIg10Ph3oKK2xpW2wb9oPMQlmmJGsE7fSzaXlpBb9mfvURvw5JGkKrMjCGrHCtmmj2kjb9lbQEj3RpLKDHVutuVAOAjpVh+Wu5T+xirRmPDxO90cHbo5/d5d8Vr0gv6xQFA6SxKEuUgdzxIz8ZD661S5wX7mTI8JI02B0uKFybCj7wzcO0Ipa0Gl6D6Mwvc2xJt9t4a6BpGJHxOi0TxQnJ9MbL46mktNQJTfVINygGuONYH+wJ6wi7WoRW2Y7hN7jRA4YBGHKz/OOUfSEeiA55Gx3zG20pqyl+Imc1dXAMUlZqBWEed2ntWCxKM3hUSYCDABPk0+w9GXp1Jg0prdsWEoqQ9p9amKySE15ynjeeRaswjrZKLt4J3FPR4bIrqTi4aKCa1FV/edk+eV5QXAtiLKLI+GV3OsqfZqRmFf2mH2uL9FX3J5uB+aArfgM1NQMeN4JdEe6z3hl77XqTE3ewCAoUQlcSiRWrobDhixFGcqR5XdaIfb6Ikl3aJDCbi7GXeEUrhxh7FyX1zU1EaMmo8xq4qqH4nknhaqeqsMmn+lBKdHjzfxjeDydFT5fL7O2NoFgcBR+/8NWh6O9TAg+g+69GXqXvtroNRrq39bDErBQJtH0z6d+A403PH63TJJLAAAAAElFTkSuQmCC'); background-size: cover; display: block;"></span>
-  <img src="https://tarides.com/static/3f72a55ae57b0494cd400fb80392b28a/c5bb3/Merkle-Proof.png" class="gatsby-resp-image-image" alt="Merkle Proof" title="Merkle Proof" srcset="/static/3f72a55ae57b0494cd400fb80392b28a/04472/Merkle-Proof.png 170w,
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 41.76470588235294%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB3UlEQVR42mNgQAWiDAwMvAwMDOwMDAz8DPgBEwMDgwhUPSeUzQSW+f//PyOILv5cLFb0pmhqwdOC5SWfS1xAYqv+r2JGN6n+fz1YY/nncqf8Z/lLil8Xz2z9XymOUPGfAWxg/Zl6rnl35xVNfDi5YNXttR5gA1dhMbAeYuDs67ONZz+aXTbt/oyCVWdWycEVhF4JZSt5VdJT+rR0W+2zxqz/ny/qvni6afPz52tWf/myQx/ii3ommMtKP5aqFr8oXlH5onJT48su6/+vj8Y+e7Z+5717S+eCDVx3bZ3w2kdrs8rfFdv5P/GXvXXrgOGzZwfTHz7cG3f37mkzaLAwwVy75+4es/lP5yenfkg1DX2ULPT27XLZd+/W2N27t8ycoexN2bLyZ+VHq17XZvw/coT3y/uty549W3f07dudns+ebbJ/9mztvlev163+//qIVMrbLO3y1+W7yp+XH2h53WKCHJ5w0HG5Q3Pvnb1Boe/SwLF669Z+i7t3T/nu38/A8vRpPdf9+ycCbt8+4PgfFM7/GZhWXF/huP72egeGegam//X/QYaBwp8RFK7gsPWd4qsSvzm+r35/PQvY++va3LZu7aqFWbh9e2/l8uWN/jB++Krw8Pit8dlYXQcEAFTe55/GR6BAAAAAAElFTkSuQmCC'); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/3f72a55ae57b0494cd400fb80392b28a/c5bb3/Merkle-Proof.png" class="gatsby-resp-image-image" alt="Merkle Proof" title="" srcset="/static/3f72a55ae57b0494cd400fb80392b28a/04472/Merkle-Proof.png 170w,
 /static/3f72a55ae57b0494cd400fb80392b28a/9f933/Merkle-Proof.png 340w,
 /static/3f72a55ae57b0494cd400fb80392b28a/c5bb3/Merkle-Proof.png 680w,
 /static/3f72a55ae57b0494cd400fb80392b28a/84cc5/Merkle-Proof.png 898w" sizes="(max-width: 680px) 100vw, 680px" style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;" loading="lazy" decoding="async"/>

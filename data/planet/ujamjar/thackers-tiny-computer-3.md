@@ -6,7 +6,8 @@ date: 2014-07-13T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- ujamjar
+- Andy Ray
+source:
 ---
 
 <p>Thackers Tiny Computer 3 (TTC) is one in a series of simple RISC processor cores designed

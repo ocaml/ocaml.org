@@ -6,7 +6,8 @@ date: 2016-01-15T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- ujamjar
+- Andy Ray
+source:
 ---
 
 <p><a href="https://github.com/ujamjar/hardcaml-examples">hardcaml-examples</a> 

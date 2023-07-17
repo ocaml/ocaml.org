@@ -7,6 +7,9 @@ url: https://www.youtube.com/watch?v=urG5BjvjW18
 date: 2018-12-06T00:00:00-00:00
 preview_image: https://i.ytimg.com/vi/urG5BjvjW18/maxresdefault.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>Presentation about MirageOS in Lambda World Cad&igrave;z on October 26th</p>

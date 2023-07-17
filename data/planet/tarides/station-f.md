@@ -8,6 +8,9 @@ url: https://stationf.co/
 date: 2018-07-17T00:00:00-00:00
 preview_image: https://stationf.co/img/cards/og_image.png
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p>We are thrilled to have been accepted into the Founders Progam's 3rd

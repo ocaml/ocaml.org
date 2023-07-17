@@ -8,6 +8,7 @@ preview_image:
 featured:
 authors:
 - "Mat\xEDas Giovannini"
+source:
 ---
 
 If you do statistics you know of erf and erfc; if you work in OCaml you surely miss them. It is not very difficult to port the canonical implementation given by Numerical Recipes (which I won't show and not just for licensing reasons); if you Google for a coefficient you'll see that this approximation is, indeed, ubiquitous. There exists a better approximation in the literature, one that is more 

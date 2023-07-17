@@ -8,7 +8,8 @@ date: 2012-06-29T17:18:00-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- ashishagarwal
+- Ashish Agarwal
+source:
 ---
 
 <p><strong>Abstract</strong></p>

@@ -6,7 +6,8 @@ date: 2016-01-24T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- bap
+- The BAP Blog
+source:
 ---
 
 <p>During disassembly, BAP lifts native binary instructions to a

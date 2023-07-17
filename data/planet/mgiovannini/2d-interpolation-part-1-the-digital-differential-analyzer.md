@@ -8,6 +8,7 @@ preview_image:
 featured:
 authors:
 - "Mat\xEDas Giovannini"
+source:
 ---
 
 To my Planet OCaml readers, I apologize for veering into Java. I've been playing with Processing of lately, because it's far easier to prototype silly, simple animations (fractals! Fractals everywhere!) in it than by using OCamlSDL, say. Last time I showed a basic 2D interpolator; now it's time to start massaging it into shape. Let's recall the original code:

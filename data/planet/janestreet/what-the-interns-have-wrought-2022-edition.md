@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/what-the-interns-have-wrought-2022/
 date: 2022-08-25T00:00:00-00:00
 preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2022/./WTIHW-2022-v3.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>We&rsquo;re once again at the end of our internship season, and it&rsquo;s my task

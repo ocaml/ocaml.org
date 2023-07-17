@@ -7,7 +7,8 @@ date: 2023-07-12T00:00:00-00:00
 preview_image: https://tarides.com/static/6ae6ac561c7a767a13dfa33b2afe364d/0132d/ocaml-ci-renovated.jpg
 featured:
 authors:
-- tarides
+- Tarides
+source:
 ---
 
 <p>OCaml-CI started with the goal of making a better continuous build system for OCaml projects. When we began in 2019, the goals were clear: it should provide a zero-configuration experience for OCaml projects using opam and Dune, and it should use an incremental architecture to avoid expensive recomputation of builds. We're delighted to announce that we achieved these goals, and OCaml-CI is currently tracking over five hundred repositories and processing over a hundred thousand jobs daily. This is inspiring news to those already using OCaml-CI or developers looking for a CI solution for their OCaml project.</p>

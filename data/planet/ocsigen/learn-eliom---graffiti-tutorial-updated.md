@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - The Ocsigen Team
+source:
 ---
 
 <p><a href="http://ocsigen.org/tuto/latest/manual/application">Graffiti tutorial</a>

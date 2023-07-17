@@ -6,6 +6,9 @@ url: https://blog.janestreet.com/looking-for-a-technical-writer/
 date: 2017-05-01T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p><em>Update: I&rsquo;m excited to say that we&rsquo;ve now hired a (great!) technical

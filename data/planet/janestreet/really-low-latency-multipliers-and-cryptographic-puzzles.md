@@ -6,6 +6,9 @@ url: https://blog.janestreet.com/really-low-latency-multipliers-and-cryptographi
 date: 2020-06-22T00:00:00-00:00
 preview_image: https://blog.janestreet.com/really-low-latency-multipliers-and-cryptographic-puzzles/lock.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>At Jane Street, we have some experience using FPGAs for low-latency

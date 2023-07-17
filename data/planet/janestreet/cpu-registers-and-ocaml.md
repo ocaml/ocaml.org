@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/cpu-registers-and-ocaml-2/
 date: 2015-05-05T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Even though registers are a low-level CPU concept, having some knowledge about

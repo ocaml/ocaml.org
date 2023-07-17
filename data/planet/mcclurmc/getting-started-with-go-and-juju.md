@@ -8,7 +8,8 @@ date: 2012-11-05T10:07:29-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- mcclurmc
+- Mike McClurg
+source:
 ---
 
 <p>So this title probably doesn&rsquo;t even parse correctly if you haven&rsquo;t heard of Google&rsquo;s <a href="http://golang.org/">Go language</a> our Ubuntu&rsquo;s <a href="https://juju.ubuntu.com/">Juju</a> service orchestration software. I&rsquo;ve been toying with the idea of writing a Juju service provider for the <a href="http://docs.vmd.citrix.com/XenServer/6.0.0/1.0/en_gb/api/">XenAPI</a>. This would allow people to use Juju to provision services on a pool of <a href="http://xen.org/products/cloudxen.html">XCP</a> or XenServer hosts. Since the Juju team have recently completed the rewrite of Juju from Python to Go, this gives me the perfect reason to teach myself Go.</p>

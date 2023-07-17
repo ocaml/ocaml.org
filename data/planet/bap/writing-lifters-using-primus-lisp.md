@@ -6,7 +6,8 @@ date: 2021-09-15T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- bap
+- The BAP Blog
+source:
 ---
 
 <h1>Defining instructions semantics using Primus Lisp (Tutorial)</h1>

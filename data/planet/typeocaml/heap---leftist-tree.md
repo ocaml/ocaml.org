@@ -7,7 +7,8 @@ date: 2015-03-13T02:04:57-00:00
 preview_image:
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/03/leftist.jpg#hero" alt="leftist"/></p>

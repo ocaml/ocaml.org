@@ -6,7 +6,8 @@ date: 2009-11-28T13:00:16-00:00
 preview_image:
 featured:
 authors:
-- szacchiroli
+- Stefano Zacchiroli
+source:
 ---
 
 <h1>Eclectic paper: dh-ocaml</h1>

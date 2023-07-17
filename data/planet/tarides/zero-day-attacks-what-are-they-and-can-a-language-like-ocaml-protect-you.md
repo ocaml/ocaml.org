@@ -7,7 +7,8 @@ date: 2023-07-05T00:00:00-00:00
 preview_image: https://tarides.com/static/7d0d50bb374a8ab516e9c349f4225892/0132d/zeroday.jpg
 featured:
 authors:
-- tarides
+- Tarides
+source:
 ---
 
 <p>Zero-day attacks have been getting increased media attention lately, but what are they? And how can we protect ourselves? Google&rsquo;s <a href="https://googleprojectzero.blogspot.com/2022/04/the-more-you-know-more-you-know-you.html?m=1">Project Zero</a> tracks zero-day vulnerabilities at major software vendors. In 2021, their tracker noted the detection and disclosure of <a href="https://googleprojectzero.blogspot.com/2022/04/the-more-you-know-more-you-know-you.html?m=1">58 in-the-wild zero-day exploits</a>, which was more than any other year since they started tracking in 2014. This suggests an increased awareness of zero-days among the community of developers, explaining the increased number of reports.</p>

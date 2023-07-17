@@ -7,7 +7,8 @@ date: 2011-06-09T03:41:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>In this post I want to build on the backtracking logic monad we covered <a href="http://ambassadortothecomputers.blogspot.com/2011/04/logic-programming-in-scala-part-2.html">last time</a> by adding <em>unification</em>, yielding an embedded DSL for Prolog-style logic programming.</p> 

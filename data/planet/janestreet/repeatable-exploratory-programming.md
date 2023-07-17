@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/repeatable-exploratory-programming/
 date: 2018-04-22T00:00:00-00:00
 preview_image: https://blog.janestreet.com/repeatable-exploratory-programming/lambdasoup.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Expect tests are a technique I&rsquo;ve written about

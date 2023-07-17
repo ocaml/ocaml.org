@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/zero-knowledge-fpgas-hardcaml/
 date: 2022-12-07T00:00:00-00:00
 preview_image: https://blog.janestreet.com/zero-knowledge-fpgas-hardcaml/hardcaml-zprize.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>In 2022 a consortium of companies ran an international competition,

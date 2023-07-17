@@ -7,7 +7,8 @@ date: 2023-07-07T00:00:00-00:00
 preview_image: https://tarides.com/static/71303e9b0247fa3f8902a886efde6bfc/0132d/ocaml_caravan.jpg
 featured:
 authors:
-- tarides
+- Tarides
+source:
 ---
 
 <p>OCaml recently won the <a href="https://tarides.com/blog/2023-06-20-ocaml-receives-the-acm-programming-languages-software-award/">ACM SIGPLAN PL Software Award</a>. The award recognises a software system that has had a significant impact on programming language implementation, research, and tools. It is especially notable that <a href="https://twitter.com/kc_srk/status/1670849062684467202/photo/3">4 out of the 14</a> named OCaml compiler developers are affiliated with Tarides: Anil, David, J&eacute;r&ocirc;me, and me. In this post, I discuss the wider effort afoot at Tarides in order to make OCaml 5, the latest release of the OCaml programming language, succeed for developers. I should note that I shall specifically focus on the new OCaml 5 features and omit important developments such as Tarides' work on the OCaml platform, which is discussed <a href="https://discuss.ocaml.org/t/a-roadmap-for-the-ocaml-platform-seeking-your-feedback/12238">elsewhere</a>.</p>

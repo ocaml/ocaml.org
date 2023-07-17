@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Ocsigen team
+source:
 ---
 
 <p>This is the end of the tutorial about writing a collaborative Web drawing

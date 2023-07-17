@@ -7,6 +7,7 @@ preview_image:
 featured:
 authors:
 - Xavier Clerc
+source:
 ---
 
 <p>A new alpha version has been released, fixing several blocking / annoying bugs.</p>

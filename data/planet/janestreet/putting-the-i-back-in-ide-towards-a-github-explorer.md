@@ -5,6 +5,9 @@ url: https://blog.janestreet.com/putting-the-i-back-in-ide-towards-a-github-expl
 date: 2018-03-27T00:00:00-00:00
 preview_image: https://blog.janestreet.com/putting-the-i-back-in-ide-towards-a-github-explorer/postimage.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Imagine a system for editing and reviewing code where:</p>

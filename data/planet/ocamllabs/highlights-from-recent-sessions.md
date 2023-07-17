@@ -6,7 +6,8 @@ date: 2014-06-24T03:00:00-00:00
 preview_image:
 featured:
 authors:
-- ocamllabs
+- OCaml Labs compiler hacking
+source:
 ---
 
 <h2>Highlights from recent sessions</h2>

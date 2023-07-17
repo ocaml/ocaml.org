@@ -1,12 +1,13 @@
 ---
 title: 'Specifying Functions: Two Styles'
 description:
-url: http://gallium.inria.fr/blog/function-specs/
+url: http://gallium.inria.fr/blog/function-specs-2023-05-12
 date: 2023-05-12T08:00:00-00:00
 preview_image:
 featured:
 authors:
-- gallium
+- GaGallium
+source:
 ---
 
 

@@ -8,7 +8,8 @@ date: 2013-09-20T09:04:11-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- rjones
+- Richard Jones
+source:
 ---
 
 <p><a href="https://rwmj.wordpress.com/2013/09/19/goaljobs-part-1/">In part 1</a> I showed how a simple make rule could be converted to a special &ldquo;goal&rdquo; function and I hinted that we were not limited to just the &ldquo;file is older than&rdquo; semantics implicit in make.</p>

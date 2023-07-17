@@ -1,8 +1,11 @@
 ---
 title: "OPAM 1.2 and Travis CI"
 authors: [ "Thomas Gazagnaire" ]
-date: "2014-12-18"
+date: 2014-12-18T00:00:00-00:00
 description: "OPAM 1.2 and Travis CI"
+source:
+  name: Opam blog
+  url: ""
 ---
 
 The [new pinning feature][pin] of OPAM 1.2 enables new interesting

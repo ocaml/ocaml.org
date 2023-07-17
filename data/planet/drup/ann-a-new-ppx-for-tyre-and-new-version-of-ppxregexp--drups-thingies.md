@@ -9,7 +9,8 @@ date: 2018-08-21T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- drup
+- Gabriel Radanne
+source:
 ---
 
 

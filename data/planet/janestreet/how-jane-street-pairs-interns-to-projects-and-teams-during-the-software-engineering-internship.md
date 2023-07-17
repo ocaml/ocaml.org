@@ -8,6 +8,9 @@ url: https://blog.janestreet.com/project-pairing/
 date: 2022-01-14T00:00:00-00:00
 preview_image: https://blog.janestreet.com/project-pairing/NewProjectPairing.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Software engineering intern candidates often ask how team placement

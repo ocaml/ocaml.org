@@ -8,6 +8,7 @@ preview_image: //3.bp.blogspot.com/-Wrxa1l3Ev3A/UCBfBi1WdUI/AAAAAAAAAW4/4BANy3yE
 featured:
 authors:
 - "Mat\xEDas Giovannini"
+source:
 ---
 
 The so-called master-transaction update is one of the, if not the defining algorithms of the discipline formerly known as &quot;data processing&quot;. Given two sorted files of records with increasing keys, the process applies each record in the transaction file to each record of the the master file and outputs the result, if any, to the updated master file in one pass over each input. The same algorithm 

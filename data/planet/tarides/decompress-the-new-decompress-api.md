@@ -6,6 +6,9 @@ url: https://tarides.com/blog/2019-08-26-decompress-the-new-decompress-api
 date: 2019-08-26T00:00:00-00:00
 preview_image: https://tarides.com/static/eeb13afbb9190097a8d04be9e1361642/6b50e/hammock.jpg
 featured:
+authors:
+- Tarides
+source:
 ---
 
 <p><a href="https://tools.ietf.org/html/rfc1951">RFC 1951</a> is one of the most used standards. Indeed,
@@ -132,7 +135,7 @@ it to do the <em>reverse</em> translation from bit sequences to bytes.</p>
 <code>decompress</code>. Indeed, it's about to take an input, compute it and return an
 output like a flow. Of course, the error case can be reached.</p>
 <p>So the API is pretty-easy:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> decode <span class="token punctuation">:</span> decoder <span class="token operator">-&gt;</span> <span class="token punctuation">[</span> <span class="token variant variable">`Await</span> <span class="token operator">|</span> <span class="token variant variable">`Flush</span> <span class="token operator">|</span> <span class="token variant variable">`End</span> <span class="token operator">|</span> <span class="token variant variable">`Malformed</span> <span class="token keyword">of</span> string <span class="token punctuation">]</span></code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> decode <span class="token punctuation">:</span> decoder <span class="token operator">-&gt;</span> <span class="token punctuation">[</span> <span class="token variant symbol">`Await</span> <span class="token operator">|</span> <span class="token variant symbol">`Flush</span> <span class="token operator">|</span> <span class="token variant symbol">`End</span> <span class="token operator">|</span> <span class="token variant symbol">`Malformed</span> <span class="token keyword">of</span> string <span class="token punctuation">]</span></code></pre></div>
 <p>As you can see, we have 4 cases: one which expects more inputs (<code>Await</code>), the
 second which asks to the user to flush internal buffer (<code>Flush</code>), the <code>End</code> case
 when we reach the end of the flow and the <code>Malformed</code> case when we encounter an
@@ -146,7 +149,7 @@ starting at <code>off</code> in the given <code>bigstring</code>.</p>
 available in the current output buffer. Then, we should provide an action to
 <em>flush</em> this output buffer. In the end, this output buffer should be given by
 the user (how many bytes they want to allocate to store outputs flow).</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> src <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token variant variable">`Channel</span> <span class="token keyword">of</span> in_channel <span class="token operator">|</span> <span class="token variant variable">`Manual</span> <span class="token operator">|</span> <span class="token variant variable">`String</span> <span class="token keyword">of</span> string <span class="token punctuation">]</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> src <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token variant symbol">`Channel</span> <span class="token keyword">of</span> in_channel <span class="token operator">|</span> <span class="token variant symbol">`Manual</span> <span class="token operator">|</span> <span class="token variant symbol">`String</span> <span class="token keyword">of</span> string <span class="token punctuation">]</span>
 
 <span class="token keyword">val</span> dst_rem <span class="token punctuation">:</span> decoder <span class="token operator">-&gt;</span> int
 <span class="token keyword">val</span> flush <span class="token punctuation">:</span> decoder <span class="token operator">-&gt;</span> unit
@@ -204,9 +207,9 @@ performance cost. Consider the following functor example:</p>
   <span class="token keyword">val</span> one <span class="token punctuation">:</span> t
 <span class="token keyword">end</span>
 
-<span class="token keyword">module</span> <span class="token module variable">Make</span> <span class="token punctuation">(</span>S <span class="token punctuation">:</span> S<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">struct</span> <span class="token keyword">let</span> succ x <span class="token operator">=</span> S<span class="token punctuation">.</span>add x S<span class="token punctuation">.</span>one <span class="token keyword">end</span>
+<span class="token keyword">module</span> Make <span class="token punctuation">(</span>S <span class="token punctuation">:</span> S<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">struct</span> <span class="token keyword">let</span> succ x <span class="token operator">=</span> S<span class="token punctuation">.</span>add x S<span class="token punctuation">.</span>one <span class="token keyword">end</span>
 
-<span class="token keyword">include</span> <span class="token module variable">Make</span> <span class="token punctuation">(</span><span class="token keyword">struct</span>
+<span class="token keyword">include</span> Make <span class="token punctuation">(</span><span class="token keyword">struct</span>
   <span class="token keyword">type</span> t <span class="token operator">=</span> int
   <span class="token keyword">let</span> add a b <span class="token operator">=</span> a <span class="token operator">+</span> b
   <span class="token keyword">let</span> one <span class="token operator">=</span> <span class="token number">1</span>
@@ -254,7 +257,7 @@ to have 4 bytes, we have only 2 elements which will be compressed then by an
 compression.</p>
 <p>However, the compressor should need to deal with the encoder. An easy interface,
 <em>&agrave; la <a href="https://github.com/dbuenzli/uutf">uutf</a></em> should be:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> compress <span class="token punctuation">:</span> state <span class="token operator">-&gt;</span> <span class="token punctuation">[</span> <span class="token variant variable">`Literal</span> <span class="token keyword">of</span> char <span class="token operator">|</span> <span class="token variant variable">`Copy</span> <span class="token keyword">of</span> <span class="token punctuation">(</span>int <span class="token operator">*</span> int<span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token variant variable">`End</span> <span class="token operator">|</span> <span class="token variant variable">`Await</span> <span class="token punctuation">]</span></code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> compress <span class="token punctuation">:</span> state <span class="token operator">-&gt;</span> <span class="token punctuation">[</span> <span class="token variant symbol">`Literal</span> <span class="token keyword">of</span> char <span class="token operator">|</span> <span class="token variant symbol">`Copy</span> <span class="token keyword">of</span> <span class="token punctuation">(</span>int <span class="token operator">*</span> int<span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token variant symbol">`End</span> <span class="token operator">|</span> <span class="token variant symbol">`Await</span> <span class="token punctuation">]</span></code></pre></div>
 <p>But as I said, we need to feed a queue instead.</p>
 <hr/>
 <p>At this point, the purpose of the queue is not clear and not really explained.
@@ -302,10 +305,10 @@ block we want to emit. So it has two entries:</p>
 <li>an <em>user-entry</em></li>
 </ul>
 <p>So for many real tests, we decided to provide this kind of API:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> dst <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token variant variable">`Channel</span> <span class="token keyword">of</span> out_channel <span class="token operator">|</span> <span class="token variant variable">`Buffer</span> <span class="token keyword">of</span> <span class="token module variable">Buffer</span><span class="token punctuation">.</span>t <span class="token operator">|</span> <span class="token variant variable">`Manual</span> <span class="token punctuation">]</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> dst <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token variant symbol">`Channel</span> <span class="token keyword">of</span> out_channel <span class="token operator">|</span> <span class="token variant symbol">`Buffer</span> <span class="token keyword">of</span> Buffer<span class="token punctuation">.</span>t <span class="token operator">|</span> <span class="token variant symbol">`Manual</span> <span class="token punctuation">]</span>
 
 <span class="token keyword">val</span> encoder <span class="token punctuation">:</span> dst <span class="token operator">-&gt;</span> q<span class="token punctuation">:</span>queue <span class="token operator">-&gt;</span> encoder
-<span class="token keyword">val</span> encode <span class="token punctuation">:</span> encoder <span class="token operator">-&gt;</span> <span class="token punctuation">[</span> <span class="token variant variable">`Block</span> <span class="token keyword">of</span> block <span class="token operator">|</span> <span class="token variant variable">`Flush</span> <span class="token operator">|</span> <span class="token variant variable">`Await</span> <span class="token punctuation">]</span> <span class="token operator">-&gt;</span> <span class="token punctuation">[</span> <span class="token variant variable">`Ok</span> <span class="token operator">|</span> <span class="token variant variable">`Partial</span> <span class="token operator">|</span> <span class="token variant variable">`Block</span> <span class="token punctuation">]</span>
+<span class="token keyword">val</span> encode <span class="token punctuation">:</span> encoder <span class="token operator">-&gt;</span> <span class="token punctuation">[</span> <span class="token variant symbol">`Block</span> <span class="token keyword">of</span> block <span class="token operator">|</span> <span class="token variant symbol">`Flush</span> <span class="token operator">|</span> <span class="token variant symbol">`Await</span> <span class="token punctuation">]</span> <span class="token operator">-&gt;</span> <span class="token punctuation">[</span> <span class="token variant symbol">`Ok</span> <span class="token operator">|</span> <span class="token variant symbol">`Partial</span> <span class="token operator">|</span> <span class="token variant symbol">`Block</span> <span class="token punctuation">]</span>
 <span class="token keyword">val</span> dst <span class="token punctuation">:</span> encoder <span class="token operator">-&gt;</span> bigstring <span class="token operator">-&gt;</span> off<span class="token punctuation">:</span>int <span class="token operator">-&gt;</span> len<span class="token punctuation">:</span>int <span class="token operator">-&gt;</span> unit</code></pre></div>
 <p>As expected, we take the shared queue to make a new encoder. Then, we let the
 user to specify which kind of block they want to encode by the <code>Block</code>

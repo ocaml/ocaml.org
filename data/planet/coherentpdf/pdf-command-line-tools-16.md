@@ -6,7 +6,8 @@ date: 2011-03-17T14:43:35-00:00
 preview_image:
 featured:
 authors:
-- coherentpdf
+- Coherent Graphics
+source:
 ---
 
 <p>The latest version of our command line tools for processing PDF files has just been released.</p>

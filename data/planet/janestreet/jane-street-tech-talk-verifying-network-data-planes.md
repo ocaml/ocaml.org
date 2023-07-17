@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/jane-street-tech-talk-verifying-network-data-pl
 date: 2017-09-26T00:00:00-00:00
 preview_image: https://blog.janestreet.com/jane-street-tech-talk-verifying-network-data-planes/tech-talk-nate-foster.png
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>After a summer hiatus, the Jane Street Tech Talks series is back on

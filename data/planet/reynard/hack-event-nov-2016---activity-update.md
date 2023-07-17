@@ -6,7 +6,8 @@ date: 2016-11-16T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- reynard
+- Gemma Gordon (OCaml Labs)
+source:
 ---
 
 <p>Thank you to everyone who attended the <a href="http://reynard.io/2016/11/02/CompilerHack.html">hack event</a> last night! We had over 20 attendees who came to work on issues related to the <a href="http://ocaml.org/">OCaml</a> compiler or <a href="https://mirage.io/">MirageOS</a>, from varied organisations including the <a href="https://www.cl.cam.ac.uk/">University of Cambridge</a>, <a href="https://www.docker.com/">Docker</a>, <a href="https://www.janestreet.com/technology/">Jane Street</a>, <a href="https://www.citrix.co.uk/">Citrix</a>, <a href="https://www.uber.com/en-GB/cities/london/">Uber</a> and <a href="http://www.hitachi.com/">Hitachi</a>.</p>

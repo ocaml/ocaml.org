@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/the-joy-of-expect-tests/
 date: 2023-01-09T00:00:00-00:00
 preview_image: https://blog.janestreet.com/the-joy-of-expect-tests/./expect.gif
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>At Jane Street we use a pattern/library called &ldquo;expect tests&rdquo; that

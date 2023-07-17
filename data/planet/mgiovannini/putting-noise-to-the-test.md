@@ -8,6 +8,7 @@ preview_image: //1.bp.blogspot.com/-rrUMJ9YXjnk/TwcgdENPhHI/AAAAAAAAARI/CTYlQboE
 featured:
 authors:
 - "Mat\xEDas Giovannini"
+source:
 ---
 
 So how do you use Perlin's Simplex Noise? By using the GIF encoder, of course! I generated the test image shown in the last post:

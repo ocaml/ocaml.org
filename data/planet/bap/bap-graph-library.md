@@ -6,7 +6,8 @@ date: 2016-01-10T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- bap
+- The BAP Blog
+source:
 ---
 
 <p>Although BAP is well-documented, its

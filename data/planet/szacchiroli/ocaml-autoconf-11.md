@@ -6,7 +6,8 @@ date: 2009-10-12T13:43:58-00:00
 preview_image:
 featured:
 authors:
-- szacchiroli
+- Stefano Zacchiroli
+source:
 ---
 
 <h1>new OCaml Autoconf release: 1.1</h1>

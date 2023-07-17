@@ -8,7 +8,8 @@ date: 2015-01-02T15:52:41-00:00
 preview_image:
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2014/12/Immutable.jpg#hero" alt="immutable"/></p>

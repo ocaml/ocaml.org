@@ -8,6 +8,7 @@ preview_image:
 featured:
 authors:
 - "Mat\xEDas Giovannini"
+source:
 ---
 
 Last time I massaged the interpolator to avoid computing every time the linear transformation from destination space to source space, using only integer variables. With that rewriting, it is time to avoid referencing source values more than is needed. First thing we do, let's name all elements:

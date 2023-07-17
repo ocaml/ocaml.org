@@ -6,6 +6,9 @@ url: https://blog.janestreet.com/jane-street-tech-talks-verifying-puppet-configs
 date: 2017-02-16T00:00:00-00:00
 preview_image: https://blog.janestreet.com/jane-street-tech-talks-verifying-puppet-configs/untangling_puppet.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Our first <a href="https://blog.janestreet.com/how-to-build-an-exchange/">Jane Street Tech Talk</a> went really well!

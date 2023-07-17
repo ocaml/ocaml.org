@@ -7,7 +7,8 @@ date: 2010-04-03T02:18:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>I am happy to announce version 0.3 of <code>orpc</code>, a tool for generating RPC bindings from OCaml signatures. Orpc can generate ONC RPC stubs for use with <a href="http://projects.camlcity.org/projects/ocamlnet.html">Ocamlnet</a> (in place of ocamlrpcgen), and it can also generate RPC over HTTP stubs for use with <a href="http://github.com/jaked/ocamljs">ocamljs</a>. You can use most OCaml types in interfaces, as well as labelled and optional arguments.</p> 

@@ -5,8 +5,12 @@ url: https://hannes.robur.coop/Posts/Albatross
 date: 2022-11-17T12:41:11-00:00
 preview_image:
 featured:
+authors:
+- hannes
+source:
 ---
 
+<p>EDIT (2023-05-16): Updated with albatross release version 2.0.0.</p>
 <h2>Deploying MirageOS unikernels</h2>
 <p>More than five years ago, I posted <a href="https://hannes.robur.coop/Posts/VMM">how to deploy MirageOS unikernels</a>. My motivation to work on this topic is that I'm convinced of reduced complexity, improved security, and more sustainable resource footprint of MirageOS unikernels, and want to ease deployment thereof. More than one year ago, I described <a href="https://hannes.robur.coop/Posts/Deploy">how to deploy reproducible unikernels</a>.</p>
 <h2>Albatross</h2>
@@ -52,9 +56,9 @@ featured:
 <p>So, the main albatross-daemon runs with superuser privileges to create virtual machines, and opens a unix domain socket where the clients and other daemons are connecting to. The other daemons are executed with normal user privileges, and never write anything to disk.</p>
 <p>The albatross-daemon keeps state about the running unikernels, and if it is restarted, the unikernels are started again. Maybe worth to mention that this lead sometimes to headaches (due to data being dumped to disk, and the old format should always be supported), but was also a huge relief to not have to care about creating all the unikernels just because albatross-daemon was killed.</p>
 <h2>Remote management</h2>
-<p>There's one more daemon program, either albatross-tls-inetd (to be executed by inetd), or albatross-tls-endpoint. They accept clients via a remote TCP connection, and establish a mutual-authenticated TLS handshake. When done, they forward the command to the respective Unix domain socket, and send back the reply.</p>
+<p>There's one more daemon program: albatross-tls-endpoint. It accepts clients via a remote TCP connection, and establish a mutual-authenticated TLS handshake. When done, the command is forwarded to the respective Unix domain socket, and the reply is sent back to the client.</p>
 <p>The daemon itself has a X.509 certificate to authenticate, but the client is requested to show its certificate chain as well. This by now requires TLS 1.3, so the client certificates are sent over the encrypted channel.</p>
-<p>A step back, x X.509 certificate contains a public key and a signature from one level up. When the server knows about the root (or certificate authority (CA)) certificate, and following the chain can verify that the leaf certificate is valid. Additionally, a X.509 certificate is a ASN.1 structure with some fixed fields, but also contains extensions, a key-value store where the keys are object identifiers, and the values are key-dependent data. Also note that this key-value store is cryptographically signed.</p>
+<p>A step back, X.509 certificate contains a public key and a signature from one level up. When the server knows about the root (or certificate authority (CA)) certificate, and following the chain can verify that the leaf certificate is valid. Additionally, a X.509 certificate is a ASN.1 structure with some fixed fields, but also contains extensions, a key-value store where the keys are object identifiers, and the values are key-dependent data. Also note that this key-value store is cryptographically signed.</p>
 <p>Albatross uses the object identifier, assigned to Camelus Dromedarius (MirageOS - 1.3.6.1.4.1.49836.42) to encode the command to be executed. This means that once the TLS handshake is established, the command to be executed is already transferred.</p>
 <p>In the leaf certificate, there may be the &quot;create unikernel&quot; command with the unikernel image, it's boot parameters, and other resources. Or a &quot;read the console of my unikernel&quot;. In the intermediate certificates (from root to leaf), resource policies are encoded (this path may only have X unikernels running with a total of Y MB memory, and Z MB of block storage, using CPUs A and B, accessing bridges C and D). From the root downwards these policies may only decrease. When a unikernel should be created (or other commands are executed), the policies are verified to hold. If they do not, an error is reported.</p>
 <h2>Fleet management</h2>
@@ -62,7 +66,7 @@ featured:
 <p>Since we provide <a href="https://builds.robur.coop">daily reproducible builds</a> with the current HEAD of the main opam-repository, and these unikernels have no configuration embedded (but take everything as boot parameters), we just deploy them. They come with the information what opam packages contributed to the binary, which environment variables were set, and which system packages were installed with which versions.</p>
 <p>The whole result of reproducible builds for us means: we have a hash of a unikernel image that we can lookup in our build infrastructure, and take a look whether there is a newer image for the same job. And if there is, we provide a diff between the packages contributed to the currently running unikernel and the new image. That is what the albatross-client update command is all about.</p>
 <p>Of course, your mileage may vary and you want automated deployments where each git commit triggers recompilation and redeployment. The downside would be that sometimes only dependencies are updated and you've to cope with that.</p>
-<p>At the moment, there is a client connecting directly to the unix domain sockets, <code>albatross-client-local</code>, and one connecting to the TLS endpoint, <code>albatross-client-bistro</code>. The latter applies compression to the unikernel image.</p>
+<p>There is a client <code>albatross-client</code>, depending on arguments either connects to a local Unix domain socket, or to a remote albatross instance via TCP and TLS, or outputs a certificate signing request for later usage. Data, such as the unikernel ELF image, is compressed in certificates.</p>
 <h2>Installation</h2>
 <p>For Debian and Ubuntu systems, we provide package repositories. Browse the dists folder for one matching your distribution, and add it to <code>/etc/apt/sources.list</code>:</p>
 <pre><code>$ wget -q -O /etc/apt/trusted.gpg.d/apt.robur.coop.gpg https://apt.robur.coop/gpg.pub
@@ -82,6 +86,7 @@ $ echo 'robur: {
 $ pkg update
 $ pkg install solo5 albatross
 </code></pre>
+<p>Please ensure to have at least version 2.0.0 of albatross installed.</p>
 <p>For other distributions and systems we do not (yet?) provide binary packages. You can compile and install them using opam (<code>opam install solo5 albatross</code>). Get in touch if you're keen on adding some other distribution to our reproducible build infrastructure.</p>
 <h2>Conclusion</h2>
 <p>After five years of development and operating albatross, feel free to get it and try it out. Or read the code, discuss issues and shortcomings with us - either at the issue tracker or via eMail.</p>

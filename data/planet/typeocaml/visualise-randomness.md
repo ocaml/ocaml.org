@@ -8,7 +8,8 @@ date: 2015-11-22T13:14:20-00:00
 preview_image:
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/11/visual_random-1.jpg#hero" alt="heor"/></p>

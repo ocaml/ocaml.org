@@ -8,7 +8,8 @@ date: 2011-08-28T04:31:52-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- dutherenverseauborddelatable
+- David Teller
+source:
 ---
 
 <p style="text-align:justify;">There is a <a href="http://lambda-the-ultimate.org/node/4336">nice discussion on Opa on Lambda the Ultimate forums</a>. If you are not familiar with <a href="http://lambda-the-ultimate.org/">Lambda the Ultimate</a>, know that this is <em>the</em> place for discussing new and exotic programming languages and programming concepts, so the simple fact of seeing a thread on LtU is something of an honor for us.</p>

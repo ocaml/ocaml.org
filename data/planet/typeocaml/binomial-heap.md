@@ -8,7 +8,8 @@ date: 2015-03-18T00:07:39-00:00
 preview_image:
 featured:
 authors:
-- typeocaml
+- Xinuo Chen
+source:
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/03/binomial_heap.jpg#hero" alt=""/></p>

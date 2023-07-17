@@ -7,7 +7,8 @@ date: 2023-04-14T00:00:00-00:00
 preview_image: https://blog.janestreet.com/building-reproducible-python-environments-with-xars/./pycon.png
 featured:
 authors:
-- janestreet
+- Jane Street Tech Blog
+source:
 ---
 
 <p>Our traders and researchers love Python for its agility and for its huge

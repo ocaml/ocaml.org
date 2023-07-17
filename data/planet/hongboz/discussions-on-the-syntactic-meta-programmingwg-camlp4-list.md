@@ -8,7 +8,8 @@ date: 2013-01-31T04:47:09-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- hongboz
+- Hong bo Zhang
+source:
 ---
 
 <p>There are some interesting discussions in the wg-camlp4 mailing list, I wrote a long mail yesterday, I cleaned it a bit, pasted it here&nbsp;</p>

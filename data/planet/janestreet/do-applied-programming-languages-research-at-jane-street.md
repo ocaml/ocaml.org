@@ -7,6 +7,9 @@ url: https://blog.janestreet.com/applied-PL-research/
 date: 2019-08-16T00:00:00-00:00
 preview_image: https://blog.janestreet.com/applied-PL-research/compiler3d.jpg
 featured:
+authors:
+- Jane Street Tech Blog
+source:
 ---
 
 <p>As our Tools &amp; Compilers team has grown, the kinds of projects we work

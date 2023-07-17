@@ -7,7 +7,8 @@ date: 2010-08-21T00:50:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>The <a href="http://ocsigen.org/lwt">Lwt</a> library is a really nice way to write concurrent programs. A big downside, however, is that you can&rsquo;t use direct-style libraries with it. Suppose we&rsquo;re writing an XMPP server, and we want to parse XML as it arrives over a network connection, using Daniel B&uuml;nzli&rsquo;s nice <a href="http://erratique.ch/software/xmlm"><code>xmlm</code></a> library. <code>Xmlm</code> can read from a <code>string</code>, or from a <code>Pervasives.in_channel</code>, or you can give it a function of type <code>(unit -&gt; int)</code> to return the next character of input. But there is no way to have it read from an Lwt thread; that is, we can&rsquo;t give it a function of type <code>(unit -&gt; int Lwt.t)</code>, since it doesn&rsquo;t know what do with an <code>Lwt.t</code>. To keep track of the parser state at the point the input blocks, the whole library would need to be rewritten in Lwt style (i.e. monadic style).</p> 

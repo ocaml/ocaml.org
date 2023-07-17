@@ -6,7 +6,8 @@ date: 2017-02-10T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- reynard
+- Gemma Gordon (OCaml Labs)
+source:
 ---
 
 <p>Thanks to everyone who joined us for a relaxed but productive evening of <a href="https://ocamllabs.github.io/compiler-hacking/">OCaml compiler hacking</a> on Tuesday 7th February. We focussed on fixing bugs and tidying up documentation during this session, and we had a high proportion of people who are relatively new to OCaml getting stuck into the internals.</p>

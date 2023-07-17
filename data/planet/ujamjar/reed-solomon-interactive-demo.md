@@ -6,7 +6,8 @@ date: 2014-06-18T00:00:00-00:00
 preview_image:
 featured:
 authors:
-- ujamjar
+- Andy Ray
+source:
 ---
 
 <p>An interactive demo of Reed-Solomon error correction coding.  The demo shows the workings 

@@ -8,7 +8,8 @@ date: 2010-02-12T20:21:54-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
 featured:
 authors:
-- mcclurmc
+- Mike McClurg
+source:
 ---
 
 <p>I&rsquo;ve been reading a series of papers by <a href="http://www.citeulike.org/user/mcclurmc/author/Boyapati:C">Chandrasekhar Boyapati</a> on extensions to the Java type system. I found his papers on ensuring race-free programs by specifying that objects are either immutable thread local, or referenced by a unique pointer. There&rsquo;s also the paper <a href="http://www.citeulike.org/user/mcclurmc/article/6658634">A Type and Effect System for Deterministic Parallel Java</a>, from OOPSLA 2009. I&rsquo;m fascinated by the idea of creating a type system that could ease the burden of writing threaded program, and this seems like a really promising idea to me.</p>

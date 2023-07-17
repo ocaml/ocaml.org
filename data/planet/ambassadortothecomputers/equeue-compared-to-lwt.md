@@ -7,7 +7,8 @@ date: 2009-02-10T07:43:00-00:00
 preview_image:
 featured:
 authors:
-- ambassadortothecomputers
+- Jake Donham
+source:
 ---
 
 <p>I feel like taking a break from Camlp4, so in this post I'll take a look at two libraries for asynchronous networking programming in OCaml: <a href="http://projects.camlcity.org/projects/dl/ocamlnet-2.2.9/doc/html-main/Equeue_intro.html">Equeue</a> and <a href="http://www.ocsigen.org/lwt">Lwt</a>. Each provides cooperative multithreading and asynchronous access to networking calls; each has protocol implementations built on top of it (e.g. Nethttpd for Equeue and Ocsigen's HTTP implementation for of Lwt). So why would you want to use one over the other? Let's start with an overview of each.<br/>
