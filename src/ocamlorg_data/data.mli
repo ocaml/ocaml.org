@@ -39,6 +39,7 @@ module Book : sig
     links : link list;
     rating : int option;
     featured : bool;
+    difficulty : string option;
     body_md : string;
     body_html : string;
   }

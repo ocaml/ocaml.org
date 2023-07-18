@@ -16,6 +16,7 @@ links:
     uri: https://www.amazon.com/gp/product/0957671105
 rating: 4
 featured: true
+difficulty : beginner
 ---
 
 In *OCaml from the Very Beginning*, John Whitington takes a

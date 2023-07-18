@@ -14,6 +14,7 @@ links:
   - description: Ordering Information
     uri: https://www.ffconsultancy.com/products/ocaml_for_scientists/index.html
 featured: false
+difficulty : intermediate
 ---
 
 This book teaches OCaml programming with special emphasis on scientific

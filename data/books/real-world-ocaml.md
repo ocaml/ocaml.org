@@ -15,6 +15,7 @@ links:
     uri: https://realworldocaml.org/
 rating: 4
 featured: true
+difficulty: beginner
 ---
 
 Learn how to solve day-to-day problems in data processing, numerical

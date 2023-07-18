@@ -14,6 +14,7 @@ links:
     uri: https://www.amazon.com/gp/product/0957671113
 rating: 5
 featured: false
+difficulty: intermediate
 ---
 
 In "More OCaml" John Whitington takes a meandering tour of functional

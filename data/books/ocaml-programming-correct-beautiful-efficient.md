@@ -14,6 +14,7 @@ links:
     uri: https://cs3110.github.io/textbook/
 rating: 5
 featured: true
+difficulty: beginner
 ---
 
 A textbook on functional programming and data structures in OCaml, with an
