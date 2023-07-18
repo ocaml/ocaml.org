@@ -112,3 +112,7 @@ Learn_layout.overview_render
     </div>
 
   </div>
+
+  <div>
+  <%s! Learn_components.lang_manual_banner %>
+  </div>
