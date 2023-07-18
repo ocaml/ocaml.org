@@ -11,3 +11,18 @@ let lang_manual_banner =
       <img src="../img/home/ocaml_camel.png" alt="camel image" class="rounded-full h-72 w-72 object-cover">
     </div> 
   </div>
+
+
+let install_card 
+=
+  <div class="w-[517px] h-52 bg-learn-area-light-blue flex flex-row>
+    <%s! Icons.learn_overview_download "w-24 h-24" %>
+    <div class="flex flex-col">
+      <h3 class="text-default text-2xl font-normal leading-7">Download </h3>
+      <p class="text-default text-lg font-normal leading-7">
+        Effortlessly download, install, and set up OCaml! </p>
+    <a href="<%s Url.install %>" class="btn btn-lg w-48 h-11 btn-secondary bg-learn-area-orange text-white mt-8">
+      <span>Install OCaml</span>
+      <%s! Icons.chevron_right "bg-white h-5 w-5" %>
+    </a>
+  </div>
