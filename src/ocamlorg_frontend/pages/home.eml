@@ -308,7 +308,7 @@ Layout.render
           ~href:"https://mirage.io/"
           ~img_path:"img/home/mirage.png"
           ~name:"MirageOS"
-          "Library operating system to constructs unikernels" %>
+          "Library operating system to construct unikernels" %>
         <!-- FIXME: package_card component -->
         <a href="http://ocsigen.org/js_of_ocaml/latest/manual/overview" target="_blank"
           class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
