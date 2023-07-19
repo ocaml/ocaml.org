@@ -12,17 +12,17 @@ File manipulation includes operations such as creating new files and
 directories, reading and writing from files, deleting files, etc.
 
 In OCaml, these operations are handled through channels - abstract
-representations of input/output devices, and the OCaml standard library provides
+representations of input/output devices. The OCaml standard library provides
 an array of functions to work with these channels.
 
 In this tutorial, we will cover how to perform basic file operations in OCaml.
 You will learn how to open and close channels, use these channels to read from
-and write to files and interact with the filesystem. We'll also share some
+and write to files, and interact with the filesystem. We'll also share some
 important 'gotchas' to keep in mind while working with files in OCaml and how to
 handle common user errors and exceptions.
 
 To make the most of this tutorial, you should have some basic knowledge of
-OCaml, including an [understanding of types, functions and values](data-types).
+OCaml, including an [understanding of types, functions, and values](data-types).
 You should also have a basic understanding of how files work in the operating
 system.
 
@@ -55,10 +55,10 @@ languages. Instead, it returns a channel that you can read from or write to.
 
 In OCaml, standard process streams are also represented as channels. There are
 two output channels of type `out_channel`:
-- `stdout`: standard output, usually the console;
-- `stderr`: standard error output.
+- `stdout`: standard output, usually the console
+- `stderr`: standard error output
 
-There is an input channel, of type `in_channel` called `stdin`, which is the
+There is an input channel of type `in_channel` called `stdin`, which is the
 standard input, typically keyboard input.
 
 Now that you have a basic understanding of what channels are and their types, we
@@ -100,7 +100,7 @@ writing to the file. The file is open in `text` mode, as opposed to `binary`
 mode. To open a file in `binary` mode, you can use the `Out_channel.open_bin`
 function.
 
-Here, the file `"file.txt"` is either created if it doesn't exist or opened and
+Here, the file `"file.txt"` is either created, if it doesn't exist, or opened and
 truncated if it does. The returned `out_channel` is stored in the variable `oc`.
 
 **Step 2: Write to the Channel**
@@ -111,7 +111,7 @@ Out_channel.output_string oc "Hello, World!\n"
 
 Next, we write to the `out_channel` using the function
 `Out_channel.output_string`. This function takes two parameters: the
-`out_channel` to write to, and the string to write.
+`out_channel` to write to and the string to write.
 
 In this case, the string `"Hello, World!\n"` is written to the file through the
 `oc` output channel.
@@ -127,8 +127,8 @@ sent to the file, we flush the channel using `Out_channel.flush`. This function
 takes the `out_channel` as a parameter and ensures that all buffered data is
 written to the file.
 
-Flushing the channel isn't strictly necessary in this case, since the channel is
-flushed on closing. Internally, a channel is a buffer, it keeps its data in
+Flushing the channel isn't strictly necessary in this case, since the channel is automatically 
+flushed on closing. Internally, a channel is a buffer; it keeps its data in
 memory and writes to the disk when it is full. Flushing is usually necessary
 when multiple processes or threads access the channel in parallel.
 
@@ -189,7 +189,7 @@ let content = In_channel.input_all ic
 
 Next, we read from the `in_channel` using the function `In_channel.input_all`.
 This function takes the `in_channel` as a parameter and reads the entire content
-of the channel, and stores the read content in the variable `content`.
+of the channel. Then it stores the read content in the variable `content`.
 
 **Step 3: Close the Channel**
 
@@ -205,15 +205,15 @@ freeing up system resources.
 
 ## Filesystem Operations
 
-OCaml provides various functions for filesystem operations, including renaming
-and deleting files, and working with directories. In this section, we cover some
+OCaml provides various functions for filesystem operations, including renaming files, 
+deleting files, and working with directories. In this section, we cover some
 of these operations, which are part of the `Sys` and `Unix` modules from the
 OCaml standard library.
 
 ### Renaming Files
 
 To rename a file in OCaml, we use the `Sys.rename` function. This function
-accepts two parameters: the current name of the file, and the new name you want
+accepts two parameters: the current name of the file and the new name you want
 to assign.
 
 ```ocaml
@@ -234,8 +234,8 @@ Here, the file named `file_to_delete.txt` is deleted.
 ### Creating Directories
 
 To create a new directory, you can use the `Unix.mkdir` function. This function
-requires two parameters: the name of the new directory, and the permissions for
-the directory (Unix-style octal format is often prefered).
+requires two parameters: the name of the new directory and the permissions for
+the directory (Unix-style octal format is often preferred).
 
 ```ocaml
 Unix.mkdir "new_directory" 0o777
@@ -278,7 +278,7 @@ This code stores the current working directory in the `cwd` variable.
 
 You can check if a file or directory exists using the `Sys.file_exists`
 function. This function takes a filename or a directory name as an argument and
-returns a boolean indicating whether the file or directory exists.
+returns a Boolean, indicating whether the file or directory exists.
 
 ```ocaml
 if Sys.file_exists "file.txt" then
@@ -289,10 +289,10 @@ else
 
 This code checks if `file.txt` exists and prints a message accordingly.
 
-### Checking If a Path is a Directory
+### Checking if a Path is a Directory
 
 The `Sys.is_directory` function is used to check if a path points to a
-directory. It takes a path as an argument and returns a boolean value indicating
+directory. It takes a path as an argument and returns a Boolean value, indicating
 whether the path is a directory.
 
 ```ocaml
@@ -343,7 +343,7 @@ print_endline base;
 print_endline full;
 ```
 
-This code extracts the directory and base name from a path, and concatenates a
+This code extracts the directory and base name from a path, and it concatenates a
 directory name with a base name.
 
 ### Creating Temporary Files and Directories
@@ -358,7 +358,7 @@ print_endline temp_file;
 print_endline temp_dir;
 ```
 
-This code creates a temporary file and a temporary directory, and prints their
+This code creates a temporary file and a temporary directory, then it prints their
 paths.
 
 ## Error Handling
@@ -368,7 +368,7 @@ variety of reasons, such as when a file does not exist, a directory cannot be
 created due to insufficient permissions, or a disk is full. Handling such errors
 is crucial to writing robust and resilient programs. This section will cover
 some common error handling techniques in OCaml for file manipulation tasks.
-General purpose error handling in OCaml is also addressed in
+General purpose error handling in OCaml is also addressed in a
 [dedicated tutorial](/docs/error-handling)
 
 ### Catching Exceptions
@@ -462,7 +462,7 @@ let read_from_file filename =
 ```
 
 In this function, if an exception is raised when calling `In_channel.input_all`,
-the file is closed before the exception is re-raised.
+the file is closed before the exception is raised again.
 
 Alternatively, you can use the `In_channel.with_open_*` or
 `Out_channel.with_open_*` functions covered above, which will ensure that the
@@ -527,22 +527,22 @@ the new content to the existing one.
 ### File Permissions and Open Flags
 
 You can specify the behaviour of the operating system when opening a file. For
-instance, you specify the file permission of the file to be created, or whether
+instance, you can specify the file permission of the file you want to create or whether you want 
 to clear the content if the file already exists.
 
 Both the `In_channel` and `Out_channel` modules provide the `open_gen` function,
-which accepts a list of open flags. The
+which accepts a list of open flags.
 
 Below, we'll break down each open flag and its usage:
 
 - `Open_rdonly`: opens a file in read-only mode. You can only read from the
-  file, and any attempt to write will result in an error.
+  file, so any attempt to write will result in an error.
 - `Open_wronly`: opens a file in write-only mode. You can write to the file, but
   reading from the file is not allowed.
 - `Open_append`: When this flag is set, the system will always write at the end
   of the file, appending new content instead of overwriting existing content.
-- `Open_creat`: create the file if it does not already exist.
-- `Open_trunc`: clear any existing content in the file.
+- `Open_creat`: create the file if it does not already exist
+- `Open_trunc`: clear any existing content in the file
 - `Open_excl`: used with `Open_creat` to ensure a new file is created. If a file
   with the same name already exists, opening the file will fail.
 - `Open_binary`: opens the file in binary mode, which allows binary data to be
@@ -554,7 +554,7 @@ Below, we'll break down each open flag and its usage:
   to return immediately instead of waiting for the operation to finish.
 
 These flags can be used in combination to provide precise control over how a
-file is opened. For example, to open a file in binary mode for reading and
+file is opened. For example, to open a file in binary mode for both reading and
 writing, allowing creation of the file if it doesn't exist, you could use
 `Open_creat` along with `Open_binary` and `Open_wronly`:
 
@@ -608,15 +608,15 @@ various filesystem operations, like renaming, deleting, and checking files.
 
 In our exploration, we also detailed error handling in OCaml's file operations
 and discussed common pitfalls. We further delved into advanced topics like
-managing modes and file permissions, or how to avoid loading files in memory by
-reading them line-by-line.
+managing modes and file permissions or how to avoid loading files in memory by
+reading them line by line.
 
 To dive deeper into file manipulation, you may be interested in exploring topics
 we didn't cover in this tutorial. This includes binary file handling and
 concurrent and parallel file access.
 
 You can also refer to the OCaml Standard Library documentation, which contains a
-lot more functions to manipulate file and work with the filesystem:
+lot more functions to manipulate files and work with the filesystem:
 
 - [In_channel module](https://ocaml.org/api/In_channel.html)
 - [Out_channel module](https://ocaml.org/api/Out_channel.html)
