@@ -3,8 +3,7 @@ id: arrays
 title: Arrays
 description: >
   The standard library's Array module
-category: "data-structures"
-date: 2023-07-18T15:14:00-00:00
+category: "Data Structures"
 ---
 
 # Arrays
