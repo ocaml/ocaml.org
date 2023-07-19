@@ -53,7 +53,5 @@ jobs:
         with:
           title: 'Update scraped data'
           add-paths: |
-            asset/feed.xml
             data/watch.yml
-            data/planet/*.xml
             data/planet/*/*.md
