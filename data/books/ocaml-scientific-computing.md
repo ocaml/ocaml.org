@@ -16,6 +16,7 @@ links:
   - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/3030976440
 featured: true
+difficulty: advanced
 ---
 
 This book is about the harmonious synthesis of functional programming and

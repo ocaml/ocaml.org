@@ -16,6 +16,7 @@ links:
   - description: Order at Amazon.fr
     uri: https://www.amazon.fr/exec/obidos/ASIN/2841771210
 featured: false
+difficulty: intermediate
 ---
 
 A comprehensive (742 pages) book on OCaml, covering not only the core

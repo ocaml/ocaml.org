@@ -19,6 +19,7 @@ links:
   - description: Buy on Amazon.fr
     uri: https://www.amazon.fr/Apprendre-programmer-avec-Ocaml-Algorithmes/dp/2212136781/
 featured: false
+difficulty: beginner
 ---
 
 Computer programming is hard to learn. Being a skillful programmer
