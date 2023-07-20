@@ -17,12 +17,36 @@ let install _req = Dream.html (Ocamlorg_frontend.install ())
 let learn _req =
   let papers = Data.Paper.featured in
   let books = Data.Book.featured in
-  let tutorials = Data.Tutorial.all in
-  Dream.html (Ocamlorg_frontend.learn ~papers ~books ~tutorials)
+  Dream.html (Ocamlorg_frontend.learn ~papers ~books)
+
+let learn_get_started req =
+  let tutorials =
+    Data.Tutorial.all
+    |> List.filter (fun (t : Data.Tutorial.t) -> t.section = GetStarted)
+  in
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+
+let learn_language req =
+  let tutorials =
+    Data.Tutorial.all
+    |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Language)
+  in
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+
+let learn_guides req =
+  let tutorials =
+    Data.Tutorial.all
+    |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Guides)
+  in
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
 
 let platform _req =
   let tools = Data.Tool.all in
-  Dream.html (Ocamlorg_frontend.platform tools)
+  let tutorials =
+    Data.Tutorial.all
+    |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Platform)
+  in
+  Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
 
 let community _req =
   let workshops = Data.Workshop.all in
@@ -284,13 +308,14 @@ let tutorial req =
   let</>? tutorial =
     List.find_opt (fun x -> x.Data.Tutorial.slug = slug) Data.Tutorial.all
   in
+  let tutorials =
+    Data.Tutorial.all
+    |> List.filter (fun (t : Data.Tutorial.t) -> t.section = tutorial.section)
+  in
   Dream.html
-    (Ocamlorg_frontend.tutorial ~tutorials:Data.Tutorial.all
+    (Ocamlorg_frontend.tutorial ~tutorials
        ~canonical:(Url.tutorial tutorial.slug)
        tutorial)
-
-let best_practices _req =
-  Dream.html (Ocamlorg_frontend.best_practices Data.Workflow.all)
 
 let problems req =
   let all_problems = Data.Problem.all in

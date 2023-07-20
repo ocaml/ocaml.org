@@ -22,7 +22,6 @@ let term_templates =
     ("planet", Ood_gen.Planet.template);
     ("planet_feed", Ood_gen.Planet.Feed.create_feed);
     ("opam_user", Ood_gen.Opam_user.template);
-    ("workflows", Ood_gen.Workflow.template);
     ("pages", Ood_gen.Page.template);
     ("code_examples", Ood_gen.Code_example.template);
   ]

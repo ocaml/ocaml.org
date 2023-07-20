@@ -1,14 +1,14 @@
-let sidebar
+let render_sidebar
+~tutorials
 ?active
 ()
 =
   <div class="flex flex-col gap-10">
-    <%s! Learn_layout.sidebar_link_group "Documentation" 
-      (Learn_layout.sidebar_link ~title:"opam" ~href:(Url.platform) ~current:(active = Some("opam")))
-       %>
+    <%s! Learn_sidebar.render ~tutorials ~current_tutorial:active %>
   </div>
 
 let render
+~(tutorials : Data.Tutorial.t list)
 (tools : Data.Tool.t list)
 =
 Learn_layout.render
@@ -16,7 +16,7 @@ Learn_layout.render
 ~description:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml."
 ~canonical:Url.platform
 ~active_top_nav_item:Header.Learn
-~left_sidebar_html:(Some(sidebar ()))
+~left_sidebar_html:(Some(render_sidebar ~tutorials ()))
 ~right_sidebar_html:None
 ~current:Platform @@
   <div class="prose prose-orange max-w-none">

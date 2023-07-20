@@ -42,14 +42,6 @@
     --workspace
     %{workspace_root})))
  (rule
-  (target best_practices.ml)
-  (action
-   (run
-    %{bin:dream_eml}
-    %{dep:best_practices.eml}
-    --workspace
-    %{workspace_root})))
- (rule
   (target blog.ml)
   (action
    (run %{bin:dream_eml} %{dep:blog.eml} --workspace %{workspace_root})))

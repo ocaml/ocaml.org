@@ -27,7 +27,6 @@ let urls =
     Url.platform;
     Url.ocaml_on_windows;
     Url.getting_started;
-    Url.best_practices;
     Url.problems;
   ]
 

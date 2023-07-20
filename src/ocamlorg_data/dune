@@ -135,13 +135,6 @@
    (run %{dep:../../tool/ood-gen/bin/gen.exe} workshops))))
 
 (rule
- (target workflow.ml)
- (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} workflows))))
-
-(rule
  (target news.ml)
  (action
   (with-stdout-to
