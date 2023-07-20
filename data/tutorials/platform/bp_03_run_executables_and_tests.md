@@ -12,9 +12,9 @@ category: "Best Practices"
 
 > **TL;DR**
 > 
-> Add an `executable` stanza in your dune file and run the executable with `dune exec <executable_path>.exe` or `dune exec <public_name>`.
+> Add an `executable` stanza in your `dune` file and run the executable with `dune exec <executable_path>.exe` or `dune exec <public_name>`.
 
-To tell dune to produce an executable, you can use the executable stanza:
+To tell Dune to produce an executable, you can use the executable stanza:
 
 ```dune
 (executable
@@ -27,9 +27,9 @@ The `<executable_name>` is the name of the executable used internally in the pro
 The `<public_name>` is the name of the installed binary when installing the package.
 Finally, `<libraries...>` is the list of libraries to link to the executable.
 
-Once dune has produced the executable with `dune build`, you can execute it with `dune exec <executable_path>.exe` or `dune exec <public_name>`.
+Once Dune has produced the executable with `dune build`, you can execute it with `dune exec <executable_path>.exe` or `dune exec <public_name>`.
 
-For instance, if you've put your dune file in `bin/dune` with the following content:
+For instance, if you've put your `dune` file in `bin/dune` with the following content:
 
 ```dune
 (executable
@@ -45,7 +45,7 @@ You can run it with `dune exec bin/main.exe` or `dune exec my-app`.
 
 > **TL;DR**
 > 
-> Add a `test` stanza in your dune file and run the tests with `dune build @runtest`.
+> Add a `test` stanza in your `dune` file and run the tests with `dune build @runtest`.
 
 Tests are created using Dune's `test` stanza. The `test` stanza is a simple convenience wrapper that will create an executable and add it to the list of tests of the `@runtest` target.
 
