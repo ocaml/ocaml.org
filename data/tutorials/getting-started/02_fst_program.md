@@ -4,7 +4,6 @@ title: How to Write an OCaml Program
 description: >
   Get something real out of the damm French thing!
 category: "getting-started"
-date: 2021-08-06T17:11:00-00:00
 ---
 
 [TOC]
