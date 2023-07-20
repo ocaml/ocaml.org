@@ -114,14 +114,6 @@ body {
     background: rgba(39, 39, 39, 1);
 }
 
-:where(.prose a):not(:where([class~=not-prose] *)) {
-  @apply text-primary-600 no-underline;
- }
-
-:where(.prose a:hover):not(:where([class~=not-prose] *)) {
-  @apply underline;
- }
-
 .prose [id] {
   scroll-margin-top: 2rem;
 }
