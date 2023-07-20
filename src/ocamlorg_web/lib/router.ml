@@ -26,6 +26,9 @@ let page_routes =
       Dream.get Url.index Handler.index;
       Dream.get Url.install Handler.install;
       Dream.get Url.learn Handler.learn;
+      Dream.get Url.learn_get_started Handler.learn_get_started;
+      Dream.get Url.learn_language Handler.learn_language;
+      Dream.get Url.learn_guides Handler.learn_guides;
       Dream.get Url.platform Handler.platform;
       Dream.get Url.community Handler.community;
       Dream.get Url.changelog Handler.changelog;
@@ -49,7 +52,6 @@ let page_routes =
       Dream.get Url.governance Handler.governance;
       Dream.get Url.code_of_conduct Handler.code_of_conduct;
       Dream.get Url.papers Handler.papers;
-      Dream.get Url.best_practices Handler.best_practices;
       Dream.get Url.problems Handler.problems;
       Dream.get (Url.tutorial ":id") Handler.tutorial;
       Dream.get Url.playground Handler.playground;

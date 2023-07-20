@@ -6,7 +6,6 @@ module Package = Package
 
 let about = About.render
 let academic_users = Academic_users.render
-let best_practices = Best_practices.render
 let blog = Blog.render
 let blog_post = Blog_post.render
 let changelog = Changelog.render

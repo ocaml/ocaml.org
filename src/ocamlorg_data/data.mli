@@ -203,6 +203,10 @@ module Tool : sig
 end
 
 module Tutorial : sig
+  module Section : sig
+    type t = GetStarted | Language | Platform | Guides
+  end
+
   type toc = { title : string; href : string; children : toc list }
 
   type t = {
@@ -210,7 +214,7 @@ module Tutorial : sig
     fpath : string;
     slug : string;
     description : string;
-    date : string;
+    section : Section.t;
     category : string;
     body_md : string;
     toc : toc list;
@@ -343,12 +347,6 @@ module Workshop : sig
 
   val all : t list
   val get_by_slug : string -> t option
-end
-
-module Workflow : sig
-  type t = { title : string; body_md : string; body_html : string }
-
-  val all : t list
 end
 
 module Release : sig

@@ -1,8 +1,9 @@
-type active_icon_link =
+type section =
   | Overview
   | GetStarted
+  | Language
   | Platform
-  | BestPractices
+  | Guides
   | Exercises
   | Books
   
@@ -18,9 +19,13 @@ let tabs
       <nav class="container-fluid wide flex flex-wrap">
         <%s! link ~href:Url.learn ~title:"Overview" ~current:(current = Overview) %>
 
+        <%s! link ~href:Url.learn_get_started ~title:"Get Started" ~current:(current = GetStarted) %>
+
+        <%s! link ~href:Url.learn_language ~title:"Language" ~current:(current = Language) %>
+
         <%s! link ~href:Url.platform ~title:"Platform Tools" ~current:(current = Platform) %>
 
-        <%s! link ~href:Url.best_practices ~title:"Best Practices" ~current:(current = BestPractices) %>
+        <%s! link ~href:Url.learn_guides ~title:"Guides" ~current:(current = Guides) %>
 
         <%s! link ~href:Url.problems ~title:"Exercises" ~current:(current = Exercises) %>
 
@@ -36,22 +41,17 @@ let tabs
       </nav>
     </div>
 
-
-let htmx_attributes href
-=
-  <% if String.get href 0 != '#' then ( %> hx-boost="true" hx-ext="multi-swap" hx-swap="multi:#htmx-head,#htmx-sidebar,#htmx-content,#htmx-right-sidebar" hx-push-url="true" <% ); %>
-
 let sidebar_link
 ~title
 ~href
 ~current =
   match current with
   | true ->
-    <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s href %>" <%s! htmx_attributes href %>>
+    <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s href %>">
       <%s title %>
     </a>
   | false ->
-    <a class="font-semibold text-sm text-lighter hover:bg-gray-100 block py-2 px-3" href="<%s href %>" <%s! htmx_attributes href %>>
+    <a class="font-semibold text-sm text-lighter hover:bg-gray-100 block py-2 px-3" href="<%s href %>">
       <%s title %>
     </a>
 
@@ -103,15 +103,14 @@ inner_html
           class="z-20 bg-default dark:bg-dark-default flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky <%s Option.fold ~none:"" ~some:(fun _ -> "p-6 lg:px-0 w-80 lg:w-72 lg:px-0 lg:pt-6 lg:pb-72") left_sidebar_html %>"
           x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
           x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
-          x-transition:leave-end="-translate-x-full" id="htmx-sidebar">
+          x-transition:leave-end="-translate-x-full">
           <%s! Option.value ~default:"" left_sidebar_html %>
         </div>
 
-        <div class="flex-1 z-0 z- min-w-0 lg:pt-6 pb-12 lg:pb-[70vh] <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>"
-             id="htmx-content">
+        <div class="flex-1 z-0 z- min-w-0 lg:pt-6 pb-12 lg:pb-[70vh] <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
           <%s! inner_html %>
         </div>
-        <div class="hidden xl:block top-0 sticky h-screen overflow-auto lg:pt-6" id="htmx-right-sidebar">
+        <div class="hidden xl:block top-0 sticky h-screen overflow-auto lg:pt-6">
           <div class="<%s Option.fold ~none:"" ~some:(fun _ -> "w-60 lg:pb-72") right_sidebar_html %>">
             <%s! Option.value ~default:"" right_sidebar_html %>
           </div>
@@ -119,28 +118,4 @@ inner_html
       </div>
     </div>
   </div>
-  <script>
-  window.onload = (event) => {
-    document.body.addEventListener('htmx:afterSwap', (evt) => {
-      if (evt.detail.error || evt.detail.failed) {
-        window.location = evt.detail.requestConfig.path;
-        return;
-      }
-      window.pageYOffset = 0;
-      evt.detail.elt.dispatchEvent(new CustomEvent('close-sidebar', { bubbles: true }));
-    });
-    document.body.addEventListener('htmx:swapError', (evt) => {
-      window.location = evt.detail.requestConfig.path;
-    });
-    document.body.addEventListener('htmx:responseError', (evt) => {
-      window.location = evt.detail.requestConfig.path;
-    });
-    document.body.addEventListener('htmx:historyCacheMissError', (evt) => {
-      window.location = evt.detail.path;
-    });
-    document.body.addEventListener('htmx:onLoadError', (evt) => {
-      window.location = evt.detail.requestConfig.path;
-    });
-  };
-  </script>
   <%s! Toc.script %>
