@@ -662,110 +662,127 @@ let package_documentation t kind req =
     | Universe -> `Universe (Dream.param req "hash")
   in
   let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
+  let hash = match kind with `Package -> None | `Universe u -> Some u in
   let root =
-    let hash = match kind with `Package -> None | `Universe u -> Some u in
     Url.Package.documentation ?hash ~page:""
       ?version:(Ocamlorg_frontend.Package.url_version frontend_package)
       (Ocamlorg_package.Name.to_string name)
   in
   let* docs = Ocamlorg_package.documentation_page ~kind package path in
-  http_or_404
-    ~not_found:(fun () ->
-      Ocamlorg_frontend.package_documentation_not_found ~page:path
-        ~search_index_digest:None
-        ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation Index)
-        frontend_package)
-    docs
-  @@ fun doc ->
-  let module Package_map = Ocamlorg_package.Module_map in
-  let rec toc_of_module ~root (module' : Package_map.Module.t) :
-      Ocamlorg_frontend.Navmap.toc =
-    let title = Package_map.Module.name module' in
-    let kind = Package_map.Module.kind module' in
-    let href = Some (root ^ Package_map.Module.path module') in
-    let children =
-      module' |> Package_map.Module.submodules |> String.Map.bindings
-      |> List.map (fun (_, module') -> toc_of_module ~root module')
-    in
-    let kind =
-      match kind with
-      | Package_map.Page -> Ocamlorg_frontend.Navmap.Page
-      | Module -> Module
-      | Leaf_page -> Leaf_page
-      | Module_type -> Module_type
-      | Parameter _ -> Parameter
-      | Class -> Class
-      | Class_type -> Class_type
-      | File -> File
-    in
-    Ocamlorg_frontend.Navmap.{ title; href; kind; children }
-  in
-  let toc_of_map ~root (map : Package_map.t) : Ocamlorg_frontend.Navmap.t =
-    let libraries = map.libraries in
-    String.Map.bindings libraries
-    |> List.map (fun (_, library) ->
-           let title = library.Package_map.name in
-           let href = None in
-           let children =
-             String.Map.bindings library.modules
-             |> List.map (fun (_, module') -> toc_of_module ~root module')
-           in
-           Ocamlorg_frontend.Navmap.{ title; href; kind = Library; children })
-  in
-  let* module_map = Ocamlorg_package.module_map ~kind package in
-  let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
-  let search_index_digest =
-    Option.map
-      (fun idx -> idx |> Digest.string |> Dream.to_base64url)
-      maybe_search_index
-  in
-  let toc = Package_helper.frontend_toc doc.toc in
-  let (maptoc : Ocamlorg_frontend.Navmap.toc list) =
-    toc_of_map ~root module_map
-  in
-  let (breadcrumb_path : Ocamlorg_frontend.Package_breadcrumbs.path) =
-    let breadcrumbs = doc.breadcrumbs in
-    if breadcrumbs != [] then
-      let first_path_item = List.hd breadcrumbs in
-      let doc_breadcrumb_to_library_path_item
-          (p : Ocamlorg_package.Documentation.breadcrumb) =
-        match p.kind with
-        | Module ->
-            Ocamlorg_frontend.Package_breadcrumbs.Module
-              { name = p.name; href = p.href }
-        | ModuleType -> ModuleType { name = p.name; href = p.href }
-        | Parameter i -> Parameter { name = p.name; href = p.href; number = i }
-        | Class -> Class { name = p.name; href = p.href }
-        | ClassType -> ClassType { name = p.name; href = p.href }
-        | Page | LeafPage | File ->
-            failwith "library paths do not contain Page, LeafPage or File"
+  match docs with
+  | None ->
+      let response_404_page =
+        Dream.html ~code:404
+          (Ocamlorg_frontend.package_documentation_not_found ~page:path
+             ~search_index_digest:None
+             ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation Index)
+             frontend_package)
       in
-
-      match first_path_item.kind with
-      | Page | LeafPage | File ->
-          Ocamlorg_frontend.Package_breadcrumbs.Documentation
-            (Page first_path_item.name)
-      | Module | ModuleType | Parameter _ | Class | ClassType ->
-          let library =
-            List.find_opt
-              (fun (toc : Ocamlorg_frontend.Navmap.toc) ->
-                List.exists
-                  (fun (t : Ocamlorg_frontend.Navmap.toc) ->
-                    t.title = first_path_item.name)
-                  toc.children)
-              maptoc
+      if version_from_url = "latest" then
+        let* latest_documented_version =
+          Ocamlorg_package.latest_documented_version t name
+        in
+        match latest_documented_version with
+        | None -> response_404_page
+        | Some version ->
+            Dream.redirect req ~code:302
+              (Url.Package.documentation ?hash
+                 ~version:(Ocamlorg_package.Version.to_string version)
+                 ~page:path
+                 (Ocamlorg_package.Name.to_string name))
+      else response_404_page
+  | Some doc ->
+      let module Package_map = Ocamlorg_package.Module_map in
+      let rec toc_of_module ~root (module' : Package_map.Module.t) :
+          Ocamlorg_frontend.Navmap.toc =
+        let title = Package_map.Module.name module' in
+        let kind = Package_map.Module.kind module' in
+        let href = Some (root ^ Package_map.Module.path module') in
+        let children =
+          module' |> Package_map.Module.submodules |> String.Map.bindings
+          |> List.map (fun (_, module') -> toc_of_module ~root module')
+        in
+        let kind =
+          match kind with
+          | Package_map.Page -> Ocamlorg_frontend.Navmap.Page
+          | Module -> Module
+          | Leaf_page -> Leaf_page
+          | Module_type -> Module_type
+          | Parameter _ -> Parameter
+          | Class -> Class
+          | Class_type -> Class_type
+          | File -> File
+        in
+        Ocamlorg_frontend.Navmap.{ title; href; kind; children }
+      in
+      let toc_of_map ~root (map : Package_map.t) : Ocamlorg_frontend.Navmap.t =
+        let libraries = map.libraries in
+        String.Map.bindings libraries
+        |> List.map (fun (_, library) ->
+               let title = library.Package_map.name in
+               let href = None in
+               let children =
+                 String.Map.bindings library.modules
+                 |> List.map (fun (_, module') -> toc_of_module ~root module')
+               in
+               Ocamlorg_frontend.Navmap.
+                 { title; href; kind = Library; children })
+      in
+      let* module_map = Ocamlorg_package.module_map ~kind package in
+      let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
+      let search_index_digest =
+        Option.map
+          (fun idx -> idx |> Digest.string |> Dream.to_base64url)
+          maybe_search_index
+      in
+      let toc = Package_helper.frontend_toc doc.toc in
+      let (maptoc : Ocamlorg_frontend.Navmap.toc list) =
+        toc_of_map ~root module_map
+      in
+      let (breadcrumb_path : Ocamlorg_frontend.Package_breadcrumbs.path) =
+        let breadcrumbs = doc.breadcrumbs in
+        if breadcrumbs != [] then
+          let first_path_item = List.hd breadcrumbs in
+          let doc_breadcrumb_to_library_path_item
+              (p : Ocamlorg_package.Documentation.breadcrumb) =
+            match p.kind with
+            | Module ->
+                Ocamlorg_frontend.Package_breadcrumbs.Module
+                  { name = p.name; href = p.href }
+            | ModuleType -> ModuleType { name = p.name; href = p.href }
+            | Parameter i ->
+                Parameter { name = p.name; href = p.href; number = i }
+            | Class -> Class { name = p.name; href = p.href }
+            | ClassType -> ClassType { name = p.name; href = p.href }
+            | Page | LeafPage | File ->
+                failwith "library paths do not contain Page, LeafPage or File"
           in
 
-          Ocamlorg_frontend.Package_breadcrumbs.Documentation
-            (Library
-               ( (match library with Some l -> l.title | None -> "unknown"),
-                 List.map doc_breadcrumb_to_library_path_item breadcrumbs ))
-    else Ocamlorg_frontend.Package_breadcrumbs.Documentation Index
-  in
-  Dream.html
-    (Ocamlorg_frontend.package_documentation ~page:(Some path)
-       ~search_index_digest ~path:breadcrumb_path ~toc ~maptoc
-       ~content:doc.content frontend_package)
+          match first_path_item.kind with
+          | Page | LeafPage | File ->
+              Ocamlorg_frontend.Package_breadcrumbs.Documentation
+                (Page first_path_item.name)
+          | Module | ModuleType | Parameter _ | Class | ClassType ->
+              let library =
+                List.find_opt
+                  (fun (toc : Ocamlorg_frontend.Navmap.toc) ->
+                    List.exists
+                      (fun (t : Ocamlorg_frontend.Navmap.toc) ->
+                        t.title = first_path_item.name)
+                      toc.children)
+                  maptoc
+              in
+
+              Ocamlorg_frontend.Package_breadcrumbs.Documentation
+                (Library
+                   ( (match library with Some l -> l.title | None -> "unknown"),
+                     List.map doc_breadcrumb_to_library_path_item breadcrumbs ))
+        else Ocamlorg_frontend.Package_breadcrumbs.Documentation Index
+      in
+      Dream.html
+        (Ocamlorg_frontend.package_documentation ~page:(Some path)
+           ~search_index_digest ~path:breadcrumb_path ~toc ~maptoc
+           ~content:doc.content frontend_package)
 
 let package_file t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
