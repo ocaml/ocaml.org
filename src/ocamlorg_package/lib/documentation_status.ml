@@ -10,11 +10,11 @@ open Yojson.Safe.Util
 
 let first_opt = function x :: _ -> Some x | [] -> None
 
-let strip_prefix (p: string option) =
-  let v : (string list) option = Option.map (String.split_on_char '/') p in
+let strip_prefix (p : string option) =
+  let v : string list option = Option.map (String.split_on_char '/') p in
   match v with
   | None -> None
-  | Some (_::_::_::_::_:: xs) -> Some (String.concat "/" xs)
+  | Some (_ :: _ :: _ :: _ :: _ :: xs) -> Some (String.concat "/" xs)
   | _ -> None
 
 let of_yojson (v : Yojson.Safe.t) : t =
