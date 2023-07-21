@@ -89,16 +89,13 @@ is just the same as `[10]`.
 Let's try `range 9 10`:
 
 <!-- $MDX skip -->
-$$
-\begin{align*}
-\tt{range\ 9\ 10}
-&\Rightarrow \tt{9\ ::\ range\ 10\ 10} \quad\text{(else branch)} \\
-&\Rightarrow \tt{9\ ::\ (10\ ::\ range\ 11\ 10)} \quad\text{(else branch)} \\
-&\Rightarrow \tt{9\ ::\ (10\ ::\ [])} \quad\text{(if branch)} \\
-&\Rightarrow \tt{[9;\ 10]} \quad\text{(by the definition of lists)}
-\end{align*}
-$$
-
+```ocaml
+range 9 10
+→ 9 :: (range 10 10)            (* else branch *)
+→ 9 :: (10 :: (range 11 10))    (* else branch *)
+→ 9 :: (10 :: [])               (* then branch *)
+→ [9; 10]                       (* definition of List *)
+```
 
 It should be fairly clear that `range 1 10` evaluates to
 `[1; 2; 3; 4; 5; 6; 7; 8; 9; 10]`.
