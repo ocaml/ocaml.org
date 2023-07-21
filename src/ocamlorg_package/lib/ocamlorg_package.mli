@@ -110,22 +110,20 @@ val info : t -> Info.t
 val create : name:Name.t -> version:Version.t -> Info.t -> t
 (** This is added to enable demo test package to use Package.t with abstraction *)
 
-val readme_filename :
-  kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
-(** Get the readme file name of a package *)
+module Documentation_status : sig
+  type otherdocs = {
+    readme : string option;
+    license : string option;
+    changes : string option;
+  }
 
-val license_filename :
-  kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
-(** Get the license file name of a package *)
-
-val changes_filename :
-  kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
-(** Get the changelog file name of a package *)
-
-type documentation_status = Success | Failure | Unknown
+  type t = { failed : bool; otherdocs : otherdocs }
+end
 
 val documentation_status :
-  kind:[< `Package | `Universe of string ] -> t -> documentation_status Lwt.t
+  kind:[< `Package | `Universe of string ] ->
+  t ->
+  Documentation_status.t option Lwt.t
 (** Get the build status of the documentation of a package *)
 
 val module_map :

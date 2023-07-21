@@ -51,18 +51,16 @@ type t = { libraries : library String.Map.t }
 open Yojson.Safe.Util
 
 let kind_of_yojson v =
-  match to_string v with
-  | "page" -> Page
-  | "module" -> Module
-  | "leaf-page" -> Leaf_page
-  | "module-type" -> Module_type
-  | "class" -> Class
-  | "class-type" -> Class_type
-  | "file" -> File
-  | s when String.starts_with ~prefix:"argument-" s ->
-      let i = List.hd (List.tl (String.split_on_char '-' s)) in
-      Parameter (int_of_string i)
-  | _ -> raise (Type_error ("Variant not supported", v))
+  match v |> to_list with
+  | [ `String "Page" ] -> Page
+  | [ `String "Module" ] -> Module
+  | [ `String "LeafPage" ] -> Leaf_page
+  | [ `String "ModuleType" ] -> Module_type
+  | [ `String "Class" ] -> Class
+  | [ `String "ClassType" ] -> Class_type
+  | [ `String "File" ] -> File
+  | [ `String "Parameter"; `Int i ] -> Parameter i
+  | _ -> raise (Type_error ("Variant not supported: " ^ Yojson.Safe.show v, v))
 
 let rec module_of_yojson ?parent v : Module.t =
   let name = member "name" v |> to_string in
