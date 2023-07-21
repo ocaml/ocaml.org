@@ -355,37 +355,9 @@ let search_index ~kind t =
       Logs.info (fun m -> m "Failed to fetch search index at %s" url);
       Lwt.return None
 
-let maybe_file ~kind t filename =
-  let open Lwt.Syntax in
-  let+ doc = file ~kind t filename in
-  Option.map (fun Documentation.{ content; _ } -> content) doc
+module Documentation_status = Documentation_status
 
-let maybe_files ~kind t names =
-  let f filename =
-    let open Lwt.Syntax in
-    let+ doc = maybe_file ~kind t (filename ^ ".html") in
-    Option.map (fun _ -> (filename, doc)) doc
-  in
-  Lwt_stream.find_map_s f (Lwt_stream.of_list names)
-
-let readme_filename ~kind t =
-  let open Lwt.Syntax in
-  let+ file_opt = maybe_files ~kind t [ "README"; "README.md" ] in
-  Option.map (fun (filename, _content) -> filename) file_opt
-
-let license_filename ~kind t =
-  let open Lwt.Syntax in
-  let+ file_opt = maybe_files ~kind t [ "LICENSE"; "LICENSE.md" ] in
-  Option.map (fun (filename, _content) -> filename) file_opt
-
-let changes_filename ~kind t =
-  let open Lwt.Syntax in
-  let+ file_opt = maybe_files ~kind t [ "CHANGES.md"; "CHANGELOG.md" ] in
-  Option.map (fun (filename, _content) -> filename) file_opt
-
-type documentation_status = Success | Failure | Unknown
-
-let documentation_status ~kind t : documentation_status Lwt.t =
+let documentation_status ~kind t : Documentation_status.t option Lwt.t =
   let open Lwt.Syntax in
   let package_url =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
@@ -394,9 +366,9 @@ let documentation_status ~kind t : documentation_status Lwt.t =
   let* content = http_get url in
   let status =
     match content with
-    | Ok "\"Built\"" -> Success
-    | Ok "\"Failed\"" -> Failure
-    | _ -> Unknown
+    | Ok s ->
+        Some (s |> Yojson.Safe.from_string |> Documentation_status.of_yojson)
+    | _ -> None
   in
   Lwt.return status
 
@@ -408,7 +380,7 @@ let doc_exists t name version =
   | Some package -> (
       let* doc_stat = documentation_status ~kind:`Package package in
       match doc_stat with
-      | Success -> Lwt.return (Some version)
+      | Some { failed = false; _ } -> Lwt.return (Some version)
       | _ -> Lwt.return None)
 
 let latest_documented_version t name =
