@@ -51,8 +51,8 @@ val even_numbers : int array = [|0; 2; 4; 6; 8|]
 You can access individual elements of an array using the `.(index)` syntax, with the index of the element you want to access. The index starts from 0 and goes up to the size of the array minus one.  For example, to access the third element of an array `even_numbers`, you would write:
 
 ```ocaml
-# let third_element = even_numbers.(2);;
-val third_element : int = 4
+# even_numbers.(2);;
+- : int = 4
 ```
 
 ## Modifying Array Elements
@@ -64,7 +64,7 @@ To modify an element in an array, we simply assign a new value to it using the i
 - : unit = ()
 ```
 
-Note that this modification doesn’t return the modified array: the value returned by this operation is `unit`, `even_numbers` is modified in-place in the current scope. Updating a array's content is a side-effect.
+Note that this modification doesn’t return the modified array: the value returned by this operation is `unit`, `even_numbers` is modified in place in the current scope. Updating an array's content is a side effect.
 
 ## The Standard Library `Array` Module
 
@@ -99,15 +99,18 @@ The `Array.map` function applies a given function to each element of an array an
 
 ### Folding an Array
 
-To go over all the elements of the array we can use the `Array.fold_left` function. This function takes a binary function, an initial accumulator value, and an array as arguments. The binary function takes two arguments: the current value of the accumulator and the current element of the array, and returns a new accumulator value. Here is its type signature:
+To combine all the elements of an array into a single result, we can use the `Array.fold_left` and `Array.fold_right` functions. These functions take a binary function, an initial accumulator value, and an array as arguments. The binary function takes two arguments: the current value of the accumulator and the current element of the array and returns a new accumulator value. Both functions traverse the array
+ but in opposite directions. This is essentially the same as `List.fold_left` and `List.fold_right`.
+
+Here is the signature of `Array.fold_left`:
 
 ```ocaml
 val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b array -> 'a
 ```
 
-`fold_left f init a` computes `f (... (f (f init a.(0)) a.(1)) ...) a.(n-1)`
+`fold_left f init a` computes `f (... (f(f init a.(0)) a.(1)) ...) a.(n-1)`
 
-Similarly, we can use the `Array.fold_right` function, that switches the order of its arguments:
+Similarly, we can use the `Array.fold_right` function, which switches the order of its arguments:
 
 ```ocaml
 val fold_right : ('b -> 'a -> 'a) -> 'b array -> 'a -> 'a
@@ -115,11 +118,11 @@ val fold_right : ('b -> 'a -> 'a) -> 'b array -> 'a -> 'a
 
 `fold_right f a init` computes `f a.(0) (f a.(1) ( ... (f a.(n-1) init) ...))`
 
-These functions derive a single value from the whole array. For example they can be used to find the maximum element of an array:
+These functions derive a single value from the whole array. For example, they can be used to find the maximum element of an array:
 
 ```ocaml
-# let max_element = Array.fold_left max my_array.(0) my_array;;
-val max_element : int = 42
+# Array.fold_left max min_int even_numbers;;
+- : int = 42
 ```
 
 Where `max` is the maximum function defined on elements of type int.
@@ -140,7 +143,7 @@ Ir sorts the provided array in place, in ascending order, according to the provi
 
 ## Copying Part of an Array into Another Array
 
-The `Array.blit` function is available to efficiently copy a portion of an array into another array. Similarly to the `array.(x) <- y`  modification instruction, this function modifies the destination in-place and does not return the modified array, but returns `unit`. Let’s suppose you want to copy a part of `even_numbers` into `zeroes`:
+The `Array.blit` function is available to efficiently copy a portion of an array into another array. Similarly to the `array.(x) <- y`  modification instruction, this function modifies the destination in place and does not return the modified array, but returns `unit`. Let’s suppose you want to copy a part of `even_numbers` into `zeroes`:
 
 ```ocaml
 # Array.blit even_numbers 3 zeroes 1 2;;
