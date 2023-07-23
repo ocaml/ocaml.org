@@ -15,14 +15,33 @@ let lang_manual_banner =
 
 let install_card 
 =
-  <div class="w-[517px] h-52 bg-learn-area-light-blue flex flex-row>
-    <%s! Icons.learn_overview_download "w-24 h-24" %>
-    <div class="flex flex-col">
-      <h3 class="text-default text-2xl font-normal leading-7">Download </h3>
-      <p class="text-default text-lg font-normal leading-7">
-        Effortlessly download, install, and set up OCaml! </p>
-    <a href="<%s Url.install %>" class="btn btn-lg w-48 h-11 btn-secondary bg-learn-area-orange text-white mt-8">
-      <span>Install OCaml</span>
-      <%s! Icons.chevron_right "bg-white h-5 w-5" %>
-    </a>
+  <div class="w-[517px] h-52 bg-learn-area-light-blue flex flex-row pt-8">
+    <%s! Icons.learn_overview_download "w-24 h-24 mt-8" %>
+    <div class="flex flex-col gap-x-4">
+      <div class="flex flex-row justify-between">
+        <h3 class="text-default text-2xl font-normal leading-7">Download </h3>
+        <span class="rounded-sm px-2 text-xs text-center text-white text-base font-normal bg-blue-700"> Version 5.0.0 </span>
+      </div>
+        <p class="text-default text-lg font-normal leading-7">
+          Effortlessly download, install, and set up OCaml! </p>
+      <a href="<%s Url.install %>" class="btn btn-lg w-48 h-11 btn-secondary bg-learn-area-orange text-white mt-8">
+        <span>Install OCaml</span>
+        <%s! Icons.chevron_right "h-5 w-5" %>
+      </a>
+    </div>
+  </div>
+
+let standard_lib_card 
+= 
+  <div class="w-[517px] h-52 bg-learn-area-light-blue flex flex-row pt-8">
+    <%s! Icons.command_line "h-24 w-24 mt-8" %>
+    <div class="flex flex-col gap-x-4">
+        <h3 class="text-default text-2xl font-normal leading-7">Standard Library API </h3>
+        <p class="text-default text-lg font-normal leading-7">
+          Effortlessly download, install, and set up OCaml! </p>
+        <a href="<%s Url.api %>" class="btn btn-lg w-64 btn-secondary bg-learn-area-orange mt-8 flex text-white items-center">
+          <span>Standard Library API</span>
+          <%s! Icons.chevron_right "h-5 w-5" %>
+        </a>
+    </div>
   </div>

@@ -118,6 +118,6 @@ Learn_layout.render
     </a>
   </div>
 
-  <div>
+  <div class="">
   <%s! Learn_overview.install_card %>
   </div>
