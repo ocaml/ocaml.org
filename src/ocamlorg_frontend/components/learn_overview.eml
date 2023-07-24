@@ -1,0 +1,9 @@
+let search_banner =
+  <div class="w-full h-64 bg-teal-900 flex flex-col items-center pt-14">
+    <h2 class="text-center text-white font-normal">Looking For Something? </h2>
+    <%s! Forms.search_input
+        ~name:"q"
+        ~label:"Search inside the OCaml documentation"
+        ~button_attrs:{|type="submit"|}
+        "w-1/2 mt-6" %>
+  </div>
