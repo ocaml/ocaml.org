@@ -7,15 +7,17 @@
 open Import
 
 (** Page kinds as defined by odoc. *)
-type kind =
-  | Module
-  | Page
-  | Leaf_page
-  | Module_type
-  | Parameter of int
-  | Class
-  | Class_type
-  | File
+module Kind : sig
+  type t =
+    | Module
+    | Page
+    | LeafPage
+    | ModuleType
+    | Parameter of int
+    | Class
+    | ClassType
+    | File
+end
 
 (** An odoc module, corresponding to a single page. *)
 module Module : sig
@@ -25,12 +27,11 @@ module Module : sig
   (** [name t] is [t]'s page name. *)
 
   val parent : t -> t option
-  (** [parent t] is [t]'s parent if it exists. *)
 
   val submodules : t -> t String.Map.t
   (** [submodules t] is [t]'s child pages. *)
 
-  val kind : t -> kind
+  val kind : t -> Kind.t
   (** [kind t] is [t]'s kind (an OCaml module, an interface, a class, ..)*)
 
   val path : t -> string

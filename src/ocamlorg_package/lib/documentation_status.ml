@@ -6,8 +6,6 @@ type otherdocs = {
 
 type t = { failed : bool; otherdocs : otherdocs }
 
-open Yojson.Safe.Util
-
 let first_opt = function x :: _ -> Some x | [] -> None
 
 let strip_prefix (p : string option) =
@@ -18,20 +16,19 @@ let strip_prefix (p : string option) =
   | _ -> None
 
 let of_yojson (v : Yojson.Safe.t) : t =
-  let failed = member "failed" v |> to_bool in
-  let otherdocs = member "otherdocs" v in
+  let status = Voodoo_serialize.Status.of_yojson v in
   {
-    failed;
+    failed = status.failed;
     otherdocs =
       {
         readme =
-          otherdocs |> member "readme" |> to_list |> first_opt
-          |> Option.map to_string |> strip_prefix;
+          status.otherdocs.readme |> first_opt |> Option.map Fpath.to_string
+          |> strip_prefix;
         license =
-          otherdocs |> member "license" |> to_list |> first_opt
-          |> Option.map to_string |> strip_prefix;
+          status.otherdocs.license |> first_opt |> Option.map Fpath.to_string
+          |> strip_prefix;
         changes =
-          otherdocs |> member "changes" |> to_list |> first_opt
-          |> Option.map to_string |> strip_prefix;
+          status.otherdocs.changes |> first_opt |> Option.map Fpath.to_string
+          |> strip_prefix;
       };
   }

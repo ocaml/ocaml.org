@@ -10,4 +10,5 @@
   lwt.unix
   yojson
   cohttp
-  cohttp-lwt-unix))
+  cohttp-lwt-unix
+  voodoo_serialize))
