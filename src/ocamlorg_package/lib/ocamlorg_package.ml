@@ -267,7 +267,7 @@ module Documentation = struct
     | _ -> raise (Invalid_argument "malformed .html.json file")
 end
 
-module Module_map = Module_map
+module Package_info = Package_info
 
 let package_url ~kind name version =
   match kind with
@@ -306,10 +306,10 @@ let module_map ~kind t =
   match content with
   | Ok v ->
       let json = Yojson.Safe.from_string v in
-      Module_map.of_yojson json
+      Package_info.of_yojson json
   | Error _ ->
       Logs.info (fun m -> m "Failed to fetch module map at %s" url);
-      { Module_map.libraries = String.Map.empty }
+      { Package_info.libraries = String.Map.empty }
 
 let odoc_page ~url =
   let open Lwt.Syntax in

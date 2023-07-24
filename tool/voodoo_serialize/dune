@@ -1,0 +1,3 @@
+(library
+ (name voodoo_serialize)
+ (libraries fpath yojson))

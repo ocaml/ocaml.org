@@ -90,7 +90,7 @@ module Documentation : sig
   }
 end
 
-module Module_map = Module_map
+module Package_info = Package_info
 
 type state
 type t
@@ -127,7 +127,7 @@ val documentation_status :
 (** Get the build status of the documentation of a package *)
 
 val module_map :
-  kind:[< `Package | `Universe of string ] -> t -> Module_map.t Lwt.t
+  kind:[< `Package | `Universe of string ] -> t -> Package_info.t Lwt.t
 (** Get the module map of a package *)
 
 val documentation_page :

@@ -692,34 +692,36 @@ let package_documentation t kind req =
                  (Ocamlorg_package.Name.to_string name))
       else response_404_page
   | Some doc ->
-      let module Package_map = Ocamlorg_package.Module_map in
-      let rec toc_of_module ~root (module' : Package_map.Module.t) :
+      let module Package_info = Ocamlorg_package.Package_info in
+      let rec toc_of_module ~root
+          (module' : Ocamlorg_package.Package_info.Module.t) :
           Ocamlorg_frontend.Navmap.toc =
-        let title = Package_map.Module.name module' in
-        let kind = Package_map.Module.kind module' in
-        let href = Some (root ^ Package_map.Module.path module') in
+        let title = Package_info.Module.name module' in
+        let kind = Package_info.Module.kind module' in
+        let href = Some (root ^ Package_info.Module.path module') in
         let children =
-          module' |> Package_map.Module.submodules |> String.Map.bindings
+          module' |> Package_info.Module.submodules |> String.Map.bindings
           |> List.map (fun (_, module') -> toc_of_module ~root module')
         in
         let kind =
-          match kind with
-          | Package_map.Page -> Ocamlorg_frontend.Navmap.Page
+          match (kind : Package_info.Kind.t) with
+          | Page -> Ocamlorg_frontend.Navmap.Page
           | Module -> Module
-          | Leaf_page -> Leaf_page
-          | Module_type -> Module_type
+          | LeafPage -> Leaf_page
+          | ModuleType -> Module_type
           | Parameter _ -> Parameter
           | Class -> Class
-          | Class_type -> Class_type
+          | ClassType -> Class_type
           | File -> File
         in
         Ocamlorg_frontend.Navmap.{ title; href; kind; children }
       in
-      let toc_of_map ~root (map : Package_map.t) : Ocamlorg_frontend.Navmap.t =
+      let toc_of_map ~root (map : Ocamlorg_package.Package_info.t) :
+          Ocamlorg_frontend.Navmap.t =
         let libraries = map.libraries in
         String.Map.bindings libraries
-        |> List.map (fun (_, library) ->
-               let title = library.Package_map.name in
+        |> List.map (fun (_, (library : Package_info.library)) ->
+               let title = library.name in
                let href = None in
                let children =
                  String.Map.bindings library.modules
