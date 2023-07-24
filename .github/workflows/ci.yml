@@ -38,7 +38,7 @@ jobs:
           opam-disable-sandboxing: true
 
       - name: Install system dependencies (Linux)
-        run: sudo apt-get install libev-dev libonig-dev curl
+        run: sudo apt-get install libev-dev libonig-dev libcurl4-gnutls-dev
         if: runner.os == 'Linux'
 
       - name: Install system dependencies (macOS)
