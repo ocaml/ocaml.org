@@ -8,4 +8,4 @@ As part of our ongoing efforts to streamline our services, the Benchmarking Serv
 
 During the transition, we will make every effort to minimise any service disruptions, and our support team will be readily available to assist with any questions or concerns you may have. The new address is now active, and the old links remain valid.
 
-If you have any inquiries or require further information, please don't hesitate to reach out to the [Ocaml Infrastructure team](https://github.com/ocaml/infrastructure/issues).
+If you have any inquiries or require further information, please don't hesitate to reach out to the [OCaml Infrastructure team](https://github.com/ocaml/infrastructure/issues).
