@@ -58,7 +58,9 @@ let opam_docs req =
   let version = Dream.param req "version" in
   let slug = Dream.param req "slug" in
   let</>? doc =
-    List.find_opt (fun x -> x.Data.OpamDocs.slug = slug && x.version = version) Data.OpamDocs.all
+    List.find_opt
+      (fun x -> x.Data.OpamDocs.slug = slug && x.version = version)
+      Data.OpamDocs.all
   in
   let docs =
     Data.OpamDocs.all
