@@ -33,6 +33,9 @@ jobs:
             pin: git+https://github.com/ocaml/opam-repository#9cf27a6683dc4e56ccf7e35c008198828bd5c267
           opam-disable-sandboxing: true
 
+      - name: Install system dependencies
+        run: sudo apt update && sudo apt-get install libcurl4-openssl-dev
+
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
 
