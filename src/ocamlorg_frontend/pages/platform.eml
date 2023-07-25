@@ -4,7 +4,7 @@ let render_sidebar
 ()
 =
   <div class="flex flex-col gap-10">
-    <%s! Learn_sidebar.render ~tutorials ~current_tutorial:active %>
+    <%s! Learn_sidebar.render ~tutorials ~current_tutorial:active ~section:Learn_layout.Platform %>
   </div>
 
 let render

@@ -12,9 +12,9 @@ let right_sidebar
 =
   <%s! Toc.render (List.map tutorial_toc_to_toc tutorial.toc) %>
 
-let left_sidebar ~tutorials ~current_tutorial =
+let left_sidebar ~tutorials ~current_tutorial ~section =
   <div class="flex flex-col gap-10">
-    <%s! Learn_sidebar.render ~tutorials ~current_tutorial %>
+    <%s! Learn_sidebar.render ~tutorials ~current_tutorial ~section %>
   </div>
 
 let of_tutorial_section (s: Data.Tutorial.Section.t) =
@@ -34,7 +34,7 @@ Learn_layout.render
 ~description:tutorial.description
 ~canonical
 ~active_top_nav_item:Learn
-~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some tutorial.slug) ~tutorials))
+~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some tutorial.slug) ~tutorials ~section:(of_tutorial_section tutorial.section)))
 ~right_sidebar_html:(Some(right_sidebar tutorial))
 ~current:(of_tutorial_section tutorial.section) @@
   <div class="prose prose-orange max-w-full">

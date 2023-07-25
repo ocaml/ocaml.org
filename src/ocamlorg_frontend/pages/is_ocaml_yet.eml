@@ -1,3 +1,8 @@
+let left_sidebar ~tutorials ~current_tutorial =
+  <div class="flex flex-col gap-10">
+    <%s! Learn_sidebar.render ~tutorials ~current_tutorial ~section:Learn_layout.Guides %>
+  </div>
+
 let render
 (meta : Data.Is_ocaml_yet.t)
 ~tutorials
@@ -9,7 +14,7 @@ Learn_layout.render
 ~canonical:(Url.is_ocaml_yet meta.id)
 ~active_top_nav_item:Header.Learn
 ~current:Learn_layout.Guides
-~left_sidebar_html:(Some(Learn_sidebar.render ~current_tutorial:(Some (Printf.sprintf "is-ocaml-%s-yet" meta.id)) ~tutorials))
+~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some (Printf.sprintf "is-ocaml-%s-yet" meta.id)) ~tutorials))
 ~right_sidebar_html:None @@
 <h1 class="font-bold mb-8"><%s meta.question %></h1>
 <p class="mt-6 text-xl leading-8"><%s meta.answer %></p>
