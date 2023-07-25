@@ -110,7 +110,7 @@ thinking about writing OCaml bindings to a rock-solid cryptographic library
 written in C.</p>
 <p><a href="http://nacl.cr.yp.to/">NaCl</a> is a modern, well-regarded crypto implementation, created by a
 group of pretty famous and equally well-regarded cryptographers, and was the
-first choice. Or at least its more approachable and packageable <a href="http://labs.opendns.com/2013/03/06/announcing-sodium-a-new-cryptographic-library/">fork</a>
+first choice. Or at least its more approachable and packageable <a href="http://labs.opendns.com/2013/03/06/announcing-sodium-a-new-cryptographic-library/ - [1 Client error: Timeout was reached]">fork</a>
 was, which already had <a href="https://github.com/dsheets/ocaml-sodium">OCaml bindings</a>. Unfortunately, <code>NaCl</code>
 provides a narrow selection of implementations of various cryptographic
 primitives, the ones its authors thought were best-of-breed (for example, the
@@ -118,7 +118,7 @@ only symmetric ciphers it implements are (X-)Salsa and AES in CTR mode). And
 they are probably right (in some aspects they are <em>certainly</em> right), but NaCl
 is best used for implementations of newly-designed security protocols. It is
 simply too opinionated to support an old, standardized behemoth like TLS.</p>
-<p>Then there is <a href="https://www.openssl.org/docs/crypto/crypto.html">crypto</a>, the library OpenSSL is built on top of. It
+<p>Then there is <a href="https://www.openssl.org/docs/crypto/crypto.html - [404 Not Found]">crypto</a>, the library OpenSSL is built on top of. It
 is quite famous and provides optimized implementations of a wide range of
 cryptographic algorithms. It also contains upwards of 200,000 lines of C and a
 very large API footprint, and it's unclear whether it would be possible to run
@@ -204,7 +204,7 @@ analysis already uncovered some potential memory issues, so we are looking for
 better implementations.</p>
 <h3>Public-key cryptography</h3>
 <p>Bignum arithmetic is provided by the excellent <a href="https://forge.ocamlcore.org/projects/zarith">zarith</a> library, which
-in turn uses <a href="https://gmplib.org/">GMP</a>. This might create some portability problems later on,
+in turn uses <a href="https://gmplib.org/ - [1 Client error: Timeout was reached]">GMP</a>. This might create some portability problems later on,
 but as GMP is widely used and well rounded code base which also includes some of
 the needed auxiliary number-theoretical functions (its slightly extended
 Miller-Rabin probabilistic primality test and the fast next-prime-scanning

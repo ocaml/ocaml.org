@@ -1,7 +1,7 @@
 ---
 title: My OCaml Collection
 description:
-url: http://reynard.io/2017/03/10/OCamlCollection.html
+url: http://reynard.io/2017/03/10/OCamlCollection.html - [1 Client error: Couldn't resolve host name]
 date: 2017-03-10T00:00:00-00:00
 preview_image:
 featured:

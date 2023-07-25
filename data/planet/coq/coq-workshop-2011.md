@@ -11,6 +11,6 @@ source:
 ---
 
 
-<p>The <a href="http://www.cs.ru.nl/~spitters/coqw.html">Coq Workshop 2011</a> will be held on August 26 at Nijmegen, as part of ITP 2011.</p>
+<p>The <a href="http://www.cs.ru.nl/~spitters/coqw.html - [404 Not Found]">Coq Workshop 2011</a> will be held on August 26 at Nijmegen, as part of ITP 2011.</p>
 
  

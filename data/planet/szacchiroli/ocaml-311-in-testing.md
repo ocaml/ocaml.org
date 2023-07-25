@@ -12,7 +12,7 @@ source:
 
 <h1>OCaml 3.11 has migrated to testing</h1>
 <p><a href="http://lists.debian.org/debian-ocaml-maint/2009/04/msg00029.html">Quoting</a>
-from <a href="http://chistera.yi.org/~adeodato/blog/planetd.html">Dato</a>:</p>
+from <a href="http://chistera.yi.org/~adeodato/blog/planetd.html - [1 Client error: Timeout was reached]">Dato</a>:</p>
 <pre><code>* St&eacute;phane Glondu [Sat, 04 Apr 2009 14:01:35 +0200]:
 &gt; Adeodato Sim&oacute; a &eacute;crit :
 &gt; &gt;&gt; Please schedule the attached requests for the OCaml 3.11.0 transition.
@@ -41,7 +41,7 @@ testing</strong> YAY \o/</p>
 kudos go to the (not so) newbies of the <a href="http://wiki.debian.org/Teams/OCamlTaskForce">Debian OCaml Task
 Force</a>, and in particular to <em>Stephane Glondu</em> and
 <em>Mehdi Dogguy</em>: they have contributed work to a lot of
-packages and have also developed <a href="http://glondu.net/debian/ocaml_transition_monitor.html">new
+packages and have also developed <a href="http://glondu.net/debian/ocaml_transition_monitor.html - [404 Not Found]">new
 tools</a> which helped monitoring the transition effectively.</p>
 <p>Keep up the good work.</p>
 

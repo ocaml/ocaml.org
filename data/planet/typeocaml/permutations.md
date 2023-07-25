@@ -311,7 +311,7 @@ let generator = permutations_generator [1;2;3]
 
 <h1>A stream of permutations</h1>
 
-<p>Now it is fairly easy to produce a stream of permutations via built-in <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/Stream.html">Stream</a>.</p>
+<p>Now it is fairly easy to produce a stream of permutations via built-in <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/Stream.html - [404 Not Found]">Stream</a>.</p>
 
 <pre><code class="ocaml">let stream_of_permutations l =  
   let generator = permutations_generator l in

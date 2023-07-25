@@ -26,7 +26,7 @@ source:
  
 <li><a href="http://caml.inria.fr/pub/docs/manual-camlp4/manual007.html">reference (old camlp4)</a></li> 
  
-<li><a href="http://brion.inria.fr/gallium/index.php/Revised">wiki page (new camlp4)</a></li> 
+<li><a href="http://brion.inria.fr/gallium/index.php/Revised - [404 Not Found]">wiki page (new camlp4)</a></li> 
 </ul> 
  
 <p>The final word on the revised syntax is of course the parser itself, found in <code>Camlp4OCamlRevisedParser.ml</code>; you may find these <a href="http://ambassadortothecomputers.blogspot.com/2009/01/reading-camlp4-part-3-quotations-in.html">earlier</a> <a href="http://ambassadortothecomputers.blogspot.com/2010/05/reading-camlp4-part-6-parsing.html">posts</a> useful in making sense of it.</p>

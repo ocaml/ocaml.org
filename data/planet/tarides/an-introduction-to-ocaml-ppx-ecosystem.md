@@ -17,7 +17,7 @@ thought I knew really well. Turns out I actually had no idea what I was doing al
 <p>All jokes aside, I was surprised that the most helpful tricks I learned while writing PPX rewriters
 weren't properly documented. There already exist a few very good introduction articles on the
 subject, like that
-<a href="https://whitequark.org/blog/2014/04/16/a-guide-to-extension-points-in-ocaml/">2014's article from Whitequark</a>,
+<a href="https://whitequark.org/blog/2014/04/16/a-guide-to-extension-points-in-ocaml/ - [404 Not Found]">2014's article from Whitequark</a>,
 this <a href="http://rgrinberg.com/posts/extensions-points-update-1/">more recent one from Rudi Grinberg</a>
 or even <a href="https://victor.darvariu.me/jekyll/update/2018/06/19/ppx-tutorial.html">this last one from Victor Darvariu</a>
 I only discovered after I actually started writing my own. I still felt like they were slightly

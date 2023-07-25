@@ -61,11 +61,11 @@ My IDE of choice is Eclipse<a href="https://www.blogger.com/blogger.g?blogID=954
 <div>
 <br/></div>
 <div>
-There are multiple guides (from <a href="http://www.seas.upenn.edu/~cis120/current/ocaml_setup.shtml" target="_blank">Upenn</a>, <a href="http://www.cs.jhu.edu/~scott/pl/caml/ocaide.shtml" target="_blank">JSU</a>) on the web on how to do just that, just make sure that you get all the prerequesite components such as Java 7 installed and ready to go.</div>
+There are multiple guides (from <a href="http://www.seas.upenn.edu/~cis120/current/ocaml_setup.shtml - [404 Not Found]" target="_blank">Upenn</a>, <a href="http://www.cs.jhu.edu/~scott/pl/caml/ocaide.shtml - [404 Not Found]" target="_blank">JSU</a>) on the web on how to do just that, just make sure that you get all the prerequesite components such as Java 7 installed and ready to go.</div>
 <div>
 <br/></div>
 <div>
-<a href="http://www.seas.upenn.edu/~cis120/current/ocaml_setup.shtml" target="_blank">Upenn CS120</a> provides a nice list for you to follow, make sure that you do! - thanks guys!</div>
+<a href="http://www.seas.upenn.edu/~cis120/current/ocaml_setup.shtml - [404 Not Found]" target="_blank">Upenn CS120</a> provides a nice list for you to follow, make sure that you do! - thanks guys!</div>
 <div>
 <br/></div>
 <blockquote class="tr_bq">
@@ -93,7 +93,7 @@ There are multiple guides (from <a href="http://www.seas.upenn.edu/~cis120/curre
 <br/>
 <h3>
 Vim&nbsp;</h3>
-[Update] VIM grows on me. If you are interest to configure VIM to use OCaml, please follow <a href="http://anil.recoil.org/2013/10/03/merlin-and-vim.html" target="_blank">these instructions </a>by<a href="https://twitter.com/avsm" target="_blank"> @avsm</a>.<br/>
+[Update] VIM grows on me. If you are interest to configure VIM to use OCaml, please follow <a href="http://anil.recoil.org/2013/10/03/merlin-and-vim.html" target="_blank">these instructions </a>by<a href="https://twitter.com/avsm - [1 Client error: Number of redirects hit maximum amount]" target="_blank"> @avsm</a>.<br/>
 <br/>
 Here is how my ~/.vimrc looks like:<br/>
 <blockquote class="tr_bq">

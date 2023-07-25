@@ -1,7 +1,7 @@
 ---
 title: Eleventh OCaml compiler hacking evening at Pembroke College
 description:
-url: http://ocamllabs.github.com/compiler-hacking/2015/11/24/compiler-hacking-at-pembroke
+url: http://ocamllabs.github.com/compiler-hacking/2015/11/24/compiler-hacking-at-pembroke - [404 Not Found]
 date: 2015-11-24T12:00:00-00:00
 preview_image:
 featured:
@@ -24,7 +24,7 @@ source:
 
 <p><em><strong>Wiki</strong></em>: https://github.com/ocamllabs/compiler-hacking/wiki</p>
 
-<p>We're defining &quot;compiler&quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the <a href="https://github.com/ocaml/ocaml/tree/trunk/stdlib">standard library</a>, <a href="https://github.com/ocaml/ocaml/tree/trunk/byterun">run</a><a href="https://github.com/ocaml/ocaml/tree/trunk/asmrun">time</a>, tools (<a href="http://caml.inria.fr/pub/docs/manual-ocaml/depend.html">ocamldep</a>, <a href="https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html">ocamllex</a>, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html">ocamlyacc</a>, etc.), <a href="https://github.com/ocaml/camlp4">camlp4</a>, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-400/manual032.html">ocamlbuild</a>, the <a href="https://github.com/ocaml/ocaml-manual">documentation</a>, <a href="https://opam.ocaml.org/">OPAM</a>, and the <a href="https://github.com/ocaml/ocaml">compiler</a> itself. We'll have <a href="https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on">suggestions for mini-projects</a> for various levels of experience, but feel free to come along and work on whatever you fancy.</p>
+<p>We're defining &quot;compiler&quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the <a href="https://github.com/ocaml/ocaml/tree/trunk/stdlib">standard library</a>, <a href="https://github.com/ocaml/ocaml/tree/trunk/byterun - [404 Not Found]">run</a><a href="https://github.com/ocaml/ocaml/tree/trunk/asmrun - [404 Not Found]">time</a>, tools (<a href="http://caml.inria.fr/pub/docs/manual-ocaml/depend.html">ocamldep</a>, <a href="https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html - [404 Not Found]">ocamllex</a>, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html - [404 Not Found]">ocamlyacc</a>, etc.), <a href="https://github.com/ocaml/camlp4">camlp4</a>, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-400/manual032.html - [404 Not Found]">ocamlbuild</a>, the <a href="https://github.com/ocaml/ocaml-manual">documentation</a>, <a href="https://opam.ocaml.org/">OPAM</a>, and the <a href="https://github.com/ocaml/ocaml">compiler</a> itself. We'll have <a href="https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on">suggestions for mini-projects</a> for various levels of experience, but feel free to come along and work on whatever you fancy.</p>
 
 <p>Drinks and finger buffet will be provided.</p>
 

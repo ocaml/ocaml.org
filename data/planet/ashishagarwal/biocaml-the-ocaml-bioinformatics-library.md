@@ -19,5 +19,5 @@ Biology is an increasingly computational discipline due to rapid advances in exp
 <p><a href="http://ashishagarwal.org/wp-content/uploads/2012/09/biocaml-OUD2012.pdf" class="pdf">Download slides</a><br/>
 <a href="http://www.youtube.com/watch?v=rzrqcTWc2V8&amp;feature=plcp" class="television">Video</a></p>
 <p><strong>Citation</strong><br/>
-Ashish Agarwal, Sebastien Mondet, Philippe Veber, Christophe Troestler, Francois Berenger. Biocaml: The OCaml Bioinformatics Library. <em><a href="http://oud.ocaml.org">OCaml Users and Developers Meeting 2012</a></em>, Copenhagen, Denmark, Sep 14, 2012.</p>
+Ashish Agarwal, Sebastien Mondet, Philippe Veber, Christophe Troestler, Francois Berenger. Biocaml: The OCaml Bioinformatics Library. <em><a href="http://oud.ocaml.org - [1 Client error: Couldn't resolve host name]">OCaml Users and Developers Meeting 2012</a></em>, Copenhagen, Denmark, Sep 14, 2012.</p>
 

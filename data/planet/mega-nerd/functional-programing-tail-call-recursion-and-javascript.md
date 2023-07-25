@@ -14,7 +14,7 @@ source:
 
 <p>
 About 6 weeks ago, I got an email from
-	<a href="http://blogs.atlassian.com/developer/csharkie/">
+	<a href="http://blogs.atlassian.com/developer/csharkie/ - [403 Forbidden]">
 	Craig Sharkie</a>,
 who runs the Sydney Javascript group,
 	<a href="http://sydjs.com/">
@@ -30,7 +30,7 @@ really done all that much Javascript.
 
 <p>
 On the night, I showed up, had a beer and then presented
-	<a href="http://www.mega-nerd.com/erikd/Blog/files/js-tail-call.pdf">
+	<a href="http://www.mega-nerd.com/erikd/Blog/files/js-tail-call.pdf - [404 Not Found]">
 	my slides</a>.
 I started off explaining what functional programming is and why its is
 interesting (hint; common language features like garbage collection, dynamic
@@ -41,7 +41,7 @@ languages).
 <p>
 I used the factorial function as an example of function that can be implemented
 recursively and I demoed the
-	<a href="http://www.mega-nerd.com/erikd/Blog/files/js-demo/">
+	<a href="http://www.mega-nerd.com/erikd/Blog/files/js-demo/ - [404 Not Found]">
 	Javascript versions</a>
 in a web browser.
 I gave the standard recursive form whose stack usage grows linearly with
@@ -92,7 +92,7 @@ optimisation and few of the Javascript engines implement it.
 <p>
 For languages whose compilers do implement the TCO, the above function will
 run in constant stack space and I demonstrated this using the same function
-	<a href="http://www.mega-nerd.com/erikd/Blog/files/mlfactorial.ml">
+	<a href="http://www.mega-nerd.com/erikd/Blog/files/mlfactorial.ml - [404 Not Found]">
 	written in Ocaml</a>:
 </p>
 
@@ -163,7 +163,7 @@ The solution adds a couple of new properties to the prototype of the
 <tt><b>Function</b></tt> object to provide delimited continuations (another
 idea from functional programming).
 See the
-	<a href="http://www.mega-nerd.com/erikd/Blog/files/js-demo/demo5-factorial.js">
+	<a href="http://www.mega-nerd.com/erikd/Blog/files/js-demo/demo5-factorial.js - [404 Not Found]">
 	the code</a>
 for the details.
 Suffice to say that this solution is really elegant and should be safe to run
@@ -174,10 +174,10 @@ broken.
 <p>
 As far as I am concerned, my presentation was received very well and the Twitter
 responses (all two of them) ranged from
-	<a href="https://twitter.com/sydjs/status/4821816115728384">
+	<a href="https://twitter.com/sydjs/status/4821816115728384 - [1 Client error: Number of redirects hit maximum amount]">
 	<i>&quot;brain melting&quot;</i></a>
 to
-	<a href="https://twitter.com/pamelafox/status/4884534680092672">
+	<a href="https://twitter.com/pamelafox/status/4884534680092672 - [1 Client error: Number of redirects hit maximum amount]">
 	<i>&quot;awesome&quot;</i></a>.
 </p>
 

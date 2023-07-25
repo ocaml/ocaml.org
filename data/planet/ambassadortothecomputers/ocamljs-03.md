@@ -11,7 +11,7 @@ authors:
 source:
 ---
 
-<p>I am happy to announce version 0.3 of ocamljs. Ocamljs is a system for compiling OCaml to Javascript. It includes a Javascript back-end for the OCaml compiler, as well as several support libraries, such as bindings to the browser DOM. Ocamljs also works with <a href="http://jaked.github.com/orpc">orpc</a> for RPC over HTTP, and <a href="http://jaked.github.com/froc">froc</a> for functional reactive browser programming.</p> 
+<p>I am happy to announce version 0.3 of ocamljs. Ocamljs is a system for compiling OCaml to Javascript. It includes a Javascript back-end for the OCaml compiler, as well as several support libraries, such as bindings to the browser DOM. Ocamljs also works with <a href="http://jaked.github.com/orpc - [404 Not Found]">orpc</a> for RPC over HTTP, and <a href="http://jaked.github.com/froc - [404 Not Found]">froc</a> for functional reactive browser programming.</p> 
  
 <p>Changes since version 0.2 include:</p> 
  
@@ -36,9 +36,9 @@ source:
 <ul> 
 <li>project page: <a href="http://github.com/jaked/ocamljs">http://github.com/jaked/ocamljs</a></li> 
  
-<li>documentation: <a href="http://jaked.github.com/ocamljs">http://jaked.github.com/ocamljs</a></li> 
+<li>documentation: <a href="http://jaked.github.com/ocamljs - [404 Not Found]">http://jaked.github.com/ocamljs - [404 Not Found]</a></li> 
  
-<li>downloads: <a href="http://github.com/jaked/ocamljs/downloads">http://github.com/jaked/ocamljs/downloads</a></li> 
+<li>downloads: <a href="http://github.com/jaked/ocamljs/downloads - [404 Not Found]">http://github.com/jaked/ocamljs/downloads - [404 Not Found]</a></li> 
 </ul> 
 <b>Comparison to js_of_ocaml</b> 
 <p>Since I last did an <code>ocamljs</code> release, a new OCaml-to-Javascript system has arrived, <a href="http://ocsigen.org/js_of_ocaml/"><code>js_of_ocaml</code></a>. I want to say a little about how the two systems compare:</p> 
@@ -55,6 +55,6 @@ source:
  
 <p><code>Ocamljs</code> supports inline Javascript, while <code>js_of_ocaml</code> does not. I think it might be possible for <code>js_of_ocaml</code> to do so using the same approach that <code>ocamljs</code> takes: use Camlp4 quotations to embed a syntax tree, then convert the syntax tree from its OCaml representation (as lambda code or bytecode) into Javascript. However, you would still need conversion functions between OCaml and Javascript values.</p> 
  
-<p>I haven&rsquo;t compared the performance of the two systems. It seems like there must be a speed penalty to translating from bytecode compared to translating from lambda code. On the other hand, while <code>ocamljs</code> is very naive in its translation, <code>js_of_ocaml</code> makes several optimization passes. With many programs it doesn&rsquo;t matter, since most of the time is spent in browser code. (For example, the <code>planet</code> example seems to run at the same speed in <a href="http://jaked.github.com/ocamljs/examples/dom/planet/"><code>ocamljs</code></a> and <a href="http://ocsigen.org/js_of_ocaml/planet/"><code>js_of_ocaml</code></a>.) It would be interesting to compare them on something computationally intensive like Andrej Bauer&rsquo;s <a href="http://random-art.org/">random-art.org</a>.</p> 
+<p>I haven&rsquo;t compared the performance of the two systems. It seems like there must be a speed penalty to translating from bytecode compared to translating from lambda code. On the other hand, while <code>ocamljs</code> is very naive in its translation, <code>js_of_ocaml</code> makes several optimization passes. With many programs it doesn&rsquo;t matter, since most of the time is spent in browser code. (For example, the <code>planet</code> example seems to run at the same speed in <a href="http://jaked.github.com/ocamljs/examples/dom/planet/ - [404 Not Found]"><code>ocamljs</code></a> and <a href="http://ocsigen.org/js_of_ocaml/planet/ - [404 Not Found]"><code>js_of_ocaml</code></a>.) It would be interesting to compare them on something computationally intensive like Andrej Bauer&rsquo;s <a href="http://random-art.org/">random-art.org</a>.</p> 
  
 <p><code>Js_of_ocaml</code> is more complete and careful in its implementation of OCaml (e.g. it supports <code>int64</code>s), and it generates much more compact code than <code>ocamljs</code>. I hope to close the gap in these areas, possibly by borrowing some code and good ideas from <code>js_of_ocaml</code>.</p>

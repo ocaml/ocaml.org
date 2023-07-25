@@ -92,7 +92,7 @@ between sending the records, suggesting that a wakeup event was missing.</p>
 <p>Perhaps <a href="https://github.com/mirage/ocaml-vchan">ocaml-vchan</a>, the OCaml implementation of vchan, wasn't implementing the vchan specification correctly?
 I wanted to check, but there was a problem: there was no vchan specification.</p>
 <p>The Xen wiki lists vchan under <a href="https://wiki.xenproject.org/wiki/Xen_Document_Days/TODO#Documentation_on_lib.28xen.29vchan">Xen Document Days/TODO</a>.
-The <a href="https://xenbits.xen.org/gitweb/?p=xen.git%3Ba=commit%3Bh=1a16a3351ff2f2cf9f0cc0a27c89a0652eb8dfb4">initial Git commit</a> on 2011-10-06 said:</p>
+The <a href="https://xenbits.xen.org/gitweb/?p=xen.git%3Ba=commit%3Bh=1a16a3351ff2f2cf9f0cc0a27c89a0652eb8dfb4 - [404 Not Found]">initial Git commit</a> on 2011-10-06 said:</p>
 <blockquote>
 <p>libvchan: interdomain communications library</p>
 <p>This library implements a bidirectional communication interface between
@@ -209,7 +209,7 @@ If a VM tries to sleep while it has an event pending, it will immediately wake u
 Sending an event when one is already pending has no effect.
 </li>
 </ol>
-<p>The <a href="http://xenbits.xen.org/gitweb/?p=xen.git%3Ba=blob%3Bf=xen/include/public/io/libxenvchan.h%3Bh=44284f437ab30f01049f280035dbb711103ca9b0%3Bhb=HEAD">public/io/libxenvchan.h</a> header file provides some information,
+<p>The <a href="http://xenbits.xen.org/gitweb/?p=xen.git%3Ba=blob%3Bf=xen/include/public/io/libxenvchan.h%3Bh=44284f437ab30f01049f280035dbb711103ca9b0%3Bhb=HEAD - [404 Not Found]">public/io/libxenvchan.h</a> header file provides some information,
 including the shared structures and comments about them:</p>
 <figure class="code"><figcaption><span>xen/include/public/io/libxenvchan.h</span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -307,7 +307,7 @@ including the shared structures and comments about them:</p>
 </span><span class="line"><span class="cm">     */</span>
 </span><span class="line">    <span class="kt">uint32_t</span> <span class="n">grants</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 </span><span class="line"><span class="p">};</span>
-</span></code></pre></td></tr></tbody></table></div></figure><p>You might also like to look at <a href="http://xenbits.xen.org/gitweb/?p=xen.git%3Ba=tree%3Bf=tools/libvchan%3Bh=44e5af5adacc92511f29d1ab3e1c1037c7ea60fa%3Bhb=HEAD">the vchan source code</a>.
+</span></code></pre></td></tr></tbody></table></div></figure><p>You might also like to look at <a href="http://xenbits.xen.org/gitweb/?p=xen.git%3Ba=tree%3Bf=tools/libvchan%3Bh=44e5af5adacc92511f29d1ab3e1c1037c7ea60fa%3Bhb=HEAD - [404 Not Found]">the vchan source code</a>.
 Note that the <code>libxenvchan.h</code> file in this directory includes and extends
 the above header file (with the same name).</p>
 <p>For this blog post, we will ignore the Xen-specific business of sharing the memory
@@ -1274,7 +1274,7 @@ see <a href="https://lamport.azurewebsites.net/tla/inductive-invariant.pdf">Usin
 </ul>
 <h3>Proving Integrity</h3>
 <p>TLA provides a syntax for writing proofs,
-and integrates with <a href="https://tla.msr-inria.inria.fr/tlaps/content/Home.html">TLAPS</a> (the <em>TLA+ Proof System</em>) to allow them to be checked automatically.</p>
+and integrates with <a href="https://tla.msr-inria.inria.fr/tlaps/content/Home.html - [1 Client error: SSL peer certificate or SSH remote key was not OK]">TLAPS</a> (the <em>TLA+ Proof System</em>) to allow them to be checked automatically.</p>
 <p>Proving <code>IntegrityI</code> is just a matter of showing that <code>Init =&gt; IntegrityI</code> and that it is preserved
 by any possible <code>[Next]_vars</code> step.
 To do that, we consider each action of <code>Next</code> individually, which is long but simple enough.</p>

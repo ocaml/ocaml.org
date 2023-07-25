@@ -21,7 +21,7 @@ Most would shudder at the thought.
 
 <p>
 My choice of editor for the last 15 years has been Nedit, the
-	<a href="http://www.nedit.org/">
+	<a href="http://www.nedit.org/ - [1 Client error: Timeout was reached]">
 	Nirvana Editor</a>.
 Nedit has been an outstanding editor; feature full yet easy to use.
 When I first started using it, Nedit was a closed source binary-only download
@@ -42,7 +42,7 @@ a number of years, or
 	<a href="http://www.opengroup.org/openmotif/">
 	OpenMotif</a>
 released under a license which is in no way
-	<a href="http://www.opensource.org/">
+	<a href="http://www.opensource.org/ - [403 Forbidden]">
 	OSI approved</a>.
 On top of that, Nedit still doesn't support UTF-8, mainly because Lesstif
 doesn't support it.

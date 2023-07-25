@@ -43,7 +43,7 @@ the Git file format.</p>
 <h3>Persistent Data Structures</h3>
 <p>Persistent data structures are well known and used pervasively in many
 different areas. The programming language community has
-investigated the concepts <a href="https://www.cs.cmu.edu/~rwh/theses/okasaki.pdf">widely</a> (and this is <a href="http://en.wikipedia.org/wiki/Object_copy">not
+investigated the concepts <a href="https://www.cs.cmu.edu/~rwh/theses/okasaki.pdf - [404 Not Found]">widely</a> (and this is <a href="http://en.wikipedia.org/wiki/Object_copy">not
 limited</a> to functional programming), and in the meantime,
 the systems community experimented with various persistent
 strategies such as <a href="http://en.wikipedia.org/wiki/Copy-on-write">copy-on-write</a> filesystems. In most of these
@@ -92,7 +92,7 @@ is the very simple and deterministic mapping from high-level data
 structures to low-level block representations (the <em>heap</em>): see for
 instance, the excellent series of blog posts on <a href="http://rwmj.wordpress.com/2009/08/04/ocaml-internals/">OCaml
 internals</a> by Richard W. Jones, or
-<a href="https://realworldocaml.org/v1/en/html/memory-representation-of-values.html">Chapter 20: Memory Representation of Values</a> in
+<a href="https://realworldocaml.org/v1/en/html/memory-representation-of-values.html - [404 Not Found]">Chapter 20: Memory Representation of Values</a> in
 <a href="https://realworldocaml.org">Real World OCaml</a>.</p>
 <p>An Irmin <em>block store</em> can be seen as a virtual OCaml heap that uses a more
 abstract way of connecting heap blocks. Instead of using the concrete physical
@@ -260,7 +260,7 @@ available to inspect, and that the history model is very similar to the Git
 workflow that is increasingly familiar. So similar, in fact, that we've
 developed a bidirectional mapping between Irmin data structures and the Git
 format to permit the <code>git</code> command-line to interact with.</p>
-<p>The <a href="https://mirage.io/blog/introducing-irmin-in-xenstore">next post in our series</a> explains what <a href="http://dave.recoil.org/">Dave Scott</a> has been doing
+<p>The <a href="https://mirage.io/blog/introducing-irmin-in-xenstore">next post in our series</a> explains what <a href="http://dave.recoil.org/ - [1 Client error: SSL connect error]">Dave Scott</a> has been doing
 with the new version of the <a href="http://wiki.xen.org/wiki/XenStoreReference">Xenstore</a> database that powers every Xen host,
 where the entire database is stored in a prefix-tree Irmin data-structure and exposed
 as a Git repository which is live-updated!  Here's a sneak preview...</p>

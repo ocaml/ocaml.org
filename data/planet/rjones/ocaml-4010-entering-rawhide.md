@@ -13,8 +13,8 @@ source:
 ---
 
 <p>After using OCaml for around 10 years it is still my favourite language, and it&rsquo;s amazing how far ahead of other programming languages it remains to this day.</p>
-<p><a href="https://sympa.inria.fr/sympa/arc/caml-list/2013-09/msg00173.html">OCaml 4.01.0 was released on Thursday</a> and I&rsquo;m putting it into Fedora Rawhide over this weekend.</p>
-<p>Debuginfo is now (partially) enabled.  <a href="http://www.ocamlpro.com/blog/2012/08/20/ocamlpro-and-4.00.0.html">The OCaml code generator has produced good quality DWARF information for a while</a>, and now you are able to debug OCaml programs in gdb under Fedora:</p>
+<p><a href="https://sympa.inria.fr/sympa/arc/caml-list/2013-09/msg00173.html - [1 Client error: Number of redirects hit maximum amount]">OCaml 4.01.0 was released on Thursday</a> and I&rsquo;m putting it into Fedora Rawhide over this weekend.</p>
+<p>Debuginfo is now (partially) enabled.  <a href="http://www.ocamlpro.com/blog/2012/08/20/ocamlpro-and-4.00.0.html - [404 Not Found]">The OCaml code generator has produced good quality DWARF information for a while</a>, and now you are able to debug OCaml programs in gdb under Fedora:</p>
 <pre>
 $ <b>sudo debuginfo-install ocaml ocaml-findlib</b>
 $ <b>gdb /usr/bin/ocamlfind</b>

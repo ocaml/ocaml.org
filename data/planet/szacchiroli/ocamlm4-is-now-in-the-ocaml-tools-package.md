@@ -12,7 +12,7 @@ source:
 
 <h1>ocaml-autoconf Debian packaged</h1>
 <p><a href="http://upsilon.cc/~zack/blog/posts/2009/04/ocaml_autoconf_1.0/">A while
-ago</a>, me and <a href="http://www.annexia.org/richard_w.m._jones">Richard Jones</a> have
+ago</a>, me and <a href="http://www.annexia.org/richard_w.m._jones - [1 Client error: Timeout was reached]">Richard Jones</a> have
 federated the various stubs for OCaml autoconf support in the
 <a href="http://ocaml-autoconf.forge.ocamlcore.org/">ocaml-autoconf</a>
 project.</p>

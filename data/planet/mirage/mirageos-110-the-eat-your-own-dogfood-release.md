@@ -22,16 +22,16 @@ for building unikernels.</p>
 <h4>Functional combinators to build device drivers</h4>
 <p>MirageOS separates the
 application logic from the concrete backend in use by writing the application
-as an <a href="https://realworldocaml.org/v1/en/html/functors.html">OCaml functor</a>
+as an <a href="https://realworldocaml.org/v1/en/html/functors.html - [404 Not Found]">OCaml functor</a>
 that is parameterized over module types that represent the device driver
 signature.  All of the module types used in MirageOS can be browsed in <a href="https://github.com/mirage/mirage/blob/1.1.0/types/V1.mli">one
 source file</a>.</p>
-<p>In MirageOS 1.1.0, <a href="http://gazagnaire.org/">Thomas Gazagnaire</a> implemented a
+<p>In MirageOS 1.1.0, <a href="http://gazagnaire.org/ - [1 Client error: Timeout was reached]">Thomas Gazagnaire</a> implemented a
 a <a href="https://github.com/mirage/mirage/blob/1.1.0/lib/mirage.mli#L28">combinator library</a>
 that makes it easy to separate the definition of application logic from the details
 of the device drivers that actually execute the code (be it a Unix binary or a
 dedicated Xen kernel).  It lets us write code of this form
-(taken from <a href="https://github.com/mirage/mirage-skeleton/tree/master/block">mirage-skeleton/block</a>):</p>
+(taken from <a href="https://github.com/mirage/mirage-skeleton/tree/master/block - [404 Not Found]">mirage-skeleton/block</a>):</p>
 <pre><code class="language-ocaml">let () =
   let main = foreign &quot;Unikernel.Block_test&quot; (console @-&gt; block @-&gt; job) in
   let img = block_of_file &quot;disk.img&quot; in
@@ -53,7 +53,7 @@ deployment scenarios.  It's also followed by the <a href="https://mirage.io/docs
 that explains how this website works, and how our <a href="https://mirage.io/docs/deploying-via-ci">Travis autodeployment</a>
 throws the result onto the public Internet.</p>
 <p>Who will win the race to get our website up and running first?  Sadly for Anil,
-<a href="http://www.cs.nott.ac.uk/~rmm/">Mort</a> is currently <a href="https://github.com/mor1/mort-www">in the
+<a href="http://www.cs.nott.ac.uk/~rmm/ - [403 Forbidden]">Mort</a> is currently <a href="https://github.com/mor1/mort-www">in the
 lead</a> with an all-singing, all-dancing shiny
 new website.  Will he finish in the lead though? Stay tuned!</p>
 <h4>Less magic in the build</h4>
@@ -67,7 +67,7 @@ be installed fully in parallel, including the network stack.  The 1.1.0
 style of the venerable <a href="http://www.cs.cmu.edu/~fox/foxnet.html">FoxNet</a> network
 stack, and is parameterized across its network dependencies.  This means
 that once can quickly assemble a custom network stack from modular components,
-such as this little fragment below from <a href="https://github.com/mirage/mirage-skeleton/blob/master/ethifv4/unikernel.ml">mirage-skeleton/ethifv4/</a>:</p>
+such as this little fragment below from <a href="https://github.com/mirage/mirage-skeleton/blob/master/ethifv4/unikernel.ml - [404 Not Found]">mirage-skeleton/ethifv4/</a>:</p>
 <pre><code class="language-ocaml">module Main (C: CONSOLE) (N: NETWORK) = struct
 
   module E = Ethif.Make(N)
@@ -78,7 +78,7 @@ such as this little fragment below from <a href="https://github.com/mirage/mirag
   
 </code></pre>
 <p>This functor stack starts with a <code>NETWORK</code> (i.e. Ethernet) device, and then applies
-functors until it ends up with a UDPv4, TCPv4 and DHCPv4 client.  See the <a href="https://github.com/mirage/mirage-skeleton/blob/master/ethifv4/unikernel.ml">full
+functors until it ends up with a UDPv4, TCPv4 and DHCPv4 client.  See the <a href="https://github.com/mirage/mirage-skeleton/blob/master/ethifv4/unikernel.ml - [404 Not Found]">full
 file</a>
 to see how the rest of the logic works, but this serves to illustrate how
 MirageOS makes it possible to build custom network stacks out of modular
@@ -106,16 +106,16 @@ into <a href="https://opam.ocaml.org">OPAM</a>.  Here are some of the highlights
 </li>
 <li><a href="https://github.com/mirage/cowabloga">cowabloga</a> is slowly emerging as a library to handle the details of rendering Zurb Foundation websites.  It's still in active development, but being used for a few of our <a href="https://github.com/mor1/mort-www">personal websites</a> as well as this website.
 </li>
-<li><a href="https://github.com/avsm/ocaml-cohttp">cohttp</a> has had several releases thanks to external contributions, particular from <a href="https://github.com/rgrinberg">Rudy Grinberg</a> who added s-expression support and several <a href="https://github.com/avsm/ocaml-cohttp/blob/master/CHANGES">other improvements</a>.
+<li><a href="https://github.com/avsm/ocaml-cohttp">cohttp</a> has had several releases thanks to external contributions, particular from <a href="https://github.com/rgrinberg">Rudy Grinberg</a> who added s-expression support and several <a href="https://github.com/avsm/ocaml-cohttp/blob/master/CHANGES - [404 Not Found]">other improvements</a>.
 </li>
-<li><a href="https://github.com/avsm/ocaml-uri">uri</a> features performance improvements and the elimination of Scanf (considered <a href="http://www.lexifi.com/blog/note-about-performance-printf-and-format">rather slow</a> by OCaml standards).
+<li><a href="https://github.com/avsm/ocaml-uri">uri</a> features performance improvements and the elimination of Scanf (considered <a href="http://www.lexifi.com/blog/note-about-performance-printf-and-format - [404 Not Found]">rather slow</a> by OCaml standards).
 </li>
 <li><a href="https://github.com/mirage/ocaml-cow">cow</a> continues its impossible push to make coding HTML and CSS a pleasant experience, with better support for Markdown now.
 </li>
 <li>The <a href="https://github.com/avsm/ocaml-github">github</a> bindings are now also in use as part of an experiment to make <a href="http://gallium.inria.fr/blog/patch-review-on-github/">upstream OCaml development</a> easier for newcomers, thanks to Gabriel Scherer.
 </li>
 </ul>
-<p><a href="http://dave.recoil.org">Dave Scott</a> led the splitting up of several low-level Xen libraries as part of the build simplication.  These now compile on both Xen (using the direct hypercall interface) and Unix (using the dom0 <code>/dev</code> devices) where possible.</p>
+<p><a href="http://dave.recoil.org - [1 Client error: SSL connect error]">Dave Scott</a> led the splitting up of several low-level Xen libraries as part of the build simplication.  These now compile on both Xen (using the direct hypercall interface) and Unix (using the dom0 <code>/dev</code> devices) where possible.</p>
 <ul>
 <li><a href="https://github.com/xapi-project/ocaml-evtchn">xen-evtchn</a> for the event notification mechanism. There are a couple of wiki posts that explain how <a href="https://mirage.io/wiki/xen-events">event channels</a> and <a href="https://mirage.io/wiki/xen-suspend">suspend/resume</a> work in MirageOS/Xen guests.
 </li>
@@ -127,7 +127,7 @@ into <a href="https://opam.ocaml.org">OPAM</a>.  Here are some of the highlights
 <p>All of Dave's hacking on Xen device drivers is showcased in this <a href="https://mirage.io/docs/xen-synthesize-virtual-disk">xen-disk wiki post</a> that
 explains how you can synthesize your own virtual disk backends using MirageOS.  Xen uses a <a href="https://www.usenix.org/legacy/event/usenix05/tech/general/full_papers/short_papers/warfield/warfield.pdf">split device</a> model,
 and now MirageOS lets us build <em>backend</em> device drivers that service VMs as well as the frontends!</p>
-<p>Last, but not least, <a href="http://gazagnaire.org">Thomas Gazagnaire</a> has been building a brand new storage system for MirageOS guests that uses git-style branches under the hood to help coordinate clusters of unikernels.  We'll talk about how this works in a future update, but there are some cool libraries and prototypes available on OPAM for the curious.</p>
+<p>Last, but not least, <a href="http://gazagnaire.org - [1 Client error: Timeout was reached]">Thomas Gazagnaire</a> has been building a brand new storage system for MirageOS guests that uses git-style branches under the hood to help coordinate clusters of unikernels.  We'll talk about how this works in a future update, but there are some cool libraries and prototypes available on OPAM for the curious.</p>
 <ul>
 <li><a href="https://github.com/samoht/ocaml-lazy-trie/">lazy-trie</a> is a lazy version of the Trie data structure, useful for exposing Git graphs.
 </li>
@@ -138,7 +138,7 @@ and now MirageOS lets us build <em>backend</em> device drivers that service VMs 
 <li><a href="https://github.com/samoht/git2fat">git2fat</a> converts a Git checkout into a FAT block image, useful when bundling up unikernels.
 </li>
 </ul>
-<p>We'd also like to thank several conference organizers for giving us the opportunity to demonstrate MirageOS.  The talk video from <a href="http://www.infoq.com/presentations/mirage-os">QCon SF</a> is now live, and we also had a <em>great</em> time at <a href="http://fosdem.org">FOSDEM</a> recently (summarized by Amir <a href="http://nymote.org/blog/2014/fosdem-summary/">here</a>).
+<p>We'd also like to thank several conference organizers for giving us the opportunity to demonstrate MirageOS.  The talk video from <a href="http://www.infoq.com/presentations/mirage-os">QCon SF</a> is now live, and we also had a <em>great</em> time at <a href="http://fosdem.org">FOSDEM</a> recently (summarized by Amir <a href="http://nymote.org/blog/2014/fosdem-summary/ - [404 Not Found]">here</a>).
 So lots of activities, and no doubt little bugs lurking in places (particularly around installation).  As always, please do let us know of any problem by <a href="https://github.com/mirage/mirage/issues">reporting bugs</a>, or feel free to <a href="https://mirage.io/community">contact us</a> via our e-mail lists or IRC.  Next stop: our unikernel homepages!</p>
 
       

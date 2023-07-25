@@ -12,7 +12,7 @@ source:
 ---
 
 <p>When we set up a schedule on a computer, such as a list of commands to
-run every day at particular times via Linux <a href="https://www.ostechnix.com/a-beginners-guide-to-cron-jobs">cron
+run every day at particular times via Linux <a href="https://www.ostechnix.com/a-beginners-guide-to-cron-jobs - [403 Forbidden]">cron
 jobs</a>, we
 expect that schedule to execute reliably.  Of course we&rsquo;ll check the
 logs to see whether the job has failed, but we never question whether

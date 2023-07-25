@@ -14,7 +14,7 @@ source:
 
 <p>
 After my
-	<a href="http://www.mega-nerd.com/erikd/Blog/CodeHacking/DDC/llvm_backend2.html">
+	<a href="http://www.mega-nerd.com/erikd/Blog/CodeHacking/DDC/llvm_backend2.html - [404 Not Found]">
 	last post</a>
 on this topic, I ran into some problems with the AST (abstract syntax tree) that
 was being passed to my code for LLVM code generation.

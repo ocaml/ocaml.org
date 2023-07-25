@@ -13,7 +13,7 @@ source:
 <p>Over the past few weeks, at <a href="http://ocamllabs.io/">OCaml Labs</a>, we&rsquo;ve deployed
 continuous benchmarking infrastructure for <a href="https://github.com/ocamllabs/ocaml-multicore">Multicore
 OCaml</a>. Live results are available
-at <a href="http://ocamllabs.io/multicore">http://ocamllabs.io/multicore</a>. Continuous
+at <a href="http://ocamllabs.io/multicore - [404 Not Found]">http://ocamllabs.io/multicore - [404 Not Found]</a>. Continuous
 benchmarking has already enabled us to make <a href="https://github.com/ocamllabs/ocaml-multicore/pull/221">informed
 decisions</a> about the
 impact of our changes, and should come in handy over the next few months where
@@ -28,7 +28,7 @@ multi-threaded benchmarks and other architectures.</p>
 
 <p>The benchmarks and the benchmarking infrastructure were adapted from <a href="https://github.com/OCamlPro/ocamlbench-repo">OCamlPro&rsquo;s
 benchmark suite</a> aimed at
-benchmarking <a href="https://bench.flambda.ocamlpro.com/">Flambda optimisation passes</a>.
+benchmarking <a href="https://bench.flambda.ocamlpro.com/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]">Flambda optimisation passes</a>.
 The difference with the new infrastructure is that all the data is generated as
 static HTML and CSV files with data processing performed on the client side in
 JavaScript. I find the new setup easier to manage and deploy.</p>

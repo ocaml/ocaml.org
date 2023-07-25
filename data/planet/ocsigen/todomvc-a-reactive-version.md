@@ -50,7 +50,7 @@ instance) based on the model data.</p>
 
 <p>For the Todo application, we have three corresponding OCaml
 modules. <a href="https://github.com/slegrand45/examples_ocsigen/blob/d6766d404a449d0b1d36ad3cd916b0c444390a19/jsoo/todomvc-react/todomvc.ml#L38"><code class="language-plaintext highlighter-rouge">Model</code></a> mainly contains the task list and the new
-task field value. It uses <a href="https://ocsigen.org/js_of_ocaml/api/Deriving_Json"><code class="language-plaintext highlighter-rouge">Deriving_Json</code></a> to convert
+task field value. It uses <a href="https://ocsigen.org/js_of_ocaml/api/Deriving_Json - [404 Not Found]"><code class="language-plaintext highlighter-rouge">Deriving_Json</code></a> to convert
 the data to JSON and vice versa, in order to be able to save and
 restore the application state. This module is otherwise written with
 basic OCaml code. <a href="https://github.com/slegrand45/examples_ocsigen/blob/d6766d404a449d0b1d36ad3cd916b0c444390a19/jsoo/todomvc-react/todomvc.ml#L111"><code class="language-plaintext highlighter-rouge">Controller</code></a> produces new models
@@ -136,7 +136,7 @@ therefore change according to the model content:</p>
 
 <figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="nn">R</span><span class="p">.</span><span class="nn">Html5</span><span class="p">.</span><span class="n">a_style</span> <span class="p">(</span><span class="nn">React</span><span class="p">.</span><span class="nn">S</span><span class="p">.</span><span class="n">map</span> <span class="n">css_visibility</span> <span class="n">r</span><span class="p">)</span></code></pre></figure>
 
-<p>We use the <a href="https://ocsigen.org/js_of_ocaml/api/Tyxml_js"><code class="language-plaintext highlighter-rouge">Tyxml_js</code></a> module to safely build the HTML
+<p>We use the <a href="https://ocsigen.org/js_of_ocaml/api/Tyxml_js - [404 Not Found]"><code class="language-plaintext highlighter-rouge">Tyxml_js</code></a> module to safely build the HTML
 code. The first thing to note is that we use the reactive <code class="language-plaintext highlighter-rouge">R.Html5</code>
 submodule, not the plain <code class="language-plaintext highlighter-rouge">Html5</code> submodule. The <code class="language-plaintext highlighter-rouge">a_style</code> function
 implements a reactive attribute; it expects a reactive signal as its

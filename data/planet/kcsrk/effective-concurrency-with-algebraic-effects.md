@@ -267,10 +267,10 @@ save multicore-capable schedulers for another post.</p>
       <p><a href="http://www.eff-lang.org/">Eff</a>&nbsp;<a href="https://kcsrk.info/atom-ocaml.xml#fnref:Eff" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li role="doc-endnote">
-      <p><a href="http://www.diku.dk/hjemmesider/ansatte/andrzej/papers/RM-abstract.html">Representing Monads</a>&nbsp;<a href="https://kcsrk.info/atom-ocaml.xml#fnref:Filinski94" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p><a href="http://www.diku.dk/hjemmesider/ansatte/andrzej/papers/RM-abstract.html - [404 Not Found]">Representing Monads</a>&nbsp;<a href="https://kcsrk.info/atom-ocaml.xml#fnref:Filinski94" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li role="doc-endnote">
-      <p><a href="https://ocaml.org/meetings/ocaml/2014/ocaml2014_1.pdf">Multicore OCaml (pdf)</a>&nbsp;<a href="https://kcsrk.info/atom-ocaml.xml#fnref:OW14" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p><a href="https://ocaml.org/meetings/ocaml/2014/ocaml2014_1.pdf - [404 Not Found]">Multicore OCaml (pdf)</a>&nbsp;<a href="https://kcsrk.info/atom-ocaml.xml#fnref:OW14" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li role="doc-endnote">
       <p><a href="http://www.cs.indiana.edu/~dyb/pubs/call1cc-abstract.html">Representing Control in the presence of One-shot Continuations</a>&nbsp;<a href="https://kcsrk.info/atom-ocaml.xml#fnref:Bruggeman96" class="reversefootnote" role="doc-backlink">&#8617;</a></p>

@@ -43,5 +43,5 @@ let goal git_commit_tested commit =
 <p>Actually this is not quite true: the tests run successfully once, but if the test fails, it will keep running every 30 minutes and nag you about it.  It&rsquo;s trivial to change the memoization to remember failures as well as successes, or you could consider the repeated nagging to be a feature not a bug &hellip;</p>
 <p>That&rsquo;s it!  The goaljobs website <i>will</i> be this (I&rsquo;ve not uploaded it yet, but will do in the next day or two):</p>
 <p><a href="http://people.redhat.com/~rjones/goaljobs" rel="nofollow">http://people.redhat.com/~rjones/goaljobs</a></p>
-<p>You can also download the code from the <a href="http://git.annexia.org/?p=goaljobs.git%3Ba=summary">git repository</a> and the goals I&rsquo;ve written from <a href="http://git.annexia.org/?p=goals.git%3Ba=summary">this repository</a>.</p>
+<p>You can also download the code from the <a href="http://git.annexia.org/?p=goaljobs.git%3Ba=summary - [404 Not Found]">git repository</a> and the goals I&rsquo;ve written from <a href="http://git.annexia.org/?p=goals.git%3Ba=summary - [404 Not Found]">this repository</a>.</p>
 

@@ -43,13 +43,13 @@ required boilerplate to compile for a specific backend - by selecting the
 network device driver, the console, the network stack, and other devices -
 taking user-supplied configuration arguments into account.  In Mirage, the OCaml
 TCP/IP stack requires any network device which implements the
-<a href="http://docs.mirage.io/mirage-net/Mirage_net/module-type-S/index.html"><code>Mirage_net.S</code></a>
+<a href="http://docs.mirage.io/mirage-net/Mirage_net/module-type-S/index.html - [404 Not Found]"><code>Mirage_net.S</code></a>
 module type.</p>
 <p>At the end of the day, some mechanism needs to be in place which links the
 <a href="https://github.com/mirage/mirage-net-solo5">mirage-net-solo5</a> library if
 compiling for Solo5 (or
 <a href="https://github.com/mirage/mirage-net-xen">mirage-net-xen</a> if compiling for xen,
-or <a href="https://github.com/mirage-net-unix">mirage-net-unix</a> for Unix, or
+or <a href="https://github.com/mirage-net-unix - [404 Not Found]">mirage-net-unix</a> for Unix, or
 <a href="https://github.com/mirage/mirage-net-macosx">mirage-net-macosx</a> for MacOSX).
 This can be left to each unikernel developer, which would require having the
 same boilerplate code all over, which needs to be updated if a new backend
@@ -83,7 +83,7 @@ cases, see e.g.
 boilerplate (like <code>or_error</code>, which throws an exception if <code>connect</code> errored)
 could be removed.</p>
 <p>Comparing the generated <code>main.ml</code> between Mirage 2.9.1 and 3.0.0 for various
-unikernels on both unix and xen code reductions up to 45% (<a href="http://www.cl.cam.ac.uk/~hm519/mirage-2.9.1-3.0.0-diffs/">diffs are
+unikernels on both unix and xen code reductions up to 45% (<a href="http://www.cl.cam.ac.uk/~hm519/mirage-2.9.1-3.0.0-diffs/ - [403 Forbidden]">diffs are
 here</a>)</p>
 <ul>
 <li>console (device-usage) xen: +35 -41 (now 81) unix: +32 -39 (now 80)
@@ -195,12 +195,12 @@ of every unikernel.  This is documented in
 <p>The overall statistics of Mirage3 look promising: more libraries, more
 contributors, less code, uniform error treatment, unified logging support.  Individual unikernels
 contain slightly less boilerplate code (as shown
-<a href="http://www.cl.cam.ac.uk/~hm519/mirage-2.9.1-3.0.0-diffs/">by these unified diffs</a>).</p>
+<a href="http://www.cl.cam.ac.uk/~hm519/mirage-2.9.1-3.0.0-diffs/ - [403 Forbidden]">by these unified diffs</a>).</p>
 <p>The binary sizes of the above mentioned examples (mirage-skeleton, nqsb, Canopy,
 pinata) between Mirage2 and Mirage3 results on both Unix and Xen only in small
 differences (in the range of kilobytes).  We are working on a <a href="https://github.com/mirage/mirage/issues/685">performance harness</a>
 to evaluate the performance of
-<a href="https://blogs.janestreet.com/flambda/">flambda</a> intermediate language in OCaml
+<a href="https://blogs.janestreet.com/flambda/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]">flambda</a> intermediate language in OCaml
 and <a href="https://github.com/ocaml/ocaml/pull/608">dead code elimination</a>.  These should
 decrease the binary size and improve the performance.</p>
 

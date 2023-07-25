@@ -19,9 +19,9 @@ for implementing the <tt>Integer</tt> data type.
 
 <p>
 The first,
-	<a href="http://git.haskell.org/packages/integer-gmp.git"><tt>integer-gmp</tt></a>
+	<a href="http://git.haskell.org/packages/integer-gmp.git - [1 Client error: Timeout was reached]"><tt>integer-gmp</tt></a>
 links to the
-	<a href="https://gmplib.org/">GNU Multiple Precision Arithmetic Library</a>
+	<a href="https://gmplib.org/ - [1 Client error: Timeout was reached]">GNU Multiple Precision Arithmetic Library</a>
 which is licensed under the GNU LGPL.
 On most systems, libgmp is dynamically linked and all is fine.
 However, if you want to create statically linked binaries from Haskell source code
@@ -32,7 +32,7 @@ This is especially a problem on iOS which doesn't allow dynamic linking anyway.
 
 <p>
 The second <tt>Integer</tt> implementation is
-	<a href="http://git.haskell.org/packages/integer-simple.git"><tt>integer-simple</tt></a>
+	<a href="http://git.haskell.org/packages/integer-simple.git - [1 Client error: Timeout was reached]"><tt>integer-simple</tt></a>
 which is implemented purely in Haskell (using a number of GHC extension) and is
 BSD licensed.
 </p>

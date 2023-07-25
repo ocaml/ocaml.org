@@ -11,7 +11,7 @@ authors:
 source:
 ---
 
-<p>The official OCaml documentation <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.01/intfc.html">&ldquo;Interfacing C with
+<p>The official OCaml documentation <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.01/intfc.html - [404 Not Found]">&ldquo;Interfacing C with
 OCaml&rdquo;</a> doesn&rsquo;t
 document some interesting performance features.</p>
 

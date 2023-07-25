@@ -22,7 +22,7 @@ my text editor of choice for the last fifteen years, I gave Gedit a serious try.
 <p>
 For a full two weeks, I stuck with Gedit, including the intense 2&frac12; day
 hacking session of
-	<a href="http://random.axman6.com/blog/?p=219">
+	<a href="http://random.axman6.com/blog/?p=219 - [403 Forbidden]">
 	AusHac2010</a>.
 Unfortunately, switching from a very full featured editor like Nedit to Gedit
 was painful.
@@ -118,7 +118,7 @@ Nedit uses bitmap fonts while Geany (and Gedit) use TrueType fonts.
 When I choose light coloured fonts on a black background I find the fonts in
 Geany (and Gedit) a lot fuzzier than the same size fonts in Nedit.
 I've tried a number of different fonts including
-	<a href="http://www.levien.com/type/myfonts/inconsolata.html">
+	<a href="http://www.levien.com/type/myfonts/inconsolata.html - [1 Client error: SSL peer certificate or SSH remote key was not OK]">
 	Inconsolata</a>
 but I've currently settled on
 	<a href="http://dejavu-fonts.org/wiki/Main_Page">

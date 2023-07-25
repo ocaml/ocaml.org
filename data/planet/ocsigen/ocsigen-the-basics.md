@@ -75,18 +75,18 @@ and applications:</p>
 <em>typed HTML</em>. It is very easy to use, once you have learned the basics,
 and helps a lot to efficiently write modular and valid HTML.
 To do this, use module
-<a href="http://ocsigen.org/eliom/api/server/Eliom_registration.Html5"><code class="language-plaintext highlighter-rouge">Eliom_registration.Html5</code></a>
+<a href="http://ocsigen.org/eliom/api/server/Eliom_registration.Html5 - [404 Not Found]"><code class="language-plaintext highlighter-rouge">Eliom_registration.Html5</code></a>
 instead of
-<a href="http://ocsigen.org/eliom/api/server/Eliom_registration.Html_text"><code class="language-plaintext highlighter-rouge">Eliom_registration.Html_text</code></a>.
+<a href="http://ocsigen.org/eliom/api/server/Eliom_registration.Html_text - [404 Not Found]"><code class="language-plaintext highlighter-rouge">Eliom_registration.Html_text</code></a>.
 See this
-<a href="http://ocsigen.org/tuto/manual/application#tyxml">tutorial</a>
+<a href="http://ocsigen.org/tuto/manual/application#tyxml - [404 Not Found]">tutorial</a>
 for more information, a comprehensive documentation
-<a href="http://ocsigen.org/tyxml/manual/">here</a>,
+<a href="http://ocsigen.org/tyxml/manual/ - [404 Not Found]">here</a>,
 and a more advanced manual
-<a href="http://ocsigen.org/eliom/manual/clientserver-html">here</a>.</p>
+<a href="http://ocsigen.org/eliom/manual/clientserver-html - [404 Not Found]">here</a>.</p>
 
 <p>Have a look at Eliom&rsquo;s API documentation to see other kinds of services,
-for example <a href="http://ocsigen.org/eliom/api/server/Eliom_registration.Redirection"><code class="language-plaintext highlighter-rouge">Eliom_registration.Redirection</code></a>
+for example <a href="http://ocsigen.org/eliom/api/server/Eliom_registration.Redirection - [404 Not Found]"><code class="language-plaintext highlighter-rouge">Eliom_registration.Redirection</code></a>
 to create HTTP redirections.</p>
 
 <p>Eliom also has a way to typecheck forms and GET or POST parameters.
@@ -94,8 +94,8 @@ By giving a description of the parameters your service expects,
 Eliom will check their presence automatically, and convert them
 for you to OCaml types.
 See
-<a href="http://ocsigen.org/tuto/manual/interaction">this tutorial</a>
-and <a href="http://ocsigen.org/eliom/manual/server-params">this manual page</a>.</p>
+<a href="http://ocsigen.org/tuto/manual/interaction - [404 Not Found]">this tutorial</a>
+and <a href="http://ocsigen.org/eliom/manual/server-params - [404 Not Found]">this manual page</a>.</p>
 
 <p>Eliom also has other ways to identify services (besides just the PATH
 in the URL). For example Eliom can identify a service just by a parameter
@@ -103,8 +103,8 @@ in the URL). For example Eliom can identify a service just by a parameter
 this makes it possible for instance to have the same feature on every page
 (for example a connection service).
 See
-<a href="http://ocsigen.org/tuto/manual/interaction">this tutorial</a>
-and <a href="http://ocsigen.org/eliom/manual/server-services">this manual page</a>.</p>
+<a href="http://ocsigen.org/tuto/manual/interaction - [404 Not Found]">this tutorial</a>
+and <a href="http://ocsigen.org/eliom/manual/server-services - [404 Not Found]">this manual page</a>.</p>
 
 <p>One of the main features of Eliom is the ability to write complete
 Web and mobile applications in OCaml. Annotations are used to
@@ -112,12 +112,12 @@ separate the code to be executed server-side from the client code.
 Client functions are translated into Javascript using
 <a href="http://ocsigen.org/js_of_ocaml/">Ocsigen Js_of_ocaml</a>.
 See
-<a href="http://ocsigen.org/tuto/manual/tutowidgets">this tutorial</a> for
+<a href="http://ocsigen.org/tuto/manual/tutowidgets - [404 Not Found]">this tutorial</a> for
 a quick introduction,
-or <a href="http://ocsigen.org/tuto/manual/application">this one</a> for a
+or <a href="http://ocsigen.org/tuto/manual/application - [404 Not Found]">this one</a> for a
 more comprehensive one.
 You can also have a look at
-<a href="http://ocsigen.org/eliom/manual/clientserver-applications">this manual page</a>.</p>
+<a href="http://ocsigen.org/eliom/manual/clientserver-applications - [404 Not Found]">this manual page</a>.</p>
 
 <p>Another interesting feature of Eliom is its session model, that uses a
 very simple interface to record session data server-side.
@@ -125,16 +125,16 @@ It is even possible to choose
 the <em>scope</em> of this data: either a browser, or a tab, or even a group
 of browsers (belonging for instance to a same user).
 See
-<a href="http://ocsigen.org/tuto/manual/interaction#eref">this section</a>
+<a href="http://ocsigen.org/tuto/manual/interaction#eref - [404 Not Found]">this section</a>
 and the beginning of
-<a href="http://ocsigen.org/eliom/manual/server-state">this manual page</a>.</p>
+<a href="http://ocsigen.org/eliom/manual/server-state - [404 Not Found]">this manual page</a>.</p>
 
 <p>We suggest to continue your reading by one of these tutorials:</p>
 
 <ul>
-  <li><a href="http://ocsigen.org/tuto/manual/tutowidgets">A quick start tutorial for client-server Eliom applications</a> (for the people already familiar with OCaml, Lwt, etc.)</li>
-  <li><a href="http://ocsigen.org/tuto/manual/application">A step by step tutorial for client-server Eliom applications</a></li>
-  <li><a href="http://ocsigen.org/tuto/manual/interaction">A tutorial on server side dynamic Web site</a></li>
+  <li><a href="http://ocsigen.org/tuto/manual/tutowidgets - [404 Not Found]">A quick start tutorial for client-server Eliom applications</a> (for the people already familiar with OCaml, Lwt, etc.)</li>
+  <li><a href="http://ocsigen.org/tuto/manual/application - [404 Not Found]">A step by step tutorial for client-server Eliom applications</a></li>
+  <li><a href="http://ocsigen.org/tuto/manual/interaction - [404 Not Found]">A tutorial on server side dynamic Web site</a></li>
 </ul>
 
 

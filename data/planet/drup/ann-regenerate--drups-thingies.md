@@ -16,7 +16,7 @@ source:
         
         
         <p>I&rsquo;m happy to announce the release of <a href="https://github.com/Drup/regenerate">Regenerate</a>, 
-a library, tool and <a href="https://drup.github.io/regenerate/">website</a> to generate test cases for regular expression engines.</p>
+a library, tool and <a href="https://drup.github.io/regenerate/ - [404 Not Found]">website</a> to generate test cases for regular expression engines.</p>
 
 
         

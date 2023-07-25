@@ -50,14 +50,14 @@ Although I have not looked in any detail at the IterIO library, both Iteratee an
 Enumerator simply rely on Haskell's garbage collector to clean up resources
 when they are no longer required.
 The Conduit library on the other hand uses
-	<a href="http://hackage.haskell.org/packages/archive/conduit/latest/doc/html/Control-Monad-Trans-Resource.html">
+	<a href="http://hackage.haskell.org/packages/archive/conduit/latest/doc/html/Control-Monad-Trans-Resource.html - [404 Not Found]">
 	Resource transformers</a>
 to guarantee release of these resources as soon as possible.
 </p>
 
 <p>
 The client looks like this
-(<a href="https://gist.github.com/1596792">latest available here</a>):
+(<a href="https://gist.github.com/1596792 - [404 Not Found]">latest available here</a>):
 </p>
 
 <pre class="code">

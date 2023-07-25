@@ -1,7 +1,7 @@
 ---
 title: Florian's OCaml compiler weekly, 11 April 2023
 description:
-url: http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-11
+url: http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-11 - [404 Not Found]
 date: 2023-04-11T08:00:00-00:00
 preview_image:
 featured:

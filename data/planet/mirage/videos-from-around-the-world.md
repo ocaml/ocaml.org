@@ -23,7 +23,7 @@ one of your videos, please do <a href="mailto:mirageos-devel@lists.xenproject.or
 <div class="flex-video">
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/bC7rTUEZfmI" frameborder="0" allowfullscreen=""></iframe>
 </div>
-<p><strong><a href="https://twitter.com/RCPavlicek">Russell Pavlicek</a> at SouthEast LinuxFest - June 2015</strong><br/>
+<p><strong><a href="https://twitter.com/RCPavlicek - [1 Client error: Number of redirects hit maximum amount]">Russell Pavlicek</a> at SouthEast LinuxFest - June 2015</strong><br/>
 <strong>'Next Generation Cloud'</strong></p>
 <div class="flex-video">
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/8UgiPODw3CY" frameborder="0" allowfullscreen=""></iframe>
@@ -41,29 +41,29 @@ one of your videos, please do <a href="mailto:mirageos-devel@lists.xenproject.or
 <div class="flex-video">
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/PTtI8hpR7hQ" frameborder="0" allowfullscreen=""></iframe>
 </div>
-<p><strong><a href="https://twitter.com/sjfloat">Steve Jones</a> at DevopsDays Pittsburgh - Aug 2015</strong><br/>
+<p><strong><a href="https://twitter.com/sjfloat - [1 Client error: Number of redirects hit maximum amount]">Steve Jones</a> at DevopsDays Pittsburgh - Aug 2015</strong><br/>
 <strong>'The Incredible Shrinking Operating System!'</strong></p>
 <div class="flex-video">
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Ud3NGqRRGc4" frameborder="0" allowfullscreen=""></iframe>
 </div>
-<p><strong><a href="http://somerandomidiot.com">Mindy Preston</a> at Strangeloop - Sep 2015</strong><br/>
+<p><strong><a href="http://somerandomidiot.com - [1 Client error: Timeout was reached]">Mindy Preston</a> at Strangeloop - Sep 2015</strong><br/>
 <strong>'Non-Imperative Network Programming'</strong></p>
 <div class="flex-video">
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/GNc1t6Q5Dls" frameborder="0" allowfullscreen=""></iframe>
 </div>
 <p>Mindy also wrote a post that has some information and links:
-<a href="http://somerandomidiot.com/blog/2015/10/07/ocaml-workshop-and-strange-loop-talks">http://somerandomidiot.com/blog/2015/10/07/ocaml-workshop-and-strange-loop-talks</a></p>
-<p><strong><a href="https://twitter.com/mattbajor">Matt Bajor</a> at Strangeloop - Sep 2015</strong><br/>
+<a href="http://somerandomidiot.com/blog/2015/10/07/ocaml-workshop-and-strange-loop-talks - [1 Client error: Timeout was reached]">http://somerandomidiot.com/blog/2015/10/07/ocaml-workshop-and-strange-loop-talks - [1 Client error: Timeout was reached]</a></p>
+<p><strong><a href="https://twitter.com/mattbajor - [1 Client error: Number of redirects hit maximum amount]">Matt Bajor</a> at Strangeloop - Sep 2015</strong><br/>
 <strong>'Look ma, no OS! Unikernels and their applications'</strong></p>
 <div class="flex-video">
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/W9F4pn9Lngc" frameborder="0" allowfullscreen=""></iframe>
 </div>
-<p><strong><a href="https://twitter.com/garethr">Gareth Rushgrove</a> at Operability - Sep 2015</strong><br/>
+<p><strong><a href="https://twitter.com/garethr - [1 Client error: Number of redirects hit maximum amount]">Gareth Rushgrove</a> at Operability - Sep 2015</strong><br/>
 <strong>'Taking the Operating System out of Operations'</strong></p>
 <div class="flex-video">
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/nxofKgwgjHs" frameborder="0" allowfullscreen=""></iframe>
 </div>
-<p><strong><a href="https://twitter.com/gar1t">Garett Smith</a> at CityCode - Oct 2015</strong><br/>
+<p><strong><a href="https://twitter.com/gar1t - [1 Client error: Number of redirects hit maximum amount]">Garett Smith</a> at CityCode - Oct 2015</strong><br/>
 <strong>'Rainbows and Unikernels'</strong></p>
 <div class="flex-video">
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cUvNths_5RA" frameborder="0" allowfullscreen=""></iframe>

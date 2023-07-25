@@ -60,7 +60,7 @@ should complete this milestone by the end of the month.</p>
 <p>Finally, our <strong>fourth milestone</strong> was to implement the Matrix protocol (client and server). We completed the protocol&rsquo;s client library, which sends a notification
 from OCaml CI. Plus, we have a PoC, and Matrix&rsquo;s server-side, which received the notification, is also complete.</p>
 <p>Although we still have much work ahead of us, we&rsquo;re quite pleased with the progress thus far, and so is the DAPSI Initiative! Follow our progress by <a href="https://tarides.com/feed.xml">subscribing
-to this blog</a> and our <a href="https://twitter.com/tarides_">Twitter feed (@tarides_)</a> for the latest updates.</p>
+to this blog</a> and our <a href="https://twitter.com/tarides_ - [1 Client error: Number of redirects hit maximum amount]">Twitter feed (@tarides_)</a> for the latest updates.</p>
 <br/>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/50ddca27efa367497d954f667fc921f8/a76d6/DAPSI_generic.jpg" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">

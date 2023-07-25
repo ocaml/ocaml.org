@@ -37,7 +37,7 @@ control over OpenFlow network elements.</p>
 controller and currently provides only relatively low-level access to the
 OpenFlow primitives: a very cool thing to build on top of it would be a
 higher-level abstraction such as that provided by
-<a href="http://haskell.cs.yale.edu/?page_id=376">Nettle</a> or
+<a href="http://haskell.cs.yale.edu/?page_id=376 - [1 Client error: Couldn't resolve host name]">Nettle</a> or
 <a href="http://www.frenetic-lang.org/">Frenetic</a>.</p>
 <p>The switch is primarily intended as an experimental platform -- it is
 hopefully easier to extend than some of the existing software switches while
@@ -83,8 +83,8 @@ let main () =
 <p>We've written up some of the gory details of the design, implementation and
 performance in a <a href="https://mirage.io/documents/iccsdn12-mirage.pdf">short paper</a> to the
 <a href="http://www.ieee-icc.org/">ICC</a>
-<a href="http://sdn12.mytestbed.net/">Software Defined Networking</a> workshop. Thanks to
-some sterling work by <a href="http://www.cl.cam.ac.uk/~cr409/">Haris</a> and
+<a href="http://sdn12.mytestbed.net/ - [1 Client error: Timeout was reached]">Software Defined Networking</a> workshop. Thanks to
+some sterling work by <a href="http://www.cl.cam.ac.uk/~cr409/ - [403 Forbidden]">Haris</a> and
 <a href="mailto:balraj.singh@cl.cam.ac.uk">Balraj</a>, the headline numbers are pretty
 good though: the unoptimised Mirage controller implementation is only 30--40%
 lower performance than the highly optimised NOX <em>destiny-fast</em> branch, which

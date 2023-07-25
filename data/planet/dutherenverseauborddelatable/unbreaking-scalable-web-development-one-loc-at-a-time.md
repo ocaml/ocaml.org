@@ -57,7 +57,7 @@ source:
 <pre class="brush: fsharp; title: ; notranslate">
  server = one_page_server(&quot;Hello&quot;, -&gt; &lt;&gt;Hello, web!&lt;/&gt;)
 </pre>
-<div style="text-align:right;"><a href="https://gist.github.com/985817">Fork me on github</a></div>
+<div style="text-align:right;"><a href="https://gist.github.com/985817 - [404 Not Found]">Fork me on github</a></div>
 <p>Second variant: 2 eloc</p>
 <pre class="brush: fsharp; title: ; notranslate">
 server = Server.simple_dispatch(_ -&gt;
@@ -262,5 +262,5 @@ $ opa-cloud opa_chat.exe --host localhost --host me@host1 --host me@host2
 <p style="text-align:justify;">We also have a few other limitations, that may be considered anecdotical in this day and age. For instance, the client side of Opa applications that have a client (i.e. non-pure web services) requires JavaScript and will not work with IE6 or Lynx.</p>
 <h2>Show me the code!</h2>
 <p style="text-align:justify;">Soon, but not quite yet.</p>
-<p style="text-align:justify;">We&rsquo;re working full-time on the open-source release. If you are interested, I suggest you visit <a href="http://opalang.org">opalang.org</a> to find some information and documentation or to request invitations to the closed beta. You can also follow our updates&nbsp;<a href="http://twitter.com/#!/opalang">on Twitter</a> or come and chat with us <a href="irc://irc.freenode.net/#opalang">on IRC</a>.</p>
+<p style="text-align:justify;">We&rsquo;re working full-time on the open-source release. If you are interested, I suggest you visit <a href="http://opalang.org">opalang.org</a> to find some information and documentation or to request invitations to the closed beta. You can also follow our updates&nbsp;<a href="http://twitter.com/# - [1 Client error: Number of redirects hit maximum amount]!/opalang">on Twitter</a> or come and chat with us <a href="irc://irc.freenode.net/#opalang">on IRC</a>.</p>
 

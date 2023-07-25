@@ -44,7 +44,7 @@ Obviously, the LLVM backend needs to do something else to get the same effect.
 
 <p>
 Fixing the type casting problem should be relatively simple.
-<a href="http://www.cse.unsw.edu.au/~benl/">
+<a href="http://www.cse.unsw.edu.au/~benl/ - [403 Forbidden]">
 	Ben</a>
 is currently working on making type casts a primitive of the Core language
 so that both the C and LLVM backends can easily generate code for them.

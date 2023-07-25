@@ -26,7 +26,7 @@ source:
 <ul>
   <li>
     <p>PPX support for js_of_ocaml with OCaml &gt;= 4.02.2.
-See documentation <a href="http://ocsigen.org/js_of_ocaml/2.6/api/Ppx_js">here</a>.</p>
+See documentation <a href="http://ocsigen.org/js_of_ocaml/2.6/api/Ppx_js - [404 Not Found]">here</a>.</p>
 
     <p>This was also the occasion to introduce a new syntax for object
 literals, and to improve the Camlp4 syntax (w.r.t. to

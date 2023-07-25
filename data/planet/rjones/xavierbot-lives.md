@@ -10,5 +10,5 @@ authors:
 source:
 ---
 
-<p>Or at least he now has his own <a href="http://git.annexia.org/?p=xavierbot.git%3Ba=summary">git repository</a>.</p>
+<p>Or at least he now has his own <a href="http://git.annexia.org/?p=xavierbot.git%3Ba=summary - [404 Not Found]">git repository</a>.</p>
 

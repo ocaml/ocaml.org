@@ -362,7 +362,7 @@ source:
    <p>
      References:<br/>
      [1] <a href="http://okmij.org/ftp/Computation/typeclass.html">Implementing, and Understanding Type Classes</a> -- Oleg Kiselyov
-     [2] <a href="http://www.cse.unsw.edu.au/~chak/papers/mtc-popl.pdf">Modular Type Classes</a> -- Harper et. al.
+     [2] <a href="http://www.cse.unsw.edu.au/~chak/papers/mtc-popl.pdf - [403 Forbidden]">Modular Type Classes</a> -- Harper et. al.
    </p>
   </body>
 </html>

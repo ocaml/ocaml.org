@@ -3,7 +3,7 @@ title: Strange Datetime Problem
 description: "While working on my unit tests, I came across a sporadic failure in
   inserting and selecting Datetimes to the database, so I wrote a quick test harness
   to see what\u2019s going on: This fails about\u2026"
-url: https://gaius.tech/2013/08/17/strange-datetime-problem/
+url: https://gaius.tech/2013/08/17/strange-datetime-problem/ - [1 Client error: Timeout was reached]
 date: 2013-08-17T19:59:55-00:00
 preview_image: https://gaiustech.files.wordpress.com/2018/07/cropped-lynx.jpg?w=180
 featured:

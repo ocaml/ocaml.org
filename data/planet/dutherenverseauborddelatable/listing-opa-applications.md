@@ -12,5 +12,5 @@ authors:
 source:
 ---
 
-<p style="text-align:justify;"><strong>Short update</strong> The <a href="http://opalang.org">opalang</a> website now lists <a href="http://opalang.org/protected/see.html">applications developed in Opa</a> (registration required &ndash; part of the closed preview). If you are developing an application in Opa, please consider submitting this to the list.</p>
+<p style="text-align:justify;"><strong>Short update</strong> The <a href="http://opalang.org">opalang</a> website now lists <a href="http://opalang.org/protected/see.html - [404 Not Found]">applications developed in Opa</a> (registration required &ndash; part of the closed preview). If you are developing an application in Opa, please consider submitting this to the list.</p>
 

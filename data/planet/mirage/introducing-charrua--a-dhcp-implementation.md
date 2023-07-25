@@ -29,30 +29,30 @@ southern South America &mdash; nowadays it is also used to refer to Uruguayan
 nationals. The logic is that DHCP handles dynamic (hence nomadic) clients.</p>
 <p>The library is platform agnostic and works outside of MirageOS as well. It
 provides two main modules:
-<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html">Dhcp_wire</a> and
-<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.html">Dhcp_server</a>.</p>
+<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html - [404 Not Found]">Dhcp_wire</a> and
+<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.html - [404 Not Found]">Dhcp_server</a>.</p>
 <h3>Dhcp_wire</h3>
-<p><a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html">Dhcp_wire</a> provides
+<p><a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html - [404 Not Found]">Dhcp_wire</a> provides
 basic functions for dealing with the protocol, essentially
 marshalling/unmarshalling and helpers for dealing with the various DHCP options.</p>
 <p>The central record type of
-<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html">Dhcp_wire</a> is a
-<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html#TYPEpkt">pkt</a>, which
+<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html - [404 Not Found]">Dhcp_wire</a> is a
+<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html#TYPEpkt - [404 Not Found]">pkt</a>, which
 represents a full DHCP packet, including layer 2 and layer 3 data as well as the
 many possible DHCP options. The most important functions are:</p>
 <pre><code class="language-ocaml">val pkt_of_buf : Cstruct.t -&gt; int -&gt; [&gt; `Error of string | `Ok of pkt ]
 val buf_of_pkt : pkt -&gt; Cstruct.t
 </code></pre>
-<p><a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html#VALpkt_of_buf">pkt_of_buf</a> takes
+<p><a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html#VALpkt_of_buf - [404 Not Found]">pkt_of_buf</a> takes
 a <a href="https://github.com/mirage/ocaml-cstruct">Cstruct.t</a> buffer and a length and it
 then attempts to build a DHCP packet. Unknown DHCP options are ignored, invalid
 options or malformed data are not accepted and you get an <code> `Error of string</code>.</p>
-<p><a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html#VALbuf_of_pkt">buf_of_pkt</a> is
+<p><a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html#VALbuf_of_pkt - [404 Not Found]">buf_of_pkt</a> is
 the mirror function, but it never fails.  It could for instance fail in case of
 two duplicate DHCP options, but that would imply too much policy in a
 marshalling function.</p>
 <p>The DHCP options from RFC2132 are implemented in
-<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html#TYPEdhcp_option">dhcp_option</a>.
+<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html#TYPEdhcp_option - [404 Not Found]">dhcp_option</a>.
 There are more, but the most common ones look like this:</p>
 <pre><code class="language-ocaml">type dhcp_option =
   | Subnet_mask of Ipaddr.V4.t
@@ -64,18 +64,18 @@ There are more, but the most common ones look like this:</p>
   | Log_servers of Ipaddr.V4.t list
 </code></pre>
 <h3>Dhcp_server</h3>
-<p><a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.html">Dhcp_server</a>
+<p><a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.html - [404 Not Found]">Dhcp_server</a>
 Provides a library for building a DHCP server and is divided into two sub-modules:
-<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Config.html">Config</a>,
+<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Config.html - [404 Not Found]">Config</a>,
 which handles the building of a suitable DHCP server configuration record and
-<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Config.html">Input</a>,
+<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Config.html - [404 Not Found]">Input</a>,
 which handles the input of DHCP packets.</p>
 <p>The logic is modelled in a pure functional style and
-<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.html">Dhcp_server</a> does
+<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.html - [404 Not Found]">Dhcp_server</a> does
 not perform any IO of its own. It works by taking an input
-<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html#TYPEpkt">packet</a>,
+<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html#TYPEpkt - [404 Not Found]">packet</a>,
 a
-<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Config.html#TYPEt">configuration</a>
+<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Config.html#TYPEt - [404 Not Found]">configuration</a>
 and returns a possible reply to be sent by the caller, or an error/warning:</p>
 <h4>Input</h4>
 <pre><code class="language-ocaml">type result = 
@@ -95,15 +95,15 @@ val input_pkt : Dhcp_server.Config.t -&gt; Dhcp_server.Config.subnet -&gt;
 <ol>
 <li>Reading a packet from the network.
 </li>
-<li>Unmarshalling with <a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html#VALpkt_of_buf">Dhcp_wire.pkt_of_buf</a>.
+<li>Unmarshalling with <a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html#VALpkt_of_buf - [404 Not Found]">Dhcp_wire.pkt_of_buf</a>.
 </li>
-<li>Inputting the result with <a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Input.html#VALinput_pkt">Dhcp_server.Input.input_pkt</a>.
+<li>Inputting the result with <a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Input.html#VALinput_pkt - [404 Not Found]">Dhcp_server.Input.input_pkt</a>.
 </li>
-<li>Sending the reply, or logging the event from the <a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Input.html#VALinput_pkt">Dhcp_server.Input.input_pkt</a> call.
+<li>Sending the reply, or logging the event from the <a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Input.html#VALinput_pkt - [404 Not Found]">Dhcp_server.Input.input_pkt</a> call.
 </li>
 </ol>
 <p>A mainloop example can be found in
-<a href="https://github.com/mirage/mirage-skeleton/blob/master/dhcp/unikernel.ml#L28">mirage-skeleton</a>:</p>
+<a href="https://github.com/mirage/mirage-skeleton/blob/master/dhcp/unikernel.ml#L28 - [404 Not Found]">mirage-skeleton</a>:</p>
 <pre><code class="language-ocaml">  let input_dhcp c net config subnet buf =
     let open Dhcp_server.Input in
     match (Dhcp_wire.pkt_of_buf buf (Cstruct.len buf)) with
@@ -121,14 +121,14 @@ val input_pkt : Dhcp_server.Config.t -&gt; Dhcp_server.Config.subnet -&gt;
         Lwt.return_unit
 </code></pre>
 <p>As stated,
-<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Input.html#VALinput_pkt">Dhcp_server.Input.input_pkt</a>
+<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Input.html#VALinput_pkt - [404 Not Found]">Dhcp_server.Input.input_pkt</a>
 does not perform any IO of its own, it only deals with the logic of analyzing a
 DHCP packet and building a possible answer, which should then be sent by the
 caller. This allows a design where all the side effects are controlled in one
 small chunk, which makes it easier to understand the state transitions since they
 are made explicit.</p>
 <p>At the time of this writing,
-<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Input.html#VALinput_pkt">Dhcp_server.Input.input_pkt</a>
+<a href="http://haesbaert.github.io/charrua-core/api/Dhcp_server.Input.html#VALinput_pkt - [404 Not Found]">Dhcp_server.Input.input_pkt</a>
 is not side effect free, as it manipulates a database of leases, this will be
 changed in the next version to be pure as well.</p>
 <p>Storing leases in permanent storage is also unsupported at this time and
@@ -164,7 +164,7 @@ configuration, this requires a file IO backend and other complications. The
 next version should provide OCaml helpers for building the configuration, which
 would drop the requirements of a file IO backend and facilitate writing tests.</p>
 <h3>Building a simple server</h3>
-<p>The easiest way is to follow the <a href="https://github.com/mirage/mirage-skeleton/blob/master/dhcp/README.md">mirage-skeleton DHCP
+<p>The easiest way is to follow the <a href="https://github.com/mirage/mirage-skeleton/blob/master/dhcp/README.md - [404 Not Found]">mirage-skeleton DHCP
 README</a>.</p>
 <h3>Future</h3>
 <p>The next steps would be:</p>
@@ -175,12 +175,12 @@ README</a>.</p>
 also support/examples for <a href="https://github.com/mirage/irmin">Irmin</a>.
 </li>
 <li>Use <a href="https://github.com/mirage/functoria">Functoria</a> to pass down the
-configuration in <a href="https://github.com/mirage/mirage-skeleton/blob/master/dhcp/README.md">mirage-skeleton</a>. Currently
+configuration in <a href="https://github.com/mirage/mirage-skeleton/blob/master/dhcp/README.md - [404 Not Found]">mirage-skeleton</a>. Currently
 it is awkward since the user has to edit <code>unikernel.ml</code> and <code>config.ml</code>, with
 <a href="https://github.com/mirage/functoria">Functoria</a> we would be able to have it
 much nicer and only touch <code>config.ml</code>.
 </li>
-<li>Convert MirageOS DHCP client code to use <a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html">Dhcp_wire</a>, or perhaps add a
+<li>Convert MirageOS DHCP client code to use <a href="http://haesbaert.github.io/charrua-core/api/Dhcp_wire.html - [404 Not Found]">Dhcp_wire</a>, or perhaps add a
 client logic functionality to <a href="http://www.github.com/haesbaert/charrua-core">Charrua</a>.
 </li>
 </ul>
@@ -195,7 +195,7 @@ finding, so please do let me know via the
 amazed about how easy the interaction and communication with the community has been,
 everyone has been incredibly friendly and supportive. I'd say MirageOS is a gold
 project for anyone wanting to work with smart people and hack OCaml.</p>
-<p>My many thanks to <a href="http://anil.recoil.org">Anil</a>, <a href="http://mort.io">Richard</a>, <a href="https://github.com/hannesm">Hannes</a>, <a href="https://twitter.com/amirmc">Amir</a>, Scott, Gabriel and others.
+<p>My many thanks to <a href="http://anil.recoil.org">Anil</a>, <a href="http://mort.io">Richard</a>, <a href="https://github.com/hannesm">Hannes</a>, <a href="https://twitter.com/amirmc - [1 Client error: Number of redirects hit maximum amount]">Amir</a>, Scott, Gabriel and others.
 Thanks also to <a href="http://roscidus.com/blog/">Thomas</a> and <a href="https://github.com/Chris00/">Christophe</a> for comments on this post.
 I also
 would like to thank my <a href="https://www.genua.de">employer</a> for letting me work on this

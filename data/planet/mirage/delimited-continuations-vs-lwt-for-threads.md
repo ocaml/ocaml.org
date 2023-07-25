@@ -189,6 +189,6 @@ Delimcc can be combined with Lwt very elegantly, and Jake Donham did just this w
 </code></pre>
 <p>Every iteration of the recursive loop requires the allocation of a closure (the <code>Lwt.bind</code> call). In the <code>delimcc</code> case, the function operates as a normal recursive function that uses the stack, until the very end when it needs to save the stack in one pass.</p>
 <p>Overall, I'm convinced now that the performance difference is insignificant for the purposes of choosing one thread system over the other for MirageOS.  Instead, the question of code interoperability is more important. Lwt-enabled protocol code will work unmodified in Javascript, and Delimcc code helps migrate existing code over.</p>
-<p>Interestingly, <a href="https://developer.mozilla.org/en/new_in_javascript_1.7">Javascript 1.7</a> introduces a <em>yield</em> operator, which <a href="http://parametricity.net/dropbox/yield.subc.pdf">has been shown</a> to have comparable expressive power to the <em>shift-reset</em> delimcc operators. Perhaps convergence isn't too far away after all...</p>
+<p>Interestingly, <a href="https://developer.mozilla.org/en/new_in_javascript_1.7 - [404 Not Found]">Javascript 1.7</a> introduces a <em>yield</em> operator, which <a href="http://parametricity.net/dropbox/yield.subc.pdf">has been shown</a> to have comparable expressive power to the <em>shift-reset</em> delimcc operators. Perhaps convergence isn't too far away after all...</p>
 
       

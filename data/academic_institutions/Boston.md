@@ -8,7 +8,7 @@ continent: North America
 courses:
     - name: Computer Science I 
       acronym: CS1101
-      online_resource: "https://www.cs.bc.edu/~muller/teaching/cs1101/s16/"
+      online_resource: "https://www.cs.bc.edu/~muller/teaching/cs1101/s16/ - [1 Client error: Couldn't connect to server]"
 location:
      lat: 42.3355
      long: -71.1685

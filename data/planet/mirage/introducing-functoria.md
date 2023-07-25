@@ -10,7 +10,7 @@ authors:
 ---
 
 
-        <p>For the last few months, I've been working with <a href="http://www.gazagnaire.org">Thomas</a> on improving the <code>mirage</code> tool and
+        <p>For the last few months, I've been working with <a href="http://www.gazagnaire.org - [1 Client error: Timeout was reached]">Thomas</a> on improving the <code>mirage</code> tool and
 I'm happy to present <a href="https://github.com/mirage/functoria">Functoria</a>, a library to create arbitrary MirageOS-like DSLs. Functoria is independent from <code>mirage</code> and will replace the core engine, which was somewhat bolted on to the tool until now.</p>
 <p>This introduces a few breaking changes so please consult
 <a href="https://mirage.io/docs/breaking-changes">the breaking changes page</a> to see what is different and how to fix things if needed.
@@ -50,7 +50,7 @@ startup time.</p>
 </li>
 </ul>
 <p>Imagine we are building a multilingual unikernel and we want to pass the
-default language as a parameter. The language parameter is an optional string, so we use the <a href="http://mirage.github.io/functoria/Functoria_key.Arg.html#VALopt"><code>opt</code></a> and <a href="http://mirage.github.io/functoria/Functoria_key.Arg.html#VALstring"><code>string</code></a> combinators. We want to be able to define it both
+default language as a parameter. The language parameter is an optional string, so we use the <a href="http://mirage.github.io/functoria/Functoria_key.Arg.html#VALopt - [404 Not Found]"><code>opt</code></a> and <a href="http://mirage.github.io/functoria/Functoria_key.Arg.html#VALstring - [404 Not Found]"><code>string</code></a> combinators. We want to be able to define it both
 at configure and run time, so we use the stage <code> `Both</code>. This gives us the following code:</p>
 <pre><code class="language-ocaml">let lang_key =
   let doc = Key.Arg.info
@@ -64,7 +64,7 @@ In the unikernel, the value is retrieved with <code>Key_gen.language ()</code>.<
 <pre><code>       -l VAL, --lang=VAL (absent=en)
            The default language for the unikernel.
 </code></pre>
-<p>A simple example of a unikernel with a key is available in <a href="https://github.com/mirage/mirage-skeleton">mirage-skeleton</a> in the <a href="https://github.com/mirage/mirage-skeleton/tree/master/hello"><code>hello</code> directory</a>.</p>
+<p>A simple example of a unikernel with a key is available in <a href="https://github.com/mirage/mirage-skeleton">mirage-skeleton</a> in the <a href="https://github.com/mirage/mirage-skeleton/tree/master/hello - [404 Not Found]"><code>hello</code> directory</a>.</p>
 <h3>Switching implementation</h3>
 <p>We can do much more with keys, for example we can use them to switch devices at configure time.
 To illustrate, let us take the example of dynamic storage, where we want to choose between a block device and a crunch device with a command line option.
@@ -75,7 +75,7 @@ In order to do that, we must first define a boolean key:</p>
   in
   Key.(create &quot;fat&quot; Arg.(opt ~stage:`Configure bool false doc))
 </code></pre>
-<p>We can use the <a href="http://mirage.github.io/functoria/Functoria.html#VALif_impl"><code>if_impl</code></a> combinator to choose between two devices depending on the value of the key.</p>
+<p>We can use the <a href="http://mirage.github.io/functoria/Functoria.html#VALif_impl - [404 Not Found]"><code>if_impl</code></a> combinator to choose between two devices depending on the value of the key.</p>
 <pre><code class="language-ocaml">let dynamic_storage =
   if_impl (Key.value fat_key)
     (kv_ro_of_fs my_fat_device)
@@ -106,7 +106,7 @@ the <code>default_console</code> is actually two consoles: the one on Unix and t
 <h2>Data dependencies</h2>
 <p>You may have noticed dashed lines in the previous diagram, in particular from <code>mirage</code> to <code>Unikernel.Main</code>. Those lines are data dependencies. For example, the <code>bootvar</code> device has a dependency on the <code>argv</code> device. It means that <code>argv</code> is configured and run first, returns some data &mdash; an array of string &mdash; then <code>bootvar</code> is configured and run.</p>
 <p>If your unikernel has a data dependency &mdash; say, initializing the entropy &mdash; you can use the <code>~deps</code> argument on <code>Mirage.foreign</code>. The <code>start</code> function of the unikernel will receive one extra argument for each dependency.</p>
-<p>As an example, let us look at the <a href="http://mirage.github.io/functoria/Functoria_app.html#VALapp_info"><code>app_info</code></a> device. This device makes the configuration information available at runtime. We can declare a dependency on it:</p>
+<p>As an example, let us look at the <a href="http://mirage.github.io/functoria/Functoria_app.html#VALapp_info - [404 Not Found]"><code>app_info</code></a> device. This device makes the configuration information available at runtime. We can declare a dependency on it:</p>
 <pre><code class="language-ocaml">let main =
   foreign &quot;Unikernel.Main&quot; ~deps:[abstract app_info] (console @-&gt; job)
 </code></pre>
@@ -118,7 +118,7 @@ libraries: [functoria.runtime; lwt.syntax; mirage-console.unix;
 packages: [functoria.0.1; lwt.2.5.0; mirage-console.2.1.3; mirage-unix.2.3.1;
            sexplib.113.00.00]
 </code></pre>
-<p>The complete example is available in <a href="https://github.com/mirage/mirage-skeleton">mirage-skeleton</a> in the <a href="https://github.com/mirage/mirage-skeleton/tree/master/app_info"><code>app_info</code> directory</a>.</p>
+<p>The complete example is available in <a href="https://github.com/mirage/mirage-skeleton">mirage-skeleton</a> in the <a href="https://github.com/mirage/mirage-skeleton/tree/master/app_info - [404 Not Found]"><code>app_info</code> directory</a>.</p>
 <h2>Sharing</h2>
 <p>Since we have a way to draw unikernels, we can now observe the sharing between various pieces. For example, the direct stack with static IP yields this diagram:</p>
 <p><a href="https://mirage.io/graphics/dot/stack.svg"><img src="https://mirage.io/graphics/dot/stack.svg" alt="A stack unikernel" title="My stack unikernel"/></a></p>
@@ -130,7 +130,7 @@ To force non-sharing of two devices, it is enough to give them different names.<
 <h2>All your functors are belong to us</h2>
 <p>There is more to be said about the new capabilities offered by functoria, in particular on how to define new devices. You can discover them by looking at the <a href="https://github.com/mirage/mirage">mirage</a> implementation.</p>
 <p>However, to wrap up this blog post, I offer you a visualization of the MirageOS website itself (brace yourself). <a href="https://mirage.io/graphics/dot/www.svg">Enjoy!</a></p>
-<p><em>Thanks to <a href="http://mort.io">Mort</a>, <a href="http://somerandomidiot.com">Mindy</a>, <a href="http://amirchaudhry.com">Amir</a> and <a href="https://github.com/yallop">Jeremy</a>
+<p><em>Thanks to <a href="http://mort.io">Mort</a>, <a href="http://somerandomidiot.com - [1 Client error: Timeout was reached]">Mindy</a>, <a href="http://amirchaudhry.com">Amir</a> and <a href="https://github.com/yallop">Jeremy</a>
 for their comments on earlier drafts.</em></p>
 
       

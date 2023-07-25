@@ -169,7 +169,7 @@ homogenous - using a normal sum type leads to an unneccessary unpacking step
 types</a> (read
 <a href="http://caml.inria.fr/pub/docs/manual-ocaml/extn.html#sec251">OCaml manual</a> and
 <a href="http://mads-hartmann.com/ocaml/2015/01/05/gadt-ocaml.html">Mads Hartmann blog post about use cases for
-GADTs</a>, <a href="https://andreas.github.io/2018/01/05/modeling-graphql-type-modifiers-with-gadts/">Andreas
+GADTs</a>, <a href="https://andreas.github.io/2018/01/05/modeling-graphql-type-modifiers-with-gadts/ - [404 Not Found]">Andreas
 Garn&aelig;s about using GADTs for GraphQL type
 modifiers</a>)
 to preserve a relation between key and value (and A record has a list of IPv4
@@ -177,8 +177,8 @@ addresses and a ttl as value) - similar to
 <a href="http://erratique.ch/software/hmap">hmap</a>, but different: a closed key-value
 mapping (the GADT), no int for each key and mutable state.  Thanks to Justus
 Matthiesen for helping me with GADTs and this code.  Look into the
-<a href="https://github.com/roburio/udns/blob/master/src/dns_map.mli">interface</a> and
-<a href="https://github.com/roburio/udns/blob/master/src/dns_map.ml">implementation</a>.</p>
+<a href="https://github.com/roburio/udns/blob/master/src/dns_map.mli - [404 Not Found]">interface</a> and
+<a href="https://github.com/roburio/udns/blob/master/src/dns_map.ml - [404 Not Found]">implementation</a>.</p>
 <pre><code class="language-OCaml">(* an ordering relation, I dislike using int for that *)
 module Order = struct
   type (_,_) t =
@@ -257,7 +257,7 @@ are introduced to encode the permissions.  A <code>_transfer</code> key also nee
 encode the IP address of the primary (to know where to request zone transfers)
 and secondary IP (to know where to send notifications).</p>
 <p>Please have a look at
-<a href="https://git.robur.io/?p=ns.robur.io.git%3Ba=summary">ns.robur.io</a> and the <a href="https://github.com/roburio/udns/blob/master/mirage/examples">examples</a> for more details.  The shared secrets are provided as boot parameter of the unikernel.</p>
+<a href="https://git.robur.io/?p=ns.robur.io.git%3Ba=summary">ns.robur.io</a> and the <a href="https://github.com/roburio/udns/blob/master/mirage/examples - [404 Not Found]">examples</a> for more details.  The shared secrets are provided as boot parameter of the unikernel.</p>
 <p>I hacked maker's
 <a href="https://github.com/hannesm/ocaml-letsencrypt/tree/nsupdate">ocaml-letsencrypt</a>
 library to use &micro;DNS and sending update frames to the given IP address.  I
@@ -269,6 +269,6 @@ or <a href="https://github.com/mirage/ocaml-git">git</a>).  I also plan to have 
 automated Let's Encrypt certificate unikernel which listens for certificate
 signing requests and stores signed certificates in DNS.  Luckily the year only
 started and there's plenty of time left.</p>
-<p>I'm interested in feedback, either via <strike><a href="https://twitter.com/h4nnes">twitter</a></strike>
+<p>I'm interested in feedback, either via <strike><a href="https://twitter.com/h4nnes - [1 Client error: Number of redirects hit maximum amount]">twitter</a></strike>
 hannesm@mastodon.social or via eMail.</p>
 

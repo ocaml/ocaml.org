@@ -26,7 +26,7 @@ module Ovs = struct
 
 end
 </pre>
-<p>The above code is loosely based on <a href="https://mcclurmc.wordpress.com/feed/github.com/xen-org/xen-api">xen-api&rsquo;s</a> network daemon, a service which configures an XCP host&rsquo;s networking. The above module is for the Open vSwitch backend, which uses the ovs-vsctl command line tool to convigure the vSwitch controller. I just implemented some new functionality in the make_bond_properties function (not shown above), and I want to test that ovs-vsctl command is being invoked properly.</p>
+<p>The above code is loosely based on <a href="https://mcclurmc.wordpress.com/feed/github.com/xen-org/xen-api - [404 Not Found]">xen-api&rsquo;s</a> network daemon, a service which configures an XCP host&rsquo;s networking. The above module is for the Open vSwitch backend, which uses the ovs-vsctl command line tool to convigure the vSwitch controller. I just implemented some new functionality in the make_bond_properties function (not shown above), and I want to test that ovs-vsctl command is being invoked properly.</p>
 <p>I want to be able to test that the list of arguments we&rsquo;re passing to the vsctl function is correct, but this function calls vsctl directly with the arguements, so I can&rsquo;t &ldquo;see&rdquo; them in my test case. We could just split create_bond into create_bond_arguments and do_create_bond functions. But if we ever write unit tests for the other 20 functions that call vsctl, we&rsquo;ll have to do the exact same thing for all of them. Instead, we&rsquo;ll refactor the Ovs module so that we can pass in an alternative implementation of vsctl.</p>
 <pre class="brush: plain; title: ; notranslate">
 module Ovs = struct

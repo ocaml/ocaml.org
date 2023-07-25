@@ -40,8 +40,8 @@ to make such advances will ease the process of bringing in new users and
 contributors across all the projects.</p>
 <p>Please do visit the site and contribute stories about how you're using and
 improving unikernels!</p>
-<p><em>Edit: discuss this post on <a href="https://devel.unikernel.org/t/why-we-need-unikernel-org/18/1">devel.unikernel.org</a></em></p>
-<p><em>Thanks to <a href="http://anil.recoil.org">Anil</a>, <a href="https://github.com/yallop">Jeremy</a> and <a href="http://somerandomidiot.com">Mindy</a> for
+<p><em>Edit: discuss this post on <a href="https://devel.unikernel.org/t/why-we-need-unikernel-org/18/1 - [1 Client error: Couldn't resolve host name]">devel.unikernel.org</a></em></p>
+<p><em>Thanks to <a href="http://anil.recoil.org">Anil</a>, <a href="https://github.com/yallop">Jeremy</a> and <a href="http://somerandomidiot.com - [1 Client error: Timeout was reached]">Mindy</a> for
 comments on an earlier draft.</em></p>
 
       

@@ -13,7 +13,7 @@ source:
 <p>Python ranks fairly high when it comes getting things done without too
 much ceremony in the programming community. I briefly had some doubts of
 this assertion of until I finally found
-<a href="http://kennethreitz.org/introducing-flask-sockets" class="reference external">Flask-Sockets</a>.
+<a href="http://kennethreitz.org/introducing-flask-sockets - [404 Not Found]" class="reference external">Flask-Sockets</a>.
 This small library makes it very natural to serve WebSockets in
 Flask/gevent. You can consider this blog post as an advertisement for
 this small but extremely useful library.</p>

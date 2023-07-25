@@ -32,9 +32,9 @@ the new features in this latest release, coordinated by the tireless <a href="ht
 </li>
 <li><strong>Irmin distributed, branchable storage</strong>: Unikernels usually execute in a distributed, disconnection-prone environment (particularly with the new mobile ARM support).  We therefore built the <a href="https://github.com/mirage/irmin">Irmin</a> library to explicitly make synchronization easier via a Git-like persistence model that can be used to build and easily trace the operation of distributed applications across all of these diverse environments.
 <ul>
-<li><em>&quot;<a href="https://mirage.io/blog/introducing-irmin">Introducing Irmin: Git-like distributed, branchable storage</a>&quot;</em> by <a href="http://gazagnaire.org">Thomas Gazagnaire</a> describes the concepts and high-level architecture of the system.
+<li><em>&quot;<a href="https://mirage.io/blog/introducing-irmin">Introducing Irmin: Git-like distributed, branchable storage</a>&quot;</em> by <a href="http://gazagnaire.org - [1 Client error: Timeout was reached]">Thomas Gazagnaire</a> describes the concepts and high-level architecture of the system.
 </li>
-<li><em>&quot;<a href="https://mirage.io/blog/introducing-irmin-in-xenstore">Using Irmin to add fault-tolerance to the Xenstore database</a>&quot;</em> by <a href="http://dave.recoil.org">Dave Scott</a> shows how Irmin is used in a real-world application: the security-critical Xen toolstack that manages hosts full of virtual machines (<a href="https://www.youtube.com/watch?v=DSzvFwIVm5s">video</a>).
+<li><em>&quot;<a href="https://mirage.io/blog/introducing-irmin-in-xenstore">Using Irmin to add fault-tolerance to the Xenstore database</a>&quot;</em> by <a href="http://dave.recoil.org - [1 Client error: SSL connect error]">Dave Scott</a> shows how Irmin is used in a real-world application: the security-critical Xen toolstack that manages hosts full of virtual machines (<a href="https://www.youtube.com/watch?v=DSzvFwIVm5s">video</a>).
 </li>
 </ul>
 </li>
@@ -56,16 +56,16 @@ the new features in this latest release, coordinated by the tireless <a href="ht
 <ul>
 <li><strong>Modularity and communication</strong>: MirageOS is built on the concept of a <a href="http://anil.recoil.org/papers/2013-asplos-mirage.pdf">library operating system</a>, and this release provides many new libraries to flexibly extend applications with new functionality.
 <ul>
-<li><em>&quot;<a href="https://mirage.io/blog/intro-tcpip">Fitting the modular MirageOS TCP/IP stack together</a>&quot;</em> by <a href="http://somerandomidiot.com">Mindy Preston</a> explains the rather unique modular architecture of our TCP/IP stack that lets you swap between the conventional Unix sockets API, or a complete implementation of TCP/IP in pure OCaml.
+<li><em>&quot;<a href="https://mirage.io/blog/intro-tcpip">Fitting the modular MirageOS TCP/IP stack together</a>&quot;</em> by <a href="http://somerandomidiot.com - [1 Client error: Timeout was reached]">Mindy Preston</a> explains the rather unique modular architecture of our TCP/IP stack that lets you swap between the conventional Unix sockets API, or a complete implementation of TCP/IP in pure OCaml.
 </li>
-<li><em>&quot;<a href="https://mirage.io/blog/update-on-vchan">Vchan: low-latency inter-VM communication channels</a>&quot;</em> by <a href="http://jon.recoil.org">Jon Ludlam</a> shows how unikernels can communicate efficiently with each other to form distributed clusters on a multicore Xen host, by establishing shared memory rings with each other.
+<li><em>&quot;<a href="https://mirage.io/blog/update-on-vchan">Vchan: low-latency inter-VM communication channels</a>&quot;</em> by <a href="http://jon.recoil.org - [1 Client error: Timeout was reached]">Jon Ludlam</a> shows how unikernels can communicate efficiently with each other to form distributed clusters on a multicore Xen host, by establishing shared memory rings with each other.
 </li>
 <li><em>&quot;<a href="https://mirage.io/blog/modular-foreign-function-bindings">Modular foreign function bindings</a>&quot;</em> by <a href="https://github.com/yallop">Jeremy Yallop</a> continues the march towards abstraction by expaining how to interface safely with code written in C, without having to write any unsafe C bindings!  This forms the basis for allowing Xen unikernels to communicate with existing libraries that they may want to keep at arm's length for security reasons.
 </li>
 </ul>
 </li>
 </ul>
-<p>All the libraries required for these new features are <a href="https://mirage.io/releases">regularly
+<p>All the libraries required for these new features are <a href="https://mirage.io/releases - [404 Not Found]">regularly
 released</a> into the <a href="http://opam.ocaml.org">OPAM</a> package manager, so
 just follow the <a href="https://mirage.io/wiki/install">installation instructions</a> to give them a spin.
 A release this size probably introduces minor hiccups that may cause build
@@ -76,6 +76,6 @@ basic, and we'd love to hear of any weird and wacky uses you put this new
 release to!  And finally, the lifeblood of MirageOS is about sharing and
 <a href="http://opam.ocaml.org/doc/Packaging.html">publishing libraries</a> that add new functionality to the framework, so do get
 involved and open-source your own efforts.</p>
-<p><em>Breaking news</em>: <a href="http://mort.io">Richard Mortier</a> and I will be speaking at <a href="http://www.oscon.com">OSCON</a> this week on Thursday morning about the new features <a href="http://www.oscon.com/oscon2014/public/schedule/detail/35024">in F150 in the Cloud Track</a>. Come along if you are in rainy Portland at the moment!</p>
+<p><em>Breaking news</em>: <a href="http://mort.io">Richard Mortier</a> and I will be speaking at <a href="http://www.oscon.com - [1 Client error: Timeout was reached]">OSCON</a> this week on Thursday morning about the new features <a href="http://www.oscon.com/oscon2014/public/schedule/detail/35024 - [1 Client error: Timeout was reached]">in F150 in the Cloud Track</a>. Come along if you are in rainy Portland at the moment!</p>
 
       

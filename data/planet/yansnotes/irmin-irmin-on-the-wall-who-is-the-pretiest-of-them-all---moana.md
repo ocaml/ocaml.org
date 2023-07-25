@@ -47,9 +47,9 @@ To code Irmin-based backed we need to implement two Moana signatures, namely <a 
 <br/>
 I am a noobie when it comes to Irmin, I am still trying to figure out all of its functionalities so proceed with caution :)<br/>
 <br/>
-I recommend reading <span></span><a href="http://openmirage.org/blog/introducing-irmin" target="_blank">this blog post</a> to get a better understanding on Irmin, also I found this<a href="https://ocaml.org/meetings/ocaml/2014/ocaml2014_11.pdf" target="_blank"> short paper</a> very insightful. For better code understanding, make sure you familiarise yourself with the<a href="http://ocsigen.org/lwt/manual/" target="_blank"> <i>lwt</i></a> library.<br/>
+I recommend reading <span></span><a href="http://openmirage.org/blog/introducing-irmin - [1 Client error: Timeout was reached]" target="_blank">this blog post</a> to get a better understanding on Irmin, also I found this<a href="https://ocaml.org/meetings/ocaml/2014/ocaml2014_11.pdf - [404 Not Found]" target="_blank"> short paper</a> very insightful. For better code understanding, make sure you familiarise yourself with the<a href="http://ocsigen.org/lwt/manual/ - [404 Not Found]" target="_blank"> <i>lwt</i></a> library.<br/>
 <br/>
-So to use Irmin, I chose to use blocks of type String, just because it is provided; to have different types of values you need to implement your own <a href="https://github.com/mirage/irmin/blob/master/lib/core/irminContents.mli" target="_blank">IrminContents</a> signature. This, from my understanding, involves letting Irmin know how to merge your values.<br/>
+So to use Irmin, I chose to use blocks of type String, just because it is provided; to have different types of values you need to implement your own <a href="https://github.com/mirage/irmin/blob/master/lib/core/irminContents.mli - [404 Not Found]" target="_blank">IrminContents</a> signature. This, from my understanding, involves letting Irmin know how to merge your values.<br/>
 <br/>
 Ultimately, I want to use Irmin to store Moana tuples, not strings, so I will have to implement the Contents signature. For now, I convert Moana tuples into JSON string and store them in Irmin.<br/>
 <br/>

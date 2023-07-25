@@ -17,7 +17,7 @@ post, updated to use the modern build scheme for Mirage.</em></p>
 that you've ever heard of the <em>vchan</em> library or
 protocol. Documentation about it is very scarce: a description can be
 found on vchan's
-<a href="http://xenbits.xen.org/gitweb/?p=xen.git%3Ba=blob%3Bf=xen/include/public/io/libxenvchan.h%3Bhb=HEAD">public header file</a>,
+<a href="http://xenbits.xen.org/gitweb/?p=xen.git%3Ba=blob%3Bf=xen/include/public/io/libxenvchan.h%3Bhb=HEAD - [404 Not Found]">public header file</a>,
 that I quote here for convenience:</p>
 <blockquote>
 <p>Originally borrowed from the
@@ -33,10 +33,10 @@ i.e. between two VMs residing in the same Xen host, and uses Xen's
 mechanisms -- more specifically,
 <a href="http://www.informit.com/articles/article.aspx?p=1160234&amp;seqNum=3">ring buffers</a>
 and
-<a href="http://xenbits.xen.org/gitweb/?p=xen.git%3Ba=blob%3Bf=tools/libxc/xenctrl.h%3Bh=f2cebafc9ddd4815ffc73fcf9e0d292b1d4c91ff%3Bhb=HEAD#l934">event channels</a>
+<a href="http://xenbits.xen.org/gitweb/?p=xen.git%3Ba=blob%3Bf=tools/libxc/xenctrl.h%3Bh=f2cebafc9ddd4815ffc73fcf9e0d292b1d4c91ff%3Bhb=HEAD#l934 - [404 Not Found]">event channels</a>
 -- in order to achieve its aims. The term <em>datagram-based interface</em> simply
 means that the
-<a href="http://xenbits.xen.org/gitweb/?p=xen.git%3Ba=blob%3Bf=tools/libvchan/libxenvchan.h%3Bh=6365d36a06f8c8f56454724cefc4c2f1d39beba2%3Bhb=HEAD">interface</a>
+<a href="http://xenbits.xen.org/gitweb/?p=xen.git%3Ba=blob%3Bf=tools/libvchan/libxenvchan.h%3Bh=6365d36a06f8c8f56454724cefc4c2f1d39beba2%3Bhb=HEAD - [404 Not Found]">interface</a>
 resembles UDP, although there is support for stream based communication (like
 TCP) as well.</p>
 <p>The <code>vchan</code> protocol is an important feature in MirageOS 2.0 since it
@@ -107,7 +107,7 @@ the ocaml-vchan repository:</p>
 <pre><code class="language-console">$ git clone https://github.com/mirage/ocaml-vchan
 </code></pre>
 <p>The demo unikernel is a very straightforward capitalizing echo server.
-The <a href="https://github.com/mirage/ocaml-vchan/blob/master/test/echo.ml#L13">main function</a> simply consists of</p>
+The <a href="https://github.com/mirage/ocaml-vchan/blob/master/test/echo.ml#L13 - [404 Not Found]">main function</a> simply consists of</p>
 <pre><code class="language-ocaml">let (&gt;&gt;=) = Lwt.bind
 
 let (&gt;&gt;|=) m f = m &gt;&gt;= function

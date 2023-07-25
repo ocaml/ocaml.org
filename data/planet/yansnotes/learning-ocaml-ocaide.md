@@ -45,7 +45,7 @@ Out of all the Eclipse plugins <a href="http://www.algo-prog.info/ocaide/index.p
 <br/>
 In any case, the <a href="http://www.algo-prog.info/ocaide/index.php" target="_blank">OcaIDE </a>project offers Flash-based tutorials on how to set-up and best utilised your developing environment.<br/>
 <br/>
-You can find step-by-step instructions for it <a href="http://www.seas.upenn.edu/~cis120e/ocaml_setup.shtml" target="_blank">here </a>from guys in UPenn, which include info on how to install OCAML, Eclipse and finally <a href="http://www.algo-prog.info/ocaide/index.php" target="_blank">OcaIDE</a>.<br/>
+You can find step-by-step instructions for it <a href="http://www.seas.upenn.edu/~cis120e/ocaml_setup.shtml - [404 Not Found]" target="_blank">here </a>from guys in UPenn, which include info on how to install OCAML, Eclipse and finally <a href="http://www.algo-prog.info/ocaide/index.php" target="_blank">OcaIDE</a>.<br/>
 A nice summary of how to install OCAML on different enviroment is also presented by the OCAML.org <a href="https://ocaml.org/docs/install.html" target="_blank">here</a>.<br/>
 <br/>
 There is plenty of discussion online about a suitable IDE, here are the links to some of it:<br/>
@@ -60,7 +60,7 @@ There is plenty of discussion online about a suitable IDE, here are the links to
 <br/></div>
 <hr width="80%"/>
 <span class="Apple-style-span" style="font-size: x-small;"><br/>
-<a href="https://www.blogger.com/null" name="1"><b>1 </b></a>I am not a big fan of Vim and Emacs, so I wanted to find and IDE 
+<a href="https://www.blogger.com/null - [404 Not Found]" name="1"><b>1 </b></a>I am not a big fan of Vim and Emacs, so I wanted to find and IDE 
 that gives me slightly more than just syntax highlight and indentation -
  just kidding :)&nbsp; This&nbsp; is a very gross underestimation
  of the true power behind Vim and Emacs editors, they are truly powerful

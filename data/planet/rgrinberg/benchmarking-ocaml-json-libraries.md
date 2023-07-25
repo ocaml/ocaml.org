@@ -10,6 +10,6 @@ authors:
 source:
 ---
 
-<p>According to <a href="http://opam.ocaml.org/pkg/index-popularity.html" class="reference external">opam</a>
+<p>According to <a href="http://opam.ocaml.org/pkg/index-popularity.html - [404 Not Found]" class="reference external">opam</a>
 OCaml has 2 popular libraries for parsing json:</p>
 

@@ -16,13 +16,13 @@ source:
 <p class="noindent">Here are some references:</p>
 
 <ul>
-  <li>The homepage of the project is hosted on <a href="https://ocaml-lua.forge.ocamlcore.org/">OCaml Forge</a>;</li>
+  <li>The homepage of the project is hosted on <a href="https://ocaml-lua.forge.ocamlcore.org/ - [1 Client error: SSL connect error]">OCaml Forge</a>;</li>
 
-  <li>The complete library reference (ocamldoc generated) is <a href="%20https://ocaml-lua.forge.ocamlcore.org/api-lua/">here</a>;</li>
+  <li>The complete library reference (ocamldoc generated) is <a href="%20https://ocaml-lua.forge.ocamlcore.org/api-lua/ - [1 Client error: SSL connect error]">here</a>;</li>
 
-  <li>Source tarballs are on the download page on <a href="https://forge.ocamlcore.org/frs/?group_id=167">OCaml Forge</a>;</li>
+  <li>Source tarballs are on the download page on <a href="https://forge.ocamlcore.org/frs/?group_id=167 - [404 Not Found]">OCaml Forge</a>;</li>
 
-  <li>The official GIT repository is <a href="https://forge.ocamlcore.org/scm/browser.php?group_id=167">here</a>;</li>
+  <li>The official GIT repository is <a href="https://forge.ocamlcore.org/scm/browser.php?group_id=167 - [404 Not Found]">here</a>;</li>
 
   <li>Bug reports and feature requests are on my page on <a href="https://github.com/pdonadeo/ocaml-lua/issues">GitHub</a>.</li>
 </ul>

@@ -18,7 +18,7 @@ then to improve the integration and create a robust framework.  The recent
 releases allow developers to easily build and deploy secure unikernel services
 and we've also incorporated numerous bug-fixes and major stability
 improvements (especially in the network stack).  The full list of changes is
-available on the <a href="https://mirage.io/releases">releases</a> page and the <a href="https://mirage.io/wiki/breaking-changes">breaking API changes</a>
+available on the <a href="https://mirage.io/releases - [404 Not Found]">releases</a> page and the <a href="https://mirage.io/wiki/breaking-changes">breaking API changes</a>
 now have their own page.</p>
 <p>Over the coming week, we'll share more about the TLS stack by diving into the
 results of the <a href="https://mirage.io/blog/announcing-bitcoin-pinata">Bitcoin Pi&ntilde;ata</a>, describing a new workflow for
@@ -66,7 +66,7 @@ links:</p>
 the process of disclosing issues to us.  Many bugs can be reported as usual on
 our <a href="https://github.com/mirage/mirage/issues">issue tracker</a> but if you think you've discovered a
 <strong>security vulnerability</strong>, the best way to inform us is described on a new
-page at <strong><a href="https://mirage.io/security">https://mirage.io/security</a></strong>.</p>
+page at <strong><a href="https://mirage.io/security - [404 Not Found]">https://mirage.io/security - [404 Not Found]</a></strong>.</p>
 <h3>Get started!</h3>
 <p>As usual, MirageOS v2.5 and the its ever-growing collection of
 libraries is packaged with the <a href="https://opam.ocaml.org">OPAM</a> package

@@ -74,5 +74,5 @@ source:
 <h3>MirageOS 4.0</h3>
 <p>Mirage so far still uses ocamlbuild and ocamlfind for compiling the virtual machine binary. But the switch to dune is <a href="https://github.com/mirage/mirage/issues/1195">close</a>, a lot of effort has been done. This will make the developer experience of MirageOS much more smooth, with a per-unikernel monorepo workflow where you can push your changes to the individual libraries.</p>
 <h2>Footer</h2>
-<p>If you want to support our work on MirageOS unikernels, please <a href="https://robur.coop/Donate">donate to robur</a>. I'm interested in feedback, either via <a href="https://twitter.com/h4nnes">twitter</a>, <a href="https://mastodon.social/@hannesm">hannesm@mastodon.social</a> or via eMail.</p>
+<p>If you want to support our work on MirageOS unikernels, please <a href="https://robur.coop/Donate">donate to robur</a>. I'm interested in feedback, either via <a href="https://twitter.com/h4nnes - [1 Client error: Number of redirects hit maximum amount]">twitter</a>, <a href="https://mastodon.social/@hannesm">hannesm@mastodon.social</a> or via eMail.</p>
 

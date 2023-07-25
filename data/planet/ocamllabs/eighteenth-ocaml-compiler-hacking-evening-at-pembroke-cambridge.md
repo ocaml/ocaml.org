@@ -1,7 +1,7 @@
 ---
 title: Eighteenth OCaml compiler hacking evening at Pembroke, Cambridge
 description:
-url: http://ocamllabs.github.com/compiler-hacking/2017/11/21/eighteenth-compiler-hacking-december
+url: http://ocamllabs.github.com/compiler-hacking/2017/11/21/eighteenth-compiler-hacking-december - [404 Not Found]
 date: 2017-11-21T21:00:00-00:00
 preview_image:
 featured:
@@ -12,7 +12,7 @@ source:
 
 <p>Our next OCaml Compiler Hacking event will be on Thursday 7th December in The Thomas Gray Room at Pembroke College, Cambridge.</p>
 
-<p>If you're planning to come along, it'd be helpful if you could <a href="https://doodle.com/poll/khqk6i49r4828apu">indicate interest via Doodle</a> and <a href="http://lists.ocaml.org/admin/cam-compiler-hacking">sign up to the mailing list</a> to receive updates.</p>
+<p>If you're planning to come along, it'd be helpful if you could <a href="https://doodle.com/poll/khqk6i49r4828apu">indicate interest via Doodle</a> and <a href="http://lists.ocaml.org/admin/cam-compiler-hacking - [404 Not Found]">sign up to the mailing list</a> to receive updates.</p>
 
 <p><em><strong>When</strong></em>: Thursday 7 December 2017, 19:00 - 22:30</p>
 
@@ -30,5 +30,5 @@ source:
 
 <p>The OCaml 4.06 release featured safe-string as the default rather than optional as per previous releases. The focus of this event will be to work on the opam repository to fix up as many packages as possible, and also to publish a guide on <a href="http://ocamllabs.io/">ocamllabs.io</a> detailing how to migrate your packages for wider use.</p>
 
-<p>The evening will also feature a short (5-10 min) presentation about recent <a href="http://marrakech2017.mirage.io/">MirageOS Marrakech Hack Retreat</a>.&#8203;</p>
+<p>The evening will also feature a short (5-10 min) presentation about recent <a href="http://marrakech2017.mirage.io/ - [1 Client error: Couldn't resolve host name]">MirageOS Marrakech Hack Retreat</a>.&#8203;</p>
 

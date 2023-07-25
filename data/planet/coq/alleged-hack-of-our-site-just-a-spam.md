@@ -13,6 +13,6 @@ source:
 
 The alleged &quot;hack&quot; of coq.inria.fr that led to several days of downtime
 for investigations was nothing more than a spam bug report. More details
-<a href="https://sympa.inria.fr/sympa/arc/coq-club/2017-08/msg00040.html">here</a>.
+<a href="https://sympa.inria.fr/sympa/arc/coq-club/2017-08/msg00040.html - [1 Client error: Number of redirects hit maximum amount]">here</a>.
 
  

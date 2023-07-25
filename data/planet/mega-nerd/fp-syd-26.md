@@ -24,7 +24,7 @@ First up we had your correspondent
 	<a href="http://www.mega-nerd.com/erikd/Blog/">
 	(thats me)</a>
 with a presentation titled
-	<a href="http://fp-syd.googlegroups.com/web/ddc-llvm.pdf">
+	<a href="http://fp-syd.googlegroups.com/web/ddc-llvm.pdf - [404 Not Found]">
 	An LLVM Backend for DDC</a>.
 This presentation covered the problems with the current C backend, gave
 a description of LLVM, the options for using LLVM from Haskell, why the LLVM

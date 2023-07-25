@@ -23,7 +23,7 @@ source:
     <span class="o">|</span> <span class="nc">Jq_object</span> <span class="k">of</span> <span class="o">(</span><span class="kt">string</span> <span class="o">*</span> <span class="n">t</span><span class="o">)</span> <span class="kt">list</span> 
 </code></pre> 
 </div> 
-<p>This is the same (modulo order and names) as <code>json_type</code> from the <a href="http://martin.jambon.free.fr/json-wheel.html">json-wheel</a> library, but for various reasons we will not be able to use <code>json_type</code>. The <code>Jq_</code> prefix is for <code>json_quot</code>, the name of this little library.</p> 
+<p>This is the same (modulo order and names) as <code>json_type</code> from the <a href="http://martin.jambon.free.fr/json-wheel.html - [404 Not Found]">json-wheel</a> library, but for various reasons we will not be able to use <code>json_type</code>. The <code>Jq_</code> prefix is for <code>json_quot</code>, the name of this little library.</p> 
 <b>Parsing JSON</b> 
 <p>We&rsquo;ll use a Camlp4 <a href="http://ambassadortothecomputers.blogspot.com/2010/05/reading-camlp4-part-6-parsing.html">grammar</a> to parse JSON trees. It is not necessary to use Camlp4&rsquo;s parsing facilities in order to implement quotations&mdash;ultimately we will need to provide just a function from strings to ASTs, so we could use <code>ocamlyacc</code> or what-have-you instead&mdash;but it is convenient. Here is the parser:</p> 
 <div class="highlight"><pre><code class="ocaml">  <span class="k">open</span> <span class="nn">Camlp4</span><span class="p">.</span><span class="nc">PreCast</span> 
@@ -136,7 +136,7 @@ source:
 </div> 
 <p>The <code>ExFlo</code> constructor takes a string representing the float, but calls to this function are generated when you use <code>float</code> in your type. To work around this, we define the type <code>float'</code> (on its own rather than as part of the last-appearing recursive bundle, or else Camlp4 would generate a <code>meta_float'</code> that calls <code>meta_float</code>), and provide correct <code>meta_float'</code> functions. There is a similar bug with <code>meta_int</code>, but <code>meta_bool</code> is correct, so our <code>Jq_bool</code> case does not need fixing.</p> 
  
-<p>(It is interesting to contrast this approach of lifting the AST with how it is handled in Template Haskell using the &ldquo;scrap your boilerplate&rdquo; pattern; see Geoffrey Mainland&rsquo;s paper <a href="http://www.eecs.harvard.edu/~mainland/publications/mainland07quasiquoting.pdf">Why It&rsquo;s Nice to be Quoted</a>.)</p> 
+<p>(It is interesting to contrast this approach of lifting the AST with how it is handled in Template Haskell using the &ldquo;scrap your boilerplate&rdquo; pattern; see Geoffrey Mainland&rsquo;s paper <a href="http://www.eecs.harvard.edu/~mainland/publications/mainland07quasiquoting.pdf - [404 Not Found]">Why It&rsquo;s Nice to be Quoted</a>.)</p> 
 <b>Quotations</b> 
 <p>Finally we can hook the parser and AST lifter into Camlp4&rsquo;s quotation machinery, in the <code>Jq_quotations</code> module:</p> 
 <div class="highlight"><pre><code class="ocaml">  <span class="k">open</span> <span class="nn">Camlp4</span><span class="p">.</span><span class="nc">PreCast</span> 

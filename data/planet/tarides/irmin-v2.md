@@ -70,7 +70,7 @@ sharing by default, so each OCaml runtime shares a common singleton instance.</p
 <p>Another new area of huge interest to us is
 <a href="https://graphql.org">GraphQL</a> in order to provide frontends with a rich
 query language for Irmin-hosted applications.  Irmin 2.0 includes a
-built-in GraphQL server so you can <a href="https://twitter.com/cuvius/status/1017136581755457539">manipulate your Git repo via
+built-in GraphQL server so you can <a href="https://twitter.com/cuvius/status/1017136581755457539 - [1 Client error: Number of redirects hit maximum amount]">manipulate your Git repo via
 GraphQL</a>.</p>
 <p>If you are interested in (for example) compiling elements of Irmin to
 JavaScript or wasm, for usage in frontends, then the Irmin 2.0 release
@@ -103,7 +103,7 @@ by our friends at <a href="https://robur.io/About%20Us/Team">Robur</a>: an Irmin
 that even hosts its DNS server using a versioned Irmin store.  We'll
 blog more about this as the components get released and stabilised, but
 the unikernel enthusiasts among you may want to browse the
-<a href="https://github.com/roburio/unikernels/tree/future">Robur unikernels future branch</a>
+<a href="https://github.com/roburio/unikernels/tree/future - [404 Not Found]">Robur unikernels future branch</a>
 to see how they are deploying them today.</p>
 <p>A huge thank you to all our commercial customers, end users and open-source
 developers who have contributed their time, expertise and

@@ -10,5 +10,5 @@ authors:
 source:
 ---
 
-<p><a href="http://oud.ocaml.org/2012/#schedule">http://oud.ocaml.org/2012/#schedule</a> (thanks Anil).</p>
+<p><a href="http://oud.ocaml.org/2012/#schedule - [1 Client error: Couldn't resolve host name]">http://oud.ocaml.org/2012/#schedule - [1 Client error: Couldn't resolve host name]</a> (thanks Anil).</p>
 

@@ -4,7 +4,7 @@ description: "Tarides is proud to sponsor the 12th annual programming contest Jo
   Francilienne de Programmation! On the 31st of May 2022, students\u2026"
 url: https://tarides.com/blog/2022-06-02-tarides-sponsors-12th-annual-journ-e-francilienne
 date: 2022-06-02T00:00:00-00:00
-preview_image: https://tarides.com/static/230644f663292c77e72e6ef3ce0e047b/0132d/sorbonne.jpg
+preview_image: https://tarides.com/static/230644f663292c77e72e6ef3ce0e047b/0132d/sorbonne.jpg - [404 Not Found]
 featured:
 ---
 

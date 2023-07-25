@@ -10,11 +10,11 @@ authors:
 ---
 
 
-        <p>This March, 34 people from around the world gathered in Marrakech for a spring Mirage hack retreat. This is fast becoming a <a href="https://mirage.io/blog/2016-spring-hackathon">MirageOS tradition</a>, and we're a little sad that it's over already! We've collected some trip reports from those who attended the 2017 Hack Retreat, and we'd like to thank our amazing hosts, organisers and everyone who took the time to write up their experiences. Props go especially to Hannes Mehnert who initiated the event and took care of many of the logistics, and to Gemma Gordon for designing and printing <a href="http://reynard.io/2017/03/10/OCamlCollection.html">limited edition t-shirts</a> especially for the occasion!
+        <p>This March, 34 people from around the world gathered in Marrakech for a spring Mirage hack retreat. This is fast becoming a <a href="https://mirage.io/blog/2016-spring-hackathon">MirageOS tradition</a>, and we're a little sad that it's over already! We've collected some trip reports from those who attended the 2017 Hack Retreat, and we'd like to thank our amazing hosts, organisers and everyone who took the time to write up their experiences. Props go especially to Hannes Mehnert who initiated the event and took care of many of the logistics, and to Gemma Gordon for designing and printing <a href="http://reynard.io/2017/03/10/OCamlCollection.html - [1 Client error: Couldn't resolve host name]">limited edition t-shirts</a> especially for the occasion!
 <img src="https://mirage.io/graphics/medina-2017.jpg" style="float:right; padding: 15px"/></p>
 <p>In addition to the reports below, you can find other information online:</p>
 <ul>
-<li>the daily <a href="http://ocamllabs.io/events/2017/03/06/MirageHackUpdates.html">tweets about the event</a>, including sophisticated &quot;paper slides&quot;
+<li>the daily <a href="http://ocamllabs.io/events/2017/03/06/MirageHackUpdates.html - [404 Not Found]">tweets about the event</a>, including sophisticated &quot;paper slides&quot;
 </li>
 <li><a href="http://ollehost.dk/blog/2017/03/17/travel-report-mirageos-hack-retreat-in-marrakesh-2017/">Olle Jonsson</a> and <a href="https://reynir.dk/posts/2017-03-20-11-27-Marrakech%202017.html">Reynir Bj&ouml;rnsson</a> wrote up their experiences on their personal sites.
 </li>
@@ -62,7 +62,7 @@ Mato https://pbs.twimg.com/media/C6VQffoWMAAtbot.jpg
 GitHub, Mail, ...) on projects which we started or continued to work on at the retreat.</p>
 <p>It was a very nice week, I met lots of new faces. These were real people with interesting stories, and I could finally match email addresses to faces. I was delighted to share knowledge about software I know to other people, and learned about other pieces of software.</p>
 <p>My personal goal is to grow a nice and diverse community around MirageOS, and so far I have the feeling that this is coming along smoothly.</p>
-<h2>Thanks again to everybody for participating (on-site and remote) and special thanks to <a href="http://ocamllabs.io">OCaml Labs</a> for support, and Gemma Gordon for the limited edition <a href="http://reynard.io/2017/03/10/OCamlCollection.html">t-shirts</a> (design and logistics)!</h2>
+<h2>Thanks again to everybody for participating (on-site and remote) and special thanks to <a href="http://ocamllabs.io">OCaml Labs</a> for support, and Gemma Gordon for the limited edition <a href="http://reynard.io/2017/03/10/OCamlCollection.html - [1 Client error: Couldn't resolve host name]">t-shirts</a> (design and logistics)!</h2>
 <h2>Ximin Luo</h2>
 <p>Good people, good food, good weather, what more could you ask for? This year's MirageOS hackathon was a blast, like last year.</p>
 <p>I started off the week by giving a monad tutorial to a few people - introducing the terminology around it, the motivation behind it, giving a few concrete examples and exercises, and relating it to some basic category theory.</p>
@@ -76,7 +76,7 @@ GitHub, Mail, ...) on projects which we started or continued to work on at the r
 <h2>On one of the evenings Jurre and I got drunk and did some very diverse and uncensored karaoke and eventually embarassed^H^H^H^H^H^H^H persuaded a lot of the others to join us in the fun and celebrations. We'll be back next year with more, don't worry!</h2>
 <h2>Michele Orr&ugrave;</h2>
 <p>Last summer I started, while being an intern in Paris, a <a href="https://letsencrypt.org/">let's encrypt</a> (or rather
-<a href="https://www.ietf.org/id/draft-ietf-acme-acme-06.txt">ACME</a>.</p>
+<a href="https://www.ietf.org/id/draft-ietf-acme-acme-06.txt - [404 Not Found]">ACME</a>.</p>
 <p>Let's encrypt is a certificate authority which issues signed certificates via an automated service (using the ACME protocol). Even though it is still in the process of being standardized, the first eCA already launched in April 2016, as a low-cost alternative to commercial CAs (where you usually need to provide identity information (passport) for verification).</p>
 <p>If you want to run a secure service on your domain, such as HTTPS, STARTTLS in SMTP, IMAPS, ..., you have to generate a private key and a certificate signing request (CSR).  You then upload this CSR via HTTP to the let's encrypt server and solve a some &quot;challenge&quot; proposed by the server in order to certify you <em>own</em> the requested domain.</p>
 <p>At the time of the hack retreat, the following challenges were supported:</p>

@@ -12,7 +12,7 @@ authors:
 source:
 ---
 
-<p><a href="https://www.mpi-sws.org/~beta/Research.html">Beta</a>&nbsp;had a funny joke at POPL last year; he said: &ldquo;you exit a monad like you exit a building on fire: by running&rdquo;. I recently got myself in the stressful situation of being trapped in a monad&mdash;the continuation monad&mdash;but without a possibility to &ldquo;run&rdquo;. There&nbsp;an exit nonetheless: just jump out! This is the (short) story of an escape.</p>
+<p><a href="https://www.mpi-sws.org/~beta/Research.html - [404 Not Found]">Beta</a>&nbsp;had a funny joke at POPL last year; he said: &ldquo;you exit a monad like you exit a building on fire: by running&rdquo;. I recently got myself in the stressful situation of being trapped in a monad&mdash;the continuation monad&mdash;but without a possibility to &ldquo;run&rdquo;. There&nbsp;an exit nonetheless: just jump out! This is the (short) story of an escape.</p>
 <p><span></span></p>
 <h4>A&nbsp;seemingly&nbsp;inescapable monad</h4>
 <p>Say we have a continuation monad, but its&nbsp;answer type <code>o</code> is fixed in advance:</p>

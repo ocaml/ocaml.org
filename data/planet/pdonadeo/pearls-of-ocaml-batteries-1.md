@@ -17,9 +17,9 @@ source:
 
 <p class="noindent">By accident, I'm one of the few people on the planet considering this very clean and virtually bug free library a feature and not a bug, but this is only an opinion.</p>
 
-<p><a href="https://caml.inria.fr/pub/docs/manual-ocaml/manual034.html">The standard library</a> contains everything you need to build applications and other libraries, but it's <em>essential</em>, forget something like the Python standard library and things like &ldquo;sending an email in one line of code&rdquo;. Instead, think of the C standard library (plus some important data structures missing in the libc).</p>
+<p><a href="https://caml.inria.fr/pub/docs/manual-ocaml/manual034.html - [404 Not Found]">The standard library</a> contains everything you need to build applications and other libraries, but it's <em>essential</em>, forget something like the Python standard library and things like &ldquo;sending an email in one line of code&rdquo;. Instead, think of the C standard library (plus some important data structures missing in the libc).</p>
 
-<p>More than two years ago the OCaml community decided to start the development of a library containing all the conveniences that are missing in the standard library. The project is <a href="https://batteries.forge.ocamlcore.org/">OCaml Batteries Included</a> and I'd like to introduce the reader with a series of posts, aimed to cast a light on various aspects of the library, without pretending to be an exhaustive tutorial.</p>
+<p>More than two years ago the OCaml community decided to start the development of a library containing all the conveniences that are missing in the standard library. The project is <a href="https://batteries.forge.ocamlcore.org/ - [1 Client error: SSL connect error]">OCaml Batteries Included</a> and I'd like to introduce the reader with a series of posts, aimed to cast a light on various aspects of the library, without pretending to be an exhaustive tutorial.</p>
 
 <p>The posts will be targeted at novice OCaml programmers because I think that an experienced OCaml hacker already uses &quot;Batteries&quot; or, in any case, he understand the library API and doesn't need help from this blog.</p>
 

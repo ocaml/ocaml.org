@@ -28,7 +28,7 @@ qubes-mirage-firewall &gt;= 0.8.0 &amp; &lt; 0.8.4
 </li>
 </ul>
 <p>For general information regarding MirageOS Security Advisories,
-please visit <a href="https://mirage.io/security">https://mirage.io/security</a>.</p>
+please visit <a href="https://mirage.io/security - [404 Not Found]">https://mirage.io/security - [404 Not Found]</a>.</p>
 <h3>Background</h3>
 <p>MirageOS is a library operating system using cooperative multitasking, which can
 be executed as a guest of the Xen hypervisor. Output on the console is performed

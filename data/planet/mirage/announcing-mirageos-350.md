@@ -106,7 +106,7 @@ The API used to include two functions, <code>allocate_frame</code> and <code>wri
 </li>
 <li><a href="https://github.com/mirage/ocaml-ipaddr">ipaddr 3.0.0</a> major API changes, the s-expression serialisation is a separate subpackage, macaddr is now a standalone opam package
 </li>
-<li><a href="https://github.com/mirage/base64">base64 3.0.0</a> performance and API changes, see <a href="https://discuss.ocaml.org/t/ann-major-release-of-base64-article">this announcement</a>
+<li><a href="https://github.com/mirage/base64 - [404 Not Found]">base64 3.0.0</a> performance and API changes, see <a href="https://discuss.ocaml.org/t/ann-major-release-of-base64-article">this announcement</a>
 </li>
 <li><a href="https://github.com/mirage/ocaml-git">git 2.0.0</a>, read <a href="https://discuss.ocaml.org/t/ann-ocaml-git-2-0">this announcement</a>, as well as <a href="https://discuss.ocaml.org/t/ocaml-git-git-design-and-implementation">its design and implementation</a>
 </li>

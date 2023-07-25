@@ -394,7 +394,7 @@ the resulting file <code>ex</code> can be directly run with
 
 <p>PS. Interested in WebAssembly and you know OCaml (or another
   functional language like Elm, Scala, Haskell, ...)?
-  <a href="https://www.mixtional.de/recruiting/2021-01/index.html">We might have
+  <a href="https://www.mixtional.de/recruiting/2021-01/index.html - [403 Forbidden]">We might have
     a job for you (July 2021)</a>.
 </p>
 </div>

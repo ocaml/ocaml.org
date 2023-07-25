@@ -19,7 +19,7 @@ and even linked into a
 self-contained kernel which can run on the <a href="http://www.xenproject.org/">Xen
 hypervisor</a>.</p>
 <p>Mirage has access to an extensive suite of pure OCaml <a href="https://github.com/mirage">libraries</a>,
-covering everything from Xen <a href="https://github.com/mirage/ocaml-xen-block-driver">block</a> and <a href="https://github.com/mirage/mirage-platform/blob/master/xen/lib/netif.ml">network</a> virtual device drivers,
+covering everything from Xen <a href="https://github.com/mirage/ocaml-xen-block-driver">block</a> and <a href="https://github.com/mirage/mirage-platform/blob/master/xen/lib/netif.ml - [404 Not Found]">network</a> virtual device drivers,
 a <a href="https://github.com/mirage/mirage-net">TCP/IP stack</a>, OpenFlow learning switches and controllers, to
 SSH and <a href="https://github.com/mirage/ocaml-cohttp">HTTP</a> server implementations.</p>
 <p>I normally use Mirage to deploy applications as kernels on top of
@@ -63,7 +63,7 @@ libraries. The ocamlfind library called &quot;xenctrl&quot; provides support for
 manipulating blocks of raw memory pages, &quot;granting&quot; access to them to
 other domains and signalling event channels. There are two implementations
 of &quot;xenctrl&quot;:
-<a href="https://github.com/mirage/mirage-platform/tree/master/xen/lib">one that invokes Xen &quot;hypercalls&quot; directly</a>
+<a href="https://github.com/mirage/mirage-platform/tree/master/xen/lib - [404 Not Found]">one that invokes Xen &quot;hypercalls&quot; directly</a>
 and one which uses the <a href="https://github.com/xapi-project/ocaml-xen-lowlevel-libs">Xen userspace library libxc</a>.
 Both implementations satisfy a common signature, so it's easy to write
 code which will work in both userspace and kernelspace.</p>
@@ -89,7 +89,7 @@ and <a href="http://opam.ocamlpro.com/">OPAM</a>. Second initialise your system:
 <p>At the time of writing, not all the libraries were released as upstream
 OPAM packages, so it was necessary to add some extra repositories. This
 should not be necessary after the Mirage developer preview at
-<a href="http://www.oscon.com/oscon2013/public/schedule/detail/28956">OSCON 2013</a>.</p>
+<a href="http://www.oscon.com/oscon2013/public/schedule/detail/28956 - [1 Client error: Timeout was reached]">OSCON 2013</a>.</p>
 <pre><code>  opam remote add mirage-dev https://github.com/mirage/opam-repo-dev
   opam remote add xapi-dev https://github.com/xapi-project/opam-repo-dev
 </code></pre>
@@ -115,7 +115,7 @@ used for basic testing!</p>
 <p><em>Making a custom virtual disk implementation</em></p>
 <p>The <code>xen-disk</code> program has a set of simple built-in virtual disk implementations.
 Each one satisifies a simple signature, contained in
-<a href="https://github.com/mirage/xen-disk/blob/master/src/storage.mli">src/storage.mli</a>:</p>
+<a href="https://github.com/mirage/xen-disk/blob/master/src/storage.mli - [404 Not Found]">src/storage.mli</a>:</p>
 <pre><code class="language-ocaml">type configuration = {
   filename: string;      (** path where the data will be stored *)
   format: string option; (** format of physical data *)
@@ -226,7 +226,7 @@ all easy to do. If you have ideas for improving the low-level block access proto
 then Mirage makes those experiments very easy too.</p>
 <p>If you come up with a cool example with Mirage, then send us a
 <a href="https://github.com/mirage">pull request</a> or send us an email to the
-<a href="https://mirage.io/about/">Mirage mailing list</a> -- we'd
+<a href="https://mirage.io/about/ - [404 Not Found]">Mirage mailing list</a> -- we'd
 love to hear about it!</p>
 
       

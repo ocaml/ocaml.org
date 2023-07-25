@@ -16,11 +16,11 @@ source:
 <p class="noindent">No problem, <a href="https://opam.ocaml.org/" title="OPAM -  Home">OPAM</a> come to the rescue! No. The OPAM team doesn't provide a binary executable compatible with the (actually very old) system libraries present in CentOS.
 </p>
 
-<p class="noindent">Ok, step back: OPAM can be compiled from sources (<a href="https://opam.ocaml.org/doc/Advanced_Install.html" title="OPAM -  Advanced Install">instructions here</a>) so it's just a matter of minutes. Again: nope. To compile OPAM you need at least OCaml 3.12.1, while in CentOS we have only 3.11.2.</p>
+<p class="noindent">Ok, step back: OPAM can be compiled from sources (<a href="https://opam.ocaml.org/doc/Advanced_Install.html - [404 Not Found]" title="OPAM -  Advanced Install">instructions here</a>) so it's just a matter of minutes. Again: nope. To compile OPAM you need at least OCaml 3.12.1, while in CentOS we have only 3.11.2.</p>
 
 <p class="noindent">Step back: first compile and install OCaml from sources. This time I say no, because the whole point of OPAM is to get an up and running OCaml environment in a few minutes, which is <strong>actually true</strong> in most cases.</p>
 
-<p class="noindent">I decide to install OCaml using <a href="https://godi.camlcity.org/godi/get_godi.html" title="Get GODI">GODI</a>, the &ldquo;old&rdquo; OCaml source distribution, the one everybody used before OPAM was born. So the fastest steps to have an OPAM and OCaml environment on a CentOS server are:</p>
+<p class="noindent">I decide to install OCaml using <a href="https://godi.camlcity.org/godi/get_godi.html - [1 Client error: SSL peer certificate or SSH remote key was not OK]" title="Get GODI">GODI</a>, the &ldquo;old&rdquo; OCaml source distribution, the one everybody used before OPAM was born. So the fastest steps to have an OPAM and OCaml environment on a CentOS server are:</p>
 
 <ul>
   <li>download and install GODI;</li>
@@ -32,7 +32,7 @@ source:
 
 <p class="noindent">No root access is required in this process, I usually install OPAM in <code>~/opam</code>, and GODI in <code>~/godi</code>.</p>
 
-<p class="noindent">There is an irony in all this story: GODI has been <strong>the</strong> OCaml source distribution for years, and the coming of OPAM, which is actually newer and has some important features missing in GODI, has produced many frictions in the OCaml community, that in the end caused the <a href="https://blog.camlcity.org/blog/godi_shutdown.html" title="GODI is shutting down">shut down of GODI</a>.</p>
+<p class="noindent">There is an irony in all this story: GODI has been <strong>the</strong> OCaml source distribution for years, and the coming of OPAM, which is actually newer and has some important features missing in GODI, has produced many frictions in the OCaml community, that in the end caused the <a href="https://blog.camlcity.org/blog/godi_shutdown.html - [1 Client error: SSL peer certificate or SSH remote key was not OK]" title="GODI is shutting down">shut down of GODI</a>.</p>
 
 <p class="noindent">The moral part here is: embrace the new things, but don't be too impatient in throwing out the window the precious work that, in the end, still works.</p>
 

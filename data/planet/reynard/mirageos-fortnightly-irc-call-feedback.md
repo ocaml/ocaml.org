@@ -1,7 +1,7 @@
 ---
 title: MirageOS Fortnightly IRC Call Feedback
 description:
-url: http://reynard.io/2017/01/18/MirageIRCFeedback.html
+url: http://reynard.io/2017/01/18/MirageIRCFeedback.html - [1 Client error: Couldn't resolve host name]
 date: 2017-01-18T00:00:00-00:00
 preview_image:
 featured:
@@ -10,7 +10,7 @@ authors:
 source:
 ---
 
-<p>As referenced in a <a href="http://reynard.io/2016/11/01/MirageOSFeedback.html">previous post</a> I wanted to check in with <a href="https://mirage.io/">MirageOS</a> community members to gauge current opinion about the fortnightly <a href="https://irclog.whitequark.org/mirage/2016-02-13">IRC meetings</a>, and to see if there were any positive changes we could make. The main focus of the questions was directed specifically at the meeting itself, and other more general MirageOS community questions that help gauge the sample and to see where respondents currently access MirageOS information.</p>
+<p>As referenced in a <a href="http://reynard.io/2016/11/01/MirageOSFeedback.html - [1 Client error: Couldn't resolve host name]">previous post</a> I wanted to check in with <a href="https://mirage.io/">MirageOS</a> community members to gauge current opinion about the fortnightly <a href="https://irclog.whitequark.org/mirage/2016-02-13">IRC meetings</a>, and to see if there were any positive changes we could make. The main focus of the questions was directed specifically at the meeting itself, and other more general MirageOS community questions that help gauge the sample and to see where respondents currently access MirageOS information.</p>
 
 <p>The feedback poll was online and accessible for 6 weeks, and I received 16 distinct responses. As I chose to keep the results anonymous we cannot tell if those distinct responses represent distinct individuals, but the data provides a starting point.</p>
 
@@ -39,7 +39,7 @@ source:
   <li>Post the <a href="https://github.com/mirage/mirage-www/wiki/Call-Agenda">agenda</a> online (wiki and mirage.io?) 2-3 days prior to call</li>
   <li>More structured agenda - with additional background information for topics, and prioritisation of burning issues that require discussion/decision</li>
   <li>Follow up other discussion items regularly on the <a href="https://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel">mailing list</a></li>
-  <li>Call summaries alongside <a href="http://canopy.mirage.io/irclogs">IRC logs</a></li>
+  <li>Call summaries alongside <a href="http://canopy.mirage.io/irclogs - [1 Client error: Timeout was reached]">IRC logs</a></li>
   <li>Publicise calls to the wider community</li>
   <li>Add more details of topics of discussion for participants to read before the call - linked from agenda perhaps?</li>
   <li>Provide documentation and tutorials for newcomers</li>
@@ -53,7 +53,7 @@ source:
 
 <p>The results have been loosely categorised where possible (this refers to similar wording or similar concepts) - while this is not wholly systematic and relies on the conclusions I have drawn, it is useful data when considered along with the sample size and background of the respondents (see Q1 of the general Mirage questions below). Please do study the data and come to your own conclusions - then let me know!</p>
 
-<p>Thanks to everyone who participated - your feedback is extremely valuable! Please continue to tell us your thoughts and suggestions by emailing the MirageOS <a href="https://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel">mailing list</a> or feel free to <a href="http://reynard.io/about/">contact me</a> directly.</p>
+<p>Thanks to everyone who participated - your feedback is extremely valuable! Please continue to tell us your thoughts and suggestions by emailing the MirageOS <a href="https://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel">mailing list</a> or feel free to <a href="http://reynard.io/about/ - [1 Client error: Couldn't resolve host name]">contact me</a> directly.</p>
 
 <h2>MirageOS Call Questions</h2>
 
@@ -145,7 +145,7 @@ source:
 
 <p>Rather than making the discussion less technical, we could provide more background to proposed agenda items before the call for people to refer to. Regularly looping back and highlighting where specific projects, features and issues sit in the MirageOS ecosystem would be relatively easy to do, and might target this concern. Based on the answers from Question 5 above, deciding which burning issues should be addressed in the call and which items are for wider/more general discussion (such as roadmap items, feature wish-lists etc) on the <a href="https://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel">mailing list</a> or via <a href="https://github.com/mirage/mirage/issues">Issues</a> would be a benefit.</p>
 
-<p>This links to repository management and organisation - specifically providing information on how to contribute, and a process by which topics are discussed, decided upon and re-visited if necessary. My <a href="http://reynard.io/2016/12/13/OSSWorkflow.html">post</a> about using GitHub features and tools for repository management outlines our experimentation with providing public roadmaps, monitoring ongoing project progress and encouraging wider discussion through community empowerment.</p>
+<p>This links to repository management and organisation - specifically providing information on how to contribute, and a process by which topics are discussed, decided upon and re-visited if necessary. My <a href="http://reynard.io/2016/12/13/OSSWorkflow.html - [1 Client error: Couldn't resolve host name]">post</a> about using GitHub features and tools for repository management outlines our experimentation with providing public roadmaps, monitoring ongoing project progress and encouraging wider discussion through community empowerment.</p>
 
 <h3>7: Currently we use IRC to conduct the call/chat. Do you use IRC for other channels/chats?</h3>
 

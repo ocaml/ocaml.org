@@ -80,7 +80,7 @@ together these days.
   <hr/>
   <p>
     References:<br/>
-     [1] <a href="https://whitequark.org/blog/2014/04/16/a-guide-to-extension-points-in-ocaml/">&quot;A
+     [1] <a href="https://whitequark.org/blog/2014/04/16/a-guide-to-extension-points-in-ocaml/ - [404 Not Found]">&quot;A
      Guide to Extension Points in OCaml&quot; -- Whitequark (blog post
      2014)</a><br/>
      [2] <a href="http://blog.shaynefletcher.org/2017/05/preprocessor-extensions-for-code.html">&quot;Preprocessor

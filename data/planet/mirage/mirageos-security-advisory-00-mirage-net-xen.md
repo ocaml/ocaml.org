@@ -24,7 +24,7 @@ authors:
 </li>
 </ul>
 <p>For general information regarding MirageOS Security Advisories,
-please visit <a href="https://mirage.io/security">https://mirage.io/security</a>.</p>
+please visit <a href="https://mirage.io/security - [404 Not Found]">https://mirage.io/security - [404 Not Found]</a>.</p>
 <p>Hannes published a <a href="https://hannes.nqsb.io/Posts/BadRecordMac">blog article</a> about
 the analysis of this issue.</p>
 <h3>Background</h3>

@@ -11,7 +11,7 @@ source:
 ---
 
 <h1>OCaml Batteries Included 1.1.0 has arrived in Debian</h1>
-<p>I've just uploaded the <strong>Debian package of <a href="https://forge.ocamlcore.org/forum/forum.php?forum_id=552">OCaml
+<p>I've just uploaded the <strong>Debian package of <a href="https://forge.ocamlcore.org/forum/forum.php?forum_id=552 - [404 Not Found]">OCaml
 Batteries Included 1.1.0</a></strong> to the Debian unstable
 archive; hopefully, it will quickly enter testing to be released
 with the next Debian stable release. This is the first release in

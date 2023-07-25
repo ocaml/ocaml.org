@@ -20,4 +20,4 @@ under one roof&quot; and is providing 3000+ desks and 26 international
 startup programs. Our Paris offices are now located in that incredible
 place, close to &quot;m&eacute;tro Chevaleret&quot; (Paris 13).</p>
 <p><strong>If you are in Paris, drop us an email to visit
-<a href="%20https://stationf.co/campus/">our beautiful campus</a>!</strong></p>
+<a href="%20https://stationf.co/campus/ - [404 Not Found]">our beautiful campus</a>!</strong></p>

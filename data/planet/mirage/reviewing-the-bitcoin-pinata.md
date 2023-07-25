@@ -19,7 +19,7 @@ vulnerabilities, but they are hopelessly inadequate for showing their
 absence.</p>
 <h4>What are you talking about?</h4>
 <p>Earlier this year, we <a href="https://mirage.io/blog/announcing-bitcoin-pinata">released a Bitcoin Pi&ntilde;ata</a>.
-The <a href="http://ownme.ipredator.se">Pi&ntilde;ata</a> was a security bounty
+The <a href="http://ownme.ipredator.se - [1 Client error: Couldn't resolve host name]">Pi&ntilde;ata</a> was a security bounty
 containing 10 BTC and it's been online since 10th February 2015.
 Upon successful
 mutual authentication, where the Pi&ntilde;ata has only a single trust anchor, it sends the
@@ -60,7 +60,7 @@ last section).</p>
 to <a href="https://en.wikipedia.org/wiki/Heartbleed">Heartbleed</a>), which we
 do not implement.</p>
 <p>Recently, issues in the state machines of TLS implementations were
-published in <a href="http://smacktls.com">smacktls</a> (and <a href="http://ccsinjection.lepidum.co.jp/">CCS
+published in <a href="http://smacktls.com - [1 Client error: Timeout was reached]">smacktls</a> (and <a href="http://ccsinjection.lepidum.co.jp/ - [1 Client error: Couldn't resolve host name]">CCS
 injection</a>).  3% of the Pi&ntilde;ata connections
 received an unexpected handshake record at some point, which the Pi&ntilde;ata handled
 correctly by shutting down the connection.</p>
@@ -108,7 +108,7 @@ vector</a>.</p>
 <p>Two traces contained certificate structures which our ASN.1 parser
 rejected.</p>
 <p>Another two connections (both initiated by ourselves) threw an
-exception which lead to <a href="https://github.com/mirleft/btc-pinata/blob/master/logger.ml#L116">shutdown of the connection</a>: there
+exception which lead to <a href="https://github.com/mirleft/btc-pinata/blob/master/logger.ml#L116 - [404 Not Found]">shutdown of the connection</a>: there
 <a href="https://github.com/mirleft/ocaml-tls/commit/80117871679d57dde8c8e3b73392024ef4b42c38">was</a>
 an out-of-bounds access while parsing handshake records.  This did not
 lead to arbitrary code execution.</p>

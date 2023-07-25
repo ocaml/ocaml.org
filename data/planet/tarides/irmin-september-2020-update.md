@@ -144,7 +144,7 @@ hot-loops:</p>
 
 <span class="token keyword">let</span> int_of_file_fast <span class="token label property">~path</span> <span class="token operator">=</span> open_in_bin path <span class="token operator">|&gt;</span> input_line <span class="token operator">|&gt;</span> decode_int32 contents</code></pre></div>
 <p>We made similar changes to the performance-critical generic functions in
-<a href="https://mirage.github.io/irmin/irmin/Irmin/Type/index.html"><code>Irmin.Type</code></a>, and observed significant performance improvements.
+<a href="https://mirage.github.io/irmin/irmin/Irmin/Type/index.html - [404 Not Found]"><code>Irmin.Type</code></a>, and observed significant performance improvements.
 We also added benchmarks for serialising various types.</p>
 <div style="text-align: center;">
   <img src="https://tarides.com/staged-type.svg" style="height: 550px; max-width: 100%"/>
@@ -198,7 +198,7 @@ this migration function as follows:</p>
 <a href="https://github.com/mirage/irmin/pull/1070">irmin #1070</a> and
 <a href="https://github.com/mirage/irmin/pull/1071">irmin #1071</a>.</p>
 <h2 style="position:relative;"><a href="https://tarides.com/feed.xml#conclusion" aria-label="conclusion permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Conclusion</h2>
-<p>We hope you've enjoyed this discussion of our recent work. <a href="https://twitter.com/tarides_">Stay
+<p>We hope you've enjoyed this discussion of our recent work. <a href="https://twitter.com/tarides_ - [1 Client error: Number of redirects hit maximum amount]">Stay
 tuned</a> for our next Tezos / MirageOS development update! Thanks
 to our commercial customers, users and open-source contributors for making this
 work possible.</p>

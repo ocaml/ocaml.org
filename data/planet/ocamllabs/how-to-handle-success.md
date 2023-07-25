@@ -1,7 +1,7 @@
 ---
 title: How to handle success
 description:
-url: http://ocamllabs.github.com/compiler-hacking/2014/02/04/handler-case
+url: http://ocamllabs.github.com/compiler-hacking/2014/02/04/handler-case - [404 Not Found]
 date: 2014-02-04T16:05:05-00:00
 preview_image:
 featured:
@@ -18,7 +18,7 @@ source:
 
 <p>OCaml's <code>try</code> construct is good at dealing with exceptions, but not so good at handling the case where no exception is raised.  This post describes a simple extension to <code>try</code> that adds support for handling the &quot;success&quot; case.</p>
 
-<p>Here's an example of code that benefits from the extension.  On a recent <a href="http://caml.inria.fr/resources/forums.en.html">caml-list</a> thread, <a href="http://cedeela.fr/~simon/">Simon Cruanes</a> posted <a href="https://sympa.inria.fr/sympa/arc/caml-list/2014-01/msg00113.html">the following function</a> for iterating over a stream:</p>
+<p>Here's an example of code that benefits from the extension.  On a recent <a href="http://caml.inria.fr/resources/forums.en.html">caml-list</a> thread, <a href="http://cedeela.fr/~simon/ - [404 Not Found]">Simon Cruanes</a> posted <a href="https://sympa.inria.fr/sympa/arc/caml-list/2014-01/msg00113.html - [1 Client error: Number of redirects hit maximum amount]">the following function</a> for iterating over a stream:</p>
 
 <blockquote>
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span></span><span class="k">let</span> <span class="k">rec</span> <span class="n">iter_stream</span> <span class="n">f</span> <span class="n">s</span> <span class="o">=</span>
@@ -33,7 +33,7 @@ source:
 
 <p>As Simon notes, the <code>match (try Some ...)</code> idiom is widely used in OCaml code.  Examples can be found in the source of <a href="https://github.com/ocsigen/lwt/blob/b63b2a/src/unix/lwt_unix.ml#L118-L125">lwt</a>, <a href="https://github.com/ocaml-batteries-team/batteries-included/blob/92ea390c/benchsuite/bench_nreplace.ml#L45-L48">batteries</a>, <a href="https://github.com/savonet/liquidsoap/blob/a81cd8b6/src/decoder/metadata_decoder.ml#L53-L55">liquidsoap</a>, <a href="https://github.com/janestreet/sexplib/blob/f9bd413/lib/conv.ml#L256-L259">sexplib</a>, <a href="https://github.com/MLstate/opalang/blob/0802728/compiler/opalang/opaParser.ml#L127-L135">opa</a>, <a href="https://github.com/avsm/ocaml-uri/blob/35af64db/lib/uri.ml#L250-L255">uri</a>, <a href="https://github.com/coq/coq/blob/724c9c9f/tools/coqdoc/tokens.ml#L36-L41">coq</a>, <a href="https://github.com/pascal-bach/Unison/blob/4788644/src/ubase/prefs.ml#L97-L106">unison</a>, and many other packages.  </p>
 
-<p>In response to Simon's message, <a href="http://okmij.org/ftp">Oleg</a> pointed out <a href="https://sympa.inria.fr/sympa/arc/caml-list/2014-01/msg00146.html">a solution</a>: the 2001 paper <a href="http://research.microsoft.com/~akenn/sml/exceptionalsyntax.pdf">Exceptional Syntax</a>  (<a href="http://research.microsoft.com/~nick/">Benton</a> and <a href="http://research.microsoft.com/~akenn/">Kennedy</a>) extends <code>try</code> with a <code>let</code>-like binding construct that supports the success continuation idiom directly without the need for the option value.</p>
+<p>In response to Simon's message, <a href="http://okmij.org/ftp">Oleg</a> pointed out <a href="https://sympa.inria.fr/sympa/arc/caml-list/2014-01/msg00146.html - [1 Client error: Number of redirects hit maximum amount]">a solution</a>: the 2001 paper <a href="http://research.microsoft.com/~akenn/sml/exceptionalsyntax.pdf">Exceptional Syntax</a>  (<a href="http://research.microsoft.com/~nick/">Benton</a> and <a href="http://research.microsoft.com/~akenn/">Kennedy</a>) extends <code>try</code> with a <code>let</code>-like binding construct that supports the success continuation idiom directly without the need for the option value.</p>
 
 
 
@@ -46,7 +46,7 @@ source:
    <span class="o">|</span> <span class="o">...</span>
    <span class="o">|</span> <span class="k">val</span> <span class="n">pattern_n'</span> <span class="o">-&gt;</span> <span class="n">expr_n'</span>
 </code></pre></div>
-<p>As in <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/expr.html#@manual.kwd50">current OCaml</a>, the clauses <code>pattern_1 -&gt; expr_1</code> ... <code>pattern_n -&gt; expr_n</code> handle exceptions raised during the evaluation of <code>expr</code>.  The clauses  <code>val pattern_1' -&gt; expr_1'</code> ... <code>val pattern_n' -&gt; expr_n'</code> handle the case where no exception is raised; in this case the value of <code>expr</code> is matched against <code>pattern_1'</code> ... <code>pattern_n'</code> to select the expression to evaluate to produce the result value.  (The actual syntax is implemented slightly more permissively: it allows value-matching and exception-matching clauses to be freely interleaved.)</p>
+<p>As in <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/expr.html#@manual.kwd50 - [404 Not Found]">current OCaml</a>, the clauses <code>pattern_1 -&gt; expr_1</code> ... <code>pattern_n -&gt; expr_n</code> handle exceptions raised during the evaluation of <code>expr</code>.  The clauses  <code>val pattern_1' -&gt; expr_1'</code> ... <code>val pattern_n' -&gt; expr_n'</code> handle the case where no exception is raised; in this case the value of <code>expr</code> is matched against <code>pattern_1'</code> ... <code>pattern_n'</code> to select the expression to evaluate to produce the result value.  (The actual syntax is implemented slightly more permissively: it allows value-matching and exception-matching clauses to be freely interleaved.)</p>
 
 <p>Using handler case we can rewrite <code>iter_stream</code> to remove the extraneous option value:</p>
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span></span><span class="k">let</span> <span class="k">rec</span> <span class="n">iter_stream</span> <span class="n">f</span> <span class="n">s</span> <span class="o">=</span>
@@ -98,7 +98,7 @@ $ eval `opam config env`
 
 <h3>The discoveries of success continuations</h3>
 
-<p>As <a href="http://homepages.inf.ed.ac.uk/wadler">Philip Wadler</a> <a href="http://wadler.blogspot.co.uk/2008/02/great-minds-think-alike.html">notes</a>, constructs for handling success continuations have been independently discovered multiple times.  In fact, the history goes back even further than described in Wadler's blog; constructs like handler case date back over thirty years and have been introduced, apparently independently, into at least four languages.  Curiously, all the languages use <code>let</code>-binding for success continuations and <code>match</code> binding for failure continuations.</p>
+<p>As <a href="http://homepages.inf.ed.ac.uk/wadler - [1 Client error: SSL peer certificate or SSH remote key was not OK]">Philip Wadler</a> <a href="http://wadler.blogspot.co.uk/2008/02/great-minds-think-alike.html">notes</a>, constructs for handling success continuations have been independently discovered multiple times.  In fact, the history goes back even further than described in Wadler's blog; constructs like handler case date back over thirty years and have been introduced, apparently independently, into at least four languages.  Curiously, all the languages use <code>let</code>-binding for success continuations and <code>match</code> binding for failure continuations.</p>
 
 <h4>Lisp</h4>
 
@@ -141,7 +141,7 @@ summary:     Bring alpha100 revision back to mainline
       <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
       <span class="n">iter_stream</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">s_</span><span class="p">)</span>
 </code></pre></div>
-<p>The provenance of the <code>else</code> clause is unclear, but it doesn't seem to derive from Lisp's <code>handler-case</code>.  The design of Python's exception handling constructs <a href="http://docs.python.org/3/faq/general.html#why-was-python-created-in-the-first-place">comes from Modula-3</a>, but the exception handling construct described in the <a href="http://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-52.pdf">Modula-3 report</a> does not include a way of specifying the success continuation.  The syntax of the Modula-3 <code>TRY</code>/<code>EXCEPT</code> statement (found on p21 of the report) does include an <code>ELSE</code> clause:</p>
+<p>The provenance of the <code>else</code> clause is unclear, but it doesn't seem to derive from Lisp's <code>handler-case</code>.  The design of Python's exception handling constructs <a href="http://docs.python.org/3/faq/general.html#why-was-python-created-in-the-first-place">comes from Modula-3</a>, but the exception handling construct described in the <a href="http://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-52.pdf - [1 Client error: Timeout was reached]">Modula-3 report</a> does not include a way of specifying the success continuation.  The syntax of the Modula-3 <code>TRY</code>/<code>EXCEPT</code> statement (found on p21 of the report) does include an <code>ELSE</code> clause:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>   TRY    
      Body
    EXCEPT
@@ -181,11 +181,11 @@ summary:     Bring alpha100 revision back to mainline
  <span class="n">unless</span> <span class="nc">End_of_stream</span> <span class="o">=&gt;</span> <span class="bp">()</span>
  <span class="k">end</span>
 </code></pre></div>
-<p>Exceptional Syntax has been implemented in the SML-to-Java compiler <a href="http://www.dcs.ed.ac.uk/home/mlj/">MLj</a>.</p>
+<p>Exceptional Syntax has been implemented in the SML-to-Java compiler <a href="http://www.dcs.ed.ac.uk/home/mlj/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]">MLj</a>.</p>
 
 <h4>Erlang</h4>
 
-<p>The 2004 paper <a href="http://erlang.se/workshop/2004/exception.pdf">Erlang's Exception Handling Revisited</a> (Richard Carlsson, Bj&ouml;rn Gustavsson and Patrik Nyblom) proposed an exception-handling construct for Erlang along the same lines as exceptional syntax, although apparently developed independently.  In the proposed extension to Erlang we might write <code>iter_stream</code> as follows:</p>
+<p>The 2004 paper <a href="http://erlang.se/workshop/2004/exception.pdf - [1 Client error: Timeout was reached]">Erlang's Exception Handling Revisited</a> (Richard Carlsson, Bj&ouml;rn Gustavsson and Patrik Nyblom) proposed an exception-handling construct for Erlang along the same lines as exceptional syntax, although apparently developed independently.  In the proposed extension to Erlang we might write <code>iter_stream</code> as follows:</p>
 <div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span></span><span class="nf">iter_stream</span><span class="p">(</span><span class="nv">F</span><span class="p">,</span> <span class="nv">S</span><span class="p">)</span> <span class="o">-&gt;</span>
    <span class="k">try</span> <span class="nv">Mystream</span><span class="p">:</span><span class="nb">get</span><span class="p">(</span><span class="nv">S</span><span class="p">)</span> <span class="k">of</span>
       <span class="p">{</span><span class="nv">X</span><span class="p">,</span> <span class="nv">S_</span><span class="p">}</span> <span class="o">-&gt;</span>
@@ -196,7 +196,7 @@ summary:     Bring alpha100 revision back to mainline
 </code></pre></div>
 <h4>Eff</h4>
 
-<p><a href="http://homepages.inf.ed.ac.uk/gdp/">Plotkin</a> and <a href="http://matija.pretnar.info/">Pretnar</a>'s work on <a href="http://matija.pretnar.info/pdf/handling-algebraic-effects.pdf">handlers for algebraic effects</a> generalises Exceptional Syntax to support effects other than exceptions.  The programming language <a href="http://math.andrej.com/eff/">eff</a> implements a design based on this work, and supports Exceptional Syntax, again with <code>let</code> binding for the success continuation.  (Although the success continuation is incorporated into the exception matching construct, only a single success continuation pattern is allowed.)  In eff we might write <code>iter_stream</code> as follows:</p>
+<p><a href="http://homepages.inf.ed.ac.uk/gdp/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]">Plotkin</a> and <a href="http://matija.pretnar.info/">Pretnar</a>'s work on <a href="http://matija.pretnar.info/pdf/handling-algebraic-effects.pdf - [404 Not Found]">handlers for algebraic effects</a> generalises Exceptional Syntax to support effects other than exceptions.  The programming language <a href="http://math.andrej.com/eff/">eff</a> implements a design based on this work, and supports Exceptional Syntax, again with <code>let</code> binding for the success continuation.  (Although the success continuation is incorporated into the exception matching construct, only a single success continuation pattern is allowed.)  In eff we might write <code>iter_stream</code> as follows:</p>
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span></span><span class="k">let</span> <span class="k">rec</span> <span class="n">iter_stream</span> <span class="n">f</span> <span class="n">s</span> <span class="o">=</span>
   <span class="n">handle</span> <span class="n">my_stream_get</span> <span class="n">s</span>
   <span class="k">with</span> <span class="n">exn</span><span class="o">#</span><span class="n">end_of_stream</span> <span class="o">_</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="bp">()</span>
@@ -219,16 +219,16 @@ Oleg's <a href="http://okmij.org/ftp/continuations/implementations.html">delimcc
   <span class="o">|</span> <span class="o">`</span><span class="nc">Val</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">s'</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">x</span><span class="o">;</span> <span class="n">iter_stream</span> <span class="n">f</span> <span class="n">s'</span>
   <span class="o">|</span> <span class="o">`</span><span class="nc">End_of_stream</span> <span class="o">-&gt;</span> <span class="bp">()</span>
 </code></pre></div>
-<p><a href="http://mjambon.com/">Martin Jambon</a> has <a href="http://mjambon.com/mikmatch-manual.html#htoc16">implemented</a> a construct equivalent to Exceptional Syntax for OCaml as part of the <a href="http://mjambon.com/micmatch.html">micmatch extension</a>.  His implementation allows us to write <code>iter_stream</code> in much the same way as Benton and Kennedy's proposal:</p>
+<p><a href="http://mjambon.com/">Martin Jambon</a> has <a href="http://mjambon.com/mikmatch-manual.html#htoc16 - [404 Not Found]">implemented</a> a construct equivalent to Exceptional Syntax for OCaml as part of the <a href="http://mjambon.com/micmatch.html - [404 Not Found]">micmatch extension</a>.  His implementation allows us to write <code>iter_stream</code> in much the same way as Benton and Kennedy's proposal:</p>
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span></span><span class="k">let</span> <span class="k">rec</span> <span class="n">iter_stream</span> <span class="n">f</span> <span class="n">s</span> <span class="o">=</span>
   <span class="k">let</span> <span class="k">try</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">s'</span><span class="o">)</span> <span class="o">=</span> <span class="n">my_stream_get</span> <span class="n">s</span>
    <span class="k">in</span> <span class="n">f</span> <span class="n">x</span><span class="o">;</span>
       <span class="n">iter_stream</span> <span class="n">f</span> <span class="n">s'</span>
   <span class="k">with</span> <span class="nc">End_of_stream</span> <span class="o">-&gt;</span> <span class="bp">()</span>
 </code></pre></div>
-<p>The details of the implementation are discussed in <a href="https://twitter.com/jakedonham">Jake Donham</a>'s <a href="http://ambassadortothecomputers.blogspot.co.uk/2010/09/reading-camlp4-part-11-syntax.html">articles on Camlp4</a>.  The micmatch implementation has a novel feature: the <code>let</code> binding associated with the success continuation may be made recursive.</p>
+<p>The details of the implementation are discussed in <a href="https://twitter.com/jakedonham - [1 Client error: Number of redirects hit maximum amount]">Jake Donham</a>'s <a href="http://ambassadortothecomputers.blogspot.co.uk/2010/09/reading-camlp4-part-11-syntax.html">articles on Camlp4</a>.  The micmatch implementation has a novel feature: the <code>let</code> binding associated with the success continuation may be made recursive.</p>
 
-<p><a href="http://alain.frisch.fr/">Alain Frisch</a> has proposed and implemented a more powerful extension to OCaml, <a href="http://www.lexifi.com/blog/static-exceptions">Static Exceptions</a>, which allow transfer of control to lexically-visible handlers (along the lines of Common Lisp's <a href="http://clhs.lisp.se/Body/s_block.htm#block"><code>block</code></a> and <a href="http://clhs.lisp.se/Body/s_ret_fr.htm#return-from"><code>return-from</code></a>).  Static exceptions are based on an equivalent feature in OCaml's intermediate language.</p>
+<p><a href="http://alain.frisch.fr/">Alain Frisch</a> has proposed and implemented a more powerful extension to OCaml, <a href="http://www.lexifi.com/blog/static-exceptions - [404 Not Found]">Static Exceptions</a>, which allow transfer of control to lexically-visible handlers (along the lines of Common Lisp's <a href="http://clhs.lisp.se/Body/s_block.htm#block"><code>block</code></a> and <a href="http://clhs.lisp.se/Body/s_ret_fr.htm#return-from"><code>return-from</code></a>).  Static exceptions are based on an equivalent feature in OCaml's intermediate language.</p>
 
 <p>There is a straightforward translation from OCaml extended with handler case into OCaml extended with static exceptions by wrapping the body of each <code>try</code> expression in <code>raise (`Val (...))</code>, and changing the <code>val</code> keyword in the binding section to <code>`Val</code>.  For example, <code>iter_stream</code> can be written using static exceptions as follows:</p>
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span></span><span class="k">let</span> <span class="k">rec</span> <span class="n">iter_stream</span> <span class="n">f</span> <span class="n">s</span> <span class="o">=</span>
@@ -240,9 +240,9 @@ Oleg's <a href="http://okmij.org/ftp/continuations/implementations.html">delimcc
 <p>Of course, static exceptions allow many other programs to be expressed that are not readily expressible using handler case.</p>
 
 <p><a name="catch-me"></a>
-In their 2008 paper <a href="http://www.univ-orleans.fr/lifo/Members/David.Teller/publications/ml2008.pdf">Catch me if you can: Towards type-safe, hierarchical, lightweight, polymorphic and efficient error management in OCaml</a> David Teller Arnaud Spiwack and Till Varoquaux added an <code>attempt</code> keyword to OCaml that extends <code>match</code>-style pattern matching with both a single optional value case and an optional <code>finally</code> clause.</p>
+In their 2008 paper <a href="http://www.univ-orleans.fr/lifo/Members/David.Teller/publications/ml2008.pdf - [404 Not Found]">Catch me if you can: Towards type-safe, hierarchical, lightweight, polymorphic and efficient error management in OCaml</a> David Teller Arnaud Spiwack and Till Varoquaux added an <code>attempt</code> keyword to OCaml that extends <code>match</code>-style pattern matching with both a single optional value case and an optional <code>finally</code> clause.</p>
 
-<p>Finally, I discovered while writing this article that Christophe Raffalli proposed the handler case design fifteen years ago in a <a href="http://caml.inria.fr/pub/ml-archives/caml-list/1999/12/a6d3ce9671b16a33530035c2b42df011.en.html">message to caml-list</a>!  Christophe's proposal wasn't picked up back then, but perhaps the time has now come to give OCaml programmers a way to handle success.</p>
+<p>Finally, I discovered while writing this article that Christophe Raffalli proposed the handler case design fifteen years ago in a <a href="http://caml.inria.fr/pub/ml-archives/caml-list/1999/12/a6d3ce9671b16a33530035c2b42df011.en.html - [404 Not Found]">message to caml-list</a>!  Christophe's proposal wasn't picked up back then, but perhaps the time has now come to give OCaml programmers a way to handle success.</p>
 
 <p><a name="match-exception"></a></p>
 

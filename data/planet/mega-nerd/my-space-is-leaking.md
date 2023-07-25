@@ -20,7 +20,7 @@ the
 	<a href="http://hackage.haskell.org/package/csv-conduit/">
 	csv-conduit</a>
 library to read the data and use a function passed to <tt>Data.Conduit</tt>'s
-	<a href="http://hackage.haskell.org/packages/archive/conduit/latest/doc/html/Data-Conduit-Util.html#v:sinkState">
+	<a href="http://hackage.haskell.org/packages/archive/conduit/latest/doc/html/Data-Conduit-Util.html#v:sinkState - [404 Not Found]">
 	sinkState</a>
 to calculate the statistics.
 </p>
@@ -102,7 +102,7 @@ generics version ran just as fast.
 <p>
 That's when Jos&Atilde;&copy; Pedro Magalh&Atilde;&pound;es (dreixel in #haskell) said that he had a draft
 paper
-	<a href="http://dreixel.net/research/pdf/ogpi_draft.pdf">
+	<a href="http://dreixel.net/research/pdf/ogpi_draft.pdf - [404 Not Found]">
 	&quot;Optimisation of Generic Programs through Inlining&quot;</a>
 explaining how and why this generic implementation is just as fast as the
 Template Haskell version.

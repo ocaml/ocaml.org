@@ -16,9 +16,9 @@ source:
 <h3>What&rsquo;s new in OCaml Forge ?</h3>
 <p>The forge now officialy supports more version control systems:</p>
 <ul>
-<li>darcs, see the project <a href="https://forge.ocamlcore.org/scm/?group_id=54">OASIS</a></li>
-<li>git, see the project <a href="https://forge.ocamlcore.org/scm/?group_id=175">Extunix</a></li>
-<li>bzr, see the project <a href="https://forge.ocamlcore.org/scm/?group_id=40">Delimited Overloading</a></li>
+<li>darcs, see the project <a href="https://forge.ocamlcore.org/scm/?group_id=54 - [404 Not Found]">OASIS</a></li>
+<li>git, see the project <a href="https://forge.ocamlcore.org/scm/?group_id=175 - [404 Not Found]">Extunix</a></li>
+<li>bzr, see the project <a href="https://forge.ocamlcore.org/scm/?group_id=40 - [404 Not Found]">Delimited Overloading</a></li>
 </ul>
 <p style="text-align: center;"><img src="http://www.ocamlcore.com/wp/wp-content/uploads/bzr.jpeg" width="400" height="173" alt=""/></p>
 <p>You can also request to create a personal git repository for project using git.</p>

@@ -14,13 +14,13 @@ source:
 
 <p><img src="http://typeocaml.com/content/images/2015/01/mutable_2.jpg#hero" alt="mutable"/></p>
 
-<p>While OCaml is a functional programming language and emphasises pure functional style, it allows <em>mutable</em> (variables and values) and hence imperative programming style. The reason is said in <a href="https://realworldocaml.org/v1/en/html/imperative-programming-1.html">Real World OCaml</a>:</p>
+<p>While OCaml is a functional programming language and emphasises pure functional style, it allows <em>mutable</em> (variables and values) and hence imperative programming style. The reason is said in <a href="https://realworldocaml.org/v1/en/html/imperative-programming-1.html - [404 Not Found]">Real World OCaml</a>:</p>
 
 <blockquote>
   <p>Imperative code is of fundamental importance to any practical programming language, because real-world tasks require that you interact with the outside world, which is by its nature imperative. Imperative programming can also be important for performance. While pure code is quite efficient in OCaml, there are many algorithms that can only be implemented efficiently using imperative techniques.</p>
 </blockquote>
 
-<p>How to write imperative code in OCaml has been well introduced in both <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.02/coreexamples.html#sec12">OCaml's documentation and user's manual</a> and <a href="https://realworldocaml.org/v1/en/html/imperative-programming-1.html">Real World OCaml</a>. The imperative logic flow is very similar as in other imperative languages. For example, we can write an OCaml <em>binary search</em> like this:</p>
+<p>How to write imperative code in OCaml has been well introduced in both <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.02/coreexamples.html#sec12 - [404 Not Found]">OCaml's documentation and user's manual</a> and <a href="https://realworldocaml.org/v1/en/html/imperative-programming-1.html - [404 Not Found]">Real World OCaml</a>. The imperative logic flow is very similar as in other imperative languages. For example, we can write an OCaml <em>binary search</em> like this:</p>
 
 <pre><code class="ocaml">let binary_search a x =  
   let len = Array.length a in
@@ -168,7 +168,7 @@ let f =
 
 <h1>When we need later substitution</h1>
 
-<p>I found this interesting case from <a href="https://realworldocaml.org/v1/en/html/imperative-programming-1.html#memoization-and-dynamic-programming">The chapter for imperative programming in Real World OCaml</a> and it is about <em>memoize</em>. In this section, we borrow contents directly from the book but will emphasise <em>the substitution</em> part.  </p>
+<p>I found this interesting case from <a href="https://realworldocaml.org/v1/en/html/imperative-programming-1.html#memoization-and-dynamic-programming - [404 Not Found]">The chapter for imperative programming in Real World OCaml</a> and it is about <em>memoize</em>. In this section, we borrow contents directly from the book but will emphasise <em>the substitution</em> part.  </p>
 
 <p>Python developers should be quite familiar with the <code>memoize</code> decorator . Essentially, it makes functions remember the <em>argument, result</em> pairs so that if the same arguments are supplied again then the stored result is returned immediately without repeated computation.</p>
 

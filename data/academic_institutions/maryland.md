@@ -8,7 +8,7 @@ continent: North America
 courses:
     - name: Organization of Programming Languages-(along with Ruby, Prolog, Java) 
       acronym: CMSC 330
-      online_resource: "https://www.cs.umd.edu/class/fall2014/cmsc330/"
+      online_resource: "https://www.cs.umd.edu/class/fall2014/cmsc330/ - [403 Forbidden]"
 location:
      lat: 38.9869
      long: -76.9426

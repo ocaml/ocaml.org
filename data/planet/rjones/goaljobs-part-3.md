@@ -21,7 +21,7 @@ let goal rebuilt pkg =
                == `Complete);</b>
   ...
 </pre>
-<p><code>koji_build_state</code> is a regular function.  It&rsquo;s implemented using the <code>koji buildinfo</code> command line tool for querying <a href="http://koji.fedoraproject.org/koji/">the Koji build system</a>.  (The koji command line tool is annoyingly hard to automate, but as we&rsquo;ve got a complete programming language available &mdash; not just bash &mdash; <a href="http://git.annexia.org/?p=goals.git%3Ba=blob%3Bf=fedora.ml%3Bhb=HEAD">the implementation of <code>koji_build_state</code></a> is tedious and long, but doable).</p>
+<p><code>koji_build_state</code> is a regular function.  It&rsquo;s implemented using the <code>koji buildinfo</code> command line tool for querying <a href="http://koji.fedoraproject.org/koji/">the Koji build system</a>.  (The koji command line tool is annoyingly hard to automate, but as we&rsquo;ve got a complete programming language available &mdash; not just bash &mdash; <a href="http://git.annexia.org/?p=goals.git%3Ba=blob%3Bf=fedora.ml%3Bhb=HEAD - [404 Not Found]">the implementation of <code>koji_build_state</code></a> is tedious and long, but doable).</p>
 <p>Querying Koji takes a few seconds and we don&rsquo;t want to do it every time we check a goal.  Goaljobs offers a feature called &ldquo;The Memory&rdquo; which lets you <a href="http://perl.plover.com/Memoize/doc.html#description">memoize</a> functions.  &ldquo;The Memory&rdquo; is just a fancy name for a key/value store which is kept in <code>~/.goaljobs-memory</code> and persists across goaljobs sessions:</p>
 <pre>
 let koji_build_state verrel =

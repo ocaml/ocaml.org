@@ -19,9 +19,9 @@ source:
 <div>
   
 In
-the <a href="https://sympa.inria.fr/sympa/arc/caml-list/2014-09/msg00090.html">2014
+the <a href="https://sympa.inria.fr/sympa/arc/caml-list/2014-09/msg00090.html - [1 Client error: Number of redirects hit maximum amount]">2014
 edition</a> of the &quot;which is the best build system for OCaml&quot; debate
-the <a href="http://omake.metaprl.org">OMake</a> utility was heavily
+the <a href="http://omake.metaprl.org - [404 Not Found]">OMake</a> utility was heavily
 criticized for being not scalable enough. Some quick tests showed that
 there was in deed a problem. At
 <a href="http://lexifi.com">LexiFi</a>, the size of the source tree obviously

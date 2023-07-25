@@ -313,7 +313,7 @@ We might try something like:</p>
 <pre><code class="language-OCaml">let rec list = choice null (pair int list)
 </code></pre>
 <p>But this won't work. Being just trees of applications, our definitions never
-contain <a href="http://caml.inria.fr/pub/docs/manual-ocaml-400/manual021.html#toc70">statically constructive</a> parts -- this expression could never
+contain <a href="http://caml.inria.fr/pub/docs/manual-ocaml-400/manual021.html#toc70 - [404 Not Found]">statically constructive</a> parts -- this expression could never
 terminate in a strict language.</p>
 <p>We can get around that by wrapping grammars in <code>Lazy.t</code> (or just closures), but
 this would be too awkward to use. Like many other similar libraries, we need to

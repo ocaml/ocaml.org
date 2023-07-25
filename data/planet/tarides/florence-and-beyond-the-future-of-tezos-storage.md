@@ -16,7 +16,7 @@ announce the completion of the next Tezos protocol proposal:
 <a href="http://doc.tzalpha.net/protocols/009_florence.html"><strong>Florence</strong></a>.</p>
 <p><a href="https://tezos.com/">Tezos</a> is an open-source decentralised blockchain network providing a
 platform for smart contracts and digital assets. A crucial feature of Tezos is
-<a href="https://tezos.com/static/white_paper-2dc8c02267a8fb86bd67a108199441bf.pdf"><em>self-amendment</em></a>: the network protocol can be upgraded
+<a href="https://tezos.com/static/white_paper-2dc8c02267a8fb86bd67a108199441bf.pdf - [404 Not Found]"><em>self-amendment</em></a>: the network protocol can be upgraded
 dynamically by the network participants themselves. This amendment process is
 initiated when a participant makes a <em>proposal</em>, which is then subject to a
 vote. After several years working on the Tezos storage stack, this is our first
@@ -55,7 +55,7 @@ magic of Merkle trees: individuals only need to store a <em>fragment</em> of the
 tree, provided they can demonstrate that this fragment is valid by sending
 &ldquo;<a href="https://bentnib.org/posts/2016-04-12-authenticated-data-structures-as-a-library.html">proofs</a>&rdquo; of its membership to the other participants.</p>
 <p>This property can be used to support ultra-lightweight Tezos clients, a feature
-<a href="https://gitlab.com/smelc/tezos/-/commits/tweag-client-light-mode">currently being developed</a> by TweagIO. To make this a reality,
+<a href="https://gitlab.com/smelc/tezos/-/commits/tweag-client-light-mode - [404 Not Found]">currently being developed</a> by TweagIO. To make this a reality,
 the Tezos protocol needs fine-grained access to context sub-trees in order build
 Merkle proofs out of them. Fortunately, Irmin already supports this! We
 <a href="https://gitlab.com/tezos/tezos/-/merge_requests/2457">extended the protocol</a> to understand sub-trees, lifting the power

@@ -163,7 +163,7 @@ feed
 </code></pre>
 <p>Since this is just a high-level overview we've passed over a number of
 details.  The interested reader can find a more comprehensive introduction to
-using ctypes in <a href="https://realworldocaml.org/v1/en/html/foreign-function-interface.html">Chapter 19: Foreign Function Interface</a> of <a href="https://realworldocaml.org">Real World OCaml</a>.</p>
+using ctypes in <a href="https://realworldocaml.org/v1/en/html/foreign-function-interface.html - [404 Not Found]">Chapter 19: Foreign Function Interface</a> of <a href="https://realworldocaml.org">Real World OCaml</a>.</p>
 <h3>Dynamic vs static</h3>
 <p>Up to this point we've been using a single function, <code>foreign</code>, to
 make C functions available to OCaml.  Although <code>foreign</code> is simple to

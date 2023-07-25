@@ -20,7 +20,7 @@ this year due to ongoing Covid restrictions. While this is disappointing news
 for so many, it's beneficial to those of you outside France because now you
 can hear professionals talk about cutting edge technology from the comfort of
 your own home.</p>
-<p>Tarides engineers, as well as our colleagues at <a href="https://tarides.com/ocamllabs.io">OCaml Labs
+<p>Tarides engineers, as well as our colleagues at <a href="https://tarides.com/ocamllabs.io - [404 Not Found]">OCaml Labs
 Consultancy</a> and <a href="https://segfault.systems/">Segfault Systems</a>,
 have some exciting presentations at this year's ICFP! Listen to talks on running
 OCaml on multiple cores, generating fuzzing suites, benchmarking, and the

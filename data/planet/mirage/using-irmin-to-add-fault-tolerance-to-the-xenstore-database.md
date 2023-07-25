@@ -25,9 +25,9 @@ running <a href="http://www.xen.org/">Xen</a>. Xenstore is necessary to</p>
 <p>Xenstore must be <strong>reliable</strong>: if it fails then the host is unmanageable and must be rebooted.</p>
 <p>Xenstore must be <strong>secure</strong>: if it is compromised by a VM then that VM can access data belonging
 to other VMs.</p>
-<p>The current version of Xenstore is <a href="http://xenbits.xen.org/gitweb/?p=xen.git%3Ba=tree%3Bf=tools/ocaml/xenstored%3Bh=0d762f2a61de098c0100814e0c140575b51688a3%3Bhb=stable-4.4">already written in OCaml</a>
+<p>The current version of Xenstore is <a href="http://xenbits.xen.org/gitweb/?p=xen.git%3Ba=tree%3Bf=tools/ocaml/xenstored%3Bh=0d762f2a61de098c0100814e0c140575b51688a3%3Bhb=stable-4.4 - [404 Not Found]">already written in OCaml</a>
 and documented in the paper
-<a href="http://gazagnaire.org/pub/GH09.pdf">OXenstored: an efficient hierarchical and transactional database using functional programming with reference cell comparisons</a> presented at ICFP 2009.
+<a href="http://gazagnaire.org/pub/GH09.pdf - [1 Client error: Timeout was reached]">OXenstored: an efficient hierarchical and transactional database using functional programming with reference cell comparisons</a> presented at ICFP 2009.
 The existing code works very reliably, but there is always room for improvement
 for debuggability of such a complex system component. This is where Irmin, the
 storage layer of Mirage 2.0, can help.</p>

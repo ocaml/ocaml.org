@@ -551,7 +551,7 @@ It has to choose a version no higher than the one offered by the server.
 Protocols starting with <code>wl_</code> are from the core Wayland protocol; the others are extensions.
 The leading <code>z</code> in <code>zxdg_output_manager_v1</code> indicates that the protocol is &quot;unstable&quot; (under development).</p>
 <p>The protocols are defined in various XML files, which are scattered over the web.
-The core protocol is defined in <a href="https://github.com/wayland-project/wayland/blob/master/protocol/wayland.xml">wayland.xml</a>.
+The core protocol is defined in <a href="https://github.com/wayland-project/wayland/blob/master/protocol/wayland.xml - [404 Not Found]">wayland.xml</a>.
 These XML files can be used to generate typed bindings for your programming language of choice.</p>
 <p>Here, the application picks <code>wl_compositor</code> (for managing drawing surfaces), <code>wl_shm</code> (for sharing memory with the server),
 and <code>xdg_wm_base</code> (for desktop windows).</p>

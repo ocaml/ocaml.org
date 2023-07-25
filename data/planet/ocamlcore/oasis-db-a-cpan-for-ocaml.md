@@ -18,9 +18,9 @@ source:
 <li>displaying version number of packages in each distribution</li>
 <li>displaying available patches</li>
 </ul>
-<p>In addition, we hope to ease integration with GODI by publishing packages using an alternative GODI repository, when translation of the _oasis file with <a href="http://projects.phauna.org/GODIVA/">GODIVA</a> is possible. It will also integrate with other indices of OCaml packages, like the OCaml <a href="http://links.camlcity.org/">LinkDB</a> and the OCaml <a href="http://caml.inria.fr//cgi-bin/hump.en.cgi">Hump</a>. </p>
+<p>In addition, we hope to ease integration with GODI by publishing packages using an alternative GODI repository, when translation of the _oasis file with <a href="http://projects.phauna.org/GODIVA/">GODIVA</a> is possible. It will also integrate with other indices of OCaml packages, like the OCaml <a href="http://links.camlcity.org/ - [1 Client error: Couldn't resolve host name]">LinkDB</a> and the OCaml <a href="http://caml.inria.fr//cgi-bin/hump.en.cgi - [404 Not Found]">Hump</a>. </p>
 <p>The project is almost a pure OCaml project. It uses <a href="http://ocsigen.org">ocsigen</a> for its website and processes _oasis file in an uploaded tarball to publish a package. The project is in fact a sub-project of the <a href="http://oasis.forge.ocamlcore.org">OASIS</a> project and reuses user information provided for this tool.</p>
 <p>We hope that this project will provide the OCaml community with a great tool to manage a growing number of small libraries. Don&rsquo;t hesitate to comment on our technical specifications, if you think we&rsquo;re missing something.</p>
-<p>This project will cover what was named &quot;bocage&quot; and &quot;OASIS self-contained&quot; during the <a href="https://forge.ocamlcore.org/docman/view.php/77/108/OCamlMeeting2010_OASIS_Slides.pdf">OASIS presentation</a> at OCaml Meeting 2010.</p>
+<p>This project will cover what was named &quot;bocage&quot; and &quot;OASIS self-contained&quot; during the <a href="https://forge.ocamlcore.org/docman/view.php/77/108/OCamlMeeting2010_OASIS_Slides.pdf - [404 Not Found]">OASIS presentation</a> at OCaml Meeting 2010.</p>
 <p><a href="http://oasis.forge.ocamlcore.org/oasis-db.html">More information</a></p>
 

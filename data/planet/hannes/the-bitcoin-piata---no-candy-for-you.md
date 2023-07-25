@@ -9,14 +9,14 @@ featured:
 
 <h2>History</h2>
 <p>On February 10th 2015 David Kaloper-Mer&scaron;injak and Hannes Mehnert
-<a href="https://mirage.io/announcing-bitcoin-pinata">launched</a> (read also <a href="http://amirchaudhry.com/bitcoin-pinata">Amir's
+<a href="https://mirage.io/announcing-bitcoin-pinata - [404 Not Found]">launched</a> (read also <a href="http://amirchaudhry.com/bitcoin-pinata">Amir's
 description</a>) our <a href="https://en.wikipedia.org/wiki/Bug_bounty_program">bug bounty
 program</a> in the form of our
-<a href="http://ownme.ipredator.se">Bitcoin Pi&ntilde;ata</a> MirageOS unikernel.  Thanks again to
+<a href="http://ownme.ipredator.se - [1 Client error: Couldn't resolve host name]">Bitcoin Pi&ntilde;ata</a> MirageOS unikernel.  Thanks again to
 <a href="https://ipredator.se">IPredator</a> for both hosting our services and lending us
 the 10 Bitcoins!  We <a href="https://mirage.io/blog/bitcoin-pinata-results">analysed</a> a
 bit more in depth after running it for five months.  Mindy recently wrote about
-<a href="https://somerandomidiot.com/blog/2018/04/17/whacking-the-bitcoin-pinata/">whacking the Bitcoin
+<a href="https://somerandomidiot.com/blog/2018/04/17/whacking-the-bitcoin-pinata/ - [1 Client error: Timeout was reached]">whacking the Bitcoin
 Pi&ntilde;ata</a>.</p>
 <p>On March 18th 2018, after more than three years, IPredator, the lender of the Bitcoins, repurposed the 10 Bitcoins for other projects.  Initially, we thought that the Pi&ntilde;ata would maybe run for a month or two, but IPredator, David, and I decided to keep it running.  The update of the Pi&ntilde;ata's bounty is a good opportunity to reflect on the project.</p>
 <p>The 10 Bitcoin in the Pi&ntilde;ata were fluctuating in price over time, at peak worth 165000&euro;.</p>
@@ -47,7 +47,7 @@ upgraded the Pi&ntilde;ata and released the <a href="https://mirage.io/blog/MSA0
 <p>The cumulative graph shows that more than 500,000 accesses to the Pi&ntilde;ata website, and more than 150,000 attempts at connecting to the Pi&ntilde;ata bounty.</p>
 <p>You can short-circuit the client and server Pi&ntilde;ata endpoint and observe the private wallet key being transferred on your computer, TLS encrypted with the secret exchanged by client and server, using <code>socat -x TCP:ownme.ipredator.se:10000 TCP:ownme.ipredator.se:10002</code>.</p>
 <p>If you attempted to exploit the Pi&ntilde;ata, please let us know what you tried!  Via
-<strike><a href="https://twitter.com/h4nnes">twitter</a></strike>
+<strike><a href="https://twitter.com/h4nnes - [1 Client error: Number of redirects hit maximum amount]">twitter</a></strike>
 <a href="http://mastodon.social/@hannesm">hannesm@mastodon.social</a> or via eMail.</p>
 <p>Since <a href="https://hannes.robur.coop/Posts/DNS">the start of 2018</a> we are developing robust software and systems at <a href="http://robur.io">robur</a>.  If you like our work and want to support us with donations or development contracts, please get in touch with <code>team@robur.io</code>.  Robur is a project of the German non-profit <a href="https://techcultivation.org">Center for the cultivation of technology</a>.  Donations to robur are tax-deductible in Europe.</p>
 

@@ -527,7 +527,7 @@ We may just decide to trust the library, or we might separate out the default pa
 That would allow running untrusted code safely and protect us from compromised packages.
 However, converting a non-capability language to a capability-secure one isn't easy,
 and isn't likely to happen any time soon for OCaml
-(but see <a href="https://www.hpl.hp.com/techreports/2006/HPL-2006-116.pdf">Emily</a> for an old proof-of-concept).</p>
+(but see <a href="https://www.hpl.hp.com/techreports/2006/HPL-2006-116.pdf - [1 Client error: SSL peer certificate or SSH remote key was not OK]">Emily</a> for an old proof-of-concept).</p>
 <p>Even without that, though, capabilities help to protect non-malicious code from malicious inputs.
 For example, the request handler above forgot to sanitise the URL path from the remote client,
 but it still can't access anything outside of <code>htdocs</code>.</p>

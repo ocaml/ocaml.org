@@ -23,7 +23,7 @@ Xenstore is used to allow <em>untrusted</em> user VMs to communicate with <em>tr
 </ul>
 <p>If the xenstore service fails then at best the host cannot be controlled (i.e. no VM start or shutdown)
 and at worst VM isolation is compromised since an untrusted VM will be able to gain unauthorised access to disks or networks.
-This blog post examines how to disaggregate xenstore from the monolithic domain 0, and run it as an independent <a href="http://www.cl.cam.ac.uk/~dgm36/publications/2008-murray2008improving.pdf">stub domain</a>.</p>
+This blog post examines how to disaggregate xenstore from the monolithic domain 0, and run it as an independent <a href="http://www.cl.cam.ac.uk/~dgm36/publications/2008-murray2008improving.pdf - [403 Forbidden]">stub domain</a>.</p>
 <p>Recently in the Xen community, Daniel De Graaf and Alex Zeffertt have added support for
 <a href="http://lists.xen.org/archives/html/xen-devel/2012-01/msg02349.html">xenstore stub domains</a>
 where the xenstore service is run directly as an OS kernel in its own isolated VM. In the world of Xen,
@@ -34,10 +34,10 @@ such as an out-of-memory event or a performance problem, then the critical xenst
 or fail altogether. Instead if xenstore is run as a &quot;stub domain&quot; then it is immune to such problems in
 domain 0. In fact, it will even allow us to <em>reboot</em> domain 0 in future (along with all other privileged
 domains) without incurring any VM downtime during the reset!</p>
-<p>The new code in <a href="http://xenbits.xensource.com/xen-unstable.hg">xen-unstable.hg</a> lays the necessary groundwork
+<p>The new code in <a href="http://xenbits.xensource.com/xen-unstable.hg - [403 Forbidden]">xen-unstable.hg</a> lays the necessary groundwork
 (Xen and domain 0 kernel changes) and ports the original C xenstored to run as a stub domain.</p>
-<p>Meanwhile, thanks to <a href="http://tab.snarc.org">Vincent Hanquez</a> and <a href="http://gazagnaire.org">Thomas Gazagnaire</a>, we also have an
-<a href="http://gazagnaire.org/pub/SSGM10.pdf">OCaml implementation of xenstore</a> which, as well as the offering
+<p>Meanwhile, thanks to <a href="http://tab.snarc.org">Vincent Hanquez</a> and <a href="http://gazagnaire.org - [1 Client error: Timeout was reached]">Thomas Gazagnaire</a>, we also have an
+<a href="http://gazagnaire.org/pub/SSGM10.pdf - [1 Client error: Timeout was reached]">OCaml implementation of xenstore</a> which, as well as the offering
 memory-safety, also supports a high-performance transaction engine, necessary for surviving a stressful
 &quot;VM bootstorm&quot; event on a large server in the cloud. Vincent and Thomas' code is Linux/POSIX only.</p>
 <p>Ideally we would have the best of both worlds:</p>
@@ -52,7 +52,7 @@ memory-safety, also supports a high-performance transaction engine, necessary fo
 <p>If you read through the existing OCaml xenstored code, it becomes obvious that the main uses of POSIX APIs are for communication
 with clients, both Unix sockets and for a special Xen inter-domain shared memory interface. It was a fairly
 painless process to extract the required socket-like IO signature and turn the bulk of the server into
-a <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual004.html">functor</a>. The IO signature ended up looking approximately like:</p>
+a <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual004.html - [404 Not Found]">functor</a>. The IO signature ended up looking approximately like:</p>
 <pre><code class="language-ocaml">    type t
     val read: t -&gt; string -&gt; int -&gt; int -&gt; int Lwt.t
     val write: t -&gt; string -&gt; int -&gt; int -&gt; unit Lwt.t

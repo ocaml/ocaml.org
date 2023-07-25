@@ -29,7 +29,7 @@ each other can still agree on the series of operations' validity,
 even if they don't know the entire contents of the ledger. The
 upcoming stateless nodes (like <a href="https://tezos.gitlab.io/user/light.html">Tezos
 light-client</a>),
-<a href="https://tezos.gitlab.io/user/proxy.html">proxies</a>, and mechanisms that allow the exchange of trust between disjointed tamper-proof storage (like <a href="https://tezos.gitlab.io/alpha/transaction_rollups.html">L2
+<a href="https://tezos.gitlab.io/user/proxy.html">proxies</a>, and mechanisms that allow the exchange of trust between disjointed tamper-proof storage (like <a href="https://tezos.gitlab.io/alpha/transaction_rollups.html - [403 Forbidden]">L2
 transactional-rollups</a>,
 L2 smart-contract rollups,...) will use these proofs to scale the
 Tezos trust infrastructure to <a href="https://research-development.nomadic-labs.com/tezos-is-scaling.html">new heights</a>.</p>

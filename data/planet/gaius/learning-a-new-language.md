@@ -3,7 +3,7 @@ title: Learning a New Language
 description: "Generally, every program I write, regardless of what useful thing it
   actually does, and regardless of what programming language it is written in, has
   to do certain things, which usually includes Im\u2026"
-url: https://gaius.tech/2019/02/10/learning-a-new-language/
+url: https://gaius.tech/2019/02/10/learning-a-new-language/ - [1 Client error: Timeout was reached]
 date: 2019-02-10T10:55:04-00:00
 preview_image: https://gaiustech.files.wordpress.com/2018/07/cropped-lynx.jpg?w=180
 featured:

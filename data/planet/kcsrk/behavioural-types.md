@@ -23,7 +23,7 @@ available
 
 
 <p>The idea of encoding behavioural types using polymorphic variants comes from
-<a href="http://www.di.unito.it/~padovani/Software/FuSe/FuSe.html">FuSe</a>, which is a
+<a href="http://www.di.unito.it/~padovani/Software/FuSe/FuSe.html - [404 Not Found]">FuSe</a>, which is a
 simple library implementation of binary sessions in OCaml. Similar to FuSe
 linear use of resources is enforced through dynamic checks in the following
 examples. We&rsquo;ll raise <code class="language-plaintext highlighter-rouge">LinearityViolation</code> when linearity is violated.</p>

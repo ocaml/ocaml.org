@@ -12,9 +12,9 @@ source:
 
 <p>The <a href="https://ocsigen.org/eliom/">Eliom framework</a> is the part of the <a href="https://ocsigen.org">ocsigen project</a> that aims to provide
 high level libraries for developing client/server web applications.
-It contains a <a href="https://ocsigen.org/eliom/6.1/manual/ppx-syntax">language extension</a> of OCaml that allows implementing both the client
+It contains a <a href="https://ocsigen.org/eliom/6.1/manual/ppx-syntax - [404 Not Found]">language extension</a> of OCaml that allows implementing both the client
 and the server parts of your application as a single program. It also
-contains <a href="https://ocsigen.org/eliom/manual/">several libraries and utilities</a> to facilitate web programming.</p>
+contains <a href="https://ocsigen.org/eliom/manual/ - [404 Not Found]">several libraries and utilities</a> to facilitate web programming.</p>
 
 <p>The various Ocsigen libraries have received a lot of care
 lately. Notably, we have reworked the <a href="https://ocsigen.github.io/blog/2016/12/12/eliom6/">service API</a>, we
@@ -39,7 +39,7 @@ allows specifying where things are to be defined and executed.</p>
 <p>The semantics is that the server part is executed first,
 then the web page is sent to the client,
 then the client part is executed.
-See <a href="https://ocsigen.org/eliom/6.1/manual/ppx-syntax">the documentation</a> for detail on the current extension.</p>
+See <a href="https://ocsigen.org/eliom/6.1/manual/ppx-syntax - [404 Not Found]">the documentation</a> for detail on the current extension.</p>
 
 <p>The language extension is currently implemented using a PPX extension and
 a custom (and a bit sophisticated) compilation scheme. Note here that I used
@@ -70,7 +70,7 @@ client program.</p>
 a server value of type <code class="language-plaintext highlighter-rouge">Foo.t</code> to the client. It also has type <code class="language-plaintext highlighter-rouge">Foo.t</code>,
 but the type is now the one available on the client. The actual object
 can also be transformed while passing the client/server boundary using
-<a href="https://ocsigen.org/eliom/6.1/manual/clientserver-wrapping">wrappers</a>. Unfortunately, this API is very difficult to use, not
+<a href="https://ocsigen.org/eliom/6.1/manual/clientserver-wrapping - [404 Not Found]">wrappers</a>. Unfortunately, this API is very difficult to use, not
 flexible and quite unsafe. Instead, we propose to use converters.
 Converters can be though as a pair of function: a server serialization
 function <code class="language-plaintext highlighter-rouge">ty_server -&gt; string</code> and a client deserialization function

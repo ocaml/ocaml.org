@@ -78,7 +78,7 @@ source:
   <span class="k">with</span> <span class="n">e</span> <span class="o">-&gt;</span> <span class="n">h</span> 
 </code></pre> 
 </div> 
-<p>which should expand to the thunkified version above. (The idea and syntax are taken from Martin Jambon&rsquo;s <a href="http://martin.jambon.free.fr/micmatch.html">micmatch</a> extension.)</p> 
+<p>which should expand to the thunkified version above. (The idea and syntax are taken from Martin Jambon&rsquo;s <a href="http://martin.jambon.free.fr/micmatch.html - [404 Not Found]">micmatch</a> extension.)</p> 
  
 <p>Let&rsquo;s look at the existing rules in <code>Camlp4OCamlRevisedParser.ml</code> for <code>let</code> and <code>try</code> to get an idea of how to parse the <code>let</code>/<code>try</code> form:</p> 
 <div class="highlight"><pre><code class="ocaml">  <span class="o">[</span> <span class="s2">&quot;let&quot;</span><span class="o">;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">opt_rec</span><span class="o">;</span> <span class="n">bi</span> <span class="o">=</span> <span class="n">binding</span><span class="o">;</span> <span class="s2">&quot;in&quot;</span><span class="o">;</span> <span class="n">x</span> <span class="o">=</span> <span class="nc">SELF</span> <span class="o">-&gt;</span> 

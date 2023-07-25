@@ -27,7 +27,7 @@ source:
 <p>We have several possibilities to provide configuration information in MirageOS, on the one hand via boot parameters (can be pre-filled at development time, and further refined at configuration time, but those passed at boot time take precedence). Boot parameters have a length limitation.</p>
 <p>Another option is to <a href="https://github.com/roburio/tlstunnel/">use a block device</a> - where the TLS reverse proxy stores the configuration, modifiable via a TCP control socket (authentication using a shared hmac secret).</p>
 <p>Several other unikernels, such as <a href="https://github.com/Engil/Canopy">this website</a> and <a href="https://github.com/roburio/caldav">our CalDAV server</a>, store the content in a remote git repository. The git URI and credentials (private key seed, host key fingerprint) are passed via boot parameter.</p>
-<p>Finally, another option that we take advantage of is to introduce a post-link step that rewrites the binary to embed configuration. The tool <a href="https://github.com/dinosaure/caravan">caravan</a> developed by Romain that does this rewrite is used by our <a href="https://github.com/roburio/openvpn/tree/robur/mirage-router">openvpn router</a> (<a href="https://builds.robur.coop/job/openvpn-router/build/latest/">binary</a>).</p>
+<p>Finally, another option that we take advantage of is to introduce a post-link step that rewrites the binary to embed configuration. The tool <a href="https://github.com/dinosaure/caravan">caravan</a> developed by Romain that does this rewrite is used by our <a href="https://github.com/roburio/openvpn/tree/robur/mirage-router - [404 Not Found]">openvpn router</a> (<a href="https://builds.robur.coop/job/openvpn-router/build/latest/ - [404 Not Found]">binary</a>).</p>
 <p>In the future, some configuration information - such as monitoring system, syslog sink, IP addresses - may be done via DHCP on one of the private network interfaces - this would mean that the DHCP server has some global configuration option, and the unikernels no longer require that many boot parameters. Another option we want to investigate is where the tender shares a file as read-only memory-mapped region from the host system to the guest system - but this is tricky considering all targets above (especially virtio and muen).</p>
 <h2>Behind the scenes: reproducible builds</h2>
 <p>To provide a high level of assurance and trust, if you distribute binaries in 2021, you should have a recipe how they can be reproduced in a bit-by-bit identical way. This way, different organisations can run builders and rebuilders, and a user can decide to only use a binary if it has been reproduced by multiple organisations in different jurisdictions using different physical machines - to avoid malware being embedded in the binary.</p>
@@ -39,7 +39,7 @@ source:
 <p>If no dependent package got a new release, the resulting binary has the same checksum. If any dependency was released with a newer release, this is picked up, and eventually the checksum changes.</p>
 <p>Each unikernel (and non-unikernel) job (e.g. <a href="https://builds.robur.coop/job/dns-primary-git/build/latest/">dns-primary</a> outputs some artifacts:</p>
 <ul>
-<li>the <a href="https://builds.robur.coop/job/dns-primary-git/build/latest/f/bin/primary_git.hvt">binary image</a> (in <code>bin/</code>, unikernel image, OS package)
+<li>the <a href="https://builds.robur.coop/job/dns-primary-git/build/latest/f/bin/primary_git.hvt - [404 Not Found]">binary image</a> (in <code>bin/</code>, unikernel image, OS package)
 </li>
 <li>the <a href="https://builds.robur.coop/job/dns-primary-git/build/latest/f/build-environment"><code>build-environment</code></a> containing the environment variables used for this build
 </li>
@@ -51,7 +51,7 @@ source:
 </li>
 </ul>
 <p>To reproduce such a built, you need to get the same operating system (OS, OS_FAMILY, OS_DISTRIBUTION, OS_VERSION in build-environment), the same set of system packages, and then you can <code>orb rebuild</code> which sets the environment variables and installs the opam packages from the opam-switch.</p>
-<p>You can <a href="https://builds.robur.coop/job/dns-primary-git/">browse</a> the different builds, and if there are checksum changes, you can browse to a diff between the opam switches to reason whether the checksum change was intentional (e.g. <a href="https://builds.robur.coop/compare/ba9ab091-9400-4e8d-ad37-cf1339114df8/23341f6b-cd26-48ab-9383-e71342455e81/opam-switch">here</a> the checksum of the unikernel changed when the x509 library was updated).</p>
+<p>You can <a href="https://builds.robur.coop/job/dns-primary-git/">browse</a> the different builds, and if there are checksum changes, you can browse to a diff between the opam switches to reason whether the checksum change was intentional (e.g. <a href="https://builds.robur.coop/compare/ba9ab091-9400-4e8d-ad37-cf1339114df8/23341f6b-cd26-48ab-9383-e71342455e81/opam-switch - [404 Not Found]">here</a> the checksum of the unikernel changed when the x509 library was updated).</p>
 <p>The opam reproducible build infrastructure is driven by:</p>
 <ul>
 <li><a href="https://github.com/roburio/orb">orb</a> conducting reproducible builds (<a href="https://builds.robur.coop/job/orb/">packages</a>)

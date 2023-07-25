@@ -1,7 +1,7 @@
 ---
 title: Mirage Logo Fun
 description:
-url: http://reynard.io/2016/11/30/MirageLogo.html
+url: http://reynard.io/2016/11/30/MirageLogo.html - [1 Client error: Couldn't resolve host name]
 date: 2016-11-30T00:00:00-00:00
 preview_image:
 featured:

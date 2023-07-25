@@ -102,7 +102,7 @@ use <code>Irmin.Merge.like</code> to map the record definition to a pair:</p>
   |&gt; option
 </code></pre>
 <p>The final step to define a mergeable data-structure is to wrap
-everything into a module satisfying the <a href="http://mirage.github.io/irmin/Irmin.Contents.S.html">Irmin.Contents.S</a>
+everything into a module satisfying the <a href="http://mirage.github.io/irmin/Irmin.Contents.S.html - [404 Not Found]">Irmin.Contents.S</a>
 signature:</p>
 <pre><code class="language-ocaml">module Metric: Irmin.Contents.S with type t = metric = struct
   type t = metric
@@ -120,7 +120,7 @@ format:</p>
 let config = Irmin_git.config &quot;/tmp/irmin&quot;
 let info fmt = Irmin_unix.info ~author:&quot;Thomas&quot; fmt
 </code></pre>
-<p><code>Store</code> <a href="http://mirage.github.io/irmin/Irmin.S.html">exposes</a> various functions to create and manipulate
+<p><code>Store</code> <a href="http://mirage.github.io/irmin/Irmin.S.html - [404 Not Found]">exposes</a> various functions to create and manipulate
 Irmin stores. <code>config</code> is used to configure Irmin repositories based
 on <code>Store</code>. In that example we decided to keep the store state in
 <code>&quot;/tmp/irmin&quot;</code> (which can be inspected using the usual Git
@@ -139,8 +139,8 @@ val repo : Store.Repo.t Lwt.t = &lt;abstr&gt;
 val master : Store.t Lwt.t = &lt;abstr&gt;
 </code></pre>
 <p><code>Store</code> also exposes the usual key/value base operations using
-<a href="http://mirage.github.io/irmin/Irmin.S.html#VALfind">find</a> and
-<a href="http://mirage.github.io/irmin/Irmin.S.html#VALset">set</a>. All the
+<a href="http://mirage.github.io/irmin/Irmin.S.html#VALfind - [404 Not Found]">find</a> and
+<a href="http://mirage.github.io/irmin/Irmin.S.html#VALset - [404 Not Found]">set</a>. All the
 operations are reflected as Git state.</p>
 <pre><code class="language-ocaml">  Lwt_main.run begin
       Store.Repo.v config &gt;&gt;= Store.master &gt;&gt;= fun master -&gt;

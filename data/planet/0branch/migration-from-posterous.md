@@ -19,7 +19,7 @@ source:
   </div>
   <hr/>
   <div>
-    <p>I&rsquo;ve migrated this blog from <a href="https://posterous.com/">Posterous</a> to <a href="http://jaspervdj.be/hakyll/">Hakyll</a> following the (long anticipated) <a href="http://blog.posterous.com/thanks-from-posterous">announcement</a> that Posterous will be shut down in April. Unfortunately, comments for old posts have been lost.</p>
+    <p>I&rsquo;ve migrated this blog from <a href="https://posterous.com/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]">Posterous</a> to <a href="http://jaspervdj.be/hakyll/">Hakyll</a> following the (long anticipated) <a href="http://blog.posterous.com/thanks-from-posterous - [1 Client error: Couldn't resolve host name]">announcement</a> that Posterous will be shut down in April. Unfortunately, comments for old posts have been lost.</p>
 <p>Hopefully folks like the new layout; mobile stylesheet coming soon.</p>
   </div>
 </div>

@@ -20,7 +20,7 @@ where cybersecurity and other tech professionals can meet and network.</p>
 including founder and CEO of Tarides, Thomas Gazagnaire, look forward to making
 new connections, looking for collaborators, and catching up with colleagues.</p>
 <p>The FIC theme for 2021 centres on encouraging &ldquo;a collective and collaborative
-cybersecurity.&rdquo; From the <a href="https://www.forum-fic.com/en/home/discover/what-is-the-fic.htm">FIC
+cybersecurity.&rdquo; From the <a href="https://www.forum-fic.com/en/home/discover/what-is-the-fic.htm - [404 Not Found]">FIC
 Website</a>:</p>
 <blockquote>
 <p>&rdquo;Collective, because each stakeholder is responsible not only for its own

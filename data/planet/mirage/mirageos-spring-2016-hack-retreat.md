@@ -11,7 +11,7 @@ authors:
 
 
         <p>We're looking forward to the next MirageOS hack retreat already!  We've collected some reports from those who were present at our <a href="http://retreat.mirage.io">2016 Spring hack retreat</a> to share our excitement!  Thanks to the folks who put in the time and effort to organize the event and our wonderful hosts, and a huge thanks to everyone who documented their hack retreat experience!</p>
-<p>More information is also available at <a href="http://canopy.mirage.io">the Canopy site developed and used for information sharing during the hack retreat</a>!</p>
+<p>More information is also available at <a href="http://canopy.mirage.io - [1 Client error: Timeout was reached]">the Canopy site developed and used for information sharing during the hack retreat</a>!</p>
 <h2>Trip Report</h2>
 <p><em>by David Kaloper</em></p>
 <p><img src="https://mirage.io/graphics/2016-hackathon/roof_flash.jpg" alt="roof-flash"/></p>
@@ -109,7 +109,7 @@ already been booked for the next year's event, there is ongoing chit-chat about
 cutting the downtime in half with a summer edition!</p>
 <p><img src="https://mirage.io/graphics/2016-hackathon/heat.jpg" alt="heat"/></p>
 <h2>[hweb]: http://retreat.mirage.io/
-[priscilla]: http://queenofthemedina.com/en/index.html
+[priscilla]: http://queenofthemedina.com/en/index.html - [1 Client error: Timeout was reached]
 [mirage-docs]: https://mirage.io/docs
 [charrua]: https://github.com/haesbaert/charrua-core
 [canopy]: https://github.com/Engil/Canopy
@@ -127,7 +127,7 @@ cutting the downtime in half with a summer edition!</p>
 [socks]: https://github.com/cfcs/ocaml-socks
 [dns-wcard]: https://github.com/cfcs/ocaml-wildcard
 [afl]: http://lcamtuf.coredump.cx/afl/
-[event-blog]: http://canopy.mirage.io/
+[event-blog]: http://canopy.mirage.io - [1 Client error: Timeout was reached]/
 [meeting-notes]: https://github.com/ocamllabs/activity/wiki/MirageOS-Hackathon
 [midday-heat]: https://twitter.com/rudenoise/status/709453313553596416
 [syslog]: https://github.com/verbosemode/syslogd-mirage
@@ -135,10 +135,10 @@ cutting the downtime in half with a summer edition!</p>
 <h2>MirageOS hackathon in Marrakech</h2>
 <p><em>Text and images by Enguerrand Decorne</em></p>
 <h3>Setting up and settling in</h3>
-<p>The first <a href="https://mirage.io/">MirageOS hackathon</a> was held from March 11th-16th 2016, at <a href="http://queenofthemedina.com/en/index.html">Priscilla, Queen of the Medina</a>, Marrakech. It successfully gathered around 30 Mirage enthusiasts, some already familiar with the MirageOS ecosystem, and others new to the community. People travelled from Europe and further afield for a week of sun, tajine and hacking.</p>
+<p>The first <a href="https://mirage.io/">MirageOS hackathon</a> was held from March 11th-16th 2016, at <a href="http://queenofthemedina.com/en/index.html - [1 Client error: Timeout was reached]">Priscilla, Queen of the Medina</a>, Marrakech. It successfully gathered around 30 Mirage enthusiasts, some already familiar with the MirageOS ecosystem, and others new to the community. People travelled from Europe and further afield for a week of sun, tajine and hacking.</p>
 <p><img src="https://mirage.io/graphics/2016-hackathon/main_room.jpg" alt="Main room" title="The main room"/></p>
 <p>Getting to the guesthouse <a href="https://www.youtube.com/watch?v=zgzwmyxlKBE">was an adventure</a>, and once there we prepared by quickly setting up a nice internet hotspot then organised groups to head to the souk to meet new arrivals.
-Soon enough the guest house was filled with people, and various new projects and ideas began to emerge. Having a few books and experienced OCaml developers around helped the OCaml newcomers get stuck in, and it didn't take long to get their first unikernel or OCaml library up and running. Daily meetings were arranged at noon on the rooftop in order to allow the exchange of project ideas and questions, and we used the <a href="http://canopy.mirage.io/Index">hackathon notepad</a> to loosely pair projects and people together. Our <a href="https://mirage.io/blog/introducing-charrua-dhcp">DHCP server</a> enabled extensive dogfooding and successfully fulfilled our project-testing needs.</p>
+Soon enough the guest house was filled with people, and various new projects and ideas began to emerge. Having a few books and experienced OCaml developers around helped the OCaml newcomers get stuck in, and it didn't take long to get their first unikernel or OCaml library up and running. Daily meetings were arranged at noon on the rooftop in order to allow the exchange of project ideas and questions, and we used the <a href="http://canopy.mirage.io/Index - [1 Client error: Timeout was reached]">hackathon notepad</a> to loosely pair projects and people together. Our <a href="https://mirage.io/blog/introducing-charrua-dhcp">DHCP server</a> enabled extensive dogfooding and successfully fulfilled our project-testing needs.</p>
 <p>Participants found a wide range of activities to keep themselves occupied during the event: contributing to the <a href="https://github.com/mirage/mirage-www/wiki/Pioneer-Projects">MirageOS Pioneer Projects</a>, starting new projects and libraries, improving the MirageOS ecosystem and core components, discussing new ideas... or simply enjoying the sun, delicious tajine, or walking around Marrakech itself. Some expeditions were also (non)organised during the week, allowing sightseeing of the nicest local spots, or negotiating with local stallholders to get the best prices on souvenirs and fresh fruits to enjoy during hard hacking sessions.</p>
 <p><img src="https://mirage.io/graphics/2016-hackathon/food.jpg" alt="Food" title="Some more food"/></p>
 <h3>My week inside the camel's nest</h3>

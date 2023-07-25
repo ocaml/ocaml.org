@@ -1,7 +1,7 @@
 ---
 title: Databox Open-Source Software Community Launch
 description:
-url: http://reynard.io/events/2017/03/27/DataboxLaunchMarch2017.html
+url: http://reynard.io/events/2017/03/27/DataboxLaunchMarch2017.html - [1 Client error: Couldn't resolve host name]
 date: 2017-03-27T00:00:00-00:00
 preview_image:
 featured:
@@ -12,7 +12,7 @@ source:
 
 <p>The team working on the <a href="http://www.databoxproject.uk/">Databox Project</a> hosted their Cambridge open-source community launch on Friday 24th March at <a href="https://www.darwin.cam.ac.uk/">Darwin College</a>, Cambridge.</p>
 
-<p><strong>UPDATE: <a href="https://www.databoxproject.uk/2017/03/28/databox-open-source-software-community-launch-2/">Slides and notes</a> from the event are now available</strong></p>
+<p><strong>UPDATE: <a href="https://www.databoxproject.uk/2017/03/28/databox-open-source-software-community-launch-2/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]">Slides and notes</a> from the event are now available</strong></p>
 
 <p>The event served to introduce the motives behind Databox, the structure of the project and to gauge use cases within the community and potential application developers. The team presented the initial release of a working open source Databox platform, which includes basic data collection support through mobile sensing libraries and selected APIs, provides basic data flow policing and privacy policy enforcement, and supports installation and operation of simple personal data processing apps.</p>
 
@@ -22,11 +22,11 @@ source:
 <img src="http://reynard.io/images/databox3.jpg" alt="Stage 1" width="200"/>
 </p>
 
-<p><em>Photos courtesy of <a href="https://twitter.com/realhamed">Hamed Haddadi</a>.</em></p>
+<p><em>Photos courtesy of <a href="https://twitter.com/realhamed - [1 Client error: Number of redirects hit maximum amount]">Hamed Haddadi</a>.</em></p>
 
 <p><strong>&ldquo;Can we do detailed, user-centric, contextual analytics at a scalable rate without privacy disasters and legal challenges?&rdquo;</strong></p>
 
-<p>The morning session began with a formal introduction by <a href="https://twitter.com/realhamed">Hamed Haddadi</a> into the research project itself, explaining the high-level goals of the project: &ldquo;Can we do detailed, user-centric, contextual analytics at a scalable rate without privacy disasters and legal challenges?&rdquo; <a href="https://github.com/mor1">Richard Mortier</a> followed with a summary of the technical architecture of the Databox and described the driving motive as an open-source, personal networked system, <strong>NOT</strong> another data silo that acts as a honey pot - the focus being to move computation to where the data is, thus reducing the movement of data itself. <a href="https://github.com/Toshbrown">Tosh Brown</a> and <a href="https://github.com/yousefamar">Yousef Amar</a> then followed with (working!) demonstrations of the Databox SDK and UI, and development of drivers and applications at the container level.</p>
+<p>The morning session began with a formal introduction by <a href="https://twitter.com/realhamed - [1 Client error: Number of redirects hit maximum amount]">Hamed Haddadi</a> into the research project itself, explaining the high-level goals of the project: &ldquo;Can we do detailed, user-centric, contextual analytics at a scalable rate without privacy disasters and legal challenges?&rdquo; <a href="https://github.com/mor1">Richard Mortier</a> followed with a summary of the technical architecture of the Databox and described the driving motive as an open-source, personal networked system, <strong>NOT</strong> another data silo that acts as a honey pot - the focus being to move computation to where the data is, thus reducing the movement of data itself. <a href="https://github.com/Toshbrown">Tosh Brown</a> and <a href="https://github.com/yousefamar">Yousef Amar</a> then followed with (working!) demonstrations of the Databox SDK and UI, and development of drivers and applications at the container level.</p>
 
 <p>The afternoon session was driven by the attendees, who were all asked to propose applications for and uses of the Databox, with small focus groups facilitating this development.</p>
 
@@ -101,7 +101,7 @@ source:
 
 <h2>UI and SDK</h2>
 
-<p>The <a href="https://sdk.iotdatabox.com/login">SDK</a> provides a user-friendly cloud environment for building Databox applications quickly, and finding approved applications to use on your own Databox - you simply require a GitHub login to access it. The graphical programming environment allows you drag in and connect nodes, view the function output, and debug if needed. There are other useful details such as built-in virtualisations that allow you to view your data as graphs, lists etc, and application manifests which include any resources your app needs and different levels of functionality to correspond with existing devices. Current applications include Hue lights, a mobile sensing driver and Twitter.</p>
+<p>The <a href="https://sdk.iotdatabox.com/login - [1 Client error: Couldn't resolve host name]">SDK</a> provides a user-friendly cloud environment for building Databox applications quickly, and finding approved applications to use on your own Databox - you simply require a GitHub login to access it. The graphical programming environment allows you drag in and connect nodes, view the function output, and debug if needed. There are other useful details such as built-in virtualisations that allow you to view your data as graphs, lists etc, and application manifests which include any resources your app needs and different levels of functionality to correspond with existing devices. Current applications include Hue lights, a mobile sensing driver and Twitter.</p>
 
 <p>
 <img src="http://reynard.io/images/DataboxSDK.png" alt="Stage 1" width="200"/>

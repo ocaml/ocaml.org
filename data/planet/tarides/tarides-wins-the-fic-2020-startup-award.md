@@ -11,7 +11,7 @@ authors:
 source:
 ---
 
-<p>We are very excited to announce that Tarides has <a href="https://www.forum-fic.com/en/home/price/the-fic-start-up-award.htm">won an
+<p>We are very excited to announce that Tarides has <a href="https://www.forum-fic.com/en/home/price/the-fic-start-up-award.htm - [404 Not Found]">won an
 award</a>
 from the International Cybersecurity Forum (FIC 2020).</p>
 <p>Organized every year in Lille (France), the International
@@ -27,7 +27,7 @@ the jury for commending <a href="https://mirage.io">MirageOS</a> and
 <a href="https://tarides.com/blog/2019-07-05-i-lab-2019">OSMOSE</a>.</p>
 <p>The next FIC will be held on the 28th, 29th and 30th of January
 2020 in Lille. For more details about the FIC and to register, visit
-<a href="https://www.forum-fic.com/en/home.htm">their website</a>.</p>
+<a href="https://www.forum-fic.com/en/home.htm - [404 Not Found]">their website</a>.</p>
 <br/>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
       <a href="https://tarides.com/static/dc5973af18f70eb3d969d8aa1c8dfae6/9c311/FIC2020.jpg" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">

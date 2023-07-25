@@ -89,7 +89,7 @@ once we complete the Irmin 2.0 tests.</p>
 <p>Another new area of huge interest to us is
 <a href="https://graphql.org">GraphQL</a> in order to provide frontends a rich
 query language for Irmin hosted applications.  Irmin 2.0 includes a
-builtin GraphQL server so you can <a href="https://twitter.com/cuvius/status/1017136581755457539">manipulate your Git repo via
+builtin GraphQL server so you can <a href="https://twitter.com/cuvius/status/1017136581755457539 - [1 Client error: Number of redirects hit maximum amount]">manipulate your Git repo via
 GraphQL</a>.</p>
 <p>If you are interested in (for example) compiling elements of Irmin to
 JavaScript or wasm, for usage in frontends, then the Irmin 2.0 release

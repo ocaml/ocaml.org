@@ -10,9 +10,9 @@ authors:
 source:
 ---
 
-<p>This short tutorial is an example of client-server Eliom application. It gives an example of client-server widgets. You can find the original version of this tutorial (and many others) <a href="http://ocsigen.org/tuto/manual/tutowidgets">here</a>.</p>
+<p>This short tutorial is an example of client-server Eliom application. It gives an example of client-server widgets. You can find the original version of this tutorial (and many others) <a href="http://ocsigen.org/tuto/manual/tutowidgets - [404 Not Found]">here</a>.</p>
 
-<p>It is probably a good starting point if you know OCaml well, and want to quickly learn how to write a client-server Eliom application with a short example and concise explanations. For more detailed explanations, see the <a href="http://ocsigen.org/tuto/manual/application">&ldquo;Graffiti&rdquo; tutorial</a>, or read the manuals.</p>
+<p>It is probably a good starting point if you know OCaml well, and want to quickly learn how to write a client-server Eliom application with a short example and concise explanations. For more detailed explanations, see the <a href="http://ocsigen.org/tuto/manual/application - [404 Not Found]">&ldquo;Graffiti&rdquo; tutorial</a>, or read the manuals.</p>
 
 <p>The goal is to show that, unlike many JavaScript libraries that build their widgets programmatically (by instantiating classes or calling functions), Eliom enables server-side widget generation, before sending them to the client. Pages can thus be indexed by search engines.</p>
 
@@ -65,7 +65,7 @@ source:
 
 <p>The name of the project must match the name given to the functor <code class="language-plaintext highlighter-rouge">Eliom_registration.App</code>.</p>
 
-<p>After you adapt the file <code class="language-plaintext highlighter-rouge">ex.eliom</code>, you can compile by calling make, and run the server by calling <code class="language-plaintext highlighter-rouge">make test.byte</code>. Download the <a href="http://ocsigen.org/tuto/files/tutorial/tutowidgets/ex.css">CSS file</a> and place it in directory <code class="language-plaintext highlighter-rouge">static/css</code>. Then open a browser window and go to URL <code class="language-plaintext highlighter-rouge">http://localhost:8080</code>.</p>
+<p>After you adapt the file <code class="language-plaintext highlighter-rouge">ex.eliom</code>, you can compile by calling make, and run the server by calling <code class="language-plaintext highlighter-rouge">make test.byte</code>. Download the <a href="http://ocsigen.org/tuto/files/tutorial/tutowidgets/ex.css - [404 Not Found]">CSS file</a> and place it in directory <code class="language-plaintext highlighter-rouge">static/css</code>. Then open a browser window and go to URL <code class="language-plaintext highlighter-rouge">http://localhost:8080</code>.</p>
 
 <p>Screenshot:</p>
 
@@ -77,7 +77,7 @@ source:
 
 <ul>
   <li>The client side program is sent with the first page belonging to the application (registered through module <code class="language-plaintext highlighter-rouge">Ex_app</code>).</li>
-  <li>The <code class="language-plaintext highlighter-rouge">##</code> is used to call a JS method from OCaml and <code class="language-plaintext highlighter-rouge">##.</code> to access a JS object field (See Js_of_ocaml&rsquo;s documentation: <a href="http://ocsigen.org/js_of_ocaml/api/Ppx_js">Ppx_js</a>).</li>
+  <li>The <code class="language-plaintext highlighter-rouge">##</code> is used to call a JS method from OCaml and <code class="language-plaintext highlighter-rouge">##.</code> to access a JS object field (See Js_of_ocaml&rsquo;s documentation: <a href="http://ocsigen.org/js_of_ocaml/api/Ppx_js - [404 Not Found]">Ppx_js</a>).</li>
   <li>If there are several services in your application, the client-side program will be sent only with the first page, and will not stop if you go to another page of the application.</li>
   <li><code class="language-plaintext highlighter-rouge">Lwt</code> is the concurrent library used to program threads on both client and server sides. The syntax <code class="language-plaintext highlighter-rouge">let%lwt a = e1 in e2</code> allows waiting (without blocking the rest of the program) for an Lwt thread to terminate before continuing. <code class="language-plaintext highlighter-rouge">e2</code> must ben a Lwt thread itself. <code class="language-plaintext highlighter-rouge">Lwt.return</code> enables creating an already-terminated Lwt thread.</li>
   <li><code class="language-plaintext highlighter-rouge">Lwt_js_events</code> defines a convenient way to program interface events (mouse, keyboard, &hellip;). For example, <code class="language-plaintext highlighter-rouge">Lwt_js_events.onload</code> is a Lwt thread that waits until the page is loaded. There are similar functions to wait for other events, e.g., for a click on an element of the page, or for a key press.</li>
@@ -285,13 +285,13 @@ source:
 
 <h3>Calling server functions</h3>
 
-<p>An important feature missing from this tutorial is the ability to call server functions from the client-side program (&ldquo;server functions&rdquo;). You can find a quick description of this in this <a href="http://ocsigen.org/tuto/manual/how-to-call-a-server-side-function-from-client-side">mini HOWTO</a> or in <a href="http://ocsigen.org/eliom/manual/clientserver-communication#rpc">Eliom&rsquo;s manual</a>.</p>
+<p>An important feature missing from this tutorial is the ability to call server functions from the client-side program (&ldquo;server functions&rdquo;). You can find a quick description of this in this <a href="http://ocsigen.org/tuto/manual/how-to-call-a-server-side-function-from-client-side - [404 Not Found]">mini HOWTO</a> or in <a href="http://ocsigen.org/eliom/manual/clientserver-communication#rpc - [404 Not Found]">Eliom&rsquo;s manual</a>.</p>
 
 <h3>Services</h3>
 
-<p>For many applications, you will need several services. By default, client-side Eliom programs do not stop when you follow a link or send a form. This enables combining rich client side features (playing music, animations, stateful applications &hellip;) with traditional Web interaction (links, forms, bookmarks, back button &hellip;). Eliom proposes several ways to identify services, either by the URL (and parameters), or by a session identifier (we call this kind of service a coservice). Eliom also allows creating new (co-)services dynamically, for example coservices depending on previous interaction with a user. More information on the service identification mechanism in <a href="http://ocsigen.org/eliom/manual/server-services">Eliom&rsquo;s manual</a>.</p>
+<p>For many applications, you will need several services. By default, client-side Eliom programs do not stop when you follow a link or send a form. This enables combining rich client side features (playing music, animations, stateful applications &hellip;) with traditional Web interaction (links, forms, bookmarks, back button &hellip;). Eliom proposes several ways to identify services, either by the URL (and parameters), or by a session identifier (we call this kind of service a coservice). Eliom also allows creating new (co-)services dynamically, for example coservices depending on previous interaction with a user. More information on the service identification mechanism in <a href="http://ocsigen.org/eliom/manual/server-services - [404 Not Found]">Eliom&rsquo;s manual</a>.</p>
 
 <h3>Sessions</h3>
 
-<p>Eliom also offers a rich session mechanism, with scopes (see <a href="http://ocsigen.org/eliom/manual/server-state">Eliom&rsquo;s manual</a>).</p>
+<p>Eliom also offers a rich session mechanism, with scopes (see <a href="http://ocsigen.org/eliom/manual/server-state - [404 Not Found]">Eliom&rsquo;s manual</a>).</p>
 

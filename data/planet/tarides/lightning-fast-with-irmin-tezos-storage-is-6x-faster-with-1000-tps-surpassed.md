@@ -75,10 +75,10 @@ Indexing each object in the store by hash has some important advantages: for
 instance, it ensures that the database is totally
 <a href="https://en.wikipedia.org/wiki/Data_deduplication">deduplicated</a> and enables fast random access to any
 object in the store, regardless of position in the tree.</p>
-<p>As discussed in <a href="https://tarides.com/2020-09-01-introducing-irmin-pack">our <code>irmin-pack</code> post</a>, the context index was
+<p>As discussed in <a href="https://tarides.com/2020-09-01-introducing-irmin-pack - [404 Not Found]">our <code>irmin-pack</code> post</a>, the context index was
 optimised for very fast reads at the cost of needing to perform an expensive
 maintenance operation at regular intervals. This design was very effective in
-the early months of the Tezos chain, but our <a href="https://tarides.com/2021-10-04-the-new-replaying-benchmark-in-irmin">recent work on benchmarking the
+the early months of the Tezos chain, but our <a href="https://tarides.com/2021-10-04-the-new-replaying-benchmark-in-irmin - [404 Not Found]">recent work on benchmarking the
 storage layer</a> revealed two problems with it:</p>
 <ul>
 <li>
@@ -128,7 +128,7 @@ fit comfortably in memory and don't need costly maintenance. As of Octez 13,
 behaviour<sup><a href="https://tarides.com/feed.xml#fn-2" class="footnote-ref">2</a></sup>.</p>
 </li>
 </ul>
-<p>So what is the performance impact of this change? As detailed in our <a href="https://tarides.com/2021-10-04-the-new-replaying-benchmark-in-irmin">recent
+<p>So what is the performance impact of this change? As detailed in our <a href="https://tarides.com/2021-10-04-the-new-replaying-benchmark-in-irmin - [404 Not Found]">recent
 post on replay benchmarking</a>, we were able to isolate and
 measure the consequences of this change by &quot;replaying&quot; a previously-recorded
 trace of chain activity against the newly-improved storage layer. This process
@@ -256,15 +256,15 @@ as soon as possible to benefit.</p>
 store</em>, a garbage collection strategy for rolling nodes. Once this has landed,
 we will collaborate with the Tarides Multicore Applications team to help
 migrate Octez to using the newly-merged Multicore OCaml.</p>
-<p>If this work sounds interesting, the Irmin team at Tarides is <a href="https://tarides.com/jobs/senior-software-engineer-irmin">currently
+<p>If this work sounds interesting, the Irmin team at Tarides is <a href="https://tarides.com/jobs/senior-software-engineer-irmin - [404 Not Found]">currently
 hiring</a>!</p>
-<p>Thanks for reading, and <a href="https://twitter.com/tarides_">stay tuned</a> for future updates from
+<p>Thanks for reading, and <a href="https://twitter.com/tarides_ - [1 Client error: Number of redirects hit maximum amount]">stay tuned</a> for future updates from
 the Irmin team!</p>
 <div class="footnotes">
 <hr/>
 <ol>
 <li>Our benchmarks compare Octez 10.2, 11.1, 12.0, and 13.0-rc1 by replaying the 150k first blocks of the Hangzhou Protocol on Tezos Mainnet (corresponding to the period Dec 2021 &ndash; Jan 2022) on <a href="https://metal.equinix.com/product/servers/c3-small/">an Intel Xeon E-2278G processor</a> constrained to use at most 8 GB RAM. Our benchmarking setup explicitly excludes the networking I/O operations and protocol computations to focus on the context I/O operations only. Octez 10.2 uses Irmin 2.7.2, while both Octez 11.1 and 12.0 use Irmin 2.9.1 (which explains why the graphs are similar). Octez v13-rc1 uses Irmin 3.2.1, which we just released this month (Apr 2022).<a href="https://tarides.com/feed.xml#fnref-1" class="footnote-backref">&#8617;</a></li>
 <li>The trade-off here is that without an index the context store can no longer guarantee to have perfect deduplication, but our testing and benchmarks indicate that this has relatively little impact on the size of the context as a whole (particularly after accounting for no longer needing to store an index entry for every object!).<a href="https://tarides.com/feed.xml#fnref-2" class="footnote-backref">&#8617;</a></li>
-<li>To reproduce these benchmarks, you can download the replay trace we used <a href="http://data.tarides.com/lib_context/hangzou-level2.tgz">here</a> (14G). This trace can be replayed against a fork of <code>lib_context</code> available <a href="https://github.com/ngoguey42/tezos/tree/new-action-trace-recording">here</a>.<a href="https://tarides.com/feed.xml#fnref-3" class="footnote-backref">&#8617;</a></li>
+<li>To reproduce these benchmarks, you can download the replay trace we used <a href="http://data.tarides.com/lib_context/hangzou-level2.tgz - [1 Client error: Failed writing received data to disk/application]">here</a> (14G). This trace can be replayed against a fork of <code>lib_context</code> available <a href="https://github.com/ngoguey42/tezos/tree/new-action-trace-recording">here</a>.<a href="https://tarides.com/feed.xml#fnref-3" class="footnote-backref">&#8617;</a></li>
 </ol>
 </div>

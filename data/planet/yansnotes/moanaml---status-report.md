@@ -12,7 +12,7 @@ source:
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">
-I have started to work on implementing <a href="https://mozillaignite.org/apps/411/" target="_blank">Moana</a> key functional primitives in OCaml.<br/>
+I have started to work on implementing <a href="https://mozillaignite.org/apps/411/ - [1 Client error: Couldn't resolve host name]" target="_blank">Moana</a> key functional primitives in OCaml.<br/>
 <br/>
 The code is available on github <a href="https://github.com/yansh/MoanaML/" target="_blank">here</a>.<br/>
 <br/>

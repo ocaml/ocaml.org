@@ -13,7 +13,7 @@ source:
 ---
 
 <p>A little more than a year ago I released <a href="http://people.redhat.com/~rjones/whenjobs/">whenjobs</a> which was an attempt to create a practical language for automating complex &ldquo;business rules&rdquo;.  The kind of thing I&rsquo;m talking about is managing the many diverse steps between me <a href="https://github.com/libguestfs/libguestfs/commit/4d955be4fb9fe304d5ab4222f0e9592f5fc1ef5b">tagging a libguestfs commit with a version number</a> and a <a href="http://libguestfs.org/download/1.23-development/">fully tested tarball appearing on the website</a>.  Or the hundreds of steps that go into <a href="https://rwmj.wordpress.com/2013/09/14/ocaml-4-01-0-entering-rawhide/">100 OCaml packages being updated and rebuilt for Rawhide</a>.</p>
-<p>Whenjobs wasn&rsquo;t the right answer.  <a href="http://git.annexia.org/?p=goaljobs.git%3Ba=summary">Goaljobs [very early alpha]</a> might possibly be.</p>
+<p>Whenjobs wasn&rsquo;t the right answer.  <a href="http://git.annexia.org/?p=goaljobs.git%3Ba=summary - [404 Not Found]">Goaljobs [very early alpha]</a> might possibly be.</p>
 <p>What I need is something which is flexible, can deal with failures (both hard and intermittent), and can be killed and restarted at any point.</p>
 <p>The first observation is that <a href="https://en.wikipedia.org/wiki/Make_(software)">make</a> is nearly the right tool.  It&rsquo;s goal-based, meaning that you set down a target that you want to have happen, and some rules to make that happen, and this lets you break down a problem from the larger goal (&ldquo;build my program!&rdquo;) to smaller subgoals (&ldquo;compile this source file&rdquo;).</p>
 <pre>
@@ -45,7 +45,7 @@ function build_program ()
 </li><li> What could happen if we could add parameters to <code>build_program</code>?
 </li></ul>
 <p>Goaljobs attempts to answer these questions by turning make-style rules into &ldquo;goals&rdquo;, where goals are specialized functions similar to the one above that have a target, requirement(s), a recipe to implement them, and any number of parameters.</p>
-<p>For example, a <a href="http://git.annexia.org/?p=goaljobs.git%3Ba=blob%3Bf=examples/compile-c/compile.ml%3Bh=151e8b79ec3ca82aecbff533bcf514be2cfb8ff2%3Bhb=HEAD">&ldquo;compile *.c to *.o&rdquo; goal</a> looks like this:</p>
+<p>For example, a <a href="http://git.annexia.org/?p=goaljobs.git%3Ba=blob%3Bf=examples/compile-c/compile.ml%3Bh=151e8b79ec3ca82aecbff533bcf514be2cfb8ff2%3Bhb=HEAD - [404 Not Found]">&ldquo;compile *.c to *.o&rdquo; goal</a> looks like this:</p>
 <pre>
 let goal compiled c_file =
   <i>(* convert c_file &quot;foo.c&quot; -&gt; &quot;foo.o&quot;: *)</i>

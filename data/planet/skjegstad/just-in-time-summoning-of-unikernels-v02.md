@@ -11,11 +11,11 @@ source:
 ---
 
 <p><a href="https://github.com/mirage/jitsu.git">Jitsu</a> - or Just-in-Time Summoning of Unikernels - is a prototype DNS server that can boot virtual machines on demand. When Jitsu receives a DNS query, a virtual machine is booted automatically before the query response is sent back to the client. If the virtual machine is a <a href="http://queue.acm.org/detail.cfm?id=2566628">unikernel</a>, it can boot in milliseconds and be available as soon as the client receives the response. To the client it will look like it was on the whole time. </p>
-<p>Jitsu can be used to run microservices that only exist after they have been resolved in DNS - and perhaps in the future can facilitate <a href="http://amirchaudhry.com/heroku-for-unikernels-pt2/">demand-driven clouds</a> or extreme scaling with <a href="http://www.skjegstad.com/blog/2015/03/25/mirageos-vm-per-url-experiment/">a unikernel per URL</a>. Jitsu has also been used to boot unikernels in milliseconds on <a href="https://www.usenix.org/system/files/conference/nsdi15/nsdi15-paper-madhavapeddy.pdf">ARM devices</a>.</p>
+<p>Jitsu can be used to run microservices that only exist after they have been resolved in DNS - and perhaps in the future can facilitate <a href="http://amirchaudhry.com/heroku-for-unikernels-pt2/ - [404 Not Found]">demand-driven clouds</a> or extreme scaling with <a href="http://www.skjegstad.com/blog/2015/03/25/mirageos-vm-per-url-experiment/">a unikernel per URL</a>. Jitsu has also been used to boot unikernels in milliseconds on <a href="https://www.usenix.org/system/files/conference/nsdi15/nsdi15-paper-madhavapeddy.pdf">ARM devices</a>.</p>
 <p>A new version of Jitsu was just released and I'll summarize some of the old and new features here. This is the first version that supports both <a href="https://mirage.io">MirageOS</a> and <a href="https://github.com/rumpkernel/rumprun">Rumprun</a> unikernels and uses the distributed <a href="https://github.com/mirage/irmin">Irmin</a> database to store state. A full list of changes is available <a href="https://github.com/mirage/jitsu/blob/master/CHANGES.md">here</a>.</p>
 
 
-<p>A Jitsu demo hosting a MirageOS unikernel runs <a href="http://www.jitsu.v0.no">here</a> and nginx on Rumprun <a href="http://www.rump.jitsu.v0.no">here</a>. These demos should be up most of the time, but may occasionally be unstable or unavailable as they are also used to test new features. </p>
+<p>A Jitsu demo hosting a MirageOS unikernel runs <a href="http://www.jitsu.v0.no - [1 Client error: Couldn't resolve host name]">here</a> and nginx on Rumprun <a href="http://www.rump.jitsu.v0.no - [1 Client error: Couldn't resolve host name]">here</a>. These demos should be up most of the time, but may occasionally be unstable or unavailable as they are also used to test new features. </p>
 <p>For more technical details and up to date example configurations with MirageOS and Rumprun, see the Jitsu <a href="https://github.com/mirage/jitsu/blob/master/README.md">README</a>.</p>
 <h3>Overview</h3>
 <ul>
@@ -95,10 +95,10 @@ When the unikernel has finished booting all incoming SYNs are ignored by Synjits
 <h2>Tell me more!</h2>
 <p>This post has mainly focused on Jitsu, but if you are interested in unikernels and want more information about writing your own or hosting your web site with one, these links may be useful:</p>
 <ul>
-<li><a href="http://openmirage.org/wiki/hello-world">Hello Mirage World</a> describes how to create and compile a simple &quot;Hello world&quot; unikernel.</li>
+<li><a href="http://openmirage.org/wiki/hello-world - [1 Client error: Timeout was reached]">Hello Mirage World</a> describes how to create and compile a simple &quot;Hello world&quot; unikernel.</li>
 <li>In <a href="http://roscidus.com/blog/blog/2014/07/28/my-first-unikernel/">My first unikernel</a>, Thomas Leonard describes how he set up a MirageOS REST service with a storage backend.</li>
-<li>Mindy Preston has documented how she runs her blog as a unikernel with Amazon EC2 in <a href="http://www.somerandomidiot.com/blog/2014/08/19/i-am-unikernel/">I Am Unikernel! (and So Can You!)</a>. </li>
-<li><a href="http://amirchaudhry.com/from-jekyll-to-unikernel-in-fifty-lines/">From Jekyll site to Unikernel in fifty lines of code</a></li>
+<li>Mindy Preston has documented how she runs her blog as a unikernel with Amazon EC2 in <a href="http://www.somerandomidiot.com/blog/2014/08/19/i-am-unikernel/ - [1 Client error: Timeout was reached]">I Am Unikernel! (and So Can You!)</a>. </li>
+<li><a href="http://amirchaudhry.com/from-jekyll-to-unikernel-in-fifty-lines/ - [404 Not Found]">From Jekyll site to Unikernel in fifty lines of code</a></li>
 <li><a href="https://github.com/rumpkernel/wiki/wiki/Tutorial:-Serve-a-static-website-as-a-Unikernel">Tutorial: Serve a static website as a Unikernel</a> explains how to run an nginx server in a Rumprun unikernel.</li>
 </ul>
 <p>There are also many MirageOS application examples available <a href="https://github.com/mirage/mirage-skeleton">here</a>. The examples are kept up to date with the latest libraries.</p>

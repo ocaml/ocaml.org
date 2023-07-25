@@ -20,6 +20,6 @@ such as the Raspberry Pi!</p>
 <p>Watch the live presentation today at 15h CET. Just go to: <a href="https://meet.google.com/iqy-urht-rcn">https://meet.google.com/iqy-urht-rcn</a>, or dial &#8234;(FR) +33 1 87 40 43 45&#8236; with
 the PIN: &#8234;288 878 885&#8236;#. You can also find other phone numbers here:&nbsp;<a href="https://tel.meet/iqy-urht-rcn?pin=3736259978366">https://tel.meet/iqy-urht-rcn?pin=3736259978366</a> if you're not in France.</p>
 <p>This presentation will be a great introduction to Romain Calascibetta's forthcoming MirageOS workshop tomorrow.
-Check back on this blog and <a href="https://twitter.com/tarides_">follow us on Twitter</a> to find out more about how to watch
+Check back on this blog and <a href="https://twitter.com/tarides_ - [1 Client error: Number of redirects hit maximum amount]">follow us on Twitter</a> to find out more about how to watch
 and participate in this informative workshop tomorrow!</p>
 <p>Until then, check out Lucas' presentation today at 15h CET.</p>

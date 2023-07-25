@@ -16,7 +16,7 @@ devices such as the <a href="http://cubietruck.com/collections/frontpage/product
 <h3>Introduction</h3>
 <p>The ARMv7 architecture introduced the (optional) Virtualization Extensions,
 providing hardware support for running virtual machines on ARM devices, and
-Xen's <a href="http://www.xenproject.org/developers/teams/arm-hypervisor.html">ARM Hypervisor</a> uses this to support hardware accelerated
+Xen's <a href="http://www.xenproject.org/developers/teams/arm-hypervisor.html - [404 Not Found]">ARM Hypervisor</a> uses this to support hardware accelerated
 ARM guests.</p>
 <p><a href="http://wiki.xen.org/wiki/Mini-OS">Mini-OS</a> is a tiny OS kernel designed specifically for running under Xen.
 It provides code to initialise the CPU, display messages on the console,
@@ -82,7 +82,7 @@ as Mirage abstracts away the details of the underlying platform.</p>
 <p>An ARM Mirage unikernel uses the <a href="http://www.simtec.co.uk/products/SWLINUX/files/booting_article.html">Linux zImage format</a>, though it is
 not actually compressed. Xen will allocate some RAM for the image and load
 the kernel at the offset 0x8000 (32 KB).</p>
-<p>Execution begins in <a href="https://github.com/talex5/xen/blob/cde4b7e14b0aeedcdc006b0622905b7af2665c77/extras/mini-os/arch/arm/arm32.S#L8">arm32.S</a>, with the <code>r2</code> register pointing to a
+<p>Execution begins in <a href="https://github.com/talex5/xen/blob/cde4b7e14b0aeedcdc006b0622905b7af2665c77/extras/mini-os/arch/arm/arm32.S#L8 - [404 Not Found]">arm32.S</a>, with the <code>r2</code> register pointing to a
 <a href="http://www.devicetree.org">Flattened Device Tree (FDT)</a> describing details of the virtual system.
 This assembler code performs a few basic boot tasks:</p>
 <ol>
@@ -95,7 +95,7 @@ This assembler code performs a few basic boot tasks:</p>
 <li>Setting up the stack pointer and calling the C function <code>arch_init</code>.
 </li>
 </ol>
-<p><a href="https://github.com/talex5/xen/blob/cde4b7e14b0aeedcdc006b0622905b7af2665c77/extras/mini-os/arch/arm/setup.c#L74">arch_init</a> makes some calls to the hypervisor to set up support for the console and interrupt controller, and then calls <code>start_kernel</code>.</p>
+<p><a href="https://github.com/talex5/xen/blob/cde4b7e14b0aeedcdc006b0622905b7af2665c77/extras/mini-os/arch/arm/setup.c#L74 - [404 Not Found]">arch_init</a> makes some calls to the hypervisor to set up support for the console and interrupt controller, and then calls <code>start_kernel</code>.</p>
 <p><a href="https://github.com/mirage/mirage-platform/blob/b0a027d4486230ce6e1e8fd0e7354b17e9c388f5/xen/runtime/xencaml/main.c#L57">start_kernel</a> (in libxencaml) sets up a few more features (events, malloc, time-keeping and <a href="http://wiki.xen.org/wiki/Grant_Table">grant tables</a>), then calls <code>caml_startup</code>.</p>
 <p><a href="https://github.com/mirage/mirage-platform/blob/b0a027d4486230ce6e1e8fd0e7354b17e9c388f5/xen/runtime/ocaml/startup.c#L202">caml_startup</a> (in libocaml) initialises the garbage collector and calls <code>caml_program</code>, which is your application's <code>main.ml</code>.</p>
 <h4>The address space</h4>

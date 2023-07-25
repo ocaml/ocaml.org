@@ -131,5 +131,5 @@ have a look at these <a href="https://github.com/kayceesrk/ocaml5-tutorial">tuto
 details on exactly what changes OCaml 5 brought to OCaml, the
 <a href="https://v2.ocaml.org/releases/5.0/notes/Changes">changelog</a> contains all the information you need.</p>
 <blockquote>
-<p><a href="https://tarides.com/company">Contact Tarides</a> to see how OCaml can benefit your business and/or for support while learning OCaml. Follow us on <a href="https://twitter.com/tarides_">Twitter</a> and <a href="https://www.linkedin.com/company/tarides/">LinkedIn</a> to ensure you never miss a post, and join the OCaml discussion on <a href="https://discuss.ocaml.org/">Discuss</a>!</p>
+<p><a href="https://tarides.com/company">Contact Tarides</a> to see how OCaml can benefit your business and/or for support while learning OCaml. Follow us on <a href="https://twitter.com/tarides_ - [1 Client error: Number of redirects hit maximum amount]">Twitter</a> and <a href="https://www.linkedin.com/company/tarides/ - [999 Invalid]">LinkedIn</a> to ensure you never miss a post, and join the OCaml discussion on <a href="https://discuss.ocaml.org/">Discuss</a>!</p>
 </blockquote>

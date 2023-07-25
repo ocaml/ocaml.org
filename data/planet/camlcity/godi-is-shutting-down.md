@@ -55,9 +55,9 @@ So there is some loss of functionality for the community
 
 </p><p>
 If somebody wants to take over GODI, please do so. The 
-<a href="https://godirepo.camlcity.org/svn/godi-bootstrap/">source code</a>
+<a href="https://godirepo.camlcity.org/svn/godi-bootstrap/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]">source code</a>
 is still available as well as the 
-<a href="https://godirepo.camlcity.org/svn/godi-build/">package directories</a>.
+<a href="https://godirepo.camlcity.org/svn/godi-build/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]">package directories</a>.
 Maybe it is sufficient to move the repository to a public place and to
 redesign the package release process to give GODI a restart.
 

@@ -1,7 +1,7 @@
 ---
 title: Third OCaml compiler hacking session
 description:
-url: http://ocamllabs.github.com/compiler-hacking/2013/10/30/third-compiler-hacking-session
+url: http://ocamllabs.github.com/compiler-hacking/2013/10/30/third-compiler-hacking-session - [404 Not Found]
 date: 2013-10-30T11:49:04-00:00
 preview_image:
 featured:
@@ -24,7 +24,7 @@ source:
 
 <p><em>Wiki</em>: <a href="https://github.com/ocamllabs/compiler-hacking/wiki">https://github.com/ocamllabs/compiler-hacking/wiki</a></p>
 
-<p>We're defining &quot;compiler&quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.01/libref/index.html">standard library</a>, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual024.html">runtime</a>, tools (<a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.01/depend.html">ocamldep</a>, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc105">ocamllex</a>, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc107">ocamlyacc</a>, etc.), <a href="http://caml.inria.fr/pub/docs/manual-camlp4/manual002.html">camlp4</a>, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual032.html">ocamlbuild</a>, the <a href="http://caml.inria.fr/resources/doc/index.en.html">documentation</a>, and the compiler itself. We'll have suggestions for <a href="https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on">mini-projects</a> for various levels of experience, but feel free to come along and work on whatever you fancy.</p>
+<p>We're defining &quot;compiler&quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.01/libref/index.html - [404 Not Found]">standard library</a>, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual024.html - [404 Not Found]">runtime</a>, tools (<a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.01/depend.html - [404 Not Found]">ocamldep</a>, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc105 - [404 Not Found]">ocamllex</a>, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc107 - [404 Not Found]">ocamlyacc</a>, etc.), <a href="http://caml.inria.fr/pub/docs/manual-camlp4/manual002.html">camlp4</a>, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual032.html - [404 Not Found]">ocamlbuild</a>, the <a href="http://caml.inria.fr/resources/doc/index.en.html">documentation</a>, and the compiler itself. We'll have suggestions for <a href="https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on">mini-projects</a> for various levels of experience, but feel free to come along and work on whatever you fancy.</p>
 
 <p>We'll also be ordering pizza, so if you want to be counted for food you should aim to arrive by 6.30pm.</p>
 

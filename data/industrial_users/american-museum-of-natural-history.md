@@ -2,7 +2,7 @@
 name: American Museum of Natural History
 description: > 
   The Computational Sciences Department at the AMNH has been using OCaml for almost a decade in their software package POY for phylogenetic inference
-url: "https://www.amnh.org/our-research/computational-sciences"
+url: "https://www.amnh.org/our-research/computational-sciences - [403 Forbidden]"
 logo: users/amnh.png
 locations: 
   - United States

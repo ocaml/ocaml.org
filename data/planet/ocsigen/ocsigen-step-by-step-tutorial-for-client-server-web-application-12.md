@@ -12,7 +12,7 @@ source:
 
 <p>This post (and the following one) is a step by step tutorial about
 client-server Web applications in OCaml. You can find the full
-tutorial <a href="http://ocsigen.org/tuto/manual/application">here</a>. It
+tutorial <a href="http://ocsigen.org/tuto/manual/application - [404 Not Found]">here</a>. It
 introduces the basics of Web programming with OCaml: type-checking
 HTML, defining services, using lightweight threads, writing a
 client-server program &hellip;</p>
@@ -74,7 +74,7 @@ to the manual on how to compile your project &ldquo;by hand&rdquo;.)</p>
 <p>Unlike typical web programming techniques (CGI, PHP, &hellip;), with Eliom you do not need to write one file per URL. The application can be split into multiple files as per the developer&rsquo;s style. What matters is that you eventually produce a single module (*.cmo or *.cma) for the whole website.</p>
 
 <p>Module
-<a href="http://ocsigen.org/eliom/5.0/api/client/Eliom_service">Eliom_service</a>
+<a href="http://ocsigen.org/eliom/5.0/api/client/Eliom_service - [404 Not Found]">Eliom_service</a>
 allows to create new entry points to your web site, called services.
 In general, services are attached to a URL and generate a web page.
 Services are represented by OCaml values, through which you must
@@ -114,13 +114,13 @@ will be served,</li>
 pages as strings (as in other web frameworks). However, it is
 preferable to generate HTML in a way that provides compile-time HTML
 correctness guarantees. This tutorial achieves this by using
-module <a href="http://ocsigen.org/eliom/5.0/api/client/Eliom_content.Html5.D">Eliom_content.&#8203;Html5.&#8203;D</a>, which is implemented using the TyXML
+module <a href="http://ocsigen.org/eliom/5.0/api/client/Eliom_content.Html5.D - [404 Not Found]">Eliom_content.&#8203;Html5.&#8203;D</a>, which is implemented using the TyXML
 library. The module defines a construction function for each HTML5
 tag.</p>
 
 <p>Note that it is also possible to use the usual HTML syntax directly in OCaml.</p>
 
-<p>The TyXML library (and thus <a href="http://ocsigen.org/eliom/5.0/api/client/Eliom_content.Html5.D">Eliom_content.&#8203;Html5.&#8203;D</a>) is very strict and compels you to respect HTML5 standard (with some limitations). For example if you write:</p>
+<p>The TyXML library (and thus <a href="http://ocsigen.org/eliom/5.0/api/client/Eliom_content.Html5.D - [404 Not Found]">Eliom_content.&#8203;Html5.&#8203;D</a>) is very strict and compels you to respect HTML5 standard (with some limitations). For example if you write:</p>
 
 <figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="p">(</span><span class="n">html</span>
    <span class="p">(</span><span class="n">head</span> <span class="p">(</span><span class="n">title</span> <span class="p">(</span><span class="n">pcdata</span> <span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="p">[</span><span class="n">pcdata</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
@@ -157,7 +157,7 @@ tag.</p>
 <p><strong>(Service sending an application,
 Client and server code, Compiling a web application with server and client parts, Calling JavaScript methods with Js_of_ocaml)</strong></p>
 
-<p>To create our first service, we used the function <a href="http://ocsigen.org/eliom/5.0/api/client/Eliom_registration.Html5#VALregister_service">Eliom_registration.&#8203;Html5.&#8203;register_service</a>, as all we wanted to do was return HTML5. But we actually want a service that corresponds to a full Eliom application with client and server parts. To do so, we need to create our own registration module by using the functor <code class="language-plaintext highlighter-rouge">Eliom_registration.App</code>:</p>
+<p>To create our first service, we used the function <a href="http://ocsigen.org/eliom/5.0/api/client/Eliom_registration.Html5#VALregister_service - [404 Not Found]">Eliom_registration.&#8203;Html5.&#8203;register_service</a>, as all we wanted to do was return HTML5. But we actually want a service that corresponds to a full Eliom application with client and server parts. To do so, we need to create our own registration module by using the functor <code class="language-plaintext highlighter-rouge">Eliom_registration.App</code>:</p>
 
 <figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">module</span> <span class="nc">Graffiti_app</span> <span class="o">=</span>
   <span class="nn">Eliom_registration</span><span class="p">.</span><span class="nc">App</span> <span class="p">(</span><span class="k">struct</span>
@@ -195,7 +195,7 @@ Client and server code, Compiling a web application with server and client parts
 
 <p>If no location is specified, the code is assumed to be for the server.</p>
 
-<p>The above constructs are implemented by means of PPX, OCaml&rsquo;s new mechanism for implementing syntax extensions. See <a href="http://ocsigen.org/eliom/5.0/manual/ppx-syntax">Ppx_eliom</a> for details.</p>
+<p>The above constructs are implemented by means of PPX, OCaml&rsquo;s new mechanism for implementing syntax extensions. See <a href="http://ocsigen.org/eliom/5.0/manual/ppx-syntax - [404 Not Found]">Ppx_eliom</a> for details.</p>
 
 <p><strong>Client parts are executed once, when the client side process is launched.</strong> The client process is not restarted after each page change.</p>
 
@@ -215,7 +215,7 @@ Client and server code, Compiling a web application with server and client parts
 
 <h3>Js_of_ocaml</h3>
 
-<p>The client-side parts of the program are compiled to JavaScript by <code class="language-plaintext highlighter-rouge">js_of_ocaml</code>. (Technically, <code class="language-plaintext highlighter-rouge">js_of_ocaml</code> compiles OCaml bytecode to JavaScript.) It is easy to bind JavaScript libraries so that OCaml programs can call JavaScript functions. In the example, we are using the <a href="http://ocsigen.org/js_of_ocaml/2.7/api/Dom_html">Dom_html</a> module, which is a binding that allows the manipulation of an HTML page.</p>
+<p>The client-side parts of the program are compiled to JavaScript by <code class="language-plaintext highlighter-rouge">js_of_ocaml</code>. (Technically, <code class="language-plaintext highlighter-rouge">js_of_ocaml</code> compiles OCaml bytecode to JavaScript.) It is easy to bind JavaScript libraries so that OCaml programs can call JavaScript functions. In the example, we are using the <a href="http://ocsigen.org/js_of_ocaml/2.7/api/Dom_html - [404 Not Found]">Dom_html</a> module, which is a binding that allows the manipulation of an HTML page.</p>
 
 <p>Js_of_ocaml is using a syntax extension to call JavaScript methods:</p>
 
@@ -227,7 +227,7 @@ Client and server code, Compiling a web application with server and client parts
 </ul>
 
 <p>More information can be found in the Js_of_ocaml manual, in the module
-<a href="http://ocsigen.org/js_of_ocaml/2.7/api/Ppx_js">Ppx_js</a>.</p>
+<a href="http://ocsigen.org/js_of_ocaml/2.7/api/Ppx_js - [404 Not Found]">Ppx_js</a>.</p>
 
 <h2>Accessing server side variables on client side code</h2>
 
@@ -261,7 +261,7 @@ Manipulating HTML node &lsquo;by reference&rsquo;)</strong></p>
 
 <p>###Injections: Using server side values in client code</p>
 
-<p>Client side code can reference copies of server side values using syntax <code class="language-plaintext highlighter-rouge">~%variable</code>. Values sent that way are weakly type checked: the name of the client side type must match the server side one. If you define a type and want it to be available on both sides, declare it in <code class="language-plaintext highlighter-rouge">[%%shared ... ]</code>. The Eliom manual provides more information on the <a href="http://ocsigen.org/eliom/5.0/api/ppx/Ppx_eliom">Eliom&rsquo;s syntax extension</a> and its <a href="http://ocsigen.org/eliom/5.0/manual/workflow-compilation#compilation">compilation process</a>.</p>
+<p>Client side code can reference copies of server side values using syntax <code class="language-plaintext highlighter-rouge">~%variable</code>. Values sent that way are weakly type checked: the name of the client side type must match the server side one. If you define a type and want it to be available on both sides, declare it in <code class="language-plaintext highlighter-rouge">[%%shared ... ]</code>. The Eliom manual provides more information on the <a href="http://ocsigen.org/eliom/5.0/api/ppx/Ppx_eliom - [404 Not Found]">Eliom&rsquo;s syntax extension</a> and its <a href="http://ocsigen.org/eliom/5.0/manual/workflow-compilation#compilation - [404 Not Found]">compilation process</a>.</p>
 
 <p>Note that the value of an injection into a <code class="language-plaintext highlighter-rouge">[%%client ... ]</code> section is sent only once when starting the application in the browser, and not synced automatically later. In contrast, the values of injections into client values which are created during a request are sent alongside the next response.</p>
 
@@ -279,5 +279,5 @@ application, and learn:</p>
 </ul>
 
 <p>The impatient can find the full tutorial
-<a href="http://ocsigen.org/tuto/manual/application">here</a>.</p>
+<a href="http://ocsigen.org/tuto/manual/application - [404 Not Found]">here</a>.</p>
 

@@ -11,7 +11,7 @@ authors:
 
 
         <p>Summer is in full swing here in MirageOS HQ with torrential rainstorms, searing
-sunshine, and our <a href="http://www.oscon.com/oscon2014/public/schedule/detail/35024">OSCON 2014</a> talk
+sunshine, and our <a href="http://www.oscon.com/oscon2014/public/schedule/detail/35024 - [1 Client error: Timeout was reached]">OSCON 2014</a> talk
 rapidly approaching in just a few weeks.  We've been steadily releasing point releases
 since the <a href="https://mirage.io/blog/mirage-1.1-released">first release</a> back in December, and today's <a href="https://github.com/mirage/mirage/releases/tag/v1.2.0">MirageOS
 1.2.0</a> is the last of the <code>1.x</code> series.
@@ -33,15 +33,15 @@ more verbosely by default to facilitate debugging, and with debug
 symbols and backtraces enabled by default.</p>
 </li>
 <li>
-<p>Added several <a href="https://github.com/mirage/mirage/tree/master/types">device module types</a>, including <code>ENTROPY</code> for random
+<p>Added several <a href="https://github.com/mirage/mirage/tree/master/types - [404 Not Found]">device module types</a>, including <code>ENTROPY</code> for random
 noise, <code>FLOW</code> for stream-oriented connections, and exposed the <code>IPV4</code>
 device in the <code>STACKV4</code> TCP/IP stack type.</p>
 </li>
 <li>
 <p>Significant bugfixes in supporting libraries such as the TCP/IP
-stack (primarily thanks to <a href="http://www.somerandomidiot.com/">Mindy Preston</a> fuzz testing
+stack (primarily thanks to <a href="http://www.somerandomidiot.com/ - [1 Client error: Timeout was reached]">Mindy Preston</a> fuzz testing
 and finding some good <a href="https://github.com/mirage/mirage-tcpip/issues/56">zingers</a>).  There are too many
-library releases to list individually here, but you can <a href="https://mirage.io/releases">browse the changelog</a> for more details.</p>
+library releases to list individually here, but you can <a href="https://mirage.io/releases - [404 Not Found]">browse the changelog</a> for more details.</p>
 </li>
 </ul>
 <p>####&nbsp;Towards MirageOS 2.0</p>
@@ -51,7 +51,7 @@ using the tools in practical projects.  Since there have been so many <a href="h
 contributors</a> recently,
 <a href="http://amirchaudhry.com">Amir Chaudhry</a> is coordinating a <a href="https://github.com/mirage/mirage/issues/257">series of blog
 posts</a> in the runup to
-<a href="http://www.oscon.com/oscon2014/public/schedule/detail/35024">OSCON</a> that
+<a href="http://www.oscon.com/oscon2014/public/schedule/detail/35024 - [1 Client error: Timeout was reached]">OSCON</a> that
 explains the new work in depth.  Once the release rush has subsided, we'll
 be working on integrating these posts into our <a href="https://mirage.io/docs">documentation</a>
 properly.</p>
@@ -60,19 +60,19 @@ library, the pure OCaml <a href="https://github.com/mirleft/">TLS stack</a>, <a 
 subsystem for <a href="http://anil.recoil.org/papers/2012-resolve-fable.pdf">mapping names to connections</a>.  Also included in the blog series
 are some sample usecases on how these tie together for real applications (as a
 teaser, here's a video of <a href="https://www.youtube.com/watch?v=DSzvFwIVm5s">Xen VMs booting using
-Irmin</a> thanks to <a href="http://dave.recoil.org">Dave
-Scott</a> and <a href="http://gazagnaire.org">Thomas Gazagnaire</a>!)</p>
+Irmin</a> thanks to <a href="http://dave.recoil.org - [1 Client error: SSL connect error]">Dave
+Scott</a> and <a href="http://gazagnaire.org - [1 Client error: Timeout was reached]">Thomas Gazagnaire</a>!)</p>
 <h4>Upcoming talks and tutorials</h4>
 <p><a href="http://mort.io">Richard Mortier</a> and myself will be gallivanting around the world
 to deliver a few talks this summer:</p>
 <ul>
-<li>The week of <a href="http://www.oscon.com/oscon2014">OSCON</a> on July 20th-24th.  Please get in touch via the conference website or a direct e-mail, or <a href="http://www.oscon.com/oscon2014/public/schedule/detail/35024">attend our talk</a> on Thursday morning.
+<li>The week of <a href="http://www.oscon.com/oscon2014 - [1 Client error: Timeout was reached]">OSCON</a> on July 20th-24th.  Please get in touch via the conference website or a direct e-mail, or <a href="http://www.oscon.com/oscon2014/public/schedule/detail/35024 - [1 Client error: Timeout was reached]">attend our talk</a> on Thursday morning.
 There's a <a href="https://realworldocaml.org">Real World OCaml</a> book signing on Tuesday morning for the super keen as well.
 </li>
 <li>The <a href="http://ecoop14.it.uu.se/programme/ecoop-school.php">ECOOP summer school</a> in beautiful Uppsala in Sweden on Weds 30th July.
 </li>
-<li>I'll be presenting the Irmin and Xen integration at <a href="http://events.linuxfoundation.org/events/xen-project-developer-summit">Xen Project Developer Summit</a> in
-Chicago on Aug 18th (as part of LinuxCon North America).  <a href="http://mort.io">Mort</a> and <a href="http://somerandomidiot.com">Mindy</a> (no jokes please) will be
+<li>I'll be presenting the Irmin and Xen integration at <a href="http://events.linuxfoundation.org/events/xen-project-developer-summit - [404 Not Found]">Xen Project Developer Summit</a> in
+Chicago on Aug 18th (as part of LinuxCon North America).  <a href="http://mort.io">Mort</a> and <a href="http://somerandomidiot.com - [1 Client error: Timeout was reached]">Mindy</a> (no jokes please) will be
 joining the community panel about <a href="https://mirage.io/blog/applying-for-gsoc2014">GSoC/OPW</a> participation.
 </li>
 </ul>

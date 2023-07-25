@@ -36,7 +36,7 @@ decided in 2006 to start the specification of an extended WAV file format
 capable of handling 64 bit file offsets.
 The document that resulted from this specification process was first released in
 2006 and the latest update was made in 2009 and is
-	<a href="http://tech.ebu.ch/docs/tech/tech3306-2009.pdf">
+	<a href="http://tech.ebu.ch/docs/tech/tech3306-2009.pdf - [404 Not Found]">
 	available here</a>.
 I have a number of problems with this specification document.
 </p>
@@ -111,7 +111,7 @@ A second problem with the RF64 specification is that the specification is
 ambiguous in a very subtle way.
 The problem is with how the binary chunks within the file are specified.
 For WAV files, chunks are specified in
-	<a href="http://www-mmsp.ece.mcgill.ca/documents/audioformats/wave/Docs/riffmci.pdf">
+	<a href="http://www-mmsp.ece.mcgill.ca/documents/audioformats/wave/Docs/riffmci.pdf - [1 Client error: SSL peer certificate or SSH remote key was not OK]">
 	this document</a>
 as:
 </p>

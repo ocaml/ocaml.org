@@ -23,13 +23,13 @@ source:
 <p>Concerning cooperation with other packagers such as Debian and Fedora, I think we will only check that data from <em>_oasis</em> and from the packaging system are almost synchronized. For example, we will check that build depends in &ldquo;debian/control&rdquo; is enough to fulfill build depends in <em>_oasis</em>.</p>
 <p>OASIS supports now OCamlbuild by default and is planning support for OCamlMakefile and OMake.</p>
 <p>More informations:</p>
-<p><a href="https://forge.ocamlcore.org/docman/view.php/54/94/Presentation.pdf">OASIS Slides</a></p>
-<p><a href="https://forge.ocamlcore.org/projects/ocaml-autobuild/">OASIS OCaml forge project</a></p>
+<p><a href="https://forge.ocamlcore.org/docman/view.php/54/94/Presentation.pdf - [404 Not Found]">OASIS Slides</a></p>
+<p><a href="https://forge.ocamlcore.org/projects/ocaml-autobuild/ - [404 Not Found]">OASIS OCaml forge project</a></p>
 <p><a href="http://darcs.ocamlcore.org/cgi-bin/darcsweb.cgi?r=ocaml-autobuild%3Ba=summary">OASIS Darcs repository</a></p>
 <p>Related projects:</p>
 <p><a href="http://godi.camlcity.org">GODI</a></p>
-<p><a href="http://projects.phauna.org/godiva/">GODIVA</a>, <a href="http://projects.phauna.org/godiva/docs/policy.html">GODIVA policy</a></p>
-<p><a href="http://ocaml.info/home/ocaml_sources.html#ocaml-make">OCamlMakefile</a></p>
-<p><a href="http://omake.metaprl.org/index.html">OMake</a></p>
+<p><a href="http://projects.phauna.org/godiva/ - [403 Forbidden]">GODIVA</a>, <a href="http://projects.phauna.org/godiva/docs/policy.html - [403 Forbidden]">GODIVA policy</a></p>
+<p><a href="http://ocaml.info/home/ocaml_sources.html#ocaml-make - [404 Not Found]">OCamlMakefile</a></p>
+<p><a href="http://omake.metaprl.org/index.html - [404 Not Found]">OMake</a></p>
 <p>&nbsp;</p>
 

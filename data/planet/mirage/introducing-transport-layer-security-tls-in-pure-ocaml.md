@@ -61,11 +61,11 @@ asymmetric cryptography, we rely on [<code>zarith</code>][^15], which wraps
 operating system on which the source is compiled and the binary is executed, as
 well as the underlying hardware. Two effectful frontends for
 the pure TLS core are implemented, dealing
-with side-effects such as reading and writing from the network: <a href="http://ocsigen.org/lwt/api/Lwt_unix">Lwt_unix</a> and
+with side-effects such as reading and writing from the network: <a href="http://ocsigen.org/lwt/api/Lwt_unix - [404 Not Found]">Lwt_unix</a> and
 Mirage, so applications can run directly as a Xen unikernel.</p>
 <h3>Why a new TLS implementation?</h3>
 <p><strong>Update:</strong>
-Thanks to <a href="http://frama-c.com/">Frama-C</a> guys for <a href="https://twitter.com/spun_off/status/486535304426188800">pointing</a> <a href="https://twitter.com/spun_off/status/486536572792090626">out</a>
+Thanks to <a href="http://frama-c.com/">Frama-C</a> guys for <a href="https://twitter.com/spun_off/status/486535304426188800 - [1 Client error: Number of redirects hit maximum amount]">pointing</a> <a href="https://twitter.com/spun_off/status/486536572792090626 - [1 Client error: Number of redirects hit maximum amount]">out</a>
 that <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-1266">CVE-2014-1266</a> and <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0224">CVE-2014-0224</a> are <em>not</em> memory safety issues, but
 logic errors. This article previously stated otherwise.</p>
 <p>There are only a few TLS implementations publicly available and most

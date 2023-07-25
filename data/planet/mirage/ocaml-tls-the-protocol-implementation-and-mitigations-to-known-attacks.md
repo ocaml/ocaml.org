@@ -16,12 +16,12 @@ You might like to begin with the <a href="http://mirage.io/blog/introducing-ocam
 that we've been working on for the past six months. In this post we
 try to document some of its internal design, the reasons for the
 decisions we made, and the current security status of that work. Try
-our <a href="https://tls.nqsb.io">live interactive demonstration server</a> which visualises TLS
+our <a href="https://tls.nqsb.io - [1 Client error: Timeout was reached]">live interactive demonstration server</a> which visualises TLS
 sessions.</p>
 <h3>The OCaml-TLS architecture</h3>
 <p>The OCaml ecosystem has several distinct ways of interacting with the outside world
 (and the network in particular): straightforward <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/Unix.html">unix</a> interfaces
-and the asynchronous programming libraries <a href="http://ocsigen.org/lwt/">lwt</a> and <a href="https://realworldocaml.org/v1/en/html/concurrent-programming-with-async.html">async</a>. One of the
+and the asynchronous programming libraries <a href="http://ocsigen.org/lwt/">lwt</a> and <a href="https://realworldocaml.org/v1/en/html/concurrent-programming-with-async.html - [404 Not Found]">async</a>. One of the
 early considerations was not to restrict ourselves to any of those -- we wanted
 to support them all.</p>
 <p>There were also two distinct basic &quot;platforms&quot; we wanted to target from the
@@ -64,7 +64,7 @@ type ret = [
 
 val handle_tls : state -&gt; Cstruct.t -&gt; ret
 </code></pre>
-<p>As the signature shows, errors are signalled through the <code>ret</code> type, which is a <a href="https://realworldocaml.org/v1/en/html/variants.html#polymorphic-variants">polymorphic variant</a>. This
+<p>As the signature shows, errors are signalled through the <code>ret</code> type, which is a <a href="https://realworldocaml.org/v1/en/html/variants.html#polymorphic-variants - [404 Not Found]">polymorphic variant</a>. This
 reflects the actual internal structure: all the errors are represented as
 values, and operations are composed using an error <a href="https://github.com/mirleft/ocaml-tls/blob/6dc9258a38489665abf2bd6cdbed8a1ba544d522/lib/control.ml">monad</a>.</p>
 <p>Other entry points share the same basic behaviour: they transform the prior
@@ -199,7 +199,7 @@ number of bytes read. The surrounding module, <code>Tls_lwt</code>, provides a s
   ] in
   Lwt_io.(write oc req &gt;&gt;= fun () -&gt; read ic &gt;&gt;= print)
 </code></pre>
-<p>We have further plans to provide wrappers for <a href="https://realworldocaml.org/v1/en/html/concurrent-programming-with-async.html"><code>Async</code></a> and plain <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/Unix.html"><code>Unix</code></a> in a
+<p>We have further plans to provide wrappers for <a href="https://realworldocaml.org/v1/en/html/concurrent-programming-with-async.html - [404 Not Found]"><code>Async</code></a> and plain <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/Unix.html"><code>Unix</code></a> in a
 similar vein.</p>
 <h3>Attacks on TLS</h3>
 <p>TLS the most widely deployed security protocol on the Internet and, at
@@ -211,13 +211,13 @@ specific, advancements in cryptanalysis such as <a href="http://eprint.iacr.org/
 MD5</a> lead to vulnerabilities, and even others are due
 to incorrect usage of TLS (<a href="http://www.theregister.co.uk/2013/08/01/gmail_hotmail_hijacking/">truncation attack</a> or
 <a href="http://breachattack.com/">BREACH</a>). Finally, some weaknesses are in the protocol
-itself. Extensive <a href="http://eprint.iacr.org/2013/049.pdf">overviews</a> of <a href="http://www.mitls.org/wsgi/tls-attacks">attacks on
+itself. Extensive <a href="http://eprint.iacr.org/2013/049.pdf">overviews</a> of <a href="http://www.mitls.org/wsgi/tls-attacks - [404 Not Found]">attacks on
 TLS</a> are available.</p>
 <p>We look at protocol level attacks of TLS and how <a href="https://github.com/mirleft/ocaml-tls">ocaml-tls</a>
 implements mitigations against these.  <a href="https://tools.ietf.org/html/rfc5246#appendix-D.4">TLS 1.2 RFC</a> provides an
 overview of attacks and mitigations, and we <a href="https://github.com/mirleft/ocaml-tls/issues/31">track</a> our progress in
 covering them. This is slightly out of date as the RFC is roughly six years old and
-in the meantime more attacks have been published, such as the <a href="http://www.educatedguesswork.org/2009/11/understanding_the_tls_renegoti.html">renegotiation
+in the meantime more attacks have been published, such as the <a href="http://www.educatedguesswork.org/2009/11/understanding_the_tls_renegoti.html - [404 Not Found]">renegotiation
 flaw</a>.</p>
 <p>As <a href="http://mirage.io/blog/introducing-ocaml-tls">already mentioned</a>, we track all our
 <a href="https://github.com/mirleft/ocaml-tls/issues?labels=security%20concern&amp;page=1&amp;state=closed">mitigated</a> and <a href="https://github.com/mirleft/ocaml-tls/issues?labels=security%20concern&amp;page=1&amp;state=open">open</a> security issues on our GitHub
@@ -248,7 +248,7 @@ techniques to mitigate RSA timing attacks.</p>
 vector of garbage collector (GC) timing attacks (also mentioned <a href="http://mirage.io/blog/introducing-nocrypto">in
 our nocrypto introduction</a>).</p>
 <p>Furthermore, research has been done on virtual machine side channels
-(<a href="http://eprint.iacr.org/2013/448.pdf">l3</a>, <a href="http://www.cs.unc.edu/~reiter/papers/2012/CCS.pdf">cross vm</a> and <a href="http://fc12.ifca.ai/pre-proceedings/paper_70.pdf">cache timing</a>), which we
+(<a href="http://eprint.iacr.org/2013/448.pdf">l3</a>, <a href="http://www.cs.unc.edu/~reiter/papers/2012/CCS.pdf - [404 Not Found]">cross vm</a> and <a href="http://fc12.ifca.ai/pre-proceedings/paper_70.pdf">cache timing</a>), which we
 will need to study and mitigate appropriately.</p>
 <p><strong>For the time being we suggest to not use the stack on a multi-tenant
 shared host or on a shared host which malicious users might have
@@ -271,7 +271,7 @@ implemented this mitigation in <a href="https://github.com/mirleft/ocaml-tls/blo
 attacker can distinguish between bad mac and bad padding, recovery of
 the plaintext is possible (within an adaptive chosen ciphertext
 attack). Another approach using the same issue is to use
-<a href="http://lasecwww.epfl.ch/memo/memo_ssl.shtml">timing</a> information instead of separate error messages.
+<a href="http://lasecwww.epfl.ch/memo/memo_ssl.shtml - [404 Not Found]">timing</a> information instead of separate error messages.
 Further details are described <a href="https://www.openssl.org/~bodo/tls-cbc.txt">here</a>.</p>
 <p>The countermeasure, which we implement <a href="https://github.com/mirleft/ocaml-tls/blob/c06cbaaffe49024d8570916b70f7839603a54692/lib/engine.ml#L100">here</a>, is to continue
 with the mac computation even though the padding is
@@ -280,7 +280,7 @@ independent of whether the padding is malformed or the mac is
 incorrect.</p>
 <p><strong>Lucky 13</strong></p>
 <p>An advancement of the CBC timing attack was discovered in 2013, named
-<a href="http://www.isg.rhul.ac.uk/tls/Lucky13.html">Lucky 13</a>. Due to the fact that the mac is computed over the
+<a href="http://www.isg.rhul.ac.uk/tls/Lucky13.html - [404 Not Found]">Lucky 13</a>. Due to the fact that the mac is computed over the
 plaintext without padding, there is a slight (but measurable)
 difference in timing between computing the mac of the plaintext and
 computing the fake mac of the ciphertext. This leaks information. We
@@ -290,7 +290,7 @@ find further discussion in <a href="https://github.com/mirleft/ocaml-tls/issues/
 <p><strong>Renegotiation not authenticated</strong></p>
 <p>In 2009, Marsh Ray published a vulnerability of the TLS protocol which
 lets an attacker prepend arbitrary data to a session due to
-<a href="http://www.educatedguesswork.org/2009/11/understanding_the_tls_renegoti.html">unauthenticated renegotiation</a>. The attack
+<a href="http://www.educatedguesswork.org/2009/11/understanding_the_tls_renegoti.html - [404 Not Found]">unauthenticated renegotiation</a>. The attack
 exploits the fact that a renegotiation of ciphers and key material is
 possible within a session, and this renegotiated handshake is not
 authenticated by the previous handshake. A man in the middle can
@@ -346,14 +346,14 @@ premaster secret <a href="https://github.com/mirleft/ocaml-tls/blob/c06cbaaffe49
 <a href="https://github.com/mirleft/ocaml-tls/issues/5">issue 5</a>.</p>
 <p><strong>Triple handshake</strong></p>
 <p>A vulnerability including session resumption and renegotiation was
-discovered by the <a href="http://www.mitls.org">miTLS team</a>, named <a href="https://secure-resumption.com/">triple
+discovered by the <a href="http://www.mitls.org">miTLS team</a>, named <a href="https://secure-resumption.com/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]">triple
 handshake</a>.  Mitigations include disallowing renegotiation,
 disallowing modification of the certificate during renegotiation, or
 a hello extension. Since we do not support session resumption yet, we
 have not yet implemented any of the mentioned mitigations. There is
 further discussion in <a href="https://github.com/mirleft/ocaml-tls/issues/9">issue 9</a>.</p>
 <p><strong>Alert attack</strong></p>
-<p>A <a href="http://www.mitls.org/wsgi/alert-attack">fragment of an alert</a> can be sent by a man in the
+<p>A <a href="http://www.mitls.org/wsgi/alert-attack - [404 Not Found]">fragment of an alert</a> can be sent by a man in the
 middle during the initial handshake. If the fragment is not cleared
 once the handshake is finished, the authentication of alerts is
 broken. This was discovered in 2012; our mitigation is to discard
@@ -362,18 +362,18 @@ fragmented alerts.</p>
 <p>Within six months, two hackers managed to develop a clean-slate TLS
 stack, together with required crypto primitives, ASN.1, and X.509
 handling, in a high-level pure language. We interoperate with widely
-deployed TLS stacks, as shown by our <a href="https://tls.nqsb.io">demo server</a>.  The code
+deployed TLS stacks, as shown by our <a href="https://tls.nqsb.io - [1 Client error: Timeout was reached]">demo server</a>.  The code
 size is nearly two orders of magnitude smaller than OpenSSL, the most
 widely used open source library (written in C, which a lot of
 programming languages wrap instead of providing their own TLS
-implementation). Our code base seems to be robust -- the <a href="https://tls.nqsb.io">demo
+implementation). Our code base seems to be robust -- the <a href="https://tls.nqsb.io - [1 Client error: Timeout was reached]">demo
 server</a> successfully finished over 22500 sessions in less than a
 week, with only 11 failing traces.</p>
 <p>There is a huge need for high quality TLS implementations, because
 several TLS implementations suffered this year from severe security
 problems, such as <a href="https://en.wikipedia.org/wiki/Heartbleed">heartbleed</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-1266">goto fail</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-3466">session
 id</a>, <a href="http://armoredbarista.blogspot.de/2014/04/easter-hack-even-more-critical-bugs-in.html">Bleichenbacher</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0224">change cipher
-suite</a> and <a href="https://polarssl.org/tech-updates/security-advisories/polarssl-security-advisory-2014-02">GCM DoS</a>. The main cause is
+suite</a> and <a href="https://polarssl.org/tech-updates/security-advisories/polarssl-security-advisory-2014-02 - [404 Not Found]">GCM DoS</a>. The main cause is
 implementation complexity due to lack of abstraction, and memory
 safety issues.</p>
 <p>We still need to address some security issues, and improve our performance. We
@@ -384,13 +384,13 @@ It is not yet intended for use in any security critical applications.</strong></
 <h3>Acknowledgements</h3>
 <p>Since this is the final post in our series, we would like to thank all
 people who reported issues so far: <a href="http://anil.recoil.org/">Anil Madhavapeddy</a>, <a href="https://github.com/edwintorok">T&ouml;r&ouml;k
-Edwin</a>, <a href="http://erratique.ch/">Daniel B&uuml;nzli</a>, <a href="http://blog.andreas.org/">Andreas Bogk</a>, <a href="http://gregorkopf.de/blog/">Gregor Kopf</a>, <a href="https://twitter.com/graham_steel">Graham
+Edwin</a>, <a href="http://erratique.ch/">Daniel B&uuml;nzli</a>, <a href="http://blog.andreas.org/ - [1 Client error: Couldn't resolve host name]">Andreas Bogk</a>, <a href="http://gregorkopf.de/blog/">Gregor Kopf</a>, <a href="https://twitter.com/graham_steel - [1 Client error: Number of redirects hit maximum amount]">Graham
 Steel</a>, <a href="https://github.com/vouillon">Jerome Vouillon</a>, <a href="http://amirchaudhry.com/">Amir Chaudhry</a>,
 <a href="http://ashishagarwal.org">Ashish Agarwal</a>. Additionally, we want to thank the
 <a href="http://www.mitls.org">miTLS</a> team (especially Cedric and Karthikeyan) for fruitful
 discussions, as well as the <a href="http://www.cl.cam.ac.uk/projects/ocamllabs/">OCaml Labs</a> and
 <a href="http://mirage.io">Mirage</a> teams. And thanks to <a href="http://www.cl.cam.ac.uk/~pes20/">Peter Sewell</a> and
-<a href="http://www.cs.nott.ac.uk/~rmm/">Richard Mortier</a> for funding within the <a href="http://rems.io">REMS</a>, <a href="http://usercentricnetworking.eu/">UCN</a>, and <a href="http://www.horizon.ac.uk">Horizon</a>
+<a href="http://www.cs.nott.ac.uk/~rmm/ - [403 Forbidden]">Richard Mortier</a> for funding within the <a href="http://rems.io - [1 Client error: Couldn't resolve host name]">REMS</a>, <a href="http://usercentricnetworking.eu/">UCN</a>, and <a href="http://www.horizon.ac.uk">Horizon</a>
 projects. The software was started in <a href="http://www.aftasmirleft.com/">Aftas beach house</a> in
 Mirleft, Morocco.</p>
 <img src="https://mirage.io/graphics/aftas-mirleft.jpg" alt="Aftas Beach"/>

@@ -15,7 +15,7 @@ major new projects:</p>
 
 <ul>
   <li>
-    <p><a href="http://ocsigen.org/ocsigen-start/1.1.0/manual/intro">Ocsigen Start</a>: a Web/mobile application skeleton written with
+    <p><a href="http://ocsigen.org/ocsigen-start/1.1.0/manual/intro - [404 Not Found]">Ocsigen Start</a>: a Web/mobile application skeleton written with
 Js_of_ocaml and Eliom. You can use this skeleton as a basis for
 your own app, or to learn Web/mobile app development in OCaml.</p>
   </li>
@@ -34,8 +34,8 @@ is available</p>
 <ul>
   <li><a href="http://ocsigen.org/os/demo/">on the Web</a>;</li>
   <li>via the <a href="https://play.google.com/store/apps/details?id=com.osdemo.mobile">Google Play store</a>;</li>
-  <li>as an Android <a href="http://ocsigen.org/ocsigen-start/demo/osdemo.apk">APK file</a>; and</li>
-  <li>as an <a href="http://ocsigen.org/ocsigen-start/demo/osdemo-ios.tgz">iOS application</a> to be installed via XCode.</li>
+  <li>as an Android <a href="http://ocsigen.org/ocsigen-start/demo/osdemo.apk - [404 Not Found]">APK file</a>; and</li>
+  <li>as an <a href="http://ocsigen.org/ocsigen-start/demo/osdemo-ios.tgz - [404 Not Found]">iOS application</a> to be installed via XCode.</li>
 </ul>
 
 <p>Ocsigen Start provides the basic features for user management

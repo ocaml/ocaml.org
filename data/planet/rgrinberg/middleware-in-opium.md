@@ -10,7 +10,7 @@ authors:
 source:
 ---
 
-<p>In my <a href="http://rgrinberg.com/blog/2014/04/04/introducing-opium/" class="reference external">previous
+<p>In my <a href="http://rgrinberg.com/blog/2014/04/04/introducing-opium/ - [404 Not Found]" class="reference external">previous
 post</a> I&rsquo;ve
 introduced opium in a beginner friendly way, while in this post I&rsquo;ll try
 to show something that&rsquo;s a little more interesting to experienced OCaml

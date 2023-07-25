@@ -12,7 +12,7 @@ language: french
 isbn: "2-84177-121-0"
 links:
   - description: Read Online
-    uri: https://www.pps.jussieu.fr/Livres/ora/DA-OCAML/index.html
+    uri: https://www.pps.jussieu.fr/Livres/ora/DA-OCAML/index.html - [1 Client error: SSL peer certificate or SSH remote key was not OK]
   - description: Order at Amazon.fr
     uri: https://www.amazon.fr/exec/obidos/ASIN/2841771210
 featured: false

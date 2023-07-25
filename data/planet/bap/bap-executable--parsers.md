@@ -134,11 +134,11 @@ oasis build.  Please see our
 <p><strong>Note:</strong> We adhere to the principle functions in BAP do not
 occasionally throw exceptions. Instead, if function can fail, then it
 will specify it explicitly in its type, by returning a value of type
-<a href="https://blogs.janestreet.com/ocaml-core/110.01.00/doc/core_kernel/#Or_error">&lsquo;a Or_error.t</a>,
+<a href="https://blogs.janestreet.com/ocaml-core/110.01.00/doc/core_kernel/#Or_error - [1 Client error: SSL peer certificate or SSH remote key was not OK]">&lsquo;a Or_error.t</a>,
 that is described in their
-<a href="https://blogs.janestreet.com/how-to-fail-introducing-or-error-dot-t/">blog</a>
+<a href="https://blogs.janestreet.com/how-to-fail-introducing-or-error-dot-t/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]">blog</a>
 as well as in the Real World OCaml
-<a href="https://realworldocaml.org/v1/en/html/error-handling.html">Chapter 7</a>. We
+<a href="https://realworldocaml.org/v1/en/html/error-handling.html - [404 Not Found]">Chapter 7</a>. We
 encourage you to follow this convention in your own plugins.</p>
 
 <h2>Summary</h2>

@@ -10,8 +10,8 @@ authors:
 source:
 ---
 
-<p>It has been 3 months since I joined <a href="https://www.iitm.ac.in/">IIT Madras</a> and it
-has been good fun so far. Along with the members of the <a href="http://rise.cse.iitm.ac.in/">RISE
+<p>It has been 3 months since I joined <a href="https://www.iitm.ac.in/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]">IIT Madras</a> and it
+has been good fun so far. Along with the members of the <a href="http://rise.cse.iitm.ac.in/ - [1 Client error: Couldn't connect to server]">RISE
 group</a>, we&rsquo;ve initiated a project to build secure
 applications on top of secure extensions of the open-source
 <a href="http://shakti.org.in/">Shakti</a> RISC-V processor ecosystem. Unsurprisingly, my
@@ -99,7 +99,7 @@ exciting possibilities on the horizon!</p>
 <p>Much of this work was done by the incredible <a href="https://github.com/sl33k">Malte</a>,
 who is a visiting student at IIT Madras on a semester away from Leibniz
 University Hannover,
-<a href="https://www.linkedin.com/in/arjun-menon/?originalSubdomain=in">Arjun</a>, Lavanya,
+<a href="https://www.linkedin.com/in/arjun-menon/?originalSubdomain=in - [999 Invalid]">Arjun</a>, Lavanya,
 Ambika, <a href="http://www.cse.iitm.ac.in/~chester/">Chester</a>, and the rest of the
 Shakti team. The RISC-V port of OCaml is developed and maintained by <a href="https://nojb.github.io/">Nicol&aacute;s
 Ojeda B&auml;r</a>.</p>

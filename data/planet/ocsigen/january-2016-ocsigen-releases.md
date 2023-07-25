@@ -24,10 +24,10 @@ team, and bring a range of improvements.</p>
 
 <h2>PPX</h2>
 
-<p>Eliom 5.0 comes with a <a href="http://ocsigen.org/eliom/5.0/manual/ppx-syntax">PPX-based
+<p>Eliom 5.0 comes with a <a href="http://ocsigen.org/eliom/5.0/manual/ppx-syntax - [404 Not Found]">PPX-based
 language</a> (for OCaml
 4.02.x). This follows our PPX extensions for
-<a href="https://ocsigen.org/js_of_ocaml/2.7/api/Ppx_js">js_of_ocaml</a> and
+<a href="https://ocsigen.org/js_of_ocaml/2.7/api/Ppx_js - [404 Not Found]">js_of_ocaml</a> and
 <a href="https://ocsigen.org/lwt/2.5.1/api/Ppx_lwt">Lwt</a>. The new syntax is
 more flexible than our previous Camlp4-based one, and we recommend it
 for new projects. Nevertheless, the Camlp4-based syntax remains
@@ -36,7 +36,7 @@ available.</p>
 <h2>Shared reactive programming</h2>
 
 <p>Recent versions of Eliom provided client-side support for (functional)
-reactive programming. Eliom 5.0 additionally supports <a href="http://ocsigen.org/eliom/5.0/manual/clientserver-react">&ldquo;shared&rdquo;
+reactive programming. Eliom 5.0 additionally supports <a href="http://ocsigen.org/eliom/5.0/manual/clientserver-react - [404 Not Found]">&ldquo;shared&rdquo;
 (client-server) reactive
 programming</a>,
 where the reactive signals have meaning both on the server and the
@@ -50,13 +50,13 @@ updates (on the client).</p>
 JavaScript APIs. This includes</p>
 
 <ul>
-  <li><a href="http://ocsigen.org/js_of_ocaml/2.7/api/Geolocation">geolocation</a>,</li>
-  <li><a href="http://ocsigen.org/js_of_ocaml/2.7/api/MutationObserver">mutation
+  <li><a href="http://ocsigen.org/js_of_ocaml/2.7/api/Geolocation - [404 Not Found]">geolocation</a>,</li>
+  <li><a href="http://ocsigen.org/js_of_ocaml/2.7/api/MutationObserver - [404 Not Found]">mutation
 observers</a>, and</li>
-  <li><a href="http://ocsigen.org/js_of_ocaml/2.7/api/Worker">web workers</a>.</li>
+  <li><a href="http://ocsigen.org/js_of_ocaml/2.7/api/Worker - [404 Not Found]">web workers</a>.</li>
 </ul>
 
-<p>A new JavaScript-specific <a href="http://ocsigen.org/js_of_ocaml/2.7/api/Jstable">table
+<p>A new JavaScript-specific <a href="http://ocsigen.org/js_of_ocaml/2.7/api/Jstable - [404 Not Found]">table
 module</a> is also
 available.</p>
 
@@ -97,5 +97,5 @@ updates.</p>
 
 <p>The Ocsigen team always welcomes your feedback and contributions.
 Stay in touch via <a href="https://github.com/ocsigen">GitHub</a> and our
-<a href="https://sympa.inria.fr/sympa/subscribe/ocsigen">mailing list</a>!</p>
+<a href="https://sympa.inria.fr/sympa/subscribe/ocsigen - [1 Client error: Number of redirects hit maximum amount]">mailing list</a>!</p>
 

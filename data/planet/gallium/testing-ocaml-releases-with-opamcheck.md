@@ -190,7 +190,7 @@ is only generated after the OCaml compiler is built and all
 uninstallable packages have been discovered. On my machine, this rounds
 up at a 15 minutes wait before the first summary is generated. Later
 update should be more frequent</p>
-<p>The result should look like this <a href="https://opamcheck.polychoron.fr/4.10_2019_12_02/fullindex.html">summary
+<p>The result should look like this <a href="https://opamcheck.polychoron.fr/4.10_2019_12_02/fullindex.html - [1 Client error: SSL peer certificate or SSH remote key was not OK]">summary
 run</a> for OCaml 4.10.0. The integer parameter in
 <code>-online-summary=n</code> corresponds to the update period for this
 html summary. If the option is not provided, the html summary is only

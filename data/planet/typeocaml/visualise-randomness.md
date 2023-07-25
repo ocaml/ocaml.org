@@ -131,7 +131,7 @@ let ran_via_time bound =
 
 <h2>Preparation</h2>
 
-<p>Assuming the essentials of OCaml, such as <em>ocaml</em> itself, <em>opam</em> and <em>ocamlbuild</em>, have been installed, the only 3rd party library we need to get now is <a href="https://bitbucket.org/camlspotter/camlimages">camlimagges</a>. </p>
+<p>Assuming the essentials of OCaml, such as <em>ocaml</em> itself, <em>opam</em> and <em>ocamlbuild</em>, have been installed, the only 3rd party library we need to get now is <a href="https://bitbucket.org/camlspotter/camlimages - [404 Not Found]">camlimagges</a>. </p>
 
 <p>Before invoke <code>opam install camlimages</code>, we need to make sure <a href="http://stackoverflow.com/questions/24805385/camlimages-fatal-error-exception-failureunsupported"><em>libjpeg</em> being installed first in your system</a>. Basically, <em>camlimages</em> relies on system libs of <em>libjpeg</em>, <em>libpng</em>, etc to save image files in respective formats. In this post, we will save our images to <code>.jpg</code>, so depending on the operating system, we can just directly try installing it by the keyword of <em>libjpeg</em>.</p>
 
@@ -145,7 +145,7 @@ let ran_via_time bound =
 
 <p>After <em>libjpeg</em> is installed, we can then invoke <code>opam install camlimages</code>.</p>
 
-<p>In addition, for easier compiling or testing purposes, maybe <a href="https://ocaml.org/learn/tutorials/ocamlbuild/">ocamlbuild</a> <code>opam install ocamlbuild</code> and <a href="https://opam.ocaml.org/blog/about-utop/">utop</a> <code>opam install utop</code> could be installed, but it is up to you.</p>
+<p>In addition, for easier compiling or testing purposes, maybe <a href="https://ocaml.org/learn/tutorials/ocamlbuild/ - [404 Not Found]">ocamlbuild</a> <code>opam install ocamlbuild</code> and <a href="https://opam.ocaml.org/blog/about-utop/">utop</a> <code>opam install utop</code> could be installed, but it is up to you.</p>
 
 <pre><code>brew install libjpeg  
 opam install camlimages  
@@ -325,7 +325,7 @@ let _ = random_plot ~filename:&quot;random_plot_time.jpg&quot; ~ran_f:ran_via_ti
 
 <h1>Fortuna random generator from nocrypto</h1>
 
-<p><a href="https://twitter.com/h4nnes">@h4nnes</a> has suggested me to try the <em>fortuna generator</em> from <a href="https://github.com/mirleft/ocaml-nocrypto">nocrypto</a>.</p>
+<p><a href="https://twitter.com/h4nnes - [1 Client error: Number of redirects hit maximum amount]">@h4nnes</a> has suggested me to try the <em>fortuna generator</em> from <a href="https://github.com/mirleft/ocaml-nocrypto">nocrypto</a>.</p>
 
 <pre><code>opam install nocrypto  
 </code></pre>

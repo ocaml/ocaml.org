@@ -33,7 +33,7 @@ OCaml <a href="https://github.com/ocamllabs/ocaml-multicore/issues">issue tracke
 <p>We are also quite interested in hearing interesting applications of algebraic
 effects such as the encoding of <a href="https://github.com/kayceesrk/ocaml-eff-example/blob/master/reify_reflect.ml">monadic
 reflection</a>
-and <a href="https://github.com/kayceesrk/ocaml-eff-example/blob/master/delimcc.ml">one-shot multi-prompt delimited
+and <a href="https://github.com/kayceesrk/ocaml-eff-example/blob/master/delimcc.ml - [404 Not Found]">one-shot multi-prompt delimited
 control</a>.
 Feel free to submit pull requests with your examples.</p>
 

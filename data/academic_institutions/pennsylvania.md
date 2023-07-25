@@ -8,7 +8,7 @@ continent: North America
 courses:
     - name: Compilers 
       acronym: CIS341
-      online_resource: "https://www.cis.upenn.edu/~cis341/current/"
+      online_resource: "https://www.cis.upenn.edu/~cis341/current/ - [404 Not Found]"
     - name: Programming Languages and Techniques I 
       acronym: CIS120
       online_resource: "https://www.seas.upenn.edu/~cis120/current/"

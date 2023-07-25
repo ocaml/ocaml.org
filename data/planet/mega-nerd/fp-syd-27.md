@@ -21,7 +21,7 @@ up to hear our two presenters.
 
 <p>
 First up we had
-	<a href="http://www.cse.unsw.edu.au/~benl/">
+	<a href="http://www.cse.unsw.edu.au/~benl/ - [403 Forbidden]">
 	Ben Lippmeier</a>
 presenting the Haskell library
 	<a href="http://hackage.haskell.org/package/repa">REPA</a>

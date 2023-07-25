@@ -65,7 +65,7 @@ source:
   <span class="n">loop</span> <span class="bp">[]</span> 
 </code></pre> 
 </div> 
-<p>Here we make good use of OCaml 3.12&rsquo;s new feature for <a href="http://caml.inria.fr/pub/docs/manual-ocaml/manual021.html#toc80">explicitly naming type variables</a> in a polymorphic function to make a structure matching <code>OrderedType</code>. The heap has the same element type as the list, but we reverse the comparison since we want to remove the largest rather than smallest element from the heap in the loop. At the end of <code>kmin</code> we drain the heap to build a list of the <code>k</code> smallest elements.</p> 
+<p>Here we make good use of OCaml 3.12&rsquo;s new feature for <a href="http://caml.inria.fr/pub/docs/manual-ocaml/manual021.html#toc80 - [404 Not Found]">explicitly naming type variables</a> in a polymorphic function to make a structure matching <code>OrderedType</code>. The heap has the same element type as the list, but we reverse the comparison since we want to remove the largest rather than smallest element from the heap in the loop. At the end of <code>kmin</code> we drain the heap to build a list of the <code>k</code> smallest elements.</p> 
 <b>Merging k lists</b> 
 <p>Suppose we want to merge <code>k</code> lists. We could merge them pairwise until there is only one list, but that would take <code>k - 1</code> passes, for a worst-case running time of <code>O(n * (k - 1))</code>. Instead we can merge them all in one pass, using a binary heap so we can find the next smallest element of <code>k</code> lists in <code>O(log k)</code> time, for a running time of <code>O(n
 log k)</code>. Here&rsquo;s the code:</p> 

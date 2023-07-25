@@ -65,11 +65,11 @@ was uploaded to the robot.
 
 <p>
 Our second presenter for the evening was
-	<a href="http://seanseefried.com/">
+	<a href="http://seanseefried.com/ - [1 Client error: Couldn't resolve host name]">
 	Sean Seefried</a>
 on the subject of the <i>&quot;The Expression Problem&quot;</i>, in Haskell.
 In Sean's paper (with Manuel M. T. Chakravarty),
-	<a href="http://www.cse.unsw.edu.au/~chak/papers/exp-problem.pdf">
+	<a href="http://www.cse.unsw.edu.au/~chak/papers/exp-problem.pdf - [403 Forbidden]">
 	<i>&quot;Solving the expression problem with true separate compilation&quot;</i></a>
 he describes the expression problem as:
 </p>

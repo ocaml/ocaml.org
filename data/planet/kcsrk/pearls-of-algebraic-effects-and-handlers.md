@@ -171,7 +171,7 @@ references</a>:</p>
 references as a record with inject and project functions to and from universal
 type values, assign as appending a new value to the head of the state list, and
 dereference as linear search through the list for a matching assignment. The
-<a href="https://blogs.janestreet.com/a-universal-type/#comment-163">universal type
+<a href="https://blogs.janestreet.com/a-universal-type/#comment-163 - [1 Client error: SSL peer certificate or SSH remote key was not OK]">universal type
 implementation</a> is
 due to Alan Frisch.</p>
 
@@ -291,7 +291,7 @@ client of the library. This avoids the need to perform manual CPS translation.</
 <h2>Direct-style asynchronous IO</h2>
 
 <p>Since the effect handler has access to the continuation, we can implement
-minimal <a href="https://github.com/kayceesrk/ocaml-eff-example/blob/master/aio.ml">asynchronous IO in
+minimal <a href="https://github.com/kayceesrk/ocaml-eff-example/blob/master/aio.ml - [404 Not Found]">asynchronous IO in
 direct-style</a>
 as opposed to the monadic style of asynchronous IO libraries such as Lwt and
 Async. Our asynchronous IO library has the following interface:</p>
@@ -381,7 +381,7 @@ threads whose IO actions are now available:</p>
   <span class="n">dequeue</span> <span class="bp">()</span></code></pre></figure>
 
 <p>The
-<a href="https://github.com/kayceesrk/ocaml-eff-example/blob/master/aio.ml">program</a>
+<a href="https://github.com/kayceesrk/ocaml-eff-example/blob/master/aio.ml - [404 Not Found]">program</a>
 implements a simple echo server. The server listens on localhost port 9301. It
 accepts multiple clients and echoes back to the client any data sent to the
 server. This server is a direct-style reimplementation of the echo server found
@@ -422,7 +422,7 @@ tracker</a>.</p>
       <p><a href="http://arxiv.org/pdf/1203.1539v1.pdf">Programming with Algebraic Effects and Handlers (pdf)</a>&nbsp;<a href="https://kcsrk.info/atom-ocaml.xml#fnref:Eff" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li role="doc-endnote">
-      <p><a href="http://eb.host.cs.st-andrews.ac.uk/drafts/effects.pdf">Programming and Reasoning with Algebraic Effects and Dependent Types (pdf)</a>&nbsp;<a href="https://kcsrk.info/atom-ocaml.xml#fnref:Idris-eff" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p><a href="http://eb.host.cs.st-andrews.ac.uk/drafts/effects.pdf - [403 Forbidden]">Programming and Reasoning with Algebraic Effects and Dependent Types (pdf)</a>&nbsp;<a href="https://kcsrk.info/atom-ocaml.xml#fnref:Idris-eff" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

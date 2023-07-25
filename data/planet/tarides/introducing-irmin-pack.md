@@ -48,7 +48,7 @@ All three Irmin stores (see our <a href="https://irmin.org/tutorial/architecture
 page</a> in the tutorial to learn more)
 are contained in this single file.</p>
 <p><code>Content</code> and <code>Commit</code> serialization is straightforward through
-<a href="https://docs.mirage.io/irmin/Irmin/Type/index.html"><code>Irmin.Type</code></a>. They are written along with their length (to allow
+<a href="https://docs.mirage.io/irmin/Irmin/Type/index.html - [404 Not Found]"><code>Irmin.Type</code></a>. They are written along with their length (to allow
 correct reading) and hash (to enable integrity checks). The hash is used to
 resolve internal links inside the pack when nodes are written.</p>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">

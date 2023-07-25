@@ -47,7 +47,7 @@ popular camlp4 extensions seem to fall into one of three categories:</p>
 <ul>
 <li>
 Type-conv style extensions such as 
-<a href="https://bitbucket.org/yminsky/ocaml-core/wiki/Home">sexplib</a>, 
+<a href="https://bitbucket.org/yminsky/ocaml-core/wiki/Home - [404 Not Found]">sexplib</a>, 
 <a href="https://github.com/mirage/orm">ORM</a> and 
 <a href="https://github.com/mirage/dyntype">dyntype</a>. 
 These extend the syntax to allow code such as:
@@ -85,7 +85,7 @@ alternative to camlp4 for the majority of its applications.</p>
 
 <p>AST transformers are simply functions that perform transformations on the OCaml
 syntax tree. These can already be implemented using the new
-&ldquo;<a href="http://www.lexifi.com/blog/syntax-extensions-without-camlp4-lets-do-it">-ppx</a>&rdquo;
+&ldquo;<a href="http://www.lexifi.com/blog/syntax-extensions-without-camlp4-lets-do-it - [404 Not Found]">-ppx</a>&rdquo;
 command line option that has been included on the OCaml development trunk by
 Alain Frisch. This option accepts a program as an argument, and pipes the syntax
 tree through that program after parsing and before type checking.</p>

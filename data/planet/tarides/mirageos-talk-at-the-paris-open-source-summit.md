@@ -11,7 +11,7 @@ authors:
 source:
 ---
 
-<p>We are thrilled to have been selected by the <a href="https://www.opensourcesummit.paris">Paris Open Source Summit</a>
+<p>We are thrilled to have been selected by the <a href="https://www.opensourcesummit.paris - [503 Service Unavailable]">Paris Open Source Summit</a>
 committee to talk about &ldquo;Secure-by-design IoT applications using MirageOS&rdquo;.</p>
 <p>The Paris Open Source Summit is an annual event where you can connect to
 open-source communities and learn from tech leaders, project committers and
@@ -37,7 +37,7 @@ to build &ldquo;secure-by-design&rdquo; applications where everything &ndash; fr
 business logic to the low-level device drivers &ndash; has been designed to be as
 secure as possible.</p>
 <p>To learn more about the project, attend the Paris Open Source Summit! The talk
-will take place during the '<a href="https://www.opensourcesummit.paris/EMBEDDED+&amp;+IOT_168_5745.html">Embedded &amp; IOT</a>' section
+will take place during the '<a href="https://www.opensourcesummit.paris - [503 Service Unavailable]/EMBEDDED+&amp;+IOT_168_5745.html">Embedded &amp; IOT</a>' section
 at 14:50 &ndash; 15:20 on December 10th, 2019.</p>
 <br/>
 <p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">

@@ -13,5 +13,5 @@ source:
 
 <p>Thomas Gazagnaire gave a presentation on MirageOS to the
 <a href="https://www.meetup.com/ocaml-paris/">OCaml meetup in Paris</a>.</p>
-<p><strong>Check the <a href="http://gazagnaire.org/pub/2018.05.OUPS.pdf">slides</a>
+<p><strong>Check the <a href="http://gazagnaire.org/pub/2018.05.OUPS.pdf - [1 Client error: Timeout was reached]">slides</a>
 for more details.</strong></p>

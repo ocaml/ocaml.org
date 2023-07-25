@@ -52,7 +52,7 @@ fewer structural steps and a smaller library, respectively.<br/>
 - Uses boolean functions to represent sets (i.e., comprehensions),<br/>
 rather than an ad hoc set algebra.</p>
 <p>The Ssreflect 1.1 distribution is available at<br/>
- <a href="http://www.msr-inria.inria.fr/projects/mathematical-components-2/" title="http://www.msr-inria.inria.fr/projects/mathematical-components-2/">http://www.msr-inria.inria.fr/projects/mathematical-components-2/</a>. It is<br/>
+ <a href="http://www.msr-inria.inria.fr/projects/mathematical-components-2/ - [404 Not Found]" title="http://www.msr-inria.inria.fr/projects/mathematical-components-2/ - [404 Not Found]">http://www.msr-inria.inria.fr/projects/mathematical-components-2/ - [404 Not Found]</a>. It is<br/>
 distributed under the CeCill-B license (the French equivalent of the<br/>
 BSD license).</p>
 <p>The tactic language is quite stable; we have been using it<br/>
@@ -64,7 +64,7 @@ progresses.</p>
 directed at ssreflect(at-sign)msr-inria.inria.fr. To subscribe, either<br/>
 send an email to <a href="mailto:sympa@msr-inria.inria.fr">sympa@msr-inria.inria.fr</a>, whose title contains the<br/>
 word ssreflect, or use the following web interface:<br/>
- <a href="https://sympa.inria.fr/sympa/info/ssreflect" title="https://sympa.inria.fr/sympa/info/ssreflect">https://sympa.inria.fr/sympa/info/ssreflect</a></p>
+ <a href="https://sympa.inria.fr/sympa/info/ssreflect - [1 Client error: Number of redirects hit maximum amount]" title="https://sympa.inria.fr/sympa/info/ssreflect - [1 Client error: Number of redirects hit maximum amount]">https://sympa.inria.fr/sympa/info/ssreflect - [1 Client error: Number of redirects hit maximum amount]</a></p>
 <p>Enjoy!</p>
 <p>The Mathematical Components Team,<br/>
 at the Microsoft Research-Inria Joint Center</p>

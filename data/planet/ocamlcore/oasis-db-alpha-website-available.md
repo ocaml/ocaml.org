@@ -23,7 +23,7 @@ source:
 </tbody>
 </table>
 <p>&nbsp;</p>
-<p>This version is only a <em>very early prototype</em>. For now, the main focus was to adapt OASIS to the requirements of OASIS-DB. In particular, <a href="http://ocsigen.org">ocsigen</a> brings additional constraints because the library is used at the same time by many users. For example, it implies to replace <a href="http://caml.inria.fr/pub/docs/manual-ocaml/manual037.html">Str</a> by <a href="http://www.ocaml.info/home/ocaml_sources.html#pcre-ocaml"> Pcre</a> for regular expression because the later is thread safe.</p>
+<p>This version is only a <em>very early prototype</em>. For now, the main focus was to adapt OASIS to the requirements of OASIS-DB. In particular, <a href="http://ocsigen.org">ocsigen</a> brings additional constraints because the library is used at the same time by many users. For example, it implies to replace <a href="http://caml.inria.fr/pub/docs/manual-ocaml/manual037.html - [404 Not Found]">Str</a> by <a href="http://www.ocaml.info/home/ocaml_sources.html#pcre-ocaml - [404 Not Found]"> Pcre</a> for regular expression because the later is thread safe.</p>
 <p>The login is connected to a stub so that everyone can login without password. OASIS-DB will use <a href="http://forge.ocamlcore.org">forge.ocamlcore.org</a> authentification in a future version but this will also restrict access.</p>
 <p>There is still a lot of things to do, but you can:</p>
 <ul>

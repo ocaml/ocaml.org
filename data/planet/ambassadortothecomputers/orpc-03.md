@@ -30,9 +30,9 @@ source:
 <ul> 
 <li><a href="http://github.com/jaked/orpc">project page</a></li> 
  
-<li><a href="http://jaked.github.com/orpc">documentation</a></li> 
+<li><a href="http://jaked.github.com/orpc - [404 Not Found]">documentation</a></li> 
  
-<li><a href="http://github.com/jaked/orpc/downloads">downloads</a></li> 
+<li><a href="http://github.com/jaked/orpc/downloads - [404 Not Found]">downloads</a></li> 
 </ul> 
  
 <p>Let me know what you think.</p>

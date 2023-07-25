@@ -11,7 +11,7 @@ source:
 ---
 
 <h1>... and other Debian OCaml bits</h1>
-<p>As <a href="http://blogs.turmzimmer.net/2009/08/03#squeeze-1">anticipated by
+<p>As <a href="http://blogs.turmzimmer.net/2009/08/03#squeeze-1 - [1 Client error: Couldn't connect to server]">anticipated by
 Aba</a>, today the <strong>OCaml 3.11.1 transition to testing has
 finished</strong>. Beside turning the latest stable OCaml version
 into a release-ready product, this transition has also
@@ -27,7 +27,7 @@ release.</p>
 <p>during <a href="http://debconf9.debconf.org">DebCamp</a>, the
 <a href="http://wiki.debian.org/Teams/OCamlTaskForce">OCaml
 team</a> has worked on <strong>revising OCaml dependency
-schema</strong>, on the basis of <a href="http://upsilon.cc/~zack/stuff/ocaml-debian-deps.pdf">a
+schema</strong>, on the basis of <a href="http://upsilon.cc/~zack/stuff/ocaml-debian-deps.pdf - [404 Not Found]">a
 proposal</a> I advanced a while ago. Once implemented, the proposal
 in essence will mean:</p>
 <ol>

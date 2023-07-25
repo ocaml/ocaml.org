@@ -13,7 +13,7 @@ source:
 ---
 
 <p><a href="https://rwmj.wordpress.com/2013/09/19/goaljobs-part-1/">In part 1</a> I showed how a simple make rule could be converted to a special &ldquo;goal&rdquo; function and I hinted that we were not limited to just the &ldquo;file is older than&rdquo; semantics implicit in make.</p>
-<p>So let&rsquo;s have a look at <a href="http://git.annexia.org/?p=goals.git%3Ba=tree">the goals I wrote</a> to <a href="https://rwmj.wordpress.com/2013/09/14/ocaml-4-01-0-entering-rawhide/">automate the recent OCaml rebuild in Fedora</a>.</p>
+<p>So let&rsquo;s have a look at <a href="http://git.annexia.org/?p=goals.git%3Ba=tree - [404 Not Found]">the goals I wrote</a> to <a href="https://rwmj.wordpress.com/2013/09/14/ocaml-4-01-0-entering-rawhide/">automate the recent OCaml rebuild in Fedora</a>.</p>
 <p>Recall from part 1: Targets are a contractual promise that you make in goaljobs.  They are a promise that some condition will be true after running the goal.  Requirements are conditions that must be true before the goal can start running.</p>
 <p>For a Fedora package to achieve the goal of being rebuilt, the target is that the Koji build state of the current release must be &ldquo;Completed&rdquo;.  The requirements are that every dependency of the package has been rebuilt.  So:</p>
 <pre>

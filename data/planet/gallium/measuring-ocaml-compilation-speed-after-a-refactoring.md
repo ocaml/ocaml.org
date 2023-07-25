@@ -84,7 +84,7 @@ added, I end up with</p>
 measuring the compilation times before and after <a href="https://github.com/ocaml/ocaml/pull/10337">#10337</a>.</p>
 <p>In order to get more reliable statistics on each file, each package
 was compiled 250 times leading to 1,6 millions of data points (available
-<a href="http://gallium.inria.fr/static/longer_complex.log.xz">here</a>) after slightly more
+<a href="http://gallium.inria.fr/static/longer_complex.log.xz - [404 Not Found]">here</a>) after slightly more
 than a week-end of computation.</p>
 <p>In order to try to reduce the noise induced by the operating system
 scheduler, the compilation process is run with <code>OPAMJOBS=1</code>.

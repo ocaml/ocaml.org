@@ -1,7 +1,7 @@
 ---
 title: Highlights from recent sessions
 description:
-url: http://ocamllabs.github.com/compiler-hacking/2014/06/24/highlights-from-recent-sessions
+url: http://ocamllabs.github.com/compiler-hacking/2014/06/24/highlights-from-recent-sessions - [404 Not Found]
 date: 2014-06-24T03:00:00-00:00
 preview_image:
 featured:
@@ -20,16 +20,16 @@ source:
 
 <figure style="float: right; padding: 15px; width: 350px">
 <img src="https://farm3.staticflickr.com/2756/4150220583_57a993cc61_z_d.jpg" style="width: 350px" alt="Camel front end"/><br/>
-<figcaption><center><small>(<a href="https://www.flickr.com/photos/paperpariah/4150220583"><i>today I stared a camel in the face</i></a> by <a href="https://www.flickr.com/photos/paperpariah/">Adam Foster</a>)</small></center></figcaption>
+<figcaption><center><small>(<a href="https://www.flickr.com/photos/paperpariah/4150220583 - [403 Forbidden]"><i>today I stared a camel in the face</i></a> by <a href="https://www.flickr.com/photos/paperpariah/">Adam Foster</a>)</small></center></figcaption>
 </figure>
 
-<p>The front end (i.e. <a href="https://realworldocaml.org/v1/en/html/the-compiler-frontend-parsing-and-type-checking.html">the parser and type checker</a>) saw a number of enhancements.</p>
+<p>The front end (i.e. <a href="https://realworldocaml.org/v1/en/html/the-compiler-frontend-parsing-and-type-checking.html - [404 Not Found]">the parser and type checker</a>) saw a number of enhancements.</p>
 
 <p><a name="succinct-functor-syntax"></a></p>
 
 <h4>Succinct functor syntax</h4>
 
-<p>Syntax tweaks are always popular, if <a href="http://www.haskell.org/haskellwiki/Wadler's_Law">often contentious</a>.   However, reaching agreement is significantly easier when adding syntax is a simple matter of extending an existing correspondence between two parts of the language.  For example, it was clear which syntax to use when adding support for <a href="http://caml.inria.fr/pub/docs/manual-ocaml-400/manual021.html#toc73">lazy patterns</a>: since patterns generally mirror the syntax for the values they match, patterns for destructing lazy values should use the same <code>lazy</code> keyword as the expressions which construct them.</p>
+<p>Syntax tweaks are always popular, if <a href="http://www.haskell.org/haskellwiki/Wadler - [404 Not Found]'s_Law">often contentious</a>.   However, reaching agreement is significantly easier when adding syntax is a simple matter of extending an existing correspondence between two parts of the language.  For example, it was clear which syntax to use when adding support for <a href="http://caml.inria.fr/pub/docs/manual-ocaml-400/manual021.html#toc73 - [404 Not Found]">lazy patterns</a>: since patterns generally mirror the syntax for the values they match, patterns for destructing lazy values should use the same <code>lazy</code> keyword as the expressions which construct them.</p>
 
 <p>A second correspondence in OCaml's syntax relates modules and values.  Module names and variables are both bound with <code>=</code>; module signatures and types are both ascribed with <code>:</code>; module fields and record fields are both projected with <code>.</code>.  The syntax for functors and functions is also similar, but the latter offers a number of shortcuts not available in the module language; you can write</p>
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span></span><span class="k">fun</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span> <span class="o">-&gt;</span> <span class="n">e</span>
@@ -40,7 +40,7 @@ source:
 <p>but multi-argument functors must be written out in full:</p>
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span></span><span class="k">functor</span> <span class="o">(</span><span class="nc">X</span> <span class="o">:</span> <span class="nc">R</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">functor</span> <span class="o">(</span><span class="nc">Y</span> <span class="o">:</span> <span class="nc">S</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">functor</span> <span class="o">(</span><span class="nc">Z</span> <span class="o">:</span> <span class="nc">T</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">M</span>
 </code></pre></div>
-<p>In February's meeting, <a href="http://gazagnaire.org">Thomas</a> wrote a <a href="https://github.com/ocaml/ocaml/pull/16">patch</a> that adds an analogue of the shorter syntax to the module language, allowing the repeated <code>functor</code> to be left out:</p>
+<p>In February's meeting, <a href="http://gazagnaire.org - [1 Client error: Timeout was reached]">Thomas</a> wrote a <a href="https://github.com/ocaml/ocaml/pull/16">patch</a> that adds an analogue of the shorter syntax to the module language, allowing the repeated <code>functor</code> to be left out:</p>
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span></span><span class="k">functor</span> <span class="o">(</span><span class="nc">X</span> <span class="o">:</span> <span class="nc">R</span><span class="o">)</span> <span class="o">(</span><span class="nc">Y</span> <span class="o">:</span> <span class="nc">S</span><span class="o">)</span> <span class="o">(</span><span class="nc">Z</span> <span class="o">:</span> <span class="nc">T</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">M</span>
 </code></pre></div>
 <p>The patch also adds support for a corresponding abbreviation at the module type level.  Defining the type of a multi-argument functor currently involves writing a rather clunky sequence of <code>functor</code> abstractions:</p>
@@ -83,7 +83,7 @@ source:
 
 <h4>Extensible variants</h4>
 
-<p>Since the compiler hacking group only meets for an evening every couple of months or so, most of the <a href="https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on">projects we work on</a> are designed so that it's possible to implement them in a few hours.  <a href="http://www.lpw25.net/">Leo</a>'s proposal for extensible variants is a notable exception, <a href="https://sympa.inria.fr/sympa/arc/caml-list/2012-01/msg00050.html">predating</a> both the <a href="http://ocamllabs.github.io/compiler-hacking/2013/09/17/compiler-hacking-july-2013.html">compiler hacking group</a> and <a href="http://anil.recoil.org/2012/10/19/announcing-ocaml-labs.html">OCaml Labs</a> itself.</p>
+<p>Since the compiler hacking group only meets for an evening every couple of months or so, most of the <a href="https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on">projects we work on</a> are designed so that it's possible to implement them in a few hours.  <a href="http://www.lpw25.net/">Leo</a>'s proposal for extensible variants is a notable exception, <a href="https://sympa.inria.fr/sympa/arc/caml-list/2012-01/msg00050.html - [1 Client error: Number of redirects hit maximum amount]">predating</a> both the <a href="http://ocamllabs.github.io/compiler-hacking/2013/09/17/compiler-hacking-july-2013.html">compiler hacking group</a> and <a href="http://anil.recoil.org/2012/10/19/announcing-ocaml-labs.html">OCaml Labs</a> itself.</p>
 
 <p>Extensible variants generalise exceptions: with Leo's patch the exception type <code>exn</code> becomes a particular instance of a class of types that can be defined by the user rather than a special builtin provided by the compiler:</p>
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span></span><span class="c">(* Define an extensible variant type *)</span>
@@ -114,7 +114,7 @@ source:
 
 <h4>Lazy record fields</h4>
 
-<p>Not everything we work on makes is destined to make it upstream.  A few years ago, <a href="http://alain.frisch.fr/">Alain Frisch</a> <a href="http://www.lexifi.com/blog/ocaml-extensions-lexifi-semi-implicit-laziness">described</a> an OCaml extension in use at <a href="http://lexifi.com/">Lexifi</a> for marking record fields lazy, making it possible to delay the evaluation of initializing expressions without writing the <code>lazy</code> keyword every time a record is constructed.  Alain's post was received enthusiastically, and lazy record fields seemed like an obvious candidate for inclusion upstream, so in April's meeting Thomas put together a <a href="https://github.com/ocaml/ocaml/pull/48">patch</a> implementing the design.  Although the OCaml team decided not to merge the patch, it led to an enlightening <a href="https://github.com/ocaml/ocaml/pull/48#issuecomment-41758626">discussion</a> with comments from several core developers, including Alain, who described <a href="https://github.com/ocaml/ocaml/pull/48#issuecomment-41758626">subsequent, less positive, experience with the feature at Lexifi</a>, and Xavier, who explained the <a href="https://github.com/ocaml/ocaml/pull/48#issuecomment-41779525">rationale underlying the current design</a>.</p>
+<p>Not everything we work on makes is destined to make it upstream.  A few years ago, <a href="http://alain.frisch.fr/">Alain Frisch</a> <a href="http://www.lexifi.com/blog/ocaml-extensions-lexifi-semi-implicit-laziness - [404 Not Found]">described</a> an OCaml extension in use at <a href="http://lexifi.com/">Lexifi</a> for marking record fields lazy, making it possible to delay the evaluation of initializing expressions without writing the <code>lazy</code> keyword every time a record is constructed.  Alain's post was received enthusiastically, and lazy record fields seemed like an obvious candidate for inclusion upstream, so in April's meeting Thomas put together a <a href="https://github.com/ocaml/ocaml/pull/48">patch</a> implementing the design.  Although the OCaml team decided not to merge the patch, it led to an enlightening <a href="https://github.com/ocaml/ocaml/pull/48#issuecomment-41758626">discussion</a> with comments from several core developers, including Alain, who described <a href="https://github.com/ocaml/ocaml/pull/48#issuecomment-41758626">subsequent, less positive, experience with the feature at Lexifi</a>, and Xavier, who explained the <a href="https://github.com/ocaml/ocaml/pull/48#issuecomment-41779525">rationale underlying the current design</a>.</p>
 
 <p><a name="back-end"></a></p>
 
@@ -126,7 +126,7 @@ source:
 by <a href="http://www.flickr.com/photos/h-k-d/">Hartwig HKD</a>)</small></center></figcaption>
 </figure>
 
-<p>The OCaml back end (i.e. the <a href="https://realworldocaml.org/v1/en/html/the-compiler-backend-byte-code-and-native-code.html">code generation portion of the compiler</a>) also saw a proposed enhancement.</p>
+<p>The OCaml back end (i.e. the <a href="https://realworldocaml.org/v1/en/html/the-compiler-backend-byte-code-and-native-code.html - [404 Not Found]">code generation portion of the compiler</a>) also saw a proposed enhancement.</p>
 
 <p><a name="constant-arithmetic-optimization"></a></p>
 
@@ -134,7 +134,7 @@ by <a href="http://www.flickr.com/photos/h-k-d/">Hartwig HKD</a>)</small></cente
 
 <p>Stephen submitted a <a href="https://github.com/ocaml/ocaml/pull/17">patch</a> improving the generated code for functions that perform constant arithmetic on integers.</p>
 
-<p>In OCaml, integers and characters are <a href="https://realworldocaml.org/v1/en/html/memory-representation-of-values.html#table20-1_ocaml">represented as shifted immediate values</a>, with the least significant bit set to distinguish them from pointers.  This makes some arithmetic operations <a href="https://realworldocaml.org/v1/en/html/memory-representation-of-values.html#idm181610127856">a little more expensive</a>.  For example, consider a function that <code>int_of_digits</code> that builds an integer from three character digits:</p>
+<p>In OCaml, integers and characters are <a href="https://realworldocaml.org/v1/en/html/memory-representation-of-values.html#table20-1_ocaml - [404 Not Found]">represented as shifted immediate values</a>, with the least significant bit set to distinguish them from pointers.  This makes some arithmetic operations <a href="https://realworldocaml.org/v1/en/html/memory-representation-of-values.html#idm181610127856 - [404 Not Found]">a little more expensive</a>.  For example, consider a function that <code>int_of_digits</code> that builds an integer from three character digits:</p>
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span></span><span class="n">int_of_digits</span> <span class="sc">'3'</span> <span class="sc">'4'</span> <span class="sc">'5'</span> <span class="o">=&gt;</span> <span class="mi">345</span>
 </code></pre></div>
 <p>We might define <code>int_of_digits</code> as follows:</p>
@@ -167,10 +167,10 @@ by <a href="http://www.flickr.com/photos/h-k-d/">Hartwig HKD</a>)</small></cente
 
 <figure style="float: right; padding: 15px; width: 350px">
 <img src="http://i.imgur.com/KKsM0tu.jpg" style="width: 350px" alt="Camel library"/><br/>
-<figcaption><center><small>(Literary advocate <a href="http://www.papertigers.org/wordpress/interview-with-dashdondog-jamba-mongolian-author-and-literacy-advocate/">Dashdondog Jamba</a>, and his mobile library, described in <a href="http://www.bookdepository.com/My-Librarian-Is-a-Camel-Margriet-Ruurs/9781590780930"><i>My librarian is a camel</i></a>)</small></center></figcaption>
+<figcaption><center><small>(Literary advocate <a href="http://www.papertigers.org/wordpress/interview-with-dashdondog-jamba-mongolian-author-and-literacy-advocate/ - [404 Not Found]">Dashdondog Jamba</a>, and his mobile library, described in <a href="http://www.bookdepository.com/My-Librarian-Is-a-Camel-Margriet-Ruurs/9781590780930"><i>My librarian is a camel</i></a>)</small></center></figcaption>
 </figure>
 
-<p>Our compiler hacking group defines &quot;compiler&quot; rather broadly.  As a result people often work on improving the standard library and tools as well as the compiler proper.  For example, in recent sessions, David added a small patch to <a href="http://caml.inria.fr/mantis/view.php?id=6105">expose the is_inet6_addr</a> function, and <a href="http://philippewang.info/">Philippe</a> proposed <a href="https://github.com/ocaml/ocaml/pull/15">a patch that eliminates unnecessary bounds checking</a> in the buffer module.  The last session also saw <a href="http://www.cl.cam.ac.uk/~rp452/">Rapha&euml;l</a> and Simon push a <a href="https://github.com/ocaml/opam-repository/pull/1961">number</a> <a href="https://github.com/ocaml/opam-repository/pull/1968">of</a> <a href="https://github.com/ocaml/opam-repository/pull/1972">patches</a> for integrating <a href="https://github.com/the-lambda-church/merlin">merlin</a> with the <a href="http://en.wikipedia.org/wiki/Acme_(text_editor)">acme</a> editor to OPAM, improving OCaml support in Plan 9.</p>
+<p>Our compiler hacking group defines &quot;compiler&quot; rather broadly.  As a result people often work on improving the standard library and tools as well as the compiler proper.  For example, in recent sessions, David added a small patch to <a href="http://caml.inria.fr/mantis/view.php?id=6105">expose the is_inet6_addr</a> function, and <a href="http://philippewang.info/ - [401 Unauthorized]">Philippe</a> proposed <a href="https://github.com/ocaml/ocaml/pull/15">a patch that eliminates unnecessary bounds checking</a> in the buffer module.  The last session also saw <a href="http://www.cl.cam.ac.uk/~rp452/ - [403 Forbidden]">Rapha&euml;l</a> and Simon push a <a href="https://github.com/ocaml/opam-repository/pull/1961">number</a> <a href="https://github.com/ocaml/opam-repository/pull/1968">of</a> <a href="https://github.com/ocaml/opam-repository/pull/1972">patches</a> for integrating <a href="https://github.com/the-lambda-church/merlin">merlin</a> with the <a href="http://en.wikipedia.org/wiki/Acme_(text_editor)">acme</a> editor to OPAM, improving OCaml support in Plan 9.</p>
 
 <h2>Next session</h2>
 

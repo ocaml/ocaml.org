@@ -1,7 +1,7 @@
 ---
 title: Thirteenth OCaml compiler hacking evening at Pembroke College
 description:
-url: http://ocamllabs.github.com/compiler-hacking/2016/05/20/spring-compiler-hacking
+url: http://ocamllabs.github.com/compiler-hacking/2016/05/20/spring-compiler-hacking - [404 Not Found]
 date: 2016-05-20T23:30:00-00:00
 preview_image:
 featured:
@@ -12,9 +12,9 @@ source:
 
 <p>It's Spring, and time for the thirteenth Cambridge OCaml compiler-hacking evening! We'll be back in <a href="http://www.pem.cam.ac.uk/">Pembroke College</a> again, in the centre of Cambridge.</p>
 
-<p><a href="https://twitter.com/pembroke1347/status/729615893425225728?lang=en-gb"><img src="http://ocamllabs.io/compiler-hacking/imgs/pembroke-spring.jpg" alt="Pembroke"/></a></p>
+<p><a href="https://twitter.com/pembroke1347/status/729615893425225728?lang=en-gb - [1 Client error: Number of redirects hit maximum amount]"><img src="http://ocamllabs.io/compiler-hacking/imgs/pembroke-spring.jpg" alt="Pembroke"/></a></p>
 
-<p>If you're planning to come along, it'd be helpful if you could <a href="http://doodle.com/poll/qx649tkmmq7kg5u4">indicate interest via Doodle</a> and <a href="http://lists.ocaml.org/admin/cam-compiler-hacking">sign up to the mailing list</a> to receive updates.</p>
+<p>If you're planning to come along, it'd be helpful if you could <a href="http://doodle.com/poll/qx649tkmmq7kg5u4">indicate interest via Doodle</a> and <a href="http://lists.ocaml.org/admin/cam-compiler-hacking - [404 Not Found]">sign up to the mailing list</a> to receive updates.</p>
 
 <p><em><strong>Where</strong></em>: N7, <a href="https://www.google.co.uk/maps/place/Pembroke+College/@52.2018741,0.1177328,17z/data=!3m1!4b1!4m2!3m1!1s0x47d870a2a3162b45:0x178705666a5d2498">Pembroke College</a>, Cambridge CB2 1RF. Head through the entrance on Trumpington Street, and turn left straight after the Porters Lodge.</p>
 
@@ -28,10 +28,10 @@ source:
 
 <p>We're defining &quot;compiler&quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the
  <a href="https://github.com/ocaml/ocaml/tree/trunk/stdlib">standard library</a>,
- <a href="https://github.com/ocaml/ocaml/tree/trunk/byterun">run</a><a href="https://github.com/ocaml/ocaml/tree/trunk/asmrun">time</a>, tools
+ <a href="https://github.com/ocaml/ocaml/tree/trunk/byterun - [404 Not Found]">run</a><a href="https://github.com/ocaml/ocaml/tree/trunk/asmrun - [404 Not Found]">time</a>, tools
     (<a href="http://caml.inria.fr/pub/docs/manual-ocaml/depend.html">ocamldep</a>,
-     <a href="https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html">ocamllex</a>,
-     <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html">ocamlyacc</a>, etc.), the
+     <a href="https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html - [404 Not Found]">ocamllex</a>,
+     <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html - [404 Not Found]">ocamlyacc</a>, etc.), the
  <a href="http://caml.inria.fr/pub/docs/manual-ocaml/debugger.html">debugger</a>, the
  <a href="https://github.com/ocaml/ocaml/tree/trunk/manual">documentation</a>, and the
  <a href="https://github.com/ocaml/ocaml">compiler</a> itself. We'll have

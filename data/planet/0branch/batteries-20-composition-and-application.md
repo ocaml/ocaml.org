@@ -21,7 +21,7 @@ source:
   <div>
     <p>A <a href="https://blog.0branch.com/posts/2012-04-17-haskell-application-ocaml.html">while back</a>, I discussed an implementation of the application operator (Haskell&rsquo;s <code>$</code>) in OCaml. In the closing section of that post, a couple of problems were raised regarding treatment of associativity and composition in <em>OCaml Batteries</em>. These issues have been addressed in <em>Batteries</em> 2.0, released in January 2013; the improvements are outlined here.</p>
 <h2>Quick recap</h2>
-<p>Batteries <a href="http://ocaml-batteries-team.github.com/batteries-included/hdoc/BatPervasives.html">1.x</a> defines the following operators for composition and application:</p>
+<p>Batteries <a href="http://ocaml-batteries-team.github.com/batteries-included/hdoc/BatPervasives.html - [404 Not Found]">1.x</a> defines the following operators for composition and application:</p>
 <ul>
 <li><code>val ( -| ) : ('a -&gt; 'b) -&gt; ('c -&gt; 'a) -&gt; 'c -&gt; 'b</code>
 <ul>
@@ -40,7 +40,7 @@ source:
 <pre><code># print_endline -| string_of_int **&gt; succ **&gt; sum [1; 2; 3];;
 Error: This expression has type string but an expression was expected of type 'a -&gt; string</code></pre>
 <h2>What&rsquo;s up, doc?</h2>
-<p>In Batteries <a href="http://ocaml-batteries-team.github.com/batteries-included/hdoc2/BatPervasives.html">2.0</a>, both operators have been renamed:</p>
+<p>In Batteries <a href="http://ocaml-batteries-team.github.com/batteries-included/hdoc2/BatPervasives.html - [404 Not Found]">2.0</a>, both operators have been renamed:</p>
 <ul>
 <li>Composition:
 <ul>

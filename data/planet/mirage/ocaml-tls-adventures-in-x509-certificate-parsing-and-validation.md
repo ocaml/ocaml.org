@@ -66,7 +66,7 @@ signed the outermost certificate. Further constraints, such as the
 maximum chain length and the validity period, are checked as
 well. Finally, the server name in the server certificate is checked to
 match the expected identity.
-For an example, you can see the sequence diagram of the TLS handshake your browser makes when you visit our <a href="https://tls.nqsb.io">demonstration server</a>.</p>
+For an example, you can see the sequence diagram of the TLS handshake your browser makes when you visit our <a href="https://tls.nqsb.io - [1 Client error: Timeout was reached]">demonstration server</a>.</p>
 <h3>Example code for verification</h3>
 <p>OpenSSL implements <a href="https://tools.ietf.org/html/rfc5280">RFC5280</a> path validation, but there is no
 implementation to validate the identity of a certificate. This has to
@@ -114,7 +114,7 @@ root cause of vulnerabilities in this area. They tested various
 implementations by using a list of certificates, which did not form a
 chain, and would not authenticate due to being self-signed, or
 carrying a different server name.</p>
-<p>Another recent empirical study (<a href="http://www.cs.utexas.edu/~suman/publications/frankencert.pdf">Frankencert</a>) generated random
+<p>Another recent empirical study (<a href="http://www.cs.utexas.edu/~suman/publications/frankencert.pdf - [404 Not Found]">Frankencert</a>) generated random
 certificates and validated these with various stacks. They found lots
 of small issues in nearly all certificate verification stacks.</p>
 <p>Our implementation mitigates against some of the known attacks: we
@@ -124,7 +124,7 @@ and implement hostname checking as specified in <a href="https://tools.ietf.org/
 certificates which use MD5 as hash algorithm. Our TLS stack
 requires certificates to have at least 1024 bit RSA keys.</p>
 <h3>X.509 library internals</h3>
-<p>The <code>x509</code> library uses <a href="https://github.com/mirleft/ocaml-asn-combinators">asn-combinators</a> to parse X.509 certificates and
+<p>The <code>x509</code> library uses <a href="https://github.com/mirleft/ocaml-asn-combinators - [404 Not Found]">asn-combinators</a> to parse X.509 certificates and
 the <a href="https://github.com/mirleft/ocaml-nocrypto">nocrypto</a> library for signature verification
 (which we wrote about <a href="http://mirage.io/blog/introducing-nocrypto">previously</a>).
 At the moment we do not yet

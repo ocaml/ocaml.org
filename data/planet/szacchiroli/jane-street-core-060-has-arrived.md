@@ -11,7 +11,7 @@ source:
 ---
 
 <h1>Debian &quot;Core&quot; 0.6.0 packages ready</h1>
-<p>I've completed the packaging of the new release of <a href="http://www.janestreet.com/ocaml"><strong>(Jane Street)
+<p>I've completed the packaging of the new release of <a href="http://www.janestreet.com/ocaml - [404 Not Found]"><strong>(Jane Street)
 Core</strong></a>, version <strong>0.6.0</strong>. Core is (yet
 another) extended / alternative standard library for OCaml,
 integrating not only the much needed &quot;everyday functions&quot; but also
@@ -63,7 +63,7 @@ thoroughly peer-reviewed than Core itself.</p>
 (<code>libcore-ocaml-doc</code>) which contains the built ocamldoc
 HTML API reference for Core and Core_extended.</p>
 <p>Note that it is not exactly the same doc that <a href="http://ocaml.janestreet.com/?q=node/74">has been recently
-announced</a> by Jane Street and that is now <a href="http://www.janestreet.com/ocaml/janestreet-ocamldocs/">available
+announced</a> by Jane Street and that is now <a href="http://www.janestreet.com/ocaml/janestreet-ocamldocs/ - [404 Not Found]">available
 on the web</a>. The latter is comprehensive of all other Jane
 Street libraries (sexplib, bin-prot, ...). I'll be probably
 packaging that too, but first <a href="http://lists.debian.org/debian-ocaml-maint/2009/11/msg00101.html"><em>

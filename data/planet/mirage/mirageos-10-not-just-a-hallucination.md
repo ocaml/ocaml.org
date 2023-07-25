@@ -13,7 +13,7 @@ authors:
         <p><em>First</em>: read the <a href="https://mirage.io/wiki/overview-of-mirage">overview</a> and
 <a href="https://mirage.io/wiki/technical-background">technical background</a> behind the project.</p>
 <p>When we started hacking on MirageOS back in 2009, it started off looking like a
-conventional OS, except written in OCaml.   The <a href="https://github.com/mirage/mirage/tree/old-master">monolithic
+conventional OS, except written in OCaml.   The <a href="https://github.com/mirage/mirage/tree/old-master - [404 Not Found]">monolithic
 repository</a> contained all the
 libraries and boot code, and exposed a big <code>OS</code> module for applications to use.
 We used this to do several fun <a href="http://cufp.org/conference/sessions/2011/t3-building-functional-os">tutorials</a> at conferences

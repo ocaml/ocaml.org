@@ -78,8 +78,8 @@ Assembly
 <div class="outline-text-2">
 <p>   Now let&rsquo;s go back to OCaml, the great language XD. </p>
 <p>   It is the same as Lisp, you have to encode the Ast in the host   language, you can encode the ocaml&rsquo;s Ast using S-expression as well. </p>
-<p>   S-expression is a viable option, <a href="http://felix-lang.org/">Felix</a> adopts this mechanism. The   advantage of using S-exprssion to encode the S-expression is that   you can reach <b>the maximum code reuse</b> and <b>don&rsquo;t need to fight   against the type system</b> from time to time. </p>
-<p>   For example, in <a href="http://brion.inria.fr/gallium/index.php/Camlp4">Camlp4</a>, once you want to get the location of an Ast   node, you have to fix its type, so if have to write a lot of   bolierpolate code like this </p>
+<p>   S-expression is a viable option, <a href="http://felix-lang.org/ - [1 Client error: Couldn't connect to server]">Felix</a> adopts this mechanism. The   advantage of using S-exprssion to encode the S-expression is that   you can reach <b>the maximum code reuse</b> and <b>don&rsquo;t need to fight   against the type system</b> from time to time. </p>
+<p>   For example, in <a href="http://brion.inria.fr/gallium/index.php/Camlp4 - [404 Not Found]">Camlp4</a>, once you want to get the location of an Ast   node, you have to fix its type, so if have to write a lot of   bolierpolate code like this </p>
 <pre class="src src-ocaml"><span style="color:#0000ee;font-weight:bold;">val</span> <span style="color:#af5f00;">loc_of_expr</span><span style="color:#af0000;">:</span> <span style="color:#008700;">expr </span><span style="color:#af0000;">-&gt;</span><span style="color:#008700;"> loc</span>
 <span style="color:#0000ee;font-weight:bold;">val</span> <span style="color:#af5f00;">loc_of_ctyp</span><span style="color:#af0000;">:</span> <span style="color:#008700;">ctyp </span><span style="color:#af0000;">-&gt;</span><span style="color:#008700;"> loc</span>
 <span style="color:#0000ee;font-weight:bold;">val</span> <span style="color:#af5f00;">loc_of_patt</span><span style="color:#af0000;">:</span> <span style="color:#008700;">patt </span><span style="color:#af0000;">-&gt;</span><span style="color:#008700;"> loc</span>
@@ -97,7 +97,7 @@ Assembly
 <span style="color:#af0000;">(</span>String <span style="color:#87005f;">&quot;3&quot;</span> <span style="color:#af0000;">:</span><span style="color:#008700;">expr</span><span style="color:#af0000;">)</span>
 </pre>
 <p>   <a href="https://hongboz.wordpress.com/feed/#http-www.metaocaml.org">MetaOCaml</a> can guarantees the type correctness, but there is always a   trade off between expressivity and type safety. Anyway, in a   staticly typed language, i.e, OCaml, the generated program is always   type checked.  </p>
-<p>   So, in OCaml or other ML dialects , you can encode the Abstract   Syntax using one of those: untyped s-expression, partial typed sum   types, records, GADT, or mixins of records and sum types.   there is another unique solution which exists in OCaml, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual006.html">variants</a>. </p>
+<p>   So, in OCaml or other ML dialects , you can encode the Abstract   Syntax using one of those: untyped s-expression, partial typed sum   types, records, GADT, or mixins of records and sum types.   there is another unique solution which exists in OCaml, <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual006.html - [404 Not Found]">variants</a>. </p>
 <p>   We will discuss it further in the next post. </p>
 </div>
 <div class="outline-3">
@@ -108,7 +108,7 @@ Assembly
 
 `(+ a 3 4) <span style="color:#af0000;">;; </span><span style="color:#af0000;">data </span>
 </pre>
-<p>    There is a paper which summarizes how to do quasi-quotation in rich    syntax language: <a href="http://ipaper.googlecode.com/git-history/969fbd798753dc0b10ea9efe5af7773ff10f728a/Miscs/why-its-nice-to-be-quoted.pdf">Why it&rsquo;s nice to be quoted.</a>  </p>
+<p>    There is a paper which summarizes how to do quasi-quotation in rich    syntax language: <a href="http://ipaper.googlecode.com/git-history/969fbd798753dc0b10ea9efe5af7773ff10f728a/Miscs/why-its-nice-to-be-quoted.pdf - [404 Not Found]">Why it&rsquo;s nice to be quoted.</a>  </p>
 <p>    Unlike Lisp, the different between program and data is obvious </p>
 <pre class="src src-ocaml">3 <span style="color:#af0000;">(* </span><span style="color:#af0000;">program </span><span style="color:#af0000;">*)</span>
 `Int <span style="color:#af0000;">(</span>_loc<span style="color:#af0000;">,</span> <span style="color:#87005f;">&quot;3&quot;</span><span style="color:#af0000;">)</span> <span style="color:#af0000;">(* </span><span style="color:#af0000;">data </span><span style="color:#af0000;">*)</span>

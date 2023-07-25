@@ -41,7 +41,7 @@ approachable.</p>
 
 <p>The new API makes extensive use of OCaml&rsquo;s <a href="https://en.wikipedia.org/wiki/Generalized_algebraic_data_type">GADTs</a>, and provides
 a single entry-point that supports most kinds of services
-(<a href="https://ocsigen.org/eliom/api/server/Eliom_service#VALcreate">Eliom_service.create</a>). For more information, refer
+(<a href="https://ocsigen.org/eliom/api/server/Eliom_service#VALcreate - [404 Not Found]">Eliom_service.create</a>). For more information, refer
 to the <a href="https://ocsigen.org/eliom/dev/manual/server-services">Eliom manual</a>.</p>
 
 <h2>Mobile applications</h2>
@@ -51,14 +51,14 @@ platforms (including iOS, Android, and Windows) with the same codebase
 as for a Web application, and following standard Eliom idioms.</p>
 
 <p>To achieve this, we have made available the Eliom service APIs
-<a href="https://ocsigen.org/eliom/manual/clientserver-services">on the client</a>. Thus, the user interface can be
+<a href="https://ocsigen.org/eliom/manual/clientserver-services - [404 Not Found]">on the client</a>. Thus, the user interface can be
 produced directly on the mobile device, with remote calls only when
 absolutely necessary.</p>
 
 <p>To build an Eliom 6.0 mobile application easily, we recommend that you
 use our soon-to-be-released <a href="https://github.com/ocsigen/ocsigen-start">Ocsigen Start</a> project, which
 provides a mobile-ready template application
-(<a href="https://ocsigen.org/tuto/manual/mobile">walkthrough</a>).</p>
+(<a href="https://ocsigen.org/tuto/manual/mobile - [404 Not Found]">walkthrough</a>).</p>
 
 <h2>Compatibility</h2>
 
@@ -78,9 +78,9 @@ Eliom. Additionally, we are planning a transition to the
 <h2>Support</h2>
 
 <ul>
-  <li><a href="https://ocsigen.org/eliom/Eliom60">Migration guide</a></li>
+  <li><a href="https://ocsigen.org/eliom/Eliom60 - [404 Not Found]">Migration guide</a></li>
   <li><a href="https://github.com/ocsigen/eliom/issues">Issue tracker</a></li>
-  <li><a href="https://sympa.inria.fr/sympa/info/ocsigen">Mailing list</a></li>
+  <li><a href="https://sympa.inria.fr/sympa/info/ocsigen - [1 Client error: Number of redirects hit maximum amount]">Mailing list</a></li>
   <li>IRC: <code class="language-plaintext highlighter-rouge">#ocsigen</code> on <code class="language-plaintext highlighter-rouge">irc.freenode.net</code></li>
 </ul>
 

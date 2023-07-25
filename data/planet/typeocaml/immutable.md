@@ -319,7 +319,7 @@ let partition_fold pivot l =
 
 <p>In fact, functional style is more than just being consistent with the design: <strong>it handles data directly, instead of via any intermedia layer in between</strong>. In imperative programming, we often use array and like we said before, we have to manipulate the indices. The <em>indices</em> stand between our minds and the data. In functional programming, it is different. We use immutable list and using indices makes not much sense any more (as it will be slow). So each time, we just care the head element and often it is more than enough. This is one of the reasons why I love OCaml. Afterall, we want to deal with data and why do we need any unnecessary gates to block our way while they pretend to help us?</p>
 
-<p>One may say imperative programming is faster as we do not need to constantly allocate memory for new things. Yes, normally array is faster than list. And also doing things in place is more effient. However, OCaml has a very good type system and a great <a href="https://realworldocaml.org/v1/en/html/understanding-the-garbage-collector.html">GC</a>, so the performance is not bad at all even if we always creating and creating. </p>
+<p>One may say imperative programming is faster as we do not need to constantly allocate memory for new things. Yes, normally array is faster than list. And also doing things in place is more effient. However, OCaml has a very good type system and a great <a href="https://realworldocaml.org/v1/en/html/understanding-the-garbage-collector.html - [404 Not Found]">GC</a>, so the performance is not bad at all even if we always creating and creating. </p>
 
 <p>If you are interested, you can do the design and imperative implementation for <em>mergesort</em>, and you will find out that we have to create new auxiliary spaces just like we would do in functional programming. </p>
 
@@ -351,7 +351,7 @@ let partition_fold pivot l =
   <p>&quot;Less is more&quot; - Andrea del Sarto, Robert Browning. </p>
 </blockquote>
 
-<p><strong>[2].</strong> &quot;Options are important because they are the standard way in OCaml to encode a value that might not be there; there's no such thing as a NullPointerException in OCaml. &quot; - <a href="https://realworldocaml.org/v1/en/html/a-guided-tour.html">Chapter 1 in Real World Ocaml</a></p>
+<p><strong>[2].</strong> &quot;Options are important because they are the standard way in OCaml to encode a value that might not be there; there's no such thing as a NullPointerException in OCaml. &quot; - <a href="https://realworldocaml.org/v1/en/html/a-guided-tour.html - [404 Not Found]">Chapter 1 in Real World Ocaml</a></p>
 
 <p><strong>Ps.</strong></p>
 

@@ -1,7 +1,7 @@
 ---
 title: OCaml Compiler Hacking May 2017 - Activity Summaries
 description:
-url: http://reynard.io/2017/05/19/CompHackingRoundup.html
+url: http://reynard.io/2017/05/19/CompHackingRoundup.html - [1 Client error: Couldn't resolve host name]
 date: 2017-05-19T00:00:00-00:00
 preview_image:
 featured:
@@ -30,7 +30,7 @@ source:
 
 <h3>Compiler Projects</h3>
 
-<p>KC and Mark spent some time working on DWARF support for handlers in Multicore, an issue which is scheduled for <a href="https://github.com/ocamllabs/ocaml-multicore/projects/1#card-2897910">Multicore Alpha</a>. They had some initial success and have a prototype implementation which backtraces through the handler stack. This builds on <a href="http://ocamllabs.io/doc/dwarf-debugging.html">previous work</a> that enabled the native-code OCaml compiler to emit DWARF debugging information.</p>
+<p>KC and Mark spent some time working on DWARF support for handlers in Multicore, an issue which is scheduled for <a href="https://github.com/ocamllabs/ocaml-multicore/projects/1#card-2897910">Multicore Alpha</a>. They had some initial success and have a prototype implementation which backtraces through the handler stack. This builds on <a href="http://ocamllabs.io/doc/dwarf-debugging.html - [404 Not Found]">previous work</a> that enabled the native-code OCaml compiler to emit DWARF debugging information.</p>
 
 <p>Stephen and Jeremy spent most of the evening discussing a workshop submission based on subtyping witnesses, and the &ldquo;hairy bits of OCaml typechecking&rdquo; related to <a href="https://github.com/ocaml/ocaml/pull/556">PR#556</a> and <a href="https://github.com/ocaml/ocaml/pull/1142">#1142</a>.</p>
 

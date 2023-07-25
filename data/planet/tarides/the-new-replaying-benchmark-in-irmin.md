@@ -22,7 +22,7 @@ source:
 <li>the hardware (e.g., does <code>irmin-pack</code> perform well on a Raspberry Pi?)</li>
 <li>the code of Irmin (e.g., does this PR have an impact on performance?)</li>
 </ul>
-<p>This benchmarking process is similar to the record-replay feature available with <a href="https://docs.tezedge.com/tezedge/record-replay">TezEdge</a>.</p>
+<p>This benchmarking process is similar to the record-replay feature available with <a href="https://docs.tezedge.com/tezedge/record-replay - [1 Client error: Couldn't resolve host name]">TezEdge</a>.</p>
 <h3 style="position:relative;"><a href="https://tarides.com/feed.xml#recording-the-action-trace" aria-label="recording the action trace permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Recording the Action Trace</h3>
 <p>By adding logs to Tezos, we can record the Tezos-Irmin interactions and thus capture the Irmin &ldquo;view&rdquo; of Tezos. We&rsquo;ve recorded <em>action traces</em> during the <em>bootstrapping</em> phase of Tezos nodes, which started from <em>Genesis</em>&mdash;the name of the very first Tezos block inserted into an empty Irmin store.</p>
 <p>The interaction surface between Irmin and Octez is quite simple, so we were able to reduce it to eight (8) elementary operations:</p>

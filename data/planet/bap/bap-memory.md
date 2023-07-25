@@ -17,7 +17,7 @@ further features of the API depending on their needs. Thus, we elide some
 details of the full API and data structures.</p>
 
 <p>In this post, we use an ELF binary corresponding to <code class="language-plaintext highlighter-rouge">example.c</code> from the
-<a href="http://binaryanalysisplatform.github.io/graphlib/">previous post</a>.</p>
+<a href="http://binaryanalysisplatform.github.io/graphlib/ - [404 Not Found]">previous post</a>.</p>
 
 <h4>Image contents</h4>
 

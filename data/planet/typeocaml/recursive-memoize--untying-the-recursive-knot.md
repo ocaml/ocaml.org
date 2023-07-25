@@ -13,7 +13,7 @@ source:
 
 <p><img src="http://typeocaml.com/content/images/2015/01/knot-1.jpg#hero" alt=""/></p>
 
-<p>When I wrote the section of <em>When we need later substitution</em> in  <a href="http://typeocaml.com/2015/01/20/mutable/">Mutable</a>, I struggled. I found out that I didn't fully understand the recursive memoize myself, so what I had to do was just copying the knowledge from <a href="https://realworldocaml.org/v1/en/html/imperative-programming-1.html#memoization-and-dynamic-programming">Real World OCaml</a>. Luckily, after the post was published, <em>glacialthinker</em> <a href="http://www.reddit.com/r/ocaml/comments/2t49p9/mutable_and_when_shall_we_use_imperative/cnvryku">commented</a> in <a href="http://www.reddit.com/r/ocaml/comments/2t49p9/mutable_and_when_shall_we_use_imperative/">reddit</a>:</p>
+<p>When I wrote the section of <em>When we need later substitution</em> in  <a href="http://typeocaml.com/2015/01/20/mutable/">Mutable</a>, I struggled. I found out that I didn't fully understand the recursive memoize myself, so what I had to do was just copying the knowledge from <a href="https://realworldocaml.org/v1/en/html/imperative-programming-1.html#memoization-and-dynamic-programming - [404 Not Found]">Real World OCaml</a>. Luckily, after the post was published, <em>glacialthinker</em> <a href="http://www.reddit.com/r/ocaml/comments/2t49p9/mutable_and_when_shall_we_use_imperative/cnvryku">commented</a> in <a href="http://www.reddit.com/r/ocaml/comments/2t49p9/mutable_and_when_shall_we_use_imperative/">reddit</a>:</p>
 
 <blockquote>
   <blockquote>
@@ -178,7 +178,7 @@ source:
 let rec quicksort l = quicksort_norec quicksort l  
 </code></pre>
 
-<p>There are more examples in <a href="http://martinsprogrammingblog.blogspot.co.uk/2012/07/untying-recursive-knot.html">Martin's blog</a>, though they are not in OCaml. A formalized description of this topic is in the article <em>Tricks with recursion: knots, modules and polymorphism</em> from <a href="http://www.ffconsultancy.com/products/ocaml_journal/?ob26">The OCaml Journal</a>. </p>
+<p>There are more examples in <a href="http://martinsprogrammingblog.blogspot.co.uk/2012/07/untying-recursive-knot.html - [404 Not Found]">Martin's blog</a>, though they are not in OCaml. A formalized description of this topic is in the article <em>Tricks with recursion: knots, modules and polymorphism</em> from <a href="http://www.ffconsultancy.com/products/ocaml_journal/?ob26 - [1 Client error: Couldn't resolve host name]">The OCaml Journal</a>. </p>
 
 <p>Now let's come back to <em>recursive memoize</em> problem with our new weapon. </p>
 

@@ -1,7 +1,7 @@
 ---
 title: Fifteenth OCaml compiler hacking evening at Pembroke
 description:
-url: http://ocamllabs.github.com/compiler-hacking/2016/11/01/fifteenth-compiler-hacking-evening
+url: http://ocamllabs.github.com/compiler-hacking/2016/11/01/fifteenth-compiler-hacking-evening - [404 Not Found]
 date: 2016-11-01T21:30:00-00:00
 preview_image:
 featured:
@@ -12,7 +12,7 @@ source:
 
 <p>&#8203;Our Autumn Compiler Hacking event will be held at Pembroke College! We are also inviting MirageOS users and devs to prepare for Mirage 3.0.</p>
 
-<p>If you're planning to come along, it'd be helpful if you could <a href="http://doodle.com/poll/fsy7gue9xvbvvdm8">indicate interest via Doodle</a> and <a href="http://lists.ocaml.org/admin/cam-compiler-hacking">sign up to the mailing list</a> to receive updates.</p>
+<p>If you're planning to come along, it'd be helpful if you could <a href="http://doodle.com/poll/fsy7gue9xvbvvdm8">indicate interest via Doodle</a> and <a href="http://lists.ocaml.org/admin/cam-compiler-hacking - [404 Not Found]">sign up to the mailing list</a> to receive updates.</p>
 
 <p><em><strong>Where</strong></em>_: N7 Pembroke College<br/>
 Cambridge&#8203;<br/>
@@ -32,10 +32,10 @@ CB2 1RF  </p>
 
 <p>We're defining &quot;compiler&quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the
  <a href="https://github.com/ocaml/ocaml/tree/trunk/stdlib">standard library</a>,
- <a href="https://github.com/ocaml/ocaml/tree/trunk/byterun">run</a><a href="https://github.com/ocaml/ocaml/tree/trunk/asmrun">time</a>, tools
+ <a href="https://github.com/ocaml/ocaml/tree/trunk/byterun - [404 Not Found]">run</a><a href="https://github.com/ocaml/ocaml/tree/trunk/asmrun - [404 Not Found]">time</a>, tools
     (<a href="http://caml.inria.fr/pub/docs/manual-ocaml/depend.html">ocamldep</a>,
-     <a href="https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html">ocamllex</a>,
-     <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html">ocamlyacc</a>, etc.), the
+     <a href="https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html - [404 Not Found]">ocamllex</a>,
+     <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html - [404 Not Found]">ocamlyacc</a>, etc.), the
  <a href="http://caml.inria.fr/pub/docs/manual-ocaml/debugger.html">debugger</a>, the
  <a href="https://github.com/ocaml/ocaml/tree/trunk/manual">documentation</a>, and the
  <a href="https://github.com/ocaml/ocaml">compiler</a> itself. We'll have

@@ -11,7 +11,7 @@ language: french
 isbn: "9782332978400"
 links:
   - description: Website
-    uri: https://www.edilivre.com/initiation-a-la-programmation-fonctionnelle-en-ocaml-mohammed-said-habet.html
+    uri: https://www.edilivre.com/initiation-a-la-programmation-fonctionnelle-en-ocaml-mohammed-said-habet.html - [404 Not Found]
 featured: false
 difficulty: beginner
 ---

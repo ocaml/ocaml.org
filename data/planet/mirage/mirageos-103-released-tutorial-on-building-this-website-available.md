@@ -11,7 +11,7 @@ authors:
 
 
         <p>We've had a lot of people trying out MirageOS since the <a href="https://mirage.io/blog/announcing-mirage10">1.0 release</a> last week, and so we've been steadily cutting point releases and new libraries to OPAM as they're done.
-The most common build error by far has been people using outdated OPAM packages.  Do make sure that you have at least <a href="http://opam.ocaml.org/doc/Quick_Install.html">OPAM 1.1</a> installed, and that you've run <code>opam update -u</code> to get the latest package lists from the <a href="https://github.com/ocaml/opam-repository">package repository</a>.</p>
+The most common build error by far has been people using outdated OPAM packages.  Do make sure that you have at least <a href="http://opam.ocaml.org/doc/Quick_Install.html - [404 Not Found]">OPAM 1.1</a> installed, and that you've run <code>opam update -u</code> to get the latest package lists from the <a href="https://github.com/ocaml/opam-repository">package repository</a>.</p>
 <p><a href="https://github.com/mirage/mirage/releases/tag/1.0.3">MirageOS 1.0.3</a> improves
 Xen configuration generation, cleans up HTTP support, and adds support for FAT
 filesystems.  Here are some of the libraries we've released this week to go along with it:</p>

@@ -19,7 +19,7 @@ Java).</p>
 <p>Unfortunately, the last stable release was a bit out of date and
 seemed not to work with recent JDK (both in terms of buildability
 and of runtime correctness, i.e., segfaults). With the tremendous
-help of <a href="http://www.pps.jussieu.fr/~henry/">Gr&eacute;goire
+help of <a href="http://www.pps.jussieu.fr/~henry/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]">Gr&eacute;goire
 Henry</a>, I've managed to prepare <a href="http://git.debian.org/?p=pkg-ocaml-maint/packages/camljava.git%3Ba=tree%3Bf=debian/patches">
 <strong>a set of patches</strong></a> that enables to build (and
 use without segfaults ...) CamlJava with <strong>recent
@@ -32,7 +32,7 @@ get an equivalent unofficial package from my APT repo:</p>
     deb-src http://people.debian.org/~zack/debian zack-unstable/
 </code></pre>
 <p>Any form of <strong>testing is very welcome</strong>.</p>
-<p>In case you want to try <a href="http://www.pps.jussieu.fr/~henry/ojacare/index.en.html">O'Jacare</a>
+<p>In case you want to try <a href="http://www.pps.jussieu.fr/~henry/ojacare/index.en.html - [1 Client error: SSL peer certificate or SSH remote key was not OK]">O'Jacare</a>
 on top of CamlJava however, you need to wait a bit more: Gr&eacute;goire
 is working on it, but in the process he banged his head against
 bugs in both CamlP4 and CamlP5 (the only two available porting

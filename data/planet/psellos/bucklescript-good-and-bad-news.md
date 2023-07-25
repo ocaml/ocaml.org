@@ -44,7 +44,7 @@ on-line chat are not workable replacements.</p>
 BuckleScript if you want to build web apps using OCaml syntax. Since I&rsquo;d
 like my work to be at least a little bit useful to others, I&rsquo;ll most
 likely be switching to
-<a href="https://ocsigen.org/js_of_ocaml/3.1.0/manual/overview">Js_of_OCaml</a> for
+<a href="https://ocsigen.org/js_of_ocaml/3.1.0/manual/overview - [404 Not Found]">Js_of_OCaml</a> for
 future work.</p>
 
 <p>The good news (such as it is) is that OCaml syntax still does work with

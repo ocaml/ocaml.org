@@ -285,7 +285,7 @@ resilient deployment.</p>
 collection</a> of mergeable
 data types. The mergeable datatypes occupy a unique position in the space of
 CRDTs. Given that we have the history, the design of mergeable datatypes is much
-simpler. Additionally, this also leads to <a href="http://gazagnaire.org/pub/FGM15.pdf">richer
+simpler. Additionally, this also leads to <a href="http://gazagnaire.org/pub/FGM15.pdf - [1 Client error: Timeout was reached]">richer
 structures</a> typically not found in CRDTs.
 It is worth studying them in detail.</p>
 
@@ -391,7 +391,7 @@ recursive merge strategy is also the default merge strategy for Git.</p>
 
 <h2>Mergeable logs</h2>
 
-<p>Another useful data type is <a href="http://kcsrk.info/ezirmin/Ezirmin.Blob_log.html">mergeable
+<p>Another useful data type is <a href="http://kcsrk.info/ezirmin/Ezirmin.Blob_log.html - [404 Not Found]">mergeable
 logs</a>, where each log message
 is a string. The merge operation accumulates the logs in reverse chronological
 order. To this end, each log entry is a pair of timestamp and message, and the
@@ -415,7 +415,7 @@ log, append the new entry and serialize the log again. Hence, append is an
 
 <h3>Efficient mergeable logs</h3>
 
-<p>We can implement a <a href="http://kcsrk.info/ezirmin/Ezirmin.Log.html">efficient logs</a>
+<p>We can implement a <a href="http://kcsrk.info/ezirmin/Ezirmin.Log.html - [404 Not Found]">efficient logs</a>
 by taking advantage of the fact that every commit shares the tail of the log
 with its predecessor.</p>
 
@@ -470,16 +470,16 @@ appends to the log and measuring the latency for append.</p>
 results show that the append latency for linked implementation remains
 relatively constant while the blob implementation slows down considerably with
 increasing number of appends. Additionally, the linked implementation also
-supports efficient <a href="http://kcsrk.info/ezirmin/Ezirmin.Log.html#VALread">paginated
+supports efficient <a href="http://kcsrk.info/ezirmin/Ezirmin.Log.html#VALread - [404 Not Found]">paginated
 reads</a>.</p>
 
 <h2>Mergeable ropes</h2>
 
 <p>A rope data structure is used for efficiently storing and manipulating very long
-strings. Ezirmin provides <a href="http://kcsrk.info/ezirmin/Ezirmin.Rope.html">mergeable
-ropes</a> where for <a href="http://kcsrk.info/ezirmin/Ezirmin.Rope_content.html">arbitrary
+strings. Ezirmin provides <a href="http://kcsrk.info/ezirmin/Ezirmin.Rope.html - [404 Not Found]">mergeable
+ropes</a> where for <a href="http://kcsrk.info/ezirmin/Ezirmin.Rope_content.html - [404 Not Found]">arbitrary
 contents</a>, but also
-specialized for <a href="http://kcsrk.info/ezirmin/Ezirmin.Rope_string.html">strings</a>.
+specialized for <a href="http://kcsrk.info/ezirmin/Ezirmin.Rope_string.html - [404 Not Found]">strings</a>.
 Ropes automatically rebalance to maintain the invariant that the height of the
 tree is proportional to the length of the contents. The crux of the merge
 strategy is that given a common ancestor and the two trees to be merged,

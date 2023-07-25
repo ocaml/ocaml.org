@@ -10,14 +10,14 @@ authors:
 ---
 
 
-        <p>Original posted on <a href="https://linse.me/2018/04/20/Visiting-the-camels.html">linse's blog</a>.</p>
+        <p>Original posted on <a href="https://linse.me/2018/04/20/Visiting-the-camels.html - [1 Client error: SSL peer certificate or SSH remote key was not OK]">linse's blog</a>.</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Maroc_Marrakech_Jemaa-el-Fna_Luc_Viatour.JPG" alt="Jemaa El Fnaa"/>
 Image by Luc Viatour / https://Lucnix.be</p>
 <p>In March 2018, I attended my first <a href="http://retreat.mirage.io/">MirageOS hack retreat</a> in Morrocco.
 <a href="https://mirage.io/">MirageOS</a> is a library operating system which allows everyone to build very small, specialized operating system kernels that are intended to run directly on the virtualization layer.
 The application code itself is the guest operating system kernel, and can be deployed at scale without the need for an extra containerization step in between.
 It is written in <a href="https://ocaml.org/learn/description.html">OCaml</a> and each kernel is built only with exactly the code that is necessary for the particular application.
-A pretty different approach from traditional operating systems. Linux feels <a href="https://www.linuxcounter.net/statistics/kernel">huge</a> all of a sudden.</p>
+A pretty different approach from traditional operating systems. Linux feels <a href="https://www.linuxcounter.net/statistics/kernel - [404 Not Found]">huge</a> all of a sudden.</p>
 <p>I flew in from New York via Casablanca to Marrakesh, and then took a cab to the city center, to the main square, <a href="https://en.wikipedia.org/wiki/Jemaa_el-Fnaa">Jemaa El Fnaa</a>.
 At Cafe de France, Hannes was picking me up and we walked back through the labyrinth of the Medina to the hostel Riad &quot;Priscilla&quot; where we lived with about 20 MirageOS folks, two <a href="https://www.instagram.com/p/BgPaVbuD3Y3/?taken-by=l1ns3">turtles</a> and a dog.
 We ate some food, and there were talks about Mirage's quickcheck-style fuzzing library <a href="https://github.com/stedolan/crowbar">Crowbar</a>, and an API realized on top of a message queue written in OCaml.</p>

@@ -17,7 +17,7 @@ source:
 <ul> 
 <li>better event model: there is now a notion of simultaneous events, and behaviors and events can now be freely mixed</li> 
  
-<li><a href="http://ttic.uchicago.edu/~umut/projects/self-adjusting-computation/">self-adjusting computation</a> is now supported via memo functions; needless recomputation can be avoided in some cases</li> 
+<li><a href="http://ttic.uchicago.edu/~umut/projects/self-adjusting-computation/ - [404 Not Found]">self-adjusting computation</a> is now supported via memo functions; needless recomputation can be avoided in some cases</li> 
  
 <li>faster priority queue and timeline data structures</li> 
  
@@ -31,9 +31,9 @@ source:
 <ul> 
 <li><a href="http://github.com/jaked/froc">project page</a></li> 
  
-<li><a href="http://jaked.github.com/froc">documentation</a></li> 
+<li><a href="http://jaked.github.com/froc - [404 Not Found]">documentation</a></li> 
  
-<li><a href="http://github.com/jaked/froc/downloads">downloads</a></li> 
+<li><a href="http://github.com/jaked/froc/downloads - [404 Not Found]">downloads</a></li> 
 </ul> 
  
 <p>Thanks to Ruy Ley-Wild for helpful discussion, and to Daniel B&uuml;nzli for helpful discussion and many good ideas in React.</p> 
@@ -150,7 +150,7 @@ source:
  
 <p>The implementation of dynamic dependency graphs helps with this problem: as we have seen, when an expression is re-run, the dependencies attached in the course of the previous run are detached, including any dependencies for nodes which have become garbage. Still, until the expression that created them is re-run, garbage nodes remain attached.</p> 
  
-<p>Some other FRP implementations use weak pointers to store a node&rsquo;s dependents, to avoid hanging on to garbage nodes. Since <code>froc</code> is designed to work in browsers (using <a href="http://jaked.github.com/ocamljs">ocamljs</a>), weak pointers aren&rsquo;t an option because they aren&rsquo;t supported in Javascript. But even in regular OCaml, there are reasons to eschew the use of weak pointers:</p> 
+<p>Some other FRP implementations use weak pointers to store a node&rsquo;s dependents, to avoid hanging on to garbage nodes. Since <code>froc</code> is designed to work in browsers (using <a href="http://jaked.github.com/ocamljs - [404 Not Found]">ocamljs</a>), weak pointers aren&rsquo;t an option because they aren&rsquo;t supported in Javascript. But even in regular OCaml, there are reasons to eschew the use of weak pointers:</p> 
  
 <p>First, it&rsquo;s useful to be able to set up changeable expressions which are used for their effect (say, updating the GUI) rather than their value; to do this with a system using weak pointers, you have to stash the expression somewhere so it won&rsquo;t be GC&rsquo;d. This is similar to the problem of GCing threads; it doesn&rsquo;t make sense if the threads can have an effect.</p> 
  
@@ -203,7 +203,7 @@ source:
  
 <p>In general, there can be a complicated pattern of changed and unchanged data&mdash;we could change every other element in the list, for instance&mdash;so memoization and the update loop call one another recursively. From the timestamp point of view, however, we can think of it as a linear scan through time, alternating between updating stale computations and reusing ones which have not changed.</p> 
  
-<p>The memo function mechanism provides a way to keep changeables attached even after the expression that attached them is re-run. We just need to attach them from within a memo function, then look them up again on the next run, so they&rsquo;re left attached to their dependencies. The <a href="http://jaked.github.com/froc/examples/froc-dom/quickhull">quickhull</a> example (<a href="http://jaked.github.com/froc/examples/froc-dom/quickhull/quickhull.ml">source</a>) demonstrates how this works.</p> 
+<p>The memo function mechanism provides a way to keep changeables attached even after the expression that attached them is re-run. We just need to attach them from within a memo function, then look them up again on the next run, so they&rsquo;re left attached to their dependencies. The <a href="http://jaked.github.com/froc/examples/froc-dom/quickhull - [404 Not Found]">quickhull</a> example (<a href="http://jaked.github.com/froc/examples/froc-dom/quickhull/quickhull.ml - [404 Not Found]">source</a>) demonstrates how this works.</p> 
 <b>Functional reactive programming and the event queue</b> 
 <p>Functional reactive programming works with two related types: <em>behavior</em>s are values that can change over time, but are defined at all times; <em>event</em>s are defined only at particular instants in time, possibly (but not necessarily) with a different value at each instant. (<em>Signal</em>s are events or behaviors when we don&rsquo;t care which one.)</p> 
  
@@ -211,13 +211,13 @@ source:
  
 <p>In <code>froc</code>, behaviors are just another name for changeables. Events are implemented on top of changeables: they are just changeables with transient values. An incoming event sets the value of its underlying changeable; after changes have propagated through the dependency graph, the values of all the changeables which underlie events are removed (so they can be garbage collected).</p> 
  
-<p>Signals may be defined (mutually) recursively. For example, in the <a href="http://jaked.github.com/froc/examples/froc-dom/bounce">bounce</a> example (<a href="http://jaked.github.com/froc/examples/froc-dom/bounce/bounce.ml">source</a>), the position of the ball is a behavior defined in terms of its velocity, which is a behavior defined in terms of events indicating collisions with the walls and paddle, which are defined in terms of the ball&rsquo;s position.</p> 
+<p>Signals may be defined (mutually) recursively. For example, in the <a href="http://jaked.github.com/froc/examples/froc-dom/bounce - [404 Not Found]">bounce</a> example (<a href="http://jaked.github.com/froc/examples/froc-dom/bounce/bounce.ml - [404 Not Found]">source</a>), the position of the ball is a behavior defined in terms of its velocity, which is a behavior defined in terms of events indicating collisions with the walls and paddle, which are defined in terms of the ball&rsquo;s position.</p> 
  
 <p><code>Froc</code> provides the <code>fix_b</code> and <code>fix_e</code> functions to define signals recursively. The definition of a signal can&rsquo;t refer directly to its own current value, since it hasn&rsquo;t been determined yet; instead it sees its value from the previous update cycle. When a recursively-defined signal produces a value, an event is queued to be processed in the next update cycle, so the signal can be updated based on its new current value. (If the signal doesn&rsquo;t converge somehow this process loops.)</p> 
 <b>Related systems</b> 
 <p><code>Froc</code> is closely related to a few other FRP systems which are change-driven and written in an imperative, call-by-value language:</p> 
  
-<p><a href="http://www.cs.brown.edu/~greg/">FrTime</a> is an FRP system for PLT Scheme. FrTime has a dependency graph and update queue mechanism similar to <code>froc</code>, but sorts stale nodes in dependency (&ldquo;topological&rdquo;) rather than timestamp order. There is a separate mechanism for handling control dependencies, using a dynamic scoping feature specific to PLT Scheme (&ldquo;parameters&rdquo;) to track dependencies attached in the course of evaluating an expression; in addition FrTime uses weak pointers to collect garbage nodes. There is no equivalent of <code>froc</code>&rsquo;s memo functions. Reactivity in FrTime is implicit: you give an ordinary Scheme program, and the compiler turns each subexpression into a changeable value. There is no programmer control over the granularity of recomputation, but there is a compiler optimization (&ldquo;lowering&rdquo;) which recovers some performance by coalescing changeables.</p> 
+<p><a href="http://www.cs.brown.edu/~greg/ - [1 Client error: Timeout was reached]">FrTime</a> is an FRP system for PLT Scheme. FrTime has a dependency graph and update queue mechanism similar to <code>froc</code>, but sorts stale nodes in dependency (&ldquo;topological&rdquo;) rather than timestamp order. There is a separate mechanism for handling control dependencies, using a dynamic scoping feature specific to PLT Scheme (&ldquo;parameters&rdquo;) to track dependencies attached in the course of evaluating an expression; in addition FrTime uses weak pointers to collect garbage nodes. There is no equivalent of <code>froc</code>&rsquo;s memo functions. Reactivity in FrTime is implicit: you give an ordinary Scheme program, and the compiler turns each subexpression into a changeable value. There is no programmer control over the granularity of recomputation, but there is a compiler optimization (&ldquo;lowering&rdquo;) which recovers some performance by coalescing changeables.</p> 
  
 <p><a href="http://www.flapjax-lang.org/">Flapjax</a> is a descendent of FrTime for Javascript. It implements the same dependency-ordered queue as FrTime, but there is no mechanism for control dependencies, and there are no weak pointers (since there are none in Javascript), so it is fairly easy to create memory leaks (although there is a special reference-counting mechanism in certain cases). Flapjax can be used as a library; it also has a compiler similar to FrTime&rsquo;s, but since it doesn&rsquo;t handle control dependencies, the semantics of compiled programs are not preserved (e.g. you can observe exceptions that don&rsquo;t occur in the original program).</p> 
  

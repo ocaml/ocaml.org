@@ -71,7 +71,7 @@ a vehicle to demonstrate the paravirtualized interface offered by Xen
 for people to have a reference to port their kernels to and as a base
 for new kernel builders to build specialized Xen domains.  Mini-OS is
 a popular base for <a href="https://mirage.io">MirageOS</a>,
-<a href="http://cnp.neclab.eu/projects/clickos/">ClickOS</a>,
+<a href="http://cnp.neclab.eu/projects/clickos/ - [1 Client error: Timeout was reached]">ClickOS</a>,
 and <a href="http://unikernel.org/projects/">other unikernels</a>.  Other
 software that implements a unikernel base include
 <a href="http://rumpkernel.org/">Rumprun</a> and <a href="http://osv.io/">OSv</a>.</p>
@@ -144,8 +144,8 @@ Forum</a>
 event to be held on January 22, 2016 at <a href="https://www.socallinuxexpo.org/scale/14x">SCALE
 14X</a> in Pasadena, CA USA.  I
 look forward to meeting some of you there!</p>
-<p><em>Discuss this post on <a href="https://devel.unikernel.org/t/run-mirage-unikernels-on-kvm-qemu-with-solo5/59">devel.unikernel.org</a></em></p>
-<p><em>Thanks to <a href="https://twitter.com/amirmc">Amir</a>,
+<p><em>Discuss this post on <a href="https://devel.unikernel.org/t/run-mirage-unikernels-on-kvm-qemu-with-solo5/59 - [1 Client error: Couldn't resolve host name]">devel.unikernel.org</a></em></p>
+<p><em>Thanks to <a href="https://twitter.com/amirmc - [1 Client error: Number of redirects hit maximum amount]">Amir</a>,
 <a href="http://mort.io">Mort</a>,
 and <a href="https://github.com/yallop">Jeremy</a>,
 for taking the time to read and comment on earlier drafts.</em></p>
