@@ -69,7 +69,7 @@ Note that this modification doesn’t return the modified array: the value retur
 
 OCaml provides several useful functions for working with arrays. Here are some of the most common ones:
 
-### Lenght of an Array
+### Length of an Array
 
 The `Array.length` function returns the size of an array. For example, to get the size of the array `even_numbers` created above:
 
