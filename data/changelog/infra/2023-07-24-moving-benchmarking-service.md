@@ -1,5 +1,5 @@
 ---
-title: The Benchmarking Service moving to bench.ci.dev
+title: The Benchmarking Service Moving to bench.ci.dev
 date: "2023-07-24"
 tags: [infra]
 ---
