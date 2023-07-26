@@ -219,7 +219,7 @@ Dune needs to be explained that we are using it. Edit the `lib/dune` file to loo
 
 Here is the meaning of the two new lines:
 - `(libraries ppx_show.runtime)` means our project is using definitions found in the `ppx_show.runtime` library, provided by the package `ppx_show`; 
-- `(preprocess (pps preprocess))` means before compilation. The source needs to be transformed using the preprocessor provided by the package `ppx_show`.
+- `(preprocess (pps preprocess))` means that before compilation the source needs to be transformed using the preprocessor provided by the package `ppx_show`.
 
 The files `lib/hello.ml` and `lib/hello.mli` need to be edited, too:
 
