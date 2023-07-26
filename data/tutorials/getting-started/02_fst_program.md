@@ -257,7 +257,7 @@ Done: 90% (19/21, 2 left) (jobs: 1)["Hello"; "using"; "an"; "opam"; "library"]
 
 ## A Sneak-Peek at Dune as a One-Stop Shop
 
-This section explains the purpose of the files and folders created by `dune proj init` which haven't been mentionned earlier yet.
+This section explains the purpose of the files and folders created by `dune proj init` which haven't been mentioned earlier.
 
 Along its history, several tools have been used. As of writing this tutorial (Summer 2023), Dune is the mainstream one, which is why it is used in the tutorial. Dune automatically extracts the dependencies between the modules from the files and compiles them in a compatible order. It only needs one `dune` file per folder where there is something to build. The three folders created by `dune proj init` have the following purposes:
 - `bin`: executable programs 
