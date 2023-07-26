@@ -82,7 +82,7 @@ Although `bin/main.ml`'s name accurately suggests it contains the application en
 
 That's why double semicolumns are no longer needed in source files, statements are just processed in order, from top to bottom, each triggering the side effects it may have. Definitons are added to the environment. Values resulting from nameless expressions are ignored. Side effects from all those will take place in the same order. That's OCaml main.
 
-However, it is common practice to single out a value that triggers all the side effects and mark it as the intended main entry point. In OCaml, that's the role of the `let () =` pattern, which stands for “definition without a name” and actulally indicates we're only interrested in the side effects of the value on the right.
+However, it is common practice to single out a value that triggers all the side effects and mark it as the intended main entry point. In OCaml, that's the role of the `let () =` pattern, which stands for “definition without a name” and actually indicates we're only interested in the side effects of the value on the right.
 
 ## Modules and the Standard Library, Cont'd
 
