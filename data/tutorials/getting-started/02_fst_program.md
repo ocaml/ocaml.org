@@ -240,7 +240,7 @@ let world = String.split_on_char ' ' "Hello using an Opam library"
 
 Let's read this from the bottom up:
 - `world` has the type `string list`. We're using `String.split_on_char` to turn a `string` into a `string list` by splitting the string on space characters.
-- `string_of_string_list` has type `string list -> string`, this converts a list of strings into a string, applying the expected formatting. 
+- `string_of_string_list` has type `string list -> string`. This converts a list of strings into a string, applying the expected formatting. 
 - `string_list_pp` has type `Format.formatter -> string list -> unit`, which means it is a custom formatter that turns a `string list` into a `string` (this type does not appear in the signature).
 
 Finally, you'll also need to edit `bin/main.ml`
