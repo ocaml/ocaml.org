@@ -177,9 +177,9 @@ Next, call the framework in the `main.ml` file:
 let () = Dream.(run (router [ get "/" (fun _ -> html Hello.world) ]))
 ```
 
-This is telling: “run a web server reponding to `/` requests with `Hello.world` as if it was HTML content”. The `Dream.(` syntax stands for locally openning a module inside an expression.
+This is telling: “run a web server responding to `/` requests with `Hello.world` as if it was HTML content.” The `Dream.(` syntax stands for locally opening a module inside an expression.
 
-Finally, tell Dune it is going to need Dream to compile the project. This just adding `dream` in the `library` stanza of the `bin/dune` file. Here is how it is:
+Finally, tell Dune it is going to need Dream to compile the project. Do this by just adding `dream` in the `library` stanza of the `bin/dune` file. Here's how:
 ```lisp 
 (executable
  (public_name hello)
@@ -187,14 +187,14 @@ Finally, tell Dune it is going to need Dream to compile the project. This just a
  (libraries hello dream))
 ```
 
-Launch the server from a first terminal.
+Launch the server from a new terminal.
 ```shell
 $ dune exec hello
 20.07.23 13:14:07.801                       0
 20.07.23 13:14:07.801                       Type Ctrl+C to stop
 ```
 
-And test from another:
+Then test from another:
 ```shell
 $ curl http://localhost:8080/
 ¡Hola Mundo!
@@ -204,12 +204,12 @@ $ curl http://localhost:8080/
 
 _FIXME: Shall we move this to another tutorial? Which one?_
 
-Let's assume we'd like `hello` to display its output as if it was a list of strings in Utop: `["hello"; "using"; "an"; "Opam"; "library"]`. To do that, we need a function turning a `string list` into a `string`, adding brackets, spaces and comas. Instead of defining it ourselves, we'll use a package to generate it automatically. We'll use `ppx_show` which was written by Thierry Martinez. Here is how to install it:
+Let's assume we'd like `hello` to display its output as if it was a list of strings in UTop: `["hello"; "using"; "an"; "opam"; "library"]`. To do that, we need a function turning a `string list` into a `string`, adding brackets, spaces, and commas. Instead of defining it ourselves, let's generate it automatically with a package. We'll use `ppx_show`, which was written by Thierry Martinez. Here is how to install it:
 ```shell
 $ opam install ppx_show
 ```
 
-Dune needs to be explained we are using it. Edit the `lib/dune` file to make it look like this:
+Dune needs to be explained that we are using it. Edit the `lib/dune` file to look like this:
 ```lisp
 (library
  (name hello)
@@ -217,11 +217,11 @@ Dune needs to be explained we are using it. Edit the `lib/dune` file to make it 
  (libraries ppx_show.runtime))
 ```
 
-Here are meaning of the two new lines:
-- `(libraries ppx_show.runtime)` means our project is using definitions found in the `ppx_show.runtime` library, which is provided by the package `ppx_show`; 
-- `(preprocess (pps preprocess))` means before compilation, the source needs to be transformed using the preprocessor provided by the package `ppx_show`.
+Here is the meaning of the two new lines:
+- `(libraries ppx_show.runtime)` means our project is using definitions found in the `ppx_show.runtime` library, provided by the package `ppx_show`; 
+- `(preprocess (pps preprocess))` means before compilation. The source needs to be transformed using the preprocessor provided by the package `ppx_show`.
 
-The files `lib/hello.ml` and `lib/hello.mli` needs to be edited too. Here is how.
+The files `lib/hello.ml` and `lib/hello.mli` need to be edited, too:
 
 ##### `lib/hello.mli`
 ```ocaml
@@ -238,12 +238,12 @@ let string_of_string_list = Format.asprintf "@[%a@]" string_list_pp
 let world = String.split_on_char ' ' "Hello using an Opam library"
 ```
 
-Let's read this bottom-up:
-- `world` has type `string list`, we're using `String.split_on_char` to turn a `string` into a `string list` by splitting the string on space characters.
-- `string_of_string_list` has type `string list -> string`, this converts a list of strings into a string, applying the expected formating. 
-- `string_list_pp` has type `Format.formatter -> string list -> unit`, which means it is a custom formatter turning a `string list` into a `string` (this type does not appear in the signature).
+Let's read this from the bottom up:
+- `world` has the type `string list`. We're using `String.split_on_char` to turn a `string` into a `string list` by splitting the string on space characters.
+- `string_of_string_list` has type `string list -> string`, this converts a list of strings into a string, applying the expected formatting. 
+- `string_list_pp` has type `Format.formatter -> string list -> unit`, which means it is a custom formatter that turns a `string list` into a `string` (this type does not appear in the signature).
 
-Finally, you also need to edit `bin/main.ml`
+Finally, you'll also need to edit `bin/main.ml`
 ```ocaml
 let () = print_endline Hello.(string_of_string_list world)
 ```
