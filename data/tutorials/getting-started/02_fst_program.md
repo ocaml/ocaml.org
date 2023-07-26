@@ -131,16 +131,16 @@ module Hello : sig val world : string end
 
 ## Defining Module Interfaces
 
-What UTop's `#show` command displays is an API, the list of definitons provided by a module, which is called a _module interface_. In a similar way, module can be defined by `.ml` files. It is also possible to define module interfaces from files. Such files have a `.mli` extension and must share the same name part. 
+What UTop's `#show` command displays is an API, the list of definitions provided by a module, which is called a _module interface_. In a similar way, module can be defined by `.ml` files. It is also possible to define module interfaces from files. Such files have a `.mli` extension and must share the same name part. 
 ```shell
 $ echo 'val world : string' > lib/hello.mli
 ```
 
-Observe only what is between `sig` and `end` needs to written in the interface file. This is explained in the tutorial dedicated to modules.
+Observe that only what is between `sig` and `end` needs to written in the interface file. This is explained in the tutorial dedicated to [modules](link_modules).
 
-Module interfaces are also used to create _private_ definitions. A definition from a module is private, if it is not listed in its corresponding interface. If no interface file exists, everyting is public.
+Module interfaces are also used to create _private_ definitions. A module definition is private if it is not listed in its corresponding interface. If no interface file exists, everyting is public.
 
-Edit the `lib/hello.ml` file to add the `mundo` definition, as shown below.
+Edit the `lib/hello.ml` file to add the `mundo` definition, as shown below:
 ```ocaml
 let mundo = "¡Hola Mundo!"
 let world = mundo
@@ -161,13 +161,13 @@ File "hello/bin/main.ml", line 1, characters 30-41:
 Error: Unbound value Hello.mundo
 ```
 
-This is because we haven't changed `hello.mli`. It does not list `mundo` which is therefore private.
+This is because we haven't changed `hello.mli`. Since it does not list `mundo`, it is therefore private.
 
 ## Installing and Using Modules from a Package
 
-OCaml has an active community of open source contributors. Most projects are avaiable using the Opam package manager, which you installed in the first tutorial of this series. This section illustrates how to install and use a package from Opam's open source repository.
+OCaml has an active community of open-source contributors. Most projects are avaiable using the opam package manager, which you installed in the "Install OCaml" tutorial. The following section shows how to install and use a package from opam's open-source repository.
 
-To illustrate this, let's turn our modest `hello` project into a web server using Anton Bachin Dream web framework. First install the `dream` package.
+To illustrate this, let's turn our modest `hello` project into a web server using Anton Bachin's Dream web framework. First install the `dream` package with this command:
 ```shell
 $ opam install dream
 ```
