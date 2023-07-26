@@ -270,7 +270,7 @@ Dune features are detailed in its dedicated tutorial. It has many of them, so le
 - Producing packaging metadata (here in `hello.opam`)
 - Creating arbitrary files using all-purpose rules
 
-The `_build` folder is where Dune stores all the files it generates. It can be deleted at any time. Subsequent builds will recreate it.
+The `_build` folder is where Dune stores all the files it generates. It can be deleted at any time, but subsequent builds will recreate it.
 
 ## Minimum Setup
 
