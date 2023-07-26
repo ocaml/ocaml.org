@@ -259,29 +259,29 @@ Done: 90% (19/21, 2 left) (jobs: 1)["Hello"; "using"; "an"; "Opam"; "library"]
 
 This section explains the purpose of the files and folders created by `dune proj init` which haven't been mentionned earlier yet.
 
-Along its history, several tools have been used. As of writting this tutorial (sumer 2023 ) Dune is the mainstream one, this is why it is used in the tutorial. Dune automatically extract the dependencies between the modules from the files and compiles them in a compatible order. It only needs one `dune` file per folder where there is something to build. The three folder created by `dune proj init` have the following purposes:
+Along its history, several tools have been used. As of writing this tutorial (Summer 2023), Dune is the mainstream one, which is why it is used in the tutorial. Dune automatically extracts the dependencies between the modules from the files and compiles them in a compatible order. It only needs one `dune` file per folder where there is something to build. The three folders created by `dune proj init` have the following purposes:
 - `bin`: executable programs 
 - `lib`: libraries
 - `test`: tests 
 
-Dune features are detailed in its dedicated tutorial. It has many of them. Let's just list a few ones here:
-- running tests
-- generating documentation
-- producing packaging metadata (here in `hello.opam`)
-- creating arbitrary files using all-purpose rules
+Dune features are detailed in its dedicated tutorial. It has many of them, so let's just list a few ones here:
+- Running tests
+- Generating documentation
+- Producing packaging metadata (here in `hello.opam`)
+- Creating arbitrary files using all-purpose rules
 
-The `_build` folder is where Dune stores all the files it generates. It can be deleted at any time, subsequent build will recreate it.
+The `_build` folder is where Dune stores all the files it generates. It can be deleted at any time. Subsequent builds will recreate it.
 
 ## Minimum Setup
 
-In this last section, we create a bare minimum project, highlighting what's really needed for Dune to work. We begin by creating a fresh project folder:
+In this last section, let's create a bare minimum project, highlighting what's really needed for Dune to work. We begin by creating a fresh project folder:
 ```shell
 $ cd ..
 $ mkdir minimo
 $ cd minimo
 ```
 
-At the very least, Dune only needs two files: `dune-project`, and one `dune` file. Here is how to write them with as few as possible text in each
+At the very least, Dune only needs two files: `dune-project` and one `dune` file. Here is how to write them with as little text as possible:
 ```shell
 $ echo '(lang dune 3.6)' > dune-project
 
@@ -290,18 +290,18 @@ $ echo '(executable (name minimo))' > dune
 $ echo 'let () = print_endline "My name is Minimo"' > minimo.ml
 ```
 
-An this is it. This is sufficient for Dune to build and execute the `minimo.ml` file.
+That's all! This is sufficient for Dune to build and execute the `minimo.ml` file.
 ```shell
 $ dune exec ./minimo.exe
 Entering directory '/home/cuihtlauac/caml/ocaml.org'
 Done: 87% (7/8, 1 left) (jobs: 1)My name is Minimo
 ```
 
-Note that `minimo.exe` is not a file name. This how Dune is told to compile the `minimo.ml` file using OCaml's _binary_ compiler, because it also has a second one, the _byte code_ compiler.
+Note that `minimo.exe` is not a file name. This how Dune is told to compile the `minimo.ml` file using OCaml's _binary_ compiler, because it also has a second one: the _byte code_ compiler.
 
 ## Conclusion
 
-This tutorial was the third and last of the introduction series. Starting from there, you have enough to pick and choose among the other tutorials and guides to build your own learning path. However, if you're not yet familiar with functional programming, we strongly recommend to go the lists tutorial. Lists is a such a important data structure in functional programming that it deserves being among the first topics to master. If you're already familiar with lists, maps and folds, and need to be productive as fast as possible, you need to dive into the “Pro Setup” guide.
+This tutorial was the third and last of the introduction series. Starting from here, you have enough to pick and choose among the other tutorials to follow your own learning path. However, if you're not yet familiar with functional programming, we strongly recommend you start with the [Lists tutorial](link_lists). Lists are such an important data structure in functional programming that it deserves to be among the first topics you master. If you're already familiar with lists, maps, and folds, and need to be productive as fast as possible, dive into the “Pro Setup” guide.
 
 
 
