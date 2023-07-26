@@ -21,18 +21,18 @@ An OCaml toplevel is a chat between the user and the OCaml system. The user writ
 ```shell
 $ utop
 ────────┬─────────────────────────────────────────────────────────────┬─────────
-        │ Welcome to utop version 2.12.1 (using OCaml version 5.0.0)! │         
-        └─────────────────────────────────────────────────────────────┘         
+        │ Welcome to utop version 2.12.1 (using OCaml version 5.0.0)! │
+        └─────────────────────────────────────────────────────────────┘
 
 Type #utop_help for help about using utop.
 
 ─( 17:00:09 )─< command 0 >──────────────────────────────────────{ counter: 0 }─
-utop # 
+utop #
 ```
 
 Press `Ctrl-D` (end of file) or enter `#quit;;` to exit `utop`.
 
-The OCaml code examples in this tutorial show the input needed at the hash prompt `#`, as displayed by `utop`, ending with double semicolumn `;;`. The `;;` let's OCaml know the expression is complete. 
+The OCaml code examples in this tutorial show the input needed at the hash prompt `#`, as displayed by `utop`, ending with double semicolumn `;;`. The `;;` let's OCaml know the expression is complete.
 
 Upon hitting `Enter`, OCaml runs the code. The following line shows the output. (For simplicity, anything but the user input and OCaml's output in `utop` is omitted in this tutorial.)
 
@@ -45,9 +45,9 @@ Neither the prompt `#` nor the double semicolumns `;;` are part of the code. Whe
 
 Again, the line which follows shows OCaml's result. The above example says, “What you've entered is an integer (`int`) that evaluates into 4.”
 
-If you need to amend the code before hitting enter, you can use your keyboard's right and left arrows to move inside the text. The up and down arrows allows navitation through previously typed commands, if you have multiple lines of code. 
+If you need to amend the code before hitting enter, you can use your keyboard's right and left arrows to move inside the text. The up and down arrows allows navitation through previously typed commands, if you have multiple lines of code.
 
-Remember: commands beginning with a hash mark are not part of the OCaml syntax; they are interpreted by UTop itself. 
+Remember: commands beginning with a hash mark are not part of the OCaml syntax; they are interpreted by UTop itself.
 
 ## Expressions and Definitions
 
@@ -57,7 +57,7 @@ Remember: commands beginning with a hash mark are not part of the OCaml syntax; 
 ```
 
 In OCaml, everything has a value and every value has a type. Here`50 * 50` is an expression that evaluates to `2500`, which is of type `int` (integer). Here are examples of other primitive values and types:
-```ocaml 
+```ocaml
 # 6.28;;
 - : float = 6.28
 
@@ -77,7 +77,7 @@ OCaml has *type inference*. It automatically determines the type of an expressio
 - : string list = ["this"; "is"; "mambo"]
 ```
 
-The lists' type, `int list` and `string list`, has been inferred from the type of their elements. 
+The lists' type, `int list` and `string list`, has been inferred from the type of their elements.
 
 Tests also are expressions
 ```ocaml
@@ -139,7 +139,7 @@ val square : int -> int = <fun>
 
 This example defines a function named `square` with the single argument `x`. Its _function body_ is the expression `x * x`. There is no “return” keyword in OCaml.
 
-When `square` is applied to `50`, it evaluates `x * x` into `50 * 50`, which leads to `2500`. 
+When `square` is applied to `50`, it evaluates `x * x` into `50 * 50`, which leads to `2500`.
 
 The REPL indicates that the type of `square` is `int -> int`. This means it is a function taking an `int` as parameter (input) and returning an `int` as result (output). Function value can't be displayed, that is why `<fun>` is printed instead.
 
@@ -182,7 +182,7 @@ Functions don't have to be called with all the arguments they expect. It is poss
 cat_hi : string -> string = <fun>
 ```
 
-This returns a function which expects a single string, here the `b` from the definition of `cat`. This is called a _partial application_. In the above, `cat` was partially applied to `"hi"`. 
+This returns a function which expects a single string, here the `b` from the definition of `cat`. This is called a _partial application_. In the above, `cat` was partially applied to `"hi"`.
 
 The function `cat_hi`, which resulted from the partial application of `cat`, behaves as follows:
 
@@ -210,7 +210,7 @@ The name of this function begins with `List.` because it is part of the predefin
 
 The function `List.map` can be applied on any kind of list. Here it is given a list of integers, but it could be a list of floats, strings, or anything. This is known as _polymorphism_. The `List.map` function is polymorphic, meaning it has two _type variables_: `'a` and `'b` (pronounced alpha and beta). They both can be anything; however, in regard to the function passed to `List.map`:
 1. Input list elements have the same type of its input
-2. Output list elements have the same type of its output 
+2. Output list elements have the same type of its output
 
 ### Side-Effects and the `unit` Type
 
@@ -265,19 +265,19 @@ Using operators as functions is convinient when combined with partial applicatio
 # List.filter;;
 - : ('a -> bool) -> 'a list -> 'a list = <fun>
 
-# List.filter (( < ) 10);;
+# List.filter (( <= ) 10);;
 - : int list -> int list = <fun>
 
-# List.filter (( < ) 10) [6; 15; 7; 14; 8; 13; 9; 12; 10; 11];;
+# List.filter (( <= ) 10) [6; 15; 7; 14; 8; 13; 9; 12; 10; 11];;
 - : int list = [15; 14; 13; 12; 10; 11]
 ```
 
-> (CR: I changed some things in the following paragraph, so please ensure it's still accurate!)
+The first two lines are only informative.
 
-The first two prompts are only informative. The first tells the `List.filter` type, a function that takes two parameters, and it can be applied to the list's elements. It returns a Boolean. 
+1. The first shows the `List.filter` type, which is a function taking two parameters. The first parameter is a function; the second is a list.
+2. The second is the partial application of `List.filter` to `( <= ) 10`, which is a function returning `true` if applied to a number which is greater than or equal to 10.
 
-The second is a list.
-
+Finally, in the third line, all the arguments expected by `List.filter` are provided. The returned list contains the values satisfying the `( <= ) 10` function.
 
 It is also possible to define binary operators. Here is an example:
 ```ocaml
@@ -319,10 +319,7 @@ In OCaml, `+.` is the addition between floats, while `+` is the addition between
 
 In many programming languages, values can be automatically converted from one type into another. This includes *implicit type conversion* and *promotion*. For example, in such a language, if you write `1 + 2.5`, the first argument, which is an integer, is promoted to a floating point number, making the result a floating point number, too.
 
-
-> (CR: I changed some things in the following paragraph, so please ensure it's still accurate!)
-
-OCaml never implicitly converts values from one type to another, so it is not possible to perform the addition of a float and integer. If neither uses any of the two addition operators, both generate an error.
+OCaml never implicitly converts values from one type to another. It is not possible to perform the addition of a float and integer. Both examples below throw an error:
 ```ocaml
 # 1 + 2.5;;
 Error: This expression has type float but an expression was expected of type
@@ -333,11 +330,12 @@ Error: This expression has type int but an expression was expected of type
          float
   Hint: Did you mean `1.'?
 ```
+In the first example, `+` is intended to be used with integers, so it can't be used with the `2.5` float. In the second example, `+.` is intended to be used with floats, so it can't be used with the `1` integer.
 
 In OCaml you need to explicitly convert the integer to a floating point number using the `float_of_int` function:
 
 ```ocaml
-# float_of_int 1 +. 2.5
+# float_of_int 1 +. 2.5;;
 - : float = 3.5
 ```
 
@@ -345,7 +343,7 @@ There are several reasons why OCaml requires explicit conversions. Most importan
 
 ### Pattern Matching
 
-Here is a factorial function: 
+Here is a factorial function:
 
 ```ocaml
 # let rec fact n =
@@ -396,9 +394,9 @@ These notations also apply to pattern matching. For example, here is how to defi
     match u with
     | [] -> 0
     | x :: v -> x + sum v;;
-val total : int list -> int = <fun>
+val sum : int list -> int = <fun>
 
-# sum [1; 4; 3; 2; 5];;
+# sum [1; 4; 3; 2; 5]/L
 - : int = 15
 ```
 
@@ -436,7 +434,7 @@ Functions taking other functions as parameters are called _higher-order_ functio
     | x :: u -> f x :: map f u;;
 val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 
-# let u = range 0 10000 in List.map square u = map square u;; 
+# let u = range 0 10000 in List.map square u = map square u;;
 - : bool = true
 ```
 
@@ -464,7 +462,7 @@ The type of tuples is written using `*` between the components' types.
 
 ### Variants Types
 
-Like pattern matching generalises `switch` statements, variant types generalises enumerated and union types. 
+Like pattern matching generalises `switch` statements, variant types generalises enumerated and union types.
 
 Here is the definition of a variant type acting as an enumerated data type:
 
@@ -478,17 +476,19 @@ type primary_colour = Red | Green | Blue
 
 Here is the definition of a variant type acting as a union type:
 ```ocaml
-type http_response =
+# type http_response =
 | Data of string
-| Error of int
+| Error of int;;
+type http_response = Data of string | Error of int
 ```
 
 Here is something sitting in between:
 ```ocaml
-type page_range =
+# type page_range =
 | All
 | Current
-| Range of int * int
+| Range of int * int;;
+type page_range = All | Current | Range of int * int
 ```
 
 In the previous definitions, the capitalised identifiers are called *constructors*. They allow the creation of variant values. This is unrelated to object-oriented programming.
@@ -518,7 +518,7 @@ val is_printable : int -> int -> page_range -> bool = <fun>
 
 Like a function, a variant can be recursive if refers to itself in its own definition. The predefined type `list` provides an example of such a variant:
 ```ocaml
-#show list;;
+# show list;;
 type 'a list = [] | (::) of 'a * 'a list
 ```
 
@@ -549,7 +549,8 @@ val s : string = "Huet"
 # let is_teenager person =
     match person with
     | { age = x; _ } -> 13 <= x && x <= 19;;
-    
+val is_teenager : person -> bool = <fun>
+
 # is_teenager frank;;
 - : bool = false
 ```
@@ -587,8 +588,7 @@ Exceptions are caught using the `try ... with ...` construction
 - : int = 0
 ```
 
-The standard library provides several predefined exceptions. It is possible to
-define exceptions.
+The standard library provides several predefined exceptions. It is possible to define exceptions.
 
 ### Using the `result` type
 
@@ -639,19 +639,19 @@ pronounced “receives”.
 - : unit = ()
 ```
 
-This returns `()` because changing the content of a reference is a side-effect. 
+This returns `()` because changing the content of a reference is a side-effect.
 
 ```ocaml
 # !r;;
 - : int = 42
 ```
 
-Execute an expression after another with the `;` operator. Writing `a; b` means: execute `a`; once done, execute `b`, only return the value of `b`. 
+Execute an expression after another with the `;` operator. Writing `a; b` means: execute `a`; once done, execute `b`, only return the value of `b`.
 
 ```ocaml
 # print_string "hello "; print_endline "world!";;
 hello world!
-- : unit = () 
+- : unit = ()
 ```
 
 Here the first side-effect displays `hello `, the second `world!`. The
@@ -709,7 +709,7 @@ module Option :
 
 Definitions provided by modules are refered to by adding the module name as a prefix to the their name.
 ```ocaml
-# Option.map;; 
+# Option.map;;
 - : ('a -> 'b) -> 'a option -> 'b option = <fun>
 
 # Option.map (fun x -> x * x);;
@@ -719,7 +719,7 @@ Definitions provided by modules are refered to by adding the module name as a pr
 - : int option = None
 
 # Option.map (fun x -> x * x) (Some 8);;
-- : int option = 
+- : int option = Some 64
 ```
 
 Here, the function `Option.map` is used. When the option value provided contains an actual value (i.e. it is `Some` something), it applies the provided function and returns its result wrapped in a option. When the option value provided doesn't contain anything (i.e. is is `None`), it ignores the function it is provided the and behaves as the identity function.
