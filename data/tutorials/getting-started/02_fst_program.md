@@ -78,7 +78,7 @@ In the rest of this tutorial, we will make changes to this project to illustrate
 
 ## Why no Main Function? 
 
-Although `bin/main.ml` name's accurately suggest it contains the application entry point into the executable binary produced by the project, it does not contain a dedicated `main` function. Even that file name is irrelevant, in could be anything. This is because OCaml is equaly an interpreted and a compiled language. Once compiled, binaries are executed as if their source counterpart where read.
+Although `bin/main.ml`'s name accurately suggests it contains the application entry point into the executable binary produced by the project, it does not contain a dedicated `main` function. Even that file name is irrelevant, it could be anything. This is because OCaml is equally an interpreted and compiled language. Once compiled, binaries are executed as if their source counterpart where read.
 
 That's why double semicolumns are no longer needed in source files, statements are just processed in order, from top to bottom, each triggering the side effects it may have. Definitons are added to the environment. Values resulting from nameless expressions are ignored. Side effects from all those will take place in the same order. That's OCaml main.
 
