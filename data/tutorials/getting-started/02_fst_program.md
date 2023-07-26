@@ -86,12 +86,12 @@ However, it is common practice to single out a value that triggers all the side 
 
 ## Modules and the Standard Library, Cont'd
 
-Let's summarize what was said about modules in the previous tutorial:
+Let's summarise what was said about modules in the previous tutorial:
 - Modules are bundles of named values 
 - Identical names from distinct modules don't clash
-- Standard library is a bunch of modules
+- The standard library is a bunch of modules
 
-In addition of that, modules are also the mean of organising projects. Concerns are separated into isolated modules. This is outlined in the next section, before that, let's see how to use a definition from a module in our project. 
+In addition to that, modules are also the mean of organising projects. Concerns are separated into isolated modules. This is outlined in the next section. Before that, let's see how to use a definition from a module in our project: 
 ```shell
 $ sed -i 's/print_endline/Printf.printf "%s!\\n"/g' bin/main.ml
 ```
