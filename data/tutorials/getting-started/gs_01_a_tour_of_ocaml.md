@@ -682,7 +682,7 @@ Assignment into arrays and reference assignment are done with different operator
 
 ## Modules and the Standard Library.
 
-Organizing source code in OCaml is done using something called _modules_. A module is a group of definitions. The _standard library_ is a set of modules available to all OCaml programs. Here is how the definitions contains in the `Option` module of the standard library can be listed:
+Organising source code in OCaml is done using something called _modules_. A module is a group of definitions. The _standard library_ is a set of modules available to all OCaml programs. Here is how the definitions contains in the `Option` module of the standard library can be listed:
 ```ocaml
 # #show Option;;
 module Option :
