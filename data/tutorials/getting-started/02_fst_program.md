@@ -96,18 +96,18 @@ In addition to that, modules are also the mean of organising projects. Concerns 
 $ sed -i 's/print_endline/Printf.printf "%s!\\n"/g' bin/main.ml
 ```
 
-This replaces the function `print_endline` by the function `printf` from the `Printf` module of the standard library. Building and executing this modified version should produce almost the same output as the previous, use `dune exec hello` to try it for yourself.
+This replaces the function `print_endline` with the function `printf` from the `Printf` module in the standard library. Building and executing this modified version should produce almost the same output as before. Use `dune exec hello` to try it for yourself.
 
 ## Every File Defines a Module
 
-Most importantly, each OCaml file defines a module, once compiled. This is how separate compilation works in OCaml. Each sufficiently stand alone concern should be isolated into a file based module. References to external modules creates dependencies. Circular dependencies between modules are not allowed.
+Most importantly, each OCaml file defines a module, once compiled. This is how separate compilation works in OCaml. Each sufficiently standalone concern should be isolated into a file-based module. References to external modules create dependencies. Circular dependencies between modules are not allowed.
 
 To create a module, let's create a file named `lib/hello.ml`:
 ```shell
 $ echo 'let world = "Hello from a module"' > lib/hello.ml
 ```
 
-Here is a new version of the `bin/main.ml` file, and execution of the resulting project.
+Here is a new version of the `bin/main.ml` file and execution of the resulting project:
 ```shell
 $ echo 'let () = Printf.printf "%s\n" Hello.world' > bin/main.ml
 
@@ -116,14 +116,14 @@ Entering directory '/home/cuihtlauac/caml/ocaml.org'
 Hello from a module
 ```
 
-The file `lib/hello.ml` entails the module named `Hello` which defines a string named `world`. This definition is refered to as `Hello.world` from the `bin/main.ml` file.
+The file `lib/hello.ml` contains the module named `Hello`, which in turn defines a string named `world`. This definition is referred to as `Hello.world` from the `bin/main.ml` file.
 
-Dune can launch `utop` to access to the modules exposed by a project interactively. Here is how this is done:
+Dune can launch UTop to access to the modules exposed by a project interactively. Here's how:
 ```shell 
 $ dune utop
 ```
 
-Then, inside `utop`, it is possible to inspect our `Hello` module just like we did when we had a look at the `Option` module in the previous tutorial.
+Then, inside the `utop` toplevel, it is possible to inspect our `Hello` module, just like we did when we examined the `Option` module in the previous tutorial.
 ```ocaml
 # #show Hello;;
 module Hello : sig val world : string end
@@ -131,7 +131,7 @@ module Hello : sig val world : string end
 
 ## Defining Module Interfaces
 
-What Utop's `#show` command displays is an API, the list of definitons provided by a module, this is called a _module interface_. In a similar way module can be defined by `.ml` files, it is also possible to define module interfaces from files. Such files have a `.mli` extension and must share the same name part. 
+What UTop's `#show` command displays is an API, the list of definitons provided by a module, which is called a _module interface_. In a similar way, module can be defined by `.ml` files. It is also possible to define module interfaces from files. Such files have a `.mli` extension and must share the same name part. 
 ```shell
 $ echo 'val world : string' > lib/hello.mli
 ```
