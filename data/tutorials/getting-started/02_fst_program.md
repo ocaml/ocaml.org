@@ -50,14 +50,14 @@ $ tree
 4 directories, 8 files
 ```
 
-OCaml source files have `.ml` extension, it stands for “Meta Language”. ML is the ancestor of OCaml, this is also what the “ml” stands for in “OCaml”. Here is the content of the `bin/main.ml` file:
+OCaml source files have `.ml` extension, which stands for “Meta Language.” Meta Language (ML) is the ancestor of OCaml, this is also what the “ml” stands for in “OCaml.” Here is the content of the `bin/main.ml` file:
 
 ```shell
 $ cat ./bin/main.ml
 let () = print_endline "Hello, World!"
 ```
 
-The project wide metadata is available in the `dune-project` file. Each folder containing source files that needs build has to contain a `dune` file explaining how.
+The project-wide metadata is available in the `dune-project` file. Each folder containing source files that need to be built must contain a `dune` file explaining how.
 
 This builds the project:
 ```shell
