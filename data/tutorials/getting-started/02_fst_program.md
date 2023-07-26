@@ -8,19 +8,19 @@ category: "getting-started"
 
 [TOC]
 
-## Get Something Done, This is Part 3 of 3
+## Get Something Done
 
-This tutorial is the last part of series of three. Part one is “Installing OCaml” and part two is “A Tour of OCaml.” It is assumed here that part 1 and part 2 have been completed and the environment has been set up as described in the first tutorial.
+This tutorial is the last part of the three-part series. Please ensure you have completed [“Installing OCaml”](linkhere) and [`“A Tour of OCaml”](linkhere) before proceeding onto your first OCaml project. You will need your environment been set up as described in the ["Installing OCaml"](Install_link).
 
-In this tutorial, we start working with files containing OCaml source code and compiling them to produce excutable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularization, dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture before presenting topics extensively and risking getting lost in the details. 
+In this tutorial, we start working with files containing OCaml source code and compiling them to produce excutable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture before extensively presenting topics in order to avoid getting lost in the details. 
 
-Breadth-first learning instead of depth-first learning.
+In other words, breadth-first learning instead of depth-first learning.
 
 ## Compiling OCaml Programs
 
-OCaml comes with both an interpreter and a compiler. In the previous tutorial, only the interpreter was used. This section gives a glimpse at the way to use the compiler. 
+OCaml comes with both an interpreter and a compiler. In the previous tutorial, only the interpreter was used. This section gives a glimpse of how to use the compiler. 
 
-We start by seting up a traditional “Hello World!” project using Dune, OCaml’s build system. This creates it, under the name `hello`.
+We start by seting up a traditional “Hello World!” project using Dune, OCaml’s build system. The following creates it under the name `hello`:
 
 ```shell
 $ dune init proj hello
