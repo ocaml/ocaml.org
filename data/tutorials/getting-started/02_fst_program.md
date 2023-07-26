@@ -235,7 +235,7 @@ let string_list_pp = [%show: string list]
 
 let string_of_string_list = Format.asprintf "@[%a@]" string_list_pp
 
-let world = String.split_on_char ' ' "Hello using an Opam library"
+let world = String.split_on_char ' ' "Hello using an opam library"
 ```
 
 Let's read this from the bottom up:
@@ -252,7 +252,7 @@ Here is the result:
 ```shell
 dune exec hello
 Entering directory '/home/cuihtlauac/caml/ocaml.org'
-Done: 90% (19/21, 2 left) (jobs: 1)["Hello"; "using"; "an"; "Opam"; "library"]
+Done: 90% (19/21, 2 left) (jobs: 1)["Hello"; "using"; "an"; "opam"; "library"]
 ```
 
 ## A Sneak-Peek at Dune as a One-Stop Shop
