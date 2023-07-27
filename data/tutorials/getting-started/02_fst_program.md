@@ -72,15 +72,17 @@ Entering directory '/home/cuihtlauac/caml/ocaml.org'
 Hello, World!
 ```
 
-Edit the `bin/main.ml` file. Replace `World` by your first name. Recompile the project. Launch it againg. Here your are, this is your first OCaml program.
+Let's see what happens when we edit the `bin/main.ml` file directly. Navigate into it and replace the world `World` with your first name. Recompile the project with `dune build` as before, and then launch it again with `dune exec hello`. 
 
-In the rest of this tutorial, we will make changes to this project to illustrate OCaml tooling and 
+Voilà! You've just written your first OCaml program.
 
-## Why no Main Function? 
+In the rest of this tutorial, we will make more changes to this project in order to illustrate OCaml's tooling.
+
+## Why Isn't There a Main Function? 
 
 Although `bin/main.ml`'s name accurately suggests it contains the application entry point into the executable binary produced by the project, it does not contain a dedicated `main` function. Even that file name is irrelevant, it could be anything. This is because OCaml is equally an interpreted and compiled language. Once compiled, binaries are executed as if their source counterpart where read.
 
-That's why double semicolumns are no longer needed in source files, statements are just processed in order, from top to bottom, each triggering the side effects it may have. Definitons are added to the environment. Values resulting from nameless expressions are ignored. Side effects from all those will take place in the same order. That's OCaml main.
+That's why double semicolumns aren't needed in source files like they are in the toplevel. Statements are just processed in order from top to bottom, each triggering the side effects it may have. Definitions are added to the environment. Values resulting from nameless expressions are ignored. Side effects from all those will take place in the same order. That's OCaml main.
 
 However, it is common practice to single out a value that triggers all the side effects and mark it as the intended main entry point. In OCaml, that's the role of the `let () =` pattern, which stands for “definition without a name” and actually indicates we're only interested in the side effects of the value on the right.
 
