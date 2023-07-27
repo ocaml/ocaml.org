@@ -8,7 +8,7 @@ copylibcmis()  (
   srcdir=$(opam var $1:lib)
   jsoo_listunits -o $tmpfile $2
   for i in $(cat $tmpfile); do
-    cp $srcdir/?${i:1}.cmi stdlib/ 
+    cp $srcdir/?${i#?}.cmi stdlib/ 
   done
   rm $tmpfile
 )
