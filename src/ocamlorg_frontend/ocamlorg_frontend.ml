@@ -17,6 +17,7 @@ let install = Install.render
 let industrial_users = Industrial_users.render
 let jobs = Jobs.render
 let learn = Learn.render
+let local_blog = Local_blog.render
 let news = News.render
 let news_post = News_post.render
 let not_found = Not_found.render

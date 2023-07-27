@@ -69,6 +69,7 @@ let learn = "/docs"
 let learn_get_started = "/docs/get-started"
 let learn_language = "/docs/language"
 let learn_guides = "/docs/guides"
+let local_blog source = "/blog/" ^ source
 let platform = "/docs/platform"
 let ocaml_on_windows = "/docs/ocaml-on-windows"
 let tutorial name = "/docs/" ^ name

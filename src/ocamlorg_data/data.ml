@@ -75,12 +75,17 @@ end
 module Planet = struct
   include Planet
 
-  let featured = List.filter (fun x -> x.featured) all
+  module Post = struct
+    include Planet.Post
 
-  let get_by_source_and_slug source slug =
-    List.find_opt
-      (fun x -> String.equal x.source.id source && String.equal slug x.slug)
-      all
+    let featured = List.filter (fun x -> x.featured) all
+  end
+
+  module LocalBlog = struct
+    include Planet.LocalBlog
+
+    let get_by_id id = List.find_opt (fun x -> String.equal x.source.id id) all
+  end
 end
 
 module Opam_user = struct

@@ -98,6 +98,10 @@
   (action
    (run %{bin:dream_eml} %{dep:learn.eml} --workspace %{workspace_root})))
  (rule
+  (target local_blog.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:local_blog.eml} --workspace %{workspace_root})))
+ (rule
   (target install.ml)
   (action
    (run %{bin:dream_eml} %{dep:install.eml} --workspace %{workspace_root})))

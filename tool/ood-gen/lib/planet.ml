@@ -1,5 +1,5 @@
-type source = { id : string; name : string; url : string }
-[@@deriving yaml, show { with_path = false }]
+type source = { id : string; name : string; url : string; description : string }
+[@@deriving show { with_path = false }]
 
 type post = {
   title : string;
@@ -17,10 +17,15 @@ type post = {
 }
 [@@deriving show { with_path = false }]
 
+type local_source = { source : source; posts : post list }
+[@@deriving show { with_path = false }]
+
 module LocalSource = struct
   (* local sources hosted on ocaml.org, e.g. Opam blog *)
 
-  type t = { id : string; name : string } [@@deriving yaml]
+  type t = { id : string; name : string; description : string }
+  [@@deriving yaml]
+
   type sources = t list [@@deriving yaml]
 
   let all () : source list =
@@ -29,10 +34,12 @@ module LocalSource = struct
     |> Option.to_result ~none:(`Msg "could not decode")
     |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
     |> List.map (fun (s : t) ->
-           { id = s.id; name = s.name; url = "https://ocaml.org/blog" })
-  (* TODO: if/when local blogs get their dedicated page
-     https://ocaml.org/blog/[SOURCE_ID], you have to update this to point to
-     that URL *)
+           {
+             id = s.id;
+             name = s.name;
+             url = "https://ocaml.org/blog/" ^ s.id;
+             description = s.description;
+           })
 end
 
 module LocalPost = struct
@@ -97,13 +104,15 @@ end
 module ExternalSource = struct
   (* external sources - these are all the RSS feeds that will be scraped by the
      scrape.yml workflow *)
-  type sources = source list [@@deriving yaml]
+  type t = { id : string; name : string; url : string } [@@deriving yaml]
+  type sources = t list [@@deriving yaml]
 
   let all () : source list =
     let bind f r = Result.bind r f in
     "planet-sources.yml" |> Data.read
     |> Option.to_result ~none:(`Msg "could not decode")
     |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
+    |> List.map (fun { id; name; url } -> { id; name; url; description = "" })
 end
 
 module ExternalPost = struct
@@ -132,7 +141,7 @@ module ExternalPost = struct
         | Ok s -> s
         | Error (`Msg e) -> (
             match m.source with
-            | Some { name; url } -> { id = ""; name; url }
+            | Some { name; url } -> { id = ""; name; url; description = "" }
             | None ->
                 failwith
                   (e ^ " and there is no source defined in the markdown file")));
@@ -184,30 +193,52 @@ let all () =
   LocalPost.all () @ ExternalPost.all ()
   |> List.sort (fun a b -> String.compare b.date a.date)
 
+let all_local_blogs () =
+  let all_posts = LocalPost.all () in
+  LocalSource.all ()
+  |> List.map (fun (source : source) ->
+         {
+           source;
+           posts =
+             all_posts
+             |> List.filter (fun (p : post) -> p.source.id = source.id);
+         })
+
 let template () =
   Format.asprintf
     {|
-module Source = struct
-  type t = { id : string; name : string; url : string }
+type source = { id : string; name : string; url : string ; description : string }
+
+module Post = struct
+  type t =
+    { title : string
+    ; url : string option
+    ; slug : string
+    ; source : source
+    ; description : string option
+    ; authors : string list option
+    ; date : string
+    ; preview_image : string option
+    ; featured : bool
+    ; body_html : string
+    }
+    
+  let all = %a
 end
 
-type t =
-  { title : string
-  ; url : string option
-  ; slug : string
-  ; source : Source.t
-  ; description : string option
-  ; authors : string list option
-  ; date : string
-  ; preview_image : string option
-  ; featured : bool
-  ; body_html : string
+module LocalBlog = struct
+  type t =
+  { source : source
+  ; posts: Post.t list
   }
-  
-let all = %a
+
+  let all = %a
+end
 |}
     (Fmt.brackets (Fmt.list pp_post ~sep:Fmt.semi))
     (all ())
+    (Fmt.brackets (Fmt.list pp_local_source ~sep:Fmt.semi))
+    (all_local_blogs ())
 
 module Feed = struct
   let create_ocamlorg_feed () =
@@ -330,7 +361,11 @@ module Scraper = struct
   let scrape () =
     let sources = ExternalSource.all () in
     sources
-    |> List.map (fun ({ id; url; name } : source) : (string * River.source) ->
-           (id, { name; url }))
+    |> List.map
+         (fun
+           ({ id; url; name; description = _ } : source)
+           :
+           (string * River.source)
+         -> (id, { name; url }))
     |> List.filter_map fetch_feed |> List.iter scrape_feed
 end
