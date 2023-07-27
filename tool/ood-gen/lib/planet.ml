@@ -20,182 +20,189 @@ type post = {
 type local_source = { source : source; posts : post list }
 [@@deriving show { with_path = false }]
 
-module LocalSource = struct
-  (* local sources hosted on ocaml.org, e.g. Opam blog *)
+module Local = struct
+  (* blogs hosted on ocaml.org, e.g. Opam blog *)
 
-  type t = { id : string; name : string; description : string }
-  [@@deriving yaml]
+  module Source = struct
+    type t = { id : string; name : string; description : string }
+    [@@deriving yaml]
 
-  type sources = t list [@@deriving yaml]
+    type sources = t list [@@deriving yaml]
 
-  let all () : source list =
-    let bind f r = Result.bind r f in
-    "planet-local-blogs/sources.yml" |> Data.read
-    |> Option.to_result ~none:(`Msg "could not decode")
-    |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
-    |> List.map (fun (s : t) ->
-           {
-             id = s.id;
-             name = s.name;
-             url = "https://ocaml.org/blog/" ^ s.id;
-             description = s.description;
-           })
+    let all () : source list =
+      let bind f r = Result.bind r f in
+      "planet-local-blogs/sources.yml" |> Data.read
+      |> Option.to_result ~none:(`Msg "could not decode")
+      |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
+      |> List.map (fun (s : t) ->
+             {
+               id = s.id;
+               name = s.name;
+               url = "https://ocaml.org/blog/" ^ s.id;
+               description = s.description;
+             })
+  end
+
+  module Post = struct
+    type metadata = {
+      title : string;
+      description : string;
+      date : string;
+      preview_image : string option;
+      featured : bool option;
+      authors : string list option;
+    }
+    [@@deriving yaml]
+
+    let all_sources = Source.all ()
+
+    let of_metadata ~slug ~source ~body_html m =
+      {
+        title = m.title;
+        source;
+        slug;
+        url = None;
+        description = Some m.description;
+        authors = m.authors;
+        date = m.date;
+        preview_image = m.preview_image;
+        featured = Option.value ~default:false m.featured;
+        body_html;
+      }
+
+    let decode (fpath, (head, body)) =
+      let metadata = metadata_of_yaml head in
+      let body_html =
+        Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
+      in
+      let source, slug =
+        match Str.split (Str.regexp_string "/") fpath with
+        | [ _; second; slug ] ->
+            let source =
+              match
+                List.find_opt (fun (s : source) -> s.id = second) all_sources
+              with
+              | Some source -> source
+              | None -> failwith ("No source found for: " ^ fpath)
+            in
+            let slug = String.sub slug 0 (String.length slug - 3) in
+            (source, slug)
+        | _ ->
+            failwith
+              ("Trying to determine the source for " ^ fpath
+             ^ " but the path is not long enough (should start with \
+                planet-local-blogs/SOURCE_NAME/...)")
+      in
+      metadata
+      |> Result.map_error (fun (`Msg m) -> `Msg ("In " ^ fpath ^ ": " ^ m))
+      |> Result.map (of_metadata ~slug ~source ~body_html)
+
+    let all () : post list =
+      Utils.map_files decode "planet-local-blogs/*/*.md"
+      |> List.sort (fun (a : post) b -> String.compare b.date a.date)
+  end
 end
 
-module LocalPost = struct
-  type metadata = {
-    title : string;
-    description : string;
-    date : string;
-    preview_image : string option;
-    featured : bool option;
-    authors : string list option;
-  }
-  [@@deriving yaml]
+module External = struct
+  (* external RSS feeds that we aggregate - they will all be scraped by the
+     scrape.yml workflow *)
 
-  let all_sources = LocalSource.all ()
+  module Source = struct
+    type t = { id : string; name : string; url : string } [@@deriving yaml]
+    type sources = t list [@@deriving yaml]
 
-  let of_metadata ~slug ~source ~body_html m =
-    {
-      title = m.title;
-      source;
-      slug;
-      url = None;
-      description = Some m.description;
-      authors = m.authors;
-      date = m.date;
-      preview_image = m.preview_image;
-      featured = Option.value ~default:false m.featured;
-      body_html;
+    let all () : source list =
+      let bind f r = Result.bind r f in
+      "planet-sources.yml" |> Data.read
+      |> Option.to_result ~none:(`Msg "could not decode")
+      |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
+      |> List.map (fun { id; name; url } -> { id; name; url; description = "" })
+  end
+
+  module Post = struct
+    type source_on_external_post = { name : string; url : string }
+    [@@deriving yaml]
+
+    type metadata = {
+      title : string;
+      description : string option;
+      url : string;
+      date : string;
+      preview_image : string option;
+      featured : bool option;
+      authors : string list option;
+      source : source_on_external_post option;
     }
+    [@@deriving yaml]
 
-  let decode (fpath, (head, body)) =
-    let metadata = metadata_of_yaml head in
-    let body_html =
-      Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
-    in
-    let source, slug =
-      match Str.split (Str.regexp_string "/") fpath with
-      | [ _; second; slug ] ->
-          let source =
+    let all_sources = Source.all ()
+
+    let of_metadata ~source ~body_html m =
+      {
+        title = m.title;
+        source =
+          (match source with
+          | Ok s -> s
+          | Error (`Msg e) -> (
+              match m.source with
+              | Some { name; url } -> { id = ""; name; url; description = "" }
+              | None ->
+                  failwith
+                    (e ^ " and there is no source defined in the markdown file")
+              ));
+        url = Some m.url;
+        slug = "";
+        description = m.description;
+        authors = m.authors;
+        date = m.date;
+        preview_image = m.preview_image;
+        featured = Option.value ~default:false m.featured;
+        body_html;
+      }
+
+    let pp_meta ppf v =
+      Fmt.pf ppf
+        {|---
+    %s---
+    |}
+        (metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
+
+    let decode (fpath, (head, body)) =
+      let metadata = metadata_of_yaml head in
+      let body_html =
+        Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
+      in
+      let source =
+        match Str.split (Str.regexp_string "/") fpath with
+        | _ :: second :: _ -> (
             match
               List.find_opt (fun (s : source) -> s.id = second) all_sources
             with
-            | Some source -> source
-            | None -> failwith ("No source found for: " ^ fpath)
-          in
-          let slug = String.sub slug 0 (String.length slug - 3) in
-          (source, slug)
-      | _ ->
-          failwith
-            ("Trying to determine the source for " ^ fpath
-           ^ " but the path is not long enough (should start with \
-              planet-local-blogs/SOURCE_NAME/...)")
-    in
-    metadata
-    |> Result.map_error (fun (`Msg m) -> `Msg ("In " ^ fpath ^ ": " ^ m))
-    |> Result.map (of_metadata ~slug ~source ~body_html)
+            | Some source -> Ok source
+            | None -> Error (`Msg ("No source found for: " ^ fpath)))
+        | _ ->
+            failwith
+              ("Trying to determine the source for " ^ fpath
+             ^ " but the path is not long enough (should start with \
+                planet/SOURCE_NAME/...)")
+      in
+      metadata
+      |> Result.map_error (fun (`Msg m) -> `Msg ("In " ^ fpath ^ ": " ^ m))
+      |> Result.map (of_metadata ~source ~body_html)
 
-  let all () : post list =
-    Utils.map_files decode "planet-local-blogs/*/*.md"
-    |> List.sort (fun (a : post) b -> String.compare b.date a.date)
-end
-
-module ExternalSource = struct
-  (* external sources - these are all the RSS feeds that will be scraped by the
-     scrape.yml workflow *)
-  type t = { id : string; name : string; url : string } [@@deriving yaml]
-  type sources = t list [@@deriving yaml]
-
-  let all () : source list =
-    let bind f r = Result.bind r f in
-    "planet-sources.yml" |> Data.read
-    |> Option.to_result ~none:(`Msg "could not decode")
-    |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
-    |> List.map (fun { id; name; url } -> { id; name; url; description = "" })
-end
-
-module ExternalPost = struct
-  type source_on_external_post = { name : string; url : string }
-  [@@deriving yaml]
-
-  type metadata = {
-    title : string;
-    description : string option;
-    url : string;
-    date : string;
-    preview_image : string option;
-    featured : bool option;
-    authors : string list option;
-    source : source_on_external_post option;
-  }
-  [@@deriving yaml]
-
-  let all_sources = ExternalSource.all ()
-
-  let of_metadata ~source ~body_html m =
-    {
-      title = m.title;
-      source =
-        (match source with
-        | Ok s -> s
-        | Error (`Msg e) -> (
-            match m.source with
-            | Some { name; url } -> { id = ""; name; url; description = "" }
-            | None ->
-                failwith
-                  (e ^ " and there is no source defined in the markdown file")));
-      url = Some m.url;
-      slug = "";
-      description = m.description;
-      authors = m.authors;
-      date = m.date;
-      preview_image = m.preview_image;
-      featured = Option.value ~default:false m.featured;
-      body_html;
-    }
-
-  let pp_meta ppf v =
-    Fmt.pf ppf {|---
-  %s---
-  |}
-      (metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
-
-  let decode (fpath, (head, body)) =
-    let metadata = metadata_of_yaml head in
-    let body_html =
-      Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
-    in
-    let source =
-      match Str.split (Str.regexp_string "/") fpath with
-      | _ :: second :: _ -> (
-          match
-            List.find_opt (fun (s : source) -> s.id = second) all_sources
-          with
-          | Some source -> Ok source
-          | None -> Error (`Msg ("No source found for: " ^ fpath)))
-      | _ ->
-          failwith
-            ("Trying to determine the source for " ^ fpath
-           ^ " but the path is not long enough (should start with \
-              planet/SOURCE_NAME/...)")
-    in
-    metadata
-    |> Result.map_error (fun (`Msg m) -> `Msg ("In " ^ fpath ^ ": " ^ m))
-    |> Result.map (of_metadata ~source ~body_html)
-
-  let all () : post list =
-    Utils.map_files decode "planet/*/*.md"
-    |> List.sort (fun (a : post) b -> String.compare b.date a.date)
+    let all () : post list =
+      Utils.map_files decode "planet/*/*.md"
+      |> List.sort (fun (a : post) b -> String.compare b.date a.date)
+  end
 end
 
 let all () =
-  LocalPost.all () @ ExternalPost.all ()
+  Local.Post.all () @ External.Post.all ()
   |> List.sort (fun a b -> String.compare b.date a.date)
 
 let all_local_blogs () =
-  let all_posts = LocalPost.all () in
-  LocalSource.all ()
+  let all_posts = Local.Post.all () in
+  Local.Source.all ()
   |> List.map (fun (source : source) ->
          {
            source;
@@ -336,7 +343,7 @@ module Scraper = struct
           let preview_image = River.seo_image post in
           let description = River.meta_description post in
           let author = River.author post in
-          let metadata : ExternalPost.metadata =
+          let metadata : External.Post.metadata =
             {
               title;
               url;
@@ -349,7 +356,7 @@ module Scraper = struct
             }
           in
           let s =
-            Format.asprintf "%a\n%s\n" ExternalPost.pp_meta metadata content
+            Format.asprintf "%a\n%s\n" External.Post.pp_meta metadata content
           in
           Printf.fprintf oc "%s" s;
           close_out oc
@@ -359,7 +366,7 @@ module Scraper = struct
     posts |> List.iter (scrape_post ~source_id:id)
 
   let scrape () =
-    let sources = ExternalSource.all () in
+    let sources = External.Source.all () in
     sources
     |> List.map
          (fun
