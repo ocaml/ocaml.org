@@ -211,7 +211,7 @@ let blog req =
          (fun (x : Data.Planet.Post.t) -> not x.featured)
          Data.Planet.Post.all)
   in
-  let featured = Data.Planet.Post.featured |> List.take 3 in
+  let featured = Data.Planet.featured_posts |> List.take 3 in
   let news = Data.News.all |> List.take 20 in
   Dream.html
     (Ocamlorg_frontend.blog ~featured ~planet:current_items ~planet_page:page

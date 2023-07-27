@@ -77,8 +77,6 @@ module Planet = struct
 
   module Post = struct
     include Planet.Post
-
-    let featured = List.filter (fun x -> x.featured) all
   end
 
   module LocalBlog = struct
@@ -86,6 +84,8 @@ module Planet = struct
 
     let get_by_id id = List.find_opt (fun x -> String.equal x.source.id id) all
   end
+
+  let featured_posts = List.filter (fun (x : Post.t) -> x.featured) Post.all
 end
 
 module Opam_user = struct

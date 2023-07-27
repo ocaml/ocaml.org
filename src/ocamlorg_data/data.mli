@@ -284,7 +284,6 @@ module Planet : sig
       body_html : string;
     }
 
-    val featured : t list
     val all : t list
   end
 
@@ -293,6 +292,8 @@ module Planet : sig
 
     val get_by_id : string -> t option
   end
+
+  val featured_posts : Post.t list
 end
 
 module Opam_user : sig
