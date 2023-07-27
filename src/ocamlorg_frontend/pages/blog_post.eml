@@ -7,11 +7,17 @@ Layout.render
 <div class="bg-default dark:bg-dark-default py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">
-      <a href="<%s Url.blog %>"
-        class="flex justify-start space-x-3 items-center text-primary-600 hover:underline font-semibold mb-4 h-12">
-        <%s! Icons.arrow_left "h-5 w-5" %>
-        <div>Back to Blog</div>
-      </a>
+      <div class="flex flex-wrap gap-4">
+        <a href="<%s Url.blog %>"
+          class="text-primary-600 hover:underline font-semibold mb-4">
+          <div>Blog</div>
+        </a>
+        /
+        <a href="<%s Url.local_blog blog_post.source.id %>"
+          class="text-primary-600 hover:underline font-semibold mb-4">
+          <div><%s blog_post.source.name %></div>
+        </a>
+      </div>
     </div>
 
     <article class="prose prose-orange mx-auto max-w-5xl">
