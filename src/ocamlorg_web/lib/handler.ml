@@ -216,8 +216,9 @@ let blog req =
        ~planet_pages_number:number_of_pages ~news)
 
 let blog_post req =
-  let slug = Dream.param req "id" in
-  let</>? blog = Data.Planet.get_by_slug slug in
+  let source = Dream.param req "source" in
+  let slug = Dream.param req "slug" in
+  let</>? blog = Data.Planet.get_by_source_and_slug source slug in
   Dream.html (Ocamlorg_frontend.blog_post blog)
 
 let news req =

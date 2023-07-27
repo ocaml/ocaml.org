@@ -18,9 +18,9 @@ Layout.render
                       <div class="font-semibold text-lighter">FEATURED</div>
                       <div class="flex flex-col-reverse lg:flex-row lg:gap-12">
                           <div class="space-y-3 mt-6 lg:mt-0 flex flex-col flex-1">
-                              <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"
+                              <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"
                                   class="block text-xl font-semibold hover:text-primary-600"><%s item.title %></a>
-                              <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>" class="text-lighter">
+                              <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>" class="text-lighter">
                                   <%s Option.value ~default:"" item.description %>
                               </a>
                               <div class="text-lighter flex space-x-2.5 text-sm">
@@ -29,11 +29,11 @@ Layout.render
                           </div>
                           <% (match item.preview_image with | None -> %>
                             <div class="flex-none w-64">
-                                <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s Ocamlorg_static.Asset.url "logo.svg" %>" alt="default logo"></a>
+                                <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"><img class="w-full" src="<%s Ocamlorg_static.Asset.url "logo.svg" %>" alt="default logo"></a>
                             </div>
                           <% | Some image -> %>
                             <div class="flex-none w-64">
-                                <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
+                                <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
                             </div>
                           <% ); %>
                       </div>
@@ -43,9 +43,9 @@ Layout.render
                     <% planet |> List.iter (fun (item : Data.Planet.t) -> %>
                     <div class="flex flex-col-reverse lg:flex-row lg:gap-12">
                         <div class="space-y-3 mt-6 lg:mt-0 flex flex-col flex-1">
-                            <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"
+                            <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"
                                 class="block text-xl font-semibold hover:text-primary-600"><%s item.title %></a>
-                            <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>" class="text-lighter">
+                            <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>" class="text-lighter">
                                 <%s Option.value ~default:"" item.description %>
                             </a>
                             <div class="text-lighter flex space-x-2.5 text-sm">
@@ -54,11 +54,11 @@ Layout.render
                         </div>
                         <% (match item.preview_image with | None -> %> 
                             <div class="flex-none w-64">
-                                <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s Ocamlorg_static.Asset.url "logo.svg" %>" alt="default logo"></a>
+                                <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"><img class="w-full" src="<%s Ocamlorg_static.Asset.url "logo.svg" %>" alt="default logo"></a>
                             </div>
                         <% | Some image -> %>
                             <div class="flex-none w-64">
-                                <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
+                                <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
                             </div>
                         <% ); %>
                     </div>

@@ -42,7 +42,7 @@ let page_routes =
       Dream.get (Url.release ":id") Handler.release;
       Dream.get (Url.workshop ":id") Handler.workshop;
       Dream.get Url.blog Handler.blog;
-      Dream.get (Url.blog_post ":id") Handler.blog_post;
+      Dream.get (Url.blog_post ":source" ":slug") Handler.blog_post;
       Dream.get Url.news Handler.news;
       Dream.get (Url.news_post ":id") Handler.news_post;
       Dream.get Url.jobs Handler.jobs;

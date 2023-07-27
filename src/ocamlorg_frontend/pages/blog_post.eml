@@ -1,8 +1,8 @@
-let render (planet : Data.Planet.t) =
+let render (blog_post : Data.Planet.t) =
 Layout.render
-~title:planet.title
-~description:(Option.value ~default:planet.title planet.description)
-~canonical:(Url.blog_post planet.slug)
+~title:blog_post.title
+~description:(Option.value ~default:blog_post.title blog_post.description)
+~canonical:(Url.blog_post blog_post.source.id blog_post.slug)
 ~active_top_nav_item:Blog @@
 <div class="bg-default dark:bg-dark-default py-24">
   <div class="container-fluid">
@@ -16,12 +16,12 @@ Layout.render
 
     <article class="prose prose-orange mx-auto max-w-5xl">
       <header>
-        <h1><%s planet.title %></h1>
-        <% (match planet.authors with None -> () | Some authors -> %>
+        <h1><%s blog_post.title %></h1>
+        <% (match blog_post.authors with None -> () | Some authors -> %>
         <i>Authored by: <%s String.concat ", " authors %></i>
         <% ); %>
       </header>
-      <%s! planet.body_html %>
+      <%s! blog_post.body_html %>
     </article>
   </div>
 </div>

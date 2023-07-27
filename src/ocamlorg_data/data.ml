@@ -76,7 +76,11 @@ module Planet = struct
   include Planet
 
   let featured = List.filter (fun x -> x.featured) all
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+
+  let get_by_source_and_slug source slug =
+    List.find_opt
+      (fun x -> String.equal x.source.id source && String.equal slug x.slug)
+      all
 end
 
 module Opam_user = struct
