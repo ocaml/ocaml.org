@@ -42,7 +42,6 @@ You can run it with `dune exec bin/main.exe` or `dune exec my-app`.
 
 ## Running Tests
 
-
 > **TL;DR**
 > 
 > Add a `test` stanza in your `dune` file and run the tests with `dune runtest`.
