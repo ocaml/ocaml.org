@@ -10,7 +10,7 @@ Layout.render
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
             <div class="col-span-2">
-                <h2 class="text-lg mt-0 font-semibold border-b border-current text-primary-600 pb-3">OCaml Community Blog</h2>
+                <h2 class="text-lg mt-0 font-semibold border-b border-current text-primary-600 pb-3">The OCaml Planet</h2>
 
                 <div class="mt-12 space-y-12">
                     <% featured |> List.iter (fun (item : Data.Planet.Post.t) -> %>

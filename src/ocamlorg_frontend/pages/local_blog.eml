@@ -10,7 +10,13 @@ Layout.render
 <div class="bg-default dark:bg-dark-default py-10">
     <div class="container-fluid wide">
         <div class="mx-auto max-w-5xl">
-            <h1 class="font-bold mb-8"><%s source.name %></h1>
+            <div class="prose mb-12">
+                <h1><%s source.name %></h1>
+
+                <p><%s source.description %></p>
+
+                <h2>Recent Posts</h2>
+            </div>
 
             <div class="flex flex-col gap-10">
                 <% posts |> List.iter (fun (item : Data.Planet.Post.t) -> %>

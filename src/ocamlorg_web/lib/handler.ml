@@ -227,9 +227,9 @@ let local_blog req =
 let blog_post req =
   let source = Dream.param req "source" in
   let slug = Dream.param req "slug" in
-  let</>? source = Data.Planet.LocalBlog.get_by_id source in
+  let</>? local_blog = Data.Planet.LocalBlog.get_by_id source in
   let</>? post =
-    source.posts
+    local_blog.posts
     |> List.find_opt (fun (p : Data.Planet.Post.t) -> String.equal p.slug slug)
   in
   Dream.html (Ocamlorg_frontend.blog_post post)

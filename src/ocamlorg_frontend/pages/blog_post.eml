@@ -10,7 +10,7 @@ Layout.render
       <div class="flex flex-wrap gap-4">
         <a href="<%s Url.blog %>"
           class="text-primary-600 hover:underline font-semibold mb-4">
-          <div>Blog</div>
+          <div>OCaml Planet</div>
         </a>
         /
         <a href="<%s Url.local_blog blog_post.source.id %>"
