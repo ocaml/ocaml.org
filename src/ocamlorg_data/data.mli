@@ -288,7 +288,7 @@ module Planet : sig
   end
 
   module LocalBlog : sig
-    type t = { source : source; posts : Post.t list }
+    type t = { source : source; posts : Post.t list; rss_feed : string }
 
     val get_by_id : string -> t option
   end
