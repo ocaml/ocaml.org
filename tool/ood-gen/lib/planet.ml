@@ -196,6 +196,11 @@ module External = struct
   end
 end
 
+let feed_authors source authors =
+  match Option.fold ~none:[] ~some:(List.map Syndic.Atom.author) authors with
+  | x :: xs -> (x, xs)
+  | [] -> (Syndic.Atom.author source.name, [])
+
 module LocalBlog = struct
   let rss_feed source posts =
     let id =
@@ -209,21 +214,9 @@ module LocalBlog = struct
              let content = Syndic.Atom.Html (None, post.body_html) in
              let id =
                Uri.of_string
-                 (match post.url with
-                 | Some url -> url
-                 | None ->
-                     "https://ocaml.org/blog/" ^ post.source.id ^ "/"
-                     ^ post.slug)
+                 ("https://ocaml.org/blog/" ^ post.source.id ^ "/" ^ post.slug)
              in
-             let authors =
-               match
-                 Option.fold ~none:[]
-                   ~some:(List.map Syndic.Atom.author)
-                   post.authors
-               with
-               | x :: xs -> (x, xs)
-               | [] -> (Syndic.Atom.author source.name, [])
-             in
+             let authors = feed_authors post.source post.authors in
              let updated = Syndic.Date.of_rfc3339 post.date in
              Syndic.Atom.entry ~content ~id ~authors
                ~title:(Syndic.Atom.Text post.title) ~updated
@@ -320,15 +313,7 @@ module GlobalFeed = struct
                      "https://ocaml.org/blog/" ^ post.source.id ^ "/"
                      ^ post.slug)
              in
-             let authors =
-               match
-                 Option.fold ~none:[]
-                   ~some:(List.map Syndic.Atom.author)
-                   post.authors
-               with
-               | x :: xs -> (x, xs)
-               | [] -> (Syndic.Atom.author post.source.name, [])
-             in
+             let authors = feed_authors post.source post.authors in
              let updated = Syndic.Date.of_rfc3339 post.date in
              Syndic.Atom.entry ~content ~source ~id ~authors
                ~title:(Syndic.Atom.Text post.title) ~updated
