@@ -216,15 +216,13 @@ module LocalBlog = struct
                      ^ post.slug)
              in
              let authors =
-               Option.fold ~none:[]
-                 ~some:(fun authors ->
-                   List.map (fun a -> Syndic.Atom.author a) authors)
-                 post.authors
-             in
-             let authors =
-               match authors with
+               match
+                 Option.fold ~none:[]
+                   ~some:(List.map Syndic.Atom.author)
+                   post.authors
+               with
                | x :: xs -> (x, xs)
-               | [] -> (Syndic.Atom.author "other", [])
+               | [] -> (Syndic.Atom.author source.name, [])
              in
              let updated = Syndic.Date.of_rfc3339 post.date in
              Syndic.Atom.entry ~content ~id ~authors
@@ -323,15 +321,13 @@ module GlobalFeed = struct
                      ^ post.slug)
              in
              let authors =
-               Option.fold ~none:[]
-                 ~some:(fun authors ->
-                   List.map (fun a -> Syndic.Atom.author a) authors)
-                 post.authors
-             in
-             let authors =
-               match authors with
+               match
+                 Option.fold ~none:[]
+                   ~some:(List.map Syndic.Atom.author)
+                   post.authors
+               with
                | x :: xs -> (x, xs)
-               | [] -> (Syndic.Atom.author "other", [])
+               | [] -> (Syndic.Atom.author post.source.name, [])
              in
              let updated = Syndic.Date.of_rfc3339 post.date in
              Syndic.Atom.entry ~content ~source ~id ~authors
