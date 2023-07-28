@@ -31,7 +31,7 @@ module Local = struct
 
     let all () : source list =
       let bind f r = Result.bind r f in
-      "planet-local-blogs/sources.yml" |> Data.read
+      "planet-local-blogs.yml" |> Data.read
       |> Option.to_result ~none:(`Msg "could not decode")
       |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
       |> List.map (fun (s : t) ->
