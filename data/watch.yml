@@ -680,6 +680,16 @@
   published_at: 2021-08-27T10:16:54.000Z
   language: English
   category: Science & Technology
+- name: 'OCaml behind the scenes: Exceptions'
+  description: "In this talk, Fabrice Buoro explained what happens at the deepest
+    level when your OCaml program raises or catches an exception. This inside knowledge
+    will lead to a number of takeaways for best performance.\r\n\r\nSlides and sources
+    can be found at ht..."
+  embed_path: /videos/embed/eed144f1-23c7-4c78-a34e-850dd57225cc
+  thumbnail_path: /static/thumbnails/754cfd8c-e24e-41d3-a73a-7151f70c58d1.jpg
+  published_at: 2022-11-18T10:00:51.000Z
+  language: English
+  category: Science & Technology
 - name: 'OCaml inside: a drop in replacement for libtls'
   description: "Enguerrand Decorne, Jeremy Yallop, David Kaloper Mer\u0161injak"
   embed_path: /videos/embed/68a11315-f7ca-4c0e-a043-98008694671d
