@@ -2,11 +2,11 @@ let skill_tag
 difficulty =
   match difficulty with 
   | Some "beginner" ->
-    <div class="w-28 py-1 inline-block bg-white rounded-3xl border-2 border-teal-700 font-normal text-center text-teal-700"> Beginner  </div>
+    <div class="px-2 py-1 inline-block bg-transparent rounded-3xl border-2 border-teal-700 font-normal text-center text-teal-700"> Beginner  </div>
   | Some "intermediate" -> 
-    <div class="w-36 py-1 inline-block bg-white rounded-3xl border-2 border-black font-normal text-center text-default"> Intermediate </div>
+    <div class="px-2 py-1 inline-block bg-transparent rounded-3xl border-2 border-black font-normal text-center text-default"> Intermediate </div>
   | Some "advanced" -> 
-    <div class="w-28 py-1 inline-block bg-white rounded-3xl border-2 border-primary-700 font-normal text-center text-primary-700"> Advanced </div>
+    <div class="px-2 py-1 inline-block bg-transparent rounded-3xl border-2 border-primary-700 font-normal text-center text-primary-700"> Advanced </div>
   | None -> 
     <></> 
   | Some _ -> 
