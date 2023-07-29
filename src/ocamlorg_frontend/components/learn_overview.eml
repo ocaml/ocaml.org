@@ -5,5 +5,5 @@ let search_banner =
         ~name:"q"
         ~label:"Search inside the OCaml documentation"
         ~button_attrs:{|type="submit"|}
-        "w-1/2 mt-6" %>
+        "w-1/2 mt-6 focus-within:outline-none focus-within:border-none focus-within:ring-0" %>
   </div>
