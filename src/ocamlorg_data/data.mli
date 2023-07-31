@@ -264,7 +264,7 @@ end
 
 module Planet : sig
   module Source : sig
-    type t = { id : string option; name : string; url : string }
+    type t = { id : string option; name : string; url : string; tag : string }
   end
 
   type t = {
@@ -278,7 +278,6 @@ module Planet : sig
     preview_image : string option;
     featured : bool;
     body_html : string;
-    tags : string list;
   }
 
   val all_tags : string list

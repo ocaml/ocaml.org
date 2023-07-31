@@ -5,7 +5,7 @@ Layout.render
 ~canonical:(Url.blog ^ if planet_page = 1 then "" else "?p=" ^ string_of_int planet_page)
 ~active_top_nav_item:Header.Blog @@
 <div class="bg-default dark:bg-dark-default py-10">
-    <div class="container-fluid wide" x-data="{ tags: 'All' }">
+    <div class="container-fluid wide" x-data="{ tag: 'All' }">
         <h1 class="sr-only">OCaml Blog</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
