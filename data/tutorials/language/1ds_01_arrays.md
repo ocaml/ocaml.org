@@ -47,7 +47,7 @@ val even_numbers : int array = [|0; 2; 4; 6; 8|]
 
 ## Accessing Array Elements
 
-You can access individual elements of an array using the `.(index)` syntax, with the index of the element you want to access. The index starts from 0 and goes up to the size of the array minus one.  For example, to access the third element of an array `even_numbers`, you would write:
+You can access individual elements of an array using the `.(index)` syntax, with the index of the element you want to access. The index of the first element is 0, and the index of the last element is one less than the size of the array.  For example, to access the third element of an array `even_numbers`, you would write:
 
 ```ocaml
 # even_numbers.(2);;
