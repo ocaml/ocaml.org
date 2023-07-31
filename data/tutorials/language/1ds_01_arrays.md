@@ -153,4 +153,4 @@ This copies 2 elements of `even_numbers` starting at index `3` (this array slice
 
 ## Conclusion
 
-In this tutorial, we covered the basics of arrays in OCaml, including how to create and manipulate them, and some of the most useful functions and use cases. Please refer to the [standard library documentation](/api/Array.html) to browse the complete list of functions of the `Array` module.
+In this tutorial, we covered the basics of arrays in OCaml, including how to create and manipulate them, as well as some of the most useful functions and use cases. Please refer to the [standard library documentation](/api/Array.html) to browse the complete list of functions of the `Array` module.
