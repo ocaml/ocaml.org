@@ -63,7 +63,7 @@ To modify an element in an array, we simply assign a new value to it using the i
 - : unit = ()
 ```
 
-Note that this modification doesn’t return the modified array: the value returned by this operation is `unit`, `even_numbers` is modified in place in the current scope. Updating an array's content is a side effect.
+Note that this operation returns `unit`, not the modified array. `even_numbers` is modified in place as a side effect.
 
 ## The Standard Library `Array` Module
 
