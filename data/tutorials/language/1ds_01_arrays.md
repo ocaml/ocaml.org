@@ -71,7 +71,7 @@ OCaml provides several useful functions for working with arrays. Here are some o
 
 ### Length of an Array
 
-The `Array.length` function returns the size of an array. For example, to get the size of the array `even_numbers` created above:
+The `Array.length` function returns the size of an array:
 
 ```ocaml
 # Array.length even_numbers;;
