@@ -10,7 +10,7 @@ category: "Data Structures"
 
 ## Introduction
 
-In OCaml, arrays are collections of elements of the same type that are stored in contiguous memory locations. They are mutable, each value can be updated, but they have a fixed size; which set them apart from lists.
+In OCaml, arrays are collections of elements of one type. Unlike lists, arrays can be mutated by replacing their elements with other values of the same type, but cannot be resized. Arrays also allow efficient access to elements at any position.
 
 Despite these differences many of the functions readily available on arrays are similar to the ones available for lists, please refer to the [List tutorial](https://ocaml.org/docs/lists) and documentation for more details about these functions.
 
