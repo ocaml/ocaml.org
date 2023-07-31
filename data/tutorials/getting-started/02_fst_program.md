@@ -305,7 +305,7 @@ That's all! This is sufficient for Dune to build and execute the `minimo.ml` fil
 ```shell
 $ dune exec ./minimo.exe
 Entering directory '/home/cuihtlauac/caml/ocaml.org'
-Done: 87% (7/8, 1 left) (jobs: 1)My name is Minimo
+My name is Minimo
 ```
 
 Note that `minimo.exe` is not a file name. This is how Dune is told to compile the `minimo.ml` file using OCaml's _binary_ compiler, because it also has a second one: the _byte code_ compiler.
