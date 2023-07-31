@@ -87,6 +87,16 @@ The `Array.length` function returns the size of an array:
 0 0 0 0 0 - : unit = ()
 ```
 
+Iterating on arrays can also be made using `for` loops. Here is the same example using a loop:
+
+```ocaml
+# for i = 0 to Array.length zeroes - 1 do
+    print_int zeroes.(i);
+    print_string " "
+  done;;
+0 0 0 0 0 - : unit = ()
+```
+
 ### Map an Array
 
 The `Array.map` function creates a new array by applying a given function to each element of an array. For example, we can get an array containing the square of each number in the `even_numbers` array:
