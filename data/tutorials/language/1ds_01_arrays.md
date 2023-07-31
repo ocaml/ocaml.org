@@ -38,7 +38,7 @@ Alternatively, you can create an array using the `Array.make` function, which ta
 val zeroes : int array = [|0; 0; 0; 0; 0|]
 ```
 
-It is also possible to use `Array.init` to generate an array by applying a function to each index of the array, starting at 0. For example, the array containing the 5 first even numbers can be obtained by multiplying the indices by 2, such as:
+`Array.init` generates an array of a given length by applying a function to each index of the array, starting at 0. The following line of code creates an array containing the first 5 even numbers using a function which doubles its argument:
 
 ```ocaml
 # let even_numbers = Array.init 5 (fun i -> i * 2);;
