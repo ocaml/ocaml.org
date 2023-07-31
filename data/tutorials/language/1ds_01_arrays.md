@@ -104,7 +104,8 @@ To combine all the elements of an array into a single result, we can use the `Ar
 Here is the signature of `Array.fold_left`:
 
 ```ocaml
-val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b array -> 'a
+# Array.fold_left;;
+val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b array -> 'a = <fun>
 ```
 
 `fold_left f init a` computes `f (... (f(f init a.(0)) a.(1)) ...) a.(n-1)`
