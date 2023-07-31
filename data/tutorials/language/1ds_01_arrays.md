@@ -113,7 +113,8 @@ val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b array -> 'a = <fun>
 Similarly, we can use the `Array.fold_right` function, which switches the order of its arguments:
 
 ```ocaml
-val fold_right : ('b -> 'a -> 'a) -> 'b array -> 'a -> 'a
+# Array.fold_right;;
+val fold_right : ('b -> 'a -> 'a) -> 'b array -> 'a -> 'a = <fun>
 ```
 
 `fold_right f a init` computes `f a.(0) (f a.(1) ( ... (f a.(n-1) init) ...))`
