@@ -98,7 +98,7 @@ The `Array.map` function creates a new array by applying a given function to eac
 
 ### Folding an Array
 
-To combine all the elements of an array into a single result, we can use the `Array.fold_left` and `Array.fold_right` functions. These functions take a binary function, an initial accumulator value, and an array as arguments. The binary function takes two arguments: the current value of the accumulator and the current element of the array and returns a new accumulator value. Both functions traverse the array
+To combine all the elements of an array into a single result, we can use the `Array.fold_left` and `Array.fold_right` functions. These functions take a binary function, an initial accumulator value, and an array as arguments. The binary function takes two arguments: the accumulator's current value and the current element of the array, then returns a new accumulator value. Both functions traverse the array
  but in opposite directions. This is essentially the same as `List.fold_left` and `List.fold_right`.
 
 Here is the signature of `Array.fold_left`:
