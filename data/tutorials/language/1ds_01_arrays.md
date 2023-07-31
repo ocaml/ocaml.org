@@ -80,11 +80,11 @@ The `Array.length` function returns the size of an array. For example, to get th
 
 ### Iterate on an Array
 
-The `Array.iter` function applies a given function to each element of an array. For example, to print all the elements of the array `zeroes` created above, we can apply the `print_int` (as this is an `int array`) function to each element:
+`Array.iter` applies a function to each element of an array, one at a time. The given function must return `unit`, operating by side effect. To print all the elements of the array `zeroes` created above, we can apply `print_int` to each element:
 
 ```ocaml
 # Array.iter (fun x -> print_int x; print_string " ") zeroes;;
-1 2 42 4 5 - : unit = ()
+0 0 0 0 0 - : unit = ()
 ```
 
 ### Map an Array
