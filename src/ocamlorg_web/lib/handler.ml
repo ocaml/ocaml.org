@@ -208,9 +208,8 @@ let blog req =
   let filtred_items_by_tags =
     if filter = "all" then Data.Planet.all
     else
-      List.filter
-        (fun item -> List.mem filter item.Data.Planet.tags)
-        Data.Planet.all
+      Data.Planet.all
+      |> List.filter (fun (item : Data.Planet.t) -> filter = item.source.tag)
   in
   let page, number_of_pages, current_items =
     paginate ~req ~n:10

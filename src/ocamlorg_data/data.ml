@@ -76,8 +76,8 @@ module Planet = struct
   include Planet
 
   let all_tags =
-    "all"
-    :: List.sort_uniq compare (List.concat_map (fun item -> item.tags) all)
+    List.sort_uniq compare
+      (List.map (fun (item : Planet.t) -> item.source.tag) all)
 
   let featured = List.filter (fun x -> x.featured) all
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all

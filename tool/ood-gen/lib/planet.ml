@@ -1,5 +1,5 @@
 module Source = struct
-  type t = { id : string option; name : string; url : string }
+  type t = { id : string option; name : string; url : string; tag : string }
   [@@deriving yaml, show { with_path = false }]
 
   type sources = t list [@@deriving yaml]
@@ -34,11 +34,10 @@ type t = {
   preview_image : string option;
   featured : bool;
   body_html : string;
-  tags : string list;
 }
 [@@deriving
   stable_record ~version:metadata ~modify:[ featured; source ]
-    ~remove:[ slug; body_html; tags ],
+    ~remove:[ slug; body_html ],
     show { with_path = false }]
 
 let all_sources = Source.all ()
@@ -66,6 +65,7 @@ let decode (path, (head, body)) =
                 id = Some "ocamlorg";
                 name = "OCaml.org Blog";
                 url = "https://ocaml.org/blog";
+                tag = "all";
               }
             else failwith ("No source found for: " ^ path))
     | _ ->
@@ -74,10 +74,9 @@ let decode (path, (head, body)) =
          ^ " but there path is not long enough (should start with \
             data/SOURCE_NAME/...)")
   in
-  let tags = [ List.nth (String.split_on_char '/' path) 1 ] in
   metadata
   |> Result.map_error (fun (`Msg m) -> `Msg ("In " ^ path ^ ": " ^ m))
-  |> Result.map (of_metadata ~source ~body_html ~tags)
+  |> Result.map (of_metadata ~source ~body_html)
 
 let all () =
   Utils.map_files decode "planet/*/*.md"
@@ -94,7 +93,7 @@ let template () =
   Format.asprintf
     {|
 module Source = struct
-  type t = { id : string option; name : string; url : string }
+  type t = { id : string option; name : string; url : string; tag : string  }
 end
 
 type t =
@@ -108,7 +107,6 @@ type t =
   ; preview_image : string option
   ; featured : bool
   ; body_html : string
-  ;tags : string list;
   }
   
 let all = %a
@@ -234,7 +232,8 @@ module Scraper = struct
   let scrape () =
     let sources = Source.all () in
     sources
-    |> List.map (fun ({ id; url; name } : Source.t) : (string * River.source) ->
+    |> List.map
+         (fun ({ id; url; name; _ } : Source.t) : (string * River.source) ->
            (Option.get id, { name; url }))
     |> List.filter_map fetch_feed |> List.iter scrape_feed
 end
