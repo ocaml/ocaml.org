@@ -6,6 +6,7 @@ description: "Announcement of the deprecation of opam 1.2.0 in favour of 1.2.2"
 source:
   name: Opam blog
   url: ""
+  tag: "personnal blog"
 ---
 
 Opam 1.2.0 will be actively deprecated in favour of opam 1.2.2, which now becomes

@@ -6,6 +6,7 @@ description: "Presentation of the new opam 2.0 features"
 source:
   name: Opam blog
   url: ""
+  tag: "personnal blog"
 ---
 
 This blog will cover yet another aspect of the improvements opam 2.0 has over opam 1.2. I may be a little more technical than previous issues, as it covers a feature directed specifically at packagers and repository maintainers, and regarding the package definition format.

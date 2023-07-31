@@ -10,4 +10,5 @@ authors:
 source:
   name: "sancho.dev"
   url: https://sancho.dev/blog
+  tag: "personnal blog"
 ---

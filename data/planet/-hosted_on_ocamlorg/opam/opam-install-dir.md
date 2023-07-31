@@ -6,6 +6,7 @@ description: "Presentation of the new opam install <dir> feature introduced in o
 source:
   name: Opam blog
   url: ""
+  tag: "personnal blog"
 ---
 
 After the [opam build](../opam-build) feature was announced followed a lot of discussions, mainly having to do with its interface, and misleading name. The base features it offered, though, were still widely asked for:
