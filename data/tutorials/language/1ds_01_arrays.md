@@ -142,7 +142,7 @@ It sorts the provided array in place and in ascending order, according to the pr
 
 ## Copying Part of an Array into Another Array
 
-The `Array.blit` function is available to efficiently copy a portion of an array into another array. Similarly to the `array.(x) <- y`  modification instruction, this function modifies the destination in place and does not return the modified array, but returns `unit`. Let’s suppose you want to copy a part of `even_numbers` into `zeroes`:
+The `Array.blit` function efficiently copies a contiguous part of an array into an array. Similar to the `array.(x) <- y` operation, this function modifies the destination in place and returns `unit`, not the modified array. Suppose you wanted to copy a part of `even_numbers` into `zeroes`:
 
 ```ocaml
 # Array.blit even_numbers 3 zeroes 1 2;;
