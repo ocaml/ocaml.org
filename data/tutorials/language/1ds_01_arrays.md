@@ -31,7 +31,7 @@ To create an array in OCaml, you can use the `[| ...; ... |]` syntax, which allo
 - : int array = [|1; 2; 3; 4; 5|]
 ```
 
-Alternatively, you can create an array using the `Array.make` function, which takes two arguments: the length of the array and the initial value of each element. For example, to create an array of length 5 with all elements initialized to 0, you can write:
+Alternatively, you can create an array using the `Array.make` function, which takes two arguments: the length of the array and the initial value of each element. For example, to create an array of length 5 with all elements initialised to 0, you can write:
 
 ```ocaml
 # let zeroes = Array.make 5 0;;
