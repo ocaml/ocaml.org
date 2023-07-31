@@ -89,7 +89,7 @@ The `Array.length` function returns the size of an array:
 
 ### Map an Array
 
-The `Array.map` function applies a given function to each element of an array and returns a new array with the results. For example, to create a new array that contains the square of each element of the array `even_numbers` created above, we can apply the following square function `fun x -> x * x` to each element of the array:
+The `Array.map` function creates a new array by applying a given function to each element of an array. For example, we can get an array containing the square of each number in the `even_numbers` array:
 
 ```ocaml
 # Array.map (fun x -> x * x) even_numbers;;
