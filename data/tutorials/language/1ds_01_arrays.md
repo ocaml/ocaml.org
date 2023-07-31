@@ -142,16 +142,29 @@ It sorts the provided array in place and in ascending order, according to the pr
 
 ## Copying Part of an Array into Another Array
 
-The `Array.blit` function efficiently copies a contiguous part of an array into an array. Similar to the `array.(x) <- y` operation, this function modifies the destination in place and returns `unit`, not the modified array. Suppose you wanted to copy a part of `even_numbers` into `zeroes`:
+The `Array.blit` function efficiently copies a contiguous part of an array into an array. Similar to the `array.(x) <- y` operation, this function modifies the destination in place and returns `unit`, not the modified array. Suppose you wanted to copy a part of `ones` into `zeroes`:
 
 ```ocaml
-# Array.blit even_numbers 3 zeroes 1 2;;
+# let ones = Array.make 5 1;;
+val ones : int array = [|1; 1; 1; 1; 1|]
+# Array.blit ones 0 zeroes 1 2;;
 - : unit = ()
 # zeroes;;
-- : int array = [|0; 8; 42; 0; 0|]
+- : int array = [|0; 1; 1; 0; 0|]
 ```
 
-This copies 2 elements of `even_numbers` starting at index `3` (this array slice is `[| 6; 8 |]`) into `zeroes`, starting at index `1`. It is your responsibility to make sure that the two indices provided are valid in their respective arrays and that the number of elements to copy is within the bounds of each array.
+This copies 2 elements of `ones` starting at index `0` (this array slice is `[| 1; 1 |]`) into `zeroes`, starting at index `1`. It is your responsibility to make sure that the two indices provided are valid in their respective arrays and that the number of elements to copy is within the bounds of each array.
+
+We can also use this function to copy part of an array onto itself:
+
+```ocaml
+# Array.blit zeroes 1 zeroes 3 2;;
+- : unit = ()
+# zeroes;;
+- : int array = [|0; 1; 1; 1; 1|]
+```
+
+This copies 2 elements of `zeroes` starting at index `1` into the last part of `zeroes`, starting at index `3`.
 
 ## Conclusion
 
