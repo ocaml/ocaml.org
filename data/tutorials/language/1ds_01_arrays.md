@@ -153,7 +153,7 @@ val ones : int array = [|1; 1; 1; 1; 1|]
 - : int array = [|0; 1; 1; 0; 0|]
 ```
 
-This copies 2 elements of `ones` starting at index `0` (this array slice is `[| 1; 1 |]`) into `zeroes`, starting at index `1`. It is your responsibility to make sure that the two indices provided are valid in their respective arrays and that the number of elements to copy is within the bounds of each array.
+This copies two elements of `ones`, starting at index `0` (this array slice is `[| 1; 1 |]`) into `zeroes`, starting at index `1`. It is your responsibility to make sure that the two indices provided are valid in their respective arrays and that the number of elements to copy is within the bounds of each array.
 
 We can also use this function to copy part of an array onto itself:
 
@@ -164,7 +164,7 @@ We can also use this function to copy part of an array onto itself:
 - : int array = [|0; 1; 1; 1; 1|]
 ```
 
-This copies 2 elements of `zeroes` starting at index `1` into the last part of `zeroes`, starting at index `3`.
+This copies two elements of `zeroes`, starting at index `1` into the last part of `zeroes`, starting at index `3`.
 
 ## Conclusion
 
