@@ -6,6 +6,7 @@ description: "Presentation of the opam build command introduced in opam 2.0"
 source:
   name: Opam blog
   url: ""
+  tag: "personnal blog"
 ---
 
 > UPDATE: after discussions following this post, this feature was abandoned with

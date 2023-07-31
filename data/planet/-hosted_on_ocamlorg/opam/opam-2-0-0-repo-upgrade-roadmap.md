@@ -6,6 +6,7 @@ description: "opam respository upgrade and opam 2.0.0 roadmap"
 source:
   name: Opam blog
   url: ""
+  tag: "personnal blog"
 ---
 
 A few days ago, we released [opam 2.0.0~rc4](https://opam.ocaml.org/blog/opam-2-0-0-rc4/), and explained that this final release candidate was expected be promoted to 2.0.0, in sync with an upgrade to the [opam package repository](https://github.com/ocaml/opam-repository). So here are the details about this!

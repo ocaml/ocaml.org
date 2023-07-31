@@ -6,6 +6,7 @@ description: We are pleased that opam 2.1.5 has hit the road, since it contains 
 source:
   name: Opam blog
   url: ""
+  tag: "personnal blog"
 ---
 
 We are pleased that opam 2.1.5 has hit the road, since it contains a security fix since the local cache is considered trusted, and not all checksums are verified.

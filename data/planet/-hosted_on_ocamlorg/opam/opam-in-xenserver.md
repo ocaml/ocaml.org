@@ -6,6 +6,7 @@ description: "How and why OPAM is used at Xen."
 source:
   name: Opam blog
   url: ""
+  tag: "personnal blog"
 ---
 
 *This is a guest post from an OPAM user about how they use it.  If you would like to post

@@ -6,6 +6,7 @@ description: "Some tips on the new features introduced in opam 2.0"
 source:
   name: Opam blog
   url: ""
+  tag: "personnal blog"
 ---
 
 This blog post looks back on some of the improvements in opam 2.0, and gives
