@@ -16,20 +16,13 @@ module Process = struct
 
   let check_status cmd = function
     | Unix.WEXITED 0 -> ()
-    | Unix.WEXITED 1 ->
-        if Pull.is_pull () then
-          prerr_endline
-            "\n\
-             Pulling from opam repository was not possible. \n\
-             We will continue by building the package state using the existing \
-             local state of opam-repository.\n\
-             Some functionality might not work properly.\n"
-        else Fmt.failwith "%a %a" pp_cmd cmd pp_status (Unix.WEXITED 1)
     | status -> Fmt.failwith "%a %a" pp_cmd cmd pp_status status
 
   let exec cmd =
     let proc = Lwt_process.open_process_none cmd in
-    proc#status >|= check_status cmd
+    let open Lwt.Syntax in
+    let+ status = proc#status in
+    match status with Unix.WEXITED 0 -> Ok () | s -> Error (cmd, s)
 
   let pread cmd =
     let proc = Lwt_process.open_process_in cmd in
@@ -60,7 +53,7 @@ let last_commit () =
 
 let clone () =
   let open Lwt.Syntax in
-  let* () =
+  let* res =
     Process.exec
       ( "git",
         [|
@@ -70,14 +63,24 @@ let clone () =
           Fpath.to_string clone_path;
         |] )
   in
+  (match res with Ok () -> () | Error (c, s) -> Process.check_status c s);
   last_commit ()
 
 let pull () =
-  let () = Pull.pull := true in
   let open Lwt.Syntax in
-  let* () =
+  let* pul =
     Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin"; "master" ])
   in
+  (match pul with
+  | Ok () -> ()
+  | Error (_, Unix.WEXITED 1) ->
+      prerr_endline
+        "\n\
+         Pulling from opam repository was not possible. \n\
+         We will continue by building\n\
+         the package state using the existing local state of opam-repository.\n\
+         Some functionality might not work properly.\n"
+  | Error (c, s) -> Process.check_status c s);
   last_commit ()
 
 let fold_dir f acc directory =
