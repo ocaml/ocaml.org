@@ -120,11 +120,9 @@ val fold_right : ('b -> 'a -> 'a) -> 'b array -> 'a -> 'a
 These functions derive a single value from the whole array. For example, they can be used to find the maximum element of an array:
 
 ```ocaml
-# Array.fold_left max min_int even_numbers;;
+# Array.fold_left Int.max min_int even_numbers;;
 - : int = 42
 ```
-
-Where `max` is the maximum function defined on elements of type int.
 
 ### Sorting an Array
 
