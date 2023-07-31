@@ -28,7 +28,9 @@ Entering directory '/home/cuihtlauac/caml/ocaml.org/hello'
 Success: initialized project component named hello
 ```
 
-The project is stored in a directory named `hello`. The `tree` command lists the files and directories created. 
+(Please note: outputs might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam upgrade dune`.)
+
+The project is stored in a directory named `hello`. The `tree` command lists the files and directories created. It might be necessary to install `tree` if you don't see the following. Through Homebrew, for example, run `brew install tree`.
 
 ```shell
 $ cd hello
@@ -65,7 +67,7 @@ $ dune build
 Entering directory '/home/cuihtlauac/caml/ocaml.org'
 ```
 
-This launches the executable it defines:
+This launches the executable it creates:
 ```shell
 $ dune exec hello
 Entering directory '/home/cuihtlauac/caml/ocaml.org'
@@ -97,6 +99,8 @@ In addition to that, modules are also the mean of organising projects. Concerns 
 ```shell
 $ sed -i 's/print_endline/Printf.printf "%s!\\n"/g' bin/main.ml
 ```
+
+(Please note: this won't work on macOS, so instead run `echo 'Printf.printf "%s\n" "hello world!"')
 
 This replaces the function `print_endline` with the function `printf` from the `Printf` module in the standard library. Building and executing this modified version should produce almost the same output as before. Use `dune exec hello` to try it for yourself.
 
@@ -131,6 +135,8 @@ Then, inside the `utop` toplevel, it is possible to inspect our `Hello` module, 
 module Hello : sig val world : string end
 ```
 
+Now exit `utop` with `Ctrl-D` or enter `#quit;;` before going to the next section.
+
 ## Defining Module Interfaces
 
 What UTop's `#show` command displays is an API, the list of definitions provided by a module, which is called a _module interface_. In a similar way, module can be defined by `.ml` files. It is also possible to define module interfaces from files. Such files have a `.mli` extension and must share the same name part. 
@@ -142,9 +148,10 @@ Observe that only what is between `sig` and `end` needs to written in the interf
 
 Module interfaces are also used to create _private_ definitions. A module definition is private if it is not listed in its corresponding interface. If no interface file exists, everyting is public.
 
-Edit the `lib/hello.ml` file to add the `mundo` definition, as shown below:
+In your preferred editor, amend the `lib/hello.ml` file to add the `mundo` definition. Replace what's there with the following:
+
 ```ocaml
-let mundo = "¡Hola Mundo!"
+let mundo = "Hola Mundo!"
 let world = mundo
 ```
 
@@ -163,7 +170,7 @@ File "hello/bin/main.ml", line 1, characters 30-41:
 Error: Unbound value Hello.mundo
 ```
 
-This is because we haven't changed `hello.mli`. Since it does not list `mundo`, it is therefore private.
+This is because we haven't changed `lib/hello.mli`. Since it does not list `mundo`, it is therefore private.
 
 ## Installing and Using Modules from a Package
 
@@ -174,14 +181,14 @@ To illustrate this, let's turn our modest `hello` project into a web server usin
 $ opam install dream
 ```
 
-Next, call the framework in the `main.ml` file:
+Next, call the framework in the `bin/main.ml` file by changing the code to read:
 ```ocaml
 let () = Dream.(run (router [ get "/" (fun _ -> html Hello.world) ]))
 ```
 
 This is telling: “run a web server responding to `/` requests with `Hello.world` as if it was HTML content.” The `Dream.(` syntax stands for locally opening a module inside an expression.
 
-Finally, tell Dune it is going to need Dream to compile the project. Do this by just adding `dream` in the `library` stanza of the `bin/dune` file. Here's how:
+Finally, tell Dune it is going to need Dream to compile the project. Do this by just adding the last line below. This puts `dream` in the `library` stanza of the `bin/dune` file. 
 ```lisp 
 (executable
  (public_name hello)
@@ -195,6 +202,8 @@ $ dune exec hello
 20.07.23 13:14:07.801                       0
 20.07.23 13:14:07.801                       Type Ctrl+C to stop
 ```
+
+(Please note: if on macOS it's asking for a password, you can ignore it and type Ctrl+C to get back to the command prompt.)
 
 Then test from another:
 ```shell
@@ -211,7 +220,7 @@ Let's assume we'd like `hello` to display its output as if it was a list of stri
 $ opam install ppx_show
 ```
 
-Dune needs to be explained that we are using it. Edit the `lib/dune` file to look like this:
+Dune needs an explanation as to why we're using it, so edit the `lib/dune` file to look like this:
 ```lisp
 (library
  (name hello)
