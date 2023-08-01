@@ -32,6 +32,7 @@ Success: initialized project component named hello
 
 The project is stored in a directory named `hello`. The `tree` command lists the files and directories created. It might be necessary to install `tree` if you don't see the following. Through Homebrew, for example, run `brew install tree`.
 
+(If you get an error in Homebrew from this in macOS, it's likely an issue with the ARM64 process instead of Intel. Please refer to the [ARM64 Fix](link-to-doc) to remedy the ARM64 error.)
 ```shell
 $ cd hello
 $ tree
@@ -312,7 +313,11 @@ Note that `minimo.exe` is not a file name. This is how Dune is told to compile t
 
 ## Conclusion
 
-This tutorial was the third and last of the introduction series. Starting from here, you have enough to pick and choose among the other tutorials to follow your own learning path. However, if you're not yet familiar with functional programming, we strongly recommend you start with the [Lists tutorial](link_lists). Lists are such an important data structure in functional programming that it deserves to be among the first topics you master. If you're already familiar with lists, maps, and folds, and need to be productive as fast as possible, dive into the “Pro Setup” guide.
+This tutorial was the third and last of the introduction series. Starting from here, you have enough to pick and choose among the other tutorials to follow your own learning path.
+
+If you're not yet familiar with functional programming, we recommend you start with the [Lists tutorial](link_lists). Lists are such an important data structure in functional programming that they deserve to be among the first topics you master.
+
+If you're already familiar with lists, maps, and folds, and need to be productive as fast as possible, dive into the “Project Quickstart” guide.
 
 
 
