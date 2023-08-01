@@ -47,7 +47,6 @@ Learn_layout.overview_render
         "bg-[#0E2A49]"
         %>
   </div>
-
   <div class="grid md:grid-cols-2">
     <%s! Learn_components.left_tutorial_block ~title:"GUIDES" ~heading:"Practical-Minded Tutorials and Guides" 
             ~description:"How to solve real-world problems in OCaml" 
@@ -77,6 +76,9 @@ Learn_layout.overview_render
     <%s! Learn_components.left_books_content_block books ~title:"Recommended For Beginners" ~link:{href = Url.books; title = "See More Books"} %>
     <%s! Learn_components.right_books_content_block intermediate_books ~title:"For Intermediate Users" ~link:{href = Url.books; title = "See More Books"} %>
   </div>
+
+  <%s! Learn_components.lang_manual_banner %>
+
   <div class="container-fluid">
     <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
       <h3 class="font-bold">Papers</h3>
@@ -110,8 +112,4 @@ Learn_layout.overview_render
         <%s! Icons.chevron_right "h-5 w-5" %>
       </a>
     </div>
-  </div>
-
-  <div>
-  <%s! Learn_components.lang_manual_banner %>
   </div>

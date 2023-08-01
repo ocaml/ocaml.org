@@ -220,8 +220,7 @@ let lang_manual_banner =
           The OCaml compiler developers provide this resource to assist developers and learners in understanding capabilities, best practices, and exploring functionalities.</p>
         <a href="<%s Url.manual %>" class="block py-2 w-48 px-8 bg-default rounded-md items-center text-center text-primary-700 text-md font-medium leading-7 md:text-lg md:w-80">Take Me There</a>
       </div>
-    <div class="w-1/3 flex justify-end">
-      <img src="../img/home/ocaml_camel.png" alt="camel image" class="rounded-full h-72 w-72 object-cover">
-    </div> 
-  </div>
-  </a>
+      <div class="flex lg:w-1/3 lg:justify-end">
+        <img src="../img/home/ocaml_camel.png" alt="camel image" class="rounded-full h-40 w-40 md:h-52 md:w-52 lg:h-72 lg:w-72 object-cover">
+      </div> 
+    </div>
