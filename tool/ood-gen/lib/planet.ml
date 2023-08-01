@@ -365,7 +365,7 @@ module Scraper = struct
           if not (Sys.file_exists source_path) then Sys.mkdir source_path 0o775;
           let oc = open_out output_file in
           let content = River.content post in
-          let url = Uri.to_string url in
+          let url = String.trim (Uri.to_string url) in
           let preview_image = River.seo_image post in
           let description = River.meta_description post in
           let author = River.author post in
