@@ -34,7 +34,7 @@ utop #
 
 Press `Ctrl-D` (end of file) or enter `#quit;;` to exit `utop`.
 
-The OCaml code examples in this tutorial show the input needed at the hash prompt `#`, as displayed by `utop`, ending with double semicolumn `;;`. The `;;` let's OCaml know the expression is complete.
+The OCaml code examples in this tutorial show the input needed at the hash prompt `#`, as displayed by `utop`, ending with double semicolumn `;;`. The `;;` let's OCaml know the expression is complete. Code sample lines beginning with dollar sign `$`, like above, should be entered in an Unix terminal.
 
 Upon hitting `Enter`, OCaml runs the code. The following line shows the output. (For simplicity, anything but the user input and OCaml's output in `utop` is omitted in this tutorial.)
 
