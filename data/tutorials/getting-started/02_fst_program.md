@@ -14,7 +14,7 @@ This tutorial is the last part of the three-part series. Please ensure you have 
 
 In this tutorial, we start working with files containing OCaml source code and compiling them to produce excutable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture before extensively presenting topics in order to avoid getting lost in the details.
 
-In other words, breadth-first learning instead of depth-first learning. In the previous tutorial most commands were entered in Utop, in this one unless instructed differently, the commands should be entered in an Unix termial.
+In other words, breadth-first learning instead of depth-first learning. In the previous tutorial most commands were entered in Utop, in this one unless instructed differently, the commands should be entered in an Unix termial. Code samples lines starting with a dollar sign `$` are intented to be entered in a the terminal, while lines starting with a hash sign `#` are intended to be entered in Utop.
 
 ## Compiling OCaml Programs
 
@@ -28,11 +28,11 @@ Entering directory '/home/cuihtlauac/caml/ocaml.org/hello'
 Success: initialized project component named hello
 ```
 
-FIXME: outputs might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam upgrade dune`.
+Note: Throuout this tutorial, outputs generated Dune might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam update; opam upgrade dune` in a terminal.
 
 The project is stored in a directory named `hello`. The `tree` command lists the files and directories created. It might be necessary to install `tree` if you don't see the following. Through Homebrew, for example, run `brew install tree`.
 
-(If you get an error in Homebrew from this in macOS, it's likely an issue with the ARM64 process instead of Intel. Please refer to the [ARM64 Fix](link-to-doc) to remedy the ARM64 error.)
+Note: If you get an error in Homebrew from this in an Apple silicon macOS, it's likely an issue with the architecture switch from Intel to ARM. Please refer to the [ARM64 Fix](FIXME) to remedy the ARM64 error.
 ```shell
 $ cd hello
 $ tree
