@@ -6,11 +6,9 @@ description: >
 category: "getting-started"
 ---
 
-[TOC]
-
 ## Get Something Done
 
-This tutorial is the last part of the three-part series. Please ensure you have completed [“Installing OCaml”](/docs/up-and-running) and [`“A Tour of OCaml”](FIXME) before proceeding onto your first OCaml project. You will need your environment been set up as described in the ["Installing OCaml"](/docs/up-and-running).
+This tutorial is the last part of the three-part series. Please ensure you have completed [“Installing OCaml”](/docs/up-and-running) and [“A Tour of OCaml”](/docs/a-tour-of-ocaml) before proceeding onto your first OCaml project. You will need your environment been set up as described in the ["Installing OCaml"](/docs/up-and-running).
 
 In this tutorial, we start working with files containing OCaml source code and compiling them to produce excutable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture before extensively presenting topics in order to avoid getting lost in the details.
 
@@ -324,7 +322,7 @@ Note that `minimo.exe` is not a file name. This is how Dune is told to compile t
 
 This tutorial was the third and last of the introduction series. Starting from here, you have enough to pick and choose among the other tutorials to follow your own learning path.
 
-If you're not yet familiar with functional programming, we recommend you start with the [Lists tutorial](link_lists). Lists are such an important data structure in functional programming that they deserve to be among the first topics you master.
+If you're not yet familiar with functional programming, we recommend you start with the [Lists](/docs/lists) tutorial. Lists are such an important data structure in functional programming that they deserve to be among the first topics you master.
 
 If you're already familiar with lists, maps, and folds, and need to be productive as fast as possible, dive into the “Project Quickstart” guide.
 
