@@ -273,10 +273,10 @@
     --workspace
     %{workspace_root})))
  (rule
-  (target learn_overview.ml)
+  (target learn_components.ml)
   (action
    (run
     %{bin:dream_eml}
-    %{dep:learn_overview.eml}
+    %{dep:learn_components.eml}
     --workspace
     %{workspace_root}))))

@@ -3,21 +3,14 @@ let render_books books =
         <% books |> List.iter (fun (item : Data.Book.t) -> %>
         <div
             class="flex space-y-10 lg:space-y-0 lg:space-x-16 pb-10 lg:pb-20 border-b border-gray-200 mt-10 lg:mt-20 flex-col lg:flex-row">
-            <img src="<%s Ocamlorg_static.Media.url item.cover %>"
-                class="m-auto h-48 w-32 lg:w-64 lg:h-96 md:w-64 md:h-96 rounded-2xl border border-gray-200"
-                alt="">
+            <div class="flex flex-col gap-y-4">
+                <img src="<%s Ocamlorg_static.Media.url item.cover %>"
+                    class="m-4 h-48 w-32 lg:w-64 lg:h-96 md:w-64 md:h-96 rounded-2xl border border-gray-200"
+                    alt="">
+                <%s! Learn_components.skill_tag item.difficulty "mx-4 w-32 lg:w-64 md:w-64" %>
+            </div>
             <div class="flex-col flex-1">
                 <h4 class="font-bold mb-6"><%s item.title %></h4>
-                <% (match item.rating with | None -> () | Some rating ->  %>
-                <div class="flex space-x-1 mb-6 text-primary-600">
-                    <% List.init rating (fun _ -> ()) |> List.iter (fun () -> %>
-                    <%s! Icons.star_2 "h-6 w-6 text-yellow-300" %>
-                    <% ); %>
-                    <% List.init (5 - rating) (fun _ -> ()) |> List.iter (fun () -> %>
-                    <%s! Icons.star_2 "h-6 w-6 text-gray-300" %>
-                    <% ); %>
-                </div>
-                <% ); %>
                 <div class="font-semibold text-base mb-6 uppercase"><%s item.authors |> String.concat ", " %></div>
                 <div class="prose prose-orange mb-6"><%s! item.body_html %></div>
                 <% item.links |> List.iter (fun (link : Data.Book.link) -> %>
