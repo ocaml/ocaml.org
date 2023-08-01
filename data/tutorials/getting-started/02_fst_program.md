@@ -3,12 +3,12 @@ id: how-to-write-an-ocaml-program
 title: How to Write an OCaml Program
 description: >
   Get something real out of the damm French thing!
-category: "getting started"
+category: "Getting Started"
 ---
 
 ## Get Something Done
 
-This tutorial is the last part of the three-part series. Please ensure you have completed [“Installing OCaml”](/docs/up-and-running) and [“A Tour of OCaml”](/docs/a-tour-of-ocaml) before proceeding onto your first OCaml project. You will need your environment been set up as described in the ["Installing OCaml"](/docs/up-and-running).
+This tutorial is the last part of the three-part series. Please ensure you have completed [Installing OCaml](/docs/up-and-running) and [A Tour of OCaml](/docs/a-tour-of-ocaml) before proceeding onto your first OCaml project. You will need your environment been set up as described in the [Installing OCaml](/docs/up-and-running).
 
 In this tutorial, we start working with files containing OCaml source code and compiling them to produce excutable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture before extensively presenting topics in order to avoid getting lost in the details.
 
@@ -171,7 +171,7 @@ This is because we haven't changed `lib/hello.mli`. Since it does not list `mund
 
 ## Installing and Using Modules from a Package
 
-OCaml has an active community of open-source contributors. Most projects are avaiable using the opam package manager, which you installed in the "Install OCaml" tutorial. The following section shows how to install and use a package from opam's open-source repository.
+OCaml has an active community of open-source contributors. Most projects are avaiable using the opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows how to install and use a package from opam's open-source repository.
 
 To illustrate this, let's turn our modest `hello` project into a web server using [Anton Bachin](https://github.com/aantron)'s [Dream](https://aantron.github.io/dream/) web framework. First install the `dream` package with this command:
 ```shell

@@ -3,12 +3,12 @@ id: a-tour-of-ocaml
 title: A Tour of OCaml
 description: >
   Hop on the OCaml sightseeing bus. This absolute beginner tutorial will drive you through the marvels and wonders of OCaml. You'll have a sneak peek at everything that matters. Money back if you don't see OCaml's big five game.
-category: "getting started"
+category: "Getting Started"
 ---
 
 ## Sightseeing the Language
 
-Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described in the “Installing OCaml” tutorial. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [Your First OCaml Project](link-to-first-project) tutorial.
+Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described in the [Installing OCaml](/docs/up-and-running) tutorial. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [How to Write an OCaml Program](/docs/how-to-write-an-ocaml-program) tutorial.
 
 Let's walk through the basics of OCaml by trying out different elements in an interactive manner. We recommend that you execute the examples we provide, or slight variants of them, in your own environment to get the feel of coding in OCaml.
 
@@ -66,7 +66,7 @@ In OCaml, everything has a value and every value has a type. Here`50 * 50` is an
 - : bool = true
 ```
 
-OCaml has *type inference*. It automatically determines the type of an expression without much guidance from the programmer. Lists are the topic of a dedicated tutorial. For the time being, the following two expressions are both lists. The former contains integers, and the latter, strings.
+OCaml has *type inference*. It automatically determines the type of an expression without much guidance from the programmer. Lists are the topic of a [dedicated tutorial](/docs/lists). For the time being, the following two expressions are both lists. The former contains integers, and the latter, strings.
 ```ocaml
 # [1; 2; 3; 4];;
 - : int list = [1; 2; 3; 4]
@@ -747,4 +747,4 @@ OCaml has many features, and these may be its Big Five ones:
 
 To become a proficient OCaml developer, make sure to master them.
 
-Next tutorial: [“Your First OCaml Project."](link-to-doc) In this tutorial, OCaml was used interactively, and it shows how to write OCaml files, how to compile them, and how to kickstart a project.
+Next tutorial: [How to Write an OCaml Project](/docs/how-to-write-an-ocaml-project). In this tutorial, OCaml was used interactively, and it shows how to write OCaml files, how to compile them, and how to kickstart a project.
