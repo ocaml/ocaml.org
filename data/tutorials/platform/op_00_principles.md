@@ -10,15 +10,15 @@ category: "OCaml Platform"
 The OCaml Platform is driven by a set of guiding principles, designed to serve
 the community and advance the state of OCaml tooling.
 
-## (P1) Tools have good defaults, yet are customizable
+## (P1) Tools have good defaults, yet are customisable
 
 The OCaml Platform aims to lower entry barriers for newcomers.
 [Convention over configuration](https://en.wikipedia.org/wiki/Convention_over_configuration)
 reduces the number of decisions that developers are required to make. By having
 as few steps as possible to start coding, we ease the onboarding experience.
 
-While prioritizing ease of use and an out-of-the-box experience, tools should
-allow customization for power users, understanding that projects differ in their
+While prioritising ease of use and an out-of-the-box experience, tools should
+allow customisation for power users, understanding that projects differ in their
 requirements and that the Platform should be flexible enough to accommodate
 these varying needs.
 
@@ -30,7 +30,7 @@ should be seamless.
 
 We envision that the development workflows should be automated where possible,
 creating an experience where disruptions are the exception. When complete
-automation isn't practical, the end-to-end workflows should minimize user
+automation isn't practical, the end-to-end workflows should minimise user
 interactions.
 
 ## (P3) Workflows are simple, yet scalable
@@ -42,24 +42,24 @@ The tools should behave in the way that most people expect, and users should be
 able to form simple mental models of the workflows.
 
 Stateful tools are inherently more complex than stateless ones. Whenever
-possible, the tools should be stateless and use "configuration over commands",
+possible, the tools should be stateless and use "configuration over commands,"
 which suggests replacing states with a configuration-based approach.
 
-While prioritizing simplicity, the workflows should nonetheless scale to
-large-scale code bases. The same workflows should be usable in single-developer
-projects and industrial OCaml code bases. Performance is crucial for
+While prioritising simplicity, the workflows should nonetheless scale to
+large-scale codebases. The same workflows should be usable in single-developer
+projects and industrial OCaml codebases. Performance is crucial for
 scalability. As the codebase grows, the tools should still maintain their
 performance.
 
 ## (P4) Tools evolve rapidly, yet don't break projects
 
 The OCaml Platform has served as the backbone of OCaml developer experience for
-over a decade. It intends to continue doing so for the next many decades. The
+over a decade. It intends to continue doing so for many more decades. The
 OCaml Platform is designed as a collection of tools that follow a lifecycle.
 This design stems from the acknowledgment that there is a dual need for strong
 backward compatibility and the flexibility to rapidly evolve.
 
-We acknowledge that tools will emerge and become obsolete over time, and
+We acknowledge that tools will emerge and become obsolete over time;
 therefore, we place significant emphasis on designing metadata files independent
 from the tools, which will persist for a long time. These files should be
 versioned and the tools should aim to support as many versions as possible.
@@ -67,7 +67,7 @@ versioned and the tools should aim to support as many versions as possible.
 Incubated tools are only promoted to Active when they are mature, stable, and
 ready for mass adoption, aiming to foster a healthy competitive environment
 without risking community split. However, whenever disruption is inevitable,
-either in the interest of the improvement of a tool, or the replacement of a
+either in the interest of a tool's improvement or the replacement of a
 tool by another, the Platform should offer a smooth migration path for users.
 
 ## (P5) Tools are independent, yet unified
