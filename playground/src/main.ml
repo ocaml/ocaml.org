@@ -109,22 +109,38 @@ let handle_output (o : Toplevel_api.exec_result) =
 module Codec = struct
   let ( let+ ) = Result.bind
 
+  let replace ~find ~replace s =
+    Jstr.cuts ~sep:find s |> Jstr.concat ~sep:replace
+
   let from_window () =
-    let uri = Window.location G.window |> Uri.fragment in
-    match Uri.Params.find (Jstr.v "code") (Uri.Params.of_jstr uri) with
-    | Some jstr ->
-        Result.to_option
-        @@ let+ dec = Base64.decode jstr in
-           let+ code = Base64.data_utf_8_to_jstr dec in
-           Ok (Jstr.to_string code)
-    | None -> None
+    let uri = Window.location G.window in
+    (* Bypass double encoding (dbuenzli/brr/issues/50) *)
+    let fragment = Jv.get (Uri.to_jv uri) "hash" |> Jv.to_jstr in
+    let params = Uri.Params.of_jstr (fragment |> Jstr.slice ~start:1) in
+    let from_code jstr =
+      (* previously, '+' was not URL-encoded and thus became ' ' *)
+      let unspace = replace ~find:(Jstr.v " ") ~replace:(Jstr.v "+") jstr in
+      Result.to_option
+      @@ let+ dec = Base64.decode unspace in
+         let+ code = Base64.data_utf_8_to_jstr dec in
+         Ok (Jstr.to_string code)
+    in
+    let from_rawcode jstr = Some (Jstr.to_string jstr) in
+    List.find_map
+      (fun (k, f) -> Option.bind (Uri.Params.find (Jstr.v k) params) f)
+      [ ("code", from_code); ("rawcode", from_rawcode) ]
 
   let to_window s =
     let data = Base64.data_utf_8_of_jstr s in
     let+ bin = Base64.encode data in
+    let query = Uri.Params.of_assoc [ (Jstr.v "code", bin) ] in
     let uri = Window.location G.window in
-    let+ s = Uri.with_uri ~fragment:(Jstr.concat [ Jstr.v "code="; bin ]) uri in
-    Ok (Window.set_location G.window s)
+    (* Bypass double encoding (dbuenzli/brr/issues/50); consider that without
+       the bypass it would be impossible to place the string '%2B' (encoding of
+       '+') in the URI *)
+    Jv.set (Uri.to_jv uri) "hash" (Uri.Params.to_jv query);
+    Window.set_location G.window uri;
+    Ok ()
 end
 
 let setup () =
