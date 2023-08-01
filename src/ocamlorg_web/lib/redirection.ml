@@ -447,6 +447,7 @@ let from_v2 =
     ("/learn/tutorials/set.zh.html", Url.tutorial "sets");
     ("/learn/tutorials/streams.html", Url.tutorial "streams");
     ("/learn/tutorials/up_and_running.html", Url.tutorial "up-and-running");
+    (Url.tutorial "first-hour", Url.tutorial "a-tour-of-ocaml");
     ("/meetings/index.fr.html", Url.community);
     ("/meetings/index.html", Url.community);
     ("/meetings", Url.community);
