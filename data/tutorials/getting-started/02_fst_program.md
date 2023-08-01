@@ -3,7 +3,7 @@ id: how-to-write-an-ocaml-program
 title: How to Write an OCaml Program
 description: >
   Get something real out of the damm French thing!
-category: "getting-started"
+category: "getting started"
 ---
 
 ## Get Something Done
