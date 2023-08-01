@@ -1,5 +1,7 @@
 ---
-id: first-hour
+id: a-tour-of-ocaml```
+
+And we need a redirect from `/doc/first-hour` to `/doc/a-tour-of-ocaml`
 title: A Tour of OCaml
 description: >
   Hop on the OCaml sightseeing bus. This absolute beginner tutorial will drive you through the marvels and wonders of OCaml. You'll have a sneak peek at everything that matters. Money back if you don't see OCaml's big five game.
