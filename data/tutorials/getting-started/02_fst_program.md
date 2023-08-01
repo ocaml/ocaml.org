@@ -10,7 +10,7 @@ category: "getting-started"
 
 ## Get Something Done
 
-This tutorial is the last part of the three-part series. Please ensure you have completed [“Installing OCaml”](FIXME) and [`“A Tour of OCaml”](FIXME) before proceeding onto your first OCaml project. You will need your environment been set up as described in the ["Installing OCaml"](FIXME).
+This tutorial is the last part of the three-part series. Please ensure you have completed [“Installing OCaml”](/docs/up-and-running) and [`“A Tour of OCaml”](FIXME) before proceeding onto your first OCaml project. You will need your environment been set up as described in the ["Installing OCaml"](/docs/up-and-running).
 
 In this tutorial, we start working with files containing OCaml source code and compiling them to produce excutable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture before extensively presenting topics in order to avoid getting lost in the details.
 
@@ -143,7 +143,7 @@ What UTop's `#show` command displays is an API, the list of definitions provided
 $ echo 'val world : string' > lib/hello.mli
 ```
 
-Observe that only what is between `sig` and `end` has been written in the interface file `lib/hello.mli`. This is explained in the tutorial dedicated to [modules](FIXME).
+Observe that only what is between `sig` and `end` has been written in the interface file `lib/hello.mli`. This is explained in the tutorial dedicated to [modules](/docs/modules).
 
 Module interfaces are also used to create _private_ definitions. A module definition is private if it is not listed in its corresponding interface. If no interface file exists, everyting is public.
 
@@ -215,7 +215,7 @@ $ dune exec hello
 20.07.23 13:14:07.801                       Type Ctrl+C to stop
 ```
 
-(Please note: if on macOS it's asking for a password, you can ignore it and type Ctrl+C to get back to the command prompt.)
+Note: If on macOS a key icon is displayed, like when asking for a password, you can ignore it and type Ctrl+C to get back to the command prompt.
 
 Then test from another:
 ```shell
@@ -224,8 +224,6 @@ $ curl http://localhost:8080/
 ```
 
 ## Using the Preprocessor to Generate Code
-
-_FIXME: Shall we move this to another tutorial? Which one?_
 
 Let's assume we'd like `hello` to display its output as if it was a list of strings in UTop: `["hello"; "using"; "an"; "opam"; "library"]`. To do that, we need a function turning a `string list` into a `string`, adding brackets, spaces, and commas. Instead of defining it ourselves, let's generate it automatically with a package. We'll use [`ppx_show`](https://github.com/thierry-martinez/ppx_show), which was written by [Thierry Martinez.](https://github.com/thierry-martinez) Here is how to install it:
 ```shell
