@@ -3,7 +3,7 @@
  (public_name server)
  (package ocamlorg)
  (modules main)
- (libraries ocamlorg_web ocamlorg_package))
+ (libraries ocamlorg_web))
 
 (rule
  (alias run)

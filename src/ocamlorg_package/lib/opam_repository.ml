@@ -77,8 +77,8 @@ let pull () =
       prerr_endline
         "\n\
          Pulling from opam repository was not possible. \n\
-         We will continue by building\n\
-         the package state using the existing local state of opam-repository.\n\
+         We will continue by building the package state\n\
+         using the existing local state of opam-repository.\n\
          Some functionality might not work properly.\n"
   | Error (c, s) -> Process.check_status c s);
   last_commit ()
