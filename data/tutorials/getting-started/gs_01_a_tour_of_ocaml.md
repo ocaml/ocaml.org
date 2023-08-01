@@ -6,8 +6,6 @@ description: >
 category: "getting-started"
 ---
 
-[TOC]
-
 ## Sightseeing the Language
 
 Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described in the “Installing OCaml” tutorial. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [Your First OCaml Project](link-to-first-project) tutorial.
