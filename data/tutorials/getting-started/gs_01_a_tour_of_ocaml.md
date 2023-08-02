@@ -12,6 +12,24 @@ Before proceeding with this tutorial, please ensure you've installed OCaml and s
 
 Let's walk through the basics of OCaml by trying out different elements in an interactive manner. We recommend that you execute the examples we provide, or slight variants of them, in your own environment to get the feel of coding in OCaml.
 
+## Prerequisites and Goals
+
+This is a level zero tutorial. No OCaml or functional programming knowledge is required. As mentionned above, only having OCaml installed is needed. It is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
+
+The goal of this tutorial is to provide the following capabilities:
+- Use Utop to evaluate OCaml expressions interactively
+- Trigger evaluation of expressions, understand the output displayed, values and typing
+- Write definitions of values and functions
+- Write list literals, use basic list operation, mattern match on list values
+- Write simple float expressions without typing errors
+- Write and patch-match pair and tuples values
+- Define a variant types, create and pattern match on values
+- Define an immutable record type, create a values, access the fields
+- Raise and catch an exception
+- Return an error-as-data result, process it using pattern matching
+- Declare and update a mutable basic mutable values: references and arrays
+- Call functions defined in modules of the OCaml standar library
+
 ## Using an OCaml Toplevel: Chatting with OCaml
 
 An OCaml toplevel is a chat between the user and the OCaml system. The user writes OCaml sentences, and the system analyses and executes them, which is why it is also called a Read-Eval-Print-Loop (REPL). Several OCaml toplevels exist like `ocaml` and `utop`, but in this tutorial, we will use the `utop` command, which looks like this:

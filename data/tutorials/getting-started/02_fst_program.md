@@ -14,6 +14,18 @@ In this tutorial, we start working with files containing OCaml source code and c
 
 In other words, breadth-first learning instead of depth-first learning. In the previous tutorial most commands were entered in Utop, in this one unless instructed differently, the commands should be entered in an Unix termial. Code samples lines starting with a dollar sign `$` are intented to be entered in a the terminal, while lines starting with a hash sign `#` are intended to be entered in Utop.
 
+## Prerequisites and Goals
+
+The only prerequisites to this tutorial is the previous from the “Getting Started” series of tutorial [A Tour of OCaml](/docs/a-tour-of-ocaml) as well as the inherited requirements.
+
+Once you've completed this tutorial, you should be able to:
+- Create an OCaml project from scratch, using Dune or manually
+- Trigger prject compilation and execution using Dune
+- Delete files in an automatically created project without breaking everything
+- Split code in several files, use imported definitions
+- Make a definition private
+- Download, install and use a package from the open source repository
+
 ## Compiling OCaml Programs
 
 OCaml comes with both an interpreter and a compiler. In the previous tutorial, only the interpreter was used. This section gives a glimpse of how to use the compiler.
