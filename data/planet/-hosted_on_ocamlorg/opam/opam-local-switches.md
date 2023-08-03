@@ -6,7 +6,7 @@ description: "Presentation of the local switches feature introduced in opam 2.0"
 source:
   name: Opam blog
   url: ""
-  tag: "personnal blog"
+  tag: "open source projects"
 ---
 
 Among the areas we wanted to improve on for opam 2.0 was the handling of

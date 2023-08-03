@@ -6,7 +6,7 @@ description: "OPAM 1.2 and Travis CI"
 source:
   name: Opam blog
   url: ""
-  tag: "personnal blog"
+  tag: "open source projects"
 ---
 
 The [new pinning feature][pin] of OPAM 1.2 enables new interesting

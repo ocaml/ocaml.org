@@ -10,5 +10,5 @@ authors:
 source:
   name: "Stack Overflow Blog"
   url: https://stackoverflow.blog/
-  tag: "industrial blog"
+  tag: "open source projects"
 ---

@@ -6,7 +6,7 @@ description: "Proposal for a secure distribution of OCaml packages"
 source:
   name: Opam blog
   url: ""
-  tag: "personnal blog"
+  tag: "open source projects"
 ---
 
 > NOTE (September 2016): updated proposal from OCaml 2016 workshop is

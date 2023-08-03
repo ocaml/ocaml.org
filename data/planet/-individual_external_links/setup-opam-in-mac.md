@@ -9,5 +9,5 @@ authors:
 source:
   name: "Aryan Godara on Medium"
   url: https://medium.com/@aryangodara_19887
-  tag: "personnal blog"
+  tag: "open source projects"
 ---
