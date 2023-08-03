@@ -26,7 +26,7 @@ https://https://github.com/ocaml/ocaml.org/pull/43), and `origin` is
   ```sh
   $ git checkout staging
   $ git merge --squash <pr-branch>
-  $ git merge -m "<title of PR on GitHub> #<pr-num>"
+  $ git commit -m "<title of PR on GitHub> #<pr-num>"
   ```
 
 2. Set the commit message to:
