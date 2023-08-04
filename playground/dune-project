@@ -1,6 +1,6 @@
 (lang dune 3.0)
 
-(using directory-targets 0.1) 
+(using directory-targets 0.1)
 
 (name ocamlorg-playground)
 
@@ -35,7 +35,8 @@
  (depends
   (ocaml
    (>= 5.0.0))
-  brr
+  (brr
+   (>= 0.0.6))
   esbuild
   (js_of_ocaml
    (>= 5.0))
