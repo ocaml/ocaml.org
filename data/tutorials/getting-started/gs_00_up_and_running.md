@@ -419,7 +419,7 @@ When we change our program, we can type `dune build` again to make a new
 executable. To run the program, we can use:
 
 ```
-$ dune exec ./bin/main.exe
+$ dune exec ./_build/default/bin/main.exe
 Hello, World!
 ```
 
