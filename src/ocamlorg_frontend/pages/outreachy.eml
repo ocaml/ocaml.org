@@ -45,3 +45,6 @@ Layout.render
         <% ); %>
     </div>
 </div>
+<div>
+<%s! Learn_components.books_content_block Data.Book.featured %>
+</div>
