@@ -1,4 +1,5 @@
 let render (metadata : Data.Outreachy.t list)
+(videos : Data.Video.t list)
 = 
 Layout.render
 ~title:"OCaml Outreachy Internships"
@@ -9,6 +10,10 @@ Layout.render
         <h1 class="font-bold mb-6">OCaml Outreachy Internships</h1>
         <p>This is a record of all past OCaml Community <a href="https://www.outreachy.org/" target="_blank">Outreachy</a> Internship Projects.</p>
     </div>
+</div>
+
+<div>
+    <%s! Learn_components.video_block videos %>
 </div>
 
 <div class="py-12 bg-default dark:bg-dark-default">

@@ -69,3 +69,35 @@ latest_version
     <%s! install_card latest_version %>
     <%s! standard_lib_card %>
   </div>
+
+let video_title
+videos 
+=
+  <div class="flex flex-row gap-x-6">
+    <% videos |> List.iteri (fun index (item : Data.Video.t) -> if (index < 2) then ( %>  
+        <div class="flex flex-col">
+            <% (match item.embed with | None -> () | Some link -> %>
+            <div class="mt-2 h-32 w-36 md:w-56 md:h-40">
+            <iframe src="<%s link %>" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <% ); %>
+            <h4 class="h-16 w-56 mt-3 text-white text-lg font-normal leading-6"> <%s item.title %> </h4>
+            <p class="mt-3 text-white text-sm font-normal whitespace-normal max-w-xs"> <%s! item.description %></p>
+        </div>
+      <% ) else %> 
+    <% ); %>
+  </div>
+  
+
+let video_block 
+videos
+= 
+  <div class="w-full h-[42rem] bg-[#040113] md:w-1/2 md:pr-24">
+    <div class="pt-4 text-white text-sm text-left font-medium leading-7 tracking-widest"> Video </div>
+    <h2 class="mt-2 text-white text-2xl text-left font-normal leading-7"> Recommended Videos </h2>
+    <%s! video_title videos %>
+    <a href="https://watch.ocaml.org/" class="flex gap-4 mt-4 text-white text-lg font-bold inline-flex items-center underline leading-10"> 
+      See more videos
+      <%s! Icons.arrow_small_right "h-6 w-6" %>
+    </a>
+  </div>

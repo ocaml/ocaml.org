@@ -338,7 +338,7 @@ let problems req =
   Dream.html (Ocamlorg_frontend.problems ?difficulty_level filtered_problems)
 
 let installer req = Dream.redirect req Url.github_installer
-let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Data.Outreachy.all)
+let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Data.Outreachy.all Data.Video.all)
 
 type package_kind = Package | Universe
 
