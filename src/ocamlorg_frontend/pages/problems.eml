@@ -112,3 +112,12 @@ Learn_layout.render
     <div class="border-t border-gray-200 my-12"></div>
     <% ); %>
   </div>
+  <div>
+    <% problems |> List.iteri (fun index (problem : Data.Problem.t) -> %>
+        <% if index < 2 then ( %>
+          <%s! Learn_components.exercise_card problem.title problem.statement problem.difficulty "bg-learn-area-light-blue" %>
+        <% ) else ( %>
+          <div></div>
+        <% ) %>
+    <% ); %>
+  <div>

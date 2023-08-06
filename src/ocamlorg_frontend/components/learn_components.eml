@@ -69,3 +69,21 @@ latest_version
     <%s! install_card latest_version %>
     <%s! standard_lib_card %>
   </div>
+
+let exercise_card 
+title
+statement
+difficulty
+class_ 
+= 
+  let difficulty_str =
+    match difficulty with
+    | `Beginner -> Some "Beginner"
+    | `Intermediate -> Some "Intermediate"
+    | `Advanced -> Some "Advanced"
+  in
+  <div class="<%s class_ %> h-40 w-64 p-2">
+    <h3 class="text-default text-base font-bold leading-7"> <%s title %> </h3>
+    <p class="text-gray-700 text-base font-normal leading-7"> <%s statement %> </p>
+    <% skill_tag difficulty_str  %>
+  </div>
