@@ -24,7 +24,6 @@ Learn_layout.render
         <img src="<%s Ocamlorg_static.Asset.url "img/learn/learn-get-started.svg" %>" class="w-full" alt="Get Started background">
       </div>
     </div>
-
     <div class="relative flex-1 bg-gradient-to-br from-purple-400 to-purple-700 rounded-xl text-white md:max-h-96 overflow-hidden">
       <div class="p-6 xl:p-8 h-full xl:h-auto flex flex-col">
         <h2 class="font-bold mb-2">Solve Exercises</h2>
@@ -52,6 +51,9 @@ Learn_layout.render
         <img src="<%s Ocamlorg_static.Asset.url "img/learn/learn-language.svg" %>" class="w-full" alt="Manual background">
       </div>
     </div>
+  </div>
+  <div class="w-full">
+    <%s! Learn_components.api_card_block %>
   </div>
   <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
     <h3 class="font-bold">Papers</h3>
@@ -116,8 +118,4 @@ Learn_layout.render
       <span>See all Books</span>
       <%s! Icons.chevron_right "h-5 w-5" %>
     </a>
-  </div>
-
-  <div class="">
-  <%s! Learn_overview.install_card %>
   </div>
