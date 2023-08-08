@@ -162,7 +162,7 @@ At this point all that's left to do is code our modules, types and methods.
 
 ## Writing Test
 Tests are a great way to verify our code is working as we expect it to. It also helps maintain a standard as we continue updating our code. Writing Unit tests is definitely important.
-In our project, we are using the [`Alcotest`](https://opam.ocaml.org/packages/alcotest/) library to conduct our tests. This is an awesome library and many thanks to [Thomas Gazagnaire](https://fr.linkedin.com/in/tgazagna) for creating this beatiful package and the whole OCaml Opensource community for maintaining.
+In our project, we are using the [`Alcotest`](https://opam.ocaml.org/packages/alcotest/) library to conduct our tests. This is an awesome library and many thanks to [Craig Ferguson](https://www.craigfe.io/) for creating this beatiful package and the whole OCaml Opensource community for maintaining.
 
 Using Alcotest, we can test different parts of our code and even the different functions we have in our code. For our library we wrote the following test:
 
