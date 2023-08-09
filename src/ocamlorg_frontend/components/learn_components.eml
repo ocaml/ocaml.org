@@ -50,7 +50,7 @@ let install_card
       </div>
         <p class="mt-3 text-default text-md font-normal leading-7">
           Effortlessly download, install, and set up OCaml! </p>
-      <a href="<%s Url.install %>" class="mt-4 flex btn btn-md px-2 w-48 h-11 bg-learn-area-orange text-white font-normal">
+      <a href="<%s Url.install %>" class="mt-4 flex btn btn-md px-2 w-48 bg-learn-area-orange text-white font-normal">
         <span>Install OCaml</span>
         <%s! Icons.chevron_right "h-5 w-5" %>
       </a>
