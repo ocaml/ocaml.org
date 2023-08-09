@@ -42,10 +42,9 @@ You can run it with `dune exec bin/main.exe` or `dune exec my-app`.
 
 ## Running Tests
 
-
 > **TL;DR**
 > 
-> Add a `test` stanza in your `dune` file and run the tests with `dune build @runtest`.
+> Add a `test` stanza in your `dune` file and run the tests with `dune test`.
 
 Tests are created using Dune's `test` stanza. The `test` stanza is a simple convenience wrapper that will create an executable and add it to the list of tests of the `@runtest` target.
 
@@ -63,7 +62,7 @@ with a module `dummy_test.ml`:
 let () = exit 1
 ```
 
-Running `dune build @runtest` will fail with the following output:
+Running `dune test` will fail with the following output:
 
 ```
   dummy_test alias src/ocamlorg_web/test/runtest (exit 1)
@@ -101,7 +100,7 @@ let () =
   Alcotest.run "Dummy" [ "Greeting", suite ]
 ```
 
-If we run `dune build @runtest` again, the test should be successful and output the following:
+If we run `dune test` again, the test should be successful and output the following:
 
 
 ```
