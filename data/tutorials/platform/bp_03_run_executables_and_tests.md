@@ -62,7 +62,7 @@ with a module `dummy_test.ml`:
 let () = exit 1
 ```
 
-Running `dune runtest` will fail with the following output:
+Running `dune test` will fail with the following output:
 
 ```
   dummy_test alias src/ocamlorg_web/test/runtest (exit 1)
@@ -100,7 +100,7 @@ let () =
   Alcotest.run "Dummy" [ "Greeting", suite ]
 ```
 
-If we run `dune runtest` again, the test should be successful and output the following:
+If we run `dune test` again, the test should be successful and output the following:
 
 
 ```
