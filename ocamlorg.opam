@@ -31,13 +31,13 @@ depends: [
   "fpath"
   "fmt"
   "logs"
-  "omd" {= "2.0.0~alpha3"}
+  "omd" {>= "2.0.0~alpha4"}
   "opam-format"
   "timedesc" {>= "1.1.1"}
   "yojson"
   "lwt"
   "tailwindcss"
-  "hilite"
+  "hilite" {>= "0.3.0"}
   "river"
   "syndic"
   "alcotest" {with-test}
@@ -80,6 +80,5 @@ build: [
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
   ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#7ef5bebbf48958370051b2368a4dd57b69627cf6"]
-  ["hilite.dev" "git+https://github.com/tmattio/hilite#019d8a94d1981af19ca8d72e3d0bfde9dae6b284"]
   ["olinkcheck.~dev" "git+https://github.com/tarides/olinkcheck"]
 ]
