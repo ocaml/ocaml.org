@@ -46,14 +46,15 @@
   fmt
   logs
   (omd
-   (= "2.0.0~alpha3"))
+   (>= "2.0.0~alpha4"))
   opam-format
   (timedesc
    (>= 1.1.1))
   yojson
   lwt
   tailwindcss
-  hilite
+  (hilite
+   (>= 0.3.0))
   river
   syndic
   (alcotest :with-test)
