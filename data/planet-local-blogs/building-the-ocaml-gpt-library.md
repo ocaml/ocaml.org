@@ -1,27 +1,24 @@
 ---
-title: 'Building the Ocaml GPT library'
-description: 'In this tutorial we will explore the process I went through to build my first ocaml library.'
-date: 2023-08-07T06:32:00:00
+title: 'Building the OCaml GPT library'
+description: 'In this tutorial, we will explore the process I went through to build my first OCaml library.'
+date: 2023-08-07T06:32:00-00:00
 preview_image:
 featured:
-url: https://github.com/PizieDust/ocaml-gpt
 authors:
 - Pizie Dust
 source:
 ---
 
-# Building the Ocaml GPT library
-
 ## Introduction
-In the world today, software development often demands efficient management of storage devices. One of the key players in this arena is the GUID Partitioning Table (GPT). In this tutorial, we'll go over the steps of how the `ocaml-gpt` library was developed and what this means for the Ocaml ecosystem especially in the context of the Mirage operating system which is lacking in persistent storage capabilities. Through this `ocaml-gpt` library, developers will be able to seamlessly manage partitions in their block devices and disk images enabling enhanced control and reliability in storage management. 
+In the world today, software development often demands efficient management of storage devices. One of the key players in this arena is the GUID Partitioning Table (GPT). In this tutorial, we'll go over the steps of how the [`ocaml-gpt`](https://github.com/PizieDust/ocaml-gpt) library was developed and what this means for the OCaml ecosystem, especially in the context of the Mirage operating system which is lacking in persistent storage capabilities. Through this `ocaml-gpt` library, developers will be able to seamlessly manage partitions in their block devices and disk images enabling enhanced control and reliability in storage management. 
 
 ## Background Research
-Before diving into the technical details, let's understand the significance of GPT. The GUID Partitioning Table is a modern replacement for the older Master Boot Record (MBR) partitioning scheme. GPT offers advantages like support for larger disk sizes (up to 10 Billion TB), better data integrity, and the flexibility to accommodate more partitions (up to 128). Understanding the principles of GPT sets the stage for comprehending how the ocaml-gpt library simplifies its usage. Most of the information and the specifications on GPT were gotten from this wikipedia article [GUID Partition Table](https://en.wikipedia.org/wiki/GUID_Partition_Table). This article contains a lot of information specifically
+Before diving into the technical details, let's understand the significance of GPT. The GUID Partitioning Table is a modern replacement for the older Master Boot Record (MBR) partitioning scheme. GPT offers advantages like support for larger disk sizes (up to 10 Billion TB), better data integrity, and the flexibility to accommodate more partitions (up to 128). Understanding the principles of GPT sets the stage for comprehending how the `ocaml-gpt` library simplifies its usage. Most of the information and the specifications on GPT were gotten from this Wikipedia article [GUID Partition Table](https://en.wikipedia.org/wiki/GUID_Partition_Table). This article contains a lot of information specifically
 
 ## Welcome to the World of Dune
 [Dune](dune.build) is a build system for OCaml projects. In other words, `dune` helps us setup a skeleton project we can use to build our library. It can be used to build executables, libraries, run tests, and much more which is just perfect for our use case. `Dune` is absolutely awesome.
 
-So let's dive in by installing `dune` using the OCaml Package Manager, [OPAM](https://opam.ocaml.org/) which is like OCaml's version of `pip` for Python or `Composer` for PHP:
+So let's dive in by installing `dune` using the OCaml Package Manager, [opam](https://opam.ocaml.org/) which is like OCaml's version of `pip` for Python or `Composer` for PHP:
 
 ```sh
 opam install dune
@@ -73,7 +70,7 @@ Our project folder should look like this:
 
 4 directories, 8 files
 ```
-Here, we can edit the `dune-project` file to specify some information about our project such as the Author's name, our package name, license, dependencies etc. Irronically, `dune-project` is `kebab-case`.
+Here, we can edit the `dune-project` file to specify some information about our project such as the Author's name, package name, license, dependencies etc. Ironically, `dune-project` is `kebab-case`.
 So a quick breakdown of the different directories:
 - The `bin` directory is where we can keep our executables and binaries.
 - The `lib` directory is where we can keep our library files and main code.
@@ -84,13 +81,13 @@ For our project, we are using the following dependencies:
 - `dune` (build system)
 - `uuidm` (library for UUID manipulation)
 - `checkseum` (library for checksum calculations)
-- `ocaml-cstruct` (library for working with C-like structures)
+- `OCaml-cstruct` (library for working with C-like structures)
 - `cmdliner` (librrary for )
 
 ## Breaking down the Modules
-If you read the `GPT` specification on the Wikipedia article, you will notice that the GPT header has a certain format to be followed. 
+If you read the `GPT` specification in the Wikipedia article, you will notice that the GPT header has a certain format to be followed. 
 #### GPT header format
-Below is snippet from the wikipedia article detailing the different components that make up the GPT header along with the various offsets, lengths and content.
+Below is a snippet from the Wikipedia article detailing the different components that make up the GPT header along with the various offsets, lengths and content.
 ```
 |   Offset  	|  Length  	|                                                                 Contents                                                                	|
 |:---------:	|:--------:	|:---------------------------------------------------------------------------------------------------------------------------------------:	|
@@ -113,27 +110,22 @@ Below is snippet from the wikipedia article detailing the different components t
 Using this, we can abstract our library into different modules, one module for our partitions and the other module for the header itself. 
 
 #### Partition Module:
-Partitions in the GPT header contain fields which we can organize as an OCaml record. This record encapsulates essential attributes of a partition entry. The fields we will be working with are:
+Partitions in the GPT header contain fields that we can organize as an OCaml record. This record encapsulates essential attributes of a partition entry. The fields we will be working with are:
 
-- `type_guid`: This field stores the UUID (Universally Unique Identifier) that indicates the type of the partition. It provides the information about the purpose and format of the partition.
-
+- `type_guid`: This field stores the UUID (Universally Unique Identifier) that indicates the type of the partition. It provides information about the purpose and format of the partition.
 - `partition_guid`: This field holds the UUID that uniquely identifies the partition. This identifier is unique within the context of the entire GPT table and helps distinguish one partition from another.
-
 - `starting_lba`: This field is of type `int64` and represents the starting logical block address (LBA) of the partition. LBAs are used to locate data blocks on the storage device.
-
 - `ending_lba`: This field is also of type `int64` and signifies the ending LBA of the partition. It marks the last block address occupied by the partition. Using the `starting_lba` and the `ending_lba` we can determine the size of the partition.
-
 - `attributes`: This field is an `int64` that stores partition-specific attributes. These attributes provide additional information about the partition, such as whether it's bootable or whether it's required by the system.
-
 - `name`: The name of the partition, represented as a `string`. This field stores a descriptive label for the partition, making it more user-friendly.
 
 When combined, these fields represent a partition entry in our GPT table. At this point, we now have to think of the methods in our module, namely for creating and parsing our partition entries. In our module we have functions for this:
 - `make`: This function is used to create our partition entry. The output is a record of the different fields that make up a partition entry.
 - `marshal`: We take a Cstruct record of our partition and convert it into a binary before, which can then be written unto a disk.
-- `unmarshal`: The reverse of marshalling where we take a binary buffer and extract a Cstruct record of it's representation.
+- `unmarshal`: The reverse of marshaling where we take a binary buffer and extract a Cstruct record of it's representation.
 
 #### GPT module
-This module defines a record type which represents the structure of the GPT header itself. Below is an explanation of the different fields and methods in this module:
+This module defines a record type that represents the structure of the GPT header itself. Below is an explanation of the different fields and methods in this module:
 
 - `signature`: A string that represents the GPT header signature, which is basically just `"EFI PART"`.
 - `revision`: An integer that signifies the revision of the GPT standard. In most cases, it's set to `0x010000`.
@@ -154,24 +146,24 @@ This module defines a record type which represents the structure of the GPT head
 With our fields, we can now define the different methods to compute our GPT header:
 - `calculate_header_crc32`: Calculates the CRC32 checksum for the GPT header.
 - `calculate_partition_crc32`: Calculates the CRC32 checksum for the list of partition entries.
-- `make`: Constructs a GPT header based on the provided list of partition entries.
+- `make`: Construct a GPT header based on the provided list of partition entries.
 - `unmarshal`: Parses the binary buffer to create a GPT header record.
 - `marshal`: Fills a binary buffer with the values from the GPT header record.
 
-At this point all that's left to do is code our modules, types and methods.
+At this point, all that's left to do is code our modules, types and methods.
 
 ## Writing Test
 Tests are a great way to verify our code is working as we expect it to. It also helps maintain a standard as we continue updating our code. Writing Unit tests is definitely important.
-In our project, we are using the [`Alcotest`](https://opam.ocaml.org/packages/alcotest/) library to conduct our tests. This is an awesome library and many thanks to [Craig Ferguson](https://www.craigfe.io/) for creating this beatiful package and the whole OCaml Opensource community for maintaining.
+In our project, we are using the [`Alcotest`](https://ocaml.org/p/alcotest/latest) library to conduct our tests. This is an awesome library and many thanks to [Craig Ferguson](https://www.craigfe.io/) for creating this beautiful package and the whole OCaml Opensource community for maintaining it.
 
-Using Alcotest, we can test different parts of our code and even the different functions we have in our code. For our library we wrote the following test:
+Using Alcotest, we can test different parts of our code and even the different functions we have in our code. For our library, we wrote the following test:
 
 - `test_make_partition`: Tests the creation of a partition using the `Partition.make` function.
 - `test_make_partition_wrong_type_guid`: Tests the scenario where an invalid GUID type is provided to create a partition.
 - `test_make_gpt_no_partitions`: Tests the creation of a GPT table with no partitions.
 - `test_make_gpt_too_many_partitions`: Tests the case when trying to create a GPT table with more than the allowed number of partitions.
-- `test_make_gpt_overlapping_partitions`: Tests creating a GPT table with overlapping partitions, which should result in an error.
-- `test_make_gpt_sorted_partitions`: Tests creating a GPT table with properly sorted partitions and verifying if the generated tables are equal.
+- `test_make_gpt_overlapping_partitions`: Tests the creation of a GPT table with overlapping partitions, which should result in an error.
+- `test_make_gpt_sorted_partitions`: Tests the creation of a GPT table with properly sorted partitions and verified that the generated tables are equal.
 
 After writing our test, we can run them using:
 
@@ -179,10 +171,10 @@ After writing our test, we can run them using:
 dune runtest
 ```
 
-For our case, our tests are running correctly producing the output:
+In our case, our tests are running correctly producing the output:
 
 ```
-Testing `Ocaml Gpt'.
+Testing `OCaml GPT'.
 This run has ID `ZZG9RBT8'.
 
   [OK]          Test GPT Partitions          0   correct-partition.
@@ -192,13 +184,13 @@ This run has ID `ZZG9RBT8'.
   [OK]          Test GPT Header              2   gpt-overlapping-partitions.
   [OK]          Test GPT Header              3   gpt-sorted-partitions.
 
-Full test results in `~/xxxx/xxxx/ocaml_gpt/_build/default/test/_build/_tests/Ocaml Gpt'.
+Full test results in `~/xxxx/xxxx/ocaml_gpt/_build/default/test/_build/_tests/OCaml GPT'.
 Test Successful in 0.002s. 6 tests run.
 ```
 
 ## A few Executables
 
-After building our library, we can also go a step further by creating tools which we can use to manipulate real block devices using our library. Tools such as listing the GPT header in a disk, resizing a partition, creating a partition etc.
+After building our library, we can also go a step further by creating tools that we can use to manipulate real block devices using our library. Tools such as listing the GPT header in a disk, resizing a partition, creating a partition etc.
 
 I want to give a special thanks to [Daniel Bünzli](https://github.com/dbuenzli) for creating the `Cmdliner` package which allows the declarative definition of command line interfaces for OCaml. Using this package, we can build a nice command line interface for our executables.
 
@@ -209,13 +201,13 @@ After creating our executable, we can run it with:
 ```
 dune exec -- bin/gpt_inspect.exe disk.img 
 ```
-where disk.img is the disk or block device
+where `disk.img` is the disk or block device
 
 ## The Future
-We can definitely build more tools for this library and especially how we can integrate it in the larger ecosystem of Mirage. I believe this library brings us one step closer to having persistent storage in Mirage Unikernels. 
+We can definitely build more tools for this library and especially how we can integrate it into the larger ecosystem of Mirage. I believe this library brings us one step closer to having persistent storage in Mirage Unikernels. 
 
-This was my first time building a package in OCaml and the experience is definitely worth is. 
+This was my first time building a package in OCaml and the experience is definitely worth it. 
 
-A special big thanks to my mentor [Reynir Björnsson](https://robur.coop/) who is always available when I hit blocking issues. Thank you Reynir.
+A special big thanks to my mentor [Reynir Björnsson](https://robur.coop/) who is always available when I hit blocking issues. Thank you, Reynir.
 
 
