@@ -129,31 +129,34 @@ class_
 let book_tile 
 books
 = 
-  <div class="flex flex-row gap-x-6">
+  <div class="flex flex-col gap-6 sm:flex-row">
     <% books |> List.rev |> List.iteri (fun index (item : Data.Book.t) -> if (index < 2) then ( %>  
         <div class="flex flex-col">
             <img src="<%s Ocamlorg_static.Media.url item.cover %>" 
-                    class="mt-2 h-48 w-32 md:w-56 md:h-80 border border-gray-200"
+                    class="mt-2 w-56 h-80 border border-gray-200 object-contain"
                     alt="">
             <%s! skill_tag item.difficulty "mt-2 grow-0 w-28" %>
-            <h4 class="h-16 w-56 mt-3 text-gray-700 text-lg font-normal leading-6"> <%s item.title %> </h4>
-            <p class="mt-3 text-gray-700 text-sm font-normal whitespace-normal max-w-xs">Suitable for complete beginners to programming</p>
+            <h4 class="mt-1 w-56 text-gray-700 text-lg font-normal leading-6"> <%s item.title %> </h4>
+            <p class="mt-1 text-gray-700 text-sm font-normal whitespace-normal max-w-xs">Suitable for complete beginners to programming</p>
         </div>
       <% ) else %> 
     <% ); %>
   </div>
 
-
+type link = {href : string; name : string}
 
 let books_content_block 
 books
+~(link : link )
 = 
-  <div class="w-full h-[42rem] bg-default md:w-1/2 md:pl-28">
-    <div class="pt-4 text-default text-sm text-left font-medium leading-7 tracking-widest"> Books </div>
-    <h2 class="mt-2 text-default text-2xl text-left font-normal leading-7"> Recommended Books </h2>
-    <%s! book_tile books %>
-    <a href="<%s! Url.books %>" class="flex gap-4 mt-4 text-primary-700 text-lg font-bold inline-flex items-center underline leading-10"> 
-      See all books
-      <%s! Icons.arrow_small_right "h-6 w-6" %>
-    </a>
+  <div class="w-full bg-default lg:w-1/2">
+    <div class="w-80 sm:w-full md:w-full mx-auto">
+      <div class="pt-4 text-default text-sm text-left font-medium leading-7 tracking-widest"> BOOK </div>
+      <h2 class="mt-2 text-default text-2xl text-left font-normal leading-7"> Recommended Books </h2>
+      <%s! book_tile books %>
+      <a href="<%s link.href %>" class="flex gap-4 mt-4 text-primary-700 text-lg font-bold inline-flex items-center underline leading-10"> 
+        <%s link.name %>
+        <%s! Icons.arrow_small_right "h-6 w-6" %>
+      </a>
+    </div>
   </div>
