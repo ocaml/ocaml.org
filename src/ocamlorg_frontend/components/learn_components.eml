@@ -31,12 +31,12 @@ latest_version
     <div class="hidden lg:flex">
       <%s! download_icon "w-24 h-24 mt-8 flex-shrink-0" %>
     </div>
-    <div class="flex flex-col ml-1 flex-shrink gap-x-4">
+    <div class="flex flex-col ml-1 gap-x-4">
       <div class="flex flex-row justify-between mr-2">
         <h3 class="text-default text-2xl font-normal leading-7">Download </h3>
         <span class="rounded-sm px-2 py-1 text-xs text-center text-white text-base font-normal bg-blue-700 hidden sm:flex"> Version <%s latest_version %> </span>
       </div>
-        <p class="mt-3 text-default text-md font-normal leading-7">
+        <p class="mt-3 flex-grow text-default text-md font-normal leading-7">
           Effortlessly download, install, and set up OCaml! </p>
       <div href="<%s Url.install %>" class="mt-4 flex btn btn-md px-2 w-48 bg-learn-area-orange text-white font-normal">
         <span>Install OCaml</span>
@@ -51,9 +51,9 @@ let standard_lib_card
     <div class="hidden lg:flex">
       <%s! command_line_icon "w-24 h-24 mt-8 flex-shrink-0" %>
     </div>
-    <div class="flex flex-col ml-1 flex-shrink gap-x-4">
+    <div class="flex flex-col ml-1 gap-x-4">
         <h3 class="text-default text-2xl font-normal leading-7">Standard Library API </h3>
-        <p class="mt-3 text-default text-md font-normal max-w-prose leading-7">
+        <p class="mt-3 flex-grow text-default text-md font-normal max-w-prose leading-7">
           Searchable index of values, types, modules, etc. in Stdlib. </p>
         <div href="<%s Url.api %>" class="mt-4 w-60 btn px-6 btn-md btn-secondary md:mt-6">
           <span>Standard Library API</span>
