@@ -45,8 +45,3 @@ Layout.render
         <% ); %>
     </div>
 </div>
-
-<div class="flex flex-col gap-y-4 lg:flex-row lg:justify-around">
-  <%s! Learn_components.install_card %>
-  <%s! Learn_components.standard_lib_card %>
-</div>

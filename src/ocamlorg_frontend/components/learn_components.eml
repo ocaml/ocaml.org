@@ -25,45 +25,47 @@ let command_line_icon class_ =
   </svg>
 
 let install_card 
+latest_version
 =
-  <div class="bg-learn-area-light-blue p-6 flex flex-row gap-8 sm:w-[450px] md:w-[480px] xl:w-[500px]">
-    <div class="hidden sm:flex">
+  <a href="<%s Url.install %>" class="h-full bg-learn-area-light-blue p-6 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
+    <div class="hidden lg:flex">
       <%s! download_icon "w-24 h-24 mt-8 flex-shrink-0" %>
     </div>
     <div class="flex flex-col ml-1 flex-shrink gap-x-4">
       <div class="flex flex-row justify-between mr-2">
         <h3 class="text-default text-2xl font-normal leading-7">Download </h3>
-        <span class="rounded-sm px-2 py-1 text-xs text-center text-white text-base font-normal bg-blue-700 hidden sm:flex"> Version 5.0.0 </span>
+        <span class="rounded-sm px-2 py-1 text-xs text-center text-white text-base font-normal bg-blue-700 hidden sm:flex"> Version <%s latest_version %> </span>
       </div>
         <p class="mt-3 text-default text-md font-normal leading-7">
           Effortlessly download, install, and set up OCaml! </p>
-      <a href="<%s Url.install %>" class="mt-4 flex btn btn-md px-2 w-48 bg-learn-area-orange text-white font-normal">
+      <div href="<%s Url.install %>" class="mt-4 flex btn btn-md px-2 w-48 bg-learn-area-orange text-white font-normal">
         <span>Install OCaml</span>
         <%s! Icons.chevron_right "h-5 w-5" %>
-      </a>
+      </div>
     </div>
-  </div>
+  </a>
 
 let standard_lib_card 
 = 
-  <div class="bg-learn-area-light-blue p-6 pr-8 flex flex-row gap-8 sm:w-[450px] md:w-[480px] xl:w-[500px]">
-    <div class="hidden sm:flex">
+  <a href="<%s Url.api %>" class="h-full bg-learn-area-light-blue p-6 pr-8 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
+    <div class="hidden lg:flex">
       <%s! command_line_icon "w-24 h-24 mt-8 flex-shrink-0" %>
     </div>
     <div class="flex flex-col ml-1 flex-shrink gap-x-4">
         <h3 class="text-default text-2xl font-normal leading-7">Standard Library API </h3>
         <p class="mt-3 text-default text-md font-normal max-w-prose leading-7">
           Searchable index of values, types, modules, etc. in Stdlib. </p>
-        <a href="<%s Url.api %>" class="mt-4 w-60 btn px-6 btn-md btn-secondary md:mt-6">
+        <div href="<%s Url.api %>" class="mt-4 w-60 btn px-6 btn-md btn-secondary md:mt-6">
           <span>Standard Library API</span>
           <%s! Icons.chevron_right "h-5 w-5" %>
-        </a>
+        </div>
     </div>
-  </div>
+  </a>
 
-let api_card_block 
+let api_card_block
+latest_version
 =
-  <div class="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:justify-items-center">
-    <%s! install_card %>
+  <div class="flex flex-col items-center gap-4 md:auto-rows-max md:grid md:grid-cols-2 lg:justify-items-center">
+    <%s! install_card latest_version %>
     <%s! standard_lib_card %>
   </div>

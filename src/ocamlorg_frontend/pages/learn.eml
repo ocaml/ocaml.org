@@ -1,6 +1,7 @@
 let render
 ~(papers : Data.Paper.t list)
 ~(books : Data.Book.t list)
+~(latest_version : string)
 =
 Learn_layout.render
 ~title:"Learn OCaml"
@@ -12,7 +13,7 @@ Learn_layout.render
 ~current:Overview @@
   <h1 class="font-bold mb-8">Learn OCaml</h1>
   <div class="w-full">
-    <%s! Learn_components.api_card_block %>
+    <%s! Learn_components.api_card_block latest_version %>
   </div>
   <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
     <h3 class="font-bold">Papers</h3>

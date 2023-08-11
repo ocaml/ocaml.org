@@ -17,7 +17,8 @@ let install _req = Dream.html (Ocamlorg_frontend.install ())
 let learn _req =
   let papers = Data.Paper.featured in
   let books = Data.Book.featured in
-  Dream.html (Ocamlorg_frontend.learn ~papers ~books)
+  let latest_version = Data.Release.latest.version in
+  Dream.html (Ocamlorg_frontend.learn ~papers ~books ~latest_version)
 
 let learn_get_started req =
   let tutorials =
