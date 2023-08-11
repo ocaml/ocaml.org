@@ -246,7 +246,7 @@ tools like Jupyter Notebooks.
    lessons and projects that demonstrate the practical application of OCaml on
    these topics.
 
-## (U6) Researcher
+## (U6) Data Scientist
 
 _Uses OCaml for short-term projects, often in scientific modeling or data
 analysis_

@@ -83,3 +83,14 @@ This unified experience implies the existence of a single CLI that serves as a
 frontend for the Platform tools. On the editor, the implication is that
 development workflows should be available directly from within the editor,
 avoiding the need for users to resort to the command line.
+
+## (P6) The Platform is cohesive, yet extensible
+
+While striving for a unified experience (P5), we aim to support users who want
+to use tools that don't belong to the Platform.
+
+Users who want to use other tools in their workflows should be able to do so
+without feeling like second-class citizens.
+
+This can be achieved through plugin systems or implementations that stay
+general enough to support different tools.
