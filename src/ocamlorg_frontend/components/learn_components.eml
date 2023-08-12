@@ -27,7 +27,7 @@ let command_line_icon class_ =
 let install_card 
 latest_version
 =
-  <a href="<%s Url.install %>" class="h-full bg-learn-area-light-blue p-6 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
+  <a href="<%s Url.install %>" class="h-full rounded-xl bg-learn-area-light-blue p-6 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
     <div class="hidden lg:flex">
       <%s! download_icon "w-24 h-24 mt-8 flex-shrink-0" %>
     </div>
@@ -47,7 +47,7 @@ latest_version
 
 let standard_lib_card 
 = 
-  <a href="<%s Url.api %>" class="h-full bg-learn-area-light-blue p-6 pr-8 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
+  <a href="<%s Url.api %>" class="h-full rounded-xl bg-learn-area-light-blue p-6 pr-8 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
     <div class="hidden lg:flex">
       <%s! command_line_icon "w-24 h-24 mt-8 flex-shrink-0" %>
     </div>
