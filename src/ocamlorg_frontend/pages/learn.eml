@@ -15,8 +15,8 @@ Learn_layout.render
   <div class="w-full">
     <%s! Learn_components.api_card_block latest_version %>
   </div>
-  <div class="flex flex-col md:flex-row">
-    <%s! Learn_tutorial_block.left_tutorial_block ~title:"TUTORIAL" ~heading:"Step-by-Step Guidance" 
+  <div class="flex flex-col mt-8 md:flex-row">
+    <%s! Learn_components.left_tutorial_block ~title:"TUTORIAL" ~heading:"Step-by-Step Guidance" 
             ~description:"Break down topics into easy steps with clarity and confidence" 
             ~tutorial_links:[
                 {href="www.ocaml.org"; title="Calling C libraries"};
@@ -27,7 +27,7 @@ Learn_layout.render
             ~see_more:"See All Tutorials"
             "bg-learn-area-dark-green"
             %>
-    <%s! Learn_tutorial_block.right_tutorial_block ~title:"PLAYGROUND TUTORIAL" ~heading:"Real-World Content" 
+    <%s! Learn_components.right_tutorial_block ~title:"PLAYGROUND TUTORIAL" ~heading:"Real-World Content" 
         ~description:"Engage with OCaml, experiment with different scenario" 
         ~tutorial_links:[
             {href="www.ocaml.org"; title="Playground Tutorial 1"};

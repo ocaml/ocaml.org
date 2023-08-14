@@ -79,10 +79,10 @@ let tutorial_block_content
 ~(tutorial_links: link list)
 ~see_more
 = 
-    <div class="w-full md:w-80">
+    <div class="w-full max-w-sm md:max-w-none md:w-80">
         <div class="mt-4 text-white text-sm text-left font-medium leading-7 tracking-widest"> <%s title %> </div>
         <h2 class="mt-2 text-white text-2xl text-left font-normal leading-7"> <%s heading %> </h2>
-        <div class="mt-4 h-16 text-white text-left text-md font-normal leading-7"> <%s description %> </div>
+        <div class="mt-4 text-white text-left text-md font-normal leading-7 max-w-prose"> <%s description %> </div>
         <ul class="flex flex-col gap-4 mt-3 items-center">
             <% tutorial_links |> List.iter (fun link -> %>
                 <li class="w-full">
@@ -107,8 +107,8 @@ let left_tutorial_block
 ~see_more
 class_
 = 
-    <div class="<%s class_ %> h-[36rem] md:w-1/2">
-        <div class="flex justify-end p-4 md:pr-20">
+    <div class="<%s class_ %> md:w-1/2">
+        <div class="flex justify-center p-4 lg:justify-end lg:pr-20">
             <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
         </div>
     </div>
@@ -121,8 +121,8 @@ let right_tutorial_block
 ~see_more
 class_
 = 
-    <div class="<%s class_ %> h-[36rem] md:w-1/2">
-        <div class="flex justify-start p-4 md:pl-20">
+    <div class="<%s class_ %> md:w-1/2">
+        <div class="flex justify-center p-4 lg:justify-start lg:pl-20">
             <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
         </div>
     </div>
