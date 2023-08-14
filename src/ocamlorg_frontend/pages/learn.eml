@@ -15,30 +15,56 @@ Learn_layout.render
   <div class="w-full">
     <%s! Learn_components.api_card_block latest_version %>
   </div>
-  <div class="flex flex-col mt-8 md:flex-row">
-    <%s! Learn_components.left_tutorial_block ~title:"TUTORIAL" ~heading:"Step-by-Step Guidance" 
+
+  <div class="flex flex-col grow mt-8 md:flex-row">
+    <%s! Learn_components.left_tutorial_block ~title:"GET STARTED" ~heading:"Introduction To OCaml" 
             ~description:"Break down topics into easy steps with clarity and confidence" 
             ~tutorial_links:[
-                {href="www.ocaml.org"; title="Calling C libraries"};
-                {href="www.ocaml.org"; title="File Manipulation"};
-                {href="www.ocaml.org"; title="Calling Fortran Libraries"};
-                {href="www.ocaml.org"; title="Command Line Arguments"}
+                {href = Url.tutorial "up-and-running"; title = "Get Up and Running With OCaml"};
+                {href = Url.tutorial "first-hour"; title = "Your First Day With OCaml"};
+                {href = Url.tutorial "ocaml-on-windows"; title = "OCaml On Windows"}
             ]
-            ~see_more:"See All Tutorials"
+             ~see_more:{href = Url.getting_started; title = "See All Tutorials"}
             "bg-learn-area-dark-green"
             %>
-    <%s! Learn_components.right_tutorial_block ~title:"PLAYGROUND TUTORIAL" ~heading:"Real-World Content" 
+    <%s! Learn_components.right_tutorial_block ~title:"LANGUAGE" ~heading:"Deep Dive" 
         ~description:"Engage with OCaml, experiment with different scenario" 
         ~tutorial_links:[
-            {href="www.ocaml.org"; title="Playground Tutorial 1"};
-            {href="www.ocaml.org"; title="Playground Tutorial 2"};
-            {href="www.ocaml.org"; title="Playground Tutorial 3"};
-            {href="www.ocaml.org"; title="Playground Tutorial 4"}
+            {href = Url.tutorial "data-types"; title = "Data Types and Matching"};
+            {href = Url.tutorial "lists"; title = "Lists"};
+            {href = Url.tutorial "if-statements-and-loops"; title = "If Statements, Loops, and Recursions"};
+            {href = Url.tutorial "modules"; title = "Modules"}
         ]
-        ~see_more:"See All Playground Tutorials"
+        ~see_more:{href = Url.learn_language; title = "See All Tutorials"}
         "bg-blue-700"
         %>
   </div>
+
+  <div class="flex flex-col grow md:flex-row">
+    <%s! Learn_components.left_tutorial_block ~title:"GUIDES" ~heading:"Step-By-Step Guidance" 
+            ~description:"Break down topics into easy steps with clarity and confidence" 
+            ~tutorial_links:[
+                {href = Url.tutorial "formatting-text"; title = "Formatting and Wrapping Text"};
+                {href = Url.tutorial "debugging"; title = "Debugging"};
+                {href = Url.tutorial "error-handling"; title = "Error Handling"};
+                {href = Url.tutorial "profiling"; title = "Profiling"}
+            ]
+             ~see_more:{href = Url.learn_guides; title = "See All Tutorials"}
+            "bg-learn-area-orange"
+            %>
+    <%s! Learn_components.right_tutorial_block ~title:"PLATFORM" ~heading:"OCaml Tooling Ecosystem" 
+        ~description:"Engage with OCaml, experiment with different scenario" 
+        ~tutorial_links:[
+            {href = Url.tutorial "bootstrapping-a-dune-project"; title = "Bootstrapping a Project With Dune"};
+            {href = Url.tutorial "managing-dependencies"; title = "Managing Dependencies With Opam"};
+            {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Installing a Specific Compiler Version"};
+            {href = Url.tutorial "running-executables-and-tests-with-dune"; title = "Running Executables with Dune"}
+        ]
+        ~see_more:{href = Url.platform; title = "See All Tutorials"}
+        "bg-[#040113]"
+        %>
+  </div>
+
   <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
     <h3 class="font-bold">Papers</h3>
     <div class="mt-6 text-lighter text-lg">
