@@ -48,6 +48,10 @@ Learn_layout.render
     </a>
   </div>
 
+  <div>
+    <%s! Learn_components.video_block ~video_url:"" ~thumbnail_url:"" ~title:"" ~description:"" %>
+  </div>
+
   <div class="mt-10 lg:mt-20">
     <h3 class="font-bold">Recommended Books</h3>
     <div class="mt-6 text-lighter mb-12 text-lg">
