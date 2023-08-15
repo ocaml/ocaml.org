@@ -27,10 +27,14 @@ Layout.render
                                   <div><%s Utils.human_time item.date %></div>
                               </div>
                           </div>
-                          <% (match item.preview_image with | None -> () | Some image -> %>
-                          <div class="flex-none w-64">
-                              <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
-                          </div>
+                          <% (match item.preview_image with | None -> %>
+                            <div class="flex-none w-64">
+                                <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s Ocamlorg_static.Asset.url "logo.svg" %>" alt="default logo"></a>
+                            </div>
+                          <% | Some image -> %>
+                            <div class="flex-none w-64">
+                                <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
+                            </div>
                           <% ); %>
                       </div>
                     </div>
@@ -48,10 +52,14 @@ Layout.render
                                 <div><%s Utils.human_time item.date %></div>
                             </div>
                         </div>
-                        <% (match item.preview_image with | None -> () | Some image -> %>
-                        <div class="flex-none w-64">
-                            <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
-                        </div>
+                        <% (match item.preview_image with | None -> %> 
+                            <div class="flex-none w-64">
+                                <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s Ocamlorg_static.Asset.url "logo.svg" %>" alt="default logo"></a>
+                            </div>
+                        <% | Some image -> %>
+                            <div class="flex-none w-64">
+                                <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
+                            </div>
                         <% ); %>
                     </div>
                     <% ); %>
