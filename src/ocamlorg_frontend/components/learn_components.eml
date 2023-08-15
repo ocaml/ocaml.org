@@ -72,7 +72,6 @@ latest_version
 
 let exercise_card 
 title
-statement
 difficulty
 class_ 
 = 
@@ -82,25 +81,29 @@ class_
     | `Intermediate -> Some "Intermediate"
     | `Advanced -> Some "Advanced"
   in
-  <div class="<%s class_ %> h-40 w-64 p-2">
+  <div class="<%s class_ %> w-64 p-2">
     <h3 class="text-default text-base font-bold leading-7"> <%s title %> </h3>
-    <p class="text-gray-700 text-base font-normal leading-7"> <%s statement %> </p>
     <%s skill_tag difficulty_str "" %>
   </div>
 
 let exercise_block 
 title
-statement
 difficulty
+(exercises : Data.Problem.t list)
+(num_display : int)
 class_ 
 = 
-  <div class="w-full h-[42rem] bg-default md:w-1/2 md:pl-28">
+  <div class="w-full bg-default md:w-1/2 md:pl-20">
     <div class="pt-4 text-default text-sm text-left font-medium leading-7 tracking-widest"> Exercise </div>
     <h2 class="mt-2 text-default text-2xl text-left font-normal leading-7"> Practice With Exercises </h2>
-    <div class="flex flex-row">
-    <%s! exercise_card title statement difficulty class_  %>
+    <div class="flex flex-row lg:grid lg:grid-cols-2">
+      <% List.iteri (fun index (problem : Data.Problem.t) -> (if index < num_display then ( %>
+            <%s! exercise_card problem.title problem.difficulty class_ %>
+            <% ); %>
+          <% ); %>
+        <% ) exercises %>
     </div>
-    <a href="<%s! Url.problems %>" class="flex gap-4 mt-4 text-primary-700 text-lg font-bold inline-flex items-center underline leading-10"> 
+    <a href="<%s Url.problems %>" class="flex gap-4 mt-4 text-primary-700 text-lg font-bold inline-flex items-center underline leading-10"> 
       See All Exercises
       <%s! Icons.arrow_small_right "h-6 w-6" %>
     </a>

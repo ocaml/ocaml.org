@@ -68,7 +68,7 @@ Learn_layout.render
     <div>
     <% problems |> List.iteri (fun index (problem : Data.Problem.t) -> %>
         <% if index < 2 then ( %>
-          <%s! Learn_components.exercise_card problem.title problem.statement problem.difficulty "bg-learn-area-light-blue" %>
+          <%s! Learn_components.exercise_card problem.title problem.difficulty "bg-learn-area-light-blue" %>
         <% ) else ( %>
           <div></div>
         <% ); %>
