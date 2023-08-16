@@ -1,8 +1,8 @@
 let render_books books =
-    <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">
+    <div class="overflow-x-scroll lg:overflow-hidden mt-5">
         <% books |> List.iter (fun (item : Data.Book.t) -> %>
         <div
-            class="flex space-y-10 lg:space-y-0 lg:space-x-16 pb-10 lg:pb-20 border-b border-gray-200 mt-10 lg:mt-20 flex-col lg:flex-row">
+            class="flex space-y-10 lg:space-y-0 lg:space-x-16 pb-10 lg:pb-20 border-b border-gray-200 mt-10 flex-col lg:flex-row">
             <div class="flex flex-col gap-y-4">
                 <img src="<%s Ocamlorg_static.Media.url item.cover %>"
                     class="m-4 h-48 w-32 lg:w-64 lg:h-96 md:w-64 md:h-96 rounded-2xl border border-gray-200"
@@ -33,44 +33,34 @@ Learn_layout.render
 ~left_sidebar_html:None
 ~right_sidebar_html:None
 ~current:Books @@
-<div class="intro-section-simple">
-    <div class="container-fluid">
-        <div class="text-center w-full lg:w-2/3 m-auto">
-            <h1 class="font-bold mb-6">Books on OCaml</h1>
-            <p>What experts programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
-        </div>
-    </div>
-</div>
 <div class="bg-default dark:bg-dark-default">
-    <div class="py-10 lg:py-28">
-        <div class="container-fluid"  x-data="{ language: 'english' }">
-            <div class="flex justify-between mb-0 md:mb-10 lg:mb-20 lg:flex-row flex-col items-center">
-                <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0">15+ OCaml Books</h2>
-                <div class="flex justify-between flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto">
-                    <%s! Forms.select
-                        ~attrs:{|name="Languages" x-model="language"|}
-                        ~options:[("english", "English"); ("french", "French"); ("italian", "Italian"); ("portugese", "Portugese"); ("japanese", "Japanese"); ("chinese", "Chinese")]
-                        "h-14" %>
-                </div>
+    <div class="container-fluid"  x-data="{ language: 'english' }">
+        <div class="flex justify-between mb-0 lg:flex-row flex-col items-center">
+            <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0">15+ OCaml Books</h2>
+            <div class="flex justify-between flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto">
+                <%s! Forms.select
+                    ~attrs:{|name="Languages" x-model="language"|}
+                    ~options:[("english", "English"); ("french", "French"); ("italian", "Italian"); ("portugese", "Portugese"); ("japanese", "Japanese"); ("chinese", "Chinese")]
+                    "h-14" %>
             </div>
-            <div :class="language != 'english' ? 'hidden' : 'block'">
-                <%s! render_books (List.filter (fun x -> x.Data.Book.language = "english") books) %>
-            </div>
-            <div :class="language != 'french' ? 'hidden' : 'block'">
-                <%s! render_books (List.filter (fun x -> x.Data.Book.language = "french") books) %>
-            </div>
-            <div :class="language != 'italian' ? 'hidden' : 'block'">
-                <%s! render_books (List.filter (fun x -> x.Data.Book.language = "italian") books) %>
-            </div>
-            <div :class="language != 'portugese' ? 'hidden' : 'block'">
-                <%s! render_books (List.filter (fun x -> x.Data.Book.language = "portugese") books) %>
-            </div>
-            <div :class="language != 'japanese' ? 'hidden' : 'block'">
-                <%s! render_books (List.filter (fun x -> x.Data.Book.language = "japanese") books) %>
-            </div>
-            <div :class="language != 'chinese' ? 'hidden' : 'block'">
-                <%s! render_books (List.filter (fun x -> x.Data.Book.language = "chinese") books) %>
-            </div>
+        </div>
+        <div :class="language != 'english' ? 'hidden' : 'block'">
+            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "english") books) %>
+        </div>
+        <div :class="language != 'french' ? 'hidden' : 'block'">
+            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "french") books) %>
+        </div>
+        <div :class="language != 'italian' ? 'hidden' : 'block'">
+            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "italian") books) %>
+        </div>
+        <div :class="language != 'portugese' ? 'hidden' : 'block'">
+            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "portugese") books) %>
+        </div>
+        <div :class="language != 'japanese' ? 'hidden' : 'block'">
+            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "japanese") books) %>
+        </div>
+        <div :class="language != 'chinese' ? 'hidden' : 'block'">
+            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "chinese") books) %>
         </div>
     </div>
 </div>
