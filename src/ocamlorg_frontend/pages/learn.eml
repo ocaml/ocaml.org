@@ -11,9 +11,11 @@ Learn_layout.render
 ~left_sidebar_html:None
 ~right_sidebar_html:None
 ~current:Overview @@
-  <h1 class="font-bold mb-8">Learn OCaml</h1>
-  <div class="w-full">
-    <%s! Learn_components.api_card_block latest_version %>
+  <div class="container-fluid">
+    <h1 class="font-bold mb-8">Learn OCaml</h1>
+    <div class="w-full">
+      <%s! Learn_components.api_card_block latest_version %>
+    </div>
   </div>
 
   <div class="flex flex-col grow mt-8 md:flex-row">
@@ -24,7 +26,7 @@ Learn_layout.render
                 {href = Url.tutorial "first-hour"; title = "Your First Day With OCaml"};
                 {href = Url.tutorial "ocaml-on-windows"; title = "OCaml On Windows"}
             ]
-             ~see_more:{href = Url.getting_started; title = "See All Tutorials"}
+             ~see_more:{href = Url.getting_started; title = "See More"}
             "bg-learn-area-dark-green"
             %>
     <%s! Learn_components.right_tutorial_block ~title:"LANGUAGE" ~heading:"Deep Dive" 
@@ -35,8 +37,8 @@ Learn_layout.render
             {href = Url.tutorial "if-statements-and-loops"; title = "If Statements, Loops, and Recursions"};
             {href = Url.tutorial "modules"; title = "Modules"}
         ]
-        ~see_more:{href = Url.learn_language; title = "See All Tutorials"}
-        "bg-blue-700"
+        ~see_more:{href = Url.learn_language; title = "See More Language Tutorials"}
+        "bg-[#0E2A49]"
         %>
   </div>
 
@@ -49,83 +51,84 @@ Learn_layout.render
                 {href = Url.tutorial "error-handling"; title = "Error Handling"};
                 {href = Url.tutorial "profiling"; title = "Profiling"}
             ]
-             ~see_more:{href = Url.learn_guides; title = "See All Tutorials"}
+             ~see_more:{href = Url.learn_guides; title = "See More Guides"}
             "bg-learn-area-orange"
             %>
     <%s! Learn_components.right_tutorial_block ~title:"PLATFORM" ~heading:"OCaml Tooling Ecosystem" 
         ~description:"Engage with OCaml, experiment with different scenario" 
         ~tutorial_links:[
-            {href = Url.tutorial "bootstrapping-a-dune-project"; title = "Bootstrapping a Project With Dune"};
-            {href = Url.tutorial "managing-dependencies"; title = "Managing Dependencies With Opam"};
+            {href = Url.tutorial "bootstrapping-a-dune-project"; title = "Bootstrapping a Project (Dune)"};
+            {href = Url.tutorial "managing-dependencies"; title = "Managing Dependencies (Opam)"};
             {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Installing a Specific Compiler Version"};
-            {href = Url.tutorial "running-executables-and-tests-with-dune"; title = "Running Executables with Dune"}
+            {href = Url.tutorial "setting-up-vscode"; title = "Setting Up VSCode"}
         ]
-        ~see_more:{href = Url.platform; title = "See All Tutorials"}
+        ~see_more:{href = Url.platform; title = "See More Tooling Tutorials"}
         "bg-[#040113]"
         %>
   </div>
-
-  <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
-    <h3 class="font-bold">Papers</h3>
-    <div class="mt-6 text-lighter text-lg">
-      Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things?
-      Check out papers written by leading OCaml researchers:
+  <div class="container-fluid">
+    <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
+      <h3 class="font-bold">Papers</h3>
+      <div class="mt-6 text-lighter text-lg">
+        Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things?
+        Check out papers written by leading OCaml researchers:
+      </div>
+      <div class="flex flex-col lg:flex-row mt-8 space-y-4 lg:space-y-0 lg:space-x-6">
+        <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
+        <a
+          href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>"
+          class="card-hover flex-1 p-6 border border-gray-200 rounded-xl"
+        >
+          <div class="font-semibold text-base mb-3"><%s paper.title %></div>
+          <div style="display: -webkit-box;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;"><%s paper.abstract %></div>
+          <div class="font-bold text-sm mt-3"><%s String.concat ", " paper.authors %></div>
+          <div class="flex mt-5 flex-wrap">
+            <% paper.tags |> List.iter (fun (tag : string) -> %>
+            <div
+              class="text-blue-700 h-8 inline-flex items-center text-sm px-3 border border-blue-700 rounded-3xl whitespace-nowrap mr-2 mb-2"
+            >
+              <%s tag %>
+            </div>
+            <% ); %>
+          </div>
+        </a>
+        <% ); %>
+      </div>
+      <a href="<%s Url.papers %>" class="btn btn-lg btn-secondary mt-8">
+        <span>View all papers</span>
+        <%s! Icons.chevron_right "h-5 w-5" %>
+      </a>
     </div>
-    <div class="flex flex-col lg:flex-row mt-8 space-y-4 lg:space-y-0 lg:space-x-6">
-      <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
-      <a
-        href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>"
-        class="card-hover flex-1 p-6 border border-gray-200 rounded-xl"
-      >
-        <div class="font-semibold text-base mb-3"><%s paper.title %></div>
-        <div style="display: -webkit-box;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;"><%s paper.abstract %></div>
-        <div class="font-bold text-sm mt-3"><%s String.concat ", " paper.authors %></div>
-        <div class="flex mt-5 flex-wrap">
-          <% paper.tags |> List.iter (fun (tag : string) -> %>
-          <div
-            class="text-blue-700 h-8 inline-flex items-center text-sm px-3 border border-blue-700 rounded-3xl whitespace-nowrap mr-2 mb-2"
+
+    <div class="mt-10 lg:mt-20">
+      <h3 class="font-bold">Recommended Books</h3>
+      <div class="mt-6 text-lighter mb-12 text-lg">
+          What experts programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">
+        <% books |> List.iter (fun (item : Data.Book.t) -> %>
+        <a href="<%s item.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 card-hover">
+          <img
+            src="<%s Ocamlorg_static.Media.url item.cover %>"
+            class="rounded-2xl lg:w-full max-h-96 border border-gray-200"
+            alt="<%s item.title %> cover"
           >
-            <%s tag %>
+          <div class="font-semibold mt-6 mb-3"><%s item.title %></div>
+          <% (match item.rating with | None -> () | Some rating -> %>
+          <div class="flex space-x-1 mb-6 text-primary-600">
+            <% List.init rating (fun _ -> ()) |> List.iter (fun () -> %>
+            <%s! Icons.star_2 "h-6 w-6 text-yellow-300" %>
+            <% ); %> <% List.init (5 - rating) (fun _ -> ()) |> List.iter (fun () -> %>
+            <%s! Icons.star_2 "h-6 w-6 text-gray-300" %>
+            <% ); %>
           </div>
           <% ); %>
-        </div>
-      </a>
-      <% ); %>
-    </div>
-    <a href="<%s Url.papers %>" class="btn btn-lg btn-secondary mt-8">
-      <span>View all papers</span>
-      <%s! Icons.chevron_right "h-5 w-5" %>
-    </a>
-  </div>
-
-  <div class="mt-10 lg:mt-20">
-    <h3 class="font-bold">Recommended Books</h3>
-    <div class="mt-6 text-lighter mb-12 text-lg">
-        What experts programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.
-    </div>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">
-      <% books |> List.iter (fun (item : Data.Book.t) -> %>
-      <a href="<%s item.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 card-hover">
-        <img
-          src="<%s Ocamlorg_static.Media.url item.cover %>"
-          class="rounded-2xl lg:w-full max-h-96 border border-gray-200"
-          alt="<%s item.title %> cover"
-        >
-        <div class="font-semibold mt-6 mb-3"><%s item.title %></div>
-        <% (match item.rating with | None -> () | Some rating -> %>
-        <div class="flex space-x-1 mb-6 text-primary-600">
-          <% List.init rating (fun _ -> ()) |> List.iter (fun () -> %>
-          <%s! Icons.star_2 "h-6 w-6 text-yellow-300" %>
-          <% ); %> <% List.init (5 - rating) (fun _ -> ()) |> List.iter (fun () -> %>
-          <%s! Icons.star_2 "h-6 w-6 text-gray-300" %>
-          <% ); %>
-        </div>
+        </a>
         <% ); %>
+      </div>
+      <a href="<%s Url.books %>" class="btn btn-lg btn-secondary mt-12">
+        <span>See all Books</span>
+        <%s! Icons.chevron_right "h-5 w-5" %>
       </a>
-      <% ); %>
     </div>
-    <a href="<%s Url.books %>" class="btn btn-lg btn-secondary mt-12">
-      <span>See all Books</span>
-      <%s! Icons.chevron_right "h-5 w-5" %>
-    </a>
   </div>
