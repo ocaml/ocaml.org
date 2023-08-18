@@ -1,6 +1,6 @@
 ---
 id: "install-a-specific-ocaml-compiler-version"
-title: "Installing a Specific Compiler Version (opam)"
+title: "Installing a Specific Compiler Version"
 description: |
   How to install a specific version of OCaml
 category: "Best Practices"
