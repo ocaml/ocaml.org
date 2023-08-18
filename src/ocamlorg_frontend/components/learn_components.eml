@@ -79,20 +79,19 @@ let tutorial_block_content
 ~(tutorial_links: link list)
 ~(see_more: link)
 = 
-    <div class="w-full h-full max-w-sm md:max-w-none md:w-80">
+    <div class="w-full flex flex-col h-full max-w-sm md:max-w-none md:w-96">
         <div class="mt-4 text-white text-sm text-left font-medium leading-7 tracking-widest"> <%s title %> </div>
         <h2 class="mt-2 text-white text-2xl text-left font-normal leading-7"> <%s heading %> </h2>
         <div class="mt-4 text-white text-left text-md font-normal leading-7 max-w-prose"> <%s description %> </div>
-        <ul class="flex flex-col grow gap-4 mt-3 items-center">
-            <% tutorial_links |> List.iter (fun link -> %>
-                <li class="w-full">
-                    <a href="<%s link.href %>" class="block bg-default rounded-md py-3 px-6 text-primary-700 text-center text-md font-bold">
-                        <%s link.title  %>
-                    </a>
-                </li>
-            <% ); %>
-        </ul>  
-
+          <ul class="flex gap-4 flex-col flex-grow mt-3 items-center">
+              <% tutorial_links |> List.iter (fun link -> %>
+                  <li class="w-full">
+                      <a href="<%s link.href %>" class="block bg-default rounded-md py-3 px-6 text-primary-700 text-center text-md font-bold">
+                          <%s link.title  %>
+                      </a>
+                  </li>
+              <% ); %>
+          </ul>
         <a href="<%s see_more.href %>" class="flex gap-4 mt-4 text-white text-md font-bold inline-flex items-center underline leading-10"> 
             <%s see_more.title %>
             <%s! Icons.arrow_small_right "h-6 w-6" %>
@@ -108,7 +107,7 @@ let left_tutorial_block
 class_
 = 
     <div class="<%s class_ %> md:w-1/2">
-        <div class="flex justify-center p-4 lg:justify-end lg:pr-20">
+        <div class="flex justify-center h-full p-4 lg:justify-end lg:pr-20">
             <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
         </div>
     </div>
@@ -122,7 +121,7 @@ let right_tutorial_block
 class_
 = 
     <div class="<%s class_ %> md:w-1/2">
-        <div class="flex justify-center p-4 lg:justify-start lg:pl-20">
+        <div class="flex h-full justify-center p-4 lg:justify-start lg:pl-20">
             <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
         </div>
     </div>

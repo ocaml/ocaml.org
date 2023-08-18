@@ -3,7 +3,7 @@ let render
 ~(books : Data.Book.t list)
 ~(latest_version : string)
 =
-Learn_layout.render
+Learn_layout.overview_render
 ~title:"Learn OCaml"
 ~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices, and language manual."
 ~canonical:Url.learn
@@ -18,19 +18,19 @@ Learn_layout.render
     </div>
   </div>
 
-  <div class="flex flex-col grow mt-8 md:flex-row">
+  <div class="flex flex-col mt-8 md:flex-row">
     <%s! Learn_components.left_tutorial_block ~title:"GET STARTED" ~heading:"Introduction To OCaml" 
-            ~description:"Break down topics into easy steps with clarity and confidence" 
+            ~description:"Install OCaml and gain a high-level understanding of language features" 
             ~tutorial_links:[
                 {href = Url.tutorial "up-and-running"; title = "Get Up and Running With OCaml"};
                 {href = Url.tutorial "first-hour"; title = "Your First Day With OCaml"};
                 {href = Url.tutorial "ocaml-on-windows"; title = "OCaml On Windows"}
             ]
-             ~see_more:{href = Url.getting_started; title = "See More"}
+             ~see_more:{href = Url.getting_started; title = "Get Started"}
             "bg-learn-area-dark-green"
             %>
-    <%s! Learn_components.right_tutorial_block ~title:"LANGUAGE" ~heading:"Deep Dive" 
-        ~description:"Engage with OCaml, experiment with different scenario" 
+    <%s! Learn_components.right_tutorial_block ~title:"LANGUAGE" ~heading:"The OCaml Language" 
+        ~description:"An in-depth explanation of language features and data structures from the Standard Library" 
         ~tutorial_links:[
             {href = Url.tutorial "data-types"; title = "Data Types and Matching"};
             {href = Url.tutorial "lists"; title = "Lists"};
@@ -43,8 +43,8 @@ Learn_layout.render
   </div>
 
   <div class="flex flex-col grow md:flex-row">
-    <%s! Learn_components.left_tutorial_block ~title:"GUIDES" ~heading:"Step-By-Step Guidance" 
-            ~description:"Break down topics into easy steps with clarity and confidence" 
+    <%s! Learn_components.left_tutorial_block ~title:"GUIDES" ~heading:"Practical-Minded Tutorials and Guides" 
+            ~description:"How to solve real-world problems in OCaml" 
             ~tutorial_links:[
                 {href = Url.tutorial "formatting-text"; title = "Formatting and Wrapping Text"};
                 {href = Url.tutorial "debugging"; title = "Debugging"};
@@ -54,12 +54,12 @@ Learn_layout.render
              ~see_more:{href = Url.learn_guides; title = "See More Guides"}
             "bg-learn-area-orange"
             %>
-    <%s! Learn_components.right_tutorial_block ~title:"PLATFORM" ~heading:"OCaml Tooling Ecosystem" 
-        ~description:"Engage with OCaml, experiment with different scenario" 
+    <%s! Learn_components.right_tutorial_block ~title:"PLATFORM" ~heading:"The OCaml Platform" 
+        ~description:"Learn to leverage the tooling around OCaml and create your own projects and libraries" 
         ~tutorial_links:[
             {href = Url.tutorial "bootstrapping-a-dune-project"; title = "Bootstrapping a Project (Dune)"};
             {href = Url.tutorial "managing-dependencies"; title = "Managing Dependencies (Opam)"};
-            {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Installing a Specific Compiler Version"};
+            {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Install a Specific Compiler Version"};
             {href = Url.tutorial "setting-up-vscode"; title = "Setting Up VSCode"}
         ]
         ~see_more:{href = Url.platform; title = "See More Tooling Tutorials"}
