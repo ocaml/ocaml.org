@@ -1,6 +1,6 @@
 ---
 id: "creating-libraries"
-title: "Creating libraries (Dune)"
+title: "Creating Libraries"
 description: |
   How to create libraries with Dune
 category: "Best Practices"

@@ -1,6 +1,6 @@
 ---
 id: "managing-dependencies"
-title: "Managing Dependencies (opam)"
+title: "Managing Dependencies With Opam"
 description: |
   How to manage dependencies with opam
 category: "Best Practices"
