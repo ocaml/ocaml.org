@@ -189,11 +189,11 @@ Full test results in `~/xxxx/xxxx/ocaml_gpt/_build/default/test/_build/_tests/OC
 Test Successful in 0.002s. 6 tests run.
 ```
 
-## A few Executables
+## A Few Executables
 
-After building our library, we can also go a step further by creating tools that we can use to manipulate real block devices using our library. Tools such as listing the GPT header in a disk, resizing a partition, creating a partition etc.
+After building our library, we can also go a step further by creating tools that we can use to manipulate real block devices using our library. Tools such as listing the GPT header in a disk, resising a partition, creating a partition, etc.
 
-I want to give a special thanks to [Daniel Bünzli](https://github.com/dbuenzli) for creating the `Cmdliner` package which allows the declarative definition of command line interfaces for OCaml. Using this package, we can build a nice command line interface for our executables.
+I want to give a special thanks to [Daniel Bünzli](https://github.com/dbuenzli) for creating the `Cmdliner` package, which allows the declarative definition of command line interfaces for OCaml. Using this package, we can build a nice command line interface for our executables.
 
 In our project, we can create our binary executables in the `bin` directory.
 For our project, we have created the `gpt_inspect` executable which should list the contents of a GPT header on a block device. 
@@ -205,10 +205,10 @@ dune exec -- bin/gpt_inspect.exe disk.img
 where `disk.img` is the disk or block device
 
 ## The Future
-We can definitely build more tools for this library and especially how we can integrate it into the larger ecosystem of Mirage. I believe this library brings us one step closer to having persistent storage in Mirage Unikernels. 
+We can definitely build more tools for this library and especially how we can integrate it into the larger ecosystem of MirageOS. I believe this library brings us one step closer to having persistent storage in MirageOS unikernels. 
 
-This was my first time building a package in OCaml and the experience is definitely worth it. 
+This was my first time building a package in OCaml, and the experience is definitely worth it. 
 
-A special big thanks to my mentor [Reynir Björnsson](https://robur.coop/) who is always available when I hit blocking issues. Thank you, Reynir.
+A special big thanks to my mentor [Reynir Björnsson](https://robur.coop/), who was always available when I hit blocking issues. Thank you, Reynir.
 
 
