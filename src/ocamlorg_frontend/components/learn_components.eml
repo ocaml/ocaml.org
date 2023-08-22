@@ -131,13 +131,13 @@ books
 = 
   <div class="flex flex-col gap-6 sm:flex-row">
     <% books |> List.rev |> List.iteri (fun index (item : Data.Book.t) -> if (index < 2) then ( %>  
-        <div class="flex flex-col">
+        <div class="flex flex-col gap-4">
             <img src="<%s Ocamlorg_static.Media.url item.cover %>" 
                     class="mt-2 w-56 h-80 border border-gray-200 object-contain"
                     alt="">
             <%s! skill_tag item.difficulty "mt-2 grow-0 w-28" %>
             <h4 class="mt-1 w-56 text-gray-700 text-lg font-normal leading-6"> <%s item.title %> </h4>
-            <p class="mt-1 text-gray-700 text-sm font-normal whitespace-normal max-w-xs">Suitable for complete beginners to programming</p>
+            <p class="mt-1 text-gray-700 text-sm font-normal whitespace-normal max-w-prose">Suitable for complete beginners to programming</p>
         </div>
       <% ) else %> 
     <% ); %>
