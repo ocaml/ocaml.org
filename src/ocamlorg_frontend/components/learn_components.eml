@@ -27,14 +27,14 @@ let command_line_icon class_ =
 let install_card 
 latest_version
 =
-  <a href="<%s Url.install %>" class="h-full rounded-xl bg-learn-area-light-blue p-6 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
+  <a href="<%s Url.install %>" class="h-full bg-learn-area-light-blue self-center md:justify-self-end p-6 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
     <div class="hidden lg:flex">
       <%s! download_icon "w-24 h-24 mt-8 flex-shrink-0" %>
     </div>
     <div class="flex flex-col ml-1 gap-x-4">
       <div class="flex flex-row justify-between mr-2">
         <h3 class="text-default text-2xl font-normal leading-7">Download </h3>
-        <span class="rounded-sm px-2 py-1 text-xs text-center text-white text-base font-normal bg-blue-700 hidden sm:flex"> Version <%s latest_version %> </span>
+        <span class="rounded-sm px-2 py-1 text-xs text-center text-white text-base font-normal bg-[#0E2A49] hidden sm:flex"> Version <%s latest_version %> </span>
       </div>
         <p class="mt-3 flex-grow text-default text-md font-normal leading-7">
           Effortlessly download, install, and set up OCaml! </p>
@@ -47,7 +47,7 @@ latest_version
 
 let standard_lib_card 
 = 
-  <a href="<%s Url.api %>" class="h-full rounded-xl bg-learn-area-light-blue p-6 pr-8 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
+  <a href="<%s Url.api %>" class="h-full bg-learn-area-light-blue p-6 pr-8 flex flex-row gap-8 max-w-[400px] self-center sm:w-[450px] md:justify-self-start md:w-auto md:max-w-[480px] xl:max-w-[500px]">
     <div class="hidden lg:flex">
       <%s! command_line_icon "w-24 h-24 mt-8 flex-shrink-0" %>
     </div>
@@ -65,7 +65,63 @@ let standard_lib_card
 let api_card_block
 latest_version
 =
-  <div class="flex flex-col items-center gap-4 md:auto-rows-max md:grid md:grid-cols-2 lg:justify-items-center">
+  <div class="flex flex-col gap-10 md:auto-rows-max md:grid md:grid-cols-2">
     <%s! install_card latest_version %>
     <%s! standard_lib_card %>
   </div>
+
+type link = {href : string; title : string}
+
+let tutorial_block_content 
+~title
+~heading
+~description
+~(tutorial_links: link list)
+~(see_more: link)
+= 
+    <div class="w-full flex flex-col h-full max-w-sm md:max-w-none md:w-96">
+        <div class="mt-4 text-white text-sm text-left font-medium leading-7 tracking-widest"> <%s title %> </div>
+        <h2 class="mt-2 text-white text-2xl text-left font-normal leading-7"> <%s heading %> </h2>
+        <div class="mt-4 text-white text-left text-md font-normal leading-7 max-w-prose"> <%s description %> </div>
+          <ul class="flex gap-4 flex-col flex-grow mt-3 items-center">
+              <% tutorial_links |> List.iter (fun link -> %>
+                  <li class="w-full">
+                      <a href="<%s link.href %>" class="block bg-default rounded-md py-3 px-6 text-primary-700 text-center text-md font-bold">
+                          <%s link.title  %>
+                      </a>
+                  </li>
+              <% ); %>
+          </ul>
+        <a href="<%s see_more.href %>" class="flex gap-4 mt-4 text-white text-md font-bold inline-flex items-center underline leading-10"> 
+            <%s see_more.title %>
+            <%s! Icons.arrow_small_right "h-6 w-6" %>
+        </a>
+    </div>
+
+let left_tutorial_block 
+~title
+~heading
+~description
+~(tutorial_links: link list)
+~see_more
+class_
+= 
+    <div class="<%s class_ %> md:w-1/2">
+        <div class="flex justify-center h-full p-4 lg:justify-end lg:pr-20">
+            <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
+        </div>
+    </div>
+
+let right_tutorial_block
+~title
+~heading
+~description
+~(tutorial_links: link list)
+~see_more
+class_
+= 
+    <div class="<%s class_ %> md:w-1/2">
+        <div class="flex h-full justify-center p-4 lg:justify-start lg:pl-20">
+            <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
+        </div>
+    </div>
