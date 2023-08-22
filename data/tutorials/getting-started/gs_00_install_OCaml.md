@@ -175,9 +175,7 @@ What we installed so far (theoretically) suffices to write, compile, and execute
 
 ## Installing the OCaml Platform Tools
 
-_TODO: link to the platform tools page to a point where the tutorials are that set up Editor Support, odoc, OCamlFormat, dune-release, but tell people that they only need Utop and Dune for the following tutorials._
-
-To get a complete development environment, including editor support, documentation generation, automatic code formatting, and more, you need to [install the OCaml Platform Tools](/doc/platform). However, for the upcoming tutorials, it is sufficient have two of them installed:
+To get a complete development environment, including editor support, documentation generation (`odoc`), automatic code formatting (OCamlFormat), `dune-release`, and more, you'll need to [install the OCaml Platform Tools](https://ocaml.org/docs/platform). However, for the upcoming tutorials, it is sufficient have two of them installed:
 
 - Dune, a fast and full-featured build system for OCaml
 - UTop, an improved REPL
