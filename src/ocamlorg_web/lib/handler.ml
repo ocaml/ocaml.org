@@ -207,18 +207,39 @@ let paginate ~req ~n items =
 let blog req =
   let page, number_of_pages, current_items =
     paginate ~req ~n:10
-      (List.filter (fun (x : Data.Planet.t) -> not x.featured) Data.Planet.all)
+      (List.filter
+         (fun (x : Data.Planet.Post.t) -> not x.featured)
+         Data.Planet.Post.all)
   in
-  let featured = Data.Planet.featured |> List.take 3 in
+  let featured = Data.Planet.featured_posts |> List.take 3 in
   let news = Data.News.all |> List.take 20 in
   Dream.html
     (Ocamlorg_frontend.blog ~featured ~planet:current_items ~planet_page:page
        ~planet_pages_number:number_of_pages ~news)
 
+let local_blog req =
+  let source = Dream.param req "source" in
+  let</>? local_blog = Data.Planet.LocalBlog.get_by_id source in
+  Dream.html
+    (Ocamlorg_frontend.local_blog ~source:local_blog.source
+       ~posts:local_blog.posts)
+
 let blog_post req =
-  let slug = Dream.param req "id" in
-  let</>? blog = Data.Planet.get_by_slug slug in
-  Dream.html (Ocamlorg_frontend.blog_post blog)
+  let source = Dream.param req "source" in
+  let slug = Dream.param req "slug" in
+  let</>? local_blog = Data.Planet.LocalBlog.get_by_id source in
+  match slug with
+  | "feed.xml" ->
+      Dream.respond
+        ~headers:[ ("Content-Type", "application/xml; charset=utf-8") ]
+        local_blog.rss_feed
+  | _ ->
+      let</>? post =
+        local_blog.posts
+        |> List.find_opt (fun (p : Data.Planet.Post.t) ->
+               String.equal p.slug slug)
+      in
+      Dream.html (Ocamlorg_frontend.blog_post post)
 
 let news req =
   let page, number_of_pages, current_items =

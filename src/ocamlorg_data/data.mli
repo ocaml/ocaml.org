@@ -263,26 +263,37 @@ module Watch : sig
 end
 
 module Planet : sig
-  module Source : sig
-    type t = { id : string option; name : string; url : string }
-  end
-
-  type t = {
-    title : string;
-    slug : string;
-    source : Source.t;
-    description : string option;
-    authors : string list option;
-    url : string option;
-    date : string;
-    preview_image : string option;
-    featured : bool;
-    body_html : string;
+  type source = {
+    id : string;
+    name : string;
+    url : string;
+    description : string;
   }
 
-  val featured : t list
-  val all : t list
-  val get_by_slug : string -> t option
+  module Post : sig
+    type t = {
+      title : string;
+      url : string option;
+      slug : string;
+      source : source;
+      description : string option;
+      authors : string list option;
+      date : string;
+      preview_image : string option;
+      featured : bool;
+      body_html : string;
+    }
+
+    val all : t list
+  end
+
+  module LocalBlog : sig
+    type t = { source : source; posts : Post.t list; rss_feed : string }
+
+    val get_by_id : string -> t option
+  end
+
+  val featured_posts : Post.t list
 end
 
 module Opam_user : sig
