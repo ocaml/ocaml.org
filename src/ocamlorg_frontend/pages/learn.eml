@@ -57,8 +57,8 @@ Learn_layout.overview_render
     <%s! Learn_components.right_tutorial_block ~title:"PLATFORM" ~heading:"The OCaml Platform" 
         ~description:"Learn to leverage the tooling around OCaml and create your own projects and libraries" 
         ~tutorial_links:[
-            {href = Url.tutorial "bootstrapping-a-dune-project"; title = "Bootstrapping a Project (Dune)"};
-            {href = Url.tutorial "managing-dependencies"; title = "Managing Dependencies (Opam)"};
+            {href = Url.tutorial "bootstrapping-a-dune-project"; title = "Bootstrapping a Project"};
+            {href = Url.tutorial "managing-dependencies"; title = "Managing Dependencies"};
             {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Install a Specific Compiler Version"};
             {href = Url.tutorial "setting-up-vscode"; title = "Setting Up VSCode"}
         ]

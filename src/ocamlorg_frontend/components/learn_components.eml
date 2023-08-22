@@ -27,7 +27,7 @@ let command_line_icon class_ =
 let install_card 
 latest_version
 =
-  <a href="<%s Url.install %>" class="h-full rounded-xl bg-learn-area-light-blue p-6 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
+  <a href="<%s Url.install %>" class="h-full bg-learn-area-light-blue self-center md:justify-self-end p-6 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
     <div class="hidden lg:flex">
       <%s! download_icon "w-24 h-24 mt-8 flex-shrink-0" %>
     </div>
@@ -47,7 +47,7 @@ latest_version
 
 let standard_lib_card 
 = 
-  <a href="<%s Url.api %>" class="h-full rounded-xl bg-learn-area-light-blue p-6 pr-8 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
+  <a href="<%s Url.api %>" class="h-full bg-learn-area-light-blue p-6 pr-8 flex flex-row gap-8 max-w-[400px] self-center sm:w-[450px] md:justify-self-start md:w-auto md:max-w-[480px] xl:max-w-[500px]">
     <div class="hidden lg:flex">
       <%s! command_line_icon "w-24 h-24 mt-8 flex-shrink-0" %>
     </div>
@@ -65,7 +65,7 @@ let standard_lib_card
 let api_card_block
 latest_version
 =
-  <div class="flex flex-col items-center gap-4 md:auto-rows-max md:grid md:grid-cols-2 lg:justify-items-center">
+  <div class="flex flex-col gap-10 md:auto-rows-max md:grid md:grid-cols-2">
     <%s! install_card latest_version %>
     <%s! standard_lib_card %>
   </div>
