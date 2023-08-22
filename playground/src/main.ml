@@ -114,9 +114,7 @@ module Codec = struct
 
   let from_window () =
     let uri = Window.location G.window in
-    (* Bypass double encoding (dbuenzli/brr/issues/50) *)
-    let fragment = Jv.get (Uri.to_jv uri) "hash" |> Jv.to_jstr in
-    let params = Uri.Params.of_jstr (fragment |> Jstr.slice ~start:1) in
+    let params = Uri.fragment_params uri in
     let from_code jstr =
       (* previously, '+' was not URL-encoded and thus became ' ' *)
       let unspace = replace ~find:(Jstr.v " ") ~replace:(Jstr.v "+") jstr in
@@ -134,11 +132,7 @@ module Codec = struct
     let data = Base64.data_utf_8_of_jstr s in
     let+ bin = Base64.encode data in
     let query = Uri.Params.of_assoc [ (Jstr.v "code", bin) ] in
-    let uri = Window.location G.window in
-    (* Bypass double encoding (dbuenzli/brr/issues/50); consider that without
-       the bypass it would be impossible to place the string '%2B' (encoding of
-       '+') in the URI *)
-    Jv.set (Uri.to_jv uri) "hash" (Uri.Params.to_jv query);
+    let uri = Uri.with_fragment_params (Window.location G.window) query in
     Window.set_location G.window uri;
     Ok ()
 end

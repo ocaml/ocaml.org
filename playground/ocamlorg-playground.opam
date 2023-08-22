@@ -20,7 +20,7 @@ bug-reports: "https://github.com/ocaml/ocaml.org/issues"
 depends: [
   "dune" {>= "3.0"}
   "ocaml" {>= "5.0.0"}
-  "brr"
+  "brr" {>= "0.0.6"}
   "esbuild"
   "js_of_ocaml" {>= "5.0"}
   "js-top-worker"
