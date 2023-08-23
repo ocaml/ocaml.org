@@ -20,6 +20,10 @@ div.odoc div.spec code {
   white-space: pre-wrap;
 }
 
+div.odoc .spec-doc p {
+  margin-top: 0.5rem;
+}
+
 /* clickable anchors and highlighting of targeted .spec elements */
 
 div.odoc .spec {
