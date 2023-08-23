@@ -140,7 +140,7 @@ Layout.render
         </p>
 
         <p>
-          The <a href="<%s Url.tutorial "a-tour-of-ocaml" %>#installing-the-ocaml-platform-tools">OCaml Platform Tools</a> include the <a target="_blank" href="https://dune.build/">build system <tt>dune</tt></a>,
+          The <a href="<%s Url.platform %>">OCaml Platform Tools</a> include the <a target="_blank" href="https://dune.build/">build system <tt>dune</tt></a>,
           and provide you with a complete OCaml development environment.
         </p>
 
