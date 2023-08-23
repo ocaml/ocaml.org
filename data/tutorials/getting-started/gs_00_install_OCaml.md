@@ -1,12 +1,11 @@
 ---
-id: up-and-running
+id: installing-ocaml
 title: Installing OCaml
 description: |
   This page will help you install OCaml, the Dune build system, and support for
   your favourite text editor or IDE. These instructions work on Windows, Unix
   systems like Linux, and macOS.
-category: "getting-started"
-date: 2023-07-10T11:07:30-00:00
+category: "Getting Started"
 ---
 
 # Installing OCaml

@@ -290,6 +290,7 @@ let from_v2 =
     ("/docs/consortium-license.html", Url.index);
     ("/docs/index.fr.html", Url.learn);
     ("/docs/index.html", Url.learn);
+    ("/docs/up-and-running", Url.getting_started);
     ("/docs/install.fr.html", Url.getting_started);
     ("/docs/install.html", Url.getting_started);
     ("/docs/license.fr.html", Url.index);
