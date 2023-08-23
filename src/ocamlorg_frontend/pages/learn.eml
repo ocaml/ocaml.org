@@ -23,7 +23,8 @@ Learn_layout.overview_render
             ~description:"Install OCaml and gain a high-level understanding of language features" 
             ~tutorial_links:[
                 {href = Url.tutorial "up-and-running"; title = "Get Up and Running With OCaml"};
-                {href = Url.tutorial "first-hour"; title = "Your First Day With OCaml"};
+                {href = Url.tutorial "a-tour-of-ocaml"; title = "A Tour of OCaml"};
+                {href = Url.tutorial "how-to-write-an-ocaml-program"; title = "How to Write an OCaml Program"};
                 {href = Url.tutorial "ocaml-on-windows"; title = "OCaml On Windows"}
             ]
              ~see_more:{href = Url.getting_started; title = "Get Started"}
