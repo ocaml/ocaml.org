@@ -6,7 +6,7 @@ categories:
   - name: Bindings
     status: 🆘
     description: |
-      n/a
+      Bindings to existing machine learning infrastructure implemented in other languages.
     packages:
     - torch
     - xla
@@ -17,62 +17,63 @@ categories:
   - name: Clustering
     status: 🆘
     description: |
-      n/a
+      Grouping similar data points into clusters to discover patterns and relationships.
     packages: []
   - name: Data Processing
     status: 🆘
     description: |
-      n/a
+      Handling and manipulation of data for analysis and modeling.
     packages:
     - hdf5
   - name: Data Structures
     status: 🆘
     description: |
-      n/a
-    packages: []
+      Efficient ways to store and handle data for machine learning tasks.
+    packages:
+    - bst
   - name: Decision Trees
     status: 🆘
     description: |
-      n/a
+      Constructing decision trees to make decisions based on input data.
     packages:
     - orandforest
   - name: GPU Computing
     status: 🆘
     description: |
-      n/a
+      Utilizing GPU hardware for accelerated computation.
     packages:
     - spoc
   - name: Linear Classifiers
     status: 🆘
     description: |
-      n/a
+      Classification algorithms based on linear decision boundaries.
     packages: []
   - name: Metaheuristics
     status: 🆘
     description: |
-      n/a
+      High-level strategies for solving optimization problems.
     packages: []
   - name: Neural Networks
     status: 🆘
     description: |
-      n/a
+      Building and training artificial neural networks for machine learning.
     packages:
     - owl
   - name: Natural Language Processing
     status: 🆘
     description: |
-      n/a
+      Processing and understanding human language through computational methods.
     packages:
     - owl
   - name: Reinforcement Learning
     status: 🆘
     description: |
-      n/a
+      Training agents to make sequences of decisions through rewards.
     packages: []
   - name: Scientific Computing
     status: 🆘
     description: |
-      n/a
+      Mathematical and computational tools for scientific analysis.
     packages:
     - onumerical
     - oml

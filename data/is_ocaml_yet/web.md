@@ -4,15 +4,15 @@ question: Is OCaml web yet?
 answer: Not quite yet, but we're getting there!
 categories:
   - name: Authentication
-    status: 🆘
+    status: 🔴
     description: |
-      n/a
+      Packages for authentication-related functionality in OCaml web applications.
     packages:
+    - jwt
+    - cookie
     - FPauth
     - u2f
     - webauthn
-    - jwt
-    - cookie
     - ssl
     - twostep
     - oidc
@@ -49,11 +49,10 @@ categories:
     - bonsai
     - ocaml-vdom
     - fmlib_browser
-    - tyxml
   - name: Compression
     status: 🟡
     description: |
-      n/a
+      Packages that enable compression and decompression of data in OCaml web applications.
     packages:
     - zlib
     - decompress
@@ -67,10 +66,10 @@ categories:
     - lzo
     - zstandard
     - carton
-  - name: Crypto
+  - name: Cryptography
     status: 🟡
     description: |
-      n/a
+      Packages for secure communication, encryption, hashing, and other cryptographic operations.
     packages:
     - cryptokit
     - mirage-crypto
@@ -89,8 +88,9 @@ categories:
   - name: Database
     status: 🟠
     description: |
-      n/a
+      Database-related packages for interacting with databases in OCaml web applications, from simple connectors to type-safe SQL wrappers.
     packages:
+    - petrol
     - caqti
     - pgocaml
     - sqlite3
@@ -101,12 +101,11 @@ categories:
     - aws-rds
     - sequoia
     - sqlgg
-    - petrol
     - mariadb
   - name: Email
     status: 🟠
     description: |
-      n/a
+      Packages for sending and managing email communications.
     packages:
     - tidy_email
     - emile
@@ -122,7 +121,7 @@ categories:
   - name: En- & Decoding
     status: 🟠
     description: |
-      n/a
+      Encoding and decoding various data formats.
     packages:
     - tar
     - imagelib
@@ -133,7 +132,7 @@ categories:
   - name: Web Frameworks
     status: 🟠
     description: |
-      n/a
+      Web development frameworks for building OCaml web applications.
     packages:
     - dream
     - eliom
@@ -142,7 +141,7 @@ categories:
   - name: HTTP Clients
     status: 🔴
     description: |
-      n/a
+      HTTP client libraries for making HTTP requests.
     packages:
     - cohttp
     - hyper
@@ -152,13 +151,13 @@ categories:
   - name: Internationalization
     status: 🆘
     description: |
-      n/a
+      Internationalization and localization for OCaml applications.
     packages:
     - gettext
   - name: Logging
     status: 🟠
     description: |
-      n/a
+      Packages for logging and monitoring that assist in tracking application behavior and performance.
     packages:
     - logs
     - dolog
@@ -169,7 +168,7 @@ categories:
   - name: Lower Web-Stack
     status: 🟡
     description: |
-      n/a
+      Packages that provide foundational networking and communication capabilities.
     packages:
     - httpaf
     - http
@@ -188,10 +187,19 @@ categories:
     - paf
     - mimic
     - tiny_httpd
+  - name: Message Queues & Key-Value Stores
+    status: 🆘
+    description: |
+      Packages for interacting with popular message queues and key-value stores.
+    packages:
+    - amqp-client
+    - kafka
+    - redis
+    - zmq
   - name: Serializers
     status: 🟡
     description: |
-      n/a
+      Packages for serializing and deserializing data in different formats.
     packages:
     - atd
     - yojson
@@ -208,19 +216,10 @@ categories:
     - css
     - csexp
     - data-encoding
-  - name: External Services
-    status: 🆘
-    description: |
-      n/a
-    packages:
-    - amqp-client
-    - kafka
-    - redis
-    - zmq
   - name: Syndication/RSS
     status: 🟡
     description: |
-      n/a
+      Packages for syndicating content and working with RSS feeds.
     packages:
     - syndic
     - river
@@ -228,15 +227,16 @@ categories:
   - name: Templating
     status: 🟡
     description: |
-      n/a
+      Packages that assist in generating dynamic HTML or text content.
     packages:
+    - tyxml
     - embedded_ocaml_templates
     - mustache
     - jingoo
   - name: Static Site Generation
     status: 🟡
     description: |
-      n/a
+      Packages for generating static websites.
     packages:
     - finch
     - stone
@@ -246,7 +246,7 @@ categories:
   - name: External Web APIs
     status: 🆘
     description: |
-      n/a
+      Packages that provide OCaml bindings and clients for interacting with external web APIs.
     packages:
     - spotify-web-api
     - disml
@@ -257,17 +257,17 @@ categories:
   - name: WebAssembly
     status: 🔴
     description: |
-      n/a
+      Packages and tools for compiling OCaml code to WebAssembly.
     packages:
     - wasm
     - owi
 ---
 
-OCaml, traditionally known for its strength in systems programming, formal verification, and as the language of choice for numerous academic endeavors, is steadily maturing in the web development landscape. It might not be the most popular choice for web development yet, but with its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream web development languages.
+OCaml, traditionally known for its strength in systems programming, formal verification, and as the language of choice for numerous academic endeavors, is steadily maturing in the web development landscape. With its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream web development languages.
 
 As a matter of fact, OCaml is used to power production web systems, like [Ahrefs](/success-stories/peta-byte-scale-web-crawler) and [OCaml.org](https://github.com/ocaml/ocaml.org).
 
-If you're considering using OCaml for your next web application, you should be aware that you'll likely have to write a lot of things yourself and won't get an equivalent of some frameworks you may be used to coming from other languages. In particular, OCaml doesn't have good solutions for authentication or a production-ready query-builder. You'll also probably have some challenges if you need to interact with external services or external APIs.
+If you're considering using OCaml for your next web application, you should be aware that you'll likely have to write a noticeable amount of things yourself and won't yet get an equivalent of some frameworks you may be used to coming from other languages. In particular, OCaml doesn't have out-of-the-box solutions for authentication or a fully production-ready query-builder. You'll also probably have some challenges if you need to interact with external services or external APIs.
 
 ## Want to Help?
 
