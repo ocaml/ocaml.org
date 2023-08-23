@@ -316,7 +316,8 @@ let from_v2 =
     ("/learn/taste.html", Url.learn);
     ("/learn/teaching-ocaml.html", Url.academic_users);
     ("/learn/tutorials/99problems.html", Url.problems);
-    ("/learn/tutorials/a_first_hour_with_ocaml.html", Url.tutorial "a-tour-of-ocaml");
+    ( "/learn/tutorials/a_first_hour_with_ocaml.html",
+      Url.tutorial "a-tour-of-ocaml" );
     ( "/learn/tutorials/calling_c_libraries.html",
       Url.tutorial "calling-c-libraries" );
     ( "/learn/tutorials/calling_fortran_libraries.html",
