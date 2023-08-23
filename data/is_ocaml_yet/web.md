@@ -241,6 +241,8 @@ categories:
     - name: finch
     - name: stone
     - name: camyll
+    - name: yocaml
+      url: https://github.com/xhtmlboi/yocaml
     - name: dream-serve
     - name: soupault
   - name: External Web APIs
