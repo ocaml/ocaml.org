@@ -18,7 +18,7 @@ Layout.render
 
     <div class="prose my-6">
       <p>If you need more explicit instructions than provided on this quick-install page, you can find
-        <a href="<%s Url.getting_started %>">a more detailed explanation of the installation process here</a>.
+        <a href="<%s Url.installing_ocaml %>">a more detailed explanation of the installation process here</a>.
       </p>
     </div>
 

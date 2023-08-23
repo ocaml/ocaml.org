@@ -74,6 +74,7 @@ let platform = "/docs/platform"
 let ocaml_on_windows = "/docs/ocaml-on-windows"
 let tutorial name = "/docs/" ^ name
 let getting_started = "/docs/get-started"
+let installing_ocaml = "/docs/installing-ocaml"
 let problems = "/problems"
 let installer = "/install-platform.sh"
 let outreachy = "/outreachy"
