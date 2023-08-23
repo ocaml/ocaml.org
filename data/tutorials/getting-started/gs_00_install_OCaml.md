@@ -181,13 +181,6 @@ To get a complete development environment, including editor support, documentati
 
 Note that, on Windows, using the DKML installer, Dune and Utop have already been installed.
 
-[
-- Merlin and `ocaml-lsp-server` (OCaml's Language Server Protocol), which together enhance editors (like Visual Studio Code, Vim, or Emacs) by providing many useful features such as "jump to definition"
-- `odoc` to generate documentation from OCaml code
-- OCamlFormat to automatically format OCaml code
-- `dune-release` to release code to `opam-repository`, the central package directory of opam
-]
-
 ### Installing Dune and Utop on Linux, *BSD, or macOS
 
 Dune and Utop can be installed in your current [switch](link-to-opam-switch-doc) (remember that opam groups installed packages in independent switches) using the following command:
@@ -201,6 +194,7 @@ $ opam install dune utop
 Now that the tools are installed, it remains to understand how to use them. Most of them will be driven either by the editor or by Dune, but UTop is handy to try OCaml or a specific library.]
 
 ## Up Next: A Tour of OCaml
-Now that you're up and running with OCaml, it's time to take a [sightseeing tour of OCaml](link_to_tour). In the next section, you'll learn about OCaml's basic building blocks, like expressions, functions, operators, dealing with errors, modules, the compiler, and more. 
+
+Now that you're up and running with OCaml, it's time to take a [Tour of OCaml](/docs/a-tour-of-ocaml). You'll learn about OCaml's basic building blocks, like expressions, functions, operators, dealing with errors, modules, and more. 
 
 Welcome to the OCaml Community!
