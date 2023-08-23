@@ -11,27 +11,10 @@ Learn_layout.overview_render
 ~left_sidebar_html:None
 ~right_sidebar_html:None
 ~current:Overview @@
-<<<<<<< HEAD
   <div class="container-fluid">
     <h1 class="font-bold mb-8">Learn OCaml</h1>
     <div class="w-full">
       <%s! Learn_components.api_card_block latest_version %>
-=======
-  <h1 class="font-bold mb-8">Learn OCaml</h1>
-  <div class="w-full">
-    <%s! Learn_components.api_card_block latest_version %>
-  </div>
-  <div class="lg:grid lg:grid-cols-2">
-    <%s! Learn_components.books_content_block Data.Book.featured ~link:{href = Url.books; name = "See All Books"} %>
-    <div class="w-full bg-learn-area-light-blue h-[42rem] lg:w-1/2">
-    </div>
-  </div>
-  <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
-    <h3 class="font-bold">Papers</h3>
-    <div class="mt-6 text-lighter text-lg">
-      Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things?
-      Check out papers written by leading OCaml researchers:
->>>>>>> d97c3cea (fixed layout)
     </div>
   </div>
 
@@ -59,7 +42,7 @@ Learn_layout.overview_render
         %>
   </div>
 
-  <div class="flex flex-col grow md:flex-row">
+  <div class="flex flex-col md:flex-row">
     <%s! Learn_components.left_tutorial_block ~title:"GUIDES" ~heading:"Practical-Minded Tutorials and Guides" 
             ~description:"How to solve real-world problems in OCaml" 
             ~tutorial_links:[
@@ -82,6 +65,19 @@ Learn_layout.overview_render
         ~see_more:{href = Url.platform; title = "See More Tooling Tutorials"}
         "bg-[#040113]"
         %>
+  </div>
+  <div class="flex flex-col md:flex-row">
+    <%s! Learn_components.books_content_block Data.Book.featured ~link:{href = Url.books; title = "See More Books"} %>
+    <%s! Learn_components.right_tutorial_block ~title:"GET STARTED" ~heading:"Introduction To OCaml" 
+            ~description:"Install OCaml and gain a high-level understanding of language features" 
+            ~tutorial_links:[
+                {href = Url.tutorial "up-and-running"; title = "Get Up and Running With OCaml"};
+                {href = Url.tutorial "first-hour"; title = "Your First Day With OCaml"};
+                {href = Url.tutorial "ocaml-on-windows"; title = "OCaml On Windows"}
+            ]
+             ~see_more:{href = Url.getting_started; title = "Get Started"}
+            "bg-learn-area-dark-green"
+    %>
   </div>
   <div class="container-fluid">
     <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
