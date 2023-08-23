@@ -174,24 +174,26 @@ What we installed so far (theoretically) suffices to write, compile, and execute
 
 ## Installing the OCaml Platform Tools
 
-To get a complete development environment, including editor support, documentation generation (`odoc`), automatic code formatting (OCamlFormat), `dune-release`, and more, you'll need to [install the OCaml Platform Tools](https://ocaml.org/docs/platform). However, for the upcoming tutorials, it is sufficient have two of them installed:
+The OCaml Platform Tools include:
 
 - Dune, a fast and full-featured build system for OCaml
+- Merlin and `ocaml-lsp-server` (OCaml's Language Server Protocol), which together enhance editors
+(like Visual Studio Code, Vim, or Emacs) by providing many useful features such as "jump to definition"
+- `odoc` to generate documentation from OCaml code
+- OCamlFormat to automatically format OCaml code
 - UTop, an improved REPL
+- `dune-release` to release code to `opam-repository`, the central package directory of opam.
 
-Note that, on Windows, using the DKML installer, Dune and Utop have already been installed.
+### OCaml Platform Tools on Unix
 
-### Installing Dune and Utop on Linux, *BSD, or macOS
-
-Dune and Utop can be installed in your current [switch](link-to-opam-switch-doc) (remember that opam groups installed packages in independent switches) using the following command:
+All these tools can be installed in your current switch (remember that opam groups installed packages in independent switches) using the following command:
 
 ```shell
-$ opam install dune utop
+$ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop dune-release
 ```
 
-[$ opam install dune utop merlin ocaml-lsp-server odoc ocamlformat dune-release
+Now that the tools are installed, it remains to understand how to use them. Most of them will be driven either by the editor or by Dune, but UTop is handy to try OCaml or a specific library.
 
-Now that the tools are installed, it remains to understand how to use them. Most of them will be driven either by the editor or by Dune, but UTop is handy to try OCaml or a specific library.]
 
 ## Up Next: A Tour of OCaml
 
