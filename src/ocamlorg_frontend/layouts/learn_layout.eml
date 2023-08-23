@@ -34,10 +34,6 @@ let tabs
         <a href="<%s Url.manual %>" class="flex gap-2 justify-start px-4 py-2 border-2 border-transparent rounded items-center font-semibold opacity-80">
           <%s! Icons.arrow_top_right_on_square "w-6 h-6" %> Language Manual
         </a>
-
-        <a href="<%s Url.api %>" class="flex gap-2 justify-start px-4 py-2 items-center font-semibold opacity-80 border-2 border-transparent">
-          <%s! Icons.arrow_top_right_on_square "w-6 h-6" %> Standard Library API
-        </a>
       </nav>
     </div>
 
