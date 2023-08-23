@@ -55,8 +55,8 @@ Learn_layout.render
   </h3>
   <p><%s! category.description %></p>
   <ul>
-    <% category.packages |> List.iter (fun (name : string) -> let package = Hashtbl.find_opt packages name in %>
-    <li><a href="<%s Url.Package.overview name %>"><%s name %></a> <%s match package with | None -> "" | Some package -> package.Package.synopsis %></li>
+    <% category.packages |> List.iter (fun (p : Data.Is_ocaml_yet.package) -> let package = Hashtbl.find_opt packages p.name in %>
+    <li><a href="<%s Option.fold ~none:(Option.value ~default:"" p.url) ~some:(fun _ -> Url.Package.overview p.name) package %>"><%s p.name %></a> <%s match package with | None -> "" | Some package -> package.Package.synopsis %></li>
     <% ); %>
   </ul>
   <% ); %>

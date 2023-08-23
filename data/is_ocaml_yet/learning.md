@@ -8,12 +8,13 @@ categories:
     description: |
       Bindings to existing machine learning infrastructure implemented in other languages.
     packages:
-    - torch
-    - xla
-    - tensorflow
-    - lacaml
-    - sklearn
-    - glpk
+    - name: torch
+    - name: xla
+      url: https://github.com/LaurentMazare/ocaml-xla
+    - name: tensorflow
+    - name: lacaml
+    - name: sklearn
+    - name: glpk
   - name: Clustering
     status: 🆘
     description: |
@@ -24,25 +25,25 @@ categories:
     description: |
       Handling and manipulation of data for analysis and modeling.
     packages:
-    - hdf5
+    - name: hdf5
   - name: Data Structures
     status: 🆘
     description: |
       Efficient ways to store and handle data for machine learning tasks.
     packages:
-    - bst
+    - name: bst
   - name: Decision Trees
     status: 🆘
     description: |
       Constructing decision trees to make decisions based on input data.
     packages:
-    - orandforest
+    - name: orandforest
   - name: GPU Computing
     status: 🆘
     description: |
       Utilizing GPU hardware for accelerated computation.
     packages:
-    - spoc
+    - name: spoc
   - name: Linear Classifiers
     status: 🆘
     description: |
@@ -58,13 +59,13 @@ categories:
     description: |
       Building and training artificial neural networks for machine learning.
     packages:
-    - owl
+    - name: owl
   - name: Natural Language Processing
     status: 🆘
     description: |
       Processing and understanding human language through computational methods.
     packages:
-    - owl
+    - name: owl
   - name: Reinforcement Learning
     status: 🆘
     description: |
@@ -75,11 +76,12 @@ categories:
     description: |
       Mathematical and computational tools for scientific analysis.
     packages:
-    - onumerical
-    - oml
-    - slap
-    - owl
-    - pareto
-    - zarith
-    - gmp
+    - name: onumerical
+      url: https://github.com/cheshire/onumerical
+    - name: oml
+    - name: slap
+    - name: owl
+    - name: pareto
+    - name: zarith
+    - name: gmp
 ---

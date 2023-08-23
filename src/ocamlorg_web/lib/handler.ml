@@ -495,14 +495,15 @@ let is_ocaml_yet t id req =
   let packages =
     meta.categories
     |> List.concat_map (fun category -> category.Data.Is_ocaml_yet.packages)
-    |> List.map Ocamlorg_package.Name.of_string
-    |> List.filter_map (fun name ->
+    |> List.filter_map (fun (p : Data.Is_ocaml_yet.package) ->
+           let name = Ocamlorg_package.Name.of_string p.name in
            match Ocamlorg_package.get_latest t name with
            | Some x -> Some x
            | None ->
-               Dream.error (fun log ->
-                   log ~request:req "Package not found: %s"
-                     (Ocamlorg_package.Name.to_string name));
+               if p.url = None then
+                 Dream.error (fun log ->
+                     log ~request:req "Package not found: %s"
+                       (Ocamlorg_package.Name.to_string name));
                None)
     |> List.map (Package_helper.frontend_package t)
     |> List.map (fun pkg -> (pkg.Ocamlorg_frontend.Package.name, pkg))

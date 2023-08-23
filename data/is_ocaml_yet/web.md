@@ -8,32 +8,32 @@ categories:
     description: |
       Packages for authentication-related functionality in OCaml web applications.
     packages:
-    - jwt
-    - cookie
-    - FPauth
-    - u2f
-    - webauthn
-    - ssl
-    - twostep
-    - oidc
-    - spoke
+    - name: jwt
+    - name: cookie
+    - name: FPauth
+    - name: u2f
+    - name: webauthn
+    - name: ssl
+    - name: twostep
+    - name: oidc
+    - name: spoke
   - name: Binary protocols
     status: 🟡
     description: |
       There are implementations for a lot of popular protocols, some of them are solid, but some of them are still incomplete and need more testing. Some useful protocols for which there is no package include FlatBuffers and AMQP.
     packages:
-    - asn1-combinators
-    - avro
-    - capnp
-    - grpc
-    - protobuf
-    - rpc
-    - jsonrpc
-    - thrift
-    - bson
-    - cbor
-    - mqtt
-    - msgpck
+    - name: asn1-combinators
+    - name: avro
+    - name: capnp
+    - name: grpc
+    - name: protobuf
+    - name: rpc
+    - name: jsonrpc
+    - name: thrift
+    - name: bson
+    - name: cbor
+    - name: mqtt
+    - name: msgpck
   - name: Browser
     status: 🟢
     description: |
@@ -42,225 +42,225 @@ categories:
 
       In addition, [Melange](/p/melange/latest) is a more recent entry to the OCaml-JavaScript compiler space. Originating as a fork of [ReScript](https://rescript-lang.org/), Melange may not have the extensive track record of Js_of_ocaml, but it builds on a very strong foundation and already integrates well with Dune, the OCaml build system.
     packages:
-    - js_of_ocaml
-    - melange
-    - brr
-    - gen_js_api
-    - bonsai
-    - ocaml-vdom
-    - fmlib_browser
+    - name: js_of_ocaml
+    - name: melange
+    - name: brr
+    - name: gen_js_api
+    - name: bonsai
+    - name: ocaml-vdom
+    - name: fmlib_browser
   - name: Compression
     status: 🟡
     description: |
       Packages that enable compression and decompression of data in OCaml web applications.
     packages:
-    - zlib
-    - decompress
-    - camlzip
-    - lz4
-    - ezgzip
-    - hpack
-    - brotli
-    - zstd
-    - snappy
-    - lzo
-    - zstandard
-    - carton
+    - name: zlib
+    - name: decompress
+    - name: camlzip
+    - name: lz4
+    - name: ezgzip
+    - name: hpack
+    - name: brotli
+    - name: zstd
+    - name: snappy
+    - name: lzo
+    - name: zstandard
+    - name: carton
   - name: Cryptography
     status: 🟡
     description: |
       Packages for secure communication, encryption, hashing, and other cryptographic operations.
     packages:
-    - cryptokit
-    - mirage-crypto
-    - nocrypto
-    - pkcs11
-    - tls
-    - x509
-    - fiat-p256
-    - sha
-    - blake2
-    - blake3
-    - bls12-381
-    - pbkdf
-    - dirsp-proscript
-    - digestif
+    - name: cryptokit
+    - name: mirage-crypto
+    - name: nocrypto
+    - name: pkcs11
+    - name: tls
+    - name: x509
+    - name: fiat-p256
+    - name: sha
+    - name: blake2
+    - name: blake3
+    - name: bls12-381
+    - name: pbkdf
+    - name: dirsp-proscript
+    - name: digestif
   - name: Database
     status: 🟠
     description: |
       Database-related packages for interacting with databases in OCaml web applications, from simple connectors to type-safe SQL wrappers.
     packages:
-    - petrol
-    - caqti
-    - pgocaml
-    - sqlite3
-    - lmdb
-    - irmin
-    - mysql
-    - postgresql
-    - aws-rds
-    - sequoia
-    - sqlgg
-    - mariadb
+    - name: petrol
+    - name: caqti
+    - name: pgocaml
+    - name: sqlite3
+    - name: lmdb
+    - name: irmin
+    - name: mysql
+    - name: postgresql
+    - name: aws-rds
+    - name: sequoia
+    - name: sqlgg
+    - name: mariadb
   - name: Email
     status: 🟠
     description: |
       Packages for sending and managing email communications.
     packages:
-    - tidy_email
-    - emile
-    - smtp
-    - letters
-    - mrmime
-    - sendmail
-    - received
-    - email_message
-    - colombe
-    - dkim
-    - uspf
+    - name: tidy_email
+    - name: emile
+    - name: smtp
+    - name: letters
+    - name: mrmime
+    - name: sendmail
+    - name: received
+    - name: email_message
+    - name: colombe
+    - name: dkim
+    - name: uspf
   - name: En- & Decoding
     status: 🟠
     description: |
       Encoding and decoding various data formats.
     packages:
-    - tar
-    - imagelib
-    - base64
-    - multipart-form-data
-    - multipart_form
-    - biniou
+    - name: tar
+    - name: imagelib
+    - name: base64
+    - name: multipart-form-data
+    - name: multipart_form
+    - name: biniou
   - name: Web Frameworks
     status: 🟠
     description: |
       Web development frameworks for building OCaml web applications.
     packages:
-    - dream
-    - eliom
-    - opium
-    - sihl
+    - name: dream
+    - name: eliom
+    - name: opium
+    - name: sihl
   - name: HTTP Clients
     status: 🔴
     description: |
       HTTP client libraries for making HTTP requests.
     packages:
-    - cohttp
-    - hyper
-    - ocurl
-    - http-lwt-client
-    - ezcurl
+    - name: cohttp
+    - name: hyper
+    - name: ocurl
+    - name: http-lwt-client
+    - name: ezcurl
   - name: Internationalization
     status: 🆘
     description: |
       Internationalization and localization for OCaml applications.
     packages:
-    - gettext
+    - name: gettext
   - name: Logging
     status: 🟠
     description: |
       Packages for logging and monitoring that assist in tracking application behavior and performance.
     packages:
-    - logs
-    - dolog
-    - tracing
-    - catapult
-    - opentelemetry
-    - prometheus
+    - name: logs
+    - name: dolog
+    - name: tracing
+    - name: catapult
+    - name: opentelemetry
+    - name: prometheus
   - name: Lower Web-Stack
     status: 🟡
     description: |
       Packages that provide foundational networking and communication capabilities.
     packages:
-    - httpaf
-    - http
-    - tls
-    - websocket
-    - websocketaf
-    - gluten
-    - awa
-    - uri
-    - dns
-    - tcpip
-    - charrua
-    - mirage-nat
-    - arp
-    - ethernet
-    - paf
-    - mimic
-    - tiny_httpd
+    - name: httpaf
+    - name: http
+    - name: tls
+    - name: websocket
+    - name: websocketaf
+    - name: gluten
+    - name: awa
+    - name: uri
+    - name: dns
+    - name: tcpip
+    - name: charrua
+    - name: mirage-nat
+    - name: arp
+    - name: ethernet
+    - name: paf
+    - name: mimic
+    - name: tiny_httpd
   - name: Message Queues & Key-Value Stores
     status: 🆘
     description: |
       Packages for interacting with popular message queues and key-value stores.
     packages:
-    - amqp-client
-    - kafka
-    - redis
-    - zmq
+    - name: amqp-client
+    - name: kafka
+    - name: redis
+    - name: zmq
   - name: Serializers
     status: 🟡
     description: |
       Packages for serializing and deserializing data in different formats.
     packages:
-    - atd
-    - yojson
-    - jsonm
-    - sexplib
-    - yaml
-    - csv
-    - bencode
-    - toml
-    - xml-light
-    - graphql
-    - omd
-    - cmarkit
-    - css
-    - csexp
-    - data-encoding
+    - name: atd
+    - name: yojson
+    - name: jsonm
+    - name: sexplib
+    - name: yaml
+    - name: csv
+    - name: bencode
+    - name: toml
+    - name: xml-light
+    - name: graphql
+    - name: omd
+    - name: cmarkit
+    - name: css
+    - name: csexp
+    - name: data-encoding
   - name: Syndication/RSS
     status: 🟡
     description: |
       Packages for syndicating content and working with RSS feeds.
     packages:
-    - syndic
-    - river
-    - rss
+    - name: syndic
+    - name: river
+    - name: rss
   - name: Templating
     status: 🟡
     description: |
       Packages that assist in generating dynamic HTML or text content.
     packages:
-    - tyxml
-    - embedded_ocaml_templates
-    - mustache
-    - jingoo
+    - name: tyxml
+    - name: embedded_ocaml_templates
+    - name: mustache
+    - name: jingoo
   - name: Static Site Generation
     status: 🟡
     description: |
       Packages for generating static websites.
     packages:
-    - finch
-    - stone
-    - camyll
-    - dream-serve
-    - soupault
+    - name: finch
+    - name: stone
+    - name: camyll
+    - name: dream-serve
+    - name: soupault
   - name: External Web APIs
     status: 🆘
     description: |
       Packages that provide OCaml bindings and clients for interacting with external web APIs.
     packages:
-    - spotify-web-api
-    - disml
-    - openai
-    - github
-    - telegraml
-    - slacko
+    - name: spotify-web-api
+    - name: disml
+    - name: openai
+    - name: github
+    - name: telegraml
+    - name: slacko
   - name: WebAssembly
     status: 🔴
     description: |
       Packages and tools for compiling OCaml code to WebAssembly.
     packages:
-    - wasm
-    - owi
+    - name: wasm
+    - name: owi
 ---
 
 OCaml, traditionally known for its strength in systems programming, formal verification, and as the language of choice for numerous academic endeavors, is steadily maturing in the web development landscape. With its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream web development languages.

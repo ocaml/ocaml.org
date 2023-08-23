@@ -419,11 +419,13 @@ module Code_example : sig
 end
 
 module Is_ocaml_yet : sig
+  type package = { name : string; url : string option }
+
   type category = {
     name : string;
     status : string;
     description : string;
-    packages : string list;
+    packages : package list;
   }
 
   type t = {

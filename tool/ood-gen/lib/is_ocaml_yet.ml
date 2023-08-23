@@ -1,8 +1,11 @@
+type package = { name : string; url : string option }
+[@@deriving of_yaml, show { with_path = false }]
+
 type category = {
   name : string;
   status : string;
   description : string;
-  packages : string list;
+  packages : package list;
 }
 [@@deriving of_yaml, show { with_path = false }]
 
@@ -51,11 +54,13 @@ let all () = Utils.map_files decode "is_ocaml_yet"
 let template () =
   Format.asprintf
     {|
+type package = { name: string; url: string option}
+
 type category = {
   name : string;
   status : string;
   description : string;
-  packages : string list;
+  packages : package list;
 }
 
 type t = {
