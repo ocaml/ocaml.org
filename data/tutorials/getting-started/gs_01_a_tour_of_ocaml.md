@@ -2,17 +2,17 @@
 id: a-tour-of-ocaml
 title: A Tour of OCaml
 description: >
-  Hop on the OCaml sightseeing bus. This absolute beginner tutorial will drive you through the marvels and wonders of OCaml. You'll have a sneak peek at everything that matters. Money back if you don't see OCaml's big five game.
+  Hop on the OCaml sightseeing bus. This absolute beginner tutorial will drive you through the marvels and wonders of OCaml. We'll have a look at the most commonly used language features.
 category: "Getting Started"
 ---
 
 # A Tour of OCaml
 
-Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described in the [Installing OCaml](/docs/up-and-running) tutorial. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [How to Write an OCaml Program](/docs/how-to-write-an-ocaml-program) tutorial.
-
-Let's walk through the basics of OCaml by trying out different elements in an interactive manner. We recommend that you execute the examples we provide, or slight variants of them, in your own environment to get the feel of coding in OCaml.
+Let's walk through the basics of OCaml by trying out different elements in an interactive manner. We recommend that you execute the examples we provide, or slight variants of them, in your own environment to get a feel for coding in OCaml.
 
 ## Prerequisites and Goals
+
+Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described in the [Installing OCaml](/docs/up-and-running) tutorial. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [How to Write an OCaml Program](/docs/how-to-write-an-ocaml-program) tutorial.
 
 This is a level zero tutorial. No OCaml or functional programming knowledge is required. As mentionned above, only having OCaml installed is needed. It is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
 
