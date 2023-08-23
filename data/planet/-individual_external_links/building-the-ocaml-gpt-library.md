@@ -5,4 +5,7 @@ url: https://medium.com/@playersrebirth/building-the-ocaml-gpt-library-650c00b4d
 date: 2023-08-07T06:32:00-00:00
 authors:
 - Pizie Dust
+source:
+  name: "PizieDust on Medium"
+  url: https://medium.com/@playersrebirth
 ---
