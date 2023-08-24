@@ -129,12 +129,12 @@ class_
 let book_tile 
 books
 = 
-  <div class="flex flex-col gap-12 xl:flex-row">
+  <div class="flex flex-col gap-12 lg:gap-6 lg:flex-row xl:gap-12">
     <% books |> List.rev |> List.iteri (fun index (item : Data.Book.t) -> if (index < 2) then ( %>  
         <div class="flex flex-col w-full gap-4 lg:w-60">
           <div class="pl-20 lg:pl-0">
             <img src="<%s Ocamlorg_static.Media.url item.cover %>" 
-                    class="mt-2 w-60 h-80 border border-gray-200 object-contain"
+                    class="mt-2 w-60 h-80 lg:w-52 lg:h-72 xl:w-60 xl:h-80 border border-gray-200 object-contain"
                     alt="">
           </div>
             <%s! skill_tag item.difficulty "mt-2 grow-0 w-28" %>
@@ -149,8 +149,8 @@ let books_content_block
 books
 ~(link : link )
 = 
-  <div class="w-full bg-default flex flex-col items-center h-full p-4 lg:justify-end md:w-1/2">
-    <div class="w-96 sm:w-full">
+  <div class="w-full bg-default flex h-full p-4 md:w-1/2">
+    <div class="w-96 sm:w-auto lg:ml-auto lg:pr-4">
       <div class="pt-4 text-default text-sm font-medium leading-7 tracking-widest"> BOOK </div>
       <h2 class="mt-2 text-default text-2xl font-normal leading-7"> Recommended Books </h2>
       <%s! book_tile books %>
