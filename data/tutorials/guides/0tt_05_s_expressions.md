@@ -10,14 +10,14 @@ category: "Tutorials"
 
 ## Introduction
 
-S-expressions is a popular text serialization format among the OCaml community. In the same way that JSON or YAML can be used to **pass structured data** between various components in a web-based context, S-expressions often fill the same role within an OCaml-to-OCaml context. The S-expression format isn't limited to OCaml and is quite old, it was invented for the Lisp language.
+S-expressions are a popular text serialisation format among the OCaml community. In the same way that JSON or YAML can be used to **pass structured data** between various components in a web-based context, S-expressions often fill the same role within an OCaml-to-OCaml context. The S-expression format isn't limited to OCaml and is quite old, as it was invented for the Lisp language.
 
-The [`sexplib`](https://github.com/janestreet/sexplib) created by Jane Street provides support for S-expression in OCaml. It was developped to provide support for S-expression to [Base](https://github.com/janestreet/base) and [Core](https://github.com/janestreet/core). However, S-expressions serialization does not depend on these packages. In this tutorial, we only use `sexplib`. You can install it using Opam.
+The [`sexplib`](https://github.com/janestreet/sexplib) created by Jane Street provides support for S-expressions in OCaml. It was developped to provide support for S-expression to [Base](https://github.com/janestreet/base) and [Core](https://github.com/janestreet/core). However, S-expressions serialisation does not depend on these packages. In this tutorial, we only use `sexplib`. You can install it using opam.
 ```shell
 $ opam install sexplib
 ```
 
-## S-Expression format
+## S-Expression Format
 
 S-expressions are represented as **nested lists** surrounded by parenthesis. Each element of the list can be either an **atom** or another nested list. The format of an S-expression follows a specific structure, which is crucial to understand when manipulating S-expressions.
 
@@ -31,7 +31,7 @@ Here are a few examples:
 (a (b 0) (c 1.2))
 ```
 
-Each of the individual symbols are atoms. An **atom** represents a basic data value. Atoms can be of different types, including integers, floating-point numbers, strings or booleans. In OCaml, atoms are represented as their corresponding OCaml data types. For example:
+Each of the individual symbols are atoms. An **atom** represents a basic data value. Atoms can be of different types, including integers, floating-point numbers, strings, or Booleans. In OCaml, atoms are represented as their corresponding OCaml data types. For example:
 
   + Integer: `42`
   + Float: `3.14`
@@ -53,17 +53,17 @@ This type and the basic operations associated to this type are defined in the [s
 
 Note: the syntax of [Dune configuration files](https://dune.readthedocs.io/en/latest/reference/lexical-conventions.html) is similar to S-expressions.
 
-## Serializing
+## Serialising
 
-> Serialization is the process of translating a data structure or object state into a format that can be stored (e.g. files or data buffers) or transmitted and reconstructed later.
+> Serialisation is the process of translating a data structure or object state into a format that can be stored (e.g., files or data buffers) or transmitted and reconstructed later.
 
 Here it means we can translate OCaml data types into S-expressions and then into a more machine readable format.
 
 ### Constructing
 
-The [Core](https://github.com/janestreet/core) package provides many ways to deal with S-expressions, a `Sexp` module to deal with the S-expressions themselves, and `sexp_of_t` / `t_of_sexp` functions provided by data type modules (like `String`, `List`, etc.) that allow to convert OCaml data to and from S-expressions.
+The [Core](https://github.com/janestreet/core) package provides many ways to deal with S-expressions, a `Sexp` module to deal with the S-expressions themselves, and `sexp_of_t` / `t_of_sexp` functions provided by data type modules (like `String`, `List`, etc.) that allow users to convert OCaml data to and from S-expressions.
 
-The provided examples are intended to be excuted in `utop`. Here is the initial setup:
+The provided examples are intended to be excuted in UTop. Here is the initial setup:
 
 ```ocaml
 # require "sexplib";;
@@ -83,7 +83,7 @@ To build the S-expression representing `(1 2)`:
 
 ### Printing and Formatting
 
-For display the representation of the S-expressions, formatting functions like `Sexp.pp` are provided:
+To display the representation of the S-expressions, formatting functions like `Sexp.pp` are provided:
 
 ```ocaml
 # Format.printf "%a\n" Sexp.pp Sexp.(List [List [Atom "1"; Atom "hello"]]);;
@@ -103,9 +103,9 @@ You can also directly write the representation of an S-expression in a file by u
 - : unit = ()
 ```
 
-## Deserializing
+## Deserialising
 
-> Deserialization is the process of extracting a data structure from a series of bytes.
+> Deserialisation is the process of extracting a data structure from a series of bytes.
 
 Here it means we can build S-expressions from a storage format, like strings.
 
@@ -127,9 +127,9 @@ Sexplib.Sexp.List
  [Sexplib.Sexp.List [Sexplib.Sexp.Atom "1"; Sexplib.Sexp.Atom "hello"]]
 ```
 
-### Pattern-matching
+### Pattern-Matching
 
-If you don't know the structure of some S-expressions beforehand it is possible to match on the `Atom` and `List` constructors to lookup for some value, for example:
+If you don't know the structure of some S-expressions beforehand, it is possible to match on the `Atom` and `List` constructors to lookup for some value, for example:
 
 ```ocaml
 # let rec contains_zero = function
@@ -141,11 +141,11 @@ val contains_zero : Type.t -> bool = <fun>
 - : bool = false
 ```
 
-## Converting between OCaml types and S-Expressions
+## Converting Between OCaml Types and S-Expressions
 
-### Converting OCaml types into S-expressions
+### Converting OCaml Types Into S-expressions
 
-To build S-expressions from OCaml predefined types we can use the `sexp_of_t` functions predefined in this package:
+To build S-expressions from OCaml predefined types, we can use the `sexp_of_t` functions predefined in this package:
 ```ocaml
 # Std.sexp_of_int 0;;
 - : Type.t = Sexp.Atom "0"
@@ -168,11 +168,11 @@ Sexp.List
  [Sexp.Atom "3"; Sexp.Atom "2"; Sexp.Atom "1"]
 ```
 
-By combining these functions you can write your own `sexp_of_t` functions for your own types (we will see later how to generate them automatically).
+By combining these functions, you can write your own `sexp_of_t` functions for your own types (we will see later how to generate them automatically).
 
-### Converting S-expressions into OCaml types
+### Converting S-expressions Into OCaml Types
 
-Similarly it is possible to convert S-expressions into the corresponding OCaml types by using the predefined `t_of_sexp` functions:
+Similarly, it is possible to convert S-expressions into the corresponding OCaml types by using the predefined `t_of_sexp` functions:
 ```ocaml
 # Std.int_of_sexp (Sexp.Atom "0");;
 - : int = 0
@@ -182,7 +182,7 @@ Similarly it is possible to convert S-expressions into the corresponding OCaml t
 - : string = "hello world"
 ```
 
-Here again we can combine these functions with the ones defined for polymorphic data types such as:
+Here again, we can combine these functions with the ones defined for polymorphic data types such as:
 ```ocaml
 # Std.list_of_sexp Std.int_of_sexp (Sexp.List [Sexp.Atom "1"; Sexp.Atom "2"; Sexp.Atom "3"]);;
 - : int list = [1; 2; 3]
@@ -190,7 +190,7 @@ Here again we can combine these functions with the ones defined for polymorphic 
 - : int array = [|3; 2; 1|]
 ```
 
-### Setting up `ppx_sexp_conv`
+### Setting Up `ppx_sexp_conv`
 
 [`ppx_sexp_conv`](https://github.com/janestreet/ppx_sexp_conv) is a library and a [PPX rewriter](https://ocaml.org/docs/metaprogramming#ppx-rewriters) that allows conversions between S-Expressions and OCaml types.
 
@@ -199,7 +199,7 @@ First, `ppx_sexp_conv` needs to be installed:
 $ opam install ppx_sexp_conv
 ```
 
-Then, to use `ppx_sexp_conv` in your project you must list it as a dependency and as a preprocessor in your dune file:
+Then, to use `ppx_sexp_conv` in your project, you must list it as a dependency and as a preprocessor in your `dune` file:
 ```lisp
 (library
   (name <your_lib>)
@@ -218,7 +218,7 @@ These functions are of the form:
 - `sexp_of_*` to convert from an OCaml type to a S-Expression
 - `*_of_sexp` to convert from a S-Expression to an OCaml type
 
-For example, `sexp_of_int` and `int_of_sexp` are generated for basic the `int` type. These functions will be specifically named after the OCaml type they allow to convert to and from.
+For example, `sexp_of_int` and `int_of_sexp` are generated for basic the `int` type. These functions will be specifically named after the OCaml type they allow users to convert to and from.
 
 To automatically generate such functions for your own type, you must annotate the type definition with an attribute: `[@@deriving sexp]`, such as:
 
@@ -254,14 +254,14 @@ val movement_of_sexp : Sexp.t -> movement = <fun>
 val sexp_of_movement : movement -> Sexp.t = <fun>
 ```
 
-In the example above, annotating the type `movement` is not enough, it depends on the type `direction` so `direction` must also be annotated with `[@@deriving sexp]` for the `sexp_of_movement` and `movement_of_sexp` functions to be generated.
+In the example above, annotating the type `movement` is not enough. It depends on the type `direction`, so `direction` must also be annotated with `[@@deriving sexp]` for the `sexp_of_movement` and `movement_of_sexp` functions to be generated.
 
 
 ## Conclusion
 
-In this tutorial we have presented the different uses of S-expressions. We discussed how to build them manually, how to read them from a string and how to display them as a string. Similarly we showed how they can be used to convert from and to OCaml data types, and these conversions can be automatically generated by `ppx_sexp_conv`.
+In this tutorial, we have presented the different uses of S-expressions. We discussed how to build them manually, how to read them from a string, and how to display them as a string. Similarly, we showed how they can be used to convert to and from OCaml data types, and these conversions can be automatically generated by `ppx_sexp_conv`.
 
 For more information, please refer to the documentation of the following modules and libraries:
-- [sexplib](https://github.com/janestreet/sexplib): library containing basic S-exp functions
-- [ppx_sexp_conv](https://github.com/janestreet/ppx_sexp_conv): PPX syntax extension that generates code for converting OCaml types to and from s-expressions
+- [sexplib](https://github.com/janestreet/sexplib): library containing basic S-expression functions
+- [ppx_sexp_conv](https://github.com/janestreet/ppx_sexp_conv): PPX syntax extension that generates code for converting OCaml types to and from S-expressions
 - [sexp](https://github.com/janestreet/sexp): command-line tools to work with S-expressions
