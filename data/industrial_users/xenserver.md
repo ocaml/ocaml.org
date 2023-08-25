@@ -2,8 +2,8 @@
 name: XenServer
 description: > 
   XenServer is a world-class server virtualization system.
-logo: users/xenserver.png
-url: "https://www.cloud.com"
+logo: users/xenserver.svg
+url: "https://www.xenserver.com"
 locations: 
   - United Kingdom
 consortium: true
