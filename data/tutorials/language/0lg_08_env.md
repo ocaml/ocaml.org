@@ -7,8 +7,6 @@ description: >
 category: "Language"
 ---
 
-[toc]
-
 # Values and Functions
 
 ## Introduction
