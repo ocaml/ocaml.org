@@ -2,9 +2,8 @@
 id: installing-ocaml
 title: Installing OCaml
 description: |
-  This page will help you install OCaml, the Dune build system, and support for
-  your favourite text editor or IDE. These instructions work on Windows, Unix
-  systems like Linux, and macOS.
+  This page will help you install OCaml and the OCaml Platform Tools. |
+  These instructions work on Windows, and Unix systems like Linux, and macOS.
 category: "Getting Started"
 ---
 
@@ -94,9 +93,11 @@ On Unix-based systems, inlucing macOS, Linus, and BSD, it's essential to initial
 ```shell
 $ opam init          # Can take some time
 ```
-You will be asked if you want to add a hook to your shell to best integrate with your system, choose `y` both times. In order for the shell to be aware of the tools available in the current opam switch, a few environment variables need to be modified. For instance, the `PATH` variable has to be expanded so that typing `ocaml` in the shell runs the OCaml binary _of the current switch_. Answering `y` will provide a better user experience.
+You will be asked if you want to add a hook to your shell to best integrate with your system, choose `y` both times. In order for the shell to be aware of the tools available in the current opam switch, a few environment variables need to be modified. For instance, the `PATH` variable has to be expanded so that typing `ocaml` in the shell runs the OCaml binary _of the current Opam switch_. Answering `y` will provide a better user experience.
 
-`opam init` initialises the opam state (stored in a hidden folder `.opam` in your home directory). It also creates a first switch, usually called `default`, although this is just a convention. A switch is an independent OCaml environment with its own OCaml compiler, as well as a set of libraries and binaries. If you have installed OCaml through your system package manager, the first switch will be set up to use this compiler (it is called a "system switch"). Otherwise, it will build one from source, usually taking the most recent version of OCaml. [Read this document](link-to-opam-switch-doc) to delve deeper into opam switches, if interested.
+`opam init` initialises the opam state (stored in a hidden folder `.opam` in your home directory). It also creates a first global Opam switch, usually called `default`, although this is just a convention.
+
+An Opam switch is an independent OCaml environment with its own OCaml compiler, as well as a set of libraries and binaries. If you have installed OCaml through your system package manager, the first switch will be set up to use this compiler (it is called a "system switch"). Otherwise, it will build one from source, usually taking the most recent version of OCaml. [Read this document](/docs/managing-dependencies) to delve deeper into how to use opam switches for dependency management in your projects, if interested.
 
 Next run:
 ```
@@ -149,10 +150,11 @@ Now, download and run:
 
 * OCaml 4.14.0 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.2.0.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.2.0/setup-diskuv-ocaml-windows_x86_64-1.2.0.exe)
 
+To learn more about Diskuv OCaml, see the [official Diskuv OCaml documentation](https://diskuv-ocaml.gitlab.io/distributions/dkml/#introduction).
 
 ### The OCaml Base Tools are Now Installed
 
-After following the instructions in the respective previous section for your operating system, OCaml is now installed in an [opam switch](link-to-opam-switch-doc).
+After following the instructions in the respective previous section for your operating system, OCaml is now installed in an opam switch.
 
 Among others, this provides the following programs:
 
@@ -172,7 +174,7 @@ The OCaml toplevel, version 4.14.0
 
 What we installed so far (theoretically) suffices to write, compile, and execute OCaml code. However, this basic installation is neither complete nor comfortable as a development environment.
 
-## Installing the OCaml Platform Tools
+## The OCaml Platform Tools
 
 The OCaml Platform Tools include:
 
@@ -184,7 +186,7 @@ The OCaml Platform Tools include:
 - UTop, an improved REPL
 - `dune-release` to release code to `opam-repository`, the central package directory of opam.
 
-### OCaml Platform Tools on Unix
+### Installing the OCaml Platform Tools on Unix
 
 All these tools can be installed in your current switch (remember that opam groups installed packages in independent switches) using the following command:
 

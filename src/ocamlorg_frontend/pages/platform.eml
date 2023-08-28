@@ -27,7 +27,7 @@ Learn_layout.render
       a coherent set of tools, documentation, libraries, and testing resources.
     </p>
     <p>
-      The recommended and detailed instructions to install OCaml and the
+      Detailed instructions to install OCaml and the
       Platform tools are available in <a class="text-primary-600"
       href="<%s Url.installing_ocaml %>">"Installing OCaml"</a>.
 
