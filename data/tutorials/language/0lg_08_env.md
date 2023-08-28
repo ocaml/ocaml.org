@@ -1,8 +1,7 @@
-
 ---
 id: environment
 title: Values and Functions
-description: >
+description: |
   TBD
 category: "Language"
 ---
@@ -15,7 +14,7 @@ category: "Language"
 
 When presenting functional programming or OCaml, it is often said: “Functions are treated as first-class citizens”. This may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by this sentence. In turn, this should explain than sentence.
 - Write all kinds of definitions, for all kinds of values, in all different ways
-- Acturately asses the scope of any definition
+- Accurately assess the scope of any definition
 - Avoid being fooled by shadowed definitions and scopes
 - Explain what a closure is and why it is named like that
 - partially apply functions, create closures and pass them as values
