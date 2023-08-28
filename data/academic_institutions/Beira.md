@@ -19,7 +19,7 @@ courses:
     - name: Proof and Programming Theory
       online_resource: "https://www.di.ubi.pt/~desousa/TPP/tpp.html"
     - name: Software Reliability and Security
-      online_resource: "https://www.di.ubi.pt/~desousa/CF/confia.html"
+      online_resource: "https://www.di.ubi.pt/~desousa/CF/confia.html - [403 Forbidden]"
 location:
      lat: 40.2779
      long: -7.5090

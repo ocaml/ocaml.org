@@ -10,9 +10,9 @@ cover: books/ocaml-for-scientists.jpg
 language: english
 links:
   - description: Book Website
-    uri: https://www.ffconsultancy.com/products/ocaml_for_scientists/index.html
+    uri: https://www.ffconsultancy.com/products/ocaml_for_scientists/index.html - [1 Client error: Couldn't resolve host name]
   - description: Ordering Information
-    uri: https://www.ffconsultancy.com/products/ocaml_for_scientists/index.html
+    uri: https://www.ffconsultancy.com/products/ocaml_for_scientists/index.html - [1 Client error: Couldn't resolve host name]
 featured: false
 difficulty : intermediate
 ---

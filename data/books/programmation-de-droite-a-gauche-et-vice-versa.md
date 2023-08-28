@@ -10,6 +10,6 @@ language: french
 isbn: "978-2-916466-05-7"
 links:
   - description: Order Online from Paracamplus
-    uri: https://paracamplus.com
+    uri: https://paracamplus.com - [1 Client error: Timeout was reached]
 featured: false
 ---
