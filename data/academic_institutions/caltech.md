@@ -7,7 +7,7 @@ logo: academic_institution/caltech.png
 continent: North America
 courses:
     - name: Fundamentals of Computer Programming
-      online_resource: "https://users.cms.caltech.edu/~mvanier/"
+      online_resource: "http://users.cms.caltech.edu/~mvanier/"
 location:
      lat: 34.1377
      long: -118.1253

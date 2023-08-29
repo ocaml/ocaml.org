@@ -12,7 +12,7 @@ language: french
 isbn: "2-84177-121-0"
 links:
   - description: Read Online
-    uri: https://www.pps.jussieu.fr/Livres/ora/DA-OCAML/index.html
+    uri: https://www-apr.lip6.fr/~chaillou/Public/DA-OCAML/
   - description: Order at Amazon.fr
     uri: https://www.amazon.fr/exec/obidos/ASIN/2841771210
 featured: false
