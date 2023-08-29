@@ -57,16 +57,20 @@ let platform_tool req =
 let opam_docs req =
   let version = Dream.param req "version" in
   let slug = Dream.param req "slug" in
-  let</>? doc =
-    List.find_opt
-      (fun x -> x.Data.OpamDocs.slug = slug && x.version = version)
+  if version = "latest" then
+    let doc = List.hd Data.OpamDocs.all in
+    Dream.redirect req (Url.opam_docs doc.version slug)
+  else
+    let</>? doc =
+      List.find_opt
+        (fun x -> x.Data.OpamDocs.slug = slug && x.version = version)
+        Data.OpamDocs.all
+    in
+    let docs =
       Data.OpamDocs.all
-  in
-  let docs =
-    Data.OpamDocs.all
-    |> List.filter (fun (d : Data.OpamDocs.t) -> d.version = version)
-  in
-  Dream.html (Ocamlorg_frontend.opam_docs ~docs doc)
+      |> List.filter (fun (d : Data.OpamDocs.t) -> d.version = version)
+    in
+    Dream.html (Ocamlorg_frontend.opam_docs ~docs doc)
 
 let community _req =
   let workshops = Data.Workshop.all in
