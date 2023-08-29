@@ -5,7 +5,7 @@ let render
 =
 Learn_layout.overview_render
 ~title:"Learn OCaml"
-~description:"Getting started with the OCaml programming language. Read the official documentation, exercices, and language manual."
+~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices, and language manual."
 ~canonical:Url.learn
 ~active_top_nav_item:Header.Learn
 ~left_sidebar_html:None
