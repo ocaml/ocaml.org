@@ -18,7 +18,7 @@ lifecycle: active
 ```
 
 <div class="not-prose">
-    <a class="btn btn-primary" href="opam/2.1/install">Download and install opam</a>
-    <a class="btn btn-primary" href="opam/2.1/usage">How to use opam</a>
+    <a class="btn btn-primary" href="opam/2.1.5/install">Download and install opam</a>
+    <a class="btn btn-primary" href="opam/2.1.5/usage">How to use opam</a>
     <a class="btn btn-secondary" href="https://github.com/ocaml/opam">opam on GitHub</a>
 </div>
