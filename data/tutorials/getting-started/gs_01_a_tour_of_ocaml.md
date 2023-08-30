@@ -114,7 +114,9 @@ val x : int = 50
 
 When entering `let x = 50;;`, OCaml responds with `val x : int = 50`, meaning that `x` is an identifier bound to value `50`. So `x * x;;` evaluates to the same as `50 * 50;;`.
 
-Bindings in OCaml are *immutable*, meaning that the value assigned to a name never changes. There is no overloading in OCaml, so inside a lexical scope, names have a single value, which only depends on its definition.
+Bindings in OCaml are *immutable*, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case, it is a constant. It is possible to give names to values than can be updated, in OCaml, this is called a _reference_ and will be discussed in the Working With Mutable State section.
+
+There is no overloading in OCaml, so inside a lexical scope, names have a single value, which only depends on its definition.
 
 Do not use dashes in names; use underscores instead. For example: `x_plus_y` works, `x-plus-y` does not.
 
@@ -396,7 +398,7 @@ values having the same type. Here are a few examples.
 - : int list list = [[1; 2]; [3]; [4; 5; 6]]
 ```
 
-Lists are defined as being either empty, which is written `[]`, or being an element `x` added at the front of another list `u`, which is written `x :: u` (the double colon operator is pronounced “cons”).
+Lists are defined as being either empty, which is written `[]` (pronounced “nil”), or being an element `x` added at the front of another list `u`, which is written `x :: u` (the double colon operator is pronounced “cons”).
 
 ```ocaml
 # 1 :: [2; 3; 4];;
@@ -439,19 +441,21 @@ val length : 'a list -> int = <fun>
 
 This function operates not just on lists of integers but on any kind of list. It is a polymorphic function. Its type indicates input of type `'a list` where `'a` is type variable standing for any type. The empty list pattern `[]` can be of any element type. So the `_ :: v` pattern, as the value at the head of the list, is irrelevant because the `_` pattern indicates it is not inspected. Since both patterns must be of the same type, the typing algorithm infers the `'a list -> int` type.
 
-#### Higher Order Functions on Lists
+#### Passing Functions to Functions.
 
-Functions taking other functions as parameters are called _higher-order_ functions. This was illustrated earlier using function `List.map`. Here is how it is written using pattern matching on lists:
-
+It is possible to pass a function as a paramter to another function. Functions taking other functions as parameters are called _higher-order_ functions. This was illustrated earlier using function `List.map`. Here is how `map` can be written using pattern matching on lists.
 ```ocaml
+# let square x = x * x;;
+val square : int -> int
+
 # let rec map f u =
     match u with
     | [] -> []
     | x :: u -> f x :: map f u;;
 val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 
-# let u = range 0 10000 in List.map square u = map square u;;
-- : bool = true
+# map square [1; 2; 3; 4;];;
+- : int list = [1; 4; 9; 16]
 ```
 
 ### Pairs and Tuples
@@ -472,7 +476,12 @@ Access to the component of tuple is done using pattern matching. For instance, t
     match p with
     | (_, y) -> y;;
 val snd : 'a * 'b -> 'b = <fun>
+
+# snd (42, "apple");;
+- : string = "apple"
 ```
+
+Note: The function `snd` is predefined in the OCaml standard library.
 
 The type of tuples is written using `*` between the components' types.
 
@@ -494,8 +503,26 @@ Here is the definition of a variant type acting as a union type:
 ```ocaml
 # type http_response =
 | Data of string
-| Error of int;;
-type http_response = Data of string | Error of int
+| Error_code of int;;
+type http_response = Data of string | Error_code of int
+
+# Data "<!DOCTYPE html>
+<html lang=\"en\">
+  <head>
+    <meta charset=\"utf-8\">
+    <title>Dummy</title>
+  </head>
+  <body>
+    Dummy Page
+  </body>
+</html>";;
+
+- : http_response =
+Data
+ "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>Dummy</title>\n  </head>\n  <body>\n    Dummy Page\n  </body>\n</html>"
+
+# Error_code 404;;
+- : http_response = Error_code 404
 ```
 
 Here is something sitting in between:
@@ -627,6 +654,11 @@ val id_42_res : int -> (int, string) result = <fun>
 
 # id_42_res 0;;
 - : (int, string) result = Error "Sorry"
+
+# match id_42_res 0 with
+  | Ok n -> n
+  | Error _ -> 0;;
+- : int = 0
 ```
 
 ## Working with Mutable State
@@ -687,7 +719,7 @@ Here is how indexed access is done:
 - : int = 15
 ```
 
-Assignment into arrays and reference assignment are done with different operators.
+Indexed assignment is done using the `<-` operator (not the reference assignment `:=`).
 ```ocaml
 # a.(4) <- 0;;
 - : unit = ()
