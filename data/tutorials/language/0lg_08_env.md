@@ -21,13 +21,13 @@ When presenting functional programming or OCaml, it is often said: “Functions 
 - Curry and uncurry functions
 - Use the `unit` type as a function parameter or return value, when needed
 
-### Chatting with OCaml
+### Chatting With OCaml
 
 This tutorial is shown using the UTop toplevel. Code samples are intended to be copied/pasted into UTop. The reader should write variants around the examples provided to strengthen understanding. Although other toplevels may be used, we recommend UTop. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
 
 ### Touch Base on Double Semicolon
 
-When using UTop to interact with the OCaml interpreter, lines ending with double semicolons trigger the parsing, type-checking, and evaluation of everything typed between the prompt and the double semicolon. Please not this may span several lines. The interpretation of that double semicolon isn't made by the OCaml interpreter; it is made by Utop, the OCaml toplevel. Once the evaluation of a double semicolon terminated entry is over, the REPL waits for another piece of input.
+When using UTop to interact with the OCaml interpreter, lines ending with double semicolons trigger the parsing, type-checking, and evaluation of everything typed between the prompt and the double semicolon. Please note this may span several lines. The interpretation of that double semicolon isn't made by the OCaml interpreter; it is made by UTop, the OCaml toplevel. Once the evaluation of a double semicolon terminated entry is over, the REPL waits for another piece of input.
 
 Nevertheless, the double semicolon `;;` is a valid token in the OCaml syntax. It has no meaning; it is a [no-op](https://en.wikipedia.org/wiki/NOP_(code)). It is ignored and never needed. In OCaml source code files meant to be compiled or interpreted as scripts, double semicolons can and should be avoided. This is a means to avoid double semicolumns required by the toplevel to raise errors when using the compiler.
 
@@ -68,7 +68,7 @@ Every expression can be given a name. The relationship between a name and an exp
 
 If the expression can be computed at the time of its binding to a name, it (and the relationship) is between a name and a value. Otherwise, the expression is turned into a special value without being computed, which is the case of functions. Definitions with computation are discussed in this section. Definitions without computation, like functions, are discussed in the next section.
 
-Global definitions are those entered at the toplevel. This is what happens when writing a definition in UTop.
+Global definitions are those entered at the toplevel. This is what happens when writing a definition in UTop:
 ```ocaml
 # let a = 2 * 3 * 7;;
 val a : int = 42
@@ -83,7 +83,7 @@ val x : int list = [1; 3; 5; 7]
 val y : int list = [2; 4; 6; 8]
 ```
 
-This works for any variant type. Here is a type of tree with a variable number of branches.
+This works for any variant type. Here is a type of tree with a variable number of branches:
 ```ocaml
 # type 'a tree = Node of 'a * 'a tree list;;
 type 'a tree = Node of 'a * 'a tree list
@@ -92,7 +92,7 @@ type 'a tree = Node of 'a * 'a tree list
 val tree_map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 ```
 
-Because records are implicitly single constructor variants, this also applies to them.
+Because records are implicitly single constructor variants, this also applies to them:
 ```ocaml
 # type name = { first : string; last: string };;
 type name = { first : string; last : string; }
@@ -105,7 +105,7 @@ val first : string = "Robin"
 val last : string = "Milner"
 ```
 
-A special case of combined definition and pattern matching involves the unit type.
+A special case of combined definition and pattern matching involves the unit type:
 ```ocaml
 # let () = print_endline "ha ha";;
 ha ha
@@ -139,11 +139,11 @@ Local definitions are like global definitions, except the name is only bound ins
 Error: Unbound value b
 ```
 
-Here, the name `b` is bound to `6` inside the expression `b * 7`. A couple of remarks
+Here, the name `b` is bound to `6` inside the expression `b * 7`. A couple of remarks:
 - No global definition is introduced in this example
 - Computation of `2 * 3` will always take place before `b * 7`
 
-Local definitions can be chained (one after another) or nested (one inside another). Here is an example of chaining.
+Local definitions can be chained (one after another) or nested (one inside another). Here is an example of chaining:
 ```ocaml
 # let b = 2 * 3 in
   let c = b * 7 in
@@ -184,7 +184,7 @@ val tau : float = 6.28318
 
 The scope of `tau` is global. This name is available anywhere after the definition.
 
-Here the global environment is unchanged.
+Here, the global environment is unchanged:
 ```ocaml
 # let pi = 3.14159 in 2. *. pi;;
 - : float = 6.28318
@@ -194,7 +194,7 @@ However, with respect to the expression `2. *. pi`, the environment is different
 
 The scope of a definition is the set of environments where it is reachable.
 
-Although OCaml is an expression-oriented language, it is not entirely free of statements. The `let` construct is a statement. It is a statement which may change the state of the environment by adding a name-value binding. Note that expressions at the toplevel also fall into that category because they are equivalent to `let _ =` definitions.
+Although OCaml is an expression-oriented language, it is not entirely free of statements. The `let` construct is a statement. It is a statement that may change the state of the environment by adding a name-value binding. Note these expressions at the toplevel also fall into that category because they are equivalent to `let _ =` definitions.
 ```ocaml
 # (1.0 +. sqrt 5.0) /. 2.0;;
 - : float = 1.6180339887498949
@@ -225,7 +225,7 @@ val d : int = 42
 - : int = 42
 ```
 
-In this example, `c` is defined twice. The key thing to understand is `c` is not updated. It looks as if the value of `c` has changed, but it hasn't. When the second definition takes place, the first one becomes unreachable, but it still remains in the environment.
+In this example, `c` is defined twice. The key thing to understand is that `c` is not updated. It looks as if the value of `c` has changed, but it hasn't. When the second definition takes place, the first one becomes unreachable, but it still remains in the environment.
 
 Here is how this can be useful:
 ```ocaml
@@ -240,11 +240,11 @@ val length : 'a list -> int = <fun>
 
 The first definition of `length` has two parameters: the list to process and the accumulated length that has already been computed. Writing it this way makes it tail-recursive.
 
-However, in practice, computing a list's length always starts with the accumulator set to nil. Therefore, the first definition is shadowed by the second where the accumulator parameter is set to 0.
+However in practice, computing a list's length always starts with the accumulator set to nil. Therefore, the first definition is shadowed by the second where the accumulator parameter is set to 0.
 
 #### Inner Shadowing
 
-A local definition may shadow any other definition, just like a global does. The only difference is that shadowing is limited to the local definition's scope.
+A local definition may shadow any other definition, just like a global definition does. The only difference is that shadowing is limited to the local definition's scope.
 ```ocaml
 # let d = 21;;
 val d : int = 21
@@ -260,7 +260,7 @@ val d : int = 14
 
 ### Restrictions 
 
-Functions are supposed to be exactly as other values. However, there are two restrictions.
+Functions are supposed to be exactly as other values; however, there are two restrictions.
 
 Function values cannot be displayed in interactive sessions, but the placeholder `<fun>` is displayed. This is because there is nothing meaningful to print. Once parsed and typed-checked, OCaml discards the function's source code and nothing remains to be printed.
 ```ocaml
@@ -278,7 +278,7 @@ There are two main reasons explaining this:
 1. It is impossible to write an algorithm that takes two functions and returns `true` if they always return the same output when provided the same input and `false` otherwise
 1. Assuming it was possible, such an algorithm would declare that quicksort and bubble sort are equal. That would mean those procedures are substitutable, which is not the case.
 
-It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High-school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
+It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
 
 ### Calling Functions
 
@@ -364,7 +364,7 @@ A function may be defined locally. Just like any local definition, the function 
 
 ### Closures
 
-The following sequence of definitions and expressions illustrates what a closure is.
+The following sequence of definitions and expressions illustrates what a closure is:
 ```ocaml
 # let d = 2 * 3;;
 val d : int = 6
@@ -384,12 +384,12 @@ val d : int = 10
 
 Here is how this makes sense:
 1. Constant `d` is defined, and its value is 6.
-1. Function `f` is defined. It takes a single parameter and returns its product by `d`
+1. Function `f` is defined. It takes a single parameter and returns its product by `d`.
 1. Compute `f` of 7
-1. Create a new definition `d` shadowing the first one
+1. Create a new definition `d`, shadowing the first one
 1. Compute `f` of 7 again, the result is the same
 
-Although the new definition of `d` shadows the first one, the first value of `d` remains the one used inside `f`. That first definition of `d` is trapped inside the definition of `f`. Inside `f` the environment is frozen as it was when `f` was defined, with the first value of `d` inside. That's why it is called a closure.
+Although the new definition of `d` shadows the first one, the first value of `d` remains the one used inside `f`. That first definition of `d` is trapped inside the definition of `f`. Inside `f`, the environment is frozen as it was when `f` was defined, with the first value of `d` inside. That's why it is called a closure.
 
 Partially applying parameters also creates a closure.
 ```ocaml
@@ -405,7 +405,7 @@ Actually, all function values are closures.
 
 In order to perform iterated computations, a function may call itself. Such a function is called _recursive_. Recursive functions must be defined; they can't be anonymous. A recursive function also needs to be explicitly declared as such by using `let rec`. In OCaml, either a function is declared as recursive or it isn't recursive. It is not possible to accidentally create recursion loops between functions. As a consequence, recursive functions can't be anonymous.
 
-The classic (and very inefficient) way to present recursion is using the function which computes numbers of the [Fibonacci Sequence](https://en.wikipedia.org/wiki/Fibonacci_sequence).
+The classic (and very inefficient) way to present recursion is using the function that computes numbers of the [Fibonacci Sequence](https://en.wikipedia.org/wiki/Fibonacci_sequence).
 ```ocaml
 # let rec fibo n = if n <= 1 then n else fibo (n - 1) + fibo (n - 2);;
 val fibo : int -> int = <fun>
@@ -434,7 +434,7 @@ The second version uses the two first Fibonacci numbers as initial values. There
 
 #### Passing Multiple Arguments to Functions
 
-Until now, functions having several arguments had a type looking like this: `a₁ -> a₂ -> a₃ -> ⋯ -> b`
+Until now, functions with several arguments had a type looking like this: `a₁ -> a₂ -> a₃ -> ⋯ -> b`
 
 Where `a₁` is the type of the first argument, `a₂` is the type of the second argument, etc., and `b` is the type of the result. However, this type isn't displayed as it is. In reality, this type is the following: `a₁ -> (a₂ -> (a₃ -> ⋯ -> b))`. The arrow symbol is a binary operator. Here is how this can be observed:
 ```ocaml
@@ -447,7 +447,7 @@ val f : int -> int -> int = <fun>
 
 In this example, the type of the integer addition function `( + )` is displayed first. It prints as `int -> int -> int`. It takes two integers and returns an integer. In the second part, an `f` is defined to have type `int -> (int -> int)`. Despite the type of `( + )` looking different, the binding with `f` is allowed because those two types are the same. The toplevel always prints the version without parenthesis to make it easier to read.
 
-Putting the parenthesis the other way does not work:
+Putting the parentheses the other way does not work:
 ```ocaml
 # let g : ((int -> int) -> int) = ( + );;
 Error: This expression has type int -> int -> int
@@ -455,7 +455,7 @@ Error: This expression has type int -> int -> int
        Type int is not compatible with type int -> int
 ```
 
-In mathematical language, it is said the type arrow operator _associates to the right_. Function types without parentheses should be thought to have parentheses put to the right, like the type of `f` was declared. These types are the same:
+In mathematical language, it is said that the type arrow operator _associates to the right_. Function types without parentheses should be thought to have parentheses put to the right, like the type of `f` was declared. These types are the same:
 - `int -> int -> int`
 - `int -> (int -> int)`
 
@@ -493,7 +493,7 @@ In the two previous sections, two kinds of “multiple parameter” functions ha
 - Function returning a function, such as `( + )`
 - Functions taking a pair or a tuple as a parameter, such as `space_cat`
 
-Interestingly, both kinds of functions provide a way to pass several parameters while being functions with a single parameter. In this perspective, it makes sense to say: “All functions have a single argument”.
+Interestingly, both kinds of functions provide a way to pass several parameters while being functions with a single parameter. In this perspective, it makes sense to say: “All functions have a single argument.”
 
 This goes even further. Any function of the same kind can be translated into an equivalent function of the second kind, and conversely. Using OCaml support for higher-order functions, it is possible to define those transformations as functions.
 
@@ -519,7 +519,7 @@ We will not dive any deeper into the details. This equivalence can be formally d
 
 It is very rare to need to use the functions above. However, it is important to understand that changing a function may not need any code refactoring. A function can be given several equivalent forms and changed into another, either using refactoring or using a higher-order function. Since functions are values, currying and uncurrying are operations on those values.
 
-In practice, curried functions are the default form function should take.
+In practice, curried functions are the default form functions should take because:
 - Allows partial application
 - Less editing, no parenthesis and comas
 - No pattern matching over a tuple
