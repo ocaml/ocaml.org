@@ -12,7 +12,7 @@ category: "Language"
 
 ### Learning Goals
 
-When presenting functional programming or OCaml, it is often said: “Functions are treated as first-class citizens.” This may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by this sentence. In turn, this should explain than sentence.
+When presenting functional programming or OCaml, it is often said: “Functions are treated as first-class citizens.” This may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by this sentence. In turn, this should explain that sentence.
 - Write all kinds of definitions, for all kinds of values, in all different ways
 - Accurately assess the scope of any definition
 - Avoid being fooled by shadowed definitions and scopes
