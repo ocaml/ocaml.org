@@ -86,21 +86,25 @@ In OCaml, everything has a value and every value has a type. Here`50 * 50` is an
 
 OCaml has *type inference*. It automatically determines the type of an expression without much guidance from the programmer. Lists are the topic of a [dedicated tutorial](/docs/lists). For the time being, the following two expressions are both lists. The former contains integers, and the latter, strings.
 ```ocaml
-# [1; 2; 3; 4];;
-- : int list = [1; 2; 3; 4]
+# let u = [1; 2; 3; 4];;
+u : int list = [1; 2; 3; 4]
 
 # ["this"; "is"; "mambo"];;
 - : string list = ["this"; "is"; "mambo"]
 ```
 
-The lists' type, `int list` and `string list`, has been inferred from the type of their elements.
+The lists' type, `int list` and `string list`, has been inferred from the type of their elements. Lists can be empty `[]` (pronouced “nil”) stands for the empty list. The most primitive operation on lists is appending a new element at the front of an existing list, this is done using the “cons” operator, that is written with the double colon operator `::`.
+```ocaml
+# 9 :: u;;
+- : int list = [9; 1; 2; 3; 4]
+```
 
 Tests also are expressions
 ```ocaml
 # if 0 = 1 then "test is true" else "test is false";;
 - : string = "test is false"
 ```
-In OCaml, `if ... then ... else ...` and the ternary conditional operator are the same thing.
+In OCaml, `if … then … else …` and the ternary conditional operator are the same thing.
 
 Values can be given names using the `let` keyword. This is called *binding* a value to a name. For example:
 
@@ -120,7 +124,7 @@ There is no overloading in OCaml, so inside a lexical scope, names have a single
 
 Do not use dashes in names; use underscores instead. For example: `x_plus_y` works, `x-plus-y` does not.
 
-Names can be defined locally, within an expression, using the `let ... in ...` syntax:
+Names can be defined locally, within an expression, using the `let … in …` syntax:
 
 ```ocaml
 # let y = 50 in y * y;;
@@ -132,7 +136,7 @@ Error: Unbound value y
 
 This example defines the name `y` and binds it to the value `50`. It is then used in the expression `y * y`, resulting in the value `2500`. Note that `y` is only defined in the expression following the `in` keyword.
 
-Since `let ... in ...` is an expression, it can be used within another expression in order to have several values with their own names:
+Since `let … in …` is an expression, it can be used within another expression in order to have several values with their own names:
 
 ```ocaml
 # let a = 1 in
@@ -310,17 +314,33 @@ detailed here.
 
 ### Recursive Functions
 
-A recursive function calls itself in its own definition. Such functions must be declared using `let rec` instead of just `let`. Here is an example:
+A recursive function calls itself in its own definition. Such functions must be declared using `let rec` instead of just `let`. Recursion is not the only mean to perform iterative computation on OCaml. Loops such as for and while are available, but they are meant to be used when writing imperative OCaml, in conjunction with mutable data. Otherwise, recursive functions should be prefered.
 
+Here is an example of a function which creates a list of consecutive integers between two bounds.
 ```ocaml
-# let rec range a b =
-    if a > b then []
-    else a :: range (a + 1) b;;
+# let rec range lo hi =
+    if lo > hi then
+      []
+    else
+      lo :: range (lo + 1) hi;;
 val range : int -> int -> int list = <fun>
 
-# range 2 11;;
-- : int list = [2; 3; 4; 5; 6; 7; 8; 9; 10; 11]
+# range 2 5;;
+- : int list = [2; 3; 4; 5]
 ```
+
+As indicated by its type `int -> int -> int list`, the function `range` takes two integers as parameters and returns a list of integers as result. The first `int` parameter, called `lo`, is the lower bound of the range, the second `int` parameter, called `hi`, is the higher bound of the range. It is assumed that `lo <= hi`, if it isn't the case, the empty range is returned. That's the first branch of the `if … then … else` expression. Otherwise, the `lo` value is appended at the front of a list that is going to be created by calling `range` itself. That is recursion. The function `range` calls itself. However, some progress is made at each call. Here, since `lo` has just been appended at the head of the list, `range` is called with the `lo + 1`. This can be visualized this way:
+```
+  range 2 5
+= 2 :: range 3 5
+= 2 :: 3 :: range 4 5
+= 2 :: 3 :: 4 :: range 5 5
+= 2 :: 3 :: 4 :: 5 :: range 6 5
+= 2 :: 3 :: 4 :: 5 :: []
+= [2; 3; 4; 5]
+```
+
+Each equal sign corresponds to the computation of recursive step, except the last one. OCaml handles internally lists like shown in the penultimate expression but displays then as the last expression. This is just pretty printing. No computation takes place between the two last steps.
 
 ## Data and Typing
 
@@ -624,7 +644,7 @@ Exception: Failure "Sorry".
 
 Note that exceptions do not appear in function types.
 
-Exceptions are caught using the `try ... with ...` construction
+Exceptions are caught using the `try … with …` construction
 
 ```ocaml
 # try id_42 0 with Failure _ -> 0;;
@@ -663,7 +683,7 @@ val id_42_res : int -> (int, string) result = <fun>
 
 ## Working with Mutable State
 
-OCaml supports imperative programming. Usually, the `let ...` syntax does not define variables, it defines constants. However, mutable variables exists in OCaml, they are called references. Here's how we create a reference to an integer:
+OCaml supports imperative programming. Usually, the `let … = …` syntax does not define variables, it defines constants. However, mutable variables exists in OCaml, they are called references. Here's how we create a reference to an integer:
 
 ```ocaml
 # let r = ref 0;;
