@@ -59,7 +59,7 @@ Upon hitting `Enter`, OCaml runs the code. The following line shows the output. 
 
 Neither the prompt `#` nor the double semicolumns `;;` are part of the code. When the toplevel displays the prompt `#`, it means it is waiting for user input. The double semicolumn means “send.” It marks the end of the input and signals OCaml to run the code. Without double semicolumn, pressing return just creates a new line.
 
-Again, the line which follows shows OCaml's result. The above example says, “What you've entered is an integer (`int`) that evaluates into 4.”
+Again, the line which follows shows OCaml's result. The above example says, “What you've entered is an integer (`int`) that evaluates into 4.” Since it is anonymous expression, the character `-` instead of a name.
 
 If you need to amend the code before hitting enter, you can use your keyboard's right and left arrows to move inside the text. The up and down arrows allows navitation through previously typed commands, if you have multiple lines of code.
 
@@ -93,7 +93,7 @@ u : int list = [1; 2; 3; 4]
 - : string list = ["this"; "is"; "mambo"]
 ```
 
-The lists' type, `int list` and `string list`, has been inferred from the type of their elements. Lists can be empty `[]` (pronouced “nil”) stands for the empty list. The most primitive operation on lists is appending a new element at the front of an existing list, this is done using the “cons” operator, that is written with the double colon operator `::`.
+The lists' type, `int list` and `string list`, has been inferred from the type of their elements. Lists can be empty `[]` (pronouced “nil”) stands for the empty list. Note that the first list has been given a name using the `let … = …` construction, this is detailed below. The most primitive operation on lists is appending a new element at the front of an existing list, this is done using the “cons” operator, that is written with the double colon operator `::`.
 ```ocaml
 # 9 :: u;;
 - : int list = [9; 1; 2; 3; 4]
@@ -118,13 +118,13 @@ val x : int = 50
 
 When entering `let x = 50;;`, OCaml responds with `val x : int = 50`, meaning that `x` is an identifier bound to value `50`. So `x * x;;` evaluates to the same as `50 * 50;;`.
 
-Bindings in OCaml are *immutable*, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case, it is a constant. It is possible to give names to values than can be updated, in OCaml, this is called a _reference_ and will be discussed in the Working With Mutable State section.
+Bindings in OCaml are *immutable*, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case, it is a constant. In other words, in OCaml, all variables are immutable. It is possible to give names to values than can be updated, in OCaml, this is called a _reference_ and will be discussed in the Working With Mutable State section.
 
 There is no overloading in OCaml, so inside a lexical scope, names have a single value, which only depends on its definition.
 
 Do not use dashes in names; use underscores instead. For example: `x_plus_y` works, `x-plus-y` does not.
 
-Names can be defined locally, within an expression, using the `let … in …` syntax:
+Names can be defined locally, within an expression, using the `let … = … in …` syntax:
 
 ```ocaml
 # let y = 50 in y * y;;
