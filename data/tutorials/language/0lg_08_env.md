@@ -27,7 +27,7 @@ This tutorial is shown using the UTop toplevel. Although other toplevels may be 
 
 ### Touch Base on Double Semicolon
 
-When using UTop to interact with the OCaml interpreter, lines ending with double semicolons trigger the parsing, type-checking, and evaluation of everything typed between the prompt and the double semicolon. Please note this may span several lines. The interpretation of that double semicolon isn't made by the OCaml interpreter; it is made by UTop, the OCaml toplevel. Once the evaluation of a double semicolon terminated entry is over, the REPL waits for another piece of input.
+When using UTop to interact with the OCaml interpreter, lines ending with double semicolons trigger the parsing, type-checking, and evaluation of everything typed between the prompt and the double semicolon. This may span several lines. The interpretation of that double semicolon isn't made by the OCaml interpreter; it is made by UTop, the OCaml toplevel. Once the evaluation of a double semicolon terminated entry is over, the REPL waits for another piece of input.
 
 Nevertheless, the double semicolon `;;` is a valid token in the OCaml syntax. It has no meaning; it is a [no-op](https://en.wikipedia.org/wiki/NOP_(code)). It is ignored and never needed. In OCaml source code files meant to be compiled or interpreted as scripts, double semicolons can and should be avoided. This is a means to avoid double semicolumns required by the toplevel to raise errors when using the compiler.
 
