@@ -605,7 +605,10 @@ type person = { first_name : string; surname : string; age : int; }
      age = 40
   };;
 val frank : person = {first_name = "Gérard"; surname = "Huet"; age = 40}
+```
+When defining `frank`, no type needs to be declared. The type checker will search for a record which has exactly three fields with matching names and types. Note that they are no typing relationship between records. It is not possible to declare a record type extends another. Record type search will succed if it finds an exact match and fail in any other case.
 
+```ocaml
 # let s = frank.surname;;
 val s : string = "Huet"
 
@@ -617,6 +620,8 @@ val is_teenager : person -> bool = <fun>
 # is_teenager frank;;
 - : bool = false
 ```
+
+Here, the pattern `{ age = x; _ }` is typed with the most recently declared record type which has an `age` field of type `int`. The type `int` is infered from the expression `13 <= x && x <= 19`. The function `is_teenager` will only work with the found record type, here `person`.
 
 ## Dealing With Errors
 
