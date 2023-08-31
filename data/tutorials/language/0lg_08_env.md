@@ -23,7 +23,7 @@ When presenting functional programming or OCaml, it is often said: “Functions 
 
 ### Chatting With OCaml
 
-This tutorial is shown using the UTop toplevel. Code samples are intended to be copied/pasted into UTop. The reader should write variants around the examples provided to strengthen understanding. Although other toplevels may be used, we recommend UTop. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
+This tutorial is shown using the UTop toplevel. Although other toplevels may be used, we recommend UTop. Code samples are intended to be copied/pasted into UTop. It would benefit the reader to write variants around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
 
 ### Touch Base on Double Semicolon
 
@@ -39,7 +39,7 @@ Like most functional programming languages, OCaml is an [expression-oriented pro
 
 ```ocaml
 # "Everything has a value, every value has a type";;
-- : string = "everything is a value, every value as a type"
+- : string = "Everything is a value, every value has a type"
 
 # 2 * 21;;
 - : int = 42
@@ -51,7 +51,7 @@ Like most functional programming languages, OCaml is an [expression-oriented pro
 - : int = 6
 
 # fun x -> x * x;;
-- : nat -> nat = <fun>
+- : int -> int = <fun>
 
 # ();;
 - : unit = ()
@@ -111,7 +111,7 @@ A special case of combined definition and pattern matching involves the unit typ
 ha ha
 ```
 
-Here, the pattern does not contain any identifier; no name is defined. The expression is evaluated, the side effect takes place, no definition is created, and no value is returned. Writing that kind of pseudo-definition only expresses interest in the side effects.
+Below, the pattern does not contain any identifier, meaning no name is defined. The expression is evaluated, the side effect takes place, no definition is created, and no value is returned. Writing that kind of pseudo-definition only expresses interest in the side effects.
 ```ocaml
 # print_endline "ha ha";;
 ha ha
@@ -151,7 +151,7 @@ Local definitions can be chained (one after another) or nested (one inside anoth
 - : int = 252
 ```
 
-Here is how scoping works here:
+This is how scoping works here:
 - `b` is bound to `6` inside `let c = b * 7 in b * c`
 - `c` is bound to `42` inside `b * c`
 
@@ -161,7 +161,7 @@ Here is an example of nesting:
     let c = 2 * 3 in
     c * 5 in
   b * 7;;
-```
+- : int = 210
 Here is how scoping works:
 - `c` is bound to `6` inside `c * 5`
 - `b` is bound to `30` inside `b * 7`
@@ -190,7 +190,7 @@ Here, the global environment is unchanged:
 - : float = 6.28318
 ```
 
-However, with respect to the expression `2. *. pi`, the environment is different: it contains the definition of `pi`. Local definition create local environments.
+However, with respect to the expression `2. *. pi`, the environment is different, as it contains the definition of `pi`. Local definition create local environments.
 
 The scope of a definition is the set of environments where it is reachable.
 
@@ -250,7 +250,7 @@ A local definition may shadow any other definition, just like a global definitio
 val d : int = 21
 
 # let d = 7 in d * 2;;
-val d : int = 14
+- : int = 14
 
 # d;;
 - : int = 21
@@ -275,7 +275,7 @@ Exception: Invalid_argument "compare: functional value".
 ```
 
 There are two main reasons explaining this:
-1. It is impossible to write an algorithm that takes two functions and returns `true` if they always return the same output when provided the same input and `false` otherwise
+1. It is impossible to write an algorithm that takes two functions and returns `true`, if they always return the same output when provided the same input, and `false` otherwise
 1. Assuming it was possible, such an algorithm would declare that quicksort and bubble sort are equal. That would mean those procedures are substitutable, which is not the case.
 
 It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
@@ -297,6 +297,7 @@ There are two alternative ways to call functions: using the application `@@` ope
 - : float = 3.
 
 # sqrt @@ 9.0;;
+- : float = 3.
 ```
 
 The application operator applies a parameter (on the right) to a function (on the left). It is useful when chaining several calls, as it avoids writing parentheses. Here is what it can look like:
@@ -320,7 +321,7 @@ This is just like a Unix shell pipe.
 
 ### Anonymous Functions
 
-As citizens of the same level as other values, functions don't have to be bound to a name to exist (although some must, this will be explained later). Function values not bound to names are called _anonymous functions_. Here are a couple of examples:
+As citizens of the same level as other values, functions don't have to be bound to a name to exist (although some must, but this will be explained later). Function values not bound to names are called _anonymous functions_. Here are a couple of examples:
 ```ocaml
 # fun x -> x;;
 - : 'a -> 'a = <fun>
@@ -336,7 +337,7 @@ As citizens of the same level as other values, functions don't have to be bound 
 ```
 
 In order, here is what they do:
-- This is the identity function, takes anything, returns it unchanged
+- The identity function, takes anything, returns it unchanged
 - The square function takes an integer, returns its square
 - A function taking two strings, returning their concatenation, with a space character in between
 - A function taking a list, returning `None` if the list is empty, and the tail of the list otherwise
@@ -370,7 +371,7 @@ The following sequence of definitions and expressions illustrates what a closure
 val d : int = 6
 
 # let f x = x * d;;
-val f : 'a -> int = <fun>
+val f : int -> int = <fun>
 
 # f 7;;
 - : int = 42
@@ -445,7 +446,7 @@ Where `a₁` is the type of the first argument, `a₂` is the type of the second
 val f : int -> int -> int = <fun>
 ```
 
-In this example, the type of the integer addition function `( + )` is displayed first. It prints as `int -> int -> int`. It takes two integers and returns an integer. In the second part, an `f` is defined to have type `int -> (int -> int)`. Despite the type of `( + )` looking different, the binding with `f` is allowed because those two types are the same. The toplevel always prints the version without parenthesis to make it easier to read.
+In this example, the type of the integer addition function `( + )` is displayed first. It prints as `int -> int -> int`. It takes two integers and returns an integer. In the second part, `f` is defined to have type `int -> (int -> int)`. Despite the type of `( + )` looking different, the binding with `f` is allowed because those two types are the same. The toplevel always prints the version without parentheses to make it easier to read.
 
 Putting the parentheses the other way does not work:
 ```ocaml
@@ -474,7 +475,7 @@ Passing a single integer to the addition returns a function of type `int -> int`
 Consider this function:
 ```ocaml
 # let space_cat (s, t) = s ^ " " ^ t;;
-val space_cat : string * string -> string
+val space_cat : string * string -> string = <fun>
 ```
 
 It takes a pair of strings and returns a string.
@@ -490,7 +491,7 @@ However, from an OCaml perspective, `space_cat` takes a single parameter, which 
 ### Currying and Uncurrying
 
 In the two previous sections, two kinds of “multiple parameter” functions have been presented.
-- Function returning a function, such as `( + )`
+- Functions returning a function, such as `( + )`
 - Functions taking a pair or a tuple as a parameter, such as `space_cat`
 
 Interestingly, both kinds of functions provide a way to pass several parameters while being functions with a single parameter. In this perspective, it makes sense to say: “All functions have a single argument.”
@@ -515,9 +516,9 @@ From a typing perspective, this means that for any types `a`, `b`, and `c`, the 
 - `a -> (b -> c)` &mdash; curried function type
 - `a * b -> c` &mdash; uncurried function type
 
-We will not dive any deeper into the details. This equivalence can be formally defined using _ad-hoc_ mathematics.
+We will not dive any deeper into the details here. This equivalence can be formally defined using _ad-hoc_ mathematics.
 
-It is very rare to need to use the functions above. However, it is important to understand that changing a function may not need any code refactoring. A function can be given several equivalent forms and changed into another, either using refactoring or using a higher-order function. Since functions are values, currying and uncurrying are operations on those values.
+It is rarely necessary to use the functions above. However, it is important to understand that changing a function may not need any code refactoring. A function can be given several equivalent forms and changed into another, either using refactoring or using a higher-order function. Since functions are values, currying and uncurrying are operations on those values.
 
 In practice, curried functions are the default form functions should take because:
 - Allows partial application
