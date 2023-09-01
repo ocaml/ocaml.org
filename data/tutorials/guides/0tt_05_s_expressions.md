@@ -12,14 +12,14 @@ category: "Tutorials"
 
 S-expressions are a popular text serialisation format among the OCaml community. In the same way that JSON or YAML can be used to **pass structured data** between various components in a web-based context, S-expressions often fill the same role within an OCaml-to-OCaml context. The S-expression format isn't limited to OCaml and is quite old, as it was invented for the Lisp language.
 
-The [`sexplib`](https://github.com/janestreet/sexplib) created by Jane Street provides support for S-expressions in OCaml. It was developped to provide support for S-expression to [Base](https://github.com/janestreet/base) and [Core](https://github.com/janestreet/core). However, S-expressions serialisation does not depend on these packages. In this tutorial, we only use `sexplib`. You can install it using opam.
+The [`sexplib`](https://github.com/janestreet/sexplib), created by Jane Street, provides support for S-expressions in OCaml. It was developped to provide support for S-expression to [Base](https://github.com/janestreet/base) and [Core](https://github.com/janestreet/core). However, S-expressions serialisation does not depend on these packages. In this tutorial, we only use `sexplib`. You can install it using opam.
 ```shell
 $ opam install sexplib
 ```
 
 ## S-Expression Format
 
-S-expressions are represented as **nested lists** surrounded by parenthesis. Each element of the list can be either an **atom** or another nested list. The format of an S-expression follows a specific structure, which is crucial to understand when manipulating S-expressions.
+S-expressions are represented as **nested lists** surrounded by parentheses. Each element of the list can be either an **atom** or another nested list. The format of an S-expression follows a specific structure, which is crucial to understand when manipulating S-expressions.
 
 Here are a few examples:
 
@@ -49,7 +49,7 @@ type sexp =
   | List of sexp list (** Nested list. *)
 ```
 
-This type and the basic operations associated to this type are defined in the [sexplib](https://github.com/janestreet/sexplib) package.
+This type and the basic operations associated to it are defined in the [sexplib](https://github.com/janestreet/sexplib) package.
 
 Note: the syntax of [Dune configuration files](https://dune.readthedocs.io/en/latest/reference/lexical-conventions.html) is similar to S-expressions.
 
@@ -57,7 +57,7 @@ Note: the syntax of [Dune configuration files](https://dune.readthedocs.io/en/la
 
 > Serialisation is the process of translating a data structure or object state into a format that can be stored (e.g., files or data buffers) or transmitted and reconstructed later.
 
-Here it means we can translate OCaml data types into S-expressions and then into a more machine readable format.
+Here it means we can translate OCaml data types into S-expressions and then into a more machine-readable format.
 
 ### Constructing
 
@@ -70,7 +70,7 @@ The provided examples are intended to be excuted in UTop. Here is the initial se
 # open Sexplib;;
 ```
 
-To manually build S-expressions we can combine the two constructors `Atom` and `List` presented above. To build the S-expression representing `(1)`: 
+To manually build S-expressions, we can combine the two constructors `Atom` and `List` presented above. To build the S-expression representing `(1)`: 
 ```ocaml
 # Sexp.Atom "1";;
 - : Type.t = Sexplib.Sexp.Atom "1"
@@ -129,7 +129,7 @@ Sexplib.Sexp.List
 
 ### Pattern-Matching
 
-If you don't know the structure of some S-expressions beforehand, it is possible to match on the `Atom` and `List` constructors to lookup for some value, for example:
+If you don't know the structure of some S-expressions beforehand, it is possible to match on the `Atom` and `List` constructors to lookup for some value. For example:
 
 ```ocaml
 # let rec contains_zero = function
@@ -143,7 +143,7 @@ val contains_zero : Type.t -> bool = <fun>
 
 ## Converting Between OCaml Types and S-Expressions
 
-### Converting OCaml Types Into S-expressions
+### Converting OCaml Types Into S-Expressions
 
 To build S-expressions from OCaml predefined types, we can use the `sexp_of_t` functions predefined in this package:
 ```ocaml
@@ -192,7 +192,7 @@ Here again, we can combine these functions with the ones defined for polymorphic
 
 ### Setting Up `ppx_sexp_conv`
 
-[`ppx_sexp_conv`](https://github.com/janestreet/ppx_sexp_conv) is a library and a [PPX rewriter](https://ocaml.org/docs/metaprogramming#ppx-rewriters) that allows conversions between S-Expressions and OCaml types.
+[`ppx_sexp_conv`](https://github.com/janestreet/ppx_sexp_conv) is a library and a [PPX rewriter](https://ocaml.org/docs/metaprogramming#ppx-rewriters) that allows conversions between S-expressions and OCaml types.
 
 First, `ppx_sexp_conv` needs to be installed:
 ```shell
@@ -215,8 +215,8 @@ Finally, to add the predefined converters to the scope, you must open the `Sexpl
 `ppx_sexp_conv` will automatically generate conversion functions for the selected OCaml types.
 
 These functions are of the form:
-- `sexp_of_*` to convert from an OCaml type to a S-Expression
-- `*_of_sexp` to convert from a S-Expression to an OCaml type
+- `sexp_of_*` to convert from an OCaml type to a S-expression
+- `*_of_sexp` to convert from a S-expression to an OCaml type
 
 For example, `sexp_of_int` and `int_of_sexp` are generated for basic the `int` type. These functions will be specifically named after the OCaml type they allow users to convert to and from.
 
@@ -229,7 +229,7 @@ val color_of_sexp : Sexp.t -> color = <fun>
 val sexp_of_color : color -> Sexp.t = <fun>
 ```
 
-This will prompt the `ppx_sexp_conv` preprocessor to generate both `sexp_of_color` and `color_of_sexp` functions, to convert between values of the type `color` and S-Expressions.
+This will prompt the `ppx_sexp_conv` preprocessor to generate both `sexp_of_color` and `color_of_sexp` functions, to convert between values of the type `color` and S-expressions.
 
 You can then use the generated function as usual:
 ```ocaml
