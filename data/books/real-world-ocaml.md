@@ -1,5 +1,6 @@
 ---
 title: "Real World OCaml"
+slug: "real-world-ocaml"
 description: >
   Learn how to solve day-to-day problems in data processing, numerical
   computation, system scripting, and database-driven web applications with
@@ -15,7 +16,7 @@ links:
     uri: https://realworldocaml.org/
 rating: 4
 featured: true
-difficulty: beginner
+difficulty: intermediate
 ---
 
 Learn how to solve day-to-day problems in data processing, numerical

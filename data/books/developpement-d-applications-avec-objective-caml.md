@@ -1,5 +1,6 @@
 ---
 title: "Développement d'applications avec Objective Caml"
+slug: "developpement-d-applications-avec-objective-caml"
 description: >
   "Objective CAML est un langage de programmation : un de plus dira-t-on ! Ils sont en effet déjà nombreux et pourtant il en apparaît constamment de nouveaux. Au delà de leurs disparités, la conception et la genèse de chacun d'eux procèdent d'une motivation partagée : la volonté d'abstraire"
 authors:

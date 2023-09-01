@@ -1,5 +1,6 @@
 ---
 title: "OCaml Programming: Correct + Efficient + Beautiful"
+slug: "ocaml-programming-cs3110"
 description: >
   A textbook on functional programming and data structures in OCaml, with an
   emphasis on semantics and software engineering. This book is the textbook for

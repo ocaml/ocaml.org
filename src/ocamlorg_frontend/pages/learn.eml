@@ -1,3 +1,9 @@
+let intermediate_books = 
+  let book_slugs_to_retrieve = ["more-ocaml-algorithms-methods-diversions"; "real-world-ocaml"] in
+  let book_options = List.map Data.Book.get_by_slug book_slugs_to_retrieve in
+  let books = List.filter_map (fun opt -> opt) book_options in
+  books
+
 let render
 ~(papers : Data.Paper.t list)
 ~(books : Data.Book.t list)
@@ -18,7 +24,7 @@ Learn_layout.overview_render
     </div>
   </div>
 
-  <div class="flex flex-col mt-8 md:flex-row">
+  <div class="mt-8 grid md:grid-cols-2">
     <%s! Learn_components.left_tutorial_block ~title:"GET STARTED" ~heading:"Introduction To OCaml" 
             ~description:"Install OCaml and gain a high-level understanding of language features" 
             ~tutorial_links:[
@@ -27,7 +33,7 @@ Learn_layout.overview_render
                 {href = Url.tutorial "ocaml-on-windows"; title = "OCaml On Windows"}
             ]
              ~see_more:{href = Url.getting_started; title = "Get Started"}
-            "bg-learn-area-dark-green"
+            "bg-teal-700"
             %>
     <%s! Learn_components.right_tutorial_block ~title:"LANGUAGE" ~heading:"The OCaml Language" 
         ~description:"An in-depth explanation of language features and data structures from the Standard Library" 
@@ -42,7 +48,7 @@ Learn_layout.overview_render
         %>
   </div>
 
-  <div class="flex flex-col md:flex-row">
+  <div class="grid md:grid-cols-2">
     <%s! Learn_components.left_tutorial_block ~title:"GUIDES" ~heading:"Practical-Minded Tutorials and Guides" 
             ~description:"How to solve real-world problems in OCaml" 
             ~tutorial_links:[
@@ -66,18 +72,10 @@ Learn_layout.overview_render
         "bg-[#040113]"
         %>
   </div>
-  <div class="flex flex-col md:flex-row">
-    <%s! Learn_components.books_content_block Data.Book.featured ~link:{href = Url.books; title = "See More Books"} %>
-    <%s! Learn_components.right_tutorial_block ~title:"GET STARTED" ~heading:"Introduction To OCaml" 
-            ~description:"Install OCaml and gain a high-level understanding of language features" 
-            ~tutorial_links:[
-                {href = Url.tutorial "up-and-running"; title = "Get Up and Running With OCaml"};
-                {href = Url.tutorial "first-hour"; title = "Your First Day With OCaml"};
-                {href = Url.tutorial "ocaml-on-windows"; title = "OCaml On Windows"}
-            ]
-             ~see_more:{href = Url.getting_started; title = "Get Started"}
-            "bg-learn-area-dark-green"
-    %>
+
+  <div class="grid lg:grid-cols-2">
+    <%s! Learn_components.left_books_content_block books ~title:"Recommended For Beginners" ~link:{href = Url.books; title = "See More Books"} %>
+    <%s! Learn_components.right_books_content_block intermediate_books ~title:"For Intermediate Users" ~link:{href = Url.books; title = "See More Books"} %>
   </div>
   <div class="container-fluid">
     <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
@@ -113,35 +111,4 @@ Learn_layout.overview_render
       </a>
     </div>
 
-    <div class="mt-10 lg:mt-20">
-      <h3 class="font-bold">Recommended Books</h3>
-      <div class="mt-6 text-lighter mb-12 text-lg">
-          What experts programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">
-        <% books |> List.iter (fun (item : Data.Book.t) -> %>
-        <a href="<%s item.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 card-hover">
-          <img
-            src="<%s Ocamlorg_static.Media.url item.cover %>"
-            class="rounded-2xl lg:w-full max-h-96 border border-gray-200"
-            alt="<%s item.title %> cover"
-          >
-          <div class="font-semibold mt-6 mb-3"><%s item.title %></div>
-          <% (match item.rating with | None -> () | Some rating -> %>
-          <div class="flex space-x-1 mb-6 text-primary-600">
-            <% List.init rating (fun _ -> ()) |> List.iter (fun () -> %>
-            <%s! Icons.star_2 "h-6 w-6 text-yellow-300" %>
-            <% ); %> <% List.init (5 - rating) (fun _ -> ()) |> List.iter (fun () -> %>
-            <%s! Icons.star_2 "h-6 w-6 text-gray-300" %>
-            <% ); %>
-          </div>
-          <% ); %>
-        </a>
-        <% ); %>
-      </div>
-      <a href="<%s Url.books %>" class="btn btn-lg btn-secondary mt-12">
-        <span>See all Books</span>
-        <%s! Icons.chevron_right "h-5 w-5" %>
-      </a>
-    </div>
   </div>

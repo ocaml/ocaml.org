@@ -1,5 +1,6 @@
 ---
 title: "OCaml Scientific Computing"
+slug: "ocaml-scientific-computing"
 description: >
   Shows how the expressiveness of OCaml allows for fast and safe
   development of data science applications.

@@ -1,5 +1,6 @@
 ---
 title: "More OCaml: Algorithms, Methods & Diversions"
+slug: "more-ocaml-algorithms-methods-diversions"
 description: >
   In "More OCaml" John Whitington takes a meandering tour of functional
   programming with OCaml, introducing various language features and describing

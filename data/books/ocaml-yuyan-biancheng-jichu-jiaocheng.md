@@ -1,5 +1,6 @@
 ---
 title: "OCaml语言编程基础教程"
+slug: "ocaml-yuyan-biancheng"
 description: ""
 authors:
   - G. Chen

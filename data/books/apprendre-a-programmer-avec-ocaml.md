@@ -1,5 +1,6 @@
 ---
 title: "Apprendre à programmer avec OCaml"
+slug: "apprendre-a-programmer-avec-ocaml"
 description: >
   This book is organized into three parts. The first one introduces
   OCaml and targets beginners, being they programming beginners or

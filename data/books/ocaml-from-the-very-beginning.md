@@ -1,5 +1,6 @@
 ---
 title: "OCaml From the Very Beginning"
+slug: "ocaml-from-the-very-beginning"
 description: >
   In "OCaml from the Very Beginning" John Whitington takes a
   no-prerequisites approach to teaching a modern general-purpose

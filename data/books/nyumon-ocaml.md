@@ -1,5 +1,6 @@
 ---
 title: "入門OCaml ~プログラミング基礎と実践理解~"
+slug: "nyumon-ocaml"
 description: ""
 authors:
   - OCaml-Nagoya
