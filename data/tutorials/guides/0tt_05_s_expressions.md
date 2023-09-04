@@ -19,7 +19,9 @@ $ opam install sexplib
 
 ## S-Expression Format
 
-S-expressions are represented as **nested lists** surrounded by parentheses. Each element of the list can be either an **atom** or another nested list. The format of an S-expression follows a specific structure, which is crucial to understand when manipulating S-expressions.
+The format of an S-expression follows a specific structure, which is crucial to understand when manipulating S-expressions
+
+S-expressions are represented as **nested lists** surrounded by parentheses.  Inside each set of parentheses is a nested list of S-Expressions. A nested list is used to represent the **hierarchical structure of S-Expressions**. Each element of the list can be either an **atom** or another nested list. The elements within the list are separated by spaces.
 
 Here are a few examples:
 
