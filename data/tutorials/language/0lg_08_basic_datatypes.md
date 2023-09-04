@@ -10,15 +10,15 @@ category: "Language"
 
 ## Introduction
 
-OCaml is a statically and strongly-typed programming language. It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs. Yet, it is easy to use and unobtrusive. Thanks to type inference, programs can be written without typing annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
+OCaml is a statically and strongly typed programming language. It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs. Yet, it is easy to use and unobtrusive. Thanks to type inference, programs can be written without typing annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
 
 This tutorial begins with a section presenting the types that are predefined in OCaml. It starts with atomic types such as integers and Booleans. It continues by presenting predefined compound types such as strings and lists. The tutorial ends with a section about user-defined types: variants and records.
 
 OCaml provides several other types, but they all are extensions of those presented in this tutorial. Types that are in the scope of this tutorial are all the basic constructors and the most common predefined types.
 
-## Prerequisies and Goals
+## Prerequisites and Goals
 
-This is an intermediate level tutorial. The only prerequisite is to have completed the [Get Started](https://ocaml.org/docs/up-and-running) series of tutorials.
+This is an intermediate-level tutorial. The only prerequisite is to have completed the [Get Started](https://ocaml.org/docs/up-and-running) series of tutorials.
 
 The goal of this tutorial is to provide for following capabilities:
 - Handle data of all predefined types using dedicated syntax
@@ -43,7 +43,7 @@ The `int` type is the default and basic type of integer numbers in OCaml. It rep
 
 Usually, `int` has 31 bits in 32-bit architectures and 63 in 64-bit architectures; one bit is reserved for OCaml's runtime operation. The standard library also provides [`Int32`](/api/Int32.html) and [`Int64`](/api/Int64.html) modules, which support platform independent operations on 32 and 64 bits signed integers. These modules are not detailed in this tutorial.
 
-There are no dedicated types for unsigned integers in OCaml. Bitwise operations on `int` just ignore the sign bit. Binary operators use standard symbols, and signed remainder is written `mod`. There is no predefined power operator on integers in OCaml.
+There are no dedicated types for unsigned integers in OCaml. Bitwise operations on `int` treat the sign bit as the other bits. Binary operators use standard symbols. The signed remainder operator is written `mod`. There is no predefined power operator on integers in OCaml.
 
 #### Floats and Type Conversions
 
@@ -100,7 +100,7 @@ The module [`Uchar`](/api/Uchar.html) provides support for Unicode characters.
 
 Strings are finite and fixed-sized sequences of values of type `char`. Strings are immutable, meaning it is impossible to change the a character's value inside a string. The string concatenation operator symbol is `^`.
 ```ocaml
-# "" ^ " " ^ "world!";;
+# "hello" ^ " " ^ "world!";;
 - : string = "hello world!"
 ```
 
@@ -325,7 +325,7 @@ Defining a function is the same as giving a name to any value. This is illustrat
 
 ```ocaml
 # let g x = x * x;;
-g : int -> int
+g : int -> int = <fun>
 
 # g 9;;
 - : int = 81
@@ -427,8 +427,8 @@ val rectitude_to_french : rectitude -> string = <fun>
 
 Note that:
 
-- `unit` is an enumerated-as-variant with a unique constructor: `()`.
-- `bool` is also an enumerated-as-variant with two constructors: `true` and `false`.
+- `unit` is a variant with a unique constructor, which does not carry data: `()`.
+- `bool` is also a variant with two constructors that don't carry data: `true` and `false`.
 
 A pair `(x, y)` has type `a * b`, where `a` is the type of `x` and `b` is the type of `y`. Some may find it intriguing that `a * b` is called a product. Although this is not a complete explanation, here is a remark which may help in understanding: Consider the product type `character_class * character_alignement`. There are 12 classes and 9 alignments. Any pair of values from those types inhabit the product type. Therefore, in the product type, there are 9 × 12 = 108 values, which also is a product.
 
@@ -546,11 +546,11 @@ Where `(int, bool) pair` would be written `int * bool` and `Pair (42, true)` wou
 
 Even integers and floats can be seen as enumerated-like variant types, with many constructors and funky syntactic sugar. This is what allows pattern matching on those types.
 
-In the end, the only type construction that does not reduce to a variant is the function arrow type. No pattern matching on functions.
+In the end, the only type construction that does not reduce to a variant is the function arrow type. It is possible to perform pattern matching on values of any type, except functions.
 
 #### User-Defined Polymorphic
 
-Here is an example of a variant type that combines constructors with data and without data, polymorphism, and recursion:
+Here is an example of a variant type that combines constructors with data, constructors without data, polymorphism, and recursion:
 ```ocaml
 # type 'a tree =
   | Leaf
@@ -579,7 +579,7 @@ For instance, here is the definition of a record type meant to partially represe
   level : int;
   race : string;
   class_type : character_class;
-  alignment : firmnness * rectitude;
+  alignment : firmness * rectitude;
   armor_class : int;
 };;
 type character = {
@@ -591,7 +591,7 @@ type character = {
   armor_class : int;
 }
 ```
-This is using the types `character_class` and `character_alignment` defined earlier. Values of type `character` carry the same data as inhabitants of this product: `string * int * string * character_class * character_alignment * int`.
+This is using the types `character_class`, `firmness` and `rectitude` defined earlier, make sure to copy them in Utop. Values of type `character` carry the same data as inhabitants of this product: `string * int * string * character_class * character_alignment * int`.
 
 Access to the fields is done using the dot notation. Here is an example:
 ```ocaml
@@ -653,7 +653,7 @@ Writting `level ghorghor_bey'` is the same as `ghorghor_bey.level`.
 
 **Remarks**
 
-1. To be true to facts, it is not possible to encode all records as variants because OCaml provides a means to define fields whose value can be updated, which isn't available while defining variant types. This is detailed in the tutorial on imperative programming.
+1. To be true to facts, it is not possible to encode all records as variants because OCaml provides a means to define fields whose value can be updated, which isn't available while defining variant types. This will be detailed in an upcoming tutorial on imperative programming.
 
 1. Records SHOULD NOT be defined using this technique. It is only demonstrated here to further illustrate the expressive strength of OCaml variants.
 
