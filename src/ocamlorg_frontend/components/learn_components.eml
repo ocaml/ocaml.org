@@ -132,12 +132,10 @@ books
   <div class="mt-2 flex flex-col flex-grow gap-12 lg:gap-6 md:flex-row xl:gap-12">
     <% books |> List.rev |> List.iteri (fun index (item : Data.Book.t) -> if (index < 2) then ( %>  
         <div class="flex flex-col w-full gap-4 lg:w-60">
-          <div class="pl-20 lg:pl-0">
-            <img src="<%s Ocamlorg_static.Media.url item.cover %>" 
-                    class="mt-2 w-60 h-80 lg:w-52 lg:h-72 xl:w-60 xl:h-80 border 
-                     <%s if item.difficulty = Some "intermediate" then "bg-[#040113]" else "bg-teal-700" %> object-contain"
-                    alt="">
-          </div>
+          <img src="<%s Ocamlorg_static.Media.url item.cover %>" 
+                  class="mt-2 w-60 h-80 lg:w-52 lg:h-72 xl:w-60 xl:h-80 
+                    <%s if item.difficulty = Some "intermediate" then "bg-[#040113]" else "bg-teal-700" %> object-contain"
+                  alt="">
           <%s! skill_tag item.difficulty "mt-2 grow-0 w-28" %>
           <h4 class="mt-1 text-gray-700 text-lg font-normal leading-6"> <%s item.title %> </h4>
           <% (match item.recommendation with None -> () | Some recommendation -> %>
@@ -154,7 +152,7 @@ books
 ~(link : link )
 = 
   <div class="w-full bg-default flex h-full p-4">
-    <div class="w-96 ml-auto flex flex-col mr-auto sm:w-auto lg:ml-auto lg:mr-0 lg:pr-4">
+    <div class="max-w-sm md:max-w-none sm:w-96 md:w-auto ml-auto flex flex-col mr-auto lg:ml-auto lg:mr-0 lg:pr-4 md:pl-20 lg:pl-0">
       <div class="pt-4 text-default text-sm font-medium leading-7 tracking-widest"> BOOKS </div>
       <h2 class="mt-2 text-default text-2xl font-normal leading-7"> <%s title %> </h2>
       <%s! book_tile books %>
@@ -171,7 +169,7 @@ books
 ~(link : link )
 = 
   <div class="w-full bg-default flex h-full p-4">
-    <div class="w-96 ml-auto mr-auto flex flex-col sm:w-auto lg:ml-0 lg:mr-auto lg:pl-6">
+    <div class="max-w-sm md:max-w-none sm:w-96 md:w-auto ml-auto mr-auto flex flex-col lg:ml-0 lg:mr-auto lg:pl-6 md:pl-20 lg:pl-0">
       <div class="pt-4 text-default text-sm font-medium leading-7 tracking-widest"> BOOKS </div>
       <h2 class="mt-2 text-default text-2xl font-normal leading-7"> <%s title %> </h2>
       <%s! book_tile books %>
