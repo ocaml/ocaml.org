@@ -754,11 +754,12 @@ hello world!
 - : unit = ()
 ```
 
-Here is what happens, in order:
-1. Here the first side-effect displays `hello `
-1. the second `world!`. The
-1. 
-returned value comes from the second function call.
+Here are the side effects which happens in the second line:
+1. Display the contents of the reference `text` on standard output
+1. Update the contents of the reference  `text`
+1. Display the contents of the reference `text` on standard output
+
+This behaviour is the same as in an imperative language. However, although `;` is not defined as a function, it behaves as if it was a function of type `unit -> unit -> unit`.
 
 OCaml also has mutable arrays. Here is how to create one:
 
