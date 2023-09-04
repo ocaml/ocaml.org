@@ -2,7 +2,7 @@
 name: Indian Institute of Technology, Madras 
 description: >
  Indian Institute of Technology Madras is a public technical and research university located in Chennai, India.
-url: "https://www.iitm.ac.in/
+url: "https://www.iitm.ac.in/"
 logo: academic_institution/iitm.png
 continent: Asia
 courses:
