@@ -2,7 +2,7 @@
 name: Indian Institute of Technology, Madras 
 description: >
  Indian Institute of Technology Madras is a public technical and research university located in Chennai, India.
-url: "https://www.iitm.ac.in/"
+url: "https://www.iitm.ac.in/ - [1 Client error: SSL peer certificate or SSH remote key was not OK]"
 logo: academic_institution/iitm.png
 continent: Asia
 courses:
