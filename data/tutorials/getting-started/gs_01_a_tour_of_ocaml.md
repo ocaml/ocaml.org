@@ -139,7 +139,7 @@ Error: Unbound value y
 
 This example defines the name `y` and binds it to the value `50`. It is then used in the expression `y * y`, resulting in the value `2500`. Note that `y` is only defined in the expression following the `in` keyword.
 
-Since `let … in …` is an expression, it can be used within another expression in order to have several values with their own names:
+Since `let … = … in …` is an expression, it can be used within another expression in order to have several values with their own names:
 
 ```ocaml
 # let a = 1 in
@@ -149,6 +149,14 @@ Since `let … in …` is an expression, it can be used within another expressio
 ```
 
 This defines two names: `a` with value `1` and `b` with value `2`. Then the example uses them in the expression `a + b`, resulting in the value of `3`.
+
+In OCaml, the equality symbol has two meanings. It is used in definitions and equality tests.
+```ocaml
+# let dummy = "hi" = "bye";;
+val dummy : bool = false
+```
+
+This is interpreted as: “define `dummy` as the result of the equality test betweeen the strings `"hi"` and `"bye"`”. OCaml also has an double equal operator `==` which stands for physical identity, it is not used in this tutorial. The operator `<>` is the negation of `=` while `!=` is the negation of `==`.
 
 ## Functions
 
