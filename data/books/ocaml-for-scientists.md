@@ -10,7 +10,7 @@ cover: books/ocaml-for-scientists.jpg
 language: english
 links:
   - description: Book Website
-    url: https://www.scribd.com/document/240203676/Ocaml-for-Scientists
+    uri: https://www.scribd.com/document/240203676/Ocaml-for-Scientists
 featured: false
 difficulty : intermediate
 ---
