@@ -39,7 +39,7 @@ type t = {
   stable_record ~version:metadata ~remove:[ body_md; body_html ],
     show { with_path = false }]
 
-let of_metadata m = of_metadata m 
+let of_metadata m = of_metadata m
 
 let decode (_, (head, body)) =
   let metadata = metadata_of_yaml head in
