@@ -2,8 +2,8 @@
 title: "Apprendre à programmer avec OCaml"
 slug: "apprendre-a-programmer-avec-ocaml"
 description: >
-  This book is organized into three parts. The first one introduces
-  OCaml and targets beginners, being they programming beginners or
+  This book is organised into three parts. The first one introduces
+  OCaml and targets beginners, whether they're programming beginners or
   simply new to OCaml. Through small programs, the reader is introduced
   to fundamental concepts of programming and of OCaml. The second and
   third parts are dedicated to fundamental concepts of algorithmics and
@@ -25,8 +25,8 @@ difficulty: beginner
 
 Computer programming is hard to learn. Being a skillful programmer
 requires imagination, anticipation, knowledge in algorithmics, the
-mastery of a programming language, and above all experience, as
-difficulties are often hidden in details.  This book synthesizes our
+mastery of a programming language, and above all, experience, as
+difficulties are often hidden in details. This book synthesises our
 experience as teachers and programmers.
 
 The programming style is essential. Given a programming language, the
@@ -35,8 +35,8 @@ be both elegant and efficient. This is what the programmer must seek
 at all costs and the reason why we choose a programming language for
 this book rather than pseudo-code. Our choice is OCaml.
 
-This book is organized into three parts. The first one introduces
-OCaml and targets beginners, being they programming beginners or
+This book is organised into three parts. The first one introduces
+OCaml and targets beginners, whether they're programming beginners or
 simply new to OCaml. Through small programs, the reader is introduced
 to fundamental concepts of programming and of OCaml. The second and
 third parts are dedicated to fundamental concepts of algorithmics and
