@@ -67,7 +67,7 @@ The [Core](https://github.com/janestreet/core) package provides many ways to dea
 The provided examples are intended to be excuted in UTop. As a reminder, you can enter the UTop toplevel with the command `utop`. Here is the initial setup:
 
 ```ocaml
-# require "sexplib";;
+# #require "sexplib";;
 # open Sexplib;;
 ```
 
