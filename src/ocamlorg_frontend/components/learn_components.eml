@@ -137,7 +137,7 @@ books
                     <%s if item.difficulty = Some "intermediate" then "bg-[#040113]" else "bg-teal-700" %> object-contain"
                   alt="">
           <%s! skill_tag item.difficulty "mt-2 grow-0 w-28" %>
-          <h4 class="mt-1 text-gray-700 text-lg font-normal leading-6"> <%s item.title %> </h4>
+          <h4 class="mt-1 text-default text-lg font-normal leading-6"> <%s item.title %> </h4>
           <% (match item.recommendation with None -> () | Some recommendation -> %>
           <p class="mt-1 text-gray-700 text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
           <% ); %>
