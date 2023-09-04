@@ -23,7 +23,7 @@ The screenshot below shows this working on the LLVM package (which is known to h
 
 Our PR queue for the 4.13 release is largely centred around the integration of "safe points", which provide stronger guarantees that the OCaml mutator will poll the garbage collector regularly even when the application logic isn't allocating regularly.  This work began almost [three years ago](https://github.com/ocaml-multicore/ocaml-multicore/issues/187) in the multicore OCaml trees, and is now under [code review in upstream OCaml](https://github.com/ocaml/ocaml/pull/10039) -- please do chip in with any performance or code size tests on that PR.
 
-Aside from this, the team is working various other pre-requisites such as a multicore-safe Lazy, implementing the memory model (explained in this [PLDI 18 paper](https://dl.acm.org/doi/10.1145/3192366.3192421) and adapting the ephemeron API to be more parallel-friendly.  It is not yet clear which of these will get into 4.13, and which will be put straight into the 5.0 trees yet.
+Aside from this, the team is working various other pre-requisites such as a multicore-safe Lazy, implementing the memory model (explained in this [PLDI 18 paper](https://dl.acm.org/doi/10.1145/3192366.3192421)) and adapting the ephemeron API to be more parallel-friendly.  It is not yet clear which of these will get into 4.13, and which will be put straight into the 5.0 trees yet.
 
 ## post OCaml 5.0: concurrency and fibres
 
