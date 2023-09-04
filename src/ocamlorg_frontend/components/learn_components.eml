@@ -129,7 +129,7 @@ class_
 let book_tile 
 books
 = 
-  <div class="mt-2 flex flex-col gap-12 lg:gap-6 md:flex-row xl:gap-12">
+  <div class="mt-2 flex flex-col flex-grow gap-12 lg:gap-6 md:flex-row xl:gap-12">
     <% books |> List.rev |> List.iteri (fun index (item : Data.Book.t) -> if (index < 2) then ( %>  
         <div class="flex flex-col w-full gap-4 lg:w-60">
           <div class="pl-20 lg:pl-0">
@@ -140,7 +140,11 @@ books
           </div>
             <%s! skill_tag item.difficulty "mt-2 grow-0 w-28" %>
             <h4 class="mt-1 text-gray-700 text-lg font-normal leading-6"> <%s item.title %> </h4>
+             <% if item.difficulty = Some "intermediate" then ( %>
+            <p class="mt-1 text-gray-700 text-sm font-normal whitespace-normal max-w-prose">Suitable for intermediate users</p>
+            <% ) else ( %>
             <p class="mt-1 text-gray-700 text-sm font-normal whitespace-normal max-w-prose">Suitable for complete beginners to programming</p>
+            <% ); %>
         </div>
       <% ) else %> 
     <% ); %>
