@@ -81,7 +81,7 @@ Layout.render
               found in distributed, big-data frameworks like Hadoop.
             </li>
             <li>
-              <strong>Type inference</strong>, so you don’t need to annotate function parameters, return types, and variables. 
+              <strong>Type inference</strong>, so you don’t need to annotate every function parameter, return type, and variable. 
               Instead, types are inferred based on how a value is used. Available in a limited form in C# with
               implicitly-typed local variables and in C++11 with its auto keyword.
             </li>
