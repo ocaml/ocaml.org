@@ -15,6 +15,7 @@ S-expressions are a popular text serialisation format among the OCaml community.
 The [`sexplib`](https://github.com/janestreet/sexplib), created by Jane Street, provides support for S-expressions in OCaml. It was developped to provide support for S-expression to [Base](https://github.com/janestreet/base) and [Core](https://github.com/janestreet/core). However, S-expressions serialisation does not depend on these packages. In this tutorial, we only use `sexplib`. You can install it using opam.
 ```shell
 $ opam install sexplib
+$ opam list sexplib
 ```
 
 ## S-Expression Format
@@ -70,6 +71,7 @@ The provided examples are intended to be excuted in UTop. As a reminder, you can
 # #require "sexplib";;
 # open Sexplib;;
 ```
+>>**Please note:** the extra `#` is not a typo or an OCaml command. It's a command for UTop, so the first `#` is the prompt, and the second needs to be in front of the command: `#require`.
 
 To manually build S-expressions, we can combine the two constructors `Atom` and `List` presented above. To build the S-expression representing `(1)`: 
 ```ocaml
