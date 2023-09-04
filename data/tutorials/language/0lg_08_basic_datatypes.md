@@ -468,7 +468,7 @@ Here is how pattern matching can be used to write a function from `commit` to `s
 val commit_to_string : commit -> string = <fun>
 ```
 
-Here, the `function ...` construct is used instead of the `match ... with ...` construct. Previously, example functions had the form `let f x = match x with ...`, and the variable `x` did not appear after any of the `->` symbols. When this is the case, the `function ...` construct can be used instead. It stands for `fun x -> match x with ...` and saves us from finding a name which is used right after and only once.
+Here, the `function ...` construct is used instead of the `match ... with ...` construct. Previously, example functions had the form `let f x = match x with ...`, and the variable `x` did not appear after any of the `->` symbols. When this is the case, the `function ...` construct can be used instead. It stands for `fun x -> match x with ...` and saves us from finding a name which is used immediately after and only once.
 
 
 #### Recursive Variants
