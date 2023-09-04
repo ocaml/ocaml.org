@@ -65,6 +65,8 @@ If you need to amend the code before hitting enter, you can use your keyboard's 
 
 Remember: commands beginning with a hash mark are not part of the OCaml syntax; they are interpreted by UTop itself.
 
+Commands beginning with the dash character `#` such as `#quit` or `#help` are not interpreted by OCaml, they are interpreter by Utop.
+
 ## Expressions and Definitions
 
 ```ocaml
@@ -99,12 +101,13 @@ The lists' type, `int list` and `string list`, has been inferred from the type o
 - : int list = [9; 1; 2; 3; 4]
 ```
 
-Tests also are expressions
+In OCaml, `if … then … else …` is not a statement, it is an expression.
 ```ocaml
-# if 0 = 1 then "test is true" else "test is false";;
-- : string = "test is false"
+# 2 * if "hello" = "world" then 3 else 5;;
+- : int = 10
 ```
-In OCaml, `if … then … else …` and the ternary conditional operator are the same thing.
+
+The source begining at `if` and ending at `5` is parsed as a single integer expression which is multipled by 2. OCaml has no need for two different test constructions, the [ternary conditional operator](https://en.wikipedia.org/wiki/Ternary_conditional_operator) and the `if … then … else …` are the same. Also note parentheses are not needed here, which is often the case in OCaml.
 
 Values can be given names using the `let` keyword. This is called *binding* a value to a name. For example:
 
@@ -314,7 +317,7 @@ detailed here.
 
 ### Recursive Functions
 
-A recursive function calls itself in its own definition. Such functions must be declared using `let rec` instead of just `let`. Recursion is not the only mean to perform iterative computation on OCaml. Loops such as for and while are available, but they are meant to be used when writing imperative OCaml, in conjunction with mutable data. Otherwise, recursive functions should be prefered.
+A recursive function calls itself in its own definition. Such functions must be declared using `let rec … = …` instead of just `let`. Recursion is not the only mean to perform iterative computation on OCaml. Loops such as for and while are available, but they are meant to be used when writing imperative OCaml, in conjunction with mutable data. Otherwise, recursive functions should be prefered.
 
 Here is an example of a function which creates a list of consecutive integers between two bounds.
 ```ocaml
@@ -379,30 +382,9 @@ In OCaml you need to explicitly convert the integer to a floating point number u
 
 There are several reasons why OCaml requires explicit conversions. Most importantly, it enables types to be worked out automatically. OCaml's *type inference* algorithm computes a type for each expression and requires very little annotation, in comparison to other languages. Arguably, this saves more time than we lose by being more explicit.
 
-### Pattern Matching
-
-Here is a factorial function:
-
-```ocaml
-# let rec fact n =
-    if n <= 1 then 1 else n * fact (n - 1);;
-val fact : int -> int = <fun>
-```
-
-In OCaml, _pattern matching_ is often preferred. It is generalisation of the `switch` statement found in many languages. Here an alternate version of `fact`, using pattern matching:
-```ocaml
-# let rec fact n =
-    match n with
-    | 0 -> 1
-    | 1 -> 1
-    | n -> n * fact (n - 1);;
-val fact : int -> int = <fun>
-```
-
 ### Lists
 
-Lists may be the most common data type in OCaml. They are ordered collections of
-values having the same type. Here are a few examples.
+Lists may be the most common datatype in OCaml. They are ordered collections of values having the same type. Here are a few examples.
 
 ```ocaml
 # [];;
@@ -418,14 +400,20 @@ values having the same type. Here are a few examples.
 - : int list list = [[1; 2]; [3]; [4; 5; 6]]
 ```
 
-Lists are defined as being either empty, which is written `[]` (pronounced “nil”), or being an element `x` added at the front of another list `u`, which is written `x :: u` (the double colon operator is pronounced “cons”).
+The example above read the following way:
+1. The empty list, prononced “nil”
+1. A list containing the numbers 1, 2 and 3
+1. A list containing the booleans `false`, `true` and `false`. Repetitions are allowed
+1. A list of lists
+
+Lists are defined as being either empty, which is written `[]`, or being an element `x` added at the front of another list `u`, which is written `x :: u` (the double colon operator is pronounced “cons”).
 
 ```ocaml
 # 1 :: [2; 3; 4];;
 - : int list = [1; 2; 3; 4]
 ```
 
-These notations also apply to pattern matching. For example, here is how to define a recursive function that computes the sum of a list of integers:
+In OCaml, _patten matching_ provides a mean to inspect data of any kind, except functions. In this section, it is introduced on lists, it will be generalized to other datatypes in the next section. Here is how to define a recursive function that computes the sum of a list of integers:
 
 ```ocaml
 # let rec sum u =
@@ -434,7 +422,7 @@ These notations also apply to pattern matching. For example, here is how to defi
     | x :: v -> x + sum v;;
 val sum : int list -> int = <fun>
 
-# sum [1; 4; 3; 2; 5]/L
+# sum [1; 4; 3; 2; 5];;
 - : int = 15
 ```
 
@@ -477,6 +465,42 @@ val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 # map square [1; 2; 3; 4;];;
 - : int list = [1; 4; 9; 16]
 ```
+
+### Pattern Matching
+
+Patten matching isn't limited to lists, any kind of data can be inspected using it, except functions. Patterns are expressions that are compared to an inspected value. It could be performed using `if … then … else …` but pattern matching is more convinient. Here is an example
+```ocaml
+# let f opt = match opt with
+    | None -> None
+    | Some None -> None
+    | Some (Some x) -> Some x;;
+val f : 'a option option-> 'a option = <fun>
+```
+
+The inspected value is `opt`. It is compared against the patterns from top to bottom. If `opt` is the `None` option, it is a match with the first pattern. If `opt` is the `Some None` option, it's a match with the second patten. If `opt` is a double-wrapped option with a value, it's a match with the third pattern. Patterns can introduce names, just as `let` does. In the third pattern, `x`, designates the data inside the double-wrapped option.
+
+Pattern matching is detailed in the [Basic Datatypes]() tutorial as well as in per datatype tutorials.
+
+Here is the same comparison, using `if … then … else …` and pattern matching.
+```ocaml
+# let g x =
+  if x = "foo" then 1
+  else if x = "bar" then 2
+  else if x = "baz" then 3
+  else if x = "qux" then 4
+  else 0;;
+val g : int -> string = <fun>
+
+# let g' x = match x with
+    | "foo" -> 1
+    | "bar" -> 2
+    | "baz" -> 3
+    | "qux" -> 4
+    | _ -> 0;;
+val g' : int -> string = <fun>
+```
+
+The underscore symbol is catch-all pattern, it matches with anything.
 
 ### Pairs and Tuples
 
@@ -722,12 +746,18 @@ This returns `()` because changing the content of a reference is a side-effect.
 Execute an expression after another with the `;` operator. Writing `a; b` means: execute `a`; once done, execute `b`, only return the value of `b`.
 
 ```ocaml
-# print_string "hello "; print_endline "world!";;
+# let text = ref "hello ";;
+val text : string ref = {contents = "hello "}
+
+# print_string !text; text := "world!"; print_endline !text;;
 hello world!
 - : unit = ()
 ```
 
-Here the first side-effect displays `hello `, the second `world!`. The
+Here is what happens, in order:
+1. Here the first side-effect displays `hello `
+1. the second `world!`. The
+1. 
 returned value comes from the second function call.
 
 OCaml also has mutable arrays. Here is how to create one:
@@ -795,7 +825,13 @@ Definitions provided by modules are refered to by adding the module name as a pr
 - : int option = Some 64
 ```
 
-Here, the function `Option.map` is used. When the option value provided contains an actual value (i.e. it is `Some` something), it applies the provided function and returns its result wrapped in a option. When the option value provided doesn't contain anything (i.e. is is `None`), it ignores the function it is provided the and behaves as the identity function.
+Here, usage of the function `Option.map` is illustrated in several steps.
+1. Display its type. It takes two parameters. A function of type `'a -> 'b` and an `'a option`
+1. Using partial application, only pass `fun x -> x * x`. Check the type of the resulting function
+1. Apply with `None`
+1. Apply with `Some 8`
+
+When the option value provided contains an actual value (i.e. it is `Some` something), it applies the provided function and returns its result wrapped in a option. When the option value provided doesn't contain anything (i.e. is is `None`), the result doesn't contain anything as well (i.e. is is `None` too).
 
 The `List.map` function which was used earlier in this section also part of a module, the `List` module.
 ```ocaml
@@ -806,7 +842,7 @@ The `List.map` function which was used earlier in this section also part of a mo
 - : int list -> int list = <fun>
 
 ```
-This illustrates the first feature of the OCaml module system. It provides a mean to separate concerns by preventing name clashes. Two functions having different type may have the same if they are provided by different modules.
+This illustrates the first feature of the OCaml module system. It provides a mean to separate concerns by preventing name clashes. Two functions having different type may have the same name if they are provided by different modules.
 
 Module also allows efficient separated compilation, this is illustrated in the next tutorial.
 
