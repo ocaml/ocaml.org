@@ -12,7 +12,7 @@ category: "Language"
 
 ### Learning Goals
 
-When presenting functional programming or OCaml, it is often said: “Functions are treated as first-class citizens.” This may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by this sentence. In turn, this should explain that sentence.
+When presenting OCaml or another functional programming language, it is often said: “Functions are treated as first-class citizens.” Without further explanation or context, this may not be helpful, it wasn't to me. The goal of this tutorial is to acquire the capabilities implied and entailed by this sentence. In turn, this should explain that sentence.
 - Write all kinds of definitions, for all kinds of values, in all different ways
 - Accurately assess the scope of any definition
 - Avoid being fooled by shadowed definitions and scopes
@@ -23,13 +23,13 @@ When presenting functional programming or OCaml, it is often said: “Functions 
 
 ### Chatting With OCaml
 
-This tutorial is shown using the UTop toplevel. Although other toplevels may be used, we recommend UTop. Code samples are intended to be copied/pasted into UTop. It would benefit the reader to write variants around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
+This tutorial is shown using the UTop toplevel. Although other toplevels may be used, we recommend UTop. Code samples are intended to be copied/pasted into UTop. It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
 
 ### Touch Base on Double Semicolon
 
 When using UTop to interact with the OCaml interpreter, lines ending with double semicolons trigger the parsing, type-checking, and evaluation of everything typed between the prompt and the double semicolon. This may span several lines. The interpretation of that double semicolon isn't made by the OCaml interpreter; it is made by UTop, the OCaml toplevel. Once the evaluation of a double semicolon terminated entry is over, the REPL waits for another piece of input.
 
-Nevertheless, the double semicolon `;;` is a valid token in the OCaml syntax. It has no meaning; it is a [no-op](https://en.wikipedia.org/wiki/NOP_(code)). It is ignored and never needed. In OCaml source code files meant to be compiled or interpreted as scripts, double semicolons can and should be avoided. This is a means to avoid double semicolumns required by the toplevel to raise errors when using the compiler.
+Nevertheless, the double semicolon `;;` is a valid token in the OCaml syntax. It is a [no-op](https://en.wikipedia.org/wiki/NOP_(code)),  i.e. it does not trigger any behaviour. It is ignored by the compiler. In OCaml source code files meant to be compiled or interpreted as scripts, double semicolons can and should be avoided. This is a means to avoid double semicolumns required by the toplevel to raise errors when using the compiler.
 
 ## Non-Function Values
 
@@ -531,7 +531,7 @@ With respect to its type, a function is expected to process input data from its 
 
 However, some functions either take input data outside of their declared domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output are the most common forms of effects. Input is out-of-domain data and output out-of-codomain data. However, the result of functions returning random numbers or the current time is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
 
-In practice, what is considered an effect is an engineering choice. In most circumstances, I/O are considered as effects, unless they are ignored. Electromagnetic radiation emitted by the processor when computing a function isn't usually considered a relevant effect, except in some security-sensitive contexts. In the OCaml community, as well as in the wider functional programming community, functions are often said to be either pure or impure. The former does not have side effects, the latter does. It is important to remember this always assumes some sort of context, any computation has effects, and what is considered relevant is a choice.
+In practice, what is considered an effect is an engineering choice. In most circumstances, I/O operations are considered as effects, unless they are ignored. Electromagnetic radiation emitted by the processor when computing a function isn't usually considered a relevant side-effect, except in some security-sensitive contexts. In the OCaml community, as well as in the wider functional programming community, functions are often said to be either pure or impure. The former does not have side effects, the latter does. This distinction makes sense and is useful. Knowing what are the effects, when are they taking place is a key design consideration. However, it is important to remember this distinction always assumes some sort of context. Any computation has effects, and what is considered a relevant effect is a design choice.
 
 Since, by definition, effects lie outside function types, a function type can't reflect the effects a function may have. However, it is important to document the intended side effects a function may have. Consider the `Unix.time` function. It returns the number of seconds elapsed since Jan 1, 1970.
 ```ocaml
