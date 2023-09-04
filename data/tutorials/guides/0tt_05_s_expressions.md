@@ -63,7 +63,7 @@ Here it means we can translate OCaml data types into S-expressions and then into
 
 The [Core](https://github.com/janestreet/core) package provides many ways to deal with S-expressions, a `Sexp` module to deal with the S-expressions themselves, and `sexp_of_t` / `t_of_sexp` functions provided by data type modules (like `String`, `List`, etc.) that allow users to convert OCaml data to and from S-expressions.
 
-The provided examples are intended to be excuted in UTop. Here is the initial setup:
+The provided examples are intended to be excuted in UTop. As a reminder, you can enter the UTop toplevel with the command `utop`. Here is the initial setup:
 
 ```ocaml
 # require "sexplib";;
