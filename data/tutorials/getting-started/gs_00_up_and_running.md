@@ -218,7 +218,7 @@ The OCaml toplevel, version 4.14.0
 ```
 
 To learn more about Diskuv OCaml, see the [official
-Diskuv OCaml documentation](https://gitlab.com/diskuv/diskuv-ocaml).
+Diskuv OCaml documentation](https://gitlab.com/dkml/distributions/dkml).
 
 ### The OCaml Base Tools are Now Installed
 
