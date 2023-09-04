@@ -1,9 +1,12 @@
 ---
 title: "Real World OCaml"
+slug: "real-world-ocaml"
 description: >
   Learn how to solve day-to-day problems in data processing, numerical
   computation, system scripting, and database-driven web applications with
   the OCaml multi-paradigm programming language.
+recommendation: >
+  Suitable for people with some imperative programming experience. Hands-on code examples using real world scenerios.
 authors:
   - Anil Madhavapeddy
   - Yaron Minsky
@@ -15,7 +18,7 @@ links:
     uri: https://realworldocaml.org/
 rating: 4
 featured: true
-difficulty: beginner
+difficulty: intermediate
 ---
 
 Learn how to solve day-to-day problems in data processing, numerical
@@ -30,3 +33,5 @@ environment, and move toward more advanced topics such as the module
 system, foreign-function interface, macro language, and the OCaml tools.
 Quickly learn how to put OCaml to work for writing succinct and
 readable code.
+
+The code examples in this books uses Jane Street [core library](https://ocaml.org/p/core/latest).

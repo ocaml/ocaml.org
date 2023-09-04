@@ -1,5 +1,6 @@
 ---
 title: "Think OCaml: How to Think Like a Functional Programmer"
+slug: "think-ocaml"
 description: >
   Introductory programming textbook based on the OCaml language
 authors:

@@ -1,5 +1,6 @@
 ---
 title: "Programmation de droite à gauche et vice-versa"
+slug: "programmation-de-droite-a-gauche"
 description: >
   Programming with OCaml
 authors:

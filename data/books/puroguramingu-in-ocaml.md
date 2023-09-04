@@ -1,5 +1,6 @@
 ---
 title: "プログラミング in OCaml ~関数型プログラミングの基礎からGUI構築まで~"
+slug: "puroguramingu-in-ocaml"
 description: ""
 authors:
   - A. Igarashi (五十嵐 淳)

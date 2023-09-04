@@ -1,5 +1,6 @@
 ---
 title: "Introduzione alla programmazione funzionale"
+slug: "introduzione-alla-programmazione"
 description: >
   Functional programming introduction with OCaml
 authors:

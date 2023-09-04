@@ -3,7 +3,9 @@ type link = { description : string; uri : string }
 
 type metadata = {
   title : string;
+  slug : string;
   description : string;
+  recommendation : string option;
   authors : string list;
   language : string;
   published : string;
@@ -20,6 +22,7 @@ type t = {
   title : string;
   slug : string;
   description : string;
+  recommendation : string option;
   authors : string list;
   language : string;
   published : string;
@@ -33,10 +36,10 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ],
+  stable_record ~version:metadata ~remove:[ body_md; body_html ],
     show { with_path = false }]
 
-let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
+let of_metadata m = of_metadata m
 
 let decode (_, (head, body)) =
   let metadata = metadata_of_yaml head in
@@ -59,6 +62,7 @@ type t =
   { title : string
   ; slug : string
   ; description : string
+  ; recommendation : string option
   ; authors : string list
   ; language : string
   ; published : string

@@ -1,5 +1,6 @@
 ---
 title: "Initiation à la programmation fonctionnelle en OCaml"
+slug: "initiation-a-la-programmation"
 description: >
   Le but de ce livre est d’initier le lecteur au style fonctionnel de
   programmation en utilisant le langage OCaml.

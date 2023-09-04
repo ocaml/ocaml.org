@@ -1,5 +1,6 @@
 ---
 title: "Apprentissage de la programmation avec OCaml"
+slug: "apprentissage-de-la-programmation-avec-ocaml"
 description: >
   This book is targeted towards beginner programmers and
   provides teaching material for all programmers wishing to learn the

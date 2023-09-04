@@ -56,7 +56,6 @@ module.exports = {
       "search-term-highlight": "rgb(221, 232, 251)",
       "learn-area-orange": "#C34711",
       "learn-area-light-blue": "rgba(211, 213, 249, 0.60)",
-      "learn-area-dark-green": "rgba(6, 112, 101, 1)",
 
       transparent: "transparent",
 
