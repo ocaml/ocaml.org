@@ -39,7 +39,6 @@ Each of the individual symbols are atoms. An **atom** represents a basic data va
   + Boolean: `true`
 
 
-Inside each set of parentheses is a nested list of S-Expressions. A nested list is used to represent the **hierarchical structure of S-Expressions**. Each element can be an atom or another nested list. The elements within the list are separated by spaces.
 
 In OCaml, S-Expressions are defined as follows:
 
