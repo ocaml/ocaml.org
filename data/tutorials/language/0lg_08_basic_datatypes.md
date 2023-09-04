@@ -307,7 +307,7 @@ The second expression is function application. The parameter `9` is applied, and
 - : string = "This is really disco!"
 ```
 
-The first expression is another anonymous function. It is the identity function, and it returns its argument, unchanged. This function can be applied to anything, and anything can be returned unchanged. This means the parameter of that function can be of any type, and the result must have the same type. This is called _polymorphism_. The same code can be applied to data of different types.
+The first expression is another anonymous function. It is the identity function, and it returns its argument unchanged. This function can be applied to anything, and anything can be returned unchanged. This means that function's parameter can be of any type, and the result must have the same type. The same code can be applied to data of different types. This is called _polymorphism_. 
 
 This is what is indicated by the `'a` in the type (pronounced as the Greek letter α, “alpha”). This is a _type variable_. It means values of any type can be passed to the function. When that happens, their type is substituted for the type variable. This also expresses identity has the same input and output type, whatever it may be.
 
