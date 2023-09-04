@@ -5,6 +5,7 @@ type metadata = {
   title : string;
   slug : string;
   description : string;
+  recommendation : string option;
   authors : string list;
   language : string;
   published : string;
@@ -21,6 +22,7 @@ type t = {
   title : string;
   slug : string;
   description : string;
+  recommendation : string option;
   authors : string list;
   language : string;
   published : string;
@@ -60,6 +62,7 @@ type t =
   { title : string
   ; slug : string
   ; description : string
+  ; recommendation : string option
   ; authors : string list
   ; language : string
   ; published : string

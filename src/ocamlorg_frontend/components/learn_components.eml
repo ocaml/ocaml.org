@@ -138,13 +138,11 @@ books
                      <%s if item.difficulty = Some "intermediate" then "bg-[#040113]" else "bg-teal-700" %> object-contain"
                     alt="">
           </div>
-            <%s! skill_tag item.difficulty "mt-2 grow-0 w-28" %>
-            <h4 class="mt-1 text-gray-700 text-lg font-normal leading-6"> <%s item.title %> </h4>
-             <% if item.difficulty = Some "intermediate" then ( %>
-            <p class="mt-1 text-gray-700 text-sm font-normal whitespace-normal max-w-prose">Suitable for intermediate users</p>
-            <% ) else ( %>
-            <p class="mt-1 text-gray-700 text-sm font-normal whitespace-normal max-w-prose">Suitable for complete beginners to programming</p>
-            <% ); %>
+          <%s! skill_tag item.difficulty "mt-2 grow-0 w-28" %>
+          <h4 class="mt-1 text-gray-700 text-lg font-normal leading-6"> <%s item.title %> </h4>
+          <% (match item.recommendation with None -> () | Some recommendation -> %>
+          <p class="mt-1 text-gray-700 text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
+          <% ); %>
         </div>
       <% ) else %> 
     <% ); %>
@@ -156,7 +154,7 @@ books
 ~(link : link )
 = 
   <div class="w-full bg-default flex h-full p-4">
-    <div class="w-96 ml-auto mr-auto sm:w-auto lg:ml-auto lg:mr-0 lg:pr-4">
+    <div class="w-96 ml-auto flex flex-col mr-auto sm:w-auto lg:ml-auto lg:mr-0 lg:pr-4">
       <div class="pt-4 text-default text-sm font-medium leading-7 tracking-widest"> BOOKS </div>
       <h2 class="mt-2 text-default text-2xl font-normal leading-7"> <%s title %> </h2>
       <%s! book_tile books %>
@@ -173,7 +171,7 @@ books
 ~(link : link )
 = 
   <div class="w-full bg-default flex h-full p-4">
-    <div class="w-96 ml-auto mr-auto sm:w-auto lg:ml-0 lg:mr-auto lg:pl-6">
+    <div class="w-96 ml-auto mr-auto flex flex-col sm:w-auto lg:ml-0 lg:mr-auto lg:pl-6">
       <div class="pt-4 text-default text-sm font-medium leading-7 tracking-widest"> BOOKS </div>
       <h2 class="mt-2 text-default text-2xl font-normal leading-7"> <%s title %> </h2>
       <%s! book_tile books %>

@@ -5,6 +5,7 @@ description: >
   A textbook on functional programming and data structures in OCaml, with an
   emphasis on semantics and software engineering. This book is the textbook for
   CS 3110 Data Structures and Functional Programming at Cornell University.
+recommendation: "Basic experience in some imperative programming language is helpful. Includes over 200 videos."
 authors:
   - Michael R. Clarkson
 published: 2021-09-01

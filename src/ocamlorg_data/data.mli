@@ -31,6 +31,7 @@ module Book : sig
     title : string;
     slug : string;
     description : string;
+    recommendation : string option;
     authors : string list;
     language : string;
     published : string;

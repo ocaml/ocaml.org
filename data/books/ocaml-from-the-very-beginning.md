@@ -5,6 +5,7 @@ description: >
   In "OCaml from the Very Beginning" John Whitington takes a
   no-prerequisites approach to teaching a modern general-purpose
   programming language.
+recommendation: "Suitable for formal use within an academic curriculum, and for the interested amateur."
 authors:
   - John Whitington
 published: 2013-06-07 
