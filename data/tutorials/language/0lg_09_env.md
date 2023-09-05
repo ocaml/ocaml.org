@@ -23,7 +23,7 @@ When presenting OCaml or another functional programming language, it is often sa
 
 ### Chatting With OCaml
 
-This tutorial is shown using the UTop toplevel. Although other toplevels may be used, we recommend UTop. Code samples are intended to be copied/pasted into UTop. It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
+This tutorial is shown using the UTop toplevel, which can be initiated with the `utop` command. Although other toplevels may be used, we recommend UTop. Code samples are intended to be copied/pasted into UTop. It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
 
 ### Touch Base on Double Semicolon
 
