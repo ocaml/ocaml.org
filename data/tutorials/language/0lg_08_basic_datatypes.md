@@ -572,7 +572,7 @@ val map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 
 Records are like tuples in that several values are bundled together. In a tuple, components are identified by their position in the corresponding product type. They are either first, second, third, or at some other position. In a record, each component has a name. That's why record types must be declared before being used.
 
-For instance, here is the definition of a record type meant to partially represent a Dungeons & Dragons character class.
+For instance, here is the definition of a record type meant to partially represent a Dungeons & Dragons character class. Please note, the following code is dependent upon the definitions earlier in this tutorial. Ensure you have entered the definitions in the [Enumerated Data Types](/docs/basic-data-types#enumerated-data-types) section.
 ```ocaml
 # type character = {
   name : string;
