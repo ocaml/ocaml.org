@@ -35,7 +35,7 @@ Nevertheless, the double semicolon `;;` is a valid token in the OCaml syntax. It
 
 ### Values
 
-Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). There are no [statements](https://en.wikipedia.org/wiki/Statement_(computer_science)), i.e., syntactical constructions made to produce some change of state. Variable [assignment](https://en.wikipedia.org/wiki/Assignment_(computer_science)) or [for loop](https://en.wikipedia.org/wiki/For_loop) are examples of statements. Computations triggered by OCaml are written as expressions. Once completed, they produce a value, which has a type. Here are a few examples of expressions, their type, and resulting values.
+Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). There are no [statements](https://en.wikipedia.org/wiki/Statement_(computer_science)), i.e., syntactical constructions made to produce some change of state. Variable [assignments](https://en.wikipedia.org/wiki/Assignment_(computer_science)) or [for loop](https://en.wikipedia.org/wiki/For_loop) are examples of statements. Computations triggered by OCaml are written as expressions. Once completed, they produce a value, which has a type. Here are a few examples of expressions, their type, and resulting values.
 
 ```ocaml
 # "Everything has a value, every value has a type";;
@@ -240,7 +240,7 @@ val length : 'a list -> int = <fun>
 
 The first definition of `length` has two parameters: the list to process and the accumulated length that has already been computed. Writing it this way makes it tail-recursive.
 
-However in practice, computing a list's length always starts with the accumulator set to nil. Therefore, the first definition is shadowed by the second where the accumulator parameter is set to 0.
+In practice, computing a list's length always starts with the accumulator set to nil. Therefore, the first definition is shadowed by the second where the accumulator parameter is set to 0.
 
 #### Inner Shadowing
 
@@ -258,7 +258,7 @@ val d : int = 21
 
 ## Function Values
 
-### Restrictions 
+### Restrictions
 
 Functions are supposed to be exactly as other values; however, there are two restrictions.
 
@@ -337,7 +337,7 @@ As citizens of the same level as other values, functions don't have to be bound 
 ```
 
 In order, here is what they do:
-- The identity function, takes anything, returns it unchanged
+- The identity function that takes anything, returns it unchanged
 - The square function takes an integer, returns its square
 - A function taking two strings, returning their concatenation, with a space character in between
 - A function taking a list, returning `None` if the list is empty, and the tail of the list otherwise
@@ -430,7 +430,7 @@ val fibo : int -> int = <fun>
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
 
-The first version takes two extra parameters: the two previously computed Fibonacci numbers. 
+The first version takes two extra parameters: the two previously computed Fibonacci numbers.
 
 The second version uses the two first Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called “tail call elimination,” which turns recursivity into imperative iteration in the generated native code and leads to much improved performances.
 
@@ -457,7 +457,7 @@ Error: This expression has type int -> int -> int
        Type int is not compatible with type int -> int
 ```
 
-In mathematical language, it is said that the type arrow operator _associates to the right_. Function types without parentheses should be thought to have parentheses put to the right, like the type of `f` was declared. These types are the same:
+In mathematical language, it is said that the type arrow operator _associates to the right_. Function types without parentheses should be thought to have parentheses put to the right like the type of `f` was declared. These types are the same:
 - `int -> int -> int`
 - `int -> (int -> int)`
 
