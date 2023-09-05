@@ -620,6 +620,9 @@ val ghorghor_bey : character =
 To some extent, records also are variants, with a single constructor carrying all the fields as a tuple. Here is how to alternately define the `character` record as a variant.
 ```ocaml
 # type character' = Character of string * int * string * character_class * (firmness * rectitude) * int;;
+type character' =
+    Character of string * int * string * character_class *
+      (firmness * rectitude) * int
 
 # let name (Character (name, _, _, _, _, _)) = name;;
 val name : character' -> string = <fun>
