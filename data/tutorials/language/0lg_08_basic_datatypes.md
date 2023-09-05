@@ -81,7 +81,7 @@ Boolean values are represented by the type `bool`.
 - : bool = true
 ```
 
-Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction "or" is written `\\`. Both don't evaluate their right argument if thier left argument value is sufficient to decide the value of the whole expression.
+Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction "or" is written `\\`. Both don't evaluate their right argument if their left argument value is sufficient to decide the value of the whole expression.
 
 #### Characters
 
@@ -98,7 +98,7 @@ The module [`Uchar`](/api/Uchar.html) provides support for Unicode characters.
 
 #### Strings
 
-Strings are finite and fixed-sized sequences of values of type `char`. Strings are immutable, meaning it is impossible to change the a character's value inside a string. The string concatenation operator symbol is `^`.
+Strings are finite and fixed-sized sequences of values of type `char`. Strings are immutable, meaning it is impossible to change a character's value inside a string. The string concatenation operator symbol is `^`.
 ```ocaml
 # "hello" ^ " " ^ "world!";;
 - : string = "hello world!"
@@ -113,7 +113,7 @@ Operations on `string` values are provided by the [`Stdlib`](/api/Stdlib.html) a
 
 #### Byte Sequences
 
-Byte sequences are finite and fixed-sized sequences of bytes. Each individual byte is represented by a `char` value. Byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence `byte` is a mutable string that can't be printed. There is no way to write a `bytes` literally, so it must be produced by a function.
+Byte sequences are finite and fixed-sized sequences of bytes. Each individual byte is represented by a `char` value. Byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence `bytes` is a mutable string that can't be printed. There is no way to write `bytes` literally, they must be produced by a function.
 ```ocaml
 # String.to_bytes "hello";;
 - : bytes = Bytes.of_string "hello"
@@ -149,7 +149,7 @@ Like `string` and `bytes`, arrays support direct access, but the syntax is not t
 - : char = 'c'
 ```
 
-Arrays are mutable, meaning they can't be extended or shortened, but each component value may be updated.
+Arrays are mutable, meaning they can't be extended or shortened, but each element may be updated.
 ```ocaml
 # let a = [| 'a'; 'b'; 'c'; 'd' |];;
 val a : char array = [|'a'; 'b'; 'c'; 'd'|]
@@ -171,7 +171,7 @@ As literals, lists are very much like arrays. Here are the same previous example
 - : int list = [0; 1; 2; 3; 4; 5]
 
 # [ 'a'; 'b'; 'c' ];;
-- : char list = ['a'; 'b'; 'c'|]
+- : char list = ['a'; 'b'; 'c']
 
 # [ "foo"; "bar"; "baz" ];;
 - : string list = ["foo"; "bar"; "baz"]
@@ -262,9 +262,9 @@ Here is a tuple, actually a pair.
 
 This is a pair containing the integer `3` and the character `'a'`; its type is `int * char`. The `*` symbol stands for _product type_.
 
-This generalises to tuples with 3 or more components. For instance, `(6.28, true, "hello")` has type `float * bool * string`. The types `int * char` and `float * bool * string` are called _product types_. The `*` symbol is used to denote types bundled together in products.
+This generalises to tuples with 3 or more elements. For instance, `(6.28, true, "hello")` has type `float * bool * string`. The types `int * char` and `float * bool * string` are called _product types_. The `*` symbol is used to denote types bundled together in products.
 
-The predefined function `fst` returns the first component of a pair, while `snd` returns the second component of a pair.
+The predefined function `fst` returns the first element of a pair, while `snd` returns the second element of a pair.
 ```ocaml
 # fst (3, 'a');;
 - : int = 3
@@ -273,7 +273,7 @@ The predefined function `fst` returns the first component of a pair, while `snd`
 - : char = 'a'
 ```
 
-In the standard library, both are defined using pattern matching. Here is how a function extracts the third component of the product of four types:
+In the standard library, both are defined using pattern matching. Here is how a function extracts the third element of the product of four types:
 ```ocaml
 # let f x = match x with (a, b, c, d) -> c;;
 val f : 'a * 'b * 'c * 'd -> 'c = <fun>
@@ -292,7 +292,7 @@ The type of functions from type `a` to type `b` is written `a -> b`. Here are a 
 - : int = 81
 ```
 
-The first expression is an anonymous function of type `int -> int`. The type is inferred from the expression `x * x`, which must be of type `int` since `*` is an operator that returns an `int`. The `<fun>` printed in place of the value is a token, meaning functions don't have a value to be displayed. This is because if they have been compiled, so their code may not be available.
+The first expression is an anonymous function of type `int -> int`. The type is inferred from the expression `x * x`, which must be of type `int` since `*` is an operator that returns an `int`. The `<fun>` printed in place of the value is a token, meaning functions don't have a value to be displayed. This is because if they have been compiled their code is no longer available.
 
 The second expression is function application. The parameter `9` is applied, and the result `81`` is returned.
 
@@ -307,7 +307,7 @@ The second expression is function application. The parameter `9` is applied, and
 - : string = "This is really disco!"
 ```
 
-The first expression is another anonymous function. It is the identity function, and it returns its argument unchanged. This function can be applied to anything, and anything can be returned unchanged. This means that function's parameter can be of any type, and the result must have the same type. The same code can be applied to data of different types. This is called _polymorphism_. 
+The first expression is another anonymous function. It is the identity function, and it returns its argument unchanged. This function can be applied to anything, and anything can be returned unchanged. This means that function's parameter can be of any type, and the result must have the same type. The same code can be applied to data of different types. This is called _polymorphism_.
 
 This is what is indicated by the `'a` in the type (pronounced as the Greek letter α, “alpha”). This is a _type variable_. It means values of any type can be passed to the function. When that happens, their type is substituted for the type variable. This also expresses identity has the same input and output type, whatever it may be.
 
@@ -430,7 +430,7 @@ Note that:
 - `unit` is a variant with a unique constructor, which does not carry data: `()`.
 - `bool` is also a variant with two constructors that don't carry data: `true` and `false`.
 
-A pair `(x, y)` has type `a * b`, where `a` is the type of `x` and `b` is the type of `y`. Some may find it intriguing that `a * b` is called a product. Although this is not a complete explanation, here is a remark which may help in understanding: Consider the product type `character_class * character_alignement`. There are 12 classes and 9 alignments. Any pair of values from those types inhabit the product type. Therefore, in the product type, there are 9 × 12 = 108 values, which also is a product.
+A pair `(x, y)` has type `a * b`, where `a` is the type of `x` and `b` is the type of `y`. Some may find it intriguing that `a * b` is called a product. Although this is not a complete explanation, here is a remark that may help in understanding: Consider the product type `character_class * character_alignement`. There are 12 classes and 9 alignments. Any pair of values from those types inhabit the product type. Therefore, in the product type, there are 9 × 12 = 108 values, which also is a product.
 
 #### Constructors With Data
 
@@ -468,7 +468,7 @@ Here is how pattern matching can be used to write a function from `commit` to `s
 val commit_to_string : commit -> string = <fun>
 ```
 
-Here, the `function ...` construct is used instead of the `match ... with ...` construct. Previously, example functions had the form `let f x = match x with ...`, and the variable `x` did not appear after any of the `->` symbols. When this is the case, the `function ...` construct can be used instead. It stands for `fun x -> match x with ...` and saves us from finding a name which is used immediately after and only once.
+Here, the `function ...` construct is used instead of the `match ... with ...` construct. Previously, example functions had the form `let f x = match x with ...`, and the variable `x` did not appear after any of the `->` symbols. When this is the case, the `function ...` construct can be used instead. It stands for `fun x -> match x with ...` and saves us from finding a name that is used immediately after and only once.
 
 
 #### Recursive Variants
@@ -570,9 +570,9 @@ val map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 
 ### Records
 
-Records are like tuples in that several values are bundled together. In a tuple, components are identified by their position in the corresponding product type. They are either first, second, third, or at some other position. In a record, each component has a name. That's why record types must be declared before being used.
+Records are like tuples in that several values are bundled together. In a tuple, elements are identified by their position in the corresponding product type. They are either first, second, third, or at some other position. In a record, each element has a name, it's a field. That's why record types must be declared before being used.
 
-For instance, here is the definition of a record type meant to partially represent a Dungeons & Dragons character class. Please note, the following code is dependent upon the definitions earlier in this tutorial. Ensure you have entered the definitions in the [Enumerated Data Types](/docs/basic-data-types#enumerated-data-types) section.
+For instance, here is the definition of a record type meant to partially represent a Dungeons & Dragons character class. Please note, that the following code is dependent upon the definitions earlier in this tutorial. Ensure you have entered the definitions in the [Enumerated Data Types](/docs/basic-data-types#enumerated-data-types) section.
 ```ocaml
 # type character = {
   name : string;
@@ -643,7 +643,7 @@ val alignment : character' -> firmness * rectitude = <fun>
 val armor_class : character -> int = <fun>
 ```
 
-One function for each field, to get the data it contains. It provides the same functionality as dotted notation.
+One getter function per field, reading the contained data. It provides the same functionality as dotted notation.
 ```ocaml
 # let ghorghor_bey' = Character ("Ghôrghôr Bey", 17, "half-ogre", Fighter, (Chaotic, R_Neutral), -8);;
 val ghorghor_bey' : character =
