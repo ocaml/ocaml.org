@@ -12,7 +12,7 @@ category: "Language"
 
 ### Learning Goals
 
-When presenting OCaml or another functional programming language, it is often said: “Functions are treated as first-class citizens.” Without further explanation or context, this may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by this assertion. In turn, this should explain it:
+When presenting OCaml or another functional programming language, it is often said: “Functions are treated as first-class citizens.” Without further explanation or context, this may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by that sentence. In turn, this should explain it:
 - Write all kinds of definitions, for all kinds of values, in all different ways
 - Accurately assess the scope of any definition
 - Avoid being fooled by shadowed definitions and scopes
@@ -27,15 +27,15 @@ This tutorial is shown using the UTop toplevel, which can be initiated with the 
 
 ### Touch Base on Double Semicolon
 
-When using UTop to interact with the OCaml interpreter, lines ending with double semicolons trigger the parsing, type-checking, and evaluation of everything typed between the prompt and the double semicolon. This may span several lines. The interpretation of that double semicolon isn't made by the OCaml interpreter; it is made by UTop, the OCaml toplevel. Once the evaluation of a double semicolon terminated entry is over, the REPL waits for another piece of input.
+When using UTop to interact with the OCaml interpreter, lines ending with double semicolons trigger the parsing, type-checking, and evaluation of everything typed between the prompt and the double semicolon. This may span several lines. However, the interpretation of that double semicolon isn't made by the OCaml interpreter; it is made by UTop, the OCaml toplevel. Once the evaluation of a double semicolon terminated entry is over, the REPL waits for another piece of input.
 
-Nevertheless, the double semicolon `;;` is a valid token in the OCaml syntax. It is a [no-op](https://en.wikipedia.org/wiki/NOP_(code)), i.e., it does not trigger any behaviour. It is ignored by the compiler. In OCaml, source code files meant to be compiled or interpreted as scripts, double semicolons can and should be avoided. This is a means to avoid double semicolons required by the toplevel to raise errors when using the compiler.
+Nevertheless, the double semicolon `;;` is a valid token in the OCaml syntax. It is a [no-op](https://en.wikipedia.org/wiki/NOP_(code)), i.e., it does not trigger any behaviour, so it is ignored by the compiler. In OCaml, source code files meant to be compiled or interpreted as scripts, double semicolons can and should be avoided. Leaving them does not raise errors, but they are useless. The compiler tolerates them to allow copy-paste from Utop to a file without having to remove them.
 
 ## Non-Function Values
 
 ### Values
 
-Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). There are no statements, i.e., syntactical constructions made to produce some sort of computation. Jumps are examples of statements. Computations triggered by OCaml are written as expressions. Once completed, they produce a value, which has a type. Here are a few examples of expressions, their type, and resulting values.
+Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). There are no [statements](https://en.wikipedia.org/wiki/Statement_(computer_science)), i.e., syntactical constructions made to produce some change of state. Variable [assignment](https://en.wikipedia.org/wiki/Assignment_(computer_science)) or [for loop](https://en.wikipedia.org/wiki/For_loop) are examples of statements. Computations triggered by OCaml are written as expressions. Once completed, they produce a value, which has a type. Here are a few examples of expressions, their type, and resulting values.
 
 ```ocaml
 # "Everything has a value, every value has a type";;
@@ -400,6 +400,7 @@ val max_42 : int -> int = <fun>
 
 In the `max_42` function, the environment contains an additional binding between the first parameter of `max` and the value 42.
 
+FIXME: Clarify this
 Actually, all function values are closures.
 
 ### Recursive Functions
@@ -484,9 +485,7 @@ It takes a pair of strings and returns a string.
 - : string = "hello world"
 ```
 
-Asking whether `space_cat` is a binary function makes sense. Morally, it takes two parameters: the strings that are sandwiching the space character. Syntactically, the call `space_cat ("hello", "world")` looks pretty much like a function call in high school maths or in a spreadsheet application.
-
-However, from an OCaml perspective, `space_cat` takes a single parameter, which is a pair.
+Asking whether `space_cat` is a binary function or not makes sense. Morally, it takes two parameters: the two strings that are sandwiching the space character. Wrapped as a pair, they are a single piece of data, so `space_cat` has a single parameter. But it is the elements of that pair that are relevant, not the pair as a whole. So morally `space_cat` is a binary function. Syntactically, the call `space_cat ("hello", "world")` looks pretty much like a function call in high school maths or a spreadsheet application, both having two parameters: `"hello"` and `"pair"`.
 
 ### Currying and Uncurrying
 
@@ -552,7 +551,6 @@ This illustrates the relationship between functions intended to have side effect
 
 ## Conclusion
 
-Values, functions, and definitions are the most primitive and core concepts of OCaml. Even type-checking and execution aren't as central. The key concept is the environment. In summary, it is an ordered add-only key-value store. Add-only because nothing can be deleted. It is ordered because it is just the list of available definitions. When writing a `let`, zero, one, or several name-value pairs are added to the relevant environment. When calling a function parameter, names and arguments are also added to the environment. A closure is an environment-function pair.
+In essence, OCaml's fundamental concepts revolve around values, functions, and definitions, with type-checking and execution playing secondary roles. At the heart of OCaml lies the concept of the environment, a crucial element in its operation. To put it succinctly, the environment works as an ordered, append-only key-value store, notable for its append-only nature, meaning that items cannot be removed. Furthermore, it maintains order by preserving the sequence of available definitions.
 
-
-
+When we employ a `let`` statement, we introduce zero, one, or more name-value pairs into the pertinent environment. Similarly, when invoking a function with its parameters, we extend the environment by adding names and their corresponding arguments, so a closure in OCaml embodies an environment-function pairing, cementing the interconnectedness of these fundamental concepts.
