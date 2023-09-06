@@ -462,7 +462,7 @@ Error: This expression has type int -> int -> int
        Type int is not compatible with type int -> int
 ```
 
-In mathematical language, it is said that the type arrow operator _associates to the right_. Function types without parentheses should be thought to have parentheses put to the right like the type of `f` was declared. These types are the same:
+In mathematical language, it is said that the type arrow operator _associates to the right_. Function types without parentheses should be treated as if they have parentheses, placed to the right, like how the type of `f` was declared. These types are the same:
 - `int -> int -> int`
 - `int -> (int -> int)`
 
