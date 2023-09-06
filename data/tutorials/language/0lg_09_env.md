@@ -260,7 +260,7 @@ val d : int = 21
 
 ### Restrictions
 
-Functions are supposed to be exactly as other values; however, there are two restrictions.
+Functions are supposed to be exactly as other values; however, there are three restrictions.
 
 Function values cannot be displayed in interactive sessions, but the placeholder `<fun>` is displayed. This is because there is nothing meaningful to print. Once parsed and typed-checked, OCaml discards the function's source code and nothing remains to be printed.
 ```ocaml
@@ -279,6 +279,12 @@ There are two main reasons explaining this:
 1. Assuming it was possible, such an algorithm would declare that quicksort and bubble sort are equal. That would mean those procedures are substitutable, which is not the case.
 
 It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
+
+Pattern matching does not allow to inspect a function. Catch-all patterns can match against a function, but it is useless.
+```
+# match Fun.id with id -> ();;
+- : unit = ()
+```
 
 ### Calling Functions
 
