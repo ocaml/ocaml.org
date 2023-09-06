@@ -146,7 +146,7 @@ Now exit `utop` with `Ctrl-D` or enter `#quit;;` before going to the next sectio
 
 ## Defining Module Interfaces
 
-What UTop's `#show` command displays is an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. A `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. A module interface file must be attached to a module file. To do that, an `.mli` file must have the same base name part as the `.ml` file it attaches to.
+UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. A module interface file must be attached to a module file. To do that, an `.mli` file must have the same base name part as its attached `.ml` file.
 ```shell
 $ echo 'val world : string' > lib/hello.mli
 ```
