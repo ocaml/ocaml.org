@@ -643,7 +643,7 @@ val alignment : character' -> firmness * rectitude = <fun>
 val armor_class : character -> int = <fun>
 ```
 
-One getter function per field, reading the contained data. It provides the same functionality as dotted notation.
+One function will retrieve and read the contained data per field. It provides the same functionality as dotted notation.
 ```ocaml
 # let ghorghor_bey' = Character ("Ghôrghôr Bey", 17, "half-ogre", Fighter, (Chaotic, R_Neutral), -8);;
 val ghorghor_bey' : character =
