@@ -61,7 +61,7 @@ Layout.render
           <ul>
             <li>
               <strong>Garbage collection (GC)</strong> for automatic memory management, now a feature of almost every
-              modern, high-level language.
+              modern, high-level language, but here done in a <code><a href="https://ocamlpro.com/blog/2020_03_23_in_depth_look_at_best_fit_gc/">two tier, generational manner.</a></code> 
             </li>
             <li>
               <strong>First-class functions</strong> that can be passed around like ordinary values, as seen in
