@@ -385,7 +385,7 @@ val f : int -> int = <fun>
 # let d = 10;;
 val d : int = 10
 
-# f 7;; (* What the result? *)
+# f 7;; (* What is the result? *)
 - : int = 42
 ```
 
@@ -398,16 +398,15 @@ Here is how this makes sense:
 
 Although the new definition of `d` shadows the first one, the first value of `d` remains the one used inside `f`. That first definition of `d` is trapped inside the definition of `f`. Inside `f`, the environment is frozen as it was when `f` was defined, with the first value of `d` inside. That's why it is called a closure.
 
-Partially applying parameters also creates a closure.
+A function value is a pair containing the function code and an environment. It is that pair that is called a [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
+
+Partially applying parameters to a function creates a new closure, the environment is updated but the function is unchanged.
 ```ocaml
 # let max_42 = max 42;;
 val max_42 : int -> int = <fun>
 ```
 
 In the `max_42` function, the environment contains an additional binding between the first parameter of `max` and the value 42.
-
-FIXME: Clarify this
-Actually, all function values are closures.
 
 ### Recursive Functions
 
