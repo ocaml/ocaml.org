@@ -534,7 +534,7 @@ val is_printable : int -> int -> page_range -> bool = <fun>
 
 Like a function, a variant can be recursive if refers to itself in its own definition. The predefined type `list` provides an example of such a variant:
 ```ocaml
-# show list;;
+# #show list;;
 type 'a list = [] | (::) of 'a * 'a list
 ```
 
