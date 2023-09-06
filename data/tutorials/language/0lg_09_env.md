@@ -281,7 +281,7 @@ There are two main reasons explaining this:
 It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
 
 Pattern matching does not allow to inspect a function. Catch-all patterns can match against a function, but it is useless.
-```
+```ocaml
 # match Fun.id with id -> ();;
 - : unit = ()
 ```
