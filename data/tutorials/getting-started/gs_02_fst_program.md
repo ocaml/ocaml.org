@@ -24,6 +24,8 @@ Once you've completed this tutorial, you should be able to:
 - Make a definition private
 - Download, install and use a package from the open source repository
 
+How to work on several OCaml projects simultaneously is out of the scope of this tutorial. Currently (summer 2023), this requires using Opam local [_switches_](https://opam.ocaml.org/doc/man/opam-switch.html). This allows handling different sets of dependencies per project. Check the Best Practices document on [Dependencies](https://ocaml.org/docs/managing-dependencies) addressing that matter for detailed instructions. This document was writen and tested using a global switch, which is created by default when installing Opam and can be ignored in the beginning.
+
 ## Compiling OCaml Programs
 
 OCaml comes with both an interpreter and a compiler. In the previous tutorial, only the interpreter was used. This section gives a glimpse of how to use the compiler.
