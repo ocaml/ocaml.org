@@ -18,7 +18,7 @@ Layout.render
 
     <div class="prose my-6">
       <p>If you need more explicit instructions than provided on this quick-install page, you can find
-        <a href="<%s Url.getting_started %>">a more detailed explanation of the installation process here</a>.
+        <a href="<%s Url.installing_ocaml %>">a more detailed explanation of the installation process here</a>.
       </p>
     </div>
 
@@ -140,7 +140,7 @@ Layout.render
         </p>
 
         <p>
-          The <a href="<%s Url.tutorial "a-tour-of-ocaml" %>#installing-the-ocaml-platform-tools">OCaml Platform Tools</a> include the <a target="_blank" href="https://dune.build/">build system <tt>dune</tt></a>,
+          The <a href="<%s Url.platform %>">OCaml Platform Tools</a> include the <a target="_blank" href="https://dune.build/">build system <tt>dune</tt></a>,
           and provide you with a complete OCaml development environment.
         </p>
 

@@ -80,7 +80,7 @@ a priority of `1`.
 If you only need to _run_ OCaml programs on a Windows machine, the simplest solution is to use the Windows Subsystem for Linux 2 (WSL2). WSL2 is a feature that allows Linux programs to run directly on Windows. WSL2 is substantially easier and faster to use than WSL1. Microsoft has comprehensive installation steps for [setting up WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 After you have installed WSL2 and chosen one Linux distribution (we suggest [Ubuntu LTS](https://apps.microsoft.com/store/detail/ubuntu/9PDXGNCFSCZV?hl=en-us&gl=US)), you can follow the
-[Get Up and Running With OCaml: Installation for Linux and macOS](/docs/up-and-running) steps.
+[Get Up and Running With OCaml: Installation for Linux and macOS](/docs/installing-ocaml) steps.
 
 ### Docker Images
 
