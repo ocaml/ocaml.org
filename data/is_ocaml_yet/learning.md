@@ -4,7 +4,7 @@ question: Is OCaml learning yet?
 answer: We're a bit late to the party, but we're catching up!
 categories:
   - name: Bindings
-    status: 🆘
+    status: 🔴
     description: |
       Bindings to existing machine learning infrastructure implemented in other languages
     packages:
@@ -74,7 +74,7 @@ categories:
       Training agents to make sequences of decisions through rewards
     packages: []
   - name: Scientific Computing
-    status: 🆘
+    status: 🟠
     description: |
       Mathematical and computational tools for scientific analysis
     packages:
