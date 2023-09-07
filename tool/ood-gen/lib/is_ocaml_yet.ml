@@ -1,4 +1,7 @@
-type package = { name : string; url : string option }
+type external_package = { url: string; synopsis: string}
+[@@deriving of_yaml, show { with_path = false }]
+
+type package = { name : string; extern: external_package option }
 [@@deriving of_yaml, show { with_path = false }]
 
 type category = {
@@ -54,7 +57,8 @@ let all () = Utils.map_files decode "is_ocaml_yet"
 let template () =
   Format.asprintf
     {|
-type package = { name: string; url: string option}
+type external_package = { url : string; synopsis : string }
+type package = { name: string; extern: external_package option }
 
 type category = {
   name : string;

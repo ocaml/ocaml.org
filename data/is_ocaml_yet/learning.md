@@ -10,7 +10,9 @@ categories:
     packages:
     - name: torch
     - name: xla
-      url: https://github.com/LaurentMazare/ocaml-xla
+      extern:
+        url: https://github.com/LaurentMazare/ocaml-xla
+        synopsis: XLA (Accelerated Linear Algebra) bindings for OCaml
     - name: tensorflow
     - name: lacaml
     - name: sklearn
@@ -77,7 +79,9 @@ categories:
       Mathematical and computational tools for scientific analysis
     packages:
     - name: onumerical
-      url: https://github.com/cheshire/onumerical
+      extern:
+        url: https://github.com/cheshire/onumerical
+        synopsis: Numerical Library for OCaml
     - name: oml
     - name: slap
     - name: owl

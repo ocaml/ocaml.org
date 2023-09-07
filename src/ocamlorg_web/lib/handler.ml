@@ -500,7 +500,7 @@ let is_ocaml_yet t id req =
            match Ocamlorg_package.get_latest t name with
            | Some x -> Some x
            | None ->
-               if p.url = None then
+               if p.extern = None then
                  Dream.error (fun log ->
                      log ~request:req "Package not found: %s"
                        (Ocamlorg_package.Name.to_string name));

@@ -24,7 +24,7 @@ Learn_layout.render
   <ul class="mt-8 px-0 font-light leading-8 text-neutral-800 text-lg flex flex-wrap gap-x-4 gap-y-1">
   <% meta.categories |> List.iter (fun (category : Data.Is_ocaml_yet.category) -> %>
     <li class="inline-flex m-0 whitespace-nowrap">
-      <a href="#<%s Utils.slugify category.name %>" class="leading-8 no-underline"><span class="text-sm"><%s category.status %></span> <%s category.name %></a>
+      <a href="#<%s Utils.slugify category.name %>" class="leading-8"><span class="text-sm"><%s category.status %></span> <%s category.name %></a>
     </li>
   <% ); %>
   </ul>
@@ -56,7 +56,15 @@ Learn_layout.render
   <p><%s! category.description %></p>
   <ul>
     <% category.packages |> List.iter (fun (p : Data.Is_ocaml_yet.package) -> let package = Hashtbl.find_opt packages p.name in %>
-    <li><a href="<%s Option.fold ~none:(Option.value ~default:"" p.url) ~some:(fun _ -> Url.Package.overview p.name) package %>"><%s p.name %></a> <%s match package with | None -> "" | Some package -> package.Package.synopsis %></li>
+    <li>
+      <% match p.extern with | None -> ( %>
+        <a href="<%s Url.Package.overview p.name %>"><%s p.name %></a>
+        <%s (match package with | None -> "" | Some package -> package.Package.synopsis); %>
+      <% ) | Some extern -> ( %>
+        <a href="<%s extern.url %>" target="_blank"><%s p.name %></a>
+        <%s extern.synopsis %>
+      <% ); %>
+    </li>
     <% ); %>
   </ul>
   <% ); %>

@@ -242,7 +242,9 @@ categories:
     - name: stone
     - name: camyll
     - name: yocaml
-      url: https://github.com/xhtmlboi/yocaml
+      extern:
+        url: https://github.com/xhtmlboi/yocaml
+        synopsis: YOCaml is a static site generator, mostly written in OCaml
     - name: dream-serve
     - name: soupault
   - name: External Web APIs

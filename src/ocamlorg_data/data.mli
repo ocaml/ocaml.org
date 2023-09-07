@@ -419,7 +419,8 @@ module Code_example : sig
 end
 
 module Is_ocaml_yet : sig
-  type package = { name : string; url : string option }
+  type external_package = { url : string; synopsis : string }
+  type package = { name : string; extern : external_package option }
 
   type category = {
     name : string;
