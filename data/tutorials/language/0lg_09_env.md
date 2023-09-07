@@ -194,7 +194,7 @@ However, with respect to the expression `2. *. pi`, the environment is different
 
 The scope of a definition is the set of environments where it is reachable.
 
-Although OCaml is an expression-oriented language, it is not entirely free of statements. The `let` construct is a statement. It is a statement that may change the state of the environment by adding a name-value binding. Note these expressions at the toplevel also fall into that category because they are equivalent to `let _ =` definitions.
+Although OCaml is an expression-oriented language, it is not entirely free of statements. The `let` construct is a statement that may change the state of the environment by adding a name-value binding. Note these expressions at the toplevel also fall into that category because they are equivalent to `let _ =` definitions.
 ```ocaml
 # (1.0 +. sqrt 5.0) /. 2.0;;
 - : float = 1.6180339887498949
