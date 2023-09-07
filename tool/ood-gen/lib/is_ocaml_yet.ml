@@ -1,7 +1,7 @@
-type external_package = { url: string; synopsis: string}
+type external_package = { url : string; synopsis : string }
 [@@deriving of_yaml, show { with_path = false }]
 
-type package = { name : string; extern: external_package option }
+type package = { name : string; extern : external_package option }
 [@@deriving of_yaml, show { with_path = false }]
 
 type category = {
