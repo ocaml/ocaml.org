@@ -57,6 +57,8 @@ module.exports = {
       "learn-area-orange": "#C34711",
       "learn-area-light-blue": "rgba(211, 213, 249, 0.60)",
 
+      "text-title": "#111827",
+
       transparent: "transparent",
 
       avatar: {
