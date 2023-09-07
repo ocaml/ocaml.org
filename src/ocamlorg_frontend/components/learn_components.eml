@@ -179,3 +179,33 @@ books
       </a>
     </div>
   </div>
+
+let contribute_footer ~href =
+  <div class="pt-10 mt-16 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
+    <div class="lg:col-span-1">
+      <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Help Improve Our Documentation</h2>
+      <p class="text-sm mt-0 mb-4 max-w-xs">All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request.</p>
+      <a
+        class="inline-block relative py-1 px-4 font-medium no-underline align-middle bg-transparent rounded-md border border-solid appearance-none cursor-pointer select-none whitespace-no-wrap hover:no-underline"
+        href="<%s href %>"
+      >
+        <%s! Icons.github_pull_request "inline-block overflow-visible mr-0 align-text-bottom select-none" %>
+        Contribute</a
+      >
+    </div>
+    <div class="mt-4 lg:mt-0 lg:col-span-1 lg:col-start-3">
+      <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Still need help?</h2>
+      <div class="text-sm mb-2">
+        <a href="https://discuss.ocaml.org/" class="font-semibold no-underline bg-transparent cursor-pointer hover:underline">
+          <%s! Icons.community "inline h-4 w-4" %>
+          Ask the OCaml Community</a
+        >
+      </div>
+      <div class="text-sm mb-2">
+        <a href="https://github.com/ocaml/ocaml.org/issues/new" class="font-semibold no-underline bg-transparent cursor-pointer hover:underline">
+          <%s! Icons.github_issue "inline h-4 w-4" %>
+          Open an Issue</a
+        >
+      </div>
+    </div>
+  </div>

@@ -54,6 +54,17 @@ Learn_layout.render
     <%s category.name %>
   </h3>
   <p><%s! category.description %></p>
+  <% if List.length category.packages = 0 then ( %>
+    <p>
+      <a
+        class="inline-block relative py-1 px-4 font-medium no-underline align-middle bg-transparent rounded-md border border-solid appearance-none cursor-pointer select-none whitespace-no-wrap hover:no-underline"
+        href="https://github.com/ocaml/ocaml.org/tree/main/data/is_ocaml_yet/<%s meta.id %>.md"
+      >
+        <%s! Icons.github_pull_request "inline-block overflow-visible mr-0 align-text-bottom select-none" %>
+        Know a package? Contribute
+      </a>
+    </p>
+  <% ) else (); %>
   <ul>
     <% category.packages |> List.iter (fun (p : Data.Is_ocaml_yet.package) -> let package = Hashtbl.find_opt packages p.name in %>
     <li>
@@ -69,4 +80,5 @@ Learn_layout.render
   </ul>
   <% ); %>
   </div>
+  <%s! Learn_components.contribute_footer ~href:("https://github.com/ocaml/ocaml.org/tree/main/data/is_ocaml_yet/"^ meta.id ^ ".md") %>
 </div>
