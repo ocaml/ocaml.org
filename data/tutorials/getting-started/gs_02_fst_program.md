@@ -34,7 +34,7 @@ How to work on several OCaml projects simultaneously is out of the scope of this
 
 By default, OCaml comes with two compilers, one translating sources into native binaries and another turning sources into a bytecode format. OCaml also comes with an interpreter for that bytecode format. Other compilers exist, for instance, [js_of_ocaml](https://ocsigen.org/js_of_ocaml) generates JavaScript. The toplevel uses the bytecode compiler; expressions are read, type-checked, compiled into bytecode and executed. The previous tutorial was interactive only, the toplevel was used. This tutorial gives a glimpse at batch processing only using the native compiler.
 
-We start by seting up a traditional “Hello World!” project using Dune, OCaml’s build system. Make sure to have installed version 3.7 or later. The following creates it under the name `hello`:
+We start by setting up a traditional “Hello World!” project using Dune, OCaml’s build system. Make sure to have installed version 3.7 or later. The following creates a project named `hello`:
 
 ```shell
 $ dune init proj hello
@@ -42,7 +42,7 @@ Entering directory '/home/cuihtlauac/caml/ocaml.org/hello'
 Success: initialized project component named hello
 ```
 
-Note: Throuout this tutorial, outputs generated Dune might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam update; opam upgrade dune` in a terminal.
+Note: Throughout this tutorial, outputs generated Dune might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam update; opam upgrade dune` in a terminal.
 
 The project is stored in a directory named `hello`. The `tree` command lists the files and directories created. It might be necessary to install `tree` if you don't see the following. Through Homebrew, for example, run `brew install tree`.
 
@@ -153,7 +153,7 @@ Now exit `utop` with `Ctrl-D` or enter `#quit;;` before going to the next sectio
 
 ## Defining Module Interfaces
 
-UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. A module interface file must be attached to a module file. To do that, an `.mli` file must have the same base name part as its attached `.ml` file. Create a `lib/hello.mli` file with this contents:
+UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. A module interface file must be attached to a module file. To do that, an `.mli` file must have the same base name part as its attached `.ml` file. Create a `lib/hello.mli` file with this content:
 ```ocaml
 val world : string
 ```
@@ -341,7 +341,7 @@ Entering directory '/home/cuihtlauac/caml/ocaml.org'
 My name is Minimo
 ```
 
-Note that `minimo.exe` is not a file name. This is how Dune is told to compile the `minimo.ml` file using OCaml's native compiler instead of the bytecode compiler. As a fun fact, note that an empty file is valid OCaml syntax, you can use that to reduce `minimo` even more; of course it will not display anything, but it will be a valid project.
+Note that `minimo.exe` is not a file name. This is how Dune is told to compile the `minimo.ml` file using OCaml's native compiler instead of the bytecode compiler. As a fun fact, note that an empty file is valid OCaml syntax. You can use that to reduce `minimo` even more; of course, it will not display anything, but it will be a valid project!
 
 ## Conclusion
 
