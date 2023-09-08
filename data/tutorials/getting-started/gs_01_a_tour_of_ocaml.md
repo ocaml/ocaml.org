@@ -65,7 +65,7 @@ If you need to amend the code before hitting enter, you can use your keyboard's 
 
 Remember: commands beginning with a hash mark are not part of the OCaml syntax; they are interpreted by UTop itself.
 
-Commands beginning with the dash character `#` such as `#quit` or `#help` are not interpreted by OCaml, they are interpreter by Utop.
+Commands beginning with the dash character `#` such as `#quit` or `#help` are not evaluated by OCaml, they are interpreter by Utop.
 
 ## Expressions and Definitions
 
