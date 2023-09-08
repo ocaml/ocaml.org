@@ -60,7 +60,7 @@ Layout.render
           </p>
           <ul>
             <li>
-              <strong><a href="https://dev.realworldocaml.org/garbage-collector.html">Generational garbage collection</a></strong> for automatic memory management, now a feature of almost every modern, high-level language.
+              <strong><a href="https://dev.realworldocaml.org/garbage-collector.html">Generational garbage collection</a></strong> for automatic memory management.
             </li>
             <li>
               <strong>First-class functions</strong> that can be passed around like ordinary values, as seen in
