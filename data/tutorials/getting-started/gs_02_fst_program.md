@@ -68,9 +68,7 @@ $ tree
 ```
 
 OCaml source files have `.ml` extension, which stands for “Meta Language.” Meta Language (ML) is the ancestor of OCaml, this is also what the “ml” stands for in “OCaml.” Here is the content of the `bin/main.ml` file:
-
-```shell
-$ cat ./bin/main.ml
+```ocaml
 let () = print_endline "Hello, World!"
 ```
 
@@ -110,9 +108,9 @@ Let's summarise what was said about modules in the previous tutorial:
 - Identical names from distinct modules don't clash
 - The standard library is a bunch of modules
 
-In addition to that, modules allows organising projects. Concerns are separated into isolated modules. This is outlined in the next section. Before creating a module, here is how to use a definition from a module in our project.
-```shell
-$ echo 'let () = Printf.printf "%s!\\n" "Hello, World!"' > bin/main.ml
+In addition to that, modules allows organising projects. Concerns are separated into isolated modules. This is outlined in the next section. Before creating a module, here is how to use a definition from a module in our project. Edit the file `bin/main.ml` into this:
+```ocaml
+let () = Printf.printf "%s!\\n" "Hello, World!"
 ```
 
 This replaces the function `print_endline` with the function `printf` from the `Printf` module in the standard library. Building and executing this modified version should produce almost the same output as before. Use `dune exec hello` to try it for yourself.
@@ -121,16 +119,19 @@ This replaces the function `print_endline` with the function `printf` from the `
 
 Most importantly, each OCaml file defines a module, once compiled. This is how separate compilation works in OCaml. Each sufficiently standalone concern should be isolated into a file-based module. References to external modules create dependencies. Circular dependencies between modules are not allowed.
 
-To create a module, let's create a file named `lib/hello.ml`:
-```shell
-$ echo 'let world = "Hello from a module"' > lib/hello.ml
+To create a module, let's create a file named `lib/hello.ml` containing this:
+```ocaml
+let world = "Hello from a module"
 ```
 
-Here is a new version of the `bin/main.ml` file and execution of the resulting project:
-```shell
-$ echo 'let () = Printf.printf "%s\n" Hello.world' > bin/main.ml
+Here is a new version of the `bin/main.ml` file:
+```ocaml
+ let () = Printf.printf "%s\n" Hello.world'
+ ```
 
-$ dune exec hello
+And execution of the resulting project:
+ ```shell
+ $ dune exec hello
 Entering directory '/home/cuihtlauac/caml/ocaml.org'
 Hello from a module
 ```
@@ -152,9 +153,9 @@ Now exit `utop` with `Ctrl-D` or enter `#quit;;` before going to the next sectio
 
 ## Defining Module Interfaces
 
-UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. A module interface file must be attached to a module file. To do that, an `.mli` file must have the same base name part as its attached `.ml` file.
-```shell
-$ echo 'val world : string' > lib/hello.mli
+UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. A module interface file must be attached to a module file. To do that, an `.mli` file must have the same base name part as its attached `.ml` file. Create a `lib/hello.mli` file with this contents:
+```ocaml
+val world : string
 ```
 
 Observe that only what is between `sig` and `end` has been written in the interface file `lib/hello.mli`. This is explained in the tutorial dedicated to [modules](/docs/modules).
@@ -317,12 +318,20 @@ $ cd minimo
 ```
 
 At the very least, Dune only needs two files: `dune-project` and one `dune` file. Here is how to write them with as little text as possible:
-```shell
-$ echo '(lang dune 3.6)' > dune-project
 
-$ echo '(executable (name minimo))' > dune
+`dune-project`
+```lisp
+(lang dune 3.6)
+```
 
-$ echo 'let () = print_endline "My name is Minimo"' > minimo.ml
+`dune`
+```lisp
+(executable (name minimo))
+```
+
+`minimo.ml`
+```ocaml
+let () = print_endline "My name is Minimo"
 ```
 
 That's all! This is sufficient for Dune to build and execute the `minimo.ml` file.
@@ -332,7 +341,7 @@ Entering directory '/home/cuihtlauac/caml/ocaml.org'
 My name is Minimo
 ```
 
-Note that `minimo.exe` is not a file name. This is how Dune is told to compile the `minimo.ml` file using OCaml's _binary_ compiler, because it also has a second one: the _byte code_ compiler.
+Note that `minimo.exe` is not a file name. This is how Dune is told to compile the `minimo.ml` file using OCaml's native compiler instead of the bytecode compiler. As a fun fact, note that an empty file is valid OCaml syntax, you can use that to reduce `minimo` even more; of course it will not display anything, but it will be a valid project.
 
 ## Conclusion
 
