@@ -8,6 +8,10 @@ category: "Getting Started"
 
 # How to Write an OCaml Program
 
+« On prononce Caml avec le “ca” de café et le “mel” de melba. »
+
+&mdash; Xavier Leroy et Pierre Weis, _Le langage Caml_
+
 In this tutorial, we start working with files containing OCaml source code and compiling them to produce excutable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture before extensively presenting topics in order to avoid getting lost in the details.
 
 In other words, we do breadth-first learning instead of depth-first learning. In the previous tutorial most commands were entered in Utop, in this tutorial, the majority of commands should be entered into a terminal. Code examples starting with a dollar sign `$` are intended to be entered in the terminal, while lines starting with a hash sign `#` are intended to be entered in Utop.
