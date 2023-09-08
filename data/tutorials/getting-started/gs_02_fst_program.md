@@ -8,7 +8,7 @@ category: "Getting Started"
 
 # How to Write an OCaml Program
 
-« On prononce Caml avec le “ca” de café et le “mel” de melba. »
+> On prononce Caml avec le « ca » de café et le « mel » de melba.
 
 &mdash; Xavier Leroy et Pierre Weis, _Le langage Caml_
 

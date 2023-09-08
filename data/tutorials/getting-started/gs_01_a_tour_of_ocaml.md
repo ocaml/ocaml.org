@@ -8,7 +8,7 @@ category: "Getting Started"
 
 # A Tour of OCaml
 
-> « Franz avait lu dans France Soir qu’un Américain avait mis neuf minutes et quarante-cinq secondes pour visiter le musée du Louvre. Ils décidèrent de faire mieux… »
+> Franz avait lu dans France Soir qu’un Américain avait mis neuf minutes et quarante-cinq secondes pour visiter le musée du Louvre. Ils décidèrent de faire mieux…
 
 &mdash; Jean-Luc Godard, _Bande à part_
 
