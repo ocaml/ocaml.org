@@ -60,8 +60,7 @@ Layout.render
           </p>
           <ul>
             <li>
-              <strong>Garbage collection (GC)</strong> for automatic memory management, now a feature of almost every
-              modern, high-level language.
+              <strong><a href="https://dev.realworldocaml.org/garbage-collector.html">Generational garbage collection</a></strong> for automatic memory management.
             </li>
             <li>
               <strong>First-class functions</strong> that can be passed around like ordinary values, as seen in
@@ -81,13 +80,13 @@ Layout.render
               found in distributed, big-data frameworks like Hadoop.
             </li>
             <li>
-              <strong>Type inference</strong>, so you don’t need to annotate every single variable in your program with
-              its type. Instead, types are inferred based on how a value is used. Available in a limited form in C# with
+              <strong>Type inference</strong>, so you don’t need to annotate every function parameter, return type, and variable. 
+              Instead, types are inferred based on how a value is used. Available in a limited form in C# with
               implicitly-typed local variables and in C++11 with its auto keyword.
             </li>
             <li>
               <strong>Algebraic data types</strong> and <strong>pattern matching</strong> to define and manipulate
-              complex data structures, available in Scala and F#.
+              complex data structures, also available in Scala and F#.
             </li>
           </ul>
           <p>
@@ -148,8 +147,8 @@ Layout.render
             The last two decades have seen OCaml attract a significant user base, and language improvements have been
             steadily added to support the growing commercial and academic codebases. By 2012, the OCaml 4.0 release had
             added Generalised Algebraic Data Types (GADTs) and first-class modules to increase the flexibility of the
-            language. Since then, OCaml has had a steady, yearly release cadence, and OCaml 5.0 with Multicore support is
-            scheduled for release in September 2022. There is also fast, native-code support for the latest CPU architectures, such as
+            language. Since then, OCaml has had a steady, yearly release cadence, and OCaml 5.0 with Multicore support 
+            did release in December 2022. There is also fast, native-code support for the latest CPU architectures, such as
             x86_64, ARM, RISC-V, and PowerPC, making OCaml a good choice for systems where resource usage,
             predictability, and performance all matter.
           </p>
@@ -198,7 +197,7 @@ Layout.render
               OCaml runs on a wide variety of platforms. There are both officially supported platforms as well as
               platforms supported by the community. For example, there are OCaml apps available on the Apple App Store,
               and it is possible to compile OCaml to JavaScript with Js_of_ocaml, which enables the creation of rich,
-              client-side applications. OCaml-Java also enables direct compilation of OCaml to Java bytecode.
+              client-side applications. OCaml-Wasm also enables direct compilation of OCaml to WebAssembly bytecode.
             </li>
           </ul>
           <p>
