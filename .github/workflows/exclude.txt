@@ -40,3 +40,11 @@ https://github.com/ocaml/opam/pull
 https://github.com/ocaml/opam/issues
 https://github.com/ocaml/opam-repository/pull
 https://github.com/ocaml/opam-repository/issues
+https://www.iitm.ac.in/
+https://doi.org
+https://dl.acm.org/doi
+https://www.amnh.org/research/computational-sciences
+https://www.ssi.gouv.fr/
+https://www.hostnet.com.br/
+https://www.microsoft.com
+https://diskuv-ocaml.gitlab.io/
