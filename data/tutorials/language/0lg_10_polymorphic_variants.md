@@ -24,16 +24,16 @@ In the nominal approach of typing, types are first defined; later, when type-che
 
 This is very similar to solving an equation in mathematics. Equation on numbers accepts either zero, exactly one, several or infinitely many solutions. Nominal type checking finds that either zero, exactly one or any type can be used in an expression.
 
-In the structural approach of typing, type definitions are optional, they can be omitted. Type checking an expression constructs a data structure that represents the types which are compatible with it. These data structures are displayed as type expressions sharing ressemblance with regular variants.
+In the structural approach of typing, type definitions are optional, they can be omitted. Type checking an expression constructs a data structure that represents the types which are compatible with it. These data structures are displayed as type expressions sharing ressemblance with simple variants.
 
 ### Learning Goals
 
 The goal of this tutorial is to make the reader acquire the following capabilities:
-- When possible, translate regular variants into polymorphic variants
-- When possible, translate polymorphic variants into regular variants
+- When possible, translate simple variants into polymorphic variants
+- When possible, translate polymorphic variants into simple variants
 - Choose to use polymorphic variant when really needed
 
-## A Note on Regular Variants and Polymorphism
+## A Note on simple Variants and Polymorphism
 
 The type expression `'a list` does not designate a single type, it designates a family of types, all the types that can be created by substituing an actual type to type variable `'a`. The type expressions `int list`, `bool option list` or `(float -> float) list list` are actual exmaples of types which are members of the family `'a list`.
 
@@ -41,20 +41,20 @@ In OCaml, something is polymorphic if the type expression
 
 ## Kickstart Example
 
-Polymorphic variant visual signature are backquotes. Pattern matching on them looks just the same as with regular variants, except for backquotes (and capitals, which are not longer required).
+Polymorphic variant visual signature are backquotes. Pattern matching on them looks just the same as with simple variants, except for backquotes (and capitals, which are not longer required).
 ```ocaml
 # let f = function `carot -> "Carot" | `fruit name -> name ;;
 f : [< `carot | `fruit of string ] -> string = <fun>
 ```
 
-Here`` `carot`` and`` `fruit`` plays a role similar to the role played by the constructors `Carot` and `Fruit` in a variant declared as `type t = Carot | Fruit of string`. Except, and most importantly, that the definition doesn't need to be written. The tokens`` `carot`` and `` `fruit`` are called _tags_ instead of constructors.
+Here`` `carot`` and`` `fruit`` plays a role similar to the role played by the constructors `Carot` and `Fruit` in a variant declared as `type t = Carot | Fruit of string`. Except, and most importantly, that the definition doesn't need to be written. The tokens`` `carot`` and `` `fruit`` are called _tags_ instead of constructors. A tag is defined by a name and a list of parameter types.
 
 The expression ``[< `carot | `fruit of string ]`` play the role of a type. However, it does not represent a single type, it represents three different types.
-- The type which only has`` `carot`` as inhabitant, its translation into a regular variant is `type t0 = Carot`
-- The type which`` `fruit`` inhabitants, its translation into a regular variant is `type t1 = Fruit of string`
-- Type type which has both`` `carot`` and`` `fruit`` inhabitants, its translation into a regular variant is `type t2 = Carot | Fruit of string`
+- The type which only has`` `carot`` as inhabitant, its translation into a simple variant is `type t0 = Carot`
+- The type which`` `fruit`` inhabitants, its translation into a simple variant is `type t1 = Fruit of string`
+- Type type which has both`` `carot`` and`` `fruit`` inhabitants, its translation into a simple variant is `type t2 = Carot | Fruit of string`
 
-Note each of the above translations into regular variants is correct. However, entering them as-is into the environment would lead to constructor shadowing.
+Note each of the above translations into simple variants is correct. However, entering them as-is into the environment would lead to constructor shadowing.
 
 This also illustrates the other strinking feature of polymorphic variants: values can be attached to several types. For instance, the tag`` `carot`` inhabits``[ `carot ]`` and``[ `carot | `fruit of String ]``, but it also inhabits any type defined by a set of tags that containts it.
 
@@ -63,7 +63,7 @@ What is displayed by the type-checker, for instance ``[< `carot | `fruit of stri
 This is the sense of the polymorphism of polymorphic variants. Polymorphic variants are type expressions. The structural typing algorithm used for polymorphic variants creates type expressions that designate sets of types (here the three types above), which are defined by contraints on sets of tags (the inequality symbols). The polymorphism of polymorphic variant is different.
 
 In the rest of this tutorial, the following terminology is used:
-- “regular variants”
+- “simple variants”
 - polymorphic variant: type expressions displayed by the OCaml type-checker such as ``[< `carot | `fruit of string ]``
 -
 
@@ -108,11 +108,11 @@ Again, this designates a set of types. However, the comparison symbol
 - `[< ]` : “these tags or less,” Closed, upper bound
 
 
-## Sets of Tags and Subtyping
+## Exact, Closed and Open Polymorphic Variant Types
 
 Polymorphic variant type expressions can have three forms:
-1. Exact: ``[ `carot | `gherkin | `fruit of string ]`` : this only designates the type inhabited by the values introduced by this set of tags
-1. Closed: ``[< `carot | `gherkin | `fruit of string ]`` : this designates the set of exact types inhabited by the values introduced by subsets of the tags in 1. That is:
+1. Exact: ``[ `carot | `gherkin | `fruit of string ]`` : this only designates the type inhabited by the values introduced by these tags. Tags names must occur exaclty once.
+1. Closed: ``[< `carot | `gherkin | `fruit of string ]`` : this designates a set of exact types. Each exact type is inhabited by the values introduced by a subset of the tags from 1. For instance, there are 7 exact types as such:
   - ``[ `carot ]``
   - ``[ `gherkin ]``
   - ``[ `fruit of string ]``
@@ -120,22 +120,42 @@ Polymorphic variant type expressions can have three forms:
   - ``[ `carot | `fruit of string ]``
   - ``[ `carot | `gherkin ]``
   - ``[ `carot | `gherkin | `fruit of string ]``
-1. Open: ``[> `carot | `gherkin | `fruit of string ]`` : this designates the set of exact types inhabited by the values introduced by supersets of the tags in 1.
+1. Open: ``[> `carot | `gherkin | `fruit of string ]`` : this designates a set of exact types. Eact eact type is inhabited by the values introduced by supersets of the tags from 1.
 
-The exact form is infered by the type-checker when naming the type defined by a set of tags
+The exact form is infered by the type-checker when naming a type defined by a set of tags:
 ```ocaml
 # type t = [ `carot | `gherkin | `fruit of string ]
 type t = [ `carot | `fruit of string | `gherkin ]
 ```
 
-The closed form is introduced when pattern matching over a explicit set of tags
+The closed form is introduced when performing pattern matching over a explicit set of tags
 ```ocaml
-# 
+# let f = function
+    | `carot -> "Carot"
+    | `gherkin -> "Gherkin"
+    | `fruit fruit -> fruit;;
+val f : [< `carot | `fruit of string | `gherkin ] -> string = <fun>
 ```
 
+Function `f` can be used with any exact type which has these three tags or less. When applied to a type with less tags, branches associated to removed tags turn safely into dead code. The type is closed because the function can't accept more than what is listed.
 
-The exact case correspond to regular variants. Closed and open cases are polymorphic because they do not designate a single type but families of types.
+The open form can be introduced in two different ways.
 
+First, by adding a `_` to the pattern matching:
+```ocaml
+# let g = function
+    | `carot -> "Carot"
+    | `gherkin -> "Gherkin"
+    | `fruit fruit -> fruit
+    | _ -> "Edible plant";;
+val g : [> `carot | `fruit of string | `gherkin ] -> string = <fun>
+```
+
+Function `g` can be used with any exact type which has these three tags or more. Because of the catch all pattern, if `g` is passed a value introduced by a tag which is not part of the list, it will be accepted, and `"Edible plant"` is returned. The type is open because it can accept more than what is listed.
+
+The type of `g` is also meant to disallow exact types with tags removed or changed in type. OCaml is a statically typed language, that means no type information is available at runtime. As a consequence pattern matching only relies on tag names. If `g` was given a type with removed tags, such as``[> `carot | `gherkin ]``, then passing`` `fruit`` to `g` would be allowed, but since dispatch is based on names, it would execute the`` `fruit of string`` branch and crash because no string is available. Therefore, open polymorphic variant must include all the tags from pattern matching.
+
+The exact case correspond to simple variants. Closed and open cases are polymorphic because they do not designate a single type but families of types. An exact variant type is monomorphic, it corresponds to a single variant type, not a set of variant types.
 
 ## Uses-Cases
 
