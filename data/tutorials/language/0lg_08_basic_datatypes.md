@@ -20,7 +20,7 @@ OCaml provides several other types, but they all are extensions of those present
 
 This is an intermediate-level tutorial. The only prerequisite is to have completed the [Get Started](https://ocaml.org/docs/up-and-running) series of tutorials.
 
-The goal of this tutorial is to provide for following capabilities:
+The goal of this tutorial is to provide for the following capabilities:
 - Handle data of all predefined types using dedicated syntax
 - Write variant type definitions: simple, recursive, and polymorphic
 - Write record type definitions (without mutable fields)
