@@ -177,7 +177,7 @@ As literals, lists are very much like arrays. Here are the same previous example
 - : string list = ["foo"; "bar"; "baz"]
 ```
 
-Like arrays, lists are finite sequences of values of the same type. They are polymorphic too. However, lists are extensible, immutable, and don't support direct access to all the values it contains. Lists play a central role in functional programming, and they are the subject of a [dedicated tutorial](/docs/lists).
+Like arrays, lists are finite sequences of values of the same type. They are polymorphic too. However, lists are extensible, immutable, and don't support direct access to all the values they contain. Lists play a central role in functional programming, and they are the subject of a [dedicated tutorial](/docs/lists).
 
 Operations on lists are provided by the [`List`](/api/List.html) module. The `List.append` function, which concatenates two lists, can also be used as an operator with the symbol `@`.
 
