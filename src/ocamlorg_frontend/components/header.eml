@@ -12,7 +12,7 @@ let menu_link
 ?(_class="")
 ()
 =
-  <a href="<%s href %>" class="<%s _class %> <%s if active then "underline" else "" %> hover:text-primary-600"><%s title %></a>
+  <a href="<%s href %>" class="font-semibold py-3 mg:py-4 px-1 lg:px-3 <%s _class %> <%s if active then "text-primary-600 underline" else "text-lighter" %> hover:text-primary-600"><%s title %></a>
 
 
 let render
@@ -41,7 +41,7 @@ in
         </a>
       </li>
     </ul>
-    <ul class="space ml-5 xl:ml-8 mr-auto space-x-5 xl:space-x-8 items-center hidden lg:flex text-lighter font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
+    <ul class="ml-5 xl:ml-8 mr-auto items-center hidden lg:flex font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
       <li><%s! menu_link ~active:(active_top_nav_item=Some Learn) ~href:Url.learn ~title:"Learn" () %></li>
       <li><%s! menu_link ~active:(active_top_nav_item=Some Packages) ~href:Url.packages ~title:"Packages" () %></li>
       <li><%s! menu_link ~active:(active_top_nav_item=Some Community) ~href:Url.community ~title:"Community" () %></li>
@@ -83,7 +83,7 @@ in
     @click.away="open = false" x-transition:enter="transition duration-200 ease-out"
     x-transition:enter-start="translate-x-full" x-transition:leave="transition duration-100 ease-in"
     x-transition:leave-end="translate-x-full">
-    <ul class="text-lighter p-6 space-y-6 font-semibold">
+    <ul class="text-lighter p-6 font-semibold">
       <li class="flex justify-between items-center">
         <a href="<%s Url.index %>">
           <img src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" width="132" alt="OCaml logo" class="dark:hidden">
@@ -97,7 +97,7 @@ in
           </button>
         </div>
       </li>
-      <li>
+      <li class="mt-6 mb-3">
         <form action="/packages/search" method="GET">
           <%s! Forms.search_input
             ~name:"q"
@@ -113,7 +113,7 @@ in
       <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Community) ~href:Url.community ~title:"Community" () %></li>
       <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Blog) ~href:Url.blog ~title:"Blog" () %></li>
       <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Playground) ~href:Url.playground ~title:"Playground" () %></li>
-      <li>
+      <li class="mt-3 mb-6">
         <a href="<%s Url.getting_started %>" class="btn w-full">Get started</a>
       </li>
 
