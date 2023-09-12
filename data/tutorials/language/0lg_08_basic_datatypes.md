@@ -185,7 +185,7 @@ There are symbols of special importance with respect to lists:
 - The empty list is written `[]`, has type `'a list'`, and is pronounced "nil."
 - The list constructor operator, written `::` and pronounced “cons”, is used to add a value at the head of a list.
 
-Together, they are the basic means to build lists and access the data stored in lists. For instance, here is how lists are built by successively applying the cons (`::`) operator.
+Together, they are the basic means to build a list and access the data it stores. For instance, here is how lists are built by successively applying the cons (`::`) operator.
 ```ocaml
 # 3 :: [];;
 - : int list = [3]
@@ -241,7 +241,7 @@ Operations on options are provided by the [`Option`](/api/Option.html) module. O
 
 #### Results
 
-When it makes sense to mark the outcomes of a function as being either a failure or success, the `result` type can do it. There are only two ways to build a result value: either using `Ok` or `Error` with the intended meaning. Both constructors can hold any kind of data. The `result` type is polymorphic, but it has two type parameters: one for `Ok` values and another for `Error` values.
+The `result` type can be used to express that the outcome of a function can be either success or failure. There are only two ways to build a result value: either using `Ok` or `Error` with the intended meaning. Both constructors can hold any kind of data. The `result` type is polymorphic, but it has two type parameters: one for `Ok` values and another for `Error` values.
 ```ocaml
 # Ok 42;;
 - : (int, 'a) result = Ok 42
@@ -254,7 +254,7 @@ Operations on results are provided by the [`Result`](/api/Result.html) module. R
 
 ### Tuples
 
-Here is a tuple, actually a pair.
+Here is a tuple containing two values, also known as a pair.
 ```ocaml
 # (3, 'a');;
 - : int * char = (3, 'a')
@@ -294,7 +294,7 @@ The type of functions from type `a` to type `b` is written `a -> b`. Here are a 
 
 The first expression is an anonymous function of type `int -> int`. The type is inferred from the expression `x * x`, which must be of type `int` since `*` is an operator that returns an `int`. The `<fun>` printed in place of the value is a token, meaning functions don't have a value to be displayed. This is because if they have been compiled their code is no longer available.
 
-The second expression is function application. The parameter `9` is applied, and the result `81`` is returned.
+The second expression is function application. The parameter `9` is applied, and the result `81` is returned.
 
 ```ocaml
 # fun x -> x;;
@@ -307,11 +307,11 @@ The second expression is function application. The parameter `9` is applied, and
 - : string = "This is really disco!"
 ```
 
-The first expression is another anonymous function. It is the identity function, and it returns its argument unchanged. This function can be applied to anything, and anything can be returned unchanged. This means that function's parameter can be of any type, and the result must have the same type. The same code can be applied to data of different types. This is called _polymorphism_.
+The first expression is another anonymous function. It is the identity function, it can be applied to anything, and it returns its argument unchanged. This means that its parameter can be of any type, and its result has the same type. The same code can be applied to data of different types. This is called _polymorphism_.
 
 This is what is indicated by the `'a` in the type (pronounced as the Greek letter α, “alpha”). This is a _type variable_. It means values of any type can be passed to the function. When that happens, their type is substituted for the type variable. This also expresses identity has the same input and output type, whatever it may be.
 
-The two following expressions show that the identity function can indeed be applied to parameters of different types.
+The two following expressions show that the identity function can indeed be applied to parameters of different types:
 
 ```ocaml
 # let f = fun x -> x * x;;
@@ -331,7 +331,7 @@ g : int -> int = <fun>
 - : int = 81
 ```
 
-When writing in OCaml, a lot of functions are written. The function `g` is defined here using a shorter, more common syntax, and maybe a more intuitive syntax.
+Executable OCaml code consists primarily of functions. The function `g` is defined here using a shorter, more common, and maybe more intuitive syntax.
 
 In OCaml, functions may terminate without returning a value of the expected type by throwing an exception, which does not appear in its type. There is no way to know if a function may raise an exception without inspecting its code.
 ```ocaml
@@ -348,7 +348,7 @@ Functions may have several parameters.
 val mean : int -> int -> int = <fun>
 ```
 
-As for the product type symbol `*`, the function type symbol `->` is not associative. These two types are not the same.
+Like the product type symbol `*`, the function type symbol `->` is not associative. The following two types are not the same:
 - `(int -> int) -> int` : This is a function taking a function of type `int -> int` as parameter and returning an `int` as result.
 - `int -> (int -> int)` : This is a function taking an `int` as parameter and returning a function of type `int -> int` as result.
 
@@ -356,7 +356,7 @@ As for the product type symbol `*`, the function type symbol `->` is not associa
 
 A unique value has type `unit`. It is written `()` and pronounced “unit”.
 
-The `unit` type has several usages. One of its main roles is to serve as a token when a function does not need to be passed data or doesn't have any data to return once it has completed its computation. This happens when functions have side effects such as OS-level I/O. Functions need to be applied to something for their computation to be triggered, and they also must return something. When nothing making sense can be passed or returned, `()` should be used.
+The `unit` type has several uses. One of its main roles is to serve as a token when a function does not need to be passed data or doesn't have any data to return once it has completed its computation. This happens when functions have side effects such as OS-level I/O. Functions need to be applied to something for their computation to be triggered, and they also must return something. When nothing meaningful can be passed or returned, `()` should be used.
 ```ocaml
 # read_line;;
 - : unit -> string = <fun>
@@ -365,9 +365,9 @@ The `unit` type has several usages. One of its main roles is to serve as a token
 - : string -> unit = <fun>
 ```
 
-Function `read_line` reads an end-of-line terminated sequence of characters from standard input and returns it as a string. Reading input begins when `()` is passed.
+The function `read_line` reads an end-of-line terminated sequence of characters from standard input and returns it as a string. Reading input begins when `()` is passed.
 
-Function `print_endline` prints the string followed by a line ending on standard output. Return of the unit value means the output request has been queued by the operating system.
+The function `print_endline` prints the string followed by a line ending on standard output. Return of the unit value means the output request has been queued by the operating system.
 
 ## User-Defined Types
 
@@ -416,7 +416,7 @@ directions, or any other fixed-sized set of values that can be given names. A
 total ordering is defined on values following the definition order (e.g., `Druid
 < Ranger`).
 
-Here is how pattern matching can be done on types defined as such.
+Here is how pattern matching can be performed on the types defined above.
 ```ocaml
 # let rectitude_to_french = function
     | Evil -> "Mauvais"
@@ -430,11 +430,11 @@ Note that:
 - `unit` is a variant with a unique constructor, which does not carry data: `()`.
 - `bool` is also a variant with two constructors that don't carry data: `true` and `false`.
 
-A pair `(x, y)` has type `a * b`, where `a` is the type of `x` and `b` is the type of `y`. Some may find it intriguing that `a * b` is called a product. Although this is not a complete explanation, here is a remark that may help in understanding: Consider the product type `character_class * character_alignement`. There are 12 classes and 9 alignments. Any pair of values from those types inhabit the product type. Therefore, in the product type, there are 9 × 12 = 108 values, which also is a product.
+A pair `(x, y)` has type `a * b`, where `a` is the type of `x` and `b` is the type of `y`. Some may find it intriguing that `a * b` is called a product. Although this is not a complete explanation, here is a remark that may help in understanding: Consider the product type `character_class * character_alignement`. There are 12 classes and 9 alignments. Any pair of values from those types inhabits the product type. Therefore, in the product type, there are 9 × 12 = 108 values, which is also a product.
 
 #### Constructors With Data
 
-It is possible to wrap data in constructors. The following type has several constructors with data and some without. It represents the different means to refer to a Git [revision](https://git-scm.com/docs/gitrevisions).
+It is possible to wrap data in constructors. The following type has several constructors with data (e.g., `Hash of string`) and some without (e.g., `Head`). It represents the different means to refer to a Git [revision](https://git-scm.com/docs/gitrevisions).
 ```ocaml
 # type commit =
   | Hash of string
@@ -455,7 +455,7 @@ type commit =
 
 ```
 
-Here is how pattern matching can be used to write a function from `commit` to `string`:
+Here is how to convert a `commit` to a `string` using pattern matching:
 ```ocaml
 # let commit_to_string = function
   | Hash sha -> sha
@@ -475,7 +475,7 @@ Here, the `function ...` construct is used instead of the `match ... with ...` c
 
 A variant definition referring to itself is recursive. A constructor may wrap data from the type being defined.
 
-This is the case of the following definition, which can be used to store JSON values.
+This is the case for the following definition, which can be used to store JSON values.
 ```ocaml
 # type json =
   | Null
@@ -542,7 +542,7 @@ Implicitly, product types also behave as variant types. For instance, pairs can 
 type ('a, 'b) pair = Pair of 'a * 'b
 ```
 
-Where `(int, bool) pair` would be written `int * bool` and `Pair (42, true)` would be written `(42, true)`. From the developer's perspective, everything happens as if such a type would be declared for every possible product shape. This is what allows pattern matching on products.
+Where `(int, bool) pair` would be written `int * bool` and `Pair (42, true)` would be written `(42, true)`. From the developer's perspective, everything happens as if such a type were declared for every possible product shape. This is what allows pattern matching on products.
 
 Even integers and floats can be seen as enumerated-like variant types, with many constructors and funky syntactic sugar. This is what allows pattern matching on those types.
 
@@ -572,7 +572,7 @@ val map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 
 Records are like tuples in that several values are bundled together. In a tuple, elements are identified by their position in the corresponding product type. They are either first, second, third, or at some other position. In a record, each element has a name, it's a field. That's why record types must be declared before being used.
 
-For instance, here is the definition of a record type meant to partially represent a Dungeons & Dragons character class. Please note, that the following code is dependent upon the definitions earlier in this tutorial. Ensure you have entered the definitions in the [Enumerated Data Types](/docs/basic-data-types#enumerated-data-types) section.
+For instance, here is the definition of a record type meant to partially represent a Dungeons & Dragons character class. Please note that the following code is dependent upon the definitions earlier in this tutorial. Ensure you have entered the definitions in the [Enumerated Data Types](/docs/basic-data-types#enumerated-data-types) section.
 ```ocaml
 # type character = {
   name : string;
@@ -591,7 +591,7 @@ type character = {
   armor_class : int;
 }
 ```
-This is using the types `character_class`, `firmness` and `rectitude` defined earlier, make sure to copy them in Utop. Values of type `character` carry the same data as inhabitants of this product: `string * int * string * character_class * character_alignment * int`.
+Values of type `character` carry the same data as inhabitants of this product: `string * int * string * character_class * character_alignment * int`.
 
 Access to the fields is done using the dot notation. Here is an example:
 ```ocaml
@@ -617,7 +617,7 @@ val ghorghor_bey : character =
 - : int = 17
 ```
 
-To some extent, records also are variants, with a single constructor carrying all the fields as a tuple. Here is how to alternately define the `character` record as a variant.
+To some extent, records also are variants, with a single constructor carrying all the fields as a tuple. Here is how to alternatively define the `character` record as a variant.
 ```ocaml
 # type character' = Character of string * int * string * character_class * (firmness * rectitude) * int;;
 type character' =
@@ -643,7 +643,7 @@ val alignment : character' -> firmness * rectitude = <fun>
 val armor_class : character -> int = <fun>
 ```
 
-One function will retrieve and read the contained data per field. It provides the same functionality as dotted notation.
+One function will retrieve and read the contained data per field. It provides the same functionality as the dotted notation.
 ```ocaml
 # let ghorghor_bey' = Character ("Ghôrghôr Bey", 17, "half-ogre", Fighter, (Chaotic, R_Neutral), -8);;
 val ghorghor_bey' : character =
@@ -676,7 +676,7 @@ This is mostly useful as a means of documentation or as a means to shorten long-
 
 This tutorial has provided a comprehensive overview of the basic data types in OCaml and their usage. We have explored the built-in types, such as integers, floats, characters, lists, tuples, and strings, and the user-defined types: records and variants. Records and tuples are mechanisms for grouping heterogeneous data into cohesive units. Variants are a mechanism for exposing heterogeneous data as coherent alternatives.
 
-From the data point of view, records and tuples are like conjunction (logical “and”), while variants are like disjunction (logical “or”). This analogy goes very deep, with records and tuples on one side as products and variants on the other side as union. These are true mathematical operations on data types. Records and tuples play the role of multiplication, which is why they are called product types. Variants play the role of addition. Putting it all together, basic OCaml types are said to be algebraic.
+From the data point of view, records and tuples are similar to the logical conjunction "and," while variants are similar to the logical disjunction "or.” This analogy goes very deep, with records and tuples on one side as products and variants on the other side as union. These are true mathematical operations on data types. Records and tuples play the role of multiplication, which is why they are called product types. Variants play the role of addition. Putting it all together, basic OCaml types are said to be algebraic.
 
 ## Next: Advanced Data Types
 
