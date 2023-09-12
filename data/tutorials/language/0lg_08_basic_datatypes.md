@@ -81,7 +81,7 @@ Boolean values are represented by the type `bool`.
 - : bool = true
 ```
 
-Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction "or" is written `\\`. Both don't evaluate their right argument if their left argument value is sufficient to decide the value of the whole expression.
+Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction "or" is written `\\`. Both are short-circuited, meaning that they don't evaluate their right argument if the value of the left one is sufficient to decide the value of the whole expression.
 
 #### Characters
 
