@@ -652,7 +652,7 @@ val ghorghor_bey' : character =
 # level ghorghor_bey';;
 - : int = 17
 ```
-Writting `level ghorghor_bey'` is the same as `ghorghor_bey.level`.
+Writing `level ghorghor_bey'` is the same as `ghorghor_bey.level`.
 
 **Remarks**
 
