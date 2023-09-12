@@ -81,7 +81,7 @@ Boolean values are represented by the type `bool`.
 - : bool = true
 ```
 
-Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction "or" is written `\\`. Both are short-circuited, meaning that they don't evaluate their right argument if the value of the left one is sufficient to decide the value of the whole expression.
+Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction “or” is written `\\`. Both are short-circuited, meaning that they don't evaluate their right argument if the value of the left one is sufficient to decide the value of the whole expression.
 
 #### Characters
 
@@ -182,8 +182,8 @@ Like arrays, lists are finite sequences of values of the same type. They are pol
 Operations on lists are provided by the [`List`](/api/List.html) module. The `List.append` function, which concatenates two lists, can also be used as an operator with the symbol `@`.
 
 There are symbols of special importance with respect to lists:
-- The empty list is written `[]`, has type `'a list'`, and is pronounced "nil."
-- The list constructor operator, written `::` and pronounced “cons”, is used to add a value at the head of a list.
+- The empty list is written `[]`, has type `'a list'`, and is pronounced “nil.”
+- The list constructor operator, written `::` and pronounced “cons,” is used to add a value at the head of a list.
 
 Together, they are the basic means to build a list and access the data it stores. For instance, here is how lists are built by successively applying the cons (`::`) operator.
 ```ocaml
@@ -309,7 +309,7 @@ The second expression is function application. The parameter `9` is applied, and
 
 The first expression is another anonymous function. It is the identity function, it can be applied to anything, and it returns its argument unchanged. This means that its parameter can be of any type, and its result has the same type. The same code can be applied to data of different types. This is called _polymorphism_.
 
-This is what is indicated by the `'a` in the type (pronounced as the Greek letter α, “alpha”). This is a _type variable_. It means values of any type can be passed to the function. When that happens, their type is substituted for the type variable. This also expresses identity has the same input and output type, whatever it may be.
+This is what is indicated by the `'a` in the in the inferred type, known as a _type variable_. It means values of any type can be passed to the function. When that happens, their type is substituted for the type variable. This also expresses that this identity has the same input and output type, whatever it may be.
 
 The two following expressions show that the identity function can indeed be applied to parameters of different types:
 
@@ -331,7 +331,7 @@ g : int -> int = <fun>
 - : int = 81
 ```
 
-Executable OCaml code consists primarily of functions. The function `g` is defined here using a shorter, more common, and maybe more intuitive syntax.
+Executable OCaml code consists primarily of functions, so it's beneficial to make them as concise and clear as possible. The function `g` is defined here using a shorter, more common, and maybe more intuitive syntax.
 
 In OCaml, functions may terminate without returning a value of the expected type by throwing an exception, which does not appear in its type. There is no way to know if a function may raise an exception without inspecting its code.
 ```ocaml
@@ -354,7 +354,7 @@ Like the product type symbol `*`, the function type symbol `->` is not associati
 
 ### Unit
 
-A unique value has type `unit`. It is written `()` and pronounced “unit”.
+Uniquely, the type `unit` has only one value. It is written `()` and pronounced “unit.”
 
 The `unit` type has several uses. One of its main roles is to serve as a token when a function does not need to be passed data or doesn't have any data to return once it has completed its computation. This happens when functions have side effects such as OS-level I/O. Functions need to be applied to something for their computation to be triggered, and they also must return something. When nothing meaningful can be passed or returned, `()` should be used.
 ```ocaml
@@ -412,8 +412,8 @@ type firmness = Chaotic | F_Neutral | Lawful
 ```
 
 These kinds of variant types can also be used to represent weekdays, cardinal
-directions, or any other fixed-sized set of values that can be given names. A
-total ordering is defined on values following the definition order (e.g., `Druid
+directions, or any other fixed-sized set of values that can be given names. An 
+ordering is defined on values following the definition order (e.g., `Druid
 < Ranger`).
 
 Here is how pattern matching can be performed on the types defined above.
@@ -658,9 +658,9 @@ Writing `level ghorghor_bey'` is the same as `ghorghor_bey.level`.
 
 1. To be true to facts, it is not possible to encode all records as variants because OCaml provides a means to define fields whose value can be updated, which isn't available while defining variant types. This will be detailed in an upcoming tutorial on imperative programming.
 
-1. Records SHOULD NOT be defined using this technique. It is only demonstrated here to further illustrate the expressive strength of OCaml variants.
+1. Records **should not** be defined using this technique. It is only demonstrated here to further illustrate the expressive strength of OCaml variants.
 
-1. This way, to define records MAY be applied to _Generalized Algebraic Data Types_, which is the subject of another tutorial.
+1. This way, to define records **may** be applied to _Generalised Algebraic Data Types_, which is the subject of another tutorial.
 
 ### Type Aliases
 
@@ -676,7 +676,7 @@ This is mostly useful as a means of documentation or as a means to shorten long-
 
 This tutorial has provided a comprehensive overview of the basic data types in OCaml and their usage. We have explored the built-in types, such as integers, floats, characters, lists, tuples, and strings, and the user-defined types: records and variants. Records and tuples are mechanisms for grouping heterogeneous data into cohesive units. Variants are a mechanism for exposing heterogeneous data as coherent alternatives.
 
-From the data point of view, records and tuples are similar to the logical conjunction "and," while variants are similar to the logical disjunction "or.” This analogy goes very deep, with records and tuples on one side as products and variants on the other side as union. These are true mathematical operations on data types. Records and tuples play the role of multiplication, which is why they are called product types. Variants play the role of addition. Putting it all together, basic OCaml types are said to be algebraic.
+From the data point of view, records and tuples are similar to the logical conjunction “and,” while variants are similar to the logical disjunction “or.” This analogy goes very deep, with records and tuples on one side as products and variants on the other side as union. These are true mathematical operations on data types. Records and tuples play the role of multiplication, which is why they are called product types. Variants play the role of addition. Putting it all together, basic OCaml types are said to be algebraic.
 
 ## Next: Advanced Data Types
 
