@@ -161,7 +161,7 @@ val a : char array = [|'a'; 'b'; 'c'; 'd'|]
 - : char array = [|'a'; 'b'; '3'; 'd'|]
 ```
 
-Operations on arrays are provided by the [`Array`](/api/Array.html) modules. There is a dedicated tutorial Arrays.
+Operations on arrays are provided by the [`Array`](/api/Array.html) module. There is a dedicated tutorial on Arrays.
 
 #### Lists
 
