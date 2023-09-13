@@ -35,7 +35,7 @@ Nevertheless, the double semicolon `;;` is a valid token in the OCaml syntax. It
 
 ### Values
 
-Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). There are no [statements](https://en.wikipedia.org/wiki/Statement_(computer_science)), i.e., syntactical constructions made to produce some change of state. Variable [assignments](https://en.wikipedia.org/wiki/Assignment_(computer_science)) or [for loop](https://en.wikipedia.org/wiki/For_loop) are examples of statements. Computations triggered by OCaml are written as expressions. Once completed, they produce a value, which has a type. Here are a few examples of expressions, their type, and resulting values.
+Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). The evaluation of a an expression yields a value, and the evaluation of a [statement](https://en.wikipedia.org/wiki/Statement_(computer_science) yields an effect, i.e. a change of state. Variable [assignments](https://en.wikipedia.org/wiki/Assignment_(computer_science)) or [for loop](https://en.wikipedia.org/wiki/For_loop) are examples of statements. In many languages, expressions can still yield effects, so the distinction between is not always clear cut. The same is true in OCaml where expressions and effects can be mixed. Computations triggered by OCaml are written as expressions. Once completed, they produce a value, which has a type. Here are a few examples of expressions, their type, and resulting values:
 
 ```ocaml
 # "Everything has a value, every value has a type";;
