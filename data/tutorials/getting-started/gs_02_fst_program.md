@@ -32,7 +32,7 @@ How to work on several OCaml projects simultaneously is out of the scope of this
 
 ## Compiling OCaml Programs
 
-By default, OCaml comes with two compilers, one translating sources into native binaries and another turning sources into a bytecode format. OCaml also comes with an interpreter for that bytecode format. Other compilers exist, for instance, [js_of_ocaml](https://ocsigen.org/js_of_ocaml) generates JavaScript. The toplevel uses the bytecode compiler; expressions are read, type-checked, compiled into bytecode and executed. The previous tutorial was interactive only, the toplevel was used. This tutorial gives a glimpse at batch processing only using the native compiler.
+By default, OCaml comes with two compilers, one translating sources into native binaries and another turning sources into a bytecode format. OCaml also comes with an interpreter for that bytecode format. Other compilers exist, for instance, [js_of_ocaml](https://ocsigen.org/js_of_ocaml) generates JavaScript. The toplevel uses the bytecode compiler; expressions are read, type-checked, compiled into bytecode and executed. The previous tutorial was interactive because we used the toplevel. This tutorial gives a glimpse at batch processing only using the native compiler.
 
 We start by setting up a traditional “Hello World!” project using Dune, OCaml’s build system. Make sure to have installed version 3.7 or later. The following creates a project named `hello`:
 
