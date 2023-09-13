@@ -341,6 +341,8 @@ In OCaml, functions may terminate without returning a value of the expected type
 - : exn -> 'a' = <fun>
 ```
 
+Exceptions are discussed in the [Error Handling](/docs/error-handling) guide.
+
 Functions may have several parameters.
 ```ocaml
 # fun a b -> a ^ " " ^ b;;
@@ -372,6 +374,13 @@ The function `read_line` reads an end-of-line terminated sequence of characters 
 The function `print_endline` prints the string followed by a line ending on standard output. Return of the unit value means the output request has been queued by the operating system.
 
 ## User-Defined Types
+
+User defined types are always introduced using the `type … = …` construction. The keyword `type` must written in lowercase. The first ellipsis stands for type type name and must not begin by a capital. The second ellipsis stands for the type definition. Three cases are possible
+1. Variant
+1. Record
+1. Aliases
+
+These three kinds of type definitions are covered in three next sections.
 
 ### Variants
 
@@ -414,7 +423,7 @@ type firmness = Chaotic | F_Neutral | Lawful
 ```
 
 These kinds of variant types can also be used to represent weekdays, cardinal
-directions, or any other fixed-sized set of values that can be given names. An 
+directions, or any other fixed-sized set of values that can be given names. An
 ordering is defined on values following the definition order (e.g., `Druid
 < Ranger`).
 
@@ -470,8 +479,20 @@ Here is how to convert a `commit` to a `string` using pattern matching:
 val commit_to_string : commit -> string = <fun>
 ```
 
-Here, the `function ...` construct is used instead of the `match ... with ...` construct. Previously, example functions had the form `let f x = match x with ...`, and the variable `x` did not appear after any of the `->` symbols. When this is the case, the `function ...` construct can be used instead. It stands for `fun x -> match x with ...` and saves us from finding a name that is used immediately after and only once.
+Here, the `function …` construct is used instead of the `match … with …` construct used previously.
+```ocaml
+let commit_to_string' x = match x with
+  | Hash sha -> sha
+  | Tag name -> name
+  | Branch name -> name
+  | Head -> "HEAD"
+  | Fetch_head -> "FETCH_HEAD"
+  | Orig_head -> "ORIG_HEAD"
+  | Merge_head -> "MERGE_HEAD";;
+val commit_to_string' : commit -> string = <fun>
+```
 
+The `match … with …` construct needs to be passed an expression that is inspected. The `function …` is a special form of anonymous function taking a parameter and forwarding it to a `match … with …` construct as shown above.
 
 #### Recursive Variants
 
@@ -683,9 +704,9 @@ From the data point of view, records and tuples are similar to the logical conju
 ## Next: Advanced Data Types
 
 Going further, there are several advanced topics related to data types in OCaml that you can explore to deepen your understanding and enhance your programming skills.
-
-- The Algebra of Types
 - Mutually Recursive Variants
 - Polymorphic Variants
 - Extensible Variants
 - Generalised Algebraic Data Types
+
+As of writting this, these topics are not yet covered in tutorials. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml.
