@@ -709,4 +709,4 @@ Going further, there are several advanced topics related to data types in OCaml 
 - Extensible Variants
 - Generalised Algebraic Data Types
 
-As of writting this, these topics are not yet covered in tutorials. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml.
+As of writing this, these topics are not yet covered in tutorials. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml.
