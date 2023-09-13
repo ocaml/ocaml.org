@@ -375,7 +375,7 @@ The function `print_endline` prints the string followed by a line ending on stan
 
 ## User-Defined Types
 
-User defined types are always introduced using the `type … = …` construction. The keyword `type` must written in lowercase. The first ellipsis stands for type type name and must not begin by a capital. The second ellipsis stands for the type definition. Three cases are possible
+User defined types are always introduced using the `type … = …` construction. The keyword `type` must written in lowercase. The first ellipsis stands for type name and must not begin by a capital. The second ellipsis stands for the type definition. Three cases are possible
 1. Variant
 1. Record
 1. Aliases
