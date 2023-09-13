@@ -29,11 +29,11 @@ The goal of this tutorial is to provide for the following capabilities:
 - Write type aliases
 - Use pattern matching to define functions for all basic type
 
-The OCaml type system aggregates several type systems, also knwon as disciplines:
-- A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants and functions. Historically, it the first system, directly coming from the type system used the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, which is OCaml accestor. By default, this what is meant by OCaml type system and it is also the scope of this tutorial.
+The OCaml type system aggregates several type systems, also known as disciplines:
+- A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants, and functions. Historically, it the first system, directly coming from the type system used the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, which is OCaml accestor. By default, this what is meant by OCaml type system, and it is also the scope of this tutorial.
 - Two different [structural type systems](https://en.wikipedia.org/wiki/Structural_type_system) are also used:
-  * one for polymorphic variants
-  * another for objects and classes
+  * One for polymorphic variants
+  * Another for objects and classes
 
 Each discipline is using a different type-checking algorithm.
 
