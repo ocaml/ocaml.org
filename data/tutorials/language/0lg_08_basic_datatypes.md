@@ -27,7 +27,15 @@ The goal of this tutorial is to provide for the following capabilities:
 - Write variant type definitions: simple, recursive, and polymorphic
 - Write record type definitions (without mutable fields)
 - Write type aliases
-- Use pattern matching to define functions for all basic types
+- Use pattern matching to define functions for all basic type
+
+The OCaml type system aggregates several type systems, also knwon as disciplines:
+- A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants and functions. Historically, it the first system, directly coming from the type system used the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, which is OCaml accestor. By default, this what is meant by OCaml type system and it is also the scope of this tutorial.
+- Two different structural type systems are also used:
+  * one for polymorphic variants
+  * another for objects and classes
+
+Each discipline is using a different type-checking algorithm.
 
 ## Predefined Types
 
@@ -537,14 +545,14 @@ Here, the last pattern uses the symbol `_`, which catches everything. It allows 
 
 #### Revisiting Predefined Types
 
-The predefined type `option` is defined as a variant type with two constructors: `Some` and `None`. It can contain values of any type, such as `Some 42` or `Some "hola"`. The variant `option` is polymorphic. Here is how it is defined in the standard library:
+The predefined type `option` is defined as a variant type with two constructors: `Some` and `None`. It can contain values of any type, such as `Some 42` or `Some "hola"`. In that sense, `option` is polymorphic. Here is how it is defined in the standard library:
 
 ```ocaml
 # #show option;;
 type 'a option = None | Some of 'a
 ```
 
-The predefined type `list` is also a polymorphic variant with two constructors. Here is how it is defined in the standard library:
+The predefined type `list` is polymorphic in the same sense. It is a variant with two constructors and can hold data of type. Here is how it is defined in the standard library:
 ```ocaml
 # #show list;;
 type 'a list = [] | (::) of 'a * 'a list
@@ -589,7 +597,9 @@ It can be used to represent arbitrarily labelled binary trees. Using pattern mat
 val map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 ```
 
-**Remark**: OCaml has something called _Polymorphic Variants_. Although the types `option`, `list`, and `tree` are variants and polymorphic, they aren't polymorphic variants. They are type-parametrised variants. Among the functional programming community, the word “polymorphism” is used loosely whenever anything can be applied to various types. We stick to this usage and say the variants in this section are polymorphic. OCaml polymorphic variants are [covered in another tutorial](https://v2.ocaml.org/learn/tutorials/labels.html).
+**Remark 1**: `'a list`, `'a option` and `'a tree` are very often said to be types. Formally, `bool list` or `int option` are the types whilst `list` and `option` are [type operators](https://en.wikipedia.org/wiki/Type_constructor), they take a type as parameter and the result is a type. `'a list` and `'a option` denotes type families, all the types that may be created by applying type paramters to the operators. In most cases, the distinction between those concepts is blurred and the term polymorphic typed has a loose meaning.
+
+**Remark 2**: OCaml has something called _Polymorphic Variants_. Although the types `option`, `list`, and `tree` are variants and polymorphic, they aren't polymorphic variants. They are type-parametrised variants. Among the functional programming community, the word “polymorphism” is used loosely whenever anything can be applied to various types. We stick to this usage and say the variants in this section are polymorphic. OCaml polymorphic variants are [covered in another tutorial](https://v2.ocaml.org/learn/tutorials/labels.html).
 
 ### Records
 
