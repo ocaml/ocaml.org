@@ -597,7 +597,7 @@ It can be used to represent arbitrarily labelled binary trees. Using pattern mat
 val map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 ```
 
-**Remark 1**: `'a list`, `'a option`, and `'a tree` are very often said to be types. Formally, `bool list` or `int option` are the types, whilst `list` and `option` are [type operators](https://en.wikipedia.org/wiki/Type_constructor); they take a type as parameter, and the result is a type. `'a list` and `'a option` denote type families, all the types that may be created by applying type parameters to the operators. In most cases, the distinction between those concepts is blurred, and the term polymorphic typed has a loose meaning.
+**Remark 1**: `'a list`, `'a option`, and `'a tree` are very often said to be types. Formally, `bool list` or `int option` are the types, whilst `list` and `option` are [type operators](https://en.wikipedia.org/wiki/Type_constructor) that take a type as a parameter and result in a type. `'a list` and `'a option` denote type families, which are all the types created by applying type parameters to the operators. In most cases, the distinction between those concepts is blurred, and the term *polymorphic type* has a loose meaning.
 
 **Remark 2**: OCaml has something called _Polymorphic Variants_. Although the types `option`, `list`, and `tree` are variants and polymorphic, they aren't polymorphic variants. They are type-parametrised variants. Among the functional programming community, the word “polymorphism” is used loosely whenever anything can be applied to various types. We stick to this usage and say the variants in this section are polymorphic. OCaml polymorphic variants are [covered in another tutorial](https://v2.ocaml.org/learn/tutorials/labels.html).
 
