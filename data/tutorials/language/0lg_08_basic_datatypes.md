@@ -552,7 +552,7 @@ The predefined type `option` is defined as a variant type with two constructors:
 type 'a option = None | Some of 'a
 ```
 
-The predefined type `list` is polymorphic in the same sense. It is a variant with two constructors and can hold data of type. Here is how it is defined in the standard library:
+The predefined type `list` is polymorphic in the same sense. It is a variant with two constructors and can hold data of any type. Here is how it is defined in the standard library:
 ```ocaml
 # #show list;;
 type 'a list = [] | (::) of 'a * 'a list
