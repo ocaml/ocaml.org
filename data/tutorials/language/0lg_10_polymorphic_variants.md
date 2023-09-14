@@ -141,7 +141,7 @@ Function `f` can be used with any exact type which has these three tags or less.
 
 The open form can be introduced in two different ways.
 
-First, by adding a `_` to the pattern matching:
+Open polymorphic variants appear when adding a `_` to a pattern matching on tags:
 ```ocaml
 # let g = function
     | `carot -> "Carot"
@@ -154,6 +154,18 @@ val g : [> `carot | `fruit of string | `gherkin ] -> string = <fun>
 Function `g` can be used with any exact type which has these three tags or more. Because of the catch all pattern, if `g` is passed a value introduced by a tag which is not part of the list, it will be accepted, and `"Edible plant"` is returned. The type is open because it can accept more than what is listed.
 
 The type of `g` is also meant to disallow exact types with tags removed or changed in type. OCaml is a statically typed language, that means no type information is available at runtime. As a consequence pattern matching only relies on tag names. If `g` was given a type with removed tags, such as``[> `carot | `gherkin ]``, then passing`` `fruit`` to `g` would be allowed, but since dispatch is based on names, it would execute the`` `fruit of string`` branch and crash because no string is available. Therefore, open polymorphic variant must include all the tags from pattern matching.
+
+Open polymorphic variants also appear when type-checking tags as values.
+```ocaml
+# `gherkin
+- : [> `gherkin ] = `gherkin
+
+# [ `carot; `gherkin ];;
+- : [> `carot | `gherkin ] list = [ `carot; `gherkin ]
+
+```
+
+An open variant is the safes
 
 The exact case correspond to simple variants. Closed and open cases are polymorphic because they do not designate a single type but families of types. An exact variant type is monomorphic, it corresponds to a single variant type, not a set of variant types.
 
