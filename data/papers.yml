@@ -939,3 +939,388 @@ papers:
       - description: "View Online"
         uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/3/Types-in-amber
     featured: false
+  - title: OCamlPro: promoting OCaml use in industry
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      One year after the foundation of OCamlPro, Fabrice Le Fessant presents at
+      the OCaml Workshop a brief summary of the tasks undertaken in the span of
+      that fateful year. Cheat Sheets, OPAM package manager, and many more,
+      the start of a long stream of contributions for the OCaml Distribution
+      and Community at large.
+    authors:
+      - Fabrice le Fessant
+    tags:
+      - ocaml-workshop
+    year: 2012
+    links:
+      - description: "View Online"
+        uri: https://www.youtube.com/watch?v=DXr8Lr3z7wY&feature=plcp
+    featured: false
+  - title: OPAM: an OCaml Package Manager
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      Six months after the start of the development of the OPAM Package
+      Manager, Frederick Tuong, Fabrice Le Fessant and Thomas Gazagnaire
+      present for the first time what would in time become the official package
+      manager for the OCaml Distribution. Covering the current state of the
+      repository, and future prospects for the platform, this small piece of
+      media witholds a significant piece of history for OCaml.
+    authors:
+      - Frederic Tuong
+      - Fabrice le Fessant
+      - Thomas Gazagnaire
+    tags:
+      - ocaml-workshop
+      - opam
+    year: 2012
+    links:
+      - description: "View Online"
+        uri: https://watch.ocaml.org/w/8UasGCviGqTPzNYgLZyPt1
+    featured: false
+  - title: Study of OCaml programs' memory behavior
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      A two-fold presentation covering both a study of OCaml programs' memory
+      behaviour and the development of memory profiling tools that were
+      on-going at OCamlPro at the time. These works aimed at decreasing memory
+      footprint, pinpoint and fix memory leaks, decrease the amount of time
+      spent in memory management at runtime.
+    authors:
+      - Çagdas Bozman
+      - Thomas Gazagnaire
+      - Fabrice Le Fessant
+      - Michel Mauny
+    tags:
+      - ocaml-workshop
+      - memory
+    year: 2012
+    links:
+      - description: "View Online"
+        uri: https://watch.ocaml.org/w/3YiLW4PfeStDUdf29aPtDH
+      - description: "Read Online"
+        uri: https://inria.hal.science/hal-01095305v1
+        featured: false
+  - title: Improving OCaml high level optimisations
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+     TODO 
+    authors:
+      - Pierre Chambart
+    tags:
+      - ocaml-workshop
+      - optimisation
+    year: 2013
+    links:
+      - description: "Download PDF"
+        uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/optimizations.pdf
+      - description: "Download PDF"
+        uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/slides/chambart.pdf
+    featured: false
+  - title: Ocamlot: OCaml Online Testing
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      TODO
+    authors:
+      - David Sheets
+      - Anil Madhavapeddy
+      - Amir Chaudhry
+      - Thomas Gazagnaire
+    tags:
+      - ocaml-workshop
+    year: 2013
+    links:
+      - description: "Download PDF"
+        uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/slides/sheets.pdf
+    featured: false
+  - title: Profiling the Memory Usage of OCaml Applications without Changing their Behavior
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      TODO
+    authors:
+      - Çagdas Bozman
+      - Michel Mauny
+      - Fabrice Le Fessant
+      - Thomas Gazagnaire
+    tags: 2013
+      - ocaml-workshop
+    year:
+    links:
+      - description: "Download PDF"
+        uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/slides/bozman.pdf
+    featured: false
+  - title: The OCaml Platform v1.0
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      The OCaml Platform combines the OCaml compiler toolchain with a coherent
+      set of tools for build, documen- tation, testing and IDE integration. The
+      project is a collab- orative effort across the OCaml community, tied
+      together by the OCaml Labs group in Cambridge and with other major
+      contributors listed above. The requirements of the Platform are being
+      guided by the industrial OCaml Consortium (primarily Jane Street, Citrix
+      and Lexifi). This talk follows up the OCaml 2013 talk that introduced the
+      Platform. Since then, many tools have been released in parallel via the
+      OPAM package manager, and this year’s talk will demonstrate the concrete
+      workflow that ties them together (see Figure 2). We will first recap the
+      Platform ethos briefly, update on the OPAM package manager v1.2, and
+      conclude with the Platform workflow.
+    authors:
+      - Anil Madhavapeddy
+      - Amir Chaudhry
+      - Jeremie Diminio
+      - Thomas Gazagnaire
+      - Louis Gesbert
+      - Thomas Leonard
+      - David Sheets
+      - Mark Shinwell
+      - Leo White
+      - Jeremy Yallop
+    tags:
+      - ocaml-workshop
+    year: 2014
+    links:
+      - description: "View Online"
+        uri: https://watch.ocaml.org/w/37eaef0e-d826-4452-bf84-f04244a85ce9
+    featured: false
+  - title: A Proposal for Non-Intrusive Namespaces in OCaml
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      TODO
+    authors:
+      - Pierrick Couderc
+      - Fabrice Le Fessant
+      - Benjamin Canou
+      - Pierre Chambart
+    tags:
+      - ocaml-workshop
+    year: 2014
+    links:
+      - description: "View Online"
+        uri: https://watch.ocaml.org/w/ded6e8bb-aebd-4fd2-989f-3f0b2b8efaf3
+      - description: "Read Online"
+        uri: https://inria.hal.science/hal-01091173v1
+        featured: false
+  - title: Towards A Debugger for Native-Code OCaml
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      TODO
+    authors:
+      - Fabrice Le Fessant
+      - Pierre Chambart
+    tags:
+      - ocaml-workshop
+    year: 2015
+    links:
+      - description: "View Online"
+        uri: https://watch.ocaml.org/w/e1a22cf8-5522-4c05-a8d4-af445bc73556
+      - description: "Read Online"
+        uri: https://inria.hal.science/hal-01245840v1
+        featured: false
+  - title: Global Semantic Analysis on OCaml programs
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      TODO
+    authors:
+      - Thomas Blanc
+      - Pierre Chambart
+      - Michel Mauny
+      - Fabrice Le Fessant
+    tags:
+      - ocaml-workshop
+    year: 2015
+    links:
+      - description: "View Online"
+        uri: https://watch.ocaml.org/w/e1a22cf8-5522-4c05-a8d4-af445bc73556
+    featured: false
+  - title: Learn OCaml: An Online Learning Center for OCaml
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      We present Learn OCaml, a Web application that packs a set of learning
+      activities for people who want to learn OCaml. It includes an integrated
+      and reworked version of the venerable Try OCaml, and an exercise
+      environment with automated grading derived from the one developed for the
+      OCaml MOOC. It works entirely in the browser, the server being used for
+      storing static files and synchronizing between different devices. A
+      special effort has been made to make it usable on tablets, and even
+      mobiles. A main public instance will be hosted at OCamlPro, but the
+      project is open-source, and universities can host their own version on
+      site. We will also provide a public repository for teachers to contribute
+      lessons and exercises.
+    authors:
+      - Benjamin Canou
+      - Grégoire Henry
+      - Çagdas Bozman
+      - Fabrice Le Fessant
+    tags:
+      - ocaml-workshop
+    year: 2016
+    links:
+      - description: "View Online"
+        uri: https://watch.ocaml.org/w/uWJvzik5LKSTkroghup5oJ
+      - description: "Read Online"
+        uri: https://inria.hal.science/hal-01352015v1
+        featured: false
+  - title: The State of the OCaml Platform: September 2016
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      TODO
+    authors:
+      - Louis Gesbert, on behalf of the OCaml Platform team
+    tags:
+      - ocaml-workshop
+    year: 2016
+    links:
+      - description: "View Online"
+        uri: https://watch.ocaml.org/w/c386fc95-092e-4ea7-9317-91edf287fea6
+    featured: false
+  - title: Partial evaluation and metaprogramming
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      TODO
+    authors:
+      - Pierre Chambart
+    tags:
+      - ocaml-workshop
+    year: 2016
+    links:
+      - description: "N/A"
+        uri: N/A
+    featured: false
+  - title: Digodoc and Docs
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      In this talk, we will introduce a new tool called digodoc, that builds a
+      graph of an opam switch, associating files, libraries and opam packages
+      into a cyclic graph of inclusions and dependencies. We will then explain
+      how we used that tool to build a documentation website that displays the
+      generated documentation of a large set of opam packages from the official
+      opam repository. Thanks to digodoc, users can easily navigate between
+      module documentations, sources, packages and libraries. We think it is an
+      interesting contribution to the OCaml ecosystem.
+    authors:
+      - Mohamed Hernouf
+      - Fabrice Le Fessant
+      - Thomas Blanc
+      - Louis Gesbert
+    tags:
+      - ocaml-workshop
+    year: 2021
+    links:
+      - description: "N/A"
+        uri: N/A
+    featured: false
+  - title: Opam-bin: Binary Packages with Opam
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      In this talk, we will present opam-bin, an Opam plugin that builds Binary
+      Opam packages on the fly, to speed-up reinstallation of pack- ages.
+      opam-bin also creates Opam Repositories for these binary pack- ages, to
+      make them easy to share with other users. We will show how it works and
+      how to use it on a daily basis.
+    authors:
+      - Fabrice Le Fessant
+    tags:
+      - ocaml-workshop
+    year: 2021
+    links:
+      - description: "Download PDF"
+        uri: https://icfp21.sigplan.org/details/ocaml-2021-papers/5/Opam-bin-Binary-Packages-with-Opam
+    featured: false
+  - title: Supporting a Decade of Opam
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      OPAM 1.2 was released in 2014. It was four years before opam 2.0 succeeded
+      it, and another three for opam 2.1. The release of opam 2.2 is imminent,
+      and will have arrived just a year after its predecessor. This talk
+      presents features added to opam 2.1 intended to make dealing with multiple
+      versions of opam easier. We see how small additional metadata, both stored
+      in .opam “roots” and also added to opam’s command line provide opam’s
+      developers with the chance to add new features more easily, with
+      confidence that users will be able to upgrade safely. In presenting this,
+      we’ll also trumpet some of what we think are the amazing new features of
+      opam 2.1 (and 2.2), and why we think you should keenly watch for new
+      releases and upgrade immediately on release!
+    authors:
+      - David Allsopp
+      - Raja Boujbel
+      - Kate Deplaix
+      - Louis Gesbert
+    tags:
+      - ocaml-workshop
+      - opam
+    year: 2022
+    links:
+      - description: "View Online"
+        uri: https://watch.ocaml.org/w/1rWj4jYyaDkmMjdH4KNcv6
+    featured: false
+  - title: Flambda 2 Types: An abstract domain for static analysis of functional programs
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      In this talk, we will present an overview of the abstract domains that
+      drive the Flambda 2 optimizer for OCaml programs. Like most optimizing
+      compilers, Flambda 2 relies on static analysis to find optimization
+      opportunities. There are several different analyses that are actually
+      performed, here we will focus on a forward value analysis that we call
+      Flambda 2 Types. Despite its name, it fits quite well the definition of
+      an abstract domain (in the sense of abstract interpretation), and it is
+      through that angle that we will introduce it.
+    authors:
+      - Vincent Laviron
+      - Pierre Chambart
+      - Mark Shinwell
+    tags:
+      - ocaml-workshop
+      - Flambda 2
+    year: 2023
+    links:
+      - description: "View Online"
+        uri: https://www.youtube.com/live/M5M3f31pxns?si=9Gb8ivCqOjbF9tqB&t=28242
+      - description: "Read Online"
+        uri: https://icfp23.sigplan.org/details/ocaml-2023-papers/9/Flambda-2-Types-An-abstract-domain-for-static-analysis-of-functional-programs
+    featured: false
+  - title: Efficient OCaml compilation with Flambda 2
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      Flambda 2 is an IR and optimisation pass for OCaml centred around
+      inlining. We discuss the engineering constraints that shaped it and the
+      overall structure that allows the compiler to be fast enough to handle
+      very large industrial code bases.
+    authors:
+      - Vincent Laviron
+      - Pierre Chambart
+      - Mark Shinwell
+    tags:
+      - ocaml-workshop
+      - Flambda 2
+    year: 2023
+    links:
+      - description: "Read Online"
+        uri: https://icfp23.sigplan.org/details/ocaml-2023-papers/8/Efficient-OCaml-compilation-with-Flambda-2
+    featured: false
+  - title: Wasocaml: a compiler from OCaml to WebAssembly
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      In this presentation, we will explore the compilation of
+      garbage-collected languages, such as Java or OCaml, to
+      WebAssembly (Wasm). The limitations of JavaScript as the web’s default
+      language led to the development of Wasm, a secure and
+      predictable-performance modular language. However, compiling
+      garbage-collected languages to Wasm presents challenges, including the
+      need to compile or re-implement the runtime and difficulties in
+      transferring verified properties. Various techniques for representing
+      values in memory are discussed, with a focus on OCaml’s approach. An
+      extension called Wasm-GC is introduced, enabling the compilation of
+      garbage-collected languages to Wasm by incorporating features like int31
+      and garbage-collected structs. The paper presents Wasmocaml, a complete
+      OCaml compiler for Wasm-GC, and discusses benchmarks and future work in
+      compiling garbage-collected languages to WebAssembly.
+    authors:
+      - Léo Andrès
+      - Pierre Chambart
+    tags:
+      - ocaml-workshop
+      - wasm
+    year: 2023
+    links:
+      - description: "Read Online"
+        uri: https://icfp23.sigplan.org/details/ocaml-2023-papers/13/Wasocaml-a-compiler-from-OCaml-to-WebAssembly
+    featured: false
