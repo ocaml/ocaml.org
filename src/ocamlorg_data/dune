@@ -3,6 +3,13 @@
  (public_name ocamlorg.data))
 
 (rule
+ (target is_ocaml_yet.ml)
+ (action
+  (with-stdout-to
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} is_ocaml_yet))))
+
+(rule
  (target academic_institution.ml)
  (action
   (with-stdout-to

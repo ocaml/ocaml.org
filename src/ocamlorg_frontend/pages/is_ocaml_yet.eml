@@ -1,0 +1,84 @@
+let left_sidebar ~tutorials ~current_tutorial =
+  <div class="flex flex-col gap-10">
+    <%s! Learn_sidebar.render ~tutorials ~current_tutorial ~section:Learn_layout.Guides %>
+  </div>
+
+let render
+(meta : Data.Is_ocaml_yet.t)
+~tutorials
+~packages
+=
+Learn_layout.render
+~title:meta.question
+~description:(meta.question ^ " " ^ meta.answer)
+~canonical:(Url.is_ocaml_yet meta.id)
+~active_top_nav_item:Header.Learn
+~current:Learn_layout.Guides
+~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some (Printf.sprintf "is-ocaml-%s-yet" meta.id)) ~tutorials))
+~right_sidebar_html:None @@
+<h1 class="font-bold mb-8"><%s meta.question %></h1>
+<p class="mt-6 text-xl leading-8"><%s meta.answer %></p>
+<div class="mt-10 prose prose-orange max-w-3xl">
+ <%s! meta.body_html %>
+
+  <ul class="mt-8 px-0 font-light leading-8 text-neutral-800 text-lg flex flex-wrap gap-x-4 gap-y-1">
+  <% meta.categories |> List.iter (fun (category : Data.Is_ocaml_yet.category) -> %>
+    <li class="inline-flex m-0 whitespace-nowrap">
+      <a href="#<%s Utils.slugify category.name %>" class="leading-8"><span class="text-sm"><%s category.status %></span> <%s category.name %></a>
+    </li>
+  <% ); %>
+  </ul>
+  <ul class="my-4 px-0 font-light leading-8 text-neutral-800 text-sm flex flex-wrap gap-x-3">
+    <li class="inline-flex m-0 whitespace-nowrap">
+      🟢 : stable, tested and mature
+    </li>
+    <li class="inline-flex m-0 whitespace-nowrap">
+      🟡 : getting there, stable but still maturing
+    </li>
+    <li class="inline-flex m-0 whitespace-nowrap">
+      🟠 : not yet stable, but progressing
+    </li>
+    <li class="inline-flex m-0 whitespace-nowrap">
+      🔴 : unstable/incomplete, needs work
+    </li>
+    <li class="inline-flex m-0 whitespace-nowrap">
+      🆘 : barely there, needs serious work
+    </li>
+  </ul>
+  <div>
+  <h2>Details</h2>
+  <% meta.categories |> List.iter (fun (category : Data.Is_ocaml_yet.category) -> %>
+  <h3 id="<%s Utils.slugify category.name %>">
+    <a class="anchor" href="#<%s Utils.slugify category.name %>"></a>
+    <span class="text-base"><%s category.status %></span>
+    <%s category.name %>
+  </h3>
+  <p><%s! category.description %></p>
+  <% if List.length category.packages = 0 then ( %>
+    <p>
+      <a
+        class="inline-block relative py-1 px-4 font-medium no-underline align-middle bg-transparent rounded-md border border-solid appearance-none cursor-pointer select-none whitespace-no-wrap hover:no-underline"
+        href="https://github.com/ocaml/ocaml.org/tree/main/data/is_ocaml_yet/<%s meta.id %>.md"
+      >
+        <%s! Icons.github_pull_request "inline-block overflow-visible mr-0 align-text-bottom select-none" %>
+        Know a package? Contribute
+      </a>
+    </p>
+  <% ) else (); %>
+  <ul>
+    <% category.packages |> List.iter (fun (p : Data.Is_ocaml_yet.package) -> let package = Hashtbl.find_opt packages p.name in %>
+    <li>
+      <% match p.extern with | None -> ( %>
+        <a href="<%s Url.Package.overview p.name %>"><%s p.name %></a>
+        <%s (match package with | None -> "" | Some package -> package.Package.synopsis); %>
+      <% ) | Some extern -> ( %>
+        <a href="<%s extern.url %>" target="_blank"><%s p.name %></a>
+        <%s extern.synopsis %>
+      <% ); %>
+    </li>
+    <% ); %>
+  </ul>
+  <% ); %>
+  </div>
+  <%s! Learn_components.contribute_footer ~href:("https://github.com/ocaml/ocaml.org/tree/main/data/is_ocaml_yet/"^ meta.id ^ ".md") %>
+</div>

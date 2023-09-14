@@ -1,6 +1,7 @@
 let render
 ~current_tutorial
 ~tutorials
+~(section: Learn_layout.section)
 =
   let render_tutorial_link ~title ~slug =
     Learn_layout.sidebar_link ~title ~href:(Url.tutorial slug) ~current:(current_tutorial = Some (slug))
@@ -22,4 +23,12 @@ let render
   <% categories |> List.iter (fun category -> %>
     <%s! Learn_layout.sidebar_link_group category
       (tutorial_sidebar_links_by_category category) %>
+  <% ); %>
+
+  <% if section = Guides then ( %>
+    <%s! Learn_layout.sidebar_link_group "Is OCaml Yet"
+      (tutorial_sidebar_links_by_category "is-ocaml-yet")
+      ~extra_html:(
+          (render_tutorial_link ~title:"Is OCaml learning yet?" ~slug:"is-ocaml-learning-yet")
+        ^ (render_tutorial_link ~title:"Is OCaml web yet?" ~slug:"is-ocaml-web-yet")) %>
   <% ); %>

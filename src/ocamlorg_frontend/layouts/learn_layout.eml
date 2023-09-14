@@ -6,7 +6,6 @@ type section =
   | Guides
   | Exercises
   | Books
-  
 
 let tabs
 ~current =

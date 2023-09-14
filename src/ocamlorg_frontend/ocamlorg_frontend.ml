@@ -6,6 +6,7 @@ module Package = Package
 
 let about = About.render
 let academic_users = Academic_users.render
+let is_ocaml_yet = Is_ocaml_yet.render
 let blog = Blog.render
 let blog_post = Blog_post.render
 let changelog = Changelog.render
