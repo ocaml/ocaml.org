@@ -170,30 +170,6 @@ File "test/dune", line 2, characters 7-16:
            ^^^^^^^^^
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
-==================
-WARNING: ThreadSanitizer: data race (pid=14522)
-  Write of size 8 at 0x7fa9d2ffd6b0 by thread T4 (mutexes: write M87):
-    #0 camlBank__transfer_317 <null> (bank_test.exe+0x4f622b)
-    #1 camlDune__exe__Bank_test__money_shuffle_269 <null> (bank_test.exe+0x4f5ba5)
-    #2 camlStdlib__Domain__body_696 <null> (bank_test.exe+0x53372c)
-    #3 caml_start_program <null> (bank_test.exe+0x5b10ab)
-    #4 caml_callback_exn /home/jmi/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/callback.c:168:12 (bank_test.exe+0x582e44)
-    #5 caml_callback /home/jmi/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/callback.c:256:34 (bank_test.exe+0x583790)
-    #6 domain_thread_func /home/jmi/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/domain.c:1093:5 (bank_test.exe+0x58640e)
-
-  Previous read of size 8 at 0x7fa9d2ffd6b0 by thread T1 (mutexes: write M83):
-    #0 camlStdlib__Array__iteri_356 <null> (bank_test.exe+0x524d33)
-    #1 camlDune__exe__Bank_test__print_balances_495 <null> (bank_test.exe+0x4f5cd4)
-    #2 camlStdlib__Domain__body_696 <null> (bank_test.exe+0x53372c)
-    #3 caml_start_program <null> (bank_test.exe+0x5b10ab)
-    #4 caml_callback_exn /home/jmi/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/callback.c:168:12 (bank_test.exe+0x582e44)
-    #5 caml_callback /home/jmi/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/callback.c:256:34 (bank_test.exe+0x583790)
-    #6 domain_thread_func /home/jmi/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/domain.c:1093:5 (bank_test.exe+0x58640e)
-
-  [...]
-
-SUMMARY: ThreadSanitizer: data race (/home/jmi/software/bank-example/_build/default/test/bank_test.exe+0x4f628c) in camlBank__transfer_317
-==================
 0 100 1  99 2 100 3 100 4 101 5 100 6 100   total = 700
 0 101 1  99 2  99 3 100 4 101 5 100 6 100   total = 700
 0 101 1  99 2  99 3 100 4 101 5 100 6 100   total = 700
@@ -204,7 +180,27 @@ SUMMARY: ThreadSanitizer: data race (/home/jmi/software/bank-example/_build/defa
 0 100 1  99 2 100 3 100 4 101 5 100 6 100   total = 700
 0 101 1  99 2  99 3 100 4 101 5 100 6 100   total = 700
 0 101 1  99 2  99 3 100 4 101 5 100 6 100   total = 700
-ThreadSanitizer: reported 2 warnings
+==================
+WARNING: ThreadSanitizer: data race (pid=26148)
+  Write of size 8 at 0x7f5b0c0fd6d8 by thread T4 (mutexes: write M85):
+    #0 camlBank.transfer_322 lib/bank.ml:11 (bank_test.exe+0x6de4d)
+    #1 camlDune__exe__Bank_test.money_shuffle_270 test/bank_test.ml:8 (bank_test.exe+0x6d7c5)
+    #2 camlStdlib__Domain.body_703 /home/opam/.opam/5.1.0~rc3+tsan/.opam-switch/build/ocaml-variants.5.1.0~rc3+tsan/stdlib/domain.ml:202 (bank_test.exe+0xb06b0)
+    #3 caml_start_program <null> (bank_test.exe+0x13fdfb)
+    #4 caml_callback_exn runtime/callback.c:197 (bank_test.exe+0x106053)
+    #5 caml_callback runtime/callback.c:293 (bank_test.exe+0x106b70)
+    #6 domain_thread_func runtime/domain.c:1102 (bank_test.exe+0x10a2b1)
+
+  Previous read of size 8 at 0x7f5b0c0fd6d8 by thread T1 (mutexes: write M81):
+    #0 camlStdlib__Array.iteri_367 /home/opam/.opam/5.1.0~rc3+tsan/.opam-switch/build/ocaml-variants.5.1.0~rc3+tsan/stdlib/array.ml:136 (bank_test.exe+0xa0f36)
+    #1 camlDune__exe__Bank_test.print_balances_496 test/bank_test.ml:15 (bank_test.exe+0x6d8f4)
+    #2 camlStdlib__Domain.body_703 /home/opam/.opam/5.1.0~rc3+tsan/.opam-switch/build/ocaml-variants.5.1.0~rc3+tsan/stdlib/domain.ml:202 (bank_test.exe+0xb06b0)
+    #3 caml_start_program <null> (bank_test.exe+0x13fdfb)
+    #4 caml_callback_exn runtime/callback.c:197 (bank_test.exe+0x106053)
+    #5 caml_callback runtime/callback.c:293 (bank_test.exe+0x106b70)
+    #6 domain_thread_func runtime/domain.c:1102 (bank_test.exe+0x10a2b1)
+
+  [...]
 ```
 
 Notice we obtain a back trace of the two racing accesses, with
