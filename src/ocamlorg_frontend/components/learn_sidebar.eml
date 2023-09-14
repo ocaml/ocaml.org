@@ -29,6 +29,5 @@ let render
     <%s! Learn_layout.sidebar_link_group "Is OCaml Yet"
       (tutorial_sidebar_links_by_category "is-ocaml-yet")
       ~extra_html:(
-          (render_tutorial_link ~title:"Is OCaml learning yet?" ~slug:"is-ocaml-learning-yet")
-        ^ (render_tutorial_link ~title:"Is OCaml web yet?" ~slug:"is-ocaml-web-yet")) %>
+        (render_tutorial_link ~title:"Is OCaml web yet?" ~slug:"is-ocaml-web-yet")) %>
   <% ); %>
