@@ -87,12 +87,12 @@ application.
 
 ### Install the instrumenting TSan compiler (Step 0)
 
-For now, convenient `5.1.0+tsan` and `5.0.0+tsan` opam switches are available
+For now, convenient `5.1.0~rc3+tsan` and `5.0.0+tsan` opam switches are available
 until TSan is officially included with the forthcoming 5.2.0 OCaml
 release. You can install such a TSan switch as follows:
 
 ``` shell
-opam switch create 5.1.0+tsan
+opam switch create 5.1.0~rc3+tsan
 ```
 
 
@@ -163,7 +163,7 @@ Let us now perform the same test run under TSan. Doing so is as simple
 as follows and immediately complains about races:
 
 ``` shell
-$ opam switch 5.0.0+tsan
+$ opam switch 5.1.0~rc3+tsan
 $ dune runtest
 File "test/dune", line 2, characters 7-16:
 2 |  (name bank_test)
