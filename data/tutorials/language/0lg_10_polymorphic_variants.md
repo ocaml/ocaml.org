@@ -108,7 +108,7 @@ Again, this designates a set of types. However, the comparison symbol
 - `[< ]` : “these tags or less,” Closed, upper bound
 
 
-## Exact, Closed and Open Polymorphic Variant Types
+## Exact, Closed and Open Variants
 
 Polymorphic variant type expressions can have three forms:
 1. Exact: ``[ `carot | `gherkin | `fruit of string ]`` : this only designates the type inhabited by the values introduced by these tags. Tags names must occur exaclty once.
@@ -160,12 +160,14 @@ Open polymorphic variants also appear when type-checking tags as values.
 # `gherkin
 - : [> `gherkin ] = `gherkin
 
-# [ `carot; `gherkin ];;
-- : [> `carot | `gherkin ] list = [ `carot; `gherkin ]
-
+# [ `carot; `gherkin; `carot ];;
+- : [> `carot | `gherkin ] list = [ `carot; `gherkin; `carot ]
 ```
 
-An open variant is the safes
+Binding a tag to the open polymorphic variant type which only contains enables:
+- Using it all the contexts where applicable code is available
+- Avoid using it in contexts that can't deal with it
+- Building sum of polymorphic variants, this is show in the second example.
 
 The exact case correspond to simple variants. Closed and open cases are polymorphic because they do not designate a single type but families of types. An exact variant type is monomorphic, it corresponds to a single variant type, not a set of variant types.
 
