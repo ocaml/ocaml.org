@@ -128,7 +128,7 @@ let _ =
   [| Domain.spawn (fun () -> money_shuffle t);
      Domain.spawn (fun () -> print_balances t);
   |]
-  |> Array.iter Domain.join;
+  |> Array.iter Domain.join
 ```
 
 The runner creates a bank with 7 accounts containing $100
@@ -298,7 +298,7 @@ This works well and TSan no longer complains, so our little library is
 ready for OCaml 5.x parallelism, hurrah!
 
 
-### Final remarks
+### Final remarks and a word of warning
 
 The programming pattern of 'always-having-to-do-something-at-the-end'
 that we encountered with the missing `Mutex.unlock` is a recurring
@@ -325,7 +325,33 @@ let transfer t ~src_acc ~dst_acc ~amount =
 ```
 
 Admittedly, using a `Mutex` to ensure exclusive access may be a bit
-heavy if performance is a concern.  If this is the case, one option is
+heavy if performance is a concern. If this is the case, one option is
 to replace the underlying `array` with a lock-free data structure,
 such as the [`Hashtbl`
 from`Kcas_data`](https://ocaml-multicore.github.io/kcas/doc/kcas_data/Kcas_data/Hashtbl/index.html).
+
+As a final word of warning, `Domain`'s are so fast that in a too
+simple test runner, one `Domain` may complete before the second has
+even started up yet! This is problematic, as there will be no apparent
+parallelism for TSan to observe and check. In the above example the
+calls to `Unix.sleepf` help ensure that the test runner is indeed
+parallel. A useful alternative trick is to coordinate on an `Atomic`
+to make sure both `Domain`s are up and running before the parallel
+test code proceeds. To do so, we can adapt our parallel test runner as
+follows:
+
+```ocaml
+let _ =
+  let wait = Atomic.make 2 in
+  let t = Bank.init ~num_accounts ~init_balance:100 in
+  (* run the simulation and the debug view in parallel *)
+  [| Domain.spawn (fun () ->
+         Atomic.decr wait; while Atomic.get wait > 0 do () done; money_shuffle t);
+     Domain.spawn (fun () ->
+         Atomic.decr wait; while Atomic.get wait > 0 do () done; print_balances t);
+  |]
+  |> Array.iter Domain.join
+```
+
+With that warning in mind and TSan in hand, you should now be equipped
+to hunt for data races.
