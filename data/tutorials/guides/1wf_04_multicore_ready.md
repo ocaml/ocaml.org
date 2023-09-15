@@ -137,6 +137,7 @@ each, and then runs two loops in parallel with
 - another one repeatedly printing the account balances with `print_balances`:
 
 ``` shell
+$ opam switch 5.1.0
 $ dune runtest
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
@@ -152,9 +153,9 @@ $ dune runtest
 0 101 1  99 2  99 3 100 4 101 5 100 6 100   total = 700
 ```
 
-From the above run, one may get the impression that everything is OK
-as the balances sum to a total of $700 as expected, indicating that no
-money is lost.
+From the above run under a regular `5.1.0` compiler, one may get the
+impression that everything is OK as the balances sum to a total of
+$700 as expected, indicating that no money is lost.
 
 
 ### Run the parallel tests under TSan (Step 2)
