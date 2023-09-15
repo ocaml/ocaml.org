@@ -1035,7 +1035,10 @@ papers:
   - title: Profiling the Memory Usage of OCaml Applications without Changing their Behavior
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
-      TODO
+      In this paper, we present the current state of our work on profiling the
+      memory usage of OCaml programs. Our technique allows to observe track
+      types, allocation points and reachability paths of blocks, with no
+      runtime cost, except for saving the observations.
     authors:
       - Çagdas Bozman
       - Michel Mauny
@@ -1045,15 +1048,17 @@ papers:
       - ocaml-workshop
     year:
     links:
-      - description: "Download PDF"
+      - description: "Download PDF Slides"
         uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/slides/bozman.pdf
-    featured: false
+      - description: "Download PDF"
+        uri: https://inria.hal.science/hal-01095305v1
+        featured: false
   - title: The OCaml Platform v1.0
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       The OCaml Platform combines the OCaml compiler toolchain with a coherent
-      set of tools for build, documen- tation, testing and IDE integration. The
-      project is a collab- orative effort across the OCaml community, tied
+      set of tools for build, documentation, testing and IDE integration. The
+      project is a collaborative effort across the OCaml community, tied
       together by the OCaml Labs group in Cambridge and with other major
       contributors listed above. The requirements of the Platform are being
       guided by the industrial OCaml Consortium (primarily Jane Street, Citrix
@@ -1084,7 +1089,13 @@ papers:
   - title: A Proposal for Non-Intrusive Namespaces in OCaml
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
-      TODO
+      We present a work-in-progress about adding namespaces to OCaml. Inspired
+      by other languages such as Scala or C++, our aim is to design and
+      formalize a simple and non-intrusive namespace mechanism without
+      complexifying the core language. Namespaces in our approach are a simple
+      way to define libraries while avoiding name clashes. They are also meant
+      to simplify the build process, clarifying and reducing (to zero whenever
+      possible) the responsibility of external tools. 
     authors:
       - Pierrick Couderc
       - Fabrice Le Fessant
@@ -1102,7 +1113,13 @@ papers:
   - title: Towards A Debugger for Native-Code OCaml
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
-      TODO
+      In this talk, we will present a starting project at OCamlPro, the
+      development of a debugging framework for OCaml native-code applications,
+      based on the LLDB Debugger, a debugger built on top of the LLVM
+      framework. We implemented a complete binding of LLDB C++ API for OCaml,
+      and then used it to build several tools, one " generic " debugger, and
+      two small utilities to monitor the memory behavior of OCaml
+      applications.
     authors:
       - Fabrice Le Fessant
       - Pierre Chambart
@@ -1118,7 +1135,11 @@ papers:
   - title: Global Semantic Analysis on OCaml programs
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
-      TODO
+      We present an ongoing project at OCamlPro, the development of a semantic
+      analyser of OCaml code based on abstract interpretation techniques. This
+      analysis relies on the presence of the whole program at compile time, it
+      should work on full actual programs and shows interesting promises in
+      terms of uncaught exceptions detection.
     authors:
       - Thomas Blanc
       - Pierre Chambart
@@ -1162,9 +1183,13 @@ papers:
   - title: The State of the OCaml Platform: September 2016
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
-      TODO
+      Louis Gesbert covers the current state of the OCaml Platform in September
+      2016. Introducing the game-changing integrations to opam 2.0, the roadmap,
+      and many more an aspects of the OCaml Platform as a whole like
+      `opam-publish`.
     authors:
       - Louis Gesbert, on behalf of the OCaml Platform team
+      - Anil Madhavapeddy
     tags:
       - ocaml-workshop
     year: 2016
