@@ -131,7 +131,7 @@ let _ =
   |> Array.iter Domain.join;
 ```
 
-The runner creates a bank with 7 accounts each starting with $100
+The runner creates a bank with 7 accounts containing $100
 each, and then runs two loops in parallel with
 - one transfering money with `money_shuffle` and
 - another one repeatedly printing the account balances with `print_balances`:
