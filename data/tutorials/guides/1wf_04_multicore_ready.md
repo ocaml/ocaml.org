@@ -297,8 +297,35 @@ $ dune runtest
 This works well and TSan no longer complains, so our little library is
 ready for OCaml 5.x parallelism, hurrah!
 
+
+### Final remarks
+
+The programming pattern of 'always-having-to-do-something-at-the-end'
+that we encountered with the missing `Mutex.unlock` is a recurring
+one for which OCaml offers a dedicate function:
+```ocaml
+ Fun.protect : finally:(unit -> unit) -> (unit -> 'a) -> 'a
+```
+Using `Fun.protect`, we could have written our final fix as follows:
+```ocaml
+let transfer t ~src_acc ~dst_acc ~amount =
+  begin
+    if amount <= 0 then raise (Invalid_argument "Amount has to be positive");
+    if src_acc = dst_acc then raise (Invalid_argument "Cannot transfer to yourself");
+    Mutex.lock lock; (* addition *)
+    Fun.protect ~finally:(fun () -> Mutex.unlock lock) (* addition *)
+      (fun () ->
+         begin
+           if t.(src_acc) < amount
+           then raise (Invalid_argument "Not enough money on account");
+           t.(src_acc) <- t.(src_acc) - amount;
+           t.(dst_acc) <- t.(dst_acc) + amount;
+         end)
+  end
+```
+
 Admittedly, using a `Mutex` to ensure exclusive access may be a bit
 heavy if performance is a concern.  If this is the case, one option is
 to replace the underlying `array` with a lock-free data structure,
 such as the [`Hashtbl`
-from`Kcas_data`](https://ocaml-multicore.github.io/kcas/doc/kcas_data/Kcas_data/Hashtbl/index.html). 
+from`Kcas_data`](https://ocaml-multicore.github.io/kcas/doc/kcas_data/Kcas_data/Hashtbl/index.html).
