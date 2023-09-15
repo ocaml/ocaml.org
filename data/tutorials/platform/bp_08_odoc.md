@@ -21,5 +21,5 @@ $ dune build @doc
 $ open _build/default/_doc/_html/index.html
 
 # Windows
-$ explorer _build/default/_doc/_html/index.html
+$ explorer _build\default\_doc\_html\index.html
 ```
