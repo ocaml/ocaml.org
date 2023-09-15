@@ -216,7 +216,7 @@ Notice we obtain a back trace of the two racing accesses, with
 
 One way to address the reported races is to add a `Mutex` ensuring
 exclusive access to the underlying array. A first attempt could be
-wrap `transfer` and `iter_accounts` with `lock`-`unlock` calls as
+to wrap `transfer` and `iter_accounts` with `lock`-`unlock` calls as
 follows:
 
 ``` ocaml
