@@ -148,6 +148,8 @@ val contains_zero : Type.t -> bool = <fun>
 
 ### Converting OCaml Types Into S-Expressions
 
+Please note that in the following examples, you might get a result that looks like `- : Type.t = Sexplib0__.Sexp.Atom "0"` rather than just `- : Type.t = Sexp.Atom "0"`. This is a result of running this code in UTop rather than in a project, which is where it will be normally used. For the purposes of this tutorial, we're showing you this in UTop for simplicty, so ignore this extra `Sexplib0_.`.  
+
 To build S-expressions from OCaml predefined types, we can use the `sexp_of_t` functions predefined in this package:
 ```ocaml
 # Std.sexp_of_int 0;;
