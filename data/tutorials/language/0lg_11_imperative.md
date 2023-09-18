@@ -42,7 +42,7 @@ TODO: mention `raise Exit` to terminate a `while true` loop.
 
 ### Acceptable: Module Wide State
 
-### Acceptable: Memoization
+### Acceptable: MemoizationMonads
 
 ### Bad: Mutable in Disguise
 
@@ -60,7 +60,7 @@ Code looking as functional but actually stateful
 
 ## Conclusion
 
-Handling mutable state isn't good or bad. In the cases where it is needed, OCaml provides fine tools to handle them. Many courses and books on programming and algorithmic are written in imperative style without stronger reasons thane being the dominant style. Many techniques can be translated into functional style without loss in speed or increased memory consumption. Careful inspection of many efficient programming techniques or good practices show they turn out to be functional programming “au chausse pied”. In OCaml, it is possible to express things in their true essence and it is preferable to do so.
+Handling mutable state isn't good or bad. In the cases where it is needed, OCaml provides fine tools to handle them. Many courses and books on programming and algorithmic are written in imperative style without stronger reasons thane being the dominant style. Many techniques can be translated into functional style without loss in speed or increased memory consumption. Careful inspection of many efficient programming techniques or good practices show they turn out to be functional programming in essense, made working the in imperative setting by hook or by crook. In OCaml, it is possible to express things in their true essence and it is preferable Monadsto do so.
 
 ## References
 
