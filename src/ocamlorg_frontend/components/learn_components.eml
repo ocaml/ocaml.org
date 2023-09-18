@@ -5,7 +5,7 @@ let skill_tag difficulty class_ =
   | Some "intermediate" -> 
     <div class="<%s class_ %> px-2 py-1 inline-block bg-[#040113] rounded-3xl border-2 border-[#040113] font-normal text-center text-white"> Intermediate </div>
   | Some "advanced" -> 
-    <div class="<%s class_ %> px-2 py-1 inline-block bg-primary-700 rounded-3xl border-2 border-primary-700 font-normal text-center text-white"> Advanced </div>
+    <div class="<%s class_ %> px-2 py-1 inline-block bg-learn-area-orange rounded-3xl border-2 border-learn-area-orange font-normal text-center text-white"> Advanced </div>
   | None -> 
     <></> 
   | Some _ -> 
