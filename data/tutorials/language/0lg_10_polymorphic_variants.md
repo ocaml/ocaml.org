@@ -10,11 +10,13 @@ category: "Language"
 
 ## Introduction
 
+Product types and data types such as `option` and `list` are variants and polymorphic. In this tutorial, they are called _simple variants_ to distinguished them the _polymorphic variants_ presented tutorial. Simple variants and polymorphic variants are close siblings. Their values are both introduced using labels that may carry data. Both can be recursive and have type parameters. Both are typed checked statically.
+
+However, they are type checked using very different algorithms, which result in a very different programming experience. The relationship between value and type (writen with the colon symbol `:`) is changed with polymorphic variants. Usually, values are though as inhabitants of the type, which is though as a set-like things. Polymorphic variant values should rather be thought as pieces of data that can be accepted by functions and polymorphic variant types a way to express compabitibity relationship between those functions. The approach in this tutorial is to build sense from experience using features of polymorphic variants.
+
+By the way, don't trust ChatGPT if it tells you polymorphic variants are dynamically type-checked, it is hallucinating.
+
 ### Origin and Context
-
-TODO: move historical stuff at the end
-
-TODO: nominal _vs_ structural
 
 Polymorphic variants origins from Jacques Garrigue work on Objective Label, which was [first published in 1996](https://caml.inria.fr/pub/old_caml_site/caml-list-ar/0533.html). It became part of stantard OCaml in [release 3.0](https://caml.inria.fr/distrib/ocaml-3.00/), in 2000, along with labelled and optional function arguments.
 
@@ -32,19 +34,17 @@ In the structural approach of typing, type definitions are optional, they can be
 ### Learning Goals
 
 The goal of this tutorial is to make the reader acquire the following capabilities:
-- “Understanding” polymorphic variant types and errors
+- Sort out polymorphic variant types and errors
   - Add type annotation needed to resolve polymorphic variant type-checking issues
-  - Add or remove catch all patterns in poly-var pattern matching
+  - Add or remove catch all patterns in polymorphic variant pattern matching
 - Refactor between simple and polymorphic variants
 - Choose to use polymorphic variant when really needed
 
-## A Note on simple Variants and Polymorphism
+## Variants and Polymorphism
 
-The type expression `'a list` does not designate a single type, it designates a family of types, all the types that can be created by substituing an actual type to type variable `'a`. The type expressions `int list`, `bool option list` or `(float -> float) list list` are actual exmaples of types which are members of the family `'a list`.
-
-In OCaml, something is polymorphic if the type expression
-
-TODO: link to basic dataypes tutorial
+The type expression `'a list` does not designate a single type, it designates a family of types, all the types that can be created by substituing an actual type to type variable `'a`. The type expressions `int list`, `bool option list` or `(float -> float) list list` are real types, actual members of the family `'a list`. The identifiers `list`, `option` and others are type operators. Just like functions, they take parameters, except the parameters are not values, they are types; and result isn't a value but a type too. Therfore, simple variants are polymorphic, but not in the same sense as polymorphic variants.
+- Simple variants have [parametric poymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism)
+- Polymorphic variants have a form of [row polymorphism](https://en.wikipedia.org/wiki/Row_polymorphism)
 
 ## A First Example
 
@@ -90,32 +90,9 @@ val g : [< `Broccoli | `Edible of string ] -> string = <fun>
 
 Both `f` and `g` accepts the`` `Broccoli`` tag as input, although they do not have the same domain. This is because there is type hosting`` `Broccoli`` which satisfies the both the constraints of the domain of `f`: ``[< `Broccoli | `Fruit of string ]`` and the contraints of the domain of `g`: ``[< `Broccoli | `Fruit of string ]``. That type is ``[ `Broccoli ]``. The same way tag defined values belong to several types, tag accepting functions belong to several types too.
 
-TODO: move this into drawbacks
-
-Sharing may also restrict polymorphic variant types.
-```ocaml
-# f;;
-- : [< `Broccoli | `Fruit of string ] -> string = <fun>
-
-# g;;
-- : [< `Broccoli | `Edible of string ] -> string = <fun>
-
-# let u = [f; g];;
-u : ([< `Broccoli ] -> string) list = [<fun>; <fun>]
-
-# f (`Fruit "Pitaya");;
-- : string = "Pitaya"
-
-# (List.hd u) (`Fruit "Pitaya");;
-Error: This expression has type [> `Fruit of string ]
-       but an expression was expected of type [< `Broccoli ]
-       The second variant type does not allow tag(s) `Fruit
-```
-
 ```ocaml
 # let u = [ `Apple; `Pear ]
 ```
-Function `f` accepts tags `` `Broccoli`` and `` `Fruit`` whilst `g` accepts `` `Broccoli`` and `` `Edible``. But if `f` and `g` are stored in a list, they must have the same type. That forces their domain to be restricted to a common subtype.
 
 An closed variant may also have a lower bound.
 ```ocaml
@@ -293,6 +270,8 @@ val g : [< `Broccoli | `Fruit of bool ] -> bool = <fun>
 
 ```
 
+## Dash Patterns
+
 ## Uses-Cases
 
 
@@ -315,6 +294,41 @@ The YAGNI (You Aren't Gonna Need It) principle can be applied to polymorphic var
 
 ### Hard to Read Type Expressions
 
+### Overconstrained Types
+
+In some circumstances, combining sets of contraints will artificially reduce a polymorphic variant type. This happens when intersection for contraints must be taken.
+```ocaml
+# f;;
+- : [< `Broccoli | `Fruit of string ] -> string = <fun>
+
+# g;;
+- : [< `Broccoli | `Edible of string ] -> string = <fun>
+
+# let u = [f; g];;
+u : ([< `Broccoli ] -> string) list = [<fun>; <fun>]
+
+# f (`Fruit "Pitaya");;
+- : string = "Pitaya"
+
+# (List.hd u) (`Fruit "Pitaya");;
+Error: This expression has type [> `Fruit of string ]
+       but an expression was expected of type [< `Broccoli ]
+       The second variant type does not allow tag(s) `Fruit
+```
+
+Function `f` accepts tags `` `Broccoli`` and `` `Fruit`` whilst `g` accepts `` `Broccoli`` and `` `Edible``. But if `f` and `g` are stored in a list, they must have the same type. That forces their domain to be restricted to a common subtype. Although `f` is able to handle the tag `` `Fruit``, type-checking no longer accepts that application when `f` is extracted from the list.
+
+## Conclusion
+
+Although polymorphic variant share a lot with simple variants, they them substancially different. This comes from the structural type-checking algorithm used for polymorphic variants
+- Type declaration is optional
+- A type is a set of constraints over values
+- The relationship between value and type is satisfies rather than inhabits
+- There is a subtyping relation between types
+
+Polymorphic variant should not be considered as an improvement over simple variants. In some regards, they are more flexible and lightweight, but they also have harder to read types and slightly weaker type-checking assurances. Choosing when to prefer polymorphic variants over simple variants is a subtle decision to make. It is safe to prefer simple variants as the default and go for polymorphic variant when there is a solid case for them.
+
+It is important to be comfortable with polymorphic variants, many projects are using them. Most often, only a fraction of their expressive strength is used. However, refactoring code using them requires being able to understand more than what's actually used. Otherwise, one may quickly end-up stalled by indecipherable type error messages.
 
 ## References
 
