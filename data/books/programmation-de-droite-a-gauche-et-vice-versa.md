@@ -13,4 +13,5 @@ links:
   - description: Order Online from Paracamplus
     uri: https://www.decitre.fr/livres/programmation-de-droite-a-gauche-et-vice-versa-9782916466064.html
 featured: false
+pricing: paid
 ---

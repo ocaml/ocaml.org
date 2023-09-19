@@ -41,6 +41,7 @@ module Book : sig
     rating : int option;
     featured : bool;
     difficulty : string option;
+    pricing : string;
     body_md : string;
     body_html : string;
   }

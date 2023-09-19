@@ -26,7 +26,12 @@ let render_books books =
         <% ); %>
     </div>
 
-let render books =
+
+let render
+?(difficulty = "All") 
+?(pricing = "All")
+?(language = "english")
+books =
 Learn_layout.single_column_layout
 ~title:"OCaml Books"
 ~description:"A selection of books to learn the OCaml programming language."
@@ -34,40 +39,31 @@ Learn_layout.single_column_layout
 ~active_top_nav_item:Header.Learn 
 ~current:Books @@
 <div class="bg-default dark:bg-dark-default">
-    <div class=""  x-data="{ language: 'english' }">   
+    <div class="" ">   
         <h2 class="font-bold mt-10 mb-4 md:mb-4 lg:mt-0 mb-10">Books On OCaml (15)</h2>
         <div class="flex mb-0 flex-col items-center gap-4 lg:flex-row "> 
-            <%s! Forms.select
-                ~attrs:{|name="Languages" x-model="language"|}
-                ~options:[("english", "English"); ("french", "French"); ("italian", "Italian"); ("portugese", "Portugese"); ("japanese", "Japanese"); ("chinese", "Chinese")]
-                "w-48 rounded-sm" %>
-            <%s! Forms.select
-                ~attrs:{|id="" name="difficulty_level" onchange="this.form.submit()"|}
-                ~options:[("All", "All Difficulty"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
-                "w-48 rounded-sm" %>
-            <%s! Forms.select
-                ~attrs:{|name="Languages"|}
-                ~options:[("free", "Free"); ("paid", "Paid")]
-                "w-48 rounded-sm" %>
+            <form action="<%s Url.books %>" method="GET">
+                <%s! Forms.select
+                    ~attrs:{|id="language" name="language" onchange="this.form.submit()"|}
+                    ~options:[("All", "All Languages"); ("english", "English"); ("french", "French"); ("italian", "Italian"); ("japanese", "Japanese"); ("chinese", "Chinese")]
+                    ~selected:language
+                    "w-48 rounded-sm" %>
+                <%s! Forms.select
+                    ~attrs:{|id="difficulty" name="difficulty" onchange="this.form.submit()"|}
+                    ~options:[("All", "All Difficulty"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
+                    ~selected:difficulty
+                    "w-48 rounded-sm" %>
+                <%s! Forms.select
+                    ~attrs:{|id="pricing" name="pricing" onchange="this.form.submit()"|}
+                    ~options:[("All", "All Pricing"); ("free", "Free"); ("paid", "Paid")]
+                    ~selected:pricing
+                    "w-48 rounded-sm" %>
+            </form>
         </div>
         
-        <div :class="language != 'english' ? 'hidden' : 'block'">
-            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "english") books) %>
+        <div>
+        <%s! render_books books %>
         </div>
-        <div :class="language != 'french' ? 'hidden' : 'block'">
-            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "french") books) %>
-        </div>
-        <div :class="language != 'italian' ? 'hidden' : 'block'">
-            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "italian") books) %>
-        </div>
-        <div :class="language != 'portugese' ? 'hidden' : 'block'">
-            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "portugese") books) %>
-        </div>
-        <div :class="language != 'japanese' ? 'hidden' : 'block'">
-            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "japanese") books) %>
-        </div>
-        <div :class="language != 'chinese' ? 'hidden' : 'block'">
-            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "chinese") books) %>
-        </div>
+    
     </div>
 </div>
