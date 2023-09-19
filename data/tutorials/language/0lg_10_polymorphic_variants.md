@@ -3,7 +3,6 @@ id: polymorphic-variants
 title: Polymorphic Variants
 description: |
   Everything you always wanted to know about polymorphic variants, but were afraid to ask
-“”
 category: "Language"
 ---
 
@@ -155,7 +154,7 @@ The closed form is introduced when performing pattern matching over a explicit s
     | `Broccoli -> "Broccoli"
     | `Gherkin -> "Gherkin"
     | `Fruit Fruit -> Fruit;;
-val f : [< `Broccoli | `Fruit of string | `Gherkin ] -> string = <fun>
+val upcast : [< `Broccoli | `Fruit of string | `Gherkin ] -> string = <fun>
 ```
 
 Function `f` can be used with any exact type which has these three tags or less. When applied to a type with less tags, branches associated to removed tags turn safely into dead code. The type is closed because the function can't accept more than what is listed.
@@ -228,8 +227,50 @@ It means the type of `gherkin` is raised from ``[ `Gherkin | `Tomato ]`` into ``
 
 ## Combining Polymorphic Variants and Simple Variants
 
-TODO 1. Easy cases: list, options and products of polymorphic variant typed values
-TODO 2: Hard case: functions. Contravariance
+A tag `` `A`` may be assumed to inhabit any type with additional tags, for instance `` `B`` or `` `C of string``. This summarized by the subtyping order where `` [ `A ]`` is smaller than ``` [ `A | `B ]``.
+
+This can be checked be defining a function `upcast` the following way:
+```ocaml
+let upcast (x : [ `A ]) = (x :> [ `A | `B ]);;
+val upcast : [ `A ] -> [ `A | `B ] = <fun>
+```
+This function is useless, but it illustrates a value of type ``[ `A ]`` can be casted into the type ``[ `A | `B ]``. Casting goes from subtype to supertype.
+
+### Predefined Simple Variants are Covariant
+
+The subtyping order extends to simple variants. Functions `upcast_opt` `upcast_list` and `upcast_snd` are doing the same thing as `upcast` except they are taking values from simple types that contain a polymorphic variant.
+```ocaml
+# let upcast_opt (x : [ `A ] option) = (x :> [ `A | `B ] option);;
+val upcast_opt : [ `A ] option -> [ `A | `B ] option = <fun>
+
+# let upcast_list (x : [ `A ] list) = (x :> [ `A | `B ] list);;
+val upcast_list : [ `A ] list -> [ `A | `B ] list = <fun>
+
+let upcast_snd (x : [ `A ] * int) = (x :> [ `A | `B ] * int);;
+val upcast_snd : [ `A ] * int -> [ `A | `B ] * int = <fun>
+```
+
+The product type and the types `option`, `list` are said to be _covariant_ because subtyping goes in the same direction from component type into container type.
+
+### Function Codomains are Covariant
+
+The function type is covariant on codomains.
+```ocaml
+# let upcast_dom (f : int -> [ `A ]) = (x :> int -> [ `A | `B ]);;
+val f : (int -> [ `A ]) -> int -> [ `A | `B ] = <fun>
+```
+
+Adding tags to a polymorphic variant codomain of a function is harmless. Extending a function's codomain is pretending it is able to return something that never will. It is a false promise, and the precision of the type is reduced, but it is safe, no unexpected data will be returned by the function.
+
+### Function Domains are Contravariant
+
+The function type is _contravariant_ on codomains. Subtyping is reverted from component type into composite type (i.e. function arrow).
+```ocaml
+# let upcast_cod (f : [ `A | `B ] -> int) = (x :> [ `A ] -> int);;
+val f : ([ `A | `B ] -> int) -> [ `A ] -> int = <fun>
+```
+
+At first, it may seem counter intuitive. However, removing tags from a polymorphic variant domain of a function is also harmless. Code in charge of the removed tags is turned into dead code. Implemented generality of the function is lost, but it is safe, no unexpected data will be passed to the function.
 
 ## Funky Types
 
@@ -242,7 +283,7 @@ This type means any exact variant type which is a super set of ``[> `Cilantro | 
 
 ```ocaml
 # let f = function `Fruit fruit -> fruit = "Broccoli" | `Broccoli -> true;;
-val f : [< `Broccoli | `Fruit of string ] -> bool = <fun>
+val upcast : [< `Broccoli | `Fruit of string ] -> bool = <fun>
 
 # let g = function `Fruit fruit -> fruit | `Broccoli -> true;;
 val g : [< `Broccoli | `Fruit of bool ] -> bool = <fun>
