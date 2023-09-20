@@ -442,6 +442,63 @@ structural equality when you pass a value from one library to the other.
 
 Jacques Garrigue
 
+### Error Handling
+
+The [Error Handling](/docs/error-handling) guide details how errors can be handled in OCaml. Among various mechanisms, the `result` type, when used as a monad, provides powerful mean to handle errors. Refer to the guide and documentation on this type to learn how to use it. In this section we discuss why using polymorphic variants to carry error values can be beneficial.
+
+Let's consider this code:
+```ocaml
+# let f_exn m n = List.init m Fun.id |> List.map (fun n -> n * n) |> Fun.flip n;;
+    List.nth u n;;
+```
+
+The following is an attempt at translating this into `result` values, using the `Result.bind` instead of `|>`:
+```ocaml
+# type init_error = Negative_length;;
+
+# let init n f = try Ok (List.init n f) with
+    | Invalid_argument _ -> Error Negative_length;;
+
+# type nth_error = Too_short of int * int | Negative_index of int;;
+type nth_error = Too_short of int * int | Negative_index of int
+
+# let nth u i = try Ok (List.nth u i) with
+    | Invalid_argument _ -> Error (Negative_index i)
+    | Failure _ -> Error (Too_short (List.length u, i))
+
+# let f_res m n =
+    let* u = init m Fun.id in
+    let u = List.map (fun n -> n * n) u in
+    let* x = nth u n in
+    Ok x;;
+Error: This expression has type (int, nth_error) result
+       but an expression was expected of type (int, init_error) result
+       Type nth_error is not compatible with type init_error
+```
+This does not work because of the type of `Result.bind`.
+```ocaml
+# Result.bind;;
+- : ('a, 'e) result -> ('a -> ('b, 'e) result) -> ('b, 'e) result = <fun>
+```
+The `'e` type has to be same, while this code needs it to change throughout the pipe.
+
+And an equivalent version using polymorphic variants works:
+```ocaml
+# let init n f = try Ok (List.init n f) with
+    | Invalid_argument _ -> Error `Negative_length;;
+
+# let nth u i = try Ok (List.nth u i) with
+    | Invalid_argument _ -> Error (`Negative_index i)
+    | Failure _ -> Error (`Too_short (List.length u, i));;
+
+# let f_res m n =
+    let* u = init m Fun.id in
+    let u = List.map (fun n -> n * n) u in
+    let* x = nth u n in
+    Ok x;;
+```
+By using polymorphic variant, the type-checker generates a unique type for all the pipe.
+
 ## When to Use Polymorphic Variant
 
 The YAGNI (You Aren't Gonna Need It) principle can be applied to polymorphic variants. Unless the code is arguably improved by having several pattern matching over different types sharing the same tag, polymorphic variants are probably not needed.
@@ -492,6 +549,10 @@ See RWO color example and `` `Gray` vs `` `Grey` issue.
 
 ### Performances
 
+> There is one more downside: the runtime cost. A value Pair (x,y) occupies 3 words in memory, while a value `Pair (x,y) occupies 6 words.
+
+Guillaume Melquiond
+
 ## Conclusion
 
 Although polymorphic variant share a lot with simple variants, they are substancially different. This comes from the structural type-checking algorithm used for polymorphic variants
@@ -513,3 +574,4 @@ It is important to be comfortable with polymorphic variants, many projects are u
 - https://discuss.ocaml.org/t/empty-polymorphic-variant-type
 - https://discuss.ocaml.org/t/inferred-types-and-polymorphic-variants
 - http://gallium.inria.fr/~fpottier/publis/emlti-final.pdf
+- https://keleshev.com/composable-error-handling-in-ocaml
