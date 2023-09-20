@@ -44,7 +44,7 @@ The goal of this tutorial is to make the reader acquire the following capabiliti
 
 The type expression `'a list` does not designate a single type, it designates a family of types, all the types that can be created by substituing an actual type to type variable `'a`. The type expressions `int list`, `bool option list` or `(float -> float) list list` are real types, actual members of the family `'a list`. The identifiers `list`, `option` and others are type operators. Just like functions, they take parameters, except the parameters are not values, they are types; and result isn't a value but a type too. Therfore, simple variants are polymorphic, but not in the same sense as polymorphic variants.
 - Simple variants have [parametric poymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism)
-- Polymorphic variants have a form of [row polymorphism](https://en.wikipedia.org/wiki/Row_polymorphism)
+- Polymorphic variants have a form of [structural polymorphism](https://en.wikipedia.org/wiki/Structural_type_system)
 
 ## A First Example
 
@@ -94,7 +94,7 @@ Both `f` and `g` accepts the`` `Broccoli`` tag as input, although they do not ha
 # let u = [ `Apple; `Pear ]
 ```
 
-An closed variant may also have a lower bound.
+A closed variant may also have a lower bound.
 ```ocaml
 # let is_red = function `Clubs -> false | `Diamonds -> true | `Hearts -> true | `Spades -> false;;
 val is_red : [< `Clubs | `Diamonds | `Hearts | `Spades ] -> bool = <fun>
@@ -165,6 +165,25 @@ Binding a tag to the open polymorphic variant type which only contains enables:
 - Using it all the contexts where applicable code is available
 - Avoid using it in contexts that can't deal with it
 - Building sum of polymorphic variants, this is show in the second example.
+
+This also applies to function returning polymorphic variant values.
+```ocaml
+# let f b = if b then `On else `Off;;
+val f : bool -> [> `Off | `On ] = <fun>
+```
+
+The codomain of `f` is the open type ``[> `Off | `On ]``. This make sense when having a look at function composition.
+```ocaml
+# let g = function
+    | `On -> 1
+    | `Off -> 2
+    | `Broken -> 3;;
+
+# fun x -> x |> f |> g;;
+- : bool -> int = <fun>
+```
+
+Functions `g` and `f` can be composed because the former accepts more than the latter can return. The value `` `Broken`` will never pass in the `f |> g` pipe, but it safe to write it as no unexpected value can make its way through.
 
 The exact case correspond to simple variants. Closed and open cases are polymorphic because they do not designate a single type but families of types. An exact variant type is monomorphic, it corresponds to a single variant type, not a set of variant types.
 
@@ -249,7 +268,48 @@ val f : ([ `A | `B ] -> int) -> [ `A ] -> int = <fun>
 
 At first, it may seem counter intuitive. However, removing tags from a polymorphic variant domain of a function is also harmless. Code in charge of the removed tags is turned into dead code. Implemented generality of the function is lost, but it is safe, no unexpected data will be passed to the function.
 
+### Covariance and Contravariance at Work
+
+```ocaml
+# let ingredient = function 0 -> `Egg | 1 -> `Sugar | _ -> `Fish;;
+val ingredient : int -> [> `Egg | `Fish | `Sugar ] = <fun>
+
+# let chef = function `Egg -> `Omelette | `Sugar -> `Caramel | `Fish -> `Stew;;
+val chef : [< `Egg | `Fish | `Sugar ] -> [> `Caramel | `Omelette | `Stew ] =
+  <fun>
+
+# let taste = function `Omelette -> "Nutritious" | `Caramel -> "Sweet" | `Stew -> "Yummy";;
+val taste : [< `Caramel | `Omelette | `Stew ] -> string = <fun>
+
+# let le_chef = function `Egg -> `Stew | `Sugar -> `Stew | `Fish -> `Stew | `Leftover -> `Stew;;
+val le_chef : [< `Egg | `Fish | `Leftover | `Sugar ] -> [> `Stew ] = <fun>
+
+# fun n -> n |> ingredient |> chef |> taste;;
+- : int -> string = <fun>
+
+# fun n -> n |> ingredient |> le_chef |> taste;;
+- : int -> string = <fun>
+
+# let upcasted_chef = (chef :> [< `Egg | `Fish | `Leftover | `Sugar ] -> [> `Stew ]);;
+```
+
+The type of function `le_chef` is a supertype of the type of the function `chef`. It is possible to upcast `chef` into `le_chef`'s type.
+
 ## Funky Types
+
+### Combining Nominal and Structural Polymorphism
+
+A type may be polymorphic in both sense. It may have parametric polymorphism from nominal typing and variant polymorphism from structural typing.
+```ocaml
+# let maybe_map f = function
+    | `Just x -> `Just (f x)
+    | `Nothing -> `Nothing;;
+val maybe_map :
+  ('a -> 'b) -> [< `Just of 'a | `Nothing ] -> [> `Just of 'b | `Nothing ] =
+  <fun>
+```
+
+### Inferred Type Aliases
 
 ```ocaml
 # function `Tomato -> `Cilantro | plant -> plant;;
@@ -267,23 +327,81 @@ val g : [< `Broccoli | `Fruit of bool ] -> bool = <fun>
 
  fun x -> f x && g x;;
 - : [< `Broccoli | `Fruit of bool & string ] -> bool = <fun>
-
 ```
 
-## Dash Patterns
+## Recursive Polymorphic Variants
+
+The inferred type of a polymorphic variant may be recursive.
+```ocaml
+let rec map f = function
+    | `Nil -> `Nil
+    | `Cons (x, u) -> `Cons (f x, map f u);;
+val map :
+  ('a -> 'b) ->
+  ([< `Cons of 'a * 'c | `Nil ] as 'c) -> ([> `Cons of 'b * 'd | `Nil ] as 'd) =
+  <fun>
+```
+
+The aliasing mechanism is used to express type recursion.
+
+## Named Polymorphic Variant Types
+
+### Naming
+
+Exact polymorphic variant types can be given names.
+```ocaml
+# type foo = [ `A | `B | `C ]
+```
+
+### Type extension
+
+Named polymorphic variants can be used to create extended types.
+```ocaml
+# type bar = [ foo | `D | `E ];;
+```
+
+### Dash Patterns
+
+Named polymorphic variants can be used as patterns
+```ocaml
+# let f = function
+    | #foo -> "foo"
+    | `F -> "F";;
+val f : [< `A | `B | `C | `F ] -> string = <fun>
+```
+
+This is not a dynamic type check. The `#foo` pattern is almost a macro, it is shortcut to avoid writting all the patterns.
 
 ## Uses-Cases
 
+### Variants Witout Declaration
 
+Not having to explicitly declare polymorphic variant types is beneficial in several cases
+- When few functions are using the type
+- When many types would have to be declared (see also next use case)
 
+When reading a pattern-matching expression using polymorphic variant tags, understanding is local. There is no need to search for the meaning of the tags somewhere else. The meaning arises from the expression itself.
 
 ### Shared Constructors
 
-### Variants Witout Declaration
+When several simple variants are using the same constructor name, shadowing takes place. Only the last entered in the environment is accessible, previously entered one are shadowed. This can be worked around usng modules.
+
+This never happens with polymorphic variants. When a tag appears several times in an expression, it must be with the same type, that's the only restriction. This makes polymorphic variants very handy when dealing with multiple sum types and constructors with same types occuring in several variants.
 
 ### Datatype Sharing Between Modules
 
-Accept
+Using the same type in two different module can be done in several ways:
+- Have dependency, either direct or shared
+- Turn the modules into functors and inject the shared type as a parameter
+
+Polymorphic variant provides an additional alternative.
+
+> You just define the same type in both libraries, and since these are only type
+abbreviations, the two definitions are compatible. The type system checks the
+structural equality when you pass a value from one library to the other.
+
+Jacques Garrigue
+
 
 ### Criterion to Use Polymorphic Variant
 
@@ -294,9 +412,15 @@ The YAGNI (You Aren't Gonna Need It) principle can be applied to polymorphic var
 
 ### Hard to Read Type Expressions
 
+By default, polymorphic variant types aren't declared with a name before being used. The compiler will generate type expression corresponding to each function dealing with polymorphic variants. Some of those types are hard to read. When several such functions are composed together, infered types can become very large and difficult to understand.
+
+# let rec fold_left f y = function `Nil -> y | `Cons (x, u) -> fold_left f (f x y) u;;
+val fold_left :
+  ('a -> 'b -> 'b) -> 'b -> ([< `Cons of 'a * 'c | `Nil ] as 'c) -> 'b = <fun>
+
 ### Overconstrained Types
 
-In some circumstances, combining sets of contraints will artificially reduce a polymorphic variant type. This happens when intersection for contraints must be taken.
+In some circumstances, combining sets of contraints will artificially reduce the domain of a functioon. This happens when conjuction of contraints must be taken.
 ```ocaml
 # f;;
 - : [< `Broccoli | `Fruit of string ] -> string = <fun>
@@ -317,6 +441,12 @@ Error: This expression has type [> `Fruit of string ]
 ```
 
 Function `f` accepts tags `` `Broccoli`` and `` `Fruit`` whilst `g` accepts `` `Broccoli`` and `` `Edible``. But if `f` and `g` are stored in a list, they must have the same type. That forces their domain to be restricted to a common subtype. Although `f` is able to handle the tag `` `Fruit``, type-checking no longer accepts that application when `f` is extracted from the list.
+
+### Weaken Type-Checking and Harder Debugging
+
+See RWO color example and `` `Gray` vs `` `Grey` issue.
+
+### Performances
 
 ## Conclusion
 
