@@ -119,16 +119,19 @@ let books req =
   let difficulty = Dream.query req "difficulty" in
   let matches_criteria (book : Data.Book.t) language pricing difficulty =
     let matches_language =   match language with
+    | Some lang when lang = "All" -> true
     | Some lang -> book.language = lang
     | None -> true
   in
   let matches_pricing =
     match pricing with
+    | Some p when p = "All" -> true
     | Some p -> book.pricing = p
     | None -> true
   in
     let matches_difficulty =
       match difficulty with
+      | Some d when d = "All" -> true
       | Some d -> (
           match book.difficulty with Some bd -> bd = d | None -> false)
       | None -> true
