@@ -181,5 +181,12 @@ let lang_manual_banner =
       <a href="<%s Url.manual %>" class="w-full md:w-auto mt-5 py-2 px-24 bg-default text-sm rounded-sm items-center text-center text-primary-700 sm:px-20 sm:text-md font-medium leading-7 md:text-lg">Take Me There</a>
     </div>
     <div class="min-w-[200px] min-h-[200px] overflow-hidden rounded-full bg-cover bg-center bg-no-repeat md:min-w-[240px] md:min-h-[240px]" style="background-image: url('../img/home/ocaml_camel.png')">
+
+let pricing_tag = 
+  <div class="absolute top-0 left-0 transform rotate-[-10deg] w-16 h-16 origin-top-left">
+    <div class="bg-learn-area-orange rounded-full w-16 h-16 shadow flex items-center justify-center">
+      <div class="text-center text-white text-base font-bold leading-7 tracking-wide">
+        FREE
+      </div>
     </div>
   </div>

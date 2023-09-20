@@ -4,9 +4,12 @@ let render_books books =
         <div
             class="flex space-y-10 lg:space-y-0 lg:space-x-16 pb-10 lg:pb-20 mt-10 flex-col lg:flex-row">
             <div class="flex flex-col gap-y-4">
-                <img src="<%s Ocamlorg_static.Media.url item.cover %>"
-                    class="m-4 h-56 w-40 rounded-2xl border border-gray-200 sm:w-44 sm:h-72 md:w-64 md:h-96"
-                    alt="">
+                <div class="relative">
+                    <img src="<%s Ocamlorg_static.Media.url item.cover %>"
+                        class="m-4 h-56 w-40 rounded-2xl border border-gray-200 sm:w-44 sm:h-72 md:w-64 md:h-96"
+                        alt="">
+                    <%s! if item.pricing = "free" then Learn_components.pricing_tag else "" %>
+                </div>
                 <%s! Learn_components.skill_tag item.difficulty "mx-4 w-32 lg:w-64 md:w-64" %>
             </div>
             <div class="flex-col flex-1">
