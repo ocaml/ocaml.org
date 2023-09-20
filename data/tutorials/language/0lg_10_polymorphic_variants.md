@@ -79,22 +79,39 @@ In the rest of this tutorial, the following terminology is used:
 
 Here is another function using pattern matching on a polymorphic variant.
 ```ocaml
-# let g = function `Edible name -> name | `Broccoli -> "Broccoli";;
+# let g = function `Edible name -> name | `Broccoli -> "Brassica oleracea var. italica";;
 val g : [< `Broccoli | `Edible of string ] -> string = <fun>
 
 # f `Broccoli;;
-- : string = "Broccoli" (* FIXME: have f and g return something different for `Broccoli ? *)
+- : string = "Broccoli"
 
 # g `Broccoli;;
-- : string = "Broccoli"
+- : string = "Brassica oleracea var. italica"
 ```
 
-Both `f` and `g` accepts the`` `Broccoli`` tag as input, although they do not have the same domain. This is because there is type hosting`` `Broccoli`` which satisfies the both the constraints of the domain of `f`: ``[< `Broccoli | `Fruit of string ]`` and the contraints of the domain of `g`: ``[< `Broccoli | `Fruit of string ]``. That type is ``[ `Broccoli ]``. The same way tag defined values belong to several types, tag accepting functions belong to several types too.
+Both `f` and `g` accepts the`` `Broccoli`` tag as input because they both have code for it. They do not have the same domain because `f` also accepts `` `Fruit of string`` whilst `g` also accepts `` `Edible of string``. The types of the domains of `f` and `g` expresses this. The tag `` `Broccoli`` satisfies the both the constraints of the domain of `f`: ``[< `Broccoli | `Fruit of string ]`` and the contraints of the domain of `g`: ``[< `Broccoli | `Fruit of string ]``. That type is ``[ `Broccoli ]``. The same way tag defined values belong to several types, tag accepting functions belong to several types too.
 
+### Static Type Checking
+
+Type-checking of polymorphic variants is static. No information on tag's types is available at runtime.
 ```ocaml
-# let u = [ `Apple; `Pear ]
+# [ `Fruit "Banana"; `Fruit true ];;
+Error: This expression has type bool but an expression was expected of type
+         string
 ```
+When a tag is used insconsistantly, the type-cecker will raise an error.
 
+### Merging Constraints
+
+When building expression from subexpressions, the type-check assembles types from subexpressions to create the type of the whole expression. This is why the type discipline used for polymorphic variants is said to be structural, it follows the structure of the expressions.
+```ocaml
+# let brocco = `Broccoli;;
+
+# let pepe = `Peperone;;
+
+# [ brocco; pepe; brocco ];;
+- : [> `Broccoli | `Peperone ] list = [`Broccoli; `Peperone; `Broccoli]
+```
 
 ## Exact, Closed and Open Variants
 
@@ -109,6 +126,8 @@ Polymorphic variant type expressions can have three forms:
   - ``[ `Broccoli | `Gherkin ]``
   - ``[ `Broccoli | `Gherkin | `Fruit of string ]``
 1. Open: ``[> `Broccoli | `Gherkin | `Fruit of string ]`` : this designates a set of exact types. Eact eact type is inhabited by the values introduced by supersets of the tags from 1.
+
+Tip: To distinguish closed and open type expression, you can remember that the less-than sign `<` is oriented the same way as a capital `C` letter, as in closed.
 
 The exact form is infered by the type-checker when naming a type defined by a set of tags:
 ```ocaml
@@ -251,7 +270,7 @@ Named polymorphic variants can be used as patterns
 val f : [< `A | `B | `C | `F ] -> string = <fun>
 ```
 
-This is not a dynamic type check. The `#foo` pattern is almost a macro, it is shortcut to avoid writting all the patterns.
+This is not a dynamic type check. The `#foo` pattern is almost a macro, it is a shortcut to avoid writting all the patterns.
 
 ## Aliased, Parametrized and Recursive Polymorphic Variants
 
@@ -301,6 +320,23 @@ val map :
 ```
 
 The aliasing mechanism is used to express type recursion.
+
+### Conjunction 
+
+From the language manual:
+```ocaml
+# let f1 = function `A x -> x = 1 | `B -> true | `C -> false
+  let f2 = function `A x -> x = "a" | `B -> true ;;
+val f1 : [< `A of int | `B | `C ] -> bool = <fun>
+val f2 : [< `A of string | `B ] -> bool = <fun>
+
+# let f x = f1 x && f2 x;;
+val f : [< `A of string & int | `B ] -> bool = <fun>
+```
+
+FIXME: This is lame. It says no `` `A`` can't be applied to `f`. There is no way to find a value that is both a `string` and an `int`
+
+TODO: Find a “positive” example and maybe move the manuals one in the drawbacks
 
 ## Combining Polymorphic Variants and Simple Variants
 
@@ -446,6 +482,10 @@ Error: This expression has type [> `Fruit of string ]
 
 Function `f` accepts tags `` `Broccoli`` and `` `Fruit`` whilst `g` accepts `` `Broccoli`` and `` `Edible``. But if `f` and `g` are stored in a list, they must have the same type. That forces their domain to be restricted to a common subtype. Although `f` is able to handle the tag `` `Fruit``, type-checking no longer accepts that application when `f` is extracted from the list.
 
+### Empty Tags
+
+TODO: import from conjunction types
+
 ### Weaken Type-Checking and Harder Debugging
 
 See RWO color example and `` `Gray` vs `` `Grey` issue.
@@ -454,7 +494,7 @@ See RWO color example and `` `Gray` vs `` `Grey` issue.
 
 ## Conclusion
 
-Although polymorphic variant share a lot with simple variants, they them substancially different. This comes from the structural type-checking algorithm used for polymorphic variants
+Although polymorphic variant share a lot with simple variants, they are substancially different. This comes from the structural type-checking algorithm used for polymorphic variants
 - Type declaration is optional
 - A type is a set of constraints over values
 - The relationship between value and type is satisfies rather than inhabits
@@ -467,13 +507,9 @@ It is important to be comfortable with polymorphic variants, many projects are u
 ## References
 
 - https://blog.shaynefletcher.org/2017/03/polymorphic-variants-subtyping-and.html
-
-Liskov : It is always possible to cast into a supertype.
-
-int32 -> int64
-more fields -> less fields
-less constructors -> more constructors
-
-[ `A ], [ `B ] and [ `A | `B ] are the subtypes of [ `A | `B ].
-It follows then that [< `A | `B ] is the set of subtypes of [ `A | `B ]
-
+- https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.pdf
+- https://v2.ocaml.org/releases/5.1/htmlman/polyvariant.html
+- https://dev.realworldocaml.org/variants.html#scrollNav-4
+- https://discuss.ocaml.org/t/empty-polymorphic-variant-type
+- https://discuss.ocaml.org/t/inferred-types-and-polymorphic-variants
+- http://gallium.inria.fr/~fpottier/publis/emlti-final.pdf
