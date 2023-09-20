@@ -5,20 +5,22 @@ let render_books books =
             class="flex space-y-10 lg:space-y-0 lg:space-x-16 pb-10 lg:pb-20 mt-10 flex-col lg:flex-row">
             <div class="flex flex-col gap-y-4">
                 <img src="<%s Ocamlorg_static.Media.url item.cover %>"
-                    class="m-4 h-48 w-32 lg:w-64 lg:h-96 md:w-64 md:h-96 rounded-2xl border border-gray-200"
+                    class="m-4 h-56 w-40 rounded-2xl border border-gray-200 sm:w-44 sm:h-72 md:w-64 md:h-96"
                     alt="">
                 <%s! Learn_components.skill_tag item.difficulty "mx-4 w-32 lg:w-64 md:w-64" %>
             </div>
             <div class="flex-col flex-1">
                 <h4 class="font-bold text-2xl mb-6"><%s item.title %></h4>
                 <div class="font-normal text-base mb-6 uppercase"><%s item.authors |> String.concat ", " %></div>
-                <div class="prose-lg prose-orange mb-6"><%s! item.body_html %></div>
-                <div class="flex gap-x-5">
+                <div class="prose-md prose-orange mb-6 md:prose-lg"><%s! item.body_html %></div>
+                <div class="flex gap-x-5 gap-y-4 flex-col sm:flex-row">
                     <% item.links |> List.iter (fun (link : Data.Book.link) -> %>
-                        <a class="btn bg-learn-area-orange" href="<%s link.uri %>">
-                            <span><%s link.description %></span>
-                            <%s! Icons.chevron_right "h-4 w-4" %>
-                        </a>
+                        <div>
+                            <a class="btn bg-learn-area-orange" href="<%s link.uri %>">
+                                <span><%s link.description %></span>
+                                <%s! Icons.chevron_right "h-4 w-4" %>
+                            </a>
+                        </div>
                     <% ); %>
                 </div>
             </div>
@@ -30,7 +32,7 @@ let render_books books =
 let render
 ?(difficulty = "All") 
 ?(pricing = "All")
-?(language = "english")
+?(language = "All")
 books =
 Learn_layout.single_column_layout
 ~title:"OCaml Books"
@@ -38,32 +40,30 @@ Learn_layout.single_column_layout
 ~canonical:Url.books
 ~active_top_nav_item:Header.Learn 
 ~current:Books @@
-<div class="bg-default dark:bg-dark-default">
-    <div class="" ">   
-        <h2 class="font-bold mt-10 mb-4 md:mb-4 lg:mt-0 mb-10">Books On OCaml (15)</h2>
-        <div class="flex mb-0 flex-col items-center gap-4 lg:flex-row "> 
-            <form action="<%s Url.books %>" method="GET">
-                <%s! Forms.select
-                    ~attrs:{|id="language" name="language" onchange="this.form.submit()"|}
-                    ~options:[("All", "All Languages"); ("english", "English"); ("french", "French"); ("italian", "Italian"); ("japanese", "Japanese"); ("chinese", "Chinese")]
-                    ~selected:language
-                    "w-48 rounded-sm" %>
-                <%s! Forms.select
-                    ~attrs:{|id="difficulty" name="difficulty" onchange="this.form.submit()"|}
-                    ~options:[("All", "All Difficulty"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
-                    ~selected:difficulty
-                    "w-48 rounded-sm" %>
-                <%s! Forms.select
-                    ~attrs:{|id="pricing" name="pricing" onchange="this.form.submit()"|}
-                    ~options:[("All", "All Pricing"); ("free", "Free"); ("paid", "Paid")]
-                    ~selected:pricing
-                    "w-48 rounded-sm" %>
-            </form>
+<div class="bg-default dark:bg-dark-default"> 
+    <h2 class="font-bold mt-10 mb-4 md:mb-4 lg:mt-0 mb-10">Books On OCaml (15)</h2>  
+    <form action="<%s Url.books %>" method="GET">
+        <div class="flex mb-0 flex-col gap-4 sm:flex-row"> 
+            <%s! Forms.select
+                ~attrs:{|id="language" name="language" onchange="this.form.submit()"|}
+                ~options:[("All", "All Languages"); ("english", "English"); ("french", "French"); ("italian", "Italian"); ("japanese", "Japanese"); ("chinese", "Chinese")]
+                ~selected:language
+                "w-48 rounded-sm" %>
+            <%s! Forms.select
+                ~attrs:{|id="difficulty" name="difficulty" onchange="this.form.submit()"|}
+                ~options:[("All", "All Difficulty"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
+                ~selected:difficulty
+                "w-48 rounded-sm" %>
+            <%s! Forms.select
+                ~attrs:{|id="pricing" name="pricing" onchange="this.form.submit()"|}
+                ~options:[("All", "All Pricing"); ("free", "Free"); ("paid", "Paid")]
+                ~selected:pricing
+                "w-48 rounded-sm" %>
         </div>
-        
-        <div>
-        <%s! render_books books %>
-        </div>
+    </form>
     
+    
+    <div>
+    <%s! render_books books %>
     </div>
 </div>
