@@ -87,12 +87,12 @@ application.
 
 ### Install the instrumenting TSan compiler (Step 0)
 
-For now, convenient `5.1.0~rc3+tsan` and `5.0.0+tsan` opam switches are available
+For now, convenient `5.1.0+tsan` and `5.0.0+tsan` opam switches are available
 until TSan is officially included with the forthcoming 5.2.0 OCaml
 release. You can install such a TSan switch as follows:
 
 ``` shell
-opam switch create 5.1.0~rc3+tsan
+opam switch create 5.1.0+tsan
 ```
 
 
@@ -164,7 +164,7 @@ Let us now perform the same test run under TSan. Doing so is as simple
 as follows and immediately complains about races:
 
 ``` shell
-$ opam switch 5.1.0~rc3+tsan
+$ opam switch 5.1.0+tsan
 $ dune runtest
 File "test/dune", line 2, characters 7-16:
 2 |  (name bank_test)
@@ -186,16 +186,16 @@ WARNING: ThreadSanitizer: data race (pid=26148)
   Write of size 8 at 0x7f5b0c0fd6d8 by thread T4 (mutexes: write M85):
     #0 camlBank.transfer_322 lib/bank.ml:11 (bank_test.exe+0x6de4d)
     #1 camlDune__exe__Bank_test.money_shuffle_270 test/bank_test.ml:8 (bank_test.exe+0x6d7c5)
-    #2 camlStdlib__Domain.body_703 /home/opam/.opam/5.1.0~rc3+tsan/.opam-switch/build/ocaml-variants.5.1.0~rc3+tsan/stdlib/domain.ml:202 (bank_test.exe+0xb06b0)
+    #2 camlStdlib__Domain.body_703 /home/opam/.opam/5.1.0+tsan/.opam-switch/build/ocaml-variants.5.1.0+tsan/stdlib/domain.ml:202 (bank_test.exe+0xb06b0)
     #3 caml_start_program <null> (bank_test.exe+0x13fdfb)
     #4 caml_callback_exn runtime/callback.c:197 (bank_test.exe+0x106053)
     #5 caml_callback runtime/callback.c:293 (bank_test.exe+0x106b70)
     #6 domain_thread_func runtime/domain.c:1102 (bank_test.exe+0x10a2b1)
 
   Previous read of size 8 at 0x7f5b0c0fd6d8 by thread T1 (mutexes: write M81):
-    #0 camlStdlib__Array.iteri_367 /home/opam/.opam/5.1.0~rc3+tsan/.opam-switch/build/ocaml-variants.5.1.0~rc3+tsan/stdlib/array.ml:136 (bank_test.exe+0xa0f36)
+    #0 camlStdlib__Array.iteri_367 /home/opam/.opam/5.1.0+tsan/.opam-switch/build/ocaml-variants.5.1.0+tsan/stdlib/array.ml:136 (bank_test.exe+0xa0f36)
     #1 camlDune__exe__Bank_test.print_balances_496 test/bank_test.ml:15 (bank_test.exe+0x6d8f4)
-    #2 camlStdlib__Domain.body_703 /home/opam/.opam/5.1.0~rc3+tsan/.opam-switch/build/ocaml-variants.5.1.0~rc3+tsan/stdlib/domain.ml:202 (bank_test.exe+0xb06b0)
+    #2 camlStdlib__Domain.body_703 /home/opam/.opam/5.1.0+tsan/.opam-switch/build/ocaml-variants.5.1.0+tsan/stdlib/domain.ml:202 (bank_test.exe+0xb06b0)
     #3 caml_start_program <null> (bank_test.exe+0x13fdfb)
     #4 caml_callback_exn runtime/callback.c:197 (bank_test.exe+0x106053)
     #5 caml_callback runtime/callback.c:293 (bank_test.exe+0x106b70)
