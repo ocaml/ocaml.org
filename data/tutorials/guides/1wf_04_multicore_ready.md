@@ -12,11 +12,12 @@ category: "Guides"
 The 5.0 release brought multicore `Domain`-based parallelism to the
 OCaml language. Parallel `Domain`s performing uncoordinated operations
 on shared mutable memory locations may however cause data races. Such
-issues will unfortunately not (yet) be caught by OCaml's strong type
-system, meaning they may go unnoticed when introducing parallelism
-into an existing OCaml code base. In this guide, we will therefore
-study a step-wise workflow that utilizes the ThreadSanitizer (TSan)
-tool to help make your OCaml code 5.x ready.
+issues will unfortunately not
+[(yet)](https://blog.janestreet.com/oxidizing-ocaml-parallelism/) be
+caught by OCaml's strong type system, meaning they may go unnoticed
+when introducing parallelism into an existing OCaml code base. In this
+guide, we will therefore study a step-wise workflow that utilizes the
+ThreadSanitizer (TSan) tool to help make your OCaml code 5.x ready.
 
 **Note:** TSan is currently only supported under Linux with AMD/Intel
 cpus. It furthermore requires at least gcc 11 or Clang 11 and the
