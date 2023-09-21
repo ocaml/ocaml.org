@@ -17,7 +17,8 @@ issues will unfortunately not
 caught by OCaml's strong type system, meaning they may go unnoticed
 when introducing parallelism into an existing OCaml code base. In this
 guide, we will therefore study a step-wise workflow that utilizes the
-ThreadSanitizer (TSan) tool to help make your OCaml code 5.x ready.
+[ThreadSanitizer (TSan)](https://github.com/ocaml-multicore/ocaml-tsan)
+tool to help make your OCaml code 5.x ready.
 
 **Note:** TSan is currently only supported under Linux with AMD/Intel
 cpus. It furthermore requires at least gcc 11 or Clang 11 and the
