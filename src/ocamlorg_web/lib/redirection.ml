@@ -2,255 +2,126 @@ open Ocamlorg
 
 let fwd_v2 target = (target, Url.v2 ^ target)
 
+
+let pp_ocaml_version ppf (mj,mn)=
+  if mj >= 5 then
+    Format.fprintf ppf "%d.%d" mj mn
+  else
+    Format.fprintf ppf "%d.%02d" mj mn
+
+let notes_redirections v =
+  let fwd_v2_notes x =
+      fwd_v2 @@ Format.asprintf "/releases/%a/notes/%s"
+        pp_ocaml_version v x
+  in
+  if v >= (4,7) then
+  List.map fwd_v2_notes [
+    "Changes";
+    "INSTALL.adoc";
+    "LICENSE";
+    "README.adoc";
+    "README.win32.adoc"
+  ]
+else
+  List.map fwd_v2_notes [
+    "Changes";
+    "INSTALL";
+    "LICENSE";
+    "README";
+    "README.win32";
+  ]
+
+
+let manual_redirections v =
+  let fwd_v2_manual x =
+    fwd_v2 @@ Format.asprintf "/releases/%a/ocaml-%a-refman%s"
+      pp_ocaml_version v
+      pp_ocaml_version v
+      x
+  in
+  List.map fwd_v2_manual (
+    (if v >= (4,8) then []
+     else [".dvi.gz"; ".ps.gz"])
+    @ (if v > (3,12) then []
+       else [".html.tar.gz";".html.zip"])
+    @ [
+      "-html.tar.gz";
+      "-html.zip";
+      ".html";
+      ".info.tar.gz";
+      ".pdf";
+      ".txt";
+    ]
+  )
+
+let v2_manual_and_notes v =
+  notes_redirections v @ manual_redirections v
+
 (* For assets previously hosted on V2, we redirect the requests to
    v2.ocaml.org. *)
 let v2_assets =
-  [
-    fwd_v2 "/meetings/ocaml/2013/proposals/core-bench.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/ctypes.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/formats-as-gadts.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/frenetic.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/goji.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/gpgpu.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/injectivity.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/merlin.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/ocamlot.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/optimizations.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/platform.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/profiling-memory.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/runtime-types.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/weather-related-data.pdf";
-    fwd_v2 "/meetings/ocaml/2013/proposals/wxocaml.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/bourgoin.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/bozman.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/canou.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/carty.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/chambart.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/garrigue.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/guha.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/henry.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/james.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/lefessant.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/leroy.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/madhavapeddy.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/padioleau.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/sheets.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/vaugon.pdf";
-    fwd_v2 "/meetings/ocaml/2013/slides/white.pdf";
-    fwd_v2 "/releases/3.12/notes/Changes";
-    fwd_v2 "/releases/3.12/notes/INSTALL";
-    fwd_v2 "/releases/3.12/notes/LICENSE";
-    fwd_v2 "/releases/3.12/notes/README";
-    fwd_v2 "/releases/3.12/notes/README.win32";
-    fwd_v2 "/releases/3.12/ocaml-3.12-refman-html.tar.gz";
-    fwd_v2 "/releases/3.12/ocaml-3.12-refman-html.zip";
-    fwd_v2 "/releases/3.12/ocaml-3.12-refman.dvi.gz";
-    fwd_v2 "/releases/3.12/ocaml-3.12-refman.html";
-    fwd_v2 "/releases/3.12/ocaml-3.12-refman.html.tar.gz";
-    fwd_v2 "/releases/3.12/ocaml-3.12-refman.html.zip";
-    fwd_v2 "/releases/3.12/ocaml-3.12-refman.info.tar.gz";
-    fwd_v2 "/releases/3.12/ocaml-3.12-refman.pdf";
-    fwd_v2 "/releases/3.12/ocaml-3.12-refman.ps.gz";
-    fwd_v2 "/releases/3.12/ocaml-3.12-refman.txt";
-    fwd_v2 "/releases/4.00/notes/Changes";
-    fwd_v2 "/releases/4.00/notes/INSTALL";
-    fwd_v2 "/releases/4.00/notes/LICENSE";
-    fwd_v2 "/releases/4.00/notes/README";
-    fwd_v2 "/releases/4.00/notes/README.win32";
-    fwd_v2 "/releases/4.00/ocaml-4.00-refman-html.tar.gz";
-    fwd_v2 "/releases/4.00/ocaml-4.00-refman-html.zip";
-    fwd_v2 "/releases/4.00/ocaml-4.00-refman.dvi.gz";
-    fwd_v2 "/releases/4.00/ocaml-4.00-refman.html";
-    fwd_v2 "/releases/4.00/ocaml-4.00-refman.info.tar.gz";
-    fwd_v2 "/releases/4.00/ocaml-4.00-refman.pdf";
-    fwd_v2 "/releases/4.00/ocaml-4.00-refman.ps.gz";
-    fwd_v2 "/releases/4.00/ocaml-4.00-refman.txt";
-    fwd_v2 "/releases/4.01/notes/Changes";
-    fwd_v2 "/releases/4.01/notes/INSTALL";
-    fwd_v2 "/releases/4.01/notes/LICENSE";
-    fwd_v2 "/releases/4.01/notes/README";
-    fwd_v2 "/releases/4.01/notes/README.win32";
-    fwd_v2 "/releases/4.01/ocaml-4.01-refman-html.tar.gz";
-    fwd_v2 "/releases/4.01/ocaml-4.01-refman-html.zip";
-    fwd_v2 "/releases/4.01/ocaml-4.01-refman.dvi.gz";
-    fwd_v2 "/releases/4.01/ocaml-4.01-refman.html";
-    fwd_v2 "/releases/4.01/ocaml-4.01-refman.info.tar.gz";
-    fwd_v2 "/releases/4.01/ocaml-4.01-refman.pdf";
-    fwd_v2 "/releases/4.01/ocaml-4.01-refman.ps.gz";
-    fwd_v2 "/releases/4.01/ocaml-4.01-refman.txt";
-    fwd_v2 "/releases/4.02/notes/Changes";
-    fwd_v2 "/releases/4.02/notes/INSTALL";
-    fwd_v2 "/releases/4.02/notes/LICENSE";
-    fwd_v2 "/releases/4.02/notes/README";
-    fwd_v2 "/releases/4.02/notes/README.win32";
-    fwd_v2 "/releases/4.02/ocaml-4.02-refman-html-0.tar.gz";
-    fwd_v2 "/releases/4.02/ocaml-4.02-refman-html-0.zip";
-    fwd_v2 "/releases/4.02/ocaml-4.02-refman-html-1.tar.gz";
-    fwd_v2 "/releases/4.02/ocaml-4.02-refman-html-1.zip";
-    fwd_v2 "/releases/4.02/ocaml-4.02-refman-html.tar.gz";
-    fwd_v2 "/releases/4.02/ocaml-4.02-refman-html.zip";
-    fwd_v2 "/releases/4.02/ocaml-4.02-refman.dvi.gz";
-    fwd_v2 "/releases/4.02/ocaml-4.02-refman.html";
-    fwd_v2 "/releases/4.02/ocaml-4.02-refman.info.tar.gz";
-    fwd_v2 "/releases/4.02/ocaml-4.02-refman.pdf";
-    fwd_v2 "/releases/4.02/ocaml-4.02-refman.ps.gz";
-    fwd_v2 "/releases/4.02/ocaml-4.02-refman.txt";
-    fwd_v2 "/releases/4.03/notes/Changes";
-    fwd_v2 "/releases/4.03/notes/INSTALL.adoc";
-    fwd_v2 "/releases/4.03/notes/LICENSE";
-    fwd_v2 "/releases/4.03/notes/README.adoc";
-    fwd_v2 "/releases/4.03/notes/README.win32.adoc";
-    fwd_v2 "/releases/4.03/ocaml-4.03-refman-html.tar.gz";
-    fwd_v2 "/releases/4.03/ocaml-4.03-refman-html.zip";
-    fwd_v2 "/releases/4.03/ocaml-4.03-refman.dvi.gz";
-    fwd_v2 "/releases/4.03/ocaml-4.03-refman.html";
-    fwd_v2 "/releases/4.03/ocaml-4.03-refman.info.tar.gz";
-    fwd_v2 "/releases/4.03/ocaml-4.03-refman.pdf";
-    fwd_v2 "/releases/4.03/ocaml-4.03-refman.ps.gz";
-    fwd_v2 "/releases/4.03/ocaml-4.03-refman.txt";
-    fwd_v2 "/releases/4.04/notes/Changes";
-    fwd_v2 "/releases/4.04/notes/INSTALL.adoc";
-    fwd_v2 "/releases/4.04/notes/LICENSE";
-    fwd_v2 "/releases/4.04/notes/README.adoc";
-    fwd_v2 "/releases/4.04/notes/README.win32.adoc";
-    fwd_v2 "/releases/4.04/ocaml-4.04-refman-html.tar.gz";
-    fwd_v2 "/releases/4.04/ocaml-4.04-refman-html.zip";
-    fwd_v2 "/releases/4.04/ocaml-4.04-refman.dvi.gz";
-    fwd_v2 "/releases/4.04/ocaml-4.04-refman.html";
-    fwd_v2 "/releases/4.04/ocaml-4.04-refman.info.tar.gz";
-    fwd_v2 "/releases/4.04/ocaml-4.04-refman.pdf";
-    fwd_v2 "/releases/4.04/ocaml-4.04-refman.ps.gz";
-    fwd_v2 "/releases/4.04/ocaml-4.04-refman.txt";
-    fwd_v2 "/releases/4.05/notes/Changes";
-    fwd_v2 "/releases/4.05/notes/INSTALL.adoc";
-    fwd_v2 "/releases/4.05/notes/LICENSE";
-    fwd_v2 "/releases/4.05/notes/README.adoc";
-    fwd_v2 "/releases/4.05/notes/README.win32.adoc";
-    fwd_v2 "/releases/4.05/ocaml-4.05-refman-html.tar.gz";
-    fwd_v2 "/releases/4.05/ocaml-4.05-refman-html.zip";
-    fwd_v2 "/releases/4.05/ocaml-4.05-refman.dvi.gz";
-    fwd_v2 "/releases/4.05/ocaml-4.05-refman.html";
-    fwd_v2 "/releases/4.05/ocaml-4.05-refman.info.tar.gz";
-    fwd_v2 "/releases/4.05/ocaml-4.05-refman.pdf";
-    fwd_v2 "/releases/4.05/ocaml-4.05-refman.ps.gz";
-    fwd_v2 "/releases/4.05/ocaml-4.05-refman.txt";
-    fwd_v2 "/releases/4.06/notes/Changes";
-    fwd_v2 "/releases/4.06/notes/Changes.4.06.0+beta1.txt";
-    fwd_v2 "/releases/4.06/notes/Changes.4.06.0+beta2.txt";
-    fwd_v2 "/releases/4.06/notes/Changes.4.06.0+rc1.txt";
-    fwd_v2 "/releases/4.06/notes/INSTALL.adoc";
-    fwd_v2 "/releases/4.06/notes/LICENSE";
-    fwd_v2 "/releases/4.06/notes/README.adoc";
-    fwd_v2 "/releases/4.06/notes/README.win32.adoc";
-    fwd_v2 "/releases/4.06/ocaml-4.06-refman-html.tar.gz";
-    fwd_v2 "/releases/4.06/ocaml-4.06-refman-html.zip";
-    fwd_v2 "/releases/4.06/ocaml-4.06-refman.dvi.gz";
-    fwd_v2 "/releases/4.06/ocaml-4.06-refman.html";
-    fwd_v2 "/releases/4.06/ocaml-4.06-refman.info.tar.gz";
-    fwd_v2 "/releases/4.06/ocaml-4.06-refman.pdf";
-    fwd_v2 "/releases/4.06/ocaml-4.06-refman.ps.gz";
-    fwd_v2 "/releases/4.06/ocaml-4.06-refman.txt";
-    fwd_v2 "/releases/4.07/notes/Changes";
-    fwd_v2 "/releases/4.07/notes/INSTALL.adoc";
-    fwd_v2 "/releases/4.07/notes/LICENSE";
-    fwd_v2 "/releases/4.07/notes/README.adoc";
-    fwd_v2 "/releases/4.07/notes/README.win32.adoc";
-    fwd_v2 "/releases/4.07/ocaml-4.07-refman-html.tar.gz";
-    fwd_v2 "/releases/4.07/ocaml-4.07-refman-html.zip";
-    fwd_v2 "/releases/4.07/ocaml-4.07-refman.dvi.gz";
-    fwd_v2 "/releases/4.07/ocaml-4.07-refman.html";
-    fwd_v2 "/releases/4.07/ocaml-4.07-refman.info.tar.gz";
-    fwd_v2 "/releases/4.07/ocaml-4.07-refman.pdf";
-    fwd_v2 "/releases/4.07/ocaml-4.07-refman.ps.gz";
-    fwd_v2 "/releases/4.07/ocaml-4.07-refman.txt";
-    fwd_v2 "/releases/4.08/notes/Changes";
-    fwd_v2 "/releases/4.08/notes/INSTALL.adoc";
-    fwd_v2 "/releases/4.08/notes/LICENSE";
-    fwd_v2 "/releases/4.08/notes/README.adoc";
-    fwd_v2 "/releases/4.08/notes/README.win32.adoc";
-    fwd_v2 "/releases/4.08/ocaml-4.08-refman-html.tar.gz";
-    fwd_v2 "/releases/4.08/ocaml-4.08-refman-html.zip";
-    fwd_v2 "/releases/4.08/ocaml-4.08-refman.html";
-    fwd_v2 "/releases/4.08/ocaml-4.08-refman.info.tar.gz";
-    fwd_v2 "/releases/4.08/ocaml-4.08-refman.pdf";
-    fwd_v2 "/releases/4.08/ocaml-4.08-refman.txt";
-    fwd_v2 "/releases/4.09/notes/Changes";
-    fwd_v2 "/releases/4.09/notes/INSTALL.adoc";
-    fwd_v2 "/releases/4.09/notes/LICENSE";
-    fwd_v2 "/releases/4.09/notes/README.adoc";
-    fwd_v2 "/releases/4.09/notes/README.win32.adoc";
-    fwd_v2 "/releases/4.09/ocaml-4.09-refman-html.tar.gz";
-    fwd_v2 "/releases/4.09/ocaml-4.09-refman-html.zip";
-    fwd_v2 "/releases/4.09/ocaml-4.09-refman.html";
-    fwd_v2 "/releases/4.09/ocaml-4.09-refman.info.tar.gz";
-    fwd_v2 "/releases/4.09/ocaml-4.09-refman.pdf";
-    fwd_v2 "/releases/4.09/ocaml-4.09-refman.txt";
-    fwd_v2 "/releases/4.10/notes/Changes";
-    fwd_v2 "/releases/4.10/notes/INSTALL.adoc";
-    fwd_v2 "/releases/4.10/notes/LICENSE";
-    fwd_v2 "/releases/4.10/notes/README.adoc";
-    fwd_v2 "/releases/4.10/notes/README.win32.adoc";
-    fwd_v2 "/releases/4.10/ocaml-4.10-refman-html.tar.gz";
-    fwd_v2 "/releases/4.10/ocaml-4.10-refman-html.zip";
-    fwd_v2 "/releases/4.10/ocaml-4.10-refman.html";
-    fwd_v2 "/releases/4.10/ocaml-4.10-refman.info.tar.gz";
-    fwd_v2 "/releases/4.10/ocaml-4.10-refman.pdf";
-    fwd_v2 "/releases/4.10/ocaml-4.10-refman.txt";
-    fwd_v2 "/releases/4.11/notes/Changes";
-    fwd_v2 "/releases/4.11/notes/INSTALL.adoc";
-    fwd_v2 "/releases/4.11/notes/LICENSE";
-    fwd_v2 "/releases/4.11/notes/README.adoc";
-    fwd_v2 "/releases/4.11/notes/README.win32.adoc";
-    fwd_v2 "/releases/4.11/ocaml-4.11-refman-html.tar.gz";
-    fwd_v2 "/releases/4.11/ocaml-4.11-refman-html.zip";
-    fwd_v2 "/releases/4.11/ocaml-4.11-refman.html";
-    fwd_v2 "/releases/4.11/ocaml-4.11-refman.info.tar.gz";
-    fwd_v2 "/releases/4.11/ocaml-4.11-refman.pdf";
-    fwd_v2 "/releases/4.11/ocaml-4.11-refman.txt";
-    fwd_v2 "/releases/4.12/notes/Changes";
-    fwd_v2 "/releases/4.12/notes/INSTALL.adoc";
-    fwd_v2 "/releases/4.12/notes/LICENSE";
-    fwd_v2 "/releases/4.12/notes/README.adoc";
-    fwd_v2 "/releases/4.12/notes/README.win32.adoc";
-    fwd_v2 "/releases/4.12/ocaml-4.12-refman-html.tar.gz";
-    fwd_v2 "/releases/4.12/ocaml-4.12-refman-html.zip";
-    fwd_v2 "/releases/4.12/ocaml-4.12-refman.html";
-    fwd_v2 "/releases/4.12/ocaml-4.12-refman.info.tar.gz";
-    fwd_v2 "/releases/4.12/ocaml-4.12-refman.pdf";
-    fwd_v2 "/releases/4.12/ocaml-4.12-refman.txt";
-    fwd_v2 "/releases/4.13/notes/Changes";
-    fwd_v2 "/releases/4.13/notes/INSTALL.adoc";
-    fwd_v2 "/releases/4.13/notes/LICENSE";
-    fwd_v2 "/releases/4.13/notes/README.adoc";
-    fwd_v2 "/releases/4.13/notes/README.win32.adoc";
-    fwd_v2 "/releases/4.13/ocaml-4.13-refman-html.tar.gz";
-    fwd_v2 "/releases/4.13/ocaml-4.13-refman-html.zip";
-    fwd_v2 "/releases/4.13/ocaml-4.13-refman.html";
-    fwd_v2 "/releases/4.13/ocaml-4.13-refman.info.tar.gz";
-    fwd_v2 "/releases/4.13/ocaml-4.13-refman.pdf";
-    fwd_v2 "/releases/4.13/ocaml-4.13-refman.txt";
-    fwd_v2 "/releases/4.14/notes/Changes";
-    fwd_v2 "/releases/4.14/notes/INSTALL.adoc";
-    fwd_v2 "/releases/4.14/notes/LICENSE";
-    fwd_v2 "/releases/4.14/notes/README.adoc";
-    fwd_v2 "/releases/4.14/notes/README.win32.adoc";
-    fwd_v2 "/releases/4.14/ocaml-4.14-refman-html.tar.gz";
-    fwd_v2 "/releases/4.14/ocaml-4.14-refman-html.zip";
-    fwd_v2 "/releases/4.14/ocaml-4.14-refman.html";
-    fwd_v2 "/releases/4.14/ocaml-4.14-refman.info.tar.gz";
-    fwd_v2 "/releases/4.14/ocaml-4.14-refman.pdf";
-    fwd_v2 "/releases/4.14/ocaml-4.14-refman.txt";
-    fwd_v2 "/releases/5.0/notes/Changes";
-    fwd_v2 "/releases/5.0/notes/INSTALL.adoc";
-    fwd_v2 "/releases/5.0/notes/LICENSE";
-    fwd_v2 "/releases/5.0/notes/README.adoc";
-    fwd_v2 "/releases/5.0/notes/README.win32.adoc";
-    fwd_v2 "/releases/5.0/ocaml-5.0-refman-html.tar.gz";
-    fwd_v2 "/releases/5.0/ocaml-5.0-refman-html.zip";
-    fwd_v2 "/releases/5.0/ocaml-5.0-refman.html";
-    fwd_v2 "/releases/5.0/ocaml-5.0-refman.info.tar.gz";
-    fwd_v2 "/releases/5.0/ocaml-5.0-refman.pdf";
-    fwd_v2 "/releases/5.0/ocaml-5.0-refman.txt";
+  List.concat [
+    [
+      fwd_v2 "/meetings/ocaml/2013/proposals/core-bench.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/ctypes.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/formats-as-gadts.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/frenetic.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/goji.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/gpgpu.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/injectivity.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/merlin.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/ocamlot.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/optimizations.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/platform.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/profiling-memory.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/runtime-types.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/weather-related-data.pdf";
+      fwd_v2 "/meetings/ocaml/2013/proposals/wxocaml.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/bourgoin.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/bozman.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/canou.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/carty.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/chambart.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/garrigue.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/guha.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/henry.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/james.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/lefessant.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/leroy.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/madhavapeddy.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/padioleau.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/sheets.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/vaugon.pdf";
+      fwd_v2 "/meetings/ocaml/2013/slides/white.pdf"
+    ];
+    v2_manual_and_notes (3,12);
+    v2_manual_and_notes (4,0);
+    v2_manual_and_notes (4,1);
+    v2_manual_and_notes (4,2);
+    [
+      fwd_v2 "/releases/4.02/ocaml-4.02-refman-html-0.tar.gz";
+      fwd_v2 "/releases/4.02/ocaml-4.02-refman-html-0.zip";
+      fwd_v2 "/releases/4.02/ocaml-4.02-refman-html-1.tar.gz";
+      fwd_v2 "/releases/4.02/ocaml-4.02-refman-html-1.zip";
+    ];
+    v2_manual_and_notes (4,3);
+    v2_manual_and_notes (4,4);
+    v2_manual_and_notes (4,5);
+
+    [fwd_v2 "/releases/4.06/notes/Changes.4.06.0+beta1.txt";
+     fwd_v2 "/releases/4.06/notes/Changes.4.06.0+beta2.txt";
+     fwd_v2 "/releases/4.06/notes/Changes.4.06.0+rc1.txt";];
+    v2_manual_and_notes (4,6);
+    v2_manual_and_notes (4,7);
+    v2_manual_and_notes (4,8);
+    v2_manual_and_notes (4,9);
+    v2_manual_and_notes (4,10);
+    v2_manual_and_notes (4,11);
+    v2_manual_and_notes (4,12);
+    v2_manual_and_notes (4,13);
+    v2_manual_and_notes (4,14);
+    v2_manual_and_notes (5,0);
+    v2_manual_and_notes (5,1);
   ]
 
 let lts_version = Data.Release.lts.version
