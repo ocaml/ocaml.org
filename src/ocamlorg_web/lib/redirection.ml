@@ -10,7 +10,7 @@ let notes_redirections v =
   let fwd_v2_notes x =
     fwd_v2 @@ Format.asprintf "/releases/%a/notes/%s" pp_ocaml_version v x
   in
-  if v >= (4, 7) then
+  if v >= (4, 3) then
     List.map fwd_v2_notes
       [
         "Changes"; "INSTALL.adoc"; "LICENSE"; "README.adoc"; "README.win32.adoc";
