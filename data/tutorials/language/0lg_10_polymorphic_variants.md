@@ -442,7 +442,7 @@ structural equality when you pass a value from one library to the other.
 
 Jacques Garrigue
 
-### Error Handling
+### Error Handling using The `result` Type
 
 The [Error Handling](/docs/error-handling) guide details how errors can be handled in OCaml. Among various mechanisms, the `result` type, when used as a monad, provides powerful mean to handle errors. Refer to the guide and documentation on this type to learn how to use it. In this section we discuss why using polymorphic variants to carry error values can be beneficial.
 
@@ -497,12 +497,11 @@ And an equivalent version using polymorphic variants works:
     let* x = nth u n in
     Ok x;;
 ```
-By using polymorphic variant, the type-checker generates a unique type for all the pipe.
+Using polymorphic variant, the type-checker generates a unique type for all the pipe.
 
 ## When to Use Polymorphic Variant
 
 The YAGNI (You Aren't Gonna Need It) principle can be applied to polymorphic variants. Unless the code is arguably improved by having several pattern matching over different types sharing the same tag, polymorphic variants are probably not needed.
-
 
 ## Drawbacks
 
