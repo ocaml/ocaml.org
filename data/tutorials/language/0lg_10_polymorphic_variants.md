@@ -546,6 +546,15 @@ TODO: import from conjunction types
 
 See RWO color example and `` `Gray` vs `` `Grey` issue.
 
+### Lack of Explicit Row Variables
+
+```ocaml
+# let f = function `Bla -> `Bli | x -> x;;
+val f : ([> `Bla | `Bli ] as 'a) -> 'a = <fun>
+```
+
+Because of the `x -> x` pattern the types infered as domain and codomain are the same, this is expressed by the aliasing `as 'a`. As `` `Bla`` must be part of the domain and `` `Bli`` must be part of the codomain, they both end up being part of the common type. A finer type-checker would infer more precise types. Type-checking is an approximation and a trade-off, some valid program are rejected, some types are too coarse.
+
 ### Performances
 
 > There is one more downside: the runtime cost. A value Pair (x,y) occupies 3 words in memory, while a value `Pair (x,y) occupies 6 words.
