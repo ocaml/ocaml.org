@@ -6,6 +6,8 @@ description: >
 category: "Tutorials"
 ---
 
+TODO: Relationship between side-effects and mutability. Change of state is a side-effect; that must be said. 
+
 # Mutability and Imperative Programming
 
 ## Introduction
@@ -14,15 +16,17 @@ category: "Tutorials"
 
 ## Exceptions
 
+An uncaught exception is side-effect
+
 ## Mutable Data
 
 ### References
 
 ### Mutable Fields
 
-### Index Accessible Collections
+### Mutables Index Accessible Collections `array` and `bytes`
 
-Arrays, Strings and Byte
+Arrays and `bytes`
 
 ## Imperative Iteration
 
@@ -30,9 +34,11 @@ Arrays, Strings and Byte
 
 ### `while` Loop
 
-TODO: mention `raise Exit` to terminate a `while true` loop.
+### Breaking Out of Any Loop
 
-## Mixing Functional and Imperative Programming
+TODO: mention `raise Exit` to terminate a `while true` loop (alternative to break statement).
+
+## Recomendations on Mixing Functional and Imperative Programming
 
 ### Good: Application Wide State
 
@@ -40,15 +46,25 @@ TODO: mention `raise Exit` to terminate a `while true` loop.
 
 ### Good: Hash-Consing
 
+### Good: Prefer Side-Effect Free / Stateless Functions
+
+You can't avoid them. But should not unless unavoidable.
+
 ### Acceptable: Module Wide State
 
-### Acceptable: MemoizationMonads
+### Acceptable: Memoization
+
+https://twitter.com/mrclbschff/status/1701737914319675747?t=HjFptgmk3LwnF3Zl0mtXmg&s=19
 
 ### Bad: Mutable in Disguise
 
 Code looking as functional but actually stateful
 
-### Bad: Prefer Imperative by Default
+### Bad: Hidden Side-Effect
+
+TODO: include discussion on evaluation order, sides effects and monadic pipes
+
+### Bad: Imperative by Default
 
 ## Some Example of Things You Don't Need Imperative Programming For
 
@@ -57,6 +73,8 @@ Code looking as functional but actually stateful
 ### Accumulators: Continuation Passing Style
 
 ### Asynchronous Processing
+
+TODO: Mention concurrency
 
 ## Conclusion
 
