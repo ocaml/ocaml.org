@@ -261,3 +261,19 @@ rounds:
          - Patrick Ferris
          - Odinaka Joy
         video: https://watch.ocaml.org/w/pQSAfZ9kDSsSnr8Bxzocn3
+  - name: Summer 2023
+    projects:
+      - title: "Persistent Storage in MirageOS Unikernels"
+        description: >
+          Every operating system, even unikernels need a way to persist data accross reboots. Having persistent storage capabilities in MirageOS is
+          definitely a feature to consider including. Developing this includes building libraries for partitioning disks, filesystems for these partitions
+          and a simple, intuitive and programmatic way to interact with these storage devices from a user's view point. This project pushes this vision
+          one step further by building a library for GPT partitioning.
+        mentee: "PizieDust"
+        source: https://github.com/mirage/ocaml-gpt
+        blog: "https://medium.com/@playersrebirth/building-the-ocaml-gpt-library-650c00b4d72b"
+        mentors:
+        - Reynir Björnsson
+        video: https://watch.ocaml.org/w/kTwq4AVQtRtFuQx9R5cPro
+
+       
