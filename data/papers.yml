@@ -1003,7 +1003,23 @@ papers:
   - title: Improving OCaml high level optimisations
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
-     TODO 
+      I spend a lot of time hacking the OCaml compiler. Hence when I write some
+      code, I have a good glimpse of what the generated assembly will look like.
+      This is nice when I want to write performance sensitive code, but as I
+      usually write code for which execution time doesn't matter much, this
+      mainly tends to torture me. A small voice in my head is telling me "you
+      shouldn't write it like that, you known you could avoid this allocation".
+      And usually, following that indication would only tend to make the code
+      less readable. But there is a solution to calm that voice\: making the
+      compiler smarter than me. OCaml compilation mechanisms are quite
+      predictable. There is no dark magic to replace your ugly code by a
+      well-behaving one, but it always generates reasonably efficient code. This
+      is a good thing in general, as you won't be surprised by code running more
+      slowly than what you usually expect. But it does not behave very well with
+      dumb code. This may not often seem like a problem with code written by
+      humans, but generated code, for example coming from camlp4/ppx, or compiled
+      from another language to OCaml, may fall into that category. In fact, there
+      is another common source for non-human written code: inlining.
     authors:
       - Pierre Chambart
     tags:
@@ -1019,7 +1035,14 @@ papers:
   - title: Ocamlot: OCaml Online Testing
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
-      TODO
+      OCamlot provides a distributed, continuous testing service for OPAM
+      package quality and compatibility. Using signals from GitHub, OCamlot
+      ensures that, before being merged, patches submitted to the OPAM
+      repository are thoroughly tested on the variety of supported
+      configurations, architectures, and systems. The resulting improved build
+      and metadata quality in turn speeds up development on other aspects of
+      the Platform through earlier error feedback. A high-quality package
+      repository is also very important for new user retention.
     authors:
       - David Sheets
       - Anil Madhavapeddy
@@ -1029,6 +1052,8 @@ papers:
       - ocaml-workshop
     year: 2013
     links:
+      - description: "Download PDF"
+        uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/ocamlot.pdf
       - description: "Download PDF"
         uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/slides/sheets.pdf
     featured: false
@@ -1196,19 +1221,6 @@ papers:
     links:
       - description: "View Online"
         uri: https://watch.ocaml.org/w/c386fc95-092e-4ea7-9317-91edf287fea6
-    featured: false
-  - title: Partial evaluation and metaprogramming
-    publication: International Conference on Functional Programming (ICFP)
-    abstract: >
-      TODO
-    authors:
-      - Pierre Chambart
-    tags:
-      - ocaml-workshop
-    year: 2016
-    links:
-      - description: "N/A"
-        uri: N/A
     featured: false
   - title: Digodoc and Docs
     publication: International Conference on Functional Programming (ICFP)
