@@ -197,7 +197,7 @@ Functions `g` and `f` can be composed because the former accepts more than the l
 
 The exact case correspond to simple variants. Closed and open cases are polymorphic because they do not designate a single type but families of types. An exact variant type is monomorphic, it corresponds to a single variant type, not a set of variant types.
 
-## Closed and Open type
+## Example of Polymorphic Variant Type That is Both and Closed
 
 A closed variant may also have a lower bound.
 ```ocaml
@@ -253,6 +253,8 @@ Exact polymorphic variant types can be given names.
 # type foo = [ `A | `B | `C ]
 ```
 
+Names polymorphic variants are always exact.
+
 ### Type extension
 
 Named polymorphic variants can be used to create extended types.
@@ -272,19 +274,7 @@ val f : [< `A | `B | `C | `F ] -> string = <fun>
 
 This is not a dynamic type check. The `#foo` pattern is almost a macro, it is a shortcut to avoid writting all the patterns.
 
-## Aliased, Parametrized and Recursive Polymorphic Variants
-
-### Combining Nominal and Structural Polymorphism
-
-A type may be polymorphic in both sense. It may have parametric polymorphism from nominal typing and variant polymorphism from structural typing.
-```ocaml
-# let maybe_map f = function
-    | `Just x -> `Just (f x)
-    | `Nothing -> `Nothing;;
-val maybe_map :
-  ('a -> 'b) -> [< `Just of 'a | `Nothing ] -> [> `Just of 'b | `Nothing ] =
-  <fun>
-```
+## Advanced: Aliased, Parametrized and Recursive Polymorphic Variants
 
 ### Inferred Type Aliases
 
@@ -338,7 +328,7 @@ FIXME: This is lame. It says no `` `A`` can't be applied to `f`. There is no way
 
 TODO: Find a “positive” example and maybe move the manuals one in the drawbacks
 
-## Combining Polymorphic Variants and Simple Variants
+## Advanced: Combining Polymorphic Variants and Simple Variants
 
 A tag `` `A`` may be assumed to inhabit any type with additional tags, for instance `` `B`` or `` `C of string``. This summarized by the subtyping order where `` [ `A ]`` is smaller than ``` [ `A | `B ]``.
 
@@ -348,6 +338,18 @@ let upcast (x : [ `A ]) = (x :> [ `A | `B ]);;
 val upcast : [ `A ] -> [ `A | `B ] = <fun>
 ```
 This function is useless, but it illustrates a value of type ``[ `A ]`` can be casted into the type ``[ `A | `B ]``. Casting goes from subtype to supertype.
+
+### Combining Nominal and Structural Polymorphism
+
+A type may be polymorphic in both sense. It may have parametric polymorphism from nominal typing and variant polymorphism from structural typing.
+```ocaml
+# let maybe_map f = function
+    | `Just x -> `Just (f x)
+    | `Nothing -> `Nothing;;
+val maybe_map :
+  ('a -> 'b) -> [< `Just of 'a | `Nothing ] -> [> `Just of 'b | `Nothing ] =
+  <fun>
+```
 
 ### Predefined Simple Variants are Covariant
 
@@ -497,9 +499,11 @@ And an equivalent version using polymorphic variants works:
     let* x = nth u n in
     Ok x;;
 ```
-Using polymorphic variant, the type-checker generates a unique type for all the pipe.
+Using polymorphic variant, the type-checker generates a unique type for all the pipe. The constraints coming from calling `init` are merged ``
 
 ## When to Use Polymorphic Variant
+
+TODO: rewrite this, move it somewhere else
 
 The YAGNI (You Aren't Gonna Need It) principle can be applied to polymorphic variants. Unless the code is arguably improved by having several pattern matching over different types sharing the same tag, polymorphic variants are probably not needed.
 
