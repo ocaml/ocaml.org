@@ -118,17 +118,18 @@ let books req =
   let pricing = Dream.query req "pricing" in
   let difficulty = Dream.query req "difficulty" in
   let matches_criteria (book : Data.Book.t) language pricing difficulty =
-    let matches_language =   match language with
-    | Some lang when lang = "All" -> true
-    | Some lang -> book.language = lang
-    | None -> true
-  in
-  let matches_pricing =
-    match pricing with
-    | Some p when p = "All" -> true
-    | Some p -> book.pricing = p
-    | None -> true
-  in
+    let matches_language =
+      match language with
+      | Some lang when lang = "All" -> true
+      | Some lang -> book.language = lang
+      | None -> true
+    in
+    let matches_pricing =
+      match pricing with
+      | Some p when p = "All" -> true
+      | Some p -> book.pricing = p
+      | None -> true
+    in
     let matches_difficulty =
       match difficulty with
       | Some d when d = "All" -> true
@@ -144,7 +145,8 @@ let books req =
       books
   in
   let filtered_books = filter_books Data.Book.all language pricing difficulty in
-  Dream.html (Ocamlorg_frontend.books ?language ?pricing ?difficulty filtered_books)
+  Dream.html
+    (Ocamlorg_frontend.books ?language ?pricing ?difficulty filtered_books)
 
 let releases req =
   let search_release pattern t =

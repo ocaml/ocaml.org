@@ -98,7 +98,22 @@ let right_tutorial_block ~title ~heading ~description ~(tutorial_links: link lis
     </div>
   </div>
 
+<<<<<<< HEAD
 let book_tile books =
+=======
+let pricing_tag = 
+  <div class="absolute top-0 left-0 transform rotate-[-10deg] w-16 h-16 origin-top-left">
+    <div class="bg-learn-area-orange rounded-full w-16 h-16 shadow flex items-center justify-center">
+      <div class="text-center text-white text-base font-bold leading-7 tracking-wide">
+        FREE
+      </div>
+    </div>
+  </div>
+
+let book_tile 
+books
+= 
+>>>>>>> b8588b14 (formatted code)
   <div class="mt-2 flex flex-col flex-grow gap-12 lg:gap-6 md:flex-row xl:gap-12">
     <% books |> List.rev |> List.iteri (fun index (item : Data.Book.t) -> if (index < 2) then ( %>  
         <div class="flex flex-col w-full gap-4 lg:w-60">
@@ -190,3 +205,4 @@ let pricing_tag =
       </div>
     </div>
   </div>
+
