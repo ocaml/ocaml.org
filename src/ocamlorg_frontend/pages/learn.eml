@@ -15,6 +15,12 @@ Learn_layout.single_column_layout
 ~canonical:Url.learn
 ~active_top_nav_item:Header.Learn
 ~current:Overview @@
+  <div>
+    <%s! Learn_components.breadcrumbs [
+        {name = "Learn"; href = Url.learn};
+        {name = "Exercises"; href = Url.problems}
+      ] %>
+  </div>
   <div class="container-fluid wide pt-10">
     <h1 class="font-bold mb-8">Learn OCaml</h1>
     <div class="w-full">

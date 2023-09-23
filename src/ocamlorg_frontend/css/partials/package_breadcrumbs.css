@@ -6,3 +6,12 @@
 .package-breadcrumbs .breadcrumbs-tag {
   @apply text-sm px-3 py-0.5 rounded font-bold text-white inline-block;
 }
+
+.learn-breadcrumbs li:not(:last-child)::after {
+  @apply text-lighter;
+  content: " >";
+}
+
+.learn-breadcrumbs .breadcrumbs-tag {
+  @apply text-sm px-3 py-0.5 rounded font-normal leading-loose text-white inline-block;
+}
