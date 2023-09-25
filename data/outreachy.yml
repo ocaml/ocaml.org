@@ -1,7 +1,7 @@
 rounds:
   - name: Summer 2014
     projects:
-      - title: "MirageOS contributions and improvements"
+      - title: "MirageOS Contributions and Improvements"
         description: ""
         mentee: "Mindy Preston"
         blog: http://www.somerandomidiot.com/blog/2014/08/22/opw-fin/
@@ -58,13 +58,13 @@ rounds:
           - Mindy Preston
   - name: Summer 2019
     projects:
-      - title: "Test the OCaml compiler with code coverage tools"
+      - title: "Test the OCaml Compiler With Code Coverage Tools"
         description: >
-          Improving the compiler testing  process using code coverage tools.
-          The core OCaml system has a large  test suite and it would be very
-          useful to see which parts of the system  are tested more actively
-          and which are not so. Developers will be helped  to see where it is
-          needed to add new tests and in the process of  improving coverage,
+          Improving the compiler testing process using code coverage tools.
+          The core OCaml system has a large test suite, and it would be very
+          useful to see which parts of the system are tested more actively
+          and which are not so. Developers will be helped to see where it is
+          needed to add new tests, and in the process of improving coverage,
           it is possible to find unexplored bugs and fix them.
           It might help to make OCaml and its libraries more reliable. 
         mentee: "Oxana Kostikova"
@@ -73,10 +73,10 @@ rounds:
         mentors:
          - Sébastien Hinderer
          - Florian Angeletti
-      - title: "Test the OCaml compiler with random tests and a reference interpreter"
+      - title: "Test the OCaml Compiler With Random Tests and a Reference Interpreter"
         description: >
           The aim of this project is to extend an existing testcase-generator for the OCaml compiler,
-          using a reference interpreter (existing or newly developed) to find a lot of bugs in the compiler,
+          using a reference interpreter (existing or newly developed) to find a lot of bugs in the compiler
           and fix as much of them as possible.
         mentee: "Ulugbek Abdullaev"
         source: https://github.com/ocaml/ocaml
@@ -86,7 +86,7 @@ rounds:
          - Jan Midtgaard
   - name: Summer 2020
     projects:
-      - title: "Reducing global mutable state in the OCaml compiler codebase"
+      - title: "Reducing Global Mutable State in the OCaml Compiler Codebase"
         description: ""
         mentee: "Anukriti Kumar"
         blog: "https://anukriti12.github.io"
@@ -94,10 +94,10 @@ rounds:
         mentors:
          - Guillaume Bury
          - Vincent Laviron
-      - title: "Structured output format for the OCaml compiler messages"
+      - title: "Structured Output Format for the OCaml Compiler Messages"
         description: >
-          Usually, the output messages from the compiler are a bit more difficult to read for a machine
-          and hence it's more time consuming to find the warnings, errors, etc. and their origin. By producing
+          Usually, the output messages from the compiler are a bit more difficult to read for a machine,
+          hence it's more time consuming to find the warnings, errors, etc., and their origin. By producing
           a structured output for compiler messages, other tools can more easily interoperate with them and
           provide tooling on top of the messages.
         mentee: "Muskan Garg"
@@ -107,11 +107,11 @@ rounds:
          - Florian Angeletti
   - name: Summer 2021
     projects:
-      - title: "Create opam package search"
+      - title: "Create opam Package Search"
         description: >
-          opam is the source-based package manager for OCaml code. This project comprises of writing a new web
-          client for rendering output from the opam package database. There is a JSON endpoint on opam.ocaml.org
-          which provides information about packages which would provide metadata about the packages.  We can extend
+          Opam is the source-based package manager for OCaml code. This project comprises of writing a new web
+          client for rendering output from the opam package database. There is a JSON endpoint on opam.ocaml.org,
+          which provides information about packages that would provide metadata about the packages. We can extend
           this JSON metadata to include all the opam packages (not just the top 10) and use that to power a search
           frontend for the website. This may include presenting the data as a GraphQL endpoint with the frontend
           querying that endpoint using GraphQL.
@@ -121,10 +121,10 @@ rounds:
         mentors:
          - Sonja Heinze
          - Patrick Ferris
-      - title: "Improve the ocaml.org website"
+      - title: "Improve the OCaml.org Website"
         description: >
           OCaml.org is the main website for OCaml, a functional, typed, high-level programming language. This project
-          revolves around improving the website on multiple different fronts including: layout, accessibility and content.
+          revolves around improving the website on multiple different fronts including: layout, accessibility, and content.
         mentee: "Diksha Gupta"
         blog: "https://dikshagupta99.wordpress.com/blog/"
         source: https://github.com/ocaml/ocaml.org
@@ -132,10 +132,10 @@ rounds:
          - Isabella Leandersson
          - Patrick Ferris
          - Gargi Sharma
-      - title: "Improve the ocaml.org website"
+      - title: "Improve the OCaml.org Website"
         description: >
           OCaml.org is the main website for OCaml, a functional, typed, high-level programming language. This project
-          revolves around improving the website on multiple different fronts including: layout, accessibility and content.
+          revolves around improving the website on multiple different fronts including: layout, accessibility, and content.
         mentee: "Shreya kumari Gupta"
         source: https://github.com/ocaml/ocaml.org
         blog: "https://shreyaswikriti693235797.wordpress.com/blog/"
@@ -146,7 +146,7 @@ rounds:
          - Gargi Sharma
   - name: Winter 2021
     projects:
-      - title: "Build a monitoring dashboard for OCaml.org"
+      - title: "Build a Monitoring Dashboard for OCaml.org"
         description: >
           We currently have no visibility on the performance of the server serving
           v3.ocaml.org, which pages are most visited, if errors happen, etc.
@@ -154,7 +154,7 @@ rounds:
           that would provide Metrics such as: Memory, CPU, Open file descriptors,
           Statistics such as (check if GDPR compliant first!) Requested URIs,
           User agents, Language, Logs.
-          This project consists of mostly two parts: a frontend, and a backend.
+          This project consists of mostly two parts: a frontend and a backend.
           The backend consists of building a high-level library to collect data 
           and get statistics on them. The frontend will use this library to display
           graphs of the metrics, statistics, and other data we want to collect.
@@ -165,7 +165,7 @@ rounds:
          - Thibaut Mattio
          - Patrik Keller
         video: https://watch.ocaml.org/w/eSSmoyEcPTEXPGAqDtKENX?start=40m53s
-      - title: "Improve the OCaml meta-programming ecosystem"
+      - title: "Improve the OCaml Meta-Programming Ecosystem"
         description: >
           It's common for programming languages to provide some way to meta-program
           in order to preprocess code before reaching the last compilation step,
@@ -181,9 +181,9 @@ rounds:
 
           However, it's on the OCaml community to write and provide important PPXs
           to the OCaml developers. We've noticed that having the most important
-          PPXs under the official PPX github organization -next to `ppxlib`- is
-          helpful: developers can easily find them; developers can trust them;
-          they're well-written and hygienic, so that developers can use them as
+          PPXs under the official PPX GitHub organisation -next to `ppxlib`- is
+          helpful. Developers can easily find them; developers can trust them;
+          and they're well-written and hygienic, so developers can use them as
           how-to guides for writing other PPXs. In this project, you'll write
           one or some of those official standard PPXs.
         mentee: "Aya Sharaf"
@@ -194,7 +194,7 @@ rounds:
          - Sonja Heinze
          - Patrik Keller
         video: https://watch.ocaml.org/w/eSSmoyEcPTEXPGAqDtKENX
-      - title: "Support .eml files in OCaml's VSCode extension"
+      - title: "Support `.eml` Files in OCaml's VSCode Extension"
         description: >
           Support `.eml` files in OCaml's VSCode extension
           Dream, the OCaml web framework, uses `.eml` files to embed HTML in
@@ -215,7 +215,7 @@ rounds:
         video: https://watch.ocaml.org/w/eSSmoyEcPTEXPGAqDtKENX?start=20m04s
   - name: Summer 2022
     projects:
-      - title: "Expand OCaml 5.0 Parallel Benchmark suite"
+      - title: "Expand OCaml 5.0 Parallel Benchmark Suite"
         description: >
           OCaml 5.0 will be live soon! It ships with support for shared-memory parallelism and concurrency
           OCaml has missed all these years. This will be accompanied by a robust set of Multicore libraries
@@ -234,11 +234,11 @@ rounds:
         mentors:
          - Sudha Parimala
         video: https://watch.ocaml.org/w/vXJtTj3cULRa1bZB5HrecX
-      - title: "Extend OCaml's GeoJSON library to support TopoJSON"
+      - title: "Extend OCaml's GeoJSON Library to Support TopoJSON"
         description: >
           TopoJSON is an extension to GeoJSON to encode topology. This allows for redundant data
           to be removed and file sizes to be greatly reduced. This is often very desirable especially
-          when working with data in the browser. This project looks to extend ocaml-geojson to support TopoJSON.
+          when working with data in the browser. This project looks to extend `ocaml-geojson` to support TopoJSON.
         mentee: "Jay Dev Jha"
         blog: "https://jaydevdotcom.wordpress.com/home/"
         source: https://github.com/geocaml/ocaml-topojson
@@ -247,11 +247,11 @@ rounds:
         video: https://watch.ocaml.org/w/vXJtTj3cULRa1bZB5HrecX?start=42m52s
   - name: Winter 2022
     projects:
-      - title: "Implement a non-blocking, streaming codec for TopoJSON"
+      - title: "Implement a Non-Blocking, Streaming Codec for TopoJSON"
         description: >
           TopoJSON is an extension to GeoJSON to encode topology. This allows for redundant data to be removed and file
           sizes to be greatly reduced. This is often very desirable especially when working with data in the browser. In a previous
-          Outreachy internship a new OCaml library was implemented to provide an OCaml library for TopoJSON, this project will
+          Outreachy internship, a new OCaml library was implemented to provide an OCaml library for TopoJSON. This project will
           build on this adding more functionality to the library and providing a non-blocking, streaming codec version similar
           to the geojsone library.
         mentee: "Prisca Chidimma Maduka"
