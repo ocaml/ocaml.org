@@ -169,7 +169,7 @@ The Mutex, Condition and Semaphore modules are the same as systhreads in stock O
 
 ## WG5: Fibers
 
-Fibers are the runtime system mechanism that supports effect handlers. The design of effect handlers in OCaml has been written up in the [PLDI 2021 paper](https://arxiv.org/abs/2104.00250).The motivation for adding effect handlers and some more examples are found in [these slides](https://speakerdeck.com/kayceesrk/effect-handlers-in-multicore-ocaml - [502 Bad Gateway]).
+Fibers are the runtime system mechanism that supports effect handlers. The design of effect handlers in OCaml has been written up in the [PLDI 2021 paper](https://arxiv.org/abs/2104.00250).The motivation for adding effect handlers and some more examples are found in [these slides](https://speakerdeck.com/kayceesrk/effect-handlers-in-multicore-ocaml ).
 
 #### Programming with Effect Handlers
 
