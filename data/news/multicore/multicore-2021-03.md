@@ -28,7 +28,7 @@ We're also cleaning up historical vestiges in order to reduce the diff to OCaml 
 
 #### Concurrency and Effects trees
 
-**The camera-ready paper for PLDI 2021 on [Retrofitting Effect handlers onto OCaml](https://arxiv.org/abs/2104.00250) is now available on arXiv.** The code described in the paper can be used via the `4.12.0+domains+effects` opam switches. Please feel free to keep any comments coming to @kayceesrk and myself.
+**The camera-ready paper for PLDI 2021 on [Retrofitting Effect handlers onto OCaml](https://arxiv.org/abs/2104.00250 - [1 Client error: SSL connect error]) is now available on arXiv.** The code described in the paper can be used via the `4.12.0+domains+effects` opam switches. Please feel free to keep any comments coming to @kayceesrk and myself.
 
 We've also been hacking on the multicore IO stack and just beginning to combine concurrency (via effects) and parallelism (via domains) into Linux io_uring, macOS' Grand Central Dispatch and Windows iocp. We'll have more to report on this over the next few months, but early benchmarking numbers on Linux are promising.
 
