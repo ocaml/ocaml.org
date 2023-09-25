@@ -5,28 +5,28 @@ date: "2021-03-01"
 tags: [multicore]
 ---
 
-Welcome to the March 2021 [Multicore OCaml](https://github.com/ocaml-multicore/ocaml-multicore) monthly report! The following update and the [previous ones](https://discuss.ocaml.org/tag/multicore-monthly) have been compiled by me, @kayceesrk and @shakthimaan.  We remain broadly on track to integrate the last of the multicore prerequisites into the next (4.13) release, and to propose domains-only parallelism for OCaml 5.0.
+Welcome to the March 2021 [Multicore OCaml](https://github.com/ocaml-multicore/ocaml-multicore) monthly report! The following update and the [previous ones](https://discuss.ocaml.org/tag/multicore-monthly) have been compiled by me, @kayceesrk and @shakthimaan. We remain broadly on track to integrate the last of the multicore prerequisites into the next (4.13) release, and to propose domains-only parallelism for OCaml 5.0.
 
-### Upstream OCaml 4.13 development
+### Upstream OCaml 4.13 Development
 
 The complex safe points PR ([#10039](https://github.com/ocaml/ocaml/pull/10039)) is continuing to make progress, with more refinement towards reducing the binary size increase that results from the introduction of more polling points. Special thanks to @damiendoligez for leaping in with a [PR-to-the-PR](https://github.com/sadiqj/ocaml/pull/3) to home in on a workable algorithm!
 
-### Multicore OCaml trees
+### Multicore OCaml Trees
 
-If there's one thing we're not going to miss, it's git rebasing. The multicore journey began many moons ago with OCaml [4.02](https://github.com/ocaml-multicore/ocaml-multicore/commits/master-4.02.2), and then [4.04](https://github.com/ocaml-multicore/ocaml-multicore/tree/4.04.2+multicore), [4.06](https://github.com/ocaml-multicore/ocaml-multicore/tree/4.06.1+multicore), and the current [4.10](https://github.com/ocaml-multicore/ocaml-multicore/commits/parallel_minor_gc).  We're pleased to announce the hopefully-last rebase of the multicore OCaml trees to OCaml 4.12.0 are now available.  There is now a simpler naming scheme as well to reflect our upstreaming strategy more closely:
+If there's one thing we're not going to miss, it's Git rebasing. The multicore journey began many moons ago with OCaml [4.02](https://github.com/ocaml-multicore/ocaml-multicore/commits/master-4.02.2), and then [4.04](https://github.com/ocaml-multicore/ocaml-multicore/tree/4.04.2+multicore), [4.06](https://github.com/ocaml-multicore/ocaml-multicore/tree/4.06.1+multicore), and the current [4.10](https://github.com/ocaml-multicore/ocaml-multicore/commits/parallel_minor_gc).  We're pleased to announce the hopefully-last rebase of the multicore OCaml trees to OCaml 4.12.0 are now available.  There is now a simpler naming scheme as well to reflect our upstreaming strategy more closely:
 
 - OCaml 4.12.0+domains is the domains-only parallelism that will be submitted for OCaml 5.0
 - OCaml 4.12.0+domains+effects is the version with domains parallelism and effects-based concurrency.
 
 You can find opam installation instructions for these over at [the multicore-opam](https://github.com/ocaml-multicore/multicore-opam) repository. There is even an ocaml-lsp-server available, so that your favourite IDE should just work!
 
-#### Domains-only parallelism trees
+#### Domains-Only Parallelism Trees
 
 The bulk of effort this month has been around the integration and debugging of Domain Local Allocation Buffers (DLABs), and also chasing down corner-case failures from stress testing and opam bulk builds. For details, see the long list of PRs in the next section.
 
 We're also cleaning up historical vestiges in order to reduce the diff to OCaml trunk, in order to clear the path to a clean diff for generating OCaml 5.0 PRs for upstream integration.
 
-#### Concurrency and Effects trees
+#### Concurrency and Effects Trees
 
 **The camera-ready paper for PLDI 2021 on [Retrofitting Effect handlers onto OCaml](https://arxiv.org/abs/2104.00250) is now available on arXiv.** The code described in the paper can be used via the `4.12.0+domains+effects` opam switches. Please feel free to keep any comments coming to @kayceesrk and myself.
 

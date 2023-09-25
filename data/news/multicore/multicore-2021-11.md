@@ -5,10 +5,10 @@ date: "2021-11-01"
 tags: [multicore]
 ---
 
-Welcome to the November 2021 [Multicore OCaml](https://github.com/ocaml-multicore/ocaml-multicore) monthly report! This month's update along with the [previous updates](https://discuss.ocaml.org/tag/multicore-monthly) have been compiled by me, @ctk21, @kayceesrk and @shakthimaan.
+Welcome to the November 2021 [Multicore OCaml](https://github.com/ocaml-multicore/ocaml-multicore) monthly report! This month's update along with the [previous updates](https://discuss.ocaml.org/tag/multicore-monthly) have been compiled by me, @ctk21, @kayceesrk, and @shakthimaan.
 
 # Core Team Code Review
-In late November, the entire OCaml development team convened for a week-long code review and decision taking session on the multicore merge for OCaml 5.0.  Due to the size of the patchset, we broke up the designs and presentations in five working groups.  Here's a summary of how each conversation went. As always, these decisions are subject to change from the core team as we discover issues, so please do not take any crucial decisions for your downstream projects on these. Our goal for publicising these is to hear about any corrections you might feel that we need to take on the basis of additional data that you might have from your own codebases.
+In late November, the entire OCaml development team convened for a week-long code review and decision taking session on the Multicore merge for OCaml 5.0. Due to the size of the patchset, we broke up the designs and presentations in five working groups. Here's a summary of how each conversation went. As always, these decisions are subject to change from the core team as we discover issues, so please do not take any crucial decisions for your downstream projects on these. Our goal for publicising these is to hear about any corrections you might feel that we need to take on the basis of additional data that you might have from your own codebases.
 
 For the purposes of brevity, we do not include the full minutes of the developer meetings. Overall, the multicore patches were deemed to be broadly sound and suitable, and we recorded the important decisions and tasks:
 
@@ -18,64 +18,64 @@ For the purposes of brevity, we do not include the full minutes of the developer
 
 ## WG1: Garbage Collector
 
-The multicore runtime alters the memory allocation and garbage collector to support multiple parallel threads of OCaml execution. It utilizes a stop-the-world parallel minor collector, a StreamFlow like multithreaded allocator and a mostly-concurrent major collector.
+The Multicore runtime alters the memory allocation and garbage collector to support multiple parallel threads of OCaml execution. It utilizes a stop-the-world parallel minor collector, a StreamFlow like multithreaded allocator and a mostly-concurrent major collector.
 
 WG1 decided that compaction will not be in the 5.0 initial release, as our best fit allocator has shown that a good memalloc strategy obviates the need for expensive compaction. Of course, the multicore memory allocator is different from bestfit, so we are in need of community input to ensure our hypothesis involving not requiring compaction is sound. If you do see such a use case of your application heap becoming very fragmented when 5.0 is in beta, please get in touch.
 
 ### Pre-MVP 
-* remove any traces of no-naked-pointers checker as it is irrelevant in the pagetable-less multicore runtime.
-* running `make parallel` for the testsuite should work
-* move from `assert` to `CAMLassert`
+* Remove any traces of no-naked-pointers checker as it is irrelevant in the pagetable-less multicore runtime.
+* Running `make parallel` for the testsuite should work
+* Move from `assert` to `CAMLassert`
 * How to do safepoints from C: add documentation on `caml_process_pending_actions` and a testsuite case for long-running C bindings to multicore
-* adopt the ephemeron bucket interface and do the same thing as 4.x OCaml trunk
-* check and document that `NOT_MARKABLE` can be used for libraries like ancient that want out of heap objects
-* check that we document what type of GC stats we return (global vs domain local) for the various stats
+* Adopt the ephemeron bucket interface and do the same thing as 4.x OCaml trunk
+* Check and document that `NOT_MARKABLE` can be used for libraries like ancient that want out of heap objects
+* Check that we document what type of GC stats we return (global vs domain local) for the various stats
 
 ### Post-MVP for 5.00
-* mark stack overflow fix, which shouldn't affect most runtime allocation profiles
+* Mark stack overflow fix, which shouldn't affect most runtime allocation profiles
 
 ### Post-5.00
-* statmemprof implementation
-* mark pre-fetching
-* investigate alternative minor heap implementations which maintain performance but cut virtual memory usage
+* Statmemprof implementation
+* Mark pre-fetching
+* Investigate alternative minor heap implementations which maintain performance but cut virtual memory usage
 
 ## WG2: Domains
 
-Each domain in multicore can execute a thread of OCaml in parallel with other domains. Several additions are made to OCaml to spawn new domains, join domains that are terminating and provide domain local storage. There is a stdlib module `Domain` and the underlying runtime domain structures.  A significant simplification in recent months is that the standard Mutex/Channel/Semaphore modules can be used instead of lower-level synchronisation primitives that were formerly available in `Domain`.
+Each domain in Multicore can execute a thread of OCaml in parallel with other domains. Several additions are made to OCaml to spawn new domains, join domains that are terminating and provide domain local storage. There is a stdlib module `Domain` and the underlying runtime domain structures.  A significant simplification in recent months is that the standard Mutex/Channel/Semaphore modules can be used instead of lower-level synchronisation primitives that were formerly available in `Domain`.
 
 The challenge for the runtime structures is to accurately maintain the set of domains that must take part in stop-the-world sections in the presence of domain termination and spawning, as well as ensuring that a domain services stop-the-world requests when the main mutator is in a blocking call; this is handled using a *backup thread* signaled from `caml_enter_blocking_section` / `caml_leave_blocking_section`.
 
-The multicore OCaml memory model was discussed, and the right scheme selected for arm64 (Table 5b from [the paper](https://anil.recoil.org/papers/2018-pldi-memorymodel.pdf)). The local data race freedom (LDRF) property was agreed to be a balanced and predictable approach for a memory model for OCaml 5.0. We do likely need to depend on >C11 compiler for relaxed atomics in OCaml 5.0, so this will mean dropping Windows MSVC support for the MVP (but mingw will work).
+The Multicore OCaml memory model was discussed, and the right scheme selected for arm64 (Table 5b from [the paper](https://anil.recoil.org/papers/2018-pldi-memorymodel.pdf)). The local data race freedom (LDRF) property was agreed to be a balanced and predictable approach for a memory model for OCaml 5.0. We do likely need to depend on >C11 compiler for relaxed atomics in OCaml 5.0, so this will mean dropping Windows MSVC support for the MVP (but mingw will work).
 
 ### Pre-MVP 
 
 * Make domain id abstract and provide `string_of_id`
 * Document that initializing writes are ok using the Field macro with respect to the memory model. Also highlight that all writes need to use `caml_modify` (even immediates)
-* check that the selectgen 'coeffect' is correct for DLS.get
+* Check that the selectgen 'coeffect' is correct for DLS.get
 * More comments needed for domain.c to help the reader:
   - around backup thread state machine and where things happen
   - domain spawn/join
-* comment/check why `install_backup_thread` is called in spawnee and spawner
-* check the reason why domain terminate is using a mutex for join (rather than a mutex, condvar pair)
+* Comment/check why `install_backup_thread` is called in spawnee and spawner
+* Check the reason why domain terminate is using a mutex for join (rather than a mutex, condvar pair)
 
 ### Post-5.00
 * Provide a mechanism for the user to retrieve the number of processors available for use. This can be implemented by libraries as well.
-* add atomic mutable record fields
-* add arrays of atomic variables
+* Add atomic mutable record fields
+* Add arrays of atomic variables
 
-## WG3: Runtime multi-domain safety
+## WG3: Runtime Multi-Domain Safety
 
 Multicore OCaml supports systhreads in a backwards compatible fashion. The execution model remains the same, except transposed to domains rather than a single execution context.
 
 Each domain will get its own threads chaining: this means that while only one systhread can execute at a time on a single domain (akin to trunk), many domains can still execute in parallel, with their systhreads chaining being independent. To achieve this, a thread table is employed to allow each domains to maintain their own independent chaining. Context switching now involves extra care to handle the backup thread. The backup thread takes care of GC duties when a thread is currently in a blocking section. Systhreads needs to be careful about when to signal it.
 
-The tick thread, used to periodically force thread preemption, has been updated to not rely on signals (as the multicore signaling model does not allow this to be done efficiently). Instead, we rely on the interrupt infrastructure of the multicore runtime and trigger an “external” interrupt, that will call back into systhreads to force a yield.
+The tick thread, used to periodically force thread preemption, has been updated to not rely on signals (as the Multicore signaling model does not allow this to be done efficiently). Instead, we rely on the interrupt infrastructure of the Multicore runtime and trigger an “external” interrupt, that will call back into systhreads to force a yield.
 
 The existing Dynlink API was designed decades ago for a web browser written in OCaml (called "[mmm](https://caml.inria.fr/pub/old_caml_site/~rouaix/mmm/)") and is stateful. We'll make it possible to call concurrently in the OCaml 5.0 MVP, but the WG3 decided to start redesigning the Dynlink API to be less stateful.
 
 Code fragments are now stored in a lockfree skiplist to allow multiple threads to work on the codefrags structures concurrently in a thread-safe manner. Extra care is required on cleanup (i.e, freeing unused code fragments entries): this should only happen on one domain, and this is done at the end of a major cycle. For the interested, [ocaml-multicore#672](https://github.com/ocaml-multicore/ocaml-multicore/pull/672) is a recommended read to see the concurrent skiplist structure now used.
 
-Signals in multicore have the following behaviour, with the WG3 deciding to change their behaviour to allow coalescing multiple signals from the perspective of the mutator:
+Signals in Multicore have the following behaviour, with the WG3 deciding to change their behaviour to allow coalescing multiple signals from the perspective of the mutator:
 
 * A program with a single domain should have mostly the same signal behaviour as trunk. This includes the delivery of signals to systhreads on that domain.
 * Programs with multiple domains treat signals in a global fashion. It is not possible to direct signals to individual domains or threads, other than the control through thread sigmask. A domain recording a signal may not be the one executing the OCaml signal handler.
@@ -107,7 +107,7 @@ Multicore OCaml contains a version of eventlog that is safe for multiple domains
 * Get more data on Dynlink usage and design a new API that is less stateful.
 * @xavierleroy suggested redesigning marshalling in light of the new allocator.
 
-## WG4: Stdlib changes
+## WG4: Stdlib Changes
 
 The main guiding principle in porting the Stdlib to OCaml 5.00 is that
 
@@ -169,9 +169,9 @@ The Mutex, Condition and Semaphore modules are the same as systhreads in stock O
 
 ## WG5: Fibers
 
-Fibers are the runtime system mechanism that supports effect handlers. The design of effect handlers in OCaml has been written up in the [PLDI 2021 paper](https://arxiv.org/abs/2104.00250).The motivation for adding effect handlers and some more examples are found in [these slides](https://speakerdeck.com/kayceesrk/effect-handlers-in-multicore-ocaml).
+Fibers are the runtime system mechanism that supports effect handlers. The design of effect handlers in OCaml has been written up in the [PLDI 2021 paper](https://arxiv.org/abs/2104.00250).The motivation for adding effect handlers and some more examples are found in [these slides](https://speakerdeck.com/kayceesrk/effect-handlers-in-multicore-ocaml ).
 
-#### Programming with effect handlers
+#### Programming with Effect Handlers
 
 Effect handlers are made available to the OCaml programmer from `stdlib/effectHandlers.ml` (although this will likely be renamed `Effect` soon). The EffectHandlers module exposes two variants of effect handlers – deep and shallow. Deep handlers are like folds over the computation tree whereas shallow handlers are akin to [case splits](https://www.dhil.net/research/papers/generalised_continuations-jfp-draft.pdf). With deep handlers, the handler wraps around the continuation, whereas in shallow handlers it doesn’t.
 
@@ -256,7 +256,7 @@ As a bit of history, the current implementation is tuned for deep handlers and h
 
 * Add support for compiling with frame pointers.
 
-# The November activities
+# The November Activities
 
 That wraps up the mammoth code review summary, and significant decisions taken.  Overall, we are full steam ahead for generating an OCaml 5.0 PR, although we do have our work cut out for us in the coming months! Now we continue with our regular report on what else happened in November.The ecosystem is continuing to evolve, and there are significant updates to Eio, the Effects-based parallel IO for OCaml.
 
@@ -865,7 +865,7 @@ project. Stay safe!
 * MD: Markdown
 * MLP: ML-File Preprocessed
 * OOM: Out of Memory
-* OPAM: OCaml Package Manager
+* opam: OCaml Package Manager
 * OS: Operating System
 * PR: Pull Request
 * PRNG Pseudo-Random Number Generator
