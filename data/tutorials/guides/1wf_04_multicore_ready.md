@@ -9,23 +9,23 @@ category: "Guides"
 
 # Transitioning to Multicore with ThreadSanitizer
 
-The 5.0 release brought multicore `Domain`-based parallelism to the
+The 5.0 release brought Multicore, `Domain`-based parallelism to the
 OCaml language. Parallel `Domain`s performing uncoordinated operations
 on shared mutable memory locations may however cause data races. Such
 issues will unfortunately not
 [(yet)](https://blog.janestreet.com/oxidizing-ocaml-parallelism/) be
 caught by OCaml's strong type system, meaning they may go unnoticed
 when introducing parallelism into an existing OCaml code base. In this
-guide, we will therefore study a step-wise workflow that utilizes the
+guide, we will therefore study a step-wise workflow that utilises the
 [ThreadSanitizer (TSan)](https://github.com/ocaml-multicore/ocaml-tsan)
 tool to help make your OCaml code 5.x ready.
 
 **Note:** TSan is currently only supported under Linux with AMD/Intel
-cpus. It furthermore requires at least gcc 11 or Clang 11 and the
+cpus. It furthermore requires at least GCC 11 or Clang 11 and the
 `libunwind` library.
 
 
-## An example application
+## An Example Application
 
 Consider a little bank library with the following signature in
 `bank.mli`:
@@ -50,7 +50,7 @@ val iter_accounts : t -> (account:int -> balance:int -> unit) -> unit
     one after another. *)
 ```
 
-Underneath the hood the library may have been implemented in various
+Underneath the hood, the library may have been implemented in various
 ways. Consider the following thread-unsafe implementation in `bank.ml`:
 
 ``` ocaml
@@ -73,10 +73,10 @@ let iter_accounts t f = (* inspect the bank accounts *)
 ```
 
 
-## A proposed workflow
+## A Proposed Workflow
 
-Now if we want to see if this code is multicore ready for OCaml 5.x,
-we can utilize the following workflow:
+Now if we want to see if this code is Multicore ready for OCaml 5.x,
+we can utilise the following workflow:
 
 0. Install TSan
 1. Write a parallel test runner
@@ -85,13 +85,13 @@ we can utilize the following workflow:
    go to step 2.
 
 
-## Following the workflow
+## Following the Workflow
 
 We will now go through the proposed workflow for our example
 application.
 
 
-### Install the instrumenting TSan compiler (Step 0)
+### Install the Instrumenting TSan Compiler (Step 0)
 
 For now, convenient `5.1.0+tsan` and `5.0.0+tsan` opam switches are available
 until TSan is officially included with the forthcoming 5.2.0 OCaml
@@ -102,11 +102,11 @@ opam switch create 5.1.0+tsan
 ```
 
 
-### Write a parallel test runner (Step 1)
+### Write a Parallel Test Runner (Step 1)
 
-For a start we can test our library under parallel usage, by running
+For a start, we can test our library under parallel usage by running
 two `Domain`s in parallel. Here's a quick little test runner in
-`bank_test.ml` utilizing this idea:
+`bank_test.ml` utilising this idea:
 ``` ocaml
 let num_accounts = 7
 
@@ -138,9 +138,9 @@ let _ =
 ```
 
 The runner creates a bank with 7 accounts containing $100
-each, and then runs two loops in parallel with
-- one transfering money with `money_shuffle` and
-- another one repeatedly printing the account balances with `print_balances`:
+each and then runs two loops in parallel with:
+- One transfering money with `money_shuffle`
+- Another one repeatedly printing the account balances with `print_balances`:
 
 ``` shell
 $ opam switch 5.1.0
@@ -160,11 +160,11 @@ $ dune runtest
 ```
 
 From the above run under a regular `5.1.0` compiler, one may get the
-impression that everything is OK as the balances sum to a total of
+impression that everything is OK, as the balances sum to a total of
 $700 as expected, indicating that no money is lost.
 
 
-### Run the parallel tests under TSan (Step 2)
+### Run the Parallel Tests Under TSan (Step 2)
 
 Let us now perform the same test run under TSan. Doing so is as simple
 as follows and immediately complains about races:
@@ -211,16 +211,16 @@ WARNING: ThreadSanitizer: data race (pid=26148)
 ```
 
 Notice we obtain a back trace of the two racing accesses, with
-- a write in one `Domain` coming from the array assignment in
-  `Bank.transfer` and
-- a read in another `Domain` coming from a call to
+- A write-in one `Domain`, coming from the array assignment in
+  `Bank.transfer` 
+- A read in another `Domain`, coming from a call to
   `Stdlib.Array.iteri` to read and print the array entries in
   `print_balances`.
 
 
-### Address the reported races and rerun the tests (Steps 3 and 2)
+### Address the Reported Races and Rerun the Tests (Steps 3 and 2)
 
-One way to address the reported races is to add a `Mutex` ensuring
+One way to address the reported races is to add a `Mutex`, ensuring
 exclusive access to the underlying array. A first attempt could be
 to wrap `transfer` and `iter_accounts` with `lock`-`unlock` calls as
 follows:
@@ -263,9 +263,9 @@ How come we may hit a resource deadlock error when adding just two
 pairs of `Mutex.lock` and `Mutex.unlock` calls?
 
 
-### Address the reported races and rerun the tests, take 2 (Steps 3 and 2)
+### Address the Reported Races and Rerun the Tests, Take 2 (Steps 3 and 2)
 
-Oh, wait! When raising an exception in `transfer` we forgot to unlock
+Oh, wait! When raising an exception in `transfer`, we forgot to unlock
 the `Mutex` again. Let's adapt the function to do so:
 
 ``` ocaml
@@ -304,7 +304,7 @@ This works well and TSan no longer complains, so our little library is
 ready for OCaml 5.x parallelism, hurrah!
 
 
-### Final remarks and a word of warning
+### Final Remarks and a Word of Warning
 
 The programming pattern of 'always-having-to-do-something-at-the-end'
 that we encountered with the missing `Mutex.unlock` is a recurring
@@ -336,10 +336,10 @@ to replace the underlying `array` with a lock-free data structure,
 such as the [`Hashtbl`
 from`Kcas_data`](https://ocaml-multicore.github.io/kcas/doc/kcas_data/Kcas_data/Hashtbl/index.html).
 
-As a final word of warning, `Domain`'s are so fast that in a too
+As a final word of warning, `Domain`s are so fast that in a too
 simple test runner, one `Domain` may complete before the second has
 even started up yet! This is problematic, as there will be no apparent
-parallelism for TSan to observe and check. In the above example the
+parallelism for TSan to observe and check. In the above example, the
 calls to `Unix.sleepf` help ensure that the test runner is indeed
 parallel. A useful alternative trick is to coordinate on an `Atomic`
 to make sure both `Domain`s are up and running before the parallel
