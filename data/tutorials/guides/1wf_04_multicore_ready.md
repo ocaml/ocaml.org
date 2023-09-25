@@ -211,7 +211,7 @@ WARNING: ThreadSanitizer: data race (pid=26148)
 ```
 
 Notice we obtain a back trace of the two racing accesses, with
-- A write-in one `Domain` coming from the array assignment in
+- A write in one `Domain` coming from the array assignment in
   `Bank.transfer` 
 - A read in another `Domain` coming from a call to
   `Stdlib.Array.iteri` to read and print the array entries in
