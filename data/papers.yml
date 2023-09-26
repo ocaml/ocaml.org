@@ -78,7 +78,7 @@ papers:
       independent of this memory model. We illustrate this claim via a number of
       case studies: we verify several implementations of locks with respect to a
       classic, memory-model-independent specification. Thus, a coarse-grained
-      application that uses locks as the sole means of synchronization can be
+      application that uses locks as the sole means of synchronisation can be
       verified in the Concurrent-Separation-Logic fragment of Cosmo, without
       any knowledge of the weak memory model.
     authors:
@@ -254,7 +254,7 @@ papers:
   - title: Relaxing the Value Restriction
     publication: International Symposium on Functional and Logic Programming
     abstract: >
-      This paper explains why it is sound to generalize certain type variables
+      This paper explains why it is sound to generalise certain type variables
       at a `let` binding, even when the expression that is being `let`-bound is
       not a value. This relaxed version of Wright's classic “value restriction”
       was introduced in OCaml 3.07.
@@ -927,7 +927,7 @@ papers:
       OCaml source files. As the Coda software evolves, these formats for sent
       data may change. We wish to allow nodes running older versions of the
       software to communicate with newer versions. To achieve that, we identify
-      stable types that must not change over time, so that their serializations
+      stable types that must not change over time, so that their serialisations
       also do not change.
     authors:
       - Paul Steckler
@@ -1032,7 +1032,7 @@ papers:
       - description: "Download PDF"
         uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/slides/chambart.pdf
     featured: false
-  - title: Ocamlot: OCaml Online Testing
+  - title: OCamlot: OCaml Online Testing
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       OCamlot provides a distributed, continuous testing service for opam
