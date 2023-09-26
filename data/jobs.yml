@@ -1,4 +1,11 @@
 jobs:
+  - title: Research engineer Stimulus
+    link: https://www.3ds.com/fr/careers/jobs/ingenieur-de-recherche-stimulus-ocaml-h-f-534846
+    locations:
+      - France
+    publication_date: 2023-09-26
+    company: Dassault Systèmes
+    company_logo: https://www.3ds.com/assets/3ds-navigation/3DS_corporate-logo_blue.svg
   - title: Software Engineer
     link: https://boards.eu.greenhouse.io/trilitech/jobs/4038961101
     locations:
