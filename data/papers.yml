@@ -944,7 +944,7 @@ papers:
     abstract: >
       One year after the foundation of OCamlPro, Fabrice Le Fessant presents at
       the OCaml Workshop a brief summary of the tasks undertaken in the span of
-      that fateful year. Cheat Sheets, OPAM package manager, and many more,
+      that fateful year. Cheat Sheets, opam package manager, and many more,
       the start of a long stream of contributions for the OCaml Distribution
       and Community at large.
     authors:
@@ -956,11 +956,11 @@ papers:
       - description: "View Online"
         uri: https://www.youtube.com/watch?v=DXr8Lr3z7wY&feature=plcp
     featured: false
-  - title: opam: an OCaml Package Manager
+  - title: opam: An OCaml Package Manager
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
-      Six months after the start of the development of the OPAM Package
-      Manager, Frederick Tuong, Fabrice Le Fessant and Thomas Gazagnaire
+      Six months after the start of the development of the opam package
+      manager, Frederick Tuong, Fabrice Le Fessant, and Thomas Gazagnaire
       present for the first time what would in time become the official package
       manager for the OCaml Distribution. Covering the current state of the
       repository, and future prospects for the platform, this small piece of
@@ -1035,9 +1035,9 @@ papers:
   - title: Ocamlot: OCaml Online Testing
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
-      OCamlot provides a distributed, continuous testing service for OPAM
+      OCamlot provides a distributed, continuous testing service for opam
       package quality and compatibility. Using signals from GitHub, OCamlot
-      ensures that, before being merged, patches submitted to the OPAM
+      ensures that, before being merged, patches submitted to the opam
       repository are thoroughly tested on the variety of supported
       configurations, architectures, and systems. The resulting improved build
       and metadata quality in turn speeds up development on other aspects of
@@ -1089,9 +1089,9 @@ papers:
       guided by the industrial OCaml Consortium (primarily Jane Street, Citrix
       and Lexifi). This talk follows up the OCaml 2013 talk that introduced the
       Platform. Since then, many tools have been released in parallel via the
-      OPAM package manager, and this year’s talk will demonstrate the concrete
+      opam package manager, and this year’s talk will demonstrate the concrete
       workflow that ties them together (see Figure 2). We will first recap the
-      Platform ethos briefly, update on the OPAM package manager v1.2, and
+      Platform ethos briefly, update on the opam package manager v1.2, and
       conclude with the Platform workflow.
     authors:
       - Anil Madhavapeddy
