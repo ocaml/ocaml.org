@@ -30,7 +30,7 @@ papers:
     abstract: >
       Effect handlers have been gathering momentum as a mechanism for modular
       programming with user-defined effects. Effect handlers allow for non-local
-      control flow mechanisms such as generators, async/await, lightweight threads
+      control flow mechanisms such as generators, async/await, lightweight threads,
       and coroutines to be composably expressed. We present a design and evaluate
       a full-fledged efficient implementation of effect handlers for OCaml, an
       industrial-strength multi-paradigm programming language. Our implementation
@@ -217,7 +217,7 @@ papers:
   - title: A Syntactic Approach to Type Soundness
     publication: Information & Computation, 115(1):38−94
     abstract: >
-      This paper describes the semantics and the type system of Core ML, and
+      This paper describes the semantics and the type system of Core ML and
       uses a simple syntactic technique to prove that well-typed programs cannot
       go wrong.
     authors:
@@ -358,7 +358,7 @@ papers:
         uri: https://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.ps.gz
     featured: false
   - title: "Objective ML: An Effective Object-Oriented Extension to ML"
-    publication: Theory And Practice of Objects Systems, 4(1):27−50
+    publication: Theory and Practice of Objects Systems, 4(1):27−50
     abstract: >
       This paper provides theoretical foundations for OCaml's object-oriented
       layer, including dynamic and static semantics.
@@ -637,7 +637,7 @@ papers:
       algorithmic problems such as distributed failure planning. In addition, we
       will discuss the challenges imposed by using OCaml in a commercial
       environment, such as supporting product upgrades, enhancing
-      supportability and scaling the development team.
+      supportability, and scaling the development team.
     authors:
       - Anil Madhavapeddy
     tags:
@@ -720,7 +720,7 @@ papers:
       OCaml programs via algorithmic differentiation. Unlike similar
       frameworks, this includes programs with side effects, aliasing, and
       programs with nested derivative operators. The framework also offers
-      implicit parallelization of both user programs and their transformations.
+      implicit parallelisation of both user programs and their transformations.
       The presentation will provide a short introduction to the mathematical
       problem, the difficulties of implementing a solution, the design of the
       library, and a demonstration of its capabilities.
@@ -817,8 +817,8 @@ papers:
       is also the name of the OCaml library which provides an interpreter, a
       compiler to Michelson (the smart-contract language of Tezos), as well as
       a scenario “on-chain” interpreter. The IDE uses a mix of OCaml built with
-      js_of_ocaml and pure Javascript. The command line interface also builds
-      with js_of_ocaml to run on Node.js.
+      `js_of_ocaml` and pure Javascript. The command line interface also builds
+      with `js_of_ocaml` to run on Node.js.
     authors:
       - Sebastien Mondet
     tags:
@@ -834,7 +834,7 @@ papers:
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       OCaml-CI is a CI service for OCaml projects. It uses metadata from the
-      project’s Opam and Dune files to work out what to build, and uses caching
+      project’s opam and `dune` files to work out what to build, and it uses caching
       to make builds fast. It automatically tests projects against multiple
       OCaml versions and OS platforms. The CI has been deployed on around 50
       projects so far on GitHub, and many of them see response times an order of
@@ -882,7 +882,7 @@ papers:
       This proposal describes a presentation to be given at the OCaml’20
       workshop. The presentation will cover a new OCaml filesystem, ImpFS, and
       the related libraries. The filesystem makes use of a B-tree library
-      presented at OCaml’17, and a key-value store presented at ML’19. In
+      presented at OCaml’17 and a key-value store presented at ML’19. In
       addition, there are a number of other support libraries that may be of
       interest to the community. ImpFS represents a single point in the
       filesystem design space, but we hope that the libraries we have developed
@@ -944,7 +944,7 @@ papers:
     abstract: >
       One year after the foundation of OCamlPro, Fabrice Le Fessant presents at
       the OCaml Workshop a brief summary of the tasks undertaken in the span of
-      that fateful year. Cheat Sheets, opam package manager, and many more,
+      that fateful year. Cheat Sheets, opam package manager, and many more are
       the start of a long stream of contributions for the OCaml Distribution
       and Community at large.
     authors:
@@ -983,7 +983,7 @@ papers:
       A two-fold presentation covering both a study of OCaml programs' memory
       behaviour and the development of memory profiling tools that were
       on-going at OCamlPro at the time. These works aimed at decreasing memory
-      footprint, pinpoint and fix memory leaks, decrease the amount of time
+      footprint, pinpoint and fix memory leaks, and decrease the amount of time
       spent in memory management at runtime.
     authors:
       - Çagdas Bozman
@@ -1008,7 +1008,7 @@ papers:
       This is nice when I want to write performance sensitive code, but as I
       usually write code for which execution time doesn't matter much, this
       mainly tends to torture me. A small voice in my head is telling me "you
-      shouldn't write it like that, you known you could avoid this allocation".
+      shouldn't write it like that, you known you could avoid this allocation."
       And usually, following that indication would only tend to make the code
       less readable. But there is a solution to calm that voice\: making the
       compiler smarter than me. OCaml compilation mechanisms are quite
@@ -1062,7 +1062,7 @@ papers:
     abstract: >
       In this paper, we present the current state of our work on profiling the
       memory usage of OCaml programs. Our technique allows to observe track
-      types, allocation points and reachability paths of blocks, with no
+      types, allocation points, and reachability paths of blocks with no
       runtime cost, except for saving the observations.
     authors:
       - Çagdas Bozman
@@ -1082,16 +1082,16 @@ papers:
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       The OCaml Platform combines the OCaml compiler toolchain with a coherent
-      set of tools for build, documentation, testing and IDE integration. The
+      set of tools for build, documentation, testing, and IDE integration. The
       project is a collaborative effort across the OCaml community, tied
       together by the OCaml Labs group in Cambridge and with other major
       contributors listed above. The requirements of the Platform are being
-      guided by the industrial OCaml Consortium (primarily Jane Street, Citrix
+      guided by the industrial OCaml Consortium (primarily Jane Street, Citrix,
       and Lexifi). This talk follows up the OCaml 2013 talk that introduced the
       Platform. Since then, many tools have been released in parallel via the
       opam package manager, and this year’s talk will demonstrate the concrete
       workflow that ties them together (see Figure 2). We will first recap the
-      Platform ethos briefly, update on the opam package manager v1.2, and
+      Platform ethos briefly, update on the opam package manager v1.2 and
       conclude with the Platform workflow.
     authors:
       - Anil Madhavapeddy
@@ -1116,7 +1116,7 @@ papers:
     abstract: >
       We present a work-in-progress about adding namespaces to OCaml. Inspired
       by other languages such as Scala or C++, our aim is to design and
-      formalize a simple and non-intrusive namespace mechanism without
+      formalise a simple and non-intrusive namespace mechanism without
       complexifying the core language. Namespaces in our approach are a simple
       way to define libraries while avoiding name clashes. They are also meant
       to simplify the build process, clarifying and reducing (to zero whenever
@@ -1142,7 +1142,7 @@ papers:
       development of a debugging framework for OCaml native-code applications,
       based on the LLDB Debugger, a debugger built on top of the LLVM
       framework. We implemented a complete binding of LLDB C++ API for OCaml,
-      and then used it to build several tools, one " generic " debugger, and
+      and then used it to build several tools, one "generic" debugger, and
       two small utilities to monitor the memory behavior of OCaml
       applications.
     authors:
@@ -1182,11 +1182,11 @@ papers:
     abstract: >
       We present Learn OCaml, a Web application that packs a set of learning
       activities for people who want to learn OCaml. It includes an integrated
-      and reworked version of the venerable Try OCaml, and an exercise
+      and reworked version of the venerable Try OCaml and an exercise
       environment with automated grading derived from the one developed for the
       OCaml MOOC. It works entirely in the browser, the server being used for
-      storing static files and synchronizing between different devices. A
-      special effort has been made to make it usable on tablets, and even
+      storing static files and synchronising between different devices. A
+      special effort has been made to make it usable on tablets and even
       mobiles. A main public instance will be hosted at OCamlPro, but the
       project is open-source, and universities can host their own version on
       site. We will also provide a public repository for teachers to contribute
@@ -1226,12 +1226,12 @@ papers:
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this talk, we will introduce a new tool called digodoc, that builds a
-      graph of an opam switch, associating files, libraries and opam packages
+      graph of an opam switch, associating files, libraries, and opam packages
       into a cyclic graph of inclusions and dependencies. We will then explain
       how we used that tool to build a documentation website that displays the
       generated documentation of a large set of opam packages from the official
       opam repository. Thanks to digodoc, users can easily navigate between
-      module documentations, sources, packages and libraries. We think it is an
+      module documentations, sources, packages, and libraries. We think it is an
       interesting contribution to the OCaml ecosystem.
     authors:
       - Mohamed Hernouf
@@ -1266,15 +1266,15 @@ papers:
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       Opam 1.2 was released in 2014. It was four years before opam 2.0 succeeded
-      it, and another three for opam 2.1. The release of opam 2.2 is imminent,
+      it, and another three for opam 2.1. The release of opam 2.2 is imminent
       and will have arrived just a year after its predecessor. This talk
       presents features added to opam 2.1 intended to make dealing with multiple
       versions of opam easier. We see how small additional metadata, both stored
-      in .opam “roots” and also added to opam’s command line provide opam’s
+      in `.opam` “roots” and also added to opam’s command line to provide opam’s
       developers with the chance to add new features more easily, with
       confidence that users will be able to upgrade safely. In presenting this,
       we’ll also trumpet some of what we think are the amazing new features of
-      opam 2.1 (and 2.2), and why we think you should keenly watch for new
+      opam 2.1 (and 2.2) and why we think you should keenly watch for new
       releases and upgrade immediately on release!
     authors:
       - David Allsopp
@@ -1346,8 +1346,8 @@ papers:
       transferring verified properties. Various techniques for representing
       values in memory are discussed, with a focus on OCaml’s approach. An
       extension called Wasm-GC is introduced, enabling the compilation of
-      garbage-collected languages to Wasm by incorporating features like int31
-      and garbage-collected structs. The paper presents Wasmocaml, a complete
+      garbage-collected languages to Wasm by incorporating features like `int31`
+      and garbage-collected structs. The paper presents Wasocaml, a complete
       OCaml compiler for Wasm-GC, and discusses benchmarks and future work in
       compiling garbage-collected languages to WebAssembly.
     authors:
