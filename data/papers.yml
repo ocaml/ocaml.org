@@ -1,5 +1,5 @@
 papers:
-  - title: Bounding Data Races in Space and Time
+  - title: "Bounding Data Races in Space and Time"
     publication: Programming Language Design and Implementation (PLDI)
     abstract: >
       We propose a new semantics for shared-memory parallel
@@ -25,7 +25,7 @@ papers:
       - description: "Download PDF"
         uri: http://kcsrk.info/papers/pldi18-memory.pdf
     featured: true
-  - title: Retrofitting Effect Handlers Onto OCaml
+  - title: "Retrofitting Effect Handlers Onto OCaml"
     publication: Programming Language Design and Implementation (PLDI)
     abstract: >
       Effect handlers have been gathering momentum as a mechanism for modular
@@ -93,7 +93,7 @@ papers:
      - description: "Download PDF"
        uri: https://doi.org/10.1145/3408978
     featured: false
-  - title: Formal Verification of a Concurrent Bounded Queue in a Weak Memory Model
+  - title: "Formal Verification of a Concurrent Bounded Queue in a Weak Memory Model"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       We use Cosmo, a modern concurrent separation logic, to formally specify
@@ -116,7 +116,7 @@ papers:
       - description: "Download PDF"
         uri: https://doi.org/10.1145/3473571
     featured: false
-  - title: A Separation Logic for Effect Handlers
+  - title: "A Separation Logic for Effect Handlers"
     publication: Principles of Programming Languages (POPL)
     abstract: >
       User-defined effects and effect handlers are advertised and advocated as a
@@ -151,7 +151,7 @@ papers:
       - description: "Download PDF"
         uri: https://doi.org/10.1145/3434314
     featured: false
-  - title: A Memory Model for Multicore OCaml
+  - title: "A Memory Model for Multicore OCaml"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       We propose a memory model for OCaml, broadly following the design of axiomatic
@@ -169,7 +169,7 @@ papers:
       - description: "Download PDF"
         uri: https://kcsrk.info/papers/memory_model_ocaml17.pdf
     featured: false
-  - title: Extending OCaml's `open`
+  - title: "Extending OCaml's `open`"
     publication: Open Publishing Association
     abstract: >
       We propose a harmonious extension of OCaml's `open` construct.
@@ -188,7 +188,7 @@ papers:
       - description: "Download PDF"
         uri: https://arxiv.org/pdf/1905.06543.pdf
     featured: true
-  - title: Eff Directly in OCaml
+  - title: "Eff Directly in OCaml"
     publication: Open Publishing Association
     abstract: >
       The language Eff is an OCaml-like language serving as a prototype implementation
@@ -214,7 +214,7 @@ papers:
       - description: "Download PDF"
         uri: https://arxiv.org/pdf/1812.11664.pdf
     featured: false
-  - title: A Syntactic Approach to Type Soundness
+  - title: "A Syntactic Approach to Type Soundness"
     publication: Information & Computation, 115(1):38−94
     abstract: >
       This paper describes the semantics and the type system of Core ML and
@@ -231,9 +231,8 @@ papers:
       - description: "Download PostScript"
         uri: https://www.cs.rice.edu/CS/PLT/Publications/Scheme/ic94-wf.ps.gz
     featured: false
-  - title: The Essence of ML Type Inference
-    publication: Benjamin C. Pierce, editor, Advanced Topics in Types and
-      Programming Languages, MIT Press
+  - title: "The Essence of ML Type Inference"
+    publication: Benjamin C. Pierce, editor, Advanced Topics in Types and Programming Languages, MIT Press
     abstract: >
       This book chapter gives an in-depth abstract of the Core ML type system,
       with an emphasis on type inference. The type inference algorithm is
@@ -251,7 +250,7 @@ papers:
       - description: "Download PostScript"
         uri: https://cristal.inria.fr/attapl/preversion.ps.gz
     featured: false
-  - title: Relaxing the Value Restriction
+  - title: "Relaxing the Value Restriction"
     publication: International Symposium on Functional and Logic Programming
     abstract: >
       This paper explains why it is sound to generalise certain type variables
@@ -270,7 +269,7 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.ps.gz
     featured: false
-  - title: Manifest Types, Modules, and Separate Compilation
+  - title: "Manifest Types, Modules, and Separate Compilation"
     publication: Principles of Programming Languages
     abstract: >
       This paper presents a variant of the Standard ML module system that
@@ -295,7 +294,7 @@ papers:
       - description: "Download DVI"
         uri: https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.dvi.gz
     featured: false
-  - title: Applicative Functors and Fully Transparent Higher-Order Modules
+  - title: "Applicative Functors and Fully Transparent Higher-Order Modules"
     publication: Principles of Programming Languages
     abstract: >
       This work extends the above paper by introducing so-called applicative
@@ -317,7 +316,7 @@ papers:
       - description: "Download DVI"
         uri: https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.dvi.gz
     featured: false
-  - title: A Modular Module System
+  - title: "A Modular Module System"
     publication: Journal of Functional Programming, 10(3):269-303
     abstract: >
       This accessible paper describes a simplified implementation of the OCaml
@@ -339,7 +338,7 @@ papers:
       - description: "Download DVI"
         uri: https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.dvi.gz
     featured: false
-  - title: A Proposal for Recursive Modules in Objective Caml
+  - title: "A Proposal for Recursive Modules in Objective Caml"
     publication: Unpublication
     abstract: >
       This note describes the experimental recursive modules introduced in OCaml
@@ -378,7 +377,7 @@ papers:
       - description: "Download DVI"
         uri: https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.dvi.gz
     featured: false
-  - title: Extending ML with Semi-Explicit Higher-Order Polymorphism
+  - title: "Extending ML with Semi-Explicit Higher-Order Polymorphism"
     publication: Information & Computation, 155(1/2):134−169
     abstract: >
       This paper proposes a device for re-introducing first-class polymorphic
@@ -400,7 +399,7 @@ papers:
       - description: "Download DVI"
         uri: https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.dvi.gz
     featured: false
-  - title: Programming with Polymorphic Variants
+  - title: "Programming with Polymorphic Variants"
     publication: ML Workshop
     abstract: >
       This paper briefly explains what polymorphic variants are about and how
@@ -418,7 +417,7 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.ps.gz
     featured: false
-  - title: Code Reuse Through Polymorphic Variants
+  - title: "Code Reuse Through Polymorphic Variants"
     publication: Workshop on Foundations of Software Engineering
     abstract: >
       This short paper explains how to design a modular, extensible interpreter
@@ -434,7 +433,7 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/garrigue-variant-reuse-2000.ps.gz
     featured: false
-  - title: Simple Type Inference for Structural Polymorphism
+  - title: "Simple Type Inference for Structural Polymorphism"
     publication: Workshop on Foundations of Object-Oriented Languages
     abstract: >
       This paper explains most of the typechecking machinery behind polymorphic
@@ -453,7 +452,7 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.ps.gz
     featured: false
-  - title: Typing Deep Pattern-matching in Presence of Polymorphic Variants
+  - title: "Typing Deep Pattern-matching in Presence of Polymorphic Variants"
     publication: JSSST Workshop on Programming and Programming Languages
     abstract: >
       This paper provides more details about the technical machinery behind
@@ -472,7 +471,7 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.ps.gz
     featured: false
-  - title: Labeled and Optional Arguments for Objective Caml
+  - title: "Labeled and Optional Arguments for Objective Caml"
     publication: JSSST Workshop on Programming and Programming Languages
     abstract: >
       This paper offers a dynamic semantics, a static semantics, and a
@@ -491,7 +490,7 @@ papers:
       - description: "Download DVI"
         uri: https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.dvi.gz
     featured: false
-  - title: Meta-Programming Tutorial with CamlP4
+  - title: "Meta-Programming Tutorial with CamlP4"
     publication: Commercial Users of Functional Programming
     abstract: Meta-programming tutorial with Camlp4
     authors:
@@ -504,7 +503,7 @@ papers:
       - description: "View Online"
         uri: https://github.com/jaked/cufp-metaprogramming-tutorial
     featured: false
-  - title: The ZINC Experiment, an Economical Implementation of the ML Language
+  - title: "The ZINC Experiment, an Economical Implementation of the ML Language"
     publication: Technical report 117, INRIA
     abstract: >
       This report contains a abstract of the ZINC compiler, which later evolved
@@ -524,7 +523,7 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz
     featured: false
-  - title: The Effectiveness of Type-based Unboxing
+  - title: "The Effectiveness of Type-based Unboxing"
     publication: Workshop on Types in Compilation
     abstract: >
       This paper surveys and compares several data representation strategies,
@@ -541,8 +540,7 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.ps.gz
     featured: false
-  - title: A Concurrent, Generational Garbage Collector for a Multithreaded
-      Implementation of ML
+  - title: "A Concurrent, Generational Garbage Collector for a Multithreaded Implementation of ML"
     publication: Principles of Programming Languages
     abstract: >
       Superseded by "Portable, Unobtrusive Garbage Collection for Multiprocessor
@@ -560,7 +558,7 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.ps.gz
     featured: false
-  - title: Portable, Unobtrusive Garbage Collection for Multiprocessor Systems
+  - title: "Portable, Unobtrusive Garbage Collection for Multiprocessor Systems"
     publication: Principles of Programming Languages
     abstract: >
       This paper describes a concurrent version of the garbage collector found
@@ -578,8 +576,7 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.ps.gz
     featured: false
-  - title: Conception, Réalisation et Certification d'un Glaneur de Cellules
-      Concurrent
+  - title: "Conception, Réalisation et Certification d'un Glaneur de Cellules Concurrent"
     publication: Ph.D. thesis, Université Paris 7
     abstract: >
       All you ever wanted to know about the garbage collector found in Caml
@@ -597,9 +594,8 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/doligez-these.ps.gz
     featured: false
-  - title: Optimizing Pattern Matching
-    publication: Proceedings of the sixth ACM SIGPLAN International Conference on
-      Functional Programming (ICFP)
+  - title: "Optimizing Pattern Matching"
+    publication: Proceedings of the sixth ACM SIGPLAN International Conference on Functional Programming (ICFP)
     abstract: >
       All you ever wanted to know about the garbage collector found in Caml
       Light and OCaml's runtime system.
@@ -614,9 +610,9 @@ papers:
       - description: "View Online"
         uri: https://dl.acm.org/citation.cfm?id=507641
     featured: false
-  - title: OCaml for the Masses
+  - title: "OCaml for the Masses"
     publication: ACM Queue
-    abstract: |
+    abstract: >
       Why the next language you learn should be functional.
     authors:
       - Yaron Minsky
@@ -627,7 +623,7 @@ papers:
       - description: "View Online"
         uri: https://queue.acm.org/detail.cfm?id=2038036
     featured: false
-  - title: Xen and the Art of OCaml
+  - title: "Xen and the Art of OCaml"
     publication: Commercial Users of Functional Programming (CUFP)
     abstract: >
       In this talk, we will firstly describe the architecture of XenServer and
@@ -648,7 +644,7 @@ papers:
       - description: "Download PDF"
         uri: https://cufp.org/archive/2008/slides/MadhavapeddyAnil.pdf
     featured: false
-  - title: Chemoinformatics and Structural Bioinformatics in OCaml
+  - title: "Chemoinformatics and Structural Bioinformatics in OCaml"
     publication: Journal of Cheminformatics
     abstract: >
       In this article, we share our experience in prototyping chemoinformatics
@@ -666,7 +662,7 @@ papers:
       - description: "View Online"
         uri: https://jcheminf.biomedcentral.com/articles/10.1186/s13321-019-0332-0
     featured: false
-  - title: A Declarative Syntax Definition for OCaml
+  - title: "A Declarative Syntax Definition for OCaml"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this talk we present our work on a syntax definition for the OCaml
@@ -691,7 +687,7 @@ papers:
       - description: "View Online"
         uri: https://eelcovisser.org/talks/2020/08/28/ocaml/
     featured: false
-  - title: A Simple State-Machine Framework for Property-Based Testing in OCaml
+  - title: "A Simple State-Machine Framework for Property-Based Testing in OCaml"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       Since their inception state-machine frameworks have proven their worth by
@@ -712,7 +708,7 @@ papers:
       - description: "Download PDF"
         uri: https://janmidtgaard.dk/papers/Midtgaard%3AOCaml20.pdf
     featured: false
-  - title: AD-OCaml: Algorithmic Differentiation for OCaml
+  - title: "AD-OCaml: Algorithmic Differentiation for OCaml"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       AD-OCaml is a library framework for calculating mathematically exact
@@ -733,7 +729,7 @@ papers:
       - description: "View Online"
         uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/12/AD-OCaml-Algorithmic-Differentiation-for-OCaml
     featured: false
-  - title: API Migration: Compare Transformed
+  - title: "API Migration: Compare Transformed"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this talk we describe our experience in using an automatic
@@ -758,7 +754,7 @@ papers:
       - description: "Download PDF"
         uri: https://www.cs.kent.ac.uk/people/staff/sjt/Pubs/OCaml_workshop2020.pdf
     featured: false
-  - title: Irmin v2
+  - title: "Irmin v2"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       Irmin is an OCaml library for building distributed databases with the same
@@ -783,7 +779,7 @@ papers:
       - description: "View Online"
         uri: https://tarides.com/blog/2019-11-21-irmin-v2
     featured: false
-  - title: LexiFi Runtime Types
+  - title: "LexiFi Runtime Types"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       LexiFi maintains an OCaml compiler extension that enables introspection
@@ -806,7 +802,7 @@ papers:
       - description: "View Online"
         uri: https://www.lexifi.com/blog/ocaml/runtime-types/
     featured: false
-  - title: OCaml Under the Hood: SmartPy
+  - title: "OCaml Under the Hood: SmartPy"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       SmartPy is a complete system to develop smart-contracts for the Tezos
@@ -830,7 +826,7 @@ papers:
       - description: "Download PDF"
         uri: https://wr.mondet.org/paper/smartpy-ocaml-2020.pdf
     featured: false
-  - title: OCaml-CI: A Zero-Configuration CI
+  - title: "OCaml-CI: A Zero-Configuration CI"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       OCaml-CI is a CI service for OCaml projects. It uses metadata from the
@@ -854,7 +850,7 @@ papers:
       - description: "View Online"
         uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/6/OCaml-CI-A-Zero-Configuration-CI
     featured: false
-  - title: Parallelising Your OCaml Code with Multicore OCaml
+  - title: "Parallelising Your OCaml Code with Multicore OCaml"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       With the availability of multicore variants of the recent OCaml versions
@@ -876,7 +872,7 @@ papers:
       - description: "View Online"
         uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/5/Parallelising-your-OCaml-Code-with-Multicore-OCaml
     featured: false
-  - title: The ImpFS Filesystem
+  - title: "The ImpFS Filesystem"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       This proposal describes a presentation to be given at the OCaml’20
@@ -896,7 +892,7 @@ papers:
       - description: "View Online"
         uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/8/The-ImpFS-filesystem
     featured: false
-  - title: The Final Pieces of the OCaml Documentation Puzzle
+  - title: "The Final Pieces of the OCaml Documentation Puzzle"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       `odoc` is the latest attempt at creating a documentation tool which handles
@@ -918,7 +914,7 @@ papers:
       - description: "View Online"
         uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/4/The-final-pieces-of-the-OCaml-documentation-puzzle
     featured: false
-  - title: Types in Amber
+  - title: "Types in Amber"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       Coda is a new cryptocurrency that uses zk-SNARKs to dramatically reduce
@@ -939,7 +935,7 @@ papers:
       - description: "View Online"
         uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/3/Types-in-amber
     featured: false
-  - title: OCamlPro: Promoting OCaml Use in Industry
+  - title: "OCamlPro: Promoting OCaml Use in Industry"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       One year after the foundation of OCamlPro, Fabrice Le Fessant presents at
@@ -956,7 +952,7 @@ papers:
       - description: "View Online"
         uri: https://www.youtube.com/watch?v=DXr8Lr3z7wY&feature=plcp
     featured: false
-  - title: opam: An OCaml Package Manager
+  - title: "opam: An OCaml Package Manager"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       Six months after the start of the development of the opam package
@@ -977,7 +973,7 @@ papers:
       - description: "View Online"
         uri: https://watch.ocaml.org/w/8UasGCviGqTPzNYgLZyPt1
     featured: false
-  - title: Study of OCaml Programs' memory behavior
+  - title: "Study of OCaml Programs' memory behavior"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       A two-fold presentation covering both a study of OCaml programs' memory
@@ -999,8 +995,8 @@ papers:
         uri: https://watch.ocaml.org/w/3YiLW4PfeStDUdf29aPtDH
       - description: "Read Online"
         uri: https://inria.hal.science/hal-01095305v1
-        featured: false
-  - title: Improving OCaml High-Level Optimisations
+    featured: false
+  - title: "Improving OCaml High-Level Optimisations"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       I spend a lot of time hacking the OCaml compiler. Hence when I write some
@@ -1032,7 +1028,7 @@ papers:
       - description: "Download PDF"
         uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/slides/chambart.pdf
     featured: false
-  - title: OCamlot: OCaml Online Testing
+  - title: "OCamlot: OCaml Online Testing"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       OCamlot provides a distributed, continuous testing service for opam
@@ -1057,7 +1053,7 @@ papers:
       - description: "Download PDF"
         uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/slides/sheets.pdf
     featured: false
-  - title: Profiling the Memory Usage of OCaml Applications Without Changing Their Behavior
+  - title: "Profiling the Memory Usage of OCaml Applications Without Changing Their Behavior"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this paper, we present the current state of our work on profiling the
@@ -1069,16 +1065,16 @@ papers:
       - Michel Mauny
       - Fabrice Le Fessant
       - Thomas Gazagnaire
-    tags: 2013
+    tags:
       - ocaml-workshop
-    year:
+    year: 2013
     links:
       - description: "Download PDF Slides"
         uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/slides/bozman.pdf
       - description: "Download PDF"
         uri: https://inria.hal.science/hal-01095305v1
-        featured: false
-  - title: The OCaml Platform v1.0
+    featured: false
+  - title: "The OCaml Platform v1.0"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       The OCaml Platform combines the OCaml compiler toolchain with a coherent
@@ -1111,7 +1107,7 @@ papers:
       - description: "View Online"
         uri: https://watch.ocaml.org/w/37eaef0e-d826-4452-bf84-f04244a85ce9
     featured: false
-  - title: A Proposal for Non-Intrusive Namespaces in OCaml
+  - title: "A Proposal for Non-Intrusive Namespaces in OCaml"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       We present a work-in-progress about adding namespaces to OCaml. Inspired
@@ -1134,8 +1130,8 @@ papers:
         uri: https://watch.ocaml.org/w/ded6e8bb-aebd-4fd2-989f-3f0b2b8efaf3
       - description: "Read Online"
         uri: https://inria.hal.science/hal-01091173v1
-        featured: false
-  - title: Towards A Debugger for Native-Code OCaml
+    featured: false
+  - title: "Towards A Debugger for Native-Code OCaml"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this talk, we will present a starting project at OCamlPro, the
@@ -1156,8 +1152,8 @@ papers:
         uri: https://watch.ocaml.org/w/e1a22cf8-5522-4c05-a8d4-af445bc73556
       - description: "Read Online"
         uri: https://inria.hal.science/hal-01245840v1
-        featured: false
-  - title: Global Semantic Analysis on OCaml programs
+    featured: false
+  - title: "Global Semantic Analysis on OCaml programs"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       We present an ongoing project at OCamlPro, the development of a semantic
@@ -1177,7 +1173,7 @@ papers:
       - description: "View Online"
         uri: https://watch.ocaml.org/w/e1a22cf8-5522-4c05-a8d4-af445bc73556
     featured: false
-  - title: Learn OCaml: An Online Learning Center for OCaml
+  - title: "Learn OCaml: An Online Learning Center for OCaml"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       We present Learn OCaml, a Web application that packs a set of learning
@@ -1204,8 +1200,8 @@ papers:
         uri: https://watch.ocaml.org/w/uWJvzik5LKSTkroghup5oJ
       - description: "Read Online"
         uri: https://inria.hal.science/hal-01352015v1
-        featured: false
-  - title: The State of the OCaml Platform: September 2016
+    featured: false
+  - title: "The State of the OCaml Platform: September 2016"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       Louis Gesbert covers the current state of the OCaml Platform in September
@@ -1222,7 +1218,7 @@ papers:
       - description: "View Online"
         uri: https://watch.ocaml.org/w/c386fc95-092e-4ea7-9317-91edf287fea6
     featured: false
-  - title: Digodoc and Docs
+  - title: "Digodoc and Docs"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this talk, we will introduce a new tool called digodoc, that builds a
@@ -1241,11 +1237,9 @@ papers:
     tags:
       - ocaml-workshop
     year: 2021
-    links:
-      - description: "N/A"
-        uri: N/A
+    links: []
     featured: false
-  - title: `opam-bin`: Binary Packages With opam
+  - title: "`opam-bin`: Binary Packages With opam"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this talk, we will present `opam-bin`, an opam plugin that builds binary
@@ -1262,7 +1256,7 @@ papers:
       - description: "Download PDF"
         uri: https://icfp21.sigplan.org/details/ocaml-2021-papers/5/Opam-bin-Binary-Packages-with-Opam
     featured: false
-  - title: Supporting a Decade of Opam
+  - title: "Supporting a Decade of Opam"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       Opam 1.2 was released in 2014. It was four years before opam 2.0 succeeded
@@ -1289,7 +1283,7 @@ papers:
       - description: "View Online"
         uri: https://watch.ocaml.org/w/1rWj4jYyaDkmMjdH4KNcv6
     featured: false
-  - title: Flambda 2 Types: An Abstract Domain for Atatic Analysis of Functional Programs
+  - title: "Flambda 2 Types: An Abstract Domain for Atatic Analysis of Functional Programs"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this talk, we will present an overview of the abstract domains that
@@ -1314,7 +1308,7 @@ papers:
       - description: "Read Online"
         uri: https://icfp23.sigplan.org/details/ocaml-2023-papers/9/Flambda-2-Types-An-abstract-domain-for-static-analysis-of-functional-programs
     featured: false
-  - title: Efficient OCaml Compilation with Flambda 2
+  - title: "Efficient OCaml Compilation with Flambda 2"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       Flambda 2 is an IR and optimisation pass for OCaml centred around
@@ -1333,7 +1327,7 @@ papers:
       - description: "Read Online"
         uri: https://icfp23.sigplan.org/details/ocaml-2023-papers/8/Efficient-OCaml-compilation-with-Flambda-2
     featured: false
-  - title: Wasocaml: A Compiler From OCaml to WebAssembly
+  - title: "Wasocaml: A Compiler From OCaml to WebAssembly"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this presentation, we will explore the compilation of
