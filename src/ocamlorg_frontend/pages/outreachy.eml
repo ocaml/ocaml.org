@@ -10,7 +10,6 @@ Layout.render
         <p>This is a record of all past OCaml Community <a href="https://www.outreachy.org/" target="_blank">Outreachy</a> Internship Projects.</p>
     </div>
 </div>
-
 <div class="py-12 bg-default dark:bg-dark-default">
     <div class="container-fluid">
         <% metadata |> List.iter (fun (rounds : Data.Outreachy.t) -> %>
