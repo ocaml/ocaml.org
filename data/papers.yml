@@ -1234,10 +1234,12 @@ papers:
       - Fabrice Le Fessant
       - Thomas Blanc
       - Louis Gesbert
-    tags:
+    tags:  
       - ocaml-workshop
     year: 2021
-    links: []
+    links: 
+      - description: "View Online"
+        uri: https://watch.ocaml.org/w/db6ed2c4-e940-4d5f-82ee-d3d20eb4ceb7
     featured: false
   - title: "`opam-bin`: Binary Packages With opam"
     publication: International Conference on Functional Programming (ICFP)
@@ -1283,7 +1285,7 @@ papers:
       - description: "View Online"
         uri: https://watch.ocaml.org/w/1rWj4jYyaDkmMjdH4KNcv6
     featured: false
-  - title: "Flambda 2 Types: An Abstract Domain for Atatic Analysis of Functional Programs"
+  - title: "Flambda 2 Types: An Abstract Domain for Static Analysis of Functional Programs"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this talk, we will present an overview of the abstract domains that
