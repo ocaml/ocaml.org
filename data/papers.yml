@@ -1283,7 +1283,7 @@ papers:
       - description: "View Online"
         uri: https://watch.ocaml.org/w/1rWj4jYyaDkmMjdH4KNcv6
     featured: false
-  - title: "Flambda 2 Types: An Abstract Domain for Atatic Analysis of Functional Programs"
+  - title: "Flambda 2 Types: An Abstract Domain for Static Analysis of Functional Programs"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this talk, we will present an overview of the abstract domains that
