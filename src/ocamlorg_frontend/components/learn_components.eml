@@ -1,7 +1,4 @@
-let skill_tag 
-difficulty
-class_
- =
+let skill_tag difficulty class_ =
   match difficulty with 
   | Some "beginner" ->
     <div class="<%s class_ %> px-2 py-1 inline-block bg-teal-700 rounded-3xl border-2 border-teal-700 font-normal text-center text-white"> Beginner  </div>
@@ -24,9 +21,7 @@ let command_line_icon class_ =
     <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
   </svg>
 
-let install_card 
-latest_version
-=
+let install_card latest_version =
   <a href="<%s Url.install %>" class="h-full bg-learn-area-light-blue self-center md:justify-self-end p-6 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
     <div class="hidden lg:flex">
       <%s! download_icon "w-24 h-24 mt-8 flex-shrink-0" %>
@@ -45,8 +40,7 @@ latest_version
     </div>
   </a>
 
-let standard_lib_card 
-= 
+let standard_lib_card = 
   <a href="<%s Url.api %>" class="h-full bg-learn-area-light-blue p-6 pr-8 flex flex-row gap-8 max-w-[400px] self-center sm:w-[450px] md:justify-self-start md:w-auto md:max-w-[480px] xl:max-w-[500px]">
     <div class="hidden lg:flex">
       <%s! command_line_icon "w-24 h-24 mt-8 flex-shrink-0" %>
@@ -62,9 +56,7 @@ let standard_lib_card
     </div>
   </a>
 
-let api_card_block
-latest_version
-=
+let api_card_block latest_version =
   <div class="flex flex-col gap-10 md:auto-rows-max md:grid md:grid-cols-2">
     <%s! install_card latest_version %>
     <%s! standard_lib_card %>
@@ -72,63 +64,41 @@ latest_version
 
 type link = {href : string; title : string}
 
-let tutorial_block_content 
-~title
-~heading
-~description
-~(tutorial_links: link list)
-~(see_more: link)
-= 
-    <div class="w-full flex flex-col h-full max-w-sm md:max-w-none md:w-96">
-        <div class="mt-4 text-white text-sm text-left font-medium leading-7 tracking-widest"> <%s title %> </div>
-        <h2 class="mt-2 text-white text-2xl text-left font-normal leading-7"> <%s heading %> </h2>
-        <div class="mt-4 text-white text-left text-md font-normal leading-7 max-w-prose"> <%s description %> </div>
-          <ul class="flex gap-4 flex-col flex-grow mt-3 items-center">
-              <% tutorial_links |> List.iter (fun link -> %>
-                  <li class="w-full">
-                      <a href="<%s link.href %>" class="block bg-default rounded-md py-3 px-6 text-primary-700 text-center text-md font-bold">
-                          <%s link.title  %>
-                      </a>
-                  </li>
-              <% ); %>
-          </ul>
-        <a href="<%s see_more.href %>" class="flex gap-4 mt-4 text-white text-md font-bold inline-flex items-center underline leading-10"> 
-            <%s see_more.title %>
-            <%s! Icons.arrow_small_right "h-6 w-6" %>
-        </a>
-    </div>
+let tutorial_block_content ~title ~heading ~description ~(tutorial_links: link list) ~(see_more: link) = 
+  <div class="w-full flex flex-col h-full max-w-sm md:max-w-none md:w-96">
+    <div class="mt-4 text-white text-sm text-left font-medium leading-7 tracking-widest"> <%s title %> </div>
+    <h2 class="mt-2 text-white text-2xl text-left font-normal leading-7"> <%s heading %> </h2>
+    <div class="mt-4 text-white text-left text-md font-normal leading-7 max-w-prose"> <%s description %> </div>
+      <ul class="flex gap-4 flex-col flex-grow mt-3 items-center">
+        <% tutorial_links |> List.iter (fun link -> %>
+        <li class="w-full">
+          <a href="<%s link.href %>" class="block bg-default rounded-md py-3 px-6 text-primary-700 text-center text-md font-bold">
+            <%s link.title  %>
+          </a>
+        </li>
+        <% ); %>
+      </ul>
+    <a href="<%s see_more.href %>" class="flex gap-4 mt-4 text-white text-md font-bold inline-flex items-center underline leading-10"> 
+      <%s see_more.title %>
+      <%s! Icons.arrow_small_right "h-6 w-6" %>
+    </a>
+  </div>
 
-let left_tutorial_block 
-~title
-~heading
-~description
-~(tutorial_links: link list)
-~see_more
-class_
-= 
-    <div class="<%s class_ %>">
-        <div class="flex justify-center h-full p-4 lg:justify-end lg:pr-20">
-            <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
-        </div>
+let left_tutorial_block ~title ~heading ~description ~(tutorial_links: link list) ~see_more class_ =
+  <div class="<%s class_ %>">
+    <div class="flex justify-center h-full p-4 lg:justify-end lg:pr-20">
+      <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
     </div>
+  </div>
 
-let right_tutorial_block
-~title
-~heading
-~description
-~(tutorial_links: link list)
-~see_more
-class_
-= 
-    <div class="<%s class_ %>">
-        <div class="flex h-full justify-center p-4 lg:justify-start lg:pl-20">
-            <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
-        </div>
+let right_tutorial_block ~title ~heading ~description ~(tutorial_links: link list) ~see_more class_ =
+  <div class="<%s class_ %>">
+    <div class="flex h-full justify-center p-4 lg:justify-start lg:pl-20">
+      <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
     </div>
+  </div>
 
-let book_tile 
-books
-= 
+let book_tile books =
   <div class="mt-2 flex flex-col flex-grow gap-12 lg:gap-6 md:flex-row xl:gap-12">
     <% books |> List.rev |> List.iteri (fun index (item : Data.Book.t) -> if (index < 2) then ( %>  
         <div class="flex flex-col w-full gap-4 lg:w-60">
@@ -146,11 +116,7 @@ books
     <% ); %>
   </div>
 
-let left_books_content_block
-books
-~title
-~(link : link )
-= 
+let left_books_content_block books ~title ~(link : link) =
   <div class="w-full bg-default flex h-full p-4">
     <div class="max-w-sm md:max-w-none sm:w-96 md:w-auto ml-auto flex flex-col mr-auto lg:ml-auto lg:mr-0 lg:pr-4 md:pl-20 lg:pl-0">
       <div class="pt-4 text-default text-sm font-medium leading-7 tracking-widest"> BOOKS </div>
@@ -163,11 +129,7 @@ books
     </div>
   </div>
 
-let right_books_content_block
-books
-~title
-~(link : link )
-= 
+let right_books_content_block books ~title ~(link : link) =
   <div class="w-full bg-default flex h-full p-4">
     <div class="max-w-sm md:max-w-none sm:w-96 md:w-auto ml-auto mr-auto flex flex-col lg:ml-0 lg:mr-auto lg:pl-6 md:pl-20 lg:pl-0">
       <div class="pt-4 text-default text-sm font-medium leading-7 tracking-widest"> BOOKS </div>
@@ -211,14 +173,14 @@ let contribute_footer ~href =
   </div>
 
 let lang_manual_banner =
-    <a href="<%s Url.manual %>" class="bg-learn-area-orange w-full py-5 flex px-3 flex-col items-center justify-center sm:px-16 md:flex-row md:gap-x-16 lg:gap-x-20 lg:px-20 xl:px-48 xl:gap-x-36 xl:px-48">
-      <div class="mb-2 flex flex-col items-start sm:max-w-sm md:max-w-none">
-        <h2 class="mb-2 text-white text-center text-sm font-medium leading-5 tracking-widest md:text-left lg:leading-7">GUIDE</h2>
-        <h3 class="mb-4 text-white text-center text-lg font-normal leading-5 md:leading-10 md:text-xl lg:text-2xl md:text-left">Language Manual</h3>
-        <p class="mb-4 text-white text-sm font-normal leading-5 max-w-prose md:text-md lg:leading-7 xl:text-lg">OCaml language manuals are comprehensive guides covering syntax, features, and usage. They assist developers and learners in understanding capabilities, best practices, and exploring functionalities.</p>
-        <div class="block mt-5 py-2 px-24 bg-default text-sm rounded-sm items-center text-center text-primary-700 sm:px-20 sm:text-md font-medium leading-7 md:text-lg">Take Me There</div>
-      </div>
-      <div class="flex justify-start">
-        <img src="../img/home/ocaml_camel.png" alt="camel image" class="rounded-full h-40 w-40 shrink-0 object-cover sm:h-48 sm:w-48 sm:ml-auto md:h-52 md:w-52 lg:h-64 lg:w-64 lg:ml-0 xl:h-72 xl:w-72">
-      </div> 
-    </a>
+  <div class="bg-learn-area-orange w-full py-5 flex px-3 flex-col items-center justify-center sm:px-16 md:flex-row md:gap-x-16 lg:gap-x-20 lg:px-20 xl:px-48 xl:gap-x-36 xl:px-48">
+    <div class="mb-2 flex flex-col items-start sm:max-w-sm md:max-w-none">
+      <h2 class="mb-2 text-white text-center text-sm font-medium leading-5 tracking-widest md:text-left lg:leading-7">GUIDE</h2>
+      <h3 class="mb-4 text-white text-center text-lg font-normal leading-5 md:leading-10 md:text-xl lg:text-2xl md:text-left">Language Manual</h3>
+      <p class="mb-4 text-white text-sm font-normal leading-5 max-w-prose md:text-md lg:leading-7 xl:text-lg">OCaml language manuals are comprehensive guides covering syntax, features, and usage. They assist developers and learners in understanding capabilities, best practices, and exploring functionalities.</p>
+      <a href="<%s Url.manual %>" class="block mt-5 py-2 px-24 bg-default text-sm rounded-sm items-center text-center text-primary-700 sm:px-20 sm:text-md font-medium leading-7 md:text-lg">Take Me There</a>
+    </div>
+    <div class="flex justify-start">
+      <img src="../img/home/ocaml_camel.png" alt="camel image" class="rounded-full h-40 w-40 shrink-0 object-cover sm:h-48 sm:w-48 sm:ml-auto md:h-52 md:w-52 lg:h-64 lg:w-64 lg:ml-0 xl:h-72 xl:w-72">
+    </div> 
+  </div>
