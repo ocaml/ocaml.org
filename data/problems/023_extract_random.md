@@ -31,7 +31,7 @@ val rand_select : 'a list -> int -> 'a list = <fun>
 # Statement
 
 The selected items shall be returned in a list. We use the `Random`
-module but and initialize it with `Random.init 0` at the start of 
+module but and initialise it with `Random.init 0` at the start of 
 the function for reproducibility.
 
 ```ocaml
