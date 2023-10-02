@@ -77,7 +77,7 @@ let main () =
 
 One can imagine writing a ppx extension that enable programmers to write code that is close to the earlier version.
 
-## Which opam Switch should I use today?
+## Which opam switch should I use today?
 
 The `4.12+domains` opam switch has _all_ the features that will go into OCaml 5.0, including the effect-handlers-as-functions. The exact module under which the functions go will likely change by 5.0, but the basic form should remain the same.
 
