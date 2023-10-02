@@ -10,7 +10,7 @@ Welcome to the September 2021 [Multicore OCaml](https://github.com/ocaml-multico
 **OCaml 5.0 will support shared-memory parallelism through domains _and_ direct-style concurrency through effect handlers (without syntactic support)**. 
 
 - The [Domain mechanism](https://github.com/ocaml-multicore/parallel-programming-in-multicore-ocaml) permits OCaml programmers to speed up OCaml code by taking advantage of parallel processing via multiple cores available on modern processors. 
-- Effect handlers allow OCaml programmers to write [high-performance concurrent programs in direct-style](https://github.com/ocaml-multicore/eio), without the use of monadic concurrency as is the case today with the Lwt and Async libraries. Effect handlers also serve as a useful abstraction to build other non-local control-flow abstractions such as [generators](https://github.com/ocaml-multicore/effects-examples/blob/master/generator.ml), [lightweight threads](https://github.com/ocaml-multicore/effects-examples/blob/master/sched.ml), etc. OCaml will be one of [the first industrial-strength languages to support effect handlers](https://arxiv.org/abs/2104.00250 - [500 Internal Server Error]). 
+- Effect handlers allow OCaml programmers to write [high-performance concurrent programs in direct-style](https://github.com/ocaml-multicore/eio), without the use of monadic concurrency as is the case today with the Lwt and Async libraries. Effect handlers also serve as a useful abstraction to build other non-local control-flow abstractions such as [generators](https://github.com/ocaml-multicore/effects-examples/blob/master/generator.ml), [lightweight threads](https://github.com/ocaml-multicore/effects-examples/blob/master/sched.ml), etc. OCaml will be one of [the first industrial-strength languages to support effect handlers](https://arxiv.org/abs/2104.00250). 
 
 The new code will have to go through the usual rigorous review process of contributions to upstream OCaml, but we expect to advance the review process over the next few months. 
 
@@ -34,7 +34,7 @@ You can read more about effect handlers in OCaml in the [full paper](https://arx
 
 ## Why is there no syntactic support for effect handlers in OCaml 5.0?
 
-Effect handlers currently in Multicore OCaml do not ensure [*effect safety*](https://arxiv.org/abs/2104.00250 - [500 Internal Server Error]). That is, the compiler will not ensure that all the effects performed by the program are handled. Instead, unhandled effects lead to exceptions at runtime. Since we plan to extend OCaml with support for an [effect system](https://github.com/ocaml/subsystem-meetings/tree/main/effect_system/2021-09-30) in the future, OCaml 5.0 will not feature the syntactic support for programming with effect handlers. Instead, we expose the same features through functions from the standard library, reserving the syntax decisions for when the effect system  lands. The function based effect handlers is just as expressive as the current syntaxful version in Multicore OCaml. As an example, the syntax-free version of:
+Effect handlers currently in Multicore OCaml do not ensure [*effect safety*](https://arxiv.org/abs/2104.00250). That is, the compiler will not ensure that all the effects performed by the program are handled. Instead, unhandled effects lead to exceptions at runtime. Since we plan to extend OCaml with support for an [effect system](https://github.com/ocaml/subsystem-meetings/tree/main/effect_system/2021-09-30) in the future, OCaml 5.0 will not feature the syntactic support for programming with effect handlers. Instead, we expose the same features through functions from the standard library, reserving the syntax decisions for when the effect system  lands. The function based effect handlers is just as expressive as the current syntaxful version in Multicore OCaml. As an example, the syntax-free version of:
 
 ```ocaml
 effect E : string 
@@ -77,7 +77,7 @@ let main () =
 
 One can imagine writing a ppx extension that enable programmers to write code that is close to the earlier version.
 
-## Which opam switch should I use today?
+## Which opam Switch should I use today?
 
 The `4.12+domains` opam switch has _all_ the features that will go into OCaml 5.0, including the effect-handlers-as-functions. The exact module under which the functions go will likely change by 5.0, but the basic form should remain the same.
 
