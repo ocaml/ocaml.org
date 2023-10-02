@@ -2,7 +2,7 @@
 id: basic-data-types
 title: Basic Datatypes And Pattern-Matching
 description: |
-  TBD
+  Predefined types, Variants, Records and Pattern-Matching
 category: "Language"
 ---
 
