@@ -10,9 +10,9 @@ category: "Language"
 
 ## Introduction
 
-Product types and data types such as `option` and `list` are variants and polymorphic. In this tutorial, they are called _simple variants_ to distinguish them from the _polymorphic variants_ presented in this tutorial. Simple variants and polymorphic variants are close siblings. Their values are both introduced using labels that may carry data. Both can be recursive and have type parameters. Both are statically type-checked.
+Product types and data types such as `option` and `list` are variants and polymorphic. In this tutorial, they are called _simple variants_ to distinguish them from the _polymorphic variants_ presented here. Simple variants and polymorphic variants are close siblings. Their values are both introduced using labels that may carry data. Both can be recursive and have type parameters. Both are statically type-checked.
 
-However, they are type checked using very different algorithms, which result in a very different programming experience. The relationship between value and type (writen with the colon symbol `:`) is changed with polymorphic variants. Usually, values are seen as inhabitants of a type, which is though as a set-like things. Polymorphic variant values should rather be thought as pieces of data that can be accepted by functions and polymorphic variant types a way to express compabitibity relationship between those functions. The approach in this tutorial is to build sense from experience using features of polymorphic variants.
+However, they are type checked using very different algorithms, which result in very different programming experience. The relationship between value and type (writen with the colon symbol `:`) is changed with polymorphic variants. Usually, values are seen as inhabitants of a type, which is though as a set-like things. Polymorphic variant values should rather be thought as pieces of data that can be accepted by functions and polymorphic variant types a way to express compabitibity relationship between those functions. The approach in this tutorial is to build sense from experience using features of polymorphic variants.
 
 By the way, don't trust ChatGPT if it tells you polymorphic variants are dynamically type-checked, it is hallucinating.
 
@@ -53,13 +53,13 @@ The type expression `'a list` does not designate a single type, it designates a 
 
 ### Creating Polymorphic Variant Types From Pattern Matching
 
-Polymorphic variant visual signature are backquotes. Pattern matching on them looks just the same as with simple variants, except for backquotes (and capitals, which are not longer mandatory). Here is a first example:
+Polymorphic variant visual signature are backquotes. Pattern matching on them looks just the same as with simple variants, except for backquotes (and capitals, which are no longer mandatory). Here is a first example:
 ```ocaml
 # let f = function `Broccoli -> "Broccoli" | `Fruit name -> name;;
 f : [< `Broccoli | `Fruit of string ] -> string = <fun>
 ```
 
-Here`` `Broccoli`` and`` `Fruit`` plays a role similar to the role played by the constructors `Broccoli` and `Fruit` in a variant declared as `type t = Broccoli | Fruit of string`. Except, and most importantly, that the type definition doesn't need to be written. The tokens`` `Broccoli`` and `` `Fruit`` are called _tags_ instead of constructors. A tag is defined by a name and a list of parameter types.
+Here`` `Broccoli`` and`` `Fruit`` plays roles which are similar to the role played by the constructors `Broccoli` and `Fruit` in a variant type declared as `type t = Broccoli | Fruit of string`. Except, and most importantly, that the type definition doesn't need to be written. The tokens`` `Broccoli`` and `` `Fruit`` are called _tags_ instead of constructors. A tag is defined by a name and a list of parameter types.
 
 The expression ``[< `Broccoli | `Fruit of string ]`` play the role of a type. However, it does not represent a single type, it represents three different types.
 - The type that only has`` `Broccoli`` as inhabitant, its translation into a simple variant is `type t0 = Broccoli`
@@ -92,7 +92,11 @@ val g : [< `Broccoli | `Edible of string ] -> string = <fun>
 - : string = "Brassica oleracea var. italica"
 ```
 
-Both `f` and `g` accepts the`` `Broccoli`` tag as input because they both have code for it. They do not have the same domain because `f` also accepts `` `Fruit`` whilst `g` accepts `` `Edible`` instead. The types of the domains of `f` and `g` expresses this. The tag `` `Broccoli`` satisfies the both the constraints of the domain of `f`: ``[< `Broccoli | `Fruit of string ]`` and the contraints of the domain of `g`: ``[< `Broccoli | `Fruit of string ]``. The same way tag defined values belong to several types, tag accepting functions belong to several types too.
+Both `f` and `g` accepts the`` `Broccoli`` tag as input because they both have a branch of code for it. Howevern, they do not have the same domain because `f` also accepts `` `Fruit`` whilst `g` accepts `` `Edible`` instead. The types of the domains of `f` and `g` expresses this. The tag `` `Broccoli`` satisfies both the constraints of the domain of `f`: ``[< `Broccoli | `Fruit of string ]`` and the contraints of the domain of `g`: ``[< `Broccoli | `Fruit of string ]``.
+
+Polymorphic variants tags are meant to be use as stand-alone values.
+
+The same way tag defined values belong to several types, tag accepting functions belong to several types too.
 
 ### Static Type Checking
 
