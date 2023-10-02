@@ -1,5 +1,5 @@
 ---
-id: basic-data-types
+id: basic-datatypes
 title: Basic Datatypes And Pattern-Matching
 description: |
   Predefined types, Variants, Records and Pattern-Matching
