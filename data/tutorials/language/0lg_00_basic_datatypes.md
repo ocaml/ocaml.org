@@ -8,6 +8,13 @@ category: "Language"
 
 # Basic Datatypes And Pattern-Matching
 
+> J'étais tranquille j'étais pénard <br>
+> Accoudé au comptoir <br>
+> Le type est entré dans le bar <br>
+> A commandé un café noir
+
+&mdash; Renaud, _Laisse béton_
+
 ## Introduction
 
 OCaml is a statically and strongly typed programming language. It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs while being easy to use and unobtrusive. Thanks to type inference, programs can be written without type annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
