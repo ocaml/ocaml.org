@@ -9,6 +9,10 @@ category: "Getting Started"
 
 # Installing OCaml
 
+> On prononce Caml avec le « ca » de café et le « mel » de melba.
+
+&mdash; Xavier Leroy et Pierre Weis, _Le langage Caml_
+
 This page will walk you through the installation of OCaml. Of course, this includes [installing the compiler](#installing-ocaml) itself, but it also installs a build system, a package manager, an LSP server to support your editor, and a few other tools that we'll describe [later](#setting-up-development-tools).
 
 On this page, you'll find installation instructions for Linux, macOS, and *BSD for all OCaml versions. For Windows, we also provide instructions for installing OCaml 4.14.0 via the [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) Installer. Note that, if you use Windows Subsystem for Linux (WSL), the Unix instructions can be used on Windows.

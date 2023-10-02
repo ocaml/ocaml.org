@@ -8,9 +8,10 @@ category: "Getting Started"
 
 # How to Write an OCaml Program
 
-> On prononce Caml avec le « ca » de café et le « mel » de melba.
+> [...] diviser chacune des difficultés que j'examinerais, en autant de
+> parcelles qu'il se pourrait, et qu'il serait requis pour les mieux résoudre.
 
-&mdash; Xavier Leroy et Pierre Weis, _Le langage Caml_
+&mdash; René Descartes, _Discours de la méthode_
 
 In this tutorial, we start working with files containing OCaml source code and compiling them to produce excutable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture before extensively presenting topics in order to avoid getting lost in the details.
 
