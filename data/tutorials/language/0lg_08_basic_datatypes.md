@@ -1,12 +1,12 @@
 ---
 id: basic-data-types
-title: Basic Data Types
+title: Basic Datatypes And Pattern-Matching
 description: |
   TBD
 category: "Language"
 ---
 
-# Basic Data Types
+# Basic Datatypes And Pattern-Matching
 
 ## Introduction
 
@@ -289,7 +289,7 @@ In the standard library, both are defined using pattern matching. Here is how a 
 val f : 'a * 'b * 'c * 'd -> 'c = <fun>
 ```
 
-Note that the product type operator `*` is not associative. Types `int * char * bool`, `int * (char * bool)`, and `(int * char) * bool` are not the same. The values `(42, 'a', true)`, `(42, ('a', true))`, and `((42, 'a'), true)` are not equal.
+Note that types `int * char * bool`, `int * (char * bool)`, and `(int * char) * bool` are not the same. The values `(42, 'a', true)`, `(42, ('a', true))`, and `((42, 'a'), true)` are not equal. In mathematical language, it is said that the product type operator `*` is not associative.
 
 ### Functions
 
@@ -502,6 +502,27 @@ val commit_to_string' : commit -> string = <fun>
 
 The `match … with …` construct needs to be passed an expression that is inspected. The `function …` is a special form of anonymous function taking a parameter and forwarding it to a `match … with …` construct as shown above.
 
+Warning: Wrapping product types with parenthesis turns them into a single parameter.
+```ocaml
+# type t1 = T1 of int * bool;;
+type t1 = T1 of int * bool
+
+# type t2 = T2 of (int * bool);;
+type t2 = T2 of (int * bool)
+
+# let p = (4, false);;
+val p : int * bool = (4, false)
+
+# T1 p;;
+Error: The constructor T1 expects 2 argument(s),
+       but is applied here to 1 argument(s)
+
+# T2 p;;
+- : t2 = T2 (4, false)
+```
+
+The constructor `T1` has two parameters of type `int` and `bool` whilst the constructor `T2` has a single parameter of type `int * bool`.
+
 #### Recursive Variants
 
 A variant definition referring to itself is recursive. A constructor may wrap data from the type being defined.
@@ -589,7 +610,15 @@ Here is an example of a variant type that combines constructors with data, const
 type 'a tree = Leaf | Node of 'a * 'a tree * 'a tree
 ```
 
-It can be used to represent arbitrarily labelled binary trees. Using pattern matching, here is how the map function can be defined in this type:
+It can be used to represent arbitrarily labelled binary trees. Assuming such a tree would be labelled with integers, here is a possible way to compute the sum of the integers it contains, using recursion and pattern-matching.
+```ocaml
+# let rec sum = function
+  | Leaf -> 0
+  | Node (x, lft, rht) -> x + sum lft + sum rht;;
+val sum : int tree -> int = <fun>
+```
+
+Here is how the map function can be defined in this type:
 ```ocaml
 # let rec map f = function
   | Leaf -> Leaf
@@ -704,6 +733,98 @@ type latitude_longitude = float * float
 ```
 
 This is mostly useful as a means of documentation or as a means to shorten long-type expressions.
+
+## A Complete Example: Mathematical Expressions
+
+This example show how to represent simple mathematical expressions like `n * (x + y)` and multiply them out symbolically to get `n * x + n * y`.
+
+Here is a type for these expressions:
+```ocaml env=expr
+# type expr =
+  | Plus of expr * expr        (* a + b *)
+  | Minus of expr * expr       (* a - b *)
+  | Times of expr * expr       (* a * b *)
+  | Divide of expr * expr      (* a / b *)
+  | Var of string              (* "x", "y", etc. *);;
+```
+
+The expression `n * (x + y)` would be written:
+```ocaml env=expr
+# let e = Times (Var "n", Plus (Var "x", Var "y"));;
+val e : expr = Times (Var "n", Plus (Var "x", Var "y"))
+```
+
+Here is a function which prints out `Times (Var "n", Plus (Var "x", Var "y"))`
+as something more like `n * (x + y)`.
+
+```ocaml env=expr
+# let rec to_string = function
+  | Plus (e1, e2) -> "(" ^ to_string e1 ^ " + " ^ to_string e2 ^ ")"
+  | Minus (e1, e2) -> "(" ^ to_string e1 ^ " - " ^ to_string e2 ^ ")"
+  | Times (e1, e2) -> "(" ^ to_string e1 ^ " * " ^ to_string e2 ^ ")"
+  | Divide (e1, e2) -> "(" ^ to_string e1 ^ " / " ^ to_string e2 ^ ")"
+  | Var v -> v;;
+val to_string : expr -> string = <fun>
+```
+
+We can write a function to multiply out expressions of the form `n * (x + y)`
+or `(x + y) * n`, and for this we will use a nested pattern:
+
+```ocaml env=expr
+# let rec distribute = function
+  | Times (e1, Plus (e2, e3)) ->
+     Plus (Times (distribute e1, distribute e2),
+           Times (distribute e1, distribute e3))
+  | Times (Plus (e1, e2), e3) ->
+     Plus (Times (distribute e1, distribute e3),
+           Times (distribute e2, distribute e3))
+  | Plus (e1, e2) -> Plus (distribute e1, distribute e2)
+  | Minus (e1, e2) -> Minus (distribute e1, distribute e2)
+  | Times (e1, e2) -> Times (distribute e1, distribute e2)
+  | Divide (e1, e2) -> Divide (distribute e1, distribute e2)
+  | Var v -> Var v;;
+val distribute : expr -> expr = <fun>
+```
+
+This is how it can be used:
+```ocaml env=expr
+# e |> distribute |> to_string |> print_endline;;
+((n * x) + (n * y))
+- : unit = ()
+```
+
+How does the `distribute` function work? The key is in the first two patterns.
+The first pattern is `Times (e1, Plus (e2, e3))` which matches expressions of
+the form `e1 * (e2 + e3)`. The right-hand side of this first pattern is the
+equivalent of `(e1 * e2) + (e1 * e3)`. The second pattern does the same thing,
+except for expressions of the form `(e1 + e2) * e3`.
+
+The remaining patterns don't change the expressions's form, but they call the
+`distribute` function recursively on their subexpressions. This ensures that all
+subexpressions within the expression get multiplied out too (if you only wanted
+to multiply out the very top level of an expression, then you could replace all
+the remaining patterns with a simple `e -> e` rule).
+
+The reverse operation, i.e. factorizing out common subexpressions, can be
+implemented in a similar fashion. The following version only works for the top
+level expression.
+```ocaml env=expr
+# let top_factorize = function
+  | Plus (Times (e1, e2), Times (e3, e4)) when e1 = e3 ->
+     Times (e1, Plus (e2, e4))
+  | Plus (Times (e1, e2), Times (e3, e4)) when e2 = e4 ->
+     Times (Plus (e1, e3), e4)
+  | e -> e;;
+val top_factorize : expr -> expr = <fun>
+# top_factorize (Plus (Times (Var "n", Var "x"),
+                   Times (Var "n", Var "y")));;
+- : expr = Times (Var "n", Plus (Var "x", Var "y"))
+```
+
+The factorize function above introduces another feature: *guards* to each
+pattern. It is the conditional which follows the `when`, and it means that
+the return code is executed only if the pattern matches and the condition in the
+`when` clause is satisfied.
 
 ## Conclusion
 
