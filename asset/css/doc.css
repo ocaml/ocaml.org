@@ -295,3 +295,7 @@ span.icon-expand.open::before {
   content: " \25BE";
 }
 
+.xref-unresolved {
+  text-decoration: underline;
+  font-weight: 700;
+}
