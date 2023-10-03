@@ -65,7 +65,7 @@ Learn_layout.overview_render
             {href = Url.tutorial "bootstrapping-a-dune-project"; title = "Bootstrapping a Project"};
             {href = Url.tutorial "managing-dependencies"; title = "Managing Dependencies"};
             {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Install a Specific Compiler Version"};
-            {href = Url.tutorial "setting-up-vscode"; title = "Setting Up VSCode"}
+            {href = Url.tutorial "configuring-your-editor"; title = "Configuring Your Editor"}
         ]
         ~see_more:{href = Url.platform; title = "See More Tooling Tutorials"}
         "bg-[#040113]"
