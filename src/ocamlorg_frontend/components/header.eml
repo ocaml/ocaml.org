@@ -12,7 +12,7 @@ let menu_link
 ?(_class="")
 ()
 =
-  <a href="<%s href %>" class="font-semibold py-3 mg:py-4 px-1 lg:px-3 <%s _class %> <%s if active then "text-primary-600 underline" else "text-lighter" %> hover:text-primary-600"><%s title %></a>
+  <a href="<%s href %>" class="font-semibold py-3 mg:py-4 px-1 lg:px-3 <%s _class %> <%s if active then "dark:text-white text-primary-600 underline" else "text-lighter" %> hover:text-primary-600 dark:hover:text-white"><%s title %></a>
 
 
 let render
@@ -63,11 +63,33 @@ in
           %>
         </form>
       </li>
+      <li class="flex" x-data="{ theme: localStorage.theme }">
+        <button title="Toggle Theme" 
+          @click="document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', theme !== 'dark'? 'dark' : 'light'); theme=theme !== 'dark'? 'dark' : 'light';">
+          <div x-show="theme && theme === 'dark'" class="h-6 w-6">
+            <%s! Icons.dark_mode "h-6 w-6"%> 
+          </div>
+          <div x-show="theme && theme === 'light'" class="h-6 w-6">
+            <%s! Icons.light_mode "h-6 w-6" %> 
+          </div>
+        </button>
+      </li>
       <% if show_get_started then (%>
         <li><a href="<%s Url.getting_started %>" class="btn btn-secondary btn-sm">Get Started</a></li>
       <% ); %>
     </ul>
     <ul class="lg:hidden flex items-center">
+      <li class="flex" x-data="{ theme: localStorage.theme }">
+        <button title="Toggle Theme" 
+          @click="document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', theme !== 'dark'? 'dark' : 'light'); theme=theme !== 'dark'? 'dark' : 'light';">
+          <div x-show="theme && theme === 'dark'" class="h-6 w-6">
+            <%s! Icons.dark_mode "h-6 w-6"%> 
+          </div>
+          <div x-show="theme && theme === 'light'" class="h-6 w-6">
+            <%s! Icons.light_mode "h-6 w-6" %> 
+          </div>
+        </button>
+      </li>
       <li
         class="h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full text-lighter dark:text-white">
         <button aria-label="open menu" @click="open = ! open">
@@ -119,13 +141,13 @@ in
 
       <li>
         <div class="space-x-6 text-2xl flex items-center">
-          <a aria-label="OCaml's Discord" href="https://discord.gg/cCYQbqN" class="opacity-60 hover:opacity-100">
+          <a aria-label="OCaml's Discord" href="https://discord.gg/cCYQbqN" class="opacity-60 hover:opacity-100 dark:text-white">
             <%s! Icons.discord "w-6 h-6" %>
           </a>
-          <a aria-label="The OCaml Compiler on GitHub" href="https://github.com/ocaml/ocaml" class="opacity-60 hover:opacity-100">
+          <a aria-label="The OCaml Compiler on GitHub" href="https://github.com/ocaml/ocaml" class="opacity-60 hover:opacity-100 dark:text-white">
             <%s! Icons.github "w-6 h-6" %>
           </a>
-          <a aria-label="The OCaml Language Twitter Account" href="https://twitter.com/ocamllang" class="opacity-60 hover:opacity-100">
+          <a aria-label="The OCaml Language Twitter Account" href="https://twitter.com/ocamllang" class="opacity-60 hover:opacity-100 dark:text-white">
             <%s! Icons.twitter "w-6 h-6" %>
           </a>
         </div>
