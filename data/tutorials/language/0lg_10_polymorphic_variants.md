@@ -262,7 +262,7 @@ Exact polymorphic variant types can be given names.
 # type exotic = [ `Guayaba | `Maracuya | `Papaya ];;
 ```
 
-Named polymorphic variants are always exact. It is not possible to give names to closed or open type constraints.
+Named polymorphic variants are always exact. It is not possible to give names to closed or open type constraints. Named polymorphic variants correspond to simple variants.
 
 ### Type extension
 
