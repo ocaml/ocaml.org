@@ -10,26 +10,26 @@ category: "Language"
 
 ## Introduction
 
-Product types and data types such as `option` and `list` are variants and polymorphic. In this tutorial, they are called _simple variants_ to distinguish them from the _polymorphic variants_ presented here. Simple variants and polymorphic variants are close siblings. Their values are both introduced using labels that may carry data. Both can be recursive and have type parameters. Both are statically type-checked.
+Product types and data types such as `option` and `list` are variants and polymorphic. In this tutorial, they are called _simple variants_ to distinguish them from the _polymorphic variants_ presented here. Simple variants and polymorphic variants are close siblings. Their values are both introduced using labels that may carry data. Both can be recursive and have type parameters. Both are type checked statically .
 
-However, they are type checked using very different algorithms, which result in very different programming experience. The relationship between value and type (writen with the colon symbol `:`) is changed with polymorphic variants. Usually, values are seen as inhabitants of a type, which is though as a set-like things. Polymorphic variant values should rather be thought as pieces of data that can be accepted by functions and polymorphic variant types a way to express compabitibity relationship between those functions. The approach in this tutorial is to build sense from experience using features of polymorphic variants.
+However, they are type checked using very different algorithms, which result in a very different programming experience. The relationship between value and type (written with the colon symbol `:`) is changed with polymorphic variants. Usually, values are thought of as inhabitants of the type, which is regarded as set-like things. Rather, polymorphic variant values should be considerered as pieces of data that function and polymorphic variants can accept polymorphic variant types a way to express compabitibity relationship between those functions. The approach in this tutorial is to build sense from experience using features of polymorphic variants.
 
-By the way, don't trust ChatGPT if it tells you polymorphic variants are dynamically type-checked, it is hallucinating.
+By the way, don't trust ChatGPT if it tells you polymorphic variants are dynamically type checked; it is hallucinating.
 
 ### Origin and Context
 
-Polymorphic variants origins from Jacques Garrigue work on Objective Label, which was [first published in 1996](https://caml.inria.fr/pub/old_caml_site/caml-list-ar/0533.html). It became part of stantard OCaml in [release 3.0](https://caml.inria.fr/distrib/ocaml-3.00/), in 2000, along with labelled and optional function arguments.
+Polymorphic variants originate from Jacques Garrigue work on Objective Label, which was [first published in 1996](https://caml.inria.fr/pub/old_caml_site/caml-list-ar/0533.html). It became part of stantard OCaml in [release 3.0](https://caml.inria.fr/distrib/ocaml-3.00/) in 2000, along with labelled and optional function arguments.
 
-The core type system of OCaml follows a [_nominal_](https://en.wikipedia.org/wiki/Nominal_type_system) discipline. Types are first explicitely declared, later they are used. The typing discipline used for polymorphic variants and classes is different, it is [_structural_](https://en.wikipedia.org/wiki/Structural_type_system).
+The core type system of OCaml follows a [_nominal_](https://en.wikipedia.org/wiki/Nominal_type_system) discipline. Types are explicitely declared. The typing discipline used for polymorphic variants and classes is different, as it is [_structural_](https://en.wikipedia.org/wiki/Structural_type_system).
 
-In the nominal approach of typing, types are first defined; later, when type-checking an expression, three outcomes are possible:
-1. If a matching type is found, it becomes the infered type
-1. If any type can be applied, a type variable is created
-1. If typing inconsistencies are found, an error is raised
+In the nominal approach of typing, types are first defined; later, when type checking an expression, three outcomes are possible:
+1. If a matching type is found, it becomes the infered type.
+1. If any type can be applied, a type variable is created.
+1. If typing inconsistencies are found, an error is raised.
 
-This is very similar to solving an equation in mathematics. Equation on numbers accepts either zero, exactly one, several or infinitely many solutions. Nominal type checking finds that either zero, exactly one or any type can be used in an expression.
+This is very similar to solving an equation in mathematics. Equation on numbers accepts either zero, exactly one, several, or infinitely many solutions. Nominal type checking finds that either zero, exactly one, or any type can be used in an expression.
 
-In the structural approach of typing, type definitions are optional, they can be omitted. Type checking an expression constructs a data structure that represents types which are compatible with it. These data structures are displayed as type expressions sharing ressemblance with simple variants but turns out to have pretty different meaning.
+In the structural approach of typing, type definitions are optional, so they can be omitted. Type checking an expression constructs a data structure that represents the types that are compatible with it. These data structures are displayed as type expressions sharing ressemblance with simple variants.
 
 ### Learning Goals
 
@@ -45,7 +45,7 @@ The goal of this tutorial is to make the reader acquire the following capabiliti
 
 ### Variants and Polymorphism
 
-The type expression `'a list` does not designate a single type, it designates a family of types, all the types that can be created by substituing an actual type to type variable `'a`. The type expressions `int list`, `bool option list` or `(float -> float) list list` are real types, with associated values. They are example members of the family `'a list`. The identifiers `list`, `option` and others are type operators. Just like functions, they take parameters, except those parameters are not values, they are types; and result aren't values but a type too. Therfore, simple variants are polymorphic, but not in the same sense as polymorphic variants.
+The type expression `'a list` does not designate a single type; it designates a family of types, basically all the types that can be created by substituing an actual type to type variable `'a`. The type expressions `int list`, `bool option list`, or `(float -> float) list list` are real types. They're actual members of the family `'a list`. The identifiers `list`, `option`, and others are type operators. Just like functions, they take parameters. Although these parameters are not values, they are types. The result isn't a value but a type, too. Therfore, simple variants are polymorphic, but not in the same sense as polymorphic variants.
 - Simple variants have [parametric poymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism)
 - Polymorphic variants have a form of [structural polymorphism](https://en.wikipedia.org/wiki/Structural_type_system)
 
@@ -53,13 +53,13 @@ The type expression `'a list` does not designate a single type, it designates a 
 
 ### Creating Polymorphic Variant Types From Pattern Matching
 
-Polymorphic variant visual signature are backquotes. Pattern matching on them looks just the same as with simple variants, except for backquotes (and capitals, which are no longer mandatory). Here is a first example:
+Polymorphic variant visual signature are backquotes. Pattern matching on them looks just the same as with simple variants, except for backquotes (and capitals, which are no longer required).
 ```ocaml
 # let f = function `Broccoli -> "Broccoli" | `Fruit name -> name;;
-f : [< `Broccoli | `Fruit of string ] -> string = <fun>
+val f : [< `Broccoli | `Fruit of string ] -> string = <fun>
 ```
 
-Here`` `Broccoli`` and`` `Fruit`` plays roles which are similar to the role played by the constructors `Broccoli` and `Fruit` in a variant type declared as `type t = Broccoli | Fruit of string`. Except, and most importantly, that the type definition doesn't need to be written. The tokens`` `Broccoli`` and `` `Fruit`` are called _tags_ instead of constructors. A tag is defined by a name and a list of parameter types.
+Here`` `Broccoli`` and`` `Fruit`` play a role similar to the one played by the constructors `Broccoli` and `Fruit` in a variant declared as `type t = Broccoli | Fruit of string`. Except, and most importantly, that the definition doesn't need to be written. The tokens`` `Broccoli`` and `` `Fruit`` are called _tags_ instead of constructors. A tag is defined by a name and a list of parameter types.
 
 The expression ``[< `Broccoli | `Fruit of string ]`` play the role of a type. However, it does not represent a single type, it represents three different types.
 - The type that only has`` `Broccoli`` as inhabitant, its translation into a simple variant is `type t0 = Broccoli`
@@ -70,9 +70,9 @@ Note each of the above translations into simple variants is correct. However, en
 
 This also illustrates the other strinking feature of polymorphic variants: values can be attached to several types. For instance, the tag `` `Broccoli`` inhabits ``[ `Broccoli ]`` and``[ `Broccoli | `Fruit of String ]``, but it also inhabits any type that containts it.
 
-What is displayed by the type-checker, for instance ``[< `Broccoli | `Fruit of string ]``, isn't a single type. It is a type expression that designates a constrained set of types. For instance, all types defined by a group of tags that contains either`` `Broccoli`` or `` `Fruit of string`` and nothing more. This is the meaning of the `<` sign in this type expression. This a bit similar to what happens with `'a list`, which isn't a single type either, but a type expression that desginates the set of lists of something, i.e. the set of types where `'a` has been replaced by some other type.
+What is displayed by the type-checker, for instance ``[< `Broccoli | `Fruit of string ]``, isn't a single type. It is a type expression that designates a contrained set of types. For instance, all types defined by a group of tags that contains either`` `Broccoli`` or `` `Fruit of string`` and nothing more. This is the meaning of the `<` sign in this type expression. This a bit similar to what happens with `'a list`, which isn't a single type either, but a type expression that desginates the set of `list` types of something, i.e. the set of types where `'a` has been replaced by some other type.
 
-This is the sense of the polymorphism of polymorphic variants. Polymorphic variants types are type expressions. The structural typing algorithm used for polymorphic variants creates type expressions that designate sets of types (here the three types above), which are defined by contraints on sets of tags: the inequality symbols. The polymorphism of polymorphic variant is different.
+This is the sense of the polymorphism of polymorphic variants. Polymorphic variants types are type expressions. The structural typing algorithm used for polymorphic variants creates type expressions that designate sets of types (here the three types above), which are defined by contraints on sets of tags (the inequality symbols). The polymorphism of polymorphic variant is different.
 
 In the rest of this tutorial, the following terminology is used:
 - “simple variants”: product types and variants such as `list`, `option` and others
@@ -92,7 +92,8 @@ val g : [< `Broccoli | `Edible of string ] -> string = <fun>
 - : string = "Brassica oleracea var. italica"
 ```
 
-Both `f` and `g` accepts the`` `Broccoli`` tag as input because they both have a branch of code for it. Howevern, they do not have the same domain because `f` also accepts `` `Fruit`` whilst `g` accepts `` `Edible`` instead. The types of the domains of `f` and `g` expresses this. The tag `` `Broccoli`` satisfies both the constraints of the domain of `f`: ``[< `Broccoli | `Fruit of string ]`` and the contraints of the domain of `g`: ``[< `Broccoli | `Fruit of string ]``.
+Both `f` and `g` accepts the`` `Broccoli`` tag as input because they both have code for it. They do not have the same domain because `f` also accepts `` `Fruit of string`` whilst `g` also accepts `` `Edible of string``. The types of the domains of `f` and `g` expresses this. The tag `` `Broccoli`` satisfies the both the constraints of the domain of `f`: ``[< `Broccoli | `Fruit of string ]`` and the contraints of the domain of `g`: ``[< `Broccoli | `Fruit of string ]``. That type is ``[ `Broccoli ]``. The same way tag defined values belong to several types, tag accepting functions belong to several types too.
+
 
 Polymorphic variants tags are meant to be use as stand-alone values.
 
@@ -451,7 +452,7 @@ structural equality when you pass a value from one library to the other.
 
 Jacques Garrigue
 
-### Error Handling using The `result` Type
+### Error Handling Using The `result` Type
 
 The [Error Handling](/docs/error-handling) guide details how errors can be handled in OCaml. Among various mechanisms, the `result` type, when used as a monad, provides powerful mean to handle errors. Refer to the guide and documentation on this type to learn how to use it. In this section we discuss why using polymorphic variants to carry error values can be beneficial.
 
@@ -506,7 +507,7 @@ And an equivalent version using polymorphic variants works:
     let* x = nth u n in
     Ok x;;
 ```
-Using polymorphic variant, the type-checker generates a unique type for all the pipe. The constraints coming from calling `init` are merged ``
+Using polymorphic variant, the type-checker generates a unique type for all the pipe. The constraints coming from calling `init` are merged into a single type.
 
 ## When to Use Polymorphic Variant
 
