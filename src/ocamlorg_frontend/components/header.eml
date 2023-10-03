@@ -63,13 +63,13 @@ in
           %>
         </form>
       </li>
-      <li class="flex" x-data="{ theme: localStorage.theme }">
+      <li class="flex">
         <button title="Toggle Theme" 
-          @click="document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', theme !== 'dark'? 'dark' : 'light'); theme=theme !== 'dark'? 'dark' : 'light';">
-          <div x-show="theme && theme === 'dark'" class="h-6 w-6">
+          @click="document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', localStorage.theme !== 'dark'? 'dark' : 'light');">
+          <div class="h-6 w-6 hidden dark:flex">
             <%s! Icons.dark_mode "h-6 w-6"%> 
           </div>
-          <div x-show="theme && theme === 'light'" class="h-6 w-6">
+          <div class="h-6 w-6 flex dark:hidden">
             <%s! Icons.light_mode "h-6 w-6" %> 
           </div>
         </button>
@@ -81,11 +81,11 @@ in
     <ul class="lg:hidden flex items-center">
       <li class="flex" x-data="{ theme: localStorage.theme }">
         <button title="Toggle Theme" 
-          @click="document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', theme !== 'dark'? 'dark' : 'light'); theme=theme !== 'dark'? 'dark' : 'light';">
-          <div x-show="theme && theme === 'dark'" class="h-6 w-6">
+          @click="document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', localStorage.theme !== 'dark'? 'dark' : 'light');">
+          <div class="h-6 w-6 hidden dark:flex">
             <%s! Icons.dark_mode "h-6 w-6"%> 
           </div>
-          <div x-show="theme && theme === 'light'" class="h-6 w-6">
+          <div class="h-6 w-6 flex dark:hidden">
             <%s! Icons.light_mode "h-6 w-6" %> 
           </div>
         </button>
