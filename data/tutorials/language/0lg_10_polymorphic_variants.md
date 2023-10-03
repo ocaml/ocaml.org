@@ -12,13 +12,13 @@ category: "Language"
 
 Product types and data types such as `option` and `list` are variants and polymorphic. In this tutorial, they are called _simple variants_ to distinguish them from the _polymorphic variants_ presented here. Simple variants and polymorphic variants are close siblings. Their values are both introduced using labels that may carry data. Both can be recursive and have type parameters. Both are type checked statically .
 
-However, they are type checked using very different algorithms, which result in a very different programming experience. The relationship between value and type (written with the colon symbol `:`) is changed with polymorphic variants. Usually, values are thought of as inhabitants of the type, which is regarded as set-like things. Rather, polymorphic variant values should be considerered as pieces of data that function and polymorphic variants can accept polymorphic variant types a way to express compabitibity relationship between those functions. The approach in this tutorial is to build sense from experience using features of polymorphic variants.
+However, they are type checked using very different algorithms, which result in a very different programming experience. The relationship between value and type (written with the colon symbol `:`) is changed with polymorphic variants. Usually, values are thought of as inhabitants of the type, which is regarded as set-like thing. Rather, polymorphic variant values should be considerered as pieces of data that several functions can accept. Polymorphic variants types are a way to express compabitibity relationship between those functions. The approach in this tutorial is to build sense from experience using features of polymorphic variants.
 
 By the way, don't trust ChatGPT if it tells you polymorphic variants are dynamically type checked; it is hallucinating.
 
 ### Origin and Context
 
-Polymorphic variants originate from Jacques Garrigue work on Objective Label, which was [first published in 1996](https://caml.inria.fr/pub/old_caml_site/caml-list-ar/0533.html). It became part of stantard OCaml in [release 3.0](https://caml.inria.fr/distrib/ocaml-3.00/) in 2000, along with labelled and optional function arguments.
+Polymorphic variants originate from Jacques Garrigue work on Objective Label, which was [first published in 1996](https://caml.inria.fr/pub/old_caml_site/caml-list-ar/0533.html). It became part of stantard OCaml with [release 3.0](https://caml.inria.fr/distrib/ocaml-3.00/) in 2000, along with labelled and optional function arguments.
 
 The core type system of OCaml follows a [_nominal_](https://en.wikipedia.org/wiki/Nominal_type_system) discipline. Types are explicitely declared. The typing discipline used for polymorphic variants and classes is different, as it is [_structural_](https://en.wikipedia.org/wiki/Structural_type_system).
 
@@ -27,7 +27,7 @@ In the nominal approach of typing, types are first defined; later, when type che
 1. If any type can be applied, a type variable is created.
 1. If typing inconsistencies are found, an error is raised.
 
-This is very similar to solving an equation in mathematics. Equation on numbers accepts either zero, exactly one, several, or infinitely many solutions. Nominal type checking finds that either zero, exactly one, or any type can be used in an expression.
+This is very similar to solving an equation in mathematics. Equation accepts either zero, exactly one, several, or infinitely many numbers as solutions. Nominal type checking finds that either zero, exactly one, or any type can be used in an expression.
 
 In the structural approach of typing, type definitions are optional, so they can be omitted. Type checking an expression constructs a data structure that represents the types that are compatible with it. These data structures are displayed as type expressions sharing ressemblance with simple variants.
 
@@ -43,9 +43,9 @@ The goal of this tutorial is to make the reader acquire the following capabiliti
 - Refactor between simple and polymorphic variants
 - Choose to use polymorphic variant when really needed
 
-### Variants and Polymorphism
+### A Note on Simple Variants and Polymorphism
 
-The type expression `'a list` does not designate a single type; it designates a family of types, basically all the types that can be created by substituing an actual type to type variable `'a`. The type expressions `int list`, `bool option list`, or `(float -> float) list list` are real types. They're actual members of the family `'a list`. The identifiers `list`, `option`, and others are type operators. Just like functions, they take parameters. Although these parameters are not values, they are types. The result isn't a value but a type, too. Therfore, simple variants are polymorphic, but not in the same sense as polymorphic variants.
+The type expression `'a list` does not designate a single type; it designates a family of types, basically all the types that can be created by substituing an actual type to type variable `'a`. The type expressions `int list`, `bool option list`, or `(float -> float) list list` are real types. They're actual members of the family `'a list`. Types are intended to have inhabitants, type families don't. The identifiers `list`, `option`, and others are type operators. Just like functions, they take parameters. Although these parameters are not values, they are types. Their results aren't values but types, too. Therefore, simple variants are polymorphic, but not in the same sense as polymorphic variants.
 - Simple variants have [parametric poymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism)
 - Polymorphic variants have a form of [structural polymorphism](https://en.wikipedia.org/wiki/Structural_type_system)
 
@@ -94,20 +94,19 @@ val g : [< `Broccoli | `Edible of string ] -> string = <fun>
 
 Both `f` and `g` accepts the`` `Broccoli`` tag as input because they both have code for it. They do not have the same domain because `f` also accepts `` `Fruit of string`` whilst `g` also accepts `` `Edible of string``. The types of the domains of `f` and `g` expresses this. The tag `` `Broccoli`` satisfies the both the constraints of the domain of `f`: ``[< `Broccoli | `Fruit of string ]`` and the contraints of the domain of `g`: ``[< `Broccoli | `Fruit of string ]``. That type is ``[ `Broccoli ]``. The same way tag defined values belong to several types, tag accepting functions belong to several types too.
 
-
-Polymorphic variants tags are meant to be use as stand-alone values.
+Polymorphic variants tags are meant to be use as stand-alone values, wherever it makes sense. As long as used consistently, with a single implicit type per tag, the type checker will accept any combination of them.
 
 The same way tag defined values belong to several types, tag accepting functions belong to several types too.
 
 ### Static Type Checking
 
-Type-checking of polymorphic variants is static. No information on tag's types is available at runtime.
+Type checking of polymorphic variants is static. No information on tag's types is available at runtime.
 ```ocaml
 # [ `Fruit "Banana"; `Fruit true ];;
 Error: This expression has type bool but an expression was expected of type
          string
 ```
-When a tag is used insconsistantly, the type-cecker will raise an error.
+When a tag is used insconsistantly, the type checker will raise an error.
 
 ### Merging Constraints
 
@@ -124,7 +123,7 @@ When building expression from subexpressions, the type-check assembles types fro
 ## Exact, Closed and Open Variants
 
 Polymorphic variant type expressions can have three forms:
-1. Exact: ``[ `Broccoli | `Gherkin | `Fruit of string ]`` : this only designates the type inhabited by the values introduced by these tags. Tags names must occur exaclty once.
+1. Exact: ``[ `Broccoli | `Gherkin | `Fruit of string ]`` : this only designates the type inhabited by the values introduced by these tags.
 1. Closed: ``[< `Broccoli | `Gherkin | `Fruit of string ]`` : this designates a set of exact types. Each exact type is inhabited by the values introduced by a subset of the tags from 1. For instance, there are 7 exact types as such:
   - ``[ `Broccoli ]``
   - ``[ `Gherkin ]``
@@ -143,6 +142,8 @@ The exact form is infered by the type-checker when naming a type defined by a se
 type t = [ `Broccoli | `Fruit of string | `Gherkin ]
 ```
 
+Exact variants correspond closely to simple variants.
+
 The closed form is introduced when performing pattern matching over a explicit set of tags
 ```ocaml
 # let f = function
@@ -152,11 +153,11 @@ The closed form is introduced when performing pattern matching over a explicit s
 val upcast : [< `Broccoli | `Fruit of string | `Gherkin ] -> string = <fun>
 ```
 
-Function `f` can be used with any exact type which has these three tags or less. When applied to a type with less tags, branches associated to removed tags turn safely into dead code. The type is closed because the function can't accept more than what is listed.
+The function `f` can be used with any exact type which has these three tags or less. When applied to a type with less tags, branches associated to removed tags turn safely into dead code. The type is closed because the function can't accept more than what is listed.
 
 The open form can be introduced in two different ways.
 
-Open polymorphic variants appear when adding a `_` to a pattern matching on tags:
+Open polymorphic variants appear when using a catch-all pattern, either the underscore `_` symbol or a variable:
 ```ocaml
 # let g = function
     | `Broccoli -> "Broccoli"
@@ -166,11 +167,11 @@ Open polymorphic variants appear when adding a `_` to a pattern matching on tags
 val g : [> `Broccoli | `Fruit of string | `Gherkin ] -> string = <fun>
 ```
 
-Function `g` can be used with any exact type which has these three tags or more. Because of the catch all pattern, if `g` is passed a value introduced by a tag which is not part of the list, it will be accepted, and `"Edible plant"` is returned. The type is open because it can accept more than what is listed.
+The function `g` can be used with any exact type which has these three tags or more. Because of the catch all pattern, if `g` is passed a value introduced by a tag which is not part of the list, it will be accepted, and `"Edible plant"` is returned. The type is open because it can accept more than what is listed in its expression.
 
 The type of `g` is also meant to disallow exact types with tags removed or changed in type. OCaml is a statically typed language, that means no type information is available at runtime. As a consequence pattern matching only relies on tag names. If `g` was given a type with removed tags, such as``[> `Broccoli | `Gherkin ]``, then passing`` `Fruit`` to `g` would be allowed, but since dispatch is based on names, it would execute the`` `Fruit of string`` branch and crash because no string is available. Therefore, open polymorphic variant must include all the tags from pattern matching.
 
-Open polymorphic variants also appear when type-checking tags as values.
+Open polymorphic variants also appear when type checking tags as values.
 ```ocaml
 # `Gherkin
 - : [> `Gherkin ] = `Gherkin
@@ -182,32 +183,32 @@ Open polymorphic variants also appear when type-checking tags as values.
 Binding a tag to the open polymorphic variant type which only contains enables:
 - Using it all the contexts where applicable code is available
 - Avoid using it in contexts that can't deal with it
-- Building sum of polymorphic variants, this is show in the second example.
+- Building sum of polymorphic variants, this is shown in the second example.
 
 This also applies to function returning polymorphic variant values.
 ```ocaml
-# let f b = if b then `On else `Off;;
-val f : bool -> [> `Off | `On ] = <fun>
+# let f b = if b then `Up else `Down;;
+val f : bool -> [> `Down | `Up ] = <fun>
 ```
 
-The codomain of `f` is the open type ``[> `Off | `On ]``. This make sense when having a look at function composition.
+The codomain of `f` is the open type ``[> `Down | `Up ]``. This make sense when having a look at function composition.
 ```ocaml
 # let g = function
-    | `On -> 1
-    | `Off -> 2
+    | `Up -> 1
+    | `Down -> 2
     | `Broken -> 3;;
 
 # fun x -> x |> f |> g;;
 - : bool -> int = <fun>
 ```
 
-Functions `g` and `f` can be composed because the former accepts more than the latter can return. The value `` `Broken`` will never pass in the `f |> g` pipe, but it safe to write it as no unexpected value can make its way through.
+Functions `g` and `f` can be composed because `g` accepts more than what `f` can return. The value `` `Broken`` will never pass in the `f |> g` pipe, but it safe to write it as no unexpected value can make its way through.
 
-The exact case correspond to simple variants. Closed and open cases are polymorphic because they do not designate a single type but families of types. An exact variant type is monomorphic, it corresponds to a single variant type, not a set of variant types.
+Closed and open cases are polymorphic because they do not designate a single type but families of types. An exact variant type is monomorphic, it corresponds to a single variant type, not a set of variant types.
 
-## Example of Polymorphic Variant Type That is Both and Closed
+## Example of Polymorphic Variant Type That is Both Open and Closed
 
-A closed variant may also have a lower bound.
+A closed variant type may also have an additional constraint preventing some tags to be removed.
 ```ocaml
 # let is_red = function `Clubs -> false | `Diamonds -> true | `Hearts -> true | `Spades -> false;;
 val is_red : [< `Clubs | `Diamonds | `Hearts | `Spades ] -> bool = <fun>
