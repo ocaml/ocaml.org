@@ -221,9 +221,9 @@ Function `is_red` only accepts values from any subtype of ``[< `Clubs | `Diamond
 
 ## Subtyping of Polymorphic Variants
 
-Variants which are not polymorphic variant are say to be simple variants. These variants have parametric polymorphism. Together with predefined types, they are type-checked using the nominal typing discipline. In this discipline a value has a unique type.
+Simple variants have a form of polymorphism called _parametric polymorphism_. Together with predefined types, they are type checked using the nominal typing discipline. In this discipline a value has a unique type.
 
-In the structural type-checking discipline, a value may have several types. Equivalently it can be said to inhabit several types:
+In the structural type-checking discipline used for polymorphic variants, a value may have several types. Equivalently it can be said to inhabit several types:
 ```ocaml
 # let gherkin = `Gherkin;;
 val Gherkin : [> `Gherkin ] = `Gherkin
@@ -236,16 +236,16 @@ val Gherkin : [ `Gherkin | `Avocado ] = `Gherkin
 ```
 
 1. By default, the type assigned to the `` `Gherkin`` tag is ``[> `Gherkin]``. It means: any variant type which includes that tag.
-1. Using an annotation, the type is restrained to ``[ `Gherkin ]``, the single value variant only containing `` `Gherkin``
+1. Using an annotation, the type can be restrained to ``[ `Gherkin ]``, the exact variant type only containing `` `Gherkin``
 1. Using another annotation allows assigning the `` `Gherkin`` value to a type containing more tags.
 
-This can be understood as an ordering relation between exact variants types. The type ``[ `Gherkin ]`` is smaller than the type  ``[ `Gherkin | `Avocado ]``. The types `` `[ `Gherkin ]`` and ``[ `Avocado ]`` do not compare. The type `` `[ `Gherkin ]`` is the smallest possible type for the tag`` `Gherkin``.
+This entails an ordering relation between exact variants types. The type ``[ `Gherkin ]`` is smaller than the type  ``[ `Gherkin | `Avocado ]``. The types `` `[ `Gherkin ]`` and ``[ `Avocado ]`` do not compare. The type `` `[ `Gherkin ]`` is the smallest possible type for the tag`` `Gherkin``.
 
 The order between the exact variants derives from the [partial order](https://en.wikipedia.org/wiki/Partially_ordered_set#Partial_order) on [subsets](https://en.wikipedia.org/wiki/Subset) of tags. The sets considered are the tags, with names and types. This order is said to be partial because some sets can't be compared. This order is called the _subtyping_ order.
 
 The OCaml syntax does not allow to express the [empty](https://github.com/ocaml/ocaml/issues/10687) polymorphic variant type. If it was, it would be the least element in the subtyping order.
 
-OCaml has a cast operator, it allows to raise the type of expression into any larger type in the subtyping order. It is writen `:>`
+OCaml has a cast operator, it allows to raise the type of an expression into any larger type, with respect to the subtyping order. It is writen `:>`
 ```ocaml
 # (gherkin :> [ `Avocado | `Gherkin | `Tomato ]);;
 - : [ `Avocado | `Gherkin | `Tomato ] = `Gherkin
@@ -259,29 +259,30 @@ It means the type of `gherkin` is raised from ``[ `Gherkin | `Tomato ]`` into ``
 
 Exact polymorphic variant types can be given names.
 ```ocaml
-# type foo = [ `A | `B | `C ]
+# type exotic = [ `Guayaba | `Maracuya | `Papaya ];;
 ```
 
-Names polymorphic variants are always exact.
+Named polymorphic variants are always exact. It is not possible to give names to closed or open type constraints.
 
 ### Type extension
 
 Named polymorphic variants can be used to create extended types.
 ```ocaml
-# type bar = [ foo | `D | `E ];;
+# type mexican = [ exotic | `Pitahaya | `Sapodilla ];;
+type mexican = [ `Guayaba | `Maracuya | `Papaya | `Pitahaya | `Sapodilla ]
 ```
 
 ### Dash Patterns
 
-Named polymorphic variants can be used as patterns
+Named polymorphic variants can be used as patterns.
 ```ocaml
 # let f = function
-    | #foo -> "foo"
-    | `F -> "F";;
-val f : [< `A | `B | `C | `F ] -> string = <fun>
+    | #exotic -> "Exotic Fruit"
+    | `Mango -> "Mango";;
+val f : [< `Guayaba | `Mango | `Maracuya | `Papaya ] -> string = <fun>
 ```
 
-This is not a dynamic type check. The `#foo` pattern is almost a macro, it is a shortcut to avoid writting all the patterns.
+This is not a dynamic type check. The `#exotic` pattern is like a macro, it is a shortcut to avoid writting all the corresponding patterns.
 
 ## Advanced: Aliased, Parametrized and Recursive Polymorphic Variants
 
