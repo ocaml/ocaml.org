@@ -4,8 +4,8 @@ let package_card ~href ~img_path ~name description =
     <div class="flex items-center">
       <img src="<%s Ocamlorg_static.Asset.url img_path %>" alt="<%s name %> logo">
       <div class="flex-col px-6">
-        <div class="text-base font-semibold"><%s name %></div>
-        <div class="font-normal text-xs mt-1">
+        <div class="text-base font-semibold dark:text-white"><%s name %></div>
+        <div class="font-normal text-xs mt-1 dark:text-white">
           <%s description %>
         </div>
       </div>
@@ -25,10 +25,10 @@ Layout.render
   <div class="container-fluid space-y-24 lg:space-y-32">
     <div class="flex flex-col lg:flex-row gap-6">
       <div class="lg:flex-1 lg:mt-16 my-12">
-        <h1 class="lg:pr-10 text-7xl font-bold">
+        <h1 class="lg:pr-10 text-7xl font-bold dark:text-white">
           OCaml
         </h1>
-        <p class="my-7 text-2xl">
+        <p class="my-7 text-2xl dark:text-white">
           An industrial-strength functional programming language
           with an emphasis on expressiveness and safety
         </p>
@@ -109,8 +109,8 @@ Layout.render
 <div class="py-12 lg:py-24 py-2">
   <div class="container-fluid space-y-24 lg:space-y-32">
     <div class="text-center">
-      <h2 class="font-bold text-default">Trusted by Industry Leaders</h2>
-      <div class="text-lighter text-base mt-3">
+      <h2 class="font-bold text-default dark:text-white">Trusted by Industry Leaders</h2>
+      <div class="text-lighter text-base mt-3 dark:text-white">
         These companies and organisations rely on OCaml every day — along with thousands of other developers. See <a href="<%s Url.industrial_users %>" class="link-orange">Success Stories</a>
       </div>
       <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
@@ -142,7 +142,7 @@ Layout.render
 
 <div class="bg-default dark:bg-dark-default">
   <div class="container-fluid">
-    <h2 class="font-bold text-center text-default pt-12">Why OCaml?</h2>
+    <h2 class="font-bold text-center text-default pt-12 dark:text-white">Why OCaml?</h2>
     <div class="py-24 lg:pt-24 space-y-20 md:space-y-40">
       <div class="flex gap-10 lg:gap-24 flex-col lg:flex-row-reverse justify-between items-center">
         <div class="lg:flex-1 mt-10 lg:mt-0">
@@ -154,9 +154,9 @@ Layout.render
               <div class="text-lg my-4 font-bold" style="color: #225b90">
                 RELIABILITY
               </div>
-              <div class="text-default font-bold">Powerful Type Safety Made Simple</div>
+              <div class="text-default font-bold dark:text-white">Powerful Type Safety Made Simple</div>
             </h3>
-            <div class="my-4 text-lg">
+            <div class="my-4 text-lg dark:text-white">
               OCaml’s lightweight but highly expressive type system catches more bugs at compile time while garbage collection allows you to focus on application logic instead of memory management.
               Large, complex codebases become easy to maintain and refactor.
               OCaml empowers you to create mission-critical software with
@@ -179,10 +179,10 @@ Layout.render
             <div class="text-lg my-4 font-bold text-purple-600">
               PRODUCTIVITY
             </div>
-            <h3 class="text-default font-bold">
+            <h3 class="text-default font-bold dark:text-white">
               First-Class Editor and Tooling
             </h3>
-            <div class="my-4 text-lg">
+            <div class="my-4 text-lg dark:text-white">
               OCaml comes with deep integrations for VS Code, Vim or Emacs to provide type inspection, autocomplete and more.
               Between Opam, a popular package manager; Utop, a powerful interactive REPL; and <code>odoc</code>,
               an easy-to-use documentation generator, OCaml programmers have access to a complete, modern developer experience.
@@ -223,11 +223,11 @@ Layout.render
             </div>
             <h3>
               <div class="text-lg my-4 font-bold text-teal-800">PERFORMANCE</div>
-              <div class="text-default font-bold">
+              <div class="text-default font-bold dark:text-white">
                 Fast Compiler and Applications
               </div>
             </h3>
-            <div class="my-4 font-normal text-lg">
+            <div class="my-4 font-normal text-lg dark:text-white">
               OCaml offers great runtime performance without compromising on developer experience:
               The bytecode compiler generates small, highly portable executables blazingly fast;
               the native code compiler produces highly-efficient machine code. Despite this focus
@@ -247,8 +247,8 @@ Layout.render
 <div class="py-24 overflow-hidden">
   <div class="container-fluid">
     <div class="prose mx-auto">
-        <h2 class="font-bold">Exceptionally Robust and Reliable</h2>
-        <blockquote class="font-normal">
+        <h2 class="font-bold dark:text-white">Exceptionally Robust and Reliable</h2>
+        <blockquote class="font-normal dark:text-white">
         Despite all this testing, we have never had a single XenServer defect reported from
         internal testing or from the field that can be traced back to a bug in the
         OCaml runtime or compiler. (During development we did once find a minor compiler bug,
@@ -257,9 +257,9 @@ Layout.render
         and so no interaction with the maintainers at INRIA was required.)
         </blockquote>
 
-        -- Scott, D. & Sharp, R. & Gazagnaire, T. & Madhavapeddy, A. (2010).
+        <p class="dark:text-white">-- Scott, D. & Sharp, R. & Gazagnaire, T. & Madhavapeddy, A. (2010).
           <a href="https://anil.recoil.org/papers/2010-icfp-xen.pdf">Using Functional Programming within an Industrial Product Group: Perspectives and Perceptions.</a>
-          ACM SIGPLAN Notices. 45. 87-92. 10.1145/1863543.1863557.
+          ACM SIGPLAN Notices. 45. 87-92. 10.1145/1863543.1863557.</p>
     </div>
   </div>
 </div>
@@ -309,100 +309,46 @@ Layout.render
           ~img_path:"img/home/mirage.png"
           ~name:"MirageOS"
           "Library operating system to construct unikernels" %>
-        <!-- FIXME: package_card component -->
-        <a href="http://ocsigen.org/js_of_ocaml/latest/manual/overview" target="_blank"
-          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/js_of_ocaml.png" %>" alt="Js_of_ocaml logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Js_of_ocaml</div>
-              <div class="font-normal text-xs mt-1">
-                Compiler from OCaml to Javascript.
-              </div>
-            </div>
-          </div>
-        </a>
-        <!-- FIXME: package_card component -->
-        <a href="https://erratique.ch/software/cmdliner" target="_blank"
-          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/cmdliner.png" %>" alt="Cmdliner logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Cmdliner</div>
-              <div class="font-normal text-xs mt-1">
-                Declarative definition of command line interfaces for OCaml
-              </div>
-            </div>
-          </div>
-        </a>
-        <!-- FIXME: package_card component -->
-        <a href="https://irmin.org/" target="_blank"
-          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/irmin.png" %>" alt="Irmin logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Irmin</div>
-              <div class="font-normal text-xs mt-1">
-                Distributed database that follows the same design principles as Git
-              </div>
-            </div>
-          </div>
-        </a>
+        <%s! package_card
+          ~href:"http://ocsigen.org/js_of_ocaml/latest/manual/overview"
+          ~img_path:"img/home/js_of_ocaml.png"
+          ~name:"JSOfOcaml"
+          "Compiler from OCaml to Javascript." %>
+        <%s! package_card
+          ~href:"https://erratique.ch/software/cmdliner"
+          ~img_path:"img/home/cmdliner.png"
+          ~name:"CmdLiner"
+          "Declarative definition of command line interfaces for OCamls" %>
+        <%s! package_card
+          ~href:"https://irmin.org/"
+          ~img_path:"img/home/irmin.png"
+          ~name:"Irmin"
+          "Distributed database that follows the same design principles as Git" %>
       </div>
 
       <div class="grid grid-cols-4 gap-6 md:gap-4 md:px-10 lg:px-20 mt-6 relative right-5 lg:right-28 md:right-16"
         style="width: 1500px">
         <!-- FIXME: package_card component -->
-        <a href="https://dune.build/" target="_blank"
-          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/dune.png" %>" alt="Dune logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Dune</div>
-              <div class="font-normal text-xs mt-1">
-                A composable build system for OCaml
-              </div>
-            </div>
-          </div>
-        </a>
-        <!-- FIXME: package_card component -->
-        <a href="https://ocsigen.org/lwt/latest/manual/manual" target="_blank"
-          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/lwt.png" %>" alt="Lwt logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Lwt</div>
-              <div class="font-normal text-xs mt-1">
-                OCaml promises and concurrent IO
-              </div>
-            </div>
-          </div>
-        </a>
-        <!-- FIXME: package_card component -->
-        <a href="https://ocaml.xyz/" target="_blank" class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/owl.png" %>" alt="Owl logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Owl</div>
-              <div class="font-normal text-xs mt-1">
-                OCaml Scientific and Engineering Computing
-              </div>
-            </div>
-          </div>
-        </a>
-        <!-- FIXME: package_card component -->
-        <a href="https://aantron.github.io/dream/" target="_blank"
-          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/dream.png" %>" alt="Dream logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Dream</div>
-              <div class="font-normal text-xs mt-1">
-                Tidy Web framework for OCaml and ReasonML
-              </div>
-            </div>
-          </div>
-        </a>
+        <%s! package_card
+          ~href:"https://dune.build/"
+          ~img_path:"img/home/dune.png"
+          ~name:"Dune"
+          "A composable build system for OCaml" %>
+          <%s! package_card
+          ~href:"https://ocsigen.org/lwt/latest/manual/manual"
+          ~img_path:"img/home/lwt.png"
+          ~name:"Lwt"
+          "OCaml promises and concurrent IO" %>
+          <%s! package_card
+          ~href:"https://ocaml.xyz/"
+          ~img_path:"img/home/owl.png"
+          ~name:"Owl"
+          "OCaml Scientific and Engineering Computing" %>
+          <%s! package_card
+          ~href:"https://aantron.github.io/dream/"
+          ~img_path:"img/home/dream.png"
+          ~name:"Dream"
+          "Tidy Web framework for OCaml and ReasonML" %>
       </div>
     </div>
   </div>
@@ -410,22 +356,22 @@ Layout.render
 <div class="py-28 bg-default dark:bg-dark-default">
   <div class="container-fluid">
     <div class="text-center px-15">
-      <h2 class="text-default font-bold mb-6">Users of OCaml</h2>
-      <div class="text-lg text-lighter mb-16">
+      <h2 class="text-default font-bold mb-6 dark:text-white">Users of OCaml</h2>
+      <div class="text-lg text-lighter mb-16 dark:text-white">
         OCaml is used by thousands of developers, companies, research labs, teachers, and more. Learn how it fits your use case.
       </div>
     </div>
     <div class="flex flex-col lg:flex-row justify-between lg:space-x-20 space-y-10 lg:space-y-0">
       <div class="shadow-lg p-10 bg-default dark:bg-dark-default rounded-xl lg:mb-0">
         <div class="flex flex-row items-center justify-between relative pb-8">
-          <h3 class="font-semibold">For Educators</h3>
+          <h3 class="font-semibold dark:text-white">For Educators</h3>
           <div>
             <%s! Icons.for_educators "h-14 w-14" %>
             <div class="absolute w-20 h-20 top-0 -right-10 rounded-full bg-primary-100"></div>
           </div>
         </div>
         <div>
-          <div class="text-base text-default">
+          <div class="text-base text-default dark:text-white">
             With its mathematical roots, OCaml has always had strong ties to academia.
             It is taught in universities around the world, and has accrued an ever-growing body of research.
             Learn more about the academic rigor that defines the culture of OCaml.
@@ -435,14 +381,14 @@ Layout.render
       </div>
       <div class="shadow-lg p-10 bg-default dark:bg-dark-default rounded-xl">
         <div class="flex flex-row items-center justify-between relative pb-8">
-          <h3 class="font-semibold">For Industrial Users</h3>
+          <h3 class="font-semibold dark:text-white">For Industrial Users</h3>
           <div>
             <%s! Icons.for_industrial_users "h-14 w-14" %>
             <div class="absolute w-20 h-20 top-0 -right-10 rounded-full bg-primary-100"></div>
           </div>
         </div>
         <div>
-          <div class="text-base text-default">
+          <div class="text-base text-default dark:text-white">
             OCaml's powerful compile-time guarantees and high performance empower
             companies to provide reliable and speedy services and products.
             Learn more about how OCaml is used in the industry: explore success stories and discover companies that use OCaml.
@@ -502,8 +448,8 @@ Layout.render
     <div class="grid grid-cols-1 lg:grid-cols-2 items-center">
       <div class="space-y-8">
         <div class="space-y-6">
-          <h2 class="font-bold">OCaml Packages</h2>
-          <p class="text-lg text-lighter">
+          <h2 class="font-bold dark:text-white">OCaml Packages</h2>
+          <p class="text-lg text-lighter dark:text-white">
             Explore thousands of open-source OCaml packages with their
             documentation.
           </p>
