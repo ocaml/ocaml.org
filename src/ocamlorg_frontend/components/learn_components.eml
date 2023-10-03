@@ -102,7 +102,7 @@ let right_tutorial_block ~title ~heading ~description ~(tutorial_links: link lis
 let book_tile books =
 =======
 let pricing_tag = 
-  <div class="absolute top-0 left-0 transform rotate-[-10deg] w-16 h-16 origin-top-left">
+  <div class="absolute top-[-0] left-0 transform rotate-[-10deg] w-16 h-16 origin-top-right z-0">
     <div class="bg-learn-area-orange rounded-full w-16 h-16 shadow flex items-center justify-center">
       <div class="text-center text-white text-base font-bold leading-7 tracking-wide">
         FREE
