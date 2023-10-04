@@ -888,6 +888,26 @@ starts an interactive program to explore the call graph. The option
 OCaml (with old versions of `perf`, enabling frame pointers in OCaml
 might help; opam provides suitable compiler switches, such as `4.02.1+fp`).
 
+### Using `Instruments` on macOS
+
+macOS ships with a performance monitoring and debugging application called
+`Instruments` that comes with a CPU counter, a Time Profiler, and a System
+Trace templates.
+
+Once you launch it and select the template you want, you must start _recording_
+before you launch your application.
+
+As you launch your application, real-time results will appear listed in
+Instrument's browser:
+
+<img width="1083" alt="Screenshot 2023-10-04 at 17 59 34" src="https://github.com/ocaml/ocaml.org/assets/854222/25576101-ed52-4d51-824e-dd85aac48957">
+
+You can click on your program there, and dig to see which functions are
+taking the longest to execute:
+
+<img width="1083" alt="Screenshot 2023-10-04 at 18 01 44" src="https://github.com/ocaml/ocaml.org/assets/854222/4a162375-e81f-44c6-b8b2-d9c51f7cc36e">
+
+
 ## Summary
 In summary here are some tips for getting the best performance out of
 your programs:
