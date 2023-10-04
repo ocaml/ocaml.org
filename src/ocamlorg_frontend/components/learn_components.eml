@@ -194,3 +194,4 @@ let lang_manual_banner =
     <div class="min-w-[200px] min-h-[200px] overflow-hidden rounded-full bg-cover bg-center bg-no-repeat md:min-w-[240px] md:min-h-[240px]" style="background-image: url('../img/home/ocaml_camel.png')">
     </div>
   </div>
+

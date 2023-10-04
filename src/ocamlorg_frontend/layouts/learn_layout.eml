@@ -14,7 +14,27 @@ let tabs
       <%s title %>
     </a>
   in
-    <div class="bg-text-title">
+  let breadcrumbs =  
+    <nav aria-label="breadcrumbs" class="flex mb-6 border-b md:hidden">
+      <ul>
+        <li class="inline-block"> 
+            <a href="<%s Url.learn %>"> Learn > </a>
+        </li>
+        <li class="inline-block">
+            <select class="appearance-none bg-transparent border-none w-auto p-0 m-0 cursor-pointer focus:outline-none focus:ring-0">
+              <option value="<%s Url.learn_get_started %>"> Get Started </option>
+              <option value="<%s Url.learn_language %>"> Language </option>
+              <option value="<%s Url.platform %>"> Platform Tools </option>
+              <option value="<%s Url.learn_guides %>"> Guides </option>
+              <option value="<%s Url.problems %>"> Exercises </option>
+              <option value="<%s Url.books %>"> Books </option>
+            </select>
+        </li>
+      </ul>
+    </nav>
+  in
+    <%s! breadcrumbs %>
+    <div class="bg-text-title hidden md:flex">
       <nav class="container-fluid wide flex flex-wrap">
         <%s! link ~href:Url.learn ~title:"Overview" ~current:(current = Overview) %>
 
