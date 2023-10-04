@@ -19,7 +19,7 @@ Please include images and browser-specific information if the bug is related to 
 We've provided a list of community-driven content below. When adding content to any of these sections, it's best to fork the repo, add your file, and open a pull request (PR).
 
 - [The Blog](#content-blog)
-- [Job Board](#content-job)(#jobs)
+- [Job Board](#content-job)
 - [Success Stories](#content-success-story)
 - [Academic and Industrial Users](#content-user)
 - [OCaml Books](#content-book)
