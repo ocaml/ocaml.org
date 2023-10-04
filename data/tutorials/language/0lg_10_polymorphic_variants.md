@@ -33,7 +33,7 @@ In the structural approach of typing, type definitions are optional, so they can
 
 ### Learning Goals
 
-The goal of this tutorial is to make the reader acquire the following capabilities:
+The goal of this totorial is to make the reader acquire the following capabilities:
 - Write polymorphic variant using code, from strach, using mainstream features
 - Maintain existing code that is using polymorphic variants
 - Sort out polymorphic variant types and errors
@@ -293,18 +293,25 @@ This is not a dynamic type check. The `#exotic` pattern is like a macro, it is a
 - : ([> `Cilantro | `Tomato ] as 'a) -> 'a = <fun>
 ```
 
-This type means any exact variant type which is a super set of ``[> `Cilantro | `Tomato ]`` as domain, and the same type as codomain.
+The meaning of the type of this function is twofold.
+1. Any exact variant type which is a super set of ``[> `Cilantro | `Tomato ]`` is a domain
+2. The very same type is also a codomain
 
+The meaning of `'a` is not exactly the same a with simple variants. It is not a placeholder meant to be replaced by another type. It means the same exact variant type will be used as both domain and codomain. This is a consequence of the `plant -> plant` clause which 
+
+### Parametrized Polymorphic Variants
+
+It is possible combine polymorphic variants and parametric polymorphism. Here is a duplication of the `'a option` type, translated as polymorphic variant parametrized with a type variable.
 ```ocaml
-# let f = function `Fruit fruit -> fruit = "Broccoli" | `Broccoli -> true;;
-val upcast : [< `Broccoli | `Fruit of string ] -> bool = <fun>
-
-# let g = function `Fruit fruit -> fruit | `Broccoli -> true;;
-val g : [< `Broccoli | `Fruit of bool ] -> bool = <fun>
-
- fun x -> f x && g x;;
-- : [< `Broccoli | `Fruit of bool & string ] -> bool = <fun>
+# let map f = function
+    | `Some x -> `Some (f x)
+    | `None -> `None;;
+val map : ('a -> 'b) -> [< `None | `Some of 'a ] -> [> `None | `Some of 'b ] =
+  <fun>
 ```
+
+This `map` function has two type parameters : `'a` and `'b`. They are used to type its `f` parameter. 
+
 
 ### Recursive Polymorphic Variants
 
@@ -322,6 +329,18 @@ val map :
 The aliasing mechanism is used to express type recursion.
 
 ### Conjunction 
+
+```ocaml
+# let f = function `Fruit fruit -> fruit = "Broccoli" | `Broccoli -> true;;
+val upcast : [< `Broccoli | `Fruit of string ] -> bool = <fun>
+
+# let g = function `Fruit fruit -> fruit | `Broccoli -> true;;
+val g : [< `Broccoli | `Fruit of bool ] -> bool = <fun>
+
+ fun x -> f x && g x;;
+- : [< `Broccoli | `Fruit of bool & string ] -> bool = <fun>
+
+### Conjunction, cont'd
 
 From the language manual:
 ```ocaml
@@ -541,10 +560,10 @@ In some circumstances, combining sets of contraints will artificially reduce the
 # let u = [f; g];;
 u : ([< `Broccoli ] -> string) list = [<fun>; <fun>]
 
-# f (`Fruit "Pitaya");;
-- : string = "Pitaya"
+# f (`Fruit "Pitahaya");;
+- : string = "Pitahaya"
 
-# (List.hd u) (`Fruit "Pitaya");;
+# (List.hd u) (`Fruit "Pitahaya");;
 Error: This expression has type [> `Fruit of string ]
        but an expression was expected of type [< `Broccoli ]
        The second variant type does not allow tag(s) `Fruit
