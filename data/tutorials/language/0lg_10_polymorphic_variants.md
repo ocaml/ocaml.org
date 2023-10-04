@@ -27,7 +27,7 @@ In the nominal approach of typing, types are first defined; later, when type che
 1. If any type can be applied, a type variable is created.
 1. If typing inconsistencies are found, an error is raised.
 
-This is very similar to solving an equation in mathematics. Equation accepts either zero, exactly one, several, or infinitely many numbers as solutions. Nominal type checking finds that either zero, exactly one, or any type can be used in an expression.
+This is very similar to solving an equation in mathematics. Equations accept either zero, exactly one, several, or infinitely many numbers as solutions. Nominal type checking finds that either zero, exactly one, or any type can be used in an expression.
 
 In the structural approach of typing, type definitions are optional, so they can be omitted. Type checking an expression constructs a data structure that represents the types that are compatible with it. These data structures are displayed as type expressions sharing ressemblance with simple variants.
 
