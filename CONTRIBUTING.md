@@ -1,8 +1,8 @@
 # How to Contribute
- 
+
 Welcome to OCaml.org's contributing guide. Thank you for taking the time to read it! Your help with OCaml.org is extremely welcome. We are particularly motivated to support new contributors and people who are looking to learn and develop their skills. If you get stuck, please don’t hesitate to [ask questions on discuss](https://discuss.ocaml.org/) or [raise an issue](https://github.com/ocaml/ocaml.org/issues/new).
 
-This guide documents the best way to contribute to the project when adding things listed below in Contributing Content. If you're looking for a guide on how to setup the project and suggest a change to the code, you can refer to our [HACKING](./HACKING.md) guide, which will also give instructions on how to rebuild the website, if necessary, when making changes. 
+This guide documents the best way to contribute to the project when adding things listed below in Contributing Content. If you're looking for a guide on how to setup the project and suggest a change to the code, you can refer to our [HACKING](./HACKING.md) guide, which will also give instructions on how to rebuild the website, if necessary, when making changes.
 
 - **Good First Issues**: if you are either new to the repository or still getting started with OCaml in general, issues marked as a `good first issue` are ideal.
 - **Suggesting Changes**: most of the site content is stored in the `data` directory as Markdown or YAML. To suggest a change or update this content, you can edit those files directly and rebuild the website, detailed in the [HACKING](./HACKING.md) guide. This will promote the content into their `.ml` counterparts. If you would like to suggest entirely new website content or code, please [open an issue](https://github.com/ocaml/ocaml.org/issues) to discuss it first.
@@ -16,7 +16,7 @@ Please include images and browser-specific information if the bug is related to 
 
 ## Contributing Content
 
-We've provided a list of community-driven content below. When adding content to any of these sections, it's best to fork the repo, add your file, and open a pull request (PR). 
+We've provided a list of community-driven content below. When adding content to any of these sections, it's best to fork the repo, add your file, and open a pull request (PR).
 
 - [The Blog](#content-blog)
 - [Job Board](#content-job)
@@ -37,6 +37,7 @@ Anyone can contribute to the [OCaml Blog](https://ocaml.org/blog), which is comp
 - Original blog posts linked from original source
 
 #### Fetched from RSS Feed
+
 If you write about OCaml and have an RSS or Atom feed, you can add your feed to [`data/planet-sources.yml`](data/planet-sources.yml).
 
 When compiling, the feed entries will be downloaded, and Markdown files for each item will be created in [`data/rss`](data/rss/). For instance: [building-ahrefs-codebase-with-melange.md`](data/rss/ahrefs/building-ahrefs-codebase-with-melange.md).
@@ -44,9 +45,11 @@ When compiling, the feed entries will be downloaded, and Markdown files for each
 Please, make sure your feed only contains articles about OCaml.
 
 #### Link Original Blog Post
-To contribute a link to your original blog post (under [OCaml Community Blog](https://ocaml.org/blog)), you can add a new Markdown file in [`data/planet/-individual_external_links/`](data/planet/-individual_external_links/). 
 
-Create an `.md` file with the following header: 
+To contribute a link to your original blog post (under [OCaml Community Blog](https://ocaml.org/blog)), you can add a new Markdown file in [`data/planet/-individual_external_links/`](data/planet/-individual_external_links/).
+
+Create an `.md` file with the following header:
+
 ```
 ---
 title: title of your self-hosted post here
@@ -57,7 +60,7 @@ preview_image: direct link to preview image
 ---
 ```
 
-### <a name="content-job"></a> Add an Entry to the Job Board
+### <a name="content-job"></a><a name="jobs">Add an Entry to the Job Board</a>
 
 > Contribute to the [Job Board](https://ocaml.org/jobs).
 
