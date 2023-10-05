@@ -62,7 +62,7 @@ Your system is ready to brew.
 
 ### Return to Install Tutorial
 
-Now that's all sorted, you can return to the [Install OCaml tutorial](link-to-Install) to install and initialise opam.
+Now that's all sorted, you can return to the [Install OCaml tutorial](/docs/installing-ocaml) to install and initialise opam.
 
 You're all set to keep learning OCaml!
 
