@@ -40,26 +40,22 @@ let sidebar_link
 ~title
 ~href
 ~current =
-  match current with
-  | true ->
-    <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s href %>">
-      <%s title %>
-    </a>
-  | false ->
-    <a class="font-semibold text-sm text-lighter hover:bg-gray-100 block py-2 px-3" href="<%s href %>">
-      <%s title %>
-    </a>
+    <div class="py-2 px-3 <%s if current then "bg-primary-300 border-l-2 border-primary-600" else "hover:bg-primary-300 hover:border-l-2 hover:border-primary-600" %>">
+      <a class="focus:text-primary-600 active:text-primary-600 text-sm <%s if current then "text-primary-600 font-semibold" else "font-medium" %>"" href="<%s href %>">
+        <%s title %>
+      </a>
+    </div>
 
 let sidebar_link_group
 ?(extra_html="")
 title
 link_html
 =
-  <div class="space-y-2 flex flex-col">
-    <div class="text-sm font-semibold flex px-3 py-2 uppercase"><%s title %></div>
-    <%s! link_html %>
-    <%s! extra_html %>
-  </div>
+  <details class="space-y-2 flex flex-col">
+    <summary class="text-sm font-semibold flex px-3 py-2 uppercase focus:text-primary-600 active:text-primary-600 hover:text-primary-300"><%s title %></summary>
+    <span class="ml-4"><%s! link_html %></span>
+    <span class="ml-4"><%s! extra_html %></span>
+  </details>
 
 let overview_render
 ?use_swiper
