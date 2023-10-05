@@ -16,7 +16,7 @@ Let's walk through the basics of OCaml by trying out different elements in an in
 
 ## Prerequisites and Goals
 
-Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/install) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [How to Write an OCaml Program](/docs/how-to-write-an-ocaml-program) tutorial.
+Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [How to Write an OCaml Program](/docs/how-to-write-an-ocaml-program) tutorial.
 
 This is a level zero tutorial. No OCaml or functional programming knowledge is required. As mentionned above, only having OCaml installed is needed. It is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
 
