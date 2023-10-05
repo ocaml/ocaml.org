@@ -8,10 +8,6 @@ category: "Getting Started"
 
 # A Tour of OCaml
 
-> Franz avait lu dans France Soir qu’un Américain avait mis neuf minutes et quarante-cinq secondes pour visiter le musée du Louvre. Ils décidèrent de faire mieux…
-
-&mdash; Jean-Luc Godard, _Bande à part_
-
 Let's walk through the basics of OCaml by trying out different elements in an interactive manner. We recommend that you execute the examples we provide, or slight variants of them, in your own environment to get a feel for coding in OCaml.
 
 ## Prerequisites and Goals
@@ -20,6 +16,9 @@ Before proceeding with this tutorial, please ensure you've installed OCaml and s
 
 This is a level zero tutorial. No OCaml or functional programming knowledge is required. As mentionned above, only having OCaml installed is needed. It is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
 
+This document will cover how to use the REPL UTop to evaluate OCaml expressions interactively, understand the output, how to use pattern matching, call functions from tOCaml standard library modules, and more. It also introduces you to how lists, values, functions, integers, floats, basic operators, references, and arrays work in OCaml.
+
+<!--
 The goal of this tutorial is to provide the following capabilities:
 - Use Utop to evaluate OCaml expressions interactively
 - Trigger evaluation of expressions, understand the output displayed, values and typing
@@ -33,11 +32,11 @@ The goal of this tutorial is to provide the following capabilities:
 - Return an error-as-data result, process it using pattern matching
 - Declare and update a mutable basic mutable values: references and arrays
 - Call functions defined in modules of the OCaml standar library
+-->
 
 ## Using an OCaml Toplevel: Chatting with OCaml
 
 An OCaml toplevel is a chat between the user and the OCaml system. The user writes OCaml sentences, and the system analyses and executes them, which is why it is also called a Read-Eval-Print-Loop (REPL). Several OCaml toplevels exist like `ocaml` and `utop`, but in this tutorial, we will use the `utop` command, which looks like this:
-
 ```shell
 $ utop
 ────────┬─────────────────────────────────────────────────────────────┬─────────
@@ -55,7 +54,6 @@ Press `Ctrl-D` (end of file) or enter `#quit;;` to exit `utop`.
 The OCaml code examples in this tutorial show the input needed at the hash prompt `#`, as displayed by `utop`, ending with double semicolumn `;;`. The `;;` let's OCaml know the expression is complete. Code sample lines beginning with dollar sign `$`, like above, should be entered in an Unix terminal.
 
 Upon hitting `Enter`, OCaml runs the code. The following line shows the output. (For simplicity, anything but the user input and OCaml's output in `utop` is omitted in this tutorial.)
-
 ```ocaml
 # 2 + 2;;
 - : int = 4
@@ -72,7 +70,6 @@ Remember: commands beginning with a hash mark are not part of the OCaml syntax; 
 Commands beginning with the dash character `#` such as `#quit` or `#help` are not evaluated by OCaml, they are interpreter by Utop.
 
 ## Expressions and Definitions
-
 ```ocaml
 # 50 * 50;;
 - : int = 2500
@@ -114,7 +111,6 @@ In OCaml, `if … then … else …` is not a statement, it is an expression.
 The source begining at `if` and ending at `5` is parsed as a single integer expression which is multipled by 2. OCaml has no need for two different test constructions, the [ternary conditional operator](https://en.wikipedia.org/wiki/Ternary_conditional_operator) and the `if … then … else …` are the same. Also note parentheses are not needed here, which is often the case in OCaml.
 
 Values can be given names using the `let` keyword. This is called *binding* a value to a name. For example:
-
 ```ocaml
 # let x = 50;;
 val x : int = 50
@@ -132,7 +128,6 @@ There is no overloading in OCaml, so inside a lexical scope, names have a single
 Do not use dashes in names; use underscores instead. For example: `x_plus_y` works, `x-plus-y` does not.
 
 Names can be defined locally, within an expression, using the `let … = … in …` syntax:
-
 ```ocaml
 # let y = 50 in y * y;;
 - : int = 2500
@@ -144,7 +139,6 @@ Error: Unbound value y
 This example defines the name `y` and binds it to the value `50`. It is then used in the expression `y * y`, resulting in the value `2500`. Note that `y` is only defined in the expression following the `in` keyword.
 
 Since `let … = … in …` is an expression, it can be used within another expression in order to have several values with their own names:
-
 ```ocaml
 # let a = 1 in
   let b = 2 in
@@ -165,7 +159,6 @@ This is interpreted as: “define `dummy` as the result of the equality test bet
 ## Functions
 
 In OCaml, since everything is a value, functions are values too. Functions are defined using the `let` keyword:
-
 ```ocaml
 # let square x = x * x;;
 val square : int -> int = <fun>
@@ -183,14 +176,12 @@ The REPL indicates that the type of `square` is `int -> int`. This means it is a
 ### Anonymous Functions
 
 _Anonymous_ functions do not have a name, and they are defined with the `fun` keyword:
-
 ```ocaml
 # fun x -> x * x;;
 - : int -> int = <fun>
 ```
 
 We can write anonymous functions and immediately apply them to a value:
-
 ```ocaml
 # (fun x -> x * x) 50;;
 - : int = 2500
@@ -199,21 +190,18 @@ We can write anonymous functions and immediately apply them to a value:
 ### Functions with Multiple Arguments and Partial Application
 
 A function may take several arguments, separated by spaces. This is the case both in function declaration and in function calls.
-
 ```ocaml
 # let cat a b = a ^ " " ^ b;;
 val cat : string -> string -> string = <fun>
 ```
 
 The function `cat` takes two `string` arguments, `a` and `b`, and returns a value of type `string`.
-
 ```ocaml
 # cat "ha" "ha";;
 - : string = "ha ha"
 ```
 
 Functions don't have to be called with all the arguments they expect. It is possible to only pass `a` to `cat` without passing `b`.
-
 ```ocaml
 # let cat_hi = cat "hi";;
 cat_hi : string -> string = <fun>
@@ -222,7 +210,6 @@ cat_hi : string -> string = <fun>
 This returns a function which expects a single string, here the `b` from the definition of `cat`. This is called a _partial application_. In the above, `cat` was partially applied to `"hi"`.
 
 The function `cat_hi`, which resulted from the partial application of `cat`, behaves as follows:
-
 ```ocaml
 # cat_hi "friend";;
 - : string = "hi friend"
@@ -231,7 +218,6 @@ The function `cat_hi`, which resulted from the partial application of `cat`, beh
 ### Type Variables and Higher-Order Functions
 
 A function may expect a function as parameter, which is called a _higher-order_ function. A well-known example of higher-order function is `List.map`.
-
 ```ocaml
 # List.map;;
 - : ('a -> 'b) -> 'a list -> 'b list = <fun>
@@ -252,7 +238,6 @@ The function `List.map` can be applied on any kind of list. Here it is given a l
 ### Side-Effects and the `unit` Type
 
 Performing operating system level input-output operations is done using functions. Here is an example of each:
-
 ```ocaml
 # read_line;;
 - : unit -> string = <fun>
@@ -274,58 +259,6 @@ The function `read_line` reads characters on standard input and returns them as 
 The function `read_line` doesn't need any data to proceed, and the function `print_endline` doesn't have any meaningful data to return. Indicating this absence of data is the role of the `unit` type, which appears in their signature. The type `unit` has as single value, written `()` and pronounced *unit*. It is used as a placeholder when no data is passed or returned, but some token still has to be passed to start processing or when it has terminated.
 
 Input-output is an example of something taking place when executing a function but which does not appear in the function type. This is called a _side-effect_ and does not stop at I/O. The `unit` type is often used to indicate the presence of side-effects, although it's not always the case.
-
-### Operators
-
-_FIXME: Shall we move this to another tutorial? Which one?_
-
-Operators are functions. The function underlying behind an operator is refered by surrounding the operator symbol with parenthesis. Here are the addition, string concatenation and equality functions:
-
-```ocaml
-# (+);;
-- : int -> int -> int = <fun>
-# (^);;
-- : string -> string -> string = <fun>
-# (=);;
-- : 'a -> 'a -> bool = <fun>
-```
-
-Note: The operator symbol for multiplication is ` * `, but OCaml comments also have an openning delimitor `(*` and a closing delimitor `*)`. To resolve the parsing ambiguity, space must be inserted to get the multiplication function.
-
-```ocaml
-# ( * );;
-- : int -> int -> int = <fun>
-```
-
-Using operators as functions is convinient when combined with partial application. For instance, here is how to get the values which are greater or equal to 10 in a list of integers, using the function `List.filter` applied to the function `( < ) 10`:
-```ocaml
-# List.filter;;
-- : ('a -> bool) -> 'a list -> 'a list = <fun>
-
-# List.filter (( <= ) 10);;
-- : int list -> int list = <fun>
-
-# List.filter (( <= ) 10) [6; 15; 7; 14; 8; 13; 9; 12; 10; 11];;
-- : int list = [15; 14; 13; 12; 10; 11]
-```
-
-The first two lines are only informative.
-
-1. The first shows the `List.filter` type, which is a function taking two parameters. The first parameter is a function; the second is a list.
-2. The second is the partial application of `List.filter` to `( <= ) 10`, which is a function returning `true` if applied to a number which is greater than or equal to 10.
-
-Finally, in the third line, all the arguments expected by `List.filter` are provided. The returned list contains the values satisfying the `( <= ) 10` function.
-
-It is also possible to define binary operators. Here is an example:
-```ocaml
-# let ( ^? ) = cat;;
-val ( ^? ) : string -> string -> string = <fun>
-# "hi" ^? "friend";;
-- : string = "hi friend"
-```
-
-There are syntactic restrictions on possible operators symbols. They will not be
-detailed here.
 
 ### Recursive Functions
 
@@ -362,7 +295,6 @@ Each equal sign corresponds to the computation of recursive step, except the las
 ### Type Conversion and Type-Inference
 
 OCaml has floating-point values of type `float`. To add floats, one must use `+.` instead of `+`:
-
 ```ocaml
 # 2.0 +. 2.0;;
 - : float = 4.
@@ -386,7 +318,6 @@ Error: This expression has type int but an expression was expected of type
 In the first example, `+` is intended to be used with integers, so it can't be used with the `2.5` float. In the second example, `+.` is intended to be used with floats, so it can't be used with the `1` integer.
 
 In OCaml you need to explicitly convert the integer to a floating point number using the `float_of_int` function:
-
 ```ocaml
 # float_of_int 1 +. 2.5;;
 - : float = 3.5
@@ -397,7 +328,6 @@ There are several reasons why OCaml requires explicit conversions. Most importan
 ### Lists
 
 Lists may be the most common datatype in OCaml. They are ordered collections of values having the same type. Here are a few examples.
-
 ```ocaml
 # [];;
 - : 'a list = []
@@ -419,14 +349,12 @@ The example above read the following way:
 1. A list of lists
 
 Lists are defined as being either empty, which is written `[]`, or being an element `x` added at the front of another list `u`, which is written `x :: u` (the double colon operator is pronounced “cons”).
-
 ```ocaml
 # 1 :: [2; 3; 4];;
 - : int list = [1; 2; 3; 4]
 ```
 
 In OCaml, _patten matching_ provides a mean to inspect data of any kind, except functions. In this section, it is introduced on lists, it will be generalized to other datatypes in the next section. Here is how to define a recursive function that computes the sum of a list of integers:
-
 ```ocaml
 # let rec sum u =
     match u with
@@ -441,7 +369,6 @@ val sum : int list -> int = <fun>
 #### Polymorphic Functions on Lists
 
 Here is how to write a recursive function that computes the length of a list:
-
 ```ocaml
 # let rec length u =
     match u with
@@ -517,7 +444,6 @@ The underscore symbol is catch-all pattern, it matches with anything.
 ### Pairs and Tuples
 
 Tuples are fixed-length collections of elements of any type. Pairs are tuples having two elements. Here is a 3-tuple and a pair:
-
 ```ocaml
 # (1, "one", 'K');;
 - : int * string * char = (1, "one", 'K')
@@ -546,7 +472,6 @@ The type of tuples is written using `*` between the components' types.
 Like pattern matching generalises `switch` statements, variant types generalises enumerated and union types.
 
 Here is the definition of a variant type acting as an enumerated data type:
-
 ```ocaml
 # type primary_colour = Red | Green | Blue;;
 type primary_colour = Red | Green | Blue
@@ -558,8 +483,8 @@ type primary_colour = Red | Green | Blue
 Here is the definition of a variant type acting as a union type:
 ```ocaml
 # type http_response =
-| Data of string
-| Error_code of int;;
+    | Data of string
+    | Error_code of int;;
 type http_response = Data of string | Error_code of int
 
 # Data "<!DOCTYPE html>
@@ -584,9 +509,9 @@ Data
 Here is something sitting in between:
 ```ocaml
 # type page_range =
-| All
-| Current
-| Range of int * int;;
+    | All
+    | Current
+    | Range of int * int;;
 type page_range = All | Current | Range of int * int
 ```
 
@@ -626,7 +551,6 @@ As previously shown, `sum`, `length`, and `map` functions provide examples of pa
 ### Records
 
 Like tuples, records also pack elements of several types together. However, each element is given a name. Like variant types, records types must be defined before being used. Here are examples of a record type, a value, access to a component, and pattern matching on the same record.
-
 ```ocaml
 # type person = {
     first_name : string;
@@ -640,10 +564,10 @@ type person = { first_name : string; surname : string; age : int; }
      surname = "Huet";
      age = 40
   };;
-val frank : person = {first_name = "Gérard"; surname = "Huet"; age = 40}
+val frank : person = {first_name = "Gérard"; surname = "Huet"; age = 76}
 ```
-When defining `frank`, no type needs to be declared. The type checker will search for a record which has exactly three fields with matching names and types. Note that they are no typing relationship between records. It is not possible to declare a record type extends another. Record type search will succed if it finds an exact match and fail in any other case.
 
+When defining `frank`, no type needs to be declared. The type checker will search for a record which has exactly three fields with matching names and types. Note that they are no typing relationship between records. It is not possible to declare a record type extends another. Record type search will succed if it finds an exact match and fail in any other case.
 ```ocaml
 # let s = frank.surname;;
 val s : string = "Huet"
@@ -664,14 +588,12 @@ Here, the pattern `{ age = x; _ }` is typed with the most recently declared reco
 ### Exceptions
 
 When a computation is interrupted, an exception is thrown. For instance:
-
 ```ocaml
 # 10 / 0;;
 Exception: Division_by_zero.
 ```
 
 Exceptions are raised using the `raise` function.
-
 ```ocaml
 # let id_42 n = if n <> 42 then raise (Failure "Sorry") else n;;
 val id_42 : int -> int = <fun>
@@ -686,7 +608,6 @@ Exception: Failure "Sorry".
 Note that exceptions do not appear in function types.
 
 Exceptions are caught using the `try … with …` construction
-
 ```ocaml
 # try id_42 0 with Failure _ -> 0;;
 - : int = 0
@@ -698,14 +619,12 @@ The standard library provides several predefined exceptions. It is possible to d
 
 Another way to deal with errors in OCaml is by returning value of type `result`,
 which can represent either the correct result or an error. Here is how it is defined:
-
 ```ocaml
 # #show result;;
 type ('a, 'b) result = Ok of 'a | Error of 'b
 ```
 
 So one may write:
-
 ```ocaml
 # let id_42_res n = if n <> 42 then Error "Sorry" else Ok n;;
 val id_42_res : int -> (int, string) result = <fun>
@@ -724,39 +643,34 @@ val id_42_res : int -> (int, string) result = <fun>
 
 ## Working with Mutable State
 
-OCaml supports imperative programming. Usually, the `let … = …` syntax does not define variables, it defines constants. However, mutable variables exists in OCaml, they are called references. Here's how we create a reference to an integer:
-
+OCaml supports imperative programming. Usually, the `let … = …` syntax does not define variables, it defines constants. However, mutable variables exists in OCaml, they are called _references_. Here's how we create a reference to an integer:
 ```ocaml
 # let r = ref 0;;
 val r : int ref = {contents = 0}
 ```
 
 It is syntactically impossible to create an unintialised or null reference. The `r`
-reference is created with the integer zero. Accessing a reference's content
+reference is initialized with the integer zero. Accessing a reference's content
 is done using the `!` de-reference operator.
-
 ```ocaml
 # !r;;
 - : int = 0
 ```
 
-Let's put something else behind `r`. Here `:=` is the assignment operator; it is
+Let's update the content of `r`. Here `:=` is the assignment operator; it is
 pronounced “receives”.
-
 ```ocaml
 # r := 42;;
 - : unit = ()
 ```
 
 This returns `()` because changing the content of a reference is a side-effect.
-
 ```ocaml
 # !r;;
 - : int = 42
 ```
 
 Execute an expression after another with the `;` operator. Writing `a; b` means: execute `a`; once done, execute `b`, only return the value of `b`.
-
 ```ocaml
 # let text = ref "hello ";;
 val text : string ref = {contents = "hello "}
@@ -773,32 +687,9 @@ Here are the side effects which happens in the second line:
 
 This behaviour is the same as in an imperative language. However, although `;` is not defined as a function, it behaves as if it was a function of type `unit -> unit -> unit`.
 
-OCaml also has mutable arrays. Here is how to create one:
+## Modules and the Standard Library
 
-```ocaml
-# let a = [| 11; 12; 13; 14; 15; 16; 17 |];;
-val a : int array = [|11; 12; 13; 14; 15; 16; 17|]
-```
-
-Here is how indexed access is done:
-
-```ocaml
-# a.(4);;
-- : int = 15
-```
-
-Indexed assignment is done using the `<-` operator (not the reference assignment `:=`).
-```ocaml
-# a.(4) <- 0;;
-- : unit = ()
-
-# a.(4);;
-- : int = 0
-```
-
-## Modules and the Standard Library.
-
-Organising source code in OCaml is done using something called _modules_. A module is a group of definitions. The _standard library_ is a set of modules available to all OCaml programs. Here is how the definitions contains in the `Option` module of the standard library can be listed:
+Organising source code in OCaml is done using something called _modules_. A module is a group of definitions. The _standard library_ is a set of modules available to all OCaml programs. Here is how the definitions contained in the `Option` module of the standard library can be listed:
 ```ocaml
 # #show Option;;
 module Option :
@@ -846,15 +737,15 @@ Here, usage of the function `Option.map` is illustrated in several steps.
 
 When the option value provided contains an actual value (i.e. it is `Some` something), it applies the provided function and returns its result wrapped in a option. When the option value provided doesn't contain anything (i.e. is is `None`), the result doesn't contain anything as well (i.e. is is `None` too).
 
-The `List.map` function which was used earlier in this section also part of a module, the `List` module.
+The `List.map` function which was used earlier in this section is also part of a module, the `List` module.
 ```ocaml
 # List.map;;
 - : ('a -> 'b) -> 'a list -> 'b list = <fun>
 
 # List.map (fun x -> x * x);;
 - : int list -> int list = <fun>
-
 ```
+
 This illustrates the first feature of the OCaml module system. It provides a mean to separate concerns by preventing name clashes. Two functions having different type may have the same name if they are provided by different modules.
 
 Module also allows efficient separated compilation, this is illustrated in the next tutorial.
