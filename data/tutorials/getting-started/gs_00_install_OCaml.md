@@ -19,7 +19,7 @@ On this page, you'll find installation instructions for Linux, macOS, and &ast;B
 
 OCaml has an official package manager, [opam](https://opam.ocaml.org/), which allows to download and install OCaml tools and libraries. Opam also makes it practical to deal with different projects which require different versions of OCaml, although this is not addressed in this document.
 
-Opam also allows to install OCaml itself. Alternative exists, but opam is the best way to install OCaml. Although OCaml is available as a package in most Linux distributions, it is often outdated. 
+Opam also installs OCaml itself. Alternatives exist, but opam is the best way to install OCaml. Although OCaml is available as a package in most Linux distributions, it is often outdated. 
 
 ### 1. Install opam
 
