@@ -11,13 +11,20 @@ let problem_sidebar_links_by_tag ?tag title =
     (Problem.filter_tag ?tag problems |> List.fold_left (fun a b -> a ^ render_problem_link b) "")
   %>
 in
-
+  <p class="font-bold text-md">Exercise Categories</p>
+  <hr>
   <%s! problem_sidebar_links_by_tag ~tag:"list" "Lists" %>
+  <hr>
   <%s! problem_sidebar_links_by_tag ~tag:"arithmetic" "Arithmetic" %>
+  <hr>
   <%s! problem_sidebar_links_by_tag ~tag:"logic" "Logic and Codes" %>
+  <hr>
   <%s! problem_sidebar_links_by_tag ~tag:"binary-tree" "Binary Trees" %>
+  <hr>
   <%s! problem_sidebar_links_by_tag ~tag:"multiway-tree" "Multiway Trees" %>
+  <hr>
   <%s! problem_sidebar_links_by_tag ~tag:"graph" "Graphs" %>
+  <hr>
   <%s! problem_sidebar_links_by_tag "Miscellaneous" %>
 
 let danger = function
