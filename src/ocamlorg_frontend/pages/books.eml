@@ -15,7 +15,7 @@ let render_books books =
             <div class="flex-col flex-1">
                 <h4 class="font-bold text-2xl mb-6"><%s item.title %></h4>
                 <div class="font-normal text-base mb-6 uppercase"><%s item.authors |> String.concat ", " %></div>
-                <div class="prose-md prose-orange mb-6 md:prose-lg"><%s! item.body_html %></div>
+                <div class="prose prose-md prose-orange mb-6 md:prose-lg"><%s! item.body_html %></div>
                 <div class="flex gap-x-5 gap-y-4 flex-col sm:flex-row">
                     <% item.links |> List.iter (fun (link : Data.Book.link) -> %>
                         <div>
