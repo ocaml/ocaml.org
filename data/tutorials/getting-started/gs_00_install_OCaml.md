@@ -162,7 +162,7 @@ If you don't see a version number such as `5.1.0` your setup has a problem. Seek
 If you do see the version number, **congratulations**! You've installed OCaml!
 
 ## Install Platform Tools
-Now that we've successfully [installed OCaml](TODO-link), let's install some of the [OCaml Platform Tools](https://ocaml.org/docs/platform):
+Now that we've successfully installed OCaml, let's install some of the [OCaml Platform Tools](https://ocaml.org/docs/platform):
 
 - [UTop](https://github.com/ocaml-community/utop), a modern interactive toplevel (REPL: Read-Eval-Print Loop)
 - [Dune](https://dune.readthedocs.io/en/stable/~), a fast and full-featured build system
