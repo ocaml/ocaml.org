@@ -99,7 +99,7 @@ let right_tutorial_block ~title ~heading ~description ~(tutorial_links: link lis
   </div>
 
 let pricing_tag = 
-  <div class="absolute mt-[-2rem] ml-3 w-16 h-16">
+  <div class="absolute -mt-3 ml-3 w-16 h-16">
     <div class="bg-learn-area-orange rotate-[-10deg] rounded-full w-16 h-16 flex items-center justify-center" style="filter: drop-shadow(-4px -2px 4px rgb(0 0 0 / 0.25));">
       <div class="text-center text-white text-base font-bold leading-7 tracking-wide">
         FREE
