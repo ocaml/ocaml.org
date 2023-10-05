@@ -133,8 +133,9 @@ let render ~default_code =
         </div>
       </div>
     </div>
-     <script>
-       document.getElementById("clear-output").addEventListener("click", function() {document.getElementById("output").innerHTML = ""  })
-     </script>
+    <script>
+      document.getElementById("clear-output").addEventListener("click", function() {
+      document.getElementById("output").innerHTML = ""  })
+    </script>
   </body>
 </html>
