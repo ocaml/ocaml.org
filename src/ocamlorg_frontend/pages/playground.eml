@@ -27,8 +27,6 @@ let render ~default_code =
       data-worker-url="<%s Ocamlorg_static.Playground.url "worker.min.js" %>"
       data-default-code="<%s default_code %>"
       src="<%s Ocamlorg_static.Playground.url "playground.min.js" %>" defer></script>
-     
-      
     <style>
 * {
   scrollbar-width: auto;
@@ -127,7 +125,6 @@ let render ~default_code =
                 class="h-auto flex-col overflow-auto p-4 text-white"
                 x-show="output && !mobile"
                 ></div>
-               
             </div>
           </div>
         </div>
@@ -135,7 +132,7 @@ let render ~default_code =
     </div>
     <script>
       document.getElementById("clear-output").addEventListener("click", function() {
-      document.getElementById("output").innerHTML = ""  })
+      document.getElementById("output").innerHTML = "" })
     </script>
   </body>
 </html>
