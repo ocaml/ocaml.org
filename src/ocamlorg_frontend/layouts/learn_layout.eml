@@ -29,10 +29,6 @@ let tabs
         <%s! link ~href:Url.problems ~title:"Exercises" ~current:(current = Exercises) %>
 
         <%s! link ~href:Url.books ~title:"Books" ~current:(current = Books) %>
-
-        <a href="<%s Url.manual %>" class="flex text-white gap-2 justify-start px-4 py-2 border-2 border-transparent rounded items-center font-semibold opacity-80">
-          <%s! Icons.arrow_top_right_on_square "w-6 h-6" %> Language Manual
-        </a>
       </nav>
     </div>
 
