@@ -19,15 +19,14 @@ let render ~default_code =
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/main.css" %>">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/codemirror.css" %>">
-        <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
+    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/roboto-mono.css" %>">
     <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
-        <script id="playground-script"
+    <script id="playground-script"
       data-merlin-url="<%s Ocamlorg_static.Playground.url "merlin.min.js" %>"
       data-worker-url="<%s Ocamlorg_static.Playground.url "worker.min.js" %>"
       data-default-code="<%s default_code %>"
-      src="<%s Ocamlorg_static.Playground.url "playground.min.js" %>" defer>
-      </script>
+      src="<%s Ocamlorg_static.Playground.url "playground.min.js" %>" defer></script>
      
       
     <style>
