@@ -39,7 +39,7 @@ Or if you're using [MacPorts](https://www.macports.org/):
 $ port install opam
 ```
 
-> **Note**: While it's rather straitforward to install opam using macOS, it's possible you'll run into problems later with Homebrew because it has changed the way it installs. The executable files cannot be found in ARM64, the M1 processor used in newer Macs. Addressing this can be a rather complicated procedure, so we've made [a short ARM64 Fix doc](https://hackmd.io/rX5ZRs_BRI-NPSU7eiQCvA) explaining this so as not to derail this installation tutorial.
+> **Note**: While it's rather straitforward to install opam using macOS, it's possible you'll run into problems later with Homebrew because it has changed the way it installs. The executable files cannot be found in ARM64, the M1 processor used in newer Macs. Addressing this can be a rather complicated procedure, so we've made [a short ARM64 Fix doc](/docs/arm64-fix) explaining this so as not to derail this installation tutorial.
 
 **For Linux**
 
@@ -92,7 +92,7 @@ $ opam --version
 
 You can compare it with the current version on [opam.ocaml.org](https://opam.ocaml.org/).
 
-> **Note**: opam can manage something called _switches_. This is key when switching between several OCaml projects. However, in this “getting started” series of tutorials, switches are not needed. If you need to learn more about opam switches, check out the [opam manual](https://opam.ocaml.org/doc/Manual.html).
+> **Note**: opam can manage something called _switches_. This is key when switching between several OCaml projects. However, in this “getting started” series of tutorials, switches are not needed. If interested, you can read an introduction to [opam switches here](/docs/opam-switch).
 
 ## Installation on Windows
 
