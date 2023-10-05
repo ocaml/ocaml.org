@@ -120,7 +120,7 @@ let process_opam_file f =
   let open Lwt.Syntax in
   Lwt_io.with_file ~mode:Input (Fpath.to_string f) (fun channel ->
       let+ content = Lwt_io.read channel in
-      OpamFile.OPAM.read_from_string content)
+      try Some (OpamFile.OPAM.read_from_string content) with _ -> None)
 
 let opam_file package_name package_version =
   let opam_file =
