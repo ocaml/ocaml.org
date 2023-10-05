@@ -2,15 +2,16 @@ let render_books books =
     <div class="overflow-x-scroll lg:overflow-hidden mt-5">
         <% books |> List.iter (fun (item : Data.Book.t) -> %>
         <div
-            class="flex space-y-10 lg:space-y-0 lg:space-x-16 pb-10 mt-4 flex-col lg:flex-row">
+            class="flex space-y-10 pt-6 lg:space-y-0 lg:space-x-16 pb-10 mt-4 flex-col lg:flex-row">
             <div class="flex flex-col gap-y-4">
-                <div class="relative">
+                <div class="relative w-64 sm:w-72 lg:w-64 max-w-full space-y-5">
                      <%s! if item.pricing = "free" then Learn_components.pricing_tag else "" %>
                      <img src="<%s Ocamlorg_static.Media.url item.cover %>"
-                        class="w-64 max-w-full border z-10"
+                        class="w-full border z-10"
                         alt="">
+                     <%s! Learn_components.skill_tag item.difficulty "w-full" %>
                 </div>
-                <%s! Learn_components.skill_tag item.difficulty "w-32 lg:w-64 md:w-64" %>
+                
             </div>
             <div class="flex-col flex-1">
                 <h4 class="font-bold text-2xl mb-6"><%s item.title %></h4>
