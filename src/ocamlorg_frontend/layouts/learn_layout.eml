@@ -132,4 +132,4 @@ inner_html
     </div>
   </div>
   <%s! Toc.script %>
-  <%s! Secondary_footer.render() %>
+  <%s! Secondary_footer.render () %>
