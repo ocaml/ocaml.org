@@ -26,6 +26,12 @@ This repository contains the sources of the OCaml website. It is served at https
 
 You can setup the project with:
 
+Before you begin, make sure you have `opam` (OCaml Package Manager) installed on your system. If you haven't installed it yet, you can follow the official installation instructions for your platform:
+
+- [Official `opam` Installation Guide](https://opam.ocaml.org/doc/Install.html)
+
+Once `opam` is installed, you can set up the project and run it with the following commands:
+
 ```
 make switch
 ```
