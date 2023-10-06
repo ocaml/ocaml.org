@@ -643,14 +643,14 @@ val id_42_res : int -> (int, string) result = <fun>
 
 ## Working with Mutable State
 
-OCaml supports imperative programming. Usually, the `let … = …` syntax does not define variables, it defines constants. However, mutable variables exists in OCaml, they are called _references_. Here's how we create a reference to an integer:
+OCaml supports imperative programming. Usually, the `let … = …` syntax does not define variables, it defines constants. However, mutable variables exists in OCaml; they are called _references_. Here's how we create a reference to an integer:
 ```ocaml
 # let r = ref 0;;
 val r : int ref = {contents = 0}
 ```
 
 It is syntactically impossible to create an unintialised or null reference. The `r`
-reference is initialized with the integer zero. Accessing a reference's content
+reference is initialised with the integer zero. Accessing a reference's content
 is done using the `!` de-reference operator.
 ```ocaml
 # !r;;
