@@ -51,9 +51,9 @@ utop #
 
 Press `Ctrl-D` (end of file) or enter `#quit;;` to exit `utop`.
 
-The OCaml code examples in this tutorial show the input needed at the hash prompt `#`, as displayed by `utop`, ending with double semicolumn `;;`. The `;;` let's OCaml know the expression is complete. Code sample lines beginning with dollar sign `$`, like above, should be entered in an Unix terminal.
+The OCaml code examples in this tutorial show the input needed at the hash prompt `#`, as displayed by `utop`, ending with double semicolumn `;;`. The `;;` let OCaml know the expression is complete. Code sample lines beginning with dollar sign `$`, like above, should be entered in an terminal.
 
-Upon hitting `Enter`, OCaml runs the code. The following line shows the output. (For simplicity, anything but the user input and OCaml's output in `utop` is omitted in this tutorial.)
+Upon hitting `Enter`, OCaml runs the code. The following line shows the output. For simplicity, anything but the user input and OCaml's output in `utop` is omitted in this tutorial.
 ```ocaml
 # 2 + 2;;
 - : int = 4
@@ -65,17 +65,17 @@ Again, the line which follows shows OCaml's result. The above example says, “W
 
 If you need to amend the code before hitting enter, you can use your keyboard's right and left arrows to move inside the text. The up and down arrows allows navitation through previously typed commands, if you have multiple lines of code.
 
-Remember: commands beginning with a hash mark are not part of the OCaml syntax; they are interpreted by UTop itself.
-
-Commands beginning with the dash character `#` such as `#quit` or `#help` are not evaluated by OCaml, they are interpreter by Utop.
+Remember: commands beginning with a dash character `#` such as `#quit` or `#help` are not evaluated by OCaml, they are interpreter by Utop.
 
 ## Expressions and Definitions
+
+Here is another expression:
 ```ocaml
 # 50 * 50;;
 - : int = 2500
 ```
 
-In OCaml, everything has a value and every value has a type. Here`50 * 50` is an expression that evaluates to `2500`, which is of type `int` (integer). Here are examples of other primitive values and types:
+In OCaml, everything has a value and every value has a type. Here `50 * 50` is an expression that evaluates to `2500`, which is of type `int` (integer). Here are examples of other primitive values and types:
 ```ocaml
 # 6.28;;
 - : float = 6.28
@@ -87,7 +87,7 @@ In OCaml, everything has a value and every value has a type. Here`50 * 50` is an
 - : bool = true
 ```
 
-OCaml has *type inference*. It automatically determines the type of an expression without much guidance from the programmer. Lists are the topic of a [dedicated tutorial](/docs/lists). For the time being, the following two expressions are both lists. The former contains integers, and the latter, strings.
+OCaml has _type inference_. It automatically determines the type of an expression without much guidance from the programmer. Lists are the topic of a [dedicated tutorial](/docs/lists). For the time being, the following two expressions are both lists. The former contains integers, and the latter, strings.
 ```ocaml
 # let u = [1; 2; 3; 4];;
 u : int list = [1; 2; 3; 4]
@@ -96,7 +96,7 @@ u : int list = [1; 2; 3; 4]
 - : string list = ["this"; "is"; "mambo"]
 ```
 
-The lists' type, `int list` and `string list`, has been inferred from the type of their elements. Lists can be empty `[]` (pronouced “nil”) stands for the empty list. Note that the first list has been given a name using the `let … = …` construction, this is detailed below. The most primitive operation on lists is appending a new element at the front of an existing list, this is done using the “cons” operator, that is written with the double colon operator `::`.
+The lists' type, `int list` and `string list`, have been inferred from the type of their elements. Lists can be empty `[]` (pronouced “nil”). Note that the first list has been given a name using the `let … = …` construction, this is detailed below. The most primitive operation on lists is appending a new element at the front of an existing list, this is done using the “cons” operator, that is written with the double colon operator `::`.
 ```ocaml
 # 9 :: u;;
 - : int list = [9; 1; 2; 3; 4]
@@ -121,7 +121,7 @@ val x : int = 50
 
 When entering `let x = 50;;`, OCaml responds with `val x : int = 50`, meaning that `x` is an identifier bound to value `50`. So `x * x;;` evaluates to the same as `50 * 50;;`.
 
-Bindings in OCaml are *immutable*, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case, it is a constant. In other words, in OCaml, all variables are immutable. It is possible to give names to values than can be updated, in OCaml, this is called a _reference_ and will be discussed in the Working With Mutable State section.
+Bindings in OCaml are *immutable*, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case, it is a constant. Using over simplifying but acceptable words, in OCaml, all variables are immutable. It is possible to give names to values than can be updated, in OCaml, this is called a _reference_ and will be discussed in the [Working With Mutable State](/docs/a-tour-of-ocaml#working-with-mutable-state) section.
 
 There is no overloading in OCaml, so inside a lexical scope, names have a single value, which only depends on its definition.
 
@@ -150,11 +150,11 @@ This defines two names: `a` with value `1` and `b` with value `2`. Then the exam
 
 In OCaml, the equality symbol has two meanings. It is used in definitions and equality tests.
 ```ocaml
-# let dummy = "hi" = "bye";;
+# let dummy = "hi" = "hello";;
 val dummy : bool = false
 ```
 
-This is interpreted as: “define `dummy` as the result of the equality test betweeen the strings `"hi"` and `"bye"`”. OCaml also has an double equal operator `==` which stands for physical identity, it is not used in this tutorial. The operator `<>` is the negation of `=` while `!=` is the negation of `==`.
+This is interpreted as: “define `dummy` as the result of the equality test betweeen the strings `"hi"` and `"hello"`”. OCaml also has an double equal operator `==` which stands for physical identity, it is not used in this tutorial. The operator `<>` is the negation of `=` while `!=` is the negation of `==`.
 
 ## Functions
 
@@ -229,9 +229,9 @@ A function may expect a function as parameter, which is called a _higher-order_ 
 - : int list = [0; 1; 4; 9; 16; 25]
 ```
 
-The name of this function begins with `List.` because it is part of the predefined library of functions acting on lists. (This matter will be discussed more later.) Function `List.map` takes two parameters: the second is a list, and the first is a function that can be applied to the list's elements, whatever they may be. `List.map` returns a list formed by applying the function provided as parameter to each of the elements of the input list.
+The name of this function begins with `List.` because it is part of the predefined library of functions acting on lists. This matter will be discussed more later. Function `List.map` takes two parameters: the second is a list, and the first is a function that can be applied to the list's elements, whatever they may be. `List.map` returns a list formed by applying the function provided as parameter to each of the elements of the input list.
 
-The function `List.map` can be applied on any kind of list. Here it is given a list of integers, but it could be a list of floats, strings, or anything. This is known as _polymorphism_. The `List.map` function is polymorphic, meaning it has two _type variables_: `'a` and `'b` (pronounced alpha and beta). They both can be anything; however, in regard to the function passed to `List.map`:
+The function `List.map` can be applied on any kind of list. Here it is given a list of integers, but it could be a list of floats, strings, or anything. This is known as _polymorphism_. The `List.map` function is polymorphic, meaning it has two implicit _type variables_: `'a` and `'b` (pronounced alpha and beta). They both can be anything; however, in regard to the function passed to `List.map`:
 1. Input list elements have the same type of its input
 2. Output list elements have the same type of its output
 
@@ -249,20 +249,20 @@ caramba
 # print_endline;;
 - : string -> unit = <fun>
 
-# print_endline "ah ah";;
-ah ah
+# print_endline "¿Cuándo se come aquí?";;
+¿Cuándo se come aquí?
 - : unit = ()
 ```
 
 The function `read_line` reads characters on standard input and returns them as a string when end-of-line (EOL) is reached. The function `print_endline` prints a string on standard output, followed by an EOL.
 
-The function `read_line` doesn't need any data to proceed, and the function `print_endline` doesn't have any meaningful data to return. Indicating this absence of data is the role of the `unit` type, which appears in their signature. The type `unit` has as single value, written `()` and pronounced *unit*. It is used as a placeholder when no data is passed or returned, but some token still has to be passed to start processing or when it has terminated.
+The function `read_line` doesn't need any data to proceed, and the function `print_endline` doesn't have any meaningful data to return. Indicating this absence of data is the role of the `unit` type, which appears in their signature. The type `unit` has as single value, written `()` and pronounced “unit”. It is used as a placeholder when no data is passed or returned, but some token still has to be passed to start processing or inidicate processing has terminated.
 
 Input-output is an example of something taking place when executing a function but which does not appear in the function type. This is called a _side-effect_ and does not stop at I/O. The `unit` type is often used to indicate the presence of side-effects, although it's not always the case.
 
 ### Recursive Functions
 
-A recursive function calls itself in its own definition. Such functions must be declared using `let rec … = …` instead of just `let`. Recursion is not the only mean to perform iterative computation on OCaml. Loops such as for and while are available, but they are meant to be used when writing imperative OCaml, in conjunction with mutable data. Otherwise, recursive functions should be prefered.
+A recursive function calls itself in its own body. Such functions must be declared using `let rec … = …` instead of just `let`. Recursion is not the only mean to perform iterative computation on OCaml. Loops such as for and while are available, but they are meant to be used when writing imperative OCaml, in conjunction with mutable data. Otherwise, recursive functions should be prefered.
 
 Here is an example of a function which creates a list of consecutive integers between two bounds.
 ```ocaml
@@ -354,7 +354,7 @@ Lists are defined as being either empty, which is written `[]`, or being an elem
 - : int list = [1; 2; 3; 4]
 ```
 
-In OCaml, _patten matching_ provides a mean to inspect data of any kind, except functions. In this section, it is introduced on lists, it will be generalized to other datatypes in the next section. Here is how to define a recursive function that computes the sum of a list of integers:
+In OCaml, _patten matching_ provides a mean to inspect data of any kind, except functions. In this section, it is introduced on lists, it will be generalized to other datatypes in the next section. Here is how pattern matching can be used to define a recursive function that computes the sum of a list of integers:
 ```ocaml
 # let rec sum u =
     match u with
@@ -388,7 +388,7 @@ val length : 'a list -> int = <fun>
 
 This function operates not just on lists of integers but on any kind of list. It is a polymorphic function. Its type indicates input of type `'a list` where `'a` is type variable standing for any type. The empty list pattern `[]` can be of any element type. So the `_ :: v` pattern, as the value at the head of the list, is irrelevant because the `_` pattern indicates it is not inspected. Since both patterns must be of the same type, the typing algorithm infers the `'a list -> int` type.
 
-#### Passing Functions to Functions.
+#### Defining a Higher-Order Function
 
 It is possible to pass a function as a paramter to another function. Functions taking other functions as parameters are called _higher-order_ functions. This was illustrated earlier using function `List.map`. Here is how `map` can be written using pattern matching on lists.
 ```ocaml
@@ -405,7 +405,7 @@ val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 - : int list = [1; 4; 9; 16]
 ```
 
-### Pattern Matching
+### Pattern Matching, Cont'd
 
 Patten matching isn't limited to lists, any kind of data can be inspected using it, except functions. Patterns are expressions that are compared to an inspected value. It could be performed using `if … then … else …` but pattern matching is more convinient. Here is an example
 ```ocaml
@@ -418,7 +418,7 @@ val f : 'a option option-> 'a option = <fun>
 
 The inspected value is `opt`. It is compared against the patterns from top to bottom. If `opt` is the `None` option, it is a match with the first pattern. If `opt` is the `Some None` option, it's a match with the second patten. If `opt` is a double-wrapped option with a value, it's a match with the third pattern. Patterns can introduce names, just as `let` does. In the third pattern, `x`, designates the data inside the double-wrapped option.
 
-Pattern matching is detailed in the [Basic Datatypes]() tutorial as well as in per datatype tutorials.
+Pattern matching is detailed in the [Basic Datatypes](/docs/basic-datatypes) tutorial as well as in per datatype tutorials.
 
 Here is the same comparison, using `if … then … else …` and pattern matching.
 ```ocaml
@@ -656,6 +656,10 @@ is done using the `!` de-reference operator.
 # !r;;
 - : int = 0
 ```
+
+Note that `!r` and `r` have different types, `int` and `int ref`, respectively.
+Just like it is no possible to perform multiplication of an integer and a float,
+it is not possible to update an integer or multiply a reference.
 
 Let's update the content of `r`. Here `:=` is the assignment operator; it is
 pronounced “receives”.
