@@ -94,7 +94,7 @@ Layout.render
 
           <p>
             The <a href="<%s Url.platform %>">OCaml Platform Tools</a>,
-            which include the <a target="_blank" href="https://dune.build/">build system <tt>dune</tt></a>,
+            which includes the <a target="_blank" href="https://dune.build/">build system Dune</a>,
             complete your OCaml development environment. To install them in your current opam switch, run this command:
           </p>
 
@@ -140,7 +140,7 @@ Layout.render
         </p>
 
         <p>
-          The <a href="<%s Url.platform %>">OCaml Platform Tools</a> include the <a target="_blank" href="https://dune.build/">build system <tt>dune</tt></a>,
+          The <a href="<%s Url.platform %>">OCaml Platform Tools</a> include the <a target="_blank" href="https://dune.build/">build system Dune</a>
           and provide you with a complete OCaml development environment.
         </p>
 
