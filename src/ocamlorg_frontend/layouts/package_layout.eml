@@ -24,8 +24,7 @@ Layout.render
 ~title
 ~description
 ?canonical
-~active_top_nav_item:Header.Packages
-~footer_html:(Fixed_footer.render ()) @@
+~active_top_nav_item:Header.Packages @@
 <div class="bg-default dark:bg-dark-default"
   x-on:click="search_instructions = false"
   x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, 'search_instructions': false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches"
@@ -321,3 +320,4 @@ Layout.render
   }
 </script>
 <% | _ -> () ); %>
+<%s! Fixed_footer.render() %>

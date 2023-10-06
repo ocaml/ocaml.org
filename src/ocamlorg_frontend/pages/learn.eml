@@ -9,13 +9,11 @@ let render
 ~(books : Data.Book.t list)
 ~(latest_version : string)
 =
-Learn_layout.overview_render
+Learn_layout.single_column_layout
 ~title:"Learn OCaml"
 ~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices, and language manual."
 ~canonical:Url.learn
 ~active_top_nav_item:Header.Learn
-~left_sidebar_html:None
-~right_sidebar_html:None
 ~current:Overview @@
   <div class="container-fluid wide pt-10">
     <h1 class="font-bold mb-8">Learn OCaml</h1>
