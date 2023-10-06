@@ -67,7 +67,7 @@ let decode (_, (head, body)) =
   let solution = Omd.to_html (Hilite.Md.transform solution_blocks) in
   Result.map (of_metadata ~statement ~solution) metadata
 
-let all () = Utils.map_files decode "problems/*.md"
+let all () = Utils.map_files decode "exercises/*.md"
 
 let template () =
   Format.asprintf

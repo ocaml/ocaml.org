@@ -339,8 +339,8 @@ let tutorial req =
        ~canonical:(Url.tutorial tutorial.slug)
        tutorial)
 
-let problems req =
-  let all_problems = Data.Problem.all in
+let exercises req =
+  let all_exercises = Data.Exercise.all in
   let difficulty_level = Dream.query req "difficulty_level" in
   let compare_difficulty = function
     | "beginner" -> ( = ) `Beginner
@@ -348,15 +348,15 @@ let problems req =
     | "advanced" -> ( = ) `Advanced
     | _ -> Fun.const true
   in
-  let by_difficulty level (problem : Data.Problem.t) =
+  let by_difficulty level (exercise : Data.Exercise.t) =
     match level with
-    | Some difficulty -> compare_difficulty difficulty problem.difficulty
+    | Some difficulty -> compare_difficulty difficulty exercise.difficulty
     | _ -> true
   in
-  let filtered_problems =
-    List.filter (by_difficulty difficulty_level) all_problems
+  let filtered_exercises =
+    List.filter (by_difficulty difficulty_level) all_exercises
   in
-  Dream.html (Ocamlorg_frontend.problems ?difficulty_level filtered_problems)
+  Dream.html (Ocamlorg_frontend.exercises ?difficulty_level filtered_exercises)
 
 let installer req = Dream.redirect req Url.github_installer
 let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Data.Outreachy.all)

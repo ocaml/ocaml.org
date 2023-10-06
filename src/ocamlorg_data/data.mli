@@ -153,7 +153,7 @@ module Paper : sig
   val get_by_slug : string -> t option
 end
 
-module Problem : sig
+module Exercise : sig
   type difficulty = [ `Beginner | `Intermediate | `Advanced ]
 
   type t = {

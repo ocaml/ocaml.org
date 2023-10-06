@@ -13,7 +13,7 @@ let term_templates =
     ("outreachy", Ood_gen.Outreachy.template);
     ("packages", Ood_gen.Packages.template);
     ("paper", Ood_gen.Paper.template);
-    ("problems", Ood_gen.Problem.template);
+    ("exercises", Ood_gen.Exercise.template);
     ("release", Ood_gen.Release.template);
     ("success_story", Ood_gen.Success_story.template);
     ("tool", Ood_gen.Tool.template);

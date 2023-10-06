@@ -1,24 +1,24 @@
-let problems_sidebar
-~problems
+let exercises_sidebar
+~exercises
 =
 let open Data in
-let render_problem_link (problem : Problem.t) =
-  let href = "#" ^ problem.number in
-  Learn_layout.sidebar_link ~title:problem.title ~href ~current:false
+let render_exercise_link (exercise : Exercise.t) =
+  let href = "#" ^ exercise.number in
+  Learn_layout.sidebar_link ~title:exercise.title ~href ~current:false
 in
-let problem_sidebar_links_by_tag ?tag title =
+let exercise_sidebar_links_by_tag ?tag title =
   <%s! Learn_layout.sidebar_link_group title
-    (Problem.filter_tag ?tag problems |> List.fold_left (fun a b -> a ^ render_problem_link b) "")
+    (Exercise.filter_tag ?tag exercises |> List.fold_left (fun a b -> a ^ render_exercise_link b) "")
   %>
 in
 
-  <%s! problem_sidebar_links_by_tag ~tag:"list" "Lists" %>
-  <%s! problem_sidebar_links_by_tag ~tag:"arithmetic" "Arithmetic" %>
-  <%s! problem_sidebar_links_by_tag ~tag:"logic" "Logic and Codes" %>
-  <%s! problem_sidebar_links_by_tag ~tag:"binary-tree" "Binary Trees" %>
-  <%s! problem_sidebar_links_by_tag ~tag:"multiway-tree" "Multiway Trees" %>
-  <%s! problem_sidebar_links_by_tag ~tag:"graph" "Graphs" %>
-  <%s! problem_sidebar_links_by_tag "Miscellaneous" %>
+  <%s! exercise_sidebar_links_by_tag ~tag:"list" "Lists" %>
+  <%s! exercise_sidebar_links_by_tag ~tag:"arithmetic" "Arithmetic" %>
+  <%s! exercise_sidebar_links_by_tag ~tag:"logic" "Logic and Codes" %>
+  <%s! exercise_sidebar_links_by_tag ~tag:"binary-tree" "Binary Trees" %>
+  <%s! exercise_sidebar_links_by_tag ~tag:"multiway-tree" "Multiway Trees" %>
+  <%s! exercise_sidebar_links_by_tag ~tag:"graph" "Graphs" %>
+  <%s! exercise_sidebar_links_by_tag "Miscellaneous" %>
 
 let danger = function
   | `Beginner -> ""
@@ -32,14 +32,14 @@ let difficulty_to_string = function
 
 let render
 ?(difficulty_level = "All")
-(problems : Data.Problem.t list)
+(exercises : Data.Exercise.t list)
 =
 Learn_layout.render
 ~title:"Exercises"
 ~description:"A list of exercises to work on your OCaml skills."
-~canonical:Url.problems
+~canonical:Url.exercises
 ~active_top_nav_item:Header.Learn
-~left_sidebar_html:(Some(problems_sidebar ~problems))
+~left_sidebar_html:(Some(exercises_sidebar ~exercises))
 ~right_sidebar_html:None
 ~current:Exercises @@
   <div class="prose prose-orange max-w-full">
@@ -66,7 +66,7 @@ Learn_layout.render
       </p>
     </div>
     <div class="border-b border-solid border-zinc-300 leading-5 py-8 text-zinc-800">
-      <form action="<%s Url.problems %>" method="GET">
+      <form action="<%s Url.exercises %>" method="GET">
         <label for="difficulty_level" class="sr-only">Difficulty</label>
         <%s! Forms.select
           ~attrs:{|id="difficulty_level" name="difficulty_level" onchange="this.form.submit()"|}
@@ -75,23 +75,23 @@ Learn_layout.render
           "w-48" %>
       </form>
     </div>
-    <% problems |> List.iter (fun (problem : Data.Problem.t) -> %>
-    <div x-data="{statement: true}" id="<%s" problem.number %>
+    <% exercises |> List.iter (fun (exercise : Data.Exercise.t) -> %>
+    <div x-data="{statement: true}" id="<%s" exercise.number %>
       >
       <div class="flex space-y-4 xl:space-y-0 flex-col xl:flex-row xl:justify-between">
-        <span aria-hidden="true" class="danger invisible xl:visible" title="<%s difficulty_to_string problem.difficulty ^ " difficulty" %>"><%s danger problem.difficulty %></span>
+        <span aria-hidden="true" class="danger invisible xl:visible" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %>"><%s danger exercise.difficulty %></span>
         <h4 class="font-bold text-default">
-          <%s problem.title %>
-          <span aria-hidden="true" class="ml-2 visible xl:invisible" title="<%s difficulty_to_string problem.difficulty ^ " difficulty" %>"> <%s danger problem.difficulty %></span>
+          <%s exercise.title %>
+          <span aria-hidden="true" class="ml-2 visible xl:invisible" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %>"> <%s danger exercise.difficulty %></span>
         </h4>
-        <div class="w-0 h-0 overflow-hidden"><%s difficulty_to_string problem.difficulty ^ " difficulty" %></div>
+        <div class="w-0 h-0 overflow-hidden"><%s difficulty_to_string exercise.difficulty ^ " difficulty" %></div>
         <div class="flex bg-body-600 bg-opacity-5 rounded-md p-1 items-center">
           <button
             class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
             x-on:click="statement = true"
             :class="statement ? 'bg-default dark:bg-dark-default text-primary-600': 'text-lighter' "
           >
-            <%s! Icons.problem_statement "h-5 w-5" %>
+            <%s! Icons.exercise_statement "h-5 w-5" %>
             <span :class="statement ? 'text-default' : 'text-lighter'">Statement</span>
           </button>
           <button
@@ -99,15 +99,15 @@ Learn_layout.render
             x-on:click="statement = false"
             :class="statement ? 'text-lighter': 'bg-default dark:bg-dark-default text-primary-600' "
           >
-            <%s! Icons.problem_solution "h-5 w-5" %>
+            <%s! Icons.exercise_solution "h-5 w-5" %>
             <span :class="statement ? 'text-lighter' : 'text-default'">Solution</span>
           </button>
         </div>
       </div>
 
-      <div x-show="statement"><%s! problem.statement %></div>
+      <div x-show="statement"><%s! exercise.statement %></div>
 
-      <div x-show="!statement"><%s! problem.solution %></div>
+      <div x-show="!statement"><%s! exercise.solution %></div>
     </div>
     <div class="border-t border-gray-200 my-12"></div>
     <% ); %>
