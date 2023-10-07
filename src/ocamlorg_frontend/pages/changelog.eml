@@ -5,9 +5,15 @@ Layout.render
 <div class="bg-default dark:bg-dark-default py-24">
   <div class="container-fluid">
     <div>
-      <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-zinc-800">
-        OCaml Changelog
-      </h1>
+      <div class="flex items-center">
+        <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-zinc-800">
+          OCaml Changelog
+        </h1>
+        <a href="/changelog/feed.xml" class="text-lighter hover:text-gray-500 ml-2">
+          <span class="sr-only">RSS</span>
+          <%s! Icons.rss "h-6 w-6" %>
+        </a>
+      </div>
 
       <p class="text-lg text-lighter mt-6">Read the latest releases and updates from the OCaml ecosystem.</p>
     </div>
@@ -45,7 +51,7 @@ Layout.render
               <% (match item.tags with [] -> () | _ ->  %>
               <div class="mt-3 flex flex-row flex-wrap justify-start gap-4">
                 <% item.tags |> List.iter (fun tag -> %>
-                <a href="<%s Url.changelog %>?t=<%s tag %>" class="whitespace-nowrap rounded-full dark:bg-dark-default px-4 py-2.5 text-sm font-semibold shadow-sm <%s if current_tag = (Some tag) then "bg-primary-700 text-white hover:bg-primary-800" else "bg-default text-default hover:bg-gray-50 ring-1 ring-inset ring-gray-300" %>"><%s tag %></a>
+                <a href="<%s Url.changelog %>?t=<%s tag %>" class="whitespace-nowrap rounded-full bg-default dark:bg-dark-default px-4 py-2.5 text-sm font-semibold text-default shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"><%s tag %></a>
                 <% ); %>
               </div>
               <% ); %>
