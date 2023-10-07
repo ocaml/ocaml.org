@@ -74,8 +74,13 @@ let changelog req =
 
 let changelog_entry req =
   let slug = Dream.param req "id" in
-  let</>? change = Data.Changelog.get_by_slug slug in
-  Dream.html (Ocamlorg_frontend.changelog_entry change)
+  if slug = "feed.xml" then
+    Dream.respond
+      ~headers:[ ("Content-Type", "application/xml; charset=utf-8") ]
+      "rss_feed"
+  else
+    let</>? change = Data.Changelog.get_by_slug slug in
+    Dream.html (Ocamlorg_frontend.changelog_entry change)
 
 let success_story req =
   let slug = Dream.param req "id" in
