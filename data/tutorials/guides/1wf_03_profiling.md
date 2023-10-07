@@ -902,7 +902,7 @@ Instrument's browser:
 
 <img width="1083" alt="Screenshot 2023-10-04 at 17 59 34" src="https://github.com/ocaml/ocaml.org/assets/854222/25576101-ed52-4d51-824e-dd85aac48957">
 
-You can click on your program there, and dig to see which functions are
+You can click on your program there and dig to see which functions are
 taking the longest to execute:
 
 <img width="1083" alt="Screenshot 2023-10-04 at 18 01 44" src="https://github.com/ocaml/ocaml.org/assets/854222/4a162375-e81f-44c6-b8b2-d9c51f7cc36e">
