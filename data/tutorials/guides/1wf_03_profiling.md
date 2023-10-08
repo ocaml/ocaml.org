@@ -784,7 +784,7 @@ even possible). However, if you had a more substantial closure than just
 `((+) 2)`, the overhead would be reduced. The FP version also saves
 expensive *programmer* time versus writing the imperative loop.
 
-## Profiling
+## Profiling Tools
 There are two types of profiling that you can do on OCaml programs:
 
 1. Get execution counts for bytecode.
