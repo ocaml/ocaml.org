@@ -25,9 +25,9 @@
     (run %{ood_gen} planet_feed)))))
 
 (subdir
- asset/changelog/
+ asset/
  (rule
-  (target feed.xml)
+  (target changelog_feed.xml)
   (deps
    (source_tree %{workspace_root}/data/changelog)
    (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
