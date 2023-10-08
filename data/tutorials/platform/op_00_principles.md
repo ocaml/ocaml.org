@@ -73,7 +73,7 @@ tool by another, the Platform should offer a smooth migration path for users.
 ## (P5) Tools are independent, yet unified
 
 Following on P4, we underline the critical importance of permitting tools to
-flourish independently: the OCaml Platform exists, and will continue to exist as
+flourish independently: the OCaml Platform exists and will continue to exist as
 a collection of tools that can be used independently.
 
 Yet, in the interest of creating a great user experience, the Platform offers a
