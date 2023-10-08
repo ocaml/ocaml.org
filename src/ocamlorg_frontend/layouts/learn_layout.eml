@@ -50,7 +50,7 @@ link_html
   <details class="space-y-2 flex flex-col">
     <summary class="flex gap-4 justify-between text-sm font-semibold px-3 py-2 uppercase focus:text-primary-600 active:text-primary-600 hover:text-primary-300">
       <%s title %>
-      <%s! Icons.chevron_right "h-6 w-6" %>
+      <%s! Icons.chevron_down "h-6 w-6" %>
     </summary>
     <span class="ml-4"><%s! link_html %></span>
     <span class="ml-4"><%s! extra_html %></span>
