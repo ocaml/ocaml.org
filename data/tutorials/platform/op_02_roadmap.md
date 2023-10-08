@@ -90,13 +90,13 @@ for the following workflows:
 
 Lastly, we will continue to mature supported development workflows. User
 feedback shows that the current development experience can be improved. A sample
-of frequent requests include the ability to run a single test from Dune CLI, the
+of frequent requests include the ability to run a single test from Dune CLI; the
 ability to vendor dependencies that depend on other packages without having to
 vendor those; Merlin queries to perform code refactoring such as renaming values
 and functions; etc.
 
 The Workflows section goes into more detail on the workflows we plan to improve
-in the coming years, but we highlight two that stand out as significantly
+in the coming years, but we highlight three that stand out as significantly
 important:
 
 - **Installing OCaml:** The installation of a complete OCaml development
@@ -336,8 +336,8 @@ be linked to the vendored version.
 Looking at other communities, project generation is one of the most beneficial
 things for newcomers to start projects.
 
-For simple projects, it shows the user the basic (hopefully minimal!)
-boilerplate required for an OCaml project.
+For simple projects, it shows the user the basic boilerplate required for an
+OCaml project.
 
 For more complex projects, it allows users to start from a working application
 with all the conventions and configurations already encoded. It is far easier
@@ -356,9 +356,14 @@ Project templates are configurable and `dune init` provides a wizard to set the
 configuration. For instance, `dune init` can ask users which licence they would
 like to use.
 
+After projects have been generated from templates, `dune init` allows users to
+grow their projects by generating new components. Components can be generic,
+such as libraries, tests, but can also be specific to the template, such as an
+authentication module in a web application.
+
 #### (W8) Format Code
 
-Dune provides a `dune fmt` command that formats the entire project.
+Dune provides a `dune fmt` command that formats code in a project.
 
 Under the hood, it integrates with different formatters to format the different
 files in an OCaml project. Dune's internal formatter is used for Dune files,
@@ -418,12 +423,6 @@ done with:
 dune repl
 ```
 
-Note that a REPL is not only useful to new users of the language but also to
-more experienced ones, in particular for library authors (U2). Indeed, opening a
-REPL using the previous command embeds the libraries resulting from the
-compilation in the toplevel. This provides a quick way for library users to test
-their libraries in an interactive and fresh environment.
-
 While opening a REPL with all public modules available is the default, Dune
 offers more options for library users (P1, P3). It can open a REPL with more
 control over the included modules, for instance, only a specified module or all
@@ -447,8 +446,7 @@ Targets can be added to the `dune-workspace` file:
     (targets native windows android)))
 ```
 
-This will make Dune generate targets for the current system, Windows, and
-Android.
+This makes Dune generate targets for the current system, Windows, and Android.
 
 Users can also use `dune build -x <target>` to generate the targets for a
 specific target.
@@ -458,7 +456,29 @@ in Dune works independently of the build system used by the dependencies: if the
 user depends on packages that use a different build system, Dune is still able
 to compile executables for foreign platforms.
 
-#### (W12) Compile to JavaScript
+Dune natively supports dynamic or static linking while compiling, including when
+doing cross-compilation.
+
+Dune supports cross-compiling to the following platforms: Windows, macOS, iOS,
+Android.
+
+#### (W12) Compile to MirageOS
+
+[MirageOS](https://mirage.io/) is a library operating system that constructs
+unikernels for secure, high-performance network applications across a variety of
+cloud computing and mobile platforms.
+
+In addition to allowing cross-compilation to native platforms like Windows,
+macOS, iOS and Android, Dune supports MirageOS unikernels as a cross-compilation
+target:
+
+```
+dune build -x mirage
+```
+
+This workflow does not require using any third party opam repository.
+
+#### (W13) Compile to JavaScript
 
 An important feature of the OCaml ecosystem is the ability to compile OCaml code
 to Javascript. This is currently achieved either by compiling from the bytecode
@@ -474,12 +494,65 @@ Changing the target language from native code to Javascript in Dune simply
 requires adding one line to a `dune` file:
 
 ```sexp
-  (modes js)
+(executable
+  ...
+  (modes js melange))
 ```
+
+#### (W14) Compile to WebAssembly
+
+Compilation to WebAssembly is supported in a way akin to JavaScript compilation:
+users can add a `wasm` mode to their `dune` file to generate WebAssembly
+compiled target as part of their build:
+
+```
+(executable
+  ...
+  (modes wasm))
+```
+
+#### (W15) Plugin Extensibility
+
+Following (P6) (The Platform is cohesive, yet extensible), Dune allows external
+tools to extend its language to add new build rules through a plugin system.
+
+These plugins do not violate Dune's composability tenets. In particular, there
+should be no coupling, or at most a loose coupling, between plugins.
+
+In addition, to respect (P5) (Tools are independent, yet unified), the plugins
+are usable independently of Dune.
+
+Underlying Dune's plugin system is the fact that it may take years for new
+tooling to be integrated into Dune. To better adapt to tools lifecyle, Dune
+plugin systems is used to allow a fast iteration with loose backward
+compatibility constrained during pre-incubation and incubation stages, until the
+tools move to the Active stage and are integrated into Dune as first-class
+citizens.
+
+#### (W16) Integrate With Other Build Systems
+
+While Dune is the recommended choice for OCaml projects, there are various
+reasons why developers might opt for or need to use different build systems.
+Large organizations, like Meta or Google, often mandate specific systems (Buck2
+and Bazel, respectively) for consistency and scale. Independent developers, too,
+might have preferences based on their unique needs, such as the reproducibility
+features of Nix.
+
+In order to ensure that the OCaml ecosystem remains accessible and usable for
+all these users, regardless of their chosen build system, Dune offers support to
+eject the build plan to a machine-readable format. This enables third-party
+tools to consume the exported build plan and convert it into other build
+systems' specifications.
+
+We note that prior discussions have been inconclusive on wether there exists an
+adequate solution to eject Dune's build plan. Further discussions and
+investigations with maintainers of conversion tools like obazel, and users of
+other build systems are needed to determine how the integration with these
+platforms can be improved.
 
 ### Explore
 
-#### (W13) Debugging
+#### (W17) Debugging
 
 Debugging with OCaml can be done both from the command line and the editor.
 
@@ -493,9 +566,10 @@ This compiles the project with debug support and starts a debugging session in
 the terminal.
 
 The other way to debug a program is through the editor. The communication
-between the debugger and the editor is made using the Debug Adapter Protocol.
+between the debugger and the editor is made using the
+[Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol//).
 
-#### (W14) Benchmarking
+#### (W18) Benchmarking
 
 Similarly to how they create test suites, OCaml users can create benchmarks for
 their projects. There is first-class support in Dune for benchmarks. Users can
@@ -524,7 +598,7 @@ The benchmarks will then be available via the GitHub pull request.
 
 ### Edit
 
-#### (W15) Navigate Code
+#### (W19) Navigate Code
 
 Code navigation regroups common interactive development workflows, including:
 
@@ -549,7 +623,7 @@ supported by a web version of the OCaml VSCode extension that relies on Merlin's
 JavaScript version. The OCaml Playground similarly uses Merlin's JavaScript
 version to support code navigation features.
 
-#### (W16) Refactor Code
+#### (W20) Refactor Code
 
 Two notable code refactoring tasks include:
 
@@ -561,7 +635,7 @@ support of the relevant LSP requests and Code Actions in the OCaml LSP server.
 
 ### Maintain
 
-#### (W17) Run Tests
+#### (W21) Run Tests
 
 Dune provides a `dune test` command, which runs the tests defined in a project.
 The tests are defined using the `(test)` stanza.
@@ -582,7 +656,7 @@ Additionally, Dune can generate test coverage reports: when the tests are run,
 the code is instrumented to identify code paths that were visited, and this is
 used to measure coverage.
 
-#### (W18) Formal Verification
+#### (W22) Formal Verification
 
 [Gospel](https://github.com/ocaml-gospel/gospel) is a behavioural specification
 language for OCaml program. It provides developers with a noninvasive and
@@ -601,7 +675,7 @@ When formal specifications of functions are defined, `dune test` reports any
 formal verification failures to the user, and by extension, these failures are
 reported as errors to the Editors through the LSP server.
 
-#### (W19) Security Advisories
+#### (W23) Security Advisories
 
 OCaml is used in the industry to power critical infrastructure pieces. Security
 is extremely important in these contexts.
@@ -628,7 +702,7 @@ security issue has been detected from the project's lockfile.
 
 ### Share
 
-#### (W20) Literate Programming
+#### (W24) Literate Programming
 
 Literate programming is a programming practice where the importance given to
 code and comments is inverted. By default, any text is ignored in the
@@ -636,24 +710,29 @@ compilation, and code has to be put inside special delimiters. Literate
 programming is great for teaching purposes, as it focuses on explanations, but
 it can also be used as a way to encourage documenting a large codebase.
 
-In OCaml, literate programming support is provided by the MDX tool, which is
-driven by Dune. To enable MDX processing in directory files, it suffices to add:
+In OCaml, literate programming support is provided by the `odoc` tool. Odoc is
+typically used to generate documentation, but it can also execute code blocks in
+your documentation.
+
+This behaviour is opt-in and can be configured using a Dune stanza, for
+instance:
 
 ```
-(mdx)
+(documentation
+  (execute_code_blocks true))
 ```
 
-in the corresponding `dune` file. Additional options can be provided in the
-above stanza, such as selecting which files to run MDX on or which library to
-include, but this single line will activate literate programming on all
-supported files.
+Additional options can be provided in the above stanza, such as selecting which
+files to run odoc on or which library to include.
 
-MDX supports several syntaxes for literate programming: code blocks to be
-executed can be embedded in `.md` files, `.mli` files, and `.mld` files. The
-syntax for embedded code blocks in `.mli` and `.mld` files supports specifying
-the output generated by executing the embedded code. This allows us to interpret
-the output as a richer format, such as tables, images, graphs, etc., which can
-then be displayed as such by the editor or suitably embedded in HTML by `odoc`.
+Code block execution is supported for every documentation files supported by
+odoc, including `.md`, `.mli` and `.mld` files.
+
+The syntax for embedded code blocks in `.mli` and `.mld` files supports
+specifying the output generated by executing the embedded code. This allows us
+to interpret the output as a richer format, such as tables, images, graphs,
+etc., which can then be displayed as such by the editor or suitably embedded in
+HTML by `odoc`.
 
 Dune allows us to run the (literate) program and check that the output from
 running the program is as expected in the file:
@@ -665,7 +744,10 @@ dune test
 If there is a mismatch between the actual output and the expected one, Dune
 raises an error and offers to promote the diff.
 
-#### (W21) Generate Documentation
+Odoc also supports generating the HTML documentation with interactive
+codeblocks, powered by a JavaScript toplevel.
+
+#### (W25) Generate Documentation
 
 Documentation can be generated from special comments present in the source code,
 as well as dedicated doc files (`.mld` and `.md` files), by running, for
@@ -680,28 +762,24 @@ tab at the beginning of the documentation (P3). The generated documentation
 includes the documentation of the project's dependencies.
 
 The markup used by `odoc` is expressive enough to write rich documentation and
-manuals. It supports precise cross-references, images, tables, maths, warnings,
-and info blocks. It supports code blocks for multiple languages, with the
-ability to dynamically check snippets of code and their output. The validity
-check for snippets of OCaml code is enabled by default, ensuring that all
-examples are up-to-date (P1). Under the hood, this is driven by MDX, the
-literate programming tool for OCaml.
+manuals. In particular, Odoc supports the following features:
 
-Users have the option to make the generated code blocks interactive. When
-enabled, users can edit the code blocks and run them from their browser.
-
-The rendered HTML includes a global navigation, populated with both the modules
-from the API, and the standalone documentation pages. It also features a search
-prompt, which can be used to search in the values, type and modules, or the
-documentation text. The search is expressive; for instance, it allows for
-searching all functions of the API that returns a string.
+- Source code rendering to be able to inspect the code of a function when
+  reading the documentation
+- Global navigation to navigate through the entire API, and the standalone
+  documentation pages.
+- Search bar to search through the documentation.
+- Special syntax for the most common markup features (e.g. tables, images, etc.)
+- Support Markdown for standalone documentation pages
+- Code blocks can generate rich output (e.g. images, diagrams, etc.) and
+  arbitrary Markup.
 
 The documentation generation and browsing are well integrated into code editors.
 Users can quickly jump from their editor to the rendered documentation of the
 module of their choice. Editors help write documentation, with syntax
 highlighting, reference checks and the usual checks on snippets of code.
 
-#### (W22) Package Publication
+#### (W26) Package Publication
 
 OCaml packages are published on the
 [`opam-repository`](https://github.com/ocaml/opam-repository/). To publish a
@@ -718,16 +796,15 @@ Dune provides a `dune release` command to publish packages on the
 source tarball, uploading the tarball to a VCS, and opening a PR on the
 `opam-repository`.
 
-Dune users don't need to create (or even commit) a `.opam` file to their
-repository; however, Dune knows how to synthesise this opam file from a Dune
-project and can generate a tarball containing the source code and metadata
-needed to release a package on the `opam-repository`. The generated tarball only
-contains the files that opam requires.
+Dune knows how to synthesise opam files from a Dune project and can generate a
+tarball containing the source code and metadata needed to release a package on
+the `opam-repository`. The generated tarball only contains the files that opam
+requires.
 
 This workflow integrates with development best practices and reads the project's
 changelog to create the release archive and the `opam-repository` PR.
 
-#### (W23) Generating Installers
+#### (W27) Generating Installers
 
 A common way to distribute applications to end users is to generate an installer
 that will contain the application, all of its dependencies, and scripts to
