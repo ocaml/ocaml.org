@@ -36,7 +36,7 @@ let sidebar_link
 ~title
 ~href
 ~current =
-    <div class="py-2 px-3 <%s if current then "bg-primary-300 border-l-2 border-primary-600" else "hover:bg-primary-300 hover:border-l-2 hover:border-primary-600" %>">
+    <div class="py-2 px-3 <%s if current then "bg-primary-300 text-primary-600 border-l-2 border-primary-600" else "hover:bg-primary-100 hover:border-l-2 hover:border-primary-600" %>">
       <a class="focus:text-primary-600 active:text-primary-600 text-sm <%s if current then "text-primary-600 font-semibold" else "font-medium" %>"" href="<%s href %>">
         <%s title %>
       </a>
@@ -48,7 +48,10 @@ title
 link_html
 =
   <details class="space-y-2 flex flex-col">
-    <summary class="text-sm font-semibold flex px-3 py-2 uppercase focus:text-primary-600 active:text-primary-600 hover:text-primary-300"><%s title %></summary>
+    <summary class="flex gap-4 justify-between text-sm font-semibold px-3 py-2 uppercase focus:text-primary-600 active:text-primary-600 hover:text-primary-300">
+      <%s title %>
+      <%s! Icons.chevron_right "h-6 w-6" %>
+    </summary>
     <span class="ml-4"><%s! link_html %></span>
     <span class="ml-4"><%s! extra_html %></span>
   </details>
