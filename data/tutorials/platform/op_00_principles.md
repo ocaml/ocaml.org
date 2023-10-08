@@ -72,17 +72,20 @@ tool by another, the Platform should offer a smooth migration path for users.
 
 ## (P5) Tools are independent, yet unified
 
-Following on P4, we appreciate the need for tools to evolve independently,
-making the Platform resilient to future changes.
+Following on P4, we underline the critical importance of permitting tools to
+flourish independently: the OCaml Platform exists and will continue to exist as
+a collection of tools that can be used independently.
 
-Despite this, and in the interest of creating a great user experience, the
-Platform offers a unified experience and strives to ensure cross-compatibility
-among tools.
+Yet, in the interest of creating a great user experience, the Platform offers a
+unified experience and strives to ensure cross-compatibility among tools.
 
 This unified experience implies the existence of a single CLI that serves as a
 frontend for the Platform tools. On the editor, the implication is that
 development workflows should be available directly from within the editor,
 avoiding the need for users to resort to the command line.
+
+Amidst this integration, we firmly commit to ensuring that tools retain their
+independence and continue to be accessible through their own CLIs.
 
 ## (P6) The Platform is cohesive, yet extensible
 
@@ -94,3 +97,17 @@ without feeling like second-class citizens.
 
 This can be achieved through plugin systems or implementations that stay
 general enough to support different tools.
+
+
+****
+
+**Version 1.0.0 - August 21st 2023**
+
+The first version of the OCaml Platform's Guiding Principles was adopted in
+August 2023. You can look back at the
+[discussion](https://discuss.ocaml.org/t/a-roadmap-for-the-ocaml-platform-seeking-your-feedback/12238).
+
+***Version 1.0.1 — September 19th 2022***
+
+- Commit in stronger terms to keeping Platform tools independent and retain the
+  possibility to use their CLIs directly.
