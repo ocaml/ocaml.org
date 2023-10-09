@@ -14,9 +14,9 @@ Let's walk through the basics of OCaml by trying out different elements in an in
 
 Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [How to Write an OCaml Program](/docs/how-to-write-an-ocaml-program) tutorial.
 
-This is a level zero tutorial. No OCaml or functional programming knowledge is required. As mentionned above, only having OCaml installed is needed. It is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
+This is a level zero tutorial. No OCaml or functional programming knowledge is required. Only having OCaml installed is needed. It is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
 
-This document will cover how to use the REPL UTop to evaluate OCaml expressions interactively, understand the output, how to use pattern matching, call functions from tOCaml standard library modules, and more. It also introduces you to how lists, values, functions, integers, floats, basic operators, references, and arrays work in OCaml.
+This document will cover how to use the REPL UTop to evaluate OCaml expressions interactively, understand the output, how to use pattern matching, call functions from OCaml standard library modules, and more. It also introduces you to lists, values, functions, integers, floats, references, and arrays.
 
 <!--
 The goal of this tutorial is to provide the following capabilities:
@@ -36,7 +36,7 @@ The goal of this tutorial is to provide the following capabilities:
 
 ## Using an OCaml Toplevel: Chatting with OCaml
 
-An OCaml toplevel is a chat between the user and the OCaml system. The user writes OCaml sentences, and the system analyses and executes them, which is why it is also called a Read-Eval-Print-Loop (REPL). Several OCaml toplevels exist like `ocaml` and `utop`, but in this tutorial, we will use the `utop` command, which looks like this:
+An OCaml toplevel is a chat between the user and OCaml. The user writes OCaml code, and UTop evaluates it, which is why it is also called a Read-Eval-Print-Loop (REPL). Several OCaml toplevels exist like `ocaml` and `utop`, but in this tutorial, we will use the `utop` command, which looks like this:
 ```shell
 $ utop
 ────────┬─────────────────────────────────────────────────────────────┬─────────
@@ -51,21 +51,21 @@ utop #
 
 Press `Ctrl-D` (end of file) or enter `#quit;;` to exit `utop`.
 
-The OCaml code examples in this tutorial show the input needed at the hash prompt `#`, as displayed by `utop`, ending with double semicolumn `;;`. The `;;` let OCaml know the expression is complete. Code sample lines beginning with dollar sign `$`, like above, should be entered in an terminal.
+The hash prompt `#` displayed by UTop means it is waiting for input. You can start writing your code after the prompt. To evaluate it, add a double semicolon `;;` to signal the end of the expression and press `Enter`.
 
-Upon hitting `Enter`, OCaml runs the code. The following line shows the output. For simplicity, anything but the user input and OCaml's output in `utop` is omitted in this tutorial.
+For instance, consider the following code snippet:
 ```ocaml
 # 2 + 2;;
 - : int = 4
 ```
 
-Neither the prompt `#` nor the double semicolumns `;;` are part of the code. When the toplevel displays the prompt `#`, it means it is waiting for user input. The double semicolumn means “send.” It marks the end of the input and signals OCaml to run the code. Without double semicolumn, pressing return just creates a new line.
+In the code snippet above, `2 + 2;;` is the user's input, and `- : int = 4` is the output of OCaml.
 
-Again, the line which follows shows OCaml's result. The above example says, “What you've entered is an integer (`int`) that evaluates into 4.” Since it is anonymous expression, the character `-` instead of a name.
+If you need to amend the code before hitting `Enter`, you can use your keyboard's right and left arrows to move inside the text. The up and down arrows allows navigation through previously evaluated expressions. Typing `Enter` without a double semicolon `;;` will create a new line: you can write multiple-line expressions this way.
 
-If you need to amend the code before hitting enter, you can use your keyboard's right and left arrows to move inside the text. The up and down arrows allows navitation through previously typed commands, if you have multiple lines of code.
+Commands beginning with a dash character `#` such as `#quit` or `#help` are not evaluated by OCaml: they are interpreted as commands by UTop.
 
-Remember: commands beginning with a dash character `#` such as `#quit` or `#help` are not evaluated by OCaml, they are interpreter by Utop.
+You're now ready to hack with UTop and follow through this Tour of OCaml. If you hit any issue with the toplevel, don't hesitate ???
 
 ## Expressions and Definitions
 
@@ -75,7 +75,9 @@ Here is another expression:
 - : int = 2500
 ```
 
-In OCaml, everything has a value and every value has a type. Here `50 * 50` is an expression that evaluates to `2500`, which is of type `int` (integer). Here are examples of other primitive values and types:
+In OCaml, everything has a value, and every value has a type. The above example says, “`50 * 50` is an expression that has type `int` (integer) and evaluates to `2500`.” Since it is an anonymous expression, the character `-` appears instead of a name.
+
+Here are examples of other primitive values and types:
 ```ocaml
 # 6.28;;
 - : float = 6.28
@@ -217,7 +219,7 @@ The function `cat_hi`, which resulted from the partial application of `cat`, beh
 
 ### Type Variables and Higher-Order Functions
 
-A function may expect a function as parameter, which is called a _higher-order_ function. A well-known example of higher-order function is `List.map`.
+A function may expect a function as parameter, which is called a _higher-order_ function. A well-known example of higher-order function is `List.map`. Here is how it can be used.
 ```ocaml
 # List.map;;
 - : ('a -> 'b) -> 'a list -> 'b list = <fun>
@@ -231,7 +233,7 @@ A function may expect a function as parameter, which is called a _higher-order_ 
 
 The name of this function begins with `List.` because it is part of the predefined library of functions acting on lists. This matter will be discussed more later. Function `List.map` takes two parameters: the second is a list, and the first is a function that can be applied to the list's elements, whatever they may be. `List.map` returns a list formed by applying the function provided as parameter to each of the elements of the input list.
 
-The function `List.map` can be applied on any kind of list. Here it is given a list of integers, but it could be a list of floats, strings, or anything. This is known as _polymorphism_. The `List.map` function is polymorphic, meaning it has two implicit _type variables_: `'a` and `'b` (pronounced alpha and beta). They both can be anything; however, in regard to the function passed to `List.map`:
+The function `List.map` can be applied on any kind of list. Here it is given a list of integers, but it could be a list of floats, strings, or anything. This is known as _polymorphism_. The `List.map` function is polymorphic, meaning it has two implicit _type variables_: `'a` and `'b` (pronounced “alpha” and “beta”). They both can be anything; however, in regard to the function passed to `List.map`:
 1. Input list elements have the same type of its input
 2. Output list elements have the same type of its output
 
@@ -343,7 +345,7 @@ Lists may be the most common datatype in OCaml. They are ordered collections of 
 ```
 
 The example above read the following way:
-1. The empty list, prononced “nil”
+1. The empty list, nil
 1. A list containing the numbers 1, 2 and 3
 1. A list containing the booleans `false`, `true` and `false`. Repetitions are allowed
 1. A list of lists
@@ -354,7 +356,7 @@ Lists are defined as being either empty, which is written `[]`, or being an elem
 - : int list = [1; 2; 3; 4]
 ```
 
-In OCaml, _patten matching_ provides a mean to inspect data of any kind, except functions. In this section, it is introduced on lists, it will be generalized to other datatypes in the next section. Here is how pattern matching can be used to define a recursive function that computes the sum of a list of integers:
+In OCaml, _pattern matching_ provides a mean to inspect data of any kind, except functions. In this section, it is introduced on lists, it will be generalized to other datatypes in the next section. Here is how pattern matching can be used to define a recursive function that computes the sum of a list of integers:
 ```ocaml
 # let rec sum u =
     match u with
@@ -407,8 +409,11 @@ val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 
 ### Pattern Matching, Cont'd
 
-Patten matching isn't limited to lists, any kind of data can be inspected using it, except functions. Patterns are expressions that are compared to an inspected value. It could be performed using `if … then … else …` but pattern matching is more convinient. Here is an example
+Patten matching isn't limited to lists, any kind of data can be inspected using it, except functions. Patterns are expressions that are compared to an inspected value. It could be performed using `if … then … else …` but pattern matching is more convinient. Here is an example using the `option` datatype that will be detailed in the [Modules and the Standard Library](#Modules-and-the-Standard-Library) section.
 ```ocaml
+# #show option;;
+type 'a option = None | Some of 'a
+
 # let f opt = match opt with
     | None -> None
     | Some None -> None
@@ -416,11 +421,11 @@ Patten matching isn't limited to lists, any kind of data can be inspected using 
 val f : 'a option option-> 'a option = <fun>
 ```
 
-The inspected value is `opt`. It is compared against the patterns from top to bottom. If `opt` is the `None` option, it is a match with the first pattern. If `opt` is the `Some None` option, it's a match with the second patten. If `opt` is a double-wrapped option with a value, it's a match with the third pattern. Patterns can introduce names, just as `let` does. In the third pattern, `x`, designates the data inside the double-wrapped option.
+The inspected value is `opt` of type `option`. It is compared against the patterns from top to bottom. If `opt` is the `None` option, it is a match with the first pattern. If `opt` is the `Some None` option, it's a match with the second patten. If `opt` is a double-wrapped option with a value, it's a match with the third pattern. Patterns can introduce names, just as `let` does. In the third pattern, `x`, designates the data inside the double-wrapped option.
 
 Pattern matching is detailed in the [Basic Datatypes](/docs/basic-datatypes) tutorial as well as in per datatype tutorials.
 
-Here is the same comparison, using `if … then … else …` and pattern matching.
+In this other example, the same comparison is made, using `if … then … else …` and pattern matching.
 ```ocaml
 # let g x =
   if x = "foo" then 1
@@ -440,6 +445,16 @@ val g' : int -> string = <fun>
 ```
 
 The underscore symbol is catch-all pattern, it matches with anything.
+
+Note that OCaml throws a warning when pattern matching does not catch call cases:
+```ocaml
+# fun i -> match i with 0 -> 1;;
+Line 1, characters 9-28:
+Warning 8 [partial-match]: this pattern-matching is not exhaustive.
+Here is an example of a case that is not matched:
+1
+- : int -> int = <fun>
+```
 
 ### Pairs and Tuples
 
@@ -643,14 +658,14 @@ val id_42_res : int -> (int, string) result = <fun>
 
 ## Working with Mutable State
 
-OCaml supports imperative programming. Usually, the `let … = …` syntax does not define variables, it defines constants. However, mutable variables exists in OCaml; they are called _references_. Here's how we create a reference to an integer:
+OCaml supports imperative programming. Usually, the `let … = …` syntax does not define variables, it defines constants. However, mutable variables exists in OCaml, they are called _references_. Here's how we create a reference to an integer:
 ```ocaml
 # let r = ref 0;;
 val r : int ref = {contents = 0}
 ```
 
 It is syntactically impossible to create an unintialised or null reference. The `r`
-reference is initialised with the integer zero. Accessing a reference's content
+reference is initialized with the integer zero. Accessing a reference's content
 is done using the `!` de-reference operator.
 ```ocaml
 # !r;;
@@ -756,14 +771,14 @@ Module also allows efficient separated compilation, this is illustrated in the n
 
 ## Sum-Up and Where Next?
 
-OCaml has many features, and these may be its Big Five ones:
+OCaml has many features, and this may be the most important one:
 
+1. Values and Definitions
 1. Type-Inference
-2. Variant Types and Pattern Matching
-3. Lists
-4. Values and Definitions
-5. Functions
+1. Functions
+1. Variant Types and Pattern Matching
+1. Lists
 
 To become a proficient OCaml developer, make sure to master them.
 
-Next tutorial: [How to Write an OCaml Project](/docs/how-to-write-an-ocaml-project). In this tutorial, OCaml was used interactively, and it shows how to write OCaml files, how to compile them, and how to kickstart a project.
+In this tutorial, OCaml was used interactively. The next tutorial: [How to Write an OCaml Project](/docs/how-to-write-an-ocaml-project), shows how to write OCaml files, how to compile them, and how to kickstart a project.
