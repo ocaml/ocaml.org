@@ -25,13 +25,11 @@ let render_books books =
     </div>
 
 let render books =
-Learn_layout.render
+Learn_layout.single_column_layout
 ~title:"OCaml Books"
 ~description:"A selection of books to learn the OCaml programming language."
 ~canonical:Url.books
 ~active_top_nav_item:Header.Learn 
-~left_sidebar_html:None
-~right_sidebar_html:None
 ~current:Books @@
 <div class="bg-default dark:bg-dark-default">
     <div class="container-fluid"  x-data="{ language: 'english' }">

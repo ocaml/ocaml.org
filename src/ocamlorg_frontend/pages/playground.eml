@@ -19,10 +19,10 @@ let render ~default_code =
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/main.css" %>">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/codemirror.css" %>">
-        <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
+    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/roboto-mono.css" %>">
     <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
-        <script id="playground-script"
+    <script id="playground-script"
       data-merlin-url="<%s Ocamlorg_static.Playground.url "merlin.min.js" %>"
       data-worker-url="<%s Ocamlorg_static.Playground.url "worker.min.js" %>"
       data-default-code="<%s default_code %>"
@@ -89,7 +89,7 @@ let render ~default_code =
               output = true;
             }"
             >
-            <div class="flex text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)">
+            <div class="flex justify-between text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)]">
               <button
                 class="md:hidden border-b-2 border-transparent p-4"
                 :class="editor && mobile ? 'text-primary-600 border-b-2 border-primary-600' : ''"
@@ -104,6 +104,14 @@ let render ~default_code =
                 >
                 Output
               </button>
+
+              <button 
+                class="text-white h-8 m-4 border-white btn btn-secondary btn-sm"
+                id="clear-output"> 
+                  Clear output
+                  <%s! Icons.close_x "h-4 w-4" %>
+              </button>
+              
             </div>
             <div class="shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] output-container overflow-auto">
               <div x-show="editor && mobile">
@@ -122,5 +130,9 @@ let render ~default_code =
         </div>
       </div>
     </div>
+    <script>
+      document.getElementById("clear-output").addEventListener("click", function() {
+      document.getElementById("output").innerHTML = "" })
+    </script>
   </body>
 </html>
