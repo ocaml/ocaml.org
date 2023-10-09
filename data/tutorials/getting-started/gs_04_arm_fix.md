@@ -1,9 +1,9 @@
 ---
 id: arm64-fix
-title: ARM64 Fix
+title: Resolve Homebrew Install Errors on ARM64
 description: |
   This page will walk you through the workaround for ARM64 processors on newer Macs.
-category: "getting-started"
+category: "troubleshooting"
 ---
 
 Since Homebrew has changed the way it installs, sometimes the executable files cannot be found in ARM64. This might cause errors as you work through these tutorials. We want Homebrew to install ARM64 by default, so there are a few changes we need to make in order to do this.
