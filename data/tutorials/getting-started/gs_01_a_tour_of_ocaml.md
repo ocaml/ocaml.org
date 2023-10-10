@@ -782,3 +782,6 @@ OCaml has many features, and this may be the most important one:
 To become a proficient OCaml developer, make sure to master them.
 
 In this tutorial, OCaml was used interactively. The next tutorial: [How to Write an OCaml Project](/docs/how-to-write-an-ocaml-project), shows how to write OCaml files, how to compile them, and how to kickstart a project.
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTg2NDA1MTczXX0=
+-->
