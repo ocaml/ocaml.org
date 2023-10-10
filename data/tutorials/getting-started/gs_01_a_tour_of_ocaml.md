@@ -665,7 +665,7 @@ val r : int ref = {contents = 0}
 ```
 
 It is syntactically impossible to create an unintialised or null reference. The `r`
-reference is initialized with the integer zero. Accessing a reference's content
+reference is initialised with the integer zero. Accessing a reference's content
 is done using the `!` de-reference operator.
 ```ocaml
 # !r;;
