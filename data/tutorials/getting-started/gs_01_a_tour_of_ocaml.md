@@ -14,7 +14,7 @@ Let's walk through the basics of OCaml by trying out different elements in an in
 
 Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [How to Write an OCaml Program](/docs/how-to-write-an-ocaml-program) tutorial.
 
-This is a level zero tutorial. No OCaml or functional programming knowledge is required. Only having OCaml installed is needed. It is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
+To participate in this level zero tutorial, you need to have OCaml installed. No OCaml or functional programming knowledge is required; however, it is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
 
 This document will cover how to use the REPL UTop to evaluate OCaml expressions interactively, understand the output, how to use pattern matching, call functions from OCaml standard library modules, and more. It also introduces you to lists, values, functions, integers, floats, references, and arrays.
 
@@ -51,7 +51,7 @@ utop #
 
 Press `Ctrl-D` (end of file) or enter `#quit;;` to exit `utop`.
 
-The hash prompt `#` displayed by UTop means it is waiting for input. You can start writing your code after the prompt. To evaluate it, add a double semicolon `;;` to signal the end of the expression and press `Enter`.
+UTop displays a hash prompt `#`, similar to the `$` in the CLI. This `#` means it is waiting for input, so can start writing your code after the prompt. To evaluate it, add a double semicolon `;;` to signal the end of the expression and press `Enter`.
 
 For instance, consider the following code snippet:
 ```ocaml
