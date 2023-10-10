@@ -163,7 +163,7 @@ let from_v2 =
     ("/learn/taste.fr.html", Url.learn);
     ("/learn/taste.html", Url.learn);
     ("/learn/teaching-ocaml.html", Url.academic_users);
-    ("/learn/tutorials/99problems.html", Url.problems);
+    ("/learn/tutorials/99problems.html", Url.exercises);
     ("/learn/tutorials/a_first_hour_with_ocaml.html", Url.tutorial "first-hour");
     ( "/learn/tutorials/calling_c_libraries.html",
       Url.tutorial "calling-c-libraries" );
