@@ -87,7 +87,7 @@ The success stories should be structured in the following way:
 
 You can read [Ahref's success story](https://ocaml.org/success-stories/peta-byte-scale-web-crawler) for an examplary success story.
 
-### <a name="content-user"></a> Add an Academic or Industrial User
+### <a name="content-user"></a><a name="academic"> Add an Academic or Industrial User</a><a name="industrial"></a>
 
 > Contribute to the [Academic Users](https://ocaml.org/academic-users) and [Industrial Users](https://ocaml.org/industrial-users).
 
@@ -95,7 +95,7 @@ You can add a new academic user by creating a new Markdown file in [data/industr
 
 You can add a new industrial user by creating a new Markdown file in [data/academic_institutions/](data/academic_institutions). For instance: [cornell.md](data/academic_institutions/en/cornell.md).
 
-### <a name="content-book"></a> Add a Book
+### <a name="content-book"></a><a name="books"> Add a Book</a>
 
 > Contribute to the [OCaml Books](https://ocaml.org/books).
 
