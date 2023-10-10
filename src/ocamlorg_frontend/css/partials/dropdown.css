@@ -5,16 +5,9 @@
 
   .dropdown {
     @apply hidden;
-    width:600px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 
   .dropdown-container:focus-within > .dropdown {
     @apply block;
   }
-
-  .drop-link:hover{
-    background-color: blue;
-  }
- 
 }
