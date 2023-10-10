@@ -48,7 +48,7 @@ let all () =
 
 module ChangelogFeed = struct
   let create_changelog_feed () =
-    let id = Uri.of_string "https://ocaml.org/changelog/feed.xml" in
+    let id = Uri.of_string "https://ocaml.org/changelog.xml" in
     let title : Syndic.Atom.title = Text "OCaml Changelog" in
     let now = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
     let cutoff_date =
