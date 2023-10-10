@@ -255,3 +255,15 @@ details summary svg svg {
 summary::-webkit-details-marker {
   display: none;
 }
+
+.dropdown {
+
+  width:550px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+
+.background:hover{
+  background-color: #00308F;
+}

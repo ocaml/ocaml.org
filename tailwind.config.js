@@ -54,6 +54,7 @@ module.exports = {
 
       "search-keyboard-cursor": "#0C3B8C", // background for cursor highlighting in keyboard navigable areas (e.g. package search dropdown)
       "search-term-highlight": "rgb(221, 232, 251)",
+
       "learn-area-orange": "#C34711",
       "learn-area-light-blue": "rgba(211, 213, 249, 0.60)",
 
@@ -163,6 +164,8 @@ module.exports = {
           comment: "rgba(255, 255, 255, 0.6)",
           red: "rgba(252, 129, 129, 1)",
           background: "rgba(30, 30, 30, 1)",
+          green:"#1E804B"
+          
         },
         sucess: {
           100: "rgba(142, 233, 60, 0.1)",
