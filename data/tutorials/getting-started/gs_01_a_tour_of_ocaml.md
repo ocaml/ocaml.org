@@ -36,7 +36,7 @@ The goal of this tutorial is to provide the following capabilities:
 
 ## Using an OCaml Toplevel: Chatting with OCaml
 
-An OCaml toplevel is a chat between the user and OCaml. The user writes OCaml code, and UTop evaluates it, which is why it is also called a Read-Eval-Print-Loop (REPL). Several OCaml toplevels exist like `ocaml` and `utop`, but in this tutorial, we will use the `utop` command, which looks like this:
+An OCaml toplevel is a chat between the user and OCaml. The user writes OCaml code, and UTop evaluates it, which is why it is also called a Read-Eval-Print-Loop (REPL). Several OCaml toplevels exist, like `ocaml` and `utop`, but in this tutorial, we will use the `utop` command, which looks like this:
 ```shell
 $ utop
 ────────┬─────────────────────────────────────────────────────────────┬─────────
@@ -61,9 +61,9 @@ For instance, consider the following code snippet:
 
 In the code snippet above, `2 + 2;;` is the user's input, and `- : int = 4` is the output of OCaml.
 
-If you need to amend the code before hitting `Enter`, you can use your keyboard's right and left arrows to move inside the text. The up and down arrows allows navigation through previously evaluated expressions. Typing `Enter` without a double semicolon `;;` will create a new line: you can write multiple-line expressions this way.
+If you need to amend the code before hitting `Enter`, you can use your keyboard's right and left arrows to move inside the text. The up and down arrows allow navigation through previously evaluated expressions. Typing `Enter` without a double semicolon `;;` will create a new line, so you can write multiple-line expressions this way.
 
-Commands beginning with a dash character `#` such as `#quit` or `#help` are not evaluated by OCaml: they are interpreted as commands by UTop.
+Commands beginning with a dash character `#`, such as `#quit` or `#help`, are not evaluated by OCaml; they are interpreted as commands by UTop.
 
 You're now ready to hack with UTop and follow through this Tour of OCaml. If you hit any issue with the toplevel, don't hesitate ???
 
@@ -219,7 +219,7 @@ The function `cat_hi`, which resulted from the partial application of `cat`, beh
 
 ### Type Variables and Higher-Order Functions
 
-A function may expect a function as parameter, which is called a _higher-order_ function. A well-known example of higher-order function is `List.map`. Here is how it can be used.
+A function may expect a function as parameter, which is called a _higher-order_ function. A well-known example of higher-order function is `List.map`. Here is how it can be used:
 ```ocaml
 # List.map;;
 - : ('a -> 'b) -> 'a list -> 'b list = <fun>
@@ -234,8 +234,8 @@ A function may expect a function as parameter, which is called a _higher-order_ 
 The name of this function begins with `List.` because it is part of the predefined library of functions acting on lists. This matter will be discussed more later. Function `List.map` takes two parameters: the second is a list, and the first is a function that can be applied to the list's elements, whatever they may be. `List.map` returns a list formed by applying the function provided as parameter to each of the elements of the input list.
 
 The function `List.map` can be applied on any kind of list. Here it is given a list of integers, but it could be a list of floats, strings, or anything. This is known as _polymorphism_. The `List.map` function is polymorphic, meaning it has two implicit _type variables_: `'a` and `'b` (pronounced “alpha” and “beta”). They both can be anything; however, in regard to the function passed to `List.map`:
-1. Input list elements have the same type of its input
-2. Output list elements have the same type of its output
+1. Input list elements have the same type of its input.
+2. Output list elements have the same type of its output.
 
 ### Side-Effects and the `unit` Type
 
