@@ -79,7 +79,7 @@ val ( !! ) : 'a lazy_t -> 'a = <fun>
 
 # let rec transpose = function
    | [] | [] :: _ -> []
-   | rows -> List.(map hd rows :: transpose (map tl rows))
+   | rows -> List.(map hd rows :: transpose (map tl rows));;
 val transpose : 'a list list -> 'a list list = <fun>
 
 # let ( ~: ) = transpose;;
@@ -90,9 +90,9 @@ This allows writing more compact code. However, be careful not to write excessiv
 
 ## Allowed Operators
 
-OCaml has a subtle syntax, not everything is allowed as an operator symbol. An operator symbol is an identifier with a special syntax, it must have the following structure:
+OCaml has a subtle syntax, not everything is allowed as an operator symbol. An operator symbol is an identifier with a special syntax, so it must have the following structure:
 
-**Prefix operator**
+**Prefix Operator**
 
 1. First character
   * `?` `~` or
@@ -111,15 +111,15 @@ OCaml has a subtle syntax, not everything is allowed as an operator symbol. An o
   * `%` `<` or
   * `!` `.` `:` `?` `~`
 
-This is defined in the [Prefix and infix symbols](https://v2.ocaml.org/releases/5.1/htmlman/lex.html#sss:lex-ops-symbols) section of The OCaml Manual.
+This is defined in the [Prefix and Infix symbols](https://v2.ocaml.org/releases/5.1/htmlman/lex.html#sss:lex-ops-symbols) section of The OCaml Manual.
 
 Tips:
-  * Don't define wide scope operators. Restrict their scope to module or function
-  * Don't use many of them
-  * Before defining a custom binary operator, check if the symbol is not already used. This can be done in two ways
+  * Don't define wide scope operators. Restrict their scope to module or function.
+  * Don't use many of them.
+  * Before defining a custom binary operator, check if the symbol is not already used. This can be done in two ways:
     - By surrounding the candidate symbol with parentheses in UTop and see if it responds with a type or with an `Unbound value` error
     - Use [Sherlocode](https://sherlocode.com/) to check if it is already used in some OCaml project
-  * Avoid shadowing existing operators
+  * Avoid shadowing existing operators.
 
 ## Operator Associativity and Precedence
 
@@ -141,7 +141,7 @@ val ( @^ ) : string -> string -> string = <fun>
 val ( &^ ) : string -> string -> string = <fun>
 ```
 
-At first sight, operators `@^` and `&^` are the same. However, the OCaml parser allows forming expression using several operators without parentheses.
+At first sight, operators `@^` and `&^` are the same. However, the OCaml parser allows forming expressions using several operators without parentheses.
 ```ocaml
 # "foo" @^ "bar" @^ "bus";;
 - : string = "|foo_|bar_bus||"
