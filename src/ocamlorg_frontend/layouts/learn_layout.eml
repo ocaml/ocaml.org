@@ -15,20 +15,22 @@ let tabs
     </a>
   in
   let breadcrumbs =  
-    <nav aria-label="breadcrumbs" class="flex mb-6 border-b md:hidden">
+    <nav aria-label="breadcrumbs" class="flex px-4 py-2 border-b text-white bg-text-title md:hidden">
       <ul>
         <li class="inline-block"> 
-            <a href="<%s Url.learn %>"> Learn > </a>
+            <a href="<%s Url.learn %>" class="flex items-center"> Learn 
+              <span> <%s! Icons.chevron_right "w-4 h-4" %> </span> </a>
         </li>
         <li class="inline-block">
-            <select class="appearance-none bg-transparent border-none w-auto p-0 m-0 cursor-pointer focus:outline-none focus:ring-0">
+            <select id="breadcrumbSelect" onChange="window.location = this.value" class="appearance-none bg-transparent font-semibold border-none w-auto p-0 m-0 cursor-pointer focus:outline-none focus:ring-0">
               <option value="<%s Url.learn_get_started %>"> Get Started </option>
               <option value="<%s Url.learn_language %>"> Language </option>
               <option value="<%s Url.platform %>"> Platform Tools </option>
               <option value="<%s Url.learn_guides %>"> Guides </option>
-              <option value="<%s Url.problems %>"> Exercises </option>
+              <option value="<%s Url.exercises %>"> Exercises </option>
               <option value="<%s Url.books %>"> Books </option>
             </select>
+            <span class="text-orange-700 cursor-pointer">&#x25BE;</span>
         </li>
       </ul>
     </nav>
@@ -153,3 +155,11 @@ inner_html
   </div>
   <%s! Toc.script %>
   <%s! Secondary_footer.render () %>
+  <script>
+    const select = document.getElementById("breadcrumbSelect");
+    select.addEventListener("change", function() {
+      const selectedOption = select.options[select.selectedIndex];
+      const url = selectedOption.value;
+      window.location.replace(url);
+    });
+  </script>
