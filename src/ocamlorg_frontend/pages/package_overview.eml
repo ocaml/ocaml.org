@@ -153,7 +153,7 @@ let num_of_dependencies_to_show = 100 in
 let render_collapsible_dependencies section =
   let is_collapsible = section.collapsible && List.length section.items > num_of_dependencies_to_show in
   <div <%s! if is_collapsible then "x-data='{ open: false }'" else "" %>>
-    <div class="border-l-4 border-l-gray-800 border-b-2 border-t-2 border-r-2 rounded border-transparent px-4 -ml-4 mb-6 mt-12">
+    <div class="border-l-4 border-l-[#575959] border-b-2 border-t-2 border-r-2 rounded border-transparent px-4 -ml-4 mb-6 mt-12">
       <h2 id="<%s section.slug %>" class="text-xl font-medium my-2">
         <% if is_collapsible then (%>
         <button class="flex gap-2 items-center" x-on:click="open = !open; $dispatch('resize')"><%s section.title %>
