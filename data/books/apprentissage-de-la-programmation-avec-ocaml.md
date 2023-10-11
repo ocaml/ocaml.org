@@ -19,6 +19,7 @@ links:
     uri: https://www.amazon.com/apprentissage-programmation-avec-ocaml/dp/2746208199
 featured: false
 difficulty: beginner
+pricing: paid
 ---
 
 Programming is a discipline by which the strengths of computers can be
