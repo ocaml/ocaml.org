@@ -181,8 +181,8 @@ OCaml allows creation of custom `let` operators. This is often used on functions
 # let ( let* ) u f = List.concat_map f u;;
 val ( let* ) : 'a list -> ('a -> 'b list) -> 'b list = <fun>
 
-# let range m =
-    let rec loop u i = if i < m then u else loop (i :: u) (i - 1) in loop [];;
+# let range lo =
+    let rec loop u hi = if hi < lo then u else loop (hi :: u) (hi - 1) in loop [];;
 val range : int -> int -> int list = <fun>
 
 # let day_of_week y m d =
@@ -204,3 +204,7 @@ val friday13 : int -> int -> (int * int * int) list = <fun>
  (13, 3, 2026); (13, 11, 2026); (13, 8, 2027); (13, 10, 2028); (13, 4, 2029);
  (13, 7, 2029); (13, 9, 2030); (13, 12, 2030)]
 ```
+
+Calling `range lo hi` returns a increasing list of consecutive integers between `lo` and `hi`, including both.
+
+The function `day_of_week` calculates the day of the week for a given date. Generative large language model chatbots such as ChatGPT do a very good job at explaining such a function. Have a look at the result of a prompt such as “Explain how this code works” followed by the code if you want to learn more about this function.
