@@ -11,7 +11,7 @@ category: "Getting Started"
 ## Goals
 
 The learning goals of this tutorial are:
-- Using operators as functions and reciprocally, using functions as operator
+- Using operators as functions and reciprocally, using functions as operators
 - Assign the right associativity and precedence to a custom operator
 - Use and define custom `let` binders
 
@@ -117,7 +117,7 @@ Tips:
   * Don't define wide scope operators. Restrict their scope to module or function
   * Don't use many of them
   * Before defining a custom binary operator, check if the symbol is not already used. This can be done in two ways
-    - By surrounding the candidate symbol with parentheses in UTop and see if it responds with a type or `Unbound value`
+    - By surrounding the candidate symbol with parentheses in UTop and see if it responds with a type or with an `Unbound value` error
     - Use [Sherlocode](https://sherlocode.com/) to check if it is already used in some OCaml project
   * Avoid shadowing existing operators
 
