@@ -10,6 +10,7 @@ category: "Getting Started"
 
 ## Goals
 
+
 The learning goals of this tutorial are:
 - Using operators as functions and reciprocally, using functions as operators
 - Assign the right associativity and precedence to a custom operator
@@ -208,3 +209,5 @@ val friday13 : int -> int -> (int * int * int) list = <fun>
 Calling `range lo hi` returns a increasing list of consecutive integers between `lo` and `hi`, including both.
 
 The function `day_of_week` calculates the day of the week for a given date. Generative large language model chatbots such as ChatGPT do a very good job at explaining such a function. Have a look at the result of a prompt such as “Explain how this code works” followed by the code if you want to learn more about this function.
+
+The `friday13` function use an algorithm with two nested loops. Each `let*` acts almost like a for loop with a counter, a starting value and an ending value. Each inner loop iteration produces a list. The global result is the concatenation and the flattening of those lists into a single one.
