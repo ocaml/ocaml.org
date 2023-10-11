@@ -1,17 +1,23 @@
 ---
 id: operators
 title: Operators
-descrption: |
-  
+description: |
+  Binary and prefix operators, how to use and define them, how they are parsed and evaluated.
 category: "Getting Started"
 ---
 
 # Operators
 
+## Goals
+
+The learning goals of this tutorial are:
+- Using operators as functions and reciprocally, using functions as operator
+- Assign the right associativity and precedence to a custom operator
+- Use and define custom `let` binders
+
 ## Using Binary Operators
 
 In OCaml almost all binary operators are regular functions. The function underlying behind an operator is referred by surrounding the operator symbol with parenthesis. Here are the addition, string concatenation and equality functions:
-
 ```ocaml
 # (+);;
 - : int -> int -> int = <fun>
@@ -21,14 +27,13 @@ In OCaml almost all binary operators are regular functions. The function underly
 - : 'a -> 'a -> bool = <fun>
 ```
 
-Note the operator symbol for multiplication is ` * `, but OCaml comments also have an opening delimiter `(*` and a closing delimiter `*)`. To resolve the parsing ambiguity, space characters must be inserted to get the multiplication function.
-
+Note the operator symbol for multiplication is ` * `, but can't be referred as `(*)`. This is because comments in OCaml are delimited by `(*` and `*)`. To resolve the parsing ambiguity, space characters must be inserted to get the multiplication function.
 ```ocaml
 # ( * );;
 - : int -> int -> int = <fun>
 ```
 
-Using operators as functions is convenient when combined with partial application. For instance, here is how to get the values which are greater or equal to 10 in a list of integers, using the function `List.filter` applied to the function `( <= ) 10`:
+Using operators as functions is convenient when combined with partial application. For instance, here is how to get the values which are greater or equal to 10 in a list of integers, using the function `List.filter` and an operator.
 ```ocaml
 # List.filter;;
 - : ('a -> bool) -> 'a list -> 'a list = <fun>
@@ -38,12 +43,15 @@ Using operators as functions is convenient when combined with partial applicatio
 
 # List.filter (( <= ) 10) [6; 15; 7; 14; 8; 13; 9; 12; 10; 11];;
 - : int list = [15; 14; 13; 12; 10; 11]
+
+# List.filter (fun n -> 10 <= n) [6; 15; 7; 14; 8; 13; 9; 12; 10; 11];;
+- : int list = [15; 14; 13; 12; 10; 11]
 ```
 
-The first two lines are only informative.
+The first two lines and the last line are only informative.
 
 1. The first shows the `List.filter` type, which is a function taking two parameters. The first parameter is a function; the second is a list.
-2. The second is the partial application of `List.filter` to `( <= ) 10`, which is a function returning `true` if applied to a number which is greater or equal than 10.
+2. The second is the partial application of `List.filter` to `( <= ) 10`, a function returning `true` if applied to a number which is greater or equal than 10.
 
 Finally, in the third line, all the arguments expected by `List.filter` are provided. The returned list contains the values satisfying the `( <= ) 10` function.
 
@@ -59,6 +67,8 @@ val ( ^? ) : string -> string -> string = <fun>
 # "hi" ^? "friend";;
 - : string = "hi friend"
 ```
+
+It is a recommended practice to define operators in two steps, like shown in the example. The first definition contains the function's logic. The second definition is merely an alias to the first one. This provides a default pronunciation to the operator and clearly indicates that the operator is _syntactic sugar_: a mean to ease reading by rendering the text more compact.
 
 ## Unary Operators
 
@@ -80,7 +90,7 @@ This allows writing more compact code. However, be careful not to write excessiv
 
 ## Allowed Operators
 
-OCaml has a subtle syntax, not everything is allowed as an operator symbol. An operator symbol is an identifier with a spacial syntax, it must have the following structure:
+OCaml has a subtle syntax, not everything is allowed as an operator symbol. An operator symbol is an identifier with a special syntax, it must have the following structure:
 
 **Prefix operator**
 
@@ -104,7 +114,7 @@ OCaml has a subtle syntax, not everything is allowed as an operator symbol. An o
 This is defined in the [Prefix and infix symbols](https://v2.ocaml.org/releases/5.1/htmlman/lex.html#sss:lex-ops-symbols) section of The OCaml Manual.
 
 Tips:
-  * Don't define wide scope operators. Restrict their scope to module or function.
+  * Don't define wide scope operators. Restrict their scope to module or function
   * Don't use many of them
   * Before defining a custom binary operator, check if the symbol is not already used. This can be done in two ways
     - By surrounding the candidate symbol with parentheses in UTop and see if it responds with a type or `Unbound value`
@@ -140,11 +150,11 @@ At first sight, operators `@^` and `&^` are the same. However, the OCaml parser 
 - : string = "||foo_bar|_bus|"
 ```
 
-Although both expressions are calling the same function (`par`), they are evaluated in different order.
+Although both expressions are calling the same function (`par`), they are evaluated in different orders.
 1. Expression `"foo" @^ "bar" @^ "bus"` is evaluated as if it was `"foo" @^ ("bar" @^ "bus")`. Parentheses are added at the right, therefore `@^` _associates to the right_
 1. Expression `"foo" &^ "bar" &^ "bus"` is evaluated as if if was `"(foo" @^ "bar") @^ "bus"`. Parentheses are added at the left, therefore `@^` _associates to the left_
 
-Operator _precedence_ rules how expression combining several operators without parentheses are interpreted. For instance, using the same operators, here is how expressions using both are evaluated.
+Operator _precedence_ rules how expression combining different operators without parentheses are interpreted. For instance, using the same operators, here is how expressions using both are evaluated.
 ```ocaml
 # "foo" &^ "bar" @^ "bus";;
 - : string = "(foo, (bar, bus))"
@@ -153,17 +163,19 @@ Operator _precedence_ rules how expression combining several operators without p
 - : string = "((foo, bar), bus)"
 ```
 
-In both cases, values are passed to `@^` before `&^`. Therefore, it is said that `@^` has higher _precedence_ over `&^`. Rules for operator priorities are detailed in the [Expressions](https://v2.ocaml.org/manual/expr.html#ss%3Aprecedence-and-associativity) section of the OCaml Manual. They can be summarized the following way. The first character of an operator dictates its associativity and priority. Here are the groups operators of first character, each group has same associativity and precedence, groups are sorted in increasing precedence order.
+In both cases, values are passed to `@^` before `&^`. Therefore, it is said that `@^` has _precedence_ over `&^`. Rules for operator priorities are detailed in the [Expressions](https://v2.ocaml.org/manual/expr.html#ss%3Aprecedence-and-associativity) section of the OCaml Manual. They can be summarized the following way. The first character of an operator dictates its associativity and priority. Here are the groups operators first characters. Each group has the same associativity and precedence, groups are sorted in increasing precedence order.
 1. Left associative: `$` `&` `<` `=` `>` `|`
 1. Right associative: `@` `^`
 1. Left associative: `+` `-`
 1. Left associative: `%` `*` `/`
 1. Left associative: `#`
 
+The complete list of precedence is longer to include predefined operators that are not allowed to be used as custom operators.
+
 ## Binding Operators
 
-OCaml allows creation of custom `let` operator. This is often used on functions such as `Option.bind`
- or `Fun.flip List.concat_map`. In the following example, we use that mechanism to write a function which produces a list of Friday the 13th month between two years.
+OCaml allows creation of custom `let` operators. This is often used on functions such as `Option.bind`
+ or `List.concat_map`. In the following example, we use that mechanism to write a function which produces the list of Friday 13th dates between two years.
 
 ```ocaml
 # let ( let* ) u f = List.concat_map f u;;
@@ -192,5 +204,3 @@ val friday13 : int -> int -> (int * int * int) list = <fun>
  (13, 3, 2026); (13, 11, 2026); (13, 8, 2027); (13, 10, 2028); (13, 4, 2029);
  (13, 7, 2029); (13, 9, 2030); (13, 12, 2030)]
 ```
-
-https://blog.shaynefletcher.org/2016/09/custom-operators-in-ocaml.html
