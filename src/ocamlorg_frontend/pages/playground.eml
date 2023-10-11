@@ -19,10 +19,10 @@ let render ~default_code =
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/main.css" %>">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/codemirror.css" %>">
-        <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
+    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/roboto-mono.css" %>">
     <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
-        <script id="playground-script"
+    <script id="playground-script"
       data-merlin-url="<%s Ocamlorg_static.Playground.url "merlin.min.js" %>"
       data-worker-url="<%s Ocamlorg_static.Playground.url "worker.min.js" %>"
       data-default-code="<%s default_code %>"
@@ -128,16 +128,15 @@ let render ~default_code =
                 class="h-auto flex-col overflow-auto p-4 text-white"
                 x-show="output && !mobile"
                 ></div>
-               
+                
             </div>
           </div>
         </div>
       </div>
     </div>
-     <script>
-      
-            document.getElementById("clear-output").addEventListener("click", function() {
-            document.getElementById("output").innerHTML = ""  })
-          </script>
+    <script>
+      document.getElementById("clear-output").addEventListener("click", function() {
+      document.getElementById("output").innerHTML = "" })
+    </script>
   </body>
 </html>

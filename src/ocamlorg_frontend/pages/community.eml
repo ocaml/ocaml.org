@@ -63,10 +63,12 @@ Layout.render
           <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/hashtag.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> IRC Chat</div>
           <div class="font-normal text-xs mt-4">Chat with other members of the community at #ocaml on the Libera Chat IRC network.</div>
         </a>
-        <a href="https://matrix.to/#/#ocaml:roscidus.com" class="border-gray-200 border p-8 rounded-xl card-hover">
+        <div class="border-gray-200 border p-8 rounded-xl card-hover">
           <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/matrix.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> Matrix</div>
-          <div class="font-normal text-xs mt-4">Chat with the OCaml community on Matrix, an open network for secure, decentralized communication.</div>
-        </a>
+          <div class="font-normal text-xs mt-4">Chat with the OCaml community in the
+            <a class="font-bold" href="https://matrix.to/#/#ocaml-lang:matrix.org">#ocaml-lang Matrix chat room</a>, or join the
+            <a class="font-bold" href="https://matrix.to/#/#ocaml-space:matrix.org">#ocaml-space Matrix space</a>.</div>
+        </div>
         <a href="https://stackoverflow.com/questions/tagged/ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
           <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/stackoverflow.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> Stack Overflow</div>
           <div class="font-normal text-xs mt-4">Ask and help answer OCaml questions.</div>

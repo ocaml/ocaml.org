@@ -17,6 +17,7 @@ links:
 rating: 5
 featured: true
 difficulty: beginner
+pricing: free
 ---
 
 A textbook on functional programming and data structures in OCaml, with an

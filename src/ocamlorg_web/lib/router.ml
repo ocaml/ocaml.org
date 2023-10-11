@@ -53,7 +53,7 @@ let page_routes t =
       Dream.get Url.governance Handler.governance;
       Dream.get Url.code_of_conduct Handler.code_of_conduct;
       Dream.get Url.papers Handler.papers;
-      Dream.get Url.problems Handler.problems;
+      Dream.get Url.exercises Handler.exercises;
       Dream.get (Url.tutorial "is-ocaml-web-yet") (Handler.is_ocaml_yet t "web");
       Dream.get (Url.tutorial ":id") Handler.tutorial;
       Dream.get Url.playground Handler.playground;

@@ -9,13 +9,11 @@ let render
 ~(books : Data.Book.t list)
 ~(latest_version : string)
 =
-Learn_layout.overview_render
+Learn_layout.single_column_layout
 ~title:"Learn OCaml"
 ~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices, and language manual."
 ~canonical:Url.learn
 ~active_top_nav_item:Header.Learn
-~left_sidebar_html:None
-~right_sidebar_html:None
 ~current:Overview @@
   <div class="container-fluid wide pt-10">
     <h1 class="font-bold mb-8">Learn OCaml</h1>
@@ -65,7 +63,7 @@ Learn_layout.overview_render
             {href = Url.tutorial "bootstrapping-a-dune-project"; title = "Bootstrapping a Project"};
             {href = Url.tutorial "managing-dependencies"; title = "Managing Dependencies"};
             {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Install a Specific Compiler Version"};
-            {href = Url.tutorial "setting-up-vscode"; title = "Setting Up VSCode"}
+            {href = Url.tutorial "configuring-your-editor"; title = "Configuring Your Editor"}
         ]
         ~see_more:{href = Url.platform; title = "See More Tooling Tutorials"}
         "bg-[#040113]"
