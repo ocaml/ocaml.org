@@ -34,7 +34,7 @@ let render_books books =
 
 
 let render
-?(difficulty = "All") 
+?(difficulty = "All")
 ?(pricing = "All")
 ?(language = "All")
 books =
@@ -44,30 +44,30 @@ Learn_layout.single_column_layout
 ~canonical:Url.books
 ~active_top_nav_item:Header.Learn 
 ~current:Books @@
-<div class="bg-default dark:bg-dark-default"> 
-    <h2 class="font-bold mt-10 mb-6 lg:mt-0">Books On OCaml (<%s string_of_int (List.length books) %>)</h2>
-    <form action="<%s Url.books %>" method="GET">
-        <div class="flex mb-0 flex-col gap-4 sm:flex-row"> 
-            <%s! Forms.select
-                ~attrs:{|id="language" name="language" onchange="this.form.submit()"|}
-                ~options:[("All", "All Languages"); ("english", "English"); ("french", "French"); ("italian", "Italian"); ("japanese", "Japanese"); ("chinese", "Chinese")]
-                ~selected:language
-                "w-48 rounded-sm" %>
-            <%s! Forms.select
-                ~attrs:{|id="difficulty" name="difficulty" onchange="this.form.submit()"|}
-                ~options:[("All", "Any Difficulty"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
-                ~selected:difficulty
-                "w-48 rounded-sm" %>
-            <%s! Forms.select
-                ~attrs:{|id="pricing" name="pricing" onchange="this.form.submit()"|}
-                ~options:[("All", "Free or Paid"); ("free", "Free"); ("paid", "Paid")]
-                ~selected:pricing
-                "w-48 rounded-sm" %>
+<div class="bg-default dark:bg-dark-default">
+    <div class="container-fluid">
+        <h2 class="font-bold mt-10 mb-6 lg:mt-0">Books On OCaml (<%s string_of_int (List.length books) %>)</h2>
+        <form action="<%s Url.books %>" method="GET">
+            <div class="flex mb-0 flex-col gap-4 sm:flex-row">
+                <%s! Forms.select
+                    ~attrs:{|id="language" name="language" onchange="this.form.submit()"|}
+                    ~options:[("All", "All Languages"); ("english", "English"); ("french", "French"); ("italian", "Italian"); ("japanese", "Japanese"); ("chinese", "Chinese")]
+                    ~selected:language
+                    "w-48 rounded-sm" %>
+                <%s! Forms.select
+                    ~attrs:{|id="difficulty" name="difficulty" onchange="this.form.submit()"|}
+                    ~options:[("All", "Any Difficulty"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
+                    ~selected:difficulty
+                    "w-48 rounded-sm" %>
+                <%s! Forms.select
+                    ~attrs:{|id="pricing" name="pricing" onchange="this.form.submit()"|}
+                    ~options:[("All", "Free or Paid"); ("free", "Free"); ("paid", "Paid")]
+                    ~selected:pricing
+                    "w-48 rounded-sm" %>
+            </div>
+        </form>
+        <div>
+        <%s! render_books books %>
         </div>
-    </form>
-    
-    
-    <div>
-    <%s! render_books books %>
     </div>
 </div>
