@@ -166,9 +166,9 @@
   (action
    (run %{bin:dream_eml} %{dep:papers.eml} --workspace %{workspace_root})))
  (rule
-  (target problems.ml)
+  (target exercises.ml)
   (action
-   (run %{bin:dream_eml} %{dep:problems.eml} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:exercises.eml} --workspace %{workspace_root})))
  (rule
   (target release.ml)
   (action
@@ -225,11 +225,11 @@
   (action
    (run %{bin:dream_eml} %{dep:footer.eml} --workspace %{workspace_root})))
  (rule
-  (target fixed_footer.ml)
+  (target secondary_footer.ml)
   (action
    (run
     %{bin:dream_eml}
-    %{dep:fixed_footer.eml}
+    %{dep:secondary_footer.eml}
     --workspace
     %{workspace_root})))
  (rule

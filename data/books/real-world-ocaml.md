@@ -19,6 +19,7 @@ links:
 rating: 4
 featured: true
 difficulty: intermediate
+pricing: free
 ---
 
 Learn how to solve day-to-day problems in data processing, numerical

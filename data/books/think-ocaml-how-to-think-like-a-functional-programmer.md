@@ -14,6 +14,7 @@ links:
     uri: https://greenteapress.com/thinkocaml/thinkocaml.pdf
 featured: false
 difficulty : beginner
+pricing: free
 ---
 
 This book is a work in progress. It is an introductory programming

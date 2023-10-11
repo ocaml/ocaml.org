@@ -59,11 +59,11 @@
    (run %{dep:../../tool/ood-gen/bin/gen.exe} paper))))
 
 (rule
- (target problem.ml)
+ (target exercise.ml)
  (action
   (with-stdout-to
    %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} problems))))
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} exercises))))
 
 (rule
  (target release.ml)

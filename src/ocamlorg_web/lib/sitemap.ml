@@ -27,7 +27,7 @@ let urls =
     Url.platform;
     Url.ocaml_on_windows;
     Url.getting_started;
-    Url.problems;
+    Url.exercises;
   ]
 
 let to_url u = "\n<url><loc>https://ocaml.org" ^ u ^ "</loc></url>"

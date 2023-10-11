@@ -37,7 +37,7 @@ OCaml shines at these kinds of tasks, which are its bread and butter. The result
 
 ### Challenge
 
-One of the challenges LexiFi had to solve was how to make it as easy as possible for its users to enter new contracts into the system. This means developing solutions to *import* contracts described in other formats and used by existing platforms, such as SIX's [IBT](https://www.finextra.com/pressarticle/24905/six-swiss-exchange-introduces-universal-data-interface), Barclays's [COMET](https://barxis.barcap.com), or plain PDF [termsheets](https://en.wikipedia.org/wiki/Term_sheet), the *lingua franca* of the financial industry.
+One of the challenges LexiFi had to solve was how to make it as easy as possible for its users to enter new contracts into the system. This means developing solutions to *import* contracts described in other formats and used by existing platforms, such as SIX's [IBT](https://www.finextra.com/pressarticle/24905/six-swiss-exchange-introduces-universal-data-interface), Barclays's [COMET](https://www.privatebankerinternational.com/news/barclays-launches-comet-for-uk-wealth-managers/), or plain PDF [termsheets](https://en.wikipedia.org/wiki/Term_sheet), the *lingua franca* of the financial industry.
 
 ### Solution
 

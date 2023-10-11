@@ -15,4 +15,5 @@ links:
     uri: https://www.amazon.it/Introduzione-programmazione-funzionale-Marta-Cialdea/dp/8874880316
 featured: false
 difficulty: beginner
+pricing: paid
 ---
