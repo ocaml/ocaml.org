@@ -17,7 +17,7 @@ The learning goals of this tutorial are:
 
 ## Using Binary Operators
 
-In OCaml almost all binary operators are regular functions. The function underlying behind an operator is referred by surrounding the operator symbol with parenthesis. Here are the addition, string concatenation and equality functions:
+In OCaml, almost all binary operators are regular functions. The function underlying behind an operator is referred by surrounding the operator symbol with parentheses. Here are the addition, string concatenation, and equality functions:
 ```ocaml
 # (+);;
 - : int -> int -> int = <fun>
@@ -72,7 +72,7 @@ It is a recommended practice to define operators in two steps, like shown in the
 
 ## Unary Operators
 
-Unary operators are also called prefix operators. In some contexts, it can make sense to shorten the name of a function into a symbol. This is often used as a way to shorten the name of a function which performs some sort of conversion over its argument.
+Unary operators are also called prefix operators. In some contexts, it can make sense to shorten a function's name into a symbol. This is often used as a way to shorten the name of a function which performs some sort of conversion over its argument.
 ```ocaml
 # let ( !! ) = Lazy.force;;
 val ( !! ) : 'a lazy_t -> 'a = <fun>
@@ -123,7 +123,7 @@ Tips:
 
 ## Operator Associativity and Precedence
 
-Let's illustrate what operator associativity is using an example. Consider this function, it concatenates its string arguments, surrounded by `|` characters and separated by a `_` character.
+Let's illustrate operator associativity with an example. Consider the following function. It concatenates its string arguments, surrounded by `|` characters and separated by a `_` character.
 ```ocaml
 # let par s1 s2 = "|" ^ s1 ^ "_" ^ s2 ^ "|";;
 val par : string -> string -> string = <fun>
@@ -157,10 +157,10 @@ Although both expressions are calling the same function (`par`), they are evalua
 Operator _precedence_ rules how expression combining different operators without parentheses are interpreted. For instance, using the same operators, here is how expressions using both are evaluated.
 ```ocaml
 # "foo" &^ "bar" @^ "bus";;
-- : string = "(foo, (bar, bus))"
+- : string = "|foo_|bar_bus||"
 
 # "foo" @^ "bar" &^ "bus";;
-- : string = "((foo, bar), bus)"
+- : string = "||foo_bar|_bus|"
 ```
 
 In both cases, values are passed to `@^` before `&^`. Therefore, it is said that `@^` has _precedence_ over `&^`. Rules for operator priorities are detailed in the [Expressions](https://v2.ocaml.org/manual/expr.html#ss%3Aprecedence-and-associativity) section of the OCaml Manual. They can be summarized the following way. The first character of an operator dictates its associativity and priority. Here are the groups operators first characters. Each group has the same associativity and precedence, groups are sorted in increasing precedence order.
@@ -188,13 +188,13 @@ val range : int -> int -> int list = <fun>
 # let day_of_week y m d =
     let t = [| 0; 3; 2; 5; 0; 3; 5; 1; 4; 6; 2; 4 |] in
     let y = y - if m < 3 then 1 else 0 in
-    (y + y / 4 - y / 100 + y / 400 + t.(m - 1) + d) mod 7
+    (y + y / 4 - y / 100 + y / 400 + t.(m - 1) + d) mod 7;;
 val day_of_week : int -> int -> int -> int = <fun>
 
 # let friday13 lo hi =
     let* year = range lo hi in
     let* month = range 1 12 in
-    if day_of_week year month 13 = 5 then [(13, month, year)] else []
+    if day_of_week year month 13 = 5 then [(13, month, year)] else [];;
 val friday13 : int -> int -> (int * int * int) list = <fun>
 
 # friday13 2020 2030;;
