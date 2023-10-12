@@ -67,11 +67,11 @@ Layout.render
                     <%s! Pagination.render ~total_page_count:planet_pages_number ~page_number:planet_page ~base_url:Url.blog %>
                 </div>
             </div>
-            <div class="lg:pl-16 space-y-12">
+            <div class="lg:pl-16 space-y-5">
                 <h2 class="text-lg mt-0 font-semibold border-b border-current text-primary-600 pb-3">News</h2>
 
                 <% news |> List.iter (fun (item : Data.News.t) -> %>
-                <div class="flex lg:gap-10">
+                <div class="flex lg:gap-12">
                     <div class="space-y-3 flex flex-col flex-1">
                         <a href="<%s Url.news_post item.slug %>" class="block font-semibold hover:text-primary-600">
                             <%s item.title %>
