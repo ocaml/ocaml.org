@@ -433,9 +433,9 @@ val upcasted_chef : [< `Flour | `Fish ] -> [> `Bread | `Soup | `Stew ] =
 - : int -> string = <fun>
 ```
 
-Type type of `chef` is a subtype of the type of `upcasted_chef`. The function `upcasted_chef` has a smaller domain and larger codomain. However, the domain remains larger than the codomain of `ingredient` and the codomain remains smaller than the domain of `taste`. Therefore, it is safely possible to consider `chef` has an inhabitant of the type of `upcasted_chef`.
+The type of `chef` is a subtype of the type of `upcasted_chef`. The function `upcasted_chef` has a reduced domain and enlarged codomain. However, `upcasted_chef` has a domain that remains larger than the codomain of `ingredient` and, a codomain that remains smaller than the domain of `taste`. Therefore, it is safely possible to consider `chef` has an inhabitant of the type of `upcasted_chef` in the composition pipe where it is used.
 
-It is also possible to refactor `chef` into a new function that will be safely used at the same place.
+It is also possible to refactor `chef` into a new function that will can be used safely at the same place.
 ```ocaml
 # let refactored_chef = function `Flour -> `Bread | `Fish -> (`Soup : [> `Bread | `Soup | `Stew ]);;
 
