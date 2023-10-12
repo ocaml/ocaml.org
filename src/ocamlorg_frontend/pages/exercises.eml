@@ -11,13 +11,19 @@ let exercise_sidebar_links_by_tag ?tag title =
     (Exercise.filter_tag ?tag exercises |> List.fold_left (fun a b -> a ^ render_exercise_link b) "")
   %>
 in
-
+  <hr>
   <%s! exercise_sidebar_links_by_tag ~tag:"list" "Lists" %>
+  <hr>
   <%s! exercise_sidebar_links_by_tag ~tag:"arithmetic" "Arithmetic" %>
+  <hr>
   <%s! exercise_sidebar_links_by_tag ~tag:"logic" "Logic and Codes" %>
+  <hr>
   <%s! exercise_sidebar_links_by_tag ~tag:"binary-tree" "Binary Trees" %>
+  <hr>
   <%s! exercise_sidebar_links_by_tag ~tag:"multiway-tree" "Multiway Trees" %>
+  <hr>
   <%s! exercise_sidebar_links_by_tag ~tag:"graph" "Graphs" %>
+  <hr>
   <%s! exercise_sidebar_links_by_tag "Miscellaneous" %>
 
 let danger = function
