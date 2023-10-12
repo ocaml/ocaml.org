@@ -16,24 +16,24 @@ Once you've completed this tutorial, you should be able to create, compile, and 
 
 This tutorial is the last part of a two-part series. Please ensure you have completed [A Tour of OCaml](/docs/a-tour-of-ocaml) before proceeding onto your first OCaml project. You will need to have [installed OCaml](/install).
 
-<!-- 
+<!--
 Once you've completed this tutorial, you should be able to:
 - Create an OCaml project from scratch, using Dune
-- Trigger prject compilation and execution using Dune
+- Trigger project compilation and execution using Dune
 - Delete files in an automatically created project without breaking everything
 - Split code in several files, use imported definitions
 - Make a definition private
 - Download, install and use a package from the open source repository
 
 
-How to work on several OCaml projects simultaneously is out of the scope of this tutorial. Currently (summer 2023), this requires using opam local [_switches_](https://opam.ocaml.org/doc/man/opam-switch.html). This allows handling different sets of dependencies per project. Check the Best Practices document on [Dependencies](https://ocaml.org/docs/managing-dependencies) addressing that matter for detailed instructions. This document was writen and tested using a global switch, which is created by default when installing opam and can be ignored in the beginning.
+How to work on several OCaml projects simultaneously is out of the scope of this tutorial. Currently (summer 2023), this requires using opam local [_switches_](https://opam.ocaml.org/doc/man/opam-switch.html). This allows handling different sets of dependencies per project. Check the Best Practices document on [Dependencies](https://ocaml.org/docs/managing-dependencies) addressing that matter for detailed instructions. This document was written and tested using a global switch, which is created by default when installing opam and can be ignored in the beginning.
 -->
 
 ## Working Within an Opam Switch
 
- When you installed OCaml, a global opam switch was created automatically. This tutorial can be completed while working inside this global opam switch.
- 
- When you work on several OCaml projects simultaneously, you should create more opam switches. For how to do that, see ["Introduction to opam Switches"](/docs/opam-switch-introduction).
+When you installed OCaml, a global opam switch was created automatically. This tutorial can be completed while working inside this global opam switch.
+
+When you work on several OCaml projects simultaneously, you should create more opam switches. For how to do that, see ["Introduction to opam Switches"](/docs/opam-switch-introduction).
 
 ## Compiling OCaml Programs
 
@@ -53,7 +53,7 @@ Note: Throughout this tutorial, outputs generated Dune might vary slightly becau
 
 The project is stored in a directory named `hello`. The `tree` command lists the files and directories created. It might be necessary to install `tree` if you don't see the following. Through Homebrew, for example, run `brew install tree`.
 
-Note: If you get an error in Homebrew from this in an Apple silicon macOS, it's likely an issue with the architecture switch from Intel to ARM. Please refer to the [ARM64 Fix](FIXME) to remedy the ARM64 error.
+Note: If you get an error in Homebrew from this in an Apple silicon macOS, it's likely an issue with the architecture switch from Intel to ARM. Please refer to the [ARM64 Fix](/docs/arm64-fix) to remedy the ARM64 error.
 ```shell
 $ cd hello
 $ tree
@@ -197,7 +197,7 @@ This is because we haven't changed `lib/hello.mli`. Since it does not list `mund
 
 ## Installing and Using Modules from a Package
 
-OCaml has an active community of open-source contributors. Most projects are avaiable using the opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows how to install and use a package from opam's open-source repository.
+OCaml has an active community of open-source contributors. Most projects are available using the opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows how to install and use a package from opam's open-source repository.
 
 To illustrate this, let's turn our `hello` project into a web server using [Anton Bachin](https://github.com/aantron)'s [Dream](https://aantron.github.io/dream/) web framework. First install the `dream` package with this command:
 ```shell
@@ -209,26 +209,26 @@ Next, run the Dream web server in the `bin/main.ml` file by changing the code to
 let () = Dream.(run (router [ get "/" (fun (_ : request) -> html Hello.world) ]))
 ```
 
-This gives us a web server that responds with the content of `Hello.world` to HTTP requests to the '/' path. Refer to the [Dream documentation](TODO) for what more information.
+This gives us a web server that responds with the content of `Hello.world` to HTTP requests to the '/' path. Refer to the [Dream documentation](https://aantron.github.io/dream/) for more information.
 
-<!-- TODO: we have to probably refer to the Dream docs for an explanation 
+<!-- TODO: we have to probably refer to the Dream docs for an explanation
 Before detailing how things work, let's explain how Dream types works.
 
-The function type `request -> response promise` is the type of request handlers. Functions of this type take an HTTP request and returns an HTTP response. The response is wrapped in a promise. This prevents the server from waiting for the response to be ready before sending it and also allows processing multiple requests concurently. The type route `route` represents the binding between a URL path and a handler.
+The function type `request -> response promise` is the type of request handlers. Functions of this type take an HTTP request and returns an HTTP response. The response is wrapped in a promise. This prevents the server from waiting for the response to be ready before sending it and also allows processing multiple requests concurrently. The type route `route` represents the binding between a URL path and a handler.
 
 Let's detail the roles of each piece:
 - `run` triggers the execution of the server process. Its parameter is a handler function.
 - `router` turns a list of `route` values into a single handler binding them together.
 - `get "/"` declares a route, HTTP GET requests to the `/` path are handled by the provided function.
 - `(fun (_ : request) -> ...)` this a handler function. The typed pattern `(_ : request)` means the data from the request is ignored.
-- `html Hello.world` has type `response promise`. When data inside the promise becomes available, the server will send with it. In our case, it is imediately avaiable as it is a static constant stored in memory.
+- `html Hello.world` has type `response promise`. When data inside the promise becomes available, the server will send with it. In our case, it is immediately available as it is a static constant stored in memory.
 
 In summary, this is telling: “run a web server responding with the content of `Hello.world` to requests to the '/' path”
 
 The `Dream.(` syntax stands for locally opening a module inside an expression.
---> 
+-->
 
-Finally, tell Dune it is going to need Dream to compile the project. Do this by just adding the last line below. This puts `dream` in the `library` stanza of the `bin/dune` file.
+You need to tell Dune it needs Dream to compile the project. Do this by adding the last line below. This puts `dream` in the `library` stanza of the `bin/dune` file.
 ```lisp
 (executable
  (public_name hello)
@@ -245,7 +245,7 @@ $ dune exec hello
 
 Note: If on macOS a key icon is displayed, like when asking for a password, you can ignore it and type Ctrl+C to get back to the command prompt.
 
-Then test from another:
+Then test from the first terminal:
 ```shell
 $ curl http://localhost:8080/
 ¡Hola Mundo!
