@@ -52,8 +52,8 @@ link_html
       <%s title %>
       <%s! Icons.chevron_down "h-6 w-6" %>
     </summary>
-    <span class="ml-4"><%s! link_html %></span>
-    <span class="ml-4"><%s! extra_html %></span>
+    <span class="ml-4 border-l"><%s! link_html %></span>
+    <span class="ml-4 border-l"><%s! extra_html %></span>
   </details>
 
 let single_column_layout
