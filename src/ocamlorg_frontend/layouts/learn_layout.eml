@@ -36,11 +36,10 @@ let sidebar_link
 ~title
 ~href
 ~current =
-    <div class="py-2 px-3 <%s if current then "bg-primary-300 text-primary-600 border-l-2 border-primary-600" else "hover:bg-primary-100 hover:border-l-2 hover:border-primary-600" %>">
-      <a class="focus:text-primary-600 active:text-primary-600 text-sm <%s if current then "text-primary-600 font-semibold" else "font-medium" %>"" href="<%s href %>">
-        <%s title %>
-      </a>
-    </div>
+  <a class="focus:text-primary-600 active:text-primary-600 text-sm py-3 px-1 block <%s if current then "text-primary-600 font-semibold bg-primary-300 text-primary-600 border-l-2 border-primary-600" else "font-medium hover:bg-primary-100 hover:border-l-2 hover:border-primary-600" %>"" href="<%s href %>">
+    <%s title %>
+  </a>
+
 
 let sidebar_link_group
 ?(extra_html="")
