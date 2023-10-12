@@ -74,9 +74,9 @@ Learn_layout.single_column_layout
     <%s! Learn_components.left_books_content_block books ~title:"Recommended For Beginners" ~link:{href = Url.books; title = "See More Books"} %>
     <%s! Learn_components.right_books_content_block intermediate_books ~title:"For Intermediate Users" ~link:{href = Url.books; title = "See More Books"} %>
   </div>
-    
+  <div>
   <%s! Learn_components.lang_manual_banner %>
-
+  </div>
   <div class="container-fluid">
     <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
       <h3 class="font-bold">Papers</h3>
