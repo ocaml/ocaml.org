@@ -2,7 +2,7 @@ let package_card ~href ~img_path ~name description =
   <a href="<%s href %>" target="_blank"
     class="bg-default dark:bg-dark-default text-default dark:text-dark-default p-6 rounded-xl items-center flex card-hover">
     <div class="flex items-center">
-      <img src="<%s Ocamlorg_static.Asset.url img_path %>" alt="<%s name %> logo">
+      <img src="<%s Ocamlorg_static.Asset.url img_path %>" alt="<%s name %> logo" class="w-4/12 md:w-1/2">
       <div class="flex-col px-6">
         <div class="text-base font-semibold"><%s name %></div>
         <div class="font-normal text-xs mt-1">
@@ -17,7 +17,6 @@ let render
 ~(lts_release: Data.Release.t)
 =
 Layout.render
-~use_swiper:true
 ~title:"Welcome to a World of OCaml"
 ~description:"OCaml is a general-purpose, industrial-strength programming language with an emphasis on expressiveness and safety."
 ~canonical:"" @@
@@ -298,8 +297,8 @@ Layout.render
       </div>
     </div>
   </div>
-  <div class="grid grid-cols-4 gap-6 py-16 md:gap-4 md:px-10 lg:px-20 relative left-5 lg:left-28 md:left-16"
-    style="width: 1500px">
+ 
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-16 md:gap-4 md:px-10 lg:px-20 relative left-5 lg:left-28 md:left-16">
     <%s! package_card
       ~href:"https://mirage.io/"
       ~img_path:"img/home/mirage.png"
@@ -455,14 +454,3 @@ Layout.render
     </div>
   </div>
 </div>
-<script>
-  var swiper = new Swiper(".mySwiper", {
-    loop: true,
-    autoplay: { delay: 5000, disableOnInteraction: false, },
-    slidesPerView: 'auto',
-    spaceBetween: 10,
-    thumbs: {
-      swiper: swiper,
-    },
-  });
-</script>
