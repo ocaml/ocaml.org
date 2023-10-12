@@ -113,6 +113,9 @@ in
       <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Community) ~href:Url.community ~title:"Community" () %></li>
       <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Blog) ~href:Url.blog ~title:"Blog" () %></li>
       <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Playground) ~href:Url.playground ~title:"Playground" () %></li>
+      <li>
+        <a href="<%s Url.api %>" class="flex py-3 px-1 gap-4 font-semibold text-primary-600">Standard Library API<%s! Icons.arrow_top_right_on_square "w-6 h-6" %></a>
+      </li>
       <li class="mt-3 mb-6">
         <a href="<%s Url.getting_started %>" class="btn w-full">Get started</a>
       </li>
