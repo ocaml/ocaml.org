@@ -2,8 +2,10 @@ let package_card ~href ~img_path ~name description =
   <a href="<%s href %>" target="_blank"
     class="bg-default dark:bg-dark-default text-default dark:text-dark-default p-6 rounded-xl items-center flex card-hover">
     <div class="flex items-center">
-      <img src="<%s Ocamlorg_static.Asset.url img_path %>" alt="<%s name %> logo" class="w-4/12 md:w-1/2">
-      <div class="flex-col px-6">
+      <div class="w-4/12">
+        <img src="<%s Ocamlorg_static.Asset.url img_path %>" alt="<%s name %> logo" class="w-1/2">
+      </div>
+      <div class="flex-col px-6 w-8/12">
         <div class="text-base font-semibold"><%s name %></div>
         <div class="font-normal text-xs mt-1">
           <%s description %>
