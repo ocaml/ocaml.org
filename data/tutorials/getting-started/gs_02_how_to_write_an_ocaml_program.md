@@ -8,27 +8,38 @@ category: "Getting Started"
 
 # How to Write an OCaml Program
 
-In this tutorial, we start working with files containing OCaml source code and compiling them to produce excutable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture before extensively presenting topics in order to avoid getting lost in the details.
+In this tutorial, we start working with files containing OCaml source code and compiling them to produce executable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture before extensively presenting topics in order to avoid getting lost in the details.
 
-In other words, we do breadth-first learning instead of depth-first learning. In the previous tutorial most commands were entered in Utop, in this tutorial, the majority of commands should be entered into a terminal. Code examples starting with a dollar sign `$` are intended to be entered in the terminal, while lines starting with a hash sign `#` are intended to be entered in Utop.
+In other words, we do breadth-first learning instead of depth-first learning. In the previous tutorial most commands were entered in UTop, in this tutorial, the majority of commands should be entered into a terminal. Code examples starting with a dollar sign `$` are intended to be entered in the terminal, while lines starting with a hash sign `#` are intended to be entered in UTop.
 
-## Prerequisites and Goals
+Once you've completed this tutorial, you should be able to create, compile, and execute an OCaml project using Dune. You will be able to work with files, make private definitions within modules and know how to install and use opam packages.
 
 This tutorial is the last part of a two-part series. Please ensure you have completed [A Tour of OCaml](/docs/a-tour-of-ocaml) before proceeding onto your first OCaml project. You will need to have [installed OCaml](/install).
 
+<!-- 
 Once you've completed this tutorial, you should be able to:
-- Create an OCaml project from scratch, using Dune or manually
+- Create an OCaml project from scratch, using Dune
 - Trigger prject compilation and execution using Dune
 - Delete files in an automatically created project without breaking everything
 - Split code in several files, use imported definitions
 - Make a definition private
 - Download, install and use a package from the open source repository
 
+
 How to work on several OCaml projects simultaneously is out of the scope of this tutorial. Currently (summer 2023), this requires using opam local [_switches_](https://opam.ocaml.org/doc/man/opam-switch.html). This allows handling different sets of dependencies per project. Check the Best Practices document on [Dependencies](https://ocaml.org/docs/managing-dependencies) addressing that matter for detailed instructions. This document was writen and tested using a global switch, which is created by default when installing opam and can be ignored in the beginning.
+-->
+
+## Working Within an Opam Switch
+
+ When you installed OCaml, a global opam switch was created automatically. This tutorial can be completed while working inside this global opam switch.
+ 
+ When you work on several OCaml projects simultaneously, you should create more opam switches. For how to do that, see ["Introduction to opam Switches"](/docs/opam-switch-introduction).
 
 ## Compiling OCaml Programs
 
-By default, OCaml comes with two compilers, one translating sources into native binaries and another turning sources into a bytecode format. OCaml also comes with an interpreter for that bytecode format. Other compilers exist, for instance, [js_of_ocaml](https://ocsigen.org/js_of_ocaml) generates JavaScript. The toplevel uses the bytecode compiler; expressions are read, type-checked, compiled into bytecode and executed. The previous tutorial was interactive because we used the toplevel. This tutorial gives a glimpse at batch processing only using the native compiler.
+By default, OCaml comes with two compilers, one translating sources into native binaries and another turning sources into a bytecode format. OCaml also comes with an interpreter for that bytecode format. This tutorial demonstrates how to use the native compiler to write OCaml programs.
+
+<!-- Other compilers exist, for instance, [js_of_ocaml](https://ocsigen.org/js_of_ocaml) generates JavaScript. The toplevel uses the bytecode compiler; expressions are read, type-checked, compiled into bytecode and executed. The previous tutorial was interactive because we used the toplevel. -->
 
 We start by setting up a traditional “Hello World!” project using Dune, OCaml’s build system. Make sure to have installed version 3.7 or later. The following creates a project named `hello`:
 
@@ -63,12 +74,14 @@ $ tree
 4 directories, 8 files
 ```
 
-OCaml source files have `.ml` extension, which stands for “Meta Language.” Meta Language (ML) is the ancestor of OCaml, this is also what the “ml” stands for in “OCaml.” Here is the content of the `bin/main.ml` file:
+OCaml source files have the `.ml` extension, which stands for “Meta Language.” Meta Language (ML) is an ancestor of OCaml, this is also what the “ml” stands for in “OCaml.” Here is the content of the `bin/main.ml` file:
 ```ocaml
 let () = print_endline "Hello, World!"
 ```
 
-The project-wide metadata is available in the `dune-project` file. Each folder containing source files that need to be built must contain a `dune` file explaining how.
+The project-wide metadata is available in the `dune-project` file. It contains information about the project name, dependencies, and global setup.
+
+Each folder containing source files that need to be built must contain a `dune` file describing how.
 
 This builds the project:
 ```shell
@@ -83,7 +96,7 @@ Entering directory '/home/cuihtlauac/caml/ocaml.org'
 Hello, World!
 ```
 
-Let's see what happens when we edit the `bin/main.ml` file directly. Navigate into it and replace the world `World` with your first name. Recompile the project with `dune build` as before, and then launch it again with `dune exec hello`.
+Let's see what happens when we edit the `bin/main.ml` file directly. Open it in your editor and replace the word `World` with your first name. Recompile the project with `dune build` as before, and then launch it again with `dune exec hello`.
 
 Voilà! You've just written your first OCaml program.
 
@@ -91,20 +104,20 @@ In the rest of this tutorial, we will make more changes to this project in order
 
 ## Why Isn't There a Main Function?
 
-Although `bin/main.ml`'s name suggests it contains the application entry point into the project, it does not contain a dedicated `main` function, and there is no requirement that a project contain a file with that name in order to produce an executable. OCaml behaves equivalently as an apparently interpreted and a compiled language: an executable produced by the compiler from a file behaves as though that file were entered line by line into the toplevel. In other words, an executable OCaml file's entry point is its first line.
+Although `bin/main.ml`'s name suggests it contains the application entry point into the project, it does not contain a dedicated `main` function, and there is no requirement that a project must contain a file with that name in order to produce an executable. An compiled OCaml file behaves as though that file were entered line by line into the toplevel. In other words, an executable OCaml file's entry point is its first line.
 
-That's why double semicolons aren't needed in source files like they are in the toplevel. Statements are just processed in order from top to bottom, each triggering the side effects it may have. Definitions are added to the environment. Values resulting from nameless expressions are ignored. Side effects from all those will take place in the same order. That's OCaml main.
+Double semicolons aren't needed in source files like they are in the toplevel. Statements are just processed in order from top to bottom, each triggering the side effects it may have. Definitions are added to the environment. Values resulting from nameless expressions are ignored. Side effects from all those will take place in the same order. That's OCaml main.
 
-However, it is common practice to single out a value that triggers all the side effects and mark it as the intended main entry point. In OCaml, that's the role of `let () =`, which stands for “definition which doesn't create a name” and actually indicates we're only interested in the side effects of the value on the right.
+However, it is common practice to single out a value that triggers all the side effects and mark it as the intended main entry point. In OCaml, that's the role of `let () =`, which evaluates the expression on the right, including all the side effects, without creating a name.
 
 ## Modules and the Standard Library, Cont'd
 
-Let's summarise what was said about modules in the previous tutorial:
-- Modules are bundles of named values
+Let's summarise what was said about modules in the ["Tour of OCaml"](/docs/tour-of-ocaml):
+- A modules is a collection of named values
 - Identical names from distinct modules don't clash
-- The standard library is a bunch of modules
+- The standard library is collection of several modules
 
-In addition to that, modules aid in organising projects. Concerns can be separated into isolated modules. This is outlined in the next section. Before creating a module ourselves, we'll demonstrate using a definition from a module in the standard library. Edit the file `bin/main.ml` into this:
+Modules aid in organising projects: concerns can be separated into isolated modules. This is outlined in the next section. Before creating a module ourselves, we'll demonstrate using a definition from a module of the standard library. Change the content of the file `bin/main.ml` to this:
 ```ocaml
 let () = Printf.printf "%s!\\n" "Hello, World!"
 ```
@@ -113,9 +126,9 @@ This replaces the function `print_endline` with the function `printf` from the `
 
 ## Every File Defines a Module
 
-Most importantly, each OCaml file defines a module, once compiled. This is how separate compilation works in OCaml. Each sufficiently standalone concern should be isolated into a file-based module. References to external modules create dependencies. Circular dependencies between modules are not allowed.
+Each OCaml file defines a module, once compiled. This is how separate compilation works in OCaml. Each sufficiently standalone concern should be isolated into a module. References to external modules create dependencies. Circular dependencies between modules are not allowed.
 
-To create a module, let's create a file named `lib/hello.ml` containing this:
+To create a module, let's create a new file named `lib/hello.ml` containing this:
 ```ocaml
 let world = "Hello from a module"
 ```
@@ -125,21 +138,21 @@ Here is a new version of the `bin/main.ml` file:
  let () = Printf.printf "%s\n" Hello.world'
  ```
 
-And execution of the resulting project:
+Now execute the resulting project:
  ```shell
  $ dune exec hello
 Entering directory '/home/cuihtlauac/caml/ocaml.org'
 Hello from a module
 ```
 
-The file `lib/hello.ml` contains the module named `Hello`, which in turn defines a string named `world`. This definition is referred to as `Hello.world` from the `bin/main.ml` file.
+The file `lib/hello.ml` creates the module named `Hello`, which in turn defines a string value named `world`. This definition is referred to as `Hello.world` from the `bin/main.ml` file.
 
 Dune can launch UTop to access to the modules exposed by a project interactively. Here's how:
 ```shell
 $ dune utop
 ```
 
-Then, inside the `utop` toplevel, it is possible to inspect our `Hello` module, just like we did when we examined the `Option` module in the previous tutorial.
+Then, inside the `utop` toplevel, it is possible to inspect our `Hello` module:
 ```ocaml
 # #show Hello;;
 module Hello : sig val world : string end
@@ -149,14 +162,14 @@ Now exit `utop` with `Ctrl-D` or enter `#quit;;` before going to the next sectio
 
 ## Defining Module Interfaces
 
-UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. A module interface file must be attached to a module file. To do that, an `.mli` file must have the same base name part as its attached `.ml` file. Create a `lib/hello.mli` file with this content:
+UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. The module interface file corresponding to a module file must have the same base name, e.g. `hello.mli` is the module interface for module `hello.ml`. Create a `lib/hello.mli` file with this content:
 ```ocaml
 val world : string
 ```
 
-Observe that only what is between `sig` and `end` has been written in the interface file `lib/hello.mli`. This is explained in the tutorial dedicated to [modules](/docs/modules).
+Observe that only the list of declarations of the module signature (which is between `sig` and `end`) has been written in the interface file `lib/hello.mli`. This is explained in more detail in the tutorial dedicated to [modules](/docs/modules).
 
-Module interfaces are also used to create _private_ definitions. A module definition is private if it is not listed in its corresponding interface. If no interface file exists, everyting is public.
+Module interfaces are also used to create _private_ definitions. A module definition is private if it is not listed in its corresponding module interface. If no module interface file exists, everything is public.
 
 In your preferred editor, amend the `lib/hello.ml` file to add the `mundo` definition. Replace what's there with the following:
 
@@ -186,17 +199,20 @@ This is because we haven't changed `lib/hello.mli`. Since it does not list `mund
 
 OCaml has an active community of open-source contributors. Most projects are avaiable using the opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows how to install and use a package from opam's open-source repository.
 
-To illustrate this, let's turn our modest `hello` project into a web server using [Anton Bachin](https://github.com/aantron)'s [Dream](https://aantron.github.io/dream/) web framework. First install the `dream` package with this command:
+To illustrate this, let's turn our `hello` project into a web server using [Anton Bachin](https://github.com/aantron)'s [Dream](https://aantron.github.io/dream/) web framework. First install the `dream` package with this command:
 ```shell
 $ opam install dream
 ```
 
-Next, call the framework in the `bin/main.ml` file by changing the code to read:
+Next, run the Dream web server in the `bin/main.ml` file by changing the code to read:
 ```ocaml
 let () = Dream.(run (router [ get "/" (fun (_ : request) -> html Hello.world) ]))
 ```
 
-Before detailing how things works, let's explain how Dream types works.
+This gives us a web server that responds with the content of `Hello.world` to HTTP requests to the '/' path. Refer to the [Dream documentation](TODO) for what more information.
+
+<!-- TODO: we have to probably refer to the Dream docs for an explanation 
+Before detailing how things work, let's explain how Dream types works.
 
 The function type `request -> response promise` is the type of request handlers. Functions of this type take an HTTP request and returns an HTTP response. The response is wrapped in a promise. This prevents the server from waiting for the response to be ready before sending it and also allows processing multiple requests concurently. The type route `route` represents the binding between a URL path and a handler.
 
@@ -210,6 +226,7 @@ Let's detail the roles of each piece:
 In summary, this is telling: “run a web server responding with the content of `Hello.world` to requests to the '/' path”
 
 The `Dream.(` syntax stands for locally opening a module inside an expression.
+--> 
 
 Finally, tell Dune it is going to need Dream to compile the project. Do this by just adding the last line below. This puts `dream` in the `library` stanza of the `bin/dune` file.
 ```lisp
