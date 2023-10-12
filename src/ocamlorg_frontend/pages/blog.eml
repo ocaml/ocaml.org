@@ -71,7 +71,7 @@ Layout.render
                 <h2 class="text-lg mt-0 font-semibold border-b border-current text-primary-600 pb-3">News</h2>
 
                 <% news |> List.iter (fun (item : Data.News.t) -> %>
-                <div class="flex lg:gap-12">
+                <div class="flex lg:gap-10">
                     <div class="space-y-3 flex flex-col flex-1">
                         <a href="<%s Url.news_post item.slug %>" class="block font-semibold hover:text-primary-600">
                             <%s item.title %>
