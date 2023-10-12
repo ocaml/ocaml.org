@@ -206,7 +206,7 @@ Functions `g` and `f` can be composed because `g` accepts more than what `f` can
 
 Closed and open cases are polymorphic because they do not designate a single type but families of types. An exact variant type is monomorphic, it corresponds to a single variant type, not a set of variant types.
 
-## Example of Polymorphic Variant Type That is Both Open and Closed
+## Both Open and Closed Polymorphic Variant
 
 A closed variant type may also have an additional constraint preventing some tags to be removed.
 ```ocaml
@@ -253,6 +253,12 @@ OCaml has a cast operator, it allows to raise the type of an expression into any
 
 It means the type of `gherkin` is raised from ``[ `Gherkin | `Tomato ]`` into ``[ `Avocado | `Gherkin | `Tomato ]``. It is admissible because ``[ `Gherkin | `Tomato ]`` is smaller than ``[ `Avocado | `Gherkin | `Tomato ]`` in the subtyping order.
 
+When casting, it is also possible to indicate the subtype from which the value is up cast.
+```ocaml
+# (gherkin : [ `Gherkin | `Tomato ] :> [ `Avocado | `Gherkin | `Tomato ]);;
+- : [ `Avocado | `Gherkin | `Tomato ] = `Gherkin
+```
+
 ## Named Polymorphic Variant Types
 
 ### Naming
@@ -262,7 +268,7 @@ Exact polymorphic variant types can be given names.
 # type exotic = [ `Guayaba | `Maracuya | `Papaya ];;
 ```
 
-Named polymorphic variants are always exact. It is not possible to give names to closed or open type constraints. Named polymorphic variants correspond to simple variants.
+Named polymorphic variants are always exact, thus they are equivalent to simple variants. It is not possible to give names to closed or open type constraints.
 
 ### Type extension
 
@@ -272,7 +278,7 @@ Named polymorphic variants can be used to create extended types.
 type mexican = [ `Guayaba | `Maracuya | `Papaya | `Pitahaya | `Sapodilla ]
 ```
 
-### Dash Patterns
+### Hash Patterns
 
 Named polymorphic variants can be used as patterns.
 ```ocaml
@@ -282,7 +288,7 @@ Named polymorphic variants can be used as patterns.
 val f : [< `Guayaba | `Mango | `Maracuya | `Papaya ] -> string = <fun>
 ```
 
-This is not a dynamic type check. The `#exotic` pattern is like a macro, it is a shortcut to avoid writing all the corresponding patterns.
+This is not a dynamic type check. The `#exotic` pattern acts like a macro, it is a shortcut to avoid writing all the corresponding patterns.
 
 ## Advanced: Aliased, Parametrized and Recursive Polymorphic Variants
 
@@ -297,7 +303,7 @@ The meaning of the type of this function is twofold.
 1. Any exact variant type which is a super set of ``[> `Cilantro | `Tomato ]`` is a domain
 2. The very same type is also a codomain
 
-The meaning of `'a` is not exactly the same a with simple variants. It is not a placeholder meant to be replaced by another type. It means the same exact variant type will be used as both domain and codomain. This is a consequence of the `plant -> plant` clause which 
+The meaning of `'a` is not exactly the same a with simple variants. It is not a placeholder meant to be replaced by another type. The `as 'a` part in the type expression ``[> `Cilantro | `Tomato ] as 'a`` means ``[> `Cilantro | `Tomato ]`` is assigned the local name `'a` in the overall expression. It allows the same exact variant type will be used as both domain and codomain. This is a consequence of the `plant -> plant` clause that forces domain and codomain types to be the same.
 
 ### Parametrized Polymorphic Variants
 
@@ -310,8 +316,7 @@ val map : ('a -> 'b) -> [< `None | `Some of 'a ] -> [> `None | `Some of 'b ] =
   <fun>
 ```
 
-This `map` function has two type parameters : `'a` and `'b`. They are used to type its `f` parameter. 
-
+This `map` function has two type parameters : `'a` and `'b`. They are used to type its `f` parameter.
 
 ### Recursive Polymorphic Variants
 
@@ -326,7 +331,7 @@ val map :
   <fun>
 ```
 
-The aliasing mechanism is used to express type recursion.
+The aliasing mechanism is used to express type recursion. In the type expression ``[< `Cons of 'a * 'c | `Nil ] as 'c``, the defined name `'c` occurs inside body of the definition ``[< `Cons of 'a * 'c | `Nil ]``. Therefore, it is a recursive type definition.
 
 ### Conjunction 
 
@@ -344,74 +349,62 @@ val g : [< `Broccoli | `Fruit of bool ] -> bool = <fun>
 
 From the language manual:
 ```ocaml
-# let f1 = function `A x -> x = 1 | `B -> true | `C -> false
-  let f2 = function `A x -> x = "a" | `B -> true ;;
-val f1 : [< `A of int | `B | `C ] -> bool = <fun>
-val f2 : [< `A of string | `B ] -> bool = <fun>
+# let f1 = function `Night x -> x = 1 | `Day -> true | `C -> false
+  let f2 = function `Night x -> x = "a" | `Day -> true ;;
+val f1 : [< `Night of int | `Day | `C ] -> bool = <fun>
+val f2 : [< `Night of string | `Day ] -> bool = <fun>
 
 # let f x = f1 x && f2 x;;
-val f : [< `A of string & int | `B ] -> bool = <fun>
+val f : [< `Night of string & int | `Day ] -> bool = <fun>
 ```
 
-FIXME: This is lame. It says no `` `A`` can't be applied to `f`. There is no way to find a value that is both a `string` and an `int`
+FIXME: This is lame. It says no `` `Night`` can't be applied to `f`. There is no way to find a value that is both a `string` and an `int`
 
 TODO: Find a “positive” example and maybe move the manuals one in the drawbacks
 
 ## Advanced: Combining Polymorphic Variants and Simple Variants
 
-A tag `` `A`` may be assumed to inhabit any type with additional tags, for instance `` `B`` or `` `C of string``. This summarized by the subtyping order where `` [ `A ]`` is smaller than ``` [ `A | `B ]``.
+A tag `` `Night`` inhabits any type with additional tags, for instance ``[ `Night | `Day ]`` or ``[`Morning | `Afternoon | `Evening | `Night]``. This summarized by the subtyping order where `` [ `Night ]`` is smaller to both ``[ `Night | `Day ]`` and ``[`Morning | `Afternoon | `Evening | `Night]``.
 
 This can be checked be defining a function `upcast` the following way:
 ```ocaml
-let upcast (x : [ `A ]) = (x :> [ `A | `B ]);;
-val upcast : [ `A ] -> [ `A | `B ] = <fun>
+let upcast (x : [ `Night ]) = (x :> [ `Night | `Day ]);;
+val upcast : [ `Night ] -> [ `Night | `Day ] = <fun>
 ```
-This function is useless, but it illustrates a value of type ``[ `A ]`` can be cast into the type ``[ `A | `B ]``. Casting goes from subtype to supertype.
-
-### Combining Nominal and Structural Polymorphism
-
-A type may be polymorphic in both sense. It may have parametric polymorphism from nominal typing and variant polymorphism from structural typing.
-```ocaml
-# let maybe_map f = function
-    | `Just x -> `Just (f x)
-    | `Nothing -> `Nothing;;
-val maybe_map :
-  ('a -> 'b) -> [< `Just of 'a | `Nothing ] -> [> `Just of 'b | `Nothing ] =
-  <fun>
-```
+This function is an identity function it returns its parameter unchanged. It illustrates a value of type ``[ `Night ]`` can be cast into the type ``[ `Night | `Day ]``. Casting goes from subtype to supertype.
 
 ### Predefined Simple Variants are Covariant
 
-The subtyping order extends to simple variants. Functions `upcast_opt` `upcast_list` and `upcast_snd` are doing the same thing as `upcast` except they are taking values from simple types that contain a polymorphic variant.
+The subtyping order extends to simple variants. Functions `upcast_opt` `upcast_list` and `upcast_snd` are doing the same thing as `upcast` except they are taking parameters from simple types that contain a polymorphic variant value.
 ```ocaml
-# let upcast_opt (x : [ `A ] option) = (x :> [ `A | `B ] option);;
-val upcast_opt : [ `A ] option -> [ `A | `B ] option = <fun>
+# let upcast_opt (x : [ `Night ] option) = (x :> [ `Night | `Day ] option);;
+val upcast_opt : [ `Night ] option -> [ `Night | `Day ] option = <fun>
 
-# let upcast_list (x : [ `A ] list) = (x :> [ `A | `B ] list);;
-val upcast_list : [ `A ] list -> [ `A | `B ] list = <fun>
+# let upcast_list (x : [ `Night ] list) = (x :> [ `Night | `Day ] list);;
+val upcast_list : [ `Night ] list -> [ `Night | `Day ] list = <fun>
 
-let upcast_snd (x : [ `A ] * int) = (x :> [ `A | `B ] * int);;
-val upcast_snd : [ `A ] * int -> [ `A | `B ] * int = <fun>
+let upcast_snd (x : [ `Night ] * int) = (x :> [ `Night | `Day ] * int);;
+val upcast_snd : [ `Night ] * int -> [ `Night | `Day ] * int = <fun>
 ```
 
 The product type and the types `option`, `list` are said to be _covariant_ because subtyping goes in the same direction from component type into container type.
 
 ### Function Codomains are Covariant
 
-The function type is covariant on codomains.
+The function type is covariant on codomains. Casting a function is allowed if the codomain is larger. Subtyping between the codomain type and the function type are going in the same direction.
 ```ocaml
-# let upcast_dom (f : int -> [ `A ]) = (x :> int -> [ `A | `B ]);;
-val f : (int -> [ `A ]) -> int -> [ `A | `B ] = <fun>
+# let upcast_dom (f : int -> [ `Night ]) = (x :> int -> [ `Night | `Day ]);;
+val f : (int -> [ `Night ]) -> int -> [ `Night | `Day ] = <fun>
 ```
 
-Adding tags to a polymorphic variant codomain of a function is harmless. Extending a function's codomain is pretending it is able to return something that never will. It is a false promise, and the precision of the type is reduced, but it is safe, no unexpected data will be returned by the function.
+Adding tags to a polymorphic variant codomain of a function is harmless. Extending a function's codomain is pretending it is able to return something that will never be returned. It is a false promise, and the precision of the type is reduced, but it is safe, no unexpected data will ever be returned by the function.
 
 ### Function Domains are Contravariant
 
-The function type is _contravariant_ on codomains. Subtyping is reverted from component type into composite type (i.e. function arrow).
+The function type is _contravariant_ on domains. Casting a function is allowed if the domain is smaller. Subtyping between the domain type and the function type are going in opposite direction.
 ```ocaml
-# let upcast_cod (f : [ `A | `B ] -> int) = (x :> [ `A ] -> int);;
-val f : ([ `A | `B ] -> int) -> [ `A ] -> int = <fun>
+# let upcast_cod (f : [ `Night | `Day ] -> int) = (x :> [ `Night ] -> int);;
+val f : ([ `Night | `Day ] -> int) -> [ `Night ] -> int = <fun>
 ```
 
 At first, it may seem counter intuitive. However, removing tags from a polymorphic variant domain of a function is also harmless. Code in charge of the removed tags is turned into dead code. Implemented generality of the function is lost, but it is safe, no unexpected data will be passed to the function.
@@ -419,29 +412,36 @@ At first, it may seem counter intuitive. However, removing tags from a polymorph
 ### Covariance and Contravariance at Work
 
 ```ocaml
-# let ingredient = function 0 -> `Egg | 1 -> `Sugar | _ -> `Fish;;
-val ingredient : int -> [> `Egg | `Fish | `Sugar ] = <fun>
+# let ingredient = function 0 -> `Flour | _ -> `Fish;;
+val ingredient : int -> [> `Fish | `Floor ] = <fun>
 
-# let chef = function `Egg -> `Omelette | `Sugar -> `Caramel | `Fish -> `Stew;;
-val chef : [< `Egg | `Fish | `Sugar ] -> [> `Caramel | `Omelette | `Stew ] =
+# let chef = function `Flour -> `Bread | `Mushroom -> `Soup | `Fish -> `Soup;;
+val chef : [< `Fish | `Flour | `Mushroom ] -> [> `Bread | `Soup ] =
   <fun>
 
-# let taste = function `Omelette -> "Nutritious" | `Caramel -> "Sweet" | `Stew -> "Yummy";;
-val taste : [< `Caramel | `Omelette | `Stew ] -> string = <fun>
-
-# let le_chef = function `Egg -> `Stew | `Sugar -> `Stew | `Fish -> `Stew | `Leftover -> `Stew;;
-val le_chef : [< `Egg | `Fish | `Leftover | `Sugar ] -> [> `Stew ] = <fun>
+# let taste = function `Soup | `Bread -> "Nutritious" | `Stew -> "Yummy";;
+val taste : [< `Bread | `Soup | `Stew ] -> string = <fun>
 
 # fun n -> n |> ingredient |> chef |> taste;;
 - : int -> string = <fun>
 
-# fun n -> n |> ingredient |> le_chef |> taste;;
-- : int -> string = <fun>
+# let upcasted_chef = (chef :> [< `Flour | `Fish ] -> [> `Bread | `Soup | `Stew ]);;
+val upcasted_chef : [< `Flour | `Fish ] -> [> `Bread | `Soup | `Stew ] =
+  <fun>
 
-# let upcasted_chef = (chef :> [< `Egg | `Fish | `Leftover | `Sugar ] -> [> `Stew ]);;
+# fun n -> n |> ingredient |> upcasted_chef |> taste;;
+- : int -> string = <fun>
 ```
 
-The type of function `le_chef` is a supertype of the type of the function `chef`. It is possible to upcast `chef` into `le_chef`'s type.
+Type type of `chef` is a subtype of the type of `upcasted_chef`. The function `upcasted_chef` has a smaller domain and larger codomain. However, the domain remains larger than the codomain of `ingredient` and the codomain remains smaller than the domain of `taste`. Therefore, it is safely possible to consider `chef` has an inhabitant of the type of `upcasted_chef`.
+
+It is also possible to refactor `chef` into a new function that will be safely used at the same place.
+```ocaml
+# let refactored_chef = function `Flour -> `Bread | `Fish -> (`Soup : [> `Bread | `Soup | `Stew ]);;
+
+# fun n -> n |> ingredient |> refactored_chef |> taste;;
+- : int -> string = <fun>
+```
 
 ## Uses-Cases
 
