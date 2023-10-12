@@ -104,9 +104,9 @@ let render () =
             </ul>
           </div>
         </div>
-        <div class="md:grid md:grid-cols-2 md:gap-16">
+        <div class="md:grid md:grid-cols-2 md:gap-8">
           <div>
-            <h3 class="text-base font-semibold leading-6 text-default whitespace-nowrap">Ecosystem & Community</h3>
+            <h3 class="text-base font-semibold leading-6 text-default whitespace-nowrap">Ecosystem</h3>
             <ul class="mt-6 space-y-4">
                <li>
                 <a href="<%s Url.packages %>" class="text-base leading-6 text-lighter">Packages</a>
