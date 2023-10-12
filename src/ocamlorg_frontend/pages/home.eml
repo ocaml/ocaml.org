@@ -298,9 +298,7 @@ Layout.render
       </div>
     </div>
   </div>
-  <!-- FIXME: remove text-default here after all the package cards are using the component -->
-  <div class="text-default w-11/12 m-auto pl-7 md:pl-0 md:w-screen overflow-y-hidden md:overflow-hidden py-16 flex flex-col items-center">
-   
+  <div class="text-default w-11/12 m-auto pl-7 md:pl-0 md:w-screen overflow-y-hidden md:overflow-hidden py-16 flex flex-col items-center">  
       <div class="grid grid-cols-4 gap-6 md:gap-4 md:px-10 lg:px-20 relative left-5 lg:left-28 md:left-16"
         style="width: 1500px">
         <%s! package_card
@@ -308,59 +306,44 @@ Layout.render
           ~img_path:"img/home/mirage.png"
           ~name:"MirageOS"
           "Library operating system to construct unikernels" %>
-
-           <%s! package_card
+        <%s! package_card
           ~href:"https://mirage.io/"
           ~img_path:"img/home/js_of_ocaml.png"
           ~name:"Js_of_ocaml"
           "Compiler from OCaml to Javascript." %>
-
-           <%s! package_card
+        <%s! package_card
           ~href:"https://erratique.ch/software/cmdliner"
           ~img_path:"img/home/cmdliner.png"
           ~name:"Cmdliner"
           "Declarative definition of command line interfaces for OCaml" %>
-
-             <%s! package_card
+        <%s! package_card
           ~href:"https://irmin.org/"
           ~img_path:"img/home/irmin.png"
           ~name:"Irmin"
           "Distributed database that follows the same design principles as Git" %>
-
-        <!-- placeholder for Dune-->
-           <%s! package_card
+        <%s! package_card
           ~href:"https://dune.build/"
           ~img_path:"img/home/dune.png"
           ~name:"Dune"
           "A composable build system for OCaml" %>
-
-                  <!-- placeholder for Lwt-->
-           <%s! package_card
+        <%s! package_card
           ~href:"https://ocsigen.org/lwt/latest/manual/manual"
           ~img_path:"img/home/lwt.png"
           ~name:"Lwt"
           "OCaml promises and concurrent IO" %>
-
-           <!-- placeholder for Owl-->
-           <%s! package_card
+        <%s! package_card
           ~href:"https://ocaml.xyz/"
           ~img_path:"img/home/owl.png"
           ~name:"Owl"
           "OCaml Scientific and Engineering Computing" %>
-
-        <!-- placeholder for Dream-->
-           <%s! package_card
+        <%s! package_card
           ~href:"https://aantron.github.io/dream/"
           ~img_path:"img/home/dream.png"
           ~name:"Dream"
           "Tidy Web framework for OCaml and ReasonML" %>
-        <!-- FIXME: package_card component -->
-      </div>
-    
+      </div>  
   </div>
 </div>
-
-
 <div class="py-28 bg-default dark:bg-dark-default">
   <div class="container-fluid">
     <div class="text-center px-15">
