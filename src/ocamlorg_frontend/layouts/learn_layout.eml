@@ -36,9 +36,15 @@ let sidebar_link
 ~title
 ~href
 ~current =
-  <a class="focus:text-primary-600 active:text-primary-600 text-sm py-3 px-1 block <%s if current then "text-primary-600 font-semibold bg-primary-300 text-primary-600 border-l-2 border-primary-600" else "font-medium hover:bg-primary-100 hover:border-l-2 hover:border-primary-600" %>"" href="<%s href %>">
-    <%s title %>
-  </a>
+  match current with
+  | true ->
+    <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s href %>">
+      <%s title %>
+    </a>
+  | false ->
+    <a class="font-semibold text-sm text-lighter hover:bg-gray-100 block py-2 px-3" href="<%s href %>">
+      <%s title %>
+    </a>
 
 
 let sidebar_link_group
@@ -46,14 +52,11 @@ let sidebar_link_group
 title
 link_html
 =
-  <details class="space-y-2 flex flex-col">
-    <summary class="flex gap-4 justify-between text-sm font-semibold px-3 py-2 uppercase focus:text-primary-600 active:text-primary-600 hover:text-primary-300">
-      <%s title %>
-      <%s! Icons.chevron_down "h-6 w-6" %>
-    </summary>
-    <span class="ml-4 border-l"><%s! link_html %></span>
-    <span class="ml-4 border-l"><%s! extra_html %></span>
-  </details>
+  <div class="space-y-2 flex flex-col">
+    <div class="text-sm font-semibold flex px-3 py-2 uppercase"><%s title %></div>
+    <%s! link_html %>
+    <%s! extra_html %>
+  </div>
 
 let single_column_layout
 ?use_swiper
