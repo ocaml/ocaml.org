@@ -66,6 +66,7 @@ in
       <% if show_get_started then (%>
         <li><a href="<%s Url.getting_started %>" class="btn btn-secondary btn-sm">Get Started</a></li>
       <% ); %>
+      <div class="btn btn-secondary btn-sm">Dark mode</div>
     </ul>
     <ul class="lg:hidden flex items-center">
       <li
@@ -116,8 +117,9 @@ in
       <li>
         <a href="<%s Url.api %>" class="flex py-3 px-1 gap-4 font-semibold text-primary-600">Standard Library API<%s! Icons.arrow_top_right_on_square "w-6 h-6" %></a>
       </li>
-      <li class="mt-3 mb-6">
+      <li class="flex flex-col gap-y-[20px] justify-center mt3 mb-6">
         <a href="<%s Url.getting_started %>" class="btn w-full">Get started</a>
+	      <div class="btn w-full">Dark mode</div>
       </li>
 
       <li>
