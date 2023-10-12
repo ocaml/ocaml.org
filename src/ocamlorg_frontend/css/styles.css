@@ -236,10 +236,10 @@ summary::marker {
 /* summary & details expandable section */
 
 details summary svg {
-  transform: rotate(90deg);
+  transform: rotate(0deg);
 }
 details[open] summary svg {
-  transform: rotate(-90deg);
+  transform: rotate(180deg);
 }
 
 details[open] summary ~ *
