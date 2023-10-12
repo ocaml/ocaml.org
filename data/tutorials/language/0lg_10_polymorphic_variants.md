@@ -333,7 +333,9 @@ val map :
 
 The aliasing mechanism is used to express type recursion. In the type expression ``[< `Cons of 'a * 'c | `Nil ] as 'c``, the defined name `'c` occurs inside body of the definition ``[< `Cons of 'a * 'c | `Nil ]``. Therefore, it is a recursive type definition.
 
-### Conjunction 
+### Conjunction of constraints
+
+FIXME: Is this section needed?
 
 ```ocaml
 # let f = function `Fruit fruit -> fruit = "Broccoli" | `Broccoli -> true;;
@@ -449,9 +451,9 @@ It is also possible to refactor `chef` into a new function that will can be used
 
 Not having to explicitly declare polymorphic variant types is beneficial in several cases.
 - When few functions are using the type
-- When many types would have to be declared (see also next use case)
+- When many types would have to be declared
 
-When reading a pattern-matching expression using polymorphic variant tags, understanding is local. There is no need to search for the meaning of the tags somewhere else. The meaning arises from the expression itself.
+When reading a pattern-matching expression using a polymorphic variant tags, understanding is local. There is no need to search for the meaning of the tags somewhere else. The meaning arises from the expression itself.
 
 ### Shared Constructors
 
