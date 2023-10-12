@@ -298,7 +298,7 @@ Layout.render
     </div>
   </div>
  
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-16 md:gap-4 md:px-10 lg:px-20 relative left-5 lg:left-28 md:left-16">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-16 md:gap-4 md:px-10 lg:px-20 relative">
     <%s! package_card
       ~href:"https://mirage.io/"
       ~img_path:"img/home/mirage.png"
