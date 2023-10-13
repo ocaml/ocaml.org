@@ -141,13 +141,13 @@ Where `<commit-hash>` is the pinned hash specified in the files mentioned above.
 
 ### How to Handle Warnings
 
-**1. Outdated Browserslist Warning:**
+1. Outdated Browserslist Warning:
    - To fix an outdated Browserslist warning, run:
      ```bash
      npx update-browserslist-db@latest
      ```
 
-**2. Tailwind CSS Class Name Changes:**
+2. Tailwind CSS Class Name Changes:
    - Update your `tailwind.config.js` by replacing old class names (e.g., `WarmGray`) with the new ones (e.g., `stone`) to silence the warnings.
 
 
