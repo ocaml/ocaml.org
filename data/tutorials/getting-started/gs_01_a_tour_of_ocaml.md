@@ -173,7 +173,7 @@ This example defines a function named `square` with the single argument `x`. Its
 
 When `square` is applied to `50`, it evaluates `x * x` into `50 * 50`, which leads to `2500`.
 
-The REPL indicates that the type of `square` is `int -> int`. This means it is a function taking an `int` as a parameter (input) and returning an `int` as result (output). Function value can't be displayed, that is why `<fun>` is printed instead.
+The REPL indicates that the type of `square` is `int -> int`. This means it is a function taking an `int` as a parameter (input) and returning an `int` as result (output). A function value can't be displayed, which is why `<fun>` is printed instead.
 
 ### Anonymous Functions
 
