@@ -1,12 +1,12 @@
 ---
-id: how-to-write-an-ocaml-program
-title: How to Write an OCaml Program
+id: your-first-ocaml-program
+title: Your First OCaml Program
 description: >
-  Get something real out of the damn French thing!
-category: "Start Coding"
+  Learn how to write your very first OCaml program.
+category: "First Steps"
 ---
 
-# How to Write an OCaml Program
+# Your First OCaml Program
 
 To complete this tutorial, you need to have [installed OCaml](/install). Optionally, we recommend [configuring your editor](/docs/set-up-editor).
 

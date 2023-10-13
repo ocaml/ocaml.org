@@ -3,7 +3,7 @@ id: arm64-fix
 title: Fix Homebrew Errors on Apple M1
 description: |
   This page will walk you through the workaround for ARM64 processors on newer Macs.
-category: "Setup"
+category: "Resources"
 ---
 
 # Fix Homebrew Errors on Apple M1
@@ -66,6 +66,3 @@ Your system is ready to brew.
 Now that's all sorted, you can return to the [Install OCaml tutorial](/docs/installing-ocaml) to install and initialise opam.
 
 You're all set to keep learning OCaml!
-
-
-
