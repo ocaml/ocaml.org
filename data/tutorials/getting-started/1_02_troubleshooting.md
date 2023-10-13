@@ -2,7 +2,7 @@
 id: troubleshoot
 title: Installation Troubleshooting
 description: |
-  This page contains instruction to troubleshoot common problems you might stumble accross while installing OCaml.
+  This page contains instructions to troubleshoot common problems you might stumble across while installing OCaml.
 category: "Setup"
 ---
 
