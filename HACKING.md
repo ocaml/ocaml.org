@@ -136,6 +136,21 @@ opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>
 
 Where `<commit-hash>` is the pinned hash specified in the files mentioned above.
 
+
+## FAQ
+
+### How to Handle Warnings
+
+**1. Outdated Browserslist Warning:**
+   - To fix an outdated Browserslist warning, run:
+     ```bash
+     npx update-browserslist-db@latest
+     ```
+
+**2. Tailwind CSS Class Name Changes:**
+   - Update your `tailwind.config.js` by replacing old class names (e.g., `WarmGray`) with the new ones (e.g., `stone`) to silence the warnings.
+
+
 ## Repository structure
 
 The following snippet describes the repository structure.
