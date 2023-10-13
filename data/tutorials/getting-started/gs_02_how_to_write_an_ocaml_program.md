@@ -2,7 +2,7 @@
 id: how-to-write-an-ocaml-program
 title: How to Write an OCaml Program
 description: >
-  Get something real out of the damm French thing!
+  Get something real out of the damn French thing!
 category: "Getting Started"
 ---
 
@@ -147,7 +147,7 @@ Hello from a module
 
 The file `lib/hello.ml` creates the module named `Hello`, which in turn defines a string value named `world`. This definition is referred to as `Hello.world` from the `bin/main.ml` file.
 
-Dune can launch UTop to access to the modules exposed by a project interactively. Here's how:
+Dune can launch UTop to access the modules exposed by a project interactively. Here's how:
 ```shell
 $ dune utop
 ```
@@ -214,14 +214,14 @@ This gives us a web server that responds with the content of `Hello.world` to HT
 <!-- TODO: we have to probably refer to the Dream docs for an explanation
 Before detailing how things work, let's explain how Dream types works.
 
-The function type `request -> response promise` is the type of request handlers. Functions of this type take an HTTP request and returns an HTTP response. The response is wrapped in a promise. This prevents the server from waiting for the response to be ready before sending it and also allows processing multiple requests concurrently. The type route `route` represents the binding between a URL path and a handler.
+The function type `request -> response promise` is the type of request handlers. Functions of this type take an HTTP request and return an HTTP response. The response is wrapped in a promise. This prevents the server from waiting for the response to be ready before sending it and also allows processing multiple requests concurrently. The type route `route` represents the binding between a URL path and a handler.
 
 Let's detail the roles of each piece:
 - `run` triggers the execution of the server process. Its parameter is a handler function.
 - `router` turns a list of `route` values into a single handler binding them together.
 - `get "/"` declares a route, HTTP GET requests to the `/` path are handled by the provided function.
 - `(fun (_ : request) -> ...)` this a handler function. The typed pattern `(_ : request)` means the data from the request is ignored.
-- `html Hello.world` has type `response promise`. When data inside the promise becomes available, the server will send with it. In our case, it is immediately available as it is a static constant stored in memory.
+- `html Hello.world` has type `response promise`. When data inside the promise becomes available, the server will send it, too. In our case, it is immediately available as it is a static constant stored in memory.
 
 In summary, this is telling: “run a web server responding with the content of `Hello.world` to requests to the '/' path”
 
