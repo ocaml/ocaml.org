@@ -1,6 +1,6 @@
 ---
 id: your-first-ocaml-program
-title: Your First Program
+title: Your First OCaml Program
 description: >
   Learn how to write your very first OCaml program.
 category: "Your First Steps"
