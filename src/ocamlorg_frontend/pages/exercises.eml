@@ -38,21 +38,23 @@ let exercise_sidebar_links_by_tag ?tag title =
     (Exercise.filter_tag ?tag exercises |> List.fold_left (fun a b -> a ^ render_exercise_link b) "")
   %>
 in
-  <p class="font-bold">Exercises Categories</p>
-  <hr>
-  <%s! exercise_sidebar_links_by_tag ~tag:"list" "Lists" %>
-  <hr>
-  <%s! exercise_sidebar_links_by_tag ~tag:"arithmetic" "Arithmetic" %>
-  <hr>
-  <%s! exercise_sidebar_links_by_tag ~tag:"logic" "Logic and Codes" %>
-  <hr>
-  <%s! exercise_sidebar_links_by_tag ~tag:"binary-tree" "Binary Trees" %>
-  <hr>
-  <%s! exercise_sidebar_links_by_tag ~tag:"multiway-tree" "Multiway Trees" %>
-  <hr>
-  <%s! exercise_sidebar_links_by_tag ~tag:"graph" "Graphs" %>
-  <hr>
-  <%s! exercise_sidebar_links_by_tag "Miscellaneous" %>
+  <div class="pr-3">
+  <p class="font-bold mb-4">Exercises Categories</p>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag ~tag:"list" "Lists" %>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag ~tag:"arithmetic" "Arithmetic" %>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag ~tag:"logic" "Logic and Codes" %>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag ~tag:"binary-tree" "Binary Trees" %>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag ~tag:"multiway-tree" "Multiway Trees" %>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag ~tag:"graph" "Graphs" %>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag "Miscellaneous" %>
+  </div>
 
 let danger = function
   | `Beginner -> ""
