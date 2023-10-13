@@ -10,8 +10,6 @@ module.exports = {
       'lg': '64em',
       'xl': '80em',
     },
-
-
     extend: {
       typography: {
         DEFAULT: {
