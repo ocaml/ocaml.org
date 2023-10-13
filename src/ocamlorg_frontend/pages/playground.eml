@@ -125,7 +125,6 @@ let render ~default_code =
                 class="h-auto flex-col overflow-auto p-4 text-white"
                 x-show="output && !mobile"
                 ></div>
-                
             </div>
           </div>
         </div>
