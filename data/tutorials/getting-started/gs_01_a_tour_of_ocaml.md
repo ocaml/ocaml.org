@@ -156,7 +156,7 @@ In OCaml, the equality symbol has two meanings. It is used in definitions and eq
 val dummy : bool = false
 ```
 
-This is interpreted as: “define `dummy` as the result of the equality test between the strings `"hi"` and `"hello"`”. OCaml also has an double equal operator `==` which stands for physical identity, it is not used in this tutorial. The operator `<>` is the negation of `=` while `!=` is the negation of `==`.
+This is interpreted as: “define `dummy` as the result of the equality test between the strings `"hi"` and `"hello"`”. OCaml also has a double equal operator `==` which stands for physical identity, it is not used in this tutorial. The operator `<>` is the negation of `=` while `!=` is the negation of `==`.
 
 ## Functions
 
@@ -173,7 +173,7 @@ This example defines a function named `square` with the single argument `x`. Its
 
 When `square` is applied to `50`, it evaluates `x * x` into `50 * 50`, which leads to `2500`.
 
-The REPL indicates that the type of `square` is `int -> int`. This means it is a function taking an `int` as parameter (input) and returning an `int` as result (output). Function value can't be displayed, that is why `<fun>` is printed instead.
+The REPL indicates that the type of `square` is `int -> int`. This means it is a function taking an `int` as a parameter (input) and returning an `int` as result (output). Function value can't be displayed, that is why `<fun>` is printed instead.
 
 ### Anonymous Functions
 
@@ -219,7 +219,7 @@ The function `cat_hi`, which resulted from the partial application of `cat`, beh
 
 ### Type Variables and Higher-Order Functions
 
-A function may expect a function as parameter, which is called a _higher-order_ function. A well-known example of higher-order function is `List.map`. Here is how it can be used:
+A function may expect a function as a parameter, which is called a _higher-order_ function. A well-known example of higher-order function is `List.map`. Here is how it can be used:
 ```ocaml
 # List.map;;
 - : ('a -> 'b) -> 'a list -> 'b list = <fun>
@@ -231,7 +231,7 @@ A function may expect a function as parameter, which is called a _higher-order_ 
 - : int list = [0; 1; 4; 9; 16; 25]
 ```
 
-The name of this function begins with `List.` because it is part of the predefined library of functions acting on lists. This matter will be discussed more later. Function `List.map` takes two parameters: the second is a list, and the first is a function that can be applied to the list's elements, whatever they may be. `List.map` returns a list formed by applying the function provided as parameter to each of the elements of the input list.
+The name of this function begins with `List.` because it is part of the predefined library of functions acting on lists. This matter will be discussed more later. Function `List.map` takes two parameters: the second is a list, and the first is a function that can be applied to the list's elements, whatever they may be. `List.map` returns a list formed by applying the function provided as a parameter to each of the elements of the input list.
 
 The function `List.map` can be applied on any kind of list. Here it is given a list of integers, but it could be a list of floats, strings, or anything. This is known as _polymorphism_. The `List.map` function is polymorphic, meaning it has two implicit _type variables_: `'a` and `'b` (pronounced “alpha” and “beta”). They both can be anything; however, in regard to the function passed to `List.map`:
 1. Input list elements have the same type of its input.
@@ -258,13 +258,13 @@ caramba
 
 The function `read_line` reads characters on standard input and returns them as a string when end-of-line (EOL) is reached. The function `print_endline` prints a string on standard output, followed by an EOL.
 
-The function `read_line` doesn't need any data to proceed, and the function `print_endline` doesn't have any meaningful data to return. Indicating this absence of data is the role of the `unit` type, which appears in their signature. The type `unit` has as single value, written `()` and pronounced “unit”. It is used as a placeholder when no data is passed or returned, but some token still has to be passed to start processing or indicate processing has terminated.
+The function `read_line` doesn't need any data to proceed, and the function `print_endline` doesn't have any meaningful data to return. Indicating this absence of data is the role of the `unit` type, which appears in their signature. The type `unit` has a single value, written `()` and pronounced “unit”. It is used as a placeholder when no data is passed or returned, but some token still has to be passed to start processing or indicate processing has terminated.
 
 Input-output is an example of something taking place when executing a function but which does not appear in the function type. This is called a _side-effect_ and does not stop at I/O. The `unit` type is often used to indicate the presence of side-effects, although it's not always the case.
 
 ### Recursive Functions
 
-A recursive function calls itself in its own body. Such functions must be declared using `let rec … = …` instead of just `let`. Recursion is not the only mean to perform iterative computation on OCaml. Loops such as for and while are available, but they are meant to be used when writing imperative OCaml, in conjunction with mutable data. Otherwise, recursive functions should be preferred.
+A recursive function calls itself in its own body. Such functions must be declared using `let rec … = …` instead of just `let`. Recursion is not the only means to perform iterative computation on OCaml. Loops such as for and while are available, but they are meant to be used when writing imperative OCaml, in conjunction with mutable data. Otherwise, recursive functions should be preferred.
 
 Here is an example of a function which creates a list of consecutive integers between two bounds.
 ```ocaml
@@ -290,7 +290,7 @@ As indicated by its type `int -> int -> int list`, the function `range` takes tw
 = [2; 3; 4; 5]
 ```
 
-Each equal sign corresponds to the computation of recursive step, except the last one. OCaml handles internally lists like shown in the penultimate expression but displays then as the last expression. This is just pretty printing. No computation takes place between the two last steps.
+Each equal sign corresponds to the computation of a recursive step, except the last one. OCaml handles internally lists like shown in the penultimate expression but displays them as the last expression. This is just pretty printing. No computation takes place between the two last steps.
 
 ## Data and Typing
 
@@ -388,7 +388,7 @@ val length : 'a list -> int = <fun>
 - : int = 1
 ```
 
-This function operates not just on lists of integers but on any kind of list. It is a polymorphic function. Its type indicates input of type `'a list` where `'a` is type variable standing for any type. The empty list pattern `[]` can be of any element type. So the `_ :: v` pattern, as the value at the head of the list, is irrelevant because the `_` pattern indicates it is not inspected. Since both patterns must be of the same type, the typing algorithm infers the `'a list -> int` type.
+This function operates not just on lists of integers but on any kind of list. It is a polymorphic function. Its type indicates input of type `'a list` where `'a` is a type variable standing for any type. The empty list pattern `[]` can be of any element type. So the `_ :: v` pattern, as the value at the head of the list, is irrelevant because the `_` pattern indicates it is not inspected. Since both patterns must be of the same type, the typing algorithm infers the `'a list -> int` type.
 
 #### Defining a Higher-Order Function
 
@@ -421,7 +421,7 @@ type 'a option = None | Some of 'a
 val f : 'a option option-> 'a option = <fun>
 ```
 
-The inspected value is `opt` of type `option`. It is compared against the patterns from top to bottom. If `opt` is the `None` option, it is a match with the first pattern. If `opt` is the `Some None` option, it's a match with the second patten. If `opt` is a double-wrapped option with a value, it's a match with the third pattern. Patterns can introduce names, just as `let` does. In the third pattern, `x`, designates the data inside the double-wrapped option.
+The inspected value is `opt` of type `option`. It is compared against the patterns from top to bottom. If `opt` is the `None` option, it is a match with the first pattern. If `opt` is the `Some None` option, it's a match with the second pattern. If `opt` is a double-wrapped option with a value, it's a match with the third pattern. Patterns can introduce names, just as `let` does. In the third pattern, `x`, designates the data inside the double-wrapped option.
 
 Pattern matching is detailed in the [Basic Datatypes](/docs/basic-datatypes) tutorial as well as in per data type tutorials.
 
@@ -444,7 +444,7 @@ val g : int -> string = <fun>
 val g' : int -> string = <fun>
 ```
 
-The underscore symbol is catch-all pattern, it matches with anything.
+The underscore symbol is a catch-all pattern, it matches with anything.
 
 Note that OCaml throws a warning when pattern matching does not catch call cases:
 ```ocaml
@@ -555,7 +555,7 @@ val http_status_code : http_response -> int = <fun>
 val is_printable : int -> int -> page_range -> bool = <fun>
 ```
 
-Like a function, a variant can be recursive if refers to itself in its own definition. The predefined type `list` provides an example of such a variant:
+Like a function, a variant can be recursive if it refers to itself in its own definition. The predefined type `list` provides an example of such a variant:
 ```ocaml
 # #show list;;
 type 'a list = [] | (::) of 'a * 'a list
@@ -582,7 +582,7 @@ type person = { first_name : string; surname : string; age : int; }
 val frank : person = {first_name = "Gérard"; surname = "Huet"; age = 76}
 ```
 
-When defining `frank`, no type needs to be declared. The type checker will search for a record which has exactly three fields with matching names and types. Note that they are no typing relationship between records. It is not possible to declare a record type extends another. Record type search will succeed if it finds an exact match and fail in any other case.
+When defining `frank`, no type needs to be declared. The type checker will search for a record which has exactly three fields with matching names and types. Note that there are no typing relationship between records. It is not possible to declare a record type extends another. Record type search will succeed if it finds an exact match and fails in any other case.
 ```ocaml
 # let s = frank.surname;;
 val s : string = "Huet"
@@ -658,7 +658,7 @@ val id_42_res : int -> (int, string) result = <fun>
 
 ## Working with Mutable State
 
-OCaml supports imperative programming. Usually, the `let … = …` syntax does not define variables, it defines constants. However, mutable variables exists in OCaml, they are called _references_. Here's how we create a reference to an integer:
+OCaml supports imperative programming. Usually, the `let … = …` syntax does not define variables, it defines constants. However, mutable variables exist in OCaml, they are called _references_. Here's how we create a reference to an integer:
 ```ocaml
 # let r = ref 0;;
 val r : int ref = {contents = 0}
@@ -704,7 +704,7 @@ Here are the side effects which happens in the second line:
 1. Update the contents of the reference  `text`
 1. Display the contents of the reference `text` on standard output
 
-This behaviour is the same as in an imperative language. However, although `;` is not defined as a function, it behaves as if it was a function of type `unit -> unit -> unit`.
+This behaviour is the same as in an imperative language. However, although `;` is not defined as a function, it behaves as if it were a function of type `unit -> unit -> unit`.
 
 ## Modules and the Standard Library
 
@@ -733,7 +733,7 @@ module Option :
   end
 ```
 
-Definitions provided by modules are referred to by adding the module name as a prefix to the their name.
+Definitions provided by modules are referred to by adding the module name as a prefix to their name.
 ```ocaml
 # Option.map;;
 - : ('a -> 'b) -> 'a option -> 'b option = <fun>
@@ -754,7 +754,7 @@ Here, usage of the function `Option.map` is illustrated in several steps.
 1. Apply with `None`
 1. Apply with `Some 8`
 
-When the option value provided contains an actual value (i.e. it is `Some` something), it applies the provided function and returns its result wrapped in a option. When the option value provided doesn't contain anything (i.e. is is `None`), the result doesn't contain anything as well (i.e. is is `None` too).
+When the option value provided contains an actual value (i.e. it is `Some` something), it applies the provided function and returns its result wrapped in an option. When the option value provided doesn't contain anything (i.e. is is `None`), the result doesn't contain anything as well (i.e., is `None` too).
 
 The `List.map` function which was used earlier in this section is also part of a module, the `List` module.
 ```ocaml
@@ -765,7 +765,7 @@ The `List.map` function which was used earlier in this section is also part of a
 - : int list -> int list = <fun>
 ```
 
-This illustrates the first feature of the OCaml module system. It provides a mean to separate concerns by preventing name clashes. Two functions having different type may have the same name if they are provided by different modules.
+This illustrates the first feature of the OCaml module system. It provides a means to separate concerns by preventing name clashes. Two functions having different type may have the same name if they are provided by different modules.
 
 Module also allows efficient separated compilation, this is illustrated in the next tutorial.
 
