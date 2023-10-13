@@ -769,7 +769,7 @@ This illustrates the first feature of the OCaml module system. It provides a mea
 
 Module also allows efficient separated compilation. This is illustrated in the next tutorial.
 
-## Sum-Up and Where Next?
+## Conclusion
 
 OCaml has many features, and these may be the most important ones:
 
