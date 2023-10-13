@@ -1,5 +1,5 @@
 ---
-id: your-first-ocaml-program
+id: your-first-program
 title: Your First OCaml Program
 description: >
   Learn how to write your very first OCaml program.

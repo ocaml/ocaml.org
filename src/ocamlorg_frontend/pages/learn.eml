@@ -27,8 +27,8 @@ Learn_layout.single_column_layout
             ~description:"Install OCaml and gain a high-level understanding of language features" 
             ~tutorial_links:[
                 {href = Url.tutorial "installing-ocaml"; title = "Installing OCaml"};
-                {href = Url.tutorial "a-tour-of-ocaml"; title = "A Tour of OCaml"};
-                {href = Url.tutorial "your-first-ocaml-program"; title = "Your First OCaml Program"}
+                {href = Url.tutorial "tour-of-ocaml"; title = "A Tour of OCaml"};
+                {href = Url.tutorial "your-first-program"; title = "Your First OCaml Program"}
             ]
              ~see_more:{href = Url.getting_started; title = "Get Started"}
             "bg-teal-700"
