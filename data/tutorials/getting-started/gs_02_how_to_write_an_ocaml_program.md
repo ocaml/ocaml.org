@@ -10,11 +10,11 @@ category: "Getting Started"
 
 In this tutorial, we start working with files containing OCaml source code and compiling them to produce executable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture before extensively presenting topics in order to avoid getting lost in the details.
 
-In other words, we do breadth-first learning instead of depth-first learning. In the previous tutorial most commands were entered in UTop, in this tutorial, the majority of commands should be entered into a terminal. Code examples starting with a dollar sign `$` are intended to be entered in the terminal, while lines starting with a hash sign `#` are intended to be entered in UTop.
+In other words, we do breadth-first learning instead of depth-first learning. In the previous tutorial most commands were entered in UTop. In this tutorial, the majority of commands should be entered into a terminal. Code examples starting with a dollar sign `$` are intended to be entered in the terminal, while lines starting with a hash sign `#` are intended to be entered in UTop.
 
-Once you've completed this tutorial, you should be able to create, compile, and execute an OCaml project using Dune. You will be able to work with files, make private definitions within modules and know how to install and use opam packages.
+Once you've completed this tutorial, you should be able to create, compile, and execute an OCaml project using Dune, OCaml's build system. You will be able to work with files, make private definitions within modules, and know how to install and use opam packages.
 
-This tutorial is the last part of a two-part series. Please ensure you have completed [A Tour of OCaml](/docs/a-tour-of-ocaml) before proceeding onto your first OCaml project. You will need to have [installed OCaml](/install).
+This tutorial is the last part of a two-part series. Please ensure you have completed [A Tour of OCaml](/docs/a-tour-of-ocaml) before proceeding onto your first OCaml project. You will also need to have [installed OCaml](/install).
 
 <!--
 Once you've completed this tutorial, you should be able to:
@@ -23,25 +23,25 @@ Once you've completed this tutorial, you should be able to:
 - Delete files in an automatically created project without breaking everything
 - Split code in several files, use imported definitions
 - Make a definition private
-- Download, install and use a package from the open source repository
+- Download, install, and use a package from the open source repository
 
 
-How to work on several OCaml projects simultaneously is out of the scope of this tutorial. Currently (summer 2023), this requires using opam local [_switches_](https://opam.ocaml.org/doc/man/opam-switch.html). This allows handling different sets of dependencies per project. Check the Best Practices document on [Dependencies](https://ocaml.org/docs/managing-dependencies) addressing that matter for detailed instructions. This document was written and tested using a global switch, which is created by default when installing opam and can be ignored in the beginning.
+How to work on several OCaml projects simultaneously is out of the scope of this tutorial. Currently (Summer 2023), this requires using opam local [_switches_](https://opam.ocaml.org/doc/man/opam-switch.html). This allows handling different sets of dependencies per project. Check the Best Practices document on [Dependencies](https://ocaml.org/docs/managing-dependencies) addressing that matter for detailed instructions. This document was written and tested using a global switch, which is created by default when installing opam and can be ignored in the beginning.
 -->
 
-## Working Within an Opam Switch
+## Working Within an opam Switch
 
 When you installed OCaml, a global opam switch was created automatically. This tutorial can be completed while working inside this global opam switch.
 
-When you work on several OCaml projects simultaneously, you should create more opam switches. For how to do that, see ["Introduction to opam Switches"](/docs/opam-switch-introduction).
+When you work on several OCaml projects simultaneously, you should create more opam switches. For instructions on how to do that, see ["Introduction to opam Switches"](/docs/opam-switch-introduction).
 
 ## Compiling OCaml Programs
 
-By default, OCaml comes with two compilers, one translating sources into native binaries and another turning sources into a bytecode format. OCaml also comes with an interpreter for that bytecode format. This tutorial demonstrates how to use the native compiler to write OCaml programs.
+By default, OCaml comes with two compilers: one translating sources into native binaries and another turning sources into a bytecode format. OCaml also comes with an interpreter for that bytecode format. This tutorial demonstrates how to use the native compiler to write OCaml programs.
 
-<!-- Other compilers exist, for instance, [js_of_ocaml](https://ocsigen.org/js_of_ocaml) generates JavaScript. The toplevel uses the bytecode compiler; expressions are read, type-checked, compiled into bytecode and executed. The previous tutorial was interactive because we used the toplevel. -->
+<!-- Other compilers exist, for instance, [js_of_ocaml](https://ocsigen.org/js_of_ocaml) generates JavaScript. The toplevel uses the bytecode compiler; expressions are read, type-checked, compiled into bytecode, and executed. The previous tutorial was interactive because we used the toplevel. -->
 
-We start by setting up a traditional “Hello World!” project using Dune, OCaml’s build system. Make sure to have installed version 3.7 or later. The following creates a project named `hello`:
+We start by setting up a traditional “Hello World!” project using Dune. Make sure to have installed version 3.7 or later. The following creates a project named `hello`:
 
 ```shell
 $ dune init proj hello
@@ -49,11 +49,11 @@ Entering directory '/home/cuihtlauac/caml/ocaml.org/hello'
 Success: initialized project component named hello
 ```
 
-Note: Throughout this tutorial, outputs generated Dune might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam update; opam upgrade dune` in a terminal.
+> Note: Throughout this tutorial, outputs generated Dune might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam update; opam upgrade dune` in a terminal.
 
 The project is stored in a directory named `hello`. The `tree` command lists the files and directories created. It might be necessary to install `tree` if you don't see the following. Through Homebrew, for example, run `brew install tree`.
 
-Note: If you get an error in Homebrew from this in an Apple silicon macOS, it's likely an issue with the architecture switch from Intel to ARM. Please refer to the [ARM64 Fix](/docs/arm64-fix) to remedy the ARM64 error.
+> Note: If you get an error in Homebrew from this in an Apple silicon macOS, it's likely an issue with the architecture switch from Intel to ARM. Please refer to the [ARM64 Fix](/docs/arm64-fix) to remedy the ARM64 error.
 ```shell
 $ cd hello
 $ tree
@@ -74,7 +74,7 @@ $ tree
 4 directories, 8 files
 ```
 
-OCaml source files have the `.ml` extension, which stands for “Meta Language.” Meta Language (ML) is an ancestor of OCaml, this is also what the “ml” stands for in “OCaml.” Here is the content of the `bin/main.ml` file:
+OCaml source files have the `.ml` extension, which stands for “Meta Language.” Meta Language (ML) is an ancestor of OCaml. This is also what the “ml” stands for in “OCaml.” Here is the content of the `bin/main.ml` file:
 ```ocaml
 let () = print_endline "Hello, World!"
 ```
@@ -104,7 +104,7 @@ In the rest of this tutorial, we will make more changes to this project in order
 
 ## Why Isn't There a Main Function?
 
-Although `bin/main.ml`'s name suggests it contains the application entry point into the project, it does not contain a dedicated `main` function, and there is no requirement that a project must contain a file with that name in order to produce an executable. An compiled OCaml file behaves as though that file were entered line by line into the toplevel. In other words, an executable OCaml file's entry point is its first line.
+Although `bin/main.ml`'s name suggests it contains the application entry point into the project, it does not contain a dedicated `main` function, and there is no requirement that a project must contain a file with that name in order to produce an executable. A compiled OCaml file behaves as though that file were entered line by line into the toplevel. In other words, an executable OCaml file's entry point is its first line.
 
 Double semicolons aren't needed in source files like they are in the toplevel. Statements are just processed in order from top to bottom, each triggering the side effects it may have. Definitions are added to the environment. Values resulting from nameless expressions are ignored. Side effects from all those will take place in the same order. That's OCaml main.
 
@@ -113,11 +113,11 @@ However, it is common practice to single out a value that triggers all the side 
 ## Modules and the Standard Library, Cont'd
 
 Let's summarise what was said about modules in the ["Tour of OCaml"](/docs/tour-of-ocaml):
-- A modules is a collection of named values
-- Identical names from distinct modules don't clash
-- The standard library is collection of several modules
+- A module is a collection of named values.
+- Identical names from distinct modules don't clash.
+- The standard library is collection of several modules.
 
-Modules aid in organising projects: concerns can be separated into isolated modules. This is outlined in the next section. Before creating a module ourselves, we'll demonstrate using a definition from a module of the standard library. Change the content of the file `bin/main.ml` to this:
+Modules aid in organising projects; concerns can be separated into isolated modules. This is outlined in the next section. Before creating a module ourselves, we'll demonstrate using a definition from a module of the standard library. Change the content of the file `bin/main.ml` to this:
 ```ocaml
 let () = Printf.printf "%s!\\n" "Hello, World!"
 ```
@@ -162,7 +162,7 @@ Now exit `utop` with `Ctrl-D` or enter `#quit;;` before going to the next sectio
 
 ## Defining Module Interfaces
 
-UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. The module interface file corresponding to a module file must have the same base name, e.g. `hello.mli` is the module interface for module `hello.ml`. Create a `lib/hello.mli` file with this content:
+UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. The module interface file corresponding to a module file must have the same base name, e.g., `hello.mli` is the module interface for module `hello.ml`. Create a `lib/hello.mli` file with this content:
 ```ocaml
 val world : string
 ```
@@ -195,9 +195,9 @@ Error: Unbound value Hello.mundo
 
 This is because we haven't changed `lib/hello.mli`. Since it does not list `mundo`, it is therefore private.
 
-## Installing and Using Modules from a Package
+## Installing and Using Modules From a Package
 
-OCaml has an active community of open-source contributors. Most projects are available using the opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows how to install and use a package from opam's open-source repository.
+OCaml has an active community of open-source contributors. Most projects are available using the opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows you how to install and use a package from opam's open-source repository.
 
 To illustrate this, let's turn our `hello` project into a web server using [Anton Bachin](https://github.com/aantron)'s [Dream](https://aantron.github.io/dream/) web framework. First install the `dream` package with this command:
 ```shell
@@ -243,7 +243,7 @@ $ dune exec hello
 20.07.23 13:14:07.801                       Type Ctrl+C to stop
 ```
 
-Note: If on macOS a key icon is displayed, like when asking for a password, you can ignore it and type Ctrl+C to get back to the command prompt.
+> Note: If on macOS a key icon is displayed, like when asking for a password, you can ignore it and type `Ctrl+C` to get back to the command prompt.
 
 Then test from the first terminal:
 ```shell
@@ -313,7 +313,7 @@ Along the history of OCaml, several build systems have been used. As of writing 
 - `lib`: libraries
 - `test`: tests
 
-There will be a tutorial dedicated to Dune. This tutorial will present the many features of Dune. Let's just list a few ones here:
+There will be a tutorial dedicated to Dune. This tutorial will present the many features of Dune, a few of which are listed here:
 - Running tests
 - Generating documentation
 - Producing packaging metadata (here in `hello.opam`)
@@ -354,7 +354,7 @@ Entering directory '/home/cuihtlauac/caml/ocaml.org'
 My name is Minimo
 ```
 
-Note that `minimo.exe` is not a file name. This is how Dune is told to compile the `minimo.ml` file using OCaml's native compiler instead of the bytecode compiler. As a fun fact, note that an empty file is valid OCaml syntax. You can use that to reduce `minimo` even more; of course, it will not display anything, but it will be a valid project!
+> Note: `minimo.exe` is not a file name. This is how Dune is told to compile the `minimo.ml` file using OCaml's native compiler instead of the bytecode compiler. As a fun fact, note that an empty file is valid OCaml syntax. You can use that to reduce `minimo` even more; of course, it will not display anything, but it will be a valid project!
 
 ## Conclusion
 
