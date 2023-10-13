@@ -358,7 +358,7 @@ My name is Minimo
 
 ## Conclusion
 
-This tutorial was the third and last of the introduction series. Starting from here, you have enough to pick and choose among the other tutorials to follow your own learning path.
+This tutorial was the last of the introduction series. Starting from here, you have enough to pick and choose among the other tutorials to follow your own learning path.
 
 If you're not yet familiar with functional programming, we recommend you start with the [Lists](/docs/lists) tutorial. Lists are such an important data structure in functional programming that they deserve to be among the first topics you master.
 

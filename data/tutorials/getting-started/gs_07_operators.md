@@ -10,7 +10,6 @@ category: "Getting Started"
 
 ## Goals
 
-
 The learning goals of this tutorial are:
 - Using operators as functions and reciprocally, using functions as operators
 - Assign the right associativity and precedence to a custom operator
@@ -175,8 +174,45 @@ The complete list of precedence is longer because it includes the predefined ope
 
 ## Binding Operators
 
+<<<<<<< HEAD
 OCaml allows the creation of custom `let` operators. This is often used on functions such as `Option.bind`
  or `List.concat_map`. In the following example, we use that mechanism to write a function that produces the list of Friday 13th dates over two years.
+=======
+OCaml allows creation of custom `let` operators. This is often used on functions such as `Option.bind`
+ or `List.concat_map`.
+
+The `doi_parts` function attempts to extract the registrant and identifier parts from string expected to contain a [Digital Object Identifier (DOI)](https://en.wikipedia.org/wiki/Digital_object_identifier).
+```ocaml
+# let ( let* ) = Option.bind;;
+val ( let* ) : 'a option -> ('a -> 'b option) -> 'b option = <fun>
+
+# let doi_parts s =
+  let* slash = String.rindex_opt s '/' in
+  let* dot = String.rindex_from_opt s slash '.' in
+  let prefix = String.sub s 0 dot in
+  let len = slash - dot - 1 in
+  if len >= 4 && String.ends_with ~suffix:"10" prefix then
+    let registrant = String.sub s (dot + 1) len in
+    let identifier = String.sub s (slash + 1) (String.length s - slash - 1) in
+    Some (registrant, identifier)
+  else
+    None;;
+
+# doi_parts "doi:10.1000/182";;
+- : (string * string) option = Some ("1000", "182")
+
+# doi_parts "https://doi.org/10.1000/182";;
+- : (string * string) option = Some ("1000", "182")
+
+```
+
+This function is using `Option.bind` as a custom binder over the calls to `String.rindex_opt` and `String.rindex_from_opt`. This allows to only consider the case where both searches are successful and return the positions of the found characters. If any of them fails, `doi_parts` implicitly returns `None`.
+
+The rest of the function applies if relevant delimiting characters have been found. It does performs additional checks and extracts registrant and identifier form the string `s`, if possible.
+
+ <!-- TODO: move this into the list tutorial
+ In the following example, we use that mechanism to write a function which produces the list of Friday 13th dates between two years.
+>>>>>>> cd8447f7 (Change custom let example)
 
 ```ocaml
 # let ( let* ) u f = List.concat_map f u;;
@@ -210,4 +246,9 @@ Calling `range lo hi` returns a increasing list of consecutive integers between 
 
 The function `day_of_week` calculates the day of the week for a given date. Generative large language model chatbots such as ChatGPT do a very good job at explaining such a function. Have a look at the result of a prompt such as “Explain how this code works” followed by the code, if you want to learn more about this function.
 
+<<<<<<< HEAD
 The `friday13` function uses an algorithm with two nested loops. Each `let*` acts almost like a `for` loop with a counter, a starting value, and an ending value. Each inner loop iteration produces a list. The global result is the concatenation and the flattening of those lists into a single one.
+=======
+The `friday13` function use an algorithm with two nested loops. Each `let*` acts almost like a for loop with a counter, a starting value and an ending value. Each inner loop iteration produces a list. The global result is the concatenation and the flattening of those lists into a single one.
+-->
+>>>>>>> cd8447f7 (Change custom let example)
