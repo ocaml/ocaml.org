@@ -34,7 +34,7 @@ div.odoc .spec a.anchor {
   position: absolute;
   left: 0;
   top:0.3em;
-  opacity: 0;
+  opacity: 1;
   text-decoration: none;
   color: rgb(156 163 175);
   box-shadow: none;
@@ -47,11 +47,15 @@ div.odoc .spec a.anchor::after {
   padding: 0.6em;
 }
 
-div.odoc *:hover > a.anchor {
+/* div.odoc *:hover > a.anchor {
   opacity: 1;
 }
 
 div.odoc *:hover > a.anchor:hover {
+  color: rgb(75 85 99);
+} */
+
+div.odoc *>a.anchor {
   color: rgb(75 85 99);
 }
 
@@ -60,6 +64,7 @@ div.odoc *:hover > a.anchor:hover {
 div.odoc .spec:target {
   background: rgb(255, 248, 206);
 }
+
 div.odoc .anchored:target,
 div.odoc h1:target,
 div.odoc h2:target,
@@ -187,7 +192,7 @@ div.odoc .comment-delim {
 
 /* package explorer navmap and breadcrumb tag */
 
-.navmap:hover ul {
+.navmap ul {
   border-color: gainsboro;
 }
 
@@ -201,9 +206,10 @@ div.odoc .comment-delim {
   cursor: pointer;
 }
 
-span.icon-expand:not(.open) > .navmap-tag , span.no-expand > .navmap-tag {
-  background:white;
-}
+/* span.icon-expand:not(.open)>.navmap-tag,
+span.no-expand>.navmap-tag {
+  background: white;
+} */
 
 .navmap-tag {
   display:flex;
@@ -227,19 +233,23 @@ span.icon-expand:not(.open) > .navmap-tag , span.no-expand > .navmap-tag {
 .navmap-tag.library-tag::after {
   content: "lib";
 }
+
 .library-tag {
   color: rgb(91, 102, 114);
   background-color: rgb(91, 102, 114);
   border-color: rgb(91, 102, 114);
 }
+
 .navmap-tag.module-tag::after {
   content: "M";
 }
+
 .module-tag {
   color: #cc4e0c;
   background-color: #cc4e0c;
   border-color: #cc4e0c;
 }
+
 .navmap-tag.module-type-tag::after {
   content: "Mt";
 }
@@ -248,6 +258,7 @@ span.icon-expand:not(.open) > .navmap-tag , span.no-expand > .navmap-tag {
   background-color: #027491;
   border-color: #027491;
 }
+
 .navmap-tag.parameter-tag::after {
   content: "P";
 }
@@ -264,6 +275,7 @@ span.icon-expand:not(.open) > .navmap-tag , span.no-expand > .navmap-tag {
   background-color: rgb(163, 34, 34);
   border-color: rgb(163, 34, 34);
 }
+
 .navmap-tag.class-type-tag::after {
   content: "Ct";
 }
@@ -277,26 +289,43 @@ span.no-expand > .navmap-tag {
   margin-left: 12px;
 }
 
-span.icon-expand.open > .navmap-tag {
-  color:white;
+span.icon-expand>.navmap-tag,
+span.no-expand>.navmap-tag {
+  color: white;
 }
 
-span.icon-expand::before {
-  font-weight: bold;
-  content: " \25B8";
-  text-align: center;
-  box-sizing: border-box;
-  display:flex;
+div.nav-expand::before {
+  content: "";
+  display: flex;
   align-items: center;
-  padding-right:4px;
-}
-
-span.icon-expand.open::before {
-  content: " \25BE";
+  background-color: #cc4e0c;
+  height: 22px;
+  width: 2px;
+  position: absolute;
+  margin: 3px 0 3px;
+  margin-left: -0.65rem;
 }
 
 .xref-unresolved {
   text-decoration: underline;
   font-weight: 700;
   color: gray;
+}
+
+span.arrow-expand.open {
+  color: #cc4e0c;
+  transform: rotate(180deg);
+}
+
+span.sign-expand::before {
+  content: " \002B";
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  margin-top: -0.25rem;
+}
+
+span.sign-expand.open::before {
+  content: " \2212";
+  color: #cc4e0c;
 }
