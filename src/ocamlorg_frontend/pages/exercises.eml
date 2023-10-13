@@ -23,7 +23,7 @@ link_html
         <%s title %>
         <%s! Icons.chevron_down "h-6 w-6" %>
       </summary>
-      <span class="ml-4 border-l"><%s! link_html %></span>
+      <span class="border-l"><%s! link_html %></span>
     </details>
 
 let exercises_sidebar
