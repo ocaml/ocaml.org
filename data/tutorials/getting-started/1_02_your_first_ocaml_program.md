@@ -361,14 +361,10 @@ My name is Minimo
 This tutorial is the last of the "Getting Started" series. Moving forward, you have enough to pick and choose among the other tutorials to follow your own learning path.
 
 Recommended next tutorials:
-1. [Data Types and Matching](docs/data-types)
-1. [If Statements, Loops, and Recursions](docs/if-statements-and-loops)
-1. [Lists](docs/lists)
+1. [Data Types and Matching](/docs/data-types)
+1. [If Statements, Loops, and Recursions](/docs/if-statements-and-loops)
+1. [Lists](/docs/lists)
 
 <!--
 TODO: link Project Quickstart If you're already familiar with lists, maps, and folds, and need to be productive as fast as possible, dive into the “Project Quickstart” guide.
 -->
-
-
-
-
