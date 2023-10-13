@@ -11,15 +11,15 @@ category: "Getting Started"
 
 This guide will walk you through a minimum installation of OCaml. That includes installing a package manager and [the compiler](#installation-on-unix) itself. We'll also install some platform tools like a build system, support for your editor, and a few other important ones.
 
-On this page, you'll find installation instructions for Linux, macOS, and &ast;BSD for recent OCaml versions. For Docker, Linux instructions applies, except when setting up opam. For Windows, we recommend using WSL but also provide instructions for installing OCaml 4.14.0 via the [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) Installer. If you are setting up OCaml on Windows and are unsure which installation method to use, you might be interested in reading [OCaml on Windows](/docs/ocaml-on-windows) first.
+On this page, you'll find installation instructions for Linux, macOS, and &ast;BSD for recent OCaml versions. For Docker, Linux instructions apply, except when setting up opam. For Windows, we recommend using WSL but also provide instructions for installing OCaml 4.14.0 via the [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) Installer. If you are setting up OCaml on Windows and are unsure which installation method to use, you might be interested in reading [OCaml on Windows](/docs/ocaml-on-windows) first.
 
 > **Note**: You'll be installing OCaml and its tools through a [command line interface (CLI), or shell](https://www.youtube.com/watch?v=0PxTAn4g20U)
 
 ## Installation on Unix and macOS
 
-OCaml has an official package manager, [opam](https://opam.ocaml.org/), which allows to download and install OCaml tools and libraries. Opam also makes it practical to deal with different projects which require different versions of OCaml.
+OCaml has an official package manager, [opam](https://opam.ocaml.org/), which allows users to download and install OCaml tools and libraries. Opam also makes it practical to deal with different projects which require different versions of OCaml.
 
-Opam also allows to install the OCaml compiler. Alternatives exist, but opam is the best way to install OCaml. Although OCaml is available as a package in most Linux distributions, it is often outdated. 
+Opam also installs the OCaml compiler. Alternatives exist, but opam is the best way to install OCaml. Although OCaml is available as a package in most Linux distributions, it is often outdated. 
 
 ### 1. Install opam
 
@@ -50,7 +50,7 @@ If you are installing in Debian or Ubuntu:
 $ apt install opam
 ```
 
-If you are installing in Archlinux:
+If you are installing in Arch Linux:
 ```shell
 $ pacman -S opam
 ```
@@ -79,7 +79,7 @@ Make sure you follow the instructions provided at the end of the output of `opam
 $ eval $(opam env)
 ```
 
-opam is now installed and configured! You can now move to [installing the OCaml Platform development tools](#Install-Platform-Tools) in the section below.
+Opam is now installed and configured! You can now move to [installing the OCaml Platform development tools](#Install-Platform-Tools) in the section below.
 
 > **Note**: opam can manage something called _switches_. This is key when switching between several OCaml projects. However, in this “getting started” series of tutorials, switches are not needed. If interested, you can read an introduction to [opam switches here](/docs/opam-switch-introduction).
 
@@ -180,4 +180,4 @@ You're now in an OCaml toplevel, and you can start typing OCaml expressions. For
 
 ## Join the Community
 
-Make sure you [join the OCaml community](/community). For instance, you'll find many community members on [Discuss](https://discuss.ocaml.org/) or [Discord](https://discord.com/invite/cCYQbqN). These are great places to ask for help if you have any issue.
+Make sure you [join the OCaml community](/community). You'll find many community members on [Discuss](https://discuss.ocaml.org/) or [Discord](https://discord.com/invite/cCYQbqN). These are great places to ask for help if you have any issues.
