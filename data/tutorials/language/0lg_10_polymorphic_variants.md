@@ -295,15 +295,15 @@ This is not a dynamic type check. The `#exotic` pattern acts like a macro, it is
 ### Inferred Type Aliases
 
 ```ocaml
-# function `Tomato -> `Cilantro | plant -> plant;;
-- : ([> `Cilantro | `Tomato ] as 'a) -> 'a = <fun>
+# function `Avocado -> `Cilantro | plant -> plant;;
+- : ([> `Cilantro | `Avocado ] as 'a) -> 'a = <fun>
 ```
 
 The meaning of the type of this function is twofold.
-1. Any exact variant type which is a super set of ``[> `Cilantro | `Tomato ]`` is a domain
+1. Any exact variant type which is a super set of ``[> `Cilantro | `Avocado ]`` is a domain
 2. The very same type is also a codomain
 
-The meaning of `'a` is not exactly the same a with simple variants. It is not a placeholder meant to be replaced by another type. The `as 'a` part in the type expression ``[> `Cilantro | `Tomato ] as 'a`` means ``[> `Cilantro | `Tomato ]`` is assigned the local name `'a` in the overall expression. It allows the same exact variant type will be used as both domain and codomain. This is a consequence of the `plant -> plant` clause that forces domain and codomain types to be the same.
+The meaning of `'a` is not exactly the same a with simple variants. It is not a placeholder meant to be replaced by another type. The `as 'a` part in the type expression ``[> `Cilantro | `Avocado ] as 'a`` means ``[> `Cilantro | `Avocado ]`` is assigned the local name `'a` in the overall expression. It allows the same exact variant type will be used as both domain and codomain. This is a consequence of the `plant -> plant` clause that forces domain and codomain types to be the same.
 
 ### Parametrized Polymorphic Variants
 
@@ -456,27 +456,22 @@ Not having to explicitly declare polymorphic variant types is beneficial in seve
 - When few functions are using the type
 - When many types would have to be declared
 
-When reading a pattern-matching expression using a polymorphic variant tags, understanding is local. There is no need to search for the meaning of the tags somewhere else. The meaning arises from the expression itself.
+When reading a pattern-matching expression using a polymorphic variant tags, understanding is local. Since polymorphic variant types are anonymous or aliases, there is no need to search for the meaning of the tags somewhere else. The meaning arises from the expression itself.
 
 ### Shared Constructors
 
-When several simple variants are using the same constructor name, shadowing takes place. Only the last entered in the environment is accessible, previously entered one are shadowed. This can be worked around using modules.
+When several simple variants are using the same constructor name, shadowing takes place. Only the last entered in the environment is accessible, previously entered one are not longer reachable. This can be worked around using modules.
 
 This never happens with polymorphic variants. When a tag appears several times in an expression, it must be with the same type, that's the only restriction. This makes polymorphic variants very handy when dealing with multiple sum types and constructors with same types occurring in several variants.
 
 ### Data Type Sharing Between Modules
 
 Using the same type in two different module can be done in several ways:
-- Have dependency, either direct or shared
-- Turn the modules into functors and inject the shared type as a parameter
+- Having a dependency, either direct or shared
+- Turn the dependent module into a functor and inject the dependence as a parameter
 
-Polymorphic variant provides an additional alternative.
-
-> You just define the same type in both libraries, and since these are only type
-abbreviations, the two definitions are compatible. The type system checks the
-structural equality when you pass a value from one library to the other.
-
-Jacques Garrigue
+Polymorphic variant provides an additional alternative. This was proposed by Jacques Garrigue his seminal paper “Programming with Polymorphic Variants” (ACM SIGPLAN Workshop on ML, October 1998):
+> You [...] define the same [polymorphic variant] type in both [modules], and since these are only type abbreviations, the two definitions are compatible. The type system checks the structural equality when you pass a value from one [module] to the other.
 
 ### Error Handling Using The `result` Type
 
@@ -608,14 +603,15 @@ val extended_color_to_int :
 
 The function `color_to_int` can convert `` `RGB`` or `` `Gray`` values. The function `extended_color_to_int` is intended to convert `` `RGB``, `` `Gray`` or `` `RGBA`` values; but it is supposed to apply a different conversion formula for gray scales. However, a typo was made, it is spelled `` `Gray``. Type checking accepts this definition of `extended_color_to_int` as function accepting four tags.
 
-### Lack of Explicit Row Variables
+### Over Approximating Type
 
+The following function was presented in the [Inferred Type Aliases](#Inferred-Type-Aliases) section.
 ```ocaml
-# let f = function `Bla -> `Bli | x -> x;;
-val f : ([> `Bla | `Bli ] as 'a) -> 'a = <fun>
+# function `Avocado -> `Cilantro | plant -> plant;;
+- : ([> `Cilantro | `Avocado ] as 'a) -> 'a = <fun>
 ```
 
-Because of the `x -> x` pattern the types inferred as domain and codomain are the same, this is expressed by the aliasing `as 'a`. As `` `Bla`` must be part of the domain and `` `Bli`` must be part of the codomain, they both end up being part of the common type. A finer type-checker would infer more precise types. Type-checking is an approximation and a trade-off, some valid program are rejected, some types are too coarse.
+Because of the `plant -> plant` pattern clause the types inferred as domain and codomain are the same. As `` `Avocado`` is accepted, it must be part of the domain; and as`` `Cilantro`` is returned, it must be part of the codomain. Both end up being part of the common type. However, `` `Avocado`` should not be part of the codomain, as this function can't possibly return such a value. A finer type-checker would infer more precise types. Type-checking is an approximation and a trade-off, some valid program are rejected, some types are too coarse.
 
 ### Performances
 
