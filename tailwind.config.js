@@ -68,8 +68,6 @@ module.exports = {
           comment: "rgba(255, 255, 255, 0.6)",
           red: "rgba(252, 129, 129, 1)",
           background: "rgba(30, 30, 30, 1)",
-          green:"#1E804B"
-          
         },
         sucess: {
           100: "rgba(142, 233, 60, 0.1)",
