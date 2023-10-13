@@ -3,7 +3,7 @@ id: operators
 title: Operators
 description: |
   Binary and prefix operators, how to use and define them, how they are parsed and evaluated.
-category: "Getting Started"
+category: "Language"
 ---
 
 # Operators
@@ -174,10 +174,6 @@ The complete list of precedence is longer because it includes the predefined ope
 
 ## Binding Operators
 
-<<<<<<< HEAD
-OCaml allows the creation of custom `let` operators. This is often used on functions such as `Option.bind`
- or `List.concat_map`. In the following example, we use that mechanism to write a function that produces the list of Friday 13th dates over two years.
-=======
 OCaml allows creation of custom `let` operators. This is often used on functions such as `Option.bind`
  or `List.concat_map`.
 
@@ -212,7 +208,6 @@ The rest of the function applies if relevant delimiting characters have been fou
 
  <!-- TODO: move this into the list tutorial
  In the following example, we use that mechanism to write a function which produces the list of Friday 13th dates between two years.
->>>>>>> cd8447f7 (Change custom let example)
 
 ```ocaml
 # let ( let* ) u f = List.concat_map f u;;
