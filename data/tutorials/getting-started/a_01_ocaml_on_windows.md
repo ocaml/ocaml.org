@@ -3,7 +3,7 @@ id: ocaml-on-windows
 title: OCaml on Windows
 description: >
   Read about the state of OCaml on Windows and our roadmap to improve Windows support.
-category: "Getting Started"
+category: "Setup"
 ---
 
 # OCaml on Windows

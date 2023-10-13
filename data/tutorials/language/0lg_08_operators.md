@@ -174,8 +174,7 @@ The complete list of precedence is longer because it includes the predefined ope
 
 ## Binding Operators
 
-OCaml allows creation of custom `let` operators. This is often used on functions such as `Option.bind`
- or `List.concat_map`.
+OCaml allows the creation of custom `let` operators. This is often used on functions such as `Option.bind` or `List.concat_map`.
 
 The `doi_parts` function attempts to extract the registrant and identifier parts from string expected to contain a [Digital Object Identifier (DOI)](https://en.wikipedia.org/wiki/Digital_object_identifier).
 ```ocaml
@@ -241,9 +240,5 @@ Calling `range lo hi` returns a increasing list of consecutive integers between 
 
 The function `day_of_week` calculates the day of the week for a given date. Generative large language model chatbots such as ChatGPT do a very good job at explaining such a function. Have a look at the result of a prompt such as “Explain how this code works” followed by the code, if you want to learn more about this function.
 
-<<<<<<< HEAD
 The `friday13` function uses an algorithm with two nested loops. Each `let*` acts almost like a `for` loop with a counter, a starting value, and an ending value. Each inner loop iteration produces a list. The global result is the concatenation and the flattening of those lists into a single one.
-=======
-The `friday13` function use an algorithm with two nested loops. Each `let*` acts almost like a for loop with a counter, a starting value and an ending value. Each inner loop iteration produces a list. The global result is the concatenation and the flattening of those lists into a single one.
 -->
->>>>>>> cd8447f7 (Change custom let example)

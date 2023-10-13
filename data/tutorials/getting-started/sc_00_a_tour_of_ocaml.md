@@ -3,20 +3,18 @@ id: a-tour-of-ocaml
 title: A Tour of OCaml
 description: >
   Hop on the OCaml sightseeing bus. This absolute beginner tutorial will drive you through the marvels and wonders of OCaml. We'll have a look at the most commonly used language features.
-category: "Getting Started"
+category: "Start Coding"
 ---
 
 # A Tour of OCaml
 
-Let's walk through the basics of OCaml by trying out different elements in an interactive manner. We recommend that you execute the examples we provide, or slight variants of them, in your own environment to get a feel for coding in OCaml.
-
-## Prerequisites and Goals
-
 Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [How to Write an OCaml Program](/docs/how-to-write-an-ocaml-program) tutorial.
 
-To participate in this level zero tutorial, you need to have OCaml installed. No OCaml or functional programming knowledge is required; however, it is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
+You need to have OCaml installed. No OCaml or functional programming knowledge is required; however, it is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
 
 This document will cover how to use the REPL UTop to evaluate OCaml expressions interactively, understand the output, how to use pattern matching, call functions from OCaml standard library modules, and more. It also introduces you to lists, values, functions, integers, floats, references, and arrays.
+
+Let's walk through the basics of OCaml by trying out different elements in an interactive manner. We recommend that you execute the examples we provide, or slight variants of them, in your own environment to get a feel for coding in OCaml.
 
 <!--
 The goal of this tutorial is to provide the following capabilities:
@@ -771,15 +769,16 @@ Module also allows efficient separated compilation. This is illustrated in the n
 
 ## Conclusion
 
-OCaml has many features, and these may be the most important ones:
-
-1. Values and Definitions
-1. Type-Inference
+<!-- 
+1. Values and Functions
 1. Functions
-1. Variant Types and Pattern Matching
-1. Lists
+1. Type-Inference
+-->
 
-To become a proficient OCaml developer, make sure to master them.
+In this tutorial, OCaml was used interactively. The next tutorial, [How to Write an OCaml Program](/docs/how-to-write-an-ocaml-program), shows you how to write OCaml files, how to compile them, and how to kickstart a project.
 
-In this tutorial, OCaml was used interactively. The next tutorial, [How to Write an OCaml Project](/docs/how-to-write-an-ocaml-project), shows you how to write OCaml files, how to compile them, and how to kickstart a project.
+Other recommended tutorials:
 
+1. [Data Types and Matching](docs/data-types)
+1. [If Statements, Loops, and Recursions](docs/if-statements-and-loops)
+1. [Lists](docs/lists)

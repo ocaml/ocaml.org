@@ -3,7 +3,7 @@ id: opam-switch-introduction
 title: Introduction to opam Switches
 description: |
   This page will give you a brief introduction to opam switches, what they're used for, and how to create them.
-category: "Getting Started"
+category: "Setup"
 ---
 
 # Introduction to opam Switches
@@ -80,6 +80,6 @@ Most package-related commands in opam operate within the context of a selected s
 
 ---
 
->Learn more details and uses of opam switches in the [opam manual's File Hierarchies page](https://opam.ocaml.org/doc/Manual.html) and its [page dedicated to switches](https://opam.ocaml.org/doc/man/opam-switch.html). 
+> Learn more details and uses of opam switches in the [opam manual's File Hierarchies page](https://opam.ocaml.org/doc/Manual.html) and its [page dedicated to switches](https://opam.ocaml.org/doc/man/opam-switch.html). 
 
 

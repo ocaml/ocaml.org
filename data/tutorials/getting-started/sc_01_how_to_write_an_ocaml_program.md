@@ -3,18 +3,18 @@ id: how-to-write-an-ocaml-program
 title: How to Write an OCaml Program
 description: >
   Get something real out of the damn French thing!
-category: "Getting Started"
+category: "Start Coding"
 ---
 
 # How to Write an OCaml Program
 
-In this tutorial, we start working with files containing OCaml source code and compiling them to produce executable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture before extensively presenting topics in order to avoid getting lost in the details.
+To complete this tutorial, you need to have [installed OCaml](/install).
 
-In other words, we do breadth-first learning instead of depth-first learning. In the previous tutorial most commands were entered in UTop. In this tutorial, the majority of commands should be entered into a terminal. Code examples starting with a dollar sign `$` are intended to be entered in the terminal, while lines starting with a hash sign `#` are intended to be entered in UTop.
+We will work with files containing OCaml source code and compile them to produce executable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture in order to avoid getting lost in the details. In other words, we do breadth-first learning instead of depth-first learning.
+
+In the previous tutorial most commands were entered in UTop. In this tutorial, the majority of commands should be entered into a terminal. Code examples starting with a dollar sign `$` are intended to be entered in the terminal, while lines starting with a hash sign `#` are intended to be entered in UTop.
 
 Once you've completed this tutorial, you should be able to create, compile, and execute an OCaml project using Dune, OCaml's build system. You will be able to work with files, make private definitions within modules, and know how to install and use opam packages.
-
-This tutorial is the last part of a two-part series. Please ensure you have completed [A Tour of OCaml](/docs/a-tour-of-ocaml) before proceeding onto your first OCaml project. You will also need to have [installed OCaml](/install).
 
 <!--
 Once you've completed this tutorial, you should be able to:
@@ -358,11 +358,16 @@ My name is Minimo
 
 ## Conclusion
 
-This tutorial was the last of the introduction series. Starting from here, you have enough to pick and choose among the other tutorials to follow your own learning path.
+This tutorial is the last of the "Getting Started" series. Moving forward, you have enough to pick and choose among the other tutorials to follow your own learning path.
 
-If you're not yet familiar with functional programming, we recommend you start with the [Lists](/docs/lists) tutorial. Lists are such an important data structure in functional programming that they deserve to be among the first topics you master.
+Recommended next tutorials:
+1. [Data Types and Matching](docs/data-types)
+1. [If Statements, Loops, and Recursions](docs/if-statements-and-loops)
+1. [Lists](docs/lists)
 
-If you're already familiar with lists, maps, and folds, and need to be productive as fast as possible, dive into the “Project Quickstart” guide.
+<!--
+TODO: link Project Quickstart If you're already familiar with lists, maps, and folds, and need to be productive as fast as possible, dive into the “Project Quickstart” guide.
+-->
 
 
 

@@ -3,7 +3,7 @@ id: arm64-fix
 title: Resolve Homebrew Install Errors on ARM64 M1
 description: |
   This page will walk you through the workaround for ARM64 processors on newer Macs.
-category: "Troubleshooting"
+category: "Setup"
 ---
 
 # Resolve Homebrew Install Errors on ARM64 M1
