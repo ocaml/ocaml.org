@@ -8,7 +8,7 @@ category: "Best Practices"
 
 # Bootstrapping a Project with Dune
 
-[Dune](https://dune.readthedocs.io/en/stable/overview.html) is recommended for bootstrapping projects using `dune init`. If `opam` or `dune` are not installed, please see [Up and Running with OCaml](/docs/up-and-running).
+[Dune](https://dune.readthedocs.io/en/stable/overview.html) is recommended for bootstrapping projects using `dune init`. If `opam` or `dune` are not installed, please see [the OCaml install page](/install).
 
 > dune init --help
 >
