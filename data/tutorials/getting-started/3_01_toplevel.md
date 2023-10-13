@@ -8,7 +8,9 @@ category: "Tooling"
 
 # Using an OCaml Toplevel
 
-An OCaml toplevel is a chat between the user and OCaml. The user writes OCaml code, and UTop evaluates it. This is why it is also called a Read-Eval-Print-Loop (REPL). Several OCaml toplevels exist, like `ocaml` and `utop`, but in this tutorial, we will use the `utop` command, which looks like this:
+An OCaml toplevel is a chat between the user and OCaml. The user writes OCaml code, and UTop evaluates it. This is why it is also called a Read-Eval-Print-Loop (REPL). Several OCaml toplevels exist, like `ocaml` and `utop`. We recommend using UTop, which is part of the [OCaml Platform](/docs/platform) toolchain. 
+
+To run UTop, we use the `utop` command, which looks like this:
 ```shell
 $ utop
 ────────┬─────────────────────────────────────────────────────────────┬─────────
@@ -37,4 +39,4 @@ If you need to amend the code before hitting `Enter`, you can use your keyboard'
 
 Commands beginning with a hash character `#`, such as `#quit` or `#help`, are not evaluated by OCaml; they are interpreted as commands by UTop.
 
-You're now ready to hack with UTop and follow through this Tour of OCaml. If you hit any issue with the toplevel, don't hesitate to [ask on Discuss](https://discuss.ocaml.org/).
+You're now ready to hack with UTop! If you hit any issue with the toplevel, don't hesitate to [ask on Discuss](https://discuss.ocaml.org/).
