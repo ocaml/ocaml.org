@@ -363,6 +363,9 @@ val f : [< `Night of string & int | `Day ] -> bool = <fun>
 FIXME: This is lame. It says no `` `Night`` can't be applied to `f`. There is no way to find a value that is both a `string` and an `int`
 
 TODO: Find a “positive” example and maybe move the manuals one in the drawbacks
+```ocaml
+type 'a closed_poly_variant = [< `One | `Two ] as 'a;;
+```
 
 ## Advanced: Combining Polymorphic Variants and Simple Variants
 
@@ -532,12 +535,6 @@ And an equivalent version using polymorphic variants works:
 ```
 Using polymorphic variant, the type-checker generates a unique type for all the pipe. The constraints coming from calling `init` are merged into a single type.
 
-## When to Use Polymorphic Variant
-
-TODO: rewrite this, move it somewhere else
-
-The YAGNI (You Aren't Gonna Need It) principle can be applied to polymorphic variants. Unless the code is arguably improved by having several pattern matching over different types sharing the same tag, polymorphic variants are probably not needed.
-
 ## Drawbacks
 
 ### Hard to Read Type Expressions
@@ -573,13 +570,43 @@ Error: This expression has type [> `Fruit of string ]
 
 Function `f` accepts tags `` `Broccoli`` and `` `Fruit`` whilst `g` accepts `` `Broccoli`` and `` `Edible``. But if `f` and `g` are stored in a list, they must have the same type. That forces their domain to be restricted to a common subtype. Although `f` is able to handle the tag `` `Fruit``, type checking no longer accepts that application when `f` is extracted from the list.
 
-### Empty Tags
-
-TODO: import from conjunction types
-
 ### Weaken Type-Checking and Harder Debugging
 
-See RWO color example and `` `Gray` vs `` `Grey` issue.
+This is adapted from the section [Example: Terminal Colors Redux](https://dev.realworldocaml.org/variants.html#scrollNav-4-2) from the “Real World OCaml” book written by Yaron Minsky and Anil Madhavapeddy.
+
+Tags are used to store color representations:
+* `` `RGB`` contains a [red, green and blue](https://en.wikipedia.org/wiki/RGB_color_model) triplet
+* `` `Gray`` contains a [grayscale](https://en.wikipedia.org/wiki/Grayscale) value
+* `` `RGBA`` contains a [red, green, blue, alpha](https://en.wikipedia.org/wiki/RGBA_color_model) quadruplet
+
+The polymorphic variant type `color` groups the targs `` `RGB`` and `` `Gray`` whilst the type `extended_color` has the three tags by extending `color` with `` `RGBA``. Functions are defined to convert colors into integers.
+```ocaml
+# type color = [ `Gray of int | `RGB of int * int * int ];;
+type color = [ `Gray of int | `RGB of int * int * int ]
+
+# type extended_color = [ color | `RGBA of int * int * int * int ];;
+type extended_color =
+    [ `Gray of int | `RGB of int * int * int | `RGBA of int * int * int * int ]
+
+# let color_to_int = function
+  | `RGB (r, g, b) -> 36 * r + 6 * g + b + 16
+  | `Gray i -> i + 232;;
+val color_to_int : [< `Gray of int | `RGB of int * int * int ] -> int = <fun>
+
+# let extended_color_to_int = function
+  | `RGBA (r, g, b, a) -> 216 * r + 36 * g + 6 * b + a + 16
+  | `Grey i -> i + 2000
+  | #color as color -> color_to_int color;;
+val extended_color_to_int :
+  [< `Gray of int
+   | `Grey of int
+   | `RGB of int * int * int
+   | `RGBA of int * int * int * int ] ->
+  int = <fun>
+
+```
+
+The function `color_to_int` can convert `` `RGB`` or `` `Gray`` values. The function `extended_color_to_int` is intended to convert `` `RGB``, `` `Gray`` or `` `RGBA`` values; but it is supposed to apply a different conversion formula for gray scales. However, a typo was made, it is spelled `` `Gray``. Type checking accepts this definition of `extended_color_to_int` as function accepting four tags.
 
 ### Lack of Explicit Row Variables
 
@@ -595,6 +622,12 @@ Because of the `x -> x` pattern the types inferred as domain and codomain are th
 > There is one more downside: the runtime cost. A value Pair (x,y) occupies 3 words in memory, while a value `Pair (x,y) occupies 6 words.
 
 Guillaume Melquiond
+
+## When to Use Polymorphic Variant
+
+Polymorphic variants 
+
+The YAGNI (You Aren't Gonna Need It) principle can be applied to polymorphic variants. Unless the code is arguably improved by having several pattern matching over different types sharing the same tag, polymorphic variants are probably not needed.
 
 ## Conclusion
 
