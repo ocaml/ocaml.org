@@ -8,7 +8,7 @@ category: "First Steps"
 
 # A Tour of OCaml
 
-Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [How to Write an OCaml Program](/docs/your-first-ocaml-program) tutorial.
+Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [Your First OCaml Program](/docs/your-first-ocaml-program) tutorial.
 
 You need to have OCaml installed. No OCaml or functional programming knowledge is required; however, it is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
 
@@ -744,7 +744,7 @@ Module also allows efficient separated compilation. This is illustrated in the n
 1. Type-Inference
 -->
 
-In this tutorial, OCaml was used interactively. The next tutorial, [How to Write an OCaml Program](/docs/your-first-ocaml-program), shows you how to write OCaml files, how to compile them, and how to kickstart a project.
+In this tutorial, OCaml was used interactively. The next tutorial, [Your First OCaml Program](/docs/your-first-ocaml-program), shows you how to write OCaml files, how to compile them, and how to kickstart a project.
 
 Other recommended tutorials:
 
