@@ -2,19 +2,19 @@
 id: opam-switch-introduction
 title: Introduction to opam Switches
 description: |
-  This page will give you a brief introduction to opam switches, what they're used for, and how to creat them.
+  This page will give you a brief introduction to opam switches, what they're used for, and how to create them.
 category: "Getting Started"
 ---
 
 # Introduction to opam Switches
 
-OCaml's package manager, opam, introduces the concept of an _switch_, which is an isolated OCaml environment. These switches often cause confusion amongst OCaml newcomers, so this document aims to provide a better understanding of opam switches and their usage for managing dependencies and project-specific configurations. 
+OCaml's package manager, opam, introduces the concept of a _switch_, which is an isolated OCaml environment. These switches often cause confusion amongst OCaml newcomers, so this document aims to provide a better understanding of opam switches and their usage for managing dependencies and project-specific configurations. 
 
 Opam is designed to manage multiple concurrent installation prefixes called "switches." Similar to Python's `virtualenv`, an opam switch is a tool that creates isolated environments. They are independent of each other and have their own set of installed packages, repositories, and configuration options. Switches also have their own OCaml compiler, libraries, and binaries. This enables you to have multiple compiler versions available at once.
 
 ### Listing Switches
 
-This command will display opam switch which are configured on your system. After completing installation of OCaml such as outlined in [Installing OCaml](/docs/installing-ocaml), a single switch called `default` will have been created. At that point, listing the switches will only show that switch.
+The command below will display the opam switches that are configured on your system. After completing installation of OCaml, such as outlined in [Installing OCaml](/docs/installing-ocaml), a single switch called `default` will have been created. At that point, listing the switches will only show that switch.
 ```shell
 $ opam switch list
 #   switch   compiler      description
@@ -80,6 +80,6 @@ Most package-related commands in opam operate within the context of a selected s
 
 ---
 
->Learn more details and uses of opam switches in the [opam manual's File Heirarchies page](https://opam.ocaml.org/doc/Manual.html) and its [page dedicated to switches](https://opam.ocaml.org/doc/man/opam-switch.html). 
+>Learn more details and uses of opam switches in the [opam manual's File Hierarchies page](https://opam.ocaml.org/doc/Manual.html) and its [page dedicated to switches](https://opam.ocaml.org/doc/man/opam-switch.html). 
 
 
