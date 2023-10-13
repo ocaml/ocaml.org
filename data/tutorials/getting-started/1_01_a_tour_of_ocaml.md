@@ -3,7 +3,7 @@ id: a-tour-of-ocaml
 title: A Tour of OCaml
 description: >
   Hop on the OCaml sightseeing bus. This absolute beginner tutorial will drive you through the marvels and wonders of OCaml. We'll have a look at the most commonly used language features.
-category: "Your First Steps"
+category: "First Steps"
 ---
 
 # A Tour of OCaml
@@ -36,7 +36,7 @@ The goal of this tutorial is to provide the following capabilities:
 
 ## Expressions and Definitions
 
-Here is another expression:
+Let's start with a simple expression:
 ```ocaml
 # 50 * 50;;
 - : int = 2500
