@@ -26,10 +26,7 @@ let render ~default_code =
       data-merlin-url="<%s Ocamlorg_static.Playground.url "merlin.min.js" %>"
       data-worker-url="<%s Ocamlorg_static.Playground.url "worker.min.js" %>"
       data-default-code="<%s default_code %>"
-      src="<%s Ocamlorg_static.Playground.url "playground.min.js" %>" defer>
-      </script>
-     
-      
+      src="<%s Ocamlorg_static.Playground.url "playground.min.js" %>" defer></script>
     <style>
 * {
   scrollbar-width: auto;
