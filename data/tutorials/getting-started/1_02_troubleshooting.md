@@ -8,7 +8,7 @@ category: "Setup"
 
 # Installation Troubleshooting
 
-This page contains instruction to troubleshoot common problems you might stumble accross while installing OCaml.
+This page contains instructions to troubleshoot common problems you might stumble across while installing OCaml.
 
 ## Homebrew Errors on Apple M1
 
