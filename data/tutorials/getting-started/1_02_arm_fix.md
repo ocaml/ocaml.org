@@ -1,14 +1,14 @@
 ---
 id: arm64-fix
-title: Resolve Homebrew Install Errors on ARM64 M1
+title: Fix Homebrew Errors on Apple M1
 description: |
   This page will walk you through the workaround for ARM64 processors on newer Macs.
 category: "Setup"
 ---
 
-# Resolve Homebrew Install Errors on ARM64 M1
+# Fix Homebrew Errors on Apple M1
 
-Since [Homebrew has changed](https://github.com/Homebrew/brew/issues/9177) the way it installs, sometimes the executable files cannot be found in ARM64. This might cause errors as you work through these tutorials. We want Homebrew to install ARM64 by default, so there are a few changes we need to make in order to do this.
+Since [Homebrew has changed](https://github.com/Homebrew/brew/issues/9177) the way it installs, sometimes the executable files cannot be found on macOS ARM64 M1. This might cause errors as you work through these tutorials. We want Homebrew to install ARM64 by default, so there are a few changes we need to make in order to do this.
 
 Before we get started, let's check where Homebrew is installed. We can do this by running this in the CLI:
 
