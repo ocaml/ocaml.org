@@ -1,5 +1,5 @@
 ---
-id: your-first-ocaml-program
+id: your-first-program
 title: Your First OCaml Program
 description: >
   Learn how to write your very first OCaml program.
@@ -45,7 +45,7 @@ We start by setting up a traditional “Hello World!” project using Dune. Make
 
 ```shell
 $ dune init proj hello
-Entering directory '/home/cuihtlauac/caml/ocaml.org/hello'
+Entering directory '/home/ocaml.org/hello'
 Success: initialized project component named hello
 ```
 
@@ -86,13 +86,13 @@ Each folder containing source files that need to be built must contain a `dune` 
 This builds the project:
 ```shell
 $ dune build
-Entering directory '/home/cuihtlauac/caml/ocaml.org'
+Entering directory '/home/ocaml.org'
 ```
 
 This launches the executable it creates:
 ```shell
 $ dune exec hello
-Entering directory '/home/cuihtlauac/caml/ocaml.org'
+Entering directory '/home/ocaml.org'
 Hello, World!
 ```
 
@@ -141,7 +141,7 @@ Here is a new version of the `bin/main.ml` file:
 Now execute the resulting project:
  ```shell
  $ dune exec hello
-Entering directory '/home/cuihtlauac/caml/ocaml.org'
+Entering directory '/home/ocaml.org'
 Hello from a module
 ```
 
@@ -186,7 +186,7 @@ let () = Printf.printf "%s\n" Hello.mundo
 Trying to compile this fails.
 ```shell
 $ dune build
-Entering directory '/home/cuihtlauac/caml/ocaml.org'
+Entering directory '/home/ocaml.org'
 File "hello/bin/main.ml", line 1, characters 30-41:
 1 | let () = Printf.printf "%s\n" Hello.mundo
                                   ^^^^^^^^^^^
@@ -300,7 +300,7 @@ let () = print_endline Hello.(string_of_string_list world)
 Here is the result:
 ```shell
 dune exec hello
-Entering directory '/home/cuihtlauac/caml/ocaml.org'
+Entering directory '/home/ocaml.org'
 Done: 90% (19/21, 2 left) (jobs: 1)["Hello"; "using"; "an"; "opam"; "library"]
 ```
 
@@ -350,7 +350,7 @@ let () = print_endline "My name is Minimo"
 That's all! This is sufficient for Dune to build and execute the `minimo.ml` file.
 ```shell
 $ dune exec ./minimo.exe
-Entering directory '/home/cuihtlauac/caml/ocaml.org'
+Entering directory '/home/ocaml.org'
 My name is Minimo
 ```
 
@@ -361,14 +361,10 @@ My name is Minimo
 This tutorial is the last of the "Getting Started" series. Moving forward, you have enough to pick and choose among the other tutorials to follow your own learning path.
 
 Recommended next tutorials:
-1. [Data Types and Matching](docs/data-types)
-1. [If Statements, Loops, and Recursions](docs/if-statements-and-loops)
-1. [Lists](docs/lists)
+1. [Data Types and Matching](/docs/data-types)
+1. [If Statements, Loops, and Recursions](/docs/if-statements-and-loops)
+1. [Lists](/docs/lists)
 
 <!--
 TODO: link Project Quickstart If you're already familiar with lists, maps, and folds, and need to be productive as fast as possible, dive into the “Project Quickstart” guide.
 -->
-
-
-
-

@@ -21,7 +21,7 @@ It addresses, in turn:
    details of compiler command invocation, so we never touch `ocamlc`,
    `ocamlopt`, or even `ocamlfind`.
 
-In ["How to Write an OCaml Program"](/docs/how-to-write-an-ocaml-program) we jumped straight to using
+In ["Your First OCaml Program"](/docs/your-first-program) we jumped straight to using
 the automated build system `dune`. Now we shall look under the hood.
 
 ## Compilation Basics

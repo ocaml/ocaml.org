@@ -48,7 +48,7 @@ Layout.render
                 Other installation methods
                 <%s! Icons.chevron_right "h-4 w-4" %>
               </summary>
-              You can also <a href="<%s Url.tutorial "a-tour-of-ocaml" %>#1-install-opam">install opam using your operating system's package manager</a>
+              You can also <a href="<%s Url.tutorial "tour-of-ocaml" %>#1-install-opam">install opam using your operating system's package manager</a>
               - however, you may get an older version of opam that does not support the most recent OCaml compiler version.
 
               If you need the most recent version,
@@ -62,7 +62,7 @@ Layout.render
 
             <p>
               Opam needs to be initialised, which will create a default
-              <a href="<%s Url.tutorial "a-tour-of-ocaml" %>#3-create-an-opam-switch">opam switch</a>.
+              <a href="<%s Url.tutorial "tour-of-ocaml" %>#3-create-an-opam-switch">opam switch</a>.
               An opam switch is an isolated environment for the OCaml compiler
               and any packages you install.
             </p>
@@ -102,7 +102,7 @@ Layout.render
 
           <p>Now you are ready to write some OCaml code!</p>
         </div>
-        <a class="btn mt-6 gap-2" href="<%s Url.tutorial "a-tour-of-ocaml" %>">Take A Tour of OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
+        <a class="btn mt-6 gap-2" href="<%s Url.tutorial "tour-of-ocaml" %>">Take A Tour of OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
       </div>
     </div>
 
@@ -146,7 +146,7 @@ Layout.render
 
         <p>Now you are ready to write some OCaml code!</p>
       </div>
-      <a class="btn mt-6 gap-2" href="<%s Url.tutorial "a-tour-of-ocaml" %>">Take a Tour of OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
+      <a class="btn mt-6 gap-2" href="<%s Url.tutorial "tour-of-ocaml" %>">Take a Tour of OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
     </div>
   </div>
 </div>

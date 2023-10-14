@@ -1,5 +1,5 @@
 ---
-id: a-tour-of-ocaml
+id: tour-of-ocaml
 title: A Tour of OCaml
 description: >
   Hop on the OCaml sightseeing bus. This absolute beginner tutorial will drive you through the marvels and wonders of OCaml. We'll have a look at the most commonly used language features.
@@ -8,7 +8,7 @@ category: "First Steps"
 
 # A Tour of OCaml
 
-Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [How to Write an OCaml Program](/docs/how-to-write-an-ocaml-program) tutorial.
+Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [Your First OCaml Program](/docs/your-first-program) tutorial.
 
 You need to have OCaml installed. No OCaml or functional programming knowledge is required; however, it is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
 
@@ -90,7 +90,7 @@ val x : int = 50
 
 When entering `let x = 50;;`, OCaml responds with `val x : int = 50`, meaning that `x` is an identifier bound to value `50`. So `x * x;;` evaluates to the same as `50 * 50;;`.
 
-Bindings in OCaml are *immutable*, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case. It is in fact a constant. Using over-simplifying but acceptable words, all variables are immutable in OCaml. It is possible to give names to values that can be updated. In OCaml, this is called a _reference_ and will be discussed in the [Working With Mutable State](/docs/a-tour-of-ocaml#working-with-mutable-state) section.
+Bindings in OCaml are *immutable*, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case. It is in fact a constant. Using over-simplifying but acceptable words, all variables are immutable in OCaml. It is possible to give names to values that can be updated. In OCaml, this is called a _reference_ and will be discussed in the [Working With Mutable State](/docs/tour-of-ocaml#working-with-mutable-state) section.
 
 There is no overloading in OCaml, so inside a lexical scope, names have a single value, which only depends on its definition.
 
@@ -744,7 +744,7 @@ Module also allows efficient separated compilation. This is illustrated in the n
 1. Type-Inference
 -->
 
-In this tutorial, OCaml was used interactively. The next tutorial, [How to Write an OCaml Program](/docs/how-to-write-an-ocaml-program), shows you how to write OCaml files, how to compile them, and how to kickstart a project.
+In this tutorial, OCaml was used interactively. The next tutorial, [Your First OCaml Program](/docs/your-first-program), shows you how to write OCaml files, how to compile them, and how to kickstart a project.
 
 Other recommended tutorials:
 
