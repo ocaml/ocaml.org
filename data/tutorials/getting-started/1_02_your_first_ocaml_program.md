@@ -135,7 +135,7 @@ let world = "Hello from a module"
 
 Here is a new version of the `bin/main.ml` file:
 ```ocaml
- let () = Printf.printf "%s\n" Hello.world'
+ let () = Printf.printf "%s\n" Hello.world
  ```
 
 Now execute the resulting project:
@@ -268,7 +268,7 @@ Dune needs an explanation as to why we're using it, so edit the `lib/dune` file 
 
 Here is the meaning of the two new lines:
 - `(libraries ppx_show.runtime)` means our project is using definitions found in the `ppx_show.runtime` library, provided by the package `ppx_show`;
-- `(preprocess (pps preprocess))` means that before compilation the source needs to be transformed using the preprocessor provided by the package `ppx_show`.
+- `(preprocess (pps ppx_show))` means that before compilation the source needs to be transformed using the preprocessor provided by the package `ppx_show`.
 
 The files `lib/hello.ml` and `lib/hello.mli` need to be edited, too:
 
