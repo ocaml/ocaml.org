@@ -5,7 +5,7 @@ let skill_tag difficulty class_ =
   | Some "intermediate" -> 
     <div class="<%s class_ %> px-2 py-1 inline-block bg-[#040113] rounded-3xl border-2 border-[#040113] font-normal text-center text-white"> Intermediate </div>
   | Some "advanced" -> 
-    <div class="<%s class_ %> px-2 py-1 inline-block bg-primary-700 rounded-3xl border-2 border-primary-700 font-normal text-center text-white"> Advanced </div>
+    <div class="<%s class_ %> px-2 py-1 inline-block bg-learn-area-orange rounded-3xl border-2 border-learn-area-orange font-normal text-center text-white"> Advanced </div>
   | None -> 
     <></> 
   | Some _ -> 
@@ -98,7 +98,18 @@ let right_tutorial_block ~title ~heading ~description ~(tutorial_links: link lis
     </div>
   </div>
 
-let book_tile books =
+let pricing_tag = 
+  <div class="absolute -mt-3 ml-3 w-16 h-16">
+    <div class="bg-learn-area-orange rotate-[-10deg] rounded-full w-16 h-16 flex items-center justify-center" style="filter: drop-shadow(-4px -2px 4px rgb(0 0 0 / 0.25));">
+      <div class="text-center text-white text-base font-bold leading-7 tracking-wide">
+        FREE
+      </div>
+    </div>
+  </div>
+
+let book_tile 
+books
+= 
   <div class="mt-2 flex flex-col flex-grow gap-12 lg:gap-6 md:flex-row xl:gap-12">
     <% books |> List.rev |> List.iteri (fun index (item : Data.Book.t) -> if (index < 2) then ( %>  
         <div class="flex flex-col w-full gap-4 lg:w-60">
@@ -181,5 +192,5 @@ let lang_manual_banner =
       <a href="<%s Url.manual %>" class="w-full md:w-auto mt-5 py-2 px-24 bg-default text-sm rounded-sm items-center text-center text-primary-700 sm:px-20 sm:text-md font-medium leading-7 md:text-lg">Take Me There</a>
     </div>
     <div class="min-w-[200px] min-h-[200px] overflow-hidden rounded-full bg-cover bg-center bg-no-repeat md:min-w-[240px] md:min-h-[240px]" style="background-image: url('../img/home/ocaml_camel.png')">
-    </div>
   </div>
+

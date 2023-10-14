@@ -18,6 +18,7 @@ links:
 rating: 5
 featured: false
 difficulty: intermediate
+pricing: paid
 ---
 
 In "More OCaml," John Whitington takes a meandering tour of functional

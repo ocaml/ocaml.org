@@ -141,7 +141,7 @@ Where `<commit-hash>` is the pinned hash specified in the files mentioned above.
 
 ### How to Handle Warnings
 
-1. Outdated Browserslist Warning:
+**1. Outdated Browserslist Warning:**
    - To fix an outdated Browserslist warning, run:
      ```bash
      npx update-browserslist-db@latest
