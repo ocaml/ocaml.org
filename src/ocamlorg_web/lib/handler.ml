@@ -439,7 +439,9 @@ module Package_helper = struct
             (Option.map Ocamlorg_package.Version.to_string latest_version);
         synopsis = info.Ocamlorg_package.Info.synopsis;
         description =
-          info.Ocamlorg_package.Info.description |> Omd.of_string |> Omd.to_html;
+          info.Ocamlorg_package.Info.description
+          |> Cmarkit.Doc.of_string ~strict:true
+          |> Cmarkit_html.of_doc ~safe:true;
         tags = info.tags;
         rev_deps;
         authors = List.map owner info.authors;

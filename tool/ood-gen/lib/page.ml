@@ -21,8 +21,9 @@ type t = {
 
 let decode (file, (head, body_md)) =
   let metadata = metadata_of_yaml head in
-  let omd = Omd.of_string body_md in
-  let body_html = Omd.to_html (Hilite.Md.transform omd) in
+  let body_html =
+    Cmarkit.Doc.of_string ~strict:true body_md |> Cmarkit_html.of_doc ~safe:true
+  in
   let slug =
     file |> Filename.basename |> Filename.remove_extension
     |> String.map (function '_' -> '-' | c -> c)

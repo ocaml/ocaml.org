@@ -33,7 +33,9 @@ type t = {
 
 let decode (_, (head, body_md)) =
   let metadata = metadata_of_yaml head in
-  let body_html = Omd.of_string body_md |> Omd.to_html in
+  let body_html =
+    Cmarkit.Doc.of_string ~strict:true body_md |> Cmarkit_html.of_doc ~safe:true
+  in
   Result.map
     (fun (metadata : metadata) ->
       let categories =
@@ -42,9 +44,9 @@ let decode (_, (head, body_md)) =
             {
               category with
               description =
-                Omd.to_html
-                  (Hilite.Md.transform
-                     (Omd.of_string (String.trim category.description)));
+                Cmarkit.Doc.of_string ~strict:true
+                  (String.trim category.description)
+                |> Cmarkit_html.of_doc ~safe:true;
             })
           metadata.categories
       in
