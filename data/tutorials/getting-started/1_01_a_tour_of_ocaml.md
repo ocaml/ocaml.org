@@ -511,7 +511,7 @@ val colour_to_rgb : primary_colour -> int * int * int = <fun>
 # let http_status_code response =
     match response with
     | Data _ -> 200
-    | Error code -> code;;
+    | Error_code code -> code;;
 val http_status_code : http_response -> int = <fun>
 
 # let is_printable page_count cur range =
