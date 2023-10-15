@@ -320,4 +320,4 @@ Layout.base
   }
 </script>
 <% | _ -> () ); %>
-<%s! Secondary_footer.render() %>
+<%s! Secondary_footer.render ()  %>
