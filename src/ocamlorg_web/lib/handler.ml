@@ -112,41 +112,7 @@ let academic_users req =
   Dream.html (Ocamlorg_frontend.academic_users users)
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
-
-let books req =
-  let language = Dream.query req "language" in
-  let pricing = Dream.query req "pricing" in
-  let difficulty = Dream.query req "difficulty" in
-  let matches_criteria (book : Data.Book.t) language pricing difficulty =
-    let matches_language =
-      match language with
-      | Some lang when lang = "All" -> true
-      | Some lang -> book.language = lang
-      | None -> true
-    in
-    let matches_pricing =
-      match pricing with
-      | Some p when p = "All" -> true
-      | Some p -> book.pricing = p
-      | None -> true
-    in
-    let matches_difficulty =
-      match difficulty with
-      | Some d when d = "All" -> true
-      | Some d -> (
-          match book.difficulty with Some bd -> bd = d | None -> false)
-      | None -> true
-    in
-    matches_language && matches_pricing && matches_difficulty
-  in
-  let filter_books books language pricing difficulty =
-    List.filter
-      (fun book -> matches_criteria book language pricing difficulty)
-      books
-  in
-  let filtered_books = filter_books Data.Book.all language pricing difficulty in
-  Dream.html
-    (Ocamlorg_frontend.books ?language ?pricing ?difficulty filtered_books)
+let books _req = Dream.html (Ocamlorg_frontend.books Data.Book.all)
 
 let releases req =
   let search_release pattern t =

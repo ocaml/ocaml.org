@@ -15,7 +15,6 @@ links:
     uri: https://www.edilivre.com/initiation-a-la-programmation-fonctionnelle-en-ocaml-mohammed-said-habet.html
 featured: false
 difficulty: beginner
-pricing: paid
 ---
 
 La programmation fonctionnelle est un style de programmation qui

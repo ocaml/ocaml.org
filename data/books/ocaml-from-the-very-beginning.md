@@ -19,7 +19,6 @@ links:
 rating: 4
 featured: true
 difficulty : beginner
-pricing: free
 ---
 
 In *OCaml from the Very Beginning*, John Whitington takes a

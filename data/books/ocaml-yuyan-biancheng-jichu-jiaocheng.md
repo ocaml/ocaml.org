@@ -12,5 +12,4 @@ links:
     uri: https://www.epubit.com/bookDetails?id=N18159
 featured: false
 difficulty: beginner
-pricing: paid
 ---
