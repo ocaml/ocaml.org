@@ -518,7 +518,7 @@ val http_status_code : http_response -> int = <fun>
     match range with
     | All -> true
     | Current -> 0 <= cur && cur < page_count
-    | Range (lo, hi) -> 0 <= lo && lo <= hi && hi < page_count
+    | Range (lo, hi) -> 0 <= lo && lo <= hi && hi < page_count;;
 val is_printable : int -> int -> page_range -> bool = <fun>
 ```
 
