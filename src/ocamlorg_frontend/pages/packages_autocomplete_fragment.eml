@@ -59,7 +59,7 @@ let render
         :aria-selected="row == <%s string_of_int i %> && col == 1"
         href="<%s Url.Package.documentation package.name %>"
         :class=' row == <%s string_of_int i %> && col == 1 ? "bg-search-keyboard-cursor text-white": ""'
-        class="dropdown-link flex text-sm justify-self-end px-2 py-2 leading-6 font-normal hover:text-primary-700">
+        class="dropdown-link flex text-sm justify-self-end px-2 py-2 leading-6 font-normal hover:text-white">
         <%s! Icons.documentation "h-5 w-5" %>
         DOCS
       </a>
