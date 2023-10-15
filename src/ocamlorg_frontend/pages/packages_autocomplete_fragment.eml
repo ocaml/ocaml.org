@@ -30,12 +30,16 @@ let render
 (packages : Package.package list)
 =
 <div class="mx-2 mb-2">
-  <span class="font-normal">Packages</span>
   <% if total = 0 then ( %>
   <p class="break-words">
     We didn't find a match for "<%s search %>".
   </p>
-  <% ) else ( ); %>
+  <% ) else ( %>
+    <p class="break-words">
+      <%s (if total = List.length packages then "" else "Showing " ^ string_of_int (List.length packages) ^ " out of ")
+      ^ string_of_int total ^ (if total = 1 then "search results" else " packages") %>
+    </p>
+  <% ); %>
 
   <ol class="flex flex-col" x-init="row = null; col = 0; total = <%s string_of_int total %>">
   <% packages |> List.iteri (fun i (package : Package.package) -> %>
@@ -54,8 +58,8 @@ let render
         id="package-autocomplete-<%s string_of_int i %>-1"
         :aria-selected="row == <%s string_of_int i %> && col == 1"
         href="<%s Url.Package.documentation package.name %>"
-        :class='row == <%s string_of_int i %> && col == 1 ? "bg-search-keyboard-cursor text-white": ""'
-        class="dropdown-link flex text-sm justify-self-end px-2 py-2 leading-6 font-normal hover:text-white">
+        :class=' row == <%s string_of_int i %> && col == 1 ? "bg-search-keyboard-cursor text-white": ""'
+        class="dropdown-link flex text-sm justify-self-end px-2 py-2 leading-6 font-normal hover:text-primary-700">
         <%s! Icons.documentation "h-5 w-5" %>
         DOCS
       </a>
