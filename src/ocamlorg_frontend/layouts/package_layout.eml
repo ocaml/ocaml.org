@@ -18,7 +18,7 @@ let render
 ~left_sidebar_html
 ~right_sidebar_html
 inner =
-Layout.base
+Layout.render
 ?styles
 ~show_get_started:false
 ~title
@@ -63,7 +63,7 @@ Layout.base
             </li>
             <% | Unknown -> ( %>
             <li class="flex flex-auto">
-              <span aria-label="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-mild-contrast")%>"><%s! Icons.error "" %> No Docs</span>
+              <a title="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-mild-contrast")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
             </li>
             <% )
             | Failure -> ( %>
@@ -169,7 +169,7 @@ Layout.base
     function perform_search() {
       let q = document.getElementById("in-package-search-input").value;
       results = miniSearch.search(q, {
-        fields: ['name', 'prefixname', 'comment'],
+        fields: ['name', 'prefixname', 'comment'], 
         prefix: true,
         boost: {
           name: 6,
