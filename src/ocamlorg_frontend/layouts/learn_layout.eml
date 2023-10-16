@@ -93,7 +93,7 @@ let render
 ~current
 inner_html
 =
-  Layout.render
+  Layout.base
   ?use_swiper
   ?styles
   ~title

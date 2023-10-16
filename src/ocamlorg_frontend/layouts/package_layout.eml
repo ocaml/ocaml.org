@@ -18,7 +18,7 @@ let render
 ~left_sidebar_html
 ~right_sidebar_html
 inner =
-Layout.render
+Layout.base
 ?styles
 ~show_get_started:false
 ~title
