@@ -28,12 +28,12 @@ Layout.render
                               </div>
                           </div>
                           <% (match item.preview_image with | None -> %>
-                            <div class="flex-none w-64">
-                                <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"><img class="w-full" src="<%s Ocamlorg_static.Asset.url "logo.svg" %>" alt="default logo"></a>
+                            <div class="flex justify-center items-center w-82  md:flex-none md:justify-start md:items-start md:w-64">
+                                <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>" class="w-full><img class="w-full object-cover " src="<%s Ocamlorg_static.Asset.url "logo.svg" %>" alt="default logo"></a>
                             </div>
                           <% | Some image -> %>
-                            <div class="flex-none w-64">
-                                <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
+                            <div class="flex justify-center items-center w-82  md:flex-none md:justify-start md:items-start md:w-64 ">
+                                <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>" class="w-full"><img class="w-full object-cover" src="<%s image %>" alt=""></a>
                             </div>
                           <% ); %>
                       </div>
@@ -53,12 +53,12 @@ Layout.render
                             </div>
                         </div>
                         <% (match item.preview_image with | None -> %> 
-                            <div class="flex-none w-64">
-                                <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"><img class="w-full" src="<%s Ocamlorg_static.Asset.url "logo.svg" %>" alt="default logo"></a>
+                            <div class="flex justify-center items-center w-82  md:flex-none md:justify-start md:items-start md:w-64  ">
+                                <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>" class="w-full"><img class="w-full object-cover" src="<%s Ocamlorg_static.Asset.url "logo.svg" %>" alt="default logo"></a>
                             </div>
                         <% | Some image -> %>
-                            <div class="flex-none w-64">
-                                <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
+                            <div class="flex justify-center items-center w-82  md:flex-none md:justify-start md:items-start md:w-64  ">
+                                <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>" class="w-full"><img class="w-full object-cover" src="<%s image %>" alt=""></a>
                             </div>
                         <% ); %>
                     </div>

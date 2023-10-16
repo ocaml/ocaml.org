@@ -115,7 +115,7 @@ module.exports = {
             'code::after': {
               content: '""',
             },
-          },{
+          }, {
             h1: {
               fontWeight: 700,
             },
@@ -137,6 +137,9 @@ module.exports = {
             }
           }]
         },
+      },
+      width: {
+        '82': '22.4rem'
       },
       maxWidth: {
         '8xl': '90rem',
