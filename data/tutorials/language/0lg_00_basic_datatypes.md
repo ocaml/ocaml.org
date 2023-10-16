@@ -8,13 +8,6 @@ category: "Language"
 
 # Basic Datatypes And Pattern-Matching
 
-> J'étais tranquille j'étais pénard <br>
-> Accoudé au comptoir <br>
-> Le type est entré dans le bar <br>
-> A commandé un café noir
-
-&mdash; Renaud, _Laisse béton_
-
 ## Introduction
 
 OCaml is a statically and strongly typed programming language. It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs while being easy to use and unobtrusive. Thanks to type inference, programs can be written without type annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
@@ -23,26 +16,28 @@ OCaml is a statically and strongly typed programming language. It is also an exp
 
 This tutorial begins with a section presenting the types that are predefined in OCaml. It starts with atomic types such as integers and Booleans. It continues by presenting predefined compound types such as strings and lists. The tutorial ends with a section about user-defined types: variants and records.
 
-OCaml provides several other types, but they all are extensions of those presented in this tutorial. Types that are in the scope of this tutorial are all the basic constructors and the most common predefined types.
-
-## Prerequisites and Goals
-
-This is an intermediate-level tutorial. The only prerequisite is to have completed the [Get Started](https://ocaml.org/docs/up-and-running) series of tutorials.
-
-The goal of this tutorial is to provide for the following capabilities:
-- Handle data of all predefined types using dedicated syntax
-- Write variant type definitions: simple, recursive, and polymorphic
-- Write record type definitions (without mutable fields)
-- Write type aliases
-- Use pattern matching to define functions for all basic type
-
 The OCaml type system aggregates several type systems, also known as disciplines:
 - A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants, and functions. Historically, it the first system, directly coming from the type system used the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, which is OCaml accestor. By default, this what is meant by OCaml type system, and it is also the scope of this tutorial.
 - Two different [structural type systems](https://en.wikipedia.org/wiki/Structural_type_system) are also used:
   * One for polymorphic variants
   * Another for objects and classes
 
-Each discipline is using a different type-checking algorithm.
+OCaml also provides Generalized Algebraic Data Types, which are an extensions of those presented in this tutorial. Types that are in the scope of this tutorial are the most basic  ones.
+
+## Prerequisites and Goals
+
+This is an intermediate-level tutorial. The only prerequisite is to have completed the [Get Started](https://ocaml.org/docs/up-and-running) series of tutorials.
+
+<!--
+The goal of this tutorial is to provide for the following capabilities:
+- Handle data of all predefined types using dedicated syntax
+- Write variant type definitions: simple, recursive, and polymorphic
+- Write record type definitions (without mutable fields)
+- Write type aliases
+- Use pattern matching to define functions for all basic type
+-->
+
+The goal of this tutorial will provide capabilities to handle data from predefined, variant and record types. This importantly includes pattern matching on those types.
 
 ## Predefined Types
 
