@@ -1,8 +1,8 @@
 ---
 id: basic-datatypes
-title: Basic Datatypes And Pattern-Matching
+title: Basic Datatypes and Pattern Matching
 description: |
-  Predefined types, Variants, Records and Pattern-Matching
+  Predefined types, Variants, Records, and Pattern-Matching
 category: "Language"
 ---
 
@@ -10,19 +10,19 @@ category: "Language"
 
 ## Introduction
 
-OCaml is a statically and strongly typed programming language. It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs while being easy to use and unobtrusive. Thanks to type inference, programs can be written without type annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
+OCaml is a statically- and strongly-typed programming language. It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs while being easy to use and unobtrusive. Thanks to type inference, programs can be written without type annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
 
-> Type annotation means when its necessary to write the value type to tell the compiler what to do, as opposed to tiper inference, when the compiler *infers* the type.
+> Type annotation means that when its necessary to write the value type to tell the compiler what to do, as opposed to TIPER inference, when the compiler *infers* the type.
 
-This tutorial begins with a section presenting the types that are predefined in OCaml. It starts with atomic types such as integers and Booleans. It continues by presenting predefined compound types such as strings and lists. The tutorial ends with a section about user-defined types: variants and records.
+This tutorial begins with introducing predefinted types in OCaml. First it covers atomic types, such as integers and Booleans. Continuing, it presents predefined compound types, like strings and lists. Finally, it ends with a section about user-defined types, namely variants and records.
 
-The OCaml type system aggregates several type systems, also known as disciplines:
-- A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants, and functions. Historically, it the first system, directly coming from the type system used the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, which is OCaml accestor. By default, this what is meant by OCaml type system, and it is also the scope of this tutorial.
+OCaml aggregates several type systems, also known as disciplines:
+- A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants, and functions. Historically, it's the first system, as it comes from the type system used in the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's predecessor. By default, this what is meant by OCaml type system, and it is also the scope of this tutorial.
 - Two different [structural type systems](https://en.wikipedia.org/wiki/Structural_type_system) are also used:
   * One for polymorphic variants
   * Another for objects and classes
 
-OCaml also provides Generalized Algebraic Data Types, which are an extensions of those presented in this tutorial. Types that are in the scope of this tutorial are the most basic  ones.
+OCaml also provides Generalised Algebraic Data Types, which are extensions of those presented in this tutorial. Types that are in the scope of this tutorial are the most basic ones.
 
 ## Prerequisites and Goals
 
@@ -37,7 +37,7 @@ The goal of this tutorial is to provide for the following capabilities:
 - Use pattern matching to define functions for all basic type
 -->
 
-The goal of this tutorial will provide capabilities to handle data from predefined, variant and record types. This importantly includes pattern matching on those types.
+The goal of this tutorial will provide capabilities to handle data from predefined, variant, and record types. This importantly includes pattern matching on those types.
 
 ## Predefined Types
 
@@ -51,9 +51,9 @@ Here is an integer:
 - : int = 42
 ```
 
-The `int` type is the default and basic type of integer numbers in OCaml. It represents platform-dependent signed integers. This means `int` does not always have same the number of bits, depending on underlying platform characteristics, such as processor architecture or operating system. Operations on `int` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Int`](/api/Int.html) modules.
+The `int` type is the default and basic type of integers in OCaml. It represents platform-dependent signed integers. This means `int` does not always have same the number of bits. It depends on underlying platform characteristics, such as processor architecture or operating system. Operations on `int` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Int`](/api/Int.html) modules.
 
-Usually, `int` has 31 bits in 32-bit architectures and 63 in 64-bit architectures; one bit is reserved for OCaml's runtime operation. The standard library also provides [`Int32`](/api/Int32.html) and [`Int64`](/api/Int64.html) modules, which support platform independent operations on 32 and 64 bits signed integers. These modules are not detailed in this tutorial.
+Usually, `int` has 31 bits in 32-bit architectures and 63 in 64-bit architectures because one bit is reserved for OCaml's runtime operation. The standard library also provides [`Int32`](/api/Int32.html) and [`Int64`](/api/Int64.html) modules, which support platform independent operations on 32- and 64-bit signed integers. These modules are not detailed in this tutorial.
 
 There are no dedicated types for unsigned integers in OCaml. Bitwise operations on `int` treat the sign bit as the other bits. Binary operators use standard symbols. The signed remainder operator is written `mod`. There is no predefined power operator on integers in OCaml.
 
@@ -61,7 +61,7 @@ There are no dedicated types for unsigned integers in OCaml. Bitwise operations 
 
 Fixed-sized float numbers have type `float`. Operations on `float` comply with the IEEE 754 standard, with 53 bits of mantissa and exponent ranging from -1022 to 1023.
 
-OCaml does not perform any implicit type conversion between values. Therefore, arithmetic expressions can't mix integers and floats. Parameters are either all `int` or all `float`. Arithmetic operators on floats are not the same; they are written with a dot suffix: `+.`,  `-.`, `*.`, `/.`.
+OCaml does not perform any implicit type conversion between values. Therefore, arithmetic expressions can't mix integers and floats. Parameters are either all `int` or all `float`. Arithmetic operators on floats are not the same, and they are written with a dot suffix: `+.`,  `-.`, `*.`, `/.`.
 ```ocaml
 # let pi = 3.14159;;
 val pi : float = 3.14159
