@@ -351,16 +351,16 @@ val g : [< `Broccoli | `Fruit of bool ] -> bool = <fun>
 
 From the language manual:
 ```ocaml
-# let f1 = function `Night x -> x = 1 | `Day -> true | `C -> false
-  let f2 = function `Night x -> x = "a" | `Day -> true ;;
-val f1 : [< `Night of int | `Day | `C ] -> bool = <fun>
+# let f1 = function `Night x -> x = 1 | `Day -> true | `Eclipse -> false
+  let f2 = function `Night x -> x = "a" | `Day -> true;;
+val f1 : [< `Day | `Eclipse  | `Night of int] -> bool = <fun>
 val f2 : [< `Night of string | `Day ] -> bool = <fun>
 
 # let f x = f1 x && f2 x;;
 val f : [< `Night of string & int | `Day ] -> bool = <fun>
 ```
 
-FIXME: This is lame. It says no `` `Night`` can't be applied to `f`. There is no way to find a value that is both a `string` and an `int`
+FIXME: It says no `` `Night`` can't be applied to `f`. There is no way to find a value that is both a `string` and an `int`
 
 TODO: Find a “positive” example and maybe move the manuals one in the drawbacks
 ```ocaml
