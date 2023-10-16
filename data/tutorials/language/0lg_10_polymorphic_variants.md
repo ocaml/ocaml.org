@@ -335,36 +335,16 @@ The aliasing mechanism is used to express type recursion. In the type expression
 
 ### Conjunction of constraints
 
-FIXME: Is this section needed?
+FIXME: This shows impossible to satisfy constraints can appear. Could we show a constraint that can be satisfied first? Otherwise, it needs to be moved to drawbacks.
 
 ```ocaml
-# let f = function `Fruit fruit -> fruit = "Broccoli" | `Broccoli -> true;;
-val upcast : [< `Broccoli | `Fruit of string ] -> bool = <fun>
+# let foo = function `Night x -> x = 1 | `Day -> true | `Eclipse -> false
+  let bar = function `Night x -> x | `Day -> true;;
+val foo : [< `Day | `Eclipse  | `Night of int] -> bool = <fun>
+val bar : [< `Day | `Night of bool | ] -> bool = <fun>
 
-# let g = function `Fruit fruit -> fruit | `Broccoli -> true;;
-val g : [< `Broccoli | `Fruit of bool ] -> bool = <fun>
-
- fun x -> f x && g x;;
-- : [< `Broccoli | `Fruit of bool & string ] -> bool = <fun>
-
-### Conjunction, cont'd
-
-From the language manual:
-```ocaml
-# let f1 = function `Night x -> x = 1 | `Day -> true | `Eclipse -> false
-  let f2 = function `Night x -> x = "a" | `Day -> true;;
-val f1 : [< `Day | `Eclipse  | `Night of int] -> bool = <fun>
-val f2 : [< `Night of string | `Day ] -> bool = <fun>
-
-# let f x = f1 x && f2 x;;
-val f : [< `Night of string & int | `Day ] -> bool = <fun>
-```
-
-FIXME: It says no `` `Night`` can't be applied to `f`. There is no way to find a value that is both a `string` and an `int`
-
-TODO: Find a “positive” example and maybe move the manuals one in the drawbacks
-```ocaml
-type 'a closed_poly_variant = [< `One | `Two ] as 'a;;
+# let both x = foo x && bar x;;
+val both : [< `Night of string & int | `Day ] -> bool = <fun>
 ```
 
 ## Advanced: Combining Polymorphic Variants and Simple Variants
