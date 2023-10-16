@@ -24,9 +24,9 @@ Our guidance is when you want:
 
 The guidance is based on the availability table below:
 
-* Tier 1 is fully supported with the latest compilers
-* Tier 2 is supported but maintained when possible
-* Tier 3 is user supported
+* Tier 1 is fully supported with the latest compilers.
+* Tier 2 is supported but maintained when possible.
+* Tier 3 is user supported.
 
 ```
 ╭──────────────────────────────────────────────────────────────────────────────────────────╮
