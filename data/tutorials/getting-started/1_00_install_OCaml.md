@@ -143,14 +143,14 @@ To learn more about Diskuv OCaml, see the [official Diskuv OCaml documentation](
 Now that we've successfully installed the OCaml compiler and the opam package manager, let's install some of the [OCaml Platform tools](https://ocaml.org/docs/platform), which you'll need to get the full developer experience in OCaml:
 
 - [UTop](https://github.com/ocaml-community/utop), a modern interactive toplevel (REPL: Read-Eval-Print Loop)
-- [Dune](https://dune.readthedocs.io/en/stable/~), a fast and full-featured build system
-- [Merlin](https://ocaml.github.io/merlin/) and [`ocaml-lsp-server`](https://github.com/ocaml/ocaml-lsp). Power tools for VS Code, Vim, or Emacs
+- [Dune](https://dune.build), a fast and full-featured build system
+- [`ocaml-lsp-server`](https://github.com/ocaml/ocaml-lsp) implements the Language Server Protocol to enable editor support for OCaml, e.g., in VS Code, Vim, or Emacs. Under the hood, it uses [Merlin](https://ocaml.github.io/merlin/).
 - [`odoc`](https://github.com/ocaml/odoc) to generate documentation from OCaml code
 - [OCamlFormat](https://opam.ocaml.org/packages/ocamlformat/) to automatically format OCaml code
 
 All these tools can be installed using a single command:
 ```shell
-$ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop
+$ opam install dune ocaml-lsp-server odoc ocamlformat utop
 ```
 
 You're now all set and ready to start hacking.
