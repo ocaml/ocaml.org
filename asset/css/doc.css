@@ -285,10 +285,6 @@ span.no-expand>.navmap-tag {
   border-color: rgb(32, 68, 165);
 }
 
-span.no-expand > .navmap-tag {
-  margin-left: 12px;
-}
-
 span.icon-expand>.navmap-tag,
 span.no-expand>.navmap-tag {
   color: white;

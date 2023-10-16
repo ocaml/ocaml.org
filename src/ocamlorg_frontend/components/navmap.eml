@@ -82,13 +82,13 @@ let rec nested_render ~path (item : toc) =
           <% (match item.href with | None -> %>
             <span x-on:click="open = ! open" class="<%s title_style %> <%s if item.title = fragment then "white-200" else "gray-900" %>" :class="open ? 'text-primary-600' : ''">
               <%s! item.title %> 
-              <span class="arrow-expand absolute right-0.5" :class="open ? 'open' : ''"><%s! Icons.chevron_down "h-5 w-5" %></span>
+              <span class="arrow-expand absolute right-0.5 px-3" :class="open ? 'open' : ''"><%s! Icons.chevron_down "h-5 w-5" %></span>
             </span>
           <% | Some href -> %>
           <a href="<%s href %>" <%s! htmx_attributes %> class="<%s title_style %> overflow-hidden truncate text-default transition-colors hover:text-primary-600" :class="open ? 'text-primary-600' : ''">
             <%s! item.title %>
           </a>
-          <span x-on:click="open = ! open" class="sign-expand mr-1" :class="open ? 'open' : ''"></span>
+          <span x-on:click="open = ! open" class="sign-expand mr-2 px-2" :class="open ? 'open' : ''"></span>
           <% ); %>
         </div>
       </div>
