@@ -18,7 +18,7 @@ By the way, don't trust ChatGPT if it tells you polymorphic variants are dynamic
 
 ### Origin and Context
 
-Polymorphic variants originate from Jacques Garrigue work on Objective Label, which was [first published in 1996](https://caml.inria.fr/pub/old_caml_site/caml-list-ar/0533.html). It became part of standard OCaml with [release 3.0](https://caml.inria.fr/distrib/ocaml-3.00/) in 2000, along with labelled and optional function arguments.
+Polymorphic variants originate from Jacques Garrigue work on Objective Label, which was [first published in 1996](https://caml.inria.fr/pub/old_caml_site/caml-list-ar/0533.html). It became part of standard Objective Caml with [release 3.0](https://caml.inria.fr/distrib/ocaml-3.00/) in 2000, along with labelled and optional function arguments. They were introduced to give more precise types in LablTk.
 
 The core type system of OCaml follows a [_nominal_](https://en.wikipedia.org/wiki/Nominal_type_system) discipline. Variants must be explicitly declared before being used. The typing discipline used for polymorphic variants and classes is different, it is [_structural_](https://en.wikipedia.org/wiki/Structural_type_system).
 
@@ -70,7 +70,7 @@ Note each of the above translations into simple variants is correct. However, en
 
 This also illustrates the other striking feature of polymorphic variants: values can be attached to several types. For instance, the tag `` `Broccoli`` inhabits ``[ `Broccoli ]`` and``[ `Broccoli | `Fruit of String ]``, but it also inhabits any type that contains it.
 
-What is displayed by the type-checker, for instance ``[< `Broccoli | `Fruit of string ]``, isn't a single type. It is a type expression that designates a constrained set of types. For instance, all types defined by a group of tags that contains either`` `Broccoli`` or `` `Fruit of string`` and nothing more. This is the meaning of the `<` sign in this type expression. This a bit similar to what happens with `'a list`, which isn't a single type either, but a type expression that designates the set of `list` types of something, i.e. the set of types where `'a` has been replaced by some other type.
+What is displayed by the type-checker, for instance ``[< `Broccoli | `Fruit of string ]``, isn't a single type. It is a type expression that designates a constrained set of types. For instance, all types defined by a group of tags that contains either`` `Broccoli`` or `` `Fruit of string`` and nothing more. This is the meaning of the `<` sign in this type expression. This a bit similar to what happens with `'a list`, which isn't a single type either, but a type expression that designates the set of `list` types of something, i.e. the set of types where `'a` has been replaced by some other type. It is also meant to indicate that the exact types are subsets of the indicated ones (this will be explained in the section on (Subtyping)[#Subtyping-of-Polymorphic-Variants]).
 
 This is the sense of the polymorphism of polymorphic variants. Polymorphic variants types are type expressions. The structural typing algorithm used for polymorphic variants creates type expressions that designate sets of types (here the three types above), which are defined by constraints on sets of tags (the inequality symbols). The polymorphism of polymorphic variant is different.
 
@@ -347,7 +347,7 @@ val bar : [< `Day | `Night of bool | ] -> bool = <fun>
 val both : [< `Night of string & int | `Day ] -> bool = <fun>
 ```
 
-## Advanced: Combining Polymorphic and Simple Variants
+## Advanced: Combined Subtyping of Polymorphic and Simple Variants
 
 A tag `` `Night`` inhabits any type with additional tags, for instance ``[ `Night | `Day ]`` or ``[`Morning | `Afternoon | `Evening | `Night]``. This summarized by the subtyping order where `` [ `Night ]`` is smaller to both ``[ `Night | `Day ]`` and ``[`Morning | `Afternoon | `Evening | `Night ]``.
 
@@ -372,11 +372,11 @@ let upcast_snd (x : [ `Night ] * int) = (x :> [ `Night | `Day ] * int);;
 val upcast_snd : [ `Night ] * int -> [ `Night | `Day ] * int = <fun>
 ```
 
-The product type and the types `option`, `list` are said to be _covariant_ because subtyping goes in the same direction from component type into container type.
+The product type and the types `option`, `list` are said to be _covariant_ because subtyping goes in the same direction from component type into container type. Note that these types are covariant because of the way their types parameters appear in the type of their constructors. This is detailed in [Chapter 11, Section 8.1](https://v2.ocaml.org/manual/typedecl.html#ss:typedefs) of the OCaml Manual. This has nothing to do with being predefined types.
 
 ### Function Codomains are Covariant
 
-The function type is covariant on codomains. Casting a function is allowed if the codomain is larger. Subtyping between the codomain type and the function type are going in the same direction.
+The function type is covariant on codomains. Casting a function is allowed if the target codomain is larger. Subtyping between the codomain type and the function type are going in the same direction.
 ```ocaml
 # let upcast_dom (f : int -> [ `Night ]) = (x :> int -> [ `Night | `Day ]);;
 val f : (int -> [ `Night ]) -> int -> [ `Night | `Day ] = <fun>
@@ -386,13 +386,13 @@ Adding tags to a polymorphic variant codomain of a function is harmless. Extendi
 
 ### Function Domains are Contravariant
 
-The function type is _contravariant_ on domains. Casting a function is allowed if the domain is smaller. Subtyping between the domain type and the function type are going in opposite direction.
+The function type is _contravariant_ on domains. Casting a function is allowed if the target domain is smaller. Subtyping between the domain type and the function type are going in opposite direction.
 ```ocaml
 # let upcast_cod (f : [ `Night | `Day ] -> int) = (x :> [ `Night ] -> int);;
 val f : ([ `Night | `Day ] -> int) -> [ `Night ] -> int = <fun>
 ```
 
-At first, it may seem counter intuitive. However, removing tags from a polymorphic variant domain of a function is also harmless. Code in charge of the removed tags is turned into dead code. Implemented generality of the function is lost, but it is safe, no unexpected data will be passed to the function.
+At first, it may seem counter intuitive. However, removing tags from a polymorphic variant domain of a function is also harmless. Code in charge of the removed tags is turned into dead paths. Implemented generality of the function is lost, but it is safe, no data will be passed that the function can't handle.
 
 ### Covariance and Contravariance at Work
 
