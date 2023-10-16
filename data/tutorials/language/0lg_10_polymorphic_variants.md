@@ -20,7 +20,7 @@ By the way, don't trust ChatGPT if it tells you polymorphic variants are dynamic
 
 Polymorphic variants originate from Jacques Garrigue work on Objective Label, which was [first published in 1996](https://caml.inria.fr/pub/old_caml_site/caml-list-ar/0533.html). It became part of standard OCaml with [release 3.0](https://caml.inria.fr/distrib/ocaml-3.00/) in 2000, along with labelled and optional function arguments.
 
-The core type system of OCaml follows a [_nominal_](https://en.wikipedia.org/wiki/Nominal_type_system) discipline. Types are explicitly declared. The typing discipline used for polymorphic variants and classes is different, as it is [_structural_](https://en.wikipedia.org/wiki/Structural_type_system).
+The core type system of OCaml follows a [_nominal_](https://en.wikipedia.org/wiki/Nominal_type_system) discipline. Variants must be explicitly declared before being used. The typing discipline used for polymorphic variants and classes is different, it is [_structural_](https://en.wikipedia.org/wiki/Structural_type_system).
 
 In the nominal approach of typing, types are first defined; later, when type checking an expression, three outcomes are possible:
 1. If a matching type is found, it becomes the inferred type.
@@ -615,15 +615,28 @@ Because of the `plant -> plant` pattern clause the types inferred as domain and 
 
 ### Performances
 
-> There is one more downside: the runtime cost. A value Pair (x,y) occupies 3 words in memory, while a value `Pair (x,y) occupies 6 words.
+TODO: Expand this text
+
+> There is one more downside: the runtime cost. A value `Pair (x, y)` occupies 3 words in memory, while a value `` `Pair (x, y)`` occupies 6 words.
 
 Guillaume Melquiond
 
 ## When to Use Polymorphic Variant
 
-Polymorphic variants 
+Only using polymorphic variants is over engineering, it should be avoided. Polymorphic variants aren't an extension of simple variants. From data perspective, polymorphic variants and simple variants are equivalent. They both are sum types in the algebraic data types sense, both with parametric polymorphism and recursion. Back quote isn't a difference that matters. The only meaningful difference is the type checking algorithm. Therefore, deciding when to use polymorphic variants boils down to another question:
+> Do I need nominally or structurally type checked variants?
 
-The YAGNI (You Aren't Gonna Need It) principle can be applied to polymorphic variants. Unless the code is arguably improved by having several pattern matching over different types sharing the same tag, polymorphic variants are probably not needed.
+Answering this isn't significantly easier, but it helps narrowing what to consider. The key difference lies on the way pattern matching is type checked. Polymorphic variant induce functions which intrinsically accepts more data that simple variants. This is a consequence of the subtyping relation between polymorphic variant types.
+
+In a precautionary approach (inspired by [KISS](https://en.wikipedia.org/wiki/KISS_principle) or [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) design principles), using simple variants should be the default. However, they can feel too tight. Here are a some clues indicating this:
+* Many variant declaration looking alike
+* Equivalent constructor duplicated in several variants
+* Variant declared for a single-purpose
+* Variant declaration feeling made up or artificial
+
+Having difficulties finding names for simple variants may be smell for one of the above. When such discomfort is felt, polymorphic variants may not be the solution, but they can be considered. Keeping in mind they may ease some parts but at the expense of understandability, precision and performances. Hopefully, very soon, large language model chatbots will be able to refactor variants of some sort into the other. This will ease experimentation.
+
+To conclude, remember a simple variant that naturally encodes some data should remain a simple variant.
 
 ## Conclusion
 
