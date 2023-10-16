@@ -18,15 +18,15 @@ DKML installations.
 
 Our guidance is when you want:
 
-- **To only run, and not develop, applications**, use [Docker](#docker-images) or [WSL2](#wsl2)
-- **To develop applications and have some familiarity with Unix**, use [opam-repository-mingw](#opam-repository-mingw)
-- **To develop applications and care more about stability and ease-of-use than the latest compiler**, use [Diskuv OCaml](https://diskuv-ocaml.gitlab.io/distributions/dkml/)
+* **To only run, and not develop, applications**, use [Docker](#docker-images) or [WSL2](#wsl2)
+* **To develop applications and have some familiarity with Unix**, use [opam-repository-mingw](#opam-repository-mingw)
+* **To develop applications and care more about stability and ease-of-use than the latest compiler**, use [Diskuv OCaml](https://diskuv-ocaml.gitlab.io/distributions/dkml/)
 
 The guidance is based on the availability table below:
 
-- Tier 1 is fully supported with the latest compilers
-- Tier 2 is supported but maintained when possible
-- Tier 3 is user supported
+* Tier 1 is fully supported with the latest compilers
+* Tier 2 is supported but maintained when possible
+* Tier 3 is user supported
 
 ```
 ╭──────────────────────────────────────────────────────────────────────────────────────────╮
