@@ -446,6 +446,8 @@ When reading a pattern-matching expression using a polymorphic variant tags, und
 
 ### Shared Constructors
 
+FIXME: take type-based disambiguation into account
+
 When several simple variants are using the same constructor name, shadowing takes place. Only the last entered in the environment is accessible, previously entered one are not longer reachable. This can be worked around using modules.
 
 This never happens with polymorphic variants. When a tag appears several times in an expression, it must be with the same type, that's the only restriction. This makes polymorphic variants very handy when dealing with multiple sum types and constructors with same types occurring in several variants.
