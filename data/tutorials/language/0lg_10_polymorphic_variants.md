@@ -206,7 +206,7 @@ Functions `g` and `f` can be composed because `g` accepts more than what `f` can
 
 Closed and open cases are polymorphic because they do not designate a single type but families of types. An exact variant type is monomorphic, it corresponds to a single variant type, not a set of variant types.
 
-## Both Open and Closed Polymorphic Variant
+### Both Open and Closed Polymorphic Variant
 
 A closed variant type may also have an additional constraint preventing some tags to be removed.
 ```ocaml
