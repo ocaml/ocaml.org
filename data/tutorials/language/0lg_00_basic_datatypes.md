@@ -807,24 +807,23 @@ subexpressions within the expression get multiplied out too (if you only wanted
 to multiply out the very top level of an expression, then you could replace all
 the remaining patterns with a simple `e -> e` rule).
 
-The reverse operation, i.e. factorizing out common subexpressions, can be
-implemented in a similar fashion. The following version only works for the top
-level expression.
+The reverse operation, i.e., factorising out common subexpressions, can be
+implemented in a similar fashion. The following version only works for the toplevel expression.
 ```ocaml env=expr
-# let top_factorize = function
+# let top_factorise = function
   | Plus (Times (e1, e2), Times (e3, e4)) when e1 = e3 ->
      Times (e1, Plus (e2, e4))
   | Plus (Times (e1, e2), Times (e3, e4)) when e2 = e4 ->
      Times (Plus (e1, e3), e4)
   | e -> e;;
-val top_factorize : expr -> expr = <fun>
-# top_factorize (Plus (Times (Var "n", Var "x"),
+val top_factorise : expr -> expr = <fun>
+# top_factorise (Plus (Times (Var "n", Var "x"),
                    Times (Var "n", Var "y")));;
 - : expr = Times (Var "n", Plus (Var "x", Var "y"))
 ```
 
-The factorize function above introduces another feature: *guards* to each
-pattern. It is the conditional which follows the `when`, and it means that
+The factorise function above introduces another feature: *guards* to each
+pattern. It is the conditional that follows the `when`, and it means that
 the return code is executed only if the pattern matches and the condition in the
 `when` clause is satisfied.
 
