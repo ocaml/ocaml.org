@@ -1,6 +1,6 @@
 let package_card ~href ~img_path ~name description =
   <a href="<%s href %>" target="_blank"
-    class="bg-default dark:bg-dark-default text-default dark:text-dark-default p-4 rounded-xl flex gap-2 items-center card-hover">
+    class="bg-default dark:bg-dark-default text-default dark:text-dark-default p-4 rounded-xl flex md:gap-2 items-center card-hover">
       <div class="w-4/12">
         <img src="<%s Ocamlorg_static.Asset.url img_path %>" alt="<%s name %> logo" class="w-1/2 md:w-2/3">
       </div>
@@ -298,7 +298,7 @@ Layout.render
     </div>
   </div>
  
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-4 py-8 px-4 md:px-10 lg:px-20 relative">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-auto max-w-md md:max-w-none gap-6 md:gap-4 py-8 px-4 md:px-10 lg:px-20 relative">
     <%s! package_card
       ~href:"https://mirage.io/"
       ~img_path:"img/home/mirage.png"
