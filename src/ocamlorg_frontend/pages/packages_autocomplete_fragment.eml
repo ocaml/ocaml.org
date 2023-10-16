@@ -59,7 +59,7 @@ let render
         :aria-selected="row == <%s string_of_int i %> && col == 1"
         href="<%s Url.Package.documentation package.name %>"
         :class=' row == <%s string_of_int i %> && col == 1 ? "bg-search-keyboard-cursor text-white": ""'
-        class="dropdown-link flex text-sm justify-self-end px-2 py-2 leading-6 font-normal hover:text-primary-700">
+        class="dropdown-link flex text-sm justify-self-end px-2 py-2 leading-6 font-normal hover:text-white">
         <%s! Icons.documentation "h-5 w-5" %>
         DOCS
       </a>
@@ -69,4 +69,6 @@ let render
   <% if total > 5 then ( %>
   <a class="text-primary-600 italic font-normal hover:bg-primary-100 px-2 py-2 flex text-right" href="<%s Url.packages_search %>?q=<%s Dream.to_percent_encoded search %>">see more...</a>
   <% ); %>
+  <hr class="mb-2 mt-3">
+  <span class="pl-2 font-normal">Or go to</span>
 </div>

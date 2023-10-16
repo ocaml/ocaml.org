@@ -9,9 +9,6 @@ Layout.render
 
 let search_dropdown () =
   <div id="packages-search-results" aria-live="polite" ></div>
-  <span id="header-search-indicator" class="mx-2 htmx-indicator">Searching...</span>
-  <hr>
-  <span class="pl-2 font-normal">Or go to</span>
   <a class="flex py-2 px-4 gap-4 hover:bg-primary-100 font-normal hover:font-semibold text-primary-600" href="<%s Url.api %>">
     Standard Library API
     <%s! Icons.arrow_top_right_on_square "w-6 h-6"%>
