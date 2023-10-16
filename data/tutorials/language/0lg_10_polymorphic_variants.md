@@ -335,7 +335,7 @@ The aliasing mechanism is used to express type recursion. In the type expression
 
 ### Conjunction of constraints
 
-FIXME: This shows impossible to satisfy constraints can appear. Could we show a constraint that can be satisfied first? Otherwise, it needs to be moved to drawbacks.
+FIXME: This shows impossible to satisfy constraints can appear. Could we show a conjunction of constraint that can be satisfied first? Otherwise, it needs to be moved to drawbacks.
 
 ```ocaml
 # let foo = function `Night x -> x = 1 | `Day -> true | `Eclipse -> false
@@ -347,9 +347,9 @@ val bar : [< `Day | `Night of bool | ] -> bool = <fun>
 val both : [< `Night of string & int | `Day ] -> bool = <fun>
 ```
 
-## Advanced: Combining Polymorphic Variants and Simple Variants
+## Advanced: Combining Polymorphic and Simple Variants
 
-A tag `` `Night`` inhabits any type with additional tags, for instance ``[ `Night | `Day ]`` or ``[`Morning | `Afternoon | `Evening | `Night]``. This summarized by the subtyping order where `` [ `Night ]`` is smaller to both ``[ `Night | `Day ]`` and ``[`Morning | `Afternoon | `Evening | `Night]``.
+A tag `` `Night`` inhabits any type with additional tags, for instance ``[ `Night | `Day ]`` or ``[`Morning | `Afternoon | `Evening | `Night]``. This summarized by the subtyping order where `` [ `Night ]`` is smaller to both ``[ `Night | `Day ]`` and ``[`Morning | `Afternoon | `Evening | `Night ]``.
 
 This can be checked be defining a function `upcast` the following way:
 ```ocaml
@@ -397,21 +397,25 @@ At first, it may seem counter intuitive. However, removing tags from a polymorph
 ### Covariance and Contravariance at Work
 
 ```ocaml
-# let ingredient = function 0 -> `Flour | _ -> `Fish;;
-val ingredient : int -> [> `Fish | `Floor ] = <fun>
+# let ingredient = function 0 -> `Flour | _ -> `Masa;;
+val ingredient : int -> [> `Masa | `Flour ] = <fun>
 
-# let chef = function `Flour -> `Bread | `Mushroom -> `Soup | `Fish -> `Soup;;
-val chef : [< `Fish | `Flour | `Mushroom ] -> [> `Bread | `Soup ] =
+# let chef = function
+    | `Flour -> `Bread
+    | `Egg -> `Tortilla
+    | `Masa -> `Tortilla;;
+val chef : [< `Masa | `Flour | `Egg ] -> [> `Bread | `Tortilla ] =
   <fun>
 
-# let taste = function `Soup | `Bread -> "Nutritious" | `Stew -> "Yummy";;
-val taste : [< `Bread | `Soup | `Stew ] -> string = <fun>
+# let taste = function `Tortilla | `Bread -> "Nutritious" | `Cake -> "Yummy";;
+val taste : [< `Bread | `Tortilla | `Cake ] -> string = <fun>
 
 # fun n -> n |> ingredient |> chef |> taste;;
 - : int -> string = <fun>
 
-# let upcasted_chef = (chef :> [< `Flour | `Fish ] -> [> `Bread | `Soup | `Stew ]);;
-val upcasted_chef : [< `Flour | `Fish ] -> [> `Bread | `Soup | `Stew ] =
+# let upcasted_chef =
+    (chef :> [< `Flour | `Masa ] -> [> `Bread | `Tortilla | `Cake ]);;
+val upcasted_chef : [< `Flour | `Masa ] -> [> `Bread | `Tortilla | `Cake ] =
   <fun>
 
 # fun n -> n |> ingredient |> upcasted_chef |> taste;;
@@ -422,7 +426,9 @@ The type of `chef` is a subtype of the type of `upcasted_chef`. The function `up
 
 It is also possible to refactor `chef` into a new function that will can be used safely at the same place.
 ```ocaml
-# let refactored_chef = function `Flour -> `Bread | `Fish -> (`Soup : [> `Bread | `Soup | `Stew ]);;
+# let refactored_chef = function
+    | `Flour -> `Bread
+    | `Masa -> (`Tortilla : [> `Bread | `Tortilla | `Cake ]);;
 
 # fun n -> n |> ingredient |> refactored_chef |> taste;;
 - : int -> string = <fun>
