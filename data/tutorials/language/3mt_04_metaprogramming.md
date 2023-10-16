@@ -29,7 +29,7 @@ When you compile the code with the preprocessor, it will replace [%get_env "USER
 
 <!-- $MDX skip -->
 ```ocaml
-Printf.printf "This program has been compiled on %s" "JohnDoe"
+Printf.printf "This program has been compiled by user: %s" "JohnDoe"
 
 ```
 
