@@ -1,5 +1,4 @@
-tutorils:
-
+tutorials:
   - title: "tutorial1"
     slug: "to be added"
     recommended_next_tutorials: 
