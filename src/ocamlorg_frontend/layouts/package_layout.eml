@@ -223,7 +223,8 @@ Layout.base
           a.appendChild(title);
           a.appendChild(comment);
 
-          a.addEventListener("click", (event) => goToUrl(event, href));
+          a.addEventListener("mousedown", (event) => goToUrl(event, href));
+          a.addEventListener("touchstart", (event) => goToUrl(event, href));
 
           list_item.appendChild(a);
 
