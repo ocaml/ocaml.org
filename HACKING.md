@@ -147,9 +147,12 @@ Where `<commit-hash>` is the pinned hash specified in the files mentioned above.
      npx update-browserslist-db@latest
      ```
 
-2. Tailwind CSS Class Name Changes:
-   - Update your `tailwind.config.js` by replacing old class names (e.g., `WarmGray`) with the new ones (e.g., `stone`) to silence the warnings.
-
+2. Updating caniuse-lite:
+  - If you encounter warnings about an outdated `caniuse-lite` package, you can update it by running:
+  ```bash
+     npx update-browserslist-db@latest
+     ```
+     This command will update the package to the latest version, ensuring your browser compatibility data is current.
 
 ## Repository structure
 
