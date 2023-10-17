@@ -368,10 +368,17 @@ let tutorial req =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = tutorial.section)
   in
+  let recommended_tutorials =
+    Data.Tutorial.all
+    |> List.filter (fun (t : Data.Tutorial.t) ->
+           List.mem slug t.recommended_next_tutorials)
+  in
   Dream.html
     (Ocamlorg_frontend.tutorial ~tutorials
        ~canonical:(Url.tutorial tutorial.slug)
-       tutorial)
+       ~recommended:recommended_tutorials tutorial)
+(* Chore: handle the error *)
+(* |> None -> *)
 
 let exercises req =
   let all_exercises = Data.Exercise.all in

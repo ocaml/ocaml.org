@@ -40,4 +40,5 @@ Learn_layout.render
   <div class="prose prose-orange max-w-full">
     <%s! tutorial.body_html %>
     <%s! Learn_components.contribute_footer ~href:("https://github.com/ocaml/ocaml.org/blob/"^ Commit.hash ^"/data/"^ tutorial.fpath) %>
+    (* To add to recommendation here *)
   </div>

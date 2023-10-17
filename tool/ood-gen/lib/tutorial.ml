@@ -18,6 +18,7 @@ type metadata = {
   title : string;
   description : string;
   category : string;
+  recommended_next_tutorials : string list;
 }
 [@@deriving of_yaml]
 
@@ -31,6 +32,7 @@ type t = {
   toc : toc list;
   body_md : string;
   body_html : string;
+  recommended_next_tutorials : string list;
 }
 [@@deriving
   stable_record ~version:metadata ~add:[ id ]
