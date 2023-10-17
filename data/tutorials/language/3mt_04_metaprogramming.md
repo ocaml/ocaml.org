@@ -21,21 +21,20 @@ preprocessor](https://github.com/ocaml-ppx/ppxlib/tree/main/examples/simple-exte
 
 <!-- $MDX skip -->
 ```ocaml
-Printf.printf "This program has been compiled on %s" [%get_env "OSTYPE"]
+Printf.printf "This program has been compiled by user: %s" [%get_env "USER"]
+
 ```
 
-would become:
+When you compile the code with the preprocessor, it will replace [%get_env "USER"] with the content of the USER environment variable. If the USER environment variable is set to "JohnDoe" for example, the line would become:
 
 <!-- $MDX skip -->
 ```ocaml
-Printf.printf "This program has been compiled on %s" "linux-gnu"
+Printf.printf "This program has been compiled by user: %s" "JohnDoe"
+
 ```
 
 
-At compile time, the preprocessor would replace `[%get_env "OSTYPE"]` by a
-string with the content of the `OSTYPE` environment variable. Note that this
-happens at _compile time_, so at _run time_ the value of the `OSTYPE` variable
-would have no effect.
+With this modification, the preprocessor will replace [%get_env "USER"] with the content of the USER environment variable during compile time, and this code should work on most systems without any additional configuration. At compile time, the preprocessor would replace [%get_env "USER"] by a string with the content of the USER environment variable, which usually contains the username of the person compiling the program. This happens at compile time, so at runtime, the value of the USER variable would have no effect, as it's used purely for informational purposes in the compiled program.
 
 In this guide, we explain the different mechanism behind preprocessors in OCaml,
 with as few prerequisite as possible. If you are only interested in how to use a
