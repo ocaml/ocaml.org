@@ -31,11 +31,11 @@ let render
 =
 <div class="mx-2 mb-2">
   <% if total = 0 then ( %>
-  <p class="break-words">
+  <p class="px-2 break-words">
     We didn't find a match for "<%s search %>".
   </p>
   <% ) else ( %>
-    <p class="mx-2 break-words">
+    <p class="px-2 break-words">
       <%s (if total = List.length packages then "" else "Showing " ^ string_of_int (List.length packages) ^ " out of ")
       ^ string_of_int total ^ (if total = 1 then " package" else " packages") %>
     </p>
@@ -50,7 +50,7 @@ let render
         :aria-selected="row == <%s string_of_int i %> && col == 0"
         href="<%s Url.Package.overview package.name %>"
         :class='row == <%s string_of_int i %> && col == 0 ? "bg-search-keyboard-cursor text-white": ""'
-        class="flex-grow px-2 py-2 leading-6 font-normal hover:text-white hover:bg-linkBg rounded-md inline-block"
+        class="flex-grow px-2 py-2 leading-6 font-normal hover:text-white hover:bg-search-result-background-blue rounded-md inline-block"
       >
         <%s! Search.highlight_search_terms ~class_:"bg-search-term-highlight text-gray-800 font-normal" ~search package.name %>
       </a>
@@ -59,7 +59,7 @@ let render
         :aria-selected="row == <%s string_of_int i %> && col == 1"
         href="<%s Url.Package.documentation package.name %>"
         :class=' row == <%s string_of_int i %> && col == 1 ? "bg-search-keyboard-cursor text-white": ""'
-        class="flex text-sm justify-self-end px-2 py-2 leading-6 font-normal hover:text-white hover:bg-linkBg rounded-md">
+        class="flex text-sm justify-self-end px-2 py-2 leading-6 font-normal hover:text-white hover:bg-search-result-background-blue rounded-md">
         <%s! Icons.documentation "h-5 w-5" %>
         DOCS
       </a>
