@@ -6,27 +6,25 @@ description: |
 category: "Language"
 ---
 
-# Basic Datatypes And Pattern-Matching
+# Basic Data Types And Pattern Matching
+
+[toc]
 
 ## Introduction
 
-OCaml is a statically- and strongly-typed programming language. It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs while being easy to use and unobtrusive. Thanks to type inference, programs can be written without type annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
+This beginner-level tutorial introduces predefined and user-defined types in OCaml. It also includes the important concept of pattern matching on those types.
 
-> Type annotation means that when its necessary to write the value type to tell the compiler what to do, as opposed to TIPER inference, when the compiler *infers* the type.
 
-This tutorial begins with introducing predefinted types in OCaml. First it covers atomic types, such as integers and Booleans. Continuing, it presents predefined compound types, like strings and lists. Finally, it ends with a section about user-defined types, namely variants and records.
+In OCaml there are no type checks at runtime, and value don't change of type unless explicit conversion. This is what being statically- and strongly-typed means. This allows convinient and safe processing of structured data. At the basic level addressed in this tutorial, data in OCaml is represented using _variants_ and _products_, which corresponds to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type checking algorithm is used. OCaml also has other type systems and extension those kind of data.
 
-OCaml aggregates several type systems, also known as disciplines:
-- A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants, and functions. Historically, it's the first system, as it comes from the type system used in the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's predecessor. By default, this what is meant by OCaml type system, and it is also the scope of this tutorial.
-- Two different [structural type systems](https://en.wikipedia.org/wiki/Structural_type_system) are also used:
-  * One for polymorphic variants
-  * Another for objects and classes
+<!-- It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs while being easy to use and unobtrusive. Thanks to type inference, programs can be written without type annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
 
-OCaml also provides Generalised Algebraic Data Types, which are extensions of those presented in this tutorial. Types that are in the scope of this tutorial are the most basic ones.
+> Type annotation means that it's necessary to write the value type to tell the compiler what to do, as opposed to having the compiler infer the type.
+-->
 
-## Prerequisites and Goals
+This tutorial will cover atomic types, such as integers and Booleans, before moving on to predefined compound types, like strings and lists. It ends with a section about user-defined types, namely variants and records.
 
-This is an intermediate-level tutorial. The only prerequisite is to have completed the [Get Started](https://ocaml.org/docs/up-and-running) series of tutorials.
+Before proceeding through this tutorial, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions).
 
 <!--
 The goal of this tutorial is to provide for the following capabilities:
@@ -37,15 +35,13 @@ The goal of this tutorial is to provide for the following capabilities:
 - Use pattern matching to define functions for all basic type
 -->
 
-The goal of this tutorial will provide capabilities to handle data from predefined, variant, and record types. This importantly includes pattern matching on those types.
-
 ## Predefined Types
 
-### Integers, Characters, Booleans, and Characters
+### Integers, Floats, Booleans, and Characters
 
 #### Integers
 
-Here is an integer:
+The `int` type is the default and basic type of integers in OCaml. When you enter a whole number, OCaml recognises it as an integer, as shown in this example:
 ```ocaml
 # 42;;
 - : int = 42
@@ -59,7 +55,7 @@ There are no dedicated types for unsigned integers in OCaml. Bitwise operations 
 
 #### Floats and Type Conversions
 
-Fixed-sized float numbers have type `float`. Operations on `float` comply with the IEEE 754 standard, with 53 bits of mantissa and exponent ranging from -1022 to 1023.
+Float numbers have type `float`.
 
 OCaml does not perform any implicit type conversion between values. Therefore, arithmetic expressions can't mix integers and floats. Parameters are either all `int` or all `float`. Arithmetic operators on floats are not the same, and they are written with a dot suffix: `+.`,  `-.`, `*.`, `/.`.
 ```ocaml
@@ -97,7 +93,7 @@ Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`
 
 #### Characters
 
-Values of type `char` correspond to the 256 symbols defined in the ISO/IEC 8859-1 standard. Character literals are surrounded by single quotes. Here is an example.
+Values of type `char` correspond to the 256 symbols Latin-1 set. Character literals are surrounded by single quotes. Here is an example.
 ```ocaml
 # 'a';;
 - : char = 'a'
@@ -253,7 +249,7 @@ Operations on options are provided by the [`Option`](/api/Option.html) module. O
 
 #### Results
 
-The `result` type can be used to express that the outcome of a function can be either success or failure. There are only two ways to build a result value: either using `Ok` or `Error` with the intended meaning. Both constructors can hold any kind of data. The `result` type is polymorphic, but it has two type parameters: one for `Ok` values and another for `Error` values.
+The `result` type can be used to express that a function's outcome can be either success or failure. There are only two ways to build a result value: either using `Ok` or `Error` with the intended meaning. Both constructors can hold any kind of data. The `result` type is polymorphic, but it has two type parameters: one for `Ok` values and another for `Error` values.
 ```ocaml
 # Ok 42;;
 - : (int, 'a) result = Ok 42
@@ -327,17 +323,17 @@ The two following expressions show that the identity function can indeed be appl
 
 ```ocaml
 # let f = fun x -> x * x;;
-f : int -> int = <fun>
+val f : int -> int = <fun>
 
 # f 9;;
 - : int = 81
 ```
 
-Defining a function is the same as giving a name to any value. This is illustrated in the first expression:
+Defining a function is the same as naming a value. This is illustrated in the first expression:
 
 ```ocaml
 # let g x = x * x;;
-g : int -> int = <fun>
+val g : int -> int = <fun>
 
 # g 9;;
 - : int = 81
@@ -345,7 +341,7 @@ g : int -> int = <fun>
 
 Executable OCaml code consists primarily of functions, so it's beneficial to make them as concise and clear as possible. The function `g` is defined here using a shorter, more common, and maybe more intuitive syntax.
 
-In OCaml, functions may terminate without returning a value of the expected type by throwing an exception, which does not appear in its type. There is no way to know if a function may raise an exception without inspecting its code.
+In OCaml, functions may terminate without returning the expected type value by throwing an exception, which does not appear in its type. There is no way to know if a function may raise an exception without inspecting its code.
 ```ocaml
 # raise;;
 - : exn -> 'a' = <fun>
@@ -451,7 +447,7 @@ Note that:
 - `unit` is a variant with a unique constructor, which does not carry data: `()`.
 - `bool` is also a variant with two constructors that don't carry data: `true` and `false`.
 
-A pair `(x, y)` has type `a * b`, where `a` is the type of `x` and `b` is the type of `y`. Some may find it intriguing that `a * b` is called a product. Although this is not a complete explanation, here is a remark that may help in understanding: Consider the product type `character_class * character_alignement`. There are 12 classes and 9 alignments. Any pair of values from those types inhabits the product type. Therefore, in the product type, there are 9 × 12 = 108 values, which is also a product.
+A pair `(x, y)` has type `a * b`, where `a` is the type of `x` and `b` is the type of `y`. Some may find it intriguing that `a * b` is called a product. Although this is not a complete explanation, this may help in understanding: Consider the product type `character_class * character_alignement`. There are 12 classes and 9 alignments. Any pair of values from those types inhabits the product type. Therefore, in the product type, there are 9 × 12 = 108 values, which is also a product.
 
 #### Constructors With Data
 
@@ -501,8 +497,7 @@ let commit_to_string' x = match x with
   | Merge_head -> "MERGE_HEAD";;
 val commit_to_string' : commit -> string = <fun>
 ```
-
-The `match … with …` construct needs to be passed an expression that is inspected. The `function …` is a special form of anonymous function taking a parameter and forwarding it to a `match … with …` construct as shown above.
+We need to pass an inspected expression to the `match … with …` construct. The `function …` is a special form of anonymous function that takes a parameter and forwards it to a `match … with …` construct, as shown above.
 
 > Warning: Wrapping product types with parentheses turns them into a single parameter.
 ```ocaml
@@ -581,7 +576,7 @@ The predefined type `list` is polymorphic in the same sense. It is a variant wit
 type 'a list = [] | (::) of 'a * 'a list
 ```
 
-The only bit of magic here is turning constructors into symbols. This is left unexplained in this tutorial. The types `bool` and `unit` also are regular variants, with the same magic:
+The only bit of magic here is turning constructors into symbols, which we don't cover in this tutorial. The types `bool` and `unit` also are regular variants, with the same magic:
 ```ocaml
 # #show unit;;
 type unit = ()
@@ -628,7 +623,7 @@ Here is how the map function can be defined in this type:
 val map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 ```
 
-In the OCaml community as well as in the larger functional programming community, the word *polymorphism* is used loosely. It is applied to things working in a similar fashion with various types. Several features of OCaml are polymorphic, in the broad sense, each is using a particular form of it, including its own name. In summary, OCaml has several forms of polymorphism. In most cases, the distinction between those concepts is blurred, but it sometimes needs to distinguish them. Here are the terms applicable to datatypes.
+In the OCaml community as well as in the larger functional programming community, the word *polymorphism* is used loosely. It is applied to things working in a similar fashion with various types. Several features of OCaml are polymorphic, in the broad sense. Each uses a particular form of it, including its own name. In summary, OCaml has several forms of polymorphism. In most cases, the distinction between those concepts is blurred, but it sometimes needs to distinguish them. Here are the terms applicable to datatypes:
 1. `'a list`, `'a option`, and `'a tree` are very often said to be polymorphic types. Formally, `bool list` or `int option` are the types, whilst `list` and `option` are [type operators](https://en.wikipedia.org/wiki/Type_constructor) that take a type as a parameter and result in a type. This is a form of [parametric polymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism). `'a list` and `'a option` denote [type families](https://en.wikipedia.org/wiki/Type_family), which are all the types created by applying type parameters to the operators.
 2. OCaml has something called _Polymorphic Variants_. Although the types `option`, `list`, and `tree` are variants and polymorphic, they aren't polymorphic variants. They are type-parametrised variants. We stick to this usage and say the variants in this section are polymorphic. OCaml polymorphic variants are [covered in another tutorial](https://v2.ocaml.org/learn/tutorials/labels.html).
 
@@ -748,6 +743,12 @@ Here is a type for these expressions:
   | Times of expr * expr       (* a * b *)
   | Divide of expr * expr      (* a / b *)
   | Var of string              (* "x", "y", etc. *);;
+type expr =
+    Plus of expr * expr
+  | Minus of expr * expr
+  | Times of expr * expr
+  | Divide of expr * expr
+  | Var of string
 ```
 
 The expression `n * (x + y)` would be written:
@@ -795,7 +796,7 @@ This is how it can be used:
 - : unit = ()
 ```
 
-How does the `distribute` function work? The key is in the first two patterns.
+The first two patterns hold the key to how the `distribute` function works.
 The first pattern is `Times (e1, Plus (e2, e3))`, which matches expressions of
 the form `e1 * (e2 + e3)`. The right-hand side of this first pattern is the
 equivalent of `(e1 * e2) + (e1 * e3)`. The second pattern does the same thing,
@@ -841,4 +842,13 @@ Going further, there are several advanced topics related to data types in OCaml 
 - Extensible Variants
 - Generalised Algebraic Data Types
 
-As of writing this, these topics are not yet covered in tutorials. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml.
+As of writing this, these topics will be covered in forthcoming tutorials. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml.
+
+
+OCaml aggregates several type systems, also known as disciplines:
+- A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants, and functions. Historically, it's the first system, as it comes from the type system used in the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's predecessor. By default, this what is meant by OCaml type system, and it is also the scope of this tutorial.
+- Two different [structural type systems](https://en.wikipedia.org/wiki/Structural_type_system) are also used:
+  * One for polymorphic variants
+  * Another for objects and classes
+
+OCaml also provides Generalised Algebraic Data Types, which are extensions of those presented in this tutorial. Types that are in the scope of this tutorial are the most basic ones.
