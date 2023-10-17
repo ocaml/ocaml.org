@@ -12,10 +12,9 @@ category: "Language"
 
 ## Introduction
 
-This beginner-level tutorial introduces predefined and user-defined types in OCaml. It also includes the important concept of pattern matching on those types.
+This beginner-level tutorial introduces basic data types in OCaml. It's goal is to teach skills on how to handle data from predefined, variant and record types.  It also includes the important concept of pattern matching on those types.
 
-
-In OCaml there are no type checks at runtime, and value don't change of type unless explicit conversion. This is what being statically- and strongly-typed means. This allows convinient and safe processing of structured data. At the basic level addressed in this tutorial, data in OCaml is represented using _variants_ and _products_, which corresponds to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type checking algorithm is used. OCaml also has other type systems and extension those kind of data.
+In OCaml there are no type checks at runtime, and value don't change of type unless explicit converted. This is what being statically- and strongly-typed means. This allows convenient and safe processing of structured data. At the basic level addressed in this tutorial, data in OCaml is represented using _variants_ and _products_, which corresponds to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type checking algorithm is used. OCaml also has other type systems and extension those kind of data.
 
 <!-- It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs while being easy to use and unobtrusive. Thanks to type inference, programs can be written without type annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
 
@@ -831,24 +830,22 @@ the return code is executed only if the pattern matches and the condition in the
 ## Conclusion
 
 This tutorial has provided a comprehensive overview of the basic data types in OCaml and their usage. We have explored the built-in types, such as integers, floats, characters, lists, tuples, and strings, and the user-defined types: records and variants. Records and tuples are mechanisms for grouping heterogeneous data into cohesive units. Variants are a mechanism for exposing heterogeneous data as coherent alternatives.
-
+<!--
 From the data point of view, records and tuples are similar to the logical conjunction “and,” while variants are similar to the logical disjunction “or.” This analogy goes very deep, with records and tuples on one side as products and variants on the other side as union. These are true mathematical operations on data types. Records and tuples play the role of multiplication, which is why they are called product types. Variants play the role of addition. Putting it all together, basic OCaml types are said to be algebraic.
 
 ## Next: Advanced Data Types
-
+-->
 Going further, there are several advanced topics related to data types in OCaml that you can explore to deepen your understanding and enhance your programming skills.
 - Mutually Recursive Variants
 - Polymorphic Variants
 - Extensible Variants
-- Generalised Algebraic Data Types
+-  [Generalized Algebraic Data Types](https://en.wikipedia.org/wiki/Generalized_algebraic_data_type)
 
 As of writing this, these topics will be covered in forthcoming tutorials. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml.
 
 
 OCaml aggregates several type systems, also known as disciplines:
-- A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants, and functions. Historically, it's the first system, as it comes from the type system used in the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's predecessor. By default, this what is meant by OCaml type system, and it is also the scope of this tutorial.
+- A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants, and functions. Historically, it's the first system, as it comes from the type system used in the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. By default, this is what is meant by OCaml type system, and it is also the scope of this tutorial.
 - Two different [structural type systems](https://en.wikipedia.org/wiki/Structural_type_system) are also used:
   * One for polymorphic variants
   * Another for objects and classes
-
-OCaml also provides Generalised Algebraic Data Types, which are extensions of those presented in this tutorial. Types that are in the scope of this tutorial are the most basic ones.
