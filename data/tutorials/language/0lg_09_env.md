@@ -27,7 +27,7 @@ This tutorial is shown using the UTop toplevel, which can be initiated with the 
 
 ### Touch Base on Double Semicolon
 
-When using UTop to interact with the OCaml interpreter, lines ending with double semicolons trigger the parsing, type-checking, and evaluation of everything typed between the prompt and the double semicolon. This may span several lines. However, the interpretation of that double semicolon isn't made by the OCaml interpreter; it is made by UTop, the OCaml toplevel. Once the evaluation of a double semicolon terminated entry is over, the REPL waits for another piece of input.
+When using UTop to interact with the OCaml interpreter, lines ending with double semicolons trigger the parsing, type checking, and evaluation of everything typed between the prompt and the double semicolon. This may span several lines. However, the interpretation of that double semicolon isn't made by the OCaml interpreter; it is made by UTop, an OCaml toplevel. Once the evaluation of a double semicolon terminated entry is over, the REPL waits for another piece of input.
 
 Nevertheless, the double semicolon `;;` is a valid token in the OCaml syntax. It is a [no-op](https://en.wikipedia.org/wiki/NOP_(code)), i.e., it does not trigger any behaviour, so it is ignored by the compiler. In OCaml source code files meant to be compiled or interpreted as scripts, double semicolons can and should be avoided. Leaving them does not raise errors, but they are useless. The compiler tolerates them to allow copy-paste from UTop to a file without having to remove them.
 
@@ -35,7 +35,7 @@ Nevertheless, the double semicolon `;;` is a valid token in the OCaml syntax. It
 
 ### Values
 
-Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). The evaluation of a an expression yields a value, and the evaluation of a [statement](https://en.wikipedia.org/wiki/Statement_(computer_science) yields an effect, i.e. a change of state. Variable [assignments](https://en.wikipedia.org/wiki/Assignment_(computer_science)) or [for loop](https://en.wikipedia.org/wiki/For_loop) are examples of statements. In many languages, expressions can still yield effects, so the distinction between is not always clear cut. The same is true in OCaml where expressions and effects can be mixed. Computations triggered by OCaml are written as expressions. Once completed, they produce a value, which has a type. Here are a few examples of expressions, their type, and resulting values:
+Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). The evaluation of a an expression yields a value, and the evaluation of a [statement](https://en.wikipedia.org/wiki/Statement_(computer_science) yields an effect, i.e., a change of state. Variable [assignments](https://en.wikipedia.org/wiki/Assignment_(computer_science)) or [`for` loops](https://en.wikipedia.org/wiki/For_loop) are examples of statements. In many languages, expressions can still yield effects, so the distinction between them is not always clear cut. The same is true in OCaml where expressions and effects can be mixed. Computations triggered by OCaml are written as expressions. Once completed, they produce a value, which has a type. Here are a few examples of expressions, their type, and resulting values:
 
 ```ocaml
 # "Everything has a value, every value has a type";;
@@ -64,7 +64,7 @@ An essential property of the relationship between expressions, values, computati
 
 ### Global Definitions
 
-Every expression can be given a name. The relationship between a name and an expression is called a definition and is introduced by the `let ... = ... ` construction.
+Every expression can be named. The relationship between a name and an expression is called a definition and is introduced by the `let ... = ... ` construction.
 
 If the expression can be computed at the time of its binding to a name, it (and the relationship) is between a name and a value. Otherwise, the expression is turned into a special value without being computed, which is the case of functions. Definitions with computation are discussed in this section. Definitions without computation, like functions, are discussed in the next section.
 
@@ -76,7 +76,7 @@ val a : int = 42
 
 Here, `a` is a global definition.
 
-When a variant type has a single constructor, it is possible to combine pattern matching and definition. The pattern is written between the `let` keyword and the equal sign. A common very common case is pairs. It allows the creation of two names with a single `let`.
+When a variant type has a single constructor, it is possible to combine pattern matching and definition. The pattern is written between the `let` keyword and the equal sign. A very common case is pairs. It allows the creation of two names with a single `let`.
 ```ocaml
 # let (x, y) = List.split [(1,2); (3,4); (5,6); (7,8)];;
 val x : int list = [1; 3; 5; 7]
@@ -190,7 +190,7 @@ Here, the global environment is unchanged:
 - : float = 6.28318
 ```
 
-However, with respect to the expression `2. *. pi`, the environment is different, as it contains the definition of `pi`. Local definition create local environments.
+However, with respect to the expression `2. *. pi`, the environment is different because it contains the definition of `pi`. Local definitions create local environments.
 
 The scope of a definition is the set of environments where it is reachable.
 
@@ -275,12 +275,12 @@ Exception: Invalid_argument "compare: functional value".
 ```
 
 There are two main reasons explaining this:
-1. It is impossible to write an algorithm that takes two functions and returns `true`, if they always return the same output when provided the same input, and `false` otherwise
+1. It is impossible to write an algorithm that takes two functions and returns `true`, if they always return the same output when provided the same input, and `false` otherwise.
 1. Assuming it was possible, such an algorithm would declare that quicksort and bubble sort are equal. That would mean those procedures are substitutable, which is not the case.
 
 It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
 
-Pattern matching does not allow to inspect a function. Catch-all patterns can match against a function, but it is useless.
+Pattern matching does not allow inspecting a function. Catch-all patterns can match against a function, but it is useless.
 ```ocaml
 # match Fun.id with id -> ();;
 - : unit = ()
@@ -343,10 +343,10 @@ As citizens of the same level as other values, functions don't have to be bound 
 ```
 
 In order, here is what they do:
-- The identity function that takes anything, returns it unchanged
-- The square function takes an integer, returns its square
+- The identity function that takes anything, returns it unchanged.
+- The square function takes an integer, returns its square.
 - A function taking two strings, returning their concatenation, with a space character in between
-- A function taking a list, returning `None` if the list is empty, and the tail of the list otherwise
+- A function taking a list, returning `None` if the list is empty, and the tail of the list otherwise.
 
 ### Defining Global Functions
 
@@ -400,7 +400,7 @@ Although the new definition of `d` shadows the first one, the first value of `d`
 
 A function value is a pair containing the function code and an environment. It is that pair that is called a [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
 
-Partially applying parameters to a function creates a new closure. The environment is updated but the function is unchanged.
+Partially applying parameters to a function creates a new closure. The environment is updated, but the function is unchanged.
 ```ocaml
 # let max_42 = max 42;;
 val max_42 : int -> int = <fun>
@@ -474,7 +474,7 @@ Most importantly, this means a “binary” function isn't really a function tha
 - : int -> int = <fun>
 ```
 
-Passing a single integer to the addition returns a function of type `int -> int`. That function value is a closure; the value passed as the first parameter, here 2, is captured as if it had been in an earlier definition.
+Passing a single integer to the addition returns a function of type `int -> int`. That function value is a closure. The value passed as the first parameter, here 2, is captured as if it had been in an earlier definition.
 
 #### Passing Multiple Arguments as Tuples
 
@@ -490,7 +490,7 @@ It takes a pair of strings and returns a string.
 - : string = "hello world"
 ```
 
-Asking whether `space_cat` is a binary function or not makes sense. Morally, it takes two parameters: the two strings that are sandwiching the space character. Wrapped as a pair, they are a single piece of data, so `space_cat` has a single parameter. But it is the elements of that pair that are relevant, not the pair as a whole. So morally `space_cat` is a binary function. Syntactically, the call `space_cat ("hello", "world")` looks pretty much like a function call in high school maths or a spreadsheet application, both having two parameters: `"hello"` and `"pair"`.
+Asking whether `space_cat` is a binary function or not makes sense. Morally, it takes two parameters: the two strings that are sandwiching the space character. Wrapped as a pair, they are a single piece of data, so `space_cat` has a single parameter. But it is the elements of that pair that are relevant, not the pair as a whole. So morally, `space_cat` is a binary function. Syntactically, the call `space_cat ("hello", "world")` looks pretty much like a function call in high school maths or a spreadsheet application, both having two parameters: `"hello"` and `"pair"`.
 
 ### Currying and Uncurrying
 
@@ -526,14 +526,14 @@ It is rarely necessary to use the functions above. However, it is important to u
 
 In practice, curried functions are the default form functions should take because:
 - Allows partial application
-- Less editing, no parenthesis and comas
+- Less editing, no parentheses or commas
 - No pattern matching over a tuple
 
 ### Functions With Side-Effects
 
 With respect to its type, a function is expected to process input data from its domain and produce a result data from its codomain.
 
-However, some functions either take input data outside of their declared domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output are the most common forms of effects. Input is out-of-domain data and output out-of-codomain data. However, the result of functions returning random numbers or the current time is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
+However, some functions either take input data outside of their declared domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output (I/O) are the most common forms of effects. Input is out-of-domain data and output out-of-codomain data. However, the result of functions returning random numbers or the current time is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
 
 In practice, what is considered an effect is an engineering choice. In most circumstances, I/O operations are considered as effects, unless they are ignored. Electromagnetic radiation emitted by the processor when computing a function isn't usually considered a relevant side-effect, except in some security-sensitive contexts. In the OCaml community, as well as in the wider functional programming community, functions are often said to be either pure or impure. The former does not have side effects, the latter does. This distinction makes sense and is useful. Knowing what the effects are, and when are they taking place, is a key design consideration. However, it is important to remember this distinction always assumes some sort of context. Any computation has effects, and what is considered a relevant effect is a design choice.
 
