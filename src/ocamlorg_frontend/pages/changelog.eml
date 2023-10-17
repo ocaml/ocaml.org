@@ -5,9 +5,15 @@ Layout.render
 <div class="bg-default dark:bg-dark-default py-24">
   <div class="container-fluid">
     <div>
-      <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-zinc-800">
-        OCaml Changelog
-      </h1>
+      <div class="flex items-center">
+        <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-zinc-800">
+          OCaml Changelog
+        </h1>
+        <a href="/changelog.xml" class="text-lighter hover:text-gray-500 ml-4 lg:ml-6">
+          <span class="sr-only">RSS</span>
+          <%s! Icons.rss "h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" %>
+        </a>
+      </div>
 
       <p class="text-lg text-lighter mt-6">Read the latest releases and updates from the OCaml ecosystem.</p>
     </div>

@@ -26,7 +26,7 @@ let tabs
 
         <%s! link ~href:Url.learn_guides ~title:"Guides" ~current:(current = Guides) %>
 
-        <%s! link ~href:Url.problems ~title:"Exercises" ~current:(current = Exercises) %>
+        <%s! link ~href:Url.exercises ~title:"Exercises" ~current:(current = Exercises) %>
 
         <%s! link ~href:Url.books ~title:"Books" ~current:(current = Books) %>
       </nav>
@@ -93,7 +93,7 @@ let render
 ~current
 inner_html
 =
-  Layout.render
+  Layout.base
   ?use_swiper
   ?styles
   ~title

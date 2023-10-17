@@ -463,7 +463,7 @@ Layout.render
         </div>
       </div>
       <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
-        <a href="<%s Url.tutorial "up-and-running" %>" class="resources-card card-hover">
+        <a href="<%s Url.install %>" class="resources-card card-hover">
           <%s! Icons.play_circle "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Getting Started</p>
           <p>Install OCaml, set up your favorite text editor and start your first project.</p>
@@ -483,7 +483,7 @@ Layout.render
           <p class="font-semibold text-xl mb-3">Standard Library</p>
           <p>Searchable API documentation.</p>
         </a>
-        <a href="<%s Url.problems %>" class="resources-card card-hover">
+        <a href="<%s Url.exercises %>" class="resources-card card-hover">
           <%s! Icons.hand_palm "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Exercises</p>
           <p>Learn OCaml by solving problems on a variety of topics, from easy to challenging.</p>
