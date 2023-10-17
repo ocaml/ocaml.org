@@ -489,7 +489,7 @@ Layout.render
         </div>
       </div>
       <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
-        <a href="<%s Url.tutorial "up-and-running" %>" class="resources-card card-hover">
+        <a href="<%s Url.install %>" class="resources-card card-hover">
           <%s! Icons.play_circle "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Getting Started</p>
           <p>Install OCaml, set up your favorite text editor and start your first project.</p>
