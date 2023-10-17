@@ -12,7 +12,7 @@ OCaml's package manager, opam, introduces the concept of a _switch_, which is an
 
 Opam is designed to manage multiple concurrent installation prefixes called "switches." Similar to Python's `virtualenv`, an opam switch is a tool that creates isolated environments. They are independent of each other and have their own set of installed packages, repositories, and configuration options. Switches also have their own OCaml compiler, libraries, and binaries. This enables you to have multiple compiler versions available at once.
 
-### Listing Switches
+## Listing Switches
 
 The command below will display the opam switches that are configured on your system. After completing installation of OCaml, such as outlined in [Installing OCaml](/docs/installing-ocaml), a single switch called `default` will have been created. At that point, listing the switches will only show that switch.
 ```shell
@@ -21,7 +21,7 @@ $ opam switch list
 ->  default  ocaml.4.13.1  default
 ```
 
-### Creating a New Switch
+## Creating a New Switch
 
 To create a new opam switch, you can use the `opam switch` command followed by the desired switch name and an optional OCaml compiler version. For example, to create a switch named "my_project" with a specific OCaml compiler version, use:
 
