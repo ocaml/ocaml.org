@@ -75,8 +75,9 @@ let local_blog source = "/blog/" ^ source
 let platform = "/docs/platform"
 let ocaml_on_windows = "/docs/ocaml-on-windows"
 let tutorial name = "/docs/" ^ name
-let getting_started = tutorial "up-and-running"
-let problems = "/problems"
+let getting_started = "/docs/get-started"
+let installing_ocaml = "/docs/installing-ocaml"
+let exercises = "/exercises"
 let installer = "/install-platform.sh"
 let outreachy = "/outreachy"
 

@@ -174,9 +174,9 @@
   (action
    (run %{bin:dream_eml} %{dep:papers.eml} --workspace %{workspace_root})))
  (rule
-  (target problems.ml)
+  (target exercises.ml)
   (action
-   (run %{bin:dream_eml} %{dep:problems.eml} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:exercises.eml} --workspace %{workspace_root})))
  (rule
   (target release.ml)
   (action

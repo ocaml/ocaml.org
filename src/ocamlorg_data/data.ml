@@ -44,8 +44,8 @@ module Paper = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
-module Problem = struct
-  include Problem
+module Exercise = struct
+  include Exercise
 
   let filter_tag ?tag =
     let f x =
