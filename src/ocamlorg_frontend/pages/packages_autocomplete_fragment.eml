@@ -37,7 +37,7 @@ let render
   <% ) else ( %>
     <p class="break-words">
       <%s (if total = List.length packages then "" else "Showing " ^ string_of_int (List.length packages) ^ " out of ")
-      ^ string_of_int total ^ (if total = 1 then "search results" else " packages") %>
+      ^ string_of_int total ^ (if total = 1 then " package" else " packages") %>
     </p>
   <% ); %>
 
