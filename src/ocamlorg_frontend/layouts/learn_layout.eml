@@ -35,14 +35,12 @@ let tabs
     | Books -> "Books"
   in
   let breadcrumb_options current =
-    let (sections : section list) = [GetStarted; Language; Platform; Guides; Exercises; Books] in
+    let (sections : section list) = [Overview; GetStarted; Language; Platform; Guides; Exercises; Books] in
     let selected_option section = if section = current then "selected" else "" in
     let options_list option = 
-      <% (match option with | Overview -> None | _ -> Some %>
         <option value="<%s url_of_current option %>" <%s selected_option option %>>
           <%s section_to_string option %>
         </option> 
-      <% ); %>
     in
     <nav aria-label="breadcrumbs" class="flex px-4 py-2 border-b text-white bg-text-title md:hidden">
       <ul>
@@ -52,7 +50,7 @@ let tabs
         </li>
         <li class="inline-block">
             <select id="breadcrumbSelect" onchange="location = this.value;" class="appearance-none bg-transparent bg-none font-semibold border-none w-auto p-0 m-0 cursor-pointer focus:outline-none focus:ring-0">
-             <%s! sections |> List.filter_map options_list |> String.concat "" %>
+             <%s! sections |> List.map options_list |> String.concat "" %>
             </select>
             <span class="text-orange-700 cursor-pointer">&#x25BE;</span>
         </li>
