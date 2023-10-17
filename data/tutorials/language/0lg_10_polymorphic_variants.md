@@ -66,7 +66,7 @@ The expression ``[< `Broccoli | `Fruit of string ]`` play the role of a type. Ho
 - The type that only has`` `Fruit`` as inhabitant, its translation into a simple variant is `type t1 = Fruit of string`
 - Type type that has both`` `Broccoli`` and`` `Fruit`` inhabitants, its translation into a simple variant is `type t2 = Broccoli | Fruit of string`
 
-Note each of the above translations into simple variants is correct. However, entering them as-is into the environment would lead to constructor shadowing.
+Note each of the above translations into simple variants is correct. However, entering them as-is into the environment would lead to constructor shadowing (unless type annotation is used at pattern or expression level, see section on [Shared Constructors](#Shared-Constructors)).
 
 This also illustrates the other striking feature of polymorphic variants: values can be attached to several types. For instance, the tag `` `Broccoli`` inhabits ``[ `Broccoli ]`` and``[ `Broccoli | `Fruit of String ]``, but it also inhabits any type that contains it.
 
@@ -446,11 +446,23 @@ When reading a pattern-matching expression using a polymorphic variant tags, und
 
 ### Shared Constructors
 
-FIXME: take type-based disambiguation into account
+When several simple variants are using the same constructor name, shadowing takes place. To pattern match over a shadowed variant, type annotation must be added, either to the whole pattern matching expression or to some patterns.
+```ocaml
+# type a = A;;
+type a = A
+# type b = A;;
+type b = A
+# function A -> true;;
+- : b -> bool = <fun>
+# function (A : a) -> true;;
+- : a -> bool = <fun>
+# (function A -> true : a -> bool);;
+- : a -> bool = <fun>
+```
 
-When several simple variants are using the same constructor name, shadowing takes place. Only the last entered in the environment is accessible, previously entered one are not longer reachable. This can be worked around using modules.
+Without this previously entered one are not longer reachable. This can be worked around using modules. This is well explained Real World OCaml (FIXME: this exact section and add link).
 
-This never happens with polymorphic variants. When a tag appears several times in an expression, it must be with the same type, that's the only restriction. This makes polymorphic variants very handy when dealing with multiple sum types and constructors with same types occurring in several variants.
+This problem never happens with polymorphic variants. When a tag appears several times in an expression, it must be with the same type, that's the only restriction. This makes polymorphic variants very handy when dealing with multiple sum types and constructors with same types occurring in several variants.
 
 ### Data Type Sharing Between Modules
 
