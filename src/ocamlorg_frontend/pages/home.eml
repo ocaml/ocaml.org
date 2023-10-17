@@ -17,6 +17,7 @@ let render
 ~(lts_release: Data.Release.t)
 =
 Layout.render
+~use_swiper:true
 ~title:"Welcome to a World of OCaml"
 ~description:"OCaml is a general-purpose, industrial-strength programming language with an emphasis on expressiveness and safety."
 ~canonical:"" @@
@@ -453,3 +454,14 @@ Layout.render
     </div>
   </div>
 </div>
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    loop: true,
+    autoplay: { delay: 5000, disableOnInteraction: false, },
+    slidesPerView: 'auto',
+    spaceBetween: 10,
+    thumbs: {
+      swiper: swiper,
+    },
+  });
+</script>
