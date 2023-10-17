@@ -6,6 +6,7 @@ let packages_autocomplete_fragment = "/packages/autocomplete"
 
 module Package : sig
   val overview : ?hash:string -> ?version:string -> string -> string
+  val versions : ?hash:string -> ?version:string -> string -> string
 
   val documentation :
     ?hash:string -> ?version:string -> ?page:string -> string -> string
@@ -22,6 +23,7 @@ end = struct
     with_hash hash ^ "/" ^ name ^ with_version version ^ page
 
   let overview ?hash ?version = base ?hash ?version ""
+  let versions ?hash ?version = base ?hash ?version "/versions"
 
   let documentation ?hash ?version ?(page = "index.html") =
     base ?hash ?version ("/doc/" ^ page)

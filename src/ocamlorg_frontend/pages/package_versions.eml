@@ -1,0 +1,39 @@
+let render (package : Package.package)
+=
+Layout.render
+~title:(Printf.sprintf "%s Versions" package.name)
+~description:"Package Versions" @@
+<div class="bg-default dark:bg-dark-default py-8">
+  <div class="container-fluid flex items-center gap-2">
+    <a href="/p/<%s package.name %>" class="m-5"><%s! Icons.arrow_left "h-8 w-8 text-primary-600 border-primary-600 border-2 rounded-full"; %></a>
+    <h1 class="text-xl font-bold"><%s package.name %> Versions </h1>(x)
+  </div>
+  <div class="container-fluid py-8 flex justify-center">
+    <table class="table-auto">
+        <thead class="container-fluid text-md text-lighter text-left">
+            <tr>
+                <th class="text-center font-normal"><%s! Icons.bars_3 "h-5 w-5"; %></th>
+                <th class="text-left font-normal pr-10">Version</th>
+                <th class="text-left font-normal pr-10">Release Date</th>
+                <th class="text-left font-normal pr-10">Links</th>
+            </tr>
+        </thead>
+        <tbody class="">
+          <% package.versions |> List.iter (fun (version : string) -> %>
+          <tr class="first:bg-primary-600 first:bg-opacity-10 first:rounded-md first:font-bold pt-5">
+            <td class="text-center p-5"></td>
+            <td class="text-left">
+              <a href="/p/<%s package.name %>/<%s version %>" class="hover:no-underline hover:text-primary-600 focus:text-primary-600 focus:no-underline hover:font-bold focus:font-bold text-base"><%s version %></a>
+            </td>
+            <td class="text-left text-sm">
+              <%s Utils.human_date_of_timestamp package.publication %>
+            </td>
+            <td class="text-left text-sm">
+              <a href="/p/<%s package.name %>/<%s version %>/doc/index.html" class="text-primary-600 flex items-center"><%s! Icons.document "h-5 w-5"; %> Documentation</a>
+            </td>
+          </tr>
+          <% ); %>
+        </tbody>
+    </table>
+  </div>
+</div>

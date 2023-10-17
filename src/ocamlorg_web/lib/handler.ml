@@ -788,6 +788,14 @@ let package_overview t kind req =
     (Ocamlorg_frontend.package_overview ~sidebar_data ~readme
        ~search_index_digest ~toc ~deps_and_conflicts frontend_package)
 
+let package_versions t _kind req =
+  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
+  let version_from_url = Dream.param req "version" in
+  let</>? _package, frontend_package =
+    Package_helper.of_name_version t name version_from_url
+  in
+  Dream.html (Ocamlorg_frontend.package_versions frontend_package)
+
 let package_documentation t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version_from_url = Dream.param req "version" in
