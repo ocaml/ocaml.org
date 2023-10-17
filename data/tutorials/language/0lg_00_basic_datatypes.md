@@ -2,7 +2,7 @@
 id: basic-datatypes
 title: Basic Datatypes and Pattern Matching
 description: |
-  Predefined types, Variants, Records, and Pattern-Matching
+  Predefined Types, Variants, Records, and Pattern Matching
 category: "Language"
 ---
 
@@ -489,7 +489,7 @@ Here is how to convert a `commit` to a `string` using pattern matching:
 val commit_to_string : commit -> string = <fun>
 ```
 
-Here, the `function …` construct is used instead of the `match … with …` construct used previously.
+Here, the `function …` construct is used instead of the `match … with …` construct used previously:
 ```ocaml
 let commit_to_string' x = match x with
   | Hash sha -> sha
@@ -504,7 +504,7 @@ val commit_to_string' : commit -> string = <fun>
 
 The `match … with …` construct needs to be passed an expression that is inspected. The `function …` is a special form of anonymous function taking a parameter and forwarding it to a `match … with …` construct as shown above.
 
-Warning: Wrapping product types with parenthesis turns them into a single parameter.
+> Warning: Wrapping product types with parentheses turns them into a single parameter.
 ```ocaml
 # type t1 = T1 of int * bool;;
 type t1 = T1 of int * bool
@@ -523,7 +523,7 @@ Error: The constructor T1 expects 2 argument(s),
 - : t2 = T2 (4, false)
 ```
 
-The constructor `T1` has two parameters of type `int` and `bool` whilst the constructor `T2` has a single parameter of type `int * bool`.
+The constructor `T1` has two parameters of type `int` and `bool`, whilst the constructor `T2` has a single parameter of type `int * bool`.
 
 #### Recursive Variants
 
@@ -596,7 +596,7 @@ Implicitly, product types also behave as variant types. For instance, pairs can 
 type ('a, 'b) pair = Pair of 'a * 'b
 ```
 
-Where `(int, bool) pair` would be written `int * bool` and `Pair (42, true)` would be written `(42, true)`. From the developer's perspective, everything happens as if such a type were declared for every possible product shape. This is what allows pattern matching on products.
+`(int, bool) pair` would be written `int * bool`, and `Pair (42, true)` would be written `(42, true)`. From the developer's perspective, everything happens as if such a type were declared for every possible product shape. This is what allows pattern matching on products.
 
 Even integers and floats can be seen as enumerated-like variant types, with many constructors and funky syntactic sugar. This is what allows pattern matching on those types.
 
@@ -612,7 +612,7 @@ Here is an example of a variant type that combines constructors with data, const
 type 'a tree = Leaf | Node of 'a * 'a tree * 'a tree
 ```
 
-It can be used to represent arbitrarily labelled binary trees. Assuming such a tree would be labelled with integers, here is a possible way to compute the sum of the integers it contains, using recursion and pattern-matching.
+It can be used to represent arbitrarily labelled binary trees. Assuming such a tree would be labelled with integers, here is a possible way to compute the sum of the integers it contains, using recursion and pattern matching.
 ```ocaml
 # let rec sum = function
   | Leaf -> 0
@@ -734,11 +734,11 @@ Just like values, any type can be given a name.
 type latitude_longitude = float * float
 ```
 
-This is mostly useful as a means of documentation or as a means to shorten long-type expressions.
+This is mostly useful as a means of documentation or to shorten long-type expressions.
 
 ## A Complete Example: Mathematical Expressions
 
-This example show how to represent simple mathematical expressions like `n * (x + y)` and multiply them out symbolically to get `n * x + n * y`.
+This example shows how to represent simple mathematical expressions like `n * (x + y)` and multiply them out symbolically to get `n * x + n * y`.
 
 Here is a type for these expressions:
 ```ocaml env=expr
@@ -757,7 +757,7 @@ val e : expr = Times (Var "n", Plus (Var "x", Var "y"))
 ```
 
 Here is a function which prints out `Times (Var "n", Plus (Var "x", Var "y"))`
-as something more like `n * (x + y)`.
+as something more like `n * (x + y)`:
 
 ```ocaml env=expr
 # let rec to_string = function
@@ -796,16 +796,16 @@ This is how it can be used:
 ```
 
 How does the `distribute` function work? The key is in the first two patterns.
-The first pattern is `Times (e1, Plus (e2, e3))` which matches expressions of
+The first pattern is `Times (e1, Plus (e2, e3))`, which matches expressions of
 the form `e1 * (e2 + e3)`. The right-hand side of this first pattern is the
 equivalent of `(e1 * e2) + (e1 * e3)`. The second pattern does the same thing,
 except for expressions of the form `(e1 + e2) * e3`.
 
 The remaining patterns don't change the expressions's form, but they call the
 `distribute` function recursively on their subexpressions. This ensures that all
-subexpressions within the expression get multiplied out too (if you only wanted
+subexpressions within the expression get multiplied out too. (If you only wanted
 to multiply out the very top level of an expression, then you could replace all
-the remaining patterns with a simple `e -> e` rule).
+the remaining patterns with a simple `e -> e` rule.)
 
 The reverse operation, i.e., factorising out common subexpressions, can be
 implemented in a similar fashion. The following version only works for the toplevel expression.
