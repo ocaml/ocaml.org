@@ -54,6 +54,7 @@ module.exports = {
         primary: "2px solid #EE6A1A"
       },
       colors: {
+        linkBg:"#00308F",
         primary: {
           800: "#CD4E00",
           700: "#DC5402",

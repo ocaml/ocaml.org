@@ -259,7 +259,3 @@ summary::-webkit-details-marker {
 .dropdown {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.dropdown-link:hover{
-  background-color:#00308F;
-  border-radius: 5px;
-}
