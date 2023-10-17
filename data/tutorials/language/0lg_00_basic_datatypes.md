@@ -195,9 +195,9 @@ Operations on lists are provided by the [`List`](/api/List.html) module. The `Li
 
 There are symbols of special importance with respect to lists:
 - The empty list is written `[]`, has type `'a list'`, and is pronounced “nil.”
-- The list constructor operator, written `::` and pronounced “cons,” is used to add a value at the head of a list.
+- The list constructor operator, written `::`, and pronounced “cons,” is used to add a value at the head of a list.
 
-Together, they are the basic means to build a list and access the data it stores. For instance, here is how lists are built by successively applying the cons (`::`) operator.
+Together, they are the basic means to build a list and access the data it stores. For instance, here is how lists are built by successively applying the cons (`::`) operator:
 ```ocaml
 # 3 :: [];;
 - : int list = [3]
@@ -223,7 +223,7 @@ Pattern matching provides the basic means to access data stored inside a list.
 - : int = 2
 ```
 
-In the above expressions, `[1; 2; 3]` is the value which is matched over. Each expression between the `|` and `->` symbols is a pattern. They are expressions of type list, only formed using `[]`, `::`, and variables names that represent various shapes a list may have. When the pattern is `[]`, it means “if the list is empty.” When the pattern is `x :: u`, it means “if the list contains data, let `x` be the first element of the list and `u` be the rest of the list.” Expression at the right of the `->` symbols are the results returned in each corresponding case.
+In the above expressions, `[1; 2; 3]` is the value that is matched over. Each expression between the `|` and `->` symbols is a pattern. They are expressions of type list, only formed using `[]`, `::`, and variables names that represent various shapes a list may have. When the pattern is `[]`, it means “if the list is empty.” When the pattern is `x :: u`, it means “if the list contains data, let `x` be the first element of the list and `u` be the rest of the list.” Expressions at the right of the `->` symbols are the results returned in each corresponding case.
 
 Operations on lists are provided by the [`List`](/api/List.html) module. There is a [dedicated tutorial on lists](https://ocaml.org/docs/lists).
 
@@ -243,7 +243,7 @@ The `option` type is also a polymorphic type. Option values can store any kind o
 - : string option = Some "hello"
 ```
 
-Here is an example of pattern matching on an option value.
+Here is an example of pattern matching on an option value:
 ```ocaml
 # match Some 42 with None -> raise Exit | Some x -> x;;
 - : int = 42
@@ -304,7 +304,7 @@ The type of functions from type `a` to type `b` is written `a -> b`. Here are a 
 - : int = 81
 ```
 
-The first expression is an anonymous function of type `int -> int`. The type is inferred from the expression `x * x`, which must be of type `int` since `*` is an operator that returns an `int`. The `<fun>` printed in place of the value is a token, meaning functions don't have a value to be displayed. This is because if they have been compiled their code is no longer available.
+The first expression is an anonymous function of type `int -> int`. The type is inferred from the expression `x * x`, which must be of type `int` since `*` is an operator that returns an `int`. The `<fun>` printed in place of the value is a token, meaning functions don't have a value to be displayed. This is because, if they have been compiled, their code is no longer available.
 
 The second expression is function application. The parameter `9` is applied, and the result `81` is returned.
 
@@ -390,7 +390,7 @@ User defined types are always introduced using the `type … = …` construction
 1. Record
 1. Aliases
 
-These three kinds of type definitions are covered in three next sections.
+These three kinds of type definitions are covered in next three sections.
 
 ### Variants
 
