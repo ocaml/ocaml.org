@@ -172,7 +172,7 @@ Arbitrary combinations of chaining or nesting are allowed.
 
 ### Scopes and Environments
 
-Without oversimplifying, an OCaml program is a sequence of definitions or expressions. These items are said to be at the _toplevel_. That's why an OCaml REPL, such as UTop, is called a toplevel, because that's where typed expressions go.
+Without oversimplifying, an OCaml program is a sequence of definitions or expressions. These items are said to be at the _top level_. That's why an OCaml REPL, such as UTop, is called a toplevel, because that's where typed expressions go.
 
 Execution evaluates each expression from top to bottom.
 
