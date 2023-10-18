@@ -169,6 +169,7 @@ Here is an example of nesting:
     c * 5 in
   b * 7;;
 - : int = 210
+```
 Here is how scoping works:
 - `c` is bound to `6` inside `c * 5`
 - `b` is bound to `30` inside `b * 7`
