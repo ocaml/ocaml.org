@@ -601,11 +601,9 @@ let packages_search t req =
         paginate ~req ~n:50 packages
       in
       let results = List.map (Package_helper.frontend_package t) current_items in
-      let base_url = Url.packages_search ^ "?q=" ^ search ^ "&p=" 
-      in
       let search = Dream.from_percent_encoded search in
 
-      Dream.html (Ocamlorg_frontend.packages_search ~total ~search ~page ~number_of_pages ~base_url results)
+      Dream.html (Ocamlorg_frontend.packages_search ~total ~search ~page ~number_of_pages results)
   | None -> Dream.redirect req Url.packages
 
 let packages_autocomplete_fragment t req =

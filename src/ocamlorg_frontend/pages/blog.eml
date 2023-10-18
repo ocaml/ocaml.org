@@ -64,7 +64,7 @@ Layout.render
                     </div>
                     <% ); %>
 
-                    <%s! Pagination.render ~total_page_count:planet_pages_number ~page_number:planet_page ~base_url:Url.blog %>
+                    <%s! Pagination.render ~total_page_count:planet_pages_number ~page_number:planet_page ~base_url:Url.blog ~query:""%>
                 </div>
             </div>
             <div class="lg:pl-16 space-y-12">
