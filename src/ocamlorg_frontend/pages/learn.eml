@@ -26,9 +26,9 @@ Learn_layout.single_column_layout
     <%s! Learn_components.left_tutorial_block ~title:"GET STARTED" ~heading:"Introduction To OCaml" 
             ~description:"Install OCaml and gain a high-level understanding of language features" 
             ~tutorial_links:[
-                {href = Url.tutorial "up-and-running"; title = "Get Up and Running With OCaml"};
-                {href = Url.tutorial "first-hour"; title = "Your First Day With OCaml"};
-                {href = Url.tutorial "ocaml-on-windows"; title = "OCaml On Windows"}
+                {href = Url.tutorial "installing-ocaml"; title = "Installing OCaml"};
+                {href = Url.tutorial "tour-of-ocaml"; title = "A Tour of OCaml"};
+                {href = Url.tutorial "your-first-program"; title = "Your First OCaml Program"}
             ]
              ~see_more:{href = Url.getting_started; title = "Get Started"}
             "bg-teal-700"
@@ -74,9 +74,9 @@ Learn_layout.single_column_layout
     <%s! Learn_components.left_books_content_block books ~title:"Recommended For Beginners" ~link:{href = Url.books; title = "See More Books"} %>
     <%s! Learn_components.right_books_content_block intermediate_books ~title:"For Intermediate Users" ~link:{href = Url.books; title = "See More Books"} %>
   </div>
-    
+  <div>
   <%s! Learn_components.lang_manual_banner %>
-
+  </div>
   <div class="container-fluid">
     <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
       <h3 class="font-bold">Papers</h3>

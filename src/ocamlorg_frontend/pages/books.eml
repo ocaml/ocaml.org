@@ -45,8 +45,10 @@ Learn_layout.single_column_layout
 ~active_top_nav_item:Header.Learn 
 ~current:Books @@
 <div class="bg-default dark:bg-dark-default">
-    <div class="container-fluid">
-        <h2 class="font-bold mt-10 mb-6 lg:mt-0">Books On OCaml (<%s string_of_int (List.length books) %>)</h2>
+    <div class="container-fluid pt-10">
+        <div class="prose mb-6">
+            <h1>Books On OCaml (<%s string_of_int (List.length books) %>)</h2>
+        </div>
         <form action="<%s Url.books %>" method="GET">
             <div class="flex mb-0 flex-col gap-4 sm:flex-row">
                 <%s! Forms.select
