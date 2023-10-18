@@ -4,7 +4,7 @@ let exercises_sidebar_link
 ~current =
   match current with
   | true ->
-    <a class="block text-primary-600 bg-primary-100 border-l-2 border-primary-600 py-4 px-3 font-semibold text-sm rounded-sm" href="<%s href %>">
+    <a class="block text-primary-600 bg-primary-100 border-l-2 border-primary-600 py-3 px-5 font-semibold text-sm rounded-sm" href="<%s href %>">
       <%s title %>
     </a>
   | false ->
