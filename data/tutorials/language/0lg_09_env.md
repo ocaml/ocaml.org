@@ -546,7 +546,7 @@ Since, by definition, effects lie outside function types, a function type can't 
 ```
 (If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.) 
 
-No data needs to be passed to this function in order to return its result. It is entirely context-dependent, i.e., entirely determined by external factors. Therefore, if it was passed something, it would be discarded. Note that it has to be passed something to trigger the computation. Requesting the information from the operating system, as suggested by the module name, is that computation. To sum up, since the function must receive data to trigger the computation but the data is going to be ignored, it makes sense to provide `()`, the unit value, the inhabitant of the type that only has a single value. What gets discarded is meaningless in the first place.
+No data needs to be passed to this function in order to return its result. It is entirely context-dependent, i.e., entirely determined by external factors. Therefore, if it was passed something, it would be discarded. Note that it has to be passed something to trigger the computation. Requesting the information from the operating system, as suggested by the module name, is that computation. To sum up, since the function must receive data to trigger the computation, but the data is going to be ignored, it makes sense to provide `()`, the unit value. What gets discarded is meaningless in the first place.
 
 A similar reasoning applies to functions producing an effect instead of being effect-determined functions. Consider `print_endline`. It prints the string it was passed to standard output, followed by a line termination.
 ```ocaml
