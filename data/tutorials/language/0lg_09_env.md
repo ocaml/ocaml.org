@@ -221,7 +221,7 @@ val c : int = 6
 val d : int = 42
 
 # let c = 7 * 7;;
-- : int = 49
+val c : int = 49
 
 # d;;
 - : int = 42
