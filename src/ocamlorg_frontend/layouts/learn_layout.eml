@@ -81,11 +81,11 @@ let sidebar_link
 ~current =
   match current with
   | true ->
-    <a class="flex text-primary-600 bg-primary-100 border-l-4 border-primary-600 py-6 px-3 rounded-sm text-sm font-bold" href="<%s href %>">
+    <a class="flex text-primary-600 bg-primary-100 border-l-4 border-primary-600 py-6 px-3 rounded-sm font-bold leading-10" href="<%s href %>">
       <%s title %>
     </a>
   | false ->
-    <a class="text-sm text-lighter hover:bg-gray-100 block py-2 px-3" href="<%s href %>">
+    <a class="text-lighter leading-6 hover:bg-gray-100 block py-2 px-3" href="<%s href %>">
       <%s title %>
     </a>
 
@@ -95,7 +95,7 @@ title
 link_html
 =
   <div class="space-y-2 flex flex-col">
-    <div class="text-sm font-semibold flex px-3 py-2 uppercase"><%s title %></div>
+    <div class="text-lg font-bold leading-10 flex px-3 py-2 uppercase"><%s title %></div>
     <%s! link_html %>
     <%s! extra_html %>
   </div>
