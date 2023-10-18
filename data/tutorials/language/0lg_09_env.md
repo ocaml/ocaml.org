@@ -10,9 +10,10 @@ category: "Language"
 
 ## Introduction
 
-The goal of this tutorial is provide the capability to proficiently handle expressions, values and names. In OCaml, functions are values, in comparison to many other mainstream languages, that creates a richer picture between expressions, values and names. The targeted skills include: writing expressions of any kind, naming or leaving things anonymous, appropriately scope names, handle multiple definition of the same name, create and use closures, produce or avoid side effects.
-
 This is intermediate level tutorial. The only prerequisite is to have completed the “Get Started” series of tutorials.
+
+The goal of this tutorial is to teach how to handle expressions, values and names. In OCaml, functions are values, in comparison to many other mainstream languages, that creates a richer picture between expressions, values and names. The targeted skills include: writing expressions of any kind, naming or leaving things anonymous, appropriately scope names, handle multiple definition of the same name, create and use closures, produce or avoid side effects.
+
 <!--
 When presenting OCaml or another functional programming language, it is often said: “Functions are treated as first-class citizens.” Without further explanation or context, this may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by that sentence. In turn, this should explain it:
 - Write all kinds of definitions, for all kinds of values, in all different ways
@@ -37,7 +38,11 @@ Nevertheless, the double semicolon `;;` is also a valid token in the OCaml synta
 
 ### Values
 
-Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). The evaluation of a an expression yields a value, and the evaluation of a [statement](https://en.wikipedia.org/wiki/Statement_(computer_science) yields an effect, i.e., a change of state. Variable [assignments](https://en.wikipedia.org/wiki/Assignment_(computer_science)) or [`for` loops](https://en.wikipedia.org/wiki/For_loop) are examples of statements. In many languages, expressions can still yield effects, so the distinction between them is not always clear cut. The same is true in OCaml where expressions and effects can be mixed. Computations triggered by OCaml are written as expressions. Once completed, they produce a value, which has a type. Here are a few examples of expressions, their type, and resulting values:
+WIP: Rewrite
+
+Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). In programming, the evaluation of a an expression yields a value, whilst the evaluation of a [statement](https://en.wikipedia.org/wiki/Statement_(computer_science)) yields a change of state or execution or memory. Variable [assignments](https://en.wikipedia.org/wiki/Assignment_(computer_science)) or [`for` loops](https://en.wikipedia.org/wiki/For_loop) are examples of statements.
+
+In many languages, expressions can still yield effects, so the distinction between them is not always clear cut. The same is true in OCaml where expressions and effects can be mixed. Computations triggered by OCaml are written as expressions. Once completed, they produce a value, which has a type. Here are a few examples of expressions, their type, and resulting values:
 
 ```ocaml
 # "Everything has a value, every value has a type";;
@@ -66,7 +71,14 @@ An essential property of the relationship between expressions, values, computati
 
 ### Global Definitions
 
-Every expression can be named. The relationship between a name and an expression is called a definition and is introduced by the `let ... = ... ` construction.
+WIP: Rewrite
+
+Every value can be named. The relationship between a name and an value is called a definition and is introduced by the `let ... = ... ` construction.
+
+At the left of the equal sign. 
+
+
+At the right of the equal sign is an expression.
 
 If the expression can be computed at the time of its binding to a name, it (and the relationship) is between a name and a value. Otherwise, the expression is turned into a special value without being computed, which is the case of functions. Definitions with computation are discussed in this section. Definitions without computation, like functions, are discussed in the next section.
 
@@ -546,7 +558,9 @@ Since, by definition, effects lie outside function types, a function type can't 
 ```
 (If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.) 
 
-No data needs to be passed to this function in order to return its result. It is entirely context-dependent, i.e., entirely determined by external factors. Therefore, if it was passed something, it would be discarded. Note that it has to be passed something to trigger the computation. Requesting the information from the operating system, as suggested by the module name, is that computation. To sum up, since the function must receive data to trigger the computation, but the data is going to be ignored, it makes sense to provide `()`, the unit value. What gets discarded is meaningless in the first place.
+WIP: Rewriting
+
+No data needs to be passed to this function in order to return its result. It is entirely context-dependent, i.e., entirely determined by external factors. Therefore, if it was passed something, it would be discarded. Note that it has to be passed something to trigger the computation. Requesting the information from the operating system, as suggested by the module name, is that computation. To sum up, since the function must receive data to trigger the computation but the data is going to be ignored, it makes sense to provide `()`, the unit value. What gets discarded is meaningless in the first place.
 
 A similar reasoning applies to functions producing an effect instead of being effect-determined functions. Consider `print_endline`. It prints the string it was passed to standard output, followed by a line termination.
 ```ocaml
