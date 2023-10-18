@@ -65,8 +65,8 @@ let decode (_, (head, body)) =
   let statement_blocks, solution_blocks =
     split_statement_statement (Omd.of_string body)
   in
-  let statement = Omd.to_html (Hilite.Md.transform statement_blocks) in
-  let solution = Omd.to_html (Hilite.Md.transform solution_blocks) in
+  let statement = Omd.to_html statement_blocks in
+  let solution = Omd.to_html solution_blocks in
   Result.map (of_metadata ~statement ~solution) metadata
 
 let all () = Utils.map_files decode "exercises/*.md"

@@ -124,7 +124,7 @@ let decode (fpath, (head, body_md)) =
   in
   let omd = doc_with_ids (Omd.of_string body_md) in
   let toc = toc ~start_level:2 ~max_level:4 omd in
-  let body_html = Omd.to_html (Hilite.Md.transform omd) in
+  let body_html = Omd.to_html omd in
   Result.map (of_metadata ~fpath ~section ~toc ~body_md ~body_html) metadata
 
 let all () =
