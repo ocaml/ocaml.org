@@ -8,7 +8,7 @@ let exercises_sidebar_link
       <%s title %>
     </a>
   | false ->
-    <a class="block hover:text-primary-600 hover:bg-primary-100 border-l-2 border-transparent hover:border-primary-600 py-4 px-3 font-medium text-sm rounded-sm" href="<%s href %>">
+    <a class="block hover:text-primary-600 hover:bg-primary-100 border-l-2 border-transparent hover:border-primary-600 py-3 px-5 font-medium text-sm rounded-sm" href="<%s href %>">
       <%s title %>
     </a>
 
