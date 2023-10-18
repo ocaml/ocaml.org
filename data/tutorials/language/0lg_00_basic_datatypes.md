@@ -628,7 +628,7 @@ In the OCaml community, as well as in the larger functional programming communit
 
 ### Records
 
-Records are like tuples in that several values are bundled together. In a tuple, elements are identified by their position in the corresponding product type. They are either first, second, third, or at some other position. In a record, each element has a *field* that contains a name and a value. That's why record types must be declared before being used.
+Records are like tuples in that several values are bundled together. In a tuple, elements are identified by their position in the corresponding product type. They are either first, second, third, or at some other position. In a record, each element has a name and a value. This name-value pair is known as a field. That's why record types must be declared before being used.
 
 For instance, here is the definition of a record type meant to partially represent a Dungeons & Dragons character class. Please note that the following code is dependent upon the definitions earlier in this tutorial. Ensure you have entered the definitions in the [Enumerated Data Types](/docs/basic-data-types#enumerated-data-types) section.
 ```ocaml
