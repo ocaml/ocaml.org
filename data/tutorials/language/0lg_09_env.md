@@ -75,8 +75,6 @@ At the left of the equal sign.
 
 At the right of the equal sign is an expression.
 
-If the expression can be computed at the time of its binding to a name, it (and the relationship) is between a name and a value. Otherwise, the expression is turned into a special value without being computed, which is the case of functions. Definitions with computation are discussed in this section. Definitions without computation, like functions, are discussed in the next section.
-
 Global definitions are those entered at the toplevel. This is what happens when writing a definition in UTop:
 ```ocaml
 # let a = 2 * 3 * 7;;
