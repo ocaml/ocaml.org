@@ -268,27 +268,27 @@ val d : int = 21
 
 ### Restrictions
 
-Functions are supposed to be exactly as other values; however, there are three restrictions.
+Functions are supposed to be exactly as other values; however, there are three restrictions:
 
-Function values cannot be displayed in interactive sessions, but the placeholder `<fun>` is displayed. This is because there is nothing meaningful to print. Once parsed and typed-checked, OCaml discards the function's source code and nothing remains to be printed.
+1. Function values cannot be displayed in interactive sessions, but the placeholder `<fun>` is displayed. This is because there is nothing meaningful to print. Once parsed and typed-checked, OCaml discards the function's source code and nothing remains to be printed.
 ```ocaml
 # sqrt;;
 - : float -> float = <fun>
 ```
 
-Equality between functions can't be tested.
+2. Equality between functions can't be tested.
 ```ocaml
 # pred = succ;;
 Exception: Invalid_argument "compare: functional value".
 ```
 
 There are two main reasons explaining this:
-1. It is impossible to write an algorithm that takes two functions and returns `true`, if they always return the same output when provided the same input, and `false` otherwise.
-1. Assuming it was possible, such an algorithm would declare that quicksort and bubble sort are equal. That would mean those procedures are substitutable, which is not the case.
+- It is impossible to write an algorithm that takes two functions and returns `true`, if they always return the same output when provided the same input, and `false` otherwise.
+- Assuming it was possible, such an algorithm would declare that quicksort and bubble sort are equal. That would mean those procedures are substitutable, which is not the case.
 
 It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
 
-Pattern matching does not allow inspecting a function. Catch-all patterns can match against a function, but it is useless.
+3. Pattern matching does not allow inspecting a function. Catch-all patterns can match against a function, but it is useless.
 ```ocaml
 # match Fun.id with id -> ();;
 - : unit = ()
