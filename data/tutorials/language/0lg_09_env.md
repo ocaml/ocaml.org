@@ -347,7 +347,7 @@ As citizens of the same level as other values, functions don't have to be bound 
 In order, here is what they do:
 - The identity function that takes anything, returns it unchanged.
 - The square function takes an integer, returns its square.
-- A function taking two strings, returning their concatenation, with a space character in between
+- The function taking two strings returns their concatenation with a space character in between.
 - A function taking a list, returning `None` if the list is empty, and the tail of the list otherwise.
 
 ### Defining Global Functions
