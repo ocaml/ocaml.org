@@ -276,8 +276,6 @@ rounds:
         - Reynir Björnsson
         video: https://watch.ocaml.org/w/kTwq4AVQtRtFuQx9R5cPro
 
-  - name: Summer 2023
-    projects:
       - title: "MIDI over Ethernet with MirageOS"
         description: >
           MIDI, which stands for Musical Instrument Digital Interface, is a widely used protocol in the world of music and audio technology.
