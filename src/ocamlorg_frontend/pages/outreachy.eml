@@ -43,4 +43,4 @@ Layout.render
             </div>
         <% ); %>
     </div>
-</div>
+</div> <span></span>
