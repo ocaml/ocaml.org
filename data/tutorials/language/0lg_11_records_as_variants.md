@@ -51,10 +51,10 @@ val ghorghor_bey' : character =
 ```
 Writing `level ghorghor_bey'` is the same as `ghorghor_bey.level`.
 
-**Remarks**
+## Conclusion
 
-1. To be true to facts, it is not possible to encode all records as variants because OCaml provides a means to define fields whose value can be updated, which isn't available while defining variant types. This will be detailed in an upcoming tutorial on imperative programming.
+To be true to facts, it is not possible to encode all records as variants because OCaml provides a means to define fields whose value can be updated, which isn't available while defining variant types. This will be detailed in an upcoming tutorial on imperative programming.
 
-1. Records **should not** be defined using this technique. It is only demonstrated here to further illustrate the expressive strength of OCaml variants.
+Records **should not** be defined using this technique. It is only demonstrated to further illustrate the expressive strength of OCaml variants.
 
-1. This way, to define records **may** be applied to _Generalised Algebraic Data Types_, which is the subject of another tutorial.
+This way, to define records **may** be applied to _Generalised Algebraic Data Types_, which is the subject of another tutorial.
