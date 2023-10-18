@@ -35,9 +35,7 @@ When presenting OCaml or another functional programming language, it is often sa
 
 WIP: Rewrite
 
-Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). In programming, the evaluation of a an expression yields a value, whilst the evaluation of a [statement](https://en.wikipedia.org/wiki/Statement_(computer_science)) yields a change of state or execution or memory. Variable [assignments](https://en.wikipedia.org/wiki/Assignment_(computer_science)) or [`for` loops](https://en.wikipedia.org/wiki/For_loop) are examples of statements.
-
-In many languages, expressions can still yield effects, so the distinction between them is not always clear cut. The same is true in OCaml where expressions and effects can be mixed. Computations triggered by OCaml are written as expressions. Once completed, they produce a value, which has a type. Here are a few examples of expressions, their type, and resulting values:
+Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). It essentially has a single statement, the global `let`. Programmed computations takes place through evaluation of expressions. On termination, a value is produced. Here are a few examples of expressions, their type, and resulting values:
 
 ```ocaml
 # "Everything has a value, every value has a type";;
@@ -60,20 +58,21 @@ In many languages, expressions can still yield effects, so the distinction betwe
 
 # print_endline;;
 - : string -> unit = <fun>
+
+# print_endline "Hello!";;
+Hello!
+- : unit
 ```
 
-An essential property of the relationship between expressions, values, computation, and types is called _subject reduction_. The type of an expression before computation is the same as the type of the value it produces after computation. This allows the compiler to avoid runtime type checks in binaries.
+The type of an expression (before evaluation) and type of the value it produces (after computation) are the same. This allows the compiler to avoid runtime type checks in binaries. In OCaml, type information is removed by the compiler and therefore not available at runtime. In programming theory, this is called [subject reduction](https://en.wikipedia.org/wiki/Subject_reduction).
 
 ### Global Definitions
 
-WIP: Rewrite
+Every value can be named. This the purpose of the `let ... = ... ` construction. The name is on left, the expression is on the right.
+* If the expression can be evaluated, that take places right away
+* Otherwise, the expression is turned into a value as-is. That's the case of function definition.
 
-Every value can be named. The relationship between a name and an value is called a definition and is introduced by the `let ... = ... ` construction.
-
-At the left of the equal sign. 
-
-
-At the right of the equal sign is an expression.
+Definitions with computation are discussed in this section. Definitions without computation, like functions, are discussed in the next section.
 
 Global definitions are those entered at the toplevel. This is what happens when writing a definition in UTop:
 ```ocaml
@@ -550,13 +549,13 @@ Since, by definition, effects lie outside function types, a function type can't 
 # Unix.time ;;
 - : unit -> float = <fun>
 ```
-(If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.) 
+If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.
 
-WIP: Rewriting
+To produce its result, no data needs to be passed to that function. The result is entirely determined by external factors. If it was passed information, it would not be used. But something must be passed as parameter to trigger the request the current time from the operating system.
 
-No data needs to be passed to this function in order to return its result. It is entirely context-dependent, i.e., entirely determined by external factors. Therefore, if it was passed something, it would be discarded. Note that it has to be passed something to trigger the computation. Requesting the information from the operating system, as suggested by the module name, is that computation. To sum up, since the function must receive data to trigger the computation but the data is going to be ignored, it makes sense to provide `()`, the unit value. What gets discarded is meaningless in the first place.
+Since the function must receive data to trigger the computation but the data is going to be ignored, it makes sense to provide the unit value (). What is discarded is meaningless in the first place.
 
-A similar reasoning applies to functions producing an effect instead of being effect-determined functions. Consider `print_endline`. It prints the string it was passed to standard output, followed by a line termination.
+A similar reasoning applies to functions producing an effect instead of being externally determined or influenced. Consider `print_endline`. It prints the string it was passed to standard output, followed by a line termination.
 ```ocaml
 # print_endline;;
 - : string -> unit = <fun>
