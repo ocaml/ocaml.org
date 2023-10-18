@@ -675,8 +675,6 @@ val ghorghor_bey : character =
 - : int = 17
 ```
 
-It is possible to encode records as variants. Optionally, interested readers can have a look at the [Encoding Records as Variants](/docs/records-as-variants) tutorial to understand the relationship between records, products and records.
-
 ### Type Aliases
 
 Just like values, any type can be given a name.
