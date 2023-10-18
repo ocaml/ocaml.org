@@ -46,7 +46,6 @@ let sidebar_link
       <%s title %>
     </a>
 
-
 let sidebar_link_group
 ?(extra_html="")
 title
