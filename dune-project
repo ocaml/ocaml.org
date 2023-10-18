@@ -55,8 +55,9 @@
   yojson
   lwt
   tailwindcss
-  (hilite
-   (>= 0.3.0))
+  hilite
+  ; (hilite
+  ;  (>= 0.3.0))
   river
   syndic
   (alcotest :with-test)
