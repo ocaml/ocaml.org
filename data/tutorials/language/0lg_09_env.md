@@ -168,7 +168,7 @@ Here is how scoping works:
 - `c` is bound to `6` inside `c * 5`
 - `b` is bound to `30` inside `b * 7`
 
-Arbitrary combinations or chaining and nesting are allowed.
+Arbitrary combinations of chaining or nesting are allowed.
 
 ### Scopes and Environments
 
