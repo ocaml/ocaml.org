@@ -31,7 +31,7 @@ This tutorial is shown using the UTop toplevel, which can be initiated with the 
 
 When using UTop to interact with the OCaml interpreter, lines ending with double semicolons trigger the parsing, type checking, and evaluation of everything typed between the prompt and the double semicolon. This may span several lines. However, the interpretation of that double semicolon isn't made by the OCaml interpreter; it is made by UTop, an OCaml toplevel. Once the evaluation of a double semicolon terminated entry is over, the REPL waits for another piece of input.
 
-Nevertheless, the double semicolon `;;` is a valid token in the OCaml syntax. It is a [no-op](https://en.wikipedia.org/wiki/NOP_(code)), i.e., it does not trigger any behaviour, so it is ignored by the compiler. In OCaml source code files meant to be compiled or interpreted as scripts, double semicolons can and should be avoided. Leaving them does not raise errors, but they are useless. The compiler tolerates them to allow copy-paste from UTop to a file without having to remove them.
+Nevertheless, the double semicolon `;;` is also a valid token in the OCaml syntax outside the toplevel. In OCaml source code, it is a [no-op](https://en.wikipedia.org/wiki/NOP_(code)), i.e., it does not trigger any behaviour, so it is ignored by the compiler. If your intention is to compile or interpret files as scripts, double semicolons can and should be avoided when writing in OCaml. Leaving them does not raise errors, but they are useless. The compiler tolerates them to allow copy-paste from UTop to a file without having to remove them.
 
 ## Non-Function Values
 
