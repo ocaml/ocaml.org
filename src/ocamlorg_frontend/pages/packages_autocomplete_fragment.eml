@@ -67,7 +67,7 @@ let render
   <% ); %>
   </ol>
   <% if total > 5 then ( %>
-  <a class="text-primary-600 italic font-normal hover:bg-primary-100 px-2 py-2 flex text-right" href="<%s Url.packages_search %>?q=<%s Dream.to_percent_encoded search %>">see more...</a>
+  <a class="text-primary-600 italic font-normal hover:bg-primary-100 px-2 py-2 flex text-right rounded-md" href="<%s Url.packages_search %>?q=<%s Dream.to_percent_encoded search %>">see more...</a>
   <% ); %>
   <hr class="mb-2 mt-3">
   <span class="pl-2 font-normal">Or go to</span>
