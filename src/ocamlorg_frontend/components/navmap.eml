@@ -117,7 +117,7 @@ let render
       </a>
     <ul>
       <% maptoc |> List.iter begin fun item -> %>
-      <li>
+      <li class="pl-0.5">
         <%s! nested_render ~path item %>
       </li>
       <% end; %>

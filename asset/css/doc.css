@@ -34,7 +34,7 @@ div.odoc .spec a.anchor {
   position: absolute;
   left: 0;
   top:0.3em;
-  opacity: 1;
+  opacity: 0;
   text-decoration: none;
   color: rgb(156 163 175);
   box-shadow: none;
@@ -47,15 +47,11 @@ div.odoc .spec a.anchor::after {
   padding: 0.6em;
 }
 
-/* div.odoc *:hover > a.anchor {
+ div.odoc *:hover > a.anchor {
   opacity: 1;
 }
 
 div.odoc *:hover > a.anchor:hover {
-  color: rgb(75 85 99);
-} */
-
-div.odoc *>a.anchor {
   color: rgb(75 85 99);
 }
 
@@ -206,11 +202,6 @@ div.odoc .comment-delim {
   cursor: pointer;
 }
 
-/* span.icon-expand:not(.open)>.navmap-tag,
-span.no-expand>.navmap-tag {
-  background: white;
-} */
-
 .navmap-tag {
   display:flex;
   align-items: center;
@@ -285,8 +276,8 @@ span.no-expand>.navmap-tag {
   border-color: rgb(32, 68, 165);
 }
 
-span.icon-expand>.navmap-tag,
-span.no-expand>.navmap-tag {
+span.icon-expand > .navmap-tag,
+span.no-expand > .navmap-tag {
   color: white;
 }
 
@@ -300,6 +291,7 @@ div.nav-expand::before {
   position: absolute;
   margin: 3px 0 3px;
   margin-left: -0.65rem;
+  border-radius: 30px;
 }
 
 .xref-unresolved {
