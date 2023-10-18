@@ -10,8 +10,10 @@ category: "Language"
 
 ## Introduction
 
-### Learning Goals
+The goal of this tutorial is provide the capability to proficiently handle expressions, values and names. In OCaml, functions are values, in comparison to many other mainstream languages, that creates a richer picture between expressions, values and names. The targeted skills include: writing expressions of any kind, naming or leaving things anonymous, appropriately scope names, handle multiple definition of the same name, create and use closures, produce or avoid side effects.
 
+This is intermediate level tutorial. The only prerequisite is to have completed the “Get Started” series of tutorials.
+<!--
 When presenting OCaml or another functional programming language, it is often said: “Functions are treated as first-class citizens.” Without further explanation or context, this may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by that sentence. In turn, this should explain it:
 - Write all kinds of definitions, for all kinds of values, in all different ways
 - Accurately assess the scope of any definition
@@ -20,7 +22,7 @@ When presenting OCaml or another functional programming language, it is often sa
 - Partially apply functions, create closures, and pass them as values
 - Curry and uncurry functions
 - Use the `unit` type as a function parameter or return value, when needed
-
+-->
 ### Chatting With OCaml
 
 This tutorial is shown using the UTop toplevel, which can be initiated with the `utop` command. Although other toplevels may be used, we recommend UTop. Code samples are intended to be copied/pasted into UTop. It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
