@@ -85,7 +85,7 @@ let sidebar_link
       <%s title %>
     </a>
   | false ->
-    <a class="font-semibold text-sm text-lighter hover:bg-gray-100 block py-2 px-3" href="<%s href %>">
+    <a class="text-sm text-lighter hover:bg-gray-100 block py-2 px-3" href="<%s href %>">
       <%s title %>
     </a>
 
