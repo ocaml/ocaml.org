@@ -121,8 +121,7 @@ let books req =
     let matches_language =
       match language with
       | None | Some "All" -> true
-      | Some lang ->
-              List.mem true (List.map (fun x -> x = lang) book.language)
+      | Some lang -> List.mem true (List.map (fun x -> x = lang) book.language)
     in
     let matches_pricing =
       match pricing with
