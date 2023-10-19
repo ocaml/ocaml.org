@@ -50,7 +50,7 @@ let render
         :aria-selected="row == <%s string_of_int i %> && col == 0"
         href="<%s Url.Package.overview package.name %>"
         :class='row == <%s string_of_int i %> && col == 0 ? "bg-search-keyboard-cursor text-white": ""'
-        class="flex-grow px-2 py-2 leading-6 font-normal hover:text-white hover:bg-search-result-background-blue rounded-md inline-block"
+        class="flex-grow ml-2 px-2 py-2 leading-6 font-normal hover:text-white hover:bg-search-result-background-blue rounded-md inline-block"
       >
         <%s! Search.highlight_search_terms ~class_:"bg-search-term-highlight text-gray-800 font-normal" ~search package.name %>
       </a>
