@@ -27,7 +27,7 @@ body {
 }
 
 .container-fluid {
-  @apply max-w-7xl w-full mx-auto px-4;
+  @apply max-w-md md:max-w-7xl w-full mx-auto px-4;
 }
 
 @media (min-width: 40em) {
