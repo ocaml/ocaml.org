@@ -27,9 +27,9 @@ Learn_layout.render
       a coherent set of tools, documentation, libraries, and testing resources.
     </p>
     <p>
-      The recommended and detailed instructions to install OCaml and the
+      Detailed instructions to install OCaml and the
       Platform tools are available in <a class="text-primary-600"
-      href="/docs/up-and-running">Get Up and Running With OCaml</a>.
+      href="<%s Url.installing_ocaml %>">"Installing OCaml"</a>.
 
       If you want to use the simpler, but experimental way to install the
       Platform, you can use the <a class="text-primary-600"
@@ -41,13 +41,6 @@ Learn_layout.render
       And run it to install the Platform tools in your opam switch:
     </p>
       <pre><code>ocaml-platform</code></pre>
-    <p>
-      For detailed instructions, check:
-      <a class="text-primary-600"
-        href="/docs/up-and-running#up-and-running-with-the-platform-installer">
-        Get Up and Running with the Platform Installer
-      </a>.
-    </p>
   </div>
   <div
     class="mt-12 cursor-pointer z-0 relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-primary-100 video-shadow md:w-[640px]"

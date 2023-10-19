@@ -212,7 +212,7 @@ the community and learn more about how they use OCaml."
         <div class="text-lg text-white mb-16">Here are some of the resources that may be helpful to you</div>
       </div>
       <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
-        <a href="<%s Url.tutorial "up-and-running" %>" class="resources-card card-hover">
+        <a href="<%s Url.install %>" class="resources-card card-hover">
           <%s! Icons.play_circle "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Getting Started</p>
           <p>Install OCaml, setup your favorite text editor, and start your first project.</p>

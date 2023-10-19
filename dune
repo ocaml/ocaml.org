@@ -24,4 +24,16 @@
     %{target}
     (run %{ood_gen} planet_feed)))))
 
+(subdir
+ asset/
+ (rule
+  (target changelog.xml)
+  (deps
+   (source_tree %{workspace_root}/data/changelog)
+   (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+  (action
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} changelog_feed)))))
+
 (data_only_dirs playground data)

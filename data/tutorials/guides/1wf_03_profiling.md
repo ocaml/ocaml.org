@@ -784,7 +784,7 @@ even possible). However, if you had a more substantial closure than just
 `((+) 2)`, the overhead would be reduced. The FP version also saves
 expensive *programmer* time versus writing the imperative loop.
 
-## Profiling
+## Profiling Tools
 There are two types of profiling that you can do on OCaml programs:
 
 1. Get execution counts for bytecode.
@@ -887,6 +887,23 @@ starts an interactive program to explore the call graph. The option
 `--call-graph=dwarf` makes perf aware of the calling convention of
 OCaml (with old versions of `perf`, enabling frame pointers in OCaml
 might help; opam provides suitable compiler switches, such as `4.02.1+fp`).
+
+### Using `Instruments` on macOS
+
+macOS ships with a performance monitoring and debugging application called
+`Instruments` that comes with a CPU counter, a Time Profiler, and a System
+Trace templates.
+
+Once you launch it and select the template you want, you must start _recording_
+before you launch your application.
+
+As you launch your application, real-time results will appear listed in
+Instrument's browser:
+
+<img width="100%" alt="macOS Instruments" src="/media/tutorials/macos-instruments.png">
+
+From there, you can click on your program there and dig to see which functions are
+taking the longest to execute.
 
 ## Summary
 In summary here are some tips for getting the best performance out of

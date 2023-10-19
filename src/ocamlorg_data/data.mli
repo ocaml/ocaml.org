@@ -41,6 +41,7 @@ module Book : sig
     rating : int option;
     featured : bool;
     difficulty : string option;
+    pricing : string;
     body_md : string;
     body_html : string;
   }
@@ -153,7 +154,7 @@ module Paper : sig
   val get_by_slug : string -> t option
 end
 
-module Problem : sig
+module Exercise : sig
   type difficulty = [ `Beginner | `Intermediate | `Advanced ]
 
   type t = {

@@ -2,65 +2,74 @@ let render_books books =
     <div class="overflow-x-scroll lg:overflow-hidden mt-5">
         <% books |> List.iter (fun (item : Data.Book.t) -> %>
         <div
-            class="flex space-y-10 lg:space-y-0 lg:space-x-16 pb-10 lg:pb-20 border-b border-gray-200 mt-10 flex-col lg:flex-row">
+            class="flex space-y-10 pt-6 lg:space-y-0 lg:space-x-16 pb-10 mt-4 flex-col lg:flex-row">
             <div class="flex flex-col gap-y-4">
-                <img src="<%s Ocamlorg_static.Media.url item.cover %>"
-                    class="m-4 h-48 w-32 lg:w-64 lg:h-96 md:w-64 md:h-96 rounded-2xl border border-gray-200"
-                    alt="">
-                <%s! Learn_components.skill_tag item.difficulty "mx-4 w-32 lg:w-64 md:w-64" %>
+                <div class="relative w-64 sm:w-72 lg:w-64 max-w-full space-y-5">
+                     <%s! if item.pricing = "free" then Learn_components.pricing_tag else "" %>
+                     <img src="<%s Ocamlorg_static.Media.url item.cover %>"
+                        class="w-full border z-10"
+                        alt="">
+                     <%s! Learn_components.skill_tag item.difficulty "w-full" %>
+                </div>
+                
             </div>
             <div class="flex-col flex-1">
-                <h4 class="font-bold mb-6"><%s item.title %></h4>
-                <div class="font-semibold text-base mb-6 uppercase"><%s item.authors |> String.concat ", " %></div>
-                <div class="prose prose-orange mb-6"><%s! item.body_html %></div>
-                <% item.links |> List.iter (fun (link : Data.Book.link) -> %>
-                    <a class="btn btn-secondary" href="<%s link.uri %>">
-                        <span><%s link.description %></span>
-                        <%s! Icons.chevron_right "h-4 w-4" %>
-                    </a>
-                <% ); %>
+                <h4 class="font-bold text-2xl mb-6"><%s item.title %></h4>
+                <div class="font-normal text-base mb-6 uppercase"><%s item.authors |> String.concat ", " %></div>
+                <div class="prose prose-md prose-orange mb-6 md:prose-lg"><%s! item.body_html %></div>
+                <div class="flex gap-x-5 gap-y-4 flex-col sm:flex-row">
+                    <% item.links |> List.iter (fun (link : Data.Book.link) -> %>
+                        <div>
+                            <a class="btn bg-learn-area-orange" href="<%s link.uri %>">
+                                <span><%s link.description %></span>
+                                <%s! Icons.chevron_right "h-4 w-4" %>
+                            </a>
+                        </div>
+                    <% ); %>
+                </div>
             </div>
         </div>
         <% ); %>
     </div>
 
-let render books =
-Learn_layout.render
+
+let render
+?(difficulty = "All")
+?(pricing = "All")
+?(language = "All")
+books =
+Learn_layout.single_column_layout
 ~title:"OCaml Books"
 ~description:"A selection of books to learn the OCaml programming language."
 ~canonical:Url.books
 ~active_top_nav_item:Header.Learn 
-~left_sidebar_html:None
-~right_sidebar_html:None
 ~current:Books @@
 <div class="bg-default dark:bg-dark-default">
-    <div class="container-fluid"  x-data="{ language: 'english' }">
-        <div class="flex justify-between mb-0 lg:flex-row flex-col items-center">
-            <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0">15+ OCaml Books</h2>
-            <div class="flex justify-between flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto">
+    <div class="container-fluid pt-10">
+        <div class="prose mb-6">
+            <h1>Books On OCaml (<%s string_of_int (List.length books) %>)</h2>
+        </div>
+        <form action="<%s Url.books %>" method="GET">
+            <div class="flex mb-0 flex-col gap-4 sm:flex-row">
                 <%s! Forms.select
-                    ~attrs:{|name="Languages" x-model="language"|}
-                    ~options:[("english", "English"); ("french", "French"); ("italian", "Italian"); ("portugese", "Portugese"); ("japanese", "Japanese"); ("chinese", "Chinese")]
-                    "h-14" %>
+                    ~attrs:{|id="language" name="language" onchange="this.form.submit()"|}
+                    ~options:[("All", "All Languages"); ("english", "English"); ("french", "French"); ("italian", "Italian"); ("japanese", "Japanese"); ("chinese", "Chinese")]
+                    ~selected:language
+                    "w-48 rounded-sm" %>
+                <%s! Forms.select
+                    ~attrs:{|id="difficulty" name="difficulty" onchange="this.form.submit()"|}
+                    ~options:[("All", "Any Difficulty"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
+                    ~selected:difficulty
+                    "w-48 rounded-sm" %>
+                <%s! Forms.select
+                    ~attrs:{|id="pricing" name="pricing" onchange="this.form.submit()"|}
+                    ~options:[("All", "Free or Paid"); ("free", "Free"); ("paid", "Paid")]
+                    ~selected:pricing
+                    "w-48 rounded-sm" %>
             </div>
-        </div>
-        <div :class="language != 'english' ? 'hidden' : 'block'">
-            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "english") books) %>
-        </div>
-        <div :class="language != 'french' ? 'hidden' : 'block'">
-            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "french") books) %>
-        </div>
-        <div :class="language != 'italian' ? 'hidden' : 'block'">
-            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "italian") books) %>
-        </div>
-        <div :class="language != 'portugese' ? 'hidden' : 'block'">
-            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "portugese") books) %>
-        </div>
-        <div :class="language != 'japanese' ? 'hidden' : 'block'">
-            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "japanese") books) %>
-        </div>
-        <div :class="language != 'chinese' ? 'hidden' : 'block'">
-            <%s! render_books (List.filter (fun x -> x.Data.Book.language = "chinese") books) %>
+        </form>
+        <div>
+        <%s! render_books books %>
         </div>
     </div>
 </div>

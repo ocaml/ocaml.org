@@ -18,6 +18,7 @@ links:
     uri: https://www.amazon.com/gp/product/3030976440
 featured: true
 difficulty: advanced
+pricing: paid
 ---
 
 This book is about the harmonious synthesis of functional programming and

@@ -26,7 +26,7 @@ let tabs
 
         <%s! link ~href:Url.learn_guides ~title:"Guides" ~current:(current = Guides) %>
 
-        <%s! link ~href:Url.problems ~title:"Exercises" ~current:(current = Exercises) %>
+        <%s! link ~href:Url.exercises ~title:"Exercises" ~current:(current = Exercises) %>
 
         <%s! link ~href:Url.books ~title:"Books" ~current:(current = Books) %>
       </nav>
@@ -57,15 +57,13 @@ link_html
     <%s! extra_html %>
   </div>
 
-let overview_render
+let single_column_layout
 ?use_swiper
 ?styles
 ~title
 ~description
 ~canonical
 ?active_top_nav_item
-~(left_sidebar_html: string option)
-~(right_sidebar_html: string option)
 ~current
 inner_html
 =
@@ -75,39 +73,13 @@ inner_html
   ~title
   ~description
   ~canonical
-  ~footer_html:(Fixed_footer.render ())
   ?active_top_nav_item @@
   <%s! tabs ~current %>
-  <div class="bg-default dark:bg-dark-default" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
-  <% if left_sidebar_html != None then ( %>  
-    <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
-      x-on:click="sidebar = ! sidebar">
-      <%s! Icons.sidebar_menu "h-8 w-8" %>
-      <span class="hidden md:flex font-semibold px-2">side menu</span>
-    </button>
-    <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm lg:hidden"
-      :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar"></div>
-  <% ); %>
-    <div class="flex flex-col lg:flex-row">
-      <div
-        class="z-20 bg-default dark:bg-dark-default flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky <%s Option.fold ~none:"" ~some:(fun _ -> "p-6 lg:px-0 w-80 lg:w-72 lg:px-0 lg:pt-6 lg:pb-72") left_sidebar_html %>"
-        x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
-        x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
-        x-transition:leave-end="-translate-x-full">
-        <%s! Option.value ~default:"" left_sidebar_html %>
-      </div>
-
-      <div class="flex-1 z-0 z- min-w-0 lg:pt-6 pb-12 lg:pb-[70vh] <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
-        <%s! inner_html %>
-      </div>
-      <div class="hidden xl:block top-0 sticky h-screen overflow-auto lg:pt-6">
-        <div class="<%s Option.fold ~none:"" ~some:(fun _ -> "w-60 lg:pb-72") right_sidebar_html %>">
-          <%s! Option.value ~default:"" right_sidebar_html %>
-        </div>
-      </div>
+  <div class="bg-default dark:bg-dark-default">
+    <div class="flex-1 z-0 z- min-w-0 lg:pt-6 pb-12">
+      <%s! inner_html %>
     </div>
   </div>
-  <%s! Toc.script %>
 
 let render
 ?use_swiper
@@ -121,13 +93,12 @@ let render
 ~current
 inner_html
 =
-  Layout.render
+  Layout.base
   ?use_swiper
   ?styles
   ~title
   ~description
   ~canonical
-  ~footer_html:(Fixed_footer.render ())
   ?active_top_nav_item @@
   <%s! tabs ~current %>
   <div class="bg-default dark:bg-dark-default" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
@@ -161,3 +132,4 @@ inner_html
     </div>
   </div>
   <%s! Toc.script %>
+  <%s! Secondary_footer.render () %>

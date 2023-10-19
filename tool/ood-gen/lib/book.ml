@@ -15,6 +15,7 @@ type metadata = {
   rating : int option;
   featured : bool;
   difficulty : string option;
+  pricing : string;
 }
 [@@deriving of_yaml, show { with_path = false }]
 
@@ -32,6 +33,7 @@ type t = {
   rating : int option;
   featured : bool;
   difficulty : string option;
+  pricing : string;
   body_md : string;
   body_html : string;
 }
@@ -72,6 +74,7 @@ type t =
   ; rating : int option
   ; featured : bool
   ; difficulty : string option
+  ; pricing : string
   ; body_md : string
   ; body_html : string
   }
