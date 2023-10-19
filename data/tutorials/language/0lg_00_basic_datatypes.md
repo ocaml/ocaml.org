@@ -105,7 +105,7 @@ The module [`Uchar`](/api/Uchar.html) provides support for Unicode characters.
 
 #### Strings
 
-Strings are finite and fixed-sized sequences of values of type `char`. Strings are immutable, meaning it is impossible to change a character's value inside a string. The string concatenation operator symbol is `^`.
+Strings are finite and fixed-sized sequences of `char` values. Strings are immutable, meaning it is impossible to change a character's value inside a string. The string concatenation operator symbol is `^`.
 ```ocaml
 # "hello" ^ " " ^ "world!";;
 - : string = "hello world!"
