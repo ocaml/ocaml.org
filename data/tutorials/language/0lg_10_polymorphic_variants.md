@@ -10,11 +10,13 @@ category: "Language"
 
 ## Introduction
 
-Product types and data types such as `option` and `list` are variants and polymorphic. In this tutorial, they are called _simple variants_ to distinguish them from the _polymorphic variants_ presented here. Simple variants and polymorphic variants are close siblings. Their values are both introduced using labels that may carry data. Both can be recursive and have type parameters. Both are type checked statically .
+This tutorial teaches how to use polymorphic variants. This includes starting using them, maintaining a project already using them, deciding when to use them or not, balancing their unique benefits against their drawbacks.
 
-However, they are type checked using very different algorithms, which result in a very different programming experience. The relationship between value and type (written with the colon symbol `:`) is changed with polymorphic variants. Usually, values are thought of as inhabitants of the type, which is regarded as set-like thing. Rather, polymorphic variant values should be considered as pieces of data that several functions can accept. Polymorphic variants types are a way to express compatibility relationship between those functions. The approach in this tutorial is to build sense from experience using features of polymorphic variants.
+Product types and data types such as `option` and `list` are variants and polymorphic. In this tutorial, they are called _simple variants_ to distinguish them from the _polymorphic variants_ presented here. Simple variants and polymorphic variants are close siblings. Their values are both introduced using labels that may carry data. Both can be recursive and have type parameters. By the way, don't trust ChatGPT if it tells you polymorphic variants are dynamically type checked; it is hallucinating. Like simple variants, polymorphic variants are type checked statically.
 
-By the way, don't trust ChatGPT if it tells you polymorphic variants are dynamically type checked; it is hallucinating.
+However, they are type checked using different algorithms, which result in a different programming experience. The relationship between value and type (written with the colon symbol `:`) is changed with polymorphic variants. Usually, values are thought of as inhabitants of the type, which is regarded as set-like thing. Rather, polymorphic variant values should be considered as pieces of data that several functions can accept. Polymorphic variants types are a way to express compatibility relationship between those functions. The approach in this tutorial is to build sense from experience using features of polymorphic variants.
+
+**Prerequisites**: This is intermediate level tutorial. It is required is to have completed tutorials on [Functions and Values](/docs/functions-and-values), [Basic Data Types](/docs/basic-data-types) and [Lists](/docs/lists) to begin this one.
 
 ### Origin and Context
 
@@ -31,6 +33,7 @@ This is very similar to solving an equation in mathematics. Equations accept eit
 
 In the structural approach of typing, type definitions are optional, so they can be omitted. Type checking an expression constructs a data structure that represents the types that are compatible with it. These data structures are displayed as type expressions sharing resemblance with simple variants.
 
+<!--
 ### Learning Goals
 
 The goal of this tutorial is to make the reader acquire the following capabilities:
@@ -42,6 +45,7 @@ The goal of this tutorial is to make the reader acquire the following capabiliti
   - Insert or remove type casts
 - Refactor between simple and polymorphic variants
 - Choose to use polymorphic variant when really needed
+-->
 
 ### A Note on Simple Variants and Polymorphism
 
