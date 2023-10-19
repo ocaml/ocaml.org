@@ -7,6 +7,7 @@ Layout.render
 <div class="bg-default dark:bg-dark-default py-10">
     <div class="container-fluid wide">
         <h1 class="sr-only">OCaml Blog</h1>
+        
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
             <div class="col-span-2">
@@ -88,6 +89,9 @@ Layout.render
 
                 <div><a href="<%s Url.news %>" class="link-orange">See all</a></div>
             </div>
+        </div>
+        <div class="prose mt-8">
+            <p style="display: inline;">If you want to contribute a Blog, check out this: <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-blog" target="_blank">Contribute Guide</a></p>
         </div>
     </div>
 </div>

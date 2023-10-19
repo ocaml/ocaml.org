@@ -18,13 +18,11 @@ let render_books books =
                         <span><%s link.description %></span>
                         <%s! Icons.chevron_right "h-4 w-4" %>
                     </a>
-                <% ); %>     
+                <% ); %>
             </div>
         </div>
         <% ); %>
-       
     </div>
-
 
 let render books =
 Learn_layout.render
@@ -64,9 +62,10 @@ Learn_layout.render
         <div :class="language != 'chinese' ? 'hidden' : 'block'">
             <%s! render_books (List.filter (fun x -> x.Data.Book.language = "chinese") books) %>
         </div>
-     
     </div>
 </div>
-<div class="prose">
-If you want to contribute by adding book, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#books"target="_blank">contributing guide</a> on GitHub.
-</div>
+    <div class="prose mt-8 text-center">
+            <p style="display: inline;">If you want to contribute to the academic users, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#books" target="_blank">Contributing Guide</a></p>
+        
+        </div>
+     

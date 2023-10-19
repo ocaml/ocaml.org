@@ -29,7 +29,7 @@ We've provided a list of community-driven content below. When adding content to 
 
 The following sections give more details on how to contribute to each.
 
-### <a name="content-blog"></a> Add an RSS Feed to the Blog
+### <a name="content-blog"></a> <a name="blog">Add an RSS Feed to the Blog</a>
 
 Anyone can contribute to the [OCaml Blog](https://ocaml.org/blog), which is composed of two types of content:
 
@@ -72,7 +72,7 @@ Please make sure that the job involves mostly writing OCaml. Contributions to ad
 
 If you notice that a job opportunity is outdated (e.g., already fulfilled or not open anymore), PRs to remove it are welcome as well.
 
-### <a name="content-success-story"></a> Add a Success Story
+### <a name="content-success-story"></a><a name="story"> Add a Success Story</a>
 
 > Contribute to the [Success Stories](https://ocaml.org/success-stories).
 
@@ -101,19 +101,19 @@ You can add a new industrial user by creating a new Markdown file in [data/acade
 
 You can add a new OCaml book by creating a new Markdown file in [data/books/](data/books/). For instance: [ocaml-from-the-very-beginning.md](data/industrial_users/en/ocaml-from-the-very-beginning.md).
 
-### <a name="content-event"></a> Add an Event
+### <a name="content-event"></a><a name="event"> Add an Event</a>
 
 > Contribute to the [Community Events](https://ocaml.org/community).
 
 You can add a new community event by creating a new Markdown file in [data/meetups.yml](data/meetups.yml).
 
-### <a name="content-package"></a> Add a Featured Package
+### <a name="content-package"></a> <a name="package">Add a Featured Package</a>
 
 > Contribute to the [Featured Packages](https://ocaml.org/packages).
 
 To update the list of Featured Packages on the Packages page, you can update [data/packages.yml](data/packages.yml)
 
-### <a name="ocaml-changelog"></a> OCaml Changelog
+### <a name="ocaml-changelog"></a><a name="changleog"> OCaml Changelog</a>
 
 The [OCaml Changelog](https://ocaml.org/changelog) is a feed of the latest releases and feature highlights for official OCaml projects. As of today, it features the following projects:
 
