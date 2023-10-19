@@ -88,11 +88,11 @@ Boolean values are represented by the type `bool`.
 - : bool = true
 ```
 
-Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction “or” is written `\\`. Both are short-circuited, meaning that they don't evaluate their right argument if the value of the left one is sufficient to decide the value of the whole expression.
+Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction “or” is written `\\`. Both are short-circuited, meaning that they don't evaluate the argument on the right if the left one's value is sufficient to decide the whole expression's value.
 
 #### Characters
 
-Values of type `char` correspond to the 256 symbols Latin-1 set. Character literals are surrounded by single quotes. Here is an example.
+Values of type `char` correspond to the 256 symbols Latin-1 set. Character literals are surrounded by single quotes, as shown below:
 ```ocaml
 # 'a';;
 - : char = 'a'
