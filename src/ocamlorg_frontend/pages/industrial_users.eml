@@ -231,7 +231,7 @@ the community and learn more about how they use OCaml."
       </div>
     </div>
   </div>
-  <div class="prose text-white ml-10 mt-8">
+  <div class="prose max-w-none text-white  mt-8">
         If you want to contribute to the industrial users, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#industrial" target="_blank">contributing guide</a> on GitHub.
   </div>
 </div>

@@ -13,6 +13,7 @@ Layout.render
       </p>
     </div>
   </div>
+  
 </div>
 <div class="bg-default dark:bg-dark-default py-0 md:pt-10 lg:pt-20 lg:pb-0">
   <div class="container-fluid" x-data="{ continent: 'All' }">
@@ -96,7 +97,12 @@ Layout.render
         </div>
         <div class="grid lg:grid-cols-3 gap-8 lg:gap-16"></div>
       </div>
+       <div class="prose max-w-none text-white ml-2 mt-2 ">
+        If you want to contribute to the academic users, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#academic" target="_blank">contributing guide</a> on GitHub.
+  </div>
+  
     </div>
+   
   </div>
   <div class="container-fluid" aria-hidden="true">
     <div class="text-center py-10 lg:py-28">
