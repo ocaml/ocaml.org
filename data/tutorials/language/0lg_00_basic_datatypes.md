@@ -12,9 +12,9 @@ category: "Language"
 
 ## Introduction
 
-This beginner-level tutorial introduces basic data types in OCaml. It's goal is to teach skills on how to handle data from predefined, variant and record types.  It also includes the important concept of pattern matching on those types.
+This beginner-level tutorial introduces basic data types in OCaml. It's goal is to teach skills on how to handle data from predefined, variant, and record types.  It also includes the important concept of pattern matching on those types.
 
-In OCaml there are no type checks at runtime, and value don't change of type unless explicit converted. This is what being statically- and strongly-typed means. This allows convenient and safe processing of structured data. At the basic level addressed in this tutorial, data in OCaml is represented using _variants_ and _products_, which corresponds to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type checking algorithm is used. Historically, this is OCaml first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. OCaml also has other and extended type systems, but by default data types in OCaml refers to what is presented in this document.
+In OCaml, there are no type checks at runtime, and values don't change type unless explicit converted. This is what being statically- and strongly-typed means. This allows convenient and safe processing of structured data. At the basic level addressed in this tutorial, data in OCaml is represented using _variants_ and _products_, which corresponds to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although there are other type systems, this document focusses on data types in OCaml.
 
 <!-- It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs while being easy to use and unobtrusive. Thanks to type inference, programs can be written without type annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
 
@@ -23,7 +23,7 @@ In OCaml there are no type checks at runtime, and value don't change of type unl
 
 This tutorial will cover atomic types, such as integers and Booleans, before moving on to predefined compound types, like strings and lists. It ends with a section about user-defined types, namely variants and records.
 
-Before proceeding through this tutorial, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions).
+Before proceeding, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions).
 
 <!--
 The goal of this tutorial is to provide for the following capabilities:
@@ -40,17 +40,17 @@ The goal of this tutorial is to provide for the following capabilities:
 
 #### Integers
 
-The `int` type is the default and basic type of integers in OCaml. When you enter a whole number, OCaml recognises it as an integer, as shown in this example:
+The `int` type is the default and basic integer type in OCaml. When you enter a whole number, OCaml recognises it as an integer, as shown in this example:
 ```ocaml
 # 42;;
 - : int = 42
 ```
 
-The `int` type is the default and basic type of integers in OCaml. It represents platform-dependent signed integers. This means `int` does not always have same the number of bits. It depends on underlying platform characteristics, such as processor architecture or operating system. Operations on `int` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Int`](/api/Int.html) modules.
+The `int` type represents platform-dependent signed integers. This means `int` does not always have same the number of bits. It depends on underlying platform characteristics, such as processor architecture or operating system. Operations on `int` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Int`](/api/Int.html) modules.
 
 Usually, `int` has 31 bits in 32-bit architectures and 63 in 64-bit architectures because one bit is reserved for OCaml's runtime operation. The standard library also provides [`Int32`](/api/Int32.html) and [`Int64`](/api/Int64.html) modules, which support platform independent operations on 32- and 64-bit signed integers. These modules are not detailed in this tutorial.
 
-There are no dedicated types for unsigned integers in OCaml. Bitwise operations on `int` treat the sign bit as the other bits. Binary operators use standard symbols. The signed remainder operator is written `mod`. There is no predefined power operator on integers in OCaml.
+There are no dedicated types for unsigned integers in OCaml. Bitwise operations on `int` treat the sign bit the same as other bits. Binary operators use standard symbols. The signed remainder operator is written `mod`. Integers in OCaml have no predefined power operator.
 
 #### Floats and Type Conversions
 
