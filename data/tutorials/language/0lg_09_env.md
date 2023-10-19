@@ -68,7 +68,7 @@ The type of an expression (before evaluation) and type of the value it produces 
 
 ### Global Definitions
 
-Every value can be named. This the purpose of the `let ... = ... ` construction. The name is on left, the expression is on the right.
+Every value can be named. This is the purpose of the `let ... = ... ` construction. The name is on left; the expression is on the right.
 * If the expression can be evaluated, that take places right away
 * Otherwise, the expression is turned into a value as-is. That's the case of function definition.
 
@@ -551,7 +551,7 @@ Since, by definition, effects lie outside function types, a function type can't 
 ```
 If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.
 
-To produce its result, no data needs to be passed to that function. The result is entirely determined by external factors. If it was passed information, it would not be used. But something must be passed as parameter to trigger the request the current time from the operating system.
+To produce its result, no data needs to be passed to that function. The result is entirely determined by external factors. If it was passed information, it would not be used. But something must be passed as a parameter to trigger the request the current time from the operating system.
 
 Since the function must receive data to trigger the computation but the data is going to be ignored, it makes sense to provide the unit value (). What is discarded is meaningless in the first place.
 
