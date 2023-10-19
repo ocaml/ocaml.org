@@ -230,10 +230,11 @@ the community and learn more about how they use OCaml."
         </a>
       </div>
     </div>
+    <div class="prose max-w-none text-white ml-2 mt-10">
+        If you want to contribute to add a new industrial user, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#industrial-user" target="_blank">contributing guide</a> on GitHub.
   </div>
-  <div class="prose max-w-none text-white  mt-8">
-        If you want to contribute to the industrial users, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#industrial" target="_blank">contributing guide</a> on GitHub.
   </div>
+  
 </div>
 <script>
   function videoFullWidth() {

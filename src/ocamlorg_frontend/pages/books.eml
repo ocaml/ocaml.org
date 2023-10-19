@@ -73,8 +73,8 @@ Learn_layout.single_column_layout
         </div>
     </div>
 </div>
-    <div class="prose mt-8 text-center">
-            <p style="display: inline;">If you want to contribute to the academic users, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#books" target="_blank">Contributing Guide</a></p>
+    <div class="prose ml-24">
+            <p style="display: inline;">If you want to add a new book, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#books" target="_blank">Contributing Guide</a> on GitHub.</p>
         
         </div>
      

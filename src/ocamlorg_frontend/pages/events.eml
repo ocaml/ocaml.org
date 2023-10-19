@@ -100,5 +100,8 @@ world. See past events and upcoming ones on this page."
             <% ); %>
         </div>
     </div>
+     <div class="prose mt-8">
+            <p style="display: inline;">If you want to contribute to add a new community event, check out this<a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#event" target="_blank">Contribute Guide</a> on GitHub.</p>
+        </div>
 </div>
 </div>

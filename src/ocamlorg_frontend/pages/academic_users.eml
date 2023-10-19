@@ -97,8 +97,8 @@ Layout.render
         </div>
         <div class="grid lg:grid-cols-3 gap-8 lg:gap-16"></div>
       </div>
-       <div class="prose max-w-none text-white ml-2 mt-2 ">
-        If you want to contribute to the academic users, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#academic" target="_blank">contributing guide</a> on GitHub.
+       <div class="prose max-w-none text-white ml-2 mt-10 ">
+        If you want to contribute to add a new academic user, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#academic-user" target="_blank">contributing guide</a> on GitHub.
   </div>
   
     </div>
@@ -122,6 +122,12 @@ Layout.render
           <a class="btn btn-lg btn-tertiary" href="<%s Url.industrial_users %>">Success Stories</a>
         </div>
       </div>
+ 
+
     </div>
+   
+ <div class="prose max-w-none text-white pl-6 pb-6">
+    If you want to contribute to a new success story, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#story" target="_blank" style="color: white !important; text-decoration: none;"><strong>contributing guide</strong></a> on GitHub.
+</div>
   </div>
 </div>

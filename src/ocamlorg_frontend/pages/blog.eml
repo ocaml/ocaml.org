@@ -91,7 +91,7 @@ Layout.render
             </div>
         </div>
         <div class="prose mt-8">
-            <p style="display: inline;">If you want to contribute a Blog, check out this: <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-blog" target="_blank">Contribute Guide</a></p>
+            <p style="display: inline;">If you want to contribute a blog post, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#blog" target="_blank">Contribute Guide</a> on GitHub.</p>
         </div>
     </div>
 </div>

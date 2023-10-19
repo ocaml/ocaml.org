@@ -178,10 +178,20 @@ Layout.render
                     degree of metadata quality. This makes it one of the most stable package repositories available
                     today.</div>
             </div>
+      
         </div>
+         <div class="prose ml-2 mt-20">
+    <p style="display: inline;white-space: nowrap">If you want to contribute to update the list of featured packages, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#package" target="_blank">Contribute Guide</a> on GitHub.</p>
+</div>
+
     </div>
 % | None -> () );
+
+
+
 </div>
+
+
 <div class="bg-primary-600 ">
     <div class="container-fluid">
         <div class="text-center text-white lg:p-16 py-10">

@@ -87,7 +87,7 @@ The success stories should be structured in the following way:
 
 You can read [Ahref's success story](https://ocaml.org/success-stories/peta-byte-scale-web-crawler) for an examplary success story.
 
-### <a name="content-user"></a><a name="academic"> Add an Academic or Industrial User</a><a name="industrial"></a>
+### <a name="content-user"></a><a name="academic-user"> Add an Academic or Industrial User</a>Industrial User<a name="industrial-user"></a>
 
 > Contribute to the [Academic Users](https://ocaml.org/academic-users) and [Industrial Users](https://ocaml.org/industrial-users).
 
