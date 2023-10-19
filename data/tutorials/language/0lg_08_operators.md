@@ -152,7 +152,7 @@ At first sight, operators `@^` and `&^` are the same. However, the OCaml parser 
 
 Although both expressions are calling the same function (`par`), they are evaluated in different orders.
 1. Expression `"foo" @^ "bar" @^ "bus"` is evaluated as if it was `"foo" @^ ("bar" @^ "bus")`. Parentheses are added at the right, therefore `@^` _associates to the right_
-1. Expression `"foo" &^ "bar" &^ "bus"` is evaluated as if it was `"(foo" @^ "bar") @^ "bus"`. Parentheses are added at the left, therefore `@^` _associates to the left_
+1. Expression `"foo" &^ "bar" &^ "bus"` is evaluated as if it was `"(foo" &^ "bar") &^ "bus"`. Parentheses are added at the left, therefore `&^` _associates to the left_
 
 Operator _precedence_ rules how expressions combining different operators without parentheses are interpreted. For instance, using the same operators, here is how expressions using both are evaluated:
 ```ocaml
