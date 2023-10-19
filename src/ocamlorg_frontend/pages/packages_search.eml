@@ -42,6 +42,9 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
         </div>
 
         <% if List.length packages > 0 then ( %>
+          <div class="font-bold text-sm text-lighter mb-4">
+            Showing <%i ((page - 1) * 50 + 1) %> - <%i (min (page * 50) total) %>
+          </div>
         <ol class="flex flex-col">
           <% packages |> List.iter (fun (package : Package.package) -> %>
           <li class="border-gray-200 border-b py-3 space-y-2">

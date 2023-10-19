@@ -602,7 +602,6 @@ let packages_search t req =
       in
       let results = List.map (Package_helper.frontend_package t) current_items in
       let search = Dream.from_percent_encoded search in
-
       Dream.html (Ocamlorg_frontend.packages_search ~total ~search ~page ~number_of_pages results)
   | None -> Dream.redirect req Url.packages
 
