@@ -3,6 +3,7 @@ title: Length of a List
 number: "4"
 difficulty: beginner
 tags: [ "list" ]
+description: "Find the number of elements of a list."
 ---
 
 # Solution

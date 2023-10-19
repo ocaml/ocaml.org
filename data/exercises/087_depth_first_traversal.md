@@ -3,6 +3,7 @@ title: Depth-First Order Graph Traversal
 number: "87"
 difficulty: intermediate
 tags: [ "graph" ]
+description: "Generate a depth-first order graph traversal sequence using the given adjacency-list representation, starting from a specified point."
 ---
 
 ```ocaml

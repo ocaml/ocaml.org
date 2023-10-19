@@ -162,6 +162,7 @@ module Exercise : sig
     number : string;
     difficulty : difficulty;
     tags : string list;
+    description : string;
     statement : string;
     solution : string;
   }

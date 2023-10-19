@@ -3,6 +3,7 @@ title: Conversions
 number: "80"
 difficulty: beginner
 tags: [ "graph" ]
+description: "Convert from edge-clause form (a list of pairs of nodes) to graph-term form (a record with a list of nodes and a list of edges)."
 ---
 
 # Solution

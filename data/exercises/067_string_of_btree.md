@@ -3,6 +3,7 @@ title: A String Representation of Binary Trees
 number: "67"
 difficulty: intermediate
 tags: [ "binary-tree" ]
+description: "Convert binary trees to and from string representations."
 ---
 
 ```ocaml

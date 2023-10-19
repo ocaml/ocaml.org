@@ -3,6 +3,7 @@ title: Layout a Binary Tree (1)
 number: "64"
 difficulty: intermediate
 tags: [ "binary-tree" ]
+description: "Assign coordinates (x, y) to nodes in a binary tree, with x based on the inorder sequence and y based on the depth of the node."
 ---
 
 ```ocaml
