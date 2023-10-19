@@ -120,7 +120,7 @@ Operations on `string` values are provided by the [`Stdlib`](/api/Stdlib.html) a
 
 #### Byte Sequences
 
-Byte sequences are finite and fixed-sized sequences of bytes. Each individual byte is represented by a `char` value. Byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence `bytes` is a mutable string that can't be printed. There is no way to write `bytes` literally, so they must be produced by a function.
+Byte sequences are finite and fixed-sized. Each individual byte is represented by a `char` value. Byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence (type `bytes`) is a mutable string that can't be printed. There is no way to write `bytes` literally, so they must be produced by a function.
 ```ocaml
 # String.to_bytes "hello";;
 - : bytes = Bytes.of_string "hello"
