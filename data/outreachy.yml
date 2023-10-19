@@ -9,7 +9,7 @@ rounds:
         mentors:
           - Richard Mortier
           - Anil Madhavapeddy
-      - title: "MirageOS cloud API support"
+      - title: "MirageOS Cloud API Support"
         description: >
           MirageOS (see http://xenproject.org/developers/teams/mirage-os.html,
           http://www.openmirage.org/) is a type-safe unikernel written in OCaml
@@ -276,4 +276,17 @@ rounds:
         - Reynir Björnsson
         video: https://watch.ocaml.org/w/kTwq4AVQtRtFuQx9R5cPro
 
-       
+      - title: "MIDI Over Ethernet With MirageOS"
+        description: >
+          MIDI, which stands for Musical Instrument Digital Interface, is a widely used protocol in the world of music and audio technology.
+          MirageOS is a library operating system that specialises in creating lightweight, secure, and efficient unikernels. Unikernels are highly-specialised, 
+          single-purpose virtual machine images designed for specific applications, and it is written in OCaml.
+          The project focussed on implementing the rtpMIDI protocol for serialising-deserialising of MIDI messages over Ethernet and implementing use cases like
+          a publisher-subcriber based server-client model for MIDI messages.
+        mentee: "Aryan Godara"
+        source: https://github.com/AryanGodara/rtpmidi
+        mentors:
+        - Claes (rand)
+        - Sonja Heinze
+        - Moazzam Moriani
+        video: https://watch.ocaml.org/w/kTwq4AVQtRtFuQx9R5cPro
