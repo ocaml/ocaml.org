@@ -3,6 +3,7 @@ title: Calculate Euler's Totient Function Φ(m) (Improved)
 number: "37"
 difficulty: intermediate
 tags: [ "arithmetic" ]
+description: "Calculate Euler's totient function φ(m) using prime factors and their multiplicities."
 ---
 
 ```ocaml

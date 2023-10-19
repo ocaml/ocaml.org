@@ -3,6 +3,7 @@ title: Generate-and-Test Paradigm
 number: "58"
 difficulty: intermediate
 tags: [ "binary-tree" ]
+description: "Generate symmetric, balanced binary trees for a given number of nodes and determine the number of such trees for 57 nodes."
 ---
 
 ```ocaml

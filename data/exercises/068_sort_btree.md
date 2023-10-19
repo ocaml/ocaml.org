@@ -3,6 +3,7 @@ title: Preorder and Inorder Sequences of Binary Trees
 number: "68"
 difficulty: intermediate
 tags: [ "binary-tree" ]
+description: "Generate the preorder and inorder sequences of a binary tree."
 ---
 
 ```ocaml
