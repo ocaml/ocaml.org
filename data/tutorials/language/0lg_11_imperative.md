@@ -159,14 +159,46 @@ val deref : 'a ref -> 'a = <fun>
 # deref a;;
 - : int = 2
 ```
-
+ 
 The functions `assign` and `( := )` and the functions `deref` and `( ! )` are respectively doing the same thing.
 
-### `array` and `bytes`
+### Arrays Bytes Sequences
 
-Mutable Index Accessible Collections
+#### Arrays
 
-Arrays and `bytes`
+```ocaml
+# let a = [| 2; 3; 4; 5; 6; 7; 8 |];;
+
+# a.(0);;
+- : int = 2
+
+# a.(0) <- 9;;
+- : unit = ()
+
+# a.(0);;
+- : int = 9
+```
+
+The update symbol `<-` used for fields is also used to update an arrays's cell content.
+
+#### Byte Sequences
+
+```ocaml
+# let b = Bytes.of_string "abcdefghijklmnopqrstuvwxyz";;
+
+# Bytes.get b 10;;
+- : char = 'k'
+
+# Bytes.set b 10 '_';;
+- : unit = ()
+
+# Bytes.get b 10;;
+- : int = '_'
+```
+
+Byte sequences can be seen in two different but equivalent way
+* Updatable strings that can't be printed
+* `char array` without syntactic sugar for indexed read and update
 
 ## Imperative Iteration
 
