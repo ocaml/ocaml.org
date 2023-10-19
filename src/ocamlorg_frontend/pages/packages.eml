@@ -9,7 +9,7 @@ Layout.render
 
 let search_dropdown () =
   <div id="packages-search-results" aria-live="polite" ></div>
-  <a class="flex py-2 px-4 gap-4 hover:bg-primary-100 font-normal rounded-md text-primary-600" href="<%s Url.api %>">
+  <a class="flex py-2 px-2 mx-2 gap-4 hover:bg-primary-100 font-normal rounded-md text-primary-600" href="<%s Url.api %>">
     Standard Library API
     <%s! Icons.arrow_top_right_on_square "w-6 h-6"%>
   </a>
