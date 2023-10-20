@@ -275,7 +275,18 @@ rounds:
         mentors:
         - Reynir Björnsson
         video: https://watch.ocaml.org/w/kTwq4AVQtRtFuQx9R5cPro
-
+      - title: "Improving Error Reporting in Existing PPXLIB-Based PPXs"
+        description: >
+          In the past, when 'ppxlib' encountered an exception in a transformation, it stopped the rewriting process, causing the rewriters after to not be processed.
+          Also multiple errors could not be reported at the same time there were multiple failing rewriters as just the first raising rewriter 
+          will raise, and the compilation process stops there. But now, a raising rewriter does not stop the preceding rewriter from running, allowing multiple
+          to be raised both in the context-free phase and all the other phases.
+        mentee: "Abongwa Bonalais"
+        source: https://github.com/ocaml-ppx/ppxlib
+        blog: "https://dev.to/burnleydev"
+        mentors:
+        - "Paul-Elliot Anglès d’Auriac"
+        video: https://watch.ocaml.org/w/kTwq4AVQtRtFuQx9R5cPro
       - title: "MIDI Over Ethernet With MirageOS"
         description: >
           MIDI, which stands for Musical Instrument Digital Interface, is a widely used protocol in the world of music and audio technology.
