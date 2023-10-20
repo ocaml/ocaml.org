@@ -49,6 +49,7 @@ inner =
       <link rel="alternate" type="application/rss+xml" title="OCaml RSS Feed" href="/feed.xml">
       <script src="<%s Ocamlorg_static.Asset.url "vendors/swiper-bundle.min.js" %>"></script>
       <% ); %>
+      <link rel="search" href="<%s Ocamlorg_static.Open_search.manifest %>" type="application/opensearchdescription+xml" title="OCaml">
       <title><%s title %></title>
     </head>
 
