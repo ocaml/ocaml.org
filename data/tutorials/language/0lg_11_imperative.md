@@ -6,27 +6,45 @@ description: >
 category: "Tutorials"
 ---
 
-TODO: Relationship between side-effects and mutability. Change of state is a side-effect; that must be said.
+<!--
+1. Deal with refs
+1. Mutable record fields
+1. for-loop
+1. while-loop
+1. raise Exit
+1. Patterns and Anti-Pattern w.r.t. mixing FP & IP
+1. Yes You Can! (do it with FP)
+
+In a parking lot: Relationship between side-effects and mutability. Change of state is a side-effect; that must be said.
+
+Side effects in parameters is bad because of parameter evaluation order not specified
+-->
+
 
 # Mutability and Imperative Programming
 
 ## Introduction
 
 This document gathers two main teaching goals:
-1. Writing imperative programming in OCaml
-1. Mixing and balancing imperative and functional programming
+1. Writing imperative code in OCaml
+1. Combining and balancing imperative and functional code
 
-OCaml provides all means needed to write in imperative style. However it does it without compromising on type and memory safety. In the first part of this tutorial, imperative programming in OCaml is introduced with an accent on the OCaml way to avoid many of the issues found in imperative programming.
+In OCaml, you can write code in imperative style without compromising on type and memory safety. In the first part of this tutorial, imperative programming in OCaml is introduced.
 
-OCaml inherits from its ancestors the view that both imperative and functional programming have unique merits and that combining them for the better is possible. In the second part of this tutorial, ways to mix imperative and functional programming are compared and ranked. Also, example functional equivalents of things that are often though as requiring imperative are presented.
+Imperative and functional programming have unique merits; OCaml allows to combine them for the better. See the second part of this tutorial for examples.
 
-**Prerequisites**: This is an intermediate level tutorial. The requirement is to have completed [Basic Data Types](/docs/basic-data-types), [Values and Functions](/docs/values-and-functions) and [Lists](/docs/lists) tutorials.
+FIXME: this sentence needs to be improved.
+Finally, we look at code examples written in imperative style and show corresponding examples in functional programming style.
+
+**Prerequisites**: This is an intermediate level tutorial. You should have completed the [Basic Data Types](/docs/basic-data-types), [Values and Functions](/docs/values-and-functions) and [Lists](/docs/lists) tutorials.
 
 ## Mutable Data
 
+FIXME: Do we need some text here?
+
 ### References
 
-A name-value binding created using the `let = ` construct is immutable, once added to the environment, it is impossible to change the value or remove the name. However, there is kind of value that can be updated, that is called a _reference_ in OCaml.
+A name-value binding created using the `let … = …` construct is [immutable](https://en.wikipedia.org/wiki/Immutable_object), once added to the environment, it is impossible to change the value or remove the name. However, there is a kind of value that can be updated, that is called a _reference_ in OCaml.
 ```ocaml
 # let a = ref 0;;
 val a : int ref = {contents = 0}
@@ -39,15 +57,19 @@ val a : int ref = {contents = 0}
 ```
 
 Here is what happens above:
-1. The value `{ contents = 0 }` is bound to the name `a`. This is a normal definition, like any other definition, it is immutable. However the value `{ contents = 0 }` can be updated.
-1. The _assign_ operator `:=` is used to updated the value `a`. It is changed from 0 to 1.
-1. The _dereference_ operator `!` is used to read the content of the value `a`.
+1. The value `{ contents = 0 }` is bound to the name `a`. This is a normal definition, like any other definition, it is immutable. However the value `0` inside `contents` can be updated.
+3. The _assign_ operator `:=` is used to update the value inside `a` from 0 to 1.
+4. The _dereference_ operator `!` is used to read the content inside the value `a`.
 
 The `ref` identifier denotes two different things:
-* The type of mutable references: `'a ref`
-* The function `ref : 'a -> 'a ref` that creates a reference value
+* The type of mutable references: `'a ref`.
+* The function `ref : 'a -> 'a ref` that creates a reference.
 
-The assign operator is just a function that takes a reference, a value of the corresponding type and replaces previous contents of the reference by the provided value. The update takes places as a side effect.
+The assign operator is just a function that takes:
+1. The reference to be updated
+1. The value that replaces the previous contents.
+
+The update takes place as a [side effect](https://en.wikipedia.org/wiki/Side_effect_(computer_science)).
 ```ocaml
 # ( := );;
 - : 'a ref -> 'a -> unit = <fun>
@@ -61,24 +83,24 @@ The dereference operator is also a function. It takes a reference and returns it
 
 Refer to the [Operators](/docs/operators) tutorial for more information on how unary and binary operators work in OCaml.
 
-In contrast to many mainstream languages, the way OCaml handles mutable data has the following characteristics:
-* It is not possible to create a non initialized mutable store.
-* No confusion between actually mutable content and referring name. They have different syntax and type.
+The way OCaml handles mutable data has the following characteristics:
+* It's impossible to create unintialized references.
+* No confusion between mutable content and the reference is possible: They have different syntax and type.
 
 ### Mutable Fields
 
 #### Reference are Single Fields Records
 
-The value `{ contents = 0 }` no only looks like a record. It is a record. Having a look at the way the `ref` type is defined is enlightening:
+The value `{ contents = 0 }` of type `int ref` not only looks like a record: It is a record. Having a look at the way the `ref` type is defined is enlightening:
 ```ocaml
 #show ref;;
 external ref : 'a -> 'a ref = "%makemutable"
 type 'a ref = { mutable contents : 'a; }
 ```
 
-Starting from the bottom, the `'a ref` type is a single field record. The unique field, called `contents` is marked using the `mutable` key word which means that its contents is updatable.
+Starting from the bottom, the `'a ref` type is a record with just a single field `contents` which is marked with the `mutable` key word. This means that the field can be updated.
 
-The `external ref : 'a -> 'a ref = "%makemutable"` means the function `ref` is not written in OCaml.
+The `external ref : 'a -> 'a ref = "%makemutable"` means the function `ref` is not written in OCaml, but that is implementation detail we do not care about in this tutorial. If interested, check the [Calling C Libraries](/docs/calling-c-libraries) tutorial to learn how to use OCaml foreign function interface.
 
 #### Any Record Can Have Mutable Fields
 
@@ -89,63 +111,51 @@ Any field in a record can be tagged using the `mutable` key word.
   volume : int;
   title : string;
   author : string;
-  mutable first_published : (int * int * int) option;
   mutable stock : int;
-  mutable order_pending : bool
 };;
 type book = {
   series : string;
   volume : int;
   title : string;
   author : string;
-  mutable first_published : (int * int * int) option;
   mutable stock : int;
-  mutable order_pending : bool;
 }
 ```
 
-For instance here is how a book store data base could store a book entry.
-* Fields `title`, `author` are constants
-* Fields `first_published`, `stock` and `order` are mutable because their value can change trough time.
+For instance here is how a book store could track its book inventory:
+* Fields `title`, `author`, `volume`, `series` are constants
+* Field `stock` is mutable because this value changes with each sale or when restocking
 
-By the time of writing this tutorial (October 2023), a good book store using such a data base should have an entry like this:
+Such a data base should have an entry like this:
 ```ocaml
-# let murderbot_7 = {
+# let vol_7 = {
     series = "Murderbot Diaries";
     volume = 7;
     title = "System Collapse";
     author = "Martha Wells";
-    first_published = None;
-    stock = 0;
-    order_pending = true
+    stock = 3
   };;
-val murderbot_7 : book =
+val vol_7 : book =
   {series = "Murderbot Diaries"; volume = 7; title = "System Collapse";
-   author = "Martha Wells"; first_published = None; stock = 0;
-   order_pending = true}
+   author = "Martha Wells"; stock = 0}
 ```
 
-When the book actually reaches the shelves, here is how update can be done:
+When the book store receives a delivery of 7 of these books, here is how the data update can be done:
 ```ocaml
-# murderbot_7.first_published <- Some (14, 11, 2023);;
+# vol_7.stock <- vol_7.stock + 7;;
 - : unit = ()
 
-# murderbot_7.stock <- 10;;
-- : unit = ()
-
-# murderbot_7.order_pending <- false;;
-- : unit = ()
-
-# murderbot_7;;
+# vol_7;;
 - : book =
 {series = "Murderbot Diaries"; volume = 7; title = "System Collapse";
- author = "Martha Wells"; first_published = Some (14, 11, 2023); stock = 10;
- order_pending = false}
+ author = "Martha Wells"; stock = 10 }
 ```
 
-As of reference assignment, field update takes place in a side effect.
+Mutable record field update is a side effect performed using the left arrow symbol `<-`. In the expression `vol_7.stock <- vol_7.stock + 7` the meaning of `vol_7.stock` depends on its context:
+* In `vol_7.stock <- …` it refers to the mutable field to be updated
+* In the right-hand side expression `vol_7.stock + 7`, it denotes the contents of the field
 
-Taking step backwards into references, this allows understanding how assign and dereference functions work
+Looking at references again, we can define functions `assign` and `deref`:
 ```ocaml
 # let assign a x = a.contents <- x;;
 val assign : 'a ref -> 'a -> unit = <fun>
@@ -160,9 +170,62 @@ val deref : 'a ref -> 'a = <fun>
 - : int = 2
 ```
 
-The functions `assign` and `( := )` and the functions `deref` and `( ! )` are respectively doing the same thing.
+The function `assign` does the same as the operator `( := )`, while the function `deref` does the same as the `( ! )` operator.
 
-### Arrays Bytes Sequences
+#### Field Update _vs_ Record Copy
+
+In this section we compare two way to implement a C-like `getc` function. It waits until a key is pressed and returns the character corresponding without echoing it. This function will also be used later on in this tutorial.
+
+This is using two functions from the `Unix` module. Both are used to access terminal attributes associated with standard input:
+* `tcgetattr stdin TCSAFLUSH` read and return them as a record (this is similar to `deref`)
+* `tcsetattr stdin TCSAFLUSH` update them (this is similar to `assign`)
+
+These attributes need to be tweaked in order to do the reading the way we want. The logic is the same in both implementations:
+1. Read the terminal attributes
+1. Tweak the terminal attributes
+1. Wait until a key is pressed, read it as a character
+1. Restore the initial terminal attributes
+1. Return the read character
+
+Actual read is done using the `input_char` function from the standard library.
+
+Here is the first implementation:
+```ocaml
+# let getc () =
+    let open Unix in
+    let termio = tcgetattr stdin in
+    let c_icanon, c_echo = termio.c_icanon, termio.c_echo in
+    termio.c_icanon <- false;
+    termio.c_echo <- false;
+    tcsetattr stdin TCSAFLUSH termio;
+    let c = input_char (in_channel_of_descr stdin) in
+    termio.c_icanon <- c_icanon;
+    termio.c_echo <- c_echo;
+    tcsetattr stdin TCSAFLUSH termio;
+    c;;
+val getc : unit -> char = <fun>
+```
+In this implementation, update of the `termio` fields takes place twice.
+* Before `input_char`, both are set to `false`
+* After `input_char`, initial values are restored
+
+Here is the second implementation:
+```ocaml
+# let getc () =
+    let open Unix in
+    let termio = tcgetattr stdin in
+    tcsetattr stdin TCSAFLUSH { termio with c_icanon = false; c_echo = false };
+    let c = input_char (in_channel_of_descr stdin) in
+    tcsetattr stdin TCSAFLUSH termio;
+    c;;
+val getc : unit -> char = <fun>
+```
+
+In this implementation, the record returned by the call to `tcgetattr` isn't updated. A copy is made using `{ termio with c_icanon = false; c_echo = false }`. That copy only differs from the read `termio` value on fields `c_icanon` and `c_echo`, that's the meaning of `termio with …`
+
+That allows the second call to `tcsetattr` to restore terminal attributes back to their initial state.
+
+### Arrays and Bytes Sequences
 
 #### Arrays
 
@@ -179,7 +242,11 @@ The functions `assign` and `( := )` and the functions `deref` and `( ! )` are re
 - : int = 9
 ```
 
-The update symbol `<-` used for fields is also used to update an arrays's cell content.
+The update symbol `<-` used for fields is also used to update an arrays's cell content. The semantics of `a.(i)` work as field update:
+* When on the left of `<-`, it denotes which cell to update.
+* When on the right of `<-`, it denotes a cell's content.
+
+Arrays are covered in detail in a [dedicated](/docs/arrays) tutorial.
 
 #### Byte Sequences
 
@@ -237,7 +304,7 @@ The `downto` key word allows the counter to decrease during the loop.
 
 ### While Loop
 
-While loops are expressions to.
+While loops are expressions too.
 ```ocaml
 # let u = [9; 8; 7; 6; 5; 4; 3; 2; 1];;
 
@@ -256,20 +323,12 @@ There are no repeat loops in OCaml.
 
 There is no break instruction in OCaml. Throwing the `Exit` exception is the recommended way to exit immediately from a loop.
 
-Here is a possible implementation of `getc` in OCaml using the `Unix` module. In waits until a character is pressed and returns it immediately without echo.
-```ocaml
-# let getc () =
-    let open Unix in
-    let termio = tcgetattr stdin in
-    tcsetattr stdin TCSAFLUSH { termio with c_icanon = false; c_echo = false };
-    let c = input_char (in_channel_of_descr stdin) in
-    tcsetattr stdin TCSAFLUSH termio;
-    c
-```
+This is requires using a `getc` function as defined in section [Field Update _vs_ Record Copy](#field-update-vs-record-copy).
 
 The following loop echoes characters typed on the keyboard, as long as they are different from `Escape`.
 ```ocaml
 # try
+    print_endline "Press Escape to exit";
     while true do
       let c = getc () in
       if c = '\027' then raise Exit;
@@ -322,6 +381,8 @@ Code looking as functional but actually stateful
 TODO: include discussion on evaluation order, sides effects and monadic pipes
 
 ### Bad: Imperative by Default
+
+### Bad: Side Effects in Arguments
 
 ## Example of Things You Don't Need Imperative Programming For
 ## Example where imperative programming isn't needed
