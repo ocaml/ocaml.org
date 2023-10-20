@@ -83,6 +83,7 @@ let dark_theme_ext =
   Extension.of_jv @@ Jv.get dark "oneDark"
 
 let cyan = "cyan"
+let red = "red"
 let white = "white"
 
 let render_output color = function
@@ -101,7 +102,7 @@ let handle_output (o : Toplevel_api.exec_result) =
   let output_elements =
     List.filter_map
       (fun (c, o) -> render_output c o)
-      [ (cyan, o.stdout); (white, o.stderr); (white, o.caml_ppf) ]
+      [ (cyan, o.stdout); (red, o.stderr); (white, o.caml_ppf) ]
   in
   let out = El.div output_elements in
   El.append_children output [ out ]
