@@ -149,6 +149,9 @@ module.exports = {
           600: "#1A202C",
         },
       },
+      boxShadow: {
+        'custom': '0 4px 8px rgba(213, 64, 0, 0.5)'
+      }
     },
   },
   plugins: [
