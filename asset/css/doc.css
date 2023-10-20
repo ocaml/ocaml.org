@@ -47,7 +47,7 @@ div.odoc .spec a.anchor::after {
   padding: 0.6em;
 }
 
- div.odoc *:hover > a.anchor {
+div.odoc *:hover > a.anchor {
   opacity: 1;
 }
 
