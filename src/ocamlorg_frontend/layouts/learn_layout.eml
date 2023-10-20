@@ -41,7 +41,7 @@ let tabs
           <%s section_to_string option %>
         </option> 
     in
-    <nav aria-label="breadcrumbs" class="container-fluid flex text-white bg-text-title md:hidden">
+    <nav aria-label="breadcrumbs" class="flex text-white bg-text-title md:hidden">
       <ul>
         <li class="inline-block"> 
             <a href="<%s url_of_current Overview %>" class="flex items-center px-2 py-2 border-transparent border-2 border-b-4"> Learn 
