@@ -6,7 +6,7 @@ description: >
 category: "Tutorials"
 ---
 
-TODO: Relationship between side-effects and mutability. Change of state is a side-effect; that must be said. 
+TODO: Relationship between side-effects and mutability. Change of state is a side-effect; that must be said.
 
 # Mutability and Imperative Programming
 
@@ -252,15 +252,54 @@ While loops are expressions to.
 
 There are no repeat loops in OCaml.
 
-### Breaking Out of Any Loop
+### Breaking Out From a Loop
 
-TODO: mention `raise Exit` to terminate a `while true` loop (alternative to break statement).
+There is no break instruction in OCaml. Throwing the `Exit` exception is the recommended way to exit immediately from a loop.
+
+Here is a possible implementation of `getc` in OCaml using the `Unix` module. In waits until a character is pressed and returns it immediately without echo.
+```ocaml
+# let getc () =
+    let open Unix in
+    let termio = tcgetattr stdin in
+    tcsetattr stdin TCSAFLUSH { termio with c_icanon = false; c_echo = false };
+    let c = input_char (in_channel_of_descr stdin) in
+    tcsetattr stdin TCSAFLUSH termio;
+    c
+```
+
+The following loop echoes characters typed on the keyboard, as long as they are different from `Escape`.
+```ocaml
+# try
+    while true do
+      let c = getc () in
+      if c = '\027' then raise Exit;
+      print_char c;
+      flush stdout
+    done
+  with Exit -> ();;
+```
 
 ## Recommendations on Mixing Functional and Imperative Programming
 
-### Good: Application Wide State
+Functional and imperative programming are often mixed. However, not all mix creates good results. Some patterns and anti-patterns are listed in this section.
 
 ### Good: Function Encapsulated Mutability
+
+Here is a possible way to compute the sum of an array of integers.
+```ocaml
+# let sum a =
+    let result = ref 0 in
+    for i = 0 to Array.length a - 1 do
+      result := !result + a.(i)
+    done;
+    !result;;
+val sum : int array -> int = <fun>
+```
+
+Function `sum` is written in the imperative style, using mutable data structures. That's an encapsulated implementation choice. That is just fine.
+
+### Good: Application Wide State
+
 
 ### Good: Hash-Consing
 
