@@ -3,6 +3,7 @@ title: Collect the Internal Nodes of a Binary Tree in a List
 number: "62A"
 difficulty: beginner
 tags: [ "binary-tree" ]
+description: "Collect and returns all the internal nodes from a binary tree as a list."
 ---
 
 ```ocaml

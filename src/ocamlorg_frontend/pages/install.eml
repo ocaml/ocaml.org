@@ -46,7 +46,7 @@ Layout.render
             <details>
               <summary class="flex items-center gap-2 font-semibold">
                 Other installation methods
-                <%s! Icons.chevron_right "h-4 w-4" %>
+                <%s! Icons.chevron_down "h-4 w-4" %>
               </summary>
               You can also <a href="<%s Url.tutorial "tour-of-ocaml" %>#1-install-opam">install opam using your operating system's package manager</a>
               - however, you may get an older version of opam that does not support the most recent OCaml compiler version.

@@ -12,7 +12,8 @@ authors:
   - Yaron Minsky
 published: 2022-10-22
 cover: books/real-world-ocaml.jpg
-language: english
+language:
+  - english
 links:
   - description: Read Online
     uri: https://realworldocaml.org/

@@ -3,6 +3,7 @@ title: Rotate a List N Places to the Left
 number: "19"
 difficulty: intermediate
 tags: [ "list" ]
+description: "Write a function that rotates a list N places to the left."
 ---
 
 # Solution

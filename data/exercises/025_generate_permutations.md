@@ -3,6 +3,7 @@ title: Generate a Random Permutation of the Elements of a List
 number: "25"
 difficulty: beginner
 tags: [ "list" ]
+description: "Generate a random permutation of the elements in the given list."
 ---
 
 # Solution
