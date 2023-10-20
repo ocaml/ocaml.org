@@ -376,7 +376,7 @@ val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 
 ### Pattern Matching, Cont'd
 
-Patten matching isn't limited to lists. Any kind of data can be inspected using it, except functions. Patterns are expressions that are compared to an inspected value. It could be performed using `if … then … else …`, but pattern matching is more convenient. Here is an example using the `option` data type that will be detailed in the [Modules and the Standard Library](#Modules-and-the-Standard-Library) section.
+Patten matching isn't limited to lists. Any kind of data can be inspected using it, except functions. Patterns are expressions that are compared to an inspected value. It could be performed using `if … then … else …`, but pattern matching is more convenient. Here is an example using the `option` data type that will be detailed in the [Modules and the Standard Library](#modules-and-the-standard-library) section.
 ```ocaml
 # #show option;;
 type 'a option = None | Some of 'a
