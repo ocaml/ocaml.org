@@ -202,7 +202,9 @@ val ( let* ) : 'a option -> ('a -> 'b option) -> 'b option = <fun>
 
 ```
 
-This function is using `Option.bind` as a custom binder over the calls to `rindex_opt` and `rindex_from_opt`. This allows to only consider the case where both searches are successful and return the positions of the found characters. If any of them fails, `doi_parts` implicitly returns `None`. The `let open String in` allows calling functions `rindex_opt`, `rindex_from_opt`, `length`, `ends_with` and `sub` from module `String` without writing `String.` in front of each of them within the scope of the definition of `doi_parts`.
+This function is using `Option.bind` as a custom binder over the calls to `rindex_opt` and `rindex_from_opt`. This allows to only consider the case where both searches are successful and return the positions of the found characters. If any of them fails, `doi_parts` implicitly returns `None`.
+
+The `let open String in` construct allows calling functions `rindex_opt`, `rindex_from_opt`, `length`, `ends_with` and `sub` from module `String` without prefixing each of them with `String.` within the scope of the definition of `doi_parts`.
 
 The rest of the function applies if relevant delimiting characters have been found. It does performs additional checks and extracts registrant and identifier form the string `s`, if possible.
 
