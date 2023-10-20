@@ -14,7 +14,8 @@ authors:
   - Sylvain Conchon
 published: "2014"
 cover: books/apprendre-a-programmer-avec-ocaml.png
-language: french
+language:
+  - french
 isbn: "2-21213-678-1"
 links:
   - description: Buy on Amazon.fr

@@ -33,7 +33,7 @@ module Book : sig
     description : string;
     recommendation : string option;
     authors : string list;
-    language : string;
+    language : string list;
     published : string;
     cover : string;
     isbn : string option;
