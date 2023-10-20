@@ -16,7 +16,7 @@ This tutorial teaches the skills needed to handle expressions, values, and names
 
 In OCaml, functions are values. In comparison to other mainstream languages, this creates a richer picture between expressions, values, and names. 
 
-> Note: This tutorial uses the OCaml toplevel UTop. The ["Introduction to the OCaml Toplevel" guide](https://ocaml.org/docs/toplevel-introduction) covers how to use UTop. 
+> Note: This tutorial uses the OCaml toplevel UTop. The ["Introduction to the OCaml Toplevel" guide](https://ocaml.org/docs/toplevel-introduction) covers how to use UTop. It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
 
 <!--
 When presenting OCaml or another functional programming language, it is often said: “Functions are treated as first-class citizens.” Without further explanation or context, this may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by that sentence. In turn, this should explain it:
