@@ -400,7 +400,7 @@ In this other example, the same comparison is made, using `if … then … else 
   else if x = "baz" then 3
   else if x = "qux" then 4
   else 0;;
-val g : int -> string = <fun>
+val g : string -> int = <fun>
 
 # let g' x = match x with
     | "foo" -> 1
@@ -408,7 +408,7 @@ val g : int -> string = <fun>
     | "baz" -> 3
     | "qux" -> 4
     | _ -> 0;;
-val g' : int -> string = <fun>
+val g' : string -> int = <fun>
 ```
 
 The underscore symbol is a catch-all pattern; it matches with anything.
