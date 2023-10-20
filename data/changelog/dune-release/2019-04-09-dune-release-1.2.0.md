@@ -1,7 +1,7 @@
 ---
 title: Dune-release 1.2.0
 date: "2019-04-09"
-tags: [dune-release, platform, release]
+tags: [dune-release, platform]
 changelog: |
   - Remove assert false in favor of error message. (#125, @ejgallego)
   - Embed a 'version: "$release-version"' in each opam file of the current

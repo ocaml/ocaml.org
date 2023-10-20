@@ -1,7 +1,7 @@
 ---
 title: Opam-publish 0.3.0
 date: "2015-07-18"
-tags: [opam-publish, platform, release]
+tags: [opam-publish, platform]
 changelog: |
   * Add two-factor authentication support
   * Now requires github >= 1.0.0, opam-lib = 1.2.2
