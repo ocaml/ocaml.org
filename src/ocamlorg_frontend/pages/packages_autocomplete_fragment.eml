@@ -29,7 +29,7 @@ let render
 ~total
 (packages : Package.package list)
 =
-<div class="mx-2 mb-2">
+<div class="mb-2">
   <% if total = 0 then ( %>
   <p class="px-2 break-words">
     We didn't find a match for "<%s search %>".
