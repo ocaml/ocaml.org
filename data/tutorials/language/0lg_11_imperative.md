@@ -159,7 +159,7 @@ val deref : 'a ref -> 'a = <fun>
 # deref a;;
 - : int = 2
 ```
- 
+
 The functions `assign` and `( := )` and the functions `deref` and `( ! )` are respectively doing the same thing.
 
 ### Arrays Bytes Sequences
@@ -196,15 +196,61 @@ The update symbol `<-` used for fields is also used to update an arrays's cell c
 - : int = '_'
 ```
 
-Byte sequences can be seen in two different but equivalent way
+Byte sequences can be seen in two equivalent ways
 * Updatable strings that can't be printed
 * `char array` without syntactic sugar for indexed read and update
 
 ## Imperative Iteration
 
-### `for` Loop
+### For Loop
 
-### `while` Loop
+In OCaml, a for loop is an expression.
+```ocaml
+# for i = 0 to Array.length a - 1 do Printf.printf "%i\n" a.(i) done;;
+9
+3
+4
+5
+6
+7
+8
+- : unit = ()
+```
+
+For loop are convenient when iterating over arrays.
+```ocaml
+# let sum = ref 0 in
+  for i = 0 to Array.length a - 1 do sum := !sum + a.(i) done;
+  !sum;;
+- : int = 42
+```
+
+The body of a for loop should be an expression of type `unit`.
+```ocaml
+# for i = Array.length a - 1 downto 0 do 0 done;;
+Line 1, characters 39-40:
+Warning 10 [non-unit-statement]: this expression should have type unit.
+- : unit = ()
+```
+
+The `downto` key word allows the counter to decrease during the loop.
+
+### While Loop
+
+While loops are expressions to.
+```ocaml
+# let u = [9; 8; 7; 6; 5; 4; 3; 2; 1];;
+
+# let sum, u = ref 0, ref u in
+  while !u <> [] do
+    sum := !sum + List.hd !u;
+    u := List.tl !u
+  done;
+  !sum;;
+- : int = 45
+```
+
+There are no repeat loops in OCaml.
 
 ### Breaking Out of Any Loop
 
