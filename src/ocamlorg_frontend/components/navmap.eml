@@ -48,7 +48,7 @@ let rec nested_render ~path (item : toc) =
       | v :: _ -> v
       | [] -> ""
     in
-    let active_style = if item.title = fragment then "bg-gray-200 border-gray-500 font-medium" else "border-transparent" in
+    let active_style = if item.title = fragment then "bg-gray-200 font-medium" else "border-transparent" in
     if fragment != "" && item.kind = Library && fragment != item.title then "" else
     <div class="box-border border <%s active_style %> pl-1 ml-1">
       <div class="flex flex-nowrap" title="<%s kind_title item.kind ^ " " ^ item.title %>">
@@ -72,23 +72,27 @@ let rec nested_render ~path (item : toc) =
       | v :: _ -> (item.kind = Library && (List.length item.children <= 2), [], v)
       | [] -> (item.kind = Library && (List.length item.children <= 2), [], "")
     in
-    let active_style = if item.title = fragment then (if List.length path = 0 then "bg-gray-200 border-gray-500 font-medium" else "border-transparent bg-gray-100 font-medium") else "border-transparent" in
+    let active_style = if item.title = fragment then (if List.length path = 0 then "bg-gray-200 font-medium" else "border-transparent bg-gray-100 font-medium") else "border-transparent" in
     <div x-data="{ open: <%s if default_open then "true" else "false" %> }">
-      <div class="box-border border <%s active_style %> cursor-pointer ml-1 pl-1">
+      <div class="box-border border <%s active_style %> cursor-pointer pl-1 ml-1"  :class="open ? 'nav-expand' : ''">
         <div class="flex flex-nowrap" title="<%s kind_title item.kind ^ " " ^ item.title %>">
           <span class="icon-expand" x-on:click="open = ! open" :class="open ? 'open' : ''" >
             <span class="<%s if item.title = fragment then "" else "opacity-80" %> <%s icon_style item.kind %>"></span>
           </span>
           <% (match item.href with | None -> %>
-            <span x-on:click="open = ! open" class="<%s title_style %> <%s if item.title = fragment then "white-200" else "gray-900" %>"><%s! item.title %></span>
+            <span x-on:click="open = ! open" class="<%s title_style %> <%s if item.title = fragment then "white-200" else "gray-900" %>" :class="open ? 'text-primary-600' : ''">
+              <%s! item.title %> 
+              <span class="arrow-expand absolute right-0.5 px-3" :class="open ? 'open' : ''"><%s! Icons.chevron_down "h-5 w-5" %></span>
+            </span>
           <% | Some href -> %>
-          <a href="<%s href %>" <%s! htmx_attributes %> class="<%s title_style %> overflow-hidden truncate text-default transition-colors hover:text-primary-600">
+          <a href="<%s href %>" <%s! htmx_attributes %> class="<%s title_style %> overflow-hidden truncate text-default transition-colors hover:text-primary-600" :class="open ? 'text-primary-600' : ''">
             <%s! item.title %>
           </a>
+          <span x-on:click="open = ! open" class="sign-expand mr-2 px-2" :class="open ? 'open' : ''"></span>
           <% ); %>
         </div>
       </div>
-      <ul x-show="open" class="ml-1 border-l border-white transition-colors">
+      <ul x-show="open" class="ml-2.5 border-l border-white transition-colors">
         <% children |> List.iter begin fun item -> %>
           <li>
             <%s! nested_render ~path item %>
@@ -113,7 +117,7 @@ let render
       </a>
     <ul>
       <% maptoc |> List.iter begin fun item -> %>
-      <li>
+      <li class="pl-0.5">
         <%s! nested_render ~path item %>
       </li>
       <% end; %>
@@ -124,11 +128,11 @@ let render
   <% | _ -> %>
     <div class="py-24">
     Legend:<br>
-    <span class="<%s icon_style Library %>" style="display:inline-block;background-color:white"></span>Library<br>
-    <span class="<%s icon_style Module %>" style="display:inline-block;background-color:white"></span>Module<br>
-    <span class="<%s icon_style Module_type %>" style="display:inline-block;background-color:white"></span>Module type<br>
-    <span class="<%s icon_style Parameter %>" style="display:inline-block;background-color:white"></span>Parameter<br>
-    <span class="<%s icon_style Class %>" style="display:inline-block;background-color:white"></span>Class<br>
-    <span class="<%s icon_style Class_type %>" style="display:inline-block;background-color:white"></span>Class type
+    <span class="<%s icon_style Library %>" style="display:inline-block;color:white"></span>Library<br>
+    <span class="<%s icon_style Module %>" style="display:inline-block;color:white"></span>Module<br>
+    <span class="<%s icon_style Module_type %>" style="display:inline-block;color:white"></span>Module type<br>
+    <span class="<%s icon_style Parameter %>" style="display:inline-block;color:white"></span>Parameter<br>
+    <span class="<%s icon_style Class %>" style="display:inline-block;color:white"></span>Class<br>
+    <span class="<%s icon_style Class_type %>" style="display:inline-block;color:white"></span>Class type
     </div>
   <% ); %>
