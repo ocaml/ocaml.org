@@ -148,7 +148,7 @@ Arrays may contain values of any type. Here arrays are `int array`, `char array`
 # [||];;
 - : 'a array = [||]
 ```
-Here `'a` means “any type.” It is called a type variable and is usually pronounced as if it were the Greek letter α (“alpha”). This type parameter is meant to be replaced by another type.
+Here `'a` means “any type.” It is called a type variable and is usually pronounced like the Greek letter α (“alpha”). This type parameter will be replaced by another type.
 
 Like `string` and `bytes`, arrays support direct access, but the syntax is not the same.
 ```ocaml
@@ -184,9 +184,9 @@ As literals, lists are very much like arrays. Here are the same previous example
 - : string list = ["foo"; "bar"; "baz"]
 ```
 
-Like arrays, lists are finite sequences of values of the same type. They are polymorphic too. However, lists are extensible, immutable, and don't support direct access to all the values they contain. Lists play a central role in functional programming, and they are the subject of a [dedicated tutorial](/docs/lists).
+Like arrays, lists are finite sequences of values of the same type. They are polymorphic, too. However, lists are extensible, immutable, and don't support direct access to all the values they contain. Lists play a central role in functional programming, so they have a [dedicated tutorial](/docs/lists).
 
-Operations on lists are provided by the [`List`](/api/List.html) module. The `List.append` function, which concatenates two lists, can also be used as an operator with the symbol `@`.
+Operations on lists are provided by the [`List`](/api/List.html) module. The `List.append` function concatenates two lists. It can be used as an operator with the symbol `@`.
 
 There are symbols of special importance with respect to lists:
 - The empty list is written `[]`, has type `'a list'`, and is pronounced “nil.”
@@ -218,9 +218,7 @@ Pattern matching provides the basic means to access data stored inside a list.
 - : int = 2
 ```
 
-In the above expressions, `[1; 2; 3]` is the value that is matched over. Each expression between the `|` and `->` symbols is a pattern. They are expressions of type list, only formed using `[]`, `::`, and variables names that represent various shapes a list may have. When the pattern is `[]`, it means “if the list is empty.” When the pattern is `x :: u`, it means “if the list contains data, let `x` be the first element of the list and `u` be the rest of the list.” Expressions at the right of the `->` symbols are the results returned in each corresponding case.
-
-Operations on lists are provided by the [`List`](/api/List.html) module. There is a [dedicated tutorial on lists](https://ocaml.org/docs/lists).
+In the above expressions, `[1; 2; 3]` is the value that is matched over. Each expression between the `|` and `->` symbols is a pattern. They are expressions of type list, only formed using `[]`, `::`, and variables names that represent various shapes a list may have. When the pattern is `[]`, it means “if the list is empty.” The pattern `x :: u` means “if the list contains data, let `x` be the first element of the list and `u` be the rest of the list.” Expressions at the right of the `->` symbol are the results returned in each corresponding case.
 
 ### Options & Results
 
@@ -267,7 +265,7 @@ Here is a tuple containing two values, also known as a pair.
 - : int * char = (3, 'a')
 ```
 
-This is a pair containing the integer `3` and the character `'a'`; its type is `int * char`. The `*` symbol stands for _product type_.
+That pair contains the integer `3` and the character `'a'`; its type is `int * char`. The `*` symbol stands for _product type_.
 
 This generalises to tuples with 3 or more elements. For instance, `(6.28, true, "hello")` has type `float * bool * string`. The types `int * char` and `float * bool * string` are called _product types_. The `*` symbol is used to denote types bundled together in products.
 
@@ -286,7 +284,7 @@ In the standard library, both are defined using pattern matching. Here is how a 
 val f : 'a * 'b * 'c * 'd -> 'c = <fun>
 ```
 
-Note that types `int * char * bool`, `int * (char * bool)`, and `(int * char) * bool` are not the same. The values `(42, 'a', true)`, `(42, ('a', true))`, and `((42, 'a'), true)` are not equal. In mathematical language, it is said that the product type operator `*` is not associative.
+Note that types `int * char * bool`, `int * (char * bool)`, and `(int * char) * bool` are not the same. The values `(42, 'a', true)`, `(42, ('a', true))`, and `((42, 'a'), true)` are not equal. In mathematical language, the product type operator `*` is not associative.
 
 ### Functions
 
@@ -316,9 +314,9 @@ The second expression is function application. The parameter `9` is applied, and
 
 The first expression is another anonymous function. It is the identity function, it can be applied to anything, and it returns its argument unchanged. This means that its parameter can be of any type, and its result has the same type. The same code can be applied to data of different types. This is called _polymorphism_.
 
-This is what is indicated by the `'a` in the in the inferred type, known as a _type variable_. It means values of any type can be passed to the function. When that happens, their type is substituted for the type variable. This also expresses that this identity has the same input and output type, whatever it may be.
+Remember, the `'a` is a _type variable_, so values of any type can be passed to the function and replaces the type variable. Its identity has the same input and output type, whatever it may be.
 
-The two following expressions show that the identity function can indeed be applied to parameters of different types:
+The two following expressions show that the identity function can apply to different type parameters:
 
 ```ocaml
 # let f = fun x -> x * x;;
@@ -328,7 +326,7 @@ val f : int -> int = <fun>
 - : int = 81
 ```
 
-Defining a function is the same as naming a value. This is illustrated in the first expression:
+Defining a function is the same as naming a value, as illustrated in the first expression:
 
 ```ocaml
 # let g x = x * x;;
@@ -358,14 +356,14 @@ val mean : int -> int -> int = <fun>
 ```
 
 Like the product type symbol `*`, the function type symbol `->` is not associative. The following two types are not the same:
-- `(int -> int) -> int` : This is a function taking a function of type `int -> int` as parameter and returning an `int` as result.
-- `int -> (int -> int)` : This is a function taking an `int` as parameter and returning a function of type `int -> int` as result.
+- `(int -> int) -> int` : This function takes a function of type `int -> int` as a parameter and returns an `int` as the result.
+- `int -> (int -> int)` : This function takes an `int` asa  parameter and returns a function of type `int -> int` as the result.
 
 ### Unit
 
 Uniquely, the type `unit` has only one value. It is written `()` and pronounced “unit.”
 
-The `unit` type has several uses. One of its main roles is to serve as a token when a function does not need to be passed data or doesn't have any data to return once it has completed its computation. This happens when functions have side effects such as OS-level I/O. Functions need to be applied to something for their computation to be triggered, and they also must return something. When nothing meaningful can be passed or returned, `()` should be used.
+The `unit` type has several uses. Mainly, it serves as a token when a function does not need to be passed data or doesn't have any data to return once it has completed its computation. This happens when functions have side effects such as OS-level I/O. Functions need to be applied to something for their computation to be triggered, and they also must return something. When nothing meaningful can be passed or returned, `()` should be used.
 ```ocaml
 # read_line;;
 - : unit -> string = <fun>
@@ -380,7 +378,7 @@ The function `print_endline` prints the string followed by a line ending on stan
 
 ## User-Defined Types
 
-User defined types are always introduced using the `type … = …` construction. The keyword `type` must written in lowercase. The first ellipsis stands for type name and must not begin by a capital. The second ellipsis stands for the type definition. Three cases are possible
+User defined types are always introduced using the `type … = …` construction. The keyword `type` must written in lowercase. The first ellipsis stands for type name and must not begin by a capital. The second ellipsis stands for the type definition. Three cases are possible:
 1. Variant
 1. Record
 1. Aliases
@@ -432,7 +430,7 @@ directions, or any other fixed-sized set of values that can be given names. An
 ordering is defined on values following the definition order (e.g., `Druid
 < Ranger`).
 
-Here is how pattern matching can be performed on the types defined above.
+Pattern matching can be performed on the types defined above:
 ```ocaml
 # let rectitude_to_french = function
     | Evil -> "Mauvais"
@@ -444,9 +442,9 @@ val rectitude_to_french : rectitude -> string = <fun>
 Note that:
 
 - `unit` is a variant with a unique constructor, which does not carry data: `()`.
-- `bool` is also a variant with two constructors that don't carry data: `true` and `false`.
+- `bool` is also a variant with two constructors that doesn't carry data: `true` and `false`.
 
-A pair `(x, y)` has type `a * b`, where `a` is the type of `x` and `b` is the type of `y`. Some may find it intriguing that `a * b` is called a product. Although this is not a complete explanation, this may help in understanding: Consider the product type `character_class * character_alignement`. There are 12 classes and 9 alignments. Any pair of values from those types inhabits the product type. Therefore, in the product type, there are 9 × 12 = 108 values, which is also a product.
+A pair `(x, y)` has type `a * b`, where `a` is the type of `x` and `b` is the type of `y`. Some may find it intriguing that `a * b` is called a product. Consider the product type `character_class * character_alignement`. There are 12 classes and 9 alignments. Any pair of values from those types inhabits the product type. Therefore, in the product type, there are 9 × 12 = 108 values, which is also a product. Although this is not a complete explanation, it may help you understand. 
 
 #### Constructors With Data
 
@@ -484,7 +482,7 @@ Here is how to convert a `commit` to a `string` using pattern matching:
 val commit_to_string : commit -> string = <fun>
 ```
 
-Here, the `function …` construct is used instead of the `match … with …` construct used previously:
+Below, the `function …` construct is used instead of the `match … with …` construct used previously:
 ```ocaml
 let commit_to_string' x = match x with
   | Hash sha -> sha
@@ -496,7 +494,7 @@ let commit_to_string' x = match x with
   | Merge_head -> "MERGE_HEAD";;
 val commit_to_string' : commit -> string = <fun>
 ```
-We need to pass an inspected expression to the `match … with …` construct. The `function …` is a special form of anonymous function that takes a parameter and forwards it to a `match … with …` construct, as shown above.
+We need to pass an inspected expression to the `match … with …` construct. The `function …` is a special form of an anonymous function that takes a parameter and forwards it to a `match … with …` construct, as shown above.
 
 > Warning: Wrapping product types with parentheses turns them into a single parameter.
 ```ocaml
@@ -556,13 +554,13 @@ Functions defined using pattern matching on recursive variants are often recursi
 val has_field : string -> json -> bool = <fun>
 ```
 
-Here, the last pattern uses the symbol `_`, which catches everything. It allows returning `false` on all data which is neither `Array` nor `Object`.
+Here, the last pattern uses the symbol `_`, which catches everything. It returns `false` on all data that is neither `Array` nor `Object`.
 
 ### Polymorphic Data Types
 
 #### Revisiting Predefined Types
 
-The predefined type `option` is defined as a variant type with two constructors: `Some` and `None`. It can contain values of any type, such as `Some 42` or `Some "hola"`. In that sense, `option` is polymorphic. Here is how it is defined in the standard library:
+The predefined type `option` is a variant type with two constructors: `Some` and `None`. It can contain values of any type, such as `Some 42` or `Some "hola"`. In that sense, `option` is polymorphic. Here is how it is defined in the standard library:
 
 ```ocaml
 # #show option;;
@@ -575,7 +573,7 @@ The predefined type `list` is polymorphic in the same sense. It is a variant wit
 type 'a list = [] | (::) of 'a * 'a list
 ```
 
-The only bit of magic here is turning constructors into symbols, which we don't cover in this tutorial. The types `bool` and `unit` also are regular variants, with the same magic:
+The only magic here is turning constructors into symbols, which we don't cover in this tutorial. The types `bool` and `unit` also are regular variants, with the same magic:
 ```ocaml
 # #show unit;;
 type unit = ()
@@ -592,7 +590,7 @@ type ('a, 'b) pair = Pair of 'a * 'b
 
 `(int, bool) pair` would be written `int * bool`, and `Pair (42, true)` would be written `(42, true)`. From the developer's perspective, everything happens as if such a type were declared for every possible product shape. This is what allows pattern matching on products.
 
-Even integers and floats can be seen as enumerated-like variant types, with many constructors and funky syntactic sugar. This is what allows pattern matching on those types.
+Even integers and floats can be seen as enumerated-like variant types, with many constructors and funky syntactic sugar, which allows pattern matching on those types.
 
 In the end, the only type construction that does not reduce to a variant is the function arrow type. It is possible to perform pattern matching on values of any type, except functions.
 
@@ -606,7 +604,7 @@ Here is an example of a variant type that combines constructors with data, const
 type 'a tree = Leaf | Node of 'a * 'a tree * 'a tree
 ```
 
-It can be used to represent arbitrarily labelled binary trees. Assuming such a tree would be labelled with integers, here is a possible way to compute the sum of the integers it contains, using recursion and pattern matching.
+It can be used to represent arbitrarily labelled binary trees. Assuming such a tree would be labelled with integers, here is a possible way to compute the sum of its integers, using recursion and pattern matching.
 ```ocaml
 # let rec sum = function
   | Leaf -> 0
@@ -622,7 +620,9 @@ Here is how the map function can be defined in this type:
 val map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 ```
 
-In the OCaml community, as well as in the larger functional programming community, the word *polymorphism* is used loosely. It is applied to things working in a similar fashion with various types. Several features of OCaml are polymorphic in this broad sense. Each polymorphic feature uses a particular form of polymorphism, including its own name. In summary, OCaml has several forms of polymorphism. In most cases, the distinction between those concepts is blurred, but it sometimes necessary to distinguish them. Here are the terms applicable to datatypes:
+In the OCaml community, as well as in the larger functional programming community, the word *polymorphism* is used loosely. It is applied to things working in a similar fashion with various types. In this broad sense, several features of OCaml are polymorphic. Each uses a particular form of polymorphism, including its own name. In summary, OCaml has several forms of polymorphism. In most cases, the distinction between those concepts is blurred, but it sometimes necessary to distinguish them. 
+
+Here are the terms applicable to data types:
 1. `'a list`, `'a option`, and `'a tree` are very often said to be polymorphic types. Formally, `bool list` or `int option` are the types, whilst `list` and `option` are [type operators](https://en.wikipedia.org/wiki/Type_constructor) that take a type as a parameter and result in a type. This is a form of [parametric polymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism). `'a list` and `'a option` denote [type families](https://en.wikipedia.org/wiki/Type_family), which are all the types created by applying type parameters to the operators.
 2. OCaml has something called _Polymorphic Variants_. Although the types `option`, `list`, and `tree` are variants and polymorphic, they aren't polymorphic variants. They are type-parametrised variants. We stick to this usage and say the variants in this section are polymorphic. OCaml polymorphic variants are [covered in another tutorial](https://v2.ocaml.org/learn/tutorials/labels.html).
 
@@ -651,7 +651,7 @@ type character = {
 ```
 Values of type `character` carry the same data as inhabitants of this product: `string * int * string * character_class * character_alignment * int`.
 
-Access to the fields is done using the dot notation. Here is an example:
+Access the fields by using the dot notation, as shown:
 ```ocaml
 # let ghorghor_bey = {
     name = "Ghôrghôr Bey";
@@ -687,9 +687,8 @@ This is mostly useful as a means of documentation or to shorten long-type expres
 
 ## A Complete Example: Mathematical Expressions
 
-This example shows how to represent simple mathematical expressions like `n * (x + y)` and multiply them out symbolically to get `n * x + n * y`.
+This example shows how to represent simple mathematical expressions like `n * (x + y)` and multiply them out symbolically to get `n * x + n * y`:
 
-Here is a type for these expressions:
 ```ocaml env=expr
 # type expr =
   | Plus of expr * expr        (* a + b *)
@@ -752,14 +751,14 @@ This is how it can be used:
 
 The first two patterns hold the key to how the `distribute` function works.
 The first pattern is `Times (e1, Plus (e2, e3))`, which matches expressions of
-the form `e1 * (e2 + e3)`. The right-hand side of this first pattern is the
-equivalent of `(e1 * e2) + (e1 * e3)`. The second pattern does the same thing,
+the form `e1 * (e2 + e3)`. The right-hand side of this first pattern is
+equivalent to `(e1 * e2) + (e1 * e3)`. The second pattern does the same thing,
 except for expressions of the form `(e1 + e2) * e3`.
 
-The remaining patterns don't change the expressions's form, but they call the
-`distribute` function recursively on their subexpressions. This ensures that all
-subexpressions within the expression get multiplied out too. (If you only wanted
-to multiply out the very top level of an expression, then you could replace all
+The remaining patterns don't change the expressions' form, but they call the
+`distribute` function recursively on their subexpressions. This ensures that all its
+subexpressions get multiplied out too. (If you only wanted
+to multiply out the very top level of an expression, you could replace all
 the remaining patterns with a simple `e -> e` rule.)
 
 The reverse operation, i.e., factorising out common subexpressions, can be
@@ -778,23 +777,23 @@ val top_factorise : expr -> expr = <fun>
 ```
 
 The factorise function above introduces another feature: *guards* to each
-pattern. It is the conditional that follows the `when`, and it means that
+pattern. The conditional follows the `when`, and it means that
 the return code is executed only if the pattern matches and the condition in the
 `when` clause is satisfied.
 
 ## Conclusion
 
-This tutorial has provided a comprehensive overview of the basic data types in OCaml and their usage. We have explored the built-in types, such as integers, floats, characters, lists, tuples, and strings, and the user-defined types: records and variants. Records and tuples are mechanisms for grouping heterogeneous data into cohesive units. Variants are a mechanism for exposing heterogeneous data as coherent alternatives.
+This tutorial has provided a comprehensive overview of OCaml's basic data types and their usage. We have explored the built-in types, such as integers, floats, characters, lists, tuples, and strings, and the user-defined types: records and variants. Records and tuples are mechanisms for grouping heterogeneous data into cohesive units. Variants are a mechanism for exposing heterogeneous data as coherent alternatives.
 <!--
 From the data point of view, records and tuples are similar to the logical conjunction “and,” while variants are similar to the logical disjunction “or.” This analogy goes very deep, with records and tuples on one side as products and variants on the other side as union. These are true mathematical operations on data types. Records and tuples play the role of multiplication, which is why they are called product types. Variants play the role of addition. Putting it all together, basic OCaml types are said to be algebraic.
 
 ## Next: Advanced Data Types
 -->
-Going further, there are several advanced topics related to data types in OCaml that you can explore to deepen your understanding and enhance your programming skills.
+Going further, you can explore several advanced topics related to OCaml's data types to deepen your understanding and enhance your programming skills.
 - Mutually Recursive Variants
 - Polymorphic Variants
 - Extensible Variants
-- [Generalized Algebraic Data Types](https://en.wikipedia.org/wiki/Generalized_algebraic_data_type)
+- [Generalised Algebraic Data Types](https://en.wikipedia.org/wiki/Generalized_algebraic_data_type)
 
 As of writing this, these topics will be covered in forthcoming tutorials. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml.
 
