@@ -119,3 +119,6 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
     </div>
   </div>
 </div>
+<script>
+  document.querySelector("main input[type=search]").focus()
+</script>
