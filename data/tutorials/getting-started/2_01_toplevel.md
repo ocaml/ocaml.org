@@ -25,7 +25,11 @@ utop #
 
 Press `Ctrl-D` (end of file) or enter `#quit;;` to exit `utop`.
 
-UTop displays a hash prompt `#`, similar to the `$` in the CLI. This `#` means it is waiting for input, so you can start writing your code after the prompt. To evaluate it, add a double semicolon `;;` to signal the end of the expression and press `Enter`.
+UTop displays a hash prompt `#`, similar to the `$` in the CLI. This `#` means it is waiting for input, so you can start writing your code after the prompt. To evaluate it, add a double semicolon `;;` to signal the end of the expression and press `Enter`. 
+
+Lines ending with double semicolons trigger the parsing, type checking, and evaluation of everything typed between the prompt and the double semicolon. The interpretation of that double semicolon isn't made by the OCaml interpreter; it is made by UTop. Once the evaluation of a double semicolon terminated entry is over, the REPL waits for another piece of input.
+
+Code samples beginning with `#` are intended to be copied/pasted into UTop.
 
 For instance, consider the following code snippet:
 ```ocaml
@@ -35,8 +39,10 @@ For instance, consider the following code snippet:
 
 In the code snippet above, `2 + 2;;` is the user's input, and `- : int = 4` is the output of OCaml.
 
-If you need to amend the code before hitting `Enter`, you can use your keyboard's right and left arrows to move inside the text. The up and down arrows allow navigation through previously evaluated expressions. Typing `Enter` without a double semicolon `;;` will create a new line, so you can write multiple-line expressions this way.
+If you need to amend the code before hitting `Enter`, you can use your keyboard's right and left arrows to move inside the text. The up and down arrows allow navigation through previously evaluated expressions. Typing `Enter` without a double semicolon `;;` will create a new line, so you can write multiple-line expressions this way. 
 
 Commands beginning with a hash character `#`, such as `#quit` or `#help`, are not evaluated by OCaml; they are interpreted as commands by UTop.
 
 You're now ready to hack with UTop! If you hit any issue with the toplevel, don't hesitate to [ask on Discuss](https://discuss.ocaml.org/).
+
+>  Note: The double semicolon `;;` is also a valid token in the OCaml syntax outside the toplevel. In OCaml source code, it is a [no-op](https://en.wikipedia.org/wiki/NOP_(code)), i.e., it does not trigger any behaviour, so it is ignored by the compiler. If your intention is to compile or interpret files as scripts, double semicolons can and should be avoided when writing in OCaml. Leaving them does not raise errors, but they are useless. The compiler tolerates them to allow copy-paste from UTop to a file without having to remove them.
