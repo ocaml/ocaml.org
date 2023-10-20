@@ -1,7 +1,7 @@
 ---
 title: Dune-release 1.0.0
 date: "2018-09-23"
-tags: [dune-release, platform, release]
+tags: [dune-release, platform]
 changelog: |
   - Determine opam-repository fork user from URI (#64, @NathanReb and @diml)
   - All subcommands now support multiple package names (@samoht)

@@ -3,7 +3,7 @@ title: "OPAM 1.1.0 release candidate out"
 authors: [ "Louis Gesbert" ]
 date: "2013-10-14"
 description: "Release announcement for OPAM 1.1.0~rc1"
-tags: [opam, platform, release]
+tags: [opam, platform]
 changelog: |
    Too many to list here, see
    [https://raw.github.com/OCamlPro/opam/1.1.0-RC/CHANGES](https://raw.github.com/OCamlPro/opam/1.1.0-RC/CHANGES)
