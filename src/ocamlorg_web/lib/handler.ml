@@ -120,9 +120,8 @@ let books req =
   let matches_criteria (book : Data.Book.t) language pricing difficulty =
     let matches_language =
       match language with
-      | Some lang when lang = "All" -> true
-      | Some lang -> book.language = lang
-      | None -> true
+      | None | Some "All" -> true
+      | Some lang -> List.mem true (List.map (fun x -> x = lang) book.language)
     in
     let matches_pricing =
       match pricing with

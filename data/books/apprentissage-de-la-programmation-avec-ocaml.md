@@ -12,7 +12,8 @@ authors:
   - Valérie Ménissier Morain
 published: "2004"
 cover: books/apprentissage-de-la-programmation-avec-ocaml.jpg
-language: french
+language:
+  - french
 isbn: "2-7462-0819-9"
 links:
   - description: Buy on Amazon.fr

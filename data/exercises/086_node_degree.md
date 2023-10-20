@@ -3,6 +3,7 @@ title: Node Degree and Graph Coloration
 number: "86"
 difficulty: intermediate
 tags: [ "graph" ]
+description: "Implement Welsh-Powell's algorithm to color the nodes of a graph so that adjacent nodes have different colors."
 ---
 
 # Solution

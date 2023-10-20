@@ -3,6 +3,7 @@ title: Compare the Two Methods of Calculating Euler's Totient Function
 number: "38"
 difficulty: beginner
 tags: [ "arithmetic" ]
+description: "Compare the efficiency of φ calculation algorithms, measuring performance by the number of logical inferences."
 ---
 
 
