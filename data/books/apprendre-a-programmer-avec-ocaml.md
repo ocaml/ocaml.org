@@ -9,7 +9,7 @@ description: >
   third parts are dedicated to fundamental concepts of algorithmics and
   should allow the reader to write programs in a structured and
   efficient way.
-authors: 
+authors:
   - Jean-Christophe Filliâtre
   - Sylvain Conchon
 published: "2014"

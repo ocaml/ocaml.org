@@ -11,6 +11,7 @@ published: "2000"
 cover: books/developpement-d-applications-avec-objective-caml.jpg
 language:
   - french
+  - english
 isbn: "2-84177-121-0"
 links:
   - description: Read Online
