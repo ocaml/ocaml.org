@@ -296,6 +296,7 @@ rounds:
           a publisher-subcriber based server-client model for MIDI messages.
         mentee: "Aryan Godara"
         source: https://github.com/AryanGodara/rtpmidi
+        blog: "https://medium.com/@aryangodara_19887"
         mentors:
         - Claes (rand)
         - Sonja Heinze
