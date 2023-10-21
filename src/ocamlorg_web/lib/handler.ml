@@ -42,11 +42,12 @@ let learn_guides req =
   Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
 
 let platform _req =
+  let tools = Data.Tool.all in
   let tutorials =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Platform)
   in
-  Dream.redirect _req (Url.tutorial (List.hd tutorials).slug)
+  Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
 
 let community _req =
   let workshops = Data.Workshop.all in
