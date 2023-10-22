@@ -31,3 +31,10 @@ let render
       ~extra_html:(
         (render_tutorial_link ~title:"Is OCaml web yet?" ~slug:"is-ocaml-web-yet")) %>
   <% ); %>
+
+  <% if section = Platform then ( %>
+    <%s! Learn_layout.sidebar_link_group "Platform"
+      (tutorial_sidebar_links_by_category "platform")
+      ~extra_html:(
+        (render_tutorial_link ~title:"Platform" ~slug:"platform")) %>
+  <% ); %>
