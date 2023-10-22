@@ -11,7 +11,7 @@ deps: create_switch ## Install development dependencies
 
 .PHONY: create_switch
 create_switch: ## Create switch and pinned opam repo
-	opam switch create . 4.14.1 --no-install --repos pin=git+https://github.com/ocaml/opam-repository#c1fcfbe8369cb5a7cb8d7be63db59856dbd85d19
+	opam switch create . 4.14.0 --no-install --repos pin=git+https://github.com/ocaml/opam-repository#c1fcfbe8369cb5a7cb8d7be63db59856dbd85d19
 
 .PHONY: switch
 switch: deps ## Create an opam switch and install development dependencies

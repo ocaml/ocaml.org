@@ -43,7 +43,7 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
 
         <% if List.length packages > 0 then ( %>
         <ol class="flex flex-col">
-          <% packages |> List.iter (fun (package : Package.package) -> %>
+          <% packages |> List.iter (fun (package : Package.package, documentation_status) -> %>
           <li class="border-gray-200 border-b py-3 space-y-2">
             <div class="flex">
               <a
@@ -53,6 +53,8 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
                 <%s package.name %>
               </a>
               <div class="flex gap-4 justify-end items-center">
+              <% (match documentation_status with
+              |Ocamlorg_frontend.Package.Success ->
               <a
                 href="<%s Url.Package.documentation package.name %>"
                 class="text-primary-700 flex gap-1 text-sm items-center"
@@ -60,6 +62,9 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
                 <%s! Icons.documentation "h-5 w-5" %>
                 Documentation
               </a>
+              |_ ->
+              <p> No Documentation Available </p>
+              ); results %>
               </div>
             </div>
 
@@ -110,7 +115,7 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
           </li>
           <% ); %>
         </ol>
-        <% ); %>
+        <% ; %>
       </div>
     </div>
   </div>

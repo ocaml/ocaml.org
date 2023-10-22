@@ -563,7 +563,18 @@ let packages_search t req =
           search
       in
       let total = List.length packages in
-      let results = List.map (Package_helper.frontend_package t) packages in
+      let results =
+        List.map
+          (fun package ->
+            let documentation_status =
+              match Ocamlorg_package.documentation_status package.name with
+              | Some { failed = false; _ } -> Ocamlorg_frontend.Package.Success
+              | Some { failed = true; _ } -> Failure
+              | None -> Unknown
+            in
+            (Package_helper.frontend_package t package, documentation_status))
+          packages
+      in
       let search = Dream.from_percent_encoded search in
       Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
   | None -> Dream.redirect req Url.packages
