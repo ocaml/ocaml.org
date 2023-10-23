@@ -75,8 +75,11 @@ the community and learn more about how they use OCaml."
         </div>
       </div>
     </div>
+  
   </div>
+  
 </div>
+ 
 <div class="py-10 lg:py-24 bg-default dark:bg-dark-default">
   <div class="container-fluid">
       <div class="text-center mt-6 lg:mt-0">
@@ -186,7 +189,11 @@ the community and learn more about how they use OCaml."
       </div>
     </div>
   </div>
+  <div class="prose max-w-none  pl-12">
+    If you want to contribute to a new success story, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#story" target="_blank">contributing guide</a> on GitHub.
 </div>
+</div>
+ 
 <div class="py-10 md:py-20 md:pb-32 bg-default dark:bg-dark-default">
   <div class="container-fluid">
     <div class="text-center">
@@ -203,7 +210,11 @@ the community and learn more about how they use OCaml."
      
     </div>
   </div>
+   
 </div>
+<div class="bg-default prose max-w-none  p-8">
+        If you want to contribute to add a new industrial user, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#industrial-user" target="_blank">contributing guide</a> on GitHub.
+  </div>
 <div class="bg-pattern lg:py-32 py-24">
   <div class="container-fluid">
     <div>
@@ -229,13 +240,10 @@ the community and learn more about how they use OCaml."
           <p>What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
         </a>
       </div>
-    </div>
-    <div class="prose max-w-none text-white ml-2 mt-10">
-        If you want to contribute to add a new industrial user, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#industrial-user" target="_blank">contributing guide</a> on GitHub.
-  </div>
+    </div> 
   </div>
   
-</div>
+</div>   
 <script>
   function videoFullWidth() {
       return {
