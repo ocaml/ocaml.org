@@ -136,8 +136,8 @@ Arrays are finite and fixed-sized sequences of values of the same type. Here are
 # [| 0; 1; 2; 3; 4; 5 |];;
 - : int array = [|0; 1; 2; 3; 4; 5|]
 
-# [| 'a'; 'b'; 'c' |];;
-- : char array = [|'a'; 'b'; 'c'|]
+# [| 'x'; 'y'; 'z' |];;
+- : char array = [|'x'; 'y'; 'z'|]
 
 # [| "foo"; "bar"; "baz" |];;
 - : string array = [|"foo"; "bar"; "baz"|]
@@ -152,20 +152,20 @@ Remember, `'a` ("alpha") is a type variable, a type parameter that will be repla
 
 Like `string` and `bytes`, arrays support direct access, but the syntax is not the same.
 ```ocaml
-# [| 'a'; 'b'; 'c' |].(2);;
-- : char = 'c'
+# [| 'x'; 'y'; 'z' |].(2);;
+- : char = 'z'
 ```
 
 Arrays are mutable, meaning they can't be extended or shortened, but each element may be updated.
 ```ocaml
-# let a = [| 'a'; 'b'; 'c'; 'd' |];;
-val a : char array = [|'a'; 'b'; 'c'; 'd'|]
+# let letter = [| 'v'; 'x'; 'y'; 'z' |];;
+val letter : char array = [|'v'; 'x'; 'y'; 'z'|]
 
-# a.(2) <- '3';;
+# letter.(2) <- '3';;
 - : unit = ()
 
-# a;;
-- : char array = [|'a'; 'b'; '3'; 'd'|]
+# letter;;
+- : char array = [|'v'; 'x'; '3'; 'z'|]
 ```
 
 Operations on arrays are provided by the [`Array`](/api/Array.html) module. There is a dedicated tutorial on Arrays.
@@ -177,8 +177,8 @@ As literals, lists are very much like arrays. Here are the same previous example
 # [ 0; 1; 2; 3; 4; 5 ];;
 - : int list = [0; 1; 2; 3; 4; 5]
 
-# [ 'a'; 'b'; 'c' ];;
-- : char list = ['a'; 'b'; 'c']
+# [ 'x'; 'y'; 'z' ];;
+- : char list = ['x'; 'y'; 'z']
 
 # [ "foo"; "bar"; "baz" ];;
 - : string list = ["foo"; "bar"; "baz"]
