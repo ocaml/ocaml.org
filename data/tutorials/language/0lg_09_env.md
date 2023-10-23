@@ -76,11 +76,11 @@ The following section discusses definitions with computation. Definitions withou
 
 Global definitions are those entered at the toplevel. This is what happens when writing a definition in UTop:
 ```ocaml
-# let a = 2 * 3 * 7;;
-val a : int = 42
+# let the_answer = 2 * 3 * 7;;
+val the_answer : int = 42
 ```
 
-Here, `a` is a global definition.
+Here, `the_answer` is a global definition.
 
 When a variant type has a single constructor, it is possible to combine pattern matching and definition. The pattern is written between the `let` keyword and the equal sign. A very common case is pairs. It allows the creation of two names with a single `let`.
 ```ocaml
@@ -89,13 +89,19 @@ val x : int list = [1; 3; 5; 7]
 val y : int list = [2; 4; 6; 8]
 ```
 
-This works for any variant type. Here is a type of tree with a variable number of branches:
+This works for any variant type. Here is a type named `tree` with a variable number of branches:
 ```ocaml
 # type 'a tree = Node of 'a * 'a tree list;;
 type 'a tree = Node of 'a * 'a tree list
 
+# let t = Node (1, [Node (2, []); Node (3, []); Node (4, [])]);;
+val t : int tree = Node (1, [Node (2, []); Node (3, []); Node (4, [])])
+
 # let rec tree_map f (Node (x, u)) = Node (f x, List.map (tree_map f) u);;
 val tree_map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
+
+tree_map (fun x -> x * x) t;;
+- : int tree = Node (1, [Node (4, []); Node (9, []); Node (16, [])])
 ```
 
 Because records are implicitly single constructor variants, this also applies to them:
