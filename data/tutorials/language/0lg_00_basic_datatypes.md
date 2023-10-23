@@ -148,7 +148,7 @@ Arrays may contain values of any type. Here arrays are `int array`, `char array`
 # [||];;
 - : 'a array = [||]
 ```
-Here `'a` means “any type.” It is called a type variable and is usually pronounced like the Greek letter α (“alpha”). This type parameter will be replaced by another type.
+Remember, `'a` ("alpha") is a type variable, a type parameter that will be replaced by another type.
 
 Like `string` and `bytes`, arrays support direct access, but the syntax is not the same.
 ```ocaml
