@@ -284,7 +284,7 @@ In the standard library, both are defined using pattern matching. Here is how a 
 val f : 'a * 'b * 'c * 'd -> 'c = <fun>
 ```
 
-Note that types `int * char * bool`, `int * (char * bool)`, and `(int * char) * bool` are not the same. The values `(42, 'a', true)`, `(42, ('a', true))`, and `((42, 'a'), true)` are not equal. In mathematical language, the product type operator `*` is not associative.
+Note that types `int * char * bool`, `int * (char * bool)`, and `(int * char) * bool` are not the same. The values `(42, 'a', true)`, `(42, ('a', true))`, and `((42, 'a'), true)` are not equal. In mathematical language, the product type operator `*` is not _associative_.
 
 ### Functions
 
