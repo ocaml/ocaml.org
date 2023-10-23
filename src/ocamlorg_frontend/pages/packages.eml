@@ -189,7 +189,7 @@ Layout.render
 </div>
 
   <div class=" bg-default prose max-w-none p-8">
-   If you want to learn about the OCaml packages, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#package" target="_blank">contributing guide</a> on GitHub.
+   If you want to learn about the OCaml packages, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#package" target="_blank">Contributing Guide</a> on GitHub.
 </div> 
 <div class="bg-primary-600 ">
     <div class="container-fluid">

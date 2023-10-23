@@ -91,7 +91,7 @@ Layout.render
             </div>
         </div>
         <div class="prose max-w-none  mt-8">
-            If you want to contribute a blog post, or add your RSS feed, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#blog" target="_blank">contributing Guide</a> on GitHub.
+            If you want to contribute a blog post, or add your RSS feed, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#blog" target="_blank">Contributing Guide</a> on GitHub.
         </div>
     </div>
 </div>

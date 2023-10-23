@@ -73,7 +73,7 @@ Layout.render
      
   </div>
   <div class="prose max-w-none  p-8">
-        If you want to contribute to add a new academic user, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#academic-user" target="_blank">contributing guide</a> on GitHub.
+        If you want to contribute to add a new academic user, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#academic-user" target="_blank">Contributing Guide</a> on GitHub.
   </div>
   <div class="bg-pattern lg:py-32 py-24">
     <div class="container-fluid">
