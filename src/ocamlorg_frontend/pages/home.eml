@@ -304,7 +304,7 @@ Layout.render
         ~name:"MirageOS"
         "Library operating system to construct unikernels" %>
       <%s! package_card
-        ~href:"https://mirage.io/"
+        ~href:"https://ocsigen.org/js_of_ocaml"
         ~img_path:"img/home/js_of_ocaml.png"
         ~name:"Js_of_ocaml"
         "Compiler from OCaml to Javascript." %>
