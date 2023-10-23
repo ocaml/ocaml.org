@@ -72,7 +72,7 @@ Please make sure that the job involves mostly writing OCaml. Contributions to ad
 
 If you notice that a job opportunity is outdated (e.g., already fulfilled or not open anymore), PRs to remove it are welcome as well.
 
-### <a name="content-success-story"></a><a name="story"> Add a Success Story</a>
+### <a name="content-success-story"></a><a name="success-story"> Add a Success Story</a>
 
 > Contribute to the [Success Stories](https://ocaml.org/success-stories).
 
@@ -101,7 +101,7 @@ You can add a new industrial user by creating a new Markdown file in [data/acade
 
 You can add a new OCaml book by creating a new Markdown file in [data/books/](data/books/). For instance: [ocaml-from-the-very-beginning.md](data/industrial_users/en/ocaml-from-the-very-beginning.md).
 
-### <a name="content-event"></a><a name="event"> Add an Event</a>
+### <a name="content-event"></a><a name="meetup"> Add an Event</a>
 
 > Contribute to the [Community Events](https://ocaml.org/community).
 
