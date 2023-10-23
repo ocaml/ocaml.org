@@ -182,13 +182,14 @@ The `doi_parts` function attempts to extract the registrant and identifier parts
 val ( let* ) : 'a option -> ('a -> 'b option) -> 'b option = <fun>
 
 # let doi_parts s =
-  let* slash = String.rindex_opt s '/' in
-  let* dot = String.rindex_from_opt s slash '.' in
-  let prefix = String.sub s 0 dot in
+  let open String in
+  let* slash = rindex_opt s '/' in
+  let* dot = rindex_from_opt s slash '.' in
+  let prefix = sub s 0 dot in
   let len = slash - dot - 1 in
-  if len >= 4 && String.ends_with ~suffix:"10" prefix then
-    let registrant = String.sub s (dot + 1) len in
-    let identifier = String.sub s (slash + 1) (String.length s - slash - 1) in
+  if len >= 4 && ends_with ~suffix:"10" prefix then
+    let registrant = sub s (dot + 1) len in
+    let identifier = sub s (slash + 1) (length s - slash - 1) in
     Some (registrant, identifier)
   else
     None;;
@@ -201,7 +202,9 @@ val ( let* ) : 'a option -> ('a -> 'b option) -> 'b option = <fun>
 
 ```
 
-This function is using `Option.bind` as a custom binder over the calls to `String.rindex_opt` and `String.rindex_from_opt`. This allows to only consider the case where both searches are successful and return the positions of the found characters. If any of them fails, `doi_parts` implicitly returns `None`.
+This function is using `Option.bind` as a custom binder over the calls to `rindex_opt` and `rindex_from_opt`. This allows to only consider the case where both searches are successful and return the positions of the found characters. If any of them fails, `doi_parts` implicitly returns `None`.
+
+The `let open String in` construct allows calling functions `rindex_opt`, `rindex_from_opt`, `length`, `ends_with` and `sub` from module `String` without prefixing each of them with `String.` within the scope of the definition of `doi_parts`.
 
 The rest of the function applies if relevant delimiting characters have been found. It does performs additional checks and extracts registrant and identifier form the string `s`, if possible.
 
