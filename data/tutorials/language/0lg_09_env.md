@@ -10,13 +10,13 @@ category: "Language"
 
 ## Introduction
 
-This is intermediate level tutorial. The only prerequisite is to have [completed the “Get Started” series of tutorials](https://ocaml.org/docs/installing-ocaml).
-
 This tutorial teaches the skills needed to handle expressions, values, and names. You'll learn the ability to write expressions, name values or leave them anonymous, appropriately scope names, handle multiple definitions of the same name, create and use closures, and produce or avoid side effects.
 
 In OCaml, functions are values. In comparison to other mainstream languages, this creates a richer picture between expressions, values, and names. 
 
 > Note: This tutorial uses the OCaml toplevel UTop. The ["Introduction to the OCaml Toplevel" guide](https://ocaml.org/docs/toplevel-introduction) covers how to use UTop. It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
+
+**Prerequisites**: This is an intermediate-level tutorial. Ensure you have have [completed the “Get Started” series](https://ocaml.org/docs/installing-ocaml) before proceeding with this tutorial.
 
 <!--
 When presenting OCaml or another functional programming language, it is often said: “Functions are treated as first-class citizens.” Without further explanation or context, this may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by that sentence. In turn, this should explain it:
@@ -35,7 +35,7 @@ When presenting OCaml or another functional programming language, it is often sa
 
 WIP: Rewrite
 
-Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). It essentially has a single statement, the global `let`. Programmed computations takes place through evaluation of expressions. On termination, a value is produced. Here are a few examples of expressions, their type, and resulting values:
+Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). It essentially has a single statement: the global `let`. Programmed computations take place throughout the evaluation of expressions. On termination, a value is produced. Here are a few examples of expressions, their type, and the resulting values:
 
 ```ocaml
 # "Everything has a value, every value has a type";;
@@ -64,15 +64,15 @@ Hello!
 - : unit
 ```
 
-The type of an expression (before evaluation) and type of the value it produces (after computation) are the same. This allows the compiler to avoid runtime type checks in binaries. In OCaml, type information is removed by the compiler and therefore not available at runtime. In programming theory, this is called [subject reduction](https://en.wikipedia.org/wiki/Subject_reduction).
+An expression type (before evaluation) and the value type it produces (after computation) are the same. This allows the compiler to avoid runtime type checks in binaries. In OCaml, the compiler removes type information, so it's not available at runtime. In programming theory, this is called [subject reduction](https://en.wikipedia.org/wiki/Subject_reduction).
 
 ### Global Definitions
 
-Every value can be named. This is the purpose of the `let ... = ... ` construction. The name is on left; the expression is on the right.
-* If the expression can be evaluated, that take places right away
+Every value can be named. This is the purpose of the `let ... = ... ` construction. The name is on the left; the expression is on the right.
+* If the expression can be evaluated, it take places right away.
 * Otherwise, the expression is turned into a value as-is. That's the case of function definition.
 
-Definitions with computation are discussed in this section. Definitions without computation, like functions, are discussed in the next section.
+The following section discusses definitions with computation. Definitions without computation, like functions, are discussed in the next section.
 
 Global definitions are those entered at the toplevel. This is what happens when writing a definition in UTop:
 ```ocaml
