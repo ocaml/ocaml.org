@@ -748,6 +748,6 @@ In this tutorial, OCaml was used interactively. The next tutorial, [Your First O
 
 Other recommended tutorials:
 
-1. [Data Types and Matching](/docs/data-types)
+1. [Basic Data Types](/docs/basic-datatypes)
 1. [If Statements, Loops, and Recursions](/docs/if-statements-and-loops)
 1. [Lists](/docs/lists)
