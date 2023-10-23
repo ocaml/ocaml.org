@@ -1,0 +1,40 @@
+let render () =
+Layout.render
+~title:"OCaml Logos"
+~description:"Here are some of the logos related to the OCaml programming language."
+~canonical:Url.about @@
+<div class="intro-section-simple">
+  <div class="container-fluid">
+    <div class="text-center w-full lg:w-2/3 m-auto">
+      <h1 class="font-bold mb-6">OCaml Logo</h1>
+      <p><a href="#guidelines">Brand Guidelines</a> |  <a href="#assets">Assets</a> | <a href="#license">License</a> </p>
+      <div class="flex items-center justify-center space-x-8 mt-11 lg:space-x-24">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-default dark:bg-dark-default">
+ <div class="py-4 lg:py-10">
+    <div class="container-fluid">
+      <div class="prose lg:prose-lg mx-auto max-w-5xl">
+        <div class="space-y-7">
+
+          <h2 id="guidelines">Brand Guidelines</h2>
+
+          <p>Web sites related to the OCaml language or that use it are encouraged to incorporate the OCaml logo somewhere in their page to indicate their support for OCaml development. 
+
+          <h2 id="assets">Assets</h2>
+
+          <p>The logo should be linked to the OCaml website, <a href='//ocaml.org/'>ocaml.org</a>. The logo is available in <a href='https://github.com/ocaml/ocaml-logo/tree/master/Colour'>several formats</a> and <a href='https://github.com/ocaml/ocaml-logo'>colors</a> Two versions are displayed below.  To include one of them on your web page, just copy and paste the associated HTML code and tweak it (e.g. adapt the <code>width</code> or change the part after <code>logo/</code> to match the one of the file you want in the <a href='https://github.com/ocaml/ocaml-logo'>repository</a>).  <p>The following <a href='/img/OCaml_Sticker.svg'>SVG file</a> is suitable to <a href='https://twitter.com/ocamllabs/status/761191421680422912'>make stickers</a>. It is released under the same <a href='https://github.com/ocaml/ocaml.org/blob/main/LICENSE'>liberal license</a> as the logo so do not hesitate to print your own stickers to promote OCaml!</p> 
+          <p>Before printing some stickers, it would be great if you <a href='https://twitter.com/search?q=%23OCaml%20stickers&amp;src=typd'>tweeted it</a> with tags <code>#OCaml stickers</code> so that other interested people in your area can get in touch with you! </p>
+
+          <h2 id="license">License</h2>
+
+          <p>The OCaml logo is released under a <a href='https://github.com/ocaml/ocaml.org/blob/main/LICENSE'>liberal license</a>.</p>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
