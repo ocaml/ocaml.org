@@ -261,11 +261,11 @@ Operations on results are provided by the [`Result`](/api/Result.html) module. R
 
 Here is a tuple containing two values, also known as a pair.
 ```ocaml
-# (3, 'a');;
-- : int * char = (3, 'a')
+# (3, 'K');;
+- : int * char = (3, 'K')
 ```
 
-That pair contains the integer `3` and the character `'a'`; its type is `int * char`. The `*` symbol stands for _product type_.
+That pair contains the integer `3` and the character `'K'`; its type is `int * char`. The `*` symbol stands for _product type_.
 
 This generalises to tuples with 3 or more elements. For instance, `(6.28, true, "hello")` has type `float * bool * string`. The types `int * char` and `float * bool * string` are called _product types_. The `*` symbol is used to denote types bundled together in products.
 
