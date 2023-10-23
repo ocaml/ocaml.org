@@ -104,6 +104,8 @@ tree_map (fun x -> x * x) t;;
 - : int tree = Node (1, [Node (4, []); Node (9, []); Node (16, [])])
 ```
 
+> Note: Above, `'a` means “any type.” It is called a "type variable" and is pronounced like the Greek letter α (“alpha”). This type parameter will be replaced by another type.
+
 Because records are implicitly single constructor variants, this also applies to them:
 ```ocaml
 # type name = { first : string; last: string };;
