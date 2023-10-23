@@ -387,6 +387,8 @@ These three kinds of type definitions are covered in next three sections.
 
 ### Variants
 
+Variants are also called [_tagged unions_](https://en.wikipedia.org/wiki/Tagged_union). They relate to the concept of [_disjoint union_](https://en.wikipedia.org/wiki/Disjoint_union).
+
 #### Enumerated Data Types
 
 The simplest form of a variant type corresponds to an [enumerated type](https://en.wikipedia.org/wiki/Enumerated_type). It is defined by an explicit list of named values. Defined values are called constructors and must be capitalised.
