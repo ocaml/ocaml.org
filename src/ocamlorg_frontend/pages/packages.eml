@@ -149,6 +149,7 @@ Layout.render
                 compiles today will still work a decade from now.</div>
         </div>
         <div class="flex justify-between space-y-12 lg:space-x-20 mt-20 flex-col lg:flex-row lg:space-y-0">
+        
             <div class="text-center flex-col max-w-full lg:max-w-sm ">
                 <div class="mb-4 rounded-2xl bg-primary-600 w-16 h-16 items-center m-auto flex justify-center">
                     <%s! Icons.beaker "h-6 w-6 text-white" %>
@@ -178,20 +179,18 @@ Layout.render
                     degree of metadata quality. This makes it one of the most stable package repositories available
                     today.</div>
             </div>
-      
+       
         </div>
-         <div class="prose ml-2 mt-20">
-    <p style="display: inline;white-space: nowrap">If you want to contribute to update the list of featured packages, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#package" target="_blank">Contribute Guide</a> on GitHub.</p>
-</div>
+        
 
     </div>
+    
 % | None -> () );
-
-
-
 </div>
 
-
+  <div class=" bg-default prose max-w-none p-8">
+   If you want to learn about the OCaml packages, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#package" target="_blank">contributing guide</a> on GitHub.
+</div> 
 <div class="bg-primary-600 ">
     <div class="container-fluid">
         <div class="text-center text-white lg:p-16 py-10">
