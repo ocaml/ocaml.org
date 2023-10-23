@@ -218,7 +218,7 @@ Pattern matching provides the basic means to access data stored inside a list.
 - : int = 2
 ```
 
-In the above expressions, `[1; 2; 3]` is the value that is matched over. Each expression between the `|` and `->` symbols is a pattern. They are expressions of type list, only formed using `[]`, `::`, and variables names that represent various shapes a list may have. When the pattern is `[]`, it means “if the list is empty.” The pattern `x :: u` means “if the list contains data, let `x` be the first element of the list and `u` be the rest of the list.” Expressions at the right of the `->` symbol are the results returned in each corresponding case.
+In the above expressions, `[1; 2; 3]` is the value that is matched over. Each expression between the `|` and `->` symbols is a pattern. They are expressions of type list, only formed using `[]`, `::`, and variables names that represent various shapes a list may have. The pattern `[]` means “if the list is empty.” The pattern `x :: u` means “if the list contains data, let `x` be the first element of the list and `u` be the rest of the list.” Expressions at the right of the `->` symbol are the results returned in each corresponding case.
 
 ### Options & Results
 
