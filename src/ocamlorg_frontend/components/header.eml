@@ -21,10 +21,8 @@ let render
 ()
 =
 let search_dropdown () =
-  <span id="header-search-indicator" class="mx-2 htmx-indicator">Searching...</span>
   <div id="header-search-results" aria-live="polite"></div>
-  <span class="pl-2 font-semibold">Or go to:</span>
-  <a class="flex py-2 px-4 gap-4 hover:bg-primary-100 font-semibold hover:font-semibold text-primary-600" href="<%s Url.api %>">
+  <a class="flex py-2 px-2 mx-2 gap-4 hover:bg-primary-100 font-normal rounded-md text-primary-600" href="<%s Url.api %>">
     Standard Library API
     <%s! Icons.arrow_top_right_on_square "w-6 h-6" %>
   </a>

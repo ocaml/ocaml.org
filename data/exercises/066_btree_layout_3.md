@@ -3,6 +3,7 @@ title: Layout a Binary Tree (3)
 number: "66"
 difficulty: advanced
 tags: [ "binary-tree" ]
+description: "Arrange a binary tree with symmetrical spacing between nodes and specific horizontal distances."
 ---
 
 ```ocaml

@@ -3,6 +3,7 @@ title: Nonograms
 number: "98"
 difficulty: advanced
 tags: []
+description: "Solve nonogram puzzles by constructing the corresponding bitmap from annotated rows and columns."
 ---
 
 # Solution

@@ -589,17 +589,23 @@ let is_author_match name pattern =
       match_opt (Some name) || match_opt email || match_opt github_username
 
 let packages_search t req =
-  match Dream.query req "q" with
-  | Some search ->
-      let packages =
+  let packages =
+    match Dream.query req "q" with
+    | Some search ->
         Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true t
           search
-      in
-      let total = List.length packages in
-      let results = List.map (Package_helper.frontend_package t) packages in
-      let search = Dream.from_percent_encoded search in
-      Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
-  | None -> Dream.redirect req Url.packages
+    | None -> Ocamlorg_package.all_latest t
+  in
+  let total = List.length packages in
+  let page, number_of_pages, current_items = paginate ~req ~n:50 packages in
+  let search =
+    Dream.from_percent_encoded
+      (match Dream.query req "q" with Some search -> search | None -> "")
+  in
+  let results = List.map (Package_helper.frontend_package t) current_items in
+  Dream.html
+    (Ocamlorg_frontend.packages_search ~total ~search ~page ~number_of_pages
+       results)
 
 let packages_autocomplete_fragment t req =
   match Dream.query req "q" with

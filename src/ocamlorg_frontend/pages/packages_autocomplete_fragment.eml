@@ -29,17 +29,16 @@ let render
 ~total
 (packages : Package.package list)
 =
-<div class="mx-2 mb-2">
-  <span class="font-semibold">Packages:</span>
+<div class="mb-2">
   <% if total = 0 then ( %>
-  <p class="break-words">
+  <p class="px-2 break-words">
     We didn't find a match for "<%s search %>".
   </p>
   <% ) else ( %>
-  <p class="break-words">
-    <%s (if total = List.length packages then "" else "Showing top " ^ string_of_int (List.length packages) ^ " out of ")
-    ^ string_of_int total ^ (if total = 1 then " search result" else " search results") %>:
-  </p>
+    <p class="px-2 break-words">
+      <%s (if total = List.length packages then "" else "Showing " ^ string_of_int (List.length packages) ^ " out of ")
+      ^ string_of_int total ^ (if total = 1 then " package" else " packages") %>
+    </p>
   <% ); %>
 
   <ol class="flex flex-col" x-init="row = null; col = 0; total = <%s string_of_int total %>">
@@ -51,7 +50,7 @@ let render
         :aria-selected="row == <%s string_of_int i %> && col == 0"
         href="<%s Url.Package.overview package.name %>"
         :class='row == <%s string_of_int i %> && col == 0 ? "bg-search-keyboard-cursor text-white": ""'
-        class="flex-grow px-2 py-2 leading-6 font-semibold hover:bg-primary-100 hover:text-primary-700 inline-block"
+        class="flex-grow ml-2 px-2 py-2 leading-6 font-normal hover:text-white hover:bg-search-result-background-blue rounded-md inline-block"
       >
         <%s! Search.highlight_search_terms ~class_:"bg-search-term-highlight text-gray-800 font-normal" ~search package.name %>
       </a>
@@ -59,14 +58,17 @@ let render
         id="package-autocomplete-<%s string_of_int i %>-1"
         :aria-selected="row == <%s string_of_int i %> && col == 1"
         href="<%s Url.Package.documentation package.name %>"
-        :class='row == <%s string_of_int i %> && col == 1 ? "bg-search-keyboard-cursor text-white": ""'
-        class="justify-self-end px-2 py-2 leading-6 font-semibold hover:bg-primary-100 hover:text-primary-700">
-        docs
+        :class=' row == <%s string_of_int i %> && col == 1 ? "bg-search-keyboard-cursor text-white": ""'
+        class="flex text-sm justify-self-end px-2 py-2 leading-6 font-normal hover:text-white hover:bg-search-result-background-blue rounded-md">
+        <%s! Icons.documentation "h-5 w-5" %>
+        DOCS
       </a>
     </li>
   <% ); %>
   </ol>
   <% if total > 5 then ( %>
-  <a class="font-semibold hover:bg-primary-100 px-2 py-2 flex text-right" href="<%s Url.packages_search %>?q=<%s Dream.to_percent_encoded search %>">see more...</a>
+  <a class="text-primary-600 italic font-normal hover:bg-primary-100 px-2 py-2 flex text-right rounded-md" href="<%s Url.packages_search %>?q=<%s Dream.to_percent_encoded search %>">see more...</a>
   <% ); %>
+  <hr class="mb-2 mt-3">
+  <span class="pl-2 font-normal">Or go to</span>
 </div>

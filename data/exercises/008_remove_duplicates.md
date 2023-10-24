@@ -3,6 +3,7 @@ title: Eliminate Duplicates
 number: "8"
 difficulty: intermediate
 tags: [ "list" ]
+description: "Eliminate consecutive duplicates of list elements."
 ---
 
 # Solution

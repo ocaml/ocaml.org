@@ -3,6 +3,7 @@ title: Construct the Bottom-Up Order Sequence of the Tree Nodes
 number: "72"
 difficulty: beginner
 tags: [ "multiway-tree" ]
+description: "Construct the bottom-up sequence of nodes in a given multiway tree."
 ---
 
 ```ocaml

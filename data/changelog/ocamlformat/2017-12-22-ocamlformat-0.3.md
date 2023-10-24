@@ -1,7 +1,7 @@
 ---
 title: Ocamlformat 0.3
 date: "2017-12-22"
-tags: [ocamlformat, platform, release]
+tags: [ocamlformat, platform]
 changelog: |
   ### Features
 

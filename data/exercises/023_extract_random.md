@@ -3,6 +3,7 @@ title: Extract a Given Number of Randomly Selected Elements From a List
 number: "23"
 difficulty: intermediate
 tags: [ "list" ]
+description: "Randomly select N elements from a list."
 ---
 
 
