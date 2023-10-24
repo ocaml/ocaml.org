@@ -70,6 +70,7 @@ in
       <%s! side_box_link ~icon_html:(Icons.license "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ?version ~filepath:(license_filename ^ ".html")) ~title:( package.license ^ " License") %>
       <% | _ -> ()); %>
       <%s! side_box_link ~icon_html:(Icons.edit "h-4 w-4 mr-2 inline-block") ~href:(Url.github_opam_file package.name specific_version) ~title:"Edit opam file" %>
+      <%s! side_box_link ~icon_html:(Icons.tag "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ~filepath:("versions")) ~title:"All versions" %>
   </div>
 
   <h2 class="mt-8 font-semibold text-base text-legacy-lighter">Authors</h2>
