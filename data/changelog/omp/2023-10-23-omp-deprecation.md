@@ -10,7 +10,7 @@ we have deprecated `ocaml-migrate-parsetree` (aka OMP). It is superseded by [Ppx
 There are four major differences between OMP and Ppxlib, which all go hand in hand.
 
 The first major difference is in the library and therefore impacts how to write PPXs.
-With OMP, each PPX author had to choose a parsetree version to define against their PPX.
+With OMP, each PPX author had to choose a parsetree version to define their PPX against.
 There was no version agreement between different PPXs. With Ppxlib, each PPX author uses
 the same parsetree version.
 
