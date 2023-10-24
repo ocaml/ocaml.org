@@ -592,7 +592,7 @@ type ('a, 'b) pair = Pair of 'a * 'b
 
 `(int, bool) pair` would be written `int * bool`, and `Pair (42, true)` would be written `(42, true)`. From the developer's perspective, everything happens as if such a type were declared for every possible product shape. This is what allows pattern matching on products.
 
-Even integers and floats can be seen as enumerated-like variant types, with many constructors and funky syntactic sugar, which allows pattern matching on those types.
+Even integers and floats can be seen as enumerated-like variant types, with many constructors and [funky syntactic sugar](https://youtu.be/O0_H3F84Yjk), which allows pattern matching on those types.
 
 In the end, the only type construction that does not reduce to a variant is the function arrow type. It is possible to perform pattern matching on values of any type, except functions.
 
