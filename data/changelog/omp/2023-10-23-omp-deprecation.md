@@ -1,16 +1,16 @@
 ---
-title: OMP deprecation
+title: OMP Deprecation
 date: "2023-10-23"
 tags: [omp, platform, deprecation]
 ---
 
 After [giving space for feedback and objections by the community](https://discuss.ocaml.org/t/rfc-deprecating-ocaml-migrate-parsetree-in-favor-of-ppxlib-also-as-a-platform-tool/13240),
-we have deprecated ocaml-migrate-parsetree (aka OMP). It is superseded by [Ppxlib](https://github.com/ocaml-ppx/ppxlib).
+we have deprecated `ocaml-migrate-parsetree` (aka OMP). It is superseded by [Ppxlib](https://github.com/ocaml-ppx/ppxlib).
 
 There are four major differences between OMP and Ppxlib, which all go hand in hand.
 
-The first major difference is in the library and therefore impacts how to write PPXs:
-With OMP, each PPX author had to choose a parsetree version to define their PPX against.
+The first major difference is in the library and therefore impacts how to write PPXs.
+With OMP, each PPX author had to choose a parsetree version to define against their PPX.
 There was no version agreement between different PPXs. With Ppxlib, each PPX author uses
 the same parsetree version.
 
@@ -20,8 +20,8 @@ the latest stably released compiler. That makes using any PPX compatible with us
 latest compiler syntax features!
 
 The third major difference is in the philosophy of PPXs. With OMP, all PPX transformations
-were global transformations, i.e. transformations of the whole parsetree. Ppxlib has
-introduced the concept of "context-free" transformations, i.e. transformations that transform
+were global transformations, i.e., transformations of the whole parsetree. Ppxlib has
+introduced the concept of "context-free" transformations, i.e., transformations that transform
 only one parsetree node. By restricting their scope of action, context-free PPXs are a lot
 more predictable and less dangerous! Also, Ppxlib merges all context-free PPXs into one
 parsetree pass, defining clear semantics of PPX composition.
