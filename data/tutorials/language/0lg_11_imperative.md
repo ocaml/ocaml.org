@@ -359,6 +359,7 @@ Function `sum` is written in the imperative style, using mutable data structures
 
 ### Good: Application Wide State
 
+Some applications must maintain a state while they are running.  
 
 ### Good: Hash-Consing
 
@@ -394,9 +395,71 @@ TODO: include discussion on evaluation order, sides effects and monadic pipes
 
 ### Fast Loops: Tail Recursion
 
-Statelessness
+When function is making too many recursive calls, the `Stack_overflow` exception will be raised.
+```ocaml
+# let rec naive_length = function [] -> 0 | _ :: u -> 1 + naive_length u;;
+val naive_length : 'a list -> int = <fun>
+
+# List.init 1000 (Fun.const ()) |> naive_length;;
+- : int = 1000
+
+# List.init 1000000 (Fun.const ()) |> naive_length;;
+Stack overflow during evaluation (looping recursion?).
+```
+
+If a million element list is not enough, use a billion.
+
+However, in some circumstances, it is possible to avoid this issue by using a [_tail recursive_](https://en.wikipedia.org/wiki/Tail_call) function. Here is how list length can be implemented using this technique
+```ocaml
+# let length u =
+    let rec loop len = function [] -> len | _ :: u -> loop (len + 1) u in
+    loop 0 u;;
+
+# List.init 1000000 (Fun.const ()) |> naive_length;;
+- : int = 1000000
+```
+
+This is how List.length is [implemented in the standard library](https://github.com/ocaml/ocaml/blob/trunk/stdlib/list.ml).
+
+In the `naive_length` function, the addition is performed after returning from the recursive call. To do that in that order, all recursive calls must be recorded. This is the role of [_call stack_](https://en.wikipedia.org/wiki/Call_stackcall). Each recursive call pushes a _stack frame_ on the call stack. When the call stack become too large, the stack overflow exception is raised.
+
+In the `length` function, the addition is performed before the recursive call. In that order, there is nothing to do after the recursive call, which renders the call stack useless. The OCaml compiler detects such functions and generates code which is not using a call stack. This code is smaller, faster and likely to consume less memory.
+
+It also is possible to write length using shadowing instead of a local function.
+```ocaml
+# let rec length len = function [] -> len | _ :: u -> length (len + 1) u;;
+val length : int -> 'a list -> int = <fun>
+
+# let length u = length 0 u;;
+val length : 'a list -> int = <fun>
+```
 
 ### Accumulators: Continuation Passing Style
+
+The tail call elimination technique can't be applied on variant types that have constructors with several recursive occurrences.
+```ocaml
+# type 'a btree = Leaf | Root of 'a * 'a btree * 'a btree
+
+# let rec height = function
+    | Leaf -> 0
+    | Root (_, lft, rht) -> 1 + max (height lft) (height rht)
+```
+
+Since a binary tree has two subtrees, when computing its height, two recursive calls are needed and one must take place after the other.
+
+Creating a tall enough tree triggers a stack overflow.
+```ocaml
+# let rec left_comb comb n = if n = 0 then comb else left_comb (Root ((), comb, Leaf));;
+val left_comb : int -> unit btree = <fun>
+
+# let left_comb = left_comb Leaf;;
+
+# left_comb 1000000 |> ignore;;
+- : unit = ()
+
+# left_comb 1000000 |> height;;
+Stack overflow during evaluation (looping recursion?).
+```
 
 ### Asynchronous Processing
 
