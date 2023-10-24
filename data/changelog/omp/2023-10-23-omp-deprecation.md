@@ -1,7 +1,7 @@
 ---
 title: OMP Deprecation
 date: "2023-10-23"
-tags: [omp, platform, deprecation]
+tags: [omp, platform]
 ---
 
 After [giving space for feedback and objections by the community](https://discuss.ocaml.org/t/rfc-deprecating-ocaml-migrate-parsetree-in-favor-of-ppxlib-also-as-a-platform-tool/13240),
