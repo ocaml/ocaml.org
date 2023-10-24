@@ -18,6 +18,8 @@ In OCaml, functions are values. In comparison to other mainstream languages, thi
 
 It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
 
+The first four sections of this tutorial addresses non-function values. The following sections, starting at [Function as Values](#function-as-values) addresses functions.
+
 **Prerequisites**: This is an intermediate-level tutorial. Ensure you have have [completed the “Get Started” series](https://ocaml.org/docs/installing-ocaml) before proceeding with this tutorial.
 
 <!--
@@ -65,11 +67,9 @@ An expression's type (before evaluation) and its resulting value's type (after c
 
 ## Global Definitions
 
-Every value can be named. This is the purpose of the `let ... = ... ` construction. The name is on the left; the expression is on the right.
+Every expression can be named. This is the purpose of the `let ... = ... ` construction. The name is on the left; the expression is on the right.
 * If the expression can be evaluated, it take places right away.
 * Otherwise, the expression is turned into a value as-is. That's the case of function definition.
-
-The following sections discusses definitions with computation. Definitions without computation, like functions, are discussed later.
 
 Global definitions are those entered at the toplevel. This is what happens when writing a definition in UTop:
 ```ocaml
@@ -432,7 +432,9 @@ The first version takes two extra parameters: the two previously computed Fibona
 
 The second version uses the two first Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called “tail call elimination,” which turns recursivity into imperative iteration in the generated native code and leads to much improved performances.
 
-## Passing Multiple Arguments to Functions
+## Multiple Arguments Functions
+
+### Arrow Types and Mutiple Arguments
 
 Until now, functions with several arguments had a type looking like this: `a₁ -> a₂ -> a₃ -> ⋯ -> b`
 
@@ -469,7 +471,7 @@ Most importantly, this means a “binary” function isn't really a function tha
 
 Passing a single integer to the addition returns a function of type `int -> int`. That function value is a closure. The value passed as the first parameter, here 2, is captured as if it had been in an earlier definition.
 
-## Passing Multiple Arguments as Tuples
+### Passing Tuples
 
 Consider this function:
 ```ocaml
@@ -485,7 +487,7 @@ It takes a pair of strings and returns a string.
 
 Asking whether `space_cat` is a binary function or not makes sense. Morally, it takes two parameters: the two strings that are sandwiching the space character. Wrapped as a pair, they are a single piece of data, so `space_cat` has a single parameter. But it is the elements of that pair that are relevant, not the pair as a whole. So morally, `space_cat` is a binary function. Syntactically, the call `space_cat ("hello", "world")` looks pretty much like a function call in high school maths or a spreadsheet application, both having two parameters: `"hello"` and `"pair"`.
 
-## Currying and Uncurrying
+### Currying and Uncurrying
 
 In the two previous sections, two kinds of “multiple parameter” functions have been presented.
 - Functions returning a function, such as `( + )`
