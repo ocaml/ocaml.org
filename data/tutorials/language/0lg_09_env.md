@@ -12,9 +12,11 @@ category: "Language"
 
 This tutorial teaches the skills needed to handle expressions, values, and names. You'll learn the ability to write expressions, name values or leave them anonymous, appropriately scope names, handle multiple definitions of the same name, create and use closures, and produce or avoid side effects.
 
-In OCaml, functions are values. In comparison to other mainstream languages, this creates a richer picture between expressions, values, and names. 
+In OCaml, functions are values. In comparison to other mainstream languages, this creates a richer picture between expressions, values, and names. The approach in this tutorial is to acquire the related capabilities and the understanding by interacting with OCaml in UTop. This hands-on experience first is intended to build the understanding by experimentation rather than starting with the definition of the concepts.
 
-> Note: This tutorial uses the OCaml toplevel UTop. The ["Introduction to the OCaml Toplevel" guide](https://ocaml.org/docs/toplevel-introduction) covers how to use UTop. It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
+> Note: The ["Introduction to the OCaml Toplevel" guide](https://ocaml.org/docs/toplevel-introduction) covers how to use UTop.
+
+It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
 
 **Prerequisites**: This is an intermediate-level tutorial. Ensure you have have [completed the “Get Started” series](https://ocaml.org/docs/installing-ocaml) before proceeding with this tutorial.
 
@@ -29,14 +31,9 @@ When presenting OCaml or another functional programming language, it is often sa
 - Use the `unit` type as a function parameter or return value, when needed
 -->
 
-## Non-Function Values
+## What is a Value
 
-### Values
-
-WIP: Rewrite
-
-Like most functional programming languages, OCaml is an [expression-oriented programming language](https://en.wikipedia.org/wiki/Expression-oriented_programming_language). It essentially has a single statement: the global `let`. Programmed computations take place throughout the evaluation of expressions. On termination, a value is produced. Here are a few examples of expressions, their type, and the resulting values:
-
+Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. Computing them produce values, that is the unique mean to do something. Here are a few examples of expressions, their type, and the resulting values. Some include computation, some don't:
 ```ocaml
 # "Everything has a value, every value has a type";;
 - : string = "Everything is a value, every value has a type"
@@ -66,13 +63,13 @@ Hello!
 
 An expression's type (before evaluation) and its resulting value's type (after computation) are the same. This allows the compiler to avoid runtime type checks in binaries. In OCaml, the compiler removes type information, so it's not available at runtime. In programming theory, this is called [subject reduction](https://en.wikipedia.org/wiki/Subject_reduction).
 
-### Global Definitions
+## Global Definitions
 
 Every value can be named. This is the purpose of the `let ... = ... ` construction. The name is on the left; the expression is on the right.
 * If the expression can be evaluated, it take places right away.
 * Otherwise, the expression is turned into a value as-is. That's the case of function definition.
 
-The following section discusses definitions with computation. Definitions without computation, like functions, are discussed in the next section.
+The following sections discusses definitions with computation. Definitions without computation, like functions, are discussed later.
 
 Global definitions are those entered at the toplevel. This is what happens when writing a definition in UTop:
 ```ocaml
@@ -142,7 +139,7 @@ As seen in the last example, the catch-all pattern (the underscore symbol) can b
 val y : int list = [2; 4; 6; 8]
 ```
 
-### Local Definitions
+## Local Definitions
 
 Local definitions are like global definitions, except the name is only bound inside an expression. They are introduced by the `let ... = ... in ...` construction. The name bound before the `in` keyword is only bound in the expression after the `in` keyword
 ```ocaml
@@ -183,7 +180,7 @@ Here is how scoping works:
 
 Arbitrary combinations of chaining or nesting are allowed.
 
-### Scopes and Environments
+## Scopes and Environments
 
 Without oversimplifying, an OCaml program is a sequence of definitions or expressions. These items are said to be at the _top level_. That's why an OCaml REPL, such as UTop, is called a toplevel, because that's where typed expressions go.
 
@@ -209,7 +206,7 @@ However, with respect to the expression `2. *. pi`, the environment is different
 
 The scope of a definition is the set of environments where it is reachable.
 
-Although OCaml is an expression-oriented language, it is not entirely free of statements. The `let` construct is a statement that may change the state of the environment by adding a name-value binding. Note these expressions at the toplevel also fall into that category because they are equivalent to `let _ =` definitions.
+Although OCaml is an expression-oriented language, it is not entirely free of statements. The `let` construct is a statement that may change the state of the environment by adding a name-value binding. In some sense, the `let` is the only statement OCaml has. Note these expressions at the toplevel also fall into that category because they are equivalent to `let _ =` definitions.
 ```ocaml
 # (1.0 +. sqrt 5.0) /. 2.0;;
 - : float = 1.6180339887498949
@@ -223,7 +220,7 @@ With respect to the environment, there are no means to:
 - Remove a definition
 - Reset it to an earlier state
 
-#### Same-Level Shadowing
+### Same-Level Shadowing
 
 You can write two definitions using the same identifier in sequence:
 ```ocaml
@@ -257,7 +254,7 @@ The first definition of `length` has two parameters: the list to process and the
 
 In practice, computing a list's length always starts with the accumulator set to nil. Therefore, the first definition is shadowed by the second where the accumulator parameter is set to 0.
 
-#### Inner Shadowing
+### Inner Shadowing
 
 A local definition may shadow any other definition, just like a global definition does. The only difference is that shadowing is limited to the local definition's scope.
 ```ocaml
@@ -271,37 +268,15 @@ val d : int = 21
 - : int = 21
 ```
 
-## Function Values
+## Function as Values
 
-### Restrictions
+As already stated, in OCaml, function are values. The this the key concept of [functional programming](https://en.wikipedia.org/wiki/Functional_programming). In this context, it is also possible to say that OCaml has [first-class](https://en.wikipedia.org/wiki/First-class_function) functions or that functions are [first-class citizens](https://en.wikipedia.org/wiki/First-class_citizen).
 
-Functions are supposed to be exactly as other values; however, there are three restrictions:
+The view taken in this tutorial is to skip those definitions and instead star playing with them. We believe their meaning will arise from experience. Once things make sense, naming them is just a mean to interact with the community.
 
-1. Function values cannot be displayed in interactive sessions, but the placeholder `<fun>` is displayed. This is because there is nothing meaningful to print. Once parsed and typed-checked, OCaml discards the function's source code and nothing remains to be printed.
-```ocaml
-# sqrt;;
-- : float -> float = <fun>
-```
+This is a big take away. We believe functional programming (_ergo_ OCaml) is best understood by practising it rather than reading about it. Just like skateboarding, cooking or wood working, learn by doing is not only possible, it the easiest to most and the right way to start. Because in the end, the goal is not to be able to give correct definition of abstract terms but to write OCaml code.
 
-2. Equality between functions can't be tested.
-```ocaml
-# pred = succ;;
-Exception: Invalid_argument "compare: functional value".
-```
-
-There are two main reasons explaining this:
-- It is impossible to write an algorithm that takes two functions and returns `true`, if they always return the same output when provided the same input, and `false` otherwise.
-- Assuming it was possible, such an algorithm would declare that quicksort and bubble sort are equal. That would mean those procedures are substitutable, which is not the case.
-
-It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
-
-3. Pattern matching does not allow inspecting a function. Catch-all patterns can match against a function, but it is useless.
-```ocaml
-# match Fun.id with id -> ();;
-- : unit = ()
-```
-
-### Calling Functions
+## Calling Functions
 
 In OCaml, no symbol is needed to express passing an argument to a function. When several expressions are written side by side, the leftmost one should be a function. All the others are parameters. In OCaml, parentheses serve a single purpose: associating expressions to create subexpressions.
 ```ocaml
@@ -340,7 +315,7 @@ The pipe operator also allows avoiding parentheses but in reversed order:
 ```
 This is just like a Unix shell pipe.
 
-### Anonymous Functions
+## Anonymous Functions
 
 As citizens of the same level as other values, functions don't have to be bound to a name to exist (although some must, but this will be explained later). Function values not bound to names are called _anonymous functions_. Here are a couple of examples:
 ```ocaml
@@ -363,7 +338,7 @@ In order, here is what they do:
 - The function taking two strings returns their concatenation with a space character in between.
 - A function taking a list, returning `None` if the list is empty, and the tail of the list otherwise.
 
-### Defining Global Functions
+## Defining Global Functions
 
 Defining a global function isn't very different from creating a definition and binding a value to a name. The only difference is that no computation takes place. The expression is turned into a function value and bound to the name.
 ```ocaml
@@ -374,17 +349,20 @@ val f : int -> int = <fun>
 val f : int -> int = <fun>
 ```
 
-These two definitions are the same. The former explicitly binds the anonymous function to a name. The latter is the same, but it uses a more compact syntax and avoids the `fun`` keyword and the arrow symbol.
+These two definitions are the same. The former explicitly binds the anonymous function to a name. The latter is the same, but it uses a more compact syntax and avoids the `fun` keyword and the arrow symbol.
 
-### Defining Local Functions
+## Defining Local Functions
 
 A function may be defined locally. Just like any local definition, the function is only available inside its attached expression. Although the local functions are often defined inside the scope of the function, this is not a requirement. Here is a local function inside a toplevel expression.
 ```ocaml
 # let sq x = x * x in sq 7 * sq 7;;
 - : int = 2401
+
+# sq;;
+Error: Unbound value sq
 ```
 
-### Closures
+## Closures
 
 The following sequence of definitions and expressions illustrates what a closure is:
 ```ocaml
@@ -421,9 +399,9 @@ Partially applying parameters to a function creates a new closure. The environme
 val max_42 : int -> int = <fun>
 ```
 
-In the `max_42` function, the environment contains an additional binding between the first parameter of `max` and the value 42.
+Inside the `max_42` function, the environment contains an additional binding between the first parameter of `max` and the value 42.
 
-### Recursive Functions
+## Recursive Functions
 
 In order to perform iterated computations, a function may call itself. Such a function is called _recursive_. Recursive functions must be defined; they can't be anonymous. A recursive function also needs to be explicitly declared as such by using `let rec`. In OCaml, either a function is declared as recursive or it isn't recursive. It is not possible to accidentally create recursion loops between functions. As a consequence, recursive functions can't be anonymous.
 
@@ -454,7 +432,7 @@ The first version takes two extra parameters: the two previously computed Fibona
 
 The second version uses the two first Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called “tail call elimination,” which turns recursivity into imperative iteration in the generated native code and leads to much improved performances.
 
-#### Passing Multiple Arguments to Functions
+## Passing Multiple Arguments to Functions
 
 Until now, functions with several arguments had a type looking like this: `a₁ -> a₂ -> a₃ -> ⋯ -> b`
 
@@ -491,7 +469,7 @@ Most importantly, this means a “binary” function isn't really a function tha
 
 Passing a single integer to the addition returns a function of type `int -> int`. That function value is a closure. The value passed as the first parameter, here 2, is captured as if it had been in an earlier definition.
 
-#### Passing Multiple Arguments as Tuples
+## Passing Multiple Arguments as Tuples
 
 Consider this function:
 ```ocaml
@@ -507,7 +485,7 @@ It takes a pair of strings and returns a string.
 
 Asking whether `space_cat` is a binary function or not makes sense. Morally, it takes two parameters: the two strings that are sandwiching the space character. Wrapped as a pair, they are a single piece of data, so `space_cat` has a single parameter. But it is the elements of that pair that are relevant, not the pair as a whole. So morally, `space_cat` is a binary function. Syntactically, the call `space_cat ("hello", "world")` looks pretty much like a function call in high school maths or a spreadsheet application, both having two parameters: `"hello"` and `"pair"`.
 
-### Currying and Uncurrying
+## Currying and Uncurrying
 
 In the two previous sections, two kinds of “multiple parameter” functions have been presented.
 - Functions returning a function, such as `( + )`
@@ -544,7 +522,7 @@ In practice, curried functions are the default form functions should take becaus
 - Less editing, no parentheses or commas
 - No pattern matching over a tuple
 
-### Functions With Side-Effects
+## Functions With Side-Effects
 
 With respect to its type, a function is expected to process input data from its domain and produce a result data from its codomain.
 
@@ -572,8 +550,48 @@ Since the purpose of the function is only to produce an effect, it has no meanin
 
 This illustrates the relationship between functions intended to have side effects and the unit type. The presence of the unit type does not indicate the presence of side effects. The absence of the unit type does not indicate the absence of side effects. But when no data needs to be passed as input or can be returned as output, the unit type should be used to indicate it and suggest the presence of side effects.
 
+## Functions are Almost as Other Values
+
+Functions are supposed to be exactly as other values; however, there are three restrictions:
+
+1. Function values cannot be displayed in interactive sessions. The placeholder `<fun>` is displayed instead. This is because there is nothing meaningful to print. Once parsed and typed-checked, OCaml discards the function's source code and nothing remains to be printed.
+```ocaml
+# sqrt;;
+- : float -> float = <fun>
+```
+
+2. Equality between functions can't be tested.
+```ocaml
+# pred;;
+- : int -> int = <fun>
+
+# succ;;
+- : int -> int = <fun>
+
+# pred = succ;;
+Exception: Invalid_argument "compare: functional value".
+```
+
+There are two main reasons explaining this:
+- It is impossible to write an algorithm that takes two functions and returns `true`, if they always return the same output when provided the same input, and `false` otherwise.
+- Assuming it was possible, such an algorithm would declare that implementations of quicksort and bubble sort are equal. That would mean one could replace the other, which is may not be wise.
+
+It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
+
+3. Pattern matching does not allow inspecting a function. Catch-all patterns can match against a function, but it is useless.
+```ocaml
+# match Fun.id with id -> ();;
+- : unit = ()
+```
+
 ## Conclusion
 
-In essence, OCaml's fundamental concepts revolve around values, functions, and definitions, with type-checking and execution playing secondary roles. At the heart of OCaml lies the concept of the environment, a crucial element in its operation. To put it succinctly, the environment works as an ordered, append-only key-value store, notable for its append-only nature, meaning that items cannot be removed. Furthermore, it maintains order by preserving the sequence of available definitions.
+At the heart of OCaml lies the concept of the environment, a crucial element in its operation. To put it succinctly, the environment works as an ordered, append-only key-value store. It is notable for its append-only nature, meaning that items cannot be removed. Furthermore, it maintains order by preserving the sequence of available definitions.
 
-When we employ a `let`` statement, we introduce zero, one, or more name-value pairs into the pertinent environment. Similarly, when invoking a function with its parameters, we extend the environment by adding names and their corresponding arguments, so a closure in OCaml embodies an environment-function pairing, cementing the interconnectedness of these fundamental concepts.
+When we employ a `let` statement, we introduce zero, one, or more name-value pairs into the pertinent environment. Similarly, when invoking a function with its parameters, we extend the environment by adding names and their corresponding arguments, so a closure in OCaml embodies an environment-function pairing, cementing the interconnectedness of these fundamental concepts.
+
+During the review of this tutorial, it was asked:
+
+> Why is it so that having function as values is what actually defines functional programming?
+
+Answering this question goes beyond the scope of a tutorial about expressions and values in OCaml. However, and without entering into the details, erasing the difference between functions and other values is meant to express they are the same thing. That's exactly what happens in the [λ-calculus](https://en.wikipedia.org/wiki/Lambda_calculus), the mathematical theory underneath functional programming. In that formalism, there's nothing but functions. Everything, including data, is a function and computation reduces to parameter passing. In functional programming and OCaml, having function and values at the same level is an invitation to think about programs this way. That is different from the imperative programming approach where everything reduces to reading and writing into the memory.
