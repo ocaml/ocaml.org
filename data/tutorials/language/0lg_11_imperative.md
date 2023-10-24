@@ -438,18 +438,18 @@ val length : 'a list -> int = <fun>
 
 The tail call elimination technique can't be applied on variant types that have constructors with several recursive occurrences.
 ```ocaml
-# type 'a btree = Leaf | Root of 'a * 'a btree * 'a btree
+# type 'a btree = Leaf | Root of 'a * 'a btree * 'a btree;;
 
 # let rec height = function
     | Leaf -> 0
-    | Root (_, lft, rht) -> 1 + max (height lft) (height rht)
+    | Root (_, l_tree, r_tree) -> 1 + max (height l_tree) (height r_tree)
 ```
 
 Since a binary tree has two subtrees, when computing its height, two recursive calls are needed and one must take place after the other.
 
 Creating a tall enough tree triggers a stack overflow.
 ```ocaml
-# let rec left_comb comb n = if n = 0 then comb else left_comb (Root ((), comb, Leaf));;
+# let rec left_comb comb n = if n = 0 then comb else left_comb (Root ((), comb, Leaf)) (n - 1);;
 val left_comb : int -> unit btree = <fun>
 
 # let left_comb = left_comb Leaf;;
@@ -460,6 +460,28 @@ val left_comb : int -> unit btree = <fun>
 # left_comb 1000000 |> height;;
 Stack overflow during evaluation (looping recursion?).
 ```
+
+The way to work around this situation is to use [Continuation-passing Style](https://en.wikipedia.org/wiki/Continuation-passing_style). Here is how it looks like to compute the height of a `btree`.
+```ocaml
+# let ( let* ) = ( @@ );;
+val ( let* ) : ('a -> 'b) -> 'a -> 'b = <fun>
+
+# let rec height_cps t k = match t with
+    | Leaf -> k 0
+    | Root (_, l_tree, r_tree) ->
+        let* r_hgt = height_cps l_tree in
+        let* l_hgt = height_cps r_tree in
+        k (1 + max l_hgt r_ght);;
+
+# let height_cps t = height_cps t Fun.id;;
+
+# left_comb 1000000 |> height_cps;;
+- : int = 1000000
+```
+
+In the `length` function, the already computed length is accumulated from call to call. Here, what is accumulated is no longer an integer, it is a function. Such a function is called a _continuation_.
+
+
 
 ### Asynchronous Processing
 
