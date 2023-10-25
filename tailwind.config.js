@@ -139,7 +139,7 @@ module.exports = {
         },
       },
       width: {
-        '82': '22.4rem'
+        '88': '22rem'
       },
       maxWidth: {
         '8xl': '90rem',

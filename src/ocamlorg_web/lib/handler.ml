@@ -212,7 +212,7 @@ let blog req =
          Data.Planet.Post.all)
   in
   let featured = Data.Planet.featured_posts |> List.take 3 in
-  let news = Data.News.all |> List.take 20 in
+  let news = Data.News.all |> List.take 16 in
   Dream.html
     (Ocamlorg_frontend.blog ~featured ~planet:current_items ~planet_page:page
        ~planet_pages_number:number_of_pages ~news)
