@@ -33,9 +33,9 @@ When presenting OCaml or another functional programming language, it is often sa
 - Use the `unit` type as a function parameter or return value, when needed
 -->
 
-## What is a Value
+## What is a Value?
 
-Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. Computing them produce values, that is the unique mean to do something. Here are a few examples of expressions, their type, and the resulting values. Some include computation, some don't:
+Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. Computing them produces values, which is the unique means to do something. Here are a few examples of expressions, their type, and the resulting values. Some include computation, some don't:
 ```ocaml
 # "Everything has a value, every value has a type";;
 - : string = "Everything is a value, every value has a type"
@@ -182,7 +182,7 @@ Arbitrary combinations of chaining or nesting are allowed.
 
 ## Scopes and Environments
 
-Without oversimplifying, an OCaml program is a sequence of definitions or expressions. These items are said to be at the _top level_. That's why an OCaml REPL, such as UTop, is called a toplevel, because that's where typed expressions go.
+Without oversimplifying, an OCaml program is a sequence of definitions or expressions. These items are said to be at the _top level_. An OCaml REPL, such as UTop, is called a toplevel because that's where typed expressions go.
 
 Execution evaluates each expression from top to bottom.
 
@@ -272,9 +272,9 @@ val d : int = 21
 
 As already stated, in OCaml, function are values. The this the key concept of [functional programming](https://en.wikipedia.org/wiki/Functional_programming). In this context, it is also possible to say that OCaml has [first-class](https://en.wikipedia.org/wiki/First-class_function) functions or that functions are [first-class citizens](https://en.wikipedia.org/wiki/First-class_citizen).
 
-The view taken in this tutorial is to skip those definitions and instead star playing with them. We believe their meaning will arise from experience. Once things make sense, naming them is just a mean to interact with the community.
+For now, let's skip those definitions and instead start playing with them. Their meaning will arise from experience. Once things make sense, using these terms is just a means to interact with the community.
 
-This is a big take away. We believe functional programming (_ergo_ OCaml) is best understood by practising it rather than reading about it. Just like skateboarding, cooking or wood working, learn by doing is not only possible, it the easiest to most and the right way to start. Because in the end, the goal is not to be able to give correct definition of abstract terms but to write OCaml code.
+This is a big take away. We believe functional programming (_ergo_ OCaml) is best understood by practising it rather than reading about it. Just like skateboarding, cooking, or woodworking. Learning by doing is not only possible, it is usually the easiest and the best way to start. Because in the end, the goal is not to be able to give the correct definition of abstract terms but to write OCaml code.
 
 ## Calling Functions
 
