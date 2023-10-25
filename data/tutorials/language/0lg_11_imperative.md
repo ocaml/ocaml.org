@@ -463,7 +463,7 @@ Stack overflow during evaluation (looping recursion?).
 
 The way to work around this situation is to use [Continuation-passing Style](https://en.wikipedia.org/wiki/Continuation-passing_style). Here is how it looks like to compute the height of a `btree`.
 ```ocaml
-# let ( let* ) = ( @@ );;
+# let ( let* ) f x = f x;;
 val ( let* ) : ('a -> 'b) -> 'a -> 'b = <fun>
 
 # let rec height_cps t k = match t with
@@ -471,16 +471,27 @@ val ( let* ) : ('a -> 'b) -> 'a -> 'b = <fun>
     | Root (_, l_tree, r_tree) ->
         let* r_hgt = height_cps l_tree in
         let* l_hgt = height_cps r_tree in
-        k (1 + max l_hgt r_ght);;
+        k (1 + max l_hgt r_hgt);;
+val height_cps : 'a btree -> (int -> 'b) -> 'b = <fun>
 
-# let height_cps t = height_cps t Fun.id;;
+# let height t = height_cps t Fun.id;;
+val height : 'a btree -> int = <fun>
 
-# left_comb 1000000 |> height_cps;;
+# left_comb 1000000 |> height;;
 - : int = 1000000
 ```
 
-In the `length` function, the already computed length is accumulated from call to call. Here, what is accumulated is no longer an integer, it is a function. Such a function is called a _continuation_.
+Traversal in depth first order, accumulated in stack-continuation, result in reversed order.
 
+In the `length` function, the already computed length accumulates in each call. Here, what is accumulated is no longer an integer, it is a function. Such a function is called a _continuation_, that's the `k` parameter in `height_cps`. At any time, the continuation represents what needs to be done after processing the data at hand:
+* When reaching a `Leaf`, there's nothing to do but proceed to what's left to do, call continuation `k`, w
+* When reaching a `Root`, a recursive call is made on the left subtree with a new closure
+  - 
+
+
+
+
+When inspecting a `Root`, the function makes a recursive call with a new closure as continuation. The body of that closure is 
 
 
 ### Asynchronous Processing
