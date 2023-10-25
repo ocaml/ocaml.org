@@ -474,15 +474,6 @@ val ( let* ) : ('a -> 'b) -> 'a -> 'b = <fun>
         k (1 + max l_hgt r_hgt);;
 val height_cps : 'a btree -> (int -> 'b) -> 'b = <fun>
 
-# let rec height_cps t k = match t with
-    | Leaf -> k 0
-    | Root (_, l_tree, r_tree) ->
-        let l_k l_hgt =
-          let r_k r_hgt =
-            k (1 + max l_hgt r_hgt) in
-          height_cps r_tree r_k in
-        height_cps l_tree l_k
-
 # let height t = height_cps t Fun.id;;
 val height : 'a btree -> int = <fun>
 
@@ -490,25 +481,26 @@ val height : 'a btree -> int = <fun>
 - : int = 1000000
 ```
 
-Traversal in depth first order, accumulated in stack-continuation, result in reversed order.
-
 In the `length` function, the already computed length accumulates in each call. Here, what is accumulated is no longer an integer, it is a function. Such a function is called a _continuation_, that's the `k` parameter in `height_cps`. At any time, the continuation represents what needs to be done after processing the data at hand:
-* When reaching a `Leaf`, there's nothing to do but proceed with what's left to do, continuation `k` is called with 0.
-* When reaching a `Root`:
-  1. Make the recursive call on the left subtree `l_tree`, passing a continuation where
-  1. The 
-  1. A continuation function taking the left height as parameter (called `l_hgt`) an those body are the two last line of the code
-    1. Inside that continuation, make the 
+* If it's a `Leaf`, there's nothing to do but proceed with what's left to do, the continuation `k` is called with the hight of `Leaf` which is zero.
+* If it's a `Root`, there are two subtrees: `l_tree` on the left, `r_tree` on the right.
+  * Make the recursive call on `l_tree` and a continuation function taking the result of that call `l_hgt` as input. This is making sense because the continuation will be evaluated after the recursive call.
+  * That continuation makes the recursive call on `r_tree` and another continuation taking the result that call second call `r_hgt` as input
+  * The second continuation picks the tallest height, increments it, and passes it to the received continuation `k`
 
-  
-  when it's complete, call its result `r_hgt` (left height) 
-  - Make a recursive call 
+Don't freak out. Continuations are hard. Here is a translation of the above definition without custom binders, it may help understanding differently.
+```ocaml
+# let rec height_cps' t k = match t with
+    | Leaf -> k 0
+    | Root (_, l_tree, r_tree) ->
+        let l_k l_hgt =
+          let r_k r_hgt =
+            k (1 + max l_hgt r_hgt) in
+          height_cps' r_tree r_k in
+        height_cps' l_tree l_k
+```
 
-
-
-
-When inspecting a `Root`, the function makes a recursive call with a new closure as continuation. The body of that closure is 
-
+Alternatively, large language model chatbots do a fair job at explaining that kind of code, you can have a try.
 
 ### Asynchronous Processing
 
