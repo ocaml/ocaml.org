@@ -269,35 +269,3 @@ details summary svg svg {
 summary::-webkit-details-marker {
   display: none;
 }
-
-/* version list */
-.tr-selected:first-child td {
-  background-color: #F449001A;
-}
-
-.tr-selected:first-of-type td:nth-child(2),
-.tr-selected:first-of-type td:nth-child(4) {
-  font-weight: bold;
-}
-
-
-.tr-selected td:first-of-type {
-  border-top-left-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
-}
-
-.tr-selected td:last-of-type {
-  border-top-right-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-}
-
-.tr-selected:first-of-type td .rounded-full {
-  background-color: #F36528;
-  height: 0.75rem;
-  width: 0.75rem;
-  margin: 0;
-}
-
-.tr-selected:last-of-type td div div {
-  display: none;
-}
