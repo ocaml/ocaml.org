@@ -484,7 +484,7 @@ val height : 'a btree -> int = <fun>
 Traversal in depth first order, accumulated in stack-continuation, result in reversed order.
 
 In the `length` function, the already computed length accumulates in each call. Here, what is accumulated is no longer an integer, it is a function. Such a function is called a _continuation_, that's the `k` parameter in `height_cps`. At any time, the continuation represents what needs to be done after processing the data at hand:
-* When reaching a `Leaf`, there's nothing to do but proceed to what's left to do, call continuation `k`, w
+* When reaching a `Leaf`, there's nothing to do but proceed with what's left to do, continuation `k` is called with 0.
 * When reaching a `Root`, a recursive call is made on the left subtree with a new closure
   - 
 
