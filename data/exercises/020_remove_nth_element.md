@@ -3,6 +3,7 @@ title: Remove the K'th Element From a List
 number: "20"
 difficulty: beginner
 tags: [ "list" ]
+description: "Create a function to remove the K'th element from a list (0-based index)."
 ---
 
 # Solution

@@ -8,7 +8,8 @@ authors:
   - Allen Downey
 published: "2008-06"
 cover: books/think-ocaml-how-to-think-like-a-functional-programmer.png
-language: english
+language:
+  - english
 links:
   - description: Read Online
     uri: https://greenteapress.com/thinkocaml/thinkocaml.pdf

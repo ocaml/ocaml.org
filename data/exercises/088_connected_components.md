@@ -3,6 +3,7 @@ title: Connected Components
 number: "88"
 difficulty: intermediate
 tags: [ "graph" ]
+description: "Split a graph into its connected components."
 ---
 
 # Solution

@@ -43,6 +43,9 @@ module.exports = {
           }]
         },
       },
+      boxShadow:{
+        '3xl':'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+      },
       maxWidth: {
         '8xl': '90rem',
       },
@@ -107,6 +110,7 @@ module.exports = {
         "learn-area-light-blue": "rgba(211, 213, 249, 0.60)",
 
         "text-title": "#111827",
+        "search-result-background-blue":"#00308F",
 
         transparent: "transparent",
 

@@ -14,7 +14,50 @@ let tabs
       <%s title %>
     </a>
   in
-    <div class="bg-text-title">
+  let url_of_current 
+  (current : section) = match current with
+    | Overview -> Url.learn
+    | GetStarted -> Url.learn_get_started
+    | Language -> Url.learn_language
+    | Platform -> Url.platform
+    | Guides -> Url.learn_guides
+    | Exercises -> Url.exercises
+    | Books -> Url.books
+  in
+  let section_to_string = function
+    | Overview -> "Overview"
+    | GetStarted -> "Get Started"
+    | Language -> "Language"
+    | Platform -> "Platform"
+    | Guides -> "Guides"
+    | Exercises -> "Exercises"
+    | Books -> "Books"
+  in
+  let breadcrumb_options current =
+    let (sections : section list) = [Overview; GetStarted; Language; Platform; Guides; Exercises; Books] in
+    let selected_option section = if section = current then "selected" else "" in
+    let options_list option = 
+        <option value="<%s url_of_current option %>" <%s selected_option option %>>
+          <%s section_to_string option %>
+        </option> 
+    in
+    <nav aria-label="breadcrumbs" class="px-4 flex text-white bg-text-title md:hidden">
+      <ul>
+        <li class="inline-block"> 
+            <a href="<%s url_of_current Overview %>" class="flex items-center px-2 py-2 border-transparent border-2 border-b-4"> Learn 
+              <span> <%s! Icons.chevron_right "w-3 h-3 ml-2" %> </span> </a>
+        </li>
+        <li class="inline-block">
+            <select onchange="location = this.value;" class="appearance-none bg-transparent border-2 border-b-4 bg-none font-bold border-none w-auto p-0 m-0 cursor-pointer focus:outline-none focus:ring-0">
+             <%s! sections |> List.map options_list |> String.concat "" %>
+            </select>
+            <span class="text-orange-700 cursor-pointer">&#x25BE;</span>
+        </li>
+      </ul>
+    </nav>
+  in
+    <%s! breadcrumb_options current %>
+    <div class="bg-text-title hidden md:flex">
       <nav class="container-fluid wide flex flex-wrap">
         <%s! link ~href:Url.learn ~title:"Overview" ~current:(current = Overview) %>
 

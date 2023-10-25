@@ -3,6 +3,7 @@ title: Goldbach's Conjecture
 number: "40"
 difficulty: intermediate
 tags: [ "arithmetic" ]
+description: "Find two prime numbers that sum up to a given even integer, demonstrating Goldbach's conjecture."
 ---
 
 ```ocaml

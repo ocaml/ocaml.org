@@ -16,6 +16,7 @@ type metadata = {
   number : string;
   difficulty : Proficiency.t;
   tags : string list;
+  description : string;
 }
 [@@deriving of_yaml]
 
@@ -51,6 +52,7 @@ type t = {
   number : string;
   difficulty : Proficiency.t;
   tags : string list;
+  description : string;
   statement : string;
   solution : string;
 }
@@ -83,6 +85,7 @@ type t =
   ; number : string
   ; difficulty : difficulty
   ; tags : string list
+  ; description : string
   ; statement : string
   ; solution : string
   }

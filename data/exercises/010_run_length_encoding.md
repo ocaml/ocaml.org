@@ -3,6 +3,7 @@ title: Run-Length Encoding
 number: "10"
 difficulty: beginner
 tags: [ "list" ]
+description: "Performs run-length encoding on a list"
 ---
 
 # Solution

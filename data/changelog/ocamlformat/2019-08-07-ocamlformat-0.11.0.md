@@ -1,7 +1,7 @@
 ---
 title: Ocamlformat 0.11.0
 date: "2019-08-07"
-tags: [ocamlformat, platform, release]
+tags: [ocamlformat, platform]
 changelog: |
   - Improve: generalize API of Config_option (#952, @gpetiot)
   - Improve: new 'before' value for option 'sequence-style' (#947, @gpetiot)
