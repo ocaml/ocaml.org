@@ -3,6 +3,7 @@ title: Diagonal of a Sequence of Sequences
 number: "101"
 difficulty: intermediate
 tags: [ "seq" ]
+description: "Return the diagonal sequence formed by taking the nth element from each of the nth sequences."
 ---
 
 # Solution

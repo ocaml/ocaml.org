@@ -192,5 +192,5 @@ let lang_manual_banner =
       <a href="<%s Url.manual %>" class="w-full md:w-auto mt-5 py-2 px-24 bg-default text-sm rounded-sm items-center text-center text-primary-700 sm:px-20 sm:text-md font-medium leading-7 md:text-lg">Take Me There</a>
     </div>
     <div class="min-w-[200px] min-h-[200px] overflow-hidden rounded-full bg-cover bg-center bg-no-repeat md:min-w-[240px] md:min-h-[240px]" style="background-image: url('../img/home/ocaml_camel.png')">
+    </div>
   </div>
-

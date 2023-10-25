@@ -1,7 +1,7 @@
 ---
 title: Ocamlformat 0.25.1
 date: "2023-03-06"
-tags: [ocamlformat, platform, release]
+tags: [ocamlformat, platform]
 changelog: |
   ### Library
 
@@ -64,56 +64,6 @@ We are pleased to announce the release of OCamlFormat 0.25.1! This release conta
 
 The library is also available through the `ocamlformat-lib` package on opam. The `ocamlformat` package only contains the binary.
 
-The highlights of this release include:
-
-## Formatting .mld files
-
-Formatting `.mld` files as odoc documentation files is now possible! This will make it much easier to maintain high-quality documentation alongside your OCaml code.
-
-This feature is only available in `ocamlformat` for now, but keep an eye on the future `dune` releases to know when `dune fmt` will be able to format your `.mld` files!
-
-
-## Various improvements and bugfixes
-
-We fixed various issues related to indentation, alignment, and comments positioning.
-
-Here are a few examples:
-
-- More consistent indentation inside a parenthesized expression:
-
-```diff
-         | [ node ] ->
-             ( (if List.mem node ~set:integer_graph.(node)
--              then Has_loop [ numbering.forth.(node) ]
--              else No_loop numbering.forth.(node))
-+               then Has_loop [ numbering.forth.(node) ]
-+               else No_loop numbering.forth.(node))
-             , component_edges.(component) )
-```
-
-```diff
-     (let open Memo.O in
--    let+ w = Dune_rules.Workspace.workspace () in
--    Dune_engine.Execution_parameters.builtin_default
--    |> Dune_rules.Workspace.update_execution_parameters w);
-+     let+ w = Dune_rules.Workspace.workspace () in
-+     Dune_engine.Execution_parameters.builtin_default
-+     |> Dune_rules.Workspace.update_execution_parameters w);
-```
-
-- More consistent formatting of module expressions:
-
-```diff
--  module Sel = (val if is_osx () then (module Mac)
--                    else if Sys.unix then (module Unix)
--                    else (module Fail) : Unix_socket)
-+  module Sel =
-+    (val if is_osx () then (module Mac)
-+         else if Sys.unix then (module Unix)
-+         else (module Fail)
-+        : Unix_socket)
-```
-
 ---
 
 We would like to thank all contributors for their valuable contributions to this release. Please see the [complete changelog](https://github.com/ocaml-ppx/ocamlformat/releases/tag/0.25.0) for more details.
@@ -123,3 +73,103 @@ We hope you enjoy this release and continue to find OCamlFormat a valuable tool 
 Thank you for your support and feedback, and please don't hesitate to reach out if you have any questions or issues.
 
 The OCamlFormat team
+
+## 🌟 Spotlight Feature
+
+1. **New `if-then-else` and `break-cases` options**
+
+  Starting in OCamlFormat 0.25.1, we've also added new values to the `if-then-else` and `break-cases` options. Now you can use the `vertical` value to format these expressions in a more readable and consistent way.
+
+  These options are not set by default but you can try them out by customizing your `.ocamlformat` file as usual.
+
+  Here are a few examples:
+
+  - `if-then-else = vertical`
+  ```diff
+  -  let epi = if Option.is_some next then fmt "@\n" else fmt_opt epi in
+  +  let epi =
+  +    if Option.is_some next then
+  +      fmt "@\n"
+  +    else
+  +      fmt_opt epi
+  +  in
+  ```
+
+  ```diff
+  -    if tree_depth tree > depth then node_depth_truncate_ depth node
+  -    else (* already short enough; don't bother truncating *)
+  +    if tree_depth tree > depth then
+  +      node_depth_truncate_ depth node
+  +    else
+  +      (* already short enough; don't bother truncating *)
+        node
+  ```
+
+  - `break-cases = vertical`
+
+  ```diff
+  -| Ok (`Version | `Help) -> Stdlib.exit 0
+  -| Error _ -> Stdlib.exit 1
+  +| Ok (`Version | `Help) ->
+  +    Stdlib.exit 0
+  +| Error _ ->
+  +    Stdlib.exit 1
+  ```
+
+  ```diff
+  -    ~f:(function `Int _ | `Float _ -> true | _ -> false)
+  +    ~f:(function
+  +      | `Int _
+  +      | `Float _ ->
+  +          true
+  +      | _ ->
+  +          false)
+  ```
+
+2. **Formatting .mld files**
+
+  Formatting `.mld` files as odoc documentation files is now possible! This will make it much easier to maintain high-quality documentation alongside your OCaml code.
+
+  This feature is only available in `ocamlformat` for now, but keep an eye on the future `dune` releases to know when `dune fmt` will be able to format your `.mld` files!
+
+
+3. **Various improvements and bugfixes**
+
+  We fixed various issues related to indentation, alignment, and comments positioning.
+
+  Here are a few examples:
+
+  - More consistent indentation inside a parenthesized expression:
+
+  ```diff
+          | [ node ] ->
+              ( (if List.mem node ~set:integer_graph.(node)
+  -              then Has_loop [ numbering.forth.(node) ]
+  -              else No_loop numbering.forth.(node))
+  +               then Has_loop [ numbering.forth.(node) ]
+  +               else No_loop numbering.forth.(node))
+              , component_edges.(component) )
+  ```
+
+  ```diff
+      (let open Memo.O in
+  -    let+ w = Dune_rules.Workspace.workspace () in
+  -    Dune_engine.Execution_parameters.builtin_default
+  -    |> Dune_rules.Workspace.update_execution_parameters w);
+  +     let+ w = Dune_rules.Workspace.workspace () in
+  +     Dune_engine.Execution_parameters.builtin_default
+  +     |> Dune_rules.Workspace.update_execution_parameters w);
+  ```
+
+  - More consistent formatting of module expressions:
+
+  ```diff
+  -  module Sel = (val if is_osx () then (module Mac)
+  -                    else if Sys.unix then (module Unix)
+  -                    else (module Fail) : Unix_socket)
+  +  module Sel =
+  +    (val if is_osx () then (module Mac)
+  +         else if Sys.unix then (module Unix)
+  +         else (module Fail)
+  +        : Unix_socket)
+  ```

@@ -3,6 +3,7 @@ title: Symmetric Binary Trees
 number: "56"
 difficulty: intermediate
 tags: [ "binary-tree" ]
+description: "Determine if a given binary tree is symmetric, meaning its right subtree is a mirror image of its left subtree."
 ---
 
 ```ocaml

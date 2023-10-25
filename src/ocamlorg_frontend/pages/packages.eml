@@ -6,7 +6,15 @@ Layout.render
 ~description:"Discover thousands of community packages and browse their documentation."
 ~canonical:Url.packages
 ~active_top_nav_item:Header.Packages @@
-<div class="intro-section-simple">
+
+let search_dropdown () =
+  <div id="packages-search-results" aria-live="polite" ></div>
+  <a class="flex py-2 px-2 mx-2 gap-4 hover:bg-primary-100 font-normal rounded-md text-primary-600" href="<%s Url.api %>">
+    Standard Library API
+    <%s! Icons.arrow_top_right_on_square "w-6 h-6"%>
+  </a>
+in
+<div class="intro-section-simple mb-10">
     <div class="container-fluid">
         <div class="w-full lg:w-2/3 m-auto">
             <h1 class="font-bold text-center mb-6">OCaml Packages</h1>
@@ -17,19 +25,14 @@ Layout.render
                   <%s! Packages_autocomplete_fragment.form_attributes %>
                   action="/packages/search" method="GET" class="flex flex-col items-center"
                   >
-
                   <%s! Forms.search_input
                     ~name:"q"
                     ~label:"Search OCaml packages"
                     ~button_attrs:{|type="submit"|}
                     ~input_attrs:(Packages_autocomplete_fragment.input_attributes ~target_sel:"#packages-search-results" ~indicator_sel:"#packages-search-indicator")
-                    "w-full md:w-96 lg:w-[32rem] xl:w-[32rem]"
+                    "lg:w-[32rem] xl:w-[32rem]"
+                    ~dropdown_html:(search_dropdown ())
                     %>
-
-                  <div>
-                    <span id="packages-search-indicator" class="htmx-indicator">Searching...</span>
-                    <div id="packages-search-results" aria-live="polite"></div>
-                  </div>
                 </form>
             </div>
         </div>

@@ -6,7 +6,8 @@ authors:
   - G. Chen
 published: "2018"
 cover: books/ocaml-yuyan-biancheng-jichu-jiaocheng.jpg
-language: chinese
+language: 
+  - chinese
 links:
   - description: Order at Epubit.com
     uri: https://www.epubit.com/bookDetails?id=N18159

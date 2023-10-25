@@ -1,7 +1,7 @@
 ---
 title: Opam-publish 2.0.2
 date: "2019-12-09"
-tags: [opam-publish, platform, release]
+tags: [opam-publish, platform]
 changelog: |
   * git related fixes:
     * github remote detection

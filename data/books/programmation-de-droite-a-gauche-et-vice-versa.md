@@ -7,7 +7,8 @@ authors:
   - Pascal Manoury
 published: "2005"
 cover: books/programmation-de-droite-a-gauche-et-vice-versa.jpg
-language: french
+language:
+  - french
 isbn: "978-2-916466-05-7"
 links:
   - description: Order on Paracamplus

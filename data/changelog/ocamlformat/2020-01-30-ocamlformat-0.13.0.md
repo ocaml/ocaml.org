@@ -1,7 +1,7 @@
 ---
 title: Ocamlformat 0.13.0
 date: "2020-01-30"
-tags: [ocamlformat, platform, release]
+tags: [ocamlformat, platform]
 changelog: |
   ### New features
 

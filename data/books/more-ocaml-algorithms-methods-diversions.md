@@ -11,7 +11,8 @@ authors:
   - John Whitington
 published: 2014-08-26
 cover: books/more-ocaml-algorithms-methods-diversions.jpg
-language: english
+language:
+  - english
 links:
   - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/0957671113

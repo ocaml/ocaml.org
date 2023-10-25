@@ -2,7 +2,7 @@
 title: Opam-publish 2.2.0
 authors: [ "Kate Deplaix" ]
 date: "2022-12-14"
-tags: [opam-publish, platform, release]
+tags: [opam-publish, platform]
 ---
 
 We are pleased to announce the minor release of [opam-publish 2.2.0](https://github.com/ocaml-opam/opam-publish/releases/tag/2.2.0).
