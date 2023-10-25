@@ -469,10 +469,19 @@ val ( let* ) : ('a -> 'b) -> 'a -> 'b = <fun>
 # let rec height_cps t k = match t with
     | Leaf -> k 0
     | Root (_, l_tree, r_tree) ->
-        let* r_hgt = height_cps l_tree in
-        let* l_hgt = height_cps r_tree in
+        let* l_hgt = height_cps l_tree in
+        let* r_hgt = height_cps r_tree in
         k (1 + max l_hgt r_hgt);;
 val height_cps : 'a btree -> (int -> 'b) -> 'b = <fun>
+
+# let rec height_cps t k = match t with
+    | Leaf -> k 0
+    | Root (_, l_tree, r_tree) ->
+        let l_k l_hgt =
+          let r_k r_hgt =
+            k (1 + max l_hgt r_hgt) in
+          height_cps r_tree r_k in
+        height_cps l_tree l_k
 
 # let height t = height_cps t Fun.id;;
 val height : 'a btree -> int = <fun>
@@ -485,8 +494,15 @@ Traversal in depth first order, accumulated in stack-continuation, result in rev
 
 In the `length` function, the already computed length accumulates in each call. Here, what is accumulated is no longer an integer, it is a function. Such a function is called a _continuation_, that's the `k` parameter in `height_cps`. At any time, the continuation represents what needs to be done after processing the data at hand:
 * When reaching a `Leaf`, there's nothing to do but proceed with what's left to do, continuation `k` is called with 0.
-* When reaching a `Root`, a recursive call is made on the left subtree with a new closure
-  - 
+* When reaching a `Root`:
+  1. Make the recursive call on the left subtree `l_tree`, passing a continuation where
+  1. The 
+  1. A continuation function taking the left height as parameter (called `l_hgt`) an those body are the two last line of the code
+    1. Inside that continuation, make the 
+
+  
+  when it's complete, call its result `r_hgt` (left height) 
+  - Make a recursive call 
 
 
 
