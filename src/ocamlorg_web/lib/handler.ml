@@ -52,7 +52,8 @@ let platform _req =
 let community _req =
   let workshops = Data.Workshop.all in
   let meetups = Data.Meetup.all in
-  Dream.html (Ocamlorg_frontend.community ~workshops ~meetups)
+  let events = Data.Event.all in
+  Dream.html (Ocamlorg_frontend.community ~workshops ~meetups ~events)
 
 let changelog req =
   let current_tag = Dream.query req "t" in

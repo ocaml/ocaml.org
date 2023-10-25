@@ -441,3 +441,22 @@ module Is_ocaml_yet : sig
 
   val all : t list
 end
+
+module Event : sig
+  type location = { lat : float; long : float }
+
+  type t = {
+    title : string;
+    url : string;
+    slug : string;
+    textual_location : string;
+    location : location option;
+    start_date : string;
+    start_time : float option;
+    end_time : float option;
+    end_date : string option;
+  }
+
+    val all : t list
+    val get_by_slug : string -> t option
+end
