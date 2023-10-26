@@ -149,7 +149,6 @@ inner_html
     <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-[#D54000] p-4 z-30 rounded-full text-white shadow-custom bottom-24 md:bottom-36 fixed lg:hidden right-10"
       x-on:click="sidebar = ! sidebar">
       <%s! Icons.sidebar_menu "h-6 w-6" %>
-      <span class="hidden md:flex font-semibold px-2">side menu</span>
     </button>
     <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm lg:hidden"
       :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar"></div>
