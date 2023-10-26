@@ -3,6 +3,7 @@ title: Group the Elements of a Set Into Disjoint Subsets
 number: "27"
 difficulty: intermediate
 tags: [ "list" ]
+description: "Generate all possible ways to group elements into disjoint subsets."
 ---
 
 # Solution

@@ -3,6 +3,7 @@ title: Collect the Nodes at a Given Level in a List
 number: "62B"
 difficulty: beginner
 tags: [ "binary-tree" ]
+description: "Returns a list of all nodes at a given level within a binary tree."
 ---
 
 ```ocaml

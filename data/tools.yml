@@ -141,7 +141,7 @@ tools:
       This library converts parsetrees, outcometree and ast mappers between
       different OCaml versions. High-level functions help making PPX
       rewriters independent of a compiler version.
-    lifecycle: sustain
+    lifecycle: deprecate
 
   - name: OCamlbuild
     source: https://github.com/ocaml/ocamlbuild

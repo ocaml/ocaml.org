@@ -3,6 +3,7 @@ title: Tree Construction From a Node String
 number: "70A"
 difficulty: intermediate
 tags: [ "multiway-tree" ]
+description: "Convert multiway trees into depth-first order sequence strings and vice versa, where nodes are single characters."
 ---
 
 ```ocaml

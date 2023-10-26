@@ -3,6 +3,7 @@ title: Extract a Slice From a List
 number: "18"
 difficulty: intermediate
 tags: [ "list" ]
+description: "Extract a slice of a list between indices i and k, both inclusive, using 0-based indexing."
 ---
 
 # Solution

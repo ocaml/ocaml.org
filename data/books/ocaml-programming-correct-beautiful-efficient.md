@@ -10,7 +10,8 @@ authors:
   - Michael R. Clarkson
 published: 2021-09-01
 cover: books/ocaml-programming-cs3110.jpg
-language: english
+language:
+  - english
 links:
   - description: Read Online
     uri: https://cs3110.github.io/textbook/

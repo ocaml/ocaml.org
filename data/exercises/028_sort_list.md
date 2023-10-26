@@ -3,6 +3,7 @@ title: Sorting a List of Lists According to Length of Sublists
 number: "28"
 difficulty: intermediate
 tags: [ "list" ]
+description: "Sort a list of lists based on the frequency of sublist lengths in ascending order, with lists of less frequent lengths coming first."
 ---
 
 # Solution

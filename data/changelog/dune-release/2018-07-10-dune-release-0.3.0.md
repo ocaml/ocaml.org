@@ -1,7 +1,7 @@
 ---
 title: Dune-release 0.3.0
 date: "2018-07-10"
-tags: [dune-release, platform, release]
+tags: [dune-release, platform]
 changelog: |
   - Store config files in `~/.config/dune/` instead of `~/.dune`
     to match what `dune` is doing (#27, @samoht)

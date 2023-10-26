@@ -3,6 +3,7 @@ title: Run-Length Encoding of a List (Direct Solution)
 number: "13"
 difficulty: intermediate
 tags: [ "list" ]
+description: "Perform run-length encoding directly by counting duplicates and simplifying the result list."
 ---
 
 ```ocaml

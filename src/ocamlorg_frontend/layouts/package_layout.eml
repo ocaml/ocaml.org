@@ -36,18 +36,17 @@ Layout.base
           <%s! Package_breadcrumbs.render_package_and_version ~path ?hash ?page package %>
         </div>
       </div>
-      <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed md:hidden right-10"
+      <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-[#D54000] p-4 z-30 rounded-full text-white shadow-custom bottom-24 md:bottom-36 fixed md:hidden right-10"
       x-on:click="sidebar = ! sidebar">
-        <%s! Icons.sidebar_menu "h-8 w-8" %>
-        <span class="hidden md:flex font-semibold px-2">side menu</span>
+        <%s! Icons.sidebar_menu "h-6 w-6" %>
       </button>
       <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm md:hidden"
         :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar">
       </div>
 
-      <button title="search" class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-36 fixed right-10 md:hidden"
+      <button title="search" class="flex items-center bg-[#D54000] p-4 z-30 rounded-full text-white shadow-custom bottom-40 fixed right-10 md:hidden"
       x-on:click="document.getElementById('in-package-search-input').focus();">
-        <%s! Icons.magnifying_glass "h-8 w-8" %>
+        <%s! Icons.magnifying_glass "h-6 w-6" %>
         <span class="hidden md:flex font-semibold px-2">search</span>
       </button>
 

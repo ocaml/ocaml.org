@@ -1,7 +1,7 @@
 ---
 title: Ocamlformat 0.26.0
 date: "2023-07-20"
-tags: [ocamlformat, platform, release]
+tags: [ocamlformat, platform]
 changelog: |
   _Items marked with an asterisk (`*`) are changes that are likely to format
   existing code differently from the previous release when using the default
