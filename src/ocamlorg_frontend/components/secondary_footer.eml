@@ -1,5 +1,5 @@
 let render () =
-  <footer class="flex flex-col gap-7 py-5 mt-6 border-solid border-t-[1px] border-[#00000033]">
+  <footer class="flex flex-col gap-7 pt-5 mt-6 border-solid border-t-[1px] border-[#00000033]">
     <section class="flex justify-between items-end">
       <div>
         <a href="<%s Url.index %>"><img class="h-8" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
@@ -16,7 +16,7 @@ let render () =
     <section class="mt-6 grid grid-cols-2 mt-6">
       <div class="flex flex-col gap-1">
         <div class="flex flex-col">
-          <h5 class="font-bold text-base leading-7 text-black">About</h5>
+          <h5 class="font-bold text-base leading-7 py-2.5 text-black">About</h5>
           <a href="<%s Url.changelog %>" class="font-normal text-lighter leading-7 py-2.5">Changelog</a>
           <a href="<%s Url.releases %>" class="font-normal text-lighter leading-7 py-2.5">Releases</a>
           <a href="<%s Url.industrial_users %>" class="font-normal text-lighter leading-7 py-2.5">Industrial Users</a>
@@ -25,7 +25,7 @@ let render () =
         </div>
 
         <div class="flex flex-col">
-          <h5 class="font-bold text-base leading-7 text-black">
+          <h5 class="font-bold text-base leading-7 py-2.5 text-black">
             Ecosystem
           </h5>
           <a href="<%s Url.packages %>" class="font-normal text-lighter leading-7 py-2.5">Packages</a>
@@ -36,7 +36,7 @@ let render () =
       </div>
 
       <div class="flex flex-col">
-        <h5 class="font-bold text-base leading-7 text-black">Resources</h5>
+        <h5 class="font-bold text-base leading-7 py-2.5 text-black">Resources</h5>
         <a href="<%s Url.install %>" class="font-normal text-lighter leading-7 py-2.5">Install OCaml</a>
         <a href="<%s Url.getting_started %>" class="font-normal text-lighter leading-7 py-2.5">Get Started</a>
         <a href="<%s Url.platform %>" class="font-normal text-lighter leading-7 py-2.5">Platform Tools</a>
@@ -51,7 +51,7 @@ let render () =
 
     <div
       class="flex flex-wrap gap-x-7 md:justify-between items-center py-2 border-solid border-t-[1px] border-[#00000033] bottom-0 bg-white">
-      <h5 class="font-bold text-base leading-7 text-black">Policies</h5>
+      <h5 class="font-bold text-base leading-7 py-2.5 text-black">Policies</h5>
       <a href="<%s Url.carbon_footprint %>" class="font-normal text-lighter leading-7 py-2.5">Carbon Footprint</a>
       <a href="<%s Url.governance %>" class="font-normal text-lighter leading-7 py-2.5">Governance</a>
       <a href="<%s Url.privacy_policy %>" class="font-normal text-lighter leading-7 py-2.5">Privacy</a>
