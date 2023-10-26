@@ -455,6 +455,8 @@ module Event : sig
     start_time : float option;
     end_time : float option;
     end_date : string option;
+    body_md : string;
+    body_html : string;
   }
 
     val all : t list

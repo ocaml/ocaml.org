@@ -23,12 +23,19 @@ type t = {
   start_time : float option;
   end_time : float option;
   end_date : string option;
+  body_md : string;
+  body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ slug ], show { with_path = false }]
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ],
+   show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
-let decode s = Result.map of_metadata (metadata_of_yaml s)
+
+let decode (_, (head, body_md)) =
+  let metadata = metadata_of_yaml head in
+  let body_html = Omd.of_string body_md |> Omd.to_html in
+  Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () =
   Utils.map_files decode "events/*.md"
@@ -51,6 +58,8 @@ type t =
   ; start_time : float option
   ; end_time : float option
   ; end_date : string option
+  ; body_md : string
+  ; body_html : string
   }
 
 let all = %a
