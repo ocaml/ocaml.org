@@ -146,10 +146,9 @@ inner_html
   <%s! tabs ~current %>
   <div class="bg-default dark:bg-dark-default" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
   <% if left_sidebar_html != None then ( %>  
-    <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
+    <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-[#D54000] p-4 z-30 rounded-full text-white shadow-custom bottom-24 md:bottom-36 fixed lg:hidden right-10"
       x-on:click="sidebar = ! sidebar">
-      <%s! Icons.sidebar_menu "h-8 w-8" %>
-      <span class="hidden md:flex font-semibold px-2">side menu</span>
+      <%s! Icons.sidebar_menu "h-6 w-6" %>
     </button>
     <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm lg:hidden"
       :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar"></div>
