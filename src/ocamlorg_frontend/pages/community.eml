@@ -11,6 +11,7 @@ in
 let old_workshops = List.filter (fun (w : Data.Workshop.t) -> w.date < current_date) workshops in
 let upcoming_workshops = List.filter (fun (w : Data.Workshop.t) -> w.date >= current_date) workshops in
 let upcoming_events = List.filter (fun (e : Data.Event.t) -> e.start_date >= current_date) events in
+let upcoming_events = Ocamlorg.Import.List.take 6 upcoming_events in
 Layout.render
 ~title:"The OCaml Community"
 ~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!"
