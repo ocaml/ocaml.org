@@ -459,6 +459,6 @@ module Event : sig
     body_html : string;
   }
 
-    val all : t list
-    val get_by_slug : string -> t option
+  val all : t list
+  val get_by_slug : string -> t option
 end

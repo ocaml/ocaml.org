@@ -28,7 +28,7 @@ type t = {
 }
 [@@deriving
   stable_record ~version:metadata ~remove:[ slug; body_md; body_html ],
-   show { with_path = false }]
+    show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
