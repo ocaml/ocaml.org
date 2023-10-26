@@ -277,7 +277,7 @@ val d : int = 21
 - : int = 21
 ```
 
-Here, the value of `d` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds its definition within itself by using the qualifier `in`. 
+Here, the value of `d` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `d` locally, inside `d * 2`, not globally.
 
 ## Function as Values
 
