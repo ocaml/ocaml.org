@@ -74,12 +74,9 @@ the community and learn more about how they use OCaml."
               <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/ahrefs.svg" %>" alt="Ahrefs">
         </div>
       </div>
-    </div>
-  
+    </div> 
   </div>
-  
 </div>
- 
 <div class="py-10 lg:py-24 bg-default dark:bg-dark-default">
   <div class="container-fluid">
       <div class="text-center mt-6 lg:mt-0">
@@ -117,6 +114,9 @@ the community and learn more about how they use OCaml."
         </a>
         <% ); %>
       </div>
+       <div class="prose max-w-none mt-8">
+    If you want to contribute to a new success story, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-success-story" target="_blank">Contributing Guide</a> on GitHub.
+</div>
   </div>
 </div>
 <div class="py-10 lg:py-24 testimonials">
@@ -189,11 +189,7 @@ the community and learn more about how they use OCaml."
       </div>
     </div>
   </div>
-  <div class="prose max-w-none  pl-12">
-    If you want to contribute to a new success story, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#story" target="_blank">Contributing Guide</a> on GitHub.
 </div>
-</div>
- 
 <div class="py-10 md:py-20 md:pb-32 bg-default dark:bg-dark-default">
   <div class="container-fluid">
     <div class="text-center">
@@ -207,14 +203,12 @@ the community and learn more about how they use OCaml."
         <div class="font-bold mt-8"><%s item.name %></div>
       </a>
       <% ); %>
-     
     </div>
+    <div class="prose max-w-none m-2">
+        If you want to contribute to add a new industrial user, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-user" target="_blank">Contributing Guide</a> on GitHub.
   </div>
-   
+  </div>
 </div>
-<div class="bg-default prose max-w-none  p-8">
-        If you want to contribute to add a new industrial user, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#industrial-user" target="_blank">Contributing Guide</a> on GitHub.
-  </div>
 <div class="bg-pattern lg:py-32 py-24">
   <div class="container-fluid">
     <div>
@@ -241,8 +235,7 @@ the community and learn more about how they use OCaml."
         </a>
       </div>
     </div> 
-  </div>
-  
+  </div>  
 </div>   
 <script>
   function videoFullWidth() {

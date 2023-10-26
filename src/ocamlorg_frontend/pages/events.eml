@@ -93,16 +93,12 @@ world. See past events and upcoming ones on this page."
                         <%s! Icons.map_pin "h-5 w-5" %>
                         <div>
                             <%s meetup.textual_location %>
-                        </div>
-                       
+                        </div>       
                     </div>
                 </div>
             </a>
-            <% ); %>
-             
-        </div>
-       
-    </div>
-     
+            <% ); %>       
+        </div>    
+    </div>  
 </div>
 </div>

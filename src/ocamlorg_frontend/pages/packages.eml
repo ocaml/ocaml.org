@@ -179,17 +179,12 @@ Layout.render
                     degree of metadata quality. This makes it one of the most stable package repositories available
                     today.</div>
             </div>
-       
         </div>
-        
-
     </div>
-    
 % | None -> () );
 </div>
-
-  <div class=" bg-default prose max-w-none p-8">
-   If you want to learn about the OCaml packages, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#package" target="_blank">Contributing Guide</a> on GitHub.
+  <div class=" bg-default prose max-w-none p-10 lg:p-8">
+   If you want to learn about the OCaml packages, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-package" target="_blank">Contributing Guide</a> on GitHub.
 </div> 
 <div class="bg-primary-600 ">
     <div class="container-fluid">
