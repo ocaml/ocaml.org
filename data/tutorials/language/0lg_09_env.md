@@ -244,7 +244,6 @@ val c : int = 49
 
 In this example, `c` is defined twice. The key thing to understand is that the name `c` is *not updated*. It looks as if the value of the first `c` has changed, but it hasn't. When the second `c` is defined, the first one becomes unreachable, but it still remains in the environment. This means anything written after the second definition uses its value, but anything written *before* the second definition, still uses the first definition, even if its called after. 
 
-In the above example, `d` remains `42` even though `c` was defined again as `7 * 7`, or `49`. Since `d` was defined before the value of `c` was changed, it still uses the first `c` definition. This is known as a *closure,* which is [explored later in this document](#closures).
 
 Here is how this can be useful:
 ```ocaml
