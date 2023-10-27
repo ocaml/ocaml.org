@@ -376,7 +376,7 @@ Error: Unbound value sq
 
 ## Closures
 
-*Closures* are directly related to shadowing. As introduced in [Same-Level Shadowing](#same-level-shadowing] section, a closure uses the preceding name binding, even after that name is redefined. In other words, it's *enclosed* between two different definitions; it will never compute the name binding that comes after it. That's why it is called a closure.
+As introduced in [Same-Level Shadowing](#same-level-shadowing] section, a *closure* uses the preceding name binding, even after that name is redefined. In other words, it's *enclosed* between two different definitions; it will never compute the name binding that comes after it. That's why it is called a closure.
 
 The following sequence of definitions and expressions illustrates what a closure is:
 ```ocaml
