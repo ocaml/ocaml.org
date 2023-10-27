@@ -143,7 +143,7 @@ Layout.render
 <div class="bg-default dark:bg-dark-default">
   <div class="container-fluid">
     <h2 class="font-bold text-center text-default pt-12">Why OCaml?</h2>
-    <div class="py-24 lg:pt-24 space-y-20 md:space-y-40">
+    <div class="pt-4 pb-24 lg:pt-24 space-y-20 md:space-y-40">
       <div class="flex gap-10 lg:gap-24 flex-col lg:flex-row-reverse justify-between items-center">
         <div class="lg:flex-1 mt-10 lg:mt-0">
           <div class="text-lighter text-base">
