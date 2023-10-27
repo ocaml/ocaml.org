@@ -113,8 +113,9 @@ Layout.base
           <%s! left_sidebar_html %>
         </div>
 
-        <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh]">
+        <div class="flex-1 z-0 z- min-w-0 pt-6">
           <%s! inner %>
+          <%s! Secondary_footer.render ()  %>
         </div>
         <% (if right_sidebar_html <> "" then %>
         <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24">
@@ -320,4 +321,3 @@ Layout.base
   }
 </script>
 <% | _ -> () ); %>
-<%s! Secondary_footer.render() %>

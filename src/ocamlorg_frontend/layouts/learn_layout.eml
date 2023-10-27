@@ -163,8 +163,9 @@ inner_html
         <%s! Option.value ~default:"" left_sidebar_html %>
       </div>
 
-      <div class="flex-1 z-0 z- min-w-0 lg:pt-6 pb-12 lg:pb-[70vh] <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
+      <div class="flex-1 z-0 z- min-w-0 lg:pt-6 <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
         <%s! inner_html %>
+        <%s! Secondary_footer.render () %>
       </div>
       <div class="hidden xl:block top-0 sticky h-screen overflow-auto lg:pt-6">
         <div class="<%s Option.fold ~none:"" ~some:(fun _ -> "w-60 lg:pb-72") right_sidebar_html %>">
@@ -174,4 +175,4 @@ inner_html
     </div>
   </div>
   <%s! Toc.script %>
-  <%s! Secondary_footer.render () %>
+  
