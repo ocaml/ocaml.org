@@ -383,7 +383,42 @@ TODO: include discussion on evaluation order, sides effects and monadic pipes
 
 ### Bad: Imperative by Default
 
+The imperative style shouldn't be the default, it shouldn't be used everywhere. Although it is possible to use the imperative style without loosing the benefits of type and memory safety, it doesn't make sense to only use it. Not using functional programming idioms would result in an contrived and obfuscated style.
+
+Additionally, many modules are meant to be used in a functional manner. Some would require development and maintenance of [wrapper libraries](https://en.wikipedia.org/wiki/Wrapper_library) to be used in an imperative setting. That would be wasteful and brittle.
+
 ### Bad: Side Effects in Arguments
+
+Consider the following code:
+```ocaml
+# let id_print s = print_string (s ^ " "); s;;
+val id_print : string -> string = <fun>
+
+# let s = Printf.sprintf "%s %s %s " (id_print "monday") (id_print "tuesday")  (id_print "wednesday");;
+wednesday tuesday monday val s : string = "monday tuesday wednesday "
+```
+
+Functionally `id_print` is an identity function on `string`, it returns its input unchanged. However, it has a side effect: it prints each string in receives. Wrapping the parameters passed to `Printf.sprintf` into calls to `id_print` makes the side effects happen.
+
+The order in which the `id_ print` side effects takes place is unreliable. Parameters are evaluated from right to left, but this not part of the definition of the OCaml language, it turns out this the way the compiler is implemented, but it could change.
+
+There are several means to make sure computation takes place in a specified order.
+
+Use the use the semicolon operator `;`
+```ocaml
+# print_endline "ha"; print_endline "ho";;
+ha
+hu
+- : unit = ()
+```
+
+Use a `let`
+```ocaml
+# let () = print_endline "ha" in print_endline "hu";;
+ha
+hu
+- : unit = ()
+```
 
 ## Example of Things You Don't Need Imperative Programming For
 ## Example where imperative programming isn't needed
