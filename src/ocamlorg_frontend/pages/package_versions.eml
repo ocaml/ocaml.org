@@ -35,7 +35,7 @@ Layout.render
               <%s Utils.human_date_of_timestamp package.publication %>
             </td>
             <td class="text-left text-sm bg-primary-200 rounded-r">
-              <a href="/p/<%s package.name %>/<%s version %>/doc/index.html" class="text-primary-600 flex items-center mx-4 font-medium"><%s! Icons.document "h-5 w-5"; %> Documentation</a>
+              <a href="/p/<%s package.name %>/<%s version %>/doc/index.html" class="text-primary-600 flex items-center p-4 font-medium"><%s! Icons.document "h-5 w-5"; %> Documentation</a>
             </td>
             <% ) else ( %>
             <td class="text-left font-normal py-5 px-4">
