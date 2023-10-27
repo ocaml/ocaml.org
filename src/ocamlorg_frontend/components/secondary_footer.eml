@@ -1,30 +1,60 @@
 let render () =
-<footer class="bg-mild-contrast dark:bg-dark-mild-contrast border-t border-gray-200 pt-12 pb-20 md:p-0 md:fixed md:bottom-0 md:h-12 md:z-50 w-full" aria-labelledby="footer-heading">
-  <h2 id="footer-heading" class="sr-only">Footer</h2>
-  <div class="container-fluid wide">
-    <ul class="flex flex-col md:flex-row md:flex-wrap md:h-12 gap-x-6">
-      <li>
-        <a class="h-10 md:h-12 flex items-center mb-6 md:mb-0" href="<%s Url.index %>"><img class="h-8 md:h-6 pb-1" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
-      </li>
-      <li>
-        <a class="h-10 md:h-12 flex items-center text-lighter" href="<%s Url.getting_started %>" class="text-base leading-6 text-lighter">Get Started</a>
-      </li>
+  <footer class="flex flex-col gap-7 pt-5 mt-6 border-solid border-t-[1px] border-[#00000033]">
+    <section class="flex justify-between items-end">
+      <div>
+        <a href="<%s Url.index %>"><img class="h-8" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
+        <p class="text-base leading-6 text-lighter mt-2">Innovation. Community. Security.</p>
+      </div>
+      <div class="flex items-center gap-4 pr-4">
+        <a href="https://github.com/ocaml/ocaml"> <%s! Icons.github "w-6 h-6" %></a>
+        <a href="https://discord.gg/cCYQbqN"> <%s! Icons.discord "w-6 h-6" %></a>
+        <a href="https://twitter.com/ocamllang"><%s! Icons.twitter "w-6 h-6" %></a>
+        <a href="/feed.xml"><%s! Icons.rss "w-6 h-6" %></a>
+      </div>
+    </section>
 
-      <li>
-        <a class="h-10 md:h-12 flex items-center text-lighter" href="<%s Url.api %>" class="text-base leading-6 text-lighter">Standard Library API</a>
-      </li>
+    <section class="mt-6 grid grid-cols-2 mt-6">
+      <div class="flex flex-col gap-1">
+        <div class="flex flex-col">
+          <h5 class="font-bold text-base leading-7 py-2.5 text-black">About</h5>
+          <a href="<%s Url.changelog %>" class="font-normal text-lighter leading-7 py-2.5">Changelog</a>
+          <a href="<%s Url.releases %>" class="font-normal text-lighter leading-7 py-2.5">Releases</a>
+          <a href="<%s Url.industrial_users %>" class="font-normal text-lighter leading-7 py-2.5">Industrial Users</a>
+          <a href="<%s Url.academic_users %>" class="font-normal text-lighter leading-7 py-2.5">Academic Users</a>
+          <a href="<%s Url.about %>" class="font-normal text-lighter leading-7 py-2.5">Why OCaml?</a>
+        </div>
 
-      <li>
-        <a class="h-10 md:h-12 flex items-center text-lighter" href="<%s Url.releases %>" class="text-base leading-6 text-lighter">Releases</a>
-      </li>
+        <div class="flex flex-col">
+          <h5 class="font-bold text-base leading-7 py-2.5 text-black">
+            Ecosystem
+          </h5>
+          <a href="<%s Url.packages %>" class="font-normal text-lighter leading-7 py-2.5">Packages</a>
+          <a href="<%s Url.community %>" class="font-normal text-lighter leading-7 py-2.5">Community</a>
+          <a href="<%s Url.blog %>" class="font-normal text-lighter leading-7 py-2.5"> Blog</a>
+          <a href="<%s Url.jobs %>" class="font-normal text-lighter leaading-7 py-2.5"> Jobs</a>
+        </div>
+      </div>
 
-      <li>
-        <a class="h-10 md:h-12 flex items-center text-lighter" href="<%s Url.jobs %>" class="text-base leading-6 text-lighter">Jobs</a>
-      </li>
+      <div class="flex flex-col">
+        <h5 class="font-bold text-base leading-7 py-2.5 text-black">Resources</h5>
+        <a href="<%s Url.install %>" class="font-normal text-lighter leading-7 py-2.5">Install OCaml</a>
+        <a href="<%s Url.getting_started %>" class="font-normal text-lighter leading-7 py-2.5">Get Started</a>
+        <a href="<%s Url.platform %>" class="font-normal text-lighter leading-7 py-2.5">Platform Tools</a>
+        <a href="<%s Url.manual %>" class="font-normal text-lighter leading-7 py-2.5">Language Manual</a>
+        <a href="<%s Url.api %>" class="font-normal text-lighter leading-7 py-2.5">Standard Library API</a>
+        <a href="<%s Url.books %>" class="font-normal text-lighter leading-7 py-2.5">Books</a>
+        <a href="<%s Url.exercises %>" class="font-normal text-lighter leading-7 py-2.5">Exercises</a>
+        <a href="<%s Url.papers %>" class="font-normal text-lighter leading-7 py-2.5">Papers</a>
+        <a href="<%s Url.playground %>" class="font-normal text-lighter leading-7 py-2.5">OCaml Playground</a>
+      </div>
+    </section>
 
-      <li>
-        <a class="h-10 md:h-12 flex items-center text-lighter" href="<%s Url.privacy_policy %>">Privacy</a>
-      </li>
-    </ul>
-  </div>
-</footer>
+    <div
+      class="flex flex-wrap gap-x-7 md:justify-between items-center py-2 border-solid border-t-[1px] border-[#00000033] bottom-0 bg-white">
+      <h5 class="font-bold text-base leading-7 py-2.5 text-black">Policies</h5>
+      <a href="<%s Url.carbon_footprint %>" class="font-normal text-lighter leading-7 py-2.5">Carbon Footprint</a>
+      <a href="<%s Url.governance %>" class="font-normal text-lighter leading-7 py-2.5">Governance</a>
+      <a href="<%s Url.privacy_policy %>" class="font-normal text-lighter leading-7 py-2.5">Privacy</a>
+      <a href="<%s Url.code_of_conduct %>" class="font-normal text-lighter leading-7 py-2.5">Code Of Conduct</a>
+    </div>
+  </footer>
