@@ -20,7 +20,7 @@ It would benefit the reader to write variations around the examples provided to 
 
 The first four sections of this tutorial addresses non-function values. The following sections, starting at [Function as Values](#function-as-values) addresses functions.
 
-**Prerequisites**: This is an intermediate-level tutorial. Ensure you have have [completed the “Get Started” series](https://ocaml.org/docs/installing-ocaml) before proceeding with this tutorial.
+**Prerequisites**: Ensure you have have [completed the “Get Started” series](https://ocaml.org/docs/installing-ocaml) before proceeding with this tutorial.
 
 <!--
 When presenting OCaml or another functional programming language, it is often said: “Functions are treated as first-class citizens.” Without further explanation or context, this may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by that sentence. In turn, this should explain it:
@@ -35,7 +35,7 @@ When presenting OCaml or another functional programming language, it is often sa
 
 ## What is a Value?
 
-Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. Computing them produce values, which is the unique means to do something. Here are a few examples of expressions, their type, and the resulting values. Some include computation, some don't:
+Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. In OCaml, there are no statements that specify actions to be taken on data. All computation must be through expression evaluation. Computing expressions produce values. Here are a few examples of expressions, their type, and the resulting values. Some include computation, some don't:
 ```ocaml
 # "Everything has a value, every value has a type";;
 - : string = "Everything is a value, every value has a type"
@@ -52,9 +52,6 @@ Like most functional programming languages, OCaml is an [expression-oriented](ht
 # fun x -> x * x;;
 - : int -> int = <fun>
 
-# ();;
-- : unit = ()
-
 # print_endline;;
 - : string -> unit = <fun>
 
@@ -67,7 +64,7 @@ An expression's type (before evaluation) and its resulting value's type (after c
 
 ## Global Definitions
 
-Every expression can be named. This is the purpose of the `let ... = ... ` construction. The name is on the left; the expression is on the right.
+Every expression can be named. This is the purpose of the `let ... = ... ` statement. The name is on the left; the expression is on the right.
 * If the expression can be evaluated, it take places right away.
 * Otherwise, the expression is turned into a value as-is. That's the case of function definition.
 
@@ -77,7 +74,7 @@ Global definitions are those entered at the toplevel. This is what happens when 
 val the_answer : int = 42
 ```
 
-Here, `the_answer` is a global definition.
+Here, `the_answer` is the global definition with a value of 42.
 
 When a variant type has a single constructor, it is possible to combine pattern matching and definitions. The pattern is written between the `let` keyword and the equal sign. A very common case is pairs. It allows the creation of two names with a single `let`.
 ```ocaml
@@ -122,6 +119,8 @@ A special case of combined definition and pattern matching involves the unit typ
 ha ha
 ```
 
+> Note: As explained in the [Tour of OCaml](/docs/tour-of-ocaml) tutorial, the unit type has a single value `()`, which is pronounced "unit."
+
 Below, the pattern does not contain any identifier, meaning no name is defined. The expression is evaluated, the side effect takes place, no definition is created, and no value is returned. Writing that kind of pseudo-definition only expresses interest in the side effects.
 ```ocaml
 # print_endline "ha ha";;
@@ -133,15 +132,16 @@ ha ha
 - : unit = ()
 ```
 
-As seen in the last example, the catch-all pattern (the underscore symbol) can be used in definitions. The following example illustrates its use, which is distinct from the unit pattern:
+As seen in the last example, the catch-all pattern (`_`) can be used in definitions. The following example illustrates its use, which is distinct from the unit pattern:
 ```ocaml
 # let (_, y) = List.split [(1,2); (3,4); (5,6); (7,8)];;
 val y : int list = [2; 4; 6; 8]
 ```
+This construction creates two lists. The first is formed by the left element of each pair. The second is formed by the right element. Since we're only interested in the right element, we give the name `y` to that list and discard the first by using `_`.
 
 ## Local Definitions
 
-Local definitions are like global definitions, except the name is only bound inside an expression. They are introduced by the `let ... = ... in ...` construction. The name bound before the `in` keyword is only bound in the expression after the `in` keyword
+Local definitions are like global definitions, except the name is only bound inside an expression. They are introduced by the `let ... = ... in ...` expression. The name bound before the `in` keyword is only bound in the expression after the `in` keyword. 
 ```ocaml
 # let b = 2 * 3 in b * 7;;
 - : int = 42
@@ -151,8 +151,8 @@ Error: Unbound value b
 ```
 
 Here, the name `b` is bound to `6` inside the expression `b * 7`. A couple of remarks:
-- No global definition is introduced in this example
-- Computation of `2 * 3` will always take place before `b * 7`
+- No global definition is introduced in this example, which is why we get an error.
+- Computation of `2 * 3` will always take place before `b * 7`.
 
 Local definitions can be chained (one after another) or nested (one inside another). Here is an example of chaining:
 ```ocaml
@@ -182,9 +182,9 @@ Arbitrary combinations of chaining or nesting are allowed.
 
 ## Scopes and Environments
 
-Without oversimplifying, an OCaml program is a sequence of definitions or expressions. These items are said to be at the _top level_. An OCaml REPL, such as UTop, is called a toplevel because that's where typed expressions go.
+Without oversimplifying, an OCaml program is a sequence of expressions or global `let` definitions. These items are said to be at the _top level_. An OCaml REPL, such as UTop, is called a toplevel because that's where typed definitions go.
 
-Execution evaluates each expression from top to bottom.
+Execution evaluates each item from top to bottom.
 
 At any time during evaluation, the _environment_ is the ordered sequence of available definitions.
 
@@ -201,8 +201,7 @@ Here, the global environment is unchanged:
 # let pi = 3.14159 in 2. *. pi;;
 - : float = 6.28318
 ```
-
-However, with respect to the expression `2. *. pi`, the environment is different because it contains the definition of `pi`. Local definitions create local environments.
+If we call `pi`, it will result in an error because it hasn't been added to the global environment. However, with respect to the expression `2. *. pi`, the environment is different because it contains the definition of `pi`. Local definitions create local environments.
 
 A definition's scope is the set of environments where it is reachable.
 
@@ -220,11 +219,29 @@ With respect to the environment, there are no means to:
 - Remove a definition
 - Reset it to an earlier state
 
+### Inner Shadowing
+
+[*Shadowing*](https://en.wikipedia.org/wiki/Variable_shadowing) can be a difficult concept to grasp. As you learned in the [Tour of OCaml](/docs/tour-of-ocaml), bindings are immutable. Once you create a name, define it, and bind it to a value, it does not change. That said, a name can be defined again to create a new value. This is known as shadowing. The second definition *shadows* the first.
+
+A local definition may shadow any previous definition. Inner shadowing is limited to the local definition's scope. Therefore, anything written after will still take the previous definition, as shown:
+```ocaml
+# let d = 21;;
+val d : int = 21
+
+# let d = 7 in d * 2;;
+- : int = 14
+
+# d;;
+- : int = 21
+```
+
+Here, the value of `d` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `d` locally, inside `d * 2`, not globally.
+
+In summary, a name-value pair in a local expression *shadows* a binding with the same name in the global environment. In other words, the local binding temporarily hides the global one, making it inaccessible, but it doesn't change it. 
+
 ### Same-Level Shadowing
 
-*Shadowing* can be a difficult concept to grasp. As you learned in the [Tour of OCaml](/docs/tour-of-ocaml), bindings are immutable. Once you create a name, define it, and bind it to a value, it does not change. That said, a name can be defined again to create a new value. This is known as shadowing. The second definition *shadows* the first.
-
-You can write two definitions using the same identifier in sequence:
+Another kind of shadowing takes place when there are two definitions with the same name at the same level.
 ```ocaml
 # let c = 2 * 3;;
 val c : int = 6
@@ -242,8 +259,7 @@ val c : int = 49
 - : int = 49
 ```
 
-In this example, `c` is defined twice. The key thing to understand is that the name `c` is *not updated*. It looks as if the value of the first `c` has changed, but it hasn't. When the second `c` is defined, the first one becomes unreachable, but it still remains in the environment. This means anything written after the second definition uses its value, but functions written *before* the second definition still use the first, even if its called after. 
-
+In this example, `c` is defined twice. The key thing to understand is that the name `c` is *not updated*. It looks as if the first `c` value has changed, but it hasn't. When the second `c` is defined, the first one becomes unreachable, but it remains in the global environment. This means anything written after the second definition uses its value, but functions written *before* the second definition still use the first, even if its called later. 
 
 Here is how this can be useful:
 ```ocaml
@@ -262,24 +278,6 @@ In practice, computing a list's length always starts with the accumulator set to
 
 > Note: Lists are covered in the [Data Types](/docs/data-types) tutorial.
 
-### Inner Shadowing
-
-A local definition may shadow any other definition, just like a global definition does. The only difference is that shadowing is limited to the local definition's scope. Therefore, anything written after will still take the first definition, as shown:
-```ocaml
-# let d = 21;;
-val d : int = 21
-
-# let d = 7 in d * 2;;
-- : int = 14
-
-# d;;
-- : int = 21
-```
-
-Here, the value of `d` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `d` locally, inside `d * 2`, not globally.
-
-In summary, any name-value pair in a local expression that has the same name as a binding in the global definition *shadows* that global definition. In other words, the binding inside the local scope temporarily hides the variable from the surrounding scope, making it inaccessible, but it doesn't change the global definition.
-
 ## Function as Values
 
 As already stated, in OCaml, function are values. The this the key concept of [functional programming](https://en.wikipedia.org/wiki/Functional_programming). In this context, it is also possible to say that OCaml has [first-class](https://en.wikipedia.org/wiki/First-class_function) functions or that functions are [first-class citizens](https://en.wikipedia.org/wiki/First-class_citizen).
@@ -288,19 +286,16 @@ For now, let's put aside those definitions and instead start playing with functi
 
 This is a big takeaway. We believe functional programming (_ergo_ OCaml) is best understood by practising it rather than reading about it. Just like skateboarding, cooking, or woodworking. Learning by doing is not only possible, it is usually the easiest and the best way to start. Because in the end, the goal is not to be able to give the correct definition of abstract terms but to write OCaml code.
 
-## Calling Functions
+## Applying Functions
 
-In OCaml, no symbol is needed to express passing an argument to a function. When several expressions are written side by side, the leftmost one should be a function. All the others are parameters. In OCaml, parentheses serve a single purpose: associating expressions to create subexpressions.
+When several expressions are written side by side, the leftmost one should be a function. All the others are parameters. In OCaml, no parentheses are needed to express passing an argument to a function. Parentheses serve a single purpose: associating expressions to create subexpressions.
 ```ocaml
 # max (21 * 2) (int_of_string "713");;
 - : int = 713
 ```
 
-There are two alternative ways to call functions: using the application `@@` operator or the pipe `|>` operator.
+There are two alternative ways to apply functions: using the *application* `@@` operator or the *pipe* `|>` operator.
 ```ocaml
-# ( @@ );;
-- : ('a -> 'b) -> 'a -> 'b = <fun>
-
 # sqrt 9.0;;
 - : float = 3.
 
@@ -310,18 +305,15 @@ There are two alternative ways to call functions: using the application `@@` ope
 
 The `@@` application operator applies a parameter (on the right) to a function (on the left). It is useful when chaining several calls, as it avoids writing parentheses. Here is an example with and without parentheses:
 ```ocaml
-# truncate (sqrt (float_of_int (int_of_string "81")));;
+# int_of_float (sqrt (float_of_int (int_of_string "81")));;
 - : int = 9
 
-# truncate @@ sqrt @@ float_of_int @@ int_of_string "81";;
+# int_of_float @@ sqrt @@ float_of_int @@ int_of_string "81";;
 - : int = 9
 ```
 
 The pipe operator (`|>`) also avoids parentheses but in reversed order: function on right, parameter on left.
 ```ocaml
-# ( |> );;
-- : 'a -> ('a -> 'b) -> 'b = <fun>
-
 # "81" |> int_of_string |> float_of_int |> sqrt |> truncate;;
 - : int = 9
 ```
@@ -346,13 +338,13 @@ As citizens of the same level as other values, functions don't have to be bound 
 
 In order, here is what they do:
 - The identity function takes anything, returns it unchanged.
-- The square function takes an integer, returns its square.
+- The square function takes an integer, returns it squared.
 - The function taking two strings and returns their concatenation with a space character in between.
 - A function taking a list returns `None`, if the list is empty, and the tail of the list otherwise.
 
 ## Defining Global Functions
 
-Defining a global function isn't very different from binding a value to a name. The only difference is that no computation takes place. The expression is turned into a function value and bound to the name.
+Defining a global function is exactly like binding a value to a name. The expression, which happens to be a function, is turned into value and bound to a name.
 ```ocaml
 # let f = fun x -> x * x;;
 val f : int -> int = <fun>
@@ -378,9 +370,7 @@ Calling `sq;;` gets an error because it was only defined locally.
 
 ## Closures
 
-As introduced in [Same-Level Shadowing](#same-level-shadowing] section, a *closure* uses the name-value binding that precedes a particular function, even after that name is redefined. In other words, the function is *enclosed* between two different definitions; it will never compute future bindings. A *function value* is a pair containing the function code and an environment. It is this pair that is called a [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
-
-The following sequence of definitions and expressions illustrates a closure:
+This section explains what a [*closure*](https://en.wikipedia.org/wiki/Closure_(computer_programming)) is using [Same-Level Shadowing](#same-level-shadowing]. The following illustrates what a closure is:
 ```ocaml
 # let d = 2 * 3;;
 val d : int = 6
@@ -405,7 +395,7 @@ Here is how this makes sense:
 1. Create a new definition `d`, shadowing the first one
 1. Compute `f` of 7 again, the result is the same: 42
 
-Although the new definition of `d` *shadows* the first one, the original remains the one the function `f` uses. The `f` function's environment is captured with the first value of `d`. In other words, this `d` is *enclosed* inside the function `f`, so every time you call `f` (even after the second definition of `d`), you can be confident the function will behave the same. 
+Although the new definition of `d` *shadows* the first one, the original remains the one the function `f` uses. The `f` function's environment captures the first value of `d`, so every time you apply `f` (even after the second definition of `d`), you can be confident the function will behave the same. A closure is a pair containing the function code and an environment.
 
 However, all future expressions will use the new value of `d` (`10`), as shown here:
 
