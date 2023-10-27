@@ -279,6 +279,8 @@ val d : int = 21
 
 Here, the value of `d` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `d` locally, inside `d * 2`, not globally.
 
+In summary, any name/value pair in a local expression that has the same name as a binding in the global definition *shadows* that global definition. In other words, the binding inside the local scope temporarily hides the variable from the surrounding scope, making it inaccessible, but does not affect it in any way. In other words, it doesn't change the global definition.
+
 ## Function as Values
 
 As already stated, in OCaml, function are values. The this the key concept of [functional programming](https://en.wikipedia.org/wiki/Functional_programming). In this context, it is also possible to say that OCaml has [first-class](https://en.wikipedia.org/wiki/First-class_function) functions or that functions are [first-class citizens](https://en.wikipedia.org/wiki/First-class_citizen).
