@@ -403,7 +403,9 @@ Here is how this makes sense:
 1. Create a new definition `d`, shadowing the first one
 1. Compute `f` of 7 again, the result is the same
 
-Although the new definition of `d` *shadows* the first one, its original value remains the one `f` uses. That first definition of `d` is trapped inside the definition of `f`. The environment is frozen as it was when `f` was defined, with the first value of `d`. A *function value* is a pair containing the function code and an environment. It is this pair that is called a [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
+Although the new definition of `d` *shadows* the first one, the original remains the one the function `f` uses. That first definition of `d` is captured inside the function `f`, so every time you call that function in the future (even after the second definition of `d`), you can be confident the function will behave the same. 
+
+The `f` function's environment is captured with the first value of `d`. In other words, this `d` is *enclosed* inside the function `f`. A *function value* is a pair containing the function code and an environment. It is this pair that is called a [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
 
 But all future expressions will use the new value of `d` (`10`), as shown here:
 
