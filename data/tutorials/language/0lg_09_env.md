@@ -256,7 +256,7 @@ val length : int -> 'a list -> int = <fun>
 val length : 'a list -> int = <fun>
 ```
 
-The first definition of `length` has two parameters: the empty list `[]` to process and the accumulated length `_ :: u` that has already been computed. Writing it this way makes it [*tail-recursive*](https://en.wikipedia.org/wiki/Tail_call).
+The first definition of `length` has two parameters: the empty list `[]` to process and the accumulated length `_ :: u` that has already been computed. Writing it this way makes it [*tail-recursive*](https://en.wikipedia.org/wiki/Tail_call). The `rec` in the first statement indicates a *recursive function,* which will be [covered later in this tutorial](#recursive-functions).
 
 In practice, computing a list's length always starts with the accumulator set to `[]`, an empty list (called "nil"). Therefore, the first definition is shadowed by the second where the accumulator parameter is set to 0. Anything written after will refer to the second definition (`0`).
 
@@ -424,9 +424,9 @@ Inside the `max_42` function, the environment contains an additional binding bet
 
 ## Recursive Functions
 
-In order to perform iterated computations, a function may call itself. Such a function is called _recursive_. Recursive functions must be defined; they can't be anonymous. A recursive function also needs to be explicitly declared as such by using `let rec`. In OCaml, either a function is declared as recursive or it isn't recursive. It is not possible to accidentally create recursion loops between functions. As a consequence, recursive functions can't be anonymous.
+In order to perform iterated computations, a function may call itself. Such a function is called _recursive_. In OCaml, recursive functions must be defined and explicitly declared by using `let rec`. It is not possible to accidentally create recursion loops between functions. As a consequence, recursive functions can't be anonymous.
 
-The classic (and very inefficient) way to present recursion is using the function that computes numbers of the [Fibonacci Sequence](https://en.wikipedia.org/wiki/Fibonacci_sequence).
+The classic (and very inefficient) way to present recursion is using the function that computes the [Fibonacci Sequence](https://en.wikipedia.org/wiki/Fibonacci_sequence).
 ```ocaml
 # let rec fibo n = if n <= 1 then n else fibo (n - 1) + fibo (n - 2);;
 val fibo : int -> int = <fun>
@@ -451,7 +451,7 @@ val fibo : int -> int = <fun>
 
 The first version takes two extra parameters: the two previously computed Fibonacci numbers.
 
-The second version uses the two first Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called “tail call elimination,” which turns recursivity into imperative iteration in the generated native code and leads to much improved performances.
+The second version uses the two first Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called “tail call elimination.” This turns recursivity into imperative iteration in the generated native code and leads to much-improved performances.
 
 ## Multiple Arguments Functions
 
@@ -459,7 +459,7 @@ The second version uses the two first Fibonacci numbers as initial values. There
 
 Until now, functions with several arguments had a type looking like this: `a₁ -> a₂ -> a₃ -> ⋯ -> b`
 
-Where `a₁` is the type of the first argument, `a₂` is the type of the second argument, etc., and `b` is the type of the result. However, this type isn't displayed as it is. In reality, this type is the following: `a₁ -> (a₂ -> (a₃ -> ⋯ -> b))`. The arrow symbol is a binary operator. Here is how this can be observed:
+Where `a₁` is the type of the first argument, `a₂` is the type of the second argument, etc., and `b` is the type of the result. However, this type isn't displayed as it is. In reality, this type is the following: `a₁ -> (a₂ -> (a₃ -> ⋯ -> b))`. The arrow symbol is a [binary operator](https://en.wikipedia.org/wiki/Binary_operation). Here is how this can be observed:
 ```ocaml
 # ( + );;
 - : int -> int -> int = <fun>
@@ -468,7 +468,7 @@ Where `a₁` is the type of the first argument, `a₂` is the type of the second
 val f : int -> int -> int = <fun>
 ```
 
-In this example, the type of the integer addition function `( + )` is displayed first. It prints as `int -> int -> int`. It takes two integers and returns an integer. In the second part, `f` is defined to have type `int -> (int -> int)`. Despite the type of `( + )` looking different, the binding with `f` is allowed because those two types are the same. The toplevel always prints the version without parentheses to make it easier to read.
+In this example, the type of integer addition function `( + )` is displayed first. It prints as `int -> int -> int`, meaning it takes two integers and returns an integer. In the second statement, `f` is defined to have type `int -> (int -> int)`. Despite the type of `( + )` looking different, the binding with `f` is allowed because those two types are the same. The toplevel always prints the version without parentheses to make it easier to read.
 
 Putting the parentheses the other way does not work:
 ```ocaml
@@ -478,13 +478,13 @@ Error: This expression has type int -> int -> int
        Type int is not compatible with type int -> int
 ```
 
-In mathematical language, it is said that the type arrow operator _associates to the right_. Function types without parentheses should be treated as if they have parentheses, placed to the right the same way that the type of `f` was declared above. These types are the same:
+In mathematical language, the type arrow operator _associates to the right_. Function types without parentheses should be treated as if they have parentheses placed to the right in the same way that the type of `f` was declared above. These types are the same:
 - `int -> int -> int`
 - `int -> (int -> int)`
 
 But only the first is displayed, so it is not the same as `(int -> int) -> int`.
 
-Most importantly, this means a “binary” function isn't really a function that takes two parameters. In the case of addition, it is a function that takes an integer and returns a function of type `int -> int`. And it is indeed!
+Most importantly, this means a *binary* function isn't really one that takes two parameters. In the case of addition, it is a function that takes an integer and returns a function of type `int -> int`. And it is indeed!
 ```ocaml
 # ( + ) 2;;
 - : int -> int = <fun>
@@ -506,7 +506,7 @@ It takes a pair of strings and returns a string.
 - : string = "hello world"
 ```
 
-Asking whether `space_cat` is a binary function or not makes sense. Morally, it takes two parameters: the two strings that are sandwiching the space character. Wrapped as a pair, they are a single piece of data, so `space_cat` has a single parameter. But it is the elements of that pair that are relevant, not the pair as a whole. So morally, `space_cat` is a binary function. Syntactically, the call `space_cat ("hello", "world")` looks pretty much like a function call in high school maths or a spreadsheet application, both having two parameters: `"hello"` and `"pair"`.
+Asking whether `space_cat` is a binary function or not makes sense. Morally, it takes two parameters: the two strings that sandwich the space character. Wrapped as a pair, they are a single piece of data, so `space_cat` has a single parameter. But it is that pair's elements that are relevant, not the pair as a whole. So morally, `space_cat` is a binary function. Syntactically, the call `space_cat ("hello", "world")` looks pretty much like a high school maths function call or a spreadsheet application, both having two parameters: `"hello"` and `"world"`.
 
 ### Currying and Uncurrying
 
@@ -514,7 +514,7 @@ In the two previous sections, two kinds of “multiple parameter” functions ha
 - Functions returning a function, such as `( + )`
 - Functions taking a pair or a tuple as a parameter, such as `space_cat`
 
-Interestingly, both kinds of functions provide a way to pass several parameters while being functions with a single parameter. In this perspective, it makes sense to say: “All functions have a single argument.”
+Interestingly, both kinds of functions provide a way to pass several parameters while being functions with a single parameter. From this perspective, it makes sense to say: “All functions have a single argument.”
 
 This goes even further. Any function of the same kind can be translated into an equivalent function of the second kind, and conversely. Using OCaml support for higher-order functions, it is possible to define those transformations as functions.
 
@@ -530,18 +530,18 @@ Here is the reverse translation:
 - : ('a * 'b -> 'c) -> 'a -> 'b -> 'c = <fun>
 ```
 
-These translations are attributed to the 20th-century logician [Haskell Curry](https://en.wikipedia.org/wiki/Haskell_Curry). The second translation is called currying and the first is called uncurrying.
+These translations are attributed to the 20th-century logician [Haskell Curry](https://en.wikipedia.org/wiki/Haskell_Curry). The second translation is called *currying* and the first is called *uncurrying*.
 
 From a typing perspective, this means that for any types `a`, `b`, and `c`, the following types are equivalent:
 - `a -> (b -> c)` &mdash; curried function type
 - `a * b -> c` &mdash; uncurried function type
 
-We will not dive any deeper into the details here. This equivalence can be formally defined using _ad-hoc_ mathematics.
+We will not dive any deeper into the details here, but this equivalence can be formally defined using _ad-hoc_ mathematics.
 
 It is rarely necessary to use the functions above. However, it is important to understand that changing a function may not need any code refactoring. A function can be given several equivalent forms and changed into another, either using refactoring or using a higher-order function. Since functions are values, currying and uncurrying are operations on those values.
 
 In practice, curried functions are the default form functions should take because:
-- Allows partial application
+- They allow partial application
 - Less editing, no parentheses or commas
 - No pattern matching over a tuple
 
