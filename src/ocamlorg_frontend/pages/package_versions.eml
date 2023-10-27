@@ -12,10 +12,10 @@ Layout.render
     <table class="table-auto border-separate border-spacing-y-6">
         <thead class="container-fluid text-md text-lighter text-left">
             <tr class="py-4">
-                <th class="text-left font-normal border-b-2 border-gray-200 py-4 pr-14 pl-3"><%s! Icons.bars_3 "h-5 w-5"; %></th>
-                <th class="text-left font-normal border-b-2 border-gray-200 pr-12">Version</th>
-                <th class="text-left font-normal border-b-2 border-gray-200 pr-14">Release Date</th>
-                <th class="text-left font-normal border-b-2 border-gray-200 pr-14 pl-5">Links</th>
+                <th class="text-left font-normal border-b-2 border-gray-200 py-4 pl-3 sm:pr-14"><%s! Icons.bars_3 "h-5 w-5"; %></th>
+                <th class="text-left font-normal border-b-2 border-gray-200 pl-5 pr-2 sm:pr-12">Version</th>
+                <th class="text-left font-normal border-b-2 border-gray-200 pr-4 sm:pr-14">Release Date</th>
+                <th class="text-left font-normal border-b-2 border-gray-200 pr-4 pl-2 sm:pr-14 sm:pl-5">Links</th>
             </tr>
         </thead>
         <tbody>
@@ -24,36 +24,36 @@ Layout.render
             <% if List.nth package.versions 0 = version then ( %>
             <td class="text-left font-normal py-5 px-4 bg-primary-200 rounded-l">
               <div class="bg-primary-600 h-3 w-3 rounded-full"></div>
-              <div class="absolute h-16 pl-1">
+              <div class="absolute h-[4.5rem] pl-1">
                 <div class="-ml-px w-1 border-solid border-r-2 border-gray-200 h-full"></div>
               </div>
             </td>
             <td class="text-left bg-primary-200">
-              <a href="/p/<%s package.name %>/<%s version %>" class="py-5 mr-10 hover:no-underline hover:text-primary-600 focus:text-primary-600 focus:no-underline font-bold focus:font-bold text-base"><%s version %></a>
+              <a href="/p/<%s package.name %>/<%s version %>" class="p-5 mr-4 hover:no-underline hover:text-primary-600 focus:text-primary-600 focus:no-underline font-bold focus:font-bold text-base sm:mr-10"><%s version %></a>
             </td>
-            <td class="pr-10 text-left text-sm bg-primary-200">
+            <td class="pr-4 text-left text-sm bg-primary-200 sm:pr-10">
               <%s Utils.human_date_of_timestamp package.publication %>
             </td>
             <td class="text-left text-sm bg-primary-200 rounded-r">
-              <a href="/p/<%s package.name %>/<%s version %>/doc/index.html" class="text-primary-600 flex items-center mx-4 font-medium"><%s! Icons.document "h-5 w-5"; %> Documentation</a>
+              <a href="/p/<%s package.name %>/<%s version %>/doc/index.html" class="text-primary-600 flex items-center p-2 font-medium sm:p-4"><%s! Icons.document "h-5 w-5"; %> Documentation</a>
             </td>
             <% ) else ( %>
             <td class="text-left font-normal py-5 px-4">
               <div class="bg-gray-200 h-2 w-2 rounded-full ml-0.5"></div>
-              <div class="absolute h-16 pl-1">
+              <div class="absolute h-[4.5rem] pl-1">
                 <% if List.nth package.versions (List.length package.versions -1) <> version then ( %>
                 <div class="-ml-px w-1 border-solid border-r-2 border-gray-200 h-full"></div>
                 <% ); %>
               </div>
             </td>
             <td class="text-left">
-              <a href="/p/<%s package.name %>/<%s version %>" class="py-5 mr-10 hover:no-underline hover:text-primary-600 focus:text-primary-600 focus:no-underline hover:font-bold focus:font-bold text-base"><%s version %></a>
+              <a href="/p/<%s package.name %>/<%s version %>" class="p-5 mr-4 hover:no-underline hover:text-primary-600 focus:text-primary-600 focus:no-underline hover:font-bold focus:font-bold text-base sm:mr-10"><%s version %></a>
             </td>
-            <td class="pr-10 text-left text-sm">
+            <td class="pr-4 text-left text-sm sm:pr-10">
               <%s Utils.human_date_of_timestamp package.publication %>
             </td>
             <td class="text-left text-sm">
-              <a href="/p/<%s package.name %>/<%s version %>/doc/index.html" class="text-primary-600 flex items-center px-4 font-medium"><%s! Icons.document "h-5 w-5"; %> Documentation</a>
+              <a href="/p/<%s package.name %>/<%s version %>/doc/index.html" class="text-primary-600 flex items-center p-2 font-medium sm:p-4"><%s! Icons.document "h-5 w-5"; %> Documentation</a>
             </td>
             <% ); %>
           </tr>
