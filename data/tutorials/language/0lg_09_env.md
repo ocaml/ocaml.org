@@ -370,7 +370,7 @@ Calling `sq;;` gets an error because it was only defined locally.
 
 ## Closures
 
-This section explains what a [*closure*](https://en.wikipedia.org/wiki/Closure_(computer_programming)) is using [Same-Level Shadowing](#same-level-shadowing]. The following illustrates what a closure is:
+The following example illustrates a [*closure*](https://en.wikipedia.org/wiki/Closure_(computer_programming)) using [Same-Level Shadowing](#same-level-shadowing]:
 ```ocaml
 # let d = 2 * 3;;
 val d : int = 6
