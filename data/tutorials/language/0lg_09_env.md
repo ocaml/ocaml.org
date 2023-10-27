@@ -222,7 +222,7 @@ With respect to the environment, there are no means to:
 
 ### Same-Level Shadowing
 
-*Shadowing* can be a difficult concept to grasp. As you learned in the [Tour of OCaml](/docs/tour-of-ocaml), bindings are immutable. Once you create a name and give it a value (definition), it does not change. They are bound together. That said, a name can be defined again
+*Shadowing* can be a difficult concept to grasp. As you learned in the [Tour of OCaml](/docs/tour-of-ocaml), bindings are immutable. Once you create a name and give it a value (definition), it does not change. They are bound together. That said, a name can be defined again. This is known as shadowing. The second definition *shadows* the first.
 
 You can write two definitions using the same identifier in sequence:
 ```ocaml
