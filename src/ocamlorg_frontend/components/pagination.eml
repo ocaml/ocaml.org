@@ -19,7 +19,7 @@ let right_arrow ~base_url page =
   </a>
 
 let render ~total_page_count ~page_number ~base_url =
-  <div class="pt-16  lg:pt-16  pb-10 md:pb-0 flex items-center justify-center space-x-2.5">
+  <div class="pt-16 flex items-center justify-center space-x-2.5">
     <%s! if page_number != 1 then (left_arrow ~base_url page_number) else "" %>
     <%s! link ~base_url ~page:1 ~current:page_number %>
     <% if page_number >= 4 then ( %>
