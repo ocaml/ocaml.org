@@ -94,7 +94,7 @@ let sidebar_link_group
 title
 link_html
 =
-  <div class="space-y-2 pl-2 pr-8 flex flex-col">
+  <div class="pl-2 pr-8 flex flex-col">
     <div class="text-lg font-bold leading-10 flex py-1 uppercase"><%s title %></div>
     <%s! link_html %>
     <%s! extra_html %>
