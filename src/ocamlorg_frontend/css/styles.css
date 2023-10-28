@@ -28,6 +28,7 @@ body {
 
 .container-fluid {
   @apply max-w-7xl w-full mx-auto px-4;
+  word-wrap: break-word;
 }
 
 @media (min-width: 40em) {
