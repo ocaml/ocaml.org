@@ -134,8 +134,8 @@ The Dune benchmarks also exposed two broken packages: We've updated the hash of 
 The benchmarks also exposed a stack overflow in `dune-rpc-lwt` which has now been fixed.
 
 **Activities:**
-- Ran short `monorepo` benchmarks multiple times -- [ocaml/dune#7798](https://github.com/ocaml/dune/pull/7798).
-- Fixed issues in `monorepo` benchmarks -- [ocaml/dune#7786](https://github.com/ocaml/dune/pull/7786).
+- Ran short monorepo benchmarks multiple times -- [ocaml/dune#7798](https://github.com/ocaml/dune/pull/7798).
+- Fixed issues in monorepo benchmarks -- [ocaml/dune#7786](https://github.com/ocaml/dune/pull/7786).
 - [Added](https://github.com/ocaml/opam-source-archives/pull/21) `ocamlcodoc` to `opam-source-archives` and [updated](https://github.com/ocaml/opam-repository/pull/23801) `opam-repository`.
 - Opened an [issue](https://github.com/roddyyaga/ppx_rapper/issues/34) about the `ppx_rapper.3.1.0` package changing in place.
 
