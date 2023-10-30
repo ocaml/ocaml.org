@@ -261,23 +261,6 @@ val c : int = 49
 
 In this example, `c` is defined twice. The key thing to understand is that the name `c` is *not updated*. It looks as if the first `c` value has changed, but it hasn't. When the second `c` is defined, the first one becomes unreachable, but it remains in the global environment. This means anything written after the second definition uses its value, but functions written *before* the second definition still use the first, even if its called later. 
 
-Here is how this can be useful:
-```ocaml
-# let rec length len = function
-  | [] -> len
-  | _ :: u -> length (len + 1) u;;
-val length : int -> 'a list -> int = <fun>
-
-# let length u = length 0 u;;
-val length : 'a list -> int = <fun>
-```
-
-The first definition of `length` has two parameters: the empty list `[]` to process and the accumulated length `_ :: u` that has already been computed. Writing it this way makes it [*tail-recursive*](https://en.wikipedia.org/wiki/Tail_call). The `rec` in the first statement indicates a *recursive function,* which will be [covered later in this tutorial](#recursive-functions).
-
-In practice, computing a list's length always starts with the accumulator set to `[]`, an empty list (called "nil"). Therefore, the first definition is shadowed by the second where the accumulator parameter is set to 0. Anything written after will refer to the second definition (`0`).
-
-> Note: Lists are covered in the [Data Types](/docs/data-types) tutorial.
-
 ## Function as Values
 
 As already stated, in OCaml, function are values. The this the key concept of [functional programming](https://en.wikipedia.org/wiki/Functional_programming). In this context, it is also possible to say that OCaml has [first-class](https://en.wikipedia.org/wiki/First-class_function) functions or that functions are [first-class citizens](https://en.wikipedia.org/wiki/First-class_citizen).
