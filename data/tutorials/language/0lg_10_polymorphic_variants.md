@@ -2,7 +2,7 @@
 id: polymorphic-variants
 title: Polymorphic Variants
 description: |
-  Everything you always wanted to know about polymorphic variants, but were afraid to ask
+  Everything you always wanted to know about polymorphic variants but were afraid to ask
 category: "Language"
 ---
 
@@ -10,19 +10,19 @@ category: "Language"
 
 ## Introduction
 
-This tutorial teaches how to use polymorphic variants. This includes starting using them, maintaining a project already using them, deciding when to use them or not, balancing their unique benefits against their drawbacks.
+This tutorial teaches you how to use polymorphic variants. This includes starting using them, maintaining a project already using them, deciding when to use them or not, and balancing their unique benefits against their drawbacks.
 
 Product types and data types such as `option` and `list` are variants and polymorphic. In this tutorial, they are called _simple variants_ to distinguish them from the _polymorphic variants_ presented here. Simple variants and polymorphic variants are close siblings. Their values are both introduced using labels that may carry data. Both can be recursive and have type parameters. By the way, don't trust ChatGPT if it tells you polymorphic variants are dynamically type checked; it is hallucinating. Like simple variants, polymorphic variants are type checked statically.
 
-However, they are type checked using different algorithms, which result in a different programming experience. The relationship between value and type (written with the colon symbol `:`) is changed with polymorphic variants. Usually, values are thought of as inhabitants of the type, which is regarded as set-like thing. Rather, polymorphic variant values should be considered as pieces of data that several functions can accept. Polymorphic variants types are a way to express compatibility relationship between those functions. The approach in this tutorial is to build sense from experience using features of polymorphic variants.
+However, they are type checked using different algorithms, which result in a different programming experience. The relationship between value and type (written with the colon symbol `:`) is changed with polymorphic variants. Usually, values are thought of as inhabitants of the type, which is regarded as a set-like thing. Rather, polymorphic variant values should be considered as pieces of data that several functions can accept. Polymorphic variants types are a way to express compatibility relationship between those functions. The approach in this tutorial is to build sense from experience using features of polymorphic variants.
 
-**Prerequisites**: This is intermediate level tutorial. It is required is to have completed tutorials on [Functions and Values](/docs/functions-and-values), [Basic Data Types](/docs/basic-data-types) and [Lists](/docs/lists) to begin this one.
+**Prerequisites**: This is intermediate level tutorial. It is required is to have completed tutorials on [Functions and Values](/docs/functions-and-values), [Basic Data Types](/docs/basic-data-types), and [Lists](/docs/lists) to begin this one.
 
 ### Origin and Context
 
-Polymorphic variants originate from Jacques Garrigue work on Objective Label, which was [first published in 1996](https://caml.inria.fr/pub/old_caml_site/caml-list-ar/0533.html). It became part of standard Objective Caml with [release 3.0](https://caml.inria.fr/distrib/ocaml-3.00/) in 2000, along with labelled and optional function arguments. They were introduced to give more precise types in LablTk.
+Polymorphic variants originate from Jacques Garrigue's work on Objective Label, which was [first published in 1996](https://caml.inria.fr/pub/old_caml_site/caml-list-ar/0533.html). It became part of standard Objective Caml with [release 3.0](https://caml.inria.fr/distrib/ocaml-3.00/) in 2000, along with labelled and optional function arguments. They were introduced to give more precise types in LablTk.
 
-The core type system of OCaml follows a [_nominal_](https://en.wikipedia.org/wiki/Nominal_type_system) discipline. Variants must be explicitly declared before being used. The typing discipline used for polymorphic variants and classes is different, it is [_structural_](https://en.wikipedia.org/wiki/Structural_type_system).
+The core type system of OCaml follows a [_nominal_](https://en.wikipedia.org/wiki/Nominal_type_system) discipline. Variants must be explicitly declared before being used. The typing discipline used for polymorphic variants and classes is different, as it is [_structural_](https://en.wikipedia.org/wiki/Structural_type_system).
 
 In the nominal approach of typing, types are first defined; later, when type checking an expression, three outcomes are possible:
 1. If a matching type is found, it becomes the inferred type.
