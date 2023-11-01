@@ -5,7 +5,7 @@ date: "2023-06-26"
 tags: [ocamlorg]
 ---
 
-Welcome to the May 2023 edition of the OCaml.org newsletter! As with the [previous update](https://ocaml.org/news/ocamlorg-2023-04), this has been compiled by `@sabine` and `@tmattio`.
+Welcome to the May 2023 edition of the OCaml.org newsletter! As with the [previous update](https://ocaml.org/news/ocamlorg-2023-04), this has been compiled by @sabine and @tmattio.
 
 The OCaml.org newsletter provides an overview of changes on the OCaml.org website and gives you a glimpse into what has been going on behind the scenes. You can find a [list of previous issues here](https://discuss.ocaml.org/tag/ocamlorg-newsletter).
 
@@ -13,7 +13,7 @@ Our goal is to make OCaml.org the best resource for anyone who wants to get star
 
 We present the work we've been doing this month in three sections:
 * **Learn area:** We're working towards making OCaml.org a great resource to learn OCaml and discover its ecosystem. This month, we worked on the first wireframes of the new Learn section, and we published a couple of new documentation pages.
-* **Package documentation search:** In-package search is now available for every package on OCaml.org! We released a first, minimal version of the feature and will continue to improve it in the coming months.
+* **Package documentation search:** In-package search is now available for every package on OCaml.org! We released the first, minimal version of the feature and will continue to improve it in the coming months.
 * **General Improvements:** We also worked on general maintenance and improvements. We'll highlight some of them in this newsletter.
 
 ## Learn Area
@@ -24,7 +24,7 @@ As part of our effort to make OCaml.org a great resource to learn OCaml, we publ
 
 As a follow-up to the user survey conducted last month, we posted a [summary for the Learn area survey](https://discuss.ocaml.org/t/you-started-to-learn-ocaml-less-than-12-months-ago-please-help-us-with-our-user-survey-on-the-ocaml-org-learning-area/11945/2).
 
-After we analysed the interviews data, created user insight cards, and went through all the resources recommened by the survey responses, we prioritised tasks and began creating wireframes for the Learn section. The work-in-progress wireframes are accessible on [Figma](https://www.figma.com/file/Aqk5y03fsaCuhTSywmmY06/OCaml.org-Public-Designs?type=design&node-id=114-175&mode=design).
+After we analysed the interview data, created user insight cards, and went through all the resources recommended by the survey responses, we prioritised tasks and began creating wireframes for the Learn section. The work-in-progress wireframes are accessible on [Figma](https://www.figma.com/file/Aqk5y03fsaCuhTSywmmY06/OCaml.org-Public-Designs?type=design&node-id=114-175&mode=design).
 
 In June, we'll start gathering user feedback on the wireframes and eventually start creating designs for the new Learn pages.
 
@@ -37,7 +37,7 @@ Asking the community to help review the initial versions of the new documentatio
 We're deeply grateful to all the contributors who helped review the documentation, either by sharing insights on Discuss or participating in the PR review on GitHub. This is exactly how we envisioned the effort on creating the new OCaml.org Documentation, so we're appreciative of everyone who engaged to make this a community initiative!
 
 **Relevant PRs and Activities:**
-- Reached out for community feedback on the new *Error Handling* documentation page - [Updating the Error Handling Tutorial)[https://discuss.ocaml.org/t/updating-the-error-handling-tutorial/12022]
+- Reached out for community feedback on the new *Error Handling* documentation page https://discuss.ocaml.org/t/updating-the-error-handling-tutorial/12022
 - *First Hour* improvement [ocaml/ocaml.org#1153](https://github.com/ocaml/ocaml.org/pull/1153)
 - Line editing for *Functors* [ocaml/ocaml.org#1127](https://github.com/ocaml/ocaml.org/pull/1127)
 - Rewrite *Functional Programming* doc introduction [ocaml/ocaml.org#971](https://github.com/ocaml/ocaml.org/pull/971)
@@ -56,7 +56,7 @@ We're deeply grateful to all the contributors who helped review the documentatio
 
 ## In-Package Documentation Search
 
-In April, we started working on building an in-package search feature for OCaml packages on OCaml.org. We continued this effort through May, and we released the feature at the end of the month. In-package search is now accessible for every packages on OCaml.org! :tada:
+In April, we started working on building an in-package search feature for OCaml packages on OCaml.org. We continued this effort through May, and we released the feature at the end of the month. In-package search is now accessible for every package on OCaml.org! :tada:
 
 Note that this is the first, minimal version of the feature. We're planning many improvements in the coming months, especially as the `odoc` team is currently working on adding search capabilities to `odoc`.
 

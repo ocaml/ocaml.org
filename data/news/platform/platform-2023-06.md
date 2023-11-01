@@ -5,13 +5,28 @@ date: "2023-07-18"
 tags: [platform]
 ---
 
-Welcome to the third installment of the OCaml Platform newsletter!
+Welcome to the third instalment of the OCaml Platform newsletter!
 
 This edition brings the latest improvements made in June to enhance the OCaml developer experience with the [OCaml Platform](https://ocaml.org/docs/platform). As in the [previous updates](https://discuss.ocaml.org/tag/platform-newsletter), the newsletter features the development workflow currently being explored or enhanced.
 
 The month's standout highlight is undoubtedly the [first alpha release of opam 2.2](https://ocaml.org/changelog/2023-07-04-opam-2-2-0-alpha)! Years in the making (opam 2.1 was released almost two years ago), the significance of the hard work put in by the opam team can't be overstated. Much appreciation goes out to the opam team (Raja Boujbel, David Allsopp, Kate Deplaix, Louis Gesbert, in a united OCamlPro/Tarides collaboration), and especially to Raja Boujbel for diligently pushing the work to completion in order to achieve this alpha. [The announcement](https://ocaml.org/changelog/2023-07-04-opam-2-2-0-alpha) holds more details, and we encourage you to provide feedback on the [Discuss post](https://discuss.ocaml.org/t/ann-opam-2-2-0-alpha-release/12536).
 
-[toc]
+- Releases
+- Building Packages
+  - [Dune] Exploring Package Management in Dune
+  - [opam] Native Support for Windows in opam 2.2
+  - [Dune] Improving Dune’s Documentation
+  - [Dune] New `dune show` command
+- Generating Documentation
+  - [odoc] Add Search Capabilities to `odoc`
+- Editing and Refactoring Code
+  - [Merlin] Support for Project-Wide References in Merlin
+  - [Merlin] Improving Merlin’s Performance
+  - [OCaml LSP] Upstreaming OCaml LSP’s Fork of Merlin
+  - [OCaml LSP] Extract code actions
+  - [OCaml LSP] Support for Inlay Hints
+- Formatting Code
+  - [OCamlFormat] Closing the Gap Between OCamlFormat and ocp-indent
 
 ## Releases
 
@@ -21,7 +36,7 @@ June was a bustling month with a total of nine releases! This included three pat
 - [Dune 3.8.2](https://ocaml.org/changelog/2023-06-19-dune-3.8.2)
 - [Dune 3.8.3](https://ocaml.org/changelog/2023-06-28-dune-3.8.3)
 - [Dune 3.9.0](https://ocaml.org/changelog/2023-06-30-dune-3.9.0)
-- [opam 2.2.0~alpha0](https://ocaml.org/changelog/2023-07-04-opam-2-2-0-alpha)
+- [opam 2.2.0~alpha](https://ocaml.org/changelog/2023-07-04-opam-2-2-0-alpha)
 - [OCaml LSP 1.16.1](https://ocaml.org/changelog/2023-06-21-ocaml-lsp-1.16.1)
 - [OCaml LSP 1.16.2](https://ocaml.org/changelog/2023-06-23-ocaml-lsp-1.16.2)
 - [Ppxlib 0.30.0](https://ocaml.org/changelog/2023-06-20-ppxlib-0.30.0)
@@ -31,7 +46,7 @@ June was a bustling month with a total of nine releases! This included three pat
 
 ### **[Dune]** Exploring Package Management in Dune
 
-Contributors: @rgrinberg (Tarides), @Leonidas-from-XIV (Tarides), @gridbugs (Tarides), @kit-ty-kate (Tarides)
+Contributors: @rgrinberg (Tarides), @Leonidas (Tarides), @gridbugs (Tarides), @kit-ty-kate (Tarides)
 
 There was notable progress on Dune lockdirs this month, the team is nearing the ability to lock and build simple opam packages.
 
@@ -66,7 +81,7 @@ Blockers to implement the end-to-end workflow are currently being discussed, and
 
 ### **[opam]** Native Support for Windows in opam 2.2
 
-Contributors: @rjbou (OCamlPro), @kit-ty-kate (Tarides), @dra27 (Tarides), @emillon (Tarides), @Leonidas-from-XIV (Tarides), @3Rafal (Tarides), @christinerose (Tarides), @sabine (Tarides)
+Contributors: @rjbou (OCamlPro), @kit-ty-kate (Tarides), @dra27 (Tarides), @emillon (Tarides), @Leonidas (Tarides), @3Rafal (Tarides), @christinerose (Tarides), @sabine (Tarides)
 
 The first alpha of opam 2.2 was just released!
 
@@ -90,6 +105,7 @@ Windows support isn't the only exciting feature in the release. To learn about o
   - Finalise release: Untie test from opam version -- [#5578](https://github.com/ocaml/opam/pull/5578)
   - Prepared for the 2.2.0~alpha release with essential updates -- [#5580](https://github.com/ocaml/opam/pull/5580)
   - Included 2.2.0-alpha binaries in install.sh -- [#5588](https://github.com/ocaml/opam/pull/5588)
+- Post-alpha PRs
   - Readme updates -- [#5589](https://github.com/ocaml/opam/pull/5589)
   - Documentation: update documentation to be embed in ocaml.org -- [#5593](https://github.com/ocaml/opam/pull/5593) [#5594](https://github.com/ocaml/opam/pull/5594)
   - Add some tests -- [#5385](https://github.com/ocaml/opam/pull/5385)
@@ -160,7 +176,7 @@ The different pull requests are approaching merge-readiness. The next step will 
 
 ### **[Merlin]** Support for Project-Wide References in Merlin
 
-Contributors: @voodoos (Tarides), @let-def (Tarides)
+Contributors: @vds (Tarides), @let-def (Tarides)
 
 The entire stack of pull requests required for project-wide references, including the compiler patches, `ocaml-uideps`, Dune, Merlin, and `ocaml-lsp`, has been rebased to include the latest compiler changes.
 
@@ -175,7 +191,7 @@ This allowed for the discovery of some issues with first-class modules and alias
 
 ### **[Merlin]** Improving Merlin's Performance
 
-Contributed by: @pitag-ha (Tarides), @3Rafal (Tarides), @voodoos (Tarides), @let-def (Tarides)
+Contributed by: @pitag (Tarides), @3Rafal (Tarides), @vds (Tarides), @let-def (Tarides)
 
 Efforts to improve Merlin's performance included ongoing work on Merlin benchmarking and error regression CI pipelines. Several issues in `merl-an` were fixed to stabilise the benchmarking CI and the proof of concept (POC) of the error regression CI that was opened in Merlin.
 
@@ -230,13 +246,13 @@ let f x = new_fun x + 2
 
 ### **[OCaml LSP]** Support for Inlay Hints
 
-Contributors: @jfeser, @rgrinberg (Tarides), @voodoos (Tarides)
+Contributors: @jfeser, @rgrinberg (Tarides), @vds (Tarides)
 
 The [LSP 3.17 Spec](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/) introduced the feature of Inlay Hints, an enhancement that allows editors to integrate annotations in line with the text, in order to display parameters names, type hints, and so on.
 
 This month witnessed the commencement of Inlay Hints' implementation in the OCaml LSP server. Currently, the [pull request](https://github.com/ocaml/ocaml-lsp/pull/1159) is undergoing review, with plans to integrate it into the subsequent minor release, OCaml LSP 1.17.0.
 
-![](https://hackmd.io/_uploads/HJV_49M5h.png)
+![image|383x500](upload://uC1cIXY1ZVcoEbbzv5z2DCaRYv4.png)
 
 **Activities:**
 - Preliminary inlay hint support -- [ocaml-lsp#1159](https://github.com/ocaml/ocaml-lsp/pull/1159)
@@ -266,4 +282,3 @@ The OCamlFormat team is also preparing the release of OCamlFormat 0.26.0, which 
 - Don't escape @ in the middle of a word -- [ocaml-ppx/ocamlformat#2377](https://github.com/ocaml-ppx/ocamlformat/pull/2377)
 - Unwanted break before a unwrapped code span -- [ocaml-ppx/ocamlformat#2378](https://github.com/ocaml-ppx/ocamlformat/pull/2378)
 - Preserve blank lines in docstrings -- [ocaml-ppx/ocamlformat#2379](https://github.com/ocaml-ppx/ocamlformat/pull/2379)
-

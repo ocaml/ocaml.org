@@ -15,7 +15,18 @@ Another headline from August was initiating the integration of `wasm_of_ocaml` i
 
 But more on that below. Let's delve into all the progress that happened last month.
 
-[toc]
+- [Releases](#releases)
+- [Building Packages](#building-packages)
+  - [**\[Dune\]** Exploring Package Management in Dune](#dune-exploring-package-management-in-dune)
+  - [**\[opam\]** Native Support for Windows in opam 2.2](#opam-native-support-for-windows-in-opam-22)
+  - [**\[Dune\]** Compile to WebAssembly with `wasm_of_ocaml`](#dune-compile-to-webassembly-with-wasm_of_ocaml)
+  - [**\[Dune\]** `dune monitor`: Connect to a Running Dune build](#dune-dune-monitor-connect-to-a-running-dune-build)
+  - [**\[Dune\]** Dune Terminal User Interface](#dune-dune-terminal-user-interface)
+- [Generating Documentation](#generating-documentation)
+  - [**\[odoc\]** Add Search Capabilities to `odoc`](#odoc-add-search-capabilities-to-odoc)
+  - [**\[`odoc`\]** Syntax for Images and Assets in `odoc`](#odoc-syntax-for-images-and-assets-in-odoc)
+- [Editing and Refactoring Code](#editing-and-refactoring-code)
+  - [**\[Merlin\]** Support for Project-Wide References in Merlin](#merlin-support-for-project-wide-references-in-merlin)
 
 ## Releases
 
@@ -107,7 +118,10 @@ Contributors: @Alizter, @rgrinberg (Tarides)
 
 The saga continued in August, and @Alizter ported the TUI to [Nottui](https://github.com/let-def/lwd), a terminal-based user interface library, to add more interactivity to the `tui` mode. In particular, the error messages are now scrollable, and they can be expanded/minimised. 
 
-<video src="https://user-images.githubusercontent.com/8614547/262112028-a367f7ca-023f-4470-a02a-a19617aa35f6.webm" data-canonical-src="https://user-images.githubusercontent.com/8614547/262112028-a367f7ca-023f-4470-a02a-a19617aa35f6.webm" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px"></video>
+<video width="100%" height="100%" controls="">
+  <source src="https://user-images.githubusercontent.com/8614547/262112028-a367f7ca-023f-4470-a02a-a19617aa35f6.webm">
+  <a href="https://user-images.githubusercontent.com/8614547/262112028-a367f7ca-023f-4470-a02a-a19617aa35f6.webm" rel="nofollow noopener">https://user-images.githubusercontent.com/8614547/262112028-a367f7ca-023f-4470-a02a-a19617aa35f6.webm</a>
+</video>
 
 These features will be available in the upcoming Dune 3.11. Do try the new TUI and let the Dune team know if you have any feedback!
 

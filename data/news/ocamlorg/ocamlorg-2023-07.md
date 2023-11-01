@@ -5,7 +5,7 @@ date: "2023-08-11"
 tags: [ocamlorg]
 ---
 
-Welcome to the July 2023 edition of the OCaml.org newsletter! As with the [previous issues](https://discuss.ocaml.org/tag/ocamlorg-newsletter), this update has been compiled by `@sabine` and `@tmattio`.
+Welcome to the July 2023 edition of the OCaml.org newsletter! As with the [previous issues](https://discuss.ocaml.org/tag/ocamlorg-newsletter), this update has been compiled by @sabine and @tmattio.
 
 Our goal is to make OCaml.org the best resource for anyone who wants to get started and be productive in OCaml. The OCaml.org newsletter provides an update of our progress towards that goal and an overview of changes we are working on.
 
@@ -84,7 +84,7 @@ We've been working towards these goals this month. You can follow our progress o
   - Convert man pages to Markdown with YAML header -- [ocaml/opam#5594](https://github.com/ocaml/opam/pull/5594)
   - Changing the Markdown files in `doc/pages` to be amenable for use on OCaml.org -- [ocaml/opam#5593](https://github.com/ocaml/opam/pull/5593)
 - ocaml-opam/opam2web:
-  - Rearrange `opam2web` to remove all package info, build only opam archive, keep public key, and create redirections from opam.ocamlorg to ocaml.org in a Caddyfile. Current WIP branch on [GitHub](https://github.com/sabine/opam2web/tree/strip_to_bare_minimum)
+  - Rearrange `opam2web` to remove all package info, build only opam archive, keep public key, and create redirections from opam.ocamlorg to ocaml.org in a Caddyfile. Current WIP branch at https://github.com/sabine/opam2web/tree/strip_to_bare_minimum
 - ocaml/ocaml.org:
   - [Give Local Blogs a Page and RSS Feeds](https://github.com/ocaml/ocaml.org/pull/1459). This introduces the concept of a "blog hosted on OCaml.org." This way, we can host the non-changelog posts of the opam blog in such a way that we can redirect `opam.ocaml.org/blog/feed.xml` to `ocaml.org/blog/opam/feed.xml`
 

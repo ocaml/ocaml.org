@@ -9,9 +9,19 @@ Welcome to the fourth installment of the OCaml Platform newsletter!
 
 This edition brings the latest improvements made in July to improve the OCaml developer experience with the [OCaml Platform](https://ocaml.org/docs/platform). As in the [previous updates](https://discuss.ocaml.org/tag/platform-newsletter), the newsletter features the development workflows currently being explored or enhanced.
 
-This issue ended up a bit shorter than the previous ones, as we're entering summer time in Europe. Still, this month saw some great progress on support for package management in Dune, with only a few [remaining blockers](https://github.com/ocaml/dune/issues/8096) to build simple opam packages. We also saw the release of the second alpha of the most anticipated opam 2.2, which comes with an automated installation of Cygwin on Windows, allowing users to install a complete development environment using opam's installation script alone!
+This issue ended up a bit shorter than the previous ones, as we're entering summertime in Europe. Still, this month saw some great progress on support for package management in Dune, with only a few [remaining blockers](https://github.com/ocaml/dune/issues/8096) to build simple opam packages. We also saw the release of the second alpha of the most anticipated opam 2.2, which comes with an automated installation of Cygwin on Windows, allowing users to install a complete development environment using opam's installation script alone!
 
-[toc]
+- [Releases](#releases)
+- [Building Packages](#building-packages)
+  - [**\[Dune\]** Exploring Package Management in Dune](#dune-exploring-package-management-in-dune)
+  - [**\[opam\]** Native Support for Windows in opam 2.2](#opam-native-support-for-windows-in-opam-22)
+  - [**\[Dune\]** `dune monitor`: Connect to a Running Dune build](#dune-dune-monitor-connect-to-a-running-dune-build)
+- [Generating Documentation](#generating-documentation)
+  - [**\[odoc\]** Add Search Capabilities to `odoc`](#odoc-add-search-capabilities-to-odoc)
+  - [**\[odoc\]** Syntax for Images and Assets in `odoc`](#odoc-syntax-for-images-and-assets-in-odoc)
+- [Editing and Refactoring Code](#editing-and-refactoring-code)
+  - [**\[Merlin\]** Support for Project-Wide References in Merlin](#merlin-support-for-project-wide-references-in-merlin)
+  - [**\[Merlin\]** Improving Merlin's Performance](#merlin-improving-merlins-performance)
 
 ## Releases
 

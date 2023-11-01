@@ -13,13 +13,23 @@ In addition to the updates on the Platform team's progress highlighted below, do
 
 Happy reading!
 
-[toc]
+- [Releases](#releases)
+- [Building Packages](#building-packages)
+  - [**\[Dune\]** Exploring Package Management in Dune](#dune-exploring-package-management-in-dune)
+  - [**\[opam\]** Native Support for Windows in opam 2.2](#opam-native-support-for-windows-in-opam-22)
+  - [**\[Dune\]** Dune Terminal User Interface](#dune-dune-terminal-user-interface)
+  - [**\[Dune\]** Support on Niche Platforms](#dune-support-on-niche-platforms)
+- [Generating Documentation](#generating-documentation)
+  - [**\[`odoc`\]** Add Search Capabilities to `odoc`](#odoc-add-search-capabilities-to-odoc)
+  - [**\[`odoc`\]** Syntax for Images and Assets in `odoc`](#odoc-syntax-for-images-and-assets-in-odoc)
+  - [**\[Dune\]** Generate Dependencies Documentation with Dune](#dune-generate-dependencies-documentation-with-dune)
+- [Editing and Refactoring Code](#editing-and-refactoring-code)
+  - [**\[Merlin\]** Support for Project-Wide References in Merlin](#merlin-support-for-project-wide-references-in-merlin)
+  - [**\[Merlin\]** Improving Merlin's Performance](#merlin-improving-merlins-performance)
 
 ## Releases
 
 Here are all the new versions of Platform tools that were released this month:
-
-<!-- TODO: Releases -->
 
 - [Merlin 4.11](https://ocaml.org/changelog/2023-09-22-merlin-4.11)
 - [Merlin 4.12](https://ocaml.org/changelog/2023-09-26-merlin-4.12)
