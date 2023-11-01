@@ -271,6 +271,7 @@ module Planet : sig
     name : string;
     url : string;
     description : string;
+    disabled : bool;
   }
 
   module Post : sig

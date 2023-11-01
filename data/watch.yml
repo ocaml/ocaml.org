@@ -315,6 +315,14 @@ watch:
   published_at: 2021-08-27T10:33:38.000Z
   language: English
   category: Science & Technology
+- name: 'Demo: Solo5 Unikernel Hosting the MirageOS www-htdocs on a Raspberry Pi'
+  description: 'A demo showing a Solo5 unikernel hosting the MirageOS www-htdocs on
+    a Raspberry Pi '
+  embed_path: /videos/embed/06e1d349-d082-4836-ab39-fb26d0898aae
+  thumbnail_path: /static/thumbnails/9c7c43b9-de1a-440b-a7be-8298ae5f25e2.jpg
+  published_at: 2023-09-20T11:27:06.813Z
+  language: Unknown
+  category: Science & Technology
 - name: Digodoc and Docs
   description: In this talk, we will introduce a new tool called digodoc, that builds
     a graph of an opam switch, associating files, libraries and opam packages into
@@ -820,6 +828,16 @@ watch:
   published_at: 2023-03-07T16:05:33.751Z
   language: English
   category: Science & Technology
+- name: Outreachy Presentations for the May 2023 Round
+  description: 'The OCaml community participated in the May 2023 round of Outreachy
+    internships. Three interns worked on a range of projects including: MIDI over
+    ethernet, persistent storage in MirageOS and improving error reporting in existing
+    ppxlib-based ppxs....'
+  embed_path: /videos/embed/a10f4f85-d176-4f69-9ca9-1651c9262a74
+  thumbnail_path: /static/thumbnails/6fc5ecb9-611c-4e2c-b362-de67eb0d89b1.jpg
+  published_at: 2023-09-18T13:15:08.648Z
+  language: English
+  category: Unknown
 - name: 'Owl: A General-Purpose Numerical Library in OCaml'
   description: 'Speaker: Liang Wang'
   embed_path: /videos/embed/d258fa91-ddb6-40d8-96de-e9ac97e8c899
