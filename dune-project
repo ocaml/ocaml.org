@@ -66,6 +66,7 @@
   ; tools/ood-gen
   ppx_deriving_yaml
   ppx_show
+  ppx_stable
   ezjsonm
   lambdasoup
   ptime
