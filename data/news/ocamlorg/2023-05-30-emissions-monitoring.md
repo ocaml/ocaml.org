@@ -1,7 +1,8 @@
 ---
 title: An Update on the Environmental Impact of the OCaml.org Cluster
+description: For the 19 machines we monitor in the OCaml.org cluster we are seeing a figure in the ball park of 70kg of CO2e per week
 date: "2023-05-30"
-tags: [infrastructure]
+tags: [ocamlorg]
 ---
 
 *TL;DR For the 19 machines we monitor in the OCaml.org cluster we are seeing a figure in the ball park of 70kg of CO2e per week. [Discussion thread here](https://discuss.ocaml.org/t/initial-emissions-monitoring-of-the-ocaml-org-infrastructure/12335).*
