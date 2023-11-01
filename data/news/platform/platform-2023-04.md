@@ -16,7 +16,7 @@ At the end of the day, all the work we're doing on the OCaml Platform has one ob
 - **Building Packages:** Our immediate goal for the build workflow is to remove the friction associated to using two different tools for package management and build system. To this end, we [plan on integrating opam capabilities directly into Dune](https://discuss.ocaml.org/t/explorations-on-package-management-in-dune/12101), establishing it as the singular tool needed to build OCaml projects. As a byproduct of this integration, we aim to improve other workflows such as working on multiple projects, cross-compilation, and improving the overall experience to get started with OCaml.
 - **Compiling to JavaScript:** We're continuously supporting tools to compile OCaml to JavaScript. Dune integrates well with Js_of_ocaml, and we've been working on an integration of Dune and [Melange](https://github.com/melange-re/melange), a recent fork of [ReScript](https://github.com/rescript-lang/rescript-compiler) that aims to bring to integrate closely with the OCaml ecosystem.
 - **Generating Documentation:** The state of the OCaml Packages documentation is reported as a major painpoint in the OCaml surveys ([2020](https://www.dropbox.com/s/omba1d8vhljnrcn/OCaml-user-survey-2020.pdf?dl=0) and [2022](https://ocaml-sf.org/docs/2022/ocaml-user-survey-2022.pdf)). We're working towards empowering OCaml developers to create high-quality documentation for their packages. Now that the documentation of packages is [readily available on OCaml.org](https://ocaml.org/packages), we want to make writing documentation rewarding and straightforward. We're working towards making Odoc suitable to create manuals by adding new features, improving the navigation, and expanding the `odoc` markup syntax to support rich content such as tables, images and graphs.
-- **Editing and Refactoring Code:** We aim to enrich the OCaml editor support with more workflows to improve code navigation and automate refactoring. Our main focus currently is on adding support for project-wide references to Merlin. Future work will include implementing a project-wide rename query and queries such as renaming arguments. We are also working towards bringing the editor support for OCaml to the web and third party platforms such as OCaml Playground, ReplIt, and GitHub Codespaces.
+- **Editing and Refactoring Code:** We aim to enrich the OCaml editor support with more workflows to improve code navigation and automate refactoring. Our main focus currently is on adding support for project-wide references to Merlin. Future work will include implementing a project-wide rename query and queries such as renaming arguments. We are also working towards bringing the editor support for OCaml to the web and third-party platforms such as OCaml Playground, ReplIt, and GitHub Codespaces.
 - **Formatting Code:** Our goal for formatting code is focused on improving accuracy, particularly for the to comments. We also want to strike the right balance between providing a default profile that appeals to most users and not requiring configuration to format your OCaml projects while still maintaining a fully configurable formatter. Additionally, we plan to enhance the backward compatibility of ocamlformat and better integrate Dune and OCamlFormat.
 
 I'll also take the opportunity to call for new contributors. Platform projects are always looking for new maintainers and contributors, so if you're interested in the future of OCaml's developer experience and would like to shape that future with us, please reach out to me or any Platform maintainer. If you're an industrial user looking for support on the OCaml Platform and would like to fund the maintainers and the developments on the Platform tools, also don't hesitate to [reach out to me](mailto:thibaut@tarides.com).
@@ -27,6 +27,29 @@ In this inaugural issue, we'll be discussing progress on the following projects:
 
 [toc]
 
+#### Building Packages
+- [Dune] [Exploring Package Management in Dune](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#dune-exploring-package-management-in-dune)
+- [opam] [Native Support for Windows in opam 2.2](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#opam-native-support-for-windows-in-opam-22)
+- [Dune] [Improving Dune’s Documentation](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#dune-improving-dunes-documentation)
+- [Dune] [Composing installed Coq theories](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#dune-composing-installed-coq-theorieshttps://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#dune-composing-installed-coq-theories)
+- [Dune] [Dune Terminal User Interface](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#dune-dune-terminal-user-interface)
+- [Dune] [Running Actions Concurrently](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#dune-running-actions-concurrently)
+- [Dune] [Benchmarking Dune on Large Code Bases](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#dune-benchmarking-dune-on-large-code-bases)
+#### Compiling to JavaScript
+- [Dune] [Compile to JavaScript with Melange in Dune](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#dune-compile-to-javascript-with-melange-in-dune)
+#### Generating Documentation
+- [`odoc`] [Add Search Capabilities to `odoc`](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#odoc-add-search-capabilities-to-odoc)
+- [Dune] [User-Friendly Command to Generate Documentation](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#dune-user-friendly-command-to-generate-documentation)
+- [`odoc`] [Support for Tables in `odoc`](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#odoc-support-for-tables-in-odoc)
+#### Editing and Refactoring Code
+- [Merlin] [Support for Project-Wide References in Merlin](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#merlin-support-for-project-wide-references-in-merlin)
+- [Merlin] [Improving Merlin’s Performance](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#merlin-improving-merlins-performance)
+- [OCaml LSP] [Using Dune RPC on Windows](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#ocaml-lsp-using-dune-rpc-on-windows)
+- [OCaml LSP] [Upstreaming OCaml LSP’s Fork of Merlin](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#ocaml-lsp-upstreaming-ocaml-lsps-fork-of-merlin)
+#### Formatting Code
+- [OCamlFormat] [Migrate OCamlFormat from an AST to a CST](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#ocamlformat-migrate-ocamlformat-from-an-ast-to-a-cst)
+- [OCamlFormat] [Closing the Gap Between OCamlFormat and `ocp-indent`](https://discuss.ocaml.org/t/ocaml-platform-newsletter-april-2023/12187#ocamlformat-closing-the-gap-between-ocamlformat-and-ocp-indent)
+
 ## Releases
 
 Here are the new versions of Platform tools we released in April. Have a look at the [OCaml Changelog](https://ocaml.org/changelog) to read announcements and feature highlights!
@@ -35,8 +58,6 @@ Here are the new versions of Platform tools we released in April. Have a look at
 - [UTop 2.12.1](https://github.com/ocaml-community/utop/releases/tag/2.12.1)
 - [MDX 2.3](https://github.com/realworldocaml/mdx/releases/tag/2.3.0)
 - [Dune 3.7.1](https://github.com/ocaml/dune/releases/tag/3.7.1)
-
-## Building Packages
 
 ### **[Dune]** Exploring Package Management in Dune
 
