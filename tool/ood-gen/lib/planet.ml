@@ -250,7 +250,7 @@ let all () =
 let template () =
   Format.asprintf
     {|
-type source = { id : string; name : string; url : string ; description : string }
+type source = { id : string; name : string; url : string ; description : string; disabled : bool }
 
 module Post = struct
   type t =
