@@ -5,7 +5,6 @@
   ocamlorg_package
   ocamlorg_frontend
   dream
-  dream_dashboard
   dream-accept
   dream-encoding
   omd
