@@ -404,35 +404,53 @@ The classic (and very inefficient) way to present recursion is using the functio
 # let rec fibo n = if n <= 1 then n else fibo (n - 1) + fibo (n - 2);;
 val fibo : int -> int = <fun>
 
-# List.init 10 Fun.id |> List.map fibo;;
+# let xs = List.init 10 Fun.id;;
+val xs : int list = [0; 1; 2; 3; 4; 5; 6; 7; 8; 9]
+
+# List.map fibo xs;;
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
 
 This version of `fibo` is inefficient because the number of recursive calls created doubles at each call, which creates exponential growth.
 
+> Note: `List.init` is a standard library function that allows you to create a list by applying a given function to a sequence of integers, and `Fun.id` is the identity function, which returns its argument unchanged. We created a list with the numbers 0 - 9 and named it `xs`. We applied the `fibo` function to every element of the list using `List.map`.
+
+
 This version does a better job:
 ```ocaml
-# let rec fibo m n i = if i = 0 then m else fibo n (n + m) (i - 1);;
-val fibo : int -> int -> int -> int = <fun>
+# let rec fibo_1 m n i = if i = 0 then m else fibo_1 n (n + m) (i - 1);;
+val fibo_1 : int -> int -> int -> int = <fun>
 
-# let fibo = fibo 0 1;;
-val fibo : int -> int = <fun>
+# let fibo_1 = fibo_1 0 1;;
+val fibo_1 : int -> int = <fun>
 
-# List.init 10 Fun.id |> List.map fibo;;
+# List.init 10 Fun.id |> List.map fibo_1;;
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
 
-The first version takes two extra parameters: the two previously computed Fibonacci numbers.
+The first version (`fibo`) takes two extra parameters: the two previously computed Fibonacci numbers.
 
-The second version uses the two first Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called “tail call elimination.” This turns recursivity into imperative iteration in the generated native code and leads to much-improved performances.
+The second version (`fibo_1`) uses the two first Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called “tail call elimination.” This turns recursivity into imperative iteration in the generated native code and leads to improved performances.
+
+> Note: Notice that the `fibo_1` function has three parameters (`m n i`) but only two arguments were passed (`0 1`). This is called *partial application*.
 
 ## Multiple Arguments Functions
 
-### Arrow Types and Mutiple Arguments
 
-Until now, functions with several arguments had a type looking like this: `a₁ -> a₂ -> a₃ -> ⋯ -> b`
 
-Where `a₁` is the type of the first argument, `a₂` is the type of the second argument, etc., and `b` is the type of the result. However, this type isn't displayed as it is. In reality, this type is the following: `a₁ -> (a₂ -> (a₃ -> ⋯ -> b))`. The arrow symbol is a [binary operator](https://en.wikipedia.org/wiki/Binary_operation). Here is how this can be observed:
+When you define a function with multiple arguments, you're actually defining a series of functions that each take one argument. For example:
+
+```
+# let f x y z = x + y + z;;
+val f : int -> int -> int -> int = <fun>
+```
+
+Here, f is a function that takes an argument x and returns another function. The returned function takes an argument y and returns yet another function. The final returned function takes an argument z and computes the result x + y + z.
+
+The consequence is that the type` int -> int -> int -> int` actually means `int -> (int -> (int -> int))`.
+
+Here is an example:
+
 ```ocaml
 # ( + );;
 - : int -> int -> int = <fun>
@@ -463,7 +481,7 @@ Most importantly, this means a *binary* function isn't really one that takes two
 - : int -> int = <fun>
 ```
 
-Passing a single integer to the addition returns a function of type `int -> int`. That function value is a closure. The value passed as the first parameter, here 2, is captured as if it had been in an earlier definition.
+Passing a single integer to the addition returns a function of type `int -> int`. That value is a closure. The first argument, here 2, is captured as if it had been in an earlier definition.
 
 ### Passing Tuples
 
