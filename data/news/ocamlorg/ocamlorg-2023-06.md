@@ -13,8 +13,8 @@ Our goal is to make OCaml.org the best resource for anyone who wants to get star
 
 We present the work we've been doing this month in three sections:
 - **Learn Area:** We're working towards making OCaml.org a great resource to learn OCaml and discover its ecosystem. This month, we continued working on the wireframes and designs of the new Learn area. We also focused on writing the new documentation with a couple of tutorials on Dune and S-Expressions.
-- **Goverance Page:** The OCaml Platform team is working towards making the decision-making processes and ongoing development more transparent and community-driven. To that end, we're working on a governance page that lists the teams and maintainers of the OCaml organisation.
-- **General Improvements:** As usual, we also worked on general maintenance and improvements and we're highlighting some of them.
+- **Goverance Page:** The OCaml Platform team is working towards making the decision-making processes and ongoing development more transparent and community-driven (including the work on the [OCaml Platform roadmap](https://discuss.ocaml.org/t/a-roadmap-for-the-ocaml-platform-seeking-your-feedback/12238)). To support the initiative, we're working on a governance page that lists the teams and maintainers of the OCaml organisation.
+- **General Improvements:** As usual, we also worked on general maintenance and improvements and we're highlighting some of them in this newsletter.
 
 ## Learn Area
 
@@ -68,7 +68,7 @@ In May, we merged [a PR](https://github.com/ocaml/ocaml.org/pull/1175) that exte
 
 This month, we worked on a [new governance page](https://github.com/ocaml/ocaml.org/pull/1239) that lists the teams and maintainers of the ecosystem.
 
-The main challenge is to list the maintainers of each project accurately, going forward. To that end, we're [considering using GitHub teams](https://github.com/ocaml/infrastructure/issues/55) to get an up-to-date list of maintainers for each project.
+The main challenge is to list the maintainers of each project accurately, going forward. To that end, we're [discussing using GitHub teams](https://github.com/ocaml/infrastructure/issues/55) to get an up-to-date list of maintainers for each project.
 
 ## General Improvements
 
