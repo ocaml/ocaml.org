@@ -1,3 +1,4 @@
+watch:
 - name: '25 Years of OCaml: Xavier Leroy'
   description: Professor Xavier Leroy -- the primary original author and leader of
     the OCaml project -- reflects on 25 years of the OCaml language at his OCaml Workshop
