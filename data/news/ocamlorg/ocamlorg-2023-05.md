@@ -32,12 +32,12 @@ In June, we'll start gathering user feedback on the wireframes and eventually st
 
 We completed the [Sequences](https://ocaml.org/docs/sequences) and [Error Handling](https://ocaml.org/docs/error-handling) tutorials. The [Install page](https://ocaml.org/install) went live, and improvements were made to the [First Day tutorial](https://ocaml.org/docs/first-hour).
 
-Asking the community to help reviewing the initial versions of the new documentation page has been successful, so we're planning on opening more Discuss posts for pages that are ready to review in the coming months.
+Asking the community to help review the initial versions of the new documentation page has been successful, so we're planning on opening more Discuss posts for pages that are ready to review in the coming months.
 
 We're deeply grateful to all the contributors who helped review the documentation, either by sharing insights on Discuss or participating in the PR review on GitHub. This is exactly how we envisioned the effort on creating the new OCaml.org Documentation, so we're appreciative of everyone who engaged to make this a community initiative!
 
 **Relevant PRs and Activities:**
-- Reached out for community feedback on the new *Error Handling* documentation page https://discuss.ocaml.org/t/updating-the-error-handling-tutorial/12022
+- Reached out for community feedback on the new *Error Handling* documentation page - [Updating the Error Handling Tutorial)[https://discuss.ocaml.org/t/updating-the-error-handling-tutorial/12022]
 - *First Hour* improvement [ocaml/ocaml.org#1153](https://github.com/ocaml/ocaml.org/pull/1153)
 - Line editing for *Functors* [ocaml/ocaml.org#1127](https://github.com/ocaml/ocaml.org/pull/1127)
 - Rewrite *Functional Programming* doc introduction [ocaml/ocaml.org#971](https://github.com/ocaml/ocaml.org/pull/971)
@@ -58,7 +58,7 @@ We're deeply grateful to all the contributors who helped review the documentatio
 
 In April, we started working on building an in-package search feature for OCaml packages on OCaml.org. We continued this effort through May, and we released the feature at the end of the month. In-package search is now accessible for every packages on OCaml.org! :tada:
 
-Note that this is a first, minimal version of the feature. We're planning many improvements in the coming months, especially as the `odoc` team is currently working on adding search capabilities to `odoc`.
+Note that this is the first, minimal version of the feature. We're planning many improvements in the coming months, especially as the `odoc` team is currently working on adding search capabilities to `odoc`.
 
 **Relevant PRs and Activities:**
 - Fix incomplete search index [ocaml-doc/voodoo#59](https://github.com/ocaml-doc/voodoo/pull/59#pullrequestreview-1408753903)
