@@ -159,7 +159,7 @@ rounds:
           and get statistics on them. The frontend will use this library to display
           graphs of the metrics, statistics, and other data we want to collect.
         mentee: "Jiae Kam"
-        source: https://github.com/ocaml/ocaml.org
+        source: https://github.com/JiaeK/dream-dashboard
         blog: "https://jiaek.wordpress.com"
         mentors:
          - Thibaut Mattio
