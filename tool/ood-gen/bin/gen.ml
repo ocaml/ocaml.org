@@ -23,6 +23,7 @@ let term_templates =
     ("planet", Ood_gen.Planet.template);
     ("planet_feed", Ood_gen.Planet.GlobalFeed.create_feed);
     ("changelog_feed", Ood_gen.Changelog.ChangelogFeed.create_feed);
+    ("watch", Ood_gen.Watch.template);
     ("opam_user", Ood_gen.Opam_user.template);
     ("pages", Ood_gen.Page.template);
     ("code_examples", Ood_gen.Code_example.template);
