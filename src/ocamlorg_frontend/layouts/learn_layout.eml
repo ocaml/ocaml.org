@@ -79,23 +79,17 @@ let sidebar_link
 ~title
 ~href
 ~current =
-  match current with
-  | true ->
-    <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s href %>">
-      <%s title %>
-    </a>
-  | false ->
-    <a class="font-semibold text-sm text-lighter hover:bg-gray-100 block py-2 px-3" href="<%s href %>">
-      <%s title %>
-    </a>
+  <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-primary-700 bg-primary-100 border-primary-600|} else {|text-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
+    <%s title %>
+  </a>
 
 let sidebar_link_group
 ?(extra_html="")
 title
 link_html
 =
-  <div class="space-y-2 flex flex-col">
-    <div class="text-sm font-semibold flex px-3 py-2 uppercase"><%s title %></div>
+  <div class="pl-2 pr-8 flex flex-col">
+    <div class="text-lg font-bold leading-10 flex py-1 uppercase"><%s title %></div>
     <%s! link_html %>
     <%s! extra_html %>
   </div>

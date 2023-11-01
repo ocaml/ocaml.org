@@ -3,7 +3,7 @@ let render_sidebar
 ?active
 ()
 =
-  <div class="flex flex-col gap-10">
+  <div class="flex flex-col gap-5">
     <%s! Learn_sidebar.render ~tutorials ~current_tutorial:active ~section:Learn_layout.Platform %>
   </div>
 
@@ -16,7 +16,7 @@ Learn_layout.render
 ~description:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml."
 ~canonical:Url.platform
 ~active_top_nav_item:Header.Learn
-~left_sidebar_html:(Some(render_sidebar ~tutorials ()))
+~left_sidebar_html:(Some((render_sidebar ~active:"platform") ~tutorials ()))
 ~right_sidebar_html:None
 ~current:Platform @@
   <div class="prose prose-orange max-w-none">
