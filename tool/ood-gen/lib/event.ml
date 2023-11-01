@@ -13,22 +13,21 @@ type metadata = {
 }
 [@@deriving of_yaml, show { with_path = false }]
 
+type date_with_optional_time = Date of Ptime.date | DateTime of Ptime.t
+
 type t = {
   title : string;
   url : string;
   slug : string;
   textual_location : string;
   location : location option;
-  start_date : string;
-  start_time : float option;
-  end_time : float option;
-  end_date : string option;
+  starts : date_with_optional_time;
+  ends : date_with_optional_time option;
   body_md : string;
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ],
-    show { with_path = false }]
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html; start_date; start_time; end_date; end_time ] ~add:[ starts; ends ]],
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
