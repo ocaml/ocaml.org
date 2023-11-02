@@ -451,8 +451,8 @@ module Event : sig
     slug : string;
     textual_location : string;
     location : location option;
-    starts : date_with_optional_time;
-    ends : date_with_optional_time option;
+    starts : string;
+    ends : string option;
     body_md : string;
     body_html : string;
   }

@@ -1,19 +1,18 @@
 type location = { lat : float; long : float }
 [@@deriving of_yaml, show { with_path = false }]
 
+type date_with_optional_time = Date of Ptime.date | DateTime of Ptime.t
+
 type metadata = {
   title : string;
   url : string;
   textual_location : string;
   location : location option;
-  start_date : string;
-  start_time : float option;
-  end_time : float option;
-  end_date : string option;
+  starts : date_with_optional_time;
+  ends : date_with_optional_time option;
 }
 [@@deriving of_yaml, show { with_path = false }]
 
-type date_with_optional_time = Date of Ptime.date | DateTime of Ptime.t
 
 type t = {
   title : string;
@@ -27,7 +26,7 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ slug; body_md; body_html; start_date; start_time; end_date; end_time ] ~add:[ starts; ends ]],
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ]]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
@@ -53,10 +52,8 @@ type t =
   ; slug : string
   ; textual_location : string
   ; location : location option
-  ; start_date : string
-  ; start_time : float option
-  ; end_time : float option
-  ; end_date : string option
+  ; starts : date_with_optional_time
+  ; ends : date_with_optional_time option
   ; body_md : string
   ; body_html : string
   }
