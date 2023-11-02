@@ -1,15 +1,15 @@
 type location = { lat : float; long : float }
 [@@deriving of_yaml, show { with_path = false }]
 
-type date_with_optional_time = Date of Ptime.date | DateTime of Ptime.t
+ type date_with_optional_time = Date of Ptime.date | DateTime of Ptime.t
 
 type metadata = {
   title : string;
   url : string;
   textual_location : string;
   location : location option;
-  starts : date_with_optional_time;
-  ends : date_with_optional_time option;
+  starts : string;
+  ends : string option;
 }
 [@@deriving of_yaml, show { with_path = false }]
 
@@ -20,8 +20,8 @@ type t = {
   slug : string;
   textual_location : string;
   location : location option;
-  starts : date_with_optional_time;
-  ends : date_with_optional_time option;
+  starts : string;
+  ends : string option;
   body_md : string;
   body_html : string;
 }
@@ -39,7 +39,7 @@ let all () =
   Utils.map_files decode "events/*.md"
   |> List.sort (fun e1 e2 ->
          (* Sort the events by reversed start date. *)
-         String.compare e2.start_date e1.start_date)
+         String.compare e2.starts e1.starts)
 
 let template () =
   Format.asprintf
@@ -52,8 +52,8 @@ type t =
   ; slug : string
   ; textual_location : string
   ; location : location option
-  ; starts : date_with_optional_time
-  ; ends : date_with_optional_time option
+  ; starts : string
+  ; ends : string option
   ; body_md : string
   ; body_html : string
   }
