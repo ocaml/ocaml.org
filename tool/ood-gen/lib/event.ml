@@ -1,7 +1,7 @@
 type location = { lat : float; long : float }
 [@@deriving of_yaml, show { with_path = false }]
 
- type date_with_optional_time = Date of Ptime.date | DateTime of Ptime.t
+type date_with_optional_time = Date of Ptime.date | DateTime of Ptime.t
 
 type metadata = {
   title : string;
@@ -26,7 +26,7 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ]]
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ], show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 

@@ -10,7 +10,7 @@ let current_date =
 in
 let old_workshops = List.filter (fun (w : Data.Workshop.t) -> w.date < current_date) workshops in
 let upcoming_workshops = List.filter (fun (w : Data.Workshop.t) -> w.date >= current_date) workshops in
-let upcoming_events = List.filter (fun (e : Data.Event.t) -> e.start_date >= current_date) events in
+let upcoming_events = List.filter (fun (e : Data.Event.t) -> e.starts >= current_date) events in
 let upcoming_events = Ocamlorg.Import.List.take 6 upcoming_events in
 Layout.render
 ~title:"The OCaml Community"
@@ -185,7 +185,7 @@ Layout.render
                   </div>
                   <div class="flex items-center space-x-2 mt-2">
                     <%s! Icons.calendar "h-5 w-5" %>
-                    <div><%s event.start_date %></div>
+                    <div><%s event.starts %></div>
                   </div>
               </div>
           </a>
