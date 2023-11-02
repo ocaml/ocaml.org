@@ -263,7 +263,7 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-default pt-12 lg:py-12 overflow-hidden">
+<div class="bg-default py-12 overflow-hidden">
   <div class="container-fluid flex flex-col items-center">
     <h3 class="font-bold">Releases</h3>
     <div class="bg-pattern p-6 mt-8 rounded-xl w-full lg:w-2/3 text-white">
