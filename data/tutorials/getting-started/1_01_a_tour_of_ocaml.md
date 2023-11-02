@@ -413,7 +413,7 @@ val g' : string -> int = <fun>
 
 The underscore symbol is a catch-all pattern; it matches with anything.
 
-Note that OCaml throws a warning when pattern matching does not catch call cases:
+Note that OCaml throws a warning when pattern matching does not catch all cases:
 ```ocaml
 # fun i -> match i with 0 -> 1;;
 Line 1, characters 9-28:
