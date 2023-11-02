@@ -447,7 +447,7 @@ val f : int -> int -> int -> int = <fun>
 
 Here, f is a function that takes an argument x and returns another function. The returned function takes an argument y and returns yet another function. The final returned function takes an argument z and computes the result x + y + z.
 
-The consequence is that the type` int -> int -> int -> int` actually means `int -> (int -> (int -> int))`.
+The consequence is that the type` int -> int -> int -> int` actually means `int -> (int -> (int -> int))`. Types should always be read left to right.
 
 Here is an example:
 
@@ -481,31 +481,33 @@ Most importantly, this means a *binary* function isn't really one that takes two
 - : int -> int = <fun>
 ```
 
-Passing a single integer to the addition returns a function of type `int -> int`. That value is a closure. The first argument, here 2, is captured as if it had been in an earlier definition.
+Passing a single integer to `( + )` returns a function of type `int -> int`. That value is a closure. The first argument, here 2, is captured as if it had been in an earlier definition.
 
 ### Passing Tuples
 
-Consider this function:
+In OCaml, a *tuple* is a fundamental data structure used to group together a fixed number of values, which can be of different types. Tuples are defined using parentheses, and the elements are separated by commas. Here's the basic syntax to create and work with tuples in OCaml:
 ```ocaml
 # let space_cat (s, t) = s ^ " " ^ t;;
 val space_cat : string * string -> string = <fun>
 ```
 
-It takes a pair of strings and returns a string.
+It takes a pair of strings and returns a concatenation of those strings with a space character in between.
 ```ocaml
 # space_cat ("hello", "world");;
 - : string = "hello world"
 ```
 
-Asking whether `space_cat` is a binary function or not makes sense. Morally, it takes two parameters: the two strings that sandwich the space character. Wrapped as a pair, they are a single piece of data, so `space_cat` has a single parameter. But it is that pair's elements that are relevant, not the pair as a whole. So morally, `space_cat` is a binary function. Syntactically, the call `space_cat ("hello", "world")` looks pretty much like a high school maths function call or a spreadsheet application, both having two parameters: `"hello"` and `"world"`.
+The function `space_cat` takes a single parameter, even though it looks like two arguments have been passed: "hello" and "world;" however, since they're enclosed in parentheses with a comma, they are actually a tuple. Tuples with multiple elements are a single value. 
+
+In many imperative languages, this syntax reads as a function call with two parameters; but in OCaml, this syntax denotes applying the function `space_cat` to the tuple `("hello", "world")`. 
 
 ### Currying and Uncurrying
 
 In the two previous sections, two kinds of “multiple parameter” functions have been presented.
 - Functions returning a function, such as `( + )`
-- Functions taking a pair or a tuple as a parameter, such as `space_cat`
+- Functions taking a tuple as a parameter, such as `space_cat`
 
-Interestingly, both kinds of functions provide a way to pass several parameters while being functions with a single parameter. From this perspective, it makes sense to say: “All functions have a single argument.”
+Interestingly, both kinds of functions provide a way to apply them to several arguments while being functions with a single parameter. From this perspective, it makes sense to say: “All functions have a single argument.”
 
 This goes even further. Any function of the same kind can be translated into an equivalent function of the second kind, and conversely. Using OCaml support for higher-order functions, it is possible to define those transformations as functions.
 
