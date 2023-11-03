@@ -13,7 +13,6 @@ type metadata = {
 }
 [@@deriving of_yaml, show { with_path = false }]
 
-
 type t = {
   title : string;
   url : string;
@@ -26,7 +25,8 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ], show { with_path = false }]
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ],
+    show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
