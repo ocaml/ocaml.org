@@ -26,7 +26,7 @@ let decode (fname, (head, body)) =
   let slug = Filename.basename (Filename.remove_extension fname) in
   let metadata = metadata_of_yaml head in
   let body_html =
-    Cmarkit_html.of_doc ~safe:true
+    Cmarkit_html.of_doc ~safe:false
       (Hilite.Md.transform
          (Cmarkit.Doc.of_string ~strict:true (String.trim body)))
   in
@@ -40,7 +40,7 @@ let decode (fname, (head, body)) =
             Some
               (Cmarkit.Doc.of_string ~strict:true (String.trim changelog)
               |> Hilite.Md.transform
-              |> Cmarkit_html.of_doc ~safe:true)
+              |> Cmarkit_html.of_doc ~safe:false)
       in
       of_metadata ~slug ~changelog_html ~body_html metadata)
     metadata

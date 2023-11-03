@@ -48,7 +48,8 @@ let of_metadata m =
     ~highlights_md:m.highlights
     ~highlights_html:
       (Cmarkit.Doc.of_string ~strict:true m.highlights
-      |> Cmarkit_html.of_doc ~safe:true)
+      |> Hilite.Md.transform
+      |> Cmarkit_html.of_doc ~safe:false)
 
 let sort_by_decreasing_version x y =
   let to_list s = List.map int_of_string_opt @@ String.split_on_char '.' s in
@@ -57,7 +58,7 @@ let sort_by_decreasing_version x y =
 let decode (_, (head, body_md)) =
   let metadata = metadata_of_yaml head in
   let body_html =
-    Cmarkit.Doc.of_string ~strict:true body_md |> Cmarkit_html.of_doc ~safe:true
+    Cmarkit.Doc.of_string ~strict:true body_md |> Hilite.Md.transform |> Cmarkit_html.of_doc ~safe:false
   in
   Result.map (of_metadata ~body_md ~body_html) metadata
 

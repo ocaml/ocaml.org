@@ -81,7 +81,8 @@ module Local = struct
       let metadata = metadata_of_yaml head in
       let body_html =
         Cmarkit.Doc.of_string ~strict:true (String.trim body)
-        |> Cmarkit_html.of_doc ~safe:true
+        |> Hilite.Md.transform
+        |> Cmarkit_html.of_doc ~safe:false
       in
       let source, slug =
         match Str.split (Str.regexp_string "/") fpath with

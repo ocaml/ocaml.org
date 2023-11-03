@@ -46,7 +46,8 @@ let decode (_, (head, body_md)) =
               description =
                 Cmarkit.Doc.of_string ~strict:true
                   (String.trim category.description)
-                |> Cmarkit_html.of_doc ~safe:true;
+                |> Hilite.Md.transform
+                |> Cmarkit_html.of_doc ~safe:false;
             })
           metadata.categories
       in
