@@ -435,7 +435,7 @@ The second version (`fibo_1`) uses the two first Fibonacci numbers as initial va
 > Note: Notice that the `fibo_1` function has three parameters (`m n i`) but only two arguments were passed (`0 1`). This is called *partial application*.
 
 ## Multiple Arguments Functions
-
+FIXME - rewrite Multiple Arguments section
 
 
 When you define a function with multiple arguments, you're actually defining a series of functions that each take one argument. For example:
@@ -525,9 +525,9 @@ Here is the reverse translation:
 
 These translations are attributed to the 20th-century logician [Haskell Curry](https://en.wikipedia.org/wiki/Haskell_Curry). The second translation is called *currying* and the first is called *uncurrying*.
 
-From a typing perspective, this means that for any types `a`, `b`, and `c`, the following types are equivalent:
-- `a -> (b -> c)` &mdash; curried function type
-- `a * b -> c` &mdash; uncurried function type
+From a typing perspective, this means that for any types `'a`, `'b`, and `'c`, the following types are equivalent:
+- `a -> ('b -> 'c)` &mdash; curried function type
+- `a * 'b -> 'c` &mdash; uncurried function type
 
 We will not dive any deeper into the details here, but this equivalence can be formally defined using _ad-hoc_ mathematics.
 
@@ -540,7 +540,7 @@ In practice, curried functions are the default form functions should take becaus
 
 ## Functions With Side-Effects
 
-With respect to its type, a function is expected to process input data from its domain and produce a result data from its codomain.
+With respect to its type, a function is expected to process input data from its *domain*, the set of input values, and produce a result data from its *codomain*, the set of output values.
 
 However, some functions either take input data outside of their declared domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output (I/O) are the most common forms of effects. Input is out-of-domain data and output out-of-codomain data. However, the result of functions returning random numbers or the current time is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
 
@@ -608,6 +608,6 @@ When we employ a `let` statement, we introduce zero, one, or more name-value pai
 
 During the review of this tutorial, it was asked:
 
-> Why is it so that having function as values is what actually defines functional programming?
+> Why does having function as values define functional programming?
 
-Answering this question goes beyond the scope of a tutorial about expressions and values in OCaml. However, and without entering into the details, erasing the difference between functions and other values is meant to express they are the same thing. That's exactly what happens in the [λ-calculus](https://en.wikipedia.org/wiki/Lambda_calculus), the mathematical theory underneath functional programming. In that formalism, there's nothing but functions. Everything, including data, is a function and computation reduces to parameter passing. In functional programming and OCaml, having function and values at the same level is an invitation to think about programs this way. That is different from the imperative programming approach where everything reduces to reading and writing into the memory.
+The answer to this question goes beyond the scope of this tutorial. However, and without entering into the details, erasing the difference between functions and other values is meant to express they are the same thing. That's exactly what happens in [λ-calculus](https://en.wikipedia.org/wiki/Lambda_calculus), the mathematical theory underneath functional programming. In that formalism, there's nothing but functions. Everything, including data, is a function, and computation reduces to parameter passing. In functional programming and OCaml, having function and values at the same level is an invitation to think about programs this way. This is different from the imperative programming approach where everything reduces to reading and writing into the memory.
