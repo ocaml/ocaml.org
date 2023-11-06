@@ -77,6 +77,7 @@ Layout.base
           <div class="flex w-full items-center overflow-hidden">
             <% if Option.is_some search_index_digest then (%>
               <input id="in-package-search-input" type="search" name="q" class="min-w-0 focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
+                tabindex="1"
                 autocomplete="off"
                 aria-owns="in-package-search-results"
                 aria-expanded="false"

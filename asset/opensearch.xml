@@ -1,0 +1,6 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+<ShortName>OCaml Packages</ShortName>
+<Description>Search for packages on ocaml.org</Description>
+<Image type="image/png">https://ocaml.org/asset/logo.svg</Image>
+<Url type="text/html" method="get" template="https://ocaml.org/packages/search?q={searchTerms}"/>
+</OpenSearchDescription>
