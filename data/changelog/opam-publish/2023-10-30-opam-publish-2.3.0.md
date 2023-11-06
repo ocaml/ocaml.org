@@ -1,5 +1,5 @@
 ---
-title: `opam-publish` 2.3.0
+title: Opam-publish 2.3.0
 date: "2023-10-30"
 tags: [opam-publish, platform]
 changelog: |
