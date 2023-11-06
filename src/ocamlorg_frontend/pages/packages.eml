@@ -185,6 +185,9 @@ in
     </div>
 % | None -> () );
 </div>
+  <div class=" bg-default prose max-w-none p-10 lg:p-8">
+   If you want to learn about the OCaml packages, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-package" target="_blank">Contributing Guide</a> on GitHub.
+</div> 
 <div class="bg-primary-600 ">
     <div class="container-fluid">
         <div class="text-center text-white lg:p-16 py-10">

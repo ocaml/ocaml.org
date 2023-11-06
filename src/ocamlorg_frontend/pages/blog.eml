@@ -89,5 +89,8 @@ Layout.render
                 <div><a href="<%s Url.news %>" class="link-orange">See all</a></div>
             </div>
         </div>
+        <div class="prose max-w-none mt-8">
+            If you want to contribute a blog post, or add your RSS feed, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-blog" target="_blank">Contributing Guide</a> on GitHub.
+        </div>
     </div>
 </div>
