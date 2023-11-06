@@ -28,7 +28,6 @@ body {
 
 .container-fluid {
   @apply max-w-md md:max-w-7xl w-full mx-auto px-4;
-  word-wrap: break-word;
 }
 
 @media (min-width: 40em) {
@@ -113,6 +112,10 @@ body {
 }
 .output-bg {
     background: rgba(39, 39, 39, 1);
+}
+
+.prose {
+  word-wrap: break-word;
 }
 
 .prose [id] {
