@@ -152,7 +152,6 @@ in
                 compiles today will still work a decade from now.</div>
         </div>
         <div class="flex justify-between space-y-12 lg:space-x-20 mt-20 flex-col lg:flex-row lg:space-y-0">
-        
             <div class="text-center flex-col max-w-full lg:max-w-sm ">
                 <div class="mb-4 rounded-2xl bg-primary-600 w-16 h-16 items-center m-auto flex justify-center">
                     <%s! Icons.beaker "h-6 w-6 text-white" %>

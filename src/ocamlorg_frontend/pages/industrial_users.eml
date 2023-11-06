@@ -74,7 +74,7 @@ the community and learn more about how they use OCaml."
               <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/ahrefs.svg" %>" alt="Ahrefs">
         </div>
       </div>
-    </div> 
+    </div>
   </div>
 </div>
 <div class="py-10 lg:py-24 bg-default dark:bg-dark-default">
@@ -234,9 +234,9 @@ the community and learn more about how they use OCaml."
           <p>What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
         </a>
       </div>
-    </div> 
-  </div>  
-</div>   
+    </div>
+  </div>
+</div>
 <script>
   function videoFullWidth() {
       return {
