@@ -20,15 +20,21 @@ type metadata = {
 }
 [@@deriving of_yaml]
 
-let split_statement_statement (blocks : _ Omd.block list) =
+let get_title (h: Cmarkit.Block.Heading.t) = 
+  let title =
+    Cmarkit.Inline.to_plain_text ~break_on_soft:false
+      (Cmarkit.Block.Heading.inline h) in
+    String.concat "\n" (List.map (String.concat "") title)
+  
+let split_statement_statement (blocks : Cmarkit.Block.t list) =
   let rec blocks_until_heading acc = function
     | [] -> (List.rev acc, [])
-    | Omd.Heading (_, 1, _) :: _ as l -> (List.rev acc, l)
+    | (h) :: rest when Cmarkit.Block.Heading.level h = 1 -> (List.rev acc, rest)
     | el :: rest -> blocks_until_heading (el :: acc) rest
   in
   let rec skip_non_heading_blocks = function
     | [] -> []
-    | Omd.Heading (_, 1, _) :: _ as l -> l
+    | (h) :: rest when Cmarkit.Block.Heading.level h = 1 -> rest
     | _ :: rest -> skip_non_heading_blocks rest
   in
   let err =
@@ -36,10 +42,10 @@ let split_statement_statement (blocks : _ Omd.block list) =
      top-level headings: \"Solution\" and \"Statement\""
   in
   match skip_non_heading_blocks blocks with
-  | Omd.Heading (_, 1, Omd.Text (_, "Solution")) :: rest -> (
+  | (h) :: rest when get_title h = "Solution" rest -> (
       let solution_blocks, rest = blocks_until_heading [] rest in
       match rest with
-      | Omd.Heading (_, 1, Omd.Text (_, "Statement")) :: rest -> (
+      | (h) :: rest when get_title h = "Statement" rest -> (
           let statements_blocks, rest = blocks_until_heading [] rest in
           match rest with
           | [] -> (statements_blocks, solution_blocks)
@@ -63,7 +69,7 @@ type t = {
 let decode (_, (head, body)) =
   let metadata = metadata_of_yaml head in
   let statement_blocks, solution_blocks =
-    split_statement_statement (Omd.of_string body)
+    split_statement_statement (Cmarkit.Doc.of_string body)
   in
   let statement = Omd.to_html statement_blocks in
   let solution = Omd.to_html solution_blocks in
