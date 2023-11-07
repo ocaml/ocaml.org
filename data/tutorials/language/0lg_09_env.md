@@ -2,7 +2,7 @@
 id: values-and-functions
 title: Values and Functions
 description: |
-  TBD
+  Functions, values, definitions, environments, closures and shadowing: this tutorial will help you master the fundamentals.
 category: "Language"
 ---
 
@@ -20,7 +20,7 @@ It would benefit the reader to write variations around the examples provided to 
 
 The first four sections of this tutorial addresses non-function values. The following sections, starting at [Function as Values](#function-as-values) addresses functions.
 
-**Prerequisites**: Ensure you have have [completed the “Get Started” series](https://ocaml.org/docs/installing-ocaml) before proceeding with this tutorial.
+**Prerequisites**: Ensure you have [completed the “Get Started” series](https://ocaml.org/docs/installing-ocaml) before proceeding with this tutorial.
 
 <!--
 When presenting OCaml or another functional programming language, it is often said: “Functions are treated as first-class citizens.” Without further explanation or context, this may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by that sentence. In turn, this should explain it:
@@ -35,7 +35,7 @@ When presenting OCaml or another functional programming language, it is often sa
 
 ## What is a Value?
 
-Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. In OCaml, there are no statements that specify actions to be taken on data. All computation must be through expression evaluation. Computing expressions produce values. Here are a few examples of expressions, their type, and the resulting values. Some include computation, some don't:
+Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. In OCaml, there are no statements that specify actions to be taken on data. All computations must be through expression evaluation. Computing expressions produce values. Here are a few examples of expressions, their type, and the resulting values. Some include computation, some don't:
 ```ocaml
 # "Everything has a value, every value has a type";;
 - : string = "Everything is a value, every value has a type"
@@ -141,7 +141,7 @@ This construction creates two lists. The first is formed by the left element of 
 
 ## Local Definitions
 
-Local definitions are like global definitions, except the name is only bound inside an expression. They are introduced by the `let ... = ... in ...` expression. The name bound before the `in` keyword is only bound in the expression after the `in` keyword. 
+Local definitions are like global definitions, except the name is only bound inside an expression. They are introduced by the `let ... = ... in ...` expression. The name bound before the `in` keyword is only bound in the expression after the `in` keyword.
 ```ocaml
 # let b = 2 * 3 in b * 7;;
 - : int = 42
@@ -259,7 +259,7 @@ val c : int = 49
 - : int = 49
 ```
 
-In this example, `c` is defined twice. The key thing to understand is that the name `c` is *not updated*. It looks as if the first `c` value has changed, but it hasn't. When the second `c` is defined, the first one becomes unreachable, but it remains in the global environment. This means anything written after the second definition uses its value, but functions written *before* the second definition still use the first, even if its called later. 
+In this example, `c` is defined twice. The key thing to understand is that the name `c` is *not updated*. It looks as if the first `c` value has changed, but it hasn't. When the second `c` is defined, the first one becomes unreachable, but it remains in the global environment. This means anything written after the second definition uses its value, but functions written *before* the second definition still use the first, even if its called later.
 
 ## Function as Values
 
@@ -349,7 +349,7 @@ A function may be defined locally. Just like any local definition, the function 
 Error: Unbound value sq
 ```
 
-Calling `sq;;` gets an error because it was only defined locally.
+Calling `sq` gets an error because it was only defined locally.
 
 ## Closures
 
@@ -435,101 +435,142 @@ The second version (`fibo_1`) uses the two first Fibonacci numbers as initial va
 > Note: Notice that the `fibo_1` function has three parameters (`m n i`) but only two arguments were passed (`0 1`). This is called *partial application*.
 
 ## Multiple Arguments Functions
-FIXME - rewrite Multiple Arguments section
 
+### With Syntactic Sugar
 
-When you define a function with multiple arguments, you're actually defining a series of functions that each take one argument. For example:
-
-```
-# let f x y z = x + y + z;;
-val f : int -> int -> int -> int = <fun>
-```
-
-Here, f is a function that takes an argument x and returns another function. The returned function takes an argument y and returns yet another function. The final returned function takes an argument z and computes the result x + y + z.
-
-The consequence is that the type` int -> int -> int -> int` actually means `int -> (int -> (int -> int))`. Types should always be read left to right.
-
-Here is an example:
-
+To define a function with multiple arguments each has to be listed between the name of the function (right after the `let` keyword) and the equal sign, separated by space. Here is an example:
 ```ocaml
-# ( + );;
-- : int -> int -> int = <fun>
+# let sweet_cat x y = x ^ " " ^ y;;
+val sweet_cat : string -> string -> string = <fun>
 
-# let f : (int -> (int -> int)) = ( + );;
-val f : int -> int -> int = <fun>
+# sweet_cat "kitty" "cat";;
+- : string = "kitty cat"
 ```
 
-In this example, the type of integer addition function `( + )` is displayed first. It prints as `int -> int -> int`, meaning it takes two integers and returns an integer. In the second statement, `f` is defined to have type `int -> (int -> int)`. Despite the type of `( + )` looking different, the binding with `f` is allowed because those two types are the same. The toplevel always prints the version without parentheses to make it easier to read.
+This is how most multiple-argument functions are defined. Alternatives exist, but this should be the default.
+
+### Without Syntactic Sugar
+
+The function `sweet_cat` is the same as this one:
+```ocaml
+# let sour_cat = fun x -> fun y -> x ^ " " ^ y;;
+
+val sour_cat : string -> string -> string = <fun>
+
+# sweet_cat "kitty" "cat";;
+- : string = "kitty cat"
+```
+
+Observe `sweet_cat` and `sour_cat` have the same body: `x ^ " " ^ y`. They only differ in the way parameters are listed:
+1. As `x y` between name and `=` in `sweet_cat`
+2. As `fun x -> fun y ->` after `=` in `sour_cat` (and nothing but name before `=`)
+
+Also observe that `sweet_cat` and `sour_cat` have the same type: `string -> string -> string`.
+
+In reality, these two definitions are the same. If you check the assembly code generated using [compiler explorer](https://godbolt.org/), you'll see it is the same.
+
+The way `sour_cat` is written corresponds more explicitly to the behaviour of both functions. The name `sour_cat` is bound to an anonymous function having parameter `x` and returning an anonymous function having parameter `y` and returning `x ^ " " ^ y`.
+
+The way `sweet_cat` is written is an abbreviated version of `sour_cat`. Such a way of shortening syntax is called [syntactic sugar](https://en.wikipedia.org/wiki/Syntactic_sugar).
+
+### Partial Application and Closures
+
+Having multiple-argument functions as a series of nested single-argument functions is what makes partial application possible.
+```ocaml
+# let sour_kitty x = sour_cat "kitty" x;;
+val sour_kitty : string -> string = <fun>
+
+# let sweet_kitty = fun x -> sweet_cat "kitty kitty" x;;
+val sweet_kitty : string -> string = <fun>
+
+# sour_kitty "cat";;
+- : string = "kitty cat"
+
+# sweet_kitty "cat";;
+- : string = "kitty kitty cat"
+```
+
+Both `sweet_cat` and `sour_cat` allow partial application.
+
+Passing a single parameter to any of those functions returns a function of type `string -> string`. That result is a closure. The first argument, here `"kitty"`, is captured as if it had been in an earlier definition.
+
+### Multiple-Argument Function Types
+
+Carefully observe the following definition:
+```ocaml
+# let dummy_cat : string -> (string -> string) = sweet_cat;;
+val dummy_cat : string -> string -> string = <fun>
+```
+
+Here the type annotation `: string -> (string -> string)` is used to explicitly state the type of `dummy_cat`. However, OCaml answers claiming the fresh definition has type `string -> string -> string`.
+
+Here is how to make sense of this:
+1. It is possible to pretend that `sweet_cat` has type `string -> (string -> string)`.
+1. Types `string -> (string -> string)` and `string -> string -> string` are the same
+
+The type `string -> string -> string` is the [pretty-printed](https://en.wikipedia.org/wiki/Prettyprint) version `string -> (string -> string)`. The latter reflects, as described in the previous section, that a multiple-argument function is a single-parameter function that returns an anonymous function with one parameter removed.
 
 Putting the parentheses the other way does not work:
 ```ocaml
-# let g : ((int -> int) -> int) = ( + );;
-Error: This expression has type int -> int -> int
-       but an expression was expected of type (int -> int) -> int
-       Type int is not compatible with type int -> int
+# let bogus_cat : (string -> string) -> string = sweet_cat;;
+Error: This expression has type string -> string -> string
+       but an expression was expected of type (string -> string) -> string
+       Type string is not compatible with type string -> string
 ```
 
-In mathematical language, the type arrow operator _associates to the right_. Function types without parentheses should be treated as if they have parentheses placed to the right in the same way that the type of `f` was declared above. These types are the same:
-- `int -> int -> int`
-- `int -> (int -> int)`
+The type `(string -> string) -> string` denotes functions that take a function as a parameter, not a function as a result as `sweet_cat`.
 
-But only the first is displayed, so it is not the same as `(int -> int) -> int`.
-
-Most importantly, this means a *binary* function isn't really one that takes two parameters. In the case of addition, it is a function that takes an integer and returns a function of type `int -> int`. And it is indeed!
-```ocaml
-# ( + ) 2;;
-- : int -> int = <fun>
-```
-
-Passing a single integer to `( + )` returns a function of type `int -> int`. That value is a closure. The first argument, here 2, is captured as if it had been in an earlier definition.
+In computer science language, the type arrow operator _associates to the right_. Function types without parentheses should be treated as if they have parentheses to the right in the same way that the type of `dummy_cat` was declared above. Except they are not displayed, this is [pretty-printing](https://en.wikipedia.org/wiki/Prettyprint).
 
 ### Passing Tuples
 
-In OCaml, a *tuple* is a fundamental data structure used to group together a fixed number of values, which can be of different types. Tuples are defined using parentheses, and the elements are separated by commas. Here's the basic syntax to create and work with tuples in OCaml:
+In OCaml, a *tuple* is a data structure used to group a fixed number of values, which can be of different types. Tuples are surrounded by parentheses, and the elements are separated by commas. Here's the basic syntax to create and work with tuples in OCaml:
 ```ocaml
-# let space_cat (s, t) = s ^ " " ^ t;;
-val space_cat : string * string -> string = <fun>
+# ("felix", 1920);;
+- : string * int = ("felix", 1920)
 ```
 
-It takes a pair of strings and returns a concatenation of those strings with a space character in between.
+It is possible to use the tuple syntax to specify function parameters. Here is how it can be used to define yet another version of the running example:
 ```ocaml
-# space_cat ("hello", "world");;
+# let spicy_cat (x, y) = x ^ " " ^ y;;
+val spicy_cat : string * string -> string = <fun>
+```
+
+It behaves the same as previously.
+```ocaml
+# spicy_cat ("hello", "world");;
 - : string = "hello world"
 ```
 
-The function `space_cat` takes a single parameter, even though it looks like two arguments have been passed: "hello" and "world;" however, since they're enclosed in parentheses with a comma, they are actually a tuple. Tuples with multiple elements are a single value. 
+It looks like two arguments have been passed: `"hello"` and `"world"`. However, only one, the `("hello", "world")` pair has been passed. Inspection of the generated assembly would show it isn't exactly the same function. It contains some more code. The contents of the pair passed to `spicy_cat` (`x` and `y`) must be extracted before evaluation of the `s ^ " " ^ t` expression. This is the role of the additional assembly instructions.
 
-In many imperative languages, this syntax reads as a function call with two parameters; but in OCaml, this syntax denotes applying the function `space_cat` to the tuple `("hello", "world")`. 
+In many imperative languages, the `spicy_cat ("hello", "world")` syntax reads as a function call with two parameters; but in OCaml, it denotes applying the function `spicy_cat` to a pair containing `"hello"` and `"world"`.
 
 ### Currying and Uncurrying
 
-In the two previous sections, two kinds of “multiple parameter” functions have been presented.
-- Functions returning a function, such as `( + )`
-- Functions taking a tuple as a parameter, such as `space_cat`
+In the previous sections, two kinds of multiple-parameter functions have been presented.
+- Functions returning a function, such as `sweet_cat` and `sour_cat`
+- Functions taking a tuple as a parameter, such as `spicy_cat`
 
-Interestingly, both kinds of functions provide a way to apply them to several arguments while being functions with a single parameter. From this perspective, it makes sense to say: “All functions have a single argument.”
+Interestingly, both kinds of functions provide a way to pass several pieces of data to a body while being functions with a single parameter. From this perspective, it makes sense to say: “All functions have a single argument.”
 
-This goes even further. Any function of the same kind can be translated into an equivalent function of the second kind, and conversely. Using OCaml support for higher-order functions, it is possible to define those transformations as functions.
+This goes even further. It is always possible to translate back and forth between functions looking like `sweet_cat` (or `sour_cat`) and functions looking like `spicy_cat`.
 
-Here is the translation from the first kind to the second kind:
-```ocaml
-# fun f -> fun (x, y) -> f x y;;
-- : ('a -> 'b -> 'c) -> 'a * 'b -> 'c = <fun>
-```
+These translations have names:
+* [Currying](https://en.wikipedia.org/wiki/Currying) goes from the `spicy_cat` form into the `sour_cat` (or `sweet_cat`) form
+* Uncurrying goes from the `sour_cat` (or `sweet_cat`) form into the `spicy_cat` form
 
-Here is the reverse translation:
-```ocaml
-# fun f -> fun x y -> f (x, y);;
-- : ('a * 'b -> 'c) -> 'a -> 'b -> 'c = <fun>
-```
+It also said that `sweet_cat` and `sour_cat` are _curried_ functions whilst `spicy_cat` is _uncurried_.
 
-These translations are attributed to the 20th-century logician [Haskell Curry](https://en.wikipedia.org/wiki/Haskell_Curry). The second translation is called *currying* and the first is called *uncurrying*.
+These translations are attributed to the 20th-century logician [Haskell Curry](https://en.wikipedia.org/wiki/Haskell_Curry).
 
-From a typing perspective, this means that for any types `'a`, `'b`, and `'c`, the following types are equivalent:
-- `a -> ('b -> 'c)` &mdash; curried function type
-- `a * 'b -> 'c` &mdash; uncurried function type
+From a typing perspective, this means the following types are equivalent:
+- `string -> (string -> string)` &mdash; curried function type
+- `string * string -> string` &mdash; uncurried function type
 
-We will not dive any deeper into the details here, but this equivalence can be formally defined using _ad-hoc_ mathematics.
+Here, this is shown using `string` as an example, but it applies to any group of three types.
+
+We will not dive any deeper into the details here, but these equivalences can be formally defined using _ad-hoc_ mathematics.
 
 It is rarely necessary to use the functions above. However, it is important to understand that changing a function may not need any code refactoring. A function can be given several equivalent forms and changed into another, either using refactoring or using a higher-order function. Since functions are values, currying and uncurrying are operations on those values.
 
@@ -540,31 +581,38 @@ In practice, curried functions are the default form functions should take becaus
 
 ## Functions With Side-Effects
 
-With respect to its type, a function is expected to process input data from its *domain*, the set of input values, and produce a result data from its *codomain*, the set of output values.
+With respect to its type, a function is processes input data from its *domain*, the set of input values, and produce a result data from its *codomain*, the set of output values.
+```ocaml
+# string_of_int;;
+- : int -> string = <fun>
+```
+The function `string_of_int`
+* Has domain `int`
+* Has codomain `string`
 
-However, some functions either take input data outside of their declared domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output (I/O) are the most common forms of effects. Input is out-of-domain data and output out-of-codomain data. However, the result of functions returning random numbers or the current time is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
+However, some functions either take input data outside of their domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output (I/O) are the most common forms of effects. Input is out-of-domain data and output is out-of-codomain data. However, the result of functions returning random numbers or the current time is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
 
-In practice, what is considered an effect is an engineering choice. In most circumstances, I/O operations are considered as effects, unless they are ignored. Electromagnetic radiation emitted by the processor when computing a function isn't usually considered a relevant side-effect, except in some security-sensitive contexts. In the OCaml community, as well as in the wider functional programming community, functions are often said to be either pure or impure. The former does not have side effects, the latter does. This distinction makes sense and is useful. Knowing what the effects are, and when are they taking place, is a key design consideration. However, it is important to remember this distinction always assumes some sort of context. Any computation has effects, and what is considered a relevant effect is a design choice.
+In practice, what is considered an effect is an engineering choice. In most circumstances, I/O operations are considered as effects, unless they are ignored. Electromagnetic radiation emitted by the processor when computing a function isn't usually considered a relevant side-effect, except in some security-sensitive contexts. In the OCaml community, as well as in the wider functional programming community, functions are often said to be either [pure](https://en.wikipedia.org/wiki/Pure_function) or impure. The former does not have side effects, the latter does. This distinction makes sense and is useful. Knowing what the effects are, and when are they taking place, is a key design consideration. However, it is important to remember this distinction always assumes some sort of context. Any computation has effects, and what is considered a relevant effect is a design choice.
 
-Since, by definition, effects lie outside function types, a function type can't reflect the effects a function may have. However, it is important to document the intended side effects a function may have. Consider the `Unix.time` function. It returns the number of seconds elapsed since Jan 1, 1970.
+Since, by definition, effects lie outside function types, a function type can't reflect the effects a function may have. However, it is important to document the intended side effects a function may have. Consider the `Unix.time` function. It returns the number of seconds elapsed since January 1, 1970.
 ```ocaml
 # Unix.time ;;
 - : unit -> float = <fun>
 ```
 If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.
 
-To produce its result, no data needs to be passed to that function. The result is entirely determined by external factors. If it was passed information, it would not be used. But something must be passed as a parameter to trigger the request the current time from the operating system.
+To produce its result, no data needs to be passed to that function. The result is entirely determined by external factors. If it was passed information, it would not be used. But something must be passed as a parameter to trigger the request of the current time from the operating system.
 
-Since the function must receive data to trigger the computation but the data is going to be ignored, it makes sense to provide the unit value (). What is discarded is meaningless in the first place.
+Since the function must receive data to trigger the computation but the data is going to be ignored, it makes sense to provide the `unit` value `()`. What is discarded is meaningless in the first place.
 
 A similar reasoning applies to functions producing an effect instead of being externally determined or influenced. Consider `print_endline`. It prints the string it was passed to standard output, followed by a line termination.
 ```ocaml
 # print_endline;;
 - : string -> unit = <fun>
 ```
-Since the purpose of the function is only to produce an effect, it has no meaningful data to return; therefore, again, it makes sense to return the unit value.
+Since the purpose of the function is only to produce an effect, it has no meaningful data to return; therefore, again, it makes sense to return the `unit` value.
 
-This illustrates the relationship between functions intended to have side effects and the unit type. The presence of the unit type does not indicate the presence of side effects. The absence of the unit type does not indicate the absence of side effects. But when no data needs to be passed as input or can be returned as output, the unit type should be used to indicate it and suggest the presence of side effects.
+This illustrates the relationship between functions intended to have side effects and the `unit` type. The presence of the `unit` type does not indicate the presence of side effects. The absence of the `unit` type does not indicate the absence of side effects. But when no data needs to be passed as input or can be returned as output, the `unit` type should be used to indicate it and suggest the presence of side effects.
 
 ## Functions are Almost as Other Values
 
@@ -590,7 +638,7 @@ Exception: Invalid_argument "compare: functional value".
 
 There are two main reasons explaining this:
 - It is impossible to write an algorithm that takes two functions and returns `true`, if they always return the same output when provided the same input, and `false` otherwise.
-- Assuming it was possible, such an algorithm would declare that implementations of quicksort and bubble sort are equal. That would mean one could replace the other, which is may not be wise.
+- Assuming it was possible, such an algorithm would declare that implementations of quicksort and bubble sort are equal. That would mean one could replace the other, and that may not be wise.
 
 It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
 
