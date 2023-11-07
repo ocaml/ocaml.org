@@ -78,7 +78,7 @@ Here, `the_answer` is the global definition with a value of 42.
 
 When a variant type has a single constructor, it is possible to combine pattern matching and definitions. The pattern is written between the `let` keyword and the equal sign. A very common case is pairs. It allows the creation of two names with a single `let`.
 ```ocaml
-# let (x, y) = List.split [(1,2); (3,4); (5,6); (7,8)];;
+# let (x, y) = List.split [(1, 2); (3, 4); (5, 6); (7, 8)];;
 val x : int list = [1; 3; 5; 7]
 val y : int list = [2; 4; 6; 8]
 ```
@@ -134,7 +134,7 @@ ha ha
 
 As seen in the last example, the catch-all pattern (`_`) can be used in definitions. The following example illustrates its use, which is distinct from the unit pattern:
 ```ocaml
-# let (_, y) = List.split [(1,2); (3,4); (5,6); (7,8)];;
+# let (_, y) = List.split [(1, 2); (3, 4); (5, 6); (7, 8)];;
 val y : int list = [2; 4; 6; 8]
 ```
 This construction creates two lists. The first is formed by the left element of each pair. The second is formed by the right element. Since we're only interested in the right element, we give the name `y` to that list and discard the first by using `_`.
@@ -160,6 +160,11 @@ Local definitions can be chained (one after another) or nested (one inside anoth
   let c = b * 7 in
   b * c;;
 - : int = 252
+
+# b;;
+Error: Unbound value b
+# c;;
+Error: Unbound value c
 ```
 
 This is how scoping works here:
@@ -173,12 +178,19 @@ Here is an example of nesting:
     c * 5 in
   b * 7;;
 - : int = 210
+
+# b;;
+Error: Unbound value b
+# c;;
+Error: Unbound value c
 ```
 Here is how scoping works:
 - `c` is bound to `6` inside `c * 5`
 - `b` is bound to `30` inside `b * 7`
 
 Arbitrary combinations of chaining or nesting are allowed.
+
+In both examples `b` and `c` are local definitions.
 
 ## Scopes and Environments
 
@@ -200,8 +212,12 @@ Here, the global environment is unchanged:
 ```ocaml
 # let pi = 3.14159 in 2. *. pi;;
 - : float = 6.28318
+
+# pi;;
+Error: Unbound value pi
+
 ```
-If we call `pi`, it will result in an error because it hasn't been added to the global environment. However, with respect to the expression `2. *. pi`, the environment is different because it contains the definition of `pi`. Local definitions create local environments.
+Calling `pi` results in an error because it hasn't been added to the global environment. However, with respect to the expression `2. *. pi`, the environment is different because it contains the definition of `pi`. Local definitions create local environments.
 
 A definition's scope is the set of environments where it is reachable.
 
@@ -216,6 +232,7 @@ Although OCaml is an expression-oriented language, it is not entirely free of st
 
 With respect to the environment, there are no means to:
 - List its contents
+- Clear its contents
 - Remove a definition
 - Reset it to an earlier state
 
@@ -237,29 +254,29 @@ val d : int = 21
 
 Here, the value of `d` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `d` locally, inside `d * 2`, not globally.
 
-In summary, a name-value pair in a local expression *shadows* a binding with the same name in the global environment. In other words, the local binding temporarily hides the global one, making it inaccessible, but it doesn't change it. 
+A name-value pair in a local expression *shadows* a binding with the same name in the global environment. In other words, the local binding temporarily hides the global one, making it inaccessible, but it doesn't change it.
 
 ### Same-Level Shadowing
 
 Another kind of shadowing takes place when there are two definitions with the same name at the same level.
 ```ocaml
-# let c = 2 * 3;;
-val c : int = 6
+# let a = 2 * 3;;
+val a : int = 6
 
-# let d = c * 7;;
-val d : int = 42
+# let e = a * 7;;
+val e : int = 42
 
-# let c = 7 * 7;;
-val c : int = 49
+# let a = 7;;
+val a : int = 7
 
-# d;;
+# e;;
 - : int = 42
 
-# c;;
-- : int = 49
+# a;;
+- : int = 7
 ```
 
-In this example, `c` is defined twice. The key thing to understand is that the name `c` is *not updated*. It looks as if the first `c` value has changed, but it hasn't. When the second `c` is defined, the first one becomes unreachable, but it remains in the global environment. This means anything written after the second definition uses its value, but functions written *before* the second definition still use the first, even if its called later.
+In this example, `a` is defined twice. The key thing to understand is that `a` is *not updated*. It looks as if the value of `a` has changed, but it hasn't. When the second `a` is defined, the first one becomes unreachable, but it remains in the global environment. This means anything written after the second definition uses its value, but functions written *before* the second definition still use the first, even if called later.
 
 ## Function as Values
 
@@ -332,8 +349,8 @@ Defining a global function is exactly like binding a value to a name. The expres
 # let f = fun x -> x * x;;
 val f : int -> int = <fun>
 
-# let f x = x * x;;
-val f : int -> int = <fun>
+# let g x = x * x;;
+val g : int -> int = <fun>
 ```
 
 These two definitions are the same. The former explicitly binds the anonymous function to a name. The latter uses a more compact syntax and avoids the `fun` keyword and the arrow symbol.
@@ -353,41 +370,40 @@ Calling `sq` gets an error because it was only defined locally.
 
 ## Closures
 
-The following example illustrates a [*closure*](https://en.wikipedia.org/wiki/Closure_(computer_programming)) using [Same-Level Shadowing](#same-level-shadowing]:
+The following example illustrates a [*closure*](https://en.wikipedia.org/wiki/Closure_(computer_programming)) using [Same-Level Shadowing](#same-level-shadowing):
 ```ocaml
-# let d = 2 * 3;;
-val d : int = 6
+# let a = 2 * 3;;
+val a : int = 6
 
-# let f x = x * d;;
+# let f x = x * a;;
 val f : int -> int = <fun>
 
 # f 7;;
 - : int = 42
 
-# let d = 10;;
-val d : int = 10
+# let a = 7;;
+val a : int = 7
 
 # f 7;; (* What is the result? *)
 - : int = 42
 ```
 
 Here is how this makes sense:
-1. Constant `d` is defined, and its value is 6.
-1. Function `f` is defined. It takes a single parameter `x` and returns its product by `d`.
+1. Constant `a` is defined, and its value is 6.
+1. Function `f` is defined. It takes a single parameter `x` and returns its product by `a`.
 1. Compute `f` of 7, and its value is 42
-1. Create a new definition `d`, shadowing the first one
+1. Create a new definition `a`, shadowing the first one
 1. Compute `f` of 7 again, the result is the same: 42
 
-Although the new definition of `d` *shadows* the first one, the original remains the one the function `f` uses. The `f` function's environment captures the first value of `d`, so every time you apply `f` (even after the second definition of `d`), you can be confident the function will behave the same. A closure is a pair containing the function code and an environment.
+Although the new definition of `a` *shadows* the first one, the original remains the one the function `f` uses. The `f` function's environment captures the first value of `a`, so every time you apply `f` (even after the second definition of `a`), you can be confident the function will behave the same. A closure is a pair containing the function code and an environment.
 
-However, all future expressions will use the new value of `d` (`10`), as shown here:
-
+However, all future expressions will use the new value of `a` (`10`), as shown here:
+```ocaml
+# let b = a * 3;;
+val b : int = 30
 ```
-# let g = d * 3;;
-val g : int = 30
-```
 
-Partially applying parameters to a function creates a new closure. The environment is updated, but the function is unchanged.
+Partially applying parameters to a function also creates a new closure. The environment is updated, but the function is unchanged.
 ```ocaml
 # let max_42 = max 42;;
 val max_42 : int -> int = <fun>
@@ -404,10 +420,10 @@ The classic (and very inefficient) way to present recursion is using the functio
 # let rec fibo n = if n <= 1 then n else fibo (n - 1) + fibo (n - 2);;
 val fibo : int -> int = <fun>
 
-# let xs = List.init 10 Fun.id;;
-val xs : int list = [0; 1; 2; 3; 4; 5; 6; 7; 8; 9]
+# let u = List.init 10 Fun.id;;
+val u : int list = [0; 1; 2; 3; 4; 5; 6; 7; 8; 9]
 
-# List.map fibo xs;;
+# List.map fibo u;;
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
 
@@ -415,24 +431,23 @@ This version of `fibo` is inefficient because the number of recursive calls crea
 
 > Note: `List.init` is a standard library function that allows you to create a list by applying a given function to a sequence of integers, and `Fun.id` is the identity function, which returns its argument unchanged. We created a list with the numbers 0 - 9 and named it `xs`. We applied the `fibo` function to every element of the list using `List.map`.
 
-
 This version does a better job:
 ```ocaml
-# let rec fibo_1 m n i = if i = 0 then m else fibo_1 n (n + m) (i - 1);;
-val fibo_1 : int -> int -> int -> int = <fun>
+# let rec fib m n i = if i = 0 then m else fib n (n + m) (i - 1);;
+val fib : int -> int -> int -> int = <fun>
 
-# let fibo_1 = fibo_1 0 1;;
-val fibo_1 : int -> int = <fun>
+# let fib = fib 0 1;;
+val fib : int -> int = <fun>
 
-# List.init 10 Fun.id |> List.map fibo_1;;
+# List.init 10 Fun.id |> List.map fib;;
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
 
 The first version (`fibo`) takes two extra parameters: the two previously computed Fibonacci numbers.
 
-The second version (`fibo_1`) uses the two first Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called “tail call elimination.” This turns recursivity into imperative iteration in the generated native code and leads to improved performances.
+The second version (`fib`) uses the two first Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called “tail call elimination.” This turns recursivity into imperative iteration in the generated native code and leads to improved performances.
 
-> Note: Notice that the `fibo_1` function has three parameters (`m n i`) but only two arguments were passed (`0 1`). This is called *partial application*.
+> Note: Notice that the `fib` function has three parameters (`m n i`) but only two arguments were passed (`0 1`). This is called *partial application*.
 
 ## Multiple Arguments Functions
 
