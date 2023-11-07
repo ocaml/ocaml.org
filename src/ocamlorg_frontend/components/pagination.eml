@@ -23,12 +23,12 @@ let right_arrow ~base_url page ~query=
 
 let render ~total_page_count ~page_number ~base_url ~query=
   <div class="pt-16 flex items-center justify-center space-x-2.5">
+  <% if  total_page_count > 1 then ( %>
     <%s! if page_number != 1 then (left_arrow ~base_url page_number ~query) else "" %>
-    <%s! link ~base_url ~page:1 ~current:page_number ~query %>
     <% if page_number >= 4 then ( %>
     <span class="w-10 h-10 lg:w-14 lg:h-14 border-body-100 rounded-lg flex items-center justify-center text-lighter hover:no-underline">...</span>
     <% ); %>
-    <% for page = 2 to (total_page_count - 1) do %>
+    <% for page = 1 to (total_page_count - 1) do %>
     <%s! if (abs (page_number - page) <= 1) || (page_number = 1 && page = 3) || (page_number = total_page_count && total_page_count - page = 2) then (link ~base_url ~page ~current:page_number ~query) else "" %>
     <% done; %>
     <% if total_page_count - page_number >= 3 then ( %>
@@ -36,4 +36,5 @@ let render ~total_page_count ~page_number ~base_url ~query=
     <% ); %>
     <%s! link ~base_url ~page:total_page_count ~current:page_number ~query %>
     <%s! if page_number != total_page_count then (right_arrow ~base_url page_number ~query) else "" %>
+  <% ); %>
   </div>

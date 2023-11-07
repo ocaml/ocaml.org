@@ -102,16 +102,10 @@
 
 (rule
  (target watch.ml)
- (deps
-  (:config %{workspace_root}/yoshi.yaml))
  (action
-  (run
-   %{bin:yoshi}
-   -c
-   %{config}
-   -o
+  (with-stdout-to
    %{target}
-   %{workspace_root}/data/watch.yml)))
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} watch))))
 
 (rule
  (target planet.ml)

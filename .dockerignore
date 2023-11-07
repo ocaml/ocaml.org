@@ -8,6 +8,5 @@
 !dune-project
 !ocamlorg.opam
 !tailwind.config.js
-!yoshi.yaml
 !init-cache
 !.git

@@ -1,4 +1,10 @@
-type source = { id : string; name : string; url : string; description : string }
+type source = {
+  id : string;
+  name : string;
+  url : string;
+  description : string;
+  disabled : bool;
+}
 [@@deriving show { with_path = false }]
 
 type post = {
@@ -40,6 +46,7 @@ module Local = struct
                name = s.name;
                url = "https://ocaml.org/blog/" ^ s.id;
                description = s.description;
+               disabled = false;
              })
   end
 
@@ -108,7 +115,14 @@ module External = struct
      scrape.yml workflow *)
 
   module Source = struct
-    type t = { id : string; name : string; url : string } [@@deriving yaml]
+    type t = {
+      id : string;
+      name : string;
+      url : string;
+      disabled : bool option;
+    }
+    [@@deriving yaml]
+
     type sources = t list [@@deriving yaml]
 
     let all () : source list =
@@ -116,7 +130,14 @@ module External = struct
       "planet-sources.yml" |> Data.read
       |> Option.to_result ~none:(`Msg "could not decode")
       |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
-      |> List.map (fun { id; name; url } -> { id; name; url; description = "" })
+      |> List.map (fun { id; name; url; disabled } ->
+             {
+               id;
+               name;
+               url;
+               description = "";
+               disabled = Option.value ~default:false disabled;
+             })
   end
 
   module Post = struct
@@ -145,7 +166,8 @@ module External = struct
           | Ok s -> s
           | Error (`Msg e) -> (
               match m.source with
-              | Some { name; url } -> { id = ""; name; url; description = "" }
+              | Some { name; url } ->
+                  { id = ""; name; url; description = ""; disabled = false }
               | None ->
                   failwith
                     (e ^ " and there is no source defined in the markdown file")
@@ -161,10 +183,9 @@ module External = struct
       }
 
     let pp_meta ppf v =
-      Fmt.pf ppf
-        {|---
-    %s---
-    |}
+      Fmt.pf ppf {|---
+%s---
+|}
         (metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
 
     let decode (fpath, (head, body)) =
@@ -249,7 +270,7 @@ let all () =
 let template () =
   Format.asprintf
     {|
-type source = { id : string; name : string; url : string ; description : string }
+type source = { id : string; name : string; url : string ; description : string; disabled : bool }
 
 module Post = struct
   type t =
@@ -394,9 +415,10 @@ module Scraper = struct
   let scrape () =
     let sources = External.Source.all () in
     sources
+    |> List.filter (fun ({ disabled; _ } : source) -> not disabled)
     |> List.map
          (fun
-           ({ id; url; name; description = _ } : source)
+           ({ id; url; name; description = _; disabled = _ } : source)
            :
            (string * River.source)
          -> (id, { name; url }))

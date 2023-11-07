@@ -72,7 +72,7 @@ OCaml community."
         </div>
         <% ); %>
         <div class="prose">
-        If you want to contribute a job post, check out this <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#jobs" target="_blank">contributing guide</a> on GitHub.
+        If you want to contribute a job post, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-job" target="_blank">Contributing Guide</a> on GitHub.
         </div>
     </div>
 </div>

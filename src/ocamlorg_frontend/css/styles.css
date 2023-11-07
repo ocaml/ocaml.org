@@ -114,6 +114,10 @@ body {
     background: rgba(39, 39, 39, 1);
 }
 
+.prose {
+  word-wrap: break-word;
+}
+
 .prose [id] {
   scroll-margin-top: 2rem;
 }
