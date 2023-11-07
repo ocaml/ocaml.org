@@ -24,6 +24,7 @@ We've provided a list of community-driven content below. When adding content to 
 - [Academic and Industrial Users](#content-user)
 - [OCaml Books](#content-book)
 - [Community Events](#content-event)
+- [Upcoming Events](#content-upcoming_event)
 - [Featured Packages](#content-package)
 - [The OCaml Changelog](#content-package)
 
@@ -106,6 +107,12 @@ You can add a new OCaml book by creating a new Markdown file in [data/books/](da
 > Contribute to the [Community Events](https://ocaml.org/community).
 
 You can add a new community event by creating a new Markdown file in [data/meetups.yml](data/meetups.yml).
+
+### <a name="content-upcoming_event"></a> Add an Upcoming Event
+
+> Contribute to the [Upcoming Event](https://ocaml.org/community).
+
+You can add a new upcoming event by creating a new Markdown file in [data/events](data/meetups.yml).
 
 ### <a name="content-package"></a> Add a Featured Package
 
