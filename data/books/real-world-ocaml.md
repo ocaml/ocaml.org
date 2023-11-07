@@ -10,7 +10,7 @@ recommendation: >
 authors:
   - Anil Madhavapeddy
   - Yaron Minsky
-published: 2022-10-22
+published: 2022-11-23
 cover: books/real-world-ocaml.jpg
 language:
   - english

@@ -7,7 +7,7 @@ description: >
   We assume that incoming students are familiar with mathematical thinking, but we do not assume programming experience.
 authors:
   - Gert Smolka
-published: 2021-10-17
+published: 2022-04-05
 cover: books/intro-to-fp-and-structure-of-pl.jpg
 language:
   - english
