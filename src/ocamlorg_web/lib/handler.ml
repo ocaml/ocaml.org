@@ -177,7 +177,7 @@ let releases req =
     | None -> Data.Release.all
     | Some search -> search_release search Data.Release.all
   in
-  Dream.html (Ocamlorg_frontend.releases releases)
+  Dream.html (Ocamlorg_frontend.releases ?search releases)
 
 let release req =
   let version = Dream.param req "id" in
