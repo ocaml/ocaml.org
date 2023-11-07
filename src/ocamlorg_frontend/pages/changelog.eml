@@ -72,5 +72,8 @@ Layout.render
         <% ); %>
       </div>
     </div>
+    <div class="prose max-w-none mt-8">
+          If you want to contribute to a new release announcement, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-changelog" target="_blank">Contributing Guide</a> on GitHub.
+        </div>
   </div>
 </div>

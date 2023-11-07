@@ -1,4 +1,0 @@
-(executable
- (public_name yoshi)
- (name main)
- (libraries yoshi cmdliner))

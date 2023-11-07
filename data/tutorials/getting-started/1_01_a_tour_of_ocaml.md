@@ -413,7 +413,7 @@ val g' : string -> int = <fun>
 
 The underscore symbol is a catch-all pattern; it matches with anything.
 
-Note that OCaml throws a warning when pattern matching does not catch call cases:
+Note that OCaml throws a warning when pattern matching does not catch all cases:
 ```ocaml
 # fun i -> match i with 0 -> 1;;
 Line 1, characters 9-28:
@@ -748,6 +748,6 @@ In this tutorial, OCaml was used interactively. The next tutorial, [Your First O
 
 Other recommended tutorials:
 
-1. [Basic Data Types](/docs/basic-datatypes)
+1. [Data Types and Matching](/docs/data-types)
 1. [If Statements, Loops, and Recursions](/docs/if-statements-and-loops)
 1. [Lists](/docs/lists)

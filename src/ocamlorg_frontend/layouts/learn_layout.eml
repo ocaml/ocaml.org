@@ -79,23 +79,17 @@ let sidebar_link
 ~title
 ~href
 ~current =
-  match current with
-  | true ->
-    <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s href %>">
-      <%s title %>
-    </a>
-  | false ->
-    <a class="font-semibold text-sm text-lighter hover:bg-gray-100 block py-2 px-3" href="<%s href %>">
-      <%s title %>
-    </a>
+  <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-primary-700 bg-primary-100 border-primary-600|} else {|text-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
+    <%s title %>
+  </a>
 
 let sidebar_link_group
 ?(extra_html="")
 title
 link_html
 =
-  <div class="space-y-2 flex flex-col">
-    <div class="text-sm font-semibold flex px-3 py-2 uppercase"><%s title %></div>
+  <div class="pl-2 pr-8 flex flex-col">
+    <div class="text-lg font-bold leading-10 flex py-1 uppercase"><%s title %></div>
     <%s! link_html %>
     <%s! extra_html %>
   </div>
@@ -146,10 +140,9 @@ inner_html
   <%s! tabs ~current %>
   <div class="bg-default dark:bg-dark-default" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
   <% if left_sidebar_html != None then ( %>  
-    <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
+    <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-[#D54000] p-4 z-30 rounded-full text-white shadow-custom bottom-24 md:bottom-36 fixed lg:hidden right-10"
       x-on:click="sidebar = ! sidebar">
-      <%s! Icons.sidebar_menu "h-8 w-8" %>
-      <span class="hidden md:flex font-semibold px-2">side menu</span>
+      <%s! Icons.sidebar_menu "h-6 w-6" %>
     </button>
     <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm lg:hidden"
       :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar"></div>
@@ -164,8 +157,9 @@ inner_html
         <%s! Option.value ~default:"" left_sidebar_html %>
       </div>
 
-      <div class="flex-1 z-0 z- min-w-0 lg:pt-6 pb-12 lg:pb-[70vh] <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
+      <div class="flex-1 z-0 z- min-w-0 lg:pt-6 <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
         <%s! inner_html %>
+        <%s! Secondary_footer.render () %>
       </div>
       <div class="hidden xl:block top-0 sticky h-screen overflow-auto lg:pt-6">
         <div class="<%s Option.fold ~none:"" ~some:(fun _ -> "w-60 lg:pb-72") right_sidebar_html %>">
@@ -175,4 +169,4 @@ inner_html
     </div>
   </div>
   <%s! Toc.script %>
-  <%s! Secondary_footer.render () %>
+  
