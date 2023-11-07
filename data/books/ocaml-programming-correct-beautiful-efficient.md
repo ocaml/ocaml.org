@@ -8,7 +8,7 @@ description: >
 recommendation: "Basic experience in some imperative programming language is helpful. Includes over 200 videos."
 authors:
   - Michael R. Clarkson
-published: 2021-09-01
+published: 2023-08-14
 cover: books/ocaml-programming-cs3110.jpg
 language:
   - english
