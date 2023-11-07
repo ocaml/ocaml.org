@@ -1,8 +1,6 @@
 type location = { lat : float; long : float }
 [@@deriving of_yaml, show { with_path = false }]
 
-type date_with_optional_time = Date of Ptime.date | DateTime of Ptime.t
-
 type metadata = {
   title : string;
   url : string;
