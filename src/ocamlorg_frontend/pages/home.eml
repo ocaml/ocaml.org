@@ -264,7 +264,7 @@ Layout.render
   </div>
 </div>
 
-<div class="flex gap-10 lg:gap-15 flex-col lg:flex-row justify-between items-center">
+<div class="flex gap-10 lg:gap-15 flex-col lg:flex-row justify-between items-center lg:py-24">
   <div class="overflow-hidden lg:flex-1 mt-10 lg:mt-0 flex items-center">
     <div class="container-fluid flex flex-col items-left">
       <h3 class="font-bold">Releases</h3>
@@ -303,22 +303,9 @@ Layout.render
           <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
       </div>
-   
-<div class="bg-default py-12 overflow-hidden">
-  <div class="container-fluid flex flex-col items-center">
-    <h3 class="font-bold">Releases</h3>
-    <div class="bg-pattern p-6 mt-8 rounded-xl w-full lg:w-2/3 text-white">
-      <a href="<%s Url.release latest_release.version %>">
-        <div class="text-primary-600 text-sm mb-4 uppercase">Recent Release</div>
-        <h3 class="font-bold mb-6">
-          <%s latest_release.version %> <span class="text-sm font-medium">(<%s latest_release.date %>)</span>
-        </h3>
-      </a>
-      <div class="prose prose-sm text-white"><%s! latest_release.highlights_html %></div>
-
     </div>
   </div>
-</div>
+ </div>
 
 <div class="bg-pattern py-24 overflow-hidden">
   <div class="container-fluid">
