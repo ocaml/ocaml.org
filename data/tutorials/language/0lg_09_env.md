@@ -469,7 +469,6 @@ This is how most multiple-argument functions are defined. Alternatives exist, bu
 The function `sweet_cat` is the same as this one:
 ```ocaml
 # let sour_cat = fun x -> fun y -> x ^ " " ^ y;;
-
 val sour_cat : string -> string -> string = <fun>
 
 # sweet_cat "kitty" "cat";;
