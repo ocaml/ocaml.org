@@ -31,7 +31,7 @@ in
   class="h-20 flex items-center bg-mild-contrast dark:bg-dark-mild-contrast"
   x-data="{ open: false }">
   <nav class="container-fluid wide header flex justify-between items-center gap-5 xl:gap-8">
-    <ul class="order-1 space space-x-5 xl:space-x-8 items-center flex text-lighter font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
+    <ul class="order-0 space space-x-5 xl:space-x-8 items-center flex text-lighter font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
       <li style="width:132px">
         <a href="<%s Url.index %>" class="block pb-2">
           <img src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" width="132" alt="OCaml logo" class="dark:hidden">
@@ -39,7 +39,7 @@ in
         </a>
       </li>
     </ul>
-    <ul class="order-3 hidden lg:flex items-center">
+    <ul class="order-2 hidden lg:flex items-center">
       <li>
         <form
           <%s! Packages_autocomplete_fragment.form_attributes %>
@@ -55,7 +55,7 @@ in
         </form>
       </li>
     </ul>
-    <ul class="order-2 mr-auto items-center hidden lg:flex font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
+    <ul class="order-1 mr-auto items-center hidden lg:flex font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
       <li><%s! menu_link ~active:(active_top_nav_item=Some Learn) ~href:Url.learn ~title:"Learn" () %></li>
       <li><%s! menu_link ~active:(active_top_nav_item=Some Packages) ~href:Url.packages ~title:"Packages" () %></li>
       <li><%s! menu_link ~active:(active_top_nav_item=Some Community) ~href:Url.community ~title:"Community" () %></li>
@@ -63,11 +63,11 @@ in
       <li><%s! menu_link ~active:(active_top_nav_item=Some Playground) ~href:Url.playground ~title:"Playground" () %></li>
     </ul>
     <% if show_get_started then (%>
-    <ul class="order-4 hidden lg:flex items-center">
+    <ul class="order-3 hidden lg:flex items-center">
       <li><a href="<%s Url.getting_started %>" class="btn btn-secondary btn-sm">Get Started</a></li>
     </ul>
     <% ); %>
-    <ul class="lg:hidden flex items-center">
+    <ul class="order-1 lg:hidden flex items-center">
       <li
         class="h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full text-lighter dark:text-white">
         <button aria-label="open menu" @click="open = ! open">
