@@ -280,7 +280,7 @@ In this example, `a` is defined twice. The key thing to understand is that `a` i
 
 ## Function as Values
 
-As already stated, in OCaml, function are values. The this the key concept of [functional programming](https://en.wikipedia.org/wiki/Functional_programming). In this context, it is also possible to say that OCaml has [first-class](https://en.wikipedia.org/wiki/First-class_function) functions or that functions are [first-class citizens](https://en.wikipedia.org/wiki/First-class_citizen).
+As already stated, in OCaml, functions are values. This is the key concept of [functional programming](https://en.wikipedia.org/wiki/Functional_programming). In this context, it is also possible to say that OCaml has [first-class](https://en.wikipedia.org/wiki/First-class_function) functions or that functions are [first-class citizens](https://en.wikipedia.org/wiki/First-class_citizen).
 
 For now, let's put aside those definitions and instead start playing with functions. Their meaning will arise from experience. Once things make sense, using these terms is just a means to interact with the community.
 
@@ -336,11 +336,11 @@ As citizens of the same level as other values, functions don't have to be bound 
 - : 'a list -> 'a option = <fun>
 ```
 
-In order, here is what they do:
-- The identity function takes anything, returns it unchanged.
-- The square function takes an integer, returns it squared.
-- The function taking two strings and returns their concatenation with a space character in between.
-- A function taking a list returns `None`, if the list is empty, and the tail of the list otherwise.
+In order, here is what they are:
+- The identity function, takes anything and returns it unchanged.
+- The square function, takes an integer and returns it squared.
+- The function that takes two strings and returns their concatenation with a space character in between.
+- The function that takes a list that returns `None`, if the list is empty, and the tail of the list otherwise.
 
 ## Defining Global Functions
 
@@ -534,7 +534,7 @@ Error: This expression has type string -> string -> string
 
 The type `(string -> string) -> string` denotes functions that take a function as a parameter, not a function as a result as `sweet_cat`.
 
-In computer science language, the type arrow operator _associates to the right_. Function types without parentheses should be treated as if they have parentheses to the right in the same way that the type of `dummy_cat` was declared above. Except they are not displayed, this is [pretty-printing](https://en.wikipedia.org/wiki/Prettyprint).
+In computer science language, the type arrow operator _associates to the right_. Function types without parentheses should be treated as if they have parentheses to the right in the same way that the type of `dummy_cat` was declared above. Except they are not displayed, this is [pretty printing](https://en.wikipedia.org/wiki/Prettyprint).
 
 ### Passing Tuples
 
