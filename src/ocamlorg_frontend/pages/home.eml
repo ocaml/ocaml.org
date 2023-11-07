@@ -264,9 +264,9 @@ Layout.render
   </div>
 </div>
 
-<div class="flex gap-10 lg:gap-15 flex-col lg:flex-row justify-between items-center lg:py-24">
+<div class="container-fluid flex gap-10 flex-col justify-between items-center pb-24">
   <div class="overflow-hidden lg:flex-1 mt-10 lg:mt-0 flex items-center">
-    <div class="container-fluid flex flex-col items-left">
+    <div class="flex flex-col items-left">
       <h3 class="font-bold">Releases</h3>
       <div class="p-6 mt-8 rounded-xl w-full bg-default shadow-lg">
         <div class="text-black">
@@ -286,7 +286,7 @@ Layout.render
     </div>
   </div>
   <div class="overflow-hidden lg:flex-1 mt-10 lg:mt-0 flex items-center">
-    <div class="container-fluid flex flex-col items-left">
+    <div class="flex flex-col items-left">
       <h3 class="font-bold">Changelog</h3>
       <div class="p-6 mt-8 rounded-xl w-full bg-default shadow-lg">
         <div class="text-black">
