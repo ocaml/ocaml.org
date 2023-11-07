@@ -3,6 +3,7 @@ title: Lisp-Like Tree Representation
 number: "73"
 difficulty: intermediate
 tags: [ "multiway-tree" ]
+description: "Return the Lispy notation of a given multiway tree."
 ---
 
 ```ocaml

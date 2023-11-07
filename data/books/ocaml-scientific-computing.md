@@ -10,7 +10,8 @@ authors:
   - Richard Mortier
 published: 2022-05-27 
 cover: books/ocaml-scientific-computing.png
-language: english
+language:
+  - english
 links:
   - description: Buy on Springer
     uri: https://link.springer.com/book/10.1007/978-3-030-97645-3

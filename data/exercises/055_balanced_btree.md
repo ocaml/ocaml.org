@@ -3,6 +3,7 @@ title: Construct Completely Balanced Binary Trees
 number: "55"
 difficulty: intermediate
 tags: [ "binary-tree" ]
+description: "Generate completely balanced binary trees for a given number of nodes using the cbal_tree function."
 ---
 
 ```ocaml

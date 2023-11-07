@@ -3,6 +3,7 @@ title: Count the Leaves of a Binary Tree
 number: "61A"
 difficulty: beginner
 tags: [ "binary-tree" ]
+description: "Count the number of leaf nodes in a binary tree."
 ---
 
 ```ocaml

@@ -1,7 +1,7 @@
 ---
 title: Dune-release 1.1.0
 date: "2018-10-17"
-tags: [dune-release, platform, release]
+tags: [dune-release, platform]
 changelog: |
   - Remove the status and log commands (#95, @samoht)
   - Fix `dune-release publish doc` when using multiple packages (#96, @samoht)

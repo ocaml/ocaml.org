@@ -3,6 +3,7 @@ title: Eight Queens Problem
 number: "91"
 difficulty: intermediate
 tags: []
+description: "Find all the distinct solutions for the Eight Queens puzzle on an N×N chessboard, where no two queens threaten each other."
 ---
 
 # Solution

@@ -21,7 +21,7 @@ let playground_loader =
 
 let page_routes t =
   Dream.scope ""
-    [ Dream_dashboard.analytics (); Dream_encoding.compress ]
+    [ Dream_encoding.compress ]
     [
       Dream.get Url.index Handler.index;
       Dream.get Url.install Handler.install;
@@ -62,7 +62,7 @@ let page_routes t =
 
 let package_route t =
   Dream.scope ""
-    [ Dream_dashboard.analytics (); Dream_encoding.compress ]
+    [ Dream_encoding.compress ]
     [
       Dream.get Url.packages (Handler.packages t);
       Dream.get Url.packages_search (Handler.packages_search t);
@@ -106,7 +106,6 @@ let graphql_route t =
 let router t =
   Dream.router
     [
-      Dream_dashboard.route ();
       Redirection.t;
       page_routes t;
       package_route t;

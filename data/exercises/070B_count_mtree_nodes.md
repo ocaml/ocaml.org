@@ -3,6 +3,7 @@ title: Count the Nodes of a Multiway Tree
 number: "70B"
 difficulty: beginner
 tags: [ "multiway-tree" ]
+description: "Write a function that counts the number of nodes in a multiway tree."
 ---
 
 ```ocaml

@@ -20,6 +20,13 @@ let render
     in
     tutorials |> List.map (fun (tutorial : Data.Tutorial.t) -> tutorial.category) |> unique
   in
+  <% if section = Platform then ( %>
+  <%s! Learn_layout.sidebar_link_group "Platform"
+    (tutorial_sidebar_links_by_category "platform")
+    ~extra_html:(
+      (render_tutorial_link ~title:"Overview" ~slug:"platform")) %>
+  <% ); %>
+
   <% categories |> List.iter (fun category -> %>
     <%s! Learn_layout.sidebar_link_group category
       (tutorial_sidebar_links_by_category category) %>

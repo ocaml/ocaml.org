@@ -1,5 +1,0 @@
-(library
- (name yoshi)
- (libraries yaml)
- (preprocess
-  (pps ppx_deriving_yaml)))

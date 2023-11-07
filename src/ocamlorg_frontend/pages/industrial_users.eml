@@ -114,6 +114,9 @@ the community and learn more about how they use OCaml."
         </a>
         <% ); %>
       </div>
+       <div class="prose max-w-none mt-8">
+    If you want to contribute to a new success story, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-success-story" target="_blank">Contributing Guide</a> on GitHub.
+</div>
   </div>
 </div>
 <div class="py-10 lg:py-24 testimonials">
@@ -201,6 +204,9 @@ the community and learn more about how they use OCaml."
       </a>
       <% ); %>
     </div>
+    <div class="prose max-w-none m-2">
+        If you want to contribute to add a new industrial user, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-user" target="_blank">Contributing Guide</a> on GitHub.
+  </div>
   </div>
 </div>
 <div class="bg-pattern lg:py-32 py-24">

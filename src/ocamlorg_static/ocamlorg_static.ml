@@ -1,5 +1,9 @@
 let of_url_path = File.of_url_path
 
+module Open_search = struct
+  let manifest = "/opensearch.xml"
+end
+
 module Media = struct
   let url_root = "/media"
   let digest = Media.hash

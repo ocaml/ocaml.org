@@ -3,6 +3,7 @@ title: Construct Height-Balanced Binary Trees
 number: "59"
 difficulty: intermediate
 tags: [ "binary-tree" ]
+description: "Generate height-balanced binary trees with 'x' as node information."
 ---
 
 ```ocaml

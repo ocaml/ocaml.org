@@ -71,7 +71,7 @@ Layout.render
                     <div class="text-xl">No Papers found matching "<%s search %>"</div>
                 </div>
                 <% | _ -> %>
-                <table class="max-w-5xl lg:max-w-full align-top">
+                <table class="max-w-5xl lg:max-w-full align-top block lg:table">
                     <thead class="bg-body-700 text-white text-left rounded-xl">
                         <tr>
                             <th class="py-4 px-6 rounded-l-lg text-x w-2/5">Title</th>
@@ -81,21 +81,21 @@ Layout.render
                             <th class="py-4 px-6 rounded-r-lg">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="block lg:table-row-group">
                         <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
-                            <tr>
-                                <td class="py-4 px-6 font-semibold">
-                                    <div class="font-semibold">
+                            <tr class="flex flex-col lg:table-row mb-4 lg:mb-0 border-b border-b-zinc-200 lg:border-none">
+                                <td class="py-0 lg:py-4 px-6 font-semibold">
+                                    <div class="text-xl lg:text-base font-semibold">
                                         <%s paper.title %>
                                     </div>
                                     <div class="font-normal text-sm mt-2 text-lighter">
                                         <%s paper.abstract %>
                                     </div>
                                 </td>
-                                <td class="py-4 px-6 font-medium align-top">
+                                <td class="pt-4 lg:py-4 px-6 font-medium align-top">
                                     <%i paper.year %>
                                 </td>
-                                <td class="py-4 px-6 font-medium align-top">
+                                <td class="pt-4 lg:py-4 px-6 font-medium align-top">
                                     <div class="flex flex-wrap">
                                         <% paper.tags |> List.iter (fun (tag : string) -> %>
                                             <div
@@ -105,7 +105,7 @@ Layout.render
                                             <% ); %>
                                     </div>
                                 </td>
-                                <td class="py-4 px-6 font-medium align-top">
+                                <td class="pt-4 lg:py-4 px-6 font-medium align-top">
                                     <%s String.concat ", " paper.authors %>
                                 </td>
                                 <td class="py-4 px-6 align-top">

@@ -9,7 +9,7 @@ category: "First Steps"
 
 # Installing OCaml
 
-This guide will walk you through a minimum installation of OCaml. That includes installing a package manager and [the compiler](#installation-on-unix) itself. We'll also install some platform tools like a build system, support for your editor, and a few other important ones.
+This guide will walk you through a minimum installation of OCaml. That includes installing a package manager and [the compiler](#installation-on-unix-and-macos) itself. We'll also install some platform tools like a build system, support for your editor, and a few other important ones.
 
 On this page, you'll find installation instructions for Linux, macOS, and &ast;BSD for recent OCaml versions. For Docker, Linux instructions apply, except when setting up opam. For Windows, we recommend using WSL but also provide instructions for installing OCaml 4.14.0 via the [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) Installer. If you are setting up OCaml on Windows and are unsure which installation method to use, you might be interested in reading [OCaml on Windows](/docs/ocaml-on-windows) first.
 

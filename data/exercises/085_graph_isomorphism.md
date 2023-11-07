@@ -3,6 +3,7 @@ title: Graph Isomorphism
 number: "85"
 difficulty: intermediate
 tags: [ "graph" ]
+description: "Determine whether two graphs are isomorphic based on the given definition and hint."
 ---
 
 ```ocaml

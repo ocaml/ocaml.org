@@ -3,6 +3,7 @@ title: An Arithmetic Puzzle
 number: "94"
 difficulty: advanced
 tags: []
+description: "Given a list of integer numbers, find a correct way of inserting arithmetic signs to form a correct equation."
 ---
 
 # Solution

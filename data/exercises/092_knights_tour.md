@@ -3,6 +3,7 @@ title: Knight's Tour
 number: "92"
 difficulty: intermediate
 tags: []
+description: "Determine a sequence of knight's moves on an N×N chessboard such that the knight visits every square exactly once."
 ---
 
 # Solution

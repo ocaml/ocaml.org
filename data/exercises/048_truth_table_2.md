@@ -3,6 +3,7 @@ title: Truth Tables for Logical Expressions
 number: "48"
 difficulty: intermediate
 tags: [ "logic" ]
+description: "Generate the truth table for a logical expression with any number of variables using the table function"
 ---
 
 ```ocaml

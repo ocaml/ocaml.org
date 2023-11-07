@@ -1,15 +1,15 @@
 let package_card ~href ~img_path ~name description =
   <a href="<%s href %>" target="_blank"
-    class="bg-default dark:bg-dark-default text-default dark:text-dark-default p-6 rounded-xl items-center flex card-hover">
-    <div class="flex items-center">
-      <img src="<%s Ocamlorg_static.Asset.url img_path %>" alt="<%s name %> logo">
-      <div class="flex-col px-6">
+    class="bg-default dark:bg-dark-default text-default dark:text-dark-default p-4 rounded-xl flex md:gap-2 items-center card-hover">
+      <div class="w-4/12">
+        <img src="<%s Ocamlorg_static.Asset.url img_path %>" alt="<%s name %> logo" class="w-1/2 md:w-2/3">
+      </div>
+      <div class="flex-col w-8/12">
         <div class="text-base font-semibold"><%s name %></div>
         <div class="font-normal text-xs mt-1">
           <%s description %>
         </div>
       </div>
-    </div>
   </a>
   
 let render
@@ -143,7 +143,7 @@ Layout.render
 <div class="bg-default dark:bg-dark-default">
   <div class="container-fluid">
     <h2 class="font-bold text-center text-default pt-12">Why OCaml?</h2>
-    <div class="py-24 lg:pt-24 space-y-20 md:space-y-40">
+    <div class="pt-4 pb-24 lg:pt-24 space-y-20 md:space-y-40">
       <div class="flex gap-10 lg:gap-24 flex-col lg:flex-row-reverse justify-between items-center">
         <div class="lg:flex-1 mt-10 lg:mt-0">
           <div class="text-lighter text-base">
@@ -303,6 +303,19 @@ Layout.render
           <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
       </div>
+   
+<div class="bg-default py-12 overflow-hidden">
+  <div class="container-fluid flex flex-col items-center">
+    <h3 class="font-bold">Releases</h3>
+    <div class="bg-pattern p-6 mt-8 rounded-xl w-full lg:w-2/3 text-white">
+      <a href="<%s Url.release latest_release.version %>">
+        <div class="text-primary-600 text-sm mb-4 uppercase">Recent Release</div>
+        <h3 class="font-bold mb-6">
+          <%s latest_release.version %> <span class="text-sm font-medium">(<%s latest_release.date %>)</span>
+        </h3>
+      </a>
+      <div class="prose prose-sm text-white"><%s! latest_release.highlights_html %></div>
+
     </div>
   </div>
 </div>
@@ -323,114 +336,49 @@ Layout.render
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- FIXME: remove text-default here after all the package cards are using the component -->
-  <div class="text-default w-11/12 m-auto pl-7 md:pl-0 md:w-screen overflow-y-hidden md:overflow-hidden py-16 flex flex-col items-center">
-    <div class="w-full md:w-auto">
-      <div class="grid grid-cols-4 gap-6 md:gap-4 md:px-10 lg:px-20 relative left-5 lg:left-28 md:left-16"
-        style="width: 1500px">
-        <%s! package_card
-          ~href:"https://mirage.io/"
-          ~img_path:"img/home/mirage.png"
-          ~name:"MirageOS"
-          "Library operating system to construct unikernels" %>
-        <!-- FIXME: package_card component -->
-        <a href="http://ocsigen.org/js_of_ocaml/latest/manual/overview" target="_blank"
-          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/js_of_ocaml.png" %>" alt="Js_of_ocaml logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Js_of_ocaml</div>
-              <div class="font-normal text-xs mt-1">
-                Compiler from OCaml to Javascript.
-              </div>
-            </div>
-          </div>
-        </a>
-        <!-- FIXME: package_card component -->
-        <a href="https://erratique.ch/software/cmdliner" target="_blank"
-          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/cmdliner.png" %>" alt="Cmdliner logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Cmdliner</div>
-              <div class="font-normal text-xs mt-1">
-                Declarative definition of command line interfaces for OCaml
-              </div>
-            </div>
-          </div>
-        </a>
-        <!-- FIXME: package_card component -->
-        <a href="https://irmin.org/" target="_blank"
-          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/irmin.png" %>" alt="Irmin logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Irmin</div>
-              <div class="font-normal text-xs mt-1">
-                Distributed database that follows the same design principles as Git
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="grid grid-cols-4 gap-6 md:gap-4 md:px-10 lg:px-20 mt-6 relative right-5 lg:right-28 md:right-16"
-        style="width: 1500px">
-        <!-- FIXME: package_card component -->
-        <a href="https://dune.build/" target="_blank"
-          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/dune.png" %>" alt="Dune logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Dune</div>
-              <div class="font-normal text-xs mt-1">
-                A composable build system for OCaml
-              </div>
-            </div>
-          </div>
-        </a>
-        <!-- FIXME: package_card component -->
-        <a href="https://ocsigen.org/lwt/latest/manual/manual" target="_blank"
-          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/lwt.png" %>" alt="Lwt logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Lwt</div>
-              <div class="font-normal text-xs mt-1">
-                OCaml promises and concurrent IO
-              </div>
-            </div>
-          </div>
-        </a>
-        <!-- FIXME: package_card component -->
-        <a href="https://ocaml.xyz/" target="_blank" class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/owl.png" %>" alt="Owl logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Owl</div>
-              <div class="font-normal text-xs mt-1">
-                OCaml Scientific and Engineering Computing
-              </div>
-            </div>
-          </div>
-        </a>
-        <!-- FIXME: package_card component -->
-        <a href="https://aantron.github.io/dream/" target="_blank"
-          class="bg-default dark:bg-dark-default p-6 rounded-xl items-center flex card-hover">
-          <div class="flex items-center">
-            <img src="<%s Ocamlorg_static.Asset.url "img/home/dream.png" %>" alt="Dream logo">
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Dream</div>
-              <div class="font-normal text-xs mt-1">
-                Tidy Web framework for OCaml and ReasonML
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-4 py-8 px-1 md:px-2 lg:px-2 xl:px-8 relative">
+      <%s! package_card
+        ~href:"https://mirage.io/"
+        ~img_path:"img/home/mirage.png"
+        ~name:"MirageOS"
+        "Library operating system to construct unikernels" %>
+      <%s! package_card
+        ~href:"https://ocsigen.org/js_of_ocaml"
+        ~img_path:"img/home/js_of_ocaml.png"
+        ~name:"Js_of_ocaml"
+        "Compiler from OCaml to Javascript." %>
+      <%s! package_card
+        ~href:"https://erratique.ch/software/cmdliner"
+        ~img_path:"img/home/cmdliner.png"
+        ~name:"Cmdliner"
+        "Declarative definition of command line interfaces for OCaml" %>
+      <%s! package_card
+        ~href:"https://irmin.org/"
+        ~img_path:"img/home/irmin.png"
+        ~name:"Irmin"
+        "Distributed database that follows the same design principles as Git" %>
+      <%s! package_card
+        ~href:"https://dune.build/"
+        ~img_path:"img/home/dune.png"
+        ~name:"Dune"
+        "A composable build system for OCaml" %>
+      <%s! package_card
+        ~href:"https://ocsigen.org/lwt/latest/manual/manual"
+        ~img_path:"img/home/lwt.png"
+        ~name:"Lwt"
+        "OCaml promises and concurrent IO" %>
+      <%s! package_card
+        ~href:"https://ocaml.xyz/"
+        ~img_path:"img/home/owl.png"
+        ~name:"Owl"
+        "OCaml Scientific and Engineering Computing" %>
+      <%s! package_card
+        ~href:"https://aantron.github.io/dream/"
+        ~img_path:"img/home/dream.png"
+        ~name:"Dream"
+        "Tidy Web framework for OCaml and ReasonML" %>
+  </div>  
+    
   </div>
 </div>
 <div class="py-28 bg-default dark:bg-dark-default">

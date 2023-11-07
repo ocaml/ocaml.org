@@ -8,7 +8,8 @@ authors:
   - Marta Cialdea
 published: "2002"
 cover: books/introduzione-alla-programmazione-funzionale.gif
-language: italian
+language:
+  - italian
 isbn: "88-7488-031-6"
 links:
   - description: Order at Amazon.it

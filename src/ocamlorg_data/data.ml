@@ -112,8 +112,6 @@ end
 
 module Watch = struct
   include Watch
-
-  let all = Watch.watch_list
 end
 
 module Video = struct

@@ -3,6 +3,7 @@ title: Construct Height-Balanced Binary Trees With a Given Number of Nodes
 number: "60"
 difficulty: intermediate
 tags: [ "binary-tree" ]
+description: "Calculate the maximum and minimum number of nodes, height, and generate all height-balanced binary trees."
 ---
 
 ```ocaml

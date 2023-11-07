@@ -161,6 +161,9 @@ Layout.render
           </a>
           <% ); %>
       </div>
+       <div class="prose max-w-none mt-8">
+            If you want to contribute to add a new community meetup event, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-meetup" target="_blank">Contributing Guide</a> on GitHub.
+        </div>
   </div>
 </div>
 <div class="bg-primary-600">
