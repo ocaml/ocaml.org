@@ -121,7 +121,7 @@ ha ha
 
 > Note: As explained in the [Tour of OCaml](/docs/tour-of-ocaml) tutorial, the `unit` type has a single value `()`, which is pronounced "unit."
 
-Below, the pattern does not contain any identifier, meaning no name is defined. The expression is evaluated, the side effect takes place, no definition is created, and no value is returned. Writing that kind of pseudo-definition only expresses interest in the side effects.
+Above, the pattern does not contain any identifier, meaning no name is defined. The expression is evaluated, the side effect takes place, no definition is created, and no value is returned. Writing that kind of pseudo-definition only expresses interest in the side effects.
 ```ocaml
 # print_endline "ha ha";;
 ha ha
@@ -238,7 +238,7 @@ With respect to the environment, there are no means to:
 
 ### Inner Shadowing
 
-[*Shadowing*](https://en.wikipedia.org/wiki/Variable_shadowing) is a subtle concept. As you learned in the [Tour of OCaml](/docs/tour-of-ocaml), bindings are immutable. Once you create a name, define it, and bind it to a value, it does not change. That said, a name can be defined again to create a new value. This is known as shadowing. The second definition *shadows* the first.
+[*Shadowing*](https://en.wikipedia.org/wiki/Variable_shadowing) is a subtle concept. As you learned in the [Tour of OCaml](/docs/tour-of-ocaml), bindings are immutable. Once you create a name, define it, and bind it to a value, it does not change. That said, a name can be defined again to create a new binding. This is known as shadowing. The second definition *shadows* the first.
 
 A local definition may shadow any previous definition. Inner shadowing is limited to the local definition's scope. Therefore, anything written after will still take the previous definition, as shown:
 ```ocaml
@@ -439,21 +439,21 @@ This version of `fibo` is inefficient because the number of recursive calls crea
 
 This version does a better job:
 ```ocaml
-# let rec fib m n i = if i = 0 then m else fib n (n + m) (i - 1);;
-val fib : int -> int -> int -> int = <fun>
+# let rec fib_loop m n i = if i = 0 then m else fib_loop n (n + m) (i - 1);;
+val fib_loop : int -> int -> int -> int = <fun>
 
-# let fib = fib 0 1;;
+# let fib = fib_loop 0 1;;
 val fib : int -> int = <fun>
 
 # List.init 10 Fun.id |> List.map fib;;
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
 
-The first version (`fibo`) takes two extra parameters: the two previously computed Fibonacci numbers.
+The first version (`fib_loop`) takes two extra parameters: the two previously computed Fibonacci numbers.
 
 The second version (`fib`) uses the first two Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called [tail call elimination](https://en.wikipedia.org/wiki/Tail_call). This turns recursivity into imperative iteration in the generated native code and leads to improved performances.
 
-> Note: Notice that the `fib` function has three parameters (`m n i`) but only two arguments were passed (`0 1`). This is called *partial application*.
+> Note: Notice that the `fib_loop` function has three parameters (`m n i`) but only two arguments were passed (`0 1`) when defining `fib`, this is called *partial application*.
 
 ## Multiple Arguments Functions
 
@@ -513,6 +513,23 @@ val sweet_kitty : string -> string = <fun>
 Both `sweet_cat` and `sour_cat` allow partial application.
 
 Passing a single parameter to any of those functions returns a function of type `string -> string`. That result is a closure. The first argument, here `"kitty"`, is captured as if it had been in an earlier definition.
+
+### Remove Useless Arguments
+
+Here is another way to define `sour_kitty` and `sweet_kitty`:
+```ocaml
+# let sour_kitty = sour_cat "kitty";;
+val sour_kitty : string -> string = <fun>
+
+# let sweet_kitty = sweet_cat "kitty";
+val sweet_kitty : string -> string = <fun>
+```
+
+These expressions are the same:
+- `fun x -> sweet_cat "kitty" x`
+- `sweet_cat "kitty"`
+
+Any function expression that declares a parameter and immediately applies it to some function sub-expression (in the example; `sweet_cat "kitty"`) is the same as the function sub-expression alone.
 
 ### Multiple-Argument Function Types
 
