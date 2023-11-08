@@ -2,7 +2,7 @@
 id: values-and-functions
 title: Values and Functions
 description: |
-  Functions, values, definitions, environments, closures and shadowing: this tutorial will help you master the fundamentals.
+  Functions, values, definitions, environments, scopes, closures and shadowing: this tutorial will help you master the fundamentals.
 category: "Language"
 ---
 
@@ -37,8 +37,8 @@ When presenting OCaml or another functional programming language, it is often sa
 
 Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. In OCaml, there are no statements that specify actions to be taken on data. All computations must be through expression evaluation. Computing expressions produce values. Here are a few examples of expressions, their type, and the resulting values. Some include computation, some don't:
 ```ocaml
-# "Everything has a value, every value has a type";;
-- : string = "Everything is a value, every value has a type"
+# "Every expression has a type";;
+- : string = "Every expression has a type"
 
 # 2 * 21;;
 - : int = 42
@@ -64,7 +64,7 @@ An expression's type (before evaluation) and its resulting value's type (after c
 
 ## Global Definitions
 
-Every expression can be named. This is the purpose of the `let ... = ... ` statement. The name is on the left; the expression is on the right.
+Every expression can be named. This is the purpose of the `let … = … ` statement. The name is on the left; the expression is on the right.
 * If the expression can be evaluated, it take places right away.
 * Otherwise, the expression is turned into a value as-is. That's the case of function definition.
 
@@ -83,7 +83,7 @@ val x : int list = [1; 3; 5; 7]
 val y : int list = [2; 4; 6; 8]
 ```
 
-This works for any variant type. Here is a type named `tree` with a variable number of branches:
+This works for any single constructor variant. Here is a type named `tree` with a variable number of branches:
 ```ocaml
 # type 'a tree = Node of 'a * 'a tree list;;
 type 'a tree = Node of 'a * 'a tree list
@@ -113,13 +113,13 @@ val first : string = "Robin"
 val last : string = "Milner"
 ```
 
-A special case of combined definition and pattern matching involves the unit type:
+A special case of combined definition and pattern matching involves the `unit` type:
 ```ocaml
 # let () = print_endline "ha ha";;
 ha ha
 ```
 
-> Note: As explained in the [Tour of OCaml](/docs/tour-of-ocaml) tutorial, the unit type has a single value `()`, which is pronounced "unit."
+> Note: As explained in the [Tour of OCaml](/docs/tour-of-ocaml) tutorial, the `unit` type has a single value `()`, which is pronounced "unit."
 
 Below, the pattern does not contain any identifier, meaning no name is defined. The expression is evaluated, the side effect takes place, no definition is created, and no value is returned. Writing that kind of pseudo-definition only expresses interest in the side effects.
 ```ocaml
@@ -141,7 +141,7 @@ This construction creates two lists. The first is formed by the left element of 
 
 ## Local Definitions
 
-Local definitions are like global definitions, except the name is only bound inside an expression. They are introduced by the `let ... = ... in ...` expression. The name bound before the `in` keyword is only bound in the expression after the `in` keyword.
+Local definitions are like global definitions, except the name is only bound inside an expression. They are introduced by the `let … = … in …` expression. The name bound before the `in` keyword is only bound in the expression after the `in` keyword.
 ```ocaml
 # let b = 2 * 3 in b * 7;;
 - : int = 42
@@ -215,13 +215,13 @@ Here, the global environment is unchanged:
 
 # pi;;
 Error: Unbound value pi
-
 ```
+
 Calling `pi` results in an error because it hasn't been added to the global environment. However, with respect to the expression `2. *. pi`, the environment is different because it contains the definition of `pi`. Local definitions create local environments.
 
 A definition's scope is the set of environments where it is reachable.
 
-Although OCaml is an expression-oriented language, it is not entirely free of statements. The `let` construct is a statement that may change the state of the environment by adding a name-value *binding*. In some sense, the `let` is the only statement OCaml has. Note that the following expressions at the toplevel also fall into that category because they are equivalent to `let _ =` definitions.
+Although OCaml is an expression-oriented language, it is not entirely free of statements. The global `let` construct is a statement that may change the state of the environment by adding a name-value *binding*. In some sense, that `let` is the only statement OCaml has. Note that the following expressions at the toplevel also fall into that category because they are equivalent to `let _ =` definitions.
 ```ocaml
 # (1.0 +. sqrt 5.0) /. 2.0;;
 - : float = 1.6180339887498949
@@ -238,7 +238,7 @@ With respect to the environment, there are no means to:
 
 ### Inner Shadowing
 
-[*Shadowing*](https://en.wikipedia.org/wiki/Variable_shadowing) can be a difficult concept to grasp. As you learned in the [Tour of OCaml](/docs/tour-of-ocaml), bindings are immutable. Once you create a name, define it, and bind it to a value, it does not change. That said, a name can be defined again to create a new value. This is known as shadowing. The second definition *shadows* the first.
+[*Shadowing*](https://en.wikipedia.org/wiki/Variable_shadowing) is a subtle concept. As you learned in the [Tour of OCaml](/docs/tour-of-ocaml), bindings are immutable. Once you create a name, define it, and bind it to a value, it does not change. That said, a name can be defined again to create a new value. This is known as shadowing. The second definition *shadows* the first.
 
 A local definition may shadow any previous definition. Inner shadowing is limited to the local definition's scope. Therefore, anything written after will still take the previous definition, as shown:
 ```ocaml
@@ -269,11 +269,11 @@ val e : int = 42
 # let a = 7;;
 val a : int = 7
 
-# e;;
-- : int = 42
-
 # a;;
 - : int = 7
+
+# e;;
+- : int = 42
 ```
 
 In this example, `a` is defined twice. The key thing to understand is that `a` is *not updated*. It looks as if the value of `a` has changed, but it hasn't. When the second `a` is defined, the first one becomes unreachable, but it remains in the global environment. This means anything written after the second definition uses its value, but functions written *before* the second definition still use the first, even if called later.
@@ -342,6 +342,12 @@ In order, here is what they are:
 - The function that takes two strings and returns their concatenation with a space character in between
 - The function that takes a list that returns `None`, if the list is empty and the tail of the list otherwise
 
+Anonymous functions are often passed as parameters to other functions.
+```ocaml
+# List.map (fun x -> x * x) [1; 2; 3; 4];;
+- : int list = [1; 4; 9; 16]
+```
+
 ## Defining Global Functions
 
 Defining a global function is exactly like binding a value to a name. The expression, which happens to be a function, is turned into value and bound to a name.
@@ -357,7 +363,7 @@ These two definitions are the same. The former explicitly binds the anonymous fu
 
 ## Defining Local Functions
 
-A function may be defined locally. Just like any local definition, the function is only available inside its attached expression. Although local functions are often defined inside the function's scope, this is not a requirement. Here is a local function inside a toplevel expression:
+A function may be defined locally. Just like any local definition, the function is only available inside its attached expression. Although local functions are often defined inside the function's scope, this is not a requirement. Here is a local function inside an expression:
 ```ocaml
 # let sq x = x * x in sq 7 * sq 7;;
 - : int = 2401
@@ -415,7 +421,7 @@ Inside the `max_42` function, the environment contains an additional binding bet
 
 In order to perform iterated computations, a function may call itself. Such a function is called _recursive_. In OCaml, recursive functions must be defined and explicitly declared by using `let rec`. It is not possible to accidentally create recursion loops between functions. As a consequence, recursive functions can't be anonymous.
 
-The classic (and very inefficient) way to present recursion is using the function that computes the [Fibonacci Sequence](https://en.wikipedia.org/wiki/Fibonacci_sequence).
+The classic (and very inefficient) way to present recursion is using the function that computes [Fibonacci](https://en.wikipedia.org/wiki/Fibonacci_sequence) numbers.
 ```ocaml
 # let rec fibo n = if n <= 1 then n else fibo (n - 1) + fibo (n - 2);;
 val fibo : int -> int = <fun>
@@ -445,7 +451,7 @@ val fib : int -> int = <fun>
 
 The first version (`fibo`) takes two extra parameters: the two previously computed Fibonacci numbers.
 
-The second version (`fib`) uses the first two Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called “tail call elimination.” This turns recursivity into imperative iteration in the generated native code and leads to improved performances.
+The second version (`fib`) uses the first two Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called [tail call elimination](https://en.wikipedia.org/wiki/Tail_call). This turns recursivity into imperative iteration in the generated native code and leads to improved performances.
 
 > Note: Notice that the `fib` function has three parameters (`m n i`) but only two arguments were passed (`0 1`). This is called *partial application*.
 
