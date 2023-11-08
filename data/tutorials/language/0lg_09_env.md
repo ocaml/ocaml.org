@@ -12,13 +12,13 @@ category: "Language"
 
 This tutorial teaches the skills needed to handle expressions, values, and names. You'll learn the ability to write expressions, name values or leave them anonymous, appropriately scope names, handle multiple definitions of the same name, create and use closures, and produce or avoid side effects.
 
-In OCaml, functions are values. In comparison to other mainstream languages, this creates a richer picture between expressions, values, and names. The approach in this tutorial is to acquire the related capabilities and understanding by interacting with OCaml in UTop. This hands-on experience is intended to build the understanding by experimentation rather than starting with the definition of the concepts.
+In OCaml, functions are values. In comparison to other mainstream languages, this creates a richer picture between expressions, values, and names. The approach in this tutorial is to acquire the related capabilities and understanding by interacting with OCaml in UTop. This hands-on experience is intended to build understanding by experimentation rather than starting with the definition of the concepts.
 
 > Note: The ["Introduction to the OCaml Toplevel" guide](https://ocaml.org/docs/toplevel-introduction) covers how to use UTop.
 
 It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
 
-The first four sections of this tutorial addresses non-function values. The following sections, starting at [Function as Values](#function-as-values) addresses functions.
+The first four sections of this tutorial address non-function values. The following sections, starting at [Function as Values](#function-as-values), address functions.
 
 **Prerequisites**: Ensure you have [completed the “Get Started” series](https://ocaml.org/docs/installing-ocaml) before proceeding with this tutorial.
 
@@ -94,7 +94,7 @@ val t : int tree = Node (1, [Node (2, []); Node (3, []); Node (4, [])])
 # let rec tree_map f (Node (x, u)) = Node (f x, List.map (tree_map f) u);;
 val tree_map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 
-tree_map (fun x -> x * x) t;;
+# tree_map (fun x -> x * x) t;;
 - : int tree = Node (1, [Node (4, []); Node (9, []); Node (16, [])])
 ```
 
@@ -337,10 +337,10 @@ As citizens of the same level as other values, functions don't have to be bound 
 ```
 
 In order, here is what they are:
-- The identity function, takes anything and returns it unchanged.
-- The square function, takes an integer and returns it squared.
-- The function that takes two strings and returns their concatenation with a space character in between.
-- The function that takes a list that returns `None`, if the list is empty, and the tail of the list otherwise.
+- The identity function, which takes anything and returns it unchanged
+- The square function, which takes an integer and returns it squared
+- The function that takes two strings and returns their concatenation with a space character in between
+- The function that takes a list that returns `None`, if the list is empty and the tail of the list otherwise
 
 ## Defining Global Functions
 
@@ -556,7 +556,7 @@ It behaves the same as previously.
 - : string = "hello world"
 ```
 
-It looks like two arguments have been passed: `"hello"` and `"world"`. However, only one, the `("hello", "world")` pair has been passed. Inspection of the generated assembly would show it isn't exactly the same function. It contains some more code. The contents of the pair passed to `spicy_cat` (`x` and `y`) must be extracted before evaluation of the `s ^ " " ^ t` expression. This is the role of the additional assembly instructions.
+It looks like two arguments have been passed: `"hello"` and `"world"`. However, only one, the `("hello", "world")` pair, has been passed. Inspection of the generated assembly would show it isn't exactly the same function. It contains some more code. The contents of the pair passed to `spicy_cat` (`x` and `y`) must be extracted before evaluation of the `s ^ " " ^ t` expression. This is the role of the additional assembly instructions.
 
 In many imperative languages, the `spicy_cat ("hello", "world")` syntax reads as a function call with two parameters; but in OCaml, it denotes applying the function `spicy_cat` to a pair containing `"hello"` and `"world"`.
 
