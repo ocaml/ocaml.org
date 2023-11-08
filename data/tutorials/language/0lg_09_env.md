@@ -35,7 +35,7 @@ When presenting OCaml or another functional programming language, it is often sa
 
 ## What is a Value?
 
-Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. In OCaml, there are no statements that specify actions to be taken on data. All computations must be through expression evaluation. Computing expressions produce values. Here are a few examples of expressions, their type, and the resulting values. Some include computation, some don't:
+Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. In OCaml, there are no statements that specify actions to be taken on data. All computations must be through expression evaluation. Computing expressions produce values. Here are a few examples of expressions, their type, and the resulting values. Some include computation and some don't:
 ```ocaml
 # "Every expression has a type";;
 - : string = "Every expression has a type"
@@ -65,7 +65,7 @@ An expression's type (before evaluation) and its resulting value's type (after c
 ## Global Definitions
 
 Every expression can be named. This is the purpose of the `let … = … ` statement. The name is on the left; the expression is on the right.
-* If the expression can be evaluated, it take places right away.
+* If the expression can be evaluated, it takes place right away.
 * Otherwise, the expression is turned into a value as-is. That's the case of function definition.
 
 Global definitions are those entered at the top level. This is what happens when writing a definition in UTop:
@@ -200,7 +200,7 @@ Execution evaluates each item from top to bottom.
 
 At any time during evaluation, the _environment_ is the ordered sequence of available definitions.
 
-Here, the name `tau` is added into the toplevel environment.
+Here, the name `tau` is added to the top-level environment.
 ```ocaml
 # let tau = 6.28318;;
 val tau : float = 6.28318
@@ -631,9 +631,9 @@ In practice, curried functions are the default form functions should take becaus
 - It is less editing, no parentheses or commas
 - No pattern matching over a tuple takes place
 
-## Functions With Side-Effects
+## Functions With Side Effects
 
-To explain side-effects, we need to define what *domain* and *codomain* are. Let's look at an example:
+To explain side effects, we need to define what *domain* and *codomain* are. Let's look at an example:
 ```ocaml
 # string_of_int;;
 - : int -> string = <fun>
