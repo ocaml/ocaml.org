@@ -638,9 +638,12 @@ To explain side effects, we need to define what *domain* and *codomain* are. Let
 # string_of_int;;
 - : int -> string = <fun>
 ```
-The `string_of_int` function's *domain* is `int`, and it's the type of input data. The function's *codomain* is `string`, its output data. In other words, the *domain* is left of the `->` and the *codomain* is on the right.
+For the function `string_of_int`:
+- Its *domain* is `int`, and it's the type of input data. 
+- The *codomain* is `string`, its output data. 
 
-These terms help avoid saying the "type at the right" or "type at the left" of a function's type arrow.
+In other words, the *domain* is left of the `->` and the *codomain* is on the right. These terms help avoid saying the "type at the right" or "type at the left" of a function's type arrow.
+
 
 Some functions either take input data outside of their domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output (I/O) are the most common forms of effects. Input is out-of-domain data and output is out-of-codomain data. However, the result of functions returning random numbers (such as `Random.bits` does) or the current time (such as `Unix.time` does) is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
 
