@@ -521,7 +521,7 @@ Here is another way to define `sour_kitty` and `sweet_kitty`:
 # let sour_kitty = sour_cat "kitty";;
 val sour_kitty : string -> string = <fun>
 
-# let sweet_kitty = sweet_cat "kitty";
+# let sweet_kitty = sweet_cat "kitty";;
 val sweet_kitty : string -> string = <fun>
 ```
 
@@ -609,12 +609,25 @@ Here, this is shown using `string` as an example, but it applies to any group of
 
 We will not dive any deeper into the details here, but these equivalences can be formally defined using _ad-hoc_ mathematics.
 
-It is rarely necessary to use the functions above. However, it is important to understand that changing a function may not need any code refactoring. A function can be given several equivalent forms and changed into another, either using refactoring or using a higher-order function. Since functions are values, currying and uncurrying are operations on those values.
+Often, currying or uncurrying are applied when refactoring the code. One form is changed into the other as an edit. However, it is also possible to implement one from the other to have both forms available:
+```ocaml
+# let uncurried_cat (x, y) = sweet_cat x y;;
+val uncurried_cat : string * string -> string = <fun>
+
+# let curried_cat x y = uncurried_cat (x, y);;
+val curried_cat : string -> string -> string = <fun>
+```
+
+Functions can take several equivalent forms, depending on the way data is passed or returned. It is important to:
+* Be able to refactor in any direction
+* Have both forms starting from any of each.
+
+Currying and uncurrying should be understood as operations acting on functions the same way addition and substractions are operations acting on numbers.
 
 In practice, curried functions are the default form functions should take because:
 - They allow partial application
-- Less editing, no parentheses or commas
-- No pattern matching over a tuple
+- It is less editing, no parentheses or commas
+- No pattern matching over a tuple takes place
 
 ## Functions With Side-Effects
 
