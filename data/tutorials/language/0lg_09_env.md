@@ -303,7 +303,7 @@ There are two alternative ways to apply functions: using the *application* `@@` 
 - : float = 3.
 ```
 
-The `@@` application operator applies a parameter (on the right) to a function (on the left). It is useful when chaining several calls, as it avoids writing parentheses. Here is an example with and without parentheses:
+The `@@` application operator applies a parameter (on the right) to a function (on the left). It is useful when chaining several calls, as it avoids writing parentheses, which creates easier-to-read code. Here is an example with and without parentheses:
 ```ocaml
 # int_of_float (sqrt (float_of_int (int_of_string "81")));;
 - : int = 9
@@ -397,10 +397,10 @@ Here is how this makes sense:
 
 Although the new definition of `a` *shadows* the first one, the original remains the one the function `f` uses. The `f` function's environment captures the first value of `a`, so every time you apply `f` (even after the second definition of `a`), you can be confident the function will behave the same. A closure is a pair containing the function code and an environment.
 
-However, all future expressions will use the new value of `a` (`10`), as shown here:
+However, all future expressions will use the new value of `a` (`7`), as shown here:
 ```ocaml
 # let b = a * 3;;
-val b : int = 30
+val b : int = 21
 ```
 
 Partially applying parameters to a function also creates a new closure. The environment is updated, but the function is unchanged.
@@ -429,7 +429,7 @@ val u : int list = [0; 1; 2; 3; 4; 5; 6; 7; 8; 9]
 
 This version of `fibo` is inefficient because the number of recursive calls created doubles at each call, which creates exponential growth.
 
-> Note: `List.init` is a standard library function that allows you to create a list by applying a given function to a sequence of integers, and `Fun.id` is the identity function, which returns its argument unchanged. We created a list with the numbers 0 - 9 and named it `xs`. We applied the `fibo` function to every element of the list using `List.map`.
+> Note: `List.init` is a standard library function that allows you to create a list by applying a given function to a sequence of integers, and `Fun.id` is the identity function, which returns its argument unchanged. We created a list with the numbers 0 - 9 and named it `u`. We applied the `fibo` function to every element of the list using `List.map`.
 
 This version does a better job:
 ```ocaml
@@ -471,7 +471,7 @@ The function `sweet_cat` is the same as this one:
 # let sour_cat = fun x -> fun y -> x ^ " " ^ y;;
 val sour_cat : string -> string -> string = <fun>
 
-# sweet_cat "kitty" "cat";;
+# sour_cat "kitty" "cat";;
 - : string = "kitty cat"
 ```
 
@@ -608,7 +608,7 @@ However, some functions either take input data outside of their domain or produc
 
 In practice, what is considered an effect is an engineering choice. In most circumstances, I/O operations are considered as effects, unless they are ignored. Electromagnetic radiation emitted by the processor when computing a function isn't usually considered a relevant side-effect, except in some security-sensitive contexts. In the OCaml community, as well as in the wider functional programming community, functions are often said to be either [pure](https://en.wikipedia.org/wiki/Pure_function) or impure. The former does not have side effects, the latter does. This distinction makes sense and is useful. Knowing what the effects are, and when are they taking place, is a key design consideration. However, it is important to remember this distinction always assumes some sort of context. Any computation has effects, and what is considered a relevant effect is a design choice.
 
-Since, by definition, effects lie outside function types, a function type can't reflect the effects a function may have. However, it is important to document the intended side effects a function may have. Consider the `Unix.time` function. It returns the number of seconds elapsed since January 1, 1970.
+Since, by definition, effects lie outside function types, a function type can't reflect a function's possible effects. However, it is important to document a function's intended side effects. Consider the `Unix.time` function. It returns the number of seconds elapsed since January 1, 1970.
 ```ocaml
 # Unix.time ;;
 - : unit -> float = <fun>
