@@ -12,9 +12,9 @@ category: "Language"
 
 ## Introduction
 
-This beginner-level tutorial introduces basic data types in OCaml. It's goal is to teach skills on how to handle data from predefined, variant, and record types.  It also includes the important concept of pattern matching on those types.
+This tutorial introduces basic data types in OCaml. It's goal is to teach skills on how to handle data from predefined, variant, and record types. It also includes the important concept of pattern matching on those types. 
 
-In OCaml, there are no type checks at runtime, and values don't change type unless explicit converted. This is what being statically- and strongly-typed means. This allows convenient and safe processing of structured data. At the basic level addressed in this tutorial, data in OCaml is represented using _variants_ and _products_, which corresponds to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although there are other type systems, this document focusses on data types in OCaml.
+In OCaml, there are no type checks at runtime, and values don't change type unless explicitly converted. This is what being statically- and strongly-typed means. This allows convenient and safe processing of structured data. In this tutorial, data in OCaml is represented using _variants_ and _products_, which correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although there are other type systems, this document focusses on data types in OCaml.
 
 <!-- It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs while being easy to use and unobtrusive. Thanks to type inference, programs can be written without type annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
 
@@ -23,7 +23,7 @@ In OCaml, there are no type checks at runtime, and values don't change type unle
 
 This tutorial will cover atomic types, such as integers and Booleans, before moving on to predefined compound types, like strings and lists. It ends with a section about user-defined types, namely variants and records.
 
-Before proceeding, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions).
+Before proceeding, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions). As in previous tutorials, expressions after `#` and ending with `;;` are for the toplevel, like UTop.
 
 <!--
 The goal of this tutorial is to provide for the following capabilities:
@@ -48,7 +48,7 @@ The `int` type is the default and basic integer type in OCaml. When you enter a 
 
 The `int` type represents platform-dependent signed integers. This means `int` does not always have same the number of bits. It depends on underlying platform characteristics, such as processor architecture or operating system. Operations on `int` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Int`](/api/Int.html) modules.
 
-Usually, `int` has 31 bits in 32-bit architectures and 63 in 64-bit architectures because one bit is reserved for OCaml's runtime operation. The standard library also provides [`Int32`](/api/Int32.html) and [`Int64`](/api/Int64.html) modules, which support platform independent operations on 32- and 64-bit signed integers. These modules are not detailed in this tutorial.
+Usually, `int` has 31 bits in 32-bit architectures and 63 in 64-bit architectures, because one bit is reserved for OCaml's runtime operation. The standard library also provides [`Int32`](/api/Int32.html) and [`Int64`](/api/Int64.html) modules, which support platform independent operations on 32- and 64-bit signed integers. These modules are not detailed in this tutorial.
 
 There are no dedicated types for unsigned integers in OCaml. Bitwise operations on `int` treat the sign bit the same as other bits. Binary operators use standard symbols. The signed remainder operator is written `mod`. Integers in OCaml have no predefined power operator.
 
@@ -148,7 +148,7 @@ Arrays may contain values of any type. Here arrays are `int array`, `char array`
 # [||];;
 - : 'a array = [||]
 ```
-Remember, `'a` ("alpha") is a type variable, a type parameter that will be replaced by another type.
+Remember, `'a` ("alpha") is a type variable: a type parameter that will be replaced by another type.
 
 Like `string` and `bytes`, arrays support direct access, but the syntax is not the same.
 ```ocaml
@@ -190,7 +190,7 @@ Operations on lists are provided by the [`List`](/api/List.html) module. The `Li
 
 There are symbols of special importance with respect to lists:
 - The empty list is written `[]`, has type `'a list'`, and is pronounced “nil.”
-- The list constructor operator, written `::`, and pronounced “cons,” is used to add a value at the head of a list.
+- The list constructor operator, written `::` and pronounced “cons,” is used to add a value at the head of a list.
 
 Together, they are the basic means to build a list and access the data it stores. For instance, here is how lists are built by successively applying the cons (`::`) operator:
 ```ocaml
@@ -218,7 +218,7 @@ Pattern matching provides the basic means to access data stored inside a list.
 - : int = 2
 ```
 
-In the above expressions, `[1; 2; 3]` is the value that is matched over. Each expression between the `|` and `->` symbols is a pattern. They are expressions of type list, only formed using `[]`, `::`, and variables names that represent various shapes a list may have. The pattern `[]` means “if the list is empty.” The pattern `x :: u` means “if the list contains data, let `x` be the first element of the list and `u` be the rest of the list.” Expressions at the right of the `->` symbol are the results returned in each corresponding case.
+In the above expressions, `[1; 2; 3]` is the value that is matched over. Each expression between the `|` and `->` symbols is a pattern. They are expressions of type list, only formed using `[]`, `::`, and variable names that represent various shapes a list may have. The pattern `[]` means “if the list is empty.” The pattern `x :: u` means “if the list contains data, let `x` be the first element of the list and `u` be the rest of the list.” Expressions at the right of the `->` symbol are the results returned in each corresponding case.
 
 ### Options & Results
 
@@ -338,7 +338,7 @@ val g : int -> int = <fun>
 
 Executable OCaml code consists primarily of functions, so it's beneficial to make them as concise and clear as possible. The function `g` is defined here using a shorter, more common, and maybe more intuitive syntax.
 
-In OCaml, functions may terminate without returning the expected type value by throwing an exception, which does not appear in its type. There is no way to know if a function may raise an exception without inspecting its code.
+In OCaml, functions may terminate without returning the expected type value by throwing an exception (`exn`), which does not appear in its type. There is no way to know if a function may raise an exception without inspecting its code.
 ```ocaml
 # raise;;
 - : exn -> 'a' = <fun>
