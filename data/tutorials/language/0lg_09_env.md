@@ -638,9 +638,7 @@ To explain side effects, we need to define what *domain* and *codomain* are. Let
 # string_of_int;;
 - : int -> string = <fun>
 ```
-The function `string_of_int`
-* Has domain `int`, at the left of `->`, the type of input data
-* Has codomain `string`, at the right of `->`, the type of output data
+The `string_of_int` function's *domain* is `int`, and it's the type of input data. The function's *codomain* is `string`, its output data. In other words, the *domain* is left of the `->` and the *codomain* is on the right.
 
 These terms help avoid saying the "type at the right" or "type at the left" of a function's type arrow.
 
