@@ -628,7 +628,7 @@ Since the purpose of the function is only to produce an effect, it has no meanin
 
 This illustrates the relationship between functions intended to have side effects and the `unit` type. The presence of the `unit` type does not indicate the presence of side effects. The absence of the `unit` type does not indicate the absence of side effects. But when no data needs to be passed as input or can be returned as output, the `unit` type should be used to indicate it and suggest the presence of side effects.
 
-## Functions are Almost as Other Values
+## Functions Are Almost as Other Values
 
 Functions are supposed to be exactly as other values; however, there are three restrictions:
 
