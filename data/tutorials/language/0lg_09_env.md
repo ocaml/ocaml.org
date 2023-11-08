@@ -2,7 +2,7 @@
 id: values-and-functions
 title: Values and Functions
 description: |
-  Functions, values, definitions, environments, scopes, closures and shadowing: this tutorial will help you master the fundamentals.
+  Functions, values, definitions, environments, scopes, closures, and shadowing. This tutorial will help you master the fundamentals.
 category: "Language"
 ---
 
@@ -459,6 +459,8 @@ The second version (`fib`) uses the first two Fibonacci numbers as initial value
 
 ### With Syntactic Sugar
 
+*Syntactic sugar* refers to a clean, straightforward syntax. It's code shorthand that makes the code more compact.
+
 To define a function with multiple arguments, each must be listed between the name of the function (right after the `let` keyword) and the equal sign, separated by space. Here is an example:
 ```ocaml
 # let sweet_cat x y = x ^ " " ^ y;;
@@ -555,7 +557,7 @@ Error: This expression has type string -> string -> string
        Type string is not compatible with type string -> string
 ```
 
-The type `(string -> string) -> string` denotes functions that take a function as a parameter, not a function as a result as `sweet_cat`.
+Functions having type `(string -> string) -> string` take a function as a parameter. The function `sweet_cat` has a function as result, not a function as a parameter.
 
 In computer science language, the type arrow operator _associates to the right_. Function types without parentheses should be treated as if they have parentheses to the right in the same way that the type of `dummy_cat` was declared above. Except they are not displayed. This is [pretty printing](https://en.wikipedia.org/wiki/Prettyprint).
 
@@ -631,16 +633,18 @@ In practice, curried functions are the default form functions should take becaus
 
 ## Functions With Side-Effects
 
-With respect to its type, a function is processes input data from its *domain*, the set of input values, and produce a result data from its *codomain*, the set of output values.
+To explain side-effects, we need to define what a *domain* and *codomain*. Let's look at an example: 
 ```ocaml
 # string_of_int;;
 - : int -> string = <fun>
 ```
 The function `string_of_int`
-* Has domain `int`
-* Has codomain `string`
+* Has domain `int` (left of `->` / input data)
+* Has codomain `string` (right of `->` / output data)
 
-However, some functions either take input data outside of their domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output (I/O) are the most common forms of effects. Input is out-of-domain data and output is out-of-codomain data. However, the result of functions returning random numbers or the current time is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
+These terms help avoid saying the "type at the right" or "type at the left" of a function's type arrow
+
+However, some functions either take input data outside of their domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output (I/O) are the most common forms of effects. Input is out-of-domain data and output is out-of-codomain data. However, the result of functions returning returning random numbers (such as `Random.bits` does) or the current time (such as `Unix.time` does) is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
 
 In practice, what is considered an effect is an engineering choice. In most circumstances, I/O operations are considered as effects, unless they are ignored. Electromagnetic radiation emitted by the processor when computing a function isn't usually considered a relevant side-effect, except in some security-sensitive contexts. In the OCaml community, as well as in the wider functional programming community, functions are often said to be either [pure](https://en.wikipedia.org/wiki/Pure_function) or impure. The former does not have side effects, the latter does. This distinction makes sense and is useful. Knowing what the effects are, and when are they taking place, is a key design consideration. However, it is important to remember this distinction always assumes some sort of context. Any computation has effects, and what is considered a relevant effect is a design choice.
 
@@ -687,7 +691,7 @@ Exception: Invalid_argument "compare: functional value".
 ```
 
 There are two main reasons explaining this:
-- It is impossible to write an algorithm that takes two functions and returns `true`, if they always return the same output when provided the same input, and `false` otherwise.
+- There is no algorithm that take two functions and determines if they return the same output when provided the same input.
 - Assuming it was possible, such an algorithm would declare that implementations of quicksort and bubble sort are equal. That would mean one could replace the other, and that may not be wise.
 
 It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
