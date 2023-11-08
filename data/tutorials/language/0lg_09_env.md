@@ -68,7 +68,7 @@ Every expression can be named. This is the purpose of the `let … = … ` state
 * If the expression can be evaluated, it take places right away.
 * Otherwise, the expression is turned into a value as-is. That's the case of function definition.
 
-Global definitions are those entered at the toplevel. This is what happens when writing a definition in UTop:
+Global definitions are those entered at the top level. This is what happens when writing a definition in UTop:
 ```ocaml
 # let the_answer = 2 * 3 * 7;;
 val the_answer : int = 42
@@ -98,7 +98,7 @@ val tree_map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 - : int tree = Node (1, [Node (4, []); Node (9, []); Node (16, [])])
 ```
 
-> Note: Above, `'a` means “any type.” It is called a *type parameter* and is pronounced like the Greek letter α (“alpha”). This type parameter will be replaced by another type. The same goes for `'b` ("beta"), `'c` ("gamma"), etc. Any letter preceded by a `'` is a type parameter, also known as a "[type variable](https://en.wikipedia.org/wiki/Type_variable)."
+> Note: Above, `'a` means “any type.” It is called a *type parameter* and is pronounced like the Greek letter α (“alpha”). This type parameter will be replaced by a type. The same goes for `'b` ("beta"), `'c` ("gamma"), etc. Any letter preceded by a `'` is a type parameter, also known as a "[type variable](https://en.wikipedia.org/wiki/Type_variable)."
 
 Because records are implicitly single-constructor variants, this also applies to them:
 ```ocaml
@@ -121,7 +121,7 @@ ha ha
 
 > Note: As explained in the [Tour of OCaml](/docs/tour-of-ocaml) tutorial, the `unit` type has a single value `()`, which is pronounced "unit."
 
-Above, the pattern does not contain any identifier, meaning no name is defined. The expression is evaluated, the side effect takes place, no definition is created, and no value is returned. Writing that kind of pseudo-definition only expresses interest in the side effects.
+Above, the pattern does not contain any identifier, meaning no name is defined. The expression is evaluated, the side effect takes place (printing `ha ha` to standard output), no definition is created, and no value is returned. Writing that kind of pseudo-definition only expresses interest in the side effects.
 ```ocaml
 # print_endline "ha ha";;
 ha ha
@@ -132,12 +132,12 @@ ha ha
 - : unit = ()
 ```
 
-As seen in the last example, the catch-all pattern (`_`) can be used in definitions. The following example illustrates its use, which is distinct from the unit pattern:
+As seen in the last example, the catch-all pattern (`_`) can be used in definitions. The following example illustrates its use, which is distinct from the `()` pattern:
 ```ocaml
 # let (_, y) = List.split [(1, 2); (3, 4); (5, 6); (7, 8)];;
 val y : int list = [2; 4; 6; 8]
 ```
-This construction creates two lists. The first is formed by the left element of each pair. The second is formed by the right element. Since we're only interested in the right element, we give the name `y` to that list and discard the first by using `_`.
+This construction creates two lists. The first is formed by the left element of each pair. The second is formed by the right element. Assuming we're only interested in the right elements, we give the name `y` to that list and discard the first by using `_`.
 
 ## Local Definitions
 
@@ -221,7 +221,7 @@ Calling `pi` results in an error because it hasn't been added to the global envi
 
 A definition's scope is the set of environments where it is reachable.
 
-Although OCaml is an expression-oriented language, it is not entirely free of statements. The global `let` construct is a statement that may change the state of the environment by adding a name-value *binding*. In some sense, that `let` is the only statement OCaml has. Note that the following expressions at the toplevel also fall into that category because they are equivalent to `let _ =` definitions.
+Although OCaml is an expression-oriented language, it is not entirely free of statements. The global `let` is a statement that may change the state of the global environment by adding a name-value *binding*. In some sense, that `let` is the only statement OCaml has. Note that top level expressions also fall into that category because they are equivalent to `let _ =` definitions.
 ```ocaml
 # (1.0 +. sqrt 5.0) /. 2.0;;
 - : float = 1.6180339887498949
@@ -284,7 +284,7 @@ As already stated, in OCaml, functions are values. This is the key concept of [f
 
 For now, let's put aside those definitions and instead start playing with functions. Their meaning will arise from experience. Once things make sense, using these terms is just a means to interact with the community.
 
-This is a big takeaway. We believe functional programming (_ergo_ OCaml) is best understood by practising it rather than reading about it. Just like skateboarding, cooking, or woodworking. Learning by doing is not only possible, it is usually the easiest and the best way to start. Because in the end, the goal is not to be able to give the correct definition of abstract terms but to write OCaml code.
+This is a big takeaway. We believe functional programming (_ergo_ OCaml) is best understood by practising it rather than reading about it. Just like skateboarding, cooking, or woodworking. Learning by doing is not only possible, it is usually the easiest and the best way to start. Because in the end, the goal is to write OCaml code, not to be able to give the correct definition of abstract terms.
 
 ## Applying Functions
 
@@ -314,14 +314,14 @@ The `@@` application operator applies a parameter (on the right) to a function (
 
 The pipe operator (`|>`) also avoids parentheses but in reversed order: function on right, parameter on left.
 ```ocaml
-# "81" |> int_of_string |> float_of_int |> sqrt |> truncate;;
+# "81" |> int_of_string |> float_of_int |> sqrt |> int_of_float;;
 - : int = 9
 ```
 This is just like a Unix shell pipe.
 
 ## Anonymous Functions
 
-As citizens of the same level as other values, functions don't have to be bound to a name to exist (although some must, but this will be explained later). Function values not bound to names are called _anonymous functions_. Here are a couple of examples:
+As citizens of the same level as other values, functions don't have to be bound to a name to exist (although some must, but this will be explained later). Function values not bound to names are called _[anonymous functions](https://en.wikipedia.org/wiki/Anonymous_function)_. Here are a couple of examples:
 ```ocaml
 # fun x -> x;;
 - : 'a -> 'a = <fun>
@@ -547,7 +547,7 @@ Here is how to make sense of this:
 1. It is possible to pretend that `sweet_cat` has type `string -> (string -> string)`.
 1. Types `string -> (string -> string)` and `string -> string -> string` are the same
 
-The type `string -> string -> string` is the [pretty-printed](https://en.wikipedia.org/wiki/Prettyprint) version `string -> (string -> string)`. The latter reflects, as described in the previous section, that a multiple-argument function is a single-parameter function that returns an anonymous function with one parameter removed.
+The type `string -> string -> string` is the [pretty-printed](https://en.wikipedia.org/wiki/Prettyprint) version of `string -> (string -> string)`. The latter reflects, as described in the previous section, that a multiple-argument function is a single-parameter function that returns an anonymous function with one parameter removed.
 
 Putting the parentheses the other way does not work:
 ```ocaml
@@ -557,7 +557,7 @@ Error: This expression has type string -> string -> string
        Type string is not compatible with type string -> string
 ```
 
-Functions having type `(string -> string) -> string` take a function as a parameter. The function `sweet_cat` has a function as result, not a function as a parameter.
+Functions having type `(string -> string) -> string` take a function as a parameter. The function `sweet_cat` has a function as a result, not a function as a parameter.
 
 In computer science language, the type arrow operator _associates to the right_. Function types without parentheses should be treated as if they have parentheses to the right in the same way that the type of `dummy_cat` was declared above. Except they are not displayed. This is [pretty printing](https://en.wikipedia.org/wiki/Prettyprint).
 
@@ -581,7 +581,7 @@ It behaves the same as previously.
 - : string = "hello world"
 ```
 
-It looks like two arguments have been passed: `"hello"` and `"world"`. However, only one, the `("hello", "world")` pair, has been passed. Inspection of the generated assembly would show it isn't exactly the same function. It contains some more code. The contents of the pair passed to `spicy_cat` (`x` and `y`) must be extracted before evaluation of the `s ^ " " ^ t` expression. This is the role of the additional assembly instructions.
+It looks like two arguments have been passed: `"hello"` and `"world"`. However, only one, the `("hello", "world")` pair, has been passed. Inspection of the generated assembly would show it isn't the same function as `sweet_cat`. It contains some more code. The contents of the pair passed to `spicy_cat` (`x` and `y`) must be extracted before evaluation of the `x ^ " " ^ y` expression. This is the role of the additional assembly instructions.
 
 In many imperative languages, the `spicy_cat ("hello", "world")` syntax reads as a function call with two parameters; but in OCaml, it denotes applying the function `spicy_cat` to a pair containing `"hello"` and `"world"`.
 
@@ -591,7 +591,7 @@ In the previous sections, two kinds of multiple-parameter functions have been pr
 - Functions returning a function, such as `sweet_cat` and `sour_cat`
 - Functions taking a tuple as a parameter, such as `spicy_cat`
 
-Interestingly, both kinds of functions provide a way to pass several pieces of data to a body while being functions with a single parameter. From this perspective, it makes sense to say: “All functions have a single argument.”
+Interestingly, both kinds of functions provide a way to pass several pieces of data while being functions with a single parameter. From this perspective, it makes sense to say: “All functions have a single argument.”
 
 This goes even further. It is always possible to translate back and forth between functions that look like `sweet_cat` (or `sour_cat`) and functions that look like `spicy_cat`.
 
@@ -620,8 +620,8 @@ val uncurried_cat : string * string -> string = <fun>
 val curried_cat : string -> string -> string = <fun>
 ```
 
-Functions can take several equivalent forms, depending on the way data is passed or returned. It is important to:
-* Be able to refactor in any direction
+Functions can take several equivalent forms, depending on the way data is passed or returned. It is important to be able to:
+* Refactor in any direction
 * Have both forms starting from any of each.
 
 Currying and uncurrying should be understood as operations acting on functions the same way addition and substractions are operations acting on numbers.
@@ -633,18 +633,18 @@ In practice, curried functions are the default form functions should take becaus
 
 ## Functions With Side-Effects
 
-To explain side-effects, we need to define what a *domain* and *codomain*. Let's look at an example: 
+To explain side-effects, we need to define what *domain* and *codomain* are. Let's look at an example:
 ```ocaml
 # string_of_int;;
 - : int -> string = <fun>
 ```
 The function `string_of_int`
-* Has domain `int` (left of `->` / input data)
-* Has codomain `string` (right of `->` / output data)
+* Has domain `int`, at the left of `->`, the type of input data
+* Has codomain `string`, at the right of `->`, the type of output data
 
-These terms help avoid saying the "type at the right" or "type at the left" of a function's type arrow
+These terms help avoid saying the "type at the right" or "type at the left" of a function's type arrow.
 
-However, some functions either take input data outside of their domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output (I/O) are the most common forms of effects. Input is out-of-domain data and output is out-of-codomain data. However, the result of functions returning returning random numbers (such as `Random.bits` does) or the current time (such as `Unix.time` does) is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
+Some functions either take input data outside of their domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output (I/O) are the most common forms of effects. Input is out-of-domain data and output is out-of-codomain data. However, the result of functions returning random numbers (such as `Random.bits` does) or the current time (such as `Unix.time` does) is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
 
 In practice, what is considered an effect is an engineering choice. In most circumstances, I/O operations are considered as effects, unless they are ignored. Electromagnetic radiation emitted by the processor when computing a function isn't usually considered a relevant side-effect, except in some security-sensitive contexts. In the OCaml community, as well as in the wider functional programming community, functions are often said to be either [pure](https://en.wikipedia.org/wiki/Pure_function) or impure. The former does not have side effects, the latter does. This distinction makes sense and is useful. Knowing what the effects are, and when are they taking place, is a key design consideration. However, it is important to remember this distinction always assumes some sort of context. Any computation has effects, and what is considered a relevant effect is a design choice.
 
@@ -653,18 +653,19 @@ Since, by definition, effects lie outside function types, a function type can't 
 # Unix.time ;;
 - : unit -> float = <fun>
 ```
-If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.
+
+Note: If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.
 
 To produce its result, no data needs to be passed to that function. The result is entirely determined by external factors. If it was passed information, it would not be used. But something must be passed as a parameter to trigger the request of the current time from the operating system.
 
-Since the function must receive data to trigger the computation but the data is going to be ignored, it makes sense to provide the `unit` value `()`. What is discarded is meaningless in the first place.
+Since the function must receive data to trigger the computation but the data is going to be ignored, it makes sense to provide the `()` value. What is discarded is meaningless in the first place.
 
 A similar reasoning applies to functions producing an effect instead of being externally determined or influenced. Consider `print_endline`. It prints the string it was passed to standard output, followed by a line termination.
 ```ocaml
 # print_endline;;
 - : string -> unit = <fun>
 ```
-Since the purpose of the function is only to produce an effect, it has no meaningful data to return; therefore, again, it makes sense to return the `unit` value.
+Since the purpose of the function is only to produce an effect, it has no meaningful data to return; therefore, again, it makes sense to return the `()` value.
 
 This illustrates the relationship between functions intended to have side effects and the `unit` type. The presence of the `unit` type does not indicate the presence of side effects. The absence of the `unit` type does not indicate the absence of side effects. But when no data needs to be passed as input or can be returned as output, the `unit` type should be used to indicate it and suggest the presence of side effects.
 
@@ -691,14 +692,14 @@ Exception: Invalid_argument "compare: functional value".
 ```
 
 There are two main reasons explaining this:
-- There is no algorithm that take two functions and determines if they return the same output when provided the same input.
+- There is no algorithm that takes two functions and determines if they return the same output when provided the same input.
 - Assuming it was possible, such an algorithm would declare that implementations of quicksort and bubble sort are equal. That would mean one could replace the other, and that may not be wise.
 
 It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
 
 3. Pattern matching does not allow inspecting a function. Catch-all patterns can match against a function, but it is useless.
 ```ocaml
-# match Fun.id with id -> ();;
+# match Fun.id with _ -> ();;
 - : unit = ()
 ```
 
@@ -712,4 +713,4 @@ During the review of this tutorial, it was asked:
 
 > Why does having function as values define functional programming?
 
-The answer to this question goes beyond the scope of this tutorial. However, and without entering into the details, erasing the difference between functions and other values is meant to express they are the same thing. That's exactly what happens in [λ-calculus](https://en.wikipedia.org/wiki/Lambda_calculus), the mathematical theory underneath functional programming. In that formalism, there's nothing but functions. Everything, including data, is a function, and computation reduces to parameter passing. In functional programming (and thus OCaml), having functions and values at the same level is an invitation to think about programs this way. This is different from the imperative programming approach where everything reduces to reading and writing into the memory.
+The answer to this question goes beyond the scope of this tutorial. However, without entering into the details, erasing the difference between functions and other values is meant to express they are the same thing. That's exactly what happens in [λ-calculus](https://en.wikipedia.org/wiki/Lambda_calculus), the mathematical theory underneath functional programming. In that formalism, there are nothing but functions. Everything, including data, is a function, and computation reduces to parameter passing. In functional programming (and thus OCaml), having functions and values at the same level is an invitation to think this way. This is different from the imperative programming approach where everything reduces to reading and writing into the memory.
