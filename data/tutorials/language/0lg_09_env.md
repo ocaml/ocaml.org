@@ -445,7 +445,7 @@ val fib : int -> int = <fun>
 
 The first version (`fibo`) takes two extra parameters: the two previously computed Fibonacci numbers.
 
-The second version (`fib`) uses the two first Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called “tail call elimination.” This turns recursivity into imperative iteration in the generated native code and leads to improved performances.
+The second version (`fib`) uses the first two Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called “tail call elimination.” This turns recursivity into imperative iteration in the generated native code and leads to improved performances.
 
 > Note: Notice that the `fib` function has three parameters (`m n i`) but only two arguments were passed (`0 1`). This is called *partial application*.
 
@@ -453,7 +453,7 @@ The second version (`fib`) uses the two first Fibonacci numbers as initial value
 
 ### With Syntactic Sugar
 
-To define a function with multiple arguments each has to be listed between the name of the function (right after the `let` keyword) and the equal sign, separated by space. Here is an example:
+To define a function with multiple arguments, each must be listed between the name of the function (right after the `let` keyword) and the equal sign, separated by space. Here is an example:
 ```ocaml
 # let sweet_cat x y = x ^ " " ^ y;;
 val sweet_cat : string -> string -> string = <fun>
@@ -534,7 +534,7 @@ Error: This expression has type string -> string -> string
 
 The type `(string -> string) -> string` denotes functions that take a function as a parameter, not a function as a result as `sweet_cat`.
 
-In computer science language, the type arrow operator _associates to the right_. Function types without parentheses should be treated as if they have parentheses to the right in the same way that the type of `dummy_cat` was declared above. Except they are not displayed, this is [pretty printing](https://en.wikipedia.org/wiki/Prettyprint).
+In computer science language, the type arrow operator _associates to the right_. Function types without parentheses should be treated as if they have parentheses to the right in the same way that the type of `dummy_cat` was declared above. Except they are not displayed. This is [pretty printing](https://en.wikipedia.org/wiki/Prettyprint).
 
 ### Passing Tuples
 
@@ -568,11 +568,11 @@ In the previous sections, two kinds of multiple-parameter functions have been pr
 
 Interestingly, both kinds of functions provide a way to pass several pieces of data to a body while being functions with a single parameter. From this perspective, it makes sense to say: “All functions have a single argument.”
 
-This goes even further. It is always possible to translate back and forth between functions looking like `sweet_cat` (or `sour_cat`) and functions looking like `spicy_cat`.
+This goes even further. It is always possible to translate back and forth between functions that look like `sweet_cat` (or `sour_cat`) and functions that look like `spicy_cat`.
 
 These translations have names:
-* [Currying](https://en.wikipedia.org/wiki/Currying) goes from the `spicy_cat` form into the `sour_cat` (or `sweet_cat`) form
-* Uncurrying goes from the `sour_cat` (or `sweet_cat`) form into the `spicy_cat` form
+* [Currying](https://en.wikipedia.org/wiki/Currying) goes from the `spicy_cat` form into the `sour_cat` (or `sweet_cat`) form.
+* Uncurrying goes from the `sour_cat` (or `sweet_cat`) form into the `spicy_cat` form.
 
 It also said that `sweet_cat` and `sour_cat` are _curried_ functions whilst `spicy_cat` is _uncurried_.
 
