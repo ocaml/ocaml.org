@@ -654,7 +654,7 @@ Since, by definition, effects lie outside function types, a function type can't 
 - : unit -> float = <fun>
 ```
 
-Note: If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.
+> Note: If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.
 
 To produce its result, no data needs to be passed to that function. The result is entirely determined by external factors. If it was passed information, it would not be used. But something must be passed as a parameter to trigger the request of the current time from the operating system.
 
