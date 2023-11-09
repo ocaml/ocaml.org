@@ -8,13 +8,11 @@ category: "Language"
 
 # Basic Data Types And Pattern Matching
 
-[toc]
-
 ## Introduction
 
-This tutorial introduces basic data types in OCaml. It's goal is to teach skills on how to handle data from predefined, variant, and record types. It also includes the important concept of pattern matching on those types. 
+This tutorial introduces basic data types in OCaml. Its goal is to teach skills on how to handle data from predefined, variant, and record types. It also includes the important concept of pattern matching on those types.
 
-In OCaml, there are no type checks at runtime, and values don't change type unless explicitly converted. This is what being statically- and strongly-typed means. This allows convenient and safe processing of structured data. In this tutorial, data in OCaml is represented using _variants_ and _products_, which correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although there are other type systems, this document focusses on data types in OCaml.
+In OCaml, there are no type checks at runtime, and values don't change type unless explicitly converted. This is what being statically- and strongly-typed means. This allows convenient and safe processing of structured data. In this tutorial, data in OCaml is represented using _variants_ and _products_, which correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although OCaml has other type systems, this document focuses on data typed using this algorithm.
 
 <!-- It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs while being easy to use and unobtrusive. Thanks to type inference, programs can be written without type annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
 
@@ -88,11 +86,11 @@ Boolean values are represented by the type `bool`.
 - : bool = true
 ```
 
-Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction “or” is written `\\`. Both are short-circuited, meaning that they don't evaluate the argument on the right if the left one's value is sufficient to decide the whole expression's value.
+Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction “or” is written `||`. Both are short-circuited, meaning that they don't evaluate the argument on the right if the left one's value is sufficient to decide the whole expression's value.
 
 #### Characters
 
-Values of type `char` correspond to the 256 symbols Latin-1 set. Character literals are surrounded by single quotes, as shown below:
+Values of type `char` correspond to the 256 symbols of the Latin-1 set. Character literals are surrounded by single quotes, as shown below:
 ```ocaml
 # 'a';;
 - : char = 'a'
@@ -148,7 +146,7 @@ Arrays may contain values of any type. Here arrays are `int array`, `char array`
 # [||];;
 - : 'a array = [||]
 ```
-Remember, `'a` ("alpha") is a type variable: a type parameter that will be replaced by another type.
+Remember, `'a` ("alpha") is a type parameter that will be replaced by another type.
 
 Like `string` and `bytes`, arrays support direct access, but the syntax is not the same.
 ```ocaml
@@ -161,14 +159,16 @@ Arrays are mutable, meaning they can't be extended or shortened, but each elemen
 # let letter = [| 'v'; 'x'; 'y'; 'z' |];;
 val letter : char array = [|'v'; 'x'; 'y'; 'z'|]
 
-# letter.(2) <- '3';;
+# letter.(2) <- 'A';;
 - : unit = ()
 
 # letter;;
-- : char array = [|'v'; 'x'; '3'; 'z'|]
+- : char array = [|'v'; 'x'; 'A'; 'z'|]
 ```
 
-Operations on arrays are provided by the [`Array`](/api/Array.html) module. There is a dedicated tutorial on Arrays.
+The left-arrow `<-` is the array update operator. Above, it means the cell at index 2 is set to value `'A'`. It is the same as writing `Array.set letter 2 'A'`. Array update is a side effect, the unit value is returned.
+
+Operations on arrays are provided by the [`Array`](/api/Array.html) module. There is a dedicated tutorial on [Arrays](/docs/arrays).
 
 #### Lists
 
@@ -338,7 +338,7 @@ val g : int -> int = <fun>
 
 Executable OCaml code consists primarily of functions, so it's beneficial to make them as concise and clear as possible. The function `g` is defined here using a shorter, more common, and maybe more intuitive syntax.
 
-In OCaml, functions may terminate without returning the expected type value by throwing an exception (`exn`), which does not appear in its type. There is no way to know if a function may raise an exception without inspecting its code.
+In OCaml, functions may terminate without returning the expected type value by throwing an exception (of type `exn`), which does not appear in its type. There is no way to know if a function may raise an exception without inspecting its code.
 ```ocaml
 # raise;;
 - : exn -> 'a' = <fun>
@@ -484,7 +484,7 @@ Here is how to convert a `commit` to a `string` using pattern matching:
 val commit_to_string : commit -> string = <fun>
 ```
 
-Below, the `function …` construct is used instead of the `match … with …` construct used previously:
+Above, the `function …` construct is used instead of the `match … with …` construct used previously:
 ```ocaml
 let commit_to_string' x = match x with
   | Hash sha -> sha
@@ -690,7 +690,6 @@ This is mostly useful as a means of documentation or to shorten long-type expres
 ## A Complete Example: Mathematical Expressions
 
 This example shows how to represent simple mathematical expressions like `n * (x + y)` and multiply them out symbolically to get `n * x + n * y`:
-
 ```ocaml env=expr
 # type expr =
   | Plus of expr * expr        (* a + b *)
@@ -714,7 +713,6 @@ val e : expr = Times (Var "n", Plus (Var "x", Var "y"))
 
 Here is a function which prints out `Times (Var "n", Plus (Var "x", Var "y"))`
 as something more like `n * (x + y)`:
-
 ```ocaml env=expr
 # let rec to_string = function
   | Plus (e1, e2) -> "(" ^ to_string e1 ^ " + " ^ to_string e2 ^ ")"
@@ -727,7 +725,6 @@ val to_string : expr -> string = <fun>
 
 We can write a function to multiply out expressions of the form `n * (x + y)`
 or `(x + y) * n`, and for this we will use a nested pattern:
-
 ```ocaml env=expr
 # let rec distribute = function
   | Times (e1, Plus (e2, e3)) ->
