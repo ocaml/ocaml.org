@@ -1,6 +1,6 @@
 ---
-id: basic-datatypes
-title: Basic Datatypes and Pattern Matching
+id: basic-data-types
+title: Basic Data Types and Pattern Matching
 description: |
   Predefined Types, Variants, Records, and Pattern Matching
 category: "Language"
@@ -726,42 +726,42 @@ val to_string : expr -> string = <fun>
 We can write a function to multiply out expressions of the form `n * (x + y)`
 or `(x + y) * n`, and for this we will use a nested pattern:
 ```ocaml env=expr
-# let rec distribute = function
+# let rec distrib = function
   | Times (e1, Plus (e2, e3)) ->
-     Plus (Times (distribute e1, distribute e2),
-           Times (distribute e1, distribute e3))
+     Plus (Times (distrib e1, distrib e2),
+           Times (distrib e1, distrib e3))
   | Times (Plus (e1, e2), e3) ->
-     Plus (Times (distribute e1, distribute e3),
-           Times (distribute e2, distribute e3))
-  | Plus (e1, e2) -> Plus (distribute e1, distribute e2)
-  | Minus (e1, e2) -> Minus (distribute e1, distribute e2)
-  | Times (e1, e2) -> Times (distribute e1, distribute e2)
-  | Divide (e1, e2) -> Divide (distribute e1, distribute e2)
+     Plus (Times (distrib e1, distrib e3),
+           Times (distrib e2, distrib e3))
+  | Plus (e1, e2) -> Plus (distrib e1, distrib e2)
+  | Minus (e1, e2) -> Minus (distrib e1, distrib e2)
+  | Times (e1, e2) -> Times (distrib e1, distrib e2)
+  | Divide (e1, e2) -> Divide (distrib e1, distrib e2)
   | Var v -> Var v;;
-val distribute : expr -> expr = <fun>
+val distrib : expr -> expr = <fun>
 ```
 
 This is how it can be used:
 ```ocaml env=expr
-# e |> distribute |> to_string |> print_endline;;
+# e |> distrib |> to_string |> print_endline;;
 ((n * x) + (n * y))
 - : unit = ()
 ```
 
-The first two patterns hold the key to how the `distribute` function works.
+The first two patterns hold the key to how the `distrib` function works.
 The first pattern is `Times (e1, Plus (e2, e3))`, which matches expressions of
 the form `e1 * (e2 + e3)`. The right-hand side of this first pattern is
 equivalent to `(e1 * e2) + (e1 * e3)`. The second pattern does the same thing,
 except for expressions of the form `(e1 + e2) * e3`.
 
 The remaining patterns don't change the expressions' form, but they call the
-`distribute` function recursively on their subexpressions. This ensures that all its
+`distrib` function recursively on their subexpressions. This ensures that all its
 subexpressions get multiplied out too. (If you only wanted
 to multiply out the very top level of an expression, you could replace all
 the remaining patterns with a simple `e -> e` rule.)
 
 The reverse operation, i.e., factorising out common subexpressions, can be
-implemented in a similar fashion. The following version only works for the toplevel expression.
+implemented in a similar fashion. The following version only works for the top-level expression.
 ```ocaml env=expr
 # let top_factorise = function
   | Plus (Times (e1, e2), Times (e3, e4)) when e1 = e3 ->
