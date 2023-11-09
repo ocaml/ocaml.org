@@ -46,7 +46,7 @@ The `int` type is the default and basic integer type in OCaml. When you enter a 
 
 The `int` type represents platform-dependent signed integers. This means `int` does not always have same the number of bits. It depends on underlying platform characteristics, such as processor architecture or operating system. Operations on `int` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Int`](/api/Int.html) modules.
 
-Usually, `int` has 31 bits in 32-bit architectures and 63 in 64-bit architectures, because one bit is reserved for OCaml's runtime operation. The standard library also provides [`Int32`](/api/Int32.html) and [`Int64`](/api/Int64.html) modules, which support platform independent operations on 32- and 64-bit signed integers. These modules are not detailed in this tutorial.
+Usually, `int` has 31 bits in 32-bit architectures and 63 in 64-bit architectures, because one bit is reserved for OCaml's runtime operation. The standard library also provides [`Int32`](/api/Int32.html) and [`Int64`](/api/Int64.html) modules, which support platform-independent operations on 32- and 64-bit signed integers. These modules are not detailed in this tutorial.
 
 There are no dedicated types for unsigned integers in OCaml. Bitwise operations on `int` treat the sign bit the same as other bits. Binary operators use standard symbols. The signed remainder operator is written `mod`. Integers in OCaml have no predefined power operator.
 
@@ -218,7 +218,7 @@ Pattern matching provides the basic means to access data stored inside a list.
 - : int = 2
 ```
 
-In the above expressions, `[1; 2; 3]` is the value that is matched over. Each expression between the `|` and `->` symbols is a pattern. They are expressions of type list, only formed using `[]`, `::`, and binding names that represent various shapes a list may have. The pattern `[]` means “if the list is empty.” The pattern `x :: u` means “if the list contains data, let `x` be the first element of the list and `u` be the rest of the list.” Expressions at the right of the `->` symbol are the results returned in each corresponding case.
+In the above expressions, `[1; 2; 3]` is the value that is matched over. Each expression between the `|` and `->` symbols is a pattern. They are expressions of type `list`, only formed using `[]`, `::`, and binding names that represent various shapes a list may have. The pattern `[]` means “if the list is empty.” The pattern `x :: u` means “if the list contains data, let `x` be the first element of the list and `u` be the rest of the list.” Expressions at the right of the `->` symbol are the results returned in each corresponding case.
 
 ### Options & Results
 
@@ -357,7 +357,7 @@ val mean : int -> int -> int = <fun>
 
 Like the product type symbol `*`, the function type symbol `->` is not associative. The following two types are not the same:
 - `(int -> int) -> int` : This function takes a function of type `int -> int` as a parameter and returns an `int` as the result.
-- `int -> (int -> int)` : This function takes an `int` asa  parameter and returns a function of type `int -> int` as the result.
+- `int -> (int -> int)` : This function takes an `int` as a parameter and returns a function of type `int -> int` as the result.
 
 ### Unit
 
@@ -388,12 +388,12 @@ The function `print_endline` prints the string followed by a line ending on stan
 
 ## User-Defined Types
 
-User defined types are always introduced using the `type … = …` statement. The keyword `type` must written in lowercase. The first ellipsis stands for type name and must not begin by a capital. The second ellipsis stands for the type definition. Three cases are possible:
+User-defined types are always introduced using the `type … = …` statement. The keyword `type` must written in lowercase. The first ellipsis stands for type name and must not begin with a capital. The second ellipsis stands for the type definition. Three cases are possible:
 1. Variant
 1. Record
 1. Aliases
 
-These three kinds of type definitions are covered in next three sections.
+These three kinds of type definitions are covered in the next three sections.
 
 ### Variants
 
