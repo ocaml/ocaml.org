@@ -373,6 +373,15 @@ The `unit` type has several uses. Mainly, it serves as a token when a function d
 ```
 
 The function `read_line` reads an end-of-line terminated sequence of characters from standard input and returns it as a string. Reading input begins when `()` is passed.
+```ocaml
+ # read_line ();;
+foo bar
+- : string = "foo bar"
+
+# print_endline;;
+- : string -> unit = <fun>
+```
+> Note: Replace `foo bar` with your own text followed by the `print_endline`, as shown.
 
 The function `print_endline` prints the string followed by a line ending on standard output. Return of the unit value means the output request has been queued by the operating system.
 
