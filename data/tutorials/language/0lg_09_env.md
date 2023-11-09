@@ -194,7 +194,7 @@ In both examples `b` and `c` are local definitions.
 
 ## Scopes and Environments
 
-Without oversimplifying, an OCaml program is a sequence of expressions or global `let` definitions. These items are said to be at the _top level_. An OCaml REPL, such as UTop, is called a toplevel because that's where typed definitions go.
+Without oversimplifying, an OCaml program is a sequence of expressions or global `let` definitions. These items are said to be at the _top-level_. An OCaml REPL, such as UTop, is called a toplevel because that's where typed definitions go.
 
 Execution evaluates each item from top to bottom.
 
@@ -221,7 +221,7 @@ Calling `pi` results in an error because it hasn't been added to the global envi
 
 A definition's scope is the set of environments where it is reachable.
 
-Although OCaml is an expression-oriented language, it is not entirely free of statements. The global `let` is a statement that may change the state of the global environment by adding a name-value *binding*. In some sense, that `let` is the only statement OCaml has. Note that top level expressions also fall into that category because they are equivalent to `let _ =` definitions.
+Although OCaml is an expression-oriented language, it is not entirely free of statements. The global `let` is a statement that may change the state of the global environment by adding a name-value *binding*. In some sense, that `let` is the only statement OCaml has. Note that top-level expressions also fall into that category because they are equivalent to `let _ =` definitions.
 ```ocaml
 # (1.0 +. sqrt 5.0) /. 2.0;;
 - : float = 1.6180339887498949
@@ -449,11 +449,11 @@ val fib : int -> int = <fun>
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
 
-The first version (`fib_loop`) takes two extra parameters: the two previously computed Fibonacci numbers.
+The first version `fib_loop` takes two extra parameters: the two previously computed Fibonacci numbers.
 
-The second version (`fib`) uses the first two Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called [tail call elimination](https://en.wikipedia.org/wiki/Tail_call). This turns recursivity into imperative iteration in the generated native code and leads to improved performances.
+The second version `fib` uses the first two Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called [tail call elimination](https://en.wikipedia.org/wiki/Tail_call). This turns recursivity into imperative iteration in the generated native code and leads to improved performances.
 
-> Note: Notice that the `fib_loop` function has three parameters (`m n i`) but only two arguments were passed (`0 1`) when defining `fib`, this is called *partial application*.
+> Note: Notice that the `fib_loop` function has three parameters `m n i` but when defining `fib` only two arguments were passed `0 1`, using partial application.
 
 ## Multiple Arguments Functions
 
@@ -624,7 +624,7 @@ Functions can take several equivalent forms, depending on the way data is passed
 * Refactor in any direction
 * Have both forms starting from any of each.
 
-Currying and uncurrying should be understood as operations acting on functions the same way addition and substractions are operations acting on numbers.
+Currying and uncurrying should be understood as operations acting on functions the same way addition and subtraction are operations acting on numbers.
 
 In practice, curried functions are the default form functions should take because:
 - They allow partial application
@@ -639,11 +639,10 @@ To explain side effects, we need to define what *domain* and *codomain* are. Let
 - : int -> string = <fun>
 ```
 For the function `string_of_int`:
-- Its *domain* is `int`, and it's the type of input data. 
-- The *codomain* is `string`, its output data. 
+- Its *domain* is `int`, the type of its input data.
+- The *codomain* is `string`, the type of its output data.
 
 In other words, the *domain* is left of the `->` and the *codomain* is on the right. These terms help avoid saying the "type at the right" or "type at the left" of a function's type arrow.
-
 
 Some functions either take input data outside of their domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output (I/O) are the most common forms of effects. Input is out-of-domain data and output is out-of-codomain data. However, the result of functions returning random numbers (such as `Random.bits` does) or the current time (such as `Unix.time` does) is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
 
