@@ -166,7 +166,7 @@ val letter : char array = [|'v'; 'x'; 'y'; 'z'|]
 - : char array = [|'v'; 'x'; 'A'; 'z'|]
 ```
 
-The left-arrow `<-` is the array update operator. Above, it means the cell at index 2 is set to value `'A'`. It is the same as writing `Array.set letter 2 'A'`. Array update is a side effect, the unit value is returned.
+The left-arrow `<-` is the array update operator. Above, it means the cell at index 2 is set to value `'A'`. It is the same as writing `Array.set letter 2 'A'`. Array update is a side effect, and the unit value is returned.
 
 Operations on arrays are provided by the [`Array`](/api/Array.html) module. There is a dedicated tutorial on [Arrays](/docs/arrays).
 
