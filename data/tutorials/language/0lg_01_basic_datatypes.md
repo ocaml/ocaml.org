@@ -683,6 +683,12 @@ val ghorghor_bey : character =
 - : int = 17
 ```
 
+Note that records behave like single constructor variants. That allows pattern matching on them.
+```ocaml
+# match ghorghor_bey with { level; _ } -> level;;
+- : int = 17
+```
+
 ### Type Aliases
 
 Just like values, any type can be given a name.
