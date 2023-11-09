@@ -13,7 +13,7 @@ let render_package_cards ~(item: Data.Tool.t) =
       <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
       <div class="text-lighter h-full"><%s item.synopsis %></div>
     </div>
-    <%s! Icons.chevron_right "h-5 w-5" %>
+    <%s! Icons.arrow_small_right "h-5 w-5 text-primary-600 rotate-45" %>
   </a>
 
 let render
