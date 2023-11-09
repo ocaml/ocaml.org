@@ -58,6 +58,7 @@ Layout.render
                         ~name:"q"
                         ~label:"Search for a paper"
                         ~button_attrs:{|type="submit"|}
+                        ~input_attrs:("value=\"" ^ Dream.html_escape search ^ "\"")
                         ""
                         %>
                 </form>
@@ -72,7 +73,7 @@ Layout.render
                 </div>
                 <% | _ -> %>
                 <table class="max-w-5xl lg:max-w-full align-top block lg:table">
-                    <thead class="bg-body-700 text-white text-left rounded-xl">
+                    <thead class="hidden lg:table-header-group bg-body-700 text-default text-left rounded-xl">
                         <tr>
                             <th class="py-4 px-6 rounded-l-lg text-x w-2/5">Title</th>
                             <th class="py-4 px-6">Years</th>
