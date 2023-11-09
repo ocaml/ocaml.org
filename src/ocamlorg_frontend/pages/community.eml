@@ -1,4 +1,4 @@
-let render ~workshops ~meetups =
+let render ~workshops ~meetups ~events =
 let current_date =
   let open Unix in
   let tm = localtime (Unix.gettimeofday ()) in
@@ -10,6 +10,8 @@ let current_date =
 in
 let old_workshops = List.filter (fun (w : Data.Workshop.t) -> w.date < current_date) workshops in
 let upcoming_workshops = List.filter (fun (w : Data.Workshop.t) -> w.date >= current_date) workshops in
+let upcoming_events = List.filter (fun (e : Data.Event.t) -> e.starts >= current_date) events in
+let upcoming_events = Ocamlorg.Import.List.take 6 upcoming_events in
 Layout.render
 ~title:"The OCaml Community"
 ~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!"
@@ -166,6 +168,36 @@ Layout.render
         </div>
   </div>
 </div>
+<% if List.length upcoming_events > 0 then ( %>
+    <div class="bg-default dark:bg-dark-default py-0 pt-20 md:pt-10 lg:p-20 pb-10 md:pb-20">
+      <div class="container-fluid">
+          <div class="text-center">
+            <h2 class="font-bold">Upcoming Events</h2>
+          </div>
+          <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 mt-12">
+              <% upcoming_events |> List.iter (fun (event : Data.Event.t) -> %>
+              <a href="<%s event.url %>" class="border border-gray-200 p-8 rounded-xl transition-transform hover:scale-105">
+                  <div class="font-semibold">
+                      <%s event.title %>
+                  </div>
+                  <div class="mt-4">
+                      <div class="flex items-center space-x-2">
+                          <%s! Icons.map_pin "h-5 w-5" %>
+                          <div>
+                              <%s event.textual_location %>
+                          </div>
+                      </div>
+                      <div class="flex items-center space-x-2 mt-2">
+                        <%s! Icons.calendar "h-5 w-5" %>
+                        <div><%s event.starts %></div>
+                      </div>
+                  </div>
+              </a>
+              <% ); %>
+          </div>
+      </div>
+    </div>
+<% ); %>
 <div class="bg-primary-600">
   <div class="container-fluid">
     <div class="text-center text-white lg:p-16 py-10">

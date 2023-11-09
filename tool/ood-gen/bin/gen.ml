@@ -27,6 +27,7 @@ let term_templates =
     ("opam_user", Ood_gen.Opam_user.template);
     ("pages", Ood_gen.Page.template);
     ("code_examples", Ood_gen.Code_example.template);
+    ("event", Ood_gen.Event.template);
   ]
 
 let cmds =
