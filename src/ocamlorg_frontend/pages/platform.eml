@@ -108,7 +108,7 @@ Learn_layout.render
       <div class="text-lighter mt-3 border-b border-gray-200 pb-3">
         The work-horse tools that are used daily with strong backwards compatibility guarantees from the community.
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
         <% tools |> List.filter (fun (item : Data.Tool.t) -> item.lifecycle = `Active) |> List.iter (fun (item : Data.Tool.t) -> %>
           <%s! render_package_cards ~item %>
         <% ); %>
@@ -119,7 +119,7 @@ Learn_layout.render
       <div class="text-lighter mt-3 border-b border-gray-200 pb-3">
         New tools that fill a gap in the ecosystem but are not quite ready for wide-scale release and adoption.
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
         <% tools |> List.filter (fun (item : Data.Tool.t) -> item.lifecycle = `Incubate) |> List.iter (fun (item : Data.Tool.t) -> %>
           <%s! render_package_cards ~item %>
         <% ); %>
@@ -131,7 +131,7 @@ Learn_layout.render
         Tools that will not likely see any major feature added but can be used reliably even if not being actively
         developed.
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
         <% tools |> List.filter (fun (item : Data.Tool.t) -> item.lifecycle = `Sustain) |> List.iter (fun (item : Data.Tool.t) -> %>
           <%s! render_package_cards ~item %>
         <% ); %>
@@ -142,10 +142,11 @@ Learn_layout.render
       <div class="text-lighter mt-3 border-b border-gray-200 pb-3">
         Tools that are gradually being phased out, with clear paths to better workflows.
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
         <% tools |> List.filter (fun (item : Data.Tool.t) -> item.lifecycle = `Deprecate) |> List.iter (fun (item : Data.Tool.t) -> %>
           <%s! render_package_cards ~item %>
         <% ); %>
       </div>
+      
     </div>
   </div>
