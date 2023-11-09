@@ -723,7 +723,7 @@ The expression `n * (x + y)` would be written:
 val e : expr = Times (Var "n", Plus (Var "x", Var "y"))
 ```
 
-Here is a function which prints out `Times (Var "n", Plus (Var "x", Var "y"))`
+Here is a function that prints out `Times (Var "n", Plus (Var "x", Var "y"))`
 as something more like `n * (x + y)`:
 ```ocaml env=expr
 # let rec to_string = function
