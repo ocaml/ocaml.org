@@ -17,6 +17,7 @@ type metadata = {
   difficulty : Proficiency.t;
   tags : string list;
   description : string;
+  tutorials : string list option;
 }
 [@@deriving of_yaml]
 
@@ -55,6 +56,7 @@ type t = {
   description : string;
   statement : string;
   solution : string;
+  tutorials : string list option;
 }
 [@@deriving
   stable_record ~version:metadata ~remove:[ statement; solution ],
@@ -88,6 +90,7 @@ type t =
   ; description : string
   ; statement : string
   ; solution : string
+  ; tutorials : string list option;
   }
   
 let all = %a
