@@ -39,27 +39,6 @@ type t = {
 
 let of_metadata m = of_metadata m ~slug:m.id
 
-let doc_with_ids doc =
-  let open Omd in
-  List.map
-    (function
-      | Heading (attr, level, inline) ->
-          let id, attr = List.partition (fun (key, _) -> key = "id") attr in
-          let id =
-            match id with
-            | [] -> Utils.slugify (to_plain_text inline)
-            | (_, slug) :: _ -> slug (* Discard extra ids *)
-          in
-          let link : _ Omd.link =
-            { label = Text (attr, ""); destination = "#" ^ id; title = None }
-          in
-          Heading
-            ( ("id", id) :: attr,
-              level,
-              Concat ([], [ Link ([ ("class", "anchor") ], link); inline ]) )
-      | el -> el)
-    doc
-
 let id_to_href id =
   match id with
   | None -> "#"
@@ -123,7 +102,7 @@ let decode (fpath, (head, body_md)) =
     List.nth (String.split_on_char '/' fpath) 1
     |> Section.of_string |> Result.get_ok
   in
-  let doc = Cmarkit.Doc.of_string ~strict:true body_md in (*doc_with_ids goes here*)
+  let doc = Cmarkit.Doc.of_string ~strict:true ~heading_auto_ids:true body_md in
   let toc = toc ~start_level:2 ~max_level:4 doc in
   let body_html = Hilite.Md.transform doc |> Cmarkit_html.of_doc ~safe:false in
   Result.map (of_metadata ~fpath ~section ~toc ~body_md ~body_html) metadata
