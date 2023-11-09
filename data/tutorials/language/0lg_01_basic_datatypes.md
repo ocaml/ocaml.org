@@ -218,7 +218,7 @@ Pattern matching provides the basic means to access data stored inside a list.
 - : int = 2
 ```
 
-In the above expressions, `[1; 2; 3]` is the value that is matched over. Each expression between the `|` and `->` symbols is a pattern. They are expressions of type list, only formed using `[]`, `::`, and variable names that represent various shapes a list may have. The pattern `[]` means “if the list is empty.” The pattern `x :: u` means “if the list contains data, let `x` be the first element of the list and `u` be the rest of the list.” Expressions at the right of the `->` symbol are the results returned in each corresponding case.
+In the above expressions, `[1; 2; 3]` is the value that is matched over. Each expression between the `|` and `->` symbols is a pattern. They are expressions of type list, only formed using `[]`, `::`, and binding names that represent various shapes a list may have. The pattern `[]` means “if the list is empty.” The pattern `x :: u` means “if the list contains data, let `x` be the first element of the list and `u` be the rest of the list.” Expressions at the right of the `->` symbol are the results returned in each corresponding case.
 
 ### Options & Results
 
@@ -314,7 +314,7 @@ The second expression is function application. The parameter `9` is applied, and
 
 The first expression is another anonymous function. It is the _identity_ function, it can be applied to anything, and it returns its argument unchanged. This means that its parameter can be of any type, and its result has the same type. The same code can be applied to data of different types. This is called _polymorphism_.
 
-Remember, the `'a` is a _type variable_, so values of any type can be passed to the function and replaces the type variable. The identity function has the same input and output type, whatever it may be.
+Remember, the `'a` is a _type parameter_, so values of any type can be passed to the function and their type replaces the type parameter. The identity function has the same input and output type, whatever it may be.
 
 The two following expressions show that the identity function can apply to different type parameters:
 
@@ -381,7 +381,8 @@ foo bar
 # print_endline;;
 - : string -> unit = <fun>
 ```
-> Note: Replace `foo bar` with your own text followed by the `print_endline`, as shown.
+
+> Note: Replace `foo bar` with your own text and press `Return`.
 
 The function `print_endline` prints the string followed by a line ending on standard output. Return of the unit value means the output request has been queued by the operating system.
 
@@ -694,7 +695,7 @@ Just like values, any type can be given a name.
 type latitude_longitude = float * float
 ```
 
-This is mostly useful as a means of documentation or to shorten long-type expressions.
+This is mostly useful as a means of documentation or to shorten long type expressions.
 
 ## A Complete Example: Mathematical Expressions
 
