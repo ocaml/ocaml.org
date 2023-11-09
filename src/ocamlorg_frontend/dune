@@ -283,4 +283,8 @@
     %{bin:dream_eml}
     %{dep:learn_components.eml}
     --workspace
-    %{workspace_root}))))
+    %{workspace_root})))
+ (rule
+  (target book.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:book.eml} --workspace %{workspace_root}))))

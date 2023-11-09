@@ -29,7 +29,7 @@ let render_book (item: Data.Book.t) =
                         </div>
                     <% ); %>
                 </div>
-            </div>
+            </a>
         </div>
 
 let render

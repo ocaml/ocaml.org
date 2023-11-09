@@ -1,0 +1,11 @@
+let render 
+(book : Data.Book.t) =
+  <div class="flex flex-col gap-y-4">
+    <div class="relative w-64 sm:w-72 lg:w-64 max-w-full space-y-5">
+          <%s! if book.pricing = "free" then Learn_components.pricing_tag else "" %>
+          <img src="<%s Ocamlorg_static.Media.url book.cover %>"
+            class="w-full border z-10"
+            alt="">
+          <%s! Learn_components.skill_tag book.difficulty "w-full" %>
+    </div>
+  </div>

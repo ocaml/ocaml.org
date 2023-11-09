@@ -38,6 +38,7 @@ let page_routes t =
       Dream.get Url.academic_users Handler.academic_users;
       Dream.get Url.about Handler.about;
       Dream.get Url.books Handler.books;
+      Dream.get (Url.book ":slug") Handler.book;
       Dream.get Url.releases Handler.releases;
       Dream.get (Url.release ":id") Handler.release;
       Dream.get (Url.workshop ":id") Handler.workshop;

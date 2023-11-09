@@ -48,6 +48,7 @@ let manual = "/releases/latest/manual.html"
 let api_with_version v = v2 ^ "/releases/" ^ minor v ^ "/api/index.html"
 let api = "/releases/latest/api/index.html"
 let books = "/books"
+let book slug = books ^ "/" ^ slug
 let changelog = "/changelog"
 let changelog_entry id = "/changelog/" ^ id
 let releases = "/releases"

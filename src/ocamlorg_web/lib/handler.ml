@@ -132,6 +132,15 @@ let academic_users req =
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
 
+let book req =
+  let slug = Dream.param req "slug" in
+  match Data.Book.get_by_slug slug with
+  | Some book -> 
+    let individual_book_url = Url.books ^ "/" ^ slug in
+    (Ocamlorg_frontend.book book)
+    |> Dream.respond ~headers:[("Location", individual_book_url)] 
+  | None -> Dream.html "Book not found"
+
 let books req =
   let language = Dream.query req "language" in
   let pricing = Dream.query req "pricing" in
