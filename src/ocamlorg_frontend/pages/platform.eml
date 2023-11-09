@@ -8,7 +8,7 @@ let render_sidebar
   </div>
 
 let render_package_cards ~(item: Data.Tool.t) =
-  <a href="<%s item.source %>" class="flex gap-4 border rounded-md p-4 hover:border-primary-600 hover:ring-2 hover:ring-primary-200">
+  <a href="<%s item.source %>" class="flex gap-4 border rounded-md p-4 h-28 hover:border-primary-600 hover:ring-2 hover:ring-primary-200">
     <%s! Icons.package_sources "h-5 w-5 text-primary-600 self-start" %>
     <div class="flex flex-col w-full">
       <div class="text-primary-600 text-lg font-bold"><%s item.name %></div>
