@@ -1,6 +1,7 @@
-let render ~tags ?current_tag (news : Data.Changelog.t list) =
+let render ~tags ?current_tag ~number_of_pages ~current_page (news : Data.Changelog.t list) =
 Layout.render
 ~title:"OCaml Changelog"
+~canonical:(Url.changelog ^ if current_page = 1 then "" else "?p=" ^ string_of_int current_page)
 ~description:"Read the latest releases and updates from the OCaml ecosystem." @@
 <div class="bg-default dark:bg-dark-default py-24">
   <div class="container-fluid">
@@ -70,6 +71,7 @@ Layout.render
           </div>
         </article>
         <% ); %>
+        <%s! Pagination.render ~total_page_count:number_of_pages ~page_number:current_page ~base_url:Url.changelog ~query:""%>
       </div>
     </div>
     <div class="prose max-w-none mt-8">
