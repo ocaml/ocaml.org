@@ -557,7 +557,8 @@ Functions defined using pattern matching on recursive variants are often recursi
   | Array u ->
       List.fold_left (fun b obj -> b || has_field name obj) false u
   | Object u ->
-      List.fold_left (fun b (key, obj) -> b || key = name || has_field name obj) false u
+      List.fold_left
+        (fun b (key, obj) -> b || key = name || has_field name obj) false u
   | _ -> false;;
 val has_field : string -> json -> bool = <fun>
 ```
