@@ -388,7 +388,7 @@ The function `print_endline` prints the string followed by a line ending on stan
 
 ## User-Defined Types
 
-User defined types are always introduced using the `type … = …` construction. The keyword `type` must written in lowercase. The first ellipsis stands for type name and must not begin by a capital. The second ellipsis stands for the type definition. Three cases are possible:
+User defined types are always introduced using the `type … = …` statement. The keyword `type` must written in lowercase. The first ellipsis stands for type name and must not begin by a capital. The second ellipsis stands for the type definition. Three cases are possible:
 1. Variant
 1. Record
 1. Aliases
@@ -456,8 +456,6 @@ Note that:
 - `unit` is a variant with a unique constructor, which does not carry data: `()`.
 - `bool` is also a variant with two constructors that doesn't carry data: `true` and `false`.
 
-A pair `(x, y)` has type `a * b`, where `a` is the type of `x` and `b` is the type of `y`. Some may find it intriguing that `a * b` is called a product. Consider the product type `character_class * character_alignement`. There are 12 classes and 9 alignments. Any pair of values from those types inhabits the product type. Therefore, in the product type, there are 9 × 12 = 108 values, which is also a product. Although this is not a complete explanation, it may help you understand. 
-
 #### Constructors With Data
 
 It is possible to wrap data in constructors. The following type has several constructors with data (e.g., `Hash of string`) and some without (e.g., `Head`). It represents the different means to refer to a Git [revision](https://git-scm.com/docs/gitrevisions).
@@ -510,24 +508,22 @@ We need to pass an inspected expression to the `match … with …` construct. T
 
 > Warning: Wrapping product types with parentheses turns them into a single parameter.
 ```ocaml
-# type t1 = T1 of int * bool;;
-type t1 = T1 of int * bool
-
-# type t2 = T2 of (int * bool);;
-type t2 = T2 of (int * bool)
+# type t =
+  | C1 of int * bool
+  | C2 of (int * bool);;
 
 # let p = (4, false);;
 val p : int * bool = (4, false)
 
-# T1 p;;
-Error: The constructor T1 expects 2 argument(s),
+# C1 p;;
+Error: The constructor C1 expects 2 argument(s),
        but is applied here to 1 argument(s)
 
-# T2 p;;
-- : t2 = T2 (4, false)
+# C2 p;;
+- : C2 = C2 (4, false)
 ```
 
-The constructor `T1` has two parameters of type `int` and `bool`, whilst the constructor `T2` has a single parameter of type `int * bool`.
+The constructor `C1` has two parameters of type `int` and `bool`, whilst the constructor `C2` has a single parameter of type `int * bool`.
 
 #### Recursive Variants
 
@@ -604,7 +600,7 @@ type ('a, 'b) pair = Pair of 'a * 'b
 
 Even integers and floats can be seen as enumerated-like variant types, with many constructors and [funky syntactic sugar](https://youtu.be/O0_H3F84Yjk), which allows pattern matching on those types.
 
-In the end, the only type construction that does not reduce to a variant is the function arrow type. It is possible to perform pattern matching on values of any type, except functions.
+In the end, the only type construction that does not reduce to a variant is the function arrow type. Pattern matching allows the inspection of values of any type, except functions.
 
 #### User-Defined Polymorphic
 
