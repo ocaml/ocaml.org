@@ -3,6 +3,7 @@ title: Calculate Euler's Totient Function Φ(m)
 number: "34"
 difficulty: intermediate
 tags: [ "arithmetic" ]
+description: "Find Euler's totient function (phi) for a given positive integer 'n'."
 ---
 
 ```ocaml

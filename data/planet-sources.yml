@@ -64,9 +64,11 @@
 - id: gaius
   name: Gaius Hammond
   url: https://gaius.tech/category/ocaml/feed/
+  disabled: true
 - id: reynard
   name: Gemma Gordon (OCaml Labs)
   url: http://reynard.io/feed.xml
+  disabled: true
 - id: camlcity
   name: Gerd Stolpmann
   url: http://blog.camlcity.org/blog/rss

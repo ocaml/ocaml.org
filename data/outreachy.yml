@@ -9,7 +9,7 @@ rounds:
         mentors:
           - Richard Mortier
           - Anil Madhavapeddy
-      - title: "MirageOS cloud API support"
+      - title: "MirageOS Cloud API Support"
         description: >
           MirageOS (see http://xenproject.org/developers/teams/mirage-os.html,
           http://www.openmirage.org/) is a type-safe unikernel written in OCaml
@@ -159,7 +159,7 @@ rounds:
           and get statistics on them. The frontend will use this library to display
           graphs of the metrics, statistics, and other data we want to collect.
         mentee: "Jiae Kam"
-        source: https://github.com/ocaml/ocaml.org
+        source: https://github.com/JiaeK/dream-dashboard
         blog: "https://jiaek.wordpress.com"
         mentors:
          - Thibaut Mattio
@@ -275,5 +275,30 @@ rounds:
         mentors:
         - Reynir Björnsson
         video: https://watch.ocaml.org/w/kTwq4AVQtRtFuQx9R5cPro
-
-       
+      - title: "Improving Error Reporting in Existing PPXLIB-Based PPXs"
+        description: >
+          In the past, when 'ppxlib' encountered an exception in a transformation, it stopped the rewriting process, causing the rewriters after to not be processed.
+          Also multiple errors could not be reported at the same time there were multiple failing rewriters as just the first raising rewriter 
+          will raise, and the compilation process stops there. But now, a raising rewriter does not stop the preceding rewriter from running, allowing multiple
+          to be raised both in the context-free phase and all the other phases.
+        mentee: "Abongwa Bonalais"
+        source: https://github.com/ocaml-ppx/ppxlib
+        blog: "https://dev.to/burnleydev"
+        mentors:
+        - "Paul-Elliot Anglès d’Auriac"
+        video: https://watch.ocaml.org/w/kTwq4AVQtRtFuQx9R5cPro
+      - title: "MIDI Over Ethernet With MirageOS"
+        description: >
+          MIDI, which stands for Musical Instrument Digital Interface, is a widely used protocol in the world of music and audio technology.
+          MirageOS is a library operating system that specialises in creating lightweight, secure, and efficient unikernels. Unikernels are highly-specialised, 
+          single-purpose virtual machine images designed for specific applications, and it is written in OCaml.
+          The project focussed on implementing the rtpMIDI protocol for serialising-deserialising of MIDI messages over Ethernet and implementing use cases like
+          a publisher-subcriber based server-client model for MIDI messages.
+        mentee: "Aryan Godara"
+        source: https://github.com/AryanGodara/rtpmidi
+        blog: "https://medium.com/@aryangodara_19887"
+        mentors:
+        - Claes (rand)
+        - Sonja Heinze
+        - Moazzam Moriani
+        video: https://watch.ocaml.org/w/kTwq4AVQtRtFuQx9R5cPro

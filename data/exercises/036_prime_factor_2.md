@@ -3,6 +3,7 @@ title: Determine the Prime Factors of a Given Positive Integer (2)
 number: "36"
 difficulty: intermediate
 tags: [ "arithmetic" ]
+description: "Find the prime factors of a given positive integer 'n' along with their multiplicities."
 ---
 
 # Solution

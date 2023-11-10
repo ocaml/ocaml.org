@@ -3,6 +3,7 @@ title: Cycle From a Given Node
 number: "82"
 difficulty: beginner
 tags: [ "graph" ]
+description: "Return all closed paths (cycles) starting at a given node a in the graph g."
 ---
 
 ```ocaml

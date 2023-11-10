@@ -22,6 +22,7 @@ Layout.render
                         ~name:"q"
                         ~label:"Search for a release"
                         ~button_attrs:{|type="submit"|}
+                        ~input_attrs:("value=\"" ^ Dream.html_escape search ^ "\"")
                         ""
                         %>
                 </form>

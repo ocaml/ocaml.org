@@ -3,6 +3,7 @@ title: Pack Consecutive Duplicates
 number: "9"
 difficulty: intermediate
 tags: [ "list" ]
+description: "Pack consecutive duplicates of list elements into sublists."
 ---
 
 # Solution

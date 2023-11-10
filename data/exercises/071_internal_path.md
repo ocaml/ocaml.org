@@ -3,6 +3,7 @@ title: Determine the Internal Path Length of a Tree
 number: "71"
 difficulty: beginner
 tags: [ "multiway-tree" ]
+description: "Calculate and return the internal path length of a multiway tree"
 ---
 
 ```ocaml

@@ -71,5 +71,8 @@ Learn_layout.single_column_layout
         <div>
         <%s! render_books books %>
         </div>
+        <div class="prose max-w-none">
+            If you want to add a new book, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-book" target="_blank">Contributing Guide</a> on GitHub.     
+</div>
     </div>
 </div>

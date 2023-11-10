@@ -36,18 +36,17 @@ Layout.base
           <%s! Package_breadcrumbs.render_package_and_version ~path ?hash ?page package %>
         </div>
       </div>
-      <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed md:hidden right-10"
+      <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-[#D54000] p-4 z-30 rounded-full text-white shadow-custom bottom-24 md:bottom-36 fixed md:hidden right-10"
       x-on:click="sidebar = ! sidebar">
-        <%s! Icons.sidebar_menu "h-8 w-8" %>
-        <span class="hidden md:flex font-semibold px-2">side menu</span>
+        <%s! Icons.sidebar_menu "h-6 w-6" %>
       </button>
       <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm md:hidden"
         :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar">
       </div>
 
-      <button title="search" class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-36 fixed right-10 md:hidden"
+      <button title="search" class="flex items-center bg-[#D54000] p-4 z-30 rounded-full text-white shadow-custom bottom-40 fixed right-10 md:hidden"
       x-on:click="document.getElementById('in-package-search-input').focus();">
-        <%s! Icons.magnifying_glass "h-8 w-8" %>
+        <%s! Icons.magnifying_glass "h-6 w-6" %>
         <span class="hidden md:flex font-semibold px-2">search</span>
       </button>
 
@@ -78,6 +77,7 @@ Layout.base
           <div class="flex w-full items-center overflow-hidden">
             <% if Option.is_some search_index_digest then (%>
               <input id="in-package-search-input" type="search" name="q" class="min-w-0 focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
+                tabindex="1"
                 autocomplete="off"
                 aria-owns="in-package-search-results"
                 aria-expanded="false"
@@ -114,8 +114,9 @@ Layout.base
           <%s! left_sidebar_html %>
         </div>
 
-        <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh]">
+        <div class="flex-1 z-0 z- min-w-0 pt-6">
           <%s! inner %>
+          <%s! Secondary_footer.render ()  %>
         </div>
         <% (if right_sidebar_html <> "" then %>
         <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24">
@@ -223,7 +224,8 @@ Layout.base
           a.appendChild(title);
           a.appendChild(comment);
 
-          a.addEventListener("click", (event) => goToUrl(event, href));
+          a.addEventListener("mousedown", (event) => goToUrl(event, href));
+          a.addEventListener("touchstart", (event) => goToUrl(event, href));
 
           list_item.appendChild(a);
 
@@ -320,4 +322,3 @@ Layout.base
   }
 </script>
 <% | _ -> () ); %>
-<%s! Secondary_footer.render() %>

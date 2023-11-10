@@ -1,7 +1,7 @@
 ---
 title: Ocamlformat 0.21.0
 date: "2022-02-28"
-tags: [ocamlformat, platform, release]
+tags: [ocamlformat, platform]
 changelog: |
   ### Bug fixes
 

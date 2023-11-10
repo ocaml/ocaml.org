@@ -3,6 +3,7 @@ title: Generate the Combinations of K Distinct Objects Chosen From the N Element
 number: "26"
 difficulty: intermediate
 tags: [ "list" ]
+description: "Generate all possible combinations of K distinct objects chosen from a list of N elements."
 ---
 
 # Solution

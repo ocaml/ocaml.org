@@ -26,7 +26,6 @@ Layout.render
           ~button_attrs:{|type="submit"|}
           "h-12"
          %>
-
         </form>
         <%s! Forms.select
           ~attrs:{|name="All Regions" x-model="continent"|}
@@ -42,7 +41,6 @@ Layout.render
       </a>
       <% ); %>
     </div>
-
     <div :class="continent != 'North America' ? 'hidden' : 'grid-logos'">
       <% users |> List.filter (fun x -> x.Data.Academic_institution.continent = "North America") |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
@@ -65,8 +63,11 @@ Layout.render
         <img src="<%s logo %>" class="m-auto" alt="">
         <div class="font-bold mt-8"><%s item.name %></div>
       </a>
-      <% ); %>
-    </div>
+      <% ); %>  
+    </div>    
+    <div class="prose max-w-none m-2">
+        If you want to contribute to add a new academic user, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-user" target="_blank">Contributing Guide</a> on GitHub.
+  </div>
   </div>
   <div class="bg-pattern lg:py-32 py-24">
     <div class="container-fluid">

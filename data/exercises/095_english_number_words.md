@@ -3,6 +3,7 @@ title: English Number Words
 number: "95"
 difficulty: intermediate
 tags: []
+description: "Given a non-negative integer number, return its representation in full words."
 ---
 
 # Solution

@@ -52,7 +52,8 @@ let platform _req =
 let community _req =
   let workshops = Data.Workshop.all in
   let meetups = Data.Meetup.all in
-  Dream.html (Ocamlorg_frontend.community ~workshops ~meetups)
+  let events = Data.Event.all in
+  Dream.html (Ocamlorg_frontend.community ~workshops ~meetups ~events)
 
 let changelog req =
   let current_tag = Dream.query req "t" in
@@ -120,9 +121,8 @@ let books req =
   let matches_criteria (book : Data.Book.t) language pricing difficulty =
     let matches_language =
       match language with
-      | Some lang when lang = "All" -> true
-      | Some lang -> book.language = lang
-      | None -> true
+      | None | Some "All" -> true
+      | Some lang -> List.mem true (List.map (fun x -> x = lang) book.language)
     in
     let matches_pricing =
       match pricing with
@@ -178,7 +178,7 @@ let releases req =
     | None -> Data.Release.all
     | Some search -> search_release search Data.Release.all
   in
-  Dream.html (Ocamlorg_frontend.releases releases)
+  Dream.html (Ocamlorg_frontend.releases ?search releases)
 
 let release req =
   let version = Dream.param req "id" in
@@ -590,17 +590,23 @@ let is_author_match name pattern =
       match_opt (Some name) || match_opt email || match_opt github_username
 
 let packages_search t req =
-  match Dream.query req "q" with
-  | Some search ->
-      let packages =
+  let packages =
+    match Dream.query req "q" with
+    | Some search ->
         Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true t
           search
-      in
-      let total = List.length packages in
-      let results = List.map (Package_helper.frontend_package t) packages in
-      let search = Dream.from_percent_encoded search in
-      Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
-  | None -> Dream.redirect req Url.packages
+    | None -> Ocamlorg_package.all_latest t
+  in
+  let total = List.length packages in
+  let page, number_of_pages, current_items = paginate ~req ~n:50 packages in
+  let search =
+    Dream.from_percent_encoded
+      (match Dream.query req "q" with Some search -> search | None -> "")
+  in
+  let results = List.map (Package_helper.frontend_package t) current_items in
+  Dream.html
+    (Ocamlorg_frontend.packages_search ~total ~search ~page ~number_of_pages
+       results)
 
 let packages_autocomplete_fragment t req =
   match Dream.query req "q" with

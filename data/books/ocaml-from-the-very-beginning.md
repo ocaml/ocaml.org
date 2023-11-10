@@ -10,7 +10,8 @@ authors:
   - John Whitington
 published: 2013-06-07 
 cover: books/ocaml-from-the-very-beginning.jpg
-language: english
+language:
+  - english
 links:
   - description: Read Online
     uri: https://ocaml-book.com/
