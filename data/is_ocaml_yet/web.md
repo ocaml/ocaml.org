@@ -46,6 +46,11 @@ categories:
     - name: melange
     - name: brr
     - name: gen_js_api
+    - name: ts2ocaml
+      extern:
+        url: https://github.com/ocsigen/ts2ocaml
+        synopsis: Generate OCaml bindings from TypeScript definitions via the TypeScript compiler API
+    - name: ocsigen-toolkit
     - name: bonsai
     - name: ocaml-vdom
     - name: fmlib_browser
@@ -138,6 +143,7 @@ categories:
     - name: eliom
     - name: opium
     - name: sihl
+    - name: ocsigen-start
   - name: HTTP Clients
     status: 🔴
     description: |
@@ -154,6 +160,7 @@ categories:
       Internationalization and localization for OCaml applications.
     packages:
     - name: gettext
+    - name: ocsigen-i18n
   - name: Logging
     status: 🟠
     description: |
@@ -170,8 +177,10 @@ categories:
     description: |
       Packages that provide foundational networking and communication capabilities.
     packages:
+    - name: cohttp
     - name: httpaf
     - name: http
+    - name: ocsigenserver
     - name: tls
     - name: websocket
     - name: websocketaf
@@ -196,6 +205,9 @@ categories:
     - name: kafka
     - name: redis
     - name: zmq
+  - name: Mobile apps
+    - name: eliom
+    - name: ocsigen-start
   - name: Serializers
     status: 🟡
     description: |
@@ -247,6 +259,10 @@ categories:
         synopsis: YOCaml is a static site generator, mostly written in OCaml
     - name: dream-serve
     - name: soupault
+    - name: html_of_wiki
+      extern:
+        url: https://github.com/ocsigen/html_of_wiki
+        synopsis: Static website generator for software projects
   - name: External Web APIs
     status: 🆘
     description: |
@@ -263,13 +279,21 @@ categories:
     description: |
       Packages and tools for compiling OCaml code to WebAssembly.
     packages:
+    - name: wasm_of_ocaml
+      extern: https://github.com/ocaml-wasm/wasm_of_ocaml
+      synopsis: Compiler from OCaml bytecode to WebAssembly
+    - name: wasocaml
+      extern: https://github.com/ocaml-wasm/wasocaml
+      synopsis: Compiler from OCaml to WebAssembly
     - name: wasm
     - name: owi
 ---
 
 OCaml, traditionally known for its strength in systems programming, formal verification, and as the language of choice for numerous academic endeavors, is steadily maturing in the web development landscape. With its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream web development languages.
 
-As a matter of fact, OCaml is used to power production web systems, like [Ahrefs](/success-stories/peta-byte-scale-web-crawler) and [OCaml.org](https://github.com/ocaml/ocaml.org).
+As a matter of fact, OCaml is used to power production web systems, like
+[Ahrefs](/success-stories/peta-byte-scale-web-crawler),
+[OCaml.org](https://github.com/ocaml/ocaml.org) or the [Be Sport](https://besport.com/news) social network.
 
 If you're considering using OCaml for your next web application, you should be aware that you'll likely have to write a noticeable amount of things yourself and won't yet get an equivalent of some frameworks you may be used to coming from other languages. In particular, OCaml doesn't have out-of-the-box solutions for authentication or a fully production-ready query-builder. You'll also probably have some challenges if you need to interact with external services or external APIs.
 
