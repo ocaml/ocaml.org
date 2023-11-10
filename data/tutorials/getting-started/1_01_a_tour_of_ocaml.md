@@ -459,7 +459,7 @@ Here is the definition of a variant type acting as an enumerated data type:
 type primary_colour = Red | Green | Blue
 
 # [Red; Blue; Red];;
-- : colour list = [Red; Blue; Red]
+- : primary_colour list = [Red; Blue; Red]
 ```
 
 Here is the definition of a variant type acting as a union type:
