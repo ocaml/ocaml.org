@@ -1,7 +1,7 @@
 ---
 id: web
 question: Is OCaml web yet?
-answer: Not quite yet, but we're getting there!
+answer: Yes, but some parts are still missing
 categories:
   - name: Authentication
     status: 🔴
@@ -371,11 +371,32 @@ categories:
 
 OCaml, traditionally known for its strength in systems programming, formal verification, and as the language of choice for numerous academic endeavors, is steadily maturing in the web development landscape. With its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream web development languages.
 
+The Web in OCaml is fast and type-safe! According to your needs, you can
+choose to use tidy server-side Web frameworks, or innovative full-stack
+solutions for integrated Web and mobile applications. To run in the
+browser, OCaml compiles to JavaScript and WebAssembly!
+
 As a matter of fact, OCaml is used to power production web systems, like
 [Ahrefs](/success-stories/peta-byte-scale-web-crawler),
-[OCaml.org](https://github.com/ocaml/ocaml.org) or the [Be Sport](https://besport.com/news) social network.
+[OCaml.org](https://github.com/ocaml/ocaml.org) or the [Be
+Sport](https://besport.com/news) social network.
 
-If you're considering using OCaml for your next web application, you should be aware that you'll likely have to write a noticeable amount of things yourself and won't yet get an equivalent of some frameworks you may be used to coming from other languages. In particular, OCaml doesn't have out-of-the-box solutions for authentication or a fully production-ready query-builder. You'll also probably have some challenges if you need to interact with external services or external APIs.
+If you're considering using OCaml for your next web application, you
+should be aware that you might have to write a noticeable amount of
+things yourself and won't yet get an equivalent of all the features you
+may be used to coming from other languages. In particular, OCaml doesn't
+have out-of-the-box solutions for authentication or a fully
+production-ready query-builder. You'll also probably have some
+challenges if you need to interact with external services or external
+APIs.
+
+However, this is often more than offset by the time you save thanks to
+the advantages of the language and the power of certain tools. The
+language's powerful type system will save you a lot of debugging time by
+eliminating many problems at compile time (such as html conformity).
+Innovative solutions such as multi-tier programming can drastically
+simplify client-server communication. Last but not least, OCaml can even
+allow you to program your Web and mobile application in a single code.
 
 ## Want to Help?
 
