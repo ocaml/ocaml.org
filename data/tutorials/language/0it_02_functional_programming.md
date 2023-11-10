@@ -3,7 +3,7 @@ id: functional-programming
 title: Functional Programming
 description: >
   A guide to functional programming in OCaml
-category: "Language"
+category: "Introduction"
 ---
 
 # Functional Programming

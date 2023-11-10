@@ -3,7 +3,7 @@ id: basic-data-types
 title: Basic Data Types and Pattern Matching
 description: |
   Predefined Types, Variants, Records, and Pattern Matching
-category: "Language"
+category: "Introduction"
 ---
 
 # Basic Data Types And Pattern Matching

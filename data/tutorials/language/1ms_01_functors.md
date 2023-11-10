@@ -3,7 +3,7 @@ id: functors
 title: Functors
 description: >
   Learn about functors, modules parameterised by other modules
-category: "Language"
+category: "Module System"
 ---
 
 # Functors

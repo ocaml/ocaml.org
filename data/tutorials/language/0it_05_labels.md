@@ -1,9 +1,9 @@
 ---
 id : labels
-title: Labels
+title: Labelled & Optional Arguments
 description: >
   Provide labels to your functions arguments
-category: "Language"
+category: "Introduction"
 ---
 
 # Labels

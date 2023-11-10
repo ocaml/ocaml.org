@@ -3,7 +3,7 @@ id : pointers
 title: Pointers in OCaml
 description: >
   Use OCaml's explicit pointers with references
-category: "Language"
+category: "Advanced Topics"
 ---
 
 # Pointers
