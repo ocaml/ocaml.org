@@ -248,7 +248,7 @@ let blog req =
   let featured = Data.Planet.featured_posts |> List.take 3 in
   let number_of_news =
     List.length featured + List.length current_items
-    |> float_of_int |> ( *. ) 1.2 |> int_of_float
+    |> float_of_int |> ( *. ) 1.3 |> int_of_float
   in
   let news = Data.News.all |> List.take number_of_news in
   Dream.html
