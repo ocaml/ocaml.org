@@ -71,7 +71,7 @@ Layout.render
           </div>
         </article>
         <% ); %>
-        <%s! Pagination.render ~total_page_count:number_of_pages ~page_number:current_page ~base_url:Url.changelog ~query:""%>
+        <%s! Pagination.render ~total_page_count:number_of_pages ~page_number:current_page ~base_url:Url.changelog ~queries:(match current_tag with Some current_tag -> [("t", current_tag)] | None -> [])%>
       </div>
     </div>
     <div class="prose max-w-none mt-8">

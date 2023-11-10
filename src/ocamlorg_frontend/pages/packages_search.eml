@@ -114,7 +114,7 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
           <% ); %>
         </ol>
         <% ); %>
-        <%s! Pagination.render ~total_page_count:number_of_pages ~page_number:page ~base_url:Url.packages_search ~query:search %>
+        <%s! Pagination.render ~total_page_count:number_of_pages ~page_number:page ~base_url:Url.packages_search ~queries:[("q", search)] %>
       </div>
     </div>
   </div>
