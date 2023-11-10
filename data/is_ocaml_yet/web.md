@@ -208,6 +208,50 @@ categories:
   - name: Mobile apps
     - name: eliom
     - name: ocsigen-start
+    - name: cordova
+    - name: Ocaml-chcp
+      extern:
+        url: https://github.com/besport/ocaml-chcp
+        synopsis: Binding to use Cordova-Hot-Code-Push Javascript module into your OCaml mobile app
+    - name: cordova-plugin-activity-indicator
+    - name: cordova-plugin-background-mode
+    - name: cordova-plugin-barcode-scanner
+    - name: cordova-plugin-battery-status
+    - name: cordova-plugin-camera
+    - name: cordova-plugin-clipboard
+    - name: cordova-plugin-datepicker
+    - name: cordova-plugin-device
+    - name: cordova-plugin-device-motion
+    - name: cordova-plugin-device-orientation
+    - name: cordova-plugin-dialogs
+    - name: cordova-plugin-email-composer
+    - name: cordova-plugin-fcm
+    - name: cordova-plugin-file
+    - name: cordova-plugin-file-opener
+    - name: cordova-plugin-file-transfer
+    - name: cordova-plugin-geolocation
+    - name: cordova-plugin-globalization
+    - name: cordova-plugin-image-picker
+    - name: cordova-plugin-inappbrowser
+    - name: cordova-plugin-insomnia
+    - name: cordova-plugin-keyboard
+    - name: cordova-plugin-loading-spinner
+    - name: cordova-plugin-local-notifications
+    - name: cordova-plugin-media
+    - name: cordova-plugin-media-capture
+    - name: cordova-plugin-network-information
+    - name: cordova-plugin-progress
+    - name: cordova-plugin-push-notifications
+    - name: cordova-plugin-qrscanner
+    - name: cordova-plugin-screen-orientation
+    - name: cordova-plugin-sim-card
+    - name: cordova-plugin-sms
+    - name: cordova-plugin-social-sharing
+    - name: cordova-plugin-statusbar
+    - name: cordova-plugin-toast
+    - name: cordova-plugin-touch-id
+    - name: cordova-plugin-vibration
+    - name: cordova-plugin-videoplayer
   - name: Serializers
     status: 🟡
     description: |
@@ -274,6 +318,42 @@ categories:
     - name: github
     - name: telegraml
     - name: slacko
+    - name: ocaml-googlemaps
+      extern:
+        url: https://github.com/besport/ocaml-googlemaps
+        synopsis: OCaml binding for Google Map
+    - name: geoloc
+      extern:
+        url: https://github.com/besport/geoloc
+        synopsis: Library for geolocation features using Google Map
+    - name: ocaml-woosmaps
+      extern:
+        url: https://github.com/besport/ocaml-woosmaps
+        synopsis: OCaml binding for Woosmap
+    - name: ocaml-mixpanel
+      extern:
+        url: https://github.com/besport/ocaml-mixpanel
+        synopsis: Binding to mixpanel
+    -name: ocaml-gapi
+     extern:
+       url: https://github.com/besport/ocaml-gapi
+       synopsis: Binding to Google API to implement Google Sign-In in a Web application
+    - name: ocaml-twttr
+      extern:
+       url: https://github.com/besport/ocaml-twttr
+       synopsis: Binding to the twttr Javascript plugin (Twitter)
+    - name: ocaml-gtag
+      extern:
+       url: https://github.com/besport/ocaml-gtag
+       synopsis: Binding to Google GTag
+    - name: ocaml-hls
+      extern:
+       url: https://github.com/besport/ocaml-hls
+       synopsis: Binding to hls.js to use hls video players in OCaml apps
+    - name: ocaml-js-video-players
+      extern:
+       url: https://github.com/besport/ocaml-js-video-players
+       synopsis: Add different video players to your OCaml Web or mobile app (Youtube, Dailymotion, Vimeo)
   - name: WebAssembly
     status: 🔴
     description: |
