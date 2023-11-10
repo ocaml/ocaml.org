@@ -3,7 +3,7 @@ id: lists
 title: Lists
 description: >
   Learn about one of OCaml's must used, built-in data types
-category: "Data Structures"
+category: "Introduction"
 ---
 
 # Lists
