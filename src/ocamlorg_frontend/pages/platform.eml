@@ -98,14 +98,15 @@ Learn_layout.render
       <%s! Icons.play "h-9 w-9" %>
     </div>
   </div>
-  <div class="flex flex-col border-t border-gray-200 pt-20 mt-20 mb-20">
+  <div class="flex flex-col border-t border-gray-200 pt-20 mt-20 mb-12">
     <h3 class="font-bold mt-8">State of the OCaml Platform</h3>
     <div class="text-lighter mt-6 text-lg">
       Each platform element lives at a different point in the lifecycle of a Platform tool
     </div>
     <div>
-      <h4 class="mt-20 font-bold">Active</h4>
-      <div class="text-lighter mt-3 border-b border-gray-200 pb-3">
+      <hr class="mt-12 mb-6 border-b border-gray-200">
+      <h4 class="font-bold">Active</h4>
+      <div class="text-lighter mt-3">
         The work-horse tools that are used daily with strong backwards compatibility guarantees from the community.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
@@ -114,9 +115,10 @@ Learn_layout.render
         <% ); %>
       </div>
     </div>
-    <div class="mt-20">
+    <div class="mt-8">
+      <hr class="mb-6 border-b border-gray-200">
       <h4 class="font-bold">Incubate</h4>
-      <div class="text-lighter mt-3 border-b border-gray-200 pb-3">
+      <div class="text-lighter mt-3">
         New tools that fill a gap in the ecosystem but are not quite ready for wide-scale release and adoption.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
@@ -125,9 +127,10 @@ Learn_layout.render
         <% ); %>
       </div>
     </div>
-    <div class="mt-20">
+    <div class="mt-8">
+      <hr class="mb-6 border-b border-gray-200">
       <h4 class="font-bold">Sustain</h4>
-      <div class="text-lighter mt-3 border-b border-gray-200 pb-3">
+      <div class="text-lighter mt-3">
         Tools that will not likely see any major feature added but can be used reliably even if not being actively
         developed.
       </div>
@@ -137,9 +140,10 @@ Learn_layout.render
         <% ); %>
       </div>
     </div>
-    <div class="mt-20">
+    <div class="mt-8">
+      <hr class="mb-6 border-b border-gray-200">
       <h4 class="font-bold">Deprecate</h4>
-      <div class="text-lighter mt-3 border-b border-gray-200 pb-3">
+      <div class="text-lighter mt-3">
         Tools that are gradually being phased out, with clear paths to better workflows.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
@@ -147,6 +151,5 @@ Learn_layout.render
           <%s! render_package_cards ~item %>
         <% ); %>
       </div>
-      
     </div>
   </div>
