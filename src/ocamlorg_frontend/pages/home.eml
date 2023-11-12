@@ -264,7 +264,7 @@ Layout.render
   </div>
 </div>
 
-<div class="container-fluid flex gap-10 flex-col justify-between items-center pb-24">
+<div class="container-fluid flex gap-10 flex-row justify-between items-center pb-24">
   <div class="overflow-hidden lg:flex-1 mt-10 lg:mt-0 flex items-center">
     <div class="flex flex-col items-left">
       <h3 class="font-bold">Releases</h3>
@@ -291,14 +291,13 @@ Layout.render
       <div class="p-6 mt-8 rounded-xl w-full bg-default shadow-lg">
         <div class="text-black">
           <a href="<%s Url.release latest_release.version %>">
-            <div class="text-primary-600 text-sm mb-4 uppercase">Releases and Updates</div>
+            <div class="text-primary-600 text-sm mb-4 uppercase">Recent Releases</div>
             <h3 class="font-bold mb-6">
               <%s latest_release.version %> <span class="text-sm font-medium">(<%s latest_release.date %>)</span>
             </h3>
           </a>
-          <div class="prose prose-sm text-black"><%s! latest_release.highlights_html %></div>
         </div>
-        <a href="<%s Url.releases %>" class="btn btn-lg btn-secondary mt-8">
+        <a href="<%s Url.changelog %>" class="btn btn-lg btn-secondary mt-8">
           <span>See Full Changelog</span>
           <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
