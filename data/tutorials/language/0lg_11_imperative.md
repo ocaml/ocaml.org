@@ -25,7 +25,7 @@ Side effects in parameters is bad because of parameter evaluation order not spec
 
 ## Introduction
 
-This document gathers two main teaching goals:
+This document has two main teaching goals:
 1. Writing imperative code in OCaml
 1. Combining and balancing imperative and functional code
 
@@ -36,15 +36,15 @@ Imperative and functional programming have unique merits; OCaml allows to combin
 FIXME: this sentence needs to be improved.
 Finally, we look at code examples written in imperative style and show corresponding examples in functional programming style.
 
-**Prerequisites**: This is an intermediate level tutorial. You should have completed the [Basic Data Types](/docs/basic-data-types), [Values and Functions](/docs/values-and-functions) and [Lists](/docs/lists) tutorials.
+**Prerequisites**: This is an intermediate-level tutorial. You should have completed the [Basic Data Types](/docs/basic-data-types), [Values and Functions](/docs/values-and-functions) and [Lists](/docs/lists) tutorials.
 
 ## Mutable Data
 
-FIXME: Do we need some text here?
+A name-value binding created using the `let … = …` construct is [immutable](https://en.wikipedia.org/wiki/Immutable_object), once added to the environment, it is impossible to change the value or remove the name.
 
 ### References
 
-A name-value binding created using the `let … = …` construct is [immutable](https://en.wikipedia.org/wiki/Immutable_object), once added to the environment, it is impossible to change the value or remove the name. However, there is a kind of value that can be updated, that is called a _reference_ in OCaml.
+ However, there is a kind of value that can be updated, that is called a _reference_ in OCaml.
 ```ocaml
 # let a = ref 0;;
 val a : int ref = {contents = 0}
