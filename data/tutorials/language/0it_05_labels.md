@@ -1,12 +1,12 @@
 ---
 id : labels
-title: Labels
+title: Labelled & Optional Arguments
 description: >
   Provide labels to your functions arguments
-category: "Language"
+category: "Introduction"
 ---
 
-# Labels
+# Labelled and Optional Arguments to Functions
 
 In this tutorial, we learn how to use labels in OCaml.
 
@@ -17,7 +17,7 @@ Also remember that an expression must end with `;;` for OCaml to evaluate it.
 Unless these examples start with a `#` toplevel prompt and end with `;;`, it isn't an 
 expression to evaluate but rather an example of code structure.
 
-## Labelled and Optional Arguments to Functions
+## Labelled Arguments
 
 Python has a nice syntax for writing arguments to functions. Here's
 an example (from the Python tutorial, since I'm not a Python
@@ -139,7 +139,7 @@ Otherwise, `may` calls the `f` function on the argument.
 Why is this
 useful? We're just about to find out...
 
-### Optional Arguments
+## Optional Arguments
 Optional arguments are like labelled arguments, but we use `?` instead
 of `~` in front of them. Here is an example:
 
@@ -264,7 +264,7 @@ then `title` = `Some "My Application"`, and `may` therefore calls
 You should make sure you fully understand this example before proceeding
 to the next section.
 
-### `Warning: This optional argument cannot be erased`
+## `Warning: This optional argument cannot be erased`
 We've just touched upon labels and optional arguments, but even this
 brief explanation might have raised several questions. The first may be: 
 "Why use the extra `()` (unit) argument to `open_window`?" Let's try defining this
@@ -369,7 +369,7 @@ unspecified". Whereas if you type:
 you mean "give me the functional value" or (more usually in the
 toplevel) "print out the type of `open_window`".
 
-### More `~`shorthand
+## More `~`shorthand
 Let's rewrite the `range` function yet again, this time using as much
 shorthand as possible for the labels:
 
@@ -385,7 +385,7 @@ when calling functions as well as declaring the arguments to functions.
 In the above the `~last` is short for
 `~last:last`.
 
-### Using `?foo` in a Function Call
+## Using `?foo` in a Function Call
 There's another little wrinkle concerning optional arguments. Suppose we
 write a function around `open_window` to open up an application:
 
@@ -413,7 +413,7 @@ val open_application : ?width:int -> ?height:int -> unit -> unit -> window =
   <fun>
 ```
 
-### When and When Not to Use `~` and `?`
+## When and When Not to Use `~` and `?`
 The syntax for labels and optional arguments is confusing, and you may
 often wonder when to use `~foo`, when to use `?foo`, and when to use
 plain `foo`. It's something of a black art that takes practice to get
@@ -491,154 +491,3 @@ Error: Unbound value pack_return
 The `pack_return` function actually takes mandatory labelled arguments
 called `~packing` and `~show`, each of type `'a option`. In other words,
 `pack_return` explicitly unwraps the `option` wrapper.
-
-## More Variants (“Polymorphic Variants”)
-Try compiling the following C code:
-
-```C
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-
-enum lock { open, close };
-
-main ()
-{
-  int fd, n;
-  char buffer[256];
-
-  fd = open ("/etc/motd", O_RDONLY);                     // line 12
-  while ((n = read (fd, buffer, sizeof buffer)) > 0)
-    write (1, buffer, n);
-  close (fd);                                            // line 15
-}
-```
-When compiling the code, it returns a whole bunch of errors, including:
-
-```text
-test.c: In function `main':
-test.c:12: error: called object is not a function
-test.c:15: error: called object is not a function
-```
-This illustrates one problem with enumerated types (enums) in C. In the
-example above, one `enum` statement reserves *three* symbols, namely
-`lock`, `open`, and `close`. Here's another example:
-
-```C
-enum lock { open, close };
-enum door { open, close };
-```
-Compiling gives:
-
-```text
-test.c:2: error: conflicting types for `open'
-test.c:1: error: previous declaration of `open'
-test.c:2: error: conflicting types for `close'
-test.c:1: error: previous declaration of `close'
-```
-The first `enum` defines the symbol `open` as something of type
-`enum lock`. You cannot reuse that symbol in another `enum`.
-
-This will be familiar to most C/C++ programmers, and they won't write
-naive code like that above. However the same issue happens with OCaml
-variants, but OCaml provides a way to work around it.
-
-Here is some OCaml code, which actually *does* compile:
-
-```ocaml
-# type lock = Open | Close;;
-type lock = Open | Close
-# type door = Open | Close;;
-type door = Open | Close
-```
-After running those two statements, we can
-find out the type of `Open` easily enough in the toplevel:
-
-```ocaml
-# type lock = Open | Close;;
-type lock = Open | Close
-# type door = Open | Close;;
-type door = Open | Close
-# Open;;
-- : door = Open
-```
-
-OCaml uses the most recent definition for `Open`, giving it the type
-`door`. This isn't a serious problem because if you
-accidentally tried to use `Open` in the type context of a `lock`, then
-OCaml's wonderful type inference would immediately spot the error, and
-you wouldn't be able to compile the code.
-
-So far, much like C. 
-
-OCaml provides a way to work
-around the constraint that `Open` can only have one type. In other
-words, suppose you want to use `Open` to mean either "the `Open` of type
-`lock`" or "the `Open` of type `door`," and you want OCaml to work out
-which one you mean.
-
-The syntax is slightly different, but here is how we do it:
-
-```ocaml
-# type lock = [ `Open | `Close ];;
-type lock = [ `Close | `Open ]
-# type door = [ `Open | `Close ];;
-type door = [ `Close | `Open ]
-```
-Notice the syntactic differences:
-
-1. Each variant name is prefixed with `` ` `` (a back tick).
-1. You have to put square brackets (`[]`) around the alternatives.
-
-The question naturally arises: What is the type of `` `Open``?
-
-```ocaml
-# `Open;;
-- : [> `Open ] = `Open
-```
-`` [> `Open] `` can be read as
-`` [ `Open | and some other possibilities which we don't know about ] ``.
-
-The `>` (greater than) sign indicates that the set of possibilities is
-bigger than those listed (open-ended).
-
-There's nothing special about `` `Open ``. *Any* back-ticked word can be
-used as a type, even one which we haven't mentioned before:
-
-```ocaml
-# `Foo;;
-- : [> `Foo ] = `Foo
-# `Foo 42;;
-- : [> `Foo of int ] = `Foo 42
-```
-Let's write a function to print the state of a `lock`:
-
-```ocaml
-# let print_lock st =
-  match st with
-  | `Open -> print_endline "The lock is open"
-  | `Close -> print_endline "The lock is closed";;
-val print_lock : [< `Close | `Open ] -> unit = <fun>
-```
-Take a careful look at the type of that function. Type inference has
-worked out that the `st` argument has type `` [< `Close | `Open] ``. The
-`<` (less than) sign means that this is a __closed class__. In
-other words, this function will only work on `` `Close`` or `` `Open``
-and not on anything else.
-
-```ocaml
-# print_lock `Open;;
-The lock is open
-- : unit = ()
-```
-
-Notice that `print_lock` works just as well with a `door` as with a
-`lock`! We've deliberately given up some type safety, and type inference
-is now being used to help guess what we mean, rather than enforce
-correct coding.
-
-This is only an introduction to polymorphic variants. Because of the
-reduction in type safety, it is recommended that you don't use these in
-your code. You will, however, see them in advanced OCaml code quite often, 
-precisely because advanced programmers will sometimes want to weaken
-the type system to write advanced idioms.

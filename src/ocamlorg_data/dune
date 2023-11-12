@@ -162,3 +162,10 @@
   (with-stdout-to
    %{target}
    (run %{dep:../../tool/ood-gen/bin/gen.exe} code_example))))
+
+(rule
+ (target event.ml)
+ (action
+  (with-stdout-to
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} event))))

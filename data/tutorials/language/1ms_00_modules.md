@@ -3,7 +3,7 @@ id : modules
 title: Modules
 description: >
   Learn about OCaml modules and how they can be used to cleanly separate distinct parts of your program
-category: "Language"
+category: "Module System"
 ---
 
 # Modules
