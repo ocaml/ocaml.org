@@ -49,11 +49,11 @@ Entering directory '/home/ocaml.org/hello'
 Success: initialized project component named hello
 ```
 
-> Note: Throughout this tutorial, outputs generated Dune might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam update; opam upgrade dune` in a terminal.
+**Note**: Throughout this tutorial, outputs generated Dune might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam update; opam upgrade dune` in a terminal.
 
 The project is stored in a directory named `hello`. The `tree` command lists the files and directories created. It might be necessary to install `tree` if you don't see the following. Through Homebrew, for example, run `brew install tree`.
 
-> Note: If you get an error in Homebrew from this in an Apple silicon macOS, it's likely an issue with the architecture switch from Intel to ARM. Please refer to the [ARM64 Fix](/docs/arm64-fix) to remedy the ARM64 error.
+**Note**: If you get an error in Homebrew from this in an Apple silicon macOS, it's likely an issue with the architecture switch from Intel to ARM. Please refer to the [ARM64 Fix](/docs/arm64-fix) to remedy the ARM64 error.
 ```shell
 $ cd hello
 $ tree
@@ -243,7 +243,7 @@ $ dune exec hello
 20.07.23 13:14:07.801                       Type Ctrl+C to stop
 ```
 
-> Note: If on macOS a key icon is displayed, like when asking for a password, you can ignore it and type `Ctrl+C` to get back to the command prompt.
+**Note**: If on macOS a key icon is displayed, like when asking for a password, you can ignore it and type `Ctrl+C` to get back to the command prompt.
 
 Then test from the first terminal:
 ```shell
@@ -354,7 +354,7 @@ Entering directory '/home/ocaml.org'
 My name is Minimo
 ```
 
-> Note: `minimo.exe` is not a file name. This is how Dune is told to compile the `minimo.ml` file using OCaml's native compiler instead of the bytecode compiler. As a fun fact, note that an empty file is valid OCaml syntax. You can use that to reduce `minimo` even more; of course, it will not display anything, but it will be a valid project!
+**Note**: `minimo.exe` is not a file name. This is how Dune is told to compile the `minimo.ml` file using OCaml's native compiler instead of the bytecode compiler. As a fun fact, note that an empty file is valid OCaml syntax. You can use that to reduce `minimo` even more; of course, it will not display anything, but it will be a valid project!
 
 ## Conclusion
 

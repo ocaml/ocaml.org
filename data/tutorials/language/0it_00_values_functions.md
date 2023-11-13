@@ -14,7 +14,7 @@ This tutorial teaches the skills needed to handle expressions, values, and names
 
 In OCaml, functions are values. In comparison to other mainstream languages, this creates a richer picture between expressions, values, and names. The approach in this tutorial is to acquire the related capabilities and understanding by interacting with OCaml in UTop. This hands-on experience is intended to build understanding by experimentation rather than starting with the definition of the concepts.
 
-> Note: The [Introduction to the OCaml Toplevel](https://ocaml.org/docs/toplevel-introduction) guide covers how to use UTop.
+**Note**: The [Introduction to the OCaml Toplevel](https://ocaml.org/docs/toplevel-introduction) guide covers how to use UTop.
 
 It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
 
@@ -98,7 +98,7 @@ val tree_map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 - : int tree = Node (1, [Node (4, []); Node (9, []); Node (16, [])])
 ```
 
-> Note: Above, `'a` means “any type.” It is called a *type parameter* and is pronounced like the Greek letter α (“alpha”). This type parameter will be replaced by a type. The same goes for `'b` ("beta"), `'c` ("gamma"), etc. Any letter preceded by a `'` is a type parameter, also known as a [type variable](https://en.wikipedia.org/wiki/Type_variable).
+**Note**: Above, `'a` means “any type.” It is called a *type parameter* and is pronounced like the Greek letter α (“alpha”). This type parameter will be replaced by a type. The same goes for `'b` ("beta"), `'c` ("gamma"), etc. Any letter preceded by a `'` is a type parameter, also known as a [type variable](https://en.wikipedia.org/wiki/Type_variable).
 
 Because records are implicitly single-constructor variants, this also applies to them:
 ```ocaml
@@ -119,7 +119,7 @@ A special case of combined definition and pattern matching involves the `unit` t
 ha ha
 ```
 
-> Note: As explained in the [Tour of OCaml](/docs/tour-of-ocaml) tutorial, the `unit` type has a single value `()`, which is pronounced "unit."
+**Note**: As explained in the [Tour of OCaml](/docs/tour-of-ocaml) tutorial, the `unit` type has a single value `()`, which is pronounced "unit."
 
 Above, the pattern does not contain any identifier, meaning no name is defined. The expression is evaluated, the side effect takes place (printing `ha ha` to standard output), no definition is created, and no value is returned. Writing that kind of pseudo-definition only expresses interest in the side effects.
 ```ocaml
@@ -435,7 +435,7 @@ val u : int list = [0; 1; 2; 3; 4; 5; 6; 7; 8; 9]
 
 This version of `fibo` is inefficient because the number of recursive calls created doubles at each call, which creates exponential growth.
 
-> Note: `List.init` is a standard library function that allows you to create a list by applying a given function to a sequence of integers, and `Fun.id` is the identity function, which returns its argument unchanged. We created a list with the numbers 0 - 9 and named it `u`. We applied the `fibo` function to every element of the list using `List.map`.
+**Note**: `List.init` is a standard library function that allows you to create a list by applying a given function to a sequence of integers, and `Fun.id` is the identity function, which returns its argument unchanged. We created a list with the numbers 0 - 9 and named it `u`. We applied the `fibo` function to every element of the list using `List.map`.
 
 This version does a better job:
 ```ocaml
@@ -453,7 +453,7 @@ The first version `fib_loop` takes two extra parameters: the two previously comp
 
 The second version `fib` uses the first two Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called [tail call elimination](https://en.wikipedia.org/wiki/Tail_call). This turns recursivity into imperative iteration in the generated native code and leads to improved performances.
 
-> Note: Notice that the `fib_loop` function has three parameters `m n i` but when defining `fib` only two arguments were passed `0 1`, using partial application.
+**Note**: Notice that the `fib_loop` function has three parameters `m n i` but when defining `fib` only two arguments were passed `0 1`, using partial application.
 
 ## Multiple Arguments Functions
 
@@ -654,7 +654,7 @@ Since, by definition, effects lie outside function types, a function type can't 
 - : unit -> float = <fun>
 ```
 
-> Note: If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.
+**Note**: If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.
 
 To produce its result, no data needs to be passed to that function. The result is entirely determined by external factors. If it was passed information, it would not be used. But something must be passed as a parameter to trigger the request of the current time from the operating system.
 
