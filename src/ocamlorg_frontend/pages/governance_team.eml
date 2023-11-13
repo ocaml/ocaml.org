@@ -1,0 +1,152 @@
+let contact_icon (kind : Data.Governance.contact_kind) = match kind with
+  | GitHub -> Icons.github
+  | Email -> Icons.email
+  | Discord -> Icons.discord
+  | Chat -> Icons.chat
+
+let render_team_member (member : Data.Governance.Member.t) =
+  <div class="flex gap-x-2">
+    <img src="https://github.com/<%s member.github %>.png" alt="" class="h-32 w-32 mr-3 inline-block rounded-xl">
+    <div>
+      <div class="text-white text-lg font-semibold mt-3"><%s member.name %></div>
+      <div class="text-sm text-white text-opacity-60"><%s member.role %></div>
+      <div class="mt-8 text-white text-opacity-60 items-center flex gap-1">
+        <%s! Icons.github "h-6 w-6" %>
+        <a href="https://github.com/<%s member.github %>"><%s member.github %></a>
+      </div>
+    </div>
+  </div>
+
+let render_dev_meeting (dev_meeting : Data.Governance.dev_meeting) _class =
+  <div class="gap-4 <%s _class %>">
+    <div class="flex gap-1"><%s dev_meeting.date %> - <%s dev_meeting.time %></div>
+    <div class="flex gap-4">
+      <a class="underline flex gap-1 py-2 font-semibold" href="<%s dev_meeting.notes %>">
+        <%s! Icons.document "w-6 h-6" %>
+        Notes
+      </a>
+      <a class="underline flex gap-1 py-2 font-semibold" href="<%s dev_meeting.link %>">
+        <%s! Icons.community "w-6 h-6" %>
+        Meeting Link
+      </a>
+      <% match dev_meeting.calendar with | None -> () | Some calendar -> %>
+      <a class="underline flex gap-1 py-2 font-semibold" href="<%s calendar %>">
+        <%s! Icons.calendar "w-6 h-6" %>
+        Calendar Invite
+      </a>
+      <% ; %>
+    </div>
+  </div>
+
+let render_subteam (team : Data.Governance.team) =
+  <div>
+    <h3 class="gradient font-semibold text-3xl mb-4"><%s team.name %></h3>
+    <p class="text-white my-4"><%s team.description %></p>
+    <% (if List.length team.contacts > 0 then %>
+      <div class="flex gap-x-8">
+      <% team.contacts |> List.iter (fun (contact : Data.Governance.contact) -> %>
+        <a class="btn btn-tertiary gap-1" href="<%s contact.link %>" target="_blank">
+          <%s! contact_icon contact.kind "w-6 h-6" %>
+          <%s contact.name %>
+        </a>
+        <% ); %>
+      </div>
+      <% ); %>
+    <% (match team.dev_meeting with | None -> () | Some dev_meeting -> %>
+    <div class="py-4 px-6 mt-6 bg-white inline-block rounded-xl">
+      <h4 class="font-semibold mb-4 text-2xl">Dev Meeting</h4>
+      <%s! render_dev_meeting dev_meeting "" %>
+    </div>
+    <% ); %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-6">
+      <%s! team.members |> List.map (fun (member : Data.Governance.Member.t) -> render_team_member member ) |> String.concat "\n" %>
+    </div>
+  </div>
+
+let render (t : Data.Governance.team) =
+Layout.render
+~title:(Printf.sprintf "%s · OCaml Governance" t.name)
+~description:t.description @@
+<div class="intro-section-simple">
+  <div class="container-fluid">
+    <div class="mx-auto px-4 sm:px-6">
+      <div class="">
+        <div class="sm:text-center lg:col-span-8 lg:text-left">
+          <div
+            class="flex justify-start gap-x-3 items-center text-primary-600 hover:underline font-semibold mb-4 h-12">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+              </path>
+            </svg>
+            <a href="<%s Url.governance %>" class="hover:underline">Back to Governance</a>
+          </div>
+          <h1 class="font-bold pb-6"><%s t.name %></h1>
+          <div class="text-2xl text-body-400">
+            <%s t.description%>
+          </div>
+          <div class="flex flex-wrap gap-x-4">
+            <% t.contacts |> List.iter (fun (contact : Data.Governance.contact) -> %>
+            <a class="btn btn-secondary btn-lg mt-6 gap-2" href="<%s contact.link %>" target="_blank">
+              <%s! contact_icon contact.kind "w-6 h-6" %>
+              <%s contact.name %>
+            </a>
+            <% ); %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="governance-contrast-section">
+  <div class="py-8">
+    <div class="container-fluid">
+      <% (match t.dev_meeting with | None -> () | Some dev_meeting -> %>
+      <h2 class="font-bold gradient mb-6 mt-12 md:mt-16 text-4xl">Dev Meeting</h2>
+      <%s! render_dev_meeting dev_meeting "text-white mb-6" %>
+      <% ); %>
+
+      <% (match List.length t.members with | 0 -> () | _ -> %>
+      <h2 class="font-bold gradient mb-6 mt-12 md:mt-16 text-4xl">People</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <%s! t.members |> List.map (fun (member : Data.Governance.Member.t) -> render_team_member member ) |> String.concat "\n" %>
+      </div>
+      <% ); %>
+
+      <% (match List.length t.subteams with | 0 -> () | _ -> %>
+      <h2 class="font-bold gradient mb-6 mt-12 md:mt-16 text-4xl">Teams</h2>
+      <div class="flex flex-col gap-12">
+        <% t.subteams |> List.iter (fun (team : Data.Governance.team) -> %>
+        <%s! render_subteam team %>
+        <% ); %>
+      </div>
+      <% ); %>
+    </div>
+  </div>
+</div>
+
+<svg width="100%" height="auto" viewBox="0 0 1600 290" fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip0_2155_13483)">
+    <rect width="1600" height="290" fill="white" />
+    <circle cx="1467.5" cy="161.5" r="27.5" fill="#EE6A1A" fill-opacity="0.48" />
+    <path fill-rule="evenodd" clip-rule="evenodd"
+      d="M-197.883 348.583C-256.706 318.298 -243.028 211.404 -236.431 120.668C-229.671 27.6854 -231.887 -77.8672 -160.394 -167.018C-90.5503 -254.114 0.696877 -256.036 81.5626 -275.871C142.463 -290.808 195.859 -289.719 238.964 -264.971C285.481 -238.263 331.333 -204.686 330.34 -133.039C329.284 -56.8512 291.867 36.2961 233.716 113.587C177.662 188.092 104.669 221.961 34.5125 260.16C-47.0471 304.567 -140.846 377.947 -197.883 348.583Z"
+      fill="#EE6A1A" fill-opacity="0.1" />
+    <path fill-rule="evenodd" clip-rule="evenodd"
+      d="M0 52.9655L67 48.5517C133 44.1379 267 35.3103 400 44.1379C533 52.9655 667 79.4484 800 114.759C933 150.069 1067 194.208 1200 198.621C1333 203.035 1467 167.725 1533 150.069L1600 132.414V-0.000243594H1533C1467 -0.000243594 1333 -0.000243594 1200 -0.000243594C1067 -0.000243594 933 -0.000243594 800 -0.000243594C667 -0.000243594 533 -0.000243594 400 -0.000243594C267 -0.000243594 133 -0.000243594 67 -0.000243594H0V52.9655Z"
+      fill="url(#paint0_linear_2155_13483)" />
+    <circle cx="1523" cy="148" r="48" fill="#CC4D00" />
+  </g>
+  <defs>
+    <linearGradient id="paint0_linear_2155_13483" x1="1600" y1="115.259" x2="-2.29315e-07" y2="115.259"
+      gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1528" />
+      <stop offset="0.536458" stop-color="#0B1528" stop-opacity="0.958333" />
+      <stop offset="1" stop-color="#0B1528" />
+    </linearGradient>
+    <clipPath id="clip0_2155_13483">
+      <rect width="1600" height="290" fill="white" />
+    </clipPath>
+  </defs>
+</svg>

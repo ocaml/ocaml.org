@@ -174,7 +174,18 @@
   (action
    (run %{bin:dream_eml} %{dep:release.eml} --workspace %{workspace_root})))
  (rule
-  (target releases.ml)
+  (targets governance.ml)
+  (deps governance.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets governance_team.ml)
+  (deps governance_team.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets releases.ml)
+  (deps releases.eml)
   (action
    (run %{bin:dream_eml} %{dep:releases.eml} --workspace %{workspace_root})))
  (rule

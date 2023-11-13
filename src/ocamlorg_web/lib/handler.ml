@@ -318,13 +318,23 @@ let page canonical (_req : Dream.request) =
 
 let carbon_footprint = page Url.carbon_footprint
 let privacy_policy = page Url.privacy_policy
-let governance = page Url.governance
+let governance_policy = page Url.governance_policy
 let code_of_conduct = page Url.code_of_conduct
 
 let playground _req =
   let default = Data.Code_example.get "default.ml" in
   let default_code = default.body in
   Dream.html (Ocamlorg_frontend.playground ~default_code)
+
+let governance _req =
+  Dream.html
+    (Ocamlorg_frontend.governance ~teams:Data.Governance.teams
+       ~working_groups:Data.Governance.working_groups)
+
+let governance_team req =
+  let id = Dream.param req "id" in
+  let</>? team = Data.Governance.get_by_id id in
+  Dream.html (Ocamlorg_frontend.governance_team team)
 
 let papers req =
   let search_paper pattern t =

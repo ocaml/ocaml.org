@@ -1,0 +1,15 @@
+.governance-contrast-section {
+    background: linear-gradient(270deg, #0B1528 0%, rgba(11, 21, 40, 0.958333) 53.65%, #0B1528 100%);
+}
+
+.governance-contrast-section button {
+    border: 1px solid #fff;
+    color: #fff;
+    opacity: 0.6;
+}
+
+.governance-contrast-section .gradient {
+    background: -webkit-linear-gradient(left, #EFA4F2,#0076ff, #62A8FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
