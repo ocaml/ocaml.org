@@ -27,7 +27,7 @@ In OCaml, almost all binary operators are regular functions. The function underl
 - : 'a -> 'a -> bool = <fun>
 ```
 
-> Note: the operator symbol for multiplication is ` * `, but can't be referred as `(*)`. This is because comments in OCaml are delimited by `(*` and `*)`. To resolve the parsing ambiguity, space characters must be inserted to get the multiplication function.
+**Note**: the operator symbol for multiplication is ` * `, but can't be referred as `(*)`. This is because comments in OCaml are delimited by `(*` and `*)`. To resolve the parsing ambiguity, space characters must be inserted to get the multiplication function.
 ```ocaml
 # ( * );;
 - : int -> int -> int = <fun>

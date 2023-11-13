@@ -382,7 +382,7 @@ foo bar
 - : string -> unit = <fun>
 ```
 
-> Note: Replace `foo bar` with your own text and press `Return`.
+**Note**: Replace `foo bar` with your own text and press `Return`.
 
 The function `print_endline` prints the string followed by a line ending on standard output. Return of the unit value means the output request has been queued by the operating system.
 
@@ -506,7 +506,7 @@ val commit_to_string' : commit -> string = <fun>
 ```
 We need to pass an inspected expression to the `match … with …` construct. The `function …` is a special form of an anonymous function that takes a parameter and forwards it to a `match … with …` construct, as shown above.
 
-> Warning: Wrapping product types with parentheses turns them into a single parameter.
+**Warning**: Wrapping product types with parentheses turns them into a single parameter.
 ```ocaml
 # type t =
   | C1 of int * bool
