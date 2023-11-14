@@ -86,8 +86,10 @@ let changelog req =
           (fun change -> List.exists (( = ) tag) change.Data.Changelog.tags)
           Data.Changelog.all
   in
-  let page, number_of_pages, current_changes = paginate ~req:req ~n:30 changes in
-  Dream.html (Ocamlorg_frontend.changelog ?current_tag ~tags ~number_of_pages ~current_page:page current_changes)
+  let page, number_of_pages, current_changes = paginate ~req ~n:30 changes in
+  Dream.html
+    (Ocamlorg_frontend.changelog ?current_tag ~tags ~number_of_pages
+       ~current_page:page current_changes)
 
 let changelog_entry req =
   let slug = Dream.param req "id" in
