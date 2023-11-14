@@ -46,6 +46,7 @@ let render () =
         <a href="<%s Url.exercises %>" class="font-normal text-lighter leading-7 py-2.5">Exercises</a>
         <a href="<%s Url.papers %>" class="font-normal text-lighter leading-7 py-2.5">Papers</a>
         <a href="<%s Url.playground %>" class="font-normal text-lighter leading-7 py-2.5">OCaml Playground</a>
+        <a href="<%s Url.logos %>" class="font-normal text-lighter leading-7 py-2.5">Logo</a>
       </div>
     </section>
 

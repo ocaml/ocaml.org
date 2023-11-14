@@ -80,7 +80,7 @@ let installing_ocaml = "/docs/installing-ocaml"
 let exercises = "/exercises"
 let installer = "/install-platform.sh"
 let outreachy = "/outreachy"
-let logos = "/policies/logos"
+let logos = "/logo"
 
 let github_installer =
   "https://github.com/tarides/ocaml-platform-installer/releases/latest/download/installer.sh"
