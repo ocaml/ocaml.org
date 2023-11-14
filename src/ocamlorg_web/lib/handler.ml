@@ -949,3 +949,5 @@ let sitemap _request =
     (fun stream ->
       let* _ = Lwt_seq.iter_s (Dream.write stream) Sitemap.data in
       Dream.flush stream)
+
+let logos _req = Dream.html (Ocamlorg_frontend.logos ())

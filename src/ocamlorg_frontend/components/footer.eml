@@ -101,6 +101,10 @@ let render () =
               <li>
                 <a href="<%s Url.playground %>" class="text-base leading-6 text-lighter">OCaml Playground</a>
               </li>
+
+              <li>
+                <a href="<%s Url.logos %>" class="text-base leading-6 text-lighter">Logo</a>
+              </li>
             </ul>
           </div>
         </div>

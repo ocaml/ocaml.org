@@ -59,6 +59,7 @@ let page_routes t =
       Dream.get (Url.tutorial ":id") Handler.tutorial;
       Dream.get Url.playground Handler.playground;
       Dream.get Url.installer Handler.installer;
+      Dream.get Url.logos Handler.logos;
     ]
 
 let package_route t =

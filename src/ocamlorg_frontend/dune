@@ -219,7 +219,12 @@
  (rule
   (target page.ml)
   (action
-   (run %{bin:dream_eml} %{dep:page.eml} --workspace %{workspace_root}))))
+   (run %{bin:dream_eml} %{dep:page.eml} --workspace %{workspace_root})))
+ (rule
+  (target logos.ml)
+  (deps logos.eml)
+  (action
+   (run %{bin:dream_eml} %{dep:logos.eml} --workspace %{workspace_root}))))
 
 (subdir
  components/
