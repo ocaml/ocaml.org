@@ -3,6 +3,7 @@ title: Von Koch's Conjecture
 number: "93"
 difficulty: advanced
 tags: []
+description: "Calculate a numbering scheme for a given tree, such that for each edge K, the difference of its node numbers equals to K."
 ---
 
 # Solution

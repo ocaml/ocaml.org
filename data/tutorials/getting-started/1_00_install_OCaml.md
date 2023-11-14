@@ -9,7 +9,7 @@ category: "First Steps"
 
 # Installing OCaml
 
-This guide will walk you through a minimum installation of OCaml. That includes installing a package manager and [the compiler](#installation-on-unix) itself. We'll also install some platform tools like a build system, support for your editor, and a few other important ones.
+This guide will walk you through a minimum installation of OCaml. That includes installing a package manager and [the compiler](#installation-on-unix-and-macos) itself. We'll also install some platform tools like a build system, support for your editor, and a few other important ones.
 
 On this page, you'll find installation instructions for Linux, macOS, and &ast;BSD for recent OCaml versions. For Docker, Linux instructions apply, except when setting up opam. For Windows, we recommend using WSL but also provide instructions for installing OCaml 4.14.0 via the [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) Installer. If you are setting up OCaml on Windows and are unsure which installation method to use, you might be interested in reading [OCaml on Windows](/docs/ocaml-on-windows) first.
 
@@ -143,14 +143,14 @@ To learn more about Diskuv OCaml, see the [official Diskuv OCaml documentation](
 Now that we've successfully installed the OCaml compiler and the opam package manager, let's install some of the [OCaml Platform tools](https://ocaml.org/docs/platform), which you'll need to get the full developer experience in OCaml:
 
 - [UTop](https://github.com/ocaml-community/utop), a modern interactive toplevel (REPL: Read-Eval-Print Loop)
-- [Dune](https://dune.readthedocs.io/en/stable/~), a fast and full-featured build system
-- [Merlin](https://ocaml.github.io/merlin/) and [`ocaml-lsp-server`](https://github.com/ocaml/ocaml-lsp). Power tools for VS Code, Vim, or Emacs
+- [Dune](https://dune.build), a fast and full-featured build system
+- [`ocaml-lsp-server`](https://github.com/ocaml/ocaml-lsp) implements the Language Server Protocol to enable editor support for OCaml, e.g., in VS Code, Vim, or Emacs. Under the hood, it uses [Merlin](https://ocaml.github.io/merlin/).
 - [`odoc`](https://github.com/ocaml/odoc) to generate documentation from OCaml code
 - [OCamlFormat](https://opam.ocaml.org/packages/ocamlformat/) to automatically format OCaml code
 
 All these tools can be installed using a single command:
 ```shell
-$ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop
+$ opam install dune ocaml-lsp-server odoc ocamlformat utop
 ```
 
 You're now all set and ready to start hacking.

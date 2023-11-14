@@ -112,8 +112,6 @@ end
 
 module Watch = struct
   include Watch
-
-  let all = Watch.watch_list
 end
 
 module Video = struct
@@ -175,4 +173,10 @@ end
 
 module Is_ocaml_yet = struct
   include Is_ocaml_yet
+end
+
+module Event = struct
+  include Event
+
+  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end

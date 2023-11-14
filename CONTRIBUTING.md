@@ -23,13 +23,14 @@ We've provided a list of community-driven content below. When adding content to 
 - [Success Stories](#content-success-story)
 - [Academic and Industrial Users](#content-user)
 - [OCaml Books](#content-book)
-- [Community Events](#content-event)
+- [Community Meetups](#content-meetup)
+- [Upcoming Events](#content-upcoming_event)
 - [Featured Packages](#content-package)
-- [The OCaml Changelog](#content-package)
+- [The OCaml Changelog](#content-changelog)
 
 The following sections give more details on how to contribute to each.
 
-### <a name="content-blog"></a> Add an RSS Feed to the Blog
+### <a name="content-blog"></a>Add an RSS Feed to the Blog
 
 Anyone can contribute to the [OCaml Blog](https://ocaml.org/blog), which is composed of two types of content:
 
@@ -60,7 +61,7 @@ preview_image: direct link to preview image
 ---
 ```
 
-### <a name="content-job"></a><a name="jobs">Add an Entry to the Job Board</a>
+### <a name="content-job"></a>Add an Entry to the Job Board
 
 > Contribute to the [Job Board](https://ocaml.org/jobs).
 
@@ -72,7 +73,7 @@ Please make sure that the job involves mostly writing OCaml. Contributions to ad
 
 If you notice that a job opportunity is outdated (e.g., already fulfilled or not open anymore), PRs to remove it are welcome as well.
 
-### <a name="content-success-story"></a> Add a Success Story
+### <a name="content-success-story"></a>Add a Success Story
 
 > Contribute to the [Success Stories](https://ocaml.org/success-stories).
 
@@ -87,7 +88,7 @@ The success stories should be structured in the following way:
 
 You can read [Ahref's success story](https://ocaml.org/success-stories/peta-byte-scale-web-crawler) for an examplary success story.
 
-### <a name="content-user"></a> Add an Academic or Industrial User
+### <a name="content-user"></a>Add an Academic or Industrial User
 
 > Contribute to the [Academic Users](https://ocaml.org/academic-users) and [Industrial Users](https://ocaml.org/industrial-users).
 
@@ -95,17 +96,23 @@ You can add a new academic user by creating a new Markdown file in [data/industr
 
 You can add a new industrial user by creating a new Markdown file in [data/academic_institutions/](data/academic_institutions). For instance: [cornell.md](data/academic_institutions/en/cornell.md).
 
-### <a name="content-book"></a> Add a Book
+### <a name="content-book"></a>Add a Book
 
 > Contribute to the [OCaml Books](https://ocaml.org/books).
 
 You can add a new OCaml book by creating a new Markdown file in [data/books/](data/books/). For instance: [ocaml-from-the-very-beginning.md](data/industrial_users/en/ocaml-from-the-very-beginning.md).
 
-### <a name="content-event"></a> Add an Event
+### <a name="content-meetup"></a>Add A meetup
 
-> Contribute to the [Community Events](https://ocaml.org/community).
+> Contribute to the [Community Meetups](https://ocaml.org/community).
 
-You can add a new community event by creating a new Markdown file in [data/meetups.yml](data/meetups.yml).
+You can add a new community meetup by adding it to the YAML file [data/meetups.yml](data/meetups.yml).
+
+### <a name="content-upcoming_event"></a> Add an Upcoming Event
+
+> Contribute to the [Upcoming Event](https://ocaml.org/community).
+
+You can add a new upcoming event by creating a new Markdown file in [data/events/](data/events/).
 
 ### <a name="content-package"></a> Add a Featured Package
 
@@ -113,7 +120,7 @@ You can add a new community event by creating a new Markdown file in [data/meetu
 
 To update the list of Featured Packages on the Packages page, you can update [data/packages.yml](data/packages.yml)
 
-### <a name="ocaml-changelog"></a> OCaml Changelog
+### <a name="content-changelog"></a>OCaml Changelog
 
 The [OCaml Changelog](https://ocaml.org/changelog) is a feed of the latest releases and feature highlights for official OCaml projects. As of today, it features the following projects:
 

@@ -155,9 +155,6 @@ The following snippet describes the repository structure.
 │   ├── global
 │   │   Project wide definitions
 │   │
-│   ├── dream_dashboard
-│   │   A monitoring and analytics dashboard for dream.
-│   │
 │   ├── ocamlorg_data
 │   │   The result of compiling all of the information in `/data` into OCaml modules.
 │   │

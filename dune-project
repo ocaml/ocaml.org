@@ -63,22 +63,10 @@
     :with-test
     (>= 1.10.0)))
   olinkcheck
-  ; src/ocamlorg_dasbhoard
-  (dream
-   (>= 1.0.0~alpha5))
-  (hyper
-   (= 1.0.0~alpha2))
-  dune-build-info
-  luv
-  metrics-lwt
-  user-agent-parser
-  digestif
-  ppx_deriving_yojson
-  ppx_stable
-  yojson
   ; tools/ood-gen
   ppx_deriving_yaml
   ppx_show
+  ppx_stable
   ezjsonm
   lambdasoup
   ptime

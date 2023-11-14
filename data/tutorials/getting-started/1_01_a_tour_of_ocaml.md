@@ -376,7 +376,7 @@ val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 
 ### Pattern Matching, Cont'd
 
-Patten matching isn't limited to lists. Any kind of data can be inspected using it, except functions. Patterns are expressions that are compared to an inspected value. It could be performed using `if … then … else …`, but pattern matching is more convenient. Here is an example using the `option` data type that will be detailed in the [Modules and the Standard Library](#Modules-and-the-Standard-Library) section.
+Patten matching isn't limited to lists. Any kind of data can be inspected using it, except functions. Patterns are expressions that are compared to an inspected value. It could be performed using `if … then … else …`, but pattern matching is more convenient. Here is an example using the `option` data type that will be detailed in the [Modules and the Standard Library](#modules-and-the-standard-library) section.
 ```ocaml
 # #show option;;
 type 'a option = None | Some of 'a
@@ -400,7 +400,7 @@ In this other example, the same comparison is made, using `if … then … else 
   else if x = "baz" then 3
   else if x = "qux" then 4
   else 0;;
-val g : int -> string = <fun>
+val g : string -> int = <fun>
 
 # let g' x = match x with
     | "foo" -> 1
@@ -408,12 +408,12 @@ val g : int -> string = <fun>
     | "baz" -> 3
     | "qux" -> 4
     | _ -> 0;;
-val g' : int -> string = <fun>
+val g' : string -> int = <fun>
 ```
 
 The underscore symbol is a catch-all pattern; it matches with anything.
 
-Note that OCaml throws a warning when pattern matching does not catch call cases:
+Note that OCaml throws a warning when pattern matching does not catch all cases:
 ```ocaml
 # fun i -> match i with 0 -> 1;;
 Line 1, characters 9-28:
@@ -748,6 +748,6 @@ In this tutorial, OCaml was used interactively. The next tutorial, [Your First O
 
 Other recommended tutorials:
 
-1. [Data Types and Matching](docs/data-types)
-1. [If Statements, Loops, and Recursions](docs/if-statements-and-loops)
-1. [Lists](docs/lists)
+1. [Data Types and Matching](/docs/data-types)
+1. [If Statements, Loops, and Recursions](/docs/if-statements-and-loops)
+1. [Lists](/docs/lists)

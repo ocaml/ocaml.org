@@ -33,7 +33,7 @@ module Book : sig
     description : string;
     recommendation : string option;
     authors : string list;
-    language : string;
+    language : string list;
     published : string;
     cover : string;
     isbn : string option;
@@ -162,6 +162,7 @@ module Exercise : sig
     number : string;
     difficulty : difficulty;
     tags : string list;
+    description : string;
     statement : string;
     solution : string;
   }
@@ -253,9 +254,9 @@ end
 module Watch : sig
   type t = {
     name : string;
-    description : string option;
     embed_path : string;
     thumbnail_path : string;
+    description : string option;
     published_at : string;
     language : string;
     category : string;
@@ -270,6 +271,7 @@ module Planet : sig
     name : string;
     url : string;
     description : string;
+    disabled : bool;
   }
 
   module Post : sig
@@ -439,4 +441,23 @@ module Is_ocaml_yet : sig
   }
 
   val all : t list
+end
+
+module Event : sig
+  type location = { lat : float; long : float }
+
+  type t = {
+    title : string;
+    url : string;
+    slug : string;
+    textual_location : string;
+    location : location option;
+    starts : string;
+    ends : string option;
+    body_md : string;
+    body_html : string;
+  }
+
+  val all : t list
+  val get_by_slug : string -> t option
 end
