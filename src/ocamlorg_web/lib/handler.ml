@@ -55,6 +55,22 @@ let community _req =
   let events = Data.Event.all in
   Dream.html (Ocamlorg_frontend.community ~workshops ~meetups ~events)
 
+let paginate ~req ~n items =
+  let items_per_page = n in
+  let page =
+    Dream.query req "p" |> Option.map int_of_string |> Option.value ~default:1
+  in
+  let number_of_pages =
+    int_of_float
+      (Float.ceil
+         (float_of_int (List.length items) /. float_of_int items_per_page))
+  in
+  let current_items =
+    let skip = items_per_page * (page - 1) in
+    items |> List.drop skip |> List.take items_per_page
+  in
+  (page, number_of_pages, current_items)
+
 let changelog req =
   let current_tag = Dream.query req "t" in
   let tags =
@@ -71,7 +87,10 @@ let changelog req =
           (fun change -> List.exists (( = ) tag) change.Data.Changelog.tags)
           Data.Changelog.all
   in
-  Dream.html (Ocamlorg_frontend.changelog ?current_tag ~tags changes)
+  let page, number_of_pages, current_changes = paginate ~req ~n:30 changes in
+  Dream.html
+    (Ocamlorg_frontend.changelog ?current_tag ~tags ~number_of_pages
+       ~current_page:page current_changes)
 
 let changelog_entry req =
   let slug = Dream.param req "id" in
@@ -221,22 +240,6 @@ let workshop req =
     List.find_opt (fun x -> x.Data.Workshop.slug = slug) Data.Workshop.all
   in
   Dream.html (Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed workshop)
-
-let paginate ~req ~n items =
-  let items_per_page = n in
-  let page =
-    Dream.query req "p" |> Option.map int_of_string |> Option.value ~default:1
-  in
-  let number_of_pages =
-    int_of_float
-      (Float.ceil
-         (float_of_int (List.length items) /. float_of_int items_per_page))
-  in
-  let current_items =
-    let skip = items_per_page * (page - 1) in
-    items |> List.drop skip |> List.take items_per_page
-  in
-  (page, number_of_pages, current_items)
 
 let blog req =
   let page, number_of_pages, current_items =

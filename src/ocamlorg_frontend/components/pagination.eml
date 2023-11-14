@@ -1,40 +1,45 @@
-let paginated_href ~base_url ~page ~query =
-  base_url ^ "?p=" ^ string_of_int page ^ (if query = "" then "" else "&q=" ^ query)
+let rec construct_query_string = function
+  | h :: t -> "&" ^ (fst h) ^ "=" ^ (snd h) ^ construct_query_string t
+  | [] -> ""
 
-let link ~base_url ~page ~current ~query =
+let paginated_href ~base_url ~page ~queries =
+  base_url ^ "?p=" ^ string_of_int page ^ (construct_query_string
+  queries)
+
+let link ~base_url ~page ~current ~queries =
   let active_class = "border-2 border-current text-primary-600" in
   let non_active_class = "border border-body-100 text-lighter hover:bg-gray-50 hover:no-underline" in
-  <a href="<%s (paginated_href ~base_url ~page ~query) %>"
+  <a href="<%s (paginated_href ~base_url ~page ~queries) %>"
     class="w-10 h-10 lg:w-14 lg:h-14 rounded-lg flex items-center justify-center <%s if page = current then active_class else non_active_class %>">
     <%i page %>
   </a>
 
-let left_arrow ~base_url page ~query=
-  <a href="<%s (paginated_href ~base_url ~page:(page - 1) ~query) %>"
+let left_arrow ~base_url page ~queries =
+  <a href="<%s (paginated_href ~base_url ~page:(page - 1) ~queries) %>"
     class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-lighter hover:bg-gray-50 hover:no-underline">
     <%s! Icons.chevron_left "h-5 w-5" %>
   </a>
 
-let right_arrow ~base_url page ~query=
-  <a href="<%s (paginated_href ~base_url ~page:(page + 1) ~query) %>"
+let right_arrow ~base_url page ~queries =
+  <a href="<%s (paginated_href ~base_url ~page:(page + 1) ~queries) %>"
     class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-lighter hover:bg-gray-50 hover:no-underline">
     <%s! Icons.chevron_right "h-5 w-5" %>
   </a>
 
-let render ~total_page_count ~page_number ~base_url ~query=
+let render ~total_page_count ~page_number ~base_url ~queries =
   <div class="pt-16 flex items-center justify-center space-x-2.5">
   <% if  total_page_count > 1 then ( %>
-    <%s! if page_number != 1 then (left_arrow ~base_url page_number ~query) else "" %>
+    <%s! if page_number != 1 then (left_arrow ~base_url page_number ~queries) else "" %>
     <% if page_number >= 4 then ( %>
     <span class="w-10 h-10 lg:w-14 lg:h-14 border-body-100 rounded-lg flex items-center justify-center text-lighter hover:no-underline">...</span>
     <% ); %>
     <% for page = 1 to (total_page_count - 1) do %>
-    <%s! if (abs (page_number - page) <= 1) || (page_number = 1 && page = 3) || (page_number = total_page_count && total_page_count - page = 2) then (link ~base_url ~page ~current:page_number ~query) else "" %>
+    <%s! if (abs (page_number - page) <= 1) || (page_number = 1 && page = 3) || (page_number = total_page_count && total_page_count - page = 2) then (link ~base_url ~page ~current:page_number ~queries) else "" %>
     <% done; %>
     <% if total_page_count - page_number >= 3 then ( %>
     <span class="w-10 h-10 lg:w-14 lg:h-14 border-body-100 rounded-lg flex items-center justify-center text-lighter hover:no-underline">...</span>
     <% ); %>
-    <%s! link ~base_url ~page:total_page_count ~current:page_number ~query %>
-    <%s! if page_number != total_page_count then (right_arrow ~base_url page_number ~query) else "" %>
+    <%s! link ~base_url ~page:total_page_count ~current:page_number ~queries %>
+    <%s! if page_number != total_page_count then (right_arrow ~base_url page_number ~queries) else "" %>
   <% ); %>
   </div>
