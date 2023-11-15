@@ -10,21 +10,16 @@ Layout.render
         <p>This is a record of all past OCaml Community <a href="https://www.outreachy.org/" target="_blank">Outreachy</a> Internship Projects.</p>
     </div>
 </div>
-
 <div class="py-12 bg-default dark:bg-dark-default">
     <div class="container-fluid">
         <% metadata |> List.iter (fun (rounds : Data.Outreachy.t) -> %>
             <h2 class="border-b border-primary-700 p-6 my-2 font-bold"><%s rounds.name %></h2>
             <div class="grid gap-10 prose max-w-4xl">
                 <% rounds.projects |> List.iter (fun (project : Data.Outreachy.project) -> %>
-                    <div x-data="{'is_shown': false}" class="p-5 flex flex-col">              
-                        
+                    <div x-data="{'is_shown': false}" class="p-5 flex flex-col gap-2">              
                         <h3><%s project.title %></h3>
-
                         <div>Mentee: <i><%s project.mentee %></i></div>
-                        
                         <div>Mentor(s): <i><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></i></div>
-                        
                         <% if String.length project.description > 240 then ( %>
                             <div :class="is_shown ? '' : 'relative max-h-20 overflow-hidden'">
                                 <div class="absolute bottom-0 h-10 left-0 right-0 bg-gradient-to-t from-white"></div> 
@@ -48,4 +43,4 @@ Layout.render
             </div>
         <% ); %>
     </div>
-</div> 
+</div>
