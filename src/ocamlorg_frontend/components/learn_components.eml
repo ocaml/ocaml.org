@@ -181,11 +181,11 @@ let tool_card ~img_src ~title ~text ~url =
       <%s! Icons.arrow_right_circle "h-5 w-5" %></div>
   </a>
 
-let contribute_footer ~href =
+let contribute_footer ~href ~description =
   <div class="pt-10 mt-16 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
     <div class="lg:col-span-1">
       <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Help Improve Our Documentation</h2>
-      <p class="text-sm mt-0 mb-4 max-w-xs">All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request.</p>
+      <p class="text-sm mt-0 mb-4 max-w-xs"><%s description %></p>
       <a
         class="inline-block relative py-1 px-4 font-medium no-underline align-middle bg-transparent rounded-md border border-solid appearance-none cursor-pointer select-none whitespace-no-wrap hover:no-underline"
         href="<%s href %>"

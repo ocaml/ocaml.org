@@ -211,6 +211,14 @@ module Tutorial : sig
   end
 
   type toc = { title : string; href : string; children : toc list }
+  type contribute_link = { url : string; description : string }
+  type banner = { image : string; url : string; alt : string }
+
+  type external_tutorial = {
+    tag : string;
+    banner : banner;
+    contribute_link : contribute_link;
+  }
 
   type t = {
     title : string;
@@ -219,6 +227,7 @@ module Tutorial : sig
     description : string;
     section : Section.t;
     category : string;
+    external_tutorial : external_tutorial option;
     body_md : string;
     toc : toc list;
     body_html : string;

@@ -80,8 +80,16 @@ let sidebar
 ~tutorials
 ~(section: section)
 =
-  let sidebar_link ~title ~href ~current =
+  let sidebar_link ~title ~href ~current ~tag =
+    let render_tag tag = match tag with
+      | None -> ""
+      | Some t ->
+      <span class="inline-block px-1 bg-primary text-white rounded-md mr-1">
+        <%s t %>
+      </span>
+    in
     <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-primary bg-legacy-primary-100 border-primary|} else {|text-legacy-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
+      <%s! render_tag tag %>
       <%s title %>
     </a>
   in
@@ -95,7 +103,7 @@ let sidebar
   let render_tutorial_link ~title ~slug =
     sidebar_link ~title ~href:(Url.tutorial slug) ~current:(current_tutorial = Some (slug))
   in
-  let render_tutorial (tutorial : Data.Tutorial.t) = render_tutorial_link ~title:tutorial.title ~slug:tutorial.slug in
+  let render_tutorial (tutorial : Data.Tutorial.t) = render_tutorial_link ~title:tutorial.title ~slug:tutorial.slug ~tag:(Option.map (fun (et: Data.Tutorial.external_tutorial) -> et.tag) tutorial.external_tutorial) in
   let tutorial_sidebar_links_by_category category =
     tutorials |> List.filter (fun (x : Data.Tutorial.t) -> x.category = category) |> List.map render_tutorial |> String.concat "\n"
   in
@@ -113,7 +121,7 @@ let sidebar
   <%s! sidebar_link_group "Platform"
     (tutorial_sidebar_links_by_category "platform")
     ~extra_html:(
-      (render_tutorial_link ~title:"Overview" ~slug:"platform")) %>
+      (render_tutorial_link ~title:"Overview" ~slug:"platform" ~tag:None)) %>
   <% ); %>
 
   <% categories |> List.iter (fun category -> %>
@@ -125,7 +133,7 @@ let sidebar
     <%s! sidebar_link_group "Is OCaml Yet"
       (tutorial_sidebar_links_by_category "is-ocaml-yet")
       ~extra_html:(
-        (render_tutorial_link ~title:"Is OCaml web yet?" ~slug:"is-ocaml-web-yet")) %>
+        (render_tutorial_link ~title:"Is OCaml web yet?" ~slug:"is-ocaml-web-yet" ~tag:None)) %>
   <% ); %>
 
 let single_column_layout
