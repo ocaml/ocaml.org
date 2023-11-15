@@ -32,7 +32,7 @@ The goal of this tutorial is to provide the following capabilities:
 - Call functions defined in modules of the OCaml standard library
 -->
 
-> **Note**: We recommend that you try running the code snippets throughout this guide in an OCaml toplevel. You can run the toplevel using the `utop` command. Read the [Introduction to OCaml Toplevel](/docs/toplevel-introduction) to learn how to use it.
+**Note**: We recommend that you try running the code snippets throughout this guide in an OCaml toplevel. You can run the toplevel using the `utop` command. Read the [Introduction to OCaml Toplevel](/docs/toplevel-introduction) to learn how to use it.
 
 ## Expressions and Definitions
 
@@ -459,7 +459,7 @@ Here is the definition of a variant type acting as an enumerated data type:
 type primary_colour = Red | Green | Blue
 
 # [Red; Blue; Red];;
-- : colour list = [Red; Blue; Red]
+- : primary_colour list = [Red; Blue; Red]
 ```
 
 Here is the definition of a variant type acting as a union type:
@@ -748,6 +748,7 @@ In this tutorial, OCaml was used interactively. The next tutorial, [Your First O
 
 Other recommended tutorials:
 
-1. [Data Types and Matching](/docs/data-types)
+1. [Values and Functions](/docs/values-and-functions)
+1. [Basic Data Types and Pattern Matching](/docs/basic-data-types)
 1. [If Statements, Loops, and Recursions](/docs/if-statements-and-loops)
 1. [Lists](/docs/lists)

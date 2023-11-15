@@ -55,6 +55,22 @@ let community _req =
   let events = Data.Event.all in
   Dream.html (Ocamlorg_frontend.community ~workshops ~meetups ~events)
 
+let paginate ~req ~n items =
+  let items_per_page = n in
+  let page =
+    Dream.query req "p" |> Option.map int_of_string |> Option.value ~default:1
+  in
+  let number_of_pages =
+    int_of_float
+      (Float.ceil
+         (float_of_int (List.length items) /. float_of_int items_per_page))
+  in
+  let current_items =
+    let skip = items_per_page * (page - 1) in
+    items |> List.drop skip |> List.take items_per_page
+  in
+  (page, number_of_pages, current_items)
+
 let changelog req =
   let current_tag = Dream.query req "t" in
   let tags =
@@ -71,7 +87,10 @@ let changelog req =
           (fun change -> List.exists (( = ) tag) change.Data.Changelog.tags)
           Data.Changelog.all
   in
-  Dream.html (Ocamlorg_frontend.changelog ?current_tag ~tags changes)
+  let page, number_of_pages, current_changes = paginate ~req ~n:30 changes in
+  Dream.html
+    (Ocamlorg_frontend.changelog ?current_tag ~tags ~number_of_pages
+       ~current_page:page current_changes)
 
 let changelog_entry req =
   let slug = Dream.param req "id" in
@@ -222,22 +241,6 @@ let workshop req =
   in
   Dream.html (Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed workshop)
 
-let paginate ~req ~n items =
-  let items_per_page = n in
-  let page =
-    Dream.query req "p" |> Option.map int_of_string |> Option.value ~default:1
-  in
-  let number_of_pages =
-    int_of_float
-      (Float.ceil
-         (float_of_int (List.length items) /. float_of_int items_per_page))
-  in
-  let current_items =
-    let skip = items_per_page * (page - 1) in
-    items |> List.drop skip |> List.take items_per_page
-  in
-  (page, number_of_pages, current_items)
-
 let blog req =
   let page, number_of_pages, current_items =
     paginate ~req ~n:10
@@ -246,7 +249,11 @@ let blog req =
          Data.Planet.Post.all)
   in
   let featured = Data.Planet.featured_posts |> List.take 3 in
-  let news = Data.News.all |> List.take 20 in
+  let number_of_news =
+    List.length featured + List.length current_items
+    |> float_of_int |> ( *. ) 1.3 |> int_of_float
+  in
+  let news = Data.News.all |> List.take number_of_news in
   Dream.html
     (Ocamlorg_frontend.blog ~featured ~planet:current_items ~planet_page:page
        ~planet_pages_number:number_of_pages ~news)
@@ -314,13 +321,23 @@ let page canonical (_req : Dream.request) =
 
 let carbon_footprint = page Url.carbon_footprint
 let privacy_policy = page Url.privacy_policy
-let governance = page Url.governance
+let governance_policy = page Url.governance_policy
 let code_of_conduct = page Url.code_of_conduct
 
 let playground _req =
   let default = Data.Code_example.get "default.ml" in
   let default_code = default.body in
   Dream.html (Ocamlorg_frontend.playground ~default_code)
+
+let governance _req =
+  Dream.html
+    (Ocamlorg_frontend.governance ~teams:Data.Governance.teams
+       ~working_groups:Data.Governance.working_groups)
+
+let governance_team req =
+  let id = Dream.param req "id" in
+  let</>? team = Data.Governance.get_by_id id in
+  Dream.html (Ocamlorg_frontend.governance_team team)
 
 let papers req =
   let search_paper pattern t =
@@ -932,3 +949,5 @@ let sitemap _request =
     (fun stream ->
       let* _ = Lwt_seq.iter_s (Dream.write stream) Sitemap.data in
       Dream.flush stream)
+
+let logos _req = Dream.html (Ocamlorg_frontend.logos ())

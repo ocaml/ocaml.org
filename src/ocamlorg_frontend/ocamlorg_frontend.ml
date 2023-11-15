@@ -39,3 +39,6 @@ let success_story = Success_story.render
 let tutorial = Tutorial.render
 let workshop = Workshop.render
 let outreachy = Outreachy.render
+let governance ~teams = Governance.render ~teams
+let governance_team team = Governance_team.render team
+let logos = Logos.render

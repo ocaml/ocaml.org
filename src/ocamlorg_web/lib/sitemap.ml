@@ -19,6 +19,7 @@ let urls =
     Url.jobs;
     Url.carbon_footprint;
     Url.privacy_policy;
+    Url.governance_policy;
     Url.governance;
     Url.code_of_conduct;
     Url.playground;

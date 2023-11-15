@@ -51,13 +51,15 @@ let page_routes t =
       Dream.get Url.carbon_footprint Handler.carbon_footprint;
       Dream.get Url.privacy_policy Handler.privacy_policy;
       Dream.get Url.governance Handler.governance;
-      Dream.get Url.code_of_conduct Handler.code_of_conduct;
+      Dream.get (Url.governance_team ":id") Handler.governance_team;
+      Dream.get Url.governance_policy Handler.governance_policy;
       Dream.get Url.papers Handler.papers;
       Dream.get Url.exercises Handler.exercises;
       Dream.get (Url.tutorial "is-ocaml-web-yet") (Handler.is_ocaml_yet t "web");
       Dream.get (Url.tutorial ":id") Handler.tutorial;
       Dream.get Url.playground Handler.playground;
       Dream.get Url.installer Handler.installer;
+      Dream.get Url.logos Handler.logos;
     ]
 
 let package_route t =

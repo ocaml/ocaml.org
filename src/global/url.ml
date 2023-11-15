@@ -59,9 +59,11 @@ let blog_post source v = "/blog/" ^ source ^ "/" ^ v
 let news = "/news"
 let news_post v = "/news/" ^ v
 let jobs = "/jobs"
+let governance = "/governance"
+let governance_team id = "/governance/" ^ id
 let carbon_footprint = "/policies/carbon-footprint"
 let privacy_policy = "/policies/privacy-policy"
-let governance = "/policies/governance"
+let governance_policy = "/policies/governance"
 let code_of_conduct = "/policies/code-of-conduct"
 let playground = "/play"
 let papers = "/papers"
@@ -78,6 +80,7 @@ let installing_ocaml = "/docs/installing-ocaml"
 let exercises = "/exercises"
 let installer = "/install-platform.sh"
 let outreachy = "/outreachy"
+let logos = "/logo"
 
 let github_installer =
   "https://github.com/tarides/ocaml-platform-installer/releases/latest/download/installer.sh"

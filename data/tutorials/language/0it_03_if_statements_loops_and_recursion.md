@@ -3,7 +3,7 @@ id: if-statements-and-loops
 title: If Statements, Loops, and Recursions
 description: >
   Learn basic control-flow and recursion in OCaml
-category: "Language"
+category: "Introduction"
 ---
 
 # If Statements, Loops, and Recursions
