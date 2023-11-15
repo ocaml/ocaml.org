@@ -1,6 +1,6 @@
 ---
 id: imperative
-title: Mutability and Imperative Programming
+title: Imperative and Mutability
 description: >
   Writing stateful programs in OCaml, mixing imperative and functional style
 category: "Tutorials"
@@ -21,7 +21,7 @@ Side effects in parameters is bad because of parameter evaluation order not spec
 -->
 
 
-# Mutability and Imperative Programming
+# Imperative and Mutability
 
 ## Introduction
 
@@ -31,9 +31,8 @@ This document has two main teaching goals:
 
 In OCaml, you can write code in imperative style without compromising on type and memory safety. In the first part of this tutorial, imperative programming in OCaml is introduced.
 
-Imperative and functional programming have unique merits; OCaml allows to combine them for the better. See the second part of this tutorial for examples.
+Imperative and functional programming both have unique merits; OCaml allows combining them efficiently. See the second part of this tutorial for examples.
 
-FIXME: this sentence needs to be improved.
 Finally, we look at code examples written in imperative style and show corresponding examples in functional programming style.
 
 **Prerequisites**: This is an intermediate-level tutorial. You should have completed the [Basic Data Types](/docs/basic-data-types), [Values and Functions](/docs/values-and-functions) and [Lists](/docs/lists) tutorials.
@@ -44,7 +43,7 @@ A name-value binding created using the `let … = …` construct is [immutable](
 
 ### References
 
- However, there is a kind of value that can be updated, that is called a _reference_ in OCaml.
+However, there is a kind of value that can be updated, which is called a _reference_ in OCaml.
 ```ocaml
 # let a = ref 0;;
 val a : int ref = {contents = 0}
@@ -57,7 +56,7 @@ val a : int ref = {contents = 0}
 ```
 
 Here is what happens above:
-1. The value `{ contents = 0 }` is bound to the name `a`. This is a normal definition, like any other definition, it is immutable. However the value `0` inside `contents` can be updated.
+1. The value `{ contents = 0 }` is bound to the name `a`. This is a normal definition, like any other definition, it is immutable. However, the value `0` inside `contents` can be updated.
 3. The _assign_ operator `:=` is used to update the value inside `a` from 0 to 1.
 4. The _dereference_ operator `!` is used to read the content inside the value `a`.
 
@@ -84,27 +83,27 @@ The dereference operator is also a function. It takes a reference and returns it
 Refer to the [Operators](/docs/operators) tutorial for more information on how unary and binary operators work in OCaml.
 
 The way OCaml handles mutable data has the following characteristics:
-* It's impossible to create unintialized references.
+* It's impossible to create uninitialised references.
 * No confusion between mutable content and the reference is possible: They have different syntax and type.
 
 ### Mutable Fields
 
-#### Reference are Single Fields Records
+#### References Are Single Fields Records
 
 The value `{ contents = 0 }` of type `int ref` not only looks like a record: It is a record. Having a look at the way the `ref` type is defined is enlightening:
 ```ocaml
-#show ref;;
+# #show ref;;
 external ref : 'a -> 'a ref = "%makemutable"
 type 'a ref = { mutable contents : 'a; }
 ```
 
-Starting from the bottom, the `'a ref` type is a record with just a single field `contents` which is marked with the `mutable` key word. This means that the field can be updated.
+Starting from the bottom, the `'a ref` type is a record with just a single field `contents` which is marked with the `mutable` keyword. This means that the field can be updated.
 
-The `external ref : 'a -> 'a ref = "%makemutable"` means the function `ref` is not written in OCaml, but that is implementation detail we do not care about in this tutorial. If interested, check the [Calling C Libraries](/docs/calling-c-libraries) tutorial to learn how to use OCaml foreign function interface.
+The `external ref : 'a -> 'a ref = "%makemutable"` means the function `ref` is not written in OCaml, but that is an implementation detail we do not care about in this tutorial. If interested, check the [Calling C Libraries](/docs/calling-c-libraries) tutorial to learn how to use the foreign function interface.
 
 #### Any Record Can Have Mutable Fields
 
-Any field in a record can be tagged using the `mutable` key word.
+Any field in a record can be tagged using the `mutable` keyword.
 ```ocaml
 # type book = {
   series : string;
@@ -122,11 +121,10 @@ type book = {
 }
 ```
 
-For instance here is how a book store could track its book inventory:
+For instance here is how a bookshop could track its book inventory:
 * Fields `title`, `author`, `volume`, `series` are constants
 * Field `stock` is mutable because this value changes with each sale or when restocking
-
-Such a data base should have an entry like this:
+Such a database should have an entry like this:
 ```ocaml
 # let vol_7 = {
     series = "Murderbot Diaries";
@@ -140,7 +138,7 @@ val vol_7 : book =
    author = "Martha Wells"; stock = 0}
 ```
 
-When the book store receives a delivery of 7 of these books, here is how the data update can be done:
+When the bookshop receives a delivery of 7 of these books, here is how the data update can be done:
 ```ocaml
 # vol_7.stock <- vol_7.stock + 7;;
 - : unit = ()
@@ -174,7 +172,7 @@ The function `assign` does the same as the operator `( := )`, while the function
 
 #### Field Update _vs_ Record Copy
 
-In this section we compare two way to implement a C-like `getc` function. It waits until a key is pressed and returns the character corresponding without echoing it. This function will also be used later on in this tutorial.
+In this section, we compare two ways to implement a C-like `get_char` function. It waits until a key is pressed and returns the character corresponding without echoing it. This function will also be used later on in this tutorial.
 
 This is using two functions from the `Unix` module. Both are used to access terminal attributes associated with standard input:
 * `tcgetattr stdin TCSAFLUSH` read and return them as a record (this is similar to `deref`)
@@ -187,11 +185,11 @@ These attributes need to be tweaked in order to do the reading the way we want. 
 1. Restore the initial terminal attributes
 1. Return the read character
 
-Actual read is done using the `input_char` function from the standard library.
+The actual read is done using the `input_char` function from the standard library.
 
 Here is the first implementation:
 ```ocaml
-# let getc () =
+# let get_char () =
     let open Unix in
     let termio = tcgetattr stdin in
     let c_icanon, c_echo = termio.c_icanon, termio.c_echo in
@@ -203,27 +201,27 @@ Here is the first implementation:
     termio.c_echo <- c_echo;
     tcsetattr stdin TCSAFLUSH termio;
     c;;
-val getc : unit -> char = <fun>
+val get_char : unit -> char = <fun>
 ```
-In this implementation, update of the `termio` fields takes place twice.
+In this implementation, the update of the `termio` fields takes place twice.
 * Before `input_char`, both are set to `false`
 * After `input_char`, initial values are restored
 
 Here is the second implementation:
 ```ocaml
-# let getc () =
+# let get_char () =
     let open Unix in
     let termio = tcgetattr stdin in
     tcsetattr stdin TCSAFLUSH { termio with c_icanon = false; c_echo = false };
     let c = input_char (in_channel_of_descr stdin) in
     tcsetattr stdin TCSAFLUSH termio;
     c;;
-val getc : unit -> char = <fun>
+val get_char : unit -> char = <fun>
 ```
 
 In this implementation, the record returned by the call to `tcgetattr` isn't updated. A copy is made using `{ termio with c_icanon = false; c_echo = false }`. That copy only differs from the read `termio` value on fields `c_icanon` and `c_echo`, that's the meaning of `termio with …`
 
-That allows the second call to `tcsetattr` to restore terminal attributes back to their initial state.
+That allows the second call to `tcsetattr` to restore terminal attributes to their initial state.
 
 ### Arrays and Bytes Sequences
 
@@ -242,7 +240,7 @@ That allows the second call to `tcsetattr` to restore terminal attributes back t
 - : int = 9
 ```
 
-The update symbol `<-` used for fields is also used to update an arrays's cell content. The semantics of `a.(i)` work as field update:
+The update symbol `<-` used for fields is also used to update an array's cell content. The semantics of `a.(i)` work as field update:
 * When on the left of `<-`, it denotes which cell to update.
 * When on the right of `<-`, it denotes a cell's content.
 
@@ -271,7 +269,7 @@ Byte sequences can be seen in two equivalent ways
 
 ### For Loop
 
-In OCaml, a for loop is an expression.
+In OCaml, a for loop is an expression of type `unit`.
 ```ocaml
 # for i = 0 to Array.length a - 1 do Printf.printf "%i\n" a.(i) done;;
 9
@@ -284,7 +282,7 @@ In OCaml, a for loop is an expression.
 - : unit = ()
 ```
 
-For loop are convenient when iterating over arrays.
+For loops are convenient to iterate over arrays.
 ```ocaml
 # let sum = ref 0 in
   for i = 0 to Array.length a - 1 do sum := !sum + a.(i) done;
@@ -292,7 +290,13 @@ For loop are convenient when iterating over arrays.
 - : int = 42
 ```
 
-The body of a for loop should be an expression of type `unit`.
+**Note: Here is how to do the same thing using an iterator function:
+```ocaml
+# let sum = ref 0 in Array.iter (fun i -> sum := !sum + i) a; !sum;;
+- : int = 42
+```
+
+The body of a for loop must be an expression of type `unit`.
 ```ocaml
 # for i = Array.length a - 1 downto 0 do 0 done;;
 Line 1, characters 39-40:
@@ -300,7 +304,7 @@ Warning 10 [non-unit-statement]: this expression should have type unit.
 - : unit = ()
 ```
 
-The `downto` key word allows the counter to decrease during the loop.
+The `downto` keyword allows the counter to decrease during the loop.
 
 ### While Loop
 
@@ -323,14 +327,14 @@ There are no repeat loops in OCaml.
 
 There is no break instruction in OCaml. Throwing the `Exit` exception is the recommended way to exit immediately from a loop.
 
-This is requires using a `getc` function as defined in section [Field Update _vs_ Record Copy](#field-update-vs-record-copy).
+This requires using a `get_char` function as defined in [Field Update _vs_ Record Copy](#field-update-vs-record-copy) section.
 
 The following loop echoes characters typed on the keyboard, as long as they are different from `Escape`.
 ```ocaml
 # try
     print_endline "Press Escape to exit";
     while true do
-      let c = getc () in
+      let c = get_char () in
       if c = '\027' then raise Exit;
       print_char c;
       flush stdout
@@ -355,13 +359,53 @@ Here is a possible way to compute the sum of an array of integers.
 val sum : int array -> int = <fun>
 ```
 
-Function `sum` is written in the imperative style, using mutable data structures. That's an encapsulated implementation choice. That is just fine.
+Function `sum` is written in the imperative style, using mutable data structures. That's an encapsulated implementation choice. No mutability is exposed, That is just fine.
 
 ### Good: Application Wide State
 
-Some applications must maintain a state while they are running.  
+Some applications maintain a state while they are running. Here is a couple of examples:
+- A REPL, the state is the environment. In OCaml it is append-only, but some languages allow reset or removals.
+- A server for a stateful protocol. Each session has a state, the global state is the conjunction of all the session states.
+- A text editor. The state includes the commands (to allow undo), the settings, what is displayed and the file.
 
-### Good: Hash-Consing
+The following is a toy line editor, using the `get_char` function defined earlier. It waits for characters on standard input and exits on end-of-file, carriage return or newline. Otherwise, if the character is printable, it prints it and records it in a mutable list used as a stack. If the character is the delete code, the stack is popped and the last printed character is erased.
+```ocaml
+# let record_char state c =
+    (String.make 1 c, c :: state);;
+val record_char : char list -> char -> char list = <fun>
+
+# let remove_char state =
+    ("\b \b", if state = [] then [] else List.tl state);;
+val remove_char : 'a list -> 'a list = <fun>
+
+# let state_to_string state =
+    List.(state |> rev |> to_seq |> String.of_seq);;
+val state_to_string : char list -> string = <fun>
+
+# let rec loop state =
+    let c = get_char () in
+    if c = '\004' || c = '\n' || c = '\r' then raise Exit;
+    let s, new_state = match c with
+      | '\127' -> remove_char !state
+      | c when c >= ' ' -> record_char !state c
+      | _ -> ("", !state) in
+    print_string s;
+    state := new_state;
+    flush stdout;
+    loop state;;
+val loop : char list ref -> 'a = <fun>
+
+# let state = ref [] in try loop state with Exit -> state_to_string !state;;
+```
+
+This is not a production-grade code. However, it illustrates the following:
+- State handling functions `record_char` and `remove_char` don't update the state or produce side effects, they only produce data
+- I/O and state update side-effects are confined in the `loop` function
+- The state is passed as a parameter to the `loop` function
+
+This is the idea of a possible way to handle an application-wide state. As in the [Function Encapsulated Mutability](#good-function-encapsulated-mutability) state aware code is contained in a narrow scope, the rest of the code is functional.
+
+**Note**: Here, the state is copied, which is not memory efficient. In a memory savy implementation, state update functions would produce a data meant as way 
 
 ### Good: Prefer Side-Effect Free / Stateless Functions
 
@@ -383,9 +427,9 @@ TODO: include discussion on evaluation order, sides effects and monadic pipes
 
 ### Bad: Imperative by Default
 
-The imperative style shouldn't be the default, it shouldn't be used everywhere. Although it is possible to use the imperative style without loosing the benefits of type and memory safety, it doesn't make sense to only use it. Not using functional programming idioms would result in an contrived and obfuscated style.
+The imperative style shouldn't be the default, it shouldn't be used everywhere. Although it is possible to use the imperative style without losing the benefits of type and memory safety, it doesn't make sense to only use it. Not using functional programming idioms would result in a contrived and obfuscated style.
 
-Additionally, many modules are meant to be used in a functional manner. Some would require development and maintenance of [wrapper libraries](https://en.wikipedia.org/wiki/Wrapper_library) to be used in an imperative setting. That would be wasteful and brittle.
+Additionally, most modules provide an interface meant to be used in functional way. Some would require the development and maintenance of [wrapper libraries](https://en.wikipedia.org/wiki/Wrapper_library) to be used in an imperative setting. That would be wasteful and brittle.
 
 ### Bad: Side Effects in Arguments
 
@@ -398,9 +442,9 @@ val id_print : string -> string = <fun>
 wednesday tuesday monday val s : string = "monday tuesday wednesday "
 ```
 
-Functionally `id_print` is an identity function on `string`, it returns its input unchanged. However, it has a side effect: it prints each string in receives. Wrapping the parameters passed to `Printf.sprintf` into calls to `id_print` makes the side effects happen.
+Functionally `id_print` is an identity function on `string`, it returns its input unchanged. However, it has a side effect: it prints each string it receives. Wrapping the parameters passed to `Printf.sprintf` into calls to `id_print` makes the side effects happen.
 
-The order in which the `id_ print` side effects takes place is unreliable. Parameters are evaluated from right to left, but this not part of the definition of the OCaml language, it turns out this the way the compiler is implemented, but it could change.
+The order in which the `id_ print` side effects take place is unreliable. Parameters are evaluated from right to left, but this is not part of the definition of the OCaml language, this way the compiler is implemented, but it could change.
 
 There are several means to make sure computation takes place in a specified order.
 
@@ -412,7 +456,7 @@ hu
 - : unit = ()
 ```
 
-Use a `let`
+Use a `let` construction:
 ```ocaml
 # let () = print_endline "ha" in print_endline "hu";;
 ha
@@ -430,7 +474,7 @@ hu
 
 ### Fast Loops: Tail Recursion
 
-When function is making too many recursive calls, the `Stack_overflow` exception will be raised.
+When a function is making too many recursive calls, the `Stack_overflow` exception will be raised.
 ```ocaml
 # let rec naive_length = function [] -> 0 | _ :: u -> 1 + naive_length u;;
 val naive_length : 'a list -> int = <fun>
@@ -442,7 +486,7 @@ val naive_length : 'a list -> int = <fun>
 Stack overflow during evaluation (looping recursion?).
 ```
 
-If a million element list is not enough, use a billion.
+If a million-element list is not enough, use a billion.
 
 However, in some circumstances, it is possible to avoid this issue by using a [_tail recursive_](https://en.wikipedia.org/wiki/Tail_call) function. Here is how list length can be implemented using this technique
 ```ocaml
@@ -454,9 +498,9 @@ However, in some circumstances, it is possible to avoid this issue by using a [_
 - : int = 1000000
 ```
 
-This is how List.length is [implemented in the standard library](https://github.com/ocaml/ocaml/blob/trunk/stdlib/list.ml).
+This is how `List.length`` is [implemented](https://github.com/ocaml/ocaml/blob/trunk/stdlib/list.ml) in the standard library.
 
-In the `naive_length` function, the addition is performed after returning from the recursive call. To do that in that order, all recursive calls must be recorded. This is the role of [_call stack_](https://en.wikipedia.org/wiki/Call_stackcall). Each recursive call pushes a _stack frame_ on the call stack. When the call stack become too large, the stack overflow exception is raised.
+In the `naive_length` function, the addition is performed after returning from the recursive call. To do that in that order, all recursive calls must be recorded. This is the role of the [call stack](https://en.wikipedia.org/wiki/Call_stackcall). Each recursive call pushes a _stack frame_ on the call stack. When the call stack becomes too large, the stack overflow exception is raised.
 
 In the `length` function, the addition is performed before the recursive call. In that order, there is nothing to do after the recursive call, which renders the call stack useless. The OCaml compiler detects such functions and generates code which is not using a call stack. This code is smaller, faster and likely to consume less memory.
 
@@ -471,7 +515,9 @@ val length : 'a list -> int = <fun>
 
 ### Accumulators: Continuation Passing Style
 
-The tail call elimination technique can't be applied on variant types that have constructors with several recursive occurrences.
+**Note**: This is an advanced technique, skip that section if you don't need it.
+
+The tail call elimination technique can't be applied to variant types that have constructors with several recursive occurrences.
 ```ocaml
 # type 'a btree = Leaf | Root of 'a * 'a btree * 'a btree;;
 
@@ -484,7 +530,11 @@ Since a binary tree has two subtrees, when computing its height, two recursive c
 
 Creating a tall enough tree triggers a stack overflow.
 ```ocaml
-# let rec left_comb comb n = if n = 0 then comb else left_comb (Root ((), comb, Leaf)) (n - 1);;
+# let rec left_comb acc n =
+    if n = 0 then
+      acc
+    else
+      left_comb (Root ((), acc, Leaf)) (n - 1);;
 val left_comb : int -> unit btree = <fun>
 
 # let left_comb = left_comb Leaf;;
@@ -496,7 +546,7 @@ val left_comb : int -> unit btree = <fun>
 Stack overflow during evaluation (looping recursion?).
 ```
 
-The way to work around this situation is to use [Continuation-passing Style](https://en.wikipedia.org/wiki/Continuation-passing_style). Here is how it looks like to compute the height of a `btree`.
+The way to work around this situation is to use [Continuation-passing Style](https://en.wikipedia.org/wiki/Continuation-passing_style). Here is what it looks like to compute the height of a `btree`.
 ```ocaml
 # let ( let* ) f x = f x;;
 val ( let* ) : ('a -> 'b) -> 'a -> 'b = <fun>
@@ -519,11 +569,11 @@ val height : 'a btree -> int = <fun>
 In the `length` function, the already computed length accumulates in each call. Here, what is accumulated is no longer an integer, it is a function. Such a function is called a _continuation_, that's the `k` parameter in `height_cps`. At any time, the continuation represents what needs to be done after processing the data at hand:
 * If it's a `Leaf`, there's nothing to do but proceed with what's left to do, the continuation `k` is called with the hight of `Leaf` which is zero.
 * If it's a `Root`, there are two subtrees: `l_tree` on the left, `r_tree` on the right.
-  * Make the recursive call on `l_tree` and a continuation function taking the result of that call `l_hgt` as input. This is making sense because the continuation will be evaluated after the recursive call.
-  * That continuation makes the recursive call on `r_tree` and another continuation taking the result that call second call `r_hgt` as input
+  * Make the recursive call on `l_tree` and a continuation function taking the result of that call `l_hgt` as input. This makes sense because the continuation will be evaluated after the recursive call.
+  * That continuation makes the recursive call on `r_tree` and another continuation that takes the result that second call `r_hgt` as input
   * The second continuation picks the tallest height, increments it, and passes it to the received continuation `k`
 
-Don't freak out. Continuations are hard. Here is a translation of the above definition without custom binders, it may help understanding differently.
+Don't freak out. Continuations are hard to grasp. Here is a translation of the above definition without custom binders, it may help to understand differently.
 ```ocaml
 # let rec height_cps' t k = match t with
     | Leaf -> k 0
@@ -532,10 +582,11 @@ Don't freak out. Continuations are hard. Here is a translation of the above defi
           let r_k r_hgt =
             k (1 + max l_hgt r_hgt) in
           height_cps' r_tree r_k in
-        height_cps' l_tree l_k
+        height_cps' l_tree l_k    clear_line !state;
+
 ```
 
-Alternatively, large language model chatbots do a fair job at explaining that kind of code, you can have a try.
+Alternatively, large language model chatbots do a fair job explaining that kind of code, you can have a try.
 
 ### Asynchronous Processing
 
@@ -543,7 +594,7 @@ TODO: Mention concurrency
 
 ## Conclusion
 
-Handling mutable state isn't good or bad. In the cases where it is needed, OCaml provides fine tools to handle them. Many courses and books on programming and algorithmic are written in imperative style without stronger reasons thane being the dominant style. Many techniques can be translated into functional style without loss in speed or increased memory consumption. Careful inspection of many efficient programming techniques or good practices show they turn out to be functional programming in essense, made working the in imperative setting by hook or by crook. In OCaml, it is possible to express things in their true essence and it is preferable Monadsto do so.
+Handling mutable state isn't good or bad. In the cases where it is needed, OCaml provides fine tools to handle them. Many courses and books on programming and algorithmic are written in imperative style without stronger reasons than being the dominant style. Many techniques can be translated into functional style without loss in speed or increased memory consumption. Careful inspection of many efficient programming techniques or good practices shows in essence, they are functional, made working the imperative setting by hook or by crook. In OCaml, it is possible to express things in their true nature and it is preferable to do so.
 
 ## References
 
@@ -552,4 +603,4 @@ Handling mutable state isn't good or bad. In the cases where it is needed, OCaml
 * https://medium.com/neat-tips-tricks/ocaml-continuation-explained-3b73839b679f
 * https://discuss.ocaml.org/t/what-is-the-use-of-continuation-passing-style-cps/4491/7
 * https://www.pathsensitive.com/2019/07/the-best-refactoring-youve-never-heard.html
-* https://link.springer.com/chapter/10.1007/11783596_2
+* https://link.springer.com/chapter/10.1007/11783596_2    clear_line !state;
