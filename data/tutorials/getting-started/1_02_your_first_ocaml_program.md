@@ -361,7 +361,8 @@ My name is Minimo
 This tutorial is the last of the "Getting Started" series. Moving forward, you have enough to pick and choose among the other tutorials to follow your own learning path.
 
 Recommended next tutorials:
-1. [Data Types and Matching](/docs/data-types)
+1. [Values and Functions](/docs/values-and-functions)
+1. [Basic Data Types and Pattern Matching](/docs/basic-data-types)
 1. [If Statements, Loops, and Recursions](/docs/if-statements-and-loops)
 1. [Lists](/docs/lists)
 

@@ -36,10 +36,10 @@ Learn_layout.single_column_layout
     <%s! Learn_components.right_tutorial_block ~title:"LANGUAGE" ~heading:"The OCaml Language" 
         ~description:"An in-depth explanation of language features and data structures from the Standard Library" 
         ~tutorial_links:[
-            {href = Url.tutorial "data-types"; title = "Data Types and Matching"};
+            {href = Url.tutorial "values-and-functions"; title = "Values and Functions"};
+            {href = Url.tutorial "basic-data-types"; title = "Basic Data Types and Pattern Matching"};
             {href = Url.tutorial "lists"; title = "Lists"};
             {href = Url.tutorial "if-statements-and-loops"; title = "If Statements, Loops, and Recursions"};
-            {href = Url.tutorial "modules"; title = "Modules"}
         ]
         ~see_more:{href = Url.learn_language; title = "See More Language Tutorials"}
         "bg-[#0E2A49]"
