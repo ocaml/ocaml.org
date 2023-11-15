@@ -1,17 +1,21 @@
 ---
-jupytext:
-  cell_metadata_filter: -all
-  formats: md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.10.3
-kernelspec:
-  display_name: OCaml
-  language: OCaml
-  name: ocaml-jupyter
+id: monads
+title: Monads
+description: >
+  Monads, adapted from OCaml Programming: Correct + Efficient + Beautiful
+category: "Data Structures"
+external_tutorial:
+  tag: "CS3110"
+  banner:
+    image: "tutorials/cs3110_banner.png"
+    url: https://cs3110.github.io/textbook/cover.html
+    alt: "Ocaml Programming: Correct + Efficient + Beautiful"
+  contribute_link:
+    url: https://github.com/cs3110/textbook/blob/main/src/chapters/ds/monads.md
+    description: "You are encouraged to contribute to the original sources of this page at the CS3110 GitHub repository."
 ---
+
+This is an excerpt of the page ["Monads"](https://cs3110.github.io/textbook/chapters/ds/monads.html) from the book [OCaml Programming: Correct + Efficient + Beautiful](https://cs3110.github.io/textbook/cover.html), reproduced here with permission.
 
 # Monads
 
@@ -46,8 +50,7 @@ a controlled order.
 For our purposes, a monad is a structure that satisfies two properties. First,
 it must match the following signature:
 
-```{code-cell} ocaml
-:tags: ["hide-output"]
+```ocaml
 module type Monad = sig
   type 'a t
   val return : 'a -> 'a t
@@ -91,8 +94,7 @@ printing happens in the correct order.
 The usual notation for `bind` is as an infix operator written `>>=` and still
 pronounced "bind". So let's revise our signature for monads:
 
-```{code-cell} ocaml
-:tags: ["hide-output"]
+```ocaml
 module type Monad = sig
   type 'a t
   val return : 'a -> 'a t
@@ -136,13 +138,12 @@ division to be an option, you lose that *compositionality*.
 
 Here's some code to make that idea concrete:
 
-```{code-cell} ocaml
+```ocaml
 (* works fine *)
 let x = 1 + (4 / 2)
 ```
 
-```{code-cell} ocaml
-:tags: ["raises-exception"]
+```ocaml
 let div (x:int) (y:int) : int option =
   if y = 0 then None else Some (x / y)
 
@@ -159,8 +160,7 @@ operator returns a value of type `int option`.
 One possibility would be to re-code all the existing operators to
 accept `int option` as input.  For example,
 
-```{code-cell} ocaml
-:tags: ["hide-output"]
+```ocaml
 let plus_opt (x:int option) (y:int option) : int option =
   match x,y with
   | None, _ | _, None -> None
@@ -191,7 +191,7 @@ let div_opt (x:int option) (y:int option) : int option =
 let ( / ) = div_opt
 ```
 
-```{code-cell} ocaml
+```ocaml
 (* does type check *)
 let x = Some 1 + (Some 4 / Some 2)
 ```
@@ -201,7 +201,7 @@ Abstraction Principle and deduplicate. Three of the four operators can be
 handled by abstracting a function that just does some pattern matching to
 propagate `None`:
 
-```{code-cell} ocaml
+```ocaml
 let propagate_none (op : int -> int -> int) (x : int option) (y : int option) =
   match x, y with
   | None, _ | _, None -> None
@@ -221,7 +221,7 @@ type of `div` makes that impossible.
 So, let's rewrite `propagate_none` to accept an operator of the same type as
 `div`, which makes it easy to implement division:
 
-```{code-cell} ocaml
+```ocaml
 let propagate_none
   (op : int -> int -> int option) (x : int option) (y : int option)
 =
@@ -236,7 +236,7 @@ Implementing the other three operations requires a little more work, because
 their return type is `int` not `int option`. We need to wrap their return value
 with `Some`:
 
-```{code-cell} ocaml
+```ocaml
 let wrap_output (op : int -> int -> int) (x : int) (y : int) : int option =
   Some (op x y)
 
@@ -247,7 +247,7 @@ let ( * ) = propagate_none (wrap_output Stdlib.( * ))
 
 Finally, we could re-implement `div` to use `wrap_output`:
 
-```{code-cell} ocaml
+```ocaml
 let div (x : int) (y : int) : int option =
   if y = 0 then None else wrap_output Stdlib.( / ) x y
 
@@ -269,7 +269,7 @@ The first (which admittedly seems trivial) was upgrading a value from `int` to
 does. We could expose that idea even more clearly by defining the following
 function:
 
-```{code-cell} ocaml
+```ocaml
 let return (x : int) : int option = Some x
 ```
 This function has the *trivial effect* of putting a value into the metaphorical
@@ -280,7 +280,7 @@ against `None`. We had to upgrade functions whose inputs were of type `int` to
 instead accept inputs of type `int option`. Here's that idea expressed as its
 own function:
 
-```{code-cell} ocaml
+```ocaml
 let bind (x : int option) (op : int -> int option) : int option =
   match x with
   | None -> None
@@ -294,7 +294,7 @@ from a function that accepts an `int` as input to a function that accepts an
 `int option` as input. In fact, we could even write a function that does that
 upgrading for us using `bind`:
 
-```{code-cell} ocaml
+```ocaml
 let upgrade : (int -> int option) -> (int option -> int option) =
   fun (op : int -> int option) (x : int option) -> (x >>= op)
 ```
@@ -302,14 +302,14 @@ let upgrade : (int -> int option) -> (int option -> int option) =
 All those type annotations are intended to help the reader understand
 the function.  Of course, it could be written much more simply as:
 
-```{code-cell} ocaml
+```ocaml
 let upgrade op x = x >>= op
 ```
 
 Using just the `return` and `>>=` functions, we could re-implement the
 arithmetic operations from above:
 
-```{code-cell} ocaml
+```ocaml
 let ( + ) (x : int option) (y : int option) : int option =
   x >>= fun a ->
   y >>= fun b ->
@@ -341,7 +341,7 @@ should be parsed by your eye as
 Of course, there's still a fair amount of duplication going on there. We can
 de-duplicate by using the same techniques as we did before:
 
-```{code-cell} ocaml
+```ocaml
 let upgrade_binary op x y =
   x >>= fun a ->
   y >>= fun b ->
@@ -364,7 +364,7 @@ represent multiple kinds of errors rather than just collapse them all to
 
 Here's an implementation of the monad signature for the maybe monad:
 
-```{code-cell} ocaml
+```ocaml
 module Maybe : Monad = struct
   type 'a t = 'a option
 
@@ -395,7 +395,7 @@ operator) is easier to read and easier to maintain.
 Now that we're done playing with integer operators, we should restore
 their original meaning for the rest of this file:
 
-```{code-cell} ocaml
+```ocaml
 let ( + ) = Stdlib.( + )
 let ( - ) = Stdlib.( - )
 let ( * ) = Stdlib.( * )
@@ -411,7 +411,7 @@ would be helpful.
 Imagine that we had two functions we wanted to debug, both of type `int -> int`.
 For example:
 
-```{code-cell} ocaml
+```ocaml
 let inc x = x + 1
 let dec x = x - 1
 ```
@@ -424,7 +424,7 @@ One way to keep a log of function calls would be to augment each function to
 return a pair: the integer value the function would normally return, as well as
 a string containing a log message. For example:
 
-```{code-cell} ocaml
+```ocaml
 let inc_log x = (x + 1, Printf.sprintf "Called inc on %i; " x)
 let dec_log x = (x - 1, Printf.sprintf "Called dec on %i; " x)
 ```
@@ -432,19 +432,19 @@ let dec_log x = (x - 1, Printf.sprintf "Called dec on %i; " x)
 But that changes the return type of both functions, which makes it hard to
 *compose* the functions. Previously, we could have written code such as
 
-```{code-cell} ocaml
+```ocaml
 let id x = dec (inc x)
 ```
 
 or even better
 
-```{code-cell} ocaml
+```ocaml
 let id x = x |> inc |> dec
 ```
 
 or even better still, using the *composition operator* `>>`,
 
-```{code-cell} ocaml
+```ocaml
 let ( >> ) f g x = x |> f |> g
 let id = inc >> dec
 ```
@@ -452,8 +452,7 @@ let id = inc >> dec
 and that would have worked just fine. But trying to do the same thing with the
 loggable versions of the functions produces a type-checking error:
 
-```{code-cell} ocaml
-:tags: ["raises-exception"]
+```ocaml
 let id = inc_log >> dec_log
 ```
 
@@ -463,7 +462,7 @@ integer as input.
 We could code up an upgraded version of `dec_log` that is able to take a pair as
 input:
 
-```{code-cell} ocaml
+```ocaml
 let dec_log_upgraded (x, s) =
   (x - 1, Printf.sprintf "%s; Called dec on %i; " s x)
 
@@ -474,7 +473,7 @@ That works fine, but we also will need to code up a similar upgraded version of
 `f_log` if we ever want to call them in reverse order, e.g.,
 `let id = dec_log >> inc_log`. So we have to write:
 
-```{code-cell} ocaml
+```ocaml
 let inc_log_upgraded (x, s) =
   (x + 1, Printf.sprintf "%s; Called inc on %i; " s x)
 
@@ -490,14 +489,14 @@ make loggable, the worse this duplication is going to become!
 So, let's start over, and factor out a couple helper functions. The first helper
 calls a function and produces a log message:
 
-```{code-cell} ocaml
+```ocaml
 let log (name : string) (f : int -> int) : int -> int * string =
   fun x -> (f x, Printf.sprintf "Called %s on %i; " name x)
 ```
 The second helper produces a logging function of type
 `'a * string -> 'b * string` out of a non-loggable function:
 
-```{code-cell} ocaml
+```ocaml
 let loggable (name : string) (f : int -> int) : int * string -> int * string =
   fun (x, s1) ->
     let (y, s2) = log name f x in
@@ -508,7 +507,7 @@ Using those helpers, we can implement the logging versions of our functions
 without any duplication of code involving pairs or pattern matching or string
 concatenation:
 
-```{code-cell} ocaml
+```ocaml
 let inc' : int * string -> int * string =
   loggable "inc" inc
 
@@ -521,7 +520,7 @@ let id' : int * string -> int * string =
 
 Here's an example usage:
 
-```{code-cell} ocaml
+```ocaml
 id' (5, "")
 ```
 
@@ -529,7 +528,7 @@ Notice how it's inconvenient to call our loggable functions on integers, since
 we have to pair the integer with a string. So let's write one more function to
 help with that by pairing an integer with the *empty* log:
 
-```{code-cell} ocaml
+```ocaml
 let e x = (x, "")
 ```
 
@@ -547,7 +546,7 @@ the monad operations of `return` and `bind`.
 The first was upgrading a value from `int` to `int * string` by pairing it with
 the empty string. That's what `e` does. We could rename it `return`:
 
-```{code-cell} ocaml
+```ocaml
 let return (x : int) : int * string = (x, "")
 ```
 This function has the *trivial effect* of putting a value into the metaphorical
@@ -556,7 +555,7 @@ box along with the empty log message.
 The second idea was factoring out code to handle pattern matching against pairs
 and string concatenation. Here's that idea expressed as its own function:
 
-```{code-cell} ocaml
+```ocaml
 let ( >>= ) (m : int * string) (f : int -> int * string) : int * string =
   let (x, s1) = m in
   let (y, s2) = f x in
@@ -566,7 +565,7 @@ let ( >>= ) (m : int * string) (f : int -> int * string) : int * string =
 Using `>>=`, we can re-implement `loggable`, such that no pairs
 or pattern matching are ever used in its body:
 
-```{code-cell} ocaml
+```ocaml
 let loggable (name : string) (f : int -> int) : int * string -> int * string =
   fun m ->
     m >>= fun x ->
@@ -577,7 +576,7 @@ let loggable (name : string) (f : int -> int) : int * string -> int * string =
 monad* (as in, "additionally writing to a log or string"). Here's an
 implementation of the monad signature for it:
 
-```{code-cell} ocaml
+```ocaml
 module Writer : Monad = struct
   type 'a t = 'a * string
 
@@ -708,7 +707,7 @@ are just a bit more abstract hence harder to understand at first.
 Suppose that we have any monad, which as usual must have the following
 signature:
 
-```{code-cell} ocaml
+```ocaml
 module type Monad = sig
   type 'a t
   val return : 'a -> 'a t
@@ -776,7 +775,7 @@ the `'b` out of the result, apply `g` to it, and return that value.
 We can code up `compose` using `>>=`; we don't need to know anything more about
 the inner workings of the monad:
 
-```{code-cell} ocaml
+```ocaml
 let compose f g x =
   f x >>= fun y ->
   g y
@@ -790,7 +789,7 @@ As the last line suggests, `compose` can be expressed as infix operator written
 Returning to our example of the maybe monad with a safe division operator,
 imagine that we have increment and decrement functions:
 
-```{code-cell} ocaml
+```ocaml
 let inc (x : int) : int option = Some (x + 1)
 let dec (x : int) : int option = Some (x - 1)
 let ( >>= ) x op =
@@ -802,7 +801,7 @@ let ( >>= ) x op =
 The monadic compose operator would enable us to compose those two into
 an identity function without having to write any additional code:
 
-```{code-cell} ocaml
+```ocaml
 let ( >=> ) f g x =
   f x >>= fun y ->
   g y

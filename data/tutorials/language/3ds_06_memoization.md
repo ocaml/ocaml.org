@@ -1,29 +1,29 @@
 ---
-jupytext:
-  cell_metadata_filter: -all
-  formats: md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.10.3
-kernelspec:
-  display_name: OCaml
-  language: OCaml
-  name: ocaml-jupyter
+id: memoization
+title: Memoization
+description: >
+  Memoization, adapted from OCaml Programming: Correct + Efficient + Beautiful
+category: "Data Structures"
+external_tutorial:
+  tag: "CS3110"
+  banner:
+    image: "tutorials/cs3110_banner.png"
+    url: https://cs3110.github.io/textbook/cover.html
+    alt: "Ocaml Programming: Correct + Efficient + Beautiful"
+  contribute_link:
+    url: https://github.com/cs3110/textbook/blob/main/src/chapters/ds/memoization.md
+    description: "You are encouraged to contribute to the original sources of this page at the CS3110 GitHub repository."
 ---
 
 # Memoization
 
-In the previous section, we saw that the `Lazy` module memoizes the results of
-computations, so that no time has to be wasted on recomputing them. Memoization
-is a powerful technique for asymptotically speeding up simple recursive
-algorithms, without having to change the way the algorithm works.
+Memoization is a powerful technique for speeding up simple recursive
+algorithms, without having to change the way the algorithm works. This is done
+by "remembering" the results of a computation, so that previously computed results
+never have to be recomputed. We'll illustrate the principle using
+imperative data structures, e.g. arrays and hash tables.
 
-Let's see apply the Abstraction Principle and invent a way to memoize *any*
-function, so that the function only had to be evaluated once on any given input.
-We'll end up using imperative data structures (arrays and hash tables) as part
-of our solution.
+The following is an excerpt of the page ["Memoization"](https://cs3110.github.io/textbook/chapters/ds/memoization.html) from the book [OCaml Programming: Correct + Efficient + Beautiful](https://cs3110.github.io/textbook/cover.html), reproduced here with permission.
 
 ## Fibonacci
 
@@ -31,21 +31,22 @@ Let's again consider the problem of computing the nth Fibonacci number.
 The naive recursive implementation takes exponential time, because of the
 recomputation of the same Fibonacci numbers over and over again:
 
-```{code-cell} ocaml
+```ocaml
 let rec fib n = if n < 2 then 1 else fib (n - 1) + fib (n - 2)
 ```
 
-```{note}
-To be precise, its running time turns out to be $O(\phi^n)$, where $\phi$ is the
-golden ratio, $\frac{1 + \sqrt{5}}{2}$.
-```
+<div class="note">
+
+**Note:** To be precise, its running time turns out to be O(p&#8319;), where p is the
+golden ratio, (1 + &Sqrt;5)/2.
+</div>
 
 If we record Fibonacci numbers as they are computed, we can avoid this redundant
 work. The idea is that whenever we compute `f n`, we store it in a table indexed
 by `n`. In this case the indexing keys are integers, so we can use implement
 this table using an array:
 
-```{code-cell} ocaml
+```ocaml
 let fibm n =
   let memo : int option array = Array.make (n + 1) None in
   let rec f_mem n =
@@ -68,7 +69,7 @@ has already been computed and stored in the table in which case it simply
 returns the result.
 
 How do we analyze the running time of this function? The time spent in a single
-call to `f_mem` is $O(1)$ if we exclude the time spent in any recursive calls
+call to `f_mem` is O(1) if we exclude the time spent in any recursive calls
 that it happens to make. Now we look for a way to bound the total number of
 recursive calls by finding some measure of the progress that is being made.
 
@@ -77,10 +78,10 @@ memoization, is the number of nonempty entries in the table (i.e. entries that
 contain `Some n` rather than `None`). Each time `f_mem` makes the two recursive
 calls it also increases the number of nonempty entries by one (filling in a
 formerly empty entry in the table with a new value). Since the table has only
-`n` entries, there can thus only be a total of $O(n)$ calls to `f_mem`, for a
-total running time of $O(n)$ (because we established above that each call takes
-$O(1)$ time). This speedup from memoization thus reduces the running time from
-exponential to linear, a huge change---e.g., for $n=4$ the speedup from
+`n` entries, there can thus only be a total of O(`n`) calls to `f_mem`, for a
+total running time of O(`n`) (because we established above that each call takes
+O(1) time). This speedup from memoization thus reduces the running time from
+exponential to linear, a huge change---e.g., for `n`=4 the speedup from
 memoization is more than a factor of a million!
 
 The key to being able to apply memoization is that there are common sub-problems
@@ -101,7 +102,7 @@ that stores the corresponding value for each argument that `f` is called with
 (and to memoize multi-argument functions we can use currying and uncurrying to
 convert to a single argument function).
 
-```{code-cell} ocaml
+```ocaml
 let memo f =
   let h = Hashtbl.create 11 in
   fun x ->
@@ -116,7 +117,7 @@ For recursive functions, however, the recursive call structure needs to be
 modified. This can be abstracted out independent of the function that is being
 memoized:
 
-```{code-cell} ocaml
+```ocaml
 let memo_rec f =
   let h = Hashtbl.create 16 in
   let rec g x =
@@ -132,7 +133,7 @@ let memo_rec f =
 Now we can slightly rewrite the original `fib` function above using this general
 memoization technique:
 
-```{code-cell} ocaml
+```ocaml
 let fib_memo =
   let rec fib self n =
     if n < 2 then 1 else self (n - 1) + self (n - 2)
@@ -147,7 +148,7 @@ Each employee has an associated “fun value” and we want the set of invited
 employees to have a maximum total fun value. However, no employee is fun if his
 superior is invited, so we never invite two employees who are connected in the
 org chart. (The less fun name for this problem is the maximum weight independent
-set in a tree.) For an org chart with $n$ employees, there are $2^{n}$ possible 
+set in a tree.) For an org chart with `n` employees, there are 2&#8319; possible 
 invitation lists, so the naive algorithm that compares the fun of every valid 
 invitation list takes exponential time.
 
@@ -170,7 +171,7 @@ for the case where the root node is excluded. We'll call these two functions
 party_in and party_out. Then the result of party is just the maximum of these
 two functions:
 
-```{code-cell} ocaml
+```ocaml
 module Unmemoized = struct
   type tree =
     | Empty
@@ -195,13 +196,13 @@ module Unmemoized = struct
 end
 ```
 
-This code has exponential running time. But notice that there are only $n$
+This code has exponential running time. But notice that there are only `n`
 possible distinct calls to party. If we change the code to memoize the results
-of these calls, the performance will be linear in $n$. Here is a version that
+of these calls, the performance will be linear in `n`. Here is a version that
 memoizes the result of party and also computes the actual invitation lists.
 Notice that this code memoizes results directly in the tree.
 
-```{code-cell} ocaml
+```ocaml
 module Memoized = struct
   (* This version memoizes the optimal fun value for each tree node. It
      also remembers the best invite list. Each tree node has the name of
@@ -301,7 +302,7 @@ example
 
 The TeX formatting program does a good job of keeping line widths similar by
 finding the formatting that minimizes the sum of the cube of the leftover space
-in each line (except for the last). However, for $n$ words, there are
+in each line (except for the last). However, for `n` words, there are
 $\Omega(2^n)$ possible formattings, so the algorithm can't possibly check them
 all for large text inputs. Remarkably, we can use memoization to find the
 optimal formatting efficiently. In fact, memoization is useful for many
@@ -310,7 +311,7 @@ optimization problems.
 We start by writing a simple recursive algorithm to walk down the list and try
 either inserting a line break after each word, or not inserting a linebreak:
 
-```{code-cell} ocaml
+```ocaml
 (** Result of formatting a string. A result [(lst, n)] means a string
     was formatted into the lines in [lst], with a total sum-of-cubes
     cost of [n]. Invariant: the list is never empty. *)
