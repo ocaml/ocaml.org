@@ -1,3 +1,23 @@
+---
+id: compiler-backend
+title: Compiler Backend
+description: >
+  The Compiler Backend, excerpt from Real World OCaml
+category: "Runtime & Compiler"
+external_tutorial:
+  tag: "RWO"
+  banner:
+    image: "tutorials/rwo_banner.png"
+    url: https://dev.realworldocaml.org/
+    alt: "Real World OCaml"
+  contribute_link:
+    url: https://github.com/realworldocaml/book/blob/master/book/compiler-backend/README.md
+    description: "You are encouraged to contribute to the original sources of this page at the Real World OCaml GitHub repository."
+---
+
+This is an adaptation of the chapter [The Compiler Backend: Bytecode and Native code](https://dev.realworldocaml.org/compiler-backend.html) from the book [Real World OCaml](https://dev.realworldocaml.org/), reproduced here with permission.
+
+
 # The Compiler Backend: Bytecode and Native code {#the-compiler-backend-byte-code-and-native-code}
 
 Once OCaml has passed the type checking stage, it can stop emitting syntax
@@ -19,14 +39,12 @@ The first code generation phase eliminates all the static type information
 into a simpler intermediate *lambda form*. The lambda form discards
 higher-level constructs such as modules and objects and replaces them with
 simpler values such as records and function pointers. Pattern matches are
-also analyzed and compiled into highly optimized automata.[lambda form
-code/basics of]{.idx}[compilation process/untyped lambda
-form]{.idx}
+also analyzed and compiled into highly optimized automata.
 
 The lambda form is the key stage that discards the OCaml type
 information and maps the source code to the runtime memory model
 described in [Memory Representation Of
-Values](runtime-memory-layout.html#memory-representation-of-values){data-type=xref}.
+Values](/docs/runtime-memory-layout#memory-representation-of-values){data-type=xref}.
 This stage also performs some optimizations, most notably converting
 pattern-match statements into more optimized but low-level statements.
 
@@ -36,8 +54,7 @@ The compiler dumps the lambda form in an s-expression syntax if you add the
 `-dlambda` directive to the command line.
 Let's use this to learn more about how the OCaml pattern-matching engine
 works by building three different pattern matches and comparing their lambda
-forms.[pattern matching/optimization in lambda form code]{.idx}[lambda form
-code/pattern matching optimization]{.idx}
+forms.
 
 Let's start by creating a straightforward exhaustive pattern match using four
 normal variants:
@@ -77,7 +94,7 @@ Despite these caveats, some interesting points emerge from reading it:
   are created via `setglobal`, and OCaml values are constructed by
   `makeblock`.  The blocks are the runtime values you should remember
   from [Memory Representation Of
-  Values](runtime-memory-layout.html#memory-representation-of-values){data-type=xref}.
+  Values](/docs/runtime-memory-layout#memory-representation-of-values){data-type=xref}.
 
 - The pattern match has turned into a switch case that jumps to the
   right case depending on the header tag of `v`. Recall that variants
@@ -143,14 +160,13 @@ $ ocamlc -dlambda -c pattern_polymorphic.ml 2>&1
     (makeblock 0 test/267)))
 ```
 
-We mentioned in [Variants](variants.html#variants){data-type=xref} that
+We mentioned in [Variants](https://dev.realworldocaml.org/variants.html#variants){data-type=xref} that
 pattern matching over polymorphic variants is slightly less efficient, and it
 should be clearer why this is the case now. Polymorphic variants have a
 runtime value that's calculated by hashing the variant name, and so the
 compiler can't use a jump table as it does for normal variants. Instead, it
 creates a decision tree that compares the hash values against the input
-variable in as few comparisons as possible. [pattern matching/fundamental
-algorithms in]{.idx}
+variable in as few comparisons as possible.
 
 Pattern matching is an important part of OCaml programming. You'll often
 encounter deeply nested pattern matches over complex data structures in real
@@ -173,9 +189,7 @@ matching is such an efficient language construct in OCaml.
 Let's benchmark these three pattern-matching techniques to quantify their
 runtime costs more accurately. The `Core_bench` module runs the tests
 thousands of times and also calculates statistical variance of the results.
-You'll need to `opam install core_bench` to get the library:[pattern
-matching/benchmarking of]{.idx}[lambda form code/pattern matching
-benchmarking]{.idx}
+You'll need to `opam install core_bench` to get the library:
 
 ```ocaml file=examples/back-end/bench_patterns/bench_patterns.ml
 open Core
@@ -285,10 +299,6 @@ After the lambda form has been generated, we are very close to having
 executable code. The OCaml toolchain branches into two separate compilers at
 this point. We'll describe the bytecode compiler first, which consists of two
 pieces:
-[OCaml toolchain/ocamlrun]{.idx}
-[OCaml toolchain/ocamlc]{.idx} <!-- TODO: bad index-->
-[bytecode compiler/tools used]{.idx}
-[compilation process/portable bytecode]{.idx}
 
 `ocamlc`
 : Compiles files into a bytecode that is a close mapping to the lambda form
@@ -302,8 +312,6 @@ straightforward, and this results in predictable (but slow) execution speed.
 
 The bytecode interpreter implements a stack-based virtual machine. The OCaml
 stack and an associated accumulator store values that consist of:
-[bytecode compiler/values stored by]{.idx}
-[values/stored by bytecode compiler]{.idx}
 
 long
 : Values that correspond to an OCaml `int` type
@@ -349,10 +357,10 @@ simple instructions that are executed serially by the interpreter.
 There are around 140 instructions in total, but most are just minor variants
 of commonly encountered operations (e.g., function application at a specific
 arity). You can find full details
-[online](http://cadmium.x9c.fr/distrib/caml-instructions.pdf). [bytecode
-compiler/instruction set for]{.idx}
+[online](http://cadmium.x9c.fr/distrib/caml-instructions.pdf).
 
-::: {data-type=note}
+<div class="note">
+
 #### Where Did the Bytecode Instruction Set Come From?
 
 The bytecode interpreter is much slower than compiled native code, but is
@@ -370,7 +378,7 @@ bytecode interpreter does.
 Understanding the reasoning behind the different implementations of the
 bytecode interpreter and the native compiler is a very useful exercise for
 any budding language hacker.
-:::
+</div>
 
 
 ### Compiling and Linking Bytecode
@@ -378,7 +386,7 @@ any budding language hacker.
 The `ocamlc` command compiles individual `ml` files into bytecode files that
 have a `cmo` extension. The compiled bytecode files are matched with the
 associated `cmi` interface, which contains the type signature exported to
-other compilation units. [bytecode compiler/compiling and linking code]{.idx}
+other compilation units.
 
 A typical OCaml library consists of multiple source files, and hence multiple
 `cmo` files that all need to be passed as command-line arguments to use the
@@ -424,7 +432,7 @@ library symbols when it executes the bytecode.
 
 You can also generate a complete standalone executable that bundles the
 `ocamlrun` interpreter with the bytecode in a single binary. This is known as
-a *custom runtime* mode and is built as follows: [custom runtime mode]{.idx}
+a *custom runtime* mode and is built as follows:
 
 ```
 $ ocamlc -a -o mylib.cma -custom a.cmo b.cmo -cclib -lmylib
@@ -453,7 +461,7 @@ file will generate a `prog.bc.exe` target:
 A consequence of using the bytecode compiler is that the final link phase
 must be performed by `ocamlc`. However, you might sometimes want to embed
 your OCaml code inside an existing C application. OCaml also supports this
-mode of operation via the `-output-obj` directive.[C object files]{.idx}
+mode of operation via the `-output-obj` directive.
 
 This mode causes `ocamlc` to output an object file containing the bytecode
 for the OCaml part of the program, as well as a `caml_startup` function. All
@@ -542,10 +550,7 @@ code goes through. It compiles the lambda form into fast native code
 executables, with cross-module inlining and additional optimization passes
 that the bytecode interpreter doesn't perform. Care is taken to ensure
 compatibility with the bytecode runtime, so the same code should run
-identically when compiled with either toolchain. [cmi files]{.idx}[files/cmi
-files]{.idx}[cmx files]{.idx}[files/cmx files]{.idx}[o files]{.idx}[files/o
-files]{.idx}[OCaml toolchain/ocamlopt]{.idx}[native-code compiler/benefits
-of]{.idx}[compilation process/fast native code]{.idx}
+identically when compiled with either toolchain.
 
 The `ocamlopt` command is the frontend to the native code compiler and has a
 very similar interface to `ocamlc`. It also accepts `ml` and `mli` files, but
@@ -576,7 +581,7 @@ slower binaries.
 The native code compiler generates assembly language that is then passed to
 the system assembler for compiling into object files. You can get `ocamlopt`
 to output the assembly by passing the `-S` flag to the compiler command
-line.[native-code compiler/inspecting assembly output]{.idx}
+line.
 
 The assembly code is highly architecture-specific, so the following
 discussion assumes an Intel or AMD 64-bit platform. We've generated the
@@ -590,10 +595,10 @@ picture of the code if you get lost in the more verbose assembly.
 #### The Impact of Polymorphic Comparison
 
 We warned you in [Maps And Hash
-Tables](maps-and-hashtables.html#maps-and-hash-tables){data-type=xref}
+Tables](https://dev.realworldocaml.org/maps-and-hashtables.html#maps-and-hash-tables){data-type=xref}
 that using polymorphic comparison is both convenient and
 perilous. Let's look at precisely what the difference is at the
-assembly language level now.[polymorphic comparisons]{.idx}
+assembly language level now.
 
 First let's create a comparison function where we've explicitly annotated the
 types, so the compiler knows that only integers are being compared:
@@ -687,7 +692,6 @@ effect on runtime performance. Notice that the rest of the implementation is
 no longer a simple register comparison. Instead, the arguments are pushed on
 the stack (the `%rsp` register), and a C function call is invoked by placing
 a pointer to `caml_greaterthan` in `%rax` and jumping to `caml_c_call`.
-[backtraces]{.idx}
 
 OCaml on x86_64 architectures caches the location of the minor heap in the
 `%r15` register since it's so frequently referenced in OCaml functions. The
@@ -749,7 +753,8 @@ codebases. However, if you're building numerical code that runs many
 iterations in a tight inner loop, it's worth manually peering at the produced
 assembly code to see if you can hand-optimize it.
 
-::: {data-type=note}
+<div class="note">
+
 #### Accessing Stdlib Modules from Within Core
 
 In the benchmark above comparing polymorphic and monomorphic
@@ -757,12 +762,11 @@ comparison, you may have noticed that we prepended the comparison
 functions with `Stdlib`.  This is because the Core module explicitly
 redefines the `>` and `<` and `=` operators to be specialized for
 operating over `int` types, as explained in [Maps and
-Hashtables](maps-and-hashtables.html#the-polymorphic-comparator){data-type=xref}.
+Hashtables](https://dev.realworldocaml.org/maps-and-hashtables.html#the-polymorphic-comparator){data-type=xref}.
 You can always recover any of the OCaml standard library functions by
 accessing them through the `Stdlib` module, as we did in our
 benchmark.
-
-:::
+</div>
 
 
 ### Debugging Native Code Binaries
@@ -770,8 +774,7 @@ benchmark.
 The native code compiler builds executables that can be debugged using
 conventional system debuggers such as GNU `gdb`. You need to compile your
 libraries with the `-g` option to add the debug information to the output,
-just as you need to with C compilers. [debugging/native code
-binaries]{.idx}[native-code compiler/debugging binaries]{.idx}
+just as you need to with C compilers.
 
 Extra debugging information is inserted into the output assembly when the
 library is compiled in debug mode. These include the CFI stubs you will have
@@ -783,8 +786,7 @@ noticed in the profiling output earlier (`.cfi_start_proc` and
 So how do you refer to OCaml functions in an interactive debugger like
 `gdb`? The first thing you need to know is how OCaml function names compile
 down to symbol names in the compiled object files, a procedure generally
-called *name mangling*.[gdb debugger]{.idx}[debugging/interactive
-debuggers]{.idx}[functions/name mangling of]{.idx}[name mangling]{.idx}
+called *name mangling*.
 
 Each OCaml source file is compiled into a native object file that must export
 a unique set of symbols to comply with the C binary interface. This means
@@ -813,7 +815,7 @@ source code to let-bind the anonymous function to a variable name.
 #### Interactive Breakpoints with the GNU Debugger
 
 Let's see name mangling in action with some interactive debugging using GNU
-`gdb`. [GNU debugger]{.idx}
+`gdb`.
 
 Let's write a mutually recursive function that selects alternating values
 from a list. This isn't tail-recursive, so our stack size will grow as we
@@ -950,8 +952,6 @@ The recording and analysis of where your application spends its execution
 time is known as *performance profiling*. OCaml native code binaries can be
 profiled just like any other C binary, by using the name mangling described
 earlier to map between OCaml variable names and the profiler output.
-[profiling]{.idx}[performance profiling]{.idx}[native-code
-compiler/performance profiling]{.idx}
 
 Most profiling tools benefit from having some instrumentation included in the
 binary. OCaml supports two such tools:
@@ -969,7 +969,7 @@ will work just fine with OCaml as long as the program is linked with the
 
 `gprof` produces an execution profile of an OCaml program by recording a call
 graph of which functions call one another, and recording the time these calls
-take during the program execution.[gprof code profiler]{.idx}
+take during the program execution.
 
 Getting precise information out of `gprof` requires passing the `-p` flag to
 the native code compiler when compiling *and* linking the binary. This
@@ -1026,9 +1026,10 @@ over half the execution time of the application.
 
 Perf has a growing collection of other commands that let you archive these
 runs and compare them against each other. You can read more on the
-[home page](http://perf.wiki.kernel.org). [frame pointers]{.idx}
+[home page](http://perf.wiki.kernel.org).
 
-::: {data-type=note}
+<div class="note">
+
 #### Using the Frame Pointer to Get More Accurate Traces
 
 Although Perf doesn't require adding in explicit probes to the binary, it
@@ -1055,8 +1056,7 @@ $ opam switch create 4.13+fp ocaml-variants.4.13.1+options ocaml-option-fp
 
 Using the frame pointer changes the OCaml calling convention, but opam takes
 care of recompiling all your libraries with the new interface.
-
-:::
+</div>
 
 
 ### Embedding Native Code in C
@@ -1065,8 +1065,6 @@ The native code compiler normally links a complete executable, but can also
 output a standalone native object file just as the bytecode compiler can.
 This object file has no further dependencies on OCaml except for the runtime
 library.
-[libasmrun.a library]{.idx}
-[native-code compiler/embedding code in C]{.idx} <!-- TODO: bad index   -->
 
 The native code runtime is a different library from the bytecode one, and is
 installed as `libasmrun.a` in the OCaml standard library directory.
@@ -1090,9 +1088,10 @@ references to OCaml code beyond the runtime library, just as with the
 bytecode runtime. Do remember that the link order of the libraries is
 significant in modern GNU toolchains (especially as used in Ubuntu 11.10 and
 later) that resolve symbols from left to right in a single
-pass.[debugging/activating debug runtime]{.idx}
+pass.
 
-::: {data-type=note}
+<div class="note">
+
 #### Activating the Debug Runtime
 
 Despite your best efforts, it is easy to introduce a bug into some
@@ -1105,7 +1104,7 @@ the C code.
 
 To use the debug library, just link your program with the
 `-runtime-variant d` flag:
-:::
+</div>
 
 ```sh dir=examples/back-end-embed,non-deterministic=output
 $ ocamlopt -runtime-variant d -verbose -o hello.native hello.ml
@@ -1128,8 +1127,6 @@ Hello OCaml World!
 
 We've seen how the compiler uses intermediate files to store various stages
 of the compilation toolchain. Here's a cheat sheet of all them in one place.
-[files/chart of file extensions]{.idx}[compilation process/file
-extensions]{.idx}
 
 - `.ml` are source files for compilation unit module implementations.
 - `.mli` are source files for compilation unit module interfaces. If

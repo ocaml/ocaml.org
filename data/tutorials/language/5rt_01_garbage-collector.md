@@ -1,8 +1,26 @@
+---
+id: garbage-collector
+title: Understanding the Garbage Collector
+description: >
+  Understanding the Garbage Collector, excerpt from Real World OCaml
+category: "Runtime & Compiler"
+external_tutorial:
+  tag: "RWO"
+  banner:
+    image: "tutorials/rwo_banner.png"
+    url: https://dev.realworldocaml.org/
+    alt: "Real World OCaml"
+  contribute_link:
+    url: https://github.com/realworldocaml/book/blob/master/book/garbage-collector/README.md
+    description: "You are encouraged to contribute to the original sources of this page at the Real World OCaml GitHub repository."
+---
+
+This is an adaptation of the chapter [Understanding the Garbage Collector](https://dev.realworldocaml.org/garbage-collector.html) from the book [Real World OCaml](https://dev.realworldocaml.org/), reproduced here with permission.
+
+
 # Understanding the Garbage Collector
 
-::: {text-align=right}
 *This chapter includes contributions from Stephen Weeks and Sadiq Jaffer.*
-:::
 
 We've described the runtime format of individual OCaml variables earlier, in
 [Memory Representation Of Values](runtime-memory-layout.html#memory-representation-of-values){data-type=xref}.
@@ -10,16 +28,13 @@ When you execute your program, OCaml manages the lifecycle of these variables
 by regularly scanning allocated values and freeing them when they're no
 longer needed. This in turn means that your applications don't need to
 manually implement memory management, and it greatly reduces the likelihood
-of memory leaks creeping into your code. [memory/memory management]{.idx}
+of memory leaks creeping into your code.
 
 The OCaml runtime is a C library that provides routines that can be called
 from running OCaml programs. The runtime manages a *heap*, which is a
 collection of memory regions that it obtains from the operating system. The
 runtime uses this memory to hold *heap blocks* that it fills up with OCaml
 values in response to allocation requests by the OCaml program.
-[values/allocation requests and]{.idx} <!-- TODO: bad index -->
-[heaps/heap blocks]{.idx}
-[heaps/definition of]{.idx}
 
 ## Mark and Sweep Garbage Collection
 
@@ -28,9 +43,7 @@ from the pool of allocated heap blocks, the runtime system invokes the
 garbage collector (GC). An OCaml program can't explicitly free a value when
 it is done with it. Instead, the GC regularly determines which values are
 *live* and which values are *dead*, i.e., no longer in use. Dead values are
-collected and their memory made available for reuse by the application. [mark
-and sweep garbage collection]{.idx}[garbage collection/mark and sweep
-collection]{.idx}
+collected and their memory made available for reuse by the application.
 
 The GC doesn't keep constant track of values as they are allocated and used.
 Instead, it regularly scans them by starting from a set of *root* values that
@@ -48,12 +61,11 @@ algorithm used by OCaml to perform this heap traversal is commonly known as
 The usual OCaml programming style involves allocating many small
 values that are used for a short period of time and then never
 accessed again. OCaml takes advantage of this fact to improve
-performance by using a *generational* GC. [generational garbage
-collection]{.idx}[garbage collection/generational]{.idx}
+performance by using a *generational* GC.
 
 A generational GC maintains separate memory regions to hold blocks based on
 how long the blocks have been live. OCaml's heap is split into two such
-regions: [heaps/regions of]{.idx}
+regions:
 
 - A small, fixed-size *minor heap* where most blocks are initially allocated
 
@@ -62,13 +74,14 @@ regions: [heaps/regions of]{.idx}
 A typical functional programming style means that young blocks tend to
 die young and old blocks tend to stay around for longer than young
 ones. This is often referred to as the *generational
-hypothesis*. [generational hypothesis]{.idx}
+hypothesis*.
 
 OCaml uses different memory layouts and garbage-collection algorithms for the
 major and minor heaps to account for this generational difference. We'll
 explain how they differ in more detail next.
 
-::: {data-type=note}
+<div class="note">
+
 #### The Gc Module and OCAMLRUNPARAM
 
 OCaml provides several mechanisms to query and alter the behavior of
@@ -76,8 +89,7 @@ the runtime system. The `Gc` module provides this functionality from
 within OCaml code, and we'll frequently refer to it in the rest of the
 chapter. As with several other standard library modules, Core alters
 the `Gc` interface from the standard OCaml library. We'll assume that
-you've opened `Core` in our explanations.  [OCAMLRUNPARAM]{.idx}[Gc
-module]{.idx}
+you've opened `Core` in our explanations.
 
 You can also control the behavior of OCaml programs by setting the
 `OCAMLRUNPARAM` environment variable before launching your application. This
@@ -85,17 +97,14 @@ lets you set GC parameters without recompiling, for example to benchmark the
 effects of different settings. The format of `OCAMLRUNPARAM` is documented in
 the
 [OCaml manual](https://ocaml.org/manual/runtime.html).
-
-:::
+</div>
 
 ## The Fast Minor Heap
 
 The minor heap is where most of your short-lived values are held. It consists
 of one contiguous chunk of virtual memory containing a sequence of OCaml
 blocks. If there is space, allocating a new block is a fast, constant-time
-operation that requires just a couple of CPU instructions. [heaps/minor
-heaps]{.idx}[minor heaps/garbage collection in]{.idx}[copying
-collection]{.idx}[garbage collection/of short-lived values]{.idx}
+operation that requires just a couple of CPU instructions.
 
 To garbage-collect the minor heap, OCaml uses *copying collection* to
 move all live blocks in the minor heap to the major heap. This takes
@@ -109,12 +118,9 @@ interruption.
 ### Allocating on the Minor Heap
 
 The minor heap is a contiguous chunk of virtual memory that is usually a few
-megabytes in size so that it can be scanned quickly. [minor heaps/allocating
-on]{.idx}
+megabytes in size so that it can be scanned quickly.
 
-\
-![](images/gc/minor_heap.png "Minor GC heap")
-\
+![](/media/tutorials/language/garbage-collector/minor_heap.png "Minor GC heap")
 
 The runtime stores the boundaries of the minor heap in two pointers that
 delimit the start and end of the heap region (`caml_young_start` and
@@ -153,9 +159,8 @@ them to be placed at the start of every function and the back edge of loops.
 The compiler includes a dataflow pass that removes all but the minimum set
 of points necessary to ensure these checks happen in a bounded amount of time.
 
-[minor heaps/setting size of]{.idx}
+<div class="note">
 
-::: {data-type=note}
 #### Setting the Size of the Minor Heap
 
 The default minor heap size in OCaml is normally 2 MB on 64-bit platforms,
@@ -183,7 +188,7 @@ Changing the GC size dynamically will trigger an immediate minor heap
 collection. Note that Core increases the default minor heap size from the
 standard OCaml installation quite significantly, and you'll want to reduce
 this if running in very memory-constrained environments.
-:::
+</div>
 
 ## The Long-Lived Major Heap
 
@@ -192,10 +197,7 @@ your program are stored. It consists of any number of noncontiguous chunks of
 virtual memory, each containing live blocks interspersed with regions of free
 memory. The runtime system maintains a free-list data structure that indexes
 all the free memory that it has allocated, and uses it to satisfy allocation
-requests for OCaml blocks. [garbage collection/mark and sweep
-collection]{.idx}[mark and sweep garbage collection]{.idx}[major
-heaps/garbage collection in]{.idx}[heaps/major heaps]{.idx}[garbage
-collection/of longer-lived values]{.idx}
+requests for OCaml blocks.
 
 The major heap is typically much larger than the minor heap and can scale to
 gigabytes in size. It is cleaned via a mark-and-sweep garbage collection
@@ -226,7 +228,6 @@ The major heap consists of a singly linked list of contiguous memory chunks
 sorted in increasing order of virtual address. Each chunk is a single memory
 region allocated via *malloc(3)* and consists of a header and data area which
 contains OCaml heap chunks. A heap chunk header contains:
-[malloc(3)]{.idx}[major heaps/allocating on]{.idx}
 
 - The *malloc*ed virtual address of the memory region containing the chunk
 
@@ -244,8 +245,7 @@ contains OCaml heap chunks. A heap chunk header contains:
 Each chunk's data area starts on a page boundary, and its size is a multiple
 of the page size (4 KB). It contains a contiguous sequence of heap blocks
 that can be as small as one or two 4 KB pages, but are usually allocated in 1
-MB chunks (or 512 KB on 32-bit architectures). [major heaps/controlling
-growth of]{.idx}
+MB chunks (or 512 KB on 32-bit architectures).
 
 #### Controlling the Major Heap Increment
 
@@ -281,14 +281,12 @@ The major heap does its best to manage memory allocation as efficiently as
 possible and relies on heap compaction to ensure that memory stays contiguous
 and unfragmented. The default allocation policy normally works fine for most
 applications, but it's worth bearing in mind that there are other options,
-too. [memory/major heap allocation strategies]{.idx}[major heaps/memory
-allocation strategies]{.idx}
+too.
 
 The free list of blocks is always checked first when allocating a new block
 in the major heap. The default free list search is called
 *best-fit allocation*, with alternatives *next-fit* and *first-fit* algorithms
 also available.
-[best-fit allocation]{.idx}[first-fit allocation]{.idx}[next-fit allocation]{.idx}
 
 #### Best-Fit Allocation
 
@@ -339,7 +337,6 @@ First-fit allocation focuses on reducing memory fragmentation (and hence the
 number of compactions), but at the expense of slower memory allocation. Every
 allocation scans the free list from the beginning for a suitable free chunk,
 instead of reusing the most recent heap chunk as the next-fit allocator does.
-[memory/reducing fragmentation of]{.idx}
 
 For some workloads that need more real-time behavior under load, the
 reduction in the frequency of heap compaction will outweigh the extra
@@ -365,7 +362,7 @@ and has to pause the main application while it's active. It therefore runs
 incrementally by marking the heap in *slices*. Each value in the heap has a
 2-bit *color* field in its header that is used to store information about
 whether the value has been marked so that the GC can resume easily between
-slices. [major heaps/marking and scanning]{.idx}
+slices.
 
 - Blue:  On the free list and not currently in use
 - White (during marking): Not reached yet, but possibly reachable
@@ -432,8 +429,7 @@ After a certain number of major GC cycles have completed, the heap may begin
 to be fragmented due to values being deallocated out of order from how they
 were allocated. This makes it harder for the GC to find a contiguous block of
 memory for fresh allocations, which in turn would require the heap to be
-grown unnecessarily. [memory/reducing fragmentation
-of]{.idx}[compaction]{.idx}[major heaps/heap compaction]{.idx}
+grown unnecessarily.
 
 The heap compaction cycle avoids this by relocating all the values in the
 major heap into a fresh heap that places them all contiguously in memory
@@ -441,7 +437,8 @@ again. A naive implementation of the algorithm would require extra memory to
 store the new heap, but OCaml performs the compaction in place within the
 existing heap.
 
-::: {data-type=note}
+<div class="note">
+
 #### Controlling Frequency of Compactions
 
 The `max_overhead` setting in the `Gc` module defines the connection between
@@ -451,7 +448,7 @@ A value of `0` triggers a compaction after every major garbage collection
 cycle, whereas the maximum value of `1000000` disables heap compaction
 completely. The default settings should be fine unless you have unusual
 allocation patterns that are causing a higher-than-usual rate of compactions:
-:::
+</div>
 
 ```ocaml env=tune
 # Gc.tune ~max_overhead:0 ();;
@@ -465,15 +462,12 @@ heap sweeps are much more frequent than major heap collections. In order to
 know which blocks in the minor heap are live, the collector must track which
 minor-heap blocks are directly pointed to by major-heap blocks. Without this
 information, each minor collection would also require scanning the much
-larger major heap. [pointers/intergenerational
-pointers]{.idx}[intergenerational pointers]{.idx}[major
-heaps/intergenerational pointers in]{.idx}
+larger major heap.
 
 OCaml maintains a set of such *intergenerational pointers* to avoid this
 dependency between a major and minor heap collection. The compiler introduces
 a write barrier to update this so-called *remembered set* whenever a
-major-heap block is modified to point at a minor-heap block. [write
-barriers]{.idx}[remembered sets]{.idx}
+major-heap block is modified to point at a minor-heap block.
 
 #### The Mutable Write Barrier
 
@@ -589,11 +583,10 @@ OCaml's automatic memory management guarantees that a value will eventually
 be freed when it's no longer in use, either via the GC sweeping it or the
 program terminating. It's sometimes useful to run extra code just before a
 value is freed by the GC, for example, to check that a file descriptor has
-been closed, or that a log message is recorded. [values/finalizer functions
-for]{.idx}[finalizers/in grabage collection]{.idx}[garbage
-collection/finalizer functions]{.idx}
+been closed, or that a log message is recorded.
 
-::: {data-type=note}
+<div class="note">
+
 #### What Values Can Be Finalized?
 
 Various values cannot have finalizers attached since they aren't
@@ -610,20 +603,20 @@ heap, and rejects most constant values. Compiler optimizations may also
 duplicate some immutable values such as floating-point values in arrays.
 These may be finalized while another duplicate copy is being used by the
 program.
-:::
+</div>
 
 Core provides a `Heap_block` module that dynamically checks if a given
 value is suitable for finalizing.  Core keeps the functions for
 registering finalizers in the `Core.Gc.Expert` module. Finalizers
 can run at any time in any thread, so they can be pretty hard to reason
-about in multi-threaded contexts. [heaps/Heap_block module]{.idx}
+about in multi-threaded contexts.
 Async, which we discussed in [Concurrent Programming with
 Async](concurrent-programming.html#concurrent-programming-with-async){data-type=xref},
 shadows the `Gc` module with its own module that contains a function,
 `Gc.add_finalizer`, which is concurrency-safe.  In particular,
 finalizers are scheduled in their own Async job, and care is taken by
 Async to capture exceptions and raise them to the appropriate monitor
-for error-handling.  [Async library/finalizers]{.idx}
+for error-handling.
 
 Let's explore this with a small example that finalizes values of
 different types, all of which are heap-allocated.

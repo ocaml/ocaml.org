@@ -1,33 +1,45 @@
+---
+id: memory-representation
+title: Memory Representation of Values
+description: >
+  Memory Representation of Values, excerpt from Real World OCaml
+category: "Runtime & Compiler"
+external_tutorial:
+  tag: "RWO"
+  banner:
+    image: "tutorials/rwo_banner.png"
+    url: https://dev.realworldocaml.org/
+    alt: "Real World OCaml"
+  contribute_link:
+    url: https://github.com/realworldocaml/book/blob/master/book/runtime-memory-layout/README.md
+    description: "You are encouraged to contribute to the original sources of this page at the Real World OCaml GitHub repository."
+---
+
+This is an adaptation of the chapter [Memory Representation of Values](https://dev.realworldocaml.org/runtime-memory-layout.html) from the book [Real World OCaml](https://dev.realworldocaml.org/), reproduced here with permission.
+
 # Memory Representation of Values
 
-The FFI interface we described in
-[Foreign Function Interface](foreign-function-interface.html#foreign-function-interface){data-type=xref}
-hides the precise details of how values are exchanged across C libraries and
-the OCaml runtime. There is a simple reason for this: using this interface
-directly is a delicate operation that requires understanding a few different
-moving parts before you can get it right. You first need to know the mapping
-between OCaml types and their runtime memory representation. You also need to
-ensure that your code is interfacing correctly with OCaml runtime's memory
-management. [runtime memory representation/importance of]{.idx}[values/memory
-representation of]{.idx}
+This document covers the precise mapping from OCaml types to runtime values
+and walks you through them via the toplevel. The internal runtime representation of OCaml
+values in memory is relevant
 
-However, knowledge of the OCaml internals is useful beyond just writing
-foreign function interfaces. As you build and maintain more complex OCaml
-applications, you'll need to interface with various external system tools
-that operate on compiled OCaml binaries. For example, profiling tools report
-output based on the runtime memory layout, and debuggers execute binaries
-without any knowledge of the static OCaml types. To use these tools
-effectively, you'll need to do some translation between the OCaml and C
-worlds. [interfaces/with OCaml binaries]{.idx}
+* when you want to interface with
+code written in other programming languages, e.g. C, Rust, and others,
+* when using various external system tools that operate on OCaml binaries,
+such as profiling tools and debuggers
 
-Luckily, the OCaml toolchain is very predictable. The compiler minimizes the
+The OCaml toolchain is very predictable. The compiler minimizes the
 amount of optimization magic that it performs, and relies instead on its
 straightforward execution model for good performance. With some experience,
 you can know rather precisely where a block of performance-critical OCaml
 code is spending its time.
 
-::: {data-type=note}
-#### Why Do OCaml Types Disappear at Runtime?
+At the end of this document, you will be able to translate between OCaml
+values and their memory representation.
+
+**Prerequisites:** [Data Types and Matching](/docs/data-types)
+
+## OCaml Types Disappear at Runtime
 
 The OCaml compiler runs through several phases during the compilation
 process. The first phase is syntax checking, during which source files are
@@ -35,8 +47,6 @@ parsed into abstract syntax trees (ASTs). The next stage is a *type checking*
 pass over the AST. In a validly typed program, a function cannot be applied
 with an unexpected type. For example, the `print_endline` function must
 receive a single `string` argument, and an `int` will result in a type error.
-[type checking]{.idx}[AST (abstract syntax-tree)]{.idx}[compilation
-process/phases of]{.idx}
 
 Since OCaml verifies these properties at compile time, it doesn't need to
 keep track of as much information at runtime. Thus, later stages of the
@@ -46,28 +56,25 @@ runtime. This is a major performance win versus something like a Java or .NET
 method call, where the runtime must look up the concrete instance of the
 object and dispatch the method call. Those languages amortize some of the
 cost via "Just-in-Time" dynamic patching, but OCaml prefers runtime
-simplicity instead. ["Just-in-Time" dynamic
-patching]{.idx}[dynamic type checking]{.idx}[compile-time static checking]{.idx}
+simplicity instead.
 
 We'll explain this compilation pipeline in more detail in
-[The Compiler Frontend Parsing And Type Checking](compiler-frontend.html#the-compiler-frontend-parsing-and-type-checking){data-type=xref}
+[The Compiler Frontend: Parsing And Type Checking](/docs/compiler-frontend){data-type=xref}
 and
-[The Compiler Backend Byte Code And Native Code](compiler-backend.html#the-compiler-backend-byte-code-and-native-code){data-type=xref}.
-:::
+[The Compiler Backend: Byte Code And Native Code](/docs/compiler-backend){data-type=xref}.
+-->
 
-
-This chapter covers the precise mapping from OCaml types to runtime values
-and walks you through them via the toplevel. We'll cover how these values are
+<!---->
+We'll cover how these values are
 managed by the runtime later on in
-[Understanding The Garbage Collector](garbage-collector.html#understanding-the-garbage-collector){data-type=xref}.
-[mapping/of OCaml types to runtime values]{.idx}
+[Understanding The Garbage Collector](/docs/garbage-collector){data-type=xref}.
 
 ## OCaml Blocks and Values
 
 A running OCaml program uses blocks of memory (i.e., contiguous sequences of
 words in RAM) to represent values such as tuples, records, closures, or
 arrays. An OCaml program implicitly allocates a block of memory when such a
-value is created: [blocks (of memory)]{.idx}
+value is created:
 
 ```ocaml env=simple_record
 # type t = { foo: int; bar: int };;
@@ -88,8 +95,7 @@ immediate integer or a pointer to some other memory. The OCaml runtime tracks
 all values so that it can free them when they are no longer needed. It thus
 needs to be able to distinguish between integer and pointer values, since it
 scans pointers to find further values but doesn't follow integers that don't
-point to anything meaningful beyond their immediate value. [pointers/values
-for]{.idx}[integers]{.idx}[values/integer vs. pointer]{.idx}
+point to anything meaningful beyond their immediate value.
 
 ### Distinguishing Integers and Pointers at Runtime {#distinguishing-integer-and-pointers-at-runtime}
 
@@ -97,9 +103,7 @@ Wrapping primitive types (such as integers) inside another data
 structure that records extra metadata about the value is known as
 *boxing*. Values are boxed in order to make it easier for the garbage
 collector (GC) to do its job, but at the expense of an extra level of
-indirection to access the data within the boxed value. [garbage
-collection/and boxed values]{.idx}[boxing (of
-values)]{.idx}[values/boxing of]{.idx}
+indirection to access the data within the boxed value.
 
 OCaml values don't all have to be boxed at runtime. Instead, values
 use a single tag bit per word to distinguish integers and pointers at
@@ -132,9 +136,7 @@ heap blocks it has allocated for OCaml values. If the pointer is inside a
 heap chunk that is marked as being managed by the OCaml runtime, it is
 assumed to point to an OCaml value. If it points outside the OCaml runtime
 area, it is treated as an opaque C pointer to some other system resource.
-[word-aligned pointers]{.idx}[pointers/word-aligned]{.idx}
 
-::: {data-type=note}
 #### Some History About OCaml's Word-Aligned Pointers
 
 The alert reader may be wondering how OCaml can guarantee that all of its
@@ -142,8 +144,7 @@ pointers are word-aligned. In the old days, when RISC chips such as Sparc,
 MIPS, and Alpha were commonplace, unaligned memory accesses were forbidden by
 the instruction set architecture and would result in a CPU exception that
 terminated the program. Thus, all pointers were historically rounded off to
-the architecture word size (usually 32 or 64 bits). [unaligned memory
-access]{.idx}
+the architecture word size (usually 32 or 64 bits).
 
 Modern CISC processors such as the Intel x86 do support unaligned memory
 accesses, but the chip still runs faster if accesses are word-aligned. OCaml
@@ -160,8 +161,6 @@ compiler generates efficient x86 assembly code in this case, taking advantage
 of modern processor instructions to hide the extra shifts where possible.
 Addition is a single `LEA` x86 instruction, subtraction can be two
 instructions, and multiplication is only a few more.
-:::
-
 
 
 ## Blocks and Values
@@ -171,17 +170,13 @@ consists of a one-word header (either 32 or 64 bits depending on the CPU
 architecture) followed by variable-length data that is either opaque bytes or
 an array of *fields*. The header has a multipurpose tag byte that defines
 whether to interpret the subsequent data as opaque bytes or OCaml fields.
-[runtime memory representation/blocks and values]{.idx}
 
 The GC never inspects opaque bytes. If the tag indicates an array of OCaml
 fields are present, their contents are all treated as more valid OCaml
 values. The GC always inspects fields and follows them as part of the
-collection process described earlier. [garbage collection/opaque bytes
-and]{.idx}[opaque bytes]{.idx}
+collection process described earlier.
 
-\
- ![Memory representation of a block](images/memory-repr/block.png "Memory representation of a block")
-\
+ ![Memory representation of a block](/media/tutorials/language/runtime-memory-layout/block.png "Memory representation of a block")
 
 The `size` field records the length of the block in memory words. This is 22
 bits on 32-bit platforms, which is the reason OCaml strings are limited to 16
@@ -189,8 +184,9 @@ MB on that architecture. If you need bigger strings, either switch to a
 64-bit host, or use the `Bigarray` module.
 
 The 2-bit `color` field is used by the GC to keep track of its state during
-mark-and-sweep collection. We'll come back to this field in
-[Understanding The Garbage Collector](garbage-collector.html#understanding-the-garbage-collector){data-type=xref}.
+mark-and-sweep collection.
+We'll come back to this field in
+[Understanding The Garbage Collector](/docs/garbage-collector){data-type=xref}.
 This tag isn't exposed to OCaml source code in any case.
 
 A block's tag byte is multipurpose, and indicates whether the data array
@@ -240,8 +236,7 @@ Many basic types are efficiently stored as unboxed integers at runtime. The
 native `int` type is the most obvious, although it drops a single bit of
 precision due to the tag bit. Other atomic types such as `unit` and the empty
 list `[]` value are stored as constant integers. Boolean values have a value
-of `1` and `0` for `true` and `false`, respectively. [integers]{.idx}[unboxed
-integers]{.idx}
+of `1` and `0` for `true` and `false`, respectively.
 
 These basic types such as empty lists and `unit` are very efficient to use,
 since integers are never allocated on the heap. They can be passed directly
@@ -253,19 +248,14 @@ integers.
 
 ## Tuples, Records, and Arrays
 
-\
-![](images/memory-repr/tuple_layout.png "Tuple Layout")
-\
+![](/media/tutorials/language/runtime-memory-layout/tuple_layout.png "Tuple Layout")
 
 
 Tuples, records, and arrays are all represented identically at runtime as a
 block with tag `0`. Tuples and records have constant sizes determined at
 compile time, whereas arrays can be of variable length. While arrays are
 restricted to containing a single type of element in the OCaml type system,
-this is not required by the memory representation. [arrays/memory
-representation of]{.idx}[records/memory representation
-of]{.idx}[tuples]{.idx}[runtime memory representation/tuples, records, and
-arrays]{.idx}
+this is not required by the memory representation.
 
 You can check the difference between a block and a direct integer yourself
 using the `Obj` module, which exposes the internal representation of values
@@ -288,7 +278,6 @@ Floating-point numbers in OCaml are always stored as full, double-precision
 values. Individual floating-point values are stored as a block with a single
 field that contains the number. This block has the `Double_tag` set, which
 signals to the collector that the floating-point value is not to be scanned:
-[floating-point values]{.idx}
 
 ```ocaml env=reprs
 # Obj.tag (Obj.repr 1.0);;
@@ -306,9 +295,7 @@ contains the floats packed directly in the data section, with
 are not OCaml values.
 
 
-\
-![](images/memory-repr/float_array_layout.png "Float array layout")
-\
+![](/media/tutorials/language/runtime-memory-layout/float_array_layout.png "Float array layout")
 
 First, let's check that float arrays do in fact have a different tag number
 from normal floating-point values:
@@ -349,9 +336,7 @@ records, every single field must be a float.
 
 Basic variant types with no extra parameters for any of their branches are
 simply stored as an OCaml integer, starting with `0` for the first option and
-in ascending order: [variant types/memory representation
-of]{.idx}[lists/memory representation of]{.idx}[runtime memory
-representation/variants and lists]{.idx}
+in ascending order:
 
 ```ocaml env=reprs
 # type t = Apple | Orange | Pear;;
@@ -400,11 +385,9 @@ Lists are stored with a representation that is exactly the same as if the
 list was written as a variant type with `Nil` and `Cons`. The empty list
 `[]` is an integer `0`, and subsequent blocks have tag `0` and two
 parameters: a block with the current value, and a pointer to the rest of the
-list. [debugging/Obj module warning]{.idx}[security issues/Obj module
-warning]{.idx}[Obj module]{.idx}
+list.
 
-::: {data-type=warning}
-##### Obj Module Considered Harmful
+### Obj Module Considered Harmful
 
 `Obj` is an undocumented module that exposes the internals of the OCaml
 compiler and runtime. It is very useful for examining and understanding how
@@ -416,8 +399,6 @@ Some theorem provers such as Coq do output code that uses `Obj` internally,
 but the external module signatures never expose it. Unless you too have a
 machine proof of correctness to accompany your use of `Obj`, stay away from
 it except for debugging!
-:::
-
 
 Due to this encoding, there is a limit around 240 variants with parameters
 that applies to each type definition, but the only limit on the number of
@@ -427,11 +408,11 @@ some of the high-numbered tags are reserved.
 
 ## Polymorphic Variants {#polymorphic-variants-1}
 
+<!-- FIXME: reference polymorphic variants tutorial from OCaml.org -->
 Polymorphic variants are more flexible than normal variants when writing code
 but are slightly less efficient at runtime. This is because there isn't as
 much static compile-time information available to optimize their memory
-layout. [polymorphic variant types/memory representation of]{.idx}[runtime
-memory representation/polymorphic variants]{.idx}
+layout.
 
 A polymorphic variant without any parameters is stored as an unboxed integer
 and so only takes up one word of memory, just like a normal variant. This
@@ -483,13 +464,9 @@ OCaml blocks with the header size defining the size of the string in
 machine words. The `String_tag` (252) is higher than the
 `No_scan_tag`, indicating that the contents of the block are opaque to
 the collector. The block contents are the contents of the string, with
-padding bytes to align the block on a word boundary. [strings/memory
-representation of]{.idx}[runtime memory representation/string
-values]{.idx}
+padding bytes to align the block on a word boundary.
 
-\
-![](images/memory-repr/string_block.png "String block layout")
-\
+![](/media/tutorials/language/runtime-memory-layout/string_block.png "String block layout")
 
 On a 32-bit machine, the padding is calculated based on the modulo of the
 string length and word size to ensure the result is word-aligned. A 64-bit
@@ -527,8 +504,7 @@ OCaml supports *custom* heap blocks via a `Custom_tag` that lets the runtime
 perform user-defined operations over OCaml values. A custom block lives in
 the OCaml heap like an ordinary block and can be of whatever size the user
 desires. The `Custom_tag` (255) is higher than `No_scan_tag` and so isn't
-scanned by the GC. [custom heap blocks]{.idx}[runtime memory
-representation/custom heap blocks]{.idx}
+scanned by the GC.
 
 The first word of the data within the custom block is a C pointer to a
 `struct` of custom operations. The custom block cannot have pointers to OCaml
@@ -553,9 +529,8 @@ comparison, hashing and binary marshaling. They also optionally contain a
 *finalizer* that the runtime calls just before the block is
 garbage-collected. This finalizer has nothing to do with ordinary OCaml
 finalizers (as created by `Gc.finalize` and explained in
-[Understanding The Garbage Collector](garbage-collector.html#understanding-the-garbage-collector){data-type=xref}).
+[Understanding The Garbage Collector](/docs/garbage-collector){data-type=xref}).
 They are instead used to call C cleanup functions such as `free`.
-[finalizers/for C cleanup functions]{.idx}
 
 ### Managing External Memory with Bigarray
 
@@ -565,10 +540,6 @@ data with Fortran code, and maps a block of system memory as a
 multidimensional array that can be accessed from OCaml. Bigarray operations
 work directly on the external memory without requiring it to be copied into
 the OCaml heap (which is a potentially expensive operation for large arrays).
-[Fortran libraries]{.idx}[linear algebra]{.idx}[LAPACK mathematical
-library]{.idx}[BLAS mathematical library]{.idx}[Lacaml
-library]{.idx}[Bigstring module]{.idx}[Iobuf module]{.idx}[external
-memory]{.idx}[memory/managing external]{.idx}[bigarrays]{.idx}
 
 Bigarray sees a lot of use beyond just scientific computing, and several Core
 libraries use it for general-purpose I/O:
@@ -591,3 +562,15 @@ mathematical Fortran libraries. These allow developers to write
 high-performance numerical code for applications that require linear algebra.
 It supports large vectors and matrices, but with static typing safety of
 OCaml to make it easier to write safe algorithms.
+
+## Conclusion
+
+We covered the precise mapping from OCaml types to their internal runtime
+representation in memory, which should enable you to better understand the
+output of various debugging and profiling tools, as well as how to
+integrate your OCaml code with code from other languages.
+
+Other recommended tutorials:
+
+1. [Understanding the Garbage Collector](/docs/garbage-collector)
+1. [Calling C Libraries](/docs/calling-c-libraries)

@@ -1,3 +1,22 @@
+---
+id: compiler-frontend
+title: Compiler Frontend
+description: >
+  The Compiler Frontend: Parsing and Type Checking, excerpt from Real World OCaml
+category: "Runtime & Compiler"
+external_tutorial:
+  tag: "RWO"
+  banner:
+    image: "tutorials/rwo_banner.png"
+    url: https://dev.realworldocaml.org/
+    alt: "Real World OCaml"
+  contribute_link:
+    url: https://github.com/realworldocaml/book/blob/master/book/compiler-frontend/README.md
+    description: "You are encouraged to contribute to the original sources of this page at the Real World OCaml GitHub repository."
+---
+
+This is an adaptation of the chapter [The Compiler Frontend: Parsing and Type Checking](https://dev.realworldocaml.org/compiler-frontend.html) from the book [Real World OCaml](https://dev.realworldocaml.org/), reproduced here with permission.
+
 # The Compiler Frontend: Parsing and Type Checking
 
 Compiling source code into executable programs involves a fairly
@@ -25,31 +44,26 @@ In this chapter, we'll cover the following topics:
 - Type-checking, including module resolution
 
 The details of the remainder of the compilation process, which gets
-all the way to executable code comes next, in [The Compiler Backend
+all the way to executable code comes next, in [The Compiler Backend:
 Byte Code And Native
-Code](compiler-backend.html#the-compiler-backend-byte-code-and-native-code){data-type=xref}.
+Code](/docs/compiler-backend#the-compiler-backend-byte-code-and-native-code){data-type=xref}.
 
 ## An Overview of the Toolchain
 
 The OCaml tools accept textual source code as input, using the filename
 extensions `.ml` and `.mli` for modules and signatures, respectively. We
-explained the basics of the build process in
-[Files Modules And Programs](files-modules-and-programs.html#files-modules-and-programs){data-type=xref},
-so we'll assume you've built a few OCaml programs already by this
-point.[OCaml toolchain/overview of]{.idx}
+assume you've built a few OCaml programs already by this
+point.
 
 Each source file represents a *compilation unit* that is built separately.
 The compiler generates intermediate files with different filename extensions
 to use as it advances through the compilation stages. The linker takes a
 collection of compiled units and produces a standalone executable or library
-archive that can be reused by other applications.[compilation units]{.idx}
+archive that can be reused by other applications.
 
-The overall compilation pipeline looks like this: [compilation
-process/diagram of]{.idx}
+The overall compilation pipeline looks like this:
 
-\
-![](images/front-end/pipeline.png "Compilation pipeline")
-\
+![](/media/tutorials/language/compiler-frontend/pipeline.png "Compilation pipeline")
 
 Notice that the pipeline branches toward the end. OCaml has multiple compiler
 backends that reuse the early stages of compilation but produce very
@@ -58,21 +72,15 @@ and can even be transformed into JavaScript (via
 [js_of_ocaml](http://ocsigen.org/js_of_ocaml)) or C source code (via
 [OCamlCC](https://github.com/ocaml-bytes/ocamlcc)). The *native code*
 compiler generates specialized executable binaries suitable for
-high-performance applications.[compilation process/compiler source
-code]{.idx}[compilers/bytecode vs. native code]{.idx}
+high-performance applications.
 
 ### Obtaining the Compiler Source Code
 
 Although it's not necessary to understand the examples, you may find it
 useful to have a copy of the OCaml source tree checked out while you read
-through this chapter. The source code is available from multiple places:
-
-- Stable releases as <em class="filename">zip</em> and
-  <em class="filename">tar</em> archives from the
-  [OCaml download site](http://ocaml.org/docs/install.html)
-
-- A Git repository with all the history and development branches included,
-  browsable online at [GitHub](https://github.com/ocaml/ocaml)
+through this chapter. The source code is available at the Git repository
+with all the history and development branches included, browsable online
+at [GitHub](https://github.com/ocaml/ocaml).
 
 The source tree is split up into subdirectories. The core compiler consists
 of:
@@ -132,12 +140,10 @@ be useful to you during day-to-day OCaml development.
 
 When a source file is passed to the OCaml compiler, its first task is to
 parse the text into a more structured abstract syntax tree (AST). The parsing
-logic is implemented in OCaml itself using the techniques described earlier
-in
-[Parsing With Ocamllex And Menhir](parsing-with-ocamllex-and-menhir.html#parsing-with-ocamllex-and-menhir){data-type=xref}.
+logic is implemented in OCaml itself using the techniques described in
+[Parsing With Ocamllex And Menhir](https://dev.realworldocaml.org/parsing-with-ocamllex-and-menhir.html#parsing-with-ocamllex-and-menhir){data-type=xref}.
 The lexer and parser rules can be found in the `parsing` directory in the
-source distribution.[AST (abstract syntax-tree)]{.idx}[source code/parsing
-of]{.idx}[parsing/of source code]{.idx}[compilation process/parsing source code]{.idx}
+source distribution.
 
 ### Syntax Errors
 
@@ -146,7 +152,7 @@ to the next phase of compilation, and so it fails on any source code
 that doesn't match basic syntactic requirements. The compiler emits a
 *syntax error* in this situation, with a pointer to the filename and
 line and character number that's as close to the error as
-possible.[errors/syntax errors]{.idx}[syntax errors]{.idx}
+possible.
 
 Here's an example syntax error that we obtain by performing a module
 assignment as a statement instead of as a `let` binding:
@@ -186,9 +192,7 @@ correct.
 
 Whitespace and source code comments are removed during parsing and aren't
 significant in determining the semantics of the program. However, other tools
-in the OCaml distribution can interpret comments for their own ends. [OCaml
-toolchain/ocamldoc]{.idx}[interfaces/generating documentation
-from]{.idx}[documentation, generating from interfaces]{.idx}
+in the OCaml distribution can interpret comments for their own ends.
 
 OCaml uses specially formatted comments in the source code to
 generate documentation bundles. These comments are combined with the function
@@ -248,11 +252,9 @@ directory and also be able to view the UNIX manual pages held in
 options to control the output for the various backends. Refer to the
 [OCaml manual](https://ocaml.org/manual/native.html)
 for the complete list.
-[OCaml toolchain/ocamldoc-generators]{.idx}
-[HTML generators]{.idx}
 
 You can also use `odoc` to generate complete snapshots of your project via
-integration with dune, as described earlier in [OCaml Platform](platform.html#browsing-interface-documentation){data-type=xref}.
+integration with dune, as described in ["Generating Documentation"](/docs/generating-documentation){data-type=xref}.
 
 ## Preprocessing with ppx
 
@@ -364,7 +366,7 @@ val exit_with : program_result -> int = <fun>
 ### Commonly Used Extension Attributes
 
 We have already used extension points in [Data Serialization With S
-Expressions](data-serialization.html#data-serialization-with-s-expressions){data-type=xref}
+Expressions](https://dev.realworldocaml.org/data-serialization.html#data-serialization-with-s-expressions){data-type=xref}
 to generate boilerplate code for handling s-expressions.  These are
 introduced by a third-party library using the `(preprocess)` directive
 in a dune file, for example:
@@ -410,11 +412,7 @@ the code obeys the rules of the OCaml type system. Code that is syntactically
 correct but misuses values is rejected with an explanation of the problem.
 
 Although type checking is done in a single pass in OCaml, it actually
-consists of three distinct steps that happen simultaneously:[explicit
-subtyping]{.idx}[type inference]{.idx}[subtyping/in static type
-checking]{.idx}[modules/in static type checking]{.idx}[type inference/in
-static type checking]{.idx}[compilation process/static type
-checking]{.idx}
+consists of three distinct steps that happen simultaneously:
 
 automatic type inference
 : An algorithm that calculates types for a module without requiring manual
@@ -437,7 +435,7 @@ thousands of other files and libraries and require all of them to be
 recompiled. The module system solves this by providing the facility to
 combine and manipulate explicit type signatures for modules within a large
 project, and also to reuse them via functors and first-class
-modules.[modules/benefits of]{.idx}[type inference/drawbacks of]{.idx}
+modules.
 
 Subtyping in OCaml objects is always an explicit operation (via the `:>`
 operator). This means that it doesn't complicate the core type inference
@@ -510,15 +508,15 @@ Error: The implementation conflicting_interface.ml
 [2]
 ```
 
-::: {.allow_break data-type=note}
+<div class="note">
+
 #### Which Comes First: The ml or the mli?
 
 There are two schools of thought on which order OCaml code should be
 written in. It's very easy to begin writing code by starting with an
 `ml` file and using the type inference to guide you as you build up
 your functions. The `mli` file can then be generated as described, and
-the exported functions documented. [mli files]{.idx}[files/mli
-files]{.idx}[ml files]{.idx}[files/ml files]{.idx}
+the exported functions documented.
 
 If you're writing code that spans multiple files, it's sometimes easier to
 start by writing all the `mli` signatures and checking that they type-check
@@ -538,7 +536,7 @@ abstract internal details that shouldn't be exported. Maintaining separate
 signature files also speeds up incremental compilation in larger code bases,
 since recompiling a `mli` signature is much faster than a full compilation of
 the implementation to native code.
-:::
+</div>
 
 
 ### Type Inference {#type-inference-1}
@@ -546,8 +544,7 @@ the implementation to native code.
 Type inference is the process of determining the appropriate types for
 expressions based on their use. It's a feature that's partially present in
 many other languages such as Haskell and Scala, but OCaml embeds it as a
-fundamental feature throughout the core language. [Hindley-Milner
-algorithm]{.idx}[type inference/algorithm basis of]{.idx}
+fundamental feature throughout the core language.
 
 OCaml type inference is based on the Hindley-Milner algorithm, which is
 notable for its ability to infer the most general type for an expression
@@ -572,9 +569,7 @@ protects you from certain classes of bugs such as memory errors and
 abstraction violations by rejecting your program at compilation time rather
 than by generating an error at runtime. Learning how to navigate the type
 checker's compile-time feedback is key to building robust libraries and
-applications that take full advantage of these static checks.[type
-inference/error detection with]{.idx}[errors/detecting with type annotations]{.idx}[type
-annotations]{.idx}[compile-time static checking]{.idx}
+applications that take full advantage of these static checks.
 
 There are a couple of tricks to make it easier to quickly locate type errors
 in your code. The first is to introduce manual type annotations to narrow
@@ -586,8 +581,7 @@ code.
 Manual type annotations are particularly useful if you use lots of
 polymorphic variants or objects. Type inference with row polymorphism can
 generate some very large signatures, and errors tend to propagate more widely
-than if you are using more explicitly typed variants or classes.[polymorphic
-variant types/type checking and]{.idx}[row polymorphism]{.idx}
+than if you are using more explicitly typed variants or classes.
 
 <!-- TODO: I wonder if we should kill this detailed section on
      polymorphic variants.  It covers at least some of the same
@@ -720,8 +714,7 @@ activated via the `-principal` flag. This
 warns about risky uses of type information to ensure that the type inference
 has one principal result. A type is considered risky if the success or
 failure of type inference depends on the order in which subexpressions are
-typed.[type inference/principality checks]{.idx}[risky type]{.idx}[principal
-type checking]{.idx}
+typed.
 
 The principality check only affects a few language features:
 
@@ -839,26 +832,24 @@ clean source tree.
 The OCaml module system enables smaller components to be reused effectively
 in large projects while still retaining all the benefits of static type
 safety. We covered the basics of using modules earlier in
-[Files Modules And Programs](files-modules-and-programs.html#files-modules-and-programs){data-type=xref}.
+[Files Modules And Programs](https://dev.realworldocaml.org/files-modules-and-programs.html#files-modules-and-programs){data-type=xref}.
 The module language that operates over these signatures also extends to
 functors and first-class modules, described in
-[Functors](functors.html#functors){data-type=xref} and
-[First Class Modules](first-class-modules.html#first-class-modules){data-type=xref},
-respectively. [modules/separate compilation in]{.idx}
+[Functors](https://dev.realworldocaml.org/functors.html#functors){data-type=xref} and
+[First Class Modules](https://dev.realworldocaml.org/first-class-modules.html#first-class-modules){data-type=xref},
+respectively.
 
 This section discusses how the compiler implements them in more detail.
 Modules are essential for larger projects that consist of many source files
 (also known as *compilation units*). It's impractical to recompile every
 single source file when changing just one or two files, and the module system
-minimizes such recompilation while still encouraging code reuse. [compilation
-units]{.idx}
+minimizes such recompilation while still encouraging code reuse.
 
 #### The Mapping Between Files and Modules
 
 Individual compilation units provide a convenient way to break up a big
 module hierarchy into a collection of files. The relationship between files
 and modules can be explained directly in terms of the module system.
-[files/relationship with modules]{.idx}
 
 Create a file called `alice.ml` with the following contents:
 
@@ -888,7 +879,7 @@ end
 In the preceding example, `Alice` also has a reference to another module
 `Bob`. For the overall type of `Alice` to be valid, the compiler also needs
 to check that the `Bob` module contains at least a `Bob.name` value and
-defines a `Bob.t` type. [modules/defining search paths]{.idx}
+defines a `Bob.t` type.
 
 The type checker resolves such module references into concrete structures and
 signatures in order to unify types across module boundaries. It does this by
@@ -912,10 +903,10 @@ unit. The standard library location is obtained by running `ocamlc
 -where` and can be overridden by setting the `CAMLLIB` environment
 variable. Needless to say, don't override the default path unless you
 have a good reason to (such as setting up a cross-compilation
-environment). [cmi files]{.idx}[files/cmi files]{.idx}[OCaml
-toolchain/ocamlogjinfo]{.idx}
+environment).
 
-::: {data-type=note}
+<div class="note">
+
 #### Inspecting Compilation Units with ocamlobjinfo
 
 For separate compilation to be sound, we need to ensure that all the
@@ -966,8 +957,7 @@ remains type-safe all the way up to the final link phase. Your build system
 should ensure that you never see the preceding error messages, but if you do
 run into it, just clean out your intermediate files and recompile from
 scratch.
-
-:::
+</div>
 
 
 ### Wrapping Libraries with Module Aliases
@@ -975,7 +965,7 @@ scratch.
 The module-to-file mapping described so far rigidly enforces a 1:1 mapping
 between a top-level module and a file. It's often convenient to split larger
 modules into separate files to make editing easier, but still compile them
-all into a single OCaml module. [modules/packing together]{.idx}
+all into a single OCaml module.
 
 Dune provides a very convenient way of doing this for libraries via
 automatically generating a toplevel _module alias_ file that places all the
@@ -1083,8 +1073,7 @@ module that is linked into an executable must have a unique name in OCaml.
 Core uses the OCaml module system quite extensively to provide a complete
 replacement standard library. It collects these modules into a single
 `Std` module, which provides a single module that needs to be opened to
-import the replacement modules and functions. [errors/reducing verbosity
-in]{.idx}
+import the replacement modules and functions.
 
 There's one downside to this approach: type errors suddenly get much more
 verbose. We can see this if you run the vanilla OCaml toplevel (not `utop`).
@@ -1114,8 +1103,7 @@ error message.
 The compiler can remedy this via a so-called short paths heuristic. This
 causes the compiler to search all the type aliases for the shortest module
 path and use that as the preferred output type. The option is activated by
-passing `-short-paths` to the compiler, and works on the toplevel, too.[short
-paths heuristic]{.idx}
+passing `-short-paths` to the compiler, and works on the toplevel, too.
 
 ```
 $ ocaml -short-paths
@@ -1141,10 +1129,7 @@ compiler if you need
 When the type checking process has successfully completed, it is combined
 with the AST to form a *typed abstract syntax tree*. This contains precise
 location information for every token in the input file, and decorates each
-token with concrete type information.[cmti files]{.idx}[cmt
-files]{.idx}[files/cmtii files]{.idx}[files/cmt files]{.idx}[AST (abstract
-syntax-tree)]{.idx}[typed syntax tree]{.idx}[compilation
-process/typed syntax tree]{.idx}
+token with concrete type information.
 
 The compiler can output this as compiled `cmt` and `cmti` files that contain
 the typed AST for the implementation and signatures of a compilation unit.
@@ -1154,14 +1139,14 @@ The `cmt` files are particularly useful for IDE tools to match up OCaml
 source code at a specific location to the inferred or external types.
 For example, the `merlin` and `ocaml-lsp-server` opam packages both use
 this information to provide you with tooltips and docstrings within your
-editor, as described earlier in [OCaml Platform](platform.html#using-visual-studio-code){data-type=xref}.
+editor, as described in [OCaml Platform](/docs/set-up-editor){data-type=xref}.
 
 ### Examining the Typed Syntax Tree Directly
 
 The compiler has a couple of advanced flags that can dump the raw output of
 the internal AST representation. You can't depend on these flags to give the
 same output across compiler revisions, but they are a useful learning
-tool.[flags]{.idx}
+tool.
 
 We'll use our toy `typedef.ml` again:
 
@@ -1274,12 +1259,4 @@ You'll rarely need to look at this raw output from the compiler unless you're
 building IDE tools, or are hacking on extensions to the
 core compiler itself. However, it's useful to know that this intermediate
 form exists before we delve further into the code generation process next, in
-[The Compiler Backend Byte Code And Native Code](compiler-backend.html#the-compiler-backend-byte-code-and-native-code){data-type=xref}.
-
-There are several new integrated tools emerging that combine these typed AST
-files with common editors such as Emacs or Vim. The best of these is
-[Merlin](https://github.com/def-lkb/merlin), which adds value and module
-autocompletion, displays inferred types and can build and display errors
-directly from within your editor. There are instructions available on its
-homepage for configuring Merlin with your favorite editor, or its bigger
-sibling `ocaml-lsp-server` is described earlier in [OCaml Platform](platform.html#using-visual-studio-code){data-type=xref}.
+[The Compiler Backend: Byte Code And Native Code](/docs/compiler-backend#the-compiler-backend-byte-code-and-native-code){data-type=xref}.
