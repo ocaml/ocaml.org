@@ -31,7 +31,7 @@ This document has two main teaching goals:
 
 In OCaml, you can write code in imperative style without compromising on type and memory safety. In the first part of this tutorial, imperative programming in OCaml is introduced.
 
-Imperative and functional programming both have unique merits; OCaml allows combining them efficiently. See the second part of this tutorial for examples.
+Imperative and functional programming both have unique merits; OCaml allows combining them efficiently. See the second part of this tutorial for examples of recommended, handle-with-care or inadvisable patterns.
 
 **Prerequisites**: This is an intermediate-level tutorial. You should have completed the [Basic Data Types](/docs/basic-data-types), [Values and Functions](/docs/values-and-functions) and [Lists](/docs/lists) tutorials.
 
@@ -210,7 +210,8 @@ Here is the second implementation:
 # let get_char () =
     let open Unix in
     let termio = tcgetattr stdin in
-    tcsetattr stdin TCSAFLUSH { termio with c_icanon = false; c_echo = false };
+    tcsetattr stdin TCSAFLUSH
+      { termio with c_icanon = false; c_echo = false };
     let c = input_char (in_channel_of_descr stdin) in
     tcsetattr stdin TCSAFLUSH termio;
     c;;
@@ -406,9 +407,33 @@ This is the idea of a possible way to handle an application-wide state. As in th
 
 **Note**: Here, the state is copied, which is not memory efficient. In a memory savy implementation, state update functions would produce a data meant as way 
 
-### Good: Prefer Side-Effect Free / Stateless Functions
+### Good: Prefer Stateless Functions
 
 You can't avoid them. But should not unless unavoidable.
+
+### Good: Memoization
+
+Let's imagine you store angles as fractions of the circle in 8-bit unsigned integers, storing them as `char` values. In this system, 64 is 90 degrees, 128 is 180 degrees, 192 is 270 degrees and 256 is full circle. If you need to compute cosine on those values, an implementation might look like this:
+```ocaml
+# let pi_128 = 3.14159265358979312 /. 128.0;;
+pi_128 : float = 0.0245436926061702587
+
+# let char_cos c = c |> int_of_char |> float_of_int |> ( *. ) pi_128 |> cos;;
+val char_cos : char -> float = <fun>
+```
+
+However, it is possible to make a much faster implementation using a technique known as [memoization](https://en.wikipedia.org/wiki/Memoization) (also known as tabling). Instead of recomputing a result each time it is needed, results are either precomputed (this is what is shown in the example) or fetched from a cache if already computed once or computed and stored otherwise.
+```ocaml
+# let char_cos_tab = Array.init 256 (fun i -> i |> char_of_int |> char_cos);;
+val char_cos_tab : float array =
+
+# let char_cos c = char_cos_tab.(int_of_char c);;
+val char_cos : char -> float = <fun>
+```
+
+Refer to CS3110 or Real World OCaml for complete examples using caching:
+1. https://cs3110.github.io/textbook/chapters/ds/memoization.html
+1. https://dev.realworldocaml.org/imperative-programming.html
 
 ### Acceptable: Module Wide State
 
@@ -416,14 +441,6 @@ Good: module with an initialization function
 
 Functors: silent state init at functor instantiation -> Module and Functor related discussion link or something
 
-### Acceptable: Memoization
-
-Refer to CS3110, for time as link, in the future as an ocaml.org
-1. https://cs3110.github.io/textbook/chapters/ds/memoization.html
-2. https://dev.realworldocaml.org/imperative-programming.html
-
-
-https://twitter.com/mrclbschff/status/1701737914319675747?t=HjFptgmk3LwnF3Zl0mtXmg&s=19
 
 
 ### Bad: Stateful Dependency
@@ -439,6 +456,10 @@ Code looking as functional but actually stateful
 ### Bad: Hidden Side-Effect
 
 TODO: include discussion on evaluation order, sides effects and monadic pipes
+
+```ocaml
+# let ref
+```
 
 ### Bad: Imperative by Default
 
