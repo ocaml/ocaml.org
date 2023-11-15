@@ -37,7 +37,7 @@ code is spending its time.
 At the end of this document, you will be able to translate between OCaml
 values and their memory representation.
 
-**Prerequisites:** [Data Types and Matching](/docs/data-types)
+**Prerequisites:** [Basic Data Types and Pattern Matching](/docs/basic-data-types)
 
 ## OCaml Types Disappear at Runtime
 
