@@ -42,6 +42,7 @@ type t = {
     show { with_path = false }]
 
 let of_metadata m = of_metadata m
+
 let decode (_, (head, body)) =
   let metadata = metadata_of_yaml head in
   let body_md = String.trim body in

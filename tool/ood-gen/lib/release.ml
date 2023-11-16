@@ -58,7 +58,9 @@ let sort_by_decreasing_version x y =
 let decode (_, (head, body_md)) =
   let metadata = metadata_of_yaml head in
   let body_html =
-    Cmarkit.Doc.of_string ~strict:true body_md |> Hilite.Md.transform |> Cmarkit_html.of_doc ~safe:false
+    Cmarkit.Doc.of_string ~strict:true body_md
+    |> Hilite.Md.transform
+    |> Cmarkit_html.of_doc ~safe:false
   in
   Result.map (of_metadata ~body_md ~body_html) metadata
 
