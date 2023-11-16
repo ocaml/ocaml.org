@@ -27,36 +27,16 @@ let get_title (h : Cmarkit.Block.Heading.t) =
   in
   String.concat "\n" (List.map (String.concat "") title)
 
-let split_statement_statement (blocks : Cmarkit.Block.t list) =
-  let rec blocks_until_heading acc = function
-    | [] -> (List.rev acc, [])
-    | Cmarkit.Block.Heading (h, _) :: rest
-      when Cmarkit.Block.Heading.level h = 1 ->
-        (List.rev acc, rest)
-    | el :: rest -> blocks_until_heading (el :: acc) rest
-  in
-  let rec skip_non_heading_blocks = function
-    | [] -> []
-    | Cmarkit.Block.Heading (h, _) :: rest
-      when Cmarkit.Block.Heading.level h = 1 ->
-        rest
-    | _ :: rest -> skip_non_heading_blocks rest
-  in
-  let err =
-    "The format of the statement file is not valid. Expected exactly two \
-     top-level headings: \"Solution\" and \"Statement\""
-  in
-  match skip_non_heading_blocks blocks with
-  | Cmarkit.Block.Heading (h, _) :: rest when get_title h = "Solution" -> (
-      let solution_blocks, rest = blocks_until_heading [] rest in
-      match rest with
-      | Cmarkit.Block.Heading (h, _) :: rest when get_title h = "Statement" -> (
-          let statements_blocks, rest = blocks_until_heading [] rest in
-          match rest with
-          | [] -> (statements_blocks, solution_blocks)
-          | _ -> raise (Exn.Decode_error err))
-      | _ -> raise (Exn.Decode_error err))
-  | _ -> raise (Exn.Decode_error err)
+let split_statement_solution (body : string) =
+  match Str.split (Str.regexp {|#[ ]*Solution|}) body with
+  | [ _; statement_and_solution ] -> (
+      match
+        Str.split (Str.regexp {|#[ ]*Statement|}) statement_and_solution
+      with
+      | [ solution; statement ] ->
+          Ok (Cmarkit.Doc.of_string statement, Cmarkit.Doc.of_string solution)
+      | _ -> Error (`Msg "Failed to split on '# Statement' heading"))
+  | _ -> Error (`Msg "Failed to split on '# Solution' heading")
 
 type t = {
   title : string;
@@ -71,28 +51,23 @@ type t = {
   stable_record ~version:metadata ~remove:[ statement; solution ],
     show { with_path = false }]
 
-let decode (_, (head, body)) =
-  let metadata = metadata_of_yaml head in
-  let statement_blocks, solution_blocks =
-    split_statement_statement [ Cmarkit.Doc.block (Cmarkit.Doc.of_string body) ]
-  in
-  let statement_blocks_to_doc =
-    Cmarkit.Block.Blocks (statement_blocks, Cmarkit.Meta.none)
-    |> Cmarkit.Doc.make
-  in
-  let solution_blocks_to_doc =
-    Cmarkit.Block.Blocks (solution_blocks, Cmarkit.Meta.none)
-    |> Cmarkit.Doc.make
-  in
+let attach_filepath fpath (`Msg m) = `Msg ("Error in file '" ^ fpath ^ "': " ^ m)
 
+let decode (fpath, (head, body)) : (t, [> `Msg of string ]) result =
+  let ( let* ) = Result.bind in
+  let* metadata =
+    metadata_of_yaml head |> Result.map_error (attach_filepath fpath)
+  in
+  let* statement_doc, solution_doc =
+    split_statement_solution body |> Result.map_error (attach_filepath fpath)
+  in
   let statement =
-    Cmarkit_html.of_doc ~safe:false
-      (Hilite.Md.transform statement_blocks_to_doc)
+    Cmarkit_html.of_doc ~safe:false (Hilite.Md.transform statement_doc)
   in
   let solution =
-    Cmarkit_html.of_doc ~safe:false (Hilite.Md.transform solution_blocks_to_doc)
+    Cmarkit_html.of_doc ~safe:false (Hilite.Md.transform solution_doc)
   in
-  Result.map (of_metadata ~statement ~solution) metadata
+  Ok (metadata |> of_metadata ~statement ~solution)
 
 let all () = Utils.map_files decode "exercises/*.md"
 
