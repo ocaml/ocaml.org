@@ -390,7 +390,7 @@ val f : 'a option option-> 'a option = <fun>
 
 The inspected value is `opt` of type `option`. It is compared against the patterns from top to bottom. If `opt` is the `None` option, it is a match with the first pattern. If `opt` is the `Some None` option, it's a match with the second pattern. If `opt` is a double-wrapped option with a value, it's a match with the third pattern. Patterns can introduce names, just as `let` does. In the third pattern, `x` designates the data inside the double-wrapped option.
 
-Pattern matching is detailed in the [Basic Datatypes](/docs/basic-datatypes) tutorial as well as in per data type tutorials.
+Pattern matching is detailed in the [Basic Datatypes](/docs/basic-data-types) tutorial as well as in per data type tutorials.
 
 In this other example, the same comparison is made, using `if … then … else …` and pattern matching.
 ```ocaml
@@ -544,7 +544,7 @@ type person = { first_name : string; surname : string; age : int; }
 # let gerard = {
      first_name = "Gérard";
      surname = "Huet";
-     age = 40
+     age = 76
   };;
 val gerard : person = {first_name = "Gérard"; surname = "Huet"; age = 76}
 ```
