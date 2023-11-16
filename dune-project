@@ -45,8 +45,6 @@
   fpath
   fmt
   logs
-  (omd
-   (>= "2.0.0~alpha4"))
   (cmarkit
    (>= "0.2.0"))
   opam-format

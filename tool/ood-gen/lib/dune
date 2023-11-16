@@ -2,7 +2,6 @@
  (name ood_gen)
  (libraries
   ocamlorg.global
-  omd
   cmarkit
   yaml
   unix
