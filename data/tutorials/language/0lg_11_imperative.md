@@ -400,29 +400,26 @@ val loop : char list ref -> 'a = <fun>
 
 This is not a production-grade code. However, it illustrates the following:
 - State handling functions `record_char` and `remove_char` don't update the state or produce side effects, they only produce data
-- I/O and state update side-effects are confined in the `loop` function
+- I/O and state update side effects are confined to the `loop`` function
 - The state is passed as a parameter to the `loop` function
 
 This is the idea of a possible way to handle an application-wide state. As in the [Function Encapsulated Mutability](#good-function-encapsulated-mutability) state aware code is contained in a narrow scope, the rest of the code is functional.
 
-**Note**: Here, the state is copied, which is not memory efficient. In a memory savy implementation, state update functions would produce a data meant as way 
-
-### Good: Prefer Stateless Functions
-
-You can't avoid them. But should not unless unavoidable.
+**Note**: Here, the state is copied, which is not memory efficient. In a memory-savvy implementation, state update functions would produce “diffs” (data describing the difference between the old and updated versions of the state).
 
 ### Good: Memoization
 
-Let's imagine you store angles as fractions of the circle in 8-bit unsigned integers, storing them as `char` values. In this system, 64 is 90 degrees, 128 is 180 degrees, 192 is 270 degrees and 256 is full circle. If you need to compute cosine on those values, an implementation might look like this:
+Let's imagine you store angles as fractions of the circle in 8-bit unsigned integers, storing them as `char` values. In this system, 64 is 90 degrees, 128 is 180 degrees, 192 is 270 degrees, 256 is full circle and so on. If you need to compute cosine on those values, an implementation might look like this:
 ```ocaml
-# let pi_128 = 3.14159265358979312 /. 128.0;;
-pi_128 : float = 0.0245436926061702587
+# let pi = 3.14159265358979312 /. 128.0;;
+pi : float = 0.0245436926061702587
 
-# let char_cos c = c |> int_of_char |> float_of_int |> ( *. ) pi_128 |> cos;;
+# let char_cos c =
+    c |> int_of_char |> float_of_int |> ( *. ) (pi /. 128.0) |> cos;;
 val char_cos : char -> float = <fun>
 ```
 
-However, it is possible to make a much faster implementation using a technique known as [memoization](https://en.wikipedia.org/wiki/Memoization) (also known as tabling). Instead of recomputing a result each time it is needed, results are either precomputed (this is what is shown in the example) or fetched from a cache if already computed once or computed and stored otherwise.
+However, it is possible to make a faster implementation by precomputing all the possible values in advance, there are only 256 of them.
 ```ocaml
 # let char_cos_tab = Array.init 256 (fun i -> i |> char_of_int |> char_cos);;
 val char_cos_tab : float array =
@@ -431,11 +428,26 @@ val char_cos_tab : float array =
 val char_cos : char -> float = <fun>
 ```
 
+The [memoization](https://en.wikipedia.org/wiki/Memoization) technique relies on the same idea: get the results from a table recording previously computed values.
+
+However, instead of precomputing everything as in the example, memoization uses a cache, when calling the function, the input data is checked against the cache
+* If it's a hit, the stored result is returned
+* If it's a miss, the result is computed, stored and returned
+
+Management of the cache is yet another application of [function encapsulated mutability](#good-function-encapsulated-mutability).
+
 Refer to CS3110 or Real World OCaml for complete examples using caching:
 1. https://cs3110.github.io/textbook/chapters/ds/memoization.html
 1. https://dev.realworldocaml.org/imperative-programming.html
 
-### Acceptable: Module Wide State
+### Acceptable: Module Bound State
+
+A module may expose or encapsulate a state in several different ways:
+1. Good: Expose a type representing a state, with state creation or reset functions
+1. Acceptable: Only expose state initialisation, this implies there only is a single state
+1. Bad: Silent initialisation
+
+The [`Hashtbl`](/api/Hashtbl.html) module provides an interface of the first kind. It has the type `Hashtbl.t` representing mutable data, it also exposes `create`, `clear` and `reset` functions. Its functorial interface makes functor instanciation and hash table creation distinct operations.
 
 Good: module with an initialization function
 
@@ -453,13 +465,9 @@ Consumming a stateful dependency: not a good idea.
 
 Code looking as functional but actually stateful
 
-### Bad: Hidden Side-Effect
+### Bad: Hidden Side Effects
 
-TODO: include discussion on evaluation order, sides effects and monadic pipes
-
-```ocaml
-# let ref
-```
+Example: analytics
 
 ### Bad: Imperative by Default
 
@@ -506,9 +514,8 @@ Handling mutable state isn't good or bad. In the cases where it is needed, OCaml
 
 ## References
 
-* [The Curse of the Excluded Middle](https://queue.acm.org/detail.cfm?id=2611829), Erik Meijer. ACM Queue, Volume 12, Issue 4, April 2014, pages 20-29
 * https://www.lri.fr/~filliatr/hauteur/pres-hauteur.pdf
 * https://medium.com/neat-tips-tricks/ocaml-continuation-explained-3b73839b679f
 * https://discuss.ocaml.org/t/what-is-the-use-of-continuation-passing-style-cps/4491/7
 * https://www.pathsensitive.com/2019/07/the-best-refactoring-youve-never-heard.html
-* https://link.springer.com/chapter/10.1007/11783596_2    clear_line !state;
+* https://link.springer.com/chapter/10.1007/11783596_2
