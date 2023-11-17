@@ -51,22 +51,20 @@ type t = {
   presentations : presentation list;
   program_committee : committee_member list;
   organising_committee : committee_member list;
-  toc_html : string;
   body_md : string;
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ slug; toc_html; body_md; body_html ],
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ],
     show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
 let decode (_, (head, body_md)) =
   let metadata = metadata_of_yaml head in
-  let omd = Omd.of_string body_md in
-  let toc_html = Omd.to_html (Omd.toc ~depth:4 omd) in
-  let body_html = Omd.to_html omd in
-  Result.map (of_metadata ~toc_html ~body_md ~body_html) metadata
+  let doc = Cmarkit.Doc.of_string body_md in
+  let body_html = Cmarkit_html.of_doc ~safe:true doc in
+  Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () =
   Utils.map_files decode "workshops/*.md"
@@ -108,7 +106,6 @@ type t = {
   presentations : presentation list;
   program_committee : committee_member list;
   organising_committee : committee_member list;
-  toc_html : string;
   body_md : string;
   body_html : string;
 }
