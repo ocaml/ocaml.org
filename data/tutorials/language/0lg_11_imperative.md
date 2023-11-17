@@ -33,15 +33,15 @@ In OCaml, you can write code in imperative style without compromising on type an
 
 Imperative and functional programming both have unique merits; OCaml allows combining them efficiently. See the second part of this tutorial for examples of recommended, handle-with-care or inadvisable patterns.
 
-**Prerequisites**: This is an intermediate-level tutorial. You should have completed the [Basic Data Types](/docs/basic-data-types), [Values and Functions](/docs/values-and-functions) and [Lists](/docs/lists) tutorials.
+**Prerequisites**: This is an intermediate-level tutorial. You should have completed the [Basic Data Types](/docs/basic-data-types), [Values and Functions](/docs/values-and-functions), [Lists](/docs/lists) and [Modules](/docs/modules) tutorials
 
 ## Mutable Data
 
-A name-value binding created using the `let … = …` construct is [immutable](https://en.wikipedia.org/wiki/Immutable_object), once added to the environment, it is impossible to change the value or remove the name.
+A name-value binding created using the `let … = …` construct is [immutable](https://en.wikipedia.org/wiki/Immutable_object), once added to the environment, it is impossible to replace the value or remove the name.
 
 ### References
 
-However, there is a kind of value that can be updated, which is called a _reference_ in OCaml.
+However, there is a kind of value that can be updated. That is called a _reference_ in OCaml.
 ```ocaml
 # let a = ref 0;;
 val a : int ref = {contents = 0}
@@ -88,14 +88,14 @@ The way OCaml handles mutable data has the following characteristics:
 
 #### References Are Single Fields Records
 
-The value `{ contents = 0 }` of type `int ref` not only looks like a record: It is a record. Having a look at the way the `ref` type is defined is enlightening:
+The value `{ contents = 0 }` of type `int ref` frome the previous section not only looks like a record: It is a record. Having a look at the way the `ref` type is defined is enlightening:
 ```ocaml
 # #show ref;;
 external ref : 'a -> 'a ref = "%makemutable"
 type 'a ref = { mutable contents : 'a; }
 ```
 
-Starting from the bottom, the `'a ref` type is a record with just a single field `contents` which is marked with the `mutable` keyword. This means that the field can be updated.
+Starting from the bottom, the `'a ref` type is a record with a single field `contents` which is marked with the `mutable` keyword. This means that the field can be updated.
 
 The `external ref : 'a -> 'a ref = "%makemutable"` means the function `ref` is not written in OCaml, but that is an implementation detail we do not care about in this tutorial. If interested, check the [Calling C Libraries](/docs/calling-c-libraries) tutorial to learn how to use the foreign function interface.
 
@@ -122,6 +122,7 @@ type book = {
 For instance here is how a bookshop could track its book inventory:
 * Fields `title`, `author`, `volume`, `series` are constants
 * Field `stock` is mutable because this value changes with each sale or when restocking
+
 Such a database should have an entry like this:
 ```ocaml
 # let vol_7 = {
@@ -129,16 +130,16 @@ Such a database should have an entry like this:
     volume = 7;
     title = "System Collapse";
     author = "Martha Wells";
-    stock = 3
+    stock = 0
   };;
 val vol_7 : book =
   {series = "Murderbot Diaries"; volume = 7; title = "System Collapse";
    author = "Martha Wells"; stock = 0}
 ```
 
-When the bookshop receives a delivery of 7 of these books, here is how the data update can be done:
+When the bookshop receives the delivery of 10 of these books, here is how the data update can be done:
 ```ocaml
-# vol_7.stock <- vol_7.stock + 7;;
+# vol_7.stock <- vol_7.stock + 10;;
 - : unit = ()
 
 # vol_7;;
@@ -148,8 +149,8 @@ When the bookshop receives a delivery of 7 of these books, here is how the data 
 ```
 
 Mutable record field update is a side effect performed using the left arrow symbol `<-`. In the expression `vol_7.stock <- vol_7.stock + 7` the meaning of `vol_7.stock` depends on its context:
-* In `vol_7.stock <- …` it refers to the mutable field to be updated
-* In the right-hand side expression `vol_7.stock + 7`, it denotes the contents of the field
+* In the left-hand side of `<-` it refers to the mutable field to be updated
+* In the right-hand side of `<-`, it denotes the contents of the field
 
 Looking at references again, we can define functions `assign` and `deref`:
 ```ocaml
@@ -170,9 +171,9 @@ The function `assign` does the same as the operator `( := )`, while the function
 
 #### Field Update _vs_ Record Copy
 
-In this section, we compare two ways to implement a C-like `get_char` function. It waits until a key is pressed and returns the character corresponding without echoing it. This function will also be used later on in this tutorial.
+In this section, we compare two ways to implement a `get_char` function. It waits until a key is pressed and returns the character corresponding without echoing it. This function will also be used later on in this tutorial.
 
-This is using two functions from the `Unix` module. Both are used to access terminal attributes associated with standard input:
+This is using two functions from the `Unix` module. Both are used to access attributes of the terminal associated with standard input:
 * `tcgetattr stdin TCSAFLUSH` read and return them as a record (this is similar to `deref`)
 * `tcsetattr stdin TCSAFLUSH` update them (this is similar to `assign`)
 
@@ -220,7 +221,7 @@ val get_char : unit -> char = <fun>
 
 In this implementation, the record returned by the call to `tcgetattr` isn't updated. A copy is made using `{ termio with c_icanon = false; c_echo = false }`. That copy only differs from the read `termio` value on fields `c_icanon` and `c_echo`, that's the meaning of `termio with …`
 
-That allows the second call to `tcsetattr` to restore terminal attributes to their initial state.
+That allows the second call to `tcsetattr` to restore terminal attributes to their initial state without explicitly reading them.
 
 ### Arrays and Bytes Sequences
 
@@ -345,7 +346,7 @@ The following loop echoes characters typed on the keyboard, as long as they are 
 
 Functional and imperative programming are often mixed. However, not all mix creates good results. Some patterns and anti-patterns are listed in this section.
 
-### Good: Function Encapsulated Mutability
+### Good: Function-Encapsulated Mutability
 
 Here is a possible way to compute the sum of an array of integers.
 ```ocaml
@@ -368,7 +369,7 @@ Some applications maintain a state while they are running. Here is a couple of e
 - A text editor. The state includes the commands (to allow undo), the settings, what is displayed and the file.
 - Any cache.
 
-The following is a toy line editor, using the `get_char` function defined earlier. It waits for characters on standard input and exits on end-of-file, carriage return or newline. Otherwise, if the character is printable, it prints it and records it in a mutable list used as a stack. If the character is the delete code, the stack is popped and the last printed character is erased.
+The following is a toy line editor, using the `get_char` function [defined earlier](#field-update-vs-record-copy). It waits for characters on standard input and exits on end-of-file, carriage return or newline. Otherwise, if the character is printable, it prints it and records it in a mutable list used as a stack. If the character is the delete code, the stack is popped and the last printed character is erased.
 ```ocaml
 # let record_char state c =
     (String.make 1 c, c :: state);;
@@ -403,9 +404,9 @@ This is not a production-grade code. However, it illustrates the following:
 - I/O and state update side effects are confined to the `loop`` function
 - The state is passed as a parameter to the `loop` function
 
-This is the idea of a possible way to handle an application-wide state. As in the [Function Encapsulated Mutability](#good-function-encapsulated-mutability) state aware code is contained in a narrow scope, the rest of the code is functional.
+This is the idea of a possible way to handle an application-wide state. As in the [Function-Encapsulated Mutability](#good-function-encapsulated-mutability) state aware code is contained in a narrow scope, the rest of the code is functional.
 
-**Note**: Here, the state is copied, which is not memory efficient. In a memory-savvy implementation, state update functions would produce “diffs” (data describing the difference between the old and updated versions of the state).
+**Note**: Here, the state is copied, which is not memory efficient. In a memory-aware implementation, state update functions would produce “diffs” (data describing the difference between the old and updated versions of the state).
 
 ### Good: Memoization
 
@@ -430,11 +431,11 @@ val char_cos : char -> float = <fun>
 
 The [memoization](https://en.wikipedia.org/wiki/Memoization) technique relies on the same idea: get the results from a table recording previously computed values.
 
-However, instead of precomputing everything as in the example, memoization uses a cache, when calling the function, the input data is checked against the cache
+However, instead of precomputing everything as in the example, memoization uses a cache. When calling the function, the input data is checked against it:
 * If it's a hit, the stored result is returned
 * If it's a miss, the result is computed, stored and returned
 
-Management of the cache is yet another application of [function encapsulated mutability](#good-function-encapsulated-mutability).
+Management of the cache is yet another application of [function-encapsulated mutability](#good-function-encapsulated-mutability).
 
 Refer to CS3110 or Real World OCaml for complete examples using caching:
 1. https://cs3110.github.io/textbook/chapters/ds/memoization.html
@@ -445,33 +446,81 @@ Refer to CS3110 or Real World OCaml for complete examples using caching:
 A module may expose or encapsulate a state in several different ways:
 1. Good: Expose a type representing a state, with state creation or reset functions
 1. Acceptable: Only expose state initialisation, this implies there only is a single state
-1. Bad: Silent initialisation
+1. Bad: No explicit initialisation function or no name referring state
 
-The [`Hashtbl`](/api/Hashtbl.html) module provides an interface of the first kind. It has the type `Hashtbl.t` representing mutable data, it also exposes `create`, `clear` and `reset` functions. Its functorial interface makes functor instanciation and hash table creation distinct operations.
+The [`Hashtbl`](/api/Hashtbl.html) module provides an interface of the first kind. It has the type `Hashtbl.t` representing mutable data, it also exposes `create`, `clear` and `reset` functions. Its functorial interface makes functor instantiation and hash table creation distinct operations.
 
-Good: module with an initialization function
+```ocaml
+#show Hashtbl.t;;
+type ('a, 'b) t = ('a, 'b) Hashtbl.t
 
-Functors: silent state init at functor instantiation -> Module and Functor related discussion link or something
+#  Hashtbl.create;;
+- : ?random:bool -> int -> ('a, 'b) Hashtbl.t = <fun>
 
+# Hashtbl.reset;;
+- : ('a, 'b) Hashtbl.t -> unit = <fun>
 
+# Hashtbl.clear;;
+- : ('a, 'b) Hashtbl.t -> unit = <fun>
+```
 
-### Bad: Stateful Dependency
+TODO: optional arguments
 
-It may not be wise for a functor to expose an south-interface ()
-
-Consumming a stateful dependency: not a good idea.
+On the other hand, a module may define mutable data internally impacting its behaviour without exposing it in its interface. This is inadvisable.
 
 ### Bad: Mutable in Disguise
 
-Code looking as functional but actually stateful
+Consider this code:
+```ocaml
+# let partition p a =
+    let b = Array.copy a in
+    let a_len = ref 0 in
+    let b_len = ref 0 in
+    for i = 0 to Array.length a - 1 do
+      if p a.(i) then begin
+        a.(!a_len) <- a.(i);
+        incr a_len
+      end else begin
+        b.(!b_len) <- a.(i);
+        incr b_len
+      end
+    done;
+    (Array.truncate a_len a, Array.truncate b_len b);;
+```
+
+As an anti-pattern, this is purposely broken. Let's assume the function `Array.truncate` has type `int -> 'a array -> 'a array` and behaves such that `Array.truncate 3 [5; 6; 7; 8; 9]` returns `[5; 6; 7]` and that array physically corresponds to the 3 first cells of the input array.
+
+The type of `truncate` should be `('a -> bool) -> 'a array -> 'a array * 'a array` and it could be documented as:
+> `partition p a` returns a pair of arrays `(b, c)` where `b` is an array containing all the elements of `a` that satisfy the predicate `p`, and `c` is an array containing the elements of `a` that do not satisfy `p`. The order of the elements from the input array is preserved.
+
+**Don't do that**. It looks like an application of the [Function-Encapsulated mutability](#good-function-encapsulated-mutability). But it is not, the input array is modified. This function has a side effect that is either not intended or not documented, in the latter case, the function should be named differently.
+
+### Bad: Stateful External Factor
+
+GOTCHA: This is the dual of the previous anti-pattern. “Mutable in disguise” is a perspiration side-effect. “Stateful Influence” is the unintended or undocumented influence of a mutable state into a function (as an external factor).
+
 
 ### Bad: Hidden Side Effects
+Consider this code:
+```ocaml
+# module Array = struct
+    include Stdlib.Array
+    let copy a =
+      if Array.length a > 1 lsl 20 then Analytics.collect "Array.copy" a;
+      copy a
+    end;;
+Error: Unbound value analytics_record
+```
 
-Example: analytics
+As an anti-pattern, this is purposely broken. A module called `Array` is defined, it shadows and includes the [`Stdlib.Array`](/api/Array.html) module. See the [Module Inclusion](docs/modules#module-inclusion) part of the [Modules](docs/modules) tutorial for details about this pattern.
+
+However, the newly defined `Array` module contains a `copy` function which has a side effect. If the array to copy has a million cells or above, it will create a network connection and transmit data.
+
+**Don't do that**. Side effects and mutability are hard enough alone. Don't add complexity to the intrinsic complexity of the matter by hiding relevant information from the developers or maintainers.
 
 ### Bad: Imperative by Default
 
-The imperative style shouldn't be the default, it shouldn't be used everywhere. Although it is possible to use the imperative style without losing the benefits of type and memory safety, it doesn't make sense to only use it. Not using functional programming idioms would result in a contrived and obfuscated style.
+By default, OCaml programs should be written in a mostly functional style, the imperative style shouldn't be the default. It is possible to use the imperative style without losing the benefits of type and memory safety, it doesn't make sense to only use it. Not using functional programming idioms at all would result in a contrived and obfuscated style.
 
 Additionally, most modules provide an interface meant to be used in functional way. Some would require the development and maintenance of [wrapper libraries](https://en.wikipedia.org/wiki/Wrapper_library) to be used in an imperative setting. That would be wasteful and brittle.
 
