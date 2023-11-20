@@ -171,3 +171,6 @@
 - id: robur.coop
   name: Robur Cooperative
   url: https://blog.robur.coop/feed.xml
+- id: dinosaure
+  name: Romain Calascibetta
+  url: https://blog.osau.re/feed.xml
