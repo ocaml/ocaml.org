@@ -168,3 +168,9 @@
 - id: signalsandthreads
   name: Signals and Threads
   url: https://feeds.simplecast.com/L9810DOa
+- id: robur.coop
+  name: Robur Cooperative
+  url: https://blog.robur.coop/feed.xml
+- id: dinosaure
+  name: Romain Calascibetta
+  url: https://blog.osau.re/feed.xml
