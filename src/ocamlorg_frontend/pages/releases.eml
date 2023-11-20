@@ -38,13 +38,13 @@ Layout.render
                 </div>
                 <% | _ -> %>
                 <div class="max-w-5xl lg:max-w-full align-top">
-                    <div class="bg-body-700 text-white text-left rounded-xl hidden lg:flex">
+                    <div class="bg-body-700 text-default text-left rounded-xl hidden lg:flex font-bold">
                         <div class="w-2/3">
-                            <h2 class="py-4 px-6 rounded-l-lg text-x">Version</h2>
+                            <h2 class="py-4 px-6 text-base">Version</h2>
                         </div>
                         <div class="lg:w-1/3 flex">
-                            <h2 class="py-4 px-6 w-1/2">Date</h2>
-                            <h2 class="py-4 px-6 rounded-r-lg w-1/2">Actions</h2>
+                            <h2 class="py-4 px-6 w-1/2 text-base">Date</h2>
+                            <h2 class="py-4 px-6 w-1/2 text-base">Actions</h2>
                         </div>
                     </div>
                     <% releases |> List.iter (fun (release : Data.Release.t) -> %>
