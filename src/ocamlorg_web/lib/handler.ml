@@ -387,17 +387,17 @@ let tutorial req =
   in
   let all_exercises = Data.Exercise.all in
   let related_exercises =
-    List.filter (fun (e : Data.Exercise.t) ->
-      match e.tutorials with
-      | Some tutorials_list -> List.mem slug tutorials_list
-      | None -> false
-    ) all_exercises
+    List.filter
+      (fun (e : Data.Exercise.t) ->
+        match e.tutorials with
+        | Some tutorials_list -> List.mem slug tutorials_list
+        | None -> false)
+      all_exercises
   in
   Dream.html
     (Ocamlorg_frontend.tutorial ~tutorials
        ~canonical:(Url.tutorial tutorial.slug)
-       ~related_exercises
-       tutorial)
+       ~related_exercises tutorial)
 
 let exercises req =
   let all_exercises = Data.Exercise.all in
