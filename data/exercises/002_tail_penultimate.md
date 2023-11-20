@@ -4,6 +4,7 @@ number: "2"
 difficulty: beginner
 tags: [ "list" ]
 description: "Find the last and penultimate elements of a list."
+tutorials: [ "lists"]
 ---
 
 # Solution
