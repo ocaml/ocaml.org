@@ -4,7 +4,7 @@ number: "1"
 difficulty: beginner
 tags: [ "list" ]
 description: "Write a function that returns the last element of a list."
-tutorials: [ "data-types", "functionnal-programming"]
+tutorials: [ "lists"]
 ---
 
 # Solution
