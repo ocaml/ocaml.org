@@ -367,10 +367,7 @@ module Scraper = struct
     let slug = Utils.slugify title in
     let source_path = "data/planet/" ^ source_id in
     let output_file = source_path ^ "/" ^ slug ^ ".md" in
-    if Sys.file_exists output_file then
-      print_endline
-        (Printf.sprintf "%s/%s already exist, not scraping again" source_id slug)
-    else
+    if not (Sys.file_exists output_file) then
       let url = River.link post in
       let date = River.date post |> Option.map Syndic.Date.to_rfc3339 in
       match (url, date) with
