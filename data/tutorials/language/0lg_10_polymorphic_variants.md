@@ -12,7 +12,7 @@ category: "Language"
 
 This tutorial teaches you how to use polymorphic variants. This includes starting to use them, maintaining a project already using them, deciding when to use them or not, and balancing their unique benefits against their drawbacks.
 
-Product types and data types such as `option` and `list` are variants and polymorphic. In this tutorial, they are called _simple variants_ to distinguish them from the _polymorphic variants_ presented here. Simple variants and polymorphic variants are close siblings. Their values are both introduced using labels that may carry data. Both can be recursive and have type parameters. By the way, don't trust a [LLM](https://en.wikipedia.org/wiki/Large_language_model) chatbot if it tells you polymorphic variants are dynamically typed; it is an hallucination. Like simple variants, polymorphic variants are type-checked statically.
+Product types and data types such as `option` and `list` are variants and polymorphic. In this tutorial, they are called _simple variants_ to distinguish them from the _polymorphic variants_ presented here. Simple variants and polymorphic variants are close siblings. Their values are both introduced using labels that may carry data. Both can be recursive and have type parameters. By the way, don't trust a [LLM](https://en.wikipedia.org/wiki/Large_language_model) chatbot if it tells you polymorphic variants are dynamically typed; it is a hallucination. Like simple variants, polymorphic variants are type-checked statically.
 
 However, they are type-checked using different algorithms, which results in a different programming experience. The relationship between value and type (written with the colon symbol `:`) is changed with polymorphic variants. Usually, values are thought of as inhabitants of the type, which is regarded as a set-like thing. Rather, polymorphic variant values should be considered as pieces of data that several functions can accept. Polymorphic variants types are a way to express compatibility relationships between those functions. The approach in this tutorial is to build sense from experience using features of polymorphic variants.
 
@@ -37,14 +37,14 @@ In the structural approach of typing, type definitions are optional, so they can
 ### Learning Goals
 
 The goal of this tutorial is to make the reader acquire the following capabilities:
-- Write polymorphic variant using code, from scratch, using mainstream features
+- Write polymorphic variants using code, from scratch, using mainstream features
 - Maintain existing code that is using polymorphic variants
 - Sort out polymorphic variant types and errors
   - Add type annotation needed to resolve polymorphic variant type-checking issues
-  - Add or remove catch all patterns in polymorphic variant pattern matching
+  - Add or remove catch-all patterns in polymorphic variant pattern matching
   - Insert or remove type casts
 - Refactor between simple and polymorphic variants
-- Choose to use polymorphic variant when really needed
+- Choose to use polymorphic variants when really needed
 -->
 
 ### A Note on Simple Variants and Polymorphism
@@ -78,7 +78,7 @@ Note each of the above translations into simple variants is correct. However, en
 
 This also illustrates the other striking feature of polymorphic variants: values can be attached to several types. For instance, the tag `` `Broccoli`` inhabits ``[ `Broccoli ]`` and``[ `Broccoli | `Fruit of String ]``, but it also inhabits any type that contains it.
 
-What is displayed by the type-checker, for instance ``[< `Broccoli | `Fruit of string ]``, isn't a single type. It is a type expression that designates a constrained set of types. For instance, all the types defined by a group of tags that contain either`` `Broccoli`` or `` `Fruit of string`` and nothing more. This is the meaning of the `<` sign in this type expression. This is a bit similar to what happens with `'a list`, which isn't a single type either, but a type expression that designates the set of `list` types of something, i.e. the set of types where `'a` has been replaced by some other type. It is also meant to indicate that the exact types are subsets of the indicated ones (this will be explained in the section on [Subtyping](#Subtyping-of-Polymorphic-Variants)).
+What is displayed by the type-checker, for instance ``[< `Broccoli | `Fruit of string ]``, isn't a single type. It is a type expression that designates a constrained set of types. For instance, all the types that are defined by a group of tags containing either`` `Broccoli`` or `` `Fruit of string`` and nothing more. This is the meaning of the `<` sign in this type expression. This is a bit similar to what happens with `'a list`, which isn't a single type either, but a type expression that designates the set of `list` types of something, i.e. the set of types where `'a` has been replaced by some other type. It is also meant to indicate that the exact types are subsets of the indicated ones (this will be explained in the section on [Subtyping](#Subtyping-of-Polymorphic-Variants)).
 
 This is the sense of the polymorphism of polymorphic variants. Polymorphic variants types are type expressions. The structural typing algorithm used for polymorphic variants creates type expressions that designate sets of types (here the three types above), which are defined by constraints on sets of tags (the inequality symbols). The polymorphism of polymorphic variants is different.
 
@@ -102,7 +102,7 @@ val g : [< `Broccoli | `Edible of string ] -> string = <fun>
 
 Both `f` and `g` accept the`` `Broccoli`` tag as input because they both have code for it. They do not have the same domain because `f` also accepts `` `Fruit of string`` whilst `g` also accepts `` `Edible of string``. The domains of `f` and `g` express this. The tag `` `Broccoli`` satisfies both the constraints of the domain of `f`: ``[< `Broccoli | `Fruit of string ]`` and the constraints of the domain of `g`: ``[< `Broccoli | `Fruit of string ]``. That type is ``[ `Broccoli ]``. The value defined by a tag belongs to several types, similarly, a tag accepting functions belongs to several types.
 
-Polymorphic variant tags are meant to be used as stand-alone values, wherever it makes sense. As long as used consistently, with a single implicit type per tag, the type checker will accept any combination of them in pattern matching expressions.
+Polymorphic variant tags are meant to be used as stand-alone values, wherever it makes sense. As long as used consistently, with a single implicit type per tag, the type checker will accept any combination of them in pattern-matching expressions.
 
 ### Static Type-Checking
 
@@ -347,7 +347,7 @@ The aliasing mechanism is used to express type recursion. In the type expression
 <!--
 ### Conjunction of constraints
 
-FIXME: This shows impossible to satisfy constraints can appear. Could we show a conjunction of constraint that can be satisfied first? Otherwise, it needs to be moved to drawbacks.
+FIXME: This shows impossible to satisfy constraints can appear. Could we show a conjunction of constraints that can be satisfied first? Otherwise, it needs to be moved to drawbacks.
 
 ```ocaml
 # let foo = function `Night x -> x = 1 | `Day -> true | `Eclipse -> false
