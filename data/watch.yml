@@ -323,6 +323,16 @@ watch:
   published_at: 2023-09-20T11:27:06.813Z
   language: Unknown
   category: Science & Technology
+- name: Develop Cross-Platform Software using 2+ Languages
+  description: "Explore how high school robotics software was developed that works
+    on Android phones and desktop PCs. Use OCaml alongside common programming languages
+    like Java and Python.\r\n\r\nDkSDK Subscription: https://diskuv.com/pricing/\r\nLearning
+    OCaml: https:..."
+  embed_path: /videos/embed/6162e7b7-f2dd-47e6-8133-c4126ce1b508
+  thumbnail_path: /static/thumbnails/4a50eb98-ab79-4a57-87d9-a55a91654301.jpg
+  published_at: 2023-11-16T22:18:27.526Z
+  language: Unknown
+  category: Unknown
 - name: Digodoc and Docs
   description: In this talk, we will introduce a new tool called digodoc, that builds
     a graph of an opam switch, associating files, libraries and opam packages into
