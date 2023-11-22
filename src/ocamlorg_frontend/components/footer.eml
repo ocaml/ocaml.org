@@ -77,6 +77,10 @@ let render () =
               <li>
                 <a href="<%s Url.getting_started %>" class="text-base leading-6 text-lighter">Get Started</a>
               </li>
+              
+              <li>
+                <a href="<%s Url.platform %>" class="text-base leading-6 text-lighter">Platform Tools</a>
+              </li>
 
               <li>
                 <a href="<%s Url.manual %>" class="text-base leading-6 text-lighter">Language Manual</a>
