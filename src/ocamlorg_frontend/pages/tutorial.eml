@@ -44,7 +44,7 @@ let render
 ~canonical
 =
 Learn_layout.render
-~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title)
+~title:(Printf.sprintf "%s · OCaml Documentation" tutorial.title)
 ~description:tutorial.description
 ~canonical
 ~active_top_nav_item:Learn
