@@ -85,7 +85,7 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
   | Advanced -> advanced_section_icon
   in
   <div class="bg-legacy-default">
-    <div class="max-w-sm md:max-w-none flex flex-col">
+    <div class="max-w-sm md:max-w-full md:w-[32rem] flex flex-col">
       <div class="pt-4 text-legacy-default text-sm font-medium leading-7 tracking-widest flex gap-2 items-center"><%s! icon_for_difficulty book.difficulty %> RECOMMENDED BOOK</div>
       <h2 class="mt-2 text-text_title text-2xl font-bold leading-7"><%s book.title %></h2>
       <div class="mt-6 grid grid-cols-2 gap-12 lg:gap-6 xl:gap-12">
