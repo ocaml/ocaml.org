@@ -17,8 +17,6 @@ language:
 links:
   - description: Read Online
     uri: https://realworldocaml.org/
-rating: 4
-featured: true
 difficulty: intermediate
 pricing: free
 ---

@@ -15,8 +15,6 @@ language:
 links:
   - description: Read Online
     uri: https://cs3110.github.io/textbook/
-rating: 5
-featured: true
 difficulty: beginner
 pricing: free
 ---

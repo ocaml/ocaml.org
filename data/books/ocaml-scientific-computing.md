@@ -17,7 +17,6 @@ links:
     uri: https://link.springer.com/book/10.1007/978-3-030-97645-3
   - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/3030976440
-featured: true
 difficulty: advanced
 pricing: paid
 ---

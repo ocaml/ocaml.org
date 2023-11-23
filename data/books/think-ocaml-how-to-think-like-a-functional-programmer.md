@@ -13,7 +13,6 @@ language:
 links:
   - description: Read Online
     uri: https://greenteapress.com/thinkocaml/thinkocaml.pdf
-featured: false
 difficulty : beginner
 pricing: free
 ---

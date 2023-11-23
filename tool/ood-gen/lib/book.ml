@@ -1,3 +1,16 @@
+module Difficulty = struct
+  type t = Beginner | Intermediate | Advanced
+  [@@deriving show { with_path = false }]
+
+  let of_string = function
+    | "beginner" -> Ok Beginner
+    | "intermediate" -> Ok Intermediate
+    | "advanced" -> Ok Advanced
+    | s -> Error (`Msg ("Unknown difficulty type: " ^ s))
+
+  let of_yaml = Utils.of_yaml of_string "Expected a string for difficulty type"
+end
+
 type link = { description : string; uri : string }
 [@@deriving of_yaml, show { with_path = false }]
 
@@ -12,9 +25,7 @@ type metadata = {
   cover : string;
   isbn : string option;
   links : link list;
-  rating : int option;
-  featured : bool;
-  difficulty : string option;
+  difficulty : Difficulty.t;
   pricing : string;
 }
 [@@deriving of_yaml, show { with_path = false }]
@@ -30,9 +41,7 @@ type t = {
   cover : string;
   isbn : string option;
   links : link list;
-  rating : int option;
-  featured : bool;
-  difficulty : string option;
+  difficulty : Difficulty.t;
   pricing : string;
   body_md : string;
   body_html : string;
@@ -60,6 +69,7 @@ let all () =
 let template () =
   Format.asprintf
     {|
+type difficulty = Beginner | Intermediate | Advanced
 type link = { description : string; uri : string }
 
 type t = 
@@ -73,9 +83,7 @@ type t =
   ; cover : string
   ; isbn : string option
   ; links : link list
-  ; rating : int option
-  ; featured : bool
-  ; difficulty : string option
+  ; difficulty : difficulty
   ; pricing : string
   ; body_md : string
   ; body_html : string

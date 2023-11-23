@@ -16,9 +16,8 @@ let install _req = Dream.html (Ocamlorg_frontend.install ())
 
 let learn _req =
   let papers = Data.Paper.featured in
-  let books = Data.Book.featured in
   let latest_version = Data.Release.latest.version in
-  Dream.html (Ocamlorg_frontend.learn ~papers ~books ~latest_version)
+  Dream.html (Ocamlorg_frontend.learn ~papers ~latest_version)
 
 let learn_get_started req =
   let tutorials =
@@ -152,8 +151,11 @@ let books req =
     let matches_difficulty =
       match difficulty with
       | Some d when d = "All" -> true
-      | Some d -> (
-          match book.difficulty with Some bd -> bd = d | None -> false)
+      | Some d when d = "beginner" -> book.difficulty = Data.Book.Beginner
+      | Some d when d = "intermediate" ->
+          book.difficulty = Data.Book.Intermediate
+      | Some d when d = "advanced" -> book.difficulty = Data.Book.Advanced
+      | Some _ -> true
       | None -> true
     in
     matches_language && matches_pricing && matches_difficulty

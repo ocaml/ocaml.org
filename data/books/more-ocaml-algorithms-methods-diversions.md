@@ -16,8 +16,6 @@ language:
 links:
   - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/0957671113
-rating: 5
-featured: false
 difficulty: intermediate
 pricing: paid
 ---

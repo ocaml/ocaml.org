@@ -25,6 +25,7 @@ module Academic_institution : sig
 end
 
 module Book : sig
+  type difficulty = Beginner | Intermediate | Advanced
   type link = { description : string; uri : string }
 
   type t = {
@@ -38,16 +39,13 @@ module Book : sig
     cover : string;
     isbn : string option;
     links : link list;
-    rating : int option;
-    featured : bool;
-    difficulty : string option;
+    difficulty : difficulty;
     pricing : string;
     body_md : string;
     body_html : string;
   }
 
   val all : t list
-  val featured : t list
   val get_by_slug : string -> t option
 end
 

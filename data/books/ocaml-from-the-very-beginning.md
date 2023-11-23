@@ -17,8 +17,6 @@ links:
     uri: https://ocaml-book.com/
   - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/0957671105
-rating: 4
-featured: true
 difficulty : beginner
 pricing: free
 ---

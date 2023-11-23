@@ -7,7 +7,6 @@ end
 module Book = struct
   include Book
 
-  let featured = all |> List.filter (fun book -> book.featured)
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 

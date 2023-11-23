@@ -20,7 +20,6 @@ links:
     uri: https://caml.inria.fr/pub/docs/oreilly-book/
   - description: Order at Amazon.fr
     uri: https://www.amazon.fr/exec/obidos/ASIN/2841771210
-featured: false
 difficulty: intermediate
 pricing: free
 ---

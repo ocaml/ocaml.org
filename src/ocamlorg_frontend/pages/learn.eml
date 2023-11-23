@@ -1,12 +1,5 @@
-let intermediate_books = 
-  let book_slugs_to_retrieve = ["more-ocaml-algorithms-methods-diversions"; "real-world-ocaml"] in
-  let book_options = List.map Data.Book.get_by_slug book_slugs_to_retrieve in
-  let books = List.filter_map (fun opt -> opt) book_options in
-  books
-
 let render
 ~(papers : Data.Paper.t list)
-~(books : Data.Book.t list)
 ~(latest_version : string)
 =
 Learn_layout.single_column_layout
@@ -49,12 +42,12 @@ Learn_layout.single_column_layout
       </a>
     </div>
 
-    <h2 id="beginner_section" class="my-8 flex gap-2 items-center text-text_content text-3xl font-regular leading-7 tracking-widest">
+    <h2 id="beginner_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
       <span class="text-tertiary font-bold">FOUNDATIONS</span>
       FOR BEGINNERS
     </h2>
 
-    <div class="grid gap-6 md:grid-cols-2">
+    <div class="grid gap-6 mt-6 md:grid-cols-2">
       <%s! Learn_components.tutorial_block ~icon:Learn_components.beginner_section_icon ~title:"GET STARTED" ~heading:"Introduction To OCaml" 
               ~description:"Install OCaml and gain a high-level understanding of language features" 
               ~tutorial_links:[
@@ -65,23 +58,32 @@ Learn_layout.single_column_layout
               ~see_more:{href = Url.getting_started; title = "Get Started"}
               %>
       <%s! Learn_components.tutorial_block ~icon:Learn_components.beginner_section_icon ~title:"LANGUAGE" ~heading:"The OCaml Language" 
-          ~description:"An in-depth explanation of language features and data structures from the Standard Library" 
-          ~tutorial_links:[
-              {href = Url.tutorial "values-and-functions"; title = "Values and Functions"};
-              {href = Url.tutorial "basic-data-types"; title = "Data Types and Pattern Matching"};
-              {href = Url.tutorial "lists"; title = "Lists"};
-              {href = Url.tutorial "if-statements-and-loops"; title = "If Statements, Loops, and Recursions"};
-          ]
-          ~see_more:{href = Url.learn_language; title = "See More Language Tutorials"}
-          %>
+              ~description:"An in-depth explanation of language features and data structures from the Standard Library" 
+              ~tutorial_links:[
+                  {href = Url.tutorial "values-and-functions"; title = "Values and Functions"};
+                  {href = Url.tutorial "basic-data-types"; title = "Data Types and Pattern Matching"};
+                  {href = Url.tutorial "lists"; title = "Lists"};
+                  {href = Url.tutorial "if-statements-and-loops"; title = "If Statements, Loops, and Recursions"};
+              ]
+              ~see_more:{href = Url.learn_language; title = "Language Documentation"}
+              %>
     </div>
 
-    <h2 id="intermediate_section" class="my-8 flex gap-2 items-center text-text_content text-3xl font-regular leading-7 tracking-widest">
+    <div class="grid gap-6 mt-6 md:grid-cols-2">
+      <%s! Learn_components.book_recommendation
+        (Data.Book.get_by_slug "ocaml-programming-cs3110" |> Option.get)
+        ~link:{href = Url.books; title = "See More Books"} %>
+      <%s! Learn_components.book_recommendation
+        (Data.Book.get_by_slug "ocaml-from-the-very-beginning" |> Option.get)
+        ~link:{href = Url.books; title = "See More Books"} %>
+    </div>
+
+    <h2 id="intermediate_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
       <span class="text-[#3882B7] font-bold">EXPLORING</span>
       THE INTERMEDIATE LEVEL
     </h2>
 
-    <div class="grid gap-6 md:grid-cols-2">
+    <div class="grid gap-6 mt-6 md:grid-cols-2">
       <%s! Learn_components.tutorial_block ~icon:Learn_components.intermediate_section_icon ~title:"GUIDES" ~heading:"Practical-Minded Tutorials and Guides" 
               ~description:"How to solve real-world problems in OCaml" 
               ~tutorial_links:[
@@ -100,17 +102,17 @@ Learn_layout.single_column_layout
               {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Install a Specific Compiler Version"};
               {href = Url.tutorial "configuring-your-editor"; title = "Configuring Your Editor"}
           ]
-          ~see_more:{href = Url.platform; title = "See More Tooling Tutorials"}
+          ~see_more:{href = Url.platform; title = "Platform Tools Documentation"}
           %>
     </div>
 
-    <div class="grid lg:grid-cols-2">
-      <%s! Learn_components.left_books_content_block books ~title:"Recommended For Beginners" ~link:{href = Url.books; title = "See More Books"} %>
-      <%s! Learn_components.right_books_content_block intermediate_books ~title:"For Intermediate Users" ~link:{href = Url.books; title = "See More Books"} %>
+    <div class="grid gap-6 mt-6 grid-cols-2">
+      <%s! Learn_components.book_recommendation
+        (Data.Book.get_by_slug "real-world-ocaml" |> Option.get)
+        ~link:{href = Url.books; title = "See More Books"} %>
     </div>
-    <div>
 
-    <h2 id="advanced_section" class="my-8 flex gap-2 items-center text-text_content text-3xl font-regular leading-7 tracking-widest">
+    <h2 id="advanced_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
       <span class="text-primary font-bold">ELEVATED</span>
       EXPERTISE
     </h2>
