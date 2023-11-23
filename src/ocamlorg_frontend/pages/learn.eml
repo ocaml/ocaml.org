@@ -110,6 +110,9 @@ Learn_layout.single_column_layout
       <%s! Learn_components.book_recommendation
         (Data.Book.get_by_slug "real-world-ocaml" |> Option.get)
         ~link:{href = Url.books; title = "See More Books"} %>
+      <%s! Learn_components.book_recommendation
+        (Data.Book.get_by_slug "more-ocaml-algorithms-methods-diversions" |> Option.get)
+        ~link:{href = Url.books; title = "See More Books"} %>
     </div>
 
     <h2 id="advanced_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
@@ -124,6 +127,13 @@ Learn_layout.single_column_layout
         Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things?
         Check out papers written by leading OCaml researchers:
       </div>
+
+      <div class="grid gap-6 mt-6 grid-cols-2">
+        <%s! Learn_components.book_recommendation
+          (Data.Book.get_by_slug "ocaml-scientific-computing" |> Option.get)
+          ~link:{href = Url.books; title = "See More Books"} %>
+      </div>
+
       <div class="flex flex-col lg:flex-row mt-8 space-y-4 lg:space-y-0 lg:space-x-6">
         <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
         <a
