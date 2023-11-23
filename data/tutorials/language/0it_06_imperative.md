@@ -85,7 +85,7 @@ Refer to the [Operators](/docs/operators) documentation for more information on 
 
 Working with mutable data in OCaml,
 * it's impossible to create uninitialised references, and
-* the mutable content and the reference have different syntax and type: no confusion betweem them is possible.
+* the mutable content and the reference have different syntax and type: no confusion between them is possible.
 
 ## Mutable Record Fields
 
@@ -286,7 +286,7 @@ OCaml provides a sequence operator `;` that allows to chain expressions, as well
 
 ### Sequence Operator
 
-The `;` operator is known as the _sequence operator_. It allows you to evaluate multiple expressions in order, with the value of the last expression being the value of the entire sequence.
+The `;` operator is known as the _sequence_ operator. It allows you to evaluate multiple expressions in order, with the value of the last expression being the value of the entire sequence.
 
 The values of any previous expressions are discarded. Thus, it makes sense to use expressions with side effects, except for the last expression of the sequence which could be free of side effects.
 
@@ -301,6 +301,12 @@ world!
 ```
 In this example, the first two expressions are `print_endline` function calls, which produce side effects (printing to the console), and the last expression is simply the integer `42`, which becomes the value of the entire sequence. The `;` operator is used to separate these expressions.
 
+**Remark** The semicolon is not an operator, in the sense that is it not a function of type `unit -> 'a -> 'a`. It is a construct of the language. That allows terminating sequences with a semicolon which is ignored.
+```ocaml
+# (); 42; ;;
+- : int = 42
+```
+
 ### For Loop
 
 A `for` loop with syntax
@@ -310,7 +316,6 @@ for i = start_value to end_value do body done
 has a loop variable `i` that starts at `start_value` and is incremented until it reaches `end_value`, evaluating the `body` expression (which may contain `i`) on every iteration. Here, `for`, `to`, `do`, and `done` are keywords used to declare the loop.
 
 The type of a `for` loop expression is `unit`.
-
 ```ocaml
 # for i = 0 to 5 do Printf.printf "%i\n" i done;;
 0
@@ -364,10 +369,15 @@ The type of a `while` loop expression is `unit`.
 ```ocaml
 # let i = ref 0 in
   while !i < 5 do
-    print_int !i;
-    i := !i + 1;  (* This will print numbers from 0 to 4 *)
+    Printf.printf "%i\n" !i;
+    i := !i + 1;
   done;;
-01234- : unit = ()
+0
+1
+2
+3
+4
+- : unit = ()
 ```
 
 In this example, the `while` loop continues to execute as long as the value held by the reference `i` is less than `5`.
@@ -453,7 +463,7 @@ This example illustrates the following:
 - I/O and state update side effects happen inside the `loop` function
 - The state is passed as a parameter to the `loop` function
 
-This is one possible way to handle application-wide state. As in the [Function-Encapsulated Mutability](#good-function-encapsulated-mutability) example, state-aware code is contained in a narrow scope, the rest of the code is purely functional.
+This is a possible way to handle application-wide state. As in the [Function-Encapsulated Mutability](#good-function-encapsulated-mutability) example, state-aware code is contained in a narrow scope, the rest of the code is purely functional.
 
 **Note**: Here, the state is copied, which is not memory efficient. In a memory-aware implementation, state update functions would produce a “diff” (data describing the difference between the old and updated version of the state).
 
@@ -482,7 +492,7 @@ val char_cos : char -> float = <fun>
 
 The [memoization](https://en.wikipedia.org/wiki/Memoization) technique relies on the same idea as the example from the previous section: look up results from a table of previously computed values.
 
-However, instead of precomputing everything, memoization uses a cache that is populated when calling the function. Either, the provied parameters
+However, instead of precomputing everything, memoization uses a cache that is populated when calling the function. Either, the provided parameters
 * are found in the cache (it is a hit) and the stored result is returned, or they
 * are not found in the cache (it's a miss) and the result is computed, stored in the cache, and returned.
 
@@ -585,7 +595,7 @@ To understand why this code is bad, assume that `Analytics.collect` is a functio
 
 Now, the newly defined `Array` module contains a `copy` function which has a potentially unexpected side effect, but only if the array to copy has a million cells or above.
 
-If you're writing functions with non-obvious side effects, don't shadow existing definitions: give the function a descriptive name and document the fact that there's a side-effect that the caller may not be aware of.
+If you're writing functions with non-obvious side effects, don't shadow existing definitions: give the function a descriptive name (e.g. `Array.copy_with_analytics`) and document the fact that there's a side-effect that the caller may not be aware of.
 
 ### Bad: Side Effects in Arguments
 
@@ -602,7 +612,7 @@ The function `id_print` returns its input unchanged. However, it has a side effe
 
 In the second line, we apply `id_print` to the arguments `"monday"`, `"tuesday"`, `"wednesday"`, respectively and apply `Printf.sprintf "%s %s %s "` to them.
 
-Since the order of evaluation for function arguments in OCaml is not explicitly defined, the order in which the `id_ print` side effects take place is unreliable. In this example, the arguments are evaluated from right to left, but this could change on future compiler releases.
+Since the order of evaluation for function arguments in OCaml is not explicitly defined, the order in which the `id_print` side effects take place is unreliable. In this example, the arguments are evaluated from right to left, but this could change on future compiler releases.
 
 There are several means to ensure that computation takes place in a specific order.
 
