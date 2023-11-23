@@ -14,7 +14,7 @@ Layout.render
   </div>
 </div>
 
-<div class="bg-default dark:bg-dark-default">
+<div class="bg-legacy-default dark:bg-legacy-dark-default">
  <div class="py-4 lg:py-10">
     <div class="container-fluid">
       <div class="prose lg:prose-lg mx-auto max-w-5xl">

@@ -15,72 +15,110 @@ Learn_layout.single_column_layout
 ~canonical:Url.learn
 ~active_top_nav_item:Header.Learn
 ~current:Overview @@
-  <div class="container-fluid wide pt-10">
-    <h1 class="font-bold mb-8">Learn OCaml</h1>
-    <div class="w-full">
-      <%s! Learn_components.api_card_block latest_version %>
+  <div class="w-full bg-[#DDEAFC] bg-cover bg-center bg-no-repeat md:bg-transparent md:bg-[url('/img/learn/hero-background.svg')] py-24 xl:bg-contain">
+    <div class="container-fluid md:flex md:gap-20">
+      <div class="md:flex-grow">
+        <h1 class="text-text_title tracking-wider">Learn OCaml</h1>
+
+        <div class="text-text_content my-6 max-w-md">
+          You can explore the OCaml documentation, Platform Tools, guides, exercises, and books to enhance your knowledge.
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-10 md:w-80">
+        <%s!  Learn_components.hero_button ~left_icon:(Icons.ocaml "w-5 h-5") ~right_icon:(Icons.download "w-5 h-5") ~text:("Install OCaml " ^ latest_version) ~href:(Url.install) %>
+        <div class="flex flex-col gap-4">
+          <%s!  Learn_components.hero_button ~left_icon:(Icons.book "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("Standard Library API") ~href:(Url.api) %>
+          <div class="text-sm text-text_title">
+            The index of types, exceptions, values, modules, and module types of the OCaml Standard Library
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="mt-8 grid md:grid-cols-2">
-    <%s! Learn_components.left_tutorial_block ~title:"GET STARTED" ~heading:"Introduction To OCaml" 
-            ~description:"Install OCaml and gain a high-level understanding of language features" 
-            ~tutorial_links:[
-                {href = Url.tutorial "installing-ocaml"; title = "Installing OCaml"};
-                {href = Url.tutorial "tour-of-ocaml"; title = "A Tour of OCaml"};
-                {href = Url.tutorial "your-first-program"; title = "Your First OCaml Program"}
-            ]
-             ~see_more:{href = Url.getting_started; title = "Get Started"}
-            "bg-teal-700"
-            %>
-    <%s! Learn_components.right_tutorial_block ~title:"LANGUAGE" ~heading:"The OCaml Language" 
-        ~description:"An in-depth explanation of language features and data structures from the Standard Library" 
-        ~tutorial_links:[
-            {href = Url.tutorial "values-and-functions"; title = "Values and Functions"};
-            {href = Url.tutorial "basic-data-types"; title = "Basic Data Types and Pattern Matching"};
-            {href = Url.tutorial "lists"; title = "Lists"};
-            {href = Url.tutorial "if-statements-and-loops"; title = "If Statements, Loops, and Recursions"};
-        ]
-        ~see_more:{href = Url.learn_language; title = "See More Language Tutorials"}
-        "bg-[#0E2A49]"
-        %>
-  </div>
-  <div class="grid md:grid-cols-2">
-    <%s! Learn_components.left_tutorial_block ~title:"GUIDES" ~heading:"Practical-Minded Tutorials and Guides" 
-            ~description:"How to solve real-world problems in OCaml" 
-            ~tutorial_links:[
-                {href = Url.tutorial "formatting-text"; title = "Formatting and Wrapping Text"};
-                {href = Url.tutorial "debugging"; title = "Debugging"};
-                {href = Url.tutorial "error-handling"; title = "Error Handling"};
-                {href = Url.tutorial "profiling"; title = "Profiling"}
-            ]
-             ~see_more:{href = Url.learn_guides; title = "See More Guides"}
-            "bg-learn-area-orange"
-            %>
-    <%s! Learn_components.right_tutorial_block ~title:"PLATFORM" ~heading:"The OCaml Platform" 
-        ~description:"Learn to leverage the tooling around OCaml and create your own projects and libraries" 
-        ~tutorial_links:[
-            {href = Url.tutorial "bootstrapping-a-dune-project"; title = "Bootstrapping a Project"};
-            {href = Url.tutorial "managing-dependencies"; title = "Managing Dependencies"};
-            {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Install a Specific Compiler Version"};
-            {href = Url.tutorial "configuring-your-editor"; title = "Configuring Your Editor"}
-        ]
-        ~see_more:{href = Url.platform; title = "See More Tooling Tutorials"}
-        "bg-[#040113]"
-        %>
-  </div>
-
-  <div class="grid lg:grid-cols-2">
-    <%s! Learn_components.left_books_content_block books ~title:"Recommended For Beginners" ~link:{href = Url.books; title = "See More Books"} %>
-    <%s! Learn_components.right_books_content_block intermediate_books ~title:"For Intermediate Users" ~link:{href = Url.books; title = "See More Books"} %>
-  </div>
-  <div>
-  <%s! Learn_components.lang_manual_banner %>
-  </div>
   <div class="container-fluid">
+    <div class="grid lg:gap-6 lg:grid-cols-3">
+      <a href="#beginner_section" class="py-3 lg:py-6 flex items-center gap-2 text-tertiary font-bold hover:underline">
+        <%s! Learn_components.beginner_section_icon %> Jump to Beginner Section <%s! Learn_components.little_down_arrow_icon %>
+      </a>
+      <a href="#intermediate_section" class="py-3 lg:py-6 flex items-center gap-2 text-[#3882B7] font-bold hover:underline">
+        <%s! Learn_components.intermediate_section_icon %> Jump to Intermediate Section <%s! Learn_components.little_down_arrow_icon %>
+      </a>
+      <a href="#advanced_section" class="py-3 lg:py-6 flex items-center gap-2 text-primary font-bold hover:underline">
+        <%s! Learn_components.advanced_section_icon %> Jump to Advanced Section <%s! Learn_components.little_down_arrow_icon %>
+      </a>
+    </div>
+
+    <h2 id="beginner_section" class="my-8 flex gap-2 items-center text-text_content text-3xl font-regular leading-7 tracking-widest">
+      <span class="text-tertiary font-bold">FOUNDATIONS</span>
+      FOR BEGINNERS
+    </h2>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      <%s! Learn_components.tutorial_block ~icon:Learn_components.beginner_section_icon ~title:"GET STARTED" ~heading:"Introduction To OCaml" 
+              ~description:"Install OCaml and gain a high-level understanding of language features" 
+              ~tutorial_links:[
+                  {href = Url.tutorial "installing-ocaml"; title = "Installing OCaml"};
+                  {href = Url.tutorial "tour-of-ocaml"; title = "A Tour of OCaml"};
+                  {href = Url.tutorial "your-first-program"; title = "Your First OCaml Program"}
+              ]
+              ~see_more:{href = Url.getting_started; title = "Get Started"}
+              %>
+      <%s! Learn_components.tutorial_block ~icon:Learn_components.beginner_section_icon ~title:"LANGUAGE" ~heading:"The OCaml Language" 
+          ~description:"An in-depth explanation of language features and data structures from the Standard Library" 
+          ~tutorial_links:[
+              {href = Url.tutorial "values-and-functions"; title = "Values and Functions"};
+              {href = Url.tutorial "basic-data-types"; title = "Data Types and Pattern Matching"};
+              {href = Url.tutorial "lists"; title = "Lists"};
+              {href = Url.tutorial "if-statements-and-loops"; title = "If Statements, Loops, and Recursions"};
+          ]
+          ~see_more:{href = Url.learn_language; title = "See More Language Tutorials"}
+          %>
+    </div>
+
+    <h2 id="intermediate_section" class="my-8 flex gap-2 items-center text-text_content text-3xl font-regular leading-7 tracking-widest">
+      <span class="text-[#3882B7] font-bold">EXPLORING</span>
+      THE INTERMEDIATE LEVEL
+    </h2>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      <%s! Learn_components.tutorial_block ~icon:Learn_components.intermediate_section_icon ~title:"GUIDES" ~heading:"Practical-Minded Tutorials and Guides" 
+              ~description:"How to solve real-world problems in OCaml" 
+              ~tutorial_links:[
+                  {href = Url.tutorial "formatting-text"; title = "Formatting and Wrapping Text"};
+                  {href = Url.tutorial "debugging"; title = "Debugging"};
+                  {href = Url.tutorial "error-handling"; title = "Error Handling"};
+                  {href = Url.tutorial "profiling"; title = "Profiling"}
+              ]
+              ~see_more:{href = Url.learn_guides; title = "See More Guides"}
+              %>
+      <%s! Learn_components.tutorial_block ~icon:Learn_components.intermediate_section_icon ~title:"PLATFORM" ~heading:"The OCaml Platform" 
+          ~description:"Learn to leverage the tooling around OCaml and create your own projects and libraries" 
+          ~tutorial_links:[
+              {href = Url.tutorial "bootstrapping-a-dune-project"; title = "Bootstrapping a Project"};
+              {href = Url.tutorial "managing-dependencies"; title = "Managing Dependencies"};
+              {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Install a Specific Compiler Version"};
+              {href = Url.tutorial "configuring-your-editor"; title = "Configuring Your Editor"}
+          ]
+          ~see_more:{href = Url.platform; title = "See More Tooling Tutorials"}
+          %>
+    </div>
+
+    <div class="grid lg:grid-cols-2">
+      <%s! Learn_components.left_books_content_block books ~title:"Recommended For Beginners" ~link:{href = Url.books; title = "See More Books"} %>
+      <%s! Learn_components.right_books_content_block intermediate_books ~title:"For Intermediate Users" ~link:{href = Url.books; title = "See More Books"} %>
+    </div>
+    <div>
+
+    <h2 id="advanced_section" class="my-8 flex gap-2 items-center text-text_content text-3xl font-regular leading-7 tracking-widest">
+      <span class="text-primary font-bold">ELEVATED</span>
+      EXPERTISE
+    </h2>
+
+    <%s! Learn_components.lang_manual_banner %>
     <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
       <h3 class="font-bold">Papers</h3>
-      <div class="mt-6 text-lighter text-lg">
+      <div class="mt-6 text-legacy-lighter text-lg">
         Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things?
         Check out papers written by leading OCaml researchers:
       </div>

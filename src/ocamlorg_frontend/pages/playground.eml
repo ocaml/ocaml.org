@@ -62,7 +62,7 @@ let render ~default_code =
             <div class="flex gap-7 w-full justify-end items-center px-4">
               <button
                 id="share"
-                class="flex gap-2 hover:bg-default dark:bg-dark-default hover:bg-opacity-10 active:bg-primary-100 active:text-primary-600 p-2 rounded-md text-lighter"
+                class="flex gap-2 hover:bg-legacy-default dark:bg-legacy-dark-default hover:bg-opacity-10 active:bg-legacy-primary-100 active:text-legacy-primary-600 p-2 rounded-md text-legacy-lighter"
                 >
                 <%s! Icons.playground_share "h-6 w-6 stroke-current" %>
                 Share
@@ -92,13 +92,13 @@ let render ~default_code =
             <div class="flex justify-between text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)]">
               <button
                 class="md:hidden border-b-2 border-transparent p-4"
-                :class="editor && mobile ? 'text-primary-600 border-b-2 border-primary-600' : ''"
+                :class="editor && mobile ? 'text-legacy-primary-600 border-b-2 border-legacy-primary-600' : ''"
                 @click="editor = true; mobile=true; output = false;"
                 >
                 Editor
               </button>
               <button
-                :class="output && !mobile ? 'text-primary-600 border-b-2 border-primary-600' : ''"
+                :class="output && !mobile ? 'text-legacy-primary-600 border-b-2 border-legacy-primary-600' : ''"
                 @click="output = true; mobile = false; editor = false;"
                 class="border-b-2 border-transparent p-4"
                 >
@@ -116,7 +116,7 @@ let render ~default_code =
             <div class="shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] output-container overflow-auto">
               <div x-show="editor && mobile">
                 <div class="text-center">
-                  <h3 class="mt-2 text-sm font-medium text-default dark:text-white">Coming Soon!</h3>
+                  <h3 class="mt-2 text-sm font-medium text-legacy-default dark:text-white">Coming Soon!</h3>
                   <p class="mt-1 text-sm text-gray-500 dark:text-gray-100">The OCaml Playground does not support mobile yet.</p>
                 </div>
               </div>

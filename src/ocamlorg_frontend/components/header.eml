@@ -12,7 +12,7 @@ let menu_link
 ?(_class="")
 ()
 =
-  <a href="<%s href %>" class="font-semibold py-3 mg:py-4 px-1 lg:px-3 <%s _class %> <%s if active then "text-primary-600 underline" else "text-lighter" %> hover:text-primary-600"><%s title %></a>
+  <a href="<%s href %>" class="font-semibold py-3 mg:py-4 px-1 lg:px-3 <%s _class %> <%s if active then "text-legacy-primary-600 underline" else "text-legacy-lighter" %> hover:text-legacy-primary-600"><%s title %></a>
 
 
 let render
@@ -22,16 +22,16 @@ let render
 =
 let search_dropdown () =
   <div id="header-search-results" aria-live="polite"></div>
-  <a class="flex py-2 px-2 mx-2 gap-4 hover:bg-primary-100 font-normal rounded-md text-primary-600" href="<%s Url.api %>">
+  <a class="flex py-2 px-2 mx-2 gap-4 hover:bg-legacy-primary-100 font-normal rounded-md text-legacy-primary-600" href="<%s Url.api %>">
     Standard Library API
     <%s! Icons.arrow_top_right_on_square "w-6 h-6" %>
   </a>
 in
 <header
-  class="h-20 flex items-center bg-mild-contrast dark:bg-dark-mild-contrast"
+  class="h-20 flex items-center bg-legacy-mild-contrast dark:bg-legacy-dark-mild-contrast"
   x-data="{ open: false }">
   <nav class="container-fluid wide header flex justify-between items-center gap-5 xl:gap-8">
-    <ul class="order-0 space space-x-5 xl:space-x-8 items-center flex text-lighter font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
+    <ul class="order-0 space space-x-5 xl:space-x-8 items-center flex text-legacy-lighter font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
       <li style="width:132px">
         <a href="<%s Url.index %>" class="block pb-2">
           <img src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" width="132" alt="OCaml logo" class="dark:hidden">
@@ -69,7 +69,7 @@ in
     <% ); %>
     <ul class="order-1 lg:hidden flex items-center">
       <li
-        class="h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full text-lighter dark:text-white">
+        class="h-12 w-12 hover:bg-legacy-primary-100 flex items-center justify-center rounded-full text-legacy-lighter dark:text-white">
         <button aria-label="open menu" @click="open = ! open">
           <%s! Icons.hamburger_menu "h-8 w-8" %>
         </button>
@@ -79,20 +79,20 @@ in
 
   <div class="bg-black fixed w-full h-full left-0 top-0 opacity-60 z-40" x-show='open' x-cloak></div>
 
-  <nav class="z-50 h-full fixed right-0 top-0 max-w-full w-96 bg-default dark:bg-dark-default shadow-lg" x-show="open" x-cloak
+  <nav class="z-50 h-full fixed right-0 top-0 max-w-full w-96 bg-legacy-default dark:bg-legacy-dark-default shadow-lg" x-show="open" x-cloak
     @click.away="open = false" x-transition:enter="transition duration-200 ease-out"
     x-transition:enter-start="translate-x-full" x-transition:leave="transition duration-100 ease-in"
     x-transition:leave-end="translate-x-full">
-    <ul class="text-lighter p-6 font-semibold">
+    <ul class="text-legacy-lighter p-6 font-semibold">
       <li class="flex justify-between items-center">
         <a href="<%s Url.index %>">
           <img src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" width="132" alt="OCaml logo" class="dark:hidden">
           <img src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" width="132" alt="OCaml logo" class="hidden dark:inline">
         </a>
 
-        <div class="close lg:hidden h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full"
+        <div class="close lg:hidden h-12 w-12 hover:bg-legacy-primary-100 flex items-center justify-center rounded-full"
           x-on:click="open = false">
-          <button aria-label="close" class="text-lighter">
+          <button aria-label="close" class="text-legacy-lighter">
             <%s! Icons.close_x "h-8 w-8" %>
           </button>
         </div>
@@ -114,7 +114,7 @@ in
       <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Blog) ~href:Url.blog ~title:"Blog" () %></li>
       <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Playground) ~href:Url.playground ~title:"Playground" () %></li>
       <li>
-        <a href="<%s Url.api %>" class="flex py-3 px-1 gap-4 font-semibold text-primary-600">Standard Library API<%s! Icons.arrow_top_right_on_square "w-6 h-6" %></a>
+        <a href="<%s Url.api %>" class="flex py-3 px-1 gap-4 font-semibold text-legacy-primary-600">Standard Library API<%s! Icons.arrow_top_right_on_square "w-6 h-6" %></a>
       </li>
       <li class="mt-3 mb-6">
         <a href="<%s Url.getting_started %>" class="btn w-full">Get started</a>

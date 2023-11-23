@@ -1,40 +1,40 @@
 let footer_icon_link ~href ~name icon =
-  <a href="<%s href %>" class="text-lighter hover:text-gray-500">
+  <a href="<%s href %>" class="text-legacy-lighter hover:text-gray-500">
     <span class="sr-only"><%s name %></span>
     <%s! icon "h-6 w-6" %>
   </a>
 
 let render () =
-<footer class="bg-mild-contrast dark:bg-dark-mild-contrast" aria-labelledby="footer-heading">
+<footer class="bg-legacy-mild-contrast dark:bg-legacy-dark-mild-contrast" aria-labelledby="footer-heading">
   <h2 id="footer-heading" class="sr-only">Footer</h2>
   <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
       <div class="space-y-8">
         <a href="<%s Url.index %>"><img class="h-8" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
-        <p class="text-base leading-6 text-lighter">Innovation. Community. Security.</p>
+        <p class="text-base leading-6 text-legacy-lighter">Innovation. Community. Security.</p>
         <div class="flex space-x-6">
           <%s! footer_icon_link ~href:"https://github.com/ocaml/ocaml" ~name:"GitHub" Icons.github %>
 
           <!-- FIXME: footer_icon_link component -->
-          <a href="https://discord.gg/cCYQbqN" class="text-lighter hover:text-gray-500">
+          <a href="https://discord.gg/cCYQbqN" class="text-legacy-lighter hover:text-gray-500">
             <span class="sr-only">Discord</span>
             <%s! Icons.discord "h-6 w-6" %>
           </a>
 
           <!-- FIXME: footer_icon_link component -->
-          <a href="https://twitter.com/ocamllang" class="text-lighter hover:text-gray-500">
+          <a href="https://twitter.com/ocamllang" class="text-legacy-lighter hover:text-gray-500">
             <span class="sr-only">Twitter</span>
             <%s! Icons.twitter "h-6 w-6" %>
           </a>
 
           <!-- FIXME: footer_icon_link component -->
-          <a href="https://watch.ocaml.org/" class="text-lighter hover:text-gray-500">
+          <a href="https://watch.ocaml.org/" class="text-legacy-lighter hover:text-gray-500">
             <span class="sr-only">Peertube</span>
             <%s! Icons.peertube "h-6 w-6" %>
           </a>
 
           <!-- FIXME: footer_icon_link component -->
-          <a href="/feed.xml" class="text-lighter hover:text-gray-500">
+          <a href="/feed.xml" class="text-legacy-lighter hover:text-gray-500">
             <span class="sr-only">RSS</span>
             <%s! Icons.rss "h-6 w-6" %>
           </a>
@@ -43,113 +43,113 @@ let render () =
       <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
         <div class="md:grid md:grid-cols-2 md:gap-8">
           <div>
-            <h3 class="text-base font-semibold leading-6 text-default">About OCaml</h3>
+            <h3 class="text-base font-semibold leading-6 text-legacy-default">About OCaml</h3>
             <ul class="mt-6 space-y-4">
               <li>
-                <a href="<%s Url.changelog %>" class="text-base leading-6 text-lighter">Changelog</a>
+                <a href="<%s Url.changelog %>" class="text-base leading-6 text-legacy-lighter">Changelog</a>
               </li>
 
               <li>
-                <a href="<%s Url.releases %>" class="text-base leading-6 text-lighter">Releases</a>
+                <a href="<%s Url.releases %>" class="text-base leading-6 text-legacy-lighter">Releases</a>
               </li>
 
               <li>
                 <!-- TODO: create footer_link component -->
-                <a href="<%s Url.industrial_users %>" class="text-base leading-6 text-lighter">Industrial Users</a>
+                <a href="<%s Url.industrial_users %>" class="text-base leading-6 text-legacy-lighter">Industrial Users</a>
               </li>
 
               <li>
-                <a href="<%s Url.academic_users %>" class="text-base leading-6 text-lighter">Academic Users</a>
+                <a href="<%s Url.academic_users %>" class="text-base leading-6 text-legacy-lighter">Academic Users</a>
               </li>
 
               <li>
-                <a href="<%s Url.about %>" class="text-base leading-6 text-lighter">Why OCaml</a>
+                <a href="<%s Url.about %>" class="text-base leading-6 text-legacy-lighter">Why OCaml</a>
               </li>
             </ul>
           </div>
           <div class="mt-10 md:mt-0">
-            <h3 class="text-base font-semibold leading-6 text-default">Resources</h3>
+            <h3 class="text-base font-semibold leading-6 text-legacy-default">Resources</h3>
             <ul class="mt-6 space-y-4">
               <li>
-                <a href="<%s Url.install %>" class="text-base leading-6 text-lighter">Install OCaml</a>
+                <a href="<%s Url.install %>" class="text-base leading-6 text-legacy-lighter">Install OCaml</a>
               </li>
 
               <li>
-                <a href="<%s Url.getting_started %>" class="text-base leading-6 text-lighter">Get Started</a>
+                <a href="<%s Url.getting_started %>" class="text-base leading-6 text-legacy-lighter">Get Started</a>
               </li>
               
               <li>
-                <a href="<%s Url.platform %>" class="text-base leading-6 text-lighter">Platform Tools</a>
+                <a href="<%s Url.platform %>" class="text-base leading-6 text-legacy-lighter">Platform Tools</a>
               </li>
 
               <li>
-                <a href="<%s Url.manual %>" class="text-base leading-6 text-lighter">Language Manual</a>
+                <a href="<%s Url.manual %>" class="text-base leading-6 text-legacy-lighter">Language Manual</a>
               </li>
 
               <li>
-                <a href="<%s Url.api %>" class="text-base leading-6 text-lighter">Standard Library API</a>
+                <a href="<%s Url.api %>" class="text-base leading-6 text-legacy-lighter">Standard Library API</a>
               </li>
 
               <li>
-                <a href="<%s Url.books %>" class="text-base leading-6 text-lighter">Books</a>
+                <a href="<%s Url.books %>" class="text-base leading-6 text-legacy-lighter">Books</a>
               </li>
 
               <li>
-                <a href="<%s Url.exercises %>" class="text-base leading-6 text-lighter">Exercises</a>
+                <a href="<%s Url.exercises %>" class="text-base leading-6 text-legacy-lighter">Exercises</a>
               </li>
 
               <li>
-                <a href="<%s Url.papers %>" class="text-base leading-6 text-lighter">Papers</a>
+                <a href="<%s Url.papers %>" class="text-base leading-6 text-legacy-lighter">Papers</a>
               </li>
 
               <li>
-                <a href="<%s Url.playground %>" class="text-base leading-6 text-lighter">OCaml Playground</a>
+                <a href="<%s Url.playground %>" class="text-base leading-6 text-legacy-lighter">OCaml Playground</a>
               </li>
 
               <li>
-                <a href="<%s Url.logos %>" class="text-base leading-6 text-lighter">Logo</a>
+                <a href="<%s Url.logos %>" class="text-base leading-6 text-legacy-lighter">Logo</a>
               </li>
             </ul>
           </div>
         </div>
         <div class="md:grid md:grid-cols-2 md:gap-8">
           <div>
-            <h3 class="text-base font-semibold leading-6 text-default">Ecosystem</h3>
+            <h3 class="text-base font-semibold leading-6 text-legacy-default">Ecosystem</h3>
             <ul class="mt-6 space-y-4">
                <li>
-                <a href="<%s Url.packages %>" class="text-base leading-6 text-lighter">Packages</a>
+                <a href="<%s Url.packages %>" class="text-base leading-6 text-legacy-lighter">Packages</a>
               </li>
 
                <li>
-                <a href="<%s Url.community %>" class="text-base leading-6 text-lighter">Community</a>
+                <a href="<%s Url.community %>" class="text-base leading-6 text-legacy-lighter">Community</a>
               </li>
 
               <li>
-                <a href="<%s Url.blog %>" class="text-base leading-6 text-lighter">Blog</a>
+                <a href="<%s Url.blog %>" class="text-base leading-6 text-legacy-lighter">Blog</a>
               </li>
 
               <li>
-                <a href="<%s Url.jobs %>" class="text-base leading-6 text-lighter">Jobs</a>
+                <a href="<%s Url.jobs %>" class="text-base leading-6 text-legacy-lighter">Jobs</a>
               </li>
             </ul>
           </div>
           <div class="mt-20 md:mt-0">
-            <h3 class="text-base font-semibold leading-6 text-default">Policies</h3>
+            <h3 class="text-base font-semibold leading-6 text-legacy-default">Policies</h3>
             <ul class="mt-6 space-y-4">
               <li>
-                <a href="<%s Url.carbon_footprint %>" class="text-base leading-6 text-lighter">Carbon Footprint</a>
+                <a href="<%s Url.carbon_footprint %>" class="text-base leading-6 text-legacy-lighter">Carbon Footprint</a>
               </li>
 
               <li>
-                <a href="<%s Url.governance %>" class="text-base leading-6 text-lighter">Governance</a>
+                <a href="<%s Url.governance %>" class="text-base leading-6 text-legacy-lighter">Governance</a>
               </li>
 
               <li>
-                <a href="<%s Url.privacy_policy %>" class="text-base leading-6 text-lighter">Privacy</a>
+                <a href="<%s Url.privacy_policy %>" class="text-base leading-6 text-legacy-lighter">Privacy</a>
               </li>
 
               <li>
-                <a href="<%s Url.code_of_conduct %>" class="text-base leading-6 text-lighter">Code of Conduct</a>
+                <a href="<%s Url.code_of_conduct %>" class="text-base leading-6 text-legacy-lighter">Code of Conduct</a>
               </li>
             </ul>
           </div>

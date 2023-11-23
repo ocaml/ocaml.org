@@ -4,11 +4,11 @@ let exercises_sidebar_link
 ~current =
   match current with
   | true ->
-    <a class="block text-primary-600 bg-primary-100 border-l-2 border-primary-600 py-3 px-5 font-semibold text-sm rounded-sm" href="<%s href %>">
+    <a class="block text-legacy-primary-600 bg-legacy-primary-100 border-l-2 border-legacy-primary-600 py-3 px-5 font-semibold text-sm rounded-sm" href="<%s href %>">
       <%s title %>
     </a>
   | false ->
-    <a class="block hover:text-primary-600 hover:bg-primary-100 border-l-2 border-transparent hover:border-primary-600 py-3 px-5 font-medium text-sm rounded-sm" href="<%s href %>">
+    <a class="block hover:text-legacy-primary-600 hover:bg-legacy-primary-100 border-l-2 border-transparent hover:border-legacy-primary-600 py-3 px-5 font-medium text-sm rounded-sm" href="<%s href %>">
       <%s title %>
     </a>
 
@@ -18,7 +18,7 @@ title
 link_html
 =
    <details class="flex flex-col">
-      <summary class="flex gap-4 justify-between text-sm font-semibold py-4 uppercase focus:text-primary-600 active:text-primary-600 hover:text-primary-300">
+      <summary class="flex gap-4 justify-between text-sm font-semibold py-4 uppercase focus:text-legacy-primary-600 active:text-legacy-primary-600 hover:text-legacy-primary-300">
         <%s title %>
         <%s! Icons.chevron_down "h-6 w-6" %>
       </summary>
@@ -116,27 +116,27 @@ Learn_layout.render
       >
       <div class="flex space-y-4 xl:space-y-0 flex-col xl:flex-row xl:justify-between">
         <span aria-hidden="true" class="danger invisible xl:visible" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %>"><%s danger exercise.difficulty %></span>
-        <h4 class="font-bold text-default">
+        <h4 class="font-bold text-legacy-default">
           <%s exercise.title %>
           <span aria-hidden="true" class="ml-2 visible xl:invisible" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %>"> <%s danger exercise.difficulty %></span>
         </h4>
         <div class="w-0 h-0 overflow-hidden"><%s difficulty_to_string exercise.difficulty ^ " difficulty" %></div>
-        <div class="flex bg-body-600 bg-opacity-5 rounded-md p-1 items-center">
+        <div class="flex bg-legacy-body-600 bg-opacity-5 rounded-md p-1 items-center">
           <button
             class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
             x-on:click="statement = true"
-            :class="statement ? 'bg-default dark:bg-dark-default text-primary-600': 'text-lighter' "
+            :class="statement ? 'bg-legacy-default dark:bg-legacy-dark-default text-legacy-primary-600': 'text-legacy-lighter' "
           >
             <%s! Icons.exercise_statement "h-5 w-5" %>
-            <span :class="statement ? 'text-default' : 'text-lighter'">Statement</span>
+            <span :class="statement ? 'text-legacy-default' : 'text-legacy-lighter'">Statement</span>
           </button>
           <button
             class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
             x-on:click="statement = false"
-            :class="statement ? 'text-lighter': 'bg-default dark:bg-dark-default text-primary-600' "
+            :class="statement ? 'text-legacy-lighter': 'bg-legacy-default dark:bg-legacy-dark-default text-legacy-primary-600' "
           >
             <%s! Icons.exercise_solution "h-5 w-5" %>
-            <span :class="statement ? 'text-lighter' : 'text-default'">Solution</span>
+            <span :class="statement ? 'text-legacy-lighter' : 'text-legacy-default'">Solution</span>
           </button>
         </div>
       </div>

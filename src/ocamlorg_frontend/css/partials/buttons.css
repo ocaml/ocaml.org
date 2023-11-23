@@ -1,14 +1,14 @@
 @layer components {
   .btn {
-    @apply rounded-lg bg-primary-600 px-5 h-12 font-semibold text-white whitespace-nowrap transition-colors inline-flex items-center justify-center space-x-3 text-base;
+    @apply rounded-lg bg-legacy-primary-600 px-5 h-12 font-semibold text-white whitespace-nowrap transition-colors inline-flex items-center justify-center space-x-3 text-base;
   }
 
   .btn:active {
-    @apply bg-primary-800;
+    @apply bg-legacy-primary-800;
   }
 
   .btn:hover {
-    @apply bg-primary-700;
+    @apply bg-legacy-primary-700;
   }
 
   .btn-lg {
@@ -20,15 +20,15 @@
   }
 
   .btn-secondary {
-    @apply bg-transparent border-primary-600 text-primary-600 border;
+    @apply bg-transparent border-legacy-primary-600 text-legacy-primary-600 border;
   }
 
   .btn-secondary:hover {
-    @apply bg-opacity-5 bg-primary-600;
+    @apply bg-opacity-5 bg-legacy-primary-600;
   }
 
   .btn-secondary:active {
-    @apply bg-opacity-10 bg-primary-600;
+    @apply bg-opacity-10 bg-legacy-primary-600;
   }
 
   .btn-tertiary {
@@ -36,10 +36,10 @@
   }
 
   .btn-tertiary:hover {
-    @apply bg-default dark:bg-dark-default bg-opacity-10;
+    @apply bg-legacy-default dark:bg-legacy-dark-default bg-opacity-10;
   }
 
   .btn-tertiary:active {
-    @apply bg-default dark:bg-dark-default bg-opacity-20;
+    @apply bg-legacy-default dark:bg-legacy-dark-default bg-opacity-20;
   }
 }
