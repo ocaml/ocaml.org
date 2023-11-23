@@ -1,31 +1,28 @@
 const defaultTheme = require("tailwindcss/defaultTheme")
 
-// From Figma https://www.figma.com/file/bSwyo5pUnarg1lquxQxWAE/Design-Systen-Draft?type=design&node-id=180-470&t=h3IswxPLyvXGSsMl-0
 const figma_colors = {
-    // Primary Light
+    // Color Light Mode https://www.figma.com/file/bSwyo5pUnarg1lquxQxWAE/Design-System-Draft?type=design&node-id=300-2086&mode=design&t=gjqG6OhhB92AFg51-0
     primary: "#D54000",
     primary_40: "#D5400066",
     primary_25: "#D5400040",
     primary_dark: "#842800",
 
-    // Secondary Light
     secondary: "#067065",
     secondary_25: "#06706540",
     secondary_bt_hover: "#004039",
 
-    // Tertiary Light
     tertiary: "#2B7866",
     tertiary_lighter: "#D3D5F9",
     tertiary_25: "#0E2A4940",
     tertiary_bt_hover: "#111827",
 
-    // Text Light
     text_title: "#111827",
     text_content: "#555659",
     white: "#FFFFFF",
     separator_30: "#0000004D",
 
     dark: {
+      // Color Dark Mode https://www.figma.com/file/bSwyo5pUnarg1lquxQxWAE/Design-System-Draft?type=design&node-id=300-2170&mode=design&t=gjqG6OhhB92AFg51-0
       primary: "#C24F1E",
       primary_40: "#D5400066",
       primary_20: "#D5400033",
