@@ -51,6 +51,8 @@ module Exercise = struct
       Option.fold ~none:(x.tags = []) ~some:(Fun.flip List.mem x.tags) tag
     in
     List.filter f
+
+  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Success_story = struct

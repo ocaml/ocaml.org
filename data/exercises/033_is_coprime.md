@@ -1,6 +1,6 @@
 ---
 title: Determine Whether Two Positive Integer Numbers Are Coprime
-number: "33"
+slug: "33"
 difficulty: beginner
 tags: [ "arithmetic" ]
 description: "Determine if two positive integers are coprime, meaning their greatest common divisor is 1."

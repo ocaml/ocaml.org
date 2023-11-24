@@ -30,7 +30,7 @@ let exercises_sidebar
 =
 let open Data in
 let render_exercise_link (exercise : Exercise.t) =
-  let href = "#" ^ exercise.number in
+  let href = "#" ^ exercise.slug in
   exercises_sidebar_link ~title:exercise.title ~href ~current:false
 in
 let exercise_sidebar_links_by_tag ?tag title =
@@ -112,7 +112,7 @@ Learn_layout.render
       </form>
     </div>
     <% exercises |> List.iter (fun (exercise : Data.Exercise.t) -> %>
-    <div x-data="{statement: true}" id="<%s" exercise.number %>
+    <div x-data="{statement: true}" id="<%s" exercise.slug %>
       >
       <div class="flex space-y-4 xl:space-y-0 flex-col xl:flex-row xl:justify-between">
         <span aria-hidden="true" class="danger invisible xl:visible" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %>"><%s danger exercise.difficulty %></span>

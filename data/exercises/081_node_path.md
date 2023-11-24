@@ -1,6 +1,6 @@
 ---
 title: Path From One Node to Another One
-number: "81"
+slug: "81"
 difficulty: intermediate
 tags: [ "graph" ]
 description: "Return all acyclic paths between two nodes a and b in a given graph."

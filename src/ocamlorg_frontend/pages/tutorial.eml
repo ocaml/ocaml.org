@@ -30,7 +30,7 @@ let render_related_exercises exercises =
       <h3>Related exercises :</h3>
       <ul>
         <% exercises |> List.iter (fun (exercise : Data.Exercise.t) -> %>
-          <li><a href='/exercises#<%s exercise.number %>'><%s exercise.title %></a></li>
+          <li><a href='/exercises#<%s exercise.slug %>'><%s exercise.title %></a></li>
         <% ); %>
       </ul>
     </div>

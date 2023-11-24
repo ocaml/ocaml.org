@@ -13,7 +13,7 @@ end
 
 type metadata = {
   title : string;
-  number : string;
+  slug : string;
   difficulty : Proficiency.t;
   tags : string list;
   description : string;
@@ -41,7 +41,7 @@ let split_statement_solution (body : string) =
 
 type t = {
   title : string;
-  number : string;
+  slug : string;
   difficulty : Proficiency.t;
   tags : string list;
   description : string;
@@ -84,7 +84,7 @@ type difficulty =
 
 type t =
   { title : string
-  ; number : string
+  ; slug : string
   ; difficulty : difficulty
   ; tags : string list
   ; description : string

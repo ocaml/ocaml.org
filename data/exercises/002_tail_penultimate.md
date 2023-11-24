@@ -1,6 +1,6 @@
 ---
 title: Last Two Elements of a List
-number: "2"
+slug: "2"
 difficulty: beginner
 tags: [ "list" ]
 description: "Find the last and penultimate elements of a list."

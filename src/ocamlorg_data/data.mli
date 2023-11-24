@@ -157,7 +157,7 @@ module Exercise : sig
 
   type t = {
     title : string;
-    number : string;
+    slug : string;
     difficulty : difficulty;
     tags : string list;
     description : string;
@@ -168,6 +168,7 @@ module Exercise : sig
 
   val all : t list
   val filter_tag : ?tag:string -> t list -> t list
+  val get_by_slug : string -> t option
 end
 
 module Success_story : sig

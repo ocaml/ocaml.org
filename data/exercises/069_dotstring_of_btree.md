@@ -1,6 +1,6 @@
 ---
 title: Dotstring Representation of Binary Trees
-number: "69"
+slug: "69"
 difficulty: intermediate
 tags: [ "binary-tree" ]
 description: "Convert binary trees into dot-representations and vice versa using difference lists."

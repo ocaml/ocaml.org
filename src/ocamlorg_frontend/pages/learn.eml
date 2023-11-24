@@ -78,6 +78,11 @@ Learn_layout.single_column_layout
         ~link:{href = Url.books; title = "See More Books"} %>
     </div>
 
+    <div class="grid gap-10 grid-cols-2 lg:grid-cols-4">
+      <%s! Learn_components.exercise_card
+        (Data.Exercise.get_by_slug "1" |> Option.get) %>
+    </div>
+
     <h2 id="intermediate_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
       <span class="text-[#3882B7] font-bold">EXPLORING</span>
       THE INTERMEDIATE LEVEL

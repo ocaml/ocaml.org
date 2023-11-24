@@ -1,6 +1,6 @@
 ---
 title: Construct the Minimal Spanning Tree
-number: "84"
+slug: "84"
 difficulty: intermediate
 tags: [ "graph" ]
 description: "Construct the minimal spanning tree of a given labeled graph."

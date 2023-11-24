@@ -123,6 +123,14 @@ let lang_manual_banner =
     </div>
   </div>
 
+let exercise_card (exercise: Data.Exercise.t) =
+  <a class="p-5 box-shadow hover:box-shadow-xl rounded-xl border-[#00000033] border-2" href="<%s Url.exercises %>#<%s exercise.slug %>">
+    <div class="mb-2">
+      <%s exercise.title %>
+    </div>
+    <%s! skill_tag Data.Book.Beginner "" %>
+  </a>
+
 let contribute_footer ~href =
   <div class="pt-10 mt-16 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
     <div class="lg:col-span-1">

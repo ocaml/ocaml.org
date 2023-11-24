@@ -1,6 +1,6 @@
 ---
 title: Decode a Run-Length Encoded List
-number: "12"
+slug: "12"
 difficulty: intermediate
 tags: [ "list" ]
 description: "Reconstruct the uncompressed list from a run-length code list."
