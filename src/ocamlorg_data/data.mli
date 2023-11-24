@@ -356,7 +356,6 @@ module Workshop : sig
     presentations : presentation list;
     program_committee : committee_member list;
     organising_committee : committee_member list;
-    toc_html : string;
     body_md : string;
     body_html : string;
   }

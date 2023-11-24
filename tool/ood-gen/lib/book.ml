@@ -46,7 +46,9 @@ let of_metadata m = of_metadata m
 let decode (_, (head, body)) =
   let metadata = metadata_of_yaml head in
   let body_md = String.trim body in
-  let body_html = Omd.of_string body |> Omd.to_html in
+  let body_html =
+    Cmarkit.Doc.of_string ~strict:true body_md |> Cmarkit_html.of_doc ~safe:true
+  in
   Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () =

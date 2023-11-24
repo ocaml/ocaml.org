@@ -80,7 +80,9 @@ module Local = struct
     let decode (fpath, (head, body)) =
       let metadata = metadata_of_yaml head in
       let body_html =
-        Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
+        Cmarkit.Doc.of_string ~strict:true (String.trim body)
+        |> Hilite.Md.transform
+        |> Cmarkit_html.of_doc ~safe:false
       in
       let source, slug =
         match Str.split (Str.regexp_string "/") fpath with
@@ -191,7 +193,8 @@ module External = struct
     let decode (fpath, (head, body)) =
       let metadata = metadata_of_yaml head in
       let body_html =
-        Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
+        Cmarkit.Doc.of_string ~strict:true (String.trim body)
+        |> Cmarkit_html.of_doc ~safe:true
       in
       let source =
         match Str.split (Str.regexp_string "/") fpath with
