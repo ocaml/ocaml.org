@@ -9,7 +9,9 @@ let render_books books =
                      <img src="<%s Ocamlorg_static.Media.url item.cover %>"
                         class="w-full border z-10"
                         alt="">
-                     <%s! Learn_components.skill_tag item.difficulty "w-full" %>
+                    <div class="px-3 <%s Learn_components.color_for_difficulty item.difficulty %> rounded-3xl font-semibold text-center text-white tracking-widest">
+                        <%s Learn_components.string_from_difficulty item.difficulty %>
+                    </div>
                 </div>
                 
             </div>

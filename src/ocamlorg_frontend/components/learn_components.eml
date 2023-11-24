@@ -1,11 +1,17 @@
-let skill_tag difficulty class_ =
-  match difficulty with 
-  | Data.Book.Beginner ->
-    <div class="<%s class_ %> px-3 inline-block bg-secondary rounded-3xl font-semibold text-center text-white tracking-widest"> Beginner  </div>
-  | Intermediate -> 
-    <div class="<%s class_ %> px-3 inline-block bg-[#3882B7] rounded-3xl font-semibold text-center text-white tracking-widest"> Intermediate </div>
-  | Advanced -> 
-    <div class="<%s class_ %> px-3 inline-block bg-primary rounded-3xl font-semibold text-center text-white tracking-widest"> Advanced </div>
+let color_for_difficulty = function
+  | Data.Book.Beginner -> "bg-secondary"
+  | Intermediate -> "bg-[#3882B7]"
+  | Advanced -> "bg-primary"
+
+let string_from_difficulty = function
+  | Data.Book.Beginner -> "Beginner"
+  | Intermediate -> "Intermediate"
+  | Advanced -> "Advanced"
+
+let skill_tag difficulty =
+  <div class="px-3 inline-block <%s color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white tracking-widest">
+    <%s string_from_difficulty difficulty %>
+  </div>
 
 let beginner_section_icon =
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,28 +52,38 @@ let hero_button ~left_icon ~right_icon ~text ~href =
 
 type link = {href : string; title : string}
 
-let tutorial_block ~icon ~title ~heading ~description ~(tutorial_links: link list) ~see_more  =
-  <div class="flex h-full">
-    <div class="w-full flex flex-col h-full max-w-sm md:max-w-none md:w-[30rem]">
-      <div class="mt-4 flex gap-2 items-center text-text_title text-sm font-medium leading-7 tracking-widest"><%s! icon %> <%s title %> </div>
-      <h2 class="mt-2 text-text_title text-2xl font-bold leading-7"> <%s heading %> </h2>
-      <div class="mt-4 text-text_content text-base font-normal leading-7 max-w-prose"> <%s description %> </div>
-      <ul class="flex flex-col gap-4 mt-5">
-        <% tutorial_links |> List.iter (fun link -> %>
-        <li class="w-full">
-          <a href="<%s link.href %>" class="bg-white text-text_title hover:bg-primary hover:text-white drop-shadow hover:drop-shadow-xl flex gap-2 border-primary border-2 rounded-lg p-2.5 text-md font-bold">
-            <span class="flex-grow"><%s link.title  %></span>
+let block_heading ~icon ~title ~heading =
+  <div class="pt-4 text-legacy-default text-sm font-medium leading-7 tracking-widest flex gap-2 items-center">
+    <%s! icon %>
+    <%s title %>
+  </div>
+  <h2 class="mt-2 text-text_title text-2xl font-bold leading-7"><%s heading %></h2>
 
-            <%s! Icons.arrow_right_circle "w-6 h-6" %>
-          </a>
-        </li>
-        <% ); %>
-      </ul>
-      <a href="<%s see_more.href %>" class="mt-4 text-primary hover:underline items-center leading-10">
-        <%s see_more.title %>
-      </a>
+let block_container ~icon ~title ~heading inner_html =
+  <div class="bg-legacy-default">
+    <div class="max-w-sm md:max-w-full md:w-[32rem] flex flex-col">
+      <%s! block_heading ~icon ~title ~heading %>
+      <%s! inner_html %>
     </div>
   </div>
+
+let tutorial_block ~icon ~title ~heading ~description ~(tutorial_links: link list) ~see_more  =
+  block_container ~icon ~title ~heading @@
+  <div class="mt-4 text-text_content text-base font-normal leading-7 max-w-prose"> <%s description %> </div>
+  <ul class="flex flex-col gap-4 mt-5">
+    <% tutorial_links |> List.iter (fun link -> %>
+    <li class="w-full">
+      <a href="<%s link.href %>" class="bg-white text-text_title hover:bg-primary hover:text-white drop-shadow hover:drop-shadow-xl flex gap-2 border-primary border-2 rounded-lg p-2.5 text-md font-bold">
+        <span class="flex-grow"><%s link.title  %></span>
+
+        <%s! Icons.arrow_right_circle "w-6 h-6" %>
+      </a>
+    </li>
+    <% ); %>
+  </ul>
+  <a href="<%s see_more.href %>" class="mt-4 text-primary hover:underline items-center leading-10">
+    <%s see_more.title %>
+  </a>
 
 let pricing_tag = 
   <div class="absolute -mt-3 ml-3 w-16 h-16">
@@ -84,25 +100,20 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
   | Intermediate -> intermediate_section_icon
   | Advanced -> advanced_section_icon
   in
-  <div class="bg-legacy-default">
-    <div class="max-w-sm md:max-w-full md:w-[32rem] flex flex-col">
-      <div class="pt-4 text-legacy-default text-sm font-medium leading-7 tracking-widest flex gap-2 items-center"><%s! icon_for_difficulty book.difficulty %> RECOMMENDED BOOK</div>
-      <h2 class="mt-2 text-text_title text-2xl font-bold leading-7"><%s book.title %></h2>
-      <div class="mt-6 grid grid-cols-2 gap-12 lg:gap-6 xl:gap-12">
-        <img src="<%s Ocamlorg_static.Media.url book.cover %>" alt="">
-        <div class="">
-          <%s! skill_tag book.difficulty "" %>
-          <% (match book.recommendation with None -> () | Some recommendation -> %>
-          <p class="mt-2 text-gray-700 text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
-          <% ); %>
-        </div>
+  block_container ~icon:(icon_for_difficulty book.difficulty) ~title:"RECOMMENDED BOOK" ~heading:book.title @@
+    <div class="mt-6 grid grid-cols-2 gap-6">
+      <img src="<%s Ocamlorg_static.Media.url book.cover %>" alt="">
+      <div class="">
+        <%s! skill_tag book.difficulty %>
+        <% (match book.recommendation with None -> () | Some recommendation -> %>
+        <p class="mt-2 text-gray-700 text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
+        <% ); %>
       </div>
-      <a href="<%s link.href %>" class="flex gap-4 mt-4 text-legacy-primary-700 text-lg font-bold items-center underline leading-10">
-        <%s link.title %>
-        <%s! Icons.arrow_small_right "h-6 w-6" %>
-      </a>
     </div>
-  </div>
+    <a href="<%s link.href %>" class="flex gap-4 mt-4 text-legacy-primary-700 text-lg font-bold items-center underline leading-10">
+      <%s link.title %>
+      <%s! Icons.arrow_small_right "h-6 w-6" %>
+    </a>
 
 let lang_manual_banner =
   <div class="bg-gradient-to-r from-[#D54000] to-[#EF8901] rounded-3xl">
@@ -124,12 +135,26 @@ let lang_manual_banner =
   </div>
 
 let exercise_card (exercise: Data.Exercise.t) =
-  <a class="p-5 box-shadow hover:box-shadow-xl rounded-xl border-[#00000033] border-2" href="<%s Url.exercises %>#<%s exercise.slug %>">
-    <div class="mb-2">
-      <%s exercise.title %>
+  <a class="flex flex-col p-5 bg-white drop-shadow hover:drop-shadow-lg rounded-2xl border-[#00000033] border" href="<%s Url.exercises %>#<%s exercise.slug %>">
+    <div class="flex-grow">
+      <%s exercise.description %>
     </div>
-    <%s! skill_tag Data.Book.Beginner "" %>
+    <div class="my-2.5">
+      <%s! skill_tag Data.Book.Beginner %>
+    </div>
   </a>
+
+let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
+  <div class="bg-legacy-default">
+    <div class="max-w-sm md:max-w-full flex flex-col">
+      <%s! block_heading ~icon ~title:"EXERCISES" ~heading %>
+      <div class="mt-6 grid gap-10 grid-cols-2 lg:grid-cols-4">
+        <% exercises |> List.iter (fun (exercise: Data.Exercise.t) -> %>
+        <%s! exercise_card exercise %>
+        <% ); %>
+      </div>
+    </div>
+  </div>
 
 let contribute_footer ~href =
   <div class="pt-10 mt-16 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">

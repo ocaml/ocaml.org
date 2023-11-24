@@ -48,7 +48,8 @@ Learn_layout.single_column_layout
     </h2>
 
     <div class="grid gap-6 mt-6 md:grid-cols-2">
-      <%s! Learn_components.tutorial_block ~icon:Learn_components.beginner_section_icon ~title:"GET STARTED" ~heading:"Introduction To OCaml" 
+      <%s! Learn_components.tutorial_block
+              ~icon:Learn_components.beginner_section_icon ~title:"GET STARTED" ~heading:"Introduction To OCaml"
               ~description:"Install OCaml and gain a high-level understanding of language features" 
               ~tutorial_links:[
                   {href = Url.tutorial "installing-ocaml"; title = "Installing OCaml"};
@@ -78,9 +79,15 @@ Learn_layout.single_column_layout
         ~link:{href = Url.books; title = "See More Books"} %>
     </div>
 
-    <div class="grid gap-10 grid-cols-2 lg:grid-cols-4">
-      <%s! Learn_components.exercise_card
-        (Data.Exercise.get_by_slug "1" |> Option.get) %>
+    <div class="mt-6">
+      <%s! Learn_components.exercises_block
+        ~icon:Learn_components.beginner_section_icon
+        ~heading:"Exercises for Beginners"
+        [ Data.Exercise.get_by_slug "1" |> Option.get
+        ; Data.Exercise.get_by_slug "5" |> Option.get
+        ; Data.Exercise.get_by_slug "6" |> Option.get
+        ; Data.Exercise.get_by_slug "8" |> Option.get
+        ] %>
     </div>
 
     <h2 id="intermediate_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
@@ -126,17 +133,18 @@ Learn_layout.single_column_layout
     </h2>
 
     <%s! Learn_components.lang_manual_banner %>
+
+    <div class="grid gap-6 mt-6 lg:grid-cols-2">
+      <%s! Learn_components.book_recommendation
+        (Data.Book.get_by_slug "ocaml-scientific-computing" |> Option.get)
+        ~link:{href = Url.books; title = "See More Books"} %>
+    </div>
+
     <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
       <h3 class="font-bold">Papers</h3>
       <div class="mt-6 text-legacy-lighter text-lg">
         Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things?
         Check out papers written by leading OCaml researchers:
-      </div>
-
-      <div class="grid gap-6 mt-6 grid-cols-2">
-        <%s! Learn_components.book_recommendation
-          (Data.Book.get_by_slug "ocaml-scientific-computing" |> Option.get)
-          ~link:{href = Url.books; title = "See More Books"} %>
       </div>
 
       <div class="flex flex-col lg:flex-row mt-8 space-y-4 lg:space-y-0 lg:space-x-6">
