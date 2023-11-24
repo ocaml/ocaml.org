@@ -220,7 +220,7 @@ example:
 ```
 
 So far, this is just the imperative "mutable records" that we talked
-about in ["If Statements, Loops, and Recursions"](https://ocaml.org/docs/if-statements-and-loops). Now the complex part is the `open_window`
+about in ["If Statements and Recursions"](https://ocaml.org/docs/if-statements-and-loops). Now the complex part is the `open_window`
 function. This function takes *4* arguments, three of them optional,
 followed by a required, unlabelled `unit`. Let's first see this function
 in action:

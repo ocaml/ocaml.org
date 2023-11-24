@@ -39,7 +39,7 @@ Learn_layout.single_column_layout
             {href = Url.tutorial "values-and-functions"; title = "Values and Functions"};
             {href = Url.tutorial "basic-data-types"; title = "Basic Data Types and Pattern Matching"};
             {href = Url.tutorial "lists"; title = "Lists"};
-            {href = Url.tutorial "if-statements-and-loops"; title = "If Statements, Loops, and Recursions"};
+            {href = Url.tutorial "if-statements-and-loops"; title = "If Statements and Recursions"};
         ]
         ~see_more:{href = Url.learn_language; title = "See More Language Tutorials"}
         "bg-[#0E2A49]"

@@ -750,5 +750,5 @@ Other recommended tutorials:
 
 1. [Values and Functions](/docs/values-and-functions)
 1. [Basic Data Types and Pattern Matching](/docs/basic-data-types)
-1. [If Statements, Loops, and Recursions](/docs/if-statements-and-loops)
+1. [If Statements and Recursions](/docs/if-statements-and-loops)
 1. [Lists](/docs/lists)
