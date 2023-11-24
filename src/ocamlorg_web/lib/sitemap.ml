@@ -19,6 +19,7 @@ let urls =
     Url.jobs;
     Url.carbon_footprint;
     Url.privacy_policy;
+    Url.governance_policy;
     Url.governance;
     Url.code_of_conduct;
     Url.playground;
@@ -27,7 +28,7 @@ let urls =
     Url.platform;
     Url.ocaml_on_windows;
     Url.getting_started;
-    Url.problems;
+    Url.exercises;
   ]
 
 let to_url u = "\n<url><loc>https://ocaml.org" ^ u ^ "</loc></url>"

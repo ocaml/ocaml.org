@@ -33,7 +33,7 @@ module Book : sig
     description : string;
     recommendation : string option;
     authors : string list;
-    language : string;
+    language : string list;
     published : string;
     cover : string;
     isbn : string option;
@@ -41,6 +41,7 @@ module Book : sig
     rating : int option;
     featured : bool;
     difficulty : string option;
+    pricing : string;
     body_md : string;
     body_html : string;
   }
@@ -153,7 +154,7 @@ module Paper : sig
   val get_by_slug : string -> t option
 end
 
-module Problem : sig
+module Exercise : sig
   type difficulty = [ `Beginner | `Intermediate | `Advanced ]
 
   type t = {
@@ -161,8 +162,10 @@ module Problem : sig
     number : string;
     difficulty : difficulty;
     tags : string list;
+    description : string;
     statement : string;
     solution : string;
+    tutorials : string list option;
   }
 
   val all : t list
@@ -252,9 +255,9 @@ end
 module Watch : sig
   type t = {
     name : string;
-    description : string option;
     embed_path : string;
     thumbnail_path : string;
+    description : string option;
     published_at : string;
     language : string;
     category : string;
@@ -269,6 +272,7 @@ module Planet : sig
     name : string;
     url : string;
     description : string;
+    disabled : bool;
   }
 
   module Post : sig
@@ -352,7 +356,6 @@ module Workshop : sig
     presentations : presentation list;
     program_committee : committee_member list;
     organising_committee : committee_member list;
-    toc_html : string;
     body_md : string;
     body_html : string;
   }
@@ -438,4 +441,56 @@ module Is_ocaml_yet : sig
   }
 
   val all : t list
+end
+
+module Event : sig
+  type location = { lat : float; long : float }
+
+  type t = {
+    title : string;
+    url : string;
+    slug : string;
+    textual_location : string;
+    location : location option;
+    starts : string;
+    ends : string option;
+    body_md : string;
+    body_html : string;
+  }
+
+  val all : t list
+  val get_by_slug : string -> t option
+end
+
+module Governance : sig
+  module Member : sig
+    type t = { name : string; github : string; role : string }
+
+    val compare : t -> t -> int
+  end
+
+  type contact_kind = GitHub | Email | Discord | Chat
+  type contact = { name : string; link : string; kind : contact_kind }
+
+  type dev_meeting = {
+    date : string;
+    time : string;
+    link : string;
+    calendar : string option;
+    notes : string;
+  }
+
+  type team = {
+    id : string;
+    name : string;
+    description : string;
+    contacts : contact list;
+    dev_meeting : dev_meeting option;
+    members : Member.t list;
+    subteams : team list;
+  }
+
+  val teams : team list
+  val working_groups : team list
+  val get_by_id : string -> team option
 end

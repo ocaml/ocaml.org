@@ -21,7 +21,7 @@ let playground_loader =
 
 let page_routes t =
   Dream.scope ""
-    [ Dream_dashboard.analytics (); Dream_encoding.compress ]
+    [ Dream_encoding.compress ]
     [
       Dream.get Url.index Handler.index;
       Dream.get Url.install Handler.install;
@@ -50,19 +50,22 @@ let page_routes t =
       Dream.get Url.outreachy Handler.outreachy;
       Dream.get Url.carbon_footprint Handler.carbon_footprint;
       Dream.get Url.privacy_policy Handler.privacy_policy;
-      Dream.get Url.governance Handler.governance;
       Dream.get Url.code_of_conduct Handler.code_of_conduct;
+      Dream.get Url.governance Handler.governance;
+      Dream.get (Url.governance_team ":id") Handler.governance_team;
+      Dream.get Url.governance_policy Handler.governance_policy;
       Dream.get Url.papers Handler.papers;
-      Dream.get Url.problems Handler.problems;
+      Dream.get Url.exercises Handler.exercises;
       Dream.get (Url.tutorial "is-ocaml-web-yet") (Handler.is_ocaml_yet t "web");
       Dream.get (Url.tutorial ":id") Handler.tutorial;
       Dream.get Url.playground Handler.playground;
       Dream.get Url.installer Handler.installer;
+      Dream.get Url.logos Handler.logos;
     ]
 
 let package_route t =
   Dream.scope ""
-    [ Dream_dashboard.analytics (); Dream_encoding.compress ]
+    [ Dream_encoding.compress ]
     [
       Dream.get Url.packages (Handler.packages t);
       Dream.get Url.packages_search (Handler.packages_search t);
@@ -106,7 +109,6 @@ let graphql_route t =
 let router t =
   Dream.router
     [
-      Dream_dashboard.route ();
       Redirection.t;
       page_routes t;
       package_route t;

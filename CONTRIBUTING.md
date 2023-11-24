@@ -1,8 +1,8 @@
 # How to Contribute
- 
+
 Welcome to OCaml.org's contributing guide. Thank you for taking the time to read it! Your help with OCaml.org is extremely welcome. We are particularly motivated to support new contributors and people who are looking to learn and develop their skills. If you get stuck, please don’t hesitate to [ask questions on discuss](https://discuss.ocaml.org/) or [raise an issue](https://github.com/ocaml/ocaml.org/issues/new).
 
-This guide documents the best way to contribute to the project when adding things listed below in Contributing Content. If you're looking for a guide on how to setup the project and suggest a change to the code, you can refer to our [HACKING](./HACKING.md) guide, which will also give instructions on how to rebuild the website, if necessary, when making changes. 
+This guide documents the best way to contribute to the project when adding things listed below in Contributing Content. If you're looking for a guide on how to setup the project and suggest a change to the code, you can refer to our [HACKING](./HACKING.md) guide, which will also give instructions on how to rebuild the website, if necessary, when making changes.
 
 - **Good First Issues**: if you are either new to the repository or still getting started with OCaml in general, issues marked as a `good first issue` are ideal.
 - **Suggesting Changes**: most of the site content is stored in the `data` directory as Markdown or YAML. To suggest a change or update this content, you can edit those files directly and rebuild the website, detailed in the [HACKING](./HACKING.md) guide. This will promote the content into their `.ml` counterparts. If you would like to suggest entirely new website content or code, please [open an issue](https://github.com/ocaml/ocaml.org/issues) to discuss it first.
@@ -16,20 +16,21 @@ Please include images and browser-specific information if the bug is related to 
 
 ## Contributing Content
 
-We've provided a list of community-driven content below. When adding content to any of these sections, it's best to fork the repo, add your file, and open a pull request (PR). 
+We've provided a list of community-driven content below. When adding content to any of these sections, it's best to fork the repo, add your file, and open a pull request (PR).
 
 - [The Blog](#content-blog)
 - [Job Board](#content-job)
 - [Success Stories](#content-success-story)
 - [Academic and Industrial Users](#content-user)
 - [OCaml Books](#content-book)
-- [Community Events](#content-event)
+- [Community Meetups](#content-meetup)
+- [Upcoming Events](#content-upcoming_event)
 - [Featured Packages](#content-package)
-- [The OCaml Changelog](#content-package)
+- [The OCaml Changelog](#content-changelog)
 
 The following sections give more details on how to contribute to each.
 
-### <a name="content-blog"></a> Add an RSS Feed to the Blog
+### <a name="content-blog"></a>Add an RSS Feed to the Blog
 
 Anyone can contribute to the [OCaml Blog](https://ocaml.org/blog), which is composed of two types of content:
 
@@ -37,6 +38,7 @@ Anyone can contribute to the [OCaml Blog](https://ocaml.org/blog), which is comp
 - Original blog posts linked from original source
 
 #### Fetched from RSS Feed
+
 If you write about OCaml and have an RSS or Atom feed, you can add your feed to [`data/planet-sources.yml`](data/planet-sources.yml).
 
 When compiling, the feed entries will be downloaded, and Markdown files for each item will be created in [`data/rss`](data/rss/). For instance: [building-ahrefs-codebase-with-melange.md`](data/rss/ahrefs/building-ahrefs-codebase-with-melange.md).
@@ -44,9 +46,11 @@ When compiling, the feed entries will be downloaded, and Markdown files for each
 Please, make sure your feed only contains articles about OCaml.
 
 #### Link Original Blog Post
-To contribute a link to your original blog post (under [OCaml Community Blog](https://ocaml.org/blog)), you can add a new Markdown file in [`data/planet/-individual_external_links/`](data/planet/-individual_external_links/). 
 
-Create an `.md` file with the following header: 
+To contribute a link to your original blog post (under [OCaml Community Blog](https://ocaml.org/blog)), you can add a new Markdown file in [`data/planet/-individual_external_links/`](data/planet/-individual_external_links/).
+
+Create an `.md` file with the following header:
+
 ```
 ---
 title: title of your self-hosted post here
@@ -57,7 +61,7 @@ preview_image: direct link to preview image
 ---
 ```
 
-### <a name="content-job"></a> Add an Entry to the Job Board
+### <a name="content-job"></a>Add an Entry to the Job Board
 
 > Contribute to the [Job Board](https://ocaml.org/jobs).
 
@@ -69,7 +73,7 @@ Please make sure that the job involves mostly writing OCaml. Contributions to ad
 
 If you notice that a job opportunity is outdated (e.g., already fulfilled or not open anymore), PRs to remove it are welcome as well.
 
-### <a name="content-success-story"></a> Add a Success Story
+### <a name="content-success-story"></a>Add a Success Story
 
 > Contribute to the [Success Stories](https://ocaml.org/success-stories).
 
@@ -84,7 +88,7 @@ The success stories should be structured in the following way:
 
 You can read [Ahref's success story](https://ocaml.org/success-stories/peta-byte-scale-web-crawler) for an examplary success story.
 
-### <a name="content-user"></a> Add an Academic or Industrial User
+### <a name="content-user"></a>Add an Academic or Industrial User
 
 > Contribute to the [Academic Users](https://ocaml.org/academic-users) and [Industrial Users](https://ocaml.org/industrial-users).
 
@@ -92,17 +96,23 @@ You can add a new academic user by creating a new Markdown file in [data/industr
 
 You can add a new industrial user by creating a new Markdown file in [data/academic_institutions/](data/academic_institutions). For instance: [cornell.md](data/academic_institutions/en/cornell.md).
 
-### <a name="content-book"></a> Add a Book
+### <a name="content-book"></a>Add a Book
 
 > Contribute to the [OCaml Books](https://ocaml.org/books).
 
 You can add a new OCaml book by creating a new Markdown file in [data/books/](data/books/). For instance: [ocaml-from-the-very-beginning.md](data/industrial_users/en/ocaml-from-the-very-beginning.md).
 
-### <a name="content-event"></a> Add an Event
+### <a name="content-meetup"></a>Add A meetup
 
-> Contribute to the [Community Events](https://ocaml.org/community).
+> Contribute to the [Community Meetups](https://ocaml.org/community).
 
-You can add a new community event by creating a new Markdown file in [data/meetups.yml](data/meetups.yml).
+You can add a new community meetup by adding it to the YAML file [data/meetups.yml](data/meetups.yml).
+
+### <a name="content-upcoming_event"></a> Add an Upcoming Event
+
+> Contribute to the [Upcoming Event](https://ocaml.org/community).
+
+You can add a new upcoming event by creating a new Markdown file in [data/events/](data/events/).
 
 ### <a name="content-package"></a> Add a Featured Package
 
@@ -110,7 +120,7 @@ You can add a new community event by creating a new Markdown file in [data/meetu
 
 To update the list of Featured Packages on the Packages page, you can update [data/packages.yml](data/packages.yml)
 
-### <a name="ocaml-changelog"></a> OCaml Changelog
+### <a name="content-changelog"></a>OCaml Changelog
 
 The [OCaml Changelog](https://ocaml.org/changelog) is a feed of the latest releases and feature highlights for official OCaml projects. As of today, it features the following projects:
 

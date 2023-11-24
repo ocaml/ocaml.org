@@ -42,9 +42,17 @@ let read_versions package_name versions =
   Lwt_list.fold_left_s
     (fun acc package_version ->
       match OpamPackage.of_string_opt package_version with
-      | Some pkg ->
-          let+ opam = Opam_repository.opam_file package_name package_version in
-          Version.Map.add pkg.version opam acc
+      | Some pkg -> (
+          let+ opam_opt =
+            Opam_repository.opam_file package_name package_version
+          in
+          match opam_opt with
+          | Some opam -> Version.Map.add pkg.version opam acc
+          | None ->
+              Logs.err (fun m ->
+                  m "Failed to read opam file for %S %s" package_name
+                    package_version);
+              acc)
       | None ->
           Logs.err (fun m -> m "Invalid pacakge version %S" package_name);
           Lwt.return acc)

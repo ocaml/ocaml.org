@@ -11,13 +11,15 @@ authors:
   - John Whitington
 published: 2014-08-26
 cover: books/more-ocaml-algorithms-methods-diversions.jpg
-language: english
+language:
+  - english
 links:
   - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/0957671113
 rating: 5
 featured: false
 difficulty: intermediate
+pricing: paid
 ---
 
 In "More OCaml," John Whitington takes a meandering tour of functional

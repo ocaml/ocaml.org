@@ -9,15 +9,20 @@ authors:
   - Bruno Pagano
 published: "2000"
 cover: books/developpement-d-applications-avec-objective-caml.jpg
-language: french
+language:
+  - french
+  - english
 isbn: "2-84177-121-0"
 links:
   - description: Read Online
     uri: https://www-apr.lip6.fr/~chaillou/Public/DA-OCAML/
+  - description: English Edition
+    uri: https://caml.inria.fr/pub/docs/oreilly-book/
   - description: Order at Amazon.fr
     uri: https://www.amazon.fr/exec/obidos/ASIN/2841771210
 featured: false
 difficulty: intermediate
+pricing: free
 ---
 
 A comprehensive (742 pages) book on OCaml, covering not only the core

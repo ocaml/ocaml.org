@@ -1,7 +1,7 @@
 ---
 title: OCaml infra upgrading to Debian 12 for OCaml docker images
 date: "2023-06-28"
-tags: [infra]
+tags: [infrastructure]
 changelog: |
   * OCaml Debian images upgraded to Debian 12 ([ocaml-dockerfile#172](https://github.com/ocurrent/ocaml-dockerfile/pull/172/files), @MisterDA)
   * Deprecation of Ubuntu 18.04, Alpine 3.16 and 3.17, OracleLinux 7, OpenSUSE 15.2 images ([ocaml-dockerfile#176](https://github.com/ocurrent/ocaml-dockerfile/pull/176/files), @avsm)

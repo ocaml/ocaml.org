@@ -12,6 +12,7 @@
 @import "./partials/shadows.css";
 @import "./partials/tags.css";
 @import "./partials/typography.css";
+@import "./partials/governance.css";
 
 @import "./other/syntax.css";
 
@@ -27,7 +28,7 @@ body {
 }
 
 .container-fluid {
-  @apply max-w-7xl w-full mx-auto px-4;
+  @apply max-w-md md:max-w-7xl w-full mx-auto px-4;
 }
 
 @media (min-width: 40em) {
@@ -112,6 +113,10 @@ body {
 }
 .output-bg {
     background: rgba(39, 39, 39, 1);
+}
+
+.prose {
+  word-wrap: break-word;
 }
 
 .prose [id] {
@@ -236,10 +241,10 @@ summary::marker {
 /* summary & details expandable section */
 
 details summary svg {
-  transform: rotate(90deg);
+  transform: rotate(0deg);
 }
 details[open] summary svg {
-  transform: rotate(-90deg);
+  transform: rotate(180deg);
 }
 
 details[open] summary ~ *

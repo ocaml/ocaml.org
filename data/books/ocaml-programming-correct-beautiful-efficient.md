@@ -8,15 +8,17 @@ description: >
 recommendation: "Basic experience in some imperative programming language is helpful. Includes over 200 videos."
 authors:
   - Michael R. Clarkson
-published: 2021-09-01
+published: 2023-08-14
 cover: books/ocaml-programming-cs3110.jpg
-language: english
+language:
+  - english
 links:
   - description: Read Online
     uri: https://cs3110.github.io/textbook/
 rating: 5
 featured: true
 difficulty: beginner
+pricing: free
 ---
 
 A textbook on functional programming and data structures in OCaml, with an

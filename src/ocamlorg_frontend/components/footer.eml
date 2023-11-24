@@ -30,8 +30,16 @@ let render () =
       <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
         <div class="md:grid md:grid-cols-2 md:gap-8">
           <div>
-            <h3 class="text-base font-semibold leading-6 text-default dark:text-white">About Us</h3>
+            <h3 class="text-base font-semibold leading-6 text-default">About OCaml</h3>
             <ul class="mt-6 space-y-4">
+              <li>
+                <a href="<%s Url.changelog %>" class="text-base leading-6 text-lighter">Changelog</a>
+              </li>
+
+              <li>
+                <a href="<%s Url.releases %>" class="text-base leading-6 text-lighter">Releases</a>
+              </li>
+
               <li>
                 <!-- TODO: create footer_link component -->
                 <a href="<%s Url.industrial_users %>" class="text-base leading-6 text-lighter dark:text-white">Industrial Users</a>
@@ -56,6 +64,10 @@ let render () =
               <li>
                 <a href="<%s Url.getting_started %>" class="text-base leading-6 text-lighter dark:text-white">Get Started</a>
               </li>
+              
+              <li>
+                <a href="<%s Url.platform %>" class="text-base leading-6 text-lighter">Platform Tools</a>
+              </li>
 
               <li>
                 <a href="<%s Url.manual %>" class="text-base leading-6 text-lighter dark:text-white">Language Manual</a>
@@ -70,21 +82,37 @@ let render () =
               </li>
 
               <li>
-                <a href="<%s Url.releases %>" class="text-base leading-6 text-lighter dark:text-white">Releases</a>
+                <a href="<%s Url.exercises %>" class="text-base leading-6 text-lighter">Exercises</a>
+              </li>
+
+              <li>
+                <a href="<%s Url.papers %>" class="text-base leading-6 text-lighter">Papers</a>
+              </li>
+
+              <li>
+                <a href="<%s Url.playground %>" class="text-base leading-6 text-lighter">OCaml Playground</a>
+              </li>
+
+              <li>
+                <a href="<%s Url.logos %>" class="text-base leading-6 text-lighter">Logo</a>
               </li>
             </ul>
           </div>
         </div>
         <div class="md:grid md:grid-cols-2 md:gap-8">
           <div>
-            <h3 class="text-base font-semibold leading-6 text-default dark:text-white">Community</h3>
+            <h3 class="text-base font-semibold leading-6 text-default">Ecosystem</h3>
             <ul class="mt-6 space-y-4">
-              <li>
-                <a href="<%s Url.blog %>" class="text-base leading-6 text-lighter dark:text-white">Blog</a>
+               <li>
+                <a href="<%s Url.packages %>" class="text-base leading-6 text-lighter">Packages</a>
+              </li>
+
+               <li>
+                <a href="<%s Url.community %>" class="text-base leading-6 text-lighter">Community</a>
               </li>
 
               <li>
-                <a href="<%s Url.changelog %>" class="text-base leading-6 text-lighter dark:text-white">Changelog</a>
+                <a href="<%s Url.blog %>" class="text-base leading-6 text-lighter">Blog</a>
               </li>
 
               <li>
@@ -92,8 +120,8 @@ let render () =
               </li>
             </ul>
           </div>
-          <div class="mt-10 md:mt-0">
-            <h3 class="text-base font-semibold leading-6 text-default dark:text-white">Policies</h3>
+          <div class="mt-20 md:mt-0">
+            <h3 class="text-base font-semibold leading-6 text-default">Policies</h3>
             <ul class="mt-6 space-y-4">
               <li>
                 <a href="<%s Url.carbon_footprint %>" class="text-base leading-6 text-lighter dark:text-white">Carbon Footprint</a>

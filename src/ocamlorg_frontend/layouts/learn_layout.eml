@@ -14,7 +14,50 @@ let tabs
       <%s title %>
     </a>
   in
-    <div class="bg-text-title">
+  let url_of_current 
+  (current : section) = match current with
+    | Overview -> Url.learn
+    | GetStarted -> Url.learn_get_started
+    | Language -> Url.learn_language
+    | Platform -> Url.platform
+    | Guides -> Url.learn_guides
+    | Exercises -> Url.exercises
+    | Books -> Url.books
+  in
+  let section_to_string = function
+    | Overview -> "Overview"
+    | GetStarted -> "Get Started"
+    | Language -> "Language"
+    | Platform -> "Platform"
+    | Guides -> "Guides"
+    | Exercises -> "Exercises"
+    | Books -> "Books"
+  in
+  let breadcrumb_options current =
+    let (sections : section list) = [Overview; GetStarted; Language; Platform; Guides; Exercises; Books] in
+    let selected_option section = if section = current then "selected" else "" in
+    let options_list option = 
+        <option value="<%s url_of_current option %>" <%s selected_option option %>>
+          <%s section_to_string option %>
+        </option> 
+    in
+    <nav aria-label="breadcrumbs" class="px-4 flex text-white bg-text-title md:hidden">
+      <ul>
+        <li class="inline-block"> 
+            <a href="<%s url_of_current Overview %>" class="flex items-center px-2 py-2 border-transparent border-2 border-b-4"> Learn 
+              <span> <%s! Icons.chevron_right "w-3 h-3 ml-2" %> </span> </a>
+        </li>
+        <li class="inline-block">
+            <select onchange="location = this.value;" class="appearance-none bg-text-title border-2 border-b-4 bg-none font-bold border-none w-auto p-0 m-0 cursor-pointer focus:outline-none focus:ring-0">
+             <%s! sections |> List.map options_list |> String.concat "" %>
+            </select>
+            <span class="text-orange-700 cursor-pointer">&#x25BE;</span>
+        </li>
+      </ul>
+    </nav>
+  in
+    <%s! breadcrumb_options current %>
+    <div class="bg-text-title hidden md:flex">
       <nav class="container-fluid wide flex flex-wrap">
         <%s! link ~href:Url.learn ~title:"Overview" ~current:(current = Overview) %>
 
@@ -26,13 +69,9 @@ let tabs
 
         <%s! link ~href:Url.learn_guides ~title:"Guides" ~current:(current = Guides) %>
 
-        <%s! link ~href:Url.problems ~title:"Exercises" ~current:(current = Exercises) %>
+        <%s! link ~href:Url.exercises ~title:"Exercises" ~current:(current = Exercises) %>
 
         <%s! link ~href:Url.books ~title:"Books" ~current:(current = Books) %>
-
-        <a href="<%s Url.manual %>" class="flex text-white gap-2 justify-start px-4 py-2 border-2 border-transparent rounded items-center font-semibold opacity-80">
-          <%s! Icons.arrow_top_right_on_square "w-6 h-6" %> Language Manual
-        </a>
       </nav>
     </div>
 
@@ -40,36 +79,28 @@ let sidebar_link
 ~title
 ~href
 ~current =
-  match current with
-  | true ->
-    <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s href %>">
-      <%s title %>
-    </a>
-  | false ->
-    <a class="font-semibold text-sm text-lighter hover:bg-gray-100 block py-2 px-3" href="<%s href %>">
-      <%s title %>
-    </a>
+  <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-primary-700 bg-primary-100 border-primary-600|} else {|text-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
+    <%s title %>
+  </a>
 
 let sidebar_link_group
 ?(extra_html="")
 title
 link_html
 =
-  <div class="space-y-2 flex flex-col">
-    <div class="text-sm font-semibold flex px-3 py-2 uppercase"><%s title %></div>
+  <div class="pl-2 pr-8 flex flex-col">
+    <div class="text-lg font-bold leading-10 flex py-1 uppercase"><%s title %></div>
     <%s! link_html %>
     <%s! extra_html %>
   </div>
 
-let overview_render
+let single_column_layout
 ?use_swiper
 ?styles
 ~title
 ~description
 ~canonical
 ?active_top_nav_item
-~(left_sidebar_html: string option)
-~(right_sidebar_html: string option)
 ~current
 inner_html
 =
@@ -79,39 +110,13 @@ inner_html
   ~title
   ~description
   ~canonical
-  ~footer_html:(Fixed_footer.render ())
   ?active_top_nav_item @@
   <%s! tabs ~current %>
-  <div class="bg-default dark:bg-dark-default" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
-  <% if left_sidebar_html != None then ( %>  
-    <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
-      x-on:click="sidebar = ! sidebar">
-      <%s! Icons.sidebar_menu "h-8 w-8" %>
-      <span class="hidden md:flex font-semibold px-2">side menu</span>
-    </button>
-    <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm lg:hidden"
-      :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar"></div>
-  <% ); %>
-    <div class="flex flex-col lg:flex-row">
-      <div
-        class="z-20 bg-default dark:bg-dark-default flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky <%s Option.fold ~none:"" ~some:(fun _ -> "p-6 lg:px-0 w-80 lg:w-72 lg:px-0 lg:pt-6 lg:pb-72") left_sidebar_html %>"
-        x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
-        x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
-        x-transition:leave-end="-translate-x-full">
-        <%s! Option.value ~default:"" left_sidebar_html %>
-      </div>
-
-      <div class="flex-1 z-0 z- min-w-0 lg:pt-6 pb-12 lg:pb-[70vh] <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
-        <%s! inner_html %>
-      </div>
-      <div class="hidden xl:block top-0 sticky h-screen overflow-auto lg:pt-6">
-        <div class="<%s Option.fold ~none:"" ~some:(fun _ -> "w-60 lg:pb-72") right_sidebar_html %>">
-          <%s! Option.value ~default:"" right_sidebar_html %>
-        </div>
-      </div>
+  <div class="bg-default dark:bg-dark-default">
+    <div class="flex-1 z-0 z- min-w-0 lg:pt-6 pb-12">
+      <%s! inner_html %>
     </div>
   </div>
-  <%s! Toc.script %>
 
 let render
 ?use_swiper
@@ -125,21 +130,19 @@ let render
 ~current
 inner_html
 =
-  Layout.render
+  Layout.base
   ?use_swiper
   ?styles
   ~title
   ~description
   ~canonical
-  ~footer_html:(Fixed_footer.render ())
   ?active_top_nav_item @@
   <%s! tabs ~current %>
   <div class="bg-default dark:bg-dark-default" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
   <% if left_sidebar_html != None then ( %>  
-    <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
+    <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-[#D54000] p-4 z-30 rounded-full text-white shadow-custom bottom-24 md:bottom-36 fixed lg:hidden right-10"
       x-on:click="sidebar = ! sidebar">
-      <%s! Icons.sidebar_menu "h-8 w-8" %>
-      <span class="hidden md:flex font-semibold px-2">side menu</span>
+      <%s! Icons.sidebar_menu "h-6 w-6" %>
     </button>
     <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm lg:hidden"
       :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar"></div>
@@ -154,8 +157,9 @@ inner_html
         <%s! Option.value ~default:"" left_sidebar_html %>
       </div>
 
-      <div class="flex-1 z-0 z- min-w-0 lg:pt-6 pb-12 lg:pb-[70vh] <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
+      <div class="flex-1 z-0 z- min-w-0 lg:pt-6 <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
         <%s! inner_html %>
+        <%s! Secondary_footer.render () %>
       </div>
       <div class="hidden xl:block top-0 sticky h-screen overflow-auto lg:pt-6">
         <div class="<%s Option.fold ~none:"" ~some:(fun _ -> "w-60 lg:pb-72") right_sidebar_html %>">
@@ -165,3 +169,4 @@ inner_html
     </div>
   </div>
   <%s! Toc.script %>
+  

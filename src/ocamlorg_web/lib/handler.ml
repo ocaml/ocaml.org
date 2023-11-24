@@ -52,7 +52,24 @@ let platform _req =
 let community _req =
   let workshops = Data.Workshop.all in
   let meetups = Data.Meetup.all in
-  Dream.html (Ocamlorg_frontend.community ~workshops ~meetups)
+  let events = Data.Event.all in
+  Dream.html (Ocamlorg_frontend.community ~workshops ~meetups ~events)
+
+let paginate ~req ~n items =
+  let items_per_page = n in
+  let page =
+    Dream.query req "p" |> Option.map int_of_string |> Option.value ~default:1
+  in
+  let number_of_pages =
+    int_of_float
+      (Float.ceil
+         (float_of_int (List.length items) /. float_of_int items_per_page))
+  in
+  let current_items =
+    let skip = items_per_page * (page - 1) in
+    items |> List.drop skip |> List.take items_per_page
+  in
+  (page, number_of_pages, current_items)
 
 let changelog req =
   let current_tag = Dream.query req "t" in
@@ -70,7 +87,10 @@ let changelog req =
           (fun change -> List.exists (( = ) tag) change.Data.Changelog.tags)
           Data.Changelog.all
   in
-  Dream.html (Ocamlorg_frontend.changelog ?current_tag ~tags changes)
+  let page, number_of_pages, current_changes = paginate ~req ~n:30 changes in
+  Dream.html
+    (Ocamlorg_frontend.changelog ?current_tag ~tags ~number_of_pages
+       ~current_page:page current_changes)
 
 let changelog_entry req =
   let slug = Dream.param req "id" in
@@ -112,7 +132,40 @@ let academic_users req =
   Dream.html (Ocamlorg_frontend.academic_users users)
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
-let books _req = Dream.html (Ocamlorg_frontend.books Data.Book.all)
+
+let books req =
+  let language = Dream.query req "language" in
+  let pricing = Dream.query req "pricing" in
+  let difficulty = Dream.query req "difficulty" in
+  let matches_criteria (book : Data.Book.t) language pricing difficulty =
+    let matches_language =
+      match language with
+      | None | Some "All" -> true
+      | Some lang -> List.mem true (List.map (fun x -> x = lang) book.language)
+    in
+    let matches_pricing =
+      match pricing with
+      | Some p when p = "All" -> true
+      | Some p -> book.pricing = p
+      | None -> true
+    in
+    let matches_difficulty =
+      match difficulty with
+      | Some d when d = "All" -> true
+      | Some d -> (
+          match book.difficulty with Some bd -> bd = d | None -> false)
+      | None -> true
+    in
+    matches_language && matches_pricing && matches_difficulty
+  in
+  let filter_books books language pricing difficulty =
+    List.filter
+      (fun book -> matches_criteria book language pricing difficulty)
+      books
+  in
+  let filtered_books = filter_books Data.Book.all language pricing difficulty in
+  Dream.html
+    (Ocamlorg_frontend.books ?language ?pricing ?difficulty filtered_books)
 
 let releases req =
   let search_release pattern t =
@@ -144,7 +197,7 @@ let releases req =
     | None -> Data.Release.all
     | Some search -> search_release search Data.Release.all
   in
-  Dream.html (Ocamlorg_frontend.releases releases)
+  Dream.html (Ocamlorg_frontend.releases ?search releases)
 
 let release req =
   let version = Dream.param req "id" in
@@ -188,22 +241,6 @@ let workshop req =
   in
   Dream.html (Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed workshop)
 
-let paginate ~req ~n items =
-  let items_per_page = n in
-  let page =
-    Dream.query req "p" |> Option.map int_of_string |> Option.value ~default:1
-  in
-  let number_of_pages =
-    int_of_float
-      (Float.ceil
-         (float_of_int (List.length items) /. float_of_int items_per_page))
-  in
-  let current_items =
-    let skip = items_per_page * (page - 1) in
-    items |> List.drop skip |> List.take items_per_page
-  in
-  (page, number_of_pages, current_items)
-
 let blog req =
   let page, number_of_pages, current_items =
     paginate ~req ~n:10
@@ -212,7 +249,11 @@ let blog req =
          Data.Planet.Post.all)
   in
   let featured = Data.Planet.featured_posts |> List.take 3 in
-  let news = Data.News.all |> List.take 20 in
+  let number_of_news =
+    List.length featured + List.length current_items
+    |> float_of_int |> ( *. ) 1.3 |> int_of_float
+  in
+  let news = Data.News.all |> List.take number_of_news in
   Dream.html
     (Ocamlorg_frontend.blog ~featured ~planet:current_items ~planet_page:page
        ~planet_pages_number:number_of_pages ~news)
@@ -280,13 +321,23 @@ let page canonical (_req : Dream.request) =
 
 let carbon_footprint = page Url.carbon_footprint
 let privacy_policy = page Url.privacy_policy
-let governance = page Url.governance
+let governance_policy = page Url.governance_policy
 let code_of_conduct = page Url.code_of_conduct
 
 let playground _req =
   let default = Data.Code_example.get "default.ml" in
   let default_code = default.body in
   Dream.html (Ocamlorg_frontend.playground ~default_code)
+
+let governance _req =
+  Dream.html
+    (Ocamlorg_frontend.governance ~teams:Data.Governance.teams
+       ~working_groups:Data.Governance.working_groups)
+
+let governance_team req =
+  let id = Dream.param req "id" in
+  let</>? team = Data.Governance.get_by_id id in
+  Dream.html (Ocamlorg_frontend.governance_team team)
 
 let papers req =
   let search_paper pattern t =
@@ -334,13 +385,22 @@ let tutorial req =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = tutorial.section)
   in
+  let all_exercises = Data.Exercise.all in
+  let related_exercises =
+    List.filter
+      (fun (e : Data.Exercise.t) ->
+        match e.tutorials with
+        | Some tutorials_list -> List.mem slug tutorials_list
+        | None -> false)
+      all_exercises
+  in
   Dream.html
     (Ocamlorg_frontend.tutorial ~tutorials
        ~canonical:(Url.tutorial tutorial.slug)
-       tutorial)
+       ~related_exercises tutorial)
 
-let problems req =
-  let all_problems = Data.Problem.all in
+let exercises req =
+  let all_exercises = Data.Exercise.all in
   let difficulty_level = Dream.query req "difficulty_level" in
   let compare_difficulty = function
     | "beginner" -> ( = ) `Beginner
@@ -348,15 +408,15 @@ let problems req =
     | "advanced" -> ( = ) `Advanced
     | _ -> Fun.const true
   in
-  let by_difficulty level (problem : Data.Problem.t) =
+  let by_difficulty level (exercise : Data.Exercise.t) =
     match level with
-    | Some difficulty -> compare_difficulty difficulty problem.difficulty
+    | Some difficulty -> compare_difficulty difficulty exercise.difficulty
     | _ -> true
   in
-  let filtered_problems =
-    List.filter (by_difficulty difficulty_level) all_problems
+  let filtered_exercises =
+    List.filter (by_difficulty difficulty_level) all_exercises
   in
-  Dream.html (Ocamlorg_frontend.problems ?difficulty_level filtered_problems)
+  Dream.html (Ocamlorg_frontend.exercises ?difficulty_level filtered_exercises)
 
 let installer req = Dream.redirect req Url.github_installer
 let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Data.Outreachy.all)
@@ -388,7 +448,9 @@ module Package_helper = struct
             (Option.map Ocamlorg_package.Version.to_string latest_version);
         synopsis = info.Ocamlorg_package.Info.synopsis;
         description =
-          info.Ocamlorg_package.Info.description |> Omd.of_string |> Omd.to_html;
+          info.Ocamlorg_package.Info.description
+          |> Cmarkit.Doc.of_string ~strict:true
+          |> Cmarkit_html.of_doc ~safe:true;
         tags = info.tags;
         rev_deps;
         authors = List.map owner info.authors;
@@ -556,17 +618,23 @@ let is_author_match name pattern =
       match_opt (Some name) || match_opt email || match_opt github_username
 
 let packages_search t req =
-  match Dream.query req "q" with
-  | Some search ->
-      let packages =
+  let packages =
+    match Dream.query req "q" with
+    | Some search ->
         Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true t
           search
-      in
-      let total = List.length packages in
-      let results = List.map (Package_helper.frontend_package t) packages in
-      let search = Dream.from_percent_encoded search in
-      Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
-  | None -> Dream.redirect req Url.packages
+    | None -> Ocamlorg_package.all_latest t
+  in
+  let total = List.length packages in
+  let page, number_of_pages, current_items = paginate ~req ~n:50 packages in
+  let search =
+    Dream.from_percent_encoded
+      (match Dream.query req "q" with Some search -> search | None -> "")
+  in
+  let results = List.map (Package_helper.frontend_package t) current_items in
+  Dream.html
+    (Ocamlorg_frontend.packages_search ~total ~search ~page ~number_of_pages
+       results)
 
 let packages_autocomplete_fragment t req =
   match Dream.query req "q" with
@@ -892,3 +960,5 @@ let sitemap _request =
     (fun stream ->
       let* _ = Lwt_seq.iter_s (Dream.write stream) Sitemap.data in
       Dream.flush stream)
+
+let logos _req = Dream.html (Ocamlorg_frontend.logos ())

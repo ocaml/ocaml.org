@@ -1,0 +1,150 @@
+let exercises_sidebar_link
+~title
+~href
+~current =
+  match current with
+  | true ->
+    <a class="block text-primary-600 bg-primary-100 border-l-2 border-primary-600 py-3 px-5 font-semibold text-sm rounded-sm" href="<%s href %>">
+      <%s title %>
+    </a>
+  | false ->
+    <a class="block hover:text-primary-600 hover:bg-primary-100 border-l-2 border-transparent hover:border-primary-600 py-3 px-5 font-medium text-sm rounded-sm" href="<%s href %>">
+      <%s title %>
+    </a>
+
+
+let exercises_sidebar_link_group
+title
+link_html
+=
+   <details class="flex flex-col">
+      <summary class="flex gap-4 justify-between text-sm font-semibold py-4 uppercase focus:text-primary-600 active:text-primary-600 hover:text-primary-300">
+        <%s title %>
+        <%s! Icons.chevron_down "h-6 w-6" %>
+      </summary>
+      <span class="border-l"><%s! link_html %></span>
+    </details>
+
+let exercises_sidebar
+~exercises
+=
+let open Data in
+let render_exercise_link (exercise : Exercise.t) =
+  let href = "#" ^ exercise.number in
+  exercises_sidebar_link ~title:exercise.title ~href ~current:false
+in
+let exercise_sidebar_links_by_tag ?tag title =
+  <%s! exercises_sidebar_link_group title
+    (Exercise.filter_tag ?tag exercises |> List.fold_left (fun a b -> a ^ render_exercise_link b) "")
+  %>
+in
+  <div class="pr-3">
+  <p class="font-bold mb-4">Exercises Categories</p>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag ~tag:"list" "Lists" %>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag ~tag:"arithmetic" "Arithmetic" %>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag ~tag:"logic" "Logic and Codes" %>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag ~tag:"binary-tree" "Binary Trees" %>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag ~tag:"multiway-tree" "Multiway Trees" %>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag ~tag:"graph" "Graphs" %>
+    <hr>
+    <%s! exercise_sidebar_links_by_tag "Miscellaneous" %>
+  </div>
+
+let danger = function
+  | `Beginner -> ""
+  | `Intermediate -> "☡"
+  | `Advanced -> "☡☡"
+
+let difficulty_to_string = function
+  | `Beginner -> "Beginner"
+  | `Intermediate -> "Intermediate"
+  | `Advanced -> "Advanced"
+
+let render
+?(difficulty_level = "All")
+(exercises : Data.Exercise.t list)
+=
+Learn_layout.render
+~title:"Exercises"
+~description:"A list of exercises to work on your OCaml skills."
+~canonical:Url.exercises
+~active_top_nav_item:Header.Learn
+~left_sidebar_html:(Some(exercises_sidebar ~exercises))
+~right_sidebar_html:None
+~current:Exercises @@
+  <div class="prose prose-orange max-w-full">
+    <h1 class="font-bold mb-8">Exercises</h1>
+    <div class="prose prose-orange max-w-full mb-5">
+      <p>
+        This section is inspired by
+        <a href="https://www.ic.unicamp.br/~meidanis/courses/mc336/2006s2/funcional/L-99_Ninety-Nine_Lisp_Problems.html">
+          Ninety-Nine Lisp Problems</a>
+        which in turn was based on “<a href="https://sites.google.com/site/prologsite/prolog-problems/">Prolog problem
+          list</a>” by Werner Hett. For
+        each of these questions, some simple tests are shown—they may also serve
+        to make the question clearer if needed. To work on these problems, we
+        recommend you first <a href="<%s Url.getting_started %>">install OCaml</a> or use it <a
+          href="<%s Url.playground %>">inside
+          your browser</a>. The source of the following
+        problems is available on
+        <a href="https://github.com/ocaml/ocaml.org/tree/main/data/problems">GitHub</a>.
+      </p>
+      <p>
+        Every exercise has a difficulty level, ranging from beginner to advanced.
+        This difficulty level is indicated with the symbol "☡".
+        The absence of marks represents the beginner level, one mark the intermediate level and two marks the advanced level.
+      </p>
+    </div>
+    <div class="border-b border-solid border-zinc-300 leading-5 py-8 text-zinc-800">
+      <form action="<%s Url.exercises %>" method="GET">
+        <label for="difficulty_level" class="sr-only">Difficulty</label>
+        <%s! Forms.select
+          ~attrs:{|id="difficulty_level" name="difficulty_level" onchange="this.form.submit()"|}
+          ~options:[("All", "Any Difficulty"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
+          ~selected:difficulty_level
+          "w-48" %>
+      </form>
+    </div>
+    <% exercises |> List.iter (fun (exercise : Data.Exercise.t) -> %>
+    <div x-data="{statement: true}" id="<%s" exercise.number %>
+      >
+      <div class="flex space-y-4 xl:space-y-0 flex-col xl:flex-row xl:justify-between">
+        <span aria-hidden="true" class="danger invisible xl:visible" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %>"><%s danger exercise.difficulty %></span>
+        <h4 class="font-bold text-default">
+          <%s exercise.title %>
+          <span aria-hidden="true" class="ml-2 visible xl:invisible" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %>"> <%s danger exercise.difficulty %></span>
+        </h4>
+        <div class="w-0 h-0 overflow-hidden"><%s difficulty_to_string exercise.difficulty ^ " difficulty" %></div>
+        <div class="flex bg-body-600 bg-opacity-5 rounded-md p-1 items-center">
+          <button
+            class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
+            x-on:click="statement = true"
+            :class="statement ? 'bg-default dark:bg-dark-default text-primary-600': 'text-lighter' "
+          >
+            <%s! Icons.exercise_statement "h-5 w-5" %>
+            <span :class="statement ? 'text-default' : 'text-lighter'">Statement</span>
+          </button>
+          <button
+            class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
+            x-on:click="statement = false"
+            :class="statement ? 'text-lighter': 'bg-default dark:bg-dark-default text-primary-600' "
+          >
+            <%s! Icons.exercise_solution "h-5 w-5" %>
+            <span :class="statement ? 'text-lighter' : 'text-default'">Solution</span>
+          </button>
+        </div>
+      </div>
+
+      <div x-show="statement"><%s! exercise.statement %></div>
+
+      <div x-show="!statement"><%s! exercise.solution %></div>
+    </div>
+    <div class="border-t border-gray-200 my-12"></div>
+    <% ); %>
+  </div>

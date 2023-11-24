@@ -10,7 +10,8 @@ authors:
   - John Whitington
 published: 2013-06-07 
 cover: books/ocaml-from-the-very-beginning.jpg
-language: english
+language:
+  - english
 links:
   - description: Read Online
     uri: https://ocaml-book.com/
@@ -19,6 +20,7 @@ links:
 rating: 4
 featured: true
 difficulty : beginner
+pricing: free
 ---
 
 In *OCaml from the Very Beginning*, John Whitington takes a

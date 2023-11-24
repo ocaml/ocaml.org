@@ -23,7 +23,7 @@ jobs:
         with:
           ocaml-compiler: ocaml-base-compiler.4.14.1
           opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#c1fcfbe8369cb5a7cb8d7be63db59856dbd85d19
+            pin: git+https://github.com/ocaml/opam-repository#8cc107f96e33a4601f7c39346eb19fbbe46486d3
           opam-disable-sandboxing: true
 
       - run: git rev-parse HEAD

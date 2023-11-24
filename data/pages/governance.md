@@ -309,7 +309,7 @@ community who is interested in contributing to a project is welcome to join the
 developer meetings. Meeting notes for these developer meetings are recorded and
 available on GitHub.
 
-Tools that enter the Active stage are hosted on the OCaml GitHub organization
+Tools that enter the Active stage can be hosted on the OCaml GitHub organization
 and permissions are managed through GitHub teams which only lead maintainers of
 the projects and OCaml GitHub organization administrators can update.
 
@@ -452,3 +452,7 @@ or see the [related issue](https://github.com/ocaml/v2.ocaml.org/issues/700).
 - Update the governance of OCaml.org to reflect the use of the
   `ocaml/infrastructure` GitHub issue tracker in place of the infrastructure
   mailing list.
+
+***Version 2.0.1 — October 2023***
+
+- Remove requirement of Active tools to be hosted on the OCaml GitHub organisation.

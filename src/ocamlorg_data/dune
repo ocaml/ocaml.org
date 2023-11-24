@@ -24,6 +24,15 @@
    (run %{dep:../../tool/ood-gen/bin/gen.exe} book))))
 
 (rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
+ (target governance.ml)
+ (action
+  (with-stdout-to
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} governance))))
+
+(rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
  (target changelog.ml)
  (action
   (with-stdout-to
@@ -59,11 +68,11 @@
    (run %{dep:../../tool/ood-gen/bin/gen.exe} paper))))
 
 (rule
- (target problem.ml)
+ (target exercise.ml)
  (action
   (with-stdout-to
    %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} problems))))
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} exercises))))
 
 (rule
  (target release.ml)
@@ -102,16 +111,10 @@
 
 (rule
  (target watch.ml)
- (deps
-  (:config %{workspace_root}/yoshi.yaml))
  (action
-  (run
-   %{bin:yoshi}
-   -c
-   %{config}
-   -o
+  (with-stdout-to
    %{target}
-   %{workspace_root}/data/watch.yml)))
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} watch))))
 
 (rule
  (target planet.ml)
@@ -168,3 +171,10 @@
   (with-stdout-to
    %{target}
    (run %{dep:../../tool/ood-gen/bin/gen.exe} code_example))))
+
+(rule
+ (target event.ml)
+ (action
+  (with-stdout-to
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} event))))

@@ -24,7 +24,7 @@ val list_package_versions : string -> string list option
     [packages/<package>/] directory. Returns [None] if the specified package
     doesn't exist in [packages/]. *)
 
-val opam_file : string -> string -> OpamFile.OPAM.t Lwt.t
+val opam_file : string -> string -> OpamFile.OPAM.t option Lwt.t
 (** Return the opam file structure given a package name and package version. *)
 
 val commit_at_date : string -> string Lwt.t

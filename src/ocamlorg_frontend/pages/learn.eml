@@ -9,13 +9,11 @@ let render
 ~(books : Data.Book.t list)
 ~(latest_version : string)
 =
-Learn_layout.overview_render
+Learn_layout.single_column_layout
 ~title:"Learn OCaml"
 ~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices, and language manual."
 ~canonical:Url.learn
 ~active_top_nav_item:Header.Learn
-~left_sidebar_html:None
-~right_sidebar_html:None
 ~current:Overview @@
   <div class="container-fluid wide pt-10">
     <h1 class="font-bold mb-8">Learn OCaml</h1>
@@ -28,9 +26,9 @@ Learn_layout.overview_render
     <%s! Learn_components.left_tutorial_block ~title:"GET STARTED" ~heading:"Introduction To OCaml" 
             ~description:"Install OCaml and gain a high-level understanding of language features" 
             ~tutorial_links:[
-                {href = Url.tutorial "up-and-running"; title = "Get Up and Running With OCaml"};
-                {href = Url.tutorial "first-hour"; title = "Your First Day With OCaml"};
-                {href = Url.tutorial "ocaml-on-windows"; title = "OCaml On Windows"}
+                {href = Url.tutorial "installing-ocaml"; title = "Installing OCaml"};
+                {href = Url.tutorial "tour-of-ocaml"; title = "A Tour of OCaml"};
+                {href = Url.tutorial "your-first-program"; title = "Your First OCaml Program"}
             ]
              ~see_more:{href = Url.getting_started; title = "Get Started"}
             "bg-teal-700"
@@ -38,10 +36,10 @@ Learn_layout.overview_render
     <%s! Learn_components.right_tutorial_block ~title:"LANGUAGE" ~heading:"The OCaml Language" 
         ~description:"An in-depth explanation of language features and data structures from the Standard Library" 
         ~tutorial_links:[
-            {href = Url.tutorial "data-types"; title = "Data Types and Matching"};
+            {href = Url.tutorial "values-and-functions"; title = "Values and Functions"};
+            {href = Url.tutorial "basic-data-types"; title = "Basic Data Types and Pattern Matching"};
             {href = Url.tutorial "lists"; title = "Lists"};
             {href = Url.tutorial "if-statements-and-loops"; title = "If Statements, Loops, and Recursions"};
-            {href = Url.tutorial "modules"; title = "Modules"}
         ]
         ~see_more:{href = Url.learn_language; title = "See More Language Tutorials"}
         "bg-[#0E2A49]"
@@ -65,7 +63,7 @@ Learn_layout.overview_render
             {href = Url.tutorial "bootstrapping-a-dune-project"; title = "Bootstrapping a Project"};
             {href = Url.tutorial "managing-dependencies"; title = "Managing Dependencies"};
             {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Install a Specific Compiler Version"};
-            {href = Url.tutorial "setting-up-vscode"; title = "Setting Up VSCode"}
+            {href = Url.tutorial "configuring-your-editor"; title = "Configuring Your Editor"}
         ]
         ~see_more:{href = Url.platform; title = "See More Tooling Tutorials"}
         "bg-[#040113]"
@@ -76,9 +74,9 @@ Learn_layout.overview_render
     <%s! Learn_components.left_books_content_block books ~title:"Recommended For Beginners" ~link:{href = Url.books; title = "See More Books"} %>
     <%s! Learn_components.right_books_content_block intermediate_books ~title:"For Intermediate Users" ~link:{href = Url.books; title = "See More Books"} %>
   </div>
-    
+  <div>
   <%s! Learn_components.lang_manual_banner %>
-
+  </div>
   <div class="container-fluid">
     <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
       <h3 class="font-bold">Papers</h3>

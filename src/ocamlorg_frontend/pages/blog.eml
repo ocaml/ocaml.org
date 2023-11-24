@@ -64,7 +64,7 @@ Layout.render
                     </div>
                     <% ); %>
 
-                    <%s! Pagination.render ~total_page_count:planet_pages_number ~page_number:planet_page ~base_url:Url.blog %>
+                    <%s! Pagination.render ~total_page_count:planet_pages_number ~page_number:planet_page ~base_url:Url.blog ~queries:[]%>
                 </div>
             </div>
             <div class="lg:pl-16 space-y-12">
@@ -88,6 +88,9 @@ Layout.render
 
                 <div><a href="<%s Url.news %>" class="link-orange">See all</a></div>
             </div>
+        </div>
+        <div class="prose max-w-none mt-8">
+            If you want to contribute a blog post, or add your RSS feed, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-blog" target="_blank">Contributing Guide</a> on GitHub.
         </div>
     </div>
 </div>

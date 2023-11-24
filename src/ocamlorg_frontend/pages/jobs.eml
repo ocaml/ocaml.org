@@ -14,7 +14,6 @@ OCaml community."
         </div>
     </div>
 </div>
-
 <div class="py-12 bg-default dark:bg-dark-default">
     <div class="container-fluid">
         <div class="flex justify-between items-center">
@@ -72,5 +71,8 @@ OCaml community."
             <% ); %>
         </div>
         <% ); %>
+        <div class="prose">
+        If you want to contribute a job post, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-job" target="_blank">Contributing Guide</a> on GitHub.
+        </div>
     </div>
 </div>

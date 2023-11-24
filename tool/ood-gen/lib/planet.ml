@@ -1,4 +1,10 @@
-type source = { id : string; name : string; url : string; description : string }
+type source = {
+  id : string;
+  name : string;
+  url : string;
+  description : string;
+  disabled : bool;
+}
 [@@deriving show { with_path = false }]
 
 type post = {
@@ -40,6 +46,7 @@ module Local = struct
                name = s.name;
                url = "https://ocaml.org/blog/" ^ s.id;
                description = s.description;
+               disabled = false;
              })
   end
 
@@ -73,7 +80,9 @@ module Local = struct
     let decode (fpath, (head, body)) =
       let metadata = metadata_of_yaml head in
       let body_html =
-        Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
+        Cmarkit.Doc.of_string ~strict:true (String.trim body)
+        |> Hilite.Md.transform
+        |> Cmarkit_html.of_doc ~safe:false
       in
       let source, slug =
         match Str.split (Str.regexp_string "/") fpath with
@@ -108,7 +117,14 @@ module External = struct
      scrape.yml workflow *)
 
   module Source = struct
-    type t = { id : string; name : string; url : string } [@@deriving yaml]
+    type t = {
+      id : string;
+      name : string;
+      url : string;
+      disabled : bool option;
+    }
+    [@@deriving yaml]
+
     type sources = t list [@@deriving yaml]
 
     let all () : source list =
@@ -116,7 +132,14 @@ module External = struct
       "planet-sources.yml" |> Data.read
       |> Option.to_result ~none:(`Msg "could not decode")
       |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
-      |> List.map (fun { id; name; url } -> { id; name; url; description = "" })
+      |> List.map (fun { id; name; url; disabled } ->
+             {
+               id;
+               name;
+               url;
+               description = "";
+               disabled = Option.value ~default:false disabled;
+             })
   end
 
   module Post = struct
@@ -145,7 +168,8 @@ module External = struct
           | Ok s -> s
           | Error (`Msg e) -> (
               match m.source with
-              | Some { name; url } -> { id = ""; name; url; description = "" }
+              | Some { name; url } ->
+                  { id = ""; name; url; description = ""; disabled = false }
               | None ->
                   failwith
                     (e ^ " and there is no source defined in the markdown file")
@@ -161,16 +185,16 @@ module External = struct
       }
 
     let pp_meta ppf v =
-      Fmt.pf ppf
-        {|---
-    %s---
-    |}
+      Fmt.pf ppf {|---
+%s---
+|}
         (metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
 
     let decode (fpath, (head, body)) =
       let metadata = metadata_of_yaml head in
       let body_html =
-        Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
+        Cmarkit.Doc.of_string ~strict:true (String.trim body)
+        |> Cmarkit_html.of_doc ~safe:true
       in
       let source =
         match Str.split (Str.regexp_string "/") fpath with
@@ -249,7 +273,7 @@ let all () =
 let template () =
   Format.asprintf
     {|
-type source = { id : string; name : string; url : string ; description : string }
+type source = { id : string; name : string; url : string ; description : string; disabled : bool }
 
 module Post = struct
   type t =
@@ -346,10 +370,7 @@ module Scraper = struct
     let slug = Utils.slugify title in
     let source_path = "data/planet/" ^ source_id in
     let output_file = source_path ^ "/" ^ slug ^ ".md" in
-    if Sys.file_exists output_file then
-      print_endline
-        (Printf.sprintf "%s/%s already exist, not scraping again" source_id slug)
-    else
+    if not (Sys.file_exists output_file) then
       let url = River.link post in
       let date = River.date post |> Option.map Syndic.Date.to_rfc3339 in
       match (url, date) with
@@ -394,9 +415,10 @@ module Scraper = struct
   let scrape () =
     let sources = External.Source.all () in
     sources
+    |> List.filter (fun ({ disabled; _ } : source) -> not disabled)
     |> List.map
          (fun
-           ({ id; url; name; description = _ } : source)
+           ({ id; url; name; description = _; disabled = _ } : source)
            :
            (string * River.source)
          -> (id, { name; url }))

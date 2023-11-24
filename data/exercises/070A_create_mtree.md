@@ -1,0 +1,78 @@
+---
+title: Tree Construction From a Node String
+number: "70A"
+difficulty: intermediate
+tags: [ "multiway-tree" ]
+description: "Convert multiway trees into depth-first order sequence strings and vice versa, where nodes are single characters."
+---
+
+```ocaml
+type 'a mult_tree = T of 'a * 'a mult_tree list
+```
+
+# Solution
+
+```ocaml
+# (* We could build the final string by string concatenation but
+     this is expensive due to the number of operations.  We use a
+     buffer instead. *)
+  let rec add_string_of_tree buf (T (c, sub)) =
+    Buffer.add_char buf c;
+    List.iter (add_string_of_tree buf) sub;
+    Buffer.add_char buf '^'
+  let string_of_tree t =
+    let buf = Buffer.create 128 in
+    add_string_of_tree buf t;
+    Buffer.contents buf;;
+val add_string_of_tree : Buffer.t -> char mult_tree -> unit = <fun>
+val string_of_tree : char mult_tree -> string = <fun>
+```
+
+# Statement
+
+![Multiway Tree](/media/problems/multiway-tree.gif)
+
+*A multiway tree is composed of a root element and a (possibly empty)
+set of successors which are multiway trees themselves. A multiway tree
+is never empty. The set of successor trees is sometimes called a
+forest.*
+
+To represent multiway trees, we will use the following type which is a
+direct translation of the definition:
+
+```ocaml
+# type 'a mult_tree = T of 'a * 'a mult_tree list;;
+type 'a mult_tree = T of 'a * 'a mult_tree list
+```
+
+The example tree depicted opposite is therefore represented by the
+following OCaml expression:
+
+```ocaml
+# T ('a', [T ('f', [T ('g', [])]); T ('c', []); T ('b', [T ('d', []); T ('e', [])])]);;
+- : char mult_tree =
+T ('a',
+ [T ('f', [T ('g', [])]); T ('c', []); T ('b', [T ('d', []); T ('e', [])])])
+```
+
+We suppose that the nodes of a multiway tree contain single characters.
+In the depth-first order sequence of its nodes, a special character `^`
+has been inserted whenever, during the tree traversal, the move is a
+backtrack to the previous level.
+
+By this rule, the tree in the figure opposite is represented as:
+`afg^^c^bd^e^^^`.
+
+Write functions `string_of_tree : char mult_tree -> string` to construct
+the string representing the tree and
+`tree_of_string : string -> char mult_tree` to construct the tree when
+the string is given.
+
+
+```ocaml
+# let t = T ('a', [T ('f', [T ('g', [])]); T ('c', []);
+          T ('b', [T ('d', []); T ('e', [])])]);;
+val t : char mult_tree =
+  T ('a',
+   [T ('f', [T ('g', [])]); T ('c', []); T ('b', [T ('d', []); T ('e', [])])])
+```
