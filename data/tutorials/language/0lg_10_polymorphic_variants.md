@@ -505,9 +505,8 @@ The [Error Handling](/docs/error-handling) guide details possible ways to handle
 Let's consider this exception-raising code:
 ```ocaml
 # let f_exn m n =
-    let open List in
-    let u = init m Fun.id |> map (fun n -> n * n) in
-    nth u n;;
+    let u = List.init m Fun.id |> List.map (fun n -> n * n) in
+    List.nth u n;;
 val f_exn : int -> int -> int = <fun>
 ```
 
