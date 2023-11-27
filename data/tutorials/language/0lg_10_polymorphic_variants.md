@@ -157,8 +157,8 @@ The closed form is introduced when performing pattern matching over an explicit 
 # let f = function
     | `Broccoli -> "Broccoli"
     | `Gherkin -> "Gherkin"
-    | `Fruit Fruit -> Fruit;;
-val upcast : [< `Broccoli | `Fruit of string | `Gherkin ] -> string = <fun>
+    | `Fruit fruit -> fruit;;
+val f : [< `Broccoli | `Fruit of string | `Gherkin ] -> string = <fun>
 ```
 
 The function `f` can be used with any exact type that has these three tags or less. When applied to a type with fewer tags, branches associated with removed tags turn safely into dead code. The type is closed because the function can't accept more than what is listed.
@@ -170,7 +170,7 @@ Open polymorphic variants appear when using a catch-all pattern, either the unde
 # let g = function
     | `Broccoli -> "Broccoli"
     | `Gherkin -> "Gherkin"
-    | `Fruit Fruit -> Fruit
+    | `Fruit fruit -> fruit
     | _ -> "Edible plant";;
 val g : [> `Broccoli | `Fruit of string | `Gherkin ] -> string = <fun>
 ```
@@ -380,7 +380,7 @@ val upcast_opt : [ `Night ] option -> [ `Night | `Day ] option = <fun>
 # let upcast_list (x : [ `Night ] list) = (x :> [ `Night | `Day ] list);;
 val upcast_list : [ `Night ] list -> [ `Night | `Day ] list = <fun>
 
-let upcast_snd (x : [ `Night ] * int) = (x :> [ `Night | `Day ] * int);;
+# let upcast_snd (x : [ `Night ] * int) = (x :> [ `Night | `Day ] * int);;
 val upcast_snd : [ `Night ] * int -> [ `Night | `Day ] * int = <fun>
 ```
 
@@ -408,7 +408,7 @@ Adding tags to a polymorphic variant codomain of a function is harmless. Extendi
 
 The function type is _contravariant_ on domains. Casting a function is allowed if the target domain is smaller.
 ```ocaml
-# let upcast_cod (f : [ `Night | `Day ] -> int) = (x :> [ `Night ] -> int);;
+# let upcast_cod (f : [ `Night | `Day ] -> int) = (f :> [ `Night ] -> int);;
 val upcast_cod : ([ `Night | `Day ] -> int) -> [ `Night ] -> int = <fun>
 ```
 
