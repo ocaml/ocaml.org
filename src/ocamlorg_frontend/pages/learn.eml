@@ -146,7 +146,7 @@ Learn_layout.single_column_layout
         ~link:{href = Url.books; title = "See More Books"} %>
     </div>
 
-    <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
+    <div class="mt-10 lg:mt-20">
       <h3 class="font-bold">Papers</h3>
       <div class="mt-6 text-legacy-lighter text-lg">
         Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things?
