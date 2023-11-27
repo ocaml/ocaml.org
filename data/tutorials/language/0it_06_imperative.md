@@ -146,14 +146,11 @@ In contrast to references, there is no special syntax to dereference a mutable r
 
 In OCaml, references are records with a single mutable field:
 ```ocaml
-# #show ref;;
-external ref : 'a -> 'a ref = "%makemutable"
+# #show_type ref;;
 type 'a ref = { mutable contents : 'a; }
 ```
 
 The type `'a ref` is a record with a single field `contents` which is marked with the `mutable` keyword.
-
-The line `external ref : 'a -> 'a ref = "%makemutable"` means the function `ref` is not written in OCaml, but that is an implementation detail we do not care about in this tutorial. If interested, check the [Calling C Libraries](/docs/calling-c-libraries) tutorial to learn how to use the foreign function interface.
 
 Since references are single field records, we can define functions `assign` and `deref` using the mutable record field update syntax:
 ```ocaml
