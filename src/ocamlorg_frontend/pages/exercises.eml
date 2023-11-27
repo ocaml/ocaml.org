@@ -57,14 +57,14 @@ in
   </div>
 
 let danger = function
-  | `Beginner -> ""
-  | `Intermediate -> "☡"
-  | `Advanced -> "☡☡"
+  | Data.Exercise.Beginner -> ""
+  | Intermediate -> "☡"
+  | Advanced -> "☡☡"
 
 let difficulty_to_string = function
-  | `Beginner -> "Beginner"
-  | `Intermediate -> "Intermediate"
-  | `Advanced -> "Advanced"
+  | Data.Exercise.Beginner -> "Beginner"
+  | Intermediate -> "Intermediate"
+  | Advanced -> "Advanced"
 
 let render
 ?(difficulty_level = "All")

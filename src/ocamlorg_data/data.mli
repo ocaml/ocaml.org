@@ -153,7 +153,7 @@ module Paper : sig
 end
 
 module Exercise : sig
-  type difficulty = [ `Beginner | `Intermediate | `Advanced ]
+  type difficulty = Beginner | Intermediate | Advanced
 
   type t = {
     title : string;

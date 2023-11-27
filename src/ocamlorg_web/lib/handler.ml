@@ -405,9 +405,9 @@ let exercises req =
   let all_exercises = Data.Exercise.all in
   let difficulty_level = Dream.query req "difficulty_level" in
   let compare_difficulty = function
-    | "beginner" -> ( = ) `Beginner
-    | "intermediate" -> ( = ) `Intermediate
-    | "advanced" -> ( = ) `Advanced
+    | "beginner" -> ( = ) Data.Exercise.Beginner
+    | "intermediate" -> ( = ) Data.Exercise.Intermediate
+    | "advanced" -> ( = ) Data.Exercise.Advanced
     | _ -> Fun.const true
   in
   let by_difficulty level (exercise : Data.Exercise.t) =

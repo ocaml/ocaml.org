@@ -76,6 +76,8 @@ Learn_layout.single_column_layout
               %>
     </div>
 
+    <div class="border my-6"></div>
+
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
       <%s! Learn_components.book_recommendation
         (Data.Book.get_by_slug "ocaml-programming-cs3110" |> Option.get)
@@ -84,6 +86,8 @@ Learn_layout.single_column_layout
         (Data.Book.get_by_slug "ocaml-from-the-very-beginning" |> Option.get)
         ~link:{href = Url.books; title = "See More Books"} %>
     </div>
+
+    <div class="border my-6"></div>
 
     <div class="mt-6">
       <%s! Learn_components.exercises_block
@@ -124,6 +128,8 @@ Learn_layout.single_column_layout
           %>
     </div>
 
+    <div class="border my-6"></div>
+
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
       <%s! Learn_components.book_recommendation
         (Data.Book.get_by_slug "real-world-ocaml" |> Option.get)
@@ -133,12 +139,25 @@ Learn_layout.single_column_layout
         ~link:{href = Url.books; title = "See More Books"} %>
     </div>
 
+    <div class="border my-6"></div>
+
+    <div class="my-6">
+      <%s! Learn_components.exercises_block
+        ~icon:Learn_components.intermediate_section_icon
+        ~heading:"Practice with Exercises"
+        [ Data.Exercise.get_by_slug "55" |> Option.get
+        ; Data.Exercise.get_by_slug "64" |> Option.get
+        ; Data.Exercise.get_by_slug "68" |> Option.get
+        ; Data.Exercise.get_by_slug "81" |> Option.get
+        ] %>
+    </div>
+
+    <%s! Learn_components.lang_manual_banner %>
+
     <h2 id="advanced_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
       <span class="text-primary font-bold">ELEVATED</span>
       EXPERTISE
     </h2>
-
-    <%s! Learn_components.lang_manual_banner %>
 
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
       <%s! Learn_components.book_recommendation

@@ -110,9 +110,8 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
         <% ); %>
       </div>
     </div>
-    <a href="<%s link.href %>" class="flex gap-4 mt-4 text-legacy-primary-700 text-lg font-bold items-center underline leading-10">
+    <a href="<%s link.href %>" class="pt-4 text-primary hover:underline items-center leading-10">
       <%s link.title %>
-      <%s! Icons.arrow_small_right "h-6 w-6" %>
     </a>
 
 let lang_manual_banner =
@@ -140,12 +139,12 @@ let exercise_card (exercise: Data.Exercise.t) =
       <%s exercise.description %>
     </div>
     <div class="my-2.5">
-      <%s! skill_tag Data.Book.Beginner %>
+      <%s! skill_tag (match exercise.difficulty with | Data.Exercise.Beginner -> Data.Book.Beginner | Intermediate -> Intermediate | Advanced -> Advanced) %>
     </div>
   </a>
 
 let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
-  <div class="bg-legacy-default">
+  <div class="bg-legacy-default flex flex-col">
     <div class="max-w-sm md:max-w-full flex flex-col">
       <%s! block_heading ~icon ~title:"EXERCISES" ~heading %>
       <div class="mt-6 grid gap-10 grid-cols-2 lg:grid-cols-4">
@@ -154,6 +153,9 @@ let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
         <% ); %>
       </div>
     </div>
+    <a href="<%s Url.exercises %>" class="pt-4 text-primary hover:underline items-center leading-10">
+      View all Exercises
+    </a>
   </div>
 
 let contribute_footer ~href =

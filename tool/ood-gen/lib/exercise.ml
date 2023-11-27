@@ -1,11 +1,11 @@
 module Proficiency = struct
-  type t = [ `Beginner | `Intermediate | `Advanced ]
+  type t = Beginner | Intermediate | Advanced
   [@@deriving show { with_path = false }]
 
   let of_string = function
-    | "beginner" -> Ok `Beginner
-    | "intermediate" -> Ok `Intermediate
-    | "advanced" -> Ok `Advanced
+    | "beginner" -> Ok Beginner
+    | "intermediate" -> Ok Intermediate
+    | "advanced" -> Ok Advanced
     | s -> Error (`Msg ("Unknown proficiency type: " ^ s))
 
   let of_yaml = Utils.of_yaml of_string "Expected a string for difficulty type"
@@ -76,11 +76,7 @@ let all () = Utils.map_files decode "exercises/*.md"
 let template () =
   Format.asprintf
     {|
-type difficulty =
-  [ `Beginner
-  | `Intermediate
-  | `Advanced
-  ]
+type difficulty = Beginner | Intermediate | Advanced
 
 type t =
   { title : string
