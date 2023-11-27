@@ -510,7 +510,7 @@ Let's consider this exception-raising code:
 val f_exn : int -> int -> int = <fun>
 ```
 
-The following is an attempt at translating `f_exn` with `result` values instead of exceptions. It is using the `Result.bind` instead of `|>`:
+The following is an attempt at translating `f_exn` with `result` values instead of exceptions. It is using `Result.bind` as a [binding operator](docs/operators#binding-operators) instead of `|>`:
 ```ocaml
 # type init_error = Negative_length;;
 
@@ -525,6 +525,10 @@ type nth_error = Too_short of int * int | Negative_index of int
     | Invalid_argument _ -> Error (Negative_index i)
     | Failure _ -> Error (Too_short (List.length u, i))
 val nth : 'a list -> int -> ('a, nth_error) result = <fun>
+
+# let ( let* ) = Result.bind;;
+val ( let* ) : ('a, 'b) result -> ('a -> ('c, 'b) result) -> ('c, 'b) result =
+  <fun>
 
 # let f_res m n =
     let* u = init m Fun.id in
@@ -545,10 +549,6 @@ Binding can't change the `'e` type, while this code needs it to change throughou
 
 Here is an equivalent version using polymorphic variants:
 ```ocaml
-# let ( let* ) = Result.bind;;
-val ( let* ) : ('a, 'b) result -> ('a -> ('c, 'b) result) -> ('c, 'b) result =
-  <fun>
-
 # let init n f = try Ok (List.init n f) with
     | Invalid_argument _ -> Error `Negative_length;;
 val init : int -> (int -> 'a) -> ('a list, [> `Negative_length ]) result =
