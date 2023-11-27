@@ -18,7 +18,7 @@ Learn_layout.single_column_layout
         </div>
       </div>
 
-      <div class="flex flex-col gap-10 md:w-80">
+      <div class="flex flex-col gap-6 md:gap-10 md:w-80">
         <%s!  Learn_components.hero_button ~left_icon:(Icons.ocaml "w-5 h-5") ~right_icon:(Icons.download "w-5 h-5") ~text:("Install OCaml " ^ latest_version) ~href:(Url.install) %>
         <div class="flex flex-col gap-4">
           <%s!  Learn_components.hero_button ~left_icon:(Icons.book "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("Standard Library API") ~href:(Url.api) %>
@@ -30,15 +30,21 @@ Learn_layout.single_column_layout
     </div>
   </div>
   <div class="container-fluid">
-    <div class="grid lg:gap-6 lg:grid-cols-3">
+    <div class="hidden md:grid md:gap-6 md:grid-cols-3">
       <a href="#beginner_section" class="py-3 lg:py-6 flex items-center gap-2 text-tertiary font-bold hover:underline">
-        <%s! Learn_components.beginner_section_icon %> Jump to Beginner Section <%s! Learn_components.little_down_arrow_icon %>
+        <%s! Learn_components.beginner_section_icon %>
+        <span class="hidden lg:inline">Jump to</span> Beginner Section
+        <%s! Learn_components.little_down_arrow_icon %>
       </a>
       <a href="#intermediate_section" class="py-3 lg:py-6 flex items-center gap-2 text-[#3882B7] font-bold hover:underline">
-        <%s! Learn_components.intermediate_section_icon %> Jump to Intermediate Section <%s! Learn_components.little_down_arrow_icon %>
+        <%s! Learn_components.intermediate_section_icon %>
+        <span class="hidden lg:inline">Jump to</span> Intermediate Section
+        <%s! Learn_components.little_down_arrow_icon %>
       </a>
       <a href="#advanced_section" class="py-3 lg:py-6 flex items-center gap-2 text-primary font-bold hover:underline">
-        <%s! Learn_components.advanced_section_icon %> Jump to Advanced Section <%s! Learn_components.little_down_arrow_icon %>
+        <%s! Learn_components.advanced_section_icon %>
+        <span class="hidden lg:inline">Jump to</span> Advanced Section
+        <%s! Learn_components.little_down_arrow_icon %>
       </a>
     </div>
 
