@@ -409,7 +409,7 @@ Adding tags to a polymorphic variant codomain of a function is harmless. Extendi
 The function type is _contravariant_ on domains. Casting a function is allowed if the target domain is smaller.
 ```ocaml
 # let upcast_cod (f : [ `Night | `Day ] -> int) = (x :> [ `Night ] -> int);;
-val f : ([ `Night | `Day ] -> int) -> [ `Night ] -> int = <fun>
+val upcast_cod : ([ `Night | `Day ] -> int) -> [ `Night ] -> int = <fun>
 ```
 
 Contravariance means subtyping “is reversed”:
