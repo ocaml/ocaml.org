@@ -6,7 +6,7 @@ description: >
   computation, system scripting, and database-driven web applications with
   the OCaml multi-paradigm programming language.
 recommendation: >
-  Suitable for people with some imperative programming experience. Hands-on code examples using real world scenerios.
+  This hands-on book teaches the use of OCaml for solving practical problems in various domains, including data processing and web applications. It covers OCaml's functional, imperative, and object-oriented programming styles through real-world examples. Starting from the basics, it progresses to advanced topics like the module system and foreign-function interface. The book is aimed at enabling quick learning of OCaml for writing efficient code, with examples using the Jane Street core library.
 authors:
   - Anil Madhavapeddy
   - Yaron Minsky

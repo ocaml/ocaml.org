@@ -6,7 +6,7 @@ description: >
   programming with OCaml, introducing various language features and describing
   some classic algorithms.
 recommendation: >
-  This book covers topics like laziness, compression, generating PDFs, and more. A basic understanding of OCaml is required.
+  "More OCaml" by John Whitington explores OCaml's functional programming and algorithms, concluding with a PDF file project. Tailored for both existing OCaml programmers and those new to the language, it includes exercises with answers. The book starts with an OCaml fundamentals summary, making it accessible and informative for a diverse readership.
 authors:
   - John Whitington
 published: 2014-08-26
