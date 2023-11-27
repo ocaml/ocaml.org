@@ -62,7 +62,7 @@ Layout.render
 
             <p>
               Opam needs to be initialised, which will create a default
-              <a href="<%s Url.tutorial "tour-of-ocaml" %>#3-create-an-opam-switch">opam switch</a>.
+              <a href="<%s Url.tutorial "opam-switch-introduction" %>">opam switch</a>.
               An opam switch is an isolated environment for the OCaml compiler
               and any packages you install.
             </p>
