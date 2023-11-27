@@ -33,7 +33,7 @@ Imperative and functional programming both have unique merits; OCaml allows comb
 
 ## Immutable vs Mutable Data
 
-When you use `let … = …` to bind a value to a name, this name-value binding is [immutable](https://en.wikipedia.org/wiki/Immutable_object): It is impossible to _mutate_ (which is a fancy term for "change", "update", or "modify") the value assigned to the name.
+When you use `let … = …` to bind a value to a name, this name-value binding is [immutable](https://en.wikipedia.org/wiki/Immutable_object): It is impossible to _mutate_ (which is a fancy term for “change”, “update”, or “modify”) the value assigned to the name.
 
 In the following sections, we introduce OCaml's language features for dealing with _mutable_ state.
 
@@ -71,7 +71,7 @@ The assignment operator `:=` is just a function. It takes:
 1. The reference to be updated
 1. The value that replaces the previous contents.
 
-The update takes place as a [side effect](https://en.wikipedia.org/wiki/Side_effect_(computer_science)).
+The update takes place as a [side effect](https://en.wikipedia.org/wiki/Side_effect_(computer_science)), the value `()` is returned.
 
 **Dereference Operator**
 
@@ -84,7 +84,7 @@ The dereference operator is a function that takes a reference and returns its co
 Refer to the [Operators](/docs/operators) documentation for more information on how unary and binary operators work in OCaml.
 
 Working with mutable data in OCaml,
-* it's impossible to create uninitialised references, and
+* it is impossible to create uninitialised references, and
 * the mutable content and the reference have different syntax and type: no confusion between them is possible.
 
 ## Mutable Record Fields
