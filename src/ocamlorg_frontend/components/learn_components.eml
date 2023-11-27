@@ -116,8 +116,8 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
     </a>
 
 let lang_manual_banner =
-  <div class="bg-gradient-to-r from-[#D54000] to-[#EF8901] rounded-3xl">
-    <div class="bg-[url('/img/learn/banner-background-camel.svg')]  w-full items-center flex flex-col md:flex-row gap-6 py-4 px-7 md:py-4 md:pl-14 md:pr-14 lg:pr-24">
+  <div class="bg-gradient-to-r from-[#D54000] to-[#e66f01] md:to-[#EF8901] rounded-3xl">
+    <div class="bg-[url('/img/learn/banner-background.svg')] bg-cover w-full items-center flex flex-col md:flex-row gap-6 py-4 px-7 md:py-4 md:pl-14 md:pr-14 lg:pr-24">
       <div class="flex flex-col flex-grow my-6">
         <div class="text-white text-sm font-medium tracking-widest leading-10">GUIDE</div>
         <h2 class="text-white text-3xl font-bold leading-10">
