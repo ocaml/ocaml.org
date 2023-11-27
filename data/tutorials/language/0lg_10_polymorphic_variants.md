@@ -394,8 +394,8 @@ Note that these types are covariant because of the way their type parameters app
 
 The function type is covariant on codomains. Casting a function is allowed if the target codomain is larger.
 ```ocaml
-# let upcast_dom (f : int -> [ `Night ]) = (x :> int -> [ `Night | `Day ]);;
-val f : (int -> [ `Night ]) -> int -> [ `Night | `Day ] = <fun>
+# let upcast_dom (f : int -> [ `Night ]) = (f :> int -> [ `Night | `Day ]);;
+val upcast_dom : (int -> [ `Night ]) -> int -> [ `Night | `Day ] = <fun>
 ```
 
 Covariance means subtyping “goes in the same direction”:
