@@ -74,7 +74,7 @@ in
                 Discover new and OCaml packages from featured community packages.
             </p>
 % let render_featured_package pkg =
-    <a href="<%s href_package pkg %>" class="bg-legacy-default dark:bg-legacy-dark-default card-hover rounded-md p-6 text-legacy-default text-left">
+    <a href="<%s href_package pkg %>" class="bg-legacy-default dark:bg-legacy-dark-default legacy-card-hover rounded-md p-6 text-legacy-default text-left">
       <p class="font-semibold mb-2"><%s pkg.name %></p>
       <p class="mb-3 text-sm text-legacy-lighter"><%s pkg.synopsis %></p>
       <p class="text-sm text-legacy-lighter flex space-x-2">
@@ -95,7 +95,7 @@ in
 <div class="bg-legacy-default dark:bg-legacy-dark-default py-20 lg:py-32">
 % let render_package_stat pkg render_extra_stats =
     <a href="<%s href_package pkg %>"
-        class="block bg-legacy-default dark:bg-legacy-dark-default border border-gray-200 rounded-xl py-6 px-7 text-legacy-default text-left card-hover">
+        class="block bg-legacy-default dark:bg-legacy-dark-default border border-gray-200 rounded-xl py-6 px-7 text-legacy-default text-left legacy-card-hover">
       <div class="font-semibold mb-2"><%s pkg.name %></div>
       <div class="mb-3 text-sm text-legacy-lighter"><%s pkg.synopsis %></div>
 % render_extra_stats ();

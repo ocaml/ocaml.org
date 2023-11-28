@@ -53,7 +53,7 @@ let hero_button ~left_icon ~right_icon ~text ~href =
 type link = {href : string; title : string}
 
 let block_heading ~icon ~title ~heading =
-  <div class="pt-4 text-legacy-default text-sm font-medium leading-7 tracking-widest flex gap-2 items-center">
+  <div class="pt-4 text-text_content text-sm font-medium leading-7 tracking-widest flex gap-2 items-center">
     <%s! icon %>
     <%s title %>
   </div>
@@ -134,7 +134,7 @@ let lang_manual_banner =
   </div>
 
 let exercise_card (exercise: Data.Exercise.t) =
-  <a class="flex flex-col p-5 bg-white drop-shadow hover:drop-shadow-lg rounded-2xl border-[#00000033] border" href="<%s Url.exercises %>#<%s exercise.slug %>">
+  <a class="flex flex-col p-5 card" href="<%s Url.exercises %>#<%s exercise.slug %>">
     <div class="flex-grow">
       <%s exercise.description %>
     </div>
@@ -157,6 +157,20 @@ let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
       View all Exercises
     </a>
   </div>
+
+let tool_card ~img_src ~title ~text ~url =
+  <a class="group p-5 flex flex-col card max-w-[32rem]" href="<%s url %>">
+    <h3 class="flex gap-3 text-text_heading text-base font-bold">
+      <img src="<%s! Ocamlorg_static.Asset.url img_src %>" alt="">
+      <%s title %>
+    </h3>
+    <p class="text-text_content py-6">
+      <%s text %>
+    </p>
+    <div class="flex gap-2 items-center text-sm text-primary group-hover:underline">
+      Get Started
+      <%s! Icons.arrow_right_circle "h-5 w-5" %></div>
+  </a>
 
 let contribute_footer ~href =
   <div class="pt-10 mt-16 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">

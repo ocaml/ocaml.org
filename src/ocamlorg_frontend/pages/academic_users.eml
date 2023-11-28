@@ -78,17 +78,17 @@ Layout.render
         </div>
 
         <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
-          <a href="<%s Url.papers %>" class="resources-card card-hover">
+          <a href="<%s Url.papers %>" class="resources-card">
             <%s! Icons.papers "h-16 w-16 mb-8" %>
             <p class="font-semibold text-xl mb-3">Papers</p>
             <p>Papers that have influenced OCaml and other functional programming languages.</p>
           </a>
-          <a href="<%s Url.manual %>" class="resources-card card-hover">
+          <a href="<%s Url.manual %>" class="resources-card">
             <%s! Icons.document "h-16 w-16 mb-8" %>
             <p class="font-semibold text-xl mb-3">Language Manual</p>
             <p>Read the reference manual of the language and the documentation on the compiler tools.</p>
           </a>
-          <a href="<%s Url.books %>" class="resources-card card-hover">
+          <a href="<%s Url.books %>" class="resources-card">
             <%s! Icons.book "h-16 w-16 mb-8" %>
             <p class="font-semibold text-xl mb-3">Books</p>
             <p>What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>

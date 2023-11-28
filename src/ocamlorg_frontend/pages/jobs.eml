@@ -44,7 +44,7 @@ OCaml community."
             <% jobs |> List.iter (fun (item : Data.Job.t) -> %>
             <a href="<%s item.link %>"
                 target="_blank"
-                class="text-left p-8 border border-gray-200 rounded-xl card-hover"
+                class="text-left p-8 border border-gray-200 rounded-xl legacy-card-hover"
                 :class="{ 'hidden': location != 'All' && ([<%s! String.concat "," (List.map (fun s -> "\'" ^ Dream.html_escape s ^ "\'") item.locations) %>].indexOf(location) == -1)  }">
                 <img class="mb-4 max-h-8 max-w-[7rem]" src="<%s item.company_logo %>" alt="">
                 <div class="text-base mb-2 text-legacy-default opacity-80">

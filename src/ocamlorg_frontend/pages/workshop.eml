@@ -146,7 +146,7 @@ workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
     <h3 class="font-bold mb-12">Some Videos</h3>
     <div class="grid lg:grid-cols-3 gap-14">
       <% let videos = List.filteri (fun i _ -> i < 6) videos in videos |> List.iter (fun (video : Data.Watch.t) -> %>
-      <div class="card-hover inline-block">
+      <div class="legacy-card-hover inline-block">
         <iframe
           loading="lazy"
           sandbox="allow-scripts allow-popups"

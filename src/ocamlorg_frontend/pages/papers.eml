@@ -23,7 +23,7 @@ Layout.render
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 <% recommended_papers |> List.iter (fun (paper : Data.Paper.t) -> %>
-                    <a href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 p-6 pb-4 border border-gray-200 rounded-xl text-legacy-default bg-legacy-default dark:bg-legacy-dark-default card-hover">
+                    <a href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 p-6 pb-4 border border-gray-200 rounded-xl text-legacy-default bg-legacy-default dark:bg-legacy-dark-default legacy-card-hover">
                         <div class="font-semibold text-base mb-3">
                             <%s paper.title %>
                         </div>

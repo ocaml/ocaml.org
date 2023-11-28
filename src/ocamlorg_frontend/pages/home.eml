@@ -1,6 +1,6 @@
 let package_card ~href ~img_path ~name description =
   <a href="<%s href %>" target="_blank"
-    class="bg-legacy-default dark:bg-legacy-dark-default text-legacy-default dark:text-legacy-dark-default p-4 rounded-xl flex md:gap-2 items-center card-hover">
+    class="bg-legacy-default dark:bg-legacy-dark-default text-legacy-default dark:text-legacy-dark-default p-4 rounded-xl flex md:gap-2 items-center legacy-card-hover">
       <div class="w-4/12">
         <img src="<%s Ocamlorg_static.Asset.url img_path %>" alt="<%s name %> logo" class="w-1/2 md:w-2/3">
       </div>
@@ -398,32 +398,32 @@ Layout.render
         </div>
       </div>
       <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
-        <a href="<%s Url.install %>" class="resources-card card-hover">
+        <a href="<%s Url.install %>" class="resources-card">
           <%s! Icons.play_circle "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Getting Started</p>
           <p>Install OCaml, set up your favorite text editor and start your first project.</p>
         </a>
-        <a href="<%s Url.manual %>" class="resources-card card-hover">
+        <a href="<%s Url.manual %>" class="resources-card">
           <%s! Icons.document "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Language Manual</p>
           <p>Read the reference manual of the language and documentation on the compiler.</p>
         </a>
-        <a href="<%s Url.books %>" class="resources-card card-hover">
+        <a href="<%s Url.books %>" class="resources-card">
           <%s! Icons.book "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Books</p>
           <p>Discover OCaml books from expert programmers and researchers - from beginner level to advanced topics.</p>
         </a>
-        <a href="<%s Url.api %>" class="resources-card card-hover">
+        <a href="<%s Url.api %>" class="resources-card">
           <%s! Icons.command_line "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Standard Library</p>
           <p>Searchable API documentation.</p>
         </a>
-        <a href="<%s Url.exercises %>" class="resources-card card-hover">
+        <a href="<%s Url.exercises %>" class="resources-card">
           <%s! Icons.hand_palm "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Exercises</p>
           <p>Learn OCaml by solving problems on a variety of topics, from easy to challenging.</p>
         </a>
-        <a href="<%s Url.papers %>" class="resources-card card-hover">
+        <a href="<%s Url.papers %>" class="resources-card">
           <%s! Icons.papers "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Papers</p>
           <p>Explore papers that have influenced OCaml and other functional programming languages.</p>

@@ -1,7 +1,11 @@
 .resources-card {
-  @apply rounded-xl py-12 px-8 text-white bg-opacity-5 bg-legacy-default dark:bg-legacy-dark-default;
+  @apply rounded-xl py-12 px-8 text-white bg-opacity-5 bg-legacy-default dark:bg-legacy-dark-default transform hover:scale-105 transition-transform;
 }
 
-.card-hover {
+.legacy-card-hover {
   @apply transform hover:scale-105 transition-transform;
+}
+
+.card {
+  @apply bg-white drop-shadow hover:drop-shadow-lg rounded-2xl border-[#00000033] border;
 }

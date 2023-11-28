@@ -89,7 +89,7 @@ Learn_layout.single_column_layout
 
     <div class="border my-6"></div>
 
-    <div class="mt-6">
+    <div class="mt-6 mb-10">
       <%s! Learn_components.exercises_block
         ~icon:Learn_components.beginner_section_icon
         ~heading:"Exercises for Beginners"
@@ -99,7 +99,24 @@ Learn_layout.single_column_layout
         ; Data.Exercise.get_by_slug "8" |> Option.get
         ] %>
     </div>
+  </div>
 
+  <div class="section-mild-contrast">
+    <div class="container-fluid flex flex-col py-9">
+      <%s! Learn_components.block_heading ~icon:"" ~title:"PLATFORM TOOLS" ~heading:"The OCaml Platform" %>
+      <div class="mt-10 flex flex-col md:flex-row gap-10">
+        <%s! Learn_components.tool_card ~img_src:"img/learn/opam_logo.jpg"
+            ~title:"opam" ~text:"OCaml's package manager for managing OCaml compilers and libraries"
+            ~url:"https://opam.ocaml.org" %>
+        <%s! Learn_components.tool_card ~img_src:"img/learn/dune_logo.jpg"
+          ~title:"Dune" ~text:"Dune is a user-friendly and efficient build system for developing OCaml projects"
+          ~url:"https://dune.build/" %>
+      </div>
+      <a class="pt-6 pb-3 text-primary hover:underline" href="<%s Url.platform %>">Go to Platform Tools Documentation</a>
+    </div>
+  </div>
+
+  <div class="container-fluid">
     <h2 id="intermediate_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
       <span class="text-[#3882B7] font-bold">EXPLORING</span>
       THE INTERMEDIATE LEVEL
@@ -176,7 +193,7 @@ Learn_layout.single_column_layout
         <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
         <a
           href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>"
-          class="card-hover flex-1 p-6 border border-gray-200 rounded-xl"
+          class="legacy-card-hover flex-1 p-6 border border-gray-200 rounded-xl"
         >
           <div class="font-semibold text-base mb-3"><%s paper.title %></div>
           <div style="display: -webkit-box;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;"><%s paper.abstract %></div>
