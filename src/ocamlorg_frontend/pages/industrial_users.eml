@@ -96,21 +96,21 @@ the community and learn more about how they use OCaml."
         | "green" -> "bg-green-600"
         | _ -> "bg-gray-600"
         in %>
-        <a href="<%s Url.success_story item.slug %>" class="success-card">
+        <a href="<%s Url.success_story item.slug %>" class="group text-legacy-lighter text-base text-white p-8 overflow-hidden rounded-xl relative bg-cover h-[27.5rem]">
             <div class="flex flex-col justify-between h-full relative z-10 text-white">
                 <div class="h-8"><img class="h-full" src="<%s logo %>" alt=""></div>
-                <div class="space-y-6 success-card__content">
+                <div class="group-hover:scale-100 group-hover:translate-y-0 space-y-6 transform transition-transform translate-y-6 ease-in-out duration-300">
                     <h4 class="font-bold">
                         <%s item.title %>
                     </h4>
-                    <div class="success-card__link">
+                    <div class="opacity-0 transition-opacity flex space-x-3 items-center font-semibold group-hover:opacity-100">
                         <span>Read full case study</span>
                         <%s! Icons.chevron_right "h-5 w-5" %>
                     </div>
                 </div>
             </div>
-            <div class="<%s background_class %> success-card__overlay"></div>
-            <div class="success-card__image" style="background-image: url('<%s Ocamlorg_static.Media.url item.background %>');"></div>
+            <div class="<%s background_class %> absolute left-0 top-0 w-full h-full opacity-40 z-[2]"></div>
+            <div class="absolute left-0 top-0 transition-transform transform ease-in-out w-full h-full bg-cover duration-300 z-[1]" style="background-image: url('<%s Ocamlorg_static.Media.url item.background %>');"></div>
         </a>
         <% ); %>
       </div>
