@@ -12,11 +12,26 @@ category: "Introduction"
 
 This tutorial teaches the skills needed to handle expressions, values, and names. You'll learn the ability to write expressions, name values or leave them anonymous, appropriately scope names, handle multiple definitions of the same name, create and use closures, and produce or avoid side effects.
 
+In OCaml, functions are treated as values, which differs from many other mainstream languages. This distinction can provide insight into the relationship between expressions, values, and names. This tutorial emphasises practical engagement with OCaml in UTop to foster a hands-on understanding of these concepts through experimentation rather than beginning with their abstract definitions.
+
+<!--
+B2 English: 
+OCaml differs from many other common programming languages by treating functions as values. This unique approach offers a deeper understanding of how expressions, values, and names relate to each other. The tutorial focuses on hands-on learning with OCaml in UTop, encouraging experimentation as a way to grasp these concepts rather than starting with theoretical explanations."
+-->
+
+<!-- 
+Original: 
 In OCaml, functions are values. In comparison to other mainstream languages, this creates a richer picture between expressions, values, and names. The approach in this tutorial is to acquire the related capabilities and understanding by interacting with OCaml in UTop. This hands-on experience is intended to build understanding by experimentation rather than starting with the definition of the concepts.
+-->
 
 **Note**: The [Introduction to the OCaml Toplevel](https://ocaml.org/docs/toplevel-introduction) guide covers how to use UTop.
 
 It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
+
+<!--
+B2 English:
+Enhancing comprehension can be achieved by creating different versions based on the given examples. The subjects covered extend beyond merely executing OCaml expressions interactively. Yet, we find that grasping these concepts is more accessible when explored dynamically using the OCaml interpreter."
+-->
 
 The first four sections of this tutorial address non-function values. The following sections, starting at [Function as Values](#function-as-values), address functions.
 
