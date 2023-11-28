@@ -93,7 +93,7 @@ Learn_layout.render
           href="<%s Url.playground %>">inside
           your browser</a>. The source of the following
         problems is available on
-        <a href="https://github.com/ocaml/ocaml.org/tree/main/data/problems">GitHub</a>.
+        <a href="https://github.com/ocaml/ocaml.org/tree/main/data/exercises">GitHub</a>.
       </p>
       <p>
         Every exercise has a difficulty level, ranging from beginner to advanced.
