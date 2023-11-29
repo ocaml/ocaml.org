@@ -21,9 +21,9 @@ Layout.render
         | true when not !seen_upcoming -> (
         seen_upcoming := true; %>
         <div class="flex items-center space-x-10">
-          <div class="text-legacy-primary-600 font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
-          <div class="bg-legacy-primary-600 h-5 w-5 rounded-full"></div>
-          <div class="bg-legacy-primary-600 flex-1 rounded-xl text-white px-4 py-2 flex items-center">
+          <div class="text-primary font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
+          <div class="bg-primary h-5 w-5 rounded-full"></div>
+          <div class="bg-primary flex-1 rounded-xl text-white px-4 py-2 flex items-center">
             <div>
               <div class="text-xs font-semibold">UPCOMING</div>
               <div><%s date.info %></div>
@@ -32,8 +32,8 @@ Layout.render
         </div>
         <% ) | _ -> %>
         <div class="flex items-center space-x-10">
-          <div class="text-legacy-primary-600 font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
-          <div class="bg-legacy-primary-600 h-5 w-5 rounded-full"></div>
+          <div class="text-primary font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
+          <div class="bg-primary h-5 w-5 rounded-full"></div>
           <div class="bg-legacy-default dark:bg-legacy-dark-default flex-1 rounded-xl text-legacy-default px-4 py-3 items-center flex">
             <span><%s date.info %></span>
           </div>
@@ -68,15 +68,15 @@ Layout.render
                 <td class="py-4 px-6 font-medium"><%s Fmt.(str "%a" (list ~sep:comma string) presentation.authors) %></td>
                 <td class="py-4 px-6">
                   <% (match presentation.link with None -> () | Some link -> %>
-                  <a href="<%s link %>" class="text-legacy-primary-600 font-medium block">Link</a>
+                  <a href="<%s link %>" class="text-primary font-medium block">Link</a>
                   <% ); %>
 
                   <% (match presentation.video with None -> () | Some link -> %>
-                  <a href="<%s link %>" class="text-legacy-primary-600 font-medium block">Video</a>
+                  <a href="<%s link %>" class="text-primary font-medium block">Video</a>
                   <% ); %>
 
                   <% (match presentation.slides with None -> () | Some link -> %>
-                  <a href="<%s link %>" class="text-legacy-primary-600 font-medium block">Slides</a>
+                  <a href="<%s link %>" class="text-primary font-medium block">Slides</a>
                   <% ); %>
                 </td>
               </tr>
@@ -92,7 +92,7 @@ Layout.render
 <div class="bg-pattern lg:py-32 py-24">
   <div class="container-fluid">
     <div class="text-center text-white">
-      <h2 class="font-bold text-legacy-primary-600 mb-16">Workshop Details</h2>
+      <h2 class="font-bold text-primary mb-16">Workshop Details</h2>
       <div>
         <% (match List.length workshop.organising_committee with | 0 -> () | _ -> %>
         <h5 class="font-bold text-white mb-12">Organising Committee</h5>
@@ -159,7 +159,7 @@ workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
       <% ); %>
     </div>
     <div class="flex justify-end mt-12">
-      <a href="https://watch.ocaml.org" target="_blank" class="btn btn-secondary">
+      <a href="https://watch.ocaml.org" target="_blank" class="btn btn-ghost">
         More videos at watch.ocaml.org
         <%s! Icons.chevron_right "h-5 w-5 inline-block" %>
       </a>

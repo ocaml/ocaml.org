@@ -9,12 +9,12 @@ Layout.render
     <div class="mx-auto max-w-5xl">
       <div class="flex flex-wrap gap-4">
         <a href="<%s Url.blog %>"
-          class="text-legacy-primary-600 hover:underline font-semibold mb-4">
+          class="text-primary hover:underline font-semibold mb-4">
           <div>OCaml Planet</div>
         </a>
         /
         <a href="<%s Url.local_blog blog_post.source.id %>"
-          class="text-legacy-primary-600 hover:underline font-semibold mb-4">
+          class="text-primary hover:underline font-semibold mb-4">
           <div><%s blog_post.source.name %></div>
         </a>
       </div>

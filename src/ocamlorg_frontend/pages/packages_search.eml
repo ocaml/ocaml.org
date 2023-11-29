@@ -73,7 +73,7 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
                 <% package.tags |> List.iter (fun (tag : string) -> %>
                 <a
                   href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
-                  class="px-2 whitespace-nowrap py-0.5 text-legacy-primary-700 font-medium bg-legacy-primary-100 border border-legacy-primary-600 rounded hover:underline"
+                  class="px-2 whitespace-nowrap py-0.5 text-legacy-primary-700 font-medium bg-legacy-primary-100 border border-primary rounded hover:underline"
                 >
                   <%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search tag %>
                 </a>

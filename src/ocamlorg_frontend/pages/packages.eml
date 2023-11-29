@@ -9,7 +9,7 @@ Layout.render
 
 let search_dropdown () =
   <div id="packages-search-results" aria-live="polite" ></div>
-  <a class="flex py-2 px-2 mx-2 gap-4 hover:bg-legacy-primary-100 font-normal rounded-md text-legacy-primary-600" href="<%s Url.api %>">
+  <a class="flex py-2 px-2 mx-2 gap-4 hover:bg-legacy-primary-100 font-normal rounded-md text-primary" href="<%s Url.api %>">
     Standard Library API
     <%s! Icons.arrow_top_right_on_square "w-6 h-6"%>
   </a>
@@ -42,14 +42,14 @@ in
     <div class="container-fluid">
         <div class=" ">
             <div class="text-center">
-                <h2 class="font-bold text-legacy-primary-600 mb-6">Opam: The OCaml Package Manager</h2>
+                <h2 class="font-bold text-primary mb-6">Opam: The OCaml Package Manager</h2>
                 <div class="text-lg text-white lg:px-44">Opam is a source-based package manager for OCaml. It supports
                     multiple simultaneous compiler installations, flexible package constraints, and a Git-friendly
                     development workflow.</div>
             </div>
 % let render_number_stat ?(first=false) label number =
     <div class="flex items-center flex-col md:px-12 <%s if first then "" else "md:border-l border-gray-200" %>">
-      <div class="font-bold text-4xl text-legacy-primary-600"><%d number %></div>
+      <div class="font-bold text-4xl text-primary"><%d number %></div>
       <div class="text-sm text-legacy-default text-center"><%s label %></div>
     </div>
 % in
@@ -66,7 +66,7 @@ in
         </div>
     </div>
 </div>
-<div class="bg-legacy-primary-600 ">
+<div class="bg-primary ">
     <div class="container-fluid">
         <div class="text-center text-white lg:py-32 md:py-20 py-10">
             <h3 class="font-bold mb-6">Featured Packages</h3>
@@ -145,7 +145,7 @@ in
         <div class="border border-gray-200 mt-16 mb-16"></div>
 
         <div class="flex flex-col text-center">
-            <div class="text-legacy-primary-600 mb-4 font-bold">STABLE ECOSYSTEM</div>
+            <div class="text-primary mb-4 font-bold">STABLE ECOSYSTEM</div>
             <h3 class="font-bold mb-8">Focus on Your Code, and opam Takes Care of Distributing It.</h3>
             <div class="text-lg text-legacy-lighter">Our users have the highest standards for the OCaml ecosystem to run
                 mission-critical applications across a variety of operating systems, and they expect that a package that
@@ -153,7 +153,7 @@ in
         </div>
         <div class="flex justify-between space-y-12 lg:space-x-20 mt-20 flex-col lg:flex-row lg:space-y-0">
             <div class="text-center flex-col max-w-full lg:max-w-sm ">
-                <div class="mb-4 rounded-2xl bg-legacy-primary-600 w-16 h-16 items-center m-auto flex justify-center">
+                <div class="mb-4 rounded-2xl bg-primary w-16 h-16 items-center m-auto flex justify-center">
                     <%s! Icons.beaker "h-6 w-6 text-white" %>
                 </div>
                 <div class="text-lg font-semibold mb-4">Continuous Integration</div>
@@ -162,7 +162,7 @@ in
                     never break the rest of the ecosystem.</div>
             </div>
             <div class="text-center flex-col max-w-full lg:max-w-sm">
-                <div class="mb-4 rounded-2xl bg-legacy-primary-600 w-16 h-16 items-center m-auto flex justify-center">
+                <div class="mb-4 rounded-2xl bg-primary w-16 h-16 items-center m-auto flex justify-center">
                     <%s! Icons.refresh "h-6 w-6 text-white" %>
                 </div>
                 <div class="text-lg font-semibold mb-4">State of the Art</div>
@@ -172,7 +172,7 @@ in
                     metadata format, and an easy access to the package manager logic via OCaml libraries.</div>
             </div>
             <div class="text-center flex-col max-w-full lg:max-w-sm">
-                <div class="mb-4 rounded-2xl bg-legacy-primary-600 w-16 h-16 items-center m-auto flex justify-center">
+                <div class="mb-4 rounded-2xl bg-primary w-16 h-16 items-center m-auto flex justify-center">
                     <%s! Icons.shield_check "h-6 w-6 text-white" %>
                 </div>
                 <div class="text-lg font-semibold mb-4">Stability</div>
@@ -188,7 +188,7 @@ in
   <div class=" bg-legacy-default prose max-w-none p-10 lg:p-8">
    If you want to learn about the OCaml packages, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-package" target="_blank">Contributing Guide</a> on GitHub.
 </div> 
-<div class="bg-legacy-primary-600 ">
+<div class="bg-primary ">
     <div class="container-fluid">
         <div class="text-center text-white lg:p-16 py-10">
             <h3 class="font-bold mb-6">Start Contributing</h3>

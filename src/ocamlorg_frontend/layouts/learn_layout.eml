@@ -81,7 +81,7 @@ let sidebar
 ~(section: section)
 =
   let sidebar_link ~title ~href ~current =
-    <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-legacy-primary-700 bg-legacy-primary-100 border-legacy-primary-600|} else {|text-legacy-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
+    <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-legacy-primary-700 bg-legacy-primary-100 border-primary|} else {|text-legacy-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
       <%s title %>
     </a>
   in

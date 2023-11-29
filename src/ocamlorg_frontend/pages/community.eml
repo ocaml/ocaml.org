@@ -22,7 +22,7 @@ Layout.render
     <div class="text-center w-full lg:w-2/3 m-auto">
       <h1 class="font-bold mb-6">The OCaml Community</h1>
       <p>Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!</p>
-      <a href="https://discuss.ocaml.org/" class="btn btn-lg btn-secondary mt-8">Go to Discuss Forums</a>
+      <a href="https://discuss.ocaml.org/" class="btn btn-lg btn-ghost mt-8">Go to Discuss Forums</a>
     </div>
   </div>
 </div>
@@ -91,7 +91,7 @@ Layout.render
   <div class="container-fluid">
       <div class=" ">
           <div class="text-center">
-              <h2 class="font-bold text-legacy-primary-600 mb-6" id="workshops" >Workshops</h2>
+              <h2 class="font-bold text-primary mb-6" id="workshops" >Workshops</h2>
               <div class="text-lg text-white mb-16">Here are some of the workshops we have had up until now</div>
           </div>
           <% (match upcoming_workshops with
@@ -198,7 +198,7 @@ Layout.render
       </div>
     </div>
 <% ); %>
-<div class="bg-legacy-primary-600">
+<div class="bg-primary">
   <div class="container-fluid">
     <div class="text-center text-white lg:p-16 py-10">
       <h3 class="font-bold mb-6">OCaml Jobs</h3>
@@ -219,7 +219,7 @@ Layout.render
       <h3 class="font-bold mb-6">OCaml Outreachy Internships</h3>
       <div class="text-lg mb-8 lg:px-28">This is a record of all past OCaml Community Outreachy Internship Projects.</div>
       <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
-        <a class="btn btn-lg btn-secondary" href="<%s Url.outreachy %>">
+        <a class="btn btn-lg btn-ghost" href="<%s Url.outreachy %>">
           <span>View Outreachy Projects</span>
           <%s! Icons.chevron_right "h-5 w-5" %>
         </a>

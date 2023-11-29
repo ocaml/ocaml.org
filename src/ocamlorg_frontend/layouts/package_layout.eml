@@ -76,7 +76,7 @@ Layout.base
         <div id="in-package-search" class="relative w-full">
           <div class="flex w-full items-center overflow-hidden">
             <% if Option.is_some search_index_digest then (%>
-              <input id="in-package-search-input" type="search" name="q" class="min-w-0 focus:border-gray-800 text-gray-800 border-legacy-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
+              <input id="in-package-search-input" type="search" name="q" class="min-w-0 focus:border-gray-800 text-gray-800 border-primary h-10 rounded-l-md appearance-none px-4 flex-grow"
                 tabindex="1"
                 autocomplete="off"
                 aria-owns="in-package-search-results"
@@ -87,7 +87,7 @@ Layout.base
                 onfocus="this.select(); this.setAttribute('aria-expanded', true)"
                 onblur="this.setAttribute('aria-expanded', false)"
                 >
-              <div aria-hidden="true" class="h-10 rounded-r-md bg-legacy-primary-600 text-white flex items-center justify-center px-4">
+              <div aria-hidden="true" class="h-10 rounded-r-md bg-primary text-white flex items-center justify-center px-4">
                 <%s! Icons.magnifying_glass "w-6 h-6" %>
               </div>
               <button class="ml-4 btn btn-sm" @click.prevent.stop="search_instructions = !search_instructions" title="show search instructions">

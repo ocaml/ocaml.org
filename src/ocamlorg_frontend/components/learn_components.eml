@@ -85,13 +85,20 @@ let tutorial_block ~icon ~title ~heading ~description ~(tutorial_links: link lis
     <%s see_more.title %>
   </a>
 
-let pricing_tag = 
-  <div class="absolute -mt-3 ml-3 w-16 h-16">
-    <div class="bg-primary rotate-[-10deg] rounded-full w-16 h-16 flex items-center justify-center" style="filter: drop-shadow(-4px -2px 4px rgb(0 0 0 / 0.25));">
-      <div class="text-center text-white text-base font-bold leading-7 tracking-wide">
-        FREE
+let book_cover ~free cover_src = 
+  <div class="relative">
+    <% (if free then %>
+    <div class="absolute -mt-8 ml-3 w-16 h-16">
+      <div class="bg-primary rotate-[-10deg] rounded-full w-16 h-16 flex items-center justify-center" style="filter: drop-shadow(-4px -2px 4px rgb(0 0 0 / 0.25));">
+        <div class="text-center text-white text-base font-bold leading-7 tracking-wide">
+          FREE
+        </div>
       </div>
     </div>
+    <% ); %>
+    <img src="<%s Ocamlorg_static.Media.url cover_src %>"
+      class="w-full border z-10"
+      alt="">
   </div>
 
 let book_recommendation ~(link : link) (book: Data.Book.t) =
@@ -101,8 +108,8 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
   | Advanced -> advanced_section_icon
   in
   block_container ~icon:(icon_for_difficulty book.difficulty) ~title:"RECOMMENDED BOOK" ~heading:book.title @@
-    <div class="mt-6 grid grid-cols-2 gap-6">
-      <img src="<%s Ocamlorg_static.Media.url book.cover %>" alt="">
+    <div class="mt-6 grid grid-cols-2 gap-6 pt-6">
+      <%s! book_cover ~free:(book.pricing = "free") book.cover %>
       <div class="">
         <%s! skill_tag book.difficulty %>
         <% (match book.recommendation with None -> () | Some recommendation -> %>

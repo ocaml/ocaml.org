@@ -43,7 +43,7 @@ let render
 
   <ol class="flex flex-col" x-init="row = null; col = 0; total = <%s string_of_int total %>">
   <% packages |> List.iteri (fun i (package : Package.package) -> %>
-    <li class="flex flex-row text-legacy-primary-600">
+    <li class="flex flex-row text-primary">
       <a
         x-init="max=<%s string_of_int i %>"
         id="package-autocomplete-<%s string_of_int i %>-0"
@@ -67,7 +67,7 @@ let render
   <% ); %>
   </ol>
   <% if total > 5 then ( %>
-  <a class="text-legacy-primary-600 italic font-normal hover:bg-legacy-primary-100 px-2 py-2 flex text-right rounded-md" href="<%s Url.packages_search %>?q=<%s Dream.to_percent_encoded search %>">see more...</a>
+  <a class="text-primary italic font-normal hover:bg-legacy-primary-100 px-2 py-2 flex text-right rounded-md" href="<%s Url.packages_search %>?q=<%s Dream.to_percent_encoded search %>">see more...</a>
   <% ); %>
   <hr class="mb-2 mt-3">
   <span class="pl-2 font-normal">Or go to</span>

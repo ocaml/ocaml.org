@@ -4,11 +4,11 @@ let exercises_sidebar_link
 ~current =
   match current with
   | true ->
-    <a class="block text-legacy-primary-600 bg-legacy-primary-100 border-l-2 border-legacy-primary-600 py-3 px-5 font-semibold text-sm rounded-sm" href="<%s href %>">
+    <a class="block text-primary bg-legacy-primary-100 border-l-2 border-primary py-3 px-5 font-semibold text-sm rounded-sm" href="<%s href %>">
       <%s title %>
     </a>
   | false ->
-    <a class="block hover:text-legacy-primary-600 hover:bg-legacy-primary-100 border-l-2 border-transparent hover:border-legacy-primary-600 py-3 px-5 font-medium text-sm rounded-sm" href="<%s href %>">
+    <a class="block hover:text-primary hover:bg-legacy-primary-100 border-l-2 border-transparent hover:border-primary py-3 px-5 font-medium text-sm rounded-sm" href="<%s href %>">
       <%s title %>
     </a>
 
@@ -18,7 +18,7 @@ title
 link_html
 =
    <details class="flex flex-col">
-      <summary class="flex gap-4 justify-between text-sm font-semibold py-4 uppercase focus:text-legacy-primary-600 active:text-legacy-primary-600 hover:text-legacy-primary-300">
+      <summary class="flex gap-4 justify-between text-sm font-semibold py-4 uppercase focus:text-primary active:text-primary hover:text-legacy-primary-300">
         <%s title %>
         <%s! Icons.chevron_down "h-6 w-6" %>
       </summary>
@@ -125,7 +125,7 @@ Learn_layout.three_column_layout
           <button
             class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
             x-on:click="statement = true"
-            :class="statement ? 'bg-legacy-default dark:bg-legacy-dark-default text-legacy-primary-600': 'text-legacy-lighter' "
+            :class="statement ? 'bg-legacy-default dark:bg-legacy-dark-default text-primary': 'text-legacy-lighter' "
           >
             <%s! Icons.exercise_statement "h-5 w-5" %>
             <span :class="statement ? 'text-legacy-default' : 'text-legacy-lighter'">Statement</span>
@@ -133,7 +133,7 @@ Learn_layout.three_column_layout
           <button
             class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
             x-on:click="statement = false"
-            :class="statement ? 'text-legacy-lighter': 'bg-legacy-default dark:bg-legacy-dark-default text-legacy-primary-600' "
+            :class="statement ? 'text-legacy-lighter': 'bg-legacy-default dark:bg-legacy-dark-default text-primary' "
           >
             <%s! Icons.exercise_solution "h-5 w-5" %>
             <span :class="statement ? 'text-legacy-lighter' : 'text-legacy-default'">Solution</span>

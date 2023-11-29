@@ -62,16 +62,16 @@ Layout.render
                                 <%s release.date %>
                             </div>
                             <div class="py-4 px-6 align-top lg:w-1/2 w-full">
-                                <a href="<%s Url.release release.version %>" class="text-legacy-primary-600 font-medium block">
+                                <a href="<%s Url.release release.version %>" class="text-primary font-medium block">
                                     Release Notes
                                 </a>
-                                <a href="<%s Url.Package.overview "ocaml" ~version:release.version %>" class="text-legacy-primary-600 font-medium block">
+                                <a href="<%s Url.Package.overview "ocaml" ~version:release.version %>" class="text-primary font-medium block">
                                     OCaml Package
                                 </a>
-                                <a href="<%s Url.manual_with_version release.version %>" class="text-legacy-primary-600 font-medium block">
+                                <a href="<%s Url.manual_with_version release.version %>" class="text-primary font-medium block">
                                     Language Manual
                                 </a>
-                                <a href="<%s Url.api_with_version release.version %>" class="text-legacy-primary-600 font-medium block">
+                                <a href="<%s Url.api_with_version release.version %>" class="text-primary font-medium block">
                                     Standard Library API
                                 </a>
                             </div>

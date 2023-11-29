@@ -29,7 +29,7 @@ world. See past events and upcoming ones on this page."
     <div class="container-fluid">
         <div class=" ">
             <div class="text-center">
-                <h2 class="font-bold text-legacy-primary-600 mb-6">Workshops</h2>
+                <h2 class="font-bold text-primary mb-6">Workshops</h2>
                 <div class="text-lg text-white mb-16">Here are some of the workshops we have had up until now</div>
             </div>
             <% (match upcoming_workshops with

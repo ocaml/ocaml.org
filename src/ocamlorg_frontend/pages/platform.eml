@@ -8,16 +8,16 @@ let render_sidebar
   </div>
 
 let render_package_cards ~(item: Data.Tool.t) =
-  <a href="<%s item.source %>" class="flex flex-col gap-1 border-2 rounded-md p-4 hover:border-legacy-primary-600 hover:ring-4 hover:ring-primary-200">
+  <a href="<%s item.source %>" class="flex flex-col gap-1 border-2 rounded-md p-4 hover:border-primary hover:ring-4 hover:ring-primary-200">
     <div class="flex gap-4 items-center">
-      <%s! Icons.tools "h-5 w-5 text-legacy-primary-600" %>
-      <div class="text-legacy-primary-600 text-lg font-bold"><%s item.name %></div>
+      <%s! Icons.tools "h-5 w-5 text-primary" %>
+      <div class="text-primary text-lg font-bold"><%s item.name %></div>
     </div>
     <div class="flex gap-4 items-center mb-2">
       <div class="w-5"></div>
       <div class="text-legacy-lighter h-10 w-10/12"><%s item.synopsis %></div>
     </div>
-    <%s! Icons.arrow_small_right "h-5 w-5 text-legacy-primary-600 rotate-45 place-self-end" %>
+    <%s! Icons.arrow_small_right "h-5 w-5 text-primary rotate-45 place-self-end" %>
   </a>
 
 let render
@@ -41,11 +41,11 @@ Learn_layout.three_column_layout
     </p>
     <p>
       Detailed instructions to install OCaml and the
-      Platform tools are available in <a class="text-legacy-primary-600"
+      Platform tools are available in <a class="text-primary"
       href="<%s Url.installing_ocaml %>">"Installing OCaml"</a>.
 
       If you want to use the simpler, but experimental way to install the
-      Platform, you can use the <a class="text-legacy-primary-600"
+      Platform, you can use the <a class="text-primary"
       href="https://github.com/tarides/ocaml-platform-installer"> OCaml
       Platform Installer</a>. To download it, run:
     </p>
@@ -95,7 +95,7 @@ Learn_layout.three_column_layout
       </div>
     </div>
     <div
-      class="rounded-full bg-legacy-primary-600 text-white w-16 h-16 right-0 left-0 m-auto bottom-5 md:left-auto md:right-10 md:bottom-10 absolute flex items-center z-10 justify-center"
+      class="rounded-full bg-primary text-white w-16 h-16 right-0 left-0 m-auto bottom-5 md:left-auto md:right-10 md:bottom-10 absolute flex items-center z-10 justify-center"
       x-show="!isPlaying"
     >
       <%s! Icons.play "h-9 w-9" %>

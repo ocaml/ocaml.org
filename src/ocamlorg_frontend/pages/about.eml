@@ -10,7 +10,7 @@ Layout.render
       <div class="flex items-center justify-center space-x-8 mt-11 lg:space-x-24">
         <div>
           <a
-            class="hover:text-legacy-primary-600 rounded-lg hover:bg-legacy-primary-100 h-28 w-28 inline-block transition-colors"
+            class="hover:text-primary rounded-lg hover:bg-legacy-primary-100 h-28 w-28 inline-block transition-colors"
             href="#strength"
           >
             <%s! Icons.lightning "h-10 w-10 mb-4 m-auto mt-6" %>
@@ -19,7 +19,7 @@ Layout.render
         </div>
         <div>
           <a
-            class="hover:text-legacy-primary-600 h-28 w-28 rounded-lg hover:bg-legacy-primary-100 inline-block transition-colors"
+            class="hover:text-primary h-28 w-28 rounded-lg hover:bg-legacy-primary-100 inline-block transition-colors"
             href="#history"
           >
             <%s! Icons.clock "h-10 w-10 mb-4 m-auto mt-6" %>
@@ -28,7 +28,7 @@ Layout.render
         </div>
         <div>
           <a
-            class="hover:text-legacy-primary-600 h-28 w-28 rounded-lg hover:bg-legacy-primary-100 inline-block transition-colors"
+            class="hover:text-primary h-28 w-28 rounded-lg hover:bg-legacy-primary-100 inline-block transition-colors"
             href="#features"
           >
             <%s! Icons.features "h-10 w-10 mb-4 m-auto mt-6" %>

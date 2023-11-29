@@ -12,7 +12,7 @@ let menu_link
 ?(_class="")
 ()
 =
-  <a href="<%s href %>" class="font-semibold py-3 mg:py-4 px-1 lg:px-3 <%s _class %> <%s if active then "text-legacy-primary-600 underline" else "text-legacy-lighter" %> hover:text-legacy-primary-600"><%s title %></a>
+  <a href="<%s href %>" class="font-semibold py-3 mg:py-4 px-1 lg:px-3 <%s _class %> <%s if active then "text-primary underline" else "text-legacy-lighter" %> hover:text-primary"><%s title %></a>
 
 
 let render
@@ -22,7 +22,7 @@ let render
 =
 let search_dropdown () =
   <div id="header-search-results" aria-live="polite"></div>
-  <a class="flex py-2 px-2 mx-2 gap-4 hover:bg-legacy-primary-100 font-normal rounded-md text-legacy-primary-600" href="<%s Url.api %>">
+  <a class="flex py-2 px-2 mx-2 gap-4 hover:bg-legacy-primary-100 font-normal rounded-md text-primary" href="<%s Url.api %>">
     Standard Library API
     <%s! Icons.arrow_top_right_on_square "w-6 h-6" %>
   </a>
@@ -64,7 +64,7 @@ in
     </ul>
     <% if show_get_started then (%>
     <ul class="order-3 hidden lg:flex items-center">
-      <li><a href="<%s Url.getting_started %>" class="btn btn-secondary btn-sm">Get Started</a></li>
+      <li><a href="<%s Url.getting_started %>" class="btn btn-ghost h-10 px-4">Get Started</a></li>
     </ul>
     <% ); %>
     <ul class="order-1 lg:hidden flex items-center">
@@ -114,7 +114,7 @@ in
       <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Blog) ~href:Url.blog ~title:"Blog" () %></li>
       <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Playground) ~href:Url.playground ~title:"Playground" () %></li>
       <li>
-        <a href="<%s Url.api %>" class="flex py-3 px-1 gap-4 font-semibold text-legacy-primary-600">Standard Library API<%s! Icons.arrow_top_right_on_square "w-6 h-6" %></a>
+        <a href="<%s Url.api %>" class="flex py-3 px-1 gap-4 font-semibold text-primary">Standard Library API<%s! Icons.arrow_top_right_on_square "w-6 h-6" %></a>
       </li>
       <li class="mt-3 mb-6">
         <a href="<%s Url.getting_started %>" class="btn w-full">Get started</a>

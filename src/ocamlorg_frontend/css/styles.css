@@ -171,7 +171,7 @@ tt {
 }
 
 .sidebar a.active {
-  @apply text-legacy-primary-600 bg-legacy-primary-100;
+  @apply text-primary bg-legacy-primary-100;
 }
 
 table a:hover {
@@ -179,15 +179,15 @@ table a:hover {
 }
 
 .right-sidebar a:hover {
-  @apply text-legacy-primary-600;
+  @apply text-primary;
 }
 
 .news-stories button:hover {
-  @apply border-legacy-primary-600 text-legacy-primary-600;
+  @apply border-primary text-primary;
 }
 
 .news-stories button:hover i {
-  @apply text-legacy-primary-600;
+  @apply text-primary;
 }
 
 .top-level-container .prose ul li::before {
@@ -195,7 +195,7 @@ table a:hover {
 }
 
 footer a:hover {
-  @apply text-legacy-primary-600;
+  @apply text-primary;
 }
 
 [x-cloak] {
@@ -203,7 +203,7 @@ footer a:hover {
 }
 
 .link-orange {
-  @apply text-legacy-primary-600 hover:underline;
+  @apply text-primary hover:underline;
 }
 
 .page-toc li a {

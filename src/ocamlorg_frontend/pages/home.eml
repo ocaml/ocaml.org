@@ -34,15 +34,15 @@ Layout.render
         </p>
         <div class="space-x-0 lg:space-x-6">
           <a class="btn btn-lg mb-4 lg:mb-0" href="<%s Url.install %>">Install</a>
-          <a class="btn btn-lg btn-secondary" href="<%s Url.about %>">
+          <a class="btn btn-lg btn-ghost" href="<%s Url.about %>">
             About OCaml
           </a>
         </div>
         <div class="mt-6">
-          <a class="text-2xl text-legacy-primary-600 font-semibold" href="<%s Url.release latest_release.version %>">Latest release: <%s latest_release.version %></a>
+          <a class="text-2xl text-primary font-semibold" href="<%s Url.release latest_release.version %>">Latest release: <%s latest_release.version %></a>
         </div>
         <div class="mt-2">
-          <a class="text-2xl text-legacy-primary-600 font-semibold" href="<%s Url.release lts_release.version %>">Long Term Support release: <%s lts_release.version %></a>
+          <a class="text-2xl text-primary font-semibold" href="<%s Url.release lts_release.version %>">Long Term Support release: <%s lts_release.version %></a>
         </div>
       </div>
       <div class="lg:flex-1 flex justify-center">
@@ -268,14 +268,14 @@ Layout.render
     <h3 class="font-bold">Releases</h3>
     <div class="bg-pattern p-6 mt-8 rounded-xl w-full lg:w-2/3 text-white">
       <a href="<%s Url.release latest_release.version %>">
-        <div class="text-legacy-primary-600 text-sm mb-4 uppercase">Recent Release</div>
+        <div class="text-primary text-sm mb-4 uppercase">Recent Release</div>
         <h3 class="font-bold mb-6">
           <%s latest_release.version %> <span class="text-sm font-medium">(<%s latest_release.date %>)</span>
         </h3>
       </a>
       <div class="prose prose-sm text-white"><%s! latest_release.highlights_html %></div>
     </div>
-    <a href="<%s Url.releases %>" class="btn btn-lg btn-secondary mt-8">
+    <a href="<%s Url.releases %>" class="btn btn-lg btn-ghost mt-8">
       <span>See all Releases</span>
       <%s! Icons.chevron_right "h-5 w-5" %>
     </a>
@@ -392,7 +392,7 @@ Layout.render
   <div class="container-fluid">
     <div class="">
       <div class="text-center">
-        <h2 class="font-bold text-legacy-primary-600 mb-6">Curated Resources</h2>
+        <h2 class="font-bold text-primary mb-6">Curated Resources</h2>
         <div class="text-lg text-white mb-16">
           Get up to speed quickly to enjoy the benefits of the OCaml programming language across your projects.
         </div>

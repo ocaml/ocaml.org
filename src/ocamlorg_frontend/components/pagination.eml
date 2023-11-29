@@ -7,7 +7,7 @@ let paginated_href ~base_url ~page ~queries =
   queries)
 
 let link ~base_url ~page ~current ~queries =
-  let active_class = "border-2 border-current text-legacy-primary-600" in
+  let active_class = "border-2 border-current text-primary" in
   let non_active_class = "border border-body-100 text-legacy-lighter hover:bg-gray-50 hover:no-underline" in
   <a href="<%s (paginated_href ~base_url ~page ~queries) %>"
     class="w-10 h-10 lg:w-14 lg:h-14 rounded-lg flex items-center justify-center <%s if page = current then active_class else non_active_class %>">
