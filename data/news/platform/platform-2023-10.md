@@ -65,7 +65,7 @@ In this October edition, we bring you the latest on the OCaml Platform, continui
 
 **Activities:**
 - We've merged the PR adding [new search capabilities](https://github.com/ocaml/odoc/pull/972)! :tada: This will ship in the upcoming version of `odoc` 2.4.0.
-- We are currently experimenting with building an `odoc` search engine based on [Sherlocode](https://github.com/art-w/sherlodoc) --[art-w/sherlodoc#4](https://github.com/art-w/sherlodoc/pull/4).
+- We are currently experimenting with building an `odoc` search engine based on [Sherlodoc](https://github.com/art-w/sherlodoc) --[art-w/sherlodoc#4](https://github.com/art-w/sherlodoc/pull/4).
 
 ## **[`odoc`]** Syntax for Images and Assets in `odoc` ([W25](https://ocaml.org/docs/platform-roadmap#w25-generate-documentation))
 
