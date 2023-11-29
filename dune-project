@@ -55,7 +55,8 @@
   tailwindcss
   (hilite
    (>= 0.4.0))
-  river
+  (river
+   (>= 0.3.0))
   syndic
   (alcotest :with-test)
   (mdx
