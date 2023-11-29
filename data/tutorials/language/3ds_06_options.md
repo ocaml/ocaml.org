@@ -10,7 +10,7 @@ category: "Introduction"
 
 ## Introduction
 
-An option is a value that wraps another value, or nothing if there isn't anything to wrap. The predefined type `option` is the 
+An option is a value that wraps another value or nothing, if there isn't anything to wrap. The predefined type `option` is the 
 <!-- $MDX non-deterministic=command -->
 ```ocaml
 # #show option;;
@@ -27,7 +27,7 @@ Here is 42, stored inside an `option` using the data carrying constructor
 
 The `None` constructor means no data is available.
 
-In other words, a value of type `t option` for some type `t` represents:
+In other words, a value of type `t option` for some type `t` represents
 * either a value `v` of type `t`, wrapped as `Some v`
 * no such value, then `o` has the value `None`
 
@@ -48,15 +48,15 @@ Exception: Not_found.
 - : string option = None
 ```
 
-See the [Error Handling](/docs/error-handling) for an longer discussion on error handling using options, exceptions and others means.
+See the [Error Handling](/docs/error-handling) for an longer discussion on error handling using options, exceptions, and others means.
 
 ## The Standard Library `Option` Module
 
-Most of the functions in this section as well as other useful ones are provided by the OCaml standard library in the [`Stdlib.Option`](https://ocaml.org/api/Option.html) supporting module.
+Most of the functions in this section, as well as other useful ones, are provided by the OCaml standard library in the [`Stdlib.Option`](https://ocaml.org/api/Option.html) supporting module.
 
 ### Map an Option
 
-Using pattern-matching, it is possible to define functions, allowing users to easily work with option values. Here is `map` of type `('a -> 'b) -> 'a option -> 'b option`. It allows us to apply a function to the value wrapped inside an `option`, if present:
+Using pattern matching, it is possible to define functions, allowing users to easily work with option values. Here is `map` of type `('a -> 'b) -> 'a option -> 'b option`. It allows us to apply a function to the value wrapped inside an `option`, if present:
 ```ocaml
 # let map f = function
   | None -> None
@@ -116,7 +116,7 @@ The function `fold` of type `fold : ('a -> 'b) -> 'b -> 'a option -> 'b` combine
 val fold : ('a -> 'b) -> 'b -> 'a option -> 'b = <fun>
 ```
 
-The `fold` function can be used to implement a fall-back logic without writing pattern matching. For instance, here is a function that turns the contents of the `$PATH` environment variable into a list of strings, or the empty list if undefined. This version is using pattern-matching.
+The `fold` function can be used to implement a fall-back logic without writing pattern matching. For instance, here is a function that turns the contents of the `$PATH` environment variable into a list of strings, or the empty list if undefined. This version is using pattern matching.
 ```ocaml
 # let path () =
     let opt = Sys.getenv_opt "PATH" in
