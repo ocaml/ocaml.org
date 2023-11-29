@@ -145,9 +145,9 @@ let exercise_card (exercise: Data.Exercise.t) =
 
 let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
   <div class="bg-legacy-default flex flex-col">
-    <div class="max-w-sm md:max-w-full md:w-[32rem] lg:w-full flex flex-col">
+    <div class="max-w-sm md:max-w-full lg:w-full flex flex-col">
       <%s! block_heading ~icon ~title:"EXERCISES" ~heading %>
-      <div class="mt-6 grid gap-10 grid-cols-2 lg:grid-cols-4">
+      <div class="mt-6 grid gap-6 md:gap-10 md:grid-cols-2 lg:grid-cols-4">
         <% exercises |> List.iter (fun (exercise: Data.Exercise.t) -> %>
         <%s! exercise_card exercise %>
         <% ); %>
