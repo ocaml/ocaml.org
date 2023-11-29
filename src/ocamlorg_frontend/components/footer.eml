@@ -5,7 +5,7 @@ let footer_icon_link ~href ~name icon =
   </a>
 
 let render () =
-<footer class="bg-legacy-mild-contrast dark:bg-legacy-dark-mild-contrast" aria-labelledby="footer-heading">
+<footer class="border-t bg-legacy-mild-contrast dark:bg-legacy-dark-mild-contrast" aria-labelledby="footer-heading">
   <h2 id="footer-heading" class="sr-only">Footer</h2>
   <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">

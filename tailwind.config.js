@@ -133,6 +133,9 @@ module.exports = {
         },
         ...figma_colors,
       },
+      borderColor: {
+        DEFAULT: "#00000020"
+      },
       textColor: {
         legacy: {
           // FIXME: remove everything in this section when it is no longer used

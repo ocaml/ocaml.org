@@ -76,7 +76,7 @@ Learn_layout.single_column_layout
               %>
     </div>
 
-    <div class="border my-6"></div>
+    <div class="border-t my-6"></div>
 
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
       <%s! Learn_components.book_recommendation
@@ -87,7 +87,7 @@ Learn_layout.single_column_layout
         ~link:{href = Url.books; title = "See More Books"} %>
     </div>
 
-    <div class="border my-6"></div>
+    <div class="border-t my-6"></div>
 
     <div class="mt-6 mb-10">
       <%s! Learn_components.exercises_block
@@ -145,7 +145,7 @@ Learn_layout.single_column_layout
           %>
     </div>
 
-    <div class="border my-6"></div>
+    <div class="border-t my-6"></div>
 
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
       <%s! Learn_components.book_recommendation
@@ -156,7 +156,7 @@ Learn_layout.single_column_layout
         ~link:{href = Url.books; title = "See More Books"} %>
     </div>
 
-    <div class="border my-6"></div>
+    <div class="border-t my-6"></div>
 
     <div class="my-6">
       <%s! Learn_components.exercises_block
@@ -193,7 +193,7 @@ Learn_layout.single_column_layout
         <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
         <a
           href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>"
-          class="legacy-card-hover flex-1 p-6 border border-gray-200 rounded-xl"
+          class="card p-6 flex-1"
         >
           <div class="font-semibold text-base mb-3"><%s paper.title %></div>
           <div style="display: -webkit-box;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;"><%s paper.abstract %></div>
