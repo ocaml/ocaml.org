@@ -154,11 +154,20 @@ The type `'a ref` is a record with a single field `contents` which is marked wit
 
 Since references are single field records, we can define functions `assign` and `deref` using the mutable record field update syntax:
 ```ocaml
-# let assign a x = a.contents <- x;;
+# let create v = { contents = v };;
+val create : 'a -> 'a ref = <fun>
+
+# let assign a v = a.contents <- v;;
 val assign : 'a ref -> 'a -> unit = <fun>
 
 # let deref a = a.contents;;
 val deref : 'a ref -> 'a = <fun>
+
+# let a = create 0;;
+val a : int ref = {contents = 0}
+
+# deref a;;
+- : int = 0
 
 # assign a 2;;
 - : unit = ()
@@ -167,8 +176,10 @@ val deref : 'a ref -> 'a = <fun>
 - : int = 2
 ```
 
-The function `assign` does the same as the operator `( := )`, while the function `deref` does the same as the `( ! )` operator.
-
+The functions:
+* `create` does the same as the `ref` function provided by the standard library
+* `assign` does the same as the `( := )` operator
+* `deref` does the same as the `( ! )` operator.
 
 ## Arrays
 
@@ -217,6 +228,8 @@ Byte sequences can be created from `string` values using the function `Bytes.of_
 You can think of byte sequences as either:
 * updatable strings that can't be printed, or
 * `char` arrays without syntactic sugar for indexed read and update.
+
+**Note**: the `bytes` type uses a much more compact memory representation than `char array`. As of writing this tutorial, there is a factor 8 between `bytes` and `char array`. The former should always be preferred, except when `array` is required by polymorphic functions handling arrays.
 
 <!-- FIXME: link to a dedicated Byte Sequences tutorial -->
 
@@ -282,6 +295,19 @@ OCaml provides a sequence operator `;` that allows chaining expressions, as well
 
 ### Sequence Operator
 
+**`let … in`**
+
+```ocaml
+# let () = print_string "This is" in print_endline " really Disco!";;
+This is really Disco!
+- : unit = ()
+```
+
+Using the `let … in` construct means two things:
+* Names may be bound (in the example, no name is bound since the )
+* Side effects take place in sequence, bound expression (here `print_string "This is"`) is evaluated first, and referring expression (here `print_endline " really Disco!"`) is evaluated second.
+
+**Semicolon**
 The single semicolon `;` operator is known as the _sequence_ operator. It allows you to evaluate multiple expressions in order, with the value of the last expression being the value of the entire sequence.
 
 The values of any previous expressions are discarded. Thus, it makes sense to use expressions with side effects, except for the last expression of the sequence which could be free of side effects.
@@ -467,11 +493,8 @@ This is a possible way to handle application-wide state. As in the [Function-Enc
 
 Let's imagine you store angles as fractions of the circle in 8-bit unsigned integers, storing them as `char` values. In this system, 64 is 90 degrees, 128 is 180 degrees, 192 is 270 degrees, 256 is full circle and so on. If you need to compute cosine on those values, an implementation might look like this:
 ```ocaml
-# let pi = 3.14159265358979312 /. 128.0;;
-pi : float = 0.0245436926061702587
-
 # let char_cos c =
-    c |> int_of_char |> float_of_int |> ( *. ) (pi /. 128.0) |> cos;;
+    c |> int_of_char |> float_of_int |> ( *. ) (Float.pi /. 128.0) |> cos;;
 val char_cos : char -> float = <fun>
 ```
 
