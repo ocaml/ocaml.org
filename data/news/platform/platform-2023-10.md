@@ -31,7 +31,7 @@ In this October edition, we bring you the latest on the OCaml Platform, continui
 **Activities:**
 - We reworked the storage for opam repositories. We now have support for multiple repositories, which we store and update in an efficient manner. -- [ocaml/dune#8950](https://github.com/ocaml/dune/pull/8950)
 - We introduced the `$ dune pkg outdated` command to view all the outdated packages in a lock directory. -- [ocaml/dune#8773](https://github.com/ocaml/dune/pull/8773)
-- We introduced `$ dune describe pkg lock` to print lock directories. This gives users a nice overview of what’s available in the build plan in the lock directory. -- [ocaml/dune#8841](https://github.com/ocaml/dune/pull/8841)
+- We introduced `$ dune describe pkg lock` to print lock directories. This gives users a nice overview of what’s available in the lock directory's build plan. -- [ocaml/dune#8841](https://github.com/ocaml/dune/pull/8841)
 - We added support for solver variables in `lockdir` to make sure opam variables are also available at build and install time -- [ocaml/dune#8973](https://github.com/ocaml/dune/pull/8973)
 - We managed to successfully generate a lock file for `cmdliner` on Windows! :windows: Next, we're working on making build work on Windows as well. -- [ocaml/dune#9048](https://github.com/ocaml/dune/pull/9048)
 - And as usual, we fixed a bunch of bugs that prevented your regular packages from building:
