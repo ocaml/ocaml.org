@@ -79,7 +79,7 @@ module.exports = {
               fontSize: "1em",
             },
             a: {
-              color: "#EE6A1A",
+              color: "#D54000",
               textDecoration: "none",
             },
             'a:hover': {
@@ -97,9 +97,6 @@ module.exports = {
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
         mono: ["Roboto Mono", ...defaultTheme.fontFamily.mono]
-      },
-      outline: {
-        primary: "2px solid #EE6A1A"
       },
       colors: {
         legacy: {

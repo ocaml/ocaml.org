@@ -1,10 +1,12 @@
+type difficulty = Beginner | Intermediate | Advanced
+
 let color_for_difficulty = function
-  | Data.Book.Beginner -> "bg-secondary"
+  | Beginner -> "bg-secondary"
   | Intermediate -> "bg-[#3882B7]"
   | Advanced -> "bg-primary"
 
 let string_from_difficulty = function
-  | Data.Book.Beginner -> "Beginner"
+  | Beginner -> "Beginner"
   | Intermediate -> "Intermediate"
   | Advanced -> "Advanced"
 
@@ -111,7 +113,7 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
     <div class="mt-6 grid grid-cols-2 gap-6 pt-6">
       <%s! book_cover ~free:(book.pricing = "free") book.cover %>
       <div class="">
-        <%s! skill_tag book.difficulty %>
+        <%s! skill_tag (match book.difficulty with | Data.Book.Beginner -> Beginner | Intermediate -> Intermediate | Advanced -> Advanced) %>
         <% (match book.recommendation with None -> () | Some recommendation -> %>
         <p class="mt-2 text-gray-700 text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
         <% ); %>
@@ -146,7 +148,7 @@ let exercise_card (exercise: Data.Exercise.t) =
       <%s exercise.description %>
     </div>
     <div class="my-2.5">
-      <%s! skill_tag (match exercise.difficulty with | Data.Exercise.Beginner -> Data.Book.Beginner | Intermediate -> Intermediate | Advanced -> Advanced) %>
+      <%s! skill_tag (match exercise.difficulty with | Data.Exercise.Beginner -> Beginner | Intermediate -> Intermediate | Advanced -> Advanced) %>
     </div>
   </a>
 
