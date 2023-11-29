@@ -20,7 +20,7 @@ let render (t : t) =
       <% t |> List.iter begin fun item -> %>
         <li>
           <a href="<%s item.href %>" class="text-legacy-default py-1 pl-2 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
-            :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary-700 text-legacy-primary-700 bg-legacy-primary-200": "hover:text-legacy-primary-700"'
+            :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary text-primary bg-legacy-primary-200": "hover:text-primary"'
             :style='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "letter-spacing: -0.012em;" : ""'
           >
             <%s! item.title %>
@@ -30,7 +30,7 @@ let render (t : t) =
               <% items |> List.iter begin fun item -> %>
               <li>
                 <a href="<%s item.href %>" class="text-legacy-default py-1 md:py-0 pl-5 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
-                  :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary-700 text-legacy-primary-700 bg-legacy-primary-200": "hover:text-legacy-primary-700"'
+                  :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary text-primary bg-legacy-primary-200": "hover:text-primary"'
                   :style='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "letter-spacing: -0.012em;" : ""'
                 >
                   <%s! item.title %>
@@ -40,7 +40,7 @@ let render (t : t) =
                   <% items |> List.iter begin fun item -> %>
                   <li>
                     <a href="<%s item.href %>" class="text-legacy-default py-1 md:py-0 pl-8 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
-                      :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary-700 text-legacy-primary-700 bg-legacy-primary-200": "hover:text-legacy-primary-700"'
+                      :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary text-primary bg-legacy-primary-200": "hover:text-primary"'
                       :style='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "letter-spacing: -0.012em;" : ""'
                     >
                       <%s! item.title %>

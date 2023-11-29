@@ -51,14 +51,14 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
             <div class="flex">
               <a
                 href="<%s Url.Package.overview package.name %>"
-                class="flex-grow text-lg font-semibold text-legacy-primary-700 inline-block"
+                class="flex-grow text-lg font-semibold text-primary inline-block"
               >
                 <%s package.name %>
               </a>
               <div class="flex gap-4 justify-end items-center">
               <a
                 href="<%s Url.Package.documentation package.name %>"
-                class="text-legacy-primary-700 flex gap-1 text-sm items-center"
+                class="text-primary flex gap-1 text-sm items-center"
               >
                 <%s! Icons.documentation "h-5 w-5" %>
                 Documentation
@@ -73,7 +73,7 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
                 <% package.tags |> List.iter (fun (tag : string) -> %>
                 <a
                   href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
-                  class="px-2 whitespace-nowrap py-0.5 text-legacy-primary-700 font-medium bg-legacy-primary-100 border border-primary rounded hover:underline"
+                  class="px-2 whitespace-nowrap py-0.5 text-primary font-medium bg-legacy-primary-100 border border-primary rounded hover:underline"
                 >
                   <%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search tag %>
                 </a>

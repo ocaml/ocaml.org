@@ -10,7 +10,7 @@ type section =
 let tabs
 ~current =
   let link ~href ~title ~current =
-    <a href="<%s href %>" class="justify-start px-4 py-2 text-white items-center font-semibold border-2 border-b-4 border-transparent rounded <%s if current then "border-b-primary-700" else "opacity-80" %>">
+    <a href="<%s href %>" class="justify-start px-4 py-2 text-white items-center font-semibold border-2 border-b-4 border-transparent rounded <%s if current then "border-b-primary" else "opacity-80" %>">
       <%s title %>
     </a>
   in
@@ -81,7 +81,7 @@ let sidebar
 ~(section: section)
 =
   let sidebar_link ~title ~href ~current =
-    <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-legacy-primary-700 bg-legacy-primary-100 border-primary|} else {|text-legacy-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
+    <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-primary bg-legacy-primary-100 border-primary|} else {|text-legacy-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
       <%s title %>
     </a>
   in

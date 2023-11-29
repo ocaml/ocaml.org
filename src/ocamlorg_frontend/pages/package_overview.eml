@@ -41,7 +41,7 @@ let render_user_list (users: Data.Opam_user.t list) =
       <% ); %>
     </ol>
     <% if List.length users > num_of_users_to_show then (%>
-    <button class="text-legacy-primary-700 py-4" x-on:click="open = !open" x-text="open ? 'Hide <%s string_of_int (List.length users - num_of_users_to_show) %>...' : 'Show <%s string_of_int (List.length users - num_of_users_to_show) %> more...'"></button>
+    <button class="text-primary py-4" x-on:click="open = !open" x-text="open ? 'Hide <%s string_of_int (List.length users - num_of_users_to_show) %>...' : 'Show <%s string_of_int (List.length users - num_of_users_to_show) %> more...'"></button>
     <% ) else (); %>
   </div>
 in
@@ -171,7 +171,7 @@ let render_collapsible_dependencies section =
         <% ); %>
       </ol>
       <% if is_collapsible then (%>
-      <button class="text-legacy-primary-700 py-4" x-on:click="open = !open; $dispatch('resize')" x-show="open">Hide</button>
+      <button class="text-primary py-4" x-on:click="open = !open; $dispatch('resize')" x-show="open">Hide</button>
       <% ) else (); %>
     <% ); %>
   </div>
@@ -190,7 +190,7 @@ Package_layout.render
 <div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
     <div class="flex-1 max-w-full">
       <% (match content_title with | None -> %>
-      <div class="p-4 max-w-full border-2 border-l-4 border-gray-200 border-l-primary-700 rounded rounded-r-lg">
+      <div class="p-4 max-w-full border-2 border-l-4 border-gray-200 border-l-primary rounded rounded-r-lg">
         <h2 id="description" class="mb-4 mt-0 text-xl font-semibold uppercase">Description</h2>
         <div class="prose">
           <%s! package.description %>
@@ -202,7 +202,7 @@ Package_layout.render
           <h2 class="text-base font-semibold text-legacy-lighter">Tags</h2>
           <% package.tags |> List.iter (fun tag -> %>
           <a href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
-            class="hover:underline px-2 text-legacy-primary-700 border border-primary font-medium bg-legacy-primary-100 rounded">
+            class="hover:underline px-2 text-primary border border-primary font-medium bg-legacy-primary-100 rounded">
             <%s tag %>
           </a>
           <% ); %>
