@@ -103,4 +103,4 @@ inner =
     </body>
   </html>
 
-let render = base ~footer_html:(Footer.render ())
+let render = base ~footer_html:(Footer.primary_footer ())

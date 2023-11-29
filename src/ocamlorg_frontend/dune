@@ -241,14 +241,6 @@
   (action
    (run %{bin:dream_eml} %{dep:footer.eml} --workspace %{workspace_root})))
  (rule
-  (target secondary_footer.ml)
-  (action
-   (run
-    %{bin:dream_eml}
-    %{dep:secondary_footer.eml}
-    --workspace
-    %{workspace_root})))
- (rule
   (target forms.ml)
   (action
    (run %{bin:dream_eml} %{dep:forms.eml} --workspace %{workspace_root})))
