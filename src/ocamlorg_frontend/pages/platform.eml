@@ -4,7 +4,7 @@ let render_sidebar
 ()
 =
   <div class="flex flex-col gap-5">
-    <%s! Learn_sidebar.render ~tutorials ~current_tutorial:active ~section:Learn_layout.Platform %>
+    <%s! Learn_layout.sidebar ~tutorials ~current_tutorial:active ~section:Learn_layout.Platform %>
   </div>
 
 let render_package_cards ~(item: Data.Tool.t) =
@@ -24,7 +24,7 @@ let render
 ~(tutorials : Data.Tutorial.t list)
 (tools : Data.Tool.t list)
 =
-Learn_layout.render
+Learn_layout.three_column_layout
 ~title:"OCaml Platform"
 ~description:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml."
 ~canonical:Url.platform

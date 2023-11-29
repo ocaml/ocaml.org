@@ -75,24 +75,58 @@ let tabs
       </nav>
     </div>
 
-let sidebar_link
-~title
-~href
-~current =
-  <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-legacy-primary-700 bg-legacy-primary-100 border-legacy-primary-600|} else {|text-legacy-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
-    <%s title %>
-  </a>
-
-let sidebar_link_group
-?(extra_html="")
-title
-link_html
+let sidebar
+~current_tutorial
+~tutorials
+~(section: section)
 =
-  <div class="pl-2 pr-8 flex flex-col">
-    <div class="text-lg font-bold leading-10 flex py-1 uppercase"><%s title %></div>
-    <%s! link_html %>
-    <%s! extra_html %>
-  </div>
+  let sidebar_link ~title ~href ~current =
+    <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-legacy-primary-700 bg-legacy-primary-100 border-legacy-primary-600|} else {|text-legacy-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
+      <%s title %>
+    </a>
+  in
+  let sidebar_link_group ?(extra_html="") title link_html =
+    <div class="pl-2 pr-8 flex flex-col">
+      <div class="text-lg font-bold leading-10 flex py-1 uppercase"><%s title %></div>
+      <%s! link_html %>
+      <%s! extra_html %>
+    </div>
+  in
+  let render_tutorial_link ~title ~slug =
+    sidebar_link ~title ~href:(Url.tutorial slug) ~current:(current_tutorial = Some (slug))
+  in
+  let render_tutorial (tutorial : Data.Tutorial.t) = render_tutorial_link ~title:tutorial.title ~slug:tutorial.slug in
+  let tutorial_sidebar_links_by_category category =
+    tutorials |> List.filter (fun (x : Data.Tutorial.t) -> x.category = category) |> List.map render_tutorial |> String.concat "\n"
+  in
+  let categories =
+    let unique lst =
+      let rec unique' acc = function
+        | [] -> List.rev acc
+        | h::t -> unique' (if List.mem h acc then acc else h :: acc) t
+      in
+      unique' [] lst
+    in
+    tutorials |> List.map (fun (tutorial : Data.Tutorial.t) -> tutorial.category) |> unique
+  in
+  <% if section = Platform then ( %>
+  <%s! sidebar_link_group "Platform"
+    (tutorial_sidebar_links_by_category "platform")
+    ~extra_html:(
+      (render_tutorial_link ~title:"Overview" ~slug:"platform")) %>
+  <% ); %>
+
+  <% categories |> List.iter (fun category -> %>
+    <%s! sidebar_link_group category
+      (tutorial_sidebar_links_by_category category) %>
+  <% ); %>
+
+  <% if section = Guides then ( %>
+    <%s! sidebar_link_group "Is OCaml Yet"
+      (tutorial_sidebar_links_by_category "is-ocaml-yet")
+      ~extra_html:(
+        (render_tutorial_link ~title:"Is OCaml web yet?" ~slug:"is-ocaml-web-yet")) %>
+  <% ); %>
 
 let single_column_layout
 ?use_swiper
@@ -118,7 +152,7 @@ inner_html
     </div>
   </div>
 
-let render
+let three_column_layout
 ?use_swiper
 ?styles
 ~title

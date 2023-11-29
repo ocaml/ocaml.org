@@ -70,7 +70,7 @@ let render
 ?(difficulty_level = "All")
 (exercises : Data.Exercise.t list)
 =
-Learn_layout.render
+Learn_layout.three_column_layout
 ~title:"Exercises"
 ~description:"A list of exercises to work on your OCaml skills."
 ~canonical:Url.exercises
