@@ -77,7 +77,7 @@ In this October edition, we bring you the latest on the OCaml Platform, continui
 
 **Activities:**
 - We've decided to rework the asset support design a little to bring it more in line with how other elements are handled, such as modules, types, and values. The intent is to ensure the code is straightforward to maintain in the long term. -- [ocaml/odoc#1002](https://github.com/ocaml/odoc/pull/1002)
-- We continued reviewing the PR adding syntactic support for media. There were some good discussions relating to missing assets, and it looks to be in good shape to go in once the assets PR is merged. -- [ocaml/odoc#1005](https://github.com/ocaml/odoc/pull/1005)
+- We continued reviewing the PR, adding syntactic support for media. There were some good discussions relating to missing assets, and it's ready to go in once the assets PR is merged. -- [ocaml/odoc#1005](https://github.com/ocaml/odoc/pull/1005)
 
 ## **[Dune]** Generate Dependencies Documentation with Dune ([W25](https://ocaml.org/docs/platform-roadmap#w25-generate-documentation))
 
