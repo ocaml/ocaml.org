@@ -266,7 +266,7 @@ With respect to the environment, there are no means to:
 
 ### Inner Shadowing
 
-[*Shadowing*](https://en.wikipedia.org/wiki/Variable_shadowing) is a subtle concept. As you learned in the [Tour of OCaml](/docs/tour-of-ocaml), bindings are immutable. Once you create a name, define it, and bind it to a value, it does not change. That said, a name can be defined again to create a new binding. This is known as shadowing. The second definition *shadows* the first.
+As you learned in the [Tour of OCaml](/docs/tour-of-ocaml), bindings are immutable. Once you create a name, define it, and bind it to a value, it does not change. That said, a name can be defined again to create a new binding:
 
 ```ocaml
 # let i = 21;;
@@ -279,7 +279,7 @@ val i : int = 21
 - : int = 21
 ```
 
-A local definition may shadow any previous definition. Inner shadowing is limited to the local definition's scope. Therefore, anything written after will still take the previous definition, as shown above. Here, the value of `i` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `i` locally, inside `i * 2`, not globally.
+By redefining a name to create a new binding, you've created a [*shadow*](https://en.wikipedia.org/wiki/Variable_shadowing). The second definition *shadows* the first, so a local definition may shadow any previous definition. Inner shadowing is limited to the local definition's scope. Therefore, anything written after will still take the previous definition, as shown above. Here, the value of `i` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `i` locally, inside `i * 2`, not globally.
 
 A name-value pair in a local expression *shadows* a binding with the same name in the global environment. In other words, the local binding temporarily hides the global one, making it inaccessible, but it doesn't change it.
 
