@@ -268,7 +268,6 @@ With respect to the environment, there are no means to:
 
 [*Shadowing*](https://en.wikipedia.org/wiki/Variable_shadowing) is a subtle concept. As you learned in the [Tour of OCaml](/docs/tour-of-ocaml), bindings are immutable. Once you create a name, define it, and bind it to a value, it does not change. That said, a name can be defined again to create a new binding. This is known as shadowing. The second definition *shadows* the first.
 
-A local definition may shadow any previous definition. Inner shadowing is limited to the local definition's scope. Therefore, anything written after will still take the previous definition, as shown:
 ```ocaml
 # let i = 21;;
 val i : int = 21
@@ -280,7 +279,7 @@ val i : int = 21
 - : int = 21
 ```
 
-Here, the value of `i` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `i` locally, inside `i * 2`, not globally.
+A local definition may shadow any previous definition. Inner shadowing is limited to the local definition's scope. Therefore, anything written after will still take the previous definition, as shown above. Here, the value of `i` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `i` locally, inside `i * 2`, not globally.
 
 A name-value pair in a local expression *shadows* a binding with the same name in the global environment. In other words, the local binding temporarily hides the global one, making it inaccessible, but it doesn't change it.
 
@@ -349,7 +348,8 @@ This is just like a Unix shell pipe.
 
 ## Anonymous Functions
 
-As citizens of the same level as other values, functions don't have to be bound to a name to exist (although some must, but this will be explained later). Function values not bound to names are called _[anonymous functions](https://en.wikipedia.org/wiki/Anonymous_function)_. Here are a couple of examples:
+As citizens of the same level as other values, functions don't have to be bound to a name to exist (although some must, but this will be explained later). Take these examples:
+
 ```ocaml
 # fun x -> x;;
 - : 'a -> 'a = <fun>
@@ -363,6 +363,8 @@ As citizens of the same level as other values, functions don't have to be bound 
 # function [] -> None | x :: _ -> Some x;;
 - : 'a list -> 'a option = <fun>
 ```
+
+Function values not bound to names are called _[anonymous functions](https://en.wikipedia.org/wiki/Anonymous_function)_.
 
 In order, here is what they are:
 - The identity function, which takes anything and returns it unchanged
@@ -404,7 +406,8 @@ Calling `sq` gets an error because it was only defined locally.
 
 ## Closures
 
-The following example illustrates a [*closure*](https://en.wikipedia.org/wiki/Closure_(computer_programming)) using [Same-Level Shadowing](#same-level-shadowing):
+<!--Now that we've moved the term to after the example, what can we put here as an introduction?-->
+
 ```ocaml
 # let j = 2 * 3;;
 val j : int = 6
@@ -421,6 +424,8 @@ val j : int = 7
 # k 7;; (* What is the result? *)
 - : int = 42
 ```
+
+This example illustrates a [*closure*](https://en.wikipedia.org/wiki/Closure_(computer_programming)) using [Same-Level Shadowing](#same-level-shadowing)
 
 Here is how this makes sense:
 1. Constant `j` is defined, and its value is 6.
@@ -447,9 +452,8 @@ Inside the `max_42` function, the environment contains an additional binding bet
 
 ## Recursive Functions
 
-In order to perform iterated computations, a function may call itself. Such a function is called _recursive_. In OCaml, recursive functions must be defined and explicitly declared by using `let rec`. It is not possible to accidentally create recursion loops between functions. As a consequence, recursive functions can't be anonymous.
+In order to perform iterated computations, a function may call itself. Take this classic (and very inefficient) way to compute [Fibonacci](https://en.wikipedia.org/wiki/Fibonacci_sequence) numbers:
 
-The classic (and very inefficient) way to present recursion is using the function that computes [Fibonacci](https://en.wikipedia.org/wiki/Fibonacci_sequence) numbers.
 ```ocaml
 # let rec fibo n = if n <= 1 then n else fibo (n - 1) + fibo (n - 2);;
 val fibo : int -> int = <fun>
@@ -461,7 +465,9 @@ val u : int list = [0; 1; 2; 3; 4; 5; 6; 7; 8; 9]
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
 
-This version of `fibo` is inefficient because the number of recursive calls created doubles at each call, which creates exponential growth.
+Such a function is called _recursive_. This version of `fibo` is inefficient because the number of recursive calls created doubles at each call, which creates exponential growth.
+
+In OCaml, recursive functions must be defined and explicitly declared by using `let rec`. It is not possible to accidentally create recursion loops between functions. As a consequence, recursive functions can't be anonymous.
 
 **Note**: `List.init` is a standard library function that allows you to create a list by applying a given function to a sequence of integers, and `Fun.id` is the identity function, which returns its argument unchanged. We created a list with the numbers 0 - 9 and named it `u`. We applied the `fibo` function to every element of the list using `List.map`.
 
@@ -487,8 +493,6 @@ The second version `fib` uses the first two Fibonacci numbers as initial values.
 
 ### With Syntactic Sugar
 
-*Syntactic sugar* refers to a clean, straightforward syntax. It's code shorthand that makes the code more compact.
-
 To define a function with multiple arguments, each must be listed between the name of the function (right after the `let` keyword) and the equal sign, separated by space. Here is an example:
 ```ocaml
 # let sweet_cat x y = x ^ " " ^ y;;
@@ -498,7 +502,7 @@ val sweet_cat : string -> string -> string = <fun>
 - : string = "kitty cat"
 ```
 
-This is how most multiple-argument functions are defined. Alternatives exist, but this should be the default.
+*Syntactic sugar* refers to a clean, straightforward syntax. It's code shorthand that makes the code more compact. This is how most multiple-argument functions are defined. Alternatives exist, but this should be the default.
 
 ### Without Syntactic Sugar
 
