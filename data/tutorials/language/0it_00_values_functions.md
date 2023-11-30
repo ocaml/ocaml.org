@@ -10,8 +10,6 @@ category: "Introduction"
 
 ## Introduction
 
-This tutorial teaches the skills needed to handle expressions, values, and names. You'll learn the ability to write expressions, name values or leave them anonymous, appropriately scope names, handle multiple definitions of the same name, create and use closures, and produce or avoid side effects.
-
 In OCaml, functions are treated as values, which differs from many other mainstream languages. This distinction can provide insight into the relationship between expressions, values, and names. This tutorial emphasises practical engagement with OCaml in UTop to foster a hands-on understanding of these concepts through experimentation rather than beginning with their abstract definitions.
 
 <!--B2 English: 
