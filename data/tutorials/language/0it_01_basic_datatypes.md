@@ -114,11 +114,20 @@ The module [`Uchar`](/api/Uchar.html) provides support for Unicode characters.
 
 #### Strings
 
-Strings are finite and fixed-sized sequences of `char` values. Strings are immutable, meaning it is impossible to change a character's value inside a string. The string concatenation operator symbol is `^`.
+<!--ORIGINAL
+Strings are finite and fixed-sized sequences of char values. Strings are immutable, meaning it is impossible to change a character's value inside a string. The string concatenation operator symbol is ^
+-->
+
+Strings are immutable, meaning it is impossible to change a character's value inside a string. 
 ```ocaml
 # "hello" ^ " " ^ "world!";;
 - : string = "hello world!"
 ```
+Strings are finite and fixed-sized sequences of `char` values. The string concatenation operator symbol is `^`.
+
+<!--CR
+I'm not sure how to rearrange this to have the definition after the example? I've split the original paragraph to wrap around the example, but I wonder if it should be all before or after. If after, we could come up with a brief introductory sentence so the section doesn't start with an example without context. 
+-->
 
 Indexed access to string characters is possible using the following syntax:
 ```ocaml
@@ -129,11 +138,16 @@ Operations on `string` values are provided by the [`Stdlib`](/api/Stdlib.html) a
 
 #### Byte Sequences
 
-Byte sequences are finite and fixed-sized. Each individual byte is represented by a `char` value. Byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence (type `bytes`) is a mutable string that can't be printed. There is no way to write `bytes` literally, so they must be produced by a function.
+<!--CR
+Moved intro pp to after example, as it contains the definition. Perhaps a short intro sentence here for context?
+--> 
+
 ```ocaml
 # String.to_bytes "hello";;
 - : bytes = Bytes.of_string "hello"
 ```
+Byte sequences are finite and fixed-sized. Each individual byte is represented by a `char` value. Byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence (type `bytes`) is a mutable string that can't be printed. There is no way to write `bytes` literally, so they must be produced by a function.
+
 Operations on `bytes` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bytes`](/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. There is no direct access operator on byte sequences.
 
 ### Arrays & Lists
