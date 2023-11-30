@@ -11,6 +11,7 @@ In this October edition, we bring you the latest on the OCaml Platform, continui
 
 **Highlights:**
 - The three-year roadmap for the OCaml Platform has been officially adopted! We're thrilled to have a community-driven roadmap for the improvement of OCaml developer experience, and we're very grateful for all the excellent feedback we received from the community. Have a look at the [announcement](https://discuss.ocaml.org/t/the-ocaml-platform-roadmap-is-adopted/13459).
+- After [giving space for feedback](https://discuss.ocaml.org/t/deprecating-ocaml-migrate-parsetree-in-favor-of-ppxlib-also-as-a-platform-tool/13240) and objections by the community, we have [deprecated ocaml-migrate-parsetree](https://ocaml.org/changelog/2023-10-23-omp-deprecation) (aka OMP). It is superseded by [Ppxlib](https://github.com/ocaml-ppx/ppxlib).
 - We're introducing a new format for our newsletter. Let us know your thoughts and how we can make it even better for you!
 
 **Releases:**
@@ -48,12 +49,12 @@ In this October edition, we bring you the latest on the OCaml Platform, continui
 
 **Contributed by:** @rjbou (OCamlPro), @kit-ty-kate (Tarides), @dra27 (Tarides), @AltGr (OCamlPro)
 
-**Why:** opam and `opam-repository` currently don't support Windows natively. This effectively makes OCaml a very niche candidate on Windows, as users either have to (1) not use a package manager or (2) use a fork of opam and the `opam-repository`. Making opam and the `opam-repository` compatible with Windows will make OCaml a better choice for Windows users and help us grow the community. (More people = more packages, more contributors, more testing, yada yada)
+**Why:** Opam and `opam-repository` currently don't support Windows natively. This effectively makes OCaml a very niche candidate on Windows, as users either have to (1) not use a package manager or (2) use a fork of opam and the `opam-repository`. Making opam and the `opam-repository` compatible with Windows will make OCaml a better choice for Windows users and help us grow the community. More Windows users able to use opam leads to more contributors, more testing, more Windows friendly packages, and more packages in the end.
 
 **What:** Releasing opam 2.2 with native support for Windows and making the official `opam-repository` usable on Windows.
 
 **Activities:**
-- Not much to report on this month. More to come for the November update (finalisation of `setenv` and release of opam 2.2 alpha3).
+- Essentially focused on `setenv` & `build-env` environment variables update handling on Windows - [ocaml/opam#5636](https://github.com/ocaml/opam/pull/5636)
 
 ## **[`odoc`]** Add Search Capabilities to `odoc` ([W25](https://ocaml.org/docs/platform-roadmap#w25-generate-documentation))
 
