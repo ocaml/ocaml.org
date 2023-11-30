@@ -281,23 +281,23 @@ A name-value pair in a local expression *shadows* a binding with the same name i
 
 Another kind of shadowing takes place when there are two definitions with the same name at the same level.
 ```ocaml
-# let a = 2 * 3;;
-val a : int = 6
+# let h = 2 * 3;;
+val h : int = 6
 
-# let e = a * 7;;
+# let e = h * 7;;
 val e : int = 42
 
-# let a = 7;;
-val a : int = 7
+# let h = 7;;
+val h : int = 7
 
-# a;;
+# h;;
 - : int = 7
 
 # e;;
 - : int = 42
 ```
 
-In this example, `a` is defined twice. The key thing to understand is that `a` is *not updated*. It looks as if the value of `a` has changed, but it hasn't. When the second `a` is defined, the first one becomes unreachable, but it remains in the global environment. This means anything written after the second definition uses its value, but functions written *before* the second definition still use the first, even if called later.
+In this example, `h` is defined twice. The key thing to understand is that `h` is *not updated*. It looks as if the value of `h` has changed, but it hasn't. When the second `h` is defined, the first one becomes unreachable, but it remains in the global environment. This means anything written after the second definition uses its value, but functions written *before* the second definition still use the first, even if called later.
 
 ## Function as Values
 
