@@ -399,35 +399,35 @@ Calling `sq` gets an error because it was only defined locally.
 
 The following example illustrates a [*closure*](https://en.wikipedia.org/wiki/Closure_(computer_programming)) using [Same-Level Shadowing](#same-level-shadowing):
 ```ocaml
-# let a = 2 * 3;;
-val a : int = 6
+# let j = 2 * 3;;
+val j : int = 6
 
-# let f x = x * a;;
-val f : int -> int = <fun>
+# let k x = x * j;;
+val k : int -> int = <fun>
 
-# f 7;;
+# k 7;;
 - : int = 42
 
-# let a = 7;;
-val a : int = 7
+# let j = 7;;
+val j : int = 7
 
-# f 7;; (* What is the result? *)
+# k 7;; (* What is the result? *)
 - : int = 42
 ```
 
 Here is how this makes sense:
-1. Constant `a` is defined, and its value is 6.
-1. Function `f` is defined. It takes a single parameter `x` and returns its product by `a`.
-1. Compute `f` of 7, and its value is 42
-1. Create a new definition `a`, shadowing the first one
-1. Compute `f` of 7 again, the result is the same: 42
+1. Constant `j` is defined, and its value is 6.
+1. Function `k` is defined. It takes a single parameter `x` and returns its product by `j`.
+1. Compute `k` of 7, and its value is 42
+1. Create a new definition `j`, shadowing the first one
+1. Compute `k` of 7 again, the result is the same: 42
 
-Although the new definition of `a` *shadows* the first one, the original remains the one the function `f` uses. The `f` function's environment captures the first value of `a`, so every time you apply `f` (even after the second definition of `a`), you can be confident the function will behave the same. A closure is a pair containing the function code and an environment.
+Although the new definition of `j` *shadows* the first one, the original remains the one the function `k` uses. The `k` function's environment captures the first value of `j`, so every time you apply `k` (even after the second definition of `j`), you can be confident the function will behave the same. A closure is a pair containing the function code and an environment.
 
-However, all future expressions will use the new value of `a` (`7`), as shown here:
+However, all future expressions will use the new value of `j` (`7`), as shown here:
 ```ocaml
-# let b = a * 3;;
-val b : int = 21
+# let m = j * 3;;
+val m : int = 21
 ```
 
 Partially applying parameters to a function also creates a new closure. The environment is updated, but the function is unchanged.
