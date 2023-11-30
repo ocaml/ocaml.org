@@ -10,23 +10,13 @@ category: "Introduction"
 
 ## Introduction
 
-In OCaml, functions are treated as values, so you can use functions as arguments to functions and return them from functions. This gives the user insight into the relationship between expressions, values, and names. This tutorial emphasises hands-on learning with OCaml in UTop to help understand these concepts through experimentation rather than through abstract definitions.
+In OCaml, functions are treated as values, so you can use functions as arguments to functions and return them from functions. This tutorial introduces the relationship between expressions, values, and names. The first four sections of this tutorial address non-function values. The following sections, starting at [Function as Values](#function-as-values), address functions.
 
-<!--Original: 
-In OCaml, functions are values. In comparison to other mainstream languages, this creates a richer picture between expressions, values, and names. The approach in this tutorial is to acquire the related capabilities and understanding by interacting with OCaml in UTop. This hands-on experience is intended to build understanding by experimentation rather than starting with the definition of the concepts.
--->
+We use UTop to understand these concepts by example. You are encouraged to modify the examples to gain a better understanding. 
 
-**Note**: The [Introduction to the OCaml Toplevel](https://ocaml.org/docs/toplevel-introduction) guide covers how to use UTop.
-
-It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
-
-<!--B2 English:
-Enhancing comprehension can be achieved by creating different versions based on the given examples. The subjects covered extend beyond merely executing OCaml expressions interactively. Yet, we find that grasping these concepts is more accessible when explored dynamically using the OCaml interpreter."
--->
-
-The first four sections of this tutorial address non-function values. The following sections, starting at [Function as Values](#function-as-values), address functions.
-
-**Prerequisites**: Ensure you have completed the [Get Started](https://ocaml.org/docs/installing-ocaml) series before proceeding with this tutorial.
+**Prerequisites**: 
+- The [Introduction to the OCaml Toplevel](https://ocaml.org/docs/toplevel-introduction) guide covers how to use UTop.
+- Ensure you have completed the [Get Started](https://ocaml.org/docs/installing-ocaml) series before proceeding with this tutorial.
 
 <!--
 When presenting OCaml or another functional programming language, it is often said: “Functions are treated as first-class citizens.” Without further explanation or context, this may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by that sentence. In turn, this should explain it:
