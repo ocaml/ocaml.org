@@ -10,11 +10,7 @@ category: "Introduction"
 
 ## Introduction
 
-In OCaml, functions are treated as values, which differs from many other mainstream languages. This distinction can provide insight into the relationship between expressions, values, and names. This tutorial emphasises practical engagement with OCaml in UTop to foster a hands-on understanding of these concepts through experimentation rather than beginning with their abstract definitions.
-
-<!--B2 English: 
-OCaml differs from many other common programming languages by treating functions as values. This unique approach offers a deeper understanding of how expressions, values, and names relate to each other. The tutorial focuses on hands-on learning with OCaml in UTop, encouraging experimentation as a way to grasp these concepts rather than starting with theoretical explanations."
--->
+In OCaml, functions are treated as values, so you can use functions as arguments to functions and return them from functions. This gives the user insight into the relationship between expressions, values, and names. This tutorial emphasises hands-on learning with OCaml in UTop to help understand these concepts through experimentation rather than through abstract definitions.
 
 <!--Original: 
 In OCaml, functions are values. In comparison to other mainstream languages, this creates a richer picture between expressions, values, and names. The approach in this tutorial is to acquire the related capabilities and understanding by interacting with OCaml in UTop. This hands-on experience is intended to build understanding by experimentation rather than starting with the definition of the concepts.
