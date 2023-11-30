@@ -45,7 +45,7 @@ let render_subteam (team : Data.Governance.team) =
     <% (if List.length team.contacts > 0 then %>
       <div class="flex gap-x-8">
       <% team.contacts |> List.iter (fun (contact : Data.Governance.contact) -> %>
-        <a class="btn btn-tertiary gap-1" href="<%s contact.link %>" target="_blank">
+        <a class="btn btn-legacy-tertiary gap-1" href="<%s contact.link %>" target="_blank">
           <%s! contact_icon contact.kind "w-6 h-6" %>
           <%s contact.name %>
         </a>
