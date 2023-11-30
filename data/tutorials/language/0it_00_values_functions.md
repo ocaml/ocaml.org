@@ -14,13 +14,11 @@ This tutorial teaches the skills needed to handle expressions, values, and names
 
 In OCaml, functions are treated as values, which differs from many other mainstream languages. This distinction can provide insight into the relationship between expressions, values, and names. This tutorial emphasises practical engagement with OCaml in UTop to foster a hands-on understanding of these concepts through experimentation rather than beginning with their abstract definitions.
 
-<!--
-B2 English: 
+<!--B2 English: 
 OCaml differs from many other common programming languages by treating functions as values. This unique approach offers a deeper understanding of how expressions, values, and names relate to each other. The tutorial focuses on hands-on learning with OCaml in UTop, encouraging experimentation as a way to grasp these concepts rather than starting with theoretical explanations."
 -->
 
-<!-- 
-Original: 
+<!--Original: 
 In OCaml, functions are values. In comparison to other mainstream languages, this creates a richer picture between expressions, values, and names. The approach in this tutorial is to acquire the related capabilities and understanding by interacting with OCaml in UTop. This hands-on experience is intended to build understanding by experimentation rather than starting with the definition of the concepts.
 -->
 
@@ -28,8 +26,7 @@ In OCaml, functions are values. In comparison to other mainstream languages, thi
 
 It would benefit the reader to write variations around the examples provided to strengthen understanding. The topics discussed are not limited to interactive execution of OCaml expressions. However, we believe they are easier to understand within the dynamics of interaction with the OCaml interpreter.
 
-<!--
-B2 English:
+<!--B2 English:
 Enhancing comprehension can be achieved by creating different versions based on the given examples. The subjects covered extend beyond merely executing OCaml expressions interactively. Yet, we find that grasping these concepts is more accessible when explored dynamically using the OCaml interpreter."
 -->
 
@@ -50,7 +47,12 @@ When presenting OCaml or another functional programming language, it is often sa
 
 ## What is a Value?
 
+<!--B2 English:
+Like most functional programming languages, OCaml follows an expression-oriented approach. This means programs are expressions. In fact, almost everything in OCaml is an expression. Unlike languages with statements that dictate actions performed on data, OCaml requires all operations to occur through evaluating expressions. Evaluating these expressions yields specific values. Below, you'll find various examples of expressions, along with their types and resulting values. Some involve computations, while others do not.
+-->
+
 Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. In OCaml, there are no statements that specify actions to be taken on data. All computations must be through expression evaluation. Computing expressions produce values. Here are a few examples of expressions, their type, and the resulting values. Some include computation and some don't:
+
 ```ocaml
 # "Every expression has a type";;
 - : string = "Every expression has a type"
@@ -76,6 +78,10 @@ Hello!
 ```
 
 An expression's type (before evaluation) and its resulting value's type (after computation) are the same. This allows the compiler to avoid runtime type checks in binaries. In OCaml, the compiler removes type information, so it's not available at runtime. In programming theory, this is called [subject reduction](https://en.wikipedia.org/wiki/Subject_reduction).
+
+<!--B2 English
+In OCaml, an expression's type remains consistent from its initial declaration to its resulting computed value. This uniformity enables the compiler to skip runtime type checks within the program's binaries. In OCaml's case, the compiler eliminates type information, rendering it inaccessible during runtime. In programming theory, this principle is known as [subject reduction](https://en.wikipedia.org/wiki/Subject_reduction).
+-->
 
 ## Global Definitions
 
@@ -213,7 +219,7 @@ Without oversimplifying, an OCaml program is a sequence of expressions or global
 
 Execution evaluates each item from top to bottom.
 
-At any time during evaluation, the _environment_ is the ordered sequence of available definitions.
+At any time during evaluation, the _environment_ is the ordered sequence of available definitions. *Environment* is also known as *Context* in other languages.
 
 Here, the name `tau` is added to the top-level environment.
 ```ocaml
