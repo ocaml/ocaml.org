@@ -2,12 +2,12 @@ let render (change : Data.Changelog.t) =
 Layout.render
 ~title:(Printf.sprintf "%s • OCaml Changelog" change.title)
 ~description:change.title @@
-<div class="bg-default dark:bg-dark-default pt-12 pb-10 lg:py-24">
+<div class="bg-legacy-default dark:bg-legacy-dark-default pt-12 pb-10 lg:py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">
       <div class="mx-auto max-w-5xl">
         <a href="<%s Url.changelog %>"
-          class="flex justify-start space-x-3 items-center text-primary-600 hover:underline font-semibold mb-4 h-12">
+          class="flex justify-start space-x-3 items-center text-primary hover:underline font-semibold mb-4 h-12">
           <%s! Icons.arrow_left "h-5 w-5" %>
           <div>View all changes</div>
         </a>
@@ -23,7 +23,7 @@ Layout.render
           <% change.tags |> List.iter (fun tag -> %>
           <li class="inline-block mt-2 mr-2 text-left">
             <a href="<%s Url.changelog %>?t=<%s tag %>"
-              class="whitespace-nowrap rounded-full bg-default dark:bg-dark-default px-4 py-2.5 text-sm font-semibold text-default shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+              class="whitespace-nowrap rounded-full bg-legacy-default dark:bg-legacy-dark-default px-4 py-2.5 text-sm font-semibold text-legacy-default shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
               <%s tag %>
             </a>
           </li>

@@ -1,6 +1,6 @@
 ---
 title: Duplicate the Elements of a List
-number: "14"
+slug: "14"
 difficulty: beginner
 tags: [ "list" ]
 description: "Write a function that duplicates the elements of a list."

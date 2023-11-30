@@ -14,7 +14,7 @@ let right_sidebar
 
 let left_sidebar ~tutorials ~current_tutorial ~section =
   <div class="flex flex-col gap-5">
-    <%s! Learn_sidebar.render ~tutorials ~current_tutorial ~section %>
+    <%s! Learn_layout.sidebar ~tutorials ~current_tutorial ~section %>
   </div>
 
 let of_tutorial_section (s: Data.Tutorial.Section.t) =
@@ -30,7 +30,7 @@ let render_related_exercises exercises =
       <h3>Related exercises :</h3>
       <ul>
         <% exercises |> List.iter (fun (exercise : Data.Exercise.t) -> %>
-          <li><a href='/exercises#<%s exercise.number %>'><%s exercise.title %></a></li>
+          <li><a href='/exercises#<%s exercise.slug %>'><%s exercise.title %></a></li>
         <% ); %>
       </ul>
     </div>
@@ -43,7 +43,7 @@ let render
 ~related_exercises
 ~canonical
 =
-Learn_layout.render
+Learn_layout.three_column_layout
 ~title:(Printf.sprintf "%s · OCaml Documentation" tutorial.title)
 ~description:tutorial.description
 ~canonical

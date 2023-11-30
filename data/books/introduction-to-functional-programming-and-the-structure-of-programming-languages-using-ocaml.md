@@ -16,8 +16,6 @@ links:
     uri: https://github.com/uds-psl/Prog
   - description: PDF download
     uri: https://www.ps.uni-saarland.de/~smolka/drafts/prog2021.pdf
-rating: 5
-featured: false
 difficulty: beginner
 pricing: free
 ---

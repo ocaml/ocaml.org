@@ -4,27 +4,27 @@ let render_sidebar
 ()
 =
   <div class="flex flex-col gap-5">
-    <%s! Learn_sidebar.render ~tutorials ~current_tutorial:active ~section:Learn_layout.Platform %>
+    <%s! Learn_layout.sidebar ~tutorials ~current_tutorial:active ~section:Learn_layout.Platform %>
   </div>
 
 let render_package_cards ~(item: Data.Tool.t) =
-  <a href="<%s item.source %>" class="flex flex-col gap-1 border-2 rounded-md p-4 hover:border-primary-600 hover:ring-4 hover:ring-primary-200">
+  <a href="<%s item.source %>" class="flex flex-col gap-1 border-2 rounded-md p-4 hover:border-primary hover:ring-4 hover:ring-legacy-primary-200">
     <div class="flex gap-4 items-center">
-      <%s! Icons.tools "h-5 w-5 text-primary-600" %>
-      <div class="text-primary-600 text-lg font-bold"><%s item.name %></div>
+      <%s! Icons.tools "h-5 w-5 text-primary" %>
+      <div class="text-primary text-lg font-bold"><%s item.name %></div>
     </div>
     <div class="flex gap-4 items-center mb-2">
       <div class="w-5"></div>
-      <div class="text-lighter h-10 w-10/12"><%s item.synopsis %></div>
+      <div class="text-legacy-lighter h-10 w-10/12"><%s item.synopsis %></div>
     </div>
-    <%s! Icons.arrow_small_right "h-5 w-5 text-primary-600 rotate-45 place-self-end" %>
+    <%s! Icons.arrow_small_right "h-5 w-5 text-primary rotate-45 place-self-end" %>
   </a>
 
 let render
 ~(tutorials : Data.Tutorial.t list)
 (tools : Data.Tool.t list)
 =
-Learn_layout.render
+Learn_layout.three_column_layout
 ~title:"OCaml Platform"
 ~description:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml."
 ~canonical:Url.platform
@@ -41,11 +41,11 @@ Learn_layout.render
     </p>
     <p>
       Detailed instructions to install OCaml and the
-      Platform tools are available in <a class="text-primary-600"
+      Platform tools are available in <a class="text-primary"
       href="<%s Url.installing_ocaml %>">"Installing OCaml"</a>.
 
       If you want to use the simpler, but experimental way to install the
-      Platform, you can use the <a class="text-primary-600"
+      Platform, you can use the <a class="text-primary"
       href="https://github.com/tarides/ocaml-platform-installer"> OCaml
       Platform Installer</a>. To download it, run:
     </p>
@@ -56,7 +56,7 @@ Learn_layout.render
       <pre><code>ocaml-platform</code></pre>
   </div>
   <div
-    class="mt-12 cursor-pointer z-0 relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-primary-100 video-shadow md:w-[640px]"
+    class="mt-12 cursor-pointer z-0 relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-legacy-primary-100 video-shadow md:w-[640px]"
     x-data='{
         isPlaying: false,
         embed_url: "https://watch.ocaml.org/videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516",
@@ -67,7 +67,7 @@ Learn_layout.render
       }'
   >
     <div
-      class="bg-default dark:bg-dark-default text-center relative aspect-w-16 aspect-h-9 h-full"
+      class="bg-legacy-default dark:bg-legacy-dark-default text-center relative aspect-w-16 aspect-h-9 h-full"
       @click="
                 isPlaying = !isPlaying;
                 $nextTick(() => { $refs.iframeElement.setAttribute('src', iframe_url()) });"
@@ -84,18 +84,18 @@ Learn_layout.render
       <div class="flex h-full justify-center" x-show="!isPlaying">
         <div class="z-10 mb-10 lg:mb-0">
           <img width="160" class="m-auto mt-10 md:mt-20" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml logo">
-          <div class="text-lighter mt-2">OCaml Workshop 2020</div>
+          <div class="text-legacy-lighter mt-2">OCaml Workshop 2020</div>
           <h3 class="font-bold mt-16">State of the OCaml Platform 2020</h3>
           <div class="mt-16 flex justify-center">
             Presented by&nbsp;
             <div class="font-semibold">Anil Madhavapeddy</div>
           </div>
-          <div class="text-lighter mt-2">University of Cambridge</div>
+          <div class="text-legacy-lighter mt-2">University of Cambridge</div>
         </div>
       </div>
     </div>
     <div
-      class="rounded-full bg-primary-600 text-white w-16 h-16 right-0 left-0 m-auto bottom-5 md:left-auto md:right-10 md:bottom-10 absolute flex items-center z-10 justify-center"
+      class="rounded-full bg-primary text-white w-16 h-16 right-0 left-0 m-auto bottom-5 md:left-auto md:right-10 md:bottom-10 absolute flex items-center z-10 justify-center"
       x-show="!isPlaying"
     >
       <%s! Icons.play "h-9 w-9" %>
@@ -103,13 +103,13 @@ Learn_layout.render
   </div>
   <div class="flex flex-col border-t border-gray-200 pt-20 mt-20 mb-12">
     <h3 class="font-bold mt-8">State of the OCaml Platform</h3>
-    <div class="text-lighter mt-6 text-lg">
+    <div class="text-legacy-lighter mt-6 text-lg">
       Each platform element lives at a different point in the lifecycle of a Platform tool
     </div>
     <div>
       <hr class="mt-12 mb-6 border-b border-gray-200">
       <h4 class="font-bold">Active</h4>
-      <div class="text-lighter mt-3">
+      <div class="text-legacy-lighter mt-3">
         The work-horse tools that are used daily with strong backwards compatibility guarantees from the community.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
@@ -121,7 +121,7 @@ Learn_layout.render
     <div class="mt-8">
       <hr class="mb-6 border-b border-gray-200">
       <h4 class="font-bold">Incubate</h4>
-      <div class="text-lighter mt-3">
+      <div class="text-legacy-lighter mt-3">
         New tools that fill a gap in the ecosystem but are not quite ready for wide-scale release and adoption.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
@@ -133,7 +133,7 @@ Learn_layout.render
     <div class="mt-8">
       <hr class="mb-6 border-b border-gray-200">
       <h4 class="font-bold">Sustain</h4>
-      <div class="text-lighter mt-3">
+      <div class="text-legacy-lighter mt-3">
         Tools that will not likely see any major feature added but can be used reliably even if not being actively
         developed.
       </div>
@@ -146,7 +146,7 @@ Learn_layout.render
     <div class="mt-8">
       <hr class="mb-6 border-b border-gray-200">
       <h4 class="font-bold">Deprecate</h4>
-      <div class="text-lighter mt-3">
+      <div class="text-legacy-lighter mt-3">
         Tools that are gradually being phased out, with clear paths to better workflows.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">

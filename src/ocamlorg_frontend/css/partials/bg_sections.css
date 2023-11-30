@@ -1,0 +1,7 @@
+/* different page section backgrounds from Figma */
+
+.section-mild-contrast {
+    background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
+    @apply bg-legacy-mild-contrast border-b border-t;
+  }
+  

@@ -1,6 +1,6 @@
 ---
 title: Collect the Leaves of a Binary Tree in a List
-number: "61B"
+slug: "61B"
 difficulty: beginner
 tags: [ "binary-tree" ]
 description: "Extract all the leaf nodes from a binary tree and returns them as a list."

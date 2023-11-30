@@ -2,6 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./partials/bg_sections.css";
 @import "./partials/buttons.css";
 @import "./partials/cards.css";
 @import "./partials/dropdown.css";
@@ -23,7 +24,7 @@
 }
 
 body {
-  @apply bg-mild-contrast dark:bg-dark-mild-contrast text-default dark:text-dark-default;
+  @apply bg-legacy-mild-contrast dark:bg-legacy-dark-mild-contrast text-legacy-default dark:text-legacy-dark-default;
   font-family: "Inter", sans-serif;
 }
 
@@ -80,7 +81,7 @@ body {
 }
 
 .intro-section-simple p {
-  @apply text-lighter lg:text-lg;
+  @apply text-legacy-lighter lg:text-lg;
 }
 
 .divider span {
@@ -170,7 +171,7 @@ tt {
 }
 
 .sidebar a.active {
-  @apply text-primary-600 bg-primary-100;
+  @apply text-primary bg-legacy-primary-100;
 }
 
 table a:hover {
@@ -178,15 +179,15 @@ table a:hover {
 }
 
 .right-sidebar a:hover {
-  @apply text-primary-600;
+  @apply text-primary;
 }
 
 .news-stories button:hover {
-  @apply border-primary-600 text-primary-600;
+  @apply border-primary text-primary;
 }
 
 .news-stories button:hover i {
-  @apply text-primary-600;
+  @apply text-primary;
 }
 
 .top-level-container .prose ul li::before {
@@ -194,7 +195,7 @@ table a:hover {
 }
 
 footer a:hover {
-  @apply text-primary-600;
+  @apply text-primary;
 }
 
 [x-cloak] {
@@ -202,11 +203,11 @@ footer a:hover {
 }
 
 .link-orange {
-  @apply text-primary-600 hover:underline;
+  @apply text-primary hover:underline;
 }
 
 .page-toc li a {
-  @apply font-semibold text-default text-sm mb-4 block;
+  @apply font-semibold text-legacy-default text-sm mb-4 block;
 }
 
 .page-toc li li li {

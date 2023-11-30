@@ -1,6 +1,6 @@
 ---
 title: Replicate the Elements of a List a Given Number of Times
-number: "15"
+slug: "15"
 difficulty: intermediate
 tags: [ "list" ]
 description: "Write a function that replicates the elements of a list a given number of times."

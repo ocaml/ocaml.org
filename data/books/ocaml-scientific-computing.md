@@ -4,6 +4,8 @@ slug: "ocaml-scientific-computing"
 description: >
   Shows how the expressiveness of OCaml allows for fast and safe
   development of data science applications.
+recommendation: >
+  This book merges functional programming in OCaml with numerical computation, tailored for data science and AI. It's ideal for those familiar with functional programming, offering a mix of foundational concepts and advanced cloud computing techniques. The structure allows readers to choose topics of interest, making it a versatile guide for learning and applying scientific computing.
 authors:
   - Liang Wang
   - Jianxin Zhao
@@ -17,7 +19,6 @@ links:
     uri: https://link.springer.com/book/10.1007/978-3-030-97645-3
   - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/3030976440
-featured: true
 difficulty: advanced
 pricing: paid
 ---

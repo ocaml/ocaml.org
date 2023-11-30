@@ -1,160 +1,168 @@
-let footer_icon_link ~href ~name icon =
-  <a href="<%s href %>" class="text-lighter hover:text-gray-500">
-    <span class="sr-only"><%s name %></span>
-    <%s! icon "h-6 w-6" %>
-  </a>
+let about_ocaml = [
+  (Url.changelog, "Changelog");
+  (Url.releases, "Releases");
+  (Url.industrial_users, "Industrial Users");
+  (Url.academic_users, "Academic Users");
+  (Url.about, "Why OCaml");
+  ]
 
-let render () =
-<footer class="bg-mild-contrast dark:bg-dark-mild-contrast" aria-labelledby="footer-heading">
-  <h2 id="footer-heading" class="sr-only">Footer</h2>
-  <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-      <div class="space-y-8">
-        <a href="<%s Url.index %>"><img class="h-8" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
-        <p class="text-base leading-6 text-lighter">Innovation. Community. Security.</p>
-        <div class="flex space-x-6">
-          <%s! footer_icon_link ~href:"https://github.com/ocaml/ocaml" ~name:"GitHub" Icons.github %>
+let resources = [
+  (Url.install, "Install OCaml");
+  (Url.getting_started, "Get Started");
+  (Url.platform, "Platform Tools");
+  (Url.manual, "Language Manual");
+  (Url.api, "Standard Library API");
+  (Url.books, "Books");
+  (Url.exercises, "Exercises");
+  (Url.papers, "Papers");
+  (Url.playground, "OCaml Playground");
+  (Url.logos, "Logo");
+  ]
 
-          <!-- FIXME: footer_icon_link component -->
-          <a href="https://discord.gg/cCYQbqN" class="text-lighter hover:text-gray-500">
-            <span class="sr-only">Discord</span>
-            <%s! Icons.discord "h-6 w-6" %>
-          </a>
+let ecosystem = [
+  (Url.packages, "Packages");
+  (Url.community, "Community");
+  (Url.blog, "Blog");
+  (Url.jobs, "Jobs");
+  ]
 
-          <!-- FIXME: footer_icon_link component -->
-          <a href="https://twitter.com/ocamllang" class="text-lighter hover:text-gray-500">
-            <span class="sr-only">Twitter</span>
-            <%s! Icons.twitter "h-6 w-6" %>
-          </a>
+let policies = [
+  (Url.carbon_footprint, "Carbon Footprint");
+  (Url.governance, "Governance");
+  (Url.privacy_policy, "Privacy");
+  (Url.code_of_conduct, "Code of Conduct");
+  ]
 
-          <!-- FIXME: footer_icon_link component -->
-          <a href="https://watch.ocaml.org/" class="text-lighter hover:text-gray-500">
-            <span class="sr-only">Peertube</span>
-            <%s! Icons.peertube "h-6 w-6" %>
-          </a>
+let socials = [
+  ("https://github.com/ocaml/ocaml", "GitHub", Icons.github);
+  ("https://discord.gg/cCYQbqN", "Discord", Icons.discord);
+  ("https://twitter.com/ocamllang", "Twitter", Icons.twitter);
+  ("https://watch.ocaml.org/", "Peertube", Icons.peertube);
+  ("/feed.xml", "RSS", Icons.rss);
+]
 
-          <!-- FIXME: footer_icon_link component -->
-          <a href="/feed.xml" class="text-lighter hover:text-gray-500">
-            <span class="sr-only">RSS</span>
-            <%s! Icons.rss "h-6 w-6" %>
-          </a>
-        </div>
-      </div>
-      <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-        <div class="md:grid md:grid-cols-2 md:gap-8">
-          <div>
-            <h3 class="text-base font-semibold leading-6 text-default">About OCaml</h3>
-            <ul class="mt-6 space-y-4">
-              <li>
-                <a href="<%s Url.changelog %>" class="text-base leading-6 text-lighter">Changelog</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.releases %>" class="text-base leading-6 text-lighter">Releases</a>
-              </li>
-
-              <li>
-                <!-- TODO: create footer_link component -->
-                <a href="<%s Url.industrial_users %>" class="text-base leading-6 text-lighter">Industrial Users</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.academic_users %>" class="text-base leading-6 text-lighter">Academic Users</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.about %>" class="text-base leading-6 text-lighter">Why OCaml</a>
-              </li>
-            </ul>
-          </div>
-          <div class="mt-10 md:mt-0">
-            <h3 class="text-base font-semibold leading-6 text-default">Resources</h3>
-            <ul class="mt-6 space-y-4">
-              <li>
-                <a href="<%s Url.install %>" class="text-base leading-6 text-lighter">Install OCaml</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.getting_started %>" class="text-base leading-6 text-lighter">Get Started</a>
-              </li>
-              
-              <li>
-                <a href="<%s Url.platform %>" class="text-base leading-6 text-lighter">Platform Tools</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.manual %>" class="text-base leading-6 text-lighter">Language Manual</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.api %>" class="text-base leading-6 text-lighter">Standard Library API</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.books %>" class="text-base leading-6 text-lighter">Books</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.exercises %>" class="text-base leading-6 text-lighter">Exercises</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.papers %>" class="text-base leading-6 text-lighter">Papers</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.playground %>" class="text-base leading-6 text-lighter">OCaml Playground</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.logos %>" class="text-base leading-6 text-lighter">Logo</a>
-              </li>
-            </ul>
+let primary_footer () =
+  let icon_link ~href ~name ~icon =
+    <a href="<%s href %>" class="text-legacy-lighter hover:text-gray-500">
+      <span class="sr-only"><%s name %></span>
+      <%s! icon "h-6 w-6" %>
+    </a>
+  in
+  let footer_link ~href ~name =
+    <li>
+      <a href="<%s href %>" class="text-base leading-6 text-legacy-lighter"><%s name %></a>
+    </li>
+  in
+  <footer class="border-t bg-legacy-mild-contrast dark:bg-legacy-dark-mild-contrast" aria-labelledby="footer-heading">
+    <h2 id="footer-heading" class="sr-only">Footer</h2>
+    <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+        <div class="space-y-8">
+          <a href="<%s Url.index %>"><img class="h-8" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
+          <p class="text-base leading-6 text-legacy-lighter">Innovation. Community. Security.</p>
+          <div class="flex space-x-6">
+            <% socials |> List.iter (fun (href, name, icon) -> %>
+            <%s! icon_link ~href ~name ~icon %>
+            <% ); %>
           </div>
         </div>
-        <div class="md:grid md:grid-cols-2 md:gap-8">
-          <div>
-            <h3 class="text-base font-semibold leading-6 text-default">Ecosystem</h3>
-            <ul class="mt-6 space-y-4">
-               <li>
-                <a href="<%s Url.packages %>" class="text-base leading-6 text-lighter">Packages</a>
-              </li>
-
-               <li>
-                <a href="<%s Url.community %>" class="text-base leading-6 text-lighter">Community</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.blog %>" class="text-base leading-6 text-lighter">Blog</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.jobs %>" class="text-base leading-6 text-lighter">Jobs</a>
-              </li>
-            </ul>
+        <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+          <div class="md:grid md:grid-cols-2 md:gap-8">
+            <div>
+              <h3 class="text-base font-semibold leading-6 text-legacy-default">About OCaml</h3>
+              <ul class="mt-6 space-y-4">
+                <% about_ocaml |> List.iter (fun (href, name) -> %>
+                <%s! footer_link ~href ~name %>
+                <% ); %>
+              </ul>
+            </div>
+            <div class="mt-10 md:mt-0">
+              <h3 class="text-base font-semibold leading-6 text-legacy-default">Resources</h3>
+              <ul class="mt-6 space-y-4">
+                <% resources |> List.iter (fun (href, name) -> %>
+                <%s! footer_link ~href ~name %>
+                <% ); %>
+              </ul>
+            </div>
           </div>
-          <div class="mt-20 md:mt-0">
-            <h3 class="text-base font-semibold leading-6 text-default">Policies</h3>
-            <ul class="mt-6 space-y-4">
-              <li>
-                <a href="<%s Url.carbon_footprint %>" class="text-base leading-6 text-lighter">Carbon Footprint</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.governance %>" class="text-base leading-6 text-lighter">Governance</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.privacy_policy %>" class="text-base leading-6 text-lighter">Privacy</a>
-              </li>
-
-              <li>
-                <a href="<%s Url.code_of_conduct %>" class="text-base leading-6 text-lighter">Code of Conduct</a>
-              </li>
-            </ul>
+          <div class="md:grid md:grid-cols-2 md:gap-8">
+            <div>
+              <h3 class="text-base font-semibold leading-6 text-legacy-default">Ecosystem</h3>
+              <ul class="mt-6 space-y-4">
+                <% ecosystem |> List.iter (fun (href, name) -> %>
+                <%s! footer_link ~href ~name %>
+                <% ); %>
+              </ul>
+            </div>
+            <div class="mt-20 md:mt-0">
+              <h3 class="text-base font-semibold leading-6 text-legacy-default">Policies</h3>
+              <ul class="mt-6 space-y-4">
+                <% policies |> List.iter (fun (href, name) -> %>
+                <%s! footer_link ~href ~name %>
+                <% ); %>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
+
+let secondary_footer () =
+  let icon_link ~href ~name ~icon =
+    <a href="<%s href %>" class="text-text_title hover:text-primary">
+      <span class="sr-only"><%s name %></span>
+      <%s! icon "h-8 w-8" %>
+    </a>
+  in
+  let footer_link ~href ~name =
+    <a href="<%s href %>" class="font-normal text-legacy-lighter leading-7 py-2.5"><%s name %></a>
+  in
+  <footer class="flex flex-col gap-7 pt-5 mt-6 border-solid border-t-[1px] border-[#00000033]">
+    <section class="flex flex-col gap-6 md:gap-0 md:flex-row md:justify-between md:items-end">
+      <div>
+        <a href="<%s Url.index %>"><img class="h-8" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
+        <p class="text-base leading-6 text-legacy-lighter mt-2">Innovation. Community. Security.</p>
+      </div>
+      <div class="flex items-center gap-4 pr-4">
+        <% socials |> List.iter (fun (href, name, icon) -> %>
+        <%s! icon_link ~href ~name ~icon %>
+        <% ); %>
+      </div>
+    </section>
+
+    <section class="mt-6 grid grid-cols-2 mt-6">
+      <div class="flex flex-col gap-1">
+        <div class="flex flex-col">
+          <h5 class="font-bold text-base leading-7 py-2.5 text-black">About</h5>
+          <% about_ocaml |> List.iter (fun (href, name) -> %>
+          <%s! footer_link ~href ~name %>
+          <% ); %>
+        </div>
+
+        <div class="flex flex-col">
+          <h5 class="font-bold text-base leading-7 py-2.5 text-black">
+            Ecosystem
+          </h5>
+          <% ecosystem |> List.iter (fun (href, name) -> %>
+          <%s! footer_link ~href ~name %>
+          <% ); %>
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <h5 class="font-bold text-base leading-7 py-2.5 text-black">Resources</h5>
+        <% resources |> List.iter (fun (href, name) -> %>
+        <%s! footer_link ~href ~name %>
+        <% ); %>
+      </div>
+    </section>
+
+    <div
+      class="flex flex-wrap gap-x-7 md:justify-between items-center py-2 border-solid border-t-[1px] border-[#00000033] bottom-0 bg-white">
+      <h5 class="font-bold text-base leading-7 py-2.5 text-black">Policies</h5>
+      <% policies |> List.iter (fun (href, name) -> %>
+      <%s! footer_link ~href ~name %>
+      <% ); %>
+    </div>
+  </footer>

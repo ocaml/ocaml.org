@@ -13,7 +13,7 @@ Layout.render
       </div>
       <div class="flex flex-col space-y-6 relative md:mt-10">
         <div class="absolute h-full pt-14 pb-5 lg:pt-11 lg:pb-4 ml-2 lg:ml-0 left-20 lg:left-32 -l-x">
-          <div class="-ml-px w-1 border-dashed border-r-2 border-primary-300 h-full"></div>
+          <div class="-ml-px w-1 border-dashed border-r-2 border-legacy-primary-300 h-full"></div>
         </div>
         <% let seen_upcoming = ref false in
         workshop.important_dates |> List.iter (fun (date : Data.Workshop.important_date) ->
@@ -21,9 +21,9 @@ Layout.render
         | true when not !seen_upcoming -> (
         seen_upcoming := true; %>
         <div class="flex items-center space-x-10">
-          <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
-          <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
-          <div class="bg-primary-600 flex-1 rounded-xl text-white px-4 py-2 flex items-center">
+          <div class="text-primary font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
+          <div class="bg-primary h-5 w-5 rounded-full"></div>
+          <div class="bg-primary flex-1 rounded-xl text-white px-4 py-2 flex items-center">
             <div>
               <div class="text-xs font-semibold">UPCOMING</div>
               <div><%s date.info %></div>
@@ -32,9 +32,9 @@ Layout.render
         </div>
         <% ) | _ -> %>
         <div class="flex items-center space-x-10">
-          <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
-          <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
-          <div class="bg-default dark:bg-dark-default flex-1 rounded-xl text-default px-4 py-3 items-center flex">
+          <div class="text-primary font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
+          <div class="bg-primary h-5 w-5 rounded-full"></div>
+          <div class="bg-legacy-default dark:bg-legacy-dark-default flex-1 rounded-xl text-legacy-default px-4 py-3 items-center flex">
             <span><%s date.info %></span>
           </div>
         </div>
@@ -43,7 +43,7 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-default dark:bg-dark-default">
+<div class="bg-legacy-default dark:bg-legacy-dark-default">
   <div class="py-10 lg:py-28">
     <div class="container-fluid">
       <div class="prose prose-orange lg:prose-lg max-w-none mb-16">
@@ -54,7 +54,7 @@ Layout.render
         <% | _ -> %>
         <div class="not-prose overflow-x-scroll">
           <table class="max-w-5xl lg:max-w-full">
-            <thead class="bg-body-700 text-white text-left rounded-xl">
+            <thead class="bg-legacy-body-700 text-white text-left rounded-xl">
               <tr>
                 <th class="py-4 px-6 rounded-l-lg text-x w-2/5">Title</th>
                 <th class="py-4 px-6 w-2/5">Authors</th>
@@ -68,15 +68,15 @@ Layout.render
                 <td class="py-4 px-6 font-medium"><%s Fmt.(str "%a" (list ~sep:comma string) presentation.authors) %></td>
                 <td class="py-4 px-6">
                   <% (match presentation.link with None -> () | Some link -> %>
-                  <a href="<%s link %>" class="text-primary-600 font-medium block">Link</a>
+                  <a href="<%s link %>" class="text-primary font-medium block">Link</a>
                   <% ); %>
 
                   <% (match presentation.video with None -> () | Some link -> %>
-                  <a href="<%s link %>" class="text-primary-600 font-medium block">Video</a>
+                  <a href="<%s link %>" class="text-primary font-medium block">Video</a>
                   <% ); %>
 
                   <% (match presentation.slides with None -> () | Some link -> %>
-                  <a href="<%s link %>" class="text-primary-600 font-medium block">Slides</a>
+                  <a href="<%s link %>" class="text-primary font-medium block">Slides</a>
                   <% ); %>
                 </td>
               </tr>
@@ -92,7 +92,7 @@ Layout.render
 <div class="bg-pattern lg:py-32 py-24">
   <div class="container-fluid">
     <div class="text-center text-white">
-      <h2 class="font-bold text-primary-600 mb-16">Workshop Details</h2>
+      <h2 class="font-bold text-primary mb-16">Workshop Details</h2>
       <div>
         <% (match List.length workshop.organising_committee with | 0 -> () | _ -> %>
         <h5 class="font-bold text-white mb-12">Organising Committee</h5>
@@ -141,12 +141,12 @@ Layout.render
 </div>
 <% let videos = List.filter_map (fun (p : Data.Workshop.presentation) -> Hashtbl.find_opt videos p.title)
 workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
-<div class="bg-default dark:bg-dark-default py-24">
+<div class="bg-legacy-default dark:bg-legacy-dark-default py-24">
   <div class="container-fluid">
     <h3 class="font-bold mb-12">Some Videos</h3>
     <div class="grid lg:grid-cols-3 gap-14">
       <% let videos = List.filteri (fun i _ -> i < 6) videos in videos |> List.iter (fun (video : Data.Watch.t) -> %>
-      <div class="card-hover inline-block">
+      <div class="legacy-card-hover inline-block">
         <iframe
           loading="lazy"
           sandbox="allow-scripts allow-popups"
@@ -159,7 +159,7 @@ workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
       <% ); %>
     </div>
     <div class="flex justify-end mt-12">
-      <a href="https://watch.ocaml.org" target="_blank" class="btn btn-secondary">
+      <a href="https://watch.ocaml.org" target="_blank" class="btn btn-ghost">
         More videos at watch.ocaml.org
         <%s! Icons.chevron_right "h-5 w-5 inline-block" %>
       </a>

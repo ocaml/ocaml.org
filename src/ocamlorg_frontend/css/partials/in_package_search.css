@@ -15,7 +15,7 @@
 }
 
 #in-package-search-results .search-entry {
-  @apply px-4 py-1 font-normal text-default flex flex-col;
+  @apply px-4 py-1 font-normal text-legacy-default flex flex-col;
   --entry-color: gray;
 }
 
@@ -45,7 +45,7 @@
 */
 
 #in-package-search-results .search-entry .entry-kind {
-  @apply py-0.5 px-1 bg-body-600 text-white rounded mr-2 text-sm;
+  @apply py-0.5 px-1 bg-legacy-body-600 text-white rounded mr-2 text-sm;
 }
 
 #in-package-search-results .search-entry .entry-kind {
@@ -116,7 +116,7 @@
 }
 
 #in-package-search-results .active {
-  @apply bg-primary-100;
+  @apply bg-legacy-primary-100;
 }
 
 #in-package-search #in-package-search-results {

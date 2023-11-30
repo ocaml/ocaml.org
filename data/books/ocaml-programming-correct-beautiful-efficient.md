@@ -5,7 +5,8 @@ description: >
   A textbook on functional programming and data structures in OCaml, with an
   emphasis on semantics and software engineering. This book is the textbook for
   CS 3110 Data Structures and Functional Programming at Cornell University.
-recommendation: "Basic experience in some imperative programming language is helpful. Includes over 200 videos."
+recommendation: >
+  This textbook, used in a third-semester Cornell course, teaches functional programming and data structures in OCaml, emphasizing semantics and software engineering. Suitable for students with Python and Java backgrounds, it requires some imperative language skills and basic discrete mathematics. The book includes over 200 YouTube videos as supplementary or alternative learning resources.
 authors:
   - Michael R. Clarkson
 published: 2023-08-14
@@ -15,8 +16,6 @@ language:
 links:
   - description: Read Online
     uri: https://cs3110.github.io/textbook/
-rating: 5
-featured: true
 difficulty: beginner
 pricing: free
 ---

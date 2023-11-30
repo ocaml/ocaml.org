@@ -73,7 +73,7 @@ Layout.render
       <div class="">
         <div class="sm:text-center lg:col-span-8 lg:text-left">
           <div
-            class="flex justify-start gap-x-3 items-center text-primary-600 hover:underline font-semibold mb-4 h-12">
+            class="flex justify-start gap-x-3 items-center text-primary hover:underline font-semibold mb-4 h-12">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
@@ -87,7 +87,7 @@ Layout.render
           </div>
           <div class="flex flex-wrap gap-x-4">
             <% t.contacts |> List.iter (fun (contact : Data.Governance.contact) -> %>
-            <a class="btn btn-secondary btn-lg mt-6 gap-2" href="<%s contact.link %>" target="_blank">
+            <a class="btn btn-ghost btn-lg mt-6 gap-2" href="<%s contact.link %>" target="_blank">
               <%s! contact_icon contact.kind "w-6 h-6" %>
               <%s contact.name %>
             </a>

@@ -11,8 +11,8 @@ Layout.render
         Install OCaml
       </h1>
       <div class="flex gap-2">
-        <button class="btn flex gap-2" :class='operating_system == "linux_mac_bsd"? "": "btn-secondary"' @click="operating_system = 'linux_mac_bsd'"> Linux, macOS or *BSD</button>
-        <button class="btn flex gap-2" :class='operating_system == "win"? "": "btn-secondary"' @click="operating_system = 'win'"><%s! Icons.microsoft_windows "w-6 h-6" %> Windows</button>
+        <button class="btn flex gap-2" :class='operating_system == "linux_mac_bsd"? "": "btn-ghost"' @click="operating_system = 'linux_mac_bsd'"> Linux, macOS or *BSD</button>
+        <button class="btn flex gap-2" :class='operating_system == "win"? "": "btn-ghost"' @click="operating_system = 'win'"><%s! Icons.microsoft_windows "w-6 h-6" %> Windows</button>
       </div>
     </div>
 
