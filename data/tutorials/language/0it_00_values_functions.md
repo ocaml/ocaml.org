@@ -89,13 +89,13 @@ Every expression can be named. This is the purpose of the `let … = … ` state
 * If the expression can be evaluated, it takes place right away.
 * Otherwise, the expression is turned into a value as-is. That's the case of function definition.
 
-Global definitions are those entered at the top level. This is what happens when writing a definition in UTop:
+This is what happens when writing a definition in UTop:
 ```ocaml
 # let the_answer = 2 * 3 * 7;;
 val the_answer : int = 42
 ```
 
-Here, `the_answer` is the global definition with a value of 42.
+Global definitions are those entered at the top level. Here, `the_answer` is the global definition with a value of 42.
 
 When a variant type has a single constructor, it is possible to combine pattern matching and definitions. The pattern is written between the `let` keyword and the equal sign. A very common case is pairs. It allows the creation of two names with a single `let`.
 ```ocaml
@@ -162,7 +162,7 @@ This construction creates two lists. The first is formed by the left element of 
 
 ## Local Definitions
 
-Local definitions are like global definitions, except the name is only bound inside an expression. They are introduced by the `let … = … in …` expression. The name bound before the `in` keyword is only bound in the expression after the `in` keyword.
+Local definitions are like global definitions, except the name is only bound inside an expression: 
 ```ocaml
 # let d = 2 * 3 in d * 7;;
 - : int = 42
@@ -171,14 +171,16 @@ Local definitions are like global definitions, except the name is only bound ins
 Error: Unbound value d
 ```
 
-Here, the name `d` is bound to `6` inside the expression `d * 7`. A couple of remarks:
+Local definitions are introduced by the `let … = … in …` expression. The name bound before the `in` keyword is only bound in the expression after the `in` keyword. Here, the name `d` is bound to `6` inside the expression `d * 7`. 
+
+A couple of remarks:
 - No global definition is introduced in this example, which is why we get an error.
 - Computation of `2 * 3` will always take place before `d * 7`.
 
 Local definitions can be chained (one after another) or nested (one inside another). Here is an example of chaining:
 ```ocaml
 # let d = 2 * 3 in
-  let e = b * 7 in
+  let e = d * 7 in
   d * e;;
 - : int = 252
 
@@ -188,7 +190,7 @@ Error: Unbound value d
 Error: Unbound value e
 ```
 
-This is how scoping works here:
+Here is how scoping works:
 - `d` is bound to `6` inside `let e = d * 7 in d * e`
 - `e` is bound to `42` inside `d * e`
 
@@ -211,11 +213,11 @@ Here is how scoping works:
 
 Arbitrary combinations of chaining or nesting are allowed.
 
-In both examples `d` and `e` are local definitions.
+In both examples, `d` and `e` are local definitions.
 
 ## Scopes and Environments
 
-Without oversimplifying, an OCaml program is a sequence of expressions or global `let` definitions. These items are said to be at the _top-level_. An OCaml REPL, such as UTop, is called a toplevel because that's where typed definitions go.
+Without oversimplifying, an OCaml program is a sequence of expressions or global `let` definitions. These items are said to be at the _top-level_. An OCaml REPL, such as UTop, is called a "toplevel" because that's where typed definitions go.
 
 Execution evaluates each item from top to bottom.
 
