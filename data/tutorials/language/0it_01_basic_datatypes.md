@@ -19,7 +19,18 @@ This tutorial introduces basic data types in OCaml. _Variants_ and _products_ re
 > Type annotation means that it's necessary to write the value type to tell the compiler what to do, as opposed to having the compiler infer the type.
 -->
 
-You will learn about atomic types, such as integers and Booleans; predefined compound types, like strings and lists; and user-defined types, namely variants and records. The goal is to teach skills on how to handle data from predefined, variant, and record types. It also includes the important concept of pattern matching on those types.
+<!--ORIGINAL
+You will learn about atomic types, such as integers and Booleans; predefined compound types, like strings and lists; and user-defined types, namely variants and records. The goal is to teach skills on how to handle data from predefined, variant, and record types. You will also be introduced to the important concept of pattern matching on those types.
+-->
+
+<!--More scannable-->
+This course covers various types: 
+- Atomic types, such as integers and Booleans
+- Predefined compound types, like strings and lists
+- User-defined types, namely variants and records
+
+The goal is to teach skills on how to handle data from predefined, variant, and record types. Additionally, you will be introduced to the important concept of pattern matching on those types.
+<!--End edit-->
 
 Before proceeding, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions). As in previous tutorials, expressions after `#` and ending with `;;` are for the toplevel, like UTop.
 
