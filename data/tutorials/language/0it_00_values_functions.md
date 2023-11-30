@@ -164,54 +164,54 @@ This construction creates two lists. The first is formed by the left element of 
 
 Local definitions are like global definitions, except the name is only bound inside an expression. They are introduced by the `let … = … in …` expression. The name bound before the `in` keyword is only bound in the expression after the `in` keyword.
 ```ocaml
-# let b = 2 * 3 in b * 7;;
+# let d = 2 * 3 in d * 7;;
 - : int = 42
 
-# b;;
-Error: Unbound value b
+# d;;
+Error: Unbound value d
 ```
 
-Here, the name `b` is bound to `6` inside the expression `b * 7`. A couple of remarks:
+Here, the name `d` is bound to `6` inside the expression `d * 7`. A couple of remarks:
 - No global definition is introduced in this example, which is why we get an error.
-- Computation of `2 * 3` will always take place before `b * 7`.
+- Computation of `2 * 3` will always take place before `d * 7`.
 
 Local definitions can be chained (one after another) or nested (one inside another). Here is an example of chaining:
 ```ocaml
-# let b = 2 * 3 in
-  let c = b * 7 in
-  b * c;;
+# let d = 2 * 3 in
+  let e = b * 7 in
+  d * e;;
 - : int = 252
 
-# b;;
-Error: Unbound value b
-# c;;
-Error: Unbound value c
+# d;;
+Error: Unbound value d
+# e;;
+Error: Unbound value e
 ```
 
 This is how scoping works here:
-- `b` is bound to `6` inside `let c = b * 7 in b * c`
-- `c` is bound to `42` inside `b * c`
+- `d` is bound to `6` inside `let e = d * 7 in d * e`
+- `e` is bound to `42` inside `d * e`
 
 Here is an example of nesting:
 ```ocaml
-# let b =
-    let c = 2 * 3 in
-    c * 5 in
-  b * 7;;
+# let d =
+    let e = 2 * 3 in
+    e * 5 in
+  d * 7;;
 - : int = 210
 
-# b;;
-Error: Unbound value b
-# c;;
-Error: Unbound value c
+# d;;
+Error: Unbound value d
+# e;;
+Error: Unbound value e
 ```
 Here is how scoping works:
-- `c` is bound to `6` inside `c * 5`
-- `b` is bound to `30` inside `b * 7`
+- `e` is bound to `6` inside `e * 5`
+- `d` is bound to `30` inside `d * 7`
 
 Arbitrary combinations of chaining or nesting are allowed.
 
-In both examples `b` and `c` are local definitions.
+In both examples `d` and `e` are local definitions.
 
 ## Scopes and Environments
 
