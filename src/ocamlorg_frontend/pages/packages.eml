@@ -195,7 +195,7 @@ in
             <div class="text-lg mb-8 lg:px-40">Learn how to publish your first Opam package today and make it available
                 to the rest of the community.</div>
             <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
-                <a href="https://opam.ocaml.org/doc/Packaging.html" class="btn btn-lg btn-tertiary">Learn More</a>
+                <a href="https://opam.ocaml.org/doc/Packaging.html" class="btn btn-lg btn-legacy-tertiary">Learn More</a>
             </div>
         </div>
     </div>

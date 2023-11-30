@@ -54,7 +54,7 @@ and what makes it unique." @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-20 mt-16">
         <% teams |> List.iter (fun (team : Data.Governance.team) -> %>
-        <%s! render_team_card team "maintainers" "btn-tertiary" %>
+        <%s! render_team_card team "maintainers" "btn-legacy-tertiary" %>
         <% );%>
       </div>
     </div>

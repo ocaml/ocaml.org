@@ -204,7 +204,7 @@ Layout.render
       <h3 class="font-bold mb-6">OCaml Jobs</h3>
       <div class="text-lg mb-8 lg:px-28">This is a space where groups, companies, and organisations can advertise their projects directly to the OCaml community.</div>
       <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
-        <a class="btn btn-lg btn-tertiary" href="<%s Url.jobs %>">
+        <a class="btn btn-lg btn-legacy-tertiary" href="<%s Url.jobs %>">
           <span>View OCaml Jobs</span>
           <%s! Icons.chevron_right "h-5 w-5" %>
         </a>

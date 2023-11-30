@@ -58,4 +58,18 @@
   .btn-ghost:active {
     @apply  text-white bg-primary_dark;
   }
+
+
+  /* TODO: remove when no longer in use */
+  .btn-legacy-tertiary {
+    @apply bg-transparent border border-white text-white;
+  }
+
+  .btn-legacy-tertiary:hover {
+    @apply bg-legacy-default dark:bg-legacy-dark-default bg-opacity-10 border-white;
+  }
+
+  .btn-legacy-tertiary:active {
+    @apply bg-legacy-default dark:bg-legacy-dark-default bg-opacity-20;
+  }
 }
