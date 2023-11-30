@@ -242,7 +242,12 @@ Calling `pi` results in an error because it hasn't been added to the global envi
 
 A definition's scope is the set of environments where it is reachable.
 
-Although OCaml is an expression-oriented language, it is not entirely free of statements. The global `let` is a statement that may change the state of the global environment by adding a name-value *binding*. In some sense, that `let` is the only statement OCaml has. Note that top-level expressions also fall into that category because they are equivalent to `let _ =` definitions.
+<!--B2 English
+Even though OCaml follows an expression-oriented approach, it still contains certain statements. The global 'let' statement is an example that modifies the global environment by creating a binding between a name and a value. This 'let' statement represents one of the few statements present in OCaml. Additionally, top-level expressions also operate similarly as they are essentially equivalent to 'let _ =' definitions, falling within the same category.
+((Some of these sentences are better, but they aren't always simpler!))
+-->
+
+Although OCaml is an expression-oriented language, it still contains certain statements. The global `let` is an example that modifies the global environment by adding a name-value *binding*. In some sense, `let` is OCaml's only statement. Note that top-level expressions also fall into that category because they are equivalent to `let _ =` definitions.
 ```ocaml
 # (1.0 +. sqrt 5.0) /. 2.0;;
 - : float = 1.6180339887498949
@@ -263,17 +268,17 @@ With respect to the environment, there are no means to:
 
 A local definition may shadow any previous definition. Inner shadowing is limited to the local definition's scope. Therefore, anything written after will still take the previous definition, as shown:
 ```ocaml
-# let d = 21;;
-val d : int = 21
+# let i = 21;;
+val i : int = 21
 
-# let d = 7 in d * 2;;
+# let i = 7 in i * 2;;
 - : int = 14
 
-# d;;
+# i;;
 - : int = 21
 ```
 
-Here, the value of `d` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `d` locally, inside `d * 2`, not globally.
+Here, the value of `i` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `i` locally, inside `i * 2`, not globally.
 
 A name-value pair in a local expression *shadows* a binding with the same name in the global environment. In other words, the local binding temporarily hides the global one, making it inaccessible, but it doesn't change it.
 
