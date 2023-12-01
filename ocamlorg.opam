@@ -38,7 +38,7 @@ depends: [
   "lwt"
   "tailwindcss"
   "hilite" {>= "0.4.0"}
-  "river"
+  "river" {>= "0.3"}
   "syndic"
   "alcotest" {with-test}
   "mdx" {with-test & >= "1.10.0"}
@@ -72,5 +72,4 @@ dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
   ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#7ef5bebbf48958370051b2368a4dd57b69627cf6"]
   ["olinkcheck.~dev" "git+https://github.com/tarides/olinkcheck"]
-  ["river.dev" "git+https://github.com/kayceesrk/river#b990f702d29c7a7139920d701154e9db595eae1f"]
 ]
