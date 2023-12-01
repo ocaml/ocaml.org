@@ -69,7 +69,7 @@ In OCaml, an expression's type remains consistent from its initial declaration t
 
 ## Global Definitions
 
-Every expression can be named. This is the purpose of the `let … = … ` statement. The name is on the left; the expression is on the right.
+Every value can be named. This is the purpose of the `let … = … ` statement. The name is on the left; the expression is on the right.
 * If the expression can be evaluated, it takes place right away.
 * Otherwise, the expression is turned into a value as-is. That's the case of function definition.
 
@@ -80,92 +80,6 @@ val the_answer : int = 42
 ```
 
 Global definitions are those entered at the top level. Here, `the_answer` is the global definition with a value of 42.
-
-When a variant type has a single constructor, it is possible to combine pattern matching and definitions. The pattern is written between the `let` keyword and the equal sign. A very common case is pairs. It allows the creation of two names with a single `let`.
-```ocaml
-# let (x, y) = List.split [(1, 2); (3, 4); (5, 6); (7, 8)];;
-val x : int list = [1; 3; 5; 7]
-val y : int list = [2; 4; 6; 8]
-```
-
-This works for any single constructor variant. Here is a type named `tree` with a variable number of branches:
-```ocaml
-# type 'a tree = Node of 'a * 'a tree list;;
-type 'a tree = Node of 'a * 'a tree list
-
-# let t = Node (1, [Node (2, []); Node (3, []); Node (4, [])]);;
-val t : int tree = Node (1, [Node (2, []); Node (3, []); Node (4, [])])
-
-# let rec tree_map f (Node (x, u)) = Node (f x, List.map (tree_map f) u);;
-val tree_map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
-
-# tree_map (fun x -> x * x) t;;
-- : int tree = Node (1, [Node (4, []); Node (9, []); Node (16, [])])
-```
-
-<!--FIXME: could something like this work? (From ChatGPT)
-```
-# type 'a option_value =
-  | Some of 'a
-  | None;;
-type 'a option_value = Some of 'a | None
-
-(* Define a function to create values using the variant *)
-# let create_value x = Some x;;
-val create_value : 'a -> 'a option_value = <fun>
-
-(* Test the function by creating values *)
-# let value1 = create_value 42;; (* Creating a value of type int *)
-val value1 : int option_value = Some 42
-
-(* Creating a value of type string *)
-# let value2 = create_value "Hello";; 
-val value2 : string option_value = Some "Hello"
-```
-
-With or without the comments in between
--->
-
-**Note**: Above, `'a` means “any type.” It is called a *type parameter* and is pronounced like the Greek letter α (“alpha”). This type parameter will be replaced by a type. The same goes for `'b` ("beta"), `'c` ("gamma"), etc. Any letter preceded by a `'` is a type parameter, also known as a [type variable](https://en.wikipedia.org/wiki/Type_variable).
-
-Because records are implicitly single-constructor variants, this also applies to them:
-```ocaml
-# type name = { first : string; last: string };;
-type name = { first : string; last : string; }
-
-# let robin = { first = "Robin"; last = "Milner" };;
-val robin : name = {first = "Robin"; last = "Milner"}
-
-# let { first; last } = robin;;
-val first : string = "Robin"
-val last : string = "Milner"
-```
-
-A special case of combined definition and pattern matching involves the `unit` type:
-```ocaml
-# let () = print_endline "ha ha";;
-ha ha
-```
-
-**Note**: As explained in the [Tour of OCaml](/docs/tour-of-ocaml) tutorial, the `unit` type has a single value `()`, which is pronounced "unit."
-
-Above, the pattern does not contain any identifier, meaning no name is defined. The expression is evaluated, the side effect takes place (printing `ha ha` to standard output), no definition is created, and no value is returned. Writing that kind of pseudo-definition only expresses interest in the side effects.
-```ocaml
-# print_endline "ha ha";;
-ha ha
-- : unit = ()
-
-# let _ = print_endline  "ha ha";;
-ha ha
-- : unit = ()
-```
-
-As seen in the last example, the catch-all pattern (`_`) can be used in definitions. The following example illustrates its use, which is distinct from the `()` pattern:
-```ocaml
-# let (_, y) = List.split [(1, 2); (3, 4); (5, 6); (7, 8)];;
-val y : int list = [2; 4; 6; 8]
-```
-This construction creates two lists. The first is formed by the left element of each pair. The second is formed by the right element. Assuming we're only interested in the right elements, we give the name `y` to that list and discard the first by using `_`.
 
 ## Local Definitions
 
@@ -221,6 +135,84 @@ Here is how scoping works:
 Arbitrary combinations of chaining or nesting are allowed.
 
 In both examples, `d` and `e` are local definitions.
+
+
+## Pattern Matching in Definitions
+
+<!-- 5 cases to illustrate below: Unit case. `_`, tuples, user-defined constructor variants, and records-->
+<!-- FIXME: review & revise this entire section :: Sabine -->
+
+<!--the example illustrates tuples::-->
+When a variant type has a single constructor, it is possible to combine pattern matching and definitions. The pattern is written between the `let` keyword and the equal sign. A very common case is pairs. It allows the creation of two names with a single `let`.
+```ocaml
+# let (x, y) = List.split [(1, 2); (3, 4); (5, 6); (7, 8)];;
+val x : int list = [1; 3; 5; 7]
+val y : int list = [2; 4; 6; 8]
+```
+
+<!-- user-defined single constructor variant example -->
+<!-- FIXME: create an example nested pattern matching -->
+This works for any single constructor variant. Here is a type named `tree` with a variable number of branches:
+```ocaml
+# type 'a tree = Node of 'a * 'a tree list;;
+type 'a tree = Node of 'a * 'a tree list
+
+# let t = Node (1, [Node (2, []); Node (3, []); Node (4, [])]);;
+val t : int tree = Node (1, [Node (2, []); Node (3, []); Node (4, [])])
+
+# let rec tree_map f (Node (x, u)) = Node (f x, List.map (tree_map f) u);;
+val tree_map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
+
+# tree_map (fun x -> x * x) t;;
+- : int tree = Node (1, [Node (4, []); Node (9, []); Node (16, [])])
+```
+
+
+
+**Note**: Above, `'a` means “any type.” It is called a *type parameter* and is pronounced like the Greek letter α (“alpha”). This type parameter will be replaced by a type. The same goes for `'b` ("beta"), `'c` ("gamma"), etc. Any letter preceded by a `'` is a type parameter, also known as a [type variable](https://en.wikipedia.org/wiki/Type_variable).
+
+
+<!--Records examples-->
+Because records are implicitly single-constructor variants, this also applies to them:
+```ocaml
+# type name = { first : string; last: string };;
+type name = { first : string; last : string; }
+
+# let robin = { first = "Robin"; last = "Milner" };;
+val robin : name = {first = "Robin"; last = "Milner"}
+
+# let { first; last } = robin;;
+val first : string = "Robin"
+val last : string = "Milner"
+```
+
+<!--Unit example-->
+A special case of combined definition and pattern matching involves the `unit` type:
+```ocaml
+# let () = print_endline "ha ha";;
+ha ha
+```
+
+**Note**: As explained in the [Tour of OCaml](/docs/tour-of-ocaml) tutorial, the `unit` type has a single value `()`, which is pronounced "unit."
+
+Above, the pattern does not contain any identifier, meaning no name is defined. The expression is evaluated, the side effect takes place (printing `ha ha` to standard output), no definition is created, and no value is returned. Writing that kind of pseudo-definition only expresses interest in the side effects.
+```ocaml
+# print_endline "ha ha";;
+ha ha
+- : unit = ()
+
+# let _ = print_endline  "ha ha";;
+ha ha
+- : unit = ()
+```
+
+<!-- `_` example-->
+As seen in the last example, the catch-all pattern (`_`) can be used in definitions. The following example illustrates its use, which is distinct from the `()` pattern:
+```ocaml
+# let (_, y) = List.split [(1, 2); (3, 4); (5, 6); (7, 8)];;
+val y : int list = [2; 4; 6; 8]
+```
+This construction creates two lists. The first is formed by the left element of each pair. The second is formed by the right element. Assuming we're only interested in the right elements, we give the name `y` to that list and discard the first by using `_`.
 
 ## Scopes and Environments
 
@@ -356,7 +348,6 @@ This is just like a Unix shell pipe.
 ## Anonymous Functions
 
 As citizens of the same level as other values, functions don't have to be bound to a name to exist (although some must, but this will be explained later). Take these examples:
-
 ```ocaml
 # fun x -> x;;
 - : 'a -> 'a = <fun>
@@ -413,8 +404,7 @@ Calling `sq` gets an error because it was only defined locally.
 
 ## Closures
 
-<!--FIXME: Now that we've moved the term to after the example, what can we put here as an introduction?-->
-
+This example illustrates a [*closure*](https://en.wikipedia.org/wiki/Closure_(computer_programming)) using [Same-Level Shadowing](#same-level-shadowing)
 ```ocaml
 # let j = 2 * 3;;
 val j : int = 6
@@ -431,8 +421,6 @@ val j : int = 7
 # k 7;; (* What is the result? *)
 - : int = 42
 ```
-
-This example illustrates a [*closure*](https://en.wikipedia.org/wiki/Closure_(computer_programming)) using [Same-Level Shadowing](#same-level-shadowing)
 
 Here is how this makes sense:
 1. Constant `j` is defined, and its value is 6.
