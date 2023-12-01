@@ -59,10 +59,6 @@ Hello!
 
 An expression's type (before evaluation) and its resulting value's type (after computation) are the same. This allows the compiler to avoid runtime type checks in binaries. In OCaml, the compiler removes type information, so it's not available at runtime. In programming theory, this is called [subject reduction](https://en.wikipedia.org/wiki/Subject_reduction).
 
-<!--B2 English
-In OCaml, an expression's type remains consistent from its initial declaration to its resulting computed value. This uniformity enables the compiler to skip runtime type checks within the program's binaries. In OCaml's case, the compiler eliminates type information, rendering it inaccessible during runtime. In programming theory, this principle is known as [subject reduction](https://en.wikipedia.org/wiki/Subject_reduction).
--->
-
 ## Global Definitions
 
 Every value can be named. This is the purpose of the `let … = … ` statement. The name is on the left; the expression is on the right.
@@ -239,12 +235,7 @@ Calling `pi` results in an error because it hasn't been added to the global envi
 
 A definition's scope is the set of environments where it is reachable.
 
-<!--B2 English
-Even though OCaml follows an expression-oriented approach, it still contains certain statements. The global 'let' statement is an example that modifies the global environment by creating a binding between a name and a value. This 'let' statement represents one of the few statements present in OCaml. Additionally, top-level expressions also operate similarly as they are essentially equivalent to 'let _ =' definitions, falling within the same category.
-((Some of these sentences are better, but they aren't always simpler!))
--->
-
-Although OCaml is an expression-oriented language, it still contains certain statements. The global `let` is an example that modifies the global environment by adding a name-value *binding*. In some sense, `let` is OCaml's only statement. Note that top-level expressions also fall into that category because they are equivalent to `let _ =` definitions.
+Although OCaml is an expression-oriented language, it still contains certain statements. For example, the global `let` modifies the global environment by adding a name-value *binding*. The `let` is one of OCaml's only statements. Top-level expressions also fall into the statement category because they are equivalent to `let _ =` definitions.
 ```ocaml
 # (1.0 +. sqrt 5.0) /. 2.0;;
 - : float = 1.6180339887498949
