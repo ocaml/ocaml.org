@@ -18,7 +18,7 @@ We use UTop to understand these concepts by example. You are encouraged to modif
 - The [Introduction to the OCaml Toplevel](https://ocaml.org/docs/toplevel-introduction) guide covers how to use UTop.
 - Ensure you have completed the [Get Started](https://ocaml.org/docs/installing-ocaml) series before proceeding with this tutorial.
 
-<!--
+<!-- FIXME: Are we keeping this or deleting it?
 When presenting OCaml or another functional programming language, it is often said: “Functions are treated as first-class citizens.” Without further explanation or context, this may not be helpful (it wasn't to me). The goal of this tutorial is to acquire the capabilities implied and entailed by that sentence. In turn, this should explain it:
 - Write all kinds of definitions, for all kinds of values, in all different ways
 - Accurately assess the scope of any definition
@@ -31,11 +31,7 @@ When presenting OCaml or another functional programming language, it is often sa
 
 ## What is a Value?
 
-<!--B2 English:
-Like most functional programming languages, OCaml follows an expression-oriented approach. This means programs are expressions. In fact, almost everything in OCaml is an expression. Unlike languages with statements that dictate actions performed on data, OCaml requires all operations to occur through evaluating expressions. Evaluating these expressions yields specific values. Below, you'll find various examples of expressions, along with their types and resulting values. Some involve computations, while others do not.
--->
-
-Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. In OCaml, there are no statements that specify actions to be taken on data. All computations must be through expression evaluation. Computing expressions produce values. Here are a few examples of expressions, their type, and the resulting values. Some include computation and some don't:
+Like most functional programming languages, OCaml is an [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) programming language. That means programs are expressions. Actually, almost everything is an expression. In OCaml, statements don't specify actions to be taken on data. All computations are made through expression evaluation. Computing expressions produce values. Below, you'll find a few examples of expressions, their types, and the resulting values. Some include computation and some do not:
 
 ```ocaml
 # "Every expression has a type";;
