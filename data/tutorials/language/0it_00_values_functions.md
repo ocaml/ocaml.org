@@ -103,6 +103,29 @@ val tree_map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 - : int tree = Node (1, [Node (4, []); Node (9, []); Node (16, [])])
 ```
 
+<!--FIXME: could something like this work? (From ChatGPT)
+```
+# type 'a option_value =
+  | Some of 'a
+  | None;;
+type 'a option_value = Some of 'a | None
+
+(* Define a function to create values using the variant *)
+# let create_value x = Some x;;
+val create_value : 'a -> 'a option_value = <fun>
+
+(* Test the function by creating values *)
+# let value1 = create_value 42;; (* Creating a value of type int *)
+val value1 : int option_value = Some 42
+
+(* Creating a value of type string *)
+# let value2 = create_value "Hello";; 
+val value2 : string option_value = Some "Hello"
+```
+
+With or without the comments in between
+-->
+
 **Note**: Above, `'a` means “any type.” It is called a *type parameter* and is pronounced like the Greek letter α (“alpha”). This type parameter will be replaced by a type. The same goes for `'b` ("beta"), `'c` ("gamma"), etc. Any letter preceded by a `'` is a type parameter, also known as a [type variable](https://en.wikipedia.org/wiki/Type_variable).
 
 Because records are implicitly single-constructor variants, this also applies to them:
