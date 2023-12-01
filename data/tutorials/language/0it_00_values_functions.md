@@ -390,7 +390,7 @@ Calling `sq` gets an error because it was only defined locally.
 
 ## Closures
 
-<!--Now that we've moved the term to after the example, what can we put here as an introduction?-->
+<!--FIXME: Now that we've moved the term to after the example, what can we put here as an introduction?-->
 
 ```ocaml
 # let j = 2 * 3;;
