@@ -279,7 +279,7 @@ As you learned in the [Tour of OCaml](/docs/tour-of-ocaml), bindings are immutab
 # let i = 21;;
 val i : int = 21
 
-# let i = 7 in i * 2;;
+# i
 - : int = 14
 
 # i;;
