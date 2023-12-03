@@ -20,7 +20,6 @@ isbn: "2-21213-678-1"
 links:
   - description: Buy on Amazon.fr
     uri: https://www.amazon.fr/Apprendre-programmer-avec-Ocaml-Algorithmes/dp/2212136781/
-featured: false
 difficulty: beginner
 pricing: paid
 ---

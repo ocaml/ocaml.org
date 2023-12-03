@@ -1,6 +1,6 @@
 ---
 title: Generate K-Regular Simple Graphs With N Nodes
-number: "90"
+slug: "90"
 difficulty: advanced
 tags: [ "graph" ]
 description: "Count the number of non-isomorphic 3-regular graphs with 6 nodes."

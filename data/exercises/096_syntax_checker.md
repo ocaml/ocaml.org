@@ -1,6 +1,6 @@
 ---
 title: Syntax Checker
-number: "96"
+slug: "96"
 difficulty: intermediate
 tags: []
 description: "Check whether a given string conforms to the syntax rules of a legal identifier in a programming language."

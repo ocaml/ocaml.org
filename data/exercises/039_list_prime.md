@@ -1,6 +1,6 @@
 ---
 title: A List of Prime Numbers
-number: "39"
+slug: "39"
 difficulty: beginner
 tags: [ "arithmetic" ]
 description: "Generate a list of all prime numbers within a specified range of integers."

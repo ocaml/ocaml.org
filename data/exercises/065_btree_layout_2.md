@@ -1,6 +1,6 @@
 ---
 title: Layout a Binary Tree (2)
-number: "65"
+slug: "65"
 difficulty: intermediate
 tags: [ "binary-tree" ]
 description: "Arrange nodes in a binary tree according to specific rules, assigning positions to each node."

@@ -11,7 +11,6 @@ language:
 links:
   - description: Order at Epubit.com
     uri: https://www.epubit.com/bookDetails?id=N18159
-featured: false
 difficulty: beginner
 pricing: paid
 ---

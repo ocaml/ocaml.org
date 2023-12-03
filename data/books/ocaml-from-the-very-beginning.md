@@ -5,7 +5,8 @@ description: >
   In "OCaml from the Very Beginning" John Whitington takes a
   no-prerequisites approach to teaching a modern general-purpose
   programming language.
-recommendation: "Suitable for formal use within an academic curriculum, and for the interested amateur."
+recommendation: >
+  John Whitington's "OCaml from the Very Beginning" is a beginner-friendly guide to learning OCaml, a modern programming language. The book gradually introduces concepts in concise chapters, with exercises and answers. It's suitable for both novice and experienced programmers, and can be used in academic settings or for self-study.
 authors:
   - John Whitington
 published: 2013-06-07 
@@ -17,8 +18,6 @@ links:
     uri: https://ocaml-book.com/
   - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/0957671105
-rating: 4
-featured: true
 difficulty : beginner
 pricing: free
 ---

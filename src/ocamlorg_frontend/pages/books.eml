@@ -1,37 +1,36 @@
-let render_books books =
-    <div class="overflow-x-scroll lg:overflow-hidden mt-5">
-        <% books |> List.iter (fun (item : Data.Book.t) -> %>
-        <div
-            class="flex space-y-10 pt-6 lg:space-y-0 lg:space-x-16 pb-10 mt-4 flex-col lg:flex-row">
+let render_book (item: Data.Book.t) =
+    let difficulty = 
+        match item.difficulty with
+        | Data.Book.Beginner -> Learn_components.Beginner
+        | Intermediate -> Intermediate
+        | Advanced -> Advanced
+    in
+    <div
+            class="flex gap-10 pt-6 lg:gap-y-0 lg:gap-x-10 pb-10 mt-4 flex-col lg:flex-row">
             <div class="flex flex-col gap-y-4">
-                <div class="relative w-64 sm:w-72 lg:w-64 max-w-full space-y-5">
-                     <%s! if item.pricing = "free" then Learn_components.pricing_tag else "" %>
-                     <img src="<%s Ocamlorg_static.Media.url item.cover %>"
-                        class="w-full border z-10"
-                        alt="">
-                     <%s! Learn_components.skill_tag item.difficulty "w-full" %>
+                <div class="relative w-full sm:w-72 lg:w-64 max-w-full">
+                     <%s! Learn_components.book_cover ~free:(item.pricing = "free") item.cover %>
+                    <div class="mt-5 px-3 py-1 <%s Learn_components.color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white tracking-widest leading-5">
+                        <%s Learn_components.string_from_difficulty difficulty %>
+                    </div>
                 </div>
                 
             </div>
-            <div class="flex-col flex-1">
-                <h4 class="font-bold text-2xl mb-6"><%s item.title %></h4>
-                <div class="font-normal text-base mb-6 uppercase"><%s item.authors |> String.concat ", " %></div>
-                <div class="prose prose-md prose-orange mb-6 md:prose-lg"><%s! item.body_html %></div>
+            <div class="flex-col flex-1 prose prose-lg">
+                <h2 class="font-normal text-2xl mb-6"><%s item.title %></h2>
+                <div class="font-normal text-text_content text-lg mb-6"><%s item.authors |> String.concat ", " %></div>
+                <div class="prose prose-lg prose-orange mb-6"><%s! item.body_html %></div>
                 <div class="flex gap-x-5 gap-y-4 flex-col sm:flex-row">
                     <% item.links |> List.iter (fun (link : Data.Book.link) -> %>
                         <div>
-                            <a class="btn bg-learn-area-orange" href="<%s link.uri %>">
+                            <a class="btn" href="<%s link.uri %>">
                                 <span><%s link.description %></span>
-                                <%s! Icons.chevron_right "h-4 w-4" %>
                             </a>
                         </div>
                     <% ); %>
                 </div>
             </div>
         </div>
-        <% ); %>
-    </div>
-
 
 let render
 ?(difficulty = "All")
@@ -42,12 +41,12 @@ Learn_layout.single_column_layout
 ~title:"OCaml Books"
 ~description:"A selection of books to learn the OCaml programming language."
 ~canonical:Url.books
-~active_top_nav_item:Header.Learn 
+~active_top_nav_item:Header.Learn
 ~current:Books @@
-<div class="bg-default dark:bg-dark-default">
+<div class="bg-legacy-default dark:bg-legacy-dark-default">
     <div class="container-fluid pt-10">
-        <div class="prose mb-6">
-            <h1>Books On OCaml (<%s string_of_int (List.length books) %>)</h2>
+        <div class="prose mb-10">
+            <h1 class="font-normal text-4xl">Books On OCaml (<%s string_of_int (List.length books) %>)</h2>
         </div>
         <form action="<%s Url.books %>" method="GET">
             <div class="flex mb-0 flex-col gap-4 sm:flex-row">
@@ -68,11 +67,13 @@ Learn_layout.single_column_layout
                     "w-48 rounded-sm" %>
             </div>
         </form>
-        <div>
-        <%s! render_books books %>
+        <div class="overflow-x-scroll lg:overflow-hidden mt-5">
+            <% books |> List.iter (fun (item : Data.Book.t) -> %>
+            <%s! render_book item %>
+            <% ); %>
         </div>
-        <div class="prose max-w-none">
+        <div class="prose">
             If you want to add a new book, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-book" target="_blank">Contributing Guide</a> on GitHub.     
-</div>
+        </div>
     </div>
 </div>

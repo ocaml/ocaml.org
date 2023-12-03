@@ -1,6 +1,6 @@
 ---
 title: Determine Whether a Given Integer Number Is Prime
-number: "31"
+slug: "31"
 difficulty: intermediate
 tags: [ "arithmetic" ]
 description: "Check if a given integer is a prime number."

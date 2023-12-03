@@ -54,7 +54,7 @@ and what makes it unique." @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-20 mt-16">
         <% teams |> List.iter (fun (team : Data.Governance.team) -> %>
-        <%s! render_team_card team "maintainers" "btn-tertiary" %>
+        <%s! render_team_card team "maintainers" "btn-legacy-tertiary" %>
         <% );%>
       </div>
     </div>
@@ -86,7 +86,7 @@ and what makes it unique." @@
         The <a href="<%s Url.governance_policy %>">OCaml Governance Policy</a> does not apply to them. Participation is welcome and encouraged.</div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-20 mt-16">
         <% working_groups |> List.iter (fun (wg : Data.Governance.team) -> %>
-        <%s! render_team_card wg "organiser(s)" "btn-secondary" %>
+        <%s! render_team_card wg "organiser(s)" "btn-ghost" %>
         <% ); %>
       </div>
     </div>

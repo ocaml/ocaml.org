@@ -8,7 +8,7 @@ Layout.render
     <div class="mx-auto px-4 sm:px-6">
       <div class="lg:grid lg:grid-cols-12 lg:gap-8">
         <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-8 lg:text-left">
-          <div class="flex justify-start space-x-3 items-center text-primary-600 hover:underline font-semibold mb-4 h-12">
+          <div class="flex justify-start space-x-3 items-center text-primary hover:underline font-semibold mb-4 h-12">
             <%s! Icons.arrow_left "h-5 w-5" %>
             <a href="<%s Url.industrial_users %>" class="hover:underline">Back to Success Stories</a>
           </div>
@@ -26,7 +26,7 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-default dark:bg-dark-default">
+<div class="bg-legacy-default dark:bg-legacy-dark-default">
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
             <div class="prose lg:prose-lg mx-auto max-w-5xl">

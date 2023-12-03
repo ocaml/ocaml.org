@@ -1,6 +1,6 @@
 ---
 title: Crossword Puzzle
-number: "99"
+slug: "99"
 difficulty: advanced
 tags: []
 description: "Fill in the crossword puzzle according to the given framework and word list."
