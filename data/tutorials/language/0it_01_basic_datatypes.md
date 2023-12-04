@@ -103,8 +103,8 @@ Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`
 
 Values of type `char` correspond to the 256 symbols of the Latin-1 set. Character literals are surrounded by single quotes, as shown below:
 ```ocaml
-# 'a';;
-- : char = 'a'
+# 'd';;
+- : char = 'd'
 ```
 Operations on `char` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Char`](/api/Char.html) modules.
 
@@ -184,14 +184,14 @@ Arrays are mutable, meaning they can't be extended or shortened, but each elemen
 # let letter = [| 'v'; 'x'; 'y'; 'z' |];;
 val letter : char array = [|'v'; 'x'; 'y'; 'z'|]
 
-# letter.(2) <- 'A';;
+# letter.(2) <- 'F';;
 - : unit = ()
 
 # letter;;
-- : char array = [|'v'; 'x'; 'A'; 'z'|]
+- : char array = [|'v'; 'x'; 'F'; 'z'|]
 ```
 
-The left-arrow `<-` is the array update operator. Above, it means the cell at index 2 is set to value `'A'`. It is the same as writing `Array.set letter 2 'A'`. Array update is a side effect, and the unit value is returned.
+The left-arrow `<-` is the array update operator. Above, it means the cell at index 2 is set to value `'F'`. It is the same as writing `Array.set letter 2 'F'`. Array update is a side effect, and the unit value is returned.
 
 Operations on arrays are provided by the [`Array`](/api/Array.html) module. There is a dedicated tutorial on [Arrays](/docs/arrays).
 
@@ -296,24 +296,26 @@ This generalises to tuples with 3 or more elements. For instance, `(6.28, true, 
 
 The predefined function `fst` returns the first element of a pair, while `snd` returns the second element of a pair.
 ```ocaml
-# fst (3, 'a');;
+# fst (3, 'g');;
 - : int = 3
 
-# snd (3, 'a');;
-- : char = 'a'
+# snd (3, 'g');;
+- : char = 'g'
 ```
 
 In the standard library, both are defined using pattern matching. Here is how a function extracts the third element of the product of four types:
 ```ocaml
-# let f x = match x with (a, b, c, d) -> c;;
+# let f x = match x with (h, i, j, k) -> j;;
 val f : 'a * 'b * 'c * 'd -> 'c = <fun>
 ```
 
-Note that types `int * char * bool`, `int * (char * bool)`, and `(int * char) * bool` are not the same. The values `(42, 'a', true)`, `(42, ('a', true))`, and `((42, 'a'), true)` are not equal. In mathematical language, the product type operator `*` is not _associative_.
+Note that types `int * char * bool`, `int * (char * bool)`, and `(int * char) * bool` are not the same. The values `(42, 'h', true)`, `(42, ('h', true))`, and `((42, 'h'), true)` are not equal. In mathematical language, the product type operator `*` is not _associative_.
+
+<!--FIXME :: Please ensure this is still correct. In trying to keep examples away from a, b, c (so as not to be confused with `a, `b, `c), I thought it was particularly important here because the user might need to see that any letter/value/char will result in `a, `b, `c, `d in this case. In other words, h, i, j, k won't turn into `h, `i, `j, `k. -->
 
 ### Functions
 
-The type of functions from type `a` to type `b` is written `a -> b`. Here are a few examples:
+The type of functions from type `m` to type `n` is written `m -> n`. Here are a few examples:
 ```ocaml
 # fun x -> x * x;;
 - : int -> int = <fun>
@@ -373,10 +375,10 @@ Exceptions are discussed in the [Error Handling](/docs/error-handling) guide.
 
 Functions may have several parameters.
 ```ocaml
-# fun a b -> a ^ " " ^ b;;
+# fun s r -> s ^ " " ^ r;;
 - : string -> string -> string = <fun>
 
-# let mean a b = (a + b) / 2;;
+# let mean s r = (s + r) / 2;;
 val mean : int -> int -> int = <fun>
 ```
 
