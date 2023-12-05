@@ -150,6 +150,7 @@ Like strings, byte sequences are finite and fixed-sized. Each individual byte is
 
 Operations on `bytes` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bytes`](/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. Unlike arrays, there is no direct access operator on byte sequences. 
 
+The memory representation of `bytes` is four times more compact that `char array`.
 ### Arrays & Lists
 
 #### Arrays
