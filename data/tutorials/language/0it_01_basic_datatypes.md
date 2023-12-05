@@ -24,9 +24,7 @@ You will learn about atomic types, such as integers and Booleans; predefined com
 -->
 
 <!--More scannable-->
-This course covers various types: 
-- Atomic types, such as integers and Booleans
-- Predefined compound types, like strings and lists
+This course covers: atomic types, such as integers and Booleans; predefined compound types, like strings and lists; and user-defined types, namely variants and records.
 - User-defined types, namely variants and records
 
 The goal is to teach skills on how to handle data from predefined, variant, and record types. Additionally, you will be introduced to the important concept of pattern matching on those types.
