@@ -26,7 +26,7 @@ You will learn about atomic types, such as integers and Booleans; predefined com
 <!--More scannable-->
 This course covers: atomic types, such as integers and Booleans; predefined compound types, like strings and lists; and user-defined types, namely variants and records.
 
-The goal is to teach skills on how to handle data from predefined, variant, and record types. Additionally, you will be introduced to the important concept of pattern matching on those types.
+Additionally, you will be introduced to the important concept of pattern matching on those types.
 <!--End edit-->
 
 **Prerequisites**: Before proceeding, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions). As in previous tutorials, expressions after `#` and ending with `;;` are for the toplevel, like UTop.
