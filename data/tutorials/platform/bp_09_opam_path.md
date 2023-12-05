@@ -2,7 +2,7 @@
 id: "opam-path"
 title: "Running Commands in an Opam Switch"
 description: |
-  How to use commands provided by Apam in a switch
+  How to use commands installed in an Opam switch
 category: "Best Practices"
 ---
 
