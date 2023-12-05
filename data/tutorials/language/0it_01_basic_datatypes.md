@@ -12,7 +12,6 @@ category: "Introduction"
 
 In OCaml, there are no type checks at runtime, and values don't change type unless explicitly converted. This is what being statically- and strongly-typed means. This allows convenient and safe processing of structured data. 
 
-This tutorial introduces basic data types in OCaml. _Variants_ and _products_ represent data in OCaml. These correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although OCaml has other type systems, this document focuses on data typed using this algorithm.
 
 <!-- It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs while being easy to use and unobtrusive. Thanks to type inference, programs can be written without type annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
 
@@ -24,15 +23,15 @@ You will learn about atomic types, such as integers and Booleans; predefined com
 -->
 
 <!--More scannable-->
-This course covers various types: 
+The goal is to teach skills on how to handle:
 - Atomic types, such as integers and Booleans
 - Predefined compound types, like strings and lists
 - User-defined types, namely variants and records
-
-The goal is to teach skills on how to handle data from predefined, variant, and record types. Additionally, you will be introduced to the important concept of pattern matching on those types.
+ 
+Additionally, you will be introduced to the important concept of pattern matching on those types.
 <!--End edit-->
 
-Before proceeding, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions). As in previous tutorials, expressions after `#` and ending with `;;` are for the toplevel, like UTop.
+**Prerequisites**: Before proceeding, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions). As in previous tutorials, expressions after `#` and ending with `;;` are for the toplevel, like UTop.
 
 <!--
 The goal of this tutorial is to provide for the following capabilities:
