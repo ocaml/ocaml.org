@@ -538,6 +538,7 @@ We need to pass an inspected expression to the `match … with …` construct. T
 # type t =
   | C1 of int * bool
   | C2 of (int * bool);;
+type t = C1 of int * bool | C2 of (int * bool)
 
 # let p = (4, false);;
 val p : int * bool = (4, false)
