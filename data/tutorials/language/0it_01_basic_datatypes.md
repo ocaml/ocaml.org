@@ -146,7 +146,7 @@ Moved intro pp to after example, as it contains the definition. Perhaps a short 
 # String.to_bytes "hello";;
 - : bytes = Bytes.of_string "hello"
 ```
-Byte sequences are finite and fixed-sized. Each individual byte is represented by a `char` value. Byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence (type `bytes`) is a mutable string that can't be printed. There is no way to write `bytes` literally, so they must be produced by a function.
+Like strings, byte sequences are finite and fixed-sized. Each individual byte is represented by a `char` value. Like arrays, byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence (type `bytes`) is a mutable string that can't be printed. There is no way to write `bytes` literally, so they must be produced by a function.
 
 Operations on `bytes` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bytes`](/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. There is no direct access operator on byte sequences.
 
