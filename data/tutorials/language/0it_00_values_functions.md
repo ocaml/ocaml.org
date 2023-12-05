@@ -10,7 +10,7 @@ category: "Introduction"
 
 ## Introduction
 
-In OCaml, functions are treated as values, so you can use functions as arguments to functions and return them from functions. This tutorial introduces the relationship between expressions, values, and names. The first four sections of this tutorial address non-function values. The following sections, starting at [Function as Values](#function-as-values), address functions.
+In OCaml, functions are treated as values, so you can use functions as arguments to functions and return them from functions. This tutorial introduces the relationship between expressions, values, and names. The first four sections address non-function values. The following sections, starting at [Function as Values](#function-as-values), address functions.
 
 We use UTop to understand these concepts by example. You are encouraged to modify the examples to gain a better understanding. 
 
