@@ -546,7 +546,7 @@ Error: The constructor C1 expects 2 argument(s),
        but is applied here to 1 argument(s)
 
 # C2 p;;
-- : C2 = C2 (4, false)
+- : t = C2 (4, false)
 ```
 
 The constructor `C1` has two parameters of type `int` and `bool`, whilst the constructor `C2` has a single parameter of type `int * bool`.
