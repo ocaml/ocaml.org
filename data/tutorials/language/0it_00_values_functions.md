@@ -135,34 +135,13 @@ In both examples, `d` and `e` are local definitions.
 <!-- FIXME: review & revise this entire section :: Sabine -->
 
 <!--the example illustrates tuples::-->
+
 When a variant type has a single constructor, it is possible to combine pattern matching and definitions. The pattern is written between the `let` keyword and the equal sign. A very common case is pairs. It allows the creation of two names with a single `let`.
 ```ocaml
 # let (x, y) = List.split [(1, 2); (3, 4); (5, 6); (7, 8)];;
 val x : int list = [1; 3; 5; 7]
 val y : int list = [2; 4; 6; 8]
 ```
-
-<!-- user-defined single constructor variant example -->
-<!-- FIXME: create an example nested pattern matching -->
-This works for any single constructor variant. Here is a type named `tree` with a variable number of branches:
-```ocaml
-# type 'a tree = Node of 'a * 'a tree list;;
-type 'a tree = Node of 'a * 'a tree list
-
-# let t = Node (1, [Node (2, []); Node (3, []); Node (4, [])]);;
-val t : int tree = Node (1, [Node (2, []); Node (3, []); Node (4, [])])
-
-# let rec tree_map f (Node (x, u)) = Node (f x, List.map (tree_map f) u);;
-val tree_map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
-
-# tree_map (fun x -> x * x) t;;
-- : int tree = Node (1, [Node (4, []); Node (9, []); Node (16, [])])
-```
-
-
-
-**Note**: Above, `'a` means “any type.” It is called a *type parameter* and is pronounced like the Greek letter α (“alpha”). This type parameter will be replaced by a type. The same goes for `'b` ("beta"), `'c` ("gamma"), etc. Any letter preceded by a `'` is a type parameter, also known as a [type variable](https://en.wikipedia.org/wiki/Type_variable).
-
 
 <!--Records examples-->
 Because records are implicitly single-constructor variants, this also applies to them:
@@ -196,6 +175,17 @@ ha ha
 # let _ = print_endline  "ha ha";;
 ha ha
 - : unit = ()
+```
+
+<!-- user-defined single constructor variant example -->
+<!-- FIXME: create an example nested pattern matching -->
+This also works with user-defined types.
+```ocaml
+# type live_person = int * name;;
+type live_person = int * name
+
+# let age ((years, _) : live_person) = years
+val age : live_person -> int = <fun>
 ```
 
 <!-- `_` example-->
