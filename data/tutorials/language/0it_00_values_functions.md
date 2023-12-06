@@ -184,7 +184,7 @@ This also works with user-defined types.
 # type live_person = int * name;;
 type live_person = int * name
 
-# let age ((years, _) : live_person) = years
+# let age ((years, _) : live_person) = years;;
 val age : live_person -> int = <fun>
 ```
 
