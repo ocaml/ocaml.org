@@ -1,43 +1,43 @@
 ---
 id: "opam-path"
-title: "Running Commands in an Opam Switch"
+title: "Running Commands in an opam Switch"
 description: |
-  How to use commands installed in an Opam switch
+  How to use commands installed in an opam switch
 category: "Best Practices"
 ---
 
-Opam is a package manager for OCaml that facilitates the installation and management of OCaml libraries and tools. When working with Opam, it's essential to understand how to run commands within a specific Opam switch. In this tutorial, we'll explore three methods: `opam env`, `opam exec`, and `direnv`.
+Opam is a package manager for OCaml that facilitates the installation and management of OCaml libraries and tools. When working with opam, it's essential to understand how to run commands within a specific opam switch. In this tutorial, we'll explore three methods: `opam env`, `opam exec`, and `direnv`.
 
 ## Using `opam env`
 
-The `opam env` command is used to set environment variables for a specific Opam switch. This method is useful for configuring your shell environment to work with a particular Opam switch.
+The `opam env` command is used to set environment variables for a specific opam switch. This method is useful for configuring your shell environment to work with a particular opam switch.
 
 Usage:
 ```bash
 $ eval $(opam env)
 ```
 
-This command evaluates the output of opam env and sets the necessary environment variables for the currently active switch. After running this command, you'll have access to the packages installed in the Opam switch.
+This command evaluates the output of opam env and sets the necessary environment variables for the currently active switch. After running this command, you'll have access to the packages installed in the opam switch.
 
 ## Using `opam exec`
-The opam exec command allows you to run a command in the context of a specific Opam switch without modifying your shell environment.
+The opam exec command allows you to run a command in the context of a specific opam switch without modifying your shell environment.
 
 Usage:
 ```bash
 $ opam exec -- <command>
 ```
-Replace `<command>` with the actual command you want to run. This ensures that the command is executed within the Opam switch's environment.
+Replace `<command>` with the actual command you want to run. This ensures that the command is executed within the opam switch's environment.
 
 Example:
 ```bash
 $ opam exec -- ocaml
 ```
 
-This will launch the version of the OCaml REPL within the context of the current Opam switch.
+This will launch the version of the OCaml REPL within the context of the current opam switch.
 
 ## Using `direnv`
 
-[Direnv](https://direnv.net/) is a tool (written in [Go](https://go.dev/)) that allows you to set environment variables based on your current directory. It is especially useful for managing Opam switches and automating the setup of project-specific environments.
+[Direnv](https://direnv.net/) is a tool (written in [Go](https://go.dev/)) that allows you to set environment variables based on your current directory. It is especially useful for managing opam switches and automating the setup of project-specific environments.
 
 1. Install `direnv`
 
@@ -51,9 +51,9 @@ $ eval $(direnv hook <shell>)
 ```
 Replace `<shell>` with your actual shell type (`bash`, `zsh`, `fish`, etc.).
 
-3. Configure Opam with `direnv`
+3. Configure opam with `direnv`
 
-In your OCaml project directory, create a file named `.envrc` and add the following line to automatically load the Opam environment:
+In your OCaml project directory, create a file named `.envrc` and add the following line to automatically load the opam environment:
 ```bash
 eval $(opam env)
 ```
@@ -65,19 +65,19 @@ Navigate to your project directory and run the following command to allow `diren
 $ direnv allow
 ```
 
-This command activates `direnv` for the current directory, ensuring that the Opam switch environment is loaded whenever you enter the directory.
+This command activates `direnv` for the current directory, ensuring that the opam switch environment is loaded whenever you enter the directory.
 
 5. Usage
 
-Now, whenever you navigate to your OCaml project directory, `direnv` will automatically activate the Opam switch environment specified in your `.envrc` file. This eliminates the need to manually run `opam env` each time you work on your project.
+Now, whenever you navigate to your OCaml project directory, `direnv` will automatically activate the opam switch environment specified in your `.envrc` file. This eliminates the need to manually run `opam env` each time you work on your project.
 
 6. Example
 
-Suppose you have an OCaml project in folder `disco` and local Opam switch is associated to it, and a `.envrc` file in that folder containing the following:
+Suppose you have an OCaml project in folder `disco` and local opam switch is associated to it, and a `.envrc` file in that folder containing the following:
 ```bash
 eval $(opam env)
 ```
-After running `direnv allow`, `direnv` will handle the Opam switch activation for you whenever you.
+After running `direnv allow`, `direnv` will handle the opam switch activation for you whenever you.
 
 7. Messages from `direnv`
 
@@ -95,4 +95,4 @@ direnv: loading ~/.envrc
 direnv: export ~PATH
 ```
 
-By using `direnv` in conjunction with Opam, you can streamline your development workflow, ensuring that the correct Opam switch is automatically set up whenever you work on a specific project.
+By using `direnv` in conjunction with opam, you can streamline your development workflow, ensuring that the correct opam switch is automatically set up whenever you work on a specific project.
