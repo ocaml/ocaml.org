@@ -747,26 +747,44 @@ let package_overview t kind req =
       };
     ]
   in
+  let* readme =
+    match sidebar_data.readme_filename with
+    | Some path ->
+        let* maybe_readme =
+          Ocamlorg_package.file ~kind package (path ^ ".html")
+        in
+        Lwt.return
+          (Option.map
+             (fun (readme : Ocamlorg_package.Documentation.t) -> readme.content)
+             maybe_readme)
+    | None -> Lwt.return None
+  in
   let toc =
     Ocamlorg_frontend.Toc.
-      { title = "Description"; href = "#description"; children = [] }
-    :: (deps_and_conflicts
-       |> List.map
-            (fun
-              (section :
-                Ocamlorg_frontend.Package_overview.dependencies_and_conflicts)
-            ->
-              Ocamlorg_frontend.Toc.
-                {
-                  title = section.title;
-                  href = "#" ^ section.slug;
-                  children = [];
-                }))
+      [ { title = "Description"; href = "#description"; children = [] } ]
+    @ (match readme with
+      | None -> []
+      | Some _ ->
+          [
+            Ocamlorg_frontend.Toc.
+              { title = "Readme"; href = "#readme"; children = [] };
+          ])
+    @ (deps_and_conflicts
+      |> List.map
+           (fun
+             (section :
+               Ocamlorg_frontend.Package_overview.dependencies_and_conflicts)
+           ->
+             Ocamlorg_frontend.Toc.
+               {
+                 title = section.title;
+                 href = "#" ^ section.slug;
+                 children = [];
+               }))
   in
   Dream.html
-    (Ocamlorg_frontend.package_overview ~sidebar_data ~content:""
-       ~search_index_digest ~content_title:None ~toc ~deps_and_conflicts
-       frontend_package)
+    (Ocamlorg_frontend.package_overview ~sidebar_data ~readme
+       ~search_index_digest ~toc ~deps_and_conflicts frontend_package)
 
 let package_documentation t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
@@ -930,9 +948,8 @@ let package_file t kind req =
   let content = doc.content in
   let toc = Package_helper.frontend_toc doc.toc in
   Dream.html
-    (Ocamlorg_frontend.package_overview ~sidebar_data ~content
-       ~search_index_digest ~content_title:(Some path) ~toc
-       ~deps_and_conflicts:[] frontend_package)
+    (Ocamlorg_frontend.package_overview_file ~sidebar_data ~content
+       ~search_index_digest ~content_title:path ~toc frontend_package)
 
 let package_search_index t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
