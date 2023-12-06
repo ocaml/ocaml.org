@@ -109,14 +109,22 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
   | Intermediate -> intermediate_section_icon
   | Advanced -> advanced_section_icon
   in
+  let first_link = List.hd book.links in
   block_container ~icon:(icon_for_difficulty book.difficulty) ~title:"RECOMMENDED BOOK" ~heading:book.title @@
     <div class="mt-6 grid grid-cols-2 gap-6 pt-6">
-      <%s! book_cover ~free:(book.pricing = "free") book.cover %>
+      <a href="<%s first_link.uri %>" target="_blank">
+        <%s! book_cover ~free:(book.pricing = "free") book.cover %>
+      </a>
       <div class="">
         <%s! skill_tag (match book.difficulty with | Data.Book.Beginner -> Beginner | Intermediate -> Intermediate | Advanced -> Advanced) %>
         <% (match book.recommendation with None -> () | Some recommendation -> %>
         <p class="mt-2 text-gray-700 text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
         <% ); %>
+        <div class="pt-4">
+        <% book.links |> List.iter (fun (link: Data.Book.link) -> %>
+          <a href="<%s link.uri %>" class="flex gap-2 text-primary hover:underline items-center leading-8" target="_blank"><%s link.description %> <%s! Icons.link "h-4 w-4" %></a>
+        <% ); %>
+        </div>
       </div>
     </div>
     <a href="<%s link.href %>" class="pt-4 text-primary hover:underline items-center leading-10">
