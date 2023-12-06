@@ -17,7 +17,7 @@ Hopefully it will not become worse. Anyway, if you want more details,
 you should read the [documentation](/api/index.html) about each of the modules, or the OCaml [source code](https://github.com/ocaml/ocaml/tree/trunk/stdlib). Often, it
 is also instructive to read the corresponding implementation.
 
-## Lists: immutable singly-linked lists
+## Lists: Immutable singly-linked lists
 Adding an element always creates a new list _l_ from an element _x_ and list
 _tl_. _tl_ remains unchanged, but it is not copied either.
 
@@ -26,11 +26,11 @@ _tl_. _tl_ remains unchanged, but it is not copied either.
 * accessing cell `i`: _O(i)_
 * finding an element: _O(n)_
 
-Well-suited for: IO, pattern-matching
+Well-suited for: I/O, pattern-matching
 
 Not very efficient for: random access, indexed elements
 
-## Arrays: mutable vectors
+## Arrays: Mutable Vectors
 Arrays are mutable data structures with a fixed length and random access.
 
 * "adding" an element (by creating a new array): _O(n)_
@@ -41,10 +41,10 @@ Arrays are mutable data structures with a fixed length and random access.
 Well-suited for sets of elements of known size, access by numeric index,
 in-place modification. Basic arrays have a fixed length.
 
-## Strings: immutable vectors
-Strings are very similar to arrays but are immutable. Strings are
-specialized for storing chars (bytes) and have some convenient syntax.
-Strings have a fixed length. For extensible strings, the standard Buffer
+## Strings: Immutable Vectors
+Strings are very similar to arrays, but the are immutable. Strings are
+specialised for storing chars (bytes) and have some convenient syntax.
+Strings have a fixed length. For extensible strings, the standard buffer
 module can be used (see below).
 
 * "adding" an element (by creating a new string): _O(n)_
@@ -52,19 +52,19 @@ module can be used (see below).
 * accessing character `i`: _O(1)_
 * finding an element: _O(n)_
 
-## Set and Map: immutable trees
-Like lists, these are immutable and they may share some subtrees. They
+## Set and Map: Immutable Trees
+Like lists, these are immutable, and they may share some subtrees. These trees
 are a good solution for keeping older versions of sets of items.
 
 * "adding" an element: _O(log n)_
 * returning the number of elements: _O(n)_
 * finding an element: _O(log n)_
 
-Sets and maps are very useful in compilation and meta-programming, but
-in other situations hash tables are often more appropriate (see below).
+Sets and maps are very useful in compilation and metaprogramming, but
+in other situations, hash tables are often more appropriate (see below).
 
-## Hashtbl: automatically growing hash tables
-Ocaml hash tables are mutable data structures, which are a good solution
+## Hashtbl: Automatically Growing Hash Tables
+OCaml hash tables are mutable data structures, which are a good solution
 for storing (key, data) pairs in one single place.
 
 * adding an element: _O(1)_ if the initial size of the table is larger
@@ -74,8 +74,8 @@ for storing (key, data) pairs in one single place.
 * returning the number of elements: _O(1)_
 * finding an element: _O(1)_
 
-## Buffer: extensible strings
-Buffers provide an efficient way to accumulate a sequence of bytes in a
+## Buffer: Extensible Strings
+Buffers provide an efficient way to accumulate a byte sequence in a
 single place. They are mutable.
 
 * adding a char: _O(1)_ if the buffer is big enough, or _O(log n)_ on
@@ -94,7 +94,7 @@ OCaml queues are mutable first-in-first-out (FIFO) data structures.
 
 ## Stack
 OCaml stacks are mutable last-in-first-out (LIFO) data structures. They
-are just like lists, except that they are mutable, i.e. adding an
+are just like lists except they are mutable, i.e., adding an
 element doesn't create a new stack but simply adds it to the stack.
 
 * adding an element: _O(1)_
