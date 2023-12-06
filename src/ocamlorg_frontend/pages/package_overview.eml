@@ -134,48 +134,113 @@ let right_sidebar
 
 let render
 ~(sidebar_data: sidebar_data)
-~content
-~content_title
+~readme
 ~toc
 ~(deps_and_conflicts: dependencies_and_conflicts list)
 (package : Package.package) =
-let render_dependency ~name ~cstr ~version =
-  <li class="flex m-0 space-x-3 py-2 pr-4 hover:bg-gray-100 border-b border-gray-200">
-    <a href="<%s Url.Package.overview name ?version %>" class="text-primary hover:underline">
-      <%s name %>
-    </a>
-    <% match cstr with None -> () | Some cstr -> %>
-      <code class="text-gray-700 font-medium"><%s cstr %></code>
-    <% ; %>
-  </li>
-in
-let num_of_dependencies_to_show = 100 in
-let render_collapsible_dependencies section =
-  let is_collapsible = section.collapsible && List.length section.items > num_of_dependencies_to_show in
-  <div <%s! if is_collapsible then "x-data='{ open: false }'" else "" %>>
-    <div class="border-l-4 border-l-[#575959] border-b-2 border-t-2 border-r-2 rounded border-transparent px-4 -ml-4 mb-6 mt-12">
-      <h2 id="<%s section.slug %>" class="text-xl font-medium my-2">
+  let render_dependency ~name ~cstr ~version =
+    <li class="flex m-0 space-x-3 py-2 pr-4 hover:bg-gray-100 border-b border-gray-200">
+      <a href="<%s Url.Package.overview name ?version %>" class="text-primary hover:underline">
+        <%s name %>
+      </a>
+      <% match cstr with None -> () | Some cstr -> %>
+        <code class="text-gray-700 font-medium"><%s cstr %></code>
+      <% ; %>
+    </li>
+  in
+  let num_of_dependencies_to_show = 100 in
+  let render_collapsible_dependencies section =
+    let is_collapsible = section.collapsible && List.length section.items > num_of_dependencies_to_show in
+    <div <%s! if is_collapsible then "x-data='{ open: false }'" else "" %>>
+      <div class="border-l-4 border-l-[#575959] border-b-2 border-t-2 border-r-2 rounded border-transparent px-4 -ml-4 mb-6 mt-12">
+        <h2 id="<%s section.slug %>" class="text-xl font-medium my-2">
+          <% if is_collapsible then (%>
+          <button class="flex gap-2 items-center" x-on:click="open = !open; $dispatch('resize')"><%s section.title %>
+            <span title="expand" x-show="!open"><%s! Icons.chevron_right "h-5 w-5" %></span><span title="collapse" x-show="open"><%s! Icons.chevron_down "h-5 w-5" %></span>
+          </button>
+          <% ) else ( %>
+          <%s section.title %>
+          <% ); %>
+        </h2>
+      </div>
+      <% if List.length section.items = 0 then ( %> None <% ) else ( %>
+        <ol class="grid lg:grid-cols-2 gap-4" <%s! if is_collapsible then "x-show='open'" else "" %>>
+          <% section.items |> List.iter (fun { name; cstr; version } -> %>
+          <%s! render_dependency ~name ~cstr ~version %>
+          <% ); %>
+        </ol>
         <% if is_collapsible then (%>
-        <button class="flex gap-2 items-center" x-on:click="open = !open; $dispatch('resize')"><%s section.title %>
-          <span title="expand" x-show="!open"><%s! Icons.chevron_right "h-5 w-5" %></span><span title="collapse" x-show="open"><%s! Icons.chevron_down "h-5 w-5" %></span>
-        </button>
-        <% ) else ( %>
-        <%s section.title %>
-        <% ); %>
-      </h2>
+        <button class="text-primary py-4" x-on:click="open = !open; $dispatch('resize')" x-show="open">Hide</button>
+        <% ) else (); %>
+      <% ); %>
     </div>
-    <% if List.length section.items = 0 then ( %> None <% ) else ( %>
-      <ol class="grid lg:grid-cols-2 gap-4" <%s! if is_collapsible then "x-show='open'" else "" %>>
-        <% section.items |> List.iter (fun { name; cstr; version } -> %>
-        <%s! render_dependency ~name ~cstr ~version %>
+  in
+  let version = Package.url_version package in
+  let specific_version = Package.specific_version package in
+  Package_layout.render
+  ~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
+  ~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.synopsis)
+  ~canonical:(Url.Package.overview package.name ~version:specific_version)
+  ~package
+  ~documentation_status:sidebar_data.documentation_status
+  ~path:(Overview None)
+  ~left_sidebar_html:(sidebar ~sidebar_data ~specific_version ~version package)
+  ~right_sidebar_html:(right_sidebar ~toc) @@
+  <div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
+      <div class="flex-1 max-w-full">
+        <div class="p-4 max-w-full border-2 border-l-4 border-gray-200 border-l-primary rounded rounded-r-lg">
+          <h2 id="description" class="mb-4 mt-0 text-xl font-semibold uppercase">Description</h2>
+          <div class="prose">
+            <%s! package.description %>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3 mt-4">
+          <% (match package.tags with [] -> () | _ ->  %>
+            <h2 class="text-base font-semibold text-legacy-lighter">Tags</h2>
+            <% package.tags |> List.iter (fun tag -> %>
+            <a href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
+              class="hover:underline px-2 text-primary border border-primary font-medium bg-legacy-primary-100 rounded">
+              <%s tag %>
+            </a>
+            <% ); %>
+          <% ); %>
+          <div class="flex-grow"></div>
+          <h2 class="font-semibold text-base text-legacy-lighter">Published:
+            <span class="font-normal"><%s Utils.human_date_of_timestamp package.publication %></span>
+          </h2>
+        </div>
+
+        <% (match readme with | None -> () | Some content -> %>
+        <div class="border-l-2 border-gray-200 px-4 space-y-6">
+          <div class="mx-[-2px]">
+            <div class="border-l-4 border-l-[#575959] border-b-2 border-t-2 border-r-2 rounded border-transparent px-4 -ml-4 mb-6 mt-12">
+              <h2 id="readme" class="text-xl font-medium my-2">README</h2>
+            </div>
+            <div class="prose max-w-full">
+              <%s! content %>
+            </div>
+          </div>
+        </div>
         <% ); %>
-      </ol>
-      <% if is_collapsible then (%>
-      <button class="text-primary py-4" x-on:click="open = !open; $dispatch('resize')" x-show="open">Hide</button>
-      <% ) else (); %>
-    <% ); %>
+
+        <div class="border-l-2 border-gray-200 px-4 space-y-6">
+          <div class="mx-[-2px]">
+            <% deps_and_conflicts |> List.iter (fun section -> %>
+              <%s! render_collapsible_dependencies section %>
+            <% ); %>
+          </div>
+        </div>
+      </div>
   </div>
-in
+
+let render_file
+~(sidebar_data: sidebar_data)
+~(content : string)
+~(content_title : string)
+~toc
+(package : Package.package)
+=
 let version = Package.url_version package in
 let specific_version = Package.specific_version package in
 Package_layout.render
@@ -184,53 +249,20 @@ Package_layout.render
 ~canonical:(Url.Package.overview package.name ~version:specific_version)
 ~package
 ~documentation_status:sidebar_data.documentation_status
-~path:(Overview content_title)
+~path:(Overview (Some content_title))
 ~left_sidebar_html:(sidebar ~sidebar_data ~specific_version ~version package)
 ~right_sidebar_html:(right_sidebar ~toc) @@
-<div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
-    <div class="flex-1 max-w-full">
-      <% (match content_title with | None -> %>
-      <div class="p-4 max-w-full border-2 border-l-4 border-gray-200 border-l-primary rounded rounded-r-lg">
-        <h2 id="description" class="mb-4 mt-0 text-xl font-semibold uppercase">Description</h2>
-        <div class="prose">
-          <%s! package.description %>
-        </div>
-      </div>
-
-      <div class="flex flex-wrap gap-3 mt-4">
-        <% (match package.tags with [] -> () | _ ->  %>
-          <h2 class="text-base font-semibold text-legacy-lighter">Tags</h2>
-          <% package.tags |> List.iter (fun tag -> %>
-          <a href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
-            class="hover:underline px-2 text-primary border border-primary font-medium bg-legacy-primary-100 rounded">
-            <%s tag %>
-          </a>
-          <% ); %>
-        <% ); %>
-        <div class="flex-grow"></div>
-        <h2 class="font-semibold text-base text-legacy-lighter">Published:
-          <span class="font-normal"><%s Utils.human_date_of_timestamp package.publication %></span>
-        </h2>
-      </div>
-
-      <div class="border-l-2 border-gray-200 px-4 space-y-6">
-        <div class="mx-[-2px]">
-          <% deps_and_conflicts |> List.iter (fun section -> %>
-            <%s! render_collapsible_dependencies section %>
-          <% ); %>
-        </div>
-      </div>
-      <% | Some content_title -> %>
-      <div class="border-l-2 border-gray-200 px-4 space-y-6">
-        <div class="mx-[-2px]">
-          <div class="border-l-4 px-4 -ml-4 mb-6 mt-12 border-transparent border-l-body-400 rounded border-t-2 border-b-2 border-r-2">
-            <h2 id="content" class="text-xl font-medium my-2"><%s content_title %></h2>
-          </div>
-          <div class="prose max-w-full">
-            <%s! content %>
+  <div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
+      <div class="flex-1 max-w-full">
+        <div class="border-l-2 border-gray-200 px-4 space-y-6">
+          <div class="mx-[-2px]">
+            <div class="border-l-4 px-4 -ml-4 mb-6 mt-12 border-transparent border-l-body-400 rounded border-t-2 border-b-2 border-r-2">
+              <h2 id="content" class="text-xl font-medium my-2"><%s content_title %></h2>
+            </div>
+            <div class="prose max-w-full">
+              <%s! content %>
+            </div>
           </div>
         </div>
       </div>
-      <% ); %>
-    </div>
-</div>
+  </div>
