@@ -1,7 +1,7 @@
 ---
 title: Rethinking OCaml abstract signatures
 description:
-url: http://cambium.inria.fr/blog/rethinking-ocaml-abstract-signautres
+url: http://gallium.inria.fr/blog/rethinking-ocaml-abstract-signatures
 date: 2023-12-01T08:00:00-00:00
 preview_image:
 featured:
