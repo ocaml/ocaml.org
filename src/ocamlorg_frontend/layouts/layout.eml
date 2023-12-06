@@ -99,6 +99,10 @@ inner =
               document.getElementById("scrollToTop").style.display = "none";
             }
           }
+
+           document.documentElement.classList.add('dark');
+        
+
       </script>
     </body>
   </html>

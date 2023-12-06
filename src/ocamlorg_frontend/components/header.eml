@@ -12,7 +12,7 @@ let menu_link
 ?(_class="")
 ()
 =
-  <a href="<%s href %>" class="font-semibold py-3 mg:py-4 px-1 lg:px-3 <%s _class %> <%s if active then "text-primary underline" else "text-legacy-lighter" %> hover:text-primary"><%s title %></a>
+  <a href="<%s href %>" class="font-normal py-3 mg:py-4 px-1 lg:px-3 hover:text-primary<%s _class %> <%s if active then "text-primary dark:text-dark-primary underline" else "text-text_title dark:text-dark-text" %>"><%s title %></a>
 
 
 let render
@@ -28,7 +28,7 @@ let search_dropdown () =
   </a>
 in
 <header
-  class="h-20 flex items-center bg-legacy-mild-contrast dark:bg-legacy-dark-mild-contrast"
+  class="h-20 flex items-center bg-background_secondary_light_orange dark:bg-dark-background_jumping_section"
   x-data="{ open: false }">
   <nav class="container-fluid wide header flex justify-between items-center gap-5 xl:gap-8">
     <ul class="order-0 space space-x-5 xl:space-x-8 items-center flex text-legacy-lighter font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
@@ -64,7 +64,7 @@ in
     </ul>
     <% if show_get_started then (%>
     <ul class="order-3 hidden lg:flex items-center">
-      <li><a href="<%s Url.getting_started %>" class="btn btn-ghost h-10 px-4">Get Started</a></li>
+      <li><a href="<%s Url.getting_started %>" class="border border-primary dark:border-dark-primary text-primary dark:text-dark-primary font-bold py-2.5 px-7 whitespace-nowrap rounded">Get Started</a></li>
     </ul>
     <% ); %>
     <ul class="order-1 lg:hidden flex items-center">

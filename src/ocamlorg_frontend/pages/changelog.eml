@@ -10,7 +10,7 @@ Layout.render
         <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-zinc-800">
           OCaml Changelog
         </h1>
-        <a href="/changelog.xml" class="text-legacy-lighter hover:text-gray-500 ml-4 lg:ml-6">
+        <a href="/changelog.xml" class="text-text_content dark:text-dark-text_title hover:text-tertiary_25 dark:hover:text-dark-primary ml-4 lg:ml-6">
           <span class="sr-only">RSS</span>
           <%s! Icons.rss "h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" %>
         </a>

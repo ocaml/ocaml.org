@@ -1,9 +1,9 @@
 type difficulty = Beginner | Intermediate | Advanced
 
 let color_for_difficulty = function
-  | Beginner -> "bg-secondary"
-  | Intermediate -> "bg-[#3882B7]"
-  | Advanced -> "bg-primary"
+  | Beginner -> "bg-secondary dark:bg-dark-secondary"
+  | Intermediate -> "bg-tertiary dark:bg-dark-tertiary_lighter"
+  | Advanced -> "bg-primary dark:bg-dark-primary"
 
 let string_from_difficulty = function
   | Beginner -> "Beginner"
@@ -11,13 +11,13 @@ let string_from_difficulty = function
   | Advanced -> "Advanced"
 
 let skill_tag difficulty =
-  <div class="px-3 inline-block <%s color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white tracking-widest">
+  <div class="px-3 inline-block <%s color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white dark:text-dark-text_title tracking-widest">
     <%s string_from_difficulty difficulty %>
   </div>
 
 let beginner_section_icon =
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="10" cy="10" r="10" fill="#2B7866"/>
+    <circle cx="10" cy="10" r="10" fill="#3882B7"/>
   </svg>
 
 let intermediate_section_icon =
@@ -27,9 +27,8 @@ let intermediate_section_icon =
 
 let advanced_section_icon =
   <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M11.268 1.5C12.0378 0.166665 13.9622 0.166667 14.7321 1.5L25.1244 19.5C25.8942 20.8333 24.9319 22.5 23.3923 22.5H2.60769C1.06809 22.5 0.105844 20.8333 0.875645 19.5L11.268 1.5Z" fill="#D54000"/>
+    <path d="M11.268 1.5C12.0378 0.166665 13.9622 0.166667 14.7321 1.5L25.1244 19.5C25.8942 20.8333 24.9319 22.5 23.3923 22.5H2.60769C1.06809 22.5 0.105844 20.8333 0.875645 19.5L11.268 1.5Z" class="fill-[#D54000]"/>
   </svg>
-
 let little_down_arrow_icon =
   <svg width="18" height="32" viewBox="0 0 18 32" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M13 16.6L9 20.6M9 20.6L5 16.6M9 20.6V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -46,7 +45,7 @@ let command_line_icon class_ =
   </svg>
 
 let hero_button ~left_icon ~right_icon ~text ~href =
-  <a href="<%s href %>" class="group whitespace-nowrap flex p-3 gap-2 items-center bg-white hover:bg-primary hover:text-white drop-shadow hover:drop-shadow-xl border-primary border-2 rounded-lg px-4 text-text_title">
+  <a href="<%s href %>" class="group whitespace-nowrap flex p-3 gap-2 items-center bg-white dark:bg-dark-background_light hover:bg-primary hover:text-white drop-shadow hover:drop-shadow-xl border-primary border-2 rounded-lg px-4 text-text_title dark:text-dark-text_title">
     <span class="group-hover:text-white text-primary"><%s! left_icon %></span>
     <span class="flex-grow"><%s text %></span>
     <%s! right_icon %>
@@ -55,14 +54,14 @@ let hero_button ~left_icon ~right_icon ~text ~href =
 type link = {href : string; title : string}
 
 let block_heading ~icon ~title ~heading =
-  <div class="pt-4 text-text_content text-sm font-medium leading-7 tracking-widest flex gap-2 items-center">
+  <div class="pt-4 text-text_content dark:text-grey_navigation  text-sm font-medium leading-7 tracking-widest flex gap-2 items-center">
     <%s! icon %>
     <%s title %>
   </div>
-  <h2 class="mt-2 text-text_title text-2xl font-bold leading-7"><%s heading %></h2>
+  <h2 class="mt-2 text-text_title text-2xl font-bold leading-7 dark:text-dark-text_title"><%s heading %></h2>
 
 let block_container ~icon ~title ~heading inner_html =
-  <div class="bg-legacy-default">
+  <div class="bg-white dark:bg-dark-background_light">
     <div class="max-w-sm md:max-w-full md:w-[32rem] flex flex-col">
       <%s! block_heading ~icon ~title ~heading %>
       <%s! inner_html %>
@@ -71,19 +70,19 @@ let block_container ~icon ~title ~heading inner_html =
 
 let tutorial_block ~icon ~title ~heading ~description ~(tutorial_links: link list) ~see_more  =
   block_container ~icon ~title ~heading @@
-  <div class="mt-4 text-text_content text-base font-normal leading-7 max-w-prose"> <%s description %> </div>
+  <div class="mt-4 text-text_content dark:text-grey_navigation text-base font-normal leading-7 max-w-prose"> <%s description %> </div>
   <ul class="flex flex-col gap-4 mt-5">
     <% tutorial_links |> List.iter (fun link -> %>
     <li class="w-full">
       <a href="<%s link.href %>" class="bg-white text-text_title hover:bg-primary hover:text-white drop-shadow hover:drop-shadow-xl flex gap-2 border-primary border-2 rounded-lg p-2.5 text-md font-bold">
-        <span class="flex-grow"><%s link.title  %></span>
+        <span class="flex-grow text-text_title dark:text-text_title"><%s link.title  %></span>
 
         <%s! Icons.arrow_right_circle "w-6 h-6" %>
       </a>
     </li>
     <% ); %>
   </ul>
-  <a href="<%s see_more.href %>" class="mt-4 text-primary hover:underline items-center leading-10">
+  <a href="<%s see_more.href %>" class="mt-4 text-primary dark:text-dark-text_title hover:underline items-center leading-10">
     <%s see_more.title %>
   </a>
 
@@ -115,11 +114,11 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
       <div class="">
         <%s! skill_tag (match book.difficulty with | Data.Book.Beginner -> Beginner | Intermediate -> Intermediate | Advanced -> Advanced) %>
         <% (match book.recommendation with None -> () | Some recommendation -> %>
-        <p class="mt-2 text-gray-700 text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
+        <p class="mt-2 text-text_content dark:text-grey_navigation text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
         <% ); %>
       </div>
     </div>
-    <a href="<%s link.href %>" class="pt-4 text-primary hover:underline items-center leading-10">
+    <a href="<%s link.href %>" class="pt-4 text-primary dark:text-dark-text_title hover:underline items-center leading-10">
       <%s link.title %>
     </a>
 
@@ -153,7 +152,7 @@ let exercise_card (exercise: Data.Exercise.t) =
   </a>
 
 let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
-  <div class="bg-legacy-default flex flex-col">
+  <div class="bg-white dark:bg-dark-background_light flex flex-col">
     <div class="max-w-sm md:max-w-full lg:w-full flex flex-col">
       <%s! block_heading ~icon ~title:"EXERCISES" ~heading %>
       <div class="mt-6 grid gap-6 md:gap-10 md:grid-cols-2 lg:grid-cols-4">
@@ -162,7 +161,7 @@ let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
         <% ); %>
       </div>
     </div>
-    <a href="<%s Url.exercises %>" class="pt-4 text-primary hover:underline items-center leading-10">
+    <a href="<%s Url.exercises %>" class="pt-4 text-primary dark:text-dark-text_title hover:underline items-center leading-10">
       View all Exercises
     </a>
   </div>
@@ -173,10 +172,10 @@ let tool_card ~img_src ~title ~text ~url =
       <img src="<%s! Ocamlorg_static.Asset.url img_src %>" alt="">
       <%s title %>
     </h3>
-    <p class="text-text_content py-6">
+    <p class="text-text_content dark:text-dark-grey_navigation py-6">
       <%s text %>
     </p>
-    <div class="flex gap-2 items-center text-sm text-primary group-hover:underline">
+    <div class="flex gap-2 items-center text-sm text-primary dark:text-dark-text_title group-hover:underline">
       Get Started
       <%s! Icons.arrow_right_circle "h-5 w-5" %></div>
   </a>

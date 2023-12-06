@@ -8,12 +8,12 @@ Learn_layout.single_column_layout
 ~canonical:Url.learn
 ~active_top_nav_item:Header.Learn
 ~current:Overview @@
-  <div class="w-full border-b bg-[#DDEAFC] md:bg-[length:100%_100%] md:bg-transparent md:bg-[url('/img/learn/hero-background.svg')]">
-    <div class="container-fluid py-24 md:flex md:gap-20 bg-left-bottom bg-no-repeat md:bg-[url('/img/learn/hero-camel.svg')]">
+  <div class="w-full border-b bg-md-[#DDEAFC] md:bg-[length:100%_100%] dark:md:bg-[#101B3F] md:bg-[url('/img/learn/hero-background.svg')] dark:md:bg-[url('/img/learn/dark-hero-background.svg')] dark:md:bg-no-repeat dark:md:[background-position-y:126px]">
+    <div class="container-fluid py-24 md:flex md:gap-20 bg-left-bottom bg-no-repeat md:bg-[url('/img/learn/hero-camel.svg')] dark:md:bg-[url('/img/learn/dark-hero-camel.svg')]">
       <div class="md:flex-grow">
-        <h1 class="text-text_title tracking-wider">Explore the OCaml Documentation</h1>
+        <h1 class="text-text_title dark:text-dark-text_title tracking-wider">Explore the OCaml Documentation</h1>
 
-        <div class="text-text_content my-6 max-w-md">
+        <div class="text-text_content dark:text-grey_navigation my-6 max-w-md">
           You can explore the OCaml documentation, Platform Tools, guides, exercises, and books to enhance your knowledge.
         </div>
       </div>
@@ -22,21 +22,21 @@ Learn_layout.single_column_layout
         <%s!  Learn_components.hero_button ~left_icon:(Icons.ocaml "w-5 h-5") ~right_icon:(Icons.download "w-5 h-5") ~text:("Install OCaml " ^ latest_version) ~href:(Url.install) %>
         <div class="flex flex-col gap-4">
           <%s!  Learn_components.hero_button ~left_icon:(Icons.book "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("Standard Library API") ~href:(Url.api) %>
-          <div class="text-sm text-text_title">
+          <div class="text-sm text-text_content dark:text-grey_navigation">
             The index of types, exceptions, values, modules, and module types of the OCaml Standard Library
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="container-fluid">
+  <div class="container-fluid bg:white dark:bg-dark-background_jumping_section">
     <div class="hidden md:grid md:gap-6 md:grid-cols-3">
-      <a href="#beginner_section" class="py-3 lg:py-6 flex items-center gap-2 text-tertiary font-bold hover:underline">
+      <a href="#beginner_section" class="py-3 lg:py-6 flex items-center gap-2 text-secondary font-bold hover:underline">
         <%s! Learn_components.beginner_section_icon %>
         <span class="hidden lg:inline">Jump to</span> Beginner Section
         <%s! Learn_components.little_down_arrow_icon %>
       </a>
-      <a href="#intermediate_section" class="py-3 lg:py-6 flex items-center gap-2 text-[#3882B7] font-bold hover:underline">
+      <a href="#intermediate_section" class="py-3 lg:py-6 flex items-center gap-2 text-tertiary font-bold hover:underline">
         <%s! Learn_components.intermediate_section_icon %>
         <span class="hidden lg:inline">Jump to</span> Intermediate Section
         <%s! Learn_components.little_down_arrow_icon %>
@@ -46,11 +46,12 @@ Learn_layout.single_column_layout
         <span class="hidden lg:inline">Jump to</span> Advanced Section
         <%s! Learn_components.little_down_arrow_icon %>
       </a>
-    </div>
-
+      </div>
+  </div>
+  <div class="container-fluid">
     <h2 id="beginner_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
       <span class="text-tertiary font-bold">FOUNDATIONS</span>
-      FOR BEGINNERS
+      <span class="dark:text-dark-text">FOR BEGINNERS</span>
     </h2>
 
     <div class="grid gap-6 mt-6 md:grid-cols-2">
@@ -76,7 +77,7 @@ Learn_layout.single_column_layout
               %>
     </div>
 
-    <div class="border-t my-6"></div>
+    <div class="border-t border-separator_30 dark:border-dark-separator_30 my-6"></div>
 
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
       <%s! Learn_components.book_recommendation
@@ -87,7 +88,7 @@ Learn_layout.single_column_layout
         ~link:{href = Url.books; title = "See More Books"} %>
     </div>
 
-    <div class="border-t my-6"></div>
+    <div class="border-t border-separator_30 dark:border-dark-separator_30 my-6"></div>
 
     <div class="mt-6 mb-10">
       <%s! Learn_components.exercises_block
@@ -145,7 +146,7 @@ Learn_layout.single_column_layout
           %>
     </div>
 
-    <div class="border-t my-6"></div>
+    <div class="border-t border-separator_30 dark:border-dark-separator_30  my-6"></div>
 
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
       <%s! Learn_components.book_recommendation
@@ -156,7 +157,7 @@ Learn_layout.single_column_layout
         ~link:{href = Url.books; title = "See More Books"} %>
     </div>
 
-    <div class="border-t my-6"></div>
+    <div class="border-t border-separator_30 dark:border-dark-separator_30  my-6"></div>
 
     <div class="my-6">
       <%s! Learn_components.exercises_block
@@ -172,8 +173,8 @@ Learn_layout.single_column_layout
     <%s! Learn_components.lang_manual_banner %>
 
     <h2 id="advanced_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
-      <span class="text-primary font-bold">ELEVATED</span>
-      EXPERTISE
+      <span class="text-primary dark:text-text-primary font-bold">ELEVATED</span>
+      <span class="text_title dark:text-dark-text_title">EXPERTISE</span>
     </h2>
 
     <div class="grid gap-6 mt-6 lg:grid-cols-2">

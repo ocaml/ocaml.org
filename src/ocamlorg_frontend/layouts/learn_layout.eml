@@ -41,7 +41,7 @@ let tabs
           <%s section_to_string option %>
         </option> 
     in
-    <nav aria-label="breadcrumbs" class="px-4 flex text-white bg-legacy-text-title md:hidden">
+    <nav aria-label="breadcrumbs" class="px-4 flex text-white dark:text-text-title bg-text-title md:hidden">
       <ul>
         <li class="inline-block"> 
             <a href="<%s url_of_current Overview %>" class="flex items-center px-2 py-2 border-transparent border-2 border-b-4"> Learn 
@@ -146,7 +146,7 @@ inner_html
   ~canonical
   ?active_top_nav_item @@
   <%s! tabs ~current %>
-  <div class="bg-legacy-default dark:bg-legacy-dark-default">
+  <div class="bg-white dark:bg-dark-background_light">
     <div class="flex-1 z-0 z- min-w-0 pb-12">
       <%s! inner_html %>
     </div>
