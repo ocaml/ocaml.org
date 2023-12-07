@@ -46,7 +46,7 @@ In this chapter, we'll cover the following topics:
 The details of the remainder of the compilation process, which gets
 all the way to executable code comes next, in [The Compiler Backend:
 Byte Code And Native
-Code](/docs/compiler-backend#the-compiler-backend-byte-code-and-native-code){data-type=xref}.
+Code](/docs/compiler-backend#the-compiler-backend-byte-code-and-native-code).
 
 ## An Overview of the Toolchain
 
@@ -141,7 +141,7 @@ be useful to you during day-to-day OCaml development.
 When a source file is passed to the OCaml compiler, its first task is to
 parse the text into a more structured abstract syntax tree (AST). The parsing
 logic is implemented in OCaml itself using the techniques described in
-[Parsing With Ocamllex And Menhir](https://dev.realworldocaml.org/parsing-with-ocamllex-and-menhir.html#parsing-with-ocamllex-and-menhir){data-type=xref}.
+[Parsing With Ocamllex And Menhir](https://dev.realworldocaml.org/parsing-with-ocamllex-and-menhir.html#parsing-with-ocamllex-and-menhir).
 The lexer and parser rules can be found in the `parsing` directory in the
 source distribution.
 
@@ -254,7 +254,7 @@ options to control the output for the various backends. Refer to the
 for the complete list.
 
 You can also use `odoc` to generate complete snapshots of your project via
-integration with dune, as described in ["Generating Documentation"](/docs/generating-documentation){data-type=xref}.
+integration with dune, as described in ["Generating Documentation"](/docs/generating-documentation).
 
 ## Preprocessing with ppx
 
@@ -366,7 +366,7 @@ val exit_with : program_result -> int = <fun>
 ### Commonly Used Extension Attributes
 
 We have already used extension points in [Data Serialization With S
-Expressions](https://dev.realworldocaml.org/data-serialization.html#data-serialization-with-s-expressions){data-type=xref}
+Expressions](https://dev.realworldocaml.org/data-serialization.html#data-serialization-with-s-expressions)
 to generate boilerplate code for handling s-expressions.  These are
 introduced by a third-party library using the `(preprocess)` directive
 in a dune file, for example:
@@ -539,7 +539,7 @@ the implementation to native code.
 </div>
 
 
-### Type Inference {#type-inference-1}
+### Type Inference <a name="type-inference-1"></a>
 
 Type inference is the process of determining the appropriate types for
 expressions based on their use. It's a feature that's partially present in
@@ -832,11 +832,11 @@ clean source tree.
 The OCaml module system enables smaller components to be reused effectively
 in large projects while still retaining all the benefits of static type
 safety. We covered the basics of using modules earlier in
-[Files Modules And Programs](https://dev.realworldocaml.org/files-modules-and-programs.html#files-modules-and-programs){data-type=xref}.
+[Files Modules And Programs](https://dev.realworldocaml.org/files-modules-and-programs.html#files-modules-and-programs).
 The module language that operates over these signatures also extends to
 functors and first-class modules, described in
-[Functors](https://dev.realworldocaml.org/functors.html#functors){data-type=xref} and
-[First Class Modules](https://dev.realworldocaml.org/first-class-modules.html#first-class-modules){data-type=xref},
+[Functors](https://dev.realworldocaml.org/functors.html#functors) and
+[First Class Modules](https://dev.realworldocaml.org/first-class-modules.html#first-class-modules),
 respectively.
 
 This section discusses how the compiler implements them in more detail.
@@ -1139,7 +1139,7 @@ The `cmt` files are particularly useful for IDE tools to match up OCaml
 source code at a specific location to the inferred or external types.
 For example, the `merlin` and `ocaml-lsp-server` opam packages both use
 this information to provide you with tooltips and docstrings within your
-editor, as described in [OCaml Platform](/docs/set-up-editor){data-type=xref}.
+editor, as described in [OCaml Platform](/docs/set-up-editor).
 
 ### Examining the Typed Syntax Tree Directly
 
@@ -1259,4 +1259,4 @@ You'll rarely need to look at this raw output from the compiler unless you're
 building IDE tools, or are hacking on extensions to the
 core compiler itself. However, it's useful to know that this intermediate
 form exists before we delve further into the code generation process next, in
-[The Compiler Backend: Byte Code And Native Code](/docs/compiler-backend#the-compiler-backend-byte-code-and-native-code){data-type=xref}.
+[The Compiler Backend: Byte Code And Native Code](/docs/compiler-backend#the-compiler-backend-byte-code-and-native-code).

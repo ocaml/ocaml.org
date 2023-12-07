@@ -59,15 +59,15 @@ cost via "Just-in-Time" dynamic patching, but OCaml prefers runtime
 simplicity instead.
 
 We'll explain this compilation pipeline in more detail in
-[The Compiler Frontend: Parsing And Type Checking](/docs/compiler-frontend){data-type=xref}
+[The Compiler Frontend: Parsing And Type Checking](/docs/compiler-frontend)
 and
-[The Compiler Backend: Byte Code And Native Code](/docs/compiler-backend){data-type=xref}.
+[The Compiler Backend: Byte Code And Native Code](/docs/compiler-backend).
 -->
 
 <!---->
 We'll cover how these values are
 managed by the runtime later on in
-[Understanding The Garbage Collector](/docs/garbage-collector){data-type=xref}.
+[Understanding The Garbage Collector](/docs/garbage-collector).
 
 ## OCaml Blocks and Values
 
@@ -97,7 +97,7 @@ needs to be able to distinguish between integer and pointer values, since it
 scans pointers to find further values but doesn't follow integers that don't
 point to anything meaningful beyond their immediate value.
 
-### Distinguishing Integers and Pointers at Runtime {#distinguishing-integer-and-pointers-at-runtime}
+### Distinguishing Integers and Pointers at Runtime <a name="distinguishing-integer-and-pointers-at-runtime"></a>
 
 Wrapping primitive types (such as integers) inside another data
 structure that records extra metadata about the value is known as
@@ -186,7 +186,7 @@ MB on that architecture. If you need bigger strings, either switch to a
 The 2-bit `color` field is used by the GC to keep track of its state during
 mark-and-sweep collection.
 We'll come back to this field in
-[Understanding The Garbage Collector](/docs/garbage-collector){data-type=xref}.
+[Understanding The Garbage Collector](/docs/garbage-collector).
 This tag isn't exposed to OCaml source code in any case.
 
 A block's tag byte is multipurpose, and indicates whether the data array
@@ -406,7 +406,7 @@ variants without parameters is the size of the native integer (either 31 or
 63 bits). This limit arises because of the size of the tag byte, and that
 some of the high-numbered tags are reserved.
 
-## Polymorphic Variants {#polymorphic-variants-1}
+## Polymorphic Variants <a name="polymorphic-variants-1"></a>
 
 <!-- FIXME: reference polymorphic variants tutorial from OCaml.org -->
 Polymorphic variants are more flexible than normal variants when writing code
@@ -529,7 +529,7 @@ comparison, hashing and binary marshaling. They also optionally contain a
 *finalizer* that the runtime calls just before the block is
 garbage-collected. This finalizer has nothing to do with ordinary OCaml
 finalizers (as created by `Gc.finalize` and explained in
-[Understanding The Garbage Collector](/docs/garbage-collector){data-type=xref}).
+[Understanding The Garbage Collector](/docs/garbage-collector)).
 They are instead used to call C cleanup functions such as `free`.
 
 ### Managing External Memory with Bigarray

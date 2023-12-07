@@ -23,7 +23,7 @@ This is an adaptation of the chapter [Understanding the Garbage Collector](https
 *This chapter includes contributions from Stephen Weeks and Sadiq Jaffer.*
 
 We've described the runtime format of individual OCaml variables earlier, in
-[Memory Representation Of Values](/docs/runtime-memory-layoutl#memory-representation-of-values){data-type=xref}.
+[Memory Representation Of Values](/docs/runtime-memory-layoutl#memory-representation-of-values).
 When you execute your program, OCaml manages the lifecycle of these variables
 by regularly scanning allocated values and freeing them when they're no
 longer needed. This in turn means that your applications don't need to
@@ -455,7 +455,7 @@ allocation patterns that are causing a higher-than-usual rate of compactions:
 - : unit = ()
 ```
 
-### Intergenerational Pointers {#inter-generational-pointers}
+### Intergenerational Pointers <a name="inter-generational-pointers"></a>
 
 One complexity of generational collection arises from the fact that minor
 heap sweeps are much more frequent than major heap collections. In order to
@@ -611,7 +611,7 @@ registering finalizers in the `Core.Gc.Expert` module. Finalizers
 can run at any time in any thread, so they can be pretty hard to reason
 about in multi-threaded contexts.
 Async, which we discussed in [Concurrent Programming with
-Async](https://dev.realworldocaml.org/concurrent-programming.html#concurrent-programming-with-async){data-type=xref},
+Async](https://dev.realworldocaml.org/concurrent-programming.html#concurrent-programming-with-async),
 shadows the `Gc` module with its own module that contains a function,
 `Gc.add_finalizer`, which is concurrency-safe.  In particular,
 finalizers are scheduled in their own Async job, and care is taken by
