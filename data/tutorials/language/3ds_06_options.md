@@ -64,7 +64,7 @@ Using pattern matching, it is possible to define functions, allowing users to ea
 val map : ('a -> 'b) -> 'a option -> 'b option = <fun>
 ```
 
-`map` takes two parameters: the function `f` to be applied and an option value. `map f o` returns `Some (f v)` if `o` is `Some v` and `None` if `o` is `None`.
+`map` takes two parameters: the function `f` to be applied and an option value. `map f o` returns `Some (f v)` if `o` is `Some v`, and `None` if `o` is `None`.
 
 In the standard library, this is `Option.map`.
 
@@ -93,7 +93,7 @@ The function `get` of type `'a option -> 'a` allows access to the value containe
   | None -> raise (Invalid_argument "option is None");;
 val get : 'a option -> 'a = <fun>
 ```
-But beware, `get o` throws an exception if `o` is `None`. To access the content of an `option` without risking to raise an exception, the function `value` of type `'a option -> 'a -> 'a` can be used
+But beware, `get o` throws an exception if `o` is `None`. To access the content of an `option` without the risk of raising an exception, the function `value` of type `'a option -> 'a -> 'a` can be used:
 ```ocaml
 # let value default = function
   | Some v -> v
@@ -116,7 +116,7 @@ The function `fold` of type `fold : ('a -> 'b) -> 'b -> 'a option -> 'b` combine
 val fold : ('a -> 'b) -> 'b -> 'a option -> 'b = <fun>
 ```
 
-The `fold` function can be used to implement a fall-back logic without writing pattern matching. For instance, here is a function that turns the contents of the `$PATH` environment variable into a list of strings, or the empty list if undefined. This version is using pattern matching.
+The `fold` function can be used to implement a fall-back logic without writing pattern matching. For instance, here is a function that turns the contents of the `$PATH` environment variable into a list of strings, or the empty list if undefined. This version is using pattern matching:
 ```ocaml
 # let path () =
     let opt = Sys.getenv_opt "PATH" in
@@ -126,7 +126,7 @@ The `fold` function can be used to implement a fall-back logic without writing p
 val path : unit -> string list = <fun>
 ```
 
-This versions calls `fold`.
+This versions calls `fold`:
 ```ocaml
 # let path () = Sys.getenv_opt "PATH" |> fold (String.split_on_char ':') [];;
 val path : unit -> string list = <fun>
@@ -140,7 +140,7 @@ In the standard library, this function is defined using labelled arguments:
 
 ### Unfold an Option
 
-To build a function going the other way round, which creates an `option` one can define `unfold` of type `('a -> bool) -> ('a -> 'b) -> 'a -> 'b option` the following way:
+To build a function going the other way round, which creates an `option`, one can define `unfold` of type `('a -> bool) -> ('a -> 'b) -> 'a -> 'b option` the following way:
 ```ocaml
 # let unfold p f x =
     if p x then
