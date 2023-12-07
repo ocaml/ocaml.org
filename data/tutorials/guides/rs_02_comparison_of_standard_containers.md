@@ -38,8 +38,7 @@ Arrays are mutable data structures with a fixed length and random access.
 * accessing cell `i`: _O(1)_
 * finding an element: _O(n)_
 
-Well-suited for sets of elements of known size, access by numeric index,
-in-place modification. Basic arrays have a fixed length.
+Well-suited for the following cases: dealing with sets of elements of known size, accessing elements by numeric index, and in-place element modification. Basic arrays have a fixed length.
 
 ## Strings: Immutable Vectors
 Strings are very similar to arrays, but the are immutable. Strings are
