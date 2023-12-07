@@ -1,0 +1,40 @@
+let render
+~current_tutorial
+~tutorials
+~(section: Learn_layout.section)
+=
+  let render_tutorial_link ~title ~slug ~tag =
+    Learn_layout.sidebar_link ~title ~href:(Url.tutorial slug) ~current:(current_tutorial = Some (slug)) ~tag
+  in
+  let render_tutorial (tutorial : Data.Tutorial.t) = render_tutorial_link ~title:tutorial.title ~slug:tutorial.slug ~tag:(Option.map (fun (t : Data.Tutorial.external_tutorial) -> t.tag) tutorial.external_tutorial) in
+  let tutorial_sidebar_links_by_category category =
+    tutorials |> List.filter (fun (x : Data.Tutorial.t) -> x.category = category) |> List.map render_tutorial |> String.concat "\n"
+  in
+  let categories =
+    let unique lst =
+      let rec unique' acc = function
+        | [] -> List.rev acc
+        | h::t -> unique' (if List.mem h acc then acc else h :: acc) t
+      in
+      unique' [] lst
+    in
+    tutorials |> List.map (fun (tutorial : Data.Tutorial.t) -> tutorial.category) |> unique
+  in
+  <% if section = Platform then ( %>
+  <%s! Learn_layout.sidebar_link_group "Platform"
+    (tutorial_sidebar_links_by_category "platform")
+    ~extra_html:(
+      (render_tutorial_link ~title:"Overview" ~slug:"platform" ~tag:None)) %>
+  <% ); %>
+
+  <% categories |> List.iter (fun category -> %>
+    <%s! Learn_layout.sidebar_link_group category
+      (tutorial_sidebar_links_by_category category) %>
+  <% ); %>
+
+  <% if section = Guides then ( %>
+    <%s! Learn_layout.sidebar_link_group "Is OCaml Yet"
+      (tutorial_sidebar_links_by_category "is-ocaml-yet")
+      ~extra_html:(
+        (render_tutorial_link ~title:"Is OCaml web yet?" ~slug:"is-ocaml-web-yet") ~tag:None) %>
+  <% ); %>

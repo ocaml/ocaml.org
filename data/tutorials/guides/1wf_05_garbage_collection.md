@@ -1,98 +1,16 @@
 ---
 id: garbage-collection
-title: Garbage Collection
+title: How to Work with the Garbage Collector
 description: >
-  OCaml is a garbage collected language, meaning you don't have to worry about allocating and freeing memory.
-category: "Runtime"
+  How to use the Gc module in OCaml and how to write your own finalisers.
+category: "Guides"
 ---
 
-# Garbage Collection
+# How to Work with the Garbage Collector
 
-## Garbage Collection, Reference Counting, and Explicit Allocation
-
-As with all modern languages, OCaml provides a garbage collector so that
-you don't need to explicitly allocate and free memory as in C/C++.
-
-The OCaml garbage collector is a modern hybrid generational/incremental
-collector which outperforms hand-allocation in most cases.
-
-Why would garbage collection be faster than explicit memory allocation
-as in C? It's often assumed that calling `free` costs nothing. In fact
-`free` is an expensive operation which involves navigating over the
-complex data structures used by the memory allocator. If your program
-calls `free` intermittently, then all of that code and data needs to be
-loaded into the cache, displacing your program code and data each time
-you `free` a single memory allocation. A collection strategy which frees
-multiple memory areas in one go (such as either a pool allocator or a
-GC) pays this penalty only once for multiple allocations (thus the cost
-per allocation is greatly reduced).
-
-GCs also move memory areas around and compact the heap. This makes
-allocation easier, hence faster, and a smart GC can be written to
-interact well with the L1 and L2 caches.
-
-Of course none of this precludes writing a very fast hand-allocator, but
-it's considerably harder work than most programmers realise.
-
-OCaml's garbage collector has two heaps, the **minor heap** and the
-**major heap**. This recognises a general principle: most objects are
-small and allocated frequently and then immediately freed. These objects
-go into the minor heap first, which is GC'd frequently. Only some
-objects are long lasting. These objects get promoted from the minor heap
-to the major heap after some time, and the major heap is only collected
-infrequently.
-
-The OCaml GC is synchronous. It doesn't run in a separate thread, and it
-can only get called during an allocation request.
-
-### GC vs. Reference Counting
-Python has a form of garbage collection, but it
-[mostly uses](https://devguide.python.org/internals/garbage-collector/) a
-simple scheme called
-[reference counting](https://en.wikipedia.org/wiki/Reference_counting).
-Simply put, each Python object keeps a count of the number of other
-objects pointing to (referencing) itself. When the count falls to zero,
-nothing is pointing at this object, so the object can be freed.
-
-Reference counting is automatic memory management, but it is not considered
-a full-fledged garbage collection by computer scientists. Yet it does have one
-big practical advantage over full garbage collectors. With reference counting,
-you can avoid many explicit calls to `close`/`closedir` in code.
-
-<!-- $MDX skip -->
-```ocaml
-let read_file filename =
-  let chan = open_in filename in
-  (* read from chan *) in
-List.iter read_file files
-```
-
-Calls to `read_file` open the file but don't close it. Because OCaml
-uses a full garbage collector, `chan` isn't collected until some time
-later when the minor heap becomes full. In addition, **OCaml will not
-close the channel when it collects the handle's memory**, so this
-program would eventually run out of file descriptors.
-
-You need to be aware of this when writing OCaml code that uses files,
-directories, or any other heavyweight object with complex finalisation.
-
-To be fair to full garbage collection, let's mention the
-disadvantages of reference counting schemes:
-
-* Each object needs to store a reference count. Basically, there's
- a word overhead for every object. Programs use more memory and are
- consequently slower because they are more likely to fill up the
- cache or spill into swap.
-* Reference counting is expensive. Every time you manipulate pointers
- to an object, you need to update and check the reference count.
- Pointer manipulation is frequent, so this slows your program and
- bloats the code size of compiled code.
-* They cannot collect so-called circular or self-referential
- structures. I've programmed in many languages over the years and
- can't recall ever having created one of these. In addition to
- reference counting, Python has a dedicated garbage collector to
- address this.
-* Graph algorithms, of course, violate the previous assumption.
+In [Understanding the Garbage Collector](/docs/garbage-collector), discussed how Garbage Collection in OCaml works.
+In this tutorial, we look at how to use the `Gc` module and how to write your own finalisers.
+At the end of the tutorial, we give some exercises you might try in order to develop a better understanding.
 
 ## The `Gc` Module
 The `Gc` module contains some useful functions for querying and calling
