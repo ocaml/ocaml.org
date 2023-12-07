@@ -18,7 +18,7 @@ external_tutorial:
 This is an adaptation of the chapter [The Compiler Backend: Bytecode and Native code](https://dev.realworldocaml.org/compiler-backend.html) from the book [Real World OCaml](https://dev.realworldocaml.org/), reproduced here with permission.
 
 
-# The Compiler Backend: Bytecode and Native code {#the-compiler-backend-byte-code-and-native-code}
+# The Compiler Backend: Bytecode and Native code <a name="the-compiler-backend-byte-code-and-native-code"></a>
 
 Once OCaml has passed the type checking stage, it can stop emitting syntax
 and type errors and begin the process of compiling the well-formed modules
@@ -44,7 +44,7 @@ also analyzed and compiled into highly optimized automata.
 The lambda form is the key stage that discards the OCaml type
 information and maps the source code to the runtime memory model
 described in [Memory Representation Of
-Values](/docs/runtime-memory-layout#memory-representation-of-values){data-type=xref}.
+Values](/docs/runtime-memory-layout#memory-representation-of-values).
 This stage also performs some optimizations, most notably converting
 pattern-match statements into more optimized but low-level statements.
 
@@ -94,7 +94,7 @@ Despite these caveats, some interesting points emerge from reading it:
   are created via `setglobal`, and OCaml values are constructed by
   `makeblock`.  The blocks are the runtime values you should remember
   from [Memory Representation Of
-  Values](/docs/runtime-memory-layout#memory-representation-of-values){data-type=xref}.
+  Values](/docs/runtime-memory-layout#memory-representation-of-values).
 
 - The pattern match has turned into a switch case that jumps to the
   right case depending on the header tag of `v`. Recall that variants
@@ -160,7 +160,7 @@ $ ocamlc -dlambda -c pattern_polymorphic.ml 2>&1
     (makeblock 0 test/267)))
 ```
 
-We mentioned in [Variants](https://dev.realworldocaml.org/variants.html#variants){data-type=xref} that
+We mentioned in [Variants](https://dev.realworldocaml.org/variants.html#variants) that
 pattern matching over polymorphic variants is slightly less efficient, and it
 should be clearer why this is the case now. Polymorphic variants have a
 runtime value that's calculated by hashing the variant name, and so the
@@ -595,7 +595,7 @@ picture of the code if you get lost in the more verbose assembly.
 #### The Impact of Polymorphic Comparison
 
 We warned you in [Maps And Hash
-Tables](https://dev.realworldocaml.org/maps-and-hashtables.html#maps-and-hash-tables){data-type=xref}
+Tables](https://dev.realworldocaml.org/maps-and-hashtables.html#maps-and-hash-tables)
 that using polymorphic comparison is both convenient and
 perilous. Let's look at precisely what the difference is at the
 assembly language level now.
@@ -762,7 +762,7 @@ comparison, you may have noticed that we prepended the comparison
 functions with `Stdlib`.  This is because the Core module explicitly
 redefines the `>` and `<` and `=` operators to be specialized for
 operating over `int` types, as explained in [Maps and
-Hashtables](https://dev.realworldocaml.org/maps-and-hashtables.html#the-polymorphic-comparator){data-type=xref}.
+Hashtables](https://dev.realworldocaml.org/maps-and-hashtables.html#the-polymorphic-comparator).
 You can always recover any of the OCaml standard library functions by
 accessing them through the `Stdlib` module, as we did in our
 benchmark.
