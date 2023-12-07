@@ -8,7 +8,7 @@ Learn_layout.single_column_layout
 ~canonical:Url.learn
 ~active_top_nav_item:Header.Learn
 ~current:Overview @@
-  <div class="w-full border-b dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/learn/hero-background.svg')] dark:md:bg-[url('/img/learn/hero-background-dark.svg')]">
+  <div class="w-full border-b bg-[#DDEAFC] dark:bg-[#101B3F] dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/learn/hero-background.svg')] dark:md:bg-[url('/img/learn/hero-background-dark.svg')]">
     <div class="container-fluid py-24 md:flex md:gap-20 bg-left-bottom bg-no-repeat md:bg-[url('/img/learn/hero-camel.svg')] dark:md:bg-[url('/img/learn/dark-hero-camel.svg')]">
       <div class="md:flex-grow">
         <h1 class="text-text_title dark:text-dark-text tracking-wider">Explore the OCaml Documentation</h1>
@@ -30,7 +30,7 @@ Learn_layout.single_column_layout
     </div>
   </div>
   <div class="w-full bg:white dark:bg-dark-background_jumping_section">
-    <div class="container-fluid bg:white dark:bg-dark-background_jumping_section">
+    <div class="container-fluid">
       <div class="hidden md:grid md:gap-6 md:grid-cols-3">
         <a href="#beginner_section" class="py-3 lg:py-6 flex items-center gap-2 text-secondary font-bold hover:underline">
           <%s! Learn_components.beginner_section_icon %>
@@ -52,8 +52,8 @@ Learn_layout.single_column_layout
   </div>
   <div class="container-fluid">
     <h2 id="beginner_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
-      <span class="text-secondary font-bold">FOUNDATIONS</span>
-      <span class="dark:text-dark-text">FOR BEGINNERS</span>
+    <span class="text-secondary dark:text-dark-secondary font-bold">FOUNDATIONS</span>
+      FOR BEGINNERS
     </h2>
 
     <div class="grid gap-6 mt-6 md:grid-cols-2">
@@ -104,7 +104,7 @@ Learn_layout.single_column_layout
     </div>
   </div>
 
-  <div class="section-mild-contrast dark:bg-none dark:bg-gradient-to-r dark:from-[#010105] dark:to-[#10162D] dark:border-none">
+  <div class="section-mild-contrast dark:dark-section-mild-contrast">
     <div class="container-fluid flex flex-col py-9">
       <%s! Learn_components.block_heading ~icon:"" ~title:"PLATFORM TOOLS" ~heading:"The OCaml Platform" %>
       <div class="mt-10 flex flex-col md:flex-row gap-10">
@@ -148,7 +148,7 @@ Learn_layout.single_column_layout
           %>
     </div>
 
-    <div class="border-t border-separator_30 dark:border-dark-separator_30  my-6"></div>
+    <div class="border-t border-separator_30 dark:border-dark-separator_30 my-6"></div>
 
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
       <%s! Learn_components.book_recommendation
@@ -175,8 +175,8 @@ Learn_layout.single_column_layout
     <%s! Learn_components.lang_manual_banner %>
 
     <h2 id="advanced_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
-      <span class="text-primary dark:text-dark-primary font-bold">ELEVATED</span>
-      <span class="text_title dark:text-dark-text">EXPERTISE</span>
+    <span class="text-primary dark:text-dark-text font-bold">ELEVATED</span>
+        EXPERTISE
     </h2>
 
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
