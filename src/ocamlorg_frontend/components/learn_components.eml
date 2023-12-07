@@ -11,23 +11,23 @@ let string_from_difficulty = function
   | Advanced -> "Advanced"
 
 let skill_tag difficulty =
-  <div class="px-3 inline-block <%s color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white dark:text-dark-text_title tracking-widest">
+  <div class="px-3 inline-block <%s color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white dark:text-dark-text tracking-widest">
     <%s string_from_difficulty difficulty %>
   </div>
 
 let beginner_section_icon =
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="10" cy="10" r="10" fill="#3882B7"/>
+    <circle cx="10" cy="10" r="10" class="fill-secondary"/>
   </svg>
 
 let intermediate_section_icon =
   <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0.5 6.5C0.5 3.18629 3.18629 0.5 6.5 0.5H18.5C21.8137 0.5 24.5 3.18629 24.5 6.5V18.5C24.5 21.8137 21.8137 24.5 18.5 24.5H6.5C3.18629 24.5 0.5 21.8137 0.5 18.5V6.5Z" fill="#3882B7"/>
+    <path d="M0.5 6.5C0.5 3.18629 3.18629 0.5 6.5 0.5H18.5C21.8137 0.5 24.5 3.18629 24.5 6.5V18.5C24.5 21.8137 21.8137 24.5 18.5 24.5H6.5C3.18629 24.5 0.5 21.8137 0.5 18.5V6.5Z" class="fill-tertiary"/>
   </svg>
 
 let advanced_section_icon =
   <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M11.268 1.5C12.0378 0.166665 13.9622 0.166667 14.7321 1.5L25.1244 19.5C25.8942 20.8333 24.9319 22.5 23.3923 22.5H2.60769C1.06809 22.5 0.105844 20.8333 0.875645 19.5L11.268 1.5Z" class="fill-[#D54000]"/>
+    <path d="M11.268 1.5C12.0378 0.166665 13.9622 0.166667 14.7321 1.5L25.1244 19.5C25.8942 20.8333 24.9319 22.5 23.3923 22.5H2.60769C1.06809 22.5 0.105844 20.8333 0.875645 19.5L11.268 1.5Z" class="fill-primary dark:fill-dark-primary"/>
   </svg>
 let little_down_arrow_icon =
   <svg width="18" height="32" viewBox="0 0 18 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,8 +45,8 @@ let command_line_icon class_ =
   </svg>
 
 let hero_button ~left_icon ~right_icon ~text ~href =
-  <a href="<%s href %>" class="group whitespace-nowrap flex p-3 gap-2 items-center bg-white dark:bg-dark-background_light hover:bg-primary hover:text-white drop-shadow hover:drop-shadow-xl border-primary border-2 rounded-lg px-4 text-text_title dark:text-dark-text_title">
-    <span class="group-hover:text-white text-primary"><%s! left_icon %></span>
+  <a href="<%s href %>" class="group whitespace-nowrap flex p-3 gap-2 items-center bg-white dark:bg-dark-background_light hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-text drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-2 rounded-lg px-4 text-text_title dark:text-dark-text">
+    <span class="group-hover:text-white dark:group-hover:text-dark-text text-primary dark:text-dark-primary"><%s! left_icon %></span>
     <span class="flex-grow"><%s text %></span>
     <%s! right_icon %>
   </a>
@@ -54,14 +54,14 @@ let hero_button ~left_icon ~right_icon ~text ~href =
 type link = {href : string; title : string}
 
 let block_heading ~icon ~title ~heading =
-  <div class="pt-4 text-text_content dark:text-grey_navigation  text-sm font-medium leading-7 tracking-widest flex gap-2 items-center">
+  <div class="pt-4 text-text_content dark:text-grey_navigation text-sm font-medium leading-7 tracking-widest flex gap-2 items-center">
     <%s! icon %>
     <%s title %>
   </div>
-  <h2 class="mt-2 text-text_title text-2xl font-bold leading-7 dark:text-dark-text_title"><%s heading %></h2>
+  <h2 class="mt-2 text-text_title dark:text-dark-text text-2xl font-bold leading-7"><%s heading %></h2>
 
 let block_container ~icon ~title ~heading inner_html =
-  <div class="bg-white dark:bg-dark-background_light">
+  <div class="bg-white dark:bg-dark-background">
     <div class="max-w-sm md:max-w-full md:w-[32rem] flex flex-col">
       <%s! block_heading ~icon ~title ~heading %>
       <%s! inner_html %>
@@ -74,15 +74,15 @@ let tutorial_block ~icon ~title ~heading ~description ~(tutorial_links: link lis
   <ul class="flex flex-col gap-4 mt-5">
     <% tutorial_links |> List.iter (fun link -> %>
     <li class="w-full">
-      <a href="<%s link.href %>" class="bg-white text-text_title hover:bg-primary hover:text-white drop-shadow hover:drop-shadow-xl flex gap-2 border-primary border-2 rounded-lg p-2.5 text-md font-bold">
-        <span class="flex-grow text-text_title dark:text-text_title"><%s link.title  %></span>
+      <a href="<%s link.href %>" class="bg-white dark:bg-dark-background_light text-text_title dark:text-dark-text hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-text drop-shadow hover:drop-shadow-xl flex gap-2 border-primary border-2 rounded-lg p-2.5 text-md font-bold">
+        <span class="flex-grow"><%s link.title  %></span>
 
         <%s! Icons.arrow_right_circle "w-6 h-6" %>
       </a>
     </li>
     <% ); %>
   </ul>
-  <a href="<%s see_more.href %>" class="mt-4 text-primary dark:text-dark-text_title hover:underline items-center leading-10">
+  <a href="<%s see_more.href %>" class="mt-4 text-primary dark:text-dark-text hover:underline dark:underline items-center leading-10">
     <%s see_more.title %>
   </a>
 
@@ -90,7 +90,7 @@ let book_cover ~free cover_src =
   <div class="relative">
     <% (if free then %>
     <div class="absolute -mt-8 ml-3 w-16 h-16">
-      <div class="bg-primary rotate-[-10deg] rounded-full w-16 h-16 flex items-center justify-center" style="filter: drop-shadow(-4px -2px 4px rgb(0 0 0 / 0.25));">
+      <div class="bg-primary dark:bg-dark-primary rotate-[-10deg] rounded-full w-16 h-16 flex items-center justify-center" style="filter: drop-shadow(-4px -2px 4px rgb(0 0 0 / 0.25));">
         <div class="text-center text-white text-base font-bold leading-7 tracking-wide">
           FREE
         </div>
@@ -118,12 +118,12 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
         <% ); %>
       </div>
     </div>
-    <a href="<%s link.href %>" class="pt-4 text-primary dark:text-dark-text_title hover:underline items-center leading-10">
+    <a href="<%s link.href %>" class="pt-4 text-primary dark:text-dark-text hover:underline dark:underline items-center leading-10">
       <%s link.title %>
     </a>
 
 let lang_manual_banner =
-  <div class="bg-gradient-to-r from-[#D54000] to-[#e66f01] md:to-[#EF8901] rounded-3xl">
+  <div class="bg-gradient-to-r from-[#D54000] dark:from-[#7F3916] to-[#e66f01] dark:to-[#F1B568] md:to-[#EF8901] rounded-3xl">
     <div class="bg-[url('/img/learn/banner-background.svg')] bg-cover w-full items-center flex flex-col md:flex-row gap-6 py-4 px-7 md:py-4 md:pl-14 md:pr-14 lg:pr-24">
       <div class="flex flex-col flex-grow my-6">
         <div class="text-white text-sm font-medium tracking-widest leading-10">GUIDE</div>
@@ -133,7 +133,7 @@ let lang_manual_banner =
         <p class="mt-4 text-white font-normal max-w-xl text-base leading-7">
           The OCaml language manual is a comprehensive guide covering syntax, features, and usage. It assists developers and learners in understanding capabilities, best practices, and language features.
         </p>
-        <a href="<%s Url.manual %>" class="w-full md:w-80 mt-6 py-2 bg-white rounded-xl text-center text-primary font-bold text-lg">
+        <a href="<%s Url.manual %>" class="w-full md:w-80 mt-6 py-2 bg-white rounded-xl text-center text-primary dark:text-dark-primary font-bold text-lg">
           Take Me There
         </a>
       </div>
@@ -142,8 +142,8 @@ let lang_manual_banner =
   </div>
 
 let exercise_card (exercise: Data.Exercise.t) =
-  <a class="flex flex-col p-5 card" href="<%s Url.exercises %>#<%s exercise.slug %>">
-    <div class="flex-grow">
+  <a class="flex flex-col p-5 card dark:bg-dark-background_light dark:hover:bg-dark-window_code" href="<%s Url.exercises %>#<%s exercise.slug %>">
+    <div class="flex-grow dark:text-dark-text">
       <%s exercise.description %>
     </div>
     <div class="my-2.5">
@@ -152,7 +152,7 @@ let exercise_card (exercise: Data.Exercise.t) =
   </a>
 
 let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
-  <div class="bg-white dark:bg-dark-background_light flex flex-col">
+  <div class="bg-white dark:bg-dark-background flex flex-col">
     <div class="max-w-sm md:max-w-full lg:w-full flex flex-col">
       <%s! block_heading ~icon ~title:"EXERCISES" ~heading %>
       <div class="mt-6 grid gap-6 md:gap-10 md:grid-cols-2 lg:grid-cols-4">
@@ -161,21 +161,21 @@ let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
         <% ); %>
       </div>
     </div>
-    <a href="<%s Url.exercises %>" class="pt-4 text-primary dark:text-dark-text_title hover:underline items-center leading-10">
+    <a href="<%s Url.exercises %>" class="pt-4 text-primary dark:text-dark-text hover:underline dark:underline items-center leading-10">
       View all Exercises
     </a>
   </div>
 
 let tool_card ~img_src ~title ~text ~url =
-  <a class="group p-5 flex flex-col card max-w-[32rem]" href="<%s url %>">
-    <h3 class="flex gap-3 text-text_heading text-base font-bold">
+  <a class="group p-5 flex flex-col card dark:bg-dark-background_light max-w-[32rem]" href="<%s url %>">
+    <h3 class="flex gap-3 text-black dark:text-dark-text text-base font-bold">
       <img src="<%s! Ocamlorg_static.Asset.url img_src %>" alt="">
       <%s title %>
     </h3>
     <p class="text-text_content dark:text-dark-grey_navigation py-6">
       <%s text %>
     </p>
-    <div class="flex gap-2 items-center text-sm text-primary dark:text-dark-text_title group-hover:underline">
+    <div class="flex gap-2 items-center text-sm text-primary dark:text-dark-text group-hover:underline">
       Get Started
       <%s! Icons.arrow_right_circle "h-5 w-5" %></div>
   </a>

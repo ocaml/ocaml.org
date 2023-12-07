@@ -7,5 +7,5 @@
 }
 
 .card {
-  @apply bg-white drop-shadow hover:shadow-[0px_0px_12px_0px_#d5d5d5] rounded-2xl border;
+  @apply bg-white drop-shadow hover:shadow-[0px_0px_12px_0px_#00000080] rounded-2xl border;
 }

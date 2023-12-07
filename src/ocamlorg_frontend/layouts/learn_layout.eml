@@ -10,7 +10,7 @@ type section =
 let tabs
 ~current =
   let link ~href ~title ~current =
-    <a href="<%s href %>" class="justify-start px-4 py-2 text-white items-center font-semibold border-2 border-b-4 border-transparent rounded <%s if current then "border-b-primary" else "opacity-80" %>">
+    <a href="<%s href %>" class="justify-start px-4 py-2 text-white dark:text-dark-text items-center font-normal border-2 border-b-4 border-transparent rounded <%s if current then "border-b-primary dark:border-b-dark-primary" else "opacity-80" %>">
       <%s title %>
     </a>
   in
@@ -57,7 +57,7 @@ let tabs
     </nav>
   in
     <%s! breadcrumb_options current %>
-    <div class="bg-legacy-text-title hidden md:flex">
+    <div class="bg-text_title hidden md:flex">
       <nav class="container-fluid wide flex flex-wrap">
         <%s! link ~href:Url.learn ~title:"Overview" ~current:(current = Overview) %>
 
@@ -146,7 +146,7 @@ inner_html
   ~canonical
   ?active_top_nav_item @@
   <%s! tabs ~current %>
-  <div class="bg-white dark:bg-dark-background_light">
+  <div class="bg-white dark:bg-dark-background">
     <div class="flex-1 z-0 z- min-w-0 pb-12">
       <%s! inner_html %>
     </div>

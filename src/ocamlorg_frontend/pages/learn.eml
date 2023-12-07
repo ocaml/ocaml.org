@@ -8,10 +8,10 @@ Learn_layout.single_column_layout
 ~canonical:Url.learn
 ~active_top_nav_item:Header.Learn
 ~current:Overview @@
-  <div class="w-full border-b bg-md-[#DDEAFC] md:bg-[length:100%_100%] dark:md:bg-[#101B3F] md:bg-[url('/img/learn/hero-background.svg')] dark:md:bg-[url('/img/learn/dark-hero-background.svg')] dark:md:bg-no-repeat dark:md:[background-position-y:126px]">
+  <div class="w-full border-b dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/learn/hero-background.svg')] dark:md:bg-[url('/img/learn/hero-background-dark.svg')]">
     <div class="container-fluid py-24 md:flex md:gap-20 bg-left-bottom bg-no-repeat md:bg-[url('/img/learn/hero-camel.svg')] dark:md:bg-[url('/img/learn/dark-hero-camel.svg')]">
       <div class="md:flex-grow">
-        <h1 class="text-text_title dark:text-dark-text_title tracking-wider">Explore the OCaml Documentation</h1>
+        <h1 class="text-text_title dark:text-dark-text tracking-wider">Explore the OCaml Documentation</h1>
 
         <div class="text-text_content dark:text-grey_navigation my-6 max-w-md">
           You can explore the OCaml documentation, Platform Tools, guides, exercises, and books to enhance your knowledge.
@@ -29,28 +29,30 @@ Learn_layout.single_column_layout
       </div>
     </div>
   </div>
-  <div class="container-fluid bg:white dark:bg-dark-background_jumping_section">
-    <div class="hidden md:grid md:gap-6 md:grid-cols-3">
-      <a href="#beginner_section" class="py-3 lg:py-6 flex items-center gap-2 text-secondary font-bold hover:underline">
-        <%s! Learn_components.beginner_section_icon %>
-        <span class="hidden lg:inline">Jump to</span> Beginner Section
-        <%s! Learn_components.little_down_arrow_icon %>
-      </a>
-      <a href="#intermediate_section" class="py-3 lg:py-6 flex items-center gap-2 text-tertiary font-bold hover:underline">
-        <%s! Learn_components.intermediate_section_icon %>
-        <span class="hidden lg:inline">Jump to</span> Intermediate Section
-        <%s! Learn_components.little_down_arrow_icon %>
-      </a>
-      <a href="#advanced_section" class="py-3 lg:py-6 flex items-center gap-2 text-primary font-bold hover:underline">
-        <%s! Learn_components.advanced_section_icon %>
-        <span class="hidden lg:inline">Jump to</span> Advanced Section
-        <%s! Learn_components.little_down_arrow_icon %>
-      </a>
-      </div>
+  <div class="w-full bg:white dark:bg-dark-background_jumping_section">
+    <div class="container-fluid bg:white dark:bg-dark-background_jumping_section">
+      <div class="hidden md:grid md:gap-6 md:grid-cols-3">
+        <a href="#beginner_section" class="py-3 lg:py-6 flex items-center gap-2 text-secondary font-bold hover:underline">
+          <%s! Learn_components.beginner_section_icon %>
+          <span class="hidden lg:inline">Jump to</span> Beginner Section
+          <%s! Learn_components.little_down_arrow_icon %>
+        </a>
+        <a href="#intermediate_section" class="py-3 lg:py-6 flex items-center gap-2 text-tertiary font-bold hover:underline">
+          <%s! Learn_components.intermediate_section_icon %>
+          <span class="hidden lg:inline">Jump to</span> Intermediate Section
+          <%s! Learn_components.little_down_arrow_icon %>
+        </a>
+        <a href="#advanced_section" class="py-3 lg:py-6 flex items-center gap-2 text-primary dark:text-dark-primary font-bold hover:underline">
+          <%s! Learn_components.advanced_section_icon %>
+          <span class="hidden lg:inline">Jump to</span> Advanced Section
+          <%s! Learn_components.little_down_arrow_icon %>
+        </a>
+        </div>
+    </div>
   </div>
   <div class="container-fluid">
     <h2 id="beginner_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
-      <span class="text-tertiary font-bold">FOUNDATIONS</span>
+      <span class="text-secondary font-bold">FOUNDATIONS</span>
       <span class="dark:text-dark-text">FOR BEGINNERS</span>
     </h2>
 
@@ -102,7 +104,7 @@ Learn_layout.single_column_layout
     </div>
   </div>
 
-  <div class="section-mild-contrast">
+  <div class="section-mild-contrast dark:bg-none dark:bg-gradient-to-r dark:from-[#010105] dark:to-[#10162D] dark:border-none">
     <div class="container-fluid flex flex-col py-9">
       <%s! Learn_components.block_heading ~icon:"" ~title:"PLATFORM TOOLS" ~heading:"The OCaml Platform" %>
       <div class="mt-10 flex flex-col md:flex-row gap-10">
@@ -113,13 +115,13 @@ Learn_layout.single_column_layout
           ~title:"Dune" ~text:"Dune is a user-friendly and efficient build system for developing OCaml projects"
           ~url:"https://dune.build/" %>
       </div>
-      <a class="pt-6 pb-3 text-primary hover:underline" href="<%s Url.platform %>">Go to Platform Tools Documentation</a>
+      <a class="pt-6 pb-3 text-primary dark:text-dark-primary dark:underline hover:underline" href="<%s Url.platform %>">Go to Platform Tools Documentation</a>
     </div>
   </div>
 
   <div class="container-fluid">
-    <h2 id="intermediate_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
-      <span class="text-[#3882B7] font-bold">EXPLORING</span>
+    <h2 id="intermediate_section" class="mt-16 mb-8 text-text_content dark:text-dark-text text-3xl font-regular leading-9 tracking-widest">
+      <span class="text-tertiary font-bold">EXPLORING</span>
       THE INTERMEDIATE LEVEL
     </h2>
 
@@ -173,8 +175,8 @@ Learn_layout.single_column_layout
     <%s! Learn_components.lang_manual_banner %>
 
     <h2 id="advanced_section" class="mt-16 mb-8 text-text_content text-3xl font-regular leading-9 tracking-widest">
-      <span class="text-primary dark:text-text-primary font-bold">ELEVATED</span>
-      <span class="text_title dark:text-dark-text_title">EXPERTISE</span>
+      <span class="text-primary dark:text-dark-primary font-bold">ELEVATED</span>
+      <span class="text_title dark:text-dark-text">EXPERTISE</span>
     </h2>
 
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
@@ -184,8 +186,8 @@ Learn_layout.single_column_layout
     </div>
 
     <div class="mt-10 lg:mt-20">
-      <h3 class="font-bold">Papers</h3>
-      <div class="mt-6 text-legacy-lighter text-lg">
+      <h3 class="font-bold dark:text-dark-text">Papers</h3>
+      <div class="mt-6 text-text_content dark:text-grey_navigation text-lg">
         Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things?
         Check out papers written by leading OCaml researchers:
       </div>
@@ -194,15 +196,15 @@ Learn_layout.single_column_layout
         <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
         <a
           href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>"
-          class="card p-6 flex-1"
+          class="card p-6 flex-1 dark:bg-dark-background_light dark:hover:bg-dark-window_code"
         >
-          <div class="font-semibold text-base mb-3"><%s paper.title %></div>
-          <div style="display: -webkit-box;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;"><%s paper.abstract %></div>
-          <div class="font-bold text-sm mt-3"><%s String.concat ", " paper.authors %></div>
+          <div class="font-semibold text-base dark:text-dark-text mb-3"><%s paper.title %></div>
+          <div class="dark:text-dark-grey_navigation" style="display: -webkit-box;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;"><%s paper.abstract %></div>
+          <div class="font-bold text-sm dark:text-dark-grey_navigation mt-3"><%s String.concat ", " paper.authors %></div>
           <div class="flex mt-5 flex-wrap">
             <% paper.tags |> List.iter (fun (tag : string) -> %>
             <div
-              class="text-blue-700 h-8 inline-flex items-center text-sm px-3 border border-blue-700 rounded-3xl whitespace-nowrap mr-2 mb-2"
+              class="text-blue-700 dark:text-dark-text h-8 inline-flex items-center text-sm px-3 border border-blue-700 dark:border-dark-text rounded-3xl whitespace-nowrap mr-2 mb-2"
             >
               <%s tag %>
             </div>
@@ -211,7 +213,7 @@ Learn_layout.single_column_layout
         </a>
         <% ); %>
       </div>
-      <a href="<%s Url.papers %>" class="btn btn-lg btn-ghost mt-8">
+      <a href="<%s Url.papers %>" class="btn btn-lg btn-ghost dark:border-dark-primary dark:hover:bg-dark-primary dark:hover:text-dark-text dark:text-dark-primary mt-8">
         <span>View all papers</span>
         <%s! Icons.chevron_right "h-5 w-5" %>
       </a>
