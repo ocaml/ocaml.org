@@ -519,3 +519,18 @@ module Governance : sig
   val working_groups : team list
   val get_by_id : string -> team option
 end
+
+module Cookbook : sig
+  type t = {
+    slug : string;
+    group_id : string;
+    title : string;
+    problem : string;
+    category : string;
+    libraries : string list;
+    body_html : string;
+  }
+
+  val all : t list
+  val get_by_slug : string -> t option
+end
