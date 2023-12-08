@@ -643,14 +643,21 @@ To explain side effects, we need to define what *domain* and *codomain* are. Let
 - : int -> string = <fun>
 ```
 For the function `string_of_int`:
-- Its *domain* is `int`, the type of its input data.
-- The *codomain* is `string`, the type of its output data.
+- Its *domain* is `int`, the type of its parameters
+- The *codomain* is `string`, the type of its results
 
 In other words, the *domain* is left of the `->` and the *codomain* is on the right. These terms help avoid saying the "type at the right" or "type at the left" of a function's type arrow.
 
-Some functions either take input data outside of their domain or produce data outside of their codomain. These out-of-signature data are called effects, or side effects. Input and output (I/O) are the most common forms of effects. Input is out-of-domain data and output is out-of-codomain data. However, the result of functions returning random numbers (such as `Random.bits` does) or the current time (such as `Unix.time` does) is influenced by external factors, which is also called an effect. The external factor is out-of-domain input. Similarly, any observable phenomena triggered by the computation of a function is out-of-codomain output.
+Some functions operate on data outside of their domain or codomain.
+This behaviour is called an effect, or a side effect.
 
-In practice, what is considered an effect is an engineering choice. In most circumstances, I/O operations are considered as effects, unless they are ignored. Electromagnetic radiation emitted by the processor when computing a function isn't usually considered a relevant side-effect, except in some security-sensitive contexts. In the OCaml community, as well as in the wider functional programming community, functions are often said to be either [pure](https://en.wikipedia.org/wiki/Pure_function) or impure. The former does not have side effects, the latter does. This distinction makes sense and is useful. Knowing what the effects are, and when are they taking place, is a key design consideration. However, it is important to remember this distinction always assumes some sort of context. Any computation has effects, and what is considered a relevant effect is a design choice.
+Doing input and output (I/O) with the operating system is the most common form of side effects. <!-- Input is out-of-domain data and output is out-of-codomain data. --> The result of functions returning random numbers (such as `Random.bits` does) or the current time (such as `Unix.time` does) is influenced by external factors, which is also called an effect. <!-- The external factor is out-of-domain input. -->
+
+Similarly, any observable phenomena triggered by the computation of a function is an out-of-codomain output.
+
+In practice, what is considered an effect is an engineering choice. In most circumstances, system I/O operations are considered as effects, unless they are ignored. The heat emitted by the processor when computing a function isn't usually considered a relevant side-effect, except when considering energy-efficient design.
+
+In the OCaml community, as well as in the wider functional programming community, functions are often said to be either [pure](https://en.wikipedia.org/wiki/Pure_function) or impure. The former does not have side effects, the latter does. This distinction makes sense and is useful. Knowing what the effects are, and when are they taking place, is a key design consideration. However, it is important to remember this distinction always assumes some sort of context. Any computation has effects, and what is considered a relevant effect is a design choice.
 
 Since, by definition, effects lie outside function types, a function type can't reflect a function's possible effects. However, it is important to document a function's intended side effects. Consider the `Unix.time` function. It returns the number of seconds elapsed since January 1, 1970.
 ```ocaml
@@ -660,22 +667,20 @@ Since, by definition, effects lie outside function types, a function type can't 
 
 **Note**: If you're getting an `Unbound module error` in macOS, run this first: `#require "unix";;`.
 
-To produce its result, no data needs to be passed to that function. The result is entirely determined by external factors. If it was passed information, it would not be used. But something must be passed as a parameter to trigger the request of the current time from the operating system.
+The result of the `Unix.time` function is determined only by external factors. To perform the side effect, the function must be applied to an argument. Since no data needs to be passed, the argument is the `()` value.
 
-Since the function must receive data to trigger the computation but the data is going to be ignored, it makes sense to provide the `()` value. What is discarded is meaningless in the first place.
-
-A similar reasoning applies to functions producing an effect instead of being externally determined or influenced. Consider `print_endline`. It prints the string it was passed to standard output, followed by a line termination.
+Consider `print_endline`. It prints the string it was passed to standard output, followed by a line termination.
 ```ocaml
 # print_endline;;
 - : string -> unit = <fun>
 ```
-Since the purpose of the function is only to produce an effect, it has no meaningful data to return; therefore, again, it makes sense to return the `()` value.
+Since the purpose of the function is only to produce an effect, it has no meaningful data to return; it returns the `()` value.
 
-This illustrates the relationship between functions intended to have side effects and the `unit` type. The presence of the `unit` type does not indicate the presence of side effects. The absence of the `unit` type does not indicate the absence of side effects. But when no data needs to be passed as input or can be returned as output, the `unit` type should be used to indicate it and suggest the presence of side effects.
+This illustrates the relationship between functions that have side effects and the `unit` type. The presence of the `unit` type does not indicate the presence of side effects. The absence of the `unit` type does not indicate the absence of side effects. But when no data needs to be passed as input or can be returned as output, the `unit` type is used.
 
 ## What Makes Functions Different From Other Values
 
-Functions are supposed to be exactly as other values; however, there are three restrictions:
+Functions are like other values; however, there are restrictions:
 
 1. Function values cannot be displayed in interactive sessions. The placeholder `<fun>` is displayed instead. This is because there is nothing meaningful to print. Once parsed and typed-checked, OCaml discards the function's source code and nothing remains to be printed.
 ```ocaml
@@ -698,23 +703,25 @@ Exception: Invalid_argument "compare: functional value".
 There are two main reasons explaining this:
 - There is no algorithm that takes two functions and determines if they return the same output when provided the same input.
 - Assuming it was possible, such an algorithm would declare that implementations of quicksort and bubble sort are equal. That would mean one could replace the other, and that may not be wise.
-
+<!--
 It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
-
-3. Pattern matching does not allow inspecting a function. Catch-all patterns can match against a function, but it is useless.
+-->
+<!--
+- Pattern matching does not allow inspecting a function. Catch-all patterns can match against a function, but it is useless.
 ```ocaml
 # match Fun.id with _ -> ();;
 - : unit = ()
 ```
-
+-->
 ## Conclusion
 
-At the heart of OCaml lies the concept of the environment, a crucial element in its operation. To put it succinctly, the environment works as an ordered, append-only key-value store. It is notable for its append-only nature, meaning that items cannot be removed. Furthermore, it maintains order by preserving the sequence of available definitions.
+At the heart of OCaml lies the concept of the environment. The environment works as an ordered, append-only, key-value store. This means that items cannot be removed. Furthermore, it maintains order by preserving the sequence of available definitions.
 
-When we employ a `let` statement, we introduce zero, one, or more name-value pairs into the pertinent environment. Similarly, when invoking a function with its parameters, we extend the environment by adding names and their corresponding arguments, so a closure in OCaml embodies an environment-function pairing, cementing the interconnectedness of these fundamental concepts.
+When we use a `let` statement, we introduce zero, one, or more name-value pairs into the environment. Similarly, when applying a function to some arguments, we extend the environment by adding names and values corresponding to its arguments.
+<!--
+One may wonder:
 
-During the review of this tutorial, it was asked:
+> Why is function-as-values the key concept of functional programming?
 
-> Why does having function as values define functional programming?
-
-The answer to this question goes beyond the scope of this tutorial. However, without entering into the details, erasing the difference between functions and other values is meant to express they are the same thing. That's exactly what happens in the [λ-calculus](https://en.wikipedia.org/wiki/Lambda_calculus), the mathematical theory underneath functional programming. In that formalism, there are nothing but functions. Everything, including data, is a function, and computation reduces to parameter passing. In functional programming (and thus OCaml), having functions and values at the same level is an invitation to think this way. This is different from the imperative programming approach where everything reduces to reading and writing into the memory.
+The answer to this question goes beyond the scope of this tutorial. This comes from the [λ-calculus](https://en.wikipedia.org/wiki/Lambda_calculus), the mathematical theory underneath functional programming. In that formalism, there are nothing but functions. Everything, including data, is a function, and computation reduces to parameter passing. In functional programming (and thus OCaml), having functions and values at the same level is an invitation to think this way. This is different from the imperative programming approach where everything reduces to reading and writing into the memory.
+-->
