@@ -452,7 +452,7 @@ val u : int list = [0; 1; 2; 3; 4; 5; 6; 7; 8; 9]
 
 This is a classic (and very inefficient) way to compute [Fibonacci](https://en.wikipedia.org/wiki/Fibonacci_sequence) numbers. The number of recursive calls created doubles at each call, which creates exponential growth.
 
-In OCaml, recursive functions must be defined and explicitly declared by using `let rec`. It is not possible to accidentally create a recursive function and recursive functions can't be anonymous.
+In OCaml, recursive functions must be defined and explicitly declared by using `let rec`. It is not possible to accidentally create a recursive function, and recursive functions can't be anonymous.
 
 **Note**: `List.init` is a standard library function that allows you to create a list by applying a given function to a sequence of integers, and `Fun.id` is the identity function, which returns its argument unchanged. We created a list with the numbers 0 - 9 and named it `u`. We applied the `fibo` function to every element of the list using `List.map`.
 
