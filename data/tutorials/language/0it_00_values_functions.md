@@ -475,7 +475,7 @@ The second version `fib` uses the first two Fibonacci numbers as initial values.
 
 **Note**: Notice that the `fib_loop` function has three parameters `m n i` but when defining `fib` only two arguments were passed `0 1`, using partial application.
 
-## Function with Multiple Arguments
+## Functions with Multiple Arguments
 
 ### Defining Functions with Multiple Arguments
 
@@ -537,7 +537,7 @@ val sour_kitty : string -> string = <fun>
 val sweet_kitty : string -> string = <fun>
 ```
 
-Since a multiple-argument function is a series of nested single-argument functions you don't have to pass all arguments at once.
+Since a multiple-argument function is a series of nested single-argument functions, you don't have to pass all arguments at once.
 
 Passing a single parameter to `sour_kitty` or `sweet_kitty` returns a function of type `string -> string`. 
  The first argument, here `"kitty"`, is captured and the result is a [closure](#closures).
@@ -548,7 +548,7 @@ These expressions have the same value:
 
 ### Types of Functions of Multiple Argument
 
-Let's look at the types of in this definition:
+Let's look at the types in this definition:
 ```ocaml
 # let dummy_cat : string -> (string -> string) = sweet_cat;;
 val dummy_cat : string -> string -> string = <fun>
@@ -617,7 +617,7 @@ These translations are attributed to the 20th-century logician [Haskell Curry](h
 
 Here, this is shown using `string` as an example, but it applies to any group of three types.
 
-You can change the curried form into the uncurried form when refactoring; or the other way round.
+You can change the curried form into the uncurried form when refactoring, or the other way round.
 
 However, it is also possible to implement one from the other to have both forms available:
 ```ocaml
