@@ -471,15 +471,15 @@ val fib : int -> int = <fun>
 
 The first version `fib_loop` takes two extra parameters: the two previously computed Fibonacci numbers.
 
-The second version `fib` uses the first two Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called [tail call elimination](https://en.wikipedia.org/wiki/Tail_call). This turns recursivity into imperative iteration in the generated native code and leads to improved performances.
+The second version `fib` uses the first two Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called [tail call elimination](https://en.wikipedia.org/wiki/Tail_call). <!--This turns recursivity into imperative iteration in the generated native code and leads to improved performances.-->
 
 **Note**: Notice that the `fib_loop` function has three parameters `m n i` but when defining `fib` only two arguments were passed `0 1`, using partial application.
 
-## Multiple Arguments Functions
+## Function with Multiple Arguments
 
-### With Syntactic Sugar
+### Defining Functions with Multiple Arguments
 
-To define a function with multiple arguments, each must be listed between the name of the function (right after the `let` keyword) and the equal sign, separated by space. Here is an example:
+To define a function with multiple arguments, each must be listed between the name of the function (right after the `let` keyword) and the equal sign, separated by space:
 ```ocaml
 # let sweet_cat x y = x ^ " " ^ y;;
 val sweet_cat : string -> string -> string = <fun>
@@ -488,11 +488,9 @@ val sweet_cat : string -> string -> string = <fun>
 - : string = "kitty cat"
 ```
 
-*Syntactic sugar* refers to a clean, straightforward syntax. It's code shorthand that makes the code more compact. This is how most multiple-argument functions are defined. Alternatives exist, but this should be the default.
+### Anonymous Functions with Multiple Arguments
 
-### Without Syntactic Sugar
-
-The function `sweet_cat` is the same as this one:
+We can use anonymous functions to define the same function in a different way:
 ```ocaml
 # let sour_cat = fun x -> fun y -> x ^ " " ^ y;;
 val sour_cat : string -> string -> string = <fun>
@@ -507,7 +505,7 @@ Observe `sweet_cat` and `sour_cat` have the same body: `x ^ " " ^ y`. They only 
 
 Also observe that `sweet_cat` and `sour_cat` have the same type: `string -> string -> string`.
 
-In reality, these two definitions are the same. If you check the assembly code generated using [compiler explorer](https://godbolt.org/), you'll see it is the same.
+If you check the assembly code generated using [compiler explorer](https://godbolt.org/), you'll see it is the same for both functions.
 
 The way `sour_cat` is written corresponds more explicitly to the behaviour of both functions. The name `sour_cat` is bound to an anonymous function having parameter `x` and returning an anonymous function having parameter `y` and returning `x ^ " " ^ y`.
 
@@ -515,28 +513,22 @@ The way `sweet_cat` is written is an abbreviated version of `sour_cat`. Such a w
 
 ### Partial Application and Closures
 
-Having multiple-argument functions as a series of nested single-argument functions is what makes partial application possible.
+We want to define functions of type `string -> string` that appends `"kitty "` in front of its arguments. This can be done using `sour_cat` and `sweet_cat`
 ```ocaml
 # let sour_kitty x = sour_cat "kitty" x;;
 val sour_kitty : string -> string = <fun>
 
-# let sweet_kitty = fun x -> sweet_cat "kitty kitty" x;;
+# let sweet_kitty = fun x -> sweet_cat "kitty" x;;
 val sweet_kitty : string -> string = <fun>
 
 # sour_kitty "cat";;
 - : string = "kitty cat"
 
 # sweet_kitty "cat";;
-- : string = "kitty kitty cat"
+- : string = "kitty cat"
 ```
 
-Both `sweet_cat` and `sour_cat` allow partial application.
-
-Passing a single parameter to any of those functions returns a function of type `string -> string`. That result is a closure. The first argument, here `"kitty"`, is captured as if it had been in an earlier definition.
-
-### Remove Useless Arguments
-
-Here is another way to define `sour_kitty` and `sweet_kitty`:
+However, both definitions can be shortened using something called _partial application_
 ```ocaml
 # let sour_kitty = sour_cat "kitty";;
 val sour_kitty : string -> string = <fun>
@@ -545,27 +537,28 @@ val sour_kitty : string -> string = <fun>
 val sweet_kitty : string -> string = <fun>
 ```
 
-These expressions are the same:
+Since a multiple-argument function is a series of nested single-argument functions you don't have to pass all arguments at once.
+
+Passing a single parameter to `sour_kitty` or `sweet_kitty` returns a function of type `string -> string`. 
+ The first argument, here `"kitty"`, is captured and the result is a [closure](#closures).
+
+These expressions have the same value:
 - `fun x -> sweet_cat "kitty" x`
 - `sweet_cat "kitty"`
 
-Any function expression that declares a parameter and immediately applies it to some function sub-expression (in the example; `sweet_cat "kitty"`) is the same as the function sub-expression alone.
+### Types of Functions of Multiple Argument
 
-### Multiple-Argument Function Types
-
-Carefully observe the following definition:
+Let's look at the types of in this definition:
 ```ocaml
 # let dummy_cat : string -> (string -> string) = sweet_cat;;
 val dummy_cat : string -> string -> string = <fun>
 ```
 
-Here the type annotation `: string -> (string -> string)` is used to explicitly state the type of `dummy_cat`. However, OCaml answers claiming the fresh definition has type `string -> string -> string`.
+Here the type annotation `: string -> (string -> string)` is used to explicitly state the type of `dummy_cat`.
 
-Here is how to make sense of this:
-1. It is possible to pretend that `sweet_cat` has type `string -> (string -> string)`.
-1. Types `string -> (string -> string)` and `string -> string -> string` are the same
+However, OCaml answers claiming the fresh definition has type `string -> string -> string`. This is because types `string -> string -> string` and `string -> (string -> string)` are the same.
 
-The type `string -> string -> string` is the [pretty-printed](https://en.wikipedia.org/wiki/Prettyprint) version of `string -> (string -> string)`. The latter reflects, as described in the previous section, that a multiple-argument function is a single-parameter function that returns an anonymous function with one parameter removed.
+With parentheses, it is obvious that a multiple-argument function is a single-parameter function that returns an anonymous function with one parameter removed.
 
 Putting the parentheses the other way does not work:
 ```ocaml
@@ -577,9 +570,9 @@ Error: This expression has type string -> string -> string
 
 Functions having type `(string -> string) -> string` take a function as a parameter. The function `sweet_cat` has a function as a result, not a function as a parameter.
 
-In computer science language, the type arrow operator _associates to the right_. Function types without parentheses should be treated as if they have parentheses to the right in the same way that the type of `dummy_cat` was declared above. Except they are not displayed. This is [pretty printing](https://en.wikipedia.org/wiki/Prettyprint).
+The type arrow operator [_associates to the right_](https://en.wikipedia.org/wiki/Operator_associativity). Function types without parentheses should be treated as if they have parentheses to the right in the same way that the type of `dummy_cat` was declared above. Except they are not displayed.
 
-### Passing Tuples
+### Tuples as Function Parameters
 
 In OCaml, a *tuple* is a data structure used to group a fixed number of values, which can be of different types. Tuples are surrounded by parentheses, and the elements are separated by commas. Here's the basic syntax to create and work with tuples in OCaml:
 ```ocaml
@@ -591,17 +584,14 @@ It is possible to use the tuple syntax to specify function parameters. Here is h
 ```ocaml
 # let spicy_cat (x, y) = x ^ " " ^ y;;
 val spicy_cat : string * string -> string = <fun>
-```
 
-It behaves the same as previously.
-```ocaml
 # spicy_cat ("hello", "world");;
 - : string = "hello world"
 ```
 
-It looks like two arguments have been passed: `"hello"` and `"world"`. However, only one, the `("hello", "world")` pair, has been passed. Inspection of the generated assembly would show it isn't the same function as `sweet_cat`. It contains some more code. The contents of the pair passed to `spicy_cat` (`x` and `y`) must be extracted before evaluation of the `x ^ " " ^ y` expression. This is the role of the additional assembly instructions.
+It looks like two arguments have been passed: `"hello"` and `"world"`. However, only one, the `("hello", "world")` tuple, has been passed. Inspection of the generated assembly would show it isn't the same function as `sweet_cat`. It contains some more code. The contents of the tuple passed to `spicy_cat` (`x` and `y`) must be extracted before evaluation of the `x ^ " " ^ y` expression. This is the role of the additional assembly instructions.
 
-In many imperative languages, the `spicy_cat ("hello", "world")` syntax reads as a function call with two parameters; but in OCaml, it denotes applying the function `spicy_cat` to a pair containing `"hello"` and `"world"`.
+In many imperative languages, the `spicy_cat ("hello", "world")` syntax reads as a function call with two parameters; but in OCaml, it denotes applying the function `spicy_cat` to a tuple containing `"hello"` and `"world"`.
 
 ### Currying and Uncurrying
 
@@ -619,17 +609,17 @@ These translations have names:
 
 It also said that `sweet_cat` and `sour_cat` are _curried_ functions whilst `spicy_cat` is _uncurried_.
 
-These translations are attributed to the 20th-century logician [Haskell Curry](https://en.wikipedia.org/wiki/Haskell_Curry).
-
-From a typing perspective, this means the following types are equivalent:
+Functions with the following types can be translated back and forth:
 - `string -> (string -> string)` &mdash; curried function type
 - `string * string -> string` &mdash; uncurried function type
 
+These translations are attributed to the 20th-century logician [Haskell Curry](https://en.wikipedia.org/wiki/Haskell_Curry).
+
 Here, this is shown using `string` as an example, but it applies to any group of three types.
 
-We will not dive any deeper into the details here, but these equivalences can be formally defined using _ad-hoc_ mathematics.
+You can change the curried form into the uncurried form when refactoring; or the other way round.
 
-Often, currying or uncurrying are applied when refactoring the code. One form is changed into the other as an edit. However, it is also possible to implement one from the other to have both forms available:
+However, it is also possible to implement one from the other to have both forms available:
 ```ocaml
 # let uncurried_cat (x, y) = sweet_cat x y;;
 val uncurried_cat : string * string -> string = <fun>
@@ -638,15 +628,11 @@ val uncurried_cat : string * string -> string = <fun>
 val curried_cat : string -> string -> string = <fun>
 ```
 
-Functions can take several equivalent forms, depending on the way data is passed or returned. It is important to be able to:
-* Refactor in any direction
-* Have both forms starting from any of each.
+<!-- Currying and uncurrying can be understood as operations acting on functions the same way addition and subtraction are operations acting on numbers. -->
 
-Currying and uncurrying should be understood as operations acting on functions the same way addition and subtraction are operations acting on numbers.
-
-In practice, curried functions are the default form functions should take because:
+In practice, curried functions are the default because:
 - They allow partial application
-- It is less editing, no parentheses or commas
+- No parentheses or commas
 - No pattern matching over a tuple takes place
 
 ## Functions With Side Effects
@@ -687,7 +673,7 @@ Since the purpose of the function is only to produce an effect, it has no meanin
 
 This illustrates the relationship between functions intended to have side effects and the `unit` type. The presence of the `unit` type does not indicate the presence of side effects. The absence of the `unit` type does not indicate the absence of side effects. But when no data needs to be passed as input or can be returned as output, the `unit` type should be used to indicate it and suggest the presence of side effects.
 
-## Functions Are Almost as Other Values
+## What Makes Functions Different From Other Values
 
 Functions are supposed to be exactly as other values; however, there are three restrictions:
 
