@@ -168,7 +168,7 @@ ha ha
 
 Above, the pattern does not contain any identifier, meaning no name is defined. The expression is evaluated and the side effect takes place (printing `ha ha` to standard output).
 
-**Note**: In compiled files to evaluate an expression only for its side effects you must write them after `let () =`.
+**Note**: In order for compiled files to only evaluate an expression for its side effects, you must write them after `let () =`.
 
 <!-- user-defined single constructor variant example -->
 <!-- FIXME: create an example nested pattern matching -->
