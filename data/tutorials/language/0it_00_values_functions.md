@@ -548,7 +548,7 @@ These expressions have the same value:
 
 ### Types of Functions of Multiple Argument
 
-Let's look at the types in this definition:
+Let's look at the types here:
 ```ocaml
 # let dummy_cat : string -> (string -> string) = sweet_cat;;
 val dummy_cat : string -> string -> string = <fun>
