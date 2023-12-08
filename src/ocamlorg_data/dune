@@ -280,3 +280,15 @@
    (with-stdout-to
     %{target}
     (run %{ood_gen} event)))))
+
+(rule
+ (target cookbook.ml)
+ (deps
+  (source_tree %{workspace_root}/data/cookbook)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+ (action
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} cookbook)))))
