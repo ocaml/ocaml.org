@@ -367,7 +367,7 @@ You can bind a function globally to a name using a global definition.
 # let f = fun x -> x * x;;
 val f : int -> int = <fun>
 ```
-The expression, which happens to be a function, is turned into value and bound to a name. Here is another way to do the same thing
+The expression, which happens to be a function, is turned into value and bound to a name. Here is another way to do the same thing:
 ```ocaml
 # let g x = x * x;;
 val g : int -> int = <fun>
