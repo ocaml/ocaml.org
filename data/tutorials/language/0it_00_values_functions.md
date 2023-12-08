@@ -173,7 +173,7 @@ Above, the pattern does not contain any identifier, meaning no name is defined. 
 <!-- user-defined single constructor variant example -->
 <!-- FIXME: create an example nested pattern matching -->
 
-### Pattern Matching on User-defined types
+### Pattern Matching on User-Defined Types
 
 This also works with user-defined types.
 ```ocaml
