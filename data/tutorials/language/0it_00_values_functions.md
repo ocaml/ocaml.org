@@ -275,7 +275,7 @@ val h : int = 7
 - : int = 42
 ```
 
-There's now two definitions of `h` in the environment. The first `h` is unchanged. When the second `h` is defined, the first one becomes unreachable. <!--This means anything written after the second definition uses its value, but functions written *before* the second definition still use the first, even if called later.-->
+There are now two definitions of `h` in the environment. The first `h` is unchanged. When the second `h` is defined, the first one becomes unreachable. <!--This means anything written after the second definition uses its value, but functions written *before* the second definition still use the first, even if called later.-->
 
 ## Function as Values
 
