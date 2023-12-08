@@ -1,0 +1,27 @@
+let render (recipes: Data.Cookbook.t list) =
+Learn_layout.single_column_layout
+  ~title:"OCaml Cookbook"
+  ~description:"A collection of recipes to get things done in OCaml."
+  ~canonical:Url.learn_cookbook
+  ~active_top_nav_item:Header.Learn
+  ~current:Cookbook @@
+<div class="bg-legacy-default dark:bg-legacy-dark-default">
+  <div class="container-fluid pt-10">
+    <div class="prose mb-10">
+      <h1 class="font-normal text-4xl">OCaml Cookbook</h2>
+    </div>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <% recipes |> List.iter (fun (recipe : Data.Cookbook.t) -> %>
+      <div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-orange-500 focus-within:ring-offset-2 hover:border-gray-400">
+        <div class="min-w-0 flex-1">
+          <a href="<%s Url.learn_cookbook_recipe recipe.slug %>" class="focus:outline-none">
+            <span class="absolute inset-0" aria-hidden="true"></span>
+            <p class="text-sm font-medium text-gray-900"><%s recipe.title %></p>
+            <p class="truncate text-sm text-gray-500"><%s recipe.problem %></p>
+          </a>
+        </div>
+      </div>
+      <% ); %>
+    </div>
+  </div>
+</div>

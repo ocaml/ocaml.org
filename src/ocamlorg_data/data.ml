@@ -213,3 +213,9 @@ module Governance = struct
   let get_by_id id =
     List.find_opt (fun x -> String.equal id x.id) (teams @ working_groups)
 end
+
+module Cookbook = struct
+  include Cookbook
+
+  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+end

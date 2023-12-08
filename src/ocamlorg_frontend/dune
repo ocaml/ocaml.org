@@ -240,7 +240,25 @@
   (target logos.ml)
   (deps logos.eml)
   (action
-   (run %{bin:dream_eml} %{dep:logos.eml} --workspace %{workspace_root}))))
+   (run %{bin:dream_eml} %{dep:logos.eml} --workspace %{workspace_root})))
+ (rule
+  (target learn_cookbook.ml)
+  (deps learn_cookbook.eml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:learn_cookbook.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
+  (target learn_cookbook_recipe.ml)
+  (deps learn_cookbook_recipe.eml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:learn_cookbook_recipe.eml}
+    --workspace
+    %{workspace_root}))))
 
 (subdir
  components/
