@@ -180,7 +180,7 @@ This also works with user-defined types.
 # type live_person = int * name;;
 type live_person = int * name
 
-# let age (years, { first, last }) = years;;
+# let age (years, { first; last }) = years;;
 val age : live_person -> int = <fun>
 ```
 
@@ -192,7 +192,7 @@ As seen in the last example, the catch-all pattern (`_`) can be used in definiti
 val y : int list = [2; 4; 6; 8]
 ```
 
-The `List.split` function turns a list of pairs into a pair of lists. We're only interested in the second list, we give it the name `y` and discard the first list by using `_`.
+The `List.split` function returns a pair of lists. We're only interested in the second list, we give it the name `y` and discard the first list by using `_`.
 
 ## Scopes and Environments
 
