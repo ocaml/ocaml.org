@@ -362,7 +362,7 @@ Anonymous functions are often passed as parameters to other functions.
 
 ## Defining Global Functions
 
-You can bind a function globally to a name using a global definition.
+You can globally bind a function to a name using a global definition.
 ```ocaml
 # let f = fun x -> x * x;;
 val f : int -> int = <fun>
