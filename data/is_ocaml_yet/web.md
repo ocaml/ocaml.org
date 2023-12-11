@@ -34,7 +34,7 @@ categories:
     - name: ocaml-vdom
     - name: fmlib_browser
   - name: WebAssembly
-    status: 🔴
+    status: 🟡
     description: |
       Packages and tools for compiling OCaml code to WebAssembly.
     packages:
