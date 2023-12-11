@@ -135,7 +135,7 @@ categories:
     - name: multipart_form
     - name: biniou
   - name: Web Frameworks
-    status: 🟠
+    status: 🟡
     description: |
       Web development frameworks for building OCaml Web applications.
     packages:
