@@ -1,12 +1,12 @@
 ---
 id: web
-question: Is OCaml web yet?
+question: Is OCaml Web yet?
 answer: Yes, but some parts are still missing
 categories:
   - name: Authentication
     status: 🔴
     description: |
-      Packages for authentication-related functionality in OCaml web applications.
+      Packages for authentication-related functionality in OCaml Web applications.
     packages:
     - name: jwt
     - name: cookie
@@ -57,7 +57,7 @@ categories:
   - name: Compression
     status: 🟡
     description: |
-      Packages that enable compression and decompression of data in OCaml web applications.
+      Packages that enable compression and decompression of data in OCaml Web applications.
     packages:
     - name: zlib
     - name: decompress
@@ -93,7 +93,7 @@ categories:
   - name: Database
     status: 🟠
     description: |
-      Database-related packages for interacting with databases in OCaml web applications, from simple connectors to type-safe SQL wrappers.
+      Database-related packages for interacting with databases in OCaml Web applications, from simple connectors to type-safe SQL wrappers.
     packages:
     - name: petrol
     - name: caqti
@@ -137,7 +137,7 @@ categories:
   - name: Web Frameworks
     status: 🟠
     description: |
-      Web development frameworks for building OCaml web applications.
+      Web development frameworks for building OCaml Web applications.
     packages:
     - name: dream
     - name: eliom
@@ -310,7 +310,7 @@ categories:
   - name: External Web APIs
     status: 🆘
     description: |
-      Packages that provide OCaml bindings and clients for interacting with external web APIs.
+      Packages that provide OCaml bindings and clients for interacting with external Web APIs.
     packages:
     - name: spotify-web-api
     - name: disml
@@ -369,19 +369,19 @@ categories:
     - name: owi
 ---
 
-OCaml, traditionally known for its strength in systems programming, formal verification, and as the language of choice for numerous academic endeavors, is steadily maturing in the web development landscape. With its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream web development languages.
+OCaml, traditionally known for its strength in systems programming, formal verification, and as the language of choice for numerous academic endeavors, is steadily maturing in the Web development landscape. With its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream Web development languages.
 
 The Web in OCaml is fast and type-safe! According to your needs, you can
 choose to use tidy server-side Web frameworks, or innovative full-stack
 solutions for integrated Web and mobile applications. To run in the
 browser, OCaml compiles to JavaScript and WebAssembly!
 
-As a matter of fact, OCaml is used to power production web systems, like
+As a matter of fact, OCaml is used to power production Web systems, like
 [Ahrefs](/success-stories/peta-byte-scale-web-crawler),
 [OCaml.org](https://github.com/ocaml/ocaml.org) or the [Be
 Sport](https://besport.com/news) social network.
 
-If you're considering using OCaml for your next web application, you
+If you're considering using OCaml for your next Web application, you
 should be aware that you might have to write a noticeable amount of
 things yourself and won't yet get an equivalent of all the features you
 may be used to coming from other languages. In particular, OCaml doesn't
@@ -400,8 +400,8 @@ allow you to program your Web and mobile application in a single code.
 
 ## Want to Help?
 
-Here are some projects that would help make OCaml a stronger candidate for web applications:
-- Improve [ocaml-swagger](https://github.com/andrenth/ocaml-swagger) to be able to generate API for popular web APIs like Stripe.
+Here are some projects that would help make OCaml a stronger candidate for Web applications:
+- Improve [ocaml-swagger](https://github.com/andrenth/ocaml-swagger) to be able to generate API for popular Web APIs like Stripe.
 - Implement a converter from [JSON Schema](https://json-schema.org/) to [ATD](https://github.com/ahrefs/atd). This would allow generating OCaml serializers for data formats that provide a JSON Schema (a lot of them do!).
 - Create an Oauth2 client library.
 - Create clients to the Azure services APIs.
