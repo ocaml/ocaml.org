@@ -27,7 +27,7 @@ This document has two main teaching goals:
 
 # Mutability, Loops, and Imperative Programming
 
-Imperative and functional programming both have unique merits, and OCaml allows combining them efficiently. In the first part of this tutorial, we introduce mutable state and imperative control flow. See the second part of this tutorial for examples of recommended, situational, or discouraged use of these features.
+Imperative and functional programming both have unique merits, and OCaml allows combining them efficiently. In the first part of this tutorial, we introduce mutable state and imperative control flow. See the second part for examples of recommended or discouraged use of these features.
 
 **Prerequisites**: [Basic Data Types](/docs/basic-data-types), [Values and Functions](/docs/values-and-functions), [Lists](/docs/lists), and [Modules](/docs/modules).
 
@@ -52,7 +52,7 @@ val d : int ref = {contents = 0}
 ```
 
 Here is what happens in this example:
-1. The value `{ contents = 0 }` is bound to the name `d`. This is a normal definition. Like any other definition, it is immutable. However, the value `0` in the `contents` field of `d` is _mutable_, i.e., it can be updated.
+1. The value `{ contents = 0 }` is bound to the name `d`. This is a normal definition. Like any other definition, it is immutable. However, the value `0` in the `contents` field of `d` is _mutable_, so it can be updated.
 3. The _assignment_ operator `:=` is used to update the mutable value inside `d` from `0` to `1`.
 4. The _dereference_ operator `!` reads the contents of the mutable value inside `d`.
 
@@ -89,7 +89,7 @@ When working with mutable data in OCaml,
 
 ## Mutable Record Fields
 
-Any field in a record can be tagged using the `mutable` keyword. This field can be updated to declare it.
+Any field in a record can be tagged using the `mutable` keyword. Such a field can be updated.
 ```ocaml
 # type book = {
   series : string;
@@ -107,9 +107,9 @@ type book = {
 }
 ```
 
-For instance, here is how a bookshop could track its book inventory:
+For instance, here is how a bookshop could track its inventory:
 * Fields `title`, `author`, `volume`, `series` are constants.
-* Field `stock` is mutable because this value changes with each sale or when restocking.
+* Field `stock` is mutable because this value changes with each sale or restocking.
 
 Such a database should have an entry like this:
 ```ocaml
@@ -136,13 +136,13 @@ When the bookshop receives a delivery of 10 of these books, we update the mutabl
  author = "Martha Wells"; stock = 10 }
 ```
 
-Mutable record fields are updated using the left arrow symbol `<-`. In the expression `vol_7.stock <- vol_7.stock + 7`, the meaning of `vol_7.stock` depends on its context:
+Mutable record fields are updated using the left arrow symbol `<-`. In the expression `vol_7.stock <- vol_7.stock + 10`, the meaning of `vol_7.stock` depends on its context:
 * In the left-hand side of `<-`, it refers to the mutable field to be updated.
 * In the right-hand side of `<-`, it denotes the contents of the mutable field.
 
 In contrast to references, there is no special syntax to dereference a mutable record field.
 
-### References Are Single Field Records
+### Remark: References Are Single Field Records
 
 In OCaml, references are records with a single mutable field:
 ```ocaml
@@ -152,7 +152,7 @@ type 'a ref = { mutable contents : 'a; }
 
 The type `'a ref` is a record with a single field `contents`, which is marked with the `mutable` keyword.
 
-Since references are single field records, we can define functions `assign` and `deref` using the mutable record field update syntax:
+Since references are single field records, we can define functions `create`, `assign` and `deref` using the mutable record field update syntax:
 ```ocaml
 # let create v = { contents = v };;
 val create : 'a -> 'a ref = <fun>
@@ -183,7 +183,7 @@ The functions:
 
 ## Arrays
 
-In OCaml, an array is a mutable, fixed-size data structure that can store a sequence of elements of the same type. Arrays are indexed by integers and provide constant-time access and update of elements.
+In OCaml, an array is a mutable, fixed-size data structure that can store a sequence of elements of the same type. Arrays are indexed by integers, provide constant-time access, and allow the update of elements.
 ```ocaml
 # let g = [| 2; 3; 4; 5; 6; 7; 8 |];;
 val g : int array = [|2; 3; 4; 5; 6; 7; 8|]
@@ -198,7 +198,7 @@ val g : int array = [|2; 3; 4; 5; 6; 7; 8|]
 - : int = 9
 ```
 
-The arrow symbol `<-` is used to update an array element at a given index. The array index access syntax `g.(i)`, where `g` is a value of type `array` and `i` is an integer, stands for either
+The left arrow symbol `<-` is used to update an array element at a given index. The array index access syntax `g.(i)`, where `g` is a value of type `array` and `i` is an integer, stands for either
 * the array location to update (when on the left-hand side of `<-`), or
 * the cell's content (when on the right-hand side of `<-`).
 
@@ -206,7 +206,7 @@ For a more detailed discussion on arrays, see the [Arrays](/docs/arrays) tutoria
 
 ## Byte Sequences
 
-The `bytes` type in OCaml represents a fixed-length, mutable byte sequence. Each element in a value of type `bytes` is an 8-bit word (i.e., a byte). Since characters in OCaml are represented using eight bits, `bytes` values are mutable `char` sequences. Like arrays, byte sequences support indexed access.
+The `bytes` type in OCaml represents a fixed-length, mutable byte sequence. In a value of type `bytes`, each element has 8 bits. Since characters in OCaml are represented using 8 bits, `bytes` values are mutable `char` sequences. Like arrays, byte sequences support indexed access.
 ```ocaml
 # let h = Bytes.of_string "abcdefghijklmnopqrstuvwxyz";;
 val h : bytes = Bytes.of_string "abcdefghijklmnopqrstuvwxyz"
@@ -221,13 +221,13 @@ val h : bytes = Bytes.of_string "abcdefghijklmnopqrstuvwxyz"
 - : bytes = Bytes.of_string "abcdefghij_lmnopqrstuvwxyz"
 ```
 
-Byte sequences can be created from `string` values using the function `Bytes.of_string`. Individual elements in the sequence can be updated or read by their index using `Bytes.set`, and, respectively `Bytes.get`.
+Byte sequences can be created from `string` values using the function `Bytes.of_string`. Individual elements in the sequence can be updated or read by their index using `Bytes.set` and `Bytes.get`.
 
 You can think of byte sequences as either:
 * updatable strings that can't be printed, or
 * `char` arrays without syntactic sugar for indexed read and update.
 
-**Note**: the `bytes` type uses a much more compact memory representation than `char array`. As of writing this tutorial, there is a factor of 8 between `bytes` and `char array`. The former should always be preferred, except when `array` is required by polymorphic functions handling arrays.
+**Note**: the `bytes` type uses a much more compact memory representation than `char array`. As of writing this tutorial, there is an 8 factor between `bytes` and `char array`. The former should always be preferred, except when `array` is required by polymorphic functions handling arrays.
 
 <!-- FIXME: link to a dedicated Byte Sequences tutorial -->
 
@@ -237,12 +237,12 @@ You can think of byte sequences as either:
 
 In this section, we compare two ways to implement a `get_char` function. The function waits until a key is pressed and returns the corresponding character without echoing it. This function will also be used later on in this tutorial.
 
-We use two functions from the `Unix` module to read/update attributes of the terminal associated with standard input:
-* `tcgetattr stdin TCSAFLUSH` read and return them as a record (this is similar to `deref`)
-* `tcsetattr stdin TCSAFLUSH` update them (this is similar to `assign`)
+We use two functions from the `Unix` module to read and update attributes of the terminal associated with standard input:
+* `tcgetattr stdin TCSAFLUSH` returns the terminal attributes as a record (this is similar to `deref`)
+* `tcsetattr stdin TCSAFLUSH` updates the terminal attributes (this is similar to `assign`)
 
-These attributes need to be set correctly (i.e., turn off echoing and disable canonical mode) in order read it the way we want. The logic is the same in both implementations:
-1. Read the terminal attributes
+These attributes need to be set correctly (i.e., turn off echoing and disable canonical mode) in order to read it the way we want. The logic is the same in both implementations:
+1. Read and record the terminal attributes
 1. Set the terminal attributes
 1. Wait until a key is pressed, read it as a character
 1. Restore the initial terminal attributes
@@ -250,7 +250,7 @@ These attributes need to be set correctly (i.e., turn off echoing and disable ca
 
 We read characters from standard input using the `input_char` function from the OCaml standard library.
 
-Below is the first implementation. (If you're working in macOS, run `#require "unix";;` first to avoid an `Unbound module error`.)
+Below is the first implementation. If you're working in macOS, run `#require "unix";;` first to avoid an `Unbound module error`.
 ```ocaml
 # let get_char () =
     let open Unix in
@@ -268,8 +268,8 @@ val get_char : unit -> char = <fun>
 ```
 
 In this implementation, we update the fields of `termio`
-* before `input_char` (setting both `c_icanon` and `c_echo` to `false`), and
-* after `input_char` (restoring the initial values).
+* before `input_char`, setting both `c_icanon` and `c_echo` to `false`, and
+* after `input_char`, restoring the initial values.
 
 Here is the second implementation:
 ```ocaml
@@ -284,15 +284,15 @@ Here is the second implementation:
 val get_char : unit -> char = <fun>
 ```
 
-In this implementation, the record returned by the call to `tcgetattr` is not modified. A copy is made using `{ termio with c_icanon = false; c_echo = false }`. This copy only differs from the `termio` value on fields `c_icanon` and `c_echo`, which is the meaning of `termio with …`
+In this implementation, the record returned by the call to `tcgetattr` is not modified. A copy is made using `{ termio with c_icanon = false; c_echo = false }`. This copy only differs from the `termio` value on fields `c_icanon` and `c_echo`.
 
-In the second call to `tcsetattr`, we restore the terminal attributes to their initial state without explicitly reading them.
+In the second call to `tcsetattr`, we restore the terminal attributes to their initial state.
 
 ## Imperative Control Flow
 
-OCaml provides a sequence operator `;` that allows chaining expressions, as well as `for` loops and `while` loops, which execute a block of code repeatedly.
+OCaml allows you to evaluate expressions in sequence and provides `for` loops and `while` loops to execute a block of code repeatedly.
 
-### Sequence Operator
+### Evaluating Expressions in Sequence
 
 **`let … in`**
 
@@ -303,7 +303,7 @@ This is really Disco!
 ```
 
 Using the `let … in` construct means two things:
-* Names may be bound (in the example, no name is bound since the )
+* Names may be bound, in the example, no name is bound since `()` is used.
 * Side effects take place in sequence. The bound expression (here `print_string "This is"`) is evaluated first, and the referring expression (here `print_endline " really Disco!"`) is evaluated second.
 
 **Semicolon**
@@ -322,11 +322,13 @@ world!
 ```
 In this example, the first two expressions are `print_endline` function calls, which produce side effects (printing to the console), and the last expression is simply the integer `42`, which becomes the value of the entire sequence. The `;` operator is used to separate these expressions.
 
-**Remark** Even thought it's called the sequence operator, the semicolon is not truly an operator because it is not a function of type `unit -> 'a -> 'a`. It is rather a _construct_ of the language. That allows terminating sequences with a semicolon, which is ignored.
+**Remark** Even though it's called the sequence operator, the semicolon is not truly an operator because it is not a function of type `unit -> 'a -> 'a`. It is rather a _construct_ of the language. It allows adding a semicolon at the end of a sequence expression.
 ```ocaml
 # (); 42; ;;
 - : int = 42
 ```
+
+Here, the semicolon after 42 is ignored.
 
 ### For Loop
 
@@ -363,18 +365,18 @@ Warning 10 [non-unit-statement]: this expression should have type unit.
 
 When you use the `downto` keyword (instead of the `to` keyword), the counter decreases on every iteration of the loop.
 
-For example, `for` loops are convenient for iterating over and modifying arrays:
+`for` loops are convenient to iterate over and modify arrays:
 ```ocaml
 # let sum = ref 0 in
   for i = 0 to Array.length j - 1 do sum := !sum + j.(i) done;
   !sum;;
-- : int = 42
+- : int = 35
 ```
 
 **Note:** Here is how to do the same thing using an iterator function:
 ```ocaml
 # let sum = ref 0 in Array.iter (fun i -> sum := !sum + i) a; !sum;;
-- : int = 42
+- : int = 35
 ```
 
 ### While Loop
@@ -523,7 +525,7 @@ By default, OCaml programs should be written in a mostly functional style. This 
 
 It is possible to use an imperative programming style without losing the benefits of type and memory safety. However, it doesn't usually make sense to only program in an imperative style. Not using functional programming idioms at all would result in non-idiomatic OCaml code.
 
-Most existing modules provide an interface meant to be used in functional way. Some would require the development and maintenance of [wrapper libraries](https://en.wikipedia.org/wiki/Wrapper_library) to be used in an imperative setting and such use would in many cases be inefficient.
+Most existing modules provide an interface meant to be used in a functional way. Some would require the development and maintenance of [wrapper libraries](https://en.wikipedia.org/wiki/Wrapper_library) to be used in an imperative setting and such use would in many cases be inefficient.
 
 ###  It Depends: Module State
 
