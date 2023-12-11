@@ -2,7 +2,7 @@
 
 .section-mild-contrast {
     background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
-    @apply bg-legacy-mild-contrast border-b border-t;
+    @apply bg-sand border-b border-t;
   }
 
 .dark-section-mild-contrast {

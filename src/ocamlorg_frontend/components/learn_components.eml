@@ -11,7 +11,7 @@ let string_from_difficulty = function
   | Advanced -> "Advanced"
 
 let skill_tag difficulty =
-  <div class="px-3 inline-block <%s color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white dark:text-dark-text tracking-widest">
+  <div class="px-3 inline-block <%s color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white dark:text-dark-title tracking-widest">
     <%s string_from_difficulty difficulty %>
   </div>
 
@@ -45,8 +45,8 @@ let command_line_icon class_ =
   </svg>
 
 let hero_button ~left_icon ~right_icon ~text ~href =
-  <a href="<%s href %>" class="group whitespace-nowrap flex p-3 gap-2 items-center bg-white dark:bg-dark-background_light hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-text drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-2 rounded-lg px-4 text-text_title dark:text-dark-text">
-    <span class="group-hover:text-white dark:group-hover:text-dark-text text-primary dark:text-dark-primary"><%s! left_icon %></span>
+  <a href="<%s href %>" class="group whitespace-nowrap flex p-3 gap-2 items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-2 rounded-lg px-4 text-title dark:text-dark-title">
+    <span class="group-hover:text-white dark:group-hover:text-dark-title text-primary dark:text-dark-primary"><%s! left_icon %></span>
     <span class="flex-grow"><%s text %></span>
     <%s! right_icon %>
   </a>
@@ -54,11 +54,11 @@ let hero_button ~left_icon ~right_icon ~text ~href =
 type link = {href : string; title : string}
 
 let block_heading ~icon ~title ~heading =
-  <div class="pt-4 text-text_content dark:text-grey_navigation text-sm font-medium leading-7 tracking-widest flex gap-2 items-center">
+  <div class="pt-4 text-content dark:text-dark-content text-sm font-medium leading-7 tracking-widest flex gap-2 items-center">
     <%s! icon %>
     <%s title %>
   </div>
-  <h2 class="mt-2 text-text_title dark:text-dark-text text-2xl font-bold leading-7"><%s heading %></h2>
+  <h2 class="mt-2 text-title dark:text-dark-title text-2xl font-bold leading-7"><%s heading %></h2>
 
 let block_container ~icon ~title ~heading inner_html =
   <div class="bg-white dark:bg-dark-background">
@@ -70,11 +70,11 @@ let block_container ~icon ~title ~heading inner_html =
 
 let tutorial_block ~icon ~title ~heading ~description ~(tutorial_links: link list) ~see_more  =
   block_container ~icon ~title ~heading @@
-  <div class="mt-4 text-text_content dark:text-grey_navigation text-base font-normal leading-7 max-w-prose"> <%s description %> </div>
+  <div class="mt-4 text-content dark:text-dark-content text-base font-normal leading-7 max-w-prose"> <%s description %> </div>
   <ul class="flex flex-col gap-4 mt-5">
     <% tutorial_links |> List.iter (fun link -> %>
     <li class="w-full">
-      <a href="<%s link.href %>" class="bg-white dark:bg-dark-background_light text-text_title dark:text-dark-text hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-text drop-shadow hover:drop-shadow-xl flex gap-2 border-primary border-2 rounded-lg p-2.5 text-md font-bold">
+      <a href="<%s link.href %>" class="bg-white dark:bg-dark-card text-title dark:text-dark-title hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl flex gap-2 border-primary border-2 rounded-lg p-2.5 text-md font-bold">
         <span class="flex-grow"><%s link.title  %></span>
 
         <%s! Icons.arrow_right_circle "w-6 h-6" %>
@@ -82,7 +82,7 @@ let tutorial_block ~icon ~title ~heading ~description ~(tutorial_links: link lis
     </li>
     <% ); %>
   </ul>
-  <a href="<%s see_more.href %>" class="mt-4 text-primary dark:text-dark-text hover:underline dark:underline items-center leading-10">
+  <a href="<%s see_more.href %>" class="mt-4 text-primary dark:text-dark-title hover:underline dark:underline items-center leading-10">
     <%s see_more.title %>
   </a>
 
@@ -114,11 +114,11 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
       <div class="">
         <%s! skill_tag (match book.difficulty with | Data.Book.Beginner -> Beginner | Intermediate -> Intermediate | Advanced -> Advanced) %>
         <% (match book.recommendation with None -> () | Some recommendation -> %>
-        <p class="mt-2 text-text_content dark:text-grey_navigation text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
+        <p class="mt-2 text-content dark:text-dark-content text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
         <% ); %>
       </div>
     </div>
-    <a href="<%s link.href %>" class="pt-4 text-primary dark:text-dark-text hover:underline dark:underline items-center leading-10">
+    <a href="<%s link.href %>" class="pt-4 text-primary dark:text-dark-title hover:underline dark:underline items-center leading-10">
       <%s link.title %>
     </a>
 
@@ -142,8 +142,8 @@ let lang_manual_banner =
   </div>
 
 let exercise_card (exercise: Data.Exercise.t) =
-  <a class="flex flex-col p-5 card dark:bg-dark-background_light dark:hover:bg-dark-window_code" href="<%s Url.exercises %>#<%s exercise.slug %>">
-    <div class="flex-grow dark:text-dark-text">
+  <a class="flex flex-col p-5 card dark:bg-dark-card dark:hover:bg-dark-card_hover" href="<%s Url.exercises %>#<%s exercise.slug %>">
+    <div class="flex-grow dark:text-dark-title">
       <%s exercise.description %>
     </div>
     <div class="my-2.5">
@@ -161,21 +161,21 @@ let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
         <% ); %>
       </div>
     </div>
-    <a href="<%s Url.exercises %>" class="pt-4 text-primary dark:text-dark-text hover:underline dark:underline items-center leading-10">
+    <a href="<%s Url.exercises %>" class="pt-4 text-primary dark:text-dark-title hover:underline dark:underline items-center leading-10">
       View all Exercises
     </a>
   </div>
 
 let tool_card ~img_src ~title ~text ~url =
-  <a class="group p-5 flex flex-col card dark:bg-dark-background_light max-w-[32rem]" href="<%s url %>">
-    <h3 class="flex gap-3 text-black dark:text-dark-text text-base font-bold">
+  <a class="group p-5 flex flex-col card dark:bg-dark-card max-w-[32rem]" href="<%s url %>">
+    <h3 class="flex gap-3 text-black dark:text-dark-title text-base font-bold">
       <img src="<%s! Ocamlorg_static.Asset.url img_src %>" alt="">
       <%s title %>
     </h3>
-    <p class="text-text_content dark:text-dark-grey_navigation py-6">
+    <p class="text-content dark:text-dark-content py-6">
       <%s text %>
     </p>
-    <div class="flex gap-2 items-center text-sm text-primary dark:text-dark-text group-hover:underline">
+    <div class="flex gap-2 items-center text-sm text-primary dark:text-dark-title group-hover:underline">
       Get Started
       <%s! Icons.arrow_right_circle "h-5 w-5" %></div>
   </a>

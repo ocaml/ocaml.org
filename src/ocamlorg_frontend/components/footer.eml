@@ -43,24 +43,24 @@ let socials = [
 
 let primary_footer () =
   let icon_link ~href ~name ~icon =
-    <a href="<%s href %>" class="text-text_content dark:text-dark-text hover:text-tertiary_25 dark:hover:text-dark-primary">
+    <a href="<%s href %>" class="text-content dark:text-dark-title hover:text-tertiary_25 dark:hover:text-dark-primary">
       <span class="sr-only"><%s name %></span>
       <%s! icon "h-6 w-6" %>
     </a>
   in
   let footer_link ~href ~name =
     <li>
-      <a href="<%s href %>" class="text-base leading-6 text-text_content dark:text-dark-text hover:text-tertiary_25 dark:hover:text-dark-primary"><%s name %></a>
+      <a href="<%s href %>" class="text-base leading-6 text-content dark:text-dark-title hover:text-tertiary_25 dark:hover:text-dark-primary"><%s name %></a>
     </li>
   in
-  <footer class="border-t border-separator_30 dark:border-dark-separator_30 bg-dark-background_secondary_light_orange dark:bg-dark-background_light" aria-labelledby="footer-heading">
+  <footer class="border-t border-separator_30 dark:border-dark-separator_30 bg-dark-sand dark:bg-dark-card" aria-labelledby="footer-heading">
     <h2 id="footer-heading" class="sr-only">Footer</h2>
     <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
         <div class="space-y-8">
           <a href="<%s Url.index %>"><img class="h-8 dark:hidden" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml">
           <img class="h-8 hidden dark:inline" src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" alt="OCaml"></a>
-          <p class="text-base leading-6 text-text_title dark:text-dark-grey_navigation">Innovation. Community. Security.</p>
+          <p class="text-base leading-6 text-title dark:text-dark-content">Innovation. Community. Security.</p>
           <div class="flex space-x-6">
             <% socials |> List.iter (fun (href, name, icon) -> %>
             <%s! icon_link ~href ~name ~icon %>
@@ -70,7 +70,7 @@ let primary_footer () =
         <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
-              <h3 class="text-base font-semibold leading-6 text-text_title dark:text-dark-grey_navigation">About OCaml</h3>
+              <h3 class="text-base font-semibold leading-6 text-title dark:text-dark-content">About OCaml</h3>
               <ul class="mt-6 space-y-4">
                 <% about_ocaml |> List.iter (fun (href, name) -> %>
                 <%s! footer_link ~href ~name %>
@@ -78,7 +78,7 @@ let primary_footer () =
               </ul>
             </div>
             <div class="mt-10 md:mt-0">
-              <h3 class="text-base font-semibold leading-6 text-text_title dark:text-dark-grey_navigation">Resources</h3>
+              <h3 class="text-base font-semibold leading-6 text-title dark:text-dark-content">Resources</h3>
               <ul class="mt-6 space-y-4">
                 <% resources |> List.iter (fun (href, name) -> %>
                 <%s! footer_link ~href ~name %>
@@ -88,7 +88,7 @@ let primary_footer () =
           </div>
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
-              <h3 class="text-base font-semibold leading-6 text-text_title dark:text-dark-grey_navigation">Ecosystem</h3>
+              <h3 class="text-base font-semibold leading-6 text-title dark:text-dark-content">Ecosystem</h3>
               <ul class="mt-6 space-y-4">
                 <% ecosystem |> List.iter (fun (href, name) -> %>
                 <%s! footer_link ~href ~name %>
@@ -96,7 +96,7 @@ let primary_footer () =
               </ul>
             </div>
             <div class="mt-20 md:mt-0">
-              <h3 class="text-base font-semibold leading-6 text-text_title dark:text-dark-grey_navigation">Policies</h3>
+              <h3 class="text-base font-semibold leading-6 text-title dark:text-dark-content">Policies</h3>
               <ul class="mt-6 space-y-4">
                 <% policies |> List.iter (fun (href, name) -> %>
                 <%s! footer_link ~href ~name %>
@@ -111,7 +111,7 @@ let primary_footer () =
 
 let secondary_footer () =
   let icon_link ~href ~name ~icon =
-    <a href="<%s href %>" class="text-text_title hover:text-primary">
+    <a href="<%s href %>" class="text-title hover:text-primary">
       <span class="sr-only"><%s name %></span>
       <%s! icon "h-8 w-8" %>
     </a>
@@ -123,7 +123,7 @@ let secondary_footer () =
     <section class="flex flex-col gap-6 md:gap-0 md:flex-row md:justify-between md:items-end">
       <div>
         <a href="<%s Url.index %>"><img class="h-8" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
-        <p class="text-base leading-6 text-text_content dark:text-dark-text mt-2">Innovation. Community. Security.</p>
+        <p class="text-base leading-6 text-content dark:text-dark-title mt-2">Innovation. Community. Security.</p>
       </div>
       <div class="flex items-center gap-4 pr-4">
         <% socials |> List.iter (fun (href, name, icon) -> %>

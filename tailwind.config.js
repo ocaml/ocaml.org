@@ -5,7 +5,6 @@ const figma_colors = {
     primary: "#D54000",
     primary_40: "#D5400066",
     primary_25: "#D5400040",
-    primary_hover: "#842800",
     primary_dark: "#842800",
 
     secondary: "#2B7866",
@@ -17,13 +16,14 @@ const figma_colors = {
     tertiary_25: "#0E2A4940",
     tertiary_bt_hover: "#111827",
 
-    text_title: "#111827",
-    text_content: "#555659",
+    title: "#111827",
+    content: "#555659",
 
     separator_20: "#00000033",
+    card_border: "#00000033",
     white: "#FFFFFF",
-    background_secondary_light_orange: "#FAF8F3",
-    window_code: "#2B2A2A",
+    sand: "#FAF8F3",
+    code_window: "#2B2A2A",
 
     dark: {
       // Color Dark Mode https://www.figma.com/file/bSwyo5pUnarg1lquxQxWAE/Design-System-Draft?type=design&node-id=300-2170&mode=design&t=gjqG6OhhB92AFg51-0
@@ -39,16 +39,16 @@ const figma_colors = {
       tertiary: "#007AD0",
       tertiary_lighter: "#007BC7",
       tertiary_bt_hover: "#111827",
-      tertiary_bt_pressed: "#020C22",
 
-      text: "#FFFFFFDE",
-      grey_navigation: "#FFFFFF99",
+      title: "#FFFFFFDE",
+      content: "FFFFFF99",
+      card_hover: "2B2A2A",
+      card: "#1C1C1C",
 
       separator_30: "#FFFFFF4D",
-      background: "#121212",
-      background_light: "#1C1C1C",
-      background_jumping_section: "#070707",
-      window_code: "#2B2A2A",    
+      background: "#121212", 
+      background_navigation: "#070707",
+      code_window: "#2B2A2A",    
     }
 }
 

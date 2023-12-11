@@ -10,13 +10,13 @@ let search_input ?button_attrs ?input_attrs ?dropdown_html ~label ~name _class =
         type="search"
         name="<%s name %>"
         placeholder="<%s label %>"
-        class="bg-white dark:bg-dark-background_light h-full w-full font-medium focus:border-primary dark:focus:border-dark-primary focus:ring-0 text-gray-800 border-primary dark:border-dark-primary rounded-md rounded-r-none px-3 py-1 placeholder-text-content dark:placeholder-dark-text appearance-none focus:outline-none"
+        class="bg-white dark:bg-dark-card h-full w-full font-medium focus:border-primary dark:focus:border-dark-primary focus:ring-0 text-gray-800 border-primary dark:border-dark-primary rounded-md rounded-r-none px-3 py-1 placeholder-text-content dark:placeholder-dark-title appearance-none focus:outline-none"
         <%s! Option.value ~default:"" input_attrs %>
     >
     
     <button
         aria-label="search"
-        class="h-full flex items-center justify-center rounded-r-md bg-primary dark:bg-dark-primary text-white dark:text-dark-background_light px-4"
+        class="h-full flex items-center justify-center rounded-r-md bg-primary dark:bg-dark-primary text-white dark:text-dark-card px-4"
         <%s! Option.value ~default:"" button_attrs %>
     ><%s! Icons.magnifying_glass "w-6 h-6" %></button>
 
