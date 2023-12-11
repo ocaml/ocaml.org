@@ -13,7 +13,7 @@ category: "Module System"
 
 In OCaml, every piece of code is wrapped into a module. Optionally, a module
 itself can be a submodule of another module, pretty much like directories in a
-file system - but we don't do this very often.
+file system.
 
 When you write a program, let's say using two files `amodule.ml` and
 `bmodule.ml`, each of these files automatically defines a module named
@@ -21,34 +21,28 @@ When you write a program, let's say using two files `amodule.ml` and
 files.
 
 Here is the code that we have in our file `amodule.ml`:
-
 <!-- $MDX file=examples/amodule.ml -->
 ```ocaml
 let hello () = print_endline "Hello"
 ```
 
 And here is what we have in `bmodule.ml`:
-
 <!-- $MDX file=examples/bmodule.ml -->
 ```ocaml
 let () = Amodule.hello ()
 ```
 
-### Automatised Compilation
+In order to compile them using the [Dune](https://dune.build/) build system, at least two configuration files are required:
 
-In order to compile them using the [Dune](https://dune.build/) build system,
-which is now the standard on OCaml, at least two configuration files are
-required:
-
-* The `dune-project` file, which contains project-wide configuration data.
+* The `dune-project` file contains project-wide configuration data.
   Here's a very minimal one:
+  ```lisp
+   (lang dune 3.7)
   ```
-   (lang dune 3.4)
-  ```
-* The `dune` file, which contains actual build directives. A project may have several
+* The `dune` file contains actual build directives. A project may have several
   of them, depending on the organisation of the sources. This is sufficient for
   our example:
-  ```
+  ```lisp
   (executable (name bmodule))
   ```
 
@@ -56,7 +50,7 @@ Here is how to create the configuration files, build the source, and run the
 executable.
 <!-- $MDX dir=examples -->
 ```bash
-$ echo "(lang dune 3.4)" > dune-project
+$ echo "(lang dune 3.7)" > dune-project
 $ echo "(executable (name bmodule))" > dune
 $ opam exec -- dune build
 $ opam exec -- dune exec ./bmodule.exe
@@ -73,39 +67,9 @@ In a real-world project, it is preferable to start by creating the `dune`
 configuration files and directory structure using the `dune init project`
 command.
 
-### Manual Compilation
-
-Alternatively, it is possible, but not recommended, to compile the files by
-directly calling the compiler, either by using a single command:
-
-<!-- $MDX dir=examples -->
-```sh
-$ ocamlopt -o hello amodule.ml bmodule.ml
-```
-
-Or, as a build system does, one by one:
-
-<!-- $MDX dir=examples -->
-```sh
-$ ocamlopt -c amodule.ml
-$ ocamlopt -c bmodule.ml
-$ ocamlopt -o hello amodule.cmx bmodule.cmx
-```
-
-In both cases, a standalone executable is created
-<!-- $MDX dir=examples -->
-```sh
-$ ./hello
-Hello
-```
-
-Note: It's necessary to place the source files in the correct order. The dependencies must come before
-the dependent. In the first example above, putting `bmodule.ml` before `amodule.ml`
-will result in an `Unbound module` error.
-
 ### Naming and Scoping
 
-Now we have an executable that prints `Hello`. As you can see, if you want to
+Now we have an executable that prints `Hello`. If you want to
 access anything from a given module, use the name of the module (always
 starting with a capital letter) followed by a dot and the thing that you want to use.
 It may be a value, a type constructor, or anything else that a given module can
@@ -140,15 +104,15 @@ let () = List.iter (printf "%s\n") data
 There are also local `open`s:
 
 ```ocaml
-# let map_3d_matrix f m =
-  let open Array in
-    map (map (map f)) m;;
-val map_3d_matrix :
-  ('a -> 'b) -> 'a array array array -> 'b array array array = <fun>
-# let map_3d_matrix' f =
-  Array.(map (map (map f)));;
-val map_3d_matrix' :
-  ('a -> 'b) -> 'a array array array -> 'b array array array = <fun>
+# let sum_sq m =
+    let open List in
+    init m Fun.id |> map (fun i -> i * i) |> fold_left ( + ) 0;;
+val sum_sq : int -> int = <fun>
+
+# let sym_sq' m =
+    Array.(init m Fun.id |> map (fun i -> i * i) |> fold_left ( + ) 0);;
+val sum_sq' : int -> int = <fun>
+
 ```
 
 ## Interfaces and Signatures
@@ -161,8 +125,8 @@ is better that a module only provides what it is meant to provide, not any of
 the auxiliary functions and types that are used internally.
 
 For this, we have to define a module interface, which will act as a mask over
-the module's implementation. Just like a module derives from an `.ml` file, the
-corresponding module interface or signature derives from an `.mli` file. It
+the module's implementation. Just like a module derives from a `.ml` file, the
+corresponding module interface or signature derives from a `.mli` file. It
 contains a list of values with their type. Let's rewrite our `amodule.ml` file
 to something called `amodule2.ml`:
 
@@ -203,7 +167,7 @@ let () = Amodule2.hello ()
 
 The .`mli` files must be compiled before the matching `.ml` files. This is done
 automatically by Dune. We update the `dune` file to allow the compilation
-of this example aside of the previous one.
+of this example aside from the previous one.
 
 <!-- $MDX dir=examples -->
 ```bash
@@ -212,22 +176,6 @@ $ opam exec -- dune build
 $ opam exec -- dune exec ./bmodule.exe
 Hello
 $ opam exec -- dune exec ./bmodule2.exe
-Hello 2
-```
-
-Here is how the same result can be achieved by calling the compiler manually.
-Notice the `.mli` file is compiled using bytecode compiler `ocamlc`, while
-`.ml` files are compiled to native code using `ocamlopt`:
-
-<!-- $MDX dir=examples -->
-```sh
-$ ocamlc -c amodule2.mli
-$ ocamlopt -c amodule2.ml
-$ ocamlopt -c bmodule2.ml
-$ ocamlopt -o hello2 amodule2.cmx bmodule2.cmx
-$ ./hello
-Hello
-$ ./hello2
 Hello 2
 ```
 
@@ -370,175 +318,38 @@ interfaces.
 ### Displaying the Interface of a Module
 
 You can use the OCaml toplevel to visualise the contents of an existing
-module, such as `List`:
+module, such as `Fun`:
 
 ```ocaml
-# #show List;;
-module List :
+# #show Fun;;
+module Fun :
   sig
-    type 'a t = 'a list = [] | (::) of 'a * 'a list
-    val length : 'a t -> int
-    val compare_lengths : 'a t -> 'b t -> int
-    val compare_length_with : 'a t -> int -> int
-    val cons : 'a -> 'a t -> 'a t
-    val hd : 'a t -> 'a
-    val tl : 'a t -> 'a t
-    val nth : 'a t -> int -> 'a
-    val nth_opt : 'a t -> int -> 'a option
-    val rev : 'a t -> 'a t
-    val init : int -> (int -> 'a) -> 'a t
-    val append : 'a t -> 'a t -> 'a t
-    val rev_append : 'a t -> 'a t -> 'a t
-    val concat : 'a t t -> 'a t
-    val flatten : 'a t t -> 'a t
-    val equal : ('a -> 'a -> bool) -> 'a t -> 'a t -> bool
-    val compare : ('a -> 'a -> int) -> 'a t -> 'a t -> int
-    val iter : ('a -> unit) -> 'a t -> unit
-    val iteri : (int -> 'a -> unit) -> 'a t -> unit
-    val map : ('a -> 'b) -> 'a t -> 'b t
-    val mapi : (int -> 'a -> 'b) -> 'a t -> 'b t
-    val rev_map : ('a -> 'b) -> 'a t -> 'b t
-    val filter_map : ('a -> 'b option) -> 'a t -> 'b t
-    val concat_map : ('a -> 'b t) -> 'a t -> 'b t
-    val fold_left_map : ('a -> 'b -> 'a * 'c) -> 'a -> 'b t -> 'a * 'c t
-    val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b t -> 'a
-    val fold_right : ('a -> 'b -> 'b) -> 'a t -> 'b -> 'b
-    val iter2 : ('a -> 'b -> unit) -> 'a t -> 'b t -> unit
-    val map2 : ('a -> 'b -> 'c) -> 'a t -> 'b t -> 'c t
-    val rev_map2 : ('a -> 'b -> 'c) -> 'a t -> 'b t -> 'c t
-    val fold_left2 : ('a -> 'b -> 'c -> 'a) -> 'a -> 'b t -> 'c t -> 'a
-    val fold_right2 : ('a -> 'b -> 'c -> 'c) -> 'a t -> 'b t -> 'c -> 'c
-    val for_all : ('a -> bool) -> 'a t -> bool
-    val exists : ('a -> bool) -> 'a t -> bool
-    val for_all2 : ('a -> 'b -> bool) -> 'a t -> 'b t -> bool
-    val exists2 : ('a -> 'b -> bool) -> 'a t -> 'b t -> bool
-    val mem : 'a -> 'a t -> bool
-    val memq : 'a -> 'a t -> bool
-    val find : ('a -> bool) -> 'a t -> 'a
-    val find_opt : ('a -> bool) -> 'a t -> 'a option
-    val find_map : ('a -> 'b option) -> 'a t -> 'b option
-    val filter : ('a -> bool) -> 'a t -> 'a t
-    val find_all : ('a -> bool) -> 'a t -> 'a t
-    val filteri : (int -> 'a -> bool) -> 'a t -> 'a t
-    val partition : ('a -> bool) -> 'a t -> 'a t * 'a t
-    val partition_map : ('a -> ('b, 'c) Either.t) -> 'a t -> 'b t * 'c t
-    val assoc : 'a -> ('a * 'b) t -> 'b
-    val assoc_opt : 'a -> ('a * 'b) t -> 'b option
-    val assq : 'a -> ('a * 'b) t -> 'b
-    val assq_opt : 'a -> ('a * 'b) t -> 'b option
-    val mem_assoc : 'a -> ('a * 'b) t -> bool
-    val mem_assq : 'a -> ('a * 'b) t -> bool
-    val remove_assoc : 'a -> ('a * 'b) t -> ('a * 'b) t
-    val remove_assq : 'a -> ('a * 'b) t -> ('a * 'b) t
-    val split : ('a * 'b) t -> 'a t * 'b t
-    val combine : 'a t -> 'b t -> ('a * 'b) t
-    val sort : ('a -> 'a -> int) -> 'a t -> 'a t
-    val stable_sort : ('a -> 'a -> int) -> 'a t -> 'a t
-    val fast_sort : ('a -> 'a -> int) -> 'a t -> 'a t
-    val sort_uniq : ('a -> 'a -> int) -> 'a t -> 'a t
-    val merge : ('a -> 'a -> int) -> 'a t -> 'a t -> 'a t
-    val to_seq : 'a t -> 'a Seq.t
-    val of_seq : 'a Seq.t -> 'a t
+    external id : 'a -> 'a = "%identity"
+    val const : 'a -> 'b -> 'a
+    val flip : ('a -> 'b -> 'c) -> 'b -> 'a -> 'c
+    val negate : ('a -> bool) -> 'a -> bool
+    val protect : finally:(unit -> unit) -> (unit -> 'a) -> 'a
+    exception Finally_raised of exn
   end
 ```
 
-There is online documentation for each library.
+There is online documentation for each library, for instance [`Fun`](/api/Fun.html)
 
 ### Module Inclusion
 
 Let's say we feel that a function is missing from the standard `List` module,
-but we really want it as if it were part of it. In an `extensions.ml` file, we
+but we really want it as if it were part of it. In an `extlib.ml` file, we
 can achieve this effect by using the `include` directive:
 
 ```ocaml
-# module List = struct
+module List = struct
   include List
-  let rec optmap f = function
-    | [] -> []
-    | hd :: tl ->
-       match f hd with
-       | None -> optmap f tl
-       | Some x -> x :: optmap f tl
-  end;;
-module List :
-  sig
-    type 'a t = 'a list = [] | (::) of 'a * 'a list
-    val length : 'a t -> int
-    val compare_lengths : 'a t -> 'b t -> int
-    val compare_length_with : 'a t -> int -> int
-    val cons : 'a -> 'a t -> 'a t
-    val hd : 'a t -> 'a
-    val tl : 'a t -> 'a t
-    val nth : 'a t -> int -> 'a
-    val nth_opt : 'a t -> int -> 'a option
-    val rev : 'a t -> 'a t
-    val init : int -> (int -> 'a) -> 'a t
-    val append : 'a t -> 'a t -> 'a t
-    val rev_append : 'a t -> 'a t -> 'a t
-    val concat : 'a t t -> 'a t
-    val flatten : 'a t t -> 'a t
-    val equal : ('a -> 'a -> bool) -> 'a t -> 'a t -> bool
-    val compare : ('a -> 'a -> int) -> 'a t -> 'a t -> int
-    val iter : ('a -> unit) -> 'a t -> unit
-    val iteri : (int -> 'a -> unit) -> 'a t -> unit
-    val map : ('a -> 'b) -> 'a t -> 'b t
-    val mapi : (int -> 'a -> 'b) -> 'a t -> 'b t
-    val rev_map : ('a -> 'b) -> 'a t -> 'b t
-    val filter_map : ('a -> 'b option) -> 'a t -> 'b t
-    val concat_map : ('a -> 'b t) -> 'a t -> 'b t
-    val fold_left_map : ('a -> 'b -> 'a * 'c) -> 'a -> 'b t -> 'a * 'c t
-    val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b t -> 'a
-    val fold_right : ('a -> 'b -> 'b) -> 'a t -> 'b -> 'b
-    val iter2 : ('a -> 'b -> unit) -> 'a t -> 'b t -> unit
-    val map2 : ('a -> 'b -> 'c) -> 'a t -> 'b t -> 'c t
-    val rev_map2 : ('a -> 'b -> 'c) -> 'a t -> 'b t -> 'c t
-    val fold_left2 : ('a -> 'b -> 'c -> 'a) -> 'a -> 'b t -> 'c t -> 'a
-    val fold_right2 : ('a -> 'b -> 'c -> 'c) -> 'a t -> 'b t -> 'c -> 'c
-    val for_all : ('a -> bool) -> 'a t -> bool
-    val exists : ('a -> bool) -> 'a t -> bool
-    val for_all2 : ('a -> 'b -> bool) -> 'a t -> 'b t -> bool
-    val exists2 : ('a -> 'b -> bool) -> 'a t -> 'b t -> bool
-    val mem : 'a -> 'a t -> bool
-    val memq : 'a -> 'a t -> bool
-    val find : ('a -> bool) -> 'a t -> 'a
-    val find_opt : ('a -> bool) -> 'a t -> 'a option
-    val find_map : ('a -> 'b option) -> 'a t -> 'b option
-    val filter : ('a -> bool) -> 'a t -> 'a t
-    val find_all : ('a -> bool) -> 'a t -> 'a t
-    val filteri : (int -> 'a -> bool) -> 'a t -> 'a t
-    val partition : ('a -> bool) -> 'a t -> 'a t * 'a t
-    val partition_map : ('a -> ('b, 'c) Either.t) -> 'a t -> 'b t * 'c t
-    val assoc : 'a -> ('a * 'b) t -> 'b
-    val assoc_opt : 'a -> ('a * 'b) t -> 'b option
-    val assq : 'a -> ('a * 'b) t -> 'b
-    val assq_opt : 'a -> ('a * 'b) t -> 'b option
-    val mem_assoc : 'a -> ('a * 'b) t -> bool
-    val mem_assq : 'a -> ('a * 'b) t -> bool
-    val remove_assoc : 'a -> ('a * 'b) t -> ('a * 'b) t
-    val remove_assq : 'a -> ('a * 'b) t -> ('a * 'b) t
-    val split : ('a * 'b) t -> 'a t * 'b t
-    val combine : 'a t -> 'b t -> ('a * 'b) t
-    val sort : ('a -> 'a -> int) -> 'a t -> 'a t
-    val stable_sort : ('a -> 'a -> int) -> 'a t -> 'a t
-    val fast_sort : ('a -> 'a -> int) -> 'a t -> 'a t
-    val sort_uniq : ('a -> 'a -> int) -> 'a t -> 'a t
-    val merge : ('a -> 'a -> int) -> 'a t -> 'a t -> 'a t
-    val to_seq : 'a t -> 'a Seq.t
-    val of_seq : 'a Seq.t -> 'a t
-    val optmap : ('a -> 'b option) -> 'a t -> 'b t
-  end
+  let uncons = function
+    | [] -> None
+    | hd :: tl -> Some (hd, tl)
+end
 ```
 
-It creates a module `Extensions.List` that has everything the standard `List`
-module has, plus a new `optmap` function. From another file, all we have to do
-to override the default `List` module is `open Extensions` at the beginning of
-the `.ml` file:
-
-<!-- $MDX skip -->
-```ocaml
-open Extensions
-
-...
-
-List.optmap ...
-```
+It creates a module `Extlib.List` that has everything the standard `List`
+module has, plus a new `uncons` function. From another `.ml` file, all we have to do
+to override the default `List` module is add `open Extlib` at the beginning.
