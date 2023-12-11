@@ -213,7 +213,7 @@ Learn_layout.single_column_layout
         </a>
         <% ); %>
       </div>
-      <a href="<%s Url.papers %>" class="btn btn-lg btn-ghost dark:border-dark-primary dark:hover:bg-dark-primary dark:hover:text-dark-text dark:text-dark-primary mt-8">
+      <a href="<%s Url.papers %>" class="btn btn-lg btn-ghost dark:border-dark-primary dark:hover:bg-dark-primary dark:hover:text-dark-title dark:text-dark-primary mt-8">
         <span>View all papers</span>
         <%s! Icons.chevron_right "h-5 w-5" %>
       </a>

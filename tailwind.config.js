@@ -5,7 +5,6 @@ const figma_colors = {
     primary: "#D54000",
     primary_40: "#D5400066",
     primary_25: "#D5400040",
-    primary_hover: "#842800",
     primary_dark: "#842800",
 
     secondary: "#2B7866",
