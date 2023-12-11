@@ -3,37 +3,16 @@ id: web
 question: Is OCaml Web yet?
 answer: Yes, but some parts are still missing
 categories:
-  - name: Authentication
-    status: 🔴
-    description: |
-      Packages for authentication-related functionality in OCaml Web applications.
-    packages:
-    - name: jwt
-    - name: cookie
-    - name: FPauth
-    - name: u2f
-    - name: webauthn
-    - name: ssl
-    - name: twostep
-    - name: oidc
-    - name: spoke
-  - name: Binary protocols
+  - name: Web Frameworks
     status: 🟡
     description: |
-      There are implementations for a lot of popular protocols, some of them are solid, but some of them are still incomplete and need more testing. Some useful protocols for which there is no package include FlatBuffers and AMQP.
+      Web development frameworks for building OCaml Web applications.
     packages:
-    - name: asn1-combinators
-    - name: avro
-    - name: capnp
-    - name: grpc
-    - name: protobuf
-    - name: rpc
-    - name: jsonrpc
-    - name: thrift
-    - name: bson
-    - name: cbor
-    - name: mqtt
-    - name: msgpck
+    - name: dream
+    - name: eliom
+    - name: opium
+    - name: sihl
+    - name: ocsigen-start
   - name: Browser
     status: 🟢
     description: |
@@ -54,124 +33,19 @@ categories:
     - name: bonsai
     - name: ocaml-vdom
     - name: fmlib_browser
-  - name: Compression
-    status: 🟡
-    description: |
-      Packages that enable compression and decompression of data in OCaml Web applications.
-    packages:
-    - name: zlib
-    - name: decompress
-    - name: camlzip
-    - name: lz4
-    - name: ezgzip
-    - name: hpack
-    - name: brotli
-    - name: zstd
-    - name: snappy
-    - name: lzo
-    - name: zstandard
-    - name: carton
-  - name: Cryptography
-    status: 🟡
-    description: |
-      Packages for secure communication, encryption, hashing, and other cryptographic operations.
-    packages:
-    - name: cryptokit
-    - name: mirage-crypto
-    - name: nocrypto
-    - name: pkcs11
-    - name: tls
-    - name: x509
-    - name: fiat-p256
-    - name: sha
-    - name: blake2
-    - name: blake3
-    - name: bls12-381
-    - name: pbkdf
-    - name: dirsp-proscript
-    - name: digestif
-  - name: Database
-    status: 🟠
-    description: |
-      Database-related packages for interacting with databases in OCaml Web applications, from simple connectors to type-safe SQL wrappers.
-    packages:
-    - name: petrol
-    - name: caqti
-    - name: pgocaml
-    - name: sqlite3
-    - name: lmdb
-    - name: irmin
-    - name: mysql
-    - name: postgresql
-    - name: aws-rds
-    - name: sequoia
-    - name: sqlgg
-    - name: mariadb
-  - name: Email
-    status: 🟠
-    description: |
-      Packages for sending and managing email communications.
-    packages:
-    - name: tidy_email
-    - name: emile
-    - name: smtp
-    - name: letters
-    - name: mrmime
-    - name: sendmail
-    - name: received
-    - name: email_message
-    - name: colombe
-    - name: dkim
-    - name: uspf
-  - name: En- & Decoding
-    status: 🟠
-    description: |
-      Encoding and decoding various data formats.
-    packages:
-    - name: tar
-    - name: imagelib
-    - name: base64
-    - name: multipart-form-data
-    - name: multipart_form
-    - name: biniou
-  - name: Web Frameworks
-    status: 🟡
-    description: |
-      Web development frameworks for building OCaml Web applications.
-    packages:
-    - name: dream
-    - name: eliom
-    - name: opium
-    - name: sihl
-    - name: ocsigen-start
-  - name: HTTP Clients
+  - name: WebAssembly
     status: 🔴
     description: |
-      HTTP client libraries for making HTTP requests.
+      Packages and tools for compiling OCaml code to WebAssembly.
     packages:
-    - name: cohttp
-    - name: hyper
-    - name: ocurl
-    - name: http-lwt-client
-    - name: ezcurl
-  - name: Internationalization
-    status: 🆘
-    description: |
-      Internationalization and localization for OCaml applications.
-    packages:
-    - name: gettext
-    - name: ocsigen-i18n
-  - name: Logging
-    status: 🟠
-    description: |
-      Packages for logging and monitoring that assist in tracking application behavior and performance.
-    packages:
-    - name: logs
-    - name: dolog
-    - name: tracing
-    - name: catapult
-    - name: opentelemetry
-    - name: prometheus
+    - name: wasm_of_ocaml
+      extern: https://github.com/ocaml-wasm/wasm_of_ocaml
+      synopsis: Compiler from OCaml bytecode to WebAssembly
+    - name: wasocaml
+      extern: https://github.com/ocaml-wasm/wasocaml
+      synopsis: Compiler from OCaml to WebAssembly
+    - name: wasm
+    - name: owi
   - name: Lower Web-Stack
     status: 🟡
     description: |
@@ -196,15 +70,43 @@ categories:
     - name: paf
     - name: mimic
     - name: tiny_httpd
-  - name: Message Queues & Key-Value Stores
-    status: 🆘
+  - name: HTTP Clients
+    status: 🔴
     description: |
-      Packages for interacting with popular message queues and key-value stores.
+      HTTP client libraries for making HTTP requests.
     packages:
-    - name: amqp-client
-    - name: kafka
-    - name: redis
-    - name: zmq
+    - name: cohttp
+    - name: hyper
+    - name: ocurl
+    - name: http-lwt-client
+    - name: ezcurl
+  - name: Templating
+    status: 🟡
+    description: |
+      Packages that assist in generating dynamic HTML or text content.
+    packages:
+    - name: tyxml
+    - name: embedded_ocaml_templates
+    - name: mustache
+    - name: jingoo
+  - name: Static Site Generation
+    status: 🟡
+    description: |
+      Packages for generating static websites.
+    packages:
+    - name: finch
+    - name: stone
+    - name: camyll
+    - name: yocaml
+      extern:
+        url: https://github.com/xhtmlboi/yocaml
+        synopsis: YOCaml is a static site generator, mostly written in OCaml
+    - name: dream-serve
+    - name: soupault
+    - name: html_of_wiki
+      extern:
+        url: https://github.com/ocsigen/html_of_wiki
+        synopsis: Static website generator for software projects
   - name: Mobile apps
     - name: eliom
     - name: ocsigen-start
@@ -252,6 +154,70 @@ categories:
     - name: cordova-plugin-touch-id
     - name: cordova-plugin-vibration
     - name: cordova-plugin-videoplayer
+  - name: Authentication
+    status: 🔴
+    description: |
+      Packages for authentication-related functionality in OCaml Web applications.
+    packages:
+    - name: jwt
+    - name: cookie
+    - name: FPauth
+    - name: u2f
+    - name: webauthn
+    - name: ssl
+    - name: twostep
+    - name: oidc
+    - name: spoke
+  - name: Binary protocols
+    status: 🟡
+    description: |
+      There are implementations for a lot of popular protocols, some of them are solid, but some of them are still incomplete and need more testing. Some useful protocols for which there is no package include FlatBuffers and AMQP.
+    packages:
+    - name: asn1-combinators
+    - name: avro
+    - name: capnp
+    - name: grpc
+    - name: protobuf
+    - name: rpc
+    - name: jsonrpc
+    - name: thrift
+    - name: bson
+    - name: cbor
+    - name: mqtt
+    - name: msgpck
+  - name: Database
+    status: 🟠
+    description: |
+      Database-related packages for interacting with databases in OCaml Web applications, from simple connectors to type-safe SQL wrappers.
+    packages:
+    - name: petrol
+    - name: caqti
+    - name: pgocaml
+    - name: sqlite3
+    - name: lmdb
+    - name: irmin
+    - name: mysql
+    - name: postgresql
+    - name: aws-rds
+    - name: sequoia
+    - name: sqlgg
+    - name: mariadb
+  - name: Internationalization
+    status: 🆘
+    description: |
+      Internationalization and localization for OCaml applications.
+    packages:
+    - name: gettext
+    - name: ocsigen-i18n
+  - name: Message Queues & Key-Value Stores
+    status: 🆘
+    description: |
+      Packages for interacting with popular message queues and key-value stores.
+    packages:
+    - name: amqp-client
+    - name: kafka
+    - name: redis
+    - name: zmq
   - name: Serializers
     status: 🟡
     description: |
@@ -280,33 +246,6 @@ categories:
     - name: syndic
     - name: river
     - name: rss
-  - name: Templating
-    status: 🟡
-    description: |
-      Packages that assist in generating dynamic HTML or text content.
-    packages:
-    - name: tyxml
-    - name: embedded_ocaml_templates
-    - name: mustache
-    - name: jingoo
-  - name: Static Site Generation
-    status: 🟡
-    description: |
-      Packages for generating static websites.
-    packages:
-    - name: finch
-    - name: stone
-    - name: camyll
-    - name: yocaml
-      extern:
-        url: https://github.com/xhtmlboi/yocaml
-        synopsis: YOCaml is a static site generator, mostly written in OCaml
-    - name: dream-serve
-    - name: soupault
-    - name: html_of_wiki
-      extern:
-        url: https://github.com/ocsigen/html_of_wiki
-        synopsis: Static website generator for software projects
   - name: External Web APIs
     status: 🆘
     description: |
@@ -354,19 +293,80 @@ categories:
       extern:
        url: https://github.com/besport/ocaml-js-video-players
        synopsis: Add different video players to your OCaml Web or mobile app (Youtube, Dailymotion, Vimeo)
-  - name: WebAssembly
-    status: 🔴
+  - name: Logging
+    status: 🟠
     description: |
-      Packages and tools for compiling OCaml code to WebAssembly.
+      Packages for logging and monitoring that assist in tracking application behavior and performance.
     packages:
-    - name: wasm_of_ocaml
-      extern: https://github.com/ocaml-wasm/wasm_of_ocaml
-      synopsis: Compiler from OCaml bytecode to WebAssembly
-    - name: wasocaml
-      extern: https://github.com/ocaml-wasm/wasocaml
-      synopsis: Compiler from OCaml to WebAssembly
-    - name: wasm
-    - name: owi
+    - name: logs
+    - name: dolog
+    - name: tracing
+    - name: catapult
+    - name: opentelemetry
+    - name: prometheus
+  - name: Email
+    status: 🟠
+    description: |
+      Packages for sending and managing email communications.
+    packages:
+    - name: tidy_email
+    - name: emile
+    - name: smtp
+    - name: letters
+    - name: mrmime
+    - name: sendmail
+    - name: received
+    - name: email_message
+    - name: colombe
+    - name: dkim
+    - name: uspf
+  - name: Compression
+    status: 🟡
+    description: |
+      Packages that enable compression and decompression of data in OCaml Web applications.
+    packages:
+    - name: zlib
+    - name: decompress
+    - name: camlzip
+    - name: lz4
+    - name: ezgzip
+    - name: hpack
+    - name: brotli
+    - name: zstd
+    - name: snappy
+    - name: lzo
+    - name: zstandard
+    - name: carton
+  - name: Cryptography
+    status: 🟡
+    description: |
+      Packages for secure communication, encryption, hashing, and other cryptographic operations.
+    packages:
+    - name: cryptokit
+    - name: mirage-crypto
+    - name: nocrypto
+    - name: pkcs11
+    - name: tls
+    - name: x509
+    - name: fiat-p256
+    - name: sha
+    - name: blake2
+    - name: blake3
+    - name: bls12-381
+    - name: pbkdf
+    - name: dirsp-proscript
+    - name: digestif
+  - name: En- & Decoding
+    status: 🟠
+    description: |
+      Encoding and decoding various data formats.
+    packages:
+    - name: tar
+    - name: imagelib
+    - name: base64
+    - name: multipart-form-data
+    - name: multipart_form
+    - name: biniou
 ---
 
 OCaml, traditionally known for its strength in systems programming, formal verification, and as the language of choice for numerous academic endeavors, is steadily maturing in the Web development landscape. With its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream Web development languages.
