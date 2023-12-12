@@ -290,7 +290,7 @@ In the second call to `tcsetattr`, we restore the terminal attributes to their i
 
 ## Imperative Control Flow
 
-OCaml allows you to evaluate expressions in sequence and provides `for` loops and `while` loops to execute a block of code repeatedly.
+OCaml allows you to evaluate expressions in sequence and provides `for` and `while` loops to execute a block of code repeatedly.
 
 ### Evaluating Expressions in Sequence
 
@@ -307,6 +307,7 @@ Using the `let … in` construct means two things:
 * Side effects take place in sequence. The bound expression (here `print_string "This is"`) is evaluated first, and the referring expression (here `print_endline " really Disco!"`) is evaluated second.
 
 **Semicolon**
+
 The single semicolon `;` operator is known as the _sequence_ operator. It allows you to evaluate multiple expressions in order, with the last expression's value as the entire sequence's value.
 
 The values of any previous expressions are discarded. Thus, it makes sense to use expressions with side effects, except for the last expression of the sequence, which could be free of side effects.
@@ -332,13 +333,7 @@ Here, the semicolon after 42 is ignored.
 
 ### For Loop
 
-A `for` loop with syntax
-```ocaml
-for i = start_value to end_value do body done
-```
-has a loop variable `i` that starts at `start_value` and is incremented until it reaches `end_value`. This evaluates the `body` expression (which may contain `i`) on every iteration. Here, `for`, `to`, `do`, and `done` are keywords used to declare the loop.
-
-The type of a `for` loop expression is `unit`.
+A `for` loop is an expression of type `unit`. Here, `for`, `to`, `do`, and `done` are keywords.
 ```ocaml
 # for i = 0 to 5 do Printf.printf "%i\n" i done;;
 0
@@ -350,7 +345,13 @@ The type of a `for` loop expression is `unit`.
 - : unit = ()
 ```
 
-The loop variable `i` is incremented after every iteration. It starts with value `0` and ends with value `5`.
+Here:
+ - `i` is the loop counter, it is incremented after every iteration.
+ - `0` is the first value of `i`
+ - `5` is the last value of `i`
+ - The expression `Printf.printf "%i\n" i`, is the body of the loop.
+
+The iteration evaluates the body expression (which may contain `i`) until `i` reaches `5`.
 
 The body of a `for` loop must be an expression of type `unit`:
 ```ocaml
@@ -381,16 +382,10 @@ When you use the `downto` keyword (instead of the `to` keyword), the counter dec
 
 ### While Loop
 
-A `while` loop has the syntax
-```ocaml
-while condition do body done
-```
-and continues to execute the `body` expression as long as `condition` remains true. Here, `while`, `do`, and `done` are keywords used to declare the `while` loop.
-
-The type of a `while` loop expression is `unit`.
+A `while` loop is an expression of type `unit`. Here, `while`, `do`, and `done` are keywords.
 ```ocaml
 # let i = ref 0 in
-  while !i < 5 do
+  while !i <= 5 do
     Printf.printf "%i\n" !i;
     i := !i + 1;
   done;;
@@ -399,14 +394,21 @@ The type of a `while` loop expression is `unit`.
 2
 3
 4
+5
 - : unit = ()
 ```
+
+Here:
+- `!i < 5` is the condition
+- The expression ` Printf.printf "%i\n" !i; i := !i + 1;` is the body of the loop
+
+The iteration executes the body as long as the condition remains true.
 
 In this example, the `while` loop continues to execute as long as the value held by the reference `i` is less than `5`.
 
 ### Breaking Loops Using Exceptions
 
-Throwing the `Exit` exception is a recommended way to exit immediately from a loop.
+Throwing the `Exit` exception is a recommended way to immediately exit from a loop.
 
 The following example uses the `get_char` function we defined earlier (in the section [Example: `get_char` Function](#example-getchar-function)).
 ```ocaml
@@ -421,7 +423,7 @@ The following example uses the `get_char` function we defined earlier (in the se
   with Exit -> ();;
 ```
 
-This `while` loop echoes characters typed on the keyboard. When the ASCII `Escape` character is read, the `Exit` exception is thrown, returning `- : unit = ()`.
+This `while` loop echoes characters typed on the keyboard. When the ASCII `Escape` character is read, the `Exit` exception is thrown, which terminates the iteration and triggers the display of the reply from the REPL: `- : unit = ()`.
 
 ## Recommendations for Mutable State and Side Effects
 
@@ -606,24 +608,28 @@ Consider this code:
 Error: Unbound module Analytics
 ```
 
-**Note:** This code will not run because there is no module called `Analytics`.
+**Note:** This code will not run because there is no module called `Analytics`. [Analytics](https://en.wikipedia.org/wiki/Web_analytics) are remote monitoring libraries.
 
 A module called `Array` is defined; it shadows and includes the [`Stdlib.Array`](/api/Array.html) module. See the [Module Inclusion](docs/modules#module-inclusion) part of the [Modules](docs/modules) tutorial for details about this pattern.
 
-To understand why this code is bad, assume that `Analytics.collect` is a function that makes a network connection to transmit data to another server.
+To understand why this code is bad, figure out that `Analytics.`collect` is a function that makes a network connection to transmit data to a remote server.
 
 Now, the newly defined `Array` module contains a `copy` function that has a potentially unexpected side effect, but only if the array to copy has a million cells or above.
 
-If you're writing functions with non-obvious side effects, don't shadow existing definitions. Instead, give the function a descriptive name (e.g., `Array.copy_with_analytics`) and document the fact that there's a side-effect that the caller may not be aware of.
+If you're writing functions with non-obvious side effects, don't shadow existing definitions. Instead, give the function a descriptive name (for instance, `Array.copy_with_analytics`) and document the fact that there's a side-effect that the caller may not be aware of.
 
-### Bad: Side Effects in Arguments
+### Bad: Mixing Side Effects and Unspecified Order or Evaluation
 
 Consider the following code:
 ```ocaml
 # let id_print s = print_string (s ^ " "); s;;
 val id_print : string -> string = <fun>
 
-# let s = Printf.sprintf "%s %s %s" (id_print "Monday") (id_print "Tuesday")  (id_print "Wednesday");;
+# let s =
+    Printf.sprintf "%s %s %s"
+      (id_print "Monday")
+      (id_print "Tuesday")
+      (id_print "Wednesday");;
 Wednesday Tuesday Monday val s : string = "Monday Tuesday Wednesday "
 ```
 
@@ -633,8 +639,17 @@ In the second line, we apply `id_print` to the arguments `"Monday"`, `"Tuesday"`
 
 Since the evaluation order for function arguments in OCaml is not explicitly defined, the order in which the `id_print` side effects take place is unreliable. In this example, the arguments are evaluated from right to left, but this could change in future compiler releases.
 
-There are several means to ensure that computation takes place in a specific order.
+This issue also arises when applying parameters to variant constructors, building tuple values or, initializing record fields.
+```ocaml
+# let r = ref 0 in ((incr r; !r), (decr r; !r));;
+- : int * int = (0, -1)
+```
 
+The value of this expression depends on the order of subsexpression evaluation. And since this order is not specified, there is no reliable way to know what this value is. At the time of writing this tutorial, the evaluation produced `(0, -1)`, but if you see something else, it is not a bug. Such an unreliable value must a avoided.
+
+To ensure that evaluation takes place in a specific order, use the means to put expressions in sequences. Check the [Evaluating Expressions in Sequence](#evaluating-expressions-in-sequence) section.
+
+<!--
 You can use the sequence operator `;` to execute expressions in a particular order:
 ```ocaml
 # print_endline "ha"; print_endline "ho";;
@@ -650,7 +665,7 @@ ha
 hu
 - : unit = ()
 ```
-
+-->
 ## Conclusion
 
 A mutable state is neither good nor bad. For the cases where a mutable state enables a significantly simpler implementation, OCaml provides fine tools to deal with it. We looked at references, mutable record fields, arrays, byte sequences, and imperative control flow expressions like `for` and `while` loops. Finally, we discussed several examples of recommended and discouraged use of side effects and mutable states.
