@@ -32,7 +32,7 @@ Learn_layout.single_column_layout
   <div class="w-full bg:white dark:bg-dark-background_navigation">
     <div class="container-fluid">
       <div class="hidden md:grid md:gap-6 md:grid-cols-3">
-        <a href="#beginner_section" class="py-3 lg:py-6 flex items-center gap-2 text-secondary font-bold hover:underline">
+        <a href="#beginner_section" class="py-3 lg:py-6 flex items-center gap-2 text-secondary dark:text-dark-secondary font-bold hover:underline">
           <%s! Learn_components.beginner_section_icon %>
           <span class="hidden lg:inline">Jump to</span> Beginner Section
           <%s! Learn_components.little_down_arrow_icon %>
