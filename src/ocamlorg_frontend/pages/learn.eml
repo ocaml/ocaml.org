@@ -51,7 +51,7 @@ Learn_layout.single_column_layout
     </div>
   </div>
   <div class="container-fluid">
-    <h2 id="beginner_section" class="mt-16 mb-8 text-content text-3xl font-regular leading-9 tracking-widest">
+    <h2 id="beginner_section" class="mt-16 mb-8 text-content dark:text-dark-title text-3xl font-regular leading-9 tracking-widest">
     <span class="text-secondary dark:text-dark-secondary font-bold">FOUNDATIONS</span>
       FOR BEGINNERS
     </h2>
