@@ -174,7 +174,7 @@ Learn_layout.single_column_layout
 
     <%s! Learn_components.lang_manual_banner %>
 
-    <h2 id="advanced_section" class="mt-16 mb-8 text-content text-3xl font-regular leading-9 tracking-widest">
+    <h2 id="advanced_section" class="mt-16 mb-8 text-content dark:text-dark-content text-3xl font-regular leading-9 tracking-widest">
     <span class="text-primary dark:text-dark-primary font-bold">ELEVATED</span>
         EXPERTISE
     </h2>
