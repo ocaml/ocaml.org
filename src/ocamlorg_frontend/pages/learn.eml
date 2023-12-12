@@ -37,7 +37,7 @@ Learn_layout.single_column_layout
           <span class="hidden lg:inline">Jump to</span> Beginner Section
           <%s! Learn_components.little_down_arrow_icon %>
         </a>
-        <a href="#intermediate_section" class="py-3 lg:py-6 flex items-center gap-2 text-tertiary font-bold hover:underline">
+        <a href="#intermediate_section" class="py-3 lg:py-6 flex items-center gap-2 text-tertiary dark:text-dark-tertiary font-bold hover:underline">
           <%s! Learn_components.intermediate_section_icon %>
           <span class="hidden lg:inline">Jump to</span> Intermediate Section
           <%s! Learn_components.little_down_arrow_icon %>
