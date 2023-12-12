@@ -58,6 +58,8 @@ end
 module Make : functor (Ord : OrderedType) -> S
 ```
 
+**Note**: Most set operation implementations must use a comparison function. Using `Stdlib.compare` would make it impossible to use a user-defined comparison algorithm. Passing the comparison function as a higher-order parameter (like in `Array.sort` for instance) would add a lot of boilerplate. Providing set operations as a functor allows specifying the comparison function only once.
+
 The functor `Set.Make` needs to be passed a module of type `Set.OrderedType` to produce a module of type `Set.S`. Here is how it can look like in our project:
 
 **`funkt.ml`**
@@ -72,7 +74,7 @@ With this, the command `dune exec funkt` shouldn't do anything but it shouldn't 
   - It defines a function `compare` of type `t -> t -> bool`, that is the function `String.compare`
 - The result module from the functor application `Set.Make(String)` is bound to the name `StringSet`, it has the signature `Set.S`.
 
-Add some code to the `funkt.ml` file to produce an executable that does something and check the result.
+Add some code to the `funkt.ml` file to produce an executable that does something and checks the result.
 
 **`funkt.ml`**
 ```ocaml
@@ -85,7 +87,7 @@ let _ =
   |> StringSet.iter print_endline
 ```
 
-Here are the types of the functions used throughout the pipe
+Here are the types of functions used throughout the pipe
 - `In_channel.input_lines : in_channel -> string list`
 - `Str.(split (regexp "[ \t.,;:()]+")) : string -> string list`
 - `List.concat_map : ('a -> 'b list) -> 'a list -> 'b list`
@@ -262,7 +264,7 @@ Check the behaviour of the program using `dune exec funkt < dune`.
 
 ### Dependency Injection
 
-This is a dependency injection refactoring of module `IterPrint`.
+This is a dependency injection refactoring of the module `IterPrint`.
 
 **`iterPrint.ml`**
 ```ocaml
@@ -300,7 +302,7 @@ let _ =
   |> IterPrint.f
 ```
 
-The dependency `List` is _injected_ when compiling module `Funkt`. Observe that the code using `IterPrint` is unchanged. Check the behaviour of the program using `dune exec funkt < dune`.
+The dependency `List` is _injected_ when compiling the module `Funkt`. Observe that the code using `IterPrint` is unchanged. Check the behaviour of the program using `dune exec funkt < dune`.
 
 ### Dependency Substitution
 
@@ -327,7 +329,7 @@ Check the behaviour of the program using `dune exec funkt < dune`.
 
 ## Custom Module Extension
 
-In this section we define a functor to extend another module. This is the same idea as in the [Extending a Module with a Functor](#extending-a-module-with-a-functor), except we write the functor ourselves.
+In this section, we define a functor to extend another module. This is the same idea as in the [Extending a Module with a Functor](#extending-a-module-with-a-functor), except we write the functor ourselves.
 
 Create a fresh directory with the following files:
 
