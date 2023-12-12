@@ -41,8 +41,8 @@ const figma_colors = {
       tertiary_bt_hover: "#111827",
 
       title: "#FFFFFFDE",
-      content: "FFFFFF99",
-      card_hover: "2B2A2A",
+      content: "#FFFFFF99",
+      card_hover: "#2B2A2A",
       card: "#1C1C1C",
 
       separator_30: "#FFFFFF4D",
