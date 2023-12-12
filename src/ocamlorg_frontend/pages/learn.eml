@@ -121,7 +121,7 @@ Learn_layout.single_column_layout
 
   <div class="container-fluid">
     <h2 id="intermediate_section" class="mt-16 mb-8 text-content dark:text-dark-title text-3xl font-regular leading-9 tracking-widest">
-      <span class="text-tertiary font-bold">EXPLORING</span>
+      <span class="text-tertiary dark:text-dark-tertiary font-bold">EXPLORING</span>
       THE INTERMEDIATE LEVEL
     </h2>
 
