@@ -186,7 +186,7 @@ Learn_layout.single_column_layout
     </div>
 
     <div class="mt-10 lg:mt-20">
-      <h3 class="font-bold dark:text-dark-title">Papers</h3>
+      <h3 class="font-bold text-title dark:text-dark-title">Papers</h3>
       <div class="mt-6 text-content dark:text-dark-content text-lg">
         Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things?
         Check out papers written by leading OCaml researchers:
