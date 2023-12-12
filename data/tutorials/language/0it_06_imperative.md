@@ -227,7 +227,7 @@ You can think of byte sequences as either:
 * updatable strings that can't be printed, or
 * `char` arrays without syntactic sugar for indexed read and update.
 
-**Note**: the `bytes` type uses a much more compact memory representation than `char array`. As of writing this tutorial, there is an 8 factor between `bytes` and `char array`. The former should always be preferred, except when `array` is required by polymorphic functions handling arrays.
+**Note**: the `bytes` type uses a much more compact memory representation than `char array`. As of writing this tutorial, there is an 8-factor between `bytes`` and `char array`. The former should always be preferred, except when `array` is required by polymorphic functions handling arrays.
 
 <!-- FIXME: link to a dedicated Byte Sequences tutorial -->
 
@@ -442,7 +442,7 @@ Here is a function that computes the sum of an array of integers.
 val sum : int array -> int = <fun>
 ```
 
-The function `sum` is written in imperative style, using mutable data structures and a `for` loop. However, no mutability is exposed. It is a fully encapsulated implementation choice. This function is safe to use; no problems are to be expected.
+The function `sum` is written in an imperative style, using mutable data structures and a `for` loop. However, no mutability is exposed. It is a fully encapsulated implementation choice. This function is safe to use; no problems are to be expected.
 
 ### Good: Application-Wide State
 
@@ -511,7 +511,7 @@ val char_cos : char -> float = <fun>
 
 ### Good: Memoization
 
-The [memoization](https://en.wikipedia.org/wiki/Memoization) technique relies on the same idea as the previous section's example: look up results from a table of previously computed values.
+The [memoization](https://en.wikipedia.org/wiki/Memoization) technique relies on the same idea as the previous section's example: lookup results from a table of previously computed values.
 
 However, instead of precomputing everything, memoization uses a cache that is populated when calling the function. Either, the provided parameters
 * are found in the cache (it is a hit) and the stored result is returned, or they
@@ -645,7 +645,7 @@ This issue also arises when applying parameters to variant constructors, buildin
 - : int * int = (0, -1)
 ```
 
-The value of this expression depends on the order of subsexpression evaluation. And since this order is not specified, there is no reliable way to know what this value is. At the time of writing this tutorial, the evaluation produced `(0, -1)`, but if you see something else, it is not a bug. Such an unreliable value must a avoided.
+The value of this expression depends on the order of subexpression evaluation. And since this order is not specified, there is no reliable way to know what this value is. At the time of writing this tutorial, the evaluation produced `(0, -1)`, but if you see something else, it is not a bug. Such an unreliable value must a avoided.
 
 To ensure that evaluation takes place in a specific order, use the means to put expressions in sequences. Check the [Evaluating Expressions in Sequence](#evaluating-expressions-in-sequence) section.
 
