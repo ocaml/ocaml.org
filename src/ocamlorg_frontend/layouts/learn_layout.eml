@@ -57,7 +57,7 @@ let tabs
     </nav>
   in
     <%s! breadcrumb_options current %>
-    <div class="bg-title hidden md:flex">
+    <div class="bg-title dark:bg-[#111827] hidden md:flex">
       <nav class="container-fluid wide flex flex-wrap">
         <%s! link ~href:Url.learn ~title:"Overview" ~current:(current = Overview) %>
 

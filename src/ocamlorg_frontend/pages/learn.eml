@@ -196,7 +196,7 @@ Learn_layout.single_column_layout
         <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
         <a
           href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>"
-          class="card p-6 flex-1 dark:bg-dark-card dark:hover:bg-dark-card_hover"
+          class="card dark:dark-card p-6 flex-1"
         >
           <div class="font-semibold text-base dark:text-dark-title mb-3"><%s paper.title %></div>
           <div class="dark:text-dark-content" style="display: -webkit-box;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;"><%s paper.abstract %></div>
