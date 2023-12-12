@@ -9,3 +9,7 @@
 .card {
   @apply bg-white drop-shadow hover:shadow-[0px_0px_12px_0px_#00000080] rounded-2xl border;
 }
+
+.dark-card {
+  @apply bg-dark-card drop-shadow hover:shadow-none rounded-2xl border;
+}
