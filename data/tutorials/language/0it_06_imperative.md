@@ -346,7 +346,7 @@ A `for` loop is an expression of type `unit`. Here, `for`, `to`, `do`, and `done
 ```
 
 Here:
- - `i` is the loop counter, it is incremented after every iteration.
+ - `i` is the loop counter; it is incremented after every iteration.
  - `0` is the first value of `i`
  - `5` is the last value of `i`
  - The expression `Printf.printf "%i\n" i`, is the body of the loop.
@@ -400,7 +400,7 @@ A `while` loop is an expression of type `unit`. Here, `while`, `do`, and `done` 
 
 Here:
 - `!i < 5` is the condition
-- The expression ` Printf.printf "%i\n" !i; i := !i + 1;` is the body of the loop
+- The expression ` Printf.printf "%i\n" !i; i := !i + 1;` is the body of the loop.
 
 The iteration executes the body as long as the condition remains true.
 
@@ -639,13 +639,13 @@ In the second line, we apply `id_print` to the arguments `"Monday"`, `"Tuesday"`
 
 Since the evaluation order for function arguments in OCaml is not explicitly defined, the order in which the `id_print` side effects take place is unreliable. In this example, the arguments are evaluated from right to left, but this could change in future compiler releases.
 
-This issue also arises when applying parameters to variant constructors, building tuple values or, initializing record fields.
+This issue also arises when applying parameters to variant constructors, building tuple values, or initialising record fields.
 ```ocaml
 # let r = ref 0 in ((incr r; !r), (decr r; !r));;
 - : int * int = (0, -1)
 ```
 
-The value of this expression depends on the order of subexpression evaluation. And since this order is not specified, there is no reliable way to know what this value is. At the time of writing this tutorial, the evaluation produced `(0, -1)`, but if you see something else, it is not a bug. Such an unreliable value must a avoided.
+The value of this expression depends on the order of subexpression evaluation. Since this order is not specified, there is no reliable way to know what this value is. At the time of writing this tutorial, the evaluation produced `(0, -1)`, but if you see something else, it is not a bug. Such an unreliable value must a avoided.
 
 To ensure that evaluation takes place in a specific order, use the means to put expressions in sequences. Check the [Evaluating Expressions in Sequence](#evaluating-expressions-in-sequence) section.
 
