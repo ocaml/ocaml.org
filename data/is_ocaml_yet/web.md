@@ -39,11 +39,13 @@ categories:
       Packages and tools for compiling OCaml code to WebAssembly.
     packages:
     - name: wasm_of_ocaml
-      extern: https://github.com/ocaml-wasm/wasm_of_ocaml
-      synopsis: Compiler from OCaml bytecode to WebAssembly
+      extern: 
+        url: https://github.com/ocaml-wasm/wasm_of_ocaml
+        synopsis: Compiler from OCaml bytecode to WebAssembly
     - name: wasocaml
-      extern: https://github.com/ocaml-wasm/wasocaml
-      synopsis: Compiler from OCaml to WebAssembly
+      extern: 
+        url: https://github.com/ocaml-wasm/wasocaml
+        synopsis: Compiler from OCaml to WebAssembly
     - name: wasm
     - name: owi
   - name: Lower Web-Stack
@@ -108,6 +110,9 @@ categories:
         url: https://github.com/ocsigen/html_of_wiki
         synopsis: Static website generator for software projects
   - name: Mobile apps
+    status: 🟡
+    description: Packages for creating mobile applications
+    packages:
     - name: eliom
     - name: ocsigen-start
     - name: cordova
@@ -273,26 +278,26 @@ categories:
       extern:
         url: https://github.com/besport/ocaml-mixpanel
         synopsis: Binding to mixpanel
-    -name: ocaml-gapi
-     extern:
-       url: https://github.com/besport/ocaml-gapi
-       synopsis: Binding to Google API to implement Google Sign-In in a Web application
+    - name: ocaml-gapi
+      extern:
+        url: https://github.com/besport/ocaml-gapi
+        synopsis: Binding to Google API to implement Google Sign-In in a Web application
     - name: ocaml-twttr
       extern:
-       url: https://github.com/besport/ocaml-twttr
-       synopsis: Binding to the twttr Javascript plugin (Twitter)
+        url: https://github.com/besport/ocaml-twttr
+        synopsis: Binding to the twttr Javascript plugin (Twitter)
     - name: ocaml-gtag
       extern:
-       url: https://github.com/besport/ocaml-gtag
-       synopsis: Binding to Google GTag
+        url: https://github.com/besport/ocaml-gtag
+        synopsis: Binding to Google GTag
     - name: ocaml-hls
       extern:
-       url: https://github.com/besport/ocaml-hls
-       synopsis: Binding to hls.js to use hls video players in OCaml apps
+        url: https://github.com/besport/ocaml-hls
+        synopsis: Binding to hls.js to use hls video players in OCaml apps
     - name: ocaml-js-video-players
       extern:
-       url: https://github.com/besport/ocaml-js-video-players
-       synopsis: Add different video players to your OCaml Web or mobile app (Youtube, Dailymotion, Vimeo)
+        url: https://github.com/besport/ocaml-js-video-players
+        synopsis: Add different video players to your OCaml Web or mobile app (Youtube, Dailymotion, Vimeo)
   - name: Logging
     status: 🟠
     description: |
