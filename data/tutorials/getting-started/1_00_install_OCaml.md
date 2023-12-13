@@ -79,7 +79,7 @@ Make sure you follow the instructions provided at the end of the output of `opam
 $ eval $(opam env)
 ```
 
-Opam is now installed and configured! You can now move to [installing the OCaml Platform development tools](#Install-Platform-Tools) in the section below.
+Opam is now installed and configured! You can now move to [installing the OCaml Platform development tools](#install-platform-tools) in the section below.
 
 **Note**: opam can manage something called _switches_. This is key when switching between several OCaml projects. However, in this “getting started” series of tutorials, switches are not needed. If interested, you can read an introduction to [opam switches here](/docs/opam-switch-introduction).
 

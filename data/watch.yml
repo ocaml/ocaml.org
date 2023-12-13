@@ -383,6 +383,16 @@ watch:
   published_at: 2021-10-02T02:09:19.827Z
   language: English
   category: Unknown
+- name: Episode3-Youtube
+  description: "Everything you need to know to install and use the DkML distribution
+    of OCaml on Windows. Includes a 5-minute quick install for learners. Includes
+    how to setup projects and configuring IDEs for software creators/engineers.\r\n\r\nAt
+    the time of this v..."
+  embed_path: /videos/embed/4d2578c2-20bf-4cd7-9256-b0eb49716009
+  thumbnail_path: /static/thumbnails/669c9550-883a-4610-8450-504b172762ed.jpg
+  published_at: 2023-12-08T12:14:13.996Z
+  language: Unknown
+  category: Unknown
 - name: Experiences with Effects in OCaml
   description: The multicore branch of OCaml adds support for effect handlers. In
     this talk, we report our experiences with effects, both from converting existing

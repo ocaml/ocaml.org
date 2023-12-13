@@ -119,7 +119,7 @@ Let's summarise what was said about modules in the ["Tour of OCaml"](/docs/tour-
 
 Modules aid in organising projects; concerns can be separated into isolated modules. This is outlined in the next section. Before creating a module ourselves, we'll demonstrate using a definition from a module of the standard library. Change the content of the file `bin/main.ml` to this:
 ```ocaml
-let () = Printf.printf "%s!\\n" "Hello, World!"
+let () = Printf.printf "%s!\n" "Hello, World!"
 ```
 
 This replaces the function `print_endline` with the function `printf` from the `Printf` module in the standard library. Building and executing this modified version should produce almost the same output as before. Use `dune exec hello` to try it for yourself.

@@ -43,6 +43,21 @@ let render
 ~related_exercises
 ~canonical
 =
+let href, description = match tutorial.external_tutorial with
+  | None ->
+    "https://github.com/ocaml/ocaml.org/blob/"^ Commit.hash ^"/data/"^ tutorial.fpath,
+    "All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request."
+  | Some external_tutorial ->
+    external_tutorial.contribute_link.url,
+    external_tutorial.contribute_link.description
+in
+let render_external_tutorial_banner (opt_external_tutorial : Data.Tutorial.external_tutorial option) = match opt_external_tutorial with
+  | None -> ""
+  | Some external_tutorial ->
+    <a href="<%s external_tutorial.banner.url %>" target="_blank">
+      <img src="<%s Ocamlorg_static.Media.url external_tutorial.banner.image %>" alt="<%s external_tutorial.banner.alt %>">
+    </a>
+in
 Learn_layout.three_column_layout
 ~title:(Printf.sprintf "%s · OCaml Documentation" tutorial.title)
 ~description:tutorial.description
@@ -52,7 +67,8 @@ Learn_layout.three_column_layout
 ~right_sidebar_html:(Some(right_sidebar tutorial))
 ~current:(of_tutorial_section tutorial.section) @@
   <div class="prose prose-orange max-w-full">
+    <%s! render_external_tutorial_banner tutorial.external_tutorial %>
     <%s! tutorial.body_html %>
     <%s! render_related_exercises related_exercises %>
-    <%s! Learn_components.contribute_footer ~href:("https://github.com/ocaml/ocaml.org/blob/"^ Commit.hash ^"/data/"^ tutorial.fpath) %>
+    <%s! Learn_components.contribute_footer ~href ~description %>
   </div>
