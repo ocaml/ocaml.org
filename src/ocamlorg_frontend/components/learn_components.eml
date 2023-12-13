@@ -74,7 +74,7 @@ let tutorial_block ~icon ~title ~heading ~description ~(tutorial_links: link lis
   <ul class="flex flex-col gap-4 mt-5">
     <% tutorial_links |> List.iter (fun link -> %>
     <li class="w-full">
-      <a href="<%s link.href %>" class="bg-white dark:bg-dark-card text-title dark:text-dark-title hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl flex gap-2 border-primary border-2 rounded-lg p-2.5 text-md font-bold">
+      <a href="<%s link.href %>" class="bg-white dark:bg-dark-card text-title dark:text-dark-title hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl flex gap-2 border-primary dark:border-dark-primary border-2 rounded-lg p-2.5 text-md font-bold">
         <span class="flex-grow"><%s link.title  %></span>
 
         <%s! Icons.arrow_right_circle "w-6 h-6" %>
@@ -121,7 +121,7 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
         <% ); %>
         <div class="pt-4">
         <% book.links |> List.iter (fun (link: Data.Book.link) -> %>
-          <a href="<%s link.uri %>" class="flex gap-2 text-primary hover:underline items-center leading-8" target="_blank"><%s link.description %> <%s! Icons.link "h-4 w-4" %></a>
+          <a href="<%s link.uri %>" class="flex gap-2 text-primary dark:text-dark-primary hover:underline items-center leading-8" target="_blank"><%s link.description %> <%s! Icons.link "h-4 w-4" %></a>
         <% ); %>
         </div>
       </div>
