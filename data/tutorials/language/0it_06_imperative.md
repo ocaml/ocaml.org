@@ -399,7 +399,7 @@ A `while` loop is an expression of type `unit`. Here, `while`, `do`, and `done` 
 ```
 
 Here:
-- `!i < 5` is the condition
+- `!i <= 5` is the condition.
 - The expression ` Printf.printf "%i\n" !i; i := !i + 1;` is the body of the loop.
 
 The iteration executes the body as long as the condition remains true.
