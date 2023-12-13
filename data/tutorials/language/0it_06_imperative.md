@@ -402,7 +402,7 @@ Here:
 - `!i <= 5` is the condition.
 - The expression ` Printf.printf "%i\n" !i; i := !i + 1;` is the body of the loop.
 
-The iteration executes the body as long as the condition remains true.
+The iteration executes the body expression as long as the condition remains true.
 
 In this example, the `while` loop continues to execute as long as the value held by the reference `i` is less than `5`.
 
