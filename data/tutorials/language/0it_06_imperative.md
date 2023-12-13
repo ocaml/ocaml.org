@@ -423,7 +423,7 @@ The following example uses the `get_char` function we defined earlier (in the se
   with Exit -> ();;
 ```
 
-This `while` loop echoes characters typed on the keyboard. When the ASCII `Escape` character is read, the `Exit` exception is thrown, which terminates the iteration and triggers the display of the reply from the REPL: `- : unit = ()`.
+This `while` loop echoes characters typed on the keyboard. When the ASCII `Escape` character is read, the `Exit` exception is thrown, which terminates the iteration and displays the REPL reply: `- : unit = ()`.
 
 ## Recommendations for Mutable State and Side Effects
 
