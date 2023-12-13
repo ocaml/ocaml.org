@@ -347,8 +347,8 @@ A `for` loop is an expression of type `unit`. Here, `for`, `to`, `do`, and `done
 
 Here:
  - `i` is the loop counter; it is incremented after every iteration.
- - `0` is the first value of `i`
- - `5` is the last value of `i`
+ - `0` is the first value of `i`.
+ - `5` is the last value of `i`.
  - The expression `Printf.printf "%i\n" i`, is the body of the loop.
 
 The iteration evaluates the body expression (which may contain `i`) until `i` reaches `5`.
@@ -612,7 +612,7 @@ Error: Unbound module Analytics
 
 A module called `Array` is defined; it shadows and includes the [`Stdlib.Array`](/api/Array.html) module. See the [Module Inclusion](docs/modules#module-inclusion) part of the [Modules](docs/modules) tutorial for details about this pattern.
 
-To understand why this code is bad, figure out that `Analytics.`collect` is a function that makes a network connection to transmit data to a remote server.
+To understand why this code is bad, figure out that `Analytics.collect` is a function that makes a network connection to transmit data to a remote server.
 
 Now, the newly defined `Array` module contains a `copy` function that has a potentially unexpected side effect, but only if the array to copy has a million cells or above.
 
