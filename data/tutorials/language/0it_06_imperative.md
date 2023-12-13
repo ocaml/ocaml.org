@@ -482,6 +482,8 @@ val loop : char list ref -> 'a = <fun>
 # let state = ref [] in try loop state with Exit -> state_to_string !state;;
 ```
 
+After this last command, you can type and edit any single line of text. Then, press return to get back to the REPL.
+
 This example illustrates the following:
 - The functions `record_char` and `remove_char` neither update the state nor produce side effects. Instead, they each return a pair of values consisting of a string to print and the next state, `new_state`.
 - I/O and state-update side effects happen inside the `loop` function.
