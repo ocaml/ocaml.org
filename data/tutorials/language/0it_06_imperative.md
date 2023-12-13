@@ -620,7 +620,7 @@ Now, the newly defined `Array` module contains a `copy` function that has a pote
 
 If you're writing functions with non-obvious side effects, don't shadow existing definitions. Instead, give the function a descriptive name (for instance, `Array.copy_with_analytics`) and document the fact that there's a side-effect that the caller may not be aware of.
 
-### Bad: Mixing Side Effects and Unspecified Order or Evaluation
+### Bad: Side Effects Depending on Order of Evaluation
 
 Consider the following code:
 ```ocaml
@@ -641,7 +641,7 @@ In the second line, we apply `id_print` to the arguments `"Monday"`, `"Tuesday"`
 
 Since the evaluation order for function arguments in OCaml is not explicitly defined, the order in which the `id_print` side effects take place is unreliable. In this example, the arguments are evaluated from right to left, but this could change in future compiler releases.
 
-This issue also arises when applying parameters to variant constructors, building tuple values, or initialising record fields.
+This issue also arises when applying parameters to variant constructors, building tuple values, or initialising record fields. Here, it is illustrated on a tuple value:
 ```ocaml
 # let r = ref 0 in ((incr r; !r), (decr r; !r));;
 - : int * int = (0, -1)
