@@ -64,6 +64,13 @@ The functor `Set.Make` needs to be passed a module of type `Set.OrderedType` to 
 
 **`funkt.ml`**
 ```ocaml
+module StringSet = Set.Make(struct
+  type t = string
+  let compare = String.compare
+end)
+```
+
+```ocaml
 module StringSet = Set.Make(String)
 ```
 
@@ -114,7 +121,7 @@ funkt
 
 There are no duplicates in a `Set`. Therefore, the string `"funkt"` is only displayed once although it appears twice in the file `dune`.
 
-## Extending a Module with a Functor
+## Extending a Module with a Standard Library Functor
 
 Using the `include` statement, here is an alternate way to expose the module created by `Set.Make(String)`.
 
@@ -135,9 +142,9 @@ let _ =
 
 This allows seemingly extending the module `String` with a submodule `Set`. Check the behaviour using `dune exec funkt < dune`.
 
-## Parametrized Implementations
+## Functors are Parametrized Modules
 
-### The Standard Library: `Set`, `Map` and `Hashtbl`
+### Functors from the Standard Library
 
 Some ”modules” provide operations over an abstract type and need to be supplied with a parameter module used in their implementation. These “modules” are parametrized, in other words, functors. That's the case for the sets, maps and hash tables provided by the standard library. It works in a contract way:
 * if you provide a module that implements what is expected (the parameter interface);
@@ -167,7 +174,7 @@ The functors  `Set.Make`, `Map.Make` and `Hashtbl.Make` return modules satisfyin
 * [`Map.S`](/api/Map.S.html)
 * [`Hashtbl.S`](/api/Hashtbl.S.html)
 
-## Custom Parametrized Implementation
+### Writing your own Functors
 
 There are many kinds of [heap](https://en.wikipedia.org/wiki/Heap_(data_structure)) data structures. Example include binary heaps, leftist heaps, binomial heaps or Fibonacci heaps.
 
@@ -233,7 +240,7 @@ Here binary heaps is the only implementation suggested. This can be extended to 
 
 ## Injecting Dependencies Using Functors
 
-### Module Dependencies
+**Dependencies Between Modules**
 
 Here is a new version of the `funkt` program.
 
@@ -262,9 +269,11 @@ It embeds an additional `IterPrint` module that exposes a single function `f` of
 
 Check the behaviour of the program using `dune exec funkt < dune`.
 
-### Dependency Injection
+**Dependency Injection**
 
-This is a dependency injection refactoring of the module `IterPrint`.
+[Dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) is a way to parametrize over a dependency.
+
+Here is a refactoring of the module `IterPrint` to make of this technique.
 
 **`iterPrint.ml`**
 ```ocaml
@@ -304,7 +313,7 @@ let _ =
 
 The dependency `List` is _injected_ when compiling the module `Funkt`. Observe that the code using `IterPrint` is unchanged. Check the behaviour of the program using `dune exec funkt < dune`.
 
-### Dependency Substitution
+**Replacing a Dependency**
 
 Now, replacing the implementation of `iter` inside `IterListPrint` is no longer a refactoring, it is another functor application with another dependency. Here, `Array` replaces `List`.
 
@@ -327,9 +336,9 @@ Check the behaviour of the program using `dune exec funkt < dune`.
 
 **Note**: The functor `IterPrint.Make` returns a module that exposes the type of the injected dependency (here first `List.t` then `Array.t`). That's why a `with type` constraint is needed. If the dependency was an _implementation detail_ that is not exposed in the signature of the initial version of `IterMake` (i.e. in the type of `IterMake.f`), that constraint wouldn't be needed and the call site of `IterPrint.f` would be unchanged when injecting another dependency.
 
-## Custom Module Extension
+## Write a Functor to Extend Modules
 
-In this section, we define a functor to extend another module. This is the same idea as in the [Extending a Module with a Functor](#extending-a-module-with-a-functor), except we write the functor ourselves.
+In this section, we define a functor to extend several modules in the same way. This is the same idea as in the [Extending a Module with a Standard Library Functor](#extending-a-module-with-a-standard-library-functor), except we write the functor ourselves.
 
 Create a fresh directory with the following files:
 
