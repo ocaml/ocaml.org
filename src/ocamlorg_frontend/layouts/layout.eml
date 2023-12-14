@@ -46,6 +46,7 @@ inner =
       <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine-clipboard.js" %>"></script>
       <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
       <script defer src="<%s Ocamlorg_static.Asset.url "vendors/htmx.min.js" %>"></script>
+      <script defer data-domain="ocaml.org" src="https://plausible.ci.dev/js/script.js"></script>
       <% if use_swiper then ( %>
       <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/swiper-bundle.min.css" %>">
       <link rel="alternate" type="application/rss+xml" title="OCaml RSS Feed" href="/feed.xml">
