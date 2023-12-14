@@ -9,7 +9,7 @@ Learn_layout.single_column_layout
 ~active_top_nav_item:Header.Learn
 ~current:Overview @@
   <div class="w-full border-b bg-[#DDEAFC] dark:bg-[#101B3F] dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/learn/hero-background.svg')] dark:md:bg-[url('/img/learn/hero-background-dark.svg')]">
-    <div class="container-fluid py-24 md:flex md:gap-20 bg-left-bottom bg-no-repeat md:bg-[url('/img/learn/hero-camel.svg')] dark:md:bg-[url('/img/learn/dark-hero-camel.svg')]">
+    <div class="container-fluid py-10 md:py-24 md:flex md:gap-20 bg-left-bottom bg-no-repeat md:bg-[url('/img/learn/hero-camel.svg')] dark:md:bg-[url('/img/learn/dark-hero-camel.svg')]">
       <div class="md:flex-grow">
         <h1 class="text-title dark:text-dark-title tracking-wider">Explore the OCaml Documentation</h1>
 
@@ -56,7 +56,7 @@ Learn_layout.single_column_layout
       FOR BEGINNERS
     </h2>
 
-    <div class="grid gap-6 mt-6 md:grid-cols-2">
+    <div class="grid gap-6 md:gap-10 mt-6 md:grid-cols-2">
       <%s! Learn_components.tutorial_block
               ~icon:Learn_components.beginner_section_icon ~title:"GET STARTED" ~heading:"Introduction To OCaml"
               ~description:"Install OCaml and gain a high-level understanding of the language"
@@ -108,14 +108,14 @@ Learn_layout.single_column_layout
     <div class="container-fluid flex flex-col py-9">
       <%s! Learn_components.block_heading ~icon:"" ~title:"PLATFORM TOOLS" ~heading:"The OCaml Platform" %>
       <div class="mt-10 flex flex-col md:flex-row gap-10">
-        <%s! Learn_components.tool_card ~img_src:"img/learn/opam_logo.jpg"
+        <%s! Learn_components.tool_card ~img_src:"img/learn/opam_logo.png"
             ~title:"opam" ~text:"OCaml's package manager for managing OCaml compilers and libraries"
             ~url:"https://opam.ocaml.org" %>
-        <%s! Learn_components.tool_card ~img_src:"img/learn/dune_logo.jpg"
+        <%s! Learn_components.tool_card ~img_src:"img/learn/dune_logo.svg"
           ~title:"Dune" ~text:"Dune is a user-friendly and efficient build system for developing OCaml projects"
           ~url:"https://dune.build/" %>
       </div>
-      <a class="pt-6 pb-3 text-primary dark:text-dark-primary dark:underline hover:underline" href="<%s Url.platform %>">Go to Platform Tools Documentation</a>
+      <a class="pt-6 pb-3 text-primary dark:text-dark-title hover:underline dark:underline dark:hover:text-dark-primary" href="<%s Url.platform %>">Go to Platform Tools Documentation</a>
     </div>
   </div>
 
@@ -125,7 +125,7 @@ Learn_layout.single_column_layout
       THE INTERMEDIATE LEVEL
     </h2>
 
-    <div class="grid gap-6 mt-6 md:grid-cols-2">
+    <div class="grid gap-6 md:gap-10 mt-6 md:grid-cols-2">
       <%s! Learn_components.tutorial_block ~icon:Learn_components.intermediate_section_icon ~title:"GUIDES" ~heading:"Practical-Minded Tutorials and Guides" 
               ~description:"How to solve real-world problems in OCaml" 
               ~tutorial_links:[
