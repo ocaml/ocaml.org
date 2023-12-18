@@ -25,7 +25,7 @@ Layout.base
 ~description
 ?canonical
 ~active_top_nav_item:Header.Packages @@
-<div class="bg-default dark:bg-dark-default"
+<div class="bg-legacy-default dark:bg-legacy-dark-default"
   x-on:click="search_instructions = false"
   x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, 'search_instructions': false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches"
   >
@@ -40,7 +40,7 @@ Layout.base
       x-on:click="sidebar = ! sidebar">
         <%s! Icons.sidebar_menu "h-6 w-6" %>
       </button>
-      <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm md:hidden"
+      <div class="fixed z-10 inset-0 bg-legacy-contrast/20 backdrop-blur-sm md:hidden"
         :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar">
       </div>
 
@@ -53,21 +53,21 @@ Layout.base
       <div class="flex gap-4 xl:gap-10 flex-col md:flex-row mt-6">
         <ol class="flex w-full md:w-60 lg:w-72 flex-shrink-0">
           <li class="flex flex-auto">
-            <a class="w-full h-10 flex justify-center rounded-l-lg p-1 items-center font-semibold border border-r-0 border-primary-700 <%s (match path with | Overview _ -> "bg-primary-700 text-white" | _ -> "text-primary-700")%>" href="<%s Url.Package.overview package.name ?version:(Package.url_version package) %>">Overview</a>
+            <a class="w-full h-10 flex justify-center rounded-l-lg p-1 items-center font-semibold border border-r-0 border-primary <%s (match path with | Overview _ -> "bg-primary text-white" | _ -> "text-primary")%>" href="<%s Url.Package.overview package.name ?version:(Package.url_version package) %>">Overview</a>
           </li>
             <% (match documentation_status with
             | Success -> %>
             <li class="flex flex-auto">
-              <a class="w-full h-10 flex justify-center rounded-r-lg p-1 items-center font-semibold border border-l-0  border-primary-700 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-primary-700")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>">Docs</a>
+              <a class="w-full h-10 flex justify-center rounded-r-lg p-1 items-center font-semibold border border-l-0  border-primary <%s (match path with | Documentation _ -> "bg-primary text-white" | _ -> "text-primary")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>">Docs</a>
             </li>
             <% | Unknown -> ( %>
             <li class="flex flex-auto">
-              <span aria-label="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-mild-contrast")%>"><%s! Icons.error "" %> No Docs</span>
+              <span aria-label="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-gray-400 <%s (match path with | Documentation _ -> "bg-primary text-white" | _ -> "text-gray-500 bg-legacy-mild-contrast")%>"><%s! Icons.error "" %> No Docs</span>
             </li>
             <% )
             | Failure -> ( %>
             <li class="flex flex-auto">
-              <a title="Documentation failed to build!" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0  border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-mild-contrast")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
+              <a title="Documentation failed to build!" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0  border-gray-400 <%s (match path with | Documentation _ -> "bg-primary text-white" | _ -> "text-gray-500 bg-legacy-mild-contrast")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
             </li>
             <% ));%>
           </li>
@@ -76,7 +76,7 @@ Layout.base
         <div id="in-package-search" class="relative w-full">
           <div class="flex w-full items-center overflow-hidden">
             <% if Option.is_some search_index_digest then (%>
-              <input id="in-package-search-input" type="search" name="q" class="min-w-0 focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
+              <input id="in-package-search-input" type="search" name="q" class="min-w-0 focus:border-gray-800 text-gray-800 border-primary h-10 rounded-l-md appearance-none px-4 flex-grow"
                 tabindex="1"
                 autocomplete="off"
                 aria-owns="in-package-search-results"
@@ -87,7 +87,7 @@ Layout.base
                 onfocus="this.select(); this.setAttribute('aria-expanded', true)"
                 onblur="this.setAttribute('aria-expanded', false)"
                 >
-              <div aria-hidden="true" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
+              <div aria-hidden="true" class="h-10 rounded-r-md bg-primary text-white flex items-center justify-center px-4">
                 <%s! Icons.magnifying_glass "w-6 h-6" %>
               </div>
               <button class="ml-4 btn btn-sm" @click.prevent.stop="search_instructions = !search_instructions" title="show search instructions">
@@ -96,18 +96,18 @@ Layout.base
             <% ); %>
           </div>
 
-          <div id="search-instructions" x-show="search_instructions" class="absolute top-12 p-4 right-0 left-0 bg-default dark:bg-dark-default z-[22] w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
+          <div id="search-instructions" x-show="search_instructions" class="absolute top-12 p-4 right-0 left-0 bg-legacy-default dark:bg-legacy-dark-default z-[22] w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
             <%s! search_instructions_html () %>
           </div>
 
-          <div id="in-package-search-results" aria-live="polite" class="absolute top-12 right-0 left-0 bg-default dark:bg-dark-default z-20 w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
+          <div id="in-package-search-results" aria-live="polite" class="absolute top-12 right-0 left-0 bg-legacy-default dark:bg-legacy-dark-default z-20 w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
           </div>
         </div>
       </div>
 
       <div class="flex md:gap-4 xl:gap-10">
         <div
-          class="p-10 z-20 bg-default dark:bg-dark-default flex-col fixed h-screen overflow-auto md:flex left-0 top-0 md:sticky w-80 md:w-60 lg:w-72 md:px-0 md:pt-6 md:pb-24"
+          class="p-10 z-20 bg-legacy-default dark:bg-legacy-dark-default flex-col fixed h-screen overflow-auto md:flex left-0 top-0 md:sticky w-80 md:w-60 lg:w-72 md:px-0 md:pt-6 md:pb-24"
           x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
           x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
           x-transition:leave-end="-translate-x-full">
@@ -116,7 +116,7 @@ Layout.base
 
         <div class="flex-1 z-0 z- min-w-0 pt-6">
           <%s! inner %>
-          <%s! Secondary_footer.render ()  %>
+          <%s! Footer.secondary_footer ()  %>
         </div>
         <% (if right_sidebar_html <> "" then %>
         <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24">

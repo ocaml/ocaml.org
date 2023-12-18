@@ -14,7 +14,7 @@ let right_sidebar
 
 let left_sidebar ~tutorials ~current_tutorial ~section =
   <div class="flex flex-col gap-5">
-    <%s! Learn_sidebar.render ~tutorials ~current_tutorial ~section %>
+    <%s! Learn_layout.sidebar ~tutorials ~current_tutorial ~section %>
   </div>
 
 let of_tutorial_section (s: Data.Tutorial.Section.t) =
@@ -24,13 +24,42 @@ let of_tutorial_section (s: Data.Tutorial.Section.t) =
   | Platform -> Learn_layout.Platform
   | Guides -> Learn_layout.Guides
 
+let render_related_exercises exercises =
+  if List.length exercises > 0 then
+    <div class='related-exercises'>
+      <h3>Related exercises :</h3>
+      <ul>
+        <% exercises |> List.iter (fun (exercise : Data.Exercise.t) -> %>
+          <li><a href='/exercises#<%s exercise.slug %>'><%s exercise.title %></a></li>
+        <% ); %>
+      </ul>
+    </div>
+  else
+    ""
+
 let render
 (tutorial : Data.Tutorial.t)
 ~tutorials
+~related_exercises
 ~canonical
 =
-Learn_layout.render
-~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title)
+let href, description = match tutorial.external_tutorial with
+  | None ->
+    "https://github.com/ocaml/ocaml.org/blob/"^ Commit.hash ^"/data/"^ tutorial.fpath,
+    "All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request."
+  | Some external_tutorial ->
+    external_tutorial.contribute_link.url,
+    external_tutorial.contribute_link.description
+in
+let render_external_tutorial_banner (opt_external_tutorial : Data.Tutorial.external_tutorial option) = match opt_external_tutorial with
+  | None -> ""
+  | Some external_tutorial ->
+    <a href="<%s external_tutorial.banner.url %>" target="_blank">
+      <img src="<%s Ocamlorg_static.Media.url external_tutorial.banner.image %>" alt="<%s external_tutorial.banner.alt %>">
+    </a>
+in
+Learn_layout.three_column_layout
+~title:(Printf.sprintf "%s · OCaml Documentation" tutorial.title)
 ~description:tutorial.description
 ~canonical
 ~active_top_nav_item:Learn
@@ -38,6 +67,8 @@ Learn_layout.render
 ~right_sidebar_html:(Some(right_sidebar tutorial))
 ~current:(of_tutorial_section tutorial.section) @@
   <div class="prose prose-orange max-w-full">
+    <%s! render_external_tutorial_banner tutorial.external_tutorial %>
     <%s! tutorial.body_html %>
-    <%s! Learn_components.contribute_footer ~href:("https://github.com/ocaml/ocaml.org/blob/"^ Commit.hash ^"/data/"^ tutorial.fpath) %>
+    <%s! render_related_exercises related_exercises %>
+    <%s! Learn_components.contribute_footer ~href ~description %>
   </div>

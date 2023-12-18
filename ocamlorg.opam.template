@@ -1,4 +1,4 @@
 pin-depends: [
-  ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#7ef5bebbf48958370051b2368a4dd57b69627cf6"]
+  ["tailwindcss.dev" "https://github.com/tmattio/opam-tailwindcss/archive/3e60fc32bbcf82525999d83ad0f395e16107026b.tar.gz"]
   ["olinkcheck.~dev" "git+https://github.com/tarides/olinkcheck"]
 ]

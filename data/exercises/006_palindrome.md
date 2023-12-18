@@ -1,6 +1,6 @@
 ---
 title: Palindrome
-number: "6"
+slug: "6"
 difficulty: beginner
 tags: [ "list" ]
 description: "Find out whether a list is a palindrome."

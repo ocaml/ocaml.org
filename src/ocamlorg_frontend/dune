@@ -174,7 +174,18 @@
   (action
    (run %{bin:dream_eml} %{dep:release.eml} --workspace %{workspace_root})))
  (rule
-  (target releases.ml)
+  (targets governance.ml)
+  (deps governance.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets governance_team.ml)
+  (deps governance_team.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets releases.ml)
+  (deps releases.eml)
   (action
    (run %{bin:dream_eml} %{dep:releases.eml} --workspace %{workspace_root})))
  (rule
@@ -208,7 +219,12 @@
  (rule
   (target page.ml)
   (action
-   (run %{bin:dream_eml} %{dep:page.eml} --workspace %{workspace_root}))))
+   (run %{bin:dream_eml} %{dep:page.eml} --workspace %{workspace_root})))
+ (rule
+  (target logos.ml)
+  (deps logos.eml)
+  (action
+   (run %{bin:dream_eml} %{dep:logos.eml} --workspace %{workspace_root}))))
 
 (subdir
  components/
@@ -224,14 +240,6 @@
   (target footer.ml)
   (action
    (run %{bin:dream_eml} %{dep:footer.eml} --workspace %{workspace_root})))
- (rule
-  (target secondary_footer.ml)
-  (action
-   (run
-    %{bin:dream_eml}
-    %{dep:secondary_footer.eml}
-    --workspace
-    %{workspace_root})))
  (rule
   (target forms.ml)
   (action
@@ -266,14 +274,6 @@
    (run
     %{bin:dream_eml}
     %{dep:package_breadcrumbs.eml}
-    --workspace
-    %{workspace_root})))
- (rule
-  (target learn_sidebar.ml)
-  (action
-   (run
-    %{bin:dream_eml}
-    %{dep:learn_sidebar.eml}
     --workspace
     %{workspace_root})))
  (rule

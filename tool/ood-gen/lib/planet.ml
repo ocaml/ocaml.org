@@ -80,7 +80,9 @@ module Local = struct
     let decode (fpath, (head, body)) =
       let metadata = metadata_of_yaml head in
       let body_html =
-        Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
+        Cmarkit.Doc.of_string ~strict:true (String.trim body)
+        |> Hilite.Md.transform
+        |> Cmarkit_html.of_doc ~safe:false
       in
       let source, slug =
         match Str.split (Str.regexp_string "/") fpath with
@@ -191,7 +193,8 @@ module External = struct
     let decode (fpath, (head, body)) =
       let metadata = metadata_of_yaml head in
       let body_html =
-        Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
+        Cmarkit.Doc.of_string ~strict:true (String.trim body)
+        |> Cmarkit_html.of_doc ~safe:true
       in
       let source =
         match Str.split (Str.regexp_string "/") fpath with
@@ -367,10 +370,7 @@ module Scraper = struct
     let slug = Utils.slugify title in
     let source_path = "data/planet/" ^ source_id in
     let output_file = source_path ^ "/" ^ slug ^ ".md" in
-    if Sys.file_exists output_file then
-      print_endline
-        (Printf.sprintf "%s/%s already exist, not scraping again" source_id slug)
-    else
+    if not (Sys.file_exists output_file) then
       let url = River.link post in
       let date = River.date post |> Option.map Syndic.Date.to_rfc3339 in
       match (url, date) with

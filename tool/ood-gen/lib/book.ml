@@ -1,3 +1,16 @@
+module Difficulty = struct
+  type t = Beginner | Intermediate | Advanced
+  [@@deriving show { with_path = false }]
+
+  let of_string = function
+    | "beginner" -> Ok Beginner
+    | "intermediate" -> Ok Intermediate
+    | "advanced" -> Ok Advanced
+    | s -> Error (`Msg ("Unknown difficulty type: " ^ s))
+
+  let of_yaml = Utils.of_yaml of_string "Expected a string for difficulty type"
+end
+
 type link = { description : string; uri : string }
 [@@deriving of_yaml, show { with_path = false }]
 
@@ -12,9 +25,7 @@ type metadata = {
   cover : string;
   isbn : string option;
   links : link list;
-  rating : int option;
-  featured : bool;
-  difficulty : string option;
+  difficulty : Difficulty.t;
   pricing : string;
 }
 [@@deriving of_yaml, show { with_path = false }]
@@ -30,9 +41,7 @@ type t = {
   cover : string;
   isbn : string option;
   links : link list;
-  rating : int option;
-  featured : bool;
-  difficulty : string option;
+  difficulty : Difficulty.t;
   pricing : string;
   body_md : string;
   body_html : string;
@@ -46,7 +55,9 @@ let of_metadata m = of_metadata m
 let decode (_, (head, body)) =
   let metadata = metadata_of_yaml head in
   let body_md = String.trim body in
-  let body_html = Omd.of_string body |> Omd.to_html in
+  let body_html =
+    Cmarkit.Doc.of_string ~strict:true body_md |> Cmarkit_html.of_doc ~safe:true
+  in
   Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () =
@@ -58,6 +69,7 @@ let all () =
 let template () =
   Format.asprintf
     {|
+type difficulty = Beginner | Intermediate | Advanced
 type link = { description : string; uri : string }
 
 type t = 
@@ -71,9 +83,7 @@ type t =
   ; cover : string
   ; isbn : string option
   ; links : link list
-  ; rating : int option
-  ; featured : bool
-  ; difficulty : string option
+  ; difficulty : difficulty
   ; pricing : string
   ; body_md : string
   ; body_html : string

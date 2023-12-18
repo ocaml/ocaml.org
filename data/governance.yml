@@ -1,0 +1,477 @@
+teams:
+- id: compiler
+  name: Compiler
+  description: The OCaml Compiler team, responsible for the development and maintenance
+    of the language, the standard library, and the compiler tools.
+  contacts:
+  - name: Mailing List
+    link: https://sympa.inria.fr/sympa/subscribe/caml-list
+    kind: email
+  - name: GitHub
+    link: https://github.com/ocaml/ocaml/issues
+    kind: github
+  members:
+  - name: Xavier Leroy
+    github: xavierleroy
+    role: Maintainer
+  - name: Damien Doligez
+    github: damiendoligez
+    role: Maintainer
+  - name: Alain Frisch
+    github: alainfrisch
+    role: Maintainer
+  - name: "Arma\xEBl Gu\xE9neau"
+    github: Armael
+    role: Maintainer
+  - name: David Allsopp
+    github: dra27
+    role: Maintainer
+  - name: Enguerrand
+    github: Engil
+    role: Maintainer
+  - name: Florian Angeletti
+    github: Octachron
+    role: Maintainer
+  - name: "Fr\xE9d\xE9ric Bour"
+    github: let-def
+    role: Maintainer
+  - name: Gabriel Scherer
+    github: gasche
+    role: Maintainer
+  - name: Jacques Garrigue
+    github: garrigue
+    role: Maintainer
+  - name: Jacques-Henri Jourdan
+    github: jhjourdan
+    role: Maintainer
+  - name: Jeremy Yallop
+    github: yallop
+    role: Maintainer
+  - name: KC Sivaramakrishnan
+    github: kayceesrk
+    role: Maintainer
+  - name: Leo White
+    github: lpw25
+    role: Maintainer
+  - name: Luc Maranget
+    github: maranget
+    role: Maintainer
+  - name: Mark Shinwell
+    github: mshinwell
+    role: Maintainer
+  - name: "Nicol\xE1s Ojeda B\xE4r"
+    github: nojb
+    role: Maintainer
+  - name: Pierre Chambart
+    github: chambart
+    role: Maintainer
+  - name: Sadiq Jaffer
+    github: sadiqj
+    role: Maintainer
+  - name: Stephen Dolan
+    github: stedolan
+    role: Maintainer
+  - name: "S\xE9bastien Hinderer"
+    github: shindere
+    role: Maintainer
+  - name: Thomas Refis
+    github: trefis
+    role: Maintainer
+  - name: Vincent Laviron
+    github: lthls
+    role: Maintainer
+- id: platform
+  name: Platform
+  description: The Platform team is responsible for the development and maintenance
+    of the OCaml Platform, the official OCaml developer toolchain.
+  contacts:
+  - name: Mailing List
+    link: https://lists.ocaml.org/listinfo/platform
+    kind: email
+  members:
+  - name: Anil Madhavapeddy
+    github: avsm
+    role: Owner
+  subteams:
+  - id: dune-dev
+    name: Dune
+    description: A composable build system for OCaml
+    dev-meeting:
+      date: Every other Wednesday
+      time: Alternating 9:00 AM CET and 5:00 PM CET (see wiki)
+      link: https://us06web.zoom.us/j/85096877776?pwd=cWNhU1dHQ1ZNSjZuOUZCQ0h2by9Udz09
+      notes: https://github.com/ocaml/dune/wiki
+    contacts:
+    - name: GitHub
+      link: https://github.com/ocaml/dune
+      kind: github
+    members:
+    - name: Rudi Grinberg
+      github: rgrinberg
+      role: Maintainer
+    - name: Ali Caglayan
+      github: Alizter
+      role: Maintainer
+    - name: Nicolás Ojeda Bär
+      github: nojb
+      role: Maintainer
+    - name: Marek Kubica
+      github: Leonidas-from-XIV
+      role: Maintainer
+    - name: Etienne Millon
+      github: emillon
+      role: Maintainer
+    - name: Stephen Sherratt
+      github: gridbugs
+      role: Maintainer
+    - name: Antonio Nuno Monteiro
+      github: anmonteiro
+      role: Maintainer
+    - name: Javier Chávarri
+      github: jchavarri
+      role: Maintainer
+    - name: Andrey Mokhov
+      github: snowleopard
+      role: Maintainer
+    - name: Emilio Jesús Gallego Arias
+      github: ejgallego
+      role: Maintainer
+    - name: Françoit Botot
+      github: bobot
+      role: Maintainer
+  - id: opam-dev
+    name: opam
+    description: Opam is a source-based package manager. It supports multiple simultaneous compiler installations, flexible package constraints, and a Git-friendly development workflow.
+    dev-meeting:
+      date: Every Monday
+      time: 2:00 PM CET
+      link: https://us06web.zoom.us/j/84185730263?pwd=TTYrY2puc0dST0lBMjZ5ZHNTaThoZz09
+      notes: https://github.com/ocaml/opam/wiki#dev-meetings
+    contacts:
+    - name: Mailing List
+      link: https://lists.ocaml.org/listinfo/opam-devel
+      kind: email
+    - name: GitHub
+      link: https://github.com/ocaml/opam
+      kind: github
+    members:
+    - name: Louis Gesbert 
+      github: AltGr
+      role: Maintainer
+    - name: Raja Boujbel
+      github: rjbou
+      role: Maintainer
+    - name: David Allsopp 
+      github: dra27
+      role: Maintainer
+    - name: Kate Deplaix
+      github: kit-ty-kate
+      role: Maintainer
+    - name: Thomas Gazagnaire
+      github: samoht
+      role: Maintainer
+  - id: ocaml-lsp-dev
+    name: OCaml-LSP
+    description: The OCaml Language Server Protocol (LSP) implementation
+    contacts:
+    - name: GitHub
+      link: https://github.com/ocaml/ocaml-lsp
+      kind: github
+    members:
+    - name: Rudi Grinberg
+      github: rgrinberg
+      role: Maintainer
+    - name: Corentin Leruth
+      github: tatchi
+      role: Maintainer
+    - name: Ulysse
+      github: voodoos
+      role: Maintainer
+    - name: Rafał Gwoździński
+      github: 3Rafal
+      role: Maintainer
+  - id: merlin-dev
+    name: Merlin
+    description: Context sensitive completion for OCaml in Vim and Emacs
+    contacts:
+    - name: Mailing List
+      link: https://lists.ocaml.org/listinfo/merlin
+      kind: email
+    - name: GitHub
+      link: https://github.com/ocaml/merlin
+      kind: github
+    members:
+    - name: Ulysse Gérard
+      github: voodoos
+      role: Maintainer
+    - name: Sonja Heinze
+      github: pitag-ha
+      role: Maintainer
+    - name: "Fr\xE9d\xE9ric Bour"
+      github: let-def
+      role: Maintainer
+    - name: Thomas Refis
+      github: trefis
+      role: Maintainer
+  - id: odoc-dev
+    name: odoc
+    description: Documentation compiler for OCaml and Reason
+    contacts:
+    - name: GitHub
+      link: https://github.com/ocaml/odoc
+      kind: github
+    members:
+    - name: Jon Ludlam
+      github: jonludlam
+      role: Maintainer
+    - name: "Daniel B\xFCnzli"
+      github: dbuenzli
+      role: Maintainer
+    - name: Leo White
+      github: lpw25
+      role: Maintainer
+    - name: Thomas Refis
+      github: trefis
+      role: Maintainer
+    - name: Jules Aguillon
+      github: Julow
+      role: Maintainer
+    - name: Paul-Elliot Anglès D'Auriac
+      github: panglesd
+      role: Maintainer
+    - name: Emile Trotignon
+      github: EmileTrotignon
+      role: Maintainer
+    - name: Guillaume Petiot
+      github: gpetiot
+      role: Maintainer
+  - id: ppxlib-dev
+    name: Ppxlib
+    description: Base library and tools for PPX rewriters
+    contacts:
+    - name: GitHub
+      link: https://github.com/ocaml-ppx/ppxlib
+      kind: github
+    dev-meeting:
+      date: Every third Tuesday
+      time: 6:00 PM CET
+      link: https://meet.google.com/bwy-fyqo-dnf
+      calendar: https://calendar.google.com/calendar/u/4?cid=Y19iMDA5ZDA4MDg0YzIwYWMzMDQ4NjJhN2FkZWJiYjdmOTU0NGIxYzEwMmU0MDMyMTAzMDFiY2ZhYjcwMDBmMjNlQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20
+      notes: https://github.com/ocaml-ppx/ppxlib/wiki
+    members:
+    - name: Sonja Heinze
+      github: pitag-ha
+      role: Maintainer
+    - name: Carl Eastlund
+      github: ceastlund
+      role: Maintainer
+    - name: "Paul-Elliot Angl\xE8s d'Auriac"
+      github: panglesd
+      role: Maintainer
+  - id: utop-dev
+    name: UTop
+    description: Universal toplevel for OCaml
+    contacts:
+    - name: GitHub
+      link: https://github.com/ocaml-community/utop
+      kind: github
+    members:
+    - name: Etienne Millon
+      github: emillon
+      role: Maintainer
+    - name: Rudi Grinberg
+      github: rgrinberg
+      role: Maintainer
+  - id: opam-publish-dev
+    name: opam-publish
+    description: A tool to ease contributions to opam repositories
+    contacts:
+    - name: GitHub
+      link: https://github.com/ocaml-opam/opam-publish
+      kind: github
+    members:
+    - name: Louis Gesbert
+      github: AltGr
+      role: Maintainer
+    - name: Raja Boujbel
+      github: rjbou
+      role: Maintainer
+    - name: Kate
+      github: kit-ty-kate
+      role: Maintainer
+    - name: Thomas Gazagnaire
+      github: samoht
+      role: Maintainer
+  - id: ocamlformat-dev
+    name: OCamlFormat
+    description: Auto-formatter for OCaml code
+    contacts:
+    - name: Mailing List
+      link: https://lists.ocaml.org/listinfo/ocamlformat-dev
+      kind: email
+    - name: GitHub
+      link: https://github.com/ocaml-ppx/ocamlformat
+      kind: github
+    members:
+    - name: Guillaume Petiot
+      github: gpetiot
+      role: Maintainer
+    - name: Jules Aguillon
+      github: Julow
+      role: Maintainer
+    - name: Emile Trotignon
+      github: EmileTrotignon
+      role: Maintainer
+  - id: dune-release-dev
+    name: dune-release
+    description: Streamlining the release of Dune packages to opam
+    contacts:
+    - name: GitHub
+      link: https://github.com/tarides/dune-release
+      kind: github
+    members:
+    - name: Etienne Millon
+      github: emillon
+      role: Maintainer
+    - name: Marek Kubica
+      github: Leonidas-from-XIV
+      role: Maintainer
+    - name: Thomas Gazagnaire
+      github: samoht
+      role: Maintainer
+  - id: mdx-dev
+    name: MDX
+    description: Execute code blocks inside your documentation
+    contacts:
+    - name: GitHub
+      link: https://github.com/realworldocaml/mdx
+      kind: github
+    members:
+    - name: Marek Kubica
+      github: Leonidas-from-XIV
+      role: Maintainer
+    - name: Thomas Gazagnaire
+      github: samoht
+      role: Maintainer
+  - id: ocp-indent-dev
+    name: ocp-indent
+    description: Indentation tool for OCaml to be used with editors like Emacs and Vim.
+    contacts:
+    - name: GitHub
+      link: https://github.com/OCamlPro/ocp-indent
+      kind: github
+    members:
+    - name: Louis Gesbert 
+      github: AltGr
+      role: Maintainer
+  - id: ocamlfind-dev
+    name: OCamlFind
+    description: The OCaml findlib library manager 
+    contacts:
+    - name: GitHub
+      link: https://github.com/ocaml/ocamlfind
+      kind: github
+    members:
+    - name: Gerd Stolpmann
+      github: gerdstolpmann
+      role: Maintainer
+    - name: David Allsopp
+      github: dra27
+      role: Maintainer
+- id: packaging
+  name: Packaging
+  description: The Packaging team is responsible to ensure the quality of the OCaml
+    packages ecosystem, and in particular, to review submissions to the opam repository.
+  contacts:
+  - name: GitHub
+    link: https://github.com/ocaml/opam-repository
+    kind: github
+  members:
+  - name: Anil Madhavapeddy
+    github: avsm
+    role: Maintainer
+  - name: Kate Deplaix
+    github: kit-ty-kate
+    role: Maintainer
+  - name: Marcello Seri
+    github: mseri
+    role: Maintainer
+  - name: Thomas Gazagnaire
+    github: samoht
+    role: Maintainer
+- id: infrastructure
+  name: Infrastructure
+  description: The infrastructure team is responsible for the maintenance and evolution of the infrastructure
+    powering the official OCaml projects, including the servers for OCaml.org and
+    the opam-repository CI.
+  contacts:
+  - name: GitHub
+    link: https://github.com/ocaml/infrastructure/issues
+    kind: github
+  members:
+  - name: Anil Madhavapeddy
+    github: avsm
+    role: Owner
+  - name: Tim McGilchrist
+    github: tmcgilchrist
+    role: Maintainer
+  - name: Kate
+    github: kit-ty-kate
+    role: Maintainer
+  - name: Mark Elvers
+    github: mtelvers
+    role: Maintainer
+  - name: Thomas Gazagnaire
+    github: samoht
+    role: Maintainer
+- id: ocamlorg
+  name: OCaml.org
+  description: The OCaml.org team is responsible for the development and maintenance of
+    the official OCaml websites, in particular OCaml.org and its subdomains.
+  contacts:
+  - name: GitHub
+    link: https://github.com/ocaml/ocaml.org
+    kind: github
+  - name: "#ocaml.org on the OCaml Discord"
+    link: https://discord.gg/cCYQbqN
+    kind: discord
+  dev-meeting:
+    date: Biweekly on Mondays
+    time: 17:00 CET
+    link: https://us06web.zoom.us/j/87207303434?pwd=7qClBFRquP4z0Z8ylCzseLtMgbbYpg.1
+    calendar: https://calendar.google.com/calendar/u/0/embed?src=c_02e41b2ad00165b404789fad7c5df7ea3a4ae62744c13307ee7fb3fd7382f1dd@group.calendar.google.com
+    notes: https://docs.google.com/document/d/1ricnsicOB35TmuOM86guYr6HWo8A1iyVrHdb0cNxOXg/edit
+  members:
+  - name: Anil Madhavapeddy
+    github: avsm
+    role: Owner
+  - name: Thibaut Mattio
+    github: tmattio
+    role: Maintainer
+  - name: Sabine Schmaltz
+    github: sabine
+    role: Maintainer
+  - name: Cuihtlauac Alvarado
+    github: cuihtlauac
+    role: Maintainer
+  - name: Christine Rose
+    github: christinerose
+    role: Maintainer
+working-groups:
+- id: wg-eio
+  name: Eio Working Group
+  description: Work on tools and libraries to do multicore programming with OCaml.
+  contacts:
+  - name: Matrix
+    link: https://matrix.to/#/#eio:roscidus.com
+    kind: chat
+  dev-meeting:
+    date: Biweekly on Mondays
+    time: 10:00 AM BST
+    link: http://meet.google.com/byo-dfiz-dou
+    calendar: https://calendar.google.com/calendar/u/4?cid=Y19iMDA5ZDA4MDg0YzIwYWMzMDQ4NjJhN2FkZWJiYjdmOTU0NGIxYzEwMmU0MDMyMTAzMDFiY2ZhYjcwMDBmMjNlQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20
+    notes: https://docs.google.com/document/d/1ZBfbjAkvEkv9ldumpZV5VXrEc_HpPeYjHPW_TiwJe4Q/
+  members:
+  - name: Sudha Parimala
+    github: Sudha247
+    role: Organiser

@@ -1,6 +1,6 @@
 ---
 title: Insert an Element at a Given Position Into a List
-number: "21"
+slug: "21"
 difficulty: beginner
 tags: [ "list" ]
 description: "Insert an element at a specified position (0-based index) within a list."

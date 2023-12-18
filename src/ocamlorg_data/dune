@@ -24,6 +24,15 @@
    (run %{dep:../../tool/ood-gen/bin/gen.exe} book))))
 
 (rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
+ (target governance.ml)
+ (action
+  (with-stdout-to
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} governance))))
+
+(rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
  (target changelog.ml)
  (action
   (with-stdout-to

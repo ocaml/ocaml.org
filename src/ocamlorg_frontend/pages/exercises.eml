@@ -1,14 +1,8 @@
 let exercises_sidebar_link
 ~title
-~href
-~current =
-  match current with
-  | true ->
-    <a class="block text-primary-600 bg-primary-100 border-l-2 border-primary-600 py-3 px-5 font-semibold text-sm rounded-sm" href="<%s href %>">
-      <%s title %>
-    </a>
-  | false ->
-    <a class="block hover:text-primary-600 hover:bg-primary-100 border-l-2 border-transparent hover:border-primary-600 py-3 px-5 font-medium text-sm rounded-sm" href="<%s href %>">
+~href =
+    <a class="block text-text_content hover:text-primary hover:bg-legacy-primary-100 border-l border-transparent hover:border-primary py-3 px-5 font-normal text-sm rounded-sm"
+      href="<%s href %>">
       <%s title %>
     </a>
 
@@ -18,9 +12,9 @@ title
 link_html
 =
    <details class="flex flex-col">
-      <summary class="flex gap-4 justify-between text-sm font-semibold py-4 uppercase focus:text-primary-600 active:text-primary-600 hover:text-primary-300">
+      <summary class="flex gap-4 justify-between text-sm font-normal py-4 focus:text-primary active:text-primary hover:text-primary">
         <%s title %>
-        <%s! Icons.chevron_down "h-6 w-6" %>
+        <%s! Icons.chevron_down "h-5 w-5" %>
       </summary>
       <span class="border-l"><%s! link_html %></span>
     </details>
@@ -30,16 +24,16 @@ let exercises_sidebar
 =
 let open Data in
 let render_exercise_link (exercise : Exercise.t) =
-  let href = "#" ^ exercise.number in
-  exercises_sidebar_link ~title:exercise.title ~href ~current:false
+  let href = "#" ^ exercise.slug in
+  exercises_sidebar_link ~title:exercise.title ~href
 in
 let exercise_sidebar_links_by_tag ?tag title =
   <%s! exercises_sidebar_link_group title
     (Exercise.filter_tag ?tag exercises |> List.fold_left (fun a b -> a ^ render_exercise_link b) "")
   %>
 in
-  <div class="pr-3">
-  <p class="font-bold mb-4">Exercises Categories</p>
+  <div class="pr-5">
+  <p class="font-normal uppercase mb-4">Exercise Categories</p>
     <hr>
     <%s! exercise_sidebar_links_by_tag ~tag:"list" "Lists" %>
     <hr>
@@ -56,21 +50,67 @@ in
     <%s! exercise_sidebar_links_by_tag "Miscellaneous" %>
   </div>
 
-let danger = function
-  | `Beginner -> ""
-  | `Intermediate -> "☡"
-  | `Advanced -> "☡☡"
+let statement_solution_switch =
+  let exercise_solution class_ =
+    <svg class="<%s class_ %>" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+    </svg>
+  in
+  let exercise_statement class_ =
+    <svg class="<%s class_ %>" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path id="Vector" d="M13 4.97177C13 4.61677 13.186 4.29577 13.401 4.01277C13.622 3.72277 13.75 3.37877 13.75 3.00977C13.75 1.97377 12.743 1.13477 11.5 1.13477C10.257 1.13477 9.25 1.97477 9.25 3.00977C9.25 3.37877 9.378 3.72277 9.599 4.01277C9.814 4.29577 10 4.61677 10 4.97177C10.0004 5.05751 9.98363 5.14247 9.95059 5.2216C9.91755 5.30073 9.86894 5.37241 9.80766 5.43239C9.74637 5.49236 9.67366 5.53941 9.59384 5.57074C9.51402 5.60207 9.42872 5.61704 9.343 5.61477C7.95166 5.57469 6.56271 5.47459 5.18 5.31477C5.366 6.92777 5.473 8.56477 5.495 10.2218C5.49593 10.3087 5.47958 10.3949 5.4469 10.4754C5.41422 10.556 5.36587 10.6292 5.30465 10.6909C5.24343 10.7526 5.17056 10.8015 5.09028 10.8347C5.01 10.868 4.92391 10.885 4.837 10.8848C4.482 10.8848 4.161 10.6988 3.878 10.4838C3.59137 10.2599 3.2387 10.1372 2.875 10.1348C1.839 10.1348 1 11.1418 1 12.3848C1 13.6278 1.84 14.6348 2.875 14.6348C3.244 14.6348 3.588 14.5068 3.878 14.2858C4.161 14.0708 4.482 13.8848 4.837 13.8848C5.147 13.8848 5.392 14.1448 5.369 14.4548C5.24461 16.1503 5.03031 17.838 4.727 19.5108C6.245 19.7008 7.785 19.8198 9.343 19.8648C9.42872 19.867 9.51402 19.8521 9.59384 19.8207C9.67366 19.7894 9.74637 19.7424 9.80766 19.6824C9.86894 19.6224 9.91755 19.5507 9.95059 19.4716C9.98363 19.3925 10.0004 19.3075 10 19.2218C10 18.8668 9.814 18.5458 9.599 18.2628C9.37511 17.9761 9.2524 17.6235 9.25 17.2598C9.25 16.2248 10.258 15.3848 11.5 15.3848C12.743 15.3848 13.75 16.2248 13.75 17.2598C13.75 17.6288 13.622 17.9728 13.401 18.2628C13.186 18.5458 13.001 18.8668 13.001 19.2218C13.001 19.5548 13.278 19.8208 13.611 19.8018C15.4305 19.6948 17.2424 19.4844 19.038 19.1718C19.3097 17.61 19.5039 16.0357 19.62 14.4548C19.6252 14.3817 19.6153 14.3083 19.5909 14.2393C19.5664 14.1702 19.528 14.1069 19.4779 14.0534C19.4279 13.9999 19.3673 13.9573 19.3001 13.9283C19.2328 13.8993 19.1603 13.8844 19.087 13.8848C18.732 13.8848 18.411 14.0708 18.128 14.2858C17.838 14.5068 17.494 14.6348 17.125 14.6348C16.09 14.6348 15.25 13.6278 15.25 12.3848C15.25 11.1418 16.09 10.1348 17.125 10.1348C17.495 10.1348 17.838 10.2628 18.128 10.4838C18.411 10.6988 18.732 10.8848 19.088 10.8848C19.1749 10.885 19.261 10.868 19.3413 10.8347C19.4216 10.8015 19.4944 10.7526 19.5557 10.6909C19.6169 10.6292 19.6652 10.556 19.6979 10.4754C19.7306 10.3949 19.7469 10.3087 19.746 10.2218C19.722 8.42963 19.5984 6.64021 19.376 4.86177C17.49 5.20377 15.566 5.43577 13.61 5.55077C13.5313 5.55513 13.4525 5.54335 13.3785 5.51613C13.3045 5.48892 13.2369 5.44686 13.1797 5.39253C13.1226 5.3382 13.0772 5.27276 13.0463 5.20023C13.0153 5.1277 12.9996 5.05061 13 4.97177Z" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  in
+  <div class="flex">
+    <button
+      class="px-10 h-11 text-base font-medium rounded-l-md border flex gap-2 items-center"
+      x-on:click="statement = true"
+      :class="statement ? 'bg-primary border-primary text-white': 'text-text_content' "
+    >
+      <%s! exercise_statement "h-5 w-5" %>
+      Statement
+    </button>
+    <button
+      class="px-10 h-11 text-base  font-medium rounded-r-md border-t border-r border-b  flex gap-2 items-center"
+      x-on:click="statement = false"
+      :class="statement ? 'text-text_content': 'bg-secondary border-secondary text-white' "
+    >
+      <%s! exercise_solution "h-5 w-5" %>
+      Solution
+    </button>
+  </div>
 
 let difficulty_to_string = function
-  | `Beginner -> "Beginner"
-  | `Intermediate -> "Intermediate"
-  | `Advanced -> "Advanced"
+  | Data.Exercise.Beginner -> "Beginner"
+  | Intermediate -> "Intermediate"
+  | Advanced -> "Advanced"
+
+let render_exercise (exercise: Data.Exercise.t) =
+  let difficulty = 
+    match exercise.difficulty with | Data.Exercise.Beginner -> Learn_components.Beginner | Intermediate -> Intermediate | Advanced -> Advanced
+  in
+  <div x-data="{statement: true}" id="<%s" exercise.slug %>
+    >
+    <div class="flex mb-4 flex-col gap-4 md:flex-row md:items-center">
+      <h2 class="my-0 font-normal text-2xl text-text_title">
+        <%s exercise.title %>
+      </h2>
+      <div class="inline px-3 py-1 <%s Learn_components.color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white tracking-widest leading-5" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %></div>">
+        <%s Learn_components.string_from_difficulty difficulty %>
+      </div>
+    </div>
+    <%s! statement_solution_switch %>
+
+    <div x-show="statement"><%s! exercise.statement %></div>
+    <div x-show="!statement"><%s! exercise.solution %></div>
+  </div>
+  <div class="my-12"></div>
 
 let render
 ?(difficulty_level = "All")
 (exercises : Data.Exercise.t list)
 =
-Learn_layout.render
+Learn_layout.three_column_layout
 ~title:"Exercises"
 ~description:"A list of exercises to work on your OCaml skills."
 ~canonical:Url.exercises
@@ -79,7 +119,7 @@ Learn_layout.render
 ~right_sidebar_html:None
 ~current:Exercises @@
   <div class="prose prose-orange max-w-full">
-    <h1 class="font-bold mb-8">Exercises</h1>
+    <h1 class="font-normal text-4xl text-text_title mb-8">Exercises</h1>
     <div class="prose prose-orange max-w-full mb-5">
       <p>
         This section is inspired by
@@ -93,7 +133,7 @@ Learn_layout.render
           href="<%s Url.playground %>">inside
           your browser</a>. The source of the following
         problems is available on
-        <a href="https://github.com/ocaml/ocaml.org/tree/main/data/problems">GitHub</a>.
+        <a href="https://github.com/ocaml/ocaml.org/tree/main/data/exercises">GitHub</a>.
       </p>
       <p>
         Every exercise has a difficulty level, ranging from beginner to advanced.
@@ -101,50 +141,17 @@ Learn_layout.render
         The absence of marks represents the beginner level, one mark the intermediate level and two marks the advanced level.
       </p>
     </div>
-    <div class="border-b border-solid border-zinc-300 leading-5 py-8 text-zinc-800">
+    <div class="leading-5 py-8 text-zinc-800">
       <form action="<%s Url.exercises %>" method="GET">
         <label for="difficulty_level" class="sr-only">Difficulty</label>
         <%s! Forms.select
           ~attrs:{|id="difficulty_level" name="difficulty_level" onchange="this.form.submit()"|}
-          ~options:[("All", "Any Difficulty"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
+          ~options:[("All", "Select Level"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
           ~selected:difficulty_level
           "w-48" %>
       </form>
     </div>
     <% exercises |> List.iter (fun (exercise : Data.Exercise.t) -> %>
-    <div x-data="{statement: true}" id="<%s" exercise.number %>
-      >
-      <div class="flex space-y-4 xl:space-y-0 flex-col xl:flex-row xl:justify-between">
-        <span aria-hidden="true" class="danger invisible xl:visible" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %>"><%s danger exercise.difficulty %></span>
-        <h4 class="font-bold text-default">
-          <%s exercise.title %>
-          <span aria-hidden="true" class="ml-2 visible xl:invisible" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %>"> <%s danger exercise.difficulty %></span>
-        </h4>
-        <div class="w-0 h-0 overflow-hidden"><%s difficulty_to_string exercise.difficulty ^ " difficulty" %></div>
-        <div class="flex bg-body-600 bg-opacity-5 rounded-md p-1 items-center">
-          <button
-            class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
-            x-on:click="statement = true"
-            :class="statement ? 'bg-default dark:bg-dark-default text-primary-600': 'text-lighter' "
-          >
-            <%s! Icons.exercise_statement "h-5 w-5" %>
-            <span :class="statement ? 'text-default' : 'text-lighter'">Statement</span>
-          </button>
-          <button
-            class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
-            x-on:click="statement = false"
-            :class="statement ? 'text-lighter': 'bg-default dark:bg-dark-default text-primary-600' "
-          >
-            <%s! Icons.exercise_solution "h-5 w-5" %>
-            <span :class="statement ? 'text-lighter' : 'text-default'">Solution</span>
-          </button>
-        </div>
-      </div>
-
-      <div x-show="statement"><%s! exercise.statement %></div>
-
-      <div x-show="!statement"><%s! exercise.solution %></div>
-    </div>
-    <div class="border-t border-gray-200 my-12"></div>
+    <%s! render_exercise exercise %>
     <% ); %>
   </div>

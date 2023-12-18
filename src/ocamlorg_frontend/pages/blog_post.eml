@@ -4,17 +4,17 @@ Layout.render
 ~description:(Option.value ~default:blog_post.title blog_post.description)
 ~canonical:(Url.blog_post blog_post.source.id blog_post.slug)
 ~active_top_nav_item:Blog @@
-<div class="bg-default dark:bg-dark-default py-24">
+<div class="bg-legacy-default dark:bg-legacy-dark-default py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">
       <div class="flex flex-wrap gap-4">
         <a href="<%s Url.blog %>"
-          class="text-primary-600 hover:underline font-semibold mb-4">
+          class="text-primary hover:underline font-semibold mb-4">
           <div>OCaml Planet</div>
         </a>
         /
         <a href="<%s Url.local_blog blog_post.source.id %>"
-          class="text-primary-600 hover:underline font-semibold mb-4">
+          class="text-primary hover:underline font-semibold mb-4">
           <div><%s blog_post.source.name %></div>
         </a>
       </div>

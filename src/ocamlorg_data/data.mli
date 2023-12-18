@@ -25,6 +25,7 @@ module Academic_institution : sig
 end
 
 module Book : sig
+  type difficulty = Beginner | Intermediate | Advanced
   type link = { description : string; uri : string }
 
   type t = {
@@ -38,16 +39,13 @@ module Book : sig
     cover : string;
     isbn : string option;
     links : link list;
-    rating : int option;
-    featured : bool;
-    difficulty : string option;
+    difficulty : difficulty;
     pricing : string;
     body_md : string;
     body_html : string;
   }
 
   val all : t list
-  val featured : t list
   val get_by_slug : string -> t option
 end
 
@@ -155,20 +153,22 @@ module Paper : sig
 end
 
 module Exercise : sig
-  type difficulty = [ `Beginner | `Intermediate | `Advanced ]
+  type difficulty = Beginner | Intermediate | Advanced
 
   type t = {
     title : string;
-    number : string;
+    slug : string;
     difficulty : difficulty;
     tags : string list;
     description : string;
     statement : string;
     solution : string;
+    tutorials : string list option;
   }
 
   val all : t list
   val filter_tag : ?tag:string -> t list -> t list
+  val get_by_slug : string -> t option
 end
 
 module Success_story : sig
@@ -211,6 +211,14 @@ module Tutorial : sig
   end
 
   type toc = { title : string; href : string; children : toc list }
+  type contribute_link = { url : string; description : string }
+  type banner = { image : string; url : string; alt : string }
+
+  type external_tutorial = {
+    tag : string;
+    banner : banner;
+    contribute_link : contribute_link;
+  }
 
   type t = {
     title : string;
@@ -219,6 +227,7 @@ module Tutorial : sig
     description : string;
     section : Section.t;
     category : string;
+    external_tutorial : external_tutorial option;
     body_md : string;
     toc : toc list;
     body_html : string;
@@ -355,7 +364,6 @@ module Workshop : sig
     presentations : presentation list;
     program_committee : committee_member list;
     organising_committee : committee_member list;
-    toc_html : string;
     body_md : string;
     body_html : string;
   }
@@ -460,4 +468,37 @@ module Event : sig
 
   val all : t list
   val get_by_slug : string -> t option
+end
+
+module Governance : sig
+  module Member : sig
+    type t = { name : string; github : string; role : string }
+
+    val compare : t -> t -> int
+  end
+
+  type contact_kind = GitHub | Email | Discord | Chat
+  type contact = { name : string; link : string; kind : contact_kind }
+
+  type dev_meeting = {
+    date : string;
+    time : string;
+    link : string;
+    calendar : string option;
+    notes : string;
+  }
+
+  type team = {
+    id : string;
+    name : string;
+    description : string;
+    contacts : contact list;
+    dev_meeting : dev_meeting option;
+    members : Member.t list;
+    subteams : team list;
+  }
+
+  val teams : team list
+  val working_groups : team list
+  val get_by_id : string -> team option
 end

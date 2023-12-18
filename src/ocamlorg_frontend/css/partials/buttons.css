@@ -1,45 +1,75 @@
 @layer components {
   .btn {
-    @apply rounded-lg bg-primary-600 px-5 h-12 font-semibold text-white whitespace-nowrap transition-colors inline-flex items-center justify-center space-x-3 text-base;
+    @apply rounded bg-primary border border-primary font-normal text-lg text-white whitespace-nowrap transition-colors inline-flex items-center justify-center space-x-3;
   }
 
-  .btn:active {
-    @apply bg-primary-800;
-  }
-
-  .btn:hover {
-    @apply bg-primary-700;
+  .btn {
+    @apply px-7 h-11;
   }
 
   .btn-lg {
-    @apply px-10 h-14 space-x-4;
+    @apply px-7 h-16 space-x-4;
   }
 
   .btn-sm {
-    @apply px-4 h-10 text-sm;
+    @apply px-5 h-8 text-sm;
+  }
+
+  .btn:active {
+    @apply bg-primary_dark;
+  }
+
+  .btn:hover {
+    @apply bg-primary_dark border-primary_dark;
   }
 
   .btn-secondary {
-    @apply bg-transparent border-primary-600 text-primary-600 border;
+    @apply bg-secondary border-secondary;
   }
 
   .btn-secondary:hover {
-    @apply bg-opacity-5 bg-primary-600;
+    @apply bg-secondary_bt_hover border-secondary_bt_hover;
   }
 
   .btn-secondary:active {
-    @apply bg-opacity-10 bg-primary-600;
+    @apply bg-secondary_bt_hover;
   }
 
   .btn-tertiary {
-    @apply bg-transparent border;
+    @apply bg-tertiary border-tertiary;
   }
 
   .btn-tertiary:hover {
-    @apply bg-default dark:bg-dark-default bg-opacity-10;
+    @apply bg-tertiary_bt_hover border-tertiary_bt_hover;
   }
 
   .btn-tertiary:active {
-    @apply bg-default dark:bg-dark-default bg-opacity-20;
+    @apply bg-tertiary_bt_hover;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent border-primary text-primary border text-base font-semibold;
+  }
+
+  .btn-ghost:hover {
+    @apply text-white bg-primary border-primary;
+  }
+
+  .btn-ghost:active {
+    @apply  text-white bg-primary_dark;
+  }
+
+
+  /* TODO: remove when no longer in use */
+  .btn-legacy-tertiary {
+    @apply bg-transparent border border-white text-white;
+  }
+
+  .btn-legacy-tertiary:hover {
+    @apply bg-legacy-default dark:bg-legacy-dark-default bg-opacity-10 border-white;
+  }
+
+  .btn-legacy-tertiary:active {
+    @apply bg-legacy-default dark:bg-legacy-dark-default bg-opacity-20;
   }
 }

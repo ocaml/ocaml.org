@@ -23,7 +23,9 @@ let decode (fname, (head, body)) =
   let slug = Filename.basename (Filename.remove_extension fname) in
   let metadata = metadata_of_yaml head in
   let body_html =
-    Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
+    Cmarkit.Doc.of_string ~strict:true (String.trim body)
+    |> Hilite.Md.transform
+    |> Cmarkit_html.of_doc ~safe:false
   in
   Result.map (of_metadata ~slug ~body_html) metadata
 

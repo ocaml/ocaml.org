@@ -7,7 +7,7 @@ Layout.render
 ~description:source.description
 ~canonical:(Url.local_blog source.name)
 ~active_top_nav_item:Header.Blog @@
-<div class="bg-default dark:bg-dark-default py-10 lg:py-20">
+<div class="bg-legacy-default dark:bg-legacy-dark-default py-10 lg:py-20">
     <div class="container-fluid wide">
         <div class="mx-auto max-w-5xl">
             <div class="prose mb-12">
@@ -23,11 +23,11 @@ Layout.render
                 <div class="flex flex-col-reverse lg:flex-row lg:gap-12">
                     <div class="space-y-3 mt-6 lg:mt-0 flex flex-col flex-1">
                         <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"
-                            class="block text-xl font-semibold hover:text-primary-600"><%s item.title %></a>
-                        <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>" class="text-lighter">
+                            class="block text-xl font-semibold hover:text-primary"><%s item.title %></a>
+                        <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>" class="text-legacy-lighter">
                             <%s Option.value ~default:"" item.description %>
                         </a>
-                        <div class="text-lighter flex space-x-2.5 text-sm">
+                        <div class="text-legacy-lighter flex space-x-2.5 text-sm">
                             <div><%s Utils.human_time item.date %></div>
                         </div>
                     </div>

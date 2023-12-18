@@ -7,7 +7,6 @@ end
 module Book = struct
   include Book
 
-  let featured = all |> List.filter (fun book -> book.featured)
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
@@ -52,6 +51,8 @@ module Exercise = struct
       Option.fold ~none:(x.tags = []) ~some:(Fun.flip List.mem x.tags) tag
     in
     List.filter f
+
+  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Success_story = struct
@@ -179,4 +180,11 @@ module Event = struct
   include Event
 
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+end
+
+module Governance = struct
+  include Governance
+
+  let get_by_id id =
+    List.find_opt (fun x -> String.equal id x.id) (teams @ working_groups)
 end

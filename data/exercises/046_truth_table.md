@@ -1,6 +1,6 @@
 ---
 title: Truth Tables for Logical Expressions (2 Variables)
-number: "46"
+slug: "46"
 difficulty: intermediate
 tags: [ "logic" ]
 description: "Generate a truth table for a two-variable boolean expression, returning a list of variable value pairs and the expression's results"

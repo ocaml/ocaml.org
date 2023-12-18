@@ -45,8 +45,8 @@
   fpath
   fmt
   logs
-  (omd
-   (>= "2.0.0~alpha4"))
+  (cmarkit
+   (>= 0.2.0))
   opam-format
   (timedesc
    (>= 1.1.1))
@@ -54,8 +54,9 @@
   lwt
   tailwindcss
   (hilite
-   (>= 0.3.0))
-  river
+   (>= 0.4.0))
+  (river
+   (>= 0.3))
   syndic
   (alcotest :with-test)
   (mdx

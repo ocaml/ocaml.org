@@ -21,12 +21,14 @@ inner =
       <% (match description with | Some description -> %>
       <meta name="twitter:description" content="<%s description %>">
       <% | None -> ()); %>
+      <meta name="twitter:image" content="https://ocaml.org<%s Ocamlorg_static.Asset.url "ocaml_org_social_media.png" %>">
       <meta property="og:site_name" content="OCaml">
       <meta property="og:type" content="object">
       <meta property="og:title" content="<%s title %>">
       <% (match description with | Some description -> %>
       <meta property="og:description" content="<%s description %>">
       <% | None -> ()); %>
+      <meta name="og:image" content="https://ocaml.org<%s Ocamlorg_static.Asset.url "ocaml_org_social_media.png" %>">
       <meta name="theme-color" content="#fff" >
       <meta name="color-scheme" content="white">
       <% (match canonical with | Some canonical -> %>
@@ -44,6 +46,7 @@ inner =
       <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine-clipboard.js" %>"></script>
       <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
       <script defer src="<%s Ocamlorg_static.Asset.url "vendors/htmx.min.js" %>"></script>
+      <script defer data-domain="ocaml.org" src="https://plausible.ci.dev/js/script.js"></script>
       <% if use_swiper then ( %>
       <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/swiper-bundle.min.css" %>">
       <link rel="alternate" type="application/rss+xml" title="OCaml RSS Feed" href="/feed.xml">
@@ -55,7 +58,7 @@ inner =
 
     <body class="light">
       <% if banner then ( %>
-      <div class="relative bg-contrast">
+      <div class="relative bg-legacy-contrast">
         <div class="mx-auto py-3 px-6 sm:px-16 max-w-6xl sm:text-center">
           <p class="font-medium text-white">
             <span class="md:hidden">We've released the OCaml Changelog!</span>
@@ -101,4 +104,4 @@ inner =
     </body>
   </html>
 
-let render = base ~footer_html:(Footer.render ())
+let render = base ~footer_html:(Footer.primary_footer ())

@@ -1,6 +1,6 @@
 ---
 title: Reverse a List
-number: "5"
+slug: "5"
 difficulty: beginner
 tags: [ "list" ]
 description: "Write a function to reverse a list."

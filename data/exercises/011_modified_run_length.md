@@ -1,6 +1,6 @@
 ---
 title: Modified Run-Length Encoding
-number: "11"
+slug: "11"
 difficulty: beginner
 tags: [ "list" ]
 description: "Modify run-length encoding to include single elements and (count, element) pairs."

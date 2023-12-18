@@ -1,6 +1,6 @@
 ---
 title: Construct a Complete Binary Tree
-number: "63"
+slug: "63"
 difficulty: intermediate
 tags: [ "binary-tree" ]
 description: "Construct a complete binary tree from a list of elements, and make sure it satisfies the property of being 'left-adjusted'."

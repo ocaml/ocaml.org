@@ -6,19 +6,17 @@ description: >
   computation, system scripting, and database-driven web applications with
   the OCaml multi-paradigm programming language.
 recommendation: >
-  Suitable for people with some imperative programming experience. Hands-on code examples using real world scenerios.
+  This practical book guides through using OCaml for real-world problems in data processing and web applications, covering its various programming styles with real examples. It starts with basics and advances to topics like the module system and foreign-function interface, focusing on efficient coding using the Jane Street core library.
 authors:
   - Anil Madhavapeddy
   - Yaron Minsky
-published: 2022-10-22
+published: 2022-11-23
 cover: books/real-world-ocaml.jpg
 language:
   - english
 links:
   - description: Read Online
     uri: https://realworldocaml.org/
-rating: 4
-featured: true
 difficulty: intermediate
 pricing: free
 ---
