@@ -19,7 +19,7 @@ This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have
 ## Minimum Project Setup
 <!-- CONCEPT: Dune setup -->
 
-This section details the structure of an almost minimum Dune project setup. Check [Your First OCaml Program](/docs/your-first-program) for automatic setup using the `dune init proj` command.
+This section details the structure of an almost-minimum Dune project setup. Check [Your First OCaml Program](/docs/your-first-program) for automatic setup using the `dune init proj` command.
 ```shell
 $ mkdir mixtli; cd mixtli
 
@@ -182,7 +182,7 @@ The executable and the corresponding `dune` file need to be updated to use the d
 ## Library Wrapper Modules
 <!-- CONCEPT: Submodule -->
 
-By default, modules bundled into a library by Dune are wrapped into a module. It is possible to bypass Dune's behaviour by manually writing the wrapper file.
+By default, when Dune bundles modules bundled into a library, they are wrapped into a module. It is possible to bypass Dune's behaviour by manually writing the wrapper file.
 
 This `lib/wmo.ml` file corresponds to the module that Dune automatically generated in the previous section.
 
