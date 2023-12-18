@@ -31,7 +31,7 @@ In other words, a value of type `t option` for some type `t` represents
 * either a value `v` of type `t`, wrapped as `Some v`
 * no such value, then `o` has the value `None`
 
-The option type is very useful when lack of data is better handled as a special value (_i.e.,_ `None`) rather than an exception. It is the type-safe version of returning error values such as in C, for instance. Since no data has any special meaning, confusion between regular values and absence of value is impossible. In computer science, this type is called the [option
+The option type is very useful when lack of data is better handled as a special value (_i.e.,_ `None`) rather than an exception. It is the type-safe version of returning error values such as in C, for instance. Since no data has any special meaning, confusion between regular values and the absence of value is impossible. In computer science, this type is called the [option
 type](https://en.wikipedia.org/wiki/Option_type). OCaml has supported `option` since its inception.
 
 ## Exceptions _vs_ Options
@@ -48,7 +48,7 @@ Exception: Not_found.
 - : string option = None
 ```
 
-See the [Error Handling](/docs/error-handling) for an longer discussion on error handling using options, exceptions, and others means.
+See [Error Handling](/docs/error-handling) for a longer discussion on error handling using options, exceptions, and others means.
 
 ## The Standard Library `Option` Module
 
@@ -159,6 +159,7 @@ The `bind` function of type `'a option -> ('a -> 'b option) -> 'b option` works 
 In other words, `Option.bind` is the same as this:
 ```ocaml
 # let bind o f = Option.(o |> map f |> join);;
+val bind : 'a option -> ('a -> 'b option) -> 'b option = <fun>
 ```
 
 ## Conclusion
