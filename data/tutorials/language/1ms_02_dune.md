@@ -10,14 +10,13 @@ category: "Module System"
 
 ## Introduction
 
-The goal of this tutorial is
+The goal of this tutorial is to teach the mechanisms built in Dune that allow the processing of OCaml modules.
 
 This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have version 3.7 or later installed.
 
-**Requirements**: Modules and Functors
+**Requirements**: [Modules](/docs/modules) and [Functors](/docs/modules).
 
 ## Minimum Project Setup
-<!-- CONCEPT: Dune setup -->
 
 This section details the structure of an almost-minimum Dune project setup. Check [Your First OCaml Program](/docs/your-first-program) for automatic setup using the `dune init proj` command.
 ```shell
@@ -44,7 +43,7 @@ This file contains the global project configuration. It's kept to the bare minim
 
 Each folder that requires some sort of build must contain a `dune` file. The `executable` stanza means an executable program is built.
 - The `name cloud` stanza means the file `cloud.ml` contains the executable.
-- The `public_name nube` stanza means the executable is made available using the name `nube` (Spanish for *cloud*).
+- The `public_name nube` stanza means the executable is made available using the name `nube`.
 
 **`wmo.ml`**
 ```ocaml
@@ -120,7 +119,6 @@ The `dune describe` command allows having a look at the project's module structu
 ```
 
 ## Libraries
-<!-- CONCEPT: libraries -->
 
 When using Dune (with its default settings), an OCaml _library_ is a module aggregating other modules, bottom-up. This contrasts with the `struct ... end` syntax where modules are aggregated top-down by nesting submodules into container modules. Dune creates libraries from folders, like the following:
 ```shell
@@ -180,11 +178,10 @@ The executable and the corresponding `dune` file need to be updated to use the d
   - When used as a dependency in `dune`
 
 ## Library Wrapper Modules
-<!-- CONCEPT: Submodule -->
 
-By default, when Dune bundles modules bundled into a library, they are wrapped into a module. It is possible to bypass Dune's behaviour by manually writing the wrapper file.
+By default, when Dune bundles modules into a library, they are wrapped into a module. It is possible to bypass Dune's behaviour by manually writing the wrapper file.
 
-This `lib/wmo.ml` file corresponds to the module that Dune automatically generated in the previous section.
+This `lib/wmo.ml` is the wrapper file that corresponds to the module that Dune automatically generated in the previous section.
 
 **`lib/wmo.ml`**
 ```ocaml
@@ -192,7 +189,7 @@ module Cumulus = Cumulus
 module Stratus = Stratus
 ```
 
-Here is how this makes sense of these module definitions:
+Here is how to make sense of these module definitions:
 - On the left-hand side, `module Cumulus` means module `Wmo` contains a submodule named `Cumulus`.
 - On the right-hand side, `Cumulus` refers to the module defined in the files `lib/cumulus.ml` and `lib/cumulus.mli`.
 
@@ -238,4 +235,6 @@ module Stratus = Stratus.M
 Check with `dune exec nube` that the behaviour of the program is the same as in the previous sections.
 
 ## Conclusion
+
+The OCaml module system allows organizing a project in many ways. Dune provides a means to generate modules embodying some possible ways.
 
