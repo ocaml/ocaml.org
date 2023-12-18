@@ -42,7 +42,7 @@ Exception: Not_found.
 - : string option = None
 ```
 
-See [Error Handling](/docs/error-handling) for a longer discussion on error handling using options, exceptions, and others means.
+See [Error Handling](/docs/error-handling) for a longer discussion on error handling using options, exceptions, and other means.
 
 ## The Standard Library `Option` Module
 
@@ -58,9 +58,14 @@ Using pattern matching, it is possible to define functions, allowing users to ea
 val map : ('a -> 'b) -> 'a option -> 'b option = <fun>
 ```
 
-`map` takes two parameters: the function `f` to be applied and an option value. `map f o` returns `Some (f v)` if `o` is `Some v`, and `None` if `o` is `None`.
-
 In the standard library, this is `Option.map`.
+```ocaml
+# Option.map (fun x -> x * x) (Some 3);;
+- : int option = Some 9
+
+# Option.map (fun x -> x * x) None;;
+- : int option : None
+```
 
 ### Peel-Off Doubly Wrapped Options
 
@@ -73,10 +78,18 @@ Here is `join` of type `'a option option -> 'a option`. It peels off one layer f
   | None -> None;;
 val join : 'a option option -> 'a option = <fun>
 ```
-`join` takes a single `option option` parameter and returns an `option`
-parameter.
 
 In the standard library, this is `Option.join`.
+```ocaml
+# Option.join (Some (Some 42));;
+- : int option = Some 42
+
+# Option.join (Some None);;
+- : 'a option = None
+
+# Option.join None;;
+- : 'a option = None
+```
 
 ### Access the Content of an Option
 
@@ -121,16 +134,17 @@ The `fold` function can be used to implement a fall-back logic without writing p
 val path : unit -> string list = <fun>
 ```
 
-This version uses `fold`:
-```ocaml
-# let path () = Sys.getenv_opt "PATH" |> fold (String.split_on_char ':') [];;
-val path : unit -> string list = <fun>
-```
-
-In the standard library, this function is defined using labelled arguments:
+In the standard library, this `fold` is defined using labelled arguments:
 ```ocaml
 # Option.fold;;
 - : none:'a -> some:('b -> 'a) -> 'b option -> 'a = <fun>
+```
+
+```ocaml
+# let path () =
+    let split_on_colon = String.split_on_char ':' in
+    Sys.getenv_opt "PATH" |> Option.fold ~some:split_on_colon ~none:[];;
+val path : unit -> string list = <fun>
 ```
 
 ### Unfold an Option
@@ -154,10 +168,10 @@ val g : 'a list -> 'a option = <fun>
 ```
 
 The types of `f` and `g` are reversed. Functions `Option.fold` and `unfold_try` work a reversed manner
-* `Option.fold` take an option parameter to build something
+* `Option.fold` takes an option parameter to build something
 * `unfold_try` returns an option result from some parameter
 
-The standard library does not contain an `unfold_try` function.
+The standard library does not contain any option unfolding function.
 
 ### Bind an Option
 
