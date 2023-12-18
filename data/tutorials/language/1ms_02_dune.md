@@ -33,7 +33,7 @@ In this directory, create four more files: `dune-project`, `dune`, `cloud.ml`, a
 (lang dune 3.7)
 ```
 
-This file contains the global project configuration. Here we keep to the bare minimum, the `lang dune` stanza that specifies the version of Dune that is required.
+This file contains the global project configuration. It's kept to the bare minimum, including the `lang dune` stanza that specifies the required Dune version.
 
 **`dune`**
 ```lisp
@@ -42,9 +42,9 @@ This file contains the global project configuration. Here we keep to the bare mi
   (public_name nube))
 ```
 
-A `dune` file is required in each folder containing files that require some sort of build. The `executable` stanza means an executable program is built.
-- The `name cloud` stanza means the file `cloud.ml` contains the executable
-- The `public_name nube` stanza means the executable is made available using the `nube` name (cloud in spanish).
+Each folder that requires some sort of build must contain a `dune` file. The `executable` stanza means an executable program is built.
+- The `name cloud` stanza means the file `cloud.ml` contains the executable.
+- The `public_name nube` stanza means the executable is made available using the `nube` name (cloud in Spanish).
 
 **`wmo.ml`**
 ```ocaml
