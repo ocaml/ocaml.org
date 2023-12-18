@@ -202,7 +202,7 @@ Execution evaluates each item from top to bottom.
 
 At any time during evaluation, the _environment_ is the ordered sequence of available definitions. The *environment* is also known as *context* in other languages.
 
-Here, the name `tau` is added to the top-level environment.
+Here, the name `twenty` is added to the top-level environment.
 ```ocaml
 # let twenty = 20;;
 val twenty : int = 20
