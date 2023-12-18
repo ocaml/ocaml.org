@@ -10,37 +10,31 @@ category: "Introduction"
 
 ## Introduction
 
-An option is a value that wraps another value or nothing, if there isn't anything to wrap. The predefined type `option` is the 
+An [option](https://en.wikipedia.org/wiki/Option_type) value wraps another value or nothing, if there isn't anything to wrap. The predefined type `option` represents such values.
 <!-- $MDX non-deterministic=command -->
 ```ocaml
 # #show option;;
 type 'a option = None | Some of 'a
 ```
 
-Here is 42, stored inside an `option` using the data carrying constructor
-`Some`:
-
+Here are option values:
 ```ocaml
 # Some 42;;
 - : int option = Some 42
+
+# None;;
+- : 'a option = None
 ```
 
-The `None` constructor means no data is available.
+Here are:
+* 42, stored inside an `option` using the `Some` constructor and
+* the `None` value, which doesn't store anything.
 
-In other words, a value of type `t option` for some type `t` represents
-* either a value `v` of type `t`, wrapped as `Some v`
-* no such value, then `o` has the value `None`
-
-The option type is very useful when lack of data is better handled as a special value (_i.e.,_ `None`) rather than an exception. It is the type-safe version of returning error values such as in C, for instance. Since no data has any special meaning, confusion between regular values and the absence of value is impossible. In computer science, this type is called the [option
-type](https://en.wikipedia.org/wiki/Option_type). OCaml has supported `option` since its inception.
+The option type is useful when the lack of data is better handled as a special value (_i.e.,_ `None`) rather than an exception. It is the type-safe version of returning error values. Since no data has any special meaning, confusion between regular values and the absence of value is impossible.
 
 ## Exceptions _vs_ Options
 
-The function `Sys.getenv : string -> string` from the OCaml standard library
-allows us to query the value of an environment variable; however, it throws an exception if the variable is not defined. On the other hand, the function
-`Sys.getenv_opt : string -> string option` does the same, except it returns
-`None` as the variable is not defined. Here is what may happen if we try to
-access an undefined environment variable:
+The function `Sys.getenv : string -> string` from the OCaml standard library allows us to query the value of an environment variable; however, it throws an exception if the variable is not defined. On the other hand, the function `Sys.getenv_opt : string -> string option` does the same, except it returns `None` if the variable is not defined. Here is what may happen if we try to access an undefined environment variable:
 ```ocaml
 # Sys.getenv "UNDEFINED_ENVIRONMENT_VARIABLE";;
 Exception: Not_found.
@@ -52,9 +46,9 @@ See [Error Handling](/docs/error-handling) for a longer discussion on error hand
 
 ## The Standard Library `Option` Module
 
-Most of the functions in this section, as well as other useful ones, are provided by the OCaml standard library in the [`Stdlib.Option`](https://ocaml.org/api/Option.html) supporting module.
+Most of the functions in this section, as well as other useful ones, are provided by the OCaml standard library in the [`Stdlib.Option`](/api/Option.html) module.
 
-### Map an Option
+### Map Over an Option
 
 Using pattern matching, it is possible to define functions, allowing users to easily work with option values. Here is `map` of type `('a -> 'b) -> 'a option -> 'b option`. It allows us to apply a function to the value wrapped inside an `option`, if present:
 ```ocaml
@@ -100,9 +94,10 @@ But beware, `get o` throws an exception if `o` is `None`. To access the content 
   | None -> default;;
 val value : 'a -> 'a option -> 'a = <fun>
 ```
+
 However it takes a default value as an additional parameter.
 
-In the standard library, these function are `Option.get` and `Option.value`. The latter is defined using a labelled parameter:
+In the standard library, these functions are `Option.get` and `Option.value`. The latter is defined using a labelled parameter:
 ```ocaml
 # Option.value;;
 - : 'a option -> default:'a -> 'a = <fun>
@@ -112,11 +107,11 @@ In the standard library, these function are `Option.get` and `Option.value`. The
 
 The function `fold` of type `fold : ('a -> 'b) -> 'b -> 'a option -> 'b` combines `map` and `value`
 ```ocaml
-# let fold f default o = o |> Option.map f |> value default;;
+# let fold f default o = o |> Option.map f |> Option.value ~default:default;;
 val fold : ('a -> 'b) -> 'b -> 'a option -> 'b = <fun>
 ```
 
-The `fold` function can be used to implement a fall-back logic without writing pattern matching. For instance, here is a function that turns the contents of the `$PATH` environment variable into a list of strings, or the empty list if undefined. This version is using pattern matching:
+The `fold` function can be used to implement a fall-back logic without writing pattern matching. For instance, here is a function that turns the contents of the `$PATH` environment variable into a list of strings, or the empty list if undefined. This version uses pattern matching:
 ```ocaml
 # let path () =
     let opt = Sys.getenv_opt "PATH" in
@@ -126,7 +121,7 @@ The `fold` function can be used to implement a fall-back logic without writing p
 val path : unit -> string list = <fun>
 ```
 
-This versions calls `fold`:
+This version uses `fold`:
 ```ocaml
 # let path () = Sys.getenv_opt "PATH" |> fold (String.split_on_char ':') [];;
 val path : unit -> string list = <fun>
@@ -140,21 +135,33 @@ In the standard library, this function is defined using labelled arguments:
 
 ### Unfold an Option
 
-To build a function going the other way round, which creates an `option`, one can define `unfold` of type `('a -> bool) -> ('a -> 'b) -> 'a -> 'b option` the following way:
+Several functions can be defined to create options.
+
+Here, any exception is caught and replaced by `None`.
 ```ocaml
-# let unfold p f x =
-    if p x then
-      Some (f x)
-    else
-      None;;
-val unfold : ('a -> bool) -> ('a -> 'b) -> 'a -> 'b option = <fun>
+# let unfold_try f x = try Some (f x) with _ -> None;;
 ```
 
-This does not exist in the standard library.
+This loses the root cause of the failure, which may create hard-to-debug situations.
+
+Here is why this function can be called unfold:
+```ocaml
+# let f v = Option.fold ~some:(fun x -> [x]) ~none:[] v;;
+val f : 'a option -> 'a list = <fun>
+
+# let g u = unfold_try List.hd u;;
+val g : 'a list -> 'a option = <fun>
+```
+
+The types of `f` and `g` are reversed. Functions `Option.fold` and `unfold_try` work a reversed manner
+* `Option.fold` take an option parameter to build something
+* `unfold_try` returns an option result from some parameter
+
+The standard library does not contain an `unfold_try` function.
 
 ### Bind an Option
 
-The `bind` function of type `'a option -> ('a -> 'b option) -> 'b option` works like `map`. But whilst `map` expects a function-as-parameter `f` that returns an unwrapped value of type `b`, `bind` expects a function-as-parameter `f` that returns a value already wrapped in a option `'b option`.
+The `bind` function of type `'a option -> ('a -> 'b option) -> 'b option` works like `map`. But whilst `map` expects a function-as-parameter `f` that returns an unwrapped value of type `b`, `bind` expects a function-as-parameter `f` that returns a value already wrapped in an option `'b option`.
 
 In other words, `Option.bind` is the same as this:
 ```ocaml
@@ -164,5 +171,5 @@ val bind : 'a option -> ('a -> 'b option) -> 'b option = <fun>
 
 ## Conclusion
 
-By the way, any type where `map` and `join` functions can be implemented, with similar behaviour, can be called a _monad_, and `option` is often used to introduce monads. But don't freak out! You absolutely don't need to know what a monad is to use the `option` type.
+By the way, any type where `map` and `join` functions can be implemented, with similar behaviour, can be called a _monad_, and `option` is often used to introduce monads. But don't freak out! You don't need to know what a monad is to use the `option` type.
 
