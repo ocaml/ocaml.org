@@ -236,5 +236,5 @@ Check with `dune exec nube` that the behaviour of the program is the same as in 
 
 ## Conclusion
 
-The OCaml module system allows organizing a project in many ways. Dune provides a means to generate modules embodying some possible ways.
+The OCaml module system allows organizing a project in many ways. Dune provides several means to generate modules embodying some possible ways.
 
