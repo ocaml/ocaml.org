@@ -12,7 +12,7 @@ category: "Module System"
 
 The goal of this tutorial is
 
-This tutorial uses the [Dune](https://dune.build) build tool. Make sure to have installed version 3.7 or later.
+This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have version 3.7 or later installed.
 
 **Requirements**: Modules and Functors
 
