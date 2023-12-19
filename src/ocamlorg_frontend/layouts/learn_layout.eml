@@ -88,14 +88,14 @@ let sidebar
         <%s t %>
       </span>
     in
-    <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-primary bg-legacy-primary-100 border-primary|} else {|text-legacy-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
+    <a class="border-l-2 py-2 px-3 rounded-sm leading-6 font-normal <%s if current then {|text-title dark:text-dark-title bg-primary_nav_block_hover_10 dark:bg-primary_nav_block_hover_10 border-primary dark:border-dark-primary|} else {|text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary border-transparent|} %>" href="<%s href %>">
       <%s! render_tag tag %>
       <%s title %>
     </a>
   in
   let sidebar_link_group ?(extra_html="") title link_html =
     <div class="pl-2 pr-8 flex flex-col">
-      <div class="text-lg font-bold leading-10 flex py-1 uppercase"><%s title %></div>
+      <div class="text-lg font-normal text-title dark:text-dark-title leading-10 flex py-1 uppercase"><%s title %></div>
       <%s! link_html %>
       <%s! extra_html %>
     </div>
@@ -180,7 +180,7 @@ inner_html
   ~canonical
   ?active_top_nav_item @@
   <%s! tabs ~current %>
-  <div class="bg-legacy-default dark:bg-legacy-dark-default" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
+  <div class="bg-white dark:bg-dark-background" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
   <% if left_sidebar_html != None then ( %>  
     <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-[#D54000] p-4 z-30 rounded-full text-white shadow-custom bottom-24 md:bottom-36 fixed lg:hidden right-10"
       x-on:click="sidebar = ! sidebar">
@@ -192,7 +192,7 @@ inner_html
     <div class="container-fluid wide pt-10">
     <div class="flex flex-col lg:flex-row lg:gap-6 xl:gap-12">
       <div
-        class="z-20 bg-legacy-default dark:bg-legacy-dark-default flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky <%s Option.fold ~none:"" ~some:(fun _ -> "p-6 lg:px-0 w-80 lg:w-72 lg:px-0 lg:pt-6 lg:pb-72") left_sidebar_html %>"
+        class="z-20 bg-white dark:bg-dark-background flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky <%s Option.fold ~none:"" ~some:(fun _ -> "p-6 lg:px-0 w-80 lg:w-72 lg:px-0 lg:pt-6 lg:pb-72") left_sidebar_html %>"
         x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
         x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
         x-transition:leave-end="-translate-x-full">
