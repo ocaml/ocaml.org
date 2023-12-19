@@ -288,22 +288,24 @@ Layout.render
     </div>
     <div>
         <h3 class="font-bold">Changelog</h3>
-        <% changelogs |> List.iter (fun (item : Data.Changelog.t) -> %>
-        <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
-          <div class="relative md:w-72 pb-6 lg:pb-8">
-            <div class="sticky" style="top: 128px; word-break: keep-all;">
-              <div class="hidden md:absolute md:block -left-11 bg-legacy-default dark:bg-legacy-dark-default w-6 h-6 mt-0.5 text-primary">
-                <%s! Icons.changelog "w-6 h-6" %>
+        <div class="mt-20 md:pl-8 md:border-l-2">
+          <% changelogs |> List.iter (fun (item : Data.Changelog.t) -> %>
+          <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
+            <div class="relative md:w-72 pb-6 lg:pb-8">
+              <div class="sticky" style="top: 128px; word-break: keep-all;">
+                <div class="hidden md:absolute md:block -left-11 bg-legacy-default dark:bg-legacy-dark-default w-6 h-6 mt-0.5 text-primary">
+                  <%s! Icons.changelog "w-6 h-6" %>
+                </div>
+                <h2
+                  class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 changelog-title">
+                  <a href="<%s Url.changelog_entry item.slug %>"><%s item.title %></a>
+                </h2>
+                <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-legacy-lighter"><%s Utils.human_date item.date %></time>
               </div>
-              <h2
-                class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 changelog-title">
-                <a href="<%s Url.changelog_entry item.slug %>"><%s item.title %></a>
-              </h2>
-              <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-legacy-lighter"><%s Utils.human_date item.date %></time>
             </div>
-          </div>
-        </article>
-        <% ); %>
+          </article>
+          <% ); %>
+        </div>
           <a href="<%s Url.releases %>" class="btn btn-lg btn-ghost mt-8">
             <span>See all Releases</span>
             <%s! Icons.chevron_right "h-5 w-5" %>
