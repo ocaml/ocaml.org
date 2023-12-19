@@ -51,9 +51,8 @@ module type OrderedType = sig
   val compare : t -> t -> int
 end
 
-(** This is the signature of the module returned by applying `Make` *)
 module type S = sig
-  (* ... *)
+  (** This is the signature of the module returned by applying `Make` *)
 end
 
 module Make : functor (Ord : OrderedType) -> S
@@ -68,8 +67,7 @@ Here is how this reads (starting from the bottom-up, then going up):
 
 **Note**: Most set operation implementations must use a comparison function. Using `Stdlib.compare` would make it impossible to use a user-defined comparison algorithm. Passing the comparison function as a higher-order parameter, as done in `Array.sort`, for example, would add a lot of boilerplate code. Providing set operations as a functor allows specifying the comparison function only once.
 
-
-Here is how it can look like in our project:
+Here is what it can look like in our project:
 
 **`funkt.ml`**
 
