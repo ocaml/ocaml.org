@@ -269,9 +269,9 @@ Layout.render
         <h3 class="font-bold">Releases</h3>
         <div class="p-10 mt-7 w-full border-2 shadow-md rounded-2xl h-full">
           <a href="<%s Url.release latest_release.version %>">
-            <div class="text-primary text-sm mb-4 uppercase">Recent Release</div>
+            <div class="text-primary text-sm mb-4 uppercase">Recent Releases</div>
             <h3 class="font-bold mb-6">
-              <%s latest_release.version %> <span class="text-sm font-medium">(<%s latest_release.date %>)</span>
+              <%s latest_release.version %> <span class="text-sm">(<%s latest_release.date %>)</span>
             </h3>
           </a>
           <div class="prose prose-sm"><%s! latest_release.highlights_html %></div>
@@ -292,7 +292,8 @@ Layout.render
             </a>
             <% changelogs |> List.iter (fun (item : Data.Changelog.t) -> %>
             <div class="md:pl-8 md:border-l-2">
-              <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
+            <div class="flex gap-2">
+              <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10 basis-1/4">
                 <div class="relative md:w-72 pb-6 lg:pb-8">
                   <div class="sticky" style="top: 128px; word-break: keep-all;">
                     <div class="hidden md:absolute md:block -left-11 bg-legacy-default dark:bg-legacy-dark-default w-6 h-6 mt-0.5 text-primary">
@@ -306,11 +307,15 @@ Layout.render
                   </div>
                 </div>
               </article>
-              <div class="">
+              <div class="basis-3/4">
                 <div class="prose prose-orange">
                 part two
                 </div>
+                <a href="<%s Url.changelog %>" class="text-primary mt-2">
+                  See full changelog
+                </a>
               </div>
+            </div>
             </div>
             <% ); %>
             <a href="<%s Url.changelog %>" class="btn btn-lg btn-ghost rounded mt-8">
