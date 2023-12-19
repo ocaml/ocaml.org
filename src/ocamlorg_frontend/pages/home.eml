@@ -12,11 +12,6 @@ let package_card ~href ~img_path ~name description =
       </div>
   </a>
   
-let getChangelogHtmlHtml (item : Data.Changelog.t) : string =
-  match item.changelog_html with
-  | Some(html) -> html
-  | None -> ""
-
 let render
   ~(latest_release: Data.Release.t)
   ~(lts_release: Data.Release.t)
@@ -269,9 +264,7 @@ Layout.render
   </div>
 </div>
 <div class="bg-legacy-default pt-24 pb-14 overflow-hidden">
-  <div class="container-fluid flex gap-10 items-stretch mb-14">
-
-     
+  <div class="container-fluid flex gap-10 items-stretch mb-14"> 
       <div class="basis-1/2">
         <h3 class="font-bold">Releases</h3>
         <div class="p-10 mt-7 w-full border-2 shadow-md rounded-2xl h-full">
@@ -288,40 +281,44 @@ Layout.render
           </a>
        </div>
       </div>
-
-    <div class="basis-1/2">
-        <h3 class="font-bold">Changelog</h3>
-        <div class="p-10 mt-7 border-2 shadow-md rounded-2xl h-full">
-          <a href="<%s Url.changelog %>">
-          <div class="text-primary text-sm mb-4 uppercase">Releases & Updates</div>
-          <h3 class="font-bold mb-6">
-            Compiler and Platform Tools
-          </h3>
-        </a>
-          <% changelogs |> List.iter (fun (item : Data.Changelog.t) -> %>
-          <div class="md:pl-8 md:border-l-2">
-            <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
-              <div class="relative md:w-72 pb-6 lg:pb-8">
-                <div class="sticky" style="top: 128px; word-break: keep-all;">
-                  <div class="hidden md:absolute md:block -left-11 bg-legacy-default dark:bg-legacy-dark-default w-6 h-6 mt-0.5 text-primary">
-                    <%s! Icons.changelog "w-6 h-6" %>
+      <div class="basis-1/2">
+          <h3 class="font-bold">Changelog</h3>
+          <div class="p-10 mt-7 border-2 shadow-md rounded-2xl h-full">
+            <a href="<%s Url.changelog %>">
+            <div class="text-primary text-sm mb-4 uppercase">Releases & Updates</div>
+            <h3 class="font-bold mb-6">
+              Compiler and Platform Tools
+            </h3>
+            </a>
+            <% changelogs |> List.iter (fun (item : Data.Changelog.t) -> %>
+            <div class="md:pl-8 md:border-l-2">
+              <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
+                <div class="relative md:w-72 pb-6 lg:pb-8">
+                  <div class="sticky" style="top: 128px; word-break: keep-all;">
+                    <div class="hidden md:absolute md:block -left-11 bg-legacy-default dark:bg-legacy-dark-default w-6 h-6 mt-0.5 text-primary">
+                      <%s! Icons.changelog "w-6 h-6" %>
+                    </div>
+                    <h2
+                      class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 changelog-title">
+                      <a href="<%s Url.changelog_entry item.slug %>"><%s item.title %></a>
+                    </h2>
+                    <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-legacy-lighter"><%s Utils.human_date item.date %></time>
                   </div>
-                  <h2
-                    class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 changelog-title">
-                    <a href="<%s Url.changelog_entry item.slug %>"><%s item.title %></a>
-                  </h2>
-                  <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-legacy-lighter"><%s Utils.human_date item.date %></time>
+                </div>
+              </article>
+              <div class="">
+                <div class="prose prose-orange">
+                part two
                 </div>
               </div>
-            </article>
-          </div>
-          <% ); %>
-             <a href="<%s Url.changelog %>" class="btn btn-lg btn-ghost rounded mt-8">
+            </div>
+            <% ); %>
+            <a href="<%s Url.changelog %>" class="btn btn-lg btn-ghost rounded mt-8">
             <span>See Full Changelog</span>
             <%s! Icons.chevron_right "h-5 w-5" %>
-          </a>
-        </div>
-    </div>
+            </a>
+          </div>
+      </div>
   </div>
 </div>
 <div class="bg-pattern py-24 overflow-hidden">
