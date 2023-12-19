@@ -72,10 +72,12 @@ Here is what it can look like in our project:
 **`funkt.ml`**
 
 ```ocaml
-module StringSet = Set.Make(struct
+module StringCompare = struct
   type t = string
   let compare = String.compare
-end)
+end
+
+module StringSet = Set.Make(StringCompare)
 ```
 
 This defines a module `Funkt.StringSet`. What `Set.Make` needs is:
@@ -86,7 +88,17 @@ However, since the module `String` defines
 - A type name `t`, which is an alias for `string`
 - A function `compare` of type `t -> t -> bool` that allows to compare two strings
 
-The above can be simplified into this:
+This can be simplified using an _anonymous module_ expression:
+```ocaml
+module StringSet = Set.Make(struct
+  type t = string
+  let compare = String.compare
+end)
+```
+
+The module expression `struct ... end` is inlined in the call to `Set.Make`.
+
+The be simplified even further into this:
 ```ocaml
 module StringSet = Set.Make(String)
 ```

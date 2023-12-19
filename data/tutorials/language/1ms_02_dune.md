@@ -10,7 +10,7 @@ category: "Module System"
 
 ## Introduction
 
-The goal of this tutorial is to teach the mechanisms built in Dune that allow the processing of OCaml modules.
+The goal of this tutorial is to teach the mechanisms built in Dune that allow structuring projects with libraries that contain modules.
 
 This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have version 3.7 or later installed.
 
@@ -48,26 +48,26 @@ Each folder that requires some sort of build must contain a `dune` file. The `ex
 **`wmo.ml`**
 ```ocaml
 module Stratus = struct
-  let cumulus = "stratocumulus (Sc)"
+  let nimbus = "Nimbostratus (Ns)"
 end
 
 module Cumulus = struct
-  let stratus = "stratocumulus (Sc)"
+  let nimbus = "Cumulonimbus (Cb)"
 end
 ```
 
 **`cloud.ml`**
 ```ocaml
 let () =
-  Wmo.Stratus.cumulus |> String.capitalize_ascii |> print_endline;
-  Wmo.Cumulus.stratus |> String.capitalize_ascii |> print_endline
+  Wmo.Stratus.nimbus |> print_endline;
+  Wmo.Cumulus.nimbus |> print_endline
 ```
 
 Here is the resulting output:
 ```shell
 $ dune exec nube
-Stratocumulus (Sc)
-Stratocumulus (Sc)
+Nimbostratus (Ns)
+Cumulonimbus (Cb)
 ```
 
 
@@ -82,25 +82,19 @@ $ tree
 └── wmo.ml
 ```
 
-This is sufficient to build and execute the project:
-```shell
-$ dune exec nube
-Cumulostratus (Cb)
-Cumulostratus (Cb)
-```
-
 Dune stores the files it creates in a folder named `_build`. In a project managed using Git, the `_build` folder should be ignored
 ```shell
 $ echo _build >> .gitignore
 ```
 
-In OCaml, each source file is compiled into a module. In the `mixtli` project, the file `cloud.ml` creates a module named `Cloud`.
+In OCaml, each source file is compiled into a module. In the `mixtli` project, the file `cloud.ml` creates a module named `Cloud`, the file `wmo.ml` creates a module `Wmo` that contains two submodules: `Stratus` and `Cumulus`.
 
-Observe the roles of the different names:
+Here are the different names:
 * `mixtli` is the project's name (it means *cloud* in Nahuatl).
 * `cloud.ml` is the OCaml source file's name, referred as `cloud` in the `dune` file.
-* `nube` is the executable command's name.
+* `nube` is the executable command's name (it means *cloud* in Spanish).
 * `Cloud` is the name of the module associated with the file `cloud.ml`.
+* `Wmo` is the name of the module associated with the file `wmo.ml`.
 
 The `dune describe` command allows having a look at the project's module structure. Here is its output:
 ```lisp
@@ -117,48 +111,49 @@ The `dune describe` command allows having a look at the project's module structu
       (cmti ()))))
    (include_dirs (_build/default/.cloud.eobjs/byte)))))
 ```
+<!-- FIXME: update with wmo -->
 
 ## Libraries
 
-When using Dune (with its default settings), an OCaml _library_ is a module aggregating other modules, bottom-up. This contrasts with the `struct ... end` syntax where modules are aggregated top-down by nesting submodules into container modules. Dune creates libraries from folders, like the following:
+<!--This contrasts with the `struct ... end` syntax where modules are aggregated top-down by nesting submodules into container modules. -->
+In OCaml, a library is a collection of modules. By default, when Dune builds a library, it wraps the bundled modules into a module. Dune creates libraries from folders. Let's look at an example, here the folder is `lib`:
 ```shell
 $ mkdir lib
-$ rm wmo.ml
 ```
+
+The `lib` folder is populated with the following files.
 
 **`lib/dune`**
 ```lisp
 (library (name wmo))
 ```
 
-All the modules found in the `lib` folder are bundled into the `Wmo` module.
-
 **`lib/cumulus.mli`**
 ```ocaml
-val v : string
 val stratus : string
 ```
-
+<!-- FIXME: <> strings, no behaviour -->
 **`lib/cumulus.ml`**
 ```ocaml
-let latin_root = "cumul"
-let v = latin_root ^ "us (Cu)"
-let stratus = "strato" ^ latin_root ^ "us (Sc)"
+let nimbus = "Cumulonimbus (Cb)"
 ```
 
 **`lib/stratus.mli`**
 ```ocaml
-val v : string
 val cumulus : string
 ```
+
 **`lib/stratus.ml`**
 ```ocaml
-let latin_root = "strat"
-let v = latin_root ^ "us (St)"
-let cumulus = latin_root ^ "ocumulus (Sc)"
+let nimbus = "Nimbostratus (Ns)"
 ```
 
-The executable and the corresponding `dune` file need to be updated to use the defined library as a dependency.
+All the modules found in the `lib` folder are bundled into the `Wmo` module. This module is the same as what we had in the `wmo.ml` file. To avoid redundancy, we delete it:
+```shell
+$ rm wmo.ml
+```
+
+We update the `dune` file building the executable to use the library as a dependency.
 
 **`dune`**
 ```lisp
@@ -167,8 +162,6 @@ The executable and the corresponding `dune` file need to be updated to use the d
   (public_name nube)
   (libraries wmo))
 ```
-
-
 
 **Observations**:
 * Dune creates a module `Wmo` from the contents of folder `lib`.
@@ -179,9 +172,9 @@ The executable and the corresponding `dune` file need to be updated to use the d
 
 ## Library Wrapper Modules
 
-By default, when Dune bundles modules into a library, they are wrapped into a module. It is possible to bypass Dune's behaviour by manually writing the wrapper file.
+By default, when Dune bundles modules into a library, they are automatically wrapped into a module. It is possible to manually write the wrapper file. The wrapper file must have the same name as the library.
 
-This `lib/wmo.ml` is the wrapper file that corresponds to the module that Dune automatically generated in the previous section.
+Here, we are creating a wrapper file for the `wmo` library from the previous section.
 
 **`lib/wmo.ml`**
 ```ocaml
@@ -191,21 +184,23 @@ module Stratus = Stratus
 
 Here is how to make sense of these module definitions:
 - On the left-hand side, `module Cumulus` means module `Wmo` contains a submodule named `Cumulus`.
-- On the right-hand side, `Cumulus` refers to the module defined in the files `lib/cumulus.ml` and `lib/cumulus.mli`.
+- On the right-hand side, `Cumulus` refers to the module defined in the file `lib/cumulus.ml`.
+<!-- TODO: Detail the semantics of this kind of module definition in the module doc -->
 
-Check with `dune exec nube` to ensure the program's behaviour is the same as in the previous section.
+Run `dune exec nube` to see that the behaviour of the program is the same as in the previous section.
 
-When a library folder contains a wrapper module (here `wmo.ml`), it is the only one exposed. A file-based module that does not appear in the wrapper module is private.
+When a library folder contains a wrapper module (here `wmo.ml`), it is the only one exposed. All other file-based modules from that folder that do not appear in the wrapper module are private.
 
 Using a wrapper file makes several things possible:
 - Have different public and internal names, `module CumulusCloud = Cumulus`
 - Define values in the wrapper module, `let ... = `
 - Expose module resulting from functor application, `module StringSet = Set.Make(String)`
 - Apply the same interface type to several modules without duplicating files
+- Hide modules by not listing them
 
 ## Include Subdirectories
 
-By default, Dune builds libraries from modules found in folders, but it doesn't look into subfolders. It is possible to change this behaviour.
+By default, Dune builds a library from the modules found in the same folder as the `dune` file, but it doesn't look into subfolders. It is possible to change this behaviour.
 
 In this example, we create subdirectories and move files there.
 ```shell
@@ -232,9 +227,11 @@ module Cumulus = Cumulus.M
 module Stratus = Stratus.M
 ```
 
-Check with `dune exec nube` that the behaviour of the program is the same as in the previous sections.
+Run `dune exec nube` to see that the behaviour of the program is the same as in the two previous sections.
+
+The `include_subdirs qualified` stanza works recursively, except on subfolders containing a `dune` file. See the [Dune](https://dune.readthedocs.io/en/stable/dune-files.html#include-subdirs) [documentation](https://github.com/ocaml/dune/issues/1084) for [more](https://discuss.ocaml.org/t/upcoming-dune-feature-include-subdirs-qualified) on this [topic](https://github.com/ocaml/dune/tree/main/test/blackbox-tests/test-cases/include-qualified).
 
 ## Conclusion
 
-The OCaml module system allows organizing a project in many ways. Dune provides several means to generate modules embodying some possible ways.
+The OCaml module system allows organizing a project in many ways. Dune provides several means to arrange modules into libraries.
 
