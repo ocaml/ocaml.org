@@ -98,13 +98,18 @@ Here are the different names:
 
 The `dune describe` command allows having a look at the project's module structure. Here is its output:
 ```lisp
-((root /home/cuihtlauac/mixtli)
+((root /home/cuihtlauac/caml/mixtli-dune)
  (build_context _build/default)
  (executables
   ((names (cloud))
    (requires ())
    (modules
-    (((name Cloud)
+    (((name Wmo)
+      (impl (_build/default/wmo.ml))
+      (intf ())
+      (cmt (_build/default/.cloud.eobjs/byte/wmo.cmt))
+      (cmti ()))
+     ((name Cloud)
       (impl (_build/default/cloud.ml))
       (intf ())
       (cmt (_build/default/.cloud.eobjs/byte/cloud.cmt))
