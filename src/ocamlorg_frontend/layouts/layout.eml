@@ -99,11 +99,7 @@ inner =
             } else {
               document.getElementById("scrollToTop").style.display = "none";
             }
-          }
-          //if (window.matchMedia('(prefers-color-scheme: dark)').matches){
-               document.documentElement.classList.add('dark');
-          //}
-        
+          }    
       </script>
     </body>
   </html>
