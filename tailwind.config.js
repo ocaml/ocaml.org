@@ -6,6 +6,7 @@ const figma_colors = {
     primary_40: "#D5400066",
     primary_25: "#D5400040",
     primary_dark: "#842800",
+    primary_nav_block_hover_10:"#C24F1E1A",
 
     secondary: "#2B7866",
     secondary_25: "#06706540",
@@ -63,7 +64,7 @@ module.exports = {
       'xl': '80em',
     },
     extend: {
-      typography: {
+      typography: (theme) => ({
         DEFAULT: {
           css: [{
             'code::before': {
@@ -73,8 +74,15 @@ module.exports = {
               content: '""',
             },
           },{
+            'p, strong':{
+              color: theme('colors.content'),
+            },
             h1: {
+              color: theme('colors.title'),
               fontWeight: 700,
+            },
+            'h2, h3, h4, h5, h6, code': {
+              color: theme('colors.title'),
             },
             code: {
               fontSize: "1em",
@@ -86,15 +94,37 @@ module.exports = {
               fontSize: "1em",
             },
             a: {
-              color: "#D54000",
+              color: theme('colors.primary'),
               textDecoration: "none",
             },
             'a:hover': {
               textDecoration: "underline",
-            }
+            },
+            pre: {
+              color: theme('colors.dark.title'),
+              backgroundColor: theme('colors.dark.code_window'),
+            },
           }]
+          
         },
-      },
+        invert: {
+          css: {
+            a: {
+              color: theme('colors.dark.primary'),
+            },
+            h1: {
+              color: theme('colors.dark.title'),
+            },
+            'h2, h3, h4, h5, h6, code': {
+              color: theme('colors.dark.title'),
+            },
+            pre: {
+              color: theme('colors.white'),
+              backgroundColor: theme('colors.code_window'),
+            },
+          },
+        }
+      }),
       boxShadow:{
         '3xl':'rgba(0, 0, 0, 0.35) 0px 5px 15px',
       },

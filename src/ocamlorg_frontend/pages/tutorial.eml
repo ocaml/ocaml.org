@@ -66,7 +66,7 @@ Learn_layout.three_column_layout
 ~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some tutorial.slug) ~tutorials ~section:(of_tutorial_section tutorial.section)))
 ~right_sidebar_html:(Some(right_sidebar tutorial))
 ~current:(of_tutorial_section tutorial.section) @@
-  <div class="prose prose-orange max-w-full">
+  <div class="prose prose-orange dark:prose-invert max-w-full">
     <%s! render_external_tutorial_banner tutorial.external_tutorial %>
     <%s! tutorial.body_html %>
     <%s! render_related_exercises related_exercises %>
