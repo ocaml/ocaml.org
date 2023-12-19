@@ -51,6 +51,7 @@ module type OrderedType = sig
   val compare : t -> t -> int
 end
 
+(** This is the signature of the module returned by applying `Make` *)
 module type S = sig
   (* ... *)
 end
