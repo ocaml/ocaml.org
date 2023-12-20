@@ -236,6 +236,32 @@ Run `dune exec nube` to see that the behaviour of the program is the same as in 
 
 The `include_subdirs qualified` stanza works recursively, except on subfolders containing a `dune` file. See the [Dune](https://dune.readthedocs.io/en/stable/dune-files.html#include-subdirs) [documentation](https://github.com/ocaml/dune/issues/1084) for [more](https://discuss.ocaml.org/t/upcoming-dune-feature-include-subdirs-qualified) on this [topic](https://github.com/ocaml/dune/tree/main/test/blackbox-tests/test-cases/include-qualified).
 
+<!--
+## Starting a Project from a Single File
+
+It is possible to start an empty Dune project from a single file.
+
+Create a fresh folder.
+```shell
+$ mkdir foo.dir; cd foo.dir
+```
+
+Create a `dune-prtoject` file looking like this.
+
+**`dune-project`**
+```lisp
+(lang dune 3.7)
+(package (name foo) (allow_empty))
+(generate_opam_files)
+```
+
+This is sufficient for `dune build` to work. It will not build anything.
+- `(package (name foo) (allow_empty))` this means we're creating an Opam package named `foo` and we allow it to be empty
+- `(generate_opam_files)` we ask Dune to setup the opam configuration automatically
+
+Here `foo` is the project name and `foo.dir` is its container folder, the names don't have to be the same.
+-->
+
 ## Conclusion
 
 The OCaml module system allows organizing a project in many ways. Dune provides several means to arrange modules into libraries.
