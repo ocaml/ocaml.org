@@ -1,5 +1,5 @@
 ---
-id : modules
+id: modules
 title: Modules
 short_title: Modules
 description: >
