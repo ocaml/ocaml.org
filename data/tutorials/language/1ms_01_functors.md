@@ -422,3 +422,7 @@ Run the `dune utop` command. Once inside the toplevel, enter the following comma
 Modules `Array` and `List` appear augmented with `Array.scan_left` and `List.scan_left`. For brevity, the output of the first two toplevel commands is not shown here.
 
 ## Conclusion
+
+Functors are pretty unique to the ML family of programming languages. They provide a means to inject implementations of functions inside a module. The same behaviour can be achieved by passing the injected functions as high-order parameters. However, functors allow injection of groups of implementations throughout a whole module, not a single function, which is more convenient.
+
+These injections are functor applications, which essentially work the same way as function applications: passing parameters and getting results. Beyond comfort, it enables a design approach where concerns are not only separated in silos, this is enabled by modules, but also in stages stacked upon each other.

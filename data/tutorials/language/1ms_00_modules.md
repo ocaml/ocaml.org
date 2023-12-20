@@ -7,6 +7,16 @@ description: >
 category: "Module System"
 ---
 
+## Introduction
+
+Here are the goals of this tutorial
+- Learn how to use modules
+- Learn how to define modules
+
+Modules are collections of definitions grouped in a unit. This is the basic means to organize OCaml software. Separate concerns can and should be isolated into separate modules.
+
+**Prerequisites**: [Values and Functions](/docs/values-and-functions) and [Basic Data Types and Pattern Matching](/docs/basic-data-types)
+
 ## Basic Usage
 
 ### File-Based Modules
@@ -352,3 +362,12 @@ end
 
 It creates a module `Extlib.List` that has everything the standard `List`
 module has, plus a new `uncons` function. In order to override the default `List` module from another `.ml` file, we merely need to add `open Extlib` at the beginning.
+
+## Conclusion
+
+In OCaml, modules are the basic means of organizing software. To sum up, a module is a collection of definitions wrapped under a name. These definitions can be submodules, which allows the creation of hierarchies of modules. Top-level modules must be files and are the units of compilation. Every module has an interface, which is the list of what a module exposes. By default, a module's interface exposes all its definitions, but this can be restricted using the interface syntax.
+
+Going further, here are the other means to handle OCaml software components:
+- Functors, which act like functions from modules to modules
+- Libraries, which are compiled modules bundled together into archives
+- Packages, which are installation and distribution units
