@@ -101,9 +101,11 @@ module.exports = {
               textDecoration: "underline",
             },
             pre: {
-              color: theme('colors.dark.title'),
-              backgroundColor: theme('colors.dark.code_window'),
+              backgroundColor: theme('colors.code_window'),
             },
+            'pre > code': {
+              color: theme('colors.white'),
+            }
           }]
           
         },
@@ -122,9 +124,11 @@ module.exports = {
               color: theme('colors.dark.title'),
             },
             pre: {
-              color: theme('colors.white'),
-              backgroundColor: theme('colors.code_window'),
+              backgroundColor: theme('colors.dark.code_window'),
             },
+            'pre > code': {
+              color: theme('colors.dark.title'),
+            }
           },
         }
       }),
