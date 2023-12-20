@@ -109,6 +109,9 @@ module.exports = {
         },
         invert: {
           css: {
+            'p, strong':{
+              color: theme('colors.dark.content'),
+            },
             a: {
               color: theme('colors.dark.primary'),
             },
