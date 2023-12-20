@@ -55,7 +55,7 @@ let base
 ?(footer_html = "")
 inner =
   <!DOCTYPE html>
-  <html lang="en">
+  <html lang="en" x-data="{ dark_mode: false }" :class="dark_mode ? 'dark' : 'light'">
     <head id="htmx-head">
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -103,7 +103,7 @@ inner =
       <title><%s title %></title>
     </head>
 
-    <body class="light">
+    <body>
       <% if banner then ( %>
       <div class="relative bg-legacy-contrast">
         <div class="mx-auto py-3 px-6 sm:px-16 max-w-6xl sm:text-center">
@@ -131,6 +131,8 @@ inner =
 
       <%s! footer_html %>
       
+      <button class="btn" @click="dark_mode = !dark_mode">toggle dark mode</button>
+
       <script>
           function scrollToTop() {
             window.scrollTo(0, 0);
@@ -146,9 +148,6 @@ inner =
             } else {
               document.getElementById("scrollToTop").style.display = "none";
             }
-          }
-          if (window.matchMedia('(prefers-color-scheme: dark)').matches){
-              document.documentElement.classList.add('dark');
           }
       </script>
     </body>
