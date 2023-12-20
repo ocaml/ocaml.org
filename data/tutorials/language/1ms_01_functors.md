@@ -3,16 +3,13 @@ id: functors
 title: Functors
 short_title: Functors
 description: >
-  Learn about functors, modules parameterised by other modules
+  Functors essentially work the same way as functions. The difference is that we are passing modules instead of values.
 category: "Module System"
 ---
 
 ## Introduction
 
-Here are the goals of this tutorial
-- Learn how to use a functor
-- Learn how to write a functor
-- Learn some of the cases, when to use a functor
+In this tutorial, we look at how to use a functor, how to write a functor, and show a couple of use cases involving functors.
 
 As suggested by the name, a _functor_ is almost like a function. However, while functions are between values, functors are between modules. A functor takes a module as a parameter and returns a module as a result. A functor is a parametrised module.
 
@@ -52,7 +49,7 @@ module type OrderedType = sig
 end
 
 module type S = sig
-  (** This is the signature of the module returned by applying `Make` *)
+  (** This is the module's signature returned by applying `Make` *)
 end
 
 module Make : functor (Ord : OrderedType) -> S
@@ -360,7 +357,7 @@ let _ =
 
 Check the program's behaviour using `dune exec funkt < dune`.
 
-**Note**: The functor `IterPrint.Make` returns a module that exposes the type from the injected dependency (here first `List.t` then `Array.t`). That's why a `with type` constraint is needed. If the dependency was an _implementation detail_ that is not exposed in the signature of the initial version of `IterMake` (i.e., in the type of `IterMake.f`), that constraint wouldn't be needed, and the call site of `IterPrint.f` would be unchanged when injecting another dependency.
+**Note**: The functor `IterPrint.Make` returns a module that exposes the type from the injected dependency (here first `List.t` then `Array.t`). That's why a `with type` constraint is needed. If the dependency was an _implementation detail_ that wasn't exposed in the signature of `IterMake`'s initial version (i.e., in the type of `IterMake.f`), that constraint wouldn't be needed. Plus, the call site of `IterPrint.f` would be unchanged when injecting another dependency.
 
 ## Write a Functor to Extend Modules
 
@@ -423,6 +420,6 @@ Modules `Array` and `List` appear augmented with `Array.scan_left` and `List.sca
 
 ## Conclusion
 
-Functors are pretty unique to the ML family of programming languages. They provide a means to inject implementations of functions inside a module. The same behaviour can be achieved by passing the injected functions as high-order parameters. However, functors allow injection of groups of implementations throughout a whole module, not a single function, which is more convenient.
+Functors are pretty unique to the ML family of programming languages. They provide a means to pass definitions inside a module. The same behaviour can be achieved with high-order parameters. However, functors allow passing several definitions at once, which is more convenient.
 
-These injections are functor applications, which essentially work the same way as function applications: passing parameters and getting results. Beyond comfort, it enables a design approach where concerns are not only separated in silos, this is enabled by modules, but also in stages stacked upon each other.
+Functor application essentially works the same way as function application: passing parameters and getting results. The difference is that we are passing modules instead of values. Beyond comfort, it enables a design approach where concerns are not only separated in silos, which is enabled by modules, but also in stages stacked upon each other.

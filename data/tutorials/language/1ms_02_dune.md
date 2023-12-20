@@ -1,16 +1,16 @@
 ---
-id: modules-libraries-dune
-title: Modules and Libraries in Dune
+id: libraries-dune
+title: Libraries With Dune
 description: >
-  Learn about the features of Dune that interact with the OCaml module system
+  Dune provides several means to arrange modules into libraries. We look at Dune's mechanisms for structuring projects with libraries that contain modules.
 category: "Module System"
 ---
 
-# Modules and Libraries in Dune
+# Libraries With Dune
 
 ## Introduction
 
-The goal of this tutorial is to teach the mechanisms built in Dune that allow structuring projects with libraries that contain modules.
+Dune provides several means to arrange modules into libraries. We look at Dune's mechanisms for structuring projects with libraries that contain modules.
 
 This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have version 3.7 or later installed.
 

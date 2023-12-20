@@ -3,17 +3,15 @@ id: modules
 title: Modules
 short_title: Modules
 description: >
-  Learn about OCaml modules and how they can be used to cleanly separate distinct parts of your program
+  Modules are collections of definitions grouped together. This is the basic means to organise OCaml software.
 category: "Module System"
 ---
 
 ## Introduction
 
-Here are the goals of this tutorial
-- Learn how to use modules
-- Learn how to define modules
+In this tutorial, we look at how to use and define modules.
 
-Modules are collections of definitions grouped in a unit. This is the basic means to organize OCaml software. Separate concerns can and should be isolated into separate modules.
+Modules are collections of definitions grouped together. This is the basic means to organise OCaml software. Separate concerns can and should be isolated into separate modules.
 
 **Prerequisites**: [Values and Functions](/docs/values-and-functions) and [Basic Data Types and Pattern Matching](/docs/basic-data-types)
 
@@ -365,9 +363,9 @@ module has, plus a new `uncons` function. In order to override the default `List
 
 ## Conclusion
 
-In OCaml, modules are the basic means of organizing software. To sum up, a module is a collection of definitions wrapped under a name. These definitions can be submodules, which allows the creation of hierarchies of modules. Top-level modules must be files and are the units of compilation. Every module has an interface, which is the list of what a module exposes. By default, a module's interface exposes all its definitions, but this can be restricted using the interface syntax.
+In OCaml, modules are the basic means of organising software. To sum up, a module is a collection of definitions wrapped under a name. These definitions can be submodules, which allows the creation of hierarchies of modules. Top-level modules must be files and are the units of compilation. Every module has an interface, which is the list of definitions a module exposes. By default, a module's interface exposes all its definitions, but this can be restricted using the interface syntax.
 
 Going further, here are the other means to handle OCaml software components:
 - Functors, which act like functions from modules to modules
-- Libraries, which are compiled modules bundled together into archives
+- Libraries, which are compiled modules bundled together
 - Packages, which are installation and distribution units
