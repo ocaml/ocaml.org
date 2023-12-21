@@ -122,9 +122,10 @@ In the standard library, this function is `Option.fold`.
 The `Option.fold` function can be used to implement a fall-back logic without writing pattern matching. For instance, here is a function that turns the contents of the `$PATH` environment variable into a list of strings, or the empty list if undefined. This version uses pattern matching:
 ```ocaml
 # let path () =
+    let split_on_colon = String.split_on_char ':' in
     let opt = Sys.getenv_opt "PATH" in
     match opt with
-    | Some s -> String.split_on_char ':' s
+    | Some s -> split_on_colon s
     | None -> [];;
 val path : unit -> string list = <fun>
 ```
