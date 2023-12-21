@@ -37,7 +37,7 @@ When you work on several OCaml projects simultaneously, you should create more o
 
 ## Compiling OCaml Programs
 
-By default, OCaml comes with two compilers: one translating sources into native binaries and another turning sources into a bytecode format. OCaml also comes with an interpreter for that bytecode format. This tutorial demonstrates how to use the native compiler to write OCaml programs.
+By default, OCaml comes with two compilers: one translating sources into native binaries and another [turning sources into a bytecode format](/docs/ocaml-bytecode-compiler). OCaml also comes with an interpreter for that bytecode format. This tutorial demonstrates how to use the native compiler to write OCaml programs.
 
 <!-- Other compilers exist, for instance, [js_of_ocaml](https://ocsigen.org/js_of_ocaml) generates JavaScript. The toplevel uses the bytecode compiler; expressions are read, type-checked, compiled into bytecode, and executed. The previous tutorial was interactive because we used the toplevel. -->
 
