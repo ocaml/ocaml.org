@@ -131,7 +131,7 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
     </a>
 
 let lang_manual_banner =
-  <div class="bg-gradient-to-r from-[#C54B21] dark:from-[#773E21] to-[#E18C34] dark:to-[#E7B573] hover:from-[#B63701] hover:to-[#EE8703] dark:hover:from-[#803814] dark:hover:to-[#F1B566] rounded-3xl">
+  <a href="<%s Url.manual %>" class="block bg-gradient-to-r from-[#C54B21] dark:from-[#773E21] to-[#E18C34] dark:to-[#E7B573] hover:from-[#B63701] hover:to-[#EE8703] dark:hover:from-[#803814] dark:hover:to-[#F1B566] rounded-3xl">
     <div class="bg-[url('/img/learn/banner-background.svg')] bg-cover w-full items-center flex flex-col md:flex-row gap-6 py-4 px-7 md:py-4 md:pl-14 md:pr-14 lg:pr-24">
       <div class="flex flex-col flex-grow my-6">
         <div class="text-white text-sm font-medium tracking-widest leading-10">GUIDE</div>
@@ -141,13 +141,13 @@ let lang_manual_banner =
         <p class="mt-4 text-white font-normal max-w-xl text-base leading-7">
           The OCaml language manual is a comprehensive guide covering syntax, features, and usage. It assists developers and learners in understanding capabilities, best practices, and language features.
         </p>
-        <a href="<%s Url.manual %>" class="w-full md:w-80 mt-6 py-2 bg-white rounded-xl text-center text-primary dark:text-dark-primary font-bold text-lg">
+        <div class="w-full md:w-80 mt-6 py-2 bg-white rounded-xl text-center text-primary dark:text-dark-primary font-bold text-lg">
           Take Me There
-        </a>
+        </div>
       </div>
       <img class="hidden md:block w-[200px] h-[200px] md:w-72 md:h-72 rounded-full" src="<%s Ocamlorg_static.Asset.url "img/learn/language_manual_camel.png" %>" alt="A friendly-looking camel">
     </div>
-  </div>
+  </a>
 
 let exercise_card (exercise: Data.Exercise.t) =
   <a class="flex flex-col p-5 card dark:dark-card" href="<%s Url.exercises %>#<%s exercise.slug %>">
