@@ -213,7 +213,7 @@ Layout.render
   </div>
 </div>
 
-<div class="bg-legacy-mild-contrast">
+<div class="bg-sand">
   <div class="container-fluid">
     <div class="text-center text-black lg:p-16 py-10">
       <h3 class="font-bold mb-6">OCaml Outreachy Internships</h3>

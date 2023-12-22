@@ -10,7 +10,7 @@ type section =
 let tabs
 ~current =
   let link ~href ~title ~current =
-    <a href="<%s href %>" class="justify-start px-4 py-2 text-white items-center font-semibold border-2 border-b-4 border-transparent rounded <%s if current then "border-b-primary" else "opacity-80" %>">
+    <a href="<%s href %>" class="justify-start px-4 py-2 text-white dark:text-dark-title items-center font-normal border-2 border-b-4 border-transparent rounded <%s if current then "border-b-primary dark:border-b-dark-primary" else "opacity-80 hover:dark:text-primary dark:hover:text-dark-primary" %>">
       <%s title %>
     </a>
   in
@@ -41,7 +41,7 @@ let tabs
           <%s section_to_string option %>
         </option> 
     in
-    <nav aria-label="breadcrumbs" class="px-4 flex text-white bg-legacy-text-title md:hidden">
+    <nav aria-label="breadcrumbs" class="px-4 flex text-white dark:text-dark-title bg-title md:hidden">
       <ul>
         <li class="inline-block"> 
             <a href="<%s url_of_current Overview %>" class="flex items-center px-2 py-2 border-transparent border-2 border-b-4"> Learn 
@@ -51,13 +51,13 @@ let tabs
             <select onchange="location = this.value;" class="appearance-none bg-legacy-text-title border-2 border-b-4 bg-none font-bold border-none w-auto p-0 m-0 cursor-pointer focus:outline-none focus:ring-0">
              <%s! sections |> List.map options_list |> String.concat "" %>
             </select>
-            <span class="text-orange-700 cursor-pointer">&#x25BE;</span>
+            <span class="text-primary dark:text-dark-primary cursor-pointer">&#x25BE;</span>
         </li>
       </ul>
     </nav>
   in
     <%s! breadcrumb_options current %>
-    <div class="bg-legacy-text-title hidden md:flex">
+    <div class="bg-title dark:bg-[#111827] hidden md:flex">
       <nav class="container-fluid wide flex flex-wrap">
         <%s! link ~href:Url.learn ~title:"Overview" ~current:(current = Overview) %>
 
@@ -154,7 +154,7 @@ inner_html
   ~canonical
   ?active_top_nav_item @@
   <%s! tabs ~current %>
-  <div class="bg-legacy-default dark:bg-legacy-dark-default">
+  <div class="bg-white dark:bg-dark-background">
     <div class="flex-1 z-0 z- min-w-0 pb-12">
       <%s! inner_html %>
     </div>

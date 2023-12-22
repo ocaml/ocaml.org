@@ -62,12 +62,12 @@ Layout.base
             </li>
             <% | Unknown -> ( %>
             <li class="flex flex-auto">
-              <span aria-label="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-gray-400 <%s (match path with | Documentation _ -> "bg-primary text-white" | _ -> "text-gray-500 bg-legacy-mild-contrast")%>"><%s! Icons.error "" %> No Docs</span>
+              <span aria-label="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-gray-400 <%s (match path with | Documentation _ -> "bg-primary text-white" | _ -> "text-gray-500 bg-sand")%>"><%s! Icons.error "" %> No Docs</span>
             </li>
             <% )
             | Failure -> ( %>
             <li class="flex flex-auto">
-              <a title="Documentation failed to build!" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0  border-gray-400 <%s (match path with | Documentation _ -> "bg-primary text-white" | _ -> "text-gray-500 bg-legacy-mild-contrast")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
+              <a title="Documentation failed to build!" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0  border-gray-400 <%s (match path with | Documentation _ -> "bg-primary text-white" | _ -> "text-gray-500 bg-sand")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
             </li>
             <% ));%>
           </li>
