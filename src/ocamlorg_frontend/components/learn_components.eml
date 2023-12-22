@@ -175,7 +175,7 @@ let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
   </div>
 
 let tool_card ~img_src ~title ~text ~url =
-  <a class="group p-5 flex flex-col card dark:bg-dark-card max-w-[32rem]" href="<%s url %>">
+  <a class="group p-5 flex flex-col card dark:dark-card max-w-[32rem]" href="<%s url %>">
     <h3 class="flex gap-3 text-black dark:text-dark-title text-base font-bold">
       <img src="<%s! Ocamlorg_static.Asset.url img_src %>" alt="">
       <%s title %>
