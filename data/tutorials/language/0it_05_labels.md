@@ -8,84 +8,47 @@ category: "Introduction"
 
 # Labelled and Optional Arguments to Functions
 
-In this tutorial, we learn how to use labels in OCaml.
+It is possible to give names and default values to function parameters, this is broadly known as labels. In this tutorial, we learn how to use labels.
 
-As a reminder: throughout this tutorial the code is written in the `ocaml` toplevel
-and the command prompt appears as a `#`.
+Throughout this tutorial, the code is written in UTop.
 
-Also remember that an expression must end with `;;` for OCaml to evaluate it. 
-Unless these examples start with a `#` toplevel prompt and end with `;;`, it isn't an 
-expression to evaluate but rather an example of code structure.
+**Prerequisites**: [Values and Functions](/docs/values-and-functions)
 
 ## Labelled Arguments
-
-Python has a nice syntax for writing arguments to functions. Here's
-an example (from the Python tutorial, since I'm not a Python
-programmer):
-
-```python
-def ask_ok(prompt, retries=4, complaint='Yes or no, please!'):
-  # function definition omitted
-```
-Here are the ways we can call this Python function:
-
-```python
-ask_ok ('Do you really want to quit?')
-ask_ok ('Overwrite the file?', 2)
-ask_ok (prompt='Are you sure?')
-ask_ok (complaint='Please answer yes or no!', prompt='Are you sure?')
-```
-
-Notice that in Python we are allowed to name arguments when we call
-them, or use the usual function call syntax, and we can have optional
-arguments with default values.
 
 OCaml also has a way to label arguments and have optional arguments with
 default values.
 
 The basic syntax is:
-
 ```ocaml
-# let rec range ~first:a ~last:b =
-  if a > b then []
-  else a :: range ~first:(a + 1) ~last:b;;
+# let rec range ~first:lo ~last:hi =
+  if lo > hi then []
+  else lo :: range ~first:(lo + 1) ~last:hi;;
 val range : first:int -> last:int -> int list = <fun>
 ```
 
-(Notice that both `to` and `end` are reserved words in OCaml, so they
-cannot be used as labels. This means you cannot have `~to` or
-`~end`.)
+The arguments of `range` have:
+- Internal names `lo` and `hi`
+- External names `first` and `last`, these are the labels.
 
-The type of our previous `range` function was:
+Notice that both `to` and `end` are reserved words in OCaml, so they
+cannot be used.
 
-<!-- $MDX skip -->
-```ocaml
-range : int -> int -> int list
-```
-
-And the type of our new `range` function with labelled arguments is:
-
-```ocaml
-# range;;
-- : first:int -> last:int -> int list = <fun>
-```
-
-Confusingly, the `~` (tilde) is *not* shown in the type definition, but
+The `~` (tilde) is not shown in the type definition, but
 you need to use it everywhere else.
 
 With labelled arguments, it doesn't matter which order you give the
-arguments anymore:
-
+arguments:
 ```ocaml
 # range ~first:1 ~last:10;;
 - : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
+
 # range ~last:10 ~first:1;;
 - : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
 ```
 
 There is also a shorthand way to name the arguments so that the label
 matches the variable in the function definition:
-
 ```ocaml
 # let may ~f x =
   match x with
@@ -95,13 +58,15 @@ val may : f:('a -> 'b) -> 'a option -> unit = <fun>
 ```
 
 It's worth spending some time working out exactly what this function
-does, and also working out its type signature by hand. There's a lot
-going on. First of all, the parameter `~f` is just shorthand for `~f:f`
+does, and also working out its type signature by hand.
+
+First of all, the parameter `~f` is just shorthand for `~f:f`
 (i.e., the label is `~f` and the variable used in the function is `f`).
 Secondly, notice that the function takes two parameters. The second
 parameter (`x`) is unlabelled. It is permitted for a function to take a
 mixture of labelled and unlabelled arguments.
 
+<!-- BEGIN-WTF -->
 What is the type of the labelled `f` parameter? Obviously it's a
 function of some sort.
 
@@ -117,14 +82,12 @@ The `may` function as a whole returns `unit`. Notice in each case of the
 
 Thus the type of the `may` function is (you can verify this in the
 OCaml interactive toplevel if you want):
-
 ```ocaml
 # may;;
 - : f:('a -> 'b) -> 'a option -> unit = <fun>
 ```
 What does this function do? Running the function in the OCaml toplevel
 gives us some clues:
-
 ```ocaml
 # may ~f:print_endline None;;
 - : unit = ()
@@ -134,37 +97,66 @@ hello
 ```
 
 If the unlabelled argument is a “null pointer” then `may` does nothing.
-Otherwise, `may` calls the `f` function on the argument. 
+Otherwise, `may` calls the `f` function on the argument.
 
-Why is this
-useful? We're just about to find out...
+Why is this useful? We're just about to find out...
+<!-- END-WTF -->
 
-## Optional Arguments
+## Optional Arguments With Default Values
+
 Optional arguments are like labelled arguments, but we use `?` instead
-of `~` in front of them. Here is an example:
-
+of `~` in front when declaring them. Here is an example:
 ```ocaml
-# let rec range ?(step=1) a b =
-  if a > b then []
-  else a :: range ~step (a + step) b;;
+let rec range ?step:(x=1) lo hi =
+  if lo > hi then []
+  else lo :: range ~step:x (lo + x) hi;;
 val range : ?step:int -> int -> int -> int list = <fun>
 ```
 
-Note the somewhat confusing syntax switching between `?` and `~`. We'll
-talk about that in the next section, but here is how you call this function:
+In this case, `?step:(x=1)` means that `~step` is an optional argument which defaults to 1.
 
+Here is how this is used.
 ```ocaml
 # range 1 10;;
 - : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
+
 # range 1 10 ~step:2;;
 - : int list = [1; 3; 5; 7; 9]
 ```
 
-In this case, `?(step=1)` means that `~step` is an
-optional argument which defaults to 1. We can also omit the default
-value and just have an optional argument. This example is modified from
-LablGTK:
+Note the somewhat confusing syntax switching between `?` and `~`. Use a question mark when declaring an optional parameter; use a tilde when passing a value to a labelled parameter or specifying a value to an optional parameter.
 
+Here, `step` is the label (the external name), `x` is the parameter name (the internal name) and `1` is the default value.
+
+It is possible to use the same name for the parameter and label names.
+```ocaml
+# let rec range ?(step=1) lo hi =
+  if lo > hi then []
+  else lo :: range ~step (lo + step) hi;;
+val range : ?step:int -> int -> int -> int list = <fun>
+```
+
+This the same as if we had written `?step:(step=1)`
+
+## Optional Arguments Without Default Values
+
+Optional arguments may be declared without specifying a default value.
+```ocaml
+# let git_commit = function
+  | Some ref -> ref
+  | None -> "HEAD";;
+val commit : string option -> string = <fun>
+
+# let git_diff ?commit:(new) old = "git diff " ^ old ^ " " ^ new;;
+val hello : ?name:string -> string -> string = <fun>
+
+# hello "bonjour
+```
+
+## LablGTK
+
+<!-- BEGIN ???? -->
+This example is modified from LablGTK:
 ```ocaml
 # type window =
   {mutable title: string;
@@ -175,18 +167,23 @@ type window = {
   mutable width : int;
   mutable height : int;
 }
+
 # let create_window () =
   {title = "none"; width = 640; height = 480;};;
 val create_window : unit -> window = <fun>
+
 # let set_title window title =
   window.title <- title;;
 val set_title : window -> string -> unit = <fun>
+
 # let set_width window width =
   window.width <- width;;
 val set_width : window -> int -> unit = <fun>
+
 # let set_height window height =
   window.height <- height;;
 val set_height : window -> int -> unit = <fun>
+
 # let open_window ?title ?width ?height () =
   let window = create_window () in
   may ~f:(set_title window) title;
@@ -265,6 +262,7 @@ You should make sure you fully understand this example before proceeding
 to the next section.
 
 ## `Warning: This optional argument cannot be erased`
+
 We've just touched upon labels and optional arguments, but even this
 brief explanation might have raised several questions. The first may be: 
 "Why use the extra `()` (unit) argument to `open_window`?" Let's try defining this
