@@ -1,6 +1,6 @@
 ---
 title: Bipartite Graphs
-number: "89"
+slug: "89"
 difficulty: intermediate
 tags: [ "graph" ]
 description: "Determine whether a given graph is bipartite."

@@ -9,7 +9,7 @@ Layout.render
 
 let search_dropdown () =
   <div id="packages-search-results" aria-live="polite" ></div>
-  <a class="flex py-2 px-2 mx-2 gap-4 hover:bg-primary-100 font-normal rounded-md text-primary-600" href="<%s Url.api %>">
+  <a class="flex py-2 px-2 mx-2 gap-4 hover:bg-legacy-primary-100 font-normal rounded-md text-primary" href="<%s Url.api %>">
     Standard Library API
     <%s! Icons.arrow_top_right_on_square "w-6 h-6"%>
   </a>
@@ -42,21 +42,21 @@ in
     <div class="container-fluid">
         <div class=" ">
             <div class="text-center">
-                <h2 class="font-bold text-primary-600 mb-6">Opam: The OCaml Package Manager</h2>
+                <h2 class="font-bold text-primary mb-6">Opam: The OCaml Package Manager</h2>
                 <div class="text-lg text-white lg:px-44">Opam is a source-based package manager for OCaml. It supports
                     multiple simultaneous compiler installations, flexible package constraints, and a Git-friendly
                     development workflow.</div>
             </div>
 % let render_number_stat ?(first=false) label number =
     <div class="flex items-center flex-col md:px-12 <%s if first then "" else "md:border-l border-gray-200" %>">
-      <div class="font-bold text-4xl text-primary-600"><%d number %></div>
-      <div class="text-sm text-default text-center"><%s label %></div>
+      <div class="font-bold text-4xl text-primary"><%d number %></div>
+      <div class="text-sm text-legacy-default text-center"><%s label %></div>
     </div>
 % in
 % ( match stats with
 % | Some stats ->
               <div class="flex justify-center md:px-20 lg:px-56 mt-12">
-                <div class="bg-default dark:bg-dark-default p-4 md:p-0 md:py-10 rounded-xl flex flex-col md:flex-row md:w-full lg:w-auto md:justify-center  space-y-4 md:space-y-0 md:items-start">
+                <div class="bg-legacy-default dark:bg-legacy-dark-default p-4 md:p-0 md:py-10 rounded-xl flex flex-col md:flex-row md:w-full lg:w-auto md:justify-center  space-y-4 md:space-y-0 md:items-start">
 %     render_number_stat ~first:true "Packages" stats.nb_packages;
 %     render_number_stat "New packages this month" stats.nb_packages_month;
 %     render_number_stat "Updates this week" stats.nb_update_week;
@@ -66,7 +66,7 @@ in
         </div>
     </div>
 </div>
-<div class="bg-primary-600 ">
+<div class="bg-primary ">
     <div class="container-fluid">
         <div class="text-center text-white lg:py-32 md:py-20 py-10">
             <h3 class="font-bold mb-6">Featured Packages</h3>
@@ -74,10 +74,10 @@ in
                 Discover new and OCaml packages from featured community packages.
             </p>
 % let render_featured_package pkg =
-    <a href="<%s href_package pkg %>" class="bg-default dark:bg-dark-default card-hover rounded-md p-6 text-default text-left">
+    <a href="<%s href_package pkg %>" class="bg-legacy-default dark:bg-legacy-dark-default legacy-card-hover rounded-md p-6 text-legacy-default text-left">
       <p class="font-semibold mb-2"><%s pkg.name %></p>
-      <p class="mb-3 text-sm text-lighter"><%s pkg.synopsis %></p>
-      <p class="text-sm text-lighter flex space-x-2">
+      <p class="mb-3 text-sm text-legacy-lighter"><%s pkg.synopsis %></p>
+      <p class="text-sm text-legacy-lighter flex space-x-2">
         <%s! Icons.tag "h-5 w-5 pr-1" %> <%s Package.render_version pkg %>
       </p>
     </a>
@@ -92,12 +92,12 @@ in
         </div>
     </div>
 </div>
-<div class="bg-default dark:bg-dark-default py-20 lg:py-32">
+<div class="bg-legacy-default dark:bg-legacy-dark-default py-20 lg:py-32">
 % let render_package_stat pkg render_extra_stats =
     <a href="<%s href_package pkg %>"
-        class="block bg-default dark:bg-dark-default border border-gray-200 rounded-xl py-6 px-7 text-default text-left card-hover">
+        class="block bg-legacy-default dark:bg-legacy-dark-default border border-gray-200 rounded-xl py-6 px-7 text-legacy-default text-left legacy-card-hover">
       <div class="font-semibold mb-2"><%s pkg.name %></div>
-      <div class="mb-3 text-sm text-lighter"><%s pkg.synopsis %></div>
+      <div class="mb-3 text-sm text-legacy-lighter"><%s pkg.synopsis %></div>
 % render_extra_stats ();
     </a>
 % in
@@ -109,7 +109,7 @@ in
                 <h3 class="font-bold text-center mb-8">Most Used Packages</h3>
 % let render_package_most_revdeps (pkg, nb_revdeps) =
 %   render_package_stat pkg (fun () ->
-      <div class="text-sm text-lighter flex space-x-2">
+      <div class="text-sm text-legacy-lighter flex space-x-2">
         <%s! Icons.star "h-5 w-5 pr-1" %>
         Used by <%d nb_revdeps %> other packages
       </div>
@@ -122,7 +122,7 @@ in
                 <h3 class="font-bold text-center mb-8">New Packages</h3>
 % let render_newest_package (pkg, date) =
 %   render_package_stat pkg (fun () ->
-      <div class="text-sm text-lighter flex space-x-2">
+      <div class="text-sm text-legacy-lighter flex space-x-2">
         <%s! Icons.calendar "h-5 w-5 pr-1" %> <%s date %>
       </div>
 %   )
@@ -133,7 +133,7 @@ in
                 <h3 class="font-bold text-center mb-8">Recently Updated</h3>
 % let render_package_recently_updated pkg =
 %   render_package_stat pkg (fun () ->
-      <div class="text-sm text-lighter flex space-x-2">
+      <div class="text-sm text-legacy-lighter flex space-x-2">
         <%s! Icons.refresh "h-5 w-5 pr-1" %> Version <%s Package.render_version pkg %>
       </div>
 %   )
@@ -145,38 +145,38 @@ in
         <div class="border border-gray-200 mt-16 mb-16"></div>
 
         <div class="flex flex-col text-center">
-            <div class="text-primary-600 mb-4 font-bold">STABLE ECOSYSTEM</div>
+            <div class="text-primary mb-4 font-bold">STABLE ECOSYSTEM</div>
             <h3 class="font-bold mb-8">Focus on Your Code, and opam Takes Care of Distributing It.</h3>
-            <div class="text-lg text-lighter">Our users have the highest standards for the OCaml ecosystem to run
+            <div class="text-lg text-legacy-lighter">Our users have the highest standards for the OCaml ecosystem to run
                 mission-critical applications across a variety of operating systems, and they expect that a package that
                 compiles today will still work a decade from now.</div>
         </div>
         <div class="flex justify-between space-y-12 lg:space-x-20 mt-20 flex-col lg:flex-row lg:space-y-0">
             <div class="text-center flex-col max-w-full lg:max-w-sm ">
-                <div class="mb-4 rounded-2xl bg-primary-600 w-16 h-16 items-center m-auto flex justify-center">
+                <div class="mb-4 rounded-2xl bg-primary w-16 h-16 items-center m-auto flex justify-center">
                     <%s! Icons.beaker "h-6 w-6 text-white" %>
                 </div>
                 <div class="text-lg font-semibold mb-4">Continuous Integration</div>
-                <div class="text-base text-lighter">Before any package update, we run sandboxed matrix builds for
+                <div class="text-base text-legacy-lighter">Before any package update, we run sandboxed matrix builds for
                     boundaries of the dependencies and for each of the dependent packages. A package publication will
                     never break the rest of the ecosystem.</div>
             </div>
             <div class="text-center flex-col max-w-full lg:max-w-sm">
-                <div class="mb-4 rounded-2xl bg-primary-600 w-16 h-16 items-center m-auto flex justify-center">
+                <div class="mb-4 rounded-2xl bg-primary w-16 h-16 items-center m-auto flex justify-center">
                     <%s! Icons.refresh "h-6 w-6 text-white" %>
                 </div>
                 <div class="text-lg font-semibold mb-4">State of the Art</div>
-                <div class="text-base text-lighter">Opam supports publishing multiple versions of packages
+                <div class="text-base text-legacy-lighter">Opam supports publishing multiple versions of packages
                     simultaneously to specify the version constraints, so only compatible revisions are
                     chosen for a build. It comes with a performant constraint solver, a flexible CLI, a well-specified
                     metadata format, and an easy access to the package manager logic via OCaml libraries.</div>
             </div>
             <div class="text-center flex-col max-w-full lg:max-w-sm">
-                <div class="mb-4 rounded-2xl bg-primary-600 w-16 h-16 items-center m-auto flex justify-center">
+                <div class="mb-4 rounded-2xl bg-primary w-16 h-16 items-center m-auto flex justify-center">
                     <%s! Icons.shield_check "h-6 w-6 text-white" %>
                 </div>
                 <div class="text-lg font-semibold mb-4">Stability</div>
-                <div class="text-base text-lighter">The opam project and package repository is maintained by a team of
+                <div class="text-base text-legacy-lighter">The opam project and package repository is maintained by a team of
                     developers who ensure that everything is not only running smoothly, but also curated to maintain a high
                     degree of metadata quality. This makes it one of the most stable package repositories available
                     today.</div>
@@ -185,17 +185,17 @@ in
     </div>
 % | None -> () );
 </div>
-  <div class=" bg-default prose max-w-none p-10 lg:p-8">
+  <div class=" bg-legacy-default prose max-w-none p-10 lg:p-8">
    If you want to learn about the OCaml packages, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-package" target="_blank">Contributing Guide</a> on GitHub.
 </div> 
-<div class="bg-primary-600 ">
+<div class="bg-primary ">
     <div class="container-fluid">
         <div class="text-center text-white lg:p-16 py-10">
             <h3 class="font-bold mb-6">Start Contributing</h3>
             <div class="text-lg mb-8 lg:px-40">Learn how to publish your first Opam package today and make it available
                 to the rest of the community.</div>
             <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
-                <a href="https://opam.ocaml.org/doc/Packaging.html" class="btn btn-lg btn-tertiary">Learn More</a>
+                <a href="https://opam.ocaml.org/doc/Packaging.html" class="btn btn-lg btn-legacy-tertiary">Learn More</a>
             </div>
         </div>
     </div>

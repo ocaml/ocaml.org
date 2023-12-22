@@ -323,6 +323,16 @@ watch:
   published_at: 2023-09-20T11:27:06.813Z
   language: Unknown
   category: Science & Technology
+- name: Develop Cross-Platform Software using 2+ Languages
+  description: "Explore how high school robotics software was developed that works
+    on Android phones and desktop PCs. Use OCaml alongside common programming languages
+    like Java and Python.\r\n\r\nDkSDK Subscription: https://diskuv.com/pricing/\r\nLearning
+    OCaml: https:..."
+  embed_path: /videos/embed/6162e7b7-f2dd-47e6-8133-c4126ce1b508
+  thumbnail_path: /static/thumbnails/4a50eb98-ab79-4a57-87d9-a55a91654301.jpg
+  published_at: 2023-11-16T22:18:27.526Z
+  language: Unknown
+  category: Unknown
 - name: Digodoc and Docs
   description: In this talk, we will introduce a new tool called digodoc, that builds
     a graph of an opam switch, associating files, libraries and opam packages into
@@ -372,6 +382,16 @@ watch:
   thumbnail_path: /static/thumbnails/f03f27d0-ca66-40b3-938d-65230885cd85.jpg
   published_at: 2021-10-02T02:09:19.827Z
   language: English
+  category: Unknown
+- name: Episode3-Youtube
+  description: "Everything you need to know to install and use the DkML distribution
+    of OCaml on Windows. Includes a 5-minute quick install for learners. Includes
+    how to setup projects and configuring IDEs for software creators/engineers.\r\n\r\nAt
+    the time of this v..."
+  embed_path: /videos/embed/4d2578c2-20bf-4cd7-9256-b0eb49716009
+  thumbnail_path: /static/thumbnails/669c9550-883a-4610-8450-504b172762ed.jpg
+  published_at: 2023-12-08T12:14:13.996Z
+  language: Unknown
   category: Unknown
 - name: Experiences with Effects in OCaml
   description: The multicore branch of OCaml adds support for effect handlers. In

@@ -1,5 +1,50 @@
 const defaultTheme = require("tailwindcss/defaultTheme")
 
+const figma_colors = {
+    // Color Light Mode https://www.figma.com/file/bSwyo5pUnarg1lquxQxWAE/Design-System-Draft?type=design&node-id=300-2086&mode=design&t=gjqG6OhhB92AFg51-0
+    primary: "#D54000",
+    primary_40: "#D5400066",
+    primary_25: "#D5400040",
+    primary_dark: "#842800",
+
+    secondary: "#067065",
+    secondary_25: "#06706540",
+    secondary_bt_hover: "#004039",
+
+    tertiary: "#2B7866",
+    tertiary_lighter: "#D3D5F9",
+    tertiary_25: "#0E2A4940",
+    tertiary_bt_hover: "#111827",
+
+    text_title: "#111827",
+    text_content: "#555659",
+    white: "#FFFFFF",
+    separator_30: "#0000004D",
+
+    dark: {
+      // Color Dark Mode https://www.figma.com/file/bSwyo5pUnarg1lquxQxWAE/Design-System-Draft?type=design&node-id=300-2170&mode=design&t=gjqG6OhhB92AFg51-0
+      primary: "#C24F1E",
+      primary_40: "#D5400066",
+      primary_20: "#D5400033",
+
+      secondary: "#067065",
+      secondary_bt_hover: "#004039",
+      secondary_bt_pressed: "#00231F",
+
+      tertiary: "#0E2A49",
+      tertiary_lighter: "#007BC7",
+      tertiary_bt_hover: "#111827",
+      tertiary_bt_pressed: "#020C22",
+
+      text: "#FFFFFF",
+      grey_navigation: "#868686",
+
+      separator_30: "#0000004D",
+      background: "#222222",
+      background_light: "#333232",
+    }
+}
+
 module.exports = {
   content: ["**/*.eml"],
   darkMode: 'class',
@@ -34,7 +79,7 @@ module.exports = {
               fontSize: "1em",
             },
             a: {
-              color: "#EE6A1A",
+              color: "#D54000",
               textDecoration: "none",
             },
             'a:hover': {
@@ -53,66 +98,75 @@ module.exports = {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
         mono: ["Roboto Mono", ...defaultTheme.fontFamily.mono]
       },
-      outline: {
-        primary: "2px solid #EE6A1A"
-      },
       colors: {
-        primary: {
-          800: "#CD4E00",
-          700: "#DC5402",
-          600: "#EE6A1A",
-          300: "rgba(238, 106, 26, 0.48)",
-          200: "rgba(238, 106, 26, 0.15)",
-          100: "rgba(238, 106, 26, 0.1)",
+        legacy: {
+          primary: {
+            800: "#CD4E00",
+            700: "#DC5402",
+            600: "#EE6A1A",
+            300: "rgba(238, 106, 26, 0.48)",
+            200: "rgba(238, 106, 26, 0.15)",
+            100: "rgba(238, 106, 26, 0.1)",
+          },
+          code: {
+            blue: "rgba(86, 156, 214, 1)",
+            yellow: "rgba(220, 220, 170, 1)",
+            comment: "rgba(255, 255, 255, 0.6)",
+            red: "rgba(252, 129, 129, 1)",
+            background: "rgba(30, 30, 30, 1)",
+          },
+          sucess: {
+            100: "rgba(142, 233, 60, 0.1)",
+            600: "rgba(142, 233, 60, 1)",
+          },
+          global: {
+            default: "rgba(250, 248, 243, 1)",
+          },
+          divider: {
+            8: "rgba(26, 32, 44, 0.08)",
+            12: "rgba(26, 32, 44, 0.12)",
+            16: "rgba(26, 32, 44, 0.16)",
+          },
         },
-        code: {
-          blue: "rgba(86, 156, 214, 1)",
-          yellow: "rgba(220, 220, 170, 1)",
-          comment: "rgba(255, 255, 255, 0.6)",
-          red: "rgba(252, 129, 129, 1)",
-          background: "rgba(30, 30, 30, 1)",
-        },
-        sucess: {
-          100: "rgba(142, 233, 60, 0.1)",
-          600: "rgba(142, 233, 60, 1)",
-        },
-        global: {
-          default: "rgba(250, 248, 243, 1)",
-        },
-        divider: {
-          8: "rgba(26, 32, 44, 0.08)",
-          12: "rgba(26, 32, 44, 0.12)",
-          16: "rgba(26, 32, 44, 0.16)",
-        },
+        ...figma_colors,
+      },
+      borderColor: {
+        DEFAULT: "#00000020"
       },
       textColor: {
-        // Light mode
-        default: "#1A202C",
-        "lighter": "#4b5563",
+        legacy: {
+          // FIXME: remove everything in this section when it is no longer used
+          default: "#1A202C",
+          "lighter": "#4b5563",
 
-        // Dark mode
-        dark: {
-          "default": "#666",
-
-          /* TODO: add dark mode colors here when new ones are needed, should
-             usually correspond closely to the light mode color names, but not
-             necessarily always */
-        },
+          dark: {
+            "default": "#666",
+          },
+        }
       },
       backgroundColor: {
-        default: "white",
-        "mild-contrast": "#FAF8F3",
-        "contrast": "#14294b", // one of the colors from the dark blue contrast patterned background used in various parts of the site
+        legacy: {
+          // FIXME: remove everything in this section when it is no longer used
+          default: "white",
+          "mild-contrast": "#FAF8F3",
+          "contrast": "#14294b", // one of the colors from the dark blue contrast patterned background used in various parts of the site
 
-        "search-keyboard-cursor": "#0C3B8C", // background for cursor highlighting in keyboard navigable areas (e.g. package search dropdown)
-        "search-term-highlight": "rgb(221, 232, 251)",
-        "learn-area-orange": "#C34711",
-        "learn-area-light-blue": "rgba(211, 213, 249, 0.60)",
+          "search-keyboard-cursor": "#0C3B8C", // background for cursor highlighting in keyboard navigable areas (e.g. package search dropdown)
+          "search-term-highlight": "rgb(221, 232, 251)",
+          "learn-area-orange": "#C34711",
 
-        "text-title": "#111827",
-        "search-result-background-blue":"#00308F",
+          "text-title": "#111827",
+          "search-result-background-blue":"#00308F",
 
-        transparent: "transparent",
+          body: {
+            600: "#1A202C",
+          },
+
+          dark: {
+            default: "#222",
+            "mild-contrast": "#171717",
+          },
+        },
 
         avatar: {
           0: "#bb452a",
@@ -131,22 +185,6 @@ module.exports = {
 
         code: {
           background: "rgba(30, 30, 30, 1)",
-        },
-
-        // Dark mode
-
-        dark: {
-          default: "#222",
-          "mild-contrast": "#171717",
-
-          /* TODO: add dark mode colors here when new ones are needed, should
-             usually correspond closely to the light mode color names, but not
-             necessarily always */
-        },
-
-        // FIXME: remove everything below here when it has been replaced
-        body: {
-          600: "#1A202C",
         },
       },
       boxShadow: {

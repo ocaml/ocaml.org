@@ -171,10 +171,7 @@ rounds:
           in order to preprocess code before reaching the last compilation step,
           for example, in the form of macros or templates. The OCaml compiler
           doesn't provide a full built-in macro system, but the OCaml parser does
-          provide syntax for preprocessing purposes: attributes
-          (https://v3.ocaml.org/docs/metaprogramming#attributes-and-derivers) and
-          extension points
-          (https://v3.ocaml.org/docs/metaprogramming#extension-nodes-and-extenders).
+          provide syntax for preprocessing purposes: attributes and extension points.
           We -the OCaml community- also have an official framework, called
           `ppxlib`, to write preprocessors -called PPXs- based on that syntax and
           integrate them into the compilation process.

@@ -1,6 +1,6 @@
 ---
 title: Split a List Into Two Parts; The Length of the First Part Is Given
-number: "17"
+slug: "17"
 difficulty: beginner
 tags: [ "list" ]
 description: "Split a list into two parts, with the length of the first part specified."

@@ -1,6 +1,6 @@
 ---
 title: Huffman Code
-number: "50"
+slug: "50"
 difficulty: advanced
 tags: [ "logic" ]
 description: "Generate Huffman codes for a set of symbols with their respective frequencies using the huffman function."

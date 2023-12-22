@@ -8,58 +8,47 @@ category: "Best Practices"
 
 # Bootstrapping a Project with Dune
 
-[Dune](https://dune.readthedocs.io/en/stable/overview.html) is recommended for bootstrapping projects using `dune init`. If `opam` or `dune` are not installed, please see [the OCaml install page](/install).
+[Dune](https://dune.readthedocs.io/en/stable/overview.html) is recommended for bootstrapping projects. To install `dune`, please see [the OCaml install page](/install).
 
-> dune init --help
->
-> **dune init {library,executable,test,project} NAME [PATH]** initialize a
-> new dune component of the specified kind, named NAME, with fields
-> determined by the supplied options.
-
-As shown above, `dune init` accepts a _kind_, `NAME`, and optional `PATH` to scaffold new code. Let's try it out:
+To start a new project, you can run:
 
 ```sh
-dune init project hello ~/src/ocaml-projects
-
-Success: initialized project component named hello
+$ dune init project hello_world
+Success: initialized project component named hello_world
 ```
 
-In the above example, we use:
-
-- "project" as the _kind_
-- "hello" as the _name_, and
-- "~/src/ocaml-projects" as the _path_ to generate the content in
-
-The `project` _kind_ creates a `library` in `./lib`, an `executable` in `./bin`, and links them together in `bin/dune`. Additionally, the command creates a test executable and an opam file.
+You can now build and run your new project:
 
 ```sh
-tree ~/src/ocaml-projects/hello/
-
-/home/user/src/ocaml-projects/hello/
-├── bin
-│   ├── dune
-│   └── main.ml
-├── hello.opam
-├── lib
-│   └── dune
-└── test
-    ├── dune
-    └── hello.ml
-```
-
-At this point, you can build the project and run the binary:
-
-```sh
-cd /home/user/src/ocaml-projects/hello/
-dune exec bin/main.exe
-
+$ cd hello_world
+$ dune exec bin/main.exe
 Hello, world!
 ```
 
-Thus, `dune init` can rapidly scaffold new projects, with minimal content. It can also be used to add components (kinds) incrementally to existing projects.
+To create a new library in the current project, use:
 
-Various community projects offer more comprehensive project scaffolding than `dune` as well.
-The following projects are not formally supported by the OCaml Platform, but may be of interest to the reader:
+```sh
+$ dune init lib my_lib ./path/to/my_lib
+Success: initialized library component named my_lib
+```
+
+To create a new executable in the current project, use:
+
+```sh
+$ dune init exec my_bin ./path/to/my_bin
+Success: initialized executable component named my_bin 
+```
+
+To create a new test in the current project, use:
+
+```sh
+$ dune init test my_test ./path/to/my_test
+Success: initialized test component named my_test 
+```
+
+## More Comprehensive Scaffolding
+
+If you're looking for project templates that include more than the basics, there are other community projects that offer more comprehensive project scaffolding:
 
 - [spin](https://github.com/tmattio/spin)
 - [drom](https://ocamlpro.github.io/drom/sphinx/about.html)

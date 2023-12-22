@@ -1,6 +1,6 @@
 ---
 title: Construct All Spanning Trees
-number: "83"
+slug: "83"
 difficulty: intermediate
 tags: [ "graph" ]
 description: "Construct all spanning trees of a given graph g and find out how many spanning trees there are for a given graph."

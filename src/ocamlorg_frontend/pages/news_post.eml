@@ -4,11 +4,11 @@ Layout.render
 ~description:news.description
 ~canonical:(Url.news_post news.slug)
 ~active_top_nav_item:Blog @@
-<div class="bg-default dark:bg-dark-default py-24">
+<div class="bg-legacy-default dark:bg-legacy-dark-default py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">
       <a href="<%s Url.blog %>"
-        class="flex justify-start space-x-3 items-center text-primary-600 hover:underline font-semibold mb-4 h-12">
+        class="flex justify-start space-x-3 items-center text-primary hover:underline font-semibold mb-4 h-12">
         <%s! Icons.arrow_left "h-5 w-5" %>
         <div>Back to Blog</div>
       </a>

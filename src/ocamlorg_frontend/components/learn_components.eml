@@ -1,15 +1,39 @@
-let skill_tag difficulty class_ =
-  match difficulty with 
-  | Some "beginner" ->
-    <div class="<%s class_ %> px-2 py-1 inline-block bg-teal-700 rounded-3xl border-2 border-teal-700 font-normal text-center text-white"> Beginner  </div>
-  | Some "intermediate" -> 
-    <div class="<%s class_ %> px-2 py-1 inline-block bg-[#040113] rounded-3xl border-2 border-[#040113] font-normal text-center text-white"> Intermediate </div>
-  | Some "advanced" -> 
-    <div class="<%s class_ %> px-2 py-1 inline-block bg-learn-area-orange rounded-3xl border-2 border-learn-area-orange font-normal text-center text-white"> Advanced </div>
-  | None -> 
-    <></> 
-  | Some _ -> 
-    <></>
+type difficulty = Beginner | Intermediate | Advanced
+
+let color_for_difficulty = function
+  | Beginner -> "bg-secondary"
+  | Intermediate -> "bg-[#3882B7]"
+  | Advanced -> "bg-primary"
+
+let string_from_difficulty = function
+  | Beginner -> "Beginner"
+  | Intermediate -> "Intermediate"
+  | Advanced -> "Advanced"
+
+let skill_tag difficulty =
+  <div class="px-3 inline-block <%s color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white tracking-widest">
+    <%s string_from_difficulty difficulty %>
+  </div>
+
+let beginner_section_icon =
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="10" cy="10" r="10" fill="#2B7866"/>
+  </svg>
+
+let intermediate_section_icon =
+  <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0.5 6.5C0.5 3.18629 3.18629 0.5 6.5 0.5H18.5C21.8137 0.5 24.5 3.18629 24.5 6.5V18.5C24.5 21.8137 21.8137 24.5 18.5 24.5H6.5C3.18629 24.5 0.5 21.8137 0.5 18.5V6.5Z" fill="#3882B7"/>
+  </svg>
+
+let advanced_section_icon =
+  <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11.268 1.5C12.0378 0.166665 13.9622 0.166667 14.7321 1.5L25.1244 19.5C25.8942 20.8333 24.9319 22.5 23.3923 22.5H2.60769C1.06809 22.5 0.105844 20.8333 0.875645 19.5L11.268 1.5Z" fill="#D54000"/>
+  </svg>
+
+let little_down_arrow_icon =
+  <svg width="18" height="32" viewBox="0 0 18 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M13 16.6L9 20.6M9 20.6L5 16.6M9 20.6V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
 
 let download_icon class_ =
   <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentColor" class="w-6 h-6" aria-hidden="true">
@@ -21,143 +45,155 @@ let command_line_icon class_ =
     <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
   </svg>
 
-let install_card latest_version =
-  <a href="<%s Url.install %>" class="h-full bg-learn-area-light-blue self-center md:justify-self-end p-6 flex flex-row gap-8 max-w-[400px] sm:w-[450px] md:w-auto md:max-w-[480px] xl:max-w-[500px]">
-    <div class="hidden lg:flex">
-      <%s! download_icon "w-24 h-24 mt-8 flex-shrink-0" %>
-    </div>
-    <div class="flex flex-col ml-1 gap-x-4">
-      <div class="flex flex-row justify-between mr-2">
-        <h3 class="text-default text-2xl font-normal leading-7">Download </h3>
-        <span class="rounded-sm px-2 py-1 text-xs text-center text-white text-base font-normal bg-[#0E2A49] hidden sm:flex"> Version <%s latest_version %> </span>
-      </div>
-        <p class="mt-3 flex-grow text-default text-md font-normal leading-7">
-          Effortlessly download, install, and set up OCaml! </p>
-      <div href="<%s Url.install %>" class="mt-4 flex btn btn-md px-2 w-48 bg-learn-area-orange text-white font-normal">
-        <span>Install OCaml</span>
-        <%s! Icons.chevron_right "h-5 w-5" %>
-      </div>
-    </div>
+let hero_button ~left_icon ~right_icon ~text ~href =
+  <a href="<%s href %>" class="group whitespace-nowrap flex p-3 gap-2 items-center bg-white hover:bg-primary hover:text-white drop-shadow hover:drop-shadow-xl border-primary border-2 rounded-lg px-4 text-text_title">
+    <span class="group-hover:text-white text-primary"><%s! left_icon %></span>
+    <span class="flex-grow"><%s text %></span>
+    <%s! right_icon %>
   </a>
-
-let standard_lib_card = 
-  <a href="<%s Url.api %>" class="h-full bg-learn-area-light-blue p-6 pr-8 flex flex-row gap-8 max-w-[400px] self-center sm:w-[450px] md:justify-self-start md:w-auto md:max-w-[480px] xl:max-w-[500px]">
-    <div class="hidden lg:flex">
-      <%s! command_line_icon "w-24 h-24 mt-8 flex-shrink-0" %>
-    </div>
-    <div class="flex flex-col ml-1 gap-x-4">
-        <h3 class="text-default text-2xl font-normal leading-7">Standard Library API </h3>
-        <p class="mt-3 flex-grow text-default text-md font-normal max-w-prose leading-7">
-          Searchable index of values, types, modules, etc. in Stdlib. </p>
-        <div href="<%s Url.api %>" class="mt-4 w-60 btn px-6 btn-md btn-secondary md:mt-6">
-          <span>Standard Library API</span>
-          <%s! Icons.chevron_right "h-5 w-5" %>
-        </div>
-    </div>
-  </a>
-
-let api_card_block latest_version =
-  <div class="flex flex-col gap-10 md:auto-rows-max md:grid md:grid-cols-2">
-    <%s! install_card latest_version %>
-    <%s! standard_lib_card %>
-  </div>
 
 type link = {href : string; title : string}
 
-let tutorial_block_content ~title ~heading ~description ~(tutorial_links: link list) ~(see_more: link) = 
-  <div class="w-full flex flex-col h-full max-w-sm md:max-w-none md:w-96">
-    <div class="mt-4 text-white text-sm text-left font-medium leading-7 tracking-widest"> <%s title %> </div>
-    <h2 class="mt-2 text-white text-2xl text-left font-normal leading-7"> <%s heading %> </h2>
-    <div class="mt-4 text-white text-left text-md font-normal leading-7 max-w-prose"> <%s description %> </div>
-      <ul class="flex gap-4 flex-col flex-grow mt-3 items-center">
-        <% tutorial_links |> List.iter (fun link -> %>
-        <li class="w-full">
-          <a href="<%s link.href %>" class="block bg-default rounded-md py-3 px-6 text-primary-700 text-center text-md font-bold">
-            <%s link.title  %>
-          </a>
-        </li>
+let block_heading ~icon ~title ~heading =
+  <div class="pt-4 text-text_content text-sm font-medium leading-7 tracking-widest flex gap-2 items-center">
+    <%s! icon %>
+    <%s title %>
+  </div>
+  <h2 class="mt-2 text-text_title text-2xl font-bold leading-7"><%s heading %></h2>
+
+let block_container ~icon ~title ~heading inner_html =
+  <div class="bg-legacy-default">
+    <div class="max-w-sm md:max-w-full md:w-[32rem] flex flex-col">
+      <%s! block_heading ~icon ~title ~heading %>
+      <%s! inner_html %>
+    </div>
+  </div>
+
+let tutorial_block ~icon ~title ~heading ~description ~(tutorial_links: link list) ~see_more  =
+  block_container ~icon ~title ~heading @@
+  <div class="mt-4 text-text_content text-base font-normal leading-7 max-w-prose"> <%s description %> </div>
+  <ul class="flex flex-col gap-4 mt-5">
+    <% tutorial_links |> List.iter (fun link -> %>
+    <li class="w-full">
+      <a href="<%s link.href %>" class="bg-white text-text_title hover:bg-primary hover:text-white drop-shadow hover:drop-shadow-xl flex gap-2 border-primary border-2 rounded-lg p-2.5 text-md font-bold">
+        <span class="flex-grow"><%s link.title  %></span>
+
+        <%s! Icons.arrow_right_circle "w-6 h-6" %>
+      </a>
+    </li>
+    <% ); %>
+  </ul>
+  <a href="<%s see_more.href %>" class="mt-4 text-primary hover:underline items-center leading-10">
+    <%s see_more.title %>
+  </a>
+
+let book_cover ~free cover_src = 
+  <div class="relative">
+    <% (if free then %>
+    <div class="absolute -mt-8 ml-3 w-16 h-16">
+      <div class="bg-primary rotate-[-10deg] rounded-full w-16 h-16 flex items-center justify-center" style="filter: drop-shadow(-4px -2px 4px rgb(0 0 0 / 0.25));">
+        <div class="text-center text-white text-base font-bold leading-7 tracking-wide">
+          FREE
+        </div>
+      </div>
+    </div>
+    <% ); %>
+    <img src="<%s Ocamlorg_static.Media.url cover_src %>"
+      class="w-full border z-10"
+      alt="">
+  </div>
+
+let book_recommendation ~(link : link) (book: Data.Book.t) =
+  let icon_for_difficulty difficulty = match difficulty with
+  | Data.Book.Beginner -> beginner_section_icon
+  | Intermediate -> intermediate_section_icon
+  | Advanced -> advanced_section_icon
+  in
+  let first_link = List.hd book.links in
+  block_container ~icon:(icon_for_difficulty book.difficulty) ~title:"RECOMMENDED BOOK" ~heading:book.title @@
+    <div class="mt-6 grid grid-cols-2 gap-6 pt-6">
+      <a href="<%s first_link.uri %>" target="_blank">
+        <%s! book_cover ~free:(book.pricing = "free") book.cover %>
+      </a>
+      <div class="">
+        <%s! skill_tag (match book.difficulty with | Data.Book.Beginner -> Beginner | Intermediate -> Intermediate | Advanced -> Advanced) %>
+        <% (match book.recommendation with None -> () | Some recommendation -> %>
+        <p class="mt-2 text-gray-700 text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
         <% ); %>
-      </ul>
-    <a href="<%s see_more.href %>" class="flex gap-4 mt-4 text-white text-md font-bold inline-flex items-center underline leading-10"> 
-      <%s see_more.title %>
-      <%s! Icons.arrow_small_right "h-6 w-6" %>
+        <div class="pt-4">
+        <% book.links |> List.iter (fun (link: Data.Book.link) -> %>
+          <a href="<%s link.uri %>" class="flex gap-2 text-primary hover:underline items-center leading-8" target="_blank"><%s link.description %> <%s! Icons.link "h-4 w-4" %></a>
+        <% ); %>
+        </div>
+      </div>
+    </div>
+    <a href="<%s link.href %>" class="pt-4 text-primary hover:underline items-center leading-10">
+      <%s link.title %>
+    </a>
+
+let lang_manual_banner =
+  <div class="bg-gradient-to-r from-[#D54000] to-[#e66f01] md:to-[#EF8901] rounded-3xl">
+    <div class="bg-[url('/img/learn/banner-background.svg')] bg-cover w-full items-center flex flex-col md:flex-row gap-6 py-4 px-7 md:py-4 md:pl-14 md:pr-14 lg:pr-24">
+      <div class="flex flex-col flex-grow my-6">
+        <div class="text-white text-sm font-medium tracking-widest leading-10">GUIDE</div>
+        <h2 class="text-white text-3xl font-bold leading-10">
+          Language Manual
+        </h3>
+        <p class="mt-4 text-white font-normal max-w-xl text-base leading-7">
+          The OCaml language manual is a comprehensive guide covering syntax, features, and usage. It assists developers and learners in understanding capabilities, best practices, and language features.
+        </p>
+        <a href="<%s Url.manual %>" class="w-full md:w-80 mt-6 py-2 bg-white rounded-xl text-center text-primary font-bold text-lg">
+          Take Me There
+        </a>
+      </div>
+      <img class="hidden md:block w-[200px] h-[200px] md:w-72 md:h-72 rounded-full" src="<%s Ocamlorg_static.Asset.url "img/learn/language_manual_camel.png" %>" alt="A friendly-looking camel">
+    </div>
+  </div>
+
+let exercise_card (exercise: Data.Exercise.t) =
+  <a class="flex flex-col p-5 card" href="<%s Url.exercises %>#<%s exercise.slug %>">
+    <div class="flex-grow">
+      <%s exercise.description %>
+    </div>
+    <div class="my-2.5">
+      <%s! skill_tag (match exercise.difficulty with | Data.Exercise.Beginner -> Beginner | Intermediate -> Intermediate | Advanced -> Advanced) %>
+    </div>
+  </a>
+
+let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
+  <div class="bg-legacy-default flex flex-col">
+    <div class="max-w-sm md:max-w-full lg:w-full flex flex-col">
+      <%s! block_heading ~icon ~title:"EXERCISES" ~heading %>
+      <div class="mt-6 grid gap-6 md:gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <% exercises |> List.iter (fun (exercise: Data.Exercise.t) -> %>
+        <%s! exercise_card exercise %>
+        <% ); %>
+      </div>
+    </div>
+    <a href="<%s Url.exercises %>" class="pt-4 text-primary hover:underline items-center leading-10">
+      View all Exercises
     </a>
   </div>
 
-let left_tutorial_block ~title ~heading ~description ~(tutorial_links: link list) ~see_more class_ =
-  <div class="<%s class_ %>">
-    <div class="flex justify-center h-full p-4 lg:justify-end lg:pr-20">
-      <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
-    </div>
-  </div>
+let tool_card ~img_src ~title ~text ~url =
+  <a class="group p-5 flex flex-col card max-w-[32rem]" href="<%s url %>">
+    <h3 class="flex gap-3 text-text_heading text-base font-bold">
+      <img src="<%s! Ocamlorg_static.Asset.url img_src %>" alt="">
+      <%s title %>
+    </h3>
+    <p class="text-text_content py-6">
+      <%s text %>
+    </p>
+    <div class="flex gap-2 items-center text-sm text-primary group-hover:underline">
+      Get Started
+      <%s! Icons.arrow_right_circle "h-5 w-5" %></div>
+  </a>
 
-let right_tutorial_block ~title ~heading ~description ~(tutorial_links: link list) ~see_more class_ =
-  <div class="<%s class_ %>">
-    <div class="flex h-full justify-center p-4 lg:justify-start lg:pl-20">
-      <%s! tutorial_block_content ~title ~heading ~description ~tutorial_links ~see_more %>
-    </div>
-  </div>
-
-let pricing_tag = 
-  <div class="absolute -mt-3 ml-3 w-16 h-16">
-    <div class="bg-learn-area-orange rotate-[-10deg] rounded-full w-16 h-16 flex items-center justify-center" style="filter: drop-shadow(-4px -2px 4px rgb(0 0 0 / 0.25));">
-      <div class="text-center text-white text-base font-bold leading-7 tracking-wide">
-        FREE
-      </div>
-    </div>
-  </div>
-
-let book_tile 
-books
-= 
-  <div class="mt-2 flex flex-col flex-grow gap-12 lg:gap-6 md:flex-row xl:gap-12">
-    <% books |> List.rev |> List.iteri (fun index (item : Data.Book.t) -> if (index < 2) then ( %>  
-        <div class="flex flex-col w-full gap-4 lg:w-60">
-          <img src="<%s Ocamlorg_static.Media.url item.cover %>" 
-                  class="mt-2 w-60 h-80 lg:w-52 lg:h-72 xl:w-60 xl:h-80 
-                    <%s if item.difficulty = Some "intermediate" then "bg-[#040113]" else "bg-teal-700" %> object-contain"
-                  alt="">
-          <%s! skill_tag item.difficulty "mt-2 grow-0 w-28" %>
-          <h4 class="mt-1 text-default text-lg font-normal leading-6"> <%s item.title %> </h4>
-          <% (match item.recommendation with None -> () | Some recommendation -> %>
-          <p class="mt-1 text-gray-700 text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
-          <% ); %>
-        </div>
-      <% ) else %> 
-    <% ); %>
-  </div>
-
-let left_books_content_block books ~title ~(link : link) =
-  <div class="w-full bg-default flex h-full p-4">
-    <div class="max-w-sm md:max-w-none sm:w-96 md:w-auto ml-auto flex flex-col mr-auto lg:ml-auto lg:mr-0 lg:pr-4 md:pl-20 lg:pl-0">
-      <div class="pt-4 text-default text-sm font-medium leading-7 tracking-widest"> BOOKS </div>
-      <h2 class="mt-2 text-default text-2xl font-normal leading-7"> <%s title %> </h2>
-      <%s! book_tile books %>
-      <a href="<%s link.href %>" class="flex gap-4 mt-4 text-primary-700 text-lg font-bold inline-flex items-center underline leading-10"> 
-        <%s link.title %>
-        <%s! Icons.arrow_small_right "h-6 w-6" %>
-      </a>
-    </div>
-  </div>
-
-let right_books_content_block books ~title ~(link : link) =
-  <div class="w-full bg-default flex h-full p-4">
-    <div class="max-w-sm md:max-w-none sm:w-96 md:w-auto ml-auto mr-auto flex flex-col lg:ml-0 lg:mr-auto lg:pl-6 md:pl-20 lg:pl-0">
-      <div class="pt-4 text-default text-sm font-medium leading-7 tracking-widest"> BOOKS </div>
-      <h2 class="mt-2 text-default text-2xl font-normal leading-7"> <%s title %> </h2>
-      <%s! book_tile books %>
-      <a href="<%s link.href %>" class="flex gap-4 mt-4 text-primary-700 text-lg font-bold inline-flex items-center underline leading-10"> 
-        <%s link.title %>
-        <%s! Icons.arrow_small_right "h-6 w-6" %>
-      </a>
-    </div>
-  </div>
-
-let contribute_footer ~href =
+let contribute_footer ~href ~description =
   <div class="pt-10 mt-16 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
     <div class="lg:col-span-1">
       <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Help Improve Our Documentation</h2>
-      <p class="text-sm mt-0 mb-4 max-w-xs">All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request.</p>
+      <p class="text-sm mt-0 mb-4 max-w-xs"><%s description %></p>
       <a
         class="inline-block relative py-1 px-4 font-medium no-underline align-middle bg-transparent rounded-md border border-solid appearance-none cursor-pointer select-none whitespace-no-wrap hover:no-underline"
         href="<%s href %>"
@@ -180,17 +216,5 @@ let contribute_footer ~href =
           Open an Issue</a
         >
       </div>
-    </div>
-  </div>
-
-let lang_manual_banner =
-  <div class="bg-learn-area-orange flex w-full flex-col items-center justify-center px-3 py-5 sm:px-16 md:flex-row gap-6 md:gap-x-16 lg:gap-x-20 lg:px-20 xl:gap-x-36 xl:px-48">
-    <div class="mb-2 flex flex-col items-start max-w-sm md:max-w-none">
-      <h2 class="mb-2 text-white text-center text-sm font-medium leading-5 tracking-widest md:text-left lg:leading-7">GUIDE</h2>
-      <h3 class="mb-4 text-white text-center text-lg font-normal leading-5 md:leading-10 md:text-xl lg:text-2xl md:text-left">Language Manual</h3>
-      <p class="mb-4 text-white text-sm font-normal leading-5 max-w-prose md:text-md lg:leading-7 xl:text-lg">OCaml language manuals are comprehensive guides covering syntax, features, and usage. They assist developers and learners in understanding capabilities, best practices, and exploring functionalities.</p>
-      <a href="<%s Url.manual %>" class="w-full md:w-auto mt-5 py-2 px-24 bg-default text-sm rounded-sm items-center text-center text-primary-700 sm:px-20 sm:text-md font-medium leading-7 md:text-lg">Take Me There</a>
-    </div>
-    <div class="min-w-[200px] min-h-[200px] overflow-hidden rounded-full bg-cover bg-center bg-no-repeat md:min-w-[240px] md:min-h-[240px]" style="background-image: url('../img/home/ocaml_camel.png')">
     </div>
   </div>

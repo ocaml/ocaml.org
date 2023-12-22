@@ -1,6 +1,6 @@
 ---
 title: Drop Every N'th Element From a List
-number: "16"
+slug: "16"
 difficulty: intermediate
 tags: [ "list" ]
 description: "Write a function that drops every N'th element from a list."

@@ -1,6 +1,6 @@
 let left_sidebar ~tutorials ~current_tutorial =
   <div class="flex flex-col gap-10">
-    <%s! Learn_sidebar.render ~tutorials ~current_tutorial ~section:Learn_layout.Guides %>
+    <%s! Learn_layout.sidebar ~tutorials ~current_tutorial ~section:Learn_layout.Guides %>
   </div>
 
 let render
@@ -8,14 +8,20 @@ let render
 ~tutorials
 ~packages
 =
-Learn_layout.render
+let toc = 
+  let category_to_toc_entry (category: Data.Is_ocaml_yet.category) =
+    Toc.{ href = "#" ^ Utils.slugify category.name; title = category.name; children = [] }
+  in
+  List.map category_to_toc_entry meta.categories
+in
+Learn_layout.three_column_layout
 ~title:meta.question
 ~description:(meta.question ^ " " ^ meta.answer)
 ~canonical:(Url.is_ocaml_yet meta.id)
 ~active_top_nav_item:Header.Learn
 ~current:Learn_layout.Guides
 ~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some (Printf.sprintf "is-ocaml-%s-yet" meta.id)) ~tutorials))
-~right_sidebar_html:None @@
+~right_sidebar_html:(Some (Toc.render toc)) @@
 <h1 class="font-bold mb-8"><%s meta.question %></h1>
 <p class="mt-6 text-xl leading-8"><%s meta.answer %></p>
 <div class="mt-10 prose prose-orange max-w-3xl">
@@ -80,5 +86,5 @@ Learn_layout.render
   </ul>
   <% ); %>
   </div>
-  <%s! Learn_components.contribute_footer ~href:("https://github.com/ocaml/ocaml.org/tree/main/data/is_ocaml_yet/"^ meta.id ^ ".md") %>
+  <%s! Learn_components.contribute_footer ~href:("https://github.com/ocaml/ocaml.org/tree/main/data/is_ocaml_yet/"^ meta.id ^ ".md") ~description:"All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request." %>
 </div>

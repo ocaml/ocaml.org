@@ -52,7 +52,7 @@ let watch_to_yaml t =
         ("category", `String t.category);
       ])
 
-let to_yaml t = `A (List.map watch_to_yaml t)
+let to_yaml t = `O [ ("watch", `A (List.map watch_to_yaml t)) ]
 let videos_url = Uri.of_string "https://watch.ocaml.org/api/v1/videos"
 
 (* 100 is current maximum the API can return:

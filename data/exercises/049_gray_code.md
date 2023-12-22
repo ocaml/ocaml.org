@@ -1,6 +1,6 @@
 ---
 title: Gray Code
-number: "49"
+slug: "49"
 difficulty: intermediate
 tags: [ "logic" ]
 description: "Generate the n-bit Gray code sequence following certain construction rules using the gray function."

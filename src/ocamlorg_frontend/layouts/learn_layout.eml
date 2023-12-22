@@ -10,7 +10,7 @@ type section =
 let tabs
 ~current =
   let link ~href ~title ~current =
-    <a href="<%s href %>" class="justify-start px-4 py-2 text-white items-center font-semibold border-2 border-b-4 border-transparent rounded <%s if current then "border-b-primary-700" else "opacity-80" %>">
+    <a href="<%s href %>" class="justify-start px-4 py-2 text-white items-center font-semibold border-2 border-b-4 border-transparent rounded <%s if current then "border-b-primary" else "opacity-80" %>">
       <%s title %>
     </a>
   in
@@ -41,14 +41,14 @@ let tabs
           <%s section_to_string option %>
         </option> 
     in
-    <nav aria-label="breadcrumbs" class="px-4 flex text-white bg-text-title md:hidden">
+    <nav aria-label="breadcrumbs" class="px-4 flex text-white bg-legacy-text-title md:hidden">
       <ul>
         <li class="inline-block"> 
             <a href="<%s url_of_current Overview %>" class="flex items-center px-2 py-2 border-transparent border-2 border-b-4"> Learn 
               <span> <%s! Icons.chevron_right "w-3 h-3 ml-2" %> </span> </a>
         </li>
         <li class="inline-block">
-            <select onchange="location = this.value;" class="appearance-none bg-transparent border-2 border-b-4 bg-none font-bold border-none w-auto p-0 m-0 cursor-pointer focus:outline-none focus:ring-0">
+            <select onchange="location = this.value;" class="appearance-none bg-legacy-text-title border-2 border-b-4 bg-none font-bold border-none w-auto p-0 m-0 cursor-pointer focus:outline-none focus:ring-0">
              <%s! sections |> List.map options_list |> String.concat "" %>
             </select>
             <span class="text-orange-700 cursor-pointer">&#x25BE;</span>
@@ -57,7 +57,7 @@ let tabs
     </nav>
   in
     <%s! breadcrumb_options current %>
-    <div class="bg-text-title hidden md:flex">
+    <div class="bg-legacy-text-title hidden md:flex">
       <nav class="container-fluid wide flex flex-wrap">
         <%s! link ~href:Url.learn ~title:"Overview" ~current:(current = Overview) %>
 
@@ -75,24 +75,66 @@ let tabs
       </nav>
     </div>
 
-let sidebar_link
-~title
-~href
-~current =
-  <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-primary-700 bg-primary-100 border-primary-600|} else {|text-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
-    <%s title %>
-  </a>
-
-let sidebar_link_group
-?(extra_html="")
-title
-link_html
+let sidebar
+~current_tutorial
+~tutorials
+~(section: section)
 =
-  <div class="pl-2 pr-8 flex flex-col">
-    <div class="text-lg font-bold leading-10 flex py-1 uppercase"><%s title %></div>
-    <%s! link_html %>
-    <%s! extra_html %>
-  </div>
+  let sidebar_link ~title ~href ~current ~tag =
+    let render_tag tag = match tag with
+      | None -> ""
+      | Some t ->
+      <span class="inline-block px-1 bg-primary text-white rounded-md mr-1">
+        <%s t %>
+      </span>
+    in
+    <a class="border-l-2 py-2 px-3 rounded-sm leading-6 <%s if current then {|font-bold text-primary bg-legacy-primary-100 border-primary|} else {|text-legacy-default hover:bg-gray-100 border-transparent|} %>" href="<%s href %>">
+      <%s! render_tag tag %>
+      <%s title %>
+    </a>
+  in
+  let sidebar_link_group ?(extra_html="") title link_html =
+    <div class="pl-2 pr-8 flex flex-col">
+      <div class="text-lg font-bold leading-10 flex py-1 uppercase"><%s title %></div>
+      <%s! link_html %>
+      <%s! extra_html %>
+    </div>
+  in
+  let render_tutorial_link ~title ~slug =
+    sidebar_link ~title ~href:(Url.tutorial slug) ~current:(current_tutorial = Some (slug))
+  in
+  let render_tutorial (tutorial : Data.Tutorial.t) = render_tutorial_link ~title:tutorial.title ~slug:tutorial.slug ~tag:(Option.map (fun (et: Data.Tutorial.external_tutorial) -> et.tag) tutorial.external_tutorial) in
+  let tutorial_sidebar_links_by_category category =
+    tutorials |> List.filter (fun (x : Data.Tutorial.t) -> x.category = category) |> List.map render_tutorial |> String.concat "\n"
+  in
+  let categories =
+    let unique lst =
+      let rec unique' acc = function
+        | [] -> List.rev acc
+        | h::t -> unique' (if List.mem h acc then acc else h :: acc) t
+      in
+      unique' [] lst
+    in
+    tutorials |> List.map (fun (tutorial : Data.Tutorial.t) -> tutorial.category) |> unique
+  in
+  <% if section = Platform then ( %>
+  <%s! sidebar_link_group "Platform"
+    (tutorial_sidebar_links_by_category "platform")
+    ~extra_html:(
+      (render_tutorial_link ~title:"Overview" ~slug:"platform" ~tag:None)) %>
+  <% ); %>
+
+  <% categories |> List.iter (fun category -> %>
+    <%s! sidebar_link_group category
+      (tutorial_sidebar_links_by_category category) %>
+  <% ); %>
+
+  <% if section = Guides then ( %>
+    <%s! sidebar_link_group "Is OCaml Yet"
+      (tutorial_sidebar_links_by_category "is-ocaml-yet")
+      ~extra_html:(
+        (render_tutorial_link ~title:"Is OCaml web yet?" ~slug:"is-ocaml-web-yet" ~tag:None)) %>
+  <% ); %>
 
 let single_column_layout
 ?use_swiper
@@ -112,13 +154,13 @@ inner_html
   ~canonical
   ?active_top_nav_item @@
   <%s! tabs ~current %>
-  <div class="bg-default dark:bg-dark-default">
-    <div class="flex-1 z-0 z- min-w-0 lg:pt-6 pb-12">
+  <div class="bg-legacy-default dark:bg-legacy-dark-default">
+    <div class="flex-1 z-0 z- min-w-0 pb-12">
       <%s! inner_html %>
     </div>
   </div>
 
-let render
+let three_column_layout
 ?use_swiper
 ?styles
 ~title
@@ -138,19 +180,19 @@ inner_html
   ~canonical
   ?active_top_nav_item @@
   <%s! tabs ~current %>
-  <div class="bg-default dark:bg-dark-default" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
+  <div class="bg-legacy-default dark:bg-legacy-dark-default" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
   <% if left_sidebar_html != None then ( %>  
     <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-[#D54000] p-4 z-30 rounded-full text-white shadow-custom bottom-24 md:bottom-36 fixed lg:hidden right-10"
       x-on:click="sidebar = ! sidebar">
       <%s! Icons.sidebar_menu "h-6 w-6" %>
     </button>
-    <div class="fixed z-10 inset-0 bg-contrast/20 backdrop-blur-sm lg:hidden"
+    <div class="fixed z-10 inset-0 bg-legacy-contrast/20 backdrop-blur-sm lg:hidden"
       :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar"></div>
   <% ); %>
     <div class="container-fluid wide pt-10">
     <div class="flex flex-col lg:flex-row lg:gap-6 xl:gap-12">
       <div
-        class="z-20 bg-default dark:bg-dark-default flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky <%s Option.fold ~none:"" ~some:(fun _ -> "p-6 lg:px-0 w-80 lg:w-72 lg:px-0 lg:pt-6 lg:pb-72") left_sidebar_html %>"
+        class="z-20 bg-legacy-default dark:bg-legacy-dark-default flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky <%s Option.fold ~none:"" ~some:(fun _ -> "p-6 lg:px-0 w-80 lg:w-72 lg:px-0 lg:pt-6 lg:pb-72") left_sidebar_html %>"
         x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
         x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
         x-transition:leave-end="-translate-x-full">
@@ -159,7 +201,7 @@ inner_html
 
       <div class="flex-1 z-0 z- min-w-0 lg:pt-6 <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
         <%s! inner_html %>
-        <%s! Secondary_footer.render () %>
+        <%s! Footer.secondary_footer () %>
       </div>
       <div class="hidden xl:block top-0 sticky h-screen overflow-auto lg:pt-6">
         <div class="<%s Option.fold ~none:"" ~some:(fun _ -> "w-60 lg:pb-72") right_sidebar_html %>">

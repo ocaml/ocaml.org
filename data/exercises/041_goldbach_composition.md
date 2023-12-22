@@ -1,6 +1,6 @@
 ---
 title: A List of Goldbach Compositions
-number: "41"
+slug: "41"
 difficulty: intermediate
 tags: [ "arithmetic" ]
 description: "Find even numbers in a range with Goldbach compositions where both primes exceed a specified limit"

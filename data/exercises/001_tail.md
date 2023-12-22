@@ -1,9 +1,10 @@
 ---
 title: Tail of a List
-number: "1"
+slug: "1"
 difficulty: beginner
 tags: [ "list" ]
 description: "Write a function that returns the last element of a list."
+tutorials: [ "lists"]
 ---
 
 # Solution

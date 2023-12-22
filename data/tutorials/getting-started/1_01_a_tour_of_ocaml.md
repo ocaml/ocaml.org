@@ -32,7 +32,7 @@ The goal of this tutorial is to provide the following capabilities:
 - Call functions defined in modules of the OCaml standard library
 -->
 
-> **Note**: We recommend that you try running the code snippets throughout this guide in an OCaml toplevel. You can run the toplevel using the `utop` command. Read the [Introduction to OCaml Toplevel](/docs/toplevel-introduction) to learn how to use it.
+**Note**: We recommend that you try running the code snippets throughout this guide in an OCaml toplevel. You can run the toplevel using the `utop` command. Read the [Introduction to OCaml Toplevel](/docs/toplevel-introduction) to learn how to use it.
 
 ## Expressions and Definitions
 
@@ -246,7 +246,7 @@ val range : int -> int -> int list = <fun>
 - : int list = [2; 3; 4; 5]
 ```
 
-As indicated by its type `int -> int -> int list`, the function `range` takes two integers as parameters and returns a list of integers as result. The first `int` parameter, called `lo`, is the lower bound of the range; the second `int` parameter, called `hi`, is the higher bound of the range. It is assumed that `lo <= hi`. If this isn't the case, the empty range is returned. That's the first branch of the `if … then … else` expression. Otherwise, the `lo` value is appended at the front of a list that is going to be created by calling `range` itself. That is recursion. The function `range` calls itself. However, some progress is made at each call. Here, since `lo` has just been appended at the head of the list, `range` is called with the `lo + 1`. This can be visualised this way:
+As indicated by its type `int -> int -> int list`, the function `range` takes two integers as parameters and returns a list of integers as result. The first `int` parameter, `lo`, is the range's lower bound; the second `int` parameter, `hi`, is the higher bound. If `lo <= hi`, the empty range is returned. That's the first branch of the `if … then … else` expression. Otherwise, the `lo` value is prepended to the list created by calling `range` itself; this is recursion. Preprending is achieved using `::`, the cons operator in OCaml. It constructs a new list by adding an element at the front of an existing list. Progress is made at each call; since `lo` has just been appended at the head of the list, `range` is called with `lo + 1`. This can be visualised this way:
 ```
   range 2 5
 = 2 :: range 3 5
@@ -376,7 +376,7 @@ val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 
 ### Pattern Matching, Cont'd
 
-Patten matching isn't limited to lists. Any kind of data can be inspected using it, except functions. Patterns are expressions that are compared to an inspected value. It could be performed using `if … then … else …`, but pattern matching is more convenient. Here is an example using the `option` data type that will be detailed in the [Modules and the Standard Library](#modules-and-the-standard-library) section.
+Pattern matching isn't limited to lists. Any kind of data can be inspected using it, except functions. Patterns are expressions that are compared to an inspected value. It could be performed using `if … then … else …`, but pattern matching is more convenient. Here is an example using the `option` data type that will be detailed in the [Modules and the Standard Library](#modules-and-the-standard-library) section.
 ```ocaml
 # #show option;;
 type 'a option = None | Some of 'a
@@ -390,7 +390,7 @@ val f : 'a option option-> 'a option = <fun>
 
 The inspected value is `opt` of type `option`. It is compared against the patterns from top to bottom. If `opt` is the `None` option, it is a match with the first pattern. If `opt` is the `Some None` option, it's a match with the second pattern. If `opt` is a double-wrapped option with a value, it's a match with the third pattern. Patterns can introduce names, just as `let` does. In the third pattern, `x` designates the data inside the double-wrapped option.
 
-Pattern matching is detailed in the [Basic Datatypes](/docs/basic-datatypes) tutorial as well as in per data type tutorials.
+Pattern matching is detailed in the [Basic Datatypes](/docs/basic-data-types) tutorial as well as in per data type tutorials.
 
 In this other example, the same comparison is made, using `if … then … else …` and pattern matching.
 ```ocaml
@@ -459,7 +459,7 @@ Here is the definition of a variant type acting as an enumerated data type:
 type primary_colour = Red | Green | Blue
 
 # [Red; Blue; Red];;
-- : colour list = [Red; Blue; Red]
+- : primary_colour list = [Red; Blue; Red]
 ```
 
 Here is the definition of a variant type acting as a union type:
@@ -544,7 +544,7 @@ type person = { first_name : string; surname : string; age : int; }
 # let gerard = {
      first_name = "Gérard";
      surname = "Huet";
-     age = 40
+     age = 76
   };;
 val gerard : person = {first_name = "Gérard"; surname = "Huet"; age = 76}
 ```
@@ -748,6 +748,7 @@ In this tutorial, OCaml was used interactively. The next tutorial, [Your First O
 
 Other recommended tutorials:
 
-1. [Data Types and Matching](/docs/data-types)
-1. [If Statements, Loops, and Recursions](/docs/if-statements-and-loops)
+1. [Values and Functions](/docs/values-and-functions)
+1. [Basic Data Types and Pattern Matching](/docs/basic-data-types)
+1. [If Statements and Recursions](/docs/if-statements-and-loops)
 1. [Lists](/docs/lists)
