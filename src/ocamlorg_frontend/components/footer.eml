@@ -43,14 +43,14 @@ let socials = [
 
 let primary_footer () =
   let icon_link ~href ~name ~icon =
-    <a href="<%s href %>" class="text-content dark:text-dark-title hover:text-tertiary_25 dark:hover:text-dark-primary">
+    <a href="<%s href %>" class="text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary">
       <span class="sr-only"><%s name %></span>
       <%s! icon "h-6 w-6" %>
     </a>
   in
   let footer_link ~href ~name =
     <li>
-      <a href="<%s href %>" class="text-base leading-6 text-content dark:text-dark-title hover:text-tertiary_25 dark:hover:text-dark-primary"><%s name %></a>
+      <a href="<%s href %>" class="text-base leading-6 text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary"><%s name %></a>
     </li>
   in
   <footer class="border-t border-separator_30 dark:border-dark-separator_30 bg-dark-sand dark:bg-dark-card" aria-labelledby="footer-heading">
