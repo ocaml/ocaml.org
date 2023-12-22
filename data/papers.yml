@@ -28,11 +28,13 @@ papers:
       - Atul Dhiman
       - Anil Madhavapeddy
     tags:
+      - ICFP
       - multicore
     year: 2020
     links:
       - description: "Download PDF"
-      - uri: https://dl.acm.org/doi/10.1145/3408995
+        uri: https://dl.acm.org/doi/10.1145/3408995
+    featured: false
   - title: "Bounding Data Races in Space and Time"
     publication: Programming Language Design and Implementation (PLDI)
     abstract: >
