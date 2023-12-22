@@ -10,7 +10,7 @@ type section =
 let tabs
 ~current =
   let link ~href ~title ~current =
-    <a href="<%s href %>" class="justify-start px-4 py-2 text-white dark:text-dark-title items-center font-normal border-2 border-b-4 border-transparent rounded <%s if current then "border-b-primary dark:border-b-dark-primary" else "opacity-80 hover:text-primary dark:hover:text-dark-primary" %>">
+    <a href="<%s href %>" class="justify-start px-4 py-2 text-white dark:text-dark-title items-center font-normal border-2 border-b-4 border-transparent rounded <%s if current then "border-b-primary dark:border-b-dark-primary" else "opacity-80 hover:dark:text-primary dark:hover:text-dark-primary" %>">
       <%s title %>
     </a>
   in
