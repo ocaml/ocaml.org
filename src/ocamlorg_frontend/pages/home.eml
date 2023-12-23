@@ -291,11 +291,11 @@ Layout.render
             </h3>
             </a>
             <% changelogs |> List.iter (fun (item : Data.Changelog.t) -> %>
-            <div class="md:pl-8 md:border-l-2">
-              <div class="flex gap-16">
+            <div class="pl-8 border-l-2">
+              <div class="flex flex-col lg:flex-row gap-0 lg:gap-16 mb-2 lg:mb-0">
                 <div class="flex flex-col lg:flex-row relative gap-6 lg:gap-10 basis-2/6">
                   <div class="relative pb-6 lg:pb-8">
-                      <div class="hidden md:absolute md:block -left-11 bg-legacy-default dark:bg-legacy-dark-default w-6 h-6 mt-0.5 text-primary">
+                      <div class="absolute block -left-11 bg-legacy-default dark:bg-legacy-dark-default w-6 h-6 mt-0.5 text-primary">
                         <%s! Icons.changelog "w-6 h-6" %>
                       </div>
                       <a href="<%s Url.changelog_entry item.slug %>" class="my-0 font-sans text-xl tracking-normal font-extrabold leading-7 changelog-title whitespace-normal break-all"><%s item.title %></a>
