@@ -292,24 +292,19 @@ Layout.render
             </a>
             <% changelogs |> List.iter (fun (item : Data.Changelog.t) -> %>
             <div class="md:pl-8 md:border-l-2">
-            <div class="flex gap-2">
-              <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10 basis-1/4">
+            <div class="flex">
+              <div class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
                 <div class="relative md:w-72 pb-6 lg:pb-8">
-                  <div class="sticky" style="top: 128px; word-break: keep-all;">
                     <div class="hidden md:absolute md:block -left-11 bg-legacy-default dark:bg-legacy-dark-default w-6 h-6 mt-0.5 text-primary">
                       <%s! Icons.changelog "w-6 h-6" %>
                     </div>
-                    <h2
-                      class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 changelog-title">
-                      <a href="<%s Url.changelog_entry item.slug %>"><%s item.title %></a>
-                    </h2>
+                    <a href="<%s Url.changelog_entry item.slug %>" class="my-0 font-sans text-xl tracking-normal font-extrabold leading-7 changelog-title whitespace-normal"><%s item.title %></a>
                     <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-legacy-lighter"><%s Utils.human_date item.date %></time>
-                  </div>
                 </div>
-              </article>
-              <div class="basis-3/4">
+              </div>
+              <div class="mb-8">
                 <div class="prose prose-orange">
-                part two
+                  <%s! String.sub item.body_html 0 100 %>...
                 </div>
                 <a href="<%s Url.changelog %>" class="text-primary mt-2">
                   See full changelog
