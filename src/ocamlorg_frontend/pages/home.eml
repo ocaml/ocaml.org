@@ -264,7 +264,7 @@ Layout.render
   </div>
 </div>
 <div class="bg-legacy-default pt-24 pb-14 overflow-hidden">
-  <div class="container-fluid flex gap-10 items-stretch mb-14"> 
+  <div class="container-fluid flex flex-col md:flex-row gap-10 items-stretch mb-14"> 
       <div class="basis-1/2">
         <h3 class="font-bold">Releases</h3>
         <div class="p-10 mt-7 w-full border-2 shadow-md rounded-2xl h-full">
