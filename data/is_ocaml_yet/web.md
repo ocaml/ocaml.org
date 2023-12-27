@@ -6,7 +6,7 @@ categories:
   - name: Web Frameworks
     status: 🟡
     description: |
-      Web development frameworks for building OCaml Web applications.
+      Web development frameworks for building OCaml web applications.
     packages:
     - name: dream
     - name: eliom
@@ -17,9 +17,9 @@ categories:
     status: 🟢
     description: |
       OCaml has excellent support for running in the browser!
-      The [Js_of_ocaml](/p/js_of_ocaml/latest) compiler, which translates OCaml into JavaScript, is a well-established tool dating back to 2010. It integrates seamlessly with the existing OCaml ecosystem and powers numerous production applications.
+      The [js_of_ocaml](/p/js_of_ocaml/latest) compiler, which translates OCaml into JavaScript, is a well-established tool dating back to 2010. It integrates seamlessly with the existing OCaml ecosystem and powers numerous production applications.
 
-      In addition, [Melange](/p/melange/latest) is a more recent entry to the OCaml-JavaScript compiler space. Originating as a fork of [ReScript](https://rescript-lang.org/), Melange may not have the extensive track record of Js_of_ocaml, but it builds on a very strong foundation and already integrates well with Dune, the OCaml build system.
+      In addition, [Melange](/p/melange/latest) is a more recent entry to the OCaml-JavaScript compiler space. Originating as a fork of [ReScript](https://rescript-lang.org/), Melange may not have the extensive track record of js_of_ocaml, but it builds on a very strong foundation and already integrates well with Dune, the OCaml build system.
     packages:
     - name: js_of_ocaml
     - name: melange
@@ -162,7 +162,7 @@ categories:
   - name: Authentication
     status: 🔴
     description: |
-      Packages for authentication-related functionality in OCaml Web applications.
+      Packages for authentication-related functionality in OCaml web applications.
     packages:
     - name: jwt
     - name: cookie
@@ -193,7 +193,7 @@ categories:
   - name: Database
     status: 🟠
     description: |
-      Database-related packages for interacting with databases in OCaml Web applications, from simple connectors to type-safe SQL wrappers.
+      Database-related packages for interacting with databases in OCaml web applications, from simple connectors to type-safe SQL wrappers.
     packages:
     - name: petrol
     - name: caqti
@@ -254,7 +254,7 @@ categories:
   - name: External Web APIs
     status: 🆘
     description: |
-      Packages that provide OCaml bindings and clients for interacting with external Web APIs.
+      Packages that provide OCaml bindings and clients for interacting with external web APIs.
     packages:
     - name: spotify-web-api
     - name: disml
@@ -281,7 +281,7 @@ categories:
     - name: ocaml-gapi
       extern:
         url: https://github.com/besport/ocaml-gapi
-        synopsis: Binding to Google API to implement Google Sign-In in a Web application
+        synopsis: Binding to Google API to implement Google Sign-In in a web application
     - name: ocaml-twttr
       extern:
         url: https://github.com/besport/ocaml-twttr
@@ -297,7 +297,7 @@ categories:
     - name: ocaml-js-video-players
       extern:
         url: https://github.com/besport/ocaml-js-video-players
-        synopsis: Add different video players to your OCaml Web or mobile app (Youtube, Dailymotion, Vimeo)
+        synopsis: Add different video players to your OCaml web or mobile app (Youtube, Dailymotion, Vimeo)
   - name: Logging
     status: 🟠
     description: |
@@ -328,7 +328,7 @@ categories:
   - name: Compression
     status: 🟡
     description: |
-      Packages that enable compression and decompression of data in OCaml Web applications.
+      Packages that enable compression and decompression of data in OCaml web applications.
     packages:
     - name: zlib
     - name: decompress
@@ -374,19 +374,19 @@ categories:
     - name: biniou
 ---
 
-OCaml, traditionally known for its strength in systems programming, formal verification, and as the language of choice for numerous academic endeavors, is steadily maturing in the Web development landscape. With its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream Web development languages.
+OCaml, traditionally known for its strength in systems programming, formal verification, and as the language of choice for numerous academic endeavors, is steadily maturing in the web development landscape. With its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream web development languages.
 
-The Web in OCaml is fast and type-safe! According to your needs, you can
-choose to use tidy server-side Web frameworks, or innovative full-stack
-solutions for integrated Web and mobile applications. To run in the
+The web in OCaml is fast and type-safe! According to your needs, you can
+choose to use tidy server-side web frameworks or innovative full-stack
+solutions for integrated web and mobile applications. To run in the
 browser, OCaml compiles to JavaScript and WebAssembly!
 
-As a matter of fact, OCaml is used to power production Web systems, like
+As a matter of fact, OCaml is used to power production web systems, like
 [Ahrefs](/success-stories/peta-byte-scale-web-crawler),
-[OCaml.org](https://github.com/ocaml/ocaml.org) or the [Be
+[OCaml.org](https://github.com/ocaml/ocaml.org), or the [Be
 Sport](https://besport.com/news) social network.
 
-If you're considering using OCaml for your next Web application, you
+If you're considering using OCaml for your next web application, you
 should be aware that you might have to write a noticeable amount of
 things yourself and won't yet get an equivalent of all the features you
 may be used to coming from other languages. In particular, OCaml doesn't
@@ -401,12 +401,12 @@ language's powerful type system will save you a lot of debugging time by
 eliminating many problems at compile time (such as html conformity).
 Innovative solutions such as multi-tier programming can drastically
 simplify client-server communication. Last but not least, OCaml can even
-allow you to program your Web and mobile application in a single code.
+allow you to program your web and mobile application in a single code.
 
 ## Want to Help?
 
-Here are some projects that would help make OCaml a stronger candidate for Web applications:
-- Improve [ocaml-swagger](https://github.com/andrenth/ocaml-swagger) to be able to generate API for popular Web APIs like Stripe.
-- Implement a converter from [JSON Schema](https://json-schema.org/) to [ATD](https://github.com/ahrefs/atd). This would allow generating OCaml serializers for data formats that provide a JSON Schema (a lot of them do!).
-- Create an Oauth2 client library.
+Here are some projects that would help make OCaml a stronger candidate for web applications:
+- Improve [ocaml-swagger](https://github.com/andrenth/ocaml-swagger) to be able to generate API for popular web APIs like Stripe.
+- Implement a converter from [JSON Schema](https://json-schema.org/) to [ATD](https://github.com/ahrefs/atd). This would allow generating OCaml serialisers for data formats that provide a JSON Schema (a lot of them do!).
+- Create an OAuth2 client library.
 - Create clients to the Azure services APIs.
