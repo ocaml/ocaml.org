@@ -8,7 +8,7 @@ category: "Introduction"
 
 # Labelled and Optional Arguments to Functions
 
-It is possible to give names and default values to function parameters, this is broadly known as labels. In this tutorial, we learn how to use labels.
+It is possible to give names and default values to function parameters. This is broadly known as labels. In this tutorial, we learn how to use labels.
 
 Throughout this tutorial, the code is written in UTop.
 
@@ -126,7 +126,7 @@ Here is how this is used.
 
 Note the somewhat confusing syntax switching between `?` and `~`. Use a question mark when declaring an optional parameter; use a tilde when passing a value to a labelled parameter or specifying a value to an optional parameter.
 
-Here, `step` is the label (the external name), `x` is the parameter name (the internal name) and `1` is the default value.
+Here, `step` is the label (the external name), `x` is the parameter name (the internal name), and `1` is the default value.
 
 It is possible to use the same name for the parameter and label names.
 ```ocaml
@@ -298,7 +298,7 @@ That didn't work. In fact, it didn't even run the
 `open_window` function at all. Instead it printed some strange type
 information. 
 
-Let's examine why:
+Let's examine why.
 
 Recall currying, uncurrying, and partial application of functions. Let's say
 we have a function `plus` defined as:
@@ -309,7 +309,7 @@ we have a function `plus` defined as:
 val plus : int -> int -> int = <fun>
 ```
 We can partially apply this as `plus 2`, for example, which is "the
-function that adds 2 to things":
+function that adds 2 to things."
 
 ```ocaml
 # let f = plus 2;;
@@ -350,7 +350,7 @@ val open_window :
   ?title:string -> ?width:int -> ?height:int -> unit -> window = <fun>
 ```
 
-If you want to pass optional arguments to `open_window` you must do so
+If you want to pass optional arguments to `open_window`, you must do so
 before the final `unit`, so if you type:
 
 ```ocaml
@@ -358,16 +358,16 @@ before the final `unit`, so if you type:
 - : window = {title = "none"; width = 640; height = 480}
 ```
 you must mean "execute `open_window` now with all optional arguments
-unspecified". Whereas if you type:
+unspecified." Whereas if you type:
 
 ```ocaml
 # open_window;;
 - : ?title:string -> ?width:int -> ?height:int -> unit -> window = <fun>
 ```
 you mean "give me the functional value" or (more usually in the
-toplevel) "print out the type of `open_window`".
+toplevel) "print out the type of `open_window`."
 
-## More `~`shorthand
+## More `~` Shorthand
 Let's rewrite the `range` function yet again, this time using as much
 shorthand as possible for the labels:
 
@@ -417,7 +417,7 @@ often wonder when to use `~foo`, when to use `?foo`, and when to use
 plain `foo`. It's something of a black art that takes practice to get
 right.
 
-`?foo` is only used when declaring the arguments of a function, ie:
+`?foo` is only used when declaring the arguments of a function, i.e.,:
 
 <!-- $MDX skip -->
 ```ocaml
@@ -437,7 +437,7 @@ The declaration `?foo` creates a variable called `foo`, so if you need
 the value of `?foo`, use just `foo`.
 
 The same applies to labels. Only use the `~foo` form when declaring
-arguments of a function, i.e.:
+arguments of a function, i.e.,:
 
 <!-- $MDX skip -->
 ```ocaml
