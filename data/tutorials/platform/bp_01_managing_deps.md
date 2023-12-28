@@ -1,6 +1,6 @@
 ---
 id: "managing-dependencies"
-title: "Managing Dependencies With Opam"
+title: "Managing Dependencies With opam"
 description: |
   How to manage dependencies with opam
 category: "Best Practices"
@@ -10,7 +10,7 @@ category: "Best Practices"
 
 ## Installing Existing Dependencies
 
-We recommend installing the dependencies of a project in a local opam switch to sandbox your development environment.
+We recommend installing a project's dependencies in a local opam switch to sandbox your development environment.
 
 If you're using opam `2.0.X`, you can do this with:
 
@@ -34,7 +34,7 @@ opam switch set <switch_name>
 opam install . --deps-only --with-test --with-doc
 ```
 
-Once the dependencies have been installed successfully, and assuming the project uses `dune` as the build system, you can compile it with:
+Once the dependencies have been installed successfully, and assuming the project uses Dune as the build system, you can compile it with:
 
 ```
 opam exec -- dune build
@@ -46,13 +46,13 @@ Or if you set your environment with `eval $(opam env)`:
 dune build
 ```
 
-## Adding Dependencies From the Opam Repository
+## Adding Dependencies From the opam Repository
 
-To avoid duplicating the project configuration into multiple files, Dune allows to generate the `*.opam` file of the project from the 
+To avoid duplicating the project configuration into multiple files, Dune allows you to generate the project's `*.opam` file from the 
 package definitions in `dune-project` when adding the `(generate_opam_files true)` stanza.
 
-However, opam remains a central piece of the ecosystem and it's very likely that you will have to work with `*.opam` files at some point,
-so we don't take a stance on wether you should specify your dependencies in the `*.opam` file or in `dune-project`.
+However, opam remains a central piece of the ecosystem, and it's very likely that you will have to work with `*.opam` files at some point,
+so we don't take a stance on whether you should specify your dependencies in the `*.opam` file or in `dune-project`.
 
 ### Adding a Dependency to Your dune-project File
 
@@ -71,11 +71,11 @@ If the project generates the opam file from the `dune-project` (you can tell by 
   (odoc :with-doc)))
 ```
 
-Once you have added your dependency, you can build your project with `dune build` which will re-generate the `*.opam` files.
+Once you have added your dependency, you can build your project with `dune build` which will regenerate the `*.opam` files.
 
 ### Adding a Dependency to Your .opam File
 
-If the `*.opam` files are not generated, you can add the dependencies in them directly, in the `depends` field. If should look like this:
+If the `*.opam` files are not generated, you can add the dependencies in them directly in the `depends` field. It should look like this:
 
 
 ```opam
@@ -124,17 +124,17 @@ instead.
 
 ## Adding Dependencies From a Git Repository
 
-Sometimes, you may want to install a package directly from a git repository. For example, when it is not available on the opam repository, or when you want to use an unreleased version.
+Sometimes, you may want to install a package directly from a Git repository, e.g., when it is not available on the opam repository or when you want to use an unreleased version.
 
 ### Adding a Git Dependency to a dune-project File
 
-In OCaml projects that use Dune for building and OPAM for package management, you can specify Git dependencies using a combination of `dune-project` and `.opam.template` files.
+In OCaml projects that use Dune for building and opam for package management, you can specify Git dependencies using a combination of `dune-project` and `.opam.template` files.
 
-This approach is particularly useful when you want to keep the Dune and OPAM configurations in sync, especially when dealing with external dependencies from Git repositories.
+This approach is particularly useful when you want to keep the Dune and opam configurations in sync, especially when dealing with external dependencies from Git repositories.
 
-If your project does not have a file with the same name as your project's `.opam` file, but with the file extension `.opam.template`, you have to create it.
+If your project does not have a file matching the name of your project's `.opam` file, but with the file extension `.opam.template`, you have to create it.
 
-For example, if your project's opam file is `my_project.opam`, create `my_project.opam.template` and use `pin-depends` to tell `opam` to install a package from a git repository.
+For example, if your project's opam file is `my_project.opam`, create `my_project.opam.template` and use `pin-depends` to tell `opam` to install a package from a Git repository.
 
 ```
 pin-depends: [
@@ -156,9 +156,9 @@ to install the new dependency you added.
 
 ### Adding a Git Dependency to Your .opam File
 
-Open Your opam File: Locate the `opam` file for your OCaml project. This file defines the package's dependencies and other metadata.
+To open your opam file, locate the `opam` file for your OCaml project. This file defines the package's dependencies and other metadata.
 
-Add the pin-depends Field: In the `opam` file, add a `pin-depends` field if it doesn't exist. Inside this field, you specify the package and the URL from which it should be fetched. For example:
+Add the `pin-depends` field in the `opam` file if it doesn't exist. Inside this field, you specify the package and the URL from which it should be fetched. For example:
 
 ```
 pin-depends: [
@@ -166,7 +166,7 @@ pin-depends: [
 ]
 ```
 
-Finally, use opam install to install the dependencies, including the one specified in the pin-depends field.
+Finally, use opam install to install the dependencies, including the one specified in the `pin-depends` field.
 
 ```
 opam install . --deps-only
@@ -180,7 +180,7 @@ You can install a package in your active switch directly from a Git URL:
 opam pin add <package-name> <git-url>#<branch-or-commit>
 ```
 
-## Dealing with Development-Only Dependencies
+## Dealing With Development-Only Dependencies
 
 Opam does not have a notion of development dependencies. Instead, each dependency can be either:
 
@@ -189,7 +189,7 @@ Opam does not have a notion of development dependencies. Instead, each dependenc
 - A test dependency (used to test the project)
 - A documentation dependency (used to generate the documentation)
 
-When adding a new dependency, as seen in the "Update dependencies" workflow, you can add a flag to your dependency.
+When adding a new dependency, as seen in the "Update Dependencies" workflow, you can add a flag to your dependency.
 
 For `dune-project`, it looks like this:
 
