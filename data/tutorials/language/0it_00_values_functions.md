@@ -180,7 +180,7 @@ This also works with user-defined types.
 # type live_person = int * name;;
 type live_person = int * name
 
-# let age (years, { first; last }) = years;;
+# let age ((years, { first; last }) : live_person) = years;;
 val age : live_person -> int = <fun>
 ```
 
