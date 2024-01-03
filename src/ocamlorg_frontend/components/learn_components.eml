@@ -189,7 +189,7 @@ let tool_card ~img_src ~title ~text ~url =
   </a>
 
 let contribute_footer ~href ~description =
-  <div class="pt-10 mt-16 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
+  <div class="pt-10 mt-16 border-t border-separator_20 dark:border-dark-separator_30 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
     <div class="lg:col-span-1">
       <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Help Improve Our Documentation</h2>
       <p class="text-sm mt-0 mb-4 max-w-xs"><%s description %></p>

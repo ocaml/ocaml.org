@@ -74,7 +74,7 @@ module.exports = {
               content: '""',
             },
           },{
-            'p, strong':{
+            'p, strong, li':{
               color: theme('colors.content'),
             },
             h1: {
@@ -111,7 +111,7 @@ module.exports = {
         },
         invert: {
           css: {
-            'p, strong':{
+            'p, strong, li':{
               color: theme('colors.dark.content'),
             },
             a: {
