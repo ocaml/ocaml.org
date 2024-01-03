@@ -1,7 +1,7 @@
 let exercises_sidebar_link
 ~title
 ~href =
-    <a class="block text-text_content hover:text-primary hover:bg-legacy-primary-100 border-l border-transparent hover:border-primary py-3 px-5 font-normal text-sm rounded-sm"
+    <a class="block text-content hover:text-primary hover:bg-legacy-primary-100 border-l border-transparent hover:border-primary py-3 px-5 font-normal text-sm rounded-sm"
       href="<%s href %>">
       <%s title %>
     </a>
@@ -65,7 +65,7 @@ let statement_solution_switch =
     <button
       class="px-10 h-11 text-base font-medium rounded-l-md border flex gap-2 items-center"
       x-on:click="statement = true"
-      :class="statement ? 'bg-primary border-primary text-white': 'text-text_content' "
+      :class="statement ? 'bg-primary border-primary text-white': 'text-content' "
     >
       <%s! exercise_statement "h-5 w-5" %>
       Statement
@@ -73,7 +73,7 @@ let statement_solution_switch =
     <button
       class="px-10 h-11 text-base  font-medium rounded-r-md border-t border-r border-b  flex gap-2 items-center"
       x-on:click="statement = false"
-      :class="statement ? 'text-text_content': 'bg-secondary border-secondary text-white' "
+      :class="statement ? 'text-content': 'bg-secondary border-secondary text-white' "
     >
       <%s! exercise_solution "h-5 w-5" %>
       Solution
@@ -92,7 +92,7 @@ let render_exercise (exercise: Data.Exercise.t) =
   <div x-data="{statement: true}" id="<%s" exercise.slug %>
     >
     <div class="flex mb-4 flex-col gap-4 md:flex-row md:items-center">
-      <h2 class="my-0 font-normal text-2xl text-text_title">
+      <h2 class="my-0 font-normal text-2xl text-title">
         <%s exercise.title %>
       </h2>
       <div class="inline px-3 py-1 <%s Learn_components.color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white tracking-widest leading-5" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %></div>">
@@ -119,7 +119,7 @@ Learn_layout.three_column_layout
 ~right_sidebar_html:None
 ~current:Exercises @@
   <div class="prose prose-orange max-w-full">
-    <h1 class="font-normal text-4xl text-text_title mb-8">Exercises</h1>
+    <h1 class="font-normal text-4xl text-title mb-8">Exercises</h1>
     <div class="prose prose-orange max-w-full mb-5">
       <p>
         This section is inspired by

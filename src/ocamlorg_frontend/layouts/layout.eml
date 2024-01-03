@@ -46,6 +46,7 @@ inner =
       <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine-clipboard.js" %>"></script>
       <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
       <script defer src="<%s Ocamlorg_static.Asset.url "vendors/htmx.min.js" %>"></script>
+      <script defer data-domain="ocaml.org" src="https://plausible.ci.dev/js/script.js"></script>
       <% if use_swiper then ( %>
       <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/swiper-bundle.min.css" %>">
       <link rel="alternate" type="application/rss+xml" title="OCaml RSS Feed" href="/feed.xml">
@@ -79,7 +80,7 @@ inner =
       <%s! Header.render ~show_get_started ?active_top_nav_item () %>
       <main><%s! inner %></main>
 
-      <button class="fixed bottom-8 right-10 md:bottom-[5rem] lg:bottom-[8.37rem] lg:right-[6.5rem] border-0 hidden focus:outline-none z-50 rounded-full shadow-custom p-4 bg-[#D54000]" onclick="scrollToTop()" id="scrollToTop" title="Scroll to top"><%s! Icons.arrow_up "h-6 w-6"%></button>
+      <button class="fixed bottom-8 right-10 md:bottom-[5rem] lg:bottom-[8.37rem] lg:right-[6.5rem] border-0 hidden focus:outline-none z-50 rounded-full shadow-custom p-4 bg-primary dark:bg-dark-primary" onclick="scrollToTop()" id="scrollToTop" title="Scroll to top"><%s! Icons.arrow_up "h-6 w-6"%></button>
 
       <%s! footer_html %>
       
@@ -98,7 +99,7 @@ inner =
             } else {
               document.getElementById("scrollToTop").style.display = "none";
             }
-          }
+          }    
       </script>
     </body>
   </html>

@@ -1,4 +1,40 @@
 papers:
+  - title: "Retrofitting Parallelism onto OCaml"
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      OCaml is an industrial-strength, multi-paradigm programming language,
+      widely used in industry and academia. OCaml is also one of the
+      few modern managed system programming languages to lack support
+      for shared memory parallel programming. This paper describes the design,
+      a full-fledged implementation and evaluation of a mostly-concurrent
+      garbage collector (GC) for the multicore extension of the
+      OCaml programming language. Given that we propose to add parallelism
+      to a widely used programming language with millions of lines of
+      existing code, we face the challenge of maintaining backwards
+      compatibility -- not just in terms of the language features but also the
+      performance of single-threaded code running with the new GC.
+      To this end, the paper presents a series of novel techniques and
+      demonstrates that the new GC strikes a balance between performance
+      and feature backwards compatibility for sequential programs
+      and scales admirably on modern multicore processors.
+    authors:
+      - KC Sivaramakrishnan
+      - Stephen Dolan
+      - Leo White
+      - Sadiq Jaffer
+      - Tom Kelly
+      - Anmol Sahoo
+      - Sudha Parimala
+      - Atul Dhiman
+      - Anil Madhavapeddy
+    tags:
+      - ICFP
+      - multicore
+    year: 2020
+    links:
+      - description: "Download PDF"
+        uri: https://dl.acm.org/doi/10.1145/3408995
+    featured: false
   - title: "Bounding Data Races in Space and Time"
     publication: Programming Language Design and Implementation (PLDI)
     abstract: >

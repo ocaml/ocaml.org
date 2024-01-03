@@ -4,19 +4,19 @@ let search_input ?button_attrs ?input_attrs ?dropdown_html ~label ~name _class =
         <%s! html %>
     </div>
   in
-  <div class="dropdown-container flex items-center justify-center h-10 rounded-md focus-within:outline-legacy-primary-300 focus-within:outline focus-within:outline-2 <%s _class %>" tabindex="0">
+  <div class="dropdown-container flex items-center justify-center h-10 rounded-md focus-within:outline-primary_40 dark:focus-within:outline-dark-primary_40 focus-within:outline focus-within:outline-2 <%s _class %>" tabindex="0">
     <label for="<%s name %>" class="sr-only"><%s label %></label>
     <input
         type="search"
         name="<%s name %>"
         placeholder="<%s label %>"
-        class="h-full w-full font-medium focus:border-primary focus:ring-0 text-gray-800 border-primary rounded-md rounded-r-none px-3 py-1 placeholder-body-400 appearance-none focus:outline-none"
+        class="bg-white dark:bg-dark-card h-full w-full font-medium focus:border-primary dark:focus:border-dark-primary focus:ring-0 text-gray-800 dark:text-dark-title border-primary dark:border-dark-primary rounded-md rounded-r-none px-3 py-1 placeholder-text-content dark:placeholder-dark-title appearance-none focus:outline-none"
         <%s! Option.value ~default:"" input_attrs %>
     >
     
     <button
         aria-label="search"
-        class="h-full flex items-center justify-center rounded-r-md bg-primary text-white px-4"
+        class="h-full flex items-center justify-center rounded-r-md bg-primary dark:bg-dark-primary text-white dark:text-dark-card px-4"
         <%s! Option.value ~default:"" button_attrs %>
     ><%s! Icons.magnifying_glass "w-6 h-6" %></button>
 

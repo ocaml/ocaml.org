@@ -33,7 +33,7 @@ How to work on several OCaml projects simultaneously is out of the scope of this
 
 When you installed OCaml, a global opam switch was created automatically. This tutorial can be completed while working inside this global opam switch.
 
-When you work on several OCaml projects simultaneously, you should create more opam switches. For instructions on how to do that, see ["Introduction to opam Switches"](/docs/opam-switch-introduction).
+When you work on several OCaml projects simultaneously, you should create more opam switches. For instructions on how to do that, see [Introduction to opam Switches](/docs/opam-switch-introduction).
 
 ## Compiling OCaml Programs
 
@@ -112,14 +112,14 @@ However, it is common practice to single out a value that triggers all the side 
 
 ## Modules and the Standard Library, Cont'd
 
-Let's summarise what was said about modules in the ["Tour of OCaml"](/docs/tour-of-ocaml):
+Let's summarise what was said about modules in the [Tour of OCaml](/docs/tour-of-ocaml):
 - A module is a collection of named values.
 - Identical names from distinct modules don't clash.
 - The standard library is collection of several modules.
 
 Modules aid in organising projects; concerns can be separated into isolated modules. This is outlined in the next section. Before creating a module ourselves, we'll demonstrate using a definition from a module of the standard library. Change the content of the file `bin/main.ml` to this:
 ```ocaml
-let () = Printf.printf "%s!\\n" "Hello, World!"
+let () = Printf.printf "%s!\n" "Hello, World!"
 ```
 
 This replaces the function `print_endline` with the function `printf` from the `Printf` module in the standard library. Building and executing this modified version should produce almost the same output as before. Use `dune exec hello` to try it for yourself.
@@ -272,13 +272,13 @@ Here is the meaning of the two new lines:
 
 The files `lib/hello.ml` and `lib/hello.mli` need to be edited, too:
 
-##### `lib/hello.mli`
+**`lib/hello.mli`**
 ```ocaml
 val string_of_string_list : string list -> string
 val world : string list
-
 ```
-##### `lib/hello.ml`
+
+**`lib/hello.ml`**
 ```ocaml
 let string_list_pp = [%show: string list]
 
@@ -363,7 +363,7 @@ This tutorial is the last of the "Getting Started" series. Moving forward, you h
 Recommended next tutorials:
 1. [Values and Functions](/docs/values-and-functions)
 1. [Basic Data Types and Pattern Matching](/docs/basic-data-types)
-1. [If Statements, Loops, and Recursions](/docs/if-statements-and-loops)
+1. [If Statements and Recursions](/docs/if-statements-and-loops)
 1. [Lists](/docs/lists)
 
 <!--

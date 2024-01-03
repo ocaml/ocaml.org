@@ -10,18 +10,13 @@ category: "Introduction"
 
 ## Introduction
 
-This tutorial introduces basic data types in OCaml. Its goal is to teach skills on how to handle data from predefined, variant, and record types. It also includes the important concept of pattern matching on those types.
+This document covers atomic types, such as integers and Booleans; predefined compound types, like strings and lists; and user-defined types, namely variants and records. We show how to pattern matching on those types.
 
-In OCaml, there are no type checks at runtime, and values don't change type unless explicitly converted. This is what being statically- and strongly-typed means. This allows convenient and safe processing of structured data. In this tutorial, data in OCaml is represented using _variants_ and _products_, which correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although OCaml has other type systems, this document focuses on data typed using this algorithm.
+In OCaml, there are no type checks at runtime, and values don't change type unless explicitly converted. This is what being statically- and strongly-typed means. This allows safe processing of structured data.
 
-<!-- It is also an expression-oriented language: everything is a value and every value has a type. Functions and types are the two foundational principles of OCaml. The OCaml type system is highly expressive, providing many advanced constructs while being easy to use and unobtrusive. Thanks to type inference, programs can be written without type annotations, except for documentation purposes and a few corner cases. The basic types and the type combination operations enable a vast range of possibilities.
+<!--End edit-->
 
-> Type annotation means that it's necessary to write the value type to tell the compiler what to do, as opposed to having the compiler infer the type.
--->
-
-This tutorial will cover atomic types, such as integers and Booleans, before moving on to predefined compound types, like strings and lists. It ends with a section about user-defined types, namely variants and records.
-
-Before proceeding, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions). As in previous tutorials, expressions after `#` and ending with `;;` are for the toplevel, like UTop.
+**Prerequisites**: Before proceeding, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions). As in previous tutorials, expressions after `#` and ending with `;;` are for the toplevel, like UTop.
 
 <!--
 The goal of this tutorial is to provide for the following capabilities:
@@ -92,8 +87,8 @@ Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`
 
 Values of type `char` correspond to the 256 symbols of the Latin-1 set. Character literals are surrounded by single quotes, as shown below:
 ```ocaml
-# 'a';;
-- : char = 'a'
+# 'd';;
+- : char = 'd'
 ```
 Operations on `char` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Char`](/api/Char.html) modules.
 
@@ -103,11 +98,20 @@ The module [`Uchar`](/api/Uchar.html) provides support for Unicode characters.
 
 #### Strings
 
-Strings are finite and fixed-sized sequences of `char` values. Strings are immutable, meaning it is impossible to change a character's value inside a string. The string concatenation operator symbol is `^`.
+<!--ORIGINAL
+Strings are finite and fixed-sized sequences of char values. Strings are immutable, meaning it is impossible to change a character's value inside a string. The string concatenation operator symbol is ^
+-->
+
+Strings are immutable, meaning it is impossible to change a character's value inside a string. 
 ```ocaml
 # "hello" ^ " " ^ "world!";;
 - : string = "hello world!"
 ```
+Strings are finite and fixed-sized sequences of `char` values. The string concatenation operator symbol is `^`.
+
+<!--CR
+I'm not sure how to rearrange this to have the definition after the example? I've split the original paragraph to wrap around the example, but I wonder if it should be all before or after. If after, we could come up with a brief introductory sentence so the section doesn't start with an example without context. 
+-->
 
 Indexed access to string characters is possible using the following syntax:
 ```ocaml
@@ -118,13 +122,19 @@ Operations on `string` values are provided by the [`Stdlib`](/api/Stdlib.html) a
 
 #### Byte Sequences
 
-Byte sequences are finite and fixed-sized. Each individual byte is represented by a `char` value. Byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence (type `bytes`) is a mutable string that can't be printed. There is no way to write `bytes` literally, so they must be produced by a function.
+<!--CR
+Moved intro pp to after example, as it contains the definition. Perhaps a short intro sentence here for context?
+--> 
+
 ```ocaml
 # String.to_bytes "hello";;
 - : bytes = Bytes.of_string "hello"
 ```
-Operations on `bytes` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bytes`](/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. There is no direct access operator on byte sequences.
+Like strings, byte sequences are finite and fixed-sized. Each individual byte is represented by a `char` value. Like arrays, byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence (type `bytes`) is a mutable string that can't be printed. There is no way to write `bytes` literally, so they must be produced by a function.
 
+Operations on `bytes` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bytes`](/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. Unlike arrays, there is no direct access operator on byte sequences. 
+
+The memory representation of `bytes` is four times more compact that `char array`.
 ### Arrays & Lists
 
 #### Arrays
@@ -159,14 +169,14 @@ Arrays are mutable, meaning they can't be extended or shortened, but each elemen
 # let letter = [| 'v'; 'x'; 'y'; 'z' |];;
 val letter : char array = [|'v'; 'x'; 'y'; 'z'|]
 
-# letter.(2) <- 'A';;
+# letter.(2) <- 'F';;
 - : unit = ()
 
 # letter;;
-- : char array = [|'v'; 'x'; 'A'; 'z'|]
+- : char array = [|'v'; 'x'; 'F'; 'z'|]
 ```
 
-The left-arrow `<-` is the array update operator. Above, it means the cell at index 2 is set to value `'A'`. It is the same as writing `Array.set letter 2 'A'`. Array update is a side effect, and the unit value is returned.
+The left-arrow `<-` is the array update operator. Above, it means the cell at index 2 is set to value `'F'`. It is the same as writing `Array.set letter 2 'F'`. Array update is a side effect, and the unit value is returned.
 
 Operations on arrays are provided by the [`Array`](/api/Array.html) module. There is a dedicated tutorial on [Arrays](/docs/arrays).
 
@@ -271,24 +281,26 @@ This generalises to tuples with 3 or more elements. For instance, `(6.28, true, 
 
 The predefined function `fst` returns the first element of a pair, while `snd` returns the second element of a pair.
 ```ocaml
-# fst (3, 'a');;
+# fst (3, 'g');;
 - : int = 3
 
-# snd (3, 'a');;
-- : char = 'a'
+# snd (3, 'g');;
+- : char = 'g'
 ```
 
 In the standard library, both are defined using pattern matching. Here is how a function extracts the third element of the product of four types:
 ```ocaml
-# let f x = match x with (a, b, c, d) -> c;;
+# let f x = match x with (h, i, j, k) -> j;;
 val f : 'a * 'b * 'c * 'd -> 'c = <fun>
 ```
 
-Note that types `int * char * bool`, `int * (char * bool)`, and `(int * char) * bool` are not the same. The values `(42, 'a', true)`, `(42, ('a', true))`, and `((42, 'a'), true)` are not equal. In mathematical language, the product type operator `*` is not _associative_.
+Note that types `int * char * bool`, `int * (char * bool)`, and `(int * char) * bool` are not the same. The values `(42, 'h', true)`, `(42, ('h', true))`, and `((42, 'h'), true)` are not equal. In mathematical language, the product type operator `*` is not _associative_.
+
+<!--FIXME :: Please ensure this is still correct. In trying to keep examples away from a, b, c (so as not to be confused with `a, `b, `c), I thought it was particularly important here because the user might need to see that any letter/value/char will result in `a, `b, `c, `d in this case. In other words, h, i, j, k won't turn into `h, `i, `j, `k. -->
 
 ### Functions
 
-The type of functions from type `a` to type `b` is written `a -> b`. Here are a few examples:
+The type of functions from type `m` to type `n` is written `m -> n`. Here are a few examples:
 ```ocaml
 # fun x -> x * x;;
 - : int -> int = <fun>
@@ -348,10 +360,10 @@ Exceptions are discussed in the [Error Handling](/docs/error-handling) guide.
 
 Functions may have several parameters.
 ```ocaml
-# fun a b -> a ^ " " ^ b;;
+# fun s r -> s ^ " " ^ r;;
 - : string -> string -> string = <fun>
 
-# let mean a b = (a + b) / 2;;
+# let mean s r = (s + r) / 2;;
 val mean : int -> int -> int = <fun>
 ```
 
@@ -511,6 +523,7 @@ We need to pass an inspected expression to the `match … with …` construct. T
 # type t =
   | C1 of int * bool
   | C2 of (int * bool);;
+type t = C1 of int * bool | C2 of (int * bool)
 
 # let p = (4, false);;
 val p : int * bool = (4, false)
@@ -520,7 +533,7 @@ Error: The constructor C1 expects 2 argument(s),
        but is applied here to 1 argument(s)
 
 # C2 p;;
-- : C2 = C2 (4, false)
+- : t = C2 (4, false)
 ```
 
 The constructor `C1` has two parameters of type `int` and `bool`, whilst the constructor `C2` has a single parameter of type `int * bool`.
@@ -633,7 +646,15 @@ In the OCaml community, as well as in the larger functional programming communit
 
 Here are the terms applicable to data types:
 1. `'a list`, `'a option`, and `'a tree` are very often said to be polymorphic types. Formally, `bool list` or `int option` are the types, whilst `list` and `option` are [type operators](https://en.wikipedia.org/wiki/Type_constructor) that take a type parameter and result in a type. This is a form of [parametric polymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism). `'a list` and `'a option` denote [type families](https://en.wikipedia.org/wiki/Type_family), which are all the types created by applying type parameters to the operators.
+
+<!-- 
+
+FIXME
+
+issue - "The polymorphic variants tutorial is unreleased, so the best at this point would probably be to comment out the paragraph with a FIXME comment and add it back when the new tutorial gets released (probably in January)."
+
 2. OCaml has something called _Polymorphic Variants_. Although the types `option`, `list`, and `tree` are variants and polymorphic, they aren't polymorphic variants. They are type-parametrised variants. We stick to this usage and say the variants in this section are polymorphic. OCaml polymorphic variants are covered in [another tutorial](docs/labels#more-variants-polymorphic-variants).
+-->
 
 ### Records
 
@@ -799,8 +820,14 @@ This tutorial has provided a comprehensive overview of OCaml's basic data types 
 <!--
 From the data point of view, records and tuples are similar to the logical conjunction “and,” while variants are similar to the logical disjunction “or.” This analogy goes very deep, with records and tuples on one side as products and variants on the other side as union. These are true mathematical operations on data types. Records and tuples play the role of multiplication, which is why they are called product types. Variants play the role of addition. Putting it all together, basic OCaml types are said to be algebraic.
 
+In this tutorial _variants_ and _products_ were presented, this correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although OCaml has other type systems, this document focused on data typed using this algorithm.
+
 ## Next: Advanced Data Types
 -->
+In this tutorial _variants_ and _products_ were presented, this correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although OCaml has other type systems, this document focused on data typed using this algorithm.
+<!--
+## Next: Advanced Data Types
+
 Going further, you can explore several advanced topics related to OCaml's data types to deepen your understanding and enhance your programming skills.
 - Mutually Recursive Variants
 - Polymorphic Variants
@@ -809,7 +836,6 @@ Going further, you can explore several advanced topics related to OCaml's data t
 
 As of writing this, these topics will be covered in forthcoming tutorials. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml.
 
-<!--
 OCaml aggregates several type systems, also known as disciplines:
 - A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants, and functions. , and it is also the scope of this tutorial.
 - Two different [structural type systems](https://en.wikipedia.org/wiki/Structural_type_system) are also used:

@@ -23,7 +23,7 @@ If everything looks good and the CI build passes, the PR is merged and the packa
 
 If there is anything to change, an opam-repository maintainer will comment on the PR with some recommendations.
 
-This is a heavy process, but hopefully, all of it is completely automated on the user side. The recommended way to publish a package is `dune-release`.
+This is a heavy process, but hopefully, all of it is completely automated on the user side. The recommended way to publish a package is to use the `dune-release` command (provided by the opam package `dune-release`).
 
 Once you're ready to publish your package on opam, simply create a `CHANGES.md` file with the following format:
 

@@ -25,6 +25,7 @@ let not_found = Not_found.render
 let package_documentation_not_found = Package_documentation_not_found.render
 let package_documentation = Package_documentation.render
 let package_overview = Package_overview.render
+let package_overview_file = Package_overview.render_file
 let packages_autocomplete_fragment = Packages_autocomplete_fragment.render
 let packages = Packages.render
 let packages_search = Packages_search.render

@@ -13,11 +13,25 @@ end
 type toc = { title : string; href : string; children : toc list }
 [@@deriving show { with_path = false }]
 
+type contribute_link = { url : string; description : string }
+[@@deriving of_yaml, show { with_path = false }]
+
+type banner = { image : string; url : string; alt : string }
+[@@deriving of_yaml, show { with_path = false }]
+
+type external_tutorial = {
+  tag : string;
+  contribute_link : contribute_link;
+  banner : banner;
+}
+[@@deriving of_yaml, show { with_path = false }]
+
 type metadata = {
   id : string;
   title : string;
   description : string;
   category : string;
+  external_tutorial : external_tutorial option;
 }
 [@@deriving of_yaml]
 
@@ -28,6 +42,7 @@ type t = {
   description : string;
   section : Section.t;
   category : string;
+  external_tutorial : external_tutorial option;
   toc : toc list;
   body_md : string;
   body_html : string;
@@ -122,6 +137,20 @@ type toc =
   ; href : string
   ; children : toc list
   }
+type contribute_link =
+  { url : string
+  ; description : string
+  }
+type banner =
+  { image : string
+  ; url : string
+  ; alt : string
+  }
+type external_tutorial =
+  { tag : string
+  ; banner : banner
+  ; contribute_link : contribute_link
+  }
 type t =
   { title : string
   ; fpath : string
@@ -129,6 +158,7 @@ type t =
   ; description : string
   ; section : Section.t
   ; category : string
+  ; external_tutorial : external_tutorial option
   ; body_md : string
   ; toc : toc list
   ; body_html : string
