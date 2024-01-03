@@ -24,7 +24,7 @@ reducing memory consumption from linear to constant space
 Still in the intro: for people familiar with Python, I believe it would be very useful to mention Python’s generators: OCaml sequences are similar to Python generators. The main difference is that each element of a Python generator is consumed only once and never seen again, while an element in an OCaml sequence can be queried several times, but is re-computed each time (more expressive but opportunity for bugs). Also, OCaml does not have all the convenient syntax that Python has (there is no yield in OCaml [at least, until algebraic effects land in OCaml 5!]). The contrast between list and Seq.t in OCaml is the same as between range and xrange in old Python 2 (or [i for i in range(100)] versus range(100) in Python 3).
 -->
 
-One way to look at a value of type `'a Seq.t` is to consider it as a list, with
+One way to look at a value of type `'a Seq.t` is to consider it as a list, but it contains
 a twist when it's not empty: its tail is frozen. To understand this analogy,
 consider how sequences are defined in the standard library:
 ```ocaml
