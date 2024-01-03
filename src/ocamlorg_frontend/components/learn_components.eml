@@ -143,11 +143,11 @@ let lang_manual_banner =
         </p>
         <a href="<%s Url.manual %>" class="w-full md:w-80 mt-6 py-2 bg-white rounded-xl text-center text-primary dark:text-dark-primary hover:underline font-bold text-lg">
           Take Me There
-        </a>
+        </div>
       </div>
       <img class="hidden md:block w-[200px] h-[200px] md:w-72 md:h-72 rounded-full" src="<%s Ocamlorg_static.Asset.url "img/learn/language_manual_camel.png" %>" alt="A friendly-looking camel">
     </div>
-  </div>
+  </a>
 
 let exercise_card (exercise: Data.Exercise.t) =
   <a class="flex flex-col p-5 card dark:dark-card" href="<%s Url.exercises %>#<%s exercise.slug %>">

@@ -162,7 +162,7 @@ categories:
   - name: Authentication
     status: 🔴
     description: |
-      Packages for authentication-related functionality in OCaml web applications.
+      Packages for authentication-related functionality in OCaml Web applications.
     packages:
     - name: jwt
     - name: cookie
@@ -193,7 +193,7 @@ categories:
   - name: Database
     status: 🟠
     description: |
-      Database-related packages for interacting with databases in OCaml web applications, from simple connectors to type-safe SQL wrappers.
+      Database-related packages for interacting with databases in OCaml Web applications, from simple connectors to type-safe SQL wrappers.
     packages:
     - name: petrol
     - name: caqti
@@ -254,7 +254,7 @@ categories:
   - name: External Web APIs
     status: 🆘
     description: |
-      Packages that provide OCaml bindings and clients for interacting with external web APIs.
+      Packages that provide OCaml bindings and clients for interacting with external Web APIs.
     packages:
     - name: spotify-web-api
     - name: disml
@@ -374,7 +374,17 @@ categories:
     - name: biniou
 ---
 
-OCaml, traditionally known for its strength in systems programming, formal verification, and as the language of choice for numerous academic endeavors, is steadily maturing in the web development landscape. With its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream web development languages.
+OCaml, traditionally known for its strength in systems programming, formal verification, and as the language of choice for numerous academic endeavors, is steadily maturing in the Web development landscape. With its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream Web development languages.
+
+The Web in OCaml is fast and type-safe! According to your needs, you can
+choose to use tidy server-side Web frameworks, or innovative full-stack
+solutions for integrated Web and mobile applications. To run in the
+browser, OCaml compiles to JavaScript and WebAssembly!
+
+As a matter of fact, OCaml is used to power production Web systems, like
+[Ahrefs](/success-stories/peta-byte-scale-web-crawler),
+[OCaml.org](https://github.com/ocaml/ocaml.org) or the [Be
+Sport](https://besport.com/news) social network.
 
 The web in OCaml is fast and type-safe! According to your needs, you can
 choose to use tidy server-side web frameworks or innovative full-stack
