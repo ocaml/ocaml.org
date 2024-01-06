@@ -313,7 +313,7 @@ Layout.render
               </div>
             </div>
             <% ); %>
-            <a href="<%s Url.changelog %>" class="btn btn-lg btn-ghost rounded mt-8">
+            <a href="<%s Url.changelog_entry item.slug %>" class="btn btn-lg btn-ghost rounded mt-8">
             <span>See Full Changelog</span>
             <%s! Icons.chevron_right "h-5 w-5" %>
             </a>
