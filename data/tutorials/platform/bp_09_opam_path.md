@@ -77,7 +77,7 @@ Suppose you have an OCaml project in folder `disco` and local opam switch is ass
 ```bash
 eval $(opam env)
 ```
-After running `direnv allow`, `direnv` will handle the opam switch activation for you whenever you.
+After running `direnv allow`, `direnv` will handle the opam switch activation for you.
 
 7. Messages from `direnv`
 
