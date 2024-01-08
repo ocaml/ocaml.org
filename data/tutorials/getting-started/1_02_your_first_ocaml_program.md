@@ -49,6 +49,8 @@ Entering directory '/home/ocaml.org/hello'
 Success: initialized project component named hello
 ```
 
+**Note**: If you have used `eval $(opam env)`, or have answered yes to the question when you ran `opam init`, you can omit `opam exec --`.
+
 **Note**: Throughout this tutorial, outputs generated Dune might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam update; opam upgrade dune` in a terminal.
 
 The project is stored in a directory named `hello`. The `tree` command lists the files and directories created. It might be necessary to install `tree` if you don't see the following. Through Homebrew, for example, run `brew install tree`.
