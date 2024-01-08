@@ -802,8 +802,8 @@ The `:standard` directive will include all the default flags, and then
 `-principal` will be appended after those in the compiler build flags.
 
 ```sh dir=examples/front-end/
-$ dune build principal.exe
-$ dune build non_principal.exe
+$ opam exec -- dune build principal.exe
+$ opam exec -- dune build non_principal.exe
 File "non_principal.ml", line 6, characters 4-7:
 6 |   x.foo
         ^^^
@@ -999,7 +999,7 @@ If we now build this library, we can look at how dune assembles the modules
 into a `Hello` library.
 
 ```sh dir=examples/packing
-$ dune build
+$ opam exec -- dune build
 $ cat _build/default/hello.ml-gen
 (** @canonical Hello.A *)
 module A = Hello__A

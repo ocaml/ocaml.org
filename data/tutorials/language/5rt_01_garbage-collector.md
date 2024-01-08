@@ -537,7 +537,7 @@ Compile and execute this with some extra options to show the amount of
 garbage collection occurring:
 
 ```sh dir=examples/barrier_bench,non-deterministic=command
-$ dune exec -- ./barrier_bench.exe -ascii alloc -quota 1
+$ opam exec -- dune exec -- ./barrier_bench.exe -ascii alloc -quota 1
 Estimated testing time 2s (2 benchmarks x 1s). Change using '-quota'.
 
   Name        Time/Run   mWd/Run   mjWd/Run   Prom/Run   Percentage
@@ -561,7 +561,7 @@ command-line benchmark binaries have a number of useful options that affect
 garbage collection behavior and the output format:
 
 ```sh dir=examples/barrier_bench
-$ dune exec -- ./barrier_bench.exe -help
+$ opam exec -- dune exec -- ./barrier_bench.exe -help
 Benchmark for mutable, immutable
 
   barrier_bench.exe [COLUMN ...]
@@ -651,7 +651,7 @@ let () =
 Building and running this should show the following output:
 
 ```sh dir=examples/finalizer
-$ dune exec -- ./finalizer.exe
+$ opam exec -- dune exec -- ./finalizer.exe
     allocated record: OK
     allocated string: OK
    allocated variant: OK

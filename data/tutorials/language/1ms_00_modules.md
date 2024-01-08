@@ -59,8 +59,8 @@ executable.
 ```bash
 $ echo "(lang dune 3.4)" > dune-project
 $ echo "(executable (name bmodule))" > dune
-$ dune build
-$ dune exec ./bmodule.exe
+$ opam exec -- dune build
+$ opam exec -- dune exec ./bmodule.exe
 Hello
 ```
 
@@ -209,10 +209,10 @@ of this example aside of the previous one.
 <!-- $MDX dir=examples -->
 ```bash
 $ echo "(executables (names bmodule bmodule2))" > dune
-$ dune build
-$ dune exec ./bmodule.exe
+$ opam exec -- dune build
+$ opam exec -- dune exec ./bmodule.exe
 Hello
-$ dune exec ./bmodule2.exe
+$ opam exec -- dune exec ./bmodule2.exe
 Hello 2
 ```
 

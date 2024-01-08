@@ -448,8 +448,8 @@ Here is a corresponding `dune` file:
 If we compile and run the program using `dune` under a regular `5.0.0` switch the
 program appears to work:
 ```
-$ dune build ./race.exe
-$ dune exec ./race.exe
+$ opam exec -- dune build ./race.exe
+$ opam exec -- dune exec ./race.exe
 v.x is 11
 ```
 
@@ -457,8 +457,8 @@ However, if we compile and run the program with Dune from the new
 `5.0.0+tsan` switch TSan warns us of a data race:
 ```
 $ opam switch 5.0.0+tsan
-$ dune build ./race.exe
-$ dune exec ./race.exe
+$ opam exec -- dune build ./race.exe
+$ opam exec -- dune exec ./race.exe
 ==================
 WARNING: ThreadSanitizer: data race (pid=19414)
   Write of size 8 at 0x7fb9d72fe498 by thread T4 (mutexes: write M87):
@@ -518,8 +518,8 @@ let () =
 If we recompile and run our program with this change, it now completes
 without TSan warnings:
 ```
-$ dune build ./race.exe
-$ dune exec ./race.exe
+$ opam exec -- dune build ./race.exe
+$ opam exec -- dune exec ./race.exe
 v is 11
 ```
 

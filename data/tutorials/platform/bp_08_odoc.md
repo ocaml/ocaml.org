@@ -15,7 +15,7 @@ from the docstrings and interfaces of the project's modules
 Dune can run `odoc` on your project to generate HTML documentation with this command:
 
 ```shell
-$ dune build @doc
+$ opam exec -- dune build @doc
 
 # Unix or macOS
 $ open _build/default/_doc/_html/index.html

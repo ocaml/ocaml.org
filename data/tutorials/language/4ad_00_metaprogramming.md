@@ -437,7 +437,7 @@ type t = int [@@deriving_inline yojson]
 
 Now, we run the PPX and promote the generated code in the original file:
 ```shell
-$ dune build @lint
+$ opam exec -- dune build @lint
 File "lib/lib.ml", line 1, characters 0-0:
 diff --git a/_build/default/lib/lib.ml b/_build/default/lib/lib.ml.lint-corrected
 index 4999e06..5516d41 100644
