@@ -6,6 +6,7 @@ const figma_colors = {
     primary_40: "#D5400066",
     primary_25: "#D5400040",
     primary_dark: "#842800",
+    primary_nav_block_hover_10:"#C24F1E1A",
 
     secondary: "#2B7866",
     secondary_25: "#06706540",
@@ -44,6 +45,7 @@ const figma_colors = {
       content: "#FFFFFF99",
       card_hover: "#2B2A2A",
       card: "#1C1C1C",
+      white:"#FFFFFF",
 
       separator_30: "#FFFFFF4D",
       background: "#121212", 
@@ -63,7 +65,7 @@ module.exports = {
       'xl': '80em',
     },
     extend: {
-      typography: {
+      typography: (theme) => ({
         DEFAULT: {
           css: [{
             'code::before': {
@@ -73,8 +75,15 @@ module.exports = {
               content: '""',
             },
           },{
+            'p, strong':{
+              color: theme('colors.content'),
+            },
             h1: {
+              color: theme('colors.title'),
               fontWeight: 700,
+            },
+            'h2, h3, h4, h5, h6, code': {
+              color: theme('colors.title'),
             },
             code: {
               fontSize: "1em",
@@ -86,15 +95,44 @@ module.exports = {
               fontSize: "1em",
             },
             a: {
-              color: "#D54000",
+              color: theme('colors.primary'),
               textDecoration: "none",
             },
             'a:hover': {
               textDecoration: "underline",
+            },
+            pre: {
+              backgroundColor: theme('colors.code_window'),
+            },
+            'pre > code': {
+              color: theme('colors.white'),
             }
           }]
+          
         },
-      },
+        invert: {
+          css: {
+            'p, strong':{
+              color: theme('colors.dark.content'),
+            },
+            a: {
+              color: theme('colors.dark.primary'),
+            },
+            h1: {
+              color: theme('colors.dark.title'),
+            },
+            'h2, h3, h4, h5, h6, code': {
+              color: theme('colors.dark.title'),
+            },
+            pre: {
+              backgroundColor: theme('colors.dark.code_window'),
+            },
+            'pre > code': {
+              color: theme('colors.dark.title'),
+            }
+          },
+        }
+      }),
       boxShadow:{
         '3xl':'rgba(0, 0, 0, 0.35) 0px 5px 15px',
       },

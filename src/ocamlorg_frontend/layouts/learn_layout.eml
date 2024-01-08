@@ -180,7 +180,7 @@ inner_html
   ~canonical
   ?active_top_nav_item @@
   <%s! tabs ~current %>
-  <div class="bg-legacy-default dark:bg-legacy-dark-default" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
+  <div class="bg-white dark:bg-dark-background" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
   <% if left_sidebar_html != None then ( %>  
     <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-[#D54000] p-4 z-30 rounded-full text-white shadow-custom bottom-24 md:bottom-36 fixed lg:hidden right-10"
       x-on:click="sidebar = ! sidebar">
