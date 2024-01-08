@@ -144,7 +144,7 @@ each and then runs two loops in parallel with:
 
 ``` shell
 $ opam switch 5.1.0
-$ dune runtest
+$ opam exec -- dune runtest
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
 0 100 1  99 2 100 3 100 4 101 5 100 6 100   total = 700
@@ -171,7 +171,7 @@ as follows and immediately complains about races:
 
 ``` shell
 $ opam switch 5.1.0+tsan
-$ dune runtest
+$ opam exec -- dune runtest
 File "test/dune", line 2, characters 7-16:
 2 |  (name bank_test)
            ^^^^^^^^^
@@ -248,7 +248,7 @@ let iter_accounts t f = (* inspect the bank accounts *)
 Rerunning our tests, we obtain:
 
 ``` shell
-$ dune runtest
+$ opam exec -- dune runtest
 File "test/dune", line 2, characters 7-16:
 2 |  (name bank_test)
            ^^^^^^^^^
@@ -285,7 +285,7 @@ let transfer t ~src_acc ~dst_acc ~amount =
 
 We can now rerun our tests under TSan to confirm the fix:
 ``` shell
-$ dune runtest
+$ opam exec -- dune runtest
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
 0 100 1  99 2 100 3 100 4 101 5 100 6 100   total = 700

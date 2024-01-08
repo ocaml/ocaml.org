@@ -44,10 +44,12 @@ By default, OCaml comes with two compilers: one translating sources into native 
 We start by setting up a traditional “Hello World!” project using Dune. Make sure to have installed version 3.7 or later. The following creates a project named `hello`:
 
 ```shell
-$ dune init proj hello
+$ opam exec -- dune init proj hello
 Entering directory '/home/ocaml.org/hello'
 Success: initialized project component named hello
 ```
+
+**Note**: If you have used `eval $(opam env)`, or have answered yes to the question when you ran `opam init`, you can omit `opam exec --`.
 
 **Note**: Throughout this tutorial, outputs generated Dune might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam update; opam upgrade dune` in a terminal.
 
@@ -85,13 +87,13 @@ Each folder containing source files that need to be built must contain a `dune` 
 
 This builds the project:
 ```shell
-$ dune build
+$ opam exec -- dune build
 Entering directory '/home/ocaml.org'
 ```
 
 This launches the executable it creates:
 ```shell
-$ dune exec hello
+$ opam exec -- dune exec hello
 Entering directory '/home/ocaml.org'
 Hello, World!
 ```
@@ -140,7 +142,7 @@ Here is a new version of the `bin/main.ml` file:
 
 Now execute the resulting project:
  ```shell
- $ dune exec hello
+ $ opam exec -- dune exec hello
 Entering directory '/home/ocaml.org'
 Hello from a module
 ```
@@ -149,7 +151,7 @@ The file `lib/hello.ml` creates the module named `Hello`, which in turn defines 
 
 Dune can launch UTop to access the modules exposed by a project interactively. Here's how:
 ```shell
-$ dune utop
+$ opam exec -- dune utop
 ```
 
 Then, inside the `utop` toplevel, it is possible to inspect our `Hello` module:
@@ -185,7 +187,7 @@ let () = Printf.printf "%s\n" Hello.mundo
 
 Trying to compile this fails.
 ```shell
-$ dune build
+$ opam exec -- dune build
 Entering directory '/home/ocaml.org'
 File "hello/bin/main.ml", line 1, characters 30-41:
 1 | let () = Printf.printf "%s\n" Hello.mundo
@@ -238,7 +240,7 @@ You need to tell Dune it needs Dream to compile the project. Do this by adding t
 
 Launch the server from a new terminal.
 ```shell
-$ dune exec hello
+$ opam exec -- dune exec hello
 20.07.23 13:14:07.801                       0
 20.07.23 13:14:07.801                       Type Ctrl+C to stop
 ```
@@ -349,7 +351,7 @@ let () = print_endline "My name is Minimo"
 
 That's all! This is sufficient for Dune to build and execute the `minimo.ml` file.
 ```shell
-$ dune exec ./minimo.exe
+$ opam exec -- dune exec ./minimo.exe
 Entering directory '/home/ocaml.org'
 My name is Minimo
 ```
