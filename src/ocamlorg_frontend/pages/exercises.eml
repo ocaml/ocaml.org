@@ -65,7 +65,7 @@ let statement_solution_switch =
     <button
       class="px-10 h-11 text-base font-medium rounded-l-md border flex gap-2 items-center"
       x-on:click="statement = true"
-      :class="statement ? 'bg-primary border-primary text-white': 'text-content' "
+      :class="statement ? 'bg-primary dark:bg-dark-primary border-primary dark:border-dark-primary text-white dark:text-dark-white': 'text-content dark:text-dark-content' "
     >
       <%s! exercise_statement "h-5 w-5" %>
       Statement
@@ -73,7 +73,7 @@ let statement_solution_switch =
     <button
       class="px-10 h-11 text-base  font-medium rounded-r-md border-t border-r border-b  flex gap-2 items-center"
       x-on:click="statement = false"
-      :class="statement ? 'text-content': 'bg-secondary border-secondary text-white' "
+      :class="statement ? 'text-content dark:text-dark-content': 'bg-secondary dark:bg-dark-secondary border-secondary dark:border-dark-secondary text-white dark:text-dark-white' "
     >
       <%s! exercise_solution "h-5 w-5" %>
       Solution
@@ -92,10 +92,10 @@ let render_exercise (exercise: Data.Exercise.t) =
   <div x-data="{statement: true}" id="<%s" exercise.slug %>
     >
     <div class="flex mb-4 flex-col gap-4 md:flex-row md:items-center">
-      <h2 class="my-0 font-normal text-2xl text-title">
+      <h2 class="my-0 font-normal text-2xl text-title dark:text-dark-title">
         <%s exercise.title %>
       </h2>
-      <div class="inline px-3 py-1 <%s Learn_components.color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white tracking-widest leading-5" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %></div>">
+      <div class="inline px-3 py-1 <%s Learn_components.color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white dark:text-dark-white tracking-widest leading-5" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %></div>">
         <%s Learn_components.string_from_difficulty difficulty %>
       </div>
     </div>
@@ -118,9 +118,9 @@ Learn_layout.three_column_layout
 ~left_sidebar_html:(Some(exercises_sidebar ~exercises))
 ~right_sidebar_html:None
 ~current:Exercises @@
-  <div class="prose prose-orange max-w-full">
+  <div class="prose prose-orange dark:prose-invert max-w-full">
     <h1 class="font-normal text-4xl text-title mb-8">Exercises</h1>
-    <div class="prose prose-orange max-w-full mb-5">
+    <div class="prose prose-orange dark:prose-invert max-w-full mb-5">
       <p>
         This section is inspired by
         <a href="https://www.ic.unicamp.br/~meidanis/courses/mc336/2006s2/funcional/L-99_Ninety-Nine_Lisp_Problems.html">
