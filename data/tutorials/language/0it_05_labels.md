@@ -66,7 +66,8 @@ Secondly, notice that the function takes two parameters. The second
 parameter (`x`) is unlabelled. It is permitted for a function to take a
 mixture of labelled and unlabelled arguments.
 
-<!-- BEGIN-WTF -->
+**BEGIN WTF**
+
 What is the type of the labelled `f` parameter? Obviously it's a
 function of some sort.
 
@@ -100,7 +101,7 @@ If the unlabelled argument is a “null pointer” then `may` does nothing.
 Otherwise, `may` calls the `f` function on the argument.
 
 Why is this useful? We're just about to find out...
-<!-- END-WTF -->
+**END WTF**
 
 ## Optional Arguments With Default Values
 
@@ -136,22 +137,111 @@ It is possible to use the same name for the parameter and label names.
 val range : ?step:int -> int -> int -> int list = <fun>
 ```
 
-This the same as if we had written `?step:(step=1)`
+This is the same as if we had written `?step:(step=1)`.
 
 ## Optional Arguments Without Default Values
 
-Optional arguments may be declared without specifying a default value.
+An optional argument can be declared without specifying a default value.
 ```ocaml
-# let git_commit = function
-  | Some ref -> ref
-  | None -> "HEAD";;
-val commit : string option -> string = <fun>
-
-# let git_diff ?commit:(new) old = "git diff " ^ old ^ " " ^ new;;
-val hello : ?name:string -> string -> string = <fun>
-
-# hello "bonjour
+# let sub ?(pos=0) ?len:(len_opt) s =
+    let default = String.length s - pos in
+    let len = Option.value ~default len_opt in
+    String.sub s pos len;;
+val sub : ?pos:int -> ?len:int -> string -> string = <fun>
 ```
+
+Here, we're defining a variant of the function `String.sub` from the standard library.
+* `s` is the string which we are extracting a substring from
+* `pos` is the starting position of the substring, it defaults to `0`
+* `len` is the length of the substring. If missing, it defaults to `String.length s - pos`
+
+When an optional argument isn't given a default value, its internal type is made an `option`. Here, `len` appears as an `int` in the type of `sub` but appears as an `int option` inside, it is the type of `len_opt`.
+
+The default value of `len` depends on the actual value of `pos`, therefore it is specified without a default value.
+
+This enables the following usages:
+```ocaml
+# sub ~len:5 ~pos:2 "immutability";;
+- : string = "mutab"
+
+# sub "immutability" ~pos:7 ;;
+- : string = "ility"
+
+# sub ~len:2 "immutability";;
+- : string = "im"
+
+# sub "immutability";;
+- : string = "immutability"
+```
+
+Optional arguments can be applied in any order and any position.
+
+## Optional Arguments and Partial Application
+
+Let's compare two possible variants of the `String.concat` function from the standard library which has type `string -> string list -> string`. Both variants make the separator (the first argument) an optional argument with the empty string `""` as the default value. The only difference between the two versions is the order in which the arguments are declared.
+
+In the first version, the optional separator is the last declared parameter.
+```ocaml
+# let concat_warn ss ?(sep="") = String.concat sep ss;;
+Line 1, characters 15-18:
+  Warning 16 [unerasable-optional-argument]:
+  this optional argument cannot be erased.
+val concat_warn : string list -> ?sep:string -> string = <fun>
+
+# concat_warn ~sep:"; " ["a"; "b"; "c"];;
+- : string = "a; b; c"
+
+# concat_warn ~sep:"";;
+- : string list -> string
+
+# concat_warn ["a"; "b"; "c"];;
+- : ?sep:string -> string = <fun>
+```
+
+In the second version, the optional separator is the first declared parameter.
+```ocaml
+# let concat ?(sep="") ss = String.concat sep ss;;
+val concat : ?sep:string -> string list -> string = <fun>
+
+# concat ["a"; "b"; "c"] ~sep:", ";;
+- : string = "a, b, c"
+
+# concat ~sep:"";;
+- : string list -> string = <fun>
+
+# concat ["a"; "b"; "c"];;
+- : string = "abc"
+```
+
+Both functions behave the same, except when only applied to the parameter `["a"; "b"; "c"]`. In that case:
+- `concat` returns `"abc"`, the optional argument `~sep` is applied with the default value `""`.
+- `concat_warn` returns a partially applied function of type `?sep:string -> string`, the optional argument is not applied.
+
+Most often, what is needed is the latter behaviour, therefore a function's last declared parameter shouldn't be optional. The warning suggests turning `concat_warn` into `concat`. Disregarding it exposes a function with an optional argument that must be passed, which is contradictory. 
+
+## Function with Only Optional Arguments
+
+When all parameters of a function need to be optional, a dummy, non-optional and occurring last parameter must be added. The unit value comes in handy for this. This is what is done here.
+```ocaml
+# let hello_warn ?(who="world") () = "hello " ^ who;;
+val hello_warn : ?who:string -> string = <fun>
+
+# hello_warn;;
+- : ?who:string -> unit -> string = <fun>
+
+# hello_warn ();;
+- : string = "hello world"
+
+# hello_warn ~who:"sabine";;
+- : unit -> string = <fun>
+
+# hello_warn ~who:"sabine" ();;
+- : string = "hello sabine"
+```
+
+Without this unit parameter, the `optional argument cannot be erased` warning would be emitted.
+
+**BEGIN WTF**
 
 ## LablGTK
 
@@ -410,6 +500,7 @@ this function is:
 val open_application : ?width:int -> ?height:int -> unit -> unit -> window =
   <fun>
 ```
+**END WTF**
 
 ## When and When Not to Use `~` and `?`
 The syntax for labels and optional arguments is confusing, and you may
