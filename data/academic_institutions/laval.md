@@ -1,7 +1,7 @@
 ---
 name: Laval University 
 description: >
-Laval University is a public research university located in Quebec, Quebec, Canada.
+ Laval University is a public research university located in Quebec, Quebec, Canada.
 url: "https://www.ulaval.ca"
 logo: academic_institution/ulaval_logo.png
 continent: North America
