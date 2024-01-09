@@ -18,7 +18,8 @@ Please include images and browser-specific information if the bug is related to 
 
 We've provided a list of community-driven content below. When adding content to any of these sections, it's best to fork the repo, add your file, and open a pull request (PR).
 
-- [The Blog](#content-blog)
+- [Images](#images)
+- [The OCaml Planet Blog](#content-blog)
 - [Job Board](#content-job)
 - [Success Stories](#content-success-story)
 - [Academic and Industrial Users](#content-user)
@@ -29,6 +30,16 @@ We've provided a list of community-driven content below. When adding content to 
 - [The OCaml Changelog](#content-changelog)
 
 The following sections give more details on how to contribute to each.
+
+### <a name="images"></a>Adding Images
+
+Some of the data that can be contributed by users may include images or other media, for example, success stories, academic and industrial users, or books.
+
+Images can be added to the corresponding subfolder in the `data/media/` folder.
+
+E.g. for adding a university logo associated with an academic institution, you have to add the image file to the `data/media/academic_institution/` folder.
+
+Videos or other media should not be added to the ocaml.org GitHub repository.
 
 ### <a name="content-blog"></a>Add an RSS Feed to the Blog
 
