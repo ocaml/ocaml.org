@@ -11,6 +11,7 @@ let index _req =
   Dream.html
     (Ocamlorg_frontend.home ~latest_release:Data.Release.latest
        ~lts_release:Data.Release.lts
+       ~releases:(List.take 2 Data.Release.all)
        ~changelogs:(List.take 3 Data.Changelog.all))
 
 let install _req = Dream.html (Ocamlorg_frontend.install ())
