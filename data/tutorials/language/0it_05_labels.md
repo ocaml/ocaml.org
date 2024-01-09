@@ -242,6 +242,48 @@ val hello_warn : ?who:string -> string = <fun>
 
 Without this unit parameter, the `optional argument cannot be erased` warning would be emitted.
 
+## Forwarding an Optional Argument
+
+When defining a function with an optional parameter, it is possible to forward it as an argument to another function without unwrapping its option value. These examples reuse the `sub` function defined in the [Optional Arguments Without Default Values](#optional-arguments-without-default-values) section.
+```ocaml
+# let prefix ?len s = sub ?len s;;
+val prefix : ?len:int -> string -> string = <fun>
+
+# prefix "immutability" ~len:2;;
+- : string = "im"
+
+# let postfix ?off s = sub ?pos:(off) s;;
+val postfix : ?off:int -> string -> string = <fun>
+
+# postfix "immutability" ~off:7;;
+- : string = "ility"
+```
+
+In the definitions of `prefix` and `postfix`, the function `sub` is called with optional arguments prefixed with question marks. Here is how this syntactic sugar works:
+* `sub ?len s` turns into: `match len with Some x -> sub ~len:x s | _ -> sub s`
+* `sub ?pos:(off) s` turns into: `match off with Some x -> sub ~pos:x s | _ -> sub s`
+
+In `prefix` the optional argument has the same name as in `sub`, writing `?len` is sufficient to forward without unwrapping.
+
+## Foo
+
+```ocaml
+# let foo ~bar = match bar with Some x -> x * x | _ -> 42;;
+```
+
+# Labels and The Standard Library
+
+- https://v2.ocaml.org/releases/5.1/api/StdLabels.html
+  - https://v2.ocaml.org/releases/5.1/api/ArrayLabels.html
+  - https://v2.ocaml.org/releases/5.1/api/BytesLabels.html
+  - https://v2.ocaml.org/releases/5.1/api/ListLabels.html
+  - https://v2.ocaml.org/releases/5.1/api/StringLabels.html
+- https://v2.ocaml.org/releases/5.1/api/MoreLabels.html
+  - https://v2.ocaml.org/releases/5.1/api/MoreLabels.Hashtbl.html
+  - https://v2.ocaml.org/releases/5.1/api/MoreLabels.Map.html
+  - https://v2.ocaml.org/releases/5.1/api/MoreLabels.Set.html
+- https://v2.ocaml.org/releases/5.1/api/UnixLabels.html
+
 ## When and When Not to Use `~` and `?`
 The syntax for labels and optional arguments is confusing, and you may
 often wonder when to use `~foo`, when to use `?foo`, and when to use
