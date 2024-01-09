@@ -1,12 +1,12 @@
 ---
 id : labels
-title: Labelled & Optional Arguments
+title: Labelled and Optional Arguments
 description: >
   Provide labels to your functions arguments
 category: "Introduction"
 ---
 
-# Labelled and Optional Arguments to Functions
+# Labelled and Optional Arguments
 
 It is possible to give names and default values to function parameters. This is broadly known as labels. In this tutorial, we learn how to use labels.
 
@@ -19,7 +19,7 @@ Throughout this tutorial, the code is written in UTop.
 OCaml also has a way to label arguments and have optional arguments with
 default values.
 
-The basic syntax is:
+Here is the basic syntax:
 ```ocaml
 # let rec range ~first:lo ~last:hi =
   if lo > hi then []
@@ -101,6 +101,7 @@ If the unlabelled argument is a “null pointer” then `may` does nothing.
 Otherwise, `may` calls the `f` function on the argument.
 
 Why is this useful? We're just about to find out...
+
 **END WTF**
 
 ## Optional Arguments With Default Values
@@ -240,267 +241,6 @@ val hello_warn : ?who:string -> string = <fun>
 ```
 
 Without this unit parameter, the `optional argument cannot be erased` warning would be emitted.
-
-**BEGIN WTF**
-
-## LablGTK
-
-<!-- BEGIN ???? -->
-This example is modified from LablGTK:
-```ocaml
-# type window =
-  {mutable title: string;
-   mutable width: int;
-   mutable height: int};;
-type window = {
-  mutable title : string;
-  mutable width : int;
-  mutable height : int;
-}
-
-# let create_window () =
-  {title = "none"; width = 640; height = 480;};;
-val create_window : unit -> window = <fun>
-
-# let set_title window title =
-  window.title <- title;;
-val set_title : window -> string -> unit = <fun>
-
-# let set_width window width =
-  window.width <- width;;
-val set_width : window -> int -> unit = <fun>
-
-# let set_height window height =
-  window.height <- height;;
-val set_height : window -> int -> unit = <fun>
-
-# let open_window ?title ?width ?height () =
-  let window = create_window () in
-  may ~f:(set_title window) title;
-  may ~f:(set_width window) width;
-  may ~f:(set_height window) height;
-  window;;
-val open_window :
-  ?title:string -> ?width:int -> ?height:int -> unit -> window = <fun>
-```
-
-This example is significantly complex and quite subtle, but the pattern
-used is very common in the LablGTK source code. Let's concentrate on the
-simple `create_window` function first. This function takes a `unit` and
-returns a `window` initialised with default settings for title, width,
-and height:
-
-```ocaml
-# create_window ();;
-- : window = {title = "none"; width = 640; height = 480}
-```
-
-The `set_title`, `set_width`, and `set_height` functions are impure
-functions which modify the `window` structure. For
-example:
-
-```ocaml
-# let w = create_window () in
-  set_title w "My Application";
-  w;;
-- : window = {title = "My Application"; width = 640; height = 480}
-```
-
-So far, this is just the imperative "mutable records" that we talked
-about in ["If Statements and Recursions"](https://ocaml.org/docs/if-statements-and-loops). Now the complex part is the `open_window`
-function. This function takes *4* arguments, three of them optional,
-followed by a required, unlabelled `unit`. Let's first see this function
-in action:
-
-```ocaml
-# open_window ~title:"My Application" ();;
-- : window = {title = "My Application"; width = 640; height = 480}
-# let window = open_window ~title:"Clock" ~width:128 ~height:128 ();;
-- : window = {title = "Clock"; width = 128; height = 128}
-```
-
-It does what you expect, but how? The secret is in the `may` function
-(see above) and the fact that the optional parameters *don't* have
-defaults.
-
-When an optional parameter doesn't have a default, then it has type
-`'a option`. The `'a` would normally be inferred by type inference, so
-in the case of `?title` above, this has type `string option`.
-
-Remember the `may` function? It takes a function and an argument, and it
-calls the function on the argument, provided that the argument isn't `None`.
-So:
-
-<!-- $MDX skip -->
-```ocaml
-# may ~f:(set_title window) title;;
-```
-
-If the optional title argument is not specified by the caller, then
-`title` = `None`, so `may` does nothing. But if we call the function
-with, for example:
-
-```ocaml
-# open_window ~title:"My Application" ();;
-- : window = {title = "My Application"; width = 640; height = 480}
-```
-
-then `title` = `Some "My Application"`, and `may` therefore calls
-`set_title window "My Application"`.
-
-You should make sure you fully understand this example before proceeding
-to the next section.
-
-## `Warning: This optional argument cannot be erased`
-
-We've just touched upon labels and optional arguments, but even this
-brief explanation might have raised several questions. The first may be: 
-"Why use the extra `()` (unit) argument to `open_window`?" Let's try defining this
-function without the extra `unit`:
-
-```ocaml
-# let open_window ?title ?width ?height =
-  let window = create_window () in
-  may ~f:(set_title window) title;
-  may ~f:(set_width window) width;
-  may ~f:(set_height window) height;
-  window;;
-Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
-Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
-Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
-val open_window : ?title:string -> ?width:int -> ?height:int -> window =
-  <fun>
-```
-
-Although OCaml has compiled the function, it has generated a somewhat
-infamous warning: "This optional argument cannot be erased," referring
-to the final `?height` argument. To try to show what's going on here,
-let's call our modified `open_window` function:
-
-```ocaml
-# open_window;;
-- : ?title:string -> ?width:int -> ?height:int -> window = <fun>
-# open_window ~title:"My Application";;
-- : ?width:int -> ?height:int -> window = <fun>
-```
-
-That didn't work. In fact, it didn't even run the
-`open_window` function at all. Instead it printed some strange type
-information. 
-
-Let's examine why.
-
-Recall currying, uncurrying, and partial application of functions. Let's say
-we have a function `plus` defined as:
-
-```ocaml
-# let plus x y =
-  x + y;;
-val plus : int -> int -> int = <fun>
-```
-We can partially apply this as `plus 2`, for example, which is "the
-function that adds 2 to things."
-
-```ocaml
-# let f = plus 2;;
-val f : int -> int = <fun>
-# f 5;;
-- : int = 7
-# f 100;;
-- : int = 102
-```
-
-In the `plus` example, the OCaml compiler can easily work out that
-`plus 2` doesn't have enough arguments supplied yet. It needs another
-argument before the `plus` function itself can be executed. Therefore
-`plus 2` is a function which is waiting for its extra argument to come
-along.
-
-Things are not so clear when we add optional arguments into the mix. The
-call to `open_window;;` above is a case in point. Does the user mean
-"execute `open_window` now, or does the user mean to supply some or all
-of the optional arguments later? Is `open_window;;` waiting for extra
-arguments to come along like `plus 2`?
-
-OCaml plays it safe and doesn't execute `open_window`. Instead, it treats
-it as a partial function application. The expression `open_window`
-literally evaluates to a function value.
-
-Let's go back to the original working definition of `open_window`,
-where we had the extra unlabelled `unit` argument at the end:
-
-```ocaml
-# let open_window ?title ?width ?height () =
-  let window = create_window () in
-  may ~f:(set_title window) title;
-  may ~f:(set_width window) width;
-  may ~f:(set_height window) height;
-  window;;
-val open_window :
-  ?title:string -> ?width:int -> ?height:int -> unit -> window = <fun>
-```
-
-If you want to pass optional arguments to `open_window`, you must do so
-before the final `unit`, so if you type:
-
-```ocaml
-# open_window ();;
-- : window = {title = "none"; width = 640; height = 480}
-```
-you must mean "execute `open_window` now with all optional arguments
-unspecified." Whereas if you type:
-
-```ocaml
-# open_window;;
-- : ?title:string -> ?width:int -> ?height:int -> unit -> window = <fun>
-```
-you mean "give me the functional value" or (more usually in the
-toplevel) "print out the type of `open_window`."
-
-## More `~` Shorthand
-Let's rewrite the `range` function yet again, this time using as much
-shorthand as possible for the labels:
-
-```ocaml
-# let rec range ~first ~last =
-  if first > last then []
-  else first :: range ~first:(first + 1) ~last;;
-val range : first:int -> last:int -> int list = <fun>
-```
-
-Recall that `~foo` on its own is short for `~foo:foo`. This applies also
-when calling functions as well as declaring the arguments to functions.
-In the above the `~last` is short for
-`~last:last`.
-
-## Using `?foo` in a Function Call
-There's another little wrinkle concerning optional arguments. Suppose we
-write a function around `open_window` to open up an application:
-
-```ocaml
-# let open_application ?width ?height () =
-  open_window ~title:"My Application" ~width ~height;;
-Error: This expression has type 'a option
-       but an expression was expected of type int
-```
-
-Recall that `~width` is shorthand for `~width:width`. The type of
-`width` is `'a option`, but `open_window ~width:` expects an `int`.
-
-OCaml provides more syntactic sugar. Writing `?width` in the function
-call is shorthand for writing `~width:(unwrap width)`, where `unwrap`
-would be a function which removes the "`option` wrapper" around
-`width` (it's not actually possible to write an `unwrap` function like
-this, but conceptually that's the idea). So the correct way to write
-this function is:
-
-```ocaml
-# let open_application ?width ?height () =
-  open_window ~title:"My Application" ?width ?height;;
-val open_application : ?width:int -> ?height:int -> unit -> unit -> window =
-  <fun>
-```
-**END WTF**
 
 ## When and When Not to Use `~` and `?`
 The syntax for labels and optional arguments is confusing, and you may
