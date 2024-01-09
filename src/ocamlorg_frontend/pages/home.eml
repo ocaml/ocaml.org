@@ -15,6 +15,7 @@ let package_card ~href ~img_path ~name description =
 let render
   ~(latest_release: Data.Release.t)
   ~(lts_release: Data.Release.t)
+  ~(releases : Data.Release.t list)
   ~(changelogs : Data.Changelog.t list)
 =
 Layout.render
@@ -268,14 +269,16 @@ Layout.render
       <div class="flex flex-col">
         <h3 class="font-bold">Releases</h3>
         <div class="flex-grow p-10 mt-7 w-full border-2 shadow-md rounded-2xl h-full">
-          <a href="<%s Url.release latest_release.version %>">
-            <div class="text-primary text-sm mb-4 uppercase">Recent Releases</div>
+        <div class="text-primary text-sm mb-4 uppercase">Recent Releases</div>
+        <% releases |> List.iter (fun (item : Data.Release.t) -> %>
+          <a href="<%s Url.release item.version %>">
             <h3 class="font-bold mb-6">
-              <%s latest_release.version %> <span class="text-sm">(<%s latest_release.date %>)</span>
+              <%s item.version %> <span class="text-sm">(<%s item.date %>)</span>
             </h3>
           </a>
-          <div class="prose prose-sm"><%s! latest_release.highlights_html %></div>
-          <a href="<%s Url.releases %>" class="btn btn-lg btn-ghost rounded mt-8">
+          <div class="prose prose-sm"><%s! item.highlights_html %></div>
+        <% ); %>
+          <a href="<%s Url.releases %>" class="btn btn-ghost rounded mt-8">
             <span>See All Releases</span>
             <%s! Icons.chevron_right "h-5 w-5" %>
           </a>
