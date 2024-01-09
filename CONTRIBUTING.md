@@ -88,7 +88,7 @@ If you notice that a job opportunity is outdated (e.g., already fulfilled or not
 
 > Contribute to the [Success Stories](https://ocaml.org/success-stories).
 
-You can contribute a new success story by adding a Markdown file in [data/success_stories/](data/success_stories/). For instance: [janestreet.md](data/success_stories/en/janestreet.md).
+You can contribute a new success story by adding a Markdown file in [data/success_stories/](data/success_stories/). For instance: [janestreet.md](data/success_stories/janestreet.md).
 
 The success stories should be structured in the following way:
 
@@ -103,15 +103,15 @@ You can read [Ahref's success story](https://ocaml.org/success-stories/peta-byte
 
 > Contribute to the [Academic Users](https://ocaml.org/academic-users) and [Industrial Users](https://ocaml.org/industrial-users).
 
-You can add a new academic user by creating a new Markdown file in [data/industrial_users/](data/industrial_users/). For instance: [cryptosense.md](data/industrial_users/en/cryptosense.md).
+You can add a new academic user by creating a new Markdown file in [data/industrial_users/](data/industrial_users/). For instance: [cryptosense.md](data/industrial_users/cryptosense.md).
 
-You can add a new industrial user by creating a new Markdown file in [data/academic_institutions/](data/academic_institutions). For instance: [cornell.md](data/academic_institutions/en/cornell.md).
+You can add a new industrial user by creating a new Markdown file in [data/academic_institutions/](data/academic_institutions). For instance: [cornell.md](data/academic_institutions/cornell.md).
 
 ### <a name="content-book"></a>Add a Book
 
 > Contribute to the [OCaml Books](https://ocaml.org/books).
 
-You can add a new OCaml book by creating a new Markdown file in [data/books/](data/books/). For instance: [ocaml-from-the-very-beginning.md](data/industrial_users/en/ocaml-from-the-very-beginning.md).
+You can add a new OCaml book by creating a new Markdown file in [data/books/](data/books/). For instance: [ocaml-from-the-very-beginning.md](data/books/ocaml-from-the-very-beginning.md).
 
 ### <a name="content-meetup"></a>Add A meetup
 
