@@ -14,25 +14,27 @@ Throughout this tutorial, the code is written in UTop.
 
 **Prerequisites**: [Values and Functions](/docs/values-and-functions)
 
+## Calling Functions with Labels
+
+Examples from the Option module. Option.value or Option.fold.
+
+## Calling Functions with Optional Parameters
+
+Use a dummy example (because there's nothing in stdlib), so no explantion needed. Then focus on showing how to call the thing.
+
 ## Labelled Arguments
 
-OCaml also has a way to label arguments and have optional arguments with
-default values.
-
-Here is the basic syntax:
+OCaml has a way to name arguments:
 ```ocaml
 # let rec range ~first:lo ~last:hi =
-  if lo > hi then []
-  else lo :: range ~first:(lo + 1) ~last:hi;;
+    if lo > hi then []
+    else lo :: range ~first:(lo + 1) ~last:hi;;
 val range : first:int -> last:int -> int list = <fun>
 ```
 
-The arguments of `range` have:
-- Internal names `lo` and `hi`
-- External names `first` and `last`, these are the labels.
-
-Notice that both `to` and `end` are reserved words in OCaml, so they
-cannot be used.
+The arguments of `range` are named
+- `lo` and `hi` inside the function's body,
+- `first` and `last` when calling the function; these are the labels.
 
 The `~` (tilde) is not shown in the type definition, but
 you need to use it everywhere else.
@@ -66,45 +68,8 @@ Secondly, notice that the function takes two parameters. The second
 parameter (`x`) is unlabelled. It is permitted for a function to take a
 mixture of labelled and unlabelled arguments.
 
-**BEGIN WTF**
 
-What is the type of the labelled `f` parameter? Obviously it's a
-function of some sort.
-
-What is the type of the unlabelled `x` parameter? The `match` clause
-gives us a clue. It's an `'a option`.
-
-This tells us that `f` takes an `'a` parameter, and the return value of
-`f` is ignored, so it could be anything. The type of `f` is therefore
-`'a -> 'b`.
-
-The `may` function as a whole returns `unit`. Notice in each case of the
-`match` the result is `()`.
-
-Thus the type of the `may` function is (you can verify this in the
-OCaml interactive toplevel if you want):
-```ocaml
-# may;;
-- : f:('a -> 'b) -> 'a option -> unit = <fun>
-```
-What does this function do? Running the function in the OCaml toplevel
-gives us some clues:
-```ocaml
-# may ~f:print_endline None;;
-- : unit = ()
-# may ~f:print_endline (Some "hello");;
-hello
-- : unit = ()
-```
-
-If the unlabelled argument is a “null pointer” then `may` does nothing.
-Otherwise, `may` calls the `f` function on the argument.
-
-Why is this useful? We're just about to find out...
-
-**END WTF**
-
-## Optional Arguments With Default Values
+## Defining Optional Arguments With Default Values
 
 Optional arguments are like labelled arguments, but we use `?` instead
 of `~` in front when declaring them. Here is an example:
@@ -115,9 +80,9 @@ let rec range ?step:(x=1) lo hi =
 val range : ?step:int -> int -> int -> int list = <fun>
 ```
 
-In this case, `?step:(x=1)` means that `~step` is an optional argument which defaults to 1.
+In this case, `?step:(x=1)` means that `~step` is an optional argument that defaults to 1.
 
-Here is how this is used.
+Here is how this is used:
 ```ocaml
 # range 1 10;;
 - : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
@@ -126,11 +91,9 @@ Here is how this is used.
 - : int list = [1; 3; 5; 7; 9]
 ```
 
-Note the somewhat confusing syntax switching between `?` and `~`. Use a question mark when declaring an optional parameter; use a tilde when passing a value to a labelled parameter or specifying a value to an optional parameter.
+Here, `step` is the label used when calling the function, `x` is the parameter name used inside the function, and `1` is the default value.
 
-Here, `step` is the label (the external name), `x` is the parameter name (the internal name), and `1` is the default value.
-
-It is possible to use the same name for the parameter and label names.
+It is possible to use the same name for the parameter and label name.
 ```ocaml
 # let rec range ?(step=1) lo hi =
   if lo > hi then []
@@ -140,7 +103,7 @@ val range : ?step:int -> int -> int -> int list = <fun>
 
 This is the same as if we had written `?step:(step=1)`.
 
-## Optional Arguments Without Default Values
+## Defining Optional Arguments Without Default Values
 
 An optional argument can be declared without specifying a default value.
 ```ocaml
@@ -156,9 +119,13 @@ Here, we're defining a variant of the function `String.sub` from the standard li
 * `pos` is the starting position of the substring, it defaults to `0`
 * `len` is the length of the substring. If missing, it defaults to `String.length s - pos`
 
-When an optional argument isn't given a default value, its internal type is made an `option`. Here, `len` appears as an `int` in the type of `sub` but appears as an `int option` inside, it is the type of `len_opt`.
+When an optional argument isn't given a default value, its type inside the function is made an `option`. Here, `len` appears as an `int` in the type of `sub` but appears as an `int option` inside, it is the type of `len_opt`.
 
 The default value of `len` depends on the actual value of `pos`, therefore it is specified without a default value.
+
+The `len` parameter is specified without a default value. This is because no constant value can be defined in advance.
+
+<!-- TODO: consider a simpler example without any logic or exmplain use-case -->
 
 This enables the following usages:
 ```ocaml
@@ -176,6 +143,8 @@ This enables the following usages:
 ```
 
 Optional arguments can be applied in any order and any position.
+
+
 
 ## Optional Arguments and Partial Application
 
@@ -209,7 +178,7 @@ val concat : ?sep:string -> string list -> string = <fun>
 
 # concat ~sep:"";;
 - : string list -> string = <fun>
-
+t
 # concat ["a"; "b"; "c"];;
 - : string = "abc"
 ```
@@ -218,29 +187,34 @@ Both functions behave the same, except when only applied to the parameter `["a";
 - `concat` returns `"abc"`, the optional argument `~sep` is applied with the default value `""`.
 - `concat_warn` returns a partially applied function of type `?sep:string -> string`, the optional argument is not applied.
 
-Most often, what is needed is the latter behaviour, therefore a function's last declared parameter shouldn't be optional. The warning suggests turning `concat_warn` into `concat`. Disregarding it exposes a function with an optional argument that must be passed, which is contradictory. 
+Most often, what is needed is the latter behaviour, therefore a function's last declared parameter shouldn't be optional. The warning suggests turning `concat_warn` into `concat`. Disregarding it exposes a function with an optional argument that must be passed, which is contradictory.
 
 ## Function with Only Optional Arguments
 
 When all parameters of a function need to be optional, a dummy, non-optional and occurring last parameter must be added. The unit value comes in handy for this. This is what is done here.
 ```ocaml
-# let hello_warn ?(who="world") () = "hello " ^ who;;
-val hello_warn : ?who:string -> string = <fun>
+# let hello ?(who="world") () = "hello " ^ who;;
+val hello : ?who:string -> string = <fun>
 
-# hello_warn;;
+# hello;;
 - : ?who:string -> unit -> string = <fun>
 
-# hello_warn ();;
+# hello ();;
 - : string = "hello world"
 
-# hello_warn ~who:"sabine";;
+# hello ~who:"sabine";;
 - : unit -> string = <fun>
 
-# hello_warn ~who:"sabine" ();;
+# hello ~who:"sabine" ();;
 - : string = "hello sabine"
 ```
 
 Without this unit parameter, the `optional argument cannot be erased` warning would be emitted.
+
+## Passing an Option Value as an Optional Option Argument
+
+<!-- TODO: pass options with question marks in function calls. Possibly merge or replace with next section -->
+
 
 ## Forwarding an Optional Argument
 
