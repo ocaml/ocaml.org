@@ -25,10 +25,10 @@ Layout.render
   <div class="container-fluid space-y-24 lg:space-y-32">
     <div class="flex flex-col lg:flex-row gap-6">
       <div class="lg:flex-1 lg:mt-16 my-12">
-        <h1 class="lg:pr-10 text-7xl font-bold dark:text-white">
+        <h1 class="lg:pr-10 text-7xl font-bold">
           OCaml
         </h1>
-        <p class="my-7 text-2xl dark:text-white">
+        <p class="my-7 text-2xl">
           An industrial-strength functional programming language
           with an emphasis on expressiveness and safety
         </p>
@@ -156,7 +156,7 @@ Layout.render
               </div>
               <div class="text-legacy-default font-bold">Powerful Type Safety Made Simple</div>
             </h3>
-            <div class="my-4 text-lg dark:text-white">
+            <div class="my-4 text-lg">
               OCaml’s lightweight but highly expressive type system catches more bugs at compile time while garbage collection allows you to focus on application logic instead of memory management.
               Large, complex codebases become easy to maintain and refactor.
               OCaml empowers you to create mission-critical software with
@@ -182,7 +182,7 @@ Layout.render
             <h3 class="text-legacy-default font-bold">
               First-Class Editor and Tooling
             </h3>
-            <div class="my-4 text-lg dark:text-white">
+            <div class="my-4 text-lg">
               OCaml comes with deep integrations for VS Code, Vim or Emacs to provide type inspection, autocomplete and more.
               Between Opam, a popular package manager; Utop, a powerful interactive REPL; and <code>odoc</code>,
               an easy-to-use documentation generator, OCaml programmers have access to a complete, modern developer experience.
@@ -227,7 +227,7 @@ Layout.render
                 Fast Compiler and Applications
               </div>
             </h3>
-            <div class="my-4 font-normal text-lg dark:text-white">
+            <div class="my-4 font-normal text-lg">
               OCaml offers great runtime performance without compromising on developer experience:
               The bytecode compiler generates small, highly portable executables blazingly fast;
               the native code compiler produces highly-efficient machine code. Despite this focus
@@ -247,8 +247,8 @@ Layout.render
 <div class="py-24 overflow-hidden">
   <div class="container-fluid">
     <div class="prose mx-auto">
-        <h2 class="font-bold dark:text-white">Exceptionally Robust and Reliable</h2>
-        <blockquote class="font-normal dark:text-white">
+        <h2 class="font-bold">Exceptionally Robust and Reliable</h2>
+        <blockquote class="font-normal">
         Despite all this testing, we have never had a single XenServer defect reported from
         internal testing or from the field that can be traced back to a bug in the
         OCaml runtime or compiler. (During development we did once find a minor compiler bug,
@@ -257,9 +257,9 @@ Layout.render
         and so no interaction with the maintainers at INRIA was required.)
         </blockquote>
 
-        <p class="dark:text-white">-- Scott, D. & Sharp, R. & Gazagnaire, T. & Madhavapeddy, A. (2010).
+        -- Scott, D. & Sharp, R. & Gazagnaire, T. & Madhavapeddy, A. (2010).
           <a href="https://anil.recoil.org/papers/2010-icfp-xen.pdf">Using Functional Programming within an Industrial Product Group: Perspectives and Perceptions.</a>
-          ACM SIGPLAN Notices. 45. 87-92. 10.1145/1863543.1863557.</p>
+          ACM SIGPLAN Notices. 45. 87-92. 10.1145/1863543.1863557.
     </div>
   </div>
 </div>
@@ -353,7 +353,7 @@ Layout.render
     <div class="flex flex-col lg:flex-row justify-between lg:space-x-20 space-y-10 lg:space-y-0">
       <div class="shadow-lg p-10 bg-legacy-default dark:bg-legacy-dark-default rounded-xl lg:mb-0">
         <div class="flex flex-row items-center justify-between relative pb-8">
-          <h3 class="font-semibold dark:text-white">For Educators</h3>
+          <h3 class="font-semibold">For Educators</h3>
           <div>
             <%s! Icons.for_educators "h-14 w-14" %>
             <div class="absolute w-20 h-20 top-0 -right-10 rounded-full bg-legacy-primary-100"></div>
@@ -370,7 +370,7 @@ Layout.render
       </div>
       <div class="shadow-lg p-10 bg-legacy-default dark:bg-legacy-dark-default rounded-xl">
         <div class="flex flex-row items-center justify-between relative pb-8">
-          <h3 class="font-semibold dark:text-white">For Industrial Users</h3>
+          <h3 class="font-semibold">For Industrial Users</h3>
           <div>
             <%s! Icons.for_industrial_users "h-14 w-14" %>
             <div class="absolute w-20 h-20 top-0 -right-10 rounded-full bg-legacy-primary-100"></div>
