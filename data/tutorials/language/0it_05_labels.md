@@ -14,17 +14,29 @@ Throughout this tutorial, the code is written in UTop.
 
 **Prerequisites**: [Values and Functions](/docs/values-and-functions)
 
-## Calling Functions with Labels
+## Passing Labelled Parameters
 
-Examples from the Option module. Option.value or Option.fold.
+The function `Option.value` from the standard library has an argument labelled `default`.
+```ocaml
+# Option.value;;
+- : 'a option -> default:'a -> 'a = <fun>
+```
 
-## Calling Functions with Optional Parameters
+Labelled arguments are passed using a tilde `~` and can be placed at any position and in any order.
+```ocaml
+# Option.value (Some 10) ~default:42;;
+- : int = 10
 
-Use a dummy example (because there's nothing in stdlib), so no explantion needed. Then focus on showing how to call the thing.
+# Option.value ~default:42 (Some 10);;
+- : int = 10
 
-## Labelled Arguments
+# Option.value ~default:42 None
+- : int = 42
+```
 
-OCaml has a way to name arguments:
+## Defining Labelled Parameters
+
+Here is how to name arguments in a function definition:
 ```ocaml
 # let rec range ~first:lo ~last:hi =
     if lo > hi then []
@@ -33,14 +45,10 @@ val range : first:int -> last:int -> int list = <fun>
 ```
 
 The arguments of `range` are named
-- `lo` and `hi` inside the function's body,
+- `lo` and `hi` inside the function's body, as usual
 - `first` and `last` when calling the function; these are the labels.
 
-The `~` (tilde) is not shown in the type definition, but
-you need to use it everywhere else.
-
-With labelled arguments, it doesn't matter which order you give the
-arguments:
+Here is how `range` is used:
 ```ocaml
 # range ~first:1 ~last:10;;
 - : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
@@ -49,30 +57,29 @@ arguments:
 - : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
 ```
 
-There is also a shorthand way to name the arguments so that the label
-matches the variable in the function definition:
+## Passing Optional Parameters
+
+Optional arguments are passed using a question mark `?` and can be placed at any position and in any order. 
 ```ocaml
-# let may ~f x =
-  match x with
-  | None -> ()
-  | Some x -> ignore (f x);;
-val may : f:('a -> 'b) -> 'a option -> unit = <fun>
+# let hello ?(who = "world") who hi = hi ^ " " ^ who;;
+val hello : ?hi:string -> string -> string = <fun>
+
+# hello "sabine";;
+- : string = "hello sabine!"
+
+# hello ~hi:"bonjour" "sabine";;
+- : string = "bonjour sabine"
+
+# hello ?hi:(Some "hola") "christine";;
+- : string = "hola christine"
+
+# hello ?hi:None "christine";;
+- : string = "hello christine"
 ```
 
-It's worth spending some time working out exactly what this function
-does, and also working out its type signature by hand.
+## Defining Optional Parameters With Default Values
 
-First of all, the parameter `~f` is just shorthand for `~f:f`
-(i.e., the label is `~f` and the variable used in the function is `f`).
-Secondly, notice that the function takes two parameters. The second
-parameter (`x`) is unlabelled. It is permitted for a function to take a
-mixture of labelled and unlabelled arguments.
-
-
-## Defining Optional Arguments With Default Values
-
-Optional arguments are like labelled arguments, but we use `?` instead
-of `~` in front when declaring them. Here is an example:
+When defining a function, optional arguments are declared using `?`:
 ```ocaml
 let rec range ?step:(x=1) lo hi =
   if lo > hi then []
@@ -80,7 +87,7 @@ let rec range ?step:(x=1) lo hi =
 val range : ?step:int -> int -> int -> int list = <fun>
 ```
 
-In this case, `?step:(x=1)` means that `~step` is an optional argument that defaults to 1.
+In this case, `?step:(x=1)` means that `~step` is an optional argument that defaults to 1 and inside the function, its name is `x`.
 
 Here is how this is used:
 ```ocaml
@@ -103,11 +110,12 @@ val range : ?step:int -> int -> int -> int list = <fun>
 
 This is the same as if we had written `?step:(step=1)`.
 
+
 ## Defining Optional Arguments Without Default Values
 
 An optional argument can be declared without specifying a default value.
 ```ocaml
-# let sub ?(pos=0) ?len:(len_opt) s =
+# let sub ?(pos=0) ?len:len_opt s =
     let default = String.length s - pos in
     let len = Option.value ~default len_opt in
     String.sub s pos len;;
@@ -226,7 +234,7 @@ val prefix : ?len:int -> string -> string = <fun>
 # prefix "immutability" ~len:2;;
 - : string = "im"
 
-# let postfix ?off s = sub ?pos:(off) s;;
+# let postfix ?off s = sub ?pos:off s;;
 val postfix : ?off:int -> string -> string = <fun>
 
 # postfix "immutability" ~off:7;;
@@ -235,7 +243,7 @@ val postfix : ?off:int -> string -> string = <fun>
 
 In the definitions of `prefix` and `postfix`, the function `sub` is called with optional arguments prefixed with question marks. Here is how this syntactic sugar works:
 * `sub ?len s` turns into: `match len with Some x -> sub ~len:x s | _ -> sub s`
-* `sub ?pos:(off) s` turns into: `match off with Some x -> sub ~pos:x s | _ -> sub s`
+* `sub ?pos:off s` turns into: `match off with Some x -> sub ~pos:x s | _ -> sub s`
 
 In `prefix` the optional argument has the same name as in `sub`, writing `?len` is sufficient to forward without unwrapping.
 
