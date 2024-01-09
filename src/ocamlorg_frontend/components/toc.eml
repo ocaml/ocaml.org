@@ -19,8 +19,8 @@ let render (t : t) =
     <ol class="leading-6 text-sm border-l">
       <% t |> List.iter begin fun item -> %>
         <li>
-          <a href="<%s item.href %>" class="text-title dark:text-dark-title py-1 pl-2 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
-            :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary dark:border-l-dark-primary text-primary dark:text-dark-primary bg-primary_nav_block_hover_10 dark:bg-primary_nav_block_hover_10": "hover:text-primary dark:hover:text-dark-primary"'
+          <a href="<%s item.href %>" class="text-content dark:text-dark-content py-1 pl-2 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
+            :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary dark:border-l-dark-primary text-title dark:text-dark-title bg-primary_nav_block_hover_10 dark:bg-primary_nav_block_hover_10": "hover:text-title dark:hover:text-dark-title"'
             :style='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "letter-spacing: -0.012em;" : ""'
           >
             <%s! item.title %>
@@ -30,7 +30,7 @@ let render (t : t) =
               <% items |> List.iter begin fun item -> %>
               <li>
                 <a href="<%s item.href %>" class="text-content dark:text-dark-content py-1 md:py-0 pl-5 pr-1 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
-                  :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary dark:border-l-dark-primary text-primary dark:text-dark-primary bg-primary_nav_block_hover_10 dark:bg-primary_nav_block_hover_10": "hover:text-primary dark:hover:text-dark-primary"'
+                  :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary dark:border-l-dark-primary text-title dark:text-dark-title bg-primary_nav_block_hover_10 dark:bg-primary_nav_block_hover_10": "hover:text-title dark:hover:text-dark-title"'
                   :style='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "letter-spacing: -0.012em;" : ""'
                 >
                   <%s! item.title %>
