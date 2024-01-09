@@ -270,14 +270,18 @@ Layout.render
         <h3 class="font-bold">Releases</h3>
         <div class="flex-grow p-10 mt-7 w-full border-2 shadow-md rounded-2xl h-full">
         <div class="text-primary text-sm mb-4 uppercase">Recent Releases</div>
+      
         <% releases |> List.iter (fun (item : Data.Release.t) -> %>
+          <div class="mb-4">
           <a href="<%s Url.release item.version %>">
             <h3 class="font-bold mb-6">
               <%s item.version %> <span class="text-sm">(<%s item.date %>)</span>
             </h3>
           </a>
           <div class="prose prose-sm"><%s! item.highlights_html %></div>
+           </div>
         <% ); %>
+       
           <a href="<%s Url.releases %>" class="btn btn-ghost rounded mt-8">
             <span>See All Releases</span>
             <%s! Icons.chevron_right "h-5 w-5" %>
