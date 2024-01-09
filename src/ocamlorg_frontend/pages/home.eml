@@ -290,8 +290,9 @@ Layout.render
               Compiler and Platform Tools
             </h3>
             </a>
-            <% changelogs |> List.iter (fun (item : Data.Changelog.t) -> %>
-            <div class="pl-8 border-l-2">
+            <% let changelogs_length = List.length changelogs in changelogs |> 
+                    List.iteri (fun index (item : Data.Changelog.t) -> %>
+            <div class="<%s if index = changelogs_length - 1 then "pl-8" else "pl-8 border-l-2" %>">
               <div class="flex flex-col">   
                 <div class="mb-6">
                     <div class="relative pb-2">
