@@ -12,7 +12,7 @@ let menu_link
 ?(_class="")
 ()
 =
-  <a href="<%s href %>" class="font-normal py-3 mg:py-4 px-1 lg:px-3 hover:text-primary dark:hover:text-dark-primary <%s _class %> <%s if active then "text-primary dark:text-dark-primary underline" else "text-title dark:text-dark-title" %>"><%s title %></a>
+  <a href="<%s href %>" class="font-normal py-3 mg:py-4 px-1 lg:px-3 hover:text-primary dark:hover:text-dark-primary<%s _class %> <%s if active then "text-primary dark:text-dark-primary underline" else "text-title dark:text-dark-title" %>"><%s title %></a>
 
 
 let render
@@ -121,13 +121,13 @@ in
       </li>
       <li>
         <div class="space-x-6 text-2xl flex items-center">
-          <a aria-label="OCaml's Discord" href="https://discord.gg/cCYQbqN" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary">
+          <a aria-label="OCaml's Discord" href="https://discord.gg/cCYQbqN" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-tertiary_25 dark:hover:text-dark-primary">
             <%s! Icons.discord "w-6 h-6" %>
           </a>
-          <a aria-label="The OCaml Compiler on GitHub" href="https://github.com/ocaml/ocaml" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary">
+          <a aria-label="The OCaml Compiler on GitHub" href="https://github.com/ocaml/ocaml" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-tertiary_25 dark:hover:text-dark-primary">
             <%s! Icons.github "w-6 h-6" %>
           </a>
-          <a aria-label="The OCaml Language Twitter Account" href="https://twitter.com/ocamllang" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary">
+          <a aria-label="The OCaml Language Twitter Account" href="https://twitter.com/ocamllang" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-tertiary_25 dark:hover:text-dark-primary">
             <%s! Icons.twitter "w-6 h-6" %>
           </a>
         </div>
