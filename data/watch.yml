@@ -1272,6 +1272,17 @@ watch:
   published_at: 2021-10-03T22:10:19.844Z
   language: English
   category: Unknown
+- name: Verifying an Effect-Based Cooperative Concurrency Scheduler in Iris by Adrian
+    Dapprich
+  description: "Lightweight asynchronous programming (using futures, goroutines or
+    green threads) has been widely adopted to organize programs with many concurrent
+    tasks, more than are traditionally feasible with thread-per-task models of concurrency.\r\n\r\nWith
+    the..."
+  embed_path: /videos/embed/907bac18-3532-4768-8b6f-893167bfbd81
+  thumbnail_path: /static/thumbnails/4d3f7643-a935-49ca-a575-48765a553e75.jpg
+  published_at: 2024-01-09T16:23:50.459Z
+  language: English
+  category: Science & Technology
 - name: 'Wall: rendering vector graphics with OCaml and OpenGL'
   description: "Speaker: Fr\xE9d\xE9ric Bour"
   embed_path: /videos/embed/2472168c-04aa-497d-a931-f866c7036550
