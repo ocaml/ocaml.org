@@ -8,7 +8,7 @@ Learn_layout.single_column_layout
 ~canonical:Url.learn
 ~active_top_nav_item:Header.Learn
 ~current:Overview @@
-  <div class="w-full border-b bg-[#DDEAFC] dark:bg-[#101B3F] md:bg-transparent dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/learn/hero-background.svg')] dark:md:bg-[url('/img/learn/hero-background-dark.svg')]">
+  <div class="w-full border-b bg-[#DDEAFC] dark:bg-[#101B3F] dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/learn/hero-background.svg')] dark:md:bg-[url('/img/learn/hero-background-dark.svg')]">
     <div class="container-fluid py-10 md:py-24 md:flex md:gap-20 bg-left-bottom bg-no-repeat md:bg-[url('/img/learn/hero-camel.svg')] dark:md:bg-[url('/img/learn/dark-hero-camel.svg')]">
       <div class="md:flex-grow">
         <h1 class="text-title dark:text-dark-title tracking-wider">Explore the OCaml Documentation</h1>
@@ -115,7 +115,7 @@ Learn_layout.single_column_layout
           ~title:"Dune" ~text:"Dune is a user-friendly and efficient build system for developing OCaml projects"
           ~url:"https://dune.build/" %>
       </div>
-      <a class="pt-6 pb-3 text-primary dark:text-dark-title hover:underline dark:underline" href="<%s Url.platform %>">Go to Platform Tools Documentation</a>
+      <a class="pt-6 pb-3 text-primary dark:text-dark-title hover:underline dark:underline dark:hover:text-dark-primary" href="<%s Url.platform %>">Go to Platform Tools Documentation</a>
     </div>
   </div>
 
@@ -213,7 +213,7 @@ Learn_layout.single_column_layout
         </a>
         <% ); %>
       </div>
-      <a href="<%s Url.papers %>" class="btn btn-lg btn-ghost mt-8">
+      <a href="<%s Url.papers %>" class="btn btn-lg btn-ghost dark:border-dark-primary dark:hover:bg-dark-primary dark:hover:text-dark-title dark:text-dark-primary mt-8">
         <span>View all papers</span>
         <%s! Icons.chevron_right "h-5 w-5" %>
       </a>
