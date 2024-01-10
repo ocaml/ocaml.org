@@ -8,206 +8,220 @@ category: "Data Structures"
 
 # Set
 
+## Introduction
+
 `Set` is a functor, which means that it is a module that is parameterised
 by another module. More concretely, this means you cannot directly create
 a set. Instead, you must first specify what type of elements your set will
 contain.
 
 The `Set` functor provides a function `Make` that accepts a module as a
-parameter. Then it returns a new module representing a set whose elements have
-the type you passed in. For example, if you want to work with sets of
+parameter. Then it returns a new module representing a set of elements of the given type.
+
+For example, if you want to work with sets of
 strings, you can invoke `Set.Make(String)` that will return a new module,
-which you can assign the name `SS` (short for "String Set"). 
-
-Note: Pay attention to the case. You need to type `Set.Make(String)` and not
-`Set.Make(string)`. The reason behind this is explained in the
-"Technical Details" section at the bottom.
-
-Doing this in the OCaml's toplevel will yield a lot of output:
-
-```ocamltop
-module SS = Set.Make(String);;
+which you can assign a name, for example, `StringSet`:
+```ocaml
+# module StringSet = Set.Make(String);;
+module StringSet :
+  sig
+    type elt = string
+    type t = Set.Make(String).t
+    val empty : t
+    val add : elt -> t -> t
+    val singleton : elt -> t
+    val remove : elt -> t -> t
+    val union : t -> t -> t
+    val inter : t -> t -> t
+...
+  end
 ```
 
 After assigning your newly-created module to the name
-`SS`, OCaml's toplevel displayed the module, which in this case contains
+`StringSet`, OCaml's toplevel displays the type signature of the module. In this case, it contains
 a large number of convenience functions for working with sets (for example `is_empty`
 checks if the set is empty, `add` adds an element to the set, `remove`
 removes an element, and so on).
 
-Note also that this module defines two types: `type elt = String.t`, representing
+This module also defines two types: `type elt = String.t`, representing
 the type of the elements, and `type t = Set.Make(String).t`, representing the type of
-the set itself. It's important to note this because these types are used in many of 
-the functions' signatures defined in this module.
+the set itself. These types are used by many of 
+the functions defined in this module.
 
-For example, the `add` function has the signature `elt -> t -> t`, which means
+For example, the `add` function has the type `elt -> t -> t`, which means
 that it expects an element (a string) and a set of strings. Then it will return
-a set of strings. As you gain more experience in OCaml and other functional languages,
-the type signature of functions are often a basic but very convenient form of documentation
-on how to use those functions.
+a set of strings.
 
 ## Creating a Set
 
-You've created your module representing a set of strings, but now you actually want
-to create an instance of a set of strings. To do this, you
-could search through the documentation for the original `Set` functor to try and
-find what function or value to use. Alternatively, this is an excellent
-opportunity to practice reading the type signatures and inferring the answer from them.
+1. We can create an empty set using `StringSet.empty`:
+```ocaml
+# StringSet.empty ;;
+- : StringSet.t = <abstr>
 
-You want to create a new set (as opposed to modifying an existing set). So you should
-look for functions whose return result has type `t` (the type representing the set)
-and which *does not* require a parameter of type `t`.
-
-Skimming through the list of functions in the module, there's only a handful of functions
-that match that criteria: `empty: t`, `singleton : elt -> t`, `of_list : elt list -> t`,
-and `of_seq : elt Seq.t -> t`.
-
-Perhaps you already know how to work with lists and sequences in OCaml, but 
-for now, let's assume you don't. We'll focus
-our attention on the first two functions in that list: `empty` and `singleton`.
-
-The type signature for `empty` says that it simply returns `t`, i.e., an instance
-of our set, without requiring any parameters at all. By intuition, you might
-guess that the only reasonable set a library function could return when
-given zero parameters is the empty set. The fact that the function is named
-`empty` reinforces this theory.
-
-Is there a way to test this theory? Perhaps if we had a function that
-could print out the size of a set, then we could check if the set we get
-from `empty` has a size of zero. In other words, we want a function which
-receives a set as a parameter and returns an integer as a result. Again,
-skimming through the list of functions in the module, we see there is a
-function that matches this signature: `cardinal : t -> int`. If you're
-not familiar with the word ["cardinal," you can look it up on Wikipedia](https://en.wikipedia.org/wiki/Cardinal_number)
-and notice that it basically refers to the size of sets, so this reinforces
-the idea that this is exactly the function we want.
-
-So let's test our hypothesis:
-
-```ocamltop
-let s = SS.empty;;
-SS.cardinal s;;
+# StringSet.empty |> StringSet.to_list;;
+- : string list = []
 ```
 
-Excellent! It looks like `SS.empty` does indeed create an empty set,
-and `SS.cardinal` prints out the size of a set.
+For `StringSet.empty`, you can see that the OCaml toplevel displays `<abstr>` instead of a displaying the actual value. This is a limitation of the toplevel. However, you can see that converting the string set to a list using `StringSet.to_list` results in the empty list.
 
-What about that other function we saw, `singleton : elt -> t`? Using 
-our intuition, if we provide the function with a single element
-and the function returns a set, then probably the function will return
-a set containing that element (or else what else would it do with the
-parameter we gave it?). The name of the function is [`singleton`](https://en.wikipedia.org/wiki/Singleton_pattern), 
-which Wikipedia defines as "a set with exactly one element."
-It sounds like we're on the right track, so let's test our theory.
+2. A set with a single element is created using `StringSet.singleton`:
+```ocaml
+# StringSet.singleton "hello";;
+- : StringSet.t = <abstr>
 
-```ocamltop
-let s = SS.singleton "hello";;
-SS.cardinal s;;
+# StringSet.singleton "hello" |> StringSet.to_list;;
+- : string list = ["hello"]
 ```
 
-It looks like we were right again!
+3. Converting a list into a set using `StringSet.of_list`:
+```ocaml
+# StringSet.of_list ["hello"; "hi"];;
+- : StringSet.t = <abstr>
+```
+
+There's another relevant function `StringSet.of_seq: string Seq.t -> StringSet.t` which creates a list from a [sequence](/doc/sequences).
 
 ## Working With Sets
 
-Now let's say we want to build bigger and more complex sets. Specifically,
-let's say we want to add another element to our existing set, so we're
-looking for a function with two parameters. One of the parameters should
-be the element we wish to add, and the other parameter should be the set
-that we're adding to. For the return value, we would expect it to either
-return unit (if the function modifies the set in place) or return a
-new set representing the result of adding the new element. We're
-looking for signatures that look something like `elt -> t -> unit` or
-`t -> elt -> unit` (since we don't know what order the two parameters
-should appear), or `elt -> t -> t` or `t -> elt -> t`.
+Let's look at a few basic functions for working with sets.
 
-Skimming through the list, we see 2 functions with matching signatures:
-`add : elt -> t -> t` and `remove : elt -> t -> t`. Based on their names,
-`add` is probably the function we're looking for. `remove` likely removes
-an element from a set, and using our intuition again, it does seem like
-the type signature makes sense. To remove an element from a set, 
-tell it what set you want to perform the removal on and what element
-you want to remove. The return result will be the resulting set after
-the removal.
+### Adding an Element to a Set
 
-Furthermore, because we see that these functions return `t` and not `unit`,
-we can infer that these functions do not modify the set in place, but
-instead they return a new set. Again, we can test this theory:
+```ocaml
+# let my_set = ["hello"; "hi"] |> StringSet.of_list;;
+- : StringSet.t = <abstr>
 
-```ocamltop
-let firstSet = SS.singleton "hello";;
-let secondSet = SS.add "world" firstSet;;
-SS.cardinal firstSet;;
-SS.cardinal secondSet;;
+# my_set |> StringSet.add "good morning" |> StringSet.to_list;;
+- : string list = ["good morning"; "hello"; "hi"]
 ```
 
-It looks like our theories were correct!
+The function `StringSet.add` with type `string -> StringSet.t -> StringSet.t` takes a string and a string set. It returns a new string set. Sets created with the `Set` functor in OCaml are immutable, so every time you add or remove an element from a set, a new set is created - the old value is unchanged.
+
+### Removing an Element from a Set
+
+```ocaml
+# let my_set = ["hello"; "hi"] |> StringSet.of_list;;
+- : StringSet.t = <abstr>
+
+# my_set |> StringSet.remove "hello" |> StringSet.to_list;;
+- : string list = ["hi"]
+```
+
+The function `StringSet.remove` with type `string -> StringSet.t -> StringSet.t` takes a string and a string set. It returns a new string set without the given string.
+
+### Union of Two Sets
+
+```ocaml
+# let first_set = ["hello"; "hi"] |> StringSet.of_list;;
+- : StringSet.t = <abstr>
+
+# let second_set = ["good morning"; "hi"] |> StringSet.of_list;;
+- : StringSet.t = <abstr>
+
+# StringSet.union first_set second_set |> StringSet.to_list;;
+- : string list = ["good morning"; "hello"; "hi"]
+```
+
+With the function `StringSet.union`, we can compute the union of two sets.
+
+### Intersection of Two Sets
+
+```ocaml
+# let first_set = ["hello"; "hi"] |> StringSet.of_list;;
+- : StringSet.t = <abstr>
+
+# let second_set = ["good morning"; "hi"] |> StringSet.of_list;;
+- : StringSet.t = <abstr>
+
+# StringSet.inter first_set second_set |> StringSet.to_list;;
+- : string list = ["hi"]
+```
+
+With the function `StringSet.inter`, we can compute the intersection of two sets.
+
+### Subtracting a Set from Another
+
+```ocaml
+# let first_set = ["hello"; "hi"] |> StringSet.of_list;;
+- : StringSet.t = <abstr>
+
+# let second_set = ["good morning"; "hi"] |> StringSet.of_list;;
+- : StringSet.t = <abstr>
+
+# StringSet.diff first_set second_set |> StringSet.to_list;;
+- : string list = ["hello"]
+```
+
+With the function `StringSet.diff`, we can remove the elements from one set from another.
+
+### Filtering a Set
+
+```ocaml
+# ["good morning"; "hello"; "hi"]
+  |> StringSet.of_list
+  |> StringSet.filter (fun str -> String.length str <= 5)
+  |> StringSet.to_list;;
+- : string list = ["hello"; "hi"]
+```
+
+The function `StringSet.filter` of type `(string -> bool) -> StringSet.t -> StringSet.t` allows us to apply a predicate to all elements of a set to create a new set.
+
+### Checking if an Element is Contained in a Set
+
+```ocaml
+# ["good morning"; "hello"; "hi"]
+  |> StringSet.of_list
+  |> StringSet.mem "hello";;
+- : bool = true
+```
+
+To check if an element is contained in a given set, we can use the `StringSet.mem` function.
 
 ## Sets With Custom Comparators
 
-The `SS` module we created uses the built-in comparison function provided
-by the `String` module, which performs a case-sensitive comparison. We
-can test that with the following code:
-
-```ocamltop
-let firstSet = SS.singleton "hello";;
-let secondSet = SS.add "HELLO" firstSet;;
-SS.cardinal firstSet;;
-SS.cardinal secondSet;;
-```
-
-As we can see, the `secondSet` has a cardinality of 2, indicating that
-`"hello"` and `"HELLO"` are considered two distinct elements.
-
-Let's say we want to create a set that performs a case-insensitive
-comparison instead. To do this, simply change the parameter
-that passed to the `Set.Make` function.
-
-The `Set.Make` function expects a struct with two fields: a type `t`
+The `Set.Make` functor expects a module with two fields: a type `t`
 that represents the element type and a function `compare`,
-whose signature is `t -> t -> int`. It essentially returns 0 if two
-values are equal and non-zero if they are non-equal. The 
+whose signature is `t -> t -> int`. The 
 `String` module matches that structure, so we could
-directly pass `String` as a parameter to `Set.Make`. Incidentally, many
+directly pass `String` as an argument to `Set.Make`. Incidentally, many
 other modules also have that structure, including `Int` and `Float`,
 so they too can be directly passed into `Set.Make` in order to construct a
 set of integers or a set of floating point numbers.
 
-For our use case, we still want our elements to be a string, but
-we want to change the comparison function to ignore the case of the
-strings. We can accomplish this by directly passing in a literal struct
-to the `Set.Make` function:
+The `StringSet` module we created uses the built-in `compare` function provided by the `String` module.
 
-```ocamltop
-module CISS = Set.Make(struct
+Let's say we want to create a set of strings that performs a case-insensitive
+comparison instead of the case-sensitive comparison provided by `String.compare`.
+
+We can accomplish this by passing an ad-hoc module to the `Set.Make` function:
+
+```ocaml
+# module CISS = Set.Make(struct
   type t = string
   let compare a b = compare (String.lowercase_ascii a) (String.lowercase_ascii b)
 end);;
 ```
 
-We name the resulting module CISS (short for "Case Insensitive String Set").
-We can now test whether this module has the desired behavior:
+We name the resulting module `CISS` (short for "Case Insensitive String Set").
 
+You can see that this module has the intended behavior:
 
-```ocamltop
-let firstSet = CISS.singleton "hello";;
-let secondSet = CISS.add "HELLO" firstSet;;
-CISS.cardinal firstSet;;
-CISS.cardinal secondSet;;
+```ocaml
+# CISS.singleton "hello" |> CISS.add "HELLO" |> CISS.to_list;;
+- : string list = ["hello"]
 ```
-
-Success! `secondSet` has a cardinality of 1, showing that `"hello"`
-and `"HELLO"` are now considered to be the same element in this set.
-We now have a set of strings whose compare function performs a case
-insensitive comparison.
+The value `"HELLO"` is not added to the set because it is considered equal to the value `"hello"` that is already contained in the set.
 
 Note that this technique can also be used to allow arbitrary types
 to be used as the element type for set, as long as you can define a
 meaningful compare operation:
 
-```ocamltop
-type color = Red | Green | Blue;;
+```ocaml
+# type color = Red | Green | Blue;;
+type color = Red | Green | Blue
 
-module SC = Set.Make(struct
+# module SC = Set.Make(struct
   type t = color
   let compare a b =
     match (a, b) with
@@ -221,37 +235,10 @@ module SC = Set.Make(struct
     | (Blue, Green) -> -1
     | (Blue, Blue) -> 0
 end);;
+...
 ```
 
-## Technical Details
+## Conclusion
 
-### `Set.Make`, Types, and Modules
-
-As mentioned in a previous section, the `Set.Make` function accepts a structure
-with two specific fields, `t` and `compare`. Modules have structure, so
-it's possible (but not guaranteed) for a module to have the structure that
-`Set.Make` expects. On the other hand, types do not have structure, so you
-can never pass a type to the `Set.Make` function. In OCaml, modules start with
-an upper case letter, and types start with a lower case letter. So
-when creating a set of strings, you must use `Set.Make(String)` (passing in
-the module named `String`) and not `Set.Make(string)` (this would be attempting
-to pass in the type named `string`, which will not work).
-
-### Purely Functional Data Structures
-
-The data structure implemented by the `Set` functor is a purely functional one.
-What exactly that means is a big topic in itself (feel free to search for
-"Purely Functional Data Structure" in Google or Wikipedia to learn more). As a
-short oversimplification, this means that all instances of the data structure
-created are immutable. The functions like `add` and `remove` do not
-actually modify the set passed in, but instead they return a new set representing
-the results of having performed the corresponding operation.
-
-### Full API Documentation
-
-This tutorial focused on teaching how to quickly find a function that does what
-you want by looking at the type signature. This is often the quickest and most
-convenient way to discover useful functions. However, sometimes you do want to
-see the formal documentation for the API provided by a module. For sets, refer to [this
-API documentation[(https://ocaml.org/api/Set.Make.html)
+We gave an overview of the `Set` module in OCaml by creating a `StringSet` module using the `Set.Make` functor. Further, we looked at how to create sets based on a custom compare function. For more information, refer to [Set in the Standard Library documentation](https://ocaml.org/api/Set.Make.html)
 
