@@ -705,6 +705,16 @@ val ghorghor_bey : character =
 - : int = 17
 ```
 
+To construct a new record with different fields without typing in the same fields again we can use record update syntax as shown:
+```ocaml
+# let togrev  = { ghorghor_bey with name = "Togrev"; level = 20; armor_class = -6 };;
+val togrev : character =
+  {name = "Togrev"; level = 20; race = "half-ogre"; class_type = Fighter;
+   alignment = (Chaotic, R_Neutral); armor_class = -6}
+```
+
+
+
 Note that records behave like single constructor variants. That allows pattern matching on them.
 ```ocaml
 # match ghorghor_bey with { level; _ } -> level;;
