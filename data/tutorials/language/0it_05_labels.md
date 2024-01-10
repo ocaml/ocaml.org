@@ -59,22 +59,31 @@ Here is how `range` is used:
 
 ## Passing Optional Parameters
 
-Optional arguments are passed using a question mark `?` and can be placed at any position and in any order. 
+Optional arguments are passed using a tilde `~` or a question mark `?`. They can be placed at any position and in any order.
+
 ```ocaml
-# let hello ?(who = "world") who hi = hi ^ " " ^ who;;
-val hello : ?hi:string -> string -> string = <fun>
+# let dummy ?(num = 42) txt = (num, "hello, " ^ txt);;
+val dummy : ?num:int -> string -> int * string = <fun>
+```
 
-# hello "sabine";;
-- : string = "hello sabine!"
+```ocaml
+# dummy "world";;
+- : int * string = (42, "hello, world")
 
-# hello ~hi:"bonjour" "sabine";;
-- : string = "bonjour sabine"
 
-# hello ?hi:(Some "hola") "christine";;
-- : string = "hola christine"
+dummy "world";;
+- : string = "hello, world"
 
-# hello ?hi:None "christine";;
-- : string = "hello christine"
+# dummy "hello" ~who:"sabine";;
+- : string = "bonjour, sabine"
+```
+
+```ocaml
+# dummy "bonjour" ?hi:(Some "hola") "christine";;
+- : string = "bonjour, christine"
+
+# dummy "christine";;
+- : string = "bonjour christine"
 ```
 
 ## Defining Optional Parameters With Default Values
@@ -110,8 +119,9 @@ val range : ?step:int -> int -> int -> int list = <fun>
 
 This is the same as if we had written `?step:(step=1)`.
 
-
 ## Defining Optional Arguments Without Default Values
+
+<!-- TODO: consider list take instead -->
 
 An optional argument can be declared without specifying a default value.
 ```ocaml
@@ -149,10 +159,6 @@ This enables the following usages:
 # sub "immutability";;
 - : string = "immutability"
 ```
-
-Optional arguments can be applied in any order and any position.
-
-
 
 ## Optional Arguments and Partial Application
 
@@ -201,32 +207,33 @@ Most often, what is needed is the latter behaviour, therefore a function's last 
 
 When all parameters of a function need to be optional, a dummy, non-optional and occurring last parameter must be added. The unit value comes in handy for this. This is what is done here.
 ```ocaml
-# let hello ?(who="world") () = "hello " ^ who;;
+# let hello ?(who="world") () = "hello, " ^ who;;
 val hello : ?who:string -> string = <fun>
 
 # hello;;
 - : ?who:string -> unit -> string = <fun>
 
 # hello ();;
-- : string = "hello world"
+- : string = "hello, world"
 
 # hello ~who:"sabine";;
 - : unit -> string = <fun>
 
 # hello ~who:"sabine" ();;
-- : string = "hello sabine"
+- : string = "hello, sabine"
+
+# hello () ?who:None;;
+- : string = "hello, world"
+
+# hello ?who:(Some "christine") ();;
+- : string = "hello, christine"
 ```
 
 Without this unit parameter, the `optional argument cannot be erased` warning would be emitted.
 
-## Passing an Option Value as an Optional Option Argument
-
-<!-- TODO: pass options with question marks in function calls. Possibly merge or replace with next section -->
-
-
 ## Forwarding an Optional Argument
 
-When defining a function with an optional parameter, it is possible to forward it as an argument to another function without unwrapping its option value. These examples reuse the `sub` function defined in the [Optional Arguments Without Default Values](#optional-arguments-without-default-values) section.
+When defining a function with an optional parameter, the question mark sign `?` allows to forward it to another function without unwrapping. These examples reuse the `sub` function defined in the [Optional Arguments Without Default Values](#optional-arguments-without-default-values) section.
 ```ocaml
 # let prefix ?len s = sub ?len s;;
 val prefix : ?len:int -> string -> string = <fun>
