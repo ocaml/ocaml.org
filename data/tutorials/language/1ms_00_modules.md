@@ -361,6 +361,28 @@ end
 It creates a module `Extlib.List` that has everything the standard `List`
 module has, plus a new `uncons` function. In order to override the default `List` module from another `.ml` file, we merely need to add `open Extlib` at the beginning.
 
+## Stateful Modules
+
+A module may have an internal state. This is the case of the `Random` module of the standard library. The functions `Random.get_state` and `Random.set_state` provide read and write access to the internal state, which is kept abstract.
+```ocaml
+# let s = Random.get_state ();;
+val s : Random.State.t = <abstr>
+
+# Random.bits ();;
+- : int = 89809344
+
+# Random.bits ();;
+- : int = 994326685
+
+# Random.set_state s;;
+- : unit = ()
+
+# Random.bits ();;
+- : int = 89809344
+```
+
+Values returned by `Random.bits` will differ in your setup, but the first and third calls return the same results, showing that the internal state was reset.
+
 ## Conclusion
 
 In OCaml, modules are the basic means of organising software. To sum up, a module is a collection of definitions wrapped under a name. These definitions can be submodules, which allows the creation of hierarchies of modules. Top-level modules must be files and are the units of compilation. Every module has an interface, which is the list of definitions a module exposes. By default, a module's interface exposes all its definitions, but this can be restricted using the interface syntax.

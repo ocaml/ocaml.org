@@ -417,6 +417,86 @@ Run the `dune utop` command. Once inside the toplevel, enter the following comma
 
 Modules `Array` and `List` appear augmented with `Array.scan_left` and `List.scan_left`. For brevity, the output of the first two toplevel commands is not shown here.
 
+## Initialisation of Stateful Modules
+
+Modules can hold a state. Functors can provide a means to initialize stateful modules. As an example of such, here is a possible way to handle random number generation seeds as a state.
+
+**`random.ml`**
+```ocaml
+module type SeedType : sig
+  val v : int array
+end
+
+module type S : sig
+  val reset_state : unit -> unit
+
+  val bits : unit -> int
+  val bits32 : unit -> int32
+  val bits64 : unit -> int64
+  val nativebits : unit -> nativeint
+  val int : int -> int
+  val int32 : int32 -> int32
+  val int64 : int64 -> int64
+  val nativeint : nativeint -> nativeint
+  val full_int : int -> int
+  val float : float -> float
+  val bool : unit -> bool
+
+end
+
+module Make(Seed: SeedType) : S = struct
+  let state = Seed.v |> Random.State.make |> ref
+  let reset_state () = state := Random.State.make Seed.v
+
+  let bits () = Random.State.bits !state
+  let bits32 () = Random.State.bits32 !state
+  let bits64 () = Random.State.bits64 !state
+  let nativebits () = Random.State.nativebits !state
+  let int = Random.State.int !state
+  let int32 = Random.State.int32 !state
+  let int64 = Random.State.int64 !state
+  let nativeint = Random.State.nativeint !state
+  let full_int = Random.State.full_int !state
+  let float = Random.State.float !state
+  let bool () = Random.State.bool !state
+end
+```
+
+Create this file and launch `utop`.
+```ocaml
+# #mod_use "random.ml";;
+
+# module R1 = Random.Make(struct let v = [|0; 1; 2; 3|] end);;
+
+# module R2 = Random.Make(struct let v = [|0; 1; 2; 3|] end);;
+
+# R1.bits ();;
+- : int = 75783189
+
+# R2.bits ();;
+- : int = 75783189
+
+# R1.bits ();;
+- : int = 774473149
+
+# R1.reset_state ();;
+- : unit = ()
+
+# R2.bits ();;
+- : int = 774473149
+
+# R1.bits ();;
+- : int = 75783189
+```
+
+Modules `R1` and `R2` are created with the same state, therefore, the first calls to `R1.bits` and `R2.bits` return the same value.
+
+The second call to `R1.bits` moves `R1`'s state one step and returns the corresponding bits. The call to `R1.reset_state` sets the `R1`'s state to its initial value.
+
+Calling `R2.bits` a second time shows the modules aren't sharing the state, otherwise, the value from the first calls to `bits` would have been returned.
+
+Calling `R1.bits` a third time returns the same result as the first call, which demonstrates the state has indeed been reset.
+
 ## Conclusion
 
 Functors are pretty unique to the ML family of programming languages. They provide a means to pass definitions inside a module. The same behaviour can be achieved with high-order parameters. However, functors allow passing several definitions at once, which is more convenient.
