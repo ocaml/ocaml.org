@@ -705,7 +705,7 @@ val ghorghor_bey : character =
 - : int = 17
 ```
 
-To construct a new record with different fields without typing in the same fields again we can use record update syntax as shown:
+To construct a new record with some field values changed without typing in the unchanged fields we can use record update syntax as shown:
 ```ocaml
 # let togrev  = { ghorghor_bey with name = "Togrev"; level = 20; armor_class = -6 };;
 val togrev : character =
