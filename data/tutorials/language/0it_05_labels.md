@@ -135,7 +135,7 @@ val range : ?step:int -> int -> int -> int list = <fun>
 
 This is the same as if we had written `?step:(step=1)`.
 
-## Defining Optional Parameter Without Default Values
+## Defining Optional Parameters Without Default Values
 
 <!-- TODO: consider list take instead -->
 
@@ -228,7 +228,7 @@ Most often, what is needed is the second version. Therefore a function's last de
 
 ## Function with Only Optional Arguments
 
-When all parameters of a function need to be optional, a dummy, positional and occurring last parameter must be added. The unit value comes in handy for this. This is what is done here.
+When all parameters of a function need to be optional, a dummy, positional and occurring last parameter must be added. The unit `()` value comes in handy for this. This is what is done here.
 ```ocaml
 # let hello ?(who="world") () = "hello, " ^ who;;
 val hello : ?who:string -> string = <fun>
@@ -252,28 +252,28 @@ val hello : ?who:string -> string = <fun>
 - : string = "hello, christine"
 ```
 
-Without this unit parameter, the `optional argument cannot be erased` warning would be emitted.
+Without the unit parameter, the `optional argument cannot be erased` warning would be emitted.
 
 ## Forwarding an Optional Argument
 
 Passing an optional argument with a question mark sign `?` allows forwarding it without unwrapping. These examples reuse the `sub` function defined in the [Optional Arguments Without Default Values](#optional-arguments-without-default-values) section.
 ```ocaml
-# let prefix ?len s = sub ?len s;;
-val prefix : ?len:int -> string -> string = <fun>
+# let take ?len s = sub ?len s;;
+val take : ?len:int -> string -> string = <fun>
 
-# prefix "immutability" ~len:2;;
+# take "immutability" ~len:2;;
 - : string = "im"
 
-# let postfix ?off s = sub ?pos:off s;;
-val postfix : ?off:int -> string -> string = <fun>
+# let rtake ?off s = sub ?pos:off s;;
+val rtake : ?off:int -> string -> string = <fun>
 
-# postfix "immutability" ~off:7;;
+# rtake "immutability" ~off:7;;
 - : string = "ility"
 ```
 
-In the definitions of `prefix` and `postfix`, the function `sub` is called with optional arguments prefixed with question marks.
+In the definitions of `take` and `rtake`, the function `sub` is called with optional arguments takeed with question marks.
 
-In `prefix` the optional argument has the same name as in `sub`, writing `?len` is sufficient to forward without unwrapping.
+In `take` the optional argument has the same name as in `sub`, writing `?len` is sufficient to forward without unwrapping.
 
 ## Conclusion
 
