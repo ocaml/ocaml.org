@@ -21,8 +21,6 @@ This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have
 This section details the structure of an almost-minimum Dune project setup. Check [Your First OCaml Program](/docs/your-first-program) for automatic setup using the `dune init proj` command.
 ```shell
 $ mkdir mixtli; cd mixtli
-
-$ touch mixtli.opam
 ```
 
 In this directory, create four more files: `dune-project`, `dune`, `cloud.ml`, and `wmo.ml`:
@@ -30,9 +28,10 @@ In this directory, create four more files: `dune-project`, `dune`, `cloud.ml`, a
 **`dune-project`**
 ```lisp
 (lang dune 3.7)
+(package (name wmo-clouds))
 ```
 
-This file contains the global project configuration. It's kept to the bare minimum, including the `lang dune` stanza that specifies the required Dune version.
+This file contains the global project configuration. It's kept almost to the minimum, including the `lang dune` stanza that specifies the required Dune version and the `package` stanza that makes this tutorial simpler.
 
 **`dune`**
 ```lisp
@@ -75,7 +74,6 @@ Here is the folder contents:
 ```shell
 $ tree
 .
-├── mixtli.opam
 ├── dune
 ├── dune-project
 ├── cloud.ml
@@ -95,6 +93,7 @@ Here are the different names:
 * `nube` is the executable command's name (it means *cloud* in Spanish).
 * `Cloud` is the name of the module associated with the file `cloud.ml`.
 * `Wmo` is the name of the module associated with the file `wmo.ml`.
+* `wmo-clouds` is the name of the package built by this project.
 
 The `dune describe` command allows having a look at the project's module structure. Here is its output:
 ```lisp
@@ -121,7 +120,9 @@ The `dune describe` command allows having a look at the project's module structu
 ## Libraries
 
 <!--This contrasts with the `struct ... end` syntax where modules are aggregated top-down by nesting submodules into container modules. -->
-In OCaml, a library is a collection of modules. By default, when Dune builds a library, it wraps the bundled modules into a module. Dune creates libraries from folders. Let's look at an example, here the folder is `lib`:
+In OCaml, a library is a collection of modules. By default, when Dune builds a library, it wraps the bundled modules into a module. This allows having several modules with the same name, inside different libraries, in the same project. That feature is known as [_namespaces_](https://en.wikipedia.org/wiki/Namespace) for module names. This is similar to what module do for definitions, they avoid name clashes.
+
+Dune creates libraries from folders. Let's look at an example, here the folder is `lib`:
 ```shell
 $ mkdir lib
 ```

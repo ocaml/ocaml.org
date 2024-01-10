@@ -17,16 +17,15 @@ As suggested by the name, a _functor_ is almost like a function. However, while 
 
 ## Project Setup
 
-This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have installed version 3.7 or later. We start by creating a fresh project. We need a folder named `funkt` with files `dune-project`, `dune`, `funkt.opam`, and `funkt.ml`. The latter two are created empty.
+This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have installed version 3.7 or later. We start by creating a fresh project. We need a folder named `funkt` with files `dune-project`, `dune`, and `funkt.ml`. The latter two are created empty.
 ```shell
 $ mkdir funkt; cd funkt
-
-$ touch funkt.opam funkt.ml
 ```
 
 **`dune-project`**
 ```lisp
 (lang dune 3.7)
+(package (name funkt))
 ```
 
 **`dune`**
