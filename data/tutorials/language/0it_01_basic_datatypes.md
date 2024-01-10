@@ -713,8 +713,6 @@ val togrev : character =
    alignment = (Chaotic, R_Neutral); armor_class = -6}
 ```
 
-
-
 Note that records behave like single constructor variants. That allows pattern matching on them.
 ```ocaml
 # match ghorghor_bey with { level; _ } -> level;;
