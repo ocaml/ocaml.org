@@ -178,7 +178,7 @@ let ic = In_channel.open_text "file.txt"
 The function`In_channel.open_text` is used to create an `in_channel` for
 reading.
 
-Here, the file `"file.txt"` is opened for reading and the returned `in_channel`
+Here, the file `"file.txt"` is opened for reading, and the returned `in_channel`
 is stored in the variable `ic`.
 
 **Step 2: Read from the Channel**
@@ -188,8 +188,8 @@ let content = In_channel.input_all ic
 ```
 
 Next, we read from the `in_channel` using the function `In_channel.input_all`.
-This function takes the `in_channel` as a parameter and reads the entire content
-of the channel. Then it stores the read content in the variable `content`.
+This function takes the `in_channel` as a parameter and reads the channel's entire content.
+Then it stores the read content in the variable `content`.
 
 **Step 3: Close the Channel**
 
@@ -307,8 +307,8 @@ accordingly.
 
 ### Changing File Permissions
 
-OCaml's `Unix` module provides a `chmod` function to change the permissions of a
-file. The function takes a filename and the new permissions (in Unix-style octal
+OCaml's `Unix` module provides a `chmod` function to change a file's permissions.
+The function takes a filename and the new permissions (in Unix-style octal
 format) as arguments.
 
 ```ocaml
@@ -320,7 +320,7 @@ and read-only for the group and others.
 
 ### Getting File Size
 
-The `Unix.stat` function can be used to get the size of a file. This function
+The `Unix.stat` function can be used to get a file's size. This function
 returns a record with various file attributes, including its size.
 
 ```ocaml
@@ -365,7 +365,7 @@ paths.
 
 As with any operation involving I/O, file operations in OCaml can fail for a
 variety of reasons, such as when a file does not exist, a directory cannot be
-created due to insufficient permissions, or a disk is full. Handling such errors
+created due to insufficient permissions, or when a disk is full. Handling such errors
 is crucial to writing robust and resilient programs. This section will cover
 some common error handling techniques in OCaml for file manipulation tasks.
 General purpose error handling in OCaml is also addressed in a
@@ -374,7 +374,7 @@ General purpose error handling in OCaml is also addressed in a
 ### Catching Exceptions
 
 In OCaml, many of the file and directory operations can raise an exception when
-they encounter an error. For example, trying to open a non-existent file with
+they encounter an error. For example, trying to open a nonexistent file with
 `In_channel.open_text` will raise a `Sys_error` exception. Therefore, it's a
 good practice to catch these exceptions and handle them accordingly.
 
@@ -477,7 +477,7 @@ let read_from_file filename =
 ### Avoiding Namespace Conflicts with the Unix Module
 
 The OCaml `Unix` module and the `Stdlib` module both provide access to standard
-file descriptors with the same names like `stdin`, `stdout`, and `stderr`
+file descriptors with the same names like `stdin`, `stdout`, and `stderr`,
 leading to type errors. You can fully qualify the `Stdlib` module channels or
 open the `Stdlib` module and use the unqualified names.
 
@@ -498,7 +498,7 @@ let () =
   close_out oc
 ```
 
-### Be Aware of File Truncation with `open_out` and `open_out_bin`
+### Be Aware of File Truncation With `open_out` and `open_out_bin`
 
 The `open_out` and `open_out_bin` functions replace any existing file content
 with new data. Use `open_out_gen` instead if you want to preserve the existing
@@ -541,8 +541,8 @@ Below, we'll break down each open flag and its usage:
   reading from the file is not allowed.
 - `Open_append`: When this flag is set, the system will always write at the end
   of the file, appending new content instead of overwriting existing content.
-- `Open_creat`: create the file if it does not already exist
-- `Open_trunc`: clear any existing content in the file
+- `Open_creat`: creates the file if it does not already exist
+- `Open_trunc`: clears any existing content in the file
 - `Open_excl`: used with `Open_creat` to ensure a new file is created. If a file
   with the same name already exists, opening the file will fail.
 - `Open_binary`: opens the file in binary mode, which allows binary data to be
