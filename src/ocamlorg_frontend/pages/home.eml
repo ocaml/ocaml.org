@@ -478,7 +478,7 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-legacy-default dark:bg-legacy-dark-default pt-20 lg:py-20 overflow-hidden">
+<div class="bg-legacy-default dark:bg-legacy-dark-default py-20 overflow-hidden">
   <div class="container-fluid">
     <div class="grid grid-cols-1 lg:grid-cols-2 items-center">
       <div class="space-y-8">
