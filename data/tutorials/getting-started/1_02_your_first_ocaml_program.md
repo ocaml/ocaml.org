@@ -201,10 +201,12 @@ This is because we haven't changed `lib/hello.mli`. Since it does not list `mund
 
 OCaml has an active community of open-source contributors. Most projects are available using the opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows you how to install and use a package from opam's open-source repository.
 
-To illustrate this, let's turn our `hello` project into a web server using [Anton Bachin](https://github.com/aantron)'s [Dream](https://aantron.github.io/dream/) web framework. First install the `dream` package with this command:
+To illustrate this, let's turn our `hello` project into a web server using [Anton Bachin](https://github.com/aantron)'s [Dream](https://aantron.github.io/dream/) web framework. First, update the package list for Opam, by running `opam update`. Then, install the `dream` package with this command:
 ```shell
 $ opam install dream
 ```
+
+This tutorial requires at least version `1.0.0~alpha5` of Dream. You can verify that you have a new enough version of Dream by running `opam show -f version dream`.
 
 Next, run the Dream web server in the `bin/main.ml` file by changing the code to read:
 ```ocaml
