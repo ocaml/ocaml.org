@@ -45,7 +45,6 @@ We start by setting up a traditional “Hello World!” project using Dune. Make
 
 ```shell
 $ opam exec -- dune init proj hello
-Entering directory '/home/ocaml.org/hello'
 Success: initialized project component named hello
 ```
 
@@ -88,13 +87,11 @@ Each folder containing source files that need to be built must contain a `dune` 
 This builds the project:
 ```shell
 $ opam exec -- dune build
-Entering directory '/home/ocaml.org'
 ```
 
 This launches the executable it creates:
 ```shell
 $ opam exec -- dune exec hello
-Entering directory '/home/ocaml.org'
 Hello, World!
 ```
 
@@ -143,7 +140,6 @@ Here is a new version of the `bin/main.ml` file:
 Now execute the resulting project:
  ```shell
  $ opam exec -- dune exec hello
-Entering directory '/home/ocaml.org'
 Hello from a module
 ```
 
@@ -188,7 +184,6 @@ let () = Printf.printf "%s\n" Hello.mundo
 Trying to compile this fails.
 ```shell
 $ opam exec -- dune build
-Entering directory '/home/ocaml.org'
 File "hello/bin/main.ml", line 1, characters 30-41:
 1 | let () = Printf.printf "%s\n" Hello.mundo
                                   ^^^^^^^^^^^
@@ -302,7 +297,6 @@ let () = print_endline Hello.(string_of_string_list world)
 Here is the result:
 ```shell
 dune exec hello
-Entering directory '/home/ocaml.org'
 Done: 90% (19/21, 2 left) (jobs: 1)["Hello"; "using"; "an"; "opam"; "library"]
 ```
 
@@ -352,7 +346,6 @@ let () = print_endline "My name is Minimo"
 That's all! This is sufficient for Dune to build and execute the `minimo.ml` file.
 ```shell
 $ opam exec -- dune exec ./minimo.exe
-Entering directory '/home/ocaml.org'
 My name is Minimo
 ```
 
