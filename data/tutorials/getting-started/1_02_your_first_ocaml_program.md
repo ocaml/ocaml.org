@@ -49,7 +49,7 @@ Entering directory '/home/ocaml.org/hello'
 Success: initialized project component named hello
 ```
 
-**Note**: If you have used `eval $(opam env)`, or have answered yes to the question when you ran `opam init`, you can omit `opam exec --`.
+**Note**: If you have used `eval $(opam env)`, or if you answered yes to the question that was asked when you ran `opam init`, you can omit `opam exec --`.
 
 **Note**: Throughout this tutorial, outputs generated Dune might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam update; opam upgrade dune` in a terminal.
 
@@ -121,10 +121,10 @@ Let's summarise what was said about modules in the [Tour of OCaml](/docs/tour-of
 
 Modules aid in organising projects; concerns can be separated into isolated modules. This is outlined in the next section. Before creating a module ourselves, we'll demonstrate using a definition from a module of the standard library. Change the content of the file `bin/main.ml` to this:
 ```ocaml
-let () = Printf.printf "%s!\n" "Hello, World!"
+let () = Printf.printf "%s\n" "Hello, World!"
 ```
 
-This replaces the function `print_endline` with the function `printf` from the `Printf` module in the standard library. Building and executing this modified version should produce almost the same output as before. Use `dune exec hello` to try it for yourself.
+This replaces the function `print_endline` with the function `printf` from the `Printf` module in the standard library. Building and executing this modified version should produce the same output as before. Use `dune exec hello` to try it for yourself.
 
 ## Every File Defines a Module
 
@@ -169,7 +169,7 @@ UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libra
 val world : string
 ```
 
-Observe that only the list of declarations of the module signature (which is between `sig` and `end`) has been written in the interface file `lib/hello.mli`. This is explained in more detail in the tutorial dedicated to [modules](/docs/modules).
+Observe that only the list of declarations of the module signature (which is between `sig` and `end` in the output from `#show`) has been written in the interface file `lib/hello.mli`. This is explained in more detail in the tutorial dedicated to [modules](/docs/modules).
 
 Module interfaces are also used to create _private_ definitions. A module definition is private if it is not listed in its corresponding module interface. If no module interface file exists, everything is public.
 
@@ -230,7 +230,7 @@ In summary, this is telling: “run a web server responding with the content of 
 The `Dream.(` syntax stands for locally opening a module inside an expression.
 -->
 
-You need to tell Dune it needs Dream to compile the project. Do this by adding the last line below. This puts `dream` in the `library` stanza of the `bin/dune` file.
+You need to tell Dune it needs Dream to compile the project. Do this by adding `dream` to the `library` stanza of the `bin/dune` file. The full `bin/dune` file should then match the following.
 ```lisp
 (executable
  (public_name hello)
@@ -260,7 +260,7 @@ Let's assume we'd like `hello` to display its output as if it was a list of stri
 $ opam install ppx_show
 ```
 
-Dune needs to be explained how to use it, so edit the `lib/dune` file to look like this:
+Dune needs to be told how to use it, which is done in `lib/dune` file. Note that this is different from the `bin/dune` that you edited earlier! Open up the `lib/dune` file, and edit it to look like this:
 ```lisp
 (library
  (name hello)
@@ -301,9 +301,9 @@ let () = print_endline Hello.(string_of_string_list world)
 
 Here is the result:
 ```shell
-dune exec hello
+opam exec -- dune exec hello
 Entering directory '/home/ocaml.org'
-Done: 90% (19/21, 2 left) (jobs: 1)["Hello"; "using"; "an"; "opam"; "library"]
+["Hello"; "using"; "an"; "opam"; "library"]
 ```
 
 ## A Sneak-Peek at Dune as a One-Stop Shop
