@@ -494,8 +494,6 @@ Layout.render
           <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
       </div>
-      <div class="m-auto">
-        <img src="<%s Ocamlorg_static.Asset.url "img/home/packages-home.png" %>" width="1047" class="max-w-none -mb-72 h-auto" alt="">
       </div>
     </div>
   </div>
