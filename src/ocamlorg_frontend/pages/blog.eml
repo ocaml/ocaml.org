@@ -49,7 +49,7 @@ Layout.render
                                 <%s Option.value ~default:"" item.description %>
                             </a>
                             <div class="text-legacy-lighter flex space-x-2.5 text-sm">
-                                <div><%s Utils.human_time item.date %></div>
+                                <div><%s Utils.human_time item.date %> - <%s item.source.name %></div>
                             </div>
                         </div>
                         <% (match item.preview_image with | None -> %> 
