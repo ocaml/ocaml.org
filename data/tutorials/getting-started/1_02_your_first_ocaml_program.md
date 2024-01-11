@@ -49,7 +49,7 @@ Entering directory '/home/ocaml.org/hello'
 Success: initialized project component named hello
 ```
 
-**Note**: If you have used `eval $(opam env)`, or if you answered yes to the question that was asked when you ran `opam init`, you can omit `opam exec --`.
+**Note**: If you have run `eval $(opam env)` at the start of your current terminal session, or if you answered yes to the question that was asked when you ran `opam init`, you can omit `opam exec --` from the start of `dune` commands.
 
 **Note**: Throughout this tutorial, outputs generated Dune might vary slightly because of the Dune version installed. This tutorial shows the output for Dune 3.7. If you'd like to get the most recent version of Dune, run `opam update; opam upgrade dune` in a terminal.
 
@@ -260,7 +260,7 @@ Let's assume we'd like `hello` to display its output as if it was a list of stri
 $ opam install ppx_show
 ```
 
-Dune needs to be told how to use it, which is done in `lib/dune` file. Note that this is different from the `bin/dune` that you edited earlier! Open up the `lib/dune` file, and edit it to look like this:
+Dune needs to be told how to use it, which is done in the `lib/dune` file. Note that this is different from the `bin/dune` that you edited earlier! Open up the `lib/dune` file, and edit it to look like this:
 ```lisp
 (library
  (name hello)
