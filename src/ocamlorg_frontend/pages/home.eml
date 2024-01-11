@@ -494,7 +494,6 @@ Layout.render
           <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
       </div>
-      </div>
     </div>
   </div>
 </div>
