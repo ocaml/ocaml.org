@@ -8,7 +8,7 @@ Learn_layout.single_column_layout
 ~canonical:Url.learn
 ~active_top_nav_item:Header.Learn
 ~current:Overview @@
-  <div class="w-full border-b bg-[#DDEAFC] dark:bg-[#101B3F] dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/learn/hero-background.svg')] dark:md:bg-[url('/img/learn/hero-background-dark.svg')]">
+  <div class="w-full border-b bg-[#DDEAFC] dark:bg-[#101B3F] md:bg-transparent dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/learn/hero-background.svg')] dark:md:bg-[url('/img/learn/hero-background-dark.svg')]">
     <div class="container-fluid py-10 md:py-24 md:flex md:gap-20 bg-left-bottom bg-no-repeat md:bg-[url('/img/learn/hero-camel.svg')] dark:md:bg-[url('/img/learn/dark-hero-camel.svg')]">
       <div class="md:flex-grow">
         <h1 class="text-title dark:text-dark-title tracking-wider">Explore the OCaml Documentation</h1>

@@ -121,13 +121,13 @@ in
       </li>
       <li>
         <div class="space-x-6 text-2xl flex items-center">
-          <a aria-label="OCaml's Discord" href="https://discord.gg/cCYQbqN" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-tertiary_25 dark:hover:text-dark-primary">
+          <a aria-label="OCaml's Discord" href="https://discord.gg/cCYQbqN" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary">
             <%s! Icons.discord "w-6 h-6" %>
           </a>
-          <a aria-label="The OCaml Compiler on GitHub" href="https://github.com/ocaml/ocaml" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-tertiary_25 dark:hover:text-dark-primary">
+          <a aria-label="The OCaml Compiler on GitHub" href="https://github.com/ocaml/ocaml" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary">
             <%s! Icons.github "w-6 h-6" %>
           </a>
-          <a aria-label="The OCaml Language Twitter Account" href="https://twitter.com/ocamllang" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-tertiary_25 dark:hover:text-dark-primary">
+          <a aria-label="The OCaml Language Twitter Account" href="https://twitter.com/ocamllang" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary">
             <%s! Icons.twitter "w-6 h-6" %>
           </a>
         </div>
