@@ -314,7 +314,7 @@ module Make(Dep: Iterable) : S with type 'a t := 'a Dep.t = struct
 end
 ```
 
-The module `IterPrint` is refactored into a functor that takes as a parameter a module providing the function `iter`. The `with type 'a t := 'a Dep.t` constraint means the type `t` from the parameter `Dep` replaces the type `t` in the result module. This allows the type of `f` to use the type `t` from the parameter module `Dep`. With this refactoring, `IterPrint` only has one dependency; at the time it is compiled, no implementation of function `iter` is available yet.
+The module `IterPrint` is refactored into a functor that takes a module providing the function `iter` as a parameter. The `with type 'a t := 'a Dep.t` constraint means the type `t` from the parameter `Dep` replaces the type `t` in the result module. This allows the type of `f` to use the type `t` from the parameter module `Dep`. With this refactoring, `IterPrint` only has one dependency. At the time it is compiled, no implementation of function `iter` is available yet.
 
 **Note**: An OCaml interface file must be a module, not a functor. Functors must be embedded inside modules. Therefore, it is customary to call them `Make`.
 
