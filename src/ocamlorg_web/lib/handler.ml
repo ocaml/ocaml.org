@@ -637,7 +637,26 @@ let packages_search t req =
     Dream.from_percent_encoded
       (match Dream.query req "q" with Some search -> search | None -> "")
   in
-  let results = List.map (Package_helper.frontend_package t) current_items in
+
+  let open Lwt.Infix in
+  let documentation_status (pkg : Ocamlorg_package.t) =
+    Ocamlorg_package.documentation_status ~kind:`Package pkg
+    >|= fun package_documentation_status ->
+    match package_documentation_status with
+    | Some { failed = false; _ } -> Ocamlorg_frontend.Package.Success
+    | Some { failed = true; _ } -> Failure
+    | None -> Unknown
+  in
+
+  let open Lwt.Syntax in
+  let* results =
+    Lwt_list.map_p
+      (fun pkg ->
+        documentation_status pkg >|= fun doc_status ->
+        (Package_helper.frontend_package t pkg, doc_status))
+      current_items
+  in
+
   Dream.html
     (Ocamlorg_frontend.packages_search ~total ~search ~page ~number_of_pages
        results)

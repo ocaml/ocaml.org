@@ -1,4 +1,4 @@
-let render ~total ~search ~page ~number_of_pages (packages : Package.package list) = Layout.render ~title:"OCaml Packages · Search Result"
+let render ~total ~search ~page ~number_of_pages (packages : (Package.package * Package.documentation_status) list) = Layout.render ~title:"OCaml Packages · Search Result"
 ~description:"Find the package you need to build your application in the thousands of available OCaml packages."
 ~canonical:(Url.packages_search ^ "?q=" ^ search)
 ~active_top_nav_item:Header.Packages @@
@@ -46,7 +46,8 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
             Showing <%i ((page - 1) * 50 + 1) %> - <%i (min (page * 50) total) %>
           </div>
         <ol class="flex flex-col">
-          <% packages |> List.iter (fun (package : Package.package) -> %>
+          <% packages |> List.iter (fun ((package : Package.package), (
+    doc_status : Package.documentation_status )) -> %>
           <li class="border-gray-200 border-b py-3 space-y-2">
             <div class="flex">
               <a
@@ -56,13 +57,17 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
                 <%s package.name %>
               </a>
               <div class="flex gap-4 justify-end items-center">
-              <a
-                href="<%s Url.Package.documentation package.name %>"
-                class="text-primary flex gap-1 text-sm items-center"
-              >
-                <%s! Icons.documentation "h-5 w-5" %>
-                Documentation
-              </a>
+                <% (match doc_status with | Package.Success -> %>
+                  <a
+                    href="<%s Url.Package.documentation package.name %>"
+                    class="text-primary flex gap-1 text-sm items-center"
+                  >
+                    <%s! Icons.documentation "h-5 w-5" %>
+                    Documentation
+                  </a>
+                <% | _ -> %>
+                  <p class="text-primary text-sm"> No Documentation Available </p>
+                <% ); %>
               </div>
             </div>
 
