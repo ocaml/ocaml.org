@@ -37,10 +37,24 @@ let render_related_exercises exercises =
   else
     ""
 
+let render_recommended_next_tutorials tutorials =
+  if List.length tutorials > 0 then
+    <div class='related-exercises'>
+      <h3>Recommended next tutorials:</h3>
+      <ul>
+        <% tutorials |> List.iter (fun (tutorial : Data.Tutorial.t) -> %>
+          <li><a href='/docs/<%s tutorial.slug %>'><%s tutorial.title %></a></li>
+        <% ); %>
+      </ul>
+    </div>
+  else
+    ""
+
 let render
 (tutorial : Data.Tutorial.t)
 ~tutorials
 ~related_exercises
+~recommended_next_tutorials
 ~canonical
 =
 let href, description = match tutorial.external_tutorial with
@@ -70,5 +84,6 @@ Learn_layout.three_column_layout
     <%s! render_external_tutorial_banner tutorial.external_tutorial %>
     <%s! tutorial.body_html %>
     <%s! render_related_exercises related_exercises %>
+    <%s! render_recommended_next_tutorials recommended_next_tutorials %>
     <%s! Learn_components.contribute_footer ~href ~description %>
   </div>

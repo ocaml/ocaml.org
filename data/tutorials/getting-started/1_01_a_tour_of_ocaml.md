@@ -4,6 +4,13 @@ title: A Tour of OCaml
 description: >
   Hop on the OCaml sightseeing bus. This absolute beginner tutorial will drive you through the marvels and wonders of OCaml. We'll have a look at the most commonly used language features.
 category: "First Steps"
+recommended_next_tutorials: 
+  [
+    "values-and-functions",
+    "basic-data-types",
+    "if-statements-and-loops",
+    "lists"
+  ]
 ---
 
 # A Tour of OCaml
@@ -745,10 +752,3 @@ Module also allows efficient separated compilation. This is illustrated in the n
 -->
 
 In this tutorial, OCaml was used interactively. The next tutorial, [Your First OCaml Program](/docs/your-first-program), shows you how to write OCaml files, how to compile them, and how to kickstart a project.
-
-Other recommended tutorials:
-
-1. [Values and Functions](/docs/values-and-functions)
-1. [Basic Data Types and Pattern Matching](/docs/basic-data-types)
-1. [If Statements and Recursions](/docs/if-statements-and-loops)
-1. [Lists](/docs/lists)
