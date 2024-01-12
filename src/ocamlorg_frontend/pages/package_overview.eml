@@ -56,7 +56,14 @@ in
 
   <%s! Copy_to_clipboard_snippet.render ~id:"install-package" ~class_:"whitespace-nowrap" ("opam install " ^ package.name ^ "." ^ specific_version) %>
 
-  <div class="flex flex-col mt-8 text-sm text-legacy-lighter">
+  <h2 class="inline-flex items-center text-lg font-medium text-legacy-default mt-8">
+      <%s! Icons.command_line "mr-4 h-6 w-6 text-primary" %>
+      Dune Dependency
+  </h2>
+
+  <%s! Copy_to_clipboard_snippet.render ~id:"dune-dependency-package" ~class_:"whitespace-nowrap" (" (" ^ package.name ^ " (= " ^ specific_version ^ "))" ) %>
+
+  <div class="flex flex-col mt-8 text-sm text-lighter">
       <% package.homepages |> List.iter (fun homepage -> %>
       <%s! side_box_link ~icon_html:(Icons.package_homepage "h-4 w-4 mr-2 inline-block") ~href:homepage ~title:(Utils.host_of_uri homepage) %>
       <% ); %>
