@@ -257,7 +257,7 @@ Let's assume we'd like `hello` to display its output as if it was a list of stri
 $ opam install ppx_show
 ```
 
-Dune needs to be told how to use it, which is done in the `lib/dune` file. Note that this is different from the `bin/dune` that you edited earlier! Open up the `lib/dune` file, and edit it to look like this:
+Dune needs to be told how to use it, which is done in the `lib/dune` file. Note that this is different from the `bin/dune` file that you edited earlier! Open up the `lib/dune` file, and edit it to look like this:
 ```lisp
 (library
  (name hello)
