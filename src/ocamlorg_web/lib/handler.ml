@@ -670,12 +670,31 @@ let packages_autocomplete_fragment t req =
         Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true t
           search
       in
-      let results = List.map (Package_helper.frontend_package t) packages in
-      let top_5 = results |> List.take 5 in
+
+      let open Lwt.Syntax in
+      let documentation_status (pkg : Ocamlorg_package.t) =
+        let* package_documentation_status =
+          Ocamlorg_package.documentation_status ~kind:`Package pkg
+        in
+        Lwt.return
+          (match package_documentation_status with
+          | Some { failed = false; _ } -> Ocamlorg_frontend.Package.Success
+          | Some { failed = true; _ } -> Failure
+          | None -> Unknown)
+      in
+
+      let* top_5 =
+        packages |> List.take 5
+        |> Lwt_list.map_p (fun pkg ->
+               let+ doc_status = documentation_status pkg in
+               (Package_helper.frontend_package t pkg, doc_status))
+      in
+
       let search = Dream.from_percent_encoded search in
+
       Dream.html
         (Ocamlorg_frontend.packages_autocomplete_fragment ~search
-           ~total:(List.length results) top_5)
+           ~total:(List.length packages) top_5)
   | _ -> Dream.html ""
 
 let package_overview t kind req =
