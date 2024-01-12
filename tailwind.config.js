@@ -45,6 +45,7 @@ const figma_colors = {
       content: "#FFFFFF99",
       card_hover: "#2B2A2A",
       card: "#1C1C1C",
+      white:"#FFFFFF",
 
       separator_30: "#FFFFFF4D",
       background: "#121212", 
@@ -116,6 +117,12 @@ module.exports = {
             },
             a: {
               color: theme('colors.dark.primary'),
+            },
+            'a > span': {
+              color: theme('colors.dark.white'),
+            },
+            'a:hover > span': {
+              textDecoration: 'underline'
             },
             h1: {
               color: theme('colors.dark.title'),
