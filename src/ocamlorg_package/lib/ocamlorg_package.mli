@@ -169,7 +169,7 @@ val get_by_name : state -> Name.t -> t list option
 
 type version_with_publication_date = {
   version : Version.t;
-  publication: float;
+  publication : float;
 }
 
 val get_versions : state -> Name.t -> version_with_publication_date list

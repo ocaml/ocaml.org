@@ -471,7 +471,12 @@ module Package_helper = struct
   (** Query all the versions of a package. *)
   let versions state name =
     Ocamlorg_package.get_versions state name
-    |> List.map (fun (v: Ocamlorg_package.version_with_publication_date) -> Ocamlorg_frontend.Package.{version = Ocamlorg_package.Version.to_string v.version; publication = v.publication})
+    |> List.map (fun (v : Ocamlorg_package.version_with_publication_date) ->
+           Ocamlorg_frontend.Package.
+             {
+               version = Ocamlorg_package.Version.to_string v.version;
+               publication = v.publication;
+             })
 
   let frontend_package ?on_latest_url state (package : Ocamlorg_package.t) :
       Ocamlorg_frontend.Package.package =

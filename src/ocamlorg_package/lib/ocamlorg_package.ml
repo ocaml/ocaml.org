@@ -187,12 +187,15 @@ let get_by_name t name =
 
 type version_with_publication_date = {
   version : Version.t;
-  publication: float;
+  publication : float;
 }
 
 let get_versions t name =
   t.packages |> Name.Map.find_opt name
-  |> Option.map (fun p -> p |> Version.Map.bindings |> List.map (fun (version, info) -> { version; publication = info.Info.publication}))
+  |> Option.map (fun p ->
+         p |> Version.Map.bindings
+         |> List.map (fun (version, info) ->
+                { version; publication = info.Info.publication }))
   |> Option.value ~default:[]
   |> List.sort (fun v1 v2 -> Version.compare v2.version v1.version)
 
