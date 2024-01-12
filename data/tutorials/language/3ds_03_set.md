@@ -205,5 +205,5 @@ end);;
 
 ## Conclusion
 
-We gave an overview of the `Set` module in OCaml by creating a `StringSet` module using the `Set.Make` functor. Further, we looked at how to create sets based on a custom comparison function. For more information, refer to [Set](https://ocaml.org/api/Set.Make.html) in the Standard Library documentation.
+We gave an overview of the `Set` module in OCaml by creating a `StringSet` module using the `Set.Make` functor. Further, we looked at how to create sets based on a custom comparison function. For more information, refer to [Set](/api/Set.Make.html) in the Standard Library documentation.
 

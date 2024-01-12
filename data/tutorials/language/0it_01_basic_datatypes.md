@@ -842,7 +842,7 @@ Going further, you can explore several advanced topics related to OCaml's data t
 - Extensible Variants
 - [Generalised Algebraic Data Types](https://en.wikipedia.org/wiki/Generalized_algebraic_data_type)
 
-As of writing this, these topics will be covered in forthcoming tutorials. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml.
+As of writing this, these topics will be covered in forthcoming tutorials. Documentation on them is available in the OCaml [Language Manual](/manual/index.html) and in the [books](https://ocaml.org/books) on OCaml.
 
 OCaml aggregates several type systems, also known as disciplines:
 - A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants, and functions. , and it is also the scope of this tutorial.
