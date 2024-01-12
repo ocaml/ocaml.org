@@ -169,8 +169,8 @@ This allows the user to seemingly extend the module `String` with a submodule `S
 ### Functors from the Standard Library
 
 Some ”modules” provide operations over an abstract type and need to be supplied with a parameter module used in their implementation. These “modules” are parametrised, in other words, functors. That's the case for the sets, maps, and hash tables provided by the standard library. It works like a contract between the functor and the developer:
-* If you provide a module that implements what is expected (the parameter interface)
-* The functor returns a module that implements what is promised (the result interface)
+* If you provide a module that implements what is expected, as described the parameter interface
+* The functor returns a module that implements what is promised, as described by the result interface
 
 Here is the module's signature that the functors `Set.Make` and `Map.Make` expect:
 ```ocaml
@@ -518,3 +518,5 @@ Calling `R1.bits` a third time returns the same result as the first call, which 
 Functors are pretty unique to the ML family of programming languages. They provide a means to pass definitions inside a module. The same behaviour can be achieved with high-order parameters. However, functors allow passing several definitions at once, which is more convenient.
 
 Functor application essentially works the same way as function application: passing parameters and getting results. The difference is that we are passing modules instead of values. Beyond comfort, it enables a design approach where concerns are not only separated in silos, which is enabled by modules, but also in stages stacked upon each other.
+
+When several implementations of the same interface are needed at runtime, functors allow sharing of their common parts.
