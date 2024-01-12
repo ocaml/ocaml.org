@@ -25,7 +25,7 @@ let search_input ?button_attrs ?input_attrs ?dropdown_html ~label ~name _class =
 
 let select ~options ?attrs ?selected _class =
     <select
-        class="w-full lg:w-auto appearance-none text-legacy-default border rounded-md py-3 pl-6 border-gray-200 pr-14 h-12 <%s _class %>"
+        class="w-full lg:w-auto appearance-none text-title dark:text-dark-white border rounded-md py-3 pl-6 border-separator_20 dark:border-dark-separator_30 bg-white dark:bg-dark-card pr-14 h-12 <%s _class %>"
         <%s! Option.value ~default:"" attrs %>
         >
         <% options |> List.iter (fun (value, display) -> %>
