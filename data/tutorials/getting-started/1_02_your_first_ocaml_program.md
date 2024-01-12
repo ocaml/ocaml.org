@@ -41,7 +41,7 @@ By default, OCaml comes with two compilers: one translating sources into native 
 
 <!-- Other compilers exist, for instance, [js_of_ocaml](https://ocsigen.org/js_of_ocaml) generates JavaScript. The toplevel uses the bytecode compiler; expressions are read, type-checked, compiled into bytecode, and executed. The previous tutorial was interactive because we used the toplevel. -->
 
-We start by setting up a traditional “Hello World!” project using Dune. Make sure to have installed version 3.12 or later. The following creates a project named `hello`:
+We start by setting up a traditional “Hello, World!” project using Dune. Make sure to have installed version 3.12 or later. The following creates a project named `hello`:
 
 ```shell
 $ opam exec -- dune init proj hello
@@ -134,12 +134,12 @@ let world = "Hello from a module"
 
 Here is a new version of the `bin/main.ml` file:
 ```ocaml
- let () = Printf.printf "%s\n" Hello.world
- ```
+let () = Printf.printf "%s\n" Hello.world
+```
 
 Now execute the resulting project:
- ```shell
- $ opam exec -- dune exec hello
+```shell
+$ opam exec -- dune exec hello
 Hello from a module
 ```
 
@@ -172,7 +172,7 @@ Module interfaces are also used to create _private_ definitions. A module defini
 In your preferred editor, amend the `lib/hello.ml` file to add the `mundo` definition. Replace what's there with the following:
 
 ```ocaml
-let mundo = "Hola Mundo!"
+let mundo = "¡Hola Mundo!"
 let world = mundo
 ```
 
@@ -298,8 +298,7 @@ let () = print_endline Hello.(string_of_string_list world)
 
 Here is the result:
 ```shell
-opam exec -- dune exec hello
-Done: 90% (19/21, 2 left) (jobs: 1)
+$ opam exec -- dune exec hello
 ["Hello"; "using"; "an"; "opam"; "library"]
 ```
 
