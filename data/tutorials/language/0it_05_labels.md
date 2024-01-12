@@ -10,7 +10,7 @@ category: "Introduction"
 
 It is possible to give names and default values to function parameters. This is broadly known as labels. In this tutorial, we learn how to use labels.
 
-Throughout this tutorial, the code is written in UTop. In this document, to distinguish them, parameters that are not labelled are called _positional parameters_.
+Throughout this tutorial, the code is written in UTop. In this document parameters that are not labelled are called _positional parameters_.
 
 **Prerequisites**: [Values and Functions](/docs/values-and-functions)
 
@@ -34,7 +34,7 @@ Labelled arguments are passed using a tilde `~` and can be placed at any positio
 - : int = 42
 ```
 
-## Defining Labelled Parameters
+## Labelling Parameters
 
 Here is how to name parameters in a function definition:
 ```ocaml
@@ -69,9 +69,9 @@ At parameter definition `~first` is the same as `~first:first`. Passing argument
 
 ## Passing Optional Arguments
 
-Optional arguments can be omitted; when passed a tilde `~` or a question mark `?` must be used. They can be placed at any position and in any order. How to define functions with optional parameters will be covered in the next sections.
+Optional arguments can be omitted. When passed, a tilde `~` or a question mark `?` must be used. They can be placed at any position and in any order.
 ```ocaml
-# let sum ?(init = 0) u = List.fold_left ( + ) init;;
+# let sum ?(init=0) u = List.fold_left ( + ) init u;;
 val sum : ?init:int -> int list -> int = <fun>
 
 # sum [0; 1; 2; 3; 4; 5];;
@@ -90,6 +90,18 @@ It is also possible to pass optional arguments as values of type `option`. This 
 - : int = 15
 ```
 
+## Defining Optional Parameters With Default Values
+
+In the previous section, we've defined a function with an optional parameter without explaining how it works. Let's look at a different variant of this function:
+```ocaml
+# let sum ?init:(x=0) u = List.fold_left ( + ) x u;;
+val sum : ?init:int -> int list -> int = <fun>
+```
+
+It behaves the same, but in this case, `?init:(x = 1)` means that `~init` is an optional parameter that defaults to 1. Inside the function, the parameter is named `x`.
+
+The definition in the previous section was using the shortcut that makes `?(init = 0)` the same as that `?init:(init = 0)`.
+
 <!--
 ```ocaml
 # let log ?(base = 10.) x = log10 x /. log10 base;;
@@ -103,37 +115,6 @@ val get_ok : ?exn:('a -> exn) -> ('b, 'a) result -> 'b = <fun>
 # let get_ok ?(exn = fun _ -> Invalid_argument "result is Error _") =
     Result.fold ~ok:Fun.id ~error:(fun e -> raise (exn e))
 -->
-
-## Defining Optional Parameters With Default Values
-
-When defining a function, optional arguments are declared using `?`:
-```ocaml
-# let rec range ?step:(x=1) lo hi =
-    if lo > hi then []
-    else lo :: range ~step:x (lo + x) hi;;
-val range : ?step:int -> int -> int -> int list = <fun>
-```
-
-In this case, `?step:(x=1)` means that `~step` is an optional parameter that defaults to 1. Inside the function, the parameter is named `x`.
-
-Here is how this is used:
-```ocaml
-# range 1 10;;
-- : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
-
-# range 1 10 ~step:2;;
-- : int list = [1; 3; 5; 7; 9]
-```
-
-It is possible to use the same name for the parameter and label name.
-```ocaml
-# let rec range ?(step=1) lo hi =
-  if lo > hi then []
-  else lo :: range ~step (lo + step) hi;;
-val range : ?step:int -> int -> int -> int list = <fun>
-```
-
-This is the same as if we had written `?step:(step=1)`.
 
 ## Defining Optional Parameters Without Default Values
 
@@ -153,7 +134,7 @@ Here, we're defining a variant of the function `String.sub` from the standard li
 * `pos` is the starting position of the substring, it defaults to `0`
 * `len` is the length of the substring. If missing, it defaults to `String.length s - pos`
 
-When an optional parameter isn't given a default value, its type inside the function is made an `option`. Here, `len` appears as an `int` in the type of `sub` but appears as an `int option` inside, it is the type of `len_opt`. It is not possible to specify the default value of `len` when declaring it, therefore it doesn't have a default value.
+When an optional parameter isn't given a default value, its type inside the function is made an `option`. Here, `len` appears as `?len:int` in the function signature. However, inside the body of the function, `len_opt` is an `int option`.
 
 <!-- TODO: consider a simpler example without any logic or exmplain use-case -->
 
@@ -183,7 +164,7 @@ val sub : ?pos:int -> ?len:int -> string -> string = <fun>
 
 ## Optional Arguments and Partial Application
 
-Let's compare two possible variants of the `String.concat` function from the standard library which has type `string -> string list -> string`. Both variants make the separator (the first positional parameter in `String.concat`) an optional parameter with the empty string `""` as the default value. The only difference between the two versions is the order in which the parameters are declared.
+Let's compare two possible variants of the `String.concat` function from the standard library which has type `string -> string list -> string`.
 
 In the first version, the optional separator is the last declared parameter.
 ```ocaml
@@ -218,11 +199,11 @@ t
 - : string = "abc"
 ```
 
-Both functions behave the same, except when only applied to the argument `["a"; "b"; "c"]`. In that case:
+The only difference between the two versions is the order in which the parameters are declared. Both functions behave the same, except when only applied to the argument `["a"; "b"; "c"]`. In that case:
 - `concat` returns `"abc"`, the default value `""` of `~sep` is passed.
 - `concat_warn` returns a partially applied function of type `?sep:string -> string`, the default value is not passed.
 
-Most often, what is needed is the second version. Therefore a function's last declared parameter shouldn't be optional. The warning suggests turning `concat_warn` into `concat`. Disregarding it exposes a function with an optional parameter that must be provided, which is contradictory.
+Most often, what is needed is `concat`. Therefore a function's last declared parameter shouldn't be optional. The warning suggests turning `concat_warn` into `concat`. Disregarding it exposes a function with an optional parameter that must be provided, which is contradictory.
 
 **Note**: Optional parameters make it difficult for the compiler to know if a function is partially applied or not. This is why at least one positional parameter is required after the optional ones. If present at application, it means the function is fully applied, if missing, it means the function is partially applied.
 
@@ -271,10 +252,10 @@ val rtake : ?off:int -> string -> string = <fun>
 - : string = "ility"
 ```
 
-In the definitions of `take` and `rtake`, the function `sub` is called with optional arguments takeed with question marks.
+In the definitions of `take` and `rtake`, the function `sub` is called with optional arguments passed with question marks.
 
-In `take` the optional argument has the same name as in `sub`, writing `?len` is sufficient to forward without unwrapping.
+In `take` the optional argument has the same name as in `sub`; writing `?len` is sufficient to forward without unwrapping.
 
 ## Conclusion
 
-Functions can have named or optional parameters. However, OCaml does not support [variadic](https://en.wikipedia.org/wiki/Variadic_function) functions. Refer to the [reference manual](/htmlman//lablexamples.html) for more examples and details on labels.
+Functions can have named or optional parameters. Refer to the [reference manual](/manual/lablexamples.html) for more examples and details on labels.
