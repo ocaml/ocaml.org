@@ -6,140 +6,204 @@ description: >
 category: "Data Structures"
 ---
 
-# Sets
+# Set
 
-## Module Set
-To make a set of strings:
+## Introduction
 
+`Set` provides the functor `Set.Make`. You must start by passing `Set.Make` a module. It specifies the element type for your set. In return, you get another module with those elements' set operations.
+
+If you need to work with string sets, you must invoke `Set.Make(String)`. That returns a new module.
 ```ocaml
-# module SS = Set.Make(String);;
-module SS :
+# module StringSet = Set.Make(String);;
+module StringSet :
   sig
     type elt = string
     type t = Set.Make(String).t
     val empty : t
-    val is_empty : t -> bool
-    val mem : elt -> t -> bool
     val add : elt -> t -> t
     val singleton : elt -> t
     val remove : elt -> t -> t
     val union : t -> t -> t
     val inter : t -> t -> t
-    val disjoint : t -> t -> bool
-    val diff : t -> t -> t
-    val compare : t -> t -> int
-    val equal : t -> t -> bool
-    val subset : t -> t -> bool
-    val iter : (elt -> unit) -> t -> unit
-    val map : (elt -> elt) -> t -> t
-    val fold : (elt -> 'a -> 'a) -> t -> 'a -> 'a
-    val for_all : (elt -> bool) -> t -> bool
-    val exists : (elt -> bool) -> t -> bool
-    val filter : (elt -> bool) -> t -> t
-    val filter_map : (elt -> elt option) -> t -> t
-    val partition : (elt -> bool) -> t -> t * t
-    val cardinal : t -> int
-    val elements : t -> elt list
-    val min_elt : t -> elt
-    val min_elt_opt : t -> elt option
-    val max_elt : t -> elt
-    val max_elt_opt : t -> elt option
-    val choose : t -> elt
-    val choose_opt : t -> elt option
-    val split : elt -> t -> t * bool * t
-    val find : elt -> t -> elt
-    val find_opt : elt -> t -> elt option
-    val find_first : (elt -> bool) -> t -> elt
-    val find_first_opt : (elt -> bool) -> t -> elt option
-    val find_last : (elt -> bool) -> t -> elt
-    val find_last_opt : (elt -> bool) -> t -> elt option
-    val of_list : elt list -> t
-    val to_seq_from : elt -> t -> elt Seq.t
-    val to_seq : t -> elt Seq.t
-    val to_rev_seq : t -> elt Seq.t
-    val add_seq : elt Seq.t -> t -> t
-    val of_seq : elt Seq.t -> t
+...
   end
 ```
 
-To create a set you need to start somewhere so here is the empty set:
+After naming the newly-created module `StringSet`, OCaml's toplevel displays the module's signature. Since it contains a large number of functions, the output copied here is shortened for brevity (`...`).
 
+This module also defines two types:
+- `type elt = string` for the elements, and
+- `type t = Set.Make(String).t` for the sets.
+
+## Creating a Set
+
+1. We can create an empty set using `StringSet.empty`:
 ```ocaml
-# let s = SS.empty;;
-val s : SS.t = <abstr>
+# StringSet.empty ;;
+- : StringSet.t = <abstr>
+
+# StringSet.empty |> StringSet.to_list;;
+- : string list = []
 ```
 
-Alternatively if we know an element to start with we can create a set
-like
+For `StringSet.empty`, you can see that the OCaml toplevel displays the placeholder `<abstr>` instead of the actual value. However, converting the string set to a list using `StringSet.to_list` results in an empty list.
 
+2. A set with a single element is created using `StringSet.singleton`:
 ```ocaml
-# let s = SS.singleton "hello";;
-val s : SS.t = <abstr>
+# StringSet.singleton "hello";;
+- : StringSet.t = <abstr>
+
+# StringSet.singleton "hello" |> StringSet.to_list;;
+- : string list = ["hello"]
 ```
 
-To add some elements to the set we can do.
-
+3. Converting a list into a set using `StringSet.of_list`:
 ```ocaml
-# let s =
-  List.fold_right SS.add ["hello"; "world"; "community"; "manager";
-                          "stuff"; "blue"; "green"] s;;
-val s : SS.t = <abstr>
+# StringSet.of_list ["hello"; "hi"];;
+- : StringSet.t = <abstr>
+
+# StringSet.of_list ["hello"; "hi"] |> StringSet.to_list;;
+- : string list = ["hello"; "hi"]
 ```
 
-Now if we are playing around with sets we will probably want to see what
-is in the set that we have created. To do this we can write a function
-that will print the set out.
+There's another relevant function `StringSet.of_seq: string Seq.t -> StringSet.t` that creates a set from a [sequence](/doc/sequences).
 
+## Working With Sets
+
+Let's look at a few functions for working with sets using these two sets.
 ```ocaml
-# let print_set s =
-   SS.iter print_endline s;;
-val print_set : SS.t -> unit = <fun>
+# let first_set = ["hello"; "hi"] |> StringSet.of_list;;
+- : StringSet.t = <abstr>
+
+# let second_set = ["good morning"; "hi"] |> StringSet.of_list;;
+- : StringSet.t = <abstr>
 ```
 
-If we want to remove a specific element of a set there is a remove
-function. However if we want to remove several elements at once we could
-think of it as doing a 'filter'. Let's filter out all words that are
-longer than 5 characters.
-
-This can be written as:
+### Adding an Element to a Set
 
 ```ocaml
-# let my_filter str =
-  String.length str <= 5;;
-val my_filter : string -> bool = <fun>
-# let s2 = SS.filter my_filter s;;
-val s2 : SS.t = <abstr>
+# first_set |> StringSet.add "good morning" |> StringSet.to_list;;
+- : string list = ["good morning"; "hello"; "hi"]
 ```
 
-or using an anonymous function:
+The function `StringSet.add` with type `string -> StringSet.t -> StringSet.t` takes both a string and a string set. It returns a new string set. Sets created with the `Set.Make` functor in OCaml are immutable, so every time you add or remove an element from a set, a new set is created. The old value is unchanged.
+
+### Removing an Element from a Set
 
 ```ocaml
-# let s2 = SS.filter (fun str -> String.length str <= 5) s;;
-val s2 : SS.t = <abstr>
+# first_set |> StringSet.remove "hello" |> StringSet.to_list;;
+- : string list = ["hi"]
 ```
 
-If we want to check and see if an element is in the set it might look
-like this.
+The function `StringSet.remove` with type `string -> StringSet.t -> StringSet.t` takes both a string and a string set. It returns a new string set without the given string.
+
+### Union of Two Sets
 
 ```ocaml
-# SS.mem "hello" s2;;
+# StringSet.union first_set second_set |> StringSet.to_list;;
+- : string list = ["good morning"; "hello"; "hi"]
+```
+
+With the function `StringSet.union`, we can compute the union of two sets.
+
+### Intersection of Two Sets
+
+```ocaml
+# StringSet.inter first_set second_set |> StringSet.to_list;;
+- : string list = ["hi"]
+```
+
+With the function `StringSet.inter`, we can compute the intersection of two sets.
+
+### Subtracting a Set from Another
+
+```ocaml
+# StringSet.diff first_set second_set |> StringSet.to_list;;
+- : string list = ["hello"]
+```
+
+With the function `StringSet.diff`, we can remove the elements of the second set from the first set.
+
+### Filtering a Set
+
+```ocaml
+# ["good morning"; "hello"; "hi"]
+  |> StringSet.of_list
+  |> StringSet.filter (fun str -> String.length str <= 5)
+  |> StringSet.to_list;;
+- : string list = ["hello"; "hi"]
+```
+
+The function `StringSet.filter` of type `(string -> bool) -> StringSet.t -> StringSet.t` creates a new set by keeping the elements that satisfy a predicate from an existing set.
+
+### Checking if an Element is Contained in a Set
+
+```ocaml
+# ["good morning"; "hello"; "hi"]
+  |> StringSet.of_list
+  |> StringSet.mem "hello";;
 - : bool = true
 ```
 
-The Set module also provides the set theoretic operations union,
-intersection and difference. For example, the difference of the original
-set and the set with short strings (≤ 5 characters) is the set of long
-strings:
+To check if an element is contained in a set, use the `StringSet.mem` function.
+
+## Sets With Custom Comparators
+
+The `Set.Make` functor expects a module with two definitions: a type `t`
+that represents the element type and the function `compare`,
+whose signature is `t -> t -> int`. The
+`String` module matches that structure, so we could
+directly pass `String` as an argument to `Set.Make`. Incidentally, many
+other modules also have that structure, including `Int` and `Float`,
+so they too can be directly passed into `Set.Make` to construct a corresponding set module.
+
+The `StringSet` module we created uses the built-in `compare` function provided by the `String` module.
+
+Let's say we want to create a set of strings that performs a case-insensitive
+comparison instead of the case-sensitive comparison provided by `String.compare`.
+
+We can accomplish this by passing an ad-hoc module to the `Set.Make` function:
 
 ```ocaml
-# print_set (SS.diff s s2);;
-community
-manager
-- : unit = ()
+# module CISS = Set.Make(struct
+  type t = string
+  let compare a b = compare (String.lowercase_ascii a) (String.lowercase_ascii b)
+end);;
 ```
 
-Note that the Set module provides a purely functional data structure:
-removing an element from a set does not alter that set but, rather,
-returns a new set that is very similar to (and shares much of its
-internals with) the original set.
+We name the resulting module `CISS` (short for "Case Insensitive String Set").
+
+You can see that this module has the intended behavior:
+
+```ocaml
+# CISS.singleton "hello" |> CISS.add "HELLO" |> CISS.to_list;;
+- : string list = ["hello"]
+```
+The value `"HELLO"` is not added to the set because it is considered equal to the value `"hello"`, which is already contained in the set.
+
+You can use any type for elements, as long as you define a meaningful `compare` operation:
+```ocaml
+# type color = Red | Green | Blue;;
+type color = Red | Green | Blue
+
+# module SC = Set.Make(struct
+  type t = color
+  let compare a b =
+    match a, b with
+    | (Red, Red) -> 0
+    | (Red, Green) -> 1
+    | (Red, Blue) -> 1
+    | (Green, Red) -> -1
+    | (Green, Green) -> 0
+    | (Green, Blue) -> 1
+    | (Blue, Red) -> -1
+    | (Blue, Green) -> -1
+    | (Blue, Blue) -> 0
+end);;
+...
+```
+
+## Conclusion
+
+We gave an overview of the `Set` module in OCaml by creating a `StringSet` module using the `Set.Make` functor. Further, we looked at how to create sets based on a custom comparison function. For more information, refer to [Set](https://ocaml.org/api/Set.Make.html) in the Standard Library documentation.
 

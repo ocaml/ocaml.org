@@ -111,19 +111,21 @@ let primary_footer () =
 
 let secondary_footer () =
   let icon_link ~href ~name ~icon =
-    <a href="<%s href %>" class="text-title hover:text-primary">
+    <a href="<%s href %>" class="text-title dark:text-dark-title hover:text-primary dark:hover:text-dark-primary">
       <span class="sr-only"><%s name %></span>
       <%s! icon "h-8 w-8" %>
     </a>
   in
   let footer_link ~href ~name =
-    <a href="<%s href %>" class="font-normal text-legacy-lighter leading-7 py-2.5"><%s name %></a>
+    <a href="<%s href %>" class="font-normal text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary leading-7 py-2.5"><%s name %></a>
   in
   <footer class="flex flex-col gap-7 pt-5 mt-6 border-solid border-t-[1px] border-[#00000033]">
     <section class="flex flex-col gap-6 md:gap-0 md:flex-row md:justify-between md:items-end">
       <div>
-        <a href="<%s Url.index %>"><img class="h-8" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
-        <p class="text-base leading-6 text-content dark:text-dark-title mt-2">Innovation. Community. Security.</p>
+        <a href="<%s Url.index %>">
+          <img class="h-8 dark:hidden" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml">
+          <img src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" width="132" alt="OCaml logo" class="h-8 hidden dark:inline"></a>
+        <p class="text-base font-normal leading-6 text-content dark:text-dark-content mt-2">Innovation. Community. Security.</p>
       </div>
       <div class="flex items-center gap-4 pr-4">
         <% socials |> List.iter (fun (href, name, icon) -> %>
@@ -135,14 +137,14 @@ let secondary_footer () =
     <section class="mt-6 grid grid-cols-2 mt-6">
       <div class="flex flex-col gap-1">
         <div class="flex flex-col">
-          <h5 class="font-bold text-base leading-7 py-2.5 text-black">About</h5>
+          <h5 class="font-bold text-base leading-7 py-2.5 text-title dark:text-dark-title">About</h5>
           <% about_ocaml |> List.iter (fun (href, name) -> %>
           <%s! footer_link ~href ~name %>
           <% ); %>
         </div>
 
         <div class="flex flex-col">
-          <h5 class="font-bold text-base leading-7 py-2.5 text-black">
+          <h5 class="font-bold text-base leading-7 py-2.5 text-title dark:text-dark-title">
             Ecosystem
           </h5>
           <% ecosystem |> List.iter (fun (href, name) -> %>
@@ -152,7 +154,7 @@ let secondary_footer () =
       </div>
 
       <div class="flex flex-col">
-        <h5 class="font-bold text-base leading-7 py-2.5 text-black">Resources</h5>
+        <h5 class="font-bold text-base leading-7 py-2.5 text-title dark:text-dark-title">Resources</h5>
         <% resources |> List.iter (fun (href, name) -> %>
         <%s! footer_link ~href ~name %>
         <% ); %>
@@ -160,8 +162,8 @@ let secondary_footer () =
     </section>
 
     <div
-      class="flex flex-wrap gap-x-7 md:justify-between items-center py-2 border-solid border-t-[1px] border-[#00000033] bottom-0 bg-white">
-      <h5 class="font-bold text-base leading-7 py-2.5 text-black">Policies</h5>
+      class="flex flex-wrap gap-x-7 md:justify-between items-center py-2 border-solid border-t-[1px] border-separator_20 dark:border-dark-separator_30 bottom-0 bg-white dark:bg-dark-background">
+      <h5 class="font-bold text-base leading-7 py-2.5 text-title dark:text-dark-title">Policies</h5>
       <% policies |> List.iter (fun (href, name) -> %>
       <%s! footer_link ~href ~name %>
       <% ); %>

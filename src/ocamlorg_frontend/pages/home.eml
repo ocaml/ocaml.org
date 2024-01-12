@@ -478,7 +478,7 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-legacy-default dark:bg-legacy-dark-default pt-20 lg:py-20 overflow-hidden">
+<div class="bg-legacy-default dark:bg-legacy-dark-default py-20 overflow-hidden">
   <div class="container-fluid">
     <div class="grid grid-cols-1 lg:grid-cols-2 items-center">
       <div class="space-y-8">
@@ -493,9 +493,6 @@ Layout.render
           <span>Explore packages</span>
           <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
-      </div>
-      <div class="m-auto">
-        <img src="<%s Ocamlorg_static.Asset.url "img/home/packages-home.png" %>" width="1047" class="max-w-none -mb-72 h-auto" alt="">
       </div>
     </div>
   </div>
