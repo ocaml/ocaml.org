@@ -78,7 +78,6 @@ let changelog req =
     Data.Changelog.all
     |> List.concat_map (fun (change : Data.Changelog.t) -> change.tags)
     |> List.sort_uniq String.compare
-    |> List.sort_uniq String.compare
   in
   let changes =
     match current_tag with
@@ -472,9 +471,7 @@ module Package_helper = struct
   (** Query all the versions of a package. *)
   let versions state name =
     Ocamlorg_package.get_versions state name
-    |> Option.value ~default:[]
-    |> List.sort (Fun.flip Ocamlorg_package.Version.compare)
-    |> List.map Ocamlorg_package.Version.to_string
+    |> List.map (fun (v: Ocamlorg_package.version_with_publication_date) -> Ocamlorg_frontend.Package.{version = Ocamlorg_package.Version.to_string v.version; publication = v.publication})
 
   let frontend_package ?on_latest_url state (package : Ocamlorg_package.t) :
       Ocamlorg_frontend.Package.package =

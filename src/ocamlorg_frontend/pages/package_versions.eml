@@ -1,12 +1,14 @@
-let render (package : Package.package)
+let render
+(package : Package.package)
 =
 Layout.render
 ~title:(Printf.sprintf "%s Versions" package.name)
 ~description:"Package Versions" @@
+let version = Package.specific_version package in
 <div class="bg-default dark:bg-dark-default py-8">
   <div class="container-fluid flex items-center gap-2">
-    <a href="/p/<%s package.name %>" class="h-11 w-11 m-5 border-primary-600 border-2 rounded-full flex items-center justify-center"><%s! Icons.arrow_left "h-6 w-6 text-primary-600"; %></a>
-    <h1 class="text-2xl font-medium"><%s package.name %> Versions </h1><div class="text-2xl">(<%i List.length package.versions %>)</div>
+    <a href="/p/<%s package.name %>" class="h-11 w-11 m-5 border-primary border-2 rounded-full flex items-center justify-center"><%s! Icons.arrow_left "h-6 w-6 text-primary"; %></a>
+    <h1 class="text-2xl font-medium"><%s package.name %> Versions (<%i List.length package.versions %>) </h1>
   </div>
   <div class="container-fluid flex justify-center">
     <table class="table-auto border-separate border-spacing-y-6">
@@ -19,43 +21,27 @@ Layout.render
             </tr>
         </thead>
         <tbody>
-          <% package.versions |> List.iter (fun (version : string) -> %>
+          <% package.versions |> List.iter (fun (item: Package.version_with_publication_date) -> %>
           <tr class="tr-selected">
-            <% if List.nth package.versions 0 = version then ( %>
-            <td class="hidden sm:table-cell text-left font-normal py-5 px-4 bg-primary-200 rounded-l">
-              <div class="bg-primary-600 h-3 w-3 rounded-full"></div>
+            <td class="hidden sm:table-cell text-left font-normal py-5 px-4 <%s if version = item.version then "bg-primary-200 rounded-l" else "" %>">
+              <% if version = item.version then ( %><div class="bg-primary h-3 w-3 rounded-full"></div><% ) else ( %><div class="bg-gray-200 h-2 w-2 rounded-full ml-0.5"></div><% ); %>
               <div class="absolute h-[4.5rem] pl-1">
-                <div class="-ml-px w-1 border-solid border-r-2 border-gray-200 h-full"></div>
-              </div>
-            </td>
-            <td class="text-left bg-primary-200">
-              <a href="/p/<%s package.name %>/<%s version %>" class="p-5 hover:no-underline hover:text-primary-600 focus:text-primary-600 focus:no-underline font-bold focus:font-bold text-base md:mr-10"><%s version %></a>
-            </td>
-            <td class="pr-4 text-left text-sm bg-primary-200">
-              <%s Utils.human_date_of_timestamp package.publication %>
-            </td>
-            <td class="text-left text-sm bg-primary-200 rounded-r">
-              <a href="/p/<%s package.name %>/<%s version %>/doc/index.html" class="text-primary-600 flex items-center p-2 font-medium sm:p-4"><%s! Icons.document "h-5 w-5"; %> Documentation</a>
-            </td>
-            <% ) else ( %>
-            <td class="hidden sm:table-cell text-left font-normal py-5 px-4">
-              <div class="bg-gray-200 h-2 w-2 rounded-full ml-0.5"></div>
-              <div class="absolute h-[4.5rem] pl-1">
-                <% if List.nth package.versions (List.length package.versions -1) <> version then ( %>
+                <% if List.nth package.versions (List.length package.versions -1) <> item then ( %>
                 <div class="-ml-px w-1 border-solid border-r-2 border-gray-200 h-full"></div>
                 <% ); %>
               </div>
             </td>
-            <td class="text-left">
-              <a href="/p/<%s package.name %>/<%s version %>" class="p-5 hover:no-underline hover:text-primary-600 focus:text-primary-600 focus:no-underline hover:font-bold focus:font-bold text-base md:mr-10"><%s version %></a>
+            <td class="text-left bg-primary-200">
+              <a href="/p/<%s package.name %>/<%s item.version %>" class="p-5 hover:no-underline hover:text-primary focus:text-primary focus:no-underline <%s if version = item.version then "font-bold focus:font-bold" else "" %> text-base md:mr-10">
+                <%s item.version %>
+              </a>
             </td>
-            <td class="pr-4 text-left text-sm">
-              <%s Utils.human_date_of_timestamp package.publication %>
+            <td class="pr-4 text-left text-sm bg-primary-200">
+              <%s Utils.human_date_of_timestamp item.publication %>
             </td>
-            <td class="text-left text-sm">
-              <a href="/p/<%s package.name %>/<%s version %>/doc/index.html" class="text-primary-600 flex items-center p-2 font-medium sm:p-4"><%s! Icons.document "h-5 w-5"; %> Documentation</a>
+            <td class="text-left text-sm bg-primary-200 rounded-r">
+              <a href="/p/<%s package.name %>/<%s item.version %>/doc/index.html" class="text-primary flex items-center p-2 font-medium sm:p-4"><%s! Icons.document "h-5 w-5"; %> Documentation</a>
             </td>
-            <% ); %>
           </tr>
           <% ); %>
         </tbody>

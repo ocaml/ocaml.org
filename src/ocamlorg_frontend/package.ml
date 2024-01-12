@@ -1,13 +1,18 @@
 type version = Latest | Specific of string
 type documentation_status = Success | Failure | Unknown
 
+type version_with_publication_date = {
+  version: string;
+  publication: float;
+}
+
 type package = {
   name : string;
   synopsis : string;
   description : string;
   license : string;
   version : version;
-  versions : string list;
+  versions : version_with_publication_date list;
   latest_version : string;
   tags : string list;
   rev_deps : string list;

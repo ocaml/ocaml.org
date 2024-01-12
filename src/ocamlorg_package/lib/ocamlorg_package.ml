@@ -185,9 +185,16 @@ let get_by_name t name =
   |> Option.map Version.Map.bindings
   |> Option.map (List.map (fun (version, info) -> { name; version; info }))
 
+type version_with_publication_date = {
+  version : Version.t;
+  publication: float;
+}
+
 let get_versions t name =
   t.packages |> Name.Map.find_opt name
-  |> Option.map (fun p -> p |> Version.Map.bindings |> List.rev_map fst)
+  |> Option.map (fun p -> p |> Version.Map.bindings |> List.map (fun (version, info) -> { version; publication = info.Info.publication}))
+  |> Option.value ~default:[]
+  |> List.sort (fun v1 v2 -> Version.compare v2.version v1.version)
 
 let get_latest t name = get_latest' t.packages name
 
@@ -404,8 +411,8 @@ let latest_documented_version t name =
         | None -> aux (List.tl vlist))
   in
   match get_versions t name with
-  | None -> Lwt.return None
-  | Some vlist -> aux vlist
+  | [] -> Lwt.return None
+  | vlist -> aux (vlist |> List.map (fun v -> v.version))
 
 let is_latest_version t name version =
   match get_latest t name with
