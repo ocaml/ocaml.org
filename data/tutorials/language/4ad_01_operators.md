@@ -111,7 +111,7 @@ OCaml has a subtle syntax; not everything is allowed as an operator symbol. An o
   * `%` `<` or
   * `!` `.` `:` `?` `~`
 
-This is defined in the [Prefix and Infix symbols](https://v2.ocaml.org/releases/5.1/htmlman/lex.html#sss:lex-ops-symbols) section of The OCaml Manual.
+This is defined in the [Prefix and Infix symbols](/manual/lex.html#sss:lex-ops-symbols) section of The OCaml Manual.
 
 Tips:
   * Don't define wide scope operators. Restrict their scope to module or function.
@@ -163,7 +163,7 @@ Operator _precedence_ rules how expressions combining different operators withou
 - : string = "||foo_bar|_bus|"
 ```
 
-In both cases, values are passed to `@^` before `&^`. Therefore, it is said that `@^` has _precedence_ over `&^`. Rules for operator priorities are detailed in the [Expressions](https://v2.ocaml.org/manual/expr.html#ss%3Aprecedence-and-associativity) section of the OCaml Manual. They can be summarised the following way. The first character of an operator dictates its associativity and priority. Here are the first characters of the groups' operators. Each group has the same associativity and precedence. Groups are sorted in increasing precedence order.
+In both cases, values are passed to `@^` before `&^`. Therefore, it is said that `@^` has _precedence_ over `&^`. Rules for operator priorities are detailed in the [Expressions](/manual/expr.html#ss%3Aprecedence-and-associativity) section of the OCaml Manual. They can be summarised the following way. The first character of an operator dictates its associativity and priority. Here are the first characters of the groups' operators. Each group has the same associativity and precedence. Groups are sorted in increasing precedence order.
 1. Left associative: `$` `&` `<` `=` `>` `|`
 1. Right associative: `@` `^`
 1. Left associative: `+` `-`
