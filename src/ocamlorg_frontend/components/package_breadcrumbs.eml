@@ -38,14 +38,14 @@ let render_package_and_version
     | Overview _ -> Url.Package.overview package.name ?version
     | Documentation _ -> Url.Package.documentation package.name ?version ?hash ?page
   in
-  let version_options v =
-    <% if v = package.latest_version then ( %>
+  let version_options (v: Package.version_with_publication_date) =
+    <% if v.version = package.latest_version then ( %>
     <option value="<%s url None %>" <%s if package.version = Latest then "selected" else "" %>>
       <%s "latest (" ^ package.latest_version ^ ")" %>
     </option>
     <% ); %>
-    <option value="<%s url (Some v) %>" <%s if package.version = Specific v then "selected" else "" %>>
-      <%s v %>
+    <option value="<%s url (Some v.version) %>" <%s if package.version = Specific v.version then "selected" else "" %>>
+      <%s v.version %>
     </option>
   in
   <div class="flex gap-4">

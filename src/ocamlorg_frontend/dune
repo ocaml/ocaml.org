@@ -142,6 +142,14 @@
     --workspace
     %{workspace_root})))
  (rule
+  (target package_versions.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:package_versions.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
   (target packages.ml)
   (action
    (run %{bin:dream_eml} %{dep:packages.eml} --workspace %{workspace_root})))

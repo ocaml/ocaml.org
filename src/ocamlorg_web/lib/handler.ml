@@ -78,7 +78,6 @@ let changelog req =
     Data.Changelog.all
     |> List.concat_map (fun (change : Data.Changelog.t) -> change.tags)
     |> List.sort_uniq String.compare
-    |> List.sort_uniq String.compare
   in
   let changes =
     match current_tag with
@@ -472,9 +471,12 @@ module Package_helper = struct
   (** Query all the versions of a package. *)
   let versions state name =
     Ocamlorg_package.get_versions state name
-    |> Option.value ~default:[]
-    |> List.sort (Fun.flip Ocamlorg_package.Version.compare)
-    |> List.map Ocamlorg_package.Version.to_string
+    |> List.map (fun (v : Ocamlorg_package.version_with_publication_date) ->
+           Ocamlorg_frontend.Package.
+             {
+               version = Ocamlorg_package.Version.to_string v.version;
+               publication = v.publication;
+             })
 
   let frontend_package ?on_latest_url state (package : Ocamlorg_package.t) :
       Ocamlorg_frontend.Package.package =
@@ -787,6 +789,14 @@ let package_overview t kind req =
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~readme
        ~search_index_digest ~toc ~deps_and_conflicts frontend_package)
+
+let package_versions t _kind req =
+  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
+  let version_from_url = Dream.param req "version" in
+  let</>? _package, frontend_package =
+    Package_helper.of_name_version t name version_from_url
+  in
+  Dream.html (Ocamlorg_frontend.package_versions frontend_package)
 
 let package_documentation t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in

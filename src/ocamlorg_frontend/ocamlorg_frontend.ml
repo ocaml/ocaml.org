@@ -29,6 +29,7 @@ let package_overview_file = Package_overview.render_file
 let packages_autocomplete_fragment = Packages_autocomplete_fragment.render
 let packages = Packages.render
 let packages_search = Packages_search.render
+let package_versions = Package_versions.render
 let page = Page.render
 let papers = Papers.render
 let platform = Platform.render

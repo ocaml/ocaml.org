@@ -167,7 +167,12 @@ val stats : state -> Statistics.t option
 val get_by_name : state -> Name.t -> t list option
 (** Get the list of packages with the given name. *)
 
-val get_versions : state -> Name.t -> Version.t list option
+type version_with_publication_date = {
+  version : Version.t;
+  publication : float;
+}
+
+val get_versions : state -> Name.t -> version_with_publication_date list
 (** Get the list of versions for a package name, newest coming first. *)
 
 val get_latest : state -> Name.t -> t option
