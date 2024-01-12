@@ -400,14 +400,11 @@ let tutorial req =
       all_exercises
   in
 
-  let next_rec_ids = match tutorial.recommended_next_tutorials with 
-    | Some(x) -> x
-    | None -> []
-  in
-
   let is_in_recommended_next (tested : Data.Tutorial.t) = List.exists
     (fun r -> r = tested.slug)
-    next_rec_ids
+    @@ match tutorial.recommended_next_tutorials with 
+    | Some(x) -> x
+    | None -> []
   in
 
   let recommended_next_tutorials = all_tutorials
