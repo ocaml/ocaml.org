@@ -143,7 +143,9 @@ $ opam exec -- dune exec hello
 Hello from a module
 ```
 
-The file `lib/world.ml` creates the module named `World`, which in turn defines a string value named `v`. Dune wraps `World` into another module called `Hello`; this named defined by the stanza `name hello` in the file `lib/dune`. The string definition is referred to as `Hello.World.v` from the `bin/main.ml` file.
+The file `lib/world.ml` creates the module named `World`, which in turn defines a string value named `v`. Dune wraps `World` into another module called `Hello`; this name is defined by the stanza `name hello` in the file `lib/dune`. The string definition is referred to as `Hello.World.v` from the `bin/main.ml` file.
+
+**Note**: If you create a file called `lib/hello.ml`, Dune will consider this the whole `Hello` module and will make `World` unreachable. Refer to the [Libraries With Dune](/docs/libraries-dune) tutorial for more information on this.
 
 Dune can launch UTop to access the modules exposed by a project interactively. Here's how:
 ```shell
