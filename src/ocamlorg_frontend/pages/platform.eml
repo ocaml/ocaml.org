@@ -8,16 +8,16 @@ let render_sidebar
   </div>
 
 let render_package_cards ~(item: Data.Tool.t) =
-  <a href="<%s item.source %>" class="flex flex-col gap-1 border-2 rounded-md p-4 hover:border-primary hover:ring-4 hover:ring-legacy-primary-200">
+  <a href="<%s item.source %>" class="flex flex-col gap-1 border-2 rounded-md p-4 bg-white dark:bg-dark-card hover:border-primary dark:hover-dark-border-primary hover:ring-4 hover:ring-primary_nav_block_hover_10 dark:hover:ring-dark-primary_nav_block_hover_10">
     <div class="flex gap-4 items-center">
-      <%s! Icons.tools "h-5 w-5 text-primary" %>
-      <div class="text-primary text-lg font-bold"><%s item.name %></div>
+      <%s! Icons.tools "h-5 w-5 text-primary dark:text-dark-primary" %>
+      <div class="text-primary dark:text-dark-primary text-lg font-normal"><%s item.name %></div>
     </div>
     <div class="flex gap-4 items-center mb-2">
       <div class="w-5"></div>
-      <div class="text-legacy-lighter h-10 w-10/12"><%s item.synopsis %></div>
+      <div class="text-content dark:text-dark-content h-10 w-10/12"><%s item.synopsis %></div>
     </div>
-    <%s! Icons.arrow_small_right "h-5 w-5 text-primary rotate-45 place-self-end" %>
+    <%s! Icons.arrow_small_right "h-5 w-5 text-primary dark:text-dark-primary rotate-45 place-self-end" %>
   </a>
 
 let render
@@ -32,7 +32,7 @@ Learn_layout.three_column_layout
 ~left_sidebar_html:(Some((render_sidebar ~active:"platform") ~tutorials ()))
 ~right_sidebar_html:None
 ~current:Platform @@
-  <div class="prose prose-orange max-w-none">
+  <div class="prose prose-orange max-w-none dark:prose-invert">
     <h1>The OCaml Platform</h1>
     <p>
       The OCaml Platform represents the best way for developers, both new and
@@ -56,7 +56,7 @@ Learn_layout.three_column_layout
       <pre><code>ocaml-platform</code></pre>
   </div>
   <div
-    class="mt-12 cursor-pointer z-0 relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-legacy-primary-100 video-shadow md:w-[640px]"
+    class="mt-12 cursor-pointer z-0 relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-[#FEF0E9] dark:border-dark-primary_20 video-shadow md:w-[640px]"
     x-data='{
         isPlaying: false,
         embed_url: "https://watch.ocaml.org/videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516",
@@ -83,33 +83,34 @@ Learn_layout.three_column_layout
       </div>
       <div class="flex h-full justify-center" x-show="!isPlaying">
         <div class="z-10 mb-10 lg:mb-0">
-          <img width="160" class="m-auto mt-10 md:mt-20" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml logo">
-          <div class="text-legacy-lighter mt-2">OCaml Workshop 2020</div>
-          <h3 class="font-bold mt-16">State of the OCaml Platform 2020</h3>
-          <div class="mt-16 flex justify-center">
+          <img width="160" class="m-auto mt-10 md:mt-20 dark:hidden" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml logo">
+          <img width="160" class="m-auto mt-10 md:mt-20 hidden dark:inline" src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" alt="OCaml logo">
+          <div class="text-content dark:text-dark-content mt-2">OCaml Workshop 2020</div>
+          <h3 class="font-bold text-[#1A202C] dark:text-dark-title mt-16">State of the OCaml Platform 2020</h3>
+          <div class="mt-16 flex justify-center text-titl dark:text-dark-title">
             Presented by&nbsp;
-            <div class="font-semibold">Anil Madhavapeddy</div>
+            <div class="font-semibold text-[1A202C] dark:text-dark-title">Anil Madhavapeddy</div>
           </div>
-          <div class="text-legacy-lighter mt-2">University of Cambridge</div>
+          <div class="text-content dark-text-dark-content mt-2">University of Cambridge</div>
         </div>
       </div>
     </div>
     <div
-      class="rounded-full bg-primary text-white w-16 h-16 right-0 left-0 m-auto bottom-5 md:left-auto md:right-10 md:bottom-10 absolute flex items-center z-10 justify-center"
+      class="rounded-full bg-primary dark:bg-dark-primary text-white dark:text-dark-title w-16 h-16 right-0 left-0 m-auto bottom-5 md:left-auto md:right-10 md:bottom-10 absolute flex items-center z-10 justify-center"
       x-show="!isPlaying"
     >
       <%s! Icons.play "h-9 w-9" %>
     </div>
   </div>
-  <div class="flex flex-col border-t border-gray-200 pt-20 mt-20 mb-12">
-    <h3 class="font-bold mt-8">State of the OCaml Platform</h3>
-    <div class="text-legacy-lighter mt-6 text-lg">
+  <div class="flex flex-col border-t border-separator_20 border-separator_30 dark:border-dark-separator_30 pt-20 mt-20 mb-12">
+    <h3 class="font-bold mt-8 text-title dark:text-dark-title">State of the OCaml Platform</h3>
+    <div class="text-content dark:text-dark-content mt-6 text-lg">
       Each platform element lives at a different point in the lifecycle of a Platform tool
     </div>
     <div>
-      <hr class="mt-12 mb-6 border-b border-gray-200">
-      <h4 class="font-bold">Active</h4>
-      <div class="text-legacy-lighter mt-3">
+      <hr class="mt-12 mb-6 border-separator_20 border-t border-separator_30">
+      <h4 class="text-title dark:text-dark-title font-bold">Active</h4>
+      <div class="text-content dark:text-dark-content mt-3">
         The work-horse tools that are used daily with strong backwards compatibility guarantees from the community.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
@@ -119,9 +120,9 @@ Learn_layout.three_column_layout
       </div>
     </div>
     <div class="mt-8">
-      <hr class="mb-6 border-b border-gray-200">
-      <h4 class="font-bold">Incubate</h4>
-      <div class="text-legacy-lighter mt-3">
+      <hr class="mb-6 border-b border-separator_20 dark:border-dark-separator_30 ">
+      <h4 class="font-bold text-title dark:text-dark-title">Incubate</h4>
+      <div class="text-content dark:text-dark-content mt-3">
         New tools that fill a gap in the ecosystem but are not quite ready for wide-scale release and adoption.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
@@ -131,9 +132,9 @@ Learn_layout.three_column_layout
       </div>
     </div>
     <div class="mt-8">
-      <hr class="mb-6 border-b border-gray-200">
-      <h4 class="font-bold">Sustain</h4>
-      <div class="text-legacy-lighter mt-3">
+      <hr class="mb-6 border-b border-separator_20 dark:border-dark-separator_30 ">
+      <h4 class="font-bold text-title dark:text-dark-title">Sustain</h4>
+      <div class="text-content dark:text-dark-content mt-3">
         Tools that will not likely see any major feature added but can be used reliably even if not being actively
         developed.
       </div>
@@ -144,9 +145,9 @@ Learn_layout.three_column_layout
       </div>
     </div>
     <div class="mt-8">
-      <hr class="mb-6 border-b border-gray-200">
-      <h4 class="font-bold">Deprecate</h4>
-      <div class="text-legacy-lighter mt-3">
+      <hr class="mb-6 border-b border-separator_20 dark:border-dark-separator_30 ">
+      <h4 class="font-bold text-title dark:text-dark-title">Deprecate</h4>
+      <div class="text-content dark:text-dark-content mt-3">
         Tools that are gradually being phased out, with clear paths to better workflows.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
