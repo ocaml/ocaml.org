@@ -638,21 +638,23 @@ let packages_search t req =
       (match Dream.query req "q" with Some search -> search | None -> "")
   in
 
-  let open Lwt.Infix in
+  let open Lwt.Syntax in
   let documentation_status (pkg : Ocamlorg_package.t) =
-    Ocamlorg_package.documentation_status ~kind:`Package pkg
-    >|= fun package_documentation_status ->
-    match package_documentation_status with
-    | Some { failed = false; _ } -> Ocamlorg_frontend.Package.Success
-    | Some { failed = true; _ } -> Failure
-    | None -> Unknown
+    let* package_documentation_status =
+      Ocamlorg_package.documentation_status ~kind:`Package pkg
+    in
+
+    Lwt.return
+      (match package_documentation_status with
+      | Some { failed = false; _ } -> Ocamlorg_frontend.Package.Success
+      | Some { failed = true; _ } -> Failure
+      | None -> Unknown)
   in
 
-  let open Lwt.Syntax in
   let* results =
     Lwt_list.map_p
       (fun pkg ->
-        documentation_status pkg >|= fun doc_status ->
+        let+ doc_status = documentation_status pkg in
         (Package_helper.frontend_package t pkg, doc_status))
       current_items
   in
