@@ -40,7 +40,7 @@ Check this works using the `dune exec funkt` command, it shouldn't do anything (
 
 ## Using an Existing Functor: `Set.Make`
 
-The standard library contains a [`Set`](/api/Set.html) module providing a data structure that allows operations like union and intersection. To use the provided type and its associated [functions](/api/Set.S.html), it's necessary to use the functor provided by `Set`. For reference only, here is a shortened version of the interface of `Set`:
+The standard library contains a [`Set`](/api/Set.html) module providing a data structure that allows set operations like union and intersection. You may check the [Set](/docs/sets) tutorial to learn more about this module, but it is not required to follow the present tutorial. To use the provided type and its associated [functions](/api/Set.S.html), it's necessary to use the functor provided by `Set`. For reference only, here is a shortened version of the interface of `Set`:
 ```ocaml
 module type OrderedType = sig
   type t
@@ -260,6 +260,23 @@ end
 
 Here, binary heaps is the only implementation suggested. This can be extended to other implementations by adding one functor per each (e.g., `Heap.Leftist`, `Heap.Binomial`, `Heap.Fibonacci`, etc.).
 
+
+<!--
+
+## Multiple Implementation of the Same Signature.
+
+> Proposal:
+>
+>Functors arise when we want to provide multiple implementation of the same signature: client module should be parametrized so that we can choose between these implementations at link time.
+
+> Example:
+>
+> The Unison file synchronizer has both a textual and a graphical user interface, both matching the signature `UI`. The main program is parametrized on the user interface module.
+
+Benjamin Piece and Robert Harper.
+Advanced Module Systems, ICFP 2000
+-->
+
 ## Injecting Dependencies Using Functors
 
 **Dependencies Between Modules**
@@ -441,7 +458,6 @@ module type S : sig
   val full_int : int -> int
   val float : float -> float
   val bool : unit -> bool
-
 end
 
 module Make(Seed: SeedType) : S = struct
