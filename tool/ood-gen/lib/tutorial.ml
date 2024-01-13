@@ -26,12 +26,16 @@ type external_tutorial = {
 }
 [@@deriving of_yaml, show { with_path = false }]
 
+type recommended_next_tutorials = string list
+[@@deriving of_yaml, show { with_path = false }]
+
 type metadata = {
   id : string;
   title : string;
   description : string;
   category : string;
   external_tutorial : external_tutorial option;
+  recommended_next_tutorials : recommended_next_tutorials option;
 }
 [@@deriving of_yaml]
 
@@ -46,6 +50,7 @@ type t = {
   toc : toc list;
   body_md : string;
   body_html : string;
+  recommended_next_tutorials : recommended_next_tutorials option;
 }
 [@@deriving
   stable_record ~version:metadata ~add:[ id ]
@@ -151,6 +156,7 @@ type external_tutorial =
   ; banner : banner
   ; contribute_link : contribute_link
   }
+type recommended_next_tutorials = string list
 type t =
   { title : string
   ; fpath : string
@@ -162,6 +168,7 @@ type t =
   ; body_md : string
   ; toc : toc list
   ; body_html : string
+  ; recommended_next_tutorials : recommended_next_tutorials option
   }
   
 let all = %a

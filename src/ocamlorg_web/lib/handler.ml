@@ -384,8 +384,10 @@ let tutorial req =
   let</>? tutorial =
     List.find_opt (fun x -> x.Data.Tutorial.slug = slug) Data.Tutorial.all
   in
+  let all_tutorials = Data.Tutorial.all in
+
   let tutorials =
-    Data.Tutorial.all
+    all_tutorials
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = tutorial.section)
   in
   let all_exercises = Data.Exercise.all in
@@ -397,10 +399,20 @@ let tutorial req =
         | None -> false)
       all_exercises
   in
+
+  let is_in_recommended_next (tested : Data.Tutorial.t) =
+    List.exists (fun r -> r = tested.slug)
+    @@ match tutorial.recommended_next_tutorials with Some x -> x | None -> []
+  in
+
+  let recommended_next_tutorials =
+    all_tutorials |> List.filter is_in_recommended_next
+  in
+
   Dream.html
     (Ocamlorg_frontend.tutorial ~tutorials
        ~canonical:(Url.tutorial tutorial.slug)
-       ~related_exercises tutorial)
+       ~related_exercises ~recommended_next_tutorials tutorial)
 
 let exercises req =
   let all_exercises = Data.Exercise.all in
