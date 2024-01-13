@@ -120,9 +120,9 @@ The `dune describe` command allows having a look at the project's module structu
 ## Libraries
 
 <!--This contrasts with the `struct ... end` syntax where modules are aggregated top-down by nesting submodules into container modules. -->
-In OCaml, a library is a collection of modules. By default, when Dune builds a library, it wraps the bundled modules into a module. This allows having several modules with the same name, inside different libraries, in the same project. That feature is known as [_namespaces_](https://en.wikipedia.org/wiki/Namespace) for module names. This is similar to what module do for definitions, they avoid name clashes.
+In OCaml, a library is a collection of modules. By default, when Dune builds a library, it wraps the bundled modules into a module. This allows having several modules with the same name, inside different libraries, in the same project. That feature is known as [_namespaces_](https://en.wikipedia.org/wiki/Namespace) for module names. This is similar to what module do for definitions; they avoid name clashes.
 
-Dune creates libraries from folders. Let's look at an example, here the folder is `lib`:
+Dune creates libraries from folders. Let's look at an example. Here the folder is `lib`:
 ```shell
 $ mkdir lib
 ```
