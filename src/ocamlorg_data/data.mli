@@ -233,7 +233,7 @@ module Tutorial : sig
     body_md : string;
     toc : toc list;
     body_html : string;
-    recommended_next_tutorials: recommended_next_tutorials option
+    recommended_next_tutorials : recommended_next_tutorials option;
   }
 
   val all : t list

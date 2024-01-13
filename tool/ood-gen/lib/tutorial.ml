@@ -26,7 +26,7 @@ type external_tutorial = {
 }
 [@@deriving of_yaml, show { with_path = false }]
 
-type recommended_next_tutorials = string list 
+type recommended_next_tutorials = string list
 [@@deriving of_yaml, show { with_path = false }]
 
 type metadata = {
@@ -35,7 +35,7 @@ type metadata = {
   description : string;
   category : string;
   external_tutorial : external_tutorial option;
-  recommended_next_tutorials : recommended_next_tutorials option
+  recommended_next_tutorials : recommended_next_tutorials option;
 }
 [@@deriving of_yaml]
 

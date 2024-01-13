@@ -400,15 +400,13 @@ let tutorial req =
       all_exercises
   in
 
-  let is_in_recommended_next (tested : Data.Tutorial.t) = List.exists
-    (fun r -> r = tested.slug)
-    @@ match tutorial.recommended_next_tutorials with 
-    | Some(x) -> x
-    | None -> []
+  let is_in_recommended_next (tested : Data.Tutorial.t) =
+    List.exists (fun r -> r = tested.slug)
+    @@ match tutorial.recommended_next_tutorials with Some x -> x | None -> []
   in
 
-  let recommended_next_tutorials = all_tutorials
-    |> List.filter is_in_recommended_next
+  let recommended_next_tutorials =
+    all_tutorials |> List.filter is_in_recommended_next
   in
 
   Dream.html
