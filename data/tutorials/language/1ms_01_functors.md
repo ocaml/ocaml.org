@@ -436,7 +436,7 @@ Modules `Array` and `List` appear augmented with `Array.scan_left` and `List.sca
 
 ## Initialisation of Stateful Modules
 
-Modules can hold a state. Functors can provide a means to initialize stateful modules. As an example of such, here is a possible way to handle random number generation seeds as a state.
+Modules can hold a state. Functors can provide a means to initialise stateful modules. As an example of such, here is a possible way to handle random number generation seeds as a state:
 
 **`random.ml`**
 ```ocaml
@@ -505,11 +505,11 @@ Create this file and launch `utop`.
 - : int = 75783189
 ```
 
-Modules `R1` and `R2` are created with the same state, therefore, the first calls to `R1.bits` and `R2.bits` return the same value.
+Modules `R1` and `R2` are created with the same state; therefore, the first calls to `R1.bits` and `R2.bits` return the same value.
 
 The second call to `R1.bits` moves `R1`'s state one step and returns the corresponding bits. The call to `R1.reset_state` sets the `R1`'s state to its initial value.
 
-Calling `R2.bits` a second time shows the modules aren't sharing the state, otherwise, the value from the first calls to `bits` would have been returned.
+Calling `R2.bits` a second time shows the modules aren't sharing the state. Otherwise, the value from the first calls to `bits` would have been returned.
 
 Calling `R1.bits` a third time returns the same result as the first call, which demonstrates the state has indeed been reset.
 
