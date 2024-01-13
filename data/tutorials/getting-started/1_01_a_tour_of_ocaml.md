@@ -718,7 +718,7 @@ Definitions provided by modules are referred to by adding the module name as a p
 ```
 
 Here, usage of the function `Option.map` is illustrated in several steps.
-1. Display its type. It has two parameter. A function of type `'a -> 'b` and an `'a option`.
+1. Display its type. It has two parameters. A function of type `'a -> 'b` and an `'a option`.
 1. Using partial application, only pass `fun x -> x * x`. Check the type of the resulting function.
 1. Apply with `None`.
 1. Apply with `Some 8`.
