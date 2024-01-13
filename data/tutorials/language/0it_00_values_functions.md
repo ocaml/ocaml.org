@@ -287,7 +287,7 @@ This is a big takeaway. We believe functional programming (_ergo_ OCaml) is best
 -->
 ## Applying Functions
 
-When several expressions are written side by side, the leftmost one should be a function. All the others are parameters. In OCaml, no parentheses are needed to express passing an argument to a function. Parentheses serve a single purpose: associating expressions to create subexpressions.
+When several expressions are written side by side, the leftmost one should be a function. All the others are arguments. In OCaml, no parentheses are needed to express passing an argument to a function. Parentheses serve a single purpose: associating expressions to create subexpressions.
 ```ocaml
 # max (21 * 2) (int_of_string "713");;
 - : int = 713
@@ -311,7 +311,7 @@ The application operator `@@` operator.
 - : float = 3.
 ```
 
-The `@@` application operator applies a parameter (on the right) to a function (on the left). It is useful when chaining several calls, as it avoids writing parentheses, which creates easier-to-read code. Here is an example with and without parentheses:
+The `@@` application operator applies an argument(on the right) to a function (on the left). It is useful when chaining several calls, as it avoids writing parentheses, which creates easier-to-read code. Here is an example with and without parentheses:
 ```ocaml
 # int_of_float (sqrt (float_of_int (int_of_string "81")));;
 - : int = 9
@@ -322,7 +322,7 @@ The `@@` application operator applies a parameter (on the right) to a function (
 
 ### The Pipe Operator
 
-The pipe operator (`|>`) also avoids parentheses but in reversed order: function on right, parameter on left.
+The pipe operator (`|>`) also avoids parentheses but in reversed order: function on right, argument on left.
 ```ocaml
 # "81" |> int_of_string |> float_of_int |> sqrt |> int_of_float;;
 - : int = 9
@@ -354,7 +354,7 @@ In order, here is what they are:
 - The function that takes two strings and returns their concatenation with a space character in between
 - The function that takes a list and either returns `None`, if the list is empty, or returns the list with its first element removed.
 
-Anonymous functions are often passed as parameters to other functions.
+Anonymous functions are often passed as arguments to other functions.
 ```ocaml
 # List.map (fun x -> x * x) [1; 2; 3; 4];;
 - : int list = [1; 4; 9; 16]
@@ -414,7 +414,7 @@ val j : int = 7
 
 Here is how this makes sense:
 1. Constant `j` is defined, and its value is 6.
-1. Function `k` is defined. It takes a single parameter `x` and returns the value of `x * j`.
+1. Function `k` is defined. It has a single parameter `x` and returns the value of `x * j`.
 1. Compute `k` of 7, and its value is 42
 1. Create a new definition `j`, shadowing the first one
 1. Compute `k` of 7 again, the result is the same: 42
@@ -427,7 +427,7 @@ However, all future expressions will use the new value of `j` (`7`), as shown he
 val m : int = 21
 ```
 
-Partially applying parameters to a function also creates a new closure.
+Partially applying arguments to a function also creates a new closure.
 ```ocaml
 # let max_42 = max 42;;
 val max_42 : int -> int = <fun>
@@ -469,17 +469,17 @@ val fib : int -> int = <fun>
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
 
-The first version `fib_loop` takes two extra parameters: the two previously computed Fibonacci numbers.
+The first version `fib_loop` has two extra parameters: the two previously computed Fibonacci numbers.
 
 The second version `fib` uses the first two Fibonacci numbers as initial values. There is nothing to be computed when returning from a recursive call, so this enables the compiler to perform an optimisation called [tail call elimination](https://en.wikipedia.org/wiki/Tail_call). <!--This turns recursivity into imperative iteration in the generated native code and leads to improved performances.-->
 
 **Note**: Notice that the `fib_loop` function has three parameters `m n i` but when defining `fib` only two arguments were passed `0 1`, using partial application.
 
-## Functions with Multiple Arguments
+## Functions with Multiple Parameters
 
-### Defining Functions with Multiple Arguments
+### Defining Functions with Multiple Parameters
 
-To define a function with multiple arguments, each must be listed between the name of the function (right after the `let` keyword) and the equal sign, separated by space:
+To define a function with multiple parameters, each must be listed between the name of the function (right after the `let` keyword) and the equal sign, separated by space:
 ```ocaml
 # let sweet_cat x y = x ^ " " ^ y;;
 val sweet_cat : string -> string -> string = <fun>
@@ -488,7 +488,7 @@ val sweet_cat : string -> string -> string = <fun>
 - : string = "kitty cat"
 ```
 
-### Anonymous Functions with Multiple Arguments
+### Anonymous Functions with Multiple Parameters
 
 We can use anonymous functions to define the same function in a different way:
 ```ocaml
@@ -537,16 +537,16 @@ val sour_kitty : string -> string = <fun>
 val sweet_kitty : string -> string = <fun>
 ```
 
-Since a multiple-argument function is a series of nested single-argument functions, you don't have to pass all arguments at once.
+Since a multiple-parameter function is a series of nested single-argument functions, you don't have to pass all arguments at once.
 
-Passing a single parameter to `sour_kitty` or `sweet_kitty` returns a function of type `string -> string`. 
+Passing a single argument to `sour_kitty` or `sweet_kitty` returns a function of type `string -> string`. 
  The first argument, here `"kitty"`, is captured and the result is a [closure](#closures).
 
 These expressions have the same value:
 - `fun x -> sweet_cat "kitty" x`
 - `sweet_cat "kitty"`
 
-### Types of Functions of Multiple Argument
+### Types of Functions of Multiple Parameters
 
 Let's look at the types here:
 ```ocaml
@@ -591,7 +591,7 @@ val spicy_cat : string * string -> string = <fun>
 
 It looks like two arguments have been passed: `"hello"` and `"world"`. However, only one, the `("hello", "world")` tuple, has been passed. Inspection of the generated assembly would show it isn't the same function as `sweet_cat`. It contains some more code. The contents of the tuple passed to `spicy_cat` (`x` and `y`) must be extracted before evaluation of the `x ^ " " ^ y` expression. This is the role of the additional assembly instructions.
 
-In many imperative languages, the `spicy_cat ("hello", "world")` syntax reads as a function call with two parameters; but in OCaml, it denotes applying the function `spicy_cat` to a tuple containing `"hello"` and `"world"`.
+In many imperative languages, the `spicy_cat ("hello", "world")` syntax reads as a function call with two arguments; but in OCaml, it denotes applying the function `spicy_cat` to a tuple containing `"hello"` and `"world"`.
 
 ### Currying and Uncurrying
 
