@@ -361,7 +361,7 @@ This function operates not just on lists of integers but on any kind of list. It
 
 #### Defining a Higher-Order Function
 
-It is possible to pass a function as argument to another function. Functions taking other functions as argument are called _higher-order_ functions. This was illustrated earlier using function `List.map`. Here is how `map` can be written using pattern matching on lists.
+It is possible to pass a function as argument to another function. Functions having other functions as parameters are called _higher-order_ functions. This was illustrated earlier using function `List.map`. Here is how `map` can be written using pattern matching on lists.
 ```ocaml
 # let square x = x * x;;
 val square : int -> int
