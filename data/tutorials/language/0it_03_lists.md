@@ -326,7 +326,7 @@ two values of like type (with the exception of functions which are incomparable)
 ```
 
 (The function [`Fun.flip`](/api/Fun.html#VALflip) reverses the
-argument order of a binary function.)
+parameter order of a binary function.)
 
 ### Folds
 
@@ -367,7 +367,7 @@ The largest number in the list is found. Let's look at the type of the
 ```
 
 The function is of type `'a -> 'b -> 'a` where `'a` is the accumulator and `'b`
-is the type of each element of the list. The next argument is the initial
+is the type of each element of the list. The next parameter is the initial
 accumulator, which must be of type `'a`, and then finally the input list of
 type `'b list`. The result is the final value of the accumulator, so it must
 have type `'a`. Of course, in both of our examples, `'a` and `'b` are the same
@@ -386,8 +386,8 @@ val append : 'a list -> 'a list -> 'a list = <fun>
 ```
 
 In this example, the initial accumulator is the second list, and each element
-of the first is consed to it in turn. You can see the order of arguments to
-fold right is a little different:
+of the first is consed to it in turn. You can see the order of the
+fold right parameters is a little different:
 
 ```ocaml
 # List.fold_right;;
@@ -459,7 +459,7 @@ proportional to its input list:
 ```
 
 For long lists, this may overflow the stack (be too large for the computer to
-handle). The solution is to write our function with an accumulating argument,
+handle). The solution is to write our function with an accumulating parameter,
 like this:
 
 ```ocaml
