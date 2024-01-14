@@ -65,7 +65,7 @@ Hello
 ```
 
 Actually, `dune build` is optional. Simply running `dune exec` would have
-triggered the compilation. Beware in the `dune exec` command, as the argument
+triggered the compilation. Note that in the `dune exec` command the argument
 `./bmodule.exe` is not a file path. This command means “execute the content of
 the file `./bmodule.ml`.” However, the actual executable file is stored and
 named differently.
