@@ -207,6 +207,53 @@ Error: Unbound value Hello.World.mundo
 
 This is because we haven't changed `lib/world.mli`. Since it does not list `mundo`, it is therefore private.
 
+## Defining multiple modules in a library
+A more detailed introduction to modules can be found at
+[Modules](/docs/modules). In short, multiple modules can be defined in a single
+library. To demonstrate this, create a new
+file named `lib/en.ml` with the following content:
+```ocaml
+let helloworld = "hello world from the en module"
+```
+
+Then create a new file named `lib/es.ml` with the following content:
+```ocaml
+let helloworld = "hola mundo desde el moodulo es"
+```
+
+Next, add the following to the `lib/hello.ml` file:
+```ocaml
+module En = En
+module Es = Es
+```
+and add the same to `lib/hello.mli` to make them public:
+```ocaml
+val world : string
+module En = En
+module Es = Es
+```
+
+Finally, use the new modules in `bin/main.ml`:
+```ocaml
+let () = print_endline Hello.Es.helloworld
+let () = print_endline Hello.En.helloworld
+```
+
+The new tree for `lib/` should look like this:
+```shell
+...
+├───lib
+│       dune
+│       en.ml
+│       es.ml
+│       hello.ml
+│       hello.mli
+|
+...
+```
+Run `dune build` and `dune exec hello` to see the new output, using the modules
+that were just created in the `hello` library.
+
 ## Installing and Using Modules From a Package
 
 OCaml has an active community of open-source contributors. Most projects are available using the opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows you how to install and use a package from opam's open-source repository.
