@@ -176,13 +176,13 @@ Line 1, characters 15-18:
   this optional argument cannot be erased.
 val concat_warn : string list -> ?sep:string -> string = <fun>
 
-# concat_warn ~sep:"; " ["a"; "b"; "c"];;
-- : string = "a; b; c"
+# concat_warn ~sep:"--" ["foo"; "bar"; "baz"];;
+- : string = "foo--bar--baz"
 
 # concat_warn ~sep:"";;
 - : string list -> string
 
-# concat_warn ["a"; "b"; "c"];;
+# concat_warn ["foo"; "bar"; "baz"];;
 - : ?sep:string -> string = <fun>
 ```
 
@@ -191,18 +191,18 @@ In the second version, the optional separator is the first declared parameter.
 # let concat ?(sep="") ss = String.concat sep ss;;
 val concat : ?sep:string -> string list -> string = <fun>
 
-# concat ["a"; "b"; "c"] ~sep:", ";;
-- : string = "a, b, c"
+# concat ["foo"; "bar"; "baz"] ~sep:"--";;
+- : string = "foo--bar--baz"
 
-# concat ~sep:"";;
+# concat ~sep:"--";;
 - : string list -> string = <fun>
 t
-# concat ["a"; "b"; "c"];;
-- : string = "abc"
+# concat ["foo"; "bar"; "baz"];;
+- : string = "foobarbaz"
 ```
 
-The only difference between the two versions is the order in which the parameters are declared. Both functions behave the same, except when only applied to the argument `["a"; "b"; "c"]`. In that case:
-- `concat` returns `"abc"`. The default value `""` of `~sep` is passed.
+The only difference between the two versions is the order in which the parameters are declared. Both functions behave the same, except when only applied to the argument `["foo"; "bar"; "baz"]`. In that case:
+- `concat` returns `"foobarbaz"`. The default value `""` of `~sep` is passed.
 - `concat_warn` returns a partially applied function of type `?sep:string -> string`. The default value is not passed.
 
 Most often, `concat` is needed. Therefore a function's last declared parameter shouldn't be optional. The warning suggests turning `concat_warn` into `concat`. Disregarding it exposes a function with an optional parameter that must be provided, which is contradictory.
