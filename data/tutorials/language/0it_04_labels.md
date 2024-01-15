@@ -132,7 +132,7 @@ val sub : ?pos:int -> ?len:int -> string -> string = <fun>
 ```
 
 Here, we're defining a variant of the function `String.sub` from the standard library.
-* `s` is the string which we are extracting a substring from.
+* `s` is the string from which we are extracting a substring.
 * `pos` is the substring's starting position. It defaults to `0`.
 * `len` is the substring's length. If missing, it defaults to `String.length s - pos`.
 
