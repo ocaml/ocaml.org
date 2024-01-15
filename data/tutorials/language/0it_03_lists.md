@@ -325,7 +325,7 @@ two values of like type (with the exception of functions which are incomparable)
 - : (int * int) list = [(1, 3); (1, 2); (2, 3); (2, 2)]
 ```
 
-(The function [`Fun.flip`](/api/Fun.html#VALflip) reverses the
+The function [`Fun.flip`](/api/Fun.html#VALflip) reverses a binary function parameter order.
 parameter order of a binary function.)
 
 ### Folds
