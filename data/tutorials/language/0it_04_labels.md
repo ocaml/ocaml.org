@@ -30,7 +30,7 @@ Labelled arguments are passed using a tilde `~` and can be placed at any positio
 # Option.value ~default:42 (Some 10);;
 - : int = 10
 
-# Option.value ~default:42 None
+# Option.value ~default:42 None;;
 - : int = 42
 ```
 
@@ -100,7 +100,7 @@ val sum : ?init:int -> int list -> int = <fun>
 
 It behaves the same, but in this case, `?init:(x = 1)` means that `~init` is an optional parameter that defaults to 1. Inside the function, the parameter is named `x`.
 
-The definition in the previous section was using the shortcut that makes `?(init = 0)` the same as that `?init:(init = 0)`.
+The definition in the previous section used the shortcut that makes `?(init = 0)` the same as `?init:(init = 0)`.
 
 <!--
 ```ocaml
@@ -113,7 +113,9 @@ val log : ?base:float -> float -> float = <fun>
 val get_ok : ?exn:('a -> exn) -> ('b, 'a) result -> 'b = <fun>
 
 # let get_ok ?(exn = fun _ -> Invalid_argument "result is Error _") =
-    Result.fold ~ok:Fun.id ~error:(fun e -> raise (exn e))
+    Result.fold ~ok:Fun.id ~error:(fun e -> raise (exn e));;
+val get_ok : ?exn:('a -> exn) -> ('b, 'a) result -> 'b = <fun>
+```
 -->
 
 ## Defining Optional Parameters Without Default Values
@@ -130,9 +132,9 @@ val sub : ?pos:int -> ?len:int -> string -> string = <fun>
 ```
 
 Here, we're defining a variant of the function `String.sub` from the standard library.
-* `s` is the string which we are extracting a substring from
-* `pos` is the starting position of the substring, it defaults to `0`
-* `len` is the length of the substring. If missing, it defaults to `String.length s - pos`
+* `s` is the string which we are extracting a substring from.
+* `pos` is the substring's starting position. It defaults to `0`.
+* `len` is the substring's length. If missing, it defaults to `String.length s - pos`.
 
 When an optional parameter isn't given a default value, its type inside the function is made an `option`. Here, `len` appears as `?len:int` in the function signature. However, inside the body of the function, `len_opt` is an `int option`.
 
@@ -200,10 +202,10 @@ t
 ```
 
 The only difference between the two versions is the order in which the parameters are declared. Both functions behave the same, except when only applied to the argument `["a"; "b"; "c"]`. In that case:
-- `concat` returns `"abc"`, the default value `""` of `~sep` is passed.
-- `concat_warn` returns a partially applied function of type `?sep:string -> string`, the default value is not passed.
+- `concat` returns `"abc"`. The default value `""` of `~sep` is passed.
+- `concat_warn` returns a partially applied function of type `?sep:string -> string`. The default value is not passed.
 
-Most often, what is needed is `concat`. Therefore a function's last declared parameter shouldn't be optional. The warning suggests turning `concat_warn` into `concat`. Disregarding it exposes a function with an optional parameter that must be provided, which is contradictory.
+Most often, `concat` is needed. Therefore a function's last declared parameter shouldn't be optional. The warning suggests turning `concat_warn` into `concat`. Disregarding it exposes a function with an optional parameter that must be provided, which is contradictory.
 
 **Note**: Optional parameters make it difficult for the compiler to know if a function is partially applied or not. This is why at least one positional parameter is required after the optional ones. If present at application, it means the function is fully applied, if missing, it means the function is partially applied.
 
