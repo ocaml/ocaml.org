@@ -116,6 +116,23 @@ let toc ?(start_level = 1) ?(max_level = 2) doc =
     invalid_arg "toc: ~max_level must be >= ~start_level";
   create_toc ~max_level start_level (headers doc)
 
+exception Missing_Tutorial of string
+
+let any_recommendded_next_tuts_are_missing_exn all_tutorials =
+  let tut_is_missing_exn slug =
+    match not @@ List.exists (fun t -> t.slug = slug) all_tutorials with
+    | true -> raise (Missing_Tutorial (slug ^ " - perhaps it is misspelled?"))
+    | _ -> false
+  in
+
+  List.exists
+    (fun t ->
+      match t.recommended_next_tutorials with
+      | None -> false
+      | Some rnt_slugs ->
+          List.exists (fun slug -> tut_is_missing_exn slug) rnt_slugs)
+    all_tutorials
+
 let decode (fpath, (head, body_md)) =
   let metadata = metadata_of_yaml head in
   let section =
@@ -132,8 +149,11 @@ let all () =
   |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
 
 let template () =
-  Format.asprintf
-    {|
+  if any_recommendded_next_tuts_are_missing_exn @@ all () then
+    failwith "Missing tutorial"
+  else
+    Format.asprintf
+      {|
 module Section = struct
   type t = GetStarted | Language | Platform | Guides
 end
@@ -173,5 +193,5 @@ type t =
   
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+      (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+      (all ())
