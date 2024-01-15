@@ -13,3 +13,6 @@ _build/
 
 # Local OPAM switch
 _opam/
+
+# Files that people sometimes accidentally include in their PRs
+*:OECustomProperty
