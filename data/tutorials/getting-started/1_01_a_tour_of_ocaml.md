@@ -149,6 +149,16 @@ When `square` is applied to `50`, it evaluates `x * x` into `50 * 50`, which lea
 
 The REPL indicates that the type of `square` is `int -> int`. This means it is a function taking an `int` as a parameter (input) and returning an `int` as result (output). A function value can't be displayed, which is why `<fun>` is printed instead.
 
+```ocaml
+# let square ~x = x * x;;
+val square : x:int -> int = <fun>
+
+# square ~x:50;;
+- : int = 2500
+```
+
+This example defines `square` again but it has a named parameter this time. Function parameters can have labels. Note that the label is included when applying `square`. Labelled parameters are detailed in the [Labelled Arguments](/docs/labels) tutorial.
+
 ### Anonymous Functions
 
 _Anonymous_ functions do not have a name, and they are defined with the `fun` keyword:
