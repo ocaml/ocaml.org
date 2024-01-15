@@ -297,6 +297,15 @@ The `max` function returns the largest of its two arguments, which are:
 - `42`, the result of `21 * 2`
 - `713`, the result of `int_of_string "713"`
 
+```ocaml
+# let square ~x = x * x;;
+val square : x:int -> int
+
+# square ~x:3;;
+- : int = 9
+```
+
+Functions with named parameters can be applied in the same way as functions without named parameters with the difference that the argument should be named. Note the `~x` when `square` is applied to `3`. Labelled parameters are detailed in the [Labelled Arguments](/docs/labels) tutorial.
 
 There are two alternative ways to apply functions.
 
