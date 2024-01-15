@@ -130,13 +130,13 @@ course. Here are two examples showing the `map` function in use:
 
 ## The Standard Library `List` Module
 
-The standard library [List](https://ocaml.org/api/List.html) module contains a
+The standard library [List](/api/List.html) module contains a
 wide range of useful utility functions, including pre-written versions of many
 of the functions we have written in this tutorial. A version of the module with
 labelled functions is available as part of
-[StdLabels](https://ocaml.org/api/StdLabels.html).
+[StdLabels](/api/StdLabels.html).
 
-In the [List](https://ocaml.org/api/List.html) module documentation, functions
+In the [List](/api/List.html) module documentation, functions
 which can raise an exception are marked. Such exceptions are usually the result
 of lists which are empty (and therefore have neither a head nor a tail) or
 lists of mismatched length.
@@ -144,7 +144,7 @@ lists of mismatched length.
 ### Maps and Iterators
 
 We have already written a `map` function from scratch, and it is no surprise
-that one is included in the [List](https://ocaml.org/api/List.html) module.
+that one is included in the [List](/api/List.html) module.
 There is also a variant for two lists:
 
 ```ocaml
@@ -153,8 +153,8 @@ There is also a variant for two lists:
 ```
 
 In addition, we have an imperative analogue to
-[`map`](https://ocaml.org/api/List.html#VALmap), called
-[`iter`](https://ocaml.org/api/List.html#VALiter). It takes an imperative
+[`map`](/api/List.html#VALmap), called
+[`iter`](/api/List.html#VALiter). It takes an imperative
 function of type `'a -> unit` and an `'a list` and applies the function to each
 element in turn. A suitable function might be `print_endline`:
 
@@ -166,7 +166,7 @@ mary
 - : unit = ()
 ```
 
-There is a variant [`iter2`](https://ocaml.org/api/List.html#VALiter2) for two
+There is a variant [`iter2`](/api/List.html#VALiter2) for two
 lists too:
 
 ```ocaml
@@ -180,8 +180,8 @@ mary jones
 - : unit = ()
 ```
 
-Notice that [`map2`](https://ocaml.org/api/List.html#VALmap2) and
-[`iter2`](https://ocaml.org/api/List.html#VALiter2) will fail if the lists are
+Notice that [`map2`](/api/List.html#VALmap2) and
+[`iter2`](/api/List.html#VALiter2) will fail if the lists are
 of unequal length:
 
 ```ocaml
@@ -191,7 +191,7 @@ Exception: Invalid_argument "List.map2".
 
 ### List Scanning
 
-The useful function [`mem`](https://ocaml.org/api/List.html#VALmem) checks
+The useful function [`mem`](/api/List.html#VALmem) checks
 whether a given element is a member of a list by scanning its contents:
 
 ```ocaml
@@ -216,8 +216,8 @@ val any : bool = true
 ```
 
 This is rather clumsy, though. The standard library provides two useful
-functions [`for_all`](https://ocaml.org/api/List.html#VALfor_all) and
-[`exists`](https://ocaml.org/api/List.html#VALexists) for this common problem:
+functions [`for_all`](/api/List.html#VALfor_all) and
+[`exists`](/api/List.html#VALexists) for this common problem:
 
 ```ocaml
 # List.for_all (fun x -> x mod 2 = 0) [2; 4; 6; 8];;
@@ -231,7 +231,7 @@ pieces of frequently-used code are turned into useful general functions.
 
 ### List Searching
 
-The function [`find`](https://ocaml.org/api/List.html#VALfind) returns the
+The function [`find`](/api/List.html#VALfind) returns the
 first element of a list matching a given predicate (a predicate is a testing
 function which returns either true or false when given an element). It raises
 an exception if such an element is not found:
@@ -244,7 +244,7 @@ an exception if such an element is not found:
 Exception: Not_found.
 ```
 
-The [`filter`](https://ocaml.org/api/List.html#VALfilter) function again takes
+The [`filter`](/api/List.html#VALfilter) function again takes
 a predicate and tests it against each element in the list, but this time
 returns the list of all elements which test true:
 
@@ -254,7 +254,7 @@ returns the list of all elements which test true:
 ```
 
 If we wish to know also which elements did not test true, we can use
-[`partition`](https://ocaml.org/api/List.html#VALpartition) which returns a
+[`partition`](/api/List.html#VALpartition) which returns a
 pair of lists: the first being the list of elements for which the predicate is
 true, the second those for which it is false.
 
@@ -264,8 +264,8 @@ true, the second those for which it is false.
 ```
 
 Note that the documentation for
-[`filter`](https://ocaml.org/api/List.html#VALfilter)  and
-[`partition`](https://ocaml.org/api/List.html#VALpartition) tells us that the
+[`filter`](/api/List.html#VALfilter)  and
+[`partition`](/api/List.html#VALpartition) tells us that the
 order of the input is preserved in the output. Where this is not stated it the
 documentation, it cannot be assumed.
 
@@ -274,8 +274,8 @@ documentation, it cannot be assumed.
 Association lists are a simple (and simplistic) way of implementing the
 dictionary data structure: that is to say, a group of keys each with an
 associated value. For large dictionaries, for efficiency, we would use the
-standard library's [Map](https://ocaml.org/api/Map.html) or
-[Hashtbl](https://ocaml.org/api/Hashtbl.html) modules. But these functions from
+standard library's [Map](/api/Map.html) or
+[Hashtbl](/api/Hashtbl.html) modules. But these functions from
 the List module are useful for lists which are generally small, and have other
 advantages: since they are just lists of pairs, they can be built and modified
 easily. They are also easily printed in the toplevel.
@@ -289,9 +289,9 @@ easily. They are also easily printed in the toplevel.
 
 When using association lists, and for other purposes, it is sometimes useful to
 be able to make a list of pairs from a pair of lists and vice versa. The
-[`List`](https://ocaml.org/api/List.html) module provides the functions
-[`split`](https://ocaml.org/api/List.html#VALsplit) and
-[`combine`](https://ocaml.org/api/List.html#VALcombine) for this purpose:
+[`List`](/api/List.html) module provides the functions
+[`split`](/api/List.html#VALsplit) and
+[`combine`](/api/List.html#VALcombine) for this purpose:
 
 ```ocaml
 # List.split [(3, "three"); (1, "one"); (4, "four")];;
@@ -302,12 +302,12 @@ be able to make a list of pairs from a pair of lists and vice versa. The
 
 ### Sorting Lists
 
-The function [`List.sort`](https://ocaml.org/api/List.html#VALsort), given a
+The function [`List.sort`](/api/List.html#VALsort), given a
 comparison function of type `'a -> 'a -> int` (zero if equal, negative if first
 smaller, positive if second smaller) and an input list of type `'a list`,
 returns the list sorted according to the comparison function. Typically, we use
 the built-in comparison function
-[`compare`](https://ocaml.org/api/Stdlib.html#VALcompare) which can compare any
+[`compare`](/api/Stdlib.html#VALcompare) which can compare any
 two values of like type (with the exception of functions which are incomparable).
 
 ```ocaml
@@ -325,19 +325,19 @@ two values of like type (with the exception of functions which are incomparable)
 - : (int * int) list = [(1, 3); (1, 2); (2, 3); (2, 2)]
 ```
 
-(The function [`Fun.flip`](https://ocaml.org/api/Fun.html#VALflip) reverses the
+(The function [`Fun.flip`](/api/Fun.html#VALflip) reverses the
 argument order of a binary function.)
 
 ### Folds
 
 There are two interestingly-named functions in the List module,
-[`fold_left`](https://ocaml.org/api/List.html#VALfold_left) and
-[`fold_right`](https://ocaml.org/api/List.html#VALfold_right). Their job is
+[`fold_left`](/api/List.html#VALfold_left) and
+[`fold_right`](/api/List.html#VALfold_right). Their job is
 to combine the elements of a list together, using a given function,
 accumulating an answer which is then returned. The answer returned depends upon
 the function given, the elements of the list, and the initial value of the
 accumulator supplied. So you can imagine these are very general functions.
-Let's explore [`fold_left`](https://ocaml.org/api/List.html#VALfold_left)
+Let's explore [`fold_left`](/api/List.html#VALfold_left)
 first.
 
 In this example, we supply the addition function and an initial
@@ -359,7 +359,7 @@ our initial accumulator
 ```
 
 The largest number in the list is found. Let's look at the type of the
-[`fold_left`](https://ocaml.org/api/List.html#VALfold_left) function:
+[`fold_left`](/api/List.html#VALfold_left) function:
 
 ```ocaml
 # List.fold_left;;
@@ -374,10 +374,10 @@ have type `'a`. Of course, in both of our examples, `'a` and `'b` are the same
 as one another. But this is not always so.
 
 Consider the following definition of `append` which uses
-[`fold_right`](https://ocaml.org/api/List.html#VALfold_right)
-([`fold_left`](https://ocaml.org/api/List.html#VALfold_left) considers the
+[`fold_right`](/api/List.html#VALfold_right)
+([`fold_left`](/api/List.html#VALfold_left) considers the
 elements from the left,
-[`fold_right`](https://ocaml.org/api/List.html#VALfold_right) from the right):
+[`fold_right`](/api/List.html#VALfold_right) from the right):
 
 ```ocaml
 # let append x y =
@@ -396,7 +396,7 @@ fold right is a little different:
 
 The function comes first, then the list of elements, then the initial
 accumulator value. We can use
-[`fold_right`](https://ocaml.org/api/List.html#VALfold_right) to define our
+[`fold_right`](/api/List.html#VALfold_right) to define our
 usual `map` function:
 
 ```ocaml
@@ -406,7 +406,7 @@ val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 ```
 
 But care is needed. If we try that with
-[`List.concat`](https://ocaml.org/api/List.html#VALconcat), which turns a
+[`List.concat`](/api/List.html#VALconcat), which turns a
 list of lists into a list by concatenating the lists together, we produce this:
 
 ```ocaml
@@ -417,14 +417,14 @@ val concat : 'a list list -> 'a list = <fun>
 Unfortunately, the order of evaluation here is such that larger and larger
 items are passed to the `@` operator as its first argument, and so the function
 has a worse running time than
-[`List.concat`](https://ocaml.org/api/List.html#VALconcat). You can read more
+[`List.concat`](/api/List.html#VALconcat). You can read more
 about the time and space efficiency of lists and other common OCaml data
 structures in the [comparison of standard
 containers](/docs/data-structures-comparison).
 
 Here are some more redefinitions of familiar functions in terms of
-[`fold_left`](https://ocaml.org/api/List.html#VALfold_left) or
-[`fold_right`](https://ocaml.org/api/List.html#VALfold_right). Can you work
+[`fold_left`](/api/List.html#VALfold_left) or
+[`fold_right`](/api/List.html#VALfold_right). Can you work
 out how they operate?
 
 ```ocaml

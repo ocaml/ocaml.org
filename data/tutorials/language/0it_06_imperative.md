@@ -487,7 +487,7 @@ After this last command, you can type and edit any single line of text. Then, pr
 This example illustrates the following:
 - The functions `record_char` and `remove_char` neither update the state nor produce side effects. Instead, they each return a pair of values consisting of a string to print and the next state, `new_state`.
 - I/O and state-update side effects happen inside the `loop` function.
-- The state is passed as a parameter to the `loop` function.
+- The state is passed as argument to the `loop` function.
 
 This is a possible way to handle an application-wide state. As in the [Function-Encapsulated Mutability](#good-function-encapsulated-mutability) example, state-aware code is contained in a narrow scope; the rest of the code is purely functional.
 
@@ -515,7 +515,7 @@ val char_cos : char -> float = <fun>
 
 The [memoization](https://en.wikipedia.org/wiki/Memoization) technique relies on the same idea as the previous section's example: lookup results from a table of previously computed values.
 
-However, instead of precomputing everything, memoization uses a cache that is populated when calling the function. Either, the provided parameters
+However, instead of precomputing everything, memoization uses a cache that is populated when calling the function. Either, the provided arguments
 * are found in the cache (it is a hit) and the stored result is returned, or they
 * are not found in the cache (it's a miss), and the result is computed, stored in the cache, and returned.
 
@@ -641,7 +641,7 @@ In the second line, we apply `id_print` to the arguments `"Monday"`, `"Tuesday"`
 
 Since the evaluation order for function arguments in OCaml is not explicitly defined, the order in which the `id_print` side effects take place is unreliable. In this example, the arguments are evaluated from right to left, but this could change in future compiler releases.
 
-This issue also arises when applying parameters to variant constructors, building tuple values, or initialising record fields. Here, it is illustrated on a tuple value:
+This issue also arises when applying arguments to variant constructors, building tuple values, or initialising record fields. Here, it is illustrated on a tuple value:
 ```ocaml
 # let r = ref 0 in ((incr r; !r), (decr r; !r));;
 - : int * int = (0, -1)

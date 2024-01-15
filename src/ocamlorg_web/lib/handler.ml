@@ -10,7 +10,9 @@ let ( let</>? ) opt = http_or_404 opt
 let index _req =
   Dream.html
     (Ocamlorg_frontend.home ~latest_release:Data.Release.latest
-       ~lts_release:Data.Release.lts)
+       ~lts_release:Data.Release.lts
+       ~releases:(List.take 2 Data.Release.all)
+       ~changelogs:(List.take 3 Data.Changelog.all))
 
 let install _req = Dream.html (Ocamlorg_frontend.install ())
 
@@ -75,7 +77,6 @@ let changelog req =
   let tags =
     Data.Changelog.all
     |> List.concat_map (fun (change : Data.Changelog.t) -> change.tags)
-    |> List.sort_uniq String.compare
     |> List.sort_uniq String.compare
   in
   let changes =
@@ -383,8 +384,10 @@ let tutorial req =
   let</>? tutorial =
     List.find_opt (fun x -> x.Data.Tutorial.slug = slug) Data.Tutorial.all
   in
+  let all_tutorials = Data.Tutorial.all in
+
   let tutorials =
-    Data.Tutorial.all
+    all_tutorials
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = tutorial.section)
   in
   let all_exercises = Data.Exercise.all in
@@ -396,10 +399,20 @@ let tutorial req =
         | None -> false)
       all_exercises
   in
+
+  let is_in_recommended_next (tested : Data.Tutorial.t) =
+    List.exists (fun r -> r = tested.slug)
+    @@ match tutorial.recommended_next_tutorials with Some x -> x | None -> []
+  in
+
+  let recommended_next_tutorials =
+    all_tutorials |> List.filter is_in_recommended_next
+  in
+
   Dream.html
     (Ocamlorg_frontend.tutorial ~tutorials
        ~canonical:(Url.tutorial tutorial.slug)
-       ~related_exercises tutorial)
+       ~related_exercises ~recommended_next_tutorials tutorial)
 
 let exercises req =
   let all_exercises = Data.Exercise.all in
@@ -470,9 +483,12 @@ module Package_helper = struct
   (** Query all the versions of a package. *)
   let versions state name =
     Ocamlorg_package.get_versions state name
-    |> Option.value ~default:[]
-    |> List.sort (Fun.flip Ocamlorg_package.Version.compare)
-    |> List.map Ocamlorg_package.Version.to_string
+    |> List.map (fun (v : Ocamlorg_package.version_with_publication_date) ->
+           Ocamlorg_frontend.Package.
+             {
+               version = Ocamlorg_package.Version.to_string v.version;
+               publication = v.publication;
+             })
 
   let frontend_package ?on_latest_url state (package : Ocamlorg_package.t) :
       Ocamlorg_frontend.Package.package =
@@ -785,6 +801,14 @@ let package_overview t kind req =
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~readme
        ~search_index_digest ~toc ~deps_and_conflicts frontend_package)
+
+let package_versions t _kind req =
+  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
+  let version_from_url = Dream.param req "version" in
+  let</>? _package, frontend_package =
+    Package_helper.of_name_version t name version_from_url
+  in
+  Dream.html (Ocamlorg_frontend.package_versions frontend_package)
 
 let package_documentation t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in

@@ -220,6 +220,8 @@ module Tutorial : sig
     contribute_link : contribute_link;
   }
 
+  type recommended_next_tutorials = string list
+
   type t = {
     title : string;
     fpath : string;
@@ -231,6 +233,7 @@ module Tutorial : sig
     body_md : string;
     toc : toc list;
     body_html : string;
+    recommended_next_tutorials : recommended_next_tutorials option;
   }
 
   val all : t list

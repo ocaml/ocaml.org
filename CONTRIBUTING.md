@@ -18,7 +18,8 @@ Please include images and browser-specific information if the bug is related to 
 
 We've provided a list of community-driven content below. When adding content to any of these sections, it's best to fork the repo, add your file, and open a pull request (PR).
 
-- [The Blog](#content-blog)
+- [Images](#images)
+- [The OCaml Planet Blog](#content-blog)
 - [Job Board](#content-job)
 - [Success Stories](#content-success-story)
 - [Academic and Industrial Users](#content-user)
@@ -29,6 +30,16 @@ We've provided a list of community-driven content below. When adding content to 
 - [The OCaml Changelog](#content-changelog)
 
 The following sections give more details on how to contribute to each.
+
+### <a name="images"></a>Adding Images
+
+Some of the data that can be contributed by users may include images or other media, for example, success stories, academic and industrial users, or books.
+
+Images can be added to the corresponding subfolder in the `data/media/` folder.
+
+E.g. for adding a university logo associated with an academic institution, you have to add the image file to the `data/media/academic_institution/` folder.
+
+Videos or other media should not be added to the ocaml.org GitHub repository.
 
 ### <a name="content-blog"></a>Add an RSS Feed to the Blog
 
@@ -77,7 +88,7 @@ If you notice that a job opportunity is outdated (e.g., already fulfilled or not
 
 > Contribute to the [Success Stories](https://ocaml.org/success-stories).
 
-You can contribute a new success story by adding a Markdown file in [data/success_stories/](data/success_stories/). For instance: [janestreet.md](data/success_stories/en/janestreet.md).
+You can contribute a new success story by adding a Markdown file in [data/success_stories/](data/success_stories/). For instance: [janestreet.md](data/success_stories/janestreet.md).
 
 The success stories should be structured in the following way:
 
@@ -92,15 +103,15 @@ You can read [Ahref's success story](https://ocaml.org/success-stories/peta-byte
 
 > Contribute to the [Academic Users](https://ocaml.org/academic-users) and [Industrial Users](https://ocaml.org/industrial-users).
 
-You can add a new academic user by creating a new Markdown file in [data/industrial_users/](data/industrial_users/). For instance: [cryptosense.md](data/industrial_users/en/cryptosense.md).
+You can add a new academic user by creating a new Markdown file in [data/industrial_users/](data/industrial_users/). For instance: [cryptosense.md](data/industrial_users/cryptosense.md).
 
-You can add a new industrial user by creating a new Markdown file in [data/academic_institutions/](data/academic_institutions). For instance: [cornell.md](data/academic_institutions/en/cornell.md).
+You can add a new industrial user by creating a new Markdown file in [data/academic_institutions/](data/academic_institutions). For instance: [cornell.md](data/academic_institutions/cornell.md).
 
 ### <a name="content-book"></a>Add a Book
 
 > Contribute to the [OCaml Books](https://ocaml.org/books).
 
-You can add a new OCaml book by creating a new Markdown file in [data/books/](data/books/). For instance: [ocaml-from-the-very-beginning.md](data/industrial_users/en/ocaml-from-the-very-beginning.md).
+You can add a new OCaml book by creating a new Markdown file in [data/books/](data/books/). For instance: [ocaml-from-the-very-beginning.md](data/books/ocaml-from-the-very-beginning.md).
 
 ### <a name="content-meetup"></a>Add A meetup
 

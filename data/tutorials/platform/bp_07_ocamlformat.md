@@ -22,5 +22,5 @@ creates a configuration file for the currently installed version of OCamlFormat.
 In addition to editor plugins that use OCamlFormat for automatic code formatting, Dune also offers a command to run OCamlFormat to automatically format all files from your codebase:
 
 ```shell
-$ dune fmt
+$ opam exec -- dune fmt
 ```

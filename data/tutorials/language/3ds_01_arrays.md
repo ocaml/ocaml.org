@@ -120,7 +120,7 @@ val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b array -> 'a = <fun>
 
 `fold_left f init a` computes `f (... (f(f init a.(0)) a.(1)) ...) a.(n-1)`
 
-Similarly, we can use the `Array.fold_right` function, which switches the order of its arguments:
+Similarly, we can use the `Array.fold_right` function, which switches the order of its parameters:
 
 ```ocaml
 # Array.fold_right;;

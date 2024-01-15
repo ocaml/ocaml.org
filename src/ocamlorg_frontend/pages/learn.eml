@@ -115,7 +115,7 @@ Learn_layout.single_column_layout
           ~title:"Dune" ~text:"Dune is a user-friendly and efficient build system for developing OCaml projects"
           ~url:"https://dune.build/" %>
       </div>
-      <a class="pt-6 pb-3 text-primary dark:text-dark-title hover:underline dark:underline" href="<%s Url.platform %>">Go to Platform Tools Documentation</a>
+      <a class="pt-6 pb-3 text-primary dark:text-dark-title hover:underline dark:underline dark:hover:text-dark-primary" href="<%s Url.platform %>">Go to Platform Tools Documentation</a>
     </div>
   </div>
 
@@ -213,7 +213,7 @@ Learn_layout.single_column_layout
         </a>
         <% ); %>
       </div>
-      <a href="<%s Url.papers %>" class="btn btn-lg btn-ghost mt-8">
+      <a href="<%s Url.papers %>" class="btn btn-lg btn-ghost dark:border-dark-primary dark:hover:bg-dark-primary dark:hover:text-dark-title dark:text-dark-primary mt-8">
         <span>View all papers</span>
         <%s! Icons.chevron_right "h-5 w-5" %>
       </a>

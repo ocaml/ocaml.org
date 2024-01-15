@@ -269,7 +269,7 @@ Building and executing this example will run for around 30 seconds by
 default, and you'll see the results summarized in a neat table:
 
 ```sh dir=examples/back-end/bench_patterns,non-deterministic=command
-$ dune exec -- ./bench_patterns.exe -ascii -quota 0.25
+$ opam exec -- dune exec -- ./bench_patterns.exe -ascii -quota 0.25
 Estimated testing time 750ms (3 benchmarks x 250ms). Change using '-quota'.
 
   Name                        Time/Run   Percentage
@@ -736,7 +736,7 @@ let () =
 Running this shows quite a significant runtime difference between the two:
 
 ```sh dir=examples/back-end/bench_poly_and_mono,non-deterministic=command
-$ dune exec -- ./bench_poly_and_mono.exe -ascii -quota 1
+$ opam exec -- dune exec -- ./bench_poly_and_mono.exe -ascii -quota 1
 Estimated testing time 2s (2 benchmarks x 1s). Change using '-quota'.
 
   Name                       Time/Run   Percentage
@@ -852,7 +852,7 @@ output:
 
 
 ```sh dir=examples/back-end/alternate_list
-$ dune build alternate_list.exe
+$ opam exec -- dune build alternate_list.exe
 $ ./_build/default/alternate_list.exe -ascii -quota 1
 1,3,5,7,9
 ```

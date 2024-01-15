@@ -120,6 +120,10 @@ body {
   word-wrap: break-word;
 }
 
+.prose {
+  word-wrap: break-word;
+}
+
 .prose [id] {
   scroll-margin-top: 2rem;
 }

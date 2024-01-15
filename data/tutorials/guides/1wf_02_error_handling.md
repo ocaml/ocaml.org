@@ -919,9 +919,9 @@ fine, so it's a balance.
 
 # External Resources
 
-- [“Exceptions”](https://v2.ocaml.org/releases/5.0/htmlman/coreexamples.html#s%3Aexceptions) in ”The OCaml Manual, The Core Language”, chapter 1, section 6, December 2022
-- [Module **`option`**](https://v2.ocaml.org/releases/5.0/api/Option.html) in OCaml Library
-- [Module **`result`**](https://v2.ocaml.org/releases/5.0/api/Result.html) in Ocaml Library
+- [“Exceptions”](/manual/coreexamples.html#s%3Aexceptions) in ”The OCaml Manual, The Core Language”, chapter 1, section 6, December 2022
+- [Module **`option`**](/api/Option.html) in OCaml Library
+- [Module **`result`**](/api/Result.html) in Ocaml Library
 - [“Error Handling”](https://dev.realworldocaml.org/error-handling.html) in “Real World OCaml”, part 7, Yaron Minsky and Anil Madhavapeddy, 2ⁿᵈ edition, Cambridge University Press, October 2022
 - “Add "finally" function to Pervasives”, Marcello Seri, GitHub PR, [ocaml/ocaml/pull/1855](https://github.com/ocaml/ocaml/pull/1855)
 - “A guide to recover from interrupts”, Guillaume Munch-Maccagnoni, parf the [`memprof-limits`](https://gitlab.com/gadmm/memprof-limits/) documentation

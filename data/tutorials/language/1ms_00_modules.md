@@ -59,13 +59,13 @@ executable.
 ```bash
 $ echo "(lang dune 3.4)" > dune-project
 $ echo "(executable (name bmodule))" > dune
-$ dune build
-$ dune exec ./bmodule.exe
+$ opam exec -- dune build
+$ opam exec -- dune exec ./bmodule.exe
 Hello
 ```
 
 Actually, `dune build` is optional. Simply running `dune exec` would have
-triggered the compilation. Beware in the `dune exec` command, as the parameter
+triggered the compilation. Note that in the `dune exec` command the argument
 `./bmodule.exe` is not a file path. This command means “execute the content of
 the file `./bmodule.ml`.” However, the actual executable file is stored and
 named differently.
@@ -209,10 +209,10 @@ of this example aside of the previous one.
 <!-- $MDX dir=examples -->
 ```bash
 $ echo "(executables (names bmodule bmodule2))" > dune
-$ dune build
-$ dune exec ./bmodule.exe
+$ opam exec -- dune build
+$ opam exec -- dune exec ./bmodule.exe
 Hello
-$ dune exec ./bmodule2.exe
+$ opam exec -- dune exec ./bmodule2.exe
 Hello 2
 ```
 
