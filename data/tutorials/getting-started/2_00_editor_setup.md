@@ -29,19 +29,19 @@ Upon first loading an OCaml source file, you may be prompted to select the toolc
 If your editor is setup correctly, here are some important features you can begin using to your advantage:
 #### 1) Hovering for type information: 
 
-![VSCode Hovering](/data/media/tutorials/vscode-hover.gif)
+![VSCode Hovering](/media/tutorials/vscode-hover.gif)
 
 This is a great feature that let's you see type information of any OCaml variable or function. All you have to do is place your cursor over the code and it will be displayed in the tooltip.
 
 #### 2) Jump to definitions with `Ctrl + Click`:
 
-![VSCode Ctrl click](/data/media/tutorials/vscode-ctrl-click.gif)
+![VSCode Ctrl click](/media/tutorials/vscode-ctrl-click.gif)
 
 If you hold down the <kbd>Ctrl</kbd> key while hovering, the code appears as a clickable link which if clicked takes you to the file where the implementation is. This can be great if you want to understand how a piece of code works under the hood. In this example, hovering and `Ctrl + Clicking` over the `peek` method of the `Queue` module will take you to the definiton of the `peek` method itself and how it is implemented.
 
 #### 3) OCaml commands with `Ctrl + Shift + p`:
 
-![VSCode OCaml Commands](/data/media/tutorials/vscode-ocaml-commands.gif)
+![VSCode OCaml Commands](/media/tutorials/vscode-ocaml-commands.gif)
 
 Pressing the key combination <kbd>Ctrl + Shift + p</kbd> opens a modal dialog at the top. If you type the word `ocaml`, you will be presented with a list of various OCaml commands at your disposal which can be used for different purposes.
 
@@ -71,7 +71,7 @@ $ opam user-setup install
 
 **Vim**
 
-![Vim Type information](/data/media/tutorials/vim-type-info.gif)
+![Vim Type information](/media/tutorials/vim-type-info.gif)
 
 - In the Vim editor, press the <kbd>Esc</kbd> to enter command mode.
 - Place the cursor over the variable.
@@ -81,7 +81,7 @@ Other Merlin commands for Vim are available and you can checkout their usage on 
 
 **Emacs**
 
-![Emacs Type information](/data/media/tutorials/emacs-type-info.gif)
+![Emacs Type information](/media/tutorials/emacs-type-info.gif)
 
 - In the Emacs editor, place you cursor over the variable.
 - Use the keyboard shortcut <kbd>Alt + x</kbd> followed by `merlin-type-enclosing`
