@@ -39,7 +39,7 @@ let render_related_exercises exercises =
 
 let render_recommended_next_tutorials tutorials =
   if List.length tutorials > 0 then
-    <div class='related-exercises'>
+    <div>
       <h3>Recommended next tutorials:</h3>
       <ul>
         <% tutorials |> List.iter (fun (tutorial : Data.Tutorial.t) -> %>
