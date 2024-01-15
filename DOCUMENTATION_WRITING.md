@@ -1,19 +1,15 @@
 # How to Write Documentation
 
-This document explains how to write documentation such as tutorials, guides or recommendations to be hosted in ocaml.org.
+This document explains how to write documentation such as tutorials, guides, or recommendations to be hosted in ocaml.org.
 
 ## Materials
 
-- Reference. This includes the [OCaml Manual](https://ocaml.org/releases/latest/manual.html), the [Opam manual](https://opam.ocaml.org/) and [Dune's documentation](https://dune.readthedocs.io/en/stable/). This is considered upstream material, refer to the corresponding projects to propose changes in them.
+- Reference. This includes the [OCaml Manual](https://ocaml.org/releases/latest/manual.html), the [opam manual](https://opam.ocaml.org/), and [Dune's documentation](https://dune.readthedocs.io/en/stable/). This is considered upstream material. Refer to the corresponding projects to propose changes in them.
 - Tutorials
 - Guides
 - Recommended practices
 
 ## Audience
-
-Not our audience:
-* Students going to universities
-* Absolutely clueless about programming, we do not teach from scratch
 
 Our audience:
 * Self-directed learners without a tutor
@@ -22,9 +18,13 @@ Our audience:
 * Likely a majority of consumers of libraries, hopefully some authors or people who turn into it
 * English level B2 ideally
 
+Not our audience:
+* University students
+* New to programming. We do not teach programming basics.
+
 ## Goals
 
-1. Enable people to use OCaml for real projects / at the job / side projects / Advent of Code
+1. Enable people to use OCaml for real projects / at the job / side projects
 1. Get people who want to build and contribute to the ecosystem up to speed and building something good quickly
 1. Help people learn untainted FP through learning a language
 1. **Oddly Specific**: Enable people to do Advent of Code in OCaml.
@@ -38,17 +38,17 @@ Our audience:
 - **Clear Section Headings**. Make sure section titles clearly indicate their content. Just like a candy store displays its products openly, avoid vague titles and opt for ones that clearly reveal the content. This is also helpful for better display of search results.
 - **Use B2 Level English**. This ensures the material is comprehensible to those who are not native English speakers.
 
-## Common phrases
+## Common Phrases
 
-- "binding a value to a name" ~ declaring a variable
-- `'a` is a type parameter called "alpha" - it is not a _type variable_ (because the term variable is a forbidden word)
-- pass a function as a value to another function as a parameter - not a "function value"
+- "Binding a value to a name" = declaring a variable
+- `'a` is a type parameter called "alpha." It is not a _type variable_ (because the term _variable_ is a forbidden word).
+- Pass a function as a value to another function as a parameter - not a "function value"
 
-## Things to avoid
+## Things to Avoid
 
-1. don't use the same letter for different things, i.e. when talking about a type parameter `'a`, don't have a name `a` nearby
-1. never use the term "variable", instead
-    a. names and values (binding = a value is bound to a name)
-    b. type parameter
-1. Use “parameter” and “argument” appropriately
+1. Don't use the same letter for different things, i.e,. when talking about a type parameter `'a`, don't have a name `a` nearby. In fact, since `a` can easily be confused with `'a` (alpha), start with `f` when using letters as parameters. 
+1. Never use the term "variable," instead
+    a. Names and values (binding = a value is bound to a name)
+    b. Type parameter
+1. Use “parameter” and “argument” appropriately.
 1. Don't use math, computer science, or programming language theory terminology without reason and explanation.
