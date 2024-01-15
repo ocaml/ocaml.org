@@ -326,7 +326,6 @@ two values of like type (with the exception of functions which are incomparable)
 ```
 
 The function [`Fun.flip`](/api/Fun.html#VALflip) reverses a binary function parameter order.
-parameter order of a binary function.)
 
 ### Folds
 
