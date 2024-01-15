@@ -25,7 +25,7 @@ $ opam install ocaml-lsp-server ocamlformat
 
 Upon first loading an OCaml source file, you may be prompted to select the toolchain in use. Pick the version of OCaml you are using, e.g., `5.1.0` from the list. 
 
-### Editor features at your disposal
+### Editor Features at Your Disposal
 If your editor is setup correctly, here are some important features you can begin using to your advantage:
 #### 1) Hovering for type information: 
 
