@@ -71,7 +71,7 @@ $ opam user-setup install
 
 **Vim**
 
-![Vim Type information](/data/media/tutorials/vim-type-information.gif)
+![Vim Type information](/data/media/tutorials/vim-type-info.gif)
 
 - In the Vim editor, press the <kbd>Esc</kbd> to enter command mode.
 - Place the cursor over the variable.
@@ -81,7 +81,7 @@ Other Merlin commands for Vim are available and you can checkout their usage on 
 
 **Emacs**
 
-![Emacs Type information](/data/media/tutorials/emacs-type-information.gif)
+![Emacs Type information](/data/media/tutorials/emacs-type-info.gif)
 
 - In the Emacs editor, place you cursor over the variable.
 - Use the keyboard shortcut <kbd>Alt + x</kbd> followed by `merlin-type-enclosing`
