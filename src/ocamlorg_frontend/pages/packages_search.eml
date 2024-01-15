@@ -2,7 +2,7 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
 ~description:"Find the package you need to build your application in the thousands of available OCaml packages."
 ~canonical:(Url.packages_search ^ "?q=" ^ search)
 ~active_top_nav_item:Header.Packages @@
-<div class="bg-legacy-default dark:bg-legacy-dark-default">
+<div class="bg-white dark:bg-dark-background">
   <div class="py-10 lg:py-14">
     <div class="container-fluid">
       <div class="flex flex-col lg:px-28 gap-2 max-w-5xl">
@@ -17,7 +17,7 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
         </form>
 
         <div class="prose max-w-5xl">
-          <h1 class="font-bold text-2xl mb-5 md:mb-0">
+          <h1 class="font-bold text-title dark:text-dark-title text-2xl mb-5 md:mb-0">
             <% (match total with
               | 0 -> %> No search results for "<%s search %>"
             <% | 1 -> %> 1 search result for "<%s search %>"
@@ -26,39 +26,39 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
           </h1>
 
           <% if List.length packages = 0 then ( %>
-          <p>
+          <p class="text-content dark:text-dark-content">
             We didn't find a match for "<%s search %>".
           </p>
           <p>
-            <strong>Search tips:</strong>
+            <strong class="text-title dark:text-dark-title">Search tips:</strong>
           </p>
-          <ul>
+          <ul class="text-content dark:text-dark-content">
             <li>The search does not correct typos automatically (yet). Be sure to use correct spelling for keywords or package names.</li>
-            <li>Looking for a tutorial or guide, and not a package? Check out our <a href="<%s Url.learn %>">Learn area</a>.</li>
-            <li>Looking for the standard library API? It's <a href="<%s Url.api %>">here</a>.</li>
+            <li>Looking for a tutorial or guide, and not a package? Check out our <a class="text-primary dark:text-dark-primary" href="<%s Url.learn %>">Learn area</a>.</li>
+            <li>Looking for the standard library API? It's <a class="text-primary dark:text-dark-primary" href="<%s Url.api %>">here</a>.</li>
           </ul>
           </div>
           <% ); %>
         </div>
 
         <% if List.length packages > 0 then ( %>
-          <div class="text-legacy-lighter mb-4">
+          <div class="text-content dark:text-dark-content mb-4">
             Showing <%i ((page - 1) * 50 + 1) %> - <%i (min (page * 50) total) %>
           </div>
         <ol class="flex flex-col">
           <% packages |> List.iter (fun (package : Package.package) -> %>
-          <li class="border-gray-200 border-b py-3 space-y-2">
+          <li class="border-separator_20 dark:border-dark-separator_30 border-b py-3 space-y-2">
             <div class="flex">
               <a
                 href="<%s Url.Package.overview package.name %>"
-                class="flex-grow text-lg font-semibold text-primary inline-block"
+                class="flex-grow text-lg font-normal text-primary dark:text-dark-primary inline-block"
               >
                 <%s package.name %>
               </a>
               <div class="flex gap-4 justify-end items-center">
               <a
                 href="<%s Url.Package.documentation package.name %>"
-                class="text-primary flex gap-1 text-sm items-center"
+                class="text-primary dark:text-dark-primary flex gap-1 text-sm items-center"
               >
                 <%s! Icons.documentation "h-5 w-5" %>
                 Documentation
@@ -67,20 +67,23 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
             </div>
 
             <div class="text-sm flex flex-col gap-2">
-              <div><%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search package.synopsis %></div>
+              <div class="flex"> 
+                <span class="bg-title dark:bg-dark-white text-white dark:text-dark-tertiary_bt_hover rounded-md px-2 py-0.5 mr-2">#</span>
+                <div class="self-center text-title dark:text-dark-title"><%s! Search.highlight_search_terms ~class_:"text-title bg-legacy-search-term-highlight text-sm" ~search package.synopsis %></div>
+              </div>
               <% if List.length package.tags > 0 then ( %>
-              <div class="text-sm flex flex-wrap gap-1 text-legacy-default">
+              <div class="text-sm flex flex-wrap gap-1 text-content dark:text-dark-content">
                 <% package.tags |> List.iter (fun (tag : string) -> %>
                 <a
                   href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
-                  class="px-2 whitespace-nowrap py-0.5 text-primary font-medium bg-legacy-primary-100 border border-primary rounded hover:underline"
+                  class="px-2 whitespace-nowrap py-0.5 font-medium text-primary dark:text-dark-primary bg-primary_nav_block_hover_10 border border-primary dark:border-dark-primary rounded hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-white"
                 >
                   <%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search tag %>
                 </a>
                 <% ); %>
               </div>
               <% ) else (); %>
-              <div class="flex items-center flex-wrap gap-x-3 text-sm text-legacy-default">
+              <div class="flex items-center flex-wrap gap-x-3 text-base text-content dark:text-dark-content">
                 <% package.authors |> Ocamlorg.Import.List.take 5 |> List.iter (fun (author : Data.Opam_user.t) -> %>
                 <a
                   href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22"
@@ -92,7 +95,7 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
                 <%s if List.length package.authors > 5 then " et al." else "" %>
               </div>
             </div>
-            <div class="flex items-center gap-x-6 gap-y-2 text-legacy-default text-sm flex-wrap justify-start">
+            <div class="flex items-center gap-x-6 gap-y-2 text-content dark:text-dark-content text-sm flex-wrap justify-start">
               <div class="flex items-center gap-1">
                 <%s! Icons.tag "h-5 w-5"; %>
                 <div><%s Package.render_version package %></div>

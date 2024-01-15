@@ -203,9 +203,6 @@ div.odoc .comment-delim {
 }
 
 .navmap-tag {
-  display:flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
   width:2.1em;
   min-width:2.1em;

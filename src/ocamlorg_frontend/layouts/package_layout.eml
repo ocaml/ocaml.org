@@ -1,5 +1,5 @@
 let search_instructions_html () =
-  <div class="prose text-sm">
+  <div class="prose dark:prose-invert text-sm">
     <p>You can search for identifiers within the package.</p>
     <p>in-package search v0.2.0</p>
   </div>
@@ -25,7 +25,7 @@ Layout.base
 ~description
 ?canonical
 ~active_top_nav_item:Header.Packages @@
-<div class="bg-legacy-default dark:bg-legacy-dark-default"
+<div class="bg-white dark:bg-dark-background"
   x-on:click="search_instructions = false"
   x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, 'search_instructions': false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches"
   >
@@ -53,16 +53,16 @@ Layout.base
       <div class="flex gap-4 xl:gap-10 flex-col md:flex-row mt-6">
         <ol class="flex w-full md:w-60 lg:w-72 flex-shrink-0">
           <li class="flex flex-auto">
-            <a class="w-full h-10 flex justify-center rounded-l-lg p-1 items-center font-semibold border border-r-0 border-primary <%s (match path with | Overview _ -> "bg-primary text-white" | _ -> "text-primary")%>" href="<%s Url.Package.overview package.name ?version:(Package.url_version package) %>">Overview</a>
+            <a class="w-full h-10 flex justify-center rounded-l-lg p-1 items-center font-semibold border border-r-0 border-primary dark:border-dark-primary <%s (match path with | Overview _ -> "bg-primary dark:bg-dark-primary text-title dark:text-dark-title" | _ -> "text-primary dark:text-dark-primary bg-sand dark:bg-dark-card")%>" href="<%s Url.Package.overview package.name ?version:(Package.url_version package) %>">Overview</a>
           </li>
             <% (match documentation_status with
             | Success -> %>
             <li class="flex flex-auto">
-              <a class="w-full h-10 flex justify-center rounded-r-lg p-1 items-center font-semibold border border-l-0  border-primary <%s (match path with | Documentation _ -> "bg-primary text-white" | _ -> "text-primary")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>">Docs</a>
+              <a class="w-full h-10 flex justify-center rounded-r-lg p-1 items-center font-semibold border border-l-0  border-primary dark:border-dark-primary <%s (match path with | Documentation _ -> "bg-primary dark:bg-dark-primary text-white dark:text-dark-title" | _ -> "text-primary dark:text-dark-primary bg-sand dark:bg-dark-card")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>">Docs</a>
             </li>
             <% | Unknown -> ( %>
             <li class="flex flex-auto">
-              <span aria-label="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-gray-400 <%s (match path with | Documentation _ -> "bg-primary text-white" | _ -> "text-gray-500 bg-sand")%>"><%s! Icons.error "" %> No Docs</span>
+              <span aria-label="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-separator_20 dark:border-dark-separator_30 <%s (match path with | Documentation _ -> "bg-primary dark:bg-dark-primary text-title dark:text-dark-title" | _ -> "text-title dark:text-dark-title bg-sand dark:bg-dark-card")%>"><%s! Icons.error "" %> No Docs</span>
             </li>
             <% )
             | Failure -> ( %>
@@ -76,7 +76,7 @@ Layout.base
         <div id="in-package-search" class="relative w-full">
           <div class="flex w-full items-center overflow-hidden">
             <% if Option.is_some search_index_digest then (%>
-              <input id="in-package-search-input" type="search" name="q" class="min-w-0 focus:border-gray-800 text-gray-800 border-primary h-10 rounded-l-md appearance-none px-4 flex-grow"
+              <input id="in-package-search-input" type="search" name="q" class="min-w-0 focus:border-primary dark:focus:border-dark-primary focus:ring-0 bg-white dark:bg-dark-card text-title dark:text-dark-title border-primary dark:border-dark-primary h-10 rounded-l-md appearance-none px-4 flex-grow placeholder-text-content dark:placeholder:text-dark-content"
                 tabindex="1"
                 autocomplete="off"
                 aria-owns="in-package-search-results"
@@ -87,7 +87,7 @@ Layout.base
                 onfocus="this.select(); this.setAttribute('aria-expanded', true)"
                 onblur="this.setAttribute('aria-expanded', false)"
                 >
-              <div aria-hidden="true" class="h-10 rounded-r-md bg-primary text-white flex items-center justify-center px-4">
+              <div aria-hidden="true" class="h-10 rounded-r-md bg-primary dark:bg-dark-primary text-white dark:text-dark-white flex items-center justify-center px-4">
                 <%s! Icons.magnifying_glass "w-6 h-6" %>
               </div>
               <button class="ml-4 btn btn-sm" @click.prevent.stop="search_instructions = !search_instructions" title="show search instructions">
@@ -107,7 +107,7 @@ Layout.base
 
       <div class="flex md:gap-4 xl:gap-10">
         <div
-          class="p-10 z-20 bg-legacy-default dark:bg-legacy-dark-default flex-col fixed h-screen overflow-auto md:flex left-0 top-0 md:sticky w-80 md:w-60 lg:w-72 md:px-0 md:pt-6 md:pb-24"
+          class="p-10 z-20 bg-white dark:bg-dark-background flex-col fixed h-screen overflow-auto md:flex left-0 top-0 md:sticky w-80 md:w-60 lg:w-72 md:px-0 md:pt-6 md:pb-24"
           x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
           x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
           x-transition:leave-end="-translate-x-full">

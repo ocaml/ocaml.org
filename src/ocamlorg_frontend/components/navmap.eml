@@ -28,7 +28,7 @@ let kind_title = function
   | Class_type -> "Class type"
   | _ -> "?"
 
-let title_style = "flex-1 flex-nowrap py-1 md:py-0.5 pr-1 text-legacy-lighter"
+let title_style = "flex-1 flex-nowrap py-1 md:py-0.5 pr-1  text-title dark:text-dark-title"
 
 let htmx_attributes = "hx-boost=\"true\" hx-ext=\"multi-swap\" hx-swap=\"multi:#htmx-head,#htmx-sidebar,#htmx-content,#htmx-right-sidebar,#htmx-breadcrumbs\" hx-push-url=\"true\""
 
@@ -59,7 +59,7 @@ let rec nested_render ~path (item : toc) =
         <a href="<%s href %>" <%s! htmx_attributes %> class="flex">
         <span class="no-expand"><span class="<%s if item.title = fragment then "" else "opacity-80" %> <%s icon_style item.kind %>"></span></span>
         </a>
-        <a href="<%s href %>" <%s! htmx_attributes %> class="<%s title_style %> overflow-hidden truncate text-legacy-default transition-colors hover:text-primary">
+        <a href="<%s href %>" <%s! htmx_attributes %> class="<%s title_style %> overflow-hidden truncate text-title dark:text-dark-title transition-colors hover:text-primary">
           <%s! item.title %>
         </a>
         <% ); %>
@@ -85,7 +85,7 @@ let rec nested_render ~path (item : toc) =
               <span class="arrow-expand absolute right-0.5 px-3" :class="open ? 'open' : ''"><%s! Icons.chevron_down "h-5 w-5" %></span>
             </span>
           <% | Some href -> %>
-          <a href="<%s href %>" <%s! htmx_attributes %> class="<%s title_style %> overflow-hidden truncate text-legacy-default transition-colors hover:text-primary" :class="open ? 'text-primary' : ''">
+          <a href="<%s href %>" <%s! htmx_attributes %> class="<%s title_style %> overflow-hidden truncate text-title dark:text-dark-title transition-colors hover:text-primary" :class="open ? 'text-primary' : ''">
             <%s! item.title %>
           </a>
           <span x-on:click="open = ! open" class="sign-expand mr-2 px-2" :class="open ? 'open' : ''"></span>
@@ -112,7 +112,7 @@ let render
     <% (match maptoc with [] ->  %>
     <span class="block py-2 text-gray-700">Package contains no libraries</span>
     <% | _ -> %>
-      <a class="py-1 font-medium text-legacy-default hover:text-primary transition-colors" href="<%s Url.Package.documentation package.name ?version %>">
+      <a class="py-1 font-medium text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary transition-colors" href="<%s Url.Package.documentation package.name ?version %>">
         package <%s package.name %>
       </a>
     <ul>
@@ -126,7 +126,7 @@ let render
   </div>
   <% (match maptoc with [] ->  %>
   <% | _ -> %>
-    <div class="py-24">
+    <div class="py-24 text-title dark:text-dark-title">
     Legend:<br>
     <span class="<%s icon_style Library %>" style="display:inline-block;color:white"></span>Library<br>
     <span class="<%s icon_style Module %>" style="display:inline-block;color:white"></span>Module<br>

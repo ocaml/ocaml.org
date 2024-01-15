@@ -1,22 +1,22 @@
 let search_input ?button_attrs ?input_attrs ?dropdown_html ~label ~name _class =
   let form_dropdown html = 
-    <div class="dropdown w-full lg:w-[32rem] xl:w-[32rem] z-10 absolute rounded-md mt-12 shadow-2xl top-1 p-2 bg-legacy-default dark:bg-legacy-dark-default shadow-3xl">
+    <div class="dropdown w-full lg:w-[32rem] xl:w-[32rem] z-10 absolute rounded-md mt-12 shadow-2xl top-1 p-2 bg-white dark:bg-dark-background shadow-3xl">
         <%s! html %>
     </div>
   in
-  <div class="dropdown-container flex items-center justify-center h-10 rounded-md focus-within:outline-primary_40 dark:focus-within:outline-dark-primary_40 focus-within:outline focus-within:outline-2 <%s _class %>" tabindex="0">
+  <div class="dropdown-container flex items-center justify-center h-10 rounded-md focus-within:outline-primary dark:focus-within:outline-dark-primary focus-within:outline focus-within:outline-2 <%s _class %>" tabindex="0">
     <label for="<%s name %>" class="sr-only"><%s label %></label>
     <input
         type="search"
         name="<%s name %>"
         placeholder="<%s label %>"
-        class="bg-white text-title dark:text-dark-title dark:bg-dark-card h-full w-full font-medium focus:border-primary dark:focus:border-dark-primary focus:ring-0 text-gray-800 border-primary dark:border-dark-primary rounded-md rounded-r-none px-3 py-1 placeholder-text-content dark:placeholder-dark-title appearance-none focus:outline-none"
+        class="bg-white dark:bg-dark-card text-title dark:text-dark-title h-full w-full font-normal focus:border-primary dark:focus:border-dark-primary focus:ring-0 border-primary dark:border-dark-primary rounded-md rounded-r-none px-3 py-1 placeholder-text-content dark:placeholder:text-dark-content appearance-none focus:outline-none"
         <%s! Option.value ~default:"" input_attrs %>
     >
     
     <button
         aria-label="search"
-        class="h-full flex items-center justify-center rounded-r-md bg-primary dark:bg-dark-primary text-white dark:text-dark-card px-4"
+        class="h-full flex items-center justify-center rounded-r-md bg-primary dark:bg-dark-primary text-white dark:text-dark-white px-4"
         <%s! Option.value ~default:"" button_attrs %>
     ><%s! Icons.magnifying_glass "w-6 h-6" %></button>
 
@@ -25,7 +25,7 @@ let search_input ?button_attrs ?input_attrs ?dropdown_html ~label ~name _class =
 
 let select ~options ?attrs ?selected _class =
     <select
-        class="w-full lg:w-auto appearance-none text-legacy-default border rounded-md py-3 pl-6 border-gray-200 pr-14 h-12 <%s _class %>"
+        class="w-full lg:w-auto appearance-none text-title dark:text-dark-white border rounded-md py-3 pl-6 border-separator_20 dark:border-dark-separator_30 bg-white dark:bg-dark-card pr-14 h-12 <%s _class %>"
         <%s! Option.value ~default:"" attrs %>
         >
         <% options |> List.iter (fun (value, display) -> %>

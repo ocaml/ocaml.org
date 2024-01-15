@@ -49,9 +49,9 @@ let render_package_and_version
     </option>
   in
   <div class="flex gap-4">
-    <h1 class="m-0 text-3xl"><span class="sr-only">package </span><a class="font-semibold text-3xl" href="<%s Url.Package.overview package.name ?version %>"><%s package.name %></a></h1>
+    <h1 class="m-0 text-3xl"><span class="sr-only">package </span><a class="font-semibold text-3xl text-title dark:text-dark-title" href="<%s Url.Package.overview package.name ?version %>"><%s package.name %></a></h1>
     <select id="version" name="version" aria-label="version" onchange="location = this.value;"
-      class="leading-8 appearance-none cursor-pointer py-0 rounded-md border border-gray-400 pr-8"
+      class="leading-8 appearance-none cursor-pointer py-0 rounded-md border border-separator_20 dark:border-dark-separator_30 text:title dark:text-dark-title bg-white dark:bg-dark-card pr-8"
       style="background-position: right 0.25rem center">
       <%s! package.versions |> List.map version_options |> String.concat "" %>
     </select>
@@ -79,7 +79,7 @@ let render_library_path_breadcrumbs
       <a href="<%s! b.href %>" aria-current="page" class="text-gray-800 mr-2"><%s b.name %></a>
   in
   <li>
-    <span tabindex="0" class="text-legacy-lighter"><%s library_name %> lib</span>
+    <span tabindex="0" class="text-content dark:text-dark-content"><%s library_name %> lib</span>
   </li>
   <li class="flex flex-wrap items-center">
     <%s! String.concat "<span>.</span>" (path |> List.map library_path_item_to_breadcrumb |> List.mapi render_breadcrumb); %>
@@ -94,7 +94,7 @@ let render_docs_path_breadcrumbs
   <nav aria-label="breadcrumb" class="flex mb-6 border-b pb-6">
     <ul class="flex flex-wrap gap-x-2 text-base leading-7 package-breadcrumbs">
       <li>
-        <a class="underline font-semibold" href="<%s! Url.Package.documentation package.name ?version %>">Documentation</a>
+        <a class="underline font-semibold text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary" href="<%s! Url.Package.documentation package.name ?version %>">Documentation</a>
       </li>
       <% (match path with
          | Index -> %>
