@@ -311,7 +311,7 @@ The application operator `@@` operator.
 - : float = 3.
 ```
 
-The `@@` application operator applies an argument(on the right) to a function (on the left). It is useful when chaining several calls, as it avoids writing parentheses, which creates easier-to-read code. Here is an example with and without parentheses:
+The `@@` application operator applies an argument (on the right) to a function (on the left). It is useful when chaining several calls, as it avoids writing parentheses, which creates easier-to-read code. Here is an example with and without parentheses:
 ```ocaml
 # int_of_float (sqrt (float_of_int (int_of_string "81")));;
 - : int = 9
