@@ -27,23 +27,23 @@ Upon first loading an OCaml source file, you may be prompted to select the toolc
 
 ### Editor Features at Your Disposal
 If your editor is setup correctly, here are some important features you can begin using to your advantage:
-#### 1) Hovering for type information: 
+#### 1) Hovering for Type Information: 
 
 ![VSCode Hovering](/media/tutorials/vscode-hover.gif)
 
 This is a great feature that let's you see type information of any OCaml variable or function. All you have to do is place your cursor over the code and it will be displayed in the tooltip.
 
-#### 2) Jump to definitions with `Ctrl + Click`:
+#### 2) Jump to Definitions With `Ctrl + Click`:
 
 ![VSCode Ctrl click](/media/tutorials/vscode-ctrl-click.gif)
 
 If you hold down the <kbd>Ctrl</kbd> key while hovering, the code appears as a clickable link which if clicked takes you to the file where the implementation is. This can be great if you want to understand how a piece of code works under the hood. In this example, hovering and `Ctrl + Clicking` over the `peek` method of the `Queue` module will take you to the definiton of the `peek` method itself and how it is implemented.
 
-#### 3) OCaml commands with `Ctrl + Shift + p`:
+#### 3) OCaml Commands With `Ctrl + Shift + P`:
 
 ![VSCode OCaml Commands](/media/tutorials/vscode-ocaml-commands.gif)
 
-Pressing the key combination <kbd>Ctrl + Shift + p</kbd> opens a modal dialog at the top. If you type the word `ocaml`, you will be presented with a list of various OCaml commands at your disposal which can be used for different purposes.
+Pressing the key combination <kbd>Ctrl + Shift + P</kbd> opens a modal dialog at the top. If you type the word `ocaml`, you will be presented with a list of various OCaml commands at your disposal which can be used for different purposes.
 
 **For Windows**
 If you used the Diskuv OCaml (DKML) installer, you will need to:
