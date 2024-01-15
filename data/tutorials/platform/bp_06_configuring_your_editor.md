@@ -68,7 +68,7 @@ $ opam user-setup install
 
 ### Talking to Merlin
 
-#### Getting Type information
+#### Getting Type Information
 
 **Vim**
 
