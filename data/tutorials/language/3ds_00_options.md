@@ -157,7 +157,7 @@ val g : 'a list -> 'a option = <fun>
 ```
 
 The types of `f` and `g` are reversed. Functions `Option.fold` and `option_unfold_try` also work in a reversed manner
-* `Option.fold` takes an option argument to build something
+* `Option.fold` has as an option argument
 * `option_unfold_try` returns an option result from some argument
 
 The standard library does not contain any option unfolding function.
