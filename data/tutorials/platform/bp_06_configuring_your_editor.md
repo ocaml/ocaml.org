@@ -46,7 +46,8 @@ If you hold down the <kbd>Ctrl</kbd> key while hovering, the code appears as a c
 
 Pressing the key combination <kbd>Ctrl + Shift + P</kbd> opens a modal dialog at the top. If you type the word `ocaml`, you will be presented with a list of various OCaml commands at your disposal which can be used for different purposes.
 
-**For Windows**
+### Windows Users
+
 If you used the Diskuv OCaml (DKML) installer, you will need to:
     1. Go to `File` > `Preferences` > `Settings` view (or press `Ctrl ,`)
     2. Select `User` > `Extensions` > `OCaml Platform`
