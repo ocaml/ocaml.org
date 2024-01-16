@@ -86,5 +86,8 @@ Learn_layout.three_column_layout
   </ul>
   <% ); %>
   </div>
-  <%s! Learn_components.contribute_footer ~href:("https://github.com/ocaml/ocaml.org/tree/main/data/is_ocaml_yet/"^ meta.id ^ ".md") ~description:"All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request." %>
+  <%s! Learn_components.contribute_footer
+    ~href:("https://github.com/ocaml/ocaml.org/tree/main/data/is_ocaml_yet/"^ meta.id ^ ".md")
+    ~description:"All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request."
+    ~recommended_next_tutorials:[] %>
 </div>

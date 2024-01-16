@@ -188,32 +188,49 @@ let tool_card ~img_src ~title ~text ~url =
       <%s! Icons.arrow_right_circle "h-5 w-5" %></div>
   </a>
 
-let contribute_footer ~href ~description =
-  <div class="pt-10 mt-16 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
-    <div class="lg:col-span-1">
-      <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Help Improve Our Documentation</h2>
-      <p class="text-sm mt-0 mb-4 max-w-xs"><%s description %></p>
-      <a
-        class="inline-block relative py-1 px-4 font-medium no-underline align-middle bg-transparent rounded-md border border-solid appearance-none cursor-pointer select-none whitespace-no-wrap hover:no-underline"
-        href="<%s href %>"
-      >
-        <%s! Icons.github_pull_request "inline-block overflow-visible mr-0 align-text-bottom select-none" %>
-        Contribute</a
-      >
-    </div>
-    <div class="mt-4 lg:mt-0 lg:col-span-1 lg:col-start-3">
-      <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Still need help?</h2>
-      <div class="text-sm mb-2">
-        <a href="https://discuss.ocaml.org/" class="font-semibold no-underline bg-transparent cursor-pointer hover:underline">
-          <%s! Icons.community "inline h-4 w-4" %>
-          Ask the OCaml Community</a
-        >
+let contribute_footer ~href ~description ~recommended_next_tutorials =
+  let render_recommended_next_tutorials ~recommended_next_tutorials =
+    if List.length recommended_next_tutorials > 0 then
+      <div class="mb-6 pt-4 px-6 border-t border-gray-200">
+        <h2 class="mb-4 mt-0 text-lg font-bold leading-6">Also Read:</h3>
+        <ul class="list-disc marker:text-primary">
+          <% recommended_next_tutorials |> List.iter (fun (tutorial : Data.Tutorial.t) -> %>
+            <li class="mb-1">
+              <a href='/docs/<%s tutorial.slug %>'><%s tutorial.title %></a>
+            </li>
+          <% ); %>
+        </ul>
       </div>
-      <div class="text-sm mb-2">
-        <a href="https://github.com/ocaml/ocaml.org/issues/new" class="font-semibold no-underline bg-transparent cursor-pointer hover:underline">
-          <%s! Icons.github_issue "inline h-4 w-4" %>
-          Open an Issue</a
-        >
+    else
+      ""
+  in
+  <div class="my-5 pt-5">
+    <%s! render_recommended_next_tutorials ~recommended_next_tutorials %>
+    <div class="grid-cols-2 gap-4 border-t border-gray-200 md:grid">
+      <div class="border-b border-gray-200 px-6 pb-3 md:border-b-0 md:border-r">
+        <h2 class="mb-2 text-lg font-bold leading-6">Still need help?</h2>
+        <div class="mb-2 text-sm">
+          <a href="https://discuss.ocaml.org/" class="flex items-center gap-2 font-normal sm:text-lg no-underline bg-transparent cursor-pointer hover:underline">
+            <%s! Icons.user_group "h-5 w-5" %>
+            Ask the OCaml Community</a
+          >
+        </div>
+        <div class="mb-2 text-sm">
+          <a href="https://github.com/ocaml/ocaml.org/issues/new" class="flex items-center gap-3 font-normal sm:text-lg no-underline bg-transparent cursor-pointer hover:underline">
+            <%s! Icons.github_issue "h-4 w-4" %>
+            Open an Issue</a
+          >
+        </div>
+      </div>
+      <div class="px-6 pb-3">
+        <h2 class="mb-2 text-lg font-bold leading-6">Help Improve Our Documentation</h2>
+        <p class="text-sm text-lighter leading-relaxed mb-0"><%s description %></p>
+        <div class="mb-5 text-sm">
+          <a href="<%s href %>" class="flex items-center gap-2 bg-transparent font-normal sm:text-lg no-underline hover:underline">
+            <%s! Icons.raised_hand "h-6 w-6" %>
+            Contribute</a
+          >
+        </div>
       </div>
     </div>
   </div>
