@@ -331,6 +331,138 @@ In this example, the first two expressions are `print_endline` function calls, w
 
 Here, the semicolon after 42 is ignored.
 
+**`begin … end` expressions**
+
+Imagine we want to write a function that:
+1. Has an `int` reference parameter containing value _n_
+2. Updates the reference's contents to _2 &times; (n + 1)_
+
+This is arguably convoluted and does not work:
+```ocaml
+let f r = r := incr r; 2 * !r;;
+Error: This expression has type unit but an expression was expected of type int
+```
+
+But here is how it can be made to work:
+```ocaml
+# let f r = r := begin incr r; 2 * !r end;;
+```
+
+The error came from assign `:=` associating more that semicolum `;`. Here is what we want to do, in order:
+1. Increment `r`
+2. Compute `2 * !r`
+3. Assign into `r`
+
+Remember the value of a semicolon-separated sequence is the value of its last expression. Grouping the first two steps suffice to fix the error. Usually, this is done using parenthesis. But surrounding by parenthesis or `begin … end` is the same. The latter is preferred to highlight expressions having side effects.
+
+**Fun fact**: `begin … end` and parenthesis are badly the same:
+```ocaml
+# begin end;;
+- : unit = ()
+```
+
+### Conditional Execution
+
+In OCaml, `if … then … else …` is an expression.
+```ocaml
+# 6 * if "foo" = "bar" then 5 else 5 + 2;;
+- : int = 42
+```
+
+It is possible to turn a conditional expression into a statement-like expression by using `unit` expressions in the branches.
+```ocaml
+# if 0 = 1 then print_endline "foo" else print_endline "bar";;
+bar
+- : unit = ()
+```
+
+Because `if … then … else …` is an expression, the above can also be expressed this way;
+```ocaml
+# print_endline (if 0 = 1 then "foo" else "bar");;
+bar
+- : unit = ()
+```
+
+The `unit` value `()` can serve as a [no-op](https://en.wikipedia.org/wiki/Noop) when only one branch has something to execute.
+```ocaml
+# if 0 = 1 then print_endline "foo" else ();;
+- : unit = ()
+```
+
+But OCaml also allows the writing `if … then … ` expressions, without `else` branch, which is the same as the above.
+```ocaml
+# if 0 = 1 then print_endline "foo";;
+- : unit = ()
+```
+
+In parsing, conditional expressions groups more than sequencing:
+```ocaml
+# if true then print_endline "A" else print_endline "B"; print_endline "C";;
+A
+C
+- : unit = ()
+
+# if false then print_endline "A" else print_endline "B"; print_endline "C";;
+B
+C
+- : unit = ()
+```
+
+Here `; print_endline "C"` is executed after the whole conditional expression, not after `print_endline "B"`.
+
+The sequence must form a single subexpression to have two prints in one branch. Parenthesis can be used, but it is customary to use `begin … end` in an imperative context.
+ ```ocaml
+# if true then
+    print_endline "A"
+  else begin
+    print_endline "B";
+    print_endline "C"
+  end;;
+A
+- : unit = ()
+
+# if false then
+    print_endline "A"
+  else begin
+    print_endline "B";
+    print_endline "C"
+  end;;
+B
+C
+- : unit = ()
+```
+
+Grouping the statements of sequence is also needed for the first branch of the conditional:
+```ocaml
+# if true then begin
+    print_endline "A";
+    print_endline "C"
+  end else
+    print_endline "B";
+  ;;
+A
+- : unit = ()
+
+# if false then
+    print_endline "A";
+    print_endline "C"
+  else
+    print_endline "B";;
+B
+C
+- : unit = ()
+```
+
+Failing to do it will result in a syntax error. What's before the semicolon is parsed as an `if … then … ` without else expression. What's after the semicolon appears as a [dangling](https://en.wikipedia.org/wiki/Dangling_else) `else`.
+```ocaml
+# if true then
+    print_endline "A";
+    print_endline "C"
+  else
+    print_endline "B";;
+Error: Syntax error
+```
+
 ### For Loop
 
 A `for` loop is an expression of type `unit`. Here, `for`, `to`, `do`, and `done` are keywords.

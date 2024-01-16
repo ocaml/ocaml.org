@@ -83,6 +83,20 @@ Boolean values are represented by the type `bool`.
 
 Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction “or” is written `||`. Both are short-circuited, meaning that they don't evaluate the argument on the right if the left one's value is sufficient to decide the whole expression's value.
 
+In OCaml, `if … then … else …` is a _conditional expression_. It has the type of its branches.
+```ocaml
+# 3 * if "foo" = "bar" then 5 else 5 + 2;;
+- : int = 21
+```
+
+The test subexpression must have type `bool`, branches subexpressions must have the same type.
+
+Conditional expression and pattern matching on a boolean are the same:
+```ocaml
+# 3 * match "foo" = "bar" with true -> 5 | false -> 5 + 2;;
+- : int = 21
+```
+
 #### Characters
 
 Values of type `char` correspond to the 256 symbols of the Latin-1 set. Character literals are surrounded by single quotes, as shown below:
