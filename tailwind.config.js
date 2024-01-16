@@ -121,9 +121,6 @@ module.exports = {
             'a > span': {
               color: theme('colors.dark.white'),
             },
-            'a:hover > span': {
-              textDecoration: 'underline'
-            },
             h1: {
               color: theme('colors.dark.title'),
             },

@@ -54,17 +54,17 @@ Learn_layout.single_column_layout
                     ~attrs:{|id="language" name="language" onchange="this.form.submit()"|}
                     ~options:[("All", "All Languages"); ("english", "English"); ("french", "French"); ("italian", "Italian"); ("japanese", "Japanese"); ("chinese", "Chinese")]
                     ~selected:language
-                    "w-48 rounded-sm" %>
+                    "w-48" %>
                 <%s! Forms.select
                     ~attrs:{|id="difficulty" name="difficulty" onchange="this.form.submit()"|}
                     ~options:[("All", "Any Difficulty"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
                     ~selected:difficulty
-                    "w-48 rounded-sm" %>
+                    "w-48" %>
                 <%s! Forms.select
                     ~attrs:{|id="pricing" name="pricing" onchange="this.form.submit()"|}
                     ~options:[("All", "Free or Paid"); ("free", "Free"); ("paid", "Paid")]
                     ~selected:pricing
-                    "w-48 rounded-sm" %>
+                    "w-48" %>
             </div>
         </form>
         <div class="overflow-x-scroll lg:overflow-hidden mt-5">
