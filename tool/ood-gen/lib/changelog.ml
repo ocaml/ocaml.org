@@ -15,11 +15,12 @@ type t = {
   tags : string list;
   changelog_html : string option;
   body_html : string;
+  body : string;
 }
 [@@deriving
   stable_record ~version:metadata
     ~add:[ authors; changelog; description ]
-    ~remove:[ slug; changelog_html; body_html ],
+    ~remove:[ slug; changelog_html; body_html; body ],
     show { with_path = false }]
 
 let decode (fname, (head, body)) =
@@ -42,7 +43,7 @@ let decode (fname, (head, body)) =
               |> Hilite.Md.transform
               |> Cmarkit_html.of_doc ~safe:false)
       in
-      of_metadata ~slug ~changelog_html ~body_html metadata)
+      of_metadata ~slug ~changelog_html ~body ~body_html metadata)
     metadata
 
 let all () =
@@ -97,6 +98,7 @@ type t =
   ; tags : string list
   ; changelog_html : string option
   ; body_html : string
+  ; body : string
   }
   
 let all = %a

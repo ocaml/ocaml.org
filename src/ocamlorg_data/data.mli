@@ -57,6 +57,7 @@ module Changelog : sig
     tags : string list;
     changelog_html : string option;
     body_html : string;
+    body : string;
   }
 
   val all : t list
