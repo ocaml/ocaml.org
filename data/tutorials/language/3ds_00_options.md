@@ -138,30 +138,6 @@ Here is the same function, using `Option.fold`:
 val path : unit -> string list = <fun>
 ```
 
-### Unfold an Option
-
-Several functions can be defined to create options. This section discusses a function that turns exceptions into options.
-```ocaml
-# let option_unfold_try f x = try Some (f x) with _ -> None;;
-```
-
-This loses the root cause of the failure, which may create hard-to-debug situations.
-
-Here is why this function can be called unfold:
-```ocaml
-# let f v = Option.fold ~some:(fun x -> [x]) ~none:[] v;;
-val f : 'a option -> 'a list = <fun>
-
-# let g u = option_unfold_try List.hd u;;
-val g : 'a list -> 'a option = <fun>
-```
-
-The types of `f` and `g` are reversed. Functions `Option.fold` and `option_unfold_try` also work in a reversed manner
-* `Option.fold` has as an option parameter
-* `option_unfold_try` returns an option result
-
-The standard library does not contain any option unfolding function.
-
 ### Bind an Option
 
 The `bind` function of type `'a option -> ('a -> 'b option) -> 'b option` works a bit like `map`. But whilst `map` expects a function parameter `f` that returns an unwrapped value of type `b`, `bind` expects an `f` that returns a value already wrapped in an option `'b option`.
