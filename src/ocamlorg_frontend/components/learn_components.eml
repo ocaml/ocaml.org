@@ -188,22 +188,24 @@ let tool_card ~img_src ~title ~text ~url =
       <%s! Icons.arrow_right_circle "h-5 w-5" %></div>
   </a>
 
-let contribute_footer ~href ~description =
-  <div class="my-5 border-y border-gray-200 pt-5">
-    <div class="mb-10 mt-4">
-      <h2 class="mb-4 mt-0 text-lg font-bold leading-6">Also Read:</h2>
-      <ul class="list-disc marker:text-primary">
-        <li class="mb-1">
-          <a href="https://github.com/ocaml/ocaml.org/" class="cursor-pointer bg-transparent no-underline hover:underline"> Title of article or tutorials one related to above lorem ipsum dolorsed do eiusmod </a>
-        </li>
-        <li class="mb-1">
-          <a href="https://github.com/ocaml/ocaml.org/" class="cursor-pointer bg-transparent no-underline hover:underline"> Title of article or tutorials one related to above lorem ipsum dolorsed do eiusmod </a>
-        </li>
-        <li class="mb-1">
-          <a href="https://github.com/ocaml/ocaml.org/" class="cursor-pointer bg-transparent no-underline hover:underline"> Title of article or tutorials one related to above lorem ipsum dolorsed do eiusmod </a>
-        </li>
-      </ul>
-    </div>
+let contribute_footer ~href ~description ~recommended_next_tutorials =
+  let render_recommended_next_tutorials ~recommended_next_tutorials =
+    if List.length recommended_next_tutorials > 0 then
+      <div class="mb-6 pt-4 px-6 border-t border-gray-200">
+        <h2 class="mb-4 mt-0 text-lg font-bold leading-6">Also Read:</h3>
+        <ul class="list-disc marker:text-primary">
+          <% recommended_next_tutorials |> List.iter (fun (tutorial : Data.Tutorial.t) -> %>
+            <li class="mb-1">
+              <a href='/docs/<%s tutorial.slug %>'><%s tutorial.title %></a>
+            </li>
+          <% ); %>
+        </ul>
+      </div>
+    else
+      ""
+  in
+  <div class="my-5 pt-5">
+    <%s! render_recommended_next_tutorials ~recommended_next_tutorials %>
     <div class="grid-cols-2 gap-4 border-t border-gray-200 md:grid">
       <div class="border-b border-gray-200 px-6 pb-3 md:border-b-0 md:border-r">
         <h2 class="mb-2 text-lg font-bold leading-6">Still need help?</h2>
