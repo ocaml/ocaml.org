@@ -86,7 +86,7 @@ In OCaml, `if … then … else …` is not a statement; it is an expression.
 
 The source beginning at `if` and ending at `5` is parsed as a single integer expression that is multiplied by 2. OCaml has no need for two different test constructions.The [ternary conditional operator](https://en.wikipedia.org/wiki/Ternary_conditional_operator) and the `if … then … else …` are the same. Also note parentheses are not needed here, which is often the case in OCaml.
 
-Values can be given names using the `let` keyword. This is called *binding* a value to a name. For example:
+Values can be given names using the `let` keyword. This is called _binding_ a value to a name. For example:
 ```ocaml
 # let x = 50;;
 val x : int = 50
@@ -97,7 +97,7 @@ val x : int = 50
 
 When entering `let x = 50;;`, OCaml responds with `val x : int = 50`, meaning that `x` is an identifier bound to value `50`. So `x * x;;` evaluates to the same as `50 * 50;;`.
 
-Bindings in OCaml are *immutable*, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case. It is in fact a constant. Using over-simplifying but acceptable words, all variables are immutable in OCaml. It is possible to give names to values that can be updated. In OCaml, this is called a _reference_ and will be discussed in the [Working With Mutable State](/docs/tour-of-ocaml#working-with-mutable-state) section.
+Bindings in OCaml are _immutable_, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case. It is in fact a constant. Using over-simplifying but acceptable words, all variables are immutable in OCaml. It is possible to give names to values that can be updated. In OCaml, this is called a _reference_ and will be discussed in the [Working With Mutable State](/docs/tour-of-ocaml#working-with-mutable-state) section.
 
 There is no overloading in OCaml, so inside a lexical scope, names have a single value, which only depends on its definition.
 
@@ -143,11 +143,11 @@ val square : int -> int = <fun>
 - : int = 2500
 ```
 
-This example defines a function named `square` with the single argument `x`. Its _function body_ is the expression `x * x`. There is no “return” keyword in OCaml.
+This example defines a function named `square` with the single parameter `x`. Its _function body_ is the expression `x * x`. There is no “return” keyword in OCaml.
 
 When `square` is applied to `50`, it evaluates `x * x` into `50 * 50`, which leads to `2500`.
 
-The REPL indicates that the type of `square` is `int -> int`. This means it is a function taking an `int` as a parameter (input) and returning an `int` as result (output). A function value can't be displayed, which is why `<fun>` is printed instead.
+The REPL indicates that the type of `square` is `int -> int`. This means it is a function taking an `int` as argument (input) and returning an `int` as result (output). A function value can't be displayed, which is why `<fun>` is printed instead.
 
 ### Anonymous Functions
 
@@ -163,15 +163,15 @@ We can write anonymous functions and immediately apply them to a value:
 - : int = 2500
 ```
 
-### Functions with Multiple Arguments and Partial Application
+### Functions with Multiple Parameters and Partial Application
 
-A function may take several arguments, separated by spaces. This is the case both in function declaration and in function calls.
+A function may have several parameters, separated by spaces.
 ```ocaml
 # let cat a b = a ^ " " ^ b;;
 val cat : string -> string -> string = <fun>
 ```
 
-The function `cat` takes two `string` arguments, `a` and `b`, and returns a value of type `string`.
+The function `cat` has two `string` parameters, `a` and `b`, and returns a value of type `string`.
 ```ocaml
 # cat "ha" "ha";;
 - : string = "ha ha"
@@ -205,9 +205,10 @@ A function may expect a function as a parameter, which is called a _higher-order
 - : int list = [0; 1; 4; 9; 16; 25]
 ```
 
-The name of this function begins with `List.` because it is part of the predefined library of functions acting on lists. This matter will be discussed more later. Function `List.map` takes two parameters: the second is a list, and the first is a function that can be applied to the list's elements, whatever they may be. `List.map` returns a list formed by applying the function provided as a parameter to each of the elements of the input list.
+The name of this function begins with `List.` because it is part of the predefined library of functions acting on lists. This matter will be discussed more later. Function `List.map` has two parameters: the second is a list, and the first is a function that can be applied to the list's elements, whatever they may be. `List.map` returns a list formed by applying the function provided as argument to each of the elements of the input list.
 
 The function `List.map` can be applied on any kind of list. Here it is given a list of integers, but it could be a list of floats, strings, or anything. This is known as _polymorphism_. The `List.map` function is polymorphic, meaning it has two implicit _type variables_: `'a` and `'b` (pronounced “alpha” and “beta”). They both can be anything; however, in regard to the function passed to `List.map`:
+
 1. Input list elements have the same type of its input.
 2. Output list elements have the same type of its output.
 
@@ -253,7 +254,8 @@ val range : int -> int -> int list = <fun>
 - : int list = [2; 3; 4; 5]
 ```
 
-As indicated by its type `int -> int -> int list`, the function `range` takes two integers as parameters and returns a list of integers as result. The first `int` parameter, `lo`, is the range's lower bound; the second `int` parameter, `hi`, is the higher bound. If `lo > hi`, the empty range is returned. That's the first branch of the `if … then … else` expression. Otherwise, the `lo` value is prepended to the list created by calling `range` itself; this is recursion. Preprending is achieved using `::`, the cons operator in OCaml. It constructs a new list by adding an element at the front of an existing list. Progress is made at each call; since `lo` has just been appended at the head of the list, `range` is called with `lo + 1`. This can be visualised this way:
+As indicated by its type `int -> int -> int list`, the function `range` takes two integers as arguments and returns a list of integers as result. The first `int` parameter, `lo`, is the range's lower bound; the second `int` parameter, `hi`, is the higher bound. If `lo > hi`, the empty range is returned. That's the first branch of the `if … then … else` expression. Otherwise, the `lo` value is prepended to the list created by calling `range` itself; this is recursion. Preprending is achieved using `::`, the cons operator in OCaml. It constructs a new list by adding an element at the front of an existing list. Progress is made at each call; since `lo` has just been appended at the head of the list, `range` is called with `lo + 1`. This can be visualised this way:
+
 ```
   range 2 5
 = 2 :: range 3 5
@@ -278,7 +280,7 @@ OCaml has floating-point values of type `float`. To add floats, one must use `+.
 
 In OCaml, `+.` is the addition between floats, while `+` is the addition between integers.
 
-In many programming languages, values can be automatically converted from one type into another. This includes *implicit type conversion* and *promotion*. For example, in such a language, if you write `1 + 2.5`, the first argument (an integer) is promoted to a floating point number, making the result a floating point number, too.
+In many programming languages, values can be automatically converted from one type into another. This includes _implicit type conversion_ and _promotion_. For example, in such a language, if you write `1 + 2.5`, the first argument (an integer) is promoted to a floating point number, making the result a floating point number, too.
 
 OCaml never implicitly converts values from one type to another. It is not possible to perform the addition of a float and integer. Both examples below throw an error:
 ```ocaml
@@ -299,7 +301,7 @@ In OCaml you need to explicitly convert the integer to a floating point number u
 - : float = 3.5
 ```
 
-There are several reasons why OCaml requires explicit conversions. Most importantly, it enables types to be worked out automatically. OCaml's *type inference* algorithm computes a type for each expression and requires very little annotation, in comparison to other languages. Arguably, this saves more time than we lose by being more explicit.
+There are several reasons why OCaml requires explicit conversions. Most importantly, it enables types to be worked out automatically. OCaml's _type inference_ algorithm computes a type for each expression and requires very little annotation, in comparison to other languages. Arguably, this saves more time than we lose by being more explicit.
 
 ### Lists
 
@@ -366,7 +368,7 @@ This function operates not just on lists of integers but on any kind of list. It
 
 #### Defining a Higher-Order Function
 
-It is possible to pass a function as a parameter to another function. Functions taking other functions as parameters are called _higher-order_ functions. This was illustrated earlier using function `List.map`. Here is how `map` can be written using pattern matching on lists.
+It is possible to pass a function as argument to another function. Functions having other functions as parameters are called _higher-order_ functions. This was illustrated earlier using function `List.map`. Here is how `map` can be written using pattern matching on lists.
 ```ocaml
 # let square x = x * x;;
 val square : int -> int
@@ -504,7 +506,7 @@ Here is something sitting in between:
 type page_range = All | Current | Range of int * int
 ```
 
-In the previous definitions, the capitalised identifiers are called *constructors*. They allow the creation of variant values. This is unrelated to object-oriented programming.
+In the previous definitions, the capitalised identifiers are called _constructors_. They allow the creation of variant values. This is unrelated to object-oriented programming.
 
 As suggested in the first sentence of this section, variants go along with pattern matching. Here are some examples:
 ```ocaml
@@ -675,7 +677,7 @@ hello world!
 
 Here are the side effects that occur in the second line:
 1. Display the contents of the reference `text` on standard output
-1. Update the contents of the reference  `text`
+1. Update the contents of the reference `text`
 1. Display the contents of the reference `text` on standard output
 
 This behaviour is the same as in an imperative language. However, although `;` is not defined as a function, it behaves as if it were a function of type `unit -> unit -> unit`.
@@ -723,7 +725,7 @@ Definitions provided by modules are referred to by adding the module name as a p
 ```
 
 Here, usage of the function `Option.map` is illustrated in several steps.
-1. Display its type. It takes two parameters. A function of type `'a -> 'b` and an `'a option`.
+1. Display its type. It has two parameters. A function of type `'a -> 'b` and an `'a option`.
 1. Using partial application, only pass `fun x -> x * x`. Check the type of the resulting function.
 1. Apply with `None`.
 1. Apply with `Some 8`.
@@ -745,7 +747,7 @@ Module also allows efficient separated compilation. This is illustrated in the n
 
 ## Conclusion
 
-<!-- 
+<!--
 1. Values and Functions
 1. Functions
 1. Type-Inference
