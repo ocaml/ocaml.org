@@ -8,7 +8,7 @@ recommended_next_tutorials:
   [
     "values-and-functions",
     "basic-data-types",
-    "if-statements-and-loops",
+    "loops",
     "lists"
   ]
 ---
