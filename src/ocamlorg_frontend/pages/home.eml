@@ -310,7 +310,7 @@ Layout.render
                         <time datetime="<%s item.date %>" class="block mt-1 font-sans text-sm text-legacy-lighter"><%s Utils.human_date item.date %></time>
                     </div>
                     <div class="prose prose-orange">
-                      <%s! String.sub item.body_html 0 100 %>...
+                      <%s! String.sub item.body 0 (min (String.length item.body - 1) 100) %>...
                     </div>
                     <a href="<%s Url.changelog %>" class="text-primary mt-2">
                       See full changelog
