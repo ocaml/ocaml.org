@@ -4,6 +4,10 @@ This document explains how to write documentation such as tutorials, guides, or 
 
 In order to ensure consistency across documentation, a style guide like this is beneficial.
 
+Use the [Diátaxis](https://diataxis.fr/) approach to documentation: Tutorials for learning, How-To Guides for goals, Explanation for understanding, and Reference for information. 
+
+Apply the [*Spiral Learning*](https://en.wikipedia.org/wiki/Spiral_approach) approach in tutorials. This teaching method first creates a solid foundation of a topic. By starting with an overview, it gives the reader the context and general information. Subsequent sections and tutorials review the important foundational information and expands, going into more detail and giving examples. 
+
 ## Materials
 
 - Reference. This includes the [OCaml Manual](https://ocaml.org/releases/latest/manual.html), the [opam manual](https://opam.ocaml.org/), and [Dune's documentation](https://dune.readthedocs.io/en/stable/). This is considered upstream material. Refer to the corresponding projects to propose changes in them.
