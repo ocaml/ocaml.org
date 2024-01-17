@@ -150,14 +150,14 @@ When `square` is applied to `50`, it evaluates `x * x` into `50 * 50`, which lea
 The REPL indicates that the type of `square` is `int -> int`. This means it is a function taking an `int` as a parameter (input) and returning an `int` as result (output). A function value can't be displayed, which is why `<fun>` is printed instead.
 
 ```ocaml
-# let sq ~x = x * x;;
-val sq : x:int -> int = <fun>
+# String.ends_with;;
+- : suffix:string -> string -> bool = <fun>
 
-# sq ~x:50;;
-- : int = 2500
+# String.ends_with ~suffix:"less" "stateless";;
+- : bool = true
 ```
 
-This example defines the square function again but it has a named parameter this time. Function parameters can have labels. Note that the label is included when applying `sq`. Labelled parameters are detailed in the [Labelled Arguments](/docs/labels) tutorial. Labels are the most useful when a function has several parameters and being able to name the arguments makes the code easier to understand.
+Some functions, such as `String.ends_with` have labelled parameters. Labels are useful when a function has several parameters of the same type; naming arguments allows to guess their purpose. Above, `~suffix:"less"` indicates `"less"` is passed to as labelled argument `suffix`. Labelled arguments are detailed in the [Labelled Arguments](/docs/labels) tutorial. 
 
 ### Anonymous Functions
 
