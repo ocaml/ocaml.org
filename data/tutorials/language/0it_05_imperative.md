@@ -346,6 +346,7 @@ Error: This expression has type unit but an expression was expected of type int
 But here is how it can be made to work:
 ```ocaml
 # let f r = r := begin incr r; 2 * !r end;;
+val f : int ref -> unit = <fun>
 ```
 
 The error came from assign `:=` associating more that semicolum `;`. Here is what we want to do, in order:
