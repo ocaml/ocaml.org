@@ -411,7 +411,7 @@ C
 
 Here `; print_endline "C"` is executed after the whole conditional expression, not after `print_endline "B"`.
 
-The sequence must form a single subexpression to have two prints in one branch. Parenthesis can be used, but it is customary to use `begin … end` in an imperative context.
+The sequence must form a single subexpression to have two prints in one branch. Parentheses can be used, but it is customary to use `begin … end` in an imperative context.
  ```ocaml
 # if true then
     print_endline "A"
@@ -454,7 +454,7 @@ C
 - : unit = ()
 ```
 
-Failing to do it will result in a syntax error. What's before the semicolon is parsed as an `if … then … ` without else expression. What's after the semicolon appears as a [dangling](https://en.wikipedia.org/wiki/Dangling_else) `else`.
+Failing to do it will result in a syntax error. What's before the semicolon is parsed as an `if … then … ` without an `else` expression. What's after the semicolon appears as a [dangling](https://en.wikipedia.org/wiki/Dangling_else) `else`.
 ```ocaml
 # if true then
     print_endline "A";
