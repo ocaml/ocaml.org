@@ -17,18 +17,21 @@ Apply the [*Spiral Learning*](https://en.wikipedia.org/wiki/Spiral_approach) app
 
 ## Audience
 
-Our audience:
+Anytime one contributes to the OCaml.org documentation, it's important to keep the target audience in mind. For example, if writing a tutorial for programmers new to OCaml, you want to ensure the examples are simple and straighforward so as not to overwhelm them with too much detail while starting their learning journey. For more advanced users, adjust the tone and examples accordingly. 
+
+**Our audience:**
 * Self-directed learners without a tutor
 * Already know some programming basics (one other programming language)
 * People who want to learn untainted functional programming (have seen functional patterns in other languages and are curious about “the real thing”)
 * Likely a majority of consumers of libraries, hopefully some authors or people who turn into it
 * English level B2 ideally
 
-Not our audience:
+**Not our audience:**
 * University students
 * New to programming. We do not teach programming basics.
 
 ## Goals
+Especially since the release of OCaml 5.0 with Multicore support, perhaps our biggest goal is to increase the adoption of OCaml. In order to reach this goal, it's essential to have current, consistent, and comprehensive documentation.
 
 1. Enable people to use OCaml for real projects / at the job / side projects
 1. Get people who want to build and contribute to the ecosystem up to speed and building something good quickly
@@ -41,7 +44,7 @@ Not our audience:
 - **Highlight Important Computer Science Terms**. Use italics for well-known terms, providing a visual hint that these are important concepts. Linking to Wikipedia for further explanation is an option.
 - **Be Entertaining in Examples, Accurate in Text**. While it's essential to be clear and precise in the main text, using engaging and fun examples can make the material more appealing. This approach helps cater to different learning styles.
 - **Start with Examples**. Present examples first, then explain them. This helps in understanding the application before the theory.
-- **Clear Section Headings**. Make sure section titles clearly indicate their content. Just like a candy store displays its products openly, avoid vague titles and opt for ones that clearly reveal the content. This is also helpful for better display of search results.
+- **Clear Section Headings**. Make sure section titles clearly indicate their content. Just like a candy store displays its products openly, avoid vague titles and opt for ones that clearly reveal the content. This is also helpful for better display of search results. Use title case (see General Formatting section below).
 - **Use B2 Level English**. This ensures the material is comprehensible to those who are not native English speakers.
 
 ## Common Phrases
