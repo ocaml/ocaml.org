@@ -34,9 +34,59 @@ system, which provides the `ocamlfind` command.
 
 OCaml comes with two compilers: `ocamlc` is the bytecode compiler, and
 `ocamlopt` is the native code compiler. If you don't know which one to use, use
-`ocamlopt` since it provides executables that are faster than bytecode.
+`ocamlopt` since it provides executables that are faster than bytecode. 
 
-Let's assume that our program `program` has two source files,
+But if you want to try `ocamlc`, you can go ahead and try the following.
+
+Create a new directory named hello-ocaml and navigate to the directory:
+
+```dune
+$ mkdir hello-ocaml
+$ cd hello-ocaml
+```
+Next, create a file named hello.ml and add the following code with your favorite text editor:
+
+```dune
+let _ = print_endline "Hello OCaml!"
+```
+
+**Note:** There are no double semicolons ;; at the end of that line of code.
+
+The *let _* = signifies that we don't care to give a name to the code on the right-hand side of =, hence the _.
+
+Now, we are ready to run the code. Save the file and return to the command line. Let's compile the code:
+
+```dune
+ocamlc -o hello hello.ml
+```
+
+The -o hello option tells the compiler to name the output executable as hello. The executable hello contains compiled OCaml bytecode. In addition, two other files are produced, hello.cmi and hello.cmo. 
+
+`hello.cmi` contains compiled interface information for OCaml modules. An interface file includes type information and module signatures but doesn't contain the actual code. 
+
+`hello.cmo` contains the compiled bytecode for OCaml modules. Bytecode is an intermediate representation of the code that is executed by the OCaml interpreter or runtime system.
+
+`Note:` _cmi_ stands for Compiled Module Interface and _cmo_ stands for Compiled Module Object.
+
+Both of these files play crucial roles in the OCaml build process.
+
+Now let's run the executable and see what happens:
+
+```dune
+$ ./hello
+```
+
+Voilà! It says, Hello OCaml!.
+
+We can change the string or add more content, save the file, recompile, and rerun.
+
+We can clean up the generated files by:
+
+```dune
+$ rm hello hello.cmi hello.cmo
+```
+
+Moving on, we'll see how to use `ocamlopt`. Let's assume that our program `program` has two source files,
 `module1.ml` and `module2.ml`. We will compile them to native code,
 using `ocamlopt`. For now, we also assume that they do not use any other
 library than the standard library, which is automatically loaded. You
@@ -175,6 +225,70 @@ guide](https://dune.readthedocs.io/en/latest/quick-start.html) shows you how to
 write such description files for more complicated situations, and how to
 structure, build, and run dune projects.
 
+### Bytecode Using Dune
+
+Dune is a build system for OCaml projects, and it allows you to configure different modes for building your executables. We will use `(modes byte exe)` stanza in the `dune` file, which will produce both bytecode (interpreted) and native executable versions of the OCaml program. 
+
+Let's create an example project named `myproject`.
+
+```dune
+mkdir myproject
+cd myproject
+opam init
+```
+
+`Note:` *opam init* command might prompt you to confirm the initialization process and may also provide instructions to add Opam-related lines to your shell configuration file (~/.bashrc or ~/.profile). Following any instructions provided is important to ensure Opam is properly integrated into your shell environment.
+
+Create a `dune-project` file, add the following content.
+
+```dune
+(lang dune 3.0)
+(name myproject)
+```
+
+Here, 3.0 is the installed version of `Dune`. You can check it by typing `dune --version` on your terminal. And the `name` is the name of the project, i.e., `myproject`.
+
+Create a `dune` file, add the following content.
+
+```dune
+(executable
+ (name main)
+ (libraries base)
+ (modes byte exe))
+```
+
+As aforementioned, `(modes byte exe)` stanza produces both bytecode (interpreted) and native executable versions of our OCaml program.
+
+Next, create a `main.ml` file, add the following content.
+
+```dune
+let () = print_endline "Hello Dune!"
+```
+
+Finally, we compile and execute it.
+
+```dune
+dune build main.bc
+```
+
+The `.bc` stands for generic bytecode file, and it can be an executable or library.
+
+
+```dune
+dune exec ./main.bc
+```
+
+Now `Hello Dune!` will be printed on the screen.
+
+We can also do that with `.exe`.
+
+```dune
+dune build main.exe
+```
+
+```dune
+dune exec ./main.exe
+```
 ## Other Build Systems
 
 - [OMake](https://github.com/ocaml-omake/omake) Another OCaml build system.
