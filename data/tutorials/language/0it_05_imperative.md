@@ -354,7 +354,7 @@ The error came from assign `:=` associating more that semicolum `;`. Here is wha
 2. Compute `2 * !r`
 3. Assign into `r`
 
-Remember the value of a semicolon-separated sequence is the value of its last expression. Grouping the first two steps suffice to fix the error. Usually, this is done using parenthesis. But surrounding by parenthesis or `begin … end` is the same. The latter is preferred to highlight expressions having side effects.
+Remember the value of a semicolon-separated sequence is the value of its last expression. Grouping the first two steps fix the error. Usually, this is done using parentheses, but surrounding it with `begin … end` works, too. The latter is preferred to highlight expressions that have side effects.
 
 **Fun fact**: `begin … end` and parenthesis are badly the same:
 ```ocaml
