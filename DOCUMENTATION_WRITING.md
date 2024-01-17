@@ -13,7 +13,7 @@ This document explains how to write documentation such as tutorials, guides, or 
 
 Our audience:
 * Self-directed learners without a tutor
-* Already know some programming basics (one other programming programming)
+* Already know some programming basics (one other programming language)
 * People who want to learn untainted functional programming (have seen functional patterns in other languages and are curious about “the real thing”)
 * Likely a majority of consumers of libraries, hopefully some authors or people who turn into it
 * English level B2 ideally
