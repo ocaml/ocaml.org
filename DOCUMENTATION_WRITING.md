@@ -63,150 +63,8 @@ Especially since the release of OCaml 5.0 with Multicore support, perhaps our bi
 1. Use “parameter” and “argument” appropriately.
 1. Don't use math, computer science, or programming language theory terminology without reason and explanation.
 
-## Formatting Technical Language
-### OCaml Projects, Libraries, and Code
 
-In an attempt to create consistent formatting across projects and their commands, please consider the following when using OCaml-specific names:
-
-**NOTE:** All commands and libraries should be wrapped in `monospace`, formatted in Markdown by wrapping the command in backticks, aka a grave accent ( ` ), even when used in titles and headers.
-
-**NOTE:** Although, we strive to capitalise proper nouns that refer to the program, service, or product itself, sometimes the creators/maintainers of the product prefers it written another way. Their preferred format is documented in this Style Guide below. 
-
-**NOTE:** It’s important to follow the formatting below to ensure our documentation looks professional and consistent. Even though it isn’t aesthetically pleasing or grammatically correct, ***when the official name of a project is in all lowercase or*** `monospace`, ***they must be so everywhere, even at the beginning of sentences, in headers, and in titles***. 
-
-1. **OCaml** is always written with the two first letters capitalised as shown. The only exceptions are for operators / libraries that are wrapped in `monospace` / code formatting. ****
-    1. **OCamlFormat** also has the first two capitalised, as well as the F, unless it’s the command, in which case it would be wrapped in `monospace` in Markdown)**.**
-    2. **OCamlFind**, same as ^^
-    3. **OCaml Platform** as the proper name, and `ocaml-format` as the command
-    4. **OCaml community**, with lowercase `c` for community.
-2. **`odoc`**
-    1. The proper way to write the name of this process is written as above, in all lowercase and wrapped in `monospace`.
-    2. For the `odoc` command, it’s also written in all lower case: `odoc`. As in all commands, it should be wrapped in `monospace`, formatted in Markdown by wrapping the command in backticks, aka grave accent ( ` ).
-    3. If you see it written odoc, ODOC, Odoc, or ODoc, please correct it.
-    4. Replaces **OCamldoc**, always written as shown
-3. **opam**
-    1. The proper way to write the name of this compiler is as above in all lower case, without monospace, as confirmed by Thomas in March 2022 on Slack. The only exception is at the beginning of a sentence, which should be capitalised as Opam. In titles, all lower case: opam.
-    2. If you see the name of the compiler written OPAM or Opam, please correct it.
-    3. For the opam command, it’s also in all lower case: `opam`, and as in all commands, it should be wrapped in a code span, or *monospace*, formatted in Markdown by wrapping the command in backticks, aka grave accent (`), so it will look like this: `opam`
-    4. Other package managers: **esy** (not Esy, unless at the beginning of sentence) and **Nix** (not nix). Both in monospace when talking about the command: `esy` and `nix`, all lower case.
-    5. `opam-repository` is always in monospace.
-    6. `opam-monorepo` is always in monospace.
-4. **Dune**
-    1. The preferred way to write the name of this system (not the command) as above with a capitalised first letter like in normal proper nouns: Dune.
-    2. If you see it written dune or DUNE, please correct it.
-    3. For the `dune` command, as in all commands, it should be wrapped in `monospace` (code block), format in Markdown by wrapping the command in backticks, aka grave accent (`)
-    4. `duniverse` wrapped in monospace as shown. If you see duniverse, please correct it.
-    5. `dune-project` should always be written in monospace like this.
-    6. Dune documentation uses American spelling.
-5. **Osmose**
-    1. The preferred way to write the name is capitalised: Osmose
-    2. You will often see it as OSMOSE, so please correct it when you do.
-    3. This **Osmose** capitalisation preference was confirmed by Anil & Thomas in July 2021 via Slack DM
-6. **Irmin** is always capitalised.
-    1. **The** **Irmin** **`Index`** is written in monospace (surrounded by backticks) with a capital letter, so please correct it if you see Index or index or `index`.
-    2. **Merkle proofs** or **Merkle trees**, Merkle is a proper noun, so it’s always capitalised, but proofs and trees are only capitalised in titles / headings / subheadings
-7. **MirageOS** is always capitalised **with the OS** (not just Mirage), also capitalised as shown, no spaces.
-    1. **Mr. MIME** should be written like this (as MIME is an acronym) when talking about the program and in monospace `mrmime` (all lower case) when talking about the library
-    2. **SCoP** should be capitalised as shown here, as it’s an acronym.
-    3. **DAPSI** in all caps, as it’s an acronym, too.
-    4. **Unikernels**, capitalised only in titles and the beginnings of sentences (sentence case). 
-8. **OCurrent**, **OCluster**, and **OBuilder,** rather than ocurrent or Ocurrent.
-9. **OCaml LSP** is the name of the project, `ocaml-lsp` is the name of the repository on GitHub, and `ocamllsp` is the name of the CLI tool
-10. **Jane Street** when talking about the company, but it’s “`janestreet` profile,” in monospace
-11. **Js_of_ocaml** (abbr. **JSOO**), uses Sentence Case (capitalised at beginning of sentences, but not in the middle of sentences, like **js_of_ocaml**)) and **OCaml-Java**, capitalised as shown here, regardless of location in the sentence.
-12.  Some other examples are below, always format as shown:
-    1. **Algebraic effects,** takes sentence case: algebraic effects in the middle, capitalised only at the beginning of sentences and in titles.
-    2. **Gospel,** rather than gospel
-    3. **MDX**, rather than mdx or Mdx
-    4. **Multicore**, rather than multicore, when talking about Multicore OCaml; but when talking about multicore in general, it’s follows sentence case.
-    5. `ocaml-matrix` for the libraries working with the OCaml Matrix protocols, but **OCaml’s Matrix** when talking about the protocols themselves.
-    6. **PPX,** rather than ppx or Ppx, unless talking about Ppxlib or the command/CLI result: `Ppxlib`, which should be in monospace.
-    7. **Shared-memory parallelism and concurrency**, use sentence case
-    8. **UTop,** rather than utop or Utop.
-    9. (….list alphabetical & incomplete)
-13. Although not aesthetically pleasing, when using code as headers, they should appear as they do in the code/command/library—usually all lowercase—and in `monospace`.
-
-### Proper Nouns & Acronyms in Technology
-
-The following are proper nouns or acronyms, so they’re always capitalised as shown, regardless of place in the sentence. 
-
-- **AST**, as it stands for Abstract Syntax Tree
-- **CLI,** stands for command line interface, so it should be in all caps; but when it’s written out, it’s **command line interface—**no hyphens, sentence case
-- **Concurrency,** sentence case
-- **Coq,** not coq or COQ. If talking about a library, command, or file, it will be monospace, possibly lowercase like `coq`
-- **Cram tests**, not cram or CRAM
-- **CST,** as it stands for ****Concrete Syntax Tree
-- **Eio,** not eio, `Eio`, or EIO, as this isn’t the same EIO that stands for Enhanced Input/Output. If you see it written any way other than Eio, please correct it. Even when talking about a command, directory, library, etc., it still won’t be in monospace as libraries usually are. The official name of the library is **Eio.** No monospace. Same for **Meio**.
-- **Effect handlers,** sentence case. Not Effect Handlers, unless emphasising it for OCaml 5, for example.
-- **Emacs**, not emacs
-- **`Findlib`** should be capitalised and in monospace since it’s the name of an OCaml library manager
-- **Flambda**, not flambda.
-- **GC** is always capitalised like this, as it’s an abbreviation for “garbage collection,” although when writing out the words, it uses sentence case.
-- **Git** is always capitalised, except when writing Git commands (like, git commit).
-- **GitHub** is capitalised like this, as that’s how the company writes it. GitHub repos are formatted in monospace, like `tezos-storage-bench`
-- **GitLab**, capitalised like this.
-- **Hangzhou** is a proper noun, so it’s always capitalised. It’s spelled with an ‘ou’ at the end instead of just an ‘o’ or just a ‘u’, which you’ll sometimes see.
-- **HVT,** stands for hardware virtualised tender
-- **Internet,** capitalised when a proper noun, the official thing itself, but lowercase when referring to a general internet or using as an adjective, like “my internet connection.”
-- **Jbuilder,** not jbuilder, unless wrapping in `monospace` for library/tool/command
-- **Linux, Unix,** as they’re proper nouns
-- **Lwt,** not LWT or lwt, even though it stands for Light Weight Threads. Even when talking about the library, it’s Lwt, not `Lwt`.
-- **LSP**, as it stands for Language Server Protocol
-- **Merkle,** as in **Merkle tree** or **Merkle proof,** should be capitalised, as it’s a proper noun. When talking about the Merkle Proof API, it follows title case, as it’s a proper noun.
-- **META files**, rather than metafiles, since it’s a file format generated by **Findlib**
-- **Monolith,** proper noun
-- **NGINX,** not Nginx or nginx
-- **Open source** is two words (sentence case) when used as a concept (no hyphen), and **open-source** when used as an adjective, like ****open-source software.****
-- **Parallelism,** sentence case
-- **POSIX threads or Pthreads,** as formatted by Unix.
-- **UID,** all caps as it stands for unique identifier.
-- **YAML,** all caps since it’s an acronym
-- (….list alphabetical & incomplete)
-
-### Other Technical Language
-
-There are several ways of writing these types of technical terms, but it’s good to establish some consistency across our documentation. The following shows the formatting usually used across the web, so in public-facing documentation, please strive to consistently use these words formatted as below (**use Sentence Case**, i.e., lowercase when not at the beginning of a sentence or in a title/header):
-
-- **ARM64**, not arm64 or Arm64
-- **B-tree,** rather than btree, hyphenated
-- **Big-endian** and **little-endian systems**, hyphenated
-- **Bytecode** is written as one word, rather than byte code.
-- **Bytestream** is written as one word, rather than byte stream or byte-stream
-- **Changelog** is written as one word, rather than change log.
-- **Codebase** will be written as one word for consistency. If you see ‘code base’, please change it.
-- **Cross-compatibility**, hyphenated in sentence case. If you see it as **cross compatibility**, please change it.
-- **Cyber security**, as two words (British preference), whereas American English tends toward one word: cybersecurity. Since our documentation defaults to British spelling, we’ll use ****cyber security,**** sentence case.
-- **Data types,** as two words. If you see datatypes, please correct it. Sentence case.
-- **Filename,** instead of file name, when talking about a particular filename, like "this filename and that filename". Split them into two words (**file name**) when discussing different types of names, like "file names and directory names"). It would always be two words in cases like “a file named *dune-file”.*
-- **File system** is two words, however.
-- **Frontend** and **backend,** rather than separate words when used as a noun. As an adjective, it’s hyphenated, like **front-end developer.**
-- **I/O,** stands for input/output, so should be capitalised with a slash in between. If you see io or IO, please correct, unless part of a link or wrapped in monospace
-- **Lock file,** two words rather than lockfile.
-- **Man pages**, rather than manpages. Depending on sentence structure, this can be awkward. Consider wrapping it in italics, bold, or monospace for it to stand out as a singular thing.
-- **Memoization**, rather than the usual `s` used in British English, as it’s the spelling of a particular function.
-- **Metadata,** one word rather than meta data.
-- **MinGW-64,** not mingw-64 or Mingw-64
-- **Multi-user***rather than multiuser as an adjective. **Multiuser** as a noun.
-- **Nameserver,** rather than name server.
-- **Pattern matching** is written as two words****,**** but it’s **pattern-matching** when used as an adjective. If you see it hyphenated outside this exception, please correct it.
-- **Prestate, precondition, postcondition—**without hyphens like pre-state, etc., even when the next letter is also an `e`, like preemptive.
-- **Rerun(ning), rereleasing,** and **redeploying,** no hyphen needed, even in cases when the next letter is an `e`, like reemerge, reenforce, etc.
-- **Runtime,** one word when describing the final step in a program’s execution, but it is written as two words (****run time****) when describing the actual time it took to run.
-- **S-expression**, capitalised rather than s-expression.
-- **Source tree —** instead of sourcetree or Sourcetree, like the app, similarly, it’s **source code** rather than sourcecode.
-- **Startup,** rather than start-up
-- **Subdirectory** — no hyphen (as in sub-directory), same for **subtree** and other **sub** prefixes. When in doubt, check with Google.
-- **Thread-safe,** rather than threadsafe or thread safe
-- **Toolsuite**, one word, rather than tool suite
-- **Toplevel(s),** one word rather than top level, when talking about OCaml toplevel; however, when talking about the global environment, it’s hyphenated like ****top-level.****
-- ****Type checking**** is written as two words, unless it’s used as an adjective, like **type-checking issues**. If you see it hyphenated outside this exception, please correct it.
-- **Type-safe language** (as adjective, hyphenated), not typesafe or type safe. **Type safe or type safety** (two words) when talking about the concept/feature. Sentence case.
-- **VSCode,** instead of VS Code or Vscode. Short for Visual Studio Code.
-- **Web Server**, two words. If you see webserver or web-server, please change it. Sentence case.
-- (….list alphabetical & incomplete)
-
-
-## General Formatting 
+## Writing, Grammar, and Spelling 
 
 Please don't worry about this too much, as a technical write will review any new documentation or changes to catch these types of things. It's included here for reference, if interested. 
 
@@ -218,12 +76,12 @@ The sentences below highlight issues and provide suggestions for improvement:
 - Read-only access is provided by MutableInput. [Passive voice] Improved: **MutableInput provides read-only access.**
 - Compiler errors occur when you leave off a semicolon at the end of a statement. [Weak verbs *occur* with extraneous words*.*] Improved: **Compilers return errors when you omit a semicolon at the end of a statement.**
 - There is a variable called `met-trick` that stores the current accuracy. [Extraneous words “there is” and “that” clause.] Improved: **The `met-trick` variable stores the current accuracy.**
-- Python was invented by Guido van Rossum in the twentieth century. [Passive voice] Improved: **Guido van Rossum invented Python in the twentieth century.**
+- Caml was invented by Guy Cousineau in the twentieth century. [Passive voice] Improved: **Guy Cousineau invented Caml in the twentieth century.**
 - The exception occurs when dividing by zero. [Weak verb *occurs]* Improved: **Dividing by zero raises the exception.**
 
-One of the biggest challenges for native French speakers is to eliminate unnecessary prepositional phrases, especially when using with the possessive. In French, the syntax is "the car of Susan," whereas in English, it would be Susan's car. When prepositional phrases (e.g. those starting with by, for, in, of, on, etc.) are strung together, it makes for clumsy and awkward sentences. For example: "She went *on* a road trip *across* the mountains *to* take pictures." This sentence has three prepositional phrases back to back. You can tighten the syntax by removing at least one prepositional phrase, like this: "She took pictures on her roadtrip across the mountains."
+It's best to eliminate unnecessary prepositional phrases, especially when using with the possessive. Avoid phrases like "the car of Susan." Instead, write "Susan's car." When prepositional phrases (e.g., those starting with by, for, in, of, on, etc.) are strung together, it makes for clumsy and awkward sentences. For example: "She went *on* a road trip *across* the mountains *to* take pictures." This sentence has three prepositional phrases back to back. You can improve it by removing at least one prepositional phrase, like this: "She took pictures on her roadtrip across the mountains."
 
-Although a writer's adherence to these principles and utilisation of correct punctuation may not always be consciously noticed by readers, such awareness can enhance clarity and contribute to a more enjoyable reading experience. 
+Following these guidelines makes for more enjoyable reading experience. 
 
 ### Spelling & Grammar
 
@@ -231,8 +89,8 @@ Although a writer's adherence to these principles and utilisation of correct pun
 - **Punctuation Preferences:**
     - Oxford (serial) comma [We bought bread, milk, and peanut butter], so there is a final comma before the conjunction.
     - Single space after a `.` period (full stop).
-    - Always use `'` for singular names/nouns ending in `s` and for plural nouns ending in `s` (e.g., Thomas’ and Companies’). Although the grammatically correct way to say and spell singular nouns ending in `s` is “Thomas’s”, it does look weird. It’s the consensus to treat every `s` as if it were a plural possessive, so instead write "Thomas'." **Whenever possible, rephrase the sentence to avoid it completely. Instead of “Tarides’ engineers” write “the Tarides engineers” or “the engineers at Tarides.”**
-    - Place punctuation inside of quotation marks: Irmin is a “OCaml library for building mergeable, branchable distributed data stores.” (not...stores”.)
+    - Always use `'` for singular names/nouns ending in `s` and for plural nouns ending in `s` (e.g., Thomas’ and Companies’). Although the grammatically correct way to say and spell singular nouns ending in `s` is “Thomas’s”, it does look weird. It’s the consensus to treat every `s` as if it were a plural possessive, so instead write "Thomas'." Whenever possible, rephrase the sentence to avoid it completely. 
+    - Place punctuation inside of quotation marks: OCaml is an "industrial-strength functional programming language with an emphasis on expressiveness and safety." (not "...safety".)
     - Use **en dashes `–`** surrounded by spaces for 'asides' (as an alternative, you can use parentheses). Example: OCaml Multicore is – as my grandmother would say – an excellent upgrade.
     - [Cambridge Dictionary: Punctuation](https://dictionary.cambridge.org/grammar/british-grammar/punctuation)
     - [Differences in British & American](https://www.unr.edu/writing-speaking-center/student-resources/writing-speaking-resources/british-american-english), please use the British spelling. See below.
