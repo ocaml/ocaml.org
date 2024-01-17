@@ -298,14 +298,24 @@ The `max` function returns the largest of its two arguments, which are:
 - `713`, the result of `int_of_string "713"`
 
 ```ocaml
-# let square ~x = x * x;;
-val square : x:int -> int
-
-# square ~x:3;;
-- : int = 9
+# String.starts_with ~prefix:"state" "stateless";;
+- : bool = true
 ```
 
-Functions with named parameters can be applied in the same way as functions without named parameters with the difference that the argument should be named. Note the `~x` when `square` is applied to `3`. Labelled parameters are detailed in the [Labelled Arguments](/docs/labels) tutorial.
+Some functions, such as `String.starts_with` have labelled parameters. Labels are useful when a function has several parameters of the same type; naming arguments allows to guess their purpose. Above, `~prefix:"state"` indicates `"less"` is passed as labelled argument `suffix`.
+
+```ocaml
+# let cat ?(init="") u = List.fold_left ( ^ ) init u;;
+val cat : ?init:string -> string list -> string = <fun>
+
+# cat ["fri"; "sat"; "sun"];;
+- : string = "frisatsun"
+
+# cat ["fri"; "sat"; "sun"] ~init:"thr";;
+- : string = "thrfrisatsun"
+```
+
+Labelled parameters can have default values. This allows calling the function without specifying some arguments. Optional parameters when a function has many parameters or parameters which define some non nominal behaviour. Optional parameters are defined using a question mark `?` and passed using a tilde `~`. Labelled parameters are detailed in the [Labelled Arguments](/docs/labels) tutorial.
 
 There are two alternative ways to apply functions.
 
