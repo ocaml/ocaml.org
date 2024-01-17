@@ -442,6 +442,7 @@ Grouping the statements of sequence is also needed for the first branch of the c
     print_endline "B";
   ;;
 A
+C
 - : unit = ()
 
 # if false then
