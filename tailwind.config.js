@@ -40,6 +40,7 @@ const figma_colors = {
       tertiary: "#007AD0",
       tertiary_lighter: "#007BC7",
       tertiary_bt_hover: "#111827",
+      white:"#FFFFFF",
 
       title: "#FFFFFFDE",
       content: "#FFFFFF99",
@@ -116,6 +117,9 @@ module.exports = {
             },
             a: {
               color: theme('colors.dark.primary'),
+            },
+            'a > span': {
+              color: theme('colors.dark.white'),
             },
             h1: {
               color: theme('colors.dark.title'),
