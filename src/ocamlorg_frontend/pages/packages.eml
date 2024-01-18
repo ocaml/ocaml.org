@@ -1,6 +1,6 @@
 let href_package pkg = Url.Package.overview pkg.name ?version:(Package.url_version pkg)
 
-let render (stats : Package.stats option) =
+let render (stats : Package.stats option) (featured : Package.package list) =
 Layout.render
 ~title:"OCaml Packages · Browse Community Packages"
 ~description:"Discover thousands of community packages and browse their documentation."
@@ -102,7 +102,7 @@ in
     <a href="<%s href_package pkg %>"
         class="block card dark:dark-card py-6 px-7 text-left">
       <p class="font-bold text-lg mb-2 text-title dark:text-dark-title"><%s pkg.name %></p>
-      <p class="mb-3 text-base text-content dark:text-dark-content truncate"><%s pkg.synopsis %></p>
+      <p class="mb-3 text-base text-content dark:text-dark-content"><%s pkg.synopsis %></p>
 % render_extra_stats ();
     </a>
 % in
@@ -115,9 +115,9 @@ in
             <button x-on:click='activeTab = "new"' class="w-full py-4 text-xs border" :class='activeTab === "new" ? "bg-primary dark:bg-dark-primary text-white dark:text-dark-title border-primary dark:border-dark-primary" : "border-card_border dark:border-dark-separator_30"'>New</button>
             <button x-on:click='activeTab = "recently-updated"' class="w-full py-4 text-xs rounded-r border" :class='activeTab === "recently-updated" ? "bg-primary dark:bg-dark-primary text-white dark:text-dark-title border-primary dark:border-dark-primary" : "border-card_border dark:border-dark-separator_30"'>Recently Updated</button>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="flex justify-between flex-col lg:space-y-0 lg:space-x-6 lg:flex-row">
             <div class="flex-1 space-y-6" :class='activeTab === "most-used" ? "block" : "hidden md:block"'>
-                <h3 class="font-bold text-left text-title dark:text-dark-title text-2xl mb-8 hidden md:block">Most Used</h3>
+                <h3 class="font-bold text-left text-title dark:text-dark-title text-2xl mb-8 hidden md:block">Most Used Packages</h3>
 % let render_package_most_revdeps (pkg, nb_revdeps) =
 %   render_package_stat pkg (fun () ->
       <div class="text-sm text-content dark:text-dark-content flex">
