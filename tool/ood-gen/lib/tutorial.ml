@@ -53,11 +53,15 @@ type t = {
   recommended_next_tutorials : recommended_next_tutorials;
 }
 [@@deriving
-  stable_record ~version:metadata ~add:[ id ] ~modify:[ recommended_next_tutorials ]
+  stable_record ~version:metadata ~add:[ id ]
+    ~modify:[ recommended_next_tutorials ]
     ~remove:[ slug; fpath; section; toc; body_md; body_html ],
     show { with_path = false }]
 
-let of_metadata m = of_metadata m ~slug:m.id ~modify_recommended_next_tutorials:(function None -> [] | Some u -> u)
+let of_metadata m =
+  of_metadata m ~slug:m.id ~modify_recommended_next_tutorials:(function
+    | None -> []
+    | Some u -> u)
 
 let id_to_href id =
   match id with

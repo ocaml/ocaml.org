@@ -401,8 +401,7 @@ let tutorial req =
   in
 
   let is_in_recommended_next (tested : Data.Tutorial.t) =
-    List.exists (fun r -> r = tested.slug)
-    tutorial.recommended_next_tutorials
+    List.exists (fun r -> r = tested.slug) tutorial.recommended_next_tutorials
   in
 
   let recommended_next_tutorials =
