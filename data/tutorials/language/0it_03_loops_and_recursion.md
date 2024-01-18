@@ -1,5 +1,5 @@
 ---
-id: loops
+id: loops-recursion
 title: Loops and Recursions
 description: >
   Learn basic control-flow and recursion in OCaml

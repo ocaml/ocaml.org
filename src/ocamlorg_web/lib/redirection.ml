@@ -238,17 +238,17 @@ let from_v2 =
     ("/learn/tutorials/hashtbl.zh.html", Url.tutorial "hash-tables");
     ("/learn/tutorials/humor_proof.html", Url.learn);
     ( "/learn/tutorials/if_statements_loops_and_recursion.fr.html",
-      Url.tutorial "loops" );
+      Url.tutorial "loops-recursion" );
     ( "/learn/tutorials/if_statements_loops_and_recursion.it.html",
-      Url.tutorial "loops" );
+      Url.tutorial "loops-recursion" );
     ( "/learn/tutorials/if_statements_loops_and_recursion.ja.html",
-      Url.tutorial "loops" );
+      Url.tutorial "loops-recursion" );
     ( "/learn/tutorials/if_statements_loops_and_recursion.ko.html",
-      Url.tutorial "loops" );
+      Url.tutorial "loops-recursion" );
     ( "/learn/tutorials/if_statements_loops_and_recursion.html",
-      Url.tutorial "loops" );
+      Url.tutorial "loops-recursion" );
     ( "/learn/tutorials/if_statements_loops_and_recursion.zh.html",
-      Url.tutorial "loops" );
+      Url.tutorial "loops-recursion" );
     ("/learn/tutorials/index.de.html", Url.learn);
     ("/learn/tutorials/index.fr.html", Url.learn);
     ("/learn/tutorials/index.it.html", Url.learn);

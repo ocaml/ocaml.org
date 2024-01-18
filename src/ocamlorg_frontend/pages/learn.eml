@@ -73,7 +73,7 @@ Learn_layout.single_column_layout
                   {href = Url.tutorial "values-and-functions"; title = "Values and Functions"};
                   {href = Url.tutorial "basic-data-types"; title = "Data Types and Pattern Matching"};
                   {href = Url.tutorial "lists"; title = "Lists"};
-                  {href = Url.tutorial "loops"; title = "Loops and Recursions"};
+                  {href = Url.tutorial "loops-recursion"; title = "Loops and Recursions"};
               ]
               ~see_more:{href = Url.learn_language; title = "Language Documentation"}
               %>

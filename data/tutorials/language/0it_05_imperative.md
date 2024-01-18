@@ -362,7 +362,7 @@ Remember the value of a semicolon-separated sequence is the value of its last ex
 - : unit = ()
 ```
 
-### Conditional Execution
+### `if … then … else …` and Side Effects
 
 In OCaml, `if … then … else …` is an expression.
 ```ocaml

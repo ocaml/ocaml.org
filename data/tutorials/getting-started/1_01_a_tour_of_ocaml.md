@@ -8,7 +8,7 @@ recommended_next_tutorials:
   [
     "values-and-functions",
     "basic-data-types",
-    "loops",
+    "loops-recursion",
     "lists"
   ]
 ---
