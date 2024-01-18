@@ -121,7 +121,9 @@ let toc ?(start_level = 1) ?(max_level = 2) doc =
   create_toc ~max_level start_level (headers doc)
 
 let decode (fpath, (head, body_md)) =
-  let metadata = metadata_of_yaml head |> Result.map_error (Utils.where fpath) in
+  let metadata =
+    metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+  in
   let section =
     List.nth (String.split_on_char '/' fpath) 1
     |> Section.of_string |> Result.get_ok

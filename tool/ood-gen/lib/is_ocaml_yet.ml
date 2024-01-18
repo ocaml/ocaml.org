@@ -32,7 +32,9 @@ type t = {
     show { with_path = false }]
 
 let decode (fpath, (head, body_md)) =
-  let metadata = metadata_of_yaml head |> Result.map_error (Utils.where fpath) in
+  let metadata =
+    metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+  in
   let body_html =
     Cmarkit.Doc.of_string ~strict:true body_md |> Cmarkit_html.of_doc ~safe:true
   in
