@@ -6,7 +6,7 @@ description: |
 category: "Tooling"
 ---
 
-Like in C/C++, we can just add OCaml code to a file, compile it and run it as an executable.
+Like in C/C++, we can just add OCaml code to a file, compile it, and run it as an executable.
 
 # Storing Code in Files
 
@@ -24,7 +24,7 @@ Next, create a file named `hello.ml` and add the following code with your favori
 let _ = print_endline "Hello OCaml!"
 ```
 
-**Note:** There are no double semicolons ;; at the end of that line of code.
+**Note:** There are no double semicolons `;;` at the end of that line of code.
 
 The *let _ =* signifies that we don't care to give a name to the code on the right-hand side of *=*, hence the `_`.
 
@@ -42,7 +42,7 @@ Now let's run the executable and see what happens:
 $ ./hello
 ```
 
-Voilà! It says, `Hello OCaml!`. Congratulations.
+Voilà! It says, `Hello OCaml!`. Congratulations!
 
 We can change the string or add more content, save the file, recompile, and rerun.
 
