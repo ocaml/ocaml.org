@@ -11,7 +11,7 @@ title
 link_html
 =
    <details class="flex flex-col">
-      <summary class="flex gap-4 justify-between text-sm text-title dark:text-dark-title font-normal py-4 focus:text-primary dark:focus:text-dark-primary active:text-primary  dark:active:text-dark-primary hover:text-primary dark:hover:text-dark-primary">
+      <summary class="flex gap-4 justify-between text-base text-title dark:text-dark-title font-normal py-4 focus:text-primary dark:focus:text-dark-primary active:text-primary  dark:active:text-dark-primary hover:text-primary dark:hover:text-dark-primary">
         <%s title %>
         <%s! Icons.chevron_down "h-5 w-5" %>
       </summary>
@@ -64,7 +64,7 @@ let statement_solution_switch =
     <button
       class="px-10 h-11 text-base font-medium rounded-l-md border flex gap-2 items-center"
       x-on:click="statement = true"
-      :class="statement ? 'bg-primary dark:bg-dark-primary border-primary dark:border-dark-primary text-white dark:text-dark-white': 'text-separator_20 dark:text-dark-separator_30 border-separator_20 dark:border-dark-separator_30' "
+      :class="statement ? 'bg-primary dark:bg-dark-primary border-primary dark:border-dark-primary text-white dark:text-dark-white': 'text-content dark:text-dark-content border-content dark:border-dark-content' "
     >
       <%s! exercise_statement "h-5 w-5" %>
       Statement
@@ -72,7 +72,7 @@ let statement_solution_switch =
     <button
       class="px-10 h-11 text-base  font-medium rounded-r-md border-t border-r border-b  flex gap-2 items-center"
       x-on:click="statement = false"
-      :class="statement ? 'text-separator_20 dark:text-dark-separator_30 border-separator_20 dark:border-dark-separator_30': 'bg-secondary dark:bg-dark-secondary border-secondary dark:border-dark-secondary text-white dark:text-dark-white' "
+      :class="statement ? 'text-content dark:text-dark-content border-content dark:border-dark-content': 'bg-secondary dark:bg-dark-secondary border-secondary dark:border-dark-secondary text-white dark:text-dark-white' "
     >
       <%s! exercise_solution "h-5 w-5" %>
       Solution
