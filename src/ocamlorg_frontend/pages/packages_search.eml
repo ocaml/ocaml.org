@@ -67,8 +67,7 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
             </div>
 
             <div class="text-sm flex flex-col gap-2">
-              <div class="flex"> 
-                <div class="bg-title dark:bg-dark-white text-white dark:text-dark-tertiary_bt_hover rounded-md px-2 py-0.5 mr-2 h-max">#</div>
+              <div class="flex">
                 <div class="self-center text-title dark:text-dark-title"><%s! Search.highlight_search_terms ~class_:"text-title bg-legacy-search-term-highlight text-sm" ~search package.synopsis %></div>
               </div>
               <% if List.length package.tags > 0 then ( %>
@@ -83,11 +82,11 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
                 <% ); %>
               </div>
               <% ) else (); %>
-              <div class="flex items-center flex-wrap gap-x-3 text-base text-content dark:text-dark-content">
+              <div class="flex items-center flex-wrap gap-x-3 text-sm text-content dark:text-dark-content">
                 <% package.authors |> Ocamlorg.Import.List.take 5 |> List.iter (fun (author : Data.Opam_user.t) -> %>
                 <a
                   href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22"
-                  class="underline text-content dark:text-dark-white dark:hover:text-dark-primary"
+                  class="hover:underline text-content dark:text-dark-content"
                 >
                   <%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search author.name %>
                 </a>
