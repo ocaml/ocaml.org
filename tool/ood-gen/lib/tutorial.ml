@@ -29,6 +29,9 @@ type external_tutorial = {
 type recommended_next_tutorials = string list
 [@@deriving of_yaml, show { with_path = false }]
 
+type prerequisite_tutorials = string list
+[@@deriving of_yaml, show { with_path = false }]
+
 type metadata = {
   id : string;
   title : string;
@@ -37,6 +40,7 @@ type metadata = {
   category : string;
   external_tutorial : external_tutorial option;
   recommended_next_tutorials : recommended_next_tutorials option;
+  prerequisite_tutorials : prerequisite_tutorials option;
 }
 [@@deriving of_yaml]
 
@@ -52,7 +56,8 @@ type t = {
   toc : toc list;
   body_md : string;
   body_html : string;
-  recommended_next_tutorials : recommended_next_tutorials;
+  recommended_next_tutorials : recommended_next_tutorials option;
+  prerequisite_tutorials : prerequisite_tutorials option;
 }
 [@@deriving
   stable_record ~version:metadata ~add:[ id ]
@@ -184,6 +189,7 @@ type external_tutorial =
   ; contribute_link : contribute_link
   }
 type recommended_next_tutorials = string list
+type prerequisite_tutorials = string list
 type t =
   { title : string
   ; short_title: string
@@ -196,7 +202,8 @@ type t =
   ; body_md : string
   ; toc : toc list
   ; body_html : string
-  ; recommended_next_tutorials : recommended_next_tutorials
+  ; recommended_next_tutorials : recommended_next_tutorials option
+  ; prerequisite_tutorials : prerequisite_tutorials option
   }
   
 let all = %a

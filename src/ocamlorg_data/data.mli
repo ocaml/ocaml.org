@@ -216,6 +216,7 @@ module Tutorial : sig
   }
 
   type recommended_next_tutorials = string list
+  type prerequisite_tutorials = string list
 
   type t = {
     title : string;
@@ -229,7 +230,8 @@ module Tutorial : sig
     body_md : string;
     toc : toc list;
     body_html : string;
-    recommended_next_tutorials : recommended_next_tutorials;
+    recommended_next_tutorials : recommended_next_tutorials option;
+    prerequisite_tutorials : prerequisite_tutorials option;
   }
 
   val all : t list

@@ -5,6 +5,11 @@ short_title: Basic Data Types and Pattern Matching
 description: |
   Predefined Types, Variants, Records, and Pattern Matching
 category: "Introduction"
+prerequisites_tutorials: 
+  [
+    "tour-of-ocaml",
+    "values-and-functions",
+  ]
 ---
 
 ## Introduction
