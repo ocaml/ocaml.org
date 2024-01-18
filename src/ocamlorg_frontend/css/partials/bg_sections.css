@@ -9,4 +9,28 @@
     background: linear-gradient(45deg, #010105, #10162D);
     @apply border-none;
   }
+
+  .dark-blue-section-mild-contrast {
+    background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat, linear-gradient(273deg, rgba(14, 25, 62, 0.90) -0.63%, #0E193E 98.13%);;
+  }
+
+  .pkg-section-mild-contrast {
+    background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
+    @apply bg-sand border-b border-t;
+  }
+
+  .dark-no-mild-contrast {
+    background: none;
+    @apply border-none;
+  }
+
+  .section-blue-gradient {
+    background: linear-gradient(45deg, #0B1228, #0F264F);
+    @apply border-none;
+  }
+
+  .dark-section-blue-gradient {
+    background: linear-gradient(45deg, #022E50, #0063A8);
+    @apply border-none;
+  }
 }

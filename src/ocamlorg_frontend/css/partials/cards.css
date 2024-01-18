@@ -8,10 +8,10 @@
   }
   
   .card {
-    @apply bg-white drop-shadow hover:shadow-[0px_0px_12px_0px_#00000080] rounded-2xl border;
+    @apply bg-white hover:shadow-lg rounded-2xl border;
   }
   
   .dark-card {
-    @apply bg-dark-card drop-shadow hover:bg-dark-card_hover hover:shadow-[0px_0px_12px_0px_#00000050] rounded-2xl border;
+    @apply bg-dark-card hover:bg-dark-card_hover hover:shadow-[0px_0px_12px_0px_#00000050] rounded-2xl border;
   }
 }
