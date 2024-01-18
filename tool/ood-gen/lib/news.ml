@@ -21,7 +21,7 @@ type t = {
 
 let decode (fname, (head, body)) =
   let slug = Filename.basename (Filename.remove_extension fname) in
-  let metadata = metadata_of_yaml head in
+  let metadata = metadata_of_yaml head |> Result.map_error (Utils.where fname) in
   let body_html =
     Cmarkit.Doc.of_string ~strict:true (String.trim body)
     |> Hilite.Md.transform

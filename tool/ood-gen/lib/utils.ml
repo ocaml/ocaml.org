@@ -67,3 +67,5 @@ let yaml_sequence_file ?key of_yaml file =
 let of_yaml of_string error = function
   | `String s -> of_string s
   | _ -> Error (`Msg error)
+
+let where fpath = function `Msg err -> `Msg (fpath ^ ": " ^ err)
