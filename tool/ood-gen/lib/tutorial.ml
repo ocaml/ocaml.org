@@ -50,14 +50,14 @@ type t = {
   toc : toc list;
   body_md : string;
   body_html : string;
-  recommended_next_tutorials : recommended_next_tutorials option;
+  recommended_next_tutorials : recommended_next_tutorials;
 }
 [@@deriving
-  stable_record ~version:metadata ~add:[ id ]
+  stable_record ~version:metadata ~add:[ id ] ~modify:[ recommended_next_tutorials ]
     ~remove:[ slug; fpath; section; toc; body_md; body_html ],
     show { with_path = false }]
 
-let of_metadata m = of_metadata m ~slug:m.id
+let of_metadata m = of_metadata m ~slug:m.id ~modify_recommended_next_tutorials:(function None -> [] | Some u -> u)
 
 let id_to_href id =
   match id with
@@ -168,7 +168,7 @@ type t =
   ; body_md : string
   ; toc : toc list
   ; body_html : string
-  ; recommended_next_tutorials : recommended_next_tutorials option
+  ; recommended_next_tutorials : recommended_next_tutorials
   }
   
 let all = %a

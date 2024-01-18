@@ -402,7 +402,7 @@ let tutorial req =
 
   let is_in_recommended_next (tested : Data.Tutorial.t) =
     List.exists (fun r -> r = tested.slug)
-    @@ match tutorial.recommended_next_tutorials with Some x -> x | None -> []
+    tutorial.recommended_next_tutorials
   in
 
   let recommended_next_tutorials =
