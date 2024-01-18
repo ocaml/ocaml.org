@@ -68,10 +68,8 @@ Now let's run the executable and see what happens:
 
 ```shell
 $ ./hello
+$ Hello OCaml!
 ```
-
-Voilà! It says, Hello OCaml!.
-
 We can change the string or add more content, save the file, recompile, and rerun.
 
 Moving on, we'll see how to use `ocamlopt`. Let's assume that our program `program` has two source files,
@@ -258,13 +256,10 @@ $ dune build main.bc
 
 The `.bc` stands for generic bytecode file, and it can be an executable or library.
 
-
 ```shell
 $ dune exec ./main.bc
+$ Hello Dune!
 ```
-
-Now `Hello Dune!` will be printed on the screen.
-
 We can also do that with `.exe`.
 
 ```shell
@@ -273,6 +268,7 @@ $ dune build main.exe
 
 ```shell
 $ dune exec ./main.exe
+$ Hello Dune!
 ```
 ## Other Build Systems
 
