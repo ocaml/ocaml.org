@@ -26,7 +26,7 @@ let _ = print_endline "Hello OCaml!"
 
 **Note:** There are no double semicolons `;;` at the end of that line of code.
 
-The *let _ =* signifies that we don't care to give a name to the code on the right-hand side of *=*, hence the `_`.
+The `let _ =` signifies that we don't care to give a name to the code on the right-hand side of `=`, hence the `_`.
 
 Now, we are ready to run the code. Save the file and return to the command line. Let's compile the code:
 
