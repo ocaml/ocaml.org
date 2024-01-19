@@ -297,6 +297,14 @@ The `max` function returns the largest of its two arguments, which are:
 - `42`, the result of `21 * 2`
 - `713`, the result of `int_of_string "713"`
 
+```ocaml
+# String.starts_with ~prefix:"state" "stateless";;
+- : bool = true
+```
+
+Some functions, such as `String.starts_with` have labelled parameters. Labels are useful when a function has several parameters of the same type; naming arguments allows to guess their purpose. Above, `~prefix:"state"` indicates `"state"` is passed as labelled argument `prefix`.
+
+Labelled and optional parameters are detailed in the [Labelled Arguments](/docs/labels) tutorial.
 
 There are two alternative ways to apply functions.
 
