@@ -200,11 +200,12 @@ Trying to compile this fails.
 $ opam exec -- dune build
 File "hello/bin/main.ml", line 1, characters 30-43:
 1 | let () = Printf.printf "%s\n" Hello.En.hello
-                                  ^^^^^^^^^^
+                                  ^^^^^^^^^^^^^^
 Error: Unbound value Hello.En.hello
 ```
 
-This is because we haven't changed `lib/en.mli`. Since it does not list `v`, it is therefore private.
+This is because we haven't changed `lib/en.mli`. Since it does not list
+`hello`, it is therefore private.
 
 ## Defining multiple modules in a library
 A more detailed introduction to modules can be found at
