@@ -56,7 +56,7 @@ type t = {
   toc : toc list;
   body_md : string;
   body_html : string;
-  recommended_next_tutorials : recommended_next_tutorials option;
+  recommended_next_tutorials : recommended_next_tutorials;
   prerequisite_tutorials : prerequisite_tutorials option;
 }
 [@@deriving
