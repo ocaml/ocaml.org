@@ -249,6 +249,8 @@ let from_v2 =
       Url.tutorial "loops-recursion" );
     ( "/learn/tutorials/if_statements_loops_and_recursion.zh.html",
       Url.tutorial "loops-recursion" );
+    ( "/learn/tutorials/mutability-loops-and-imperative",
+      Url.tutorial "mutability-imperative-control-flow" );
     ("/learn/tutorials/index.de.html", Url.learn);
     ("/learn/tutorials/index.fr.html", Url.learn);
     ("/learn/tutorials/index.it.html", Url.learn);
