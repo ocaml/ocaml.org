@@ -302,7 +302,7 @@ The `max` function returns the largest of its two arguments, which are:
 - : bool = true
 ```
 
-Some functions, such as `String.starts_with` have labelled parameters. Labels are useful when a function has several parameters of the same type; naming arguments allows to guess their purpose. Above, `~prefix:"state"` indicates `"less"` is passed as labelled argument `suffix`.
+Some functions, such as `String.starts_with` have labelled parameters. Labels are useful when a function has several parameters of the same type; naming arguments allows to guess their purpose. Above, `~prefix:"state"` indicates `"state"` is passed as labelled argument `prefix`.
 
 ```ocaml
 # let cat ?(init="") u = List.fold_left ( ^ ) init u;;
