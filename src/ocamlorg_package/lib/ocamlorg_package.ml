@@ -12,11 +12,14 @@ let version t = t.version
 let info t = t.info
 let create ~name ~version info = { name; version; info }
 
+module DocumentationStatusMap = Map.Make (String)
+
 type state = {
   version : string;
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
   mutable stats : Statistics.t option;
+  mutable doc_stats : Documentation_status.t option DocumentationStatusMap.t;
 }
 
 let mockup_state (pkgs : t list) =
@@ -35,6 +38,7 @@ let mockup_state (pkgs : t list) =
     packages;
     opam_repository_commit = None;
     stats = None;
+    doc_stats = DocumentationStatusMap.empty;
   }
 
 let read_versions package_name versions =
@@ -97,6 +101,7 @@ let try_load_state () =
       version = Info.version;
       packages = Name.Map.empty;
       stats = None;
+      doc_stats = DocumentationStatusMap.empty;
     }
 
 let save_state t =
@@ -375,20 +380,24 @@ let search_index ~kind t =
 
 module Documentation_status = Documentation_status
 
-let documentation_status ~kind t : Documentation_status.t option Lwt.t =
+let documentation_status ~kind state t : Documentation_status.t option Lwt.t =
   let open Lwt.Syntax in
   let package_url =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
   in
   let url = package_url ^ "status.json" in
-  let* content = http_get url in
-  let status =
-    match content with
-    | Ok s ->
-        Some (s |> Yojson.Safe.from_string |> Documentation_status.of_yojson)
-    | _ -> None
-  in
-  Lwt.return status
+  match DocumentationStatusMap.find_opt url state.doc_stats with
+  | Some status -> Lwt.return status
+  | None ->
+      let+ content = http_get url in
+      let status =
+        match content with
+        | Ok s ->
+            Some (s |> Yojson.Safe.from_string |> Documentation_status.of_yojson)
+        | _ -> None
+      in
+      state.doc_stats <- DocumentationStatusMap.add url status state.doc_stats;
+      status
 
 let doc_exists t name version =
   let package = get t name version in
@@ -396,7 +405,7 @@ let doc_exists t name version =
   match package with
   | None -> Lwt.return None
   | Some package -> (
-      let* doc_stat = documentation_status ~kind:`Package package in
+      let* doc_stat = documentation_status ~kind:`Package t package in
       match doc_stat with
       | Some { failed = false; _ } -> Lwt.return (Some version)
       | _ -> Lwt.return None)
