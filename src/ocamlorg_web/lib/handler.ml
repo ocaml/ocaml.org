@@ -503,10 +503,10 @@ module Package_helper = struct
            ( package,
              frontend_package t package ~on_latest_url:(version = "latest") ))
 
-  let package_sidebar_data ~kind package =
+  let package_sidebar_data ~kind t package =
     let open Lwt.Syntax in
     let* package_documentation_status =
-      Ocamlorg_package.documentation_status ~kind package
+      Ocamlorg_package.documentation_status ~kind t package
     in
     let readme_filename =
       Option.fold ~none:None
@@ -641,7 +641,7 @@ let packages_search t req =
   let open Lwt.Syntax in
   let documentation_status (pkg : Ocamlorg_package.t) =
     let* package_documentation_status =
-      Ocamlorg_package.documentation_status ~kind:`Package pkg
+      Ocamlorg_package.documentation_status ~kind:`Package t pkg
     in
 
     Lwt.return
@@ -674,7 +674,7 @@ let packages_autocomplete_fragment t req =
       let open Lwt.Syntax in
       let documentation_status (pkg : Ocamlorg_package.t) =
         let* package_documentation_status =
-          Ocamlorg_package.documentation_status ~kind:`Package pkg
+          Ocamlorg_package.documentation_status ~kind:`Package t pkg
         in
         Lwt.return
           (match package_documentation_status with
@@ -709,7 +709,7 @@ let package_overview t kind req =
     | Package -> `Package
     | Universe -> `Universe (Dream.param req "hash")
   in
-  let* sidebar_data = Package_helper.package_sidebar_data ~kind package in
+  let* sidebar_data = Package_helper.package_sidebar_data ~kind t package in
 
   let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
   let search_index_digest =
@@ -988,7 +988,7 @@ let package_file t kind req =
     | Universe -> `Universe (Dream.param req "hash")
   in
   let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
-  let* sidebar_data = Package_helper.package_sidebar_data ~kind package in
+  let* sidebar_data = Package_helper.package_sidebar_data ~kind t package in
   let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
   let search_index_digest =
     Option.map
