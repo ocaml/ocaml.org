@@ -2,10 +2,6 @@
 
 This document explains how to write documentation such as tutorials, guides, or recommendations to be hosted in OCaml.org. It's also meant to be used as a style guide to ensure consistency in things like grammar, formatting, capitalisation, and spelling across all OCaml.org documentation. 
 
-In order to ensure consistency across documentation, a style guide like this is beneficial.
-
-Use the [Diátaxis](https://diataxis.fr/) approach to documentation: Tutorials for learning, How-To Guides for goals, Explanation for understanding, and Reference for information. 
-
 Apply the [*Spiral Learning*](https://en.wikipedia.org/wiki/Spiral_approach) approach in tutorials. This teaching method first creates a solid foundation of a topic. By starting with an overview, it gives the reader the context and general information. Subsequent sections and tutorials review the important foundational information and expands, going into more detail and giving examples. 
 
 ## Materials
@@ -22,7 +18,6 @@ Anytime one contributes to the OCaml.org documentation, it's important to keep t
 **Our audience:**
 * Self-directed learners without a tutor
 * Already know some programming basics (one other programming language)
-* People who want to learn untainted functional programming (have seen functional patterns in other languages and are curious about “the real thing”)
 * Likely a majority of consumers of libraries, hopefully some authors or people who turn into it
 * English level B2 ideally
 
@@ -35,7 +30,6 @@ Especially since the release of OCaml 5.0 with Multicore support, perhaps our bi
 
 1. Enable people to use OCaml for real projects / at the job / side projects
 1. Get people who want to build and contribute to the ecosystem up to speed and building something good quickly
-1. Help people learn untainted FP through learning a language
 1. **Oddly Specific**: Enable people to do Advent of Code in OCaml.
 
 ## Our Key Values / Constraints:
