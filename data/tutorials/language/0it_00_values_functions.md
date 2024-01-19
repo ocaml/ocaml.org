@@ -304,18 +304,7 @@ The `max` function returns the largest of its two arguments, which are:
 
 Some functions, such as `String.starts_with` have labelled parameters. Labels are useful when a function has several parameters of the same type; naming arguments allows to guess their purpose. Above, `~prefix:"state"` indicates `"state"` is passed as labelled argument `prefix`.
 
-```ocaml
-# let cat ?(init="") u = List.fold_left ( ^ ) init u;;
-val cat : ?init:string -> string list -> string = <fun>
-
-# cat ["fri"; "sat"; "sun"];;
-- : string = "frisatsun"
-
-# cat ["fri"; "sat"; "sun"] ~init:"thr";;
-- : string = "thrfrisatsun"
-```
-
-Labelled parameters can have default values. This allows calling the function without specifying some arguments. Optional parameters are useful when a function has many parameters or parameters which often don't need to be specified. Optional parameters are defined using a question mark `?` and passed using a tilde `~`. Labelled parameters are detailed in the [Labelled Arguments](/docs/labels) tutorial.
+Labelled and optional parameters are detailed in the [Labelled Arguments](/docs/labels) tutorial.
 
 There are two alternative ways to apply functions.
 
