@@ -152,7 +152,7 @@ type 'a ref = { mutable contents : 'a; }
 
 The type `'a ref` is a record with a single field `contents`, which is marked with the `mutable` keyword.
 
-Since references are single field records, we can define functions `create`, `assign` and `deref` using the mutable record field update syntax:
+Since references are single field records, we can define functions `create`, `assign`, and `deref` using the mutable record field update syntax:
 ```ocaml
 # let create v = { contents = v };;
 val create : 'a -> 'a ref = <fun>
@@ -164,7 +164,7 @@ val assign : 'a ref -> 'a -> unit = <fun>
 val deref : 'a ref -> 'a = <fun>
 
 # let f = create 0;;
-val a : int ref = {contents = 0}
+val f : int ref = {contents = 0}
 
 # deref f;;
 - : int = 0
@@ -238,8 +238,8 @@ You can think of byte sequences as either:
 In this section, we compare two ways to implement a `get_char` function. The function waits until a key is pressed and returns the corresponding character without echoing it. This function will also be used later on in this tutorial.
 
 We use two functions from the `Unix` module to read and update attributes of the terminal associated with standard input:
-* `tcgetattr stdin TCSAFLUSH` returns the terminal attributes as a record (this is similar to `deref`)
-* `tcsetattr stdin TCSAFLUSH` updates the terminal attributes (this is similar to `assign`)
+* `tcgetattr stdin TCSAFLUSH` returns the terminal attributes as a record (similar to `deref`)
+* `tcsetattr stdin TCSAFLUSH` updates the terminal attributes (similar to `assign`)
 
 These attributes need to be set correctly (i.e., turn off echoing and disable canonical mode) in order to read it the way we want. The logic is the same in both implementations:
 1. Read and record the terminal attributes
@@ -303,8 +303,8 @@ This is really Disco!
 ```
 
 Using the `let … in` construct means two things:
-* Names may be bound, in the example, no name is bound since `()` is used.
-* Side effects take place in sequence. The bound expression (here `print_string "This is"`) is evaluated first, and the referring expression (here `print_endline " really Disco!"`) is evaluated second.
+* Names may be bound. In the example, no name is bound since `()` is used.
+* Side effects take place in sequence. The bound expression (`print_string "This is"`) is evaluated first, and the referring expression (`print_endline " really Disco!"`) is evaluated second.
 
 **Semicolon**
 
@@ -333,7 +333,7 @@ Here, the semicolon after 42 is ignored.
 
 **`begin … end` expressions**
 
-In Ocaml `begin … end` and parenthesis are the same.
+In OCaml, `begin … end` and parentheses are the same.
 
 Imagine we want to write a function that:
 1. Has an `int` reference parameter containing value _n_
@@ -341,7 +341,7 @@ Imagine we want to write a function that:
 
 This is arguably convoluted and does not work:
 ```ocaml
-let f r = r := incr r; 2 * !r;;
+# let f r = r := incr r; 2 * !r;;
 Error: This expression has type unit but an expression was expected of type int
 ```
 
@@ -358,7 +358,7 @@ The error came from assign `:=` associating stronger that semicolon `;`. Here is
 
 Remember the value of a semicolon-separated sequence is the value of its last expression. Grouping the first two steps with `begin … end` fixes the error.
 
-**Fun fact**: `begin … end` and parenthesis are literally the same:
+**Fun fact**: `begin … end` and parentheses are literally the same:
 ```ocaml
 # begin end;;
 - : unit = ()
@@ -392,7 +392,7 @@ The `unit` value `()` can serve as a [no-op](https://en.wikipedia.org/wiki/Noop)
 - : unit = ()
 ```
 
-But OCaml also allows writing `if … then … ` expressions, without an `else` branch, which is the same as the above.
+But OCaml also allows writing `if … then … ` expressions without an `else` branch, which is the same as the above.
 ```ocaml
 # if 0 = 1 then print_endline "foo";;
 - : unit = ()
@@ -450,7 +450,7 @@ Here:
  - `i` is the loop counter; it is incremented after every iteration.
  - `0` is the first value of `i`.
  - `5` is the last value of `i`.
- - The expression `Printf.printf "%i\n" i`, is the body of the loop.
+ - The expression `Printf.printf "%i\n" i` is the body of the loop.
 
 The iteration evaluates the body expression (which may contain `i`) until `i` reaches `5`.
 
@@ -459,7 +459,7 @@ The body of a `for` loop must be an expression of type `unit`:
 # let j = [| 2; 3; 4; 5; 6; 7; 8 |];;
 val j : int array = [|2; 3; 4; 5; 6; 7; 8|]
 
-# for i = Array.length a - 1 downto 0 do 0 done;;
+# for i = Array.length j - 1 downto 0 do 0 done;;
 Line 1, characters 39-40:
 Warning 10 [non-unit-statement]: this expression should have type unit.
 - : unit = ()
@@ -477,7 +477,7 @@ When you use the `downto` keyword (instead of the `to` keyword), the counter dec
 
 **Note:** Here is how to do the same thing using an iterator function:
 ```ocaml
-# let sum = ref 0 in Array.iter (fun i -> sum := !sum + i) a; !sum;;
+# let sum = ref 0 in Array.iter (fun i -> sum := !sum + i) j; !sum;;
 - : int = 35
 ```
 
@@ -534,10 +534,10 @@ Functional and imperative programming styles are often used together. However, n
 
 Here is a function that computes the sum of an array of integers.
 ```ocaml
-# let sum a =
+# let sum m =
     let result = ref 0 in
-    for i = 0 to Array.length a - 1 do
-      result := !result + a.(i)
+    for i = 0 to Array.length m - 1 do
+      result := !result + m.(i)
     done;
     !result;;
 val sum : int array -> int = <fun>
@@ -592,7 +592,7 @@ This example illustrates the following:
 
 This is a possible way to handle an application-wide state. As in the [Function-Encapsulated Mutability](#good-function-encapsulated-mutability) example, state-aware code is contained in a narrow scope; the rest of the code is purely functional.
 
-**Note**: Here, the state is copied, which is not memory efficient. In a memory-aware implementation, state-update functions would produce a “diff” (data describing the difference between the old and updated version of the state).
+**Note**: Here, the state is copied, which is not memory efficient. In a memory-aware implementation, state-update functions would produce a “diff” (data describing the difference between the state's old and updated version).
 
 ### Good: Precomputing Values
 
@@ -684,7 +684,7 @@ To understand why this is bad code, assume that the function `Array.truncate` ha
 The type of `partition` would be `('a -> bool) -> 'a array -> 'a array * 'a array`, and it could be documented as:
 > `partition p k` returns a pair of arrays `(m, n)` where `m` is an array containing all the elements of `k` that satisfy the predicate `p`, and `n` is an array containing the elements of `k` that do not satisfy `p`. The order of the elements from the input array is preserved.
 
-On first glance, this looks like an application of [Function-Encapsulated Mutability](#good-function-encapsulated-mutability). However, it is not: the input array is modified. This function has a side effect that is either
+On first glance, this looks like an application of [Function-Encapsulated Mutability](#good-function-encapsulated-mutability). However, it is not. The input array is modified. This function has a side effect that is either
 * not intended, or
 * not documented.
 
@@ -757,7 +757,7 @@ You can use the sequence operator `;` to execute expressions in a particular ord
 ```ocaml
 # print_endline "ha"; print_endline "ho";;
 ha
-hu
+ho
 - : unit = ()
 ```
 
