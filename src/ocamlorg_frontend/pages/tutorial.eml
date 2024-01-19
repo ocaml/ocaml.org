@@ -40,7 +40,7 @@ let render_related_exercises exercises =
   else
     ""
 
-let render_prerequisites_tutorials tutorials =
+let render_prerequisite_tutorials tutorials =
   if List.length tutorials > 0 then
     <div class="mb-6 pt-8 border-t border-gray-200">
         <h2 class="mb-4 mt-0 text-3xl font-bold leading-6">Prerequisites</h2>
