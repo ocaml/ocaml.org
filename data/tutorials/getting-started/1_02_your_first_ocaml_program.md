@@ -136,21 +136,21 @@ Each OCaml file defines a module, once compiled. This is how separate compilatio
 
 To create a module, let's create a new file named `lib/en.ml` containing this:
 ```ocaml
-let hello = "Hello from the 'En' module"
+let v = "Hello, world!"
 ```
 
 Here is a new version of the `bin/main.ml` file:
 ```ocaml
-let () = Printf.printf "%s\n" Hello.En.helloworld
+let () = Printf.printf "%s\n" Hello.En.v
 ```
 
 Now execute the resulting project:
 ```shell
 $ opam exec -- dune exec hello
-Hello from the 'En' module
+Hello, world!
 ```
 
-The file `lib/en.ml` creates the module named `En`, which in turn defines a string value named `helloworld`. Dune wraps `En` into another module called `Hello`; this name is defined by the stanza `name hello` in the file `lib/dune`. The string definition is referred to as `Hello.En.helloworld` from the `bin/main.ml` file.
+The file `lib/en.ml` creates the module named `En`, which in turn defines a string value named `v`. Dune wraps `En` into another module called `Hello`; this name is defined by the stanza `name hello` in the file `lib/dune`. The string definition is `Hello.En.v` from the `bin/main.ml` file.
 
 
 Dune can launch UTop to access the modules exposed by a project interactively. Here's how:
@@ -161,7 +161,7 @@ $ opam exec -- dune utop
 Then, inside the `utop` toplevel, it is possible to inspect our `Hello.En` module:
 ```ocaml
 # #show Hello.En;;
-module Hello : sig val helloworld : string end
+module Hello : sig val v : string end
 ```
 
 Now exit `utop` with `Ctrl-D` or enter `#quit;;` before going to the next section.
@@ -176,32 +176,32 @@ module En = En
 
 UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. The module interface file corresponding to a module file must have the same base name, e.g., `en.mli` is the module interface for module `en.ml`. Create a `lib/en.mli` file with this content:
 ```ocaml
-val helloworld : string
+val v : string
 ```
 
 Observe that only the list of declarations of the module signature (which is between `sig` and `end` in the output from `#show`) has been written in the interface file `lib/en.mli`. This is explained in more detail in the tutorial dedicated to [modules](/docs/modules).
 
 Module interfaces are also used to create _private_ definitions. A module definition is private if it is not listed in its corresponding module interface. If no module interface file exists, everything is public.
 
-In your preferred editor, amend the `lib/en.ml` file to add the `v` definition. Replace what's there with the following:
+Amend the `lib/en.ml` file in your preferred editor; replace what's there with the following:
 
 ```ocaml
-let v = "Hello world from the 'En' module"
-let helloworld = v
+let hello = "Hello"
+let v = hello ^ ", world!"
 ```
 
 Also edit the `bin/main.ml` file like this:
 ```ocaml
-let () = Printf.printf "%s\n" Hello.En.v
+let () = Printf.printf "%s\n" Hello.En.hello
 ```
 
 Trying to compile this fails.
 ```shell
 $ opam exec -- dune build
 File "hello/bin/main.ml", line 1, characters 30-43:
-1 | let () = Printf.printf "%s\n" Hello.En.v
+1 | let () = Printf.printf "%s\n" Hello.En.hello
                                   ^^^^^^^^^^
-Error: Unbound value Hello.En.v
+Error: Unbound value Hello.En.hello
 ```
 
 This is because we haven't changed `lib/en.mli`. Since it does not list `v`, it is therefore private.
@@ -213,13 +213,13 @@ library. To demonstrate this, create a new
 file named `lib/es.ml` with the following content:
 
 ```ocaml
-let helloworld = "Hola mundo desde el moodulo 'Es'"
+let v = "¡Hola, mundo!"
 ```
 
 And use the new module in `bin/main.ml`:
 ```ocaml
-let () = Printf.printf "%s\n" Hello.Es.helloworld
-let () = Printf.printf "%s\n" Hello.En.helloworld
+let () = Printf.printf "%s\n" Hello.Es.v
+let () = Printf.printf "%s\n" Hello.En.v
 ```
 
 Finally, run `dune build` and `dune exec hello` to see the new output, using the modules
@@ -227,8 +227,8 @@ that were just created in the `hello` library.
 
 ```shell
 $ opam exec -- dune exec hello
-Hola desde el moodulo 'Es'
-Hello from the 'En' module
+¡Hola, mundo!
+Hello, world!
 ```
 
 ## Installing and Using Modules From a Package
@@ -244,10 +244,10 @@ This tutorial requires at least version `1.0.0~alpha5` of Dream. You can verify 
 
 Next, run the Dream web server in the `bin/main.ml` file by changing the code to read:
 ```ocaml
-let () = Dream.(run (router [ get "/" (fun (_ : request) -> html Hello.En.helloworld) ]))
+let () = Dream.(run (router [ get "/" (fun (_ : request) -> html Hello.En.v) ]))
 ```
 
-This gives us a web server that responds with the content of `Hello.En.helloworld` to HTTP requests to the '/' path. Refer to the [Dream documentation](https://aantron.github.io/dream/) for more information.
+This gives us a web server that responds with the content of `Hello.En.v` to HTTP requests to the '/' path. Refer to the [Dream documentation](https://aantron.github.io/dream/) for more information.
 
 <!-- TODO: we have to probably refer to the Dream docs for an explanation
 Before detailing how things work, let's explain how Dream types works.
@@ -259,9 +259,9 @@ Let's detail the roles of each piece:
 - `router` turns a list of `route` values into a single handler binding them together.
 - `get "/"` declares a route, HTTP GET requests to the `/` path are handled by the provided function.
 - `(fun (_ : request) -> ...)` this a handler function. The typed pattern `(_ : request)` means the data from the request is ignored.
-- `html Hello.En.helloworld` has type `response promise`. When data inside the promise becomes available, the server will send it, too. In our case, it is immediately available as it is a static constant stored in memory.
+- `html Hello.En.v` has type `response promise`. When data inside the promise becomes available, the server will send it, too. In our case, it is immediately available as it is a static constant stored in memory.
 
-In summary, this is telling: “run a web server responding with the content of `Hello.En.helloworld` to requests to the '/' path”
+In summary, this is telling: “run a web server responding with the content of `Hello.En.v` to requests to the '/' path”
 
 The `Dream.(` syntax stands for locally opening a module inside an expression.
 -->
@@ -286,7 +286,7 @@ $ opam exec -- dune exec hello
 Then test from the first terminal:
 ```shell
 $ curl http://localhost:8080/
-Hello from the 'En' module
+Hello, world!
 ```
 
 ## Using the Preprocessor to Generate Code
@@ -313,7 +313,7 @@ The files `lib/en.ml` and `lib/en.mli` need to be edited, too:
 **`lib/en.mli`**
 ```ocaml
 val string_of_string_list : string list -> string
-val helloworld : string list
+val v : string list
 ```
 
 **`lib/en.ml`**
@@ -322,17 +322,17 @@ let string_list_pp = [%show: string list]
 
 let string_of_string_list = Format.asprintf "@[%a@]" string_list_pp
 
-let helloworld = String.split_on_char ' ' "Hello using an opam library"
+let v = String.split_on_char ' ' "Hello using an opam library"
 ```
 
 Let's read this from the bottom up:
-- `helloworld` has the type `string list`. We're using `String.split_on_char` to turn a `string` into a `string list` by splitting the string on space characters.
+- `v` has the type `string list`. We're using `String.split_on_char` to turn a `string` into a `string list` by splitting the string on space characters.
 - `string_of_string_list` has type `string list -> string`. This converts a list of strings into a string, applying the expected formatting.
 - `string_list_pp` has type `Format.formatter -> string list -> unit`, which means it is a custom formatter that turns a `string list` into a `string` (this type does not appear in the signature).
 
 Finally, you'll also need to edit `bin/main.ml`
 ```ocaml
-let () = print_endline Hello.En.(string_of_string_list helloworld)
+let () = print_endline Hello.En.(string_of_string_list v)
 ```
 
 Here is the result:
