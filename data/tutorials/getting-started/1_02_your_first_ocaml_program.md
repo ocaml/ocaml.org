@@ -208,10 +208,8 @@ This is because we haven't changed `lib/en.mli`. Since it does not list
 `hello`, it is therefore private.
 
 ## Defining multiple modules in a library
-A more detailed introduction to modules can be found at
-[Modules](/docs/modules). In short, multiple modules can be defined in a single
-library. To demonstrate this, create a new
-file named `lib/es.ml` with the following content:
+Multiple modules can be defined in a single library. To demonstrate this,
+create a new file named `lib/es.ml` with the following content:
 
 ```ocaml
 let v = "¡Hola, mundo!"
@@ -231,6 +229,8 @@ $ opam exec -- dune exec hello
 ¡Hola, mundo!
 Hello, world!
 ```
+
+A more detailed introduction to modules can be found at [Modules](/docs/modules).
 
 ## Installing and Using Modules From a Package
 
