@@ -419,7 +419,7 @@ let tutorial req =
   Dream.html
     (Ocamlorg_frontend.tutorial ~tutorials
        ~canonical:(Url.tutorial tutorial.slug)
-       ~related_exercises ~recommended_next_tutorials ~prerequisites_tutorials
+       ~related_exercises ~recommended_next_tutorials ~prerequisite_tutorials
        tutorial)
 
 let exercises req =
