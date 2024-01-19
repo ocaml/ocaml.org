@@ -1,8 +1,8 @@
 ---
-id: mutability-loops-and-imperative
-title: Mutability, Loops, and Imperative Programming
+id: mutability-imperative-control-flow
+title: Mutability and Imperative Control Flow
 description: >
-  Writing stateful programs in OCaml, mixing imperative and functional style
+  Write stateful programs in OCaml. Use for and while loops, if-then-else, mutable record fields, and references.
 category: "Introduction"
 ---
 
@@ -25,7 +25,7 @@ This document has two main teaching goals:
 -->
 
 
-# Mutability, Loops, and Imperative Programming
+# Mutability and Imperative Control Flow
 
 Imperative and functional programming both have unique merits, and OCaml allows combining them efficiently. In the first part of this tutorial, we introduce mutable state and imperative control flow. See the second part for examples of recommended or discouraged use of these features.
 
@@ -333,6 +333,8 @@ Here, the semicolon after 42 is ignored.
 
 **`begin … end` expressions**
 
+In Ocaml `begin … end` and parenthesis are the same.
+
 Imagine we want to write a function that:
 1. Has an `int` reference parameter containing value _n_
 2. Updates the reference's contents to _2 &times; (n + 1)_
@@ -349,14 +351,14 @@ But here is how it can be made to work:
 val f : int ref -> unit = <fun>
 ```
 
-The error came from assign `:=` associating more that semicolum `;`. Here is what we want to do, in order:
+The error came from assign `:=` associating stronger that semicolon `;`. Here is what we want to do, in order:
 1. Increment `r`
 2. Compute `2 * !r`
 3. Assign into `r`
 
-Remember the value of a semicolon-separated sequence is the value of its last expression. Grouping the first two steps fix the error. Usually, this is done using parentheses, but surrounding it with `begin … end` works, too. The latter is preferred to highlight expressions that have side effects.
+Remember the value of a semicolon-separated sequence is the value of its last expression. Grouping the first two steps with `begin … end` fixes the error.
 
-**Fun fact**: `begin … end` and parenthesis are badly the same:
+**Fun fact**: `begin … end` and parenthesis are literally the same:
 ```ocaml
 # begin end;;
 - : unit = ()
@@ -370,14 +372,14 @@ In OCaml, `if … then … else …` is an expression.
 - : int = 42
 ```
 
-It is possible to turn a conditional expression into a statement-like expression by using `unit` expressions in the branches.
+A conditional expression return type can be `unit` if both branches are too.
 ```ocaml
 # if 0 = 1 then print_endline "foo" else print_endline "bar";;
 bar
 - : unit = ()
 ```
 
-Because `if … then … else …` is an expression, the above can also be expressed this way;
+The above can also be expressed this way:
 ```ocaml
 # print_endline (if 0 = 1 then "foo" else "bar");;
 bar
@@ -390,7 +392,7 @@ The `unit` value `()` can serve as a [no-op](https://en.wikipedia.org/wiki/Noop)
 - : unit = ()
 ```
 
-But OCaml also allows the writing `if … then … ` expressions, without `else` branch, which is the same as the above.
+But OCaml also allows writing `if … then … ` expressions, without an `else` branch, which is the same as the above.
 ```ocaml
 # if 0 = 1 then print_endline "foo";;
 - : unit = ()
@@ -402,16 +404,11 @@ In parsing, conditional expressions groups more than sequencing:
 A
 C
 - : unit = ()
-
-# if false then print_endline "A" else print_endline "B"; print_endline "C";;
-B
-C
-- : unit = ()
 ```
 
 Here `; print_endline "C"` is executed after the whole conditional expression, not after `print_endline "B"`.
 
-The sequence must form a single subexpression to have two prints in one branch. Parentheses can be used, but it is customary to use `begin … end` in an imperative context.
+If you want to have two prints in a conditional expression branch, use `begin … end`.
  ```ocaml
 # if true then
     print_endline "A"
@@ -421,41 +418,9 @@ The sequence must form a single subexpression to have two prints in one branch. 
   end;;
 A
 - : unit = ()
-
-# if false then
-    print_endline "A"
-  else begin
-    print_endline "B";
-    print_endline "C"
-  end;;
-B
-C
-- : unit = ()
 ```
 
-Grouping the statements of sequence is also needed for the first branch of the conditional:
-```ocaml
-# if true then begin
-    print_endline "A";
-    print_endline "C"
-  end else
-    print_endline "B";
-  ;;
-A
-C
-- : unit = ()
-
-# if false then
-    print_endline "A";
-    print_endline "C"
-  else
-    print_endline "B";;
-B
-C
-- : unit = ()
-```
-
-Failing to do it will result in a syntax error. What's before the semicolon is parsed as an `if … then … ` without an `else` expression. What's after the semicolon appears as a [dangling](https://en.wikipedia.org/wiki/Dangling_else) `else`.
+Here is an error you might encounter:
 ```ocaml
 # if true then
     print_endline "A";
@@ -464,6 +429,8 @@ Failing to do it will result in a syntax error. What's before the semicolon is p
     print_endline "B";;
 Error: Syntax error
 ```
+
+Failing to group in the first branch results in a syntax error. What's before the semicolon is parsed as an `if … then … ` without an `else` expression. What's after the semicolon appears as a [dangling](https://en.wikipedia.org/wiki/Dangling_else) `else`.
 
 ### For Loop
 
