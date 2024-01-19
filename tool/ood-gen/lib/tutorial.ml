@@ -57,18 +57,18 @@ type t = {
   body_md : string;
   body_html : string;
   recommended_next_tutorials : recommended_next_tutorials;
-  prerequisite_tutorials : prerequisite_tutorials option;
+  prerequisite_tutorials : prerequisite_tutorials;
 }
 [@@deriving
   stable_record ~version:metadata ~add:[ id ]
-    ~modify:[ recommended_next_tutorials ]
+    ~modify:[ recommended_next_tutorials; prerequisite_tutorials ]
     ~remove:[ slug; fpath; section; toc; body_md; body_html ],
     show { with_path = false }]
 
 let of_metadata m =
-  of_metadata m ~slug:m.id ~modify_recommended_next_tutorials:(function
-    | None -> []
-    | Some u -> u)
+  of_metadata m ~slug:m.id
+    ~modify_recommended_next_tutorials:(function None -> [] | Some u -> u)
+    ~modify_prerequisite_tutorials:(function None -> [] | Some u -> u)
 
 let id_to_href id =
   match id with
@@ -202,8 +202,8 @@ type t =
   ; body_md : string
   ; toc : toc list
   ; body_html : string
-  ; recommended_next_tutorials : recommended_next_tutorials option
-  ; prerequisite_tutorials : prerequisite_tutorials option
+  ; recommended_next_tutorials : recommended_next_tutorials
+  ; prerequisite_tutorials : prerequisite_tutorials
   }
   
 let all = %a

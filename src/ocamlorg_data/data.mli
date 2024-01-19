@@ -230,8 +230,8 @@ module Tutorial : sig
     body_md : string;
     toc : toc list;
     body_html : string;
-    recommended_next_tutorials : recommended_next_tutorials option;
-    prerequisite_tutorials : prerequisite_tutorials option;
+    recommended_next_tutorials : recommended_next_tutorials;
+    prerequisite_tutorials : prerequisite_tutorials;
   }
 
   val all : t list

@@ -409,9 +409,7 @@ let tutorial req =
   in
 
   let is_prerequisite (tested : Data.Tutorial.t) =
-    List.exists
-      (fun r -> r = tested.slug)
-      (Option.value tutorial.prerequisite_tutorials ~default:[])
+    List.exists (fun r -> r = tested.slug) tutorial.prerequisite_tutorials
   in
 
   let prerequisite_tutorials = all_tutorials |> List.filter is_prerequisite in
