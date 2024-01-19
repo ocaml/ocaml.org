@@ -414,7 +414,7 @@ let tutorial req =
       (Option.value tutorial.prerequisite_tutorials ~default:[])
   in
 
-  let prerequisites_tutorials = all_tutorials |> List.filter is_prerequisite in
+  let prerequisite_tutorials = all_tutorials |> List.filter is_prerequisite in
 
   Dream.html
     (Ocamlorg_frontend.tutorial ~tutorials

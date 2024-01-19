@@ -60,7 +60,7 @@ let render
 ~tutorials
 ~related_exercises
 ~recommended_next_tutorials
-~prerequisites_tutorials
+~prerequisite_tutorials
 ~canonical
 =
 let href, description = match tutorial.external_tutorial with
@@ -87,7 +87,7 @@ Learn_layout.three_column_layout
 ~right_sidebar_html:(Some(right_sidebar tutorial))
 ~current:(of_tutorial_section tutorial.section) @@
   <div class="prose prose-orange dark:prose-invert max-w-full">
-    <%s! render_prerequisites_tutorials prerequisites_tutorials %>
+    <%s! render_prerequisite_tutorials prerequisite_tutorials %>
     <%s! render_external_tutorial_banner tutorial.external_tutorial %>
     <%s! render_title tutorial %>
     <%s! tutorial.body_html %>
