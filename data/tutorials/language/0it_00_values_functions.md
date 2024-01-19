@@ -315,7 +315,7 @@ val cat : ?init:string -> string list -> string = <fun>
 - : string = "thrfrisatsun"
 ```
 
-Labelled parameters can have default values. This allows calling the function without specifying some arguments. Optional parameters when a function has many parameters or parameters which define some non nominal behaviour. Optional parameters are defined using a question mark `?` and passed using a tilde `~`. Labelled parameters are detailed in the [Labelled Arguments](/docs/labels) tutorial.
+Labelled parameters can have default values. This allows calling the function without specifying some arguments. Optional parameters are useful when a function has many parameters or parameters which often don't need to be specified. Optional parameters are defined using a question mark `?` and passed using a tilde `~`. Labelled parameters are detailed in the [Labelled Arguments](/docs/labels) tutorial.
 
 There are two alternative ways to apply functions.
 
