@@ -33,7 +33,7 @@ Especially since the release of OCaml 5.0 with Multicore support, perhaps our bi
 1. **Oddly Specific**: Enable people to do Advent of Code in OCaml.
 
 ## Our Key Values / Constraints:
-- **Goals and Prerequisites**. Each tutorial begins with its objectives and ends with a section listing necessary prior knowledge, marked as "**Prerequisites:**". This part doesn't use section headings.
+- **Goals and Prerequisites**. Each tutorial begins with its objectives, so that people know what they will learn about.```
 - **Avoid Overwhelming Choices**. Tutorials should guide learners on a straightforward path, avoiding multiple options. This makes the learning process smoother. Detailed choices can be included in additional references and guides.
 - **Highlight Important Computer Science Terms**. Use italics for well-known terms, providing a visual hint that these are important concepts. Linking to Wikipedia for further explanation is an option.
 - **Be Entertaining in Examples, Accurate in Text**. While it's essential to be clear and precise in the main text, using engaging and fun examples can make the material more appealing. This approach helps cater to different learning styles.
