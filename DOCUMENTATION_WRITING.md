@@ -54,7 +54,7 @@ Especially since the release of OCaml 5.0 with Multicore support, perhaps our bi
 1. Never use the term "variable," instead
     a. Names and values (binding = a value is bound to a name)
     b. Type parameter
-1. Use “parameter” and “argument” appropriately.
+1. Use “parameter” and “argument” appropriately. Parameters occur in function declarations. Arguments are values that functions are applied to.
 1. Don't use math, computer science, or programming language theory terminology without reason and explanation.
 
 
