@@ -180,6 +180,19 @@ This also works with user-defined types.
 # type live_person = int * name;;
 type live_person = int * name
 
+# let robin_with_age : live_person = (20, robin);;
+val robin_with_age : live_person = (20, {first = "Robin"; last = "Milner"})
+
+# let (years, { first; last }) = robin_with_age;;
+val years : int = 20
+val first : string = "Robin"
+val last : string = "Milner"
+```
+
+### Pattern Matching on Function Parameters
+
+Pattern matching can also be used on function parameters.
+```ocaml
 # let age ((years, { first; last }) : live_person) = years;;
 val age : live_person -> int = <fun>
 ```
