@@ -719,7 +719,9 @@ Note that records behave like single constructor variants. That allows pattern m
 - : int = 17
 ```
 
-### Type Aliases
+### Aliases
+
+#### Type Aliases
 
 Just like values, any type can be given a name.
 ```ocaml
@@ -729,7 +731,7 @@ type latitude_longitude = float * float
 
 This is mostly useful as a means of documentation or to shorten long type expressions.
 
-### Function Parameter Aliases
+#### Function Parameter Aliases
 
 Function parameters can also be given a name with pattern matching for tuples and records.
 ```ocaml
