@@ -55,7 +55,7 @@ type t = {
 [@@deriving
   stable_record ~version:metadata ~add:[ id ]
     ~remove:[ slug; fpath; section; toc; body_md; body_html ],
-    show { with_path = false }]
+  show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:m.id
 
@@ -70,25 +70,25 @@ let rec create_toc ~max_level level
   match headings with
   | [] -> []
   | (h, _) :: rest when Cmarkit.Block.Heading.level h > max_level ->
-      create_toc ~max_level level rest
+    create_toc ~max_level level rest
   | (h, _) :: rest when Cmarkit.Block.Heading.level h = level ->
-      let l = Cmarkit.Block.Heading.level h in
-      let child_headings, remaining_headings =
-        collect_children ~max_level (l + 1) rest []
-      in
-      let children = create_toc ~max_level (l + 1) child_headings in
-      let title =
-        Cmarkit.Inline.to_plain_text ~break_on_soft:false
-          (Cmarkit.Block.Heading.inline h)
-      in
-      {
-        title = String.concat "\n" (List.map (String.concat "") title);
-        href = id_to_href (Cmarkit.Block.Heading.id h);
-        children;
-      }
-      :: create_toc ~max_level level remaining_headings
+    let l = Cmarkit.Block.Heading.level h in
+    let child_headings, remaining_headings =
+      collect_children ~max_level (l + 1) rest []
+    in
+    let children = create_toc ~max_level (l + 1) child_headings in
+    let title =
+      Cmarkit.Inline.to_plain_text ~break_on_soft:false
+        (Cmarkit.Block.Heading.inline h)
+    in
+    {
+      title = String.concat "\n" (List.map (String.concat "") title);
+      href = id_to_href (Cmarkit.Block.Heading.id h);
+      children;
+    }
+    :: create_toc ~max_level level remaining_headings
   | (h, _) :: _ when Cmarkit.Block.Heading.level h > level ->
-      create_toc ~max_level (level + 1) headings
+    create_toc ~max_level (level + 1) headings
   | _ :: rest -> create_toc ~max_level level rest
 
 and collect_children ~max_level level
@@ -96,7 +96,7 @@ and collect_children ~max_level level
   match headings with
   | [] -> (acc, [])
   | (h, _) :: rest when Cmarkit.Block.Heading.level h > max_level ->
-      collect_children ~max_level level rest acc
+    collect_children ~max_level level rest acc
   | (h, _) :: _ when Cmarkit.Block.Heading.level h < level -> (acc, headings)
   | heading :: rest -> collect_children level ~max_level rest (acc @ [ heading ])
 
@@ -105,7 +105,7 @@ let headers (doc : Cmarkit.Doc.t) : Cmarkit.Block.Heading.t Cmarkit.node list =
     match block with
     | Cmarkit.Block.Heading h -> [ h ]
     | Cmarkit.Block.Blocks (blocks, _) ->
-        List.map headers_from_block blocks |> List.concat
+      List.map headers_from_block blocks |> List.concat
     | _ -> []
   in
 
@@ -118,20 +118,19 @@ let toc ?(start_level = 1) ?(max_level = 2) doc =
 
 exception Missing_Tutorial of string
 
-let any_recommendded_next_tuts_are_missing_exn all_tutorials =
-  let tut_is_missing_exn slug =
-    match not @@ List.exists (fun t -> t.slug = slug) all_tutorials with
-    | true -> raise (Missing_Tutorial (slug ^ " - perhaps it is misspelled?"))
-    | _ -> false
+let any_recommendded_next_tuts_are_missing_exn all =
+  let all_slugs = List.map (fun t -> t.slug) all in 
+  let tut_is_missing slug = not @@ List.mem slug all_slugs in
+  let missing_tut_msg t missing = "The following recommended next tutorial(s) in " ^ t.title ^ " were not found: [" ^ (String.concat "; " missing) ^ "]. Perhaps they are misspelled?" in
+  let has_missing_tuts_exn t = 
+    match t.recommended_next_tutorials with
+    | None -> ()
+    | Some next_tuts -> match List.filter tut_is_missing next_tuts with 
+      | [] -> ()
+      | missing -> raise (Missing_Tutorial (missing_tut_msg t missing))
   in
 
-  List.exists
-    (fun t ->
-      match t.recommended_next_tutorials with
-      | None -> false
-      | Some rnt_slugs ->
-          List.exists (fun slug -> tut_is_missing_exn slug) rnt_slugs)
-    all_tutorials
+  List.iter has_missing_tuts_exn all
 
 let decode (fpath, (head, body_md)) =
   let metadata = metadata_of_yaml head in
@@ -149,11 +148,10 @@ let all () =
   |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
 
 let template () =
-  if any_recommendded_next_tuts_are_missing_exn @@ all () then
-    failwith "Missing tutorial"
-  else
-    Format.asprintf
-      {|
+  any_recommendded_next_tuts_are_missing_exn @@ all ();;
+
+Format.asprintf
+  {|
 module Section = struct
   type t = GetStarted | Language | Platform | Guides
 end
@@ -190,8 +188,8 @@ type t =
   ; body_html : string
   ; recommended_next_tutorials : recommended_next_tutorials option
   }
-  
+
 let all = %a
 |}
-      (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-      (all ())
+  (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+  (all ())
