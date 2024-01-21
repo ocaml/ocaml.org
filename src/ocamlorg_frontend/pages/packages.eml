@@ -16,10 +16,9 @@ let search_dropdown () =
 in
 <div class="w-full border-b bg-sand dark:bg-[#301C13] md:bg-transparent dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/packages/packages-hero-bg.svg')] dark:md:bg-[url('/img/packages/packages-dark-hero-bg.svg')]">
     <div class="w-full max-w-[88rem] mx-auto md:bg-[position:30%_100%] lg:bg-right-bottom bg-no-repeat md:bg-[url('/img/packages/hero-camel.svg')] dark:md:bg-[url('/img/packages/dark-hero-camel.svg')]">
-        <div class="container-fluid py-10 md:py-28 md:flex md:gap-20">
+        <div class="container-fluid py-8 md:py-28 md:flex md:gap-20">
             <div class="border-b border-card_border dark:border-dark-separator_30 pb-8 md:pb-0 md:border-none md:flex-grow">
                 <h1 class="text-title dark:text-dark-title text-2xl md:text-5xl tracking-wider">OCaml Packages</h1>
-    
                 <p class="text-content dark:text-dark-content text-lg my-4 md:my-6 max-w-md">
                 Explore thousands of open-source OCaml packageswith their documentation
                 </p>
@@ -34,7 +33,7 @@ in
                             ~label:"Search OCaml packages"
                             ~button_attrs:{|type="submit"|}
                             ~input_attrs:(Packages_autocomplete_fragment.input_attributes ~target_sel:"#packages-search-results" ~indicator_sel:"#packages-search-indicator")
-                            "w-full lg:w-[32rem] xl:w-[32rem]"
+                            "w-full lg:w-[32rem] xl:w-[32rem] self-start h-12"
                             ~dropdown_html:(search_dropdown ())
                             %>
                         </form>
@@ -98,7 +97,7 @@ in
 % );
     </div>
 </div>
-<div class="pt-12 border-b border-gray-200 dark:border-none">
+<div class="pt-12 border-b border-separator_20 dark:border-none">
 % let render_package_stat pkg render_extra_stats =
     <a href="<%s href_package pkg %>"
         class="block card dark:dark-card py-6 px-7 text-left">
@@ -109,12 +108,12 @@ in
 % in
 % ( match stats with
 % | Some stats ->
-    <div class="container-fluid dark:border-b border-gray-200 pb-12" x-data='{activeTab: "most-used"}'>
+    <div class="container-fluid dark:border-b border-separator_20 dark:border-dark-separator_30 pb-12" x-data='{activeTab: "most-used"}'>
         <p class="uppercase text-sm text-content dark:text-dark-content font-medium mb-2">packages</p>
-        <div class="w-full flex border border-card_border dark:border-dark-separator_30 rounded md:hidden overflow-hidden">
-            <button x-on:click='activeTab = "most-used"' class="w-full py-4 text-xs" :class='activeTab === "most-used" ? "bg-primary dark:bg-dark-primary text-white dark:text-dark-title" : "text-content dark:text-dark-separator_30"'>Most Used</button>
-            <button x-on:click='activeTab = "new"' class="w-full py-4 text-xs border-card_border dark:border-dark-separator_30 border-x" :class='activeTab === "new" ? "bg-primary dark:bg-dark-primary text-white dark:text-dark-title" : ""'>New</button>
-            <button x-on:click='activeTab = "recently-updated"' class="w-full py-4 text-xs" :class='activeTab === "recently-updated" ? "bg-primary dark:bg-dark-primary text-white dark:text-dark-title" : ""'>Recently Updated</button>
+        <div class="w-full flex md:hidden">
+            <button x-on:click='activeTab = "most-used"' class="w-full py-4 text-xs rounded-l border" :class='activeTab === "most-used" ? "bg-primary dark:bg-dark-primary text-white dark:text-dark-title border-primary dark:border-dark-primary" : "text-content dark:text-dark-separator_30 border-card_border dark:border-dark-separator_30"'>Most Used</button>
+            <button x-on:click='activeTab = "new"' class="w-full py-4 text-xs border" :class='activeTab === "new" ? "bg-primary dark:bg-dark-primary text-white dark:text-dark-title border-primary dark:border-dark-primary" : "border-card_border dark:border-dark-separator_30"'>New</button>
+            <button x-on:click='activeTab = "recently-updated"' class="w-full py-4 text-xs rounded-r border" :class='activeTab === "recently-updated" ? "bg-primary dark:bg-dark-primary text-white dark:text-dark-title border-primary dark:border-dark-primary" : "border-card_border dark:border-dark-separator_30"'>Recently Updated</button>
         </div>
         <div class="flex justify-between flex-col lg:space-y-0 lg:space-x-6 lg:flex-row">
             <div class="flex-1 space-y-6" :class='activeTab === "most-used" ? "block" : "hidden md:block"'>

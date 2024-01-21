@@ -19,7 +19,7 @@ Layout.render
 ~active_top_nav_item:Header.Community @@
 <div class="w-full border-b bg-[#D5E4E0] dark:bg-[#0D2C2E] md:bg-transparent dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/community/hero-background.svg')] dark:md:bg-[url('/img/community/dark-hero-background.svg')]">
   <div class="w-full max-w-[88rem] mx-auto md:bg-[position:30%_100%] lg:bg-right-bottom bg-no-repeat md:bg-[url('/img/community/hero-camels.svg')] dark:md:bg-[url('/img/community/dark-hero-camels.svg')]">
-      <div class="container-fluid py-10 md:py-28 md:flex md:gap-20">
+      <div class="container-fluid py-8 md:py-28 md:flex md:gap-20">
           <div class="md:flex-grow">
               <h1 class="text-title dark:text-dark-title text-2xl md:text-5xl tracking-wider">The OCaml Community</h1>
   
