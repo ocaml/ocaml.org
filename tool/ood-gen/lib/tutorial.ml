@@ -122,17 +122,18 @@ let toc ?(start_level = 1) ?(max_level = 2) doc =
 
 exception Missing_Tutorial of string
 
-let any_recommendded_next_tuts_are_missing_exn all =
+let any_recommended_next_tuts_are_missing_exn all =
   let all_slugs = List.map (fun t -> t.slug) all in
   let tut_is_missing slug = not @@ List.mem slug all_slugs in
   let missing_tut_msg t missing =
     "The following recommended next tutorial(s) in " ^ t.title
-    ^ " were not found: [" ^ String.concat "; " missing ^ "]"
+    ^ " were not found: [" ^ String.concat "; " missing
+    ^ "]. Perhaps they are misspelled?"
   in
   let has_missing_tuts_exn t =
     match t.recommended_next_tutorials with
-    | None -> ()
-    | Some next_tuts -> (
+    | [] -> ()
+    | next_tuts -> (
         match List.filter tut_is_missing next_tuts with
         | [] -> ()
         | missing -> raise (Missing_Tutorial (missing_tut_msg t missing)))
@@ -158,7 +159,7 @@ let all () =
   |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
 
 let template () =
-  let _ = any_recommendded_next_tuts_are_missing_exn @@ all () in
+  let _ = any_recommended_next_tuts_are_missing_exn @@ all () in
 
   Format.asprintf
     {|
@@ -198,7 +199,7 @@ type t =
   ; body_html : string
   ; recommended_next_tutorials : recommended_next_tutorials
   }
-
+  
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
