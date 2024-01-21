@@ -49,7 +49,7 @@ There are no dedicated types for unsigned integers in OCaml. Bitwise operations 
 
 Float numbers have type `float`.
 
-OCaml does not perform any implicit type conversion between values. Therefore, arithmetic expressions can't mix integers and floats. Parameters are either all `int` or all `float`. Arithmetic operators on floats are not the same, and they are written with a dot suffix: `+.`,  `-.`, `*.`, `/.`.
+OCaml does not perform any implicit type conversion between values. Therefore, arithmetic expressions can't mix integers and floats. Arguments are either all `int` or all `float`. Arithmetic operators on floats are not the same, and they are written with a dot suffix: `+.`,  `-.`, `*.`, `/.`.
 ```ocaml
 # let pi = 3.14159;;
 val pi : float = 3.14159
@@ -151,7 +151,7 @@ Arrays are finite and fixed-sized sequences of values of the same type. Here are
 - : string array = [|"foo"; "bar"; "baz"|]
 ```
 
-Arrays may contain values of any type. Here arrays are `int array`, `char array`, and `string array`, but any type of data can be used in an array. Usually, `array` is said to be a polymorphic type. Strictly speaking, it is a type operator, and it accepts a type as a parameter (here `int`, `char`, and `string`) to form another type (those inferred here). This is the empty array.
+Arrays may contain values of any type. Here arrays are `int array`, `char array`, and `string array`, but any type of data can be used in an array. Usually, `array` is said to be a polymorphic type. Strictly speaking, it is a type operator, and it accepts a type as argument (here `int`, `char`, and `string`) to form another type (those inferred here). This is the empty array.
 ```ocaml
 # [||];;
 - : 'a array = [||]
@@ -311,7 +311,7 @@ The type of functions from type `m` to type `n` is written `m -> n`. Here are a 
 
 The first expression is an anonymous function of type `int -> int`. The type is inferred from the expression `x * x`, which must be of type `int` since `*` is an operator that returns an `int`. The `<fun>` printed in place of the value is a token, meaning functions don't have a value to be displayed. This is because, if they have been compiled, their code is no longer available.
 
-The second expression is function application. The parameter `9` is applied, and the result `81` is returned.
+The second expression is function application. The argument `9` is applied, and the result `81` is returned.
 
 ```ocaml
 # fun x -> x;;
@@ -324,11 +324,11 @@ The second expression is function application. The parameter `9` is applied, and
 - : string = "This is really disco!"
 ```
 
-The first expression is another anonymous function. It is the _identity_ function, it can be applied to anything, and it returns its argument unchanged. This means that its parameter can be of any type, and its result has the same type. The same code can be applied to data of different types. This is called _polymorphism_.
+The first expression is another anonymous function. It is the _identity_ function, it can be applied to anything, and it returns its argument unchanged. This means that its argument can be of any type, and its result has the same type. The same code can be applied to data of different types. This is called _polymorphism_.
 
 Remember, the `'a` is a _type parameter_, so values of any type can be passed to the function and their type replaces the type parameter. The identity function has the same input and output type, whatever it may be.
 
-The two following expressions show that the identity function can apply to different type parameters:
+The two following expressions show that the identity function can apply to arguments of different types:
 
 ```ocaml
 # let f = fun x -> x * x;;

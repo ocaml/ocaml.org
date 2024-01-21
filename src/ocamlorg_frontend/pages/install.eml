@@ -48,7 +48,7 @@ Layout.render
                 Other installation methods
                 <%s! Icons.chevron_down "h-4 w-4" %>
               </summary>
-              You can also <a href="<%s Url.tutorial "tour-of-ocaml" %>#1-install-opam">install opam using your operating system's package manager</a>
+              You can also <a href="<%s Url.installing_ocaml %>#1-install-opam">install opam using your operating system's package manager</a>
               - however, you may get an older version of opam that does not support the most recent OCaml compiler version.
 
               If you need the most recent version,

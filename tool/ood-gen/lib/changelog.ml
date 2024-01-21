@@ -15,16 +15,19 @@ type t = {
   tags : string list;
   changelog_html : string option;
   body_html : string;
+  body : string;
 }
 [@@deriving
   stable_record ~version:metadata
     ~add:[ authors; changelog; description ]
-    ~remove:[ slug; changelog_html; body_html ],
+    ~remove:[ slug; changelog_html; body_html; body ],
     show { with_path = false }]
 
 let decode (fname, (head, body)) =
   let slug = Filename.basename (Filename.remove_extension fname) in
-  let metadata = metadata_of_yaml head in
+  let metadata =
+    metadata_of_yaml head |> Result.map_error (Utils.where fname)
+  in
   let body_html =
     Cmarkit_html.of_doc ~safe:false
       (Hilite.Md.transform
@@ -42,7 +45,7 @@ let decode (fname, (head, body)) =
               |> Hilite.Md.transform
               |> Cmarkit_html.of_doc ~safe:false)
       in
-      of_metadata ~slug ~changelog_html ~body_html metadata)
+      of_metadata ~slug ~changelog_html ~body ~body_html metadata)
     metadata
 
 let all () =
@@ -97,6 +100,7 @@ type t =
   ; tags : string list
   ; changelog_html : string option
   ; body_html : string
+  ; body : string
   }
   
 let all = %a

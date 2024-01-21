@@ -84,6 +84,5 @@ Learn_layout.three_column_layout
     <%s! render_external_tutorial_banner tutorial.external_tutorial %>
     <%s! tutorial.body_html %>
     <%s! render_related_exercises related_exercises %>
-    <%s! render_recommended_next_tutorials recommended_next_tutorials %>
-    <%s! Learn_components.contribute_footer ~href ~description %>
+    <%s! Learn_components.contribute_footer ~href ~description ~recommended_next_tutorials %>
   </div>

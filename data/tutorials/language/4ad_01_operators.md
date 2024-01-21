@@ -170,7 +170,7 @@ In both cases, values are passed to `@^` before `&^`. Therefore, it is said that
 1. Left associative: `%` `*` `/`
 1. Left associative: `#`
 
-The complete list of precedence is longer because it includes the predefined operators that are not allowed to be used as custom operators.
+The complete list of precedence is longer because it includes the predefined operators that are not allowed to be used as custom operators. The OCaml Manual has a [table](/api/Ocaml_operators.html) that sums up the operator associativity rules.
 
 ## Binding Operators
 

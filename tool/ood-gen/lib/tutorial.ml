@@ -50,14 +50,18 @@ type t = {
   toc : toc list;
   body_md : string;
   body_html : string;
-  recommended_next_tutorials : recommended_next_tutorials option;
+  recommended_next_tutorials : recommended_next_tutorials;
 }
 [@@deriving
   stable_record ~version:metadata ~add:[ id ]
+    ~modify:[ recommended_next_tutorials ]
     ~remove:[ slug; fpath; section; toc; body_md; body_html ],
     show { with_path = false }]
 
-let of_metadata m = of_metadata m ~slug:m.id
+let of_metadata m =
+  of_metadata m ~slug:m.id ~modify_recommended_next_tutorials:(function
+    | None -> []
+    | Some u -> u)
 
 let id_to_href id =
   match id with
@@ -137,7 +141,9 @@ let any_recommendded_next_tuts_are_missing_exn all =
   List.iter has_missing_tuts_exn all
 
 let decode (fpath, (head, body_md)) =
-  let metadata = metadata_of_yaml head in
+  let metadata =
+    metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+  in
   let section =
     List.nth (String.split_on_char '/' fpath) 1
     |> Section.of_string |> Result.get_ok
@@ -190,7 +196,7 @@ type t =
   ; body_md : string
   ; toc : toc list
   ; body_html : string
-  ; recommended_next_tutorials : recommended_next_tutorials option
+  ; recommended_next_tutorials : recommended_next_tutorials
   }
 
 let all = %a

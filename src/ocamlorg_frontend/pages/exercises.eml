@@ -1,22 +1,21 @@
 let exercises_sidebar_link
 ~title
 ~href =
-    <a class="block text-content hover:text-primary hover:bg-legacy-primary-100 border-l border-transparent hover:border-primary py-3 px-5 font-normal text-sm rounded-sm"
+    <a class="block text-title dark:text-dark-title border-l py-3 px-5 font-normal text-sm rounded-sm hover:bg-primary_nav_block_hover_10 dark:hover:bg-dark-primary_nav_block_hover_10 hover:border-primary dark:hover:border-dark-primary"
       href="<%s href %>">
       <%s title %>
     </a>
-
 
 let exercises_sidebar_link_group
 title
 link_html
 =
    <details class="flex flex-col">
-      <summary class="flex gap-4 justify-between text-sm font-normal py-4 focus:text-primary active:text-primary hover:text-primary">
+      <summary class="flex gap-4 justify-between text-base text-title dark:text-dark-title font-normal py-4 focus:text-primary dark:focus:text-dark-primary active:text-primary  dark:active:text-dark-primary hover:text-primary dark:hover:text-dark-primary">
         <%s title %>
         <%s! Icons.chevron_down "h-5 w-5" %>
       </summary>
-      <span class="border-l"><%s! link_html %></span>
+      <span class="border-l border-separator_20 dark:border-dark-card"><%s! link_html %></span>
     </details>
 
 let exercises_sidebar
@@ -33,20 +32,20 @@ let exercise_sidebar_links_by_tag ?tag title =
   %>
 in
   <div class="pr-5">
-  <p class="font-normal uppercase mb-4">Exercise Categories</p>
-    <hr>
+  <p class="font-normal uppercase mb-4 text-title dark:text-dark-title">Exercise Categories</p>
+    <hr class="border-separator_20 dark:border-dark-title">
     <%s! exercise_sidebar_links_by_tag ~tag:"list" "Lists" %>
-    <hr>
+    <hr class="border-separator_20 dark:border-dark-title">
     <%s! exercise_sidebar_links_by_tag ~tag:"arithmetic" "Arithmetic" %>
-    <hr>
+    <hr class="border-separator_20 dark:border-dark-title">
     <%s! exercise_sidebar_links_by_tag ~tag:"logic" "Logic and Codes" %>
-    <hr>
+    <hr class="border-separator_20 dark:border-dark-title">
     <%s! exercise_sidebar_links_by_tag ~tag:"binary-tree" "Binary Trees" %>
-    <hr>
+    <hr class="border-separator_20 dark:border-dark-title">
     <%s! exercise_sidebar_links_by_tag ~tag:"multiway-tree" "Multiway Trees" %>
-    <hr>
+    <hr class="border-separator_20 dark:border-dark-title">
     <%s! exercise_sidebar_links_by_tag ~tag:"graph" "Graphs" %>
-    <hr>
+    <hr class="border-separator_20 dark:border-dark-title">
     <%s! exercise_sidebar_links_by_tag "Miscellaneous" %>
   </div>
 
@@ -65,7 +64,7 @@ let statement_solution_switch =
     <button
       class="px-10 h-11 text-base font-medium rounded-l-md border flex gap-2 items-center"
       x-on:click="statement = true"
-      :class="statement ? 'bg-primary border-primary text-white': 'text-content' "
+      :class="statement ? 'bg-primary dark:bg-dark-primary border-primary dark:border-dark-primary text-white dark:text-dark-white': 'text-content dark:text-dark-content border-content dark:border-dark-content' "
     >
       <%s! exercise_statement "h-5 w-5" %>
       Statement
@@ -73,7 +72,7 @@ let statement_solution_switch =
     <button
       class="px-10 h-11 text-base  font-medium rounded-r-md border-t border-r border-b  flex gap-2 items-center"
       x-on:click="statement = false"
-      :class="statement ? 'text-content': 'bg-secondary border-secondary text-white' "
+      :class="statement ? 'text-content dark:text-dark-content border-content dark:border-dark-content': 'bg-secondary dark:bg-dark-secondary border-secondary dark:border-dark-secondary text-white dark:text-dark-white' "
     >
       <%s! exercise_solution "h-5 w-5" %>
       Solution
@@ -92,10 +91,10 @@ let render_exercise (exercise: Data.Exercise.t) =
   <div x-data="{statement: true}" id="<%s" exercise.slug %>
     >
     <div class="flex mb-4 flex-col gap-4 md:flex-row md:items-center">
-      <h2 class="my-0 font-normal text-2xl text-title">
+      <h2 class="my-0 font-normal text-2xl text-title dark:text-dark-title">
         <%s exercise.title %>
       </h2>
-      <div class="inline px-3 py-1 <%s Learn_components.color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white tracking-widest leading-5" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %></div>">
+      <div class="inline px-3 py-1 <%s Learn_components.color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white dark:text-dark-white tracking-widest leading-5" title="<%s difficulty_to_string exercise.difficulty ^ " difficulty" %></div>">
         <%s Learn_components.string_from_difficulty difficulty %>
       </div>
     </div>
@@ -118,9 +117,9 @@ Learn_layout.three_column_layout
 ~left_sidebar_html:(Some(exercises_sidebar ~exercises))
 ~right_sidebar_html:None
 ~current:Exercises @@
-  <div class="prose prose-orange max-w-full">
+  <div class="prose prose-orange dark:prose-invert max-w-full">
     <h1 class="font-normal text-4xl text-title mb-8">Exercises</h1>
-    <div class="prose prose-orange max-w-full mb-5">
+    <div class="prose prose-orange dark:prose-invert max-w-full mb-5">
       <p>
         This section is inspired by
         <a href="https://www.ic.unicamp.br/~meidanis/courses/mc336/2006s2/funcional/L-99_Ninety-Nine_Lisp_Problems.html">
