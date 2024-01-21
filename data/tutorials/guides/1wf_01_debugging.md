@@ -1,6 +1,7 @@
 ---
 id: debugging
 title: Debugging
+short_title: Debugging
 description: >
   Learn to debug OCaml programs using tracing and ocamldebug
 category: "Guides"

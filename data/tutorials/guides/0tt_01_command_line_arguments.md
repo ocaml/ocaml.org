@@ -1,6 +1,7 @@
 ---
 id: cli-arguments
 title: Command-line Arguments
+short_title: Command-line Arguments
 description: >
   The Arg module that comes with the compiler can help you write command line interfaces
 category: "Tutorials"

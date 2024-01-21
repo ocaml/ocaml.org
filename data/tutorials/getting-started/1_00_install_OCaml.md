@@ -1,6 +1,7 @@
 ---
 id: installing-ocaml
 title: Installing OCaml
+short_title: Installing OCaml
 description: |
   This page will help you install OCaml and the OCaml Platform Tools. |
   These instructions work on Windows, and Unix systems like Linux, and macOS.

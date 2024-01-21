@@ -1,6 +1,7 @@
 ---
 id: memoization
 title: Memoization
+short_title: Memoization
 description: >
   Memoization, adapted from OCaml Programming: Correct + Efficient + Beautiful
 category: "Data Structures"

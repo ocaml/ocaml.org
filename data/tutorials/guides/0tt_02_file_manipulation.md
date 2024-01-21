@@ -1,6 +1,7 @@
 ---
 id: file-manipulation
 title: File Manipulation
+short_title: File Manipulation
 description: >
   A guide to basic file manipulation in OCaml with the standard library
 category: "Tutorials"

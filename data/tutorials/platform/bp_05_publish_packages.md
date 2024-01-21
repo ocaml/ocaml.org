@@ -1,6 +1,7 @@
 ---
 id: "publishing-packages-w-dune"
 title: "Publishing a Package"
+short_title: "Publishing a Package"
 description: |
   How to publish a package with Dune
 category: "Best Practices"

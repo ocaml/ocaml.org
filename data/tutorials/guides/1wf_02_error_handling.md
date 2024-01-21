@@ -1,6 +1,7 @@
 ---
 id: error-handling
 title: Error Handling
+short_title: Error Handling
 description: >
   Discover the different ways you can manage errors in your OCaml programs
 category: "Guides"

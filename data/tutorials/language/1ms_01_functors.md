@@ -1,6 +1,7 @@
 ---
 id: functors
 title: Functors
+short_title: Functors
 description: >
   Learn about functors, modules parameterised by other modules
 category: "Module System"

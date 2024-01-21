@@ -1,6 +1,7 @@
 ---
 id: "configuring-your-editor"
 title: "Configuring Your Editor"
+short_title: "Configuring Your Editor"
 description: |
   How to set up Editor support for OCaml on VSCode, Vim and Emacs
 category: "Best Practices"

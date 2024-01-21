@@ -1,6 +1,7 @@
 ---
 id: arm64-fix
 title: Fix Homebrew Errors on Apple M1
+short_title: Fix Homebrew Errors on Apple M1
 description: |
   This page will walk you through the workaround for ARM64 processors on newer Macs.
 category: "Resources"

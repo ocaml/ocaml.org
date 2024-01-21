@@ -1,6 +1,7 @@
 ---
 id: compiler-backend
 title: Compiler Backend
+short_title: Compiler Backend
 description: >
   The Compiler Backend, excerpt from Real World OCaml
 category: "Runtime & Compiler"

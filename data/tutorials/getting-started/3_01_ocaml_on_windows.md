@@ -1,6 +1,7 @@
 ---
 id: ocaml-on-windows
 title: OCaml on Windows
+short_title: OCaml on Windows
 description: >
   Read about the state of OCaml on Windows and our roadmap to improve Windows support.
 category: "Resources"

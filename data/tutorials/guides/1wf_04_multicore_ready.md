@@ -1,6 +1,7 @@
 ---
 id: multicore-transition
 title: Transitioning to Multicore with TSan
+short_title: Transitioning to Multicore with TSan
 description: >
   Learn to make your OCaml code multicore ready with ThreadSanitizer
 category: "Guides"

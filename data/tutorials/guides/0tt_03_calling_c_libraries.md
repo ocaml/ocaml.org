@@ -1,6 +1,7 @@
 ---
 id: calling-c-libraries
 title: Calling C Libraries
+short_title: Calling C Libraries
 description: >
   Cross the divide and call C code from your OCaml program
 category: "Tutorials"

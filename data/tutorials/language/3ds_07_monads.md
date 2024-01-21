@@ -1,6 +1,7 @@
 ---
 id: monads
 title: Monads
+short_title: Monads
 description: >
   Monads, adapted from OCaml Programming: Correct + Efficient + Beautiful
 category: "Data Structures"

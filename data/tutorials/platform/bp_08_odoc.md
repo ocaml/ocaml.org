@@ -1,6 +1,7 @@
 ---
 id: "generating-documentation"
 title: "Generating Documentation"
+short_title: "Generating Documentation"
 description: |
   How to use odoc to generate documentation.
 category: "Best Practices"

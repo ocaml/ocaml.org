@@ -1,6 +1,7 @@
 ---
 id: data-structures-comparison 
 title: Comparison of Standard Containers
+short_title: Comparison of Standard Containers
 description: >
   Rough comparison of the different container types in OCaml
 category: "Resources"

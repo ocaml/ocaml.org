@@ -1,6 +1,7 @@
 ---
 id: objects
 title: Objects
+short_title: Objects
 description: >
   OCaml is an object-oriented, imperative, functional programming language
 category: "Advanced Topics"

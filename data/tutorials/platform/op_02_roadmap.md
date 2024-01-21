@@ -1,6 +1,7 @@
 ---
 id: "platform-roadmap"
 title: "OCaml Platform Roadmap"
+short_title: "OCaml Platform Roadmap"
 description: The 2024-2026 roadmap for the OCaml Platform.
 category: "OCaml Platform"
 ---

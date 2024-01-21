@@ -1,6 +1,7 @@
 ---
 id: calling-fortran-libraries
 title: Calling Fortran Libraries
+short_title: Calling Fortran Libraries
 description: >
   Cross the divide and call Fortran code from your OCaml program
 category: "Tutorials"

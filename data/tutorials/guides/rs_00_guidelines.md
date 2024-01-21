@@ -1,6 +1,7 @@
 ---
 id: guidelines
 title: OCaml Programming Guidelines
+short_title: OCaml Programming Guidelines
 description: >
   Opinionated guidelines for writing OCaml code
 category: "Resources"

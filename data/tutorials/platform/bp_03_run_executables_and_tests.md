@@ -1,6 +1,7 @@
 ---
 id: "running-executables-and-tests-with-dune"
 title: "Running Executables and Tests"
+short_title: "Running Executables and Tests"
 description: |
   How to run executables and tests with Dune
 category: "Best Practices"

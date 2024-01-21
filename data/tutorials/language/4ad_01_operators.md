@@ -1,6 +1,7 @@
 ---
 id: operators
 title: Operators
+short_title: Operators
 description: |
   Binary and prefix operators, how to use and define them, how they are parsed and evaluated.
 category: "Advanced Topics"

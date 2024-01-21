@@ -1,6 +1,7 @@
 ---
 id: hash-tables
 title: Hash Tables
+short_title: Hash Tables
 description: >
   Discover efficient and mutable lookup tables with OCaml's Hashtbl module
 category: "Data Structures"

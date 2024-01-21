@@ -1,6 +1,7 @@
 ---
 id: arrays
 title: Arrays
+short_title: Arrays
 description: >
   The standard library's Array module
 category: "Data Structures"

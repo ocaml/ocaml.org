@@ -1,6 +1,7 @@
 ---
 id: ocaml-playground
 title: The OCaml Playground
+short_title: The OCaml Playground
 description: |
   This page will walk you through the OCaml Playground
 category: "Resources"

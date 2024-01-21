@@ -1,6 +1,7 @@
 ---
 id: formatting-text
 title: Formatting and Wrapping Text
+short_title: Formatting and Wrapping Text
 description: >
   The Format module of Caml Light and OCaml's standard libraries
   provides pretty-printing facilities to get a fancy display for printing

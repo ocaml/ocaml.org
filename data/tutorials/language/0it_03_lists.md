@@ -1,6 +1,7 @@
 ---
 id: lists
 title: Lists
+short_title: Lists
 description: >
   Learn about one of OCaml's must used, built-in data types
 category: "Introduction"
