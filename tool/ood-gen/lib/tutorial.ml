@@ -127,16 +127,12 @@ let any_recommended_next_tuts_are_missing_exn all =
   let tut_is_missing slug = not @@ List.mem slug all_slugs in
   let missing_tut_msg t missing =
     "The following recommended next tutorial(s) in " ^ t.title
-    ^ " were not found: [" ^ String.concat "; " missing
-    ^ "]. Perhaps they are misspelled?"
+    ^ " were not found: [" ^ String.concat "; " missing ^ "]"
   in
   let has_missing_tuts_exn t =
-    match t.recommended_next_tutorials with
+    match List.filter tut_is_missing t.recommended_next_tutorials with
     | [] -> ()
-    | next_tuts -> (
-        match List.filter tut_is_missing next_tuts with
-        | [] -> ()
-        | missing -> raise (Missing_Tutorial (missing_tut_msg t missing)))
+    | missing -> raise (Missing_Tutorial (missing_tut_msg t missing))
   in
 
   List.iter has_missing_tuts_exn all
