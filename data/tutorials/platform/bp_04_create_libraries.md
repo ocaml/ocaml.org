@@ -7,8 +7,6 @@ description: |
 category: "Best Practices"
 ---
 
-# Creating Libraries to Structure a Project with Dune
-
 > **TL;DR**
 > 
 > Add a `library` stanza in your `dune` file.

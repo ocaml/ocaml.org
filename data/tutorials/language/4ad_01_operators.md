@@ -7,8 +7,6 @@ description: |
 category: "Advanced Topics"
 ---
 
-# Operators
-
 ## Goals
 
 The learning goals of this tutorial are:

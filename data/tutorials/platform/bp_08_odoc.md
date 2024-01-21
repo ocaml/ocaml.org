@@ -7,8 +7,6 @@ description: |
 category: "Best Practices"
 ---
 
-# Generating Documentation With `odoc`
-
 The documentation rendering tool `odoc` generates documentation
 in the form of HTML, LaTeX, or man pages,
 from the docstrings and interfaces of the project's modules

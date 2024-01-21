@@ -7,8 +7,6 @@ description: >
 category: "Guides"
 ---
 
-# Compiling OCaml Projects
-
 This tutorial explains how to compile your OCaml programs into executable form.
 It addresses, in turn:
 

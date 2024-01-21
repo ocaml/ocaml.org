@@ -7,8 +7,6 @@ description: |
 category: "Introduction"
 ---
 
-# Basic Data Types And Pattern Matching
-
 ## Introduction
 
 This document covers atomic types, such as integers and Booleans; predefined compound types, like strings and lists; and user-defined types, namely variants and records. We show how to pattern matching on those types.

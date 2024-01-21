@@ -7,8 +7,6 @@ description: |
 category: "Best Practices"
 ---
 
-# Publishing a Package with Dune
-
 > **TL;DR**
 > 
 > Create a `CHANGES.md` file and run `dune-release bistro`.

@@ -14,8 +14,6 @@ recommended_next_tutorials:
   ]
 ---
 
-# Your First OCaml Program
-
 To complete this tutorial, you need to have [installed OCaml](/install). Optionally, we recommend [configuring your editor](/docs/set-up-editor).
 
 We will work with files containing OCaml source code and compile them to produce executable binaries. However, this is not a detailed tutorial on OCaml compilation, project modularisation, or dependencies management; it only gives a glimpse at those topics. The goal is to sketch the bigger picture in order to avoid getting lost in the details. In other words, we do breadth-first learning instead of depth-first learning.

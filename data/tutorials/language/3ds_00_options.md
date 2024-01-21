@@ -7,8 +7,6 @@ description: >
 category: "Data Structures"
 ---
 
-# Options
-
 ## Introduction
 
 An [option](https://en.wikipedia.org/wiki/Option_type) value wraps another value or contains nothing if there isn't anything to wrap. The predefined type `option` represents such values.

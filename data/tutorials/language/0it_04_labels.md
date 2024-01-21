@@ -7,8 +7,6 @@ description: >
 category: "Introduction"
 ---
 
-# Labelled and Optional Arguments
-
 It is possible to give names and default values to function parameters. This is broadly known as labels. In this tutorial, we learn how to use labels.
 
 Throughout this tutorial, the code is written in UTop. In this document parameters that are not labelled are called _positional parameters_.

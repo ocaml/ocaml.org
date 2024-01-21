@@ -7,8 +7,6 @@ description: >
 category: "Data Structures"
 ---
 
-# Arrays
-
 ## Introduction
 
 In OCaml, arrays are collections of elements of one type. Unlike lists, arrays can be mutated by replacing their elements with other values of the same type, but cannot be resized. Arrays also allow efficient access to elements at any position.

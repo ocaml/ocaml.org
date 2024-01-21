@@ -7,8 +7,6 @@ description: >
 category: "Resources"
 ---
 
-# OCaml Programming Guidelines
-
 This is a set of reasonable guidelines for writing OCaml
 programs that reflect the consensus among veteran OCaml
 programmers.

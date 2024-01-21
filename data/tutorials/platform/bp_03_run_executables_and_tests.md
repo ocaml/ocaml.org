@@ -7,8 +7,6 @@ description: |
 category: "Best Practices"
 ---
 
-# Running Executables and Tests with Dune
-
 ## Running Executables
 
 > **TL;DR**

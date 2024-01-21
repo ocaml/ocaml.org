@@ -7,8 +7,6 @@ description: |
 category: "Best Practices"
 ---
 
-# Formatting Your Code With OCamlFormat
-
 Automatic formatting with OCamlFormat requires an `.ocamlformat` configuration file at the root of the project.
 
 An empty file is accepted, but since different versions of OCamlFormat will vary in formatting, it

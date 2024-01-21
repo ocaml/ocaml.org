@@ -7,8 +7,6 @@ description: >
 category: "Tutorials"
 ---
 
-# File Manipulation
-
 This is a guide to basic file manipulation in OCaml using only the
 standard library.
 

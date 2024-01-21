@@ -16,8 +16,6 @@ external_tutorial:
     description: "You are encouraged to contribute to the original sources of this page at the CS3110 GitHub repository."
 ---
 
-# Memoization
-
 Memoization is a powerful technique for speeding up simple recursive
 algorithms, without having to change the way the algorithm works. This is done
 by "remembering" the results of a computation, so that previously computed results

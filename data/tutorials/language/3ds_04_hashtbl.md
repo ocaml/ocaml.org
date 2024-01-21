@@ -7,8 +7,6 @@ description: >
 category: "Data Structures"
 ---
 
-# Hash Tables
-
 ## Module Hashtbl
 
 The Hashtbl module implements an efficient, mutable lookup table. To

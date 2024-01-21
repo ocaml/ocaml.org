@@ -7,8 +7,6 @@ description: >
 category: "Guides"
 ---
 
-# Error Handling
-
 In OCaml, errors can be handled in several ways. This document presents most of
 the available means. However, handling errors using the effect handlers
 introduced in OCaml 5 hasn't been addressed yet. This topic is also addressed in the

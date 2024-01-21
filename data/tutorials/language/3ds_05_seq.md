@@ -7,8 +7,6 @@ description: >
 category: "Data Structures"
 ---
 
-# Sequences
-
 ## Prerequisites
 
 You should be comfortable with writing functions over lists and options.

@@ -7,8 +7,6 @@ description: |
 category: "Best Practices"
 ---
 
-# Configuring Your Editor
-
 OCaml has plugins for many editors, but the most actively maintained are for Visual Studio Code, Emacs, and Vim.
 
 ## Visual Studio Code

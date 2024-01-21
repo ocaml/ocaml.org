@@ -7,8 +7,6 @@ description: |
 category: "Tooling"
 ---
 
-# Introduction to the OCaml Toplevel
-
 An OCaml toplevel is a chat between the user and OCaml. The user writes OCaml code, and UTop evaluates it. This is why it is also called a Read-Eval-Print-Loop (REPL). Several OCaml toplevels exist, like `ocaml` and `utop`. We recommend using UTop, which is part of the [OCaml Platform](/docs/platform) toolchain. 
 
 To run UTop, we use the `utop` command, which looks like this:

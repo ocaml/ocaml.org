@@ -7,8 +7,6 @@ description: |
 category: "Introduction"
 ---
 
-# Values and Functions
-
 ## Introduction
 
 In OCaml, functions are treated as values, so you can use functions as arguments to functions and return them from functions. This tutorial introduces the relationship between expressions, values, and names. The first four sections address non-function values. The following sections, starting at [Function as Values](#function-as-values), address functions.

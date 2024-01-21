@@ -7,8 +7,6 @@ description: |
 category: "Best Practices"
 ---
 
-# Bootstrapping a Project with Dune
-
 [Dune](https://dune.readthedocs.io/en/stable/overview.html) is recommended for bootstrapping projects. To install `dune`, please see [the OCaml install page](/install).
 
 To start a new project, you can run:

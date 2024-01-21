@@ -7,8 +7,6 @@ description: >
 category: "Data Structures"
 ---
 
-# Set
-
 ## Introduction
 
 `Set` provides the functor `Set.Make`. You must start by passing `Set.Make` a module. It specifies the element type for your set. In return, you get another module with those elements' set operations.

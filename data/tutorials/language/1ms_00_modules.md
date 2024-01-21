@@ -7,8 +7,6 @@ description: >
 category: "Module System"
 ---
 
-# Modules
-
 ## Basic Usage
 
 ### File-Based Modules

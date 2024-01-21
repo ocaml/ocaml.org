@@ -6,8 +6,6 @@ description: The principles that guide the development of the OCaml Platform.
 category: "OCaml Platform"
 ---
 
-# Users
-
 This section presents an overview of different user personas within the OCaml
 ecosystem, highlighting their unique goals, motivations, and challenges.
 

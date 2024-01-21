@@ -7,8 +7,6 @@ description: |
 category: "Tooling"
 ---
 
-# Introduction to opam Switches
-
 OCaml's package manager, opam, introduces the concept of a _switch_, which is an isolated OCaml environment. These switches often cause confusion amongst OCaml newcomers, so this document aims to provide a better understanding of opam switches and their usage for managing dependencies and project-specific configurations. 
 
 Opam is designed to manage multiple concurrent installation prefixes called "switches." Similar to Python's `virtualenv`, an opam switch is a tool that creates isolated environments. They are independent of each other and have their own set of installed packages, repositories, and configuration options. Switches also have their own OCaml compiler, libraries, and binaries. This enables you to have multiple compiler versions available at once.

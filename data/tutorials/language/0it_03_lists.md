@@ -7,8 +7,6 @@ description: >
 category: "Introduction"
 ---
 
-# Lists
-
 A list is an ordered sequence of elements. All elements of a list in OCaml must
 be the same type. Lists are built into the language and have a special syntax.
 Here is a list of three integers:

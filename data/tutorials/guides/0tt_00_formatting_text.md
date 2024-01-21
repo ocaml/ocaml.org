@@ -9,8 +9,6 @@ description: >
 category: "Tutorials"
 ---
 
-# Formatting and Wrapping Text
-
 The `Format` module of Caml Light and OCaml's standard libraries
 provides pretty-printing facilities to get a fancy display for printing
 routines. This module implements a “pretty-printing engine” that is

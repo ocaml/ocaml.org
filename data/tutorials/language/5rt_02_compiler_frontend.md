@@ -18,8 +18,6 @@ external_tutorial:
 
 This is an adaptation of the chapter [The Compiler Frontend: Parsing and Type Checking](https://dev.realworldocaml.org/compiler-frontend.html) from the book [Real World OCaml](https://dev.realworldocaml.org/), reproduced here with permission.
 
-# The Compiler Frontend: Parsing and Type Checking
-
 Compiling source code into executable programs involves a fairly
 complex set of libraries, linkers, and assemblers. While Dune mostly
 hides this complexity from you, it's still useful to understand how

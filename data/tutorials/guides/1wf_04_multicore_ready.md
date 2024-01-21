@@ -7,9 +7,6 @@ description: >
 category: "Guides"
 ---
 
-
-# Transitioning to Multicore with ThreadSanitizer
-
 The 5.0 release brought Multicore, `Domain`-based parallelism to the
 OCaml language. Parallel `Domain`s performing uncoordinated operations
 on shared mutable memory locations may however cause data races. Such

@@ -7,8 +7,6 @@ description: >
 category: "Guides"
 ---
 
-# Debugging
-
 This tutorial presents four techniques for debugging OCaml programs:
 
 * [Tracing functions calls](#tracing-functions-calls-in-the-toplevel),

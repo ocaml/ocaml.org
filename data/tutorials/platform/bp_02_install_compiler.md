@@ -7,8 +7,6 @@ description: |
 category: "Best Practices"
 ---
 
-# Installing a Specific OCaml Compiler Version
-
 > **TL;DR**
 > 
 > Use `opam switch set` to manually select the switch to use and use `dune-workspace` to automatically run commands in different environment.

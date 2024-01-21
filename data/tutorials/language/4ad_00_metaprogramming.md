@@ -8,8 +8,6 @@ description: |
 category: "Advanced Topics"
 ---
 
-# Preprocessors
-
 Preprocessors are programs meant to be called at compile time, so that they
 alter the program before the actual compilation. They can be very
 useful for several things, such as the inclusion of a file, conditional

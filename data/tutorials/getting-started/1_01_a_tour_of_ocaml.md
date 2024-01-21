@@ -14,8 +14,6 @@ recommended_next_tutorials:
   ]
 ---
 
-# A Tour of OCaml
-
 Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [Your First OCaml Program](/docs/your-first-program) tutorial.
 
 You need to have OCaml installed. No OCaml or functional programming knowledge is required; however, it is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
