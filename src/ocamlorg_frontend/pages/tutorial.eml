@@ -1,5 +1,18 @@
 open Ocamlorg
 
+let to_kebab_case (s: string) = 
+  s
+  |> String.lowercase_ascii
+  |> String.to_seq
+  |> Seq.filter (fun c -> (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c = '-' || c = ' ')
+  |> String.of_seq
+  |> String.split_on_char ' '
+  |> String.concat "-"
+
+let render_title (title: string) = 
+  let sanitized_title = to_kebab_case title in 
+  <h1 id="<%s sanitized_title %>" ><a class="anchor" aria-hidden="true" href="#<%s sanitized_title %>"></a><%s title %></h1>
+
 let rec tutorial_toc_to_toc (toc : Data.Tutorial.toc) =
   Toc.{
     title = toc.title;
@@ -60,7 +73,7 @@ let render_external_tutorial_banner (opt_external_tutorial : Data.Tutorial.exter
     </a>
 in
 Learn_layout.three_column_layout
-~title:(Printf.sprintf "%s · OCaml Documentation" tutorial.title)
+~title:(Printf.sprintf "%s · OCaml Documentation" tutorial.short_title)
 ~description:tutorial.description
 ~canonical
 ~active_top_nav_item:Learn
@@ -69,6 +82,7 @@ Learn_layout.three_column_layout
 ~current:(of_tutorial_section tutorial.section) @@
   <div class="prose prose-orange dark:prose-invert max-w-full">
     <%s! render_external_tutorial_banner tutorial.external_tutorial %>
+    <%s! render_title tutorial.title %>
     <%s! tutorial.body_html %>
     <%s! render_related_exercises related_exercises %>
     <%s! Learn_components.contribute_footer ~href ~description ~recommended_next_tutorials %>
