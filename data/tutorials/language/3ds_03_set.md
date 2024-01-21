@@ -1,6 +1,6 @@
 ---
 id: sets
-title: Sets
+title: Set
 short_title: Sets
 description: >
   The standard library's Set module

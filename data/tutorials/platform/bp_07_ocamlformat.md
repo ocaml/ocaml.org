@@ -1,6 +1,6 @@
 ---
 id: "formatting-your-code"
-title: "Formatting Your Code"
+title: "Formatting Your Code With OCamlFormat"
 short_title: "Formatting Your Code"
 description: |
   How to set up OCamlFormat to automatically format your code

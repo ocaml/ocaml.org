@@ -1,6 +1,6 @@
 ---
 id: "bootstrapping-a-dune-project"
-title: "Bootstrapping a Project"
+title: "Bootstrapping a Project with Dune"
 short_title: "Bootstrapping a Project"
 description: |
   How to set up a project with Dune

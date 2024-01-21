@@ -1,6 +1,6 @@
 ---
 id: compiler-frontend
-title: Compiler Frontend
+title: "The Compiler Frontend: Parsing and Type Checking"
 short_title: Compiler Frontend
 description: >
   The Compiler Frontend: Parsing and Type Checking, excerpt from Real World OCaml

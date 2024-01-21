@@ -1,6 +1,6 @@
 ---
 id: ocaml-playground
-title: The OCaml Playground
+title: Using the OCaml Playground
 short_title: The OCaml Playground
 description: |
   This page will walk you through the OCaml Playground
