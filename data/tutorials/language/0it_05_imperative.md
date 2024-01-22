@@ -351,7 +351,7 @@ But here is how it can be made to work:
 val f : int ref -> unit = <fun>
 ```
 
-The error came from assign `:=` associating stronger that semicolon `;`. Here is what we want to do, in order:
+The error came from assign `:=`, which associates stronger than a semicolon `;`. Here is what we want to do, in order:
 1. Increment `r`
 2. Compute `2 * !r`
 3. Assign into `r`
