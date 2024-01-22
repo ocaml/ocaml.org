@@ -207,7 +207,7 @@ Error: Unbound value Hello.En.hello
 This is because we haven't changed `lib/en.mli`. Since it does not list
 `hello`, it is therefore private.
 
-## Defining multiple modules in a library
+## Defining Multiple Modules in a Library
 Multiple modules can be defined in a single library. To demonstrate this,
 create a new file named `lib/es.ml` with the following content:
 
@@ -222,7 +222,7 @@ let () = Printf.printf "%s\n" Hello.En.v
 ```
 
 Finally, run `dune build` and `dune exec hello` to see the new output, using the modules
-that were just created in the `hello` library.
+you just created in the `hello` library.
 
 ```shell
 $ opam exec -- dune exec hello
