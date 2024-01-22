@@ -248,7 +248,7 @@ Next, run the Dream web server in the `bin/main.ml` file by changing the code to
 let () = Dream.(run (router [ get "/" (fun (_ : request) -> html Hello.En.v) ]))
 ```
 
-This gives us a web server that responds with the content of `Hello.En.v` to HTTP requests to the '/' path. Refer to the [Dream documentation](https://aantron.github.io/dream/) for more information.
+This gives us a web server. It responds to HTTP '/' requests with the content of `Hello.En.v`. Refer to the [Dream documentation](https://aantron.github.io/dream/) for more information.
 
 <!-- TODO: we have to probably refer to the Dream docs for an explanation
 Before detailing how things work, let's explain how Dream types works.
