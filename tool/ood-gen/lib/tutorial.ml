@@ -122,7 +122,7 @@ let toc ?(start_level = 1) ?(max_level = 2) doc =
 
 exception Missing_Tutorial of string
 
-let any_recommended_next_tuts_are_missing_exn all =
+let check_tutorial_references all =
   let all_slugs = List.map (fun t -> t.slug) all in
   let tut_is_missing slug = not @@ List.mem slug all_slugs in
   let missing_tut_msg t missing =
