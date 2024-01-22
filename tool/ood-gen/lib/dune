@@ -16,7 +16,8 @@
   lambdasoup
   fpath
   ppx_stable
-  hilite)
+  hilite
+  re)
  (preprocess
   (pps ppx_deriving_yaml ppx_stable ppx_show)))
 

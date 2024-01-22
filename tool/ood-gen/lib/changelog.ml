@@ -1,6 +1,6 @@
 type metadata = {
   title : string;
-  date : string;
+  date : string option;
   tags : string list;
   authors : string list option;
   description : string option;
@@ -20,8 +20,22 @@ type t = {
 [@@deriving
   stable_record ~version:metadata
     ~add:[ authors; changelog; description ]
-    ~remove:[ slug; changelog_html; body_html; body ],
+    ~remove:[ slug; changelog_html; body_html; body ]
+    ~modify:[ date ],
     show { with_path = false }]
+
+let re_date_slug =
+  let open Re in
+  compile
+    (seq
+       [
+         bos;
+         group (seq [ rep1 digit; char '-'; rep1 digit; char '-'; rep1 digit ]);
+         char '-';
+       ])
+
+let parse_date_from_slug s =
+  Option.map (fun g -> Re.Group.get g 1) (Re.exec_opt re_date_slug s)
 
 let decode (fname, (head, body)) =
   let slug = Filename.basename (Filename.remove_extension fname) in
@@ -45,7 +59,17 @@ let decode (fname, (head, body)) =
               |> Hilite.Md.transform
               |> Cmarkit_html.of_doc ~safe:false)
       in
-      of_metadata ~slug ~changelog_html ~body ~body_html metadata)
+      let modify_date = function
+        | Some x -> x
+        | None -> (
+            match parse_date_from_slug slug with
+            | Some x -> x
+            | None ->
+                failwith
+                  "date is not present in metadata and could not be parsed \
+                   from slug")
+      in
+      of_metadata ~slug ~changelog_html ~body ~body_html ~modify_date metadata)
     metadata
 
 let all () =
