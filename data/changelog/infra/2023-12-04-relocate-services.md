@@ -1,6 +1,5 @@
 ---
 title: Relocating opam.ci.ocaml.org and ocaml.ci.dev
-date: "2023-12-05"
 tags: [infrastructure]
 ---
 

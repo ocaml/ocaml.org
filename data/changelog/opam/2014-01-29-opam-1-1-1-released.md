@@ -1,7 +1,6 @@
 ---
 title: "OPAM 1.1.1 released"
 authors: [ "Louis Gesbert" ]
-date: "2014-01-29"
 description: "Release announcement for OPAM 1.1.1"
 tags: [opam, platform]
 changelog: |

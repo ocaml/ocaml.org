@@ -1,6 +1,5 @@
 ---
 title: FreeBSD is now tested in opam-repo-ci
-date: "2023-08-08"
 tags: [infrastructure]
 ---
 
