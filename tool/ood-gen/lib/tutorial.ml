@@ -155,7 +155,7 @@ let all () =
   |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
 
 let template () =
-  let _ = any_recommended_next_tuts_are_missing_exn @@ all () in
+  let _ = check_tutorial_references @@ all () in
 
   Format.asprintf
     {|
