@@ -327,67 +327,6 @@ Layout.render
       </div>
   </div>
 </div>
-<div class="bg-pattern py-24 overflow-hidden">
-  <div class="container-fluid">
-    <div class="">
-      <div class="text-center px-15">
-        <h2 class="font-bold mb-6">The OCaml Ecosystem</h2>
-        <div class="text-lg">
-          OCaml has a passionate and diverse community, with more than ten thousand developers
-          and over four thousand open source packages.
-          Existing packages cover a variety of problem areas,
-          including data science, bioinformatics, and programming language design.
-          OCaml's roots in academic and theoretical computer science provide for a solid foundation
-          on which application developers build command-line utilities, performant,
-          dynamic web apps, or embedded applications!
-        </div>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-4 py-8 px-1 md:px-2 lg:px-2 xl:px-8 relative">
-      <%s! package_card
-        ~href:"https://mirage.io/"
-        ~img_path:"img/home/mirage.png"
-        ~name:"MirageOS"
-        "Library operating system to construct unikernels" %>
-      <%s! package_card
-        ~href:"https://ocsigen.org/js_of_ocaml"
-        ~img_path:"img/home/js_of_ocaml.png"
-        ~name:"Js_of_ocaml"
-        "Compiler from OCaml to Javascript." %>
-      <%s! package_card
-        ~href:"https://erratique.ch/software/cmdliner"
-        ~img_path:"img/home/cmdliner.png"
-        ~name:"Cmdliner"
-        "Declarative definition of command line interfaces for OCaml" %>
-      <%s! package_card
-        ~href:"https://irmin.org/"
-        ~img_path:"img/home/irmin.png"
-        ~name:"Irmin"
-        "Distributed database that follows the same design principles as Git" %>
-      <%s! package_card
-        ~href:"https://dune.build/"
-        ~img_path:"img/home/dune.png"
-        ~name:"Dune"
-        "A composable build system for OCaml" %>
-      <%s! package_card
-        ~href:"https://ocsigen.org/lwt/latest/manual/manual"
-        ~img_path:"img/home/lwt.png"
-        ~name:"Lwt"
-        "OCaml promises and concurrent IO" %>
-      <%s! package_card
-        ~href:"https://ocaml.xyz/"
-        ~img_path:"img/home/owl.png"
-        ~name:"Owl"
-        "OCaml Scientific and Engineering Computing" %>
-      <%s! package_card
-        ~href:"https://aantron.github.io/dream/"
-        ~img_path:"img/home/dream.png"
-        ~name:"Dream"
-        "Tidy Web framework for OCaml and ReasonML" %>
-  </div>  
-    
-  </div>
-</div>
 <div class="py-28 bg-legacy-default dark:bg-legacy-dark-default">
   <div class="container-fluid">
     <div class="text-center px-15">
