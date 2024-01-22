@@ -4,13 +4,11 @@ title: A Tour of OCaml
 description: >
   Hop on the OCaml sightseeing bus. This absolute beginner tutorial will drive you through the marvels and wonders of OCaml. We'll have a look at the most commonly used language features.
 category: "First Steps"
-recommended_next_tutorials: 
-  [
-    "values-and-functions",
-    "basic-data-types",
-    "loops-recursion",
-    "lists"
-  ]
+recommended_next_tutorials:
+  - "values-and-functions"
+  - "basic-data-types"
+  - "loops-recursion"
+  - "lists"
 ---
 
 # A Tour of OCaml

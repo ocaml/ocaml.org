@@ -4,13 +4,11 @@ title: Your First OCaml Program
 description: >
   Learn how to write your very first OCaml program.
 category: "First Steps"
-recommended_next_tutorials: 
-  [
-    "values-and-functions",
-    "basic-data-types",
-    "loops-recursion",
-    "lists"
-  ]
+recommended_next_tutorials:
+  - "values-and-functions"
+  - "basic-data-types"
+  - "loops-recursion"
+  - "lists"
 ---
 
 # Your First OCaml Program
