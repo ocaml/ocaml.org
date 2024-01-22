@@ -179,7 +179,7 @@ UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libra
 val v : string
 ```
 
-Observe that only the list of declarations of the module signature (which is between `sig` and `end` in the output from `#show`) has been written in the interface file `lib/en.mli`. This is explained in more detail in the tutorial dedicated to [modules](/docs/modules).
+Observe that only the list of the module signature's declarations (which is between `sig` and `end` in the `#show` output) has been written in the interface file `lib/en.mli`. This is explained in more detail in the tutorial dedicated to [modules](/docs/modules).
 
 Module interfaces are also used to create _private_ definitions. A module definition is private if it is not listed in its corresponding module interface. If no module interface file exists, everything is public.
 
