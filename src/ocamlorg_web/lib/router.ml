@@ -59,7 +59,6 @@ let page_routes t =
       Dream.get (Url.tutorial "is-ocaml-web-yet") (Handler.is_ocaml_yet t "web");
       Dream.get (Url.tutorial ":id") Handler.tutorial;
       Dream.get Url.playground Handler.playground;
-      Dream.get Url.installer Handler.installer;
       Dream.get Url.logos Handler.logos;
     ]
 

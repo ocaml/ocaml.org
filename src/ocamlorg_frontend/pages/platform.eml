@@ -43,17 +43,6 @@ Learn_layout.three_column_layout
       Detailed instructions to install OCaml and the
       Platform tools are available in <a class="text-primary"
       href="<%s Url.installing_ocaml %>">"Installing OCaml"</a>.
-
-      If you want to use the simpler, but experimental way to install the
-      Platform, you can use the <a class="text-primary"
-      href="https://github.com/tarides/ocaml-platform-installer"> OCaml
-      Platform Installer</a>. To download it, run:
-    </p>
-      <pre><code><%s "bash < <(curl -sL https://ocaml.org" ^ Url.installer ^ ")" %></code></pre>
-    <p>
-      And run it to install the Platform tools in your opam switch:
-    </p>
-      <pre><code>ocaml-platform</code></pre>
   </div>
   <div
     class="mt-12 cursor-pointer z-0 relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-[#FEF0E9] dark:border-dark-primary_20 video-shadow md:w-[640px]"
