@@ -1,8 +1,8 @@
 ---
-id: compiling-ocaml-projects
-title: Compiling OCaml Projects
+id: using-the-ocaml-compiler-toolchain
+title: Using the OCaml Compiler Toolchain
 description: >
-  An introduction to the OCaml compiler tools for building OCaml projects as well as the most common build tools
+  An introduction to the OCaml compiler tools for building OCaml projects as well as the most common build tools such as Dune
 category: "Guides"
 ---
 
