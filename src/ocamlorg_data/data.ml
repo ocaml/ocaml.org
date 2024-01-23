@@ -34,7 +34,6 @@ module Industrial_user = struct
 end
 
 module Outreachy = Outreachy
-module Packages = Packages
 
 module Paper = struct
   include Paper
