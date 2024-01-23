@@ -194,9 +194,9 @@ let from_v2 =
     ( "/learn/tutorials/comparison_of_standard_containers.zh.html",
       Url.tutorial "data-structures-comparison" );
     ( "/learn/tutorials/compiling_ocaml_projects.ja.html",
-      Url.tutorial "using-the-ocaml-compiler-toolchain");
+      Url.tutorial "using-the-ocaml-compiler-toolchain" );
     ( "/learn/tutorials/compiling_ocaml_projects.html",
-      Url.tutorial "using-the-ocaml-compiler-toolchain");
+      Url.tutorial "using-the-ocaml-compiler-toolchain" );
     ( "/learn/tutorials/data_types_and_matching.fr.html",
       Url.tutorial "basic-data-types" );
     ( "/learn/tutorials/data_types_and_matching.it.html",
