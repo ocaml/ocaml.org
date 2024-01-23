@@ -1,6 +1,5 @@
 ---
 title: Dune-release 1.3.0
-date: "2019-05-30"
 tags: [dune-release, platform]
 changelog: |
   - Add confirmation prompts in some commands. (#144, #146, @NathanReb)

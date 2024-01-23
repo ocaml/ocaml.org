@@ -1,6 +1,5 @@
 ---
 title: Promote watch.ocaml.org to non-beta
-date: "2023-02-27"
 tags: [infrastructure]
 ---
 

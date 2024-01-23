@@ -1,6 +1,5 @@
 ---
 title: Opam-publish 2.0.0~beta
-date: "2018-04-12"
 tags: [opam-publish, platform]
 changelog: |
   * Now based on opam 2 libs and intended for publications in the 2.0 format

@@ -1,7 +1,6 @@
 ---
 title: "OPAM 1.1.0 released"
 authors: [ "Thomas Gazagnaire" ]
-date: "2013-11-08"
 description: "Release announcement for OPAM 1.1.0"
 tags: [opam, platform]
 changelog: |

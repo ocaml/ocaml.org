@@ -1,6 +1,5 @@
 ---
 title: check.ocamllabs.io moved to check.ci.ocaml.org
-date: "2023-04-26"
 tags: [infrastructure]
 ---
 
