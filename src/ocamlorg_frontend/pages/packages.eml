@@ -1,6 +1,6 @@
 let href_package pkg = Url.Package.overview pkg.name ?version:(Package.url_version pkg)
 
-let render (stats : Package.stats option) (featured : Package.package list) =
+let render (stats : Package.stats option) =
 Layout.render
 ~title:"OCaml Packages · Browse Community Packages"
 ~description:"Discover thousands of community packages and browse their documentation."
@@ -63,32 +63,6 @@ in
                 </div>
               </div>
 % | None -> () );
-        </div>
-    </div>
-</div>
-<div class="bg-primary ">
-    <div class="container-fluid">
-        <div class="text-center text-white lg:py-32 md:py-20 py-10">
-            <h3 class="font-bold mb-6">Featured Packages</h3>
-            <p class="text-lg mb-8 lg:px-28 font-normal">
-                Discover new and OCaml packages from featured community packages.
-            </p>
-% let render_featured_package pkg =
-    <a href="<%s href_package pkg %>" class="bg-legacy-default dark:bg-legacy-dark-default legacy-card-hover rounded-md p-6 text-legacy-default text-left">
-      <p class="font-semibold mb-2"><%s pkg.name %></p>
-      <p class="mb-3 text-sm text-legacy-lighter"><%s pkg.synopsis %></p>
-      <p class="text-sm text-legacy-lighter flex space-x-2">
-        <%s! Icons.tag "h-5 w-5 pr-1" %> <%s Package.render_version pkg %>
-      </p>
-    </a>
-% in
-% ( match featured with
-% | [] -> ()
-% | _ ->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-%       List.iter render_featured_package featured;
-      </div>
-% );
         </div>
     </div>
 </div>
