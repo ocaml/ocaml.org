@@ -22,10 +22,231 @@
   (pps ppx_deriving_yaml ppx_stable ppx_show)))
 
 (rule
- (targets data.ml)
+ (target data_root.ml)
  (deps
-  (source_tree %{workspace_root}/data/))
+  (glob_files %{project_root}/data/*.yml))
  (action
-  (with-stdout-to
-   %{null}
-   (run %{bin:ocaml-crunch} -m plain %{workspace_root}/data -o %{targets}))))
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data
+    -e
+    yml
+    -o
+    %{target}))))
+
+(rule
+ (target data_academic_institutions.ml)
+ (deps
+  (source_tree %{project_root}/data/academic_institutions))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/academic_institutions
+    -o
+    %{target}))))
+
+(rule
+ (target data_books.ml)
+ (deps
+  (source_tree %{project_root}/data/books))
+ (action
+  (ignore-stdout
+   (run %{bin:ocaml-crunch} -m plain %{project_root}/data/books -o %{target}))))
+
+(rule
+ (target data_changelog.ml)
+ (deps
+  (source_tree %{project_root}/data/changelog))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/changelog
+    -o
+    %{target}))))
+
+(rule
+ (target data_code_examples.ml)
+ (deps
+  (source_tree %{project_root}/data/code_examples))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/code_examples
+    -o
+    %{target}))))
+
+(rule
+ (target data_events.ml)
+ (deps
+  (source_tree %{project_root}/data/events))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/events
+    -o
+    %{target}))))
+
+(rule
+ (target data_exercises.ml)
+ (deps
+  (source_tree %{project_root}/data/exercises))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/exercises
+    -o
+    %{target}))))
+
+(rule
+ (target data_industrial_users.ml)
+ (deps
+  (source_tree %{project_root}/data/industrial_users))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/industrial_users
+    -o
+    %{target}))))
+
+(rule
+ (target data_is_ocaml_yet.ml)
+ (deps
+  (source_tree %{project_root}/data/is_ocaml_yet))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/is_ocaml_yet
+    -o
+    %{target}))))
+
+(rule
+ (target data_media.ml)
+ (deps
+  (source_tree %{project_root}/data/media))
+ (action
+  (ignore-stdout
+   (run %{bin:ocaml-crunch} -m plain %{project_root}/data/media -o %{target}))))
+
+(rule
+ (target data_news.ml)
+ (deps
+  (source_tree %{project_root}/data/news))
+ (action
+  (ignore-stdout
+   (run %{bin:ocaml-crunch} -m plain %{project_root}/data/news -o %{target}))))
+
+(rule
+ (target data_pages.ml)
+ (deps
+  (source_tree %{project_root}/data/pages))
+ (action
+  (ignore-stdout
+   (run %{bin:ocaml-crunch} -m plain %{project_root}/data/pages -o %{target}))))
+
+(rule
+ (target data_planet_local_blogs.ml)
+ (deps
+  (source_tree %{project_root}/data/planet-local-blogs))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/planet-local-blogs
+    -o
+    %{target}))))
+
+(rule
+ (target data_planet.ml)
+ (deps
+  (source_tree %{project_root}/data/planet))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/planet
+    -o
+    %{target}))))
+
+(rule
+ (target data_releases.ml)
+ (deps
+  (source_tree %{project_root}/data/releases))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/releases
+    -o
+    %{target}))))
+
+(rule
+ (target data_success_stories.ml)
+ (deps
+  (source_tree %{project_root}/data/success_stories))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/success_stories
+    -o
+    %{target}))))
+
+(rule
+ (target data_tutorials.ml)
+ (deps
+  (source_tree %{project_root}/data/tutorials))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/tutorials
+    -o
+    %{target}))))
+
+(rule
+ (target data_workshops.ml)
+ (deps
+  (source_tree %{project_root}/data/workshops))
+ (action
+  (ignore-stdout
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{project_root}/data/workshops
+    -o
+    %{target}))))
