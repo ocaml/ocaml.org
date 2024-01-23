@@ -34,7 +34,7 @@ system, which provides the `ocamlfind` command.
 
 OCaml comes with two compilers: `ocamlc` is the bytecode compiler, and
 `ocamlopt` is the native code compiler. If you don't know which one to use, use
-`ocamlopt` since it provides executables that are faster than bytecode. 
+`ocamlopt` since it provides executables that are faster than bytecode.
 
 But if you want to try `ocamlc`, you can go ahead and try the following.
 
