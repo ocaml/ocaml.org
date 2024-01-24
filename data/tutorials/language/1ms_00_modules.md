@@ -127,8 +127,7 @@ val array_sum_sq : int -> int = <fun>
 
 ## Interfaces and Signatures
 
-A module can provide a certain number of things (functions, types, submodules,
-etc.) to programs or libraries using it. If nothing special is done,
+A module can provide various kinds of things to programs or libraries: functions, types, submodules. If nothing special is done,
 everything that's defined in a module will be accessible from the outside. That's
 often fine in small personal programs, but there are many situations where it
 is better that a module only provides what it is meant to provide, not any of
@@ -292,15 +291,13 @@ let () =
 
 ### Submodule Interface
 
-We can also restrict the interface of a given submodule. It is called a module
+We can also restrict the interface of a submodule. It is called a module
 type. Let's do it in our `exeter.ml` file:
 
 ```ocaml
 module Hello : sig
  val hello : unit -> unit
-end
-=
-struct
+end = struct
   let message = "Hello"
   let hello () = print_endline message
 end
@@ -333,29 +330,27 @@ end
 `Hello_type` is a named module type and can be reused to define other module
 interfaces.
 
-## Practical Manipulation of Modules
+## Module Manipulation
 
-### Displaying the Interface of a Module
+### Displaying a Module's Interface
 
-You can use the OCaml toplevel to visualise the contents of an existing
-module, such as `Fun`:
+You can use the OCaml toplevel to see the contents of an existing
+module, such as `Unit`:
 
 ```ocaml
-# #show Fun;;
-module Fun :
+# #show Unit;;
+module Unit :
   sig
-    external id : 'a -> 'a = "%identity"
-    val const : 'a -> 'b -> 'a
-    val flip : ('a -> 'b -> 'c) -> 'b -> 'a -> 'c
-    val negate : ('a -> bool) -> 'a -> bool
-    val protect : finally:(unit -> unit) -> (unit -> 'a) -> 'a
-    exception Finally_raised of exn
+    type t = unit = ()
+    val equal : t -> t -> bool
+    val compare : t -> t -> int
+    val to_string : t -> string
   end
 ```
 
-There is online documentation for each library, for instance, [`Fun`](/api/Fun.html).
+There is online documentation for each library, for instance, [`Unit`](/api/Unit.html).
 
-The OCaml compiler tool chain can be used to dump a default interface from a `.ml` file.
+The OCaml compiler tool chain can be used to dump a `.ml` file default interface.
 ```shell
 $ ocamlc -c -i cairo.ml
 val message : string
@@ -370,7 +365,7 @@ can achieve this effect by using the `include` directive:
 
 ```ocaml
 module List = struct
-  include List
+  include Stdlib.List
   let uncons = function
     | [] -> None
     | hd :: tl -> Some (hd, tl)
@@ -382,7 +377,7 @@ module has, plus a new `uncons` function. In order to override the default `List
 
 ## Stateful Modules
 
-A module may have an internal state. This is the case of the `Random` module of the standard library. The functions `Random.get_state` and `Random.set_state` provide read and write access to the internal state, which is nameless and has an abstract type.
+A module may have an internal state. This is the case standard library `Random` module. The functions `Random.get_state` and `Random.set_state` provide read and write access to the internal state, which is nameless and has an abstract type.
 ```ocaml
 # let s = Random.get_state ();;
 val s : Random.State.t = <abstr>
