@@ -580,7 +580,7 @@ val is_teenager : person -> bool = <fun>
 - : bool = false
 ```
 
-Here, the pattern `{ age = x; _ }` is typed with the most recently declared record type, which has an `age` field of type `int`. The type `int` is inferred from the expression `13 <= x && x <= 19`. The function `is_teenager` will only work with the found record type, here `person`.
+Here, the pattern `{ age = x; _ }` is typed with the most recently declared record type that has an `age` field of type `int`. The type `int` is inferred from the expression `13 <= x && x <= 19`. The function `is_teenager` will only work with the found record type, here `person`.
 
 ## Dealing With Errors
 
