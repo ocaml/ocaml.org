@@ -3,7 +3,7 @@ id: modules
 title: Modules
 short_title: Modules
 description: >
-  Modules are collections of definitions grouped together. This is the basic means to organise OCaml software.
+  Modules are collections of definitions. This is the basic means to organise OCaml software.
 category: "Module System"
 ---
 
@@ -23,35 +23,35 @@ In OCaml, every piece of code is wrapped into a module. Optionally, a module
 itself can be a submodule of another module, pretty much like directories in a
 file system.
 
-When you write a program, let's say using the two files `amodule.ml` and
-`bmodule.ml`, each automatically defines a module named
-`Amodule` and a module named `Bmodule`, which provides whatever you put into the
+When you write a program, let's say using the two files `athens.ml` and
+`berlin.ml`, each automatically defines a module named
+`Athens` and `Berlin`, which provides whatever you put into the
 files.
 
-Here is the code that we have in our file `amodule.ml`:
-<!-- $MDX file=examples/amodule.ml -->
+Here is the code that we have in our file `athens.ml`:
+<!-- $MDX file=examples/athens.ml -->
 ```ocaml
-let hello () = print_endline "Hello"
+let hello () = print_endline "Hello from Athens"
 ```
 
-This is what we have in `bmodule.ml`:
-<!-- $MDX file=examples/bmodule.ml -->
+This is what we have in `berlin.ml`:
+<!-- $MDX file=examples/berlin.ml -->
 ```ocaml
-let () = Amodule.hello ()
+let () = Athens.hello ()
 ```
 
 In order to compile them using the [Dune](https://dune.build/) build system, at least two configuration files are required:
 
-* The `dune-project` file, which contains project-wide configuration data.
+* The `dune-project` file contains project-wide configuration data.
   Here's a very minimal one:
   ```lisp
    (lang dune 3.7)
   ```
-* The `dune` file, which contains actual build directives. A project may have several
+* The `dune` file contains actual build directives. A project may have several
   of them, depending on the organisation of the sources. This is sufficient for
   our example:
   ```lisp
-  (executable (name bmodule))
+  (executable (name berlin))
   ```
 
 Here is how to create the configuration files, build the source, and run the
@@ -59,16 +59,16 @@ executable:
 <!-- $MDX dir=examples -->
 ```bash
 $ echo "(lang dune 3.7)" > dune-project
-$ echo "(executable (name bmodule))" > dune
-$ opam exec -- dune build
-$ opam exec -- dune exec ./bmodule.exe
+$ echo "(executable (name berlin))" > dune
+$ opam exec -- une build
+$ opam exec -- dune exec ./berlin.exe
 Hello
 ```
 
 Actually, `dune build` is optional. Simply running `dune exec` would have
-triggered the compilation. Note that in the `dune exec` command the argument
-`./bmodule.exe` is not a file path. This command means “execute the content of
-the file `./bmodule.ml`.” However, the actual executable file is stored and
+triggered the compilation. Beware that in the `dune exec` command, as the parameter
+`./berlin.exe` is not a file path. This command means “execute the content of
+the file `./berlin.ml`.” However, the actual executable file is stored and
 named differently.
 
 In a real-world project, it is preferable to start by creating the `dune`
@@ -77,7 +77,7 @@ command.
 
 ### Naming and Scoping
 
-Now we have an executable that prints `Hello`. If you want to
+Now we have an executable that prints `Hello from Athens`. If you want to
 access anything from a given module, use the name of the module (always
 starting with a capital letter) followed by a dot and the thing you want to use.
 It may be a value, a type constructor, or anything else that a given module can
@@ -88,11 +88,11 @@ For example, `List.iter` designates the `iter` function from the `List` module.
 
 If you are using a given module heavily, you may want to make its contents
 directly accessible. For this, we use the `open` directive. In our example,
-`bmodule.ml` could have been written:
+`berlin.ml` could have been written:
 
 <!-- $MDX skip -->
 ```ocaml
-open Amodule
+open Athens
 let () = hello ()
 ```
 
@@ -109,24 +109,26 @@ let data = ["a"; "beautiful"; "day"]
 let () = List.iter (printf "%s\n") data
 ```
 
-There are also local `open`s:
+ The standard library is a module called `Stdlib` where modules `List`, `Option`, `Either` and others are [submodules](#submodules). Implicitly, all OCaml begins with `open Stdlib` which avoids writing `Stdlib.List.map`, `Stdlib.Array` or using `Stdlib.` anywhere.
+
+There are also two means to open modules locally:
 
 ```ocaml
-# let sum_sq m =
+# let list_sum_sq m =
     let open List in
     init m Fun.id |> map (fun i -> i * i) |> fold_left ( + ) 0;;
-val sum_sq : int -> int = <fun>
+val list_sum_sq : int -> int = <fun>
 
-# let sym_sq' m =
+# let array_sum_sq m =
     Array.(init m Fun.id |> map (fun i -> i * i) |> fold_left ( + ) 0);;
-val sum_sq' : int -> int = <fun>
+val array_sum_sq : int -> int = <fun>
 
 ```
 
 ## Interfaces and Signatures
 
 A module can provide a certain number of things (functions, types, submodules,
-etc.) to the rest of the program using it. If nothing special is done,
+etc.) to programs or libraries using it. If nothing special is done,
 everything that's defined in a module will be accessible from the outside. That's
 often fine in small personal programs, but there are many situations where it
 is better that a module only provides what it is meant to provide, not any of
@@ -135,16 +137,16 @@ the auxiliary functions and types that are used internally.
 For this, we have to define a module interface, which will act as a mask over
 the module's implementation. Just like a module derives from a `.ml` file, the
 corresponding module interface or signature derives from a `.mli` file. It
-contains a list of values with their type. Let's rewrite our `amodule.ml` file
-to something called `amodule2.ml`:
+contains a list of values with their type. Let's copy and change our `athens.ml` file
+into something called `cairo.ml`:
 
-<!-- $MDX file=examples/amodule2.ml -->
+<!-- $MDX file=examples/cairo.ml -->
 ```ocaml
-let message = "Hello 2"
+let message = "Hello from Cairo"
 let hello () = print_endline message
 ```
 
-As it is, `Amodule2` has the following interface:
+As it is, `Cairo` has the following interface:
 
 <!-- $MDX skip -->
 ```ocaml
@@ -154,9 +156,9 @@ val hello : unit -> unit
 
 Let's assume that accessing the `message` value directly is none of the other
 modules' business; we want it to be a private definition. We can hide it by
-defining a restricted interface. This is our `amodule2.mli` file:
+defining a restricted interface. This is our `cairo.mli` file:
 
-<!-- $MDX file=examples/amodule2.mli -->
+<!-- $MDX file=examples/cairo.mli -->
 ```ocaml
 val hello : unit -> unit
 (** Displays a greeting message. *)
@@ -165,26 +167,36 @@ val hello : unit -> unit
 Note the double asterisk at the beginning of the comment. It is a good habit
 to document `.mli` files using the format supported by
 [ocamldoc](/releases/4.14/htmlman/ocamldoc.html)
+<!-- FIXME: Refer to odoc -->
 
-The corresponding module `Bmodule2` is defined in file `bmodule2.ml`:
+The `Cairo` calling program is defined in file `delhi.ml`:
 
-<!-- $MDX file=examples/bmodule2.ml -->
+<!-- $MDX file=examples/delhi.ml -->
 ```ocaml
-let () = Amodule2.hello ()
+let () = Cairo.hello ()
 ```
 
-The .`mli` files must be compiled before the matching `.ml` files. This is done
+The `.mli` files must be compiled before the matching `.ml` files. This is done
 automatically by Dune. We update the `dune` file to allow the compilation
 of this example aside from the previous one.
 
 <!-- $MDX dir=examples -->
 ```bash
+<<<<<<< HEAD
 $ echo "(executables (names bmodule bmodule2))" > dune
 $ opam exec -- dune build
 $ opam exec -- dune exec ./bmodule.exe
 Hello
 $ opam exec -- dune exec ./bmodule2.exe
 Hello 2
+=======
+$ echo "(executables (names berlin delhi))" > dune
+$ dune build
+$ dune exec ./berlin.exe
+Hello from Athens
+$ dune exec ./delhi.exe
+Hello from Cairo
+>>>>>>> 5196e1c0 (Refresh modules.md text)
 ```
 
 ## Abstract Types
@@ -197,7 +209,7 @@ exported by placing their name and their type in an `.mli` file, e.g.:
 val hello : unit -> unit
 ```
 
-But modules often define new types. Let's define a simple record type that
+But modules often define new types. Let's define a record type that
 would represent a date:
 
 ```ocaml
@@ -246,14 +258,14 @@ implementation, including data structures.
 
 ### Submodule Implementation
 
-We saw that one `example.ml` file results automatically in the module
-implementation named `Example`. Its module signature is automatically derived
-and is the broadest possible, or it can be restricted by writing an `example.mli`
+We saw that one `exeter.ml` file results automatically in the module
+implementation named `Exeter`. Its module signature is automatically derived
+and is the broadest possible, or it can be restricted by writing an `exeter.mli`
 file.
 
 That said, a given module can also be defined explicitly from within a file.
 That makes it a submodule of the current module. Let's consider this
-`example.ml` file:
+`exeter.ml` file:
 
 ```ocaml
 module Hello = struct
@@ -268,20 +280,20 @@ let hello_goodbye () =
   goodbye ()
 ```
 
-From another file, it is clear that we now have two levels of modules. We can
+From another file, we now have two levels of modules. We can
 write:
 
 <!-- $MDX skip -->
 ```ocaml
 let () =
-  Example.Hello.hello ();
-  Example.goodbye ()
+  Exeter.Hello.hello ();
+  Exeter.goodbye ()
 ```
 
 ### Submodule Interface
 
 We can also restrict the interface of a given submodule. It is called a module
-type. Let's do it in our `example.ml` file:
+type. Let's do it in our `exeter.ml` file:
 
 ```ocaml
 module Hello : sig
@@ -303,7 +315,7 @@ let hello_goodbye () =
 ```
 
 The definition of the `Hello` module above is the equivalent of a
-`hello.mli`/`hello.ml` pair of files. Writing all of that in one block of code
+`hello.mli`, `hello.ml` pair of files. Writing all of that in one block of code
 is not elegant, so in general, we prefer to define the module signature
 separately:
 
@@ -341,7 +353,14 @@ module Fun :
   end
 ```
 
-There is online documentation for each library, for instance [`Fun`](/api/Fun.html)
+There is online documentation for each library, for instance, [`Fun`](/api/Fun.html).
+
+The OCaml compiler tool chain can be used to dump a default interface from a `.ml` file.
+```shell
+$ ocamlc -c -i cairo.ml
+val message : string
+val hello : unit -> unit
+```
 
 ### Module Inclusion
 
@@ -363,7 +382,7 @@ module has, plus a new `uncons` function. In order to override the default `List
 
 ## Stateful Modules
 
-A module may have an internal state. This is the case of the `Random` module of the standard library. The functions `Random.get_state` and `Random.set_state` provide read and write access to the internal state, which is kept abstract.
+A module may have an internal state. This is the case of the `Random` module of the standard library. The functions `Random.get_state` and `Random.set_state` provide read and write access to the internal state, which is nameless and has an abstract type.
 ```ocaml
 # let s = Random.get_state ();;
 val s : Random.State.t = <abstr>
