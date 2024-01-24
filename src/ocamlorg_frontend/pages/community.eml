@@ -106,7 +106,7 @@ Layout.render
 <div class="w-full section-blue-gradient dark:dark-section-blue-gradient">
   <div class="container-fluid flex justify-between items-center py-7 px-8">
       <div class="flex flex-col w-full md:max-w-[50%]">
-          <p class="uppercase text-sm text-dark-content font-medium mb-2">jobs</p>
+          <p class="uppercase text-sm text-white opacity-60 font-medium mb-2">jobs</p>
           <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">OCaml Jobs</h2>
           <p class="text-xl text-white dark:text-dark-title mb-5">This is a space where groups, companies, and organisations can advertise their projects directly to the OCaml community.</p>
           <div class="flex max-w-[17rem]">
@@ -182,7 +182,7 @@ Layout.render
 </div>
 <div class="w-full section-blue-gradient dark:bg-none">
   <div class="container-fluid py-9">
-    <p class="uppercase text-sm text-dark-content font-medium mb-2">meetups</p>
+    <p class="uppercase text-sm text-white opacity-60 font-medium mb-2">meetups</p>
     <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Upcoming Meetups</h2>
     <div class="grid lg:grid-cols-3 gap-8 lg:gap-10 mt-12">
       <% meetups |> List.iter (fun (meetup : Data.Meetup.t) -> %>
