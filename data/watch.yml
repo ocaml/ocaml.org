@@ -789,6 +789,17 @@ watch:
   published_at: 2021-10-03T22:42:00.207Z
   language: English
   category: Unknown
+- name: "Ocsigen: Developing Web and mobile applications in OCaml \u2013 J\xE9r\xF4me
+    Vouillon & Vincent Balat"
+  description: This presentation gives an overview of the Ocsigen framework, which
+    is used in particular to develop the Be Sport social network. Ocsigen is a set
+    a tools to develop Web sites and applications. Amongst other things, it contains
+    js_of_ocaml, a comp...
+  embed_path: /videos/embed/c9237937-9145-443c-9a78-d3ab20d2c932
+  thumbnail_path: /static/thumbnails/2dd76a3b-cfca-4ad5-b1fd-d2c60d9588b7.jpg
+  published_at: 2024-01-23T10:29:15.683Z
+  language: English
+  category: Science & Technology
 - name: Ocsigen_Eliom - the state-of-the-art and the prospects
   description: 'Ocsigen/Eliom: The state of the art, and the prospects, by Benedikt
     Becker and Vincent Balat'
