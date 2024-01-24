@@ -109,7 +109,7 @@ let data = ["a"; "beautiful"; "day"]
 let () = List.iter (printf "%s\n") data
 ```
 
- The standard library is a module called `Stdlib` where modules `List`, `Option`, `Either` and others are [submodules](#submodules). Implicitly, all OCaml begins with `open Stdlib` which avoids writing `Stdlib.List.map`, `Stdlib.Array` or using `Stdlib.` anywhere.
+ The standard library is a module called `Stdlib` where modules `List`, `Option`, `Either`, and others are [submodules](#submodules). Implicitly, all OCaml begins with `open Stdlib`, which avoids writing `Stdlib.List.map`, `Stdlib.Array`, or using `Stdlib.` anywhere.
 
 There are also two means to open modules locally:
 
