@@ -1,6 +1,5 @@
 ---
 title: Ocamlformat 0.7
-date: "2018-08-24"
 tags: [ocamlformat, platform]
 changelog: |
   - Improve: simplify setting option defaults, slight --help improvement (#350, @jberdine)

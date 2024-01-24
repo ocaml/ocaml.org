@@ -1,6 +1,6 @@
 let href_package pkg = Url.Package.overview pkg.name ?version:(Package.url_version pkg)
 
-let render (stats : Package.stats option) (featured : Package.package list) =
+let render (stats : Package.stats option) =
 Layout.render
 ~title:"OCaml Packages · Browse Community Packages"
 ~description:"Discover thousands of community packages and browse their documentation."

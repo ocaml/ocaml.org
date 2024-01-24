@@ -78,7 +78,9 @@ module Local = struct
       }
 
     let decode (fpath, (head, body)) =
-      let metadata = metadata_of_yaml head in
+      let metadata =
+        metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+      in
       let body_html =
         Cmarkit.Doc.of_string ~strict:true (String.trim body)
         |> Hilite.Md.transform
@@ -191,7 +193,9 @@ module External = struct
         (metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
 
     let decode (fpath, (head, body)) =
-      let metadata = metadata_of_yaml head in
+      let metadata =
+        metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+      in
       let body_html =
         Cmarkit.Doc.of_string ~strict:true (String.trim body)
         |> Cmarkit_html.of_doc ~safe:true

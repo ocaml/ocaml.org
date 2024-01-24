@@ -1,6 +1,5 @@
 ---
 title: Ocamlformat 0.26.1
-date: "2023-09-19"
 tags: [ocamlformat, platform]
 changelog: |
   ### Changed

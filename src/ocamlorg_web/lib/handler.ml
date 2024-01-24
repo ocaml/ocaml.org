@@ -614,15 +614,8 @@ let packages state _req =
                recently_updated = List.map package t.recently_updated;
                most_revdeps = List.map package_pair t.most_revdeps;
              })
-  and featured =
-    Data.Packages.all.featured
-    |> List.filter_map
-         Ocamlorg_package.(
-           fun name ->
-             get_latest state (Name.of_string name)
-             |> Option.map (Package_helper.frontend_package state))
   in
-  Dream.html (Ocamlorg_frontend.packages stats featured)
+  Dream.html (Ocamlorg_frontend.packages stats)
 
 let is_author_match name pattern =
   let match_opt = function

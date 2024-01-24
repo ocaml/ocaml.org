@@ -1,6 +1,5 @@
 ---
 title: Grafana Dashboard Changes
-date: "2023-06-09"
 tags: [infrastructure]
 ---
 

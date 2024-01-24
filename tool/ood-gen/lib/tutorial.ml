@@ -120,8 +120,27 @@ let toc ?(start_level = 1) ?(max_level = 2) doc =
     invalid_arg "toc: ~max_level must be >= ~start_level";
   create_toc ~max_level start_level (headers doc)
 
+exception Missing_Tutorial of string
+
+let check_tutorial_references all =
+  let all_slugs = List.map (fun t -> t.slug) all in
+  let tut_is_missing slug = not @@ List.mem slug all_slugs in
+  let missing_tut_msg t missing =
+    "The following recommended next tutorial(s) in " ^ t.fpath
+    ^ " were not found: [" ^ String.concat "; " missing ^ "]"
+  in
+  let has_missing_tuts_exn t =
+    match List.filter tut_is_missing t.recommended_next_tutorials with
+    | [] -> ()
+    | missing -> raise (Missing_Tutorial (missing_tut_msg t missing))
+  in
+
+  List.iter has_missing_tuts_exn all
+
 let decode (fpath, (head, body_md)) =
-  let metadata = metadata_of_yaml head in
+  let metadata =
+    metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+  in
   let section =
     List.nth (String.split_on_char '/' fpath) 1
     |> Section.of_string |> Result.get_ok
@@ -136,6 +155,8 @@ let all () =
   |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
 
 let template () =
+  let _ = check_tutorial_references @@ all () in
+
   Format.asprintf
     {|
 module Section = struct

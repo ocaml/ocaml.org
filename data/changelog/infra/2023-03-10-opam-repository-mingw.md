@@ -1,6 +1,5 @@
 ---
 title: Sunsetting opam-repository-mingw
-date: "2023-03-10"
 tags: [infrastructure]
 ---
 

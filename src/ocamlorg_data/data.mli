@@ -127,12 +127,6 @@ module Industrial_user : sig
   val get_by_slug : string -> t option
 end
 
-module Packages : sig
-  type t = { featured : string list }
-
-  val all : t
-end
-
 module Paper : sig
   type link = { description : string; uri : string }
 
