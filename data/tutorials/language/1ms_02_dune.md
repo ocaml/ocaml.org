@@ -265,5 +265,5 @@ Here `foo` is the project name and `foo.dir` is its container folder, the names 
 
 ## Conclusion
 
-The OCaml module system allows organizing a project in many ways. Dune provides several means to arrange modules into libraries.
+The OCaml module system allows organising a project in many ways. Dune provides several means to arrange modules into libraries.
 
