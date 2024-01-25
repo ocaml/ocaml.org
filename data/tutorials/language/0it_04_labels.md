@@ -98,7 +98,7 @@ In the previous section, we've defined a function with an optional parameter wit
 val sum : ?init:int -> int list -> int = <fun>
 ```
 
-It behaves the same, but in this case, `?init:(x = 1)` means that `~init` is an optional parameter that defaults to 1. Inside the function, the parameter is named `x`.
+It behaves the same, but in this case, `?init:(x = 0)` means that `~init` is an optional parameter that defaults to 0. Inside the function, the parameter is named `x`.
 
 The definition in the previous section used the shortcut that makes `?(init = 0)` the same as `?init:(init = 0)`.
 
