@@ -99,7 +99,7 @@ inner =
             } else {
               document.getElementById("scrollToTop").style.display = "none";
             }
-          }    
+          }
       </script>
     </body>
   </html>

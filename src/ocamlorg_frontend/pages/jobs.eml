@@ -5,20 +5,20 @@ Layout.render
 OCaml community."
 ~canonical:Url.jobs
 ~active_top_nav_item:Header.Community @@
-<div class="intro-section-simple">
+<div class="w-full section-mild-contrast dark:dark-no-mild-contrast pt-48 pb-24">
     <div class="container-fluid">
         <div class="text-center w-full lg:w-2/3 m-auto">
-            <h1 class="font-bold mb-6">OCaml Job Board</h1>
-            <p>This is a space where groups, companies, and organisations can advertise their projects directly to the
+            <h1 class="text-title dark:text-dark-title font-bold mb-6">OCaml Job Board</h1>
+            <p class="text-content dark:text-dark-content">This is a space where groups, companies, and organisations can advertise their projects directly to the
                 OCaml community.</p>
         </div>
     </div>
 </div>
-<div class="py-12 bg-legacy-default dark:bg-legacy-dark-default">
+<div class="py-12 bg-white dark:bg-dark-background">
     <div class="container-fluid">
         <div class="flex justify-between items-center">
             <% let job_num = match List.length jobs with 0 -> "No Job" | 1 -> "1 Job" | l -> Printf.sprintf "%i Jobs" l in %>
-                <h5 class="font-bold">
+                <h5 class="font-bold text-content dark:text-dark-content">
                     <%s job_num %>
                 </h5>
                 <div class="h-14 w-64">
@@ -44,35 +44,35 @@ OCaml community."
             <% jobs |> List.iter (fun (item : Data.Job.t) -> %>
             <a href="<%s item.link %>"
                 target="_blank"
-                class="text-left p-8 border border-gray-200 rounded-xl legacy-card-hover"
+                class="card dark:dark-card p-5 rounded-xl"
                 :class="{ 'hidden': location != 'All' && ([<%s! String.concat "," (List.map (fun s -> "\'" ^ Dream.html_escape s ^ "\'") item.locations) %>].indexOf(location) == -1)  }">
-                <img class="mb-4 max-h-8 max-w-[7rem]" src="<%s item.company_logo %>" alt="">
-                <div class="text-base mb-2 text-legacy-default opacity-80">
+                <div class="w-max bg-inherit dark:bg-white"><img class="mb-4 max-h-8 max-w-[7rem]" src="<%s item.company_logo %>" alt=""></div>
+                <p class="text-base mb-2 text-content dark:text-dark-content opacity-80">
                     <%s item.company %>
-                </div>
-                <div class="text-lg mb-4 font-extrabold text-legacy-default truncate">
+                </p>
+                <p class="text-lg mb-4 font-bold text-title dark:text-dark-title truncate">
                     <%s item.title %>
-                </div>
+                </p>
                 <div class="flex items-center space-x-2">
-                    <%s! Icons.map_pin "h-5 w-5"  %>
-                    <div>
+                    <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary"  %>
+                    <p class="text-title dark:text-dark-title">
                         <%s String.concat ", " item.locations %>
-                    </div>
+                    </p>
                 </div>
                 <% (match item.publication_date with None -> () | Some date -> %>
                 <div class="flex items-center space-x-2 mt-2">
-                    <%s! Icons.calendar "h-5 w-5"  %>
-                    <div>
+                    <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary"  %>
+                    <p class="text-content dark:text-dark-content">
                         <%s date %>
-                    </div>
+                    </p>
                 </div>
                 <% ); %>
             </a>
             <% ); %>
         </div>
         <% ); %>
-        <div class="prose">
-        If you want to contribute a job post, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-job" target="_blank">Contributing Guide</a> on GitHub.
+        <div class="prose dark:prose-invert">
+        If you want to contribute a job post, check out the <a class="text-primary dark:text-dark-primary" href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-job" target="_blank">Contributing Guide</a> on GitHub.
         </div>
     </div>
 </div>

@@ -4,11 +4,11 @@ Layout.render
 ~description:"Read the latest news, releases, and updates from the OCaml community."
 ~canonical:(Url.news ^ if page = 1 then "" else "?p=" ^ string_of_int page)
 ~active_top_nav_item:Header.Blog @@
-<div class="bg-legacy-default dark:bg-legacy-dark-default py-24">
+<div class="bg-white dark:bg-dark-background py-24">
   <div class="container-fluid">
     <div>
       <a href="<%s Url.blog %>"
-        class="flex justify-start space-x-3 items-center text-primary hover:underline font-semibold mb-4 h-12">
+        class="flex justify-start space-x-3 items-center text-primary dark:text-dark-primary hover:underline font-semibold mb-4 h-12">
         <%s! Icons.arrow_left "h-5 w-5" %>
         <div>Back to Blog</div>
       </a>
@@ -23,12 +23,12 @@ Layout.render
           <div class="space-y-3 mt-6 lg:mt-0 flex flex-col flex-1">
               <div class="space-y-2">
                   <a href="<%s Url.news_post item.slug %>"
-                      class="block text-xl font-semibold hover:text-primary"><%s item.title %></a>
+                      class="block text-xl font-semibold text-title dark:text-dark-title hover:text-primary dark:hover:text-dark-primary"><%s item.title %></a>
               </div>
-              <a href="<%s Url.news_post item.slug %>" class="text-legacy-lighter">
+              <a href="<%s Url.news_post item.slug %>" class="text-content dark:text-dark-content">
                   <%s item.description %>
               </a>
-              <div class="text-legacy-lighter flex space-x-2.5 text-sm">
+              <div class="text-content dark:text-dark-content flex space-x-2.5 text-sm">
                   <div><%s item.date %></div>
               </div>
           </div>
