@@ -23,96 +23,92 @@ In OCaml, every piece of code is wrapped into a module. Optionally, a module
 itself can be a submodule of another module, pretty much like directories in a
 file system.
 
-When you write a program, let's say using the two files `athens.ml` and
-`berlin.ml`, each automatically defines a module named
-`Athens` and `Berlin`, which provides whatever you put into the
-files.
+When you write a program using two files named `athens.ml` and `berlin.ml`,
+each automatically defines a module named `Athens` and `Berlin`, which provides
+whatever you put into the files.
 
-Here is the code that we have in our file `athens.ml`:
+Here is the code in the file `athens.ml`:
 <!-- $MDX file=examples/athens.ml -->
 ```ocaml
 let hello () = print_endline "Hello from Athens"
 ```
 
-This is what we have in `berlin.ml`:
+This is what is in `berlin.ml`:
 <!-- $MDX file=examples/berlin.ml -->
 ```ocaml
 let () = Athens.hello ()
 ```
 
-In order to compile them using the [Dune](https://dune.build/) build system, at least two configuration files are required:
-
+To compile them using [Dune](https://dune.build/), at least two
+configuration files are required:
 * The `dune-project` file contains project-wide configuration data.
   Here's a very minimal one:
   ```lisp
    (lang dune 3.7)
   ```
 * The `dune` file contains actual build directives. A project may have several
-  of them, depending on the organisation of the sources. This is sufficient for
-  our example:
+  `dune` files, one per folder containing things to build. This single line is
+  sufficient in this example:
   ```lisp
   (executable (name berlin))
   ```
 
-Here is how to create the configuration files, build the source, and run the
+Here is a possible way to create those files, build the source, and run the
 executable:
 <!-- $MDX dir=examples -->
 ```bash
 $ echo "(lang dune 3.7)" > dune-project
+
 $ echo "(executable (name berlin))" > dune
-$ opam exec -- une build
+
+$ opan exec -- dune build
+
 $ opam exec -- dune exec ./berlin.exe
 Hello
 ```
 
-Actually, `dune build` is optional. Simply running `dune exec` would have
-triggered the compilation. Beware that in the `dune exec` command, as the parameter
-`./berlin.exe` is not a file path. This command means “execute the content of
-the file `./berlin.ml`.” However, the actual executable file is stored and
-named differently.
+Actually, `dune build` is optional. Running `dune exec` would have triggered the
+compilation. Note that in the `dune exec` command, the parameter `./berlin.exe`
+is not a file path. This command means “execute the content of the file
+`./berlin.ml`.” However, the executable file is stored and named differently.
 
-In a real-world project, it is preferable to start by creating the `dune`
-configuration files and directory structure using the `dune init project`
-command.
+In a project, it is preferable to create the `dune` configuration files and
+directory structure using the `dune init project` command.
 
 ### Naming and Scoping
 
-Now we have an executable that prints `Hello from Athens`. If you want to
-access anything from a given module, use the name of the module (always
-starting with a capital letter) followed by a dot and the thing you want to use.
-It may be a value, a type constructor, or anything else that a given module can
-provide.
+In `berlin.ml`, we used `Athens.hello` to refer to `hello` from `athens.ml`.
+Generally, to access something from a module, use the module's name (which
+always starts with a capital letter: `Athens`) followed by a dot and the
+thing you want to use (`hello`). It may be a value, a type constructor, or
+anything the module provides.
 
-Libraries, starting with the standard library, provide collections of modules.
-For example, `List.iter` designates the `iter` function from the `List` module.
-
-If you are using a given module heavily, you may want to make its contents
-directly accessible. For this, we use the `open` directive. In our example,
-`berlin.ml` could have been written:
-
+If you are using a module heavily, you can directly access its contents. To do
+this, use the `open` directive. In our example, `berlin.ml` could have been
+written:
 <!-- $MDX skip -->
 ```ocaml
 open Athens
 let () = hello ()
 ```
 
-Using `open` or not is a matter of personal taste. Some modules provide names
-that are used in many other modules. This is the case of the `List` module, for
-instance. Usually, we don't do `open List`. Other modules like `Printf` provide
-names that normally aren't subject to conflicts, such as `printf`. In order to
-avoid writing `Printf.printf` all over the place, it often makes sense to place
-one `open Printf` at the beginning of the file:
-
+Using `open` is optional. Usually, we don't open the module `List` because it
+provides names other modules also provide, such as `Array` or `Option`. Other
+modules like `Printf` provide names that aren't subject to conflicts, such as
+`printf`. Placing `open Printf` at the beginning of the file avoids writing
+`Printf.printf` all over the place.
 ```ocaml
 open Printf
 let data = ["a"; "beautiful"; "day"]
 let () = List.iter (printf "%s\n") data
 ```
 
- The standard library is a module called `Stdlib` where modules `List`, `Option`, `Either`, and others are [submodules](#submodules). Implicitly, all OCaml begins with `open Stdlib`, which avoids writing `Stdlib.List.map`, `Stdlib.Array`, or using `Stdlib.` anywhere.
+ The standard library is a module called `Stdlib` where modules `List`,
+ `Option`, `Either` and others are [submodules](#submodules). Implicitly, all
+ OCaml begins with `open Stdlib`. That avoids writing `Stdlib.List.map`,
+ `Stdlib.Array` or using `Stdlib.` anywhere.
 
 There are also two means to open modules locally:
-
 ```ocaml
 # let list_sum_sq m =
     let open List in
@@ -122,23 +118,25 @@ val list_sum_sq : int -> int = <fun>
 # let array_sum_sq m =
     Array.(init m Fun.id |> map (fun i -> i * i) |> fold_left ( + ) 0);;
 val array_sum_sq : int -> int = <fun>
-
 ```
 
-## Interfaces and Signatures
+## Interfaces and Implementations
 
-A module can provide various kinds of things to programs or libraries: functions, types, submodules. If nothing special is done,
-everything that's defined in a module will be accessible from the outside. That's
-often fine in small personal programs, but there are many situations where it
-is better that a module only provides what it is meant to provide, not any of
-the auxiliary functions and types that are used internally.
+By default, anything defined in a module is accessible from other modules.
+Values, functions, types, or submodules, everything is public. This can be
+restricted. That allows distinguishing content provided to other modules from
+internal use content. What is internal is kept private and not available from
+other modules.
 
-For this, we have to define a module interface, which will act as a mask over
-the module's implementation. Just like a module derives from a `.ml` file, the
-corresponding module interface or signature derives from a `.mli` file. It
-contains a list of values with their type. Let's copy and change our `athens.ml` file
-into something called `cairo.ml`:
+For this, we must distinguish:
+- Implementation, which is a module's actual content.
+- Interface, which is a module's public content list
 
+A `.ml` file contains a module implementation. By default, without an explicitly
+defined interface, an implementation has a default interface where everything is
+public.
+
+Copy the `athens.ml` file into `cairo.ml` and change it with this contents:
 <!-- $MDX file=examples/cairo.ml -->
 ```ocaml
 let message = "Hello from Cairo"
@@ -146,38 +144,38 @@ let hello () = print_endline message
 ```
 
 As it is, `Cairo` has the following interface:
-
 <!-- $MDX skip -->
 ```ocaml
 val message : string
 val hello : unit -> unit
 ```
 
-Let's assume that accessing the `message` value directly is none of the other
-modules' business; we want it to be a private definition. We can hide it by
-defining a restricted interface. This is our `cairo.mli` file:
+Explicitly defining a module interface, allows restricting the default one. It
+acts as a mask over the module's implementation. The `cairo.ml` file defines
+`Cairo`'s implementation. Adding a `cairo.mli` file defines `Cairo`'s interface.
+Filenames, without extensions, must be the same.
 
+To turn `message` into a private definition, don't list it in the `cairo.mli` file:
 <!-- $MDX file=examples/cairo.mli -->
 ```ocaml
 val hello : unit -> unit
-(** Displays a greeting message. *)
+(** [hello ()] displays a greeting message. *)
 ```
 
-Note the double asterisk at the beginning of the comment. It is a good habit
-to document `.mli` files using the format supported by
-[ocamldoc](/releases/4.14/htmlman/ocamldoc.html)
-<!-- FIXME: Refer to odoc -->
+**Note**: The double asterisk at the beginning of the comment indicates a
+comment meant for API documentation tools, such as
+[odoc](https://github.com/ocaml/odoc). It is a good habit to document `.mli`
+files using the format supported by this tool.
 
-The `Cairo` calling program is defined in file `delhi.ml`:
+The file `delhi.ml` defines the program calling `Cairo`:
 
 <!-- $MDX file=examples/delhi.ml -->
 ```ocaml
 let () = Cairo.hello ()
 ```
 
-The `.mli` files must be compiled before the matching `.ml` files. This is done
-automatically by Dune. We update the `dune` file to allow the compilation
-of this example aside from the previous one.
+Update the `dune` file to allow the compilation of this example aside from the
+previous one.
 
 <!-- $MDX dir=examples -->
 ```bash
@@ -190,35 +188,57 @@ $ opam exec -- dune exec ./bmodule2.exe
 Hello 2
 =======
 $ echo "(executables (names berlin delhi))" > dune
+
 $ dune build
+
 $ dune exec ./berlin.exe
 Hello from Athens
+
 $ dune exec ./delhi.exe
 Hello from Cairo
 >>>>>>> 5196e1c0 (Refresh modules.md text)
 ```
 
-## Abstract Types
-
-What about type definitions? We saw that values such as functions can be
-exported by placing their name and their type in an `.mli` file, e.g.:
-
-<!-- $MDX skip -->
+You can check that `Cairo.message` is not public by attempting to compile a `delhi.ml` file containing:
 ```ocaml
-val hello : unit -> unit
+let () = print_endline Cairo.message
+```
+
+This triggers a compilation error.
+
+## Abstract and Read-Only Types
+
+Function and value definitions are either public or private. That also applies
+to type definitions, but there are two more cases.
+
+Create files named `exeter.ml` and `exeter.ml` with the following contents:
+
+**`exeter.ml`**
+```ocaml
+type measure_unit = Metric | Imperial
+type length = unit * i
+type meter = int
+type date = { day : int; month : int; year : int }
+```
+
+**`exeter.mli`**
+```ocaml
+type unit = Metric | Imperial
+type meter
+type date = private { day : int; month : int; year : int }
 ```
 
 But modules often define new types. Let's define a record type that
 would represent a date:
 
 ```ocaml
-type date = {day : int; month : int; year : int}
+type date = { day : int; month : int; year : int }
 ```
 
 There are four options when it comes to writing the `.mli` file:
 
-1. The type is completely omitted from the signature.
-2. The type definition is copy-pasted into the signature.
+1. The type is completely omitted from the signature. In that case, the type is private. It can't be used from outside the module.
+2. The type definition is copy-pasted into the signature. In that case, the type is public. It can be used
 3. The type is made abstract: only its name is given.
 4. The record fields are made read-only: `type date = private { ... }`.
 
@@ -253,18 +273,20 @@ a lot of sense in a library because subsequent versions of it can
 continue to expose the same interface while internally changing the
 implementation, including data structures.
 
+Case 4
+
 ## Submodules
 
 ### Submodule Implementation
 
-We saw that one `exeter.ml` file results automatically in the module
+We saw that one `fairbanks.ml` file results automatically in the module
 implementation named `Exeter`. Its module signature is automatically derived
-and is the broadest possible, or it can be restricted by writing an `exeter.mli`
+and is the broadest possible, or it can be restricted by writing an `fairbanks.mli`
 file.
 
 That said, a given module can also be defined explicitly from within a file.
 That makes it a submodule of the current module. Let's consider this
-`exeter.ml` file:
+`fairbanks.ml` file:
 
 ```ocaml
 module Hello = struct
@@ -292,7 +314,7 @@ let () =
 ### Submodule Interface
 
 We can also restrict the interface of a submodule. It is called a module
-type. Let's do it in our `exeter.ml` file:
+type. Let's do it in our `fairbanks.ml` file:
 
 ```ocaml
 module Hello : sig
