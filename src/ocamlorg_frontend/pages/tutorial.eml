@@ -72,7 +72,7 @@ Learn_layout.three_column_layout
 ~current:(of_tutorial_section tutorial.section) @@
   <div class="prose prose-orange dark:prose-invert max-w-full">
     <%s! render_external_tutorial_banner tutorial.external_tutorial %>
-    <%s! render_title tutorial.title %>
+    <%s! render_title tutorial %>
     <%s! tutorial.body_html %>
     <%s! render_related_exercises related_exercises %>
     <%s! Learn_components.contribute_footer ~href ~description ~recommended_next_tutorials %>
