@@ -50,7 +50,7 @@ in
 </div>
 <div class="w-full border-b">
     <div class="container-fluid pt-6 pb-12">
-        <p class="uppercase text-sm text-content dark:text-dark-content font-medium mb-2">opam</p>
+        <p class="uppercase text-sm text-content dark:text-dark-content font-medium mb-2 tracking-widest">opam</p>
         <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">The OCaml Package Manager</h2>
         <p class="text-xl text-content dark:text-dark-content mb-6 md:mb-12">Opam is a source-based package manager for OCaml. It supports multiple simultaneous compiler installations, flexible package constraints, and a Git-friendly development workflow</p>
         <ul class="flex flex-col md:flex-row w-full justify-between gap-8">
@@ -81,7 +81,7 @@ in
 % ( match stats with
 % | Some stats ->
     <div class="container-fluid dark:border-b border-separator_20 dark:border-dark-separator_30 pb-12" x-data='{activeTab: "most-used"}'>
-        <p class="uppercase text-sm text-content dark:text-dark-content font-medium mb-2">packages</p>
+        <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">packages</p>
         <div class="w-full flex md:hidden">
             <button x-on:click='activeTab = "most-used"' class="w-full py-4 text-xs rounded-l border" :class='activeTab === "most-used" ? "bg-primary dark:bg-dark-primary text-white dark:text-dark-title border-primary dark:border-dark-primary" : "text-content dark:text-dark-separator_30 border-card_border dark:border-dark-separator_30"'>Most Used</button>
             <button x-on:click='activeTab = "new"' class="w-full py-4 text-xs border" :class='activeTab === "new" ? "bg-primary dark:bg-dark-primary text-white dark:text-dark-title border-primary dark:border-dark-primary" : "border-card_border dark:border-dark-separator_30"'>New</button>
@@ -129,24 +129,24 @@ in
 </div>
 <div class="w-full pkg-section-mild-contrast dark:dark-no-mild-contrast">
     <div class="container-fluid pt-6 pb-12">
-        <p class="uppercase text-sm text-content dark:text-dark-content font-medium mb-2">stable ecosystem</p>
+        <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">stable ecosystem</p>
         <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Focus on Your Code, and opam Takes Care of Distributing It</h2>
         <p class="text-xl text-content dark:text-dark-content mb-12">Our users have the highest standards for the OCaml ecosystem to run mission-critical applications across a variety of operating systems, and they expect that a package that compiles today will still work a decade from now</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div class="text-left flex flex-col">
-                <div class="flex md:pr-28"><%s! Icons.beaker_bubble "text-content dark:text-dark-content mb-6 mx-auto" %></div>
+                <div class="flex md:pr-28 md:h-36"><%s! Icons.beaker_bubble "text-content dark:text-dark-content mb-6 mx-auto" %></div>
                 <h3 class="text-2xl text-title dark:text-dark-title font-semibold mb-2">Continuous Integration</h3>
                 <p class="text-base text-content dark:text-dark-content">Before any package update, we run sandboxed matrix builds for
                     boundaries of the dependencies and for each of the dependent packages. A package publication will
                     never break the rest of the ecosystem.</p>
             </div>
             <div class="text-left flex flex-col">
-                <div class="flex md:pr-28"><%s! Icons.refresh_bubble "text-content dark:text-dark-content mb-6 mx-auto" %></div>
+                <div class="flex md:pr-28 md:h-36"><%s! Icons.refresh_bubble "text-content dark:text-dark-content mb-6 mx-auto" %></div>
                 <h3 class="text-2xl text-title dark:text-dark-title font-semibold mb-2">State of the Art</h3>
                 <p class="text-base text-content dark:text-dark-content">Opam supports publishing multiple versions of packages simultaneously to specify the version constraints, so only compatible revisions are chosen for a build. It comes with a performant constraint solver, a flexible CLI, a well-specified metadata format, and an easy access to the package manager logic via OCaml libraries.</p>
             </div>
             <div class="text-left flex flex-col">
-                <div class="flex md:pr-28"><%s! Icons.sheild_bubble "text-content dark:text-dark-content mb-6 mx-auto" %></div>
+                <div class="flex md:pr-28 md:h-36"><%s! Icons.sheild_bubble "text-content dark:text-dark-content mb-6 mx-auto" %></div>
                 <h3 class="text-2xl text-title dark:text-dark-title font-semibold mb-2">Package Stability</h3>
                 <p class="text-base text-content dark:text-dark-content">The opam project and package repository is maintained by a team of developers who ensure that everything is not only running smoothly, but also curated to maintain a high degree of metadata quality. This makes it one of the most stable package repositories available today.</p>
             </div>
@@ -156,14 +156,14 @@ in
 <div class="w-full section-blue-gradient dark:dark-section-blue-gradient">
     <div class="container-fluid flex items-center justify-between py-7 px-8">
         <div class="flex flex-col w-full md:max-w-[50%]">
-            <p class="uppercase text-sm text-content dark:text-dark-content font-medium mb-2">community</p>
+            <p class="uppercase text-sm text-white opacity-60 dark:text-dark-content font-medium mb-2 tracking-widest">community</p>
             <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Start Contributing</h2>
             <p class="text-xl text-white dark:text-dark-title mb-5">Learn how to publish your first Opam package today and make it available to the rest of the community.</p>
             <div class="flex max-w-[17rem]">
                 <%s!  Learn_components.hero_button ~left_icon:(Icons.pencil_note "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("Publish a Package") ~href:("https://opam.ocaml.org/doc/Packaging.html") %>
             </div>
         </div>
-        <div class="hidden md:flex w-[18rem] h-[18rem] mr-16">
+        <div class="hidden md:flex w-[18rem] h-[18rem] mr-16 py-8">
             <img src="<%s! Ocamlorg_static.Asset.url "img/packages/two_camels.png" %>" alt="two camels">
         </div>
     </div>

@@ -36,7 +36,7 @@ Layout.render
 </div>
 <div class="w-full">
   <div class="container-fluid pt-6 pb-12">
-      <p class="uppercase text-sm text-content dark:text-dark-content font-medium mb-2">social media</p>
+      <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">social media</p>
       <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Join Our Communities!</h2>
       <p class="text-xl text-content dark:text-dark-content mb-6">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators</p>
       <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 md:gap-4">
@@ -106,7 +106,7 @@ Layout.render
 <div class="w-full section-blue-gradient dark:dark-section-blue-gradient">
   <div class="container-fluid flex justify-between items-center py-7 px-8">
       <div class="flex flex-col w-full md:max-w-[50%]">
-          <p class="uppercase text-sm text-white opacity-60 font-medium mb-2">jobs</p>
+          <p class="uppercase text-sm text-white opacity-60 tracking-widest font-medium mb-2">jobs</p>
           <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">OCaml Jobs</h2>
           <p class="text-xl text-white dark:text-dark-title mb-5">This is a space where groups, companies, and organisations can advertise their projects directly to the OCaml community.</p>
           <div class="flex max-w-[17rem]">
@@ -121,7 +121,7 @@ Layout.render
 </div>
 <div class="w-full border-b">
   <div class="container-fluid pt-6 pb-12">
-    <p class="uppercase text-sm text-content dark:text-dark-content font-medium mb-2">workshop</p>
+    <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">workshop</p>
     <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Workshops we have had up until now</h2>
     <% (match upcoming_workshops with
         | [] -> ()
@@ -168,7 +168,7 @@ Layout.render
 <div class="w-full section-mild-contrast dark:dark-blue-section-mild-contrast">
   <div class="container-fluid flex justify-between items-center py-7 px-8">
       <div class="flex flex-col w-full md:max-w-[50%]">
-          <p class="uppercase text-sm text-content dark:text-dark-content font-medium mb-2">internships</p>
+          <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">internships</p>
           <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">OCaml Outreachy Interships</h2>
           <p class="text-xl text-content dark:text-dark-title mb-5">This is a record of all past OCaml Community Outreachy Internship Projects.</p>
           <div class="flex max-w-[17rem]">
@@ -182,7 +182,7 @@ Layout.render
 </div>
 <div class="w-full section-blue-gradient dark:bg-none">
   <div class="container-fluid py-9">
-    <p class="uppercase text-sm text-white opacity-60 font-medium mb-2">meetups</p>
+    <p class="uppercase text-sm text-white tracking-widest opacity-60 font-medium mb-2">meetups</p>
     <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Upcoming Meetups</h2>
     <div class="grid lg:grid-cols-3 gap-8 lg:gap-10 mt-12">
       <% meetups |> List.iter (fun (meetup : Data.Meetup.t) -> %>
@@ -204,7 +204,7 @@ Layout.render
 <% if List.length upcoming_events > 0 then ( %>
     <div class="w-full">
       <div class="container-fluid pt-6 pb-12">
-          <p class="uppercase text-sm text-content dark:text-dark-content font-medium mb-2">events</p>
+          <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">events</p>
           <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Upcoming Events</h2>
           <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
               <% upcoming_events |> List.iter (fun (event : Data.Event.t) -> %>
