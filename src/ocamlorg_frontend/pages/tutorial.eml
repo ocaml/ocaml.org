@@ -1,8 +1,7 @@
 open Ocamlorg
 
-let render_title (title: string) = 
-  let sanitized_title = Utils.slugify title in 
-  <h1 id="<%s sanitized_title %>" ><a class="anchor" aria-hidden="true" href="#<%s sanitized_title %>"></a><%s title %></h1>
+let render_title (tutorial: Data.Tutorial.t) = 
+    <h1 id="<%s tutorial.slug %>" ><a class="anchor" aria-hidden="true" href="#<%s tutorial.slug %>"></a><%s tutorial.title %></h1>
 
 let rec tutorial_toc_to_toc (toc : Data.Tutorial.toc) =
   Toc.{
