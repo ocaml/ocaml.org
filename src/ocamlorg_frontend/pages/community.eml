@@ -186,7 +186,7 @@ Layout.render
     <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Upcoming Meetups</h2>
     <div class="grid lg:grid-cols-3 gap-8 lg:gap-10 mt-12">
       <% meetups |> List.iter (fun (meetup : Data.Meetup.t) -> %>
-      <a href="<%s meetup.url %>" class="bg-white dark:bg-dark-card border hover:border-[3px] hover:border-primary dark:hover:border-dark-primary p-5 rounded-xl">
+      <a href="<%s meetup.url %>" class="card dark:dark-card p-5 rounded-xl">
           <p class="font-bold text-lg text-title dark:text-dark-title mb-3">
               <%s meetup.title %>
           </p>
