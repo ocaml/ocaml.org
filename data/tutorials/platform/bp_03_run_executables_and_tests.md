@@ -16,7 +16,7 @@ category: "Best Practices"
 
 To tell Dune to produce an executable, you can use the executable stanza:
 
-```dune
+```lisp
 (executable
  (name <executable_name>)
  (public_name <public_name>)
@@ -31,7 +31,7 @@ Once Dune has produced the executable with `dune build`, you can execute it with
 
 For instance, if you've put your `dune` file in `bin/dune` with the following content:
 
-```dune
+```lisp
 (executable
  (name main)
  (public_name my-app)
@@ -50,7 +50,7 @@ Tests are created using Dune's `test` stanza. The `test` stanza is a simple conv
 
 For instance, if you add a test in your dune file:
 
-```dune
+```lisp
 (test
  (name dummy_test)
  (modules dummy_test))
@@ -74,7 +74,7 @@ The output is not very descriptive. If we want to create suites of unit tests, w
 
 Let's modify our dummy test to link to Alcotest:
 
-```dune
+```lisp
 (test
  (name dummy_test)
  (modules dummy_test)

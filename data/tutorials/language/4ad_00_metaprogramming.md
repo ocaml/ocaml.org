@@ -131,7 +131,7 @@ call to an external program, as specified by `(system <program>)`.
 Putting it all together, the following `dune` file would rewrite the corresponding
 module files using our previously written `preprocessor.sh`:
 
-```dune
+```lisp
 (executable
  (name main)
  (preprocess
@@ -392,7 +392,7 @@ But again, since the tool responsible for driving the compilation is Dune, using
 PPXs is just a matter of writing `dune` files. The same `preprocess` stanza
 should be used, this time with `pps`:
 
-```dune
+```lisp
   (preprocess (pps ppx1 ppx2))
 ```
 

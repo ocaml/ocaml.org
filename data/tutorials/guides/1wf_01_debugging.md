@@ -438,7 +438,7 @@ Next, it spawns two parallel `Domain`s `t1` and `t2` that both update
 the field `v.x`.
 
 Here is a corresponding `dune` file:
-```dune
+```lisp
 (executable
  (name race)
  (modules race)

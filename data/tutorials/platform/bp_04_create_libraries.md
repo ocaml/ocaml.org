@@ -14,7 +14,7 @@ category: "Best Practices"
 
 Creating a library with dune is as simple as adding a `library` stanza in your dune file:
 
-```dune
+```lisp
 (library
  (name <name>)
  (public_name <public_name>)
