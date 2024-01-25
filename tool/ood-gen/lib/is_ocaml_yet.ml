@@ -28,7 +28,7 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ body_html ],
+  stable_record ~version:metadata ~remove:[ body_html ] ~modify:[ categories ],
     show { with_path = false }]
 
 let decode (fpath, (head, body_md)) =
@@ -38,24 +38,18 @@ let decode (fpath, (head, body_md)) =
   let body_html =
     Cmarkit.Doc.of_string ~strict:true body_md |> Cmarkit_html.of_doc ~safe:true
   in
-  Result.map
-    (fun (metadata : metadata) ->
-      let categories =
-        List.map
-          (fun category ->
-            {
-              category with
-              description =
-                Cmarkit.Doc.of_string ~strict:true
-                  (String.trim category.description)
-                |> Hilite.Md.transform
-                |> Cmarkit_html.of_doc ~safe:false;
-            })
-          metadata.categories
-      in
-      let metadata : metadata = { metadata with categories } in
-      of_metadata ~body_html metadata)
-    metadata
+  let modify_categories =
+    List.map (fun category ->
+        {
+          category with
+          description =
+            Cmarkit.Doc.of_string ~strict:true
+              (String.trim category.description)
+            |> Hilite.Md.transform
+            |> Cmarkit_html.of_doc ~safe:false;
+        })
+  in
+  Result.map (of_metadata ~body_html ~modify_categories) metadata
 
 let all () = Utils.map_files decode "is_ocaml_yet/*.md"
 
