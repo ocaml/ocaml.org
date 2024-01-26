@@ -62,7 +62,13 @@ Especially since the release of OCaml 5.0 with Multicore support, perhaps our bi
 
 Please don't worry about this too much, as a technical write will review any new documentation or changes to catch these types of things. It's included here for reference, if interested. 
 
-### Active & Unnecessary Words
+### Tone & POV
+We're aiming for a relatively casual tone in these tutorials and other documentation. This means that it should read like you're speaking directly to the reader rather than an academic tone. To this end, it is acceptable to use second person (you), sparingly. 
+
+It's also okay to use first person plural (we, us), sparingly, but don't use the first person singular (I, me), as there isn't an author byline for the reader to know who "I" is. Using "we" can be helpful to write active sentences (more below). 
+
+
+### Active Voice & Unnecessary Words
 Active sentences employ a clear subject that performs an action with a robust verb (e.g., Mary baked the cake.), as opposed to weak verbs such as *occur* and *happen.* Passive sentences typically incorporate '***to be'*** verbs (is, are, were, was, etc.), where the subject undergoes the action (e.g., he cake was baked by Mary). Although it's not possible to avoid all **to be** verbs, try to minimise them when possible. 
 
 The sentences below highlight issues and provide suggestions for improvement:
