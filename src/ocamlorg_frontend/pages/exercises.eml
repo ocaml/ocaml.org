@@ -1,7 +1,8 @@
 let exercises_sidebar_link
 ~title
 ~href =
-    <a class="block text-title dark:text-dark-title border-l py-3 px-5 font-normal text-sm rounded-sm hover:bg-primary_nav_block_hover_10 dark:hover:bg-dark-primary_nav_block_hover_10 hover:border-primary dark:hover:border-dark-primary"
+    <a class="block text-title dark:text-dark-title border-l py-3 px-5 font-normal text-sm rounded-sm"
+    :class='isWithin(scrollY, "<%s href %>", sectionYPositions) ? "bg-primary_nav_block_hover_10 dark:bg-dark-primary_nav_block_hover_10 border-primary dark:border-dark-primary" : "hover:bg-primary_nav_block_hover_10 dark:hover:bg-dark-primary_nav_block_hover_10 hover:border-primary dark:hover:border-dark-primary" '
       href="<%s href %>">
       <%s title %>
     </a>
@@ -11,7 +12,7 @@ title
 link_html
 =
    <details class="flex flex-col">
-      <summary class="flex gap-4 justify-between text-base text-title dark:text-dark-title font-normal py-4 focus:text-primary dark:focus:text-dark-primary active:text-primary  dark:active:text-dark-primary hover:text-primary dark:hover:text-dark-primary">
+      <summary class="flex gap-4 justify-between text-sm text-title dark:text-dark-title font-normal py-4 focus:text-primary dark:focus:text-dark-primary active:text-primary  dark:active:text-dark-primary hover:text-primary dark:hover:text-dark-primary">
         <%s title %>
         <%s! Icons.chevron_down "h-5 w-5" %>
       </summary>
@@ -31,7 +32,13 @@ let exercise_sidebar_links_by_tag ?tag title =
     (Exercise.filter_tag ?tag exercises |> List.fold_left (fun a b -> a ^ render_exercise_link b) "")
   %>
 in
-  <div class="pr-5">
+  <div 
+    x-data='exercises'
+    @scroll.window="scrollY = window.scrollY"
+    @resize.window="setTimeout(() => sectionYPositions = computeSectionYPositions($el), 10)"
+    x-init="setTimeout(() => sectionYPositions = computeSectionYPositions($el), 10)"
+    class="pr-5"
+    >
   <p class="font-normal uppercase mb-4 text-title dark:text-dark-title">Exercise Categories</p>
     <hr class="border-separator_20 dark:border-dark-title">
     <%s! exercise_sidebar_links_by_tag ~tag:"list" "Lists" %>
@@ -64,7 +71,7 @@ let statement_solution_switch =
     <button
       class="px-10 h-11 text-base font-medium rounded-l-md border flex gap-2 items-center"
       x-on:click="statement = true"
-      :class="statement ? 'bg-primary dark:bg-dark-primary border-primary dark:border-dark-primary text-white dark:text-dark-white': 'text-content dark:text-dark-content border-content dark:border-dark-content' "
+      :class="statement ? 'bg-primary dark:bg-dark-primary border-primary dark:border-dark-primary text-white dark:text-dark-white': 'text-separator_20 dark:text-dark-separator_30 border-separator_20 dark:border-dark-separator_30' "
     >
       <%s! exercise_statement "h-5 w-5" %>
       Statement
@@ -72,7 +79,7 @@ let statement_solution_switch =
     <button
       class="px-10 h-11 text-base  font-medium rounded-r-md border-t border-r border-b  flex gap-2 items-center"
       x-on:click="statement = false"
-      :class="statement ? 'text-content dark:text-dark-content border-content dark:border-dark-content': 'bg-secondary dark:bg-dark-secondary border-secondary dark:border-dark-secondary text-white dark:text-dark-white' "
+      :class="statement ? 'text-separator_20 dark:text-dark-separator_30 border-separator_20 dark:border-dark-separator_30': 'bg-secondary dark:bg-dark-secondary border-secondary dark:border-dark-secondary text-white dark:text-dark-white' "
     >
       <%s! exercise_solution "h-5 w-5" %>
       Solution
@@ -153,4 +160,47 @@ Learn_layout.three_column_layout
     <% exercises |> List.iter (fun (exercise : Data.Exercise.t) -> %>
     <%s! render_exercise exercise %>
     <% ); %>
+    <script>
+      document.addEventListener('alpine:init', () => {
+  
+        function computeSectionYPositions(toc_el) {
+          function get_y(href) {
+            let heading = document.getElementById(href.substring(1));
+            return heading.getBoundingClientRect().top + window.scrollY - 60;
+          }
+  
+          let sections = {};
+  
+          let els = toc_el.querySelectorAll("a");
+          let l = els.length;
+          for (let i=0; i<l; i++) {
+            let target_href = els[i].getAttribute("href");
+            let next_el_href = i < l-1 ? els[i+1].getAttribute("href") : null;
+  
+            sections[target_href] = {
+              start: get_y(target_href),
+              end: next_el_href ? get_y(next_el_href) : null,
+            }
+          }
+  
+          return sections;
+        }
+  
+        function isWithin(scrollY, href, sectionYPositions) {
+          if (sectionYPositions == null) return false;
+          return scrollY > sectionYPositions[href].start
+            && (scrollY <= sectionYPositions[href].end || sectionYPositions[href].end == null)
+        }
+  
+        Alpine.data('exercises', () => (
+          {
+            scrollY: window.scrollY,
+            sectionYPositions: null,
+  
+            isWithin,
+            computeSectionYPositions,
+          }
+        ))
+      })
+    </script>
   </div>
