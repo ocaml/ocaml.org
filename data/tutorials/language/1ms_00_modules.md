@@ -258,11 +258,9 @@ Update file `dune`:
 Run the `dune utop` command, it triggers `Exeter`'s compilation, launches `utop` and loads `Exeter`.
 ```ocaml
 # open Exeter;;
-
-
 ```
 
-Type `aleph` is public. Values can be created, such as `x` or read
+Type `aleph` is public. Values can be created or accessed.
 ```ocaml
 # #show bet;;
 Unknown element.
@@ -286,9 +284,9 @@ val gimel_of_bool : bool -> gimel
 - : string = "Christine"
 ```
 
-Type `gimel` is _abstract_. Values are available, but only as function results or arguments. Only the provided functions `gimel_of_bool`, `gimel_flip`, and ` gimel_to_string` and polymorphic functions can receive or return `gimel` values.
+Type `gimel` is _abstract_. Values are available, but only as function result or argument. Only the provided functions `gimel_of_bool`, `gimel_flip`, and ` gimel_to_string` and polymorphic functions can receive or return `gimel` values.
 ```ocaml
-#show dalet;;
+# #show dalet;;
 type dalet = private Dennis of int | Donald of string | Dorothy
 
 # Dennis 42;;
@@ -304,7 +302,7 @@ Error: Cannot create values of the private type Exeter.dalet
 val dalet_to_string : ('a, 'b) Either.t option -> string = <fun>
 ```
 
- The type `dalet` is _read-only_. Pattern matching is possible, but values can only be constructed by the provided functions, here `dalet_to_string`.
+ The type `dalet` is _read-only_. Pattern matching is possible, but values can only be constructed by the provided functions, here `dalet_of`.
 
 Abstract and read-only types can be either variants, as shown in this section, records, or aliases. It is possible to access a read-only record field's value, but creating such a record requires using a provided function.
 
