@@ -150,7 +150,7 @@ val message : string
 val hello : unit -> unit
 ```
 
-Explicitly defining a module interface, allows restricting the default one. It
+Explicitly defining a module interface allows restricting the default one. It
 acts as a mask over the module's implementation. The `cairo.ml` file defines
 `Cairo`'s implementation. Adding a `cairo.mli` file defines `Cairo`'s interface.
 Filenames without extensions must be the same.
