@@ -1,12 +1,11 @@
 ---
 id: debugging
 title: Debugging
+short_title: Debugging
 description: >
   Learn to debug OCaml programs using tracing and ocamldebug
 category: "Guides"
 ---
-
-# Debugging
 
 This tutorial presents four techniques for debugging OCaml programs:
 

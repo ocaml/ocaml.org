@@ -1,12 +1,11 @@
 ---
 id: loops-recursion
 title: Loops and Recursions
+short_title: Loops and Recursions
 description: >
   Learn basic control-flow and recursion in OCaml
 category: "Introduction"
 ---
-
-# Loops and Recursion
 
 As in other OCaml.org documentation, the code examples will either be something you can test or
 an example of code. Code snippets that begin with the CLI prompt `#`, end with `;;`, and have a 

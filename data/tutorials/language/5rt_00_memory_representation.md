@@ -1,6 +1,7 @@
 ---
 id: memory-representation
 title: Memory Representation of Values
+short_title: Memory Representation of Values
 description: >
   Memory Representation of Values, excerpt from Real World OCaml
 category: "Runtime & Compiler"
@@ -16,8 +17,6 @@ external_tutorial:
 ---
 
 This is an adaptation of the chapter [Memory Representation of Values](https://dev.realworldocaml.org/runtime-memory-layout.html) from the book [Real World OCaml](https://dev.realworldocaml.org/), reproduced here with permission.
-
-# Memory Representation of Values
 
 This document covers the precise mapping from OCaml types to runtime values
 and walks you through them via the toplevel. The internal runtime representation of OCaml

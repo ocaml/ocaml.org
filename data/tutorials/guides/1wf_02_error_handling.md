@@ -1,12 +1,11 @@
 ---
 id: error-handling
 title: Error Handling
+short_title: Error Handling
 description: >
   Discover the different ways you can manage errors in your OCaml programs
 category: "Guides"
 ---
-
-# Error Handling
 
 In OCaml, errors can be handled in several ways. This document presents most of
 the available means. However, handling errors using the effect handlers

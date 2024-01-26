@@ -1,12 +1,11 @@
 ---
 id : labels
 title: Labelled and Optional Arguments
+short_title: Labelled and Optional Arguments
 description: >
   Provide labels to your functions arguments
 category: "Introduction"
 ---
-
-# Labelled and Optional Arguments
 
 It is possible to give names and default values to function parameters. This is broadly known as labels. In this tutorial, we learn how to use labels.
 

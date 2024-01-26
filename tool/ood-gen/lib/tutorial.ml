@@ -32,6 +32,7 @@ type recommended_next_tutorials = string list
 type metadata = {
   id : string;
   title : string;
+  short_title : string;
   description : string;
   category : string;
   external_tutorial : external_tutorial option;
@@ -41,6 +42,7 @@ type metadata = {
 
 type t = {
   title : string;
+  short_title : string;
   slug : string;
   fpath : string;
   description : string;
@@ -184,6 +186,7 @@ type external_tutorial =
 type recommended_next_tutorials = string list
 type t =
   { title : string
+  ; short_title: string
   ; fpath : string
   ; slug : string
   ; description : string

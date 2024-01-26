@@ -1,12 +1,11 @@
 ---
 id: basic-data-types
 title: Basic Data Types and Pattern Matching
+short_title: Basic Data Types and Pattern Matching
 description: |
   Predefined Types, Variants, Records, and Pattern Matching
 category: "Introduction"
 ---
-
-# Basic Data Types And Pattern Matching
 
 ## Introduction
 

@@ -196,7 +196,7 @@ let contribute_footer ~href ~description ~recommended_next_tutorials =
         <ul class="list-disc marker:text-primary">
           <% recommended_next_tutorials |> List.iter (fun (tutorial : Data.Tutorial.t) -> %>
             <li class="mb-1">
-              <a href='/docs/<%s tutorial.slug %>'><%s tutorial.title %></a>
+              <a href='/docs/<%s tutorial.slug %>'><%s tutorial.short_title %></a>
             </li>
           <% ); %>
         </ul>

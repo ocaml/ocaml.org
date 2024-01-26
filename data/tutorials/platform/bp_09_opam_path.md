@@ -1,6 +1,7 @@
 ---
 id: "opam-path"
 title: "Running Commands in an opam Switch"
+short_title: "Running Commands in an opam Switch"
 description: |
   How to use commands installed in an opam switch
 category: "Best Practices"

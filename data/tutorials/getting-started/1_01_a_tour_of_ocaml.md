@@ -1,6 +1,7 @@
 ---
 id: tour-of-ocaml
 title: A Tour of OCaml
+short_title: A Tour of OCaml
 description: >
   Hop on the OCaml sightseeing bus. This absolute beginner tutorial will drive you through the marvels and wonders of OCaml. We'll have a look at the most commonly used language features.
 category: "First Steps"
@@ -10,8 +11,6 @@ recommended_next_tutorials:
   - "loops-recursion"
   - "lists"
 ---
-
-# A Tour of OCaml
 
 Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [Your First OCaml Program](/docs/your-first-program) tutorial.
 

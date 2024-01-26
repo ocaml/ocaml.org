@@ -1,13 +1,11 @@
 ---
 id: multicore-transition
-title: Transitioning to Multicore with TSan
+title: Transitioning to Multicore with ThreadSanitizer
+short_title: Transitioning to Multicore with TSan
 description: >
   Learn to make your OCaml code multicore ready with ThreadSanitizer
 category: "Guides"
 ---
-
-
-# Transitioning to Multicore with ThreadSanitizer
 
 The 5.0 release brought Multicore, `Domain`-based parallelism to the
 OCaml language. Parallel `Domain`s performing uncoordinated operations

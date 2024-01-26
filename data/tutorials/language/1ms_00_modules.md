@@ -1,12 +1,11 @@
 ---
 id : modules
 title: Modules
+short_title: Modules
 description: >
   Learn about OCaml modules and how they can be used to cleanly separate distinct parts of your program
 category: "Module System"
 ---
-
-# Modules
 
 ## Basic Usage
 

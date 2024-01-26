@@ -1,6 +1,7 @@
 ---
 id: memoization
 title: Memoization
+short_title: Memoization
 description: >
   Memoization, adapted from OCaml Programming: Correct + Efficient + Beautiful
 category: "Data Structures"
@@ -14,8 +15,6 @@ external_tutorial:
     url: https://github.com/cs3110/textbook/blob/main/src/chapters/ds/memoization.md
     description: "You are encouraged to contribute to the original sources of this page at the CS3110 GitHub repository."
 ---
-
-# Memoization
 
 Memoization is a powerful technique for speeding up simple recursive
 algorithms, without having to change the way the algorithm works. This is done

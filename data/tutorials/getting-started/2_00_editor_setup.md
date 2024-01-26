@@ -1,12 +1,11 @@
 ---
 id: set-up-editor
 title: Configuring Your Editor
+short_title: Configuring Your Editor
 description: |
   This page will show you how to set up your editor for OCaml. 
 category: "Tooling"
 ---
-
-# Configuring Your Editor
 
 While the toplevel is great for interactively trying out the language, we will shortly need to write OCaml files in an editor. We already installed the tools required to enhance Merlin, our editor of choice with OCaml support. Merlin provides all features such as "jump to definition," "show type," and `ocaml-lsp-server`, a server delivers those features to the editor through the LSP server.
 

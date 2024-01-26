@@ -103,7 +103,7 @@ let sidebar
   let render_tutorial_link ~title ~slug =
     sidebar_link ~title ~href:(Url.tutorial slug) ~current:(current_tutorial = Some (slug))
   in
-  let render_tutorial (tutorial : Data.Tutorial.t) = render_tutorial_link ~title:tutorial.title ~slug:tutorial.slug ~tag:(Option.map (fun (et: Data.Tutorial.external_tutorial) -> et.tag) tutorial.external_tutorial) in
+  let render_tutorial (tutorial : Data.Tutorial.t) = render_tutorial_link ~title:tutorial.short_title ~slug:tutorial.slug ~tag:(Option.map (fun (et: Data.Tutorial.external_tutorial) -> et.tag) tutorial.external_tutorial) in
   let tutorial_sidebar_links_by_category category =
     tutorials |> List.filter (fun (x : Data.Tutorial.t) -> x.category = category) |> List.map render_tutorial |> String.concat "\n"
   in

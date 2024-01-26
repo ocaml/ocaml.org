@@ -219,6 +219,7 @@ module Tutorial : sig
 
   type t = {
     title : string;
+    short_title : string;
     fpath : string;
     slug : string;
     description : string;

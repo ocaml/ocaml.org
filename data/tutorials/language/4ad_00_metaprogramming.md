@@ -1,13 +1,12 @@
 ---
 id: metaprogramming
 title: Preprocessors and PPXs
+short_title: Preprocessors and PPXs
 description: |
   An introduction to metaprogramming in OCaml, including preprocessors, PPX
   extensions and the `ppxlib` library.
 category: "Advanced Topics"
 ---
-
-# Preprocessors
 
 Preprocessors are programs meant to be called at compile time, so that they
 alter the program before the actual compilation. They can be very

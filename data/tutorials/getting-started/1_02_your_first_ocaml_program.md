@@ -1,6 +1,7 @@
 ---
 id: your-first-program
 title: Your First OCaml Program
+short_title: Your First OCaml Program
 description: >
   Learn how to write your very first OCaml program.
 category: "First Steps"
@@ -10,8 +11,6 @@ recommended_next_tutorials:
   - "loops-recursion"
   - "lists"
 ---
-
-# Your First OCaml Program
 
 To complete this tutorial, you need to have [installed OCaml](/install). Optionally, we recommend [configuring your editor](/docs/set-up-editor).
 

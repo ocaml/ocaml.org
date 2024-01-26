@@ -1,11 +1,10 @@
 ---
 id: "platform-principles"
 title: "Guiding Principles"
+short_title: "Guiding Principles"
 description: The principles that guide the development of the OCaml Platform.
 category: "OCaml Platform"
 ---
-
-# Guiding Principles
 
 The OCaml Platform is driven by a set of guiding principles, designed to serve
 the community and advance the state of OCaml tooling.
