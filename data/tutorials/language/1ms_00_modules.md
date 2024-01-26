@@ -130,9 +130,9 @@ other modules.
 
 For this, we must distinguish:
 - Implementation, which is a module's actual content.
-- Interface, which is a module's public content list
+- Interface, which is a module's public content list.
 
-A `.ml` file contains a module implementation. By default, without an explicitly
+An `.ml` file contains a module implementation. By default, without an explicitly
 defined interface, an implementation has a default interface where everything is
 public.
 
@@ -153,7 +153,7 @@ val hello : unit -> unit
 Explicitly defining a module interface, allows restricting the default one. It
 acts as a mask over the module's implementation. The `cairo.ml` file defines
 `Cairo`'s implementation. Adding a `cairo.mli` file defines `Cairo`'s interface.
-Filenames, without extensions, must be the same.
+Filenames without extensions must be the same.
 
 To turn `message` into a private definition, don't list it in the `cairo.mli` file:
 <!-- $MDX file=examples/cairo.mli -->
