@@ -164,7 +164,7 @@ val hello : unit -> unit
 
 **Note**: The double asterisk at the beginning of the comment indicates a
 comment meant for API documentation tools, such as
-[odoc](https://github.com/ocaml/odoc). It is a good habit to document `.mli`
+[`odoc`](https://github.com/ocaml/odoc). It is a good habit to document `.mli`
 files using the format supported by this tool.
 
 The file `delhi.ml` defines the program calling `Cairo`:
@@ -238,7 +238,7 @@ type date = { day : int; month : int; year : int }
 There are four options when it comes to writing the `.mli` file:
 
 1. The type is completely omitted from the signature. In that case, the type is private. It can't be used from outside the module.
-2. The type definition is copy-pasted into the signature. In that case, the type is public. It can be used
+2. The type definition is copy-pasted into the signature. In that case, the type is public. It can be used.
 3. The type is made abstract: only its name is given.
 4. The record fields are made read-only: `type date = private { ... }`.
 
