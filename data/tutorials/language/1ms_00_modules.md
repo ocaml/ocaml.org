@@ -211,146 +211,164 @@ This triggers a compilation error.
 Function and value definitions are either public or private. That also applies
 to type definitions, but there are two more cases.
 
-Create files named `exeter.ml` and `exeter.ml` with the following contents:
+Create files named `exeter.mli` and `exeter.ml` with the following contents:
 
-**`exeter.ml`**
-```ocaml
-type measure_unit = Metric | Imperial
-type length = unit * i
-type meter = int
-type date = { day : int; month : int; year : int }
-```
-
-**`exeter.mli`**
-```ocaml
-type unit = Metric | Imperial
-type meter
-type date = private { day : int; month : int; year : int }
-```
-
-But modules often define new types. Let's define a record type that
-would represent a date:
+**Interface: `exeter.mli`**
 
 ```ocaml
-type date = { day : int; month : int; year : int }
+
+type aleph = Ada | Alan | Alonzo
+
+type gimel
+val gimel_of_bool : bool -> gimel
+val gimel_flip : gimel -> gimel
+val gimel_to_string : gimel -> string
+
+type dalet = private Dennis of int | Donald of string | Dorothy
+val dalet_of : (int, string) Either.t option -> dalet
 ```
 
-There are four options when it comes to writing the `.mli` file:
-
-1. The type is completely omitted from the signature. In that case, the type is private. It can't be used from outside the module.
-2. The type definition is copy-pasted into the signature. In that case, the type is public. It can be used.
-3. The type is made abstract: only its name is given.
-4. The record fields are made read-only: `type date = private { ... }`.
-
-Case 3 would look like this:
+**Implementation: `exeter.ml`**
 
 ```ocaml
-type date
+type aleph = Ada | Alan | Alonzo
+
+type bet = bool
+
+type gimel = Christos | Christine
+
+let gimel_of_bool b = if (b : bet) then Christos else Christine
+let gimel_flip = function Christos -> Christine | Christine -> Christos
+let gimel_to_string x = "Christ" ^ match x with Christos -> "os" | _ -> "ine"
+
+type dalet = Dennis of int | Donald of string | Dorothy
+let dalet_of = function
+  | None -> Dorothy
+  | Some (Either.Left x) -> Dennis x
+  | Some (Either.Right x) -> Donald x
 ```
 
-Now, users of the module can manipulate objects of type `date`, but they can't
-access the record fields directly. They must use the functions that the module
-provides. Let's assume the module provides three functions: one for creating a
-date, one for computing the difference between two dates, and one that returns
-the date in years:
 
-<!-- $MDX skip -->
+Update file `dune`:
+```lisp
+(executables (names berlin delhi) (modules berlin delhi))
+(library (name exeter) (modules exeter) (modes byte))
+```
+
+Run the `dune utop` command, it triggers `Exeter`'s compilation, launches `utop` and loads `Exeter`.
 ```ocaml
-type date
+# open Exeter;;
 
-val create : ?days:int -> ?months:int -> ?years:int -> unit -> date
 
-val sub : date -> date -> date
-
-val years : date -> float
 ```
 
-The point is that only `create` and `sub` can be used to create `date` records.
-Therefore, it is not possible for the user to create ill-formed
-records. Actually, our implementation uses a record, but we could change it and
-be sure that it will not break any code relying on this module! This makes
-a lot of sense in a library because subsequent versions of it can
-continue to expose the same interface while internally changing the
-implementation, including data structures.
+Type `aleph` is public. Values can be created, such as `x` or read
+```ocaml
+# #show bet;;
+Unknown element.
+```
 
-Case 4
+Type `bet` is private, it is not available outside of the implementation where it is defined, here `Exeter`.
+```ocaml
+# #show gimel;;
+type gimel
+
+# Christos;;
+Error: Unbound constructor Christos
+
+# #show_val gimel_of_bool;;
+val gimel_of_bool : bool -> gimel
+
+# true |> gimel_of_bool |> gimel_to_string;;
+- : string = "Christos"
+
+# true |> gimel_of_bool |> gimel_flip |> gimel_to_string;;
+- : string = "Christine"
+```
+
+Type `gimel` is _abstract_. Values are available, but only as function results or arguments. Only the provided functions `gimel_of_bool`, `gimel_flip`, and ` gimel_to_string` and polymorphic functions can receive or return `gimel` values.
+```ocaml
+#show dalet;;
+type dalet = private Dennis of int | Donald of string | Dorothy
+
+# Dennis 42;;
+Error: Cannot create values of the private type Exeter.dalet
+
+# dalet_of (Some (Either.Left 10));;
+- : dalet = Dennis 10
+
+# let dalet_to_string = function
+  | None -> "Dorothy"
+  | Some (Either.Left _) -> "Dennis"
+  | Some (Either.Right _) -> "Donald";;
+val dalet_to_string : ('a, 'b) Either.t option -> string = <fun>
+```
+
+ The type `dalet` is _read-only_. Pattern matching is possible, but values can only be constructed by the provided functions, here `dalet_to_string`.
+
+Abstract and read-only types can be either variants, as shown in this section, records, or aliases. It is possible to access a read-only record field's value, but creating such a record requires using a provided function.
 
 ## Submodules
 
 ### Submodule Implementation
 
-We saw that one `fairbanks.ml` file results automatically in the module
-implementation named `Exeter`. Its module signature is automatically derived
-and is the broadest possible, or it can be restricted by writing an `fairbanks.mli`
-file.
+A module can be defined inside another module. That makes it a _submodule_.
+Let's consider the files `florence.ml` and `glasgow.ml`
 
-That said, a given module can also be defined explicitly from within a file.
-That makes it a submodule of the current module. Let's consider this
-`fairbanks.ml` file:
-
+**`florence.ml`**
 ```ocaml
 module Hello = struct
-  let message = "Hello"
-  let hello () = print_endline message
+  let message = "Hello from Florence"
+  let print () = print_endline message
 end
 
-let goodbye () = print_endline "Goodbye"
-
-let hello_goodbye () =
-  Hello.hello ();
-  goodbye ()
+let print_goodbye () = print_endline "Goodbye"
 ```
 
-From another file, we now have two levels of modules. We can
-write:
-
-<!-- $MDX skip -->
+**`glasgow.ml`**
 ```ocaml
 let () =
-  Exeter.Hello.hello ();
-  Exeter.goodbye ()
+  Florence.Hello.print ();
+  Florence.print_goodbye ()
 ```
+
+The module `Hello` is a submodule of module `Florence`.
 
 ### Submodule Interface
 
-We can also restrict the interface of a submodule. It is called a module
-type. Let's do it in our `fairbanks.ml` file:
-
+We can also restrict the interface of a submodule. Here is a second version of the `florence.ml` file:
 ```ocaml
 module Hello : sig
- val hello : unit -> unit
+ val print : unit -> unit
 end = struct
   let message = "Hello"
-  let hello () = print_endline message
+  let print () = print_endline message
 end
 
-(* At this point, Hello.message is not accessible anymore. *)
-
-let goodbye () = print_endline "Goodbye"
-
-let hello_goodbye () =
-  Hello.hello ();
-  goodbye ()
+let print_goodbye () = print_endline "Goodbye"
 ```
 
-The definition of the `Hello` module above is the equivalent of a
-`hello.mli`, `hello.ml` pair of files. Writing all of that in one block of code
-is not elegant, so in general, we prefer to define the module signature
-separately:
+The first version made `Florence.Hello.message` public. In this version it can't be accessed from `glasgow.ml`.
 
-<!-- $MDX skip -->
+### Interfaces are Types
+
+The role played by interfaces to implementations is akin to the role played by types to values. Here is third possible way to write file `florence.ml`:
 ```ocaml
-module type Hello_type = sig
- val hello : unit -> unit
+module type HelloType = sig
+  val hello : unit -> unit
 end
 
-module Hello : Hello_type = struct
-  ...
+module Hello : HelloType = struct
+  let message = "Hello"
+  let print () = print_endline message
 end
+
+let print_goodbye () = print_endline "Goodbye"
 ```
 
-`Hello_type` is a named module type and can be reused to define other module
-interfaces.
+The interface used previously for `Florence.Hello` is turned into a `module type` called `HelloType`. Later, when defining `Florence.Hello`, it is annotated with `HelloType` as a value could be. The `HelloType` acts as a type alias.
+
+This allows writing once interfaces shared by several modules. An implementation satisfies any module type listing some of its contents. This implies a module may have several types and there are subtyping relationship between module types.
 
 ## Module Manipulation
 
