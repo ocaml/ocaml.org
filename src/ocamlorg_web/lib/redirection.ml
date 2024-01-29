@@ -198,13 +198,15 @@ let from_v2 =
     ( "/learn/tutorials/compiling_ocaml_projects.html",
       Url.tutorial "compiling-ocaml-projects" );
     ( "/learn/tutorials/data_types_and_matching.fr.html",
-      Url.tutorial "basic-data-types" ); 
+      Url.tutorial "basic-data-types" );
     ( "/learn/tutorials/data_types_and_matching.it.html",
       Url.tutorial "basic-data-types" );
     ( "/learn/tutorials/data_types_and_matching.ja.html",
       Url.tutorial "basic-data-types" );
     ("/learn/tutorials/data_types_and_matching.html", Url.tutorial "basic-data-types");
     ( "/learn/tutorials/data_types_and_matching.zh.html",
+      Url.tutorial "basic-data-types" );
+    ( Url.tutorial "data-types",
       Url.tutorial "basic-data-types" );
     ("/learn/tutorials/debug.html", Url.tutorial "debugging");
     ("/learn/tutorials/error_handling.html", Url.tutorial "error-handling");
@@ -215,6 +217,18 @@ let from_v2 =
       Url.tutorial "file-manipulation" );
     ("/learn/tutorials/format.fr.html", Url.tutorial "formatting-text");
     ("/learn/tutorials/format.html", Url.tutorial "formatting-text");
+    (* FIXME: uncomment when higher-order-functions is merged
+    ( "/learn/tutorials/functional_programming.fr.html",
+      Url.tutorial "higher-order-functions" );
+    ( "/learn/tutorials/functional_programming.it.html",
+      Url.tutorial "higher-order-functions" );
+    ( "/learn/tutorials/functional_programming.ja.html",
+      Url.tutorial "higher-order-functions" );
+    ( "/learn/tutorials/functional_programming.html",
+      Url.tutorial "higher-order-functions" );
+    ( "/learn/tutorials/functional_programming.zh.html",
+      Url.tutorial "higher-order-functions" );
+    *)
     ("/learn/tutorials/functors.html", Url.tutorial "functors");
     ( "/learn/tutorials/garbage_collection.ja.html",
       Url.tutorial "garbage-collection" );
@@ -256,6 +270,11 @@ let from_v2 =
     ("/learn/tutorials/map.ja.html", Url.tutorial "map");
     ("/learn/tutorials/map.html", Url.tutorial "map");
     ("/learn/tutorials/map.zh.html", Url.tutorial "map");
+    ("/learn/tutorials/modules.fr.html", Url.tutorial "modules");
+    ("/learn/tutorials/modules.ja.html", Url.tutorial "modules");
+    ("/learn/tutorials/modules.ko.html", Url.tutorial "modules");
+    ("/learn/tutorials/modules.html", Url.tutorial "modules");
+    ("/learn/tutorials/modules.zh.html", Url.tutorial "modules");
     ("/learn/tutorials/objects.ja.html", Url.tutorial "objects");
     ("/learn/tutorials/objects.html", Url.tutorial "objects");
     ("/learn/tutorials/objects.zh.html", Url.tutorial "objects");
@@ -268,6 +287,7 @@ let from_v2 =
     ("/learn/tutorials/set.ja.html", Url.tutorial "sets");
     ("/learn/tutorials/set.html", Url.tutorial "sets");
     ("/learn/tutorials/set.zh.html", Url.tutorial "sets");
+    ("/learn/tutorials/streams.html", Url.tutorial "sequences");
     ("/learn/tutorials/up_and_running.html", Url.tutorial "up-and-running");
     (Url.tutorial "first-hour", Url.tutorial "tour-of-ocaml");
     ("/meetings/index.fr.html", Url.community);
