@@ -203,11 +203,11 @@ let from_v2 =
       Url.tutorial "basic-data-types" );
     ( "/learn/tutorials/data_types_and_matching.ja.html",
       Url.tutorial "basic-data-types" );
-    ("/learn/tutorials/data_types_and_matching.html", Url.tutorial "basic-data-types");
+    ( "/learn/tutorials/data_types_and_matching.html",
+      Url.tutorial "basic-data-types" );
     ( "/learn/tutorials/data_types_and_matching.zh.html",
       Url.tutorial "basic-data-types" );
-    ( Url.tutorial "data-types",
-      Url.tutorial "basic-data-types" );
+    (Url.tutorial "data-types", Url.tutorial "basic-data-types");
     ("/learn/tutorials/debug.html", Url.tutorial "debugging");
     ("/learn/tutorials/error_handling.html", Url.tutorial "error-handling");
     ( "/learn/tutorials/file_manipulation.ja.html",
@@ -217,18 +217,17 @@ let from_v2 =
       Url.tutorial "file-manipulation" );
     ("/learn/tutorials/format.fr.html", Url.tutorial "formatting-text");
     ("/learn/tutorials/format.html", Url.tutorial "formatting-text");
-    (* FIXME: uncomment when higher-order-functions is merged
-    ( "/learn/tutorials/functional_programming.fr.html",
-      Url.tutorial "higher-order-functions" );
-    ( "/learn/tutorials/functional_programming.it.html",
-      Url.tutorial "higher-order-functions" );
-    ( "/learn/tutorials/functional_programming.ja.html",
-      Url.tutorial "higher-order-functions" );
-    ( "/learn/tutorials/functional_programming.html",
-      Url.tutorial "higher-order-functions" );
-    ( "/learn/tutorials/functional_programming.zh.html",
-      Url.tutorial "higher-order-functions" );
-    *)
+    (* FIXME: uncomment when higher-order-functions is merged (
+       "/learn/tutorials/functional_programming.fr.html", Url.tutorial
+       "higher-order-functions" ); (
+       "/learn/tutorials/functional_programming.it.html", Url.tutorial
+       "higher-order-functions" ); (
+       "/learn/tutorials/functional_programming.ja.html", Url.tutorial
+       "higher-order-functions" ); (
+       "/learn/tutorials/functional_programming.html", Url.tutorial
+       "higher-order-functions" ); (
+       "/learn/tutorials/functional_programming.zh.html", Url.tutorial
+       "higher-order-functions" ); *)
     ("/learn/tutorials/functors.html", Url.tutorial "functors");
     ( "/learn/tutorials/garbage_collection.ja.html",
       Url.tutorial "garbage-collection" );
