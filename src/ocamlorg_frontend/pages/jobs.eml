@@ -6,7 +6,7 @@ OCaml community."
 ~canonical:Url.jobs
 ~active_top_nav_item:Header.Community
 ~current:Jobs @@
-<div class="w-full section-mild-contrast dark:section-blue-gradient pt-16 pb-16">
+<div class="w-full intro-section-simple dark:dark-intro-section-simple">
     <div class="container-fluid">
         <div class="w-full m-auto">
             <h1 class="text-title dark:text-dark-title font-bold mb-2">OCaml Job Board</h1>
