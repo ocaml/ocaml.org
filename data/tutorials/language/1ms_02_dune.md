@@ -1,12 +1,11 @@
 ---
 id: libraries-dune
 title: Libraries With Dune
+short_title: Libraries With Dune
 description: >
   Dune provides several means to arrange modules into libraries. We look at Dune's mechanisms for structuring projects with libraries that contain modules.
 category: "Module System"
 ---
-
-# Libraries With Dune
 
 ## Introduction
 
