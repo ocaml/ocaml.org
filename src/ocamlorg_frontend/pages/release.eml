@@ -20,10 +20,10 @@ Layout.render
         </div>
     </div>
 </div>
-<div class="bg-legacy-default dark:bg-legacy-dark-default">
+<div class="bg-white dark:bg-dark-content">
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
-            <div class="prose prose-orange lg:prose-lg mx-auto max-w-5xl">
+            <div class="prose dark:prose-invert prose-orange lg:prose-lg mx-auto max-w-5xl">
                 <%s! release.body_html %>
               </div>
         </div>
