@@ -321,7 +321,7 @@ Definitions from a submodule are accessed by chaining module names, here
 
 ### Submodule With Signatures
 
-To define an interface to a submodule, we can provide a _module signature_. This
+To define a submodule's interface, we can provide a _module signature_. This
 is done in this second version of the `florence.ml` file:
 ```ocaml
 module Hello : sig
@@ -426,7 +426,13 @@ reset.
 
 ## Conclusion
 
-In OCaml, modules are the basic means of organising software. To sum up, a module is a collection of definitions wrapped under a name. These definitions can be submodules, which allows the creation of hierarchies of modules. Top-level modules must be files and are the units of compilation. Every module has an interface, which is the list of definitions a module exposes. By default, a module's interface exposes all its definitions, but this can be restricted using the interface syntax.
+In OCaml, modules are the basic means of organising software. To sum up, a
+module is a collection of definitions wrapped under a name. These definitions
+can be submodules, which allows the creation of hierarchies of modules.
+Top-level modules must be files and are the units of compilation. Every module
+has an interface, which is the list of definitions a module exposes. By default,
+a module's interface exposes all its definitions, but this can be restricted
+using the interface syntax.
 
 Going further, here are the other means to handle OCaml software components:
 - Functors, which act like functions from modules to modules
