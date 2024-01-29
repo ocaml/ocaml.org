@@ -4,23 +4,23 @@ Layout.render
 ~description:(Option.value ~default:blog_post.title blog_post.description)
 ~canonical:(Url.blog_post blog_post.source.id blog_post.slug)
 ~active_top_nav_item:Blog @@
-<div class="bg-legacy-default dark:bg-legacy-dark-default py-24">
+<div class="bg-white dark:bg-dark-background py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">
       <div class="flex flex-wrap gap-4">
         <a href="<%s Url.blog %>"
-          class="text-primary hover:underline font-semibold mb-4">
+          class="text-primary dark:text-dark-primary hover:underline font-semibold mb-4">
           <div>OCaml Planet</div>
         </a>
-        /
+        <span class="text-content dark:text-dark-content">/</span>
         <a href="<%s Url.local_blog blog_post.source.id %>"
-          class="text-primary hover:underline font-semibold mb-4">
+          class="text-primary dark:text-dark-primary hover:underline font-semibold mb-4">
           <div><%s blog_post.source.name %></div>
         </a>
       </div>
     </div>
 
-    <article class="prose prose-orange mx-auto max-w-5xl">
+    <article class="prose dark:prose-invert prose-orange mx-auto max-w-5xl">
       <header>
         <h1><%s blog_post.title %></h1>
         <% (match blog_post.authors with None -> () | Some authors -> %>

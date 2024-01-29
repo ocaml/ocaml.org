@@ -3,28 +3,28 @@ Layout.render
 ~title:"OCaml Changelog"
 ~canonical:(Url.changelog ^ if current_page = 1 then "" else "?p=" ^ string_of_int current_page)
 ~description:"Read the latest releases and updates from the OCaml ecosystem." @@
-<div class="bg-legacy-default dark:bg-legacy-dark-default py-24">
+<div class="bg-white dark:bg-dark-background py-24">
   <div class="container-fluid">
     <div>
       <div class="flex items-center">
-        <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-zinc-800">
+        <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-title dark:text-dark-title">
           OCaml Changelog
         </h1>
-        <a href="/changelog.xml" class="text-content dark:text-dark-title hover:text-tertiary_25 dark:hover:text-dark-primary ml-4 lg:ml-6">
+        <a href="/changelog.xml" class="text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary ml-4 lg:ml-6">
           <span class="sr-only">RSS</span>
           <%s! Icons.rss "h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" %>
         </a>
       </div>
 
-      <p class="text-lg text-legacy-lighter mt-6">Read the latest releases and updates from the OCaml ecosystem.</p>
+      <p class="text-lg text-content dark:text-dark-content mt-6">Read the latest releases and updates from the OCaml ecosystem.</p>
     </div>
   </div>
 
-  <div class="border-b border-solid border-zinc-300 py-6 leading-5 text-zinc-800">
-    <div class="mx-auto max-w-screen-xl px-6 leading-5 text-zinc-800 sm:px-10 lg:px-6">
+  <div class="border-b border-solid border-separator_20 dark:border-dark-separator_30 py-6 leading-5 text-content dark:text-dark-content">
+    <div class="mx-auto max-w-screen-xl px-6 leading-5 text-content dark:text-dark-content sm:px-10 lg:px-6">
       <form action="<%s Url.changelog %>" method="GET">
         <label for="t" class="sr-only">Tag</label>
-        <select id="t" name="t" onchange="this.form.submit()" class="mt-2 block w-48 rounded-md border-0 py-1.5 pl-3 pr-10 text-legacy-default ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-orange-600 sm:text-sm sm:leading-6">
+        <select id="t" name="t" onchange="this.form.submit()" class="mt-2 block w-48 rounded-md border-0 py-1.5 pl-3 pr-10 text-content dark:text-dark-content ring-1 ring-inset bg-white dark:bg-dark-card ring-separator_20 dark:ring-dark-separator_30 focus:ring-2 focus:ring-primary dark:focus:ring-dark-primary sm:text-sm sm:leading-6">
           <option value="" <%s if current_tag = None then "selected" else "" %>>All Tags</option>
           <% tags |> List.iter (fun item -> %>
           <option value="<%s item %>" <%s if current_tag = (Some item) then "selected" else "" %>><%s item %></option>
@@ -35,31 +35,31 @@ Layout.render
   </div>
 
   <div class="container-fluid">
-    <div class="mt-20 md:pl-8 md:border-l-2">
+    <div class="mt-20 md:pl-8 md:border-l-2 border-separator_20 dark:border-dark-separator_30">
       <div class="flex flex-col gap-6 lg:gap-8 mx-auto">
         <% news |> List.iter (fun (item : Data.Changelog.t) -> %>
         <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
           <div class="relative md:w-72 pb-6 lg:pb-8">
             <div class="sticky" style="top: 128px; word-break: keep-all;">
-              <div class="hidden md:absolute md:block -left-11 bg-legacy-default dark:bg-legacy-dark-default w-6 h-6 mt-0.5 text-primary">
+              <div class="hidden md:absolute md:block -left-11 bg-white dark:bg-dark-background w-6 h-6 mt-0.5 text-primary dark:text-dark-primary">
                 <%s! Icons.changelog "w-6 h-6" %>
               </div>
               <h2
-                class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 changelog-title">
+                class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 text-title dark:text-dark-title">
                 <a href="<%s Url.changelog_entry item.slug %>"><%s item.title %></a>
               </h2>
-              <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-legacy-lighter"><%s Utils.human_date item.date %></time>
+              <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-content dark:text-dark-content"><%s Utils.human_date item.date %></time>
               <% (match item.tags with [] -> () | _ ->  %>
               <div class="mt-3 flex flex-row flex-wrap justify-start gap-4">
                 <% item.tags |> List.iter (fun tag -> %>
-                <a href="<%s Url.changelog %>?t=<%s tag %>" class="whitespace-nowrap rounded-full dark:bg-legacy-dark-default px-4 py-2.5 text-sm font-semibold shadow-sm <%s if current_tag = (Some tag) then "bg-primary text-white hover:bg-legacy-primary-800" else "bg-legacy-default text-legacy-default hover:bg-gray-50 ring-1 ring-inset ring-gray-300" %>"><%s tag %></a>
+                <a href="<%s Url.changelog %>?t=<%s tag %>" class="whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold <%s if current_tag = (Some tag) then "bg-primary dark:bg-dark-primary text-white dark:text-dark-white hover:bg-primary_dark dark:hover:bg-dark-card_hover" else "bg-white dark:bg-dark-card_hover text-title dark:text-dark-title hover:bg-tertiary_25 dark:hover:bg-dark-primary_nav_block_hover_10 border border-separator_20 dark:border-dark-separator_30" %>"><%s tag %></a>
                 <% ); %>
               </div>
               <% ); %>
             </div>
           </div>
-          <div class="grow border-b border-gray-300 border-solid pb-6 lg:pb-8">
-            <div class="prose prose-orange">
+          <div class="grow border-b border-separator_20 dark:border-dark-separator_30 border-solid pb-6 lg:pb-8">
+            <div class="prose dark:prose-invert prose-orange">
               <%s! item.body_html %>
               <% (match item.changelog_html with | None -> () | Some changelog -> %>
               <details>
@@ -74,7 +74,7 @@ Layout.render
         <%s! Pagination.render ~total_page_count:number_of_pages ~page_number:current_page ~base_url:Url.changelog ~queries:(match current_tag with Some current_tag -> [("t", current_tag)] | None -> [])%>
       </div>
     </div>
-    <div class="prose max-w-none mt-8">
+    <div class="prose dark:prose-invert max-w-none mt-8">
           If you want to contribute to a new release announcement, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-changelog" target="_blank">Contributing Guide</a> on GitHub.
         </div>
   </div>
