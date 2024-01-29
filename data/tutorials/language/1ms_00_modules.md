@@ -157,7 +157,7 @@ val hello : unit -> unit
 (** [hello ()] displays a greeting message. *)
 ```
 
-**Note**: The double asterisk at the beginning of the comment indicates a
+**Note**: The double asterisk at the beginning indicates a
 comment meant for API documentation tools, such as
 [`odoc`](https://github.com/ocaml/odoc). It is a good habit to document `.mli`
 files using the format supported by this tool.
@@ -169,7 +169,7 @@ The file `delhi.ml` defines the program calling `Cairo`:
 let () = Cairo.hello ()
 ```
 
-Update the `dune` file to allow the compilation of this example aside from the
+Update the `dune` file to allow this example's compilation aside from the
 previous one.
 <!-- $MDX dir=examples -->
 <<<<<<< HEAD
@@ -255,7 +255,7 @@ Update file `dune`:
 (library (name exeter) (modules exeter) (modes byte))
 ```
 
-Run the `dune utop` command, it triggers `Exeter`'s compilation, launches `utop` and loads `Exeter`.
+Run the `dune utop` command. This triggers `Exeter`'s compilation, launches `utop`, and loads `Exeter`.
 ```ocaml
 # open Exeter;;
 
@@ -269,7 +269,7 @@ Type `aleph` is public. Values can be created or accessed.
 Unknown element.
 ```
 
-Type `bet` is private, it is not available outside of the implementation where it is defined, here `Exeter`.
+Type `bet` is private. It is not available outside of the implementation where it is defined, here `Exeter`.
 ```ocaml
 # #show gimel;;
 type gimel
@@ -287,7 +287,7 @@ val gimel_of_bool : bool -> gimel
 - : string = "Christine"
 ```
 
-Type `gimel` is _abstract_. Values can be created or manipulated, but only as function results or arguments. Only the provided functions `gimel_of_bool`, `gimel_flip`, and `gimel_to_string` or polymorphic functions can receive or return `gimel` values.
+Type `gimel` is _abstract_. Values can be created or manipulated, but only as function results or arguments. Just the provided functions `gimel_of_bool`, `gimel_flip`, and `gimel_to_string` or polymorphic functions can receive or return `gimel` values.
 ```ocaml
 # #show dalet;;
 type dalet = private Dennis of int | Donald of string | Dorothy
@@ -333,12 +333,12 @@ let () =
   Florence.print_goodbye ()
 ```
 
-Definitions from a submodule are access by chaining module names, here
+Definitions from a submodule are accessed by chaining module names, here
 `Florence.Hello.print`.
 
-### Submodule with Signatures
+### Submodule With Signatures
 
-To define an interface to a submodule we can provide a _module signature_. This
+To define an interface to a submodule, we can provide a _module signature_. This
 is done in this second version of the `florence.ml` file:
 ```ocaml
 module Hello : sig
@@ -369,9 +369,9 @@ end
 let print_goodbye () = print_endline "Goodbye"
 ```
 
-First, we define a `module type` called `HelloType` which defines the same module interface as previously. Instead of providing the signature when defining the `Hello` module, we use the `HelloType` module type.
+First, we define a `module type` called `HelloType`, which defines the same module interface as before. Instead of providing the signature when defining the `Hello` module, we use the `HelloType` module type.
 
-This allows writing interfaces shared by several modules. An implementation satisfies any module type listing some of its contents. This implies a module may have several types and there is a subtyping relationship between module types.
+This allows writing interfaces shared by several modules. An implementation satisfies any module type listing some of its contents. This implies a module may have several types and that there is a subtyping relationship between module types.
 
 ## Module Manipulation
 
