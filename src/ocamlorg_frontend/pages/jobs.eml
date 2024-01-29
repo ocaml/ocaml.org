@@ -5,11 +5,11 @@ Layout.render
 OCaml community."
 ~canonical:Url.jobs
 ~active_top_nav_item:Header.Community @@
-<div class="w-full section-mild-contrast dark:dark-no-mild-contrast pt-48 pb-24">
+<div class="w-full section-mild-contrast dark:section-blue-gradient pt-16 pb-16">
     <div class="container-fluid">
-        <div class="text-center w-full lg:w-2/3 m-auto">
-            <h1 class="text-title dark:text-dark-title font-bold mb-6">OCaml Job Board</h1>
-            <p class="text-content dark:text-dark-content">This is a space where groups, companies, and organisations can advertise their projects directly to the
+        <div class="w-full m-auto">
+            <h1 class="text-title dark:text-dark-title font-bold mb-2">OCaml Job Board</h1>
+            <p class="text-content dark:text-dark-content text-xl lg:max-w-[80%]">This is a space where groups, companies, and organisations can advertise their projects directly to the
                 OCaml community.</p>
         </div>
     </div>
@@ -44,29 +44,31 @@ OCaml community."
             <% jobs |> List.iter (fun (item : Data.Job.t) -> %>
             <a href="<%s item.link %>"
                 target="_blank"
-                class="card dark:dark-card p-5 rounded-xl"
+                class="card dark:dark-card rounded-xl overflow-hidden"
                 :class="{ 'hidden': location != 'All' && ([<%s! String.concat "," (List.map (fun s -> "\'" ^ Dream.html_escape s ^ "\'") item.locations) %>].indexOf(location) == -1)  }">
-                <div class="w-max bg-inherit dark:bg-white"><img class="mb-4 max-h-8 max-w-[7rem]" src="<%s item.company_logo %>" alt=""></div>
-                <p class="text-base mb-2 text-content dark:text-dark-content opacity-80">
-                    <%s item.company %>
-                </p>
-                <p class="text-lg mb-4 font-bold text-title dark:text-dark-title truncate">
-                    <%s item.title %>
-                </p>
-                <div class="flex items-center space-x-2">
-                    <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary"  %>
-                    <p class="text-title dark:text-dark-title">
-                        <%s String.concat ", " item.locations %>
+                <div class="w-full bg-inherit bg-white dark:bg-dark-white flex justify-center items-center px-2-5 py-6"><img class="max-h-8 max-w-[7rem]" src="<%s item.company_logo %>" alt=""></div>
+                <div class="p-5">
+                    <p class="text-base mb-2 text-content dark:text-dark-content opacity-80">
+                        <%s item.company %>
                     </p>
-                </div>
-                <% (match item.publication_date with None -> () | Some date -> %>
-                <div class="flex items-center space-x-2 mt-2">
-                    <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary"  %>
-                    <p class="text-content dark:text-dark-content">
-                        <%s date %>
+                    <p class="text-lg mb-4 font-bold text-title dark:text-dark-title truncate">
+                        <%s item.title %>
                     </p>
+                    <div class="flex items-center space-x-2">
+                        <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary"  %>
+                        <p class="text-title dark:text-dark-title">
+                            <%s String.concat ", " item.locations %>
+                        </p>
+                    </div>
+                    <% (match item.publication_date with None -> () | Some date -> %>
+                    <div class="flex items-center space-x-2 mt-2">
+                        <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary"  %>
+                        <p class="text-content dark:text-dark-content">
+                            <%s date %>
+                        </p>
+                    </div>
+                    <% ); %>
                 </div>
-                <% ); %>
             </a>
             <% ); %>
         </div>
