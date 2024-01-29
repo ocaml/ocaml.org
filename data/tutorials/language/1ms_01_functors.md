@@ -3,34 +3,33 @@ id: functors
 title: Functors
 short_title: Functors
 description: >
-  Functors essentially work the same way as functions. The difference is that we are passing modules instead of values.
+  In OCaml, a functor is a function at the module-level. Functors take modules as arguments and return a new module.
 category: "Module System"
 ---
 
 ## Introduction
 
-In this tutorial, we look at how to use a functor, how to write a functor, and show a couple of use cases involving functors.
+In this tutorial, we look at how to apply functors and how to write functors. We also show some use cases involving functors.
 
-As suggested by the name, a _functor_ is almost like a function. However, while functions are between values, functors are between modules. A functor takes a module as a parameter and returns a module as a result. A functor is a parametrised module.
-
-In mathematics, [functor](https://en.wikipedia.org/wiki/Functor) means something different. You don't need to know about those functors to understand OCaml's.
+As suggested by the name, a _functor_ is almost like a function. However, while functions are between values, functors are between modules. A functor takes a module as a parameter and returns a module as a result. A functor in OCaml is a parametrised module, not to be confused with a [functor in mathematics](https://en.wikipedia.org/wiki/Functor).
 
 **Prerequisites**: [Modules](/docs/modules).
 
 ## Project Setup
 
-This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have installed version 3.7 or later. We start by creating a fresh project. We need a folder named `funkt` with files `dune-project`, `dune`, and `funkt.ml`. The latter two are created empty.
+This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have installed version 3.7 or later. We start by creating a fresh project. We need a folder named `funkt` with files `dune-project`, `dune`, and `funkt.ml`.
+
 ```shell
 $ mkdir funkt; cd funkt
 ```
 
-**`dune-project`**
+Place the following in the file **`dune-project`**:
 ```lisp
 (lang dune 3.7)
 (package (name funkt))
 ```
 
-**`dune`**
+The content of the file **`dune`** should be this:
 ```lisp
 (executable
   (name funkt)
@@ -38,32 +37,31 @@ $ mkdir funkt; cd funkt
   (libraries str))
 ```
 
-Check this works using the `dune exec funkt` command, it shouldn't do anything (the empty file is valid OCaml syntax) but it shouldn't fail either. The stanza `libraries str` will be used later.
+Create an empty file `funkt.ml`.
+
+Check that this works using the `dune exec funkt` command. It shouldn't do anything (the empty file is valid OCaml syntax), but it shouldn't fail either. The stanza `libraries str` makes the `Str` module (which we will use later) available.
 
 ## Using an Existing Functor: `Set.Make`
 
-The standard library contains a [`Set`](/api/Set.html) module providing a data structure that allows set operations like union and intersection. You may check the [Set](/docs/sets) tutorial to learn more about this module, but it is not required to follow the present tutorial. To use the provided type and its associated [functions](/api/Set.S.html), it's necessary to use the functor provided by `Set`. For reference only, here is a shortened version of the interface of `Set`:
+The standard library contains a [`Set`](/api/Set.html) module which is designed to handle sets. This module enables you to perform operations such as union, intersection, and difference on sets. You may check the [Set](/docs/sets) tutorial to learn more about this module, but it is not required to follow the present tutorial.
+
+To create a set module for a given element type (which allows you to use the provided type and its associated [functions](/api/Set.S.html)), it's necessary to use the functor `Set.Make` provided by the `Set` module. For reference only, here is a shortened version of the interface of `Set`:
 ```ocaml
 module type OrderedType = sig
   type t
   val compare : t -> t -> int
 end
 
-module type S = sig
-  (** This is the module's signature returned by applying `Make` *)
-end
-
 module Make : functor (Ord : OrderedType) -> S
 ```
 
-Here is how this reads (starting from the bottom-up, then going up):
+Here is how this reads (starting from the bottom, then going up):
 * Like a function (indicated by the arrow `->`), the functor `Set.Make`
-  - takes a module having `Set.OrderedType` as signature and
-  - returns a module having `Set.S` as signature
-* The module type `Set.S` is the signature of some sort of set
-* The module type `Set.OrderedType` is the signature of elements of a
+  - takes a module with signature `Set.OrderedType` and
+  - returns a module with signature [`Set.S`](/api/Set.S.html)
+* The module type `Set.OrderedType` requires a type `t` and a function `compare`, which are used to perform the comparisons between elements of the set.
 
-**Note**: Most set operation implementations must use a comparison function. Using `Stdlib.compare` would make it impossible to use a user-defined comparison algorithm. Passing the comparison function as a higher-order parameter, as done in `Array.sort`, for example, would add a lot of boilerplate code. Providing set operations as a functor allows specifying the comparison function only once.
+**Note**: Most set operations need to compare elements to check if they are the same. To allow using a user-defined comparison algorithm, the `Set.Make` functor takes a module the specifies both the element type `t` and the `compare` function. Passing the comparison function as a higher-order parameter, as done in `Array.sort`, for example, would add a lot of boilerplate code. Providing set operations as a functor allows specifying the comparison function only once.
 
 Here is what it can look like in our project:
 
