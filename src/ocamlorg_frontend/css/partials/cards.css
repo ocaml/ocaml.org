@@ -1,6 +1,6 @@
 @layer utilities {
   .resources-card {
-    @apply rounded-xl py-12 px-8 text-white bg-opacity-5 bg-legacy-default dark:bg-legacy-dark-default transform hover:scale-105 transition-transform;
+    @apply rounded-xl py-12 px-8 text-white dark:text-dark-white bg-opacity-5 bg-white dark:bg-dark-background transform hover:scale-105 transition-transform;
   }
   
   .legacy-card-hover {

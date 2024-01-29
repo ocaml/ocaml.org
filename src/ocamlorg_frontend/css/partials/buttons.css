@@ -1,6 +1,6 @@
 @layer components {
   .btn {
-    @apply rounded bg-primary border border-primary font-normal text-lg text-white whitespace-nowrap transition-colors inline-flex items-center justify-center space-x-3 dark:border-dark-primary dark:bg-dark-primary dark:text-white;
+    @apply rounded bg-primary border border-primary font-normal text-lg text-white whitespace-nowrap transition-colors inline-flex items-center justify-center space-x-3 dark:border-dark-primary dark:bg-dark-primary dark:text-dark-white;
   }
 
   .btn {
@@ -56,20 +56,20 @@
   }
 
   .btn-ghost:active {
-    @apply  text-white bg-primary_dark;
+    @apply text-white bg-primary_dark;
   }
 
 
   /* TODO: remove when no longer in use */
   .btn-legacy-tertiary {
-    @apply bg-transparent border border-white text-white;
+    @apply bg-transparent border border-white dark:border-dark-white text-white dark:text-dark-white;
   }
 
   .btn-legacy-tertiary:hover {
-    @apply bg-legacy-default dark:bg-legacy-dark-default bg-opacity-10 border-white;
+    @apply bg-content dark:bg-dark-content bg-opacity-10 border-white dark:border-dark-white;
   }
 
   .btn-legacy-tertiary:active {
-    @apply bg-legacy-default dark:bg-legacy-dark-default bg-opacity-20;
+    @apply bg-content dark:bg-dark-content bg-opacity-10;
   }
 }
