@@ -19,10 +19,10 @@ Learn_layout.single_column_layout
         <div>
           <form action="<%s Url.tutorial_search %>" method="GET">
             <%s! Forms.search_input
-                ~name:"q"
-                ~label:"Search inside the OCaml documentation"
-                ~button_attrs:{|type="submit"|}
-                "mb-4" %>
+              ~name:"q"
+              ~label:"Search inside the OCaml documentation"
+              ~button_attrs:{|type="submit"|}
+              "mb-4" %>
           </form>
         </div>
       </div>

@@ -173,32 +173,45 @@ let collect_section (blocks : Cmarkit.Block.t list) :
       Ok (("", collected_blocks), remaining_blocks)
   | [] -> Error (`Msg "empty list in the document")
 
-(* TODO: List items, Block quotes, Link definition yet to be converted to
-   string *)
 let rec block_to_string (block : Cmarkit.Block.t) : string =
   match block with
+  | Cmarkit.Block.Blank_line _ -> ""
+  | Cmarkit.Block.Block_quote (p, _) ->
+      Cmarkit.Block.Block_quote.block p |> block_to_string
+  | Cmarkit.Block.Code_block _ -> ""
   | Cmarkit.Block.Heading (h, _) ->
       Cmarkit.Block.Heading.inline h
       |> Cmarkit.Inline.to_plain_text ~break_on_soft:false
       |> List.flatten |> String.concat "\n"
-  | Cmarkit.Block.Blank_line _ -> ""
-  | Cmarkit.Block.Paragraph (p, _) ->
-      Cmarkit.Block.Paragraph.inline p
-      |> Cmarkit.Inline.to_plain_text ~break_on_soft:false
-      |> List.flatten |> String.concat "\n"
   | Cmarkit.Block.Html_block (block_lines, _) ->
-      let block_line_to_string (block_line : Cmarkit.Block_line.t) : string =
-        Cmarkit.Block_line.to_string block_line
-      in
       let rec block_lines_to_string (block_lines : Cmarkit.Block_line.t list) :
           string =
         match block_lines with
         | [] -> ""
-        | h :: t -> block_line_to_string h ^ "\n" ^ block_lines_to_string t
+        | h :: t ->
+            Cmarkit.Block_line.to_string h ^ "\n" ^ block_lines_to_string t
       in
       block_lines_to_string block_lines
+  | Cmarkit.Block.List (l, _) ->
+      let items =
+        Cmarkit.Block.List'.items l |> List.map (fun (item, _) -> item)
+      in
+      items
+      |> List.map Cmarkit.Block.List_item.block
+      |> List.map block_to_string |> String.concat "\n"
+  | Cmarkit.Block.Link_reference_definition (l, _) ->
+      Cmarkit.Link_definition.label l
+      |> Option.map Cmarkit.Label.text
+      |> Option.value ~default:[]
+      |> List.map Cmarkit.Block_line.tight_to_string
+      |> String.concat " "
+  | Cmarkit.Block.Paragraph (p, _) ->
+      Cmarkit.Block.Paragraph.inline p
+      |> Cmarkit.Inline.to_plain_text ~break_on_soft:false
+      |> List.flatten |> String.concat "\n"
   | Cmarkit.Block.Blocks (blocks, _) ->
       blocks |> List.map block_to_string |> String.concat "\n"
+  | Cmarkit.Block.Thematic_break _ -> ""
   | _ -> ""
 
 let rec collect_all_sections (section_blocks : Cmarkit.Block.t list) =
