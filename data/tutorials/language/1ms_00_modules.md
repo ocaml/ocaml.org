@@ -171,34 +171,17 @@ let () = Cairo.hello ()
 
 Update the `dune` file to allow this example's compilation aside from the
 previous one.
-<!-- $MDX dir=examples -->
-<<<<<<< HEAD
-```bash
-<<<<<<< HEAD
-$ echo "(executables (names bmodule bmodule2))" > dune
-$ opam exec -- dune build
-$ opam exec -- dune exec ./bmodule.exe
-Hello
-$ opam exec -- dune exec ./bmodule2.exe
-Hello 2
-=======
-$ echo "(executables (names berlin delhi))" > dune
-
-$ dune build
-=======
 ```lisp
 (executables (names berlin delhi))
 ```
->>>>>>> 68015412 (Review edits)
 
 Compile and execute both programs:
 ```shell
-$ dune exec ./berlin.exe
+$ opam exec -- dune exec ./berlin.exe
 Hello from Athens
 
-$ dune exec ./delhi.exe
+$ opam exec -- dune exec ./delhi.exe
 Hello from Cairo
->>>>>>> 5196e1c0 (Refresh modules.md text)
 ```
 
 You can check that `Cairo.message` is not public by attempting to compile a `delhi.ml` file containing:
