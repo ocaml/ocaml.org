@@ -2,21 +2,21 @@ let render () =
 Layout.render
 ~title:"Page Not Found"
 ~description:"This page does not exist." @@
-<div class="bg-legacy-default dark:bg-legacy-dark-default px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
+<div class="bg-white dark:bg-dark-background px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
   <div class="sm:flex max-w-max mx-auto">
-    <p class="text-4xl font-extrabold text-primary sm:text-5xl">404</p>
+    <p class="text-4xl font-extrabold text-primary dark:text-dark-primary sm:text-5xl">404</p>
     <div class="sm:ml-6">
-      <div class="sm:border-l sm:border-gray-200 sm:pl-6">
-        <h1 class="text-4xl font-extrabold text-legacy-default tracking-tight sm:text-5xl">Page not found</h1>
-        <p class="mt-1 text-base text-gray-500">Please check the URL in the address bar and try again.</p>
+      <div class="sm:border-l sm:border-separator_20 dark:sm:border-dark-separator_30 sm:pl-6">
+        <h1 class="text-4xl font-extrabold text-title dark:text-dark-title tracking-tight sm:text-5xl">Page not found</h1>
+        <p class="mt-1 text-base text-content dark:text-dark-content">Please check the URL in the address bar and try again.</p>
       </div>
       <div class="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
         <a href="/"
-          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white dark:text-dark-white  bg-primary dark:bg-dark-primary hover:bg-primary_dark dark:hover:bg-dark-primary_40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-dark-primary">
           Go Back Home
         </a>
         <a href="https://github.com/ocaml/ocaml.org/issues"
-          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-orange-700 bg-orange-100 hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary dark:text-dark-primary bg-primary_25 dark:bg-dark-primary_20 hover:bg-primary_40 dark:hover:bg-dark-primary_40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-dark-primary">
           Open an Issue
         </a>
       </div>
