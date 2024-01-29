@@ -218,6 +218,14 @@ module Tutorial : sig
   type recommended_next_tutorials = string list
   type prerequisite_tutorials = string list
 
+  type document = {
+    title : string;
+    category : string;
+    section_heading : string;
+    content : string;
+    slug : string;
+  }
+
   type t = {
     title : string;
     short_title : string;
@@ -235,6 +243,7 @@ module Tutorial : sig
   }
 
   val all : t list
+  val all_document : document list
   val get_by_slug : string -> t option
 end
 

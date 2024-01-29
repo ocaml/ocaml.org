@@ -72,6 +72,34 @@ let paginate ~req ~n items =
   in
   (page, number_of_pages, current_items)
 
+let learn_documents_search req =
+  let search_keyword = Dream.query req "q" in
+  let search_documents keyword (documents : Data.Tutorial.document list) =
+    let is_match (doc : Data.Tutorial.document) (keyword : string) =
+      let keyword = String.lowercase_ascii keyword in
+      let search_in_field field =
+        try
+          let regexp = Str.regexp_string keyword in
+          Str.search_forward regexp field 0 >= 0
+        with Not_found -> false
+      in
+      search_in_field doc.title
+      || search_in_field doc.section_heading
+      || search_in_field doc.content
+    in
+    List.filter (fun doc -> is_match doc keyword) documents
+  in
+  let keyword = Option.value ~default:"" search_keyword in
+  let documents = Data.Tutorial.all_document in
+  let searched_docs = search_documents keyword documents in
+  let page, number_of_pages, current_items =
+    paginate ~req ~n:50 searched_docs
+  in
+  let total = List.length searched_docs in
+  Dream.html
+    (Ocamlorg_frontend.tutorial_search current_items ~total ~page
+       ~number_of_pages ~search:keyword)
+
 let changelog req =
   let current_tag = Dream.query req "t" in
   let tags =

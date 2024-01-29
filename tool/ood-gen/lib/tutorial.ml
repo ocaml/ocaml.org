@@ -44,6 +44,15 @@ type metadata = {
 }
 [@@deriving of_yaml]
 
+type document = {
+  title : string;
+  category : string;
+  section_heading : string;
+  content : string;
+  slug : string;
+}
+[@@deriving show { with_path = false }]
+
 type t = {
   title : string;
   short_title : string;
@@ -127,6 +136,106 @@ let toc ?(start_level = 1) ?(max_level = 2) doc =
     invalid_arg "toc: ~max_level must be >= ~start_level";
   create_toc ~max_level start_level (headers doc)
 
+let rec flatten_block (block : Cmarkit.Block.t) : Cmarkit.Block.t list =
+  match block with
+  | Cmarkit.Block.Blocks (blocks, _) ->
+      blocks |> List.map flatten_block |> List.flatten (*flatten the blocks *)
+  | x -> [ x ]
+
+let rec collect_blocks_until_heading (block : Cmarkit.Block.t list) acc =
+  match block with
+  | [] -> (acc, [])
+  | Cmarkit.Block.Heading (_, _) :: _ -> (acc, block)
+  | Cmarkit.Block.Blocks (blocks, _) :: _ ->
+      blocks |> collect_blocks_until_heading []
+  | h :: t -> collect_blocks_until_heading t (h :: acc)
+
+(* collects a section by its heading and content *)
+let collect_section (blocks : Cmarkit.Block.t list) :
+    ( (string * Cmarkit.Block.t list) * Cmarkit.Block.t list,
+      [> `Msg of string ] )
+    result =
+  match blocks with
+  | Cmarkit.Block.Heading (h, _) :: t ->
+      let collected_blocks, remaining_blocks =
+        collect_blocks_until_heading t []
+      in
+      Ok
+        ( ( Cmarkit.Block.Heading.inline h
+            |> Cmarkit.Inline.to_plain_text ~break_on_soft:false
+            |> List.flatten |> String.concat "\n",
+            collected_blocks ),
+          remaining_blocks )
+  | _ :: t ->
+      let collected_blocks, remaining_blocks =
+        collect_blocks_until_heading t []
+      in
+      Ok (("", collected_blocks), remaining_blocks)
+  | [] -> Error (`Msg "empty list in the document")
+
+(* TODO: List items, Block quotes, Link definition yet to be converted to
+   string *)
+let rec block_to_string (block : Cmarkit.Block.t) : string =
+  match block with
+  | Cmarkit.Block.Heading (h, _) ->
+      Cmarkit.Block.Heading.inline h
+      |> Cmarkit.Inline.to_plain_text ~break_on_soft:false
+      |> List.flatten |> String.concat "\n"
+  | Cmarkit.Block.Blank_line _ -> ""
+  | Cmarkit.Block.Paragraph (p, _) ->
+      Cmarkit.Block.Paragraph.inline p
+      |> Cmarkit.Inline.to_plain_text ~break_on_soft:false
+      |> List.flatten |> String.concat "\n"
+  | Cmarkit.Block.Html_block (block_lines, _) ->
+      let block_line_to_string (block_line : Cmarkit.Block_line.t) : string =
+        Cmarkit.Block_line.to_string block_line
+      in
+      let rec block_lines_to_string (block_lines : Cmarkit.Block_line.t list) :
+          string =
+        match block_lines with
+        | [] -> ""
+        | h :: t -> block_line_to_string h ^ "\n" ^ block_lines_to_string t
+      in
+      block_lines_to_string block_lines
+  | Cmarkit.Block.Blocks (blocks, _) ->
+      blocks |> List.map block_to_string |> String.concat "\n"
+  | _ -> ""
+
+let rec collect_all_sections (section_blocks : Cmarkit.Block.t list) =
+  match collect_section section_blocks with
+  | Ok (section, remaining_blocks) ->
+      if remaining_blocks <> [] then
+        section :: collect_all_sections remaining_blocks
+      else [ section ]
+  | Error (`Msg msg) -> failwith msg
+
+let document_from_section ((heading : string), (content : Cmarkit.Block.t list))
+    ~(metadata : metadata) : document =
+  let section_document =
+    {
+      title = metadata.title;
+      category = metadata.category;
+      section_heading = heading;
+      content = content |> List.map block_to_string |> String.concat "\n";
+      slug = metadata.id;
+    }
+  in
+  section_document
+
+let decode_document (_fpath, (head, body_md)) :
+    (document list, [> `Msg of string ]) result =
+  match metadata_of_yaml head with
+  | Ok metadata ->
+      let content_blocks =
+        body_md |> Cmarkit.Doc.of_string |> Cmarkit.Doc.block
+      in
+      let document =
+        content_blocks |> flatten_block |> collect_all_sections
+        |> List.map (document_from_section ~metadata)
+      in
+      Ok document
+  | Error msg -> Error msg
+
 exception Missing_Tutorial of string
 
 let check_tutorial_references all =
@@ -164,6 +273,9 @@ let all () =
   Utils.map_files decode "tutorials/*.md"
   |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
 
+let all_document () : document list =
+  Utils.map_files decode_document "tutorials/*.md" |> List.flatten
+
 let template () =
   let _ = check_tutorial_references @@ all () in
 
@@ -177,6 +289,7 @@ type toc =
   ; href : string
   ; children : toc list
   }
+
 type contribute_link =
   { url : string
   ; description : string
@@ -193,6 +306,15 @@ type external_tutorial =
   }
 type recommended_next_tutorials = string list
 type prerequisite_tutorials = string list
+
+type document = 
+{ title : string
+  ; category : string
+  ; section_heading : string
+  ; content : string
+  ; slug : string
+}
+
 type t =
   { title : string
   ; short_title: string
@@ -210,6 +332,9 @@ type t =
   }
   
 let all = %a
+let all_document = %a 
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
     (all ())
+    (Fmt.brackets (Fmt.list pp_document ~sep:Fmt.semi))
+    (all_document ())

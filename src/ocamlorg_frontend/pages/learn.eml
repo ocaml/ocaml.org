@@ -16,6 +16,15 @@ Learn_layout.single_column_layout
         <div class="text-content dark:text-dark-content my-6 max-w-md">
           You can explore the OCaml documentation, Platform Tools, guides, exercises, and books to enhance your knowledge.
         </div>
+        <div>
+          <form action="<%s Url.tutorial_search %>" method="GET">
+            <%s! Forms.search_input
+                ~name:"q"
+                ~label:"Search inside the OCaml documentation"
+                ~button_attrs:{|type="submit"|}
+                "mb-4" %>
+          </form>
+        </div>
       </div>
 
       <div class="flex flex-col gap-6 md:gap-10 md:w-80">
