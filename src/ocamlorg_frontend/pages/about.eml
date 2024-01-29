@@ -3,36 +3,36 @@ Layout.render
 ~title:"Why OCaml?"
 ~description:"OCaml is a mature, statically-typed, functional programming language. Learn more about its rich history and what makes it unique."
 ~canonical:Url.about @@
-<div class="intro-section-simple">
+<div class="intro-section-simple dark:dark-intro-section-simple">
   <div class="container-fluid">
     <div class="text-center w-full lg:w-2/3 m-auto">
-      <h1 class="font-bold mb-6">Why OCaml?</h1>
+      <h1 class="font-bold mb-6 text-title dark:text-dark-title">Why OCaml?</h1>
       <div class="flex items-center justify-center space-x-8 mt-11 lg:space-x-24">
         <div>
           <a
-            class="hover:text-primary rounded-lg hover:bg-legacy-primary-100 h-28 w-28 inline-block transition-colors"
+            class="hover:text-primary dark:hover:text-dark-primary hover:bg-primary_25 dark:hover:bg-dark-primary_20 rounded-lg h-28 w-28 inline-block transition-colors"
             href="#strength"
           >
             <%s! Icons.lightning "h-10 w-10 mb-4 m-auto mt-6" %>
-            <div class="font-semibold text-lg">Strengths</div>
+            <div class="font-semibold text-lg text-content dark:text-dark-content">Strengths</div>
           </a>
         </div>
         <div>
           <a
-            class="hover:text-primary h-28 w-28 rounded-lg hover:bg-legacy-primary-100 inline-block transition-colors"
+            class="hover:text-primary dark:hover:text-dark-primary hover:bg-primary_25 dark:hover:bg-dark-primary_20 h-28 w-28 rounded-lg inline-block transition-colors"
             href="#history"
           >
             <%s! Icons.clock "h-10 w-10 mb-4 m-auto mt-6" %>
-            <div class="font-semibold text-lg">History</div>
+            <div class="font-semibold text-lg text-content dark:text-dark-content">History</div>
           </a>
         </div>
         <div>
           <a
-            class="hover:text-primary h-28 w-28 rounded-lg hover:bg-legacy-primary-100 inline-block transition-colors"
+            class="hover:text-primary dark:hover:text-dark-primary hover:bg-primary_25 dark:hover:bg-dark-primary_20 h-28 w-28 rounded-lg inline-block transition-colors"
             href="#features"
           >
             <%s! Icons.features "h-10 w-10 mb-4 m-auto mt-6" %>
-            <div class="font-semibold text-lg">Features</div>
+            <div class="font-semibold text-lg text-content dark:text-dark-content">Features</div>
           </a>
         </div>
       </div>
@@ -40,10 +40,10 @@ Layout.render
   </div>
 </div>
 
-<div class="bg-legacy-default dark:bg-legacy-dark-default">
+<div class="bg-white dark:bg-dark-background">
   <div class="py-10 lg:py-28">
     <div class="container-fluid">
-      <div class="prose lg:prose-lg mx-auto max-w-5xl">
+      <div class="prose dark:prose-invert lg:prose-lg mx-auto max-w-5xl">
         <h2 id="strength">Why OCaml?</h2>
         <div class="space-y-10">
           <p>
