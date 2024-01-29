@@ -60,8 +60,10 @@ type t = {
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
-let decode (_, (head, body_md)) =
-  let metadata = metadata_of_yaml head in
+let decode (fpath, (head, body_md)) =
+  let metadata =
+    metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+  in
   let doc = Cmarkit.Doc.of_string body_md in
   let body_html = Cmarkit_html.of_doc ~safe:true doc in
   Result.map (of_metadata ~body_md ~body_html) metadata

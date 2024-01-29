@@ -1,6 +1,7 @@
 ---
 id: garbage-collector
 title: Understanding the Garbage Collector
+short_title: Understanding the Garbage Collector
 description: >
   Understanding the Garbage Collector, excerpt from Real World OCaml
 category: "Runtime & Compiler"
@@ -16,9 +17,6 @@ external_tutorial:
 ---
 
 This is an adaptation of the chapter [Understanding the Garbage Collector](https://dev.realworldocaml.org/garbage-collector.html) from the book [Real World OCaml](https://dev.realworldocaml.org/), reproduced here with permission.
-
-
-# Understanding the Garbage Collector
 
 *This chapter includes contributions from Stephen Weeks and Sadiq Jaffer.*
 

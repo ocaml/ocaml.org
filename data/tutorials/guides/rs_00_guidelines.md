@@ -1,12 +1,11 @@
 ---
 id: guidelines
 title: OCaml Programming Guidelines
+short_title: OCaml Programming Guidelines
 description: >
   Opinionated guidelines for writing OCaml code
 category: "Resources"
 ---
-
-# OCaml Programming Guidelines
 
 This is a set of reasonable guidelines for writing OCaml
 programs that reflect the consensus among veteran OCaml
@@ -175,7 +174,7 @@ let rec print_lambda lam =
   | App (l1, l2) ->
      printf "(%a %a)" print_lambda l1 print_lambda l2
 ```
-####  Usage in Module iIterface
+####  Usage in Module Interface
 The function's usage must appear in the module's interface that
 exports it, not in the program that implements it. Choose comments as
 in the OCaml system's interface modules, which will subsequently automatically

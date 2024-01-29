@@ -127,12 +127,6 @@ module Industrial_user : sig
   val get_by_slug : string -> t option
 end
 
-module Packages : sig
-  type t = { featured : string list }
-
-  val all : t
-end
-
 module Paper : sig
   type link = { description : string; uri : string }
 
@@ -225,6 +219,7 @@ module Tutorial : sig
 
   type t = {
     title : string;
+    short_title : string;
     fpath : string;
     slug : string;
     description : string;
@@ -234,7 +229,7 @@ module Tutorial : sig
     body_md : string;
     toc : toc list;
     body_html : string;
-    recommended_next_tutorials : recommended_next_tutorials option;
+    recommended_next_tutorials : recommended_next_tutorials;
   }
 
   val all : t list

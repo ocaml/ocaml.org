@@ -1,19 +1,16 @@
 ---
 id: your-first-program
 title: Your First OCaml Program
+short_title: Your First OCaml Program
 description: >
   Learn how to write your very first OCaml program.
 category: "First Steps"
-recommended_next_tutorials: 
-  [
-    "values-and-functions",
-    "basic-data-types",
-    "if-statements-and-loops",
-    "lists"
-  ]
+recommended_next_tutorials:
+  - "values-and-functions"
+  - "basic-data-types"
+  - "loops-recursion"
+  - "lists"
 ---
-
-# Your First OCaml Program
 
 To complete this tutorial, you need to have [installed OCaml](/install). Optionally, we recommend [configuring your editor](/docs/set-up-editor).
 
@@ -134,70 +131,103 @@ This replaces the function `print_endline` with the function `printf` from the `
 
 Each OCaml file defines a module, once compiled. This is how separate compilation works in OCaml. Each sufficiently standalone concern should be isolated into a module. References to external modules create dependencies. Circular dependencies between modules are not allowed.
 
-To create a module, let's create a new file named `lib/hello.ml` containing this:
+To create a module, let's create a new file named `lib/en.ml` containing this:
 ```ocaml
-let world = "Hello from a module"
+let v = "Hello, world!"
 ```
 
 Here is a new version of the `bin/main.ml` file:
 ```ocaml
-let () = Printf.printf "%s\n" Hello.world
+let () = Printf.printf "%s\n" Hello.En.v
 ```
 
 Now execute the resulting project:
 ```shell
 $ opam exec -- dune exec hello
-Hello from a module
+Hello, world!
 ```
 
-The file `lib/hello.ml` creates the module named `Hello`, which in turn defines a string value named `world`. This definition is referred to as `Hello.world` from the `bin/main.ml` file.
+The file `lib/en.ml` creates the module named `En`, which in turn defines a string value named `v`. Dune wraps `En` into another module called `Hello`; this name is defined by the stanza `name hello` in the file `lib/dune`. The string definition is `Hello.En.v` from the `bin/main.ml` file.
+
 
 Dune can launch UTop to access the modules exposed by a project interactively. Here's how:
 ```shell
 $ opam exec -- dune utop
 ```
 
-Then, inside the `utop` toplevel, it is possible to inspect our `Hello` module:
+Then, inside the `utop` toplevel, it is possible to inspect our `Hello.En` module:
 ```ocaml
-# #show Hello;;
-module Hello : sig val world : string end
+# #show Hello.En;;
+module Hello : sig val v : string end
 ```
 
 Now exit `utop` with `Ctrl-D` or enter `#quit;;` before going to the next section.
 
+**Note**: If you add a file named `hello.ml` in the `lib` folder, Dune will consider this the whole `Hello` module and it will make `En` unreachable. If you want your module `En` to be visible, you need to add this in your `hello.ml` file:
+```ocaml
+module En = En
+```
+<!-- FIXME refer to Dune/Library tutorial when available -->
+
 ## Defining Module Interfaces
 
-UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. The module interface file corresponding to a module file must have the same base name, e.g., `hello.mli` is the module interface for module `hello.ml`. Create a `lib/hello.mli` file with this content:
+UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. The module interface file corresponding to a module file must have the same base name, e.g., `en.mli` is the module interface for module `en.ml`. Create a `lib/en.mli` file with this content:
 ```ocaml
-val world : string
+val v : string
 ```
 
-Observe that only the list of declarations of the module signature (which is between `sig` and `end` in the output from `#show`) has been written in the interface file `lib/hello.mli`. This is explained in more detail in the tutorial dedicated to [modules](/docs/modules).
+Observe that only the list of the module signature's declarations (which is between `sig` and `end` in the `#show` output) has been written in the interface file `lib/en.mli`. This is explained in more detail in the tutorial dedicated to [modules](/docs/modules).
 
 Module interfaces are also used to create _private_ definitions. A module definition is private if it is not listed in its corresponding module interface. If no module interface file exists, everything is public.
 
-In your preferred editor, amend the `lib/hello.ml` file to add the `mundo` definition. Replace what's there with the following:
+Amend the `lib/en.ml` file in your preferred editor; replace what's there with the following:
 
 ```ocaml
-let mundo = "¡Hola Mundo!"
-let world = mundo
+let hello = "Hello"
+let v = hello ^ ", world!"
 ```
 
 Also edit the `bin/main.ml` file like this:
 ```ocaml
-let () = Printf.printf "%s\n" Hello.mundo
+let () = Printf.printf "%s\n" Hello.En.hello
 ```
 
 Trying to compile this fails.
 ```shell
 $ opam exec -- dune build
-File "hello/bin/main.ml", line 1, characters 30-41:
-1 | let () = Printf.printf "%s\n" Hello.mundo
-                                  ^^^^^^^^^^^
-Error: Unbound value Hello.mundo
+File "hello/bin/main.ml", line 1, characters 30-43:
+1 | let () = Printf.printf "%s\n" Hello.En.hello
+                                  ^^^^^^^^^^^^^^
+Error: Unbound value Hello.En.hello
 ```
 
-This is because we haven't changed `lib/hello.mli`. Since it does not list `mundo`, it is therefore private.
+This is because we haven't changed `lib/en.mli`. Since it does not list
+`hello`, it is therefore private.
+
+## Defining Multiple Modules in a Library
+Multiple modules can be defined in a single library. To demonstrate this,
+create a new file named `lib/es.ml` with the following content:
+
+```ocaml
+let v = "¡Hola, mundo!"
+```
+
+And use the new module in `bin/main.ml`:
+```ocaml
+let () = Printf.printf "%s\n" Hello.Es.v
+let () = Printf.printf "%s\n" Hello.En.v
+```
+
+Finally, run `dune build` and `dune exec hello` to see the new output, using the modules
+you just created in the `hello` library.
+
+```shell
+$ opam exec -- dune exec hello
+¡Hola, mundo!
+Hello, world!
+```
+
+A more detailed introduction to modules can be found at [Modules](/docs/modules).
 
 ## Installing and Using Modules From a Package
 
@@ -212,10 +242,10 @@ This tutorial requires at least version `1.0.0~alpha5` of Dream. You can verify 
 
 Next, run the Dream web server in the `bin/main.ml` file by changing the code to read:
 ```ocaml
-let () = Dream.(run (router [ get "/" (fun (_ : request) -> html Hello.world) ]))
+let () = Dream.(run (router [ get "/" (fun (_ : request) -> html Hello.En.v) ]))
 ```
 
-This gives us a web server that responds with the content of `Hello.world` to HTTP requests to the '/' path. Refer to the [Dream documentation](https://aantron.github.io/dream/) for more information.
+This gives us a web server. It responds to HTTP '/' requests with the content of `Hello.En.v`. Refer to the [Dream documentation](https://aantron.github.io/dream/) for more information.
 
 <!-- TODO: we have to probably refer to the Dream docs for an explanation
 Before detailing how things work, let's explain how Dream types works.
@@ -227,9 +257,9 @@ Let's detail the roles of each piece:
 - `router` turns a list of `route` values into a single handler binding them together.
 - `get "/"` declares a route, HTTP GET requests to the `/` path are handled by the provided function.
 - `(fun (_ : request) -> ...)` this a handler function. The typed pattern `(_ : request)` means the data from the request is ignored.
-- `html Hello.world` has type `response promise`. When data inside the promise becomes available, the server will send it, too. In our case, it is immediately available as it is a static constant stored in memory.
+- `html Hello.En.v` has type `response promise`. When data inside the promise becomes available, the server will send it, too. In our case, it is immediately available as it is a static constant stored in memory.
 
-In summary, this is telling: “run a web server responding with the content of `Hello.world` to requests to the '/' path”
+In summary, this is telling: “run a web server responding with the content of `Hello.En.v` to requests to the '/' path”
 
 The `Dream.(` syntax stands for locally opening a module inside an expression.
 -->
@@ -254,7 +284,7 @@ $ opam exec -- dune exec hello
 Then test from the first terminal:
 ```shell
 $ curl http://localhost:8080/
-¡Hola Mundo!
+Hello, world!
 ```
 
 ## Using the Preprocessor to Generate Code
@@ -276,31 +306,31 @@ Here is the meaning of the two new lines:
 - `(libraries ppx_show.runtime)` means our project is using definitions found in the `ppx_show.runtime` library, provided by the package `ppx_show`;
 - `(preprocess (pps ppx_show))` means that before compilation the source needs to be transformed using the preprocessor provided by the package `ppx_show`.
 
-The files `lib/hello.ml` and `lib/hello.mli` need to be edited, too:
+The files `lib/en.ml` and `lib/en.mli` need to be edited, too:
 
-**`lib/hello.mli`**
+**`lib/en.mli`**
 ```ocaml
 val string_of_string_list : string list -> string
-val world : string list
+val v : string list
 ```
 
-**`lib/hello.ml`**
+**`lib/en.ml`**
 ```ocaml
 let string_list_pp = [%show: string list]
 
 let string_of_string_list = Format.asprintf "@[%a@]" string_list_pp
 
-let world = String.split_on_char ' ' "Hello using an opam library"
+let v = String.split_on_char ' ' "Hello using an opam library"
 ```
 
 Let's read this from the bottom up:
-- `world` has the type `string list`. We're using `String.split_on_char` to turn a `string` into a `string list` by splitting the string on space characters.
+- `v` has the type `string list`. We're using `String.split_on_char` to turn a `string` into a `string list` by splitting the string on space characters.
 - `string_of_string_list` has type `string list -> string`. This converts a list of strings into a string, applying the expected formatting.
 - `string_list_pp` has type `Format.formatter -> string list -> unit`, which means it is a custom formatter that turns a `string list` into a `string` (this type does not appear in the signature).
 
 Finally, you'll also need to edit `bin/main.ml`
 ```ocaml
-let () = print_endline Hello.(string_of_string_list world)
+let () = print_endline Hello.En.(string_of_string_list v)
 ```
 
 Here is the result:

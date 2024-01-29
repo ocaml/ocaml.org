@@ -1,12 +1,11 @@
 ---
 id: map
 title: Map
+short_title: Map
 description: >
   Create a mapping using the standard library's Map module
 category: "Data Structures"
 ---
-
-# Map
 
 ## Module Map
 

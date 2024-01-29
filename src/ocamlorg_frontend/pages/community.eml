@@ -17,213 +17,210 @@ Layout.render
 ~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!"
 ~canonical:Url.community
 ~active_top_nav_item:Header.Community @@
-<div class="intro-section-simple">
-  <div class="container-fluid">
-    <div class="text-center w-full lg:w-2/3 m-auto">
-      <h1 class="font-bold mb-6">The OCaml Community</h1>
-      <p>Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!</p>
-      <a href="https://discuss.ocaml.org/" class="btn btn-lg btn-ghost mt-8">Go to Discuss Forums</a>
+<div class="w-full border-b bg-[#D5E4E0] dark:bg-[#0D2C2E] md:bg-transparent dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/community/hero-background.svg')] dark:md:bg-[url('/img/community/dark-hero-background.svg')]">
+  <div class="w-full max-w-[88rem] mx-auto md:bg-[position:30%_100%] lg:bg-right-bottom bg-no-repeat md:bg-[url('/img/community/hero-camels.svg')] dark:md:bg-[url('/img/community/dark-hero-camels.svg')]">
+      <div class="container-fluid py-8 md:py-28 md:flex md:gap-20">
+          <div class="md:flex-grow">
+              <h1 class="text-title dark:text-dark-title text-2xl md:text-5xl tracking-wider">The OCaml Community</h1>
+  
+              <p class="text-content dark:text-dark-content text-lg my-4 md:my-6 max-w-[80%]">
+                Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!
+              </p>
+              <div
+                      class="flex flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto mt-8">
+                      <%s!  Learn_components.hero_button ~left_icon:(Icons.chat "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("Start Contributing") ~href:("https://discuss.ocaml.org/") %>
+              </div>
+          </div>
+      </div>    
+  </div>
+</div>
+<div class="w-full">
+  <div class="container-fluid pt-6 pb-12">
+      <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">social media</p>
+      <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Join Our Communities!</h2>
+      <p class="text-xl text-content dark:text-dark-content mb-6">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators</p>
+      <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 md:gap-4">
+        <a href="https://discuss.ocaml.org/" class="card dark:dark-card p-5 rounded-xl">
+          <%s! Icons.discourse "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
+          <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Discuss</p>
+          <p class="font-normal text-content dark:text-dark-content">Discuss with the community, ask questions and share your work on OCaml.</p>
+        </a>
+        <a href="https://watch.ocaml.org/" class="card dark:dark-card p-5 rounded-xl">
+          <%s! Icons.peertube "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
+          <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Watch</p>
+          <p class="font-normal text-content dark:text-dark-content">Watch community videos like past OCaml Workshop events.</p>
+        </a>
+        <a href="https://github.com/ocaml/ocaml" class="card dark:dark-card p-5 rounded-xl">
+          <%s! Icons.github "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
+          <p class="text-title dark:text-dark-title font-bold text-lg mb-1">GitHub</p>
+          <p class="font-normal text-content dark:text-dark-content">Open bug reports and feature requests on the OCaml compiler.</p>
+        </a>
+        <a href="https://discord.gg/cCYQbqN" class="card dark:dark-card p-5 rounded-xl">
+          <%s! Icons.discord "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
+          <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Discord</p>
+          <p class="font-normal text-content dark:text-dark-content">Chat with other members of the community on Discord.</p>
+        </a>
+        <a href="https://twitter.com/ocamllang" class="card dark:dark-card p-5 rounded-xl">
+          <%s! Icons.twitter "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
+          <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Twitter</p>
+          <p class="font-normal text-content dark:text-dark-content">Catch up with some of the latest announcements and events from the community.</p>
+        </a>
+        <div class="card dark:dark-card p-5 rounded-xl">
+          <%s! Icons.mastodon "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
+          <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Mastodon</p>
+          <p class="font-normal text-content dark:text-dark-content mt-4">
+            The <a class="font-bold text-primary dark:text-dark-primary hover:underline" href="https://types.pl/">types.pl</a> or <a class="font-bold text-primary dark:text-dark-primary hover:underline" href="https://discuss.systems/">discuss.systems</a>
+            Mastodon homeservers are both popular choices among the OCaml community.
+          </p>
+        </div>
+        <a href="irc://irc.libera.chat/#ocaml" class="card dark:dark-card p-5 rounded-xl">
+          <%s! Icons.hashtag "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
+          <p class="text-title dark:text-dark-title font-bold text-lg mb-1">IRC Chat</p>
+          <p class="font-normal text-content dark:text-dark-content">Chat with other members of the community at #ocaml on the Libera Chat IRC network.</p>
+        </a>
+        <div class="card dark:dark-card p-5 rounded-xl">
+          <%s! Icons.matrix "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
+          <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Matrix</p>
+          <p class="font-normal text-content dark:text-dark-content mt-4">
+            Chat with the OCaml community in the <a class="font-bold text-primary dark:text-dark-primary hover:underline" href="https://matrix.to/#/#ocaml-lang:matrix.org">#ocaml-lang Matrix chat room</a>, or join the <a class="font-bold text-primary dark:text-dark-primary hover:underline" href="https://matrix.to/#/#ocaml-space:matrix.org">#ocaml-space Matrix space</a>.
+          </p>
+        </div>
+        <a href="https://stackoverflow.com/questions/tagged/ocaml" class="card dark:dark-card p-5 rounded-xl">
+          <%s! Icons.stackoverflow "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
+          <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Stack Overflow</p>
+          <p class="font-normal text-content dark:text-dark-content">Ask and help answer OCaml questions.</p>
+        </a>
+        <a href="https://www.reddit.com/r/ocaml/" class="card dark:dark-card p-5 rounded-xl">
+          <%s! Icons.reddit "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
+          <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Reddit</p>
+          <p class="font-normal text-content dark:text-dark-content">Join the OCaml subreddit to post discussions and memes, talk about your projects, and share interesting articles and news from the web.</p>
+        </a>
+        <a href="https://inbox.vuxu.org/caml-list/" class="card dark:dark-card p-5 rounded-xl">
+          <%s! Icons.email "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
+          <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Mailing List</p>
+          <p class="font-normal text-content dark:text-dark-content">Share experience, exchange ideas and code, and report on applications of the OCaml language.</p>
+        </a>
+      </div>
+  </div>
+</div>
+<div class="w-full section-blue-gradient dark:dark-section-blue-gradient">
+  <div class="container-fluid flex justify-between items-center py-7 px-8">
+      <div class="flex flex-col w-full md:max-w-[50%]">
+          <p class="uppercase text-sm text-white opacity-60 tracking-widest font-medium mb-2">jobs</p>
+          <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">OCaml Jobs</h2>
+          <p class="text-xl text-white dark:text-dark-title mb-5">This is a space where groups, companies, and organisations can advertise their projects directly to the OCaml community.</p>
+          <div class="flex max-w-[17rem]">
+              <%s!  Learn_components.hero_button ~left_icon:(Icons.file_search "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("View OCaml Jobs") ~href:(Url.jobs) %>
+          </div>
+      </div>
+      <div class="hidden md:flex w-[18rem] h-[18rem] mr-16">
+          <img class="block dark:hidden" src="<%s! Ocamlorg_static.Asset.url "img/community/camel-illustration.svg" %>" alt="camel illustration">
+          <img class="hidden dark:block" src="<%s! Ocamlorg_static.Asset.url "img/community/dark-camel-illustration.svg" %>" alt="camel illustration">
+      </div>
+  </div>
+</div>
+<div class="w-full border-b">
+  <div class="container-fluid pt-6 pb-12">
+    <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">workshop</p>
+    <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Workshops we have had up until now</h2>
+    <% (match upcoming_workshops with
+        | [] -> ()
+        | _ -> %>
+    <div class="text-center text-white text-xl font-bold">
+        Upcoming Events
+    </div>
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+        <% upcoming_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
+        <a href="<%s Url.workshop workshop.slug %>" class="card dark:dark-card p-5 rounded-xl">
+          <p class="font-bold text-title dark:text-dark-title mb-2"><%s workshop.title %></p>
+          <div class="flex items-center space-x-2 mb-3">
+              <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+              <p class="text-content dark:text-dark-content"><%s workshop.location %></p>
+          </div>
+          <div class="flex items-center space-x-2 mt-2">
+              <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+              <p class="text-content dark:text-dark-content"><%s workshop.date %></p>
+          </div>
+        </a>
+        <% ); %>
+    </div>
+    <div class="text-center text-white text-xl font-bold mt-20">
+        Older Events
+    </div>
+    <% ); %>
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+        <% old_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
+        <a href="<%s Url.workshop workshop.slug %>" class="card dark:dark-card p-5 rounded-xl">
+            <p class="font-bold text-title dark:text-dark-title mb-2"><%s workshop.title %></p>
+            <div class="flex items-center space-x-2 mb-3">
+                <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+                <p class="text-content dark:text-dark-content"><%s workshop.location %></p>
+            </div>
+            <div class="flex items-center space-x-2 mt-2">
+                <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+                <p class="text-content dark:text-dark-content"><%s workshop.date %></p>
+            </div>
+        </a>
+        <% ); %>
     </div>
   </div>
 </div>
-<div class="bg-legacy-default dark:bg-legacy-dark-default py-32">
-  <div class="container-fluid">
-    <div class=" ">
-      <div class="text-center">
-        <h2 class="font-bold text-legacy-default mb-6">Join Our Communities!</h2>
-        <div class="font-normal text-lg text-legacy-lighter">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators.</div>
-      </div>
-      <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 md:gap-4 md:px-10 lg:px-20 mt-12">
-        <a href="https://discuss.ocaml.org/" class="border-gray-200 border p-8 rounded-xl legacy-card-hover">
-          <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/discourse.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> Discuss</div>
-          <div class="font-normal text-xs mt-4">Discuss with the community, ask questions and share your work on OCaml.</div>
-        </a>
-        <a href="https://watch.ocaml.org/" class="border-gray-200 border p-8 rounded-xl legacy-card-hover">
-          <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/peertube.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> Watch</div>
-          <div class="font-normal text-xs mt-4">Watch community videos like past OCaml Workshop events.</div>
-        </a>
-        <a href="https://github.com/ocaml/ocaml" class="border-gray-200 border p-8 rounded-xl legacy-card-hover">
-          <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/github.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> GitHub</div>
-          <div class="font-normal text-xs mt-4">Open bug reports and feature requests on the OCaml compiler.</div>
-        </a>
-        <a href="https://discord.gg/cCYQbqN" class="border-gray-200 border p-8 rounded-xl legacy-card-hover">
-          <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/discord.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> Discord</div>
-          <div class="font-normal text-xs mt-4">Chat with other members of the community on Discord.</div>
-        </a>
-        <a href="https://twitter.com/ocamllang" class="border-gray-200 border p-8 rounded-xl legacy-card-hover">
-          <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/twitter.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> Twitter</div>
-          <div class="font-normal text-xs mt-4">Catch up with some of the latest announcements and events from the community.</div>
-        </a>
-        <div class="border-gray-200 border p-8 rounded-xl legacy-card-hover">
-          <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/mastodon.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> Mastodon</div>
-          <div class="font-normal text-xs mt-4">
-          The <a class="font-bold" href="https://types.pl/">types.pl</a> or <a class="font-bold" href="https://discuss.systems/">discuss.systems</a>
-          Mastodon homeservers are both popular choices among the OCaml community.
+<div class="w-full section-mild-contrast dark:dark-blue-section-mild-contrast">
+  <div class="container-fluid flex justify-between items-center py-7 px-8">
+      <div class="flex flex-col w-full md:max-w-[50%]">
+          <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">internships</p>
+          <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">OCaml Outreachy Interships</h2>
+          <p class="text-xl text-content dark:text-dark-title mb-5">This is a record of all past OCaml Community Outreachy Internship Projects.</p>
+          <div class="flex max-w-[17rem]">
+              <%s!  Learn_components.hero_button ~left_icon:(Icons.file_search "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("View OCaml Internship Projects") ~href:(Url.outreachy) %>
           </div>
-        </div>
-        <a href="irc://irc.libera.chat/#ocaml" class="border-gray-200 border p-8 rounded-xl legacy-card-hover">
-          <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/hashtag.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> IRC Chat</div>
-          <div class="font-normal text-xs mt-4">Chat with other members of the community at #ocaml on the Libera Chat IRC network.</div>
-        </a>
-        <div class="border-gray-200 border p-8 rounded-xl legacy-card-hover">
-          <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/matrix.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> Matrix</div>
-          <div class="font-normal text-xs mt-4">Chat with the OCaml community in the
-            <a class="font-bold" href="https://matrix.to/#/#ocaml-lang:matrix.org">#ocaml-lang Matrix chat room</a>, or join the
-            <a class="font-bold" href="https://matrix.to/#/#ocaml-space:matrix.org">#ocaml-space Matrix space</a>.</div>
-        </div>
-        <a href="https://stackoverflow.com/questions/tagged/ocaml" class="border-gray-200 border p-8 rounded-xl legacy-card-hover">
-          <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/stackoverflow.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> Stack Overflow</div>
-          <div class="font-normal text-xs mt-4">Ask and help answer OCaml questions.</div>
-        </a>
-        <a href="https://www.reddit.com/r/ocaml/" class="border-gray-200 border p-8 rounded-xl legacy-card-hover">
-          <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/reddit.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> Reddit</div>
-          <div class="font-normal text-xs mt-4">Join the OCaml subreddit to post discussions and memes, talk about your projects, and share interesting articles and news from the web.</div>
-        </a>
-        <a href="https://inbox.vuxu.org/caml-list/" class="border-gray-200 border p-8 rounded-xl legacy-card-hover">
-          <div class="text-base font-semibold"><img src="<%s Ocamlorg_static.Asset.url "img/community/mail.svg" %>" alt="" class="h-8 w-8 mr-2 inline-block"> Mailing List</div>
-          <div class="font-normal text-xs mt-4">Share experience, exchange ideas and code, and report on applications of the OCaml language.</div>
-        </a>
       </div>
+      <div class="hidden md:flex w-[18rem] h-[18rem] mr-16">
+          <img src="<%s! Ocamlorg_static.Asset.url "img/community/outreachy.png" %>" alt="computer">
+      </div>
+  </div>
+</div>
+<div class="w-full section-blue-gradient dark:bg-none">
+  <div class="container-fluid py-9">
+    <p class="uppercase text-sm text-white tracking-widest opacity-60 font-medium mb-2">meetups</p>
+    <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Upcoming Meetups</h2>
+    <div class="grid lg:grid-cols-3 gap-8 lg:gap-10 mt-12">
+      <% meetups |> List.iter (fun (meetup : Data.Meetup.t) -> %>
+      <a href="<%s meetup.url %>" class="card dark:dark-card p-5 rounded-xl">
+          <p class="font-bold text-lg text-title dark:text-dark-title mb-3">
+              <%s meetup.title %>
+          </p>
+          <div class="flex items-center space-x-2">
+            <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary" %>
+            <p class="text-content dark:text-dark-content">
+                <%s meetup.textual_location %>
+            </p class="text-content dark:text-dark-content">
+          </div>
+      </a>
+      <% ); %>
     </div>
-  </div>
-</div>
-<div class="bg-pattern lg:py-32 py-20 ">
-  <div class="container-fluid">
-      <div class=" ">
-          <div class="text-center">
-              <h2 class="font-bold text-primary mb-6" id="workshops" >Workshops</h2>
-              <div class="text-lg text-white mb-16">Here are some of the workshops we have had up until now</div>
-          </div>
-          <% (match upcoming_workshops with
-             | [] -> ()
-             | _ -> %>
-          <div class="text-center text-white text-xl font-bold">
-              Upcoming Events
-          </div>
-          <div class="flex flex-col lg:flex-row items-center justify-center gap-10 mt-12 flex-wrap">
-              <% upcoming_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
-              <a href="<%s Url.workshop workshop.slug %>" class="w-full lg:w-96 text-legacy-default bg-legacy-default dark:bg-legacy-dark-default p-8 rounded-xl transition-transform hover:scale-105">
-                  <div class="font-semibold"><%s workshop.title %></div>
-                  <div class="mt-4">
-                      <div class="flex items-center space-x-2">
-                          <%s! Icons.map_pin "h-5 w-5" %>
-                          <div><%s workshop.location %></div>
-                      </div>
-                      <div class="flex items-center space-x-2 mt-2">
-                          <%s! Icons.calendar "h-5 w-5" %>
-                          <div><%s workshop.date %></div>
-                      </div>
-                  </div>
-              </a>
-              <% ); %>
-          </div>
-          <div class="text-center text-white text-xl font-bold mt-20">
-              Older Events
-          </div>
-          <% ); %>
-          <div class="flex flex-col lg:flex-row items-center justify-center gap-10 mt-12 flex-wrap">
-              <% old_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
-              <a href="<%s Url.workshop workshop.slug %>" class="w-full lg:w-96 text-legacy-default bg-legacy-default dark:bg-legacy-dark-default p-8 rounded-xl transition-transform hover:scale-105">
-                  <div class="font-semibold"><%s workshop.title %></div>
-                  <div class="mt-4">
-                      <div class="flex items-center space-x-2">
-                          <%s! Icons.map_pin "h-5 w-5" %>
-                          <div><%s workshop.location %></div>
-                      </div>
-                      <div class="flex items-center space-x-2 mt-2">
-                          <%s! Icons.calendar "h-5 w-5" %>
-                          <div><%s workshop.date %></div>
-                      </div>
-                  </div>
-              </a>
-              <% ); %>
-          </div>
-      </div>
-  </div>
-</div>
-<div class="bg-legacy-default dark:bg-legacy-dark-default py-0 pt-20 md:pt-10 lg:p-20 pb-10 md:pb-20">
-  <div class="container-fluid">
-      <div class="text-center">
-        <h2 class="font-bold">Meetups</h2>
-      </div>
-      <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 mt-12">
-          <% meetups |> List.iter (fun (meetup : Data.Meetup.t) -> %>
-          <a href="<%s meetup.url %>" class="border border-gray-200 p-8 rounded-xl transition-transform hover:scale-105">
-              <div class="font-semibold">
-                  <%s meetup.title %>
-              </div>
-              <div class="mt-4">
-                  <div class="flex items-center space-x-2">
-                      <%s! Icons.map_pin "h-5 w-5" %>
-                      <div>
-                          <%s meetup.textual_location %>
-                      </div>
-                  </div>
-              </div>
-          </a>
-          <% ); %>
-      </div>
-       <div class="prose max-w-none mt-8">
-            If you want to contribute to add a new community meetup event, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-meetup" target="_blank">Contributing Guide</a> on GitHub.
-        </div>
   </div>
 </div>
 <% if List.length upcoming_events > 0 then ( %>
-    <div class="bg-legacy-default dark:bg-legacy-dark-default py-0 pt-20 md:pt-10 lg:p-20 pb-10 md:pb-20">
-      <div class="container-fluid">
-          <div class="text-center">
-            <h2 class="font-bold">Upcoming Events</h2>
-          </div>
-          <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 mt-12">
+    <div class="w-full">
+      <div class="container-fluid pt-6 pb-12">
+          <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">events</p>
+          <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Upcoming Events</h2>
+          <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
               <% upcoming_events |> List.iter (fun (event : Data.Event.t) -> %>
-              <a href="<%s event.url %>" class="border border-gray-200 p-8 rounded-xl transition-transform hover:scale-105">
-                  <div class="font-semibold">
-                      <%s event.title %>
-                  </div>
-                  <div class="mt-4">
-                      <div class="flex items-center space-x-2">
-                          <%s! Icons.map_pin "h-5 w-5" %>
-                          <div>
-                              <%s event.textual_location %>
-                          </div>
-                      </div>
-                      <div class="flex items-center space-x-2 mt-2">
-                        <%s! Icons.calendar "h-5 w-5" %>
-                        <div><%s event.starts %></div>
-                      </div>
-                  </div>
+              <a href="<%s event.url %>" class="card dark:dark-card p-5 rounded-xl">
+                <p class="font-bold text-title dark:text-dark-title mb-2"><%s event.title %></p>
+                <div class="flex items-center space-x-2 mb-3">
+                    <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+                    <p class="text-content dark:text-dark-content"><%s event.textual_location %></p>
+                </div>
+                <div class="flex items-center space-x-2 mt-2">
+                    <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+                    <p class="text-content dark:text-dark-content"><%s event.starts %></p>
+                </div>
               </a>
               <% ); %>
           </div>
       </div>
     </div>
 <% ); %>
-<div class="bg-primary">
-  <div class="container-fluid">
-    <div class="text-center text-white lg:p-16 py-10">
-      <h3 class="font-bold mb-6">OCaml Jobs</h3>
-      <div class="text-lg mb-8 lg:px-28">This is a space where groups, companies, and organisations can advertise their projects directly to the OCaml community.</div>
-      <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
-        <a class="btn btn-lg btn-legacy-tertiary" href="<%s Url.jobs %>">
-          <span>View OCaml Jobs</span>
-          <%s! Icons.chevron_right "h-5 w-5" %>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="bg-sand">
-  <div class="container-fluid">
-    <div class="text-center text-black lg:p-16 py-10">
-      <h3 class="font-bold mb-6">OCaml Outreachy Internships</h3>
-      <div class="text-lg mb-8 lg:px-28">This is a record of all past OCaml Community Outreachy Internship Projects.</div>
-      <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
-        <a class="btn btn-lg btn-ghost" href="<%s Url.outreachy %>">
-          <span>View Outreachy Projects</span>
-          <%s! Icons.chevron_right "h-5 w-5" %>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>

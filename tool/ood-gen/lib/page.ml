@@ -20,7 +20,7 @@ type t = {
     show { with_path = false }]
 
 let decode (file, (head, body_md)) =
-  let metadata = metadata_of_yaml head in
+  let metadata = metadata_of_yaml head |> Result.map_error (Utils.where file) in
   let body_html =
     Cmarkit.Doc.of_string ~strict:true body_md
     |> Hilite.Md.transform

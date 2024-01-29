@@ -1,12 +1,11 @@
 ---
 id: functors
 title: Functors
+short_title: Functors
 description: >
   Learn about functors, modules parameterised by other modules
 category: "Module System"
 ---
-
-# Functors
 
 Functors are probably one of the most complex features of OCaml, but you don't
 have to use them extensively to be a successful OCaml programmer. Actually,

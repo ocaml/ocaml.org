@@ -1,6 +1,5 @@
 ---
 title: OMP Deprecation
-date: "2023-10-23"
 tags: [omp, platform]
 ---
 

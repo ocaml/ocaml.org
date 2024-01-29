@@ -1,12 +1,11 @@
 ---
 id: ocaml-on-windows
 title: OCaml on Windows
+short_title: OCaml on Windows
 description: >
   Read about the state of OCaml on Windows and our roadmap to improve Windows support.
 category: "Resources"
 ---
-
-# OCaml on Windows
 
 There is a new [Diskuv OCaml][DKML] ("DKML") Windows
 installer that we recommend for new users. However, while [Diskuv OCaml][DKML] has a modern OCaml 4.14.0 compiler,

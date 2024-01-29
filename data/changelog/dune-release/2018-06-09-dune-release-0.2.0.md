@@ -1,6 +1,5 @@
 ---
 title: Dune-release 0.2.0
-date: "2018-06-09"
 tags: [dune-release, platform]
 changelog: |
   - Remove opam lint warnings for 1.2 files (#2, @samoht)

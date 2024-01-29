@@ -1,12 +1,11 @@
 ---
 id: common-errors
 title: Common Error Messages
+short_title: Common Error Messages
 description: >
   Understand the most common error messages the OCaml compiler can throw at you
 category: "Resources"
 ---
-
-# Common Error Messages
 
 This page gives a list of quick explanations for some error or warning
 messages that are emitted by the OCaml compilers. Longer explanations

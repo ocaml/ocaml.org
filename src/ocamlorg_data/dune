@@ -152,13 +152,6 @@
    (run %{dep:../../tool/ood-gen/bin/gen.exe} news))))
 
 (rule
- (target packages.ml)
- (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} packages))))
-
-(rule
  (target page.ml)
  (action
   (with-stdout-to

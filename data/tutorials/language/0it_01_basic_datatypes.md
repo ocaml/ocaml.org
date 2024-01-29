@@ -1,12 +1,11 @@
 ---
 id: basic-data-types
 title: Basic Data Types and Pattern Matching
+short_title: Basic Data Types and Pattern Matching
 description: |
   Predefined Types, Variants, Records, and Pattern Matching
 category: "Introduction"
 ---
-
-# Basic Data Types And Pattern Matching
 
 ## Introduction
 
@@ -82,6 +81,20 @@ Boolean values are represented by the type `bool`.
 ```
 
 Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction “or” is written `||`. Both are short-circuited, meaning that they don't evaluate the argument on the right if the left one's value is sufficient to decide the whole expression's value.
+
+In OCaml, `if … then … else …` is a _conditional expression_. It has the same type as its branches.
+```ocaml
+# 3 * if "foo" = "bar" then 5 else 5 + 2;;
+- : int = 21
+```
+
+The test subexpression must have type `bool`. Branches subexpressions must have the same type.
+
+Conditional expression and pattern matching on a Boolean are the same:
+```ocaml
+# 3 * match "foo" = "bar" with true -> 5 | false -> 5 + 2;;
+- : int = 21
+```
 
 #### Characters
 

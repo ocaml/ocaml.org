@@ -1,12 +1,11 @@
 ---
 id: "configuring-your-editor"
 title: "Configuring Your Editor"
+short_title: "Configuring Your Editor"
 description: |
   How to set up Editor support for OCaml on VSCode, Vim and Emacs
 category: "Best Practices"
 ---
-
-# Configuring Your Editor
 
 OCaml has plugins for many editors, but the most actively maintained are for Visual Studio Code, Emacs, and Vim.
 

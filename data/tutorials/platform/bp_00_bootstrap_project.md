@@ -1,12 +1,11 @@
 ---
 id: "bootstrapping-a-dune-project"
-title: "Bootstrapping a Project"
+title: "Bootstrapping a Project with Dune"
+short_title: "Bootstrapping a Project"
 description: |
   How to set up a project with Dune
 category: "Best Practices"
 ---
-
-# Bootstrapping a Project with Dune
 
 [Dune](https://dune.readthedocs.io/en/stable/overview.html) is recommended for bootstrapping projects. To install `dune`, please see [the OCaml install page](/install).
 

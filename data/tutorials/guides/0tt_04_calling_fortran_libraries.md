@@ -1,12 +1,11 @@
 ---
 id: calling-fortran-libraries
 title: Calling Fortran Libraries
+short_title: Calling Fortran Libraries
 description: >
   Cross the divide and call Fortran code from your OCaml program
 category: "Tutorials"
 ---
-
-# Calling Fortran Libraries
 
 Fortran isn't a language the many people write new code in but it still
 is in extensive use in the scientific communities. Many, many libraries

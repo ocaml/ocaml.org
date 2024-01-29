@@ -1,6 +1,5 @@
 ---
 title: Now using Tarsnap for VM backups
-date: "2022-11-08"
 tags: [infrastructure]
 ---
 

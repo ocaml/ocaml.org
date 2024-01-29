@@ -1,6 +1,5 @@
 ---
 title: Temporary relocation of opam.ci.ocaml.org
-date: "2023-05-05"
 tags: [infrastructure]
 ---
 

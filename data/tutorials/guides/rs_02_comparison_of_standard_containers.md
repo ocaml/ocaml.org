@@ -1,12 +1,12 @@
 ---
 id: data-structures-comparison 
 title: Comparison of Standard Containers
+short_title: Comparison of Standard Containers
 description: >
   Rough comparison of the different container types in OCaml
 category: "Resources"
 ---
 
-# Comparison of Standard Containers
 This is a rough comparison of the different container types 
 provided by the OCaml standard library. In each
 case, _n_ is the number of valid elements in the container.

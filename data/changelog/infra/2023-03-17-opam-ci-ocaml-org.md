@@ -1,6 +1,5 @@
 ---
 title: Renaming opam.ci.ocaml.org / opam.ci3.ocamllabs.io
-date: "2023-03-17"
 tags: [infrastructure]
 ---
 

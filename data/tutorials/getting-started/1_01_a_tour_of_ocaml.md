@@ -1,19 +1,16 @@
 ---
 id: tour-of-ocaml
 title: A Tour of OCaml
+short_title: A Tour of OCaml
 description: >
   Hop on the OCaml sightseeing bus. This absolute beginner tutorial will drive you through the marvels and wonders of OCaml. We'll have a look at the most commonly used language features.
 category: "First Steps"
-recommended_next_tutorials: 
-  [
-    "values-and-functions",
-    "basic-data-types",
-    "if-statements-and-loops",
-    "lists"
-  ]
+recommended_next_tutorials:
+  - "values-and-functions"
+  - "basic-data-types"
+  - "loops-recursion"
+  - "lists"
 ---
-
-# A Tour of OCaml
 
 Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [Your First OCaml Program](/docs/your-first-program) tutorial.
 
@@ -148,6 +145,16 @@ This example defines a function named `square` with the single parameter `x`. It
 When `square` is applied to `50`, it evaluates `x * x` into `50 * 50`, which leads to `2500`.
 
 The REPL indicates that the type of `square` is `int -> int`. This means it is a function taking an `int` as argument (input) and returning an `int` as result (output). A function value can't be displayed, which is why `<fun>` is printed instead.
+
+```ocaml
+# String.ends_with;;
+- : suffix:string -> string -> bool = <fun>
+
+# String.ends_with ~suffix:"less" "stateless";;
+- : bool = true
+```
+
+Some functions, such as `String.ends_with` have labelled parameters. Labels are useful when a function has several parameters of the same type; naming arguments allows to guess their purpose. Above, `~suffix:"less"` indicates `"less"` is passed as labelled argument `suffix`. Labelled arguments are detailed in the [Labelled Arguments](/docs/labels) tutorial. 
 
 ### Anonymous Functions
 
@@ -572,7 +579,7 @@ val is_teenager : person -> bool = <fun>
 - : bool = false
 ```
 
-Here, the pattern `{ age = x; _ }` is typed with the most recently declared record type, which has an `age` field of type `int`. The type `int` is inferred from the expression `13 <= x && x <= 19`. The function `is_teenager` will only work with the found record type, here `person`.
+Here, the pattern `{ age = x; _ }` is typed with the most recently declared record type that has an `age` field of type `int`. The type `int` is inferred from the expression `13 <= x && x <= 19`. The function `is_teenager` will only work with the found record type, here `person`.
 
 ## Dealing With Errors
 

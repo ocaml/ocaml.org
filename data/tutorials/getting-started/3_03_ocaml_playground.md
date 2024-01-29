@@ -1,14 +1,13 @@
 ---
 id: ocaml-playground
-title: The OCaml Playground
+title: Using the OCaml Playground
+short_title: The OCaml Playground
 description: |
   This page will walk you through the OCaml Playground
 category: "Resources"
 ---
 
 Welcome to OCaml's in-browser playground! 
-
-# Using the OCaml Playground
 
 The [OCaml Playground](https://ocaml.org/play) is made to make it easier for users, especially beginners, to get started with OCaml without worrying about installing anything. Everything is ready to use once you open it.
 

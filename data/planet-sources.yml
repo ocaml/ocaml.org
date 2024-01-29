@@ -180,3 +180,6 @@
 - id: dinosaure
   name: Romain Calascibetta
   url: https://blog.osau.re/feed.xml
+- id: emilpriver
+  name: Emil Privér
+  url: https://priver.dev/tags/ocaml/index.xml

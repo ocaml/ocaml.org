@@ -1,12 +1,11 @@
 ---
 id: sets
-title: Sets
+title: Set
+short_title: Set
 description: >
   The standard library's Set module
 category: "Data Structures"
 ---
-
-# Set
 
 ## Introduction
 

@@ -10,16 +10,16 @@ let render_book (item: Data.Book.t) =
             <div class="flex flex-col gap-y-4">
                 <div class="relative w-full sm:w-72 lg:w-64 max-w-full">
                      <%s! Learn_components.book_cover ~free:(item.pricing = "free") item.cover %>
-                    <div class="mt-5 px-3 py-1 <%s Learn_components.color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white tracking-widest leading-5">
+                    <div class="mt-5 px-3 py-1 <%s Learn_components.color_for_difficulty difficulty %> rounded-3xl font-semibold text-center text-white dark:text-dark-white tracking-widest leading-5">
                         <%s Learn_components.string_from_difficulty difficulty %>
                     </div>
                 </div>
                 
             </div>
-            <div class="flex-col flex-1 prose prose-lg">
+            <div class="flex-col flex-1 prose dark:prose-invert prose-lg">
                 <h2 class="font-normal text-2xl mb-6"><%s item.title %></h2>
-                <div class="font-normal text-content text-lg mb-6"><%s item.authors |> String.concat ", " %></div>
-                <div class="prose prose-lg prose-orange mb-6"><%s! item.body_html %></div>
+                <div class="font-normal text-content dark:text-dark-content text-lg mb-6"><%s item.authors |> String.concat ", " %></div>
+                <div class="prose dark:prose-invert prose-lg prose-orange mb-6"><%s! item.body_html %></div>
                 <div class="flex gap-x-5 gap-y-4 flex-col sm:flex-row">
                     <% item.links |> List.iter (fun (link : Data.Book.link) -> %>
                         <div>
@@ -43,9 +43,9 @@ Learn_layout.single_column_layout
 ~canonical:Url.books
 ~active_top_nav_item:Header.Learn
 ~current:Books @@
-<div class="bg-legacy-default dark:bg-legacy-dark-default">
+<div class="bg-white dark:bg-dark-background">
     <div class="container-fluid pt-10">
-        <div class="prose mb-10">
+        <div class="prose dark:prose-invert mb-10">
             <h1 class="font-normal text-4xl">Books On OCaml (<%s string_of_int (List.length books) %>)</h2>
         </div>
         <form action="<%s Url.books %>" method="GET">
@@ -54,17 +54,17 @@ Learn_layout.single_column_layout
                     ~attrs:{|id="language" name="language" onchange="this.form.submit()"|}
                     ~options:[("All", "All Languages"); ("english", "English"); ("french", "French"); ("italian", "Italian"); ("japanese", "Japanese"); ("chinese", "Chinese")]
                     ~selected:language
-                    "w-48 rounded-sm" %>
+                    "w-48" %>
                 <%s! Forms.select
                     ~attrs:{|id="difficulty" name="difficulty" onchange="this.form.submit()"|}
                     ~options:[("All", "Any Difficulty"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
                     ~selected:difficulty
-                    "w-48 rounded-sm" %>
+                    "w-48" %>
                 <%s! Forms.select
                     ~attrs:{|id="pricing" name="pricing" onchange="this.form.submit()"|}
                     ~options:[("All", "Free or Paid"); ("free", "Free"); ("paid", "Paid")]
                     ~selected:pricing
-                    "w-48 rounded-sm" %>
+                    "w-48" %>
             </div>
         </form>
         <div class="overflow-x-scroll lg:overflow-hidden mt-5">
@@ -72,7 +72,7 @@ Learn_layout.single_column_layout
             <%s! render_book item %>
             <% ); %>
         </div>
-        <div class="prose">
+        <div class="prose dark:prose-invert">
             If you want to add a new book, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-book" target="_blank">Contributing Guide</a> on GitHub.     
         </div>
     </div>
