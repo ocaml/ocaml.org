@@ -3,27 +3,27 @@ Layout.render
 ~title:(Printf.sprintf "OCaml %s Release Notes" release.version)
 ~description:(Printf.sprintf "OCaml %s was released on %s. Learn more about this in the release notes." release.version release.date)
 ~canonical:(Url.release release.version) @@
-<div class="intro-section-simple">
+<div class="intro-section-simple dark:dark-intro-section-simple">
     <div class="container-fluid">
-        <div class="flex md:flex-row md:px-10 lg:p-6 pb-20 items-center md:space-x-36 flex-col-reverse">
-            <div class="text-left md:mt-10 lg:mt-0 mt-0 lg:pl-24">
+        <div class="flex md:flex-row lg:px-6 items-center md:space-x-36 flex-col-reverse">
+            <div class="text-left md:mt-10 lg:mt-0 mt-0">
                 <a href="<%s Url.releases %>"
-                    class="flex justify-start space-x-3 items-center text-primary hover:underline font-semibold mb-4 h-12">
+                    class="flex justify-start space-x-3 items-center text-primary dark:text-dark-primary hover:underline font-semibold mb-4 h-12">
                     <%s! Icons.arrow_left "h-5 w-5 inline-block" %>
                     <div>All Releases</div>
                 </a>
-                <h2 class="font-bold pb-6">OCaml <%s release.version %></h2>
-                <div class="prose prose-orange lg:prose-lg mx-auto max-w-5xl">
+                <h2 class="font-bold text-title dark:text-dark-title pb-6">OCaml <%s release.version %></h2>
+                <div class="prose dark:prose-invert prose-orange lg:prose-lg mx-auto max-w-5xl">
                     <%s! release.intro_html %>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="bg-white dark:bg-dark-content">
+<div class="bg-white dark:bg-dark-background">
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
-            <div class="prose dark:prose-invert prose-orange lg:prose-lg mx-auto max-w-5xl">
+            <div class="prose dark:prose-invert prose-orange px-6 lg:prose-lg max-w-5xl">
                 <%s! release.body_html %>
               </div>
         </div>
