@@ -73,12 +73,11 @@ let paginate ~req ~n items =
   (page, number_of_pages, current_items)
 
 let learn_documents_search req =
-  let search_keywords = Dream.query req "q" in
-  let search_documents keyword (documents : Data.Tutorial.search_document list)
-      =
+  let q = Dream.query req "q" in
+  let search_documents q (documents : Data.Tutorial.search_document list) =
     let score_document (doc : Data.Tutorial.search_document) =
       let regexp =
-        Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim keyword)
+        Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim q)
         |> Str.regexp_case_fold
       in
       let search_in_field field weight =
@@ -97,13 +96,13 @@ let learn_documents_search req =
     |> List.sort (fun (_, score1) (_, score2) -> Float.compare score2 score1)
     |> List.map fst
   in
-  let keyword = Option.value ~default:"" search_keywords in
+  let keyword = Option.value ~default:"" q in
   let documents = Data.Tutorial.all_search_documents in
-  let searched_docs = search_documents keyword documents in
+  let search_results = search_documents keyword documents in
   let page, number_of_pages, current_items =
-    paginate ~req ~n:50 searched_docs
+    paginate ~req ~n:50 search_results
   in
-  let total = List.length searched_docs in
+  let total = List.length search_results in
   Dream.html
     (Ocamlorg_frontend.tutorial_search current_items ~total ~page
        ~number_of_pages ~search:keyword)
