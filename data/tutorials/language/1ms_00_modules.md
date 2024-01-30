@@ -54,14 +54,14 @@ configuration files are required:
 After you create those files, build and run them:
 <!-- $MDX dir=examples -->
 ```bash
-$ opan exec -- dune build
+$ opam exec -- dune build
 
-$ opan exec -- dune exec ./berlin.exe
+$ opam exec -- dune exec ./berlin.exe
 Hello from Athens
 ```
 
-Actually, `dune build` is optional. Running `dune exec ./berlin.exe` would have
-triggered the compilation. Note that in the `dune exec` command, the parameter
+Actually, `opam exec -- dune build` is optional. Running `opam exec -- dune exec ./berlin.exe` would have
+triggered the compilation. Note that in the `opam exec -- dune exec` command, the parameter
 `./berlin.exe` is not a file path. This command means “execute the content of
 the file `./berlin.ml`.” However, the executable file is stored and named
 differently.
@@ -238,7 +238,7 @@ Update file `dune`:
 (library (name exeter) (modules exeter) (modes byte))
 ```
 
-Run the `dune utop` command. This triggers `Exeter`'s compilation, launches `utop`, and loads `Exeter`.
+Run the `opam exec -- dune utop` command. This triggers `Exeter`'s compilation, launches `utop`, and loads `Exeter`.
 ```ocaml
 # open Exeter;;
 
@@ -426,7 +426,7 @@ reset.
 
 ## Conclusion
 
-In OCaml, modules are the basic means of organising software. To sum up, a
+OCaml, modules are the basic means of organising software. To sum up, a
 module is a collection of definitions wrapped under a name. These definitions
 can be submodules, which allows the creation of hierarchies of modules.
 Top-level modules must be files and are the units of compilation. Every module

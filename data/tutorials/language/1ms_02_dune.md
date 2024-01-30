@@ -63,7 +63,7 @@ let () =
 
 Here is the resulting output:
 ```shell
-$ dune exec nube
+$ opam exec -- dune exec nube
 Nimbostratus (Ns)
 Cumulonimbus (Cb)
 ```
