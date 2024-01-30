@@ -45,20 +45,20 @@ Learn_layout.single_column_layout
             </div>
           <ol class="flex flex-col">
             <% documents |> List.iter (fun (doc : Data.Tutorial.search_document) -> %>
-            <li class="border-gray-200 border-b py-6 space-y-2 hover:underline md:py-8">
+            <li class="border-gray-200 border-b py-6 md:py-8">
                 <a href="<%s doc.slug %>">
-                  <h3 class="text-primary text-xl"><%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search doc.title %></h3>
-                  <div class="mb-2 mt-5 flex flex-row items-center py-2 text-sm gap-x-2.5">
-                    <%s! Icons.hashtag "w-6 h-6 border rounded-md text-white bg-black" %>
-                    <h4>
-                      <%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search doc.section_heading %>
-                    </h4>
-                  </div>
-                  <p class="mt-4 text-text_content leading-7"> 
+                  <h2 class="text-primary text-2xl"><%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search doc.title %></h2>
+                  <% if String.length doc.section_heading > 0 then ( %>
+                  <h3 class="mb-2 mt-4 leading-7 text-title text-base">
+                    <%s! Icons.hashtag "w-6 h-6 p-0.5 mr-2 inline-block border rounded-md text-white bg-black" %>
+                    <%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search doc.section_heading %>
+                  </h3>
+                  <% ); %>
+                  <p class="mt-4 text-content text-base leading-7">
                     <%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search (Search.display_surrounding_text ~search doc.content) %>
                   </p>
-                  <button class="mt-2.5 px-5 whitespace-nowrap py-0.5 text-primary font-normal bg-legacy-primary-100 border border-primary rounded"><%s! doc.category %> </button>
-                </a>
+              </a>
+              <div class="mt-5 inline-block px-5 whitespace-nowrap py-0.5 text-primary font-normal bg-legacy-primary-100 border border-primary rounded"><%s! doc.category %></div>
             </li>
             <% ); %>
           </ol>
