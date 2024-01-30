@@ -43,7 +43,7 @@ let render_related_exercises exercises =
 let render_prerequisite_tutorials tutorials =
   if List.length tutorials > 0 then
     <div class="mb-6 pt-8 border-t border-gray-200">
-        <h2 class="mb-4 mt-0 text-3xl font-bold leading-6">Prerequisites</h2>
+        <h2 class="mb-4 mt-0 text-lg font-bold leading-6"">Prerequisites</h2>
         <ul class="list-disc marker:text-primary">
           <% tutorials |> List.iter (fun (tutorial : Data.Tutorial.t) -> %>
             <li class="mb-1">
@@ -87,9 +87,9 @@ Learn_layout.three_column_layout
 ~right_sidebar_html:(Some(right_sidebar tutorial))
 ~current:(of_tutorial_section tutorial.section) @@
   <div class="prose prose-orange dark:prose-invert max-w-full">
-    <%s! render_prerequisite_tutorials prerequisite_tutorials %>
     <%s! render_external_tutorial_banner tutorial.external_tutorial %>
     <%s! render_title tutorial %>
+    <%s! render_prerequisite_tutorials prerequisite_tutorials %>
     <%s! tutorial.body_html %>
     <%s! render_related_exercises related_exercises %>
     <%s! Learn_components.contribute_footer ~href ~description ~recommended_next_tutorials %>
