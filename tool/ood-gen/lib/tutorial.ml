@@ -44,10 +44,13 @@ type metadata = {
 }
 [@@deriving of_yaml]
 
+type search_document_section = { title : string; id : string }
+[@@deriving show { with_path = false }]
+
 type search_document = {
   title : string;
   category : string;
-  section_heading : string;
+  section : search_document_section option;
   content : string;
   slug : string;
 }
@@ -141,6 +144,12 @@ module Toc = struct
 end
 
 module Search = struct
+  let id_to_href id =
+    match id with
+    | None -> "#"
+    | Some (`Auto id) -> "#" ^ id
+    | Some (`Id id) -> "#" ^ id
+
   let rec flatten_block (block : Cmarkit.Block.t) : Cmarkit.Block.t list =
     match block with
     | Cmarkit.Block.Blocks (blocks, _) ->
@@ -157,7 +166,8 @@ module Search = struct
 
   (* collects a section by its heading and content *)
   let collect_section (blocks : Cmarkit.Block.t list) :
-      ( (string * Cmarkit.Block.t list) * Cmarkit.Block.t list,
+      ( (search_document_section option * Cmarkit.Block.t list)
+        * Cmarkit.Block.t list,
         [> `Msg of string ] )
       result =
     match blocks with
@@ -166,16 +176,21 @@ module Search = struct
           collect_blocks_until_heading t []
         in
         Ok
-          ( ( Cmarkit.Block.Heading.inline h
-              |> Cmarkit.Inline.to_plain_text ~break_on_soft:false
-              |> List.flatten |> String.concat "\n",
+          ( ( Some
+                {
+                  title =
+                    Cmarkit.Block.Heading.inline h
+                    |> Cmarkit.Inline.to_plain_text ~break_on_soft:false
+                    |> List.flatten |> String.concat "\n";
+                  id = id_to_href (Cmarkit.Block.Heading.id h);
+                },
               collected_blocks ),
             remaining_blocks )
     | _ :: t ->
         let collected_blocks, remaining_blocks =
           collect_blocks_until_heading t []
         in
-        Ok (("", collected_blocks), remaining_blocks)
+        Ok ((None, collected_blocks), remaining_blocks)
     | [] -> Error (`Msg "empty list in the document")
 
   let rec block_to_string (block : Cmarkit.Block.t) : string =
@@ -228,13 +243,14 @@ module Search = struct
     | Error (`Msg msg) -> failwith msg
 
   let document_from_section
-      ((heading : string), (content : Cmarkit.Block.t list))
-      ~(metadata : metadata) : search_document =
+      ( (section : search_document_section option),
+        (content : Cmarkit.Block.t list) ) ~(metadata : metadata) :
+      search_document =
     let section_document =
       {
         title = metadata.title;
         category = metadata.category;
-        section_heading = heading;
+        section;
         content = content |> List.map block_to_string |> String.concat "\n";
         slug = metadata.id;
       }
@@ -246,7 +262,9 @@ module Search = struct
     match metadata_of_yaml head with
     | Ok metadata ->
         let content_blocks =
-          body_md |> Cmarkit.Doc.of_string |> Cmarkit.Doc.block
+          body_md
+          |> Cmarkit.Doc.of_string ~heading_auto_ids:true
+          |> Cmarkit.Doc.block
         in
         let document =
           content_blocks |> flatten_block |> collect_all_sections
@@ -327,10 +345,14 @@ type external_tutorial =
 type recommended_next_tutorials = string list
 type prerequisite_tutorials = string list
 
+type search_document_section = {
+  title : string;
+  id : string;
+}
 type search_document =
 { title : string
   ; category : string
-  ; section_heading : string
+  ; section : search_document_section option
   ; content : string
   ; slug : string
 }

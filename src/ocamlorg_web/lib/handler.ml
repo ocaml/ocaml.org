@@ -85,7 +85,12 @@ let learn_documents_search req =
         *. weight
       in
       search_in_field doc.title 1.2
-      +. search_in_field doc.section_heading 2.0
+      +. search_in_field
+           (doc.section
+           |> Option.map (fun (s : Data.Tutorial.search_document_section) ->
+                  s.title)
+           |> Option.value ~default:"")
+           2.0
       +. search_in_field doc.content 1.0
     in
     List.filter_map

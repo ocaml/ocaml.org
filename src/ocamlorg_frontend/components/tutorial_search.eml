@@ -46,12 +46,12 @@ Learn_layout.single_column_layout
           <ol class="flex flex-col">
             <% documents |> List.iter (fun (doc : Data.Tutorial.search_document) -> %>
             <li class="border-gray-200 border-b py-6 md:py-8">
-                <a href="<%s doc.slug %>">
+                <a href="<%s doc.slug %><%s match doc.section with | None -> "" | Some heading -> heading.id %>">
                   <h2 class="text-primary text-2xl"><%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search doc.title %></h2>
-                  <% if String.length doc.section_heading > 0 then ( %>
+                  <% match doc.section with | None -> () | Some heading -> ( %>
                   <h3 class="mb-2 mt-4 leading-7 text-title text-base">
                     <%s! Icons.hashtag "w-6 h-6 p-0.5 mr-2 inline-block border rounded-md text-white bg-black" %>
-                    <%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search doc.section_heading %>
+                    <%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search heading.title %>
                   </h3>
                   <% ); %>
                   <p class="mt-4 text-content text-base leading-7">
