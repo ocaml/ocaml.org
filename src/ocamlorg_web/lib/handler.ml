@@ -83,18 +83,18 @@ let learn_documents_search req =
         |> Str.regexp
       in
       let search_in_field field weight =
-        try
-          if Str.search_forward regexp field 0 >= 0 then
-          weight else 0
+        try if Str.search_forward regexp field 0 >= 0 then weight else 0
         with Not_found -> 0
       in
       search_in_field doc.title 2
       + search_in_field doc.section_heading 3
       + search_in_field doc.content 1
     in
-    List.filter_map (fun doc ->
-      let score = is_match doc in
-      if score > 0 then Some (doc, score) else None) documents
+    List.filter_map
+      (fun doc ->
+        let score = is_match doc in
+        if score > 0 then Some (doc, score) else None)
+      documents
     |> List.sort (fun (_, score1) (_, score2) -> Int.compare score2 score1)
     |> List.map fst
   in
