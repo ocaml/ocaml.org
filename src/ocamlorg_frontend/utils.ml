@@ -1,10 +1,9 @@
 let human_date s =
   let open Timedesc in
   try
-    let date_s = Timedesc.Date.of_iso8601_exn s in
+    let date_s = Date.of_iso8601_exn s in
     let midnight = Time.make_exn ~hour:0 ~minute:0 ~second:0 () in
-    let zoneless_s = Zoneless.of_date_and_time date_s midnight in
-    let date_time = zoneless_s |> Zoneless.to_zoned_exn ~tz:Time_zone.utc in
+    let date_time = of_date_and_time_exn ~tz:Time_zone.utc date_s midnight in
     Format.asprintf "%a" (pp ~format:"{day:0X} {mon:Xxx} {year}" ()) date_time
   with Timedesc.ISO8601_parse_exn msg ->
     Logs.err (fun m -> m "Could not parse date %s: %s" s msg);
