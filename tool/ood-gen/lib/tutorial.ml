@@ -374,8 +374,7 @@ type t =
   }
   
 let all = %a
-let all_search_documents =
-  %a
+let all_search_documents = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
     (all ())

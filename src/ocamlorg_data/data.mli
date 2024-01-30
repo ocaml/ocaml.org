@@ -247,6 +247,7 @@ module Tutorial : sig
   val all : t list
   val all_search_documents : search_document list
   val get_by_slug : string -> t option
+  val search_documents : string -> search_document list
 end
 
 module Video : sig
