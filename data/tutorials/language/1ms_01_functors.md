@@ -11,7 +11,7 @@ category: "Module System"
 
 In this tutorial, we look at how to apply functors and how to write functors. We also show some use cases involving functors.
 
-As suggested by the name, a _functor_ is almost like a function. However, while functions are between values, functors are between modules. A functor takes a module as a parameter and returns a module as a result. A functor in OCaml is a parametrised module, not to be confused with a [functor in mathematics](https://en.wikipedia.org/wiki/Functor).
+As suggested by the name, a _functor_ is almost like a function. However, while functions are between values, functors are between modules. A functor has a module as a parameter and returns a module as a result. A functor in OCaml is a parametrised module, not to be confused with a [functor in mathematics](https://en.wikipedia.org/wiki/Functor).
 
 **Prerequisites**: [Modules](/docs/modules).
 
@@ -94,12 +94,12 @@ end)
 
 The module expression `struct ... end` is inlined in the call to `Set.Make`.
 
-The be simplified even further into this:
+This can be simplified even further into this:
 ```ocaml
 module StringSet = Set.Make(String)
 ```
 
-In both versions, the result module from the functor application `Set.Make(String)` is bound to the name `StringSet`, and it has the signature `Set.S`. The module `StringSet` provides set operations and is parametrized by the module `String`. This means the function `String.compare` is used internally by `StringSet`, inside the implementation of the functions it provides. Making a group of functions (here those provided by `StringSet`) use another group of functions (here only `String.compare`) is the role of a functor.
+In all versions, the result module from the functor application `Set.Make` is bound to the name `StringSet`, and it has the signature `Set.S`. The module `StringSet` provides set operations and is parametrized by the module `String`. This means the function `String.compare` is used internally by `StringSet`, inside the implementation of the functions it provides. Making a group of functions (here those provided by `StringSet`) use another group of functions (here only `String.compare`) is the role of a functor.
 
 With this, the command `dune exec funkt` shouldn't do anything, but it shouldn't fail either.
 
@@ -312,7 +312,7 @@ Check the behaviour of the program using `dune exec funkt < dune`.
 
 [Dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) is a way to parametrise over a dependency.
 
-Here is a refactoring of the module `IterPrint` to make of this technique:
+Here is a refactoring of the module `IterPrint` to use this technique:
 
 **`iterPrint.ml`**
 ```ocaml
@@ -333,7 +333,7 @@ end
 
 The module `IterPrint` is refactored into a functor that takes a module providing the function `iter` as a parameter. The `with type 'a t := 'a Dep.t` constraint means the type `t` from the parameter `Dep` replaces the type `t` in the result module. This allows the type of `f` to use the type `t` from the parameter module `Dep`. With this refactoring, `IterPrint` only has one dependency. At the time it is compiled, no implementation of function `iter` is available yet.
 
-**Note**: An OCaml interface file must be a module, not a functor. Functors must be embedded inside modules. Therefore, it is customary to call them `Make`.
+**Note**: An OCaml interface file (`.mli`) must be a module, not a functor. Functors must be embedded inside modules. Therefore, it is customary to call them `Make`.
 
 **`funkt.ml`**
 
