@@ -74,8 +74,9 @@ let paginate ~req ~n items =
 
 let learn_documents_search req =
   let search_keyword = Dream.query req "q" in
-  let search_documents keyword (documents : Data.Tutorial.document list) =
-    let is_match (doc : Data.Tutorial.document) (keyword : string) =
+  let search_documents keyword (documents : Data.Tutorial.search_document list)
+      =
+    let is_match (doc : Data.Tutorial.search_document) (keyword : string) =
       let keyword = String.lowercase_ascii keyword in
       let search_in_field field =
         try
@@ -90,7 +91,7 @@ let learn_documents_search req =
     List.filter (fun doc -> is_match doc keyword) documents
   in
   let keyword = Option.value ~default:"" search_keyword in
-  let documents = Data.Tutorial.all_document in
+  let documents = Data.Tutorial.all_search_documents in
   let searched_docs = search_documents keyword documents in
   let page, number_of_pages, current_items =
     paginate ~req ~n:50 searched_docs

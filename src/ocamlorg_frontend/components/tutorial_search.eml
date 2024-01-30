@@ -3,7 +3,7 @@ let render
 ~total
 ~number_of_pages
 ~page
-(documents : Data.Tutorial.document list) = 
+(documents : Data.Tutorial.search_document list) =
 Learn_layout.single_column_layout
 ~title:"OCaml Tutorial Documents Search"
 ~description:""
@@ -44,7 +44,7 @@ Learn_layout.single_column_layout
               Showing <%i ((page - 1) * 50 + 1) %> - <%i (min (page * 50) total) %>
             </div>
           <ol class="flex flex-col">
-            <% documents |> List.iter (fun (doc : Data.Tutorial.document) -> %>
+            <% documents |> List.iter (fun (doc : Data.Tutorial.search_document) -> %>
             <li class="border-gray-200 border-b py-6 space-y-2 hover:underline md:py-8">
                 <a href="<%s doc.slug %>">
                   <h3 class="text-primary text-xl"><%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight" ~search doc.title %></h3>
