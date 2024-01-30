@@ -73,24 +73,32 @@ let paginate ~req ~n items =
   (page, number_of_pages, current_items)
 
 let learn_documents_search req =
-  let search_keyword = Dream.query req "q" in
+  let search_keywords = Dream.query req "q" in
   let search_documents keyword (documents : Data.Tutorial.search_document list)
       =
-    let is_match (doc : Data.Tutorial.search_document) (keyword : string) =
-      let keyword = String.lowercase_ascii keyword in
-      let search_in_field field =
-        try
-          let regexp = Str.regexp_string keyword in
-          Str.search_forward regexp field 0 >= 0
-        with Not_found -> false
+    let is_match (doc : Data.Tutorial.search_document) =
+      let keywords = String.lowercase_ascii keyword in
+      let regexp =
+        Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim keywords)
+        |> Str.regexp
       in
-      search_in_field doc.title
-      || search_in_field doc.section_heading
-      || search_in_field doc.content
+      let search_in_field field weight =
+        try
+          if Str.search_forward regexp field 0 >= 0 then
+          weight else 0
+        with Not_found -> 0
+      in
+      search_in_field doc.title 2
+      + search_in_field doc.section_heading 3
+      + search_in_field doc.content 1
     in
-    List.filter (fun doc -> is_match doc keyword) documents
+    List.filter_map (fun doc ->
+      let score = is_match doc in
+      if score > 0 then Some (doc, score) else None) documents
+    |> List.sort (fun (_, score1) (_, score2) -> Int.compare score2 score1)
+    |> List.map fst
   in
-  let keyword = Option.value ~default:"" search_keyword in
+  let keyword = Option.value ~default:"" search_keywords in
   let documents = Data.Tutorial.all_search_documents in
   let searched_docs = search_documents keyword documents in
   let page, number_of_pages, current_items =
