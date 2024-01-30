@@ -76,26 +76,25 @@ let learn_documents_search req =
   let search_keywords = Dream.query req "q" in
   let search_documents keyword (documents : Data.Tutorial.search_document list)
       =
-    let is_match (doc : Data.Tutorial.search_document) =
-      let keywords = String.lowercase_ascii keyword in
+    let score_document (doc : Data.Tutorial.search_document) =
       let regexp =
-        Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim keywords)
-        |> Str.regexp
+        Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim keyword)
+        |> Str.regexp_case_fold
       in
       let search_in_field field weight =
-        try if Str.search_forward regexp field 0 >= 0 then weight else 0
-        with Not_found -> 0
+        Float.log (float_of_int (List.length (Str.split regexp field)))
+        *. weight
       in
-      search_in_field doc.title 2
-      + search_in_field doc.section_heading 3
-      + search_in_field doc.content 1
+      search_in_field doc.title 1.2
+      +. search_in_field doc.section_heading 2.0
+      +. search_in_field doc.content 1.0
     in
     List.filter_map
       (fun doc ->
-        let score = is_match doc in
-        if score > 0 then Some (doc, score) else None)
+        let score = score_document doc in
+        if score > 0.0 then Some (doc, score) else None)
       documents
-    |> List.sort (fun (_, score1) (_, score2) -> Int.compare score2 score1)
+    |> List.sort (fun (_, score1) (_, score2) -> Float.compare score2 score1)
     |> List.map fst
   in
   let keyword = Option.value ~default:"" search_keywords in

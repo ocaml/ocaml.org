@@ -44,7 +44,7 @@ type metadata = {
 }
 [@@deriving of_yaml]
 
-type document = {
+type search_document = {
   title : string;
   category : string;
   section_heading : string;
@@ -229,7 +229,7 @@ module Search = struct
 
   let document_from_section
       ((heading : string), (content : Cmarkit.Block.t list))
-      ~(metadata : metadata) : document =
+      ~(metadata : metadata) : search_document =
     let section_document =
       {
         title = metadata.title;
@@ -242,7 +242,7 @@ module Search = struct
     section_document
 
   let decode_search_document (_fpath, (head, body_md)) :
-      (document list, [> `Msg of string ]) result =
+      (search_document list, [> `Msg of string ]) result =
     match metadata_of_yaml head with
     | Ok metadata ->
         let content_blocks =
@@ -293,7 +293,7 @@ let all () =
   Utils.map_files decode "tutorials/*.md"
   |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
 
-let all_search_documents () : document list =
+let all_search_documents () : search_document list =
   Utils.map_files Search.decode_search_document "tutorials/*.md" |> List.flatten
 
 let template () =
@@ -352,9 +352,10 @@ type t =
   }
   
 let all = %a
-let all_search_documents = %a
+let all_search_documents =
+  %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
     (all ())
-    (Fmt.brackets (Fmt.list pp_document ~sep:Fmt.semi))
+    (Fmt.brackets (Fmt.list pp_search_document ~sep:Fmt.semi))
     (all_search_documents ())
