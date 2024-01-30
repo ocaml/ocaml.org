@@ -3,187 +3,518 @@ id: functors
 title: Functors
 short_title: Functors
 description: >
-  Learn about functors, modules parameterised by other modules
+  In OCaml, a functor is a function at the module-level. Functors take modules as arguments and return a new module.
 category: "Module System"
 ---
 
-Functors are probably one of the most complex features of OCaml, but you don't
-have to use them extensively to be a successful OCaml programmer. Actually,
-you may never have to define a functor yourself, but you will surely encounter
-them in the standard library. They are the only way of using the Set and Map
-modules, but using them is not so difficult.
+## Introduction
 
-## What Are Functors and Why Do We Need Them?
+In this tutorial, we look at how to apply functors and how to write functors. We also show some use cases involving functors.
 
-A functor is a module that is parametrised by another module, just like a
-function is a value which is parametrised by other values, the arguments.
+As suggested by the name, a _functor_ is almost like a function. However, while functions are between values, functors are between modules. A functor has a module as a parameter and returns a module as a result. A functor in OCaml is a parametrised module, not to be confused with a [functor in mathematics](https://en.wikipedia.org/wiki/Functor).
 
-It allows one to parametrise a type by a value, which is not possible directly
-in OCaml without functors. For example, we can define a functor that takes an
-`int n` and returns a collection of array operations that work exclusively on
-arrays of length `n`. If by mistake the programmer passes a regular array to one
-of those functions, it will result in a compilation error. If we were not using
-this functor but the standard array type, the compiler would not be able to
-detect the error, and we would get a runtime error at some undetermined date in
-the future, which is much worse.
+**Prerequisites**: [Modules](/docs/modules).
 
-## Using an Existing Functor
+## Project Setup
 
-The standard library defines a `Set` module, which provides a `Make` functor.
-This functor takes one argument, which is a module that provides (at least) two
-things: the type of elements, given as `t` and the comparison function given as
-`compare`. The point of the functor is to ensure that the same comparison
-function will always be used, even if the programmer makes a mistake.
+This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have installed version 3.7 or later. We start by creating a fresh project. We need a folder named `funkt` with files `dune-project`, `dune`, and `funkt.ml`.
 
-For example, if we want to use sets of `ints`, we would do this:
-
-```ocaml
-# module Int_set =
-  Set.Make (struct
-              type t = int
-              let compare = compare
-            end);;
-module Int_set :
-  sig
-    type elt = int
-    type t
-    val empty : t
-    val is_empty : t -> bool
-    val mem : elt -> t -> bool
-    val add : elt -> t -> t
-    val singleton : elt -> t
-    val remove : elt -> t -> t
-    val union : t -> t -> t
-    val inter : t -> t -> t
-    val disjoint : t -> t -> bool
-    val diff : t -> t -> t
-    val compare : t -> t -> elt
-    val equal : t -> t -> bool
-    val subset : t -> t -> bool
-    val iter : (elt -> unit) -> t -> unit
-    val map : (elt -> elt) -> t -> t
-    val fold : (elt -> 'a -> 'a) -> t -> 'a -> 'a
-    val for_all : (elt -> bool) -> t -> bool
-    val exists : (elt -> bool) -> t -> bool
-    val filter : (elt -> bool) -> t -> t
-    val filter_map : (elt -> elt option) -> t -> t
-    val partition : (elt -> bool) -> t -> t * t
-    val cardinal : t -> elt
-    val elements : t -> elt list
-    val min_elt : t -> elt
-    val min_elt_opt : t -> elt option
-    val max_elt : t -> elt
-    val max_elt_opt : t -> elt option
-    val choose : t -> elt
-    val choose_opt : t -> elt option
-    val split : elt -> t -> t * bool * t
-    val find : elt -> t -> elt
-    val find_opt : elt -> t -> elt option
-    val find_first : (elt -> bool) -> t -> elt
-    val find_first_opt : (elt -> bool) -> t -> elt option
-    val find_last : (elt -> bool) -> t -> elt
-    val find_last_opt : (elt -> bool) -> t -> elt option
-    val of_list : elt list -> t
-    val to_seq_from : elt -> t -> elt Seq.t
-    val to_seq : t -> elt Seq.t
-    val to_rev_seq : t -> elt Seq.t
-    val add_seq : elt Seq.t -> t -> t
-    val of_seq : elt Seq.t -> t
-  end
+```shell
+$ mkdir funkt; cd funkt
 ```
 
-For sets of strings, it is even easier because the standard library provides a
-`String` module with a type `t` and a function `compare`. If you were following
-carefully, by now you must have guessed how to create a module to
-manipulate string sets:
-
-```ocaml
-# module String_set = Set.Make (String);;
-module String_set :
-  sig
-    type elt = string
-    type t = Set.Make(String).t
-    val empty : t
-    val is_empty : t -> bool
-    val mem : elt -> t -> bool
-    val add : elt -> t -> t
-    val singleton : elt -> t
-    val remove : elt -> t -> t
-    val union : t -> t -> t
-    val inter : t -> t -> t
-    val disjoint : t -> t -> bool
-    val diff : t -> t -> t
-    val compare : t -> t -> int
-    val equal : t -> t -> bool
-    val subset : t -> t -> bool
-    val iter : (elt -> unit) -> t -> unit
-    val map : (elt -> elt) -> t -> t
-    val fold : (elt -> 'a -> 'a) -> t -> 'a -> 'a
-    val for_all : (elt -> bool) -> t -> bool
-    val exists : (elt -> bool) -> t -> bool
-    val filter : (elt -> bool) -> t -> t
-    val filter_map : (elt -> elt option) -> t -> t
-    val partition : (elt -> bool) -> t -> t * t
-    val cardinal : t -> int
-    val elements : t -> elt list
-    val min_elt : t -> elt
-    val min_elt_opt : t -> elt option
-    val max_elt : t -> elt
-    val max_elt_opt : t -> elt option
-    val choose : t -> elt
-    val choose_opt : t -> elt option
-    val split : elt -> t -> t * bool * t
-    val find : elt -> t -> elt
-    val find_opt : elt -> t -> elt option
-    val find_first : (elt -> bool) -> t -> elt
-    val find_first_opt : (elt -> bool) -> t -> elt option
-    val find_last : (elt -> bool) -> t -> elt
-    val find_last_opt : (elt -> bool) -> t -> elt option
-    val of_list : elt list -> t
-    val to_seq_from : elt -> t -> elt Seq.t
-    val to_seq : t -> elt Seq.t
-    val to_rev_seq : t -> elt Seq.t
-    val add_seq : elt Seq.t -> t -> t
-    val of_seq : elt Seq.t -> t
-  end
+Place the following in the file **`dune-project`**:
+```lisp
+(lang dune 3.7)
+(package (name funkt))
 ```
 
-(the parentheses are necessary)
+The content of the file **`dune`** should be this:
+```lisp
+(executable
+  (name funkt)
+  (public_name funkt)
+  (libraries str))
+```
 
-## Defining Functors
+Create an empty file `funkt.ml`.
 
-A functor with one argument can be defined like this:
+Check that this works using the `opam exec -- dune exec funkt` command. It shouldn't do anything (the empty file is valid OCaml syntax), but it shouldn't fail either. The stanza `libraries str` makes the `Str` module (which we will use later) available.
 
-<!-- $MDX skip -->
+## Using an Existing Functor: `Set.Make`
+
+The standard library contains a [`Set`](/api/Set.html) module which is designed to handle sets. This module enables you to perform operations such as union, intersection, and difference on sets. You may check the [Set](/docs/sets) tutorial to learn more about this module, but it is not required to follow the present tutorial.
+
+To create a set module for a given element type (which allows you to use the provided type and its associated [functions](/api/Set.S.html)), it's necessary to use the functor `Set.Make` provided by the `Set` module. Here is a simplified version of `Set`'s interface:
 ```ocaml
-module F (X : X_type) = struct
-  ...
+module type OrderedType = sig
+  type t
+  val compare : t -> t -> int
+end
+
+module Make : functor (Ord : OrderedType) -> Set.S
+```
+
+Here is how this reads (starting from the bottom, then going up):
+* Like a function (indicated by the arrow `->`), the functor `Set.Make`
+  - takes a module with signature `OrderedType` and
+  - returns a module with signature [`Set.S`](/api/Set.S.html)
+* The module type `OrderedType` requires a type `t` and a function `compare`, which are used to perform the comparisons between elements of the set.
+
+**Note**: Most set operations need to compare elements to check if they are the same. To allow using a user-defined comparison algorithm, the `Set.Make` functor takes a module the specifies both the element type `t` and the `compare` function. Passing the comparison function as a higher-order parameter, as done in `Array.sort`, for example, would add a lot of boilerplate code. Providing set operations as a functor allows specifying the comparison function only once.
+
+Here is an example how to use `Set.Make`:
+
+**`funkt.ml`**
+
+```ocaml
+module StringCompare = struct
+  type t = string
+  let compare = String.compare
+end
+
+module StringSet = Set.Make(StringCompare)
+```
+
+This defines a module `Funkt.StringSet`. What `Set.Make` needs are:
+- Type `t`, here `string`
+- Function allowing to compare two values of type `t`, here `String.compare`
+
+However, since the module `String` defines
+- Type name `t`, which is an alias for `string`
+- Function `compare` of type `t -> t -> bool` compares two strings
+
+This can be simplified using an _anonymous module_ expression:
+```ocaml
+module StringSet = Set.Make(struct
+  type t = string
+  let compare = String.compare
+end)
+```
+
+The module expression `struct ... end` is inlined in the `Set.Make` call.
+
+This can be simplified even further into this:
+```ocaml
+module StringSet = Set.Make(String)
+```
+
+In all versions, the module resulting from the functor application `Set.Make` is bound to the name `StringSet`, and it has the signature `Set.S`. The module `StringSet` provides the operations on sets of strings. The function `String.compare` is used internally by `StringSet`.
+
+When you run `opam exec -- dune exec funkt`, it doesn't do anything, but it shouldn't fail either.
+
+Let's add some code to `funkt.ml` so that it does something.
+
+**`funkt.ml`**
+```ocaml
+module StringSet = Set.Make(String)
+
+let _ =
+  In_channel.input_lines stdin
+  |> List.concat_map Str.(split (regexp "[ \t.,;:()]+"))
+  |> StringSet.of_list
+  |> StringSet.iter print_endline
+```
+
+Here is how this code works:
+- `In_channel.input_lines` : reads lines of text from standard input
+- `List.concat_map` : splits lines into words and produces a word list
+- `StringSet.of_list : string list -> StringSet.t` : converts the word list into a set
+- `StringSet.iter : StringSet.t -> unit` : displays the set's elements
+
+The functions `StringSet.of_list` and `StringSet.iter` are available in the functor's application result.
+
+```shell
+$ opam exec -- dune exec funkt < dune
+executable
+libraries
+name
+public_name
+str
+funkt
+```
+
+There are no duplicates in a `Set`. Therefore, the string `"funkt"` is only displayed once, although it appears twice in the `dune` file.
+
+## Extending a Module with a Standard Library Functor
+
+Using the `include` statement, here is an alternate way to expose the module created by `Set.Make(String)`:
+
+**`funkt.ml`**
+```ocaml
+module String = struct
+  include String
+  module Set = Set.Make(String)
+end
+
+let _ =
+  stdin
+  |> In_channel.input_lines
+  |> List.concat_map Str.(split (regexp "[ \t.,;:()]+"))
+  |> String.Set.of_list
+  |> String.Set.iter print_endline
+```
+
+This allows the user to seemingly extend the module `String` with a submodule `Set`. Check the behaviour using `opam exec -- dune exec funkt < dune`.
+
+## Functors Allows Parametrising Modules
+
+### Functors From the Standard Library
+
+A functor is almost a module, except it needs to be applied to a module. This turns it into a module. In that sense, a functor allows module parametrisation.
+
+That's the case for the sets, maps, and hash tables provided by the standard library. It works like a contract between the functor and the developer.
+* If you provide a module that implements what is expected, as described the parameter interface
+* The functor returns a module that implements what is promised, as described by the result interface
+
+Here is the module's signature that the functors `Set.Make` and `Map.Make` expect:
+```ocaml
+module type OrderedType = sig
+  type t
+  val compare : t -> t -> int
 end
 ```
 
-where `X` is the module that will be passed as argument, and `X_type` is its
-signature, which is mandatory.
-
-The signature of the returned module itself can be constrained, using this
-syntax:
-
-<!-- $MDX skip -->
+Here is the module's signature that the functor `Hashtbl.Make` expects:
 ```ocaml
-module F (X : X_type) : Y_type =
-struct
-  ...
+module type HashedType = sig
+  type t
+  val equal : t -> t -> bool
+  val hash : t -> int
 end
 ```
 
-or by specifying this in the `.mli` file:
+The functors  `Set.Make`, `Map.Make`, and `Hashtbl.Make` return modules satisfying the interfaces `Set.S`, `Map.S`, and `Hashtbl.S` (respectively), which all contain an abstract type `t` and associated functions. Refer to the documentation for the details about what they provide:
+* [`Set.S`](/api/Set.S.html)
+* [`Map.S`](/api/Map.S.html)
+* [`Hashtbl.S`](/api/Hashtbl.S.html)
 
-<!-- $MDX skip -->
+### Writing Your Own Functors
+
+One reason to write a functor is to provide a data structure that is parametrised. This is the same as `Set` and `Map` on other data structures. In this section, we take heaps as an example.
+
+There are many kinds of [heap](https://en.wikipedia.org/wiki/Heap_(data_structure)) data structures. Examples include binary heaps, leftist heaps, binomial heaps, or Fibonacci heaps.
+
+The kind of data structures and algorithms used to implement a heap is not discussed in this document.
+
+The common prerequisite to implement any heap is a means to compare the elements they contain. That's the same signature as the parameter of `Set.Make` and `Map.Make`:
 ```ocaml
-module F (X : X_type) : Y_type
+module type OrderedType = sig
+  type t
+  val compare : t -> t -> int
+end
 ```
 
-Overall, the syntax of functors is hard to grasp. The best may be to look at
-the source files
-[`set.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/set.ml) or
-[`map.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/map.ml) of the
-standard library.
+Using such a parameter, a heap implementation must provide at least this interface:
+```ocaml
+module type HeapType = sig
+  type elt
+  type t
+  val empty : t
+  val is_empty : t -> bool
+  val insert : t -> elt -> t
+  val merge : t -> t -> t
+  val find : t -> elt
+  val delete : t -> t
+end
+```
+
+Heap implementations can be represented as functors from `OrderedType` into `HeapType`. Each kind of heap would be a different functor.
+
+Here is the skeleton of a possible implementation:
+
+**heap.ml**
+```ocaml
+module type OrderedType = sig
+  type t
+  val compare : t -> t -> int
+end
+
+module type S = sig
+  type elt
+  type t
+  val empty : t
+  val is_empty : t -> bool
+  val insert : t -> elt -> t
+  val merge : t -> t -> t
+  val find : t -> elt
+  val delete : t -> t
+end
+
+module Binary(Elt: OrderedType) : S = struct
+  type elt = | (* Replace by your own *)
+  type t = | (* Replace by your own *)
+  (* Add private functions here *)
+  let is_empty h = failwith "Not yet implemented"
+  let insert h e = failwith "Not yet implemented"
+  let merge h1 h2 = failwith "Not yet implemented"
+  let find h = failwith "Not yet implemented"
+  let delete h = failwith "Not yet implemented"
+end
+```
+
+Here, binary heaps is the only implementation suggested. This can be extended to other implementations by adding one functor per each, e.g., `Heap.Leftist`, `Heap.Binomial`, `Heap.Fibonacci`, etc.
+
+<!--
+
+TODO: Create this section
+
+When several implementations of the same interface are needed at runtime, functors allow sharing of their common parts.
+
+## Multiple Implementation of the Same Signature.
+
+> Proposal:
+>
+>Functors arise when we want to provide multiple implementation of the same signature: client module should be parametrised so that we can choose between these implementations at link time.
+
+> Example:
+>
+> The Unison file synchroniser has both a textual and a graphical user interface, both matching the signature `UI`. The main program is parametrised on the user interface module.
+
+Benjamin Piece and Robert Harper.
+Advanced Module Systems, ICFP 2000
+-->
+
+## Injecting Dependencies Using Functors
+
+**Dependencies Between Modules**
+
+Here is a new version of the `funkt` program:
+
+**`funkt.ml`**
+```ocaml
+module StringSet = Set.Make(String)
+
+module IterPrint : sig
+  val f : string list -> unit
+end = struct
+  let f = List.iter (fun s -> Out_channel.output_string stdout (s ^ "\n"))
+end
+
+let _ =
+  stdin
+  |> In_channel.input_lines
+  |> List.concat_map Str.(split (regexp "[ \t.,;:()]+"))
+  |> StringSet.of_list
+  |> StringSet.elements
+  |> IterPrint.f
+```
+
+It embeds an additional `IterPrint` module that exposes a single function `f` of type `string list -> unit` and has two dependencies:
+  - Module `List` through `List.iter` and `f`'s type
+  - Module `Out_channel` through `Out_channel.output_string`
+
+Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
+
+**Dependency Injection**
+
+[Dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) is a way to parametrise over a dependency.
+
+Here is a refactoring of the module `IterPrint` to use this technique:
+
+**`iterPrint.ml`**
+```ocaml
+module type Iterable = sig
+  type 'a t
+  val iter : ('a -> unit) -> 'a t -> unit
+end
+
+module type S = sig
+  type 'a t
+  val f : string t -> unit
+end
+
+module Make(Dep: Iterable) : S with type 'a t := 'a Dep.t = struct
+  let f = Dep.iter (fun s -> Out_channel.output_string stdout (s ^ "\n"))
+end
+```
+
+The module `IterPrint` is refactored into a functor that takes a module providing the function `iter` as a parameter. The `with type 'a t := 'a Dep.t` constraint means the type `t` from the parameter `Dep` replaces the type `t` in the result module. This allows `f`'s type to use `Dep`'s `t` type. With this refactoring, `IterPrint` only has one dependency. At its compilation time, no implementation of function `iter` is available yet.
+
+**Note**: An OCaml interface file (`.mli`) must be a module, not a functor. Functors must be embedded inside modules. Therefore, it is customary to call them `Make`.
+
+**`funkt.ml`**
+
+```ocaml
+module StringSet = Set.Make(String)
+module IterPrint = IterPrint.Make(List)
+
+let _ =
+  stdin
+  |> In_channel.input_lines
+  |> List.concat_map Str.(split (regexp "[ \t.,;:()]+"))
+  |> StringSet.of_list
+  |> StringSet.elements
+  |> IterPrint.f
+```
+
+The dependency `List` is _injected_ when compiling the module `Funkt`. Observe that the code using `IterPrint` is unchanged. Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
+
+**Replacing a Dependency**
+
+Now, replacing the implementation of `iter` inside `IterListPrint` is no longer a refactoring; it is another functor application with another dependency. Here, `Array` replaces `List`:
+
+**`funkt.ml`**
+```ocaml
+module StringSet = Set.Make(String)
+module IterPrint = IterPrint.Make(Array)
+
+let _ =
+  stdin
+  |> In_channel.input_lines
+  |> List.concat_map Str.(split (regexp "[ \t.,;:()]+"))
+  |> StringSet.of_list
+  |> StringSet.elements
+  |> Array.of_list
+  |> IterPrint.f
+```
+
+Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
+
+**Note**: The functor `IterPrint.Make` returns a module that exposes the type from the injected dependency (here first `List.t` then `Array.t`). That's why a `with type` constraint is needed. When parametrising other something not exposed by the module (and _implementation detail_), the `with type` constraint is not needed.
+
+## Write a Functor to Extend Modules
+
+In this section, we define a functor to extend several modules in the same way. This is the same idea as in the [Extending a Module with a Standard Library Functor](#extending-a-module-with-a-standard-library-functor), except we write the functor ourselves.
+
+In this example, we extend `List` and `Array` modules with a function `scan_left`. It does almost the same as `fold_left`, except it returns all the intermediate values, not the last one as `fold_left` does.
+
+Create a fresh directory with the following files:
+
+**`dune-project`**
+```lisp
+(lang dune 3.7)
+```
+**`dune`**
+```lisp
+(library (name scanLeft))
+```
+
+**`scanLeft.ml`**
+```ocaml
+module type LeftFoldable = sig
+  type 'a t
+  val fold_left : ('b -> 'a -> 'b) -> 'b -> 'a t -> 'b
+  val of_list : 'a list -> 'a t
+end
+
+module type S = sig
+  type 'a t
+  val scan_left : ('b -> 'a -> 'b) -> 'b -> 'a t -> 'b t
+end
+
+module Make(F: LeftFoldable) : S with type 'a t := 'a F.t = struct
+  let scan_left f b u =
+    let f (b, u) a =
+      let b' = f b a in
+      (b', b' :: u) in
+    u |> F.fold_left f (b, []) |> snd |> List.rev |> F.of_list
+end
+```
+
+Run the `dune utop` command. Once inside the toplevel, enter the following commands.
+```ocaml
+# module Array = struct
+    include Stdlib.Array
+    include ScanLeft.Make(Stdlib.Array)
+  end;;
+
+# module List = struct
+    include List
+    include ScanLeft.Make(struct
+      include List
+      let of_list = Fun.id
+    end)
+  end;;
+
+# Array.init 10 Fun.id |> Array.scan_left ( + ) 0;;
+- : int array = [|0; 1; 3; 6; 10; 15; 21; 28; 36; 45|]
+
+# List.init 10 Fun.id |> List.scan_left ( + ) 0;;
+- : int list = [0; 1; 3; 6; 10; 15; 21; 28; 36; 45]
+```
+
+Modules `Array` and `List` appear augmented with `Array.scan_left` and `List.scan_left`. For brevity, the output of the first two toplevel commands is not shown here.
+
+## Initialisation of Stateful Modules
+
+Modules can hold a state. Functors can provide a means to initialise stateful modules. As an example of such, here is a possible way to handle random number generation seeds as a state:
+
+**`random.ml`**
+```ocaml
+module type SeedType : sig
+  val v : int array
+end
+
+module type S : sig
+  val reset_state : unit -> unit
+
+  val bits : unit -> int
+  val bits32 : unit -> int32
+  val bits64 : unit -> int64
+  val nativebits : unit -> nativeint
+  val int : int -> int
+  val int32 : int32 -> int32
+  val int64 : int64 -> int64
+  val nativeint : nativeint -> nativeint
+  val full_int : int -> int
+  val float : float -> float
+  val bool : unit -> bool
+end
+
+module Make(Seed: SeedType) : S = struct
+  let state = Seed.v |> Random.State.make |> ref
+  let reset_state () = state := Random.State.make Seed.v
+
+  let bits () = Random.State.bits !state
+  let bits32 () = Random.State.bits32 !state
+  let bits64 () = Random.State.bits64 !state
+  let nativebits () = Random.State.nativebits !state
+  let int = Random.State.int !state
+  let int32 = Random.State.int32 !state
+  let int64 = Random.State.int64 !state
+  let nativeint = Random.State.nativeint !state
+  let full_int = Random.State.full_int !state
+  let float = Random.State.float !state
+  let bool () = Random.State.bool !state
+end
+```
+
+Create this file and launch `utop`.
+```ocaml
+# #mod_use "random.ml";;
+
+# module R1 = Random.Make(struct let v = [|0; 1; 2; 3|] end);;
+
+# module R2 = Random.Make(struct let v = [|0; 1; 2; 3|] end);;
+
+# R1.bits ();;
+- : int = 75783189
+
+# R2.bits ();;
+- : int = 75783189
+
+# R1.bits ();;
+- : int = 774473149
+
+# R1.reset_state ();;
+- : unit = ()
+
+# R2.bits ();;
+- : int = 774473149
+
+# R1.bits ();;
+- : int = 75783189
+```
+
+Modules `R1` and `R2` are created with the same state; therefore, the first calls to `R1.bits` and `R2.bits` return the same value.
+
+The second call to `R1.bits` moves `R1`'s state one step and returns the corresponding bits. The call to `R1.reset_state` sets the `R1`'s state to its initial value.
+
+Calling `R2.bits` a second time shows the modules aren't sharing states. Otherwise, the value from the first calls to `bits` would have been returned.
+
+Calling `R1.bits` a third time returns the same result as the first call, which demonstrates the state has indeed been reset.
+
+## Conclusion
+
+Functor application essentially works the same way as function application: passing parameters and getting results. The difference is that we are passing modules instead of values. Beyond comfort, it enables a design approach where concerns are not only separated in silos, which is enabled by modules, but also in stages stacked upon each other.
