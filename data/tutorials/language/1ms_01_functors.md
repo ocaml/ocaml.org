@@ -157,13 +157,13 @@ let _ =
 
 This allows the user to seemingly extend the module `String` with a submodule `Set`. Check the behaviour using `opam exec -- dune exec funkt < dune`.
 
-## Functors allows Parametrising Modules
+## Functors Allows Parametrising Modules
 
-### Functors from the Standard Library
+### Functors From the Standard Library
 
 A functor is almost a module, except it needs to be applied to a module. This turns it into a module. In that sense, a functor allows module parametrisation.
 
-That's the case for the sets, maps, and hash tables provided by the standard library. It works like a contract between the functor and the developer:
+That's the case for the sets, maps, and hash tables provided by the standard library. It works like a contract between the functor and the developer.
 * If you provide a module that implements what is expected, as described the parameter interface
 * The functor returns a module that implements what is promised, as described by the result interface
 
@@ -265,11 +265,11 @@ When several implementations of the same interface are needed at runtime, functo
 
 > Proposal:
 >
->Functors arise when we want to provide multiple implementation of the same signature: client module should be parametrized so that we can choose between these implementations at link time.
+>Functors arise when we want to provide multiple implementation of the same signature: client module should be parametrised so that we can choose between these implementations at link time.
 
 > Example:
 >
-> The Unison file synchronizer has both a textual and a graphical user interface, both matching the signature `UI`. The main program is parametrized on the user interface module.
+> The Unison file synchroniser has both a textual and a graphical user interface, both matching the signature `UI`. The main program is parametrised on the user interface module.
 
 Benjamin Piece and Robert Harper.
 Advanced Module Systems, ICFP 2000
