@@ -84,8 +84,7 @@ module Tutorial = struct
       search_in_field doc.title 1.2
       +. search_in_field
            (doc.section
-           |> Option.map (fun (s : search_document_section) ->
-                  s.title)
+           |> Option.map (fun (s : search_document_section) -> s.title)
            |> Option.value ~default:"")
            2.0
       +. search_in_field doc.content 1.0
