@@ -67,7 +67,7 @@ let decode (fpath, (head, body_md)) =
   Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () =
-  Utils.map_files decode "releases/" |> List.sort sort_by_decreasing_version
+  Utils.map_files decode "releases" |> List.sort sort_by_decreasing_version
 
 let template () =
   let all = all () in

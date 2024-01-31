@@ -1,46 +1,27 @@
-module type DB = sig
-  val read : string -> string option
-  val file_list : string list
-end
-
-let dbs : (_ * (module DB)) list =
-  [
-    ("academic_institutions", (module Data_academic_institutions));
-    ("books", (module Data_books));
-    ("changelog", (module Data_changelog));
-    ("code_examples", (module Data_code_examples));
-    ("events", (module Data_events));
-    ("exercises", (module Data_exercises));
-    ("industrial_users", (module Data_industrial_users));
-    ("is_ocaml_yet", (module Data_is_ocaml_yet));
-    ("media", (module Data_media));
-    ("news", (module Data_news));
-    ("pages", (module Data_pages));
-    ("planet-local-blogs", (module Data_planet_local_blogs));
-    ("planet", (module Data_planet));
-    ("releases", (module Data_releases));
-    ("success_stories", (module Data_success_stories));
-    ("tutorials", (module Data_tutorials));
-    ("workshops", (module Data_workshops));
-  ]
+let root_dir = Fpath.(v (Sys.getcwd ()) // v "data")
 
 let file_list =
-  Data_root.file_list
-  @ List.concat_map
-      (fun (name, (module M : DB)) ->
-        List.map (fun path -> Filename.concat name path) M.file_list)
-      dbs
+  let rec collect_files_from_dir dir =
+    match Bos.OS.Dir.contents dir with
+    | Ok files ->
+        let files =
+          files
+          |> List.concat_map (fun file ->
+                 match Bos.OS.Path.stat file with
+                 | Ok stat when not (stat.Unix.st_kind = Unix.S_DIR) -> [ file ]
+                 | Ok stat when stat.Unix.st_kind = Unix.S_DIR ->
+                     collect_files_from_dir file
+                 | _ -> [])
+        in
+        files
+    | Error (`Msg msg) -> failwith msg
+  in
+  collect_files_from_dir root_dir
+  |> List.map (fun file -> Fpath.rem_prefix root_dir file |> Option.get)
 
-let db_of_string s =
-  match List.assoc_opt s dbs with
-  | Some db -> db
-  | None -> Printf.ksprintf failwith "db_of_string: unknown db %s" s
-
-let split_dir s =
-  match Astring.String.cut s ~sep:"/" with
-  | None -> ((module Data_root : DB), s)
-  | Some (db_name, f) -> (db_of_string db_name, f)
-
-let read s =
-  let (module M : DB), path = split_dir s in
-  M.read path
+let read filepath =
+  let filepath = Fpath.(root_dir // filepath) in
+  Bos.OS.File.read filepath
+  |> Result.map (fun r -> Some r)
+  |> Result.map_error (fun (`Msg msg) -> failwith msg)
+  |> Result.value ~default:None

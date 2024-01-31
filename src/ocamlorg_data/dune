@@ -4,170 +4,291 @@
 
 (rule
  (target is_ocaml_yet.ml)
+ (deps
+  (source_tree %{workspace_root}/data/is_ocaml_yet)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} is_ocaml_yet))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} is_ocaml_yet)))))
 
 (rule
  (target academic_institution.ml)
+ (deps
+  (source_tree %{workspace_root}/data/academic_institutions)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} academic_institution))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} academic_institution)))))
 
 (rule
  (target book.ml)
+ (deps
+  (source_tree %{workspace_root}/data/books)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} book))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} book)))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
  (target governance.ml)
+ (deps
+  %{workspace_root}/data/governance.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} governance))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} governance)))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
  (target changelog.ml)
+ (deps
+  (source_tree %{workspace_root}/data/changelog)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} changelog))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} changelog)))))
 
 (rule
  (target job.ml)
+ (deps
+  %{workspace_root}/data/jobs.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} job))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} job)))))
 
 (rule
  (target meetup.ml)
+ (deps
+  %{workspace_root}/data/meetups.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} meetup))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} meetup)))))
 
 (rule
  (target industrial_user.ml)
+ (deps
+  (source_tree %{workspace_root}/data/industrial_users)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} industrial_user))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} industrial_user)))))
 
 (rule
  (target paper.ml)
+ (deps
+  %{workspace_root}/data/papers.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} paper))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} paper)))))
 
 (rule
  (target exercise.ml)
+ (deps
+  (source_tree %{workspace_root}/data/exercises)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} exercises))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} exercises)))))
 
 (rule
  (target release.ml)
+ (deps
+  (source_tree %{workspace_root}/data/releases)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} release))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} release)))))
 
 (rule
  (target success_story.ml)
+ (deps
+  (source_tree %{workspace_root}/data/success_stories)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} success_story))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} success_story)))))
 
 (rule
  (target tool.ml)
+ (deps
+  %{workspace_root}/data/tools.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} tool))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} tool)))))
 
 (rule
  (target tutorial.ml)
+ (deps
+  (source_tree %{workspace_root}/data/tutorials)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} tutorial))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} tutorial)))))
 
 (rule
  (target video.ml)
+ (deps
+  %{workspace_root}/data/videos.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} video))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} video)))))
 
 (rule
  (target watch.ml)
+ (deps
+  %{workspace_root}/data/watch.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} watch))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} watch)))))
 
 (rule
  (target planet.ml)
+ (deps
+  %{workspace_root}/data/planet-local-blogs.yml
+  %{workspace_root}/data/planet-sources.yml
+  (source_tree %{workspace_root}/data/planet)
+  (source_tree %{workspace_root}/data/planet-local-blogs)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} planet))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} planet)))))
 
 (rule
  (target opam_user.ml)
+ (deps
+  %{workspace_root}/data/opam-users.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} opam_user))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} opam_user)))))
 
 (rule
  (target outreachy.ml)
+ (deps
+  %{workspace_root}/data/outreachy.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} outreachy))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} outreachy)))))
 
 (rule
  (target workshop.ml)
+ (deps
+  (source_tree %{workspace_root}/data/workshops)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} workshops))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} workshops)))))
 
 (rule
  (target news.ml)
+ (deps
+  (source_tree %{workspace_root}/data/news)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} news))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} news)))))
 
 (rule
  (target page.ml)
+ (deps
+  (source_tree %{workspace_root}/data/pages)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} page))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} page)))))
 
 (rule
  (target code_example.ml)
+ (deps
+  (source_tree %{workspace_root}/data/code_examples)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} code_example))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} code_example)))))
 
 (rule
  (target event.ml)
+ (deps
+  (source_tree %{workspace_root}/data/events)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
-  (with-stdout-to
-   %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} event))))
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} event)))))
