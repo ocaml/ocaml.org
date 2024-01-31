@@ -18,7 +18,7 @@ In OCaml, there are no type checks at runtime, and values don't change type unle
 
 <!--End edit-->
 
-**Prerequisites**: Before proceeding, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions). As in previous tutorials, expressions after `#` and ending with `;;` are for the toplevel, like UTop.
+**Note**: As in previous tutorials, expressions after `#` and ending with `;;` are for the toplevel, like UTop.
 
 <!--
 The goal of this tutorial is to provide for the following capabilities:
