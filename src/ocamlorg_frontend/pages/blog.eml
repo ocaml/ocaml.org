@@ -1,10 +1,9 @@
 let render ~(featured : Data.Planet.Post.t list) ~(planet : Data.Planet.Post.t list) ~planet_pages_number ~planet_page ~(news : Data.News.t list) =
-Community_layout.single_column_layout
+Layout.render
 ~title:"OCaml Blog"
 ~description:"Recent news and blog posts from the OCaml community."
 ~canonical:(Url.blog ^ if planet_page = 1 then "" else "?p=" ^ string_of_int planet_page)
-~active_top_nav_item:Header.Blog
-~current:Blog @@
+~active_top_nav_item:Header.Blog @@
 <div class="bg-white dark:bg-dark-background py-10">
     <div class="container-fluid wide">
         <h1 class="sr-only">OCaml Blog</h1>

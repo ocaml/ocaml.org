@@ -7,6 +7,7 @@ companies rely on OCaml to keep their data operating both safely and \
 efficiently. On this page, you can get an overview of the companies in \
 the community and learn more about how they use OCaml."
 ~canonical:Url.industrial_users
+~active_top_nav_item:Header.Community
 ~current:IndustrialUsers @@
 <div class="lg:py-24 py-2">
   <div class="container-fluid space-y-24 lg:space-y-32">

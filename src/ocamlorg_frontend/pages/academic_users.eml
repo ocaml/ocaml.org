@@ -3,6 +3,7 @@ Community_layout.single_column_layout
 ~title:"Academic Users of OCaml"
 ~description:"OCaml is taught all around the world and used every day by programming language researchers. Learn more about the strong academic roots of the language."
 ~canonical:Url.academic_users
+~active_top_nav_item:Header.Community
 ~current:AcademicUsers @@
 <div class="intro-section-simple">
   <div class="container-fluid">
