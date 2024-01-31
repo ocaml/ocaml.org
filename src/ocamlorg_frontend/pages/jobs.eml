@@ -1,10 +1,11 @@
 let render ?(location = "All") ~locations (jobs : Data.Job.t list) =
-Layout.render
+Community_layout.single_column_layout
 ~title:"OCaml Jobs"
 ~description:"This is a space where groups, companies, and organisations can advertise their projects directly to the
 OCaml community."
 ~canonical:Url.jobs
-~active_top_nav_item:Header.Community @@
+~active_top_nav_item:Header.Community
+~current:Jobs @@
 <div class="w-full section-mild-contrast dark:section-blue-gradient pt-16 pb-16">
     <div class="container-fluid">
         <div class="w-full m-auto">

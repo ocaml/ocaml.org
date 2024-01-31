@@ -1,12 +1,13 @@
 let render ~(users : Data.Industrial_user.t list) ~success_stories =
-Layout.render
+Community_layout.single_column_layout
 ~use_swiper:true
 ~title:"OCaml in Industry"
 ~description:"With its strong security features and high performance, several \
 companies rely on OCaml to keep their data operating both safely and \
 efficiently. On this page, you can get an overview of the companies in \
 the community and learn more about how they use OCaml."
-~canonical:Url.industrial_users @@
+~canonical:Url.industrial_users
+~current:IndustrialUsers @@
 <div class="lg:py-24 py-2">
   <div class="container-fluid space-y-24 lg:space-y-32">
       <div class="flex flex-col lg:flex-row  justify-between space-x-0 lg:space-x-10">
