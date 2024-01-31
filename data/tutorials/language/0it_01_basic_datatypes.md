@@ -6,10 +6,8 @@ description: |
   Predefined Types, Variants, Records, and Pattern Matching
 category: "Introduction"
 prerequisite_tutorials: 
-  [
-    "tour-of-ocaml",
-    "values-and-functions",
-  ]
+  - tour-of-ocaml"
+  - "values-and-functions"
 ---
 
 ## Introduction
