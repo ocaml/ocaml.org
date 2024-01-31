@@ -5,10 +5,8 @@ short_title: Labelled and Optional Arguments
 description: >
   Provide labels to your functions arguments
 category: "Introduction"
-prerequisite_tutorials: 
-  [
-    "values-and-functions"
-  ]
+prerequisite_tutorials:
+  - "values-and-functions"
 ---
 
 It is possible to give names and default values to function parameters. This is broadly known as labels. In this tutorial, we learn how to use labels.
