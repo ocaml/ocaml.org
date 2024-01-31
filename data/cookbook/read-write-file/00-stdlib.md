@@ -2,7 +2,7 @@
 title: Read or Write to Files (Stdlib)
 problem: "You need to read from or write to a file in OCaml."
 category: "File Access"
-libraries: []
+packages: []
 ---
 
 ## Solution
