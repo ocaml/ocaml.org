@@ -137,7 +137,10 @@ let check_tutorial_references all =
     ^ " were not found: [" ^ String.concat "; " missing ^ "]"
   in
   let has_missing_tuts_exn t =
-    match List.filter tut_is_missing t.recommended_next_tutorials with
+    match
+      List.filter tut_is_missing t.recommended_next_tutorials
+      @ List.filter tut_is_missing t.prerequisite_tutorials
+    with
     | [] -> ()
     | missing -> raise (Missing_Tutorial (missing_tut_msg t missing))
   in

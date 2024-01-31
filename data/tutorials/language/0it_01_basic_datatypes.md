@@ -6,7 +6,7 @@ description: |
   Predefined Types, Variants, Records, and Pattern Matching
 category: "Introduction"
 prerequisite_tutorials: 
-  - tour-of-ocaml"
+  - "tour-of-ocaml"
   - "values-and-functions"
 ---
 
@@ -15,8 +15,6 @@ prerequisite_tutorials:
 This document covers atomic types, such as integers and Booleans; predefined compound types, like strings and lists; and user-defined types, namely variants and records. We show how to pattern matching on those types.
 
 In OCaml, there are no type checks at runtime, and values don't change type unless explicitly converted. This is what being statically- and strongly-typed means. This allows safe processing of structured data.
-
-<!--End edit-->
 
 **Note**: As in previous tutorials, expressions after `#` and ending with `;;` are for the toplevel, like UTop.
 
