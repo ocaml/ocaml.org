@@ -34,13 +34,22 @@ let read_from_dir glob =
   let file_pattern =
     Fpath.v (String.split_on_char '*' glob |> String.concat "$(f)")
   in
-  Bos.OS.Path.matches Fpath.(root_dir // file_pattern)
-  |> Result.get_ok ~error:(fun (`Msg msg) -> failwith msg)
-  |> List.filter_map (fun x ->
-         read_file x
-         |> Option.map (fun y ->
-                ( x |> Fpath.rem_prefix root_dir |> Option.get |> Fpath.to_string,
-                  y )))
+  let results =
+    Bos.OS.Path.matches Fpath.(root_dir // file_pattern)
+    |> Result.get_ok ~error:(fun (`Msg msg) -> failwith msg)
+    |> List.filter_map (fun x ->
+           read_file x
+           |> Option.map (fun y ->
+                  ( x |> Fpath.rem_prefix root_dir |> Option.get
+                    |> Fpath.to_string,
+                    y )))
+  in
+  if List.length results = 0 then
+    failwith
+      ("Did not find any files matching " ^ glob
+     ^ "! All data folders need to be listed as dependencies of the \
+        corresponding ood-gen command in src/ocamlorg_data/dune");
+  results
 
 let map_files f glob =
   let f (path, data) =
