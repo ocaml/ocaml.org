@@ -2,7 +2,7 @@ type metadata = {
   title : string;
   problem : string;
   category : string;
-  libraries : string list;
+  packages : string list;
 }
 [@@deriving of_yaml]
 
@@ -12,7 +12,7 @@ type t = {
   title : string;
   problem : string;
   category : string;
-  libraries : string list;
+  packages : string list;
   body_html : string;
 }
 [@@deriving
@@ -20,6 +20,7 @@ type t = {
     show { with_path = false }]
 
 let decode (fname, (head, body)) =
+  (* this isn't even being called *)
   let group_id = Filename.basename (Filename.dirname fname) in
   let name = Filename.basename (Filename.remove_extension fname) in
   let id = String.sub name 3 (String.length name - 3) in
@@ -47,7 +48,7 @@ type t =
   ; title : string
   ; problem : string
   ; category : string
-  ; libraries : string list
+  ; packages : string list
   ; body_html : string
   }
   
