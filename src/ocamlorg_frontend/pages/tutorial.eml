@@ -42,9 +42,9 @@ let render_related_exercises exercises =
 
 let render_prerequisite_tutorials tutorials =
   if List.length tutorials > 0 then
-    <div class="mb-6 pt-8 border-t border-gray-200">
+    <div class="mb-6 pt-8 border-t border-separator_20 dark:border-dark-separator_30">
         <h2 class="mb-4 mt-0 text-lg font-bold leading-6"">Prerequisites</h2>
-        <ul class="list-disc marker:text-primary">
+        <ul class="list-disc marker:text-primary dark:marker:text-dark-primary">
           <% tutorials |> List.iter (fun (tutorial : Data.Tutorial.t) -> %>
             <li class="mb-1">
               <a href='/docs/<%s tutorial.slug %>'><%s tutorial.title %></a>

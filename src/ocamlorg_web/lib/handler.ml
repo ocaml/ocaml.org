@@ -72,6 +72,17 @@ let paginate ~req ~n items =
   in
   (page, number_of_pages, current_items)
 
+let learn_documents_search req =
+  let q = Dream.query req "q" |> Option.value ~default:"" in
+  let search_results = Data.Tutorial.search_documents q in
+  let page, number_of_pages, current_items =
+    paginate ~req ~n:50 search_results
+  in
+  let total = List.length search_results in
+  Dream.html
+    (Ocamlorg_frontend.tutorial_search current_items ~total ~page
+       ~number_of_pages ~search:q)
+
 let changelog req =
   let current_tag = Dream.query req "t" in
   let tags =

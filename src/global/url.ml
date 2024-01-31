@@ -77,6 +77,7 @@ let local_blog source = "/blog/" ^ source
 let platform = "/docs/platform"
 let ocaml_on_windows = "/docs/ocaml-on-windows"
 let tutorial name = "/docs/" ^ name
+let tutorial_search = "/docs/search"
 let getting_started = "/docs/get-started"
 let installing_ocaml = "/docs/installing-ocaml"
 let exercises = "/exercises"

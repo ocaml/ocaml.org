@@ -15,3 +15,52 @@ let highlight_search_terms
     List.fold_left (fun a b -> a ^ render_item b) "" split
   else
     Dream.html_escape text
+
+let display_surrounding_text ~search (text : string) =
+  let r = Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim search) in
+  let shorten_from_right text ~length =
+    let content_length = String.length text in
+    let shortened_content =
+      if content_length < length then text else String.sub text 0 length
+    in
+    shortened_content
+  in
+  let shorten_from_left text ~length =
+    let content_length = String.length text in
+    let shortened_content =
+      if content_length < length then text
+      else String.sub text (content_length - length) length
+    in
+    shortened_content
+  in
+  let shorten_from_middle text ~length =
+    if String.length text < length then text
+    else
+      shorten_from_right text ~length:(length / 2)
+      ^ " [...] "
+      ^ shorten_from_left text ~length:(length / 2)
+  in
+  if r <> "" then
+    let render_item f = function Str.Delim s -> s | Text s -> f s in
+    match Str.full_split (Str.regexp r) text with
+    | [ x ] -> render_item (shorten_from_right ~length:200) x
+    | [ x; y ] ->
+        render_item (shorten_from_left ~length:200) x
+        ^ render_item (shorten_from_right ~length:200) y
+    | [ x; y; z ] ->
+        render_item (shorten_from_left ~length:200) x
+        ^ render_item (shorten_from_middle ~length:200) y
+        ^ render_item (shorten_from_right ~length:200) z
+    | [ x; y; z; a ] ->
+        render_item (shorten_from_left ~length:100) x
+        ^ render_item (shorten_from_middle ~length:100) y
+        ^ render_item (shorten_from_middle ~length:100) z
+        ^ render_item (shorten_from_right ~length:100) a
+    | x :: y :: z :: a :: b :: _ ->
+        render_item (shorten_from_left ~length:100) x
+        ^ render_item (shorten_from_middle ~length:100) y
+        ^ render_item (shorten_from_middle ~length:100) z
+        ^ render_item (shorten_from_middle ~length:100) a
+        ^ render_item (shorten_from_right ~length:100) b
+    | [] -> shorten_from_right ~length:200 text
+  else shorten_from_right ~length:200 text
