@@ -29,6 +29,9 @@ type external_tutorial = {
 type recommended_next_tutorials = string list
 [@@deriving of_yaml, show { with_path = false }]
 
+type prerequisite_tutorials = string list
+[@@deriving of_yaml, show { with_path = false }]
+
 type metadata = {
   id : string;
   title : string;
@@ -37,6 +40,7 @@ type metadata = {
   category : string;
   external_tutorial : external_tutorial option;
   recommended_next_tutorials : recommended_next_tutorials option;
+  prerequisite_tutorials : prerequisite_tutorials option;
 }
 [@@deriving of_yaml]
 
@@ -53,17 +57,18 @@ type t = {
   body_md : string;
   body_html : string;
   recommended_next_tutorials : recommended_next_tutorials;
+  prerequisite_tutorials : prerequisite_tutorials;
 }
 [@@deriving
   stable_record ~version:metadata ~add:[ id ]
-    ~modify:[ recommended_next_tutorials ]
+    ~modify:[ recommended_next_tutorials; prerequisite_tutorials ]
     ~remove:[ slug; fpath; section; toc; body_md; body_html ],
     show { with_path = false }]
 
 let of_metadata m =
-  of_metadata m ~slug:m.id ~modify_recommended_next_tutorials:(function
-    | None -> []
-    | Some u -> u)
+  of_metadata m ~slug:m.id
+    ~modify_recommended_next_tutorials:(function None -> [] | Some u -> u)
+    ~modify_prerequisite_tutorials:(function None -> [] | Some u -> u)
 
 let id_to_href id =
   match id with
@@ -132,7 +137,10 @@ let check_tutorial_references all =
     ^ " were not found: [" ^ String.concat "; " missing ^ "]"
   in
   let has_missing_tuts_exn t =
-    match List.filter tut_is_missing t.recommended_next_tutorials with
+    match
+      List.filter tut_is_missing t.recommended_next_tutorials
+      @ List.filter tut_is_missing t.prerequisite_tutorials
+    with
     | [] -> ()
     | missing -> raise (Missing_Tutorial (missing_tut_msg t missing))
   in
@@ -184,6 +192,7 @@ type external_tutorial =
   ; contribute_link : contribute_link
   }
 type recommended_next_tutorials = string list
+type prerequisite_tutorials = string list
 type t =
   { title : string
   ; short_title: string
@@ -197,6 +206,7 @@ type t =
   ; toc : toc list
   ; body_html : string
   ; recommended_next_tutorials : recommended_next_tutorials
+  ; prerequisite_tutorials : prerequisite_tutorials
   }
   
 let all = %a

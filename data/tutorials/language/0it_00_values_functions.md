@@ -5,6 +5,9 @@ short_title: Values and Functions
 description: |
   Functions, values, definitions, environments, scopes, closures, and shadowing. This tutorial will help you master the fundamentals.
 category: "Introduction"
+prerequisite_tutorials:
+  - "toplevel-introduction"
+  - "installing-ocaml"
 ---
 
 ## Introduction
@@ -12,10 +15,6 @@ category: "Introduction"
 In OCaml, functions are treated as values, so you can use functions as arguments to functions and return them from functions. This tutorial introduces the relationship between expressions, values, and names. The first four sections address non-function values. The following sections, starting at [Function as Values](#function-as-values), address functions.
 
 We use UTop to understand these concepts by example. You are encouraged to modify the examples to gain a better understanding. 
-
-**Prerequisites**: 
-- The [Introduction to the OCaml Toplevel](https://ocaml.org/docs/toplevel-introduction) guide covers how to use UTop.
-- Ensure you have completed the [Get Started](https://ocaml.org/docs/installing-ocaml) series before proceeding with this tutorial.
 
 ## What is a Value?
 

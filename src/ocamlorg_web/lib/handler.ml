@@ -408,10 +408,17 @@ let tutorial req =
     all_tutorials |> List.filter is_in_recommended_next
   in
 
+  let is_prerequisite (tested : Data.Tutorial.t) =
+    List.exists (fun r -> r = tested.slug) tutorial.prerequisite_tutorials
+  in
+
+  let prerequisite_tutorials = all_tutorials |> List.filter is_prerequisite in
+
   Dream.html
     (Ocamlorg_frontend.tutorial ~tutorials
        ~canonical:(Url.tutorial tutorial.slug)
-       ~related_exercises ~recommended_next_tutorials tutorial)
+       ~related_exercises ~recommended_next_tutorials ~prerequisite_tutorials
+       tutorial)
 
 let exercises req =
   let all_exercises = Data.Exercise.all in
