@@ -524,7 +524,7 @@ module Cookbook : sig
     title : string;
     problem : string;
     category : string;
-    libraries : string list;
+    packages : string list;
     body_html : string;
   }
 
