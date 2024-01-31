@@ -2,8 +2,7 @@
 title: Get Current Date (Stdlib)
 problem: "You need to find the year, month, and day values for today's date."
 category: "Dates and Times"
-libraries:
-  - unix
+packages: []
 ---
 
 ## Solution
