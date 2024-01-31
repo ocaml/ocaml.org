@@ -63,7 +63,7 @@ let decode (fpath, (head, body)) =
   Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () =
-  Utils.map_files decode "books/"
+  Utils.map_files decode "books/*.md"
   |> List.sort (fun b1 b2 ->
          (* Sort the books by reversed publication date. *)
          String.compare b2.published b1.published)

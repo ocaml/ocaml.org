@@ -21,21 +21,33 @@ let extract_metadata_body path s =
   let* yaml = Yaml.of_string yaml in
   Ok (yaml, body)
 
-let read_from_dir dir =
-  Data.file_list
-  |> List.filter_map (fun x ->
-         if String.starts_with ~prefix:dir (Fpath.to_string x) then
-           Data.read x |> Option.map (fun y -> (Fpath.to_string x, y))
-         else if Glob.matches_glob ~glob:dir (Fpath.to_string x) then
-           Data.read x |> Option.map (fun y -> (Fpath.to_string x, y))
-         else None)
+let root_dir = Fpath.(v (Sys.getcwd ()) // v "data")
 
-let map_files f dir =
+let read_file filepath =
+  let filepath = Fpath.(root_dir // filepath) in
+  Bos.OS.File.read filepath
+  |> Result.map (fun r -> Some r)
+  |> Result.map_error (fun (`Msg msg) -> failwith msg)
+  |> Result.value ~default:None
+
+let read_from_dir glob =
+  let file_pattern =
+    Fpath.v (String.split_on_char '*' glob |> String.concat "$(f)")
+  in
+  Bos.OS.Path.matches Fpath.(root_dir // file_pattern)
+  |> Result.get_ok ~error:(fun (`Msg msg) -> failwith msg)
+  |> List.filter_map (fun x ->
+         read_file x
+         |> Option.map (fun y ->
+                ( x |> Fpath.rem_prefix root_dir |> Option.get |> Fpath.to_string,
+                  y )))
+
+let map_files f glob =
   let f (path, data) =
     let* metadata = extract_metadata_body path data in
     f (path, metadata)
   in
-  read_from_dir dir
+  read_from_dir glob
   |> List.fold_left (fun u x -> Ok List.cons <@> f x <@> u) (Ok [])
   |> Result.map List.rev
   |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg)
@@ -51,7 +63,7 @@ let yaml_file filepath_str =
     filepath_str |> Fpath.of_string
     |> Result.get_ok ~error:(fun (`Msg m) -> Invalid_argument m)
   in
-  let file_opt = Data.read filepath in
+  let file_opt = read_file filepath in
   let* file = Option.to_result ~none:(`Msg "file not found") file_opt in
   Yaml.of_string file
 
