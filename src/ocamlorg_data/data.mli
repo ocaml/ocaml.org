@@ -217,7 +217,6 @@ module Tutorial : sig
 
   type recommended_next_tutorials = string list
   type prerequisite_tutorials = string list
-  
   type search_document_section = { title : string; id : string }
 
   type search_document = {
