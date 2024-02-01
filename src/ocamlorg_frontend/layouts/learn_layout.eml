@@ -4,8 +4,8 @@ type section =
   | Language
   | Platform
   | Guides
-  | Exercises
   | Cookbook
+  | Exercises
   | Books
 
 let tabs
@@ -16,8 +16,8 @@ let tabs
     | Language -> Url.learn_language
     | Platform -> Url.platform
     | Guides -> Url.learn_guides
-    | Exercises -> Url.exercises
     | Cookbook -> Url.learn_cookbook
+    | Exercises -> Url.exercises
     | Books -> Url.books
   in
   let title_of_section = function
@@ -26,11 +26,11 @@ let tabs
     | Language -> "Language"
     | Platform -> "Platform"
     | Guides -> "Guides"
-    | Exercises -> "Exercises"
     | Cookbook -> "Cookbook"
+    | Exercises -> "Exercises"
     | Books -> "Books"
   in
-  Layout.subnav_tabs ~title:"Learn" ~current ~sections:[Overview; GetStarted; Language; Platform; Guides; Exercises; Cookbook; Books] ~url_of_section ~title_of_section
+  Layout.subnav_tabs ~title:"Learn" ~current ~sections:[Overview; GetStarted; Language; Platform; Guides; Cookbook; Exercises; Books] ~url_of_section ~title_of_section
 
 let sidebar
 ~current_tutorial
