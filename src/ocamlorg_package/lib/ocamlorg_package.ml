@@ -19,7 +19,7 @@ type state = {
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
   mutable stats : Statistics.t option;
-  mutable doc_stats : Documentation_status.t option DocumentationStatusMap.t;
+  mutable doc_status : Documentation_status.t option Version.Map.t Name.Map.t;
 }
 
 let mockup_state (pkgs : t list) =
@@ -38,7 +38,7 @@ let mockup_state (pkgs : t list) =
     packages;
     opam_repository_commit = None;
     stats = None;
-    doc_stats = DocumentationStatusMap.empty;
+    doc_status = Name.Map.empty;
   }
 
 let read_versions package_name versions =
@@ -101,7 +101,7 @@ let try_load_state () =
       version = Info.version;
       packages = Name.Map.empty;
       stats = None;
-      doc_stats = DocumentationStatusMap.empty;
+      doc_status = Name.Map.empty;
     }
 
 let save_state t =
@@ -386,7 +386,12 @@ let documentation_status ~kind state t : Documentation_status.t option Lwt.t =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
   in
   let url = package_url ^ "status.json" in
-  match DocumentationStatusMap.find_opt url state.doc_stats with
+
+  match
+    Name.Map.find_opt t.name state.doc_status
+    |> Option.map (Version.Map.find_opt t.version)
+    |> Option.value ~default:None
+  with
   | Some status -> Lwt.return status
   | None ->
       let+ content = http_get url in
@@ -396,7 +401,11 @@ let documentation_status ~kind state t : Documentation_status.t option Lwt.t =
             Some (s |> Yojson.Safe.from_string |> Documentation_status.of_yojson)
         | _ -> None
       in
-      state.doc_stats <- DocumentationStatusMap.add url status state.doc_stats;
+      state.doc_status <-
+        Name.Map.update t.name
+          (Version.Map.add t.version status)
+          (Version.Map.singleton t.version status)
+          state.doc_status;
       status
 
 let doc_exists t name version =
