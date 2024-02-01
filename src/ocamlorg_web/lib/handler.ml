@@ -623,6 +623,28 @@ let is_author_match name pattern =
   | Some { name; email; github_username; _ } ->
       match_opt (Some name) || match_opt email || match_opt github_username
 
+let documentation_status_of_package t (pkg : Ocamlorg_package.t) =
+  let open Lwt.Syntax in
+  let* package_documentation_status =
+    Ocamlorg_package.documentation_status ~kind:`Package t pkg
+  in
+  Lwt.return
+    (match package_documentation_status with
+    | Some { failed = false; _ } -> Ocamlorg_frontend.Package.Success
+    | Some { failed = true; _ } -> Failure
+    | None -> Unknown)
+
+let prepare_search_result_packages t packages =
+  let open Lwt.Syntax in
+  let* results =
+    Lwt_list.map_p
+      (fun pkg ->
+        let+ doc_status = documentation_status_of_package t pkg in
+        (Package_helper.frontend_package t pkg, doc_status))
+      packages
+  in
+  Lwt.return results
+
 let packages_search t req =
   let packages =
     match Dream.query req "q" with
@@ -639,25 +661,7 @@ let packages_search t req =
   in
 
   let open Lwt.Syntax in
-  let documentation_status (pkg : Ocamlorg_package.t) =
-    let* package_documentation_status =
-      Ocamlorg_package.documentation_status ~kind:`Package t pkg
-    in
-
-    Lwt.return
-      (match package_documentation_status with
-      | Some { failed = false; _ } -> Ocamlorg_frontend.Package.Success
-      | Some { failed = true; _ } -> Failure
-      | None -> Unknown)
-  in
-
-  let* results =
-    Lwt_list.map_p
-      (fun pkg ->
-        let+ doc_status = documentation_status pkg in
-        (Package_helper.frontend_package t pkg, doc_status))
-      current_items
-  in
+  let* results = prepare_search_result_packages t current_items in
 
   Dream.html
     (Ocamlorg_frontend.packages_search ~total ~search ~page ~number_of_pages
@@ -672,22 +676,8 @@ let packages_autocomplete_fragment t req =
       in
 
       let open Lwt.Syntax in
-      let documentation_status (pkg : Ocamlorg_package.t) =
-        let* package_documentation_status =
-          Ocamlorg_package.documentation_status ~kind:`Package t pkg
-        in
-        Lwt.return
-          (match package_documentation_status with
-          | Some { failed = false; _ } -> Ocamlorg_frontend.Package.Success
-          | Some { failed = true; _ } -> Failure
-          | None -> Unknown)
-      in
-
       let* top_5 =
-        packages |> List.take 5
-        |> Lwt_list.map_p (fun pkg ->
-               let+ doc_status = documentation_status pkg in
-               (Package_helper.frontend_package t pkg, doc_status))
+        packages |> List.take 5 |> prepare_search_result_packages t
       in
 
       let search = Dream.from_percent_encoded search in
