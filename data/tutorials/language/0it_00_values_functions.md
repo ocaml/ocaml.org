@@ -156,6 +156,23 @@ val first : string = "Robin"
 val last : string = "Milner"
 ```
 
+### Pattern Matching in Function Parameters
+
+It is possible to use pattern matching to specify function parameters. For tuples:
+```ocaml
+# type live_person = int * name;;
+type live_person = int * name
+
+# let age ((years, full_name) : live_person) = years;;
+val age : live_person -> int = <fun>
+```
+
+For records:
+```ocaml
+# let introduce ({first; last}) : name) = "I am " ^ first ^ " " ^ last;;
+val introduce : name -> string = <fun>
+```
+
 ### Pattern Matching on `unit`
 <!--Unit example-->
 A special case of combined definition and pattern matching involves the `unit` type:
@@ -177,9 +194,6 @@ Above, the pattern does not contain any identifier, meaning no name is defined. 
 
 This also works with user-defined types.
 ```ocaml
-# type live_person = int * name;;
-type live_person = int * name
-
 # let robin_with_age : live_person = (20, robin);;
 val robin_with_age : live_person = (20, {first = "Robin"; last = "Milner"})
 
@@ -187,14 +201,6 @@ val robin_with_age : live_person = (20, {first = "Robin"; last = "Milner"})
 val years : int = 20
 val first : string = "Robin"
 val last : string = "Milner"
-```
-
-### Pattern Matching on Function Parameters
-
-Pattern matching can also be used on function parameters.
-```ocaml
-# let age ((years, { first; last }) : live_person) = years;;
-val age : live_person -> int = <fun>
 ```
 
 ### Discarding Values Using Pattern Matching
@@ -606,19 +612,6 @@ It looks like two arguments have been passed: `"hello"` and `"world"`. However, 
 
 In many imperative languages, the `spicy_cat ("hello", "world")` syntax reads as a function call with two parameters; but in OCaml, it denotes applying the function `spicy_cat` to a tuple containing `"hello"` and `"world"`.
 
-### Records as Function Paramters
-
-It is possible to use the record syntax to specify function parameters. Here is how it can be used to define yet another version of the running example:
-```ocaml
-# type cat_args = {x : string; y : string};;
-type cat_args = { x : string; y : string; }
-
-# let happy_cat ({x; y}: cat_args) = x ^ " " ^ y;;
-val happy_cat : cat_args -> string = <fun>
-
-# happy_cat {x = "hello"; y = "world"};;
-- : string = "hello world
-```
 
 ### Currying and Uncurrying
 
@@ -752,4 +745,3 @@ One may wonder:
 
 The answer to this question goes beyond the scope of this tutorial. This comes from the [λ-calculus](https://en.wikipedia.org/wiki/Lambda_calculus), the mathematical theory underneath functional programming. In that formalism, there are nothing but functions. Everything, including data, is a function, and computation reduces to parameter passing. In functional programming (and thus OCaml), having functions and values at the same level is an invitation to think this way. This is different from the imperative programming approach where everything reduces to reading and writing into the memory.
 -->
-
