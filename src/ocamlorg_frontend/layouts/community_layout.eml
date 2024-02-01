@@ -1,8 +1,6 @@
 type section =
   | Overview
   | Jobs
-  | IndustrialUsers
-  | AcademicUsers
 
 let tabs
 ~current =
@@ -15,16 +13,12 @@ let tabs
   (section : section) = match section with
     | Overview -> Url.community
     | Jobs -> Url.jobs
-    | IndustrialUsers -> Url.industrial_users
-    | AcademicUsers -> Url.academic_users
   in
   let title_of_section = function
     | Overview -> "Overview"
     | Jobs -> "Jobs"
-    | IndustrialUsers -> "Industrial Users"
-    | AcademicUsers -> "Academic Users"
   in
-  let (sections : section list) = [Overview; Jobs; IndustrialUsers; AcademicUsers] in
+  let (sections : section list) = [Overview; Jobs] in
   let breadcrumb_options current =
     let selected_option section = if section = current then "selected" else "" in
     let options_list option = 
