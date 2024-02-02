@@ -74,17 +74,7 @@ body {
 .testimonials .swiper-wrapper .swiper-slide:nth-child(3n + 0) div:first-child {
   background: #a72f2014;
 }
-@layer utilities {
-  .intro-section-simple {
-    background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
-    @apply pt-16 pb-16;
-  }
-  
-  .dark-intro-section-simple {
-    background: linear-gradient(45deg, #010105, #10162D);
-    @apply pt-16 pb-16;
-  }
-  }
+
 .divider span {
   width: 7px;
   height: 7px;

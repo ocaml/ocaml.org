@@ -33,4 +33,14 @@
     background: linear-gradient(45deg, #022E50, #0063A8);
     @apply border-none;
   }
+
+  .intro-section-simple {
+    background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
+    @apply pt-16 pb-16 bg-sand;
+  }
+
+  .dark-intro-section-simple {
+    background: linear-gradient(45deg, #010105, #10162D);
+    @apply pt-16 pb-16;
+  }
 }
