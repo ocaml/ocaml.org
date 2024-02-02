@@ -149,7 +149,7 @@ Now that we've successfully installed the OCaml compiler and the opam package ma
 
 All these tools can be installed using a single command:
 ```shell
-$ opam install dune ocaml-lsp-server odoc ocamlformat utop
+$ opam install ocaml-lsp-server odoc ocamlformat utop
 ```
 
 You're now all set and ready to start hacking.
