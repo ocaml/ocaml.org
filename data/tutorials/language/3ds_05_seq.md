@@ -5,11 +5,10 @@ short_title: Sequences
 description: >
   Learn about sequences, of OCaml's most-used, built-in data types
 category: "Data Structures"
+prerequisite_tutorials:
+  - "lists"
+  - "options"
 ---
-
-## Prerequisites
-
-You should be comfortable with writing functions over lists and options.
 
 ## Introduction
 
