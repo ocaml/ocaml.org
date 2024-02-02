@@ -12,7 +12,7 @@ let tabs
     | Overview -> "Overview"
     | Jobs -> "Jobs"
   in
-  Layout.subnav_tabs ~current ~sections:[Overview; Jobs] ~url_of_section ~title_of_section
+  Layout.subnav_tabs ~title:"Community" ~current ~sections:[Overview; Jobs] ~url_of_section ~title_of_section
 
 let single_column_layout
 ?use_swiper

@@ -27,7 +27,7 @@ let tabs
     | Exercises -> "Exercises"
     | Books -> "Books"
   in
-  Layout.subnav_tabs ~current ~sections:[Overview; GetStarted; Language; Platform; Guides; Exercises; Books] ~url_of_section ~title_of_section
+  Layout.subnav_tabs ~title:"Learn" ~current ~sections:[Overview; GetStarted; Language; Platform; Guides; Exercises; Books] ~url_of_section ~title_of_section
 
 let sidebar
 ~current_tutorial
