@@ -16,7 +16,7 @@ categories:
   - name: 3d graphics
     status: 🟡
     description: |
-      These are libraries that are for manipulating 3D graphics. They offer a wide range of functionalities, including geometric transformations, rendering, shading, and handling user input
+      These are libraries that are for manipulating 3D graphics. They offer a wide range of functionalities, including geometric transformations, rendering, shading, and handling user input.
     packages:
       - name: tgls
       - name: glMLite
@@ -24,7 +24,7 @@ categories:
   - name: 2d graphics
     status: 🟡
     description: |
-      These libraries provides the necessary functionalities to create and manipulate 2D graphics
+      These libraries provides the necessary functionalities to create and manipulate 2D graphics.
     packages:
       - name: vg
       - name: gg
@@ -39,7 +39,7 @@ categories:
   - name: image processing
     status: 🟡
     description: |
-      These ibraries provide functionalities to manipulate and process images. offer a range of functionalities for image processing tasks, from basic image manipulation to more complex operations. They make OCaml a powerful language for image processing.
+      These libraries provide functionalities to manipulate and process images. They offer a range of functionalities for image processing tasks, like basic image manipulation to more complex operations. They make OCaml a powerful language for image processing.
     packages:
       - name: tsdl-image
       - name: bimage
@@ -47,7 +47,7 @@ categories:
   - name: Plotting
     status: 🟡
     description: |
-      These libraries are used to create visual representations of data. They provide functionalities to generate various types of plots, charts, and diagrams
+      These libraries are used to create visual representations of data. They provide functionalities to generate various types of plots, charts, and diagrams.
     packages:
       - name: plot
       - name: owl-plot
