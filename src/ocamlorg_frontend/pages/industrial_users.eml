@@ -7,86 +7,58 @@ companies rely on OCaml to keep their data operating both safely and \
 efficiently. On this page, you can get an overview of the companies in \
 the community and learn more about how they use OCaml."
 ~canonical:Url.industrial_users @@
-<div class="lg:py-24 py-2 bg-sand dark:bg-dark-background_navigation">
-  <div class="container-fluid space-y-24 lg:space-y-32">
+<div class="lg:py-12 py-2 intro-section-simple dark:dark-intro-section-simple">
+  <div class="container-fluid">
       <div class="flex flex-col lg:flex-row  justify-between space-x-0 lg:space-x-10">
-          <div class="lg:flex-1 lg:mt-16 my-12">
-              <h1 class="font-bold text-title dark:text-dark-title">What Our Users Say About <span class="text-primary dark:text-dark-primary">OCaml</span></h1>
-              <div class="text-content dark:text-dark-content mt-6 mb-8">Read our success stories to learn how OCaml helped our users
-                  achieve their goals.</div>
-              <div class="space-x-6">
-                  <a href="<%s Url.academic_users %>" class="btn btn-lg btn-ghost">In Academia</a>
-              </div>
-          </div>
-          <div class="lg:flex-1 cursor-pointer relative rounded-2xl overflow-hidden border-4 border-primary_25 dark:border-dark-primary_20 video-shadow"
-              x-data="videoFullWidth()">
-              <div class="bg-white dark:bg-dark-background text-center relative aspect-w-16 aspect-h-9 h-full" @click="
-                      isPlaying = !isPlaying;
-                      $nextTick(() => { $refs.iframeElement.setAttribute('src', iframe_url()) });">
-                  <div x-show.transition.in.opacity.duration.500ms="isPlaying">
-                      <iframe class="absolute top-0 rounded-lg w-full h-full" x-ref="iframeElement"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowfullscreen>
-                      </iframe>
-                  </div>
-                  <div class="flex items-center h-full justify-center" x-show="!isPlaying">
-                      <div class="z-10 lg:space-y-16 space-y-5 mb-10 lg:mb-0">
-                          <img width="132" class="m-auto" src="<%s Ocamlorg_static.Asset.url "logo.svg" %>" alt="OCaml logo">
-                          <h3 class="font-bold text-title dark:text-dark-title">25 Years of OCaml</h3>
-                          <div class="text-content dark:text-dark-content">Presented by Xavier Leroy</div>
-                      </div>
-                  </div>
-              </div>
-              <div class="rounded-full bg-primary dark:bg-dark-primary text-white dark:text-dark-white w-16 h-16 right-10 bottom-10 absolute flex items-center z-10 justify-center"
-                  x-show="!isPlaying"
-                  @click="
-                      isPlaying = !isPlaying;
-                      $nextTick(() => { $refs.iframeElement.setAttribute('src', iframe_url()) });">
-                  <%s! Icons.play "h-9 w-9" %>
-              </div>
+          <div class="">
+              <h1 class="font-bold text-title dark:text-dark-title">What Our Users Say About Ocaml</h1>
+              <p class="text-content dark:text-dark-content mt-6">Read our success stories to learn how OCaml helped our users achieve their goals.</p>
           </div>
       </div>
-      <div class="text-center">
-        <h2 class="font-bold text-title dark:text-dark-title">Trusted by Industry Leaders</h2>
-        <div class="text-content dark:text-dark-title text-base mt-3">
-          These companies and organizations rely on OCaml every day — along with thousands of other developers.
-        </div>
-        <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center mt-12 dark:bg-white">
-          <div class="mx-8 my-4">
-              <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/facebook.svg" %>" alt="Facebook">
-          </div>
-          <div class="mx-8 my-4">
-              <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/microsoft.svg" %>" alt="Microsoft">
-          </div>
-          <div class="mx-8 my-4">
-              <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/docker.svg" %>" alt="Docker">
-          </div>
-          <div class="mx-8 my-4">
-              <img class="h-10" src="<%s Ocamlorg_static.Asset.url "logos/janestreet.svg" %>" alt="Jane Street">
-          </div>
-          <div class="mx-8 my-4">
-              <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/bloomberg.svg" %>" alt="Bloomberg">
-          </div>
-          <div class="mx-8 my-4">
-              <img class="h-10" src="<%s Ocamlorg_static.Asset.url "logos/tezos.svg" %>" alt="Tezos">
-          </div>
-          <div class="mx-8 my-4">
-              <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/ahrefs.svg" %>" alt="Ahrefs">
-        </div>
-      </div>
-    </div>
+    
   </div>
 </div>
-<div class="py-10 lg:py-24 bg-white dark:bg-dark-background">
+<div class="bg-white dark:bg-dark-background py-16">
   <div class="container-fluid">
-      <div class="text-center mt-6 lg:mt-0">
+    <h2 class="font-bold text-title dark:text-dark-title">Trusted by Industry Leaders</h2>
+    <div class="text-content dark:text-dark-title text-base mt-3">
+      These companies and organizations rely on OCaml every day — along with thousands of other developers.
+    </div>
+    <div class="flex flex-row flex-wrap pt-4 items-center">
+      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
+          <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/facebook.svg" %>" alt="Facebook">
+      </div>
+      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
+          <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/microsoft.svg" %>" alt="Microsoft">
+      </div>
+      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
+          <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/docker.svg" %>" alt="Docker">
+      </div>
+      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
+          <img class="h-10" src="<%s Ocamlorg_static.Asset.url "logos/janestreet.svg" %>" alt="Jane Street">
+      </div>
+      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
+          <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/bloomberg.svg" %>" alt="Bloomberg">
+      </div>
+      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
+          <img class="h-10" src="<%s Ocamlorg_static.Asset.url "logos/tezos.svg" %>" alt="Tezos">
+      </div>
+      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
+          <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/ahrefs.svg" %>" alt="Ahrefs">
+    </div>
+  </div>
+  </div>
+</div>
+<div class="intro-section-simple dark:dark-intro-section-simple">
+  <div class="container-fluid">
+      <div class="mt-6 lg:mt-0">
           <h2 class="font-bold mb-6 text-title dark:text-dark-title">Case Studies</h2>
           <p class="text-content dark:text-dark-content">
               Read how OCaml users are solving real-world problems and how OCaml was a key to their success.
           </p>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-16 mt-14 lg:mt-28">
+      <div class="grid lg:grid-cols-3 gap-4 mt-8 lg:mt-12">
         <% success_stories |> List.iter (fun (item : Data.Success_story.t) ->
         let logo = Ocamlorg_static.Media.url item.logo in
         let background_class = match item.theme with
@@ -96,22 +68,25 @@ the community and learn more about how they use OCaml."
         | "green" -> "bg-green-600"
         | _ -> "bg-gray-600"
         in %>
-        <a href="<%s Url.success_story item.slug %>" class="group text-base text-white dark:text-dark-white p-8 overflow-hidden rounded-xl relative bg-cover h-[27.5rem]">
+        <div class="flex flex-col">
+          <a href="<%s Url.success_story item.slug %>" class="group text-base text-white dark:text-dark-white p-4 relative bg-cover h-[10.5rem]">
             <div class="flex flex-col justify-between h-full relative z-10 text-white dark:text-dark-white">
                 <div class="h-8"><img class="h-full" src="<%s logo %>" alt=""></div>
-                <div class="group-hover:scale-100 group-hover:translate-y-0 space-y-6 transform transition-transform translate-y-6 ease-in-out duration-300">
-                    <h4 class="font-bold">
-                        <%s item.title %>
-                    </h4>
+               
                     <div class="opacity-0 transition-opacity flex space-x-3 items-center font-semibold group-hover:opacity-100">
                         <span>Read full case study</span>
                         <%s! Icons.chevron_right "h-5 w-5" %>
                     </div>
-                </div>
+                
             </div>
+         
             <div class="<%s background_class %> absolute left-0 top-0 w-full h-full opacity-40 z-[2]"></div>
             <div class="absolute left-0 top-0 transition-transform transform ease-in-out w-full h-full bg-cover duration-300 z-[1]" style="background-image: url('<%s Ocamlorg_static.Media.url item.background %>');"></div>
         </a>
+        <h4 class="text-title text-sm dark:text-dark-title mt-2">
+            <%s item.title %>
+        </h4>
+        </div>
         <% ); %>
       </div>
        <div class="prose dark:prose-invert max-w-none mt-8">
@@ -119,122 +94,134 @@ the community and learn more about how they use OCaml."
 </div>
   </div>
 </div>
-<div class="py-10 lg:py-24 testimonials">
+<div class="py-8 bg-sand dark:bg-dark-background">
   <div
-    class="container-fluid overflow-hidden"
-    x-data="{swiper: null}"
-    x-init="swiper = new Swiper($refs.container, {loop: true,slidesPerView: 1,spaceBetween: 0,breakpoints: {640: {slidesPerView:1,
-            spaceBetween: 0,},768: {slidesPerView: 2,spaceBetween: 0,},1024: {slidesPerView: 3,
-            spaceBetween: 0,},},})">
-    <div class="flex justify-between items-end lg:space-x-80 mb-0 md:mb-20 md:flex-row flex-col">
-      <div class="text-left">
-        <h2 class="font-bold mb-6 text-title dark:text-dark-title">Testimonials</h2>
-        <div class="text-content dark:text-dark-content">Read What Some Industry Users Say About OCaml.</div>
-      </div>
-      <div class="flex justify-between items-center space-x-4 m-auto mt-10 mb-5 md:mb-0">
-        <button aria-label="Previous" class="text-primary dark:text-dark-primary rounded-full py-4 px-4 hover:bg-primary_25 dark:hover:bg-dark-primary_20 transition duration-300" @click="swiper.slidePrev()">
-            <%s! Icons.chevron_left "h-5 w-5" %>
-        </button>
-        <button aria-label="Next" class="text-primary dark:text-dark-primary rounded-full py-4 px-4 hover:bg-primary_25 dark:hover:bg-dark-primary_20 transition duration-300" @click="swiper.slideNext()">
-            <%s! Icons.chevron_right "h-5 w-5" %>
-        </button>
-      </div>
+  class="container-fluid overflow-hidden"
+  x-data="{swiper: null}"
+  x-init="swiper = new Swiper($refs.container, {loop: true,slidesPerView: 1,spaceBetween: 0,breakpoints: {640: {slidesPerView:1,
+          spaceBetween: 0,},768: {slidesPerView: 2,spaceBetween: 0,},1024: {slidesPerView: 3,
+          spaceBetween: 0,},},})">
+  <div class="container-fluid">
+    <div>
+      <h2 class="font-bold mb-4 md:mb-6 text-title dark:text-dark-title">Testimonials</h2>
+      <div class="text-content dark:text-dark-content">Read What Some Industry Users Say About OCaml.</div>
     </div>
-    <div class="swiper-container mt-20" x-ref="container">
-      <div class="swiper-wrapper">
-        <a href="https://rescript-lang.org/" class="swiper-slide p-4 legacy-card-hover\">
-          <div class="overflow-hidden p-8">
-            <img src="<%s Ocamlorg_static.Asset.url "logos/rescript.svg" %>" class="mb-8 h-8" alt="">
-            <div class="mb-12 text-content dark:text-dark-content">Thanks to the OCaml team, obviously, without such a beautiful yet practical language, this project would not exist. The original type system was inherited from it with lots of modifications to fit with JS ecosystem better.</div>
-            <div class="font-bold text-content dark:text-dark-content">Bob Zhang</div>
+    <div class="swiper-container" x-ref="container">
+      <div class="swiper-wrapper mt-6">
+        <a href="https://rescript-lang.org/" class="swiper-slide p-4 legacy-card-hover">
+          <div class="overflow-hidden">
+            <div class="dark:bg-dark-white py-4 px-2 w-max rounded-md mb-2">
+              <img src="<%s Ocamlorg_static.Asset.url "logos/rescript.svg" %>" class="h-8" alt="">
+            </div>
+            <div class="mb-4 text-content dark:text-dark-content text-sm">Thanks to the OCaml team, obviously, without such a beautiful yet practical language, this project would not exist. The original type system was inherited from it with lots of modifications to fit with JS ecosystem better.</div>
+            <div class="font-bold text-content dark:text-dark-content mb-6">Bob Zhang</div>
             <div class="text-content dark:text-dark-content">Maintainer, ReScript.</div>
           </div>
         </a>
 
         <a href="https://www.janestreet.com/" class="swiper-slide p-4 legacy-card-hover">
-          <div class="overflow-hidden p-8">
-            <img src="<%s Ocamlorg_static.Asset.url "logos/janestreet.svg" %>" class="mb-8 h-8 dark:bg-dark-white" alt="">
-            <div class="mb-12 text-content dark:text-dark-content">OCaml helps us to quickly adapt to changing market conditions and go from prototypes to production systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting it right matters.</div>
-            <div class="font-bold text-content dark:text-dark-content">Yaron Minsky</div>
+          <div class="overflow-hidden">
+            <div class="dark:bg-dark-white py-4 px-2 w-max rounded-md mb-2">
+              <img src="<%s Ocamlorg_static.Asset.url "logos/janestreet.svg" %>" class="h-8" alt="">
+            </div>
+            <div class="mb-4 text-content dark:text-dark-content text-sm">OCaml helps us to quickly adapt to changing market conditions and go from prototypes to production systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting it right matters.</div>
+            <div class="font-bold text-content dark:text-dark-content mb-6">Yaron Minsky</div>
             <div class="text-content dark:text-dark-content">CTO, Jane Street.</div>
           </div>
         </a>
 
         <a href="https://ahrefs.com/" class="swiper-slide p-4 legacy-card-hover">
-          <div class="overflow-hidden p-8">
-              <img src="<%s Ocamlorg_static.Asset.url "logos/ahrefs.svg" %>" class="mb-10 h-6" alt="">
-              <div class="mb-12 text-content dark:text-dark-content">OCaml as the development environment acts as a very much trusted partner throughout the whole development process. As our requirements evolve, we change the implementation a lot, and this is where the language shines. Literally, I am not afraid to change others’ code when OCaml has my back!</div>
-              <div class="font-bold text-content dark:text-dark-content">Oleksiy Golovko</div>
+          <div class="overflow-hidden">
+             <div class="dark:bg-dark-white py-4 px-2 w-max rounded-md mb-2">
+              <img src="<%s Ocamlorg_static.Asset.url "logos/ahrefs.svg" %>" class="h-8" alt="">
+             </div>
+              <div class="mb-4 text-content dark:text-dark-content text-sm">OCaml as the development environment acts as a very much trusted partner throughout the whole development process. As our requirements evolve, we change the implementation a lot, and this is where the language shines. Literally, I am not afraid to change others’ code when OCaml has my back!</div>
+              <div class="font-bold text-content dark:text-dark-content mb-6">Oleksiy Golovko</div>
               <div class="text-content dark:text-dark-content">Backend Developer, Ahrefs.</div>
           </div>
         </a>
 
         <a href="https://www.marigold.dev" class="swiper-slide p-4 legacy-card-hover">
-          <div class="overflow-hidden p-8">
-              <img src="https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png" class="h-8 mb-8" alt="">
-              <div class="mb-12 text-content dark:text-dark-content">Using OCaml as a programming language to write software has many benefits. For instance, it is able to describe the source code in an easy and understandable manner. The fear of refactoring in the source code can be eased as well. OCaml has a mature and very evolving ecosystem, which is a large, supportive and friendly community.</div>
-              <div class="font-bold text-content dark:text-dark-content">Xavier Van de Woestyne</div>
+          <div class="overflow-hidden">
+             <div class="dark:bg-dark-white py-4 px-2 w-max rounded-md mb-2">
+              <img src="https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png" class="h-8" alt="">
+             </div>
+              <div class="mb-4 text-content dark:text-dark-content text-sm">Using OCaml as a programming language to write software has many benefits. For instance, it is able to describe the source code in an easy and understandable manner. The fear of refactoring in the source code can be eased as well. OCaml has a mature and very evolving ecosystem, which is a large, supportive and friendly community.</div>
+              <div class="font-bold text-content dark:text-dark-content mb-6">Xavier Van de Woestyne</div>
               <div class="text-content dark:text-dark-content">Software engineer, Marigold.</div>
           </div>
         </a>
 
         <a href="https://twitter.com/jack/status/47090747706580992" class="swiper-slide p-4 legacy-card-hover">
-          <div class="overflow-hidden p-8 text-content dark:text-dark-content">
-              <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c8/Twitter_Bird.svg/1259px-Twitter_Bird.svg.png" class="h-8 mb-8" alt="">
-              <div class="mb-12 text-content dark:text-dark-content">Originally I was going to program twttr in Python, C, & Ocaml. But, I got @florian who was a core contributor to Ruby on Rails.</div>
+          <div class="overflow-hidden">
+              <div class="py-4 px-2 w-max rounded-md mb-2">
+                <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c8/Twitter_Bird.svg/1259px-Twitter_Bird.svg.png" class="h-8" alt="">
+              </div>
+              <div class="mb-4 text-content dark:text-dark-content text-smß">Originally I was going to program twttr in Python, C, & Ocaml. But, I got @florian who was a core contributor to Ruby on Rails.</div>
               <div class="font-bold text-content dark:text-dark-content">Jack Dorsey</div>
               <div>Founder, Twitter.</div>
           </div>
         </a>
       </div>
     </div>
+    <div class="flex space-x-4">
+    <button aria-label="Previous" class="text-primary dark:text-dark-primary rounded-full py-4 px-4 hover:bg-primary_25 dark:hover:bg-dark-card_hover transition duration-300" @click="swiper.slidePrev()">
+        <%s! Icons.chevron_left "h-5 w-5" %>
+    </button>
+    <button aria-label="Next" class="text-primary dark:text-dark-primary rounded-full py-4 px-4 hover:bg-primary_25 dark:hover:bg-dark-card_hover transition duration-300" @click="swiper.slideNext()">
+        <%s! Icons.chevron_right "h-5 w-5" %>
+    </button>
+    </div>
+  </div>
   </div>
 </div>
-<div class="py-10 md:py-20 md:pb-32 bg-white dark:bg-dark-background">
+<div class="py-5 md:py-10 md:pb-16 bg-white dark:bg-dark-background_navigation">
   <div class="container-fluid">
-    <div class="text-center">
+    <div class="">
       <h2 class="font-bold mb-6 text-title dark:text-dark-title">Other Industry Users of OCaml</h2>
-      <div class="text-content dark:text-dark-content">With its strong security features and high performance, several companies rely on OCaml to keep<br> their data operating both safely and efficiently. On this page, you can get an overview of the<br> companies in the community and learn more about how they use OCaml.</div>
+      <p class="text-content dark:text-dark-content">With its strong security features and high performance, several companies rely on OCaml to keep<br> their data operating both safely and efficiently. On this page, you can get an overview of the<br> companies in the community and learn more about how they use OCaml.</p>
     </div>
-    <div class="grid-logos bg-white dark:bg-dark-background mt-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 relative text-center bg-white dark:bg-dark-background_navigation mt-10 gap-3">
       <% users |> List.iter (fun (item : Data.Industrial_user.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 flex items-center flex-col">
-        <img src="<%s logo %>" class="m-auto dark:bg-dark-white" alt="<%s item.name %> logo">
-        <div class="font-bold mt-8 text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary "><%s item.name %></div>
+      <a href="<%s item.url %>" target="_blank" class="p-4 h-full dark:bg-dark-white rounded-md flex items-center flex-col">
+          <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo">
       </a>
       <% ); %>
     </div>
-    <div class="prose dark:prose-invert max-w-none m-2">
+    <div class="prose dark:prose-invert max-w-none my-3 mx-2">
         If you want to contribute to add a new industrial user, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-user" target="_blank">Contributing Guide</a> on GitHub.
   </div>
   </div>
 </div>
-<div class="bg-pattern lg:py-32 py-24">
+<div class="intro-section-simple dark:dark-intro-section-simple lg:py-12 py-8 border-t border-separator_20 dark:border-dark-primary_30">
   <div class="container-fluid">
-    <div>
-      <div class="text-center">
-        <h2 class="font-bold text-primary dark:text-dark-primary mb-6">Industrial Resources</h2>
-        <div class="text-lg text-white dark:text-dark-white mb-16">Here are some of the resources that may be helpful to you</div>
+      <div class="">
+        <h2 class="font-bold text-title dark:text-dark-title mb-4">Industrial Resources</h2>
+        <div class="text-content dark:text-dark-content mb-8">Here are some of the resources that may be helpful to you.</div>
       </div>
-      <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
-        <a href="<%s Url.install %>" class="resources-card">
-          <%s! Icons.play_circle "h-16 w-16 mb-8" %>
-          <p class="font-semibold text-xl mb-3">Getting Started</p>
-          <p>Install OCaml, setup your favorite text editor, and start your first project.</p>
+      <div class="grid lg:grid-cols-3 gap-8 lg:gap-8">
+        <a href="<%s Url.install %>" class="card dark:dark-card p-4">
+           <div class="flex pb-2">
+            <%s! Icons.play_circle "w-6 text-primary dark:text-dark-primary" %>
+            <p class="font-bold text-base text-title dark:text-dark-title ml-2">Getting Started</p>
+           </div>
+          <p class="text-content dark:text-dark-content">Install OCaml, setup your favorite text editor, and start your first project.</p>
         </a>
-        <a href="<%s Url.api %>" class="resources-card">
-          <%s! Icons.command_line "h-16 w-16 mb-8" %>
-          <p class="font-semibold text-xl mb-3">Standard Library</p>
-          <p>Read the standard library documentation and search its API for functions.</p>
+        <a href="<%s Url.api %>" class="card dark:dark-card p-4">
+          <div class="flex pb-2">
+            <%s! Icons.command_line "w-6 text-primary dark:text-dark-primary" %>
+            <p class="font-bold text-base text-title dark:text-dark-title ml-2">Standard Library</p>
+          </div>
+          <p class="text-content dark:text-dark-content">Read the standard library documentation and search its API for functions.</p>
         </a>
-        <a href="<%s Url.books %>" class="resources-card">
-          <%s! Icons.book "h-16 w-16 mb-8" %>
-
-          <p class="font-semibold text-xl mb-3">Books</p>
-          <p>What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
+        <a href="<%s Url.books %>" class="card dark:dark-card p-4">
+          <div class="flex pb-2">
+            <%s! Icons.book "w-6 text-primary dark:text-dark-primary" %>
+            <p class="font-bold text-base text-title dark:text-dark-title ml-2">Books</p>
+          </div>
+          <p class="text-content dark:text-dark-content">What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
         </a>
       </div>
-    </div>
   </div>
 </div>
 <script>

@@ -7,7 +7,7 @@ Layout.render
   <div class="container-fluid">
     <div class="w-full m-auto">
       <h1 class="text-title dark:text-dark-title font-bold mb-2">Academic Users of OCaml</h1>
-      <p class="text-content dark:text-dark-content text-xl lg:max-w-[80%]">
+      <p class="text-content dark:text-dark-content lg:text-xl lg:max-w-[80%]">
         With its deep mathematical roots, OCaml has always had strong ties to academia. Currently, it is being taught in universities around the world, and has accrued an ever growing body of research. This page will provide you with an overview of the academic excellence that defines the culture of
         OCaml.
       </p>
@@ -24,7 +24,7 @@ Layout.render
           ~name:"q"
           ~label:"Search institutions"
           ~button_attrs:{|type="submit"|}
-          "h-12 w-96"
+          "h-12 lg:w-96"
          %>
         </form>
         <%s! Forms.select
@@ -69,33 +69,35 @@ Layout.render
         If you want to contribute to add a new academic user, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-user" target="_blank">Contributing Guide</a> on GitHub.
   </div>
   </div>
-  <div class="bg-pattern lg:py-32 py-24">
-    <div class="container-fluid">
-      <div class=" ">
-        <div class="text-center">
-          <h2 class="font-bold text-primary dark:text-dark-primary mb-6">Academic Resources</h2>
-          <div class="text-lg text-white dark:text-dark-white mb-16">Here are some of the resources that may be helpful to you</div>
+  <div class="intro-section-simple dark:dark-intro-section-simple lg:py-12 py-8 border-t border-separator_20 dark:border-dark-primary_30">
+    <div class="container-fluid"> 
+        <div class="">
+          <h2 class="font-bold text-title dark:text-dark-title mb-4">Academic Resources</h2>
+          <div class="text-content dark:text-dark-content mb-8">Here are some of the resources that may be helpful to you</div>
         </div>
-
-        <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
-          <a href="<%s Url.papers %>" class="resources-card">
-            <%s! Icons.papers "h-16 w-16 mb-8" %>
-            <p class="font-semibold text-xl mb-3">Papers</p>
-            <p>Papers that have influenced OCaml and other functional programming languages.</p>
+        <div class="grid lg:grid-cols-3 gap-8 lg:gap-8">
+          <a href="<%s Url.papers %>" class="card dark:dark-card p-4">
+            <div class="flex pb-2">
+              <%s! Icons.papers "w-6 text-primary dark:text-dark-primary" %>
+              <p class="font-bold text-base text-title dark:text-dark-title ml-2">Papers</p>
+            </div>
+            <p class="text-content dark:text-dark-content">Papers that have influenced OCaml and other functional programming languages.</p>
           </a>
-          <a href="<%s Url.manual %>" class="resources-card">
-            <%s! Icons.document "h-16 w-16 mb-8" %>
-            <p class="font-semibold text-xl mb-3">Language Manual</p>
-            <p>Read the reference manual of the language and the documentation on the compiler tools.</p>
+          <a href="<%s Url.manual %>" class="card dark:dark-card p-4">
+            <div class="flex pb-2">
+              <%s! Icons.document "w-6 text-primary dark:text-dark-primary" %>
+              <p class="font-bold text-base text-title dark:text-dark-title ml-2">Language Manual</p>
+            </div>
+            <p class="text-content dark:text-dark-content">Read the reference manual of the language and the documentation on the compiler tools.</p>
           </a>
-          <a href="<%s Url.books %>" class="resources-card">
-            <%s! Icons.book "h-16 w-16 mb-8" %>
-            <p class="font-semibold text-xl mb-3">Books</p>
-            <p>What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
+          <a href="<%s Url.books %>" class="card dark:dark-card p-4">
+            <div class="flex pb-2">
+              <%s! Icons.book "w-6 text-primary dark:text-dark-primary" %>
+              <p class="font-bold text-base text-title dark:text-dark-title ml-2">Books</p>
+            </div>
+            <p class="text-content dark:text-dark-content">What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
           </a>
         </div>
-        <div class="grid lg:grid-cols-3 gap-8 lg:gap-16"></div>
-      </div>
     </div>
   </div>
   <div class="container-fluid" aria-hidden="true">

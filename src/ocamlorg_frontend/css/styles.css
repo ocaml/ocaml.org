@@ -84,10 +84,6 @@ body {
     background: linear-gradient(45deg, #010105, #10162D);
     @apply pt-16 pb-16;
   }
-  
-  .intro-section-simple p {
-    @apply text-content dark:text-dark-content lg:text-lg;
-  }
   }
 .divider span {
   width: 7px;
