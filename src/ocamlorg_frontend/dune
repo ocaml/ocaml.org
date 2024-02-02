@@ -11,6 +11,14 @@
   (action
    (run %{bin:dream_eml} %{dep:layout.eml} --workspace %{workspace_root})))
  (rule
+  (target community_layout.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:community_layout.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
   (target learn_layout.ml)
   (action
    (run
