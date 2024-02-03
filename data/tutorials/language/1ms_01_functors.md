@@ -80,10 +80,6 @@ This defines a module `Funkt.StringSet`. What `Set.Make` needs are:
 - Type `t`, here `string`
 - Function allowing to compare two values of type `t`, here `String.compare`
 
-However, since the module `String` defines
-- Type name `t`, which is an alias for `string`
-- Function `compare` of type `t -> t -> bool` compares two strings
-
 This can be simplified using an _anonymous module_ expression:
 ```ocaml
 module StringSet = Set.Make(struct
@@ -93,6 +89,10 @@ end)
 ```
 
 The module expression `struct ... end` is inlined in the `Set.Make` call.
+
+However, since the module `String` already defines
+- Type name `t`, which is an alias for `string`
+- Function `compare` of type `t -> t -> bool` compares two strings
 
 This can be simplified even further into this:
 ```ocaml
