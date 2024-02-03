@@ -164,7 +164,7 @@ This allows the user to seemingly extend the module `String` with a submodule `S
 A functor is almost a module, except it needs to be applied to a module. This turns it into a module. In that sense, a functor allows module parametrisation.
 
 That's the case for the sets, maps, and hash tables provided by the standard library. It works like a contract between the functor and the developer.
-* If you provide a module that implements what is expected, as described the parameter interface
+* If you provide a module that implements what is expected, as described by the parameter interface
 * The functor returns a module that implements what is promised, as described by the result interface
 
 Here is the module's signature that the functors `Set.Make` and `Map.Make` expect:
