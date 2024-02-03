@@ -371,7 +371,7 @@ let _ =
 
 Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
 
-**Note**: The functor `IterPrint.Make` returns a module that exposes the type from the injected dependency (here first `List.t` then `Array.t`). That's why a `with type` constraint is needed. When parametrising other something not exposed by the module (and _implementation detail_), the `with type` constraint is not needed.
+**Note**: The functor `IterPrint.Make` exposes the type from the injected dependency (here first `List.t` then `Array.t`) as the type `t` required of the result module. That's why a `with type` constraint is needed. When customising a type that's not exposed by the result module (i.e. an _implementation detail_), the `with type` constraint is not needed. As a further consequence of this, we could even define a local type `t` within the `struct` block for use within the implementation, and such a type `t` would not shadow the type `t` of the result module.
 
 ## Write a Functor to Extend Modules
 
