@@ -1,7 +1,6 @@
 ---
 id : labels
 title: Labelled and Optional Arguments
-short_title: Labelled and Optional Arguments
 description: >
   Provide labels to your functions arguments
 category: "Introduction"

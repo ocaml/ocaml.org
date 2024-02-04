@@ -1,7 +1,6 @@
 ---
 id: opam-switch-introduction
 title: Introduction to opam Switches
-short_title: Introduction to opam Switches
 description: |
   This page will give you a brief introduction to opam switches, what they're used for, and how to create them.
 category: "Tooling"

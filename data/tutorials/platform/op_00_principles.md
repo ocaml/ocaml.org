@@ -1,7 +1,6 @@
 ---
 id: "platform-principles"
 title: "Guiding Principles"
-short_title: "Guiding Principles"
 description: The principles that guide the development of the OCaml Platform.
 category: "OCaml Platform"
 ---

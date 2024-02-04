@@ -1,7 +1,6 @@
 ---
 id: set-up-editor
 title: Configuring Your Editor
-short_title: Configuring Your Editor
 description: |
   This page will show you how to set up your editor for OCaml. 
 category: "Tooling"

@@ -1,7 +1,6 @@
 ---
 id: values-and-functions
 title: Values and Functions
-short_title: Values and Functions
 description: |
   Functions, values, definitions, environments, scopes, closures, and shadowing. This tutorial will help you master the fundamentals.
 category: "Introduction"

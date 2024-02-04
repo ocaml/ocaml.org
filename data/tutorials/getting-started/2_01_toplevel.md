@@ -1,7 +1,6 @@
 ---
 id: toplevel-introduction
 title: Introduction to the OCaml Toplevel
-short_title: Introduction to the OCaml Toplevel
 description: |
   This page will give you a brief introduction to the OCaml toplevel.
 category: "Tooling"

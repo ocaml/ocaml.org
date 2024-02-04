@@ -1,7 +1,6 @@
 ---
 id: modules
 title: Modules
-short_title: Modules
 description: >
   Modules are collections of definitions. This is the basic means to organise OCaml software.
 category: "Module System"
