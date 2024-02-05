@@ -245,6 +245,7 @@ module Binary(Elt: OrderedType) : S = struct
   type elt = | (* Replace by your own *)
   type t = | (* Replace by your own *)
   (* Add private functions here *)
+  let empty = failwith "Not yet implemented"
   let is_empty h = failwith "Not yet implemented"
   let insert h e = failwith "Not yet implemented"
   let merge h1 h2 = failwith "Not yet implemented"
