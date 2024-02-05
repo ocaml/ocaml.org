@@ -1,7 +1,6 @@
 ---
 id: profiling
 title: Profiling
-short_title: Profiling
 description: >
   Understand how to profile your OCaml code to analyse its performance and produce faster programs
 category: "Guides"

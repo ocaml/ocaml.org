@@ -1,7 +1,6 @@
 ---
 id: "platform-users"
 title: "Users"
-short_title: "Users"
 description: The principles that guide the development of the OCaml Platform.
 category: "OCaml Platform"
 ---

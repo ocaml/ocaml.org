@@ -1,7 +1,6 @@
 ---
 id: sequences
 title: Sequences
-short_title: Sequences
 description: >
   Learn about sequences, of OCaml's most-used, built-in data types
 category: "Data Structures"

@@ -1,7 +1,6 @@
 ---
 id: functors
 title: Functors
-short_title: Functors
 description: >
   In OCaml, a functor is a function at the module-level. Functors take modules as arguments and return a new module.
 category: "Module System"

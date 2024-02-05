@@ -1,7 +1,6 @@
 ---
 id: options
 title: Options
-short_title: Options
 description: >
   Add nothing-as-value to anything to avoid confusion between something and “no such thing“.
 category: "Data Structures"

@@ -35,7 +35,7 @@ type prerequisite_tutorials = string list
 type metadata = {
   id : string;
   title : string;
-  short_title : string;
+  short_title : string option;
   description : string;
   category : string;
   external_tutorial : external_tutorial option;
@@ -73,7 +73,7 @@ type t = {
 }
 [@@deriving
   stable_record ~version:metadata ~add:[ id ]
-    ~modify:[ recommended_next_tutorials; prerequisite_tutorials ]
+    ~modify:[ recommended_next_tutorials; prerequisite_tutorials; short_title ]
     ~remove:[ slug; fpath; section; toc; body_md; body_html ],
     show { with_path = false }]
 
@@ -81,6 +81,7 @@ let of_metadata m =
   of_metadata m ~slug:m.id
     ~modify_recommended_next_tutorials:(function None -> [] | Some u -> u)
     ~modify_prerequisite_tutorials:(function None -> [] | Some u -> u)
+    ~modify_short_title:(function None -> m.title | Some u -> u)
 
 module Toc = struct
   let id_to_href id =

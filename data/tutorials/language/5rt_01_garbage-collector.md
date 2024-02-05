@@ -1,7 +1,6 @@
 ---
 id: garbage-collector
 title: Understanding the Garbage Collector
-short_title: Understanding the Garbage Collector
 description: >
   Understanding the Garbage Collector, excerpt from Real World OCaml
 category: "Runtime & Compiler"

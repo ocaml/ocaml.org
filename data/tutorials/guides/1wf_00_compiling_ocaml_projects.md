@@ -1,7 +1,6 @@
 ---
 id: compiling-ocaml-projects
 title: Compiling OCaml Projects
-short_title: Compiling OCaml Projects
 description: >
   An introduction to the OCaml compiler tools for building OCaml projects as well as the most common build tools
 category: "Guides"

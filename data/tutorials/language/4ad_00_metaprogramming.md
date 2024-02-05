@@ -1,7 +1,6 @@
 ---
 id: metaprogramming
 title: Preprocessors and PPXs
-short_title: Preprocessors and PPXs
 description: |
   An introduction to metaprogramming in OCaml, including preprocessors, PPX
   extensions and the `ppxlib` library.

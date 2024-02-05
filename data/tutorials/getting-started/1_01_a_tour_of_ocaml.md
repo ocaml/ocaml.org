@@ -1,7 +1,6 @@
 ---
 id: tour-of-ocaml
 title: A Tour of OCaml
-short_title: A Tour of OCaml
 description: >
   Hop on the OCaml sightseeing bus. This absolute beginner tutorial will drive you through the marvels and wonders of OCaml. We'll have a look at the most commonly used language features.
 category: "First Steps"

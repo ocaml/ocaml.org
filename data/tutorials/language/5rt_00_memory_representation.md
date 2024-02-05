@@ -1,7 +1,6 @@
 ---
 id: memory-representation
 title: Memory Representation of Values
-short_title: Memory Representation of Values
 description: >
   Memory Representation of Values, excerpt from Real World OCaml
 category: "Runtime & Compiler"
