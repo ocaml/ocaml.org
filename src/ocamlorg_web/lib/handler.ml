@@ -450,7 +450,6 @@ let exercises req =
   in
   Dream.html (Ocamlorg_frontend.exercises ?difficulty_level filtered_exercises)
 
-let installer req = Dream.redirect req Url.github_installer
 let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Data.Outreachy.all)
 
 type package_kind = Package | Universe

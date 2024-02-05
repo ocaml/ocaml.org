@@ -60,7 +60,6 @@ let page_routes t =
       Dream.get Url.tutorial_search Handler.learn_documents_search;
       Dream.get (Url.tutorial ":id") Handler.tutorial;
       Dream.get Url.playground Handler.playground;
-      Dream.get Url.installer Handler.installer;
       Dream.get Url.logos Handler.logos;
     ]
 

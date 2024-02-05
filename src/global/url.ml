@@ -81,12 +81,8 @@ let tutorial_search = "/docs/search"
 let getting_started = "/docs/get-started"
 let installing_ocaml = "/docs/installing-ocaml"
 let exercises = "/exercises"
-let installer = "/install-platform.sh"
 let outreachy = "/outreachy"
 let logos = "/logo"
-
-let github_installer =
-  "https://github.com/tarides/ocaml-platform-installer/releases/latest/download/installer.sh"
 
 let github_opam_file package_name package_version =
   Printf.sprintf
