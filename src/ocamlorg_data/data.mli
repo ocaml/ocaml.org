@@ -108,14 +108,7 @@ module Is_ocaml_yet : sig
 end
 
 module Job : sig
-  type t = {
-    title : string;
-    link : string;
-    locations : string list;
-    publication_date : string option;
-    company : string;
-    company_logo : string;
-  }
+  include module type of Data_intf.Job
 
   val all : t list
 end
