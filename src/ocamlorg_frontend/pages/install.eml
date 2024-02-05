@@ -98,7 +98,7 @@ Layout.render
             complete your OCaml development environment. To install them in your current opam switch, run this command:
           </p>
 
-          <%s! Copy_to_clipboard_snippet.render ~id:"install-platform-tools" "opam install merlin ocaml-lsp-server odoc ocamlformat utop dune-release" %>
+          <%s! Copy_to_clipboard_snippet.render ~id:"install-platform-tools" "opam install ocaml-lsp-server odoc ocamlformat utop" %>
 
           <p>Now you are ready to write some OCaml code!</p>
         </div>
