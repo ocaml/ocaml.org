@@ -36,18 +36,26 @@ module Local = struct
     type sources = t list [@@deriving yaml]
 
     let all () : source list =
-      let bind f r = Result.bind r f in
-      "planet-local-blogs.yml" |> Data.read
-      |> Option.to_result ~none:(`Msg "could not decode")
-      |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
-      |> List.map (fun (s : t) ->
-             {
-               id = s.id;
-               name = s.name;
-               url = "https://ocaml.org/blog/" ^ s.id;
-               description = s.description;
-               disabled = false;
-             })
+      let file = "planet-local-blogs.yml" in
+      let result =
+        let ( let* ) = Result.bind in
+        let* yaml = Utils.yaml_file file in
+        let* sources = sources_of_yaml yaml in
+        Ok
+          (sources
+          |> List.map (fun s ->
+                 {
+                   id = s.id;
+                   name = s.name;
+                   url = "https://ocaml.org/blog/" ^ s.id;
+                   description = s.description;
+                   disabled = false;
+                 }))
+      in
+      result
+      |> Result.map_error (fun (`Msg msg) ->
+             Exn.Decode_error (file ^ ": " ^ msg))
+      |> Result.get_ok
   end
 
   module Post = struct
@@ -130,18 +138,26 @@ module External = struct
     type sources = t list [@@deriving yaml]
 
     let all () : source list =
-      let bind f r = Result.bind r f in
-      "planet-sources.yml" |> Data.read
-      |> Option.to_result ~none:(`Msg "could not decode")
-      |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
-      |> List.map (fun { id; name; url; disabled } ->
-             {
-               id;
-               name;
-               url;
-               description = "";
-               disabled = Option.value ~default:false disabled;
-             })
+      let file = "planet-sources.yml" in
+      let result =
+        let ( let* ) = Result.bind in
+        let* yaml = Utils.yaml_file file in
+        let* sources = sources_of_yaml yaml in
+        Ok
+          (sources
+          |> List.map (fun { id; name; url; disabled } ->
+                 {
+                   id;
+                   name;
+                   url;
+                   description = "";
+                   disabled = Option.value ~default:false disabled;
+                 }))
+      in
+      result
+      |> Result.map_error (fun (`Msg msg) ->
+             Exn.Decode_error (file ^ ": " ^ msg))
+      |> Result.get_ok
   end
 
   module Post = struct

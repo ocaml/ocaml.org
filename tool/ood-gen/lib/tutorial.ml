@@ -309,11 +309,12 @@ let decode (fpath, (head, body_md)) =
   Result.map (of_metadata ~fpath ~section ~toc ~body_md ~body_html) metadata
 
 let all () =
-  Utils.map_files decode "tutorials/*.md"
+  Utils.map_files decode "tutorials/*/*.md"
   |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
 
 let all_search_documents () : search_document list =
-  Utils.map_files Search.decode_search_document "tutorials/*.md" |> List.flatten
+  Utils.map_files Search.decode_search_document "tutorials/*/*.md"
+  |> List.flatten
 
 let template () =
   let _ = check_tutorial_references @@ all () in
