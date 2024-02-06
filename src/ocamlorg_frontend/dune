@@ -267,7 +267,11 @@
  (rule
   (target hero_section.ml)
   (action
-   (run %{bin:dream_eml} %{dep:hero_section.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:hero_section.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target navmap.ml)
   (action
