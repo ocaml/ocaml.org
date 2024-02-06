@@ -44,13 +44,6 @@ let command_line_icon class_ =
     <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
   </svg>
 
-let hero_button ~left_icon ~right_icon ~text ~href =
-  <a href="<%s href %>" class="group whitespace-nowrap flex p-3 gap-2 items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border rounded-lg px-4 text-title dark:text-dark-title">
-    <span class="group-hover:text-white dark:group-hover:text-dark-title text-primary dark:text-dark-primary"><%s! left_icon %></span>
-    <span class="flex-grow"><%s text %></span>
-    <%s! right_icon %>
-  </a>
-
 type link = {href : string; title : string}
 
 let block_heading ~icon ~title ~heading =
@@ -58,11 +51,11 @@ let block_heading ~icon ~title ~heading =
     <%s! icon %>
     <%s title %>
   </div>
-  <h2 class="mt-2 text-title dark:text-dark-title text-2xl font-bold leading-7"><%s heading %></h2>
+  <h2 class="overflow-hidden mt-2 text-title dark:text-dark-title text-2xl font-bold leading-7"><%s heading %></h2>
 
 let block_container ~icon ~title ~heading inner_html =
-  <div class="bg-white dark:bg-dark-background">
-    <div class="max-w-sm md:max-w-full md:w-[32rem] flex flex-col">
+  <div class="md:h-full bg-white dark:bg-dark-background">
+    <div class="max-w-sm md:h-full md:max-w-full md:w-[32rem] flex flex-col">
       <%s! block_heading ~icon ~title ~heading %>
       <%s! inner_html %>
     </div>
@@ -70,12 +63,12 @@ let block_container ~icon ~title ~heading inner_html =
 
 let tutorial_block ~icon ~title ~heading ~description ~(tutorial_links: link list) ~see_more  =
   block_container ~icon ~title ~heading @@
-  <div class="mt-4 text-content dark:text-dark-content text-base font-normal leading-7 max-w-prose"> <%s description %> </div>
-  <ul class="flex flex-col gap-4 mt-5">
+  <div class="mt-4 text-content dark:text-dark-content text-base font-normal h-14 text-ellipsis overflow-hidden leading-7 max-w-prose"> <%s description %> </div>
+  <ul class="flex flex-col grow gap-4 mt-5 md:h-60">
     <% tutorial_links |> List.iter (fun link -> %>
     <li class="w-full">
       <a href="<%s link.href %>" class="bg-white dark:bg-dark-card text-title dark:text-dark-title hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl flex gap-2 border-primary dark:border-dark-primary border-2 rounded-lg p-2.5 text-md font-bold">
-        <span class="flex-grow"><%s link.title  %></span>
+        <span class="grow"><%s link.title  %></span>
 
         <%s! Icons.arrow_right_circle "w-6 h-6" %>
       </a>
@@ -110,11 +103,13 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
   in
   let first_link = List.hd book.links in
   block_container ~icon:(icon_for_difficulty book.difficulty) ~title:"RECOMMENDED BOOK" ~heading:book.title @@
-    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
-      <a href="<%s first_link.uri %>" target="_blank">
-        <%s! book_cover ~free:(book.pricing = "free") book.cover %>
-      </a>
-      <div class="">
+    <div class="grow mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
+      <div class="flex flex-col">
+        <a href="<%s first_link.uri %>" target="_blank">
+          <%s! book_cover ~free:(book.pricing = "free") book.cover %>
+        </a>
+      </div>
+      <div>
         <%s! skill_tag (match book.difficulty with | Data.Book.Beginner -> Beginner | Intermediate -> Intermediate | Advanced -> Advanced) %>
         <% (match book.recommendation with None -> () | Some recommendation -> %>
         <p class="mt-2 text-content dark:text-dark-content text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
@@ -126,7 +121,7 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
         </div>
       </div>
     </div>
-    <a href="<%s link.href %>" class="pt-4 text-primary dark:text-dark-title hover:underline dark:underline hover:text-primary dark:hover:text-dark-primary items-center leading-10">
+    <a href="<%s link.href %>" class="pt-6 text-primary dark:text-dark-title hover:underline dark:underline hover:text-primary dark:hover:text-dark-primary items-center leading-10">
       <%s link.title %>
     </a>
 
