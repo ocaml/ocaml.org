@@ -374,6 +374,70 @@ Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
 
 **Note**: Modules received and returned by `IterPrint.Make` both have a type `t`. The `with type ... :=` constraint is needed to make the two `t` identical. This allows functions from the injected dependency and result module to use the same type. When the parameter's contained type is not exposed by the result module (i.e. when it is an _implementation detail_), the `with type` constraint is unnecessary. 
 
+### Naming and Scoping
+
+In the previous section, we learned how to use the `with type` constraint in order to unify a type `t` contained within both the parameter and result module of a functor. Let's go over a few more details concerning naming and scoping to get a better grasp of the mechanics of this constraint.
+
+When reading the source of `iterPrint.ml`, it may have seemed curious as to why we could not have simply defined `Make` as follows:
+
+```ocaml
+module Make(Dep: Iterable) : S = struct
+  type 'a t = 'a Dep.t
+  let f = Dep.iter (fun s -> Out_channel.output_string stdout (s ^ "\n"))
+end
+```
+
+In the absence of client code that utilises the function `f` provided by the output of `Make`, the project would compile without error.
+
+However, since `Make` is invoked to create module `IterPrint` in `funkt.ml`, the project will fail to compile:
+
+```shell
+5 | ..stdin
+6 |   |> In_channel.input_lines
+7 |   |> List.concat_map Str.(split (regexp "[ \t.,;:()]+"))
+8 |   |> StringSet.of_list
+9 |   |> StringSet.elements
+Error: This expression has type string list
+       but an expression was expected of type string IterPrint.t
+```
+
+This may seem odd given the fact that the modified `Make` functor successfully compiles on its own. Indeed, if we had used an inappropriate definition such as `type 'a t = MkT`, the functor itself would have failed to compile:
+
+```shell
+11 | .................................struct
+12 |   type 'a t = MkT
+13 |   let f = Dep.iter (fun s -> Out_channel.output_string stdout (s ^ "\n"))
+14 | end
+Error: Signature mismatch:
+       Modules do not match:
+         sig type 'a t = MkT val f : string Dep.t -> unit end
+       is not included in
+         S
+       Values do not match:
+         val f : string Dep.t -> unit
+       is not included in
+         val f : string t -> unit
+       The type string Dep.t -> unit is not compatible with the type
+         string t -> unit
+       Type string Dep.t is not compatible with type string t
+```
+
+The key thing to realise is that, outside the functor, client code is not privy to the fact that `type 'a t` is being set equal to `Dep.t`. In `funkt.ml`, `IterPrint.t` simply appears as an abstract type exposed by the result of `Make`. This is precisely why the `with type` constraint is needed to propagate the knowledge that `IterPrint.t` is the same as the instantiation of `Dep.t` (`List.t` in this case).
+
+Another property of the `with type` constraint is that the type it exposes won't be shadowed by definitions within the functor body. In fact, the `Make` functor could be redefined as follows without preventing the successful compilation of module `Funkt`:
+
+```ocaml
+module Make(Dep: Iterable) : S with type 'a t := 'a Dep.t = struct
+  type 'a t = MkT
+  let g _ = "MkT"
+  let f = Dep.iter(fun s ->
+    Out_channel.output_string stdout (g MkT ^ "\n");
+    Out_channel.output_string stdout (s ^ "\n"))
+end
+```
+
+In the example above, the local type `t` does not shadow the type `t` exposed by the `with type` constraint and can be used for the implementation of the functor. However, it is generally better to avoid availing of this behaviour since it may make your code more difficult to understand.
+
 ## Write a Functor to Extend Modules
 
 In this section, we define a functor to extend several modules in the same way. This is the same idea as in the [Extending a Module with a Standard Library Functor](#extending-a-module-with-a-standard-library-functor), except we write the functor ourselves.
