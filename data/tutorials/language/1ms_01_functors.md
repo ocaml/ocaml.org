@@ -242,8 +242,8 @@ module type S = sig
 end
 
 module Binary(Elt: OrderedType) : S = struct
-  type elt = | (* Replace by your own *)
-  type t = | (* Replace by your own *)
+  type elt (* = replace by your own *)
+  type t (* = replace by your own *)
   (* Add private functions here *)
   let empty = failwith "Not yet implemented"
   let is_empty h = failwith "Not yet implemented"
