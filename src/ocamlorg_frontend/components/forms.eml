@@ -4,7 +4,7 @@ let search_input ?button_attrs ?input_attrs ?dropdown_html ~label ~name _class =
         <%s! html %>
     </div>
   in
-  <div class="dropdown-container flex items-center justify-center h-10 rounded-md focus-within:outline-primary dark:focus-within:outline-dark-primary focus-within:outline focus-within:outline-2 <%s _class %>" tabindex="0">
+  <div class="dropdown-container flex items-center justify-center h-10 rounded-md focus-within:outline-primary_25 dark:focus-within:outline-dark-primary_40 focus-within:outline focus-within:outline-2 <%s _class %>" tabindex="0">
     <label for="<%s name %>" class="sr-only"><%s label %></label>
     <input
         type="search"

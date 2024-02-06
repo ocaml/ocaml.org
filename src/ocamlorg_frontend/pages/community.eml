@@ -28,8 +28,8 @@ Community_layout.single_column_layout
                 Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!
               </p>
               <div
-                      class="flex flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto mt-8">
-                      <%s!  Learn_components.hero_button ~left_icon:(Icons.chat "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("Start Contributing") ~href:("https://discuss.ocaml.org/") %>
+                class="flex flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto mt-8">
+                <%s!  Hero_section.hero_button ~left_icon:(Icons.chat "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("Join the Discussion") ~href:("https://discuss.ocaml.org/") %>
               </div>
           </div>
       </div>    
@@ -111,7 +111,7 @@ Community_layout.single_column_layout
           <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">OCaml Jobs</h2>
           <p class="text-xl text-white dark:text-dark-title mb-5">This is a space where groups, companies, and organisations can advertise their projects directly to the OCaml community.</p>
           <div class="flex max-w-[17rem]">
-              <%s!  Learn_components.hero_button ~left_icon:(Icons.file_search "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("View OCaml Jobs") ~href:(Url.jobs) %>
+              <%s! Hero_section.hero_button ~left_icon:(Icons.file_search "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("View OCaml Jobs") ~href:(Url.jobs) %>
           </div>
       </div>
       <div class="hidden md:flex w-[18rem] h-[18rem] mr-16">
@@ -173,7 +173,7 @@ Community_layout.single_column_layout
           <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">OCaml Outreachy Interships</h2>
           <p class="text-xl text-content dark:text-dark-title mb-5">This is a record of all past OCaml Community Outreachy Internship Projects.</p>
           <div class="flex max-w-[17rem]">
-              <%s!  Learn_components.hero_button ~left_icon:(Icons.file_search "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("View OCaml Internship Projects") ~href:(Url.outreachy) %>
+            <%s! Hero_section.hero_button ~left_icon:(Icons.file_search "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("View OCaml Internship Projects") ~href:(Url.outreachy) %>
           </div>
       </div>
       <div class="hidden md:flex w-[18rem] h-[18rem] mr-16">
