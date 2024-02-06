@@ -428,10 +428,10 @@ Another property of the `with type` constraint is that the type it exposes won't
 
 ```ocaml
 module Make(Dep: Iterable) : S with type 'a t := 'a Dep.t = struct
-  type 'a t = MkT
-  let g _ = "MkT"
+  type 'a t = LocalType
+  let g LocalType = "LocalType"
   let f = Dep.iter(fun s ->
-    Out_channel.output_string stdout (g MkT ^ "\n");
+    Out_channel.output_string stdout (g LocalType ^ "\n");
     Out_channel.output_string stdout (s ^ "\n"))
 end
 ```
