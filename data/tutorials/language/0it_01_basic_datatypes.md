@@ -482,16 +482,6 @@ Note that:
 - `unit` is a variant with a unique constructor, which does not carry data: `()`.
 - `bool` is also a variant with two constructors that doesn't carry data: `true` and `false`.
 
-#### Empty Variants
-
-Variants can optionally be defined with absolutely no constructors at all.
-
-```ocaml
-type void = |
-```
-
-Such types are not ordinarily useful in OCaml programs (as they do not have any constructible values), but they can be useful as temporary placeholders when defining types in a [functor](/docs/functors#writing-your-own-functors).
-
 #### Constructors With Data
 
 It is possible to wrap data in constructors. The following type has several constructors with data (e.g., `Hash of string`) and some without (e.g., `Head`). It represents the different means to refer to a Git [revision](https://git-scm.com/docs/gitrevisions).
