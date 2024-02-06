@@ -401,27 +401,6 @@ Error: This expression has type string list
        but an expression was expected of type string IterPrint.t
 ```
 
-This may seem odd given the fact that the modified `Make` functor successfully compiles on its own. Indeed, if we had used an inappropriate definition such as `type 'a t = MkT`, the functor itself would have failed to compile:
-
-```shell
-11 | .................................struct
-12 |   type 'a t = MkT
-13 |   let f = Dep.iter (fun s -> Out_channel.output_string stdout (s ^ "\n"))
-14 | end
-Error: Signature mismatch:
-       Modules do not match:
-         sig type 'a t = MkT val f : string Dep.t -> unit end
-       is not included in
-         S
-       Values do not match:
-         val f : string Dep.t -> unit
-       is not included in
-         val f : string t -> unit
-       The type string Dep.t -> unit is not compatible with the type
-         string t -> unit
-       Type string Dep.t is not compatible with type string t
-```
-
 The key thing to realise is that, outside the functor, client code is not privy to the fact that `type 'a t` is being set equal to `Dep.t`. In `funkt.ml`, `IterPrint.t` simply appears as an abstract type exposed by the result of `Make`. This is precisely why the `with type` constraint is needed to propagate the knowledge that `IterPrint.t` is the same as the instantiation of `Dep.t` (`List.t` in this case).
 
 Another property of the `with type` constraint is that the type it exposes won't be shadowed by definitions within the functor body. In fact, the `Make` functor could be redefined as follows without preventing the successful compilation of module `Funkt`:
