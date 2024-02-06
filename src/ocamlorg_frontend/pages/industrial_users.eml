@@ -160,8 +160,8 @@ the community and learn more about how they use OCaml."
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 relative text-center bg-white dark:bg-dark-background_navigation mt-10 gap-3">
       <% users |> List.iter (fun (item : Data.Industrial_user.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-4 h-full dark:bg-dark-white rounded-md flex items-center flex-col">
-          <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo">
+      <a href="<%s item.url %>" target="_blank" class="p-4 h-full card dark:dark-inverted-card flex items-center flex-col">
+          <img src="<%s logo %>" class="m-auto max-h-16" alt="<%s item.name %> logo">
       </a>
       <% ); %>
     </div>
