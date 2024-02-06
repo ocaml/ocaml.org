@@ -108,60 +108,37 @@ the community and learn more about how they use OCaml."
     </div>
     <div class="swiper-container" x-ref="container">
       <div class="swiper-wrapper mt-6">
-        <a href="https://rescript-lang.org/" class="swiper-slide p-4 legacy-card-hover">
-          <div class="overflow-hidden">
-            <div class="dark:bg-dark-white py-4 px-2 w-max rounded-md mb-2">
-              <img src="<%s Ocamlorg_static.Asset.url "logos/rescript.svg" %>" class="h-8" alt="">
-            </div>
-            <div class="mb-4 text-content dark:text-dark-content text-sm">Thanks to the OCaml team, obviously, without such a beautiful yet practical language, this project would not exist. The original type system was inherited from it with lots of modifications to fit with JS ecosystem better.</div>
-            <div class="font-bold text-content dark:text-dark-content mb-6">Bob Zhang</div>
-            <div class="text-content dark:text-dark-content">Maintainer, ReScript.</div>
-          </div>
-        </a>
+% let testimonial ~href ~logo ~person ~role testimonial =
+<a href="<%s href %>" class="swiper-slide p-4 legacy-card-hover">
+  <div class="overflow-hidden">
+    <div class="flex place-content-center dark:bg-dark-white h-20 w-36 p-4 rounded-md mb-2">
+      <img class="max-h-full max-w-full" src="<%s logo %>" class="h-8" alt="">
+    </div>
+    <div class="mb-4 text-content dark:text-dark-content text-sm"><%s testimonial %></div>
+    <div class="font-bold text-content dark:text-dark-content mb-6"><%s person %></div>
+    <div class="text-content dark:text-dark-content"><%s role %></div>
+  </div>
+</a>
+% in
+% testimonial ~href:"https://rescript-lang.org/" ~logo:(Ocamlorg_static.Asset.url "logos/rescript.svg")
+%             ~person:"Bob Zhang" ~role:"Maintainer, ReScript."
+%             "Thanks to the OCaml team, obviously, without such a beautiful yet practical language, this project would not exist. The original type system was inherited from it with lots of modifications to fit with JS ecosystem better.";
 
-        <a href="https://www.janestreet.com/" class="swiper-slide p-4 legacy-card-hover">
-          <div class="overflow-hidden">
-            <div class="dark:bg-dark-white py-4 px-2 w-max rounded-md mb-2">
-              <img src="<%s Ocamlorg_static.Asset.url "logos/janestreet.svg" %>" class="h-8" alt="">
-            </div>
-            <div class="mb-4 text-content dark:text-dark-content text-sm">OCaml helps us to quickly adapt to changing market conditions and go from prototypes to production systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting it right matters.</div>
-            <div class="font-bold text-content dark:text-dark-content mb-6">Yaron Minsky</div>
-            <div class="text-content dark:text-dark-content">CTO, Jane Street.</div>
-          </div>
-        </a>
+% testimonial ~href:"https://www.janestreet.com/" ~logo:(Ocamlorg_static.Asset.url "logos/janestreet.svg")
+%             ~person:"Yaron Minsky" ~role:"CTO, Jane Street."
+%             "OCaml helps us to quickly adapt to changing market conditions and go from prototypes to production systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting it right matters.";
 
-        <a href="https://ahrefs.com/" class="swiper-slide p-4 legacy-card-hover">
-          <div class="overflow-hidden">
-             <div class="dark:bg-dark-white py-4 px-2 w-max rounded-md mb-2">
-              <img src="<%s Ocamlorg_static.Asset.url "logos/ahrefs.svg" %>" class="h-8" alt="">
-             </div>
-              <div class="mb-4 text-content dark:text-dark-content text-sm">OCaml as the development environment acts as a very much trusted partner throughout the whole development process. As our requirements evolve, we change the implementation a lot, and this is where the language shines. Literally, I am not afraid to change others’ code when OCaml has my back!</div>
-              <div class="font-bold text-content dark:text-dark-content mb-6">Oleksiy Golovko</div>
-              <div class="text-content dark:text-dark-content">Backend Developer, Ahrefs.</div>
-          </div>
-        </a>
+% testimonial ~href:"https://ahrefs.com/" ~logo:(Ocamlorg_static.Asset.url "logos/ahrefs.svg")
+%             ~person:"Oleksiy Golovko" ~role:"Backend Developer, Ahrefs."
+%             "OCaml as the development environment acts as a very much trusted partner throughout the whole development process. As our requirements evolve, we change the implementation a lot, and this is where the language shines. Literally, I am not afraid to change others’ code when OCaml has my back!";
 
-        <a href="https://www.marigold.dev" class="swiper-slide p-4 legacy-card-hover">
-          <div class="overflow-hidden">
-             <div class="dark:bg-dark-white py-4 px-2 w-max rounded-md mb-2">
-              <img src="https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png" class="h-8" alt="">
-             </div>
-              <div class="mb-4 text-content dark:text-dark-content text-sm">Using OCaml as a programming language to write software has many benefits. For instance, it is able to describe the source code in an easy and understandable manner. The fear of refactoring in the source code can be eased as well. OCaml has a mature and very evolving ecosystem, which is a large, supportive and friendly community.</div>
-              <div class="font-bold text-content dark:text-dark-content mb-6">Xavier Van de Woestyne</div>
-              <div class="text-content dark:text-dark-content">Software engineer, Marigold.</div>
-          </div>
-        </a>
+% testimonial ~href:"https://www.marigold.dev" ~logo:"https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png"
+%             ~person:"Xavier Van de Woestyne" ~role:"Software engineer, Marigold."
+%             "Using OCaml as a programming language to write software has many benefits. For instance, it is able to describe the source code in an easy and understandable manner. The fear of refactoring in the source code can be eased as well. OCaml has a mature and very evolving ecosystem, which is a large, supportive and friendly community.";
 
-        <a href="https://twitter.com/jack/status/47090747706580992" class="swiper-slide p-4 legacy-card-hover">
-          <div class="overflow-hidden">
-              <div class="py-4 px-2 w-max rounded-md mb-2">
-                <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c8/Twitter_Bird.svg/1259px-Twitter_Bird.svg.png" class="h-8" alt="">
-              </div>
-              <div class="mb-4 text-content dark:text-dark-content text-smß">Originally I was going to program twttr in Python, C, & Ocaml. But, I got @florian who was a core contributor to Ruby on Rails.</div>
-              <div class="font-bold text-content dark:text-dark-content">Jack Dorsey</div>
-              <div>Founder, Twitter.</div>
-          </div>
-        </a>
+% testimonial ~href:"https://twitter.com/jack/status/47090747706580992" ~logo:(Ocamlorg_static.Asset.url "logos/old-twitter-logo.svg")
+%             ~person:"Jack Dorsey" ~role:"Founder, Twitter."
+%             "Originally I was going to program twttr in Python, C, & Ocaml. But, I got @florian who was a core contributor to Ruby on Rails.";
       </div>
     </div>
     <div class="flex space-x-4">
