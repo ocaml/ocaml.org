@@ -376,7 +376,7 @@ Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
 
 ### Naming and Scoping
 
-In the previous section, we learned how to use the `with type` constraint in order to unify a type `t` contained within both the parameter and result module of a functor. Let's go over a few more details concerning naming and scoping to get a better grasp of the mechanics of this constraint.
+In the previous section, we learned how to use the `with type` constraint in order to unify types contained within both the parameter and result module of a functor. Let's go over a few more details concerning naming and scoping to get a better grasp of the mechanics of this constraint.
 
 When reading the source of `iterPrint.ml`, it may have seemed curious as to why we could not have simply defined `Make` as follows:
 
