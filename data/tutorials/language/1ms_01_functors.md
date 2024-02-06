@@ -157,7 +157,7 @@ let _ =
 
 This allows the user to seemingly extend the module `String` with a submodule `Set`. Check the behaviour using `opam exec -- dune exec funkt < dune`.
 
-## Functors Allows Parametrising Modules
+## Functors Facilitate Parametrising Modules
 
 ### Functors From the Standard Library
 
