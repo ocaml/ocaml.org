@@ -3,28 +3,28 @@ Layout.render
 ~title:"Academic Users of OCaml"
 ~description:"OCaml is taught all around the world and used every day by programming language researchers. Learn more about the strong academic roots of the language."
 ~canonical:Url.academic_users @@
-<div class="intro-section-simple">
+<div class="w-full intro-section-simple dark:dark-intro-section-simple">
   <div class="container-fluid">
-    <div class="text-center w-full lg:w-2/3 m-auto">
-      <h1 class="font-bold mb-6">Academic Users of OCaml</h1>
-      <p>
+    <div class="w-full m-auto">
+      <h1 class="text-title dark:text-dark-title font-bold mb-2">Academic Users of OCaml</h1>
+      <p class="text-content dark:text-dark-content lg:text-xl lg:max-w-[80%]">
         With its deep mathematical roots, OCaml has always had strong ties to academia. Currently, it is being taught in universities around the world, and has accrued an ever growing body of research. This page will provide you with an overview of the academic excellence that defines the culture of
         OCaml.
       </p>
     </div>
   </div>
 </div>
-<div class="bg-legacy-default dark:bg-legacy-dark-default py-0 md:pt-10 lg:pt-20 lg:pb-0">
+<div class="bg-white dark:bg-dark-background py-0 md:pt-10 lg:pt-20 lg:pb-0">
   <div class="container-fluid" x-data="{ continent: 'All' }">
     <div class="flex justify-between mb-0 md:mb-10 lg:mb-20 lg:flex-row flex-col items-center">
-      <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0">30+ Academic Entries</h2>
+      <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0 text-title dark:text-dark-title">30+ Academic Entries</h2>
       <div class="flex justify-between flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto">
         <form action="<%s Url.academic_users %>" method="GET">
         <%s! Forms.search_input
           ~name:"q"
           ~label:"Search institutions"
           ~button_attrs:{|type="submit"|}
-          "h-12"
+          "h-12 lg:w-96"
          %>
         </form>
         <%s! Forms.select
@@ -35,83 +35,85 @@ Layout.render
     </div>
     <div :class="continent != 'All' ? 'hidden' : 'grid-logos'">
       <% users |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary flex items-center flex-col">
-        <img src="<%s logo %>" class="m-auto" alt="">
-        <div class="font-bold mt-8"><%s item.name %></div>
+      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary dark:hover:text-dark-primary flex items-center flex-col">
+        <img src="<%s logo %>" class="m-auto dark:bg-dark-white" alt="">
+        <div class="font-bold mt-8 text-content dark:text-dark-content"><%s item.name %></div>
       </a>
       <% ); %>
     </div>
     <div :class="continent != 'North America' ? 'hidden' : 'grid-logos'">
       <% users |> List.filter (fun x -> x.Data.Academic_institution.continent = "North America") |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary flex items-center flex-col">
+      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary dark:hover:text-dark-primary flex items-center flex-col">
         <img src="<%s logo %>" class="m-auto" alt="">
-        <div class="font-bold mt-8"><%s item.name %></div>
+        <div class="font-bold mt-8 text-content dark:text-dark-content"><%s item.name %></div>
       </a>
       <% ); %>
     </div>
     <div :class="continent != 'Europe' ? 'hidden' : 'grid-logos'">
       <% users |> List.filter (fun x -> x.Data.Academic_institution.continent = "Europe") |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary flex items-center flex-col">
+      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary dark:hover:text-dark-primary flex items-center flex-col">
         <img src="<%s logo %>" class="m-auto" alt="">
-        <div class="font-bold mt-8"><%s item.name %></div>
+        <div class="font-bold mt-8 text-content dark:text-dark-content"><%s item.name %></div>
       </a>
       <% ); %>
     </div>
     <div :class="continent != 'Asia' ? 'hidden' : 'grid-logos'">
       <% users |> List.filter (fun x -> x.Data.Academic_institution.continent = "Asia") |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary flex items-center flex-col">
+      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary dark:hover:text-dark-primary flex items-center flex-col">
         <img src="<%s logo %>" class="m-auto" alt="">
-        <div class="font-bold mt-8"><%s item.name %></div>
+        <div class="font-bold mt-8 text-content dark:text-dark-content"><%s item.name %></div>
       </a>
       <% ); %>  
     </div>    
-    <div class="prose max-w-none m-2">
+    <div class="prose dark:prose-invert max-w-none m-2">
         If you want to contribute to add a new academic user, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-user" target="_blank">Contributing Guide</a> on GitHub.
   </div>
   </div>
-  <div class="bg-pattern lg:py-32 py-24">
-    <div class="container-fluid">
-      <div class=" ">
-        <div class="text-center">
-          <h2 class="font-bold text-primary mb-6">Academic Resources</h2>
-          <div class="text-lg text-white mb-16">Here are some of the resources that may be helpful to you</div>
+  <div class="intro-section-simple dark:dark-intro-section-simple lg:py-12 py-8 border-t border-separator_20 dark:border-dark-primary_30">
+    <div class="container-fluid"> 
+        <div class="">
+          <h2 class="font-bold text-title dark:text-dark-title mb-4">Academic Resources</h2>
+          <div class="text-content dark:text-dark-content mb-8">Here are some of the resources that may be helpful to you</div>
         </div>
-
-        <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
-          <a href="<%s Url.papers %>" class="resources-card">
-            <%s! Icons.papers "h-16 w-16 mb-8" %>
-            <p class="font-semibold text-xl mb-3">Papers</p>
-            <p>Papers that have influenced OCaml and other functional programming languages.</p>
+        <div class="grid lg:grid-cols-3 gap-8 lg:gap-8">
+          <a href="<%s Url.papers %>" class="card dark:dark-card p-4">
+            <div class="flex pb-2">
+              <%s! Icons.papers "w-6 text-primary dark:text-dark-primary" %>
+              <p class="font-bold text-base text-title dark:text-dark-title ml-2">Papers</p>
+            </div>
+            <p class="text-content dark:text-dark-content">Papers that have influenced OCaml and other functional programming languages.</p>
           </a>
-          <a href="<%s Url.manual %>" class="resources-card">
-            <%s! Icons.document "h-16 w-16 mb-8" %>
-            <p class="font-semibold text-xl mb-3">Language Manual</p>
-            <p>Read the reference manual of the language and the documentation on the compiler tools.</p>
+          <a href="<%s Url.manual %>" class="card dark:dark-card p-4">
+            <div class="flex pb-2">
+              <%s! Icons.document "w-6 text-primary dark:text-dark-primary" %>
+              <p class="font-bold text-base text-title dark:text-dark-title ml-2">Language Manual</p>
+            </div>
+            <p class="text-content dark:text-dark-content">Read the reference manual of the language and the documentation on the compiler tools.</p>
           </a>
-          <a href="<%s Url.books %>" class="resources-card">
-            <%s! Icons.book "h-16 w-16 mb-8" %>
-            <p class="font-semibold text-xl mb-3">Books</p>
-            <p>What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
+          <a href="<%s Url.books %>" class="card dark:dark-card p-4">
+            <div class="flex pb-2">
+              <%s! Icons.book "w-6 text-primary dark:text-dark-primary" %>
+              <p class="font-bold text-base text-title dark:text-dark-title ml-2">Books</p>
+            </div>
+            <p class="text-content dark:text-dark-content">What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
           </a>
         </div>
-        <div class="grid lg:grid-cols-3 gap-8 lg:gap-16"></div>
-      </div>
     </div>
   </div>
   <div class="container-fluid" aria-hidden="true">
     <div class="text-center py-10 lg:py-28">
-      <h2 class="mb-6 font-bold">Our Influence</h2>
-      <div>See where we are located around the world at an academic level.</div>
+      <h2 class="mb-6 font-bold text-title dark:text-dark-title">Our Influence</h2>
+      <div class="text-content dark:text-dark-content">See where we are located around the world at an academic level.</div>
       <div class="mt-24 relative">
         <img src="<%s Ocamlorg_static.Asset.url "img/academic/map.svg" %>" alt="A world map that illustrates where OCaml is taught or used for research.">
       </div>
     </div>
   </div>
-  <div class="bg-primary">
+  <div class="bg-primary dark:bg-dark-primary">
     <div class="container-fluid">
-      <div class="text-center text-white lg:p-16 py-10">
+      <div class="text-center text-white dark:text-dark-title lg:p-16 py-10">
         <h3 class="font-bold mb-6">Interested in Learning More?</h3>
-        <div class="text-lg mb-8 lg:px-28">Go to our success stories for a more in-depth understanding of how our users use OCaml.</div>
+        <p class="text-lg mb-8 lg:px-28">Go to our success stories for a more in-depth understanding of how our users use OCaml.</p>
         <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
           <a class="btn btn-lg btn-legacy-tertiary" href="<%s Url.industrial_users %>">Success Stories</a>
         </div>

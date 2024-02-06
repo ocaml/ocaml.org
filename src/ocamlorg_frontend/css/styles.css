@@ -75,15 +75,6 @@ body {
   background: #a72f2014;
 }
 
-.intro-section-simple {
-  background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
-  @apply pt-48 pb-24;
-}
-
-.intro-section-simple p {
-  @apply text-legacy-lighter lg:text-lg;
-}
-
 .divider span {
   width: 7px;
   height: 7px;

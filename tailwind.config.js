@@ -112,7 +112,7 @@ module.exports = {
         },
         invert: {
           css: {
-            'p, li, span':{
+            'p, li, a > span':{
               color: theme('colors.dark.content'),
             },
             a: {
@@ -129,7 +129,7 @@ module.exports = {
             },
             'pre > code, strong': {
               color: theme('colors.dark.title'),
-            }
+            },
           },
         }
       }),
