@@ -415,7 +415,7 @@ module Make(Dep: Iterable) : S with type 'a t := 'a Dep.t = struct
 end
 ```
 
-In the example above, the local type `t` does not shadow the type `t` exposed by the `with type` constraint and can be used for the implementation of the functor. However, it is generally better to avoid availing of this behaviour since it may make your code more difficult to understand.
+In the example above, `t` from `with type` takes precedence over the local `t`, which only has a local scope. However, it is generally better to avoid availing of this behaviour since it may make your code more difficult to understand.
 
 ## Write a Functor to Extend Modules
 
