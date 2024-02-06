@@ -24,32 +24,23 @@ the community and learn more about how they use OCaml."
     <div class="text-content dark:text-dark-title text-base mt-3">
       These companies and organizations rely on OCaml every day — along with thousands of other developers.
     </div>
-    <div class="flex flex-row flex-wrap pt-4 items-center">
-      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
-          <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/facebook.svg" %>" alt="Facebook">
-      </div>
-      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
-          <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/microsoft.svg" %>" alt="Microsoft">
-      </div>
-      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
-          <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/docker.svg" %>" alt="Docker">
-      </div>
-      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
-          <img class="h-10" src="<%s Ocamlorg_static.Asset.url "logos/janestreet.svg" %>" alt="Jane Street">
-      </div>
-      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
-          <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/bloomberg.svg" %>" alt="Bloomberg">
-      </div>
-      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
-          <img class="h-10" src="<%s Ocamlorg_static.Asset.url "logos/tezos.svg" %>" alt="Tezos">
-      </div>
-      <div class="mx-2 my-4 dark:bg-dark-white flex items-center py-6 px-4 rounded-md">
-          <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/ahrefs.svg" %>" alt="Ahrefs">
+    <div class="flex flex-row gap-4 flex-wrap pt-4 items-center">
+% let reference ~title ~logo class_ =
+<div class="dark:bg-dark-white flex items-center px-6 rounded-md h-20">
+    <img class="<%s class_ %>" src="<%s logo %>" alt="<%s title %>">
+</div>
+% in
+% reference ~title:"Facebook" ~logo:(Ocamlorg_static.Asset.url "logos/facebook.svg") "h-6";
+% reference ~title:"Microsoft" ~logo:(Ocamlorg_static.Asset.url "logos/microsoft.svg") "h-7";
+% reference ~title:"Docker" ~logo:(Ocamlorg_static.Asset.url "logos/docker.svg") "h-8";
+% reference ~title:"Jane Street" ~logo:(Ocamlorg_static.Asset.url "logos/janestreet.svg") "h-8";
+% reference ~title:"Bloomberg" ~logo:(Ocamlorg_static.Asset.url "logos/bloomberg.svg") "h-6";
+% reference ~title:"Tezos" ~logo:(Ocamlorg_static.Asset.url "logos/tezos.svg") "h-10";
+% reference ~title:"Ahrefs" ~logo:(Ocamlorg_static.Asset.url "logos/ahrefs.svg") "h-6";
     </div>
   </div>
-  </div>
 </div>
-<div class="intro-section-simple dark:dark-intro-section-simple">
+<div class="intro-section-simple dark:dark-section-navigation">
   <div class="container-fluid">
       <div class="mt-6 lg:mt-0">
           <h2 class="font-bold mb-6 text-title dark:text-dark-title">Case Studies</h2>
@@ -58,7 +49,7 @@ the community and learn more about how they use OCaml."
           </p>
       </div>
 
-      <div class="grid lg:grid-cols-3 gap-4 mt-8 lg:mt-12">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 lg:mt-12">
         <% success_stories |> List.iter (fun (item : Data.Success_story.t) ->
         let logo = Ocamlorg_static.Media.url item.logo in
         let background_class = match item.theme with
@@ -69,7 +60,7 @@ the community and learn more about how they use OCaml."
         | _ -> "bg-gray-600"
         in %>
         <div class="flex flex-col">
-          <a href="<%s Url.success_story item.slug %>" class="group text-base text-white dark:text-dark-white p-4 relative bg-cover h-[10.5rem]">
+          <a href="<%s Url.success_story item.slug %>" class="group text-base text-white dark:text-dark-white p-4 relative bg-cover h-[14.5rem]">
             <div class="flex flex-col justify-between h-full relative z-10 text-white dark:text-dark-white">
                 <div class="h-8"><img class="h-full" src="<%s logo %>" alt=""></div>
                
