@@ -372,7 +372,7 @@ let _ =
 
 Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
 
-**Note**: Modules received and returned by `IterPrint.Make` both have a type `t`. The `with type ... :=` constraint is needed to make the two `t` identical. This allows functions from the injected dependency and result module to use the same type. When the parameter's contained type is not exposed by the result module (i.e. when it is an _implementation detail_), the `with type` constraint is unnecessary. 
+**Note**: Modules received and returned by `IterPrint.Make` both have a type `t`. The `with type ... :=` constraint is needed to make the two `t` identical. This allows functions from the injected dependency and result module to use the same type. When the parameter's contained type is not exposed by the result module (i.e., when it is an _implementation detail_), the `with type` constraint is unnecessary.
 
 ### Naming and Scoping
 
