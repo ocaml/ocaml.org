@@ -6,8 +6,8 @@ Layout.render
 ~canonical:"" @@
 <div class="lg:py-8 py-6">
   <div class="container-fluid" x-data='{ operating_system: detect_os () }'>
-    <div class="prose mb-6">
-      <h1 class="sr-only">
+    <div class="prose dark:prose-invert mb-6">
+      <h1 class="sr-only ">
         Install OCaml
       </h1>
       <div class="flex gap-2">
@@ -16,7 +16,7 @@ Layout.render
       </div>
     </div>
 
-    <div class="prose my-6">
+    <div class="prose dark:prose-invert my-6">
       <p>If you need more explicit instructions than provided on this quick-install page, you can find
         <a href="<%s Url.installing_ocaml %>">a more detailed explanation of the installation process here</a>.
       </p>
@@ -25,7 +25,7 @@ Layout.render
     <div
       class="grid gap-6 xl:grid-cols-2 xl:gap-16"
       x-show="(operating_system == 'linux_mac_bsd')">
-      <div class="prose">
+      <div class="prose dark:prose-invert">
         <h2>
           Install OCaml on Linux, macOS, or *BSD
         </h2>
@@ -89,7 +89,7 @@ Layout.render
         <p>Congratulations, you have now installed OCaml!</p>
       </div>
       <div>
-        <div class="prose">
+        <div class="prose dark:prose-invert">
           <h2>Set Up an OCaml Development Environment</h2>
 
           <p>
@@ -107,7 +107,7 @@ Layout.render
     </div>
 
     <div x-show="operating_system == 'win'">
-      <div class="prose">
+      <div class="prose dark:prose-invert">
         <h2>
           Install OCaml on Windows
         </h2>
