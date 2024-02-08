@@ -23,7 +23,7 @@ Layout.render
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 <% recommended_papers |> List.iter (fun (paper : Data.Paper.t) -> %>
-                    <a href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 p-6 pb-4 rounded-xl bg-white dark:bg-dark-card legacy-card-hover">
+                    <a href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 p-6 pb-4 rounded-xl bg-white card dark:dark-card">
                         <div class="font-semibold text-base mb-3 text-title dark:text-dark-title">
                             <%s paper.title %>
                         </div>
@@ -33,7 +33,7 @@ Layout.render
                         <div class="text-sm mt-3 text-content dark:text-dark-content">
                             <%s String.concat ", " paper.authors %>
                         </div>
-                        <div class="flex mt-5">
+                        <div class="flex mt-5 flex-wrap">
                             <% paper.tags |> List.iter (fun (tag : string) -> %>
                             <div
                                 class="tag">
@@ -84,7 +84,7 @@ Layout.render
                     </thead>
                     <tbody class="block lg:table-row-group">
                         <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
-                            <tr class="flex flex-col lg:table-row mb-4 lg:mb-0 border-b border-b-zinc-200 lg:border-none">
+                            <tr class="flex flex-col lg:table-row mb-4 lg:mb-0 border-b  dark:border-b-dark-separator_30 lg:border-none">
                                 <td class="py-0 lg:py-4 px-6 font-semibold">
                                     <div class="text-xl text-title dark:text-dark-title lg:text-base font-semibold">
                                         <%s paper.title %>

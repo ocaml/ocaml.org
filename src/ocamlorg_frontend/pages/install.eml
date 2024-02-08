@@ -10,9 +10,16 @@ Layout.render
       <h1 class="sr-only ">
         Install OCaml
       </h1>
-      <div class="flex gap-2">
+      <div class="hidden lg:flex gap-2">
         <button class="btn flex gap-2" :class='operating_system == "linux_mac_bsd"? "": "btn-ghost"' @click="operating_system = 'linux_mac_bsd'"> Linux, macOS or *BSD</button>
         <button class="btn flex gap-2" :class='operating_system == "win"? "": "btn-ghost"' @click="operating_system = 'win'"><%s! Icons.microsoft_windows "w-6 h-6" %> Windows</button>
+      </div>
+      <div class="w-full flex md:hidden">
+% let render_multi_button ~title ~active_tab ~class_ =
+      <button x-on:click='operating_system = "<%s active_tab %>"' class="flex flex-auto justify-center py-4 text-sm border <%s class_ %>" :class='operating_system === "<%s active_tab %>" ? "bg-primary dark:bg-dark-primary text-white dark:text-dark-title border-primary dark:border-dark-primary" : "text-content dark:text-dark-separator_30 border-card_border dark:border-dark-separator_30"'><%s title %></button>
+% in
+        <% render_multi_button ~title:"Linux, macOS or *BSD" ~active_tab:"linux_mac_bsd" ~class_:"rounded-l rounded-l-lg border-r-0"; %>
+        <% render_multi_button ~title:"Windows" ~active_tab:"win" ~class_:"rounded-r rounded-r-lg"; %>
       </div>
     </div>
 
