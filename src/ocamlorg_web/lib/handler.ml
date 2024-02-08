@@ -404,10 +404,7 @@ let tutorial req =
   let all_exercises = Data.Exercise.all in
   let related_exercises =
     List.filter
-      (fun (e : Data.Exercise.t) ->
-        match e.tutorials with
-        | Some tutorials_list -> List.mem slug tutorials_list
-        | None -> false)
+      (fun (e : Data.Exercise.t) -> List.mem slug e.tutorials)
       all_exercises
   in
 

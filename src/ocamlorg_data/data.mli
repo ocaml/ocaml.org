@@ -158,7 +158,7 @@ module Exercise : sig
     description : string;
     statement : string;
     solution : string;
-    tutorials : string list option;
+    tutorials : string list;
   }
 
   val all : t list
