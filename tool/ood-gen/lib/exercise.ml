@@ -54,9 +54,7 @@ type t = {
     ~remove:[ statement; solution ],
     show { with_path = false }]
 
-let of_metadata m =
-  of_metadata m ~modify_tutorials:(function None -> [] | Some tts -> tts)
-
+let of_metadata m = of_metadata m ~modify_tutorials:(Option.value ~default:[])
 let attach_filepath fpath (`Msg m) = `Msg ("Error in file '" ^ fpath ^ "': " ^ m)
 
 let decode (fpath, (head, body)) : (t, [> `Msg of string ]) result =
