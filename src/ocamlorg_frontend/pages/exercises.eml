@@ -143,8 +143,6 @@ Learn_layout.three_column_layout
       </p>
       <p>
         Every exercise has a difficulty level, ranging from beginner to advanced.
-        This difficulty level is indicated with the symbol "☡".
-        The absence of marks represents the beginner level, one mark the intermediate level and two marks the advanced level.
       </p>
     </div>
     <div class="leading-5 py-8 text-zinc-800">
