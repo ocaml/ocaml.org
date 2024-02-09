@@ -15,12 +15,18 @@ type t = {
   changelog_html : string option;
   body_html : string;
   body : string;
+  authors : string list;
 }
 [@@deriving
-  stable_record ~version:metadata
-    ~add:[ authors; changelog; description ]
+  stable_record ~version:metadata ~add:[ changelog; description ]
+    ~modify:[ authors ]
     ~remove:[ slug; changelog_html; body_html; body; date ],
     show { with_path = false }]
+
+let of_metadata m =
+  of_metadata m ~modify_authors:(function
+    | None -> []
+    | Some authors -> authors)
 
 let re_date_slug =
   let open Re in
@@ -135,6 +141,7 @@ type t =
   ; changelog_html : string option
   ; body_html : string
   ; body : string
+  ; authors : string list
   }
   
 let all = %a

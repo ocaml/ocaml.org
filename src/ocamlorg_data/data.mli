@@ -58,6 +58,7 @@ module Changelog : sig
     changelog_html : string option;
     body_html : string;
     body : string;
+    authors : string list;
   }
 
   val all : t list
