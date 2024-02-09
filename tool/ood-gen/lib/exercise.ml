@@ -50,10 +50,12 @@ type t = {
   tutorials : string list;
 }
 [@@deriving
-  stable_record ~version:metadata ~modify: [ tutorials ] ~remove:[ statement; solution ],
+  stable_record ~version:metadata ~modify:[ tutorials ]
+    ~remove:[ statement; solution ],
     show { with_path = false }]
 
-let of_metadata m = of_metadata m ~modify_tutorials: (function None -> [] | Some tts -> tts)
+let of_metadata m =
+  of_metadata m ~modify_tutorials:(function None -> [] | Some tts -> tts)
 
 let attach_filepath fpath (`Msg m) = `Msg ("Error in file '" ^ fpath ^ "': " ^ m)
 
