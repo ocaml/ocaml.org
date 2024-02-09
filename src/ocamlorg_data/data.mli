@@ -416,6 +416,7 @@ module News : sig
     date : string;
     tags : string list;
     body_html : string;
+    authors : string list;
   }
 
   val all : t list

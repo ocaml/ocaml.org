@@ -14,10 +14,17 @@ type t = {
   slug : string;
   tags : string list;
   body_html : string;
+  authors : string list;
 }
 [@@deriving
-  stable_record ~version:metadata ~add:[ authors ] ~remove:[ slug; body_html ],
+  stable_record ~version:metadata ~modify:[ authors ]
+    ~remove:[ slug; body_html ],
     show { with_path = false }]
+
+let of_metadata m =
+  of_metadata m ~modify_authors:(function
+    | None -> []
+    | Some authors -> authors)
 
 let decode (fname, (head, body)) =
   let slug = Filename.basename (Filename.remove_extension fname) in
@@ -45,6 +52,7 @@ type t =
   ; date : string
   ; tags : string list
   ; body_html : string
+  ; authors: string list
   }
   
 let all = %a
