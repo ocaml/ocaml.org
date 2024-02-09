@@ -23,9 +23,7 @@ Layout.render
     <article class="prose dark:prose-invert prose-orange mx-auto max-w-5xl">
       <header>
         <h1><%s blog_post.title %></h1>
-        <% (match blog_post.authors with None -> () | Some authors -> %>
-        <i>Authored by: <%s String.concat ", " authors %></i>
-        <% ); %>
+        <i>Authored by: <%s String.concat ", " blog_post.authors %></i>
       </header>
       <%s! blog_post.body_html %>
     </article>

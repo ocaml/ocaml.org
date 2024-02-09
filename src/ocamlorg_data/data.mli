@@ -303,7 +303,7 @@ module Planet : sig
       slug : string;
       source : source;
       description : string option;
-      authors : string list option;
+      authors : string list;
       date : string;
       preview_image : string option;
       featured : bool;
