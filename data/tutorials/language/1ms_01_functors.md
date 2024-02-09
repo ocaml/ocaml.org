@@ -376,9 +376,10 @@ Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
 
 ### Naming and Scoping
 
-In the previous section, we learned how to use the `with type` constraint in order to unify types contained within both the parameter and result module of a functor. Let's go over a few more details concerning naming and scoping to get a better grasp of the mechanics of this constraint.
+The `with type` constraint unifies types within a functor's parameter and result modules. We've used that in the previous section. This section addresses the naming and scoping mechanics of this constraint.
+``
 
-When reading the source of `iterPrint.ml`, it may have seemed curious as to why we could not have simply defined `Make` as follows:
+Naively, we might have defined `Iter.Make` as follows:
 
 ```ocaml
 module Make(Dep: Iterable) : S = struct
@@ -401,9 +402,9 @@ Error: This expression has type string list
        but an expression was expected of type string IterPrint.t
 ```
 
-The key thing to realise is that, outside the functor, client code is not privy to the fact that `type 'a t` is being set equal to `Dep.t`. In `funkt.ml`, `IterPrint.t` simply appears as an abstract type exposed by the result of `Make`. This is precisely why the `with type` constraint is needed to propagate the knowledge that `IterPrint.t` is the same as the instantiation of `Dep.t` (`List.t` in this case).
+Outside the functor, it is not known that `type 'a t` is set to `Dep.t`. In `funkt.ml`, `IterPrint.t` appears as an abstract type exposed by the result of `Make`. This is why the `with type` constraint is needed. It propagates the knowledge that `IterPrint.t` is the same type as `Dep.t` (`List.t` in this case).
 
-Another property of the `with type` constraint is that the type it exposes won't be shadowed by definitions within the functor body. In fact, the `Make` functor could be redefined as follows without preventing the successful compilation of module `Funkt`:
+The type constrained using `with type` isn't shadowed by definitions within the functor body. In the example, the `Make` functor can be redefined as follows:
 
 ```ocaml
 module Make(Dep: Iterable) : S with type 'a t := 'a Dep.t = struct
@@ -415,7 +416,7 @@ module Make(Dep: Iterable) : S with type 'a t := 'a Dep.t = struct
 end
 ```
 
-In the example above, `t` from `with type` takes precedence over the local `t`, which only has a local scope. However, it is generally better to avoid availing of this behaviour since it may make your code more difficult to understand.
+In the example above, `t` from `with type` takes precedence over the local `t`, which only has a local scope. Don't shadow names too often because it makes the code harder to understand.
 
 ## Write a Functor to Extend Modules
 
