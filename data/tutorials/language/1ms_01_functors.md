@@ -388,7 +388,7 @@ module Make(Dep: Iterable) : S = struct
 end
 ```
 
-In the absence of code that utilises the function `f` provided by the output of `Make`, the project compiles without error.
+In the function `f` isn't used, the project compiles without error.
 
 However, since `Make` is invoked to create module `IterPrint` in `funkt.ml`, the project fails to compile with the following error message:
 
