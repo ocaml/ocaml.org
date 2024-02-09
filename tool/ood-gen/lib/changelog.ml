@@ -23,10 +23,7 @@ type t = {
     ~remove:[ slug; changelog_html; body_html; body; date ],
     show { with_path = false }]
 
-let of_metadata m =
-  of_metadata m ~modify_authors:(function
-    | None -> []
-    | Some authors -> authors)
+let of_metadata m = of_metadata m ~modify_authors:(Option.value ~default:[])
 
 let re_date_slug =
   let open Re in

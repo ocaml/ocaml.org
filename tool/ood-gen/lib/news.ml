@@ -21,10 +21,7 @@ type t = {
     ~remove:[ slug; body_html ],
     show { with_path = false }]
 
-let of_metadata m =
-  of_metadata m ~modify_authors:(function
-    | None -> []
-    | Some authors -> authors)
+let of_metadata m = of_metadata m ~modify_authors:(Option.value ~default:[])
 
 let decode (fname, (head, body)) =
   let slug = Filename.basename (Filename.remove_extension fname) in

@@ -78,8 +78,7 @@ let transform_presentation (p : presentation') =
     video = p.video;
     slides = p.slides;
     poster = p.poster;
-    additional_links =
-      (match p.additional_links with None -> [] | Some links -> links);
+    additional_links = Option.value ~default:[] p.additional_links;
   }
 
 let of_metadata m =
