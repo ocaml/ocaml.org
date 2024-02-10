@@ -8,151 +8,209 @@ category: "Data Structures"
 
 ## Module Map
 
-Map creates a "mapping". For instance, let's say I have some data that is
-fruits and their associated quantities. I could with the Map module create
-a mapping from inventory fruit items to their quantity. The mapping module not
-only does this, but it does it fairly efficiently. It also does this in a
-functional way. In the example below I am going to do a mapping from
-fruits to ints. However, it is possible to do mappings with all
-different types of data.
+The **Map** module lets you create _immutable_ key-value maps for your types. 
 
-Let's first create a `fruit` type and a minimal functor:
+Immutable maps are never modified, and every operation returns a new map instead.
 
-```ocaml
-# type fruit = Apple | Orange | Banana;;
-type fruit = Apple | Orange | Banana
+To use **Map**, we first have to use the **Map.Make** functor to create our custom map module. This functor takes a module parameter that defines the type of keys to be used in the map, and a function for comparing them. 
 
-# module Fruit = struct
-    type t = fruit
+```ocaml=
+# module StringMap = Map.Make(String);;
 
-    let compare = compare
-  end;;
-module Fruit : sig type t = fruit val compare : 'a -> 'a -> int end
-```
-
-To create a Map I can do:
-
-```ocaml
-# module Stock = Map.Make (Fruit);;
-module Stock :
-  sig
-    type key = fruit
-    type 'a t = 'a Map.Make(Fruit).t
-    val empty : 'a t
-    val add : key -> 'a -> 'a t -> 'a t
-    val add_to_list : key -> 'a -> 'a list t -> 'a list t
+module StringMap :                                                                       
+  sig                                                                                    
+    type key = string                                                                    
+    type 'a t = 'a Map.Make(String).t   
+    val empty : 'a t                                                                     
+    val add : key -> 'a -> 'a t -> 'a t                                                  
+    val add_to_list : key -> 'a -> 'a list t -> 'a list t    
     val update : key -> ('a option -> 'a option) -> 'a t -> 'a t
-    val singleton : key -> 'a -> 'a t
+    val singleton : key -> 'a -> 'a t                                                    
     val remove : key -> 'a t -> 'a t
-    val merge :
-      (key -> 'a option -> 'b option -> 'c option) -> 'a t -> 'b t -> 'c t
-    val union : (key -> 'a -> 'a -> 'a option) -> 'a t -> 'a t -> 'a t
-    val cardinal : 'a t -> int
-    val bindings : 'a t -> (key * 'a) list
-    val min_binding : 'a t -> key * 'a
-    val min_binding_opt : 'a t -> (key * 'a) option
-    val max_binding : 'a t -> key * 'a
-    val max_binding_opt : 'a t -> (key * 'a) option
-    val choose : 'a t -> key * 'a
-    val choose_opt : 'a t -> (key * 'a) option
-    val find : key -> 'a t -> 'a
-    val find_opt : key -> 'a t -> 'a option
-    val find_first : (key -> bool) -> 'a t -> key * 'a
-    val find_first_opt : (key -> bool) -> 'a t -> (key * 'a) option
-    val find_last : (key -> bool) -> 'a t -> key * 'a
-    val find_last_opt : (key -> bool) -> 'a t -> (key * 'a) option
-    val iter : (key -> 'a -> unit) -> 'a t -> unit
-    val fold : (key -> 'a -> 'acc -> 'acc) -> 'a t -> 'acc -> 'acc
-    val map : ('a -> 'b) -> 'a t -> 'b t
-    val mapi : (key -> 'a -> 'b) -> 'a t -> 'b t
-    val filter : (key -> 'a -> bool) -> 'a t -> 'a t
-    val filter_map : (key -> 'a -> 'b option) -> 'a t -> 'b t
-    val partition : (key -> 'a -> bool) -> 'a t -> 'a t * 'a t
-    val split : key -> 'a t -> 'a t * 'a option * 'a t
-    val is_empty : 'a t -> bool
-    val mem : key -> 'a t -> bool
-    val equal : ('a -> 'a -> bool) -> 'a t -> 'a t -> bool
-    val compare : ('a -> 'a -> int) -> 'a t -> 'a t -> int
-    val for_all : (key -> 'a -> bool) -> 'a t -> bool
-    val exists : (key -> 'a -> bool) -> 'a t -> bool
-    val to_list : 'a t -> (key * 'a) list
-    val of_list : (key * 'a) list -> 'a t
-    val to_seq : 'a t -> (key * 'a) Seq.t
-    val to_rev_seq : 'a t -> (key * 'a) Seq.t
-    val to_seq_from : key -> 'a t -> (key * 'a) Seq.t
-    val add_seq : (key * 'a) Seq.t -> 'a t -> 'a t
-    val of_seq : (key * 'a) Seq.t -> 'a t
+    (* ... *)
   end
-
 ```
 
-OK, we have created the module `Stock`.  Now, let's start putting
-something into it.  Where do we start?  Well, let's create an empty
-map to begin with:
+After naming the newly-created module **StringMap**, OCaml's toplevel displays the module's signature. Since it contains a large number of functions, the output copied here is shortened for brevity (...).
 
-```ocaml
-# let data = Stock.empty;;
-val data : 'a Stock.t = <abstr>
+This module doesn't define what the type of the _values_ in the map is. The type of values will be defined when we create our first map.
+
+## Creating a Map
+
+The **StringMap** module has an `empty` value that has a variable (`'a`) in its type: `empty : 'a t`.
+
+This means that we can use `empty` to create new empty maps where the value is of any type.
+
+```ocaml=
+let int_map : int StringMap.t = StringMap.empty;;
+let float_map : float StringMap.t = StringMap.empty;;
 ```
 
-Hummm. An empty map is kind of boring, so let's add some data.
+The type of the values can be defined in two ways:
+* when you create your new map with an annotation
+* or by simply adding an element to the map:
 
-```ocaml
-# let data = Stock.add Apple 10 data;;
-val data : int Stock.t = <abstr>
+```ocaml=
+let int_map = StringMap.(empty |> add "one" 1);;
 ```
 
-We have now created a new map—again called `data`, thus masking the previous
-one—by adding `Apple` and its quantity `10` to our previous empty map.
-There is a fairly important point to make here. Once we have added the
-value `10` we have fixed the types of mappings that we can do.
-This means our mapping in our module `Stock` is from fruit _to int_.
-If we want a mapping from fruits to strings, we will have to create a different mapping.
+## Working with Maps
 
-Let's add in some additional data just for kicks.
+Let's look at a few functions for working with maps using the following maps:
 
-```ocaml
-# let data = data |> Stock.add Orange 30 |> Stock.add Banana 42;;
-val data : int Stock.t = <abstr>
+```ocaml=
+let lucky_numbers = StringMap.(
+    empty
+    |> add "leostera" 2112
+    |> add "charstring88" 88
+    |> add "divagnz" 13
+);;
+
+let unlucky_numbers = StringMap.(
+    empty
+    |> add "the number of the beast" 666
+);;
 ```
 
-Now that we have some data inside our map, wouldn't it be nice
-to be able to view that data at some point? Let's begin by creating a
-simple print function.
+### Adding entries to a Map
 
-```ocaml
-# let string_of_fruit = function
-    | Apple -> "apple"
-    | Orange -> "orange"
-    | Banana -> "banana"
+To add an entry to a map we can use the `add` function that takes in the key, the value, and the map. This function returns a new map with the new entry added:
+
+```ocaml=
+let new_lucky_numbers = StringMap.(
+    lucky_numbers
+    |> add "paguzar" 108
+);;
+```
+
+If the key is already in the map, it will be replaced by the new entry.
+
+Note that `lucky_numbers` remains unchanged.
+
+### Removing entries from a Map
+
+To remove an entry from a map we can use the `remove` function, which takes in a key and a map and returns a new map with the entry associated with that key removed.
+
+```ocaml=
+let new_lucky_numbers = StringMap.(
+  new_lucky_numbers |> remove "paguzar"
+);;
+```
+
+Removing an entry that isn't in the map has no effect.
+
+Note that `lucky_numbers` remains unchanged.
+
+### Checking if a key is contained in a Map
+
+To check if a key is contained in a Map we can use the `mem` function:
+
+```ocaml=
+let is_paguzar_in_the_map: bool =
+  StringMap.mem "paguzar" lucky_numbers
 ;;
-val string_of_fruit : fruit -> string = <fun>
+```
 
-# let print_fruit key value =
-    print_string (string_of_fruit key ^ " " ^ string_of_int value ^ "\n")
+### Finding entries in a Map
+
+To find entries in a map we can use the `find_opt` function:
+
+```ocaml=
+let has_2112_value : int option = 
+  StringMap.find_opt "leostera" lucky_numbers
 ;;
-val print_fruit : fruit -> int -> unit = <fun>
 ```
 
-We have here a function that will take a `fruit` key, and a quantity value,
-and print them out nicely, including a new line character at the end.
-All we need to do is to have this function applied to our mapping. Here
-is what that would look like.
+We can also use `find_first_opt` and `find_last_opt` if we want to use a predicate function:
 
-```ocaml
-# Stock.iter print_fruit data;;
-apple 10
-orange 30
-banana 42
-- : unit = ()
-```
-The reason we put our data into a mapping however is probably so we can
-quickly find the data. Let's actually show how to do a find.
-
-```ocaml
-# data |> Stock.find Banana;;
-- : int = 42
+```ocaml=
+let first_under_10_chars : (string * int) option = 
+  StringMap.find_first_opt
+    (fun key -> String.length key < 10)
+    lucky_numbers
+;;
 ```
 
-This should quickly and efficiently return the quantity of `Banana`: 42.
+Note that `find_first_opt` and `find_last_opt` will return the entire entry, and not just the value.
 
+### Merging Maps
+
+To merge 2 maps you can use the `union` function, which takes 2 maps, and a function that decides how to resolve conflicting keys, and returns a new map. Note that the input maps are not modified.
+
+```ocaml=
+let all_numbers =
+    StringMap.union
+        conflict_fun
+        lucky_numbers
+        unlucky_numbers
+;;
+```
+
+The behavior of `StringMap.union` can be tuned based on the conflict function we pass in.
+
+For example, we can always pick the value from the first map, or choose to sum both values together (which would only work for values of type `int`), or we can even choose to ignore a value entirely if it is present in both maps.
+
+Here are a few conflict functions we can try:
+
+```ocaml=
+let choose_first key v1 _v2 = Some (key, v1)
+let choose_second key _v1 v2 = Some (key, v2)
+let sum_values key v1 v2 = Some (key, v1 + v2)
+let ignore _key _v1 _v2 = None
+```
+
+### Filtering a Map
+
+To filter a map, we can use the `filter` function. `filter` takes a predicate to filter entries by and a map. It returns a new map with only the entries that passed the filter.
+
+```ocaml=
+let even_numbers =
+  StringMap.filter
+    (fun _key number -> number mod 2 = 0)
+    lucky_numbers
+;;
+```
+
+### Reducing a Map
+
+### Maps with custom key types
+
+If you need to create a Map with a custom key type, you can call the **Map.Make** functor with a module of your own, provided that it implements 2 things:
+
+1. it has a `t` type with no type parameters
+2. it has a `compare : t -> t -> int` function that can be used to compare two values of type `t`
+
+Let's define our custom map below, for non-negative numbers.
+
+We'll start by defining a small module for non-negative numbers that uses an `int` under the hood but hides this.
+
+```ocaml=
+module Non_negative_int : sig 
+  type t
+  val of_int : int -> (t, [| `invalid_number]) result
+  val compare : t -> t -> int
+end = struct
+  type t = int
+  
+  let of_int x = 
+     if x > 0 then Ok x
+     else Error `invalid_number
+  
+  let compare a b = a - b
+end
+;;
+```
+
+Note that our module has a `type t` and also a `compare` function. Now we can call the **Map.Make** function on it, to get a map for non-negative numbers:
+
+```ocaml=
+module NonNegIntMap = Map.Make(Non_negative_int);;
+```
+
+This map will only work with key values that are of type `Non_negative_int.t`.
+
+# Conclusion
+
+This was an overview of OCaml's **Map** module. Maps are reasonably efficient and can be we a good alternative to the imperative **Hashtbl** module.
+
+For more information, refer to [Map](https://v2.ocaml.org/api/Map.html) in the Standard Library documentation.
