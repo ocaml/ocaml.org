@@ -526,6 +526,18 @@ The following example uses the `get_char` function we defined earlier (in the se
 
 This `while` loop echoes characters typed on the keyboard. When the ASCII `Escape` character is read, the `Exit` exception is thrown, which terminates the iteration and displays the REPL reply: `- : unit = ()`.
 
+### Closures
+
+A closure is a function bundled together with its surrounding state, including any variables or references from the enclosing scope that it references. This bundled function-state package allows for the creation of self-contained units of behavior that can maintain internal state across multiple invocations. 
+
+```ocaml
+let counter () =
+  let n = ref 0 in
+  fun () -> incr n; !n;;
+```
+
+In the above code snippet, a function `counter ()` is defined. The function creates a closure that keeps track of a counter `n` using a reference. Each time the closure is called, it increments the counter n by one and returns its current value. 
+
 ## Recommendations for Mutable State and Side Effects
 
 Functional and imperative programming styles are often used together. However, not all ways of combining them give good results. We show some patterns and anti-patterns relating to mutable states and side effects in this section.
