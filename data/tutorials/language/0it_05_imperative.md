@@ -526,17 +526,43 @@ The following example uses the `get_char` function we defined earlier (in the se
 
 This `while` loop echoes characters typed on the keyboard. When the ASCII `Escape` character is read, the `Exit` exception is thrown, which terminates the iteration and displays the REPL reply: `- : unit = ()`.
 
-### Closures
+### References Inside Closures
 
-A closure is a function bundled together with its surrounding state, including any variables or references from the enclosing scope that it references. This bundled function-state package allows for the creation of self-contained units of behavior that can maintain internal state across multiple invocations. 
+In the following example, the `create_counter` function returns a closure that hides a mutable reference `n`. This closure captures the environment where `n` is defined and can modify `n` each time it's invoked. The `n` reference is "hidden" within the closure, encapsulating its state.
 
 ```ocaml
-let counter () =
+# let create_counter () =
   let n = ref 0 in
   fun () -> incr n; !n;;
+val create_counter : unit -> unit -> int = <fun>
 ```
+First we define a function named `create_counter` that takes no arguments. Inside `create_counter`, a reference `n` is initialized with the value 0. This reference will hold the state of the counter. Next we define a closure that takes no arguments (fun () ->). The closure increments the value of `n` (the counter) using `incr n`, then returns the current value of `n` using `!n`.
 
-In the above code snippet, a function `counter ()` is defined. The function creates a closure that keeps track of a counter `n` using a reference. Each time the closure is called, it increments the counter n by one and returns its current value. 
+```ocaml
+# let c1 = create_counter ();;
+val c1 : unit -> int = <fun>
+
+# let c2 = create_counter ();;
+val c2 : unit -> int = <fun>
+```
+Now, we shall create a closure `c1` that encapsulates a counter. Calling `c1 ()` will increment the counter associated with `c1` and return its current value. Similarly, we create another closure `c2` with its own independent counter.
+
+```ocaml
+# c1 ();;
+- : int = 1
+
+# c1 ();;
+- : int = 2
+
+# c2 ();;
+- : int = 1
+
+# c1 ();;
+- : int = 3
+```
+Calling `c1 ()` increments the counter associated with `c1` and returns its current value. Since this is the first call, the counter starts at 1. Another call to `c1 ()` increments the counter again, so it returns 2.
+
+Calling `c2 ()` increments the counter associated with `c2`. Since `c2` has its own independent counter, it starts at 1. Another call to `c1 ()` increments its counter, resulting in 3.
 
 ## Recommendations for Mutable State and Side Effects
 
