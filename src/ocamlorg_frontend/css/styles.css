@@ -136,6 +136,11 @@ body {
   padding: 0.2rem 0rem;
 }
 
+.dark :is(h1:target, h2:target, h3:target, h4:target, h5:target, h6:target) {
+  background:#003357;
+  padding: 0.2rem 0rem;
+}
+
 .prose :is(h1, h2, h3, h4, h5, h6)[id]:hover::before {
   content: " ";
   @apply absolute top-0 h-full border-l-4 border-gray-400 -ml-3;

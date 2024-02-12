@@ -6,17 +6,24 @@ Layout.render
 ~canonical:"" @@
 <div class="lg:py-8 py-6">
   <div class="container-fluid" x-data='{ operating_system: detect_os () }'>
-    <div class="prose mb-6">
-      <h1 class="sr-only">
+    <div class="prose dark:prose-invert mb-6">
+      <h1 class="sr-only ">
         Install OCaml
       </h1>
-      <div class="flex gap-2">
+      <div class="hidden lg:flex gap-2">
         <button class="btn flex gap-2" :class='operating_system == "linux_mac_bsd"? "": "btn-ghost"' @click="operating_system = 'linux_mac_bsd'"> Linux, macOS or *BSD</button>
         <button class="btn flex gap-2" :class='operating_system == "win"? "": "btn-ghost"' @click="operating_system = 'win'"><%s! Icons.microsoft_windows "w-6 h-6" %> Windows</button>
       </div>
+      <div class="w-full flex md:hidden">
+% let render_multi_button ~title ~active_tab ~class_ =
+      <button x-on:click='operating_system = "<%s active_tab %>"' class="flex flex-auto justify-center py-4 text-sm border <%s class_ %>" :class='operating_system === "<%s active_tab %>" ? "bg-primary dark:bg-dark-primary text-white dark:text-dark-title border-primary dark:border-dark-primary" : "text-content dark:text-dark-separator_30 border-card_border dark:border-dark-separator_30"'><%s title %></button>
+% in
+        <% render_multi_button ~title:"Linux, macOS or *BSD" ~active_tab:"linux_mac_bsd" ~class_:"rounded-l rounded-l-lg border-r-0"; %>
+        <% render_multi_button ~title:"Windows" ~active_tab:"win" ~class_:"rounded-r rounded-r-lg"; %>
+      </div>
     </div>
 
-    <div class="prose my-6">
+    <div class="prose dark:prose-invert my-6">
       <p>If you need more explicit instructions than provided on this quick-install page, you can find
         <a href="<%s Url.installing_ocaml %>">a more detailed explanation of the installation process here</a>.
       </p>
@@ -25,7 +32,7 @@ Layout.render
     <div
       class="grid gap-6 xl:grid-cols-2 xl:gap-16"
       x-show="(operating_system == 'linux_mac_bsd')">
-      <div class="prose">
+      <div class="prose dark:prose-invert">
         <h2>
           Install OCaml on Linux, macOS, or *BSD
         </h2>
@@ -89,7 +96,7 @@ Layout.render
         <p>Congratulations, you have now installed OCaml!</p>
       </div>
       <div>
-        <div class="prose">
+        <div class="prose dark:prose-invert">
           <h2>Set Up an OCaml Development Environment</h2>
 
           <p>
@@ -107,7 +114,7 @@ Layout.render
     </div>
 
     <div x-show="operating_system == 'win'">
-      <div class="prose">
+      <div class="prose dark:prose-invert">
         <h2>
           Install OCaml on Windows
         </h2>

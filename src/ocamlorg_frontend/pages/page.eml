@@ -1,17 +1,17 @@
 let render ~title ~description ~meta_title ~meta_description ~content ~canonical =
 Layout.render ~title:meta_title ~description:meta_description ~canonical @@
-<div class="intro-section-simple">
+<div class="intro-section-simple dark:dark-intro-section-simple">
   <div class="container-fluid">
-    <div class="text-center w-full lg:w-2/3 m-auto">
-      <h1 class="font-bold mb-6"><%s! title %></h1>
-      <p><%s! description %></p>
+    <div class="w-full m-auto">
+      <h1 class="font-bold mb-2 text-title dark:text-dark-title"><%s! title %></h1>
+      <p class="text-content dark:text-dark-content"><%s! description %></p>
     </div>
   </div>
 </div>
-<div class="bg-legacy-default dark:bg-legacy-dark-default">
-  <div class="py-10 lg:py-28">
+<div class="bg-white dark:bg-dark-background">
+  <div class="py-5 lg:py-14">
     <div class="container-fluid">
-      <div class="prose prose-orange lg:prose-lg mx-auto max-w-5xl">
+      <div class="prose dark:prose-invert prose-orange lg:prose-lg mx-auto max-w-5xl">
         <%s! content %>
       </div>
     </div>

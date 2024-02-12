@@ -3,21 +3,21 @@ Layout.render
 ~title:"OCaml Logos"
 ~description:"Here are some of the logos related to the OCaml programming language."
 ~canonical:Url.about @@
-<div class="intro-section-simple">
+<div class="intro-section-simple dark:dark-intro-section-simple">
   <div class="container-fluid">
-    <div class="text-center w-full lg:w-2/3 m-auto">
-      <h1 class="font-bold mb-6">The OCaml Logo</h1>
-      <p><a href="#guidelines">Brand Guidelines</a> |  <a href="#assets">Assets</a> | <a href="#license">License</a> </p>
+    <div class="w-full m-auto">
+      <h1 class="text-title dark:text-dark-title font-bold mb-2">The OCaml Logo</h1>
+      <p class="text-content dark:text-dark-content text-xl lg:max-w-[80%]"><a href="#guidelines">Brand Guidelines</a> |  <a href="#assets">Assets</a> | <a href="#license">License</a> </p>
       <div class="flex items-center justify-center space-x-8 mt-11 lg:space-x-24">
       </div>
     </div>
   </div>
 </div>
 
-<div class="bg-legacy-default dark:bg-legacy-dark-default">
+<div class="bg-white dark:bg-dark-background">
  <div class="py-4 lg:py-10">
     <div class="container-fluid">
-      <div class="prose lg:prose-lg mx-auto max-w-5xl">
+      <div class="prose dark:prose-invert lg:prose-lg mx-auto max-w-5xl">
         <div class="space-y-7">
 
           <h2 id="guidelines">Brand Guidelines</h2>
@@ -29,14 +29,16 @@ Layout.render
           <p>The logo should be linked to the OCaml website, <a href='https://ocaml.org/'>ocaml.org</a>. The logo is available in <a href='https://github.com/ocaml/ocaml-logo/tree/master/Colour'>several formats</a> and <a href='https://github.com/ocaml/ocaml-logo'>colors</a> (e.g. adapt the <code>width</code> or change the part after <code>logo/</code> to match the one of the file you want in the <a href='https://github.com/ocaml/ocaml-logo'>repository</a>).</p>
 
           <div class="mx-12 my-12">
-            <img class="h-24 max-width-100 p-4" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="logo-with-name">
+            <img class="h-24 max-width-100 p-4 dark:hidden" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="logo-with-name">
+            <img class="h-24 max-width-100 p-4 hidden dark:inline" src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" alt="OCaml">
               </div>
                <p class="text-black"><a href="https://github.com/ocaml/ocaml-logo/blob/master/Colour/SVG/colour-logo.svg">svg</a> | <a href="https://github.com/ocaml/ocaml-logo/blob/master/Colour/PNG/colour-logo.png">png</a> | <a href="https://github.com/ocaml/ocaml-logo/blob/master/Colour/JPEG/colour-logo.jpg">jpg</a> | <a href="https://github.com/ocaml/ocaml-logo">more</a></p>
 
               <p>The following <a href='<%s Ocamlorg_static.Asset.url "policies/logos/OCaml_Sticker.svg" %>'>SVG file</a> is suitable to make stickers. It is released under the same <a href='https://github.com/ocaml/ocaml.org/blob/main/LICENSE'>liberal license</a> as the logo so do not hesitate to print your own stickers to promote OCaml!</p>
 
               <div class="mx-12 my-12">
-                <img class="h-32 max-width-100 p-4" src="<%s Ocamlorg_static.Asset.url "policies/logos/OCaml_Sticker.svg" %>" alt="logo">
+                <img class="h-32 max-width-100 p-4 dark:hidden" src="<%s Ocamlorg_static.Asset.url "policies/logos/OCaml_Sticker.svg" %>" alt="logo">
+                <img class="h-32 max-width-100 p-4 hidden dark:inline" src="<%s Ocamlorg_static.Asset.url "policies/logos/OCaml_Sticker_darkmode.svg" %>" alt="OCaml">
               </div>
 
               <p class="text-black"><a href="https://github.com/ocaml/ocaml.org/blob/main/asset/policies/logos/OCaml_Sticker.svg">svg</a> |</p>
