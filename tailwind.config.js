@@ -31,6 +31,7 @@ const figma_colors = {
       primary: "#C24F1E",
       primary_40: "#D5400066",
       primary_20: "#D5400033",
+      primary_10: "#D5400019",
       primary_nav_block_hover_10:"#C24F1E1A",
 
       secondary: "#00838A",
