@@ -42,27 +42,44 @@ let say_hi name = print_string ("Hello, " ^ name ^ "!\n") ;;
 We can call this function several times, to say "hello" to several people:
 
 ```ocaml 
-say_hi "Xavier";;
-say_hi "Sabine";;
-say_hi "Joe";;
+#say_hi "Xavier";;
+Hello, Xavier!
+- : unit = ()
+
+# say_hi "Sabine";;
+Hello, Sabine!
+- : unit = ()
+
+# say_hi "Joe";;
+Hello, Joe!
+- : unit = ()
 ```
 
 If we wanted to say "hello" to the same person multiple times, we'd just _repeat_ the same line of code.
 
 ```ocaml 
-say_hi "Camel";;
-say_hi "Camel";;
-say_hi "Camel";;
+# say_hi "Camel";;
+Hello, Camel!
+- : unit = ()
+
+# say_hi "Camel";;
+Hello, Camel!
+- : unit = ()
+
+# say_hi "Camel";;
+Hello, Camel!
+- : unit = ()
 ```
 
 How would we avoid having to repeat this lines every time? One way of doing this would be to write a function to say hi 3 times:
 
 ```ocaml 
-let say_hi_3_times name =
+# let say_hi_3_times name =
   say_hi name;
   say_hi name;
   say_hi name
 ;;
+val say_hi_3_times : string -> unit = <fun>
 ```
 
 In this function we can see a few behaviors:
