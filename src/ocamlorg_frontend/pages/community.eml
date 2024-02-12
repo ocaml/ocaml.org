@@ -51,10 +51,10 @@ Community_layout.single_column_layout
           <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Watch</p>
           <p class="font-normal text-content dark:text-dark-content">Watch community videos like past OCaml Workshop events.</p>
         </a>
-        <a href="https://github.com/ocaml/ocaml" class="card dark:dark-card p-5 rounded-xl">
+        <a href="https://github.com/ocaml" class="card dark:dark-card p-5 rounded-xl">
           <%s! Icons.github "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
           <p class="text-title dark:text-dark-title font-bold text-lg mb-1">GitHub</p>
-          <p class="font-normal text-content dark:text-dark-content">Open bug reports and feature requests on the OCaml compiler.</p>
+          <p class="font-normal text-content dark:text-dark-content">Open bug reports and feature requests on the OCaml compiler, this website and others.</p>
         </a>
         <a href="https://discord.gg/cCYQbqN" class="card dark:dark-card p-5 rounded-xl">
           <%s! Icons.discord "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
