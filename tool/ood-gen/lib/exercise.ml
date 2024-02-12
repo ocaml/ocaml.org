@@ -50,8 +50,8 @@ type t = {
   tutorials : string list;
 }
 [@@deriving
-  stable_record ~version:metadata ~modify:[ tutorials ]
-    ~remove:[ statement; solution ],
+  stable_record ~version:metadata ~remove:[ statement; solution ]
+     ~modify:[ tutorials ],
     show { with_path = false }]
 
 let of_metadata m = of_metadata m ~modify_tutorials:(Option.value ~default:[])
