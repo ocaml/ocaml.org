@@ -83,8 +83,8 @@ val say_hi_3_times : string -> unit = <fun>
 ```
 
 In this function we can see a few behaviors:
-* it says hi to the same name
-* it repeats it exactly 3 times
+* It says "hi" to the same name.
+* It repeats it exactly 3 times.
 
 But what would happen if we wanted to say "hi" 2 times? Or 4 or 12 times?
 
@@ -93,58 +93,78 @@ When this happens, it usually means that the function is making certain decision
 So instead, we will create a function that **let's the caller decide** how many times to say "hi." We do this by requiring a new argument, in this case, `times`:
 
 ```ocaml 
-let rec say_many_hi times name =
+# let rec say_many_hi times name =
   if times < 1 then ()
   else begin
     say_hi name;
     say_many_hi (times - 1) name
   end
 ;;
+val say_many_hi : int -> string -> unit = <fun>
 ```
 
 Much better. Now we can call:
 
 ```ocaml
-say_many_hi 3 "Xavier";;
-say_many_hi 12 "Camel";;
+# say_many_hi 3 "Xavier";;
+Hello, Xavier!
+Hello, Xavier!
+Hello, Xavier!
+- : unit = ()
+
+# say_many_hi 12 "Camel";;
+Hello, Camel!
+Hello, Camel!
+Hello, Camel!
+Hello, Camel!
+Hello, Camel!
+Hello, Camel!
+Hello, Camel!
+Hello, Camel!
+Hello, Camel!
+Hello, Camel!
+Hello, Camel!
+Hello, Camel!
+- : unit = ()
 ```
 
-Unfortunately, reusing this _repetition_ behavior isn't so easy because we have hard-coded our call to `say_hi`. 
+Unfortunately, reusing this _repetition_ behaviour isn't so easy because we have hard-coded our call to `say_hi`. 
 
 To make this reusable, we can **let the caller decide** what our function should do:
 
 ```ocaml 
-let rec repeat times thing_to_do =
+# let rec repeat times thing_to_do =
   if times < 1 then ()
   else begin
     thing_to_do;
     repeat (times - 1) thing_to_do
   end
 ;;
+val repeat : int -> 'a -> unit = <fun>
 ```
 
 But what should `thing_to_do` be? Our intuition may be that we can call:
 
 ```ocaml 
-repeat 3 (say_hi "Camel");;
+# repeat 3 (say_hi "Camel");;
+Hello, Camel!
+- : unit = ()
 ```
 
-But our program will only output one salutation:
+But our program only outputs one salutation:
 
 ```
 Hello, Camel!
 ```
 
-And that is not what we want! We want it to say hello to Camel 3 times.
+That is not what we want! We want it to say "hello" to Camel 3 times.
 
-In OCaml, the arguments are evaluated before the function itself, so in this case we ended up saying hi before we even got to the repeat function.
+In OCaml, the arguments are evaluated before the function itself, so in this case, we ended up saying "hi" before we even got to the repeat function.
 
-So how can we let `repeat` call `say_hi` many times?
-
-A common pattern is to _delay_ the execution of a function by wrapping it with another function, like this:
+We can let `repeat` call `say_hi` many times by _delaying_ the function's execution by wrapping it with another function, like this:
 
 ```diff
-repeat 3 (
+# repeat 3 (
 + fun () ->
     say_hi "Camel");;
 ```
