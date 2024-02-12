@@ -69,7 +69,7 @@ In this function we can see a few behaviors:
 * it says hi to the same name
 * it repeats it exactly 3 times
 
-But what would happen if we wanted to say "hi 2" times? Or 4 or 12 times?
+But what would happen if we wanted to say "hi" 2 times? Or 4 or 12 times?
 
 When this happens, it usually means that the function is making certain decision that it shouldn't. In other words, the function **knows something** (like the number of times).
 
