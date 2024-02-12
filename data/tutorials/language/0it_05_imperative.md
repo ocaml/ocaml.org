@@ -528,7 +528,7 @@ This `while` loop echoes characters typed on the keyboard. When the ASCII `Escap
 
 ### References Inside Closures
 
-In the following example, the `create_counter` function returns a closure that hides a mutable reference `n`. This closure captures the environment where `n` is defined and can modify `n` each time it's invoked. The `n` reference is "hidden" within the closure, encapsulating its state.
+In the following example, the function `create_counter` returns a closure that hides a mutable reference `n`. This closure captures the environment where `n` is defined and can modify `n` each time it's invoked. The `n` reference is "hidden" within the closure, encapsulating its state.
 
 ```ocaml
 # let create_counter () =
@@ -536,7 +536,7 @@ In the following example, the `create_counter` function returns a closure that h
   fun () -> incr n; !n;;
 val create_counter : unit -> unit -> int = <fun>
 ```
-First we define a function named `create_counter` that takes no arguments. Inside `create_counter`, a reference `n` is initialized with the value 0. This reference will hold the state of the counter. Next we define a closure that takes no arguments (fun () ->). The closure increments the value of `n` (the counter) using `incr n`, then returns the current value of `n` using `!n`.
+First, we define a function named `create_counter` that takes no arguments. Inside `create_counter`, a reference `n` is initialized with the value 0. This reference will hold the state of the counter. Next we define a closure that takes no arguments (fun () ->). The closure increments the value of `n` (the counter) using `incr n`, then returns the current value of `n` using `!n`.
 
 ```ocaml
 # let c1 = create_counter ();;
