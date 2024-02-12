@@ -242,8 +242,8 @@ module type S = sig
 end
 
 module Binary(Elt: OrderedType) : S = struct
-  type elt (* = replace by your own *)
-  type t (* = replace by your own *)
+  type elt (* Add your own type definition *)
+  type t (* Add your own type definition *)
   (* Add private functions here *)
   let empty = failwith "Not yet implemented"
   let is_empty h = failwith "Not yet implemented"
@@ -377,7 +377,6 @@ Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
 ### Naming and Scoping
 
 The `with type` constraint unifies types within a functor's parameter and result modules. We've used that in the previous section. This section addresses the naming and scoping mechanics of this constraint.
-``
 
 Naively, we might have defined `Iter.Make` as follows:
 
