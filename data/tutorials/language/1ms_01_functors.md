@@ -62,7 +62,7 @@ Here is how this reads (starting from the bottom, then going up):
 
 **Note**: Most set operations need to compare elements to check if they are the same. To allow using a user-defined comparison algorithm, the `Set.Make` functor takes a module the specifies both the element type `t` and the `compare` function. Passing the comparison function as a higher-order parameter, as done in `Array.sort`, for example, would add a lot of boilerplate code. Providing set operations as a functor allows specifying the comparison function only once.
 
-Here is an example how to use `Set.Make`:
+Here is an example of how to use `Set.Make`:
 
 **`funkt.ml`**
 
@@ -79,10 +79,6 @@ This defines a module `Funkt.StringSet`. What `Set.Make` needs are:
 - Type `t`, here `string`
 - Function allowing to compare two values of type `t`, here `String.compare`
 
-However, since the module `String` defines
-- Type name `t`, which is an alias for `string`
-- Function `compare` of type `t -> t -> bool` compares two strings
-
 This can be simplified using an _anonymous module_ expression:
 ```ocaml
 module StringSet = Set.Make(struct
@@ -92,6 +88,10 @@ end)
 ```
 
 The module expression `struct ... end` is inlined in the `Set.Make` call.
+
+However, since the module `String` already defines
+- Type name `t`, which is an alias for `string`
+- Function `compare` of type `t -> t -> bool` compares two strings
 
 This can be simplified even further into this:
 ```ocaml
@@ -156,14 +156,14 @@ let _ =
 
 This allows the user to seemingly extend the module `String` with a submodule `Set`. Check the behaviour using `opam exec -- dune exec funkt < dune`.
 
-## Functors Allows Parametrising Modules
+## Parametrising Modules with Functors
 
 ### Functors From the Standard Library
 
 A functor is almost a module, except it needs to be applied to a module. This turns it into a module. In that sense, a functor allows module parametrisation.
 
 That's the case for the sets, maps, and hash tables provided by the standard library. It works like a contract between the functor and the developer.
-* If you provide a module that implements what is expected, as described the parameter interface
+* If you provide a module that implements what is expected, as described by the parameter interface
 * The functor returns a module that implements what is promised, as described by the result interface
 
 Here is the module's signature that the functors `Set.Make` and `Map.Make` expect:
@@ -241,9 +241,10 @@ module type S = sig
 end
 
 module Binary(Elt: OrderedType) : S = struct
-  type elt = | (* Replace by your own *)
-  type t = | (* Replace by your own *)
+  type elt (* Add your own type definition *)
+  type t (* Add your own type definition *)
   (* Add private functions here *)
+  let empty = failwith "Not yet implemented"
   let is_empty h = failwith "Not yet implemented"
   let insert h e = failwith "Not yet implemented"
   let merge h1 h2 = failwith "Not yet implemented"
@@ -370,7 +371,50 @@ let _ =
 
 Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
 
-**Note**: The functor `IterPrint.Make` returns a module that exposes the type from the injected dependency (here first `List.t` then `Array.t`). That's why a `with type` constraint is needed. When parametrising other something not exposed by the module (and _implementation detail_), the `with type` constraint is not needed.
+**Note**: Modules received and returned by `IterPrint.Make` both have a type `t`. The `with type ... := ...` constraint exposes that the two types `t` are the same. This makes functions from the injected dependency and result module use the exact same type. When the parameter's contained type is not exposed by the result module (i.e., when it is an _implementation detail_), the `with type` constraint is not necessary.
+
+### Naming and Scoping
+
+The `with type` constraint unifies types within a functor's parameter and result modules. We've used that in the previous section. This section addresses the naming and scoping mechanics of this constraint.
+
+Naively, we might have defined `Iter.Make` as follows:
+
+```ocaml
+module Make(Dep: Iterable) : S = struct
+  type 'a t = 'a Dep.t
+  let f = Dep.iter (fun s -> Out_channel.output_string stdout (s ^ "\n"))
+end
+```
+
+If the function `f` isn't used, the project compiles without error.
+
+However, since `Make` is invoked to create module `IterPrint` in `funkt.ml`, the project fails to compile with the following error message:
+
+```shell
+5 | ..stdin
+6 |   |> In_channel.input_lines
+7 |   |> List.concat_map Str.(split (regexp "[ \t.,;:()]+"))
+8 |   |> StringSet.of_list
+9 |   |> StringSet.elements
+Error: This expression has type string list
+       but an expression was expected of type string IterPrint.t
+```
+
+Outside the functor, it is not known that `type 'a t` is set to `Dep.t`. In `funkt.ml`, `IterPrint.t` appears as an abstract type exposed by the result of `Make`. This is why the `with type` constraint is needed. It propagates the knowledge that `IterPrint.t` is the same type as `Dep.t` (`List.t` in this case).
+
+The type constrained using `with type` isn't shadowed by definitions within the functor body. In the example, the `Make` functor can be redefined as follows:
+
+```ocaml
+module Make(Dep: Iterable) : S with type 'a t := 'a Dep.t = struct
+  type 'a t = LocalType
+  let g LocalType = "LocalType"
+  let f = Dep.iter(fun s ->
+    Out_channel.output_string stdout (g LocalType ^ "\n");
+    Out_channel.output_string stdout (s ^ "\n"))
+end
+```
+
+In the example above, `t` from `with type` takes precedence over the local `t`, which only has a local scope. Don't shadow names too often because it makes the code harder to understand.
 
 ## Write a Functor to Extend Modules
 
