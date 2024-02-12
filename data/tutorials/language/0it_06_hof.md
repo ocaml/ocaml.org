@@ -39,7 +39,7 @@ Take for example a function that says hello to a person by name:
 let say_hi name = print_string ("Hello, " ^ name ^ "!\n") ;;
 ```
 
-We can call this function several times, to say hello to several people:
+We can call this function several times, to say "hello" to several people:
 
 ```ocaml 
 say_hi "Xavier";;
@@ -47,7 +47,7 @@ say_hi "Sabine";;
 say_hi "Joe";;
 ```
 
-If we wanted to say hello to the same person multiple times, we'd just _repeat_ the same line of code.
+If we wanted to say "hello" to the same person multiple times, we'd just _repeat_ the same line of code.
 
 ```ocaml 
 say_hi "Camel";;
@@ -69,11 +69,11 @@ In this function we can see a few behaviors:
 * it says hi to the same name
 * it repeats it exactly 3 times
 
-But what would happen if we wanted to say hi 2 times? Or 4 or 12 times?
+But what would happen if we wanted to say "hi 2" times? Or 4 or 12 times?
 
 When this happens, it usually means that the function is making certain decision that it shouldn't. In other words, the function **knows something** (like the number of times).
 
-So instead, we will create a function that **let's the caller decide** how many times to say hi. We do this by requiring a new argument, in this case, `times`:
+So instead, we will create a function that **let's the caller decide** how many times to say "hi." We do this by requiring a new argument, in this case, `times`:
 
 ```ocaml 
 let rec say_many_hi times name =
