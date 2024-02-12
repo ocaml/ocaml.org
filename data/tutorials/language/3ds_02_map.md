@@ -47,14 +47,14 @@ let float_map : float StringMap.t = StringMap.empty;;
 ```
 
 The type of the values can be defined in two ways:
-* when you create your new map with an annotation
-* or by simply adding an element to the map:
+* When you create your new map with an annotation
+* By simply adding an element to the map:
 
 ```ocaml=
 let int_map = StringMap.(empty |> add "one" 1);;
 ```
 
-## Working with Maps
+## Working With Maps
 
 Let's look at a few functions for working with maps using the following maps:
 
@@ -72,9 +72,9 @@ let unlucky_numbers = StringMap.(
 );;
 ```
 
-### Adding entries to a Map
+### Adding Entries to a Map
 
-To add an entry to a map we can use the `add` function that takes in the key, the value, and the map. This function returns a new map with the new entry added:
+To add an entry to a map, we can use the `add` function that takes in the key, the value, and the map. This function returns a new map with the new entry added:
 
 ```ocaml=
 let new_lucky_numbers = StringMap.(
@@ -87,9 +87,9 @@ If the key is already in the map, it will be replaced by the new entry.
 
 Note that `lucky_numbers` remains unchanged.
 
-### Removing entries from a Map
+### Removing Entries from a Map
 
-To remove an entry from a map we can use the `remove` function, which takes in a key and a map and returns a new map with the entry associated with that key removed.
+To remove an entry from a map, we can use the `remove` function, which takes in a key and a map and returns a new map with the entry associated with that key removed.
 
 ```ocaml=
 let new_lucky_numbers = StringMap.(
@@ -101,7 +101,7 @@ Removing an entry that isn't in the map has no effect.
 
 Note that `lucky_numbers` remains unchanged.
 
-### Checking if a key is contained in a Map
+### Checking if a Key is Contained in a Map
 
 To check if a key is contained in a Map we can use the `mem` function:
 
@@ -111,9 +111,9 @@ let is_paguzar_in_the_map: bool =
 ;;
 ```
 
-### Finding entries in a Map
+### Finding Entries in a Map
 
-To find entries in a map we can use the `find_opt` function:
+To find entries in a map, we can use the `find_opt` function:
 
 ```ocaml=
 let has_2112_value : int option = 
@@ -135,7 +135,7 @@ Note that `find_first_opt` and `find_last_opt` will return the entire entry, and
 
 ### Merging Maps
 
-To merge 2 maps you can use the `union` function, which takes 2 maps, and a function that decides how to resolve conflicting keys, and returns a new map. Note that the input maps are not modified.
+To merge two maps, you can use the `union` function, which takes two maps, and a function that decides how to resolve conflicting keys and returns a new map. Note that the input maps are not modified.
 
 ```ocaml=
 let all_numbers =
@@ -173,12 +173,12 @@ let even_numbers =
 
 ### Reducing a Map
 
-### Maps with custom key types
+### Maps With Custom Key Types
 
 If you need to create a Map with a custom key type, you can call the **Map.Make** functor with a module of your own, provided that it implements 2 things:
 
-1. it has a `t` type with no type parameters
-2. it has a `compare : t -> t -> int` function that can be used to compare two values of type `t`
+1. It has a `t` type with no type parameters.
+2. It has a `compare : t -> t -> int` function that can be used to compare two values of type `t`.
 
 Let's define our custom map below, for non-negative numbers.
 
