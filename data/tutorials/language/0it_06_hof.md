@@ -184,98 +184,106 @@ let rec repeat times thing_to_do =
 After renaming `thing_to_do` to `fn` we get a nice little `repeat` function:
 
 ```ocaml=
-let rec repeat times fn =
+# let rec repeat times fn =
   if times < 1 then ()
   else begin
     fn ();
     repeat (times - 1) fn
   end
 ;;
+val repeat : int -> (unit -> 'a) -> unit = <fun>
 ```
 
 And we can use `repeat` to recreate our original `say_many_hi`, or to repeat any work any number of times:
 
 ```ocaml
-let say_many_hi times name = repeat times (fun () -> say_hi name)
-;;
+# let say_many_hi times name = repeat times (fun () -> say_hi name);;
+val say_many_hi : int -> string -> unit = <fun>
   
-let print_big_space () = repeat 10 print_newline
-;;
+# let print_big_space () = repeat 10 print_newline;;
+val print_big_space : unit -> unit = <fun>
 ```
 
-This is the power of **Higher-Order Functions**: they empower you to create complex behaviors from simpler functions.
+This is the power of **Higher-Order Functions**. They empower you to create complex behaviors from simpler functions.
 
 Here's some other examples from the real world:
 
 ```ocaml=
-let say_hi_to_many names = List.iter say_hi names
-;;
+# let say_hi_to_many names = List.iter say_hi names;;
+val say_hi_to_many : string list -> unit = <fun>
 
-module StringSet = Set.Make(String);;
-let only_once fn names =
+
+# module StringSet = Set.Make(String);;
+module StringSet :
+  sig
+    type elt = string
+    type t = StringSet.t
+    val empty : t ...
+
+# let only_once fn names =
   names
   |> StringSet.of_list
-  |> StringSet.iter fn
-;;
+  |> StringSet.iter fn;;
+val only_once : (string -> unit) -> string list -> unit = <fun>
  
-let yell_hi name =
+# let yell_hi name =
   name
   |> String.uppercase_ascii
-  |> say_hi
-;;
+  |> say_hi;;
+val yell_hi : string -> unit = <fun>
   
-let call_for_dinner names = only_once yell_hi names
-;;
+# let call_for_dinner names = only_once yell_hi names;;
+val call_for_dinner : string list -> unit = <fun>
 ```
 
 ## 2. Common Higher-Order Functions
 
 In the wild, there's certain patterns that repeat over and over again. It's useful to be familiar with them because they are part of the common vocabulary of a functional programmer. Some of them are:
 
-* currying and uncurrying
-* pipelining, composition, and chaining
-* iterating
-* filtering
-* mapping
-* folding (or reducing)
-* sorting
-* binding (or flat mapping)
+* Currying and uncurrying
+* Pipelining, composition, and chaining
+* Iterating
+* Filtering
+* Mapping
+* Folding (or reducing)
+* Sorting
+* Binding (or flat mapping)
 
 ### Currying and Uncurrying
 
-Since in OCaml all functions really just take one parameter, so when you call `add x y` you're actually calling two functions! `((add x) y)` 
+Since in OCaml all functions really just take one parameter, when you call `add x y`, you're actually calling two functions! `((add x) y)` 
 
 Sometimes it helps to apply _parts_ of a function in different orders, and sometimes it helps to make a function really take all its parameters _at once_.
 
 This is what we call currying and uncurrying:
 
-* A curried `add` function will be called like `add x y`
-* An uncurried `add` functoin will be called liked `add (x, y)` – note how this is really just one argument!
+* A curried `add` function will be called like `add x y`.
+* An uncurried `add` functoin will be called liked `add (x, y)`. Note how this is really just one argument!
 
-Before we get to some examples, lets define some helper functions that will help us curry and uncurry functions.
+Before we get to some examples, let's define some helper functions that will help us curry and uncurry functions.
 
 #### Uncurrying
 
-Our uncurry helper is a function that takes one function as input, and returns another function. It is essentially a wrapper.
+Our uncurry helper is a function that takes one function as input and returns another function. It is essentially a wrapper.
 
-The input function must have type: `'a -> 'b -> 'c` – this is the type of any function that takes 2 parameters.
+The input function must have type `'a -> 'b -> 'c`. This is the type of any function that takes 2 parameters.
 
-The output function will have type `('a * 'b) -> 'c` – notice how the arguments `'a` and `'b` are now bundled together in a tuple!
+The output function will have type `('a * 'b) -> 'c`. Notice how the arguments `'a` and `'b` are now bundled together in a tuple!
 
 Here's our helper:
 
 ```ocaml 
 (* [uncurry] takes a function that is normally curried,
    and returns a function that takes all arguments at once. *)
-let uncurry f (x, y) = f x y
-;;
+# let uncurry f (x, y) = f x y;;
+val uncurry : ('a -> 'b -> 'c) -> 'a * 'b -> 'c = <fun>
 ```
 
 If we wanted to write `uncurry` for more arguments, we'd just make a new `uncurry3` or `uncurry4` or even `uncurry5` function that would work exactly the same:
 
 ```ocaml!
-let uncurry4 f (w, x, y, z) = f w x y z
-;;
+# let uncurry4 f (w, x, y, z) = f w x y z;;
+val uncurry4 : ('a -> 'b -> 'c -> 'd -> 'e) -> 'a * 'b * 'c * 'd -> 'e = <fun>
 ```
 
 Uncurrying can be very useful when you're dealing with lists (which we do a lot in OCaml) and when the list happens to have tuples.
@@ -283,7 +291,7 @@ Uncurrying can be very useful when you're dealing with lists (which we do a lot 
 Take for example this list of tuples of names and favorite emojis:
 
 ```ocaml!
-let people = [
+# let people = [
   "🐫", "Sabine";
   "🚀", "Xavier";
   "✨", "Louis";
