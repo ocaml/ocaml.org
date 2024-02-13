@@ -12,8 +12,6 @@ let version t = t.version
 let info t = t.info
 let create ~name ~version info = { name; version; info }
 
-module DocumentationStatusMap = Map.Make (String)
-
 type state = {
   version : string;
   mutable opam_repository_commit : string option;
