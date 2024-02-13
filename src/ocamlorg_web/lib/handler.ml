@@ -428,7 +428,7 @@ type package_kind = Package | Universe
 
 module Package_helper = struct
   let package_info_to_frontend_package ~name ~version ?(on_latest_url = false)
-      ~latest_version ~versions info =
+      ?documentation_status ~latest_version ~versions info =
     let rev_deps =
       List.map
         (fun (name, _, _versions) -> Ocamlorg_package.Name.to_string name)
@@ -466,6 +466,8 @@ module Package_helper = struct
             (fun url ->
               (url.Ocamlorg_package.Info.uri, url.Ocamlorg_package.Info.checksum))
             info.Ocamlorg_package.Info.url;
+        documentation_status =
+          Option.value ~default:Unknown documentation_status;
       }
 
   (** Query all the versions of a package. *)
@@ -478,8 +480,8 @@ module Package_helper = struct
                publication = v.publication;
              })
 
-  let frontend_package ?on_latest_url state (package : Ocamlorg_package.t) :
-      Ocamlorg_frontend.Package.package =
+  let frontend_package ?on_latest_url ?documentation_status state
+      (package : Ocamlorg_package.t) : Ocamlorg_frontend.Package.package =
     let name = Ocamlorg_package.name package
     and version = Ocamlorg_package.version package
     and info = Ocamlorg_package.info package in
@@ -490,7 +492,7 @@ module Package_helper = struct
         (Ocamlorg_package.get_latest state name)
     in
     package_info_to_frontend_package ~name ~version ?on_latest_url
-      ~latest_version ~versions info
+      ?documentation_status ~latest_version ~versions info
 
   let of_name_version t name version =
     let package =
@@ -639,8 +641,8 @@ let prepare_search_result_packages t packages =
   let* results =
     Lwt_list.map_p
       (fun pkg ->
-        let+ doc_status = documentation_status_of_package t pkg in
-        (Package_helper.frontend_package t pkg, doc_status))
+        let+ documentation_status = documentation_status_of_package t pkg in
+        Package_helper.frontend_package ~documentation_status t pkg)
       packages
   in
   Lwt.return results
