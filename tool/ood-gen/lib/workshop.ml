@@ -20,7 +20,7 @@ type committee_member = {
 }
 [@@deriving of_yaml, show { with_path = false }]
 
-type presentation' = {
+type presentation = {
   title : string;
   authors : string list;
   link : string option;
@@ -36,22 +36,11 @@ type metadata = {
   location : string;
   date : string;
   important_dates : important_date list;
-  presentations : presentation' list;
+  presentations : presentation list;
   program_committee : committee_member list;
   organising_committee : committee_member list;
 }
 [@@deriving of_yaml]
-
-type presentation = {
-  title : string;
-  authors : string list;
-  link : string option;
-  video : string option;
-  slides : string option;
-  poster : bool option;
-  additional_links : string list;
-}
-[@@deriving show { with_path = false }]
 
 type t = {
   title : string;
@@ -66,25 +55,10 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata
-    ~remove:[ slug; body_md; body_html ]
-    ~modify:[ presentations ],
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ],
     show { with_path = false }]
 
-let transform_presentation (p : presentation') =
-  {
-    title = p.title;
-    authors = p.authors;
-    link = p.link;
-    video = p.video;
-    slides = p.slides;
-    poster = p.poster;
-    additional_links = Option.value ~default:[] p.additional_links;
-  }
-
-let of_metadata m =
-  of_metadata m ~slug:(Utils.slugify m.title)
-    ~modify_presentations:(List.map transform_presentation)
+let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
 let decode (fpath, (head, body_md)) =
   let metadata =
@@ -122,7 +96,7 @@ type presentation = {
   video : string option;
   slides : string option;
   poster : bool option;
-  additional_links : string list;
+  additional_links : string list option;
 }
 
 type t = {
