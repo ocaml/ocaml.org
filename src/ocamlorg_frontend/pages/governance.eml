@@ -62,7 +62,7 @@ and what makes it unique." @@
   <div class="container-fluid flex justify-between items-center py-7 px-8">
       <div class="flex flex-col w-full">
         <div class="md:max-w-[80%]">
-          <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Working groups</h2>
+          <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Working groups</h2>
           <p class="text-white dark:text-dark-title mb-12">Working groups are community initiatives that gather around certain topics or a shared purpose. The <a class="underline font-bold" href="<%s Url.governance_policy %>">OCaml Governance Policy</a> does not apply to them. Participation is welcome and encouraged.</p>
         </div>
         <div>
