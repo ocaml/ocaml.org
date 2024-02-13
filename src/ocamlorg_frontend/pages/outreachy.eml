@@ -4,34 +4,36 @@ Layout.render
 ~title:"OCaml Outreachy Internships"
 ~description:"Records Of OCaml Community Past Outreachy Internship Projects"
 ~canonical:Url.outreachy @@
-<div class="intro-section-simple">
-    <div class="container-fluid text-center prose">
-        <h1 class="font-bold mb-6">OCaml Outreachy Internships</h1>
-        <p>This is a record of all past OCaml Community <a href="https://www.outreachy.org/" target="_blank">Outreachy</a> Internship Projects.</p>
+<div class="intro-section-simple dark:dark-intro-section-simple">
+    <div class="container-fluid">
+        <div class="w-full m-auto">
+            <h1 class="font-bold mb-2 text-title dark:text-dark-title">OCaml Outreachy Internships</h1>
+            <p class="text-content dark:text-dark-content">This is a record of all past OCaml Community <a href="https://www.outreachy.org/" target="_blank" class="text-primary dark:text-dark-title hover:underline dark:underline hover:text-primary dark:hover:text-dark-primary">Outreachy</a> Internship Projects.</p>
+        </div>
     </div>
 </div>
-<div class="py-12 bg-legacy-default dark:bg-legacy-dark-default">
+<div class="py-12 bg-white dark:bg-dark-background">
     <div class="container-fluid">
         <% metadata |> List.iter (fun (rounds : Data.Outreachy.t) -> %>
-            <h2 class="border-b border-primary p-6 my-2 font-bold"><%s rounds.name %></h2>
-            <div class="grid gap-10 prose max-w-4xl">
+            <h2 class="text-title dark:text-dark-title border-b border-primary dark:border-dark-primary p-6 my-2 font-bold"><%s rounds.name %></h2>
+            <div class="grid gap-10 prose dark:prose-invert max-w-4xl">
                 <% rounds.projects |> List.iter (fun (project : Data.Outreachy.project) -> %>
                     <div x-data="{'is_shown': false}" class="p-5 flex flex-col gap-2">              
-                        <h3><%s project.title %></h3>
-                        <div>Mentee: <i><%s project.mentee %></i></div>
-                        <div>Mentor(s): <i><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></i></div>
+                        <h3 class="text-title dark:text-dark-title "><%s project.title %></h3>
+                        <div class="text-content dark:text-dark-content">Mentee: <i class="text-content dark:text-dark-content"><%s project.mentee %></i></div>
+                        <div class="text-content dark:text-dark-content">Mentor(s): <i class="text-content dark:text-dark-content"><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></i></div>
                         <% if String.length project.description > 240 then ( %>
                             <div :class="is_shown ? '' : 'relative max-h-20 overflow-hidden'">
-                                <div class="absolute bottom-0 h-10 left-0 right-0 bg-gradient-to-t from-white"></div> 
+                                <div class="absolute bottom-0 h-10 left-0 right-0 bg-gradient-to-t from-white dark:from-black"></div> 
                                 <p> <%s project.description %> </p>
                             </div>
-                            <button x-on:click="is_shown= !is_shown" class='text-left hover:underline text-primary font-semibold' x-text="is_shown ? 'Show Less' : 'Show More'"></button>
+                            <button x-on:click="is_shown= !is_shown" class='text-left hover:underline text-primary font-semibold dark:text-dark-primary hover:text-primary dark:hover:text-dark-primary' x-text="is_shown ? 'Show Less' : 'Show More'"></button>
                         <% ) else ( %>
                             <p> <%s project.description %> </p>
                         <% ); %>
                         <div class='flex flex-row gap-4'>
                             <% (match project.blog with None -> () | Some blog -> %>
-                                <a href="<%s blog %>" target="_blank">Blog</a>
+                                <a href="<%s blog %>" target="_blank" class="">Blog</a>
                             <% ); %>
                             <% (match project.video with None -> () | Some video -> %>                     
                                 <a href="<%s video %>" target="_blank">Video</a> 
