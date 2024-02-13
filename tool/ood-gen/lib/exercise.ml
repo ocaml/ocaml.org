@@ -51,7 +51,7 @@ type t = {
 }
 [@@deriving
   stable_record ~version:metadata ~remove:[ statement; solution ]
-     ~modify:[ tutorials ],
+    ~modify:[ tutorials ],
     show { with_path = false }]
 
 let of_metadata m = of_metadata m ~modify_tutorials:(Option.value ~default:[])
