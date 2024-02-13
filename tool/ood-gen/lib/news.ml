@@ -17,8 +17,7 @@ type t = {
   authors : string list;
 }
 [@@deriving
-  stable_record ~version:metadata ~modify:[ authors ]
-    ~remove:[ slug; body_html ],
+  stable_record ~version:metadata ~modify:[ authors ] ~remove:[ slug; body_html ],
     show { with_path = false }]
 
 let of_metadata m = of_metadata m ~modify_authors:(Option.value ~default:[])

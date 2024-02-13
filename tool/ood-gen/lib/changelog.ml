@@ -18,7 +18,8 @@ type t = {
   authors : string list;
 }
 [@@deriving
-  stable_record ~version:metadata ~add:[ changelog; description ]
+  stable_record ~version:metadata
+    ~add:[ changelog; description ]
     ~modify:[ authors ]
     ~remove:[ slug; changelog_html; body_html; body; date ],
     show { with_path = false }]

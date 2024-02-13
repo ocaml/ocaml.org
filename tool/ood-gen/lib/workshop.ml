@@ -66,8 +66,8 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~modify:[ presentations ]
-    ~remove:[ slug; body_md; body_html ],
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ]
+    ~modify:[ presentations ],
     show { with_path = false }]
 
 let transform_presentation (p : presentation') =
