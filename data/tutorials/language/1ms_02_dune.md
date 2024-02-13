@@ -83,7 +83,7 @@ Dune stores the files it creates in a folder named `_build`. In a project manage
 $ echo _build >> .gitignore
 ```
 
-In OCaml, each .ml file corresponds to a module. In the `mixtli` project, the file `cloud.ml` creates a module named `Cloud`, the file `wmo.ml` creates a module `Wmo` that contains two submodules: `Stratus` and `Cumulus`.
+In OCaml, each `.ml` file defines a module. In the `mixtli` project, the file `cloud.ml` defines the `Cloud` module, the file `wmo.ml` defines the `Wmo` module that contains two submodules: `Stratus` and `Cumulus`.
 
 Here are the different names:
 * `mixtli` is the project's name (it means *cloud* in Nahuatl).
