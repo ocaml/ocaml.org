@@ -5,7 +5,7 @@ let count_members (team : Data.Governance.team) =
 
 let render_work_group_card (team : Data.Governance.team) member_label btn_class =
   <div class="flex-col">
-    <div class="text-2xl mb-2 font-semibold flex items-cente text-white dark:text-dark-title">
+    <div class="text-2xl mb-2 font-semibold flex items-center text-white dark:text-dark-title">
       <span><%s team.name %></span>
     </div>
     <div class="mb-2 text-white dark:text-dark-title"><%s team.description %></div>
