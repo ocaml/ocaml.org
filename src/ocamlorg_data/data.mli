@@ -58,6 +58,7 @@ module Changelog : sig
     changelog_html : string option;
     body_html : string;
     body : string;
+    authors : string list;
   }
 
   val all : t list
@@ -302,7 +303,7 @@ module Planet : sig
       slug : string;
       source : source;
       description : string option;
-      authors : string list option;
+      authors : string list;
       date : string;
       preview_image : string option;
       featured : bool;
@@ -415,6 +416,7 @@ module News : sig
     date : string;
     tags : string list;
     body_html : string;
+    authors : string list;
   }
 
   val all : t list

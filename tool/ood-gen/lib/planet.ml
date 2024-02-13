@@ -15,7 +15,7 @@ type post = {
          hosted on ocaml.org *)
   slug : string;
   description : string option;
-  authors : string list option;
+  authors : string list;
   date : string;
   preview_image : string option;
   featured : bool;
@@ -78,7 +78,7 @@ module Local = struct
         slug;
         url = None;
         description = Some m.description;
-        authors = m.authors;
+        authors = Option.value ~default:[] m.authors;
         date = m.date;
         preview_image = m.preview_image;
         featured = Option.value ~default:false m.featured;
@@ -195,7 +195,7 @@ module External = struct
         url = Some m.url;
         slug = "";
         description = m.description;
-        authors = m.authors;
+        authors = Option.value ~default:[] m.authors;
         date = m.date;
         preview_image = m.preview_image;
         featured = Option.value ~default:false m.featured;
@@ -241,7 +241,7 @@ module External = struct
 end
 
 let feed_authors source authors =
-  match Option.fold ~none:[] ~some:(List.map Syndic.Atom.author) authors with
+  match List.map Syndic.Atom.author authors with
   | x :: xs -> (x, xs)
   | [] -> (Syndic.Atom.author source.name, [])
 
@@ -302,7 +302,7 @@ module Post = struct
     ; slug : string
     ; source : source
     ; description : string option
-    ; authors : string list option
+    ; authors : string list
     ; date : string
     ; preview_image : string option
     ; featured : bool
