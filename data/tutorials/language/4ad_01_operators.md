@@ -172,7 +172,7 @@ The complete list of precedence is longer because it includes the predefined ope
 
 ## Binding Operators
 
-OCaml allows the creation of custom `let` operators. This is often used on functions such as `Option.bind` or `List.concat_map`.
+OCaml allows the creation of custom `let` operators. This is often used on monad-related functions such as `Option.bind` or `List.concat_map`. See [Monads](/docs/monads) for more on this topic.
 
 The `doi_parts` function attempts to extract the registrant and identifier parts from string expected to contain a [Digital Object Identifier (DOI)](https://en.wikipedia.org/wiki/Digital_object_identifier).
 ```ocaml
