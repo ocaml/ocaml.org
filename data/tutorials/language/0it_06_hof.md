@@ -164,11 +164,10 @@ In OCaml, the arguments are evaluated before the function itself, so in this cas
 
 We can let `repeat` call `say_hi` many times by _delaying_ the function's execution by wrapping it with another function, like this:
 
-```diff
+```ocaml
 # repeat 3 (
-+ fun () ->
+fun () ->
     say_hi "Camel");;
-```
 
 This means we must refactor our `repeat` function a little to _call_ our new function:
 
