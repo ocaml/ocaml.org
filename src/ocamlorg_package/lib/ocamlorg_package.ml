@@ -12,12 +12,15 @@ let version t = t.version
 let info t = t.info
 let create ~name ~version info = { name; version; info }
 
+type time = float
+
 type state = {
   version : string;
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
   mutable stats : Statistics.t option;
-  mutable doc_status : Documentation_status.t option Version.Map.t Name.Map.t;
+  mutable doc_status :
+    (Documentation_status.t option * time) Version.Map.t Name.Map.t;
 }
 
 let mockup_state (pkgs : t list) =
@@ -385,26 +388,35 @@ let documentation_status ~kind state t : Documentation_status.t option Lwt.t =
   in
   let url = package_url ^ "status.json" in
 
+  let get_and_cache () =
+    let+ content = http_get url in
+    let status =
+      match content with
+      | Ok s ->
+          Some (s |> Yojson.Safe.from_string |> Documentation_status.of_yojson)
+      | _ -> None
+    in
+    let status_entry = (status, Unix.gettimeofday ()) in
+    state.doc_status <-
+      Name.Map.update t.name
+        (Version.Map.add t.version status_entry)
+        (Version.Map.singleton t.version status_entry)
+        state.doc_status;
+    status
+  in
+
+  let has_cache_expired time =
+    Unix.gettimeofday () -. time > Config.documentation_status_cache_ttl
+  in
+
   match
     Name.Map.find_opt t.name state.doc_status
     |> Option.map (Version.Map.find_opt t.version)
     |> Option.value ~default:None
   with
-  | Some status -> Lwt.return status
-  | None ->
-      let+ content = http_get url in
-      let status =
-        match content with
-        | Ok s ->
-            Some (s |> Yojson.Safe.from_string |> Documentation_status.of_yojson)
-        | _ -> None
-      in
-      state.doc_status <-
-        Name.Map.update t.name
-          (Version.Map.add t.version status)
-          (Version.Map.singleton t.version status)
-          state.doc_status;
-      status
+  | None -> get_and_cache ()
+  | Some (_, time) when has_cache_expired time -> get_and_cache ()
+  | Some (status, _) -> Lwt.return status
 
 let doc_exists t name version =
   let package = get t name version in
