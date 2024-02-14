@@ -36,7 +36,8 @@ In OCaml, working with functions quickly becomes second nature. We like to think
 Take for example a function that says hello to a person by name:
 
 ```ocaml 
-let say_hi name = print_string ("Hello, " ^ name ^ "!\n") ;;
+# let say_hi name = print_string ("Hello, " ^ name ^ "!\n") ;;
+val say_hi : string -> unit = <fun>
 ```
 
 We can call this function several times, to say "hello" to several people:
