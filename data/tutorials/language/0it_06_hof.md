@@ -71,7 +71,7 @@ Hello, Camel!
 - : unit = ()
 ```
 
-How would we avoid having to repeat this lines every time? One way of doing this would be to write a function to say hi 3 times:
+One way we can avoid having to repeat this lines every time by writing a function to say "hi" 3 times:
 
 ```ocaml 
 # let say_hi_3_times name =
