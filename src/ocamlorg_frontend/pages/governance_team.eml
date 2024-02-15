@@ -5,17 +5,17 @@ let contact_icon (kind : Data.Governance.contact_kind) = match kind with
   | Chat -> Icons.chat
 
 let render_team_member (member : Data.Governance.Member.t) =
-  <div class="flex gap-x-2 p-4 card dark:dark-card">
+  <a href="https://github.com/<%s member.github %>" class="flex gap-x-2 p-4 card dark:dark-card">
     <img src="https://github.com/<%s member.github %>.png" alt="" class="h-32 w-32 mr-3 inline-block rounded-full">
     <div>
       <div class="text-title dark:text-dark-title text-xl mt-3"><%s member.name %></div>
       <div class="text-sm text-content dark:text-dark-content text-opacity-60"><%s member.role %></div>
       <div class="mt-8 text-primary dark:text-dark-primary items-center flex gap-1">
         <%s! Icons.github "h-6 w-6" %>
-        <a href="https://github.com/<%s member.github %>"><%s member.github %></a>
+        <p><%s member.github %></p>
       </div>
     </div>
-  </div>
+  </a>
 
 let render_dev_meeting (dev_meeting : Data.Governance.dev_meeting) _class =
   <div class="gap-4 <%s _class %>">
@@ -52,7 +52,7 @@ let render_subteam (team : Data.Governance.team) =
       </div>
       <% ); %>
     <% (match team.dev_meeting with | None -> () | Some dev_meeting -> %>
-    <div class="py-4 px-6 mt-6 card dark:dark-card inline-block rounded-xl">
+    <div class="py-4 px-6 mt-6 bg-white hover:shadow-lg rounded-2xl border inline-block dark:bg-dark-card">
       <h4 class="font-semibold mb-4 text-2xl text-title dark:text-dark-title">Dev Meeting</h4>
       <%s! render_dev_meeting dev_meeting "" %>
     </div>
