@@ -37,7 +37,7 @@ categories:
     packages:
       - name: chartjs
   - name: image processing
-    status: 🟡
+    status: 🟢
     description: |
       These ibraries provide functionalities to manipulate and process images. offer a range of functionalities for image processing tasks, from basic image manipulation to more complex operations. They make OCaml a powerful language for image processing.
     packages:
@@ -45,7 +45,7 @@ categories:
       - name: bimage
       - name: ocamlsdl2-image
   - name: Plotting
-    status: 🟡
+    status: 🟢
     description: |
       These libraries are used to create visual representations of data. They provide functionalities to generate various types of plots, charts, and diagrams
     packages:
@@ -70,8 +70,4 @@ OCaml, traditionally known for its strength in systems programming, formal verif
 
 With its strong static typing, emphasis on immutability, and excellent performance, it is gradually making a case for itself as a viable alternative to mainstream GUI development languages.
 
-OCaml has libraries that aid an easy integration and usage of Graphical User Interface (GUI). It offers a range of GUI libraries, each with unique features and capabilities. These libraries allow developers to create user interfaces for their applications
-
-## Want to Help?
-
-Check out our GitHub repo and contribute there.
+OCaml has libraries that aid an easy integration and usage of Graphical User Interface (GUI). It offers a range of GUI libraries, each with unique features and capabilities. These libraries allow developers to create user interfaces for their applications.
