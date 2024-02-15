@@ -1,3 +1,5 @@
+open Ocamlorg.Import
+
 module Section = struct
   type t = GetStarted | Language | Platform | Guides
   [@@deriving show { with_path = false }]
@@ -301,7 +303,7 @@ let decode (fpath, (head, body_md)) =
   in
   let section =
     List.nth (String.split_on_char '/' fpath) 1
-    |> Section.of_string |> Result.get_ok
+    |> Section.of_string |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error (fpath ^ ":" ^ msg))
   in
   let doc = Cmarkit.Doc.of_string ~strict:true ~heading_auto_ids:true body_md in
   let toc = Toc.generate ~start_level:2 ~max_level:4 doc in
