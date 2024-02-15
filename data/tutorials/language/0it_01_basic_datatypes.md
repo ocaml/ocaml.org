@@ -131,7 +131,7 @@ Indexed access to string characters is possible using the following syntax:
 # "buenos dias".[4];;
 - : char : 'o'
 ```
-Operations on `string` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`String`](/api/String.html) modules.
+String related operations are provided by the [`Stdlib`](/api/Stdlib.html), the [`String`](/api/String.html), and [`Str`](/api/Stdlib.html) modules.
 
 #### Byte Sequences
 
