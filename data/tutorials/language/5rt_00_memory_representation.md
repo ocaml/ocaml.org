@@ -14,6 +14,8 @@ external_tutorial:
   contribute_link:
     url: https://github.com/realworldocaml/book/blob/master/book/runtime-memory-layout/README.md
     description: "You are encouraged to contribute to the original sources of this page at the Real World OCaml GitHub repository."
+prerequisite_tutorials:
+  - "basic-data-types"
 ---
 
 This is an adaptation of the chapter [Memory Representation of Values](https://dev.realworldocaml.org/runtime-memory-layout.html) from the book [Real World OCaml](https://dev.realworldocaml.org/), reproduced here with permission.
@@ -35,8 +37,6 @@ code is spending its time.
 
 At the end of this document, you will be able to translate between OCaml
 values and their memory representation.
-
-**Prerequisites:** [Basic Data Types and Pattern Matching](/docs/basic-data-types)
 
 ## OCaml Types Disappear at Runtime
 

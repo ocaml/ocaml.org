@@ -291,4 +291,12 @@
     %{bin:dream_eml}
     %{dep:learn_components.eml}
     --workspace
+    %{workspace_root})))
+ (rule
+  (target tutorial_search.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:tutorial_search.eml}
+    --workspace
     %{workspace_root}))))

@@ -5,6 +5,11 @@ short_title: Mutability and Imperative Control Flow
 description: >
   Write stateful programs in OCaml. Use for and while loops, if-then-else, mutable record fields, and references.
 category: "Introduction"
+prerequisite_tutorials:
+  - "basic-data-types"
+  - "values-and-functions"
+  - "lists"
+  - "modules"
 ---
 
 <!--
@@ -26,8 +31,6 @@ This document has two main teaching goals:
 -->
 
 Imperative and functional programming both have unique merits, and OCaml allows combining them efficiently. In the first part of this tutorial, we introduce mutable state and imperative control flow. See the second part for examples of recommended or discouraged use of these features.
-
-**Prerequisites**: [Basic Data Types](/docs/basic-data-types), [Values and Functions](/docs/values-and-functions), [Lists](/docs/lists), and [Modules](/docs/modules).
 
 ## Immutable vs Mutable Data
 

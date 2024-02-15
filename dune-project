@@ -49,7 +49,7 @@
    (>= 0.2.0))
   opam-format
   (timedesc
-   (>= 1.1.1))
+   (>= 2.0.0))
   yojson
   lwt
   tailwindcss
