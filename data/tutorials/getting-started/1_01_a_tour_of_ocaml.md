@@ -197,7 +197,7 @@ The function `cat_hi`, which resulted from the partial application of `cat`, beh
 - : string = "hi friend"
 ```
 
-### Type Variables and Higher-Order Functions
+### Type Parameters and Higher-Order Functions
 
 A function may expect a function as a parameter, which is called a _higher-order_ function. A well-known example of higher-order function is `List.map`. Here is how it can be used:
 ```ocaml
