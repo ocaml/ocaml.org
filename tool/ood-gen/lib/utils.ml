@@ -54,7 +54,8 @@ let read_from_dir glob =
 let map_files f glob =
   let f (path, data) =
     let* metadata = extract_metadata_body path data in
-    f (path, metadata)
+    Result.map_error (function `Msg err -> `Msg (path ^ ": " ^ err))
+    (f (path, metadata))
   in
   read_from_dir glob
   |> List.fold_left (fun u x -> Ok List.cons <@> f x <@> u) (Ok [])
@@ -92,7 +93,7 @@ let yaml_sequence_file ?key of_yaml filepath_str =
    List.fold_left (fun u x -> Ok List.cons <@> of_yaml x <@> u) (Ok []) list)
   |> Result.map_error (function `Msg err ->
          `Msg ((filepath |> Fpath.to_string) ^ ": " ^ err))
-  |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg)
+  |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error (filepath_str ^ ": " ^ msg))
 
 let of_yaml of_string error = function
   | `String s -> of_string s
