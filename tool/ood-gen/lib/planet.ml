@@ -208,7 +208,8 @@ module External = struct
       Fmt.pf ppf {|---
 %s---
 |}
-        (metadata_to_yaml v |> Yaml.to_string |> Result.get_ok ~error:(fun (`Msg m) -> Exn.Decode_error m))
+        (metadata_to_yaml v |> Yaml.to_string
+        |> Result.get_ok ~error:(fun (`Msg m) -> Exn.Decode_error m))
 
     let decode (fpath, (head, body)) =
       let metadata =
