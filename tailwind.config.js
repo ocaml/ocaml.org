@@ -82,8 +82,11 @@ module.exports = {
               content: '""',
             },
           },{
-            'p, strong':{
+            'p':{
               color: theme('colors.content'),
+            },
+            'strong': {
+              color: theme('colors.title'),
             },
             h1: {
               color: theme('colors.title'),

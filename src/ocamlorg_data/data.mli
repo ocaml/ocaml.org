@@ -521,6 +521,14 @@ module Governance : sig
 end
 
 module Cookbook : sig
+  type code_block_with_explanation = { code : string; text : string }
+
+  type section = {
+    filename : string;
+    language : string;
+    code_blocks : code_block_with_explanation list;
+  }
+
   type t = {
     slug : string;
     group_id : string;
@@ -528,6 +536,7 @@ module Cookbook : sig
     problem : string;
     category : string;
     packages : string list;
+    sections : section list;
     body_html : string;
   }
 
