@@ -54,14 +54,14 @@ in
       Install
   </h2>
 
-  <%s! Copy_to_clipboard_snippet.render ~id:"install-package" ~class_:"whitespace-nowrap" ("opam install " ^ package.name ^ "." ^ specific_version) %>
+  <%s! Copy_to_clipboard.small_code_snippet ~id:"install-package" ~class_:"whitespace-nowrap" ("opam install " ^ package.name ^ "." ^ specific_version) %>
 
   <h2 class="inline-flex items-center text-lg font-medium text-content dark:text-dark-content mt-8">
       <%s! Icons.command_line "mr-4 h-6 w-6 text-primary dark:text-dark-primary" %>
       Dune Dependency
   </h2>
 
-  <%s! Copy_to_clipboard_snippet.render ~id:"dune-dependency-package" ~class_:"whitespace-nowrap" (" (" ^ package.name ^ " (= " ^ specific_version ^ "))" ) %>
+  <%s! Copy_to_clipboard.small_code_snippet ~id:"dune-dependency-package" ~class_:"whitespace-nowrap" (" (" ^ package.name ^ " (= " ^ specific_version ^ "))" ) %>
 
   <div class="flex flex-col mt-8 text-sm text-lighter">
       <% package.homepages |> List.iter (fun homepage -> %>
