@@ -1,21 +1,29 @@
-type code_block_with_explanation = { code : string; text : string }
+type code_block_with_explanation = { code : string; explanation : string }
 [@@deriving of_yaml, show { with_path = false }]
 
-type section = {
+type metadata_section = {
   filename : string;
   language : string;
   code_blocks : code_block_with_explanation list;
 }
-[@@deriving of_yaml, show { with_path = false }]
+[@@deriving of_yaml]
 
 type metadata = {
   title : string;
   problem : string;
   category : string;
   packages : string list;
-  sections : section list;
+  sections : metadata_section list;
 }
 [@@deriving of_yaml]
+
+type section = {
+  filename : string;
+  language : string;
+  code_blocks : code_block_with_explanation list;
+  code_plaintext : string;
+}
+[@@deriving show { with_path = false }]
 
 type t = {
   group_id : string;
@@ -48,20 +56,25 @@ let decode (fpath, (head, body)) =
     |> Cmarkit_html.of_doc ~safe:false
   in
 
-  let modify_sections sections =
+  let modify_sections (sections : metadata_section list) =
     sections
-    |> List.map (fun (s : section) ->
+    |> List.map (fun ({ filename; language; code_blocks } : metadata_section) ->
+           let code_plaintext =
+             code_blocks
+             |> List.map (fun (c : code_block_with_explanation) -> c.code)
+             |> String.concat "\n"
+           in
            let code_blocks =
-             s.code_blocks
+             code_blocks
              |> List.map (fun (c : code_block_with_explanation) ->
                     let code =
-                      Printf.sprintf "```%s\n%s\n```" s.language c.code
+                      Printf.sprintf "```%s\n%s\n```" language c.code
                       |> render_markdown
                     in
-                    let text = c.text |> render_markdown in
-                    { text; code })
+                    let explanation = c.explanation |> render_markdown in
+                    { explanation; code })
            in
-           { s with code_blocks })
+           { filename; language; code_blocks; code_plaintext })
   in
   let body_html = body |> render_markdown in
 
@@ -79,12 +92,13 @@ let template () =
     {|
 type code_block_with_explanation =
   { code : string
-  ; text : string
+  ; explanation : string
   }
 type section =
   { filename : string
   ; language : string
   ; code_blocks : code_block_with_explanation list
+  ; code_plaintext : string
   }
 type t =
   { slug: string
