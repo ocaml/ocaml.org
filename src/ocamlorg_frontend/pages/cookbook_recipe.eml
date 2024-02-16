@@ -8,17 +8,17 @@ Learn_layout.single_column_layout
 <div class="bg-legacy-default dark:bg-legacy-dark-default">
   <div class="container-fluid pt-10">
     <div class="prose mx-auto max-w-5xl">
-      <h1 class="font-normal text-4xl mb-10">OCaml Cookbook - <%s recipe.title %></h2>
+      <h1 class="font-normal text-4xl mb-10"><%s recipe.title %></h2>
       <h2>Problem</h2>
       <p><%s recipe.problem %></p>
 % recipe.sections |> List.iter (fun (section: Data.Cookbook.section) -> 
       <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10">
         <div></div>
-        <h3><%s section.filename %></h3>
+        <h3 class="flex gap-4 items-center"><%s section.filename %> <%s! Copy_to_clipboard.button ~id:"copy-code" section.code_plaintext %></h3>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10">
 % section.code_blocks |> List.iter (fun (code_block: Data.Cookbook.code_block_with_explanation) -> 
-        <div><%s! code_block.text %></div>
+        <div><%s! code_block.explanation %></div>
         <div class="cookbook-codeblock bg-code_window dark:bg-dark-code_window rounded-lg lg:rounded-none"><%s! code_block.code %></div>
 % );
       </div>
