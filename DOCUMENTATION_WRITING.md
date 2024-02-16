@@ -6,7 +6,10 @@ Apply the [*Spiral Learning*](https://en.wikipedia.org/wiki/Spiral_approach) app
 
 ## Materials
 
-- Reference. This includes the [OCaml Manual](https://ocaml.org/releases/latest/manual.html), the [opam manual](https://opam.ocaml.org/), and [Dune's documentation](https://dune.readthedocs.io/en/stable/). This is considered upstream material. Refer to the corresponding projects to propose changes in them.
+- References, e.g.:
+  - [OCaml Language Manual](https://ocaml.org/releases/latest/manual.html). You can contribute [here](https://github.com/ocaml/ocaml/tree/trunk/manual).
+  - [opam manual](https://opam.ocaml.org/). You can contribute [here](https://github.com/ocaml/opam).
+  - [Dune's documentation](https://dune.readthedocs.io/en/stable/). You can contribute [here](https://github.com/ocaml/dune/tree/main/doc).
 - Tutorials
 - Guides
 - Recommended practices
@@ -60,7 +63,7 @@ Especially since the release of OCaml 5.0 with Multicore support, perhaps our bi
 
 ## Writing, Grammar, and Spelling 
 
-Please don't worry about this too much, as a technical write will review any new documentation or changes to catch these types of things. It's included here for reference, if interested. 
+Please don't worry about this too much, as a technical writer will review any new documentation or changes to catch these types of things. It's included here for reference, if interested. 
 
 ### Tone & POV
 We're aiming for a relatively casual tone in these tutorials and other documentation. This means that it should read like you're speaking directly to the reader rather than an academic tone. To this end, it is acceptable to use second person (you), sparingly. 
