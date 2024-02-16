@@ -6,7 +6,6 @@ description: >
 category: "Resources"
 ---
 
-# Comparison of Standard Containers
 This is a rough comparison of the different container types 
 provided by the OCaml standard library. In each
 case, _n_ is the number of valid elements in the container.

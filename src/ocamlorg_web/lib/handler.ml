@@ -72,6 +72,17 @@ let paginate ~req ~n items =
   in
   (page, number_of_pages, current_items)
 
+let learn_documents_search req =
+  let q = Dream.query req "q" |> Option.value ~default:"" in
+  let search_results = Data.Tutorial.search_documents q in
+  let page, number_of_pages, current_items =
+    paginate ~req ~n:50 search_results
+  in
+  let total = List.length search_results in
+  Dream.html
+    (Ocamlorg_frontend.tutorial_search current_items ~total ~page
+       ~number_of_pages ~search:q)
+
 let changelog req =
   let current_tag = Dream.query req "t" in
   let tags =
@@ -384,23 +395,38 @@ let tutorial req =
   let</>? tutorial =
     List.find_opt (fun x -> x.Data.Tutorial.slug = slug) Data.Tutorial.all
   in
+  let all_tutorials = Data.Tutorial.all in
+
   let tutorials =
-    Data.Tutorial.all
+    all_tutorials
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = tutorial.section)
   in
   let all_exercises = Data.Exercise.all in
   let related_exercises =
     List.filter
-      (fun (e : Data.Exercise.t) ->
-        match e.tutorials with
-        | Some tutorials_list -> List.mem slug tutorials_list
-        | None -> false)
+      (fun (e : Data.Exercise.t) -> List.mem slug e.tutorials)
       all_exercises
   in
+
+  let is_in_recommended_next (tested : Data.Tutorial.t) =
+    List.exists (fun r -> r = tested.slug) tutorial.recommended_next_tutorials
+  in
+
+  let recommended_next_tutorials =
+    all_tutorials |> List.filter is_in_recommended_next
+  in
+
+  let is_prerequisite (tested : Data.Tutorial.t) =
+    List.exists (fun r -> r = tested.slug) tutorial.prerequisite_tutorials
+  in
+
+  let prerequisite_tutorials = all_tutorials |> List.filter is_prerequisite in
+
   Dream.html
     (Ocamlorg_frontend.tutorial ~tutorials
        ~canonical:(Url.tutorial tutorial.slug)
-       ~related_exercises tutorial)
+       ~related_exercises ~recommended_next_tutorials ~prerequisite_tutorials
+       tutorial)
 
 let exercises req =
   let all_exercises = Data.Exercise.all in
@@ -421,7 +447,6 @@ let exercises req =
   in
   Dream.html (Ocamlorg_frontend.exercises ?difficulty_level filtered_exercises)
 
-let installer req = Dream.redirect req Url.github_installer
 let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Data.Outreachy.all)
 
 type package_kind = Package | Universe
@@ -605,15 +630,8 @@ let packages state _req =
                recently_updated = List.map package t.recently_updated;
                most_revdeps = List.map package_pair t.most_revdeps;
              })
-  and featured =
-    Data.Packages.all.featured
-    |> List.filter_map
-         Ocamlorg_package.(
-           fun name ->
-             get_latest state (Name.of_string name)
-             |> Option.map (Package_helper.frontend_package state))
   in
-  Dream.html (Ocamlorg_frontend.packages stats featured)
+  Dream.html (Ocamlorg_frontend.packages stats)
 
 let is_author_match name pattern =
   let match_opt = function

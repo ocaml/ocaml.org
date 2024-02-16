@@ -1,6 +1,7 @@
 ---
 id: compiler-backend
-title: Compiler Backend
+title: "The Compiler Backend: Bytecode and Native code"
+short_title: Compiler Backend
 description: >
   The Compiler Backend, excerpt from Real World OCaml
 category: "Runtime & Compiler"
@@ -16,9 +17,6 @@ external_tutorial:
 ---
 
 This is an adaptation of the chapter [The Compiler Backend: Bytecode and Native code](https://dev.realworldocaml.org/compiler-backend.html) from the book [Real World OCaml](https://dev.realworldocaml.org/), reproduced here with permission.
-
-
-# The Compiler Backend: Bytecode and Native code <a name="the-compiler-backend-byte-code-and-native-code"></a>
 
 Once OCaml has passed the type checking stage, it can stop emitting syntax
 and type errors and begin the process of compiling the well-formed modules

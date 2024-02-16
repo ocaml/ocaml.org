@@ -6,8 +6,6 @@ description: >
 category: "Tutorials"
 ---
 
-# Command-line Arguments
-
 In this tutorial we learn how to read command line arguments directly, using
 OCaml's `Sys.argv` array, and then how to do so more easily using the standard
 library's `Arg` module.

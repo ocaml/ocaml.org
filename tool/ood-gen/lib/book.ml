@@ -52,8 +52,10 @@ type t = {
 
 let of_metadata m = of_metadata m
 
-let decode (_, (head, body)) =
-  let metadata = metadata_of_yaml head in
+let decode (fpath, (head, body)) =
+  let metadata =
+    metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+  in
   let body_md = String.trim body in
   let body_html =
     Cmarkit.Doc.of_string ~strict:true body_md |> Cmarkit_html.of_doc ~safe:true
@@ -61,7 +63,7 @@ let decode (_, (head, body)) =
   Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () =
-  Utils.map_files decode "books/"
+  Utils.map_files decode "books/*.md"
   |> List.sort (fun b1 b2 ->
          (* Sort the books by reversed publication date. *)
          String.compare b2.published b1.published)

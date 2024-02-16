@@ -1,5 +1,8 @@
 open Ocamlorg
 
+let render_title (tutorial: Data.Tutorial.t) = 
+    <h1 id="<%s tutorial.slug %>" ><a class="anchor" aria-hidden="true" href="#<%s tutorial.slug %>"></a><%s tutorial.title %></h1>
+
 let rec tutorial_toc_to_toc (toc : Data.Tutorial.toc) =
   Toc.{
     title = toc.title;
@@ -37,10 +40,27 @@ let render_related_exercises exercises =
   else
     ""
 
+let render_prerequisite_tutorials tutorials =
+  if List.length tutorials > 0 then
+    <div class="mb-6 pt-8 border-t border-separator_20 dark:border-dark-separator_30">
+        <h2 class="mb-4 mt-0 text-lg font-bold leading-6"">Prerequisites</h2>
+        <ul class="list-disc marker:text-primary dark:marker:text-dark-primary">
+          <% tutorials |> List.iter (fun (tutorial : Data.Tutorial.t) -> %>
+            <li class="mb-1">
+              <a href='/docs/<%s tutorial.slug %>'><%s tutorial.title %></a>
+            </li>
+          <% ); %>
+        </ul>
+      </div>
+  else
+    ""
+
 let render
 (tutorial : Data.Tutorial.t)
 ~tutorials
 ~related_exercises
+~recommended_next_tutorials
+~prerequisite_tutorials
 ~canonical
 =
 let href, description = match tutorial.external_tutorial with
@@ -59,7 +79,7 @@ let render_external_tutorial_banner (opt_external_tutorial : Data.Tutorial.exter
     </a>
 in
 Learn_layout.three_column_layout
-~title:(Printf.sprintf "%s · OCaml Documentation" tutorial.title)
+~title:(Printf.sprintf "%s · OCaml Documentation" tutorial.short_title)
 ~description:tutorial.description
 ~canonical
 ~active_top_nav_item:Learn
@@ -68,7 +88,9 @@ Learn_layout.three_column_layout
 ~current:(of_tutorial_section tutorial.section) @@
   <div class="prose prose-orange dark:prose-invert max-w-full">
     <%s! render_external_tutorial_banner tutorial.external_tutorial %>
+    <%s! render_title tutorial %>
+    <%s! render_prerequisite_tutorials prerequisite_tutorials %>
     <%s! tutorial.body_html %>
     <%s! render_related_exercises related_exercises %>
-    <%s! Learn_components.contribute_footer ~href ~description %>
+    <%s! Learn_components.contribute_footer ~href ~description ~recommended_next_tutorials %>
   </div>

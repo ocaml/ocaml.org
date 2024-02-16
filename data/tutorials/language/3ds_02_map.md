@@ -6,8 +6,6 @@ description: >
 category: "Data Structures"
 ---
 
-# Map
-
 ## Module Map
 
 Map creates a "mapping". For instance, let's say I have some data that is

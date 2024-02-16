@@ -1,6 +1,5 @@
 ---
 title: Dune-release 2.0.0
-date: "2023-06-24"
 tags: [dune-release, platform]
 changelog: |
   ### Added

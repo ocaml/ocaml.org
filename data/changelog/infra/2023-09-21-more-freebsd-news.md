@@ -1,6 +1,5 @@
 ---
 title: FreeBSD is Available in More Places
-date: "2023-09-21"
 tags: [infrastructure]
 ---
 

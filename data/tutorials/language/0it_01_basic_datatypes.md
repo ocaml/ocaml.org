@@ -4,9 +4,10 @@ title: Basic Data Types and Pattern Matching
 description: |
   Predefined Types, Variants, Records, and Pattern Matching
 category: "Introduction"
+prerequisite_tutorials: 
+  - "tour-of-ocaml"
+  - "values-and-functions"
 ---
-
-# Basic Data Types And Pattern Matching
 
 ## Introduction
 
@@ -14,9 +15,7 @@ This document covers atomic types, such as integers and Booleans; predefined com
 
 In OCaml, there are no type checks at runtime, and values don't change type unless explicitly converted. This is what being statically- and strongly-typed means. This allows safe processing of structured data.
 
-<!--End edit-->
-
-**Prerequisites**: Before proceeding, it's necessary to have completed the [Get Started](https://ocaml.org/docs/get-started) series of tutorials as well as [Functions and Values](/docs/values-and-functions). As in previous tutorials, expressions after `#` and ending with `;;` are for the toplevel, like UTop.
+**Note**: As in previous tutorials, expressions after `#` and ending with `;;` are for the toplevel, like UTop.
 
 <!--
 The goal of this tutorial is to provide for the following capabilities:
@@ -49,7 +48,7 @@ There are no dedicated types for unsigned integers in OCaml. Bitwise operations 
 
 Float numbers have type `float`.
 
-OCaml does not perform any implicit type conversion between values. Therefore, arithmetic expressions can't mix integers and floats. Parameters are either all `int` or all `float`. Arithmetic operators on floats are not the same, and they are written with a dot suffix: `+.`,  `-.`, `*.`, `/.`.
+OCaml does not perform any implicit type conversion between values. Therefore, arithmetic expressions can't mix integers and floats. Arguments are either all `int` or all `float`. Arithmetic operators on floats are not the same, and they are written with a dot suffix: `+.`,  `-.`, `*.`, `/.`.
 ```ocaml
 # let pi = 3.14159;;
 val pi : float = 3.14159
@@ -82,6 +81,20 @@ Boolean values are represented by the type `bool`.
 ```
 
 Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction “or” is written `||`. Both are short-circuited, meaning that they don't evaluate the argument on the right if the left one's value is sufficient to decide the whole expression's value.
+
+In OCaml, `if … then … else …` is a _conditional expression_. It has the same type as its branches.
+```ocaml
+# 3 * if "foo" = "bar" then 5 else 5 + 2;;
+- : int = 21
+```
+
+The test subexpression must have type `bool`. Branches subexpressions must have the same type.
+
+Conditional expression and pattern matching on a Boolean are the same:
+```ocaml
+# 3 * match "foo" = "bar" with true -> 5 | false -> 5 + 2;;
+- : int = 21
+```
 
 #### Characters
 
@@ -151,7 +164,7 @@ Arrays are finite and fixed-sized sequences of values of the same type. Here are
 - : string array = [|"foo"; "bar"; "baz"|]
 ```
 
-Arrays may contain values of any type. Here arrays are `int array`, `char array`, and `string array`, but any type of data can be used in an array. Usually, `array` is said to be a polymorphic type. Strictly speaking, it is a type operator, and it accepts a type as a parameter (here `int`, `char`, and `string`) to form another type (those inferred here). This is the empty array.
+Arrays may contain values of any type. Here arrays are `int array`, `char array`, and `string array`, but any type of data can be used in an array. Usually, `array` is said to be a polymorphic type. Strictly speaking, it is a type operator, and it accepts a type as argument (here `int`, `char`, and `string`) to form another type (those inferred here). This is the empty array.
 ```ocaml
 # [||];;
 - : 'a array = [||]
@@ -311,7 +324,7 @@ The type of functions from type `m` to type `n` is written `m -> n`. Here are a 
 
 The first expression is an anonymous function of type `int -> int`. The type is inferred from the expression `x * x`, which must be of type `int` since `*` is an operator that returns an `int`. The `<fun>` printed in place of the value is a token, meaning functions don't have a value to be displayed. This is because, if they have been compiled, their code is no longer available.
 
-The second expression is function application. The parameter `9` is applied, and the result `81` is returned.
+The second expression is function application. The argument `9` is applied, and the result `81` is returned.
 
 ```ocaml
 # fun x -> x;;
@@ -324,11 +337,11 @@ The second expression is function application. The parameter `9` is applied, and
 - : string = "This is really disco!"
 ```
 
-The first expression is another anonymous function. It is the _identity_ function, it can be applied to anything, and it returns its argument unchanged. This means that its parameter can be of any type, and its result has the same type. The same code can be applied to data of different types. This is called _polymorphism_.
+The first expression is another anonymous function. It is the _identity_ function, it can be applied to anything, and it returns its argument unchanged. This means that its argument can be of any type, and its result has the same type. The same code can be applied to data of different types. This is called _polymorphism_.
 
 Remember, the `'a` is a _type parameter_, so values of any type can be passed to the function and their type replaces the type parameter. The identity function has the same input and output type, whatever it may be.
 
-The two following expressions show that the identity function can apply to different type parameters:
+The two following expressions show that the identity function can apply to arguments of different types:
 
 ```ocaml
 # let f = fun x -> x * x;;
@@ -842,7 +855,7 @@ Going further, you can explore several advanced topics related to OCaml's data t
 - Extensible Variants
 - [Generalised Algebraic Data Types](https://en.wikipedia.org/wiki/Generalized_algebraic_data_type)
 
-As of writing this, these topics will be covered in forthcoming tutorials. Documentation on them is available in the OCaml [Language Manual](https://v2.ocaml.org/releases/5.0/htmlman/index.html) and in the [books](https://ocaml.org/books) on OCaml.
+As of writing this, these topics will be covered in forthcoming tutorials. Documentation on them is available in the OCaml [Language Manual](/manual/index.html) and in the [books](https://ocaml.org/books) on OCaml.
 
 OCaml aggregates several type systems, also known as disciplines:
 - A [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) is used for predefined types, variants, and functions. , and it is also the scope of this tutorial.

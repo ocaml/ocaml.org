@@ -34,7 +34,6 @@ module Industrial_user = struct
 end
 
 module Outreachy = Outreachy
-module Packages = Packages
 
 module Paper = struct
   include Paper
@@ -71,6 +70,32 @@ module Tutorial = struct
   include Tutorial
 
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+
+  let search_documents q =
+    let score_document (doc : search_document) =
+      let regexp =
+        Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim q)
+        |> Str.regexp_case_fold
+      in
+      let search_in_field field weight =
+        Float.log (float_of_int (List.length (Str.split regexp field)))
+        *. weight
+      in
+      search_in_field doc.title 1.2
+      +. search_in_field
+           (doc.section
+           |> Option.map (fun (s : search_document_section) -> s.title)
+           |> Option.value ~default:"")
+           2.0
+      +. search_in_field doc.content 1.0
+    in
+    List.filter_map
+      (fun doc ->
+        let score = score_document doc in
+        if score > 0.0 then Some (doc, score) else None)
+      all_search_documents
+    |> List.sort (fun (_, score1) (_, score2) -> Float.compare score2 score1)
+    |> List.map fst
 end
 
 module Planet = struct

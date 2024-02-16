@@ -4,39 +4,39 @@ Layout.render
 ~description:"A selection of papers grouped by popular categories."
 ~canonical:Url.papers
 ~active_top_nav_item:Header.Learn @@
-<div class="intro-section-simple">
+<div class="intro-section-simple dark:dark-intro-section-simple">
     <div class="container-fluid">
-        <div class="text-center w-full lg:w-2/3 m-auto">
-            <h1 class="font-bold mb-6">Papers</h1>
-            <p>
+        <div class="w-full m-auto">
+            <h1 class="font-bold text-title dark:text-dark-title mb-2"">Papers</h1>
+            <p class="text-content dark:text-dark-content text-xl lg:max-w-[80%]">
                 With its strong academic roots, OCaml is known to be a spearhead in the development of Programming Language Theory.
                 This page contains a selection of papers that have influenced OCaml and other functional programming languages.
             </p>
         </div>
     </div>
 </div>
-<div class="bg-pattern lg:py-32 py-20 ">
+<div class="section-blue-gradient dark:dark-section-blue-gradient lg:py-12 py-8">
     <div class="container-fluid">
         <div class=" ">
-            <div class="text-center">
-                <h2 class="font-bold text-primary mb-16">Recommended Papers</h2>
+            <div class="">
+                <h2 class="font-bold text-white dark:text-dark-title mb-8">Recommended Papers</h2>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 <% recommended_papers |> List.iter (fun (paper : Data.Paper.t) -> %>
-                    <a href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 p-6 pb-4 border border-gray-200 rounded-xl text-legacy-default bg-legacy-default dark:bg-legacy-dark-default legacy-card-hover">
-                        <div class="font-semibold text-base mb-3">
+                    <a href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 p-6 pb-4 rounded-xl bg-white card dark:dark-card">
+                        <div class="font-semibold text-base mb-3 text-title dark:text-dark-title">
                             <%s paper.title %>
                         </div>
-                        <div class="truncate">
+                        <div class="truncate text-content dark:text-dark-content">
                             <%s paper.abstract %>
                         </div>
-                        <div class="font-bold text-sm mt-3">
+                        <div class="text-sm mt-3 text-content dark:text-dark-content">
                             <%s String.concat ", " paper.authors %>
                         </div>
-                        <div class="flex mt-5">
+                        <div class="flex mt-5 flex-wrap">
                             <% paper.tags |> List.iter (fun (tag : string) -> %>
                             <div
-                                class="tag tag-blue">
+                                class="tag">
                                 <%s tag %>
                             </div>
                             <% ); %>
@@ -47,12 +47,12 @@ Layout.render
         </div>
     </div>
 </div>
-<div class="bg-legacy-default dark:bg-legacy-dark-default">
+<div class="bg-white dark:bg-dark-background">
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
             <div class="flex justify-between items-center flex-col md:flex-row">
                 <% let paper_num = match List.length papers with 0 -> "No Paper" | 1 -> "1 Paper" | l -> Printf.sprintf "%i Papers" l in %>
-                <h5 class="font-bold mb-5 md:mb-0"><%s paper_num %></h5>
+                <h5 class="font-bold text-title dark:text-dark-title mb-5 md:mb-0"><%s paper_num %></h5>
                 <form action="<%s Url.papers %>" method="GET">
                     <%s! Forms.search_input
                         ~name:"q"
@@ -73,7 +73,7 @@ Layout.render
                 </div>
                 <% | _ -> %>
                 <table class="max-w-5xl lg:max-w-full align-top block lg:table">
-                    <thead class="hidden lg:table-header-group bg-legacy-body-700 text-legacy-default text-left rounded-xl">
+                    <thead class="hidden lg:table-header-group text-title dark:text-dark-title text-left rounded-xl">
                         <tr>
                             <th class="py-4 px-6 rounded-l-lg text-x w-2/5">Title</th>
                             <th class="py-4 px-6">Years</th>
@@ -84,34 +84,36 @@ Layout.render
                     </thead>
                     <tbody class="block lg:table-row-group">
                         <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
-                            <tr class="flex flex-col lg:table-row mb-4 lg:mb-0 border-b border-b-zinc-200 lg:border-none">
+                            <tr class="flex flex-col lg:table-row mb-4 lg:mb-0 border-b  dark:border-b-dark-separator_30 lg:border-none">
                                 <td class="py-0 lg:py-4 px-6 font-semibold">
-                                    <div class="text-xl lg:text-base font-semibold">
+                                    <div class="text-xl text-title dark:text-dark-title lg:text-base font-semibold">
                                         <%s paper.title %>
                                     </div>
-                                    <div class="font-normal text-sm mt-2 text-legacy-lighter">
+                                    <div class="font-normal text-sm mt-2 text-content dark:text-dark-content">
                                         <%s paper.abstract %>
                                     </div>
                                 </td>
-                                <td class="pt-4 lg:py-4 px-6 font-medium align-top">
+                                <td class="pt-4 lg:py-4 px-6 font-medium align-top text-title dark:text-dark-title">
                                     <%i paper.year %>
                                 </td>
-                                <td class="pt-4 lg:py-4 px-6 font-medium align-top">
+                                <td class="pt-4 lg:py-4 px-6 font-medium align-top text-title dark:text-dark-title">
                                     <div class="flex flex-wrap">
                                         <% paper.tags |> List.iter (fun (tag : string) -> %>
                                             <div
-                                                class="tag tag-blue">
+                                                class="tag">
                                                 <%s tag %>
                                             </div>
                                             <% ); %>
                                     </div>
                                 </td>
-                                <td class="pt-4 lg:py-4 px-6 font-medium align-top">
-                                    <%s String.concat ", " paper.authors %>
+                                <td class="pt-4 lg:py-4 px-6 font-medium align-top text-title dark:text-dark-title">
+                                    <% paper.authors |> List.iter (fun (author) -> %>
+                                    <li><%s author %></li>
+                                        <% ); %>
                                 </td>
                                 <td class="py-4 px-6 align-top">
                                     <% paper.links |> List.iter (fun (link : Data.Paper.link) -> %>
-                                        <a href="<%s link.uri %>" class="text-primary font-medium block whitespace-nowrap">
+                                        <a href="<%s link.uri %>" class="text-primary dark:text-dark-white dark:underline hover:text-underline dark:hover:text-dark-primary font-medium block whitespace-nowrap">
                                             <%s link.description %>
                                         </a>
                                         <% ); %>

@@ -1,5 +1,5 @@
 let side_box_link ~href ~title ~icon_html =
-    <a href="<%s href %>" class="flex items-center py-2 px-4 hover:text-primary">
+    <a href="<%s href %>" class="flex items-center py-2 px-4 text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary">
         <%s! icon_html %>
         <%s title %>
     </a>
@@ -29,35 +29,35 @@ let render_user_avatar ~x_show (user: Data.Opam_user.t) =
       <% | Some avatar -> %>
       <img class="shrink-0 inline-flex h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
       <% ); %>
-      <div class="text-sm font-medium text-legacy-default"><%s user.name %></div>
+      <div class="text-sm font-medium text-content dark:text-dark-content"><%s user.name %></div>
     </a>
   </li>
 in
 let render_user_list (users: Data.Opam_user.t list) =
-  <div class="mt-3 text-sm text-legacy-default" <%s! if List.length users > num_of_users_to_show then "x-data='{ open: false }'" else "" %>>
+  <div class="mt-3 text-sm text-content dark:text-dark-content" <%s! if List.length users > num_of_users_to_show then "x-data='{ open: false }'" else "" %>>
     <ol class="space-y-3">
       <% users |> List.iteri (fun i (user : Data.Opam_user.t) -> %>
       <%s! render_user_avatar ~x_show:(i > num_of_users_to_show - 1) user %>
       <% ); %>
     </ol>
     <% if List.length users > num_of_users_to_show then (%>
-    <button class="text-primary py-4" x-on:click="open = !open" x-text="open ? 'Hide <%s string_of_int (List.length users - num_of_users_to_show) %>...' : 'Show <%s string_of_int (List.length users - num_of_users_to_show) %> more...'"></button>
+    <button class="text-primary dark:text-dark-primary py-4" x-on:click="open = !open" x-text="open ? 'Hide <%s string_of_int (List.length users - num_of_users_to_show) %>...' : 'Show <%s string_of_int (List.length users - num_of_users_to_show) %> more...'"></button>
     <% ) else (); %>
   </div>
 in
-  <div class="text-base text-legacy-lighter mb-6">
+  <div class="text-base text-content dark:text-dark-content mb-6">
     <%s package.synopsis %>
   </div>
 
-  <h2 class="inline-flex items-center text-lg font-medium text-legacy-default">
-      <%s! Icons.command_line "mr-4 h-6 w-6 text-primary" %>
+  <h2 class="inline-flex items-center text-lg font-medium text-content dark:text-dark-content">
+      <%s! Icons.command_line "mr-4 h-6 w-6 text-primary dark:text-dark-primary" %>
       Install
   </h2>
 
   <%s! Copy_to_clipboard_snippet.render ~id:"install-package" ~class_:"whitespace-nowrap" ("opam install " ^ package.name ^ "." ^ specific_version) %>
 
-  <h2 class="inline-flex items-center text-lg font-medium text-legacy-default mt-8">
-      <%s! Icons.command_line "mr-4 h-6 w-6 text-primary" %>
+  <h2 class="inline-flex items-center text-lg font-medium text-content dark:text-dark-content mt-8">
+      <%s! Icons.command_line "mr-4 h-6 w-6 text-primary dark:text-dark-primary" %>
       Dune Dependency
   </h2>
 
@@ -80,39 +80,39 @@ in
       <%s! side_box_link ~icon_html:(Icons.tag "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ~filepath:("versions")) ~title: ( "Versions (" ^ string_of_int (List.length package.versions) ^ ")") %>
   </div>
 
-  <h2 class="mt-8 font-semibold text-base text-legacy-lighter">Authors</h2>
+  <h2 class="mt-8 font-semibold text-base text-title dark:text-dark-title">Authors</h2>
   <%s! render_user_list package.authors %>
 
-  <h2 class="mt-8 font-semibold text-base text-legacy-lighter">Maintainers</h2>
+  <h2 class="mt-8 font-semibold text-base text-title dark:text-dark-title">Maintainers</h2>
   <%s! render_user_list package.maintainers %>
 
   <% match package.source with
   | None -> ()
   | Some (uri, checksums) -> %>
-  <h2 class="font-semibold mt-8 mb-3 text-base text-legacy-lighter">Sources</h2>
+  <h2 class="font-semibold mt-8 mb-3 text-base text-title dark:text-dark-title">Sources</h2>
   <div class="flex flex-col space-y-2 text-sm">
-    <a class="flex font-mono items-center gap-4 text-legacy-default hover:text-primary overflow-hidden rounded"
+    <a class="flex font-mono items-center gap-4 text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary  overflow-hidden rounded"
         href="<%s uri %>">
       <span class="flex-grow">
         <%s Filename.basename uri %>
       </span>
 
-      <div class="p-1 bg-primary text-white rounded">
+      <div class="p-1 bg-primary dark:bg-dark-primary text-title dark:text-dark-title rounded">
           <%s! Icons.download "h-6 w-6" %>
       </div>
     </a>
 
     <% checksums |> List.iter begin fun checksum -> %>
-    <div class="flex items-center gap-4 bg-legacy-primary-200 text-gray-700 rounded"
+    <div class="flex items-center gap-4 bg-primary_nav_block_hover_10 dark:bg-dark-primary_nav_block_hover_10 text-content dark:text-dark-content rounded"
       x-data="{ copied: false }">
       <code class="px-4 text-ellipsis overflow-hidden min-w-0" aria-label="checksum"><%s String.trim checksum %></code>
 
       <button
         @click="$clipboard('<%s checksum %>'); copied = true; setTimeout(() => copied = false, 2000)"
-        x-show="!copied" title="copy checksum to clipboard" class="p-1 text-primary rounded">
+        x-show="!copied" title="copy checksum to clipboard" class="p-1 text-primary dark:text-dark-primary rounded">
           <%s! Icons.copy "h-6 w-6" %>
       </button>
-      <button x-show="copied" title="checksum copied to clipboard" class="p-1 text-primary rounded">
+      <button x-show="copied" title="checksum copied to clipboard" class="p-1 text-primary dark:text-dark-primary rounded">
           <%s! Icons.copied_to_clipboard "h-6 w-6" %>
       </button>
     </div>
@@ -147,12 +147,12 @@ let render
 ~(deps_and_conflicts: dependencies_and_conflicts list)
 (package : Package.package) =
   let render_dependency ~name ~cstr ~version =
-    <li class="flex m-0 space-x-3 py-2 pr-4 hover:bg-gray-100 border-b border-gray-200">
-      <a href="<%s Url.Package.overview name ?version %>" class="text-primary hover:underline">
+    <li class="flex m-0 space-x-3 py-2 pr-4 hover:bg-separator_20 dark:hover:bg-dark-separator_30 border-b border-separator_20 dark:border-dark-separator_30">
+      <a href="<%s Url.Package.overview name ?version %>" class="text-primary dark:text-dark-primary hover:underline">
         <%s name %>
       </a>
       <% match cstr with None -> () | Some cstr -> %>
-        <code class="text-gray-700 font-medium"><%s cstr %></code>
+        <code class="text-content dark:text-dark-content font-medium"><%s cstr %></code>
       <% ; %>
     </li>
   in
@@ -160,8 +160,8 @@ let render
   let render_collapsible_dependencies section =
     let is_collapsible = section.collapsible && List.length section.items > num_of_dependencies_to_show in
     <div <%s! if is_collapsible then "x-data='{ open: false }'" else "" %>>
-      <div class="border-l-4 border-l-[#575959] border-b-2 border-t-2 border-r-2 rounded border-transparent px-4 -ml-4 mb-6 mt-12">
-        <h2 id="<%s section.slug %>" class="text-xl font-medium my-2">
+      <div class="border-l-4 border-l-primary dark:border-l-dark-primary border-b-2 border-t-2 border-r-2 rounded border-transparent px-4 -ml-4 mb-6 mt-12">
+        <h2 id="<%s section.slug %>" class="text-xl font-medium my-2 text-title dark:text-dark-title">
           <% if is_collapsible then (%>
           <button class="flex gap-2 items-center" x-on:click="open = !open; $dispatch('resize')"><%s section.title %>
             <span title="expand" x-show="!open"><%s! Icons.chevron_right "h-5 w-5" %></span><span title="collapse" x-show="open"><%s! Icons.chevron_down "h-5 w-5" %></span>
@@ -171,14 +171,14 @@ let render
           <% ); %>
         </h2>
       </div>
-      <% if List.length section.items = 0 then ( %> None <% ) else ( %>
+      <% if List.length section.items = 0 then ( %> <p class="text-content dark:text-dark-content">None</p> <% ) else ( %>
         <ol class="grid lg:grid-cols-2 gap-4" <%s! if is_collapsible then "x-show='open'" else "" %>>
           <% section.items |> List.iter (fun { name; cstr; version } -> %>
           <%s! render_dependency ~name ~cstr ~version %>
           <% ); %>
         </ol>
         <% if is_collapsible then (%>
-        <button class="text-primary py-4" x-on:click="open = !open; $dispatch('resize')" x-show="open">Hide</button>
+        <button class="text-primary dark:text-dark-primary py-4" x-on:click="open = !open; $dispatch('resize')" x-show="open">Hide</button>
         <% ) else (); %>
       <% ); %>
     </div>
@@ -196,43 +196,43 @@ let render
   ~right_sidebar_html:(right_sidebar ~toc) @@
   <div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
       <div class="flex-1 max-w-full">
-        <div class="p-4 max-w-full border-2 border-l-4 border-gray-200 border-l-primary rounded rounded-r-lg">
-          <h2 id="description" class="mb-4 mt-0 text-xl font-semibold uppercase">Description</h2>
-          <div class="prose">
+        <div class="p-4 max-w-full border-2 border-l-4 border-separator_20 dark:border-dark-separator_30 border-l-primary dark:border-l-dark-primary rounded rounded-r-lg">
+          <h2 id="description" class="mb-4 mt-0 text-xl text-title dark:text-dark-title font-semibold uppercase">Description</h2>
+          <div class="prose dark:prose-invert">
             <%s! package.description %>
           </div>
         </div>
 
         <div class="flex flex-wrap gap-3 mt-4">
           <% (match package.tags with [] -> () | _ ->  %>
-            <h2 class="text-base font-semibold text-legacy-lighter">Tags</h2>
+            <h2 class="text-base font-semibold text-title dark:text-dark-title">Tags</h2>
             <% package.tags |> List.iter (fun tag -> %>
             <a href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
-              class="hover:underline px-2 text-primary border border-primary font-medium bg-legacy-primary-100 rounded">
+              class="hover:underline px-2 text-primary dark:text-dark-primary border border-primary dark:border-dark-primary font-medium rounded">
               <%s tag %>
             </a>
             <% ); %>
           <% ); %>
           <div class="flex-grow"></div>
-          <h2 class="font-semibold text-base text-legacy-lighter">Published:
+          <h2 class="font-semibold text-base text-content dark:text-dark-content">Published:
             <span class="font-normal"><%s Utils.human_date_of_timestamp package.publication %></span>
           </h2>
         </div>
 
         <% (match readme with | None -> () | Some content -> %>
-        <div class="border-l-2 border-gray-200 px-4 space-y-6">
+        <div class="border-l-2 border-separator_20 dark:border-dark-separator_30 px-4 space-y-6">
           <div class="mx-[-2px]">
-            <div class="border-l-4 border-l-[#575959] border-b-2 border-t-2 border-r-2 rounded border-transparent px-4 -ml-4 mb-6 mt-12">
-              <h2 id="readme" class="text-xl font-medium my-2">README</h2>
+            <div class="border-l-4 border-l-[#575959] dark:border-l-[#8B949D] border-b-2 border-t-2 border-r-2 rounded border-transparent px-4 -ml-4 mb-6 mt-12">
+              <h2 id="readme" class="text-xl text-title dark:text-dark-title font-medium my-2">README</h2>
             </div>
-            <div class="prose max-w-full">
+            <div class="prose dark:prose-invert max-w-full">
               <%s! content %>
             </div>
           </div>
         </div>
         <% ); %>
 
-        <div class="border-l-2 border-gray-200 px-4 space-y-6">
+        <div class="border-l-2 border-separator_20 dark:border-dark-separator_30 px-4 space-y-6">
           <div class="mx-[-2px]">
             <% deps_and_conflicts |> List.iter (fun section -> %>
               <%s! render_collapsible_dependencies section %>
@@ -262,12 +262,12 @@ Package_layout.render
 ~right_sidebar_html:(right_sidebar ~toc) @@
   <div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
       <div class="flex-1 max-w-full">
-        <div class="border-l-2 border-gray-200 px-4 space-y-6">
+        <div class="border-l-2 border-separator_20 dark:border-dark-separator_30 px-4 space-y-6">
           <div class="mx-[-2px]">
             <div class="border-l-4 px-4 -ml-4 mb-6 mt-12 border-transparent border-l-body-400 rounded border-t-2 border-b-2 border-r-2">
               <h2 id="content" class="text-xl font-medium my-2"><%s content_title %></h2>
             </div>
-            <div class="prose max-w-full">
+            <div class="prose dark:prose-invert max-w-full">
               <%s! content %>
             </div>
           </div>

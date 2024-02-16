@@ -1,6 +1,5 @@
 ---
 title: Updated Linux Distros and OCaml versions
-date: "2023-04-25"
 tags: [infrastructure]
 ---
 

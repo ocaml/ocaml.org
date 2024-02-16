@@ -31,6 +31,7 @@ const figma_colors = {
       primary: "#C24F1E",
       primary_40: "#D5400066",
       primary_20: "#D5400033",
+      primary_10: "#D5400019",
       primary_nav_block_hover_10:"#C24F1E1A",
 
       secondary: "#00838A",
@@ -40,6 +41,7 @@ const figma_colors = {
       tertiary: "#007AD0",
       tertiary_lighter: "#007BC7",
       tertiary_bt_hover: "#111827",
+      white:"#FFFFFF",
 
       title: "#FFFFFFDE",
       content: "#FFFFFF99",
@@ -111,7 +113,7 @@ module.exports = {
         },
         invert: {
           css: {
-            'p, strong':{
+            'p, li, a > span':{
               color: theme('colors.dark.content'),
             },
             a: {
@@ -126,9 +128,9 @@ module.exports = {
             pre: {
               backgroundColor: theme('colors.dark.code_window'),
             },
-            'pre > code': {
+            'pre > code, strong': {
               color: theme('colors.dark.title'),
-            }
+            },
           },
         }
       }),

@@ -6,8 +6,6 @@ description: >
 category: "Advanced Topics"
 ---
 
-# Objects
-
 ## Objects and Classes
 OCaml is an [object-oriented, imperative, functional programming language](https://ocaml.org/about). 
 It mixes all these paradigms and lets you use the most appropriate

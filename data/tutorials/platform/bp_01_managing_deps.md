@@ -6,8 +6,6 @@ description: |
 category: "Best Practices"
 ---
 
-# Managing Dependencies with opam
-
 ## Installing Existing Dependencies
 
 We recommend installing a project's dependencies in a local opam switch to sandbox your development environment.

@@ -34,7 +34,7 @@ let policies = [
   ]
 
 let socials = [
-  ("https://github.com/ocaml/ocaml", "GitHub", Icons.github);
+  ("https://github.com/ocaml", "GitHub", Icons.github);
   ("https://discord.gg/cCYQbqN", "Discord", Icons.discord);
   ("https://twitter.com/ocamllang", "Twitter", Icons.twitter);
   ("https://watch.ocaml.org/", "Peertube", Icons.peertube);

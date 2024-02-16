@@ -11,6 +11,14 @@
   (action
    (run %{bin:dream_eml} %{dep:layout.eml} --workspace %{workspace_root})))
  (rule
+  (target community_layout.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:community_layout.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
   (target learn_layout.ml)
   (action
    (run
@@ -257,6 +265,14 @@
   (action
    (run %{bin:dream_eml} %{dep:header.eml} --workspace %{workspace_root})))
  (rule
+  (target hero_section.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:hero_section.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
   (target navmap.ml)
   (action
    (run %{bin:dream_eml} %{dep:navmap.eml} --workspace %{workspace_root})))
@@ -290,5 +306,13 @@
    (run
     %{bin:dream_eml}
     %{dep:learn_components.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
+  (target tutorial_search.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:tutorial_search.eml}
     --workspace
     %{workspace_root}))))

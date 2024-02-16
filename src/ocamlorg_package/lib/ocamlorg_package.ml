@@ -302,23 +302,30 @@ let package_url ~kind name version =
 let http_get url =
   let open Lwt.Syntax in
   Logs.info (fun m -> m "GET %s" url);
-  let headers =
-    Cohttp.Header.of_list
-      [
-        ( "Accept",
-          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" );
-      ]
-  in
-  let* response, body =
-    Cohttp_lwt_unix.Client.get ~headers (Uri.of_string url)
-  in
-  match Cohttp.Code.(code_of_status response.status |> is_success) with
-  | true ->
-      let+ body = Cohttp_lwt.Body.to_string body in
-      Ok body
-  | false ->
-      let+ () = Cohttp_lwt.Body.drain_body body in
-      Error (`Msg "Failed to fetch the documentation page")
+  Lwt.catch
+    (fun () ->
+      let headers =
+        Cohttp.Header.of_list
+          [
+            ( "Accept",
+              "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+            );
+          ]
+      in
+      let* response, body =
+        Cohttp_lwt_unix.Client.get ~headers (Uri.of_string url)
+      in
+      match Cohttp.Code.(code_of_status response.status |> is_success) with
+      | true ->
+          let+ body = Cohttp_lwt.Body.to_string body in
+          Ok body
+      | false ->
+          let+ () = Cohttp_lwt.Body.drain_body body in
+          Error (`Msg ("Failed to fetch " ^ url)))
+    (function
+      | e ->
+          Logs.err (fun m -> m "%s" (Printexc.to_string e));
+          Lwt.return (Error (`Msg (Printexc.to_string e))))
 
 let module_map ~kind t =
   let package_url =

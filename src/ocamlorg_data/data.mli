@@ -57,6 +57,8 @@ module Changelog : sig
     tags : string list;
     changelog_html : string option;
     body_html : string;
+    body : string;
+    authors : string list;
   }
 
   val all : t list
@@ -126,12 +128,6 @@ module Industrial_user : sig
   val get_by_slug : string -> t option
 end
 
-module Packages : sig
-  type t = { featured : string list }
-
-  val all : t
-end
-
 module Paper : sig
   type link = { description : string; uri : string }
 
@@ -163,7 +159,7 @@ module Exercise : sig
     description : string;
     statement : string;
     solution : string;
-    tutorials : string list option;
+    tutorials : string list;
   }
 
   val all : t list
@@ -220,8 +216,21 @@ module Tutorial : sig
     contribute_link : contribute_link;
   }
 
+  type recommended_next_tutorials = string list
+  type prerequisite_tutorials = string list
+  type search_document_section = { title : string; id : string }
+
+  type search_document = {
+    title : string;
+    category : string;
+    section : search_document_section option;
+    content : string;
+    slug : string;
+  }
+
   type t = {
     title : string;
+    short_title : string;
     fpath : string;
     slug : string;
     description : string;
@@ -231,10 +240,14 @@ module Tutorial : sig
     body_md : string;
     toc : toc list;
     body_html : string;
+    recommended_next_tutorials : recommended_next_tutorials;
+    prerequisite_tutorials : prerequisite_tutorials;
   }
 
   val all : t list
+  val all_search_documents : search_document list
   val get_by_slug : string -> t option
+  val search_documents : string -> search_document list
 end
 
 module Video : sig
@@ -290,7 +303,7 @@ module Planet : sig
       slug : string;
       source : source;
       description : string option;
-      authors : string list option;
+      authors : string list;
       date : string;
       preview_image : string option;
       featured : bool;
@@ -379,8 +392,8 @@ module Release : sig
     kind : kind;
     version : string;
     date : string;
-    is_latest : bool option;
-    is_lts : bool option;
+    is_latest : bool;
+    is_lts : bool;
     intro_md : string;
     intro_html : string;
     highlights_md : string;
@@ -403,6 +416,7 @@ module News : sig
     date : string;
     tags : string list;
     body_html : string;
+    authors : string list;
   }
 
   val all : t list

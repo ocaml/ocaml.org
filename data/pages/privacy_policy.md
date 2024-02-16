@@ -20,7 +20,7 @@ As a visitor to the OCaml.org website:
 - No information is mined or harvested for personal and behavioral trends
 - No information is monetized
 
-We collect some anonymous usage data for statistical purposes. The goal is to track overall trends in our website traffic, it is not to track individual visitors. All the data is in aggregate only. No personal data is collected. You can view the data we collect at [https://ocaml.org/dashboard/analytics](/dashboard/analytics).
+We collect some anonymous usage data for statistical purposes. The goal is to track overall trends in our website traffic, it is not to track individual visitors. All the data is in aggregate only. No personal data is collected. You can view the data we collect [here](https://plausible.ci.dev/ocaml.org).
 
 Data collected includes referral sources, top pages, visit duration, information from the devices (device type, operating system, country and browser) used during the visit and more.
 

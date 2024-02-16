@@ -1,6 +1,5 @@
 ---
 title: Relocating OCaml.org
-date: "2022-11-04"
 tags: [infrastructure]
 ---
 

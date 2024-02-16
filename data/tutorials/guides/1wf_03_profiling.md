@@ -6,8 +6,6 @@ description: >
 category: "Guides"
 ---
 
-# Profiling
-
 ## Speed
 Why is OCaml fast? Indeed, step back and ask *is OCaml fast?* How can we
 make programs faster? In this chapter we'll look at what actually

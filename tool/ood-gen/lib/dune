@@ -1,6 +1,7 @@
 (library
  (name ood_gen)
  (libraries
+  bos
   ocamlorg.global
   cmarkit
   yaml
@@ -16,15 +17,7 @@
   lambdasoup
   fpath
   ppx_stable
-  hilite)
+  hilite
+  re)
  (preprocess
   (pps ppx_deriving_yaml ppx_stable ppx_show)))
-
-(rule
- (targets data.ml)
- (deps
-  (source_tree %{workspace_root}/data/))
- (action
-  (with-stdout-to
-   %{null}
-   (run %{bin:ocaml-crunch} -m plain %{workspace_root}/data -o %{targets}))))

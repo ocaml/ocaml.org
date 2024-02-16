@@ -17,8 +17,6 @@ external_tutorial:
 
 This is an excerpt of the page ["Monads"](https://cs3110.github.io/textbook/chapters/ds/monads.html) from the book [OCaml Programming: Correct + Efficient + Beautiful](https://cs3110.github.io/textbook/cover.html), reproduced here with permission.
 
-# Monads
-
 A *monad* is more of a design pattern than a data structure. That is, there are
 many data structures that, if you look at them in the right way, turn out to be
 monads.

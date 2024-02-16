@@ -1,3 +1,5 @@
+open Ocamlorg.Import
+
 type source = {
   id : string;
   name : string;
@@ -15,7 +17,7 @@ type post = {
          hosted on ocaml.org *)
   slug : string;
   description : string option;
-  authors : string list option;
+  authors : string list;
   date : string;
   preview_image : string option;
   featured : bool;
@@ -36,18 +38,25 @@ module Local = struct
     type sources = t list [@@deriving yaml]
 
     let all () : source list =
-      let bind f r = Result.bind r f in
-      "planet-local-blogs.yml" |> Data.read
-      |> Option.to_result ~none:(`Msg "could not decode")
-      |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
-      |> List.map (fun (s : t) ->
-             {
-               id = s.id;
-               name = s.name;
-               url = "https://ocaml.org/blog/" ^ s.id;
-               description = s.description;
-               disabled = false;
-             })
+      let file = "planet-local-blogs.yml" in
+      let result =
+        let ( let* ) = Result.bind in
+        let* yaml = Utils.yaml_file file in
+        let* sources = sources_of_yaml yaml in
+        Ok
+          (sources
+          |> List.map (fun s ->
+                 {
+                   id = s.id;
+                   name = s.name;
+                   url = "https://ocaml.org/blog/" ^ s.id;
+                   description = s.description;
+                   disabled = false;
+                 }))
+      in
+      result
+      |> Result.get_ok ~error:(fun (`Msg msg) ->
+             Exn.Decode_error (file ^ ": " ^ msg))
   end
 
   module Post = struct
@@ -70,7 +79,7 @@ module Local = struct
         slug;
         url = None;
         description = Some m.description;
-        authors = m.authors;
+        authors = Option.value ~default:[] m.authors;
         date = m.date;
         preview_image = m.preview_image;
         featured = Option.value ~default:false m.featured;
@@ -78,7 +87,9 @@ module Local = struct
       }
 
     let decode (fpath, (head, body)) =
-      let metadata = metadata_of_yaml head in
+      let metadata =
+        metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+      in
       let body_html =
         Cmarkit.Doc.of_string ~strict:true (String.trim body)
         |> Hilite.Md.transform
@@ -128,18 +139,25 @@ module External = struct
     type sources = t list [@@deriving yaml]
 
     let all () : source list =
-      let bind f r = Result.bind r f in
-      "planet-sources.yml" |> Data.read
-      |> Option.to_result ~none:(`Msg "could not decode")
-      |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
-      |> List.map (fun { id; name; url; disabled } ->
-             {
-               id;
-               name;
-               url;
-               description = "";
-               disabled = Option.value ~default:false disabled;
-             })
+      let file = "planet-sources.yml" in
+      let result =
+        let ( let* ) = Result.bind in
+        let* yaml = Utils.yaml_file file in
+        let* sources = sources_of_yaml yaml in
+        Ok
+          (sources
+          |> List.map (fun { id; name; url; disabled } ->
+                 {
+                   id;
+                   name;
+                   url;
+                   description = "";
+                   disabled = Option.value ~default:false disabled;
+                 }))
+      in
+      result
+      |> Result.get_ok ~error:(fun (`Msg msg) ->
+             Exn.Decode_error (file ^ ": " ^ msg))
   end
 
   module Post = struct
@@ -177,7 +195,7 @@ module External = struct
         url = Some m.url;
         slug = "";
         description = m.description;
-        authors = m.authors;
+        authors = Option.value ~default:[] m.authors;
         date = m.date;
         preview_image = m.preview_image;
         featured = Option.value ~default:false m.featured;
@@ -188,10 +206,13 @@ module External = struct
       Fmt.pf ppf {|---
 %s---
 |}
-        (metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
+        (metadata_to_yaml v |> Yaml.to_string
+        |> Result.get_ok ~error:(fun (`Msg m) -> Exn.Decode_error m))
 
     let decode (fpath, (head, body)) =
-      let metadata = metadata_of_yaml head in
+      let metadata =
+        metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+      in
       let body_html =
         Cmarkit.Doc.of_string ~strict:true (String.trim body)
         |> Cmarkit_html.of_doc ~safe:true
@@ -221,7 +242,7 @@ module External = struct
 end
 
 let feed_authors source authors =
-  match Option.fold ~none:[] ~some:(List.map Syndic.Atom.author) authors with
+  match List.map Syndic.Atom.author authors with
   | x :: xs -> (x, xs)
   | [] -> (Syndic.Atom.author source.name, [])
 
@@ -282,7 +303,7 @@ module Post = struct
     ; slug : string
     ; source : source
     ; description : string option
-    ; authors : string list option
+    ; authors : string list
     ; date : string
     ; preview_image : string option
     ; featured : bool

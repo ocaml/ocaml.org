@@ -12,7 +12,6 @@ let term_templates =
     ("changelog", Ood_gen.Changelog.template);
     ("industrial_user", Ood_gen.Industrial_user.template);
     ("outreachy", Ood_gen.Outreachy.template);
-    ("packages", Ood_gen.Packages.template);
     ("paper", Ood_gen.Paper.template);
     ("exercises", Ood_gen.Exercise.template);
     ("release", Ood_gen.Release.template);

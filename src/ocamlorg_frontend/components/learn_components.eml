@@ -44,13 +44,6 @@ let command_line_icon class_ =
     <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
   </svg>
 
-let hero_button ~left_icon ~right_icon ~text ~href =
-  <a href="<%s href %>" class="group whitespace-nowrap flex p-3 gap-2 items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-2 rounded-lg px-4 text-title dark:text-dark-title">
-    <span class="group-hover:text-white dark:group-hover:text-dark-title text-primary dark:text-dark-primary"><%s! left_icon %></span>
-    <span class="flex-grow"><%s text %></span>
-    <%s! right_icon %>
-  </a>
-
 type link = {href : string; title : string}
 
 let block_heading ~icon ~title ~heading =
@@ -58,11 +51,11 @@ let block_heading ~icon ~title ~heading =
     <%s! icon %>
     <%s title %>
   </div>
-  <h2 class="mt-2 text-title dark:text-dark-title text-2xl font-bold leading-7"><%s heading %></h2>
+  <h2 class="overflow-hidden mt-2 text-title dark:text-dark-title text-2xl font-bold leading-7"><%s heading %></h2>
 
 let block_container ~icon ~title ~heading inner_html =
-  <div class="bg-white dark:bg-dark-background">
-    <div class="max-w-sm md:max-w-full md:w-[32rem] flex flex-col">
+  <div class="md:h-full bg-white dark:bg-dark-background">
+    <div class="max-w-sm md:h-full md:max-w-full md:w-[32rem] flex flex-col">
       <%s! block_heading ~icon ~title ~heading %>
       <%s! inner_html %>
     </div>
@@ -70,12 +63,12 @@ let block_container ~icon ~title ~heading inner_html =
 
 let tutorial_block ~icon ~title ~heading ~description ~(tutorial_links: link list) ~see_more  =
   block_container ~icon ~title ~heading @@
-  <div class="mt-4 text-content dark:text-dark-content text-base font-normal leading-7 max-w-prose"> <%s description %> </div>
-  <ul class="flex flex-col gap-4 mt-5">
+  <div class="mt-4 text-content dark:text-dark-content text-base font-normal h-14 text-ellipsis overflow-hidden leading-7 max-w-prose"> <%s description %> </div>
+  <ul class="flex flex-col grow gap-4 mt-5 md:h-60">
     <% tutorial_links |> List.iter (fun link -> %>
     <li class="w-full">
       <a href="<%s link.href %>" class="bg-white dark:bg-dark-card text-title dark:text-dark-title hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl flex gap-2 border-primary dark:border-dark-primary border-2 rounded-lg p-2.5 text-md font-bold">
-        <span class="flex-grow"><%s link.title  %></span>
+        <span class="grow"><%s link.title  %></span>
 
         <%s! Icons.arrow_right_circle "w-6 h-6" %>
       </a>
@@ -110,11 +103,13 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
   in
   let first_link = List.hd book.links in
   block_container ~icon:(icon_for_difficulty book.difficulty) ~title:"RECOMMENDED BOOK" ~heading:book.title @@
-    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
-      <a href="<%s first_link.uri %>" target="_blank">
-        <%s! book_cover ~free:(book.pricing = "free") book.cover %>
-      </a>
-      <div class="">
+    <div class="grow mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
+      <div class="flex flex-col">
+        <a href="<%s first_link.uri %>" target="_blank">
+          <%s! book_cover ~free:(book.pricing = "free") book.cover %>
+        </a>
+      </div>
+      <div>
         <%s! skill_tag (match book.difficulty with | Data.Book.Beginner -> Beginner | Intermediate -> Intermediate | Advanced -> Advanced) %>
         <% (match book.recommendation with None -> () | Some recommendation -> %>
         <p class="mt-2 text-content dark:text-dark-content text-sm font-normal whitespace-normal max-w-prose"> <%s recommendation %> </p>
@@ -126,7 +121,7 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
         </div>
       </div>
     </div>
-    <a href="<%s link.href %>" class="pt-4 text-primary dark:text-dark-title hover:underline dark:underline hover:text-primary dark:hover:text-dark-primary items-center leading-10">
+    <a href="<%s link.href %>" class="pt-6 text-primary dark:text-dark-title hover:underline dark:underline hover:text-primary dark:hover:text-dark-primary items-center leading-10">
       <%s link.title %>
     </a>
 
@@ -188,32 +183,49 @@ let tool_card ~img_src ~title ~text ~url =
       <%s! Icons.arrow_right_circle "h-5 w-5" %></div>
   </a>
 
-let contribute_footer ~href ~description =
-  <div class="pt-10 mt-16 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
-    <div class="lg:col-span-1">
-      <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Help Improve Our Documentation</h2>
-      <p class="text-sm mt-0 mb-4 max-w-xs"><%s description %></p>
-      <a
-        class="inline-block relative py-1 px-4 font-medium no-underline align-middle bg-transparent rounded-md border border-solid appearance-none cursor-pointer select-none whitespace-no-wrap hover:no-underline"
-        href="<%s href %>"
-      >
-        <%s! Icons.github_pull_request "inline-block overflow-visible mr-0 align-text-bottom select-none" %>
-        Contribute</a
-      >
-    </div>
-    <div class="mt-4 lg:mt-0 lg:col-span-1 lg:col-start-3">
-      <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Still need help?</h2>
-      <div class="text-sm mb-2">
-        <a href="https://discuss.ocaml.org/" class="font-semibold no-underline bg-transparent cursor-pointer hover:underline">
-          <%s! Icons.community "inline h-4 w-4" %>
-          Ask the OCaml Community</a
-        >
+let contribute_footer ~href ~description ~recommended_next_tutorials =
+  let render_recommended_next_tutorials ~recommended_next_tutorials =
+    if List.length recommended_next_tutorials > 0 then
+      <div class="mb-6 pt-4 px-6 border-t border-gray-200">
+        <h2 class="mb-4 mt-0 text-lg font-bold leading-6">Also Read:</h3>
+        <ul class="list-disc marker:text-primary">
+          <% recommended_next_tutorials |> List.iter (fun (tutorial : Data.Tutorial.t) -> %>
+            <li class="mb-1">
+              <a href='/docs/<%s tutorial.slug %>'><%s tutorial.short_title %></a>
+            </li>
+          <% ); %>
+        </ul>
       </div>
-      <div class="text-sm mb-2">
-        <a href="https://github.com/ocaml/ocaml.org/issues/new" class="font-semibold no-underline bg-transparent cursor-pointer hover:underline">
-          <%s! Icons.github_issue "inline h-4 w-4" %>
-          Open an Issue</a
-        >
+    else
+      ""
+  in
+  <div class="my-5 pt-5">
+    <%s! render_recommended_next_tutorials ~recommended_next_tutorials %>
+    <div class="grid-cols-2 gap-4 border-t border-gray-200 md:grid">
+      <div class="border-b border-gray-200 px-6 pb-3 md:border-b-0 md:border-r">
+        <h2 class="mb-2 text-lg font-bold leading-6">Still need help?</h2>
+        <div class="mb-2 text-sm">
+          <a href="https://discuss.ocaml.org/" class="flex items-center gap-2 font-normal sm:text-lg no-underline bg-transparent cursor-pointer hover:underline">
+            <%s! Icons.user_group "h-5 w-5" %>
+            Ask the OCaml Community</a
+          >
+        </div>
+        <div class="mb-2 text-sm">
+          <a href="https://github.com/ocaml/ocaml.org/issues/new" class="flex items-center gap-3 font-normal sm:text-lg no-underline bg-transparent cursor-pointer hover:underline">
+            <%s! Icons.github_issue "h-4 w-4" %>
+            Open an Issue</a
+          >
+        </div>
+      </div>
+      <div class="px-6 pb-3">
+        <h2 class="mb-2 text-lg font-bold leading-6">Help Improve Our Documentation</h2>
+        <p class="text-sm text-lighter leading-relaxed mb-0"><%s description %></p>
+        <div class="mb-5 text-sm">
+          <a href="<%s href %>" class="flex items-center gap-2 bg-transparent font-normal sm:text-lg no-underline hover:underline">
+            <%s! Icons.raised_hand "h-6 w-6" %>
+            Contribute</a
+          >
+        </div>
       </div>
     </div>
   </div>

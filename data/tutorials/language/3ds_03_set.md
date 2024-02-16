@@ -1,16 +1,16 @@
 ---
 id: sets
-title: Sets
+title: Set
 description: >
   The standard library's Set module
 category: "Data Structures"
 ---
 
-# Set
-
 ## Introduction
 
 `Set` provides the functor `Set.Make`. You must start by passing `Set.Make` a module. It specifies the element type for your set. In return, you get another module with those elements' set operations.
+
+**Disclaimer:** The examples in this tutorial require OCaml 5.1. If you're running a previous version of OCaml , you can either use `elements` instead of `to_list`, which is a new function in OCaml 5.1, or upgrade OCaml by running `opam update`, then `opam upgrade ocaml`. Check your current version with `ocaml --version`. 
 
 If you need to work with string sets, you must invoke `Set.Make(String)`. That returns a new module.
 ```ocaml
@@ -48,12 +48,14 @@ This module also defines two types:
 
 For `StringSet.empty`, you can see that the OCaml toplevel displays the placeholder `<abstr>` instead of the actual value. However, converting the string set to a list using `StringSet.to_list` results in an empty list.
 
+(Remember, for OCaml versions before 5.1, it will be `StringeSet.empty |> StringSet.elements;;`)
+
 2. A set with a single element is created using `StringSet.singleton`:
 ```ocaml
 # StringSet.singleton "hello";;
 - : StringSet.t = <abstr>
 
-# StringSet.singleton "hello" |> StringSet.to_list;;
+# StringSet.(singleton "hello" |> to_list);;
 - : string list = ["hello"]
 ```
 
@@ -62,7 +64,7 @@ For `StringSet.empty`, you can see that the OCaml toplevel displays the placehol
 # StringSet.of_list ["hello"; "hi"];;
 - : StringSet.t = <abstr>
 
-# StringSet.of_list ["hello"; "hi"] |> StringSet.to_list;;
+# StringSet.(of_list ["hello"; "hi"] |> to_list);;
 - : string list = ["hello"; "hi"]
 ```
 
@@ -73,16 +75,16 @@ There's another relevant function `StringSet.of_seq: string Seq.t -> StringSet.t
 Let's look at a few functions for working with sets using these two sets.
 ```ocaml
 # let first_set = ["hello"; "hi"] |> StringSet.of_list;;
-- : StringSet.t = <abstr>
+- : val first_set : StringSet.t = <abstr>
 
 # let second_set = ["good morning"; "hi"] |> StringSet.of_list;;
-- : StringSet.t = <abstr>
+- : val second_set : StringSet.t = <abstr>
 ```
 
 ### Adding an Element to a Set
 
 ```ocaml
-# first_set |> StringSet.add "good morning" |> StringSet.to_list;;
+# StringSet.(first_set |> add "good morning" |> to_list);;
 - : string list = ["good morning"; "hello"; "hi"]
 ```
 
@@ -91,7 +93,7 @@ The function `StringSet.add` with type `string -> StringSet.t -> StringSet.t` ta
 ### Removing an Element from a Set
 
 ```ocaml
-# first_set |> StringSet.remove "hello" |> StringSet.to_list;;
+# StringSet.(first_set |> remove "hello" |> to_list);;
 - : string list = ["hi"]
 ```
 
@@ -100,7 +102,7 @@ The function `StringSet.remove` with type `string -> StringSet.t -> StringSet.t`
 ### Union of Two Sets
 
 ```ocaml
-# StringSet.union first_set second_set |> StringSet.to_list;;
+# StringSet.(union first_set second_set |> to_list);;
 - : string list = ["good morning"; "hello"; "hi"]
 ```
 
@@ -109,7 +111,7 @@ With the function `StringSet.union`, we can compute the union of two sets.
 ### Intersection of Two Sets
 
 ```ocaml
-# StringSet.inter first_set second_set |> StringSet.to_list;;
+# StringSet.(inter first_set second_set |> to_list);;
 - : string list = ["hi"]
 ```
 
@@ -118,7 +120,7 @@ With the function `StringSet.inter`, we can compute the intersection of two sets
 ### Subtracting a Set from Another
 
 ```ocaml
-# StringSet.diff first_set second_set |> StringSet.to_list;;
+# StringSet.(diff first_set second_set |> to_list);;
 - : string list = ["hello"]
 ```
 
@@ -169,6 +171,14 @@ We can accomplish this by passing an ad-hoc module to the `Set.Make` function:
   type t = string
   let compare a b = compare (String.lowercase_ascii a) (String.lowercase_ascii b)
 end);;
+- : sig
+    type elt = string
+    type t
+    val empty : t
+    val is_empty : t -> bool
+    val mem : elt -> t -> bool
+    val add : elt -> t -> t
+(...)
 ```
 
 We name the resulting module `CISS` (short for "Case Insensitive String Set").
@@ -181,7 +191,7 @@ You can see that this module has the intended behavior:
 ```
 The value `"HELLO"` is not added to the set because it is considered equal to the value `"hello"`, which is already contained in the set.
 
-You can use any type for elements, as long as you define a meaningful `compare` operation:
+You can use any type for elements, as long as you define a meaningful `compare` operation.
 ```ocaml
 # type color = Red | Green | Blue;;
 type color = Red | Green | Blue
@@ -205,5 +215,5 @@ end);;
 
 ## Conclusion
 
-We gave an overview of the `Set` module in OCaml by creating a `StringSet` module using the `Set.Make` functor. Further, we looked at how to create sets based on a custom comparison function. For more information, refer to [Set](https://ocaml.org/api/Set.Make.html) in the Standard Library documentation.
+We gave an overview of OCaml's `Set` module by creating a `StringSet` module using the `Set.Make` functor. Further, we looked at how to create sets based on a custom comparison function. For more information, refer to [Set](/api/Set.Make.html) in the Standard Library documentation.
 

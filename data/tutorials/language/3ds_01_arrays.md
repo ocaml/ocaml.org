@@ -6,8 +6,6 @@ description: >
 category: "Data Structures"
 ---
 
-# Arrays
-
 ## Introduction
 
 In OCaml, arrays are collections of elements of one type. Unlike lists, arrays can be mutated by replacing their elements with other values of the same type, but cannot be resized. Arrays also allow efficient access to elements at any position.
@@ -120,7 +118,7 @@ val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b array -> 'a = <fun>
 
 `fold_left f init a` computes `f (... (f(f init a.(0)) a.(1)) ...) a.(n-1)`
 
-Similarly, we can use the `Array.fold_right` function, which switches the order of its arguments:
+Similarly, we can use the `Array.fold_right` function, which switches the order of its parameters:
 
 ```ocaml
 # Array.fold_right;;

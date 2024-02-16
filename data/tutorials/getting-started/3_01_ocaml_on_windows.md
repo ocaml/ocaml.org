@@ -6,8 +6,6 @@ description: >
 category: "Resources"
 ---
 
-# OCaml on Windows
-
 There is a new [Diskuv OCaml][DKML] ("DKML") Windows
 installer that we recommend for new users. However, while [Diskuv OCaml][DKML] has a modern OCaml 4.14.0 compiler,
 it does not track the latest OCaml compilers. We will officially support Windows as a Tier 1

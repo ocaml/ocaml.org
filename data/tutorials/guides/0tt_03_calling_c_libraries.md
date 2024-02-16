@@ -6,8 +6,6 @@ description: >
 category: "Tutorials"
 ---
 
-# Calling C Libraries
-
 ## MiniGtk
 While the structure of lablgtk outlined in [Introduction to
 Gtk](https://v2.ocaml.org/learn/tutorials/introduction_to_gtk.html) seems perhaps

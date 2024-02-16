@@ -7,10 +7,10 @@ Layout.render
 ~description:source.description
 ~canonical:(Url.local_blog source.name)
 ~active_top_nav_item:Header.Blog @@
-<div class="bg-legacy-default dark:bg-legacy-dark-default py-10 lg:py-20">
+<div class="bg-white dark:bg-dark-background py-10 lg:py-20">
     <div class="container-fluid wide">
         <div class="mx-auto max-w-5xl">
-            <div class="prose mb-12">
+            <div class="prose dark:prose-invert mb-12">
                 <h1><%s source.name %></h1>
 
                 <p><%s source.description %></p>
@@ -23,11 +23,11 @@ Layout.render
                 <div class="flex flex-col-reverse lg:flex-row lg:gap-12">
                     <div class="space-y-3 mt-6 lg:mt-0 flex flex-col flex-1">
                         <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"
-                            class="block text-xl font-semibold hover:text-primary"><%s item.title %></a>
-                        <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>" class="text-legacy-lighter">
+                            class="block text-xl font-semibold text-title dark:text-dark-title hover:text-primary dark:hover:text-dark-primary"><%s item.title %></a>
+                        <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>" class="text-content dark:text-dark-content">
                             <%s Option.value ~default:"" item.description %>
                         </a>
-                        <div class="text-legacy-lighter flex space-x-2.5 text-sm">
+                        <div class="text-content dark:text-dark-content flex space-x-2.5 text-sm">
                             <div><%s Utils.human_time item.date %></div>
                         </div>
                     </div>

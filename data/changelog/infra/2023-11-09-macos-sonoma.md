@@ -1,6 +1,5 @@
 ---
 title: macOS Sonoma Update
-date: "2023-11-09"
 tags: [infrastructure]
 ---
 

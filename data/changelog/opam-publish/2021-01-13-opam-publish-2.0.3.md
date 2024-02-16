@@ -1,6 +1,5 @@
 ---
 title: Opam-publish 2.0.3
-date: "2021-01-13"
 tags: [opam-publish, platform]
 changelog: |
   * Drop Github token generation feature, no longer supported by Github API.
