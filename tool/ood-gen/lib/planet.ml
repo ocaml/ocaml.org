@@ -1,3 +1,5 @@
+open Ocamlorg.Import
+
 type source = {
   id : string;
   name : string;
@@ -53,9 +55,8 @@ module Local = struct
                  }))
       in
       result
-      |> Result.map_error (fun (`Msg msg) ->
+      |> Result.get_ok ~error:(fun (`Msg msg) ->
              Exn.Decode_error (file ^ ": " ^ msg))
-      |> Result.get_ok
   end
 
   module Post = struct
@@ -155,9 +156,8 @@ module External = struct
                  }))
       in
       result
-      |> Result.map_error (fun (`Msg msg) ->
+      |> Result.get_ok ~error:(fun (`Msg msg) ->
              Exn.Decode_error (file ^ ": " ^ msg))
-      |> Result.get_ok
   end
 
   module Post = struct
@@ -206,7 +206,8 @@ module External = struct
       Fmt.pf ppf {|---
 %s---
 |}
-        (metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
+        (metadata_to_yaml v |> Yaml.to_string
+        |> Result.get_ok ~error:(fun (`Msg m) -> Exn.Decode_error m))
 
     let decode (fpath, (head, body)) =
       let metadata =

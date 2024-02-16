@@ -54,7 +54,9 @@ let read_from_dir glob =
 let map_files f glob =
   let f (path, data) =
     let* metadata = extract_metadata_body path data in
-    f (path, metadata)
+    Result.map_error
+      (function `Msg err -> `Msg (path ^ ": " ^ err))
+      (f (path, metadata))
   in
   read_from_dir glob
   |> List.fold_left (fun u x -> Ok List.cons <@> f x <@> u) (Ok [])
