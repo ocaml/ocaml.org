@@ -87,9 +87,11 @@ let get_all_videos () =
   aux data
 
 let () =
-  let watch =
-    get_all_videos ()
-    |> List.stable_sort (fun w1 w2 -> String.compare w1.name w2.name)
-  in
-  let yaml = to_yaml watch in
-  Yaml.pp Format.std_formatter yaml
+  try
+    let watch =
+      get_all_videos ()
+      |> List.stable_sort (fun w1 w2 -> String.compare w1.name w2.name)
+    in
+    let yaml = to_yaml watch in
+    Yaml.pp Format.std_formatter yaml
+  with _ -> print_endline "watch: []"
