@@ -16,7 +16,7 @@ let tabs
     | Language -> Url.learn_language
     | Platform -> Url.platform
     | Guides -> Url.learn_guides
-    | Cookbook -> Url.learn_cookbook
+    | Cookbook -> Url.cookbook
     | Exercises -> Url.exercises
     | Books -> Url.books
   in
