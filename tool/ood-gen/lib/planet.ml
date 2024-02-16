@@ -55,9 +55,8 @@ module Local = struct
                  }))
       in
       result
-      |> Result.map_error (fun (`Msg msg) ->
+      |> Result.get_ok ~error:(fun (`Msg msg) ->
              Exn.Decode_error (file ^ ": " ^ msg))
-      |> Result.get_ok ~error:Fun.id
   end
 
   module Post = struct
@@ -157,9 +156,8 @@ module External = struct
                  }))
       in
       result
-      |> Result.map_error (fun (`Msg msg) ->
+      |> Result.get_ok ~error:(fun (`Msg msg) ->
              Exn.Decode_error (file ^ ": " ^ msg))
-      |> Result.get_ok ~error:Fun.id
   end
 
   module Post = struct
