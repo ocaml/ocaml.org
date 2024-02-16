@@ -5,6 +5,7 @@
 @import "./partials/bg_sections.css";
 @import "./partials/buttons.css";
 @import "./partials/cards.css";
+@import "./partials/cookbook.css";
 @import "./partials/dropdown.css";
 @import "./partials/grid_logos.css";
 @import "./partials/htmx.css";
@@ -29,7 +30,7 @@ body {
 }
 
 .container-fluid {
-  @apply max-w-md md:max-w-7xl w-full mx-auto px-4;
+  @apply md:max-w-7xl w-full mx-auto px-4;
 }
 
 @media (min-width: 40em) {
@@ -179,14 +180,6 @@ table a:hover {
 }
 
 .right-sidebar a:hover {
-  @apply text-primary;
-}
-
-.news-stories button:hover {
-  @apply border-primary text-primary;
-}
-
-.news-stories button:hover i {
   @apply text-primary;
 }
 
