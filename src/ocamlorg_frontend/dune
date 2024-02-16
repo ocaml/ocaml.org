@@ -242,21 +242,21 @@
   (action
    (run %{bin:dream_eml} %{dep:logos.eml} --workspace %{workspace_root})))
  (rule
-  (target learn_cookbook.ml)
-  (deps learn_cookbook.eml)
+  (target cookbook.ml)
+  (deps cookbook.eml)
   (action
    (run
     %{bin:dream_eml}
-    %{dep:learn_cookbook.eml}
+    %{dep:cookbook.eml}
     --workspace
     %{workspace_root})))
  (rule
-  (target learn_cookbook_recipe.ml)
-  (deps learn_cookbook_recipe.eml)
+  (target cookbook_recipe.ml)
+  (deps cookbook_recipe.eml)
   (action
    (run
     %{bin:dream_eml}
-    %{dep:learn_cookbook_recipe.eml}
+    %{dep:cookbook_recipe.eml}
     --workspace
     %{workspace_root}))))
 

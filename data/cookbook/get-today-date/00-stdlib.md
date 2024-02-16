@@ -1,26 +1,27 @@
 ---
 title: Get Current Date (Stdlib)
 problem: "You need to find the year, month, and day values for today's date."
-category: "Dates and Times"
+category: "Date and Time"
 packages: []
+sections:
+- filename: main.ml
+  language: ocaml
+  code_blocks:
+  - text: |
+      Use the `unix` library, which ships with OCaml's standard library, and provides functions to work with dates and times. You can use the `Unix` module to get the current date and time:
+    code: |
+      let today = Unix.localtime (Unix.time ());;
+      let day = today.Unix.tm_mday;;
+  - text: Months are 0 to 11.
+    code: let month = today.Unix.tm_mon + 1;;
+  - text: Years since 1900.
+    code: let year = today.Unix.tm_year + 1900;;
+  - text: |
+      You can use the `Printf` module to print the date:
+    code: |
+      Printf.printf "The current date is %04d-%02d-%02d\n"
+        year month day;;
 ---
-
-## Solution
-
-Use the `unix` library, which ships with OCaml's standard library, and provides functions to work with dates and times. You can use the `Unix` module to get the current date and time:
-
-```ocaml
-let today = Unix.localtime (Unix.time ());;
-let day = today.Unix.tm_mday;;
-let month = today.Unix.tm_mon + 1;;  (* months are 0 to 11 *)
-let year = today.Unix.tm_year + 1900;;  (* years since 1900 *)
-```
-
-You can use the `Printf` module to print the date:
-
-```ocaml
-Printf.printf "The current date is %04d-%02d-%02d\n" year month day;;
-```
 
 ## Discussion
 
