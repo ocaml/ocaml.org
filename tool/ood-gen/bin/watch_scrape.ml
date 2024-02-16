@@ -70,11 +70,17 @@ let get_videos ?start () =
         ]
   in
   let uri = Uri.add_query_params videos_url query_params in
-  let response = Ood_gen.Http_client.get_sync uri in
-  let body = Ezjsonm.value_from_string response in
-  let data = Ezjsonm.(find body [ "data" ]) in
-  let total = Ezjsonm.find body [ "total" ] |> Ezjsonm.get_int in
-  (total, Ezjsonm.get_list of_json data)
+  let response =
+    try Ok (Ood_gen.Http_client.get_sync uri)
+    with Failure msg -> Error (`Msg msg)
+  in
+  match response with
+  | Ok response ->
+      let body = Ezjsonm.value_from_string response in
+      let data = Ezjsonm.(find body [ "data" ]) in
+      let total = Ezjsonm.find body [ "total" ] |> Ezjsonm.get_int in
+      (total, Ezjsonm.get_list of_json data)
+  | Error (`Msg m) -> failwith m
 
 let get_all_videos () =
   let total, data = get_videos () in
@@ -87,11 +93,9 @@ let get_all_videos () =
   aux data
 
 let () =
-  try
-    let watch =
-      get_all_videos ()
-      |> List.stable_sort (fun w1 w2 -> String.compare w1.name w2.name)
-    in
-    let yaml = to_yaml watch in
-    Yaml.pp Format.std_formatter yaml
-  with _ -> print_endline "watch: []"
+  let watch =
+    get_all_videos ()
+    |> List.stable_sort (fun w1 w2 -> String.compare w1.name w2.name)
+  in
+  let yaml = to_yaml watch in
+  Yaml.pp Format.std_formatter yaml
