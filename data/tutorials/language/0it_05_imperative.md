@@ -526,6 +526,44 @@ The following example uses the `get_char` function we defined earlier (in the se
 
 This `while` loop echoes characters typed on the keyboard. When the ASCII `Escape` character is read, the `Exit` exception is thrown, which terminates the iteration and displays the REPL reply: `- : unit = ()`.
 
+### References Inside Closures
+
+In the following example, the function `create_counter` returns a closure that hides a mutable reference `n`. This closure captures the environment where `n` is defined and can modify `n` each time it's invoked. The `n` reference is "hidden" within the closure, encapsulating its state.
+
+```ocaml
+# let create_counter () =
+  let n = ref 0 in
+  fun () -> incr n; !n;;
+val create_counter : unit -> unit -> int = <fun>
+```
+First, we define a function named `create_counter` that takes no arguments. Inside `create_counter`, a reference `n` is initialised with the value 0. This reference will hold the state of the counter. Next, we define a closure that takes no arguments (fun () ->). The closure increments the value of `n` (the counter) using `incr n`, then returns the current value of `n` using `!n`.
+
+```ocaml
+# let c1 = create_counter ();;
+val c1 : unit -> int = <fun>
+
+# let c2 = create_counter ();;
+val c2 : unit -> int = <fun>
+```
+Now, we shall create a closure `c1` that encapsulates a counter. Calling `c1 ()` will increment the counter associated with `c1` and return its current value. Similarly, we create another closure `c2` with its own independent counter.
+
+```ocaml
+# c1 ();;
+- : int = 1
+
+# c1 ();;
+- : int = 2
+
+# c2 ();;
+- : int = 1
+
+# c1 ();;
+- : int = 3
+```
+Calling `c1 ()` increments the counter associated with `c1` and returns its current value. Since this is the first call, the counter starts at 1. Another call to `c1 ()` increments the counter again, so it returns 2.
+
+Calling `c2 ()` increments the counter associated with `c2`. Since `c2` has its own independent counter, it starts at 1. Another call to `c1 ()` increments its counter, resulting in 3.
+
 ## Recommendations for Mutable State and Side Effects
 
 Functional and imperative programming styles are often used together. However, not all ways of combining them give good results. We show some patterns and anti-patterns relating to mutable states and side effects in this section.
