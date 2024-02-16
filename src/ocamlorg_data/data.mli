@@ -517,12 +517,13 @@ module Governance : sig
 end
 
 module Cookbook : sig
-  type code_block_with_explanation = { code : string; text : string }
+  type code_block_with_explanation = { code : string; explanation : string }
 
   type section = {
     filename : string;
     language : string;
     code_blocks : code_block_with_explanation list;
+    code_plaintext : string;
   }
 
   type t = {
