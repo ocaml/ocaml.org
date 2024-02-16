@@ -392,8 +392,8 @@ module Release : sig
     kind : kind;
     version : string;
     date : string;
-    is_latest : bool option;
-    is_lts : bool option;
+    is_latest : bool;
+    is_lts : bool;
     intro_md : string;
     intro_html : string;
     highlights_md : string;

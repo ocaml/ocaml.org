@@ -23,8 +23,8 @@ type t = {
   kind : Kind.t;
   version : string;
   date : string;
-  is_latest : bool option;
-  is_lts : bool option;
+  is_latest : bool;
+  is_lts : bool;
   intro_md : string;
   intro_html : string;
   highlights_md : string;
@@ -34,6 +34,7 @@ type t = {
 }
 [@@deriving
   stable_record ~version:metadata ~add:[ intro; highlights ]
+    ~modify:[ is_latest; is_lts ]
     ~remove:
       [
         intro_md; intro_html; highlights_md; highlights_html; body_md; body_html;
@@ -50,6 +51,8 @@ let of_metadata m =
       (Cmarkit.Doc.of_string ~strict:true m.highlights
       |> Hilite.Md.transform
       |> Cmarkit_html.of_doc ~safe:false)
+    ~modify_is_latest:(Option.value ~default:false)
+    ~modify_is_lts:(Option.value ~default:false)
 
 let sort_by_decreasing_version x y =
   let to_list s = List.map int_of_string_opt @@ String.split_on_char '.' s in
@@ -72,7 +75,7 @@ let all () =
 let template () =
   let all = all () in
   let latest =
-    try List.find (fun r -> r.is_latest = Some true) all
+    try List.find (fun r -> r.is_latest) all
     with Not_found ->
       raise
         (Invalid_argument
@@ -80,7 +83,7 @@ let template () =
             true")
   in
   let lts =
-    try List.find (fun r -> r.is_lts = Some true) all
+    try List.find (fun r -> r.is_lts) all
     with Not_found ->
       raise
         (Invalid_argument
@@ -94,8 +97,8 @@ type t =
   { kind : kind
   ; version : string
   ; date : string
-  ; is_latest: bool option
-  ; is_lts: bool option
+  ; is_latest: bool
+  ; is_lts: bool
   ; intro_md : string
   ; intro_html : string
   ; highlights_md : string
