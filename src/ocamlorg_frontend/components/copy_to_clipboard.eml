@@ -25,7 +25,7 @@ let small_code_snippet
 value
 =
   <div class="w-full flex rounded-md shadow-sm <%s class_ %>" x-data="{ copied: false }">
-    <input type="text" id="<%s id %>" class="hidden"
+    <input type="text" id="<%s id %>" class="flex items-center px-4 py-2 flex-grow rounded-none rounded-l-md bg-gray-800 text-gray-100 text-sm font-mono subpixel-antialiased border-gray-700 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
       value="<%s value %>">
 
     <button title="Copy to clipboard"
