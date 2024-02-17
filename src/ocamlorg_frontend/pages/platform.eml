@@ -28,7 +28,6 @@ Learn_layout.three_column_layout
 ~title:"OCaml Platform"
 ~description:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml."
 ~canonical:Url.platform
-~active_top_nav_item:Header.Learn
 ~left_sidebar_html:(Some((render_sidebar ~active:"platform") ~tutorials ()))
 ~right_sidebar_html:None
 ~current:Platform @@

@@ -4,7 +4,6 @@ Community_layout.single_column_layout
 ~description:"This is a space where groups, companies, and organisations can advertise their projects directly to the
 OCaml community."
 ~canonical:Url.jobs
-~active_top_nav_item:Header.Community
 ~current:Jobs @@
 <div class="w-full intro-section-simple dark:dark-intro-section-simple">
     <div class="container-fluid">

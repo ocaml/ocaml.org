@@ -82,7 +82,6 @@ Learn_layout.three_column_layout
 ~title:(Printf.sprintf "%s · OCaml Documentation" tutorial.short_title)
 ~description:tutorial.description
 ~canonical
-~active_top_nav_item:Learn
 ~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some tutorial.slug) ~tutorials ~section:(of_tutorial_section tutorial.section)))
 ~right_sidebar_html:(Some(right_sidebar tutorial))
 ~current:(of_tutorial_section tutorial.section) @@
