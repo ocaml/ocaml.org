@@ -217,5 +217,16 @@ end
 module Cookbook = struct
   include Cookbook
 
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+  let get_tasks_by_category ~category_slug =
+    tasks
+    |> List.filter (fun (x : task) ->
+           String.equal category_slug x.category.slug)
+
+  let get_by_task ~task_slug =
+    all |> List.filter (fun (x : t) -> String.equal task_slug x.task.slug)
+
+  let get_by_slug ~task_slug slug =
+    List.find_opt
+      (fun x -> String.equal slug x.slug && String.equal task_slug x.task.slug)
+      all
 end

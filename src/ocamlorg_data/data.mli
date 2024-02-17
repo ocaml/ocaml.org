@@ -517,7 +517,10 @@ module Governance : sig
 end
 
 module Cookbook : sig
+  type category = { title : string; slug : string }
+  type task = { title : string; slug : string; category : category }
   type code_block_with_explanation = { code : string; explanation : string }
+  type package = { name : string; version : string }
 
   type section = {
     filename : string;
@@ -528,15 +531,17 @@ module Cookbook : sig
 
   type t = {
     slug : string;
-    group_id : string;
-    title : string;
-    problem : string;
-    category : string;
-    packages : string list;
+    filepath : string;
+    task : task;
+    packages : package list;
     sections : section list;
     body_html : string;
   }
 
+  val categories : category list
+  val tasks : task list
   val all : t list
-  val get_by_slug : string -> t option
+  val get_tasks_by_category : category_slug:string -> task list
+  val get_by_task : task_slug:string -> t list
+  val get_by_slug : task_slug:string -> string -> t option
 end
