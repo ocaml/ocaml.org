@@ -49,10 +49,11 @@ type presentation = {
   video : string option;
   slides : string option;
   poster : bool;
-  additional_links : string list option;
+  additional_links : string list;
 }
 [@@deriving
-  stable_record ~version:presentation_metadata ~modify:[ poster ],
+  stable_record ~version:presentation_metadata
+    ~modify:[ poster; additional_links ],
     show { with_path = false }]
 
 type t = {
@@ -75,6 +76,7 @@ type t = {
 let of_presentation_metadata pm =
   presentation_of_presentation_metadata pm
     ~modify_poster:(Option.value ~default:false)
+    ~modify_additional_links:(Option.value ~default:[])
 
 let of_metadata m =
   of_metadata m ~slug:(Utils.slugify m.title)
@@ -116,7 +118,7 @@ type presentation = {
   video : string option;
   slides : string option;
   poster : bool;
-  additional_links : string list option;
+  additional_links : string list;
 }
 
 type t = {

@@ -365,7 +365,7 @@ module Workshop : sig
     video : string option;
     slides : string option;
     poster : bool;
-    additional_links : string list option;
+    additional_links : string list;
   }
 
   type t = {
