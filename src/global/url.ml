@@ -83,8 +83,8 @@ let installing_ocaml = "/docs/installing-ocaml"
 let exercises = "/exercises"
 let outreachy = "/outreachy"
 let logos = "/logo"
-let cookbook = "/docs/cookbook"
-let cookbook_recipe ~task_slug slug = "/docs/cookbook/" ^ task_slug ^ "/" ^ slug
+let cookbook = "/cookbook"
+let cookbook_recipe ~task_slug slug = "/cookbook/" ^ task_slug ^ "/" ^ slug
 
 let github_opam_file package_name package_version =
   Printf.sprintf
