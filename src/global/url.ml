@@ -84,7 +84,7 @@ let exercises = "/exercises"
 let outreachy = "/outreachy"
 let logos = "/logo"
 let cookbook = "/docs/cookbook"
-let cookbook_recipe recipe = "/docs/cookbook/" ^ recipe
+let cookbook_recipe ~task_slug slug = "/docs/cookbook/" ^ task_slug ^ "/" ^ slug
 
 let github_opam_file package_name package_version =
   Printf.sprintf

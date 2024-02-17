@@ -475,15 +475,20 @@ let exercises req =
   Dream.html (Ocamlorg_frontend.exercises ?difficulty_level filtered_exercises)
 
 let cookbook _req =
-  let recipes = Data.Cookbook.all in
-  Dream.html (Ocamlorg_frontend.cookbook recipes)
+  let categories = Data.Cookbook.categories in
+  Dream.html (Ocamlorg_frontend.cookbook categories)
 
 let cookbook_recipe req =
-  let slug = Dream.param req "id" in
-  let</>? recipe =
-    List.find_opt (fun x -> x.Data.Cookbook.slug = slug) Data.Cookbook.all
+  let task_slug = Dream.param req "task_slug" in
+  let slug = Dream.param req "slug" in
+  let</>? recipe = Data.Cookbook.get_by_slug ~task_slug slug in
+  let other_recipes_for_this_task =
+    Data.Cookbook.all
+    |> List.filter (fun (c : Data.Cookbook.t) ->
+           c.task.slug = recipe.task.slug && c.slug <> recipe.slug)
   in
-  Dream.html (Ocamlorg_frontend.cookbook_recipe recipe)
+  Dream.html
+    (Ocamlorg_frontend.cookbook_recipe recipe other_recipes_for_this_task)
 
 let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Data.Outreachy.all)
 

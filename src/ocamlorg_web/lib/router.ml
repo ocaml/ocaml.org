@@ -31,7 +31,9 @@ let page_routes t =
       Dream.get Url.learn_guides Handler.learn_guides;
       Dream.get Url.platform Handler.platform;
       Dream.get Url.cookbook Handler.cookbook;
-      Dream.get (Url.cookbook_recipe ":id") Handler.cookbook_recipe;
+      Dream.get
+        (Url.cookbook_recipe ~task_slug:":task_slug" ":slug")
+        Handler.cookbook_recipe;
       Dream.get Url.community Handler.community;
       Dream.get Url.changelog Handler.changelog;
       Dream.get (Url.changelog_entry ":id") Handler.changelog_entry;

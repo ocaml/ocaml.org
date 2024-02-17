@@ -24,6 +24,7 @@ We've provided a list of community-driven content below. When adding content to 
 - [Success Stories](#content-success-story)
 - [Academic and Industrial Users](#content-user)
 - [OCaml Books](#content-book)
+- [OCaml Cookbook Recipes](#content-cookbook)
 - [Recurring Events](#content-recurring-event)
 - [Upcoming Events](#content-upcoming_event)
 - [The OCaml Changelog](#content-changelog)
@@ -111,6 +112,12 @@ You can add a new industrial user by creating a new Markdown file in [data/acade
 > Contribute to the [OCaml Books](https://ocaml.org/books).
 
 You can add a new OCaml book by creating a new Markdown file in [data/books/](data/books/). For instance: [ocaml-from-the-very-beginning.md](data/books/ocaml-from-the-very-beginning.md).
+
+### <a name="content-cookbook"></a>Add a Recipe to the OCaml Cookbook
+
+The OCaml cookbook is a place where OCaml developers share how to solve practical-minded tasks in OCaml using packages from the OCaml ecosystem. To contribute a recipe, you need to choose a category for the recipe (see [cookbook_categories.yml](https://)) and write a markdown file with YAML header (for an example, see []).
+
+Every cookbook recipe consists of one or more files with explanations. In the markdown body of the document, you can provide further context or links to the packages used. But: keep this short, the point is to get people back to building things, not keep them here reading.
 
 ### <a name="content-recurring-event"></a>Add A Recurring Event
 

@@ -1,4 +1,4 @@
-let render (recipe: Data.Cookbook.t) =
+let render (recipe: Data.Cookbook.t) (other_recipes_for_this_task: Data.Cookbook.t list) =
 Learn_layout.single_column_layout
   ~title:"OCaml Cookbook"
   ~description:"A collection of recipes to get things done in OCaml."
@@ -8,9 +8,8 @@ Learn_layout.single_column_layout
 <div class="bg-legacy-default dark:bg-legacy-dark-default">
   <div class="container-fluid pt-10">
     <div class="prose mx-auto max-w-5xl">
-      <h1 class="font-normal text-4xl mb-10"><%s recipe.title %></h2>
-      <h2>Problem</h2>
-      <p><%s recipe.problem %></p>
+      <h1 class="font-normal text-4xl mb-10"><%s recipe.task.title %></h2>
+      <h2>Files</h2>
 % recipe.sections |> List.iter (fun (section: Data.Cookbook.section) -> 
       <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10">
         <div></div>
@@ -23,7 +22,33 @@ Learn_layout.single_column_layout
 % );
       </div>
 % );
+% if String.length recipe.body_html > 0 then (
+      <h2>Discussion</h2>
       <%s! recipe.body_html %>
+% );
+      <h2>Recipe not working? Want to Upgrade a Package Version of this Recipe?</h2>
+      <a target="_blank" href="https://github.com/ocaml/ocaml.org/issues">Open an issue</a>
+      or <a target="_blank" href="https://github.com/ocaml/ocaml.org/tree/main/data/<%s recipe.filepath %>">contribute to this recipe</a>!
+% if List.length other_recipes_for_this_task > 0 then (
+      <h2>Other Recipes for this Task</h2>
+      <ul>
+% other_recipes_for_this_task |> List.iter (fun (recipe : Data.Cookbook.t) ->
+        <li>
+          <div class="grid grid-cols-[1fr_40%] items-center">
+            <a href="<%s Url.cookbook_recipe ~task_slug:recipe.task.slug recipe.slug %>" class="p-2 underline hover:no-underline">
+              <%s recipe.task.title %>
+            </a>
+            <div class="flex flex-wrap gap-2 items-center">
+            <%s if List.length recipe.packages = 0 then "-" else "" %>
+              <% recipe.packages |> List.iter (fun (package: Data.Cookbook.package) -> %>
+              <a class="tag" href="<%s Url.Package.overview ~version:package.version package.name %>"><%s package.name %>.<%s package.version %></a>
+            <% ); %>
+            </div>
+          </div>
+        </li>
+% );
+      </ul>
+% );
     </div>
   </div>
 </div>
