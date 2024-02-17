@@ -18,7 +18,6 @@ Learn_layout.three_column_layout
 ~title:meta.question
 ~description:(meta.question ^ " " ^ meta.answer)
 ~canonical:(Url.is_ocaml_yet meta.id)
-~active_top_nav_item:Header.Learn
 ~current:Learn_layout.Guides
 ~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some (Printf.sprintf "is-ocaml-%s-yet" meta.id)) ~tutorials))
 ~right_sidebar_html:(Some (Toc.render toc)) @@
