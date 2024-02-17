@@ -108,6 +108,9 @@ module.exports = {
             'pre > code': {
               color: theme('colors.white'),
             }
+          },{
+            '--tw-prose-bullets': figma_colors.content,
+            '--tw-prose-invert-bullets': figma_colors.dark.content,
           }]
           
         },
