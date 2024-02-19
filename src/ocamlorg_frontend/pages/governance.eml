@@ -3,19 +3,14 @@ module MemberSet = Set.Make (Data.Governance.Member)
 let count_members (team : Data.Governance.team) =
    MemberSet.cardinal (MemberSet.of_list (team.members @ List.concat (List.map (fun (team : Data.Governance.team) -> team.members) team.subteams)))
 
-let render_team_card (team : Data.Governance.team) member_label btn_class =
+let render_working_group (team : Data.Governance.team) member_label btn_class =
   <div class="flex-col">
-    <div class="text-2xl mb-5 font-semibold flex items-center">
+    <div class="text-2xl mb-2 font-semibold flex items-center text-white dark:text-dark-title">
       <span><%s team.name %></span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 ml-2" fill="none" viewBox="0 0 24 24"
-        stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
     </div>
-    <div class="opacity-70 mb-4 text-lg"><%s team.description %></div>
-    <div class="font-semibold mb-6"><%i count_members team %> <%s member_label %></div>
-    <a href="<%s Url.governance_team team.id %>" class="btn <%s btn_class %>">
+    <p class="mb-2 text-white dark:text-dark-title"><%s team.description %></p>
+    <div class="font-semibold my-6 text-white dark:text-dark-title"><%i count_members team %> <%s member_label %></div>
+    <a href="<%s Url.governance_team team.id %>" class="btn-transparent <%s btn_class %>">
       <span>Details</span>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
         stroke="currentColor">
@@ -24,71 +19,60 @@ let render_team_card (team : Data.Governance.team) member_label btn_class =
     </a>
   </div>
 
+let render_team_card (team: Data.Governance.team) member_label = 
+  <div class="flex flex-col bg-white rounded-2xl border dark:bg-dark-card outline-[3px] p-5">
+    <p class="text-title dark:text-dark-title text-lg mb-5"><%s team.name %></p>
+    <p class="text-content dark:text-dark-content flex-grow text-base mb-5"><%s team.description %></p>
+    <p class="text-content dark:text-dark-content text-base font-bold mb-2"><%i count_members team %> <%s member_label %></p>
+    <a href="<%s Url.governance_team team.id %>" class="flex gap-2 items-center text-base text-primary hover:text-primary-dark hover:underline dark:text-dark-primary dark:hover:underline py-2">
+      Details
+      <%s! Icons.arrow_right_circle "h-5 w-5" %>
+    </a>
+  </div>
+
 let render ~teams ~working_groups =
 Layout.render
 ~title:"Governance"
 ~description:"OCaml is a mature, statically-typed, functional programming language. Learn more about its rich history
 and what makes it unique." @@
-<div class="intro-section-simple">
+<div class="w-full border-b intro-section-simple dark:dark-intro-section-simple md:bg-transparent dark:border-none md:bg-[length:cover] py-16 md:bg-[url('/img/governance/hero-background.png')] dark:md:bg-[url('/img/governance/dark-hero-background.png')]">
   <div class="container-fluid">
-    <div class="mx-auto px-4 sm:px-6">
-      <div class="">
-        <div class="sm:text-center lg:col-span-8 lg:text-center">
-          <h1 class="font-bold pb-6 text-[56px]">Governance</h1>
-          <div class="text-2xl text-body-400 pb-10">The projects running under OCaml and the awesome people
-            behind it
-          </div>
-          <a href="<%s Url.governance_policy %>"><button class="btn btn-lg mb-4 lg:mb-0">Read the Governance Policy</button></a>
+      <div class="flex md:flex-row flex-col">
+        <div class="w-full m-auto mb-4 md:mb-0">
+          <h1 class="font-bold mb-2 text-title dark:text-dark-title">Governance</h1>
+          <p class="text-title dark:text-dark-title">The projects running under OCaml and the awesome people behind it
+          </p>
+        </div> 
+        <div class="flex h-max flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto mt-8 md:mt-0">
+        <%s!  Hero_section.hero_button ~left_icon:(Icons.book "w-5 h-5") ~right_icon:("") ~text:("Read the Governance Policy") ~href:("https://ocaml.org/policies/governance") %>
+       </div>
+      </div>
+  </div>
+</div>
+<div class="container-fluid py-10">
+  <h2 class="font-bold text-2xl mb-2 text-title dark:text-dark-title">Teams</h2>
+  <p class="text-lg text-content dark:text-dark-content">See who the maintainers of the various OCaml projects are. We present a comprehensive list structured by project / purpose</p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+    <% teams |> List.iter (fun (team : Data.Governance.team) -> %>
+    <%s! render_team_card team "maintainers" %>
+    <% );%>
+  </div>
+</div>
+<div class="w-full governance-blue-gradient dark:dark-governance-blue-gradient">
+  <div class="container-fluid flex justify-between items-center py-10 px-8">
+      <div class="flex flex-col w-full">
+        <div class="md:max-w-[80%]">
+          <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Working groups</h2>
+          <p class="text-white dark:text-dark-title mb-12 leading-7">Working groups are community initiatives that gather around certain topics or a shared purpose. The <a class="underline font-bold" href="<%s Url.governance_policy %>">OCaml Governance Policy</a> does not apply to them. Participation is welcome and encouraged.</p>
+        </div>
+        <div>
+          <% working_groups |> List.iter (fun (wg : Data.Governance.team) -> %>
+          <%s! render_working_group wg "organiser(s)" "bg-transparent border border-white dark:border-dark-white dark:bg-transparent text-white dark:text-dark-white;" %>
+          <% ); %>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-<div class="governance-contrast-section">
-  <div class="py-10 lg:py-28">
-    <div class="container-fluid text-white">
-      <h2 class="font-bold gradient mb-6 text-[40px]">Teams</h2>
-      <div class="text-lg">
-        See who the maintainers of the various OCaml projects are. We present a comprehensive list structured by project / purpose.
+      <div class="hidden md:flex h-[15rem] ml-auto w-[30%]">
+          <img class="" src="<%s! Ocamlorg_static.Asset.url "img/governance/circle_image.png" %>" alt="camel head illustration">
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-20 mt-16">
-        <% teams |> List.iter (fun (team : Data.Governance.team) -> %>
-        <%s! render_team_card team "maintainers" "btn-legacy-tertiary" %>
-        <% );%>
-      </div>
-    </div>
-  </div>
-</div>
-<svg width="100%" height="auto" viewBox="0 0 1600 128" fill="none" class='bg-white' xmlns="http://www.w3.org/2000/svg">
-  <rect width="1600" height="121" transform="translate(0 0.000244141)" fill="white" />
-  <circle cx="268.5" cy="68.5002" r="27.5" fill="#EE6A1A" fill-opacity="0.48" />
-  <path fill-rule="evenodd" clip-rule="evenodd"
-    d="M0 106L133 87.1667C267 68.3333 533 30.6667 800 30.6667C1067 30.6667 1333 68.3333 1467 87.1667L1600 106V0H1467C1333 0 1067 0 800 0C533 0 267 0 133 0H0V106Z"
-    fill="url(#paint0_linear_2087_13206)" />
-  <circle cx="200" cy="80" r="48" fill="#CC4D00" />
-  <defs>
-    <linearGradient id="paint0_linear_2087_13206" x1="1600" y1="44.6059" x2="-2.29315e-07" y2="44.6059"
-      gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0B1528" />
-      <stop offset="0.536458" stop-color="#0B1528" stop-opacity="0.958333" />
-      <stop offset="1" stop-color="#0B1528" />
-    </linearGradient>
-  </defs>
-</svg>
-
-<div class="bg-white">
-  <div class="py-10 lg:py-28">
-    <div class="container-fluid">
-      <h2 class="font-bold text-body-600 mb-6 text-[40px]">Working groups</h2>
-      <div class="text-body-400 text-lg prose">
-        Working groups are community initiatives that gather around certain topics or a shared purpose.
-        The <a href="<%s Url.governance_policy %>">OCaml Governance Policy</a> does not apply to them. Participation is welcome and encouraged.</div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-20 mt-16">
-        <% working_groups |> List.iter (fun (wg : Data.Governance.team) -> %>
-        <%s! render_team_card wg "organiser(s)" "btn-ghost" %>
-        <% ); %>
-      </div>
-    </div>
   </div>
 </div>
