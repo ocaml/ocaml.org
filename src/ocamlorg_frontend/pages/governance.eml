@@ -10,7 +10,7 @@ let render_work_group_card (team : Data.Governance.team) member_label btn_class 
     </div>
     <div class="mb-2 text-white dark:text-dark-title"><%s team.description %></div>
     <div class="font-semibold mb-3 text-white dark:text-dark-title"><%i count_members team %> <%s member_label %></div>
-    <a href="<%s Url.governance_team team.id %>" class="rounded bg-primary border border-primary font-normal text-lg text-white whitespace-nowrap transition-colors inline-flex items-center justify-center space-x-3 dark:border-dark-primary dark:bg-dark-primary dark:text-dark-white px-4 py-2 <%s btn_class %>">
+    <a href="<%s Url.governance_team team.id %>" class="btn-transparent <%s btn_class %>">
       <span>Details</span>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
         stroke="currentColor">
@@ -20,11 +20,11 @@ let render_work_group_card (team : Data.Governance.team) member_label btn_class 
   </div>
 
 let render_team_card (team: Data.Governance.team) member_label = 
-  <div class="flex-col card dark:dark-card p-5 rounded-xl">
+  <div class="flex-col bg-white rounded-2xl border dark:bg-dark-card outline-[3px] p-5">
     <p class="text-title dark:text-dark-title text-lg mb-5"><%s team.name %></p>
     <p class="text-content dark:text-dark-content text-base mb-5"><%s team.description %></p>
-    <p class="text-content dark:text-dark-content text-base font-bold mb-5"><%i count_members team %> <%s member_label %></p>
-    <a href="<%s Url.governance_team team.id %>" class="flex gap-2 items-center text-sm text-primary hover:text-primary dark:text-dark-title dark:hover:text-dark-primary">
+    <p class="text-content dark:text-dark-content text-base font-bold mb-2"><%i count_members team %> <%s member_label %></p>
+    <a href="<%s Url.governance_team team.id %>" class="flex gap-2 items-center text-sm text-primary hover:text-primary dark:text-dark-title dark:hover:text-dark-primary py-2">
       Details
       <%s! Icons.arrow_right_circle "h-5 w-5" %>
     </a>
@@ -71,7 +71,7 @@ and what makes it unique." @@
           <% ); %>
         </div>
       </div>
-      <div class="hidden md:flex  h-[15rem] mr-16 w-[30%] md:w-[60%]">
+      <div class="hidden md:flex h-[15rem] ml-auto w-[30%]">
           <img class="" src="<%s! Ocamlorg_static.Asset.url "img/governance/circle_image.png" %>" alt="camel head illustration">
       </div>
   </div>

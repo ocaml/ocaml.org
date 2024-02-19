@@ -52,12 +52,12 @@ let render_subteam (team : Data.Governance.team) =
       </div>
       <% ); %>
     <% (match team.dev_meeting with | None -> () | Some dev_meeting -> %>
-    <div class="py-4 px-6 mt-6 bg-white hover:shadow-lg rounded-2xl border inline-block dark:bg-dark-card">
+    <div class="py-4 mt-6">
       <h4 class="font-semibold mb-4 text-2xl text-title dark:text-dark-title">Dev Meeting</h4>
       <%s! render_dev_meeting dev_meeting "" %>
     </div>
     <% ); %>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-6 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-6 mb-4 pb-12">
       <%s! team.members |> List.map (fun (member : Data.Governance.Member.t) -> render_team_member member ) |> String.concat "\n" %>
     </div>
   </div>
