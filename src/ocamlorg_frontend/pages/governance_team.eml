@@ -9,7 +9,7 @@ let render_team_member (member : Data.Governance.Member.t) =
     <img src="https://github.com/<%s member.github %>.png" alt="" class="h-32 w-32 mr-3 inline-block rounded-full">
     <div>
       <div class="text-title dark:text-dark-title text-xl mt-3"><%s member.name %></div>
-      <div class="text-sm text-content dark:text-dark-content text-opacity-60"><%s member.role %></div>
+      <div class="text-sm text-content dark:text-dark-content"><%s member.role %></div>
       <div class="mt-8 text-primary dark:text-dark-primary items-center flex gap-1">
         <%s! Icons.github "h-6 w-6" %>
         <p><%s member.github %></p>
