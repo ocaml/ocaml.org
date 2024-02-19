@@ -57,7 +57,7 @@ let render_subteam (team : Data.Governance.team) =
       <%s! render_dev_meeting dev_meeting "" %>
     </div>
     <% ); %>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-6 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-6 mb-4">
       <%s! team.members |> List.map (fun (member : Data.Governance.Member.t) -> render_team_member member ) |> String.concat "\n" %>
     </div>
   </div>
