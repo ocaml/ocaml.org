@@ -106,7 +106,7 @@ In the rest of this tutorial, we will make more changes to this project in order
 
 ## Watch Mode
 
-Before we dive in, note that you will typically want to use dune's watch mode to continually compile and optionally restart your program. This ensures that the language server has the freshest possible data about your project so your editor support will be top-notch. To use watch mode, just add the `-w` flag:
+Before we dive in, note that you will typically want to use Dune's watch mode to continually compile and optionally restart your program. This ensures that the language server has the freshest possible data about your project, so your editor support will be top-notch. To use watch mode, just add the `-w` flag:
 
 ```shell
 $ opam exec -- dune build -w
