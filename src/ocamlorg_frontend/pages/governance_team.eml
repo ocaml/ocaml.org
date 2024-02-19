@@ -7,10 +7,10 @@ let contact_icon (kind : Data.Governance.contact_kind) = match kind with
 let render_team_member (member : Data.Governance.Member.t) =
   <a href="https://github.com/<%s member.github %>" class="flex gap-x-2 p-4 card dark:dark-card">
     <img src="https://github.com/<%s member.github %>.png" alt="" class="h-32 w-32 mr-3 inline-block rounded-full">
-    <div>
+    <div class="flex flex-col h-full">
       <div class="text-title dark:text-dark-title text-xl mt-3"><%s member.name %></div>
       <div class="text-sm text-content dark:text-dark-content"><%s member.role %></div>
-      <div class="mt-8 text-primary dark:text-dark-primary items-center flex gap-1">
+      <div class="mt-auto text-primary dark:text-dark-primary items-center flex gap-1">
         <%s! Icons.github "h-6 w-6" %>
         <p><%s member.github %></p>
       </div>
@@ -77,14 +77,14 @@ Layout.render
         </svg>
         <a href="<%s Url.governance %>" class="hover:underline">Back to Governance</a>
       </div>
-      <div class="flex flex-col md:flex-row mb-8 justify-between md:items-center">
+      <div class="flex flex-col md:flex-row gap-8 mb-8 md:items-center">
         <div class="md:max-w-[70%]">
           <h1 class="font-bold pb-2 text-title dark:text-dark-title"><%s t.name %></h1>
           <div class="text-content dark:text-dark-content">
             <%s t.description%>
           </div>
         </div>
-        <div class="flex flex-wrap gap-x-4 md:ml-auto mt-8 md:mt-0">
+        <div class="flex flex-wrap gap-x-4 mt-8 md:mt-0">
           <% t.contacts |> List.iter (fun (contact : Data.Governance.contact) -> %>
           <div class="flex h-max flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto">
             <%s!  Hero_section.hero_button ~left_icon:(contact_icon contact.kind "w-5 h-5") ~right_icon:("") ~text:(contact.name) ~href:(contact.link) %>
