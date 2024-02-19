@@ -92,4 +92,10 @@ let () =
     |> List.stable_sort (fun w1 w2 -> String.compare w1.name w2.name)
   in
   let yaml = to_yaml watch in
-  Yaml.pp Format.std_formatter yaml
+  let output =
+    Yaml.pp Format.str_formatter yaml;
+    Format.flush_str_formatter ()
+  in
+  let oc = open_out "data/watch.yml" in
+  Printf.fprintf oc "%s" output;
+  close_out oc
