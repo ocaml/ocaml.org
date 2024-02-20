@@ -54,9 +54,9 @@ let render ~default_code =
     <%s! Header.render ~show_get_started:true ~active_top_nav_item:Header.Playground () %>
 
     <div class="flex h-full overflow-hidden">
-      <div id="panes" class="flex-1 flex max-h-fit">
+      <div id="panes" class="flex flex-col md:flex-row max-h-fit">
 
-        <div id="pane-0" class="hidden md:flex md:flex-col w-[60%]">
+        <div id="pane-0" class="flex flex-col w-full md:w-[60%]">
           <div id="editor1" class="flex-1 flex flex-col overflow-auto"></div>
           <div class="bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4 w-full bottom-0">
             <div class="flex gap-7 w-full justify-end items-center px-4">
