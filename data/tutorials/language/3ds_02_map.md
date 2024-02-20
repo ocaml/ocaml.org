@@ -1,6 +1,6 @@
 ---
-id: map
-title: Map
+id: maps
+title: Maps
 description: >
   Create a mapping using the standard library's Map module
 category: "Data Structures"
@@ -8,12 +8,18 @@ category: "Data Structures"
 
 ## Introduction
 
-The `Map` module lets you create _immutable_ key-value maps for your types. Such
+The [`Map`](/api/Map.html) module lets you create _immutable_ key-value [association
+tables](https://en.wikipedia.org/wiki/Associative_array) for your types. Such
 maps are never modified, and every operation returns a new map instead.
 
-To use `Map`, we first have to use the `Map.Make` functor to create our custom
-map module. This functor takes a module parameter that defines the type of keys
-to be used in the map, and a function for comparing them.
+**Note**: Maps described in this tutorial should not be confused with map
+functions such as `List.map`, `Array.map`, `Option.map` and others. The maps
+described in this tutorial are also called dictionaries or associative tables.
+
+To use `Map`, we first have to use the [`Map.Make`](/api/Map.Make.html) functor to create our custom
+map module. Refer to the [Functors](/docs/functors) for more information on
+functors. This functor has a module parameter that defines the keys' type to
+be used in the maps, and a function for comparing them.
 ```ocaml
 # module StringMap = Map.Make(String);;
 
@@ -33,14 +39,15 @@ module StringMap :
 
 After naming the newly-created module `StringMap`, OCaml's toplevel displays the
 module's signature. Since it contains a large number of functions, the output
-copied here is shortened for brevity (...).
+copied here is shortened for brevity `(...)`.
 
-This module doesn't define what the type of the _values_ in the map is. The type
-of values will be defined when we create our first map.
+This module doesn't define the values' type. It will be defined when we create
+our first map.
 
 ## Creating a Map
 
-The `StringMap` module has an `empty` value that has a type parameter `'a` in its type: `empty : 'a t`.
+The `StringMap` module has an `empty` value that has a type parameter `'a` in
+its type: `empty : 'a t`.
 
 This means that we can use `empty` to create new empty maps where the value is of any type.
 ```ocaml
@@ -63,70 +70,32 @@ val int_map : int StringMap.t = <abstr>
 
 Let's look at a few functions for working with maps using the following maps:
 ```ocaml
-# let lucky_numbers = StringMap.(
-    empty
-    |> add "leostera" 2112
-    |> add "charstring88" 88
-    |> add "divagnz" 13
-  );;
+# let lucky_numbers = StringMap.of_list [
+    ("leostera", 2112);
+    ("charstring88", 88);
+    ("divagnz", 13);
+  ];;
 val lucky_numbers : int StringMap.t = <abstr>
-
-# let unlucky_numbers = StringMap.(
-    empty
-    |> add "the number of the beast" 666
-  );;
-val unlucky_numbers : int StringMap.t = <abstr>
-```
-
-### Adding Entries to a Map
-
-To add an entry to a map, we can use the `add` function that takes a key, a
-value, and a map. This function returns a new map with the new entry added:
-```ocaml
-# let new_lucky_numbers = StringMap.(
-    lucky_numbers
-    |> add "paguzar" 108
-  );;
-val new_lucky_numbers : int StringMap.t = <abstr>
-```
-
-If the key is already in the map, it will be replaced by the new entry.
-
-Note that `lucky_numbers` remains unchanged.
-
-### Removing Entries from a Map
-
-To remove an entry from a map, we can use the `remove` function, which takes a
-key, and a map. It returns a new map with the entry associated with that key
-removed.
-```ocaml
-# let new_lucky_numbers = StringMap.(
-    new_lucky_numbers |> remove "paguzar"
-  );;
-val new_lucky_numbers : int StringMap.t = <abstr>
-```
-
-Removing an entry that isn't present in the map has no effect.
-
-Note that `lucky_numbers` remains unchanged.
-
-### Checking if a Key is Contained in a Map
-
-To check if a key is contained in a map we can use the `mem` function:
-```ocaml
-# let is_paguzar_in_the_map: bool =
-    StringMap.mem "paguzar" lucky_numbers;;
-val is_paguzar_in_the_map : bool = false
 ```
 
 ### Finding Entries in a Map
 
-To find entries in a map, we can use the `find_opt` function:
+To find entries in a map, use the `find_opt` or `find` functions:
 ```ocaml
-# let has_2112_value : int option =
-    StringMap.find_opt "leostera" lucky_numbers;;
-val has_2112_value : int option = Some 2112
+# StringMap.find_opt "leostera" lucky_numbers;;
+- : int option = Some 2112
+
+# StringMap.find "leostera" lucky_numbers;;
+- : int option = 2112
 ```
+
+When the searched key is present from the map:
+- `find_opt` returns the associated value, wrapped in an option
+- `find` returns the associated
+
+When the searched key is absent from the map:
+- `find_opt` returns `None`
+- `find` throws the `Not_found` exceptions
 
 We can also use `find_first_opt` and `find_last_opt` if we want to use a
 predicate function:
@@ -138,85 +107,164 @@ predicate function:
 val first_under_10_chars : (string * int) option = Some ("divagnz", 13)
 ```
 
-Note that `find_first_opt` and `find_last_opt` will return the entire entry, and
+The functions `find_first` and `find_last` behave similarly, except they
+throw exceptions instead of returning options.
+
+Note that `find_first_opt` and `find_last_opt` return the key-value pair,
 not just the value.
+
+### Adding Entries to a Map
+
+To add an entry to a map, use the `add` function that takes a key, a value, and
+a map. It returns a new map with that key-value pair added:
+```ocaml
+# let more_lucky_numbers = lucky_numbers |> StringMap.add "paguzar" 108;;
+val more_lucky_numbers : int StringMap.t = <abstr>
+
+# StringMap.find_opt "paguzar" lucky_numbers;;
+- : int option = None
+
+# StringMap.find_opt "paguzar" more_lucky_numbers;;
+- : int option = Some 108
+```
+
+If the passed key is already associated with a value, the passed value replaces it.
+
+Note that the initial map `lucky_numbers` remains unchanged.
+
+### Removing Entries from a Map
+
+To remove an entry from a map, use the `remove` function, which takes a key, and
+a map. It returns a new map with that key's entry removed.
+```ocaml
+# let less_lucky_numbers = lucky_numbers |> StringMap.remove "divagnz";;
+val less_lucky_numbers : int StringMap.t = <abstr>
+
+# StringMap.find_opt "divagnz" lucky_numbers;;
+- : int option = Some 13
+
+# StringMap.find_opt "divagnz" less_lucky_numbers;;
+- : int option = None
+```
+
+Removing a key that isn't present in the map has no effect.
+
+Note that the initial map `lucky_numbers` remains unchanged.
+
+### Changing the Value Associated with a Key
+
+To change a key's associated value, use the `update` function, which takes a
+key, a map and an update function. It returns a new map with the key's
+associated value replaced by the new one.
+
+```ocaml
+# let updated_lucky_numbers =
+    lucky_numbers
+    |> StringMap.update "charstring88" (Option.map (fun _ -> 99));;
+
+# StringMap.find_opt "charstring88" lucky_numbers;;
+- : int option = Some 88
+
+# StringMap.find_opt "charstring88" updated_lucky_numbers;;
+- : int option = Some 99
+```
+
+You should experiment with different update functions, several behaviors are possible.
+
+### Checking if a Key is Contained in a Map
+
+To check if a map contains a key, use the `mem` function:
+```ocaml
+# StringMap.mem "paguzar" less_lucky_numbers;;
+- : bool = false
+```
 
 ### Merging Maps
 
-To merge two maps, you can use the `union` function, which takes two maps, and a
-function that decides how to resolve conflicting keys and returns a new map.
+To merge two maps, use the `union` function, which takes two maps, and a
+function deciding how to handle entries with identical keys. It returns a new map.
 Note that the input maps are not modified.
 ```ocaml
-# let all_numbers =
-    StringMap.union
-        conflict_fun (* Undefined *)
-        lucky_numbers
-        unlucky_numbers;;
+# StringMap.union;;
+- : (string -> 'a -> 'a -> 'a option) ->
+    'a StringMap.t -> 'a StringMap.t -> 'a StringMap.t
+= <fun>
 ```
 
-The behavior of `StringMap.union` can be tuned based on the conflict function we
-pass in.
-
-For example, we can always pick the value from the first map, or choose to sum
-both values together (which would only work for values of type `int`), or we can
-even choose to ignore a value entirely if it is present in both maps.
-
-Here are a few conflict functions we can try:
+Here are examples of duplicate key resolution functions:
 ```ocaml
-# let choose_first key v1 _v2 = Some (key, v1);;
-val choose_first : 'a -> 'b -> 'c -> ('a * 'b) option = <fun>
+# let pick_fst key v1 _ = Some v1;;
+val pick_fst : 'a -> 'b -> 'c -> 'b option = <fun>
 
-# let choose_second key _v1 v2 = Some (key, v2)
-val choose_second : 'a -> 'b -> 'c -> ('a * 'c) option = <fun>
+# let pick_snd key _ v2 = Some v2;;
+val pick_snd : 'a -> 'b -> 'c -> 'c option = <fun>
 
-# let sum_values key v1 v2 = Some (key, v1 + v2)
-val sum_values : 'a -> int -> int -> ('a * int) option = <fun>
+# let drop _ _ _ = None
+val drop : 'a -> 'b -> 'c -> 'd option = <fun>
+```
 
-# let ignore _key _v1 _v2 = None
-val ignore : 'a -> 'b -> 'c -> 'd option = <fun>
+- `pick_fst` picks the result's value from the first map
+- `pick_snd` picks the result's value from the second map
+- `drop` drops both entries in the result map
+
+```ocaml
+# StringMap.(
+    union pick_fst lucky_numbers updated_lucky_numbers
+    |> find_opt "charstring88"
+  );;
+- : int option = Some 88
+
+# StringMap.(
+    union pick_snd lucky_numbers updated_lucky_numbers
+    |> find_opt "charstring88"
+  );;
+- : int option = Some 99
+
+# StringMap.(
+    union drop lucky_numbers updated_lucky_numbers
+    |> find_opt "charstring88"
+  );;
+- : int option = None
 ```
 
 ### Filtering a Map
 
-To filter a map, we can use the `filter` function. It takes a predicate to
-filter entries and a map. It returns a new map with only the entries that
-passed the filter.
+To filter a map, use the `filter` function. It takes a predicate to filter
+entries and a map. It returns a new map containing the entries satisfying the
+predicate.
 ```ocaml
 # let even_numbers =
   StringMap.filter
-    (fun _key number -> number mod 2 = 0)
+    (fun _ number -> number mod 2 = 0)
     lucky_numbers;;
 val even_numbers : int StringMap.t = <abstr>
 ```
 
-### Reducing a Map
-
 ### Maps With Custom Key Types
 
 If you need to create a map with a custom key type, you can call the `Map.Make`
-functor with a module of your own, provided that it implements 2 things:
+functor with a module of your own, provided that it implements two things:
 
-1. It has a `t` type with no type parameters.
-2. It has a `compare : t -> t -> int` function that can be used to compare two
-   values of type `t`.
+1. A type `t` type with no type parameters.
+2. A function `compare : t -> t -> int` function that compares `t` values.
 
 Let's define our custom map below, for non-negative numbers.
 
 We'll start by defining a small module for non-negative numbers that uses an
 `int` under the hood but hides this.
 ```ocaml
-# module Non_negative_int : sig
+# module  : sig
     type t
-    val of_int : int -> (t, [| `invalid_number]) result (* No polymorphic variants *)
     val compare : t -> t -> int
   end = struct
-    type t = int
-
-    let of_int x =
-      if x > 0 then Ok x
-      else Error `invalid_number
-
-    let compare a b = a - b
+    type t = string
+    let f = function
+      | c when c < 'A' -> c
+      | c when c < '[' -> char_of_int (2 * (int_of_char c - 65) + 65)
+      | c when c < 'a' -> char_of_int (int_of_char c + 26)
+      | c when c < '{' -> char_of_int (2 * (int_of_char c - 97) + 66)
+      | c -> c
+f    let compare a b = compare (String.map g a) (String.map g b)
   end;;
 (* Syntax error *)
 ```
@@ -225,15 +273,20 @@ Note that our module has a `type t` and also a `compare` function. Now we can
 call the `Map.Make` functor on it, to get a map for non-negative numbers:
 
 ```ocaml
-# module NonNegIntMap = Map.Make(Non_negative_int);;
+# module NonNegIntMap = Map.Make(Git_ref);;
 ```
 
-This map will only work with key values that are of type `Non_negative_int.t`.
-
+This map only works wit| h key values t
+| Hash of string
+| HEADhat are of type `Git_ref.
+  Name of string
 # Conclusion
 
-This was an overview of OCaml's `Map` module. Maps are reasonably efficient and
-can be a good alternative to the imperative `Hashtbl` module.
+This was an overview of|  OCaml's `Map`
+| Hash of string
+| HEAD module. Maps are re
+  Name of stringably efficient and
+can be an alternative to the imperative `Hashtbl` module.
 
 For more information, refer to [Map](/api/Map.html) in the Standard Library
 documentation.
