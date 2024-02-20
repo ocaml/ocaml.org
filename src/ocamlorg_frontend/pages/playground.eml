@@ -76,30 +76,11 @@ let render ~default_code =
         </div>
 
         <div id="pane-1" class="flex flex-col w-full md:w-[40%]">
-          <div
-            class="output-bg w-full min-h-full"
-            x-data="{ output: true, editor: window.innerWidth >= 767,mobile: window.innerWidth < 767 }"
-            @resize.window="
-            mobile = window.innerWidth < 767;
-            if(window.innerWidth < 767 && mobile == true  ){
-              editor = true;
-            }
-            if(window.innerWidth > 767 && editor == true ){
-              editor = false;
-              output = true;
-            }"
-            >
+        
             <div class="flex justify-between text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)]">
-              <button
-                class="md:hidden border-b-2 border-transparent p-4"
-                :class="editor && mobile ? 'text-primary border-b-2 border-primary' : ''"
-                @click="editor = true; mobile=true; output = false;"
-                >
-                Editor
-              </button>
+         
               <button
                 :class="output && !mobile ? 'text-primary border-b-2 border-primary' : ''"
-                @click="output = true; mobile = false; editor = false;"
                 class="border-b-2 border-transparent p-4"
                 >
                 Output
@@ -114,12 +95,6 @@ let render ~default_code =
               
             </div>
             <div class="shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] output-container overflow-auto">
-              <div x-show="editor && mobile">
-                <div class="text-center">
-                  <h3 class="mt-2 text-sm font-medium text-legacy-default dark:text-white">Coming Soon!</h3>
-                  <p class="mt-1 text-sm text-gray-500 dark:text-gray-100">The OCaml Playground does not support mobile yet.</p>
-                </div>
-              </div>
               <div
                 id="output"
                 class="h-auto flex-col overflow-auto p-4 text-white"
