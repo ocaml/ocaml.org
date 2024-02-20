@@ -68,7 +68,7 @@ val int_map : int StringMap.t = <abstr>
 
 ## Working With Maps
 
-Let's look at a few functions for working with maps using the following maps:
+Throughout the rest of this tutorial, we use the following map:
 ```ocaml
 # let lucky_numbers = StringMap.of_list [
     ("leostera", 2112);
@@ -78,7 +78,7 @@ Let's look at a few functions for working with maps using the following maps:
 val lucky_numbers : int StringMap.t = <abstr>
 ```
 
-### Finding Entries in a Map
+## Finding Entries in a Map
 
 To find entries in a map, use the `find_opt` or `find` functions:
 ```ocaml
@@ -113,7 +113,7 @@ throw exceptions instead of returning options.
 Note that `find_first_opt` and `find_last_opt` return the key-value pair,
 not just the value.
 
-### Adding Entries to a Map
+## Adding Entries to a Map
 
 To add an entry to a map, use the `add` function that takes a key, a value, and
 a map. It returns a new map with that key-value pair added:
@@ -132,7 +132,7 @@ If the passed key is already associated with a value, the passed value replaces 
 
 Note that the initial map `lucky_numbers` remains unchanged.
 
-### Removing Entries from a Map
+## Removing Entries from a Map
 
 To remove an entry from a map, use the `remove` function, which takes a key, and
 a map. It returns a new map with that key's entry removed.
@@ -151,7 +151,7 @@ Removing a key that isn't present in the map has no effect.
 
 Note that the initial map `lucky_numbers` remains unchanged.
 
-### Changing the Value Associated with a Key
+## Changing the Value Associated with a Key
 
 To change a key's associated value, use the `update` function, which takes a
 key, a map and an update function. It returns a new map with the key's
@@ -171,7 +171,7 @@ associated value replaced by the new one.
 
 You should experiment with different update functions, several behaviors are possible.
 
-### Checking if a Key is Contained in a Map
+## Checking if a Key is Contained in a Map
 
 To check if a map contains a key, use the `mem` function:
 ```ocaml
@@ -179,7 +179,7 @@ To check if a map contains a key, use the `mem` function:
 - : bool = false
 ```
 
-### Merging Maps
+## Merging Maps
 
 To merge two maps, use the `union` function, which takes two maps, and a
 function deciding how to handle entries with identical keys. It returns a new map.
@@ -227,7 +227,7 @@ val drop : 'a -> 'b -> 'c -> 'd option = <fun>
 - : int option = None
 ```
 
-### Filtering a Map
+## Filtering a Map
 
 To filter a map, use the `filter` function. It takes a predicate to filter
 entries and a map. It returns a new map containing the entries satisfying the
@@ -240,7 +240,36 @@ predicate.
 val even_numbers : int StringMap.t = <abstr>
 ```
 
-### Maps With Custom Key Types
+## Map a Map
+
+Map modules have a `map` function:
+```ocaml
+StringMap.map;;
+- : ('a -> 'b) -> 'a StringMap.t -> 'b StringMap.t = <fun>
+```
+
+The `lucky_numbers` map associates string keys with integer values.
+```ocaml
+# lucky_numbers;;
+- : int StringMap.t = <abstr>
+```
+
+Using `StringMap.map`, we create a map associating keys with string values:
+```ocaml
+# let lucky_strings = StringMap.map string_of_int lucky_numbers;;
+val lucky_strings : string StringMap.t = <abstr>
+```
+
+The keys are the same in both maps. For each key, a value in `lucky_numbers` is converted into a value in `lucky_strings` using `string_of_int`.
+```ocaml
+# lucky_numbers |> StringMap.find "leostera" |> string_of_int;;
+- : string = "2112"
+
+# lucky_strings |> StringMap.find "leostera"
+- : string = "2112"
+```
+
+## Maps With Custom Key Types
 
 If you need to create a map with a custom key type, you can call the `Map.Make`
 functor with a module of your own, provided that it implements two things:
