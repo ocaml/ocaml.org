@@ -80,7 +80,7 @@ let render ~default_code =
             <div class="flex justify-between text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)]">
          
               <button
-                :class="output && !mobile ? 'text-primary border-b-2 border-primary' : ''"
+                :class="output ? 'text-primary border-b-2 border-primary' : ''"
                 class="border-b-2 border-transparent p-4"
                 >
                 Output
@@ -98,7 +98,7 @@ let render ~default_code =
               <div
                 id="output"
                 class="h-auto flex-col overflow-auto p-4 text-white"
-                x-show="output && !mobile"
+                x-show="output"
                 ></div>
             </div>
           </div>
