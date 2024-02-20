@@ -62,10 +62,10 @@ let render ~default_code =
             <div class="flex gap-7 w-full justify-end items-center px-4">
               <button
                 id="share"
-                class="flex gap-2 hover:bg-legacy-default dark:bg-legacy-dark-default hover:bg-opacity-10 active:bg-legacy-primary-100 active:text-primary p-2 rounded-md text-legacy-lighter"
+                class="flex items-center justify-center px-2 h-8 m-4 space-x-2 border border-white rounded text-sm text-white hover:text-[#000] hover:bg-white hover:border-none"
                 >
-                <%s! Icons.playground_share "h-6 w-6 stroke-current" %>
-                Share
+                <span>Share</span>
+                <%s! Icons.share "h-4 w-4 stroke-current" %>
               </button>
               <button id="run" class="btn btn-md btn-ghost">
                 <span>Run</span>
