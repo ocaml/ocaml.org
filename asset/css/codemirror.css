@@ -53,13 +53,13 @@
 /* CURSOR */
 
 .cm-editor .cm-cursor {
-  border-left: 1px solid black;
+  border-left: 0.75rem solid silver;
   border-right: none;
   width: 0;
 }
 /* Shown when moving in bi-directional text */
 .cm-editor div.cm-secondarycursor {
-  border-left: 1px solid silver;
+  border-left: 0.75rem solid gray;
 }
 
 .cm-editor .cm-fat-cursor .cm-cursor {
