@@ -45,6 +45,7 @@ let base
 ?styles
 ~title
 ?canonical
+?alternate
 ?(active_top_nav_item: Header.active_nav_item option)
 ?(footer_html = "")
 inner =
@@ -54,7 +55,7 @@ inner =
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <% (match description with | Some description -> %>
-      <meta name="description" content="<%s description %>">
+      <meta name="description" content="<%s description %>./src/ocamlorg_frontend/layouts/layout.eml">
       <% | None -> ()); %>
       <meta name="twitter:title" content="<%s title %>">
       <% (match description with | Some description -> %>
@@ -72,6 +73,9 @@ inner =
       <meta name="color-scheme" content="white">
       <% (match canonical with | Some canonical -> %>
       <link rel="canonical" href="https://ocaml.org<%s canonical %>">
+      <% | None -> ()); %>
+      <% (match alternate with | Some alternate -> %>
+      <link rel="alternate" href="<%s alternate %>" title="The OCaml Planet" type="application/atom+xml">
       <% | None -> ()); %>
       <link rel="icon" type="image/x-icon" href="<%s Ocamlorg_static.Asset.url "favicon.ico" %>">
       <link rel="manifest" href="/manifest.json">

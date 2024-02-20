@@ -3,6 +3,7 @@ Layout.render
 ~title:"OCaml Blog"
 ~description:"Recent news and blog posts from the OCaml community."
 ~canonical:(Url.blog ^ if planet_page = 1 then "" else "?p=" ^ string_of_int planet_page)
+~alternate:"/feed.xml"
 ~active_top_nav_item:Header.Blog @@
 <div class="bg-white dark:bg-dark-background py-10">
     <div class="container-fluid wide">
