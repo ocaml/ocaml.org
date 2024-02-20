@@ -104,6 +104,15 @@ Voilà! You've just written your first OCaml program.
 
 In the rest of this tutorial, we will make more changes to this project in order to illustrate OCaml's tooling.
 
+## Watch Mode
+
+Before we dive in, note that you will typically want to use Dune's watch mode to continually compile and optionally restart your program. This ensures that the language server has the freshest possible data about your project, so your editor support will be top-notch. To use watch mode, just add the `-w` flag:
+
+```shell
+$ opam exec -- dune build -w
+$ opam exec -- dune exec hello -w
+```
+
 ## Why Isn't There a Main Function?
 
 Although `bin/main.ml`'s name suggests it contains the application entry point into the project, it does not contain a dedicated `main` function, and there is no requirement that a project must contain a file with that name in order to produce an executable. A compiled OCaml file behaves as though that file were entered line by line into the toplevel. In other words, an executable OCaml file's entry point is its first line.
