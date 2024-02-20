@@ -1,6 +1,5 @@
 type section =
   | Overview
-  | Cookbook
   | Jobs
   | Events
 
@@ -8,13 +7,11 @@ let tabs
 ~current =
   let url_of_section = function
     | Overview -> Url.community
-    | Cookbook -> Url.cookbook
     | Jobs -> Url.jobs
     | Events -> Url.events
   in
   let title_of_section = function
     | Overview -> "Overview"
-    | Cookbook -> "Cookbook"
     | Jobs -> "Jobs"
     | Events -> "Events"
   in

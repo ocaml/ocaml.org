@@ -1,5 +1,5 @@
 let render (recipe: Data.Cookbook.t) (other_recipes_for_this_task: Data.Cookbook.t list) =
-Community_layout.single_column_layout
+Learn_layout.single_column_layout
   ~title:"OCaml Cookbook"
   ~description:"A collection of recipes to get things done in OCaml."
   ~canonical:Url.cookbook
