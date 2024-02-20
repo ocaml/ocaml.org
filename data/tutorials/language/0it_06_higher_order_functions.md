@@ -1,9 +1,15 @@
-# Higher-Order Functions
+---
+id: higher-order-functions
+title: Higher Order Functions
+description: >
+  Functions describe the world; higher-order functions take functions as parameters. Learn how to manipulate and leverage functions to write composable and reusable code.
+category: "Introduction"
+prerequisite_tutorials:
+  - "values-and-functions"
+  - "loops-recursion"
+---
 
-**Prerequisites:**
-* Functions
-* Recursion
-
+<!--
 **What you'll learn**:
 * What is a higher-order function
 * What are some common higher-order functions
@@ -28,8 +34,9 @@
         * partial application in pipelines
         * they're in the wrong order
             * lambda wrappers (fun x -> f 123 x true)
+-->
 
-## 1. Introduction
+## Introduction
 
 In OCaml, working with functions quickly becomes second nature. We like to think that _functions describe the world_, and like that, we usually write functions that describe how something behaves.
 
@@ -169,21 +176,20 @@ We can let `repeat` call `say_hi` many times by _delaying_ the function's execut
 fun () ->
     say_hi "Camel");;
 
-This means we must refactor our `repeat` function a little to _call_ our new function:
+This means we must refactor our `repeat` function, by replacing `thing_to_do` with `thing_to_do ()`, to _call_ our new function:
 
-```diff
+```ocaml
 let rec repeat times thing_to_do =
   if times < 1 then ()
   else (
--   thing_to_do;
-+   thing_to_do ();
+    thing_to_do ();
     repeat (times - 1) thing_to_do)
 ;;
 ```
 
 After renaming `thing_to_do` to `fn` we get a nice little `repeat` function:
 
-```ocaml=
+```ocaml
 # let rec repeat times fn =
   if times < 1 then ()
   else begin
@@ -208,7 +214,7 @@ This is the power of **Higher-Order Functions**. They empower you to create comp
 
 Here's some other examples from the real world:
 
-```ocaml=
+```ocaml
 # let say_hi_to_many names = List.iter say_hi names;;
 val say_hi_to_many : string list -> unit = <fun>
 
@@ -218,7 +224,8 @@ module StringSet :
   sig
     type elt = string
     type t = StringSet.t
-    val empty : t ...
+    val empty : t [...]
+  end
 
 # let only_once fn names =
   names
@@ -236,7 +243,7 @@ val yell_hi : string -> unit = <fun>
 val call_for_dinner : string list -> unit = <fun>
 ```
 
-## 2. Common Higher-Order Functions
+## Common Higher-Order Functions
 
 In the wild, there's certain patterns that repeat over and over again. It's useful to be familiar with them because they are part of the common vocabulary of a functional programmer. Some of them are:
 
@@ -281,7 +288,7 @@ val uncurry : ('a -> 'b -> 'c) -> 'a * 'b -> 'c = <fun>
 
 If we wanted to write `uncurry` for more arguments, we'd just make a new `uncurry3` or `uncurry4` or even `uncurry5` function that would work exactly the same:
 
-```ocaml!
+```ocaml
 # let uncurry4 f (w, x, y, z) = f w x y z;;
 val uncurry4 : ('a -> 'b -> 'c -> 'd -> 'e) -> 'a * 'b * 'c * 'd -> 'e = <fun>
 ```
@@ -290,7 +297,7 @@ Uncurrying can be very useful when you're dealing with lists (which we do a lot 
 
 Take for example this list of tuples of names and favorite emojis:
 
-```ocaml!
+```ocaml
 # let people = [
   "🐫", "Sabine";
   "🚀", "Xavier";
@@ -301,20 +308,20 @@ Take for example this list of tuples of names and favorite emojis:
 
 If we wanted to do something with any of these elements, we'd need to split the tuple, and call a function:
 
-```ocaml!
-let greet emoji name =
+```ocaml
+# let greet emoji name =
   Printf.printf "Glad to see you like %s, %s!\n" emoji name
 ;;
 
 let emoji, name = List.hd people in
-greet emoji name
+# greet emoji name
 ;;
 ```
 
 But we can also uncurry our `greet` function to operate over the entire tuple!
 
 ```ocaml
-uncurry greet (List.hd people)
+# uncurry greet (List.hd people)
 ;;
 ```
 
@@ -348,7 +355,7 @@ Currying can be very useful when you're dealing with lists (which we do a lot in
 
 Take for example this list of names and an uncurried revealing function:
 
-```ocaml!
+```ocaml
 let names = [
   "Sabine";
   "Xavier";
@@ -363,7 +370,7 @@ let reveal (title, name) =
 
 If we wanted to use `reveal` on a name, we have to put it into a tuple, and then do the call. Like this:
 
-```ocaml!
+```ocaml
 List.iter (fun name ->
   let title = "The OCamler" in
   reveal (title, name)) names
@@ -401,7 +408,7 @@ names
 
 Versus a much more readable and easier to maintain version:
 
-```ocaml!
+```ocaml
 let find_by_name name1 =
   List.find (fun (_emoji, name2) -> name1 = name2) people
 ;;
@@ -422,7 +429,7 @@ names
 
 In OCaml we use functions a lot, so values go from one function to the other forming what we like to call _pipelines_.
 
-```ocaml=
+```ocaml
 let a = foo () in
 let b = bar a in
 let c = baz b in
@@ -431,7 +438,7 @@ let c = baz b in
 
 Of course, we can always call functions in a nested fashion, to avoid the extra variables and all that typing:
 
-```ocaml=
+```ocaml
 let c = baz (bar (foo ())) in
 (* ... *)
 ```
@@ -440,14 +447,14 @@ But this is not so easy read sometimes, especially as the number of functions gr
 
 To avoid this we have use the `|>` operator:
 
-```ocaml=
+```ocaml
 let c = foo () |> bar |> baz in 
 (* ... *)
 ```
 
 This operator translates to the exact same nested calls we would've done by hand, and is really no magic. It is defined as a function:
 
-```ocaml=
+```ocaml
 (* the pipeline operator *)
 let (|>) x fn = fn x
 ```
@@ -458,7 +465,7 @@ But what happens when our functions have more than one argument?
 
 Let's look at an example of string manipulation. We want to get the domain name from an email.
 
-```ocaml=
+```ocaml
 let email = "ocaml.mycamel@ocaml.org"
 ;;
 
@@ -476,7 +483,7 @@ This is true for functions that have the most important argument in the last pos
 
 These two cases sound very similar, but have a big practical difference when it comes to usability. Let's revisit our example above using labeled argument versions of those functions:
 
-```ocaml=
+```ocaml
 open StdLabels
 
 module List = struct
@@ -512,7 +519,7 @@ A list in OCaml is a linked-list that is composed by a head (the first element) 
 
 We can iterate over lists by pattern matching on then. When doing so, we either get an empty list (`[]`), or we get a pattern with a head and a tail (`n :: rest`). On the branch with a head and a tail, we can directly use the head value and apply a function to it, and then recurse with the tail.
 
-```ocaml=
+```ocaml
 let rec print_nums nums =
   match nums with
   (* if the list is empty, we do nothing *)
@@ -527,7 +534,7 @@ let rec print_nums nums =
 
 Now if we wanted to do something else with each element of the list, we could just _ask_ for a function that will run over them:
 
-```ocaml=
+```ocaml
 let rec print_all fn nums =
   match nums with
   | [] -> ()
@@ -546,7 +553,7 @@ Another kind of data it is common to iterate over in OCaml is optional and resul
 
 We can do this by pattern-matching on our value and calling our function over the inner value in the Some or Ok branch.
 
-```ocaml=
+```ocaml
 let run_if_some opt fn =
   match opt with
   | Some value -> fn value
@@ -570,7 +577,7 @@ Once you create your Set or Map module, you'll find they provide functions to co
 
 With either of those functions, we can put together an iterator over maps or sets:
 
-```ocaml=
+```ocaml
 let iter values collection fn  =
   let values : 'a list = values collection in 
   List.iter fn values
@@ -595,7 +602,7 @@ But some data is _lazy_, and it only lets us access one element at a time. So if
 
 Lazy sequences in OCaml are represented with the `Seq` module, which has a function called `uncons` to get the next element. This function also returns the new sequence that we can use to get the 2nd element, and so on.
 
-```ocaml=
+```ocaml
 let rec iter seq fn = 
   match Seq.uncons seq with
   | None -> ()
@@ -615,7 +622,7 @@ So far we've seen how to iterate over data types from the standard library. Now 
 
 We'll define our tree type to include 2 constructors. One for a leaf node, which is a node at the _end_ of the tree. The other one for nodes that have children.
 
-```ocaml=
+```ocaml
 type 'value tree =
  | Leaf of 'value 
  | Node of 'value tree * 'value
@@ -639,7 +646,7 @@ Now before we define our iteration function, its important to define what iterat
 
 For our example, we'll iterate from the top down as we go along:
 
-```ocaml=
+```ocaml
 let rec iter tree fn = 
   match tree with
   | Leaf value -> fn value
@@ -665,7 +672,7 @@ Mapping lists is very similar to iterating over them. We pattern match on a list
 
 The main difference is that instead of throwing away the resulting value from running our function over the elemnts, we will _reconstruct_ a list from it.
 
-```ocaml=
+```ocaml
 let rec map list fn =
   match list with
   | [] -> []
@@ -679,7 +686,7 @@ Note how we use the `::` constructor to both deconstruct the list and reconstruc
 
 Mapping an optional value is only meaningful when we want to change the contents in case there is a value inside our option. That is, if we have a `None` there is nothing to map, so we can only map `Some x` values.
 
-```ocaml=
+```ocaml
 let map opt fn =
   match opt with
   | Some value -> Some (fn value)
@@ -695,7 +702,7 @@ When we have a result, mapping becomes a little trickier. We now have 2 possible
 
 We can map the value in the `Ok value` constructor, or we can map the error value in the `Error reason` constructor.
 
-```ocaml=
+```ocaml
 (* maps a result over the ok value *)
 let map_ok res fn =
   match res with
@@ -717,7 +724,7 @@ Both of these are useful in different situations, such as wanting to change the 
 
 When working with our custom data types, such as the `tree` we used in the Iterating section, we should try to always preserve the structure of the data. That is, if we map over it, we'd expect the same nodes and connections between nodes, but with different values in them.
 
-```ocaml=
+```ocaml
 let rec map tree fn =
   match tree with
   | Leaf value -> Leaf (fn value)
@@ -739,7 +746,7 @@ let sum = List.fold_left (+) 0 [1;2;3;4;5;6;7;8;9;10];;
 
 If we wanted to implement a sum over the custom tree type we saw in the Iterating chapter, we could do it like this:
 
-```ocaml=
+```ocaml
 type 'value tree =
  | Leaf of 'value 
  | Node of 'value tree * 'value
@@ -754,7 +761,7 @@ let rec sum_tree tree =
 
 And if we generalize this to apply any transformation over our tree and reduce it to a single value we will need to replace our `+` function with an argument `fn`:
 
-```ocaml=
+```ocaml
 let rec fold_tree tree fn =
   match tree with
   | Leaf value -> fn value
@@ -770,7 +777,7 @@ Some data types don't have a good "empty" value. Our tree for example does not. 
 
 So to fix our `fold_tree` we just need to pass in a zero or accumulator value:
 
-```ocaml=
+```ocaml
 let rec fold_tree tree fn acc =
   match tree with
   | Leaf value -> fn value acc
@@ -788,7 +795,7 @@ Both `Array.sort` and `List.sort` implement an interface where if you pass in a 
 
 For arrays, this operation mutates the array in-place:
 
-```ocaml=
+```ocaml
 let array = [| 4;9;1;10 |];;
 
 (* sorts the array in ascending order *)
@@ -800,7 +807,7 @@ Array.sort (fun a b -> b - a) array;;
 
 For lists, this operation returns a new sorted list:
 
-```ocaml=
+```ocaml
 let list = [4;9;1;10] ;;
 let asc = List.sort (fun a b -> a - b) list ;;
 let desc = List.sort (fun a b -> b - a) list ;;
@@ -808,7 +815,7 @@ let desc = List.sort (fun a b -> b - a) list ;;
 
 Most OCaml modules include a `compare` function that can be pass in to `sort`:
 
-```ocaml=
+```ocaml
 let int_array = [|3;0;100|];;
 Array.sort Int.compare int_array;;
 
@@ -825,7 +832,7 @@ For example, if we have a list, and map over it with a function that returns a l
 
 To do this with lists we can use the `concat_map` function, which looks like this:
 
-```ocaml=
+```ocaml
 let twice x = [x;x];;
 let double ls = List.concat_map twice ls;;
 
@@ -838,7 +845,7 @@ This same pattern is useful to build chains of functions that _short circuit_ on
 
 For example, if you had to retrieve a user from a database, and *only if there is a user* try access the user's email, you could use `Option.bind` to short-circuit on the first operation:
 
-```ocaml=
+```ocaml
 type user = {
     email: string option
 }
@@ -853,7 +860,7 @@ In this example, because our `get_user ()` call returns None, `get_email` will n
 
 This also applies to result values:
 
-```ocaml=
+```ocaml
 type user = {
     email: string
 }
@@ -870,7 +877,7 @@ The main difference is that in this case `Result.bind` is biased towards `Ok val
 
 Unfortunately, calling `Result.bind` can be a bit awkward. We can't pipe our value through a series of binds like we can do with calls to `map`. For example, this isn't valid:
 
-```ocaml=
+```ocaml
 let email = get_user ()
            |> Result.bind get_email
            |> Result.bind extract_domain
@@ -880,7 +887,7 @@ let email = get_user ()
 
 Thankfully, OCaml lets us redefine a subset of operators called _let-operators_ that can be used to streamline the use of `bind` calls by making them look very close to normal let-bindings:
 
-```ocaml=
+```ocaml
 (* first we will declare out let* operator to be equal to Result.bind *)
 let (let*) = Result.bind
 
@@ -897,13 +904,13 @@ This has the advantage of making code a lot more readable, without changing the 
 Async libraries for OCaml that implement Promises/Futures usually also have a `bind` function that allows you to chain computations.
 
 
-<!-- ## 3. Recipes
+<!-- ## Recipes
 
 ### How to flip the order of arguments?
 
 For a function with 2 arguments, use `Fun.flip`:
 
-```ocaml=
+```ocaml
 let div a b = a / b;;
 let vid = Fun.flip div;;
 
@@ -913,7 +920,7 @@ div 10 1 = vid 1 10
 
 For functions with more than 2 arguments consider wrapping it in a lambda that gives you more flexibility:
 
-```ocaml=
+```ocaml
 let create_user name email password = `user (name,email,password);;
 
 let create_user2 email password name = create_user name email password;;
@@ -921,7 +928,7 @@ let create_user2 email password name = create_user name email password;;
 
 If you own the function, consider giving it named parameters to allow calling it with arguments out of order:
 
-```ocaml=
+```ocaml
 let create_user ~name ~email ~password = `user (name,email,password);;
 ```
 
@@ -934,7 +941,7 @@ If you find yourself calling a function that has too many function parameters, t
 
 To create a record of functions, it is best if the amount of type-variables is low:
 
-```ocaml=
+```ocaml
 type error = [ `bad_network ]
 type ('input, 'output) operations = {
   create_record: 'input -> ('output, error) result;
