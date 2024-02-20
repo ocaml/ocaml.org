@@ -55,7 +55,7 @@ inner =
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <% (match description with | Some description -> %>
-      <meta name="description" content="<%s description %>./src/ocamlorg_frontend/layouts/layout.eml">
+      <meta name="description" content="<%s description %>">
       <% | None -> ()); %>
       <meta name="twitter:title" content="<%s title %>">
       <% (match description with | Some description -> %>
