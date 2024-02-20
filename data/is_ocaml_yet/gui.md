@@ -39,7 +39,7 @@ categories:
   - name: image processing
     status: 🟢
     description: |
-      These libraries provide functionalities to manipulate and process images. They offer a range of functionalities for image processing tasks, like basic image manipulation to more complex operations. They make OCaml a powerful language for image processing.
+      Packages for image-processing.
     packages:
       - name: tsdl-image
       - name: bimage
