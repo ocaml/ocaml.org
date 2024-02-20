@@ -364,8 +364,8 @@ module Workshop : sig
     link : string option;
     video : string option;
     slides : string option;
-    poster : bool option;
-    additional_links : string list option;
+    poster : bool;
+    additional_links : string list;
   }
 
   type t = {
