@@ -250,42 +250,28 @@ functor with a module of your own, provided that it implements two things:
 
 Let's define our custom map below, for non-negative numbers.
 
-We'll start by defining a small module for non-negative numbers that uses an
-`int` under the hood but hides this.
+We'll start by defining a module for strings that compares them in case insensitive way.
 ```ocaml
-# module  : sig
+# module Istring : sig
     type t
     val compare : t -> t -> int
   end = struct
     type t = string
-    let f = function
-      | c when c < 'A' -> c
-      | c when c < '[' -> char_of_int (2 * (int_of_char c - 65) + 65)
-      | c when c < 'a' -> char_of_int (int_of_char c + 26)
-      | c when c < '{' -> char_of_int (2 * (int_of_char c - 97) + 66)
-      | c -> c
-f    let compare a b = compare (String.map g a) (String.map g b)
+    let compare a b = String.(compare (lowercase_ascii a) (lowercase_ascii b))
   end;;
-(* Syntax error *)
+  module Istring : sig type t val compare : t -> t -> int end
 ```
 
 Note that our module has a `type t` and also a `compare` function. Now we can
 call the `Map.Make` functor on it, to get a map for non-negative numbers:
 
 ```ocaml
-# module NonNegIntMap = Map.Make(Git_ref);;
+# module IstringMap = Map.Make(Istring);;
 ```
 
-This map only works wit| h key values t
-| Hash of string
-| HEADhat are of type `Git_ref.
-  Name of string
-# Conclusion
+## Conclusion
 
-This was an overview of|  OCaml's `Map`
-| Hash of string
-| HEAD module. Maps are re
-  Name of stringably efficient and
+This was an overview of OCaml's `Map` module. Maps are reasonably efficient and
 can be an alternative to the imperative `Hashtbl` module.
 
 For more information, refer to [Map](/api/Map.html) in the Standard Library
