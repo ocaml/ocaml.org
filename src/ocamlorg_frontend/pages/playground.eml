@@ -87,10 +87,10 @@ let render ~default_code =
               </button>
 
               <button 
-                class="text-white h-8 m-4 border-white btn btn-ghost btn-sm"
+                class="flex items-center justify-center px-2 h-8 m-4 space-x-2 border border-white rounded text-sm text-white hover:text-[#000] hover:bg-white hover:border-none"
                 id="clear-output"> 
-                  Clear output
-                  <%s! Icons.close_x "h-4 w-4" %>
+                  <span> Clear </span>
+                  <%s! Icons.trash "h-4 w-4" %>
               </button>
               
             </div>
