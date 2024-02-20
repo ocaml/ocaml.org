@@ -54,7 +54,7 @@ let render ~default_code =
     <%s! Header.render ~show_get_started:true ~active_top_nav_item:Header.Playground () %>
 
     <div class="flex h-full overflow-hidden">
-      <div id="panes" class="flex flex-col md:flex-row max-h-fit">
+      <div id="panes" class="flex-1 flex flex-col md:flex-row max-h-fit">
 
         <div id="pane-0" class="flex flex-col h-4/6 md:h-full w-full md:w-[60%]">
           <div id="editor1" class="flex-1 flex flex-col overflow-auto"></div>
@@ -75,7 +75,7 @@ let render ~default_code =
           </div>
         </div>
 
-        <div id="pane-1" class="flex flex-col h-2/6 md:h-full w-full md:w-[40%]">
+        <div id="pane-1" class="flex flex-col h-2/6 md:h-full w-full md:w-[40%] bg-stone-800">
         
             <div class="flex justify-between text-white shadow-none md:shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)]">
          
