@@ -1,5 +1,5 @@
 let render (categories: Data.Cookbook.category list) =
-Community_layout.single_column_layout
+Learn_layout.single_column_layout
   ~title:"OCaml Cookbook"
   ~description:"A collection of recipes to get things done in OCaml."
   ~canonical:Url.cookbook
