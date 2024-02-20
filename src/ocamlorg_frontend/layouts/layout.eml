@@ -36,6 +36,11 @@ let subnav_tabs
       </nav>
     </div>
 
+type alternate = {
+  href : string;
+  title: string;
+  type_ : string
+}
 
 let base
 ?(show_get_started=true)
@@ -73,9 +78,8 @@ inner =
       <meta name="color-scheme" content="white">
       <% (match canonical with | Some canonical -> %>
       <link rel="canonical" href="https://ocaml.org<%s canonical %>">
-      <% | None -> ()); %>
-      <% (match alternate with | Some alternate -> %>
-      <link rel="alternate" href="<%s alternate %>" title="The OCaml Planet" type="application/atom+xml">
+      <% | None -> ()); (match alternate with | Some { href; title; type_ } -> %>
+      <link rel="alternate" href="<%s href %>" title="<%s title %>" type="<%s type_ %>">
       <% | None -> ()); %>
       <link rel="icon" type="image/x-icon" href="<%s Ocamlorg_static.Asset.url "favicon.ico" %>">
       <link rel="manifest" href="/manifest.json">
