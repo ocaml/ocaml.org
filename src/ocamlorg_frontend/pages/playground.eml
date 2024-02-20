@@ -58,8 +58,8 @@ let render ~default_code =
 
         <div id="pane-0" class="flex flex-col h-5/6 md:h-full w-full md:w-[60%]">
           <div id="editor1" class="flex-1 flex flex-col overflow-auto"></div>
-          <div class="bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4 w-full bottom-0">
-            <div class="flex gap-7 w-full justify-end items-center px-4">
+          <div class="bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)]  w-full bottom-0">
+            <div class="flex gap-7 w-full justify-between md:justify-end items-center px-2">
               <button
                 id="share"
                 class="flex items-center justify-center px-2 h-8 m-4 space-x-2 border border-white rounded text-sm text-white hover:text-[#000] hover:bg-white hover:border-none"
@@ -67,7 +67,7 @@ let render ~default_code =
                 <span>Share</span>
                 <%s! Icons.share "h-4 w-4 stroke-current" %>
               </button>
-              <button id="run" class="btn btn-sm space-x-2">
+              <button id="run" class="btn btn-sm space-x-2 mr-4">
                 <span class="text-lighter">RUN</span>
                 <%s! Icons.play_triangle "h-4 w-4" %>
               </button>
