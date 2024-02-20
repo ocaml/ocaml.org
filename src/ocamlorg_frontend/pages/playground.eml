@@ -67,9 +67,9 @@ let render ~default_code =
                 <span>Share</span>
                 <%s! Icons.share "h-4 w-4 stroke-current" %>
               </button>
-              <button id="run" class="btn btn-md btn-ghost">
-                <span>Run</span>
-                <span>⌘⏎</span>
+              <button id="run" class="btn btn-sm space-x-2">
+                <span class="text-lighter">RUN</span>
+                <%s! Icons.play_triangle "h-4 w-4" %>
               </button>
             </div>
           </div>
