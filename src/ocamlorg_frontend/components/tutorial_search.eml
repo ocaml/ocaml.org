@@ -10,7 +10,7 @@ Learn_layout.single_column_layout
 ~canonical:Url.tutorial_search
 ~active_top_nav_item:Header.Community
 ~current:Guides @@
-<div class="bg-legacy-default dark:bg-legacy-dark-default">
+<div class="bg-white dark:bg-dark-background">
   <div class="py-7 lg:py-5">
     <div class="container-fluid">
       <div class="flex flex-col lg:px-28 gap-2 max-w-5xl">
@@ -40,7 +40,7 @@ Learn_layout.single_column_layout
           </div>
 
           <% if List.length documents > 0 then ( %>
-            <div class="text-legacy-lighter mb-2 lg:mb-4">
+            <div class="text-content dark:text-dark-content mb-2 lg:mb-4">
               Showing <%i ((page - 1) * 50 + 1) %> - <%i (min (page * 50) total) %>
             </div>
           <ol class="flex flex-col">
