@@ -1,21 +1,18 @@
 type section =
   | Overview
-  | Cookbook
   | Jobs
 
 let tabs
 ~current =
   let url_of_section = function
     | Overview -> Url.community
-    | Cookbook -> Url.cookbook
     | Jobs -> Url.jobs
   in
   let title_of_section = function
     | Overview -> "Overview"
-    | Cookbook -> "Cookbook"
     | Jobs -> "Jobs"
   in
-  Layout.subnav_tabs ~title:"Community" ~current ~sections:[Overview; Cookbook; Jobs] ~url_of_section ~title_of_section
+  Layout.subnav_tabs ~title:"Community" ~current ~sections:[Overview; Jobs] ~url_of_section ~title_of_section
 
 let single_column_layout
 ?use_swiper
