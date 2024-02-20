@@ -6,7 +6,7 @@ categories:
   - name: Frameworks
     status: 🟡
     description: |
-      These are libraries written entirely in OCaml. It has packages for syndicating content and working with RSS feeds.
+      These libraries provide a rich toolkit to develop GUI applications.
     packages:
       - name: bogue
       - name: lablgtk
