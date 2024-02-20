@@ -86,8 +86,7 @@ let render ~default_code =
               </button>
 
               <button 
-                class="hidden md:flex items-center justify-center px-2 h-8 m-4 space-x-2 border border-white rounded text-sm text-white hover:text-[#000] hover:bg-white hover:border-none"
-                id="clear-output"> 
+                class="clear-output-btn hidden md:flex items-center justify-center px-2 h-8 m-4 space-x-2 border border-white rounded text-sm text-white hover:text-[#000] hover:bg-white hover:border-none"> 
                   <span> Clear </span>
                   <%s! Icons.trash "h-4 w-4" %>
               </button>
@@ -103,8 +102,7 @@ let render ~default_code =
          
             </div>
             <button 
-              class="flex md:hidden items-center justify-center px-2 h-8 m-4 space-x-2 border border-white rounded text-sm text-white hover:text-[#000] hover:bg-white hover:border-none max-w-fit"
-              id="clear-output"> 
+              class="clear-output-btn flex md:hidden items-center justify-center px-2 h-8 m-4 space-x-2 border border-white rounded text-sm text-white hover:text-[#000] hover:bg-white hover:border-none max-w-fit"> 
                 <span> Clear </span>
                 <%s! Icons.trash "h-4 w-4" %>
             </button>
@@ -113,8 +111,13 @@ let render ~default_code =
       </div>
     </div>
     <script>
-      document.getElementById("clear-output").addEventListener("click", function() {
-      document.getElementById("output").innerHTML = "" })
+    const clearOutputButtons = document.querySelectorAll(".clear-output-btn");
+    
+    clearOutputButtons.forEach(function(button) {
+      button.addEventListener("click", function() {
+        document.getElementById("output").innerHTML = "";
+      });
+    });
     </script>
   </body>
 </html>
