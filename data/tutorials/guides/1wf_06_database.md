@@ -173,7 +173,7 @@ simply type:
 
 ## Itering a List of Queries, Transactions
 
-Using `List.map` can easily create queries... but they won't be chained from
+Using `List.map` creates queries that won't be chained from
 a `lwt` point of vue. The `Lwt_list.iter_s` and `Lwt_list.map_s` can iter
 them... but won't stop at the first error.
 
