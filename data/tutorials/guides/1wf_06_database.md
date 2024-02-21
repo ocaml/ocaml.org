@@ -91,7 +91,7 @@ The following URIs are supported:
 ### Default queries
 
 The declaration of Caqti queries is rather complex. Hopefully, the `ppx_rapper` preprocessor
-permits an easy composition of such queries.
+permits an easier composition of such queries.
 
 The idea is to type something like this:
 
