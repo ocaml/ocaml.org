@@ -266,7 +266,7 @@ The keys are the same in both maps. For each key, a value in `lucky_numbers` is 
 # lucky_numbers |> StringMap.find "leostera" |> string_of_int;;
 - : string = "2112"
 
-# lucky_strings |> StringMap.find "leostera"
+# lucky_strings |> StringMap.find "leostera";;
 - : string = "2112"
 ```
 
