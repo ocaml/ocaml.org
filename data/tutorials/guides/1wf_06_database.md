@@ -177,8 +177,8 @@ Using `List.map` creates queries that won't be chained from
 a `lwt` point of view. The `Lwt_list.iter_s` and `Lwt_list.map_s` can iter
 them... but won't stop at the first error.
 
-If we wan't to iter all the queries even in the presence of error, we can
-simply type
+If we want to iter all the queries even in the presence of an error, we can
+type
 
 ```ocaml
 let%lwt () = Lwt_list.iter_s  item_to_query_function list in
