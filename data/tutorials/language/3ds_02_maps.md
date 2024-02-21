@@ -13,7 +13,7 @@ tables](https://en.wikipedia.org/wiki/Associative_array) for your types. Such
 maps are never modified, and every operation returns a new map instead.
 
 **Note**: Maps described in this tutorial should not be confused with map
-functions such as `List.map`, `Array.map`, `Option.map` and others. The maps
+functions such as `List.map`, `Array.map`, `Option.map`, and others. The maps
 described in this tutorial are also called dictionaries or associative tables.
 
 To use `Map`, we first have to use the [`Map.Make`](/api/Map.Make.html) functor to create our custom
@@ -132,9 +132,9 @@ If the passed key is already associated with a value, the passed value replaces 
 
 Note that the initial map `lucky_numbers` remains unchanged.
 
-## Removing Entries from a Map
+## Removing Entries From a Map
 
-To remove an entry from a map, use the `remove` function, which takes a key, and
+To remove an entry from a map, use the `remove` function, which takes a key and
 a map. It returns a new map with that key's entry removed.
 ```ocaml
 # let less_lucky_numbers = lucky_numbers |> StringMap.remove "divagnz";;
@@ -151,10 +151,10 @@ Removing a key that isn't present in the map has no effect.
 
 Note that the initial map `lucky_numbers` remains unchanged.
 
-## Changing the Value Associated with a Key
+## Changing the Value Associated With a Key
 
-To change a key's associated value, use the `update` function, which takes a
-key, a map and an update function. It returns a new map with the key's
+To change a key's associated value, use the `update` function. It takes a
+key, a map, and an update function. It returns a new map with the key's
 associated value replaced by the new one.
 
 ```ocaml
@@ -169,7 +169,7 @@ associated value replaced by the new one.
 - : int option = Some 99
 ```
 
-You should experiment with different update functions, several behaviors are possible.
+You should experiment with different update functions; several behaviors are possible.
 
 ## Checking if a Key is Contained in a Map
 
@@ -274,12 +274,12 @@ The keys are the same in both maps. For each key, a value in `lucky_numbers` is 
 If you need to create a map with a custom key type, you can call the `Map.Make`
 functor with a module of your own, provided that it implements two things:
 
-1. A type `t` type with no type parameters.
-2. A function `compare : t -> t -> int` function that compares `t` values.
+1. A type `t` type with no type parameters
+2. A function `compare : t -> t -> int` function that compares `t` values
 
-Let's define our custom map below, for non-negative numbers.
+Let's define our custom map below for non-negative numbers.
 
-We'll start by defining a module for strings that compares them in case insensitive way.
+We'll start by defining a module for strings that compares them in case-insensitive way.
 ```ocaml
 # module Istring : sig
     type t
@@ -292,7 +292,7 @@ We'll start by defining a module for strings that compares them in case insensit
 ```
 
 Note that our module has a `type t` and also a `compare` function. Now we can
-call the `Map.Make` functor on it, to get a map for non-negative numbers:
+call the `Map.Make` functor to get a map for non-negative numbers:
 
 ```ocaml
 # module IstringMap = Map.Make(Istring);;
