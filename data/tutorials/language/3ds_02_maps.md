@@ -200,7 +200,7 @@ val pick_fst : 'a -> 'b -> 'c -> 'b option = <fun>
 # let pick_snd key _ v2 = Some v2;;
 val pick_snd : 'a -> 'b -> 'c -> 'c option = <fun>
 
-# let drop _ _ _ = None
+# let drop _ _ _ = None;;
 val drop : 'a -> 'b -> 'c -> 'd option = <fun>
 ```
 
