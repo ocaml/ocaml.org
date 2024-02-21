@@ -20,7 +20,7 @@ This tutorial is made to facilitate the integration of the multiple involved lib
 
 ## The Lwt and `Lwt_result` context
 
-`caqti` provides blocking functions which avoid the need of `lwt`, however one can use the `ppx_rapper`
+`caqti` provides blocking functions, which avoid the need of `lwt`. However, one can use the `ppx_rapper`
 preprocessor and produce Lwt promises, then some `lwt` integration is needed. Moreover `caqti` queries
 return `Result` values which can be `Ok the_expected_result` or `Error the_error_description`.
 
