@@ -10,7 +10,7 @@ category: "Guides"
 
 The OCaml ecosystem provides multiple libraries which can be used to access a RDBMS.
 
-One of these libraries is `caqti` which has multiple advantages:
+One of these libraries is `caqti`. It has the following features:
 
 - it can be used with multiple RDBMS (Postgres, MariaDB, SQLite3),
 - it can be used in a Lwt context which permits its use in some application server. Especially
