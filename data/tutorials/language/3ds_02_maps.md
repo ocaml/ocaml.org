@@ -161,6 +161,7 @@ associated value replaced by the new one.
 # let updated_lucky_numbers =
     lucky_numbers
     |> StringMap.update "charstring88" (Option.map (fun _ -> 99));;
+val updated_lucky_numbers : int StringMap.t = <abstr>
 
 # StringMap.find_opt "charstring88" lucky_numbers;;
 - : int option = Some 88
