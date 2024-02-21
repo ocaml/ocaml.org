@@ -70,7 +70,7 @@ val int_map : int StringMap.t = <abstr>
 
 Throughout the rest of this tutorial, we use the following map:
 ```ocaml
-# let lucky_numbers = StringMap.of_list [
+# let lucky_numbers = StringMap.of_seq @@ List.to_seq [
     ("leostera", 2112);
     ("charstring88", 88);
     ("divagnz", 13);
