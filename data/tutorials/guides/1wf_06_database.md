@@ -26,7 +26,7 @@ return `Result` values which can be `Ok the_expected_result` or `Error the_error
 
 Chaining multiple queries may be cumbersome: testing the result value and extracting the expected result if `Ok`. The `Lwt_result` monad can make implicit each error test and result extraction.
 
-The idea is instead of presenting the program like:
+The idea is instead of presenting the program like this:
 
 ```ocaml
 let () =
