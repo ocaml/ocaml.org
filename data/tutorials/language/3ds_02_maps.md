@@ -289,7 +289,7 @@ We'll start by defining a module for strings that compares them in case-insensit
     type t = string
     let compare a b = String.(compare (lowercase_ascii a) (lowercase_ascii b))
   end;;
-  module Istring : sig type t val compare : t -> t -> int end
+module Istring : sig type t val compare : t -> t -> int end
 ```
 
 Note that our module has a `type t` and also a `compare` function. Now we can
@@ -297,6 +297,19 @@ call the `Map.Make` functor to get a map for non-negative numbers:
 
 ```ocaml
 # module IstringMap = Map.Make(Istring);;
+module IstringMap :
+  sig
+    type key = Istring.t
+    type 'a t = 'a Map.Make(Istring).t
+    val empty : 'a t
+    val is_empty : 'a t -> bool
+    val mem : key -> 'a t -> bool
+    val add : key -> 'a -> 'a t -> 'a t
+    val update : key -> ('a option -> 'a option) -> 'a t -> 'a t
+    val singleton : key -> 'a -> 'a t
+    val remove : key -> 'a t -> 'a t
+    (* ... *)
+end
 ```
 
 ## Conclusion
