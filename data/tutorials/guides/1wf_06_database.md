@@ -203,7 +203,7 @@ let iter_queries queries cnx =
      queries
 ```
 
-This function iter a list of functions with a connexion as an argument and execute each query.
+This function iters a list of functions with a connection as an argument and executes each query.
 It can be used in the following context (where `insert_a_record` is defined in the example
 section):
 ```ocaml
