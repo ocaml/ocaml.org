@@ -30,12 +30,6 @@ categories:
       - name: gg
       - name: async_graphics
       - name: cairo2
-  - name: Web (Js bindings)
-    status: 🟡
-    description: |
-      These libraries are used to create bindings between OCaml and JavaScript, allowing OCaml code to interact with JavaScript libraries. They help in creating web applications using OCaml by providing a bridge between OCaml and JavaScript.
-    packages:
-      - name: chartjs
   - name: image processing
     status: 🟢
     description: |
@@ -50,9 +44,7 @@ categories:
       These libraries are used to create visual representations of data. They provide functionalities to generate various types of plots, charts, and diagrams.
     packages:
       - name: plot
-      - name: owl-plot
       - name: oplot
-      - name: plotty
       - name: gr
   - name: Events
     status: 🟡
