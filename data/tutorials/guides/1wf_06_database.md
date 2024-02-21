@@ -24,9 +24,7 @@ This tutorial is made to facilitate the integration of the multiple involved lib
 preprocessor and produce Lwt promises, then some `lwt` integration is needed. Moreover `caqti` queries
 return `Result` values which can be `Ok the_expected_result` or `Error the_error_description`.
 
-Chaining multiple queries may be cumbersome: testing the result value, extracting the
-"expected result" if Ok... The `Lwt_result` monad can make implicit each error test and
-result extraction.
+Chaining multiple queries may be cumbersome: testing the result value and extracting the expected result if `Ok`. The `Lwt_result` monad can make implicit each error test and result extraction.
 
 The idea is instead of presenting the program like:
 
