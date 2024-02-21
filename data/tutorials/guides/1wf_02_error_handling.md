@@ -627,7 +627,7 @@ one, with the same logic, applied to `Error`
 
 Here is its type:
 ```ocaml
-val map : ('c -> 'd) -> ('a, 'c) result -> ('a, 'd) result
+val map_error : ('c -> 'd) -> ('a, 'c) result -> ('a, 'd) result
 ```
 And here is how it is written:
 ```ocaml
