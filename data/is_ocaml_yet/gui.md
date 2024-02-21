@@ -6,7 +6,7 @@ categories:
   - name: Frameworks
     status: 🟡
     description: |
-      These are libraries written entirely in OCaml. It has packages for syndicating content and working with RSS feeds.
+      These libraries provide a rich toolkit to develop GUI applications.
     packages:
       - name: bogue
       - name: lablgtk
@@ -33,7 +33,7 @@ categories:
   - name: image processing
     status: 🟢
     description: |
-      These libraries provide functionalities to manipulate and process images. They offer a range of functionalities for image processing tasks, like basic image manipulation to more complex operations. They make OCaml a powerful language for image processing.
+      Packages for image-processing.
     packages:
       - name: tsdl-image
       - name: bimage
