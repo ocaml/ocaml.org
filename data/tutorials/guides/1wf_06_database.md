@@ -18,7 +18,7 @@ One of these libraries is `caqti`. It has the following features:
 
 This tutorial is made to facilitate the integration of the multiple involved libraries.
 
-## The Lwt and Lwt_result context
+## The Lwt and `Lwt_result` context
 
 `caqti` provides blocking functions which avoid the need of `lwt`, however one can use the `ppx_rapper`
 preprocessor and produce Lwt promises, then some `lwt` integration is needed. Moreover `caqti` queries
