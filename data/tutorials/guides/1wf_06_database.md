@@ -56,7 +56,7 @@ which need to be scheduled). Once the query has been scheduled and executed, the
 value is analysed and the value of `Result.Ok value` is extracted. If the result is `Error err`,
 the thread of queries is aborted.
 
-## The database connection
+## The Database Connection
 
 `caqti` provides a `connect` function which establish a connection to the database, but it
 is more secure to use `with_connection` which garantee the closure of the database even in the
