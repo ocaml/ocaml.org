@@ -234,7 +234,7 @@ The `transaction` function is used in the same way as `iter_queries`.
 
 ## Example
 
-The following example is a working program which illustrates the use of the different
+The following example is a working program that illustrates the use of the different
 `ppx_rapper` options.
 
 ```ocaml
