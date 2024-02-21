@@ -50,7 +50,7 @@ let () =
   | Result.Error r -> ...
 ```
 
-The `let*` notation is associated to the `bind` function which deals with Lwt sequencing
+The `let*` notation is associated to the `bind` function, which deals with Lwt sequencing
 (a `query1 ()` is typically of type `('a, 'b) result Lwt.t` which represent a computation
 which need to be scheduled). Once the query has been scheduled and executed, the `Result`
 value is analysed and the value of `Result.Ok value` is extracted. If the result is `Error err`,
