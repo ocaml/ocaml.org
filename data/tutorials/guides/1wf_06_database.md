@@ -86,7 +86,7 @@ The following URIs are supported:
 - `"mariadb://user:passwd@host/database"` (using mariadb library),
 
 
-## Declaring and using queries
+## Declaring and Using Queries
 
 ### Default queries
 
