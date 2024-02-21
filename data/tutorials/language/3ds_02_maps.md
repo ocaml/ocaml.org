@@ -86,7 +86,7 @@ To find entries in a map, use the `find_opt` or `find` functions:
 - : int option = Some 2112
 
 # StringMap.find "leostera" lucky_numbers;;
-- : int option = 2112
+- : int = 2112
 ```
 
 When the searched key is present from the map:
