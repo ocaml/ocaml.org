@@ -174,7 +174,7 @@ simply type:
 ## Itering a List of Queries, Transactions
 
 Using `List.map` creates queries that won't be chained from
-a `lwt` point of vue. The `Lwt_list.iter_s` and `Lwt_list.map_s` can iter
+a `lwt` point of view. The `Lwt_list.iter_s` and `Lwt_list.map_s` can iter
 them... but won't stop at the first error.
 
 If we wan't to iter all the queries even in the presence of error, we can
