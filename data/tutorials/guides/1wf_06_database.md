@@ -8,7 +8,7 @@ category: "Guides"
 
 ## Introduction
 
-The OCaml ecosystem provides multiple libraries which can be used to access a RDBMS.
+The OCaml ecosystem provides multiple libraries that can be used to access an RDBMS.
 
 One of these libraries is `caqti`. It has the following features:
 
