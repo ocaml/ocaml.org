@@ -446,9 +446,26 @@ results than a single one.
     | Error reason -> Error (error reason);;
 ```
 
-### Mapping over Sequences
+### Mapping over Arrays or Sequences
 
+Mapping over sequences or arrays is essentially similar to mapping over lists.
+```ocaml
+# Array.map;;
+- : ('a -> 'b) -> 'a array -> 'b array = <fun>
 
+# Seq.map;;
+- : ('a -> 'b) -> 'a Seq.t -> 'b Seq.t = <fun>
+
+# Array.map (fun x -> x * x) (Array.init 10 Fun.id);;
+- : int array = [|0; 1; 4; 9; 16; 25; 36; 49; 64; 81|]
+
+# Seq.map (fun x -> x * x) (Seq.ints 0) |> Seq.take 10 |> List.of_seq;;
+- : int list = [0; 1; 4; 9; 16; 25; 36; 49; 64; 81]
+```
+
+Refer to relevant documentation for more about those maps:
+* Arrays: [API reference](/api/Array.html) and [tutorial](/docs/arrays)
+* Sequences: [API reference](/api/Seq.html) and [tutorial](/docs/sequences)
 
 ### Mapping over Custom Data Types
 
@@ -677,22 +694,48 @@ The OCaml standard library only provides unfold on sequences.
 - : int list = [0; 1; 4; 9; 16; 25; 36; 49; 64; 81]
 ```
 
-Whilst `Seq.fold` reduces a sequence into a single value, for instance the sum
+Whilst `Seq.fold` reduces a sequence into a single value, for instance, the sum
 of its contents, `Seq.unfold` produces a sequence from an initial value.
 
-Unfold functions are seldom needed to have to define custom fold functions (that )
+Unfold functions are not as frequently used. If you ever need to write define
+one, here are two examples, on lists and binary trees. Here is list unfolding,
+how it can be used to produce a list of squares.
 ```ocaml
 # let rec list_unfold f x = match f x with
     | None -> []
-    | Some (y, x) -> y :: list_fold f x;;
+    | Some (y, x) -> y :: list_unfold f x;;
 val list_unfold : ('a -> ('b * 'a) option) -> 'a -> 'b list = <fun>
 
-# list_unfold (fun n -> if n < 10 then Some (n * n, n + 1) else None) 0;;
-- : int list = [0; 1; 4; 9; 16; 25; 36; 49; 64; 81]
+# let u =
+    let f n = if n < 10 then Some (n * n, n + 1) else None in
+    list_unfold f 0;;
+u : int list = [0; 1; 4; 9; 16; 25; 36; 49; 64; 81]
+```
 
+Here is unfold on binary trees:
+```ocaml
 # let rec tree_unfold f x = match f x with
     | None -> Leaf
-    | Some (y, x_lft, x_rht) -> Node (y, tree_unfold f x_lft, tree_unfold f x_rht);;
+    | Some (y, x_lft, x_rht) ->
+        Node (y, tree_unfold f x_lft, tree_unfold f x_rht);;
+val tree_unfold : ('a -> ('b * 'a * 'a) option) -> 'a -> 'b tree = <fun>
+```
+
+Here is how tree unfolding can be used to store the elements of a list into a
+balanced binary tree.
+```ocaml
+# let f = function
+    | [] -> None
+    | x :: u ->
+        let altern = let b = ref true in fun _ -> b := not !b; !b in
+        let lft, rht = List.partition altern u in
+        Some (x, lft, rht) in
+  tree_unfold f u;;
+- : int tree =
+Node (0,
+ Node (4, Node (36, Leaf, Leaf), Node (16, Leaf, Node (64, Leaf, Leaf))),
+ Node (1, Node (25, Leaf, Node (81, Leaf, Leaf)),
+  Node (9, Leaf, Node (49, Leaf, Leaf))))
 ```
 
 ## Iterating
