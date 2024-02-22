@@ -89,6 +89,8 @@ categories:
     packages:
     - name: tyxml
     - name: embedded_ocaml_templates
+    - name: dream_html
+    - name: ppx_dream_eml
     - name: mustache
     - name: jingoo
   - name: Static Site Generation
