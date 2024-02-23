@@ -931,7 +931,6 @@ List.sort String.compare ["z";"b";"a"];;
 List.sort Bool.compare [true;false;false];;
 ```
 
-
 ## Binding
 
 One last common higher-order pattern in functional programming is the ability to _join_ data from within. For historical reasons, this is normally called a _bind_.
@@ -1088,174 +1087,165 @@ What do you think?
 
 -->
 
-## Currying and Uncurrying
+## Uncurrying and Currying
 
-Since in OCaml all functions really just take one parameter, when you call `add x y`, you're actually calling two functions! `((add x) y)`
+In OCaml functions just take one parameter.
+```ocaml
+# max;;
+- : 'a -> 'a -> 'a = <fun>
 
-Sometimes it helps to apply _parts_ of a function in different orders, and sometimes it helps to make a function really take all its parameters _at once_.
+# max 21 42;;
+- : int = 42
+
+# (max 21) 42;;
+- : int 42
+
+# max 21;;
+- : int -> int = <fun>
+```
+
+Evaluation of `max 21 42` and `(max 21) 42` produces the same results. First,
+`max 21` is evaluated. It returns a function. Next, it is applied to `42`.
+
+Here is another possible definition of max
+```ocaml
+# let uncurried_max (x, y) = max x y;;
+val uncurried_max : 'a * 'a -> 'a = <fun>
+```
+
+This alternate max function takes its data all at once, as a tuple. As indicated
+by its name, it is said to be _uncurried_. The `max` function used before,
+defined in the standard library is said to be _curried_.
+
+
+
+Sometimes it helps to apply _parts_ of a function in different orders, and
+sometimes it helps to make a function really take all its parameters _at once_.
 
 This is what we call currying and uncurrying:
 
 * A curried `add` function will be called like `add x y`.
-* An uncurried `add` functoin will be called liked `add (x, y)`. Note how this is really just one argument!
+* An uncurried `add` function will be called liked `add (x, y)`. Note how this
+  is really just one argument!
 
-Before we get to some examples, let's define some helper functions that will help us curry and uncurry functions.
+Before we get to some examples, let's define some helper functions that will
+help us curry and uncurry functions.
 
 ### Uncurrying
 
-Our uncurry helper is a function that takes one function as input and returns another function. It is essentially a wrapper.
-
-The input function must have type `'a -> 'b -> 'c`. This is the type of any function that takes 2 parameters.
-
-The output function will have type `('a * 'b) -> 'c`. Notice how the arguments `'a` and `'b` are now bundled together in a tuple!
-
-Here's our helper:
-
-```ocaml
-(* [uncurry] takes a function that is normally curried,
-   and returns a function that takes all arguments at once. *)
-# let uncurry f (x, y) = f x y;;
-val uncurry : ('a -> 'b -> 'c) -> 'a * 'b -> 'c = <fun>
-```
-
-If we wanted to write `uncurry` for more arguments, we'd just make a new `uncurry3` or `uncurry4` or even `uncurry5` function that would work exactly the same:
-
-```ocaml
-# let uncurry4 f (w, x, y, z) = f w x y z;;
-val uncurry4 : ('a -> 'b -> 'c -> 'd -> 'e) -> 'a * 'b * 'c * 'd -> 'e = <fun>
-```
-
-Uncurrying can be very useful when you're dealing with lists (which we do a lot in OCaml) and when the list happens to have tuples.
-
-Take for example this list of tuples of names and favorite emojis:
-
+Uncurrying can be useful when you're dealing with lists of tuples. Take for
+example this list of emoji and name pairs:
 ```ocaml
 # let people = [
-  "🐫", "Sabine";
-  "🚀", "Xavier";
-  "✨", "Louis";
-]
-;;
+    "🐫", "Sabine";
+    "🚀", "Xavier";
+    "✨", "Louis";
+  ];;
+val people : (string * string) list =
+  [("🐫", "Sabine"); ("🚀", "Xavier"); ("✨", "Louis")]
 ```
 
-If we wanted to do something with any of these elements, we'd need to split the tuple, and call a function:
-
+It is not possible to use [List.map](/api/List.html#VALmap) over this list using
+a function of type `string -> string -> string`:
 ```ocaml
 # let greet emoji name =
-  Printf.printf "Glad to see you like %s, %s!\n" emoji name
-;;
+    Printf.sprintf "Glad to see you like %s, %s!\n" emoji name;;
+- : string -> string -> string = <fun>
 
-let emoji, name = List.hd people in
-# greet emoji name
-;;
+# List.map greet people;;
+Error: This expression has type (string * string) list
+       but an expression was expected of type string list
+       Type string * string is not compatible with type string 
 ```
 
-But we can also uncurry our `greet` function to operate over the entire tuple!
-
+However, if you uncurry it, it becomes possible.
 ```ocaml
-# uncurry greet (List.hd people)
-;;
+# let uncurried_greet (emoji, name) =
+    Printf.sprintf "Glad to see you like %s, %s!\n" emoji name;;
+val uncurried_greet : string * string -> unit = <fun>
+
+# List.map uncurried_greet people;;
+- : string list =
+["Glad to see you like 🐫, Sabine!\n";
+ "Glad to see you like 🚀, Xavier!\n";
+ "Glad to see you like ✨, Louis!\n"]
 ```
+
+Observe that `greet` and `uncurried_greet` have the same bodies, they only
+differ in their parameter specification and typing.
 
 ### Currying
 
-On the other hand, sometimes we have functions that already work with tuples, and we'd like to use them like functions that take multiple arguments.
+In OCaml, curried functions are the default. Functions defined in the OCaml
+standard library are already curried (except [`fst`](/api/Stdlib.html#VALfst)
+and [`snd`](/api/Stdlib.html#VALfst), but they are meant to process pairs). Most
+open-source packages provide curried functions. It is seldom needed to have to
+curry a function.
 
-For that we can define a little `curry` helper that will take a function as input, and return another function as output. It is essentially a wrapper.
+Variant constructors can be viewed as functions without bodies. In this
+perspective, constructors with data are uncurried functions. For instance, the
+function `List.cons` can be considered as an uncurried version of the cons
+(`::`) constructor.
 
-The input function must have type: `('a * 'b) -> 'c` – this is the type of any function that one tuple with 2 parameters.
-
-The output function will have type `'a -> 'b -> 'c` – notice how the arguments `'a` and `'b` are now unbundled!
-
-Here's our helper:
-
+This applies to records as well. They are tuples with labels and single
+constructor variants that carry data. You can uncurry a function that has a
+record parameter. Consider the following type and function.
 ```ocaml
-(* [curry] takes a function that is normally curried,
-   and returns a function that takes all arguments at once. *)
-let curry f x y = f (x, y)
-;;
+# type name = {
+    first: string;
+    last: string;
+  };;
+type name = { first : string; last : string; }
+
+# let display_name { first; last } =
+    String.(capitalize_ascii first ^ " " ^ uppercase_ascii last);;
+val display_name : name -> string = <fun>
 ```
 
-If we wanted to write `curry` for more arguments, we'd just make a new `curry3` or `curry4` or even `curry5` function that would work exactly the same:
-
+Currying the function `display_name` means defining this:
 ```ocaml
-let curry4 f w x y z = f (w, x, y, z)
-;;
+# let curried_display_name last first =
+    String.(capitalize_ascii first ^ " " ^ uppercase_ascii last);;
+val curried_display_name : string -> string -> string = <fun>
 ```
 
-Currying can be very useful when you're dealing with lists (which we do a lot in OCaml) and when the list has a single value, but your function takes more than one.
-
-Take for example this list of names and an uncurried revealing function:
-
+That enables partial application.
 ```ocaml
-let names = [
-  "Sabine";
-  "Xavier";
-  "Louis";
-]
-;;
+# let given_names = [
+    "Sabine";
+    "Xavier";
+    "Louis";
+  ];;
+val given_names : string list = ["sabine"; "xavier"; "louis"]
 
-let reveal (title, name) =
-  Printf.printf "But it was %s, %s!\n" title name
-;;
+# List.map (curried_display_name "ocamler") given_names;;
+- : string list = ["Sabine OCAMLER"; "Xavier OCAMLER"; "Louis OCAMLER"]
 ```
 
-If we wanted to use `reveal` on a name, we have to put it into a tuple, and then do the call. Like this:
+### Currying and Uncurrying as Higher-Order Functions
 
+It is possible to write uncurrying and currying as higher-order
+functions. Here is what they look like for pairs:
 ```ocaml
-List.iter (fun name ->
-  let title = "The OCamler" in
-  reveal (title, name)) names
-;;
+# let uncurry f (x, y) = f x y;;
+val uncurry : ('a -> 'b -> 'c) -> 'a * 'b -> 'c = <fun>
+
+# let curry f x y = f (x, y);;
+val curry : ('a * 'b -> 'c) -> 'a -> 'b -> 'c = <fun>
 ```
 
-But we can also curry our `reveal` function to take 2 arguments!
+Both functions take one function as input and return another function. They are
+essentially wrappers. Notice that their types are reversed, `'a * 'b -> 'c` and
+`'a -> 'b -> 'c` are flipped around the root arrow. This can be adapted for
+longer tuples, records and variant constructors.
 
-```ocaml
-List.iter (curry reveal "The OCamler") names
-;;
-```
+Currying and uncurrying using these functions are all fun and games until your
+code gets very hard to read. That's why they aren't part of the
+[`Fun`](/api/Fun.html) module. In mainstream OCaml code, functions should be
+curried. When an uncurried function is needed, use a lambda expression to wrap
+the curried function where it is needed.
 
-### Readability Notes
-
-Currying and uncurrying is all fun and games until your code gets very hard to read.
-
-Sometimes it makes sense to curry a function, and sometimes the clearer thing is to manually wrap it in a function.
-
-For example, this is a pipeline with a lot of currying/uncurrying that would most likely be easier to read and maintain if we manually wrote out the wrapper functions:
-
-```ocaml
-let do_and_return f x = f x; x
-;;
-
-let flip (x, y) = (y, x)
-;;
-
-names
-|> List.map (do_and_return (greet "👋🏼"))
-|> List.map (Fun.flip List.assoc (List.map flip people))
-|> List.iter (curry reveal "The OCamler")
-;;
-```
-
-Versus a much more readable and easier to maintain version:
-
-```ocaml
-let find_by_name name1 =
-  List.find (fun (_emoji, name2) -> name1 = name2) people
-;;
-
-(* first iterate over the names, greeting them *)
-names |> List.iter (greet "👋🏼")
-;;
-
-(* then find the right emoji by name *)
-names
-|> List.map find_by_name
-|> List.iter (fun (emoji, _name) -> reveal ("The OCamler", emoji))
-;;
-```
-
+## Conclusion
 
 <!--
 **What you'll learn**:
