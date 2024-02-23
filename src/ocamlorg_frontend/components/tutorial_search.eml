@@ -45,20 +45,20 @@ Learn_layout.single_column_layout
             </div>
           <ol class="flex flex-col">
             <% documents |> List.iter (fun (doc : Data.Tutorial.search_document) -> %>
-            <li class="border-separator_20 dark:border-dark-separator_30 border-b py-6 md:py-8">
+            <li class="border-separator_20 dark:border-dark-separator_30 border-b py-6 md:py-8 group">
                 <a href="<%s doc.slug %><%s match doc.section with | None -> "" | Some heading -> heading.id %>">
-                  <h2 class="text-primary dark:text-dark-primary text-2xl"><%s! Search.highlight_search_terms ~class_:"bg-tertiary_lighter dark:bg-[#003357]" ~search doc.title %></h2>
+                  <h2 class="text-primary dark:text-dark-primary text-2xl group-hover:underline"><%s! Search.highlight_search_terms ~class_:"bg-tertiary_lighter dark:bg-[#003357] dark:text-dark-white" ~search doc.title %></h2>
                   <% match doc.section with | None -> () | Some heading -> ( %>
                   <h3 class="mb-2 mt-4 leading-7 text-title dark:text-dark-title text-base">
                     <%s! Icons.hashtag "w-6 h-6 p-0.5 mr-2 inline-block border rounded-md text-white bg-code_window dark:bg-dark-background_navigation" %>
-                    <%s! Search.highlight_search_terms ~class_:"bg-tertiary_lighter dark:bg-[#003357]" ~search heading.title %>
+                    <%s! Search.highlight_search_terms ~class_:"bg-tertiary_lighter dark:bg-[#003357] dark:text-dark-white" ~search heading.title %>
                   </h3>
                   <% ); %>
                   <p class="mt-4 text-content dark:text-dark-content text-base leading-7">
-                    <%s! Search.highlight_search_terms ~class_:"bg-tertiary_lighter dark:bg-[#003357]" ~search (Search.display_surrounding_text ~search doc.content) %>
+                    <%s! Search.highlight_search_terms ~class_:"bg-tertiary_lighter dark:bg-[#003357] dark:text-dark-white" ~search (Search.display_surrounding_text ~search doc.content) %>
                   </p>
               </a>
-              <div class="mt-5 inline-block px-5 whitespace-nowrap py-0.5 text-primary dark:text-dark-primary font-normal bg-primary_25 dark:bg-dark-primary_nav_block_hover_10 border border-primary dark:border-dark-primary hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title rounded"><%s! doc.category %></div>
+              <div class="mt-5 inline-block px-5 whitespace-nowrap py-0.5 text-primary dark:text-dark-primary font-normal bg-primary_25 dark:bg-dark-primary_nav_block_hover_10 border border-primary dark:border-dark-primary rounded"><%s! doc.category %></div>
             </li>
             <% ); %>
           </ol>
