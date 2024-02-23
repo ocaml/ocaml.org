@@ -12,15 +12,17 @@ let version t = t.version
 let info t = t.info
 let create ~name ~version info = { name; version; info }
 
-type time = float
+type documentation_status_cache_entry = {
+  documentation_status : Documentation_status.t option;
+  time : float;
+}
 
 type state = {
   version : string;
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
   mutable stats : Statistics.t option;
-  mutable doc_status :
-    (Documentation_status.t option * time) Version.Map.t Name.Map.t;
+  mutable doc_status : documentation_status_cache_entry Version.Map.t Name.Map.t;
 }
 
 let mockup_state (pkgs : t list) =
@@ -403,7 +405,9 @@ let documentation_status ~kind state t : Documentation_status.t option Lwt.t =
           Some (s |> Yojson.Safe.from_string |> Documentation_status.of_yojson)
       | _ -> None
     in
-    let status_entry = (status, Unix.gettimeofday ()) in
+    let status_entry =
+      { documentation_status = status; time = Unix.gettimeofday () }
+    in
     state.doc_status <-
       Name.Map.update t.name
         (Version.Map.add t.version status_entry)
@@ -422,8 +426,8 @@ let documentation_status ~kind state t : Documentation_status.t option Lwt.t =
     |> Option.value ~default:None
   with
   | None -> get_and_cache ()
-  | Some (_, time) when has_cache_expired time -> get_and_cache ()
-  | Some (status, _) -> Lwt.return status
+  | Some { time; _ } when has_cache_expired time -> get_and_cache ()
+  | Some { documentation_status; _ } -> Lwt.return documentation_status
 
 let doc_exists t name version =
   let package = get t name version in
