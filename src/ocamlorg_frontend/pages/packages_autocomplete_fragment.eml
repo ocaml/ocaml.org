@@ -43,25 +43,24 @@ let render
 
   <ol class="flex flex-col" x-init="row = null; col = 0; total = <%s string_of_int total %>">
   <% packages |> List.iteri (fun i (package : Package.package) -> %>
-    <li class="flex flex-row text-primary dark:text-dark-primary">
+    <li class="flex flex-row text-title dark:text-dark-title hover:text-white dark:hover:text-dark-white">
       <a
         x-init="max=<%s string_of_int i %>"
         id="package-autocomplete-<%s string_of_int i %>-0"
         :aria-selected="row == <%s string_of_int i %> && col == 0"
         href="<%s Url.Package.overview package.name %>"
-        :class='row == <%s string_of_int i %> && col == 0 ? "bg-legacy-search-keyboard-cursor text-white": ""'
-        class="flex-grow ml-2 px-2 py-2 leading-6 font-normal hover:bg-primary_nav_block_hover_10 dark:hover:bg-primary_nav_block_hover_10 rounded-md inline-block"
+        :class='row == <%s string_of_int i %> && col == 0 ? "bg-tertiary dark:bg-dark-tertiary text-white": ""'
+        class="flex-grow ml-2 px-2 py-2 leading-6 font-normal text-title dark:text-dark-title hover:bg-primary_nav_block_hover_10 dark:hover:bg-dark-primary_nav_block_hover_10 rounded-md inline-block"
       >
-        <%s! Search.highlight_search_terms ~class_:"bg-legacy-search-term-highlight text-gray-800 font-normal" ~search package.name %>
+        <%s! Search.highlight_search_terms ~class_:"bg-tertiary dark:bg-dark-tertiary text-title dark:text-dark-white font-normal" ~search package.name %>
       </a>
       <% (match package.documentation_status with | Package.Success -> %>
         <a
           id="package-autocomplete-<%s string_of_int i %>-1"
           :aria-selected="row == <%s string_of_int i %> && col == 1"
           href="<%s Url.Package.documentation package.name %>"
-          :class=' row == <%s string_of_int i %> && col == 1 ? "bg-legacy-search-keyboard-cursor text-white": ""'
-          class="flex text-smi w-20 justify-self-end px-2 py-2 leading-6
-          font-normal hover:text-white hover:bg-legacy-search-result-background-blue rounded-md">
+          :class=' row == <%s string_of_int i %> && col == 1 ? "bg-tertiary dark:bg-dark-tertiary text-white": ""'
+          class="flex text-sm justify-self-end px-2 py-2 leading-6 font-normal text-title dark:text-[#F36528] dark:hover:text-dark-white hover:bg-primary_nav_block_hover_10 dark:hover:bg-dark-primary_nav_block_hover_10 rounded-md">
           <%s! Icons.documentation "h-5 w-5" %>
           DOCS
         </a>
@@ -72,8 +71,8 @@ let render
   <% ); %>
   </ol>
   <% if total > 5 then ( %>
-  <a class="text-primary dark:text-dark-primary italic font-normal hover:bg-primary_nav_block_hover_10 dark:hover:bg-dark-primary_nav_block_hover_10 px-2 py-2 flex text-right rounded-md" href="<%s Url.packages_search %>?q=<%s Dream.to_percent_encoded search %>">see more...</a>
+  <a class="text-title dark:text-dark-title hover:text-title dark:hover:text-dark-white italic font-normal hover:bg-primary_nav_block_hover_10 dark:hover:bg-dark-primary_nav_block_hover_10 underline px-2 py-2 flex text-right rounded-md" href="<%s Url.packages_search %>?q=<%s Dream.to_percent_encoded search %>">See more...</a>
   <% ); %>
   <hr class="mb-2 mt-3">
-  <span class="pl-2 font-normal text-content dark:text-dark-content">Or go to</span>
+  <span class="pl-2 font-normal text-title dark:text-dark-title">Or go to</span>
 </div>
