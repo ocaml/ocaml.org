@@ -712,6 +712,15 @@ val list_unfold : ('a -> ('b * 'a) option) -> 'a -> 'b list = <fun>
 u : int list = [0; 1; 4; 9; 16; 25; 36; 49; 64; 81]
 ```
 
+**Fun Fact**: Map is also an unfold.
+```ocaml
+# let map f u =
+    list_unfold (function [] -> None | x :: u -> Some (f x, u)) u;;
+
+# map (fun x -> x * x) [1; 2; 3; 4; 5; 6];;
+- : int list = [1; 4; 9; 16; 25; 36]
+```
+
 Here is unfold on binary trees:
 ```ocaml
 # let rec tree_unfold f x = match f x with
