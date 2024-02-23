@@ -266,7 +266,7 @@ Layout.render
   <div class="container-fluid grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch mb-14"> 
       <div class="flex flex-col">
         <h3 class="font-bold text-title dark:text-dark-title">Releases</h3>
-        <div class="flex-grow p-10 mt-7 w-full card dark:dark-card rounded-2xl h-full">
+        <div class="flex-grow p-10 mt-7 bg-white dark:bg-dark-card border rounded-2xl h-full">
         <div class="text-primary dark:text-dark-primary text-sm mb-4 uppercase">Recent Releases</div>
       
         <% releases |> List.iter (fun (item : Data.Release.t) -> %>
@@ -288,7 +288,7 @@ Layout.render
       </div>
       <div class="flex flex-col">
           <h3 class="font-bold text-title dark:text-dark-title">Changelog</h3>
-          <div class="flex-grow p-10 mt-7 card dark:dark-card rounded-2xl h-full">
+          <div class="flex-grow p-10 mt-7 bg-white dark:bg-dark-card border rounded-2xl h-full">
             <a href="<%s Url.changelog %>">
             <div class="text-primary dark:text-dark-primary text-sm mb-4 uppercase">Releases & Updates</div>
             <h3 class="font-bold mb-6 text-title dark:text-dark-title">
@@ -301,7 +301,7 @@ Layout.render
               <div class="flex flex-col">   
                 <div class="mb-6">
                     <div class="relative pb-2">
-                        <div class="absolute block -left-11 w-6 h-6 mt-0.5 text-primary dark:text-dark-primary">
+                        <div class="absolute block -left-11 w-6 h-6 mt-0.5 text-primary dark:text-dark-primary bg-white dark:bg-dark-card">
                           <%s! Icons.changelog "w-6 h-6" %>
                         </div>
                         <a href="<%s Url.changelog_entry item.slug %>" class="my-0 font-sans text-xl tracking-normal font-extrabold leading-7 changelog-title whitespace-normal break-all text-title dark:text-dark-title hover:underline"><%s item.title %></a>
