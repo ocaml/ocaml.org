@@ -35,7 +35,9 @@ cookbook_categories:
     folder: encoding
 - title: File System
   folder: file-system
-  tasks: []
+  tasks:
+  - title: File-system operations
+    folder: file-system
 - title: Garbage Collector
   folder: garbage-collector
   tasks: []
