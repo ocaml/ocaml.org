@@ -52,7 +52,9 @@ cookbook_categories:
   tasks: []
 - title: Sorting
   folder: sorting
-  tasks: []
+  tasks:
+  - title: Sorting Lists and Arrays
+    folder: sorting
 - title: Text Processing
   folder: text-processing
   tasks: []
