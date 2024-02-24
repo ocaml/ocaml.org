@@ -24,7 +24,9 @@ cookbook_categories:
   tasks: []
 - title: Encoding
   folder: encoding
-  tasks: []
+  tasks:
+  - title: Text Encoding / Decoding
+    folder: encoding
 - title: File System
   folder: file-system
   tasks: []
