@@ -7,12 +7,12 @@ sections:
   language: ocaml
   code_blocks:
   - explanation: |
-      Initialize the `camomile` library, which offer a large set of functions to deal with strings presented in various encoding. We will need to instanciate a module that deals with UTF8 strings. (In most cases, the source code is in UTF8 and when OCaml see a constant string, it just copy the byte sequence whatever its encoding.). The `Camomile` declaration is required with the version 1 of `camomile` and mustn't be declared with the version 2:
+      Initialize the `camomile` library, which offer a large set of functions to deal with strings presented in various encoding. We will need to instanciate a module that deals with UTF8 strings. (In most cases, the source code is in UTF8 and when OCaml see a constant string, it just copy the byte sequence whatever its encoding.). The `Camomile` module declaration is required with the version 1 of `camomile` and mustn't be declared with the version 2:
     code: |
 	  #require "camomile";;
       module Camomile = CamomileLibrary.Make(CamomileDefaultConfig);;
       module UTF8 = Camomile.CharEncoding.Make(Camomile.UTF8);;
-  - explanation: Let's convert a UTF8 string into a Latin1 encoding. (Note, most terminals deal equaly with UTF8 and Latin1 characters, then both strings look equal on the screen). 
+  - explanation: Let's convert a UTF8 string into a Latin1 encoding. (Note, most terminals deal equaly with UTF8 and Latin1 characters, then both strings look equal on the screen).
     code: |
       let utf8 = "déjà";;
       assert (String.length utf8 = 6);;
