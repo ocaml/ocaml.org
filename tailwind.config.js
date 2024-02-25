@@ -16,6 +16,7 @@ const figma_colors = {
     tertiary_lighter: "#D3D5F9",
     tertiary_25: "#0E2A4940",
     tertiary_bt_hover: "#111827",
+    tertiary_blue_hover: "#0C3B8C",
 
     title: "#111827",
     content: "#555659",
@@ -25,6 +26,8 @@ const figma_colors = {
     white: "#FFFFFF",
     sand: "#FAF8F3",
     code_window: "#2B2A2A",
+    search_keyboard_cursor:"#0C3B8C",
+    search_term_highlight:"#F36528",
 
     dark: {
       // Color Dark Mode https://www.figma.com/file/bSwyo5pUnarg1lquxQxWAE/Design-System-Draft?type=design&node-id=300-2170&mode=design&t=gjqG6OhhB92AFg51-0
