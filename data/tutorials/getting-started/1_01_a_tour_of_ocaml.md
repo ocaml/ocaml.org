@@ -68,7 +68,7 @@ val u : int list = [1; 2; 3; 4]
 - : string list = ["this"; "is"; "mambo"]
 ```
 
-The lists' types, `int list` and `string list`, have been inferred from the type of their elements. Lists can be empty `[]` (pronounced “nil”). Note that the first list has been given a name using the `let … = …` construction, which is detailed below. The most primitive operation on lists is appending a new element at the front of an existing list. This is done using the “cons” operator, written with the double colon operator `::`.
+The lists' types, `int list` and `string list`, have been inferred from the type of their elements. Lists can be empty `[]` (pronounced “nil”). Note that the first list has been given a name using the `let … = …` construction, which is detailed below. The most primitive operation on lists is prepending a new element at the front of an existing list. This is done using the “cons” operator, written with the double colon operator `::`.
 ```ocaml
 # 9 :: u;;
 - : int list = [9; 1; 2; 3; 4]
@@ -126,7 +126,7 @@ In OCaml, the equality symbol has two meanings. It is used in definitions and eq
 val dummy : bool = false
 ```
 
-This is interpreted as: “define `dummy` as the result of the equality test between the strings `"hi"` and `"hello"`.” OCaml also has a double equal operator `==`, which stands for physical identity, but it is not used in this tutorial. The operator `<>` is the negation of `=`, while `!=` is the negation of `==`.
+This is interpreted as: “define `dummy` as the result of the structural equality test between the strings `"hi"` and `"hello"`.” OCaml also has a double equal operator `==`, which stands for physical equality, but it is not used in this tutorial. The operator `<>` is the negation of `=`, while `!=` is the negation of `==`.
 
 ## Functions
 
@@ -260,7 +260,7 @@ val range : int -> int -> int list = <fun>
 - : int list = [2; 3; 4; 5]
 ```
 
-As indicated by its type `int -> int -> int list`, the function `range` takes two integers as arguments and returns a list of integers as result. The first `int` parameter, `lo`, is the range's lower bound; the second `int` parameter, `hi`, is the higher bound. If `lo > hi`, the empty range is returned. That's the first branch of the `if … then … else` expression. Otherwise, the `lo` value is prepended to the list created by calling `range` itself; this is recursion. Preprending is achieved using `::`, the cons operator in OCaml. It constructs a new list by adding an element at the front of an existing list. Progress is made at each call; since `lo` has just been appended at the head of the list, `range` is called with `lo + 1`. This can be visualised this way (this is not OCaml syntax):
+As indicated by its type `int -> int -> int list`, the function `range` takes two integers as arguments and returns a list of integers as result. The first `int` parameter, `lo`, is the range's lower bound; the second `int` parameter, `hi`, is the higher bound. If `lo > hi`, the empty range is returned. That's the first branch of the `if … then … else` expression. Otherwise, the `lo` value is prepended to the list created by calling `range` itself; this is recursion. Preprending is achieved using `::`, the cons operator in OCaml. It constructs a new list by adding an element at the front of an existing list. Progress is made at each call; since `lo` has just been prepended at the head of the list, `range` is called with `lo + 1`. This can be visualised this way (this is not OCaml syntax):
 
 ```
    range 2 5
