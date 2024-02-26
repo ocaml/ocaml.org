@@ -33,7 +33,7 @@ sections:
     code:
       (executable
         (name main)
-	(libraries camomile))
+        (libraries camomile))
 ---
 
 - **Understanding `camomile`:** The `camomile` package provides many operations which deal with string encodings. More than 500 encodings are supported. It provides different modules which deal with string encoding/decoding. Some other functions are provided to extract single characters from an encoded string (UTF8 chars can use a variable numbers of bytes which is not well supported by the `StdLib`), to identify characters classes or perform some uppercase/lowercase transformation)
