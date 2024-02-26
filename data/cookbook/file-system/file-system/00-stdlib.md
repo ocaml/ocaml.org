@@ -1,5 +1,5 @@
 ---
-packages []
+packages: []
 sections:
 - filename: main.ml
   language: ocaml
