@@ -30,7 +30,7 @@ sections:
   code_blocks:
   - explanation: |
       The `camomile` library must be linked.
-    code:
+    code: |
       (executable
         (name main)
         (libraries camomile))
