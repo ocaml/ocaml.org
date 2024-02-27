@@ -42,13 +42,14 @@ sections:
         String.sub str index' length'
       let () = assert (utf8_sub "décélération" 3 4 = "élér")
   - explanation: |
-      Functions which deals with the case of UTF-8 strings need to declare a module associated with the encoding (here UTF-8). `compare_caseless s1 s2` compare two strings considering lowercase characters equal to their corresponding uppercase. The the usual convention is used: 1 if `s1` is greater, 0 if equal and -1 if lower than `s2`.
+      Functions which deal with the case of UTF-8 strings need to declare a module associated with the encoding (here UTF-8). `compare_caseless s1 s2` compare two strings considering lowercase characters equal to their corresponding uppercase. Theusual convention is used: 1 if `s1` is greater, 0 if equal and -1 if lower than `s2`.
     code: |
       module CaseMap = Camomile.CaseMap.Make(Camomile.UTF8)
       assert (CaseMap.uppercase "déjà" = "DÉJÀ")
       assert (CaseMap.lowercase "DÉJÀ" = déjà")
       assert (CaseMap.capitalize "élément" = "Élément")
-      assert (CaseMap.titlecase "le quatrième élément" = "Le Quatrième Élément"      assert (CaseMap.casefolding "DÉJÀ" = "déjà")
+      assert (CaseMap.titlecase "le quatrième élément" = "Le Quatrième Élément"
+      assert (CaseMap.casefolding "DÉJÀ" = "déjà")
       assert (CaseMap.compare_caseless "DÉJÀ" "déjà" = 0)
 - filename: dune
   language: dune

@@ -19,7 +19,7 @@ sections:
       let () = assert ("aze" ^ "rty" = "azerty")
       let () = assert (String.concat "," ["aze";"rty";"uiop"] = "aze,rty,uiop"])
   - explanation: |
-      Verifying if a string start or end with a prefix/suffix:
+      Verifying if a string starts or ends with a prefix/suffix:
     code: |
       let () = assert (String.starts_with ~prefix:"a=" "a=42")
       let () = assert (String.ends_with ~suffix:" "**" "str**")
@@ -30,7 +30,7 @@ sections:
       let () = assert (String.rcontains_from "azerty" 3 'a')
       let () = assert (String.contains "azerty" 'y')
   - explanation: |
-      Searching a character in a string, returning its index. These functions are similar to the previous ones. The `_opt` versions return `None` if the character is not found, and `Some index` if it exists. The other functions raise a`n `Not_found` if no characters are found. The `r` functions search backward from the index (or the end with `rindex`).
+      Searching a character in a string, returning its index. These functions are similar to the previous ones. The `_opt` versions return `None` if the character is not found, and `Some index` if it exists. The other functions raise a `Not_found` if no characters are found. The `r` functions search backward from the index (or the end with `rindex`).
     code: |
       let () = assert (String.index_from "azerty" 3 'y' = 5)
       let () = assert (String.index_from_opt "azerty" 3 'y' = Some 5)

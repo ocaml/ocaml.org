@@ -5,11 +5,11 @@ sections:
   language: ocaml
   code_blocks:
   - explanation: |
-      Compiling a regular expression. Nota, the `{regexp|...|regexp}` is a normal string. This syntax avoid the quoting of `\\`. Indicating `regexp` is optional, but indicates to the reader of the code that the string contains a regular expression.
+      Compiling a regular expression. Nota, the `{regexp|...|regexp}` is a normal string. This syntax avoids the quoting of `\\`. Indicating `regexp` is optional, but indicates to the reader of the code that the string contains a regular expression.
     code: |
       let regexp = Str.regexp {regexp|\([0-9]+\)-\([0-9]+\)-\([0-9]+\)|regexp}
   - explanation: |
-      Testing if a string matches the regexp. The index (0) indicates the characters from which the matching is performed `string_match` only match regular expression with the string at the given index, while `search_forward` will try to match it at the given index and at the following indexes:
+      Testing if a string matches the regexp. The index (0) indicates the characters from which the matching is performed. `string_match` only match regular expression with the string at the given index, while `search_forward` will try to match it at the given index and at the following indexes:
     code: |
       let () =
         if Str.string_match regexp "1971-01-23" 0 then
