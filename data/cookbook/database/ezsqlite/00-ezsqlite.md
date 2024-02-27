@@ -55,7 +55,7 @@ sections:
   code_blocks:
   - explanation: |
       The `ezsqlite` library must be linked with the program.
-    code |
+    code: |
       (executable
         (name main)
         (libraries ezsqlite))
