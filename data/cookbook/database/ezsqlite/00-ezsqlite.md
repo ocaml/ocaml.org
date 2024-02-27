@@ -37,7 +37,7 @@ sections:
                   ":age", Ezsqlite.Value.Integer (Int64.of_int r.age)];
                Ezsqlite.exec stmt)
   - explanation: |
-      Selection of rows. The `iter` function can to execute a query while executing a given function for each row. The `text`, `blob`, `int64`, `int`, `double` functions can be used to get the values returned by the query. `column` `Value.is_null` functions can be used if we have to check the nullity (NULL SQL value) of some value. 
+      Selection of rows. The `iter` function can execute a query while executing a given function for each row. The `text`, `blob`, `int64`, `int`, `double` functions can be used to get the values returned by the query. `column` `Value.is_null` functions can be used if we have to check the nullity (NULL SQL value) of some value. 
     code: |
       let () =
         let stmt = Ezsqlite.prepare db
