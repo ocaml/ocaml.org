@@ -1,5 +1,7 @@
 ---
-packages: []
+packages:
+- name: "ezsqlite"
+  version: "0.4.2"
 sections:
 - filename: main.ml
   language: ocaml
