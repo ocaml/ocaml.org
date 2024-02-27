@@ -1,6 +1,6 @@
 let search_input ?button_attrs ?input_attrs ?dropdown_html ~label ~name _class =
   let form_dropdown html = 
-    <div class="dropdown w-full lg:w-[32rem] xl:w-[32rem] z-10 absolute rounded-md mt-12 shadow-2xl top-1 p-2 bg-white dark:bg-dark-background shadow-3xl">
+    <div class="dropdown w-full lg:w-[32rem] xl:w-[32rem] z-10 absolute rounded-md mt-12 shadow-2xl top-1 p-2 bg-white dark:bg-dark-background shadow-3xl dark:outline dark:outline-1 dark:outline-primary">
         <%s! html %>
     </div>
   in

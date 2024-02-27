@@ -1,6 +1,6 @@
 let package_card ~href ~img_path ~name description =
   <a href="<%s href %>" target="_blank"
-    class="bg-legacy-default dark:bg-legacy-dark-default text-legacy-default dark:text-legacy-dark-default p-4 rounded-xl flex md:gap-2 items-center legacy-card-hover">
+    class="bg-white dark:bg-dark-background text-title dark:text-dark-title  p-4 rounded-xl flex md:gap-2 items-center card dark:dark-card">
       <div class="w-4/12">
         <img src="<%s Ocamlorg_static.Asset.url img_path %>" alt="<%s name %> logo" class="w-1/2 md:w-2/3">
       </div>
@@ -27,10 +27,10 @@ Layout.render
   <div class="container-fluid space-y-24 lg:space-y-32">
     <div class="flex flex-col lg:flex-row gap-6">
       <div class="lg:flex-1 lg:mt-16 my-12">
-        <h1 class="lg:pr-10 text-7xl font-bold">
+        <h1 class="lg:pr-10 text-7xl font-bold text-title dark:text-dark-title">
           OCaml
         </h1>
-        <p class="my-7 text-2xl">
+        <p class="my-7 text-2xl text-content dark:text-dark-content">
           An industrial-strength functional programming language
           with an emphasis on expressiveness and safety
         </p>
@@ -41,10 +41,10 @@ Layout.render
           </a>
         </div>
         <div class="mt-6">
-          <a class="text-2xl text-primary font-semibold" href="<%s Url.release latest_release.version %>">Latest release: <%s latest_release.version %></a>
+          <a class="text-2xl text-primary dark:text-dark-primary font-semibold" href="<%s Url.release latest_release.version %>">Latest release: <%s latest_release.version %></a>
         </div>
         <div class="mt-2">
-          <a class="text-2xl text-primary font-semibold" href="<%s Url.release lts_release.version %>">Long Term Support release: <%s lts_release.version %></a>
+          <a class="text-2xl text-primary dark:text-dark-primary font-semibold" href="<%s Url.release lts_release.version %>">Long Term Support release: <%s lts_release.version %></a>
         </div>
       </div>
       <div class="lg:flex-1 flex justify-center">
@@ -60,16 +60,16 @@ Layout.render
             <div class="text-left overflow-auto">
               <pre id="output" class="flex flex-col w-full code-preview text-white text-sm space-y-1 font-medium">
 <code><span title="prompt">#</span> <span><span class="text-blue-500 ">let</span> <span class="text-code-yellow ">square</span> x = x * x</span>
-<span aria-label="OCaml responds with"><i class="text-legacy-lighter "><%s "val square : int -> int = < fun >" %></i></span>
+<span aria-label="OCaml responds with"><i class="text-content dark:text-dark-content "><%s "val square : int -> int = < fun >" %></i></span>
 <span><span title="prompt">#</span> square 3</span>
-<span aria-label="OCaml responds with"><i class="text-legacy-lighter ">- : int = 9</i></span>
+<span aria-label="OCaml responds with"><i class="text-content dark:text-dark-content ">- : int = 9</i></span>
 <span><span title="prompt">#</span> <span class="text-blue-500 ">let rec</span> <span class="text-code-yellow ">fac</span> x =</span>
 <span><span class="text-blue-500  ml-4">if</span> <%s "x <= 1" %> <span class="text-blue-500 ">then</span> 1 <span class="text-blue-500">else</span> x * fac (x - 1)</span>
-<span aria-label="OCaml responds with"><i class="text-legacy-lighter"><%s "val fac : int -> int = < fun >" %></i></span>
+<span aria-label="OCaml responds with"><i class="text-content dark:text-dark-content"><%s "val fac : int -> int = < fun >" %></i></span>
 <span><span title="prompt">#</span> fac 5</span>
-<span aria-label="OCaml responds with"><i class="text-legacy-lighter ">- : int = 120</i></span>
+<span aria-label="OCaml responds with"><i class="text-content dark:text-dark-content ">- : int = 120</i></span>
 <span><span title="prompt">#</span> square 120</span>
-<span aria-label="OCaml responds with"><i class="text-legacy-lighter">- : int = 14400</i></span></code>
+<span aria-label="OCaml responds with"><i class="text-content dark:text-dark-content">- : int = 14400</i></span></code>
               </pre>
             </div>
           </div>
@@ -111,44 +111,44 @@ Layout.render
 <div class="py-12 lg:py-24 py-2">
   <div class="container-fluid space-y-24 lg:space-y-32">
     <div class="text-center">
-      <h2 class="font-bold text-legacy-default">Trusted by Industry Leaders</h2>
-      <div class="text-legacy-lighter text-base mt-3">
-        These companies and organisations rely on OCaml every day — along with thousands of other developers. See <a href="<%s Url.industrial_users %>" class="link-orange">Success Stories</a>
+      <h2 class="font-bold text-title dark:text-dark-title">Trusted by Industry Leaders</h2>
+      <div class="text-content dark:text-dark-content text-base mt-3">
+        These companies and organisations rely on OCaml every day — along with thousands of other developers. See <a href="<%s Url.industrial_users %>" class="text-primary dark:text-dark-primary">Success Stories</a>
       </div>
       <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
-          <div class="mx-8 my-4">
-              <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/facebook.svg" %>" alt="Facebook">
+          <div class="mx-8 my-4 dark:bg-dark-white py-4 px-12 rounded-md">
+              <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/facebook.svg" %>" alt="Facebook">
           </div>
-          <div class="mx-8 my-4">
+          <div class="mx-8 my-4 dark:bg-dark-white py-4 px-12 rounded-md">
               <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/microsoft.svg" %>" alt="Microsoft">
           </div>
-          <div class="mx-8 my-4">
+          <div class="mx-8 my-4 dark:bg-dark-white py-4 px-12 rounded-md">
               <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/docker.svg" %>" alt="Docker">
           </div>
-          <div class="mx-8 my-4">
-              <img class="h-10" src="<%s Ocamlorg_static.Asset.url "logos/janestreet.svg" %>" alt="Jane Street">
+          <div class="mx-8 my-4 dark:bg-dark-white py-4 px-12 rounded-md">
+              <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/janestreet.svg" %>" alt="Jane Street">
           </div>
-          <div class="mx-8 my-4">
-              <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/bloomberg.svg" %>" alt="Bloomberg">
+          <div class="mx-8 my-4 dark:bg-dark-white py-4 px-12 rounded-md">
+              <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/bloomberg.svg" %>" alt="Bloomberg">
           </div>
-          <div class="mx-8 my-4">
-              <img class="h-10" src="<%s Ocamlorg_static.Asset.url "logos/tezos.svg" %>" alt="Tezos">
+          <div class="mx-8 my-4 dark:bg-dark-white py-4 px-12 rounded-md">
+              <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/tezos.svg" %>" alt="Tezos">
           </div>
-          <div class="mx-8 my-4">
-              <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/ahrefs.svg" %>" alt="Ahrefs">
+          <div class="mx-8 my-4 dark:bg-dark-white py-4 px-12 rounded-md">
+              <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/ahrefs.svg" %>" alt="Ahrefs">
           </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="bg-legacy-default dark:bg-legacy-dark-default">
+<div class="bg-white dark:bg-dark-background">
   <div class="container-fluid">
-    <h2 class="font-bold text-center text-legacy-default pt-12">Why OCaml?</h2>
+    <h2 class="font-bold text-center text-title dark:text-dark-title pt-12">Why OCaml?</h2>
     <div class="pt-4 pb-24 lg:pt-24 space-y-20 md:space-y-40">
       <div class="flex gap-10 lg:gap-24 flex-col lg:flex-row-reverse justify-between items-center">
         <div class="lg:flex-1 mt-10 lg:mt-0">
-          <div class="text-legacy-lighter text-base">
+          <div class="text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-blue-400 to-blue-600">
               <%s! Icons.shield_check "h-7 w-7 m-auto" %>
             </div>
@@ -156,15 +156,15 @@ Layout.render
               <div class="text-lg my-4 font-bold" style="color: #225b90">
                 RELIABILITY
               </div>
-              <div class="text-legacy-default font-bold">Powerful Type Safety Made Simple</div>
+              <p class="text-title dark:text-dark-title font-bold">Powerful Type Safety Made Simple</p>
             </h3>
-            <div class="my-4 text-lg">
+            <p class="my-4 text-lg text-content dark:text-dark-content">
               OCaml’s lightweight but highly expressive type system catches more bugs at compile time while garbage collection allows you to focus on application logic instead of memory management.
               Large, complex codebases become easy to maintain and refactor.
               OCaml empowers you to create mission-critical software with
               highest security- and safety-requirements in environments with
               ever-changing requirements!
-            </div>
+            </p>
           </div>
         </div>
         <div class="lg:flex-1 lg:mt-0 mt-10 flex justify-center">
@@ -174,21 +174,21 @@ Layout.render
 
       <div class="flex gap-10 lg:gap-24 flex-col lg:flex-row justify-between">
          <div class="lg:flex-1 mt-10 lg:mt-0 flex items-center">
-          <div class="text-legacy-lighter text-base">
+          <div class="text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-purple-400 to-purple-600">
               <%s! Icons.home_tooling "h-7 w-7 m-auto" %>
             </div>
             <div class="text-lg my-4 font-bold text-purple-600">
               PRODUCTIVITY
             </div>
-            <h3 class="text-legacy-default font-bold">
+            <h3 class="text-title dark:text-dark-title font-bold">
               First-Class Editor and Tooling
             </h3>
-            <div class="my-4 text-lg">
+            <p class="my-4 text-lg text-content dark:text-dark-content">
               OCaml comes with deep integrations for VS Code, Vim or Emacs to provide type inspection, autocomplete and more.
               Between Opam, a popular package manager; Utop, a powerful interactive REPL; and <code>odoc</code>,
               an easy-to-use documentation generator, OCaml programmers have access to a complete, modern developer experience.
-            </div>
+            </p>
           </div>
         </div>
         <div class="lg:flex-1 lg:mt-0 mt-10 flex justify-center">
@@ -218,24 +218,22 @@ Layout.render
       </div>
       <div class="flex gap-10 lg:gap-24 flex-col lg:flex-row-reverse justify-between">
         <div class="lg:flex-1">
-          <div class="text-legacy-lighter text-base">
-            <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-teal-400 to-teal-600">
+          <div class="text-base">
+            <div class="h-12 w-12 text-white dark:text-dark-white rounded-xl flex bg-gradient-to-br from-teal-400 to-teal-600">
               <%s! Icons.lightning "h-7 w-7 m-auto" %>
             </div>
             <h3>
-              <div class="text-lg my-4 font-bold text-teal-800">PERFORMANCE</div>
-              <div class="text-legacy-default font-bold">
+              <div class="text-lg my-4 font-bold text-secondary dark:text-dark-secondary">PERFORMANCE</div>
+              <div class="text-title dark:text-dark-title font-bold">
                 Fast Compiler and Applications
               </div>
             </h3>
-            <div class="my-4 font-normal text-lg">
+            <p class="my-4 font-normal text-lg text-content dark:text-dark-content">
               OCaml offers great runtime performance without compromising on developer experience:
               The bytecode compiler generates small, highly portable executables blazingly fast;
               the native code compiler produces highly-efficient machine code. Despite this focus
               on performance, the OCaml compiler has always been exceptionally reliable and stable
-              - going all the way back to its inception in 1996.
-
-            </div>
+            </p>
           </div>
         </div>
         <div class="lg:flex-1 lg:mt-0 mt-10 flex justify-center">
@@ -247,7 +245,7 @@ Layout.render
 </div>
 <div class="py-24 overflow-hidden">
   <div class="container-fluid">
-    <div class="prose mx-auto">
+    <div class="prose dark:prose-invert mx-auto">
         <h2 class="font-bold">Exceptionally Robust and Reliable</h2>
         <blockquote class="font-normal">
         Despite all this testing, we have never had a single XenServer defect reported from
@@ -264,21 +262,21 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-legacy-default pt-24 pb-14 overflow-hidden">
+<div class="bg-white dark:bg-dark-background pt-24 pb-14 overflow-hidden">
   <div class="container-fluid grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch mb-14"> 
       <div class="flex flex-col">
-        <h3 class="font-bold">Releases</h3>
-        <div class="flex-grow p-10 mt-7 w-full border-2 shadow-md rounded-2xl h-full">
-        <div class="text-primary text-sm mb-4 uppercase">Recent Releases</div>
+        <h3 class="font-bold text-title dark:text-dark-title">Releases</h3>
+        <div class="flex-grow p-10 mt-7 bg-white dark:bg-dark-card border rounded-2xl h-full">
+        <div class="text-primary dark:text-dark-primary text-sm mb-4 uppercase">Recent Releases</div>
       
         <% releases |> List.iter (fun (item : Data.Release.t) -> %>
           <div class="mb-4">
           <a href="<%s Url.release item.version %>">
-            <h3 class="font-bold mb-6">
+            <h3 class="font-bold mb-6 text-title dark:text-dark-title hover:underline">
               <%s item.version %> <span class="text-sm">(<%s item.date %>)</span>
             </h3>
           </a>
-          <div class="prose prose-sm"><%s! item.highlights_html %></div>
+          <div class="prose dark:prose-invert prose-sm"><%s! item.highlights_html %></div>
            </div>
         <% ); %>
        
@@ -289,30 +287,30 @@ Layout.render
        </div>
       </div>
       <div class="flex flex-col">
-          <h3 class="font-bold">Changelog</h3>
-          <div class="flex-grow p-10 mt-7 border-2 shadow-md rounded-2xl h-full">
+          <h3 class="font-bold text-title dark:text-dark-title">Changelog</h3>
+          <div class="flex-grow p-10 mt-7 bg-white dark:bg-dark-card border rounded-2xl h-full">
             <a href="<%s Url.changelog %>">
-            <div class="text-primary text-sm mb-4 uppercase">Releases & Updates</div>
-            <h3 class="font-bold mb-6">
+            <div class="text-primary dark:text-dark-primary text-sm mb-4 uppercase">Releases & Updates</div>
+            <h3 class="font-bold mb-6 text-title dark:text-dark-title">
               Compiler and Platform Tools
             </h3>
             </a>
             <% let changelogs_length = List.length changelogs in changelogs |> 
                     List.iteri (fun index (item : Data.Changelog.t) -> %>
-            <div class="<%s if index = changelogs_length - 1 then "pl-8" else "pl-8 border-l-2" %>">
+            <div class="<%s if index = changelogs_length - 1 then "pl-8" else "pl-8 border-l-2 border-separator_20 dark:border-dark-separator_30" %>">
               <div class="flex flex-col">   
                 <div class="mb-6">
                     <div class="relative pb-2">
-                        <div class="absolute block -left-11 bg-legacy-default dark:bg-legacy-dark-default w-6 h-6 mt-0.5 text-primary">
+                        <div class="absolute block -left-11 w-6 h-6 mt-0.5 text-primary dark:text-dark-primary bg-white dark:bg-dark-card">
                           <%s! Icons.changelog "w-6 h-6" %>
                         </div>
-                        <a href="<%s Url.changelog_entry item.slug %>" class="my-0 font-sans text-xl tracking-normal font-extrabold leading-7 changelog-title whitespace-normal break-all"><%s item.title %></a>
-                        <time datetime="<%s item.date %>" class="block mt-1 font-sans text-sm text-legacy-lighter"><%s Utils.human_date item.date %></time>
+                        <a href="<%s Url.changelog_entry item.slug %>" class="my-0 font-sans text-xl tracking-normal font-extrabold leading-7 changelog-title whitespace-normal break-all text-title dark:text-dark-title hover:underline"><%s item.title %></a>
+                        <time datetime="<%s item.date %>" class="block mt-1 font-sans text-sm text-content dark:text-dark-content"><%s Utils.human_date item.date %></time>
                     </div>
-                    <div class="prose prose-orange">
+                    <p class="prose dark:prose-invert prose-orange">
                       <%s! String.sub item.body 0 (min (String.length item.body - 1) 100) %>...
-                    </div>
-                    <a href="<%s Url.changelog %>" class="text-primary mt-2">
+                    </p>
+                    <a href="<%s Url.changelog %>" class="text-primary dark:text-dark-primary mt-2 hover:underline">
                       See full changelog
                     </a>
                 </div>
@@ -327,88 +325,80 @@ Layout.render
       </div>
   </div>
 </div>
-<div class="py-28 bg-legacy-default dark:bg-legacy-dark-default">
+<div class="py-28 bg-white dark:bg-dark-background">
   <div class="container-fluid">
-    <div class="text-center px-15">
-      <h2 class="text-legacy-default font-bold mb-6">Users of OCaml</h2>
-      <div class="text-lg text-legacy-lighter mb-16">
+    <div class="px-15">
+      <h2 class="text-title dark:text-dark-title font-bold mb-6">Users of OCaml</h2>
+      <p class="text-lg text-content dark:text-dark-content mb-16">
         OCaml is used by thousands of developers, companies, research labs, teachers, and more. Learn how it fits your use case.
-      </div>
+      </p>
     </div>
     <div class="flex flex-col lg:flex-row justify-between lg:space-x-20 space-y-10 lg:space-y-0">
-      <div class="shadow-lg p-10 bg-legacy-default dark:bg-legacy-dark-default rounded-xl lg:mb-0">
+      <div class="shadow-lg p-10 bg-white rounded-2xl border dark:bg-dark-card">
         <div class="flex flex-row items-center justify-between relative pb-8">
-          <h3 class="font-semibold">For Educators</h3>
-          <div>
-            <%s! Icons.for_educators "h-14 w-14" %>
-            <div class="absolute w-20 h-20 top-0 -right-10 rounded-full bg-legacy-primary-100"></div>
-          </div>
+          <h3 class="font-semibold text-title dark:text-dark-title">For Educators</h3>
         </div>
         <div>
-          <div class="text-base text-legacy-default">
+          <p class="text-base text-title dark:text-dark-title">
             With its mathematical roots, OCaml has always had strong ties to academia.
             It is taught in universities around the world, and has accrued an ever-growing body of research.
             Learn more about the academic rigor that defines the culture of OCaml.
-          </div>
-          <a class="btn mt-10" href="<%s Url.academic_users %>">Learn more</a>
+          </p>
+          <a class="btn mt-10 py-8" href="<%s Url.academic_users %>">Learn more</a>
         </div>
       </div>
-      <div class="shadow-lg p-10 bg-legacy-default dark:bg-legacy-dark-default rounded-xl">
+      <div class="shadow-lg p-10 bg-white rounded-2xl border dark:bg-dark-card">
         <div class="flex flex-row items-center justify-between relative pb-8">
-          <h3 class="font-semibold">For Industrial Users</h3>
-          <div>
-            <%s! Icons.for_industrial_users "h-14 w-14" %>
-            <div class="absolute w-20 h-20 top-0 -right-10 rounded-full bg-legacy-primary-100"></div>
-          </div>
+          <h3 class="font-semibold text-title dark:text-dark-title">For Industrial Users</h3>
         </div>
         <div>
-          <div class="text-base text-legacy-default">
+          <p class="text-base text-content dark:text-dark-content">
             OCaml's powerful compile-time guarantees and high performance empower
             companies to provide reliable and speedy services and products.
             Learn more about how OCaml is used in the industry: explore success stories and discover companies that use OCaml.
-          </div>
-          <a class="btn mt-10" href="<%s Url.industrial_users %>">Learn more</a>
+          </p>
+          <a class="btn mt-10 py-8" href="<%s Url.industrial_users %>">Learn more</a>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="bg-pattern lg:py-32 py-24">
+<div class="intro-section-simple dark:dark-intro-section-simple lg:py-32 py-24">
   <div class="container-fluid">
     <div class="">
-      <div class="text-center">
-        <h2 class="font-bold text-primary mb-6">Curated Resources</h2>
-        <div class="text-lg text-white mb-16">
+      <div class="">
+        <h2 class="font-bold text-title dark:text-dark-title mb-6">Curated Resources</h2>
+        <p class="text-lg text-content dark:text-dark-content mb-16">
           Get up to speed quickly to enjoy the benefits of the OCaml programming language across your projects.
-        </div>
+        </p>
       </div>
       <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
-        <a href="<%s Url.install %>" class="resources-card">
+        <a href="<%s Url.install %>" class="card dark:dark-card p-4 text-title dark:text-dark-title">
           <%s! Icons.play_circle "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Getting Started</p>
           <p>Install OCaml, set up your favorite text editor and start your first project.</p>
         </a>
-        <a href="<%s Url.manual %>" class="resources-card">
+        <a href="<%s Url.manual %>" class="card dark:dark-card p-4 text-title dark:text-dark-title">
           <%s! Icons.document "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Language Manual</p>
           <p>Read the reference manual of the language and documentation on the compiler.</p>
         </a>
-        <a href="<%s Url.books %>" class="resources-card">
+        <a href="<%s Url.books %>" class="card dark:dark-card p-4 text-title dark:text-dark-title">
           <%s! Icons.book "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Books</p>
           <p>Discover OCaml books from expert programmers and researchers - from beginner level to advanced topics.</p>
         </a>
-        <a href="<%s Url.api %>" class="resources-card">
+        <a href="<%s Url.api %>" class="card dark:dark-card p-4 text-title dark:text-dark-title">
           <%s! Icons.command_line "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Standard Library</p>
           <p>Searchable API documentation.</p>
         </a>
-        <a href="<%s Url.exercises %>" class="resources-card">
+        <a href="<%s Url.exercises %>" class="card dark:dark-card p-4 text-title dark:text-dark-title">
           <%s! Icons.hand_palm "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Exercises</p>
           <p>Learn OCaml by solving problems on a variety of topics, from easy to challenging.</p>
         </a>
-        <a href="<%s Url.papers %>" class="resources-card">
+        <a href="<%s Url.papers %>" class="card dark:dark-card p-4 text-title dark:text-dark-title">
           <%s! Icons.papers "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Papers</p>
           <p>Explore papers that have influenced OCaml and other functional programming languages.</p>
@@ -417,13 +407,13 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-legacy-default dark:bg-legacy-dark-default py-20 overflow-hidden">
+<div class="bg-white dark:bg-dark-background py-20 overflow-hidden">
   <div class="container-fluid">
     <div class="grid grid-cols-1 lg:grid-cols-2 items-center">
       <div class="space-y-8">
         <div class="space-y-6">
-          <h2 class="font-bold">OCaml Packages</h2>
-          <p class="text-lg text-legacy-lighter">
+          <h2 class="font-bold text-title dark:text-dark-title">OCaml Packages</h2>
+          <p class="text-lg text-content dark:text-dark-content">
             Explore thousands of open-source OCaml packages with their
             documentation.
           </p>
