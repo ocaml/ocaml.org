@@ -11,13 +11,13 @@ sections:
   - explanation: |
       Get a character at a given index (the first character index is 0):
     code: |
-	  let () = assert (String.get 2 "string" = 'r')
+      let () = assert (String.get 2 "string" = 'r')
   - explanation: |
       Concatenate two strings or a list of strings:
     code: |
-	  let () = assert (String.cat "aze" "rty" = "azerty")
-	  let () = assert ("aze" ^ "rty" = "azerty")
-	  let () = assert (String.concat "," ["aze";"rty";"uiop"] = "aze,rty,uiop"])
+      let () = assert (String.cat "aze" "rty" = "azerty")
+      let () = assert ("aze" ^ "rty" = "azerty")
+      let () = assert (String.concat "," ["aze";"rty";"uiop"] = "aze,rty,uiop"])
   - explanation: |
       Verifying if a string start or end with a prefix/suffix:
     code: |

@@ -14,7 +14,7 @@ sections:
       let () =
         if Str.string_match regexp "1971-01-23" 0 then
            print_string "The string match\n"
-	    else
+        else
            print_string "The string doesn't match\n"
       let () =
         let str = "Date: 1971-01-23" in
