@@ -24,6 +24,7 @@ sections:
   - explanation: |
       Getting group substring. Each `\\(` / `\\)` pairs permits you to get the substring corresponding to the enclosed regexp. By convention, the group 0 is the whole substring matching the regexp, and the first explicit group is 1:
     code: |
+      let () =
         let str = "Date: 1971-01-23" in
         let _index = Str.search_forward regexp str 0 in
         let year = Str.matched_group 1 str
