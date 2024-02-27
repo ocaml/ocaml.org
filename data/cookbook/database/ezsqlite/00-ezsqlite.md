@@ -16,7 +16,7 @@ sections:
       let () =
         Ezsqlite.run_ign db
           "CREATE TABLE personal (name VARCHAR, firstname VARCHAR, age INTEGER)"
-        ()
+          ()
   - explanation: |
       Row insertions. The row insertion needs to bind values to the statement. Each ":id" in the query will be replaced by binded values during the execution. It is recommended to have constant query strings and use bindings to deal with variable values, especially with values from an unstrusted source.
     code: |
