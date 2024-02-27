@@ -9,7 +9,7 @@ sections:
     code: |
       let db = Ezsqlite.load "personal.sqlite"
   - explanation: |
-	  Table creation. First, the creation statement is prepared, then it is executed. The `run_ign` function is used when no values are returned by the query.
+      Table creation. First, the creation statement is prepared, then it is executed. The `run_ign` function is used when no values are returned by the query.
     code: |
       let () =
         Ezsqlite.run_ign db
@@ -54,7 +54,7 @@ sections:
   - explanation: |
       The `ezsqlite` library must be linked with the program.
     code |
-	  (executable
+      (executable
         (name main)
         (libraries ezsqlite))
 
