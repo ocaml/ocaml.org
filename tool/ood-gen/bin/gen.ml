@@ -7,7 +7,6 @@ let term_templates =
     ("book", Ood_gen.Book.template);
     ("governance", Ood_gen.Governance.template);
     ("job", Ood_gen.Job.template);
-    ("meetup", Ood_gen.Meetup.template);
     ("news", Ood_gen.News.template);
     ("changelog", Ood_gen.Changelog.template);
     ("industrial_user", Ood_gen.Industrial_user.template);
