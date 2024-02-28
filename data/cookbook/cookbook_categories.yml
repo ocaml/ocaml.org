@@ -54,7 +54,11 @@ cookbook_categories:
   tasks: []
 - title: Networking
   folder: networking
-  tasks: []
+  tasks:
+  - title: TCP Server With Lwt
+    folder: tcp-server-lwt
+  - title: TCP Client With Lwt
+    folder: tcp-client-lwt
 - title: Operating System
   folder: operating-system
   tasks: []
