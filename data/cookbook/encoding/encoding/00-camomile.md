@@ -7,7 +7,7 @@ sections:
   language: ocaml
   code_blocks:
   - explanation: |
-      Initialize the `camomile` library, which offer a large set of functions to deal with strings presented in various encoding. We will need to instanciate a module that deals with UTF8 strings. (In most cases, the source code is in UTF8 and when OCaml see a constant string, it just copy the byte sequence whatever its encoding.). The `Camomile` module declaration is required with the version 1 of `camomile` and mustn't be declared with the version 2:
+      Initialise the `camomile` library, which offers a large set of functions to deal with strings presented in various encodings. We will need to instanciate a module that deals with UTF8 strings. (In most cases, the source code is in UTF8, and when OCaml sees a constant string, it just copies the byte sequence for whatever its encoding.). The `Camomile` module declaration is required with the version 1 of `camomile` and mustn't be declared with the version 2:
     code: |
       module Camomile = CamomileLibrary.Make(CamomileDefaultConfig)
       module UTF8 = Camomile.CharEncoding.Make(Camomile.UTF8)
@@ -36,5 +36,5 @@ sections:
         (libraries camomile))
 ---
 
-- **Understanding `camomile`:** The `camomile` package provides many operations which deal with string encodings. More than 500 encodings are supported. It provides different modules which deal with string encoding/decoding. Some other functions are provided to extract single characters from an encoded string (UTF8 chars can use a variable numbers of bytes which is not well supported by the `StdLib`), to identify characters classes or perform some uppercase/lowercase transformation)
-- **Alternatives:** `coin` is an alternative which support Unicode to/from KOI8-U/R (Ukranian/Russian encoding). `rosetta`, `text`, `ucorelib`, `uutf` are also Unicode converters. `uuuu`is limited to Unicode from/to ISO-8859-* charsets. `unidecode` converts unicode to plain ASCII. `yuscii` is dedicated to UTF-7.
+- **Understanding `camomile`:** The `camomile` package provides many operations which deal with string encodings. More than 500 encodings are supported. It provides different modules that deal with string encoding/decoding. Some other functions are provided to extract single characters from an encoded string (UTF8 chars can use a variable number of bytes, which is not well supported by the `StdLib`), to identify characters classes, or to perform some uppercase/lowercase transformation)
+- **Alternatives:** `coin` is an alternative that supports Unicode to/from KOI8-U/R (Ukranian/Russian encoding). `rosetta`, `text`, `ucorelib`, ` and `uutf` are also Unicode converters. `uuuu` is limited to Unicode from/to ISO-8859-* charsets. `unidecode` converts unicode to plain ASCII. `yuscii` is dedicated to UTF-7.
