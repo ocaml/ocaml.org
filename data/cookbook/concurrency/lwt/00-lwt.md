@@ -5,7 +5,7 @@ sections:
   language: ocaml
   code_blocks:
   - explanation: |
-      Some useful `let` operators. The construction `let* a = <Lwt promise> in b` means schedule the Lwt promise, wait for its result, then excute `b` where all occurence of `a` are replaced by the result. The construction `let*? a = <promise> in b` has the same result, but when the Lwt promise has finished, it continue if the result is `Ok x` (then `a` is equal to `x`), and stop if `Error err`.
+      Some useful `let` operators. The construction `let* a = <Lwt promise> in b` means schedule the Lwt promise, wait for its result, then excute `b` where all occurence of `a` are replaced by the result. The construction `let*? a = <promise> in b` has the same result, but when the Lwt promise has finished, it continues if the result is `Ok x` (then `a` are replaced by `x`), and stops if `Error err`.
     code: |
       let (let*) = Lwt.bind
       let (let*?) = Lwt_result.bind
@@ -20,7 +20,7 @@ sections:
       let (_result1, _result2) =
         Lwt_main.run @@ Lwt.both (task 1) (task 2)
   - explanation: |
-      When having a promise function which should be scheduled multiple times with different values, `iter_p`, `iter_s`, `map_p`, `map_s` schedule one promise per item from a given list. The `_s` versions schedule the promise sequentialy, and `_p` in parallel. `iter_*` return `()` while `map_*`return the list of results.
+      When having a promise function which should be scheduled multiple times with different values, `iter_p`, `iter_s`, `map_p`, `map_s` schedule one promise per item from a given list. The `_s` versions schedule the promises sequentialy, and `_p` in parallel. `iter_*` return `()` while `map_*`return the list of results.
     code: |
       let _result_list =
         Lwt_main.run @@ Lwt_list.map_p task [1; 2; 3] 
