@@ -13,7 +13,9 @@ cookbook_categories:
   tasks: []
 - title: Database
   folder: database
-  tasks: []
+  tasks:
+  - title: SQLite3 access with `ezsqlite`
+    folder: ezsqlite
 - title: Date and Time
   folder: date-and-time
   tasks:
