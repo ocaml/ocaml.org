@@ -75,18 +75,6 @@
     (run %{ood_gen} job)))))
 
 (rule
- (target meetup.ml)
- (deps
-  %{workspace_root}/data/meetups.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} meetup)))))
-
-(rule
  (target industrial_user.ml)
  (deps
   (source_tree %{workspace_root}/data/industrial_users)

@@ -52,9 +52,9 @@ let platform _req =
 
 let community _req =
   let workshops = Data.Workshop.all in
-  let meetups = Data.Meetup.all in
+  let recurring_events = Data.Event.RecurringEvent.all in
   let events = Data.Event.all in
-  Dream.html (Ocamlorg_frontend.community ~workshops ~meetups ~events)
+  Dream.html (Ocamlorg_frontend.community ~workshops ~recurring_events ~events)
 
 let paginate ~req ~n items =
   let items_per_page = n in

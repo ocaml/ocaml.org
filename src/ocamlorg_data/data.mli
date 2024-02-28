@@ -78,21 +78,6 @@ module Job : sig
   val all : t list
 end
 
-module Meetup : sig
-  type location = { lat : float; long : float }
-
-  type t = {
-    title : string;
-    slug : string;
-    url : string;
-    textual_location : string;
-    location : location;
-  }
-
-  val all : t list
-  val get_by_slug : string -> t option
-end
-
 module Outreachy : sig
   type project = {
     title : string;
@@ -468,6 +453,19 @@ end
 module Event : sig
   type location = { lat : float; long : float }
 
+  module RecurringEvent : sig
+    type t = {
+      slug : string;
+      title : string;
+      url : string;
+      textual_location : string;
+      location : location option;
+    }
+
+    val all : t list
+    val get_by_slug : string -> t option
+  end
+
   type t = {
     title : string;
     url : string;
@@ -478,6 +476,7 @@ module Event : sig
     ends : string option;
     body_md : string;
     body_html : string;
+    recurring_event : RecurringEvent.t option;
   }
 
   val all : t list

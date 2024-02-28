@@ -20,12 +20,6 @@ module Job = struct
   include Job
 end
 
-module Meetup = struct
-  include Meetup
-
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
-end
-
 module Industrial_user = struct
   include Industrial_user
 
@@ -203,6 +197,12 @@ end
 
 module Event = struct
   include Event
+
+  module RecurringEvent = struct
+    include Event.RecurringEvent
+
+    let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+  end
 
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end

@@ -24,7 +24,7 @@ We've provided a list of community-driven content below. When adding content to 
 - [Success Stories](#content-success-story)
 - [Academic and Industrial Users](#content-user)
 - [OCaml Books](#content-book)
-- [Community Meetups](#content-meetup)
+- [Recurring Events](#content-recurring-event)
 - [Upcoming Events](#content-upcoming_event)
 - [The OCaml Changelog](#content-changelog)
 
@@ -112,11 +112,11 @@ You can add a new industrial user by creating a new Markdown file in [data/acade
 
 You can add a new OCaml book by creating a new Markdown file in [data/books/](data/books/). For instance: [ocaml-from-the-very-beginning.md](data/books/ocaml-from-the-very-beginning.md).
 
-### <a name="content-meetup"></a>Add A meetup
+### <a name="content-recurring-event"></a>Add A Recurring Event
 
-> Contribute to the [Community Meetups](https://ocaml.org/community).
+> Contribute a [Recurring Event](https://ocaml.org/community).
 
-You can add a new community meetup by adding it to the YAML file [data/meetups.yml](data/meetups.yml).
+You can add a new recurring event by adding it to the YAML file [data/events/recurring.yml](data/events/recurring.yml).
 
 ### <a name="content-upcoming_event"></a> Add an Upcoming Event
 
