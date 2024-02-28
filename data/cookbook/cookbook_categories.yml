@@ -7,7 +7,9 @@ cookbook_categories:
   tasks: []
 - title: Concurrency
   folder: concurrency
-  tasks: []
+  tasks:
+  - title: Concurrency with Lwt
+    folder: lwt
 - title: Cryptography
   folder: cryptography
   tasks: []
