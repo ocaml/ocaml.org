@@ -59,7 +59,13 @@ cookbook_categories:
     folder: sorting
 - title: Text Processing
   folder: text-processing
-  tasks: []
+  tasks:
+  - title: ASCII Text Processing
+    folder: ascii-text-processing
+  - title: UTF-8 Text Processing
+    folder: utf8-text-processing
+  - title: Regular Expressions
+    folder: regular-expressions
 - title: Web Programming
   folder: web-programming
   tasks: []
