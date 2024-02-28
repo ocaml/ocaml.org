@@ -9,6 +9,14 @@ Learn_layout.single_column_layout
     <div class="prose mx-auto max-w-5xl">
       <h1 class="font-normal text-4xl mb-10"><%s recipe.task.title %></h2>
 
+% (if List.length recipe.packages > 0 then (
+      <h2>Packages</h2>
+      <p><%s recipe.packages |> List.map (fun (p: Data.Cookbook.package) -> p.name ^ "." ^ p.version) |> String.concat ", " %></p>
+% ) else (
+      <h2>No packages used</h2>
+      This recipe uses only <a href="https://v2.ocaml.org/releases/5.1/api/index.html">the OCaml Standard Library</a>.
+% ));
+
 % (if List.length recipe.libraries > 0 then
       <h2>Libraries</h2>
       <p><%s recipe.libraries |> String.concat ", " %></p>
@@ -19,11 +27,7 @@ Learn_layout.single_column_layout
       <p><%s recipe.ppxes |> String.concat ", " %></p>
 % );
 
-      <h2>Files</h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10">
-        <div></div>
-        <h3 class="flex gap-4 items-center">main.ml <%s! Copy_to_clipboard.button ~id:"copy-code" recipe.code_plaintext %></h3>
-      </div>
+      <h2 class="flex gap-4 items-center">Code <%s! Copy_to_clipboard.button ~id:"copy-code" recipe.code_plaintext %></h2>
       <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10">
 % recipe.code_blocks |> List.iter (fun (code_block: Data.Cookbook.code_block_with_explanation) -> 
         <div><%s! code_block.explanation %></div>
@@ -31,9 +35,9 @@ Learn_layout.single_column_layout
 % );
       </div>
 
-% if String.length recipe.body_html > 0 then (
+% if String.length recipe.discussion_html > 0 then (
       <h2>Discussion</h2>
-      <%s! recipe.body_html %>
+      <%s! recipe.discussion_html %>
 % );
       <h2>Recipe not working? Want to Upgrade a Package Version of this Recipe?</h2>
       <a target="_blank" href="https://github.com/ocaml/ocaml.org/issues">Open an issue</a>
