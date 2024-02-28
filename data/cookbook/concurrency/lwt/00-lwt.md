@@ -21,6 +21,7 @@ sections:
         Lwt_main.run @@ Lwt.both (task 1) (task 2)
   - explanation: |
       When having a promise function which should be scheduled multiple times with different values, `iter_p`, `iter_s`, `map_p`, `map_s` schedule one promise per item from a given list. The `_s` versions schedule the promise sequentialy, and `_p` in parallel. `iter_*` return `()` while `map_*`return the list of results.
+    code: |
       let _result_list =
         Lwt_main.run @@ Lwt_list.map_p task [1; 2; 3] 
       let _result_list =
