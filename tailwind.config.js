@@ -123,6 +123,10 @@ module.exports = {
               color: theme('colors.dark.content'),
             },
             a: {
+              color: theme('colors.dark.white'),
+              textDecoration:'underline',
+            },
+            'a:hover': {
               color: theme('colors.dark.primary'),
             },
             h1: {
