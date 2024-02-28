@@ -1,23 +1,20 @@
 ---
 packages: []
-sections:
-- filename: main.ml
-  language: ocaml
-  code_blocks:
-  - explanation: |
-      Use the `unix` library, which ships with OCaml's standard library, and provides functions to work with dates and times. You can use the `Unix` module to get the current date and time:
-    code: |
-      let today = Unix.localtime (Unix.time ());;
-      let day = today.Unix.tm_mday;;
-  - explanation: Months are 0 to 11.
-    code: let month = today.Unix.tm_mon + 1;;
-  - explanation: Years since 1900.
-    code: let year = today.Unix.tm_year + 1900;;
-  - explanation: |
-      You can use the `Printf` module to print the date:
-    code: |
-      Printf.printf "The current date is %04d-%02d-%02d\n"
-        year month day;;
+code_blocks:
+- explanation: |
+    Use the `unix` library, which ships with OCaml's standard library, and provides functions to work with dates and times. You can use the `Unix` module to get the current date and time:
+  code: |
+    let today = Unix.localtime (Unix.time ());;
+    let day = today.Unix.tm_mday;;
+- explanation: Months are 0 to 11.
+  code: let month = today.Unix.tm_mon + 1;;
+- explanation: Years since 1900.
+  code: let year = today.Unix.tm_year + 1900;;
+- explanation: |
+    You can use the `Printf` module to print the date:
+  code: |
+    Printf.printf "The current date is %04d-%02d-%02d\n"
+      year month day;;
 ---
 
 - **Understanding `Unix.localtime` and `Unix.time`:** The `Unix.localtime` function converts a timestamp obtained from `Unix.time` (which returns the current time since the Unix epoch) into a local time, represented by a `tm` structure. This structure includes fields like `tm_year`, `tm_mon`, and `tm_mday` for year, month, and day, respectively.
