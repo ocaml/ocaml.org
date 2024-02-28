@@ -536,7 +536,7 @@ module Cookbook : sig
     ppxes : string list;
     code_blocks : code_block_with_explanation list;
     code_plaintext : string;
-    body_html : string;
+    discussion_html : string;
   }
 
   val categories : category list

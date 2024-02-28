@@ -14,7 +14,7 @@ type task = { title : string; slug : string; category : category }
 [@@deriving show { with_path = false }]
 
 type code_block_with_explanation = { code : string; explanation : string }
-[@@deriving of_yaml, show { with_path = false }]
+[@@deriving show { with_path = false }]
 
 type package = { name : string; version : string }
 [@@deriving of_yaml, show { with_path = false }]
@@ -23,7 +23,7 @@ type metadata = {
   packages : package list;
   libraries : string list option;
   ppxes : string list option;
-  code_blocks : code_block_with_explanation list;
+  discussion : string option;
 }
 [@@deriving of_yaml]
 
@@ -36,12 +36,13 @@ type t = {
   ppxes : string list;
   code_blocks : code_block_with_explanation list;
   code_plaintext : string;
-  body_html : string;
+  discussion_html : string;
 }
 [@@deriving
   stable_record ~version:metadata
-    ~remove:[ slug; filepath; task; body_html; code_plaintext ]
-    ~modify:[ code_blocks; libraries; ppxes ],
+    ~remove:
+      [ slug; filepath; task; discussion_html; code_blocks; code_plaintext ]
+    ~modify:[ libraries; ppxes ] ~add:[ discussion ],
     show { with_path = false }]
 
 let decode (tasks : task list) (fpath, (head, body)) =
@@ -67,29 +68,37 @@ let decode (tasks : task list) (fpath, (head, body)) =
     |> Cmarkit_html.of_doc ~safe:false
   in
 
-  let modify_code_blocks (code_blocks : code_block_with_explanation list) =
-    let code_blocks =
-      code_blocks
-      |> List.map (fun (c : code_block_with_explanation) ->
-             let code =
-               Printf.sprintf "```ocaml\n%s\n```" c.code |> render_markdown
-             in
-             let explanation = c.explanation |> render_markdown in
-             { explanation; code })
+  let code_blocks =
+    let rec extract_explanation_code_pairs split_result =
+      match split_result with
+      | [] -> []
+      | Str.Text code :: rest when String.trim code = "" -> extract_explanation_code_pairs rest
+      | Str.Text code :: rest ->
+          { explanation = ""; code } :: extract_explanation_code_pairs rest
+      | Str.Delim "(*" :: Str.Text explanation :: Str.Delim "*)\n":: Str.Text code :: rest ->
+          { explanation; code } :: extract_explanation_code_pairs rest
+      | _ ->
+          failwith
+            ("should never happen, two comments after one another Delim/Delim in " ^ fpath)
     in
-    code_blocks
+    body
+    |> Str.full_split (Str.regexp {|^(\*\|\*)
+|})
+    |> extract_explanation_code_pairs
+    |> List.map (fun (c : code_block_with_explanation) ->
+           let code =
+             Printf.sprintf "```ocaml\n%s\n```" c.code |> render_markdown
+           in
+           let explanation = c.explanation |> render_markdown in
+           { explanation; code })
   in
-  let body_html = body |> render_markdown in
-
   Result.map
     (fun (metadata : metadata) ->
-      let code_plaintext =
-        metadata.code_blocks
-        |> List.map (fun (c : code_block_with_explanation) -> c.code)
-        |> String.concat "\n"
+      let discussion_html =
+        metadata.discussion |> Option.value ~default:"" |> render_markdown
       in
-      of_metadata ~slug ~filepath:fpath ~task ~body_html ~modify_code_blocks
-        ~code_plaintext ~modify_libraries:(Option.value ~default:[])
+      of_metadata ~slug ~filepath:fpath ~task ~discussion_html ~code_blocks
+        ~code_plaintext:body ~modify_libraries:(Option.value ~default:[])
         ~modify_ppxes:(Option.value ~default:[]) metadata)
     metadata
 
@@ -116,7 +125,7 @@ let all_categories_and_tasks () =
 
 let all () =
   let _, tasks = all_categories_and_tasks () in
-  Utils.map_files (decode tasks) "cookbook/*/*/*.md"
+  Utils.map_files (decode tasks) "cookbook/*/*/*.ml"
   |> List.sort (fun a b -> String.compare b.slug a.slug)
   |> List.rev
 
@@ -150,7 +159,7 @@ type t =
   ; ppxes : string list
   ; code_blocks : code_block_with_explanation list
   ; code_plaintext : string
-  ; body_html : string
+  ; discussion_html : string
   }
 
 let categories = %a
