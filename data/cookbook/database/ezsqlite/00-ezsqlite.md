@@ -2,64 +2,52 @@
 packages:
 - name: "ezsqlite"
   version: "0.4.2"
-sections:
-- filename: main.ml
-  language: ocaml
-  code_blocks:
-  - explanation: |
-      Use the `ezsqlite` library, which permits the use of a SQLite3 database. Before any use, the database much be opened. The `load` creates the database is it doesn't exist:
-    code: |
-      let db = Ezsqlite.load "personal.sqlite"
-  - explanation: |
-      Table creation. First, the creation statement is prepared, then it is executed. The `run_ign` function is used when no values are returned by the query.
-    code: |
-      let () =
-        Ezsqlite.run_ign db
-          "CREATE TABLE personal (name VARCHAR, firstname VARCHAR, age INTEGER)"
-          ()
-  - explanation: |
-      Row insertions. The row insertion needs to bind values to the statement. Each ":id" in the query will be replaced by binded values during the execution. It is recommended to have constant query strings and use bindings to deal with variable values, especially with values from an unstrusted source.
-    code: |
-      type person = { name:string; firstname:string; age:int }
+libraries:
+- ezsqlite
+code_blocks:
+- explanation: |
+    Use the `ezsqlite` library, which permits the use of a SQLite3 database. Before any use, the database much be opened. The `load` creates the database is it doesn't exist:
+  code: |
+    let db = Ezsqlite.load "personal.sqlite"
+- explanation: |
+    Table creation. First, the creation statement is prepared, then it is executed. The `run_ign` function is used when no values are returned by the query.
+  code: |
+    let () =
+      Ezsqlite.run_ign db
+        "CREATE TABLE personal (name VARCHAR, firstname VARCHAR, age INTEGER)"
+        ()
+- explanation: |
+    Row insertions. The row insertion needs to bind values to the statement. Each ":id" in the query will be replaced by binded values during the execution. It is recommended to have constant query strings and use bindings to deal with variable values, especially with values from an unstrusted source.
+  code: |
+    type person = { name:string; firstname:string; age:int }
 
-      let persons = [ {name="Dupont"; firstname="Jacques"; age=36};
-                      {name="Legendre"; firstname="Patrick"; age=42} ]
+    let persons = [ {name="Dupont"; firstname="Jacques"; age=36};
+                    {name="Legendre"; firstname="Patrick"; age=42} ]
 
-      let () =
-        let stmt = Ezsqlite.prepare db
-                     "INSERT into personal VALUES (:name, :firstname, :age)" in
-        persons
-        |> List.iter (fun r ->
-               Ezsqlite.clear stmt;
-               Ezsqlite.bind_dict stmt
-                 [":name", Ezsqlite.Value.Text r.name;
-                  ":firstname", Ezsqlite.Value.Text r.firstname;
-                  ":age", Ezsqlite.Value.Integer (Int64.of_int r.age)];
-               Ezsqlite.exec stmt)
-  - explanation: |
-      Selection of rows. The `iter` function can execute a query while executing a given function for each row. The `text`, `blob`, `int64`, `int`, `double` functions can be used to get the values returned by the query. `column` `Value.is_null` functions can be used if we have to check the nullity (NULL SQL value) of some value. 
-    code: |
-      let () =
-        let stmt = Ezsqlite.prepare db
-                     "SELECT name, firstname, age from personal" in
-        Ezsqlite.iter stmt
-          (fun stmt ->
-            let name=Ezsqlite.text stmt 0
-            and firstname=Ezsqlite.text stmt 1
-            and age=Ezsqlite.int stmt 2
-            in
-            Printf.printf "name=%s, firstname=%s, age=%d\n" name firstname age)
-
-- filename: dune
-  language: dune
-  code_blocks:
-  - explanation: |
-      The `ezsqlite` library must be linked with the program.
-    code: |
-      (executable
-        (name main)
-        (libraries ezsqlite))
-
+    let () =
+      let stmt = Ezsqlite.prepare db
+                    "INSERT into personal VALUES (:name, :firstname, :age)" in
+      persons
+      |> List.iter (fun r ->
+              Ezsqlite.clear stmt;
+              Ezsqlite.bind_dict stmt
+                [":name", Ezsqlite.Value.Text r.name;
+                ":firstname", Ezsqlite.Value.Text r.firstname;
+                ":age", Ezsqlite.Value.Integer (Int64.of_int r.age)];
+              Ezsqlite.exec stmt)
+- explanation: |
+    Selection of rows. The `iter` function can execute a query while executing a given function for each row. The `text`, `blob`, `int64`, `int`, `double` functions can be used to get the values returned by the query. `column` `Value.is_null` functions can be used if we have to check the nullity (NULL SQL value) of some value. 
+  code: |
+    let () =
+      let stmt = Ezsqlite.prepare db
+                    "SELECT name, firstname, age from personal" in
+      Ezsqlite.iter stmt
+        (fun stmt ->
+          let name=Ezsqlite.text stmt 0
+          and firstname=Ezsqlite.text stmt 1
+          and age=Ezsqlite.int stmt 2
+          in
+          Printf.printf "name=%s, firstname=%s, age=%d\n" name firstname age)
 ---
 
 - **Understanding `Ezsqlite`:** The `Ezsqlite` libraies proposes a set of function which permits the usage of a SQLite3 database. They are described in the [`Ezsqlite` library documentation](https://github.com/zshipko/ocaml-ezsqlite/blob/master/lib/ezsqlite.mli). It uses exection for error handling.
