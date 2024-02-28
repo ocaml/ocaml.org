@@ -3,33 +3,33 @@ Layout.render
 ~title:(Printf.sprintf "%s · Success Stories" story.title)
 ~description:story.synopsis
 ~canonical:(Url.success_story story.slug) @@
-<div class="intro-section-simple">
+<div class="intro-section-simple dark:dark-intro-section-simple">
   <div class="container-fluid">
     <div class="mx-auto px-4 sm:px-6">
-      <div class="lg:grid lg:grid-cols-12 lg:gap-8">
-        <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-8 lg:text-left">
-          <div class="flex justify-start space-x-3 items-center text-primary hover:underline font-semibold mb-4 h-12">
+      <div class="flex justify-between">
+        <div class="text-title dark:text-dark-title">
+          <div class="flex justify-start space-x-3 items-center text-primary dark:text-dark-primary hover:underline font-semibold mb-4 h-12">
             <%s! Icons.arrow_left "h-5 w-5" %>
-            <a href="<%s Url.industrial_users %>" class="hover:underline">Back to Success Stories</a>
+            <a href="<%s Url.industrial_users %>" class="hover:underline text-primary dark:text-dark-primary ">Back to Success Stories</a>
           </div>
           <h2 class="font-bold pb-6"><%s story.title %></h2>
-          <div><%s story.synopsis %></div>
-          <a href="<%s story.url %>" target="_blank" class="btn btn-lg mt-6">
+          <p class="text-content dark:text-dark-content"><%s story.synopsis %></p>
+          <a href="<%s story.url %>" target="_blank" class="btn btn-lg mt-6 text-white dark:text-dark-title">
             <%s! Icons.arrow_top_right_on_square "h-5 w-5 mr-3 inline-block -mt-1" %>
             Visit Website
           </a>
         </div>
-        <div class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-4 lg:flex lg:items-center">
+        <div class="mt-12 h-[5rem] w-[33rem] hidden sm:block">
           <img src="<%s Ocamlorg_static.Media.url story.logo %>" alt="">
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="bg-legacy-default dark:bg-legacy-dark-default">
+<div class="bg-white dark:bg-dark-background">
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
-            <div class="prose lg:prose-lg mx-auto max-w-5xl">
+            <div class="prose dark:prose-invert lg:prose-lg mx-auto max-w-5xl">
                 <%s! story.body_html %>
             </div>
         </div>
