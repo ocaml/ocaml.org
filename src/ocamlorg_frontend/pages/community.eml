@@ -61,7 +61,7 @@ Community_layout.single_column_layout
           <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Discord</p>
           <p class="font-normal text-content dark:text-dark-content">Chat with other members of the community on Discord.</p>
         </a>
-        <a href="https://twitter.com/ocamllang" class="card dark:dark-card p-5 rounded-xl">
+        <a href="https://twitter.com/ocaml_org" class="card dark:dark-card p-5 rounded-xl">
           <%s! Icons.twitter "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
           <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Twitter</p>
           <p class="font-normal text-content dark:text-dark-content">Catch up with some of the latest announcements and events from the community.</p>
