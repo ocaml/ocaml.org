@@ -25,7 +25,7 @@ sections:
   - explanation: |
       This defines a function which will handle the connection with a single client. `ic` and `oc` are input and output channels that can be used with `Lwt_io` functions.
     code: |
-	  let rec handle_connection ic oc =
+      let rec handle_connection ic oc =
         let* () = Lwt_io.write_line oc "Give me your name:" in
         let* line = Lwt_io.read_line_opt ic in
         match line with

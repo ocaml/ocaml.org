@@ -30,9 +30,9 @@ sections:
              Logs_lwt.err (fun m -> m "No addresses not found")
           else
             let* service_entry = Lwt_unix.getservbyname connect_service "tcp" in
-	        let rec handle_connection ic oc =
+            let rec handle_connection ic oc =
   - explanation: |
-	  With host and service entries, we build a socket address that can be used to connect a distant host. Note: between the socket creation and its usage by `connect`, it is possible to set some options (`setsockopt`, `bind`).
+      With host and service entries, we build a socket address that can be used to connect a distant host. Note: between the socket creation and its usage by `connect`, it is possible to set some options (`setsockopt`, `bind`).
     code: |
             let socket_fd = Lwt_unix.(socket PF_INET SOCK_STREAM 0) in
             let* () = Lwt_unix.connect socket_fd
@@ -40,7 +40,7 @@ sections:
                                         service_entry.s_port)) in
             let* () = Logs_lwt.info (fun m -> m "Connected") in
   - explanation: |
-	  When we are connected, we can convert the socket into a pair of channels and use the available functions that deal with them.
+      When we are connected, we can convert the socket into a pair of channels and use the available functions that deal with them.
     code: | 
             let* line = Lwt_io.read_line_opt ic in
             match line with
