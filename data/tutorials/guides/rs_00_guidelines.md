@@ -389,8 +389,8 @@ can use it with more complex or simpler patterns. For instance:
  `let [x; y] as l = ...`<br />
  simultaneously defines a list `l` and its two elements `x` and `y`.
 * `let` with simple pattern:<br />
- `let _ = ...` does not define anything, it just evaluate the
- expression on the right hand side of the `=` symbol.
+ `let _ = ...` does not define anything, it just evaluates the
+ expression on the right-hand side of the `=` symbol.
 
 ####  The destructuring `let` must be exhaustive
 Only use destructuring `let` bindings when the
@@ -817,7 +817,7 @@ versions, see the [note below](#imperative-and-functional-versions-of-listlength
   not to systematically choose the simple `for` loop to iterate on a vector's
   element, but instead to use a complex `while` loop with
   one or two references. Too many useless assignments means too many
-  opportunity for errors.
+  opportunities for errors.
 
 * This category of programmer feels that the `mutable` keyword in
   the record-type definitions should be implicit.
@@ -960,7 +960,7 @@ Under Unix: use the line editor `ledit`, which offers great editing
 capabilities “à la Emacs” (including `ESC-/`!) as well as a history
 mechanism that lets you retrieve previously-typed commands and even
 retrieve commands from one session to another. `ledit` is written in
-OCaml and can be freely downnloaded
+OCaml and can be freely downloaded
 [here](ftp://ftp.inria.fr/INRIA/Projects/cristal/caml-light/bazar-ocaml/ledit.tar.gz).
 
 ###  How to Compile
@@ -1635,7 +1635,7 @@ match lam with
 | Var v ->
 ```
 Some programmers generalise this rule to all clauses as soon as one
-expressions overflows. They will then indent the last clause like this:
+expression overflows. They will then indent the last clause like this:
 
 <!-- $MDX skip -->
 ```ocaml
@@ -1743,7 +1743,7 @@ let f = function
 ####  Indentation to the function's name:
 No problem arises except for functions with many arguments&mdash;or very
 complicated arguments&mdash;which can't fit on the same line. You
-must indent the expressions with respect to the fucntion's name (1
+must indent the expressions with respect to the function's name (1
 or 2 spaces according to the chosen convention). Write small arguments
 on the same line, and change lines at the start of an argument.
 
