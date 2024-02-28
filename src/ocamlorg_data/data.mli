@@ -523,19 +523,15 @@ module Cookbook : sig
   type code_block_with_explanation = { code : string; explanation : string }
   type package = { name : string; version : string }
 
-  type section = {
-    filename : string;
-    language : string;
-    code_blocks : code_block_with_explanation list;
-    code_plaintext : string;
-  }
-
   type t = {
     slug : string;
     filepath : string;
     task : task;
     packages : package list;
-    sections : section list;
+    libraries : string list;
+    ppxes : string list;
+    code_blocks : code_block_with_explanation list;
+    code_plaintext : string;
     body_html : string;
   }
 

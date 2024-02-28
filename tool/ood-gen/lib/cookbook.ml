@@ -16,39 +16,32 @@ type task = { title : string; slug : string; category : category }
 type code_block_with_explanation = { code : string; explanation : string }
 [@@deriving of_yaml, show { with_path = false }]
 
-type metadata_section = {
-  filename : string;
-  language : string;
-  code_blocks : code_block_with_explanation list;
-}
-[@@deriving of_yaml]
-
 type package = { name : string; version : string }
 [@@deriving of_yaml, show { with_path = false }]
 
-type metadata = { packages : package list; sections : metadata_section list }
-[@@deriving of_yaml]
-
-type section = {
-  filename : string;
-  language : string;
+type metadata = {
+  packages : package list;
+  libraries : string list option;
+  ppxes : string list option;
   code_blocks : code_block_with_explanation list;
-  code_plaintext : string;
 }
-[@@deriving show { with_path = false }]
+[@@deriving of_yaml]
 
 type t = {
   filepath : string;
   slug : string;
   task : task;
   packages : package list;
-  sections : section list;
+  libraries : string list;
+  ppxes : string list;
+  code_blocks : code_block_with_explanation list;
+  code_plaintext : string;
   body_html : string;
 }
 [@@deriving
   stable_record ~version:metadata
-    ~remove:[ slug; filepath; task; body_html ]
-    ~modify:[ sections ],
+    ~remove:[ slug; filepath; task; body_html; code_plaintext ]
+    ~modify:[ code_blocks; libraries; ppxes ],
     show { with_path = false }]
 
 let decode (tasks : task list) (fpath, (head, body)) =
@@ -74,32 +67,30 @@ let decode (tasks : task list) (fpath, (head, body)) =
     |> Cmarkit_html.of_doc ~safe:false
   in
 
-  let modify_sections (sections : metadata_section list) =
-    sections
-    |> List.map (fun ({ filename; language; code_blocks } : metadata_section) ->
-           let code_plaintext =
-             code_blocks
-             |> List.map (fun (c : code_block_with_explanation) -> c.code)
-             |> String.concat "\n"
-           in
-           let code_blocks =
-             code_blocks
-             |> List.map (fun (c : code_block_with_explanation) ->
-                    let code =
-                      Printf.sprintf "```%s\n%s\n```" language c.code
-                      |> render_markdown
-                    in
-                    let explanation = c.explanation |> render_markdown in
-                    { explanation; code })
-           in
-           { filename; language; code_blocks; code_plaintext })
+  let modify_code_blocks (code_blocks : code_block_with_explanation list) =
+    let code_blocks =
+      code_blocks
+      |> List.map (fun (c : code_block_with_explanation) ->
+             let code =
+               Printf.sprintf "```ocaml\n%s\n```" c.code |> render_markdown
+             in
+             let explanation = c.explanation |> render_markdown in
+             { explanation; code })
+    in
+    code_blocks
   in
   let body_html = body |> render_markdown in
 
   Result.map
-    (fun metadata ->
-      of_metadata ~slug ~filepath:fpath ~task ~body_html ~modify_sections
-        metadata)
+    (fun (metadata : metadata) ->
+      let code_plaintext =
+        metadata.code_blocks
+        |> List.map (fun (c : code_block_with_explanation) -> c.code)
+        |> String.concat "\n"
+      in
+      of_metadata ~slug ~filepath:fpath ~task ~body_html ~modify_code_blocks
+        ~code_plaintext ~modify_libraries:(Option.value ~default:[])
+        ~modify_ppxes:(Option.value ~default:[]) metadata)
     metadata
 
 let all_categories_and_tasks () =
@@ -150,18 +141,15 @@ type code_block_with_explanation =
   { code : string
   ; explanation : string
   }
-type section =
-  { filename : string
-  ; language : string
-  ; code_blocks : code_block_with_explanation list
-  ; code_plaintext : string
-  }
 type t =
   { slug: string
   ; filepath: string
   ; task : task
   ; packages : package list
-  ; sections : section list
+  ; libraries : string list
+  ; ppxes : string list
+  ; code_blocks : code_block_with_explanation list
+  ; code_plaintext : string
   ; body_html : string
   }
 
