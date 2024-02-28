@@ -15,7 +15,7 @@ sections:
   language: ocaml
   code_blocks:
   - explanation: |
-      The `Caqti/ppx_rapper` combo uses a Lwt environment (see concurency cookbook). Let operators `(let*)` and `(let*?)` are defined and permits the Lwt promise sequencing. `(let*?)` add an error handling: it extracts the result from a returned `Ok result` or stop the execution in case of an `Error err` value.
+      The `Caqti/ppx_rapper` combo uses a Lwt environment (see concurency cookbook). Let operators `(let*)` and `(let*?)` are defined and permits the Lwt promise sequencing. `(let*?)` add an error handling: it extracts the result from a returned `Ok result` or stops the execution in case of an `Error err` value.
     code: |
       let (let*) = Lwt.bind
       let (let*?) = Lwt_result.bind
@@ -93,7 +93,7 @@ sections:
                     end;
                     Lwt_result.return ())
   - explanation:
-      The error handling just match the result with `Ok` or `Error`. The `Lwt_result.bind` called by each `(let*?)` stop the chain of queries at the first error. We just have to check the presence of error. `Caqti_error.show` can be used to convert the error into a text.
+      The error handling just matches the result with `Ok` or `Error`. The `Lwt_result.bind` called by each `(let*?)` stops the chain of queries at the first error. We just have to check the presence of error. `Caqti_error.show` can be used to convert the error into a text.
     code:
         with
         | Result.Ok () ->
