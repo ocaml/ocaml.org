@@ -8,19 +8,29 @@ Learn_layout.single_column_layout
   <div class="container-fluid pt-10">
     <div class="prose mx-auto max-w-5xl">
       <h1 class="font-normal text-4xl mb-10"><%s recipe.task.title %></h2>
+
+% (if List.length recipe.libraries > 0 then
+      <h2>Libraries</h2>
+      <p><%s recipe.libraries |> String.concat ", " %></p>
+% );
+
+% (if List.length recipe.ppxes > 0 then
+      <h2>Ppxes</h2>
+      <p><%s recipe.ppxes |> String.concat ", " %></p>
+% );
+
       <h2>Files</h2>
-% recipe.sections |> List.iter (fun (section: Data.Cookbook.section) -> 
       <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10">
         <div></div>
-        <h3 class="flex gap-4 items-center"><%s section.filename %> <%s! Copy_to_clipboard.button ~id:"copy-code" section.code_plaintext %></h3>
+        <h3 class="flex gap-4 items-center">main.ml <%s! Copy_to_clipboard.button ~id:"copy-code" recipe.code_plaintext %></h3>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10">
-% section.code_blocks |> List.iter (fun (code_block: Data.Cookbook.code_block_with_explanation) -> 
+% recipe.code_blocks |> List.iter (fun (code_block: Data.Cookbook.code_block_with_explanation) -> 
         <div><%s! code_block.explanation %></div>
         <div class="cookbook-codeblock bg-code_window dark:bg-dark-code_window rounded-lg lg:rounded-none"><%s! code_block.code %></div>
 % );
       </div>
-% );
+
 % if String.length recipe.body_html > 0 then (
       <h2>Discussion</h2>
       <%s! recipe.body_html %>
