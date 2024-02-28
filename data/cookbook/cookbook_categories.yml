@@ -18,6 +18,8 @@ cookbook_categories:
   tasks:
   - title: SQLite3 access with `ezsqlite`
     folder: ezsqlite
+  - title: SQLite3/MariaDB/PostgreSQL access with `caqti` and `ppx_rapper`
+    folder: caqti-ppx-rapper
 - title: Date and Time
   folder: date-and-time
   tasks:
