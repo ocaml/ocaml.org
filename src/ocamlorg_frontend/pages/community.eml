@@ -200,6 +200,9 @@ Community_layout.single_column_layout
       </a>
       <% ); %>
     </div>
+    <p class="text-white dark:text-dark-content my-6">
+      If you want to contribute a recurring event, check out the <a class="text-white underline hover:no-underline" href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-recurring-event" target="_blank">Contributing Guide</a> on GitHub.
+    </p>
   </div>
 </div>
 <% if List.length upcoming_events > 0 then ( %>
