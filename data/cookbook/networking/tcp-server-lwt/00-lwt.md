@@ -35,7 +35,7 @@ sections:
         | None ->
            Logs_lwt.info (fun m -> m "Connection closed")
   - explanation: |
-      This defines a function which "accept" a new connection, and run `handle_connection` on this connection. `Lwt.on_failure` returns immediately and execute this function in paralel with the other tasks.
+      This defines a function which "accepts" a new connection and runs `handle_connection` on this connection. `Lwt.on_failure` returns immediately and execute this function in paralel with the other tasks.
     code: |
       let accept_connection socket_fd =
         let* conn = Lwt_unix.accept socket_fd in
