@@ -7,7 +7,7 @@ Layout.render
   <div class="container-fluid">
     <div class="mx-auto px-4 sm:px-6">
       <div class="flex justify-between">
-        <div class="text-title dark:text-dark-title">
+        <div class="text-title dark:text-dark-title max-w-3xl">
           <div class="flex justify-start space-x-3 items-center text-primary dark:text-dark-primary hover:underline font-semibold mb-4 h-12">
             <%s! Icons.arrow_left "h-5 w-5" %>
             <a href="<%s Url.industrial_users %>" class="hover:underline text-primary dark:text-dark-primary ">Back to Success Stories</a>
@@ -19,8 +19,8 @@ Layout.render
             Visit Website
           </a>
         </div>
-        <div class="mt-12 h-[5rem] w-[33rem] hidden sm:block">
-          <img src="<%s Ocamlorg_static.Media.url story.logo %>" alt="">
+        <div class="mt-12 h-[5rem] w-[33rem] hidden sm:block pl-4">
+          <img class="p-3 dark:bg-dark-white rounded-md" src="<%s Ocamlorg_static.Media.url story.logo %>" alt="">
         </div>
       </div>
     </div>
