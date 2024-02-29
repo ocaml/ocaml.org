@@ -17,4 +17,4 @@ Defining a custom `compare` function (here a case insensitive string comparison)
 let compare_insensitive a b = 
     compare (String.lowercase_ascii a) (String.lowercase_ascii b)
 let a = [| "ABC"; "BCD"; "abc"; "bcd" |]
-let () = Array.compare_insensitive a
+let () = Array.sort compare_insensitive a
