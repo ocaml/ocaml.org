@@ -9,7 +9,7 @@ discussion: |
   - **Alternatives:** TODO
 ---
 
-(* Lets take a simple structure a pair list representing an id and an associated text *)
+(* Lets take a simple structure: a pair list representing an id and an associated text *)
 
 let item_list = [ ("1", "Text 1"); ("2", "Text 2")]
 
