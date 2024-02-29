@@ -74,4 +74,6 @@ cookbook_categories:
     folder: regular-expressions
 - title: Web Programming
   folder: web-programming
-  tasks: []
+  tasks:
+  - title: Simple HTTP(S) client
+    folder: simple-http-client
