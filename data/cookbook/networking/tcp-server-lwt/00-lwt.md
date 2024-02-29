@@ -72,6 +72,6 @@ sections:
             logs.lwt))
 ---
 
-- **Understanding TCP server:** Implementing a TCP server needs initilising a main socket file descriptor that will be used to accept connections. Each connection is associated to a dedicated file descriptor that is used to create input and output channels. Since the server have to handle multiple connections concurrently, we have to use the Lwt scheduling and have multiple concurrent promises. The I/O functions provided by `Lwt_unix` must be used instead of blocking functions from other libraries.
+- **Understanding TCP server:** Implementing a TCP server needs to initialise a main socket file descriptor that will be used to accept connections. Each connection is associated to a dedicated file descriptor, which is used to create input and output channels. Since the server has to handle multiple connections concurrently, we have to use the Lwt scheduling and have multiple concurrent promises. The I/O functions provided by `Lwt_unix` must be used instead of blocking functions from other libraries.
 - **Alternative Libraries:** Other concurrent libraries can be used (`Async`, `Eio`). The `Unix` library can also be used with the `fork` function that creates a new process.
 - **Credit:** The program is heavily inspired by [this article](https://medium.com/@aryangodara_19887/tcp-server-and-client-in-ocaml-13ebefd54f60)
