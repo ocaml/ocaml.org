@@ -70,8 +70,10 @@ cookbook_categories:
     folder: ascii-text-processing
   - title: UTF-8 Text Processing
     folder: utf8-text-processing
-  - title: Regular Expressions
+  - title: Regular Expressions (Str)
     folder: regular-expressions
+  - title: Regular Expressions (ppx_regexp)
+    folder: regular-expressions-ppxregexp
 - title: Web Programming
   folder: web-programming
   tasks: []
