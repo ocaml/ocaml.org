@@ -6,6 +6,7 @@ libraries:
   - uri
 discussion: |
   - **Understanding `Uri`:** `Uri` provides useful functions for parsing and encoding URI (URL or URN). It can be handy with complex URI (parameters, special or non ASCII characters)
+  - **Reference:** The [uri.mli file](https://github.com/mirage/ocaml-uri/blob/main/lib/uri.mli) is well commented.
 ---
 
 (* In order to decompose an URI, we convert a string into an `Uri.t`, and use accessor functions. *)

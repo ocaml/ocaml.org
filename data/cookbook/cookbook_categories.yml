@@ -76,6 +76,6 @@ cookbook_categories:
   folder: web-programming
   tasks:
   - title: parsing an URI
-    folder: uri-analysing
+    folder: uri-parsing
   - title: encoding an URI
     folder: uri-encoding
