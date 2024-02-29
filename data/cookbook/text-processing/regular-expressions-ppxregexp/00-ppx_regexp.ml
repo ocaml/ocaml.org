@@ -10,10 +10,10 @@ ppxes:
   - ppx_regexp
 discussion: |
   - **Understanding `re`:** The `Re` library propose multiple advantage over the `Str` library which is shipped with OCaml. It supports multiple syntaxes, and its absence of global states permits concurrent parttern matching. It is completed by the `ppx_regexp` which makes the use of this library easier. However, only the PCRE syntax is supported.
-  - **Reference:** `ppx_regexp` is described on [its page](https://github.com/paurkedal/ppx_regexp). It can be completed by any [PCRE cheat sheet](https://www.debuggex.com/cheatsheet/regex/pcre)
+  - **Reference:** `ppx_regexp` is described on [its page](https://github.com/paurkedal/ppx_regexp). It can be completed by the [PCRE syntax](https://www.pcre.org/original/doc/html/pcresyntax.html) or any [PCRE cheat sheet](https://www.debuggex.com/cheatsheet/regex/pcre).
 ---
 
-(* In order to match a string with a regular expression, we use the `match%pcre` keyword in a way similar to the OCaml `match`:
+(* In order to match a string with a regular expression, we use the `match%pcre` keyword in a way similar to the OCaml `match`: *)
 
 let () =
   match%pcre "Date: 1972-01-23  " with
