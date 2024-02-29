@@ -72,15 +72,15 @@ Layout.render
                 <td class="py-4 px-6 font-medium text-content dark:text-dark-content"><%s Fmt.(str "%a" (list ~sep:comma string) presentation.authors) %></td>
                 <td class="py-4 px-6 flex flex-col justify-between h-24">
                   <% (match presentation.link with None -> () | Some link -> %>
-                  <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium block ml-8"> <%s! Icons.link "h-5 w-5" %> </a>
+                  <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium block ml-8 dark:hover:text-dark-title"> <%s! Icons.link "h-5 w-5" %> </a>
                   <% ); %>
 
                   <% (match presentation.video with None -> () | Some link -> %>
-                  <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium block ml-8"> <%s! Icons.video "h-5 w-5" %> </a>
+                  <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium block ml-8 dark:hover:text-dark-title"> <%s! Icons.video "h-6 w-6" %> </a>
                   <% ); %>
 
                   <% (match presentation.slides with None -> () | Some link -> %>
-                  <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium block ml-8"> <%s! Icons.slide "h-5 w-5" %> </a>
+                  <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium block ml-8 dark:hover:text-dark-title"> <%s! Icons.slide "h-6 w-6" %> </a>
                   <% ); %>
                 </td>
               </tr>
@@ -92,13 +92,13 @@ Layout.render
       </div>
     </div>
 </div>
-<div class="w-full section-blue-gradient dark:dark-section-blue-gradient">
+<div class="w-full deep-blue-gradient dark:dark-deep-blue-gradient">
   <div class="container-fluid">
     <div class="text-white dark:text-dark-title py-16">
-      <h2 class="font-bold text-white dark:text-dark-title mb-4">Workshop Details</h2>
+      <h2 class="text-sm font-bold text-white dark:text-dark-white opacity-60 mb-4 tracking-widest">Workshop Details</h2>
       <div>
         <% (match List.length workshop.organising_committee with | 0 -> () | _ -> %>
-        <h5 class="font-bold text-white dark:text-dark-title mb-12">Organising Committee</h5>
+        <h5 class="font-bold text-xl text-white dark:text-dark-white mb-4">Organising Committee</h5>
         <div class="flex flex-wrap justify-center space-x-12">
           <% 
           let committee_with_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_some x.picture) workshop.organising_committee in
@@ -118,8 +118,8 @@ Layout.render
         <div class="mt-8"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div>
         <% ); %> <% ); %>
       </div>
-      <div>
-        <h5 class="font-bold text-xl">Program Committee</h5>
+      <div class="mt-4">
+        <h5 class="font-bold text-white dark:text-dark-white text-xl">Program Committee</h5>
         <div class="flex flex-wrap justify-center space-x-12">
           <% 
           let committee_with_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_some x.picture) workshop.program_committee in
@@ -136,7 +136,7 @@ Layout.render
           <% ); %>
         </div>
         <% (match names with [] -> () | _ -> %>
-        <div class="mt-2"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div>
+        <div class="mt-2 text-title dark:text-dark-title"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div>
         <% ); %>
       </div>
     </div>
@@ -152,6 +152,7 @@ workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
       <div class="inline-block">
         <iframe
           loading="lazy"
+          class="w-full"
           sandbox="allow-scripts allow-popups"
           src="https://watch.ocaml.org<%s video.embed_path %>"
           allowfullscreen
@@ -162,7 +163,7 @@ workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
       <% ); %>
     </div>
     <div class="flex justify-end mt-12">
-      <a href="https://watch.ocaml.org" target="_blank" class="btn btn-ghost">
+      <a href="https://watch.ocaml.org" target="_blank" class="btn btn-ghost w-full md:w-auto">
         More videos at watch.ocaml.org
         <%s! Icons.chevron_right "h-5 w-5 inline-block" %>
       </a>
