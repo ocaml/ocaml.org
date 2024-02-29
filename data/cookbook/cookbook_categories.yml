@@ -74,4 +74,8 @@ cookbook_categories:
     folder: regular-expressions
 - title: Web Programming
   folder: web-programming
-  tasks: []
+  tasks:
+  - title: parsing an URI
+    folder: uri-analysing
+  - title: encoding an URI
+    folder: uri-encoding
