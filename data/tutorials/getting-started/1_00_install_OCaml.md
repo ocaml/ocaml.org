@@ -142,7 +142,7 @@ Now that we've successfully installed the OCaml compiler and the opam package ma
 
 - [UTop](https://github.com/ocaml-community/utop), a modern interactive toplevel (REPL: Read-Eval-Print Loop)
 - [Dune](https://dune.build), a fast and full-featured build system
-- [`ocaml-lsp-server`](https://github.com/ocaml/ocaml-lsp) implements the Language Server Protocol to enable editor support for OCaml, e.g., in VS Code, Vim, or Emacs. Under the hood, it uses [Merlin](https://ocaml.github.io/merlin/).
+- [`ocaml-lsp-server`](https://github.com/ocaml/ocaml-lsp) implements the Language Server Protocol to enable editor support for OCaml, e.g., in VS Code, Vim, or Emacs.
 - [`odoc`](https://github.com/ocaml/odoc) to generate documentation from OCaml code
 - [OCamlFormat](https://opam.ocaml.org/packages/ocamlformat/) to automatically format OCaml code
 
