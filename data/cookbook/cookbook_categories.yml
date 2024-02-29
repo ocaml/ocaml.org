@@ -31,8 +31,12 @@ cookbook_categories:
 - title: Encoding
   folder: encoding
   tasks:
-  - title: Text Encoding / Decoding
+  - title: Text (Charset) Encoding / Decoding
     folder: encoding
+  - title: XML Generation
+    folder: xml-generation-ezxmlm
+  - title: XML Parsing
+    folder: xml-parsing-ezxmlm
 - title: File System
   folder: file-system
   tasks: []
