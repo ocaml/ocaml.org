@@ -16,7 +16,7 @@ sections:
       let connect_host = "localhost"
       let connect_service = "smtp"
   - explanation: |
-      We setup some `Logs` options. Afterwards `Lwt_main.run` creates a Lwt context. and schedules the following instructions.
+      We setup some `Logs` options. Afterwards `Lwt_main.run` creates a Lwt context. and schedules the following functions.
     code: |
       let () =
         Logs.set_reporter (Logs.format_reporter ());
