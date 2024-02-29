@@ -58,7 +58,7 @@ and what makes it unique." @@
     <% );%>
   </div>
 </div>
-<div class="w-full governance-blue-gradient dark:dark-governance-blue-gradient">
+<div class="w-full deep-blue-gradient dark:dark-deep-blue-gradient">
   <div class="container-fluid flex justify-between items-center py-10 px-8">
       <div class="flex flex-col w-full">
         <div class="md:max-w-[80%]">

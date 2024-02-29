@@ -48,12 +48,12 @@
     background: none;
     @apply pt-16 pb-16 bg-dark-background_navigation;
   }
- .governance-blue-gradient {
+ .deep-blue-gradient {
   background: linear-gradient(45deg, #0B1229, #0F254C);
   @apply border-none;
  }
 
- .dark-governance-blue-gradient {
+ .dark-deep-blue-gradient {
   background: linear-gradient(45deg, #0B1228, #0E254E);
   @apply border-none;
 }
