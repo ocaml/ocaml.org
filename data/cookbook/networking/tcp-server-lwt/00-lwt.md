@@ -48,7 +48,7 @@ sections:
                         (fun m -> m "%s" (Printexc.to_string exc) ));
         Logs_lwt.info (fun m -> m "New connection")
   - explanation: |
-      The main function initialises the socket that will be used to accept clients and loop forever the `accept_connection` function.
+      The main function initialises the socket that will be used to accept clients and loop forever through the `accept_connection` function.
     code: |
       let () =
         Logs.set_reporter (Logs.format_reporter ());
