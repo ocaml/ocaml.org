@@ -67,5 +67,5 @@ sections:
             logs.lwt))
 ---
 
-- **Understanding TCP client:** Implementing a TCP client needs initilising a socket file descriptor that will be used to both connect to the remote host and also to exchange with it.
+- **Understanding TCP client:** Implementing a TCP client needs to initialise a socket file descriptor that will be used to both connect to the remote host and also to exchange with it.
 - **Alternative Libraries:** Other concurrent libraries can be used (`Async`, `Eio`). The `Unix` library can also be used and will be simpler to use (no monadic functions or operator), especially if the protocol is a plain alternance of question/answer. If the protocol needs some concurrency, an adequate library should be used.
