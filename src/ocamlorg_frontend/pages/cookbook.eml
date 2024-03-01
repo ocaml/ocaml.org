@@ -4,9 +4,8 @@ Learn_layout.single_column_layout
   ~description:"A collection of recipes to get things done in OCaml."
   ~canonical:Url.cookbook
   ~current:Cookbook @@
-<div class="bg-legacy-default dark:bg-legacy-dark-default">
   <div class="container-fluid pt-10">
-    <div class="prose mb-10">
+    <div class="prose dark:prose-invert mb-10">
       <h1 class="font-normal text-4xl">OCaml Cookbook</h2>
       <p>
         The OCaml Cookbook is a resource where the OCaml community shares recipes for how to solve
@@ -16,7 +15,7 @@ Learn_layout.single_column_layout
     <div class="flex flex-col gap-6">
       <% categories |> List.iter (fun (category: Data.Cookbook.category) -> %>
       <div class="max-w-4xl">
-        <div class="prose">
+        <div class="prose dark:prose-invert">
           <h2 class="text-xl font-semibold mb-6"><%s category.title %></h2>
           <% let tasks = Data.Cookbook.get_tasks_by_category ~category_slug:category.slug in %>
 % if tasks = [] then (
@@ -53,4 +52,3 @@ Learn_layout.single_column_layout
       <% ); %>
     </div>
   </div>
-</div>
