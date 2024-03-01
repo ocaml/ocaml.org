@@ -120,7 +120,6 @@ Learn_layout.three_column_layout
 ~title:"Exercises"
 ~description:"A list of exercises to work on your OCaml skills."
 ~canonical:Url.exercises
-~active_top_nav_item:Header.Learn
 ~left_sidebar_html:(Some(exercises_sidebar ~exercises))
 ~right_sidebar_html:None
 ~current:Exercises @@

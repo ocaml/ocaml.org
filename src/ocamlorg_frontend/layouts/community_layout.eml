@@ -20,7 +20,6 @@ let single_column_layout
 ~title
 ~description
 ~canonical
-?active_top_nav_item
 ~current
 inner_html
 =
@@ -30,7 +29,8 @@ inner_html
   ~title
   ~description
   ~canonical
-  ?active_top_nav_item @@
+  ~active_top_nav_item:Header.Community
+  @@
   <%s! tabs ~current %>
   <div class="bg-white dark:bg-dark-background">
     <div class="flex-1 z-0 z- min-w-0 pb-12">
