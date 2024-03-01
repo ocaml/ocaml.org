@@ -1,7 +1,7 @@
 ---
 packages:
 - name: "uri"
-  version "4.2.0"
+  version: "4.2.0"
 libraries:
   - uri
 discussion: |
