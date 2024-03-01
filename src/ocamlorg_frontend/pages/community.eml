@@ -46,7 +46,7 @@ Community_layout.single_column_layout
           <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Discuss</p>
           <p class="font-normal text-content dark:text-dark-content">Discuss with the community, ask questions and share your work on OCaml.</p>
         </a>
-        <a href="https://watch.ocaml.org/" class="card dark:dark-card p-5 rounded-xl">
+        <a href="https://watch.ocaml.org/videos/recently-added" class="card dark:dark-card p-5 rounded-xl">
           <%s! Icons.peertube "h-8 w-8 mb-1 text-primary dark:text-dark-primary" %>
           <p class="text-title dark:text-dark-title font-bold text-lg mb-1">Watch</p>
           <p class="font-normal text-content dark:text-dark-content">Watch community videos like past OCaml Workshop events.</p>
