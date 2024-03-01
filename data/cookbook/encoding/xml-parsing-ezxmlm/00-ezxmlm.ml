@@ -60,7 +60,7 @@ let data_list = List.map
                   (fun item_pair -> Ezxmlm.data_to_string (snd item_pair)) 
                   item_pair_list'
 
-(* A whole example: a RSS parser that returns a list of pair (title, link) from a RSS string *)
+(* A whole example: an RSS parser that returns a list of pair (title, link) from an RSS string *)
 
 let parse_rss str =
   let open Ezxmlm in
