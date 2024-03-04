@@ -23,7 +23,7 @@ sections:
         let* () = f () in
         loop f
   - explanation: |
-      This defines a function which will handle the connection with a single client. `ic` and `oc` are input and output channels that can be used with `Lwt_io` functions.
+      This defines a function that will handle the connection with a single client. `ic` and `oc` are input and output channels that can be used with `Lwt_io` functions.
     code: |
       let rec handle_connection ic oc =
         let* () = Lwt_io.write_line oc "Give me your name:" in
@@ -35,7 +35,7 @@ sections:
         | None ->
            Logs_lwt.info (fun m -> m "Connection closed")
   - explanation: |
-      This defines a function which "accepts" a new connection and runs `handle_connection` on this connection. `Lwt.on_failure` returns immediately and execute this function in paralel with the other tasks.
+      This defines a function that "accepts" a new connection and runs `handle_connection` on it. `Lwt.on_failure` returns immediately and executes this function in parallel with the other tasks.
     code: |
       let accept_connection socket_fd =
         let* conn = Lwt_unix.accept socket_fd in
