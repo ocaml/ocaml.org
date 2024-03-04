@@ -43,7 +43,7 @@ let item_node_list = Ezxmlm.members "item" list_node
 
 let data_list = List.map Ezxmlm.data_to_string item_node_list
 
-(* If we want to filter with the attrs, we have to deal with a list of pairs (attribute list, nodes) which are returned by `members_with_attr`. *)
+(* If we want to filter with the attributes, we have to deal with a list of pairs (attribute list, nodes) which are returned by `members_with_attr`. *)
 
 let item_pair_list = Ezxmlm.members_with_attr "item" list_node
 let item_pair = Ezxmlm.filter_attr "id" "2" item_pair_list
@@ -53,7 +53,7 @@ let item_pair = Ezxmlm.filter_attr "id" "2" item_pair_list
 let class_ = Ezxmlm.get_attr "class" (fst item_pair)
 let data = Ezxmlm.data_to_string (snd item_pair)
 
-(* If we expect the attribute selection not to be unique, the `filter_attrs` should be used instead of. *)
+(* If we expect the attribute selection not to be unique, the `filter_attrs` should be used instead. *)
 
 let item_pair_list' = Ezxmlm.filter_attrs "class" "a" item_pair_list
 let data_list = List.map
