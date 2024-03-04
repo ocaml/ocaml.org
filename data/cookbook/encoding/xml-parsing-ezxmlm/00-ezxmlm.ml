@@ -30,7 +30,7 @@ let (_dtd, xml_node) = Ezxmlm.from_string xml_string
 let (_dtd, xml_node) = In_channel.with_open_bin
                          "file.xml" Ezxmlm.from_channel
 
-(* Fetching a member by its tag, assuming it is unique can be done by the `member` function. (Nota: an exception is raised in utop by the pretty printer, however, these values are correct) *)
+(* Fetching a member by its tag, assuming it is unique, can be done by the `member` function. (Note: an exception is raised in UTop by the pretty printer; however, these values are correct) *)
 
 let root_node = Ezxmlm.member "root" xml_node
 let list_node = Ezxmlm.member "list" root_node
