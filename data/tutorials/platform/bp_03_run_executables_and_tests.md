@@ -43,7 +43,7 @@ You can run it with `dune exec bin/main.exe` or `dune exec my-app`.
 
 The `dune exec <executable_path>.exe` can take some time to compile a project when multiple files are involved. It can be beneficial to have a process that recompiles files as soon as they are changed. Then after the last saved file, it is possible that it remains only a last file to compile or just the linking process of all files and libraries.
 
-The command `dune build --watch` looks for things that need to be compiled, and afterwards, just waits for a modified file that will trigger the compilation of needed modules.
+The command `dune build --watch` overwatches for things that need to be compiled. It waits for a file modification that triggers the compilation of needed modules.
 
 However, `dune` locks the build directory, then it is not possible to launch two `dune` commands at the same time. The `dune build --watch` has to be stopped (typing Ctrl-C) before launching the application. Or we can launch the application without the help of Dune by typing `_build\default\<executable_path>.exe`.
 
