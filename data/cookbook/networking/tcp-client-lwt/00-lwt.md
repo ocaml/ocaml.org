@@ -23,7 +23,7 @@ sections:
         Logs.set_level (Some Logs.Info);
         Lwt_main.run @@
   - explanation: |
-      We are looking for host and service names. Hostnames are typically resolved with the `/etc/host` and DNS while service names are typically resolved with `/etc/services`. Service names are bound to port numbers. (Note: `gethostbyname` and `getservbyname` raise an exception if the host or service is not found). 
+      We are looking for host and service names. Hostnames are typically resolved with the `/etc/host` and DNS, while service names are typically resolved with `/etc/services`. Service names are bound to port numbers. (Note: `gethostbyname` and `getservbyname` raise an exception if the host or service is not found). 
     code: |
           let* host_entry = Lwt_unix.gethostbyname connect_host in
           if Array.length host_entry.h_addr_list = 0 then
