@@ -127,7 +127,7 @@ in
           <a aria-label="The OCaml Compiler on GitHub" href="https://github.com/ocaml/ocaml" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary">
             <%s! Icons.github "w-6 h-6" %>
           </a>
-          <a aria-label="The OCaml Language Twitter Account" href="https://twitter.com/ocamllang" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary">
+          <a aria-label="The OCaml Language Twitter Account" href="https://twitter.com/ocaml_org" class="opacity-60 hover:opacity-100 text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary">
             <%s! Icons.twitter "w-6 h-6" %>
           </a>
         </div>
