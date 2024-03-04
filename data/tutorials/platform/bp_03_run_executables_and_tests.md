@@ -41,7 +41,7 @@ You can run it with `dune exec bin/main.exe` or `dune exec my-app`.
 
 ## Building the Project When Files Changes
 
-The `dune exec <executable_path>.exe` could take some time to compile a project when multiple files are involved. It could be interesting to have a process which recompiles each file as soon as they are changed. Then after the last saved file, it is possible that it remains only a last file to compile or just the linking process of all files and libraries.
+The `dune exec <executable_path>.exe` could take some time to compile a project when multiple files are involved. It could be interesting to have a process that recompiles each file as soon as they are changed. Then after the last saved file, it is possible that it remains only a last file to compile or just the linking process of all files and libraries.
 
 The command `dune build --watch` looks for things which need to be compiled, and afterwards, just waits for a modified file which will trigger the compilation of needed modules.
 
