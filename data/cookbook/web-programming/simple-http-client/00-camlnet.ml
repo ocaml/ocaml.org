@@ -8,7 +8,7 @@ libraries:
 - netclient
   nettls-gnutls
 discussion: |
-  - **Understanding `ocamlnet`:** The `ocamlnet` provides a rich set of networking libraries that cover many protocols. It provides some modules with a rich set of parameters. But for simple needs, the `Nethttp_client.Convenience` provides simple functions for basic interaction with the server. Note: These functions don't handle redirections.
+  - **Understanding `ocamlnet`:** The `ocamlnet` provides a rich set of networking libraries that cover many protocols. It has some modules with a rich set of parameters. But for simple needs, the `Nethttp_client.Convenience` gives simple functions for basic interaction with the server. Note: These functions don't handle redirections.
   - **Reference:** The `Convenience` module used for simple HTTP interaction is documented on [the ocamlnet site](http://projects.camlcity.org/projects/dl/ocamlnet-4.1.9/doc/html-main/Nethttp_client.Convenience.html)
 ---
 
