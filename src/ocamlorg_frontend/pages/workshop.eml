@@ -136,7 +136,7 @@ Layout.render
           <% ); %>
         </div>
         <% (match names with [] -> () | _ -> %>
-        <div class="mt-2 text-title dark:text-dark-title"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div>
+        <div class="mt-2 text-white dark:text-dark-white"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div>
         <% ); %>
       </div>
     </div>
