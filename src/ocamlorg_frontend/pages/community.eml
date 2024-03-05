@@ -212,7 +212,7 @@ Community_layout.single_column_layout
                     <%s Option.value ~default:"" event.starts.utc_hh_mm %>
                   </p>
                 </div>
-                <% match event.ends with | None -> () | Some ends -> ( %>
+                <% (match event.ends with | None -> () | Some ends -> ( %>
                 <div class="flex items-center space-x-2 mt-2">
                   <p class="ml-9 text-content dark:text-dark-content">
                     to
@@ -220,7 +220,7 @@ Community_layout.single_column_layout
                     <%s Option.value ~default:"" ends.utc_hh_mm %>
                   </p>
                 </div>
-                <% ) ;%>
+                <% )) ;%>
               </a>
               <% ); %>
           </div>
