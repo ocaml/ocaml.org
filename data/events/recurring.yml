@@ -34,3 +34,7 @@ recurring:
       lat: 31.628674
       long: -7.992047
     url: https://retreat.mirage.io/
+  - title: "South of England Regional Programming Language Seminar"
+    slug: "s-repls-programming-languages-seminar"
+    textual_location: "London, United Kingdom"
+    url: https://srepls.github.io/
