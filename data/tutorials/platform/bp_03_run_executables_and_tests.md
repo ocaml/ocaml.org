@@ -45,7 +45,7 @@ The `dune exec <executable_path>.exe` can take some time to compile a project wh
 
 The command `dune build --watch` overwatches for things that need to be compiled. It waits for a file modification that triggers the compilation of needed modules.
 
-However, `dune` locks the build directory, then it is not possible to launch two `dune` commands at the same time. The `dune build --watch` has to be stopped (typing Ctrl-C) before launching the application. Or we can launch the application without the help of Dune by typing `_build\default\<executable_path>.exe`.
+However, Dune locks the build directory, then it is not possible to launch two Dune commands at the same time. The `dune build --watch` has to be stopped (typing Ctrl-C) before launching the application. Or we can launch the application without the help of Dune by typing `_build\default\<executable_path>.exe`.
 
 ## Running Tests
 
