@@ -1,17 +1,4 @@
-let render ~workshops ~recurring_events ~events =
-let current_date =
-  let open Unix in
-  let tm = localtime (Unix.gettimeofday ()) in
-  Format.asprintf
-    "%04d-%02d-%02d"
-    (tm.tm_year + 1900)
-    (tm.tm_mon + 1)
-    tm.tm_mday
-in
-let old_workshops = List.filter (fun (w : Data.Workshop.t) -> w.date < current_date) workshops in
-let upcoming_workshops = List.filter (fun (w : Data.Workshop.t) -> w.date >= current_date) workshops in
-let upcoming_events = List.filter (fun (e : Data.Event.t) -> e.starts >= current_date) events in
-let upcoming_events = Ocamlorg.Import.List.take 6 upcoming_events in
+let render ~upcoming_workshops ~old_workshops ~recurring_events ~upcoming_events =
 Community_layout.single_column_layout
 ~title:"The OCaml Community"
 ~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!"
@@ -215,13 +202,25 @@ Community_layout.single_column_layout
               <a href="<%s event.url %>" class="card dark:dark-card p-5 rounded-xl">
                 <p class="font-bold text-title dark:text-dark-title mb-2"><%s event.title %></p>
                 <div class="flex items-center space-x-2 mb-3">
-                    <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
-                    <p class="text-content dark:text-dark-content"><%s event.textual_location %></p>
+                  <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+                  <p class="text-content dark:text-dark-content"><%s event.textual_location %></p>
                 </div>
                 <div class="flex items-center space-x-2 mt-2">
-                    <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
-                    <p class="text-content dark:text-dark-content"><%s event.starts %></p>
+                  <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+                  <p class="text-content dark:text-dark-content">
+                    <%s event.starts.yyyy_mm_dd %>
+                    <%s Option.value ~default:"" event.starts.utc_hh_mm %>
+                  </p>
                 </div>
+                <% match event.ends with | None -> () | Some ends -> ( %>
+                <div class="flex items-center space-x-2 mt-2">
+                  <p class="ml-9 text-content dark:text-dark-content">
+                    to
+                    <%s ends.yyyy_mm_dd %>
+                    <%s Option.value ~default:"" ends.utc_hh_mm %>
+                  </p>
+                </div>
+                <% ) ;%>
               </a>
               <% ); %>
           </div>

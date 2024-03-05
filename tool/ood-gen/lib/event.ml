@@ -27,13 +27,16 @@ module RecurringEvent = struct
   let all () : t list = Utils.yaml_sequence_file decode "events/recurring.yml"
 end
 
+type utc_datetime = { yyyy_mm_dd : string; utc_hh_mm : string option }
+[@@deriving of_yaml, show { with_path = false }]
+
 type metadata = {
   title : string;
   url : string;
   textual_location : string;
   location : location option;
-  starts : string;
-  ends : string option;
+  starts : utc_datetime;
+  ends : utc_datetime option;
   recurring_event_slug : string option;
 }
 [@@deriving of_yaml, show { with_path = false }]
@@ -44,8 +47,8 @@ type t = {
   slug : string;
   textual_location : string;
   location : location option;
-  starts : string;
-  ends : string option;
+  starts : utc_datetime;
+  ends : utc_datetime option;
   body_md : string;
   body_html : string;
   recurring_event : RecurringEvent.t option;
@@ -76,7 +79,6 @@ let decode (recurring_events : RecurringEvent.t list) (fpath, (head, body_md)) =
               recurring_events)
           metadata.recurring_event_slug
       in
-
       of_metadata ~body_md ~body_html ~recurring_event metadata)
     metadata
 
@@ -84,7 +86,15 @@ let all () =
   Utils.map_files (decode (RecurringEvent.all ())) "events/*.md"
   |> List.sort (fun e1 e2 ->
          (* Sort the events by reversed start date. *)
-         String.compare e2.starts e1.starts)
+         let t1 =
+           e1.starts.yyyy_mm_dd ^ " "
+           ^ Option.value ~default:"00:00" e1.starts.utc_hh_mm
+         in
+         let t2 =
+           e2.starts.yyyy_mm_dd ^ " "
+           ^ Option.value ~default:"00:00" e2.starts.utc_hh_mm
+         in
+         String.compare t2 t1)
 
 let template () =
   Format.asprintf
@@ -103,14 +113,19 @@ module RecurringEvent = struct
   let all = %a
 end
 
+type utc_datetime = {
+  yyyy_mm_dd: string;
+  utc_hh_mm: string option;
+}
+
 type t =
   { title : string
   ; url : string
   ; slug : string
   ; textual_location : string
   ; location : location option
-  ; starts : string
-  ; ends : string option
+  ; starts : utc_datetime
+  ; ends : utc_datetime option
   ; body_md : string
   ; body_html : string
   ; recurring_event : RecurringEvent.t option
