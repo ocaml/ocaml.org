@@ -6,7 +6,7 @@ packages:
   version: "0.5.1"
 libraries:
   - re
-PPXs:
+ppxes:
   - ppx_regexp
 discussion: |
   - **Understanding `re`:** The `re` library proposes multiple advantages over the `Str` library, which is shipped with OCaml. It supports multiple syntaxes, and its absence of global states permits concurrent pattern matching. It is completed by the `ppx_regexp`, which makes using this library easier. However, only the PCRE syntax is supported.
