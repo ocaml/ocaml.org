@@ -13,10 +13,10 @@ libraries:
   lwt.unix
   cohttp
   cohttp-lwt-unix
-- ppxes:
-  lwt_ppx
+ppxes:
+- lwt_ppx
 discussion: |
-  - **About `cohttp`:** The `cohttp` provides a client implementation of HTTP(S)
+  - **About `cohttp`:** The `cohttp` provides a client and a server implementation of HTTP(S)
   - **Reference:** The `cohttp` package is documented on the [ocaml-cohttp page](https://github.com/mirage/ocaml-cohttp).
 ---
 
