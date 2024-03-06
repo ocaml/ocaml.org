@@ -4,7 +4,15 @@ cookbook_categories:
   tasks: []
 - title: Compression
   folder: compression
-  tasks: []
+  tasks:
+  - title: Compressing ZIP files
+    folder: zip-compress
+  - title: Decompressing ZIP files
+    folder: zip-decompress
+  - title: Compressing Gzip files
+    folder: gzip-compress
+  - title: Decompressing Gzip files
+    folder: gzip-decompress
 - title: Concurrency
   folder: concurrency
   tasks:
