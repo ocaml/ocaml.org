@@ -4,6 +4,7 @@ slug: "26"
 difficulty: intermediate
 tags: [ "list" ]
 description: "Generate all possible combinations of K distinct objects chosen from a list of N elements."
+tutorials: [ "loops-recursion"]
 ---
 
 # Solution

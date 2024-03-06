@@ -4,6 +4,7 @@ slug: "3"
 difficulty: beginner
 tags: [ "list" ]
 description: "Find the N'th element of a list."
+tutorials: [ "options"]
 ---
 
 # Solution
