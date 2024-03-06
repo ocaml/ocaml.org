@@ -162,47 +162,41 @@ Community_layout.single_column_layout
       Resources from the Community
     </h2>
     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
-      <div class="card dark:dark-card rounded-xl border border-neutral-950">
-        <div class="w-full flex justify-center items-center mb-2 h-20 bg-slate-700 text-white rounded-t-xl">
-          <img class="mr-3" src="/images/ocaml-logo.png" alt="l" />
-          <h2 class="text-white dark:text-dark-white text-2xl font-bold">Learn OCaml</h2>
-        </div>
-        <div class="p-3">
-          <h3 class="text-xl font-bold text-content dark:text-dark-content mb-3">Learn OCaml</h3>
-          <p class="text-base text-content dark:text-dark-content font-normal mb-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit tempore error explicaboe
-          </p>
-          <a class="text-sm text-amber-700 font-normal" href="/">View More</a>
-        </div>
-      </div>
-      <div class="card dark:dark-card rounded-xl border border-neutral-950">
-        <div class="w-full flex justify-center items-center mb-2 h-20 bg-slate-700 text-white rounded-t-xl">
-          <img class="mr-3" src="/images/ocaml-logo.png" alt="l" />
-          <h2 class="text-white dark:text-dark-white text-2xl font-bold">Learn OCaml</h2>
-        </div>
-        <div class="p-3">
-          <h3 class="text-xl font-bold text-content dark:text-dark-content mb-3">Learn OCaml</h3>
-          <p class="text-base text-content dark:text-dark-content font-normal mb-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit tempore error explicaboe
-          </p>
-          <a class="text-sm text-amber-700 font-normal" href="/">View More</a>
-        </div>
-      </div>
-      <div class="card dark:dark-card rounded-xl border border-neutral-950">
-        <div class="w-full flex justify-center items-center mb-2 h-20 bg-slate-700 text-white rounded-t-xl">
-          <img class="mr-3" src="/images/ocaml-logo.png" alt="l" />
-          <h2 class="text-white dark:text-dark-white text-2xl font-bold">Learn OCaml</h2>
-        </div>
-        <div class="p-3">
-          <h3 class="text-xl font-bold text-content dark:text-dark-content mb-3">Learn OCaml</h3>
-          <p class="text-base text-content dark:text-dark-content font-normal mb-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit tempore error explicaboe
-          </p>
-          <a class="text-sm text-amber-700 font-normal" href="/">View More</a>
-        </div>
-      </div>
-      <%s! Card.card
-        ~data: {img = "/image.png"; alt = "New image"; title = "Learn OCaml"; desc = "Lorem ipsum dolor sit amet consectetur adipisicing elit tempore error explicaboe"; link = "/"}
+      <%s! Cards.resources
+        ~title:"Sherlocode"
+        ~desc:"Search across 17 million lines of OCaml available on opam"
+        ~link:"https://sherlocode.com"
+        ()
+      %>
+      <%s! Cards.resources
+        ~title:"Sherlodoc"
+        ~desc:"Fuzzy search in OCaml's documentation for almost all opam packages"
+        ~link:"https://doc.sherlocode.com"
+        ()
+      %>
+      <%s! Cards.resources
+        ~title:"Awesome OCaml"
+        ~desc:"A curated list of references to awesome OCaml tools, frameworks, libraries, and articles"
+        ~link:"https://github.com/ocaml-community/awesome-ocaml"
+        ~img:"https://github.com/ocaml-community/awesome-ocaml/raw/master/colour-logo.png"
+        ~alt:"Awesome OCaml"
+        ()
+      %>
+      <%s! Cards.resources
+        ~title:"OCamlverse"
+        ~desc:"OCamlverse is an effort to document everything worth knowing about OCaml, an industrial-strength functional programming language"
+        ~link:"https://ocamlverse.net/"
+        ~img:"https://github.com/ocaml-community/awesome-ocaml/raw/master/colour-logo.png"
+        ~alt:"OCamlverse"
+        ()
+      %>
+      <%s! Cards.resources
+        ~title:"Learn-OCaml platform"
+        ~desc:"Reference to the Learn-OCaml platform"
+        ~link:"https://github.com/ocaml/ocaml.org/issues/2041"
+        ~img:"https://github.com/ocaml-community/awesome-ocaml/raw/master/colour-logo.png"
+        ~alt:"Learn-OCaml platform"
+        ()
       %>
     </div>
   </div>
