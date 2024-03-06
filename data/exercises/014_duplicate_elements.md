@@ -4,7 +4,6 @@ slug: "14"
 difficulty: beginner
 tags: [ "list" ]
 description: "Write a function that duplicates the elements of a list."
-tutorials: [ "basic-data-types"]
 ---
 
 # Solution
