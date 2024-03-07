@@ -38,3 +38,7 @@ recurring:
     slug: "s-repls-programming-languages-seminar"
     textual_location: "London, United Kingdom"
     url: https://srepls.github.io/
+  - title: "OCaml Retreat"
+    slug: "ocaml-retreat"
+    textual_location: "Auroville, India"
+    url: https://ocamlretreat.org/
