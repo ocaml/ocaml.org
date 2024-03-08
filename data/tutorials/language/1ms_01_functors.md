@@ -477,7 +477,7 @@ Run the `dune utop` command. Once inside the toplevel, enter the following comma
 - : int list = [0; 1; 3; 6; 10; 15; 21; 28; 36; 45]
 ```
 
-Modules [`Array`](/api/Array.html) and `List` appear augmented with `Array.scan_left` and `List.scan_left`. For brevity, the output of the first two toplevel commands is not shown here.
+Modules `Array` and `List` appear augmented with `Array.scan_left` and `List.scan_left`. For brevity, the output of the first two toplevel commands is not shown here.
 
 ## Initialisation of Stateful Modules
 
