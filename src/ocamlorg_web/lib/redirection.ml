@@ -478,8 +478,7 @@ let redirect_p pattern =
 let fwd_v2 origin =
   Dream.get origin (fun req -> Dream.redirect req (Url.v2 ^ origin))
 
-let serve url path =
-  Dream.get url (Dream.static path)
+let serve url path = Dream.get url (Dream.static path)
 
 let manual =
   [
