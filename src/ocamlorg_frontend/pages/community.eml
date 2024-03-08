@@ -166,19 +166,23 @@ Community_layout.single_column_layout
         ~title:"Sherlocode"
         ~desc:"Search across 17 million lines of OCaml available on opam"
         ~link:"https://sherlocode.com"
+        ~img:"/img/ocaml-logo.png"
+        ~alt:"Sherlocode"
         ()
       %>
       <%s! Cards.resources
         ~title:"Sherlodoc"
         ~desc:"Fuzzy search in OCaml's documentation for almost all opam packages"
         ~link:"https://doc.sherlocode.com"
+        ~img:"/img/ocaml-logo.png"
+        ~alt:"Sherlodoc"
         ()
       %>
       <%s! Cards.resources
         ~title:"Awesome OCaml"
         ~desc:"A curated list of references to awesome OCaml tools, frameworks, libraries, and articles"
         ~link:"https://github.com/ocaml-community/awesome-ocaml"
-        ~img:"https://github.com/ocaml-community/awesome-ocaml/raw/master/colour-logo.png"
+        ~img:"/img/ocaml-logo.png"
         ~alt:"Awesome OCaml"
         ()
       %>
@@ -186,7 +190,7 @@ Community_layout.single_column_layout
         ~title:"OCamlverse"
         ~desc:"OCamlverse is an effort to document everything worth knowing about OCaml, an industrial-strength functional programming language"
         ~link:"https://ocamlverse.net/"
-        ~img:"https://github.com/ocaml-community/awesome-ocaml/raw/master/colour-logo.png"
+        ~img:"/img/ocaml-logo.png"
         ~alt:"OCamlverse"
         ()
       %>
@@ -194,7 +198,7 @@ Community_layout.single_column_layout
         ~title:"Learn-OCaml platform"
         ~desc:"Reference to the Learn-OCaml platform"
         ~link:"https://github.com/ocaml/ocaml.org/issues/2041"
-        ~img:"https://github.com/ocaml-community/awesome-ocaml/raw/master/colour-logo.png"
+        ~img:"/img/ocaml-logo.png"
         ~alt:"Learn-OCaml platform"
         ()
       %>

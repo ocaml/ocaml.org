@@ -1,14 +1,14 @@
 let resources ~title ~desc ~link ?(img="") ?(alt="") () =
   <div class="card dark:dark-card rounded-xl border border-neutral-950">
-    <div class="w-full flex justify-center items-center mb-2 h-20 bg-slate-700 text-white rounded-t-xl">
-      <img class="mr-3 w-20 max-w-20" src="<%s img %>" alt="<%s alt %>">
+    <div class="w-full flex justify-center items-center mb-2 h-28 bg-[#222222] text-white rounded-t-xl">
+      <img class="mr-3 w-[30px] h-[30px] max-w-30" src="<%s img %>" alt="<%s alt %>">
       <h2 class="text-white dark:text-dark-white text-2xl font-bold"><%s title %></h2>
     </div>
     <div class="p-3">
-      <h3 class="text-xl font-bold text-content dark:text-dark-content mb-3"><%s title %></h3>
+      <h3 class="text-xl font-bold text-title text:dark:text-dark-title mb-3"><%s title %></h3>
       <p class="text-base text-content dark:text-dark-content font-normal mb-2">
          <%s desc %>
       </p>
-      <a class="text-sm text-amber-700 font-normal" href=" <%s link %>">View More</a>
+      <a class="text-sm text-[#D54000] font-normal" href=" <%s link %>">View More</a>
     </div>
   </div>
