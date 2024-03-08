@@ -751,11 +751,11 @@ Error: Unbound module Analytics
 
 **Note:** This code will not run because there is no module called `Analytics`. [Analytics](https://en.wikipedia.org/wiki/Web_analytics) are remote monitoring libraries.
 
-A module called [`Array`](/api/Array.html) is defined; it shadows and includes the [`Stdlib.Array`](/api/Array.html) module. See the [Module Inclusion](docs/modules#module-inclusion) part of the [Modules](docs/modules) tutorial for details about this pattern.
+A module called `Array` is defined; it shadows and includes the [`Stdlib.Array`](/api/Array.html) module. See the [Module Inclusion](docs/modules#module-inclusion) part of the [Modules](docs/modules) tutorial for details about this pattern.
 
 To understand why this code is bad, figure out that `Analytics.collect` is a function that makes a network connection to transmit data to a remote server.
 
-Now, the newly defined [`Array`](/api/Array.html) module contains a `copy` function that has a potentially unexpected side effect, but only if the array to copy has a million cells or above.
+Now, the newly defined `Array` module contains a `copy` function that has a potentially unexpected side effect, but only if the array to copy has a million cells or above.
 
 If you're writing functions with non-obvious side effects, don't shadow existing definitions. Instead, give the function a descriptive name (for instance, `Array.copy_with_analytics`) and document the fact that there's a side-effect that the caller may not be aware of.
 

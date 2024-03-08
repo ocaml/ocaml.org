@@ -575,7 +575,7 @@ type json =
   | Object of (string * json) list
 ```
 
-Both constructors [`Array`](/api/Array.html) and `Object` contain values of type `json`.
+Both constructors `Array` and `Object` contain values of type `json`.
 
 Functions defined using pattern matching on recursive variants are often recursive too. This function checks if a name is present in a whole JSON tree:
 ```ocaml
@@ -589,7 +589,7 @@ Functions defined using pattern matching on recursive variants are often recursi
 val has_field : string -> json -> bool = <fun>
 ```
 
-Here, the last pattern uses the symbol `_`, which catches everything. It returns `false` on all data that is neither [`Array`](/api/Array.html) nor `Object`.
+Here, the last pattern uses the symbol `_`, which catches everything. It returns `false` on all data that is neither `Array` nor `Object`.
 
 ### Polymorphic Data Types
 
