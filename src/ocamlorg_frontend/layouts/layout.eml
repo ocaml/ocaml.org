@@ -135,9 +135,6 @@ inner =
       <button class="fixed bottom-8 right-10 md:bottom-[5rem] lg:bottom-[8.37rem] lg:right-[6.5rem] border-0 hidden focus:outline-none z-50 rounded-full shadow-custom p-4 bg-primary dark:bg-dark-primary" onclick="scrollToTop()" id="scrollToTop" title="Scroll to top"><%s! Icons.arrow_up "h-6 w-6"%></button>
 
       <%s! footer_html %>
-      
-      <button class="btn" onclick="document.body.classList.toggle('dark')">toggle dark mode</button>
-
       <script>
           function scrollToTop() {
             window.scrollTo(0, 0);
