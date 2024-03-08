@@ -46,7 +46,9 @@ let minor v =
 
 let v2 = "https://v2.ocaml.org"
 let manual_with_version v = v2 ^ "/releases/" ^ minor v ^ "/htmlman/index.html"
-let manual = "/releases/latest/manual.html"
+let manual = "/manual"
+let manual_lang v = "/manual/" ^ minor v ^ "/index.html"
+let manual_api v = "/manual/" ^ minor v ^ "/api/index.html"
 let api_with_version v = v2 ^ "/releases/" ^ minor v ^ "/api/index.html"
 let api = "/releases/latest/api/index.html"
 let books = "/books"

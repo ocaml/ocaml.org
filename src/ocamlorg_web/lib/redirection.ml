@@ -449,6 +449,25 @@ let from_v2 =
     ("/releases/latest/api/index.html", Url.api_with_version latest_version);
   ]
 
+let default_index_html =
+  [
+    ("/manual", Url.manual_lang latest_version);
+    ("/manual/4.12", Url.manual_lang "4.12");
+    ("/manual/4.12/api", Url.manual_api "4.12");
+    ("/manual/4.13", Url.manual_lang "4.13");
+    ("/manual/4.13/api", Url.manual_api "4.13");
+    ("/manual/4.14", Url.manual_lang "4.14");
+    ("/manual/4.14/api", Url.manual_api "4.14");
+    ("/manual/5.0", Url.manual_lang "5.0");
+    ("/manual/5.0/api", Url.manual_api "5.0");
+    ("/manual/5.1", Url.manual_lang "5.1");
+    ("/manual/5.1/api", Url.manual_api "5.1");
+    ("/manual/5.2", Url.manual_lang "5.2");
+    ("/manual/5.2/api", Url.manual_api "5.2");
+    ("/manual/5.3", Url.manual_lang "5.3");
+    ("/manual/5.3/api", Url.manual_api "5.3");
+  ]
+
 let redirect_p pattern =
   let handler req =
     let target = Dream.target req in
@@ -459,12 +478,14 @@ let redirect_p pattern =
 let fwd_v2 origin =
   Dream.get origin (fun req -> Dream.redirect req (Url.v2 ^ origin))
 
+let serve url path =
+  Dream.get url (Dream.static path)
+
 let manual =
   [
+    serve "/manual/**" "/manual/";
     redirect_p "/api/**";
     fwd_v2 "/api";
-    redirect_p "/manual/**";
-    fwd_v2 "/manual";
     redirect_p "/releases/3.12/htmlman/**";
     fwd_v2 "/releases/3.12/htmlman";
     redirect_p "/releases/4.00/htmlman/**";
@@ -539,6 +560,7 @@ let package_docs req =
 let t =
   Dream.scope "" []
     [
+      make default_index_html;
       make from_v2;
       make v2_assets;
       Dream.scope "" [ Dream_encoding.compress ] manual;
