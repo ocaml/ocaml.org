@@ -239,45 +239,41 @@ A more detailed introduction to modules can be found at [Modules](/docs/modules)
 
 ## Installing and Using Modules From a Package
 
-OCaml has an active community of open-source contributors. Most projects are available using the opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows you how to install and use a package from opam's open-source repository.
+OCaml has an active community of open-source contributors. Most projects are available using the Opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows you how to install and use a package from Opam's open-source repository.
 
-To illustrate this, let's update our `hello` project to parse a string into
-JSON using [Yojson](https://ocaml-community.github.io/yojson/yojson/index.html). First, update the package list for opam, by running `opam update`. Then, install the `Yojson` package with this command:
+To illustrate this, let's update our `hello` project to parse a string containing an S-expression and print back to a string using [Sexplib](https://github.com/janestreet/sexplib). First, update the package list for `Opam`, by running `opam update`. Then, install the `Sexplib` package with this command:
 ```shell
-$ opam install yojson
+$ opam install sexplib
 ```
 
-Next, define a string containing some valid JSON in `bin/main.ml` and parse it
-using the `Yojson.Safe.from_string` function:
+Next, define a string containing a valid S-expression in `bin/main.ml`. Parse
+it into a S-expression with  the  `Sexplib.Sexp.of_string` function, and then
+convert it back into a string with `Sexplib.Sexp.to_string` and print it.
+
 ```ocaml
-let json_string = {|
-  {"number" : 42,
-   "string" : "yes",
-   "list": ["for", "sure", 42]}|}
+(* Read in Sexp from string *)
+let exp1 = Sexplib.Sexp.of_string "(This (is an) (s expression))"
 
-let json = Yojson.Safe.from_string json_string
+(* Do something with the Sexp ... *)
 
-let () = Format.printf "Parsed to %a" Yojson.Safe.pp json
+(* Convert back to a string to print *)
+let () = Printf.printf "%s\n" (Sexplib.Sexp.to_string exp1)
 ```
-The JSON string is parsed into a [JSON type](https://ocaml-community.github.io/yojson/yojson/Yojson/Safe/index.html) so that you can use it in your program. Refer to the [Yojson documentation](https://ocaml-community.github.io/yojson/yojson/index.html) for more information.
+The string you entered representing a valid S-expression is parsed into `List`of `List`s of `strings` so that you can use it in your program. Refer to the [Sexplib documentation](https://github.com/janestreet/sexplib) for more information.
 
-Before the example will build and run, you need to tell Dune that it needs `Yojson` to compile the project. Do this by adding `Yojson` to the `library` stanza of the `bin/dune` file. The full `bin/dune` file should then match the following.
+Before the example will build and run, you need to tell Dune that it needs `Sexplib` to compile the project. Do this by adding `Sexplib` to the `library` stanza of the `bin/dune` file. The full `bin/dune` file should then match the following.
 
 ```lisp
 (executable
  (public_name hello)
  (name main)
- (libraries hello yojson))
+ (libraries hello sexplib))
 ```
 
 Finally, execute as before:
 ```shell
 $ opam exec -- dune exec hello
-
-Parsed to `Assoc ([("number", `Int (42)); ("string", `String ("yes"));
-                    ("list",
-                     `List ([`String ("for"); `String ("sure"); `Int (42)]))
-
+(This(is an)(s expression))
 ```
 
 ## Using the Preprocessor to Generate Code
