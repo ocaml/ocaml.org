@@ -48,7 +48,7 @@ let rec nested_render ~path (item : toc) =
       | v :: _ -> v
       | [] -> ""
     in
-    let active_style = if item.title = fragment then "bg-gray-200 font-medium" else "border-transparent" in
+    let active_style = if item.title = fragment then "bg-gray-200 dark:bg-dark-tertiary_bt_hover font-medium" else "border-transparent" in
     if fragment != "" && item.kind = Library && fragment != item.title then "" else
     <div class="box-border border <%s active_style %> pl-1 ml-1">
       <div class="flex flex-nowrap" title="<%s kind_title item.kind ^ " " ^ item.title %>">
@@ -72,7 +72,7 @@ let rec nested_render ~path (item : toc) =
       | v :: _ -> (item.kind = Library && (List.length item.children <= 2), [], v)
       | [] -> (item.kind = Library && (List.length item.children <= 2), [], "")
     in
-    let active_style = if item.title = fragment then (if List.length path = 0 then "bg-gray-200 font-medium" else "border-transparent bg-gray-100 font-medium") else "border-transparent" in
+    let active_style = if item.title = fragment then (if List.length path = 0 then "bg-gray-200 dark:bg-dark-tertiary_bt_hover font-medium dark:font-semibold" else "border-transparent bg-gray-100 dark:bg-dark-tertiary_bt_hover font-medium dark:font-semibold") else "border-transparent" in
     <div x-data="{ open: <%s if default_open then "true" else "false" %> }">
       <div class="box-border border <%s active_style %> cursor-pointer pl-1 ml-1"  :class="open ? 'nav-expand' : ''">
         <div class="flex flex-nowrap" title="<%s kind_title item.kind ^ " " ^ item.title %>">
@@ -80,12 +80,12 @@ let rec nested_render ~path (item : toc) =
             <span class="<%s if item.title = fragment then "" else "opacity-80" %> <%s icon_style item.kind %>"></span>
           </span>
           <% (match item.href with | None -> %>
-            <span x-on:click="open = ! open" class="<%s title_style %> <%s if item.title = fragment then "white-200" else "gray-900" %>" :class="open ? 'text-primary' : ''">
+            <span x-on:click="open = ! open" class="<%s title_style %> <%s if item.title = fragment then "white-200" else "gray-900" %>">
               <%s! item.title %> 
               <span class="arrow-expand absolute right-0.5 px-3" :class="open ? 'open' : ''"><%s! Icons.chevron_down "h-5 w-5" %></span>
             </span>
           <% | Some href -> %>
-          <a href="<%s href %>" <%s! htmx_attributes %> class="<%s title_style %> overflow-hidden truncate text-title dark:text-dark-title transition-colors hover:text-primary" :class="open ? 'text-primary' : ''">
+          <a href="<%s href %>" <%s! htmx_attributes %> class="<%s title_style %> overflow-hidden truncate text-title dark:text-dark-title transition-colors hover:text-primary">
             <%s! item.title %>
           </a>
           <span x-on:click="open = ! open" class="sign-expand mr-2 px-2" :class="open ? 'open' : ''"></span>
