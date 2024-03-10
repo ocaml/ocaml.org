@@ -65,6 +65,42 @@ val range : first:int -> last:int -> int list = <fun>
 
 At parameter definition `~first` is the same as `~first:first`. Passing argument `~last` is the same as `~last:last`.
 
+### Applying a function with labelled arguments using the pipe operator
+
+However, labelled arguments can't be passed to the functions using the pipe operator (`|>`):
+
+```ocaml
+# let square ~a = a*a;;
+val square : a:int -> int = <fun>
+
+# 4 |> square;;
+Warning 6 [labels-omitted]: label a was omitted in the application of this function.
+
+- : int = 16
+# ~a:4 |> square;;
+Error: Syntax error
+```
+To pass an argument to a function with labelled arguments, we should have at least one unlabelled argument. For instance,
+
+```ocaml
+# let double_only_unlabelled ~first second ~third = second*2;;
+val double_only_unlabelled : first:'a -> int -> third:'b -> int = <fun>
+
+# 2 |> double_only_unlabelled;;
+- : first:'a -> third:'b -> int = <fun>
+```
+This, in turn, makes it possible to declare a function with an unlabelled argument as the first one and still be sure, that only this unlabelled argument can be passed using the pipe operator.
+
+We modify our previous example adding a new parameter **step**.
+
+```ocaml
+# let rec range step ~first ~last = if first > last then [] else first :: range step ~first:(first + step) ~last;;
+val range : int -> first:int -> last:int -> int list = <fun>
+
+# 3 |> range ~last:10 ~first:1;;
+- : int list = [1; 4; 7; 10]
+```
+
 ## Passing Optional Arguments
 
 Optional arguments can be omitted. When passed, a tilde `~` or a question mark `?` must be used. They can be placed at any position and in any order.
