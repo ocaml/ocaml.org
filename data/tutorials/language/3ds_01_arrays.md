@@ -63,7 +63,7 @@ To modify an element in an array, we simply assign a new value to it using the i
 
 Note that this operation returns `unit`, not the modified array. `even_numbers` is modified in place as a side effect.
 
-## The Standard Library `Array` Module
+## The Standard Library [`Array`](/api/Array.html) Module
 
 OCaml provides several useful functions for working with arrays. Here are some of the most common ones:
 
@@ -176,4 +176,4 @@ This copies two elements of `zeroes`, starting at index `1` into the last part o
 
 ## Conclusion
 
-In this tutorial, we covered the basics of arrays in OCaml, including how to create and manipulate them, as well as some of the most useful functions and use cases. Please refer to the [standard library documentation](/api/Array.html) to browse the complete list of functions of the `Array` module.
+In this tutorial, we covered the basics of arrays in OCaml, including how to create and manipulate them, as well as some of the most useful functions and use cases. Please refer to the [standard library documentation](/api/Array.html) to browse the complete list of functions of the [`Array`](/api/Array.html) module.

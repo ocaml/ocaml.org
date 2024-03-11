@@ -352,7 +352,7 @@ The dependency `List` is _injected_ when compiling the module `Funkt`. Observe t
 
 **Replacing a Dependency**
 
-Now, replacing the implementation of `iter` inside `IterListPrint` is no longer a refactoring; it is another functor application with another dependency. Here, `Array` replaces `List`:
+Now, replacing the implementation of `iter` inside `IterListPrint` is no longer a refactoring; it is another functor application with another dependency. Here, [`Array`](/api/Array.html) replaces `List`:
 
 **`funkt.ml`**
 ```ocaml
@@ -420,7 +420,7 @@ In the example above, `t` from `with type` takes precedence over the local `t`, 
 
 In this section, we define a functor to extend several modules in the same way. This is the same idea as in the [Extending a Module with a Standard Library Functor](#extending-a-module-with-a-standard-library-functor), except we write the functor ourselves.
 
-In this example, we extend `List` and `Array` modules with a function `scan_left`. It does almost the same as `fold_left`, except it returns all the intermediate values, not the last one as `fold_left` does.
+In this example, we extend `List` and [`Array`](/api/Array.html) modules with a function `scan_left`. It does almost the same as `fold_left`, except it returns all the intermediate values, not the last one as `fold_left` does.
 
 Create a fresh directory with the following files:
 
