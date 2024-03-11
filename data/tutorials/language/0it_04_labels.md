@@ -236,7 +236,6 @@ val range : int -> first:int -> last:int -> int list = <fun>
 - : int list = [1; 4; 7; 10]
 ```
 
-
 ## Function with Only Optional Arguments
 
 When all parameters of a function need to be optional, a dummy, positional and occurring last parameter must be added. The unit `()` value comes in handy for this. This is what is done here.
