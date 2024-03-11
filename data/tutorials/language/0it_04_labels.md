@@ -91,7 +91,9 @@ val double_only_unlabelled : first:'a -> int -> third:'b -> int = <fun>
 ```
 This, in turn, makes it possible to declare a function with an unlabelled argument as the first one and still be sure, that only this unlabelled argument can be passed using the pipe operator.
 
-We modify our previous example adding a new parameter **step**.
+Declaring a function's unlabelled argument as the first one simplifies reading the function's type and does not prevent passing this argument using the pipe operator.
+
+Let's modify the `range` function previously defined by adding an additional parameter `step`.
 
 ```ocaml
 # let rec range step ~first ~last = if first > last then [] else first :: range step ~first:(first + step) ~last;;
