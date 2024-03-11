@@ -67,7 +67,7 @@ At parameter definition `~first` is the same as `~first:first`. Passing argument
 
 ### Passing Labelled Arguments Using the Pipe Operator
 
-However, labelled arguments can't be passed to the functions using the pipe operator (`|>`):
+Labelled arguments can't be applied to functions throught the pipe operator (`|>`):
 
 ```ocaml
 # let square ~a = a*a;;
