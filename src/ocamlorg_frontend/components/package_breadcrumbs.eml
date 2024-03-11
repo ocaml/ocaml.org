@@ -74,9 +74,9 @@ let render_library_path_breadcrumbs
 ~(path: library_path_item list) =
   let render_breadcrumb i b =
     if i < List.length path - 1 then
-      <a href="<%s! b.href %>" class="font-semibold underline text-gray-800"><%s b.name %></a>
+      <a href="<%s! b.href %>" class="font-semibold underline text-content dark:text-dark-title"><%s b.name %></a>
     else
-      <a href="<%s! b.href %>" aria-current="page" class="text-gray-800 mr-2"><%s b.name %></a>
+      <a href="<%s! b.href %>" aria-current="page" class="text-content dark:text-dark-title mr-2"><%s b.name %></a>
   in
   <li>
     <span tabindex="0" class="text-content dark:text-dark-content"><%s library_name %> lib</span>
@@ -94,7 +94,7 @@ let render_docs_path_breadcrumbs
   <nav aria-label="breadcrumb" class="flex mb-6 border-b pb-6">
     <ul class="flex flex-wrap gap-x-2 text-base leading-7 package-breadcrumbs">
       <li>
-        <a class="underline font-semibold text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary" href="<%s! Url.Package.documentation package.name ?version %>">Documentation</a>
+        <a class="underline font-semibold text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary" href="<%s! Url.Package.documentation package.name ?version %>">Documentation</a>
       </li>
       <% (match path with
          | Index -> %>
