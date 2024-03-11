@@ -32,7 +32,7 @@ Labelled arguments are passed using a tilde `~` and can be placed at any positio
 - : int = 42
 ```
 
-However, note that passing labelled arguments throught the pipe operator (`|>`) throws a syntax error:
+**Note**: Passing labelled arguments through the pipe operator (`|>`) throws a syntax error:
 
 ```ocaml
 # ~default:42 |> Option.value None;;
