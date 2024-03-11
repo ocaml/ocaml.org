@@ -326,7 +326,7 @@ Lists may be the most common data type in OCaml. They are ordered collections of
 - : int list list = [[1; 2]; [3]; [4; 5; 6]]
 ```
 
-The example above read the following way:
+The examples above read the following way:
 1. The empty list, nil
 1. A list containing the numbers 1, 2, and 3
 1. A list containing the Booleans `false`, `true`, and `false`. Repetitions are allowed.
@@ -449,7 +449,7 @@ Tuples are fixed-length collections of elements of any type. Pairs are tuples th
 - : 'a list * bool = ([], false)
 ```
 
-Access to the component of tuple is done using pattern matching. For instance, the predefined function `snd` returns the second component of a pair:
+Access to the components of tuples is done using pattern matching. For instance, the predefined function `snd` returns the second component of a pair:
 ```ocaml
 # let snd p =
     match p with
@@ -464,7 +464,7 @@ Note: The function `snd` is predefined in the OCaml standard library.
 
 The type of tuples is written using `*` between the components' types.
 
-### Variants Types
+### Variant Types
 
 Like pattern matching generalises `switch` statements, variant types generalise enumerated and union types.
 
@@ -731,7 +731,7 @@ Definitions provided by modules are referred to by adding the module name as a p
 ```
 
 Here, usage of the function `Option.map` is illustrated in several steps.
-1. Display its type. It has two parameters. A function of type `'a -> 'b` and an `'a option`.
+1. Display its type. It has two parameters: a function of type `'a -> 'b` and an `'a option`.
 1. Using partial application, only pass `fun x -> x * x`. Check the type of the resulting function.
 1. Apply with `None`.
 1. Apply with `Some 8`.
@@ -749,7 +749,7 @@ The `List.map` function which was used earlier in this section is also part of a
 
 This illustrates the first feature of the OCaml module system. It provides a means to separate concerns by preventing name clashes. Two functions having different type may have the same name if they are provided by different modules.
 
-Module also allows efficient separated compilation. This is illustrated in the next tutorial.
+Modules also allow for efficient separate compilation. This is illustrated in the next tutorial.
 
 ## Conclusion
 

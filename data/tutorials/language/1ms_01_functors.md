@@ -60,7 +60,7 @@ Here is how this reads (starting from the bottom, then going up):
   - returns a module with signature [`Set.S`](/api/Set.S.html)
 * The module type `OrderedType` requires a type `t` and a function `compare`, which are used to perform the comparisons between elements of the set.
 
-**Note**: Most set operations need to compare elements to check if they are the same. To allow using a user-defined comparison algorithm, the `Set.Make` functor takes a module the specifies both the element type `t` and the `compare` function. Passing the comparison function as a higher-order parameter, as done in `Array.sort`, for example, would add a lot of boilerplate code. Providing set operations as a functor allows specifying the comparison function only once.
+**Note**: Most set operations need to compare elements to check if they are the same. To allow using a user-defined comparison algorithm, the `Set.Make` functor takes a module that specifies both the element type `t` and the `compare` function. Passing the comparison function as a higher-order parameter, as done in `Array.sort`, for example, would add a lot of boilerplate code. Providing set operations as a functor allows specifying the comparison function only once.
 
 Here is an example of how to use `Set.Make`:
 
