@@ -4,6 +4,7 @@ slug: "22"
 difficulty: beginner
 tags: [ "list" ]
 description: "Generate a list of integers in ascending order from A to B, and in descending order if A is greater than B."
+tutorials: [ "lists", "loops-recursion" ]
 ---
 
 # Solution
