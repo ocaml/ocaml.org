@@ -65,7 +65,7 @@ val range : first:int -> last:int -> int list = <fun>
 
 At parameter definition `~first` is the same as `~first:first`. Passing argument `~last` is the same as `~last:last`.
 
-### Applying a function with labelled arguments using the pipe operator
+### Passing Labelled Arguments Using the Pipe Operator
 
 However, labelled arguments can't be passed to the functions using the pipe operator (`|>`):
 
