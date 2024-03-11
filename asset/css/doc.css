@@ -16,6 +16,12 @@ div.odoc-include .spec {
   margin-top: 1rem /* 16px */;
 }
 
+.dark div.odoc div.spec,
+.dark div.odoc-include .spec {
+  border-color: rgb(194, 79, 30);
+  background-color: black;
+}
+
 div.odoc div.spec code {
   white-space: pre-wrap;
 }
@@ -61,6 +67,10 @@ div.odoc .spec:target {
   background: rgb(255, 248, 206);
 }
 
+.dark div.odoc .spec:target {
+  background: rgb(17, 24, 39);
+}
+
 div.odoc .anchored:target,
 div.odoc h1:target,
 div.odoc h2:target,
@@ -71,9 +81,24 @@ div.odoc h6:target {
   background: rgb(255, 243, 173);
 }
 
+.dark div.odoc .anchored:target,
+.dark div.odoc h1:target,
+.dark div.odoc h2:target,
+.dark div.odoc h3:target,
+.dark div.odoc h4:target,
+.dark div.odoc h5:target,
+.dark div.odoc h6:target {
+  background: rgb(17, 24, 39);
+}
+
 div.odoc .spec:target a,
 div.odoc .anchored:target a {
   color: rgb(204, 48, 0);
+}
+
+.dark div.odoc .spec:target a,
+.dark div.odoc .anchored:target a {
+  color: white;
 }
 
 div.odoc *[id] {
@@ -145,6 +170,10 @@ div.odoc span[class*="keyword"] {
   font-weight:normal;
 }
 
+.dark div.odoc span[class*="keyword"] {
+  color: rgb(207, 211, 219);
+}
+
 div.odoc ul.at-tags {
   margin: 0.5em 0;
 }
@@ -160,6 +189,11 @@ div.odoc span.at-tag {
 div.odoc a {
   font-weight: bold;
   color: #cc4e0c;
+}
+
+.dark div.odoc a {
+  text-decoration: underline;
+  color:white;
 }
 
 div.odoc code span > span {
@@ -190,6 +224,10 @@ div.odoc .comment-delim {
 
 .navmap ul {
   border-color: gainsboro;
+}
+
+.dark .navmap ul {
+  border-color: #555;
 }
 
 .no-expand, .icon-expand  {
