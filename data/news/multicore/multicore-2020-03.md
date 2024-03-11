@@ -29,7 +29,7 @@ Onto the details! The various ongoing and completed tasks for Multicore OCaml ar
 * [ocaml-multicore/ocaml-multicore#240](https://github.com/ocaml-multicore/ocaml-multicore/pull/240)
   Proposed implementation of threads in terms of Domain and Atomic
 
-  A new implementation of the `Threads` library for use with the new `Domain` and [`Atomic`](/api/Atomic.html) modules in Multicore OCaml has been proposed. This builds Dune 2.4.0 which in turn makes it useful to build other packages. This PR is open for review.
+  A new implementation of the `Threads` library (for use with the new `Domain` and [`Atomic`](/api/Atomic.html) modules in Multicore OCaml) has been proposed. This builds Dune 2.4.0, which in turn makes it useful to build other packages. This PR is open for review.
 
 * [ocaml-multicore/safepoints-cmm-mach](https://github.com/anmolsahoo25/ocaml-multicore/tree/safepoints-cmm-mach)
   Better safe points for OCaml
