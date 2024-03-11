@@ -1,4 +1,4 @@
-span[class*="keyword"] {
+/* span[class*="keyword"] {
   color: #fede5d;
 }
 
@@ -33,6 +33,46 @@ span[class*="string"] {
 
 span[class*="numeric"] {
   color: #ff5683;
+} */
+
+/* Suggested */
+
+span[class*="keyword"] {
+  color: #ffdc00;
+}
+
+span[class*="constant"] {
+  color: #ff851b;
+}
+
+span[class*="function-binding"] {
+  color: #39cccc;
+}
+
+span[class*="variable"] {
+  color: #b10dc9;
+  font-style: italic;
+}
+
+span[class*="support"] {
+  color: #ff4136;
+}
+
+span[class*="comment"] {
+  color: #2ecc40;
+  font-style: italic;
+}
+
+span[class*="literal"] {
+  color: #7fdbff;
+}
+
+span[class*="string"] {
+  color: #ffdc00;
+}
+
+span[class*="numeric"] {
+  color: #ff80cc;
 }
 
 
