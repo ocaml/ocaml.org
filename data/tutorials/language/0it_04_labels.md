@@ -32,6 +32,13 @@ Labelled arguments are passed using a tilde `~` and can be placed at any positio
 - : int = 42
 ```
 
+However, note that passing labelled arguments throught the pipe operator (`|>`) throws a syntax error:
+
+```ocaml
+# ~default:42 |> Option.value None;;
+Error: Syntax error
+```
+
 ## Labelling Parameters
 
 Here is how to name parameters in a function definition:
@@ -65,43 +72,6 @@ val range : first:int -> last:int -> int list = <fun>
 
 At parameter definition `~first` is the same as `~first:first`. Passing argument `~last` is the same as `~last:last`.
 
-### Passing Labelled Arguments Using the Pipe Operator
-
-Labelled arguments can't be applied to functions throught the pipe operator (`|>`):
-
-```ocaml
-# let square ~a = a*a;;
-val square : a:int -> int = <fun>
-
-# 4 |> square;;
-Warning 6 [labels-omitted]: label a was omitted in the application of this function.
-
-- : int = 16
-# ~a:4 |> square;;
-Error: Syntax error
-```
-To pass an argument to a function with labelled arguments, we should have at least one unlabelled argument. For instance,
-
-```ocaml
-# let double_only_unlabelled ~first second ~third = second*2;;
-val double_only_unlabelled : first:'a -> int -> third:'b -> int = <fun>
-
-# 2 |> double_only_unlabelled;;
-- : first:'a -> third:'b -> int = <fun>
-```
-This, in turn, makes it possible to declare a function with an unlabelled argument as the first one and still be sure, that only this unlabelled argument can be passed using the pipe operator.
-
-Declaring a function's unlabelled argument as the first one simplifies reading the function's type and does not prevent passing this argument using the pipe operator.
-
-Let's modify the `range` function previously defined by adding an additional parameter `step`.
-
-```ocaml
-# let rec range step ~first ~last = if first > last then [] else first :: range step ~first:(first + step) ~last;;
-val range : int -> first:int -> last:int -> int list = <fun>
-
-# 3 |> range ~last:10 ~first:1;;
-- : int list = [1; 4; 7; 10]
-```
 
 ## Passing Optional Arguments
 
@@ -244,6 +214,29 @@ The only difference between the two versions is the order in which the parameter
 Most often, `concat` is needed. Therefore a function's last declared parameter shouldn't be optional. The warning suggests turning `concat_warn` into `concat`. Disregarding it exposes a function with an optional parameter that must be provided, which is contradictory.
 
 **Note**: Optional parameters make it difficult for the compiler to know if a function is partially applied or not. This is why at least one positional parameter is required after the optional ones. If present at application, it means the function is fully applied, if missing, it means the function is partially applied.
+
+
+### Passing Labelled Arguments Using the Pipe Operator
+
+Labelled arguments can't be applied to functions throught the pipe operator (`|>`):
+
+```ocaml
+# ~default:42 |> Option.value None;;
+Error: Syntax error
+```
+
+Declaring a function's unlabelled argument as the first one simplifies reading the function's type and does not prevent passing this argument using the pipe operator.
+
+Let's modify the `range` function previously defined by adding an additional parameter `step`.
+
+```ocaml
+# let rec range step ~first ~last = if first > last then [] else first :: range step ~first:(first + step) ~last;;
+val range : int -> first:int -> last:int -> int list = <fun>
+
+# 3 |> range ~last:10 ~first:1;;
+- : int list = [1; 4; 7; 10]
+```
+
 
 ## Function with Only Optional Arguments
 
