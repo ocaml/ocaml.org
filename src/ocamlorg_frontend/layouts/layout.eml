@@ -103,7 +103,12 @@ inner =
       <title><%s title %></title>
     </head>
 
-    <body class="light">
+    <body>
+      <script>
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.body.classList.add("dark");
+        }
+      </script>
       <% if banner then ( %>
       <div class="relative bg-legacy-contrast">
         <div class="mx-auto py-3 px-6 sm:px-16 max-w-6xl sm:text-center">
@@ -130,7 +135,6 @@ inner =
       <button class="fixed bottom-8 right-10 md:bottom-[5rem] lg:bottom-[8.37rem] lg:right-[6.5rem] border-0 hidden focus:outline-none z-50 rounded-full shadow-custom p-4 bg-primary dark:bg-dark-primary" onclick="scrollToTop()" id="scrollToTop" title="Scroll to top"><%s! Icons.arrow_up "h-6 w-6"%></button>
 
       <%s! footer_html %>
-      
       <script>
           function scrollToTop() {
             window.scrollTo(0, 0);
