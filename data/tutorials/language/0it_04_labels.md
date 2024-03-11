@@ -72,7 +72,6 @@ val range : first:int -> last:int -> int list = <fun>
 
 At parameter definition `~first` is the same as `~first:first`. Passing argument `~last` is the same as `~last:last`.
 
-
 ## Passing Optional Arguments
 
 Optional arguments can be omitted. When passed, a tilde `~` or a question mark `?` must be used. They can be placed at any position and in any order.
