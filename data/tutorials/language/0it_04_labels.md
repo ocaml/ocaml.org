@@ -217,13 +217,6 @@ Most often, `concat` is needed. Therefore a function's last declared parameter s
 
 ### Passing Labelled Arguments Using the Pipe Operator
 
-Labelled arguments can't be applied to functions throught the pipe operator (`|>`):
-
-```ocaml
-# ~default:42 |> Option.value None;;
-Error: Syntax error
-```
-
 Declaring a function's unlabelled argument as the first one simplifies reading the function's type and does not prevent passing this argument using the pipe operator.
 
 Let's modify the `range` function previously defined by adding an additional parameter `step`.
