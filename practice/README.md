@@ -2,12 +2,14 @@
 
 `cd` into the folder corresponding to the exercise you are willing to practice.
 
-Run `dune build`, it should compile without an error.
+Run `dune build --root .`, it should compile without an error.
 
-Run `dune test answer`, it should pass, showing that there is a solution to this exercise.
+Run `dune test --root . answer`, it should pass, showing that there is a
+solution to this exercise.
 
-Hack your solution in the file `work/impl.ml`. Check it compiles by
-running `dune build`, check it behaves as expected by running `dune test work`.
+Hack your solution in the file `work/impl.ml`. Check it compiles by running
+`dune build --root . `, check if it behaves as expected by running `dune test
+--root . work`.
 
 You are allowed to look at file `ex.ml`, it contains the test cases. That may help.
 

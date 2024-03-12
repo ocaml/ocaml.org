@@ -40,4 +40,4 @@
      %{target}
      (run %{ood_gen} changelog_feed))))))
 
-(data_only_dirs playground data)
+(data_only_dirs playground data practice)
