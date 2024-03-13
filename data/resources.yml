@@ -1,0 +1,30 @@
+resources:
+  - title:  Learn-OCaml
+    short_description: This is Learn-OCaml, a platform for learning the OCaml language, featuring a Web toplevel, an exercise environment.
+    long_description: A platform designed for learning the OCaml programming language. It features a web-based interactive toplevel, an environment for exercises, and a collection of lessons and tutorials. The platform is suitable for both beginners and experienced programmers and can be used for academic purposes or self-study.
+    image: https://ocaml-sf.org/learn-ocaml-public/icons/logo_ocsf.svg
+    online_url: https://ocaml-sf.org/learn-ocaml/
+    source_url: https://github.com/ocaml-sf/learn-ocaml
+    license: MIT License
+  - title: OFronds
+    short_description: OFronds is a set of exercises for getting used to writing and reading OCaml code.
+    long_description: A project that provides a set of exercises for learning and practicing OCaml programming. It's designed to help users get accustomed to writing and reading OCaml code by fixing errors in provided OCaml programs.
+    image: https://raw.githubusercontent.com/ocaml/ocaml.org/57f7ab468310dd199c057dcaa95ef1e17846b4fe/asset/img/ocaml-logo.png
+    online_url: https://github.com/gs0510/ofronds
+    source_url: https://github.com/gs0510/ofronds
+    license: MIT License
+  - title: IndiaFOSS 2023 OCaml Workshop
+    short_description: Exercises and projects for Jane Street's OCaml Workshop
+    long_description: A repository containing materials related to a workshop for learning OCaml, which include exercises, projects, and resources to help users get familiar with the OCaml programming language. Workshops like these are typically designed to provide hands-on experience and guidance for beginners or those looking to improve their skills in OCaml.
+    image: https://ocamllabs.io/images/OCamlLabsLogoCropped.png
+    online_url: https://github.com/sudha247/learn-ocaml-workshop
+    source_url: https://github.com/sudha247/learn-ocaml-workshop
+    license: Apache License
+  - title: |-
+        CS3100: Paradigms of Programming (IITM Fall 2019)
+    short_description: This course is about the different paradigms of programming, their underlying concepts, and the relationships between them.
+    long_description: A course offered at the Computer Science and Engineering department of IIT Madras (CSE IITM) during the Fall semester of 2019. This contains course materials such as assignments, lecture notes, and other educational resources related to the course and may also be beneficial for others interested in learning about different programming paradigms.
+    image: https://ocaml.org/_/MTE3YWE5YzJlZmExNmYyMmI3ZmEwYjliMDEwNDBkMDY/logo-with-name-white.svg
+    online_url: https://kcsrk.info/cs3100_f19/
+    source_url: https://github.com/kayceesrk/cs3100_f19
+    license: MIT License
