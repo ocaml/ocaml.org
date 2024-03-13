@@ -39,7 +39,7 @@ body {
 }
 
 .container-fluid.wide {
-  @apply max-w-8xl
+  @apply max-w-8xl;
 }
 
 .bg-pattern {
@@ -89,22 +89,23 @@ body {
 }
 
 .code-preview {
-  font-family: Roboto Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+  font-family: Roboto Mono, ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, Liberation Mono, Courier New, monospace;
 }
 .code-blue {
-    color: #569CD6;
+  color: #569cd6;
 }
 .code-yellow {
-    color: #DCDCAA;
+  color: #dcdcaa;
 }
 .code-red {
-    color: #FC8181;
+  color: #fc8181;
 }
 .code-orange {
-    color: #FABD2F;
+  color: #fabd2f;
 }
 .output-bg {
-    background: rgba(39, 39, 39, 1);
+  background: rgba(39, 39, 39, 1);
 }
 
 .prose {
@@ -120,7 +121,7 @@ body {
 }
 
 .prose :is(h1, h2, h3, h4, h5, h6) {
-  position:relative;
+  position: relative;
 }
 
 .prose :is(h1, h2, h3, h4, h5, h6) > a,
@@ -132,12 +133,12 @@ body {
 }
 
 .prose :is(h1:target, h2:target, h3:target, h4:target, h5:target, h6:target) {
-  background:rgb(255, 243, 173);
+  background: rgb(255, 243, 173);
   padding: 0.2rem 0rem;
 }
 
 .dark :is(h1:target, h2:target, h3:target, h4:target, h5:target, h6:target) {
-  background:#003357;
+  background: #003357;
   padding: 0.2rem 0rem;
 }
 
@@ -167,7 +168,8 @@ body {
 }
 
 tt {
-  font-family: Roboto Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+  font-family: Roboto Mono, ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, Liberation Mono, Courier New, monospace;
 }
 
 .sidebar a.active {
@@ -216,27 +218,37 @@ footer a:hover {
 
 pre {
   max-width: 100%;
+  position: relative;
 }
 
+pre span.copyBtn {
+  top: 0;
+  color: #fff;
+  position: absolute;
+  right: 0;
+  padding: 3px;
+  font-size: 0.6rem;
+  background-color: #f2efef4f;
+}
 summary::marker {
   position: relative;
   left: 4px;
 }
 
 .header-black {
-    background: #171717;
+  background: #171717;
 }
 
 .code-editor {
-    height: calc(100vh - 80px);
+  height: calc(100vh - 80px);
 }
 
 .code-preview {
-    height: calc(100% - 80px);
+  height: calc(100% - 80px);
 }
 
 .output-container {
-    height: calc(100% - 60px);
+  height: calc(100% - 60px);
 }
 
 /* summary & details expandable section */
@@ -248,8 +260,9 @@ details[open] summary svg {
   transform: rotate(180deg);
 }
 
-details[open] summary ~ *
-{	animation: ease-opacity-t-b .5s ease}
+details[open] summary ~ * {
+  animation: ease-opacity-t-b 0.5s ease;
+}
 
 summary {
   cursor: pointer;
