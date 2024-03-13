@@ -425,24 +425,25 @@ Here are some more redefinitions of familiar functions in terms of
 out how they operate?
 
 ```ocaml
-# let length l =
+# let length' l =
     List.fold_left (fun a _ -> a + 1) 0 l;;
-val length : 'a list -> int = <fun>
-# let rev l =
+val length' : 'a list -> int = <fun>
+# let rev' l =
     List.fold_left (fun a e -> e :: a) [] l;;
-val rev : 'a list -> 'a list = <fun>
-# let split l =
+val rev' : 'a list -> 'a list = <fun>
+# let split' l =
     List.fold_right
       (fun (x, y) (xs, ys) -> (x :: xs, y :: ys))
       l
       ([], []);;
-val split : ('a * 'b) list -> 'a list * 'b list = <fun>
+val split' : ('a * 'b) list -> 'a list * 'b list = <fun>
 ```
 
 ## Lists and Tail Recursion
 
-Our `length` function builds up an intermediate expression of a size
-proportional to its input list:
+The `length` function [previously
+defined](https://ocaml.org/docs/lists#functions-on-lists) builds up an
+intermediate expression of a size proportional to its input list:
 
 ```
    length [1; 2; 3]
@@ -454,6 +455,10 @@ proportional to its input list:
 => 1 + 2
 => 3
 ```
+
+**Note** The above is not OCaml syntax, it is a sketch meant to explain how
+evaluation of `length [1; 2; 3]` takes place. The sign `=>` indicates an
+evaluation step.
 
 For long lists, this may overflow the stack (be too large for the computer to
 handle). The solution is to write our function with an accumulating parameter,

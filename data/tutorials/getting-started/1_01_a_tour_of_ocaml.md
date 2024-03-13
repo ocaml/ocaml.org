@@ -260,19 +260,19 @@ val range : int -> int -> int list = <fun>
 - : int list = [2; 3; 4; 5]
 ```
 
-As indicated by its type `int -> int -> int list`, the function `range` takes two integers as arguments and returns a list of integers as result. The first `int` parameter, `lo`, is the range's lower bound; the second `int` parameter, `hi`, is the higher bound. If `lo > hi`, the empty range is returned. That's the first branch of the `if … then … else` expression. Otherwise, the `lo` value is prepended to the list created by calling `range` itself; this is recursion. Preprending is achieved using `::`, the cons operator in OCaml. It constructs a new list by adding an element at the front of an existing list. Progress is made at each call; since `lo` has just been appended at the head of the list, `range` is called with `lo + 1`. This can be visualised this way:
+As indicated by its type `int -> int -> int list`, the function `range` takes two integers as arguments and returns a list of integers as result. The first `int` parameter, `lo`, is the range's lower bound; the second `int` parameter, `hi`, is the higher bound. If `lo > hi`, the empty range is returned. That's the first branch of the `if … then … else` expression. Otherwise, the `lo` value is prepended to the list created by calling `range` itself; this is recursion. Preprending is achieved using `::`, the cons operator in OCaml. It constructs a new list by adding an element at the front of an existing list. Progress is made at each call; since `lo` has just been appended at the head of the list, `range` is called with `lo + 1`. This can be visualised this way (this is not OCaml syntax):
 
 ```
-  range 2 5
-= 2 :: range 3 5
-= 2 :: 3 :: range 4 5
-= 2 :: 3 :: 4 :: range 5 5
-= 2 :: 3 :: 4 :: 5 :: range 6 5
-= 2 :: 3 :: 4 :: 5 :: []
-= [2; 3; 4; 5]
+   range 2 5
+=> 2 :: range 3 5
+=> 2 :: 3 :: range 4 5
+=> 2 :: 3 :: 4 :: range 5 5
+=> 2 :: 3 :: 4 :: 5 :: range 6 5
+=> 2 :: 3 :: 4 :: 5 :: []
+=> [2; 3; 4; 5]
 ```
 
-Each equal sign corresponds to the computation of a recursive step, except the last one. OCaml handles lists internally, as shown in the penultimate expression, but displays them as the last expression. This is just pretty printing. No computation takes place between the two last steps.
+Each `=>` sign corresponds to the computation of a recursive step, except the last one. OCaml handles lists internally, as shown in the penultimate expression, but displays them as the last expression. This is just pretty printing. No computation takes place between the two last steps.
 
 ## Data and Typing
 
