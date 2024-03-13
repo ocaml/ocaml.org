@@ -40,6 +40,7 @@ depends: [
   "hilite" {>= "0.4.0"}
   "river" {>= "0.3"}
   "syndic"
+  "ounit"
   "alcotest" {with-test}
   "mdx" {with-test & >= "1.10.0"}
   "olinkcheck"

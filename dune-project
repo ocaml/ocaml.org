@@ -58,6 +58,7 @@
   (river
    (>= 0.3))
   syndic
+  ounit
   (alcotest :with-test)
   (mdx
    (and

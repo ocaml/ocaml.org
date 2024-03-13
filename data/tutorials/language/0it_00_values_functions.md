@@ -294,6 +294,13 @@ The `max` function returns the largest of its two arguments, which are:
 - `42`, the result of `21 * 2`
 - `713`, the result of `int_of_string "713"`
 
+When creating subexpressions, using `begin ... end` is also possible. This is the same as using brackets `( ... )`. As such, the above could also be rewritten and get the same result:
+
+```ocaml
+# max begin 21 * 2 end begin int_of_string "713" end;;
+- : int = 713
+```
+
 ```ocaml
 # String.starts_with ~prefix:"state" "stateless";;
 - : bool = true
