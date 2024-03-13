@@ -1,0 +1,99 @@
+/* span[class*="keyword"] {
+  color: #fede5d;
+}
+
+span[class*="constant"] {
+  color: #fabd2f;
+}
+
+span[class*="function-binding"] {
+  color: #36f9f6;
+}
+
+span[class*="variable"] {
+  color: #85ebeb;
+  font-style: italic;
+}
+
+span[class*="support"] {
+  color: #83a598;
+}
+
+span[class*="comment"] {
+  font-style: italic;
+}
+
+span[class*="literal"] {
+  color: #d3869b;
+}
+
+span[class*="string"] {
+  color: #b8bb26;
+}
+
+span[class*="numeric"] {
+  color: #ff5683;
+} */
+
+/* Suggested */
+
+span[class*="keyword"] {
+  color: #ffdc00;
+}
+
+span[class*="constant"] {
+  color: #ff851b;
+}
+
+span[class*="function-binding"] {
+  color: #39cccc;
+}
+
+span[class*="variable"] {
+  color: #b10dc9;
+  font-style: italic;
+}
+
+span[class*="support"] {
+  color: #ff4136;
+}
+
+span[class*="comment"] {
+  color: #2ecc40;
+  font-style: italic;
+}
+
+span[class*="literal"] {
+  color: #7fdbff;
+}
+
+span[class*="string"] {
+  color: #ffdc00;
+}
+
+span[class*="numeric"] {
+  color: #ff80cc;
+}
+
+
+/* Diff */
+
+.diff-punctuation-definition-deleted {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.diff-punctuation-definition-inserted {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.diff-markup-deleted {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.diff-markup-inserted {
+  color: #aff5b4;
+  background-color: #033a16;
+}
