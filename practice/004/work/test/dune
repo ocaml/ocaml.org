@@ -1,0 +1,5 @@
+(include_subdirs no)
+
+(test
+ (name run)
+ (libraries ounit2 ex))
