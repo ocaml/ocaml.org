@@ -345,7 +345,7 @@ end
 
 module Hello : HelloType = struct
   let message = "Hello"
-  let print () = print_endline message
+  let hello () = print_endline message
 end
 
 let print_goodbye () = print_endline "Goodbye"
