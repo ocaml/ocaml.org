@@ -340,7 +340,7 @@ The first version made `Florence.Hello.message` public. In this version it can't
 The role played by module signatures to implementations is akin to the role played by types to values. Here is a third possible way to write file `florence.ml`:
 ```ocaml
 module type HelloType = sig
-  val hello : unit -> unit
+  val print : unit -> unit
 end
 
 module Hello : HelloType = struct
