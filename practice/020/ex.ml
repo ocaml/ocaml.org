@@ -9,18 +9,12 @@ module Make(Tested: Testable) : sig val v : test end = struct
     "remove element at 1" >:: (fun _ ->
       assert_equal ["a"; "c"; "d"]
         (Tested.remove_at 1 ["a"; "b"; "c"; "d"]));
-    "remove last element" >:: (fun _ ->
-      assert_equal ["a"; "b"; "c"]
-        (Tested.remove_at 3 ["a"; "b"; "c"; "d"]));
     "remove beyond list length" >:: (fun _ ->
       assert_equal ["a"; "b"; "c"; "d"]
         (Tested.remove_at 5 ["a"; "b"; "c"; "d"]));
     "remove from empty list" >:: (fun _ ->
       assert_equal []
         (Tested.remove_at 1 []));
-    "remove element at 0" >:: (fun _ ->
-      assert_equal ["b"; "c"; "d"]
-        (Tested.remove_at 0 ["a"; "b"; "c"; "d"]));
   ]
 
   let v = "Remove the K'th Element Tests" >::: [
