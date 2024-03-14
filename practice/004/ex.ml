@@ -8,7 +8,7 @@ end
 module Make(Tested: Testable) : sig val v : test end = struct
   let v = "length" >::: [
     "nil" >:: (fun _ -> assert_equal 0 (Tested.length []));
-    "cons" >:: (fun _ -> assert_equal 3 (Tested.length ["a"; "b"; "c"; "d"]));
+    "cons" >:: (fun _ -> assert_equal 3 (Tested.length ["a"; "b"; "c"]));
   ]
 end
 
