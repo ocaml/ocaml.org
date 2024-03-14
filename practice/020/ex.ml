@@ -6,7 +6,7 @@ end
 
 module Make(Tested: Testable) : sig val v : test end = struct
   let tests = "remove_at" >::: [
-    "remove 1st element" >:: (fun _ ->
+    "remove element at 1" >:: (fun _ ->
       assert_equal ["a"; "c"; "d"]
         (Tested.remove_at 1 ["a"; "b"; "c"; "d"]));
     "remove last element" >:: (fun _ ->
@@ -18,7 +18,7 @@ module Make(Tested: Testable) : sig val v : test end = struct
     "remove from empty list" >:: (fun _ ->
       assert_equal []
         (Tested.remove_at 1 []));
-    "remove 0th element" >:: (fun _ ->
+    "remove element at 0" >:: (fun _ ->
       assert_equal ["b"; "c"; "d"]
         (Tested.remove_at 0 ["a"; "b"; "c"; "d"]));
   ]
