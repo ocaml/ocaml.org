@@ -11,7 +11,7 @@ module Make(Tested: Testable) : sig val v : test end = struct
         (Tested.insert_at "alfa" 1 ["a"; "b"; "c"; "d"]));
     "insert at the beginning" >:: (fun _ ->
       assert_equal ["beta"; "a"; "b"; "c"; "d"]
-        (Tested.insert_at "alfa" 0 ["a"; "b"; "c"; "d"]));
+        (Tested.insert_at "beta" 0 ["a"; "b"; "c"; "d"]));
     "insert at the end" >:: (fun _ ->
       assert_equal ["a"; "b"; "c"; "d"; "alfa"]
         (Tested.insert_at "alfa" 4 ["a"; "b"; "c"; "d"]));
