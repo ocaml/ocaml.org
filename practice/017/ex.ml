@@ -18,6 +18,9 @@ module Make(Tested: Testable) : sig val v : test end = struct
     "split at 0" >:: (fun _ ->
       assert_equal ([], ["a"; "b"; "c"; "d"])
         (Tested.split ["a"; "b"; "c"; "d"] 0));
+    "split at list's length" >:: (fun _ ->
+        assert_equal (["a"; "b"; "c"; "d"], [])
+          (Tested.split ["a"; "b"; "c"; "d"] 4)) 
   ]
 
   let v = "Split a List into Two Parts Tests" >::: [
