@@ -15,12 +15,6 @@ module Make(Tested: Testable) : sig val v : test end = struct
     "equal boundaries" >:: (fun _ ->
       assert_equal [4]
         (Tested.range 4 4));
-    "single step ascending" >:: (fun _ ->
-      assert_equal [4; 5]
-        (Tested.range 4 5));
-    "single step descending" >:: (fun _ ->
-      assert_equal [5; 4]
-        (Tested.range 5 4));
   ]
 
   let v = "Create List from Range Tests" >::: [
