@@ -4,3 +4,4 @@ let rev list =
     | h :: t -> aux (h :: acc) t
   in
   aux [] list
+  
