@@ -8,7 +8,7 @@ let encode l =
     else Many (cnt + 1, elem) in
   let rec aux count acc = function
     | [] -> [] (* Can only be reached if original list is empty *)
-    | [x] -> create_tuple (count + 1) x :: acc
+    | [x] -> create_tuple count x :: acc
     | hd :: (snd :: _ as tl) -> 
         if hd = snd then aux (count + 1) acc tl
         else aux 0 (create_tuple count hd :: acc) tl in
