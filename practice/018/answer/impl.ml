@@ -7,7 +7,8 @@ let slice list i k =
   let _, list = fold_until (fun _ _ -> []) [] i list in
   let taken, _ = fold_until (fun acc h -> h :: acc) [] (k - i + 1) list in
   List.rev taken
-(* An elegant way to do this would be to use List.filteri function:
+(* 
+An elegant way to do this would be to use List.filteri function:
 
 let slice list i k = 
   List.filteri (fun index _ -> index >= i && index <= k) list
