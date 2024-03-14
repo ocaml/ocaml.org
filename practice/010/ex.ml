@@ -5,7 +5,7 @@ module type Testable = sig
 end
 
 module Make(Tested: Testable) : sig val v : test end = struct
-  let tests = "encode" >::: [
+  let example_tests = "encode" >::: [
     "non-empty list" >:: (fun _ ->
       assert_equal [(4, "a"); (1, "b"); (2, "c"); (2, "a"); (1, "d"); (4, "e")]
         (Tested.encode ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"]));
@@ -14,7 +14,9 @@ module Make(Tested: Testable) : sig val v : test end = struct
         (Tested.encode []));
   ]
 
-  let v = "Run-Length Encoding" >::: [tests]
+  let v = "Run-Length Encoding" >::: [
+    example_tests
+  ]
 end
 
 module Work : Testable = Work.Impl
