@@ -3,5 +3,4 @@ let length list =
     | [] -> n
     | _ :: t -> aux (n + 1) t
   in
-  aux 0 list
-  
+  aux 0 list    

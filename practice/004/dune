@@ -1,5 +1,2 @@
 (include_subdirs qualified)
-
-(library
- (name ex)
- (libraries ounit2))
+(test (name run) (libraries ounit2 ex))
