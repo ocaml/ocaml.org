@@ -17,7 +17,7 @@ module Make(Tested: Testable) : sig val v : test end = struct
         (Tested.replicate ["a"; "b"; "c"] 0));
     "replication factor of 1" >:: (fun _ ->
       assert_equal ["a"; "b"; "c"]
-        (Tested.replicate ["a"; "b"; "c"] 1));  (* This is the new test case *)
+        (Tested.replicate ["a"; "b"; "c"] 1));
   ]
 
   let v = "Replicate the elements of a list a given number of times." >::: [
