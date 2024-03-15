@@ -1,3 +1,1 @@
-let is_palindrome list =
-  list = List.rev list
-  
+let is_palindrome _ = failwith "Not yet implemented"
