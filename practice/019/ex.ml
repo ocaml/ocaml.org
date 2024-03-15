@@ -10,7 +10,7 @@ module Make(Tested: Testable) : sig val v : test end = struct
       assert_equal ["d"; "e"; "f"; "g"; "h"; "a"; "b"; "c"]
         (Tested.rotate ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"] 3));
     "rotate with negative n" >:: (fun _ ->
-      assert_equal ["f"; "g"; "h"; "a"; "b"; "c"; "d"; "e"]
+      assert_equal ["d"; "e"; "f"; "g"; "h"; "a"; "b"; "c"]
         (Tested.rotate ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"] (-5)));
     "rotate more than length" >:: (fun _ ->
       assert_equal ["d"; "e"; "f"; "g"; "h"; "a"; "b"; "c"]
