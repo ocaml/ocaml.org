@@ -732,7 +732,9 @@ Note that records behave like single constructor variants. That allows pattern m
 - : int = 17
 ```
 
-### Type Aliases
+### Aliases
+
+#### Type Aliases
 
 Just like values, any type can be given a name.
 ```ocaml
@@ -741,6 +743,36 @@ type latitude_longitude = float * float
 ```
 
 This is mostly useful as a means of documentation or to shorten long type expressions.
+
+#### Function Parameter Aliases
+
+Function parameters can also be given a name with pattern matching for tuples and records.
+```ocaml
+(* Tuples as parameters *)
+# let tuple_sum (x, y) = x + y;;
+val tuple_sum : int * int -> int = <fun>
+
+# let f ((x, y) as arg) = tuple_sum arg;;
+val f : int * int -> int = <fun>
+
+
+(* Records as parameters *)
+# type dummy_record = {a: int; b: int};;
+type dummy_record = { a : int; b : int; }
+
+# let record_sum ({a; b}: dummy_record) = a + b;;
+val record_sum : dummy_record -> int = <fun>
+
+# let f ({a;b} as arg) = record_sum arg;;
+val f : dummy_record -> int = <fun>
+```
+
+This is useful for matching variant values of parameters.
+
+```ocaml
+# let meaning_of_life = function Some _ as opt -> opt | None -> Some 42;;
+val meaning_of_life : int option -> int option = <fun>
+```
 
 ## A Complete Example: Mathematical Expressions
 

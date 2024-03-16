@@ -153,6 +153,23 @@ val first : string = "Robin"
 val last : string = "Milner"
 ```
 
+### Pattern Matching in Function Parameters
+
+It is possible to use pattern matching to specify function parameters. For tuples:
+```ocaml
+# type live_person = int * name;;
+type live_person = int * name
+
+# let age ((years, full_name) : live_person) = years;;
+val age : live_person -> int = <fun>
+```
+
+For records:
+```ocaml
+# let introduce ({first; last}) : name) = "I am " ^ first ^ " " ^ last;;
+val introduce : name -> string = <fun>
+```
+
 ### Pattern Matching on `unit`
 <!--Unit example-->
 A special case of combined definition and pattern matching involves the `unit` type:
@@ -174,11 +191,13 @@ Above, the pattern does not contain any identifier, meaning no name is defined. 
 
 This also works with user-defined types.
 ```ocaml
-# type live_person = int * name;;
-type live_person = int * name
+# let robin_with_age : live_person = (20, robin);;
+val robin_with_age : live_person = (20, {first = "Robin"; last = "Milner"})
 
-# let age ((years, { first; last }) : live_person) = years;;
-val age : live_person -> int = <fun>
+# let (years, { first; last }) = robin_with_age;;
+val years : int = 20
+val first : string = "Robin"
+val last : string = "Milner"
 ```
 
 ### Discarding Values Using Pattern Matching
@@ -604,6 +623,7 @@ val spicy_cat : string * string -> string = <fun>
 It looks like two arguments have been passed: `"hello"` and `"world"`. However, only one, the `("hello", "world")` tuple, has been passed. Inspection of the generated assembly would show it isn't the same function as `sweet_cat`. It contains some more code. The contents of the tuple passed to `spicy_cat` (`x` and `y`) must be extracted before evaluation of the `x ^ " " ^ y` expression. This is the role of the additional assembly instructions.
 
 In many imperative languages, the `spicy_cat ("hello", "world")` syntax reads as a function call with two arguments; but in OCaml, it denotes applying the function `spicy_cat` to a tuple containing `"hello"` and `"world"`.
+
 
 ### Currying and Uncurrying
 
