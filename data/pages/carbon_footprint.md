@@ -5,6 +5,8 @@ meta_title: OCaml Carbon Footprint Statement
 meta_description: OCaml.org engagement to reducing its carbon footprint
 ---
 
+![image info](../media/pages/OCaml.png)
+
 A recent study from Lancaster University shows that greenhouse gas (GHG) emissions from global computing might be higher than previously thought. The Information and Communication Technology (ICT) sector produces as much as 3.9% of overall GHG, when taking into account the complete
 lifecycle from manufacturing through computations. If correct, this is higher than even the aviation industry, which is [around 2%](https://www.sciencedaily.com/releases/2021/09/210910121715.htm).
 
