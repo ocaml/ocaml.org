@@ -12,3 +12,4 @@ let rec permutation list =
       aux (picked :: acc) rest (len - 1)
   in
   aux [] list (List.length list)
+  
