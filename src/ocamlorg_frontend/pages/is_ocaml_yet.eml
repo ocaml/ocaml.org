@@ -22,9 +22,10 @@ Learn_layout.three_column_layout
 ~current:Learn_layout.Guides
 ~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some (Printf.sprintf "is-ocaml-%s-yet" meta.id)) ~tutorials))
 ~right_sidebar_html:(Some (Toc.render toc)) @@
-<h1 class="font-bold mb-8"><%s meta.question %></h1>
-<p class="mt-6 text-xl leading-8"><%s meta.answer %></p>
-<div class="mt-10 prose prose-orange max-w-3xl">
+<div class="prose prose-orange dark:prose-invert max-w-3xl">
+  <h1 class="mb-8"><%s meta.question %></h1>
+  <p class="mt-6 text-xl leading-8"><%s meta.answer %></p>
+
  <%s! meta.body_html %>
 
   <ul class="mt-8 px-0 font-light leading-8 text-neutral-800 text-lg flex flex-wrap gap-x-4 gap-y-1">
