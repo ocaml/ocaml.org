@@ -1,1 +1,1 @@
-let is_prime _ = failwith "Not yet implemented"
+let flag_prime _ = failwith "Not yet implemented"
