@@ -9,7 +9,7 @@ category: "First Steps"
 
 This guide will walk you through a minimum installation of OCaml. That includes installing a package manager and [the compiler](#installation-on-unix-and-macos) itself. We'll also install some platform tools like a build system, support for your editor, and a few other important ones.
 
-On this page, you'll find installation instructions for Linux, macOS, and &ast;BSD for recent OCaml versions. For Docker, Linux instructions apply, except when setting up opam. For Windows, we recommend using WSL but also provide instructions for installing OCaml 4.14.0 via the [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) Installer. If you are setting up OCaml on Windows and are unsure which installation method to use, you might be interested in reading [OCaml on Windows](/docs/ocaml-on-windows) first.
+On this page, you'll find installation instructions for Linux, macOS, and &ast;BSD for recent OCaml versions. For Docker, Linux instructions apply, except when setting up opam. For Windows, we recommend using WSL2 but also provide instructions for installing OCaml 4.14.0 via the [DkML](https://gitlab.com/dkml/distributions/dkml#installing) distribution. If you are setting up OCaml on Windows and are unsure which installation method to use, you might be interested in reading [OCaml on Windows](/docs/ocaml-on-windows) first.
 
 **Note**: You'll be installing OCaml and its tools through a [command line interface (CLI), or shell](https://www.youtube.com/watch?v=0PxTAn4g20U)
 
@@ -83,38 +83,30 @@ Opam is now installed and configured! You can now move to [installing the OCaml 
 
 ## Installation on Windows
 
-In this section, we'll describe using the [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) (DKML) Windows installer. Expect to see another officially-supported Windows installation provided directly by opam in the coming months; it will be compatible with your DKML installation.
+In this section, we'll describe using the [DkML](https://gitlab.com/dkml/distributions/dkml#installing) Windows distribution. Expect to see another officially-supported Windows installation provided directly by opam in the coming months; it will be compatible with your DkML installation.
 
-Note that only OCaml version 4.14.0 is available via Diskuv OCaml.
+Note that only OCaml version 4.14.0 is available via DkML.
 
 > **Advanced Users**: If you are familiar with Cygwin or WSL2, there are other installation methods described on the [OCaml on Windows](/docs/ocaml-on-windows) page.
 
-#### 1. Use the DKML Installer
+#### 1. Install the DkML Distribution
 
-Before using the DKML installer, briefly review the following:
+Run the following in a terminal (either Windows PowerShell or Command Prompt):
 
-* Do not use the installer if you have a space in your username (ex. `C:\Users\Jane Smith`).
+```powershell
+winget install Microsoft.VisualStudio.2019.BuildTools --override "--wait --passive --installPath C:\VS --addProductLang En-us --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
+winget install Git.Git
+winget install Diskuv.OCaml
+```
 
-* You need to **stay at your computer** and press "Yes" for any Windows security popups. After the DKML installer finishes installing two programs (`Visual Studio Installer` and `Git for Windows`), you can leave your computer for the remaining one and a half (1.5) hours.
+And then in a **NEW** terminal:
 
-* First time installations may get a notification printed in red. If you see it, reboot your computer and then restart your installation so that Visual Studio Installer can complete. The notification looks like:
+```powershell
+dkml init --system
+```
 
-  ```diff
-  - FATAL [118acf2a]. The machine needs rebooting.
-  - ...
-  - >>  The machine needs rebooting. <<<
-  -         ...
-  -         FATAL [5f927a8b].
-  -         A transient failure occurred.
-  -         ...
-  -         >>  A transient failure occurred. <<<
-  ```
-
-* You may be asked to accept a certificate from `Open Source Developer, Gerardo Grignoli` for the `gsudo` executable that was issued by `Certum Code Signing CA SHA2`.
-
-Now, download and run:
-
-* OCaml 4.14.0 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.2.0.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.2.0/setup-diskuv-ocaml-windows_x86_64-1.2.0.exe)
+> Any problems installing? Be sure to read the [latest release notes](https://gitlab.com/dkml/distributions/dkml/-/releases).
+> You can file an issue at https://gitlab.com/dkml/distributions/dkml/-/issues.
 
 #### 2. Create an opam Switch
 
@@ -126,15 +118,7 @@ You can create a new switch with the `dkml init` command. The only compiler vers
 C:\Users\frank> mkdir someproject
 C:\Users\frank> cd someproject
 C:\Users\frank\someproject> dkml init
-
-# PowerShell only
-C:\Users\frank\someproject> (& opam env) -split '\r?\n' | ForEach-Object { Invoke-Expression $_ }
-
-# Command Prompt only
-C:\Users\frank\someproject> for /f "tokens=*" %i in ('opam env') do @%i
 ```
-
-To learn more about Diskuv OCaml, see the [official Diskuv OCaml documentation](https://gitlab.com/dkml/distributions/dkml).
 
 ## Install Platform Tools
 

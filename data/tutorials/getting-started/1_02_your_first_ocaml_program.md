@@ -302,8 +302,6 @@ Let's assume we'd like `hello` to display its output as if it was a list of stri
 $ opam install ppx_show
 ```
 
-**Note**: This example does not work yet on Windows with the OCaml DKML installer due to a dependency issue. To run it, advanced users could switch to Cygwin or WSL2. However, even if you do not run it, it's still a good idea to read the rest of the section to see how it works.
-
 Dune needs to be told how to use it, which is done in the `lib/dune` file. Note that this is different from the `bin/dune` file that you edited earlier! Open up the `lib/dune` file, and edit it to look like this:
 ```lisp
 (library
