@@ -74,16 +74,8 @@ let decode (fpath, (head, body)) : (t, [> `Msg of string ]) result =
   Ok (metadata |> of_metadata ~statement ~solution)
 
 let compare_by_slug =
-  let parse_int s = s |> int_of_string_opt |> Option.value ~default:0 in
   let key exercise : int * string =
-    let slug = exercise.slug in
-    let len = String.length slug in
-    if len = 0 then (0, "")
-    else
-      match slug.[len - 1] with
-      | 'A' .. 'Z' as c ->
-          (parse_int (String.sub slug 0 (len - 1)), String.make 1 c)
-      | _ -> (parse_int slug, "")
+    Scanf.sscanf exercise.slug "%d%[A-Z]" (fun s c -> (s, c))
   in
   fun (x : t) (y : t) -> compare (key x) (key y)
 
