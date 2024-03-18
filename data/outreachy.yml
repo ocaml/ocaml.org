@@ -66,7 +66,7 @@ rounds:
           and which are not so. Developers will be helped to see where it is
           needed to add new tests, and in the process of improving coverage,
           it is possible to find unexplored bugs and fix them.
-          It might help to make OCaml and its libraries more reliable. 
+          It might help to make OCaml and its libraries more reliable.
         mentee: "Oxana Kostikova"
         blog: "https://lereenadem.wixsite.com/personal"
         source: https://github.com/ocaml/ocaml
@@ -155,7 +155,7 @@ rounds:
           Statistics such as (check if GDPR compliant first!) Requested URIs,
           User agents, Language, Logs.
           This project consists of mostly two parts: a frontend and a backend.
-          The backend consists of building a high-level library to collect data 
+          The backend consists of building a high-level library to collect data
           and get statistics on them. The frontend will use this library to display
           graphs of the metrics, statistics, and other data we want to collect.
         mentee: "Jiae Kam"
@@ -275,7 +275,7 @@ rounds:
       - title: "Improving Error Reporting in Existing PPXLIB-Based PPXs"
         description: >
           In the past, when 'ppxlib' encountered an exception in a transformation, it stopped the rewriting process, causing the rewriters after to not be processed.
-          Also multiple errors could not be reported at the same time there were multiple failing rewriters as just the first raising rewriter 
+          Also multiple errors could not be reported at the same time there were multiple failing rewriters as just the first raising rewriter
           will raise, and the compilation process stops there. But now, a raising rewriter does not stop the preceding rewriter from running, allowing multiple
           to be raised both in the context-free phase and all the other phases.
         mentee: "Abongwa Bonalais"
@@ -287,7 +287,7 @@ rounds:
       - title: "MIDI Over Ethernet With MirageOS"
         description: >
           MIDI, which stands for Musical Instrument Digital Interface, is a widely used protocol in the world of music and audio technology.
-          MirageOS is a library operating system that specialises in creating lightweight, secure, and efficient unikernels. Unikernels are highly-specialised, 
+          MirageOS is a library operating system that specialises in creating lightweight, secure, and efficient unikernels. Unikernels are highly-specialised,
           single-purpose virtual machine images designed for specific applications, and it is written in OCaml.
           The project focussed on implementing the rtpMIDI protocol for serialising-deserialising of MIDI messages over Ethernet and implementing use cases like
           a publisher-subcriber based server-client model for MIDI messages.
@@ -299,3 +299,92 @@ rounds:
         - Sonja Heinze
         - Moazzam Moriani
         video: https://watch.ocaml.org/w/kTwq4AVQtRtFuQx9R5cPro
+  - name: Winter 2023
+    projects:
+      - title: "Develop a geometric creative coding library for OCaml"
+        description: >
+          OCaml is an industrial-strength functional programming language that's
+          been around for nearly three decades.
+
+
+          While functional programming itself is not new, it has not dominated
+          mainstram programming languages. Recently, more mainstram languages
+          have been adopting concepts from functional programming. Now more than
+          ever is a good time to have various types of learning material
+          pertaining to functional programming.
+
+
+          Creative coding is a type of computer programming that focuses on
+          generating artistic, expressive, and creative outputs using software
+          and digital tools. It has its applications in places such as game
+          development. Above all, it is a great pedagogical tool that gives
+          visual outputs to its readers.
+
+
+          Joy is a tiny creative coding library in Python. joy builds heavily on
+          functional programming concepts, with very little reference to python
+          syntax.
+
+
+          This project aims to implement a geometric creative coding library in
+          OCaml. It is heavily inspired by joy. When done, it will serve as a
+          means to do geometric creative coding in OCaml.
+        mentee: "Fay Carsons"
+        source: https://github.com/Sudha247/ocaml-joy
+        blog: "https://www.faycarsons.xyz"
+        mentors:
+          - Sudha Parimala
+          - Kaustubh M
+        video: https://watch.ocaml.org/w/b7sv1LQSVZQH6trf4xpwFX?start=3m8s
+      - title: "Implement a dark mode for OCaml.org"
+        description: >
+          OCaml is a powerful, statically typed programming language known for
+          its efficiency and expressiveness. OCaml.org serves as the central hub
+          for the OCaml community, providing resources, documentation, and news.
+          In today's digital age, users expect a more personalized and
+          comfortable web experience. One such expectation is the availability
+          of a dark mode, which has become a popular feature on websites and
+          applications. This project outlines the plan to implement a dark mode
+          for OCaml.org, enhancing user experience and modernizing the platform.
+          As OCaml continues gaining traction in various industries, it is
+          essential to modernize its online presence to meet users' expectations
+          worldwide.
+
+
+          The current styles and colors for light mode already exist so
+          implementing a dark mode will involve adding contrasting colors and
+          styles according to the Figma design and also putting accessibility
+          standards to mind, and then a button that toggles between the light
+          and dark mode will be created as well.
+        mentee: "Oluwaseun Oyenuga"
+        source: https://github.com/ocaml-ppx/ppxlib
+        blog: "https://dev.to/burnleydev"
+        mentors:
+          - Sayo Bamigbade
+          - punchagan
+        video: https://watch.ocaml.org/w/b7sv1LQSVZQH6trf4xpwFX?start=21m12s
+      - title: "Improve the GUI experience for OCaml users"
+        description: >
+          Inspired by Rust's Are we GUI yet? we want the same work done of the
+          OCaml GUI libraries. A similar work has been done for the OCaml web
+          libraries: Is OCaml web yet? (see the pull request). This work would
+          allow to tackle Are we game yet? in the future.
+
+
+          The survey must take into account the targeted platforms of these
+          libraries, dependencies, (in)compatibilities, features, last updates,
+          etc. A list is available in ocamlverse but is not complete or detailed
+          enough. Interns having previous knowledge of GUI libraries available
+          in other languages can also compare them to the equivalent OCaml
+          libraries.
+
+
+          This work must result in a guide on ocaml.org, similar to the Is OCaml
+          web yet? page.
+        mentee: "PrincessIddy"
+        source: https://github.com/ocaml/ocaml.org
+        blog: "https://idaranabuk.com"
+        mentors:
+          - Guillaume Petiot
+          - Moazzam Moriani
+        video: https://watch.ocaml.org/w/b7sv1LQSVZQH6trf4xpwFX?start=34m6s
