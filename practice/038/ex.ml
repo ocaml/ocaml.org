@@ -7,16 +7,18 @@ module type Testable = sig
 end
 
 module Make(Tested: Testable) : sig val v : test end = struct
-  let tests = "Compare Euler's Totient Function Methods" >::: [
-    "timing phi vs. phi_improved" >:: (fun _ ->
-      let time_phi = Tested.timeit Tested.phi 10090 in
-      let time_phi_improved = Tested.timeit Tested.phi_improved 10090 in
-      Printf.printf "\nTime for phi: %f\n" time_phi;
-      Printf.printf "Time for phi_improved: %f\n" time_phi_improved;
-      assert_bool "phi_improved should be faster than phi" (time_phi_improved < time_phi))
+  let compare_performance n =
+    let time_phi = Tested.timeit Tested.phi n in
+    let time_phi_improved = Tested.timeit Tested.phi_improved n in
+    Printf.printf "\nTime for phi(%d): %f seconds\n" n time_phi;
+    Printf.printf "Time for phi_improved(%d): %f seconds\n" n time_phi_improved;
+    assert_bool "phi_improved should be faster than phi for large n" (time_phi_improved < time_phi)
+
+  let tests = "Euler's Totient Function Performance Comparison" >::: [
+    "compare phi and phi_improved performance for n=10090" >:: (fun _ -> compare_performance 10090);
   ]
 
-  let v = "Totient Function Performance Tests" >::: [
+  let v = "Performance Tests" >::: [
     tests
   ]
 end
