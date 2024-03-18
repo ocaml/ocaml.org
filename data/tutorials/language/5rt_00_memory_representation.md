@@ -179,7 +179,7 @@ collection process described earlier.
 The `size` field records the length of the block in memory words. This is 22
 bits on 32-bit platforms, which is the reason OCaml strings are limited to 16
 MB on that architecture. If you need bigger strings, either switch to a
-64-bit host, or use the `Bigarray` module.
+64-bit host, or use the [`Bigarray`](/api/Bigarray.html) module.
 
 The 2-bit `color` field is used by the GC to keep track of its state during
 mark-and-sweep collection.
@@ -551,7 +551,7 @@ libraries use it for general-purpose I/O:
 
 `Bigstring`
 : The `Bigstring` module provides a `String`-like interface that uses
-  `Bigarray` internally. The `Bigbuffer` collects these into extensible
+  [`Bigarray`](/api/Bigarray.html) internally. The `Bigbuffer` collects these into extensible
   string buffers that can operate entirely on external system memory.
 
 The [Lacaml](http://mmottl.github.io/lacaml/) library isn't part of Core but
