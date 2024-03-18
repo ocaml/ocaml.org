@@ -6,8 +6,8 @@ end
 
 module Make(Tested: Testable) : sig val v : test end = struct
   let v = "group" >::: [
-    "nil" >:: (fun _ -> assert_equal [[]] (Tested.group [] []));
-    "cons" >:: (fun _ -> assert_equal [[["a"; "b"]; ["c"]]; [["a"; "c"]; ["b"]]; [["b"; "c"]; ["a"]];
+    "empty_group" >:: (fun _ -> assert_equal [[]] (Tested.group [] []));
+    "group" >:: (fun _ -> assert_equal [[["a"; "b"]; ["c"]]; [["a"; "c"]; ["b"]]; [["b"; "c"]; ["a"]];
     [["a"; "b"]; ["d"]]; [["a"; "c"]; ["d"]]; [["b"; "c"]; ["d"]];
     [["a"; "d"]; ["b"]]; [["b"; "d"]; ["a"]]; [["a"; "d"]; ["c"]];
     [["b"; "d"]; ["c"]]; [["c"; "d"]; ["a"]]; [["c"; "d"]; ["b"]]] (Tested.group ["a"; "b"; "c"; "d"] [2; 1]));
