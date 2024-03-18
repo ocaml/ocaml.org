@@ -1,6 +1,6 @@
 resources:
   - title:  Learn-OCaml
-    short_description: This is Learn-OCaml, a platform for learning the OCaml language, featuring a Web toplevel, an exercise environment.
+    short_description: This is Learn-OCaml, a platform for learning the OCaml language, featuring a Web toplevel, and an exercise environment.
     long_description: A platform designed for learning the OCaml programming language. It features a web-based interactive toplevel, an environment for exercises, and a collection of lessons and tutorials. The platform is suitable for both beginners and experienced programmers and can be used for academic purposes or self-study.
     image: https://ocaml-sf.org/learn-ocaml-public/icons/logo_ocsf.svg
     online_url: https://ocaml-sf.org/learn-ocaml/
