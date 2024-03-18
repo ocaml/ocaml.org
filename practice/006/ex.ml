@@ -8,6 +8,7 @@ module Make(Tested: Testable) : sig val v : test end = struct
   let v = "is_palindrome" >::: [
     "palindrome" >:: (fun _ -> assert_equal true (Tested.is_palindrome ["x"; "a"; "m"; "a"; "x"]));
     "non_palindrome" >:: (fun _ -> assert_equal true (not (Tested.is_palindrome ["a"; "b"])));
+    "empty_list" >:: (fun _ -> assert_equal true (Tested.is_palindrome []));
   ]
 end
 
