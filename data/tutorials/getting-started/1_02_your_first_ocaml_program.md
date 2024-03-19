@@ -260,8 +260,8 @@ let exp1 = Sexplib.Sexp.of_string "(This (is an) (s expression))"
 let () = Printf.printf "%s\n" (Sexplib.Sexp.to_string exp1)
 ```
 The string you entered representing a valid S-expression is parsed into
-an S-expression type, which is defined as `List` of items that can be either an
-`Atom` (string) or an S-expression (it's a recursive type). Refer to the [Sexplib documentation](https://github.com/janestreet/sexplib) for more information.
+an S-expression type, which is defined as either an `Atom` (string) or a `List` 
+of S-expressions (it's a recursive type). Refer to the [Sexplib documentation](https://github.com/janestreet/sexplib) for more information.
 
 Before the example will build and run, you need to tell Dune that it needs `Sexplib` to compile the project. Do this by adding `Sexplib` to the `library` stanza of the `bin/dune` file. The full `bin/dune` file should then match the following.
 
