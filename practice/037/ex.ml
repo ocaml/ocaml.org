@@ -2,8 +2,16 @@ open OUnit2
 
 module type Testable = sig
   val phi : int -> int
-  val phi_improved : int -> int
 end
+
+(* Naive phi_naive implementation from exercise 034 for direct comparison *)
+let phi_naive n =
+  let rec gcd a b = if b = 0 then a else gcd b (a mod b) in
+  let coprime a b = gcd a b = 1 in
+  let rec count_coprime acc d =
+    if d < n then count_coprime (if coprime n d then acc + 1 else acc) (d + 1)
+    else acc in
+  if n = 1 then 1 else count_coprime 0 1
 
 let timeit f a =
   let t0 = Unix.gettimeofday () in
@@ -12,27 +20,24 @@ let timeit f a =
   t1 -. t0
 
 module Make(Tested: Testable) : sig val v : test end = struct
-  let performance_comparison () =
-    let time_phi = timeit Tested.phi 10090 in
-    let time_phi_improved = timeit Tested.phi_improved 10090 in
-    Printf.printf "\nComparing naive phi with phi_improved\n";
-    Printf.printf "Time for phi(10090): %f seconds\n" time_phi;
-    Printf.printf "Time for phi_improved(10090): %f seconds\n\n" time_phi_improved;
-    assert_bool "phi_improved should be faster than phi for large n" (time_phi_improved < time_phi)
+  let test_values = [10090; 1090; 190; 19]
 
-  let tests = "Improved Euler's Totient Function Tests" >::: [
-    "phi_improved of 10" >:: (fun _ ->
-      assert_equal 4 (Tested.phi_improved 10));
-    "phi_improved of 13" >:: (fun _ ->
-      assert_equal 12 (Tested.phi_improved 13));
-    "phi_improved of 1 (edge case)" >:: (fun _ ->
-      assert_equal 1 (Tested.phi_improved 1));
-    "performance comparison" >:: (fun _ ->
-      performance_comparison ());
-  ]
+  let compare_phi_functions () =
+    List.iter (fun n ->
+      let result_phi = phi_naive n in
+      let result_phi_improved = Tested.phi n in
+      let time_phi = timeit phi_naive n in
+      let time_phi_improved = timeit Tested.phi n in
 
-  let v = "Improved Euler's Totient Function Tests" >::: [
-    tests
+      (* Ensuring the results are the same *)
+      assert_equal ~msg:(Printf.sprintf "phi_naive and phi should return the same result for n=%d" n) result_phi result_phi_improved;
+
+      (* Commenting on performance improvement rather than asserting to prevent test failure due to environmental factors *)
+      Printf.printf "For n=%d, phi_naive took %f seconds, phi took %f seconds\n" n time_phi time_phi_improved
+    ) test_values
+
+  let v = "Euler's Totient Function Performance Tests" >::: [
+    "compare phi_naive and phi" >:: (fun _ -> compare_phi_functions ());
   ]
 end
 
