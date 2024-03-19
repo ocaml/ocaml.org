@@ -1,3 +1,7 @@
+type 'a binary_tree =
+  | Empty
+  | Node of 'a * 'a binary_tree * 'a binary_tree
+
 let layout_binary_tree_3 =
     let rec translate_x d = function
       | Empty -> Empty
