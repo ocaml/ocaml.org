@@ -1,10 +1,13 @@
 open OUnit2
 
 module type Testable = sig
+  type 'a binary_tree = | Empty | Node of 'a * 'a binary_tree * 'a binary_tree
   val layout_binary_tree_1 : 'a binary_tree -> ('a * int * int) binary_tree
 end
 
 module Make(Tested: Testable) : sig val v : test end = struct
+  open Tested
+  
   let v = "layout_binary_tree_1" >::: [
     "empty_tree" >:: (fun _ -> assert_equal Empty (Tested.layout_binary_tree_1 Empty));
     "example_tree" >:: (fun _ ->
