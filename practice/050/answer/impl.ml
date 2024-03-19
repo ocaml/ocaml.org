@@ -2,10 +2,13 @@
    The node with the lowest probability comes first. *)
    module Pq = struct
     type 'a t = {data: 'a list array; mutable first: int}
+    
     let make() = {data = Array.make 101 []; first = 101}
+    
     let add q p x =
       q.data.(p) <- x :: q.data.(p);
       q.first <- min p q.first
+      
     let get_min q =
       if q.first = 101 then None else
         match q.data.(q.first) with
@@ -38,6 +41,7 @@
   
   let huffman fs =
     if List.fold_left (fun s (_, p) -> s + p) 0 fs <> 100 then
+    
       failwith "huffman: sum of weights must be 100";
     let q = Pq.make () in
     List.iter (fun (s, f) -> Pq.add q f (Leaf s)) fs;
