@@ -5,6 +5,7 @@ module type Testable = sig
     | Empty
     | Node of 'a * 'a binary_tree * 'a binary_tree
   val is_symmetric : 'a binary_tree -> bool
+  val construct : 'a list -> 'a binary_tree
 end
 
 module Make(Tested: Testable) : sig val v : test end = struct
