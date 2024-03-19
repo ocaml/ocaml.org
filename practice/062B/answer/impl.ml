@@ -1,3 +1,7 @@
+type 'a binary_tree =
+  | Empty
+  | Node of 'a * 'a binary_tree * 'a binary_tree
+
 let at_level t level =
     let rec at_level_aux t acc counter = match t with
       | Empty -> acc
