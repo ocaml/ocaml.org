@@ -1,4 +1,3 @@
-
 open OUnit2
 
 module type Testable = sig
@@ -18,4 +17,3 @@ end
 
 module Work : Testable = Work.Impl
 module Answer : Testable = Answer.Impl
-
