@@ -37,5 +37,4 @@ module Make(Tested: Testable) : sig val v : OUnit2.test end = struct
 end
 
 module Work : Testable = Work.Impl
-
 module Answer : Testable = Answer.Impl
