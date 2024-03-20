@@ -1,9 +1,5 @@
 open OUnit2
 
-type 'a rle =
-  | One of 'a
-  | Many of int * 'a
-
 module type Testable = sig
   type 'a rle = One of 'a | Many of int * 'a
   val encode : 'a list -> 'a rle list

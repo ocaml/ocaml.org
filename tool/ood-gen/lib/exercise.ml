@@ -73,7 +73,14 @@ let decode (fpath, (head, body)) : (t, [> `Msg of string ]) result =
   in
   Ok (metadata |> of_metadata ~statement ~solution)
 
-let all () = Utils.map_files decode "exercises/*.md"
+let compare_by_slug =
+  let key exercise : int * string =
+    Scanf.sscanf exercise.slug "%d%[A-Z]" (fun s c -> (s, c))
+  in
+  fun (x : t) (y : t) -> compare (key x) (key y)
+
+let all () =
+  Utils.map_files decode "exercises/*.md" |> List.sort compare_by_slug
 
 let template () =
   Format.asprintf
