@@ -33,6 +33,7 @@ let timeit f a =
         assert_equal ~msg:(Printf.sprintf "phi_naive and phi should return the same result for n=%d" n) result_phi result_phi_improved;
   
         (* Failing the test if phi_improved is not faster than phi_naive *)
+        Printf.printf "For n=%d, phi_naive took %f seconds, phi took %f seconds\n" n time_phi time_phi_improved;
         let msg = Printf.sprintf "For n=%d, phi should be faster than phi_naive. phi_naive took %f seconds, phi took %f seconds" n time_phi time_phi_improved in
         assert_bool msg (time_phi_improved < time_phi)
       ) test_values
