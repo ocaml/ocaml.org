@@ -14,7 +14,6 @@ module Make(Tested: Testable) : sig val v : test end = struct
     "two_leaves", (fun _ -> assert_equal 2 (count_leaves (Node(1, Node(2, Empty, Empty), Node(2, Empty, Empty)))));
     "three_leaves", (fun _ -> assert_equal 3 (count_leaves (Node(1, Node(2, Empty, Empty), Node(3, Empty, Empty)))));
   ]
-
   let v = "count_leaves" >::: List.map (fun (name, _) -> name >:: fun _ -> ()) tests
 end
 
