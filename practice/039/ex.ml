@@ -17,7 +17,7 @@ module Make(Tested: Testable) : sig val v : test end = struct
 
   ]
 
-  let v = "all_primes" >::: [
+  let v = "List Primes" >::: [
     tests
 ]
 end
