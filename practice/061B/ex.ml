@@ -5,14 +5,13 @@ module type Testable = sig
   val leaves : 'a binary_tree -> 'a list
 end
 
-module Make(Tested: Testable) : sig val v : test end = struct
-  open Tested
-  
+module Make(Tested: Testable) : sig val v : test end = struct  
   let tests = [
-    "empty_tree" >:: (fun _ -> assert_equal [] (leaves Empty));
-    "single_leaf" >:: (fun _ -> assert_equal [1] (leaves (Node(1, Empty, Empty))));
-  ]
-  
+     "empty_tree" >:: (fun _ -> assert_equal [] (Tested.leaves Empty));
+     "one_internal" >:: (fun _ -> assert_equal [] (Tested.leaves (Node('a', Empty, Empty))));
+     "two_internals" >:: (fun _ -> assert_equal ['a'] (Tested.leaves (Node('a', Node('b', Empty, Empty), Empty))));
+     "three_internals" >:: (fun _ -> assert_equal ['b'; 'a'] (Tested.leaves (Node('a', Node('b', Node('c', Empty, Empty), Empty), Empty))));
+  ]  
   let v = "leaves" >::: tests
 end
 
