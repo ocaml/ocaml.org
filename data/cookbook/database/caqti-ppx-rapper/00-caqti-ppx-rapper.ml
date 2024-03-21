@@ -4,7 +4,7 @@ packages:
   version: "1.9.0"
 - name: "caqti-lwt"
   version: "1.9.0"
-- name: "caqti-driver-sqlite"
+- name: "caqti-driver-sqlite3"
   version: "1.9.0"
 - name: "ppx_rapper"
   version: "3.1.0"
