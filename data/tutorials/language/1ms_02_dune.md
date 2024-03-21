@@ -134,7 +134,7 @@ The `lib` folder is populated with the following files.
 
 **`lib/cumulus.mli`**
 ```ocaml
-val stratus : string
+val nimbus : string
 ```
 <!-- FIXME: <> strings, no behaviour -->
 **`lib/cumulus.ml`**
@@ -144,7 +144,7 @@ let nimbus = "Cumulonimbus (Cb)"
 
 **`lib/stratus.mli`**
 ```ocaml
-val cumulus : string
+val nimbus : string
 ```
 
 **`lib/stratus.ml`**
