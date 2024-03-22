@@ -93,21 +93,22 @@ OCaml has a subtle syntax; not everything is allowed as an operator symbol. An o
 **Prefix Operator**
 
 1. First character
-  * `?` `~` or
-  * `!`
+    * `?` `~` or
+    * `!`
 1. Following characters, at least one if the first character is `!`, optional otherwise
-  * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|` or
-  * `%` `<`
+    * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|` or
+    * `%` `<`
 
 **Binary Operator**
+
 1. First character
-  * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|` or
-  * `%` `<` or
-  * `#`
-2. Following characters, at least one if the first character is `#`, optional otherwise
-  * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|` or
-  * `%` `<` or
-  * `!` `.` `:` `?` `~`
+    * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|` or
+    * `%` `<` or
+    * `#`
+1. Following characters, at least one if the first character is `#`, optional otherwise
+    * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|` or
+    * `%` `<` or
+    * `!` `.` `:` `?` `~`
 
 This is defined in the [Prefix and Infix symbols](/manual/lex.html#sss:lex-ops-symbols) section of The OCaml Manual.
 
