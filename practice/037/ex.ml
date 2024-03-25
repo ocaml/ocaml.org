@@ -21,28 +21,28 @@ let timeit f a =
 
   module Make(Tested: Testable) : sig val v : test end = struct
     let test_values = [10090; 100090; 1000090]
-  
+
     let compare_phi_functions () =
       List.iter (fun n ->
         let result_phi = phi_naive n in
         let result_phi_improved = Tested.phi n in
         let time_phi = timeit phi_naive n in
         let time_phi_improved = timeit Tested.phi n in
-  
+
         (* Ensuring the results are the same *)
         assert_equal ~msg:(Printf.sprintf "phi_naive and phi should return the same result for n=%d" n) result_phi result_phi_improved;
-  
+
         (* Failing the test if phi_improved is not faster than phi_naive *)
         Printf.printf "For n=%d, phi_naive took %f seconds, phi took %f seconds\n" n time_phi time_phi_improved;
         let msg = Printf.sprintf "For n=%d, phi should be faster than phi_naive. phi_naive took %f seconds, phi took %f seconds" n time_phi time_phi_improved in
         assert_bool msg (time_phi_improved < time_phi)
       ) test_values
-  
+
     let v = "Euler's Totient Function Performance Tests" >::: [
       "compare phi_naive and phi" >:: (fun _ -> compare_phi_functions ());
     ]
   end
-  
+
 
 module Work : Testable = Work.Impl
 module Answer : Testable = Answer.Impl
