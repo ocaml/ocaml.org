@@ -2,14 +2,14 @@
 title: Generate a Random Permutation of the Elements of a List
 slug: "25"
 difficulty: beginner
-tags: [ "list" ]
+tags: ["list"]
 description: "Generate a random permutation of the elements in the given list."
 ---
 
 # Solution
 
 ```ocaml
-# let rec permutation list =
+# let permutation list =
     let rec extract acc n = function
       | [] -> raise Not_found
       | h :: t -> if n = 0 then (h, acc @ t) else extract (h :: acc) (n - 1) t
