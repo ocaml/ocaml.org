@@ -12,7 +12,7 @@ module Make(Tested: Testable) : sig val v : test end = struct
     "empty list" >:: (fun _ -> assert_equal [] (Tested.compress []));
   ]
 
-  let tests = "Remove Duplicates" >::: [ tests ]
+  let v = "Remove Duplicates" >::: [ tests ]
 end
 
 module Work : Testable = Work.Impl
