@@ -11,5 +11,4 @@ let permutation list =
       let picked, rest = extract_rand list len in
       aux (picked :: acc) rest (len - 1)
   in
-  aux [] list (List.length list)
-  
+ aux [] list (List.length list)
