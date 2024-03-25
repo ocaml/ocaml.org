@@ -95,13 +95,13 @@ OCaml has a subtle syntax; not everything is allowed as an operator symbol. An o
 1. First character, either:
     * `?` `~`
     * `!`
-1. Following characters, at least one if the first character is `!`, optional otherwise
+1. Following characters, at least one if the first character is `?` or `~`, optional otherwise:
     * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|`
     * `%` `<`
 
 **Binary Operator**
 
-1. First character
+1. First character, either:
     * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|`
     * `%` `<`
     * `#`
