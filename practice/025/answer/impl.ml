@@ -1,4 +1,4 @@
-let rec permutation list =
+let permutation list =
   let rec extract acc n = function
     | [] -> raise Not_found
     | h :: t -> if n = 0 then (h, acc @ t) else extract (h :: acc) (n - 1) t
