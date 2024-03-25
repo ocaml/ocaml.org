@@ -105,7 +105,7 @@ OCaml has a subtle syntax; not everything is allowed as an operator symbol. An o
     * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|`
     * `%` `<`
     * `#`
-1. Following characters, at least one if the first character is `#`, optional otherwise
+1. Following characters, at least one if the first character is `#`, optional otherwise:
     * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|`
     * `%` `<`
     * `!` `.` `:` `?` `~`
