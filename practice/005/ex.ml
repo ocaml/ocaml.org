@@ -6,7 +6,7 @@ end
 
 module Make(Tested: Testable) : sig val v : test end = struct
   let v = "rev" >::: [
-    "nil" >:: (fun _ -> assert_equal [] (Tested.rev [])); 
+    "nil" >:: (fun _ -> assert_equal [] (Tested.rev []));
     "cons" >:: (fun _ -> assert_equal ["c"; "b"; "a"] (Tested.rev ["a"; "b"; "c"]));
   ]
 end
