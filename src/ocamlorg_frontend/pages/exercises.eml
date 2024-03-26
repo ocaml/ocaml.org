@@ -200,5 +200,28 @@ Learn_layout.three_column_layout
           }
         ))
       })
+
+      const statementElements = document.getElementsByTagName("pre");
+      const statementElementsLength = statementElements.length;
+
+      for (var i = 0; i < statementElementsLength; i++) {
+        const node = document.createElement("span");
+        node.className = "copyBtn";
+        const textnode = document.createTextNode("copy");
+        node.appendChild(textnode);
+        statementElements[i].appendChild(node);
+      }
+
+      const copyBtns = document.getElementsByClassName("copyBtn");
+
+      for (let copyBtn of copyBtns) {
+        copyBtn.addEventListener(
+          "click",
+          function() {
+            var copyText = this.parentNode.firstChild.textContent;
+            navigator.clipboard.writeText(copyText);
+          }
+        );
+      }
     </script>
   </div>
