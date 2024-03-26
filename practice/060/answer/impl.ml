@@ -2,7 +2,11 @@ type 'a binary_tree =
   | Empty
   | Node of 'a * 'a binary_tree * 'a binary_tree
 
-let max_nodes h = 1 lsl h - 1
+let max_nodes h =
+  if h >= 32 then
+    raise (Invalid_argument "max_nodes")
+  else
+    1 lsl h - 1
 
 let rec min_nodes_loop m0 m1 h =
   if h <= 1 then m1
