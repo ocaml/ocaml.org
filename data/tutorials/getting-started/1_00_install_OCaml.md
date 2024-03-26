@@ -99,7 +99,7 @@ winget install Git.Git
 winget install Diskuv.OCaml
 ```
 
-And then in a **NEW** terminal:
+And then in a new terminal:
 
 ```powershell
 dkml init --system
