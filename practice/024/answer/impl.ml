@@ -23,4 +23,3 @@ let range a b =
     if a < b then aux [] b a else List.rev (aux [] a b)
 
   let lotto_select n m = rand_select (range 1 m) n
-  
