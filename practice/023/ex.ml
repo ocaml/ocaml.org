@@ -5,10 +5,13 @@ module type Testable = sig
 end
 
 module Make(Tested: Testable) : sig val v : test end = struct
-  let v = "rand_select" >::: [
-    "nil" >:: (fun _ -> assert_equal [] (Tested.rand_select [] 0));
-    "cons" >:: (fun _ -> assert_equal ["e"; "c"; "g"] (Tested.rand_select ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"] 6));
-  ]
+    let tests =
+      "Random select n Tests" >::: [
+        "random select 3" >:: (fun _ -> assert_equal 5 (List.length (Tested.rand_select ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"] 3)));
+        "random select 5" >:: (fun _ -> assert_equal 5 (List.length (Tested.rand_select ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"] 5)));
+      ]
+
+  let v = tests
 end
 
 module Work : Testable = Work.Impl
