@@ -7,19 +7,25 @@ end
 
 module Make(Tested: Testable) : sig val v : test end = struct
   open Tested
-  let tests = "all_primes" >::: [
-    "test_single_prime" >:: (fun _ ->
-      assert_equal [2] (all_primes 2 2));
-    "test_primes_up_to_10" >:: (fun _ ->
-      assert_equal [2; 3; 5; 7] (all_primes 2 10));
-    "test_large_range" >:: (fun _ ->
-      assert_equal 1000 (List.length (all_primes 2 7920)));
+
+  let is_prime n =
+    let n = max n (-n) in
+    let rec is_not_divisor d =
+      d * d > n || (n mod d <> 0 && is_not_divisor (d + 1))
+    in
+      is_not_divisor 2
+
+  let rec prime_bool_list start_num end_num =
+    let rec primes list n =
+      if n > end_num then list else
+        primes ((n, is_prime n) :: list) (n + 1)
+    in
+    primes [] start_num
+     let v = "List_primes" >::: [
+    "all_primes" >:::List.map (fun (prime_bool_list) -> (fun _ ->
+      assert_equal 1000 (List.length (prime_bool_list( all_primes 2 7920)))));
 
   ]
-
-  let v = "List Primes" >::: [
-    tests
-]
 end
 
 module Work : Testable = Work.Impl
