@@ -452,6 +452,20 @@ let from_v2 =
 let default_index_html =
   [
     ("/manual", Url.manual_lang latest_version);
+    ("/manual/latest", Url.manual_lang latest_version);
+    ("/manual/3.12", Url.manual_lang "3.12");
+    ("/manual/4.00", Url.manual_lang "4.00");
+    ("/manual/4.01", Url.manual_lang "4.01");
+    ("/manual/4.02", Url.manual_lang "4.02");
+    ("/manual/4.03", Url.manual_lang "4.03");
+    ("/manual/4.04", Url.manual_lang "4.04");
+    ("/manual/4.05", Url.manual_lang "4.05");
+    ("/manual/4.06", Url.manual_lang "4.06");
+    ("/manual/4.07", Url.manual_lang "4.07");
+    ("/manual/4.08", Url.manual_lang "4.08");
+    ("/manual/4.09", Url.manual_lang "4.09");
+    ("/manual/4.10", Url.manual_lang "4.10");
+    ("/manual/4.11", Url.manual_lang "4.11");
     ("/manual/4.12", Url.manual_lang "4.12");
     ("/manual/4.12/api", Url.manual_api "4.12");
     ("/manual/4.13", Url.manual_lang "4.13");
@@ -478,11 +492,8 @@ let redirect_p pattern =
 let fwd_v2 origin =
   Dream.get origin (fun req -> Dream.redirect req (Url.v2 ^ origin))
 
-let serve url path = Dream.get url (Dream.static path)
-
 let manual =
   [
-    serve "/manual/**" "/manual/";
     redirect_p "/api/**";
     fwd_v2 "/api";
     redirect_p "/releases/3.12/htmlman/**";
