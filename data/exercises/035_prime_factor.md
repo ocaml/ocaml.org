@@ -4,6 +4,7 @@ slug: "35"
 difficulty: intermediate
 tags: [ "arithmetic" ]
 description: "Find the prime factors of a given positive integer 'n'."
+tutorials: [ "values-and-functions"]
 ---
 
 

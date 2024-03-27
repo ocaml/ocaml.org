@@ -365,11 +365,11 @@ There used to be a module called [`Stream`](/releases/4.13/api/Stream.html) in
 the OCaml standard library. It was
 [removed](https://github.com/ocaml/ocaml/pull/10482) in 2021 with the release of
 OCaml 4.14. Beware books and documentation written before may still mention it.
-
+<!-- 
 ## Exercises
 
 * [Streams](/problems#100)
-* [Diagonal](/problems#101)
+* [Diagonal](/problems#101) -->
 
 <!--
 ## Credits
