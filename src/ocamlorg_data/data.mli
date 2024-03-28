@@ -522,7 +522,12 @@ module Governance : sig
 end
 
 module Cookbook : sig
-  type category = { title : string; slug : string }
+  type category = {
+    title : string;
+    slug : string;
+    subcategories : category list;
+  }
+
   type task = { title : string; slug : string; category : category }
   type code_block_with_explanation = { code : string; explanation : string }
   type package = { name : string; version : string }
@@ -545,4 +550,6 @@ module Cookbook : sig
   val get_tasks_by_category : category_slug:string -> task list
   val get_by_task : task_slug:string -> t list
   val get_by_slug : task_slug:string -> string -> t option
+
+  val title_of_recipe : t -> string
 end

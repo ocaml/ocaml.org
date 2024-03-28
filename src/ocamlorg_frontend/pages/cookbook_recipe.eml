@@ -6,7 +6,7 @@ Learn_layout.single_column_layout
   ~current:Cookbook @@
   <div class="container-fluid pt-10">
     <div class="prose dark:prose-invert mx-auto max-w-5xl">
-      <h1 class="font-normal text-4xl mb-10"><%s recipe.task.title %></h2>
+      <h1 class="font-normal text-4xl mb-10"><%s Data.Cookbook.title_of_recipe recipe %></h2>
 
 % (if List.length recipe.packages > 0 then (
       <h2>Packages</h2>

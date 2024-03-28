@@ -1,0 +1,61 @@
+categories:
+- title: Command Line
+  tasks: []
+- title: Compression
+  tasks: []
+- title: Concurrency
+  tasks:
+  - title: Execute Concurrent Tasks
+    slug: execute-concurrent-tasks
+- title: Cryptography
+  tasks: []
+- title: Database
+  subcategories:
+  - title: SQLite
+    tasks:
+    - title: SQLite CREATE, INSERT, SELECT
+      slug: sqlite-create-insert-select
+  - title: PostgreSQL
+    tasks:
+    - title: PostgreSQL CREATE, INSERT, SELECT
+      slug: postgresql-create-insert-select
+- title: Date and Time
+  tasks:
+  - title: Get Today's Date
+    slug: get-todays-date
+- title: Debugging
+  tasks: []
+- title: Encoding
+  tasks:
+  - title: ASCII Text Processing
+    slug: ascii-text-processing
+  - title: UTF-8 Text Processing
+    slug: utf8-text-processing
+- title: File System
+  tasks: []
+- title: Garbage Collector
+  tasks: []
+- title: Generate Random Values
+  tasks:
+  - title: Generate random numbers
+    slug: generate-random-numbers
+  - title: Generate random strings and arrays
+    slug: generate-random-strings-and-arrays
+- title: Hash Tables and Maps
+  tasks: []
+- title: Mathematics
+  tasks: []
+- title: Networking
+  tasks: []
+- title: Operating System
+  tasks: []
+- title: Sorting
+  tasks:
+  - title: Sorting Lists and Arrays
+    slug: sorting-lists-and-arrays
+- title: Text Processing
+  tasks:
+  - title: Regular Expressions
+    slug: regular-expressions
+- title: Web Programming
+  tasks: []
