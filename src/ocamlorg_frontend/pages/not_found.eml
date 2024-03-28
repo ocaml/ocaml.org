@@ -2,7 +2,7 @@ let render () =
 Layout.render
 ~title:"Page Not Found"
 ~description:"This page does not exist." @@
-<div class="bg-white dark:bg-dark-background px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
+<div class="bg-background dark:bg-dark-background px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
   <div class="sm:flex max-w-max mx-auto">
     <p class="text-4xl font-extrabold text-primary dark:text-dark-primary sm:text-5xl">404</p>
     <div class="sm:ml-6">

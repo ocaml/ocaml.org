@@ -25,7 +25,7 @@ Layout.base
 ~description
 ?canonical
 ~active_top_nav_item:Header.Packages @@
-<div class="bg-white dark:bg-dark-background"
+<div class="bg-background dark:bg-dark-background"
   x-on:click="search_instructions = false"
   x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, 'search_instructions': false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches"
   >
@@ -40,7 +40,7 @@ Layout.base
       x-on:click="sidebar = ! sidebar">
         <%s! Icons.sidebar_menu "h-6 w-6" %>
       </button>
-      <div class="fixed z-10 inset-0 bg-legacy-contrast/20 backdrop-blur-sm md:hidden"
+      <div class="fixed z-10 inset-0 bg-tertiary_25 backdrop-blur-sm md:hidden"
         :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar">
       </div>
 
@@ -96,18 +96,18 @@ Layout.base
             <% ); %>
           </div>
 
-          <div id="search-instructions" x-show="search_instructions" class="absolute top-12 p-4 right-0 left-0 bg-legacy-default dark:bg-legacy-dark-default z-[22] w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
+          <div id="search-instructions" x-show="search_instructions" class="absolute top-12 p-4 right-0 left-0 bg-background dark:bg-dark-background z-[22] w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
             <%s! search_instructions_html () %>
           </div>
 
-          <div id="in-package-search-results" aria-live="polite" class="absolute top-12 right-0 left-0 bg-legacy-default dark:bg-legacy-dark-default z-20 w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
+          <div id="in-package-search-results" aria-live="polite" class="absolute top-12 right-0 left-0 bg-background dark:bg-dark-background z-20 w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
           </div>
         </div>
       </div>
 
       <div class="flex md:gap-4 xl:gap-10">
         <div
-          class="p-10 z-20 bg-white dark:bg-dark-background flex-col fixed h-screen overflow-auto md:flex left-0 top-0 md:sticky w-80 md:w-60 lg:w-72 md:px-0 md:pt-6 md:pb-24"
+          class="p-10 z-20 bg-background dark:bg-dark-background flex-col fixed h-screen overflow-auto md:flex left-0 top-0 md:sticky w-80 md:w-60 lg:w-72 md:px-0 md:pt-6 md:pb-24"
           x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
           x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
           x-transition:leave-end="-translate-x-full">

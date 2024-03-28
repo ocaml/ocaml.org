@@ -18,7 +18,7 @@ the community and learn more about how they use OCaml."
     
   </div>
 </div>
-<div class="bg-white dark:bg-dark-background py-16">
+<div class="bg-background dark:bg-dark-background py-16">
   <div class="container-fluid">
     <h2 class="font-bold text-title dark:text-dark-title">Trusted by Industry Leaders</h2>
     <div class="text-content dark:text-dark-title text-base mt-3">
@@ -100,7 +100,7 @@ the community and learn more about how they use OCaml."
     <div class="swiper-container" x-ref="container">
       <div class="swiper-wrapper mt-6">
 % let testimonial ~href ~logo ~person ~role testimonial =
-<a href="<%s href %>" class="swiper-slide p-4 legacy-card-hover">
+<a href="<%s href %>" class="swiper-slide p-4">
   <div class="overflow-hidden">
     <div class="flex place-content-center dark:bg-dark-white h-20 w-36 p-4 rounded-md mb-2">
       <img class="max-h-full max-w-full" src="<%s logo %>" class="h-8" alt="">
@@ -143,13 +143,13 @@ the community and learn more about how they use OCaml."
   </div>
   </div>
 </div>
-<div class="py-5 md:py-10 md:pb-16 bg-white dark:bg-dark-background_navigation">
+<div class="py-5 md:py-10 md:pb-16 bg-background dark:bg-dark-background_navigation">
   <div class="container-fluid">
     <div class="">
       <h2 class="font-bold mb-6 text-title dark:text-dark-title">Other Industry Users of OCaml</h2>
       <p class="text-content dark:text-dark-content">With its strong security features and high performance, several companies rely on OCaml to keep<br> their data operating both safely and efficiently. On this page, you can get an overview of the<br> companies in the community and learn more about how they use OCaml.</p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 relative text-center bg-white dark:bg-dark-background_navigation mt-10 gap-3">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 relative text-center bg-background dark:bg-dark-background_navigation mt-10 gap-3">
       <% users |> List.iter (fun (item : Data.Industrial_user.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-4 h-full card dark:dark-inverted-card flex items-center flex-col">
           <img src="<%s logo %>" class="m-auto max-h-16" alt="<%s item.name %> logo">

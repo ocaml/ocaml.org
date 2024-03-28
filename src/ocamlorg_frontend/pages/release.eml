@@ -20,7 +20,7 @@ Layout.render
         </div>
     </div>
 </div>
-<div class="bg-white dark:bg-dark-background">
+<div class="bg-background dark:bg-dark-background">
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
             <div class="prose dark:prose-invert prose-orange px-6 lg:prose-lg max-w-5xl">

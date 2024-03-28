@@ -4,7 +4,7 @@ Layout.render
 ~description:news.description
 ~canonical:(Url.news_post news.slug)
 ~active_top_nav_item:Blog @@
-<div class="bg-white dark:bg-dark-background py-24">
+<div class="bg-background dark:bg-dark-background py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">
       <a href="<%s Url.blog %>"

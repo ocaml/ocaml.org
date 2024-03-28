@@ -24,8 +24,11 @@ const figma_colors = {
     separator_20: "#00000033",
     card_border: "#00000033",
     white: "#FFFFFF",
+
+    background: "white",
     sand: "#FAF8F3",
     code_window: "#2B2A2A",
+
     search_keyboard_cursor:"#0C3B8C",
     search_term_highlight:"#F36528",
 
@@ -155,75 +158,12 @@ module.exports = {
         mono: ["Roboto Mono", ...defaultTheme.fontFamily.mono]
       },
       colors: {
-        legacy: {
-          primary: {
-            800: "#CD4E00",
-            700: "#DC5402",
-            600: "#EE6A1A",
-            300: "rgba(238, 106, 26, 0.48)",
-            200: "rgba(238, 106, 26, 0.15)",
-            100: "rgba(238, 106, 26, 0.1)",
-          },
-          code: {
-            blue: "rgba(86, 156, 214, 1)",
-            yellow: "rgba(220, 220, 170, 1)",
-            comment: "rgba(255, 255, 255, 0.6)",
-            red: "rgba(252, 129, 129, 1)",
-            background: "rgba(30, 30, 30, 1)",
-          },
-          sucess: {
-            100: "rgba(142, 233, 60, 0.1)",
-            600: "rgba(142, 233, 60, 1)",
-          },
-          global: {
-            default: "rgba(250, 248, 243, 1)",
-          },
-          divider: {
-            8: "rgba(26, 32, 44, 0.08)",
-            12: "rgba(26, 32, 44, 0.12)",
-            16: "rgba(26, 32, 44, 0.16)",
-          },
-        },
         ...figma_colors,
       },
       borderColor: {
         DEFAULT: "#00000020"
       },
-      textColor: {
-        legacy: {
-          // FIXME: remove everything in this section when it is no longer used
-          default: "#1A202C",
-          "lighter": "#4b5563",
-
-          dark: {
-            "default": "#666",
-          },
-        }
-      },
       backgroundColor: {
-        legacy: {
-          // FIXME: remove everything in this section when it is no longer used
-          default: "white",
-          "mild-contrast": "#FAF8F3",
-          "contrast": "#14294b", // one of the colors from the dark blue contrast patterned background used in various parts of the site
-
-          "search-keyboard-cursor": "#0C3B8C", // background for cursor highlighting in keyboard navigable areas (e.g. package search dropdown)
-          "search-term-highlight": "rgb(221, 232, 251)",
-          "learn-area-orange": "#C34711",
-
-          "text-title": "#111827",
-          "search-result-background-blue":"#00308F",
-
-          body: {
-            600: "#1A202C",
-          },
-
-          dark: {
-            default: "#222",
-            "mild-contrast": "#171717",
-          },
-        },
-
         avatar: {
           0: "#bb452a",
           1: "#a35829",

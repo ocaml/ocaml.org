@@ -1,5 +1,5 @@
 .package-breadcrumbs li:not(:last-child)::after {
-  @apply text-legacy-lighter;
+  @apply text-content;
   content: "/";
 }
 

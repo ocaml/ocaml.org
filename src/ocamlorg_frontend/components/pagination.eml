@@ -31,13 +31,13 @@ let render ~total_page_count ~page_number ~base_url ~queries =
   <% if  total_page_count > 1 then ( %>
     <%s! if page_number != 1 then (left_arrow ~base_url page_number ~queries) else "" %>
     <% if page_number >= 4 then ( %>
-    <span class="w-10 h-10 lg:w-14 lg:h-14 border-body-100 rounded-lg flex items-center justify-center text-legacy-lighter hover:no-underline">...</span>
+    <span class="w-10 h-10 lg:w-14 lg:h-14 border-body-100 rounded-lg flex items-center justify-center text-content hover:no-underline">...</span>
     <% ); %>
     <% for page = 1 to (total_page_count - 1) do %>
     <%s! if (abs (page_number - page) <= 1) || (page_number = 1 && page = 3) || (page_number = total_page_count && total_page_count - page = 2) then (link ~base_url ~page ~current:page_number ~queries) else "" %>
     <% done; %>
     <% if total_page_count - page_number >= 3 then ( %>
-    <span class="w-10 h-10 lg:w-14 lg:h-14 border-body-100 rounded-lg flex items-center justify-center text-legacy-lighter hover:no-underline">...</span>
+    <span class="w-10 h-10 lg:w-14 lg:h-14 border-body-100 rounded-lg flex items-center justify-center text-content hover:no-underline">...</span>
     <% ); %>
     <%s! link ~base_url ~page:total_page_count ~current:page_number ~queries %>
     <%s! if page_number != total_page_count then (right_arrow ~base_url page_number ~queries) else "" %>

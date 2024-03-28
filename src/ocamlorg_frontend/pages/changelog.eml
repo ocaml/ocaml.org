@@ -3,7 +3,7 @@ Layout.render
 ~title:"OCaml Changelog"
 ~canonical:(Url.changelog ^ if current_page = 1 then "" else "?p=" ^ string_of_int current_page)
 ~description:"Read the latest releases and updates from the OCaml ecosystem." @@
-<div class="bg-white dark:bg-dark-background py-24">
+<div class="bg-background dark:bg-dark-background py-24">
   <div class="container-fluid">
     <div>
       <div class="flex items-center">
@@ -41,7 +41,7 @@ Layout.render
         <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
           <div class="relative md:w-72 pb-6 lg:pb-8">
             <div class="sticky" style="top: 128px; word-break: keep-all;">
-              <div class="hidden md:absolute md:block -left-11 bg-white dark:bg-dark-background w-6 h-6 mt-0.5 text-primary dark:text-dark-primary">
+              <div class="hidden md:absolute md:block -left-11 bg-background dark:bg-dark-background w-6 h-6 mt-0.5 text-primary dark:text-dark-primary">
                 <%s! Icons.changelog "w-6 h-6" %>
               </div>
               <h2

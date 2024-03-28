@@ -14,7 +14,7 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-white dark:bg-dark-background">
+<div class="bg-background dark:bg-dark-background">
     <div class="container-fluid">
       <div class="flex flex-col md:flex-row justify-between my-8">
         <div class="prose dark:prose-invert prose-orange pt-8">
@@ -51,7 +51,7 @@ Layout.render
           <% ); %>
         </div>
       </div>
-      <div class="bg-white dark:bg-dark-background max-w-none my-16">
+      <div class="bg-background dark:bg-dark-background max-w-none my-16">
         <h2 class="mb-4 text-title dark:text-dark-title">All Presentations</h2>
         <% (match List.length workshop.presentations with | 0 -> %>
         <p>No presentations yet.</p>
@@ -144,7 +144,7 @@ Layout.render
 </div>
 <% let videos = List.filter_map (fun (p : Data.Workshop.presentation) -> Hashtbl.find_opt videos p.title)
 workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
-<div class="bg-white dark:bg-dark-background py-16">
+<div class="bg-background dark:bg-dark-background py-16">
   <div class="container-fluid">
     <h3 class="font-bold mb-12 text-title dark:text-dark-title">Some Videos</h3>
     <div class="grid lg:grid-cols-3 gap-14">

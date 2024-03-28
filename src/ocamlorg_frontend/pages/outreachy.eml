@@ -12,7 +12,7 @@ Layout.render
         </div>
     </div>
 </div>
-<div class="py-12 bg-white dark:bg-dark-background">
+<div class="py-12 bg-background dark:bg-dark-background">
     <div class="container-fluid">
         <% metadata |> List.iter (fun (rounds : Data.Outreachy.t) -> %>
             <h2 class="text-title dark:text-dark-title border-b border-primary dark:border-dark-primary p-6 my-2 font-bold"><%s rounds.name %></h2>

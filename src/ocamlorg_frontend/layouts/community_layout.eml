@@ -32,7 +32,7 @@ inner_html
   ~canonical
   ?active_top_nav_item @@
   <%s! tabs ~current %>
-  <div class="bg-white dark:bg-dark-background">
+  <div class="bg-background dark:bg-dark-background">
     <div class="flex-1 z-0 z- min-w-0 pb-12">
       <%s! inner_html %>
     </div>

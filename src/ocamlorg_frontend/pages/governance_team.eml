@@ -95,7 +95,7 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-white dark:bg-dark-background">
+<div class="bg-background dark:bg-dark-background">
   <div class="py-8">
     <div class="container-fluid">
       <% (match t.dev_meeting with | None -> () | Some dev_meeting -> %>
