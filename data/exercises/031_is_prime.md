@@ -8,7 +8,7 @@ description: "Check if a given integer is a prime number."
 
 # Solution
 
-Recall that `d` divides `n` iff `n mod d = 0`. This is a naive
+Recall that `d` divides `n` IFF `n mod d = 0`. This is a naive
 solution. See the [Sieve of
 Eratosthenes](http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) for a
 more clever one.
