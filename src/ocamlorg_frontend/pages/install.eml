@@ -137,15 +137,15 @@ Layout.render
                 Run the following in a terminal (either Windows PowerShell or Command Prompt):
               </p>
 
-              <%s! Copy_to_clipboard_snippet.render ~id:"install-winget-vs2019buildtools" "winget install Microsoft.VisualStudio.2019.BuildTools --override \"--wait --passive --installPath C:\\VS --addProductLang En-us --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended\"" %>
-              <%s! Copy_to_clipboard_snippet.render ~id:"install-winget-git" "winget install Git.Git" %>
-              <%s! Copy_to_clipboard_snippet.render ~id:"install-winget-dkml" "winget install Diskuv.OCaml" %>
+              <%s! Copy_to_clipboard.small_code_snippet ~id:"install-winget-vs2019buildtools" "winget install Microsoft.VisualStudio.2019.BuildTools --override \"--wait --passive --installPath C:\\VS --addProductLang En-us --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended\"" %>
+              <%s! Copy_to_clipboard.small_code_snippet ~id:"install-winget-git" "winget install Git.Git" %>
+              <%s! Copy_to_clipboard.small_code_snippet ~id:"install-winget-dkml" "winget install Diskuv.OCaml" %>
 
               <p>
                 And then in a <strong>NEW</strong> terminal:
               </p>
 
-              <%s! Copy_to_clipboard_snippet.render ~id:"dkml-init-system" "dkml init --system" %>
+              <%s! Copy_to_clipboard.small_code_snippet ~id:"dkml-init-system" "dkml init --system" %>
 
               <p>Any problems installing? Be sure to read the
               <a href="https://gitlab.com/dkml/distributions/dkml/-/releases">latest DkML release notes</a>.
