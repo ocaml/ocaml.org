@@ -15,7 +15,7 @@
 }
 
 #in-package-search-results .search-entry {
-  @apply px-4 py-1 font-normal text-legacy-default flex flex-col;
+  @apply px-4 py-1 font-normal text-title dark:text-dark-title flex flex-col;
   --entry-color: gray;
 }
 
@@ -28,21 +28,8 @@
 }
 
 #in-package-search-results .search-entry:hover {
-  text-decoration: none;
-  background: #f4f4f4;
+  @apply bg-[#f4f4f4] dark:bg-black no-underline;
 }
-
-/*
-@media (min-width: 64em) {
-  #in-package-search-results .search-entry {
-    @apply flex-row;
-  }
-
-  #in-package-search-results .search-entry .entry-title {
-    @apply shrink-0 w-1/2;
-  }
-}
-*/
 
 #in-package-search-results .search-entry .entry-kind {
   @apply py-0.5 px-1 bg-legacy-body-600 text-white rounded mr-2 text-sm;
@@ -106,7 +93,7 @@
 }
 
 #in-package-search-results .entry-comment {
-  @apply overflow-hidden text-ellipsis max-h-[10rem];
+  @apply overflow-hidden text-ellipsis max-h-[10rem] py-1;
 }
 
 @media (min-width: 40em) {
