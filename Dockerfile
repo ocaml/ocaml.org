@@ -34,6 +34,8 @@ COPY --from=build /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/s
 
 COPY playground/asset playground/asset
 
+RUN git clone https://github.com/ocaml-web/html-compiler-manuals /manual
+
 RUN git config --global --add safe.directory /var/opam-repository
 
 ENV OCAMLORG_REPO_PATH /var/opam-repository/
