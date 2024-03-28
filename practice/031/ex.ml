@@ -16,17 +16,14 @@ module Make(Tested: Testable) : sig val v : test end = struct
   let primes = [2; 3; 5; 7; 11; 13; 17; 19; 23; 29; 31; 37; 41; 43; 47; 53; 59; 61; 67; 71; 73; 79; 83; 89; 97]
 
   let tests =
-  "flag_prime" >::: List.map (fun n ->
-    let is_prime = Tested.is_prime n in
+  "flag_prime" >::: List.map (fun (n, p) ->
     let test_name = Printf.sprintf "Testing if %d is prime" n in
-    test_name >:: (fun _ -> assert_equal is_prime (Tested.is_prime n))
-  ) primes
+     test_name >:: (fun _ -> assert_equal p (Tested.is_prime n))
+  ) (flag_prime 0 primes)
 
   let v = "is_prime Tests" >::: [
     tests
   ]
-
-  let _ = flag_prime 0 primes
 end
 
 module Work : Testable = Work.Impl
