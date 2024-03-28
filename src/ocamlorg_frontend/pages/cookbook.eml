@@ -1,3 +1,52 @@
+let render_recipe (recipe: Data.Cookbook.t) =
+  <div class="grid grid-cols-[1fr_40%] items-center">
+    <a href="<%s Url.cookbook_recipe ~task_slug:recipe.task.slug recipe.slug %>" class="p-2 underline hover:no-underline">
+      <%s Data.Cookbook.title_of_recipe recipe %>
+    </a>
+    <div class="flex flex-wrap gap-2 items-center">
+    <%s if List.length recipe.packages = 0 then "-" else "" %>
+      <% recipe.packages |> List.iter (fun (package: Data.Cookbook.package) -> %>
+      <a class="tag" href="<%s Url.Package.overview ~version:package.version package.name %>"><%s package.name %>.<%s package.version %></a>
+    <% ); %>
+    </div>
+  </div>
+
+let rec render_category ?(level=2) (category: Data.Cookbook.category) =
+  <div class="max-w-4xl">
+    <div class="prose dark:prose-invert">
+      <h<%s string_of_int level %> class="text-xl font-semibold mb-6"><%s category.title %></h<%s string_of_int level %>>
+      <% let tasks = Data.Cookbook.get_tasks_by_category ~category_slug:category.slug in %>
+% if tasks = [] && category.subcategories = [] then (
+      <p>There's nothing in this category yet, maybe you want to
+        <a target="_blank" href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-cookbook">contribute a recipe</a>!
+      </p>
+% );
+    </div>
+% if category.subcategories <> [] then (
+    <% category.subcategories |> List.iter (fun (category: Data.Cookbook.category) -> %>
+    <%s! render_category ~level:(level+1) category %>
+    <% ); %>
+% );
+% if List.length tasks > 0 then (
+    <div class="max-w-4xl">
+      <div class="grid grid-cols-[1fr_40%] items-center bg-primary text-white rounded-t">
+        <div class="p-2"><strong>Task</strong></div>
+        <div class="p-2"><strong>Packages Used</strong></div>
+      </div>
+      <div class="flex flex-col gap-2 bg-sand rounded-b py-2">
+        <% tasks |> List.iter (fun (task : Data.Cookbook.task) -> %>
+% let recipes = Data.Cookbook.get_by_task ~task_slug:task.slug in
+% (match recipes with | [] ->
+        <p>This task has no recipes yet.</p>
+% | _ -> recipes |> List.iter (fun (recipe: Data.Cookbook.t) ->
+      <%s! render_recipe recipe %>
+% ));
+      </div>
+    </div>
+% );
+  </div>
+% );
+
 let render (categories: Data.Cookbook.category list) =
 Learn_layout.single_column_layout
   ~title:"OCaml Cookbook"
@@ -14,41 +63,7 @@ Learn_layout.single_column_layout
     </div>
     <div class="flex flex-col gap-6">
       <% categories |> List.iter (fun (category: Data.Cookbook.category) -> %>
-      <div class="max-w-4xl">
-        <div class="prose dark:prose-invert">
-          <h2 class="text-xl font-semibold mb-6"><%s category.title %></h2>
-          <% let tasks = Data.Cookbook.get_tasks_by_category ~category_slug:category.slug in %>
-% if tasks = [] then (
-          <p>There's nothing in this category yet, maybe you want to
-            <a target="_blank" href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-cookbook">contribute a recipe</a>!
-          </p>
-% );
-        </div>
-% if List.length tasks > 0 then (
-        <div class="max-w-4xl">
-          <div class="grid grid-cols-[1fr_40%] items-center bg-primary text-white rounded-t">
-            <div class="p-2"><strong>Task</strong></div>
-            <div class="p-2"><strong>Packages Used</strong></div>
-          </div>
-          <div class="flex flex-col gap-2 bg-sand rounded-b py-2">
-            <% tasks |> List.iter (fun (task : Data.Cookbook.task) -> %>
-            <% let recipe = List.nth (Data.Cookbook.get_by_task ~task_slug:task.slug) 0 in %>
-            <div class="grid grid-cols-[1fr_40%] items-center">
-              <a href="<%s Url.cookbook_recipe ~task_slug:recipe.task.slug recipe.slug %>" class="p-2 underline hover:no-underline">
-                <%s recipe.task.title %>
-              </a>
-              <div class="flex flex-wrap gap-2 items-center">
-              <%s if List.length recipe.packages = 0 then "-" else "" %>
-                <% recipe.packages |> List.iter (fun (package: Data.Cookbook.package) -> %>
-                <a class="tag" href="<%s Url.Package.overview ~version:package.version package.name %>"><%s package.name %>.<%s package.version %></a>
-              <% ); %>
-              </div>
-            </div>
-            <% ); %>
-          </div>
-        </div>
-% );
-      </div>
+      <%s! render_category category %>
       <% ); %>
     </div>
   </div>

@@ -229,4 +229,11 @@ module Cookbook = struct
     List.find_opt
       (fun x -> String.equal slug x.slug && String.equal task_slug x.task.slug)
       all
+
+  let title_of_recipe (recipe : t) =
+    recipe.task.title ^ " with "
+    ^ (recipe.packages
+      |> (Fun.flip List.nth_opt) 0
+      |> Option.map (fun (p : package) -> p.name)
+      |> Option.value ~default:"the Standard Library")
 end
