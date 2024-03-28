@@ -549,6 +549,5 @@ module Cookbook : sig
   val get_tasks_by_category : category_slug:string -> task list
   val get_by_task : task_slug:string -> t list
   val get_by_slug : task_slug:string -> string -> t option
-
   val title_of_recipe : t -> string
 end
