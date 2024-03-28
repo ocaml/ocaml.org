@@ -213,3 +213,27 @@ module Governance = struct
   let get_by_id id =
     List.find_opt (fun x -> String.equal id x.id) (teams @ working_groups)
 end
+
+module Cookbook = struct
+  include Cookbook
+
+  let get_tasks_by_category ~category_slug =
+    tasks
+    |> List.filter (fun (x : task) ->
+           String.equal category_slug x.category.slug)
+
+  let get_by_task ~task_slug =
+    all |> List.filter (fun (x : t) -> String.equal task_slug x.task.slug)
+
+  let get_by_slug ~task_slug slug =
+    List.find_opt
+      (fun x -> String.equal slug x.slug && String.equal task_slug x.task.slug)
+      all
+
+  let title_of_recipe (recipe : t) =
+    recipe.task.title ^ " with "
+    ^ (recipe.packages
+      |> (Fun.flip List.nth_opt) 0
+      |> Option.map (fun (p : package) -> p.name)
+      |> Option.value ~default:"the Standard Library")
+end

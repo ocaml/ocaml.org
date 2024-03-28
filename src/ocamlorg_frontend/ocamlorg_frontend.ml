@@ -45,3 +45,5 @@ let outreachy = Outreachy.render
 let governance ~teams = Governance.render ~teams
 let governance_team team = Governance_team.render team
 let logos = Logos.render
+let cookbook = Cookbook.render
+let cookbook_recipe = Cookbook_recipe.render

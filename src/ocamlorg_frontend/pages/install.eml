@@ -47,7 +47,7 @@ Layout.render
             run the following in your terminal to download and install the newest version of opam:
             </p>
 
-            <%s! Copy_to_clipboard_snippet.render ~id:"install-opam" "bash -c \"sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)\"" %>
+            <%s! Copy_to_clipboard.small_code_snippet ~id:"install-opam" "bash -c \"sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)\"" %>
             <a target="_blank" href="https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh" class="flex justify-end gap-1 pt-1 items-center"><%s! Icons.github "h-6 w-6" %> view script on GitHub</a>
 
             <details>
@@ -74,7 +74,7 @@ Layout.render
               and any packages you install.
             </p>
 
-            <%s! Copy_to_clipboard_snippet.render ~id:"init-opam" "opam init" %>
+            <%s! Copy_to_clipboard.small_code_snippet ~id:"init-opam" "opam init" %>
 
             <p>
             During <code>opam init</code>, you will be asked if you want to add a hook
@@ -105,7 +105,7 @@ Layout.render
             complete your OCaml development environment. To install them in your current opam switch, run this command:
           </p>
 
-          <%s! Copy_to_clipboard_snippet.render ~id:"install-platform-tools" "opam install ocaml-lsp-server odoc ocamlformat utop" %>
+          <%s! Copy_to_clipboard.small_code_snippet ~id:"install-platform-tools" "opam install ocaml-lsp-server odoc ocamlformat utop" %>
 
           <p>Now you are ready to write some OCaml code!</p>
         </div>
@@ -137,15 +137,15 @@ Layout.render
                 Run the following in a terminal (either Windows PowerShell or Command Prompt):
               </p>
 
-              <%s! Copy_to_clipboard_snippet.render ~id:"install-winget-vs2019buildtools" "winget install Microsoft.VisualStudio.2019.BuildTools --override \"--wait --passive --installPath C:\\VS --addProductLang En-us --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended\"" %>
-              <%s! Copy_to_clipboard_snippet.render ~id:"install-winget-git" "winget install Git.Git" %>
-              <%s! Copy_to_clipboard_snippet.render ~id:"install-winget-dkml" "winget install Diskuv.OCaml" %>
+              <%s! Copy_to_clipboard.small_code_snippet ~id:"install-winget-vs2019buildtools" "winget install Microsoft.VisualStudio.2019.BuildTools --override \"--wait --passive --installPath C:\\VS --addProductLang En-us --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended\"" %>
+              <%s! Copy_to_clipboard.small_code_snippet ~id:"install-winget-git" "winget install Git.Git" %>
+              <%s! Copy_to_clipboard.small_code_snippet ~id:"install-winget-dkml" "winget install Diskuv.OCaml" %>
 
               <p>
                 And then in a <strong>NEW</strong> terminal:
               </p>
 
-              <%s! Copy_to_clipboard_snippet.render ~id:"dkml-init-system" "dkml init --system" %>
+              <%s! Copy_to_clipboard.small_code_snippet ~id:"dkml-init-system" "dkml init --system" %>
 
               <p>Any problems installing? Be sure to read the
               <a href="https://gitlab.com/dkml/distributions/dkml/-/releases">latest DkML release notes</a>.
