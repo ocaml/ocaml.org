@@ -297,6 +297,9 @@ Hello, world!
 
 ## Using the Preprocessor to Generate Code
 
+<!-- https://github.com/ocaml/ocaml.org/pull/2249 -->
+**Note**: This example was successfully tested on Windows using DkML 2.1.0. Run `dkml version` to see the version.
+ 
 Let's assume we'd like `hello` to display its output as if it was a list of strings in UTop: `["hello"; "using"; "an"; "opam"; "library"]`. To do that, we need a function turning a `string list` into a `string`, adding brackets, spaces, and commas. Instead of defining it ourselves, let's generate it automatically with a package. We'll use [`ppx_show`](https://github.com/thierry-martinez/ppx_show), which was written by [Thierry Martinez.](https://github.com/thierry-martinez) Here is how to install it:
 ```shell
 $ opam install ppx_show
