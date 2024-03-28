@@ -46,7 +46,7 @@ Pressing the key combination <kbd>Ctrl + Shift + P</kbd> opens a modal dialog at
 
 ### Windows Users
 
-If you used the Diskuv OCaml (DKML) installer, you will need to:
+If you used the DkML distribution, you will need to:
     1. Go to `File` > `Preferences` > `Settings` view (or press `Ctrl ,`)
     2. Select `User` > `Extensions` > `OCaml Platform`
     3. Uncheck `OCaml: Use OCaml Env`. That's it!

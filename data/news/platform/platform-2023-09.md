@@ -98,7 +98,7 @@ For reference, here is a table of Dune's platform support (with `?` indicating t
 |------------------|---------|-------|-----|-------|------------|
 | Linux            | Full    | Yes   | Yes | Yes   | Yes        |
 | MacOS            | Full    | Yes   | Yes | Yes   | Yes        |
-| Windows (DKML)   | Full    | Yes   | No* | Yes   | Copy only  |
+| Windows (DkML)   | Full    | Yes   | No* | Yes   | Copy only  |
 | Windows (MinGW)  | Limited | Yes   | Yes | Yes   | Yes        |
 | Windows (Cygwin) | Limited | Yes   | Yes | Yes   | Yes        |
 | Linux (Android)  | Limited | Yes   | Yes | ?     | ?          |

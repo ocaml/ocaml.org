@@ -120,7 +120,7 @@ Layout.render
         </h2>
         <ol>
           <li>
-            <h3>Use the Diskuv OCaml ("DKML") Windows installer</h3>
+            <h3>Install the DkML Windows distribution</h3>
               <p>
                 The installer sets up OCaml 4.14.0 and <a target="_blank" href="https://github.com/ocaml/opam">OCaml's package manager opam</a>,
                 with Git and the Visual Studio compiler.
@@ -129,16 +129,29 @@ Layout.render
                 provided in the <a href="<%s Url.ocaml_on_windows %>">"OCaml on Windows" guide</a>.
               </p>
 
-              <div class="not-prose">
-                <a class="btn gap-2" href="https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.2.0/setup-diskuv-ocaml-windows_x86_64-1.2.0.exe">
-                  <%s! Icons.download "h-6 w-6" %> Download DKML Installer
-                </a>
-              </div>
-
               <p>
                 Before you run the installer: Make sure your Windows username does <b>not</b> contain a space character (e.g. for <code>C:\Users\Jane Smith</code>, OCaml will not install properly).
               </p>
 
+              <p>
+                Run the following in a terminal (either Windows PowerShell or Command Prompt):
+              </p>
+
+              <%s! Copy_to_clipboard_snippet.render ~id:"install-winget-vs2019buildtools" "winget install Microsoft.VisualStudio.2019.BuildTools --override \"--wait --passive --installPath C:\\VS --addProductLang En-us --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended\"" %>
+              <%s! Copy_to_clipboard_snippet.render ~id:"install-winget-git" "winget install Git.Git" %>
+              <%s! Copy_to_clipboard_snippet.render ~id:"install-winget-dkml" "winget install Diskuv.OCaml" %>
+
+              <p>
+                And then in a <strong>NEW</strong> terminal:
+              </p>
+
+              <%s! Copy_to_clipboard_snippet.render ~id:"dkml-init-system" "dkml init --system" %>
+
+              <p>Any problems installing? Be sure to read the
+              <a href="https://gitlab.com/dkml/distributions/dkml/-/releases">latest DkML release notes</a>.
+              And if the release notes aren't relevant to your issue,
+              <a href="https://gitlab.com/dkml/distributions/dkml/-/issues">file a new issue</a>
+              </p>
           </li>
         </ol>
 
