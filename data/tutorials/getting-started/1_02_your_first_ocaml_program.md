@@ -297,12 +297,13 @@ Hello, world!
 
 ## Using the Preprocessor to Generate Code
 
+<!-- https://github.com/ocaml/ocaml.org/pull/2249 -->
+**Note**: This example was successfully tested on Windows using DkML 2.1.0. Run `dkml version` to see the version.
+ 
 Let's assume we'd like `hello` to display its output as if it was a list of strings in UTop: `["hello"; "using"; "an"; "opam"; "library"]`. To do that, we need a function turning a `string list` into a `string`, adding brackets, spaces, and commas. Instead of defining it ourselves, let's generate it automatically with a package. We'll use [`ppx_show`](https://github.com/thierry-martinez/ppx_show), which was written by [Thierry Martinez.](https://github.com/thierry-martinez) Here is how to install it:
 ```shell
 $ opam install ppx_show
 ```
-
-**Note**: This example does not work yet on Windows with the OCaml DKML installer due to a dependency issue. To run it, advanced users could switch to Cygwin or WSL2. However, even if you do not run it, it's still a good idea to read the rest of the section to see how it works.
 
 Dune needs to be told how to use it, which is done in the `lib/dune` file. Note that this is different from the `bin/dune` file that you edited earlier! Open up the `lib/dune` file, and edit it to look like this:
 ```lisp

@@ -6,19 +6,19 @@ description: >
 category: "Resources"
 ---
 
-There is a new [Diskuv OCaml][DKML] ("DKML") Windows
-installer that we recommend for new users. However, while [Diskuv OCaml][DKML] has a modern OCaml 4.14.0 compiler,
+There is a [DkML] Windows
+installer that we recommend for new users. However, while [DkML] has a modern OCaml 4.14.0 compiler,
 it does not track the latest OCaml compilers. We will officially support Windows as a Tier 1
 platform with a [major release of opam](#opam-22) in the coming months, and it will be compatible with
-DKML installations.
+DkML installations.
 
-[DKML]: https://github.com/diskuv/dkml-installer-ocaml#readme
+[DkML]: https://gitlab.com/dkml/distributions/dkml#installing
 
 Our guidance is when you want:
 
 * **To only run, and not develop, applications**, use [Docker](#docker-images) or [WSL2](#wsl2)
 * **To develop applications and have some familiarity with Unix**, use [opam-repository-mingw](#opam-repository-mingw)
-* **To develop applications and care more about stability and ease-of-use than the latest compiler**, use [Diskuv OCaml](https://diskuv-ocaml.gitlab.io/distributions/dkml/)
+* **To develop applications and care more about stability and ease-of-use than the latest compiler**, use [DkML](https://gitlab.com/dkml/distributions/dkml#installing)
 
 The guidance is based on the availability table below:
 
@@ -31,9 +31,9 @@ The guidance is based on the availability table below:
 │ Tier   │ OCaml Version and Environment     │ Support and Availability                    │
 │ ------ │ --------------------------------- │ ------------------------------------------- │
 │ Tier 1 │ OCaml 5 with Opam 2.2             │ Full support. Coming in the next few months │
-│ Tier 2 │ 4.14.0 with Diskuv OCaml          │ Supported on select versions. Available now │
+│ Tier 2 │ 4.14.0 with DkML                  │ Supported on select versions. Available now │
 │ Tier 3 │ 4.14.0 with opam-repository-mingw │ Deprecated. Available now and mostly works  │
-│ Tier 3 │ 4.14.1 with WSL2                  │ User supported. Available now               │
+│ Tier 3 │ 4.14.2 with WSL2                  │ User supported. Available now               │
 │ Tier 3 │ 4.14.1 with Docker                | User supported. Available now               │
 ╰──────────────────────────────────────────────────────────────────────────────────────────╯
 ```
@@ -92,7 +92,7 @@ easier way to get a working Windows environment on your machine.
 
 ### Visual Studio Code on Windows
 
-**If you use the recommended DKML installer**, you will need to:
+**If you use the recommended DkML installer**, you will need to:
 
 1. Go to `File` > `Preferences` > `Settings` view (or press `Ctrl ,`).
 2. Select `User` > `Extensions` > `OCaml Platform`.

@@ -6,14 +6,14 @@ Layout.render
 ~active_top_nav_item:Header.Blog @@
 <div class="bg-white dark:bg-dark-background py-24">
   <div class="container-fluid">
-    <div>
+    <div class="prose dark:prose-invert prose-orange">
       <a href="<%s Url.blog %>"
         class="flex justify-start space-x-3 items-center text-primary dark:text-dark-primary hover:underline font-semibold mb-4 h-12">
         <%s! Icons.arrow_left "h-5 w-5" %>
         <div>Back to Blog</div>
       </a>
-      <h2 class="font-bold">Community News</h2>
-      <p class="text-lg text-legacy-lighter mt-6">Read the latest news, releases, and updates from the OCaml community.</p>
+      <h1 class="font-bold">News</h1>
+      <p class="text-lg text-legacy-lighter mt-6">Read the latest news, from the OCaml teams.</p>
     </div>
 
     <div class="mt-20">
