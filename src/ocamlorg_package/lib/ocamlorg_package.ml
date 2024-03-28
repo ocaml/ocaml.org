@@ -273,9 +273,11 @@ module Documentation = struct
     match Yojson.Safe.from_string s with
     | `Assoc
         [
+          ("type", `String _page_type);
           ("uses_katex", `Bool uses_katex);
           ("breadcrumbs", `List json_breadcrumbs);
           ("toc", `List json_toc);
+          ("source_anchor", _);
           ("preamble", `String preamble);
           ("content", `String content);
         ] ->
