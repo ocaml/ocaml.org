@@ -162,7 +162,7 @@ let secondary_footer () =
     </section>
 
     <div
-      class="flex flex-wrap gap-x-7 md:justify-between items-center py-2 border-solid border-t-[1px] border-separator_20 dark:border-dark-separator_30 bottom-0 bg-white dark:bg-dark-background">
+      class="flex flex-wrap gap-x-7 md:justify-between items-center py-2 border-solid border-t-[1px] border-separator_20 dark:border-dark-separator_30 bottom-0 bg-background dark:bg-dark-background">
       <h5 class="font-bold text-base leading-7 py-2.5 text-title dark:text-dark-title">Policies</h5>
       <% policies |> List.iter (fun (href, name) -> %>
       <%s! footer_link ~href ~name %>

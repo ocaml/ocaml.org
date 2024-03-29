@@ -2,7 +2,7 @@ let render () =
 Layout.render
 ~title:"Page Not Found"
 ~description:"This page does not exist." @@
-<div class="bg-white dark:bg-dark-background px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
+<div class="bg-background dark:bg-dark-background px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
   <div class="sm:flex max-w-max mx-auto">
     <p class="text-4xl font-extrabold text-primary dark:text-dark-primary sm:text-5xl">404</p>
     <div class="sm:ml-6">
@@ -12,11 +12,11 @@ Layout.render
       </div>
       <div class="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
         <a href="/"
-          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white dark:text-dark-white  bg-primary dark:bg-dark-primary hover:bg-primary_dark dark:hover:bg-dark-primary_40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-dark-primary">
+          class="btn">
           Go Back Home
         </a>
         <a href="https://github.com/ocaml/ocaml.org/issues"
-          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary dark:text-dark-primary bg-primary_25 dark:bg-dark-primary_20 hover:bg-primary_40 dark:hover:bg-dark-primary_40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-dark-primary">
+          class="btn btn-ghost">
           Open an Issue
         </a>
       </div>

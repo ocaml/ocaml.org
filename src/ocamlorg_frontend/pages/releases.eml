@@ -11,7 +11,7 @@ Layout.render
         </div>
     </div>
 </div>
-<div class="bg-white dark:bg-dark-background">
+<div class="bg-background dark:bg-dark-background">
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
             <div class="flex justify-between md:items-center flex-col md:flex-row">

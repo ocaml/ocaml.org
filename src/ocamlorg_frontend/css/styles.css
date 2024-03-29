@@ -24,7 +24,7 @@
 }
 
 body {
-  @apply bg-sand dark:bg-legacy-dark-mild-contrast text-legacy-default dark:text-legacy-dark-default;
+  @apply bg-sand dark:bg-dark-background text-title dark:text-dark-title;
   font-family: "Inter", sans-serif;
 }
 
@@ -171,7 +171,7 @@ tt {
 }
 
 .sidebar a.active {
-  @apply text-primary bg-legacy-primary-100;
+  @apply text-primary bg-primary_nav_block_hover_10;
 }
 
 table a:hover {
@@ -207,7 +207,7 @@ footer a:hover {
 }
 
 .page-toc li a {
-  @apply font-semibold text-legacy-default text-sm mb-4 block;
+  @apply font-semibold text-title text-sm mb-4 block;
 }
 
 .page-toc li li li {

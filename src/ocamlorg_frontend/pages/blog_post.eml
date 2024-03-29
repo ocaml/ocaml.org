@@ -4,7 +4,7 @@ Layout.render
 ~description:(Option.value ~default:blog_post.title blog_post.description)
 ~canonical:(Url.blog_post blog_post.source.id blog_post.slug)
 ~active_top_nav_item:Blog @@
-<div class="bg-white dark:bg-dark-background py-24">
+<div class="bg-background dark:bg-dark-background py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">
       <div class="flex flex-wrap gap-4">

@@ -47,7 +47,7 @@ Layout.render
         </div>
     </div>
 </div>
-<div class="bg-white dark:bg-dark-background">
+<div class="bg-background dark:bg-dark-background">
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
             <div class="flex justify-between items-center flex-col md:flex-row">
@@ -65,7 +65,7 @@ Layout.render
             </div>
             <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">
                 <% (match List.length papers with | 0 -> %>
-                <div class="flex flex-col items-center justify-center pt-24 space-y-4 text-legacy-lighter">
+                <div class="flex flex-col items-center justify-center pt-24 space-y-4 text-content">
                     <div>
                         <%s! Icons.magnifying_glass "h-10 w-10" %>
                     </div>

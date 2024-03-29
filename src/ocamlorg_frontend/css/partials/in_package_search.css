@@ -32,7 +32,7 @@
 }
 
 #in-package-search-results .search-entry .entry-kind {
-  @apply py-0.5 px-1 bg-legacy-body-600 text-white rounded mr-2 text-sm;
+  @apply py-0.5 px-1 bg-title text-white rounded mr-2 text-sm;
 }
 
 #in-package-search-results .search-entry .entry-kind {
@@ -103,7 +103,7 @@
 }
 
 #in-package-search-results .active {
-  @apply bg-legacy-primary-100;
+  @apply bg-primary_nav_block_hover_10 dark:bg-dark-primary_nav_block_hover_10;
 }
 
 #in-package-search #in-package-search-results {
