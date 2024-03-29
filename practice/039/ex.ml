@@ -6,28 +6,17 @@ module type Testable = sig
 end
 
 module Make(Tested: Testable) : sig val v : test end = struct
-  open Tested
+  let primes = [2; 3; 5; 7; 11; 13; 17; 19; 23; 29; 31; 37; 41; 43; 47; 53; 59; 61; 67; 71;
+  73; 79; 83; 89; 97; 101; 103; 107; 109; 113; 127; 131; 137; 139; 149; 151;
+  157; 163; 167; 173; 179; 181; 191; 193; 197; 199]
 
-  let is_prime n =
-    let n = max n (-n) in
-    let rec is_not_divisor d =
-      d * d > n || (n mod d <> 0 && is_not_divisor (d + 1))
-    in
-    is_not_divisor 2
-  
-  let rec generate_primes n acc upper_limit =
-    if n > upper_limit then acc
-    else generate_primes (n + 1) ((n, is_prime n) :: acc) upper_limit
-  
-  let primes_list = generate_primes 2 [] 7920
-  
-  let tests =
-    "all_primes" >::: List.map (fun (p, is_prime) ->
-      let prime_test = Printf.sprintf "Testing if %d is prime" p in
-      prime_test >:: (fun _ -> assert_equal is_prime (List.mem p (Tested.all_primes 2 7920)))
-    ) primes_list
-     let v = "List_primes" >::: [
-    tests
+  let v = "List_primes" >::: [
+    "all_primes" >::: [
+      "all" >:: (fun _ -> assert_equal primes (Tested.all_primes 0 200));
+      "some" >:: (fun _ -> assert_equal (List.filter (fun n -> 50 <= n && n <= 150) primes) (Tested.all_primes 50 150));
+      "none" >:: (fun _ -> assert_equal (List.filter (fun n -> 150 <= n && n <= 50) primes) (Tested.all_primes 150 50));
+    ]
+  ]
   ]
 end
 

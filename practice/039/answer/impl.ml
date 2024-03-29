@@ -3,7 +3,7 @@ let is_prime n =
   let rec is_not_divisor d =
     d * d > n || (n mod d <> 0 && is_not_divisor (d + 1))
   in
-    is_not_divisor 2
+    n > 1 && is_not_divisor 2
 
 let rec all_primes a b =
   if a > b then [] else
