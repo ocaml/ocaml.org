@@ -1,24 +1,31 @@
+let render_task_without_recipes (task: Data.Cookbook.task) =
+  <p class="col-span-2 px-4 py-2 text-content dark:text-dark-content">
+    <strong><%s task.title %></strong><br>
+    This task has no recipes yet, maybe you want to
+        <a target="_blank" class="text-primary dark:text-dark-title underline"
+        href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-cookbook">contribute a recipe</a>!
+  </p>  
+
 let render_recipe (recipe: Data.Cookbook.t) =
-  <div class="grid grid-cols-[1fr_40%] items-center">
-    <a href="<%s Url.cookbook_recipe ~task_slug:recipe.task.slug recipe.slug %>" class="p-2 underline hover:no-underline">
-      <%s Data.Cookbook.title_of_recipe recipe %>
-    </a>
-    <div class="flex flex-wrap gap-2 items-center">
-    <%s if List.length recipe.packages = 0 then "-" else "" %>
-      <% recipe.packages |> List.iter (fun (package: Data.Cookbook.package) -> %>
-      <a class="tag" href="<%s Url.Package.overview ~version:package.version package.name %>"><%s package.name %>.<%s package.version %></a>
-    <% ); %>
-    </div>
+  <a href="<%s Url.cookbook_recipe ~task_slug:recipe.task.slug recipe.slug %>"
+    class="px-4 py-2 underline hover:no-underline text-title dark:text-dark-title">
+    <%s Data.Cookbook.title_of_recipe recipe %>
+  </a>
+  <div class="flex flex-wrap gap-2 items-center">
+  <%s if List.length recipe.packages = 0 then "-" else "" %>
+    <% recipe.packages |> List.iter (fun (package: Data.Cookbook.package) -> %>
+    <a class="tag" href="<%s Url.Package.overview ~version:package.version package.name %>"><%s package.name %>.<%s package.version %></a>
+  <% ); %>
   </div>
+
 
 let rec render_category ?(level=2) (category: Data.Cookbook.category) =
   <div class="max-w-4xl">
     <div class="prose dark:prose-invert">
-      <h<%s string_of_int level %> class="text-xl font-semibold mb-6"><%s category.title %></h<%s string_of_int level %>>
+      <h<%s string_of_int level %> class="font-semibold my-6"><%s category.title %></h<%s string_of_int level %>>
       <% let tasks = Data.Cookbook.get_tasks_by_category ~category_slug:category.slug in %>
 % if tasks = [] && category.subcategories = [] then (
-      <p>There's nothing in this category yet, maybe you want to
-        <a target="_blank" href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-cookbook">contribute a recipe</a>!
+      <p>There's nothing in this category yet.
       </p>
 % );
     </div>
@@ -30,29 +37,33 @@ let rec render_category ?(level=2) (category: Data.Cookbook.category) =
 % if List.length tasks > 0 then (
     <div class="max-w-4xl">
       <div class="grid grid-cols-[1fr_40%] items-center bg-primary text-white rounded-t">
-        <div class="p-2"><strong>Task</strong></div>
-        <div class="p-2"><strong>Packages Used</strong></div>
+        <div class="px-4 py-2"><strong>Task</strong></div>
+        <div class="px-4 py-2"><strong>Packages Used</strong></div>
       </div>
-      <div class="flex flex-col gap-2 bg-sand rounded-b py-2">
-        <% tasks |> List.iter (fun (task : Data.Cookbook.task) -> %>
+      <div class="flex flex-col gap-2 bg-sand dark:bg-dark-background_navigation rounded-b py-2">
+% tasks |> List.iter (fun (task : Data.Cookbook.task) ->
 % let recipes = Data.Cookbook.get_by_task ~task_slug:task.slug in
+        <div class="grid grid-cols-[1fr_40%] items-start">
 % (match recipes with | [] ->
-        <p>This task has no recipes yet.</p>
+        <%s! render_task_without_recipes task %>
 % | _ -> recipes |> List.iter (fun (recipe: Data.Cookbook.t) ->
-      <%s! render_recipe recipe %>
+        <%s! render_recipe recipe %>
 % ));
+        </div>
+% );
       </div>
     </div>
 % );
   </div>
-% );
 
 let render (categories: Data.Cookbook.category list) =
-Learn_layout.single_column_layout
+Learn_layout.three_column_layout
   ~title:"OCaml Cookbook"
   ~description:"A collection of recipes to get things done in OCaml."
   ~canonical:Url.cookbook
-  ~current:Cookbook @@
+  ~current:Cookbook
+  ~left_sidebar_html:None
+  ~right_sidebar_html:None @@
   <div class="container-fluid pt-10">
     <div class="prose dark:prose-invert mb-10">
       <h1 class="font-normal text-4xl">OCaml Cookbook</h2>
