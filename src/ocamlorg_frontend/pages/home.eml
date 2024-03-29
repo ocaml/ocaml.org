@@ -418,7 +418,7 @@ Layout.render
             documentation.
           </p>
         </div>
-        <a href="<%s Url.packages %>" class="btn btn-primary btn-lg mt-8 flex items-center">
+        <a href="<%s Url.packages %>" class="btn btn-lg mt-8 flex items-center">
           <span>Explore packages</span>
           <%s! Icons.chevron_right "h-5 w-5" %>
         </a>

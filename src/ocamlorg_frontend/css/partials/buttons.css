@@ -53,10 +53,10 @@
 
 
   .btn-ghost {
-    @apply bg-transparent border-primary text-primary dark:border-white dark:text-white border text-base font-semibold hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-black;
+    @apply bg-transparent dark:bg-transparent border-primary text-primary dark:border-white dark:text-white border text-base font-semibold;
   }
   .btn-ghost:hover {
-    @apply text-white bg-primary border-primary;
+    @apply text-white bg-primary border-primary dark:border-white dark:bg-white dark:text-black;
   }
 
   .btn-ghost:active {
