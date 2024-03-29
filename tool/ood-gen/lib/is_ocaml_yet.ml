@@ -4,21 +4,32 @@ type external_package = { url : string; synopsis : string }
 type package = { name : string; extern : external_package option }
 [@@deriving of_yaml, show { with_path = false }]
 
-type category = {
+type category_meta = {
   name : string;
   status : string;
   description : string;
   packages : package list;
 }
-[@@deriving of_yaml, show { with_path = false }]
+[@@deriving of_yaml]
 
 type metadata = {
   id : string;
   question : string;
   answer : string;
-  categories : category list;
+  categories : category_meta list;
 }
 [@@deriving of_yaml]
+
+type category = {
+  name : string;
+  status : string;
+  description : string;
+  packages : package list;
+  slug : string;
+}
+[@@deriving
+  stable_record ~version:category_meta ~remove:[ slug ] ~modify:[ description ],
+    show { with_path = false }]
 
 type t = {
   id : string;
@@ -28,7 +39,7 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ body_html ],
+  stable_record ~version:metadata ~remove:[ body_html ] ~modify:[ categories ],
     show { with_path = false }]
 
 let decode (fpath, (head, body_md)) =
@@ -38,24 +49,19 @@ let decode (fpath, (head, body_md)) =
   let body_html =
     Cmarkit.Doc.of_string ~strict:true body_md |> Cmarkit_html.of_doc ~safe:true
   in
-  Result.map
-    (fun (metadata : metadata) ->
-      let categories =
-        List.map
-          (fun category ->
-            {
-              category with
-              description =
-                Cmarkit.Doc.of_string ~strict:true
-                  (String.trim category.description)
-                |> Hilite.Md.transform
-                |> Cmarkit_html.of_doc ~safe:false;
-            })
-          metadata.categories
-      in
-      let metadata : metadata = { metadata with categories } in
-      of_metadata ~body_html metadata)
-    metadata
+  let modify_categories u =
+    let modify_description description =
+      Cmarkit.Doc.of_string ~strict:true (String.trim description)
+      |> Hilite.Md.transform
+      |> Cmarkit_html.of_doc ~safe:false
+    in
+    List.map
+      (fun cat ->
+        category_of_category_meta ~slug:(Utils.slugify cat.name)
+          ~modify_description cat)
+      u
+  in
+  Result.map (of_metadata ~body_html ~modify_categories) metadata
 
 let all () = Utils.map_files decode "is_ocaml_yet/*.md"
 
@@ -70,6 +76,7 @@ type category = {
   status : string;
   description : string;
   packages : package list;
+  slug : string;
 }
 
 type t = {

@@ -32,9 +32,3 @@ let human_date_of_timestamp t =
 let host_of_uri uri =
   let uri = Uri.of_string uri in
   Uri.host_with_default uri
-
-let slugify value =
-  value
-  |> Str.global_replace (Str.regexp " ") "-"
-  |> String.lowercase_ascii
-  |> Str.global_replace (Str.regexp "[^a-z0-9\\-]") ""

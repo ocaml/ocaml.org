@@ -437,6 +437,7 @@ module Is_ocaml_yet : sig
     status : string;
     description : string;
     packages : package list;
+    slug : string;
   }
 
   type t = {
