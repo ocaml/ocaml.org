@@ -17,7 +17,6 @@ module Make(Tested: Testable) : sig val v : test end = struct
       "none" >:: (fun _ -> assert_equal (List.filter (fun n -> 150 <= n && n <= 50) primes) (Tested.all_primes 150 50));
     ]
   ]
-  ]
 end
 
 module Work : Testable = Work.Impl
