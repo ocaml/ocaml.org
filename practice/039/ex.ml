@@ -14,7 +14,7 @@ module Make(Tested: Testable) : sig val v : test end = struct
     "all_primes" >::: [
       "all" >:: (fun _ -> assert_equal primes (Tested.all_primes 0 200));
       "some" >:: (fun _ -> assert_equal (List.filter (fun n -> 50 <= n && n <= 150) primes) (Tested.all_primes 50 150));
-      "none" >:: (fun _ -> assert_equal (List.filter (fun n -> 150 <= n && n <= 50) primes) (Tested.all_primes 150 50));
+      "none" >:: (fun _ -> assert_equal [] (Tested.all_primes 150 50));
     ]
   ]
 end
