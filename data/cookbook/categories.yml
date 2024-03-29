@@ -1,61 +1,235 @@
 categories:
 - title: Command Line
-  tasks: []
-- title: Compression
-  tasks: []
-- title: Concurrency
   tasks:
-  - title: Execute Concurrent Tasks
-    slug: execute-concurrent-tasks
+  - title: Parse Command Line Arguments
+    slug: parse-command-line-arguments
+  - title: Using the ANSI Terminal
+    slug: using-the-ansi-terminal
+- title: Compilation & Linking
+  tasks:
+  - title: Compile and Link to a Bundled C Library
+    slug: link-with-a-bundled-c-library
+  - title: Generate OCaml Bindings for a C Library
+    slug: generate-ocaml-bindings-c-library
+- title: Compression
+  tasks:
+  - title: Decompressing a Tarball
+    slug: decompressing-a-tarball
+  - title: Compress a Directory Into a Tarball
+    slug: compress-a-directory-into-a-tarball
+- title: Concurrency & Parallelism
+  subcategories:
+  - title: Single-Threaded Concurrency
+    tasks:
+    - title: Create and Await Promises
+      slug: create-and-await-promises
+  - title: Paralellism & Multi-Threading
+    tasks:
+    - title: Spawn a Thread and Receive a Response
+      slug: spawn-a-thread-and-receive-a-response
+    - title: Pass Data Between Parallel Threads
+      slug: pass-data-between-parallel-threads
 - title: Cryptography
-  tasks: []
+  tasks:
+  - title: Calculate the SHA-256 Digest of a File
+    slug: calculate-sha-256-digest-of-file
+  - title: Sign and Verify a Message with an HMAC Digest
+    slug: sign-and-verify-hmac-digest
+  - title: Salt and Hash a Password with PBKDF2
+    slug: salt-and-hash-password-with-pkgdf2
+- title: Data Structures & Algorithms
+  subcategories:
+  - title: Sorting
+    tasks:
+    - title: Sorting Lists and Arrays
+      slug: sorting-lists-and-arrays
+  - title: Hash Tables
+    tasks:
+    - title: Use a Hash Table With Given Key and Value Types
+      slug: use-hash-table-with-given-key-value-types
 - title: Database
   subcategories:
   - title: SQLite
     tasks:
     - title: SQLite CREATE, INSERT, SELECT
       slug: sqlite-create-insert-select
+    - title: SQLite Full Text Search
+      slug: sqlite-full-text-search
   - title: PostgreSQL
     tasks:
     - title: PostgreSQL CREATE, INSERT, SELECT
       slug: postgresql-create-insert-select
+    - title: PostgreSQL Aggregate Query
+      slug: postgresql-aggregate-query
+    - title: PostgreSQL Full Text Search
+      slug: postgresql-full-text-search
+- title: Data Formats
+  subcategories:
+  - title: CSV
+    tasks:
+    - title: Read Tuples / Records from CSV
+      slug: read-csv
+    - title: Serialize Tuples / Records to CSV
+      slug: serialize-csv
+  - title: JSON
+    tasks:
+    - title: Serialize / Deserialize Unstructured JSON
+      slug: serialize-deserialize-unstructured-json
+    - title: Serialize to Types from JSON
+      slug: serialize-types-from-json
+    - title: Deserialize from JSON to Types
+      slug: deserialize-types-from-json
 - title: Date and Time
   tasks:
   - title: Get Today's Date
     slug: get-todays-date
+  - title: Measure Elapsed Time
+    slug: measure-elapsed-time
+  - title: Convert a Local Time to Another Timezone
+    slug: convert-time-to-another-timezone
+  - title: Convert Between Date and UNIX Timestamp
+    slug: convert-date-unix-timestamp
+  - title: Display Formatted Date and Time
+    slug: display-formatted-date-time
+  - title: Parse Date and Time from String
+    slug: parse-date-time-from-string
 - title: Debugging
-  tasks: []
+  tasks:
+  - title: Debug Print a Value
+    slug: debug-print-a-value
+  - title: Log a Debug / Error Message to Stdout / Stderr
+    slug: log-debug-error-message
+  - title: Log to the UNIX Syslog
+    slug: log-to-unix-syslog
 - title: Encoding
   tasks:
-  - title: ASCII Text Processing
-    slug: ascii-text-processing
-  - title: UTF-8 Text Processing
-    slug: utf8-text-processing
+  - title: URL- / Percent-Encode a String
+    slug: url-percent-encode-string
+  - title: Encode a String as application/x-www-form-urlencoded
+    slug: encode-x-www-form-urlencoded
+  - title: Encode and Decode Bytestrings from Hex-Strings
+    slug: encode-decode-hex
+  - title: Encode and Decode Base64
+    slug: encode-decode-base64
+  - title: Read and Write Integers in Little-Endian Byte Order
+    slug: read-write-integers-little-endian
 - title: File System
-  tasks: []
-- title: Garbage Collector
-  tasks: []
+  subcategories:
+  - title: Files
+    tasks:
+    - title: Read Lines of Strings from a File
+      slug: read-string-lines-file
+    - title: Access a File Using Memory Map
+      slug: access-file-using-memory-map
+    - title: Write to a File
+      slug: write-to-file
+  - title: Directories
+    tasks:
+    - title: Traverse All Files in a Directory Recursively
+      slug: traverse-files-in-directory
+    - title: Find All Files Matching a Given Pattern
+      slug: find-all-files-matching-a-pattern
+#- title: Garbage Collector
+#  tasks:
+#  - title: Trigger a Minor / Major Collection
+#    slug: trigger-minor-major-collection
 - title: Generate Random Values
   tasks:
-  - title: Generate random numbers
+  - title: Generate Random Numbers
     slug: generate-random-numbers
-  - title: Generate random strings and arrays
+  - title: Generate Random Strings and Arrays
     slug: generate-random-strings-and-arrays
-- title: Hash Tables and Maps
-  tasks: []
+  - title: Generate Random Values of a Custom Type
+    slug: generate-random-values-custom-type
+  - title: Generate Random Passwords
+    slug: generate-random-passwords
 - title: Mathematics
-  tasks: []
-- title: Networking
-  tasks: []
+  subcategories:
+  - title: Vector & Matrix Operations
+    tasks:
+    - title: Normalize a Vector
+      slug: normalize-vector
+    - title: Matrix Addition and Multiplication
+      slug: matrix-addition-multiplication
+    - title: Invert a Matrix
+      slug: invert-matrix
+    - title: Nearest-Neighbor Search
+      slug: nearest-neighbor-search
+  - title: Geographical Calculations
+    tasks:
+    - title: Calculate Geodistance Between Two Points
+      slug: calculate-geodistance-between-points
 - title: Operating System
-  tasks: []
-- title: Sorting
   tasks:
-  - title: Sorting Lists and Arrays
-    slug: sorting-lists-and-arrays
+  - title: Run an External Command and Process Stdout
+    slug: run-command-process-stdout
+  - title: Run Piped External Commands
+    slug: run-piped-commands
+  - title: Read an Environment Variable
+    slug: read-environment-variable
 - title: Text Processing
-  tasks:
+  subcategories:
+  - title: Unicode
+    tasks:
+    - title: Collect Unicode Graphemes
+      slug: collect-unicode-graphemes
+  - title: ASCII
+    tasks:
+    - title: ASCII Text Processing (TODO:unclear task)
+      slug: ascii-text-processing
+  - title: UTF-8
+    tasks:
+    - title: UTF-8 Text Processing (TODO:unclear task)
+      slug: utf8-text-processing
   - title: Regular Expressions
-    slug: regular-expressions
+    tasks:
+    - title: Validate an Email Address
+      slug: regex-validate-email
+    - title: Extract Phone Numbers from Text
+      slug: regex-extract-phone-numbers
+    - title: Replace All Occurrences of a Text Pattern with Another Pattern
+      slug: regex-replace-pattern
+    - title: Regular Expressions (TODO:unclear task)
+      slug: regular-expressions
 - title: Web Programming
-  tasks: []
+  subcategories:
+  - title: HTTP Clients
+    tasks:
+    - title: Make a HTTP GET Request
+      slug: make-http-get-request
+    - title: Make a HTTP GET Request with Basic Authentication
+      slug: make-http-get-basic-auth
+    - title: Download a File to a Temporary Directory
+      slug: download-file-to-temporary-dir
+    - title: Make a Partial Download with HTTP Range Header
+      slug: make-partial-download-with-http-range-header
+    - title: POST a File to (TODO:find a location where to paste to)
+      slug: post-a-file-by-http
+  - title: Dealing with HTML
+    tasks:
+    - title: Render a HTML Template
+      slug: render-html-template
+    - title: Extract all Links from a HTML String
+      slug: extract-links-from-html
+    - title: Check a Webpage for Broken Links
+      slug: check-webpage-for-broken-links
+  - title: Running a Web Server
+    tasks:
+    - title: Start a Web Server with a Hello World Endpoint
+      slug: start-a-web-server-hello-world
+    - title: Start a Web Server that Serves a HTML Template
+      slug: start-a-web-server-html-template
+    - title: Use Basic Authentication to Secure a Route
+      slug: use-basic-auth-on-web-server
+  - title: Media Types (MIME)
+    tasks:
+    - title: Get MIME Type from String
+      slug: get-mime-type-from-string
+    - title: Get MIME Type from Filename
+      slug: get-mime-type-from-filename
+    - title: Parse MIME Type of a HTTP Response
+      slug: parse-mime-type-of-http-response
+  - title: Other
+    tasks:
+    - title: Parse a URL from String And Access Individual Parts
+      slug: parse-url-from-string
