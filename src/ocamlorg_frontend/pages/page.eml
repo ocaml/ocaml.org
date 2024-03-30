@@ -8,7 +8,7 @@ Layout.render ~title:meta_title ~description:meta_description ~canonical @@
     </div>
   </div>
 </div>
-<div class="bg-white dark:bg-dark-background">
+<div class="bg-background dark:bg-dark-background">
   <div class="py-5 lg:py-14">
     <div class="container-fluid">
       <div class="prose dark:prose-invert prose-orange lg:prose-lg mx-auto max-w-5xl">

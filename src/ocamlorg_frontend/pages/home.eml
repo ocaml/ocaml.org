@@ -1,6 +1,6 @@
 let package_card ~href ~img_path ~name description =
   <a href="<%s href %>" target="_blank"
-    class="bg-white dark:bg-dark-background text-title dark:text-dark-title  p-4 rounded-xl flex md:gap-2 items-center card dark:dark-card">
+    class="bg-background dark:bg-dark-background text-title dark:text-dark-title  p-4 rounded-xl flex md:gap-2 items-center card dark:dark-card">
       <div class="w-4/12">
         <img src="<%s Ocamlorg_static.Asset.url img_path %>" alt="<%s name %> logo" class="w-1/2 md:w-2/3">
       </div>
@@ -142,7 +142,7 @@ Layout.render
   </div>
 </div>
 
-<div class="bg-white dark:bg-dark-background">
+<div class="bg-background dark:bg-dark-background">
   <div class="container-fluid">
     <h2 class="font-bold text-center text-title dark:text-dark-title pt-12">Why OCaml?</h2>
     <div class="pt-4 pb-24 lg:pt-24 space-y-20 md:space-y-40">
@@ -262,7 +262,7 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-white dark:bg-dark-background pt-24 pb-14 overflow-hidden">
+<div class="bg-background dark:bg-dark-background pt-24 pb-14 overflow-hidden">
   <div class="container-fluid grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch mb-14"> 
       <div class="flex flex-col">
         <h3 class="font-bold text-title dark:text-dark-title">Releases</h3>
@@ -325,7 +325,7 @@ Layout.render
       </div>
   </div>
 </div>
-<div class="py-28 bg-white dark:bg-dark-background">
+<div class="py-28 bg-background dark:bg-dark-background">
   <div class="container-fluid">
     <div class="px-15">
       <h2 class="text-title dark:text-dark-title font-bold mb-6">Users of OCaml</h2>
@@ -407,7 +407,7 @@ Layout.render
     </div>
   </div>
 </div>
-<div class="bg-white dark:bg-dark-background py-20 overflow-hidden">
+<div class="bg-background dark:bg-dark-background py-20 overflow-hidden">
   <div class="container-fluid">
     <div class="grid grid-cols-1 lg:grid-cols-2 items-center">
       <div class="space-y-8">
@@ -418,7 +418,7 @@ Layout.render
             documentation.
           </p>
         </div>
-        <a href="<%s Url.packages %>" class="btn btn-primary btn-lg mt-8 flex items-center">
+        <a href="<%s Url.packages %>" class="btn btn-lg mt-8 flex items-center">
           <span>Explore packages</span>
           <%s! Icons.chevron_right "h-5 w-5" %>
         </a>

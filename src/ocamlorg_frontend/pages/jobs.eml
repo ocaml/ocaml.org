@@ -15,7 +15,7 @@ OCaml community."
         </div>
     </div>
 </div>
-<div class="py-12 bg-white dark:bg-dark-background">
+<div class="py-12 bg-background dark:bg-dark-background">
     <div class="container-fluid">
         <div class="flex justify-between items-center">
             <% let job_num = match List.length jobs with 0 -> "No Job" | 1 -> "1 Job" | l -> Printf.sprintf "%i Jobs" l in %>
@@ -34,7 +34,7 @@ OCaml community."
                 </div>
         </div>
         <% (match List.length jobs with | 0 -> %>
-        <div class="flex flex-col items-center justify-center pt-24 space-y-4 text-legacy-lighter">
+        <div class="flex flex-col items-center justify-center pt-24 space-y-4 text-content">
             <div>
                 <%s! Icons.magnifying_glass "h-10 w-10" %>
             </div>

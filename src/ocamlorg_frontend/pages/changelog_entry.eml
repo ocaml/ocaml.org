@@ -2,7 +2,7 @@ let render (change : Data.Changelog.t) =
 Layout.render
 ~title:(Printf.sprintf "%s • OCaml Changelog" change.title)
 ~description:change.title @@
-<div class="bg-white dark:bg-dark-background pt-12 pb-10 lg:py-24">
+<div class="bg-background dark:bg-dark-background pt-12 pb-10 lg:py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">
       <div class="mx-auto max-w-5xl">
@@ -23,7 +23,7 @@ Layout.render
           <% change.tags |> List.iter (fun tag -> %>
           <li class="inline-block mt-2 mr-2 text-left">
             <a href="<%s Url.changelog %>?t=<%s tag %>"
-              class="whitespace-nowrap rounded-full bg-white dark:bg-dark-background px-4 py-2.5 text-sm font-semibold text-title dark:text-dark-title shadow-sm border border-separator_20 dark:border-dark-separator_30 hover:opacity-70">
+              class="whitespace-nowrap rounded-full bg-background dark:bg-dark-background px-4 py-2.5 text-sm font-semibold text-title dark:text-dark-title shadow-sm border border-separator_20 dark:border-dark-separator_30 hover:opacity-70">
               <%s tag %>
             </a>
           </li>

@@ -32,3 +32,5 @@ something wasteful, like repeatedly building packages and then discarding the re
 adding caches to avoid repeated computations, and ensuring effective HTTP cache control headers for immutable content, which will reduce server load.
 
 Another way to address OCaml’s carbon footprint is to choose “green” data centres with their own progressive carbon neutrality policy, assemble data and ensure the power usage is as healthy as possible, and renewable energy is used whenever possible.
+
+![image info](../media/pages/green-web-foundation-badge.png)

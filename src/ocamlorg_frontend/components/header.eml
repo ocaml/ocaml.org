@@ -31,7 +31,7 @@ in
   class="h-20 flex items-center bg-sand dark:bg-dark-background_navigation"
   x-data="{ open: false }">
   <nav class="container-fluid wide header flex justify-between items-center gap-5 xl:gap-8">
-    <ul class="order-0 space space-x-5 xl:space-x-8 items-center flex text-legacy-lighter font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
+    <ul class="order-0 space space-x-5 xl:space-x-8 items-center flex text-content font-medium dark:text-title dark:text-opacity-60 dark:font-semibold">
       <li style="width:132px">
         <a href="<%s Url.index %>" class="block pb-2">
           <img src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" width="132" alt="OCaml logo" class="dark:hidden">
@@ -69,7 +69,7 @@ in
     <% ); %>
     <ul class="order-1 lg:hidden flex items-center">
       <li
-        class="h-12 w-12 hover:bg-legacy-primary-100 flex items-center justify-center rounded-full text-content dark:text-dark-title">
+        class="h-12 w-12 hover:bg-primary_25 dark:hover:bg-primary_20 flex items-center justify-center rounded-full text-content dark:text-dark-title">
         <button aria-label="open menu" @click="open = ! open">
           <%s! Icons.hamburger_menu "h-8 w-8" %>
         </button>
@@ -79,11 +79,11 @@ in
 
   <div class="bg-black fixed w-full h-full left-0 top-0 opacity-60 z-40" x-show='open' x-cloak></div>
 
-  <nav class="z-50 h-full fixed right-0 top-0 max-w-full w-96 bg-legacy-default dark:bg-legacy-dark-default shadow-lg" x-show="open" x-cloak
+  <nav class="z-50 h-full fixed right-0 top-0 max-w-full w-96 bg-background dark:bg-dark-background shadow-lg" x-show="open" x-cloak
     @click.away="open = false" x-transition:enter="transition duration-200 ease-out"
     x-transition:enter-start="translate-x-full" x-transition:leave="transition duration-100 ease-in"
     x-transition:leave-end="translate-x-full">
-    <ul class="text-legacy-lighter p-6 font-semibold">
+    <ul class="text-content p-6 font-semibold">
       <li class="flex justify-between items-center">
         <a href="<%s Url.index %>">
           <img src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" width="132" alt="OCaml logo" class="dark:hidden">

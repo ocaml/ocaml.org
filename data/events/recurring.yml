@@ -42,3 +42,7 @@ recurring:
     slug: "ocaml-retreat"
     textual_location: "Auroville, India"
     url: https://ocamlretreat.org/
+  - title: "OCaml Manila Meetup"
+    slug: "ocaml-manila-meetup"
+    textual_location: "Manila, Philippines"
+    url: https://www.meetup.com/ocaml-manila/

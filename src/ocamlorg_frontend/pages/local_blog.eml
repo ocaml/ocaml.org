@@ -7,7 +7,7 @@ Layout.render
 ~description:source.description
 ~canonical:(Url.local_blog source.name)
 ~active_top_nav_item:Header.Blog @@
-<div class="bg-white dark:bg-dark-background py-10 lg:py-20">
+<div class="bg-background dark:bg-dark-background py-10 lg:py-20">
     <div class="container-fluid wide">
         <div class="mx-auto max-w-5xl">
             <div class="prose dark:prose-invert mb-12">

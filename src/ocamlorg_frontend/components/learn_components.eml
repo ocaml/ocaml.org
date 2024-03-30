@@ -54,7 +54,7 @@ let block_heading ~icon ~title ~heading =
   <h2 class="overflow-hidden mt-2 text-title dark:text-dark-title text-2xl font-bold leading-7"><%s heading %></h2>
 
 let block_container ~icon ~title ~heading inner_html =
-  <div class="md:h-full bg-white dark:bg-dark-background">
+  <div class="md:h-full bg-background dark:bg-dark-background">
     <div class="max-w-sm md:h-full md:max-w-full md:w-[32rem] flex flex-col">
       <%s! block_heading ~icon ~title ~heading %>
       <%s! inner_html %>
@@ -155,7 +155,7 @@ let exercise_card (exercise: Data.Exercise.t) =
   </a>
 
 let exercises_block ~icon ~heading (exercises: Data.Exercise.t list) =
-  <div class="bg-white dark:bg-dark-background flex flex-col">
+  <div class="bg-background dark:bg-dark-background flex flex-col">
     <div class="max-w-sm md:max-w-full lg:w-full flex flex-col">
       <%s! block_heading ~icon ~title:"EXERCISES" ~heading %>
       <div class="mt-6 grid gap-6 md:gap-10 md:grid-cols-2 lg:grid-cols-4">

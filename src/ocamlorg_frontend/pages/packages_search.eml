@@ -2,7 +2,7 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
 ~description:"Find the package you need to build your application in the thousands of available OCaml packages."
 ~canonical:(Url.packages_search ^ "?q=" ^ search)
 ~active_top_nav_item:Header.Packages @@
-<div class="bg-white dark:bg-dark-background">
+<div class="bg-background dark:bg-dark-background">
   <div class="py-10 lg:py-14">
     <div class="container-fluid">
       <div class="flex flex-col lg:px-28 gap-2 max-w-5xl">

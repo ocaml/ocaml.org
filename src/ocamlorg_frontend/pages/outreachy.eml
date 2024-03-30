@@ -1,5 +1,5 @@
 let render (metadata : Data.Outreachy.t list)
-= 
+=
 Layout.render
 ~title:"OCaml Outreachy Internships"
 ~description:"Records Of OCaml Community Past Outreachy Internship Projects"
@@ -12,31 +12,31 @@ Layout.render
         </div>
     </div>
 </div>
-<div class="py-12 bg-white dark:bg-dark-background">
+<div class="py-12 bg-background dark:bg-dark-background">
     <div class="container-fluid">
         <% metadata |> List.iter (fun (rounds : Data.Outreachy.t) -> %>
             <h2 class="text-title dark:text-dark-title border-b border-primary dark:border-dark-primary p-6 my-2 font-bold"><%s rounds.name %></h2>
             <div class="grid gap-10 prose dark:prose-invert max-w-4xl">
                 <% rounds.projects |> List.iter (fun (project : Data.Outreachy.project) -> %>
-                    <div x-data="{'is_shown': false}" class="p-5 flex flex-col gap-2">              
+                    <div x-data="{'is_shown': false}" class="p-5 flex flex-col gap-2">
                         <h3 class="text-title dark:text-dark-title "><%s project.title %></h3>
                         <div class="text-content dark:text-dark-content">Mentee: <i class="text-content dark:text-dark-content"><%s project.mentee %></i></div>
                         <div class="text-content dark:text-dark-content">Mentor(s): <i class="text-content dark:text-dark-content"><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></i></div>
-                        <% if String.length project.description > 240 then ( %>
+                        <% if String.length project.description_html > 240 then ( %>
                             <div :class="is_shown ? '' : 'relative max-h-20 overflow-hidden'">
-                                <div :class="is_shown? 'hidden' : ''" class="absolute bottom-0 h-10 left-0 right-0 bg-gradient-to-t from-white dark:from-dark-background dark:to-separator_20"></div> 
-                                <p> <%s project.description %> </p>
+                                <div :class="is_shown? 'hidden' : ''" class="absolute bottom-0 h-10 left-0 right-0 bg-gradient-to-t from-white dark:from-dark-background dark:to-separator_20"></div>
+                                <%s! project.description_html %>
                             </div>
                             <button x-on:click="is_shown= !is_shown" class='text-left hover:underline text-primary font-semibold dark:text-dark-primary hover:text-primary dark:hover:text-dark-primary' x-text="is_shown ? 'Show Less' : 'Show More'"></button>
                         <% ) else ( %>
-                            <p> <%s project.description %> </p>
+                            <%s! project.description_html %>
                         <% ); %>
                         <div class='flex flex-row gap-4'>
                             <% (match project.blog with None -> () | Some blog -> %>
                                 <a href="<%s blog %>" target="_blank" class="">Blog</a>
                             <% ); %>
-                            <% (match project.video with None -> () | Some video -> %>                     
-                                <a href="<%s video %>" target="_blank">Video</a> 
+                            <% (match project.video with None -> () | Some video -> %>
+                                <a href="<%s video %>" target="_blank">Video</a>
                             <% ); %>
                             <a href="<%s project.source %>" target="_blank">Source</a>
                         </div>
