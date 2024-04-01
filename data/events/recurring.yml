@@ -46,3 +46,7 @@ recurring:
     slug: "ocaml-manila-meetup"
     textual_location: "Manila, Philippines"
     url: https://www.meetup.com/ocaml-manila/
+  - title: "ReasonSTHLM Meetup"
+    slug: "reason-stockholm-meetup"
+    textual_location: "Stockholm, Sweden"
+    url: https://www.meetup.com/ReasonSTHLM/
