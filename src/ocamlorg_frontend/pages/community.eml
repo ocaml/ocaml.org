@@ -209,7 +209,7 @@ Community_layout.single_column_layout
                   <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
                   <p class="text-content dark:text-dark-content">
                     <%s event.starts.yyyy_mm_dd %>
-                    <%s Option.value ~default:"" event.starts.utc_hh_mm %>
+                    <%s event.starts.utc_hh_mm |> Option.map (fun s -> s ^ " UTC") |> Option.value ~default:"" %>
                   </p>
                 </div>
                 <% (match event.ends with | None -> () | Some ends -> ( %>
@@ -217,10 +217,10 @@ Community_layout.single_column_layout
                   <p class="ml-9 text-content dark:text-dark-content">
                     to
                     <%s ends.yyyy_mm_dd %>
-                    <%s Option.value ~default:"" ends.utc_hh_mm %>
+                    <%s ends.utc_hh_mm |> Option.map (fun s -> s ^ " UTC") |> Option.value ~default:"" %>
                   </p>
                 </div>
-                <% )) ;%>
+                <% )); %>
               </a>
               <% ); %>
           </div>
