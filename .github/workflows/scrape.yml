@@ -34,7 +34,7 @@ jobs:
           opam-disable-sandboxing: true
 
       - name: Install system dependencies
-        run: sudo apt update && sudo apt-get install libev-dev oniguruma-dev libcurl4-openssl-dev
+        run: sudo apt update && sudo apt-get install libev-dev libonig-dev libcurl4-openssl-dev
 
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
