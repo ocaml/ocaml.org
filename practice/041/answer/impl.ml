@@ -14,4 +14,3 @@ let goldbach n =
     if a > b then [] else
       if a mod 2 = 1 then goldbach_list (a + 1) b
       else (a, goldbach a) :: goldbach_list (a + 2) b
-      
