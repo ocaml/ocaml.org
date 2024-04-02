@@ -19,8 +19,3 @@ end
 
 module Work : Testable = Work.Impl
 module Answer : Testable = Answer.Impl
-
-
-
-
-
