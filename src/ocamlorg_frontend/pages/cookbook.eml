@@ -5,24 +5,23 @@ let render_recipe (recipe: Data.Cookbook.t) =
   </a>
   <div class="flex flex-wrap gap-2 items-center">
   <%s if List.length recipe.packages = 0 then "-" else "" %>
-    <% recipe.packages |> List.iter (fun (package: Data.Cookbook.package) -> %>
+  <% recipe.packages |> List.iter (fun (package: Data.Cookbook.package) -> %>
     <a class="tag" href="<%s Url.Package.overview ~version:package.version package.name %>"><%s package.name %>.<%s package.version %></a>
   <% ); %>
   </div>
 
 let render_task (task: Data.Cookbook.task) =
   let recipes = Data.Cookbook.get_by_task ~task_slug:task.slug in
+  <p class="col-span-2 px-4 py-2 text-content dark:text-dark-content">
+    <strong><a href="<%s Url.cookbook_task task.slug %>"><%s task.title %></a></strong><br>
+  </p>
   <% (match recipes with | [] -> %>
     <p class="col-span-2 px-4 py-2 text-content dark:text-dark-content">
-      <strong><%s task.title %></strong><br>
       This task has no recipes yet, maybe you want to
         <a target="_blank" class="text-primary dark:text-dark-title underline"
         href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-cookbook">contribute a recipe</a>!
     </p>  
   <% | _ -> %>
-    <p class="col-span-2 px-4 py-2 text-content dark:text-dark-content">
-      <strong><%s task.title %></strong><br>
-    </p>
     <% recipes |> List.iter (fun (recipe: Data.Cookbook.t) -> %>
       <%s! render_recipe recipe %>
     <% ); %>

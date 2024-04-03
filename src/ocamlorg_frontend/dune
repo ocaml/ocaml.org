@@ -251,6 +251,15 @@
   (action
    (run %{bin:dream_eml} %{dep:cookbook.eml} --workspace %{workspace_root})))
  (rule
+  (target cookbook_task.ml)
+  (deps cookbook_task.eml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:cookbook_task.eml}
+    --workspace
+    %{workspace_root})))
+(rule
   (target cookbook_recipe.ml)
   (deps cookbook_recipe.eml)
   (action

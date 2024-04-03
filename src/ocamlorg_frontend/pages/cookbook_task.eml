@@ -1,0 +1,47 @@
+let render_recipe (recipe: Data.Cookbook.t) =
+  <a aria-label="<%s Data.Cookbook.full_title_of_recipe recipe %>" href="<%s Url.cookbook_recipe ~task_slug:recipe.task.slug recipe.slug %>"
+    class="flex gap-2 px-4 py-2 underline hover:no-underline text-title dark:text-dark-title">
+    <%s! Icons.document "w-6 h-6" %> using <%s Data.Cookbook.main_package_of_recipe recipe %>
+  </a>
+  <div class="flex flex-wrap gap-2 items-center">
+  <%s if List.length recipe.packages = 0 then "-" else "" %>
+  <% recipe.packages |> List.iter (fun (package: Data.Cookbook.package) -> %>
+    <a class="tag" href="<%s Url.Package.overview ~version:package.version package.name %>"><%s package.name %>.<%s package.version %></a>
+  <% ); %>
+  </div>
+
+let render (task: Data.Cookbook.task) (recipes : Data.Cookbook.t list) =
+Learn_layout.single_column_layout
+  ~title:"OCaml Cookbook"
+  ~description:"A collection of recipes to get things done in OCaml."
+  ~canonical:Url.cookbook
+  ~current:Cookbook @@
+  <div class="container-fluid pt-10">
+    <div class="prose dark:prose-invert mx-auto max-w-5xl">
+      <h1 class="font-normal text-4xl mb-10"><%s task.title %></h1>
+        <p>
+          <%s task.description %>
+        </p>
+% if List.length recipes > 0 then (
+  <div class="max-w-4xl">
+    <div class="grid grid-cols-[1fr_40%] items-center bg-primary text-white rounded-t">
+      <div class="px-4 py-2"><strong>Recipe</strong></div>
+      <div class="px-4 py-2"><strong>Packages Used</strong></div>
+    </div>
+    <div class="flex flex-col gap-2 bg-sand dark:bg-dark-background_navigation rounded-b py-2">
+% recipes |> List.iter (fun (recipe : Data.Cookbook.t) ->
+      <div class="grid grid-cols-[1fr_40%] items-start">
+      <%s! render_recipe recipe %>
+      </div>
+% );
+    </div>
+  </div>
+% ) else (
+  <p class="col-span-2 px-4 py-2 text-content dark:text-dark-content">
+    This task has no recipes yet, maybe you want to
+      <a target="_blank" class="text-primary dark:text-dark-title underline"
+      href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-cookbook">contribute a recipe</a>!
+  </p>
+% );
+    </div>
+  </div>

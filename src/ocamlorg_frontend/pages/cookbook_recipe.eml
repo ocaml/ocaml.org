@@ -8,6 +8,9 @@ Learn_layout.single_column_layout
     <div class="prose dark:prose-invert mx-auto max-w-5xl">
       <h1 class="font-normal text-4xl mb-10"><%s Data.Cookbook.full_title_of_recipe recipe %></h2>
 
+      <h2>Task</h2>
+      <p><a href="<%s Url.cookbook_task recipe.task.slug %>"><%s recipe.task.title %></a></p>
+
 % (if List.length recipe.packages > 0 then (
       <h2>Packages</h2>
       <p><%s recipe.packages |> List.map (fun (p: Data.Cookbook.package) -> p.name ^ "." ^ p.version) |> String.concat ", " %></p>
