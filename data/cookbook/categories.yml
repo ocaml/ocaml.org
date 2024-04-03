@@ -3,175 +3,221 @@ categories:
   tasks:
   - title: Parse Command Line Arguments
     slug: parse-command-line-arguments
-    description: TBD
+    description: >
+      Parse and process command line arguments
   - title: Using the ANSI Terminal
     slug: using-the-ansi-terminal
-    description: TBD
+    description: >
+      Use ANSI escape codes for cursor location, font and color in video text
+      terminal emulators.
 - title: Compilation & Linking
   tasks:
   - title: Compile and Link to a Bundled C Library
     slug: link-with-a-bundled-c-library
-    description: TBD
+    description: >
+      Call OCaml from. Create C headers and source files exposing functions
+      provided by an OCaml module.
   - title: Generate OCaml Bindings for a C Library
     slug: generate-ocaml-bindings-c-library
-    description: TBD
+    description: >
+      Call C from OCaml. Create an OCaml module exposing functions provided by a
+      C library, using the OCaml foreign function interface.
 - title: Compression
   tasks:
   - title: Decompressing a Tarball
     slug: decompressing-a-tarball
-    description: TBD
+    description: >
+      Decompress a tar file
   - title: Compress a Directory Into a Tarball
     slug: compress-a-directory-into-a-tarball
-    description: TBD
+    description: >
+      Store the contents of a file in a tar archive file
 - title: Concurrency & Parallelism
   subcategories:
   - title: Single-Threaded Concurrency
     tasks:
     - title: Create and Await Promises
       slug: create-and-await-promises
-      description: TBD
+      description: >
+        Create a await promises
   - title: Paralellism & Multi-Threading
     tasks:
     - title: Spawn a Thread and Receive a Response
       slug: spawn-a-thread-and-receive-a-response
-      description: TBD
+      description: >
+        Spawn a thread and receive a response
     - title: Pass Data Between Parallel Threads
       slug: pass-data-between-parallel-threads
-      description: TBD
+      description: >
+        Pass data between parallel threads
 - title: Cryptography
   tasks:
   - title: Calculate the SHA-256 Digest of a File
     slug: calculate-sha-256-digest-of-file
-    description: TBD
+    description: >
+      Compute the SHA-256 digest of a file
   - title: Sign and Verify a Message with an HMAC Digest
     slug: sign-and-verify-hmac-digest
-    description: TBD
+    description: >
+      Cryptographically sign or verify a message with a HMAC digest (TODO: split in two tasks)
   - title: Salt and Hash a Password with PBKDF2
     slug: salt-and-hash-password-with-pkgdf2
-    description: TBD
+    description: >
+      Salt and hash a password with PBKDF2
 - title: Data Structures & Algorithms
   subcategories:
   - title: Sorting
     tasks:
     - title: Sorting Lists and Arrays
       slug: sorting-lists-and-arrays
-      description: TBD
+      description: >
+        Sort a list or an array
   - title: Hash Tables
     tasks:
     - title: Use a Hash Table With Given Key and Value Types
       slug: use-hash-table-with-given-key-value-types
-      description: TBD
+      description: >
+        Insert into and access the contents of a hash table
 - title: Database
   subcategories:
   - title: SQLite
     tasks:
     - title: SQLite CREATE, INSERT, SELECT
       slug: sqlite-create-insert-select
-      description: TBD
+      description: >
+        Make basic SQL requests
     - title: SQLite Full Text Search
       slug: sqlite-full-text-search
-      description: TBD
+      description: >
+        Search in a SQL database
   - title: PostgreSQL
     tasks:
     - title: PostgreSQL CREATE, INSERT, SELECT
       slug: postgresql-create-insert-select
-      description: TBD
+      description: >
+        Make basic SQL request
     - title: PostgreSQL Aggregate Query
       slug: postgresql-aggregate-query
-      description: TBD
+      description: >
+        Aggregate SQL queries
     - title: PostgreSQL Full Text Search
       slug: postgresql-full-text-search
-      description: TBD
+      description: >
+        Search in an SQL database
 - title: Data Formats
   subcategories:
   - title: CSV
     tasks:
     - title: Read Tuples / Records from CSV
       slug: read-csv
-      description: TBD
+      description: >
+        Read records from a CSV file
     - title: Serialize Tuples / Records to CSV
       slug: serialize-csv
-      description: TBD
+      description: >
+        Serialize records into a CSV file
   - title: JSON
     tasks:
     - title: Serialize / Deserialize Unstructured JSON
       slug: serialize-deserialize-unstructured-json
-      description: TBD
+      description: >
+        Serialize or deserialize unstructured JSON
     - title: Serialize to Types from JSON
       slug: serialize-types-from-json
-      description: TBD
+      description: >
+        Serialize to types from JSON
     - title: Deserialize from JSON to Types
       slug: deserialize-types-from-json
-      description: TBD
+      description: >
+        Deserialize from JSON types
 - title: Date and Time
   tasks:
   - title: Get Today's Date
     slug: get-todays-date
-    description: TBD
+    description: >
+      Get today's date
   - title: Measure Elapsed Time
     slug: measure-elapsed-time
-    description: TBD
+    description: >
+      Compute time difference to measure elapsed time
   - title: Convert a Local Time to Another Timezone
     slug: convert-time-to-another-timezone
-    description: TBD
-  - title: Convert Between Date and UNIX Timestamp
+    description: >
+      Convert time to another timezone
+  - title: Convert Between Date and Unix Timestamp
     slug: convert-date-unix-timestamp
-    description: TBD
+    description: >
+      Convert between date and Unix timestamp
   - title: Display Formatted Date and Time
     slug: display-formatted-date-time
-    description: TBD
+    description: >
+      Display formatted date and time
   - title: Parse Date and Time from String
     slug: parse-date-time-from-string
-    description: TBD
+    description: >
+      Parse formatted date and time from string
 - title: Debugging
   tasks:
   - title: Debug Print a Value
     slug: debug-print-a-value
-    description: TBD
+    description: >
+      Debug by printing a value
   - title: Log a Debug / Error Message to Stdout / Stderr
     slug: log-debug-error-message
-    description: TBD
+    description: >
+      Debug by logging a value or process to standard output
   - title: Log to the UNIX Syslog
     slug: log-to-unix-syslog
-    description: TBD
+    description: >
+      Log to the Unix system log
 - title: Encoding
   tasks:
   - title: URL- / Percent-Encode a String
     slug: url-percent-encode-string
-    description: TBD
+    description: >
+      Percent encode a string
   - title: Encode a String as application/x-www-form-urlencoded
     slug: encode-x-www-form-urlencoded
-    description: TBD
+    description: >
+      Url encode a string
   - title: Encode and Decode Bytestrings from Hex-Strings
     slug: encode-decode-hex
-    description: TBD
+    description: >
+      Encode or decode from hex strings
   - title: Encode and Decode Base64
     slug: encode-decode-base64
-    description: TBD
+    description: >
+      Encode or decode from Base64
   - title: Read and Write Integers in Little-Endian Byte Order
     slug: read-write-integers-little-endian
-    description: TBD
+    description: >
+      Read and write integers in little-endian byte order
 - title: File System
   subcategories:
   - title: Files
     tasks:
     - title: Read Lines of Strings from a File
       slug: read-string-lines-file
-      description: TBD
+      description: >
+        Read a text file as string lines
     - title: Access a File Using Memory Map
       slug: access-file-using-memory-map
-      description: TBD
+      description: >
+        Access a text file using memory mapping
     - title: Write to a File
       slug: write-to-file
-      description: TBD
+      description: >
+        Write to a file
   - title: Directories
     tasks:
     - title: Traverse All Files in a Directory Recursively
       slug: traverse-files-in-directory
-      description: TBD
+      description: >
+        Traverse all the files from a directory
     - title: Find All Files Matching a Given Pattern
       slug: find-all-files-matching-a-pattern
-      description: TBD
+      description: >
+        Find files matching a pattern
 #- title: Garbage Collector
 #  tasks:
 #  - title: Trigger a Minor / Major Collection
@@ -180,133 +226,153 @@ categories:
   tasks:
   - title: Generate Random Numbers
     slug: generate-random-numbers
-    description: TBD
+    description: >
+      Generate pseudo random numbers
   - title: Generate Random Strings and Arrays
     slug: generate-random-strings-and-arrays
-    description: TBD
+    description: >
+      Generate pseudo randon strings and arrays
   - title: Generate Random Values of a Custom Type
     slug: generate-random-values-custom-type
-    description: TBD
+    description: >
+      Generate random custom values
   - title: Generate Random Passwords
     slug: generate-random-passwords
-    description: TBD
+    description: >
+      Generate random password (TODO: No)
 - title: Mathematics
   subcategories:
   - title: Vector & Matrix Operations
     tasks:
     - title: Normalize a Vector
       slug: normalize-vector
-      description: TBD
+      description: >
+        Normalize a vector
     - title: Matrix Addition and Multiplication
       slug: matrix-addition-multiplication
-      description: TBD
+      description: >
+        Perform matric addition or multiplication
     - title: Invert a Matrix
       slug: invert-matrix
-      description: TBD
+      description: >
+        Invert a matrix
     - title: Nearest-Neighbor Search
       slug: nearest-neighbor-search
-      description: TBD
+      description: >
+        Compute nearest neighbor search 
   - title: Geographical Calculations
     tasks:
     - title: Calculate Geodistance Between Two Points
       slug: calculate-geodistance-between-points
-      description: TBD
+      description: >
+        Calculate geographical distance between points
 - title: Operating System
   tasks:
   - title: Run an External Command and Process Stdout
     slug: run-command-process-stdout
-    description: TBD
+    description: >
+      Run an external command and process its output
   - title: Run Piped External Commands
     slug: run-piped-commands
-    description: TBD
+    description: >
+      Run piped external commands
   - title: Read an Environment Variable
     slug: read-environment-variable
-    description: TBD
+    description: >
+      Read shell environment variables
 - title: Text Processing
   subcategories:
   - title: Unicode
     tasks:
     - title: Collect Unicode Graphemes
       slug: collect-unicode-graphemes
-      description: TBD
-  - title: ASCII
-    tasks:
-    - title: ASCII Text Processing (TODO:unclear task)
-      slug: ascii-text-processing
-      description: TBD
+      description: >
+        Collect Unicode graphemes
   - title: UTF-8
     tasks:
-    - title: UTF-8 Text Processing (TODO:unclear task)
+    - title: UTF-8 Text Processing
       slug: utf8-text-processing
-      description: TBD
+      description: >
+        TODO: unclear task
   - title: Regular Expressions
     tasks:
     - title: Validate an Email Address
       slug: regex-validate-email
-      description: TBD
+      description: >
+        Read, extract and validate emails from a text
     - title: Extract Phone Numbers from Text
       slug: regex-extract-phone-numbers
-      description: TBD
+      description: >
+        Read, extract and validate phone numbers in a text
     - title: Replace All Occurrences of a Text Pattern with Another Pattern
       slug: regex-replace-pattern
-      description: TBD
-    - title: Regular Expressions (TODO:unclear task)
-      slug: regular-expressions
-      description: TBD
+      description: >
+        Replaces all occurences of a pattern in a text
 - title: Web Programming
   subcategories:
   - title: HTTP Clients
     tasks:
     - title: Make a HTTP GET Request
       slug: make-http-get-request
-      description: TBD
+      description: >
+        Make an HTTP GET request, process response code, follow redirects
     - title: Make a HTTP GET Request with Basic Authentication
       slug: make-http-get-basic-auth
-      description: TBD
+      description: >
+        Make an HTTP GET request under basic authentication
     - title: Download a File to a Temporary Directory
       slug: download-file-to-temporary-dir
-      description: TBD
+      description: >
+        Download a file to a temporary folder
     - title: Make a Partial Download with HTTP Range Header
       slug: make-partial-download-with-http-range-header
-      description: TBD
-    - title: POST a File to (TODO:find a location where to paste to)
-      slug: post-a-file-by-http
-      description: TBD
+      description: >
+        Make a partial download using HTTP range header
   - title: Dealing with HTML
     tasks:
     - title: Render a HTML Template
       slug: render-html-template
-      description: TBD
+      description: >
+        Render an HTML template
     - title: Extract all Links from a HTML String
       slug: extract-links-from-html
-      description: TBD
+      description: >
+        Extract all links from an HTML string
     - title: Check a Webpage for Broken Links
       slug: check-webpage-for-broken-links
-      description: TBD
+      description: >
+        Check a weppage for broken links
   - title: Running a Web Server
     tasks:
     - title: Start a Web Server with a Hello World Endpoint
       slug: start-a-web-server-hello-world
-      description: TBD
+      description: >
+        Start a dummy web server
     - title: Start a Web Server that Serves a HTML Template
       slug: start-a-web-server-html-template
-      description: TBD
+      description: >
+        Start a html template serving web server
     - title: Use Basic Authentication to Secure a Route
       slug: use-basic-auth-on-web-server
-      description: TBD
+      description: >
+        Use basic authentication to secure a route
   - title: Media Types (MIME)
     tasks:
     - title: Get MIME Type from String
       slug: get-mime-type-from-string
-      description: TBD
+      description: >
+        Get MIME type from a string
     - title: Get MIME Type from Filename
       slug: get-mime-type-from-filename
-      description: TBD
+      description: >
+        Get a MIME type from a file name
     - title: Parse MIME Type of a HTTP Response
       slug: parse-mime-type-of-http-response
-      description: TBD
+      description: >
+        Get a MIME type from an HTTP response
   - title: Other
     tasks:
     - title: Parse a URL from String And Access Individual Parts
       slug: parse-url-from-string
-      description: TBD
+      description: >
+        Parse a URL from string and Access Individual Parts
