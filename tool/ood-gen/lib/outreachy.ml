@@ -1,4 +1,4 @@
-type project_metadata = {
+type project = {
   title : string;
   description : string;
   mentee : string;
@@ -9,18 +9,7 @@ type project_metadata = {
 }
 [@@deriving of_yaml, show { with_path = false }]
 
-type project = {
-  title : string;
-  description_html : string;
-  mentee : string;
-  blog : string option;
-  source : string;
-  mentors : string list;
-  video : string option;
-}
-[@@deriving of_yaml, show { with_path = false }]
-
-type metadata = { name : string; projects : project_metadata list }
+type metadata = { name : string; projects : project list }
 [@@deriving of_yaml, show { with_path = false }]
 
 type t = { name : string; projects : project list }
@@ -28,15 +17,12 @@ type t = { name : string; projects : project list }
   stable_record ~version:metadata ~modify:[ projects ],
     show { with_path = false }]
 
-let of_metadata m = of_metadata m
-
-let modify_projects : project_metadata list -> project list =
- fun v ->
+let modify_projects (v : project list) : project list =
   List.map
-    (fun (p : project_metadata) ->
+    (fun (p : project) ->
       {
         title = p.title;
-        description_html =
+        description =
           Cmarkit.Doc.of_string p.description |> Cmarkit_html.of_doc ~safe:true;
         mentee = p.mentee;
         blog = p.blog;
@@ -54,7 +40,7 @@ let template () =
     {|
 type project =
   { title : string
-  ; description_html : string
+  ; description : string
   ; mentee : string
   ; blog : string option
   ; source : string

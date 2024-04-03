@@ -81,7 +81,7 @@ end
 module Outreachy : sig
   type project = {
     title : string;
-    description_html : string;
+    description : string;
     mentee : string;
     blog : string option;
     source : string;
