@@ -3,132 +3,175 @@ categories:
   tasks:
   - title: Parse Command Line Arguments
     slug: parse-command-line-arguments
+    description: TBD
   - title: Using the ANSI Terminal
     slug: using-the-ansi-terminal
+    description: TBD
 - title: Compilation & Linking
   tasks:
   - title: Compile and Link to a Bundled C Library
     slug: link-with-a-bundled-c-library
+    description: TBD
   - title: Generate OCaml Bindings for a C Library
     slug: generate-ocaml-bindings-c-library
+    description: TBD
 - title: Compression
   tasks:
   - title: Decompressing a Tarball
     slug: decompressing-a-tarball
+    description: TBD
   - title: Compress a Directory Into a Tarball
     slug: compress-a-directory-into-a-tarball
+    description: TBD
 - title: Concurrency & Parallelism
   subcategories:
   - title: Single-Threaded Concurrency
     tasks:
     - title: Create and Await Promises
       slug: create-and-await-promises
+      description: TBD
   - title: Paralellism & Multi-Threading
     tasks:
     - title: Spawn a Thread and Receive a Response
       slug: spawn-a-thread-and-receive-a-response
+      description: TBD
     - title: Pass Data Between Parallel Threads
       slug: pass-data-between-parallel-threads
+      description: TBD
 - title: Cryptography
   tasks:
   - title: Calculate the SHA-256 Digest of a File
     slug: calculate-sha-256-digest-of-file
+    description: TBD
   - title: Sign and Verify a Message with an HMAC Digest
     slug: sign-and-verify-hmac-digest
+    description: TBD
   - title: Salt and Hash a Password with PBKDF2
     slug: salt-and-hash-password-with-pkgdf2
+    description: TBD
 - title: Data Structures & Algorithms
   subcategories:
   - title: Sorting
     tasks:
     - title: Sorting Lists and Arrays
       slug: sorting-lists-and-arrays
+      description: TBD
   - title: Hash Tables
     tasks:
     - title: Use a Hash Table With Given Key and Value Types
       slug: use-hash-table-with-given-key-value-types
+      description: TBD
 - title: Database
   subcategories:
   - title: SQLite
     tasks:
     - title: SQLite CREATE, INSERT, SELECT
       slug: sqlite-create-insert-select
+      description: TBD
     - title: SQLite Full Text Search
       slug: sqlite-full-text-search
+      description: TBD
   - title: PostgreSQL
     tasks:
     - title: PostgreSQL CREATE, INSERT, SELECT
       slug: postgresql-create-insert-select
+      description: TBD
     - title: PostgreSQL Aggregate Query
       slug: postgresql-aggregate-query
+      description: TBD
     - title: PostgreSQL Full Text Search
       slug: postgresql-full-text-search
+      description: TBD
 - title: Data Formats
   subcategories:
   - title: CSV
     tasks:
     - title: Read Tuples / Records from CSV
       slug: read-csv
+      description: TBD
     - title: Serialize Tuples / Records to CSV
       slug: serialize-csv
+      description: TBD
   - title: JSON
     tasks:
     - title: Serialize / Deserialize Unstructured JSON
       slug: serialize-deserialize-unstructured-json
+      description: TBD
     - title: Serialize to Types from JSON
       slug: serialize-types-from-json
+      description: TBD
     - title: Deserialize from JSON to Types
       slug: deserialize-types-from-json
+      description: TBD
 - title: Date and Time
   tasks:
   - title: Get Today's Date
     slug: get-todays-date
+    description: TBD
   - title: Measure Elapsed Time
     slug: measure-elapsed-time
+    description: TBD
   - title: Convert a Local Time to Another Timezone
     slug: convert-time-to-another-timezone
+    description: TBD
   - title: Convert Between Date and UNIX Timestamp
     slug: convert-date-unix-timestamp
+    description: TBD
   - title: Display Formatted Date and Time
     slug: display-formatted-date-time
+    description: TBD
   - title: Parse Date and Time from String
     slug: parse-date-time-from-string
+    description: TBD
 - title: Debugging
   tasks:
   - title: Debug Print a Value
     slug: debug-print-a-value
+    description: TBD
   - title: Log a Debug / Error Message to Stdout / Stderr
     slug: log-debug-error-message
+    description: TBD
   - title: Log to the UNIX Syslog
     slug: log-to-unix-syslog
+    description: TBD
 - title: Encoding
   tasks:
   - title: URL- / Percent-Encode a String
     slug: url-percent-encode-string
+    description: TBD
   - title: Encode a String as application/x-www-form-urlencoded
     slug: encode-x-www-form-urlencoded
+    description: TBD
   - title: Encode and Decode Bytestrings from Hex-Strings
     slug: encode-decode-hex
+    description: TBD
   - title: Encode and Decode Base64
     slug: encode-decode-base64
+    description: TBD
   - title: Read and Write Integers in Little-Endian Byte Order
     slug: read-write-integers-little-endian
+    description: TBD
 - title: File System
   subcategories:
   - title: Files
     tasks:
     - title: Read Lines of Strings from a File
       slug: read-string-lines-file
+      description: TBD
     - title: Access a File Using Memory Map
       slug: access-file-using-memory-map
+      description: TBD
     - title: Write to a File
       slug: write-to-file
+      description: TBD
   - title: Directories
     tasks:
     - title: Traverse All Files in a Directory Recursively
       slug: traverse-files-in-directory
+      description: TBD
     - title: Find All Files Matching a Given Pattern
       slug: find-all-files-matching-a-pattern
+      description: TBD
 #- title: Garbage Collector
 #  tasks:
 #  - title: Trigger a Minor / Major Collection
@@ -137,99 +180,133 @@ categories:
   tasks:
   - title: Generate Random Numbers
     slug: generate-random-numbers
+    description: TBD
   - title: Generate Random Strings and Arrays
     slug: generate-random-strings-and-arrays
+    description: TBD
   - title: Generate Random Values of a Custom Type
     slug: generate-random-values-custom-type
+    description: TBD
   - title: Generate Random Passwords
     slug: generate-random-passwords
+    description: TBD
 - title: Mathematics
   subcategories:
   - title: Vector & Matrix Operations
     tasks:
     - title: Normalize a Vector
       slug: normalize-vector
+      description: TBD
     - title: Matrix Addition and Multiplication
       slug: matrix-addition-multiplication
+      description: TBD
     - title: Invert a Matrix
       slug: invert-matrix
+      description: TBD
     - title: Nearest-Neighbor Search
       slug: nearest-neighbor-search
+      description: TBD
   - title: Geographical Calculations
     tasks:
     - title: Calculate Geodistance Between Two Points
       slug: calculate-geodistance-between-points
+      description: TBD
 - title: Operating System
   tasks:
   - title: Run an External Command and Process Stdout
     slug: run-command-process-stdout
+    description: TBD
   - title: Run Piped External Commands
     slug: run-piped-commands
+    description: TBD
   - title: Read an Environment Variable
     slug: read-environment-variable
+    description: TBD
 - title: Text Processing
   subcategories:
   - title: Unicode
     tasks:
     - title: Collect Unicode Graphemes
       slug: collect-unicode-graphemes
+      description: TBD
   - title: ASCII
     tasks:
     - title: ASCII Text Processing (TODO:unclear task)
       slug: ascii-text-processing
+      description: TBD
   - title: UTF-8
     tasks:
     - title: UTF-8 Text Processing (TODO:unclear task)
       slug: utf8-text-processing
+      description: TBD
   - title: Regular Expressions
     tasks:
     - title: Validate an Email Address
       slug: regex-validate-email
+      description: TBD
     - title: Extract Phone Numbers from Text
       slug: regex-extract-phone-numbers
+      description: TBD
     - title: Replace All Occurrences of a Text Pattern with Another Pattern
       slug: regex-replace-pattern
+      description: TBD
     - title: Regular Expressions (TODO:unclear task)
       slug: regular-expressions
+      description: TBD
 - title: Web Programming
   subcategories:
   - title: HTTP Clients
     tasks:
     - title: Make a HTTP GET Request
       slug: make-http-get-request
+      description: TBD
     - title: Make a HTTP GET Request with Basic Authentication
       slug: make-http-get-basic-auth
+      description: TBD
     - title: Download a File to a Temporary Directory
       slug: download-file-to-temporary-dir
+      description: TBD
     - title: Make a Partial Download with HTTP Range Header
       slug: make-partial-download-with-http-range-header
+      description: TBD
     - title: POST a File to (TODO:find a location where to paste to)
       slug: post-a-file-by-http
+      description: TBD
   - title: Dealing with HTML
     tasks:
     - title: Render a HTML Template
       slug: render-html-template
+      description: TBD
     - title: Extract all Links from a HTML String
       slug: extract-links-from-html
+      description: TBD
     - title: Check a Webpage for Broken Links
       slug: check-webpage-for-broken-links
+      description: TBD
   - title: Running a Web Server
     tasks:
     - title: Start a Web Server with a Hello World Endpoint
       slug: start-a-web-server-hello-world
+      description: TBD
     - title: Start a Web Server that Serves a HTML Template
       slug: start-a-web-server-html-template
+      description: TBD
     - title: Use Basic Authentication to Secure a Route
       slug: use-basic-auth-on-web-server
+      description: TBD
   - title: Media Types (MIME)
     tasks:
     - title: Get MIME Type from String
       slug: get-mime-type-from-string
+      description: TBD
     - title: Get MIME Type from Filename
       slug: get-mime-type-from-filename
+      description: TBD
     - title: Parse MIME Type of a HTTP Response
       slug: parse-mime-type-of-http-response
+      description: TBD
   - title: Other
     tasks:
     - title: Parse a URL from String And Access Individual Parts
       slug: parse-url-from-string
+      description: TBD
