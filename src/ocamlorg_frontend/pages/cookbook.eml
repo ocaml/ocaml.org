@@ -1,15 +1,7 @@
-let render_task_without_recipes (task: Data.Cookbook.task) =
-  <p class="col-span-2 px-4 py-2 text-content dark:text-dark-content">
-    <strong><%s task.title %></strong><br>
-    This task has no recipes yet, maybe you want to
-        <a target="_blank" class="text-primary dark:text-dark-title underline"
-        href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-cookbook">contribute a recipe</a>!
-  </p>  
-
 let render_recipe (recipe: Data.Cookbook.t) =
   <a href="<%s Url.cookbook_recipe ~task_slug:recipe.task.slug recipe.slug %>"
-    class="px-4 py-2 underline hover:no-underline text-title dark:text-dark-title">
-    <%s Data.Cookbook.title_of_recipe recipe %>
+    class="flex gap-2 px-4 py-2 underline hover:no-underline text-title dark:text-dark-title">
+    <%s! Icons.document "w-6 h-6" %> using <%s Data.Cookbook.main_package_of_recipe recipe %>
   </a>
   <div class="flex flex-wrap gap-2 items-center">
   <%s if List.length recipe.packages = 0 then "-" else "" %>
@@ -18,6 +10,23 @@ let render_recipe (recipe: Data.Cookbook.t) =
   <% ); %>
   </div>
 
+let render_task (task: Data.Cookbook.task) =
+  let recipes = Data.Cookbook.get_by_task ~task_slug:task.slug in
+  <% (match recipes with | [] -> %>
+    <p class="col-span-2 px-4 py-2 text-content dark:text-dark-content">
+      <strong><%s task.title %></strong><br>
+      This task has no recipes yet, maybe you want to
+        <a target="_blank" class="text-primary dark:text-dark-title underline"
+        href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-cookbook">contribute a recipe</a>!
+    </p>  
+  <% | _ -> %>
+    <p class="col-span-2 px-4 py-2 text-content dark:text-dark-content">
+      <strong><%s task.title %></strong><br>
+    </p>
+    <% recipes |> List.iter (fun (recipe: Data.Cookbook.t) -> %>
+      <%s! render_recipe recipe %>
+    <% ); %>
+  <% ); %>
 
 let rec render_category ?(level=2) (category: Data.Cookbook.category) =
   <div class="max-w-4xl">
@@ -42,13 +51,8 @@ let rec render_category ?(level=2) (category: Data.Cookbook.category) =
       </div>
       <div class="flex flex-col gap-2 bg-sand dark:bg-dark-background_navigation rounded-b py-2">
 % tasks |> List.iter (fun (task : Data.Cookbook.task) ->
-% let recipes = Data.Cookbook.get_by_task ~task_slug:task.slug in
         <div class="grid grid-cols-[1fr_40%] items-start">
-% (match recipes with | [] ->
-        <%s! render_task_without_recipes task %>
-% | _ -> recipes |> List.iter (fun (recipe: Data.Cookbook.t) ->
-        <%s! render_recipe recipe %>
-% ));
+        <%s! render_task task %>
         </div>
 % );
       </div>
