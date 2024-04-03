@@ -69,10 +69,20 @@ Learn_layout.three_column_layout
   ~right_sidebar_html:None @@
   <div class="container-fluid pt-10">
     <div class="prose dark:prose-invert mb-10">
-      <h1 class="font-normal text-4xl">OCaml Cookbook</h2>
+      <h1 class="font-normal text-4xl">OCaml Cookbook Recipes</h2>
       <p>
-        The OCaml Cookbook is a resource where the OCaml community shares recipes for how to solve
-        common tasks using packages from the OCaml ecosystem.
+        The OCaml cookbook is a place where OCaml developers share how to solve
+        common tasks in OCaml using packages from the OCaml ecosystem.</p>
+      <p>
+        A task is something that needs to be done. A recipe is code sample and
+        explanations on how to perform a task using a combination of open source
+        libraries. Some tasks can be performed using different combination of
+        libraries, each is a different recipes. Tasks don't describe how to use
+        the standard library or language features.</p>
+        <p>
+        OCaml developers are warmly invited to contribute categories, tasks and
+        recipes. See the Cookbook section of the <a
+        href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-cookbook">CONTRIBUTING.md</a> file in our GitHub repo.
       </p>
     </div>
     <div class="flex flex-col gap-6">
