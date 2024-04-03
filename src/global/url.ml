@@ -85,6 +85,7 @@ let exercises = "/exercises"
 let outreachy = "/outreachy"
 let logos = "/logo"
 let cookbook = "/cookbook"
+let cookbook_task task_slug = cookbook ^ "/" ^ task_slug
 let cookbook_recipe ~task_slug slug = "/cookbook/" ^ task_slug ^ "/" ^ slug
 
 let github_opam_file package_name package_version =
