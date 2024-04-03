@@ -1,5 +1,5 @@
 let render_recipe (recipe: Data.Cookbook.t) =
-  <a href="<%s Url.cookbook_recipe ~task_slug:recipe.task.slug recipe.slug %>"
+  <a aria-label="<%s Data.Cookbook.full_title_of_recipe recipe %>" href="<%s Url.cookbook_recipe ~task_slug:recipe.task.slug recipe.slug %>"
     class="flex gap-2 px-4 py-2 underline hover:no-underline text-title dark:text-dark-title">
     <%s! Icons.document "w-6 h-6" %> using <%s Data.Cookbook.main_package_of_recipe recipe %>
   </a>
