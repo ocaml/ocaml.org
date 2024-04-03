@@ -12,9 +12,10 @@ let render_recipe (recipe: Data.Cookbook.t) =
 
 let render_task (task: Data.Cookbook.task) =
   let recipes = Data.Cookbook.get_by_task ~task_slug:task.slug in
-  <p class="col-span-2 px-4 py-2 text-content dark:text-dark-content">
-    <strong><a href="<%s Url.cookbook_task task.slug %>"><%s task.title %></a></strong><br>
-  </p>
+  <a href="<%s Url.cookbook_task task.slug %>"
+     class="col-span-2 px-4 py-2 text-title font-semibold dark:text-dark-title underline">
+    <%s task.title %>
+  </a>
   <% (match recipes with | [] -> %>
     <p class="col-span-2 px-4 py-2 text-content dark:text-dark-content">
       This task has no recipes yet, maybe you want to
