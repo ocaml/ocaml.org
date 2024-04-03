@@ -259,7 +259,7 @@
     %{dep:cookbook_task.eml}
     --workspace
     %{workspace_root})))
-(rule
+ (rule
   (target cookbook_recipe.ml)
   (deps cookbook_recipe.eml)
   (action

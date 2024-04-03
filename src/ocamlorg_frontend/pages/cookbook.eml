@@ -74,11 +74,11 @@ Learn_layout.three_column_layout
         The OCaml cookbook is a place where OCaml developers share how to solve
         common tasks in OCaml using packages from the OCaml ecosystem.</p>
       <p>
-        A task is something that needs to be done. A recipe is code sample and
-        explanations on how to perform a task using a combination of open source
-        libraries. Some tasks can be performed using different combination of
-        libraries, each is a different recipes. Tasks don't describe how to use
-        the standard library or language features.</p>
+        A task is something that needs to be done inside a project. A recipe is
+        a code sample and explanations on how to perform a task using a
+        combination of open source libraries. Some tasks can be performed using
+        different combination of libraries, each is a different recipe. Tasks
+        don't describe how to use the standard library or language features.</p>
         <p>
         OCaml developers are warmly invited to contribute categories, tasks and
         recipes. See the Cookbook section of the <a
