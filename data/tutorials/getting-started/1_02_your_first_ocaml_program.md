@@ -241,58 +241,43 @@ A more detailed introduction to modules can be found at [Modules](/docs/modules)
 
 OCaml has an active community of open-source contributors. Most projects are available using the opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows you how to install and use a package from opam's open-source repository.
 
-To illustrate this, let's turn our `hello` project into a web server using [Anton Bachin](https://github.com/aantron)'s [Dream](https://aantron.github.io/dream/) web framework. First, update the package list for Opam, by running `opam update`. Then, install the `dream` package with this command:
+To illustrate this, let's update our `hello` project to parse a string containing an [S-expression](https://en.wikipedia.org/wiki/S-expression) and print back to a string, both using [Sexplib](https://github.com/janestreet/sexplib). First, update the package list for opam by running `opam update`. Then, install the `Sexplib` package with this command:
 ```shell
-$ opam install dream
+$ opam install sexplib
 ```
 
-This tutorial requires at least version `1.0.0~alpha5` of Dream. You can verify that you have a new enough version of Dream by running `opam show -f version dream`.
+Next, define a string containing a valid S-expression in `bin/main.ml`. Parse
+it into a S-expression with  the  `Sexplib.Sexp.of_string` function, and then
+convert it back into a string with `Sexplib.Sexp.to_string` and print it.
 
-Next, run the Dream web server in the `bin/main.ml` file by changing the code to read:
 ```ocaml
-let () = Dream.(run (router [ get "/" (fun (_ : request) -> html Hello.En.v) ]))
+(* Read in Sexp from string *)
+let exp1 = Sexplib.Sexp.of_string "(This (is an) (s expression))"
+
+(* Do something with the Sexp ... *)
+
+(* Convert back to a string to print *)
+let () = Printf.printf "%s\n" (Sexplib.Sexp.to_string exp1)
 ```
+The string you entered representing a valid S-expression is parsed into
+an S-expression type, which is defined as either an `Atom` (string) or a `List` 
+of S-expressions (it's a recursive type). Refer to the [Sexplib documentation](https://github.com/janestreet/sexplib) for more information.
 
-This gives us a web server. It responds to HTTP '/' requests with the content of `Hello.En.v`. Refer to the [Dream documentation](https://aantron.github.io/dream/) for more information.
+Before the example will build and run, you need to tell Dune that it needs `Sexplib` to compile the project. Do this by adding `Sexplib` to the `library` stanza of the `bin/dune` file. The full `bin/dune` file should then match the following.
 
-<!-- TODO: we have to probably refer to the Dream docs for an explanation
-Before detailing how things work, let's explain how Dream types works.
-
-The function type `request -> response promise` is the type of request handlers. Functions of this type take an HTTP request and return an HTTP response. The response is wrapped in a promise. This prevents the server from waiting for the response to be ready before sending it and also allows processing multiple requests concurrently. The type route `route` represents the binding between a URL path and a handler.
-
-Let's detail the roles of each piece:
-- `run` triggers the execution of the server process. Its parameter is a handler function.
-- `router` turns a list of `route` values into a single handler binding them together.
-- `get "/"` declares a route, HTTP GET requests to the `/` path are handled by the provided function.
-- `(fun (_ : request) -> ...)` this a handler function. The typed pattern `(_ : request)` means the data from the request is ignored.
-- `html Hello.En.v` has type `response promise`. When data inside the promise becomes available, the server will send it, too. In our case, it is immediately available as it is a static constant stored in memory.
-
-In summary, this is telling: “run a web server responding with the content of `Hello.En.v` to requests to the '/' path”
-
-The `Dream.(` syntax stands for locally opening a module inside an expression.
--->
-
-You need to tell Dune it needs Dream to compile the project. Do this by adding `dream` to the `library` stanza of the `bin/dune` file. The full `bin/dune` file should then match the following.
 ```lisp
 (executable
  (public_name hello)
  (name main)
- (libraries hello dream))
+ (libraries hello sexplib))
 ```
 
-Launch the server from a new terminal.
+**Fun fact**: Dune configuration files are S-expressions.
+
+Finally, execute as before:
 ```shell
 $ opam exec -- dune exec hello
-20.07.23 13:14:07.801                       0
-20.07.23 13:14:07.801                       Type Ctrl+C to stop
-```
-
-**Note**: If on macOS a key icon is displayed, like when asking for a password, you can ignore it and type `Ctrl+C` to get back to the command prompt.
-
-Then test from the first terminal:
-```shell
-$ curl http://localhost:8080/
-Hello, world!
+(This(is an)(s expression))
 ```
 
 ## Using the Preprocessor to Generate Code
