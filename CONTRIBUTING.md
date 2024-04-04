@@ -115,9 +115,34 @@ You can add a new OCaml book by creating a new Markdown file in [data/books/](da
 
 ### <a name="content-cookbook"></a>Add a Recipe to the OCaml Cookbook
 
-The OCaml cookbook is a place where OCaml developers share how to solve practical-minded tasks in OCaml using packages from the OCaml ecosystem. To contribute a recipe, you need to choose a category for the recipe (see [cookbook_categories.yml](https://)) and write a markdown file with YAML header (for an example, see []).
+The OCaml cookbook is a place where OCaml developers share how to solve common
+tasks in OCaml using packages from the OCaml ecosystem.
 
-Every cookbook recipe consists of one or more files with explanations. In the markdown body of the document, you can provide further context or links to the packages used. But: keep this short, the point is to get people back to building things, not keep them here reading.
+Here are the steps to contribute a recipe for an existing task:
+* Find the task in the [data/cookbook/tasks.yml](data/cookbook/tasks.yml) file
+* Go to the task folder inside [data/cookbook/](data/cookbook/) which has the
+  same name as the task's `slug`
+* Create a Caml file containing the recipe and a Yaml header with metadata about
+  the recipe.
+
+If the recipe does not fit into any existing task, you also need to create a
+task. Add a `task:` entry in [data/cookbook/tasks.yml](data/cookbook/tasks.yml)
+file. Fields `title`, `description` and `slug` are mandatory. The task must be
+located under a relevant `category:` field.
+
+Finally, it is also possible to create and organize groups of tasks by creating
+new categories. Categories are recursive and may have subcategories, which are
+full categories too. A task listed in
+[data/cookbook/tasks.yml](data/cookbook/tasks.yml) may have no recipes yet. The
+other way, it is not allowed to have a task folder in
+[data/cookbook/](data/cookbook/) which does not correspond to a task from the
+[data/cookbook/tasks.yml](data/cookbook/tasks.yml) file, it triggers a
+compilation error.
+
+Each recipe is a way to perform a task using a combination of open-source
+libraries. Writing a recipe as simple as using a single function call from a
+package that does the job is acceptable. That does not apply to the standard
+library.
 
 ### <a name="content-recurring-event"></a>Add A Recurring Event
 
