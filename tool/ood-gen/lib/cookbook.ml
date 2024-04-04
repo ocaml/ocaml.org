@@ -112,7 +112,7 @@ let decode (tasks : task list) (fpath, (head, body)) =
 
 let all_categories_and_tasks () =
   let categories =
-    Utils.yaml_sequence_file category_metadata_of_yaml "cookbook/categories.yml"
+    Utils.yaml_sequence_file ~key:"categories" category_metadata_of_yaml "cookbook/tasks.yml"
   in
   let tasks = ref [] in
   let categories =
