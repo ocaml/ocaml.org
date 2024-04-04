@@ -1,4 +1,5 @@
-type task_metadata = { title : string; slug : string; description : string } [@@deriving of_yaml]
+type task_metadata = { title : string; slug : string; description : string }
+[@@deriving of_yaml]
 
 type category_metadata = {
   title : string;
@@ -10,7 +11,12 @@ type category_metadata = {
 type category = { title : string; slug : string; subcategories : category list }
 [@@deriving show { with_path = false }]
 
-type task = { title : string; slug : string; category : category; description : string }
+type task = {
+  title : string;
+  slug : string;
+  category : category;
+  description : string;
+}
 [@@deriving show { with_path = false }]
 
 type code_block_with_explanation = { code : string; explanation : string }
@@ -123,7 +129,12 @@ let all_categories_and_tasks () =
       let category_tasks =
         c.tasks |> Option.value ~default:[]
         |> List.map (fun (t : task_metadata) : task ->
-               { title = t.title; slug = t.slug; category; description = t.description })
+               {
+                 title = t.title;
+                 slug = t.slug;
+                 category;
+                 description = t.description;
+               })
       in
       tasks := category_tasks @ !tasks;
       category
