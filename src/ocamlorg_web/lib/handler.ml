@@ -500,8 +500,12 @@ let cookbook _req =
 
 let cookbook_task req =
   let task_slug = Dream.param req "task_slug" in
-  let</>? task = List.find_opt (fun (t : Data.Cookbook.task) -> t.slug = task_slug) Data.Cookbook.tasks in
-  let recipe_list = Data.Cookbook.get_by_task ~task_slug:task_slug in
+  let</>? task =
+    List.find_opt
+      (fun (t : Data.Cookbook.task) -> t.slug = task_slug)
+      Data.Cookbook.tasks
+  in
+  let recipe_list = Data.Cookbook.get_by_task ~task_slug in
   Dream.html (Ocamlorg_frontend.cookbook_task task recipe_list)
 
 let cookbook_recipe req =

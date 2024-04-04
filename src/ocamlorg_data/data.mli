@@ -528,7 +528,13 @@ module Cookbook : sig
     subcategories : category list;
   }
 
-  type task = { title : string; slug : string; category : category; description : string }
+  type task = {
+    title : string;
+    slug : string;
+    category : category;
+    description : string;
+  }
+
   type code_block_with_explanation = { code : string; explanation : string }
   type package = { name : string; version : string }
 
