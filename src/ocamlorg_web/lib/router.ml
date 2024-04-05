@@ -122,7 +122,7 @@ let router t =
       sitemap_routes;
       Dream.scope ""
         [ Dream_encoding.compress ]
-        [ Dream.get "/manual/**" (Dream.static "/manual/") ];
+        [ Dream.get "/manual/**" (Dream.static Config.manual_path) ];
       Dream.scope ""
         [ Dream_encoding.compress ]
         [ Dream.get "/media/**" (Dream.static ~loader:media_loader "") ];
