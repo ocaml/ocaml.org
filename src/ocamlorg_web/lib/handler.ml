@@ -417,7 +417,7 @@ let papers req =
   let recommended_papers = Data.Paper.featured in
   Dream.html (Ocamlorg_frontend.papers ?search ~recommended_papers papers)
 
-let tutorial req =
+let tutorial commit_hash req =
   let slug = Dream.param req "id" in
   let</>? tutorial =
     List.find_opt (fun x -> x.Data.Tutorial.slug = slug) Data.Tutorial.all
@@ -450,7 +450,7 @@ let tutorial req =
   let prerequisite_tutorials = all_tutorials |> List.filter is_prerequisite in
 
   Dream.html
-    (Ocamlorg_frontend.tutorial ~tutorials
+    (Ocamlorg_frontend.tutorial commit_hash ~tutorials
        ~canonical:(Url.tutorial tutorial.slug)
        ~related_exercises ~recommended_next_tutorials ~prerequisite_tutorials
        tutorial)

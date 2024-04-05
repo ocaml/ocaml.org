@@ -11,3 +11,15 @@
   ocamlorg.data
   timedesc
   mirage-kv-mem))
+
+(rule
+ (deps (universe))
+ (action
+  (with-stdout-to
+   commit.ml
+   (progn
+    (echo "let hash = \"")
+    (pipe-stdout
+     (run "git" "rev-parse" "HEAD")
+     (run "tr" "-d" "\n"))
+    (echo "\"\n")))))
