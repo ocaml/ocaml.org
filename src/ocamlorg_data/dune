@@ -1,5 +1,6 @@
 (library
  (name data)
+ (virtual_modules data)
  (public_name ocamlorg.data))
 
 (rule
