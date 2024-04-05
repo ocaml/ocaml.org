@@ -1,5 +1,3 @@
-open Ocamlorg
-
 let render_title (tutorial: Data.Tutorial.t) = 
     <h1 id="<%s tutorial.slug %>" ><a class="anchor" aria-hidden="true" href="#<%s tutorial.slug %>"></a><%s tutorial.title %></h1>
 
@@ -56,6 +54,7 @@ let render_prerequisite_tutorials tutorials =
     ""
 
 let render
+commit_hash
 (tutorial : Data.Tutorial.t)
 ~tutorials
 ~related_exercises
@@ -65,7 +64,7 @@ let render
 =
 let href, description = match tutorial.external_tutorial with
   | None ->
-    "https://github.com/ocaml/ocaml.org/blob/"^ Commit.hash ^"/data/"^ tutorial.fpath,
+    "https://github.com/ocaml/ocaml.org/blob/"^ commit_hash ^"/data/"^ tutorial.fpath,
     "All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request."
   | Some external_tutorial ->
     external_tutorial.contribute_link.url,
