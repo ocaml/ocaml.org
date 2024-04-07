@@ -364,7 +364,7 @@ In order, here is what they are:
 - The identity function, which takes anything and returns it unchanged
 - The square function, which takes an integer and returns it squared
 - The function that takes two strings and returns their concatenation with a space character in between
-- The function that takes a list and either returns `None`, if the list is empty, or returns the list with its first element removed.
+- The function that takes a list and either returns `None`, if the list is empty, or returns its first element.
 
 Anonymous functions are often passed as arguments to other functions.
 ```ocaml
