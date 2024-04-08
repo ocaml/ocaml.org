@@ -151,3 +151,11 @@ jobs:
     publication_date: 2024-01-04
     company: XenServer, Cloud Software Group
     company_logo: https://www.xenserver.com/content/dam/xenserver/images/xenserver-full-color-rgb.svg
+  - title: Software Engineer
+    link: https://base.routine.co/jobs/positions/backend-software-engineer
+    locations:
+      - Paris, France
+      - Remote
+    publication_date: 2024-04-08
+    company: Routine
+    company_logo: https://assets.routine.co/logo.svg
