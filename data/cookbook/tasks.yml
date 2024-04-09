@@ -130,6 +130,16 @@ categories:
       slug: deserialize-types-from-json
       description: >
         Deserialize from JSON types
+  - title: YAML
+    tasks:
+    - title: Serialize to YAML
+      slug: serialise-to-yaml
+      description: >
+        Serialize records into YAML
+    - title: Deserialize from YAML
+      slug: deserialise-from-yaml
+      description: >
+        Deserialize records from YAML
 - title: Date and Time
   tasks:
   - title: Get Today's Date
