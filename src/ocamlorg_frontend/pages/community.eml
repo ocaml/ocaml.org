@@ -162,44 +162,39 @@ Community_layout.single_column_layout
       Resources from the Community
     </h2>
     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
-      <%s! Cards.resources
+      <%s! Cards.community_resource
         ~title:"Sherlocode"
         ~desc:"Search across 17 million lines of OCaml available on opam"
         ~link:"https://sherlocode.com"
-        ~img:"/img/ocaml-logo.png"
-        ~alt:"Sherlocode"
+        ~img:"/img/community_resources/sherlocode.png"
         ()
       %>
-      <%s! Cards.resources
+      <%s! Cards.community_resource
         ~title:"Sherlodoc"
         ~desc:"Fuzzy search in OCaml's documentation for almost all opam packages"
         ~link:"https://doc.sherlocode.com"
-        ~img:"/img/ocaml-logo.png"
-        ~alt:"Sherlodoc"
+        ~img:"/img/community_resources/sherlodoc.png"
         ()
       %>
-      <%s! Cards.resources
+      <%s! Cards.community_resource
         ~title:"Awesome OCaml"
         ~desc:"A curated list of references to awesome OCaml tools, frameworks, libraries, and articles"
         ~link:"https://github.com/ocaml-community/awesome-ocaml"
-        ~img:"/img/ocaml-logo.png"
-        ~alt:"Awesome OCaml"
+        ~img:"/img/community_resources/awesome-ocaml.png"
         ()
       %>
-      <%s! Cards.resources
+      <%s! Cards.community_resource
         ~title:"OCamlverse"
         ~desc:"OCamlverse is an effort to document everything worth knowing about OCaml, an industrial-strength functional programming language"
         ~link:"https://ocamlverse.net/"
-        ~img:"/img/ocaml-logo.png"
-        ~alt:"OCamlverse"
+        ~img:"/img/community_resources/ocamlverse.png"
         ()
       %>
-      <%s! Cards.resources
+      <%s! Cards.community_resource
         ~title:"Learn-OCaml platform"
-        ~desc:"Reference to the Learn-OCaml platform"
+        ~desc:"A platform for learning the OCaml language, featuring a Web toplevel, an exercise environment, and a directory of lessons and tutorials."
         ~link:"https://github.com/ocaml/ocaml.org/issues/2041"
-        ~img:"/img/ocaml-logo.png"
-        ~alt:"Learn-OCaml platform"
+        ~img:"/img/community_resources/learn-ocaml.png"
         ()
       %>
     </div>

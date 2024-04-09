@@ -1,14 +1,12 @@
-let resources ~title ~desc ~link ?(img="") ?(alt="") () =
-  <div class="card dark:dark-card rounded-xl border border-neutral-950">
-    <div class="w-full flex justify-center items-center mb-2 h-28 bg-[#222222] text-white rounded-t-xl">
-      <img class="mr-3 w-[30px] h-[30px] max-w-30" src="<%s img %>" alt="<%s alt %>">
-      <h2 class="text-white dark:text-dark-white text-2xl font-bold"><%s title %></h2>
+let community_resource ~title ~desc ~link ?(img="") () =
+  <a href=" <%s link %>" class="flex flex-col card dark:dark-card rounded-lg border border-separator_30">
+    <div class="w-full h-44 text-white rounded-t-xl bg-cover bg-center" style="background-image: url(<%s img %>)">
     </div>
-    <div class="p-3">
-      <h3 class="text-xl font-bold text-title text:dark:text-dark-title mb-3"><%s title %></h3>
-      <p class="text-base text-content dark:text-dark-content font-normal mb-2">
+    <div class="flex flex-col p-5 h-full">
+      <h2 class="text-xl font-bold text-title text:dark:text-dark-title mb-3"><%s title %></h2>
+      <p class="text-base text-content dark:text-dark-content font-normal mb-2 grow">
          <%s desc %>
       </p>
-      <a class="text-sm text-[#D54000] font-normal" href=" <%s link %>">View More</a>
+      <span class="text-sm text-[#D54000] font-normal"><%s link %></span>
     </div>
-  </div>
+  </a>
