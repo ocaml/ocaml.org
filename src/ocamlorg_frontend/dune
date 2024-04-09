@@ -315,4 +315,8 @@
     %{bin:dream_eml}
     %{dep:tutorial_search.eml}
     --workspace
-    %{workspace_root}))))
+    %{workspace_root})))
+ (rule
+  (target cards.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:cards.eml} --workspace %{workspace_root}))))

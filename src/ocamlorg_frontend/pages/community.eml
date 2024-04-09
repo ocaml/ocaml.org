@@ -153,6 +153,53 @@ Community_layout.single_column_layout
     </div>
   </div>
 </div>
+<div class="w-full border-b">
+  <div class="container-fluid pt-6 pb-12">
+    <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">
+      Links
+    </p>
+    <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">
+      Resources from the Community
+    </h2>
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+      <%s! Cards.community_resource
+        ~title:"Sherlocode"
+        ~desc:"Search across 17 million lines of OCaml available on opam"
+        ~link:"https://sherlocode.com"
+        ~img:"/img/community_resources/sherlocode.png"
+        ()
+      %>
+      <%s! Cards.community_resource
+        ~title:"Sherlodoc"
+        ~desc:"Fuzzy search in OCaml's documentation for almost all opam packages"
+        ~link:"https://doc.sherlocode.com"
+        ~img:"/img/community_resources/sherlodoc.png"
+        ()
+      %>
+      <%s! Cards.community_resource
+        ~title:"Awesome OCaml"
+        ~desc:"A curated list of references to awesome OCaml tools, frameworks, libraries, and articles"
+        ~link:"https://github.com/ocaml-community/awesome-ocaml"
+        ~img:"/img/community_resources/awesome-ocaml.png"
+        ()
+      %>
+      <%s! Cards.community_resource
+        ~title:"OCamlverse"
+        ~desc:"OCamlverse is an effort to document everything worth knowing about OCaml, an industrial-strength functional programming language"
+        ~link:"https://ocamlverse.net/"
+        ~img:"/img/community_resources/ocamlverse.png"
+        ()
+      %>
+      <%s! Cards.community_resource
+        ~title:"Learn-OCaml platform"
+        ~desc:"A platform for learning the OCaml language, featuring a Web toplevel, an exercise environment, and a directory of lessons and tutorials."
+        ~link:"https://github.com/ocaml/ocaml.org/issues/2041"
+        ~img:"/img/community_resources/learn-ocaml.png"
+        ()
+      %>
+    </div>
+  </div>
+</div>
 <div class="w-full section-mild-contrast dark:dark-blue-section-mild-contrast">
   <div class="container-fluid flex justify-between items-center py-7 px-8">
       <div class="flex flex-col w-full md:max-w-[50%]">
@@ -162,9 +209,6 @@ Community_layout.single_column_layout
           <div class="flex max-w-[17rem]">
             <%s! Hero_section.hero_button ~left_icon:(Icons.file_search "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("View OCaml Internship Projects") ~href:(Url.outreachy) %>
           </div>
-      </div>
-      <div class="hidden md:flex w-[18rem] h-[18rem] mr-16">
-          <img src="<%s! Ocamlorg_static.Asset.url "img/community/outreachy.png" %>" alt="computer">
       </div>
   </div>
 </div>
