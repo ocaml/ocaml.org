@@ -131,7 +131,7 @@ let all_categories_and_tasks () =
         slug = cat_slug;
         subcategories
       }
-    in (cat_tasks @ subcategories_tasks @ tasks, category :: subcategories @ categories)
+    in (cat_tasks @ subcategories_tasks @ tasks, category :: categories)
     in
     List.fold_left (extract_tasks_from_category []) (([], []) : task list * category list) categories_and_tasks_metadata
 
