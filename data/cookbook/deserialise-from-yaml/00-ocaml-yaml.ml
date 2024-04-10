@@ -12,6 +12,7 @@ discussion: |
   - The `yaml` packages provides means to parse and print Yaml source into a generic type: `Yaml.value`
   - The `ppx_deriving_yaml` package provides means to convert to and from `Yaml.value` into custom record types.
   - If both serialising and deserialising are needed, the attribute `of_yaml` can be replaced by `yaml`.
+  - Package `ppx_deriving_yaml` depends on `yaml`, you only needs to require the former.
 ---
 (** The syntax `{yaml| ... |yaml}` is a quoted string. The `yaml` identifier has
   no meaning, it only needs to be the same at both ends. No escaping is needed
@@ -55,11 +56,17 @@ type recipe = {
   for `ingredient_of_yaml`, post processing is needed. This what that function
   does. *)
 let add_keys : Yaml.value -> Yaml.value = function
-  | `O [(name, `Float weight)] -> `O [("name", `String name); ("weight", `Float weight)]
+  | `O [(name, `Float weight)] ->
+      `O [
+        ("name", `String name);
+        ("weight", `Float weight)]
   | v -> v
 
 (** Parsing the YAML format above does not produce `Yaml.value` results suitable
-  for `recipe_of_yaml`, post processing is needed. This what that function does. *)
+  for `recipe_of_yaml`, post processing is needed. This what that function does.
+  In production code, it may make sense to replace `Yaml.Util.map_exn` by
+  `Yaml.Util.map` which returns a `Result.Error` instead of throwing an
+  exception. This would require some extra plumbing code. *)
 
 let at_ingredients f = function
   | `A [

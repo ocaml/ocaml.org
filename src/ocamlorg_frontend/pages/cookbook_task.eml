@@ -26,7 +26,7 @@ Learn_layout.single_column_layout
   <div class="max-w-4xl">
     <div class="grid grid-cols-[1fr_40%] items-center bg-primary text-white rounded-t">
       <div class="px-4 py-2"><strong>Recipe</strong></div>
-      <div class="px-4 py-2"><strong>Packages Used</strong></div>
+      <div class="px-4 py-2"><strong>Opam Packages Used</strong></div>
     </div>
     <div class="flex flex-col gap-2 bg-sand dark:bg-dark-background_navigation rounded-b py-2">
 % recipes |> List.iter (fun (recipe : Data.Cookbook.t) ->
