@@ -286,6 +286,8 @@ categories:
     slug: read-environment-variable
     description: >
       Read shell environment variables
+- title: Graphical User Interfaces
+  tasks: []
 - title: Text Processing
   subcategories:
   - title: Unicode

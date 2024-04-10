@@ -556,7 +556,7 @@ module Cookbook : sig
   val categories : category list
   val tasks : task list
   val all : t list
-  val get_category_by_slug : string -> category
+  val get_task_path_titles : category list -> string list -> string list
   val get_tasks_by_category : category_slug:string -> task list
   val get_by_task : task_slug:string -> t list
   val get_by_slug : task_slug:string -> string -> t option

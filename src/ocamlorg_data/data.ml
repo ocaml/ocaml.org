@@ -235,8 +235,11 @@ end
 module Cookbook = struct
   include Cookbook
 
-  let get_category_by_slug slug =
-    List.find (fun (category : category) -> category.slug = slug) categories
+  let rec get_task_path_titles categories = function
+    | [] -> []
+    | slug :: path ->
+        let cat = List.find (fun (cat : category) -> cat.slug = slug) categories in
+        cat.title :: get_task_path_titles cat.subcategories path
 
   let get_tasks_by_category ~category_slug =
     tasks
