@@ -13,21 +13,11 @@ Learn_layout.single_column_layout
 
 % (if List.length recipe.packages > 0 then (
       <h2>Opam Packages Used</h2>
-      <p><%s recipe.packages |> List.map (fun (p: Data.Cookbook.package) -> p.name ^ "." ^ p.version) |> String.concat ", " %></p>
+      <p><%s recipe.packages |> List.map (fun (p: Data.Cookbook.package) -> p.name) |> String.concat ", " %></p>
 % ) else (
       <h2>No packages used</h2>
       This recipe uses only <a href="https://v2.ocaml.org/releases/5.1/api/index.html">the OCaml Standard Library</a>.
 % ));
-
-% (if List.length recipe.libraries > 0 then
-      <h2>Libraries</h2>
-      <p><%s recipe.libraries |> String.concat ", " %></p>
-% );
-
-% (if List.length recipe.ppxes > 0 then
-      <h2>Ppxes</h2>
-      <p><%s recipe.ppxes |> String.concat ", " %></p>
-% );
 
       <h2 class="flex gap-4 items-center">Code <%s! Copy_to_clipboard.button ~id:"copy-code" recipe.code_plaintext %></h2>
       <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10">
@@ -56,7 +46,7 @@ Learn_layout.single_column_layout
             <div class="flex flex-wrap gap-2 items-center">
             <%s if List.length recipe.packages = 0 then "-" else "" %>
               <% recipe.packages |> List.iter (fun (package: Data.Cookbook.package) -> %>
-              <a class="tag" href="<%s Url.Package.overview ~version:package.version package.name %>"><%s package.name %>.<%s package.version %></a>
+              <a class="tag" href="<%s Url.Package.overview package.name %>"><%s package.name %></a>
             <% ); %>
             </div>
           </div>

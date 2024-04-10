@@ -22,13 +22,11 @@ type task = {
 type code_block_with_explanation = { code : string; explanation : string }
 [@@deriving show { with_path = false }]
 
-type package = { name : string; version : string }
+type package = { name : string; tested_version : string; libraries: string list }
 [@@deriving of_yaml, show { with_path = false }]
 
 type metadata = {
   packages : package list;
-  libraries : string list option;
-  ppxes : string list option;
   discussion : string option;
 }
 [@@deriving of_yaml]
@@ -38,8 +36,6 @@ type t = {
   slug : string;
   task : task;
   packages : package list;
-  libraries : string list;
-  ppxes : string list;
   code_blocks : code_block_with_explanation list;
   code_plaintext : string;
   discussion_html : string;
@@ -48,7 +44,7 @@ type t = {
   stable_record ~version:metadata
     ~remove:
       [ slug; filepath; task; discussion_html; code_blocks; code_plaintext ]
-    ~modify:[ libraries; ppxes ] ~add:[ discussion ],
+    ~add:[ discussion ],
     show { with_path = false }]
 
 let decode (tasks : task list) (fpath, (head, body)) =
@@ -106,8 +102,7 @@ let decode (tasks : task list) (fpath, (head, body)) =
         metadata.discussion |> Option.value ~default:"" |> render_markdown
       in
       of_metadata ~slug ~filepath:fpath ~task ~discussion_html ~code_blocks
-        ~code_plaintext:body ~modify_libraries:(Option.value ~default:[])
-        ~modify_ppxes:(Option.value ~default:[]) metadata)
+        ~code_plaintext:body metadata)
     metadata
 
 let all_categories_and_tasks () =
@@ -167,7 +162,8 @@ type task =
   }
 type package =
   { name : string
-  ; version : string
+  ; tested_version : string
+  ; libraries : string list
   }
 type code_block_with_explanation =
   { code : string
@@ -178,8 +174,6 @@ type t =
   ; filepath: string
   ; task : task
   ; packages : package list
-  ; libraries : string list
-  ; ppxes : string list
   ; code_blocks : code_block_with_explanation list
   ; code_plaintext : string
   ; discussion_html : string

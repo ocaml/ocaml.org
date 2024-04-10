@@ -6,7 +6,7 @@ let render_recipe (recipe: Data.Cookbook.t) =
   <div class="flex flex-wrap gap-2 items-center">
   <%s if List.length recipe.packages = 0 then "-" else "" %>
   <% recipe.packages |> List.iter (fun (package: Data.Cookbook.package) -> %>
-    <a class="tag" href="<%s Url.Package.overview ~version:package.version package.name %>"><%s package.name %>.<%s package.version %></a>
+    <a class="tag" href="<%s Url.Package.overview package.name %>"><%s package.name %></a>
   <% ); %>
   </div>
 
