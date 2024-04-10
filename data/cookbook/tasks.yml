@@ -118,18 +118,14 @@ categories:
         Serialize records into a CSV file
   - title: JSON
     tasks:
-    - title: Serialize / Deserialize Unstructured JSON
-      slug: serialize-deserialize-unstructured-json
+    - title: Serialise to JSON
+      slug: serialise-to-json
       description: >
-        Serialize or deserialize unstructured JSON
-    - title: Serialize to Types from JSON
-      slug: serialize-types-from-json
+        Serialise records into JSON
+    - title: Deserialize from JSON
+      slug: deserialize-from-json
       description: >
-        Serialize to types from JSON
-    - title: Deserialize from JSON to Types
-      slug: deserialize-types-from-json
-      description: >
-        Deserialize from JSON types
+        Deserialize records from JSON
   - title: YAML
     tasks:
     - title: Serialize to YAML
