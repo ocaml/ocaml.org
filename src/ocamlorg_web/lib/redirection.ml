@@ -498,8 +498,6 @@ let fwd_v2 origin =
 
 let manual =
   [
-    redirect_p "/api/**";
-    fwd_v2 "/api";
     redirect_p "/releases/3.12/htmlman/**";
     fwd_v2 "/releases/3.12/htmlman";
     redirect_p "/releases/4.00/htmlman/**";
