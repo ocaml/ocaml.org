@@ -8,7 +8,7 @@ categories:
   - title: Using the ANSI Terminal
     slug: using-the-ansi-terminal
     description: >
-      Use ANSI escape codes for cursor location, font and color in video text
+      Use ANSI escape codes for cursor location, font and colour in video text
       terminal emulators.
 - title: Compilation & Linking
   tasks:
@@ -40,7 +40,7 @@ categories:
       slug: create-and-await-promises
       description: >
         Create a await promises
-  - title: Paralellism & Multi-Threading
+  - title: Parallelism & Multi-Threading
     tasks:
     - title: Spawn a Thread and Receive a Response
       slug: spawn-a-thread-and-receive-a-response
@@ -112,30 +112,30 @@ categories:
       slug: read-csv
       description: >
         Read records from a CSV file
-    - title: Serialize Tuples / Records to CSV
-      slug: serialize-csv
+    - title: Serialise Tuples / Records to CSV
+      slug: serialise-csv
       description: >
-        Serialize records into a CSV file
+        Serialise records into a CSV file
   - title: JSON
     tasks:
-    - title: Serialise to JSON
+    - title: Serialise JSON data
       slug: serialise-to-json
       description: >
-        Serialise records into JSON
-    - title: Deserialize from JSON
-      slug: deserialize-from-json
+        Serialise records into JSON data
+    - title: Deserialise JSON data
+      slug: deserialise-from-json
       description: >
-        Deserialize records from JSON
+        Deserialise JSON data into records
   - title: YAML
     tasks:
-    - title: Serialize to YAML
+    - title: Serialise YAML data
       slug: serialise-to-yaml
       description: >
-        Serialize records into YAML
-    - title: Deserialize from YAML
+        Serialise records into YAML data
+    - title: Deserialise YAML data
       slug: deserialise-from-yaml
       description: >
-        Deserialize records from YAML
+        Deserialise YAML data into records
 - title: Date and Time
   tasks:
   - title: Get Today's Date
@@ -146,10 +146,10 @@ categories:
     slug: measure-elapsed-time
     description: >
       Compute time difference to measure elapsed time
-  - title: Convert a Local Time to Another Timezone
-    slug: convert-time-to-another-timezone
+  - title: Convert a Local Time to Another Time Zone
+    slug: convert-time-to-another-time-zone
     description: >
-      Convert time to another timezone
+      Convert time to another time Zone
   - title: Convert Between Date and Unix Timestamp
     slug: convert-date-unix-timestamp
     description: >
@@ -237,7 +237,7 @@ categories:
   - title: Generate Random Strings and Arrays
     slug: generate-random-strings-and-arrays
     description: >
-      Generate pseudo randon strings and arrays
+      Generate pseudo random strings and arrays
   - title: Generate Random Values of a Custom Type
     slug: generate-random-values-custom-type
     description: >
@@ -257,15 +257,15 @@ categories:
     - title: Matrix Addition and Multiplication
       slug: matrix-addition-multiplication
       description: >
-        Perform matric addition or multiplication
+        Perform matrix addition or multiplication
     - title: Invert a Matrix
       slug: invert-matrix
       description: >
         Invert a matrix
-    - title: Nearest-Neighbor Search
-      slug: nearest-neighbor-search
+    - title: Nearest-Neighbour Search
+      slug: nearest-neighbour-search
       description: >
-        Compute nearest neighbor search 
+        Compute nearest neighbour search 
   - title: Geographical Calculations
     tasks:
     - title: Calculate Geodistance Between Two Points
@@ -313,7 +313,7 @@ categories:
     - title: Replace All Occurrences of a Text Pattern with Another Pattern
       slug: regex-replace-pattern
       description: >
-        Replaces all occurences of a pattern in a text
+        Replaces all occurrences of a pattern in a text
 - title: Web Programming
   subcategories:
   - title: HTTP Clients
@@ -347,7 +347,7 @@ categories:
     - title: Check a Webpage for Broken Links
       slug: check-webpage-for-broken-links
       description: >
-        Check a weppage for broken links
+        Check a webpage for broken links
   - title: Running a Web Server
     tasks:
     - title: Start a Web Server with a Hello World Endpoint

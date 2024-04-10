@@ -242,8 +242,7 @@ module Cookbook = struct
 
   let get_tasks_by_category ~category_slug =
     tasks
-    |> List.filter (fun (x : task) ->
-          List.mem category_slug x.category_path)
+    |> List.filter (fun (x : task) -> List.(x.category_path |> rev |> hd) = category_slug)
 
   let get_by_task ~task_slug =
     all |> List.filter (fun (x : t) -> String.equal task_slug x.task.slug)
@@ -260,5 +259,5 @@ module Cookbook = struct
     |> Option.value ~default:"the Standard Library"
 
   let full_title_of_recipe (recipe : t) =
-    recipe.task.title ^ " using " ^ main_package_of_recipe recipe
+    recipe.task.title ^ " using " ^ main_package_of_recipe recipe ^ " package"
 end
