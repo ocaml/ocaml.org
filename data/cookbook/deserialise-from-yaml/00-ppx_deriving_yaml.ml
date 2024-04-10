@@ -9,7 +9,7 @@ packages:
   used_libraries:
   - ppx_deriving_yaml
 discussion: |
-  - The `yaml` package provides means to parse and print Yaml source into a generic type: `Yaml.value`
+  - The `yaml` package provides means to parse and print YAML source into a generic type: `Yaml.value`
   - The `ppx_deriving_yaml` package provides means to convert to and from `Yaml.value` into custom record types.
   - If both serialising and deserialising are needed, the attribute `of_yaml` can be replaced by `yaml`.
   - Package `ppx_deriving_yaml` depends on `yaml`, you only needs to require the former.

@@ -14,7 +14,7 @@ type category = { title : string; slug : string; subcategories : category list }
 type task = {
   title : string;
   slug : string;
-  category : category;
+  category_path : string list;
   description : string;
 }
 [@@deriving show { with_path = false }]
@@ -107,47 +107,43 @@ let decode (tasks : task list) (fpath, (head, body)) =
     metadata
 
 let all_categories_and_tasks () =
-  let categories =
+  let categories_and_tasks_metadata =
     Utils.yaml_sequence_file ~key:"categories" category_metadata_of_yaml
       "cookbook/tasks.yml"
   in
-  let tasks = ref [] in
-  let categories =
-    let rec extract_tasks_from_category (c : category_metadata) : category =
-      let category =
-        {
-          title = c.title;
-          slug = Utils.slugify c.title;
-          subcategories =
-            c.subcategories |> Option.value ~default:[]
-            |> List.map extract_tasks_from_category;
-        }
-      in
-      let category_tasks =
-        c.tasks |> Option.value ~default:[]
-        |> List.map (fun (t : task_metadata) : task ->
-               {
-                 title = t.title;
-                 slug = t.slug;
-                 category;
-                 description = t.description;
-               })
-      in
-      tasks := category_tasks @ !tasks;
-      category
+  let rec extract_tasks_from_category (path : string list) (tasks, categories) (meta_cat : category_metadata) : task list * category list =
+    let cat_slug = Utils.slugify meta_cat.title in
+    let cat_tasks =
+      meta_cat.tasks
+      |> Option.value ~default:[]
+      |> List.map (fun (t : task_metadata) : task ->
+              {
+                title = t.title;
+                slug = t.slug;
+                category_path = List.rev (cat_slug :: path);
+                description = t.description;
+              }) in
+    let subcategories_tasks, subcategories =
+      List.fold_left (extract_tasks_from_category (cat_slug :: path)) ([], []) (Option.value ~default:[] meta_cat.subcategories) in
+    let category =
+      {
+        title = meta_cat.title;
+        slug = cat_slug;
+        subcategories
+      }
+    in (cat_tasks @ subcategories_tasks @ tasks, category :: subcategories @ categories)
     in
-    categories |> List.map extract_tasks_from_category |> List.rev
-  in
-  (categories, !tasks)
+    List.fold_left (extract_tasks_from_category []) (([], []) : task list * category list) categories_and_tasks_metadata
+
+
+let tasks, categories = all_categories_and_tasks ()
 
 let all () =
-  let _, tasks = all_categories_and_tasks () in
   Utils.map_files (decode tasks) "cookbook/*/*.ml"
   |> List.sort (fun a b -> String.compare b.slug a.slug)
   |> List.rev
 
 let template () =
-  let categories, tasks = all_categories_and_tasks () in
   Format.asprintf
     {|
 type category =
@@ -158,7 +154,7 @@ type category =
 type task =
   { title : string
   ; slug : string
-  ; category : category
+  ; category_path : string list
   ; description : string
   }
 type package =

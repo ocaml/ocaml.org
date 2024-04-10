@@ -235,10 +235,15 @@ end
 module Cookbook = struct
   include Cookbook
 
+  let get_category_by_slug slug =
+    List.find
+    (fun (category : category) -> category.slug = slug)
+    categories
+
   let get_tasks_by_category ~category_slug =
     tasks
     |> List.filter (fun (x : task) ->
-           String.equal category_slug x.category.slug)
+          List.mem category_slug x.category_path)
 
   let get_by_task ~task_slug =
     all |> List.filter (fun (x : t) -> String.equal task_slug x.task.slug)
