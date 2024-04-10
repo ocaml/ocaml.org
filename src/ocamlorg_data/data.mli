@@ -539,7 +539,7 @@ module Cookbook : sig
   type package = {
     name : string;
     tested_version : string;
-    libraries : string list;
+    used_libraries : string list;
   }
 
   type t = {

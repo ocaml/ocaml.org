@@ -2,11 +2,11 @@
 packages:
 - name: yaml
   tested_version: 3.2.0
-  libraries:
+  used_libraries:
   - yaml
 - name: ppx_deriving_yaml
   tested_version: 0.2.2
-  libraries:
+  used_libraries:
   - ppx_deriving_yaml
 discussion: |
   - The `yaml` package provides means to parse and print Yaml source into a generic type: `Yaml.value`

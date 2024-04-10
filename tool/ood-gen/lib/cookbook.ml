@@ -25,7 +25,7 @@ type code_block_with_explanation = { code : string; explanation : string }
 type package = {
   name : string;
   tested_version : string;
-  libraries : string list;
+  used_libraries : string list;
 }
 [@@deriving of_yaml, show { with_path = false }]
 
@@ -164,7 +164,7 @@ type task =
 type package =
   { name : string
   ; tested_version : string
-  ; libraries : string list
+  ; used_libraries : string list
   }
 type code_block_with_explanation =
   { code : string
