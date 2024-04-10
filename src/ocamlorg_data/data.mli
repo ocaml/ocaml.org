@@ -536,7 +536,12 @@ module Cookbook : sig
   }
 
   type code_block_with_explanation = { code : string; explanation : string }
-  type package = { name : string; tested_version : string; libraries: string list }
+
+  type package = {
+    name : string;
+    tested_version : string;
+    libraries : string list;
+  }
 
   type t = {
     slug : string;
