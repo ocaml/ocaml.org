@@ -9,13 +9,15 @@ Learn_layout.single_column_layout
       <h1 class="font-normal text-4xl mb-10"><%s Data.Cookbook.full_title_of_recipe recipe %></h2>
 
       <h2>Task</h2>
-      <p><a href="<%s Url.cookbook_task recipe.task.slug %>"><%s recipe.task.title %></a></p>
+      <p>
+            <%s recipe.task.category_path |> List.map (fun slug -> (Data.Cookbook.get_category_by_slug slug).title) |> String.concat " / " %> /
+            <a href="<%s Url.cookbook_task recipe.task.slug %>"><%s recipe.task.title %></a></p>
 
 % (if List.length recipe.packages > 0 then (
       <h2>Opam Packages Used</h2>
       <ul>
 % (recipe.packages |> List.iter (fun (package: Data.Cookbook.package) ->
-            <li> <a class="tag" href="<%s Url.Package.overview package.name %>"><%s package.name %></a> : <%s (package.used_libraries |> String.concat ", ") %>
+            <li> <a class="tag" href="<%s Url.Package.overview package.name %>"><%s package.name %></a> Tested with version: <%s package.tested_version %> &mdash; Used libraries: <%s (package.used_libraries |> String.concat ", ") %>
 % ));
       </ul>
 % ) else (
