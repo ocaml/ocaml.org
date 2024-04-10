@@ -22,13 +22,14 @@ type task = {
 type code_block_with_explanation = { code : string; explanation : string }
 [@@deriving show { with_path = false }]
 
-type package = { name : string; tested_version : string; libraries: string list }
+type package = {
+  name : string;
+  tested_version : string;
+  libraries : string list;
+}
 [@@deriving of_yaml, show { with_path = false }]
 
-type metadata = {
-  packages : package list;
-  discussion : string option;
-}
+type metadata = { packages : package list; discussion : string option }
 [@@deriving of_yaml]
 
 type t = {
