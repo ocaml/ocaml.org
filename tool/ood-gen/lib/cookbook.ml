@@ -111,30 +111,32 @@ let all_categories_and_tasks () =
     Utils.yaml_sequence_file ~key:"categories" category_metadata_of_yaml
       "cookbook/tasks.yml"
   in
-  let rec extract_tasks_from_category (path : string list) (tasks, categories) (meta_cat : category_metadata) : task list * category list =
+  let rec extract_tasks_from_category (path : string list) (tasks, categories)
+      (meta_cat : category_metadata) : task list * category list =
     let cat_slug = Utils.slugify meta_cat.title in
     let cat_tasks =
-      meta_cat.tasks
-      |> Option.value ~default:[]
+      meta_cat.tasks |> Option.value ~default:[]
       |> List.map (fun (t : task_metadata) : task ->
-              {
-                title = t.title;
-                slug = t.slug;
-                category_path = List.rev (cat_slug :: path);
-                description = t.description;
-              }) in
-    let subcategories_tasks, subcategories =
-      List.fold_left (extract_tasks_from_category (cat_slug :: path)) ([], []) (Option.value ~default:[] meta_cat.subcategories) in
-    let category =
-      {
-        title = meta_cat.title;
-        slug = cat_slug;
-        subcategories
-      }
-    in (cat_tasks @ subcategories_tasks @ tasks, category :: categories)
+             {
+               title = t.title;
+               slug = t.slug;
+               category_path = List.rev (cat_slug :: path);
+               description = t.description;
+             })
     in
-    List.fold_left (extract_tasks_from_category []) (([], []) : task list * category list) categories_and_tasks_metadata
-
+    let subcategories_tasks, subcategories =
+      List.fold_left
+        (extract_tasks_from_category (cat_slug :: path))
+        ([], [])
+        (Option.value ~default:[] meta_cat.subcategories)
+    in
+    let category = { title = meta_cat.title; slug = cat_slug; subcategories } in
+    (cat_tasks @ subcategories_tasks @ tasks, category :: categories)
+  in
+  List.fold_left
+    (extract_tasks_from_category [])
+    (([], []) : task list * category list)
+    categories_and_tasks_metadata
 
 let tasks, categories = all_categories_and_tasks ()
 

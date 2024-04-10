@@ -376,7 +376,7 @@ categories:
       slug: parse-mime-type-of-http-response
       description: >
         Get a MIME type from an HTTP response
-  - title: Other
+  - title: URL and URI processing
     tasks:
     - title: Parse a URL from String And Access Individual Parts
       slug: parse-url-from-string
