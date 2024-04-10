@@ -193,7 +193,7 @@ Community_layout.single_column_layout
       <%s! Cards.community_resource
         ~title:"Learn-OCaml platform"
         ~desc:"A platform for learning the OCaml language, featuring a Web toplevel, an exercise environment, and a directory of lessons and tutorials."
-        ~link:"https://github.com/ocaml/ocaml.org/issues/2041"
+        ~link:"https://github.com/ocaml-sf/learn-ocaml"
         ~img:"/img/community_resources/learn-ocaml.png"
         ()
       %>
