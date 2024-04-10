@@ -236,13 +236,12 @@ module Cookbook = struct
   include Cookbook
 
   let get_category_by_slug slug =
-    List.find
-    (fun (category : category) -> category.slug = slug)
-    categories
+    List.find (fun (category : category) -> category.slug = slug) categories
 
   let get_tasks_by_category ~category_slug =
     tasks
-    |> List.filter (fun (x : task) -> List.(x.category_path |> rev |> hd) = category_slug)
+    |> List.filter (fun (x : task) ->
+           List.(x.category_path |> rev |> hd) = category_slug)
 
   let get_by_task ~task_slug =
     all |> List.filter (fun (x : t) -> String.equal task_slug x.task.slug)
@@ -253,8 +252,7 @@ module Cookbook = struct
       all
 
   let main_package_of_recipe (recipe : t) =
-    recipe.packages
-    |> (Fun.flip List.nth_opt) 0
+    recipe.packages |> Fun.flip List.nth_opt 0
     |> Option.map (fun (p : package) -> p.name)
     |> Option.value ~default:"the Standard Library"
 
