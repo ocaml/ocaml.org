@@ -9,16 +9,16 @@ libraries:
 ppxes:
   - ppx_deriving_yaml
 discussion: |
-  - The `yaml` packages provides means to parse and print Yaml source into a generic type: `Yaml.value`
+  - The `yaml` package provides means to parse and print Yaml source into a generic type: `Yaml.value`
   - The `ppx_deriving_yaml` package provides means to convert to and from `Yaml.value` into custom record types.
   - If both serialising and deserialising are needed, the attribute `of_yaml` can be replaced by `yaml`.
   - Package `ppx_deriving_yaml` depends on `yaml`, you only needs to require the former.
 ---
 (** The syntax `{yaml| ... |yaml}` is a quoted string. The `yaml` identifier has
-  no meaning, it only needs to be the same at both ends. No escaping is needed
-  inside a quoted string. In a “real-world” example, the YAML source would be
-  read from a file or received from a network request, this is out of the scope
-  of this recipe.
+  no meaning, it is informative only needs to be the same at both ends. No escaping
+  is needed inside a quoted string. In a “real-world” example, the YAML source
+  would be read from a file or received from a network request, this is out of the
+  scope of this recipe.
 *)
 let yaml = {yaml|
 - name: pâte sucrée
