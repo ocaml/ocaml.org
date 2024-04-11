@@ -82,6 +82,9 @@ let at_ingredients f : Yojson.Safe.t -> Yojson.Safe.t = function
   custom record types. The function `Hl_yaml.Unix.parse` is provided by the
   `hl_yaml` package. *)
 let pate_sucree =
-  let of_yojson json = json |> at_ingredients add_keys |> recipe_of_yojson
+  let of_yojson json =
+    json
+    |> at_ingredients add_keys
+    |> recipe_of_yojson in
   yaml
   |> Hl_yaml.Unix.parse ~of_yojson
