@@ -11,13 +11,32 @@ recommended_next_tutorials:
   - "lists"
 ---
 
-Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page. After we take an introductory tour of OCaml's language features, we'll proceed to create our first OCaml project in the [Your First OCaml Program](/docs/your-first-program) tutorial.
+## Introduction
+Hop on the OCaml sightseeing bus.
+This absolute beginner tutorial will drive you through the marvels and wonders of OCaml.
+We'll have a look at the most commonly used language features.
+No OCaml or functional programming knowledge is required; however, it is assumed the reader has some basic software development knowledge.
+<!-- AC: I think this bit is redundant
+This tutorial is probably not adapted to learn programming.
+-->
 
-You need to have OCaml installed. No OCaml or functional programming knowledge is required; however, it is assumed the reader has some basic software development knowledge. This tutorial is probably not adapted to learn programming.
+The complete tour is divided in two parts.
+The first part is an introduction to OCaml's language features: values, expressions, lists, functions, pattern matching and more.
+In the second part we'll see how to create our first OCaml project in the [Your First OCaml Program](/docs/your-first-program) tutorial.
 
-This document will cover how to use the REPL UTop to evaluate OCaml expressions interactively, understand the output, how to use pattern matching, call functions from OCaml standard library modules, and more. It also introduces you to lists, values, functions, integers, floats, references, and arrays.
 
-Let's walk through the basics of OCaml by trying out different elements in an interactive manner. We recommend that you execute the examples we provide, or slight variants of them, in your own environment to get a feel for coding in OCaml.
+## Before We Begin
+Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page.
+
+<!-- AC: Already stated on the previous paragraph
+You need to have OCaml installed. -->
+
+To walk through the basics of OCaml by trying out different elements in an interactive manner we'll use the OCaml REPL Utop.
+A REPL (also known as toplevel or shell) is a program that *R*eads an input, *E*valuates it, *P*rints the result and *L*oops back to read the next input.
+UTop (Universal Toplevel) reads and evaluates OCaml phrases like expressions or value definitions evaluates them and prints the result on the screen.
+You can run UTop by using the `utop` command.
+We recommend that you execute the examples we provide, or slight variants of them, in your own environment to get a feel for coding in OCaml.
+While this tour is self-contained, we recommend you to read the [Introduction to OCaml Toplevel](/docs/toplevel-introduction) for more information on the toplevel.
 
 <!--
 The goal of this tutorial is to provide the following capabilities:
@@ -35,8 +54,9 @@ The goal of this tutorial is to provide the following capabilities:
 - Call functions defined in modules of the OCaml standard library
 -->
 
-**Note**: We recommend that you try running the code snippets throughout this guide in an OCaml toplevel. You can run the toplevel using the `utop` command. Read the [Introduction to OCaml Toplevel](/docs/toplevel-introduction) to learn how to use it.
-
+<!-- AC: Already in the previous paragraph
+**Note**: We recommend that you try running the code snippets throughout this guide in an OCaml toplevel.  Read the [Introduction to OCaml Toplevel](/docs/toplevel-introduction) to learn how to use it.
+-->
 ## Expressions and Definitions
 
 Let's start with a simple expression:
@@ -46,6 +66,7 @@ Let's start with a simple expression:
 ```
 
 In OCaml, everything has a value, and every value has a type. The above example says, “`50 * 50` is an expression that has type `int` (integer) and evaluates to `2500`.” Since it is an anonymous expression, the character `-` appears instead of a name.
+The double semicolon `;;` at the end tells the toplevel to evaluate and print the result of the given phrase.
 
 Here are examples of other primitive values and types:
 ```ocaml
