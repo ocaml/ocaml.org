@@ -9,10 +9,11 @@ packages:
   used_libraries:
   - ppx_deriving_yaml
 discussion: |
-  - The `yaml` package provides means to parse and print YAML source into a generic type: `Yaml.value`
+  - The `yaml` package provides means to parse and print YAML data into a generic type: `Yaml.value`
   - The `ppx_deriving_yaml` package provides means to convert to and from `Yaml.value` into custom record types.
   - If both serialising and deserialising are needed, the attribute `of_yaml` can be replaced by `yaml`.
   - Package `ppx_deriving_yaml` depends on `yaml`, you only needs to require the former.
+  - To test this recipe in Utop, you need to execute `#require "yaml"` and `#require "ppx_deriving_yaml"`
 ---
 (** The syntax `{yaml| ... |yaml}` is a quoted string. The `yaml` identifier has
   no meaning, it is informative only and needs to be the same at both ends. No
@@ -21,18 +22,18 @@ discussion: |
   out of the scope of this recipe.
 *)
 let yaml = {yaml|
-- name: pâte sucrée
-- ingredients:
-  - flour: 250
-  - butter: 100
-  - sugar: 100
-  - egg: 50
-  - salt: 5
-- steps:
-  - soften butter
-  - add sugar
-  - add egg and salt
-  - add flour
+french name: pâte sucrée
+ingredients:
+- flour: 250
+- butter: 100
+- sugar: 100
+- egg: 50
+- salt: 5
+steps:
+- soften butter
+- add sugar
+- add egg and salt
+- add flour
 |yaml}
 
 (** The `@@deriving` attribute triggers the definition of function
@@ -47,7 +48,7 @@ type ingredient = {
   `recipe_of_yaml` of type ``Yaml.value -> (ingredient, [> `Msg of string ])
   result`` This provided by the `ppx_deriving_yaml` package. *)
 type recipe = {
-  name: string;
+  name: string; [@key "french name"]
   ingredients: ingredient list;
   steps: string list;
 } [@@deriving of_yaml]
@@ -59,7 +60,8 @@ let add_keys : Yaml.value -> Yaml.value = function
   | `O [(name, `Float weight)] ->
       `O [
         ("name", `String name);
-        ("weight", `Float weight)]
+        ("weight", `Float weight);
+      ]
   | v -> v
 
 (** Parsing the YAML format above does not produce `Yaml.value` results suitable
@@ -67,27 +69,27 @@ let add_keys : Yaml.value -> Yaml.value = function
   In production code, it may make sense to replace `Yaml.Util.map_exn` by
   `Yaml.Util.map` which returns a `Result.Error` instead of throwing an
   exception. This would require some extra plumbing code. *)
-
-let at_ingredients f = function
-  | `A [
-       `O [("name", `String name)];
-       `O [("ingredients", `A ingredients)];
-       `O [("steps", `A steps)];
-     ] -> `O [
-       ("name", `String name);
-       ("ingredients", Yaml.Util.map_exn f (`A ingredients));
-       ("steps", `A steps);
-     ]
+let at_ingredients f : Yaml.value -> Yaml.value = function
+  | `O [
+      ("french name", `String name);
+      ("ingredients", `A ingredients);
+      ("steps", `A steps)
+    ] -> `O [
+      ("french name", `String name);
+      ("ingredients", Yaml.Util.map_exn f (`A ingredients));
+      ("steps", `A steps);
+    ]
   | v -> v
 
-(** Everything is combined: parsing, post-processing and conversion into custom
-  record types. The function `Yaml.of_string` is provided by the `yaml` package.
-  Since `Yaml.of_string` returns a `result` wrapped value, post-processing must
-  take place under a call to `Result.map`. Since `recipe_of_yaml` also returns a
-  `result` wrapped value, it must be called using `Result.bind` which does the
-  same as `Result.bind` except it peels-off the double `result` wrapping. Refer
-  to the [Error Handling](/docs/error-handling) guide for more on processing
-  `result` values. `Fun.flip` is a artefact needed by type-cheking, otherwise
+(** Everything in is right place: parsing, post-processing and conversion into
+  custom record types. The function `Yaml.of_string` is provided by the `yaml`
+  package. Since `Yaml.of_string` returns a `result` wrapped value,
+  post-processing must take place under a call to `Result.map`. Since
+  `recipe_of_yaml` also returns a `result` wrapped value, it must be called
+  using `Result.bind` which does the same as `Result.bind` except it peels-off
+  the double `result` wrapping. Refer to the
+  [Error Handling](/docs/error-handling) guide for more on processing `result`
+  values. `Fun.flip` is a artefact needed by type-cheking, otherwise
   `Result.bind` does not expect its arguments in the order required by this
   pipe. *)
 let pate_sucree =
