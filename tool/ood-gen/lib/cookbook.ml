@@ -138,7 +138,7 @@ let all_categories_and_tasks () =
     (([], []) : task list * category list)
     categories_and_tasks_metadata
 
-let tasks, categories = all_categories_and_tasks ()
+let tasks, top_categories = all_categories_and_tasks ()
 
 let all () =
   Utils.map_files (decode tasks) "cookbook/*/*.ml"
@@ -178,12 +178,12 @@ type t =
   ; discussion_html : string
   }
 
-let categories = %a
+let top_categories = %a
 let tasks = %a
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp_category ~sep:Fmt.semi))
-    categories
+    top_categories
     (Fmt.brackets (Fmt.list pp_task ~sep:Fmt.semi))
     tasks
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
