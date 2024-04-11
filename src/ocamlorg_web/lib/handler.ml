@@ -495,7 +495,7 @@ let exercises req =
   Dream.html (Ocamlorg_frontend.exercises ?difficulty_level filtered_exercises)
 
 let cookbook _req =
-  let categories = Data.Cookbook.categories in
+  let categories = Data.Cookbook.top_categories in
   Dream.html (Ocamlorg_frontend.cookbook categories)
 
 let cookbook_task req =

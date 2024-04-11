@@ -553,7 +553,7 @@ module Cookbook : sig
     discussion_html : string;
   }
 
-  val categories : category list
+  val top_categories : category list
   val tasks : task list
   val all : t list
   val get_task_path_titles : category list -> string list -> string list
