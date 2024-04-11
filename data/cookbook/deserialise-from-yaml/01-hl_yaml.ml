@@ -8,7 +8,6 @@ packages:
   tested_version: 3.7.0
   used_libraries:
   - ppx_deriving_yojson
-
 discussion: |
   - The `hl_yaml` package provides means to process, parse and print YAML data
   - The `ppx_deriving_yojson` package provides means to convert to and from `Yojson.Safe.t` into custom record types.
@@ -40,19 +39,19 @@ steps:
 (** The `@@deriving` attribute triggers the definition of function
   `ingredient_of_yojson : Yojson.Safe.t -> (ingredient, string) result`.
   This provided by the `ppx_deriving_yojson` package. *)
-  type ingredient = {
-    name: string;
-    weight: int;
-  } [@@deriving of_yojson]
+type ingredient = {
+  name: string;
+  weight: int;
+} [@@deriving of_yojson]
 
-  (** The `@@deriving` attribute triggers the definition of function
-    `recipe_of_yojson : Yojson.Safe.t -> (ingredient, string) result`.
-    This provided by the `ppx_deriving_yojson` package. *)
-  type recipe = {
-    name: string; [@key "french name"]
-    ingredients: ingredient list;
-    steps: string list;
-  } [@@deriving of_yojson]
+(** The `@@deriving` attribute triggers the definition of function
+  `recipe_of_yojson : Yojson.Safe.t -> (ingredient, string) result`.
+  This provided by the `ppx_deriving_yojson` package. *)
+type recipe = {
+  name: string; [@key "french name"]
+  ingredients: ingredient list;
+  steps: string list;
+} [@@deriving of_yojson]
 
 (** Parsing the YAML format above does not produce `Yojson.Safe.t` results suitable
   for `ingredient_of_yojson`, post processing is needed. This what that function
