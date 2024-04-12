@@ -118,29 +118,28 @@ categories:
         Serialise records into a CSV file
   - title: JSON
     tasks:
-    - title: Serialise JSON data
+    - title: Serialise JSON Data
       slug: serialise-to-json
       description: >
         Serialise records into JSON data
-    - title: Deserialise JSON data
+    - title: Deserialise JSON Data
       slug: deserialise-from-json
       description: >
         Deserialise JSON data into records
   - title: YAML
     tasks:
-    - title: Serialise YAML data
+    - title: Serialise YAML Data
       slug: serialise-to-yaml
       description: >
         Serialise records into YAML data
-    - title: Deserialise YAML data
+    - title: Deserialise YAML Data
       slug: deserialise-from-yaml
       description: >
         Deserialise YAML data into records
-  tasks:
-    - title: Massage Deserialised data
-      slug: massage-deserialised-data
+    - title: Deserialise and Post-Process YAML Data
+      slug: deserialise-post-process-from-yaml
       description: >
-        Massage deserialised data
+        Deserialise and post-process YAML data into records
 - title: Date and Time
   tasks:
   - title: Get Today's Date
