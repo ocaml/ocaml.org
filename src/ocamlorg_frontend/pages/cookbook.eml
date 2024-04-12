@@ -73,7 +73,7 @@ Learn_layout.three_column_layout
       <h1 class="font-normal text-4xl">OCaml Cookbook Recipes</h2>
       <p>
         The OCaml cookbook is a place where OCaml developers share how to solve
-        common tasks in OCaml using packages from the OCaml ecosystem.</p>
+        common tasks using packages from the ecosystem.</p>
       <p>
         A task is something that needs to be done inside a project. A recipe is
         a code sample and explanations on how to perform a task using a
@@ -84,7 +84,9 @@ Learn_layout.three_column_layout
         OCaml developers are warmly invited to contribute categories, tasks and
         recipes. See the Cookbook section of the <a
         href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-cookbook">CONTRIBUTING.md</a> file in our GitHub repo.
-      </p>
+        <p>
+        The OCaml guides are recommend reading, for instance recipes handle errors
+        as described in the Error Handling guide.
     </div>
     <div class="flex flex-col gap-6">
       <% categories |> List.iter (fun (category: Data.Cookbook.category) -> %>

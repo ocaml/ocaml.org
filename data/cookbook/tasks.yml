@@ -136,6 +136,11 @@ categories:
       slug: deserialise-from-yaml
       description: >
         Deserialise YAML data into records
+  tasks:
+    - title: Massage Deserialised data
+      slug: massage-deserialised-data
+      description: >
+        Massage deserialised data
 - title: Date and Time
   tasks:
   - title: Get Today's Date
