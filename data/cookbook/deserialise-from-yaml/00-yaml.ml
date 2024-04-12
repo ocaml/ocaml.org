@@ -8,93 +8,40 @@ packages:
   tested_version: 0.2.2
   used_libraries:
   - ppx_deriving_yaml
-discussion: |
-  - The `yaml` package provides means to parse and print YAML data into a generic type: `Yaml.value`
-  - The `ppx_deriving_yaml` package provides means to convert to and from `Yaml.value` into custom record types.
-  - If both serialising and deserialising are needed, the attribute `of_yaml` can be replaced by `yaml`.
-  - Package `ppx_deriving_yaml` depends on `yaml`, you only needs to require the former.
-  - To test this recipe in Utop, you need to execute `#require "yaml"` and `#require "ppx_deriving_yaml"`
 ---
-(** The syntax `{yaml| ... |yaml}` is a quoted string. The `yaml` identifier has
-  no meaning, it is informative only and needs to be the same at both ends. No
-  escaping is needed inside a quoted string. In a “real-world” example, the YAML
-  source would be read from a file or received from a network request, this is
-  out of the scope of this recipe.
-*)
-let yaml = {yaml|
+(** The syntax `{| ... |}` is a quoted string. *)
+let yaml = {|
 french name: pâte sucrée
 ingredients:
-- flour: 250
-- butter: 100
-- sugar: 100
-- egg: 50
-- salt: 5
+- name: flour
+  weight: 250
+- name: butter
+  weight: 100
+- name: sugar
+  weight: 100
+- name: egg
+  weight: 50
+- name: salt
+  weight: 5
 steps:
 - soften butter
 - add sugar
 - add egg and salt
 - add flour
-|yaml}
+|}
 
-(** The `@@deriving` attribute triggers the definition of function
-  `ingredient_of_yaml` of type ``Yaml.value -> (ingredient, [> `Msg of string ])
-  result``. This provided by the `ppx_deriving_yaml` package. *)
+(** The `[@@deriving of_yaml]` attribute makes library `ppx_deriving_yaml` generate the function
+  ``ingredient_of_yaml : Yaml.value -> (ingredient, [> `Msg of string ])
+  result``.If both serialising and deserialising are needed, `of_yaml`
+  can be replaced by `yaml`*)
 type ingredient = {
   name: string;
   weight: int;
 } [@@deriving of_yaml]
 
-(** The `@@deriving` attribute triggers the definition of function
-  `recipe_of_yaml` of type ``Yaml.value -> (ingredient, [> `Msg of string ])
-  result`` This provided by the `ppx_deriving_yaml` package. *)
-type recipe = {
-  name: string; [@key "french name"]
-  ingredients: ingredient list;
-  steps: string list;
-} [@@deriving of_yaml]
-
-(** Parsing the YAML format above does not produce `Yaml.value` results suitable
-  for `ingredient_of_yaml`, post processing is needed. This what that function
-  does. *)
-let add_keys : Yaml.value -> Yaml.value = function
-  | `O [(name, `Float weight)] ->
-      `O [
-        ("name", `String name);
-        ("weight", `Float weight);
-      ]
-  | v -> v
-
-(** Parsing the YAML format above does not produce `Yaml.value` results suitable
-  for `recipe_of_yaml`, post processing is needed. This what that function does.
-  In production code, it may make sense to replace `Yaml.Util.map_exn` by
-  `Yaml.Util.map` which returns a `Result.Error` instead of throwing an
-  exception. This would require some extra plumbing code. *)
-let at_ingredients f : Yaml.value -> Yaml.value = function
-  | `O [
-      ("french name", `String name);
-      ("ingredients", `A ingredients);
-      ("steps", `A steps)
-    ] -> `O [
-      ("french name", `String name);
-      ("ingredients", Yaml.Util.map_exn f (`A ingredients));
-      ("steps", `A steps);
-    ]
-  | v -> v
-
-(** Everything in is right place: parsing, post-processing and conversion into
-  custom record types. The function `Yaml.of_string` is provided by the `yaml`
-  package. Since `Yaml.of_string` returns a `result` wrapped value,
-  post-processing must take place under a call to `Result.map`. Since
-  `recipe_of_yaml` also returns a `result` wrapped value, it must be called
-  using `Result.bind` which does the same as `Result.bind` except it peels-off
-  the double `result` wrapping. Refer to the
-  [Error Handling](/docs/error-handling) guide for more on processing `result`
-  values. `Fun.flip` is a artefact needed by type-cheking, otherwise
-  `Result.bind` does not expect its arguments in the order required by this
-  pipe. *)
+(** Parsing and conversion into record are chained. *)
 let pate_sucree =
   yaml
   |> Yaml.of_string
-  |> Result.map (at_ingredients add_keys)
-  |> Fun.flip Result.bind recipe_of_yaml
+  |> fun yaml -> Result.bind yaml recipe_of_yaml
 

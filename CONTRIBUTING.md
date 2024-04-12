@@ -122,7 +122,7 @@ Here are the steps to contribute a recipe for an existing task:
 * Find the task in the [data/cookbook/tasks.yml](data/cookbook/tasks.yml) file
 * Go to the task folder inside [data/cookbook/](data/cookbook/) which has the
   same name as the task's `slug`
-* Create a Caml file containing the recipe and a Yaml header with metadata about
+* Create a `.ml` file containing the recipe and a Yaml header with metadata about
   the recipe.
 
 If the recipe does not fit into any existing task, you also need to create a
@@ -140,9 +140,7 @@ other way, it is not allowed to have a task folder in
 compilation error.
 
 Each recipe is a way to perform a task using a combination of open-source
-libraries. Writing a recipe as simple as using a single function call from a
-package that does the job is acceptable. That does not apply to the standard
-library.
+libraries.
 
 ### <a name="content-recurring-event"></a>Add A Recurring Event
 

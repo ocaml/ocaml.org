@@ -39,7 +39,7 @@ Learn_layout.single_column_layout
       <h2>Discussion</h2>
       <%s! recipe.discussion_html %>
 % );
-      <h2>Recipe not working? Comments not clear?</h2>
+      <h2>Recipe not working? Comments not clear or out of date?</h2>
       <a target="_blank" href="https://github.com/ocaml/ocaml.org/issues">Open an issue</a>
       or <a target="_blank" href="https://github.com/ocaml/ocaml.org/tree/main/data/<%s recipe.filepath %>">contribute to this recipe</a>!
 % if List.length other_recipes_for_this_task > 0 then (
