@@ -31,9 +31,9 @@ Before proceeding with this tutorial, please ensure you've installed OCaml and s
 <!-- AC: Already stated on the previous paragraph
 You need to have OCaml installed. -->
 
-To walk through the basics of OCaml by trying out different elements in an interactive manner we'll use the OCaml REPL Utop.
-A REPL (also known as toplevel or shell) is a program that *R*eads an input, *E*valuates it, *P*rints the result and *L*oops back to read the next input.
-UTop (Universal Toplevel) reads and evaluates OCaml phrases like expressions or value definitions evaluates them and prints the result on the screen.
+To walk through the basics of OCaml by trying out different elements in an interactive manner we'll use Utop.
+<!-- A REPL (also known as toplevel or shell) is a program that *R*eads an input, *E*valuates it, *P*rints the result and *L*oops back to read the next input.-->
+UTop (Universal Toplevel) allows interacting directly with OCaml by reading and evaluating OCaml phrases like expressions or value definitions and printing the result on the screen.
 You can run UTop by using the `utop` command.
 We recommend that you execute the examples we provide, or slight variants of them, in your own environment to get a feel for coding in OCaml.
 While this tour is self-contained, we recommend you to read the [Introduction to OCaml Toplevel](/docs/toplevel-introduction) for more information on the toplevel.
