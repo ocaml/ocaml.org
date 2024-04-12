@@ -31,6 +31,7 @@ let page_routes t =
       Dream.get Url.learn_guides Handler.learn_guides;
       Dream.get Url.platform Handler.platform;
       Dream.get Url.community Handler.community;
+      Dream.get Url.events Handler.events;
       Dream.get Url.changelog Handler.changelog;
       Dream.get (Url.changelog_entry ":id") Handler.changelog_entry;
       Dream.get (Url.success_story ":id") Handler.success_story;
