@@ -13,16 +13,11 @@ packages:
 let yaml = {|
 french name: pâte sucrée
 ingredients:
-- name: flour
-  weight: 250
-- name: butter
-  weight: 100
-- name: sugar
-  weight: 100
-- name: egg
-  weight: 50
-- name: salt
-  weight: 5
+- flour: 250
+- butter: 100
+- sugar: 100
+- egg: 50
+- salt: 5
 steps:
 - soften butter
 - add sugar
@@ -46,9 +41,32 @@ type recipe = {
   steps: string list;
 } [@@deriving of_yaml]
 
-(** Parsing and conversion into record are chained. *)
+(** Post-processing is needed before using `recipe_of_yaml`.
+  This what function `add_keys` and `at_ingredients` do. *)
+let add_keys : Yaml.value -> Yaml.value = function
+  | `O [(name, `Float weight)] ->
+      `O [
+        ("name", `String name);
+        ("weight", `Float weight);
+      ]
+  | v -> v
+
+let at_ingredients f : Yaml.value -> Yaml.value = function
+  | `O [
+      ("french name", `String name);
+      ("ingredients", `A ingredients);
+      ("steps", `A steps)
+    ] -> `O [
+      ("french name", `String name);
+      ("ingredients", Yaml.Util.map_exn f (`A ingredients));
+      ("steps", `A steps);
+    ]
+  | v -> v
+
+(** Parsing, post-processing and conversion into recordd are chained. *)
 let pate_sucree =
   yaml
   |> Yaml.of_string
+  |> Result.map (at_ingredients add_keys)
   |> fun yaml -> Result.bind yaml recipe_of_yaml
 

@@ -13,16 +13,11 @@ packages:
 let yaml = {|
 french name: pâte sucrée
 ingredients:
-- name: flour
-  weight: 250
-- name: butter
-  weight: 100
-- name: sugar
-  weight: 100
-- name: egg
-  weight: 50
-- name: salt
-  weight: 5
+- flour: 250
+- butter: 100
+- sugar: 100
+- egg: 50
+- salt: 5
 steps:
 - soften butter
 - add sugar
@@ -46,7 +41,33 @@ type recipe = {
   steps: string list;
 } [@@deriving of_yojson]
 
-(** Parsing receives conversion into record as an argument. *)
+(** Post-processing is needed before using `recipe_of_yojson`.
+  This what function `add_keys` and `at_ingredients` do. *)
+let add_keys : Yojson.Safe.t -> Yojson.Safe.t = function
+  | `Assoc [(name, `Int weight)] ->
+      `Assoc [
+        ("name", `String name);
+        ("weight", `Int weight);
+      ]
+  | v -> v
+
+let at_ingredients f : Yojson.Safe.t -> Yojson.Safe.t = function
+  | `Assoc [
+      ("french name", `String name);
+      ("ingredients", `List ingredients);
+      ("steps", `List steps)
+    ] -> `Assoc [
+      ("french name", `String name);
+      ("ingredients", Yojson.Safe.Util.map f (`List ingredients));
+      ("steps", `List steps);
+    ]
+  | v -> v
+
+(** Parsing receives post-processing and conversion into record as an argument. *)
 let pate_sucree =
+  let of_yojson json =
+    json
+    |> at_ingredients add_keys
+    |> recipe_of_yojson in
   yaml
-  |> Hl_yaml.Unix.parse ~of_yojson:recipe_of_yojson
+  |> Hl_yaml.Unix.parse ~of_yojson
