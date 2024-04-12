@@ -21,8 +21,8 @@ This tutorial is probably not adapted to learn programming.
 -->
 
 The complete tour is divided in two parts.
-The first part is an introduction to OCaml's language features: values, expressions, lists, functions, pattern matching and more.
-In the second part we'll see how to create our first OCaml project in the [Your First OCaml Program](/docs/your-first-program) tutorial.
+This first part introduces OCaml's basic features: values, expressions, lists, functions, pattern matching and more.
+In the second part, we'll see how to create our first OCaml project in the [Your First OCaml Program](/docs/your-first-program) tutorial.
 
 
 ## Before We Begin
