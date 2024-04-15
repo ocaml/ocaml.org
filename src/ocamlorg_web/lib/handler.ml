@@ -51,7 +51,6 @@ let platform _req =
   Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
 
 let community _req =
-  let recurring_events = Data.Event.RecurringEvent.all in
   let current_date =
     let open Unix in
     let tm = localtime (Unix.gettimeofday ()) in
@@ -81,7 +80,7 @@ let community _req =
   in
   Dream.html
     (Ocamlorg_frontend.community ~old_workshops ~upcoming_workshops
-       ~recurring_events ~upcoming_events)
+       ~upcoming_events)
 
 let events _req =
   let recurring_events = Data.Event.RecurringEvent.all in
@@ -102,8 +101,7 @@ let events _req =
       Data.Event.all
     |> Ocamlorg.Import.List.take 6
   in
-  Dream.html
-    (Ocamlorg_frontend.events ~recurring_events ~upcoming_events)
+  Dream.html (Ocamlorg_frontend.events ~recurring_events ~upcoming_events)
 
 let paginate ~req ~n items =
   let items_per_page = n in

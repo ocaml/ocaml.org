@@ -4,31 +4,9 @@ Community_layout.single_column_layout
 ~description:"The Events page!"
 ~canonical:Url.events
 ~active_top_nav_item:Header.Community
-~current:Overview @@
+~current:Events @@
 <div class="w-full section-blue-gradient dark:bg-none">
   <div class="container-fluid py-9">
-    <p class="uppercase text-sm text-white tracking-widest opacity-60 font-medium mb-2">events</p>
-    <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Recurring Events</h2>
-    <div class="grid lg:grid-cols-3 gap-8 lg:gap-10 mt-12">
-      <% recurring_events |> List.iter (fun (recurring_event : Data.Event.RecurringEvent.t) -> %>
-      <a href="<%s recurring_event.url %>" class="card dark:dark-card p-5 rounded-xl">
-          <p class="font-bold text-lg text-title dark:text-dark-title mb-3">
-              <%s recurring_event.title %>
-          </p>
-          <div class="flex items-center space-x-2">
-            <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary" %>
-            <p class="text-content dark:text-dark-content">
-                <%s recurring_event.textual_location %>
-            </p class="text-content dark:text-dark-content">
-          </div>
-      </a>
-      <% ); %>
-    </div>
-    <p class="text-white dark:text-dark-content my-6">
-      If you want to contribute a recurring event, check out the <a class="text-white underline hover:no-underline" href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-recurring-event" target="_blank">Contributing Guide</a> on GitHub.
-    </p>
-  </div>
-</div>
 <% if List.length upcoming_events > 0 then ( %>
     <div class="w-full">
       <div class="container-fluid pt-6 pb-12">
@@ -64,3 +42,25 @@ Community_layout.single_column_layout
       </div>
     </div>
 <% ); %>
+    <p class="uppercase text-sm text-white tracking-widest opacity-60 font-medium mb-2">events</p>
+    <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Recurring Events</h2>
+    <div class="grid lg:grid-cols-3 gap-8 lg:gap-10 mt-12">
+      <% recurring_events |> List.iter (fun (recurring_event : Data.Event.RecurringEvent.t) -> %>
+      <a href="<%s recurring_event.url %>" class="card dark:dark-card p-5 rounded-xl">
+          <p class="font-bold text-lg text-title dark:text-dark-title mb-3">
+              <%s recurring_event.title %>
+          </p>
+          <div class="flex items-center space-x-2">
+            <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary" %>
+            <p class="text-content dark:text-dark-content">
+                <%s recurring_event.textual_location %>
+            </p class="text-content dark:text-dark-content">
+          </div>
+      </a>
+      <% ); %>
+    </div>
+    <p class="text-white dark:text-dark-content my-6">
+      If you want to contribute a recurring event, check out the <a class="text-white underline hover:no-underline" href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-recurring-event" target="_blank">Contributing Guide</a> on GitHub.
+    </p>
+  </div>
+</div>
