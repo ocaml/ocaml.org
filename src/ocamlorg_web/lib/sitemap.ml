@@ -8,6 +8,7 @@ let urls =
     Url.packages;
     Url.packages_search;
     Url.community;
+    Url.events;
     Url.industrial_users;
     Url.academic_users;
     Url.about;

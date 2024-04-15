@@ -22,6 +22,7 @@ let resources = [
 let ecosystem = [
   (Url.packages, "Packages");
   (Url.community, "Community");
+  (Url.events, "Events");
   (Url.blog, "Blog");
   (Url.jobs, "Jobs");
   ]
