@@ -449,6 +449,43 @@ let from_v2 =
     ("/releases/latest/api/index.html", Url.api_with_version latest_version);
   ]
 
+let default_index_html =
+  [
+    ("/manual", Url.manual_with_version latest_version);
+    ("/manual/latest", Url.manual_with_version latest_version);
+    ("/api", Url.api_with_version latest_version);
+    ("/api/latest", Url.api_with_version latest_version);
+    ("/manual/api", Url.api_with_version latest_version);
+    ("/manual/api/latest", Url.api_with_version latest_version);
+    ("/manual/3.12", Url.manual_with_version "3.12");
+    ("/manual/4.00", Url.manual_with_version "4.00");
+    ("/manual/4.01", Url.manual_with_version "4.01");
+    ("/manual/4.02", Url.manual_with_version "4.02");
+    ("/manual/4.03", Url.manual_with_version "4.03");
+    ("/manual/4.04", Url.manual_with_version "4.04");
+    ("/manual/4.05", Url.manual_with_version "4.05");
+    ("/manual/4.06", Url.manual_with_version "4.06");
+    ("/manual/4.07", Url.manual_with_version "4.07");
+    ("/manual/4.08", Url.manual_with_version "4.08");
+    ("/manual/4.09", Url.manual_with_version "4.09");
+    ("/manual/4.10", Url.manual_with_version "4.10");
+    ("/manual/4.11", Url.manual_with_version "4.11");
+    ("/manual/4.12", Url.manual_with_version "4.12");
+    ("/manual/4.12/api", Url.api_with_version "4.12");
+    ("/manual/4.13", Url.manual_with_version "4.13");
+    ("/manual/4.13/api", Url.api_with_version "4.13");
+    ("/manual/4.14", Url.manual_with_version "4.14");
+    ("/manual/4.14/api", Url.api_with_version "4.14");
+    ("/manual/5.0", Url.manual_with_version "5.0");
+    ("/manual/5.0/api", Url.api_with_version "5.0");
+    ("/manual/5.1", Url.manual_with_version "5.1");
+    ("/manual/5.1/api", Url.api_with_version "5.1");
+    ("/manual/5.2", Url.manual_with_version "5.2");
+    ("/manual/5.2/api", Url.api_with_version "5.2");
+    ("/manual/5.3", Url.manual_with_version "5.3");
+    ("/manual/5.3/api", Url.api_with_version "5.3");
+  ]
+
 let redirect_p pattern =
   let handler req =
     let target = Dream.target req in
@@ -461,10 +498,6 @@ let fwd_v2 origin =
 
 let manual =
   [
-    redirect_p "/api/**";
-    fwd_v2 "/api";
-    redirect_p "/manual/**";
-    fwd_v2 "/manual";
     redirect_p "/releases/3.12/htmlman/**";
     fwd_v2 "/releases/3.12/htmlman";
     redirect_p "/releases/4.00/htmlman/**";
@@ -539,6 +572,7 @@ let package_docs req =
 let t =
   Dream.scope "" []
     [
+      make default_index_html;
       make from_v2;
       make v2_assets;
       Dream.scope "" [ Dream_encoding.compress ] manual;
