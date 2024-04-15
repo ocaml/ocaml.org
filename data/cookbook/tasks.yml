@@ -275,22 +275,10 @@ categories:
 #    slug: trigger-minor-major-collection
 - title: Generate Random Values
   tasks:
-  - title: Generate Random Numbers
-    slug: generate-random-numbers
-    description: >
-      Generate pseudo random numbers
-  - title: Generate Random Strings and Arrays
-    slug: generate-random-strings-and-arrays
-    description: >
-      Generate pseudo random strings and arrays
   - title: Generate Random Values of a Custom Type
-    slug: generate-random-values-custom-type
+    slug: generate-random-values
     description: >
       Generate random custom values
-  - title: Generate Random Passwords
-    slug: generate-random-passwords
-    description: >
-      Generate random password (TODO: No)
 - title: Mathematics
   subcategories:
   - title: Vector & Matrix Operations
