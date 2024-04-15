@@ -43,7 +43,6 @@ categories:
     description: |
       These libraries are used to create visual representations of data. They provide functionalities to generate various types of plots, charts, and diagrams.
     packages:
-      - name: plot
       - name: oplot
       - name: gr
   - name: Events

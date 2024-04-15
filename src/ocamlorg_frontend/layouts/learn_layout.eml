@@ -87,7 +87,8 @@ let sidebar
     <%s! sidebar_link_group "Is OCaml Yet"
       (tutorial_sidebar_links_by_category "is-ocaml-yet")
       ~extra_html:(
-        (render_tutorial_link ~title:"Is OCaml web yet?" ~slug:"is-ocaml-web-yet" ~tag:None)) %>
+        (render_tutorial_link ~title:"Is OCaml web yet?" ~slug:"is-ocaml-web-yet" ~tag:None)
+        ^ (render_tutorial_link ~title:"Is OCaml GUI yet?" ~slug:"is-ocaml-gui-yet" ~tag:None)) %>
   <% ); %>
 
 let single_column_layout
