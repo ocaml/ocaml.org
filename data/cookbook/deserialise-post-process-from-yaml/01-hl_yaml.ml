@@ -9,7 +9,7 @@ packages:
   used_libraries:
   - ppx_deriving_yojson
 ---
-(** The syntax `{| ... |}` is a quoted string. *)
+(* The syntax `{| ... |}` is a quoted string. *)
 let yaml = {|
 french name: pâte sucrée
 ingredients:
@@ -25,7 +25,7 @@ steps:
 - add flour
 |}
 
-(** The `[@@deriving of_yojson]` attribute makes library `ppx_deriving_yojson` generate the function
+(* The `[@@deriving of_yojson]` attribute makes library `ppx_deriving_yojson` generate the function
   `ingredient_of_yojson : Yojson.Safe.t -> (ingredient, string) result`.
   If both serialising and deserialising are needed, replace `of_yojson` by `yojson`. *)
 type ingredient = {
@@ -33,7 +33,7 @@ type ingredient = {
   weight: int;
 } [@@deriving of_yojson]
 
-(** The `[@@deriving of_yojson]` attribute makes library `ppx_deriving_yojson` generate the function
+(* The `[@@deriving of_yojson]` attribute makes library `ppx_deriving_yojson` generate the function
   ``recipe_of_yojson : Yojson.Safe.t -> (ingredient, string) result``. *)
 type recipe = {
   name: string; [@key "french name"]
@@ -41,7 +41,7 @@ type recipe = {
   steps: string list;
 } [@@deriving of_yojson]
 
-(** Post-processing is needed before using `recipe_of_yojson`.
+(* Post-processing is needed before using `recipe_of_yojson`.
   This what function `add_keys` and `at_ingredients` do. *)
 let add_keys : Yojson.Safe.t -> Yojson.Safe.t = function
   | `Assoc [(name, `Int weight)] ->
@@ -63,7 +63,7 @@ let at_ingredients f : Yojson.Safe.t -> Yojson.Safe.t = function
     ]
   | v -> v
 
-(** Parsing receives post-processing and conversion into record as an argument. *)
+(* Parsing receives post-processing and conversion into record as an argument. *)
 let pate_sucree =
   let of_yojson json =
     json

@@ -5,7 +5,23 @@ packages:
   used_libraries:
   - zip
 ---
-(** The `zip` library does not have `with_open_text`. We copy it's code from the OCaml [standard library](https://github.com/ocaml/ocaml/tree/trunk/stdlib) source code. *)
+
+(* The `zip` library does not have `with_open_text`. We copy what's needed to have it from the OCaml's standard library.
+  See [`ocaml/stdlib/in_channel.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/in_channel.ml#L105) *)
+let read_upto ic buf ofs len =
+  let rec loop ofs len =
+    if len = 0 then ofs
+    else begin
+      let r = Gzip.input ic buf ofs len in
+      if r = 0 then
+        ofs
+      else
+        loop (ofs + r) (len - r)
+    end
+  in
+  loop ofs len - ofs
+
+(* [`ocaml/stdlib/in_channel.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/in_channel.ml#L130) *)
 let ensure buf ofs n =
   let len = Bytes.length buf in
   if len >= ofs + n then buf
@@ -29,21 +45,9 @@ let ensure buf ofs n =
     new_buf
   end
 
-let read_upto ic buf ofs len =
-  let rec loop ofs len =
-    if len = 0 then ofs
-    else begin
-      let r = Gzip.input ic buf ofs len in
-      if r = 0 then
-        ofs
-      else
-        loop (ofs + r) (len - r)
-    end
-  in
-  loop ofs len - ofs
-
+(* [`ocaml/stdlib/in_channel.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/in_channel.ml#L153) *)
 let input_all ic =
-  let chunk_size = 65536 in 
+  let chunk_size = 65536 in
   let initial_size = chunk_size in
   let initial_size =
     if initial_size <= Sys.max_string_length then
@@ -74,15 +78,18 @@ let input_all ic =
         loop buf (nread + 1)
   end
 
+(* [`ocaml/stdlib/stdlib.ml`]https://github.com/ocaml/ocaml/blob/trunk/stdlib/stdlib.ml#L480) *)
 let close_in_noerr ic = Gzip.(try close_in ic with _ -> ())
 
+(* [`ocaml/stdlib/in_channel.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/in_channel.ml#L34) *)
 let with_open openfun s f =
   let ic = openfun s in
   Fun.protect ~finally:(fun () -> close_in_noerr ic)
     (fun () -> f ic)
 
+(* [`ocaml/stdlib/in_channel.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/in_channel.ml#L45) *)
 let with_open_text s f =
   with_open Gzip.open_in s f
 
-(** Read the compressed text file. *)
+(* Read the compressed text file. *)
 let text = with_open_text "" input_all
