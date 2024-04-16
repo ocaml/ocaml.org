@@ -1,7 +1,7 @@
 ---
 name: Technical University Munich
 description: >
- The Technical University Munich (TUM) is a public research university in Munich, Germany. It specializes in engineering, technology, medicine, and applied and natural sciences.
+ The Technical University Munich (TUM) is a public research university in Munich, Germany. It specialises in engineering, technology, medicine, and applied and natural sciences.
 url: "https://www.tum.de/"
 logo: academic_institution/tum.png
 continent: Europe
