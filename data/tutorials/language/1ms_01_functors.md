@@ -42,9 +42,9 @@ Check that this works using the `opam exec -- dune exec funkt` command. It shoul
 
 ## Using an Existing Functor: `Set.Make`
 
-The standard library contains a [`Set`](/manual/lts/api/Set.html) module which is designed to handle sets. This module enables you to perform operations such as union, intersection, and difference on sets. You may check the [Set](/docs/sets) tutorial to learn more about this module, but it is not required to follow the present tutorial.
+The standard library contains a [`Set`](/manual/latest/api/Set.html) module which is designed to handle sets. This module enables you to perform operations such as union, intersection, and difference on sets. You may check the [Set](/docs/sets) tutorial to learn more about this module, but it is not required to follow the present tutorial.
 
-To create a set module for a given element type (which allows you to use the provided type and its associated [functions](/manual/lts/api/Set.S.html)), it's necessary to use the functor `Set.Make` provided by the `Set` module. Here is a simplified version of `Set`'s interface:
+To create a set module for a given element type (which allows you to use the provided type and its associated [functions](/manual/latest/api/Set.S.html)), it's necessary to use the functor `Set.Make` provided by the `Set` module. Here is a simplified version of `Set`'s interface:
 ```ocaml
 module type OrderedType = sig
   type t
@@ -57,7 +57,7 @@ module Make : functor (Ord : OrderedType) -> Set.S
 Here is how this reads (starting from the bottom, then going up):
 * Like a function (indicated by the arrow `->`), the functor `Set.Make`
   - takes a module with signature `OrderedType` and
-  - returns a module with signature [`Set.S`](/manual/lts/api/Set.S.html)
+  - returns a module with signature [`Set.S`](/manual/latest/api/Set.S.html)
 * The module type `OrderedType` requires a type `t` and a function `compare`, which are used to perform the comparisons between elements of the set.
 
 **Note**: Most set operations need to compare elements to check if they are the same. To allow using a user-defined comparison algorithm, the `Set.Make` functor takes a module that specifies both the element type `t` and the `compare` function. Passing the comparison function as a higher-order parameter, as done in `Array.sort`, for example, would add a lot of boilerplate code. Providing set operations as a functor allows specifying the comparison function only once.
@@ -184,9 +184,9 @@ end
 ```
 
 The functors  `Set.Make`, `Map.Make`, and `Hashtbl.Make` return modules satisfying the interfaces `Set.S`, `Map.S`, and `Hashtbl.S` (respectively), which all contain an abstract type `t` and associated functions. Refer to the documentation for the details about what they provide:
-* [`Set.S`](/manual/lts/api/Set.S.html)
-* [`Map.S`](/manual/lts/api/Map.S.html)
-* [`Hashtbl.S`](/manual/lts/api/Hashtbl.S.html)
+* [`Set.S`](/manual/latest/api/Set.S.html)
+* [`Map.S`](/manual/latest/api/Map.S.html)
+* [`Hashtbl.S`](/manual/latest/api/Hashtbl.S.html)
 
 ### Writing Your Own Functors
 
@@ -352,7 +352,7 @@ The dependency `List` is _injected_ when compiling the module `Funkt`. Observe t
 
 **Replacing a Dependency**
 
-Now, replacing the implementation of `iter` inside `IterListPrint` is no longer a refactoring; it is another functor application with another dependency. Here, [`Array`](/manual/lts/api/Array.html) replaces `List`:
+Now, replacing the implementation of `iter` inside `IterListPrint` is no longer a refactoring; it is another functor application with another dependency. Here, [`Array`](/manual/latest/api/Array.html) replaces `List`:
 
 **`funkt.ml`**
 ```ocaml
@@ -420,7 +420,7 @@ In the example above, `t` from `with type` takes precedence over the local `t`, 
 
 In this section, we define a functor to extend several modules in the same way. This is the same idea as in the [Extending a Module with a Standard Library Functor](#extending-a-module-with-a-standard-library-functor), except we write the functor ourselves.
 
-In this example, we extend `List` and [`Array`](/manual/lts/api/Array.html) modules with a function `scan_left`. It does almost the same as `fold_left`, except it returns all the intermediate values, not the last one as `fold_left` does.
+In this example, we extend `List` and [`Array`](/manual/latest/api/Array.html) modules with a function `scan_left`. It does almost the same as `fold_left`, except it returns all the intermediate values, not the last one as `fold_left` does.
 
 Create a fresh directory with the following files:
 

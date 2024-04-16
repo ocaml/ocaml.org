@@ -339,7 +339,7 @@ simple test runner, one `Domain` may complete before the second has
 even started up yet! This is problematic, as there will be no apparent
 parallelism for TSan to observe and check. In the above example, the
 calls to `Unix.sleepf` help ensure that the test runner is indeed
-parallel. A useful alternative trick is to coordinate on an [`Atomic`](/manual/lts/api/Atomic.html)
+parallel. A useful alternative trick is to coordinate on an [`Atomic`](/manual/latest/api/Atomic.html)
 to make sure both `Domain`s are up and running before the parallel
 test code proceeds. To do so, we can adapt our parallel test runner as
 follows:

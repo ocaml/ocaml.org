@@ -176,7 +176,7 @@ instance:
 * `Seq.map`
 * `Seq.fold_left`
 
-All those are also available for [`Array`](/manual/lts/api/Array.html), `List`, and `Set` and behave
+All those are also available for [`Array`](/manual/latest/api/Array.html), `List`, and `Set` and behave
 essentially the same. Observe that there is no `fold_right` function. Since
 OCaml 4.11, there is something which isn't (yet) available on other types:
 `unfold`. Here is how it is implemented:
