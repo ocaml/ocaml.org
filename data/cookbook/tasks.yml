@@ -24,6 +24,10 @@ categories:
       C library, using the OCaml foreign function interface.
 - title: Compression
   tasks:
+  - title: Read a gzip compressed text file
+    slug: read-gzip-text-file
+    description: >
+      Read a text file compressed with gzip
   - title: Decompressing a Tarball
     slug: decompressing-a-tarball
     description: >
@@ -210,8 +214,8 @@ categories:
       slug: open-file
       description: >
         Open a file
-    - title: Read From a File
-      slug: read-file
+    - title: Read a Text File
+      slug: read-text-file
       description: >
         Read a text file
     - title: Write to a File
