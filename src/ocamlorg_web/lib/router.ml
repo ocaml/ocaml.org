@@ -125,11 +125,9 @@ let router t =
       Dream.scope ""
         [ Dream_encoding.compress ]
         [
-          Dream.get "/manual/**" (Dream.static Config.manual_path);
           Dream.get "/manual/latest/**"
             (Dream.static (Config.manual_path ^ "/5.2"));
-          Dream.get "/manual/lts/**"
-            (Dream.static (Config.manual_path ^ "/4.14"));
+          Dream.get "/manual/**" (Dream.static Config.manual_path);
         ];
       Dream.scope ""
         [ Dream_encoding.compress ]

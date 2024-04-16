@@ -45,7 +45,7 @@ See [Error Handling](/docs/error-handling) for a longer discussion on error hand
 
 ## The Standard Library `Option` Module
 
-Most of the functions in this section, as well as other useful ones, are provided by the OCaml standard library in the [`Stdlib.Option`](/manual/lts/api/Option.html) module.
+Most of the functions in this section, as well as other useful ones, are provided by the OCaml standard library in the [`Stdlib.Option`](/manual/latest/api/Option.html) module.
 
 ### Map Over an Option
 

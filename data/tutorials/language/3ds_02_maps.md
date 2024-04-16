@@ -8,7 +8,7 @@ category: "Data Structures"
 
 ## Introduction
 
-The [`Map`](/manual/lts/api/Map.html) module lets you create _immutable_ key-value [association
+The [`Map`](/manual/latest/api/Map.html) module lets you create _immutable_ key-value [association
 tables](https://en.wikipedia.org/wiki/Associative_array) for your types. Such
 maps are never modified, and every operation returns a new map instead.
 
@@ -16,7 +16,7 @@ maps are never modified, and every operation returns a new map instead.
 functions such as `List.map`, `Array.map`, `Option.map`, and others. The maps
 described in this tutorial are also called dictionaries or associative tables.
 
-To use `Map`, we first have to use the [`Map.Make`](/manual/lts/api/Map.Make.html) functor to create our custom
+To use `Map`, we first have to use the [`Map.Make`](/manual/latest/api/Map.Make.html) functor to create our custom
 map module. Refer to the [Functors](/docs/functors) for more information on
 functors. This functor has a module parameter that defines the keys' type to
 be used in the maps, and a function for comparing them.
@@ -317,5 +317,5 @@ end
 This was an overview of OCaml's `Map` module. Maps are reasonably efficient and
 can be an alternative to the imperative `Hashtbl` module.
 
-For more information, refer to [Map](/manual/lts/api/Map.html) in the Standard Library
+For more information, refer to [Map](/manual/latest/api/Map.html) in the Standard Library
 documentation.
