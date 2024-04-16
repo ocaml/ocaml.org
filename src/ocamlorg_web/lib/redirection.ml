@@ -486,6 +486,13 @@ let default_index_html =
     ("/manual/5.3/api", Url.api_with_version "5.3");
   ]
 
+let redirect_to_latest pattern =
+  let handler req =
+    let target = Dream.target req in
+    Dream.redirect req ("/manual/" ^ (Url.minor latest_version) ^ target)
+  in
+  Dream.get pattern handler
+
 let redirect_p pattern =
   let handler req =
     let target = Dream.target req in
@@ -498,6 +505,7 @@ let fwd_v2 origin =
 
 let manual =
   [
+    redirect_to_latest "/api/**";
     redirect_p "/releases/3.12/htmlman/**";
     fwd_v2 "/releases/3.12/htmlman";
     redirect_p "/releases/4.00/htmlman/**";
