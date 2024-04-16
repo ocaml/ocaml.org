@@ -6,8 +6,23 @@ packages:
   - zip
 ---
 
-(* The `zip` library does not have `with_open_text`. We copy what's needed to have it from the OCaml's standard library.
-  See [`ocaml/stdlib/in_channel.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/in_channel.ml#L105) *)
+(* The `zip` library does not have `with_open_text` and `input_all`.
+  We copy what's needed to have them from the OCaml's standard library.
+  [`ocaml/stdlib/stdlib.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/stdlib.ml#L480) *)
+let close_in_noerr ic =
+  Gzip.(try close_in ic with _ -> ())
+
+(* [`ocaml/stdlib/in_channel.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/in_channel.ml#L34) *)
+let with_open openfun s f =
+  let ic = openfun s in
+  Fun.protect ~finally:(fun () -> close_in_noerr ic)
+    (fun () -> f ic)
+
+(* [`ocaml/stdlib/in_channel.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/in_channel.ml#L45) *)
+let with_open_text s f =
+  with_open Gzip.open_in s f
+
+(* [`ocaml/stdlib/in_channel.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/in_channel.ml#L105) *)
 let read_upto ic buf ofs len =
   let rec loop ofs len =
     if len = 0 then ofs
@@ -77,19 +92,6 @@ let input_all ic =
         Bytes.set buf nread c;
         loop buf (nread + 1)
   end
-
-(* [`ocaml/stdlib/stdlib.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/stdlib.ml#L480) *)
-let close_in_noerr ic = Gzip.(try close_in ic with _ -> ())
-
-(* [`ocaml/stdlib/in_channel.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/in_channel.ml#L34) *)
-let with_open openfun s f =
-  let ic = openfun s in
-  Fun.protect ~finally:(fun () -> close_in_noerr ic)
-    (fun () -> f ic)
-
-(* [`ocaml/stdlib/in_channel.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/in_channel.ml#L45) *)
-let with_open_text s f =
-  with_open Gzip.open_in s f
 
 (* Read the compressed text file. *)
 let text = with_open_text "" input_all
