@@ -78,7 +78,7 @@ let input_all ic =
         loop buf (nread + 1)
   end
 
-(* [`ocaml/stdlib/stdlib.ml`]https://github.com/ocaml/ocaml/blob/trunk/stdlib/stdlib.ml#L480) *)
+(* [`ocaml/stdlib/stdlib.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/stdlib.ml#L480) *)
 let close_in_noerr ic = Gzip.(try close_in ic with _ -> ())
 
 (* [`ocaml/stdlib/in_channel.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/in_channel.ml#L34) *)
