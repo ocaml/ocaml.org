@@ -493,69 +493,85 @@ let redirect_to_latest pattern =
   in
   Dream.get pattern handler
 
+let local_target target =
+  target |> String.split_on_char '/' |> List.tl |> List.tl |> String.concat "/"
+  |> ( ^ ) "/manual/"
+
 let redirect_p pattern =
   let handler req =
     let target = Dream.target req in
-    Dream.redirect req (Url.v2 ^ target)
+    Dream.redirect req (local_target target)
   in
   Dream.get pattern handler
 
-let fwd_v2 origin =
-  Dream.get origin (fun req -> Dream.redirect req (Url.v2 ^ origin))
+let redirect_i origin =
+  let target =
+    match Filename.basename origin with
+    | "htmlman" | "manual" -> Filename.dirname origin
+    | _ -> origin
+  in
+  Dream.get origin (fun req ->
+      Dream.redirect req (local_target target ^ "/index.html"))
 
 let manual =
   [
     redirect_to_latest "/api/**";
     redirect_p "/releases/3.12/htmlman/**";
-    fwd_v2 "/releases/3.12/htmlman";
+    redirect_i "/releases/3.12/htmlman";
     redirect_p "/releases/4.00/htmlman/**";
-    fwd_v2 "/releases/4.00/htmlman";
+    redirect_i "/releases/4.00/htmlman";
     redirect_p "/releases/4.01/htmlman/**";
-    fwd_v2 "/releases/4.01/htmlman";
+    redirect_i "/releases/4.01/htmlman";
     redirect_p "/releases/4.02/htmlman/**";
-    fwd_v2 "/releases/4.02/htmlman";
+    redirect_i "/releases/4.02/htmlman";
     redirect_p "/releases/4.03/htmlman/**";
-    fwd_v2 "/releases/4.03/htmlman";
+    redirect_i "/releases/4.03/htmlman";
     redirect_p "/releases/4.04/htmlman/**";
-    fwd_v2 "/releases/4.04/htmlman";
+    redirect_i "/releases/4.04/htmlman";
     redirect_p "/releases/4.05/htmlman/**";
-    fwd_v2 "/releases/4.05/htmlman";
+    redirect_i "/releases/4.05/htmlman";
     redirect_p "/releases/4.06/htmlman/**";
-    fwd_v2 "/releases/4.06/htmlman";
+    redirect_i "/releases/4.06/htmlman";
     redirect_p "/releases/4.07/htmlman/**";
-    fwd_v2 "/releases/4.07/htmlman";
+    redirect_i "/releases/4.07/htmlman";
     redirect_p "/releases/4.08/htmlman/**";
-    fwd_v2 "/releases/4.08/htmlman";
+    redirect_i "/releases/4.08/htmlman";
     redirect_p "/releases/4.09/htmlman/**";
-    fwd_v2 "/releases/4.09/htmlman";
+    redirect_i "/releases/4.09/htmlman";
     redirect_p "/releases/4.10/htmlman/**";
-    fwd_v2 "/releases/4.10/htmlman";
+    redirect_i "/releases/4.10/htmlman";
     redirect_p "/releases/4.11/htmlman/**";
-    fwd_v2 "/releases/4.11/htmlman";
+    redirect_i "/releases/4.11/htmlman";
     redirect_p "/releases/4.12/api/**";
-    fwd_v2 "/releases/4.12/api";
+    redirect_i "/releases/4.12/api";
     redirect_p "/releases/4.12/htmlman/**";
-    fwd_v2 "/releases/4.12/htmlman";
+    redirect_i "/releases/4.12/htmlman";
     redirect_p "/releases/4.12/manual/**";
-    fwd_v2 "/releases/4.12/manual";
+    redirect_i "/releases/4.12/manual";
     redirect_p "/releases/4.13/api/**";
-    fwd_v2 "/releases/4.13/api";
+    redirect_i "/releases/4.13/api";
     redirect_p "/releases/4.13/htmlman/**";
-    fwd_v2 "/releases/4.13/htmlman";
+    redirect_i "/releases/4.13/htmlman";
     redirect_p "/releases/4.13/manual/**";
-    fwd_v2 "/releases/4.13/manual";
+    redirect_i "/releases/4.13/manual";
     redirect_p "/releases/4.14/api/**";
-    fwd_v2 "/releases/4.14/api";
+    redirect_i "/releases/4.14/api";
     redirect_p "/releases/4.14/htmlman/**";
-    fwd_v2 "/releases/4.14/htmlman";
+    redirect_i "/releases/4.14/htmlman";
     redirect_p "/releases/4.14/manual/**";
-    fwd_v2 "/releases/4.14/manual";
+    redirect_i "/releases/4.14/manual";
     redirect_p "/releases/5.0/api/**";
-    fwd_v2 "/releases/5.0/api";
+    redirect_i "/releases/5.0/api";
     redirect_p "/releases/5.0/htmlman/**";
-    fwd_v2 "/releases/5.0/htmlman";
+    redirect_i "/releases/5.0/htmlman";
     redirect_p "/releases/5.0/manual/**";
-    fwd_v2 "/releases/5.0/manual";
+    redirect_i "/releases/5.0/manual";
+    redirect_p "/releases/5.1/api/**";
+    redirect_i "/releases/5.1/api";
+    redirect_p "/releases/5.1/htmlman/**";
+    redirect_i "/releases/5.1/htmlman";
+    redirect_p "/releases/5.1/manual/**";
+    redirect_i "/releases/5.1/manual";
   ]
 
 let make ?(permanent = false) t =
