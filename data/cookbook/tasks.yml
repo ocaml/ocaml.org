@@ -3,8 +3,6 @@ categories:
   tasks:
   - title: Parse Command Line Arguments
     slug: parse-command-line-arguments
-    description: >
-      Parse and process command line arguments
   - title: Using the ANSI Terminal
     slug: using-the-ansi-terminal
     description: >
@@ -14,264 +12,157 @@ categories:
   tasks:
   - title: Compile and Link to a Bundled C Library
     slug: link-with-a-bundled-c-library
-    description: >
-      Call OCaml from. Create C headers and source files exposing functions
       provided by an OCaml module.
   - title: Generate OCaml Bindings for a C Library
     slug: generate-ocaml-bindings-c-library
-    description: >
-      Call C from OCaml. Create an OCaml module exposing functions provided by a
       C library, using the OCaml foreign function interface.
 - title: Compression
   tasks:
   - title: Read a gzip compressed text file
     slug: read-gzip-text-file
-    description: >
-      Read a text file compressed with gzip
   - title: Decompressing a Tarball
     slug: decompressing-a-tarball
-    description: >
-      Decompress a tar file
   - title: Compress a Directory Into a Tarball
     slug: compress-a-directory-into-a-tarball
-    description: >
-      Store the contents of a file in a tar archive file
 - title: Concurrency & Parallelism
   subcategories:
   - title: Single-Threaded Concurrency
     tasks:
     - title: Create and Await Promises
       slug: create-and-await-promises
-      description: >
-        Create a await promises
   - title: Parallelism & Multi-Threading
     tasks:
     - title: Spawn a Thread and Receive a Response
       slug: spawn-a-thread-and-receive-a-response
-      description: >
-        Spawn a thread and receive a response
     - title: Pass Data Between Parallel Threads
       slug: pass-data-between-parallel-threads
-      description: >
-        Pass data between parallel threads
 - title: Cryptography
   tasks:
   - title: Calculate the SHA-256 Digest of a File
     slug: calculate-sha-256-digest-of-file
-    description: >
-      Compute the SHA-256 digest of a file
   - title: Sign and Verify a Message with an HMAC Digest
     slug: sign-and-verify-hmac-digest
-    description: >
-      Cryptographically sign or verify a message with a HMAC digest (TODO: split in two tasks)
   - title: Salt and Hash a Password with PBKDF2
     slug: salt-and-hash-password-with-pkgdf2
-    description: >
-      Salt and hash a password with PBKDF2
 - title: Data Structures & Algorithms
   subcategories:
   - title: Sorting
     tasks:
     - title: Sorting Lists and Arrays
       slug: sorting-lists-and-arrays
-      description: >
-        Sort a list or an array
   - title: Hash Tables
     tasks:
     - title: Use a Hash Table With Given Key and Value Types
       slug: use-hash-table-with-given-key-value-types
-      description: >
-        Insert into and access the contents of a hash table
 - title: Database
   subcategories:
   - title: SQLite
     tasks:
     - title: SQLite CREATE, INSERT, SELECT
       slug: sqlite-create-insert-select
-      description: >
-        Make basic SQL requests
     - title: SQLite Full Text Search
       slug: sqlite-full-text-search
-      description: >
-        Search in a SQL database
   - title: PostgreSQL
     tasks:
     - title: PostgreSQL CREATE, INSERT, SELECT
       slug: postgresql-create-insert-select
-      description: >
-        Make basic SQL request
     - title: PostgreSQL Aggregate Query
       slug: postgresql-aggregate-query
-      description: >
-        Aggregate SQL queries
     - title: PostgreSQL Full Text Search
       slug: postgresql-full-text-search
-      description: >
-        Search in an SQL database
 - title: Data Formats
   subcategories:
   - title: CSV
     tasks:
     - title: Read Tuples / Records from CSV
       slug: read-csv
-      description: >
-        Read records from a CSV file
     - title: Serialise Tuples / Records to CSV
       slug: serialise-csv
-      description: >
-        Serialise records into a CSV file
   - title: JSON
     tasks:
     - title: Serialise JSON Data
       slug: serialise-to-json
-      description: >
-        Serialise records into JSON data
     - title: Deserialise JSON Data
       slug: deserialise-from-json
-      description: >
-        Deserialise JSON data into records
   - title: YAML
     tasks:
     - title: Serialise YAML Data
       slug: serialise-to-yaml
-      description: >
-        Serialise records into YAML data
     - title: Deserialise YAML Data
       slug: deserialise-from-yaml
-      description: >
-        Deserialise YAML data into records
     - title: Deserialise and Post-Process YAML Data
       slug: deserialise-post-process-from-yaml
-      description: >
-        Deserialise and post-process YAML data into records
 - title: Date and Time
   tasks:
   - title: Get Today's Date
     slug: get-todays-date
-    description: >
-      Get today's date
   - title: Measure Elapsed Time
     slug: measure-elapsed-time
-    description: >
-      Compute time difference to measure elapsed time
   - title: Convert a Local Time to Another Time Zone
     slug: convert-time-to-another-time-zone
-    description: >
-      Convert time to another time Zone
   - title: Convert Between Date and Unix Timestamp
     slug: convert-date-unix-timestamp
-    description: >
-      Convert between date and Unix timestamp
+
   - title: Display Formatted Date and Time
     slug: display-formatted-date-time
-    description: >
-      Display formatted date and time
   - title: Parse Date and Time from String
     slug: parse-date-time-from-string
-    description: >
-      Parse formatted date and time from string
 - title: Debugging
   tasks:
   - title: Debug Print a Value
     slug: debug-print-a-value
-    description: >
-      Debug by printing a value
   - title: Log a Debug / Error Message to Stdout / Stderr
     slug: log-debug-error-message
-    description: >
-      Debug by logging a value or process to standard output
   - title: Log to the UNIX Syslog
     slug: log-to-unix-syslog
-    description: >
-      Log to the Unix system log
 - title: Encoding
   tasks:
   - title: URL- / Percent-Encode a String
     slug: url-percent-encode-string
-    description: >
-      Percent encode a string
   - title: Encode a String as application/x-www-form-urlencoded
     slug: encode-x-www-form-urlencoded
-    description: >
-      Url encode a string
   - title: Encode and Decode Bytestrings from Hex-Strings
     slug: encode-decode-hex
-    description: >
-      Encode or decode from hex strings
   - title: Encode and Decode Base64
     slug: encode-decode-base64
-    description: >
-      Encode or decode from Base64
   - title: Read and Write Integers in Little-Endian Byte Order
     slug: read-write-integers-little-endian
-    description: >
-      Read and write integers in little-endian byte order
 - title: File System
   subcategories:
   - title: Files
     tasks:
     - title: Open File
       slug: open-file
-      description: >
-        Open a file
     - title: Read a Text File
       slug: read-text-file
-      description: >
-        Read a text file
     - title: Write to a File
       slug: write-file
-      description: >
-        Write to a file
     - title: Rename a File
       slug: rename-file
-      description: >
-        Rename a file
     - title: Delete a File
       slug: delete-file
-      description: >
-        Delete a file
     - title: Check if a File Exists
       slug: check-exist-file
-      description: >
-        Check if a file exists
     - title: File Size
       slug: file-size
-      description: >
-        Get the size of a file
     - title: Change File Permissions
       slug: change-file-permissions
-      description: >
-        Change the permissions of a file
     - title: Create Temporary File
       slug: create-temporary-file
-      description: >
-        Create temporary file
   - title: Directories
     tasks:
     - title: Create Directory
       slug: create-directory
-      description: >
-        Create a directory
     - title: List Directory Contents
       slug: list-directory
-      description: >
-        List the contents of a directory
     - title: Get Current Directory
       slug: get-current-directory
-      description: >
-        Retrieve the current directory
     - title: Change Current Directory
       slug: change-current-directory
-      description: >
-        Change the current directory
     - title: Find Files Matching a Pattern
       slug: find-files-matching-a-pattern
-      description: >
-        Find files matching a pattern
     - title: Walk File Tree
       slug: walk-file-tree
-      description: >
-        Traverse recursively all the files and directories from a directory
   - title: File Paths
 #- title: Garbage Collector
 #  tasks:
@@ -281,48 +172,30 @@ categories:
   tasks:
   - title: Generate Random Values of a Custom Type
     slug: generate-random-values
-    description: >
-      Generate random custom values
 - title: Mathematics
   subcategories:
   - title: Vector & Matrix Operations
     tasks:
     - title: Normalize a Vector
       slug: normalize-vector
-      description: >
-        Normalize a vector
     - title: Matrix Addition and Multiplication
       slug: matrix-addition-multiplication
-      description: >
-        Perform matrix addition or multiplication
     - title: Invert a Matrix
       slug: invert-matrix
-      description: >
-        Invert a matrix
     - title: Nearest-Neighbour Search
       slug: nearest-neighbour-search
-      description: >
-        Compute nearest neighbour search 
   - title: Geographical Calculations
     tasks:
     - title: Calculate Geodistance Between Two Points
       slug: calculate-geodistance-between-points
-      description: >
-        Calculate geographical distance between points
 - title: Operating System
   tasks:
   - title: Run an External Command and Process Stdout
     slug: run-command-process-stdout
-    description: >
-      Run an external command and process its output
   - title: Run Piped External Commands
     slug: run-piped-commands
-    description: >
-      Run piped external commands
   - title: Read an Environment Variable
     slug: read-environment-variable
-    description: >
-      Read shell environment variables
 - title: Graphical User Interfaces
   tasks: []
 - title: Text Processing
@@ -331,28 +204,18 @@ categories:
     tasks:
     - title: Collect Unicode Graphemes
       slug: collect-unicode-graphemes
-      description: >
-        Collect Unicode graphemes
   - title: UTF-8
     tasks:
     - title: UTF-8 Text Processing
       slug: utf8-text-processing
-      description: >
-        TODO: unclear task
   - title: Regular Expressions
     tasks:
     - title: Validate an Email Address
       slug: regex-validate-email
-      description: >
-        Read, extract and validate emails from a text
     - title: Extract Phone Numbers from Text
       slug: regex-extract-phone-numbers
-      description: >
-        Read, extract and validate phone numbers in a text
     - title: Replace All Occurrences of a Text Pattern with Another Pattern
       slug: regex-replace-pattern
-      description: >
-        Replaces all occurrences of a pattern in a text
 - title: Web Programming
   subcategories:
   - title: HTTP Clients
@@ -363,61 +226,35 @@ categories:
         Make an HTTP GET request, process response code, follow redirects
     - title: Make a HTTP GET Request with Basic Authentication
       slug: make-http-get-basic-auth
-      description: >
-        Make an HTTP GET request under basic authentication
     - title: Download a File to a Temporary Directory
       slug: download-file-to-temporary-dir
-      description: >
-        Download a file to a temporary folder
     - title: Make a Partial Download with HTTP Range Header
       slug: make-partial-download-with-http-range-header
-      description: >
-        Make a partial download using HTTP range header
   - title: Dealing with HTML
     tasks:
     - title: Render a HTML Template
       slug: render-html-template
-      description: >
-        Render an HTML template
     - title: Extract all Links from a HTML String
       slug: extract-links-from-html
-      description: >
-        Extract all links from an HTML string
     - title: Check a Webpage for Broken Links
       slug: check-webpage-for-broken-links
-      description: >
-        Check a webpage for broken links
   - title: Running a Web Server
     tasks:
     - title: Start a Web Server with a Hello World Endpoint
       slug: start-a-web-server-hello-world
-      description: >
-        Start a dummy web server
     - title: Start a Web Server that Serves a HTML Template
       slug: start-a-web-server-html-template
-      description: >
-        Start a html template serving web server
     - title: Use Basic Authentication to Secure a Route
       slug: use-basic-auth-on-web-server
-      description: >
-        Use basic authentication to secure a route
   - title: Media Types (MIME)
     tasks:
     - title: Get MIME Type from String
       slug: get-mime-type-from-string
-      description: >
-        Get MIME type from a string
     - title: Get MIME Type from Filename
       slug: get-mime-type-from-filename
-      description: >
-        Get a MIME type from a file name
     - title: Parse MIME Type of a HTTP Response
       slug: parse-mime-type-of-http-response
-      description: >
-        Get a MIME type from an HTTP response
   - title: URL and URI processing
     tasks:
     - title: Parse a URL from String And Access Individual Parts
       slug: parse-url-from-string
-      description: >
-        Parse a URL from string and Access Individual Parts

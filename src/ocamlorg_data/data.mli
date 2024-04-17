@@ -531,7 +531,7 @@ module Cookbook : sig
     title : string;
     slug : string;
     category_path : string list;
-    description : string;
+    description : string option;
   }
 
   type code_block_with_explanation = { code : string; explanation : string }

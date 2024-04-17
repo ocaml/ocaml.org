@@ -259,5 +259,5 @@ module Cookbook = struct
     |> Option.value ~default:"the Standard Library"
 
   let full_title_of_recipe (recipe : t) =
-    recipe.task.title ^ " using " ^ main_package_of_recipe recipe ^ " package"
+    recipe.task.title ^ " using " ^ main_package_of_recipe recipe
 end

@@ -13,7 +13,9 @@ Learn_layout.single_column_layout
             <%s Data.Cookbook.get_task_path_titles Data.Cookbook.top_categories recipe.task.category_path |> String.concat " / " %> /
             <a href="<%s Url.cookbook_task recipe.task.slug %>"><%s recipe.task.title %></a></p>
 
-      <p><%s! recipe.task.description %></p>
+% (match recipe.task.description with None -> () | Some description ->
+            <p><%s! description %></p>
+% );
 
 % (if List.length recipe.packages > 0 then (
       <h2>Opam Packages Used</h2>
