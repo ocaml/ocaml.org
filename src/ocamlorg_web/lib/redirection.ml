@@ -489,7 +489,7 @@ let default_index_html =
 let redirect_to_latest pattern =
   let handler req =
     let target = Dream.target req in
-    Dream.redirect req ("/manual/" ^ (Url.minor latest_version) ^ target)
+    Dream.redirect req ("/manual/" ^ Url.minor latest_version ^ target)
   in
   Dream.get pattern handler
 
