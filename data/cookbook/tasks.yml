@@ -168,9 +168,9 @@ categories:
 #  tasks:
 #  - title: Trigger a Minor / Major Collection
 #    slug: trigger-minor-major-collection
-- title: Generate Random Values
+- title: Random Values
   tasks:
-  - title: Generate Random Values of a Custom Type
+  - title: Generate Random `int`, `float` and `char`
     slug: generate-random-values
 - title: Mathematics
   subcategories:
