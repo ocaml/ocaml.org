@@ -9,19 +9,30 @@ let no_trailing_slash next_handler request =
   if Dream.target request = target then next_handler request
   else Dream.redirect request target
 
-
 let versioning next_handler request =
   let init_path = request |> Dream.target |> String.split_on_char '/' in
   let expand_version = function
     | "lts" -> Ocamlorg.Url.minor Data.Release.lts.version
     | "latest" -> Ocamlorg.Url.minor Data.Release.latest.version
-    | s -> s in
+    | s -> s
+  in
   let path = init_path |> List.map expand_version in
-  let path = match path with
-  | "" :: "manual" :: something :: tl -> (match List.find_opt (fun (x : Data.Release.t) -> Ocamlorg.Url.minor x.version = something) Data.Release.all with
-   | Some _ -> path
-   | None -> "" :: "manual" :: Ocamlorg.Url.minor Data.Release.latest.version :: something :: tl)
-  | u -> u in
+  let path =
+    match path with
+    | "" :: "manual" :: something :: tl -> (
+        match
+          List.find_opt
+            (fun (x : Data.Release.t) ->
+              Ocamlorg.Url.minor x.version = something)
+            Data.Release.all
+        with
+        | Some _ -> path
+        | None ->
+            "" :: "manual"
+            :: Ocamlorg.Url.minor Data.Release.latest.version
+            :: something :: tl)
+    | u -> u
+  in
   let target = String.concat "/" path in
   if init_path = path then next_handler request
   else Dream.redirect request target
