@@ -1,4 +1,4 @@
-type task_metadata = { title : string; slug : string; description : string }
+type task_metadata = { title : string; slug : string; description : string option }
 [@@deriving of_yaml]
 
 type category_metadata = {
@@ -15,7 +15,7 @@ type task = {
   title : string;
   slug : string;
   category_path : string list;
-  description : string;
+  description : string option;
 }
 [@@deriving show { with_path = false }]
 
@@ -157,7 +157,7 @@ type task =
   { title : string
   ; slug : string
   ; category_path : string list
-  ; description : string
+  ; description : string option
   }
 type package =
   { name : string

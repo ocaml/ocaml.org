@@ -19,9 +19,9 @@ Learn_layout.single_column_layout
   <div class="container-fluid py-32">
     <div class="prose dark:prose-invert mx-auto max-w-5xl">
       <h1 class="font-normal text-4xl mb-10"><%s task.title %></h1>
-        <p>
-          <%s task.description %>
-        </p>
+% (match task.description with None -> () | Some description ->
+          <p><%s! description %></p>
+% );
 % if List.length recipes > 0 then (
   <div class="max-w-4xl">
     <div class="grid grid-cols-[1fr_40%] items-center bg-primary text-white rounded-t">
