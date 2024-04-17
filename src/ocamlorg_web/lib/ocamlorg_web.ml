@@ -13,7 +13,7 @@ let run () =
   let state = Ocamlorg_package.init () in
   try
     Dream.run ~interface:"0.0.0.0" ~port:Config.http_port
-    @@ Dream.logger @@ Middleware.no_trailing_slash @@ Middleware.head
+    @@ Dream.logger @@ Middleware.no_trailing_slash @@ Middleware.versioning @@ Middleware.head
     @@ Router.router state
   with
   | Unix.Unix_error (err, fn, _) ->
