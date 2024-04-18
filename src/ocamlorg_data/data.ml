@@ -168,7 +168,22 @@ module Release = struct
   include Release
 
   let get_by_version version =
-    List.find_opt (fun x -> String.equal version x.version) all
+    if version = "lts" then Some lts
+    else if version = "latest" then Some latest
+    else
+      match
+        List.filter (fun x -> String.starts_with ~prefix:version x.version) all
+      with
+      | [] -> None
+      | [ release ] -> Some release
+      | u :: v ->
+          let version r =
+            r.version |> String.split_on_char '.' |> List.map int_of_string
+          in
+          Some
+            (List.fold_left
+               (fun r1 r2 -> if version r1 > version r2 then r1 else r2)
+               u v)
 end
 
 module News = struct
