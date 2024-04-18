@@ -514,21 +514,24 @@ let redirect_i origin =
       Dream.redirect req (local_target target ^ "/index.html"))
 
 let manual =
-  redirect_to_latest "/api/**" :: (
-  Data.Release.all
-  |> List.map (fun (release : Data.Release.t) -> Url.minor release.version)
-  |> List.sort_uniq compare
-  |> List.concat_map (fun version -> List.append
-    [
-      redirect_p @@ "/releases/" ^ version ^ "/htmlman/**";
-      redirect_i @@ "/releases/" ^ version ^ "/htmlman";
-    ]
-    (if version < "4.12" then [] else [
-      redirect_p @@ "/releases/" ^ version ^ "/api/**";
-      redirect_i @@ "/releases/" ^ version ^ "/api";
-      redirect_p @@ "/releases/" ^ version ^ "/manual/**";
-      redirect_i @@ "/releases/" ^ version ^ "/manual";
-    ])))
+  redirect_to_latest "/api/**"
+  :: (Data.Release.all
+     |> List.map (fun (release : Data.Release.t) -> Url.minor release.version)
+     |> List.sort_uniq compare
+     |> List.concat_map (fun version ->
+            List.append
+              [
+                redirect_p @@ "/releases/" ^ version ^ "/htmlman/**";
+                redirect_i @@ "/releases/" ^ version ^ "/htmlman";
+              ]
+              (if version < "4.12" then []
+               else
+                 [
+                   redirect_p @@ "/releases/" ^ version ^ "/api/**";
+                   redirect_i @@ "/releases/" ^ version ^ "/api";
+                   redirect_p @@ "/releases/" ^ version ^ "/manual/**";
+                   redirect_i @@ "/releases/" ^ version ^ "/manual";
+                 ])))
 
 let make ?(permanent = false) t =
   let status = if permanent then `Moved_Permanently else `See_Other in
