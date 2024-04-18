@@ -9,7 +9,7 @@ let no_trailing_slash next_handler request =
   if Dream.target request = target then next_handler request
   else Dream.redirect request target
 
-let versioning next_handler request =
+let language_manual next_handler request =
   let init_path = request |> Dream.target |> String.split_on_char '/' in
   let path =
     let minor (release : Data.Release.t) = Ocamlorg.Url.minor release.version in
