@@ -514,65 +514,21 @@ let redirect_i origin =
       Dream.redirect req (local_target target ^ "/index.html"))
 
 let manual =
-  [
-    redirect_to_latest "/api/**";
-    redirect_p "/releases/3.12/htmlman/**";
-    redirect_i "/releases/3.12/htmlman";
-    redirect_p "/releases/4.00/htmlman/**";
-    redirect_i "/releases/4.00/htmlman";
-    redirect_p "/releases/4.01/htmlman/**";
-    redirect_i "/releases/4.01/htmlman";
-    redirect_p "/releases/4.02/htmlman/**";
-    redirect_i "/releases/4.02/htmlman";
-    redirect_p "/releases/4.03/htmlman/**";
-    redirect_i "/releases/4.03/htmlman";
-    redirect_p "/releases/4.04/htmlman/**";
-    redirect_i "/releases/4.04/htmlman";
-    redirect_p "/releases/4.05/htmlman/**";
-    redirect_i "/releases/4.05/htmlman";
-    redirect_p "/releases/4.06/htmlman/**";
-    redirect_i "/releases/4.06/htmlman";
-    redirect_p "/releases/4.07/htmlman/**";
-    redirect_i "/releases/4.07/htmlman";
-    redirect_p "/releases/4.08/htmlman/**";
-    redirect_i "/releases/4.08/htmlman";
-    redirect_p "/releases/4.09/htmlman/**";
-    redirect_i "/releases/4.09/htmlman";
-    redirect_p "/releases/4.10/htmlman/**";
-    redirect_i "/releases/4.10/htmlman";
-    redirect_p "/releases/4.11/htmlman/**";
-    redirect_i "/releases/4.11/htmlman";
-    redirect_p "/releases/4.12/api/**";
-    redirect_i "/releases/4.12/api";
-    redirect_p "/releases/4.12/htmlman/**";
-    redirect_i "/releases/4.12/htmlman";
-    redirect_p "/releases/4.12/manual/**";
-    redirect_i "/releases/4.12/manual";
-    redirect_p "/releases/4.13/api/**";
-    redirect_i "/releases/4.13/api";
-    redirect_p "/releases/4.13/htmlman/**";
-    redirect_i "/releases/4.13/htmlman";
-    redirect_p "/releases/4.13/manual/**";
-    redirect_i "/releases/4.13/manual";
-    redirect_p "/releases/4.14/api/**";
-    redirect_i "/releases/4.14/api";
-    redirect_p "/releases/4.14/htmlman/**";
-    redirect_i "/releases/4.14/htmlman";
-    redirect_p "/releases/4.14/manual/**";
-    redirect_i "/releases/4.14/manual";
-    redirect_p "/releases/5.0/api/**";
-    redirect_i "/releases/5.0/api";
-    redirect_p "/releases/5.0/htmlman/**";
-    redirect_i "/releases/5.0/htmlman";
-    redirect_p "/releases/5.0/manual/**";
-    redirect_i "/releases/5.0/manual";
-    redirect_p "/releases/5.1/api/**";
-    redirect_i "/releases/5.1/api";
-    redirect_p "/releases/5.1/htmlman/**";
-    redirect_i "/releases/5.1/htmlman";
-    redirect_p "/releases/5.1/manual/**";
-    redirect_i "/releases/5.1/manual";
-  ]
+  redirect_to_latest "/api/**" :: (
+  Data.Release.all
+  |> List.map (fun (release : Data.Release.t) -> Url.minor release.version)
+  |> List.sort_uniq compare
+  |> List.concat_map (fun version -> List.append
+    [
+      redirect_p @@ "/releases/" ^ version ^ "/htmlman/**";
+      redirect_i @@ "/releases/" ^ version ^ "/htmlman";
+    ]
+    (if version < "4.12" then [] else [
+      redirect_p @@ "/releases/" ^ version ^ "/api/**";
+      redirect_i @@ "/releases/" ^ version ^ "/api";
+      redirect_p @@ "/releases/" ^ version ^ "/manual/**";
+      redirect_i @@ "/releases/" ^ version ^ "/manual";
+    ])))
 
 let make ?(permanent = false) t =
   let status = if permanent then `Moved_Permanently else `See_Other in
