@@ -93,7 +93,7 @@ Commits added on some branches are automatically deployed:
 - `main` on <https://ocaml.org/>.
 - `staging` on <https://staging.ocaml.org/>.
 
-The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer> which listens to the `main` and `staging` branches and builds the site using the `Dockerfile` at the root of the project.
+The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer> which listens to the `main` and `staging` branches and builds the site using the `Dockerfile` at the root of the project. You can monitor the state of each deployment on [`deploy.ci.ocaml.org`](https://deploy.ci.ocaml.org/?repo=ocaml/ocaml.org)
 
 To test the deployment locally, you can run the following commands:
 

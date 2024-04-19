@@ -1,0 +1,12 @@
+let community_resource ~title ~desc ~link ?(img="") () =
+  <a href=" <%s link %>" class="flex flex-col card dark:dark-card rounded-lg border border-separator_30">
+    <div class="w-full h-44 text-white rounded-t-xl bg-cover bg-center" style="background-image: url(<%s img %>)">
+    </div>
+    <div class="flex flex-col p-5 h-full">
+      <h2 class="text-xl font-bold text-title dark:text-dark-title mb-3"><%s title %></h2>
+      <p class="text-base text-content dark:text-dark-content font-normal mb-2 grow">
+         <%s desc %>
+      </p>
+      <span class="text-sm text-[#D54000] font-normal"><%s link %></span>
+    </div>
+  </a>

@@ -179,7 +179,7 @@ need to understand what this Parsetree is.
 During the compilation phase, OCaml's compiler will parse the input file into an
 internal representation of it, called the Parsetree. The program is represented
 as a tree, with a complex OCaml type that you can find in the [`Parsetree`
-module](/api/compilerlibref/Parsetree.html).
+module](/manual/latest/api/compilerlibref/Parsetree.html).
 
 Let's look at a few properties of this tree:
 - Each node in the AST has a type corresponding to a different role, such as
@@ -190,7 +190,7 @@ Let's look at a few properties of this tree:
 
 There are several complementary ways of getting a grasp on the Parsetree type.
 One is to read the [API
-documentation](/api/compilerlibref/Parsetree.html), which
+documentation](/manual/latest/api/compilerlibref/Parsetree.html), which
 includes examples of what each type and value represent. Another is to
 examine the Parsetree value of crafted OCaml code. This can be achieved using
 the external tool [astexplorer](https://astexplorer.net/), our OCaml
@@ -509,7 +509,7 @@ questions, especially in the presence of multiple PPX rewriters.
 - How can I write a PPX easily if I have to deal with parsing or demarshalling
   an AST?
 - How can I deal with such a [long and complex
-  type](/api/compilerlibref/Parsetree.html) as in Parsetree?
+  type](/manual/latest/api/compilerlibref/Parsetree.html) as in Parsetree?
 - How can I solve the problem that new OCaml versions tend to add new features
   to the language and therefore need to enrich and break the Parsetree types?
 

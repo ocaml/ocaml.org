@@ -87,7 +87,7 @@ let () = hello ()
 ```
 
 Using `open` is optional. Usually, we don't open a module like `List` because it
-provides names other modules also provide, such as [`Array`](/api/Array.html) or `Option`. Modules
+provides names other modules also provide, such as [`Array`](/manual/latest/api/Array.html) or `Option`. Modules
 like `Printf` provide names that aren't subject to conflicts, such as `printf`.
 Placing `open Printf` at the top of a file avoids writing `Printf.printf` repeatedly.
 ```ocaml

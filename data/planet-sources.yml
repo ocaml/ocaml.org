@@ -183,3 +183,6 @@
 - id: emilpriver
   name: Emil Privér
   url: https://priver.dev/tags/ocaml/index.xml
+- id: melange
+  name: Melange Blog
+  url: https://melange.re/blog/feed.rss

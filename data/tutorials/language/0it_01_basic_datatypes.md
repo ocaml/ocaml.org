@@ -38,9 +38,9 @@ The `int` type is the default and basic integer type in OCaml. When you enter a 
 - : int = 42
 ```
 
-The `int` type represents platform-dependent signed integers. This means `int` does not always have same the number of bits. It depends on underlying platform characteristics, such as processor architecture or operating system. Operations on `int` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Int`](/api/Int.html) modules.
+The `int` type represents platform-dependent signed integers. This means `int` does not always have same the number of bits. It depends on underlying platform characteristics, such as processor architecture or operating system. Operations on `int` values are provided by the [`Stdlib`](/manual/latest/api/Stdlib.html) and the [`Int`](/manual/latest/api/Int.html) modules.
 
-Usually, `int` has 31 bits in 32-bit architectures and 63 in 64-bit architectures, because one bit is reserved for OCaml's runtime operation. The standard library also provides [`Int32`](/api/Int32.html) and [`Int64`](/api/Int64.html) modules, which support platform-independent operations on 32- and 64-bit signed integers. These modules are not detailed in this tutorial.
+Usually, `int` has 31 bits in 32-bit architectures and 63 in 64-bit architectures, because one bit is reserved for OCaml's runtime operation. The standard library also provides [`Int32`](/manual/latest/api/Int32.html) and [`Int64`](/manual/latest/api/Int64.html) modules, which support platform-independent operations on 32- and 64-bit signed integers. These modules are not detailed in this tutorial.
 
 There are no dedicated types for unsigned integers in OCaml. Bitwise operations on `int` treat the sign bit the same as other bits. Binary operators use standard symbols. The signed remainder operator is written `mod`. Integers in OCaml have no predefined power operator.
 
@@ -64,7 +64,7 @@ Error: This expression has type int but an expression was expected of type
 Error: This expression has type float but an expression was expected of type
          int
 ```
-Operations on `float` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Float`](/api/Float.html) modules.
+Operations on `float` are provided by the [`Stdlib`](/manual/latest/api/Stdlib.html) and the [`Float`](/manual/latest/api/Float.html) modules.
 
 #### Booleans
 
@@ -80,7 +80,7 @@ Boolean values are represented by the type `bool`.
 - : bool = true
 ```
 
-Operations on `bool` are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bool`](/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction “or” is written `||`. Both are short-circuited, meaning that they don't evaluate the argument on the right if the left one's value is sufficient to decide the whole expression's value.
+Operations on `bool` are provided by the [`Stdlib`](/manual/latest/api/Stdlib.html) and the [`Bool`](/manual/latest/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction “or” is written `||`. Both are short-circuited, meaning that they don't evaluate the argument on the right if the left one's value is sufficient to decide the whole expression's value.
 
 In OCaml, `if … then … else …` is a _conditional expression_. It has the same type as its branches.
 ```ocaml
@@ -103,9 +103,9 @@ Values of type `char` correspond to the 256 symbols of the Latin-1 set. Characte
 # 'd';;
 - : char = 'd'
 ```
-Operations on `char` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Char`](/api/Char.html) modules.
+Operations on `char` values are provided by the [`Stdlib`](/manual/latest/api/Stdlib.html) and the [`Char`](/manual/latest/api/Char.html) modules.
 
-The module [`Uchar`](/api/Uchar.html) provides support for Unicode characters.
+The module [`Uchar`](/manual/latest/api/Uchar.html) provides support for Unicode characters.
 
 ### Strings & Byte Sequences
 
@@ -131,7 +131,7 @@ Indexed access to string characters is possible using the following syntax:
 # "buenos dias".[4];;
 - : char : 'o'
 ```
-Operations on `string` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`String`](/api/String.html) modules.
+Operations on `string` values are provided by the [`Stdlib`](/manual/latest/api/Stdlib.html) and the [`String`](/manual/latest/api/String.html) modules.
 
 #### Byte Sequences
 
@@ -145,7 +145,7 @@ Moved intro pp to after example, as it contains the definition. Perhaps a short 
 ```
 Like strings, byte sequences are finite and fixed-sized. Each individual byte is represented by a `char` value. Like arrays, byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence (type `bytes`) is a mutable string that can't be printed. There is no way to write `bytes` literally, so they must be produced by a function.
 
-Operations on `bytes` values are provided by the [`Stdlib`](/api/Stdlib.html) and the [`Bytes`](/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. Unlike arrays, there is no direct access operator on byte sequences. 
+Operations on `bytes` values are provided by the [`Stdlib`](/manual/latest/api/Stdlib.html) and the [`Bytes`](/manual/latest/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. Unlike arrays, there is no direct access operator on byte sequences. 
 
 The memory representation of `bytes` is four times more compact that `char array`.
 ### Arrays & Lists
@@ -191,7 +191,7 @@ val letter : char array = [|'v'; 'x'; 'y'; 'z'|]
 
 The left-arrow `<-` is the array update operator. Above, it means the cell at index 2 is set to value `'F'`. It is the same as writing `Array.set letter 2 'F'`. Array update is a side effect, and the unit value is returned.
 
-Operations on arrays are provided by the [`Array`](/api/Array.html) module. There is a dedicated tutorial on [Arrays](/docs/arrays).
+Operations on arrays are provided by the [`Array`](/manual/latest/api/Array.html) module. There is a dedicated tutorial on [Arrays](/docs/arrays).
 
 #### Lists
 
@@ -209,7 +209,7 @@ As literals, lists are very much like arrays. Here are the same previous example
 
 Like arrays, lists are finite sequences of values of the same type. They are polymorphic, too. However, lists are extensible, immutable, and don't support direct access to all the values they contain. Lists play a central role in functional programming, so they have a [dedicated tutorial](/docs/lists).
 
-Operations on lists are provided by the [`List`](/api/List.html) module. The `List.append` function concatenates two lists. It can be used as an operator with the symbol `@`.
+Operations on lists are provided by the [`List`](/manual/latest/api/List.html) module. The `List.append` function concatenates two lists. It can be used as an operator with the symbol `@`.
 
 There are symbols of special importance with respect to lists:
 - The empty list is written `[]`, has type `'a list'`, and is pronounced “nil.”
@@ -265,7 +265,7 @@ Here is an example of pattern matching on an option value:
 - : int = 42
 ```
 
-Operations on options are provided by the [`Option`](/api/Option.html) module. Options are discussed in the [Error Handling](/docs/error-handling) guide.
+Operations on options are provided by the [`Option`](/manual/latest/api/Option.html) module. Options are discussed in the [Error Handling](/docs/error-handling) guide.
 
 #### Results
 
@@ -278,7 +278,7 @@ The `result` type can be used to express that a function's outcome can be either
 - : ('a, string) result = Error "Sorry"
 ```
 
-Operations on results are provided by the [`Result`](/api/Result.html) module. Results are discussed in the [Error Handling](/docs/error-handling) guide.
+Operations on results are provided by the [`Result`](/manual/latest/api/Result.html) module. Results are discussed in the [Error Handling](/docs/error-handling) guide.
 
 ### Tuples
 

@@ -31,6 +31,7 @@ let page_routes t =
       Dream.get Url.learn_guides Handler.learn_guides;
       Dream.get Url.platform Handler.platform;
       Dream.get Url.community Handler.community;
+      Dream.get Url.events Handler.events;
       Dream.get Url.changelog Handler.changelog;
       Dream.get (Url.changelog_entry ":id") Handler.changelog_entry;
       Dream.get (Url.success_story ":id") Handler.success_story;
@@ -57,6 +58,7 @@ let page_routes t =
       Dream.get Url.papers Handler.papers;
       Dream.get Url.exercises Handler.exercises;
       Dream.get (Url.tutorial "is-ocaml-web-yet") (Handler.is_ocaml_yet t "web");
+      Dream.get (Url.tutorial "is-ocaml-gui-yet") (Handler.is_ocaml_yet t "gui");
       Dream.get Url.tutorial_search Handler.learn_documents_search;
       Dream.get (Url.tutorial ":id") (Handler.tutorial Commit.hash);
       Dream.get Url.playground Handler.playground;
@@ -120,6 +122,9 @@ let router t =
       package_route t;
       graphql_route t;
       sitemap_routes;
+      Dream.scope ""
+        [ Dream_encoding.compress ]
+        [ Dream.get "/manual/**" (Dream.static Config.manual_path) ];
       Dream.scope ""
         [ Dream_encoding.compress ]
         [ Dream.get "/media/**" (Dream.static ~loader:media_loader "") ];

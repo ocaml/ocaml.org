@@ -498,7 +498,7 @@ happening in parallel and prints a back trace for both:
 
 Looking again at our program, we realize that these two writes are in
 fact not coordinated. One possible fix is to replace our mutable
-record field with an [`Atomic`](/api/Atomic.html) that guarantees each
+record field with an [`Atomic`](/manual/latest/api/Atomic.html) that guarantees each
 such write to happen fully, one after the other:
 
 ```ocaml

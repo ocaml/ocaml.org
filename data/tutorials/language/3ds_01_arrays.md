@@ -10,7 +10,7 @@ category: "Data Structures"
 
 In OCaml, arrays are collections of elements of one type. Unlike lists, arrays can be mutated by replacing their elements with other values of the same type, but cannot be resized. Arrays also allow efficient access to elements at any position.
 
-Despite these differences, many of the functions readily available on arrays are similar to the ones available for lists. Please refer to the [List tutorial](https://ocaml.org/docs/lists) and [documentation](/api/List.html) for more details about these functions.
+Despite these differences, many of the functions readily available on arrays are similar to the ones available for lists. Please refer to the [List tutorial](https://ocaml.org/docs/lists) and [documentation](/manual/latest/api/List.html) for more details about these functions.
 
 This tutorial aims to introduce the subject of arrays in OCaml and showcase the most useful functions and use cases.
 
@@ -63,7 +63,7 @@ To modify an element in an array, we simply assign a new value to it using the i
 
 Note that this operation returns `unit`, not the modified array. `even_numbers` is modified in place as a side effect.
 
-## The Standard Library [`Array`](/api/Array.html) Module
+## The Standard Library [`Array`](/manual/latest/api/Array.html) Module
 
 OCaml provides several useful functions for working with arrays. Here are some of the most common ones:
 
@@ -176,4 +176,4 @@ This copies two elements of `zeroes`, starting at index `1` into the last part o
 
 ## Conclusion
 
-In this tutorial, we covered the basics of arrays in OCaml, including how to create and manipulate them, as well as some of the most useful functions and use cases. Please refer to the [standard library documentation](/api/Array.html) to browse the complete list of functions of the [`Array`](/api/Array.html) module.
+In this tutorial, we covered the basics of arrays in OCaml, including how to create and manipulate them, as well as some of the most useful functions and use cases. Please refer to the [standard library documentation](/manual/latest/api/Array.html) to browse the complete list of functions of the [`Array`](/manual/latest/api/Array.html) module.

@@ -34,6 +34,7 @@ end
 
 let sitemap = "/sitemap.xml"
 let community = "/community"
+let events = "/events"
 let success_story v = "/success-stories/" ^ v
 let industrial_users = "/industrial-users"
 let academic_users = "/academic-users"
@@ -45,10 +46,10 @@ let minor v =
   | _ -> invalid_arg (v ^ ": invalid OCaml version")
 
 let v2 = "https://v2.ocaml.org"
-let manual_with_version v = v2 ^ "/releases/" ^ minor v ^ "/htmlman/index.html"
-let manual = "/releases/latest/manual.html"
-let api_with_version v = v2 ^ "/releases/" ^ minor v ^ "/api/index.html"
-let api = "/releases/latest/api/index.html"
+let manual_with_version v = "/manual/" ^ minor v ^ "/index.html"
+let manual = "/manual"
+let api_with_version v = "/manual/" ^ minor v ^ "/api/index.html"
+let api = "/api"
 let books = "/books"
 let changelog = "/changelog"
 let changelog_entry id = "/changelog/" ^ id

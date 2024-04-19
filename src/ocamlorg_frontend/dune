@@ -94,6 +94,10 @@
   (action
    (run %{bin:dream_eml} %{dep:community.eml} --workspace %{workspace_root})))
  (rule
+  (target events.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:events.eml} --workspace %{workspace_root})))
+ (rule
   (target workshop.ml)
   (action
    (run %{bin:dream_eml} %{dep:workshop.eml} --workspace %{workspace_root})))
@@ -315,4 +319,8 @@
     %{bin:dream_eml}
     %{dep:tutorial_search.eml}
     --workspace
-    %{workspace_root}))))
+    %{workspace_root})))
+ (rule
+  (target cards.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:cards.eml} --workspace %{workspace_root}))))

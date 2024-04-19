@@ -677,7 +677,7 @@ A module may expose or encapsulate a state in several different ways:
 1. It depends: only expose state initialisation, which implies there only is a single state
 1. Bad: mutable state with no explicit initialisation function or no name referring to the mutable state
 
-For example, the [`Hashtbl`](/api/Hashtbl.html) module provides an interface of the first kind. It has the type `Hashtbl.t` representing mutable data. It also exposes `create`, `clear`, and `reset` functions. The `clear` and `reset` functions return `unit`. This strongly signals the reader that they perform the side-effect of updating the mutable data.
+For example, the [`Hashtbl`](/manual/latest/api/Hashtbl.html) module provides an interface of the first kind. It has the type `Hashtbl.t` representing mutable data. It also exposes `create`, `clear`, and `reset` functions. The `clear` and `reset` functions return `unit`. This strongly signals the reader that they perform the side-effect of updating the mutable data.
 ```ocaml
 # #show Hashtbl.t;;
 type ('a, 'b) t = ('a, 'b) Hashtbl.t
@@ -751,7 +751,7 @@ Error: Unbound module Analytics
 
 **Note:** This code will not run because there is no module called `Analytics`. [Analytics](https://en.wikipedia.org/wiki/Web_analytics) are remote monitoring libraries.
 
-A module called `Array` is defined; it shadows and includes the [`Stdlib.Array`](/api/Array.html) module. See the [Module Inclusion](docs/modules#module-inclusion) part of the [Modules](docs/modules) tutorial for details about this pattern.
+A module called `Array` is defined; it shadows and includes the [`Stdlib.Array`](/manual/latest/api/Array.html) module. See the [Module Inclusion](docs/modules#module-inclusion) part of the [Modules](docs/modules) tutorial for details about this pattern.
 
 To understand why this code is bad, figure out that `Analytics.collect` is a function that makes a network connection to transmit data to a remote server.
 
