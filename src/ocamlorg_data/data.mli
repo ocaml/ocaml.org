@@ -301,6 +301,7 @@ module Planet : sig
   module LocalBlog : sig
     type t = { source : source; posts : Post.t list; rss_feed : string }
 
+    val all : t list
     val get_by_id : string -> t option
   end
 
