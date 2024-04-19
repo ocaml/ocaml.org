@@ -452,6 +452,7 @@ module Is_ocaml_yet : sig
 end
 
 module Event : sig
+  type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
   type location = { lat : float; long : float }
 
   module RecurringEvent : sig
@@ -461,6 +462,7 @@ module Event : sig
       url : string;
       textual_location : string;
       location : location option;
+      event_type : event_type;
     }
 
     val all : t list
@@ -480,6 +482,7 @@ module Event : sig
     body_md : string;
     body_html : string;
     recurring_event : RecurringEvent.t option;
+    event_type : event_type;
   }
 
   val all : t list
