@@ -28,11 +28,8 @@ In the second part, we'll see how to create our first OCaml project in the [Your
 ## Before We Begin
 Before proceeding with this tutorial, please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page.
 
-<!-- AC: Already stated on the previous paragraph
-You need to have OCaml installed. -->
 
 To walk through the basics of OCaml by trying out different elements in an interactive manner, we'll use UTop.
-<!-- A REPL (also known as toplevel or shell) is a program that *R*eads an input, *E*valuates it, *P*rints the result and *L*oops back to read the next input.-->
 UTop (Universal Toplevel) allows interacting directly with OCaml by reading and evaluating OCaml phrases like expressions or value definitions and printing the result on the screen.
 You can run UTop by using the `utop` command.
 We recommend that you execute the examples we provide, or slight variants of them, in your own environment to get a feel for coding in OCaml.
@@ -54,9 +51,6 @@ The goal of this tutorial is to provide the following capabilities:
 - Call functions defined in modules of the OCaml standard library
 -->
 
-<!-- AC: Already in the previous paragraph
-**Note**: We recommend that you try running the code snippets throughout this guide in an OCaml toplevel.  Read the [Introduction to OCaml Toplevel](/docs/toplevel-introduction) to learn how to use it.
--->
 ## Expressions and Definitions
 
 Let's start with a simple expression:
