@@ -27,31 +27,6 @@ let search_dropdown () =
     <%s! Icons.arrow_top_right_on_square "w-6 h-6" %>
   </a>
 in
-let darkmode_switch =
-  <div x-data class="relative">
-    <button class="mr-4" :class="$store.themeSettings.preference? 'text-primary dark:text-dark-primary' : 'text-title dark:text-dark-title'" @click="$store.themeSettings.open = !$store.themeSettings.open">
-      <template x-if="$store.themeSettings.preference === 'light'">
-        <%s! Icons.light_mode "h-8 w-8" %>
-      </template>
-      <template x-if="$store.themeSettings.preference === 'dark'">
-        <%s! Icons.dark_mode "h-8 w-8" %>
-      </template>
-      <template x-if="!$store.themeSettings.preference && $store.themeSettings.isSystemDefaultDark">
-        <%s! Icons.dark_mode "h-8 w-8" %>
-      </template>
-      <template x-if="!$store.themeSettings.preference && !$store.themeSettings.isSystemDefaultDark">
-        <%s! Icons.light_mode "h-8 w-8" %>
-      </template>
-    </button>
-
-    <ul x-show="$store.themeSettings.open" x-cloak @click.outside="$store.themeSettings.open = false" class="absolute bg-white dark:bg-dark-card rounded-lg shadow-lg w-36 py-1 mt-8 top-[20%] -left-full z-50 border border-separator_20 dark:border-dark-separator_30 text-sm text-title dark:text-dark-title" role="listbox">
-      <li class="py-1 px-2 flex items-center cursor-pointer hover:bg-[#E2E9F3] dark:hover:bg-dark-card_hover" @click="$store.themeSettings.storageAccess? $store.themeSettings.togglePreference('light') : $store.themeSettings.openAlert('light')" :class="$store.themeSettings.preference === 'light'? 'bg-[#E2E9F3] dark:bg-dark-card_hover' : ''">Light</li>
-      <li class="py-1 px-2 flex items-center cursor-pointer hover:bg-[#E2E9F3] dark:hover:bg-dark-card_hover" :class="$store.themeSettings.preference === 'dark'? 'bg-[#E2E9F3] dark:bg-dark-card_hover' : ''" @click="$store.themeSettings.storageAccess? $store.themeSettings.togglePreference('dark') : $store.themeSettings.openAlert('dark')">Dark</li>
-      <li class="py-1 px-2 flex items-center cursor-pointer hover:bg-[#E2E9F3] dark:hover:bg-dark-card_hover" :class="!$store.themeSettings.preference? 'bg-[#E2E9F3] dark:bg-dark-card_hover' : ''" @click="$store.themeSettings.togglePreference('system')">System</li>
-    </ul>
-  </div>
-in
-
 <header
   class="h-20 flex items-center bg-sand dark:bg-dark-background_navigation"
   x-data="{ open: false }">
@@ -65,9 +40,6 @@ in
       </li>
     </ul>
     <ul class="order-2 hidden lg:flex items-center">
-      <li>
-        <%s! darkmode_switch %>
-      </li>
       <li>
         <form
           <%s! Packages_autocomplete_fragment.form_attributes %>
@@ -96,9 +68,6 @@ in
     </ul>
     <% ); %>
     <ul class="order-1 lg:hidden flex items-center">
-      <li>
-        <%s! darkmode_switch %>
-      </li>
       <li
         class="h-12 w-12 hover:bg-primary_25 dark:hover:bg-primary_20 flex items-center justify-center rounded-full text-content dark:text-dark-title">
         <button aria-label="open menu" @click="open = ! open">
@@ -109,17 +78,6 @@ in
   </nav>
 
   <div class="bg-black fixed w-full h-full left-0 top-0 opacity-60 z-40" x-show='open' x-cloak></div>
-
-  <div class="fixed inset-0 flex items-center justify-center z-50" x-show='$store.themeSettings.alertOpen' x-cloak>
-    <div class="bg-black fixed inset-0 opacity-60"></div>
-    <div class="p-8 rounded-lg shadow-lg relative bg-white dark:bg-dark-card text-content dark:text-dark-content">
-      <p>This settings requires us to access your browser's storage?</p>
-      <div class="flex justify-center mt-5">
-        <button class="mr-8 hover:bg-[#E2E9F3] dark:hover:bg-dark-card_hover px-7 rounded" @click="$store.themeSettings.declineAlert()">Decline</button>
-        <button class="btn" @click="$store.themeSettings.confirmAlert()">Accept</button>
-      </div>
-    </div>
-  </div>
 
   <nav class="z-50 h-full fixed right-0 top-0 max-w-full w-96 bg-background dark:bg-dark-background shadow-lg" x-show="open" x-cloak
     @click.away="open = false" x-transition:enter="transition duration-200 ease-out"
@@ -176,59 +134,4 @@ in
       </li>
     </ul>
   </nav>
-  <script>
-    document.addEventListener('alpine:init', () => {
-      Alpine.store('themeSettings', {
-        init() {
-          this.storageAccess = localStorage.getItem('storageAccess')
-          this.preference = localStorage.getItem('theme')
-          this.isSystemDefaultDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        },
-        open: false,
-        selected: '',
-        alertOpen: false,
-        storageAccess: false,
-        preference: undefined,
-        isSystemDefaultDark: false,
-        togglePreference(preference) {
-          if (preference === 'dark') {
-            document.body.classList.add("dark");
-          } 
-          if (preference === 'light') {
-            document.body.classList.remove("dark");
-          }
-          if (preference === 'system') {
-            if (this.isSystemDefaultDark) {
-              document.body.classList.add("dark");
-            } else {
-              document.body.classList.remove("dark");
-            }
-            localStorage.removeItem('theme')
-            this.preference = undefined
-            this.open = false
-            return
-          }
-          this.preference = preference
-          localStorage.setItem('theme', preference)
-          this.open = false
-        },
-        openAlert(selected) {
-          this.alertOpen = true
-          this.selected = selected
-        },
-        confirmAlert() {
-          this.storageAccess = true
-          localStorage.setItem('storageAccess', true)
-          this.togglePreference(this.selected)
-          this.selected = ''
-          this.alertOpen = false
-        },
-        declineAlert() {
-          this.alertOpen = false
-          this.open = false
-          this.selected = ''
-        }
-      })
-    })
-  </script>
 </header>
