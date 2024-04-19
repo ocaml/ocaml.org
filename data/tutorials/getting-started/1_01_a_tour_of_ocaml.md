@@ -16,9 +16,6 @@ Hop on the OCaml sightseeing bus.
 This absolute beginner tutorial will drive you through the marvels and wonders of OCaml.
 We'll have a look at the most commonly used language features.
 No OCaml or functional programming knowledge is required; however, it is assumed the reader has some basic software development knowledge.
-<!-- AC: I think this bit is redundant
-This tutorial is probably not adapted to learn programming.
--->
 
 The complete tour is divided in two parts.
 This first part introduces OCaml's basic features: values, expressions, lists, functions, pattern matching, and more.
