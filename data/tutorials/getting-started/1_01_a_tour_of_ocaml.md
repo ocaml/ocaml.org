@@ -12,9 +12,7 @@ recommended_next_tutorials:
 ---
 
 ## Introduction
-Hop on the OCaml sightseeing bus.
-This absolute beginner tutorial will drive you through the marvels and wonders of OCaml.
-We'll have a look at the most commonly used language features.
+In this tutorial, we'll have a look at the most commonly used language features.
 No OCaml or functional programming knowledge is required; however, it is assumed the reader has some basic software development knowledge.
 
 The complete tour is divided in two parts.
