@@ -57,6 +57,21 @@ let urlables =
       Urlable (Workshop.all, fun r -> to_url @@ Url.workshop r.slug);
     ]
 
+let manual =
+  let path_to_url path =
+    path |> Fpath.to_string |> ( ^ ) "/manual/" |> to_url
+  in
+  let add_url manual path urls =
+    Fpath.relativize ~root:manual path
+    |> Option.fold
+         ~some:(fun path -> path |> path_to_url |> Fun.flip List.cons urls)
+         ~none:urls
+  in
+  Fpath.of_string Config.manual_path
+  |> Fun.flip Result.bind (fun manual ->
+         Bos.OS.Path.fold ~elements:`Files (add_url manual) [] [ manual ])
+  |> Result.value ~default:[] |> List.to_seq
+
 let urlset (Urlable (all, show)) = Seq.map show (List.to_seq all)
 
 let data =
@@ -71,4 +86,9 @@ let data =
     Seq.(
       concat
         (List.to_seq
-           [ return header; concat_map urlset urlables; return "\n</urlset>\n" ]))
+           [
+             return header;
+             concat_map urlset urlables;
+             manual;
+             return "\n</urlset>\n";
+           ]))
