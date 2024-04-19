@@ -9,6 +9,24 @@ let no_trailing_slash next_handler request =
   if Dream.target request = target then next_handler request
   else Dream.redirect request target
 
+let language_manual_version next_handler request =
+  let init_path = request |> Dream.target |> String.split_on_char '/' in
+  let path =
+    let minor (release : Data.Release.t) = Ocamlorg.Url.minor release.version in
+    match init_path with
+    | "" :: "manual" :: something :: tl ->
+        "" :: "manual"
+        :: Data.Release.(
+             Option.fold
+               ~none:(minor latest ^ "/" ^ something)
+               ~some:minor (get_by_version something))
+        :: tl
+    | u -> u
+  in
+  let target = String.concat "/" path in
+  if init_path = path then next_handler request
+  else Dream.redirect request target
+
 let head handler request =
   match Dream.method_ request with
   | `HEAD ->
