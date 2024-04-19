@@ -42,8 +42,8 @@ let socials = [
   ("/feed.xml", "RSS", Icons.rss);
 ]
 
-let render_multi_button ~title ~preference ~class_ =
-  <button class="flex grow basis-0 justify-center items-center py-2 px-4 text-sm border <%s class_ %>" :class='$store.themeSettings.preference === "<%s preference %>" ? "bg-gradient-to-r from-[#FFA932] to-[#C24F1E] dark:from-[#0F254F] dark:to-[#0B1228] text-white dark:text-dark-title outline-none" : "bg-white text-content outline-2 outline-card_border dark:outline-dark-separator_30"'
+let render_multi_button ~title ~preference ~background ~class_ =
+  <button class="flex grow basis-0 justify-center items-center py-2 px-4 text-sm border <%s class_ %>" :class='$store.themeSettings.preference === "<%s preference %>" ? "bg-gradient-to-r <%s background %> text-white dark:text-dark-title outline-none" : "bg-white text-content outline-2 outline-card_border dark:outline-dark-separator_30"'
     @click='["light", "dark"].includes("<%s preference %>") && !$store.themeSettings.storageAccess? $store.themeSettings.openAlert("<%s preference %>") : $store.themeSettings.togglePreference("<%s preference %>")'
   >
     <template x-if='"<%s preference %>" === "light"'>
@@ -144,9 +144,9 @@ let primary_footer () =
           <img class="h-8 hidden dark:inline" src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" alt="OCaml">
         </a>
         <div class="hidden md:flex">
-          <%s! render_multi_button ~title:"Light" ~preference:"light" ~class_:"rounded-l rounded-l-full border-r-0" %>
-          <%s! render_multi_button ~title:"Dark" ~preference:"dark" ~class_:"border-r-0" %>
-          <%s! render_multi_button ~title:"System" ~preference:"system" ~class_:"rounded-r rounded-r-full" %>
+          <%s! render_multi_button ~title:"Light" ~preference:"light" ~background:"from-[#FFA932] to-[#C24F1E]" ~class_:"rounded-l rounded-l-full border-r-0" %>
+          <%s! render_multi_button ~title:"Dark" ~preference:"dark" ~background:"from-[#0F254F] to-[#0B1228]" ~class_:"border-r-0" %>
+          <%s! render_multi_button ~title:"System" ~preference:"system" ~background:"from-[#2B7866] to-[#004039]" ~class_:"rounded-r rounded-r-full" %>
         </div>
       </div>
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
@@ -158,9 +158,9 @@ let primary_footer () =
             <% ); %>
           </div>
           <div class="flex w-full md:hidden">
-            <%s! render_multi_button ~title:"Light" ~preference:"light" ~class_:"rounded-l rounded-l-full border-r-0" %>
-            <%s! render_multi_button ~title:"Dark" ~preference:"dark" ~class_:"border-r-0" %>
-            <%s! render_multi_button ~title:"System" ~preference:"system" ~class_:"rounded-r rounded-r-full" %>
+            <%s! render_multi_button ~title:"Light" ~preference:"light" ~background:"from-[#FFA932] to-[#C24F1E]" ~class_:"rounded-l rounded-l-full border-r-0" %>
+            <%s! render_multi_button ~title:"Dark" ~preference:"dark" ~background:"from-[#0F254F] to-[#0B1228]" ~class_:"border-r-0" %>
+            <%s! render_multi_button ~title:"System" ~preference:"system" ~background:"from-[#2B7866] to-[#004039]" ~class_:"rounded-r rounded-r-full" %>
           </div>
         </div>
         <div class="mt-8 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
@@ -224,9 +224,9 @@ let secondary_footer () =
         <img src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" width="132" alt="OCaml logo" class="h-8 hidden dark:inline">
       </a>
       <div class="hidden md:flex">
-        <%s! render_multi_button ~title:"Light" ~preference:"light" ~class_:"rounded-l rounded-l-full border-r-0" %>
-        <%s! render_multi_button ~title:"Dark" ~preference:"dark" ~class_:"border-r-0" %>
-        <%s! render_multi_button ~title:"System" ~preference:"system" ~class_:"rounded-r rounded-r-full" %>
+        <%s! render_multi_button ~title:"Light" ~preference:"light" ~background:"from-[#FFA932] to-[#C24F1E]" ~class_:"rounded-l rounded-l-full border-r-0" %>
+        <%s! render_multi_button ~title:"Dark" ~preference:"dark" ~background:"from-[#0F254F] to-[#0B1228]" ~class_:"border-r-0" %>
+        <%s! render_multi_button ~title:"System" ~preference:"system" ~background:"from-[#2B7866] to-[#004039]" ~class_:"rounded-r rounded-r-full" %>
       </div>
     </div>
     <section class="flex flex-col gap-6 md:gap-0 md:flex-row md:justify-between md:items-end">
@@ -239,9 +239,9 @@ let secondary_footer () =
         <% ); %>
       </div>
       <div class="flex w-full md:hidden">
-        <%s! render_multi_button ~title:"Light" ~preference:"light" ~class_:"rounded-l rounded-l-full border-r-0" %>
-        <%s! render_multi_button ~title:"Dark" ~preference:"dark" ~class_:"border-r-0" %>
-        <%s! render_multi_button ~title:"System" ~preference:"system" ~class_:"rounded-r rounded-r-full" %>
+        <%s! render_multi_button ~title:"Light" ~preference:"light" ~background:"from-[#FFA932] to-[#C24F1E]" ~class_:"rounded-l rounded-l-full border-r-0" %>
+        <%s! render_multi_button ~title:"Dark" ~preference:"dark" ~background:"from-[#0F254F] to-[#0B1228]" ~class_:"border-r-0" %>
+        <%s! render_multi_button ~title:"System" ~preference:"system" ~background:"from-[#2B7866] to-[#004039]" ~class_:"rounded-r rounded-r-full" %>
       </div>
     </section>
 
