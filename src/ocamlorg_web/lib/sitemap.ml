@@ -2,34 +2,37 @@ module Url = Ocamlorg.Url
 
 type urlable = Urlable : 'a list * ('a -> string) -> urlable
 
+(* Keep it in alphabetical order. *)
 let urls =
   [
-    Url.index;
-    Url.packages;
-    Url.packages_search;
+    Url.about;
+    Url.academic_users;
+    Url.blog;
+    Url.books;
+    Url.carbon_footprint;
+    Url.changelog;
+    Url.code_of_conduct;
     Url.community;
     Url.events;
+    Url.exercises;
+    Url.getting_started;
+    Url.governance;
+    Url.governance_policy;
+    Url.index;
     Url.industrial_users;
-    Url.academic_users;
-    Url.about;
-    Url.books;
+    Url.jobs;
+    Url.learn;
+    Url.news;
+    Url.ocaml_on_windows;
+    Url.outreachy;
+    Url.packages;
+    Url.packages_search;
+    Url.papers;
+    Url.platform;
+    Url.playground;
+    Url.privacy_policy;
     Url.releases;
     Url.workshops;
-    Url.blog;
-    Url.news;
-    Url.jobs;
-    Url.carbon_footprint;
-    Url.privacy_policy;
-    Url.governance_policy;
-    Url.governance;
-    Url.code_of_conduct;
-    Url.playground;
-    Url.papers;
-    Url.learn;
-    Url.platform;
-    Url.ocaml_on_windows;
-    Url.getting_started;
-    Url.exercises;
   ]
 
 let to_url u = "\n<url><loc>https://ocaml.org" ^ u ^ "</loc></url>"
@@ -39,12 +42,35 @@ let urlables =
   List.to_seq
     [
       Urlable (urls, to_url);
-      Urlable (Success_story.all, fun r -> to_url @@ Url.success_story r.slug);
-      Urlable (Release.all, fun r -> to_url @@ Url.release r.version);
-      Urlable (Workshop.all, fun r -> to_url @@ Url.workshop r.slug);
+      Urlable (Changelog.all, fun r -> to_url @@ Url.changelog_entry r.slug);
+      Urlable (Governance.teams, fun r -> to_url @@ Url.governance_team r.id);
+      Urlable (Is_ocaml_yet.all, fun r -> to_url @@ Url.is_ocaml_yet r.id);
       Urlable (News.all, fun r -> to_url @@ Url.news_post r.slug);
+      Urlable
+        ( List.concat_map
+            (fun (src : Planet.LocalBlog.t) -> src.posts)
+            Planet.LocalBlog.all,
+          fun r -> to_url @@ Url.blog_post r.source.id r.slug );
+      Urlable (Release.all, fun r -> to_url @@ Url.release r.version);
+      Urlable (Success_story.all, fun r -> to_url @@ Url.success_story r.slug);
       Urlable (Tutorial.all, fun r -> to_url @@ Url.tutorial r.slug);
+      Urlable (Workshop.all, fun r -> to_url @@ Url.workshop r.slug);
     ]
+
+let manual =
+  let path_to_url path =
+    path |> Fpath.to_string |> ( ^ ) "/manual/" |> to_url
+  in
+  let add_url manual path urls =
+    Fpath.relativize ~root:manual path
+    |> Option.fold
+         ~some:(fun path -> path |> path_to_url |> Fun.flip List.cons urls)
+         ~none:urls
+  in
+  Fpath.of_string Config.manual_path
+  |> Fun.flip Result.bind (fun manual ->
+         Bos.OS.Path.fold ~elements:`Files (add_url manual) [] [ manual ])
+  |> Result.value ~default:[] |> List.to_seq
 
 let urlset (Urlable (all, show)) = Seq.map show (List.to_seq all)
 
@@ -60,4 +86,9 @@ let data =
     Seq.(
       concat
         (List.to_seq
-           [ return header; concat_map urlset urlables; return "\n</urlset>\n" ]))
+           [
+             return header;
+             concat_map urlset urlables;
+             manual;
+             return "\n</urlset>\n";
+           ]))
