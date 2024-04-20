@@ -1,6 +1,7 @@
 recurring:
   - title: "OCaml Users in Paris (OUPS)"
     slug: "ocaml-users-paris-oups"
+    event_type: meetup
     textual_location: Paris, France
     location:
       lat: 48.8566
@@ -8,6 +9,7 @@ recurring:
     url: https://www.meetup.com/ocaml-paris/
   - title: "NYC OCaml Meetup"
     slug: "nyc-ocaml-meetup"
+    event_type: meetup
     textual_location: New York City, New York, USA
     location:
       lat: 40.7128
@@ -15,6 +17,7 @@ recurring:
     url: https://www.meetup.com/NYC-OCaml
   - title: "Silicon Valley OCaml Meetup"
     slug: "silicon-valley-ocaml-meetup"
+    event_type: meetup
     textual_location: San Francisco, California, USA
     location:
       lat: 37.7749
@@ -22,6 +25,7 @@ recurring:
     url: https://www.meetup.com/sv-ocaml/
   - title: "Cambridge NonDysFunctional Programmers"
     slug: "cambridge-nondysfunctional-programmers"
+    event_type: meetup
     textual_location: Cambridge, United Kingdom
     location:
       lat: 52.2053
@@ -29,6 +33,7 @@ recurring:
     url: https://www.meetup.com/Cambridge-NonDysFunctional-Programmers/
   - title: "MirageOS hack retreat"
     slug: "mirageos-hack-retreat"
+    event_type: retreat
     textual_location: "Marrakesh, Morocco"
     location:
       lat: 31.628674
@@ -36,17 +41,21 @@ recurring:
     url: https://retreat.mirage.io/
   - title: "South of England Regional Programming Language Seminar"
     slug: "s-repls-programming-languages-seminar"
+    event_type: seminar
     textual_location: "London, United Kingdom"
     url: https://srepls.github.io/
   - title: "OCaml Retreat"
     slug: "ocaml-retreat"
+    event_type: retreat
     textual_location: "Auroville, India"
     url: https://ocamlretreat.org/
   - title: "OCaml Manila Meetup"
     slug: "ocaml-manila-meetup"
+    event_type: meetup
     textual_location: "Manila, Philippines"
     url: https://www.meetup.com/ocaml-manila/
   - title: "ReasonSTHLM Meetup"
     slug: "reason-stockholm-meetup"
+    event_type: meetup
     textual_location: "Stockholm, Sweden"
     url: https://www.meetup.com/ReasonSTHLM/
