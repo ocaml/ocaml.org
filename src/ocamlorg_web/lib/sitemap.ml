@@ -47,10 +47,7 @@ let urlables =
       Urlable (Is_ocaml_yet.all, fun r -> to_url @@ Url.is_ocaml_yet r.id);
       Urlable (News.all, fun r -> to_url @@ Url.news_post r.slug);
       Urlable
-        ( List.concat_map
-            (fun (src : Planet.LocalBlog.t) -> src.posts)
-            Planet.LocalBlog.all,
-          fun r -> to_url @@ Url.blog_post r.source.id r.slug );
+        (Planet.local_posts, fun r -> to_url @@ Url.blog_post r.source.id r.slug);
       Urlable (Release.all, fun r -> to_url @@ Url.release r.version);
       Urlable (Success_story.all, fun r -> to_url @@ Url.success_story r.slug);
       Urlable (Tutorial.all, fun r -> to_url @@ Url.tutorial r.slug);
@@ -67,9 +64,14 @@ let manual =
          ~some:(fun path -> path |> path_to_url |> Fun.flip List.cons urls)
          ~none:urls
   in
+  let releases =
+    let open Data.Release in
+    List.map (fun (r : t) -> Url.minor r.version) all |> List.sort_uniq compare
+  in
   Fpath.of_string Config.manual_path
   |> Fun.flip Result.bind (fun manual ->
-         Bos.OS.Path.fold ~elements:`Files (add_url manual) [] [ manual ])
+         Bos.OS.Path.fold ~elements:`Files (add_url manual) []
+           (List.map (Fpath.add_seg manual) releases))
   |> Result.value ~default:[] |> List.to_seq
 
 let urlset (Urlable (all, show)) = Seq.map show (List.to_seq all)

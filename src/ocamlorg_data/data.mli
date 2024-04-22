@@ -305,6 +305,7 @@ module Planet : sig
     val get_by_id : string -> t option
   end
 
+  val local_posts : Post.t list
   val featured_posts : Post.t list
 end
 
