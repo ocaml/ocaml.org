@@ -64,9 +64,14 @@ let manual =
          ~some:(fun path -> path |> path_to_url |> Fun.flip List.cons urls)
          ~none:urls
   in
+  let releases =
+    let open Data.Release in
+    List.map (fun (r : t) -> Url.minor r.version) all |> List.sort_uniq compare
+  in
   Fpath.of_string Config.manual_path
   |> Fun.flip Result.bind (fun manual ->
-         Bos.OS.Path.fold ~elements:`Files (add_url manual) [] [ manual ])
+         Bos.OS.Path.fold ~elements:`Files (add_url manual) []
+           (List.map (Fpath.add_seg manual) releases))
   |> Result.value ~default:[] |> List.to_seq
 
 let urlset (Urlable (all, show)) = Seq.map show (List.to_seq all)
