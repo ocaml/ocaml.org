@@ -1,4 +1,8 @@
-type task_metadata = { title : string; slug : string; description : string option }
+type task_metadata = {
+  title : string;
+  slug : string;
+  description : string option;
+}
 [@@deriving of_yaml]
 
 type category_metadata = {
