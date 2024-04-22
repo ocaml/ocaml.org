@@ -104,7 +104,7 @@ let package_route t =
         ((Handler.package_file t) Handler.Package);
     ]
 
-let sitemap_routes = Dream.scope "" [] [ Dream.get Url.sitemap Handler.sitemap ]
+let sitemap_routes = Dream.scope "" [ Dream_encoding.compress ] [ Dream.get Url.sitemap Handler.sitemap ]
 
 let graphql_route t =
   Dream.scope ""
