@@ -47,10 +47,7 @@ let urlables =
       Urlable (Is_ocaml_yet.all, fun r -> to_url @@ Url.is_ocaml_yet r.id);
       Urlable (News.all, fun r -> to_url @@ Url.news_post r.slug);
       Urlable
-        ( List.concat_map
-            (fun (src : Planet.LocalBlog.t) -> src.posts)
-            Planet.LocalBlog.all,
-          fun r -> to_url @@ Url.blog_post r.source.id r.slug );
+        (Planet.local_posts, fun r -> to_url @@ Url.blog_post r.source.id r.slug);
       Urlable (Release.all, fun r -> to_url @@ Url.release r.version);
       Urlable (Success_story.all, fun r -> to_url @@ Url.success_story r.slug);
       Urlable (Tutorial.all, fun r -> to_url @@ Url.tutorial r.slug);
