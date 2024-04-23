@@ -122,21 +122,21 @@ Here are the steps to contribute a recipe for an existing task:
 * Find the task in the [data/cookbook/tasks.yml](data/cookbook/tasks.yml) file
 * Go to the task folder inside [data/cookbook/](data/cookbook/) which has the
   same name as the task's `slug`
-* Create a `.ml` file containing the recipe and a Yaml header with metadata about
+* Create a `.ml` file containing the recipe and a YAML header with metadata about
   the recipe.
 
 If the recipe does not fit into any existing task, you also need to create a
 task. Add a `task:` entry in [data/cookbook/tasks.yml](data/cookbook/tasks.yml)
-file. Fields `title`, `description` and `slug` are mandatory. The task must be
+file. Fields `title`, `description`, and `slug` are mandatory. The task must be
 located under a relevant `category:` field.
 
-Finally, it is also possible to create and organize groups of tasks by creating
+Finally, it is also possible to create and organise groups of tasks by creating
 new categories. Categories are recursive and may have subcategories, which are
 full categories too. A task listed in
-[data/cookbook/tasks.yml](data/cookbook/tasks.yml) may have no recipes yet. The
-other way, it is not allowed to have a task folder in
-[data/cookbook/](data/cookbook/) which does not correspond to a task from the
-[data/cookbook/tasks.yml](data/cookbook/tasks.yml) file, it triggers a
+[data/cookbook/tasks.yml](data/cookbook/tasks.yml) may have no recipes yet. On the 
+other hand, it is not allowed to have a task folder in
+[data/cookbook/](data/cookbook/) that does not correspond to a task from the
+[data/cookbook/tasks.yml](data/cookbook/tasks.yml) file because it triggers a
 compilation error.
 
 Each recipe is a way to perform a task using a combination of open-source
@@ -161,7 +161,7 @@ The [OCaml Changelog](https://ocaml.org/changelog) is a feed of the latest relea
 - [The OCaml Compiler](https://github.com/ocaml/ocaml)
 - [OCaml Platform Tools](https://ocaml.org/docs/platform)
 
-Before a release of the above tools land on the `opam-repository`, the release manager of the project opens a pull request (PR) on OCaml.org with an announcement for the release.
+Before a release of the above tools land on the `opam-repository`, the project's release manager opens a pull request (PR) on OCaml.org with a release announcement.
 
 The announcement is proofread by the OCaml.org team, who will also suggest highlighting release features.
 
@@ -173,7 +173,7 @@ The preferred workflow for contributing to a repository is to fork the main repo
 
 If you aren't familiar with how to work with Github or would like to learn it, here is [a great tutorial](https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github).
 
-Feel free to use any approach while creating a PR. Here are a few suggestions from the dev team:
+Feel free to use any approach while creating a PR. Here are a few suggestions from the Dev team:
 
 - If you are not sure whether your changes will be accepted or want to discuss the method before delving into it, please create an issue and ask.
 - Clone the repo locally (or continue editing directly in GitHub if the change is small). Checkout
