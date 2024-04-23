@@ -41,7 +41,6 @@ Learn_layout.single_column_layout
 ~title:"OCaml Books"
 ~description:"A selection of books to learn the OCaml programming language."
 ~canonical:Url.books
-~active_top_nav_item:Header.Learn
 ~current:Books @@
 <div class="bg-background dark:bg-dark-background">
     <div class="container-fluid pt-10">
