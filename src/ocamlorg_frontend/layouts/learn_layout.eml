@@ -4,7 +4,6 @@ type section =
   | Language
   | Platform
   | Guides
-  | Cookbook
   | Exercises
   | Books
 
@@ -16,7 +15,6 @@ let tabs
     | Language -> Url.learn_language
     | Platform -> Url.platform
     | Guides -> Url.learn_guides
-    | Cookbook -> Url.cookbook
     | Exercises -> Url.exercises
     | Books -> Url.books
   in
@@ -26,11 +24,10 @@ let tabs
     | Language -> "Language"
     | Platform -> "Platform"
     | Guides -> "Guides"
-    | Cookbook -> "Cookbook"
     | Exercises -> "Exercises"
     | Books -> "Books"
   in
-  Layout.subnav_tabs ~title:"Learn" ~current ~sections:[Overview; GetStarted; Language; Platform; Guides; Cookbook; Exercises; Books] ~url_of_section ~title_of_section
+  Layout.subnav_tabs ~title:"Learn" ~current ~sections:[Overview; GetStarted; Language; Platform; Guides; Exercises; Books] ~url_of_section ~title_of_section
 
 let sidebar
 ~current_tutorial
@@ -100,6 +97,7 @@ let single_column_layout
 ~title
 ~description
 ~canonical
+?active_top_nav_item
 ~current
 inner_html
 =
@@ -109,7 +107,7 @@ inner_html
   ~title
   ~description
   ~canonical
-  ~active_top_nav_item:Header.Learn @@
+  ?active_top_nav_item @@
   <%s! tabs ~current %>
   <div class="bg-background dark:bg-dark-background">
     <div class="flex-1 z-0 z- min-w-0 pb-12">
@@ -123,6 +121,7 @@ let three_column_layout
 ~title
 ~description
 ~canonical
+?active_top_nav_item
 ~(left_sidebar_html: string option)
 ~(right_sidebar_html: string option)
 ~current
@@ -134,7 +133,7 @@ inner_html
   ~title
   ~description
   ~canonical
-  ~active_top_nav_item:Header.Learn @@
+  ?active_top_nav_item @@
   <%s! tabs ~current %>
   <div class="bg-background dark:bg-dark-background" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
   <% if left_sidebar_html != None then ( %>  
