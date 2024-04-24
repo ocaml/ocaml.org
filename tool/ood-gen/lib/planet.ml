@@ -42,7 +42,9 @@ module Local = struct
       let result =
         let ( let* ) = Result.bind in
         let* yaml = Utils.yaml_file file in
-        let* sources = sources_of_yaml yaml in
+        let* sources =
+          sources_of_yaml yaml |> Result.map_error (Utils.where file)
+        in
         Ok
           (sources
           |> List.map (fun s ->
@@ -143,7 +145,9 @@ module External = struct
       let result =
         let ( let* ) = Result.bind in
         let* yaml = Utils.yaml_file file in
-        let* sources = sources_of_yaml yaml in
+        let* sources =
+          sources_of_yaml yaml |> Result.map_error (Utils.where file)
+        in
         Ok
           (sources
           |> List.map (fun { id; name; url; disabled } ->

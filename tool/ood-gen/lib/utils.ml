@@ -77,7 +77,9 @@ let yaml_file filepath_str =
     |> Result.get_ok ~error:(fun (`Msg m) -> Invalid_argument m)
   in
   let file_opt = read_file filepath in
-  let* file = Option.to_result ~none:(`Msg "file not found") file_opt in
+  let* file =
+    Option.to_result ~none:(`Msg (filepath_str ^ ": file not found")) file_opt
+  in
   Yaml.of_string file
 
 let yaml_sequence_file ?key of_yaml filepath_str =
