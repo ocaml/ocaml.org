@@ -72,13 +72,10 @@ let slugify value =
   |> Str.global_replace (Str.regexp "[^a-z0-9\\-]") ""
 
 let yaml_file filepath_str =
-  let filepath =
-    filepath_str |> Fpath.of_string
-    |> Result.get_ok ~error:(fun (`Msg m) -> Invalid_argument m)
-  in
+  let* filepath = filepath_str |> Fpath.of_string in
   let file_opt = read_file filepath in
   let* file =
-    Option.to_result ~none:(`Msg (filepath_str ^ ": file not found")) file_opt
+    Option.to_result ~none:(where filepath_str (`Msg "read failed")) file_opt
   in
   Yaml.of_string file
 
