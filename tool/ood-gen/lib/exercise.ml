@@ -55,15 +55,14 @@ type t = {
     show { with_path = false }]
 
 let of_metadata m = of_metadata m ~modify_tutorials:(Option.value ~default:[])
-let attach_filepath fpath (`Msg m) = `Msg ("Error in file '" ^ fpath ^ "': " ^ m)
 
 let decode (fpath, (head, body)) : (t, [> `Msg of string ]) result =
   let ( let* ) = Result.bind in
   let* metadata =
-    metadata_of_yaml head |> Result.map_error (attach_filepath fpath)
+    metadata_of_yaml head |> Result.map_error (Utils.where fpath)
   in
   let* statement_doc, solution_doc =
-    split_statement_solution body |> Result.map_error (attach_filepath fpath)
+    split_statement_solution body |> Result.map_error (Utils.where fpath)
   in
   let statement =
     Cmarkit_html.of_doc ~safe:false (Hilite.Md.transform statement_doc)

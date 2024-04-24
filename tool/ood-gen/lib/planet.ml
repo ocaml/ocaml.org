@@ -114,7 +114,7 @@ module Local = struct
                 planet-local-blogs/SOURCE_NAME/...)")
       in
       metadata
-      |> Result.map_error (fun (`Msg m) -> `Msg ("In " ^ fpath ^ ": " ^ m))
+      |> Result.map_error (Utils.where fpath)
       |> Result.map (of_metadata ~slug ~source ~body_html)
 
     let all () : post list =
@@ -232,7 +232,7 @@ module External = struct
                 planet/SOURCE_NAME/...)")
       in
       metadata
-      |> Result.map_error (fun (`Msg m) -> `Msg ("In " ^ fpath ^ ": " ^ m))
+      |> Result.map_error (Utils.where fpath)
       |> Result.map (of_metadata ~source ~body_html)
 
     let all () : post list =
