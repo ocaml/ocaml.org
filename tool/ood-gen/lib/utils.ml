@@ -53,12 +53,12 @@ let read_from_dir glob =
 
 let where path (`Msg err) = `Msg (path ^ ": " ^ err)
 
-let map_files decode glob =
+let map_files f glob =
   let f (path, data) =
     let* metadata =
       extract_metadata_body path data |> Result.map_error (where path)
     in
-    decode (path, metadata)
+    f (path, metadata)
   in
   read_from_dir glob
   |> List.fold_left (fun u x -> Ok List.cons <@> f x <@> u) (Ok [])
