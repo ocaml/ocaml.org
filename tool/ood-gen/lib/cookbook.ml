@@ -109,6 +109,7 @@ let decode (tasks : task list) (fpath, (head, body)) =
       of_metadata ~slug ~filepath:fpath ~task ~discussion_html ~code_blocks
         ~code_plaintext:body metadata)
     metadata
+  |> Result.map_error (Utils.where fpath)
 
 let all_categories_and_tasks () =
   let categories_and_tasks_metadata =
