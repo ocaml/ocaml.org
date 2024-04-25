@@ -58,7 +58,7 @@ let map_files f glob =
     let* metadata =
       extract_metadata_body path data |> Result.map_error (where path)
     in
-    f (path, metadata)
+    Result.map_error (where path) (f (path, metadata))
   in
   read_from_dir glob
   |> List.fold_left (fun u x -> Ok List.cons <@> f x <@> u) (Ok [])
