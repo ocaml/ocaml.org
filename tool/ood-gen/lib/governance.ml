@@ -69,7 +69,7 @@ let all () =
     decode yaml
   in
   result
-  |> Result.map_error (function `Msg err -> `Msg (file ^ ": " ^ err))
+  |> Result.map_error (Utils.where file)
   |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg)
 
 let template () =

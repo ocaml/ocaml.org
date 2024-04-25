@@ -42,7 +42,9 @@ module Local = struct
       let result =
         let ( let* ) = Result.bind in
         let* yaml = Utils.yaml_file file in
-        let* sources = sources_of_yaml yaml in
+        let* sources =
+          sources_of_yaml yaml |> Result.map_error (Utils.where file)
+        in
         Ok
           (sources
           |> List.map (fun s ->
@@ -114,7 +116,7 @@ module Local = struct
                 planet-local-blogs/SOURCE_NAME/...)")
       in
       metadata
-      |> Result.map_error (fun (`Msg m) -> `Msg ("In " ^ fpath ^ ": " ^ m))
+      |> Result.map_error (Utils.where fpath)
       |> Result.map (of_metadata ~slug ~source ~body_html)
 
     let all () : post list =
@@ -143,7 +145,9 @@ module External = struct
       let result =
         let ( let* ) = Result.bind in
         let* yaml = Utils.yaml_file file in
-        let* sources = sources_of_yaml yaml in
+        let* sources =
+          sources_of_yaml yaml |> Result.map_error (Utils.where file)
+        in
         Ok
           (sources
           |> List.map (fun { id; name; url; disabled } ->
@@ -232,7 +236,7 @@ module External = struct
                 planet/SOURCE_NAME/...)")
       in
       metadata
-      |> Result.map_error (fun (`Msg m) -> `Msg ("In " ^ fpath ^ ": " ^ m))
+      |> Result.map_error (Utils.where fpath)
       |> Result.map (of_metadata ~source ~body_html)
 
     let all () : post list =

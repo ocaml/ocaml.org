@@ -51,12 +51,14 @@ let read_from_dir glob =
         corresponding ood-gen command in src/ocamlorg_data/dune");
   results
 
+let where path (`Msg err) = `Msg (path ^ ": " ^ err)
+
 let map_files f glob =
   let f (path, data) =
-    let* metadata = extract_metadata_body path data in
-    Result.map_error
-      (function `Msg err -> `Msg (path ^ ": " ^ err))
-      (f (path, metadata))
+    let* metadata =
+      extract_metadata_body path data |> Result.map_error (where path)
+    in
+    Result.map_error (where path) (f (path, metadata))
   in
   read_from_dir glob
   |> List.fold_left (fun u x -> Ok List.cons <@> f x <@> u) (Ok [])
@@ -70,12 +72,11 @@ let slugify value =
   |> Str.global_replace (Str.regexp "[^a-z0-9\\-]") ""
 
 let yaml_file filepath_str =
-  let filepath =
-    filepath_str |> Fpath.of_string
-    |> Result.get_ok ~error:(fun (`Msg m) -> Invalid_argument m)
-  in
+  let* filepath = filepath_str |> Fpath.of_string in
   let file_opt = read_file filepath in
-  let* file = Option.to_result ~none:(`Msg "file not found") file_opt in
+  let* file =
+    Option.to_result ~none:(where filepath_str (`Msg "read failed")) file_opt
+  in
   Yaml.of_string file
 
 let yaml_sequence_file ?key of_yaml filepath_str =
@@ -92,12 +93,9 @@ let yaml_sequence_file ?key of_yaml filepath_str =
      (function `A u -> Ok u | _ -> Error (`Msg "expecting a sequence")) found
    in
    List.fold_left (fun u x -> Ok List.cons <@> of_yaml x <@> u) (Ok []) list)
-  |> Result.map_error (function `Msg err ->
-         `Msg ((filepath |> Fpath.to_string) ^ ": " ^ err))
+  |> Result.map_error (where (filepath |> Fpath.to_string))
   |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg)
 
 let of_yaml of_string error = function
   | `String s -> of_string s
   | _ -> Error (`Msg error)
-
-let where fpath = function `Msg err -> `Msg (fpath ^ ": " ^ err)
