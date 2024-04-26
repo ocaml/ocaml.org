@@ -189,10 +189,16 @@ categories:
     tasks:
     - title: Collect Unicode Graphemes
       slug: collect-unicode-graphemes
+  - title: ASCII
+    tasks:
+    - title: ASCII Text Processing
+      slug: ascii-text-processing
   - title: UTF-8
     tasks:
     - title: UTF-8 Text Processing
       slug: utf8-text-processing
+    - title: UTF-8 Encoding
+      slug: utf8-encoding
   - title: Regular Expressions
     tasks:
     - title: Validate an Email Address
