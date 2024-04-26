@@ -1,7 +1,7 @@
 ---
 packages: []
 discussion: |
-  - The Earth can be approximated by an ellipsoid defined by the WGS84 reference system. The [Vincety formulae](http://www.movable-type.co.uk/scripts/latlong-vincenty.html) can be used to calculate distance in the WGS84 system. The following code is translated from [this site](http://walter.bislins.ch/bloge/index.asp?page=WGS84+JavaScript+Module).
+  - The Earth can be approximated by an ellipsoid defined by the WGS84 reference system. The [Vincety formulae](http://www.movable-type.co.uk/scripts/latlong-vincenty.html) can be used to calculate distance in this system. The following code is translated from [this site](http://walter.bislins.ch/bloge/index.asp?page=WGS84+JavaScript+Module).
 ---
 
 let pi = 3.14159265356279
@@ -22,8 +22,8 @@ let wgs84_distance lat1 long1 lat2 long2 =
   let long1 = deg2rad long1 in
   let long2 = deg2rad long2 in
 
-  let u1 = atan ((1.-.wgs84_f)*.tan lat1) in
-  let u2 = atan ((1.-.wgs84_f)*.tan lat2) in
+  let u1 = atan ((1.-.wgs84_f) *. tan lat1) in
+  let u2 = atan ((1.-.wgs84_f) *. tan lat2) in
   
   let delta_long = long2 -. long1 in
 
@@ -39,7 +39,8 @@ let wgs84_distance lat1 long1 lat2 long2 =
       let sin_lambda = sin lambda in
       let cos_lambda = cos lambda in
       let sin_sigma = 
-        sqrt (sqr(cos_u2 *. sin_lambda) +. sqr(cos_u1 *. sin_u2 -. sin_u1 *. cos_u2 *. cos_lambda) ) in
+        sqrt (sqr(cos_u2 *. sin_lambda)
+        +. sqr(cos_u1 *. sin_u2 -. sin_u1 *. cos_u2 *. cos_lambda) ) in
       if sin_sigma = 0. then
         0.
       else
@@ -55,7 +56,8 @@ let wgs84_distance lat1 long1 lat2 long2 =
             -1.,
             0. in
         let d = 2. *. sqr cos_2sigma_m -. 1. in
-        let e = sigma +. c *. sin sigma *. (cos_2sigma_m +. c *. cos_sigma *. d) in
+        let e = sigma
+          +. c *. sin sigma *. (cos_2sigma_m +. c *. cos_sigma *. d) in
         
         let lambda' = delta_long +. (1. -. c) *. wgs84_f *. sin_alpha *. e in
         if abs_float(lambda -. lambda') > 1e-13 then
