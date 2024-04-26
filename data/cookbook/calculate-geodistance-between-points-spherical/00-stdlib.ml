@@ -3,7 +3,6 @@ packages: []
 discussion: |
   - The Earth surface can be approximated by a 6371 km sphere. Calculating distance between 2 points can be done with the Haversine formula. See [this page](https://www.movable-type.co.uk/scripts/latlong.html).
 ---
-
 let deg2rad angle =
   angle /. 180. *. Float.pi
 

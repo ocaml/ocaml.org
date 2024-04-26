@@ -3,8 +3,6 @@ packages: []
 discussion: |
   - The Earth can be approximated by an ellipsoid defined by the WGS84 reference system. The [Vincety formulae](http://www.movable-type.co.uk/scripts/latlong-vincenty.html) can be used to calculate distance in this system. The following code is translated from [this site](http://walter.bislins.ch/bloge/index.asp?page=WGS84+JavaScript+Module).
 ---
-
-
 let deg2rad angle =
   angle /. 180. *. Float.pi
 
@@ -12,7 +10,8 @@ let sqr a = a *. a
 
 let wgs84_a = 6378137.
 let wgs84_b = 6356752.314245
-let wgs84_f = 1. /. 298.257223563 (* flattening = (a-b)/a *)
+ (* flattening = (a-b)/a *)
+let wgs84_f = 1. /. 298.257223563
 
 
 let wgs84_distance lat1 long1 lat2 long2 =
