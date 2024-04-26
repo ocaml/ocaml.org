@@ -10,7 +10,7 @@ let sqr a = a *. a
 
 let wgs84_a = 6378137.
 let wgs84_b = 6356752.314245
- (* flattening = (a-b)/a *)
+(* flattening = (a-b)/a *)
 let wgs84_f = 1. /. 298.257223563
 
 
