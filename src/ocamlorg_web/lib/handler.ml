@@ -142,7 +142,8 @@ let changelog req =
     | None | Some "" -> Data.Changelog.all
     | Some tag ->
         List.filter
-          (fun change -> List.exists (( = ) tag) change.Data.Changelog.tags)
+          (fun (change : Data.Changelog.t) ->
+            List.exists (( = ) tag) change.tags)
           Data.Changelog.all
   in
   let page, number_of_pages, current_changes = paginate ~req ~n:30 changes in
@@ -298,7 +299,7 @@ let workshop req =
   in
   let slug = Dream.param req "id" in
   let</>? workshop =
-    List.find_opt (fun x -> x.Data.Workshop.slug = slug) Data.Workshop.all
+    List.find_opt (fun (x : Data.Workshop.t) -> x.slug = slug) Data.Workshop.all
   in
   Dream.html (Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed workshop)
 
@@ -362,13 +363,13 @@ let jobs req =
     | None | Some "All" -> Data.Job.all
     | Some location ->
         List.filter
-          (fun job -> List.exists (( = ) location) job.Data.Job.locations)
+          (fun (job : Data.Job.t) -> List.exists (( = ) location) job.locations)
           Data.Job.all
   in
   let locations =
     Data.Job.all
-    |> List.concat_map (fun job ->
-           List.filter (( <> ) "Remote") job.Data.Job.locations)
+    |> List.concat_map (fun (job : Data.Job.t) ->
+           List.filter (( <> ) "Remote") job.locations)
     |> List.sort_uniq String.compare
   in
   Dream.html (Ocamlorg_frontend.jobs ?location ~locations jobs)
@@ -440,7 +441,7 @@ let papers req =
 let tutorial commit_hash req =
   let slug = Dream.param req "id" in
   let</>? tutorial =
-    List.find_opt (fun x -> x.Data.Tutorial.slug = slug) Data.Tutorial.all
+    List.find_opt (fun (x : Data.Tutorial.t) -> x.slug = slug) Data.Tutorial.all
   in
   let all_tutorials = Data.Tutorial.all in
 
@@ -628,7 +629,9 @@ end
 
 let is_ocaml_yet t id req =
   let</>? meta =
-    List.find_opt (fun x -> x.Data.Is_ocaml_yet.id = id) Data.Is_ocaml_yet.all
+    List.find_opt
+      (fun (x : Data.Is_ocaml_yet.t) -> x.id = id)
+      Data.Is_ocaml_yet.all
   in
   let tutorials =
     Data.Tutorial.all
@@ -636,7 +639,8 @@ let is_ocaml_yet t id req =
   in
   let packages =
     meta.categories
-    |> List.concat_map (fun category -> category.Data.Is_ocaml_yet.packages)
+    |> List.concat_map (fun (category : Data.Is_ocaml_yet.category) ->
+           category.packages)
     |> List.filter_map (fun (p : Data.Is_ocaml_yet.package) ->
            let name = Ocamlorg_package.Name.of_string p.name in
            match Ocamlorg_package.get_latest t name with
