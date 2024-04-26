@@ -5,7 +5,7 @@ discussion: |
 ---
 
 let deg2rad angle =
-  angle /. 180. *. pi
+  angle /. 180. *. Float.pi
 
 let sqr a = a *. a
 
