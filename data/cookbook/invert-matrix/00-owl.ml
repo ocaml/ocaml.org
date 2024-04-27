@@ -1,7 +1,7 @@
 ---
 packages:
 - name: owl
-  tested_version: 1.1
+  tested_version: "1.1"
   used_libraries:
   - owl
 ---
