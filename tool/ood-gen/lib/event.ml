@@ -1,3 +1,18 @@
+module EventType = struct
+  type t = Meetup | Conference | Seminar | Hackathon | Retreat
+  [@@deriving show { with_path = false }]
+
+  let of_string = function
+    | "meetup" -> Ok Meetup
+    | "conference" -> Ok Conference
+    | "seminar" -> Ok Seminar
+    | "hackathon" -> Ok Hackathon
+    | "retreat" -> Ok Retreat
+    | s -> Error (`Msg ("Unknown event type: " ^ s))
+
+  let of_yaml = Utils.of_yaml of_string "Expected a string for difficulty type"
+end
+
 type location = { lat : float; long : float }
 [@@deriving of_yaml, show { with_path = false }]
 
@@ -8,6 +23,7 @@ module RecurringEvent = struct
     url : string;
     textual_location : string;
     location : location option;
+    event_type : EventType.t;
   }
   [@@deriving of_yaml, show { with_path = false }]
 
@@ -17,6 +33,7 @@ module RecurringEvent = struct
     slug : string;
     textual_location : string;
     location : location option;
+    event_type : EventType.t;
   }
   [@@deriving stable_record ~version:metadata, show { with_path = false }]
 
@@ -38,6 +55,7 @@ type metadata = {
   starts : utc_datetime;
   ends : utc_datetime option;
   recurring_event_slug : string option;
+  event_type : EventType.t option;
 }
 [@@deriving of_yaml, show { with_path = false }]
 
@@ -52,11 +70,12 @@ type t = {
   body_md : string;
   body_html : string;
   recurring_event : RecurringEvent.t option;
+  event_type : EventType.t;
 }
 [@@deriving
   stable_record ~version:metadata
     ~remove:[ slug; body_md; body_html; recurring_event ]
-    ~add:[ recurring_event_slug ],
+    ~add:[ recurring_event_slug ] ~set:[ event_type ],
     show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
@@ -79,7 +98,33 @@ let decode (recurring_events : RecurringEvent.t list) (fpath, (head, body_md)) =
               recurring_events)
           metadata.recurring_event_slug
       in
-      of_metadata ~body_md ~body_html ~recurring_event metadata)
+      let recurring_event_type =
+        Option.map
+          (fun (re : RecurringEvent.t) -> re.event_type)
+          recurring_event
+      in
+      let event_type =
+        match (metadata.event_type, recurring_event_type) with
+        | None, None ->
+            failwith
+              (Printf.sprintf
+                 "Upcoming event %s (%s) has no specified type and no linked \
+                  recurring event"
+                 metadata.title metadata.starts.yyyy_mm_dd)
+        | Some event_type, None | None, Some event_type -> event_type
+        | Some from_upcoming, Some from_recurring
+          when from_upcoming <> from_recurring ->
+            failwith
+              (Printf.sprintf
+                 "Upcoming event %s (%s) has type %s but its linked recurring \
+                  event %s has type %s"
+                 metadata.title metadata.starts.yyyy_mm_dd
+                 (EventType.show from_upcoming)
+                 (Option.get metadata.recurring_event_slug)
+                 (EventType.show from_recurring))
+        | Some _, Some from_recurring -> from_recurring
+      in
+      of_metadata ~body_md ~body_html ~recurring_event ~event_type metadata)
     metadata
 
 let all () =
@@ -99,6 +144,7 @@ let all () =
 let template () =
   Format.asprintf
     {|
+type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
 type location = { lat : float; long : float }
 
 module RecurringEvent = struct
@@ -108,6 +154,7 @@ module RecurringEvent = struct
     ; url : string
     ; textual_location : string
     ; location : location option
+    ; event_type : event_type
   }
 
   let all = %a
@@ -129,6 +176,7 @@ type t =
   ; body_md : string
   ; body_html : string
   ; recurring_event : RecurringEvent.t option
+  ; event_type : event_type
   }
 
 let all = %a

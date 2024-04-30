@@ -1,5 +1,6 @@
 ---
 title: "OCaml Retreat"
+event_type: retreat
 textual_location: "Auroville, India"
 url: https://ocamlretreat.org/
 recurring_event_slug: ocaml-retreat

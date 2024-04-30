@@ -1,5 +1,6 @@
 ---
 title: "MirageOS hack retreat"
+event_type: retreat
 textual_location: "Marrakesh, Morocco"
 location:
   lat: 31.628674

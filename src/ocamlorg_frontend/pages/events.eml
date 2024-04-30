@@ -1,3 +1,17 @@
+let string_from_event_type = function
+  | Data.Event.Meetup -> "Meetup"
+  | Conference -> "Conference"
+  | Seminar -> "Seminar"
+  | Hackathon -> "Hackathon"
+  | Retreat -> "Retreat"
+
+let color_for_event_type = function
+  | Data.Event.Meetup -> "bg-avatar-6"
+  | Conference -> "bg-avatar-0"
+  | Seminar -> "bg-avatar-11"
+  | Hackathon -> "bg-avatar-8"
+  | Retreat -> "bg-avatar-9"
+
 let render ~recurring_events ~upcoming_events =
 Community_layout.single_column_layout
 ~title:"The Events"
@@ -16,6 +30,9 @@ Community_layout.single_column_layout
               <% upcoming_events |> List.iter (fun (event : Data.Event.t) -> %>
               <a href="<%s event.url %>" class="card dark:dark-card p-5 rounded-xl">
                 <p class="font-bold text-title dark:text-dark-title mb-2"><%s event.title %></p>
+                <div class="px-3 mb-2 inline-block <%s color_for_event_type event.event_type %> rounded-3xl font-mono text-sm text-center text-white">
+                  <%s string_from_event_type event.event_type %>
+                </div>
                 <div class="flex items-center space-x-2 mb-3">
                   <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
                   <p class="text-content dark:text-dark-content"><%s event.textual_location %></p>
@@ -50,6 +67,9 @@ Community_layout.single_column_layout
           <p class="font-bold text-lg text-title dark:text-dark-title mb-3">
               <%s recurring_event.title %>
           </p>
+          <div class="px-3 mb-2 inline-block <%s color_for_event_type recurring_event.event_type %> rounded-3xl font-mono text-sm text-center text-white">
+            <%s string_from_event_type recurring_event.event_type %>
+          </div>
           <div class="flex items-center space-x-2">
             <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary" %>
             <p class="text-content dark:text-dark-content">
