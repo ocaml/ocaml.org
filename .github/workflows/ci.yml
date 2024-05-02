@@ -42,7 +42,7 @@ jobs:
         if: runner.os == 'Linux'
 
       - name: Install system dependencies (macOS)
-        run: brew install libev openssl@3 # Openssl is a workaround for https://github.com/ocaml/opam-repository/issues/19676
+        run: brew install libev openssl@3.2 # Openssl is a workaround for https://github.com/ocaml/opam-repository/issues/19676
         if: runner.os == 'macOS'
 
       - name: Install opam dependencies
