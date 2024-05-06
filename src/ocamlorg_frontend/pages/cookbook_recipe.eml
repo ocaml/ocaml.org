@@ -21,7 +21,7 @@ Learn_layout.single_column_layout
       <h2>Opam Packages Used</h2>
       <ul>
 % (recipe.packages |> List.iter (fun (package: Data.Cookbook.package) ->
-            <li> <a class="tag" href="<%s Url.Package.overview package.name %>"><%s package.name %></a> Tested with version: <%s package.tested_version %> &mdash; Used libraries: <%s (package.used_libraries |> String.concat ", ") %>
+            <li> <a href="<%s Url.Package.overview package.name %>"><%s package.name %></a> Tested with version: <%s package.tested_version %> &mdash; Used libraries: <%s (package.used_libraries |> String.concat ", ") %>
 % ));
       </ul>
 % ) else (
