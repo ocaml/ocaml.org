@@ -4,7 +4,7 @@ title: "Installing a Specific OCaml Compiler Version"
 short_title: "Installing a Specific Compiler Version"
 description: |
   How to install a specific version of OCaml
-category: "Best Practices"
+category: "Projects"
 ---
 
 > **TL;DR**

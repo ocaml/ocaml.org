@@ -1,0 +1,42 @@
+let render_title (page: Data.Tool_page.t) = 
+    <h1 id="<%s page.slug %>" ><a class="anchor" aria-hidden="true" href="#<%s page.slug %>"></a><%s page.title %></h1>
+
+let rec toc_to_frontend_toc (toc : Data.Tool_page.toc) =
+  Toc.{
+    title = toc.title;
+    href = toc.href;
+    children = List.map toc_to_frontend_toc toc.children
+  }
+
+let right_sidebar
+(page : Data.Tool_page.t)
+=
+  <%s! Toc.render (List.map toc_to_frontend_toc page.toc) %>
+
+let left_sidebar ~pages ~current_page =
+  <div class="flex flex-col gap-5">
+    <%s! Tools_platform.render_sidebar ~pages ~current_page () %>
+  </div>
+
+let render
+commit_hash
+(page : Data.Tool_page.t)
+~pages
+~canonical
+=
+let href, description =
+    ("https://github.com/ocaml/ocaml.org/blob/"^ commit_hash ^"/data/"^ page.fpath,
+    "All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request.")
+in
+Tools_layout.three_column_layout
+~title:(Printf.sprintf "%s · OCaml Documentation" page.short_title)
+~description:page.description
+~canonical
+~left_sidebar_html:(Some(left_sidebar ~current_page:(page.slug) ~pages))
+~right_sidebar_html:(Some(right_sidebar page))
+~current:Platform @@
+  <div class="prose prose-orange dark:prose-invert max-w-full">
+    <%s! render_title page %>
+    <%s! page.body_html %>
+    <%s! Learn_components.contribute_footer ~href ~description ~recommended_next_tutorials:[] %>
+  </div>

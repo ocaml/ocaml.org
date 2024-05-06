@@ -27,6 +27,14 @@
     --workspace
     %{workspace_root})))
  (rule
+  (target tools_layout.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:tools_layout.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
   (target package_layout.ml)
   (action
    (run
@@ -126,9 +134,17 @@
   (action
    (run %{bin:dream_eml} %{dep:install.eml} --workspace %{workspace_root})))
  (rule
-  (target platform.ml)
+  (target tools_platform.ml)
   (action
-   (run %{bin:dream_eml} %{dep:platform.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:tools_platform.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
+  (target tool_page.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:tool_page.eml} --workspace %{workspace_root})))
  (rule
   (target jobs.ml)
   (action
@@ -315,6 +331,10 @@
   (target search.ml)
   (action
    (run %{bin:dream_eml} %{dep:search.eml} --workspace %{workspace_root})))
+ (rule
+  (target sidebar.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:sidebar.eml} --workspace %{workspace_root})))
  (rule
   (target toc.ml)
   (action

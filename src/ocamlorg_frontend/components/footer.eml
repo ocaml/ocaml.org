@@ -9,7 +9,7 @@ let about_ocaml = [
 let resources = [
   (Url.install, "Install OCaml");
   (Url.getting_started, "Get Started");
-  (Url.platform, "Platform Tools");
+  (Url.learn_tools, "Platform Tools");
   (Url.manual, "Language Manual");
   (Url.api, "Standard Library API");
   (Url.books, "Books");

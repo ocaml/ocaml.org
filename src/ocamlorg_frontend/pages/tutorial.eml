@@ -15,14 +15,14 @@ let right_sidebar
 
 let left_sidebar ~tutorials ~current_tutorial ~section =
   <div class="flex flex-col gap-5">
-    <%s! Learn_layout.sidebar ~tutorials ~current_tutorial ~section %>
+    <%s! Learn_layout.render_sidebar ~tutorials ~current_tutorial ~section %>
   </div>
 
 let of_tutorial_section (s: Data.Tutorial.Section.t) =
   match s with
   | GetStarted -> Learn_layout.GetStarted
   | Language -> Learn_layout.Language
-  | Platform -> Learn_layout.Platform
+  | Platform -> Learn_layout.Tools
   | Guides -> Learn_layout.Guides
 
 let render_related_exercises exercises =

@@ -28,7 +28,7 @@ let urls =
     Url.packages;
     Url.packages_search;
     Url.papers;
-    Url.platform;
+    Url.learn_tools;
     Url.playground;
     Url.privacy_policy;
     Url.releases;

@@ -3,7 +3,7 @@ id: "managing-dependencies"
 title: "Managing Dependencies With opam"
 description: |
   How to manage dependencies with opam
-category: "Best Practices"
+category: "Projects"
 ---
 
 ## Installing Existing Dependencies

@@ -4,7 +4,7 @@ title: "Publishing a Package with Dune"
 short_title: "Publishing a Package"
 description: |
   How to publish a package with Dune
-category: "Best Practices"
+category: "Libraries & Packages"
 ---
 
 > **TL;DR**

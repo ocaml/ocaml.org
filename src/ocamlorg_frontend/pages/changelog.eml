@@ -1,8 +1,9 @@
 let render ~tags ?current_tag ~number_of_pages ~current_page (news : Data.Changelog.t list) =
-Layout.render
+Tools_layout.single_column_layout
 ~title:"OCaml Changelog"
 ~canonical:(Url.changelog ^ if current_page = 1 then "" else "?p=" ^ string_of_int current_page)
-~description:"Read the latest releases and updates from the OCaml ecosystem." @@
+~description:"Read the latest releases and updates from the OCaml ecosystem."
+~current:Changelog @@
 <div class="bg-background dark:bg-dark-background py-24">
   <div class="container-fluid">
     <div>

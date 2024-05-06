@@ -42,13 +42,12 @@ let learn_guides req =
   in
   Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
 
-let platform _req =
-  let tools = Data.Tool.all in
+let learn_tools req =
   let tutorials =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Platform)
   in
-  Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
 
 let community _req =
   let current_date =
@@ -433,11 +432,23 @@ let papers req =
 let resources _req =
   Dream.html (Ocamlorg_frontend.resources ~resources:Data.Resource.all)
 
+let tools req = Dream.redirect req ~code:307 Url.platform
+
+let tools_platform _req =
+  let tools = Data.Tool.all in
+  Dream.html (Ocamlorg_frontend.tools_platform ~pages:Data.Tool_page.all tools)
+
+let tool_page commit_hash req =
+  let slug = Dream.param req "id" in
+  let</>? page = Data.Tool_page.get_by_slug slug in
+  let pages = Data.Tool_page.all in
+  Dream.html
+    (Ocamlorg_frontend.tool_page commit_hash ~pages
+       ~canonical:(Url.tool_page page.slug) page)
+
 let tutorial commit_hash req =
   let slug = Dream.param req "id" in
-  let</>? tutorial =
-    List.find_opt (fun (x : Data.Tutorial.t) -> x.slug = slug) Data.Tutorial.all
-  in
+  let</>? tutorial = Data.Tutorial.get_by_slug slug in
   let all_tutorials = Data.Tutorial.all in
 
   let tutorials =

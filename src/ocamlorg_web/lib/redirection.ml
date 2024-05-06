@@ -393,8 +393,8 @@ let from_v2 =
     ("/meetings/ocaml", Url.community);
     ("/ocamllabs/index.html", Url.index);
     ("/ocamllabs", Url.index);
-    ("/platform/index.html", Url.platform);
-    ("/platform", Url.platform);
+    ("/docs/platform", Url.platform);
+    ("/platform/index.html", Url.learn_tools);
     ("/platform/ocaml_on_windows.html", Url.ocaml_on_windows);
     ("/releases/3.12.1.html", Url.release "3.12.1");
     ("/releases/4.00.1.html", Url.release "4.00.1");
