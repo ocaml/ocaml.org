@@ -393,7 +393,6 @@ let from_v2 =
     ("/meetings/ocaml", Url.community);
     ("/ocamllabs/index.html", Url.index);
     ("/ocamllabs", Url.index);
-    ("/docs/platform", Url.platform);
     ("/platform/index.html", Url.learn_tools);
     ("/platform/ocaml_on_windows.html", Url.ocaml_on_windows);
     ("/releases/3.12.1.html", Url.release "3.12.1");
@@ -462,6 +461,10 @@ let from_v2 =
       Url.manual_with_version latest_version );
     ("/releases/latest/api", Url.api_with_version latest_version);
     ("/releases/latest/api/index.html", Url.api_with_version latest_version);
+    ("/docs/platform", Url.platform);
+    ("/docs/platform-principles", Url.tool_page "platform-principles");
+    ("/docs/platform-users", Url.tool_page "platform-users");
+    ("/docs/platform-roadmap", Url.tool_page "platform-roadmap");
   ]
 
 let default_index_html =
