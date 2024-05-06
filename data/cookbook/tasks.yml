@@ -20,6 +20,12 @@ categories:
   tasks:
   - title: Read a gzip compressed text file
     slug: read-gzip-text-file
+  - title: Write a gzip compressed text file
+    slug: write-gzip-text-file
+  - title: Read a zip file
+    slug: read-zip
+  - title: Write a zip file
+    slug: write-zip
   - title: Decompressing a Tarball
     slug: decompressing-a-tarball
   - title: Compress a Directory Into a Tarball
