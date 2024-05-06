@@ -27,6 +27,7 @@ let term_templates =
     ("pages", Ood_gen.Page.template);
     ("code_examples", Ood_gen.Code_example.template);
     ("event", Ood_gen.Event.template);
+    ("cookbook", Ood_gen.Cookbook.template);
   ]
 
 let cmds =

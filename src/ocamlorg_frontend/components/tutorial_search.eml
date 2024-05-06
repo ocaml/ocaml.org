@@ -8,7 +8,6 @@ Learn_layout.single_column_layout
 ~title:"OCaml Tutorial Documents Search"
 ~description:""
 ~canonical:Url.tutorial_search
-~active_top_nav_item:Header.Community
 ~current:Guides @@
 <div class="bg-background dark:bg-dark-background">
   <div class="py-7 lg:py-5">

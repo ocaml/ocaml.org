@@ -3,7 +3,6 @@ Community_layout.single_column_layout
 ~title:"The OCaml Community"
 ~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!"
 ~canonical:Url.community
-~active_top_nav_item:Header.Community
 ~current:Overview @@
 <div class="w-full border-b bg-[#D5E4E0] dark:bg-[#0D2C2E] md:bg-transparent dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/community/hero-background.svg')] dark:md:bg-[url('/img/community/dark-hero-background.svg')]">
   <div class="w-full max-w-[88rem] mx-auto md:bg-[position:30%_100%] lg:bg-right-bottom bg-no-repeat md:bg-[url('/img/community/hero-camels.svg')] dark:md:bg-[url('/img/community/dark-hero-camels.svg')]">

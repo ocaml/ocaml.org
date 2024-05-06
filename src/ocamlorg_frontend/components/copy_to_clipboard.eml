@@ -1,0 +1,42 @@
+let button
+~id
+?(class_ = "")
+value
+=
+  <div class="flex <%s class_ %>" x-data="{ copied: false }">
+    <textarea type="text" id="<%s id %>" class="hidden"><%s value %></textarea>
+    
+    <button title="Copy to clipboard"
+      class="-ml-px inline-flex items-center px-4 py-2 border rounded border-gray-700 text-sm font-medium text-gray-100 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
+      @click="$clipboard(document.getElementById('<%s id %>').value); copied = true; setTimeout(() => copied = false, 2000)"
+      :class="{ 'border-gray-700': !copied, 'text-gray-100': !copied, 'focus:ring-orange-500': !copied, 'focus:border-orange-500': !copied, 'border-green-600': copied, 'text-green-600': copied, 'focus:ring-green-500': copied, 'focus:border-green-500': copied }">
+      <div x-show="!copied" class="h-6 w-6">
+        <%s! Icons.copy_to_clipboard "h-6 w-6" %>
+      </div>
+      <div x-show="copied" class="h-6 w-6">
+        <%s! Icons.copied_to_clipboard "h-6 w-6" %>
+      </div>
+    </button>
+  </div>
+
+let small_code_snippet
+~id
+?(class_ = "")
+value
+=
+  <div class="w-full flex rounded-md shadow-sm <%s class_ %>" x-data="{ copied: false }">
+    <input type="text" id="<%s id %>" class="flex items-center px-4 py-2 flex-grow rounded-none rounded-l-md bg-gray-800 text-gray-100 text-sm font-mono subpixel-antialiased border-gray-700 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
+      value="<%s value %>">
+
+    <button title="Copy to clipboard"
+      class="-ml-px flex-shrink-0 inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-r-md text-gray-100 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
+      @click="$clipboard(document.getElementById('<%s id %>').value); copied = true; setTimeout(() => copied = false, 2000)"
+      :class="{ 'border-gray-700': !copied, 'text-gray-100': !copied, 'focus:ring-orange-500': !copied, 'focus:border-orange-500': !copied, 'border-green-600': copied, 'text-green-600': copied, 'focus:ring-green-500': copied, 'focus:border-green-500': copied }">
+      <div x-show="!copied" class="h-6 w-6">
+        <%s! Icons.copy_to_clipboard "h-6 w-6" %>
+      </div>
+      <div x-show="copied" class="h-6 w-6">
+        <%s! Icons.copied_to_clipboard "h-6 w-6" %>
+      </div>
+    </button>
+  </div>
