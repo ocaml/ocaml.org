@@ -9,7 +9,7 @@ packages:
   used_libraries:
   - ppx_deriving_yojson
 ---
-(* The syntax `{| ... |}` is a quoted string. *)
+(* This is the string we are deserializing into the types we define below. *)
 let yaml = {|
 french name: pâte sucrée
 ingredients:
@@ -30,7 +30,7 @@ steps:
 - add flour
 |}
 
-(* The `[@@deriving of_yojson]` attribute makes library `ppx_deriving_yojson` generate the function
+(* The `[@@deriving of_yojson]` attribute makes the ppx from the library `ppx_deriving_yojson` generate the function
   `ingredient_of_yojson : Yojson.Safe.t -> (ingredient, string) result`.
   If both serialising and deserialising are needed, replace `of_yojson` by `yojson`. *)
 type ingredient = {
@@ -38,15 +38,15 @@ type ingredient = {
   weight: int;
 } [@@deriving of_yojson]
 
-(* The `[@@deriving of_yojson]` attribute makes library `ppx_deriving_yojson` generate the function
-  ``recipe_of_yojson : Yojson.Safe.t -> (ingredient, string) result``. *)
+(* The function ``recipe_of_yojson : Yojson.Safe.t -> (ingredient, string) result`` generated here internally uses
+  `ingredient_of_yojson`. *)
 type recipe = {
   name: string; [@key "french name"]
   ingredients: ingredient list;
   steps: string list;
 } [@@deriving of_yojson]
 
-(* Parsing receives conversion into record as an argument. *)
+(* `parse` takes a function that converts from `Yojson.Safe.t` into the desired record type as an argument. *)
 let pate_sucree =
   yaml
   |> Hl_yaml.Unix.parse ~of_yojson:recipe_of_yojson

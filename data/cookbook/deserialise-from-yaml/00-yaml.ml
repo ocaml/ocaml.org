@@ -9,7 +9,7 @@ packages:
   used_libraries:
   - ppx_deriving_yaml
 ---
-(* The syntax `{| ... |}` is a quoted string. *)
+(* This is the string we are deserializing into the types we define below. *)
 let yaml = {|
 french name: pâte sucrée
 ingredients:
@@ -30,16 +30,16 @@ steps:
 - add flour
 |}
 
-(* The `[@@deriving of_yaml]` attribute makes library `ppx_deriving_yaml` generate the function
-  ``ingredient_of_yaml : Yaml.value -> (ingredient, [> `Msg of string]) result``
+(* The `[@@deriving of_yaml]` attribute makes makes the ppx from the library `ppx_deriving_yaml`
+  generate the function ``ingredient_of_yaml : Yaml.value -> (ingredient, [> `Msg of string]) result``
   If both serialising and deserialising are needed, replace `of_yaml` by `yaml`. *)
 type ingredient = {
   name: string;
   weight: int;
 } [@@deriving of_yaml]
 
-(* The `[@@deriving of_yaml]` attribute makes library `ppx_deriving_yaml` generate the function
-  ``recipe_of_yaml : Yaml.value -> (ingredient, [> `Msg of string]) result``. *)
+(* The function ``recipe_of_yaml : Yaml.value -> (ingredient, [> `Msg of string]) result``
+   generated here internally uses `ingredient_of_yaml`. *)
 type recipe = {
   name: string; [@key "french name"]
   ingredients: ingredient list;
