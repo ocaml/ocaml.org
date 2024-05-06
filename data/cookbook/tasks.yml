@@ -264,3 +264,7 @@ categories:
     tasks:
     - title: Parse a URL from String And Access Individual Parts
       slug: parse-url-from-string
+    - title: URI encoding
+      slug: uri-encoding
+    - title: URI parsing
+      slug: uri-parsing
