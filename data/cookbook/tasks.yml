@@ -218,6 +218,8 @@ categories:
       slug: regex-extract-phone-numbers
     - title: Replace All Occurrences of a Text Pattern With Another Pattern
       slug: regex-replace-pattern
+    - title: Miscellaneous
+      slug: regex-misc
 - title: Web Programming
   subcategories:
   - title: HTTP Clients
