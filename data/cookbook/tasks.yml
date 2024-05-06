@@ -16,6 +16,12 @@ categories:
   - title: Generate OCaml Bindings for a C Library
     slug: generate-ocaml-bindings-c-library
       C library, using the OCaml foreign function interface.
+- title: Networking
+  tasks:
+  - title: TCP Client
+    slug: tcp-client
+  - title: TCP Server
+    slug: tcp-server
 - title: Compression
   tasks:
   - title: Decompress a Single File Compressed With GZIP
