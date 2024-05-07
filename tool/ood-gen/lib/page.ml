@@ -22,9 +22,8 @@ type t = {
 let decode (file, (head, body_md)) =
   let metadata = metadata_of_yaml head |> Result.map_error (Utils.where file) in
   let body_html =
-    Cmarkit.Doc.of_string ~strict:true body_md
-    |> Hilite.Md.transform
-    |> Cmarkit_html.of_doc ~safe:false
+    body_md |> Markdown.Content.of_string
+    |> Markdown.Content.render ~syntax_highlighting:true
   in
   let slug =
     file |> Filename.basename |> Filename.remove_extension

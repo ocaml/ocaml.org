@@ -23,7 +23,7 @@ let modify_projects (v : project list) : project list =
       {
         title = p.title;
         description =
-          Cmarkit.Doc.of_string p.description |> Cmarkit_html.of_doc ~safe:true;
+          p.description |> Markdown.Content.of_string |> Markdown.Content.render;
         mentee = p.mentee;
         blog = p.blog;
         source = p.source;

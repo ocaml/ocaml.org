@@ -37,7 +37,7 @@ type t = {
 
 let of_metadata m =
   of_metadata m ~slug:(Utils.slugify m.name) ~modify_description:(fun v ->
-      Cmarkit.Doc.of_string ~strict:true v |> Cmarkit_html.of_doc ~safe:true)
+      v |> Markdown.Content.of_string |> Markdown.Content.render)
 
 let decode s = Result.map of_metadata (metadata_of_yaml s)
 let all () = Utils.yaml_sequence_file decode "tools.yml"

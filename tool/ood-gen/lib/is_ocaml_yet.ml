@@ -47,13 +47,12 @@ let decode (fpath, (head, body_md)) =
     metadata_of_yaml head |> Result.map_error (Utils.where fpath)
   in
   let body_html =
-    Cmarkit.Doc.of_string ~strict:true body_md |> Cmarkit_html.of_doc ~safe:true
+    Markdown.Content.of_string body_md |> Markdown.Content.render
   in
   let modify_categories u =
     let modify_description description =
-      Cmarkit.Doc.of_string ~strict:true (String.trim description)
-      |> Hilite.Md.transform
-      |> Cmarkit_html.of_doc ~safe:false
+      String.trim description |> Markdown.Content.of_string
+      |> Markdown.Content.render
     in
     List.map
       (fun cat ->

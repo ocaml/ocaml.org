@@ -88,14 +88,13 @@ module Local = struct
         body_html;
       }
 
-    let decode (fpath, (head, body)) =
+    let decode (fpath, (head, body_md)) =
       let metadata =
         metadata_of_yaml head |> Result.map_error (Utils.where fpath)
       in
       let body_html =
-        Cmarkit.Doc.of_string ~strict:true (String.trim body)
-        |> Hilite.Md.transform
-        |> Cmarkit_html.of_doc ~safe:false
+        body_md |> Markdown.Content.of_string
+        |> Markdown.Content.render ~syntax_highlighting:true
       in
       let source, slug =
         match Str.split (Str.regexp_string "/") fpath with
@@ -213,13 +212,13 @@ module External = struct
         (metadata_to_yaml v |> Yaml.to_string
         |> Result.get_ok ~error:(fun (`Msg m) -> Exn.Decode_error m))
 
-    let decode (fpath, (head, body)) =
+    let decode (fpath, (head, body_md)) =
       let metadata =
         metadata_of_yaml head |> Result.map_error (Utils.where fpath)
       in
       let body_html =
-        Cmarkit.Doc.of_string ~strict:true (String.trim body)
-        |> Cmarkit_html.of_doc ~safe:true
+        body_md |> Markdown.Content.of_string
+        |> Markdown.Content.render ~syntax_highlighting:true
       in
       let source =
         match Str.split (Str.regexp_string "/") fpath with
