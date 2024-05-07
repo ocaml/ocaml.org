@@ -29,9 +29,8 @@ let decode (fname, (head, body)) =
     metadata_of_yaml head |> Result.map_error (Utils.where fname)
   in
   let body_html =
-    Cmarkit.Doc.of_string ~strict:true (String.trim body)
-    |> Hilite.Md.transform
-    |> Cmarkit_html.of_doc ~safe:false
+    body |> Markdown.Content.of_string
+    |> Markdown.Content.render ~syntax_highlighting:true
   in
   Result.map (of_metadata ~slug ~body_html) metadata
 

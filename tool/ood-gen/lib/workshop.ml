@@ -86,8 +86,9 @@ let decode (fpath, (head, body_md)) =
   let metadata =
     metadata_of_yaml head |> Result.map_error (Utils.where fpath)
   in
-  let doc = Cmarkit.Doc.of_string body_md in
-  let body_html = Cmarkit_html.of_doc ~safe:true doc in
+  let body_html =
+    body_md |> Markdown.Content.of_string |> Markdown.Content.render
+  in
   Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () =

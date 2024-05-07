@@ -30,7 +30,7 @@ let decode (fpath, (head, body_md)) =
     metadata_of_yaml head |> Result.map_error (Utils.where fpath)
   in
   let body_html =
-    Cmarkit.Doc.of_string ~strict:true body_md |> Cmarkit_html.of_doc ~safe:true
+    body_md |> Markdown.Content.of_string |> Markdown.Content.render
   in
   Result.map (of_metadata ~body_md ~body_html) metadata
 

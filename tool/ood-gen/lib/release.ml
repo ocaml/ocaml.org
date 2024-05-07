@@ -44,13 +44,11 @@ type t = {
 let of_metadata m =
   of_metadata m ~intro_md:m.intro
     ~intro_html:
-      (Cmarkit.Doc.of_string ~strict:true m.intro
-      |> Cmarkit_html.of_doc ~safe:true)
+      (m.intro |> Markdown.Content.of_string |> Markdown.Content.render)
     ~highlights_md:m.highlights
     ~highlights_html:
-      (Cmarkit.Doc.of_string ~strict:true m.highlights
-      |> Hilite.Md.transform
-      |> Cmarkit_html.of_doc ~safe:false)
+      (m.highlights |> Markdown.Content.of_string
+      |> Markdown.Content.render ~syntax_highlighting:true)
     ~modify_is_latest:(Option.value ~default:false)
     ~modify_is_lts:(Option.value ~default:false)
 
@@ -63,9 +61,8 @@ let decode (fpath, (head, body_md)) =
     metadata_of_yaml head |> Result.map_error (Utils.where fpath)
   in
   let body_html =
-    Cmarkit.Doc.of_string ~strict:true body_md
-    |> Hilite.Md.transform
-    |> Cmarkit_html.of_doc ~safe:false
+    body_md |> Markdown.Content.of_string
+    |> Markdown.Content.render ~syntax_highlighting:true
   in
   Result.map (of_metadata ~body_md ~body_html) metadata
 
