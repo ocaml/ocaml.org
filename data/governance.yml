@@ -436,9 +436,9 @@ teams:
     link: https://discord.gg/cCYQbqN
     kind: discord
   dev-meeting:
-    date: Biweekly on Mondays
-    time: 17:00 CET
-    link: https://us06web.zoom.us/j/87207303434?pwd=7qClBFRquP4z0Z8ylCzseLtMgbbYpg.1
+    date: Weekly on Mondays
+    time: alternating between 8:15 and 17:00 CET
+    link: https://us06web.zoom.us/j/89060017288?pwd=n6aCx10TBEXQA79aYHR3wXVRKD7JO5.1
     calendar: https://calendar.google.com/calendar/u/0/embed?src=c_02e41b2ad00165b404789fad7c5df7ea3a4ae62744c13307ee7fb3fd7382f1dd@group.calendar.google.com
     notes: https://docs.google.com/document/d/1ricnsicOB35TmuOM86guYr6HWo8A1iyVrHdb0cNxOXg/edit
   members:
