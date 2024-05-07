@@ -22,7 +22,7 @@ let of_tutorial_section (s: Data.Tutorial.Section.t) =
   match s with
   | GetStarted -> Learn_layout.GetStarted
   | Language -> Learn_layout.Language
-  | Platform -> Learn_layout.Tools
+  | Platform -> Learn_layout.Platform
   | Guides -> Learn_layout.Guides
 
 let render_related_exercises exercises =

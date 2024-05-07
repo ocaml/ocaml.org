@@ -2,7 +2,7 @@ type section =
   | Overview
   | GetStarted
   | Language
-  | Tools
+  | Platform
   | Guides
   | Cookbook
   | Exercises
@@ -14,7 +14,7 @@ let tabs
     | Overview -> Url.learn
     | GetStarted -> Url.learn_get_started
     | Language -> Url.learn_language
-    | Tools -> Url.learn_tools
+    | Platform -> Url.learn_platform
     | Guides -> Url.learn_guides
     | Cookbook -> Url.cookbook
     | Exercises -> Url.exercises
@@ -24,13 +24,13 @@ let tabs
     | Overview -> "Overview"
     | GetStarted -> "Get Started"
     | Language -> "Language"
-    | Tools -> "Tools"
+    | Platform -> "Platform"
     | Guides -> "Guides"
     | Cookbook -> "Cookbook"
     | Exercises -> "Exercises"
     | Books -> "Books"
   in
-  Layout.subnav_tabs ~title:"Learn" ~current ~sections:[Overview; GetStarted; Language; Tools; Guides; Cookbook; Exercises; Books] ~url_of_section ~title_of_section
+  Layout.subnav_tabs ~title:"Learn" ~current ~sections:[Overview; GetStarted; Language; Platform; Guides; Cookbook; Exercises; Books] ~url_of_section ~title_of_section
 
 let render_sidebar
   ~current_tutorial

@@ -42,7 +42,7 @@ let learn_guides req =
   in
   Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
 
-let learn_tools req =
+let learn_platform req =
   let tutorials =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Platform)

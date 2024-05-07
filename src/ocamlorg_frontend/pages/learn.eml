@@ -118,7 +118,7 @@ Learn_layout.single_column_layout
           ~title:"Dune" ~text:"Dune is a user-friendly and efficient build system for developing OCaml projects"
           ~url:"https://dune.build/" %>
       </div>
-      <a class="pt-6 pb-3 text-primary dark:text-dark-title hover:underline dark:underline dark:hover:text-dark-primary" href="<%s Url.learn_tools %>">Go to Platform Tools Documentation</a>
+      <a class="pt-6 pb-3 text-primary dark:text-dark-title hover:underline dark:underline dark:hover:text-dark-primary" href="<%s Url.learn_platform %>">Go to Platform Tools Documentation</a>
     </div>
   </div>
 
@@ -147,7 +147,7 @@ Learn_layout.single_column_layout
               {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Install a Specific Compiler Version"};
               {href = Url.tutorial "configuring-your-editor"; title = "Configuring Your Editor"}
           ]
-          ~see_more:{href = Url.learn_tools; title = "Platform Tools Documentation"}
+          ~see_more:{href = Url.learn_platform; title = "Platform Tools Documentation"}
           %>
     </div>
 

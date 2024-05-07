@@ -29,7 +29,7 @@ let page_routes t =
       Dream.get Url.learn_get_started Handler.learn_get_started;
       Dream.get Url.learn_language Handler.learn_language;
       Dream.get Url.learn_guides Handler.learn_guides;
-      Dream.get Url.learn_tools Handler.learn_tools;
+      Dream.get Url.learn_platform Handler.learn_platform;
       Dream.get Url.cookbook Handler.cookbook;
       Dream.get (Url.cookbook_task ":task_slug") Handler.cookbook_task;
       Dream.get
