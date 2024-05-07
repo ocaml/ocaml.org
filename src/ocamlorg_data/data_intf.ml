@@ -71,6 +71,11 @@ module Changelog = struct
   [@@deriving of_yaml, show]
 end
 
+module Code_examples = struct
+  type t = { title : string; body : string }
+  [@@deriving show { with_path = false }]
+end
+
 module Cookbook = struct
   type category = {
     title : string;
