@@ -262,6 +262,16 @@ module News = struct
   [@@deriving show]
 end
 
+module Opam_user = struct
+  type t = {
+    name : string;
+    email : string option;
+    github_username : string option;
+    avatar : string option;
+  }
+  [@@deriving of_yaml, show]
+end
+
 module Outreachy = struct
   type project = {
     title : string;

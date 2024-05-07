@@ -121,12 +121,7 @@ module News : sig
 end
 
 module Opam_user : sig
-  type t = {
-    name : string;
-    email : string option;
-    github_username : string option;
-    avatar : string option;
-  }
+  include module type of Data_intf.Opam_user
 
   val all : t list
 
