@@ -54,7 +54,9 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          title: 'Update scraped data'
+          title: '[scrape.yml] New OCaml Planet blog posts and videos from watch.ocaml.org'
           add-paths: |
             data/watch.yml
             data/planet/*/*.md
+          commit-message: |
+            [scrape.yml] New OCaml Planet blog posts and videos from watch.ocaml.org
