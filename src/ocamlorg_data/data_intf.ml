@@ -57,6 +57,20 @@ module Book = struct
   [@@deriving show]
 end
 
+module Changelog = struct
+  type t = {
+    title : string;
+    slug : string;
+    date : string;
+    tags : string list;
+    changelog_html : string option;
+    body_html : string;
+    body : string;
+    authors : string list;
+  }
+  [@@deriving of_yaml, show]
+end
+
 module Cookbook = struct
   type category = {
     title : string;
