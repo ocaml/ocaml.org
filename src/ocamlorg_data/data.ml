@@ -125,7 +125,10 @@ module Opam_user = struct
            contains pattern (String.lowercase_ascii name))
 end
 
-module Outreachy = Outreachy
+module Outreachy = struct
+  include Data_intf.Outreachy
+  include Outreachy
+end
 
 module Page = struct
   include Page
