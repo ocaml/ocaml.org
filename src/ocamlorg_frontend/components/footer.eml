@@ -62,7 +62,7 @@ let render_preference_alert =
   <div class="fixed inset-0 flex items-center justify-center z-50" x-show='$store.themeSettings.alertOpen' x-cloak>
     <div class="bg-black fixed inset-0 opacity-60"></div>
     <div class="p-8 rounded-lg shadow-lg relative bg-white dark:bg-dark-card text-content dark:text-dark-content">
-      <p>This settings requires us to access your browser's storage?</p>
+      <p>When you use this feature, we will to store your dark/light mode setting in your browser's LocalStorage. Do you allow this?</p>
       <div class="flex justify-center mt-5">
         <button class="mr-8 hover:bg-[#E2E9F3] dark:hover:bg-dark-card_hover px-7 rounded" @click="$store.themeSettings.declineAlert()">Decline</button>
         <button class="btn" @click="$store.themeSettings.confirmAlert()">Accept</button>
