@@ -192,17 +192,7 @@ module Resource : sig
 end
 
 module Success_story : sig
-  type t = {
-    title : string;
-    slug : string;
-    logo : string;
-    background : string;
-    theme : string;
-    synopsis : string;
-    url : string;
-    body_md : string;
-    body_html : string;
-  }
+  include module type of Data_intf.Success_story
 
   val all : t list
   val get_by_slug : string -> t option

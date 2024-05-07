@@ -1,3 +1,5 @@
+open Data_intf.Success_story
+
 type metadata = {
   title : string;
   logo : string;
@@ -6,24 +8,9 @@ type metadata = {
   synopsis : string;
   url : string;
 }
-[@@deriving of_yaml]
+[@@deriving of_yaml, stable_record ~version:t ~add:[ slug; body_md; body_html ]]
 
-type t = {
-  title : string;
-  slug : string;
-  logo : string;
-  background : string;
-  theme : string;
-  synopsis : string;
-  url : string;
-  body_md : string;
-  body_html : string;
-}
-[@@deriving
-  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ],
-    show { with_path = false }]
-
-let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
+let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.title)
 
 let decode (fpath, (head, body_md)) =
   let metadata =
@@ -37,20 +24,8 @@ let decode (fpath, (head, body_md)) =
 let all () = Utils.map_md_files decode "success_stories/*.md"
 
 let template () =
-  Format.asprintf
-    {|
-type t =
-  { title : string
-  ; slug : string
-  ; logo : string
-  ; background : string
-  ; theme : string
-  ; synopsis : string
-  ; url : string
-  ; body_md : string
-  ; body_html : string
-  }
-  
+  Format.asprintf {|
+include Data_intf.Success_story
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
