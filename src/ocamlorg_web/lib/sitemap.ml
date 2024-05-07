@@ -28,7 +28,7 @@ let urls =
     Url.packages;
     Url.packages_search;
     Url.papers;
-    Url.learn_tools;
+    Url.platform;
     Url.playground;
     Url.privacy_policy;
     Url.releases;
@@ -50,6 +50,7 @@ let urlables =
         (Planet.local_posts, fun r -> to_url @@ Url.blog_post r.source.id r.slug);
       Urlable (Release.all, fun r -> to_url @@ Url.release r.version);
       Urlable (Success_story.all, fun r -> to_url @@ Url.success_story r.slug);
+      Urlable (Tool_page.all, fun r -> to_url @@ Url.tool_page r.slug);
       Urlable (Tutorial.all, fun r -> to_url @@ Url.tutorial r.slug);
       Urlable (Workshop.all, fun r -> to_url @@ Url.workshop r.slug);
     ]
