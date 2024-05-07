@@ -137,6 +137,13 @@ jobs:
     publication_date: 2023-03-06
     company: IRIF, Université Paris-Cité
     company_logo: https://www.irif.fr/_media/irif_horizontal_noborder.svg
+  - title: XenServer Toolstack - Software Engineer
+    link: https://careers.cloud.com/jobs/software-engineer-xenserver-toolstack-cambridge-cambridgeshire-united-kingdom-79cbbe38-5430-4596-b39d-ffb4ed8a0f83
+    locations:
+      - Cambridge, United-Kingdom
+    publication_date: 2024-05-07
+    company: XenServer, Cloud Software Group
+    company_logo: https://www.xenserver.com/content/dam/xenserver/images/xenserver-full-color-rgb.svg
   - title: Software Engineer
     link: https://base.routine.co/jobs/positions/backend-software-engineer
     locations:
