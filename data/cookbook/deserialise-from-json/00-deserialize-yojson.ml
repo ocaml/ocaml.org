@@ -20,8 +20,8 @@ let json = {|
    When you only need to deserialize, you can use `[@@deriving of_yojson]` instead. *)
 type language = { name: string; url: string } [@@deriving yojson]
 
-(* First we convert the json string to Yojson.Safe.t and then we use the generated function to create the record *)
-(* If the parsing fails the result will be None. Otherwise it will be the deserialized record*)
+(* First we convert the `json` string to `Yojson.Safe.t` and then we use the generated function to create the record.
+   If parsing fails, an exception is thrown that we can handle. *)
 try
   let result = Yojson.Safe.from_string json |> language_of_yojson 
   Some result
