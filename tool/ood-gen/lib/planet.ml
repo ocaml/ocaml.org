@@ -337,7 +337,7 @@ module GlobalFeed = struct
     let title : Syndic.Atom.title = Text "The OCaml Planet" in
     let now = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
     let cutoff_date =
-      Ptime.sub_span now (Ptime.Span.v (365, 0L)) |> Option.get
+      Ptime.sub_span now (Ptime.Span.v (90, 0L)) |> Option.get
     in
 
     let entries =
