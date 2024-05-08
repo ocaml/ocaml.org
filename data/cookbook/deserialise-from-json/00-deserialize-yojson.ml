@@ -5,7 +5,7 @@ packages:
   used_libraries:
   - ppx_yojson_conv
 ---
-(* We need to open Ppx_yojson_conv_lib.Yojson_conv.Primitives in order to deserialize primitives*)
+(* We need to open Ppx_yojson_conv_lib.Yojson_conv.Primitives to bring the functions that deserialize primitive types in scope. *)
 open Ppx_yojson_conv_lib.Yojson_conv.Primitives
 
 let json = {|
