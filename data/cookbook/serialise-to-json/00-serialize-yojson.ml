@@ -5,7 +5,7 @@ packages:
   used_libraries:
   - ppx_yojson_conv
 ---
-(* We need to open Ppx_yojson_conv_lib.Yojson_conv.Primitives in order to deserialize primitives*)
+(* We need to open Ppx_yojson_conv_lib.Yojson_conv.Primitives in order to serialize values of primitive types. *)
 open Ppx_yojson_conv_lib.Yojson_conv.Primitives
 
 type language = { name: string; url: string } [@@deriving yojson]
