@@ -25,7 +25,7 @@ Here's some new (and as of time of writing this newsletter still open) issues th
 - Package Versions page is missing dark mode styles [ocaml/ocaml.org#2341](https://github.com/ocaml/ocaml.org/issues/2341)  by [@sabine](https://github.com/sabine)
 - (Data) Extend the Data Model of Academic Institution to Record Information about Course Materials [ocaml/ocaml.org#2328](https://github.com/ocaml/ocaml.org/issues/2328)  by [@sabine](https://github.com/sabine)
   
-## Upcoming OCaml Cookbook
+## The OCaml Cookbook
 
 We shipped a new, community-driven section in the Learn area: the OCaml Cookbook!
 
