@@ -15,6 +15,9 @@ let json = {|
 }
 |}
 
+(* `[@@deriving yojson] generates functions `language_of_yojson` and `yojson_of_language`
+   to deserialize / serialize values of the annotated type from the intermediate representation `Yojson.Safe.t`.
+   When you only need to deserialize, you can use `[@@deriving of_yojson]` instead. *)
 type language = { name: string; url: string } [@@deriving yojson]
 
 (* First we convert the json string to Yojson.Safe.t and then we use the generated function to create the record *)
