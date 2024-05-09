@@ -142,6 +142,15 @@ compilation error.
 Each recipe is a way to perform a task using a combination of open-source
 libraries.
 
+#### OCaml Cookbook Recipe Review Checklist
+
+Checklist for reviewing OCaml cookbook submissions:
+
+1. does this recipe implement the task it's assigned to?
+2. if this recipe is creating a new task: (1) is the new task substantially different from existing tasks, (2) there is no existing task that this recipe solves, (3) is the new task description very clear on what the task is (be specific!)
+3. is the code explained sufficiently without overexplaining (be short and focus on what matters)?
+4. is the code such that you would put it into production? I.e. are the libraries used stable enough and is the code readable?
+
 ### <a name="content-recurring-event"></a>Add A Recurring Event
 
 > Contribute a [Recurring Event](https://ocaml.org/community).
