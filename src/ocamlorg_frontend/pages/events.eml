@@ -17,7 +17,6 @@ Community_layout.single_column_layout
 ~title:"The Events"
 ~description:"The Events page!"
 ~canonical:Url.events
-~active_top_nav_item:Header.Community
 ~current:Events @@
 <div class="w-full section-blue-gradient dark:bg-none">
   <div class="container-fluid py-9">

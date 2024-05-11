@@ -3,7 +3,7 @@ type nav_item =
   | Tools
   | Packages
   | Community
-  | Blog
+  | News
   | Playground
 
 let string_of_nav_item = function
@@ -11,18 +11,18 @@ let string_of_nav_item = function
   | Tools -> "Tools"
   | Packages -> "Packages"
   | Community -> "Community"
-  | Blog -> "Blog"
-  | Playground -> "Play"
+  | News -> "News"
+  | Playground -> "Try"
 
 let url_of_nav_item = function
   | Learn -> Url.learn
   | Tools -> Url.tools
   | Packages -> Url.packages
   | Community -> Url.community
-  | Blog -> Url.blog
+  | News -> Url.changelog
   | Playground -> Url.playground
 
-let nav_items = [ Learn; Tools; Packages; Community; Blog; Playground ]
+let nav_items = [ Learn; Tools; Packages; Community; News; Playground ]
 
 let menu_link
 ~(active: bool)

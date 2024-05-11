@@ -23,7 +23,7 @@ let ecosystem = [
   (Url.packages, "Packages");
   (Url.community, "Community");
   (Url.events, "Events");
-  (Url.blog, "Blog");
+  (Url.ocaml_planet, "OCaml Planet");
   (Url.jobs, "Jobs");
   ]
 

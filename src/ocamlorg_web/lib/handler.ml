@@ -300,17 +300,13 @@ let workshop req =
   in
   Dream.html (Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed workshop)
 
-let blog req =
+let ocaml_planet req =
   let page, number_of_pages, current_items =
     paginate ~req ~n:10 Data.Planet.Post.all
   in
-  let number_of_news =
-    List.length current_items |> float_of_int |> ( *. ) 1.3 |> int_of_float
-  in
-  let news = Data.News.all |> List.take number_of_news in
   Dream.html
-    (Ocamlorg_frontend.blog ~planet:current_items ~planet_page:page
-       ~planet_pages_number:number_of_pages ~news)
+    (Ocamlorg_frontend.ocaml_planet ~planet:current_items ~planet_page:page
+       ~planet_pages_number:number_of_pages)
 
 let local_blog req =
   let source = Dream.param req "source" in

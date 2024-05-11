@@ -1,25 +1,32 @@
 type section =
-  (*| Overview*)
-  | Platform
-  | Releases
+  (* | Overview *)
+  | Changelog
+  | OCamlPlanet
+  | Newsletters
+  | OpamBlog
 
 let tabs
 ~current =
   let url_of_section = function
-    (*| Overview -> Url.tools*)
-    | Platform -> Url.platform
-    | Releases -> Url.releases
+    (*| Overview -> *)
+    | Changelog -> Url.changelog
+    | Newsletters -> Url.news
+    | OCamlPlanet -> Url.ocaml_planet
+    | OpamBlog -> Url.local_blog "opam"
   in
   let title_of_section = function
     (*| Overview -> "Overview"*)
-    | Platform -> "OCaml Platform"
-    | Releases -> "Compiler Releases"
+    | Changelog -> "Changelog"
+    | Newsletters -> "Newsletters"
+    | OCamlPlanet -> "OCaml Planet"
+    | OpamBlog -> "Opam Blog"
   in
-  Layout.subnav_tabs ~title:"Tools" ~current ~sections:[Platform; Releases] ~url_of_section ~title_of_section
+  Layout.subnav_tabs ~title:"News" ~current ~sections:[Changelog; OCamlPlanet; Newsletters] ~url_of_section ~title_of_section
 
 let single_column_layout
 ?use_swiper
 ?styles
+?alternate
 ~title
 ~description
 ~canonical
@@ -29,10 +36,11 @@ inner_html
   Layout.render
   ?use_swiper
   ?styles
+  ?alternate
   ~title
   ~description
   ~canonical
-  ~active_top_nav_item:Tools @@
+  ~active_top_nav_item:News @@
   <%s! tabs ~current %>
   <div class="bg-background dark:bg-dark-background">
     <div class="flex-1 z-0 z- min-w-0 pb-12">
@@ -43,6 +51,7 @@ inner_html
 let three_column_layout
 ?use_swiper
 ?styles
+?alternate
 ~title
 ~description
 ~canonical
@@ -54,10 +63,11 @@ inner_html
   Layout.base
   ?use_swiper
   ?styles
+  ?alternate
   ~title
   ~description
   ~canonical
-  ~active_top_nav_item:Header.Tools @@
+  ~active_top_nav_item:Header.News @@
   <%s! tabs ~current %>
   <div class="bg-background dark:bg-dark-background" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
   <% if left_sidebar_html != None then ( %>  
