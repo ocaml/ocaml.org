@@ -68,7 +68,7 @@ val u : int list = [1; 2; 3; 4]
 - : string list = ["this"; "is"; "mambo"]
 ```
 
-The lists' types, `int list` and `string list`, have been inferred from the type of their elements. Lists can be empty `[]` (pronounced “nil”). Note that the first list has been given a name using the `let … = …` construction, which is detailed below. The most primitive operation on lists is prepending a new element at the front of an existing list. This is done using the “cons” operator, written with the double colon operator `::`.
+The lists' types, `int list` and `string list`, have been inferred from the type of their elements. Lists can be empty `[]` (pronounced “nil”). Note that the first list has been given a name using the `let … = …` construction, which is detailed below. The most primitive operation on lists is to add a new element at the front of an existing list. This is done using the “cons” operator, written with the double colon operator `::`.
 ```ocaml
 # 9 :: u;;
 - : int list = [9; 1; 2; 3; 4]
