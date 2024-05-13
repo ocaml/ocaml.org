@@ -4,7 +4,7 @@ slug: "60"
 difficulty: intermediate
 tags: [ "binary-tree" ]
 description: "Calculate the maximum and minimum number of nodes, height, and generate all height-balanced binary trees."
-tutorials: [ "labels" ]
+tutorials: [ "basic-data-types" ]
 ---
 
 ```ocaml
