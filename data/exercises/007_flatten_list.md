@@ -4,6 +4,7 @@ slug: "7"
 difficulty: intermediate
 tags: [ "list" ]
 description: "Write a function that flattens a nested list structure represented by the 'a node type."
+tutorials: [ "loops-recursion"]
 ---
 
 # Solution

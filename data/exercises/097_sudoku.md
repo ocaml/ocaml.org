@@ -4,6 +4,7 @@ slug: "97"
 difficulty: intermediate
 tags: []
 description: "Solve Sudoku puzzles by filling in the missing spots with digits (1-9) in such a way that every row, column, and 3x3 square contains every number exactly once."
+tutorials: [ "arrays", "mutability-imperative-control-flow" ]
 ---
 
 # Solution

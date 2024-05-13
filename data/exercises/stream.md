@@ -4,6 +4,7 @@ slug: "100"
 difficulty: beginner
 tags: [ "seq" ]
 description: "Define an 'a stream type for infinite sequences, and provide essential functions for seamless manipulation of infinite sequences."
+tutorials: [ "sequences"]
 ---
 
 # Solution

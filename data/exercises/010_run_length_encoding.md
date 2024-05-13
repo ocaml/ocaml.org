@@ -4,6 +4,7 @@ slug: "10"
 difficulty: beginner
 tags: [ "list" ]
 description: "Performs run-length encoding on a list"
+tutorials: [ "basic-data-types"]
 ---
 
 # Solution
