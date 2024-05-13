@@ -42,73 +42,93 @@ let socials = [
   ("/feed.xml", "RSS", Icons.rss);
 ]
 
-let render_multi_button ~title ~preference ~background ~class_ =
-  <button class="flex grow basis-0 justify-center items-center py-2 px-4 text-sm border <%s class_ %>" :class='$store.themeSettings.preference === "<%s preference %>" ? "bg-gradient-to-r <%s background %> text-white dark:text-dark-title outline-none" : "bg-white text-content outline-2 outline-card_border dark:outline-dark-separator_30"'
-    @click='["light", "dark"].includes("<%s preference %>") && !$store.themeSettings.storageAccess? $store.themeSettings.openAlert("<%s preference %>") : $store.themeSettings.togglePreference("<%s preference %>")'
-  >
-    <template x-if='"<%s preference %>" === "light"'>
-      <%s! Icons.light_mode "mr-2" %>
-    </template>
-    <template x-if='"<%s preference %>" === "dark"'>
-      <%s! Icons.dark_mode "mr-2" %>
-    </template>
-    <template x-if='"<%s preference %>" === "system"'>
-      <%s! Icons.system_mode "mr-2" %>
-    </template>
-    <%s title %>
-  </button>
+module LightDarkModeSwitch = struct
 
-let theme_preference_script =
-  <script>
-    document.addEventListener('alpine:init', () => {
-      Alpine.store('themeSettings', {
-        init() {
-          this.storageAccess = localStorage.getItem('storageAccess')
-          this.preference = localStorage.getItem('theme') || "system"
-          this.isSystemDefaultDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        },
-        selected: '',
-        alertOpen: false,
-        storageAccess: false,
-        preference: undefined,
-        isSystemDefaultDark: false,
-        togglePreference(preference) {
-          if (preference === 'dark') {
-            document.body.classList.add("dark");
-          } 
-          if (preference === 'light') {
-            document.body.classList.remove("dark");
-          }
-          if (preference === 'system') {
-            if (this.isSystemDefaultDark) {
+  type preference =
+    | Light
+    | Dark
+    | System
+
+  let string_of_preference = function
+    | Light -> "light"
+    | Dark -> "dark"
+    | System -> "system"
+
+  let title_of_preference = function
+    | Light -> "Light"
+    | Dark -> "Dark"
+    | System -> "System"
+
+  let background_of_preference = function
+    | Light -> "from-[#FFA932] to-[#C24F1E]"
+    | Dark -> "from-[#0F254F] to-[#0B1228]"
+    | System -> "from-[#2B7866] to-[#004039]"
+
+  let icon_of_preference = function
+    | Light -> Icons.light_mode
+    | Dark -> Icons.dark_mode
+    | System -> Icons.system_mode
+
+  let render_preference_button ~preference  ~class_ =
+    <button class="flex grow basis-0 justify-center items-center py-2 px-4 text-sm border <%s class_ %>" :class='$store.themeSettings.preference === "<%s string_of_preference preference %>" ? "bg-gradient-to-r <%s background_of_preference preference %> text-white dark:text-dark-title outline-none" : "bg-white text-content outline-2 outline-card_border dark:outline-dark-separator_30"'
+      @click='$store.themeSettings.setPreference("<%s string_of_preference preference %>")'
+    >
+      <%s! (icon_of_preference preference) "mr-2" %>
+      <%s title_of_preference preference %>
+    </button>
+
+  let script =
+    <script>
+      document.addEventListener('alpine:init', () => {
+        Alpine.store('themeSettings', {
+          init() {
+            this.storageAccess = localStorage.getItem('storageAccess')
+            this.preference = localStorage.getItem('theme') || "system"
+            this.isSystemDefaultDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+          },
+          selected: '',
+          alertOpen: false,
+          storageAccess: false,
+          preference: undefined,
+          isSystemDefaultDark: false,
+          setPreference(preference) {
+            if (!this.storageAccess) {
+              if (!window.confirm("We will remember your choice in your browser's LocalStorage. Allow this?")) {
+                return;
+              }
+              localStorage.setItem('storageAccess', true)
+              storageAccess = true;
+            }
+
+            this.selected = preference;
+            this.preference = preference
+            localStorage.setItem('theme', preference)
+
+            if (preference === 'dark') {
               document.body.classList.add("dark");
-            } else {
+            } 
+            if (preference === 'light') {
               document.body.classList.remove("dark");
             }
-            localStorage.removeItem('theme')
-            this.preference = preference
-            return
-          }
-          this.preference = preference
-          localStorage.setItem('theme', preference)
-        },
-        openAlert(selected) {
-          this.selected = selected
-          if (window.confirm("We will remember your choice in your browser's LocalStorage. Allow this?")) {
-            this.confirmAlert()
-          } else {
-            this.selected = ''
-          }
-        },
-        confirmAlert() {
-          this.storageAccess = true
-          localStorage.setItem('storageAccess', true)
-          this.togglePreference(this.selected)
-          this.selected = ''
-        },
+            if (preference === 'system') {
+              if (this.isSystemDefaultDark) {
+                document.body.classList.add("dark");
+              } else {
+                document.body.classList.remove("dark");
+              }
+              localStorage.removeItem('theme')
+              return
+            }
+          },
+        })
       })
-    })
-  </script>
+    </script>
+
+  let render =
+    <%s! render_preference_button ~preference:Light ~class_:"rounded-l rounded-l-full border-r-0" %>
+    <%s! render_preference_button ~preference:Dark ~class_:"border-r-0" %>
+    <%s! render_preference_button ~preference:System ~class_:"rounded-r rounded-r-full" %>
+end
 
 let primary_footer () =
   let icon_link ~href ~name ~icon =
@@ -131,9 +151,7 @@ let primary_footer () =
           <img class="h-8 hidden dark:inline" src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" alt="OCaml">
         </a>
         <div class="hidden md:flex">
-          <%s! render_multi_button ~title:"Light" ~preference:"light" ~background:"from-[#FFA932] to-[#C24F1E]" ~class_:"rounded-l rounded-l-full border-r-0" %>
-          <%s! render_multi_button ~title:"Dark" ~preference:"dark" ~background:"from-[#0F254F] to-[#0B1228]" ~class_:"border-r-0" %>
-          <%s! render_multi_button ~title:"System" ~preference:"system" ~background:"from-[#2B7866] to-[#004039]" ~class_:"rounded-r rounded-r-full" %>
+          <%s! LightDarkModeSwitch.render %>
         </div>
       </div>
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
@@ -145,9 +163,7 @@ let primary_footer () =
             <% ); %>
           </div>
           <div class="flex w-full md:hidden">
-            <%s! render_multi_button ~title:"Light" ~preference:"light" ~background:"from-[#FFA932] to-[#C24F1E]" ~class_:"rounded-l rounded-l-full border-r-0" %>
-            <%s! render_multi_button ~title:"Dark" ~preference:"dark" ~background:"from-[#0F254F] to-[#0B1228]" ~class_:"border-r-0" %>
-            <%s! render_multi_button ~title:"System" ~preference:"system" ~background:"from-[#2B7866] to-[#004039]" ~class_:"rounded-r rounded-r-full" %>
+            <%s! LightDarkModeSwitch.render %>
           </div>
         </div>
         <div class="mt-8 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
@@ -190,7 +206,7 @@ let primary_footer () =
         </div>
       </div>
     </div>
-    <%s! theme_preference_script %>
+    <%s! LightDarkModeSwitch.script %>
   </footer>
 
 let secondary_footer () =
@@ -210,9 +226,7 @@ let secondary_footer () =
         <img src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" width="132" alt="OCaml logo" class="h-8 hidden dark:inline">
       </a>
       <div class="hidden md:flex">
-        <%s! render_multi_button ~title:"Light" ~preference:"light" ~background:"from-[#FFA932] to-[#C24F1E]" ~class_:"rounded-l rounded-l-full border-r-0" %>
-        <%s! render_multi_button ~title:"Dark" ~preference:"dark" ~background:"from-[#0F254F] to-[#0B1228]" ~class_:"border-r-0" %>
-        <%s! render_multi_button ~title:"System" ~preference:"system" ~background:"from-[#2B7866] to-[#004039]" ~class_:"rounded-r rounded-r-full" %>
+        <%s! LightDarkModeSwitch.render %>
       </div>
     </div>
     <section class="flex flex-col gap-6 md:gap-0 md:flex-row md:justify-between md:items-end">
@@ -225,9 +239,7 @@ let secondary_footer () =
         <% ); %>
       </div>
       <div class="flex w-full md:hidden">
-        <%s! render_multi_button ~title:"Light" ~preference:"light" ~background:"from-[#FFA932] to-[#C24F1E]" ~class_:"rounded-l rounded-l-full border-r-0" %>
-        <%s! render_multi_button ~title:"Dark" ~preference:"dark" ~background:"from-[#0F254F] to-[#0B1228]" ~class_:"border-r-0" %>
-        <%s! render_multi_button ~title:"System" ~preference:"system" ~background:"from-[#2B7866] to-[#004039]" ~class_:"rounded-r rounded-r-full" %>
+        <%s! LightDarkModeSwitch.render %>
       </div>
     </section>
 
@@ -265,5 +277,5 @@ let secondary_footer () =
       <%s! footer_link ~href ~name %>
       <% ); %>
     </div>
-    <%s! theme_preference_script %>
+    <%s! LightDarkModeSwitch.script %>
   </footer>
