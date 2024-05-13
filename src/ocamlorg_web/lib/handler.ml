@@ -438,6 +438,9 @@ let papers req =
   let recommended_papers = Data.Paper.featured in
   Dream.html (Ocamlorg_frontend.papers ?search ~recommended_papers papers)
 
+let resources _req =
+  Dream.html (Ocamlorg_frontend.resources ~resources:Data.Resource.all)
+
 let tutorial commit_hash req =
   let slug = Dream.param req "id" in
   let</>? tutorial =

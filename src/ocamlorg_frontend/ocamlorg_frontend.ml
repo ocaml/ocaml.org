@@ -38,6 +38,7 @@ let playground = Playground.render
 let exercises = Exercises.render
 let release = Release.render
 let releases = Releases.render
+let resources = Resources.render
 let success_story = Success_story.render
 let tutorial = Tutorial.render
 let tutorial_search = Tutorial_search.render

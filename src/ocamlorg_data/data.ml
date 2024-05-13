@@ -232,6 +232,10 @@ module Governance = struct
     List.find_opt (fun x -> String.equal id x.id) (teams @ working_groups)
 end
 
+module Resource = struct
+  include Resource
+end
+
 module Cookbook = struct
   include Cookbook
 

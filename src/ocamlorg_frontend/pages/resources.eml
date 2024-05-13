@@ -1,0 +1,28 @@
+let render ~(resources: Data.Resource.t list) =
+Community_layout.single_column_layout
+~title:"Community Resources"
+~description:"Resources from the OCaml Community."
+~canonical:Url.events
+~active_top_nav_item:Header.Community
+~current:Resources @@
+<div class="intro-section-simple dark:dark-intro-section-simple py-12 border-b border-solid border-separator_20 dark:border-dark-separator_30">
+  <div class="container-fluid">
+    <div class="flex items-center">
+      <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-title dark:text-dark-title">
+        Resources
+      </h1>
+    </div>
+    <div class="py-6 leading-5 text-content dark:text-dark-content">
+      <p class="text-lg text-content dark:text-dark-content mt-6">A curated list of useful resources from the OCaml ecosystem.</p>
+    </div>
+  </div>
+</div>
+<div class="bg-background dark:bg-dark-background py-12">
+  <div class="container-fluid">
+% resources |> List.iter (fun (resource: Data.Resource.t) -> 
+    <div>
+      <%s resource.title %>
+    </div>
+% );
+  </div>
+</div>

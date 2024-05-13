@@ -34,6 +34,7 @@ end
 
 let sitemap = "/sitemap.xml"
 let community = "/community"
+let resources = "/resources"
 let events = "/events"
 let success_story v = "/success-stories/" ^ v
 let industrial_users = "/industrial-users"

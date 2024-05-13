@@ -14,6 +14,7 @@ let term_templates =
     ("paper", Ood_gen.Paper.template);
     ("exercises", Ood_gen.Exercise.template);
     ("release", Ood_gen.Release.template);
+    ("resource", Ood_gen.Resource.template);
     ("success_story", Ood_gen.Success_story.template);
     ("tool", Ood_gen.Tool.template);
     ("tutorial", Ood_gen.Tutorial.template);
