@@ -76,7 +76,11 @@
  (rule
   (target ocaml_planet.ml)
   (action
-   (run %{bin:dream_eml} %{dep:ocaml_planet.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:ocaml_planet.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target blog_post.ml)
   (action
