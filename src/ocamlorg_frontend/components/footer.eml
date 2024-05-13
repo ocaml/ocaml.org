@@ -94,7 +94,7 @@ let theme_preference_script =
         },
         openAlert(selected) {
           this.selected = selected
-          if (window.confirm("This settings requires us to access your browser's storage?")) {
+          if (window.confirm("We will remember your choice in your browser's LocalStorage. Allow this?")) {
             this.confirmAlert()
           } else {
             this.selected = ''
