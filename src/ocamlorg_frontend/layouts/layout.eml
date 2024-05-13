@@ -105,8 +105,10 @@ inner =
 
     <body>
       <script>
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
           document.body.classList.add("dark");
+        } else {
+          document.body.classList.remove("dark");
         }
       </script>
       <% if banner then ( %>

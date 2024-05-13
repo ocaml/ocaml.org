@@ -14,7 +14,7 @@ The privacy of your data is very important to us, so we go to great lengths to a
 As a visitor to the OCaml.org website:
 
 - No personal information is collected
-- No information, such as cookies, is stored in the browser
+- No information, such as cookies, is stored in the browser without your explicit consent
 - No information is shared with, sent to, or sold to third-parties
 - No information is shared with advertising companies
 - No information is mined or harvested for personal and behavioral trends

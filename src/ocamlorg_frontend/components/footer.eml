@@ -42,6 +42,94 @@ let socials = [
   ("/feed.xml", "RSS", Icons.rss);
 ]
 
+module LightDarkModeSwitch = struct
+
+  type preference =
+    | Light
+    | Dark
+    | System
+
+  let string_of_preference = function
+    | Light -> "light"
+    | Dark -> "dark"
+    | System -> "system"
+
+  let title_of_preference = function
+    | Light -> "Light"
+    | Dark -> "Dark"
+    | System -> "System"
+
+  let background_of_preference = function
+    | Light -> "from-[#FFA932] to-[#C24F1E]"
+    | Dark -> "from-[#0F254F] to-[#0B1228]"
+    | System -> "from-[#2B7866] to-[#004039]"
+
+  let icon_of_preference = function
+    | Light -> Icons.light_mode
+    | Dark -> Icons.dark_mode
+    | System -> Icons.system_mode
+
+  let render_preference_button ~preference  ~class_ =
+    <button class="flex grow basis-0 justify-center items-center py-2 px-4 text-sm border <%s class_ %>" :class='$store.themeSettings.preference === "<%s string_of_preference preference %>" ? "bg-gradient-to-r <%s background_of_preference preference %> text-white dark:text-dark-title outline-none" : "bg-white text-content outline-2 outline-card_border dark:outline-dark-separator_30"'
+      @click='$store.themeSettings.setPreference("<%s string_of_preference preference %>")'
+    >
+      <%s! (icon_of_preference preference) "mr-2" %>
+      <%s title_of_preference preference %>
+    </button>
+
+  let script =
+    <script>
+      document.addEventListener('alpine:init', () => {
+        Alpine.store('themeSettings', {
+          init() {
+            this.storageAccess = localStorage.getItem('storageAccess')
+            this.preference = localStorage.getItem('theme') || "system"
+            this.isSystemDefaultDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+          },
+          selected: '',
+          alertOpen: false,
+          storageAccess: false,
+          preference: undefined,
+          isSystemDefaultDark: false,
+          setPreference(preference) {
+            if (!this.storageAccess) {
+              if (!window.confirm("We will remember your choice in your browser's LocalStorage. Allow this?")) {
+                return;
+              }
+              localStorage.setItem('storageAccess', true)
+              storageAccess = true;
+            }
+
+            this.selected = preference;
+            this.preference = preference
+            localStorage.setItem('theme', preference)
+
+            if (preference === 'dark') {
+              document.body.classList.add("dark");
+            } 
+            if (preference === 'light') {
+              document.body.classList.remove("dark");
+            }
+            if (preference === 'system') {
+              if (this.isSystemDefaultDark) {
+                document.body.classList.add("dark");
+              } else {
+                document.body.classList.remove("dark");
+              }
+              localStorage.removeItem('theme')
+              return
+            }
+          },
+        })
+      })
+    </script>
+
+  let render =
+    <%s! render_preference_button ~preference:Light ~class_:"rounded-l rounded-l-full border-r-0" %>
+    <%s! render_preference_button ~preference:Dark ~class_:"border-r-0" %>
+    <%s! render_preference_button ~preference:System ~class_:"rounded-r rounded-r-full" %>
+end
+
 let primary_footer () =
   let icon_link ~href ~name ~icon =
     <a href="<%s href %>" class="text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary">
@@ -54,21 +142,31 @@ let primary_footer () =
       <a href="<%s href %>" class="text-base leading-6 text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary"><%s name %></a>
     </li>
   in
-  <footer class="border-t border-separator_30 dark:border-dark-separator_30 bg-dark-sand dark:bg-dark-card" aria-labelledby="footer-heading">
+  
+  <footer x-data class="border-t border-separator_30 dark:border-dark-separator_30 bg-dark-sand dark:bg-dark-card" aria-labelledby="footer-heading">
     <h2 id="footer-heading" class="sr-only">Footer</h2>
     <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <div class="flex w-full items-center justify-between mb-8">
+        <a href="<%s Url.index %>"><img class="h-8 dark:hidden" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml">
+          <img class="h-8 hidden dark:inline" src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" alt="OCaml">
+        </a>
+        <div class="hidden md:flex">
+          <%s! LightDarkModeSwitch.render %>
+        </div>
+      </div>
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
         <div class="space-y-8">
-          <a href="<%s Url.index %>"><img class="h-8 dark:hidden" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml">
-          <img class="h-8 hidden dark:inline" src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" alt="OCaml"></a>
           <p class="text-base leading-6 text-title dark:text-dark-content">Innovation. Community. Security.</p>
           <div class="flex space-x-6">
             <% socials |> List.iter (fun (href, name, icon) -> %>
             <%s! icon_link ~href ~name ~icon %>
             <% ); %>
           </div>
+          <div class="flex w-full md:hidden">
+            <%s! LightDarkModeSwitch.render %>
+          </div>
         </div>
-        <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+        <div class="mt-8 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
               <h3 class="text-base font-semibold leading-6 text-title dark:text-dark-content">About OCaml</h3>
@@ -108,6 +206,7 @@ let primary_footer () =
         </div>
       </div>
     </div>
+    <%s! LightDarkModeSwitch.script %>
   </footer>
 
 let secondary_footer () =
@@ -120,12 +219,18 @@ let secondary_footer () =
   let footer_link ~href ~name =
     <a href="<%s href %>" class="font-normal text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary leading-7 py-2.5"><%s name %></a>
   in
-  <footer class="flex flex-col gap-7 pt-5 mt-6 border-separator_20 dark:border-dark-separator_30 border-t">
+  <footer x-data class="flex flex-col gap-3 md:gap-5 pt-5 mt-6 border-separator_20 dark:border-dark-separator_30 border-t">
+    <div class="flex w-full items-center justify-between">
+      <a href="<%s Url.index %>">
+        <img class="h-8 dark:hidden" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml">
+        <img src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" width="132" alt="OCaml logo" class="h-8 hidden dark:inline">
+      </a>
+      <div class="hidden md:flex">
+        <%s! LightDarkModeSwitch.render %>
+      </div>
+    </div>
     <section class="flex flex-col gap-6 md:gap-0 md:flex-row md:justify-between md:items-end">
       <div>
-        <a href="<%s Url.index %>">
-          <img class="h-8 dark:hidden" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml">
-          <img src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" width="132" alt="OCaml logo" class="h-8 hidden dark:inline"></a>
         <p class="text-base font-normal leading-6 text-content dark:text-dark-content mt-2">Innovation. Community. Security.</p>
       </div>
       <div class="flex items-center gap-4 pr-4">
@@ -133,9 +238,12 @@ let secondary_footer () =
         <%s! icon_link ~href ~name ~icon %>
         <% ); %>
       </div>
+      <div class="flex w-full md:hidden">
+        <%s! LightDarkModeSwitch.render %>
+      </div>
     </section>
 
-    <section class="mt-6 grid grid-cols-2">
+    <section class="mt-4 grid grid-cols-2">
       <div class="flex flex-col gap-1">
         <div class="flex flex-col">
           <h5 class="font-bold text-base leading-7 py-2.5 text-title dark:text-dark-title">About</h5>
@@ -169,4 +277,5 @@ let secondary_footer () =
       <%s! footer_link ~href ~name %>
       <% ); %>
     </div>
+    <%s! LightDarkModeSwitch.script %>
   </footer>
