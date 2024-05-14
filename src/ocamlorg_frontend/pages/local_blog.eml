@@ -5,7 +5,7 @@ let render
 Layout.render
 ~title:(source.name ^ " - a blog hosted on Ocaml.org")
 ~description:source.description
-~canonical:(Url.local_blog source.name)
+~canonical:(Url.blog_source source.name)
 ~active_top_nav_item:Header.Blog @@
 <div class="bg-background dark:bg-dark-background py-10 lg:py-20">
     <div class="container-fluid wide">

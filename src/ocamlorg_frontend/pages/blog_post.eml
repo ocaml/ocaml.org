@@ -13,7 +13,7 @@ Layout.render
           <div>OCaml Planet</div>
         </a>
         <span class="text-content dark:text-dark-content">/</span>
-        <a href="<%s Url.local_blog blog_post.source.id %>"
+        <a href="<%s Url.blog_source blog_post.source.id %>"
           class="text-primary dark:text-dark-primary hover:underline font-semibold mb-4">
           <div><%s blog_post.source.name %></div>
         </a>

@@ -192,7 +192,7 @@ module External = struct
                     (e ^ " and there is no source defined in the markdown file")
               ));
         url = Some m.url;
-        slug = "";
+        slug = Utils.slugify m.title;
         description = m.description;
         authors = Option.value ~default:[] m.authors;
         date = m.date;

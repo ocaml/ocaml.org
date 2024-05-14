@@ -48,7 +48,7 @@ let page_routes t =
       Dream.get (Url.release ":id") Handler.release;
       Dream.get (Url.workshop ":id") Handler.workshop;
       Dream.get Url.blog Handler.blog;
-      Dream.get (Url.local_blog ":source") Handler.local_blog;
+      Dream.get (Url.blog_source ":source") Handler.blog_source;
       Dream.get (Url.blog_post ":source" ":slug") Handler.blog_post;
       Dream.get Url.news Handler.news;
       Dream.get (Url.news_post ":id") Handler.news_post;
