@@ -48,8 +48,6 @@ jobs:
         run: |
           opam exec -- dune exec tool/ood-gen/bin/scrape.exe planet
           opam exec -- dune exec tool/ood-gen/bin/watch_scrape.exe > data/watch.yml
-          opam exec -- dune build src/ocamlorg_data/planet.ml
-          opam exec -- dune build src/ocamlorg_data/watch.ml
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
