@@ -12,7 +12,7 @@ News_layout.single_column_layout
       </h1>
     </div>
 
-    <p class="text-lg text-content dark:text-dark-content mt-6">The latest news, from the OCaml teams.</p>
+    <p class="text-lg text-content dark:text-dark-content mt-6">The latest news from the OCaml teams.</p>
   </div>
 </div>
 <div class="bg-background dark:bg-dark-background py-10">
