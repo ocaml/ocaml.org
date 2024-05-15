@@ -7,7 +7,6 @@ description: In this post, I will present some work that we did on the GnuCOBOL 
 url: https://ocamlpro.com/blog/2024_04_30_fixing_and_optimizing_gnucobol
 date: 2024-04-30T11:42:34-00:00
 preview_image: https://ocamlpro.com/blog/assets/img/craiyon-gnucobol-optimization.webp
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
