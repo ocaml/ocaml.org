@@ -35,7 +35,7 @@ let uri' = uri
   |> Fun.flip Uri.with_userinfo (Some "user:password")
   |> Fun.flip Uri.with_query ["param1", ["42"]]
 
-(* We can also add parameters, one by one, or from a list *)
+(* We can also add parameters, one by one or from a list *)
 
 let uri'' = Uri.add_query_param uri' ("param2",["**"])
 let uri''' = Uri.add_query_params uri'' ["param3",["?"];"param4",["&"]]
