@@ -9,7 +9,7 @@ discussion: |
   - **Reference:** The [uri.mli file](https://github.com/mirage/ocaml-uri/blob/main/lib/uri.mli) is well commented.
 ---
 
-(* In order to decompose an URI, we convert a string into an `Uri.t`, and use accessor functions. *)
+(* In order to decompose a URI, we convert a string into an `Uri.t` and use accessor functions. *)
 
 let uri_string =
   "https://user:password@ocaml.org/cgi-bin/dummy.exe?param1=a,b&param2=d%C3%A9j%C3%A0%20#anchor"
