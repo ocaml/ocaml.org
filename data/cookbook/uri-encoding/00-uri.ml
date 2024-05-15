@@ -9,7 +9,7 @@ discussion: |
   - **Reference:** The [uri.mli file](https://github.com/mirage/ocaml-uri/blob/main/lib/uri.mli) is well commented.
 ---
 
-(* In order to compose an URI, we have a complex function whose parameters are all optional (except the `()` at the end. *)
+(* In order to compose a URI, we have a complex function whose parameters are all optional (except the `()` at the end. *)
 
 let uri =
   Uri.make
