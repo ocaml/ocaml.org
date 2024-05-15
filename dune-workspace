@@ -11,6 +11,4 @@
  (package (name olinkcheck)))
 
 (lock_dir
- (constraints ocaml-system)
  (pins tailwindcss olinkcheck))
-

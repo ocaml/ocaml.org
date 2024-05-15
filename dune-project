@@ -31,7 +31,9 @@
   "This repository contains the server that serves the official OCaml website at https://ocaml.org.")
  (depends
   (ocaml
-   (>= 4.14.0))
+   (and
+    (>= 4.14.0)
+    (< 5.0.0)))
   dune
   cohttp
   cohttp-lwt-unix
