@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/Haskell/quickcheck_fail.html
 date: 2014-01-08T10:03:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

@@ -4,7 +4,6 @@ description:
 url: https://erratique.ch/software/uutf
 date: 2012-05-05T14:16:08-00:00
 preview_image:
-featured:
 authors:
 - "Daniel B\xFCnzli"
 source:

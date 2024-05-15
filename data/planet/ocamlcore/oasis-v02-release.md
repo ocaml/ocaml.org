@@ -4,7 +4,6 @@ description:
 url: http://www.ocamlcore.com/wp/2010/10/oasis-v02-release/
 date: 2010-10-21T22:56:20-00:00
 preview_image:
-featured:
 authors:
 - OCamlCore.com
 source:

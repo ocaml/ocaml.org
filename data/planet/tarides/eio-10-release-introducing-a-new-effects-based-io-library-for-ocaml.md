@@ -5,7 +5,6 @@ description: "The OCaml 5 update brought much-anticipated support for programmin
 url: https://tarides.com/blog/2024-03-20-eio-1-0-release-introducing-a-new-effects-based-i-o-library-for-ocaml
 date: 2024-03-20T00:00:00-00:00
 preview_image: https://tarides.com/static/96c10d8b128f4298bb84a3dbe343ead3/0132d/eio-port.jpg
-featured:
 authors:
 - Tarides
 source:

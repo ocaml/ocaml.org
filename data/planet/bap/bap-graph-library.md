@@ -4,7 +4,6 @@ description: The Binary Analysis Platform Blog
 url: http://binaryanalysisplatform.github.io/graphlib
 date: 2016-01-10T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The BAP Blog
 source:

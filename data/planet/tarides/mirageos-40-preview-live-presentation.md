@@ -5,7 +5,6 @@ description: "The official release of MirageOS 4.0 quickly approaches! Learn abo
 url: https://tarides.com/blog/2021-11-09-mirageos-4-0-preview-live-presentation
 date: 2021-11-09T00:00:00-00:00
 preview_image: https://tarides.com/static/619c072d0a24bc8e8421e02cdafca46e/0132d/projector.jpg
-featured:
 authors:
 - Tarides
 source:

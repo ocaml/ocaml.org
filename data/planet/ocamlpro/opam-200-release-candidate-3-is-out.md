@@ -7,7 +7,6 @@ description: 'We are pleased to announce the release of a third release candidat
 url: https://ocamlpro.com/blog/2018_06_22_opam_2.0.0_release_candidate_3_is_out
 date: 2018-06-22T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Raja Boujbel\n  "
 source:

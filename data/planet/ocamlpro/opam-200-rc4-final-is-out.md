@@ -7,7 +7,6 @@ description: "We are happy to announce the opam 2.0.0 final release candidate! \
 url: https://ocamlpro.com/blog/2018_07_26_opam_2.0.0_rc4_final_is_out
 date: 2018-07-26T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Raja Boujbel\n  "
 source:

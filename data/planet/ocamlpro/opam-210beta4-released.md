@@ -7,7 +7,6 @@ description: "Feedback on this post is welcomed on Discuss! On behalf of the opa
 url: https://ocamlpro.com/blog/2021_01_13_opam_2.1.0_beta4_released
 date: 2021-01-13T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    David Allsopp (OCamlLabs)\n  "
 source:

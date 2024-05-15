@@ -4,7 +4,6 @@ description:
 url: http://ocamllabs.github.com/compiler-hacking/2015/02/05/back-in-the-lab
 date: 2015-02-05T12:00:00-00:00
 preview_image:
-featured:
 authors:
 - OCaml Labs compiler hacking
 source:

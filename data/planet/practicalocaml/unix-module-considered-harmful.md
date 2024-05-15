@@ -9,7 +9,6 @@ description: 'Recently I was working on a socket pool for a new scheduler for OC
 url: https://practicalocaml.com/unix-module-considered-harmful/
 date: 2023-11-29T07:19:43-00:00
 preview_image:
-featured:
 authors:
 - Practical OCaml
 source:

@@ -6,7 +6,6 @@ description: "If you ever used the old version of virt-v2v, our software that co
 url: https://rwmj.wordpress.com/2014/08/29/virt-v2v-better-living-through-new-technology/
 date: 2014-08-29T21:26:08-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

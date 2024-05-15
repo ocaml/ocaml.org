@@ -4,7 +4,6 @@ description:
 url: http://ocamllabs.github.com/compiler-hacking/2016/11/01/fifteenth-compiler-hacking-evening
 date: 2016-11-01T21:30:00-00:00
 preview_image:
-featured:
 authors:
 - OCaml Labs compiler hacking
 source:

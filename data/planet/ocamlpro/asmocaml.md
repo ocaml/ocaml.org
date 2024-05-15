@@ -7,7 +7,6 @@ description: As you may know, there is a subset of Javascript that compiles effi
 url: https://ocamlpro.com/blog/2016_04_01_asm_ocaml
 date: 2016-04-01T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    chambart\n  "
 source:

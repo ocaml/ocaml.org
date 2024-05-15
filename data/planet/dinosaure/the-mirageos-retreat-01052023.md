@@ -4,7 +4,6 @@ description:
 url: https://blog.osau.re/articles/mirageos_retreat.html
 date: 2023-05-05T10:00:00-00:00
 preview_image:
-featured:
 authors:
 - Romain Calascibetta
 source:

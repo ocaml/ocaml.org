@@ -4,7 +4,6 @@ description:
 url: https://signals-threads.simplecast.com/episodes/a-poets-guide-to-product-management-with-peter-bogart-johnson-_sAIFzsS
 date: 2023-08-15T13:42:13-00:00
 preview_image:
-featured:
 authors:
 - Signals and Threads
 source:

@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/dune-upcoming-1-1/
 date: 2018-08-02T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - ""
 source:

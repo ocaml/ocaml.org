@@ -4,7 +4,6 @@ description:
 url: https://ocsigen.github.io/blog/2015/10/07/react-example-todomvc/
 date: 2015-10-07T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - "St\xE9phane Legrand"
 source:

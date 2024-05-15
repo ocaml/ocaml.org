@@ -11,7 +11,6 @@ description: 'We are pleased to announce the release of opam 2.0.1. This new ver
 url: https://ocamlpro.com/blog/2018_10_24_opam_2.0.1_is_out
 date: 2018-10-24T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Raja Boujbel\n  "
 source:

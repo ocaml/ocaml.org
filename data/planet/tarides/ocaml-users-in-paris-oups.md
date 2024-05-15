@@ -5,7 +5,6 @@ description: Not a Meetup member yet? Log in and find groups that host online or
 url: https://www.meetup.com/ocaml-paris/events/250836568/
 date: 2018-05-23T00:00:00-00:00
 preview_image: https://secure.meetupstatic.com/next/images/shared/meetup-logo.jpg
-featured:
 authors:
 - Tarides
 source:

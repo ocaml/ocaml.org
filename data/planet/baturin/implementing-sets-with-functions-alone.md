@@ -4,7 +4,6 @@ description:
 url: https://www.baturin.org/blog/implementing-sets-with-functions-alone
 date: 2018-04-12T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Daniil Baturin
 source:

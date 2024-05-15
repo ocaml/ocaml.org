@@ -7,7 +7,6 @@ description: In this first post about WebAssembly (Wasm) and OCaml, we introduce
 url: https://ocamlpro.com/blog/2022_12_14_wasm_and_ocaml
 date: 2022-12-14T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    L\xE9o Andr\xE8s\n  "
 source:

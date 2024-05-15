@@ -6,7 +6,6 @@ description: The diff list trick is a way to compute with lists in types. It all
 url: https://drup.github.io/2016/08/02/difflists/
 date: 2016-08-02T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gabriel Radanne
 source:

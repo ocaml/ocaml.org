@@ -5,7 +5,6 @@ description: "OCaml Multicore opened up a new world of performance for developer
 url: https://tarides.com/blog/2023-10-18-off-to-the-races-using-threadsanitizer-in-ocaml
 date: 2023-10-18T00:00:00-00:00
 preview_image: https://tarides.com/static/05ab00601c20f035998991f2d00a66ed/0132d/racing.jpg
-featured:
 authors:
 - Tarides
 source:

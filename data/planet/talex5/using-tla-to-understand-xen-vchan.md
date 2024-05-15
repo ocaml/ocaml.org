@@ -4,7 +4,6 @@ description:
 url: https://roscidus.com/blog/blog/2019/01/01/using-tla-plus-to-understand-xen-vchan/
 date: 2019-01-01T09:15:18-00:00
 preview_image:
-featured:
 authors:
 - Thomas Leonard
 source:

@@ -6,7 +6,6 @@ description: "Update: Thanks to Peter Robinson, there is now a build of OCaml fo
 url: https://rwmj.wordpress.com/2013/12/31/fedora-21-has-a-working-ocaml-arm64/
 date: 2013-12-31T13:24:42-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

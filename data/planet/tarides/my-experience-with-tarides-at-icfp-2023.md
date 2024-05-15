@@ -5,7 +5,6 @@ description: "ICFP 2024 will be upon us sooner than you might think! The call fo
 url: https://tarides.com/blog/2024-02-21-my-experience-with-tarides-at-icfp-2023
 date: 2024-02-21T00:00:00-00:00
 preview_image: https://tarides.com/static/971078fbc8fa4d3df321656d47546300/ce409/pinkseattle.jpg
-featured:
 authors:
 - Tarides
 source:

@@ -5,7 +5,6 @@ description: "Thomas Leonard and Jonathan Ludlam hosted a tutorial on porting Lw
 url: https://tarides.com/blog/2023-09-27-tutorial-how-to-port-lwt-applications-to-eio
 date: 2023-09-27T00:00:00-00:00
 preview_image: https://tarides.com/static/c9e532147350a2b7972bde7040c6f3f6/68e58/bifurcated.jpg
-featured:
 authors:
 - Tarides
 source:

@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/the-road-to-a-dev-release
 date: 2013-05-20T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

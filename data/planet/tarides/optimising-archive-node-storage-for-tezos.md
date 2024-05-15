@@ -5,7 +5,6 @@ description: "For the past few years, Tarides has been responsible for the stora
 url: https://tarides.com/blog/2023-05-05-optimising-archive-node-storage-for-tezos
 date: 2023-05-05T00:00:00-00:00
 preview_image: https://tarides.com/static/70c1588cebab1a71a3364cd221e5b14b/eee8e/irmin_gc.jpg
-featured:
 authors:
 - Tarides
 source:

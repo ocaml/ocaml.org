@@ -5,7 +5,6 @@ description: I can't help but want to share my joy at coming across this pearl o
 url: http://blog.shaynefletcher.org/2016/04/oh-pascal.html
 date: 2016-04-21T15:31:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

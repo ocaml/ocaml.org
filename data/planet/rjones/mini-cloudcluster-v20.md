@@ -6,7 +6,6 @@ description: "Last year I wrote and rewrote a little command line tool for manag
 url: https://rwmj.wordpress.com/2015/03/23/mini-cloudcluster-v2-0/
 date: 2015-03-23T14:26:06-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

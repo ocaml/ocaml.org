@@ -5,7 +5,6 @@ description: "I\u2019m excited (and slightly terrified) to announce that Jane St
 url: https://blog.janestreet.com/announcing-signals-and-threads-index/
 date: 2020-08-31T00:00:00-00:00
 preview_image: https://blog.janestreet.com/announcing-signals-and-threads-index/./signals-and-threads.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

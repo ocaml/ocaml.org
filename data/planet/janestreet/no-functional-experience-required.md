@@ -6,7 +6,6 @@ description: Jane Street is a serious functional programming shop. We use OCaml,
 url: https://blog.janestreet.com/no-functional-experience-required/
 date: 2015-08-19T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

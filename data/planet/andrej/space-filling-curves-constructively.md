@@ -4,7 +4,6 @@ description:
 url: http://math.andrej.com/2024/01/30/space-filling-curves-constructively/
 date: 2024-01-29T23:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andrej Bauer
 source:

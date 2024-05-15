@@ -7,7 +7,6 @@ description: 'A new release of Alt-Ergo (version 2.1.0) is available on Alt-Ergo
 url: https://ocamlpro.com/blog/2018_03_15_release_of_alt_ergo_2_1_0
 date: 2018-03-15T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:

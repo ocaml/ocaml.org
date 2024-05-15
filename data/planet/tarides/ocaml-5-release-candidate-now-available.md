@@ -5,7 +5,6 @@ description: "We're in the home stretch for the full OCaml 5 release. Multicore 
 url: https://tarides.com/blog/2022-12-07-ocaml-5-release-candidate-now-available
 date: 2022-12-07T00:00:00-00:00
 preview_image: https://tarides.com/static/f057ea6b7b626b6a08532b1359916c4a/18869/RC_Camel.jpg
-featured:
 authors:
 - Tarides
 source:

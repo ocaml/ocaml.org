@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/breaking-up-is-easy-with-opam
 date: 2012-10-17T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

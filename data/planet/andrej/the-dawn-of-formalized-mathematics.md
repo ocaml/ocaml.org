@@ -4,7 +4,6 @@ description:
 url: http://math.andrej.com/2021/06/24/the-dawn-of-formalized-mathematics/
 date: 2021-06-24T07:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andrej Bauer
 source:

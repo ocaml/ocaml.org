@@ -5,7 +5,6 @@ description: "Functional programming languages have been around since the 1950's
 url: https://tarides.com/blog/2022-11-22-six-surprising-reasons-the-ocaml-programming-language-is-good-for-business
 date: 2022-11-22T00:00:00-00:00
 preview_image: https://tarides.com/static/9adc92b0039855be8110531e7db4cd05/0132d/pexels-noureddine-belfethi-10014846.jpg
-featured:
 authors:
 - Tarides
 source:

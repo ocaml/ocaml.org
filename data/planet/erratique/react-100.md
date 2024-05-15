@@ -4,7 +4,6 @@ description:
 url: https://erratique.ch/software/react
 date: 2014-04-02T16:05:26-00:00
 preview_image:
-featured:
 authors:
 - "Daniel B\xFCnzli"
 source:

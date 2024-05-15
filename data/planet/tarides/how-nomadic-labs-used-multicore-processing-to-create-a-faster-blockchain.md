@@ -5,7 +5,6 @@ description: "The technology that makes blockchain possible is complex, cutting-
 url: https://tarides.com/blog/2022-12-20-how-nomadic-labs-used-multicore-processing-to-create-a-faster-blockchain
 date: 2022-12-20T00:00:00-00:00
 preview_image: https://tarides.com/static/b2f789f4242fe01494746b5c418bfc00/b7eba/Tezos.jpg
-featured:
 authors:
 - Tarides
 source:

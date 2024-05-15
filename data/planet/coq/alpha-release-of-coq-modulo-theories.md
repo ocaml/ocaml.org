@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/alpha-release-of-coq-modulo-theories.html
 date: 2010-06-22T22:10:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2014/12/2014.12.objc-rule-four.html
 date: 2014-12-04T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

@@ -5,7 +5,6 @@ description: Programming concurrent systems with threads and locks is famously, 
 url: http://ambassadortothecomputers.blogspot.com/2009/05/lwt-and-concurrent-ml.html
 date: 2009-05-28T03:28:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

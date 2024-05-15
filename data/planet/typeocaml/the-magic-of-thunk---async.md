@@ -6,7 +6,6 @@ description: Currently in post-production. Sorry, I still haven't finished this 
 url: http://typeocaml.com/2014/11/13/magic-of-thunk-async/
 date: 2014-11-13T23:04:59-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

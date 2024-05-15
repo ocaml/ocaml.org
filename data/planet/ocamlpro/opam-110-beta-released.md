@@ -7,7 +7,6 @@ description: We are very happy to announce the beta release of OPAM version 1.1.
 url: https://ocamlpro.com/blog/2013_09_20_opam_1.1.0_beta_released
 date: 2013-09-20T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Thomas Gazagnaire\n  "
 source:

@@ -5,7 +5,6 @@ description: "You can now write OCaml plugins for nbdkit \u2013 the liberally li
 url: https://rwmj.wordpress.com/2015/06/19/new-in-nbdkit-1-1-10-ocaml-plugins/
 date: 2015-06-19T13:29:54-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

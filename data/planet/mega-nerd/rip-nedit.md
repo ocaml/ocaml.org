@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/rip_nedit.html
 date: 2010-07-27T12:18:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

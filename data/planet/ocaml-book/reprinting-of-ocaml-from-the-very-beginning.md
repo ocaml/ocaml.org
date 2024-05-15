@@ -7,7 +7,6 @@ description: Owing to the print-on-demand process we're using, it's simple to up
 url: http://ocaml-book.com/blog/2013/10/15/reprinting-of-ocaml-from-the-very-beginning
 date: 2013-10-15T14:31:28-00:00
 preview_image:
-featured:
 authors:
 - OCaml Book
 source:

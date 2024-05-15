@@ -6,7 +6,6 @@ description: Abstract When solving machine learning problems, there is currently
 url: http://ashishagarwal.org/2010/03/27/iccs2010/
 date: 2010-03-27T22:39:22-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Ashish Agarwal
 source:

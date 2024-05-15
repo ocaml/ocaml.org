@@ -5,7 +5,6 @@ description: "What\u2019s the best way to spend a Friday evening? We think most 
 url: https://tarides.com/blog/2023-03-22-compiler-hacking-in-cambridge-is-back
 date: 2023-03-22T00:00:00-00:00
 preview_image: https://tarides.com/static/94b1bae0c0d362e983f366e92c6ca885/d6c95/Compiler_hacking.jpg
-featured:
 authors:
 - Tarides
 source:

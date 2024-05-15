@@ -4,7 +4,6 @@ description:
 url: https://melange.re/blog/posts/introducing-melange-20
 date: 2023-09-20T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Melange Blog
 source:

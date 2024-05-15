@@ -5,7 +5,6 @@ description: "We're glad to announce the first release of mrmime, a parser and a
 url: https://tarides.com/blog/2019-09-25-mr-mime-parse-and-generate-emails
 date: 2019-09-25T00:00:00-00:00
 preview_image: https://tarides.com/static/14bcc335478eae1bbad1c2f4cdd244af/0132d/mailboxes2.jpg
-featured:
 authors:
 - Tarides
 source:

@@ -4,7 +4,6 @@ description:
 url: https://kcsrk.info/ocaml/profiling/2015/09/23/bytecode-allocation-profiler/
 date: 2015-09-23T09:51:30-00:00
 preview_image:
-featured:
 authors:
 - KC Sivaramakrishnan
 source:

@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/2016-summer-hackathon-roundup
 date: 2016-07-18T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gemma Gordon
 ---

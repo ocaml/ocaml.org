@@ -6,7 +6,6 @@ description: "One of the first choice to make when starting the development of a
 url: https://syntaxexclamation.wordpress.com/2014/06/27/parametric-hoas-with-first-class-modules/
 date: 2014-06-27T21:17:37-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Matthias Puech
 source:

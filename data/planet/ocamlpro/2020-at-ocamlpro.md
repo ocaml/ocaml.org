@@ -7,7 +7,6 @@ description: 2020 at OCamlPro OCamlPro was created in 2011 to advocate the adopt
 url: https://ocamlpro.com/blog/2021_02_02_2020_at_ocamlpro
 date: 2021-02-02T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Muriel\n  "
 source:

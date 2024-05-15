@@ -4,7 +4,6 @@ description:
 url: http://www.ocamlcore.com/wp/2010/08/oasis-db-alpha-website-available/
 date: 2010-08-23T13:51:52-00:00
 preview_image:
-featured:
 authors:
 - OCamlCore.com
 source:

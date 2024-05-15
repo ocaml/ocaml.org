@@ -5,7 +5,6 @@ description: "Coming from OCaml, the Rust programming language has many appealin
 url: https://blog.janestreet.com/oxidizing-ocaml-locality/
 date: 2023-05-26T00:00:00-00:00
 preview_image: https://blog.janestreet.com/oxidizing-ocaml-locality/oxidizing-ocaml-locality.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

@@ -4,7 +4,6 @@ description:
 url: http://blog.camlcity.org/blog/wasicaml1.html
 date: 2021-07-15T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gerd Stolpmann
 source:

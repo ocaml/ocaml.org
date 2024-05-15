@@ -7,7 +7,6 @@ description: "It\u2019s often surprising just how much software performance depe
 url: https://blog.janestreet.com/this-is-not-the-performance-you-were-looking-for-the-tricks-systems-play-on-us/
 date: 2017-04-20T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

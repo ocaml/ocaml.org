@@ -5,7 +5,6 @@ description: One of the joys of working at Jane Street for the last 15 or so yea
 url: https://blog.janestreet.com/ocaml-all-the-way-down/
 date: 2018-04-04T00:00:00-00:00
 preview_image: https://blog.janestreet.com/ocaml-all-the-way-down/fpga.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

@@ -5,7 +5,6 @@ description: 'So how do you use Perlin''s Simplex Noise ? By using the GIF encod
 url: https://alaska-kamtchatka.blogspot.com/2012/01/putting-noise-to-test.html
 date: 2012-01-09T14:22:00-00:00
 preview_image: //1.bp.blogspot.com/-rrUMJ9YXjnk/TwcgdENPhHI/AAAAAAAAARI/CTYlQboEBNM/w1200-h630-p-k-no-nu/perlin.gif
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

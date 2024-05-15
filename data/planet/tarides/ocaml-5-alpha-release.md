@@ -5,7 +5,6 @@ description: "OCaml 5 is live! This major release introduces domains and effects
 url: https://tarides.com/blog/2022-06-15-ocaml-5-alpha-release
 date: 2022-06-15T00:00:00-00:00
 preview_image: https://tarides.com/static/8cf81cc73d3940053d10015bc64fb0a8/eee8e/ocaml_alpha.jpg
-featured:
 authors:
 - Tarides
 source:

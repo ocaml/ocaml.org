@@ -4,7 +4,6 @@ description:
 url: https://kcsrk.info/ocaml/riscv/shakti/2019/03/29/1400-ocaml-baremetal-shakti/
 date: 2019-03-29T14:00:00-00:00
 preview_image:
-featured:
 authors:
 - KC Sivaramakrishnan
 source:

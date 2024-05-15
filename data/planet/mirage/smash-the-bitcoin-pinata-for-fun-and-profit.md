@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/announcing-bitcoin-pinata
 date: 2015-02-10T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Amir Chaudhry
 ---

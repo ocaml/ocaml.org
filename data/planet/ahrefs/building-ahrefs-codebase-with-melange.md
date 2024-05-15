@@ -5,7 +5,6 @@ description: What we learnt after experimenting with Melange, a fork of ReScript
 url: https://tech.ahrefs.com/building-ahrefs-codebase-with-melange-9f881f6d022b?source=rss----303662d88bae--ocaml
 date: 2021-05-18T15:24:20-00:00
 preview_image: https://miro.medium.com/v2/resize:fit:1200/1*tYLUO4FDmJ6bzlsPp14LdQ.jpeg
-featured:
 authors:
 - Ahrefs
 source:

@@ -10,7 +10,6 @@ description: 'We are pleased to announce the minor release of opam 2.0.5. This n
 url: https://ocamlpro.com/blog/2019_07_11_opam_2.0.5_release
 date: 2019-07-11T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Raja Boujbel\n  "
 source:

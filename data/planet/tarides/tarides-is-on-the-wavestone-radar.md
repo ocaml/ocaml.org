@@ -5,7 +5,6 @@ description: "Cybersecurity is a growing concern for individuals and companies a
 url: https://tarides.com/blog/2022-07-19-tarides-is-on-the-wavestone-radar
 date: 2022-07-19T00:00:00-00:00
 preview_image: https://tarides.com/static/3b138a9f13e3d1c08b71a08fd516fc3c/0132d/wavestone.jpg
-featured:
 authors:
 - Tarides
 source:

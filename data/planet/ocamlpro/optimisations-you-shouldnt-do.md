@@ -7,7 +7,6 @@ description: Doing the compiler's work Working at OCamlPro may have some drawbac
 url: https://ocamlpro.com/blog/2013_05_24_optimisations_you_shouldnt_do
 date: 2013-05-24T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    chambart\n  "
 source:

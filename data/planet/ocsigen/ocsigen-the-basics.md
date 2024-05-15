@@ -4,7 +4,6 @@ description:
 url: https://ocsigen.github.io/blog/2016/02/08/tutorial-basics/
 date: 2016-02-08T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Vincent Balat
 source:

@@ -4,7 +4,6 @@ description:
 url: http://upsilon.cc/~zack/blog/posts/2009/10/ocaml-autoconf_1.1/
 date: 2009-10-12T13:43:58-00:00
 preview_image:
-featured:
 authors:
 - Stefano Zacchiroli
 source:

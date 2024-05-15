@@ -7,7 +7,6 @@ description: opam-lib 1.3 The package for opam-lib version 1.3 has just been rel
 url: https://ocamlpro.com/blog/2016_11_20_opam_lib_1.3_available
 date: 2016-11-20T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

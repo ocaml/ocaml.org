@@ -4,7 +4,6 @@ description:
 url: https://ocsigen.github.io/blog/2017/02/06/eliomlang/
 date: 2017-02-06T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gabriel `Drup` Radanne
 source:

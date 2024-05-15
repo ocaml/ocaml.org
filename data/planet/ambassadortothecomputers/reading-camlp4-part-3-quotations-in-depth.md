@@ -5,7 +5,6 @@ description: (I set myself the goal of posting every week, but the latest Skydec
 url: http://ambassadortothecomputers.blogspot.com/2009/01/reading-camlp4-part-3-quotations-in.html
 date: 2009-01-22T22:18:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

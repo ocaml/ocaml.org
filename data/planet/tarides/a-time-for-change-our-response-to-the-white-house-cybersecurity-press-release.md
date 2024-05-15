@@ -5,7 +5,6 @@ description: "As seasoned proponents of safety-by-design, we were pleased to see
 url: https://tarides.com/blog/2024-03-07-a-time-for-change-our-response-to-the-white-house-cybersecurity-press-release
 date: 2024-03-07T00:00:00-00:00
 preview_image: https://tarides.com/static/49e8f8de55480f86229c9b36c13926dd/4b5d0/innovation-blue.jpg
-featured:
 authors:
 - Tarides
 source:

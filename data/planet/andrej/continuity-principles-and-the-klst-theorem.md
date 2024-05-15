@@ -4,7 +4,6 @@ description:
 url: http://math.andrej.com/2023/07/19/continuity-principles-and-the-klst-theorem/
 date: 2023-07-18T22:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andrej Bauer
 source:

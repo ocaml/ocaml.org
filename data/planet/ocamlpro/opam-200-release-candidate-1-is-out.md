@@ -7,7 +7,6 @@ description: We are pleased to announce a first release candidate for the long-a
 url: https://ocamlpro.com/blog/2018_02_02_opam_2.0.0_release_candidate_1_is_out
 date: 2018-02-02T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

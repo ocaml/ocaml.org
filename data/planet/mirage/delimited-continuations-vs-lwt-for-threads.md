@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/delimcc-vs-lwt
 date: 2011-06-18T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

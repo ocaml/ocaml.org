@@ -5,7 +5,6 @@ description: "More type classes in OCaml    More type classes Author:  Joel Bj\x
 url: http://blog.shaynefletcher.org/2017/05/more-type-classes-in-ocaml.html
 date: 2017-05-22T16:34:00-00:00
 preview_image:
-featured:
 authors:
 - Unknown
 source:

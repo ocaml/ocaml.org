@@ -6,7 +6,6 @@ description: "In part 3 I described how to write targets which can access networ
 url: https://rwmj.wordpress.com/2013/09/20/goaljobs-part-4/
 date: 2013-09-20T20:57:21-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

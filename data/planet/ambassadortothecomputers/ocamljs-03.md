@@ -5,7 +5,6 @@ description: I am happy to announce version 0.3 of ocamljs. Ocamljs is a system 
 url: http://ambassadortothecomputers.blogspot.com/2010/08/ocamljs-03.html
 date: 2010-08-26T21:45:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

@@ -7,7 +7,6 @@ description: After a while staged as RC, we are proud to announce the final rele
 url: https://ocamlpro.com/blog/2013_11_08_opam_1.1.0_released
 date: 2013-11-08T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Thomas Gazagnaire\n  "
 source:

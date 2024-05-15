@@ -7,7 +7,6 @@ description: This blog post looks back on some of the improvements in opam 2.0, 
 url: https://ocamlpro.com/blog/2019_03_12_opam_2.0_tips
 date: 2019-03-12T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

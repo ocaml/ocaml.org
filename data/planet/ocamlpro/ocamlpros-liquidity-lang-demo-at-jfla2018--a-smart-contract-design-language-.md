@@ -8,7 +8,6 @@ description: "As a tradition, we took part in this year's  Journ\xE9es Francopho
 url: https://ocamlpro.com/blog/2018_02_08_liquidity_smart_contract_deploy_live_demo_on_tezos_alphanet_jfla2018
 date: 2018-02-08T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

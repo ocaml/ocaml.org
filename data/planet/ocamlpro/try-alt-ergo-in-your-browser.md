@@ -7,7 +7,6 @@ description: Recently, we worked on an online Javascript-based serverless versio
 url: https://ocamlpro.com/blog/2014_07_15_try_alt_ergo_in_your_browser
 date: 2014-07-15T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:

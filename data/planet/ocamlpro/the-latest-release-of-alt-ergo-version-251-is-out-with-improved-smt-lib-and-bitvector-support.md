@@ -8,7 +8,6 @@ description: "We are happy to announce a new release of Alt\u2011Ergo (version 2
 url: https://ocamlpro.com/blog/2023_09_18_release_of_alt_ergo_2_5_1
 date: 2023-09-18T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Pierre Villemot\n  "
 source:

@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/update-on-vchan
 date: 2014-07-16T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Jon Ludlam
 ---

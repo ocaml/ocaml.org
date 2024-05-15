@@ -9,7 +9,6 @@ description: 'In a previous blogpost, we presented the RPCs used by tezos-client
 url: https://ocamlpro.com/blog/2018_11_21_an_introduction_to_tezos_rpcs_signing_operations
 date: 2018-11-21T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

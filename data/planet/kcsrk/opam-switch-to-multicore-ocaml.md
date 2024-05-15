@@ -4,7 +4,6 @@ description:
 url: https://kcsrk.info/multicore/opam/ocaml/2015/03/25/opam-switch-to-multicore/
 date: 2015-03-25T18:15:00-00:00
 preview_image:
-featured:
 authors:
 - KC Sivaramakrishnan
 source:

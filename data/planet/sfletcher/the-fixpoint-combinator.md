@@ -5,7 +5,6 @@ description: Consider the following recursive definition of the factorial       
 url: http://blog.shaynefletcher.org/2016/09/the-fixpoint-combinator.html
 date: 2016-09-27T15:38:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

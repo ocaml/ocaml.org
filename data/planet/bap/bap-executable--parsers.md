@@ -4,7 +4,6 @@ description: The Binary Analysis Platform Blog
 url: http://binaryanalysisplatform.github.io/bap_executable_parsers
 date: 2014-12-04T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The BAP Blog
 source:

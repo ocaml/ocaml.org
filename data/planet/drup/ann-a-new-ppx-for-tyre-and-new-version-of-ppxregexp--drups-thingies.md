@@ -7,7 +7,6 @@ description: "Some times ago, I released Tyre, a library for Typed Regular Expre
 url: https://drup.github.io/2018/08/21/ppx-tyre/
 date: 2018-08-21T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gabriel Radanne
 source:

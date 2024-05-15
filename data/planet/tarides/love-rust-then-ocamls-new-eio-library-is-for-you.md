@@ -5,7 +5,6 @@ description: "We\u2019ve come to expect a lot from the programming languages we 
 url: https://tarides.com/blog/2022-12-27-love-rust-then-ocaml-s-new-eio-library-is-for-you
 date: 2022-12-27T00:00:00-00:00
 preview_image: https://tarides.com/static/21e8c4795a21a77b1e7978361ea10c0c/0132d/charlotte-coneybeer-L9VXW4A9QZM-unsplash.jpg
-featured:
 authors:
 - Tarides
 source:

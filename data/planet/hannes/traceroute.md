@@ -4,7 +4,6 @@ description:
 url: https://hannes.robur.coop/Posts/Traceroute
 date: 2020-06-24T10:38:10-00:00
 preview_image:
-featured:
 authors:
 - hannes
 source:

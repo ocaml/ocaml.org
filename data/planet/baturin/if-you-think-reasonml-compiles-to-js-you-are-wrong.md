@@ -4,7 +4,6 @@ description:
 url: https://www.baturin.org/blog/if-you-think-reasonml-compiles-to-js-you-are-wrong
 date: 2019-09-05T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Daniil Baturin
 source:

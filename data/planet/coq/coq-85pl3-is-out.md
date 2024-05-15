@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-85pl3-is-out.html
 date: 2016-10-27T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

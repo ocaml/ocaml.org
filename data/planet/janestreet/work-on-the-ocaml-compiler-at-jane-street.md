@@ -6,7 +6,6 @@ description: 'As Jane Street grows, the quality of the development tools we usem
 url: https://blog.janestreet.com/work-on-the-ocaml-compiler-at-jane-street/
 date: 2017-12-20T00:00:00-00:00
 preview_image: https://blog.janestreet.com/work-on-the-ocaml-compiler-at-jane-street/compiler3d.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

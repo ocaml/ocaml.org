@@ -5,7 +5,6 @@ description: "MinidebConf TN 23 was organised by Debian Developers and Villupura
 url: https://tarides.com/blog/2023-04-28-ocaml-at-minidebconf-tn-2023
 date: 2023-04-28T00:00:00-00:00
 preview_image: https://tarides.com/static/55823d8b8eb16538cc76ae43a2b31c53/eee8e/minidebconf.jpg
-featured:
 authors:
 - Tarides
 source:

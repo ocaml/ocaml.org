@@ -6,7 +6,6 @@ description: "It\u2019s time for our nextJane Street Tech Talk. Whenwe\u2019ve s
 url: https://blog.janestreet.com/jane-street-tech-talk-how-jane-street-does-code-review/
 date: 2017-10-29T00:00:00-00:00
 preview_image: https://blog.janestreet.com/jane-street-tech-talk-how-jane-street-does-code-review/image.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

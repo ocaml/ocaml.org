@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/announcing-ssreflect-version-12.html
 date: 2009-08-19T12:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

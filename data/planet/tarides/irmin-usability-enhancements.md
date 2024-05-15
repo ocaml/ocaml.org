@@ -10,7 +10,6 @@ description: "For the next few months I will be working on Irmin, focusing on im
 url: https://discuss.ocaml.org/t/irmin-usability-enhancements/2017
 date: 2018-05-18T00:00:00-00:00
 preview_image: https://global.discourse-cdn.com/business7/uploads/ocaml/original/2X/d/d4dc9fe40b17e2bcced034f9fe103917b7999275.svg
-featured:
 authors:
 - Tarides
 source:

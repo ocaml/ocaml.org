@@ -7,7 +7,6 @@ description: The OCaml compiler team at OCamlPro is happy to present some of the
 url: https://ocamlpro.com/blog/2019_08_30_ocamlpros_compiler_team_work_update
 date: 2019-08-30T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Vincent Laviron\n  "
 source:

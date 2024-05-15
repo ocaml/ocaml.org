@@ -5,7 +5,6 @@ description: Opa advocacy and tutorials have moved to their own, dedicated blog.
 url: https://dutherenverseauborddelatable.wordpress.com/2011/08/28/opa-advocacy/
 date: 2011-08-28T04:34:44-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - David Teller
 source:

@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/mirage-1.1-released
 date: 2014-02-11T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

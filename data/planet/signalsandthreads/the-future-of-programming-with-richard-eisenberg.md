@@ -4,7 +4,6 @@ description:
 url: https://signals-threads.simplecast.com/episodes/the-future-of-programming-with-richard-eisenberg-pOktpZ_e
 date: 2023-05-18T15:15:49-00:00
 preview_image:
-featured:
 authors:
 - Signals and Threads
 source:

@@ -4,7 +4,6 @@ description:
 url: http://www.skjegstad.com/blog/2015/03/25/mirageos-vm-per-url-experiment/
 date: 2015-03-25T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Magnus Skjegstad
 source:

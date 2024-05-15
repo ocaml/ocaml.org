@@ -4,7 +4,6 @@ description:
 url: http://blog.0branch.com/posts/2020-02-03-bitbucket-migration.html
 date: 2020-02-03T19:55:00-00:00
 preview_image:
-featured:
 authors:
 - Marc Simpson
 source:

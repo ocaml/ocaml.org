@@ -4,7 +4,6 @@ description: The Binary Analysis Platform Blog
 url: http://binaryanalysisplatform.github.io/knowledge-intro-1
 date: 2019-08-15T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The BAP Blog
 source:

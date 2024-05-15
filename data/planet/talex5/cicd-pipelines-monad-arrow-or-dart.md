@@ -4,7 +4,6 @@ description:
 url: https://roscidus.com/blog/blog/2019/11/14/cicd-pipelines/
 date: 2019-11-14T09:59:40-00:00
 preview_image:
-featured:
 authors:
 - Thomas Leonard
 source:

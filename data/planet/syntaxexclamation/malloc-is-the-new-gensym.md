@@ -6,7 +6,6 @@ description: "Teaching an introductory course to \u201Ccompilation\u201D this se
 url: https://syntaxexclamation.wordpress.com/2013/05/04/malloc-is-the-new-gensym/
 date: 2013-05-04T15:15:44-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Matthias Puech
 source:

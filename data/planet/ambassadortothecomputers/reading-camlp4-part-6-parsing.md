@@ -5,7 +5,6 @@ description: "In this post I want to discuss Camlp4\u2019s stream parsers  and g
 url: http://ambassadortothecomputers.blogspot.com/2010/05/reading-camlp4-part-6-parsing.html
 date: 2010-05-20T04:22:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

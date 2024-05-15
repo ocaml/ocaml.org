@@ -8,7 +8,6 @@ description: "Nous sommes heureux de pr\xE9senter certains travaux en cours sur 
 url: https://ocamlpro.com/blog/2019_09_30_fr_travaux_sur_le_compilateur_ocaml_dernieres_nouvelles
 date: 2019-09-30T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Vincent Laviron\n  "
 source:

@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/Haskell/telnet-conduit.html
 date: 2012-01-14T02:22:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

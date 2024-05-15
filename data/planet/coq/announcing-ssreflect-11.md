@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/59.html
 date: 2008-06-06T12:52:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

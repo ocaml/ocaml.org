@@ -7,7 +7,6 @@ description: "Nous sommes fiers d'annoncer la release de la premi\xE8re version 
 url: https://ocamlpro.com/blog/2019_03_09_release_liquidity_v1_smart_contracts_language
 date: 2019-03-09T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

@@ -5,7 +5,6 @@ description: 'Update:  Here is the PNGPack  source-code archive:  Per second.  Y
 url: https://alaska-kamtchatka.blogspot.com/2012/01/eighteen-million-noises.html
 date: 2012-01-11T13:02:00-00:00
 preview_image: //4.bp.blogspot.com/-_jkIeBdxFl4/Tw8a0gbM0aI/AAAAAAAAASc/0yOcfsLJ_M8/w1200-h630-p-k-no-nu/noise.tgz.png
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

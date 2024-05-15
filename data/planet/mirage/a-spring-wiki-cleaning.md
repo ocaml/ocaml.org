@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/spring-cleaning
 date: 2011-04-11T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

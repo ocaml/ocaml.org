@@ -5,7 +5,6 @@ description: "Merlin is a language server for the OCaml programming language; th
 url: https://tarides.com/blog/2021-01-26-recent-and-upcoming-changes-to-merlin
 date: 2021-01-26T00:00:00-00:00
 preview_image: https://tarides.com/static/1d86af9747be51519d2c89b476b5b306/0132d/camelgicien.jpg
-featured:
 authors:
 - Tarides
 source:

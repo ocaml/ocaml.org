@@ -5,7 +5,6 @@ description: It's easy to think of Camlp4 as just "defmacro on steroids"; that i
 url: http://ambassadortothecomputers.blogspot.com/2009/01/reading-camlp4-part-4-consuming-ocaml.html
 date: 2009-01-28T06:09:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

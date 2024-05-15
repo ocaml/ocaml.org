@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/Haskell/my_space_is_leaking.html
 date: 2012-12-22T05:42:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

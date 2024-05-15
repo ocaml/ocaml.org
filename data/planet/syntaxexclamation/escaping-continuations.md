@@ -6,7 +6,6 @@ description: "Beta\_had a funny joke at POPL last year; he said: \u201Cyou exit 
 url: https://syntaxexclamation.wordpress.com/2014/06/26/escaping-continuations/
 date: 2014-06-26T21:59:46-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Matthias Puech
 source:

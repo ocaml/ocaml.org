@@ -5,7 +5,6 @@ description: A little bit about everything, but mostly about fixing annoying tec
 url: http://yansnotes.blogspot.com/2014/11/menhir.html
 date: 2014-11-20T16:51:00-00:00
 preview_image:
-featured:
 authors:
 - Unknown
 source:

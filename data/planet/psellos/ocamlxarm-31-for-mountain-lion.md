@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2012/10/2012.10.ocamlxarm-mountain-lion.html
 date: 2012-10-18T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

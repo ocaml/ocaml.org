@@ -4,7 +4,6 @@ description:
 url: https://signals-threads.simplecast.com/episodes/performance-engineering-on-hard-mode-with-andrew-hunter-fxhCMIkB
 date: 2023-11-28T22:08:42-00:00
 preview_image:
-featured:
 authors:
 - Signals and Threads
 source:

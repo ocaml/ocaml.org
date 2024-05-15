@@ -5,7 +5,6 @@ description: "50inTech Tarides is proud to have been recognised by 50inTech and 
 url: https://tarides.com/blog/2022-04-19-tarides-partners-with-50intech
 date: 2022-04-19T00:00:00-00:00
 preview_image: https://tarides.com/static/9a47fa0b93acd16c249d77cb1b25f09b/0132d/50inTech.jpg
-featured:
 authors:
 - Tarides
 source:

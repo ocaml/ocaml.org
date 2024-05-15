@@ -4,7 +4,6 @@ description:
 url: https://www.baturin.org/blog/lua-ml-embedding-and-projection
 date: 2020-08-28T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Daniil Baturin
 source:

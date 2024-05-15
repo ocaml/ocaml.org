@@ -5,7 +5,6 @@ description: 'Polymorphic variants : subtyping and variance            Polymorph
 url: http://blog.shaynefletcher.org/2017/03/polymorphic-variants-subtyping-and.html
 date: 2017-03-07T20:05:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

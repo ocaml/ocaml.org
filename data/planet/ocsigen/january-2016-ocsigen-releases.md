@@ -4,7 +4,6 @@ description:
 url: https://ocsigen.github.io/blog/2016/02/01/january-2016-releases/
 date: 2016-02-01T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The Ocsigen team
 source:

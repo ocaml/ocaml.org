@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/first-asian-pacific-coq-summer-school.html
 date: 2009-03-31T14:21:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

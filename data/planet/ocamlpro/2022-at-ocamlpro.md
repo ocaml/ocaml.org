@@ -7,7 +7,6 @@ description: For 12 years now, OCamlPro has been empowering a large range of cus
 url: https://ocamlpro.com/blog/2023_06_30_2022_at_ocamlpro
 date: 2023-06-30T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Dario Pinto\n  "
 source:

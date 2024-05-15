@@ -7,7 +7,6 @@ description: "Les m\xE9mentos (cheat-sheets) OCaml lang et OCaml stdlib partag\x
 url: https://ocamlpro.com/blog/2019_09_14_fr_mise_a_jour_des_cheat_sheets_ocaml_language_et_ocaml_standard_library
 date: 2019-09-14T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Thomas Blanc\n  "
 source:

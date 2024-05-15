@@ -7,7 +7,6 @@ description: 'This time of the year is, just like Christmas time, a time for lau
 url: https://ocamlpro.com/blog/2018_04_01_ocaml_jtrt
 date: 2018-04-01T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    chambart\n  "
 source:

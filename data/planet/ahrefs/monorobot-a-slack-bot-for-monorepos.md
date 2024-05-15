@@ -5,7 +5,6 @@ description: "Slack integrations for GitHub don\u2019t work well with monorepos,
 url: https://tech.ahrefs.com/monorobot-a-slack-bot-for-monorepos-374260e2ca43?source=rss----303662d88bae--ocaml
 date: 2021-12-09T15:19:04-00:00
 preview_image: https://miro.medium.com/v2/resize:fit:1200/1*BQNCNLNPxGV3eXajYe6y2g.png
-featured:
 authors:
 - Ahrefs
 source:

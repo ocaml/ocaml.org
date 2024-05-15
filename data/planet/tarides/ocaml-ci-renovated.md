@@ -5,7 +5,6 @@ description: "OCaml-CI started with the goal of making a better continuous build
 url: https://tarides.com/blog/2023-07-12-ocaml-ci-renovated
 date: 2023-07-12T00:00:00-00:00
 preview_image: https://tarides.com/static/6ae6ac561c7a767a13dfa33b2afe364d/0132d/ocaml-ci-renovated.jpg
-featured:
 authors:
 - Tarides
 source:

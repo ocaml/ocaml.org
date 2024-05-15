@@ -5,7 +5,6 @@ description: Polynomials over rings            This post provides a workout in g
 url: http://blog.shaynefletcher.org/2017/03/polynomials-over-rings.html
 date: 2017-03-21T19:43:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

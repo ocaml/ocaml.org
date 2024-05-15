@@ -5,7 +5,6 @@ description: This post revises the recursion and describes the correct way for m
 url: http://typeocaml.com/2014/12/04/recursion-reloaded/
 date: 2014-12-04T15:44:18-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

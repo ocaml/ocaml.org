@@ -5,7 +5,6 @@ description: We are excited to announce the launch of the Jane Street Graduate R
 url: https://blog.janestreet.com/graduate-research-fellowship/
 date: 2022-08-30T00:00:00-00:00
 preview_image: https://blog.janestreet.com/graduate-research-fellowship/GRF.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

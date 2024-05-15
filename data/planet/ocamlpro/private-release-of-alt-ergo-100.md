@@ -9,7 +9,6 @@ description: 'altergo logo After the public release of Alt-Ergo 0.99.1 last Dece
 url: https://ocamlpro.com/blog/2015_01_29_private_release_of_alt_ergo_1_00
 date: 2015-01-29T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:

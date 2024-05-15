@@ -5,7 +5,6 @@ description: 'Here is a fun (and slightly useless) hack: #cd "." (* echo "Hello 
 url: https://till-varoquaux.blogspot.com/2007/11/bilingual-hello-world.html
 date: 2007-11-28T04:53:00-00:00
 preview_image:
-featured:
 authors:
 - Till
 source:

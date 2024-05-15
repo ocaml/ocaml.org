@@ -7,7 +7,6 @@ description: From the early days of OCamlPro, people have been curious about our
 url: https://ocamlpro.com/blog/2013_02_18_overview_of_current_activities
 date: 2013-02-18T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

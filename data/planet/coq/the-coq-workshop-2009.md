@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/the-coq-workshop-2009.html
 date: 2009-03-25T12:37:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

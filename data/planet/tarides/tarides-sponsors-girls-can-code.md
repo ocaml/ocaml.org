@@ -5,7 +5,6 @@ description: "The tech industry has long struggled with a lack of diversity. Thi
 url: https://tarides.com/blog/2022-09-06-tarides-sponsors-girls-can-code
 date: 2022-09-06T00:00:00-00:00
 preview_image: https://tarides.com/static/9fda6a7e55dc6fb0f7f28b7f1bc315a2/0132d/girls-code.jpg
-featured:
 authors:
 - Tarides
 source:

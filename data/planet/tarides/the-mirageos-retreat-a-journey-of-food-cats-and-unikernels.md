@@ -5,7 +5,6 @@ description: "MirageOS is an OCaml ecosystem to construct unikernels, i.e., mini
 url: https://tarides.com/blog/2022-10-28-the-mirageos-retreat-a-journey-of-food-cats-and-unikernels
 date: 2022-10-28T00:00:00-00:00
 preview_image: https://tarides.com/static/75aa6a08abad8cf90f73165784e4a324/2070e/mirageos.jpg
-featured:
 authors:
 - Tarides
 source:

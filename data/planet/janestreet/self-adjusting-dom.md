@@ -5,7 +5,6 @@ description: "I\u2019ve been thinking recently about how tostructure dynamic web
 url: https://blog.janestreet.com/self-adjusting-dom/
 date: 2016-02-06T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

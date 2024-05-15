@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/2014-in-review
 date: 2014-12-31T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

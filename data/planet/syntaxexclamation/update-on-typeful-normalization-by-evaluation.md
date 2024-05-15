@@ -6,7 +6,6 @@ description: "In October, I publicized here\_a new draft on normalization by eva
 url: https://syntaxexclamation.wordpress.com/2014/02/14/update-on-typeful-normalization-by-evaluation/
 date: 2014-02-14T19:11:50-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Matthias Puech
 source:

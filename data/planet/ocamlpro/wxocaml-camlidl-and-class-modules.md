@@ -7,7 +7,6 @@ description: "A few months ago, a memory leak in the Scanf.fscanf function of OC
 url: https://ocamlpro.com/blog/2015_04_13_yes_ocp_memprof_scanf
 date: 2015-04-13T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

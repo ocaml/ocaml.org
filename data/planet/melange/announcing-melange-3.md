@@ -4,7 +4,6 @@ description:
 url: https://melange.re/blog/posts/announcing-melange-3
 date: 2024-02-13T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Melange Blog
 source:

@@ -7,7 +7,6 @@ description: "Adrien Champion adrien.champion@ocamlpro.com\n This work is licens
 url: https://ocamlpro.com/blog/2021_10_14_verification_for_dummies_smt_and_induction
 date: 2021-10-14T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Adrien Champion\n  "
 source:

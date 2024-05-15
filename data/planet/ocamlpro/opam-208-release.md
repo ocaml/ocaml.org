@@ -12,7 +12,6 @@ description: 'We are pleased to announce the minor release of opam 2.0.8. This n
 url: https://ocamlpro.com/blog/2021_02_08_opam_2.0.8_release
 date: 2021-02-08T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Raja Boujbel\n  "
 source:

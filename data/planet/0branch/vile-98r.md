@@ -4,7 +4,6 @@ description:
 url: http://blog.0branch.com/posts/2016-07-28-vile-9.8r.html
 date: 2016-07-28T08:10:00-00:00
 preview_image:
-featured:
 authors:
 - Marc Simpson
 source:

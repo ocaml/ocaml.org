@@ -5,7 +5,6 @@ description: A journey toward a state-machine without mutable state, but enough 
 url: https://cranialburnout.blogspot.com/2014/03/gui-event-handling-with-functional.html
 date: 2014-03-04T21:01:00-00:00
 preview_image: //2.bp.blogspot.com/-fQqHiEE-jtk/UxY6XetmVlI/AAAAAAAAAEE/kaRH8asimSk/w1200-h630-p-k-no-nu/ttip.png
-featured:
 authors:
 - Tony Tavener
 source:

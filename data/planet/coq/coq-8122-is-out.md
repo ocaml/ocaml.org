@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-8-12-2-is-out.html
 date: 2020-12-11T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

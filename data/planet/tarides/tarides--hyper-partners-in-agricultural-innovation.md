@@ -5,7 +5,6 @@ description: "We are thrilled to announce a partnership between Tarides and Hype
 url: https://tarides.com/blog/2021-11-18-tarides-hyper-partners-in-agricultural-innovation
 date: 2021-11-18T00:00:00-00:00
 preview_image: https://tarides.com/static/6e815455d642f44ecdd6d2b080c8d64f/0132d/hyper.jpg
-featured:
 authors:
 - Tarides
 source:

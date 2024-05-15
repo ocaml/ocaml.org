@@ -6,7 +6,6 @@ description: "We\u2019re busy preparing for our software engineering fall hiring
 url: https://blog.janestreet.com/jane-street-interview-process-2020/
 date: 2020-07-24T00:00:00-00:00
 preview_image: https://blog.janestreet.com/jane-street-interview-process-2020/ocaml_code.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

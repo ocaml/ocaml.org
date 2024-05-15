@@ -291,7 +291,6 @@ module Planet : sig
       authors : string list;
       date : string;
       preview_image : string option;
-      featured : bool;
       body_html : string;
     }
 
@@ -306,7 +305,6 @@ module Planet : sig
   end
 
   val local_posts : Post.t list
-  val featured_posts : Post.t list
 end
 
 module Opam_user : sig

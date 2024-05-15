@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/decks-n-drums
 date: 2014-01-03T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Richard Mortier
 ---

@@ -5,7 +5,6 @@ description: Interested in learning OCaml? In the NYC area? Then this mightbe fo
 url: https://blog.janestreet.com/learn-ocaml-nyc/
 date: 2018-02-16T00:00:00-00:00
 preview_image: https://blog.janestreet.com/learn-ocaml-nyc/ocaml_workshop.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

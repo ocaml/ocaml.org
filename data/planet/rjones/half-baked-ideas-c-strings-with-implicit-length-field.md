@@ -6,7 +6,6 @@ description: "For more half-baked ideas, see the ideas tag. If you prefer just t
 url: https://rwmj.wordpress.com/2016/01/08/half-baked-ideas-c-strings-with-implicit-length-field/
 date: 2016-01-08T17:12:06-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

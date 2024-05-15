@@ -4,7 +4,6 @@ description:
 url: http://blog.0branch.com/posts/2020-05-18-vile-9.8u.html
 date: 2020-05-18T15:32:00-00:00
 preview_image:
-featured:
 authors:
 - Marc Simpson
 source:

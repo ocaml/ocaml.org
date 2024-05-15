@@ -4,7 +4,6 @@ description:
 url: https://hannes.robur.coop/Posts/Deploy
 date: 2021-06-30T13:13:37-00:00
 preview_image:
-featured:
 authors:
 - hannes
 source:

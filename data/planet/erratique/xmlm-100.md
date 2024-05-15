@@ -4,7 +4,6 @@ description:
 url: https://erratique.ch/software/xmlm
 date: 2008-03-17T21:59:00-00:00
 preview_image:
-featured:
 authors:
 - "Daniel B\xFCnzli"
 source:

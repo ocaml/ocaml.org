@@ -5,7 +5,6 @@ description: "These last few months, I spent some time writing new OCaml PPX rew
 url: https://tarides.com/blog/2019-05-09-an-introduction-to-ocaml-ppx-ecosystem
 date: 2019-05-09T00:00:00-00:00
 preview_image: https://tarides.com/static/0e8e776eb4ab9f596324bfe7e318b854/96c5f/circuit_boards.jpg
-featured:
 authors:
 - Tarides
 source:

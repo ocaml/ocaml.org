@@ -5,7 +5,6 @@ description: Towers of Hanoi          The "towers of Hanoi" problem is stated li
 url: http://blog.shaynefletcher.org/2017/11/towers-of-hanoi.html
 date: 2017-11-11T14:32:00-00:00
 preview_image: https://4.bp.blogspot.com/-uIdWt5l_kzY/WgcJ2KR3ScI/AAAAAAAABxw/ZOp900ZzLNQd2Zs5wxAZQHStnjWVK1hQgCLcBGAs/w1200-h630-p-k-no-nu/tower_of_hanoi_fig1_600.jpg
-featured:
 authors:
 - Shayne Fletcher
 source:

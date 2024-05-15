@@ -5,7 +5,6 @@ description: "OCaml 4.03 is branched and a first release candidate is imminent, 
 url: https://blog.janestreet.com/flambda/
 date: 2016-02-24T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

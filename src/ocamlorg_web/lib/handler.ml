@@ -305,19 +305,15 @@ let workshop req =
 
 let blog req =
   let page, number_of_pages, current_items =
-    paginate ~req ~n:10
-      (List.filter
-         (fun (x : Data.Planet.Post.t) -> not x.featured)
-         Data.Planet.Post.all)
+    paginate ~req ~n:10 Data.Planet.Post.all
   in
-  let featured = Data.Planet.featured_posts |> List.take 3 in
   let number_of_news =
-    List.length featured + List.length current_items
+    List.length current_items
     |> float_of_int |> ( *. ) 1.3 |> int_of_float
   in
   let news = Data.News.all |> List.take number_of_news in
   Dream.html
-    (Ocamlorg_frontend.blog ~featured ~planet:current_items ~planet_page:page
+    (Ocamlorg_frontend.blog ~planet:current_items ~planet_page:page
        ~planet_pages_number:number_of_pages ~news)
 
 let local_blog req =

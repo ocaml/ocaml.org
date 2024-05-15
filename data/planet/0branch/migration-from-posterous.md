@@ -4,7 +4,6 @@ description:
 url: http://blog.0branch.com/posts/2013-02-17-posterous-migration.html
 date: 2013-02-17T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Marc Simpson
 source:

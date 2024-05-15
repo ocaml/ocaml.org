@@ -4,7 +4,6 @@ description:
 url: https://erratique.ch/software/tsdl
 date: 2014-05-18T23:57:31-00:00
 preview_image:
-featured:
 authors:
 - "Daniel B\xFCnzli"
 source:

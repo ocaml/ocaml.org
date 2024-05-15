@@ -5,7 +5,6 @@ description: "In February 2022, we released Dune 3.0. This updated version is th
 url: https://tarides.com/blog/2022-07-12-faster-incremental-builds-with-dune-3
 date: 2022-07-12T00:00:00-00:00
 preview_image: https://tarides.com/static/2bb629edfbfd9e573f4010d717bd4714/46798/speed_watch.jpg
-featured:
 authors:
 - Tarides
 source:

@@ -4,7 +4,6 @@ description:
 url: http://reynard.io/2017/01/18/MirageIRCFeedback.html
 date: 2017-01-18T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gemma Gordon (OCaml Labs)
 source:

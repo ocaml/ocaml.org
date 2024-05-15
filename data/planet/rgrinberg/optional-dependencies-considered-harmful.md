@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/optional-dependencies-considered-harmful/
 date: 2017-04-22T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

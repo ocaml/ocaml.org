@@ -4,7 +4,6 @@ description:
 url: http://lpw25.net/2013/01/23/camlp4-alternative-part-1
 date: 2013-01-23T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - lpw25
 ---

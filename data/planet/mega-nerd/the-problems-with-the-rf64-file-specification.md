@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/libsndfile/rf64_specs.html
 date: 2010-10-07T10:36:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/deriving-slowly/
 date: 2019-08-20T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

@@ -4,7 +4,6 @@ description:
 url: https://www.baturin.org/blog/duck-typing
 date: 2018-02-21T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Daniil Baturin
 source:

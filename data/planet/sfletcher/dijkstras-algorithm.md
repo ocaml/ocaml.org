@@ -5,7 +5,6 @@ description: Shortest Path            This article assumes familiarity with Dijk
 url: http://blog.shaynefletcher.org/2018/05/dijkstras-algorithm.html
 date: 2018-05-20T18:26:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

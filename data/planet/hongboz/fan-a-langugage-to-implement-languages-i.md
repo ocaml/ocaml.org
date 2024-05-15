@@ -6,7 +6,6 @@ description: "This will be a series of blogs introducing a new programming langu
 url: https://hongboz.wordpress.com/2012/11/13/fan-a-langugage-to-implement-languages-i/
 date: 2012-11-13T05:00:00-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Hong bo Zhang
 source:

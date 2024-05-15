@@ -6,7 +6,6 @@ description: Visualising the randomness is a simple fun way to test randomness a
 url: http://typeocaml.com/2015/11/22/visualise_random/
 date: 2015-11-22T13:14:20-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

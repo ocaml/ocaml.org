@@ -5,7 +5,6 @@ description: This post uses Jane St's Core suite.  Specifically the Result  modu
 url: http://functional-orbitz.blogspot.com/2013/01/introduction-to-resultt-vs-exceptions.html
 date: 2013-01-03T22:55:00-00:00
 preview_image:
-featured:
 authors:
 - Orbitz
 source:

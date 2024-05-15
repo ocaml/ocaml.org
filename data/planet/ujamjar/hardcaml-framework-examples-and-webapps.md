@@ -4,7 +4,6 @@ description:
 url: http://www.ujamjar.com/ocaml/hardcaml/2016/01/15/hardcaml-examples-in-javascript.html
 date: 2016-01-15T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andy Ray
 source:

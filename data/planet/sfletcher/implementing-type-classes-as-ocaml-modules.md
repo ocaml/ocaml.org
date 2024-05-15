@@ -5,7 +5,6 @@ description: Implementing type-classes as OCaml modules            Modular type 
 url: http://blog.shaynefletcher.org/2016/10/implementing-type-classes-as-ocaml.html
 date: 2016-10-29T16:35:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

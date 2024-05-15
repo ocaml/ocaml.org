@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/announcing-mirage10
 date: 2013-12-09T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

@@ -5,7 +5,6 @@ description: Hey, long time no see!   It is high time to get back to Camlp4, so 
 url: http://ambassadortothecomputers.blogspot.com/2010/03/reading-camlp4-part-5-filters.html
 date: 2010-03-03T02:09:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

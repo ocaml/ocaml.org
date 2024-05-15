@@ -6,7 +6,6 @@ description: "I love Emacs. I\u2019ve been using it ever since I took my first p
 url: https://mcclurmc.wordpress.com/2010/01/19/emacs/
 date: 2010-01-19T06:43:00-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Mike McClurg
 source:

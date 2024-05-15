@@ -5,7 +5,6 @@ description: A little bit about everything, but mostly about fixing annoying tec
 url: http://yansnotes.blogspot.com/2015/01/ocaml-for-macos-noobie.html
 date: 2015-01-23T20:04:00-00:00
 preview_image:
-featured:
 authors:
 - Unknown
 source:

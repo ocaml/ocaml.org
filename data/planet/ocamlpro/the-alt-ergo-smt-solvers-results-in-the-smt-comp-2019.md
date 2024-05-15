@@ -7,7 +7,6 @@ description: The results of the SMT-COMP 2019 were released a few days ago at th
 url: https://ocamlpro.com/blog/2019_07_09_alt_ergo_participation_to_the_smt_comp_2019
 date: 2019-07-09T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Albin Coquereau\n  "
 source:

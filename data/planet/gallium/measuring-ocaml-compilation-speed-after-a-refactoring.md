@@ -4,7 +4,6 @@ description:
 url: http://gallium.inria.fr/blog/measuring-compilation-time/
 date: 2021-09-17T08:00:00-00:00
 preview_image:
-featured:
 authors:
 - gallium
 ---

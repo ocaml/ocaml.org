@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-83-is-out.html
 date: 2010-10-14T16:45:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

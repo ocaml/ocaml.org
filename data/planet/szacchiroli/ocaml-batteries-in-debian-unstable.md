@@ -4,7 +4,6 @@ description:
 url: http://upsilon.cc/~zack/blog/posts/2009/04/ocaml_batteries_in_Debian_unstable/
 date: 2009-04-03T10:35:02-00:00
 preview_image:
-featured:
 authors:
 - Stefano Zacchiroli
 source:

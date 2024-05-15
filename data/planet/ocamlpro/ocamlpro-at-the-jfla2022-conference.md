@@ -7,7 +7,6 @@ description: "In today's article, we share our contributions to the 2022 JFLAs, 
 url: https://ocamlpro.com/blog/2022_07_12_ocamlpro_at_the_jfla2022
 date: 2022-07-12T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    OCamlPro\n  "
 source:

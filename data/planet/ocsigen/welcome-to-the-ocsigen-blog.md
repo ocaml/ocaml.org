@@ -4,7 +4,6 @@ description:
 url: https://ocsigen.github.io/blog/2015/07/29/welcome/
 date: 2015-07-29T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The Ocsigen Team
 source:

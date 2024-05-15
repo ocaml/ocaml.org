@@ -7,7 +7,6 @@ description: As announced some time ago, I am working on a new intermediate lang
 url: https://ocamlpro.com/blog/2013_07_11_better_inlining_progress_report
 date: 2013-07-11T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Chambart\n  "
 source:

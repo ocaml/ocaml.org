@@ -4,7 +4,6 @@ description:
 url: http://blog.camlcity.org/blog/godi_shutdown.html
 date: 2013-07-22T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gerd Stolpmann
 source:

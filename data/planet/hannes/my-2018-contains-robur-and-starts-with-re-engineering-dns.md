@@ -4,7 +4,6 @@ description:
 url: https://hannes.robur.coop/Posts/DNS
 date: 2018-01-11T14:02:01-00:00
 preview_image:
-featured:
 ---
 
 <h2>2018</h2>

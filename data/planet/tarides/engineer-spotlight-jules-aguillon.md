@@ -5,7 +5,6 @@ description: "In celebration of the OCaml 5 release, we decided to interview a f
 url: https://tarides.com/blog/2022-12-29-engineer-spotlight-jules-aguillon
 date: 2022-12-29T00:00:00-00:00
 preview_image: https://tarides.com/static/a61d6759d838bc618680795eecdc2a88/c030c/image4Jules.jpg
-featured:
 authors:
 - Tarides
 source:

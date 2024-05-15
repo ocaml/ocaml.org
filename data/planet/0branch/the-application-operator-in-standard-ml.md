@@ -4,7 +4,6 @@ description:
 url: http://blog.0branch.com/posts/2012-04-22-application-operator.html
 date: 2012-04-22T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Marc Simpson
 source:

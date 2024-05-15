@@ -4,7 +4,6 @@ description:
 url: https://kcsrk.info/ocaml/multicore/2015/05/20/effects-multicore/
 date: 2015-05-20T14:04:00-00:00
 preview_image:
-featured:
 authors:
 - KC Sivaramakrishnan
 source:

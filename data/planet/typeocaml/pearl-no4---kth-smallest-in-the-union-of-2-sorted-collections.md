@@ -6,7 +6,6 @@ description: 'Here is the Pearl No.4:   Let A and B be two disjoint ordered coll
 url: http://typeocaml.com/2017/10/19/pearl-no-4-double-binary-search/
 date: 2017-10-19T13:37:30-00:00
 preview_image: http://typeocaml.com/content/images/2017/10/cube-2.jpg
-featured:
 authors:
 - Xinuo Chen
 source:

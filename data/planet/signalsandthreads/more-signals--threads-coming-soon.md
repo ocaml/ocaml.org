@@ -4,7 +4,6 @@ description:
 url: https://signals-threads.simplecast.com/episodes/more-signals-and-threads-coming-soon-bZXFSWKN
 date: 2021-08-24T13:36:17-00:00
 preview_image:
-featured:
 authors:
 - Signals and Threads
 source:

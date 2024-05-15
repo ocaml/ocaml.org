@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/announcing-mirage-310-release
 date: 2020-12-08T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

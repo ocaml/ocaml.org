@@ -6,7 +6,6 @@ description: "Having come back to actively working on OCI*ML recently, it\u2019s
 url: https://gaius.tech/2012/06/15/quick-histograms/
 date: 2012-06-15T20:35:48-00:00
 preview_image: https://gaiustech.files.wordpress.com/2012/06/qh.png
-featured:
 authors:
 - Gaius Hammond
 source:

@@ -4,7 +4,6 @@ description:
 url: https://roscidus.com/blog/blog/2023/04/26/lambda-capabilities/
 date: 2023-04-26T10:00:00-00:00
 preview_image:
-featured:
 authors:
 - Thomas Leonard
 source:

@@ -4,7 +4,6 @@ description:
 url: http://upsilon.cc/~zack/blog/posts/2009/11/Enforcing_type-safe_linking_using_package_dependencies/
 date: 2009-11-28T13:00:16-00:00
 preview_image:
-featured:
 authors:
 - Stefano Zacchiroli
 source:

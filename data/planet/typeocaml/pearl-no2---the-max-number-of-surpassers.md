@@ -4,7 +4,6 @@ description: This is the 2nd pearl (a surpassing problem) in the book
 url: http://typeocaml.com/2015/02/20/pearl-no-2-the-max-number-of-surpassers/
 date: 2015-02-21T01:24:38-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

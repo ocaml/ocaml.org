@@ -7,7 +7,6 @@ description: 'OCaml 4.01 with its new feature to disambiguate constructors allow
 url: https://ocamlpro.com/blog/2014_04_01_the_generic_syntax_extension
 date: 2014-04-01T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

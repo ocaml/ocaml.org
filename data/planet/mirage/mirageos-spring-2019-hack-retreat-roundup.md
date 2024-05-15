@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/2019-spring-retreat-roundup
 date: 2019-04-03T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

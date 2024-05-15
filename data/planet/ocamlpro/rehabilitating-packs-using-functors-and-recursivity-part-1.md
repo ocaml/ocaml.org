@@ -7,7 +7,6 @@ description: OCamlPro has a long history of dedicated efforts to support the dev
 url: https://ocamlpro.com/blog/2020_09_24_rehabilitating_packs_using_functors_and_recursivity_part_1
 date: 2020-09-24T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Pierrick Couderc\n  "
 source:

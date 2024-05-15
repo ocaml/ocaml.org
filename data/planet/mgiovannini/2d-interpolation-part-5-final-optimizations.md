@@ -5,7 +5,6 @@ description: The code has now the proper shape  to carry out optimizations to th
 url: https://alaska-kamtchatka.blogspot.com/2012/06/2d-interpolation-part-5-final.html
 date: 2012-06-29T15:00:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

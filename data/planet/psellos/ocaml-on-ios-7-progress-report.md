@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2014/05/2014.05.arm-as-to-ios-5.html
 date: 2014-05-31T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

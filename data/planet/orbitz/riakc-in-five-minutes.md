@@ -5,7 +5,6 @@ description: This is a simple example using Riakc to PUT a key into a Riak datab
 url: http://functional-orbitz.blogspot.com/2013/07/riakc-in-five-minutes.html
 date: 2013-07-04T17:01:00-00:00
 preview_image:
-featured:
 authors:
 - Orbitz
 source:

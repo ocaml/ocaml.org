@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/extensions-points-update-1/
 date: 2018-08-05T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - ""
 source:

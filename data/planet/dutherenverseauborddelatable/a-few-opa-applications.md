@@ -6,7 +6,6 @@ description: "A few open-source Opa applications, written by beta testers or Opa
 url: https://dutherenverseauborddelatable.wordpress.com/2011/05/24/a-few-opa-applications/
 date: 2011-05-24T17:50:41-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - David Teller
 source:

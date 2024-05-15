@@ -5,7 +5,6 @@ description: "As we have seen, Camlp4 contains an alternative syntax for OCaml, 
 url: http://ambassadortothecomputers.blogspot.com/2010/07/reading-camlp4-part-7-revised-syntax.html
 date: 2010-07-27T18:01:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

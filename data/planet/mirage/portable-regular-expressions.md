@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/ocaml-regexp
 date: 2011-08-12T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Raphael Proust
 ---

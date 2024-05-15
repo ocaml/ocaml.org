@@ -4,7 +4,6 @@ description:
 url: https://melange.re/blog/posts/whats-2024-brought-to-melange-so-far
 date: 2024-04-09T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Melange Blog
 source:

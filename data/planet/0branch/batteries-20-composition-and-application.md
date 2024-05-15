@@ -4,7 +4,6 @@ description:
 url: http://blog.0branch.com/posts/2013-02-24-batteries-v2-composition.html
 date: 2013-02-24T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Marc Simpson
 source:

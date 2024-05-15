@@ -5,7 +5,6 @@ description: The problem with Brainfuck  is that its semantics are given by its 
 url: https://alaska-kamtchatka.blogspot.com/2011/11/modular-semantics-for-brainfuck.html
 date: 2011-11-11T14:05:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

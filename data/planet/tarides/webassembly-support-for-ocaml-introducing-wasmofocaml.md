@@ -5,7 +5,6 @@ description: "OCaml is constantly evolving. Developers collaborate to bring supp
 url: https://tarides.com/blog/2023-11-01-webassembly-support-for-ocaml-introducing-wasm-of-ocaml
 date: 2023-11-01T00:00:00-00:00
 preview_image: https://tarides.com/static/e237be0dac96cc75a61584cee7c7d1f5/b2176/prisms.jpg
-featured:
 authors:
 - Tarides
 source:

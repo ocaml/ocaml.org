@@ -5,7 +5,6 @@ description: 'I feel like taking a break from Camlp4, so in this post I''ll take
 url: http://ambassadortothecomputers.blogspot.com/2009/02/equeue-compared-to-lwt.html
 date: 2009-02-10T07:43:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

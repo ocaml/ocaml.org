@@ -5,7 +5,6 @@ description: "People love to receive mail, especially from loved ones. It\u2019s
 url: https://tarides.com/blog/2022-03-08-secure-virtual-messages-in-a-bottle-with-scop
 date: 2022-03-08T00:00:00-00:00
 preview_image: https://tarides.com/static/610748ca5fff5dcffb66e090e6406e2a/88e9c/message_bottle.jpg
-featured:
 authors:
 - Tarides
 source:

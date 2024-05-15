@@ -4,7 +4,6 @@ description:
 url: https://www.donadeo.net/post/2012/first-release-of-ocaml-lua
 date: 2012-09-01T14:06:00-00:00
 preview_image:
-featured:
 authors:
 - Paolo Donadeo
 source:

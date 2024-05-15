@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/middleware-intro/
 date: 2014-04-11T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

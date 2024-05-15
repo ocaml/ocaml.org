@@ -5,7 +5,6 @@ description: "In the past few months I've had the pleasure of working on the\nKc
 url: https://tarides.com/blog/2023-08-07-kcas-building-a-lock-free-stm-for-ocaml-1-2
 date: 2023-08-07T00:00:00-00:00
 preview_image: https://tarides.com/static/09d856002f1fda79e188e6d85b5c79ea/0132d/robynne-hu-HOrhCnQsxnQ-unsplash.jpg
-featured:
 authors:
 - Tarides
 source:

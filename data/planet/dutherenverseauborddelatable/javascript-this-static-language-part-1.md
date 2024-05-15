@@ -6,7 +6,6 @@ description: "tl;dr JavaScript is a dynamic language. However, by borrowing a fe
 url: https://dutherenverseauborddelatable.wordpress.com/2011/10/20/javascript-this-static-language-part-1/
 date: 2011-10-20T13:31:36-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - David Teller
 source:

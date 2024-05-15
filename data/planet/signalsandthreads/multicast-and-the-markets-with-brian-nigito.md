@@ -4,7 +4,6 @@ description:
 url: https://signalsandthreads.com/multicast-and-the-markets/
 date: 2020-09-23T16:00:09-00:00
 preview_image: https://signalsandthreads.com/static/images/twitter/multicast_markets.png
-featured:
 authors:
 - Signals and Threads
 source:

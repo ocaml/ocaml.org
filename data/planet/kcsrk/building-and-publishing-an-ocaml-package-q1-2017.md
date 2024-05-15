@@ -4,7 +4,6 @@ description:
 url: https://kcsrk.info/ocaml/opam/topkg/carcass/2017/03/05/building-and-publishing-an-OCaml-package/
 date: 2017-03-05T13:56:00-00:00
 preview_image:
-featured:
 authors:
 - KC Sivaramakrishnan
 source:

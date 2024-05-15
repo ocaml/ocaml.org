@@ -5,7 +5,6 @@ description: Our first Jane Street Tech Talk went really well!Thanks to everyone
 url: https://blog.janestreet.com/jane-street-tech-talks-verifying-puppet-configs/
 date: 2017-02-16T00:00:00-00:00
 preview_image: https://blog.janestreet.com/jane-street-tech-talks-verifying-puppet-configs/untangling_puppet.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

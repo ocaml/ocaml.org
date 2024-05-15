@@ -6,7 +6,6 @@ description: At Jane Street, for the last several years, we have been increasing
 url: https://blog.janestreet.com/thoughts-from-aaai-19/
 date: 2019-05-13T00:00:00-00:00
 preview_image: https://blog.janestreet.com/thoughts-from-aaai-19/AAAI.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

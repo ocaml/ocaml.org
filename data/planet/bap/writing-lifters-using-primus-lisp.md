@@ -4,7 +4,6 @@ description: The Binary Analysis Platform Blog
 url: http://binaryanalysisplatform.github.io/2021/09/15/writing-lifters-using-primus-lisp/
 date: 2021-09-15T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The BAP Blog
 source:

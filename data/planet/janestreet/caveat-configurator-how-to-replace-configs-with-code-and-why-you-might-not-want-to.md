@@ -7,7 +7,6 @@ description: We have a new tech talk coming up onMay 17th, from our very own Dom
 url: https://blog.janestreet.com/caveat-configurator-how-to-replace-configs-with-code-and-why-you-might-not-want-to/
 date: 2017-04-25T00:00:00-00:00
 preview_image: https://blog.janestreet.com/caveat-configurator-how-to-replace-configs-with-code-and-why-you-might-not-want-to/dominick-talk.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

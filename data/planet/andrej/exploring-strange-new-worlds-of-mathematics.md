@@ -4,7 +4,6 @@ description:
 url: http://math.andrej.com/2023/02/10/exploring-strange-new-worlds/
 date: 2023-02-10T08:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andrej Bauer
 source:

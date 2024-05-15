@@ -6,7 +6,6 @@ description: "There is a new draft on my web page, that should be of interest to
 url: https://syntaxexclamation.wordpress.com/2013/06/17/new-draft-proofs-upside-down/
 date: 2013-06-17T13:17:44-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Matthias Puech
 source:

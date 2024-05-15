@@ -6,7 +6,6 @@ description: "While proving that every monad is an applicative functor, I extrac
 url: https://alaska-kamtchatka.blogspot.com/2012/07/odd-lemma.html
 date: 2012-07-17T17:36:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

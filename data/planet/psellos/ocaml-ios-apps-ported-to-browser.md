@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2020/02/2020.02.kid-charlemagne.html
 date: 2020-02-24T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

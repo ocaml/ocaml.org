@@ -5,7 +5,6 @@ description: "This is the follow-up post continuing the discussion of the develo
 url: https://tarides.com/blog/2023-08-10-kcas-building-a-lock-free-stm-for-ocaml-2-2
 date: 2023-08-10T00:00:00-00:00
 preview_image: https://tarides.com/static/96f411a726847c30f58ab7482c07ed4a/eee8e/Goldenbrain.jpg
-featured:
 authors:
 - Tarides
 source:

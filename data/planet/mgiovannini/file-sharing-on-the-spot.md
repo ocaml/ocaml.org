@@ -5,7 +5,6 @@ description: (now with highlighting!)  Last time I complained  that I couldn't f
 url: https://alaska-kamtchatka.blogspot.com/2012/01/file-sharing-on-spot.html
 date: 2012-01-12T17:37:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

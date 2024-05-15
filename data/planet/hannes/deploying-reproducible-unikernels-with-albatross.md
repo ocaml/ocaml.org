@@ -4,7 +4,6 @@ description:
 url: https://hannes.robur.coop/Posts/Albatross
 date: 2022-11-17T12:41:11-00:00
 preview_image:
-featured:
 authors:
 - hannes
 source:

@@ -6,7 +6,6 @@ description: "MLstate est une jeune entreprise innovante en campagne depuis 2008
 url: https://dutherenverseauborddelatable.wordpress.com/2010/05/31/offres-demploi-pour-informaticiens-de-haut-niveau/
 date: 2010-05-31T12:22:31-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - David Teller
 source:

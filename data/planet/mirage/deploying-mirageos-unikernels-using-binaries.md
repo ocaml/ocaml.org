@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/deploying-mirageos-robur
 date: 2022-03-08T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rand
 ---

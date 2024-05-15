@@ -4,7 +4,6 @@ description:
 url: https://signals-threads.simplecast.com/episodes/swapping-the-engine-out-of-a-moving-race-car-with-ella-ehrlich-WWjYmqQI
 date: 2022-09-12T20:46:54-00:00
 preview_image:
-featured:
 authors:
 - Signals and Threads
 source:

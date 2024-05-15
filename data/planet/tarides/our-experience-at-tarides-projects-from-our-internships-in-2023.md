@@ -5,7 +5,6 @@ description: "Internships at Tarides We regularly have the pleasure of hosting i
 url: https://tarides.com/blog/2023-09-15-our-experience-at-tarides-projects-from-our-internships-in-2023
 date: 2023-09-15T00:00:00-00:00
 preview_image: https://tarides.com/static/f60199a1f610bde6b29340f7c067a780/0132d/teamboat.jpg
-featured:
 authors:
 - Tarides
 source:

@@ -7,7 +7,6 @@ description: "La troisi\xE8me r\xE9union annuelle du Club des utilisateurs d\u20
 url: https://ocamlpro.com/blog/2021_04_29_reunion_annuelle_du_club_des_utilisateurs_dalt_ergo_2021
 date: 2021-04-29T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    OCamlPro\n  "
 source:

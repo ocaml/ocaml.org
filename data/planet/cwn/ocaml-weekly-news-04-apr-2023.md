@@ -4,7 +4,6 @@ description:
 url: https://alan.petitepomme.net/cwn/2023.04.04.html
 date: 2023-04-04T12:00:00-00:00
 preview_image:
-featured:
 authors:
 - cwn
 ---

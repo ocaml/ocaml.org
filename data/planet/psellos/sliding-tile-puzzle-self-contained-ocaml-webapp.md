@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2020/03/2020.03.how-i-wrote-elastic-man.html
 date: 2020-03-21T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

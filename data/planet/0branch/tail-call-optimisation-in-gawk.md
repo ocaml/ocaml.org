@@ -4,7 +4,6 @@ description:
 url: http://blog.0branch.com/posts/2016-05-13-awk-tco.html
 date: 2016-05-13T11:20:00-00:00
 preview_image:
-featured:
 authors:
 - Marc Simpson
 source:

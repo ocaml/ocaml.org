@@ -6,7 +6,6 @@ description: "There is a nice discussion on Opa on Lambda the Ultimate forums. I
 url: https://dutherenverseauborddelatable.wordpress.com/2011/08/28/opa-on-lambda-the-ultimate/
 date: 2011-08-28T04:31:52-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - David Teller
 source:

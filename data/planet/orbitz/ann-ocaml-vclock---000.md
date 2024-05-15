@@ -5,7 +5,6 @@ description: I ported some Erlang vector clock code to Ocaml for fun and learnin
 url: http://functional-orbitz.blogspot.com/2013/02/ann-ocaml-vclock-000.html
 date: 2013-02-07T21:52:00-00:00
 preview_image:
-featured:
 authors:
 - Orbitz
 source:

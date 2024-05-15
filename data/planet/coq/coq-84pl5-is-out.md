@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-84pl5-is-out.html
 date: 2014-10-31T06:11:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

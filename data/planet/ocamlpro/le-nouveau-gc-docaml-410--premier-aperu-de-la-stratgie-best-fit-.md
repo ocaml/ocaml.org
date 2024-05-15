@@ -8,7 +8,6 @@ description: "An in-depth Look at OCaml\u2019s new \"Best-fit\" Garbage Collecto
 url: https://ocamlpro.com/blog/2020_03_24_fr_le_nouveau_gc_docaml_4.10_premier_apercu_de_la_strategie_best_fit
 date: 2020-03-24T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Thomas Blanc\n  "
 source:

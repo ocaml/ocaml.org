@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/omegle-flask-websocket-gevent/
 date: 2014-02-10T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

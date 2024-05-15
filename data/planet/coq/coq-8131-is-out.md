@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-8-13-1-is-out.html
 date: 2021-02-22T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

@@ -5,7 +5,6 @@ description: Back to OCaml! Catching up with StackOverflow's OCaml questions , I
 url: https://alaska-kamtchatka.blogspot.com/2012/07/assessing-abstractions.html
 date: 2012-07-02T15:00:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

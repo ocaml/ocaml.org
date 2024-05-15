@@ -5,7 +5,6 @@ description: "Too many programmers only know OCaml through a functional programm
 url: https://tarides.com/blog/2022-11-24-solve-the-2022-advent-of-code-puzzles-with-ocaml
 date: 2022-11-24T00:00:00-00:00
 preview_image: https://tarides.com/static/20794c5088bfe5e21a251bf2f821190f/10057/advent_of_code.jpg
-featured:
 authors:
 - Tarides
 source:

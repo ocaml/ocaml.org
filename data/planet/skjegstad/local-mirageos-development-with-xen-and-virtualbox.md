@@ -4,7 +4,6 @@ description:
 url: http://www.skjegstad.com/blog/2015/01/19/mirageos-xen-virtualbox/
 date: 2015-01-19T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Magnus Skjegstad
 source:

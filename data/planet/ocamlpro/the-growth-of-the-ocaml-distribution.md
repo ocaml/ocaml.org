@@ -7,7 +7,6 @@ description: We recently worked on a project to build a binary installer for OCa
 url: https://ocamlpro.com/blog/2023_01_02_ocaml_distribution
 date: 2023-01-02T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

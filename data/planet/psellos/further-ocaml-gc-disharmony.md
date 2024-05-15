@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2015/01/2015.01.gc-disharmony-bis.html
 date: 2015-01-25T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

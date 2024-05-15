@@ -5,7 +5,6 @@ description: A R mode is now available for Chamo, as a separate snippet . By now
 url: https://ocameleon.blogspot.com/2008/05/r-mode-in-chamo.html
 date: 2008-05-06T14:37:00-00:00
 preview_image: //3.bp.blogspot.com/_RT8DPiBmxGY/SCBvaxuVAVI/AAAAAAAAAAo/LOXoepGGYx8/w1200-h630-p-k-no-nu/r_mode.png
-featured:
 authors:
 - Zoggy
 source:

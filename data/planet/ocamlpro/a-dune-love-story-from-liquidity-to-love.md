@@ -7,7 +7,6 @@ description: By OCamlPro & Origin Labs Writing smart contacts may often be a bur
 url: https://ocamlpro.com/blog/2020_06_09_a_dune_love_story_from_liquidity_to_love
 date: 2020-06-09T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Steven De Oliveira\n  "
 source:

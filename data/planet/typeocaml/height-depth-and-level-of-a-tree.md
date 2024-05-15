@@ -5,7 +5,6 @@ description: 'This is a post on the three important properties of trees: height,
 url: http://typeocaml.com/2014/11/26/height-depth-and-level-of-a-tree/
 date: 2014-11-26T22:43:46-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

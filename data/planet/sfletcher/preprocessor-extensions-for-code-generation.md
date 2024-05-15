@@ -5,7 +5,6 @@ description: PPX          Preprocessor extensions for code generation    "A Guid
 url: http://blog.shaynefletcher.org/2017/05/preprocessor-extensions-for-code.html
 date: 2017-05-04T20:27:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

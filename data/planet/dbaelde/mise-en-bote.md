@@ -4,7 +4,6 @@ description:
 url: https://misterpingouin.blogspot.com/2009/06/mise-en-boite.html
 date: 2009-06-04T11:38:00-00:00
 preview_image:
-featured:
 authors:
 - mrpingouin
 source:

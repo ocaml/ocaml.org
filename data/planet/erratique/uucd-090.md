@@ -4,7 +4,6 @@ description:
 url: https://erratique.ch/software/uucd
 date: 2012-09-07T16:47:58-00:00
 preview_image:
-featured:
 authors:
 - "Daniel B\xFCnzli"
 source:

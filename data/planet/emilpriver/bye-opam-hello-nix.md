@@ -4,7 +4,6 @@ description: Article about replacing opam with nix for a easier life
 url: https://priver.dev/blog/ocaml/bye-opam-hello-nix/
 date: 2024-05-13T16:20:18-00:00
 preview_image: https://priver.dev/images/ocaml.jpeg
-featured:
 authors:
 - "Emil Priv\xE9r"
 source:

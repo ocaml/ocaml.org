@@ -5,7 +5,6 @@ description: "Continuing our blog series on Multicore OCaml, this blog provides 
 url: https://tarides.com/blog/2023-03-02-the-journey-to-ocaml-multicore-bringing-big-ideas-to-life
 date: 2023-03-02T00:00:00-00:00
 preview_image: https://tarides.com/static/caf16b04b6417354dc02755abfc245ca/2070e/jack-anstey-zS4lUqLEiNA-unsplash.jpg
-featured:
 authors:
 - Tarides
 source:

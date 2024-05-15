@@ -6,7 +6,6 @@ description: "Yet again, intern season is coming to a close, and so it\u2019s ti
 url: https://blog.janestreet.com/what-the-interns-have-wrought-2018/
 date: 2018-08-06T00:00:00-00:00
 preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2018/smelting.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

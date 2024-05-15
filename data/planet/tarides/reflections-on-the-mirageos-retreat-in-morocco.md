@@ -5,7 +5,6 @@ description: "Introduction Since we are a hybrid remote and distributed company,
 url: https://tarides.com/blog/2023-07-27-reflections-on-the-mirageos-retreat-in-morocco
 date: 2023-07-27T00:00:00-00:00
 preview_image: https://tarides.com/static/a7b0459f133a235efeb8a9ef3dc7616f/0132d/market.jpg
-featured:
 authors:
 - Tarides
 source:

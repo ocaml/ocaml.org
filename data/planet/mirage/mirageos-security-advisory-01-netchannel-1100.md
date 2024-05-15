@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/MSA01
 date: 2019-03-21T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Mindy Preston
 ---

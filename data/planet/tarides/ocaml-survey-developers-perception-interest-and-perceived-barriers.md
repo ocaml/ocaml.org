@@ -5,7 +5,6 @@ description: "Tarides is conducting a survey targeting non-OCaml programmers to 
 url: https://tarides.com/blog/2023-12-20-ocaml-survey-developers-perception-interest-and-perceived-barriers
 date: 2023-12-20T00:00:00-00:00
 preview_image: https://tarides.com/static/6b53f85921d53473f8bbbebf0295014f/2070e/adopt_ocaml.jpg
-featured:
 authors:
 - Tarides
 source:

@@ -6,7 +6,6 @@ description: "While working on my unit tests, I came across a sporadic failure i
 url: https://gaius.tech/2013/08/17/strange-datetime-problem/
 date: 2013-08-17T19:59:55-00:00
 preview_image: https://gaiustech.files.wordpress.com/2018/07/cropped-lynx.jpg?w=180
-featured:
 authors:
 - Gaius Hammond
 source:

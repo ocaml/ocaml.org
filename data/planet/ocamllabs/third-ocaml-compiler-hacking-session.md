@@ -4,7 +4,6 @@ description:
 url: http://ocamllabs.github.com/compiler-hacking/2013/10/30/third-compiler-hacking-session
 date: 2013-10-30T11:49:04-00:00
 preview_image:
-featured:
 authors:
 - OCaml Labs compiler hacking
 source:

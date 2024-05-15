@@ -6,7 +6,6 @@ description: This blog post is about an interesting detail about machine learnin
 url: https://blog.janestreet.com/l2-regularization-and-batch-norm/
 date: 2019-01-29T00:00:00-00:00
 preview_image: https://blog.janestreet.com/l2-regularization-and-batch-norm/l2-batch-norm_19b.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

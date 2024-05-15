@@ -5,7 +5,6 @@ description: "For the past six years, I have been working with OCaml, most of th
 url: https://tech.ahrefs.com/beyond-typescript-differences-between-typed-languages-f3e14253?source=rss----303662d88bae--ocaml
 date: 2023-09-14T14:32:06-00:00
 preview_image: https://miro.medium.com/v2/resize:fit:1200/0*-TBMmfXVVLs-Kmqj.jpg
-featured:
 authors:
 - Ahrefs
 source:

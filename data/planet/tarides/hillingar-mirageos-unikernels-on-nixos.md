@@ -5,7 +5,6 @@ description: "NixOS allows reproducible deployments of systems by managing confi
 url: https://tarides.com/blog/2022-12-14-hillingar-mirageos-unikernels-on-nixos
 date: 2022-12-14T00:00:00-00:00
 preview_image: https://tarides.com/static/ba47ed1e2b7a5e9dc869229c7e9e073f/d6138/hillingar.png
-featured:
 authors:
 - Tarides
 source:

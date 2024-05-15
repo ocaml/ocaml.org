@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/Haskell/wai_3.html
 date: 2014-06-11T10:16:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

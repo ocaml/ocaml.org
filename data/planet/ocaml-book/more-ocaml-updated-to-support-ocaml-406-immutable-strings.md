@@ -7,7 +7,6 @@ description: OCaml 4.06 has, by default, immutable strings. This necessitates so
 url: http://ocaml-book.com/blog/2017/10/14/more-ocaml-updated-to-support-ocaml-406-immutable-strings
 date: 2017-10-14T16:17:10-00:00
 preview_image:
-featured:
 authors:
 - OCaml Book
 source:
