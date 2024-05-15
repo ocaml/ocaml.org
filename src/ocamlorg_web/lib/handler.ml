@@ -78,9 +78,10 @@ let community _req =
       Data.Event.all
     |> Ocamlorg.Import.List.take 6
   in
+  let resources = Data.Resource.featured in
   Dream.html
     (Ocamlorg_frontend.community ~old_workshops ~upcoming_workshops
-       ~upcoming_events)
+       ~upcoming_events ~resources)
 
 let events _req =
   let recurring_events = Data.Event.RecurringEvent.all in
@@ -432,6 +433,9 @@ let papers req =
   in
   let recommended_papers = Data.Paper.featured in
   Dream.html (Ocamlorg_frontend.papers ?search ~recommended_papers papers)
+
+let resources _req =
+  Dream.html (Ocamlorg_frontend.resources ~resources:Data.Resource.all)
 
 let tutorial commit_hash req =
   let slug = Dream.param req "id" in

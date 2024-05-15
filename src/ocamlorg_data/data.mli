@@ -522,6 +522,20 @@ module Governance : sig
   val get_by_id : string -> team option
 end
 
+module Resource : sig
+  type t = {
+    title : string;
+    description : string;
+    image : string;
+    online_url : string;
+    source_url : string option;
+    featured : bool;
+  }
+
+  val all : t list
+  val featured : t list
+end
+
 module Cookbook : sig
   type category = {
     title : string;

@@ -209,6 +209,10 @@
   (action
    (run %{bin:dream_eml} %{dep:releases.eml} --workspace %{workspace_root})))
  (rule
+  (target resources.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:resources.eml} --workspace %{workspace_root})))
+ (rule
   (target success_story.ml)
   (action
    (run

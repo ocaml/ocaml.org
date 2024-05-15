@@ -135,6 +135,18 @@
     (run %{ood_gen} success_story)))))
 
 (rule
+ (target resource.ml)
+ (deps
+  %{workspace_root}/data/resources.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+ (action
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} resource)))))
+
+(rule
  (target tool.ml)
  (deps
   %{workspace_root}/data/tools.yml
