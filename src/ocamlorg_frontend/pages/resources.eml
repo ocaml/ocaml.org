@@ -13,16 +13,23 @@ Community_layout.single_column_layout
       </h1>
     </div>
     <div class="py-6 leading-5 text-content dark:text-dark-content">
-      <p class="text-lg text-content dark:text-dark-content mt-6">A curated list of useful resources from the OCaml ecosystem.</p>
+      <p class="text-lg text-content dark:text-dark-content mt-6">A curated list of projects, learning materials, and other resources from the OCaml ecosystem.</p>
     </div>
   </div>
 </div>
 <div class="bg-background dark:bg-dark-background py-12">
   <div class="container-fluid">
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
 % resources |> List.iter (fun (resource: Data.Resource.t) -> 
-    <div>
-      <%s resource.title %>
-    </div>
+      <%s! Cards.community_resource
+        ~title:resource.title
+        ~desc:resource.description
+        ~online_url:resource.online_url
+        ~source_url:resource.source_url
+        ~img:resource.image
+        ()
+      %>
 % );
+    </div>
   </div>
 </div>

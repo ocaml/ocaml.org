@@ -527,15 +527,15 @@ end
 module Resource : sig
   type t = {
     title : string;
-    short_description : string;
-    long_description : string;
+    description : string;
     image : string;
     online_url : string;
-    source_url : string;
-    license : string;
+    source_url : string option;
+    featured : bool;
   }
 
   val all : t list
+  val featured : t list
 end
 
 module Cookbook : sig
