@@ -7,7 +7,6 @@ description: 'Since our last activity report we have released the first stable v
 url: https://ocamlpro.com/blog/2013_03_18_an_indentation_engine_for_ocaml
 date: 2013-03-18T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

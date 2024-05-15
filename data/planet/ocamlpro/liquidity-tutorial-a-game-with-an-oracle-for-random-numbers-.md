@@ -7,7 +7,6 @@ description: A Game with an oracle In this small tutorial, we will see how to wr
 url: https://ocamlpro.com/blog/2018_11_06_liquidity_tutorial_a_game_with_an_oracle_for_random_numbers
 date: 2018-11-06T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Alain Mebsout\n  "
 source:

@@ -7,7 +7,6 @@ description: A few days ago, we released opam 2.0.0~rc4, and explained that this
 url: https://ocamlpro.com/blog/2018_08_02_last_stretch_repository_upgrade_and_opam_2.0.0_roadmap
 date: 2018-08-02T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Raja Boujbel\n  "
 source:

@@ -4,7 +4,6 @@ description:
 url: http://www.ocamljava.org/news/index.html#going-alpha
 date: 2014-07-14T18:00:00-00:00
 preview_image:
-featured:
 authors:
 - Xavier Clerc
 source:

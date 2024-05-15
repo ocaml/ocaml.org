@@ -5,7 +5,6 @@ description: "We are delighted to announce that Segfault Systems, a spinout from
 url: https://tarides.com/blog/2022-03-01-segfault-systems-joins-tarides
 date: 2022-03-01T00:00:00-00:00
 preview_image: https://tarides.com/static/19d3cf7fb9f5a092cd62793230669e7a/0132d/chennai.jpg
-featured:
 authors:
 - Tarides
 source:

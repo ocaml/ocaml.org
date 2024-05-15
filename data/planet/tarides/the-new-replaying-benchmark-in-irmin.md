@@ -5,7 +5,6 @@ description: "As mentioned in our Tezos Storage / Irmin Summer 2021 Update on th
 url: https://tarides.com/blog/2021-10-04-the-new-replaying-benchmark-in-irmin
 date: 2021-10-04T00:00:00-00:00
 preview_image: https://tarides.com/static/37ab792f992f4bdb89846ecd0bda664c/2ae3d/footprints.jpg
-featured:
 authors:
 - Tarides
 source:

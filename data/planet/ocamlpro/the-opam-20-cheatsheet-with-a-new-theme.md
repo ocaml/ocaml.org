@@ -9,7 +9,6 @@ description: 'The Opam 2.0 cheatsheet, with a new theme! Earlier, we dusted-off 
 url: https://ocamlpro.com/blog/2020_01_10_opam_2.0_cheat_sheet
 date: 2020-01-10T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Thomas Blanc\n  "
 source:

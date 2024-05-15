@@ -7,7 +7,6 @@ description: This blog will cover yet another aspect of the improvements opam 2.
 url: https://ocamlpro.com/blog/2017_05_11_new_opam_features_more_expressive_dependencies
 date: 2017-05-11T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

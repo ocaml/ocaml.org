@@ -4,7 +4,6 @@ description:
 url: http://www.ocamlcore.com/wp/2008/10/ocamlcore-at-ocaml-meeting-2009/
 date: 2008-10-08T09:21:45-00:00
 preview_image:
-featured:
 authors:
 - OCamlCore.com
 source:

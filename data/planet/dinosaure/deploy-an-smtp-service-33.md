@@ -4,7 +4,6 @@ description:
 url: https://blog.osau.re/articles/smtp_3.html
 date: 2023-01-03T10:00:00-00:00
 preview_image:
-featured:
 authors:
 - Romain Calascibetta
 source:

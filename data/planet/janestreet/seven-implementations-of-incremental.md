@@ -6,7 +6,6 @@ description: We finally got a decent recording of one of my favorite talks. This
 url: https://blog.janestreet.com/seven-implementations-of-incremental/
 date: 2016-03-09T00:00:00-00:00
 preview_image: https://blog.janestreet.com/seven-implementations-of-incremental/ron-photo.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

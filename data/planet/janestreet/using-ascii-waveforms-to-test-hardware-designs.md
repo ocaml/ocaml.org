@@ -6,7 +6,6 @@ description: "At Jane Street, an \u201Cexpecttest\u201D is atest where you don\u
 url: https://blog.janestreet.com/using-ascii-waveforms-to-test-hardware-designs/
 date: 2020-06-01T00:00:00-00:00
 preview_image: https://blog.janestreet.com/using-ascii-waveforms-to-test-hardware-designs/scientist_testing.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

@@ -7,7 +7,6 @@ description: We are proud to announce that OPAM 1.1.1 has just been released. Th
 url: https://ocamlpro.com/blog/2014_01_29_opam_1.1.1_released
 date: 2014-01-29T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/introducing-ocaml-tls
 date: 2014-07-08T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

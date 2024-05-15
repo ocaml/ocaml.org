@@ -7,7 +7,6 @@ description: Since 2022, OCamlPro has been contributing to GnuCOBOL, the only fu
 url: https://ocamlpro.com/blog/2023_03_18_autofonce
 date: 2023-06-27T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

@@ -4,7 +4,6 @@ description:
 url: https://erratique.ch/software/odig
 date: 2016-09-29T20:53:49-00:00
 preview_image:
-featured:
 authors:
 - "Daniel B\xFCnzli"
 source:

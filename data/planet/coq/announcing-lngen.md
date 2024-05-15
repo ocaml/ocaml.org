@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/announcing-lngen.html
 date: 2009-03-11T20:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

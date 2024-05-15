@@ -5,7 +5,6 @@ description: "There is no room for complacency in software development! In the O
 url: https://tarides.com/blog/2024-01-24-mirageos-designing-a-more-resilient-networking-stack-with-tcp
 date: 2024-01-24T00:00:00-00:00
 preview_image: https://tarides.com/static/ab6bfb1e10da8c94b8c319acadb93d55/eee8e/lightflow.jpg
-featured:
 authors:
 - Tarides
 source:

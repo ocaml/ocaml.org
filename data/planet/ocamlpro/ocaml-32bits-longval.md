@@ -12,7 +12,6 @@ description: 'You will need OCaml 3.11.2 installed on a i686 linux computer. The
 url: https://ocamlpro.com/blog/2011_05_06_ocaml_32bits_longval
 date: 2011-05-06T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

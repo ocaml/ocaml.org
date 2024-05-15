@@ -4,7 +4,6 @@ description:
 url: http://cambium.inria.fr/blog/two-variants-of-the-bind-rule
 date: 2023-05-30T08:00:00-00:00
 preview_image:
-featured:
 authors:
 - GaGallium
 source:

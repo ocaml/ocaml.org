@@ -4,7 +4,6 @@ description:
 url: https://signals-threads.simplecast.com/episodes/building-a-ui-framework-with-ty-overby-1YPs6hg_
 date: 2021-10-06T16:00:00-00:00
 preview_image:
-featured:
 authors:
 - Signals and Threads
 source:

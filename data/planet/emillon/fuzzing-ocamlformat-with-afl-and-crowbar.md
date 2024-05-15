@@ -4,7 +4,6 @@ description:
 url: http://blog.emillon.org/posts/2020-08-03-fuzzing-ocamlformat-with-afl-and-crowbar.html
 date: 2020-08-03T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Etienne Millon
 source:

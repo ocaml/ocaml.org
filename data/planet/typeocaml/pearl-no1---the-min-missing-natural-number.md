@@ -4,7 +4,6 @@ description: This is the first pearl (min free natural) in the book
 url: http://typeocaml.com/2015/02/02/functional-pearl-no-1-the-min-free-nature/
 date: 2015-02-02T17:34:31-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

@@ -7,7 +7,6 @@ description: 'NOTE (September 2016): updated proposal from OCaml 2016 workshop i
 url: https://ocamlpro.com/blog/2015_06_05_signing_the_opam_repository
 date: 2015-06-05T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

@@ -4,7 +4,6 @@ description:
 url: http://lpw25.net/2013/03/10/ocaml-namespaces
 date: 2013-03-10T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - lpw25
 ---

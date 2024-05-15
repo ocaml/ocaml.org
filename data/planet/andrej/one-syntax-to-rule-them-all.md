@@ -4,7 +4,6 @@ description:
 url: http://math.andrej.com/2022/05/20/one-syntax-to-rule-them-all/
 date: 2022-05-20T07:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andrej Bauer
 source:

@@ -6,7 +6,6 @@ description: "libguestfs is a C library for creating and editing disk images. In
 url: https://rwmj.wordpress.com/2017/06/04/new-in-libguestfs-rewriting-bits-of-the-daemon-in-ocaml/
 date: 2017-06-04T13:14:17-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

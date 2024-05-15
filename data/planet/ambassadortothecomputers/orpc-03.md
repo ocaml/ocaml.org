@@ -5,7 +5,6 @@ description: I am happy to announce version 0.3 of orpc , a tool for generating 
 url: http://ambassadortothecomputers.blogspot.com/2010/04/orpc-03.html
 date: 2010-04-03T02:18:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

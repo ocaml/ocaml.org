@@ -7,7 +7,6 @@ description: "After the hard work done on the integration of floating-point arit
 url: https://ocamlpro.com/blog/2019_02_11_whats_new_for_alt_ergo_in_2018_here_is_a_recap
 date: 2019-02-11T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:

@@ -5,7 +5,6 @@ description: 'Suppose you''re on a game show, and you''re given the choice of th
 url: http://blog.shaynefletcher.org/2016/10/monty-hall.html
 date: 2016-10-12T16:05:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

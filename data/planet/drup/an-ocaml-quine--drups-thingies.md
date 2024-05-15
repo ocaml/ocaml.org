@@ -5,7 +5,6 @@ description: (fun x -> Printf.printf "%s %S" x x) "(fun x -> Printf.printf \"%s 
 url: https://drup.github.io/2018/05/30/quine/
 date: 2018-05-30T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gabriel Radanne
 source:

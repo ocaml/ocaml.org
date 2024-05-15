@@ -4,7 +4,6 @@ description:
 url: http://upsilon.cc/~zack/blog/posts/2009/08/ocaml_3.11.1_in_testing/
 date: 2009-08-04T19:48:32-00:00
 preview_image:
-featured:
 authors:
 - Stefano Zacchiroli
 source:

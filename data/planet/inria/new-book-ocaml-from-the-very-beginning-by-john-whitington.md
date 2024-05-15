@@ -6,7 +6,6 @@ description: A book about functional programming with OCaml right from the begin
 url: http://ocaml-book.com/
 date: 2013-06-20T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Caml INRIA
 source:

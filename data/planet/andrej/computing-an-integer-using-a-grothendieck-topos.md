@@ -4,7 +4,6 @@ description:
 url: http://math.andrej.com/2021/05/18/computing-an-integer-using-a-sheaf-topos/
 date: 2021-05-18T07:00:00-00:00
 preview_image:
-featured:
 authors:
 - Martin Escardo
 source:

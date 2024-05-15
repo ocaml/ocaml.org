@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-881-is-out.html
 date: 2018-07-09T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

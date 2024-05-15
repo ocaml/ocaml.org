@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/welcome-to-our-summer-hackers
 date: 2014-05-08T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

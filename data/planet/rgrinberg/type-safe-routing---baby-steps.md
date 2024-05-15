@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/primitive-type-safe-routing/
 date: 2014-12-13T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

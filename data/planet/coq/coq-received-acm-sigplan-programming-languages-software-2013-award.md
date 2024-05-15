@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-received-acm-sigplan-programming-languages-software-2013-award.html
 date: 2013-06-30T16:26:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

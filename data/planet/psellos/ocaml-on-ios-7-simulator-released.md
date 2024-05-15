@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2014/09/2014.09.ocamlxsim-401.html
 date: 2014-09-08T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

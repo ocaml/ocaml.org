@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2012/11/2012.11.iossim-apps-awol.html
 date: 2012-11-15T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

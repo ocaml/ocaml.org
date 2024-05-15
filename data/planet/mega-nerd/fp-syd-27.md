@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/FP-Syd/fp-syd-27.html
 date: 2010-08-21T13:05:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

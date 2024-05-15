@@ -5,7 +5,6 @@ description: "Jane Street\u2019s intern program yet again is coming to an end, w
 url: https://blog.janestreet.com/what-the-interns-have-wrought-2019/
 date: 2019-08-30T00:00:00-00:00
 preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2019/what_interns_wrought2019.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

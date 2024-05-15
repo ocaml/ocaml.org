@@ -4,7 +4,6 @@ description:
 url: http://www.skjegstad.com/blog/2015/08/17/jitsu-v02/
 date: 2015-08-16T23:00:00-00:00
 preview_image:
-featured:
 authors:
 - Magnus Skjegstad
 source:

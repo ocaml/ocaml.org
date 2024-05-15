@@ -7,7 +7,6 @@ description: OCaml 4.00.0 has been released on July 27, 2012. For the first time
 url: https://ocamlpro.com/blog/2012_08_20_ocamlpro_contributions_to_400
 date: 2012-08-20T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

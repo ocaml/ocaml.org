@@ -6,7 +6,6 @@ description: "Now that the interns have mostly gone back to school, it\u2019s a 
 url: https://blog.janestreet.com/what-the-interns-have-wrought-2016/
 date: 2016-09-13T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

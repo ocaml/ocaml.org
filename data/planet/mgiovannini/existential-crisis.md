@@ -5,7 +5,6 @@ description: In a long discussion at LtU , user Jules Jacobs advances a use-case
 url: https://alaska-kamtchatka.blogspot.com/2012/07/existential-crisis.html
 date: 2012-07-09T15:00:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

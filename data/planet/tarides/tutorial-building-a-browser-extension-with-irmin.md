@@ -5,7 +5,6 @@ description: "Irmin is a collection of OCaml libraries that makes it easy to bui
 url: https://tarides.com/blog/2023-10-25-tutorial-building-a-browser-extension-with-irmin
 date: 2023-10-25T00:00:00-00:00
 preview_image: https://tarides.com/static/8a1986214799abe0ac1afd6b0e0aa0e2/eee8e/library.jpg
-featured:
 authors:
 - Tarides
 source:

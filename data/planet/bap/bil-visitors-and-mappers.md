@@ -4,7 +4,6 @@ description: The Binary Analysis Platform Blog
 url: http://binaryanalysisplatform.github.io/bil-visitor-mappers
 date: 2016-01-24T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The BAP Blog
 source:

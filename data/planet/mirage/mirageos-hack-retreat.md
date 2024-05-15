@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/hackathon-marrakech2016
 date: 2016-01-01T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

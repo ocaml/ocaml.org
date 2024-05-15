@@ -4,7 +4,6 @@ description:
 url: https://signalsandthreads.com/clock-synchronization/
 date: 2020-10-14T16:00:00-00:00
 preview_image: https://signalsandthreads.com/static/images/twitter/clock_synchronization.png
-featured:
 authors:
 - Signals and Threads
 source:

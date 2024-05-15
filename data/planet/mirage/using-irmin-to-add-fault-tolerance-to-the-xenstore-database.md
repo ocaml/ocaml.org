@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/introducing-irmin-in-xenstore
 date: 2014-07-21T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Dave Scott
 ---

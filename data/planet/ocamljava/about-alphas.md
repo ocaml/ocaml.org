@@ -4,7 +4,6 @@ description:
 url: http://www.ocamljava.org/2014/07/14/about-alpha/
 date: 2014-07-14T20:00:00-00:00
 preview_image:
-featured:
 authors:
 - Xavier Clerc
 source:

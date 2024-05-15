@@ -6,7 +6,6 @@ description: "Years ago I played around with CIL to analyze libvirt. More recent
 url: https://rwmj.wordpress.com/2013/02/07/more-static-analysis-with-cil/
 date: 2013-02-07T18:18:35-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

@@ -7,7 +7,6 @@ description: "This article is cross-posted on Origin Labs\u2019 Dune Network blo
 url: https://ocamlpro.com/blog/2020_05_19_ocaml_solidity_parser_with_menhir
 date: 2020-05-19T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    David Declerck\n  "
 source:

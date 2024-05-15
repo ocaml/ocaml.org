@@ -7,7 +7,6 @@ description: We have recently worked on modifying the OCaml system to be able to
 url: https://ocamlpro.com/blog/2011_08_10_packing_and_functors
 date: 2011-08-10T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-89beta1-is-out.html
 date: 2018-11-02T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

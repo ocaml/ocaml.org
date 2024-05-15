@@ -7,7 +7,6 @@ description: In a previous post, we presented some work that we did to improve t
 url: https://ocamlpro.com/blog/2019_01_30_improving_tezos_storage_update_and_beta_testing
 date: 2019-01-30T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

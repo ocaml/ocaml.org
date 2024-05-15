@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/free-monads-in-the-wild-ocaml/
 date: 2016-07-22T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

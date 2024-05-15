@@ -6,7 +6,6 @@ description: "I\u2019ve been reading a series of papers by Chandrasekhar Boyapat
 url: https://mcclurmc.wordpress.com/2010/02/12/java-concurrency-annotations/
 date: 2010-02-12T20:21:54-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Mike McClurg
 source:

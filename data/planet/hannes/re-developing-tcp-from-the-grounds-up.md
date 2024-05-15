@@ -4,7 +4,6 @@ description:
 url: https://hannes.robur.coop/Posts/TCP-ns
 date: 2023-11-28T21:17:01-00:00
 preview_image:
-featured:
 authors:
 - hannes
 source:

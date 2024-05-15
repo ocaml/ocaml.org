@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/beta-release-of-coq-84.html
 date: 2011-12-27T19:38:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

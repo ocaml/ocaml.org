@@ -20,7 +20,6 @@ type post = {
   authors : string list;
   date : string;
   preview_image : string option;
-  featured : bool;
   body_html : string;
 }
 [@@deriving show { with_path = false }]
@@ -67,7 +66,6 @@ module Local = struct
       description : string;
       date : string;
       preview_image : string option;
-      featured : bool option;
       authors : string list option;
     }
     [@@deriving yaml]
@@ -84,7 +82,6 @@ module Local = struct
         authors = Option.value ~default:[] m.authors;
         date = m.date;
         preview_image = m.preview_image;
-        featured = Option.value ~default:false m.featured;
         body_html;
       }
 
@@ -173,7 +170,6 @@ module External = struct
       url : string;
       date : string;
       preview_image : string option;
-      featured : bool option;
       authors : string list option;
       source : source_on_external_post option;
     }
@@ -201,7 +197,6 @@ module External = struct
         authors = Option.value ~default:[] m.authors;
         date = m.date;
         preview_image = m.preview_image;
-        featured = Option.value ~default:false m.featured;
         body_html;
       }
 
@@ -309,7 +304,6 @@ module Post = struct
     ; authors : string list
     ; date : string
     ; preview_image : string option
-    ; featured : bool
     ; body_html : string
     }
     
@@ -421,7 +415,6 @@ module Scraper = struct
               date;
               preview_image;
               description;
-              featured = None;
               authors = Some [ author ];
               source = None;
             }

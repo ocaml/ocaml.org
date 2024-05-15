@@ -5,7 +5,6 @@ description: "I have had the pleasure of attending some great conferences over t
 url: https://tarides.com/blog/2023-09-20-a-year-of-spaceos-showing-the-world-the-benefits-of-ocaml
 date: 2023-09-20T00:00:00-00:00
 preview_image: https://tarides.com/static/254115147e699f8648c3f0bdcf5df536/0132d/conferencestock.jpg
-featured:
 authors:
 - Tarides
 source:

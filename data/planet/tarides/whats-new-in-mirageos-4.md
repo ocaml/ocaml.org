@@ -5,7 +5,6 @@ description: "MirageOS 4.0 Release Week Tarides is thrilled to see the great res
 url: https://tarides.com/blog/2022-04-14-what-s-new-in-mirageos-4
 date: 2022-04-14T00:00:00-00:00
 preview_image: https://tarides.com/static/656a2275778454f88a6e1dcb3f2d53cf/2070e/mirage2.jpg
-featured:
 authors:
 - Tarides
 source:

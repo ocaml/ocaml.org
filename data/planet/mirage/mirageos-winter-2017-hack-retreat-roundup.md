@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/2017-winter-hackathon-roundup
 date: 2017-12-23T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

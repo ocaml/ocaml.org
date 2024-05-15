@@ -4,7 +4,6 @@ description:
 url: https://signals-threads.simplecast.com/episodes/state-machine-replication-and-why-you-should-care-with-doug-patti-ddqeDcTw
 date: 2022-04-20T16:00:00-00:00
 preview_image:
-featured:
 authors:
 - Signals and Threads
 source:

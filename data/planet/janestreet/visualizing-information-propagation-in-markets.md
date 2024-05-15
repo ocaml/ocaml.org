@@ -6,7 +6,6 @@ description: "The Dojima rice market, established around 1716, is widely conside
 url: https://blog.janestreet.com/visualizing-information-propagation-in-markets-index/
 date: 2022-11-23T00:00:00-00:00
 preview_image: https://blog.janestreet.com/visualizing-information-propagation-in-markets-index/featured.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

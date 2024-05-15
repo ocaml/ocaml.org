@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/introducing-irmin-v2
 date: 2019-11-26T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

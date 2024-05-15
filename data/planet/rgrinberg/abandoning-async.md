@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/abandoning-async/
 date: 2014-12-11T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

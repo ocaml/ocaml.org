@@ -4,7 +4,6 @@ description:
 url: https://signalsandthreads.com/build-systems/
 date: 2020-09-16T15:55:47-00:00
 preview_image: https://signalsandthreads.com/static/images/twitter/build_systems.png
-featured:
 authors:
 - Signals and Threads
 source:

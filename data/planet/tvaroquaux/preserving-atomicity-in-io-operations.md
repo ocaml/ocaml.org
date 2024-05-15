@@ -5,7 +5,6 @@ description: '[Updated 26/07/07: unwind_protect  now captures less variables.]  
 url: https://till-varoquaux.blogspot.com/2007/06/preserving-atomicity-in-io-operations.html
 date: 2007-06-24T14:34:00-00:00
 preview_image:
-featured:
 authors:
 - Till
 source:

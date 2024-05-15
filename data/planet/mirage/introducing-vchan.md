@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/introducing-vchan
 date: 2013-08-23T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Vincent Bernardoff
 ---

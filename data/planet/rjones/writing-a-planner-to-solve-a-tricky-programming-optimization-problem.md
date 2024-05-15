@@ -6,7 +6,6 @@ description: "Suppose a monkey is in one corner of a room, a box is in another c
 url: https://rwmj.wordpress.com/2013/12/14/writing-a-planner-to-solve-a-tricky-programming-optimization-problem/
 date: 2013-12-14T13:54:49-00:00
 preview_image: http://libguestfs.org/virt-builder.svg
-featured:
 authors:
 - Richard Jones
 source:

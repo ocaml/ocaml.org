@@ -4,7 +4,6 @@ description: "We\u2019ve been using this patch in Fedora since Nov 2016."
 url: https://rwmj.wordpress.com/2020/04/24/ocaml-risc-v-port-is-now-upstream/
 date: 2020-04-24T14:34:36-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

@@ -4,7 +4,6 @@ description:
 url: https://signalsandthreads.com/python-ocaml-and-machine-learning/
 date: 2020-10-07T16:00:00-00:00
 preview_image: https://signalsandthreads.com/static/images/twitter/python_ocaml.png
-featured:
 authors:
 - Signals and Threads
 source:

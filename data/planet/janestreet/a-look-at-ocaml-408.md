@@ -6,7 +6,6 @@ description: "Now that OCaml 4.08 has been released, let\u2019s have a look at w
 url: https://blog.janestreet.com/a-look-at-ocaml-4.08/
 date: 2019-07-12T00:00:00-00:00
 preview_image: https://blog.janestreet.com/a-look-at-ocaml-4.08/ocaml_release-2019.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

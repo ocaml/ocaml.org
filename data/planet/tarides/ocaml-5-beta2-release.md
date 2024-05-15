@@ -5,7 +5,6 @@ description: "Just about a month after the OCaml 5 Beta release, the OCaml 5 Bet
 url: https://tarides.com/blog/2022-11-29-ocaml-5-beta2-release
 date: 2022-11-29T00:00:00-00:00
 preview_image: https://tarides.com/static/37eb312d700b065239a4797fa427a8ee/0132d/beta2.jpg
-featured:
 authors:
 - Tarides
 source:

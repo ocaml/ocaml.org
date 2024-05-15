@@ -5,7 +5,6 @@ description: This post presents a functional heap - leftist tree in OCaml. It wa
 url: http://typeocaml.com/2015/03/12/heap-leftist-tree/
 date: 2015-03-13T02:04:57-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

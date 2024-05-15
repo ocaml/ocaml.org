@@ -5,7 +5,6 @@ description: The Camlp4 system of quotations and antiquotations is an awesome to
 url: http://ambassadortothecomputers.blogspot.com/2010/08/reading-camlp4-part-8-implementing.html
 date: 2010-08-03T23:47:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

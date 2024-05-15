@@ -5,7 +5,6 @@ description:
 url: https://signalsandthreads.com
 date: 2020-11-06T17:00:00-00:00
 preview_image: https://signalsandthreads.com/static/images/twitter/signals_threads.png
-featured:
 authors:
 - Signals and Threads
 source:

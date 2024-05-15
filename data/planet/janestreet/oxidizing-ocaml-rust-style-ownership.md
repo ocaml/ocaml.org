@@ -6,7 +6,6 @@ description: "In part one, we discussed how OCaml\u2019slocality mode enables sa
 url: https://blog.janestreet.com/oxidizing-ocaml-ownership/
 date: 2023-06-21T00:00:00-00:00
 preview_image: https://blog.janestreet.com/oxidizing-ocaml-ownership/oxidizing-ocaml-ownership.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

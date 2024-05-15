@@ -6,7 +6,6 @@ description: Jane Street is running a Kaggle contest based on a real problem wit
 url: https://blog.janestreet.com/announcing-our-market-prediction-kaggle-competition-index/
 date: 2020-11-24T00:00:00-00:00
 preview_image: https://blog.janestreet.com/announcing-our-market-prediction-kaggle-competition-index/kaggle_blogpost.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

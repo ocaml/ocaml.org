@@ -4,7 +4,6 @@ description:
 url: https://www.baturin.org/blog/declarative-parse-error-reporting-with-menhir
 date: 2019-08-24T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Daniil Baturin
 source:

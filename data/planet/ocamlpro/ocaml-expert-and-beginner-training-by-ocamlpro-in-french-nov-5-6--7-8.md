@@ -8,7 +8,6 @@ description: 'In our endeavour to encourage professional programmers to understa
 url: https://ocamlpro.com/blog/2019_09_25_ocaml_expert_and_beginner_training_by_ocamlpro_in_french_nov_5_6_7_8
 date: 2019-09-25T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    OCamlPro\n  "
 source:

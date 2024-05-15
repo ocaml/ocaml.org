@@ -5,7 +5,6 @@ description: Ever wanted to use a GADT but did not know if you really needed the
 url: https://practicalocaml.com/a-quick-guide-to-gadts-and-why-you-aint-gonna-need-them/
 date: 2023-08-28T13:46:43-00:00
 preview_image:
-featured:
 authors:
 - Practical OCaml
 source:

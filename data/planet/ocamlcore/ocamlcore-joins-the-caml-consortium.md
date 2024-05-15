@@ -4,7 +4,6 @@ description:
 url: http://www.ocamlcore.com/wp/2008/10/ocamlcore-joins-the-caml-consortium/
 date: 2008-10-10T13:51:19-00:00
 preview_image:
-featured:
 authors:
 - OCamlCore.com
 source:

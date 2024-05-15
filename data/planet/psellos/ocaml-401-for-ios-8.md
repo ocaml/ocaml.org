@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2014/12/2014.12.ocaml-ios8.html
 date: 2014-12-09T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

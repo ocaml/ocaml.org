@@ -7,7 +7,6 @@ description: In this first post of the Flambda2 Snippets, we dive into the power
 url: https://ocamlpro.com/blog/2024_03_19_the_flambda2_snippets_1
 date: 2024-03-19T14:46:44-00:00
 preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
-featured:
 authors:
 - "\n    Pierre Chambart\n  "
 source:

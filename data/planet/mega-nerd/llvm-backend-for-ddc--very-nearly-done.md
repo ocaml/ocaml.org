@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/DDC/llvm_very_nearly_done.html
 date: 2011-01-01T02:54:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

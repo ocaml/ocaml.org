@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2012/10/2012.10.eurekaslam-1.html
 date: 2012-10-13T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

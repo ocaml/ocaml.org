@@ -7,7 +7,6 @@ description: Most package managers support some pin functionality to ensure that
 url: https://ocamlpro.com/blog/2014_08_19_opam_1.2_repository_pinning
 date: 2014-08-19T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

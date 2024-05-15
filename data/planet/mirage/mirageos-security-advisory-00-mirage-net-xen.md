@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/MSA00
 date: 2016-05-03T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

@@ -5,7 +5,6 @@ description: "November has become MirageOS month! Between the upcoming official 
 url: https://tarides.com/blog/2021-11-23--signals-and-threads-podcast-what-is-an-operating-system
 date: 2021-11-23T00:00:00-00:00
 preview_image: https://tarides.com/static/f29bc7106b13c642c50f91913cbade3e/dcbfe/anilpodcast.jpg
-featured:
 authors:
 - Tarides
 source:

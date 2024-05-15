@@ -7,7 +7,6 @@ description: In this blog post, we explain how ocp-memprof helped us identify a 
 url: https://ocamlpro.com/blog/2015_05_18_reduced_memory_allocations_with_ocp_memprof
 date: 2015-05-18T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

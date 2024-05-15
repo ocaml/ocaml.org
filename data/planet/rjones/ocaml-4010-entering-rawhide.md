@@ -6,7 +6,6 @@ description: "After using OCaml for around 10 years it is still my favourite lan
 url: https://rwmj.wordpress.com/2013/09/14/ocaml-4-01-0-entering-rawhide/
 date: 2013-09-14T06:08:55-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

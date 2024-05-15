@@ -4,7 +4,6 @@ description:
 url: https://melange.re/blog/posts/the-rest-of-2023-in-melange
 date: 2023-10-12T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Melange Blog
 source:

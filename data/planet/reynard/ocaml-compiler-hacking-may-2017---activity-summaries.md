@@ -4,7 +4,6 @@ description:
 url: http://reynard.io/2017/05/19/CompHackingRoundup.html
 date: 2017-05-19T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gemma Gordon (OCaml Labs)
 source:

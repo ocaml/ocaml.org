@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/introducing-nocrypto
 date: 2014-07-09T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - David Kaloper
 ---

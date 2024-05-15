@@ -7,7 +7,6 @@ description: OPAM is a source-based package manager for OCaml. It supports multi
 url: https://ocamlpro.com/blog/2013_01_17_beta_release_of_opam
 date: 2013-01-17T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

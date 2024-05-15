@@ -4,7 +4,6 @@ description:
 url: http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-11
 date: 2023-04-11T08:00:00-00:00
 preview_image:
-featured:
 authors:
 - GaGallium
 source:

@@ -4,7 +4,6 @@ description: Announcing DBCaml, Silo, Serde Postgres and a new driver for postgr
 url: https://priver.dev/blog/dbcaml/dbcaml-project/
 date: 2024-05-03T00:01:38-00:00
 preview_image: https://priver.dev/images/ocaml/dbcaml.jpeg
-featured:
 authors:
 - "Emil Priv\xE9r"
 source:

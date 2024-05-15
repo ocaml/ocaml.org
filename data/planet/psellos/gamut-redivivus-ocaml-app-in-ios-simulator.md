@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2015/04/2015.04.example-app-gamut.html
 date: 2015-04-29T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

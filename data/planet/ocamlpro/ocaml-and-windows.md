@@ -7,7 +7,6 @@ description: "Recently, I have been experimenting wiht OCaml / MSVC running on W
 url: https://ocamlpro.com/blog/2011_06_23_ocaml_and_windows
 date: 2011-06-23T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

@@ -7,7 +7,6 @@ description: "You've heard of Domain-Driven Design, now buckle up for Type-Drive
 url: https://practicalocaml.com/how-i-explore-domain-problems-faster-and-cheaply-in-ocaml/
 date: 2023-08-24T13:29:21-00:00
 preview_image:
-featured:
 authors:
 - Practical OCaml
 source:

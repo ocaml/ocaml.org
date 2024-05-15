@@ -7,7 +7,6 @@ description: We are pleased to announce a preview release for opam 2.0, with ove
 url: https://ocamlpro.com/blog/2016_09_20_opam_2.0_preview_release
 date: 2016-09-20T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

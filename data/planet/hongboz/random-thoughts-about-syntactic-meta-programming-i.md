@@ -6,7 +6,6 @@ description: "I should write this blog long time ago, but I am so adddicted to F
 url: https://hongboz.wordpress.com/2013/01/28/random-thoughts-about-syntactic-meta-programming-i/
 date: 2013-01-28T05:00:00-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Hong bo Zhang
 source:

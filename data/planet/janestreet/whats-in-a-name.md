@@ -5,7 +5,6 @@ description: In the once upon a time days of the First Age of Magic, the prudent
 url: https://blog.janestreet.com/whats-in-a-name/
 date: 2014-07-10T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 ---
 
 <blockquote>

@@ -8,7 +8,6 @@ description: "Dans cet article technique, nous introduisons bri\xE8vement les RP
 url: https://ocamlpro.com/blog/2018_11_20_fr_introduction_aux_rpcs_dans_tezos_exemple_dun_portefeuille_wallet_simple
 date: 2018-11-20T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

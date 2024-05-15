@@ -5,7 +5,6 @@ description: 'Phantom types are a nifty trick: types are used to store additiona
 url: https://till-varoquaux.blogspot.com/2007/06/phun-with-phantom-types.html
 date: 2007-06-03T21:51:00-00:00
 preview_image:
-featured:
 authors:
 - Till
 source:

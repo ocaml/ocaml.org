@@ -7,7 +7,6 @@ description: 'UPDATE: after discussions following this post, this feature was ab
 url: https://ocamlpro.com/blog/2017_03_16_new_opam_features_opam_build
 date: 2017-03-16T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

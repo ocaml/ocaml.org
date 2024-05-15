@@ -5,7 +5,6 @@ description: "The aim of International Women\u2019s Day is to raise awareness of
 url: https://tarides.com/blog/2023-03-08-more-than-a-day-how-does-tarides-promote-women-in-tech
 date: 2023-03-08T00:00:00-00:00
 preview_image: https://tarides.com/static/2ddb292bf8d2bf872e48454b5315fb49/0132d/March8.jpg
-featured:
 authors:
 - Tarides
 source:

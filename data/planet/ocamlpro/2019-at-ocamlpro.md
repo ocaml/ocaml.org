@@ -7,7 +7,6 @@ description: 2019 at OCamlPro OCamlPro was created to help OCaml and formal meth
 url: https://ocamlpro.com/blog/2020_02_04_2019_at_ocamlpro
 date: 2020-02-04T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Muriel\n  "
 source:

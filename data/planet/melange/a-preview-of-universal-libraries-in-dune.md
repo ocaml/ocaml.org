@@ -4,7 +4,6 @@ description:
 url: https://melange.re/blog/posts/dune-universal-libraries-preview
 date: 2024-04-10T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Melange Blog
 source:

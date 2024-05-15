@@ -5,7 +5,6 @@ description: There's an ongoing discussion on COCAN  on how to make errors expli
 url: https://till-varoquaux.blogspot.com/2008/02/power-of-doing-nothing.html
 date: 2008-02-10T10:52:00-00:00
 preview_image:
-featured:
 authors:
 - Till
 source:

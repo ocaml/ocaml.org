@@ -4,7 +4,6 @@ description:
 url: http://www.ujamjar.com/ocaml/2014/08/02/iocaml-on-nexus7.html
 date: 2014-08-02T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andy Ray
 source:

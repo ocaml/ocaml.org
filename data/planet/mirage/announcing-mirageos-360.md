@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/announcing-mirage-36-release
 date: 2019-10-18T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Martin Lucina
 ---

@@ -4,7 +4,6 @@ description:
 url: http://gallium.inria.fr/blog/an-ocaml-release-story-1
 date: 2019-12-02T08:00:00-00:00
 preview_image:
-featured:
 authors:
 - gallium
 ---

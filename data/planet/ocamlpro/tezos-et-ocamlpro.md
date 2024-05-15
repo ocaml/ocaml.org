@@ -7,7 +7,6 @@ description: "Tezos est aujourd\u2019hui un projet open source, un r\xE9seau int
 url: https://ocamlpro.com/blog/2019_01_31_fr_tezos_et_ocamlpro
 date: 2019-01-31T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

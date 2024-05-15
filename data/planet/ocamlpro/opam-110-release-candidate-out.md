@@ -7,7 +7,6 @@ description: OPAM 1.1.0 is ready, and we are shipping a release candidate for pa
 url: https://ocamlpro.com/blog/2013_10_14_opam_1.1.0_release_candidate_out
 date: 2013-10-14T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

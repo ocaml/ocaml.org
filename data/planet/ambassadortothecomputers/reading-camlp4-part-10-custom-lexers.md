@@ -5,7 +5,6 @@ description: "As a final modification to our running JSON quotation example, I w
 url: http://ambassadortothecomputers.blogspot.com/2010/08/reading-camlp4-part-10-custom-lexers.html
 date: 2010-08-13T19:16:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

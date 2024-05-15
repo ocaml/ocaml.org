@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/ocaml-tls-api-internals-attacks-mitigation
 date: 2014-07-14T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - David Kaloper
 ---

@@ -6,7 +6,6 @@ description: If you've ever had to parse anything, (anything really), I want to 
 url: https://practicalocaml.com/parsing-with-binary-string-pattern-matching/
 date: 2023-12-31T21:01:50-00:00
 preview_image: https://practicalocaml.com/content/images/size/w1200/2023/12/DALL-E-2023-12-31-21.53.55---A-wide--horizontal-header-image-for-a-blog-post-titled--Parsing-with-Binary-String-Pattern-Matching--Part-1-.-The-image-captures-the-spirit-of-a-deser.png
-featured:
 authors:
 - Practical OCaml
 source:

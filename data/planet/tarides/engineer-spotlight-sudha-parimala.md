@@ -5,7 +5,6 @@ description: "For our third and final Engineer Spotlight, we interviewed Sudha P
 url: https://tarides.com/blog/2023-01-10-engineer-spotlight-sudha-parimala
 date: 2023-01-10T00:00:00-00:00
 preview_image: https://tarides.com/static/02816a276050c6a46c9ac941aea89f94/0132d/sudha.jpg
-featured:
 authors:
 - Tarides
 source:

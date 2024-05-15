@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/applying-for-gsoc2014
 date: 2014-02-25T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

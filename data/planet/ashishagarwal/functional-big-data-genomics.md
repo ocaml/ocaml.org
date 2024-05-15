@@ -6,7 +6,6 @@ description: Abstract High-throughput genomic sequencing is characterized by lar
 url: http://ashishagarwal.org/2012/09/11/functional-big-data-genomics/
 date: 2012-09-11T20:11:51-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Ashish Agarwal
 source:

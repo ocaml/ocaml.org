@@ -7,7 +7,6 @@ description: Liquidity version 1.0 We are pleased to announce the release of the
 url: https://ocamlpro.com/blog/2019_03_08_announcing_liquidity_version_1_0
 date: 2019-03-08T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Alain Mebsout\n  "
 source:

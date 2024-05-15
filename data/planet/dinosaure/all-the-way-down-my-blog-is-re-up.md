@@ -4,7 +4,6 @@ description:
 url: https://blog.osau.re/articles/blog.html
 date: 2020-08-24T10:00:00-00:00
 preview_image:
-featured:
 authors:
 - Romain Calascibetta
 source:

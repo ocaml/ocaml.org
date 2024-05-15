@@ -5,7 +5,6 @@ description: "Tarides provides support and development services for OCaml tools,
 url: https://tarides.com/blog/2022-07-05-the-magic-of-merlin
 date: 2022-07-05T00:00:00-00:00
 preview_image: https://tarides.com/static/c55286ef08acc064546bdb10b49d5b6a/0132d/forMerlin.jpg
-featured:
 authors:
 - Tarides
 source:

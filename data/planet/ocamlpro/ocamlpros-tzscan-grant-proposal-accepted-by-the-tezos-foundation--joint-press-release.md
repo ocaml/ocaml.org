@@ -8,7 +8,6 @@ description: Tezos Foundation and OCamlPro joint press release - October 17, 201
 url: https://ocamlpro.com/blog/2018_10_17_ocamlpros_tzscan_grant_proposal_accepted_by_the_tezos_foundation_joint_press_release
 date: 2018-10-17T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Muriel\n  "
 source:

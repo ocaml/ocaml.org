@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/MSA02
 date: 2019-04-26T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Thomas Leonard
 ---

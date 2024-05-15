@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/Haskell/read_int.html
 date: 2012-01-24T00:52:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

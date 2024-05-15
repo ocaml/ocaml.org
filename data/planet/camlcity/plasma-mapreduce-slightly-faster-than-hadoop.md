@@ -4,7 +4,6 @@ description:
 url: http://blog.camlcity.org/blog/plasma6.html
 date: 2012-02-01T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gerd Stolpmann
 source:

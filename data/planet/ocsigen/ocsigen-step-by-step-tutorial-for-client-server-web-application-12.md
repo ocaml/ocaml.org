@@ -4,7 +4,6 @@ description:
 url: https://ocsigen.github.io/blog/2016/03/15/tuto-graffiti1/
 date: 2016-03-15T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Vincent Balat
 source:

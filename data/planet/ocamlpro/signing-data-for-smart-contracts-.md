@@ -7,7 +7,6 @@ description: Smart contracts calls already provide a built-in authentication mec
 url: https://ocamlpro.com/blog/2019_03_05_signing_data_for_smart_contracts
 date: 2019-03-05T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

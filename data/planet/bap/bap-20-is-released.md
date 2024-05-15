@@ -4,7 +4,6 @@ description: The Binary Analysis Platform Blog
 url: http://binaryanalysisplatform.github.io/bap-2-release
 date: 2019-11-19T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The BAP Blog
 source:

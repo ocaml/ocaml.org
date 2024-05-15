@@ -4,7 +4,6 @@ description:
 url: https://coherentpdf.com/blog/?p=52
 date: 2010-12-07T13:08:02-00:00
 preview_image:
-featured:
 authors:
 - Coherent Graphics
 source:

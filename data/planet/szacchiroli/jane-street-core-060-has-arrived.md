@@ -4,7 +4,6 @@ description:
 url: http://upsilon.cc/~zack/blog/posts/2009/11/jane_street_core_0.6.0_has_arrived/
 date: 2009-11-13T15:47:57-00:00
 preview_image:
-featured:
 authors:
 - Stefano Zacchiroli
 source:

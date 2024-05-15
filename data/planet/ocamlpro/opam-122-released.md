@@ -7,7 +7,6 @@ description: OPAM 1.2.2 has just been released. This fixes a few issues over 1.2
 url: https://ocamlpro.com/blog/2015_05_07_opam_1.2.2_released
 date: 2015-05-07T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

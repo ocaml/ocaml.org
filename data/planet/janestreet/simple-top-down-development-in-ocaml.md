@@ -5,7 +5,6 @@ description: Often when writing a new module, I want to write the interface firs
 url: https://blog.janestreet.com/simple-top-down-development-in-ocaml/
 date: 2014-07-18T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 ---
 
 <p>Often when writing a new module, I want to write the interface first and save

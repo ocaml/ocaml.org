@@ -6,7 +6,6 @@ description: "This is probably a second-semester functional programming exercise
 url: https://syntaxexclamation.wordpress.com/2014/04/15/big-step-disjunctive-normal-forms/
 date: 2014-04-15T20:14:55-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Matthias Puech
 source:

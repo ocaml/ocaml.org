@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/2022-03-30.cross-compilation
 date: 2022-03-30T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Lucas Pluvinage
 ---

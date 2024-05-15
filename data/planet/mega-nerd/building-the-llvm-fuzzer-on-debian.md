@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/building-llvm-fuzzer.html
 date: 2015-07-21T10:08:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

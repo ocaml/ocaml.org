@@ -5,7 +5,6 @@ description: "At ICFP this year, KC Sivaramakrishnan gave two talks that put OCa
 url: https://tarides.com/blog/2022-11-15-presenting-on-algebraic-effects-at-fp-syd
 date: 2022-11-15T00:00:00-00:00
 preview_image: https://tarides.com/static/195e36c5f0b19f28b8a999d93ff22a9c/3234f/prism.jpg
-featured:
 authors:
 - Tarides
 source:

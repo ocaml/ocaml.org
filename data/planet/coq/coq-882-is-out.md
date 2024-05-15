@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-882-is-out.html
 date: 2018-09-26T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

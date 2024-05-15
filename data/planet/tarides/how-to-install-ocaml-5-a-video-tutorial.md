@@ -5,7 +5,6 @@ description: "Have you had difficulty installing OCaml for your projects? We hav
 url: https://tarides.com/blog/2023-11-21-how-to-install-ocaml-5-a-video-tutorial
 date: 2023-11-21T00:00:00-00:00
 preview_image: https://tarides.com/static/6cebb5e1e17cc396d24242afb53aba36/764f4/zoomdogs.jpg
-featured:
 authors:
 - Tarides
 source:

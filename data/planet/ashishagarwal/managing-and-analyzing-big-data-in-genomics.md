@@ -6,7 +6,6 @@ description: Abstract Biology is an increasingly computational discipline. Rapid
 url: http://ashishagarwal.org/2012/06/29/ibm-pl-day/
 date: 2012-06-29T17:18:00-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Ashish Agarwal
 source:

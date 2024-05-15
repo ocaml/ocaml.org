@@ -7,7 +7,6 @@ description: We have recently worked on modifying the OCaml system to be able to
 url: https://ocamlpro.com/blog/2012_08_08_profiling_ocaml_amd64_code_under_linux
 date: 2012-08-08T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

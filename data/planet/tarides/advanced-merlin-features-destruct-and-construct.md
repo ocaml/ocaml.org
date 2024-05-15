@@ -5,7 +5,6 @@ description: "Merlin is one of the most important tools for OCaml users, but a l
 url: https://tarides.com/blog/2022-12-21-advanced-merlin-features-destruct-and-construct
 date: 2022-12-21T00:00:00-00:00
 preview_image: https://tarides.com/static/371712405081c46dba0f64c07c4d36da/0132d/merlin_construct.jpg
-featured:
 authors:
 - Tarides
 source:

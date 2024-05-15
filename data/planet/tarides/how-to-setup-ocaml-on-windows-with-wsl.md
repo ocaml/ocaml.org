@@ -5,7 +5,6 @@ description: "The stable opam 2.2 and a fully Windows compatible ecosystem of OC
 url: https://tarides.com/blog/2024-05-08-how-to-setup-ocaml-on-windows-with-wsl
 date: 2024-05-08T00:00:00-00:00
 preview_image: https://tarides.com/static/8438403304b6cf9035ae54b2ce6b57a0/0d665/ocaml_wsl.png
-featured:
 authors:
 - Tarides
 source:

@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/humane-re-intro/
 date: 2014-05-23T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

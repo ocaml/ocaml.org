@@ -5,7 +5,6 @@ description: Herein I'll provide an introductory taste of what it's been like ma
 url: https://cranialburnout.blogspot.com/2013/09/programming-game-in-ocaml.html
 date: 2013-09-12T01:02:00-00:00
 preview_image: //2.bp.blogspot.com/-A6Z4RA27kWk/UjDl4WuVIPI/AAAAAAAAACw/ZF3IJfPd-a8/w1200-h630-p-k-no-nu/at.png
-featured:
 authors:
 - Tony Tavener
 source:

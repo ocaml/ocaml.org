@@ -4,7 +4,6 @@ description:
 url: https://www.baturin.org/blog/introduction-to-ocaml
 date: 2018-08-06T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Daniil Baturin
 source:

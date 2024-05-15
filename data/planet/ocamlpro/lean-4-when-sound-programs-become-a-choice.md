@@ -7,7 +7,6 @@ description: Monitoring Edge Technical Endeavours As a company specialized in st
 url: https://ocamlpro.com/blog/2024_03_07_lean4_when_sound_programs_become_a_choice
 date: 2024-03-07T10:00:20-00:00
 preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
-featured:
 authors:
 - "\n    Adrien Champion\n  "
 source:

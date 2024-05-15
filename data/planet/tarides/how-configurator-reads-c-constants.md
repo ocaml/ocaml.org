@@ -4,7 +4,6 @@ description:
 url: https://dune.build/blog/configurator-constants/
 date: 2019-01-03T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Tarides
 source:

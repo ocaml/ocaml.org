@@ -5,7 +5,6 @@ description: "In our first article we mostly discussed\nthe API design of decomp
 url: https://tarides.com/blog/2019-09-13-decompress-experiences-with-ocaml-optimization
 date: 2019-09-13T00:00:00-00:00
 preview_image: https://tarides.com/static/fff1a2a9a2dbdd9ac7efd7c97ac5aa2a/96c5f/camel_sunset.jpg
-featured:
 authors:
 - Tarides
 source:

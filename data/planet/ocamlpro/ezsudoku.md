@@ -7,7 +7,6 @@ description: As you may have noticed, on the begining of April I have some urge 
 url: https://ocamlpro.com/blog/2017_04_01_ezsudoku
 date: 2017-04-01T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    chambart\n  "
 source:

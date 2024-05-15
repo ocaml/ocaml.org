@@ -107,8 +107,6 @@ module Planet = struct
 
   let local_posts =
     List.concat_map (fun (src : LocalBlog.t) -> src.posts) LocalBlog.all
-
-  let featured_posts = List.filter (fun (x : Post.t) -> x.featured) Post.all
 end
 
 module Opam_user = struct

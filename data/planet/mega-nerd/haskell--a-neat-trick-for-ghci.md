@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/Haskell/ghci-trick.html
 date: 2014-10-17T22:16:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

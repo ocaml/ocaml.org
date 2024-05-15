@@ -4,7 +4,6 @@ description:
 url: https://blog.osau.re/articles/lwt_pause.html
 date: 2024-02-11T10:00:00-00:00
 preview_image:
-featured:
 authors:
 - Romain Calascibetta
 source:

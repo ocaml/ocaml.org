@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/extension-points-3-years-later/
 date: 2017-12-04T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - ""
 source:

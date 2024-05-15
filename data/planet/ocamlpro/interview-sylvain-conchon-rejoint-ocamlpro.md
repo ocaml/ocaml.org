@@ -8,7 +8,6 @@ description: "Sylvain Conchon vient de rejoindre OCamlPro en tant que Chief Scie
 url: https://ocamlpro.com/blog/2020_06_05_fr_interview_sylvain_conchon_rejoint_ocamlpro
 date: 2020-06-05T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Aurore Dombry\n  "
 source:

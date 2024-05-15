@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/xenstore-stub-domain
 date: 2012-09-12T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Dave Scott
 ---

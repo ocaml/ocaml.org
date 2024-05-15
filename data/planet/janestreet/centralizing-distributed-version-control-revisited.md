@@ -6,7 +6,6 @@ description: 7 years ago, I wrote a blogpostabout how we at Jane Street were usi
 url: https://blog.janestreet.com/centralizing-distributed-version-control-revisited/
 date: 2015-03-04T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

@@ -5,7 +5,6 @@ description: Now that I've shat on mutability in prior posts, let's talk about h
 url: https://cranialburnout.blogspot.com/2013/09/database-radiation-hazard.html
 date: 2013-09-12T07:39:00-00:00
 preview_image: //4.bp.blogspot.com/-AaVcyyAosxU/UjFRnhc-zHI/AAAAAAAAADE/3XI_Ien7VWg/w1200-h630-p-k-no-nu/inherit.png
-featured:
 authors:
 - Tony Tavener
 source:

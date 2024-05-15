@@ -5,7 +5,6 @@ description: "In 2022, Multicore OCaml became reality. Programming on multiple t
 url: https://tarides.com/blog/2024-04-24-under-the-hood-developing-multicore-property-based-tests-for-ocaml-5
 date: 2024-04-24T00:00:00-00:00
 preview_image: https://tarides.com/static/8d5e62879e4d0ba9248c8e9497e61cd0/eee8e/underthehood.jpg
-featured:
 authors:
 - Tarides
 source:

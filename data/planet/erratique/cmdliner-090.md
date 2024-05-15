@@ -4,7 +4,6 @@ description:
 url: https://erratique.ch/software/cmdliner
 date: 2011-05-27T14:49:02-00:00
 preview_image:
-featured:
 authors:
 - "Daniel B\xFCnzli"
 source:

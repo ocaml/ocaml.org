@@ -7,7 +7,6 @@ description: OCamlPro started working on blockchains in 2014, when Arthur Breitm
 url: https://ocamlpro.com/blog/2019_04_29_blockchains_at_ocamlpro_an_overview
 date: 2019-04-29T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

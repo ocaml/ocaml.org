@@ -6,7 +6,6 @@ description: "At Jane Street, over the last few years, we\u2019ve been increasin
 url: https://blog.janestreet.com/accelerating-self-play-learning-in-go/
 date: 2019-02-28T00:00:00-00:00
 preview_image: https://blog.janestreet.com/accelerating-self-play-learning-in-go/go.jpg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

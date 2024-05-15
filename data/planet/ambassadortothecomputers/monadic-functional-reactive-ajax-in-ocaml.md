@@ -5,7 +5,6 @@ description: 'Yesterday I released three related projects which I''ve been worki
 url: http://ambassadortothecomputers.blogspot.com/2009/04/functional-reactive-ajax-in-ocaml.html
 date: 2009-04-23T17:28:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

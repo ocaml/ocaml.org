@@ -4,7 +4,6 @@ description: The Binary Analysis Platform Blog
 url: http://binaryanalysisplatform.github.io/bap-tutorial-announce
 date: 2017-10-03T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The BAP Blog
 source:

@@ -5,7 +5,6 @@ description: "We are very excited to announce that Tarides has won an\naward\nfr
 url: https://tarides.com/blog/2019-12-11-tarides-wins-the-fic-2020-startup-award
 date: 2019-12-11T00:00:00-00:00
 preview_image: https://tarides.com/static/4b2c873a5b60b4a310ecfeda07bf8d58/0d665/logo-FIC.png
-featured:
 authors:
 - Tarides
 source:

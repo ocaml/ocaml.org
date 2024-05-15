@@ -4,7 +4,6 @@ description:
 url: https://ocsigen.github.io/blog/2016/02/22/tutorial-widgets/
 date: 2016-02-22T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Vincent Balat
 source:

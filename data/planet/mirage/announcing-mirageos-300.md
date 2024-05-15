@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/announcing-mirage-30-release
 date: 2017-02-23T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Mindy Preston
 ---

@@ -6,7 +6,6 @@ description: "Generally, every program I write, regardless of what useful thing 
 url: https://gaius.tech/2019/02/10/learning-a-new-language/
 date: 2019-02-10T10:55:04-00:00
 preview_image: https://gaiustech.files.wordpress.com/2018/07/cropped-lynx.jpg?w=180
-featured:
 authors:
 - Gaius Hammond
 source:

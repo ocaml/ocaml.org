@@ -7,7 +7,6 @@ description: It is a rainy end of January in Paris, morale is getting soggier by
 url: https://ocamlpro.com/blog/2023_01_23_Pea_No_Op
 date: 2023-01-23T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Arthur Carcano\n  "
 source:

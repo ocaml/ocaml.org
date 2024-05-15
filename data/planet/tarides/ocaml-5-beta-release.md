@@ -5,7 +5,6 @@ description: "Back in June, we announced the OCaml 5 alpha release, and today we
 url: https://tarides.com/blog/2022-10-17-ocaml-5-beta-release
 date: 2022-10-17T00:00:00-00:00
 preview_image: https://tarides.com/static/c910c1b919b507c68aa088930cbe92f8/74bcd/camel_desert.jpg
-featured:
 authors:
 - Tarides
 source:

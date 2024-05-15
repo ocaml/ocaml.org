@@ -5,7 +5,6 @@ description: "Tarides is proud to sponsor the 12th annual programming contest Jo
 url: https://tarides.com/blog/2022-06-02-tarides-sponsors-12th-annual-journ-e-francilienne
 date: 2022-06-02T00:00:00-00:00
 preview_image: https://tarides.com/static/230644f663292c77e72e6ef3ce0e047b/0132d/sorbonne.jpg
-featured:
 ---
 
 <p>Tarides is proud to sponsor the 12th annual programming contest <em>Journ&eacute;es Francilienne de Programmation!</em> On the 31st of May 2022, students from three different Parisian universities met at La Sorbonne University to engage in some friendly but lively competition.</p>

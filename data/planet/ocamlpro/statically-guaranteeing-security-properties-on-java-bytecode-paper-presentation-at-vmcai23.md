@@ -8,7 +8,6 @@ description: We are excited to announce that Nicolas will present a paper at the
 url: https://ocamlpro.com/blog/2023_01_12_vmcai_popl
 date: 2023-01-12T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Nicolas Berthier\n  "
 source:

@@ -5,7 +5,6 @@ description: "Hacking retreats are great ways for programmers to connect, explor
 url: https://tarides.com/blog/2024-05-01-we-host-our-first-ocaml-retreat-in-india
 date: 2024-05-01T00:00:00-00:00
 preview_image: https://tarides.com/static/fcf6e8df1774f9ba9b4d317c50ae1496/a1432/chickenpool.jpg
-featured:
 authors:
 - Tarides
 source:

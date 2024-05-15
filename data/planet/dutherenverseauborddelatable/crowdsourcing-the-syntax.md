@@ -6,7 +6,6 @@ description: "Feedback from Opa testers suggests that we can improve the syntax 
 url: https://dutherenverseauborddelatable.wordpress.com/2011/05/30/crowdsourcing-the-syntax/
 date: 2011-05-30T10:22:24-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - David Teller
 source:

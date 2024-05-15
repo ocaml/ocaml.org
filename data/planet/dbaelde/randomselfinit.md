@@ -4,7 +4,6 @@ description:
 url: https://misterpingouin.blogspot.com/2010/10/randomselfinit.html
 date: 2010-10-20T13:15:00-00:00
 preview_image:
-featured:
 authors:
 - mrpingouin
 source:

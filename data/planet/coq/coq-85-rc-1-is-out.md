@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-85rc1-is-out.html
 date: 2015-11-11T19:30:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

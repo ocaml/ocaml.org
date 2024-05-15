@@ -5,7 +5,6 @@ description: "Tarides is delighted to announce that MirageOS 4 is finally releas
 url: https://tarides.com/blog/2022-03-29-mirageos-4-released
 date: 2022-03-29T00:00:00-00:00
 preview_image: https://tarides.com/static/393425633dfedffb8749b36f48537ebd/eee8e/desert_mirage.jpg
-featured:
 authors:
 - Tarides
 source:

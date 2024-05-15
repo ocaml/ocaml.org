@@ -7,7 +7,6 @@ description: Have you heard about our Try-Alt-Ergo website? Created in 2014 (see
 url: https://ocamlpro.com/blog/2021_03_29_new_try_alt_ergo
 date: 2021-03-29T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Albin Coquereau\n  "
 source:

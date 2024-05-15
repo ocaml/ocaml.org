@@ -5,7 +5,6 @@ description: "The Upcoming Tezos Jakarta Protocol will support compact Merkle\np
 url: https://tarides.com/blog/2022-06-13-adding-merkle-proofs-to-tezos
 date: 2022-06-13T00:00:00-00:00
 preview_image: https://tarides.com/static/2c0480f27aceb19ab86b870835c01b7a/0132d/merkle-tree.jpg
-featured:
 authors:
 - Tarides
 source:

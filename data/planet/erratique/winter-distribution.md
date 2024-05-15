@@ -4,7 +4,6 @@ description:
 url: https://erratique.ch/software
 date: 2013-01-05T17:18:05-00:00
 preview_image:
-featured:
 authors:
 - "Daniel B\xFCnzli"
 source:

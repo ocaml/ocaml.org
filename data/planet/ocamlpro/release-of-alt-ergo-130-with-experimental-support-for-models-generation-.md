@@ -7,7 +7,6 @@ description: "We have recently released a new (public up-to-date) version of Alt
 url: https://ocamlpro.com/blog/2016_11_21_release_of_alt_ergo_1_30_with_experimental_support_for_models_generation
 date: 2016-11-21T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:

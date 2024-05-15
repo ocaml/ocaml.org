@@ -4,7 +4,6 @@ description:
 url: https://ocsigen.github.io/blog/2016/05/20/tyxml4/
 date: 2016-05-20T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The Ocsigen Team
 source:

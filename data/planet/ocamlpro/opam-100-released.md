@@ -7,7 +7,6 @@ description: I am very happy to announce the first official release of OPAM! Man
 url: https://ocamlpro.com/blog/2013_03_15_opam_1.0.0_released
 date: 2013-03-15T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Thomas Gazagnaire\n  "
 source:

@@ -5,7 +5,6 @@ description: "Nitrokey is one of the world\u2019s foremost open-source hardware 
 url: https://tarides.com/blog/2024-03-27-nethsm-bringing-open-source-to-the-world-of-hardware-security-modules
 date: 2024-03-27T00:00:00-00:00
 preview_image: https://tarides.com/static/fe35f4267aa09a10742e1980f6661012/6b019/purple-cybersecurity.jpg
-featured:
 authors:
 - Tarides
 source:

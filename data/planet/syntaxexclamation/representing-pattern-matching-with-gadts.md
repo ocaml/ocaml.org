@@ -6,7 +6,6 @@ description: "Here is a little programming pearl. I\u2019ve been wanting to work
 url: https://syntaxexclamation.wordpress.com/2014/04/12/representing-pattern-matching-with-gadts/
 date: 2014-04-11T22:38:56-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Matthias Puech
 source:

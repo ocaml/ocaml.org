@@ -5,7 +5,6 @@ description: "Our mission is to build sustainable and secure software infrastruc
 url: https://tarides.com/blog/2023-07-31-ocaml-in-space-welcome-spaceos
 date: 2023-07-31T00:00:00-00:00
 preview_image: https://tarides.com/static/2e322321de9ea2c4156fe87fad92711b/0132d/Space-satellite.jpg
-featured:
 authors:
 - Tarides
 source:

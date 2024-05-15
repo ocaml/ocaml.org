@@ -5,7 +5,6 @@ description: "Yesterday we announced the OCaml 5 beta release, and today we're e
 url: https://tarides.com/blog/2022-10-18-ocaml-s-platform-installer-alpha-release
 date: 2022-10-18T00:00:00-00:00
 preview_image: https://tarides.com/static/37c1fbd194b159b27cf395d3116c4192/0132d/platform_installer.jpg
-featured:
 authors:
 - Tarides
 source:

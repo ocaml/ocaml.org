@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2014/12/2014.12.ocaml-portland-app.html
 date: 2014-12-14T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

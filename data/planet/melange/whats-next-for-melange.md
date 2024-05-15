@@ -4,7 +4,6 @@ description:
 url: https://melange.re/blog/posts/whats-next-for-melange
 date: 2023-07-10T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Melange Blog
 source:

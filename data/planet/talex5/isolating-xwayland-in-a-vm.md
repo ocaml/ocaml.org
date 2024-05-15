@@ -4,7 +4,6 @@ description:
 url: https://roscidus.com/blog/blog/2021/10/30/xwayland/
 date: 2021-10-30T10:00:00-00:00
 preview_image:
-featured:
 authors:
 - Thomas Leonard
 source:

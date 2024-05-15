@@ -7,7 +7,6 @@ description: 'UPDATE (2017-02-14): A beta2 is online, which fixes issues and per
 url: https://ocamlpro.com/blog/2017_02_09_opam_2.0_beta_is_out
 date: 2017-02-09T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

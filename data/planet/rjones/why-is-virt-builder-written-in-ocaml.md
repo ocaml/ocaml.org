@@ -6,7 +6,6 @@ description: "Docker is written in Go. virt-builder is written in OCaml. Why? (O
 url: https://rwmj.wordpress.com/2013/11/11/why-is-virt-builder-written-in-ocaml/
 date: 2013-11-11T15:00:42-00:00
 preview_image: http://libguestfs.org/virt-builder.svg
-featured:
 authors:
 - Richard Jones
 source:

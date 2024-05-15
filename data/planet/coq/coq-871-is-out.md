@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-871-is-out.html
 date: 2017-12-15T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

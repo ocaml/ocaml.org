@@ -5,7 +5,6 @@ description: "This article describes the porting of the DHCP daemon charrua-unix
 url: https://tarides.com/blog/2022-10-19-porting-charrua-unix-and-rawlink-to-eio
 date: 2022-10-19T00:00:00-00:00
 preview_image: https://tarides.com/static/674773ed3cc5b11161973c10d44bd4c5/dfe86/EioPic.jpg
-featured:
 authors:
 - Tarides
 source:

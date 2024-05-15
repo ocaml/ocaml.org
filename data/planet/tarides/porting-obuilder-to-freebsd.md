@@ -5,7 +5,6 @@ description: "OBuilder is a tool for performing arbitrary, reproduceable builds 
 url: https://tarides.com/blog/2023-10-04-porting-obuilder-to-freebsd
 date: 2023-10-04T00:00:00-00:00
 preview_image: https://tarides.com/static/a5bcde1ae8acf18ab1586db0c6368d87/0132d/freebsd.jpg
-featured:
 authors:
 - Tarides
 source:

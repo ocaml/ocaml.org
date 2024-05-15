@@ -7,7 +7,6 @@ description: As announced in a previous post, I joined OCamlPro at the beginning
 url: https://ocamlpro.com/blog/2013_10_02_alt_ergo_ocamlpro_two_months_later
 date: 2013-10-02T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:

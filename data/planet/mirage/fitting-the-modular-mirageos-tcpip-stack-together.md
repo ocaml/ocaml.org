@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/intro-tcpip
 date: 2014-07-17T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Mindy Preston
 ---

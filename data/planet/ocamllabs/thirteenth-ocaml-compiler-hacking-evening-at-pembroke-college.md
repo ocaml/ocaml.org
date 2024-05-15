@@ -4,7 +4,6 @@ description:
 url: http://ocamllabs.github.com/compiler-hacking/2016/05/20/spring-compiler-hacking
 date: 2016-05-20T23:30:00-00:00
 preview_image:
-featured:
 authors:
 - OCaml Labs compiler hacking
 source:

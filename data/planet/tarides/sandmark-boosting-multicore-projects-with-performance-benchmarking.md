@@ -5,7 +5,6 @@ description: "Introduction In the realm of software development, continuous impr
 url: https://tarides.com/blog/2023-07-19-sandmark-boosting-multicore-projects-with-performance-benchmarking
 date: 2023-07-19T00:00:00-00:00
 preview_image: https://tarides.com/static/0b47a4b3a13a66551f3822644c95fd12/2070e/sandmark.jpg
-featured:
 authors:
 - Tarides
 source:

@@ -4,7 +4,6 @@ description: The Binary Analysis Platform Blog
 url: http://binaryanalysisplatform.github.io/arm_with_bap
 date: 2015-03-04T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The BAP Blog
 source:

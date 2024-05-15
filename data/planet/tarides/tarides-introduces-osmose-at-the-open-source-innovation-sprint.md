@@ -5,7 +5,6 @@ description: "Tarides is excited to announce that our CEO, Dr. Thomas Gazagnaire
 url: https://tarides.com/blog/2021-06-29-tarides-introduces-osmose-at-the-open-source-innovation-sprint
 date: 2021-06-29T00:00:00-00:00
 preview_image: https://tarides.com/static/61be7fbf64e3a8abb9518d02f63aa5e6/0d665/OSIS-talk.png
-featured:
 authors:
 - Tarides
 source:

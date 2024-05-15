@@ -6,7 +6,6 @@ description: "I pushed OCaml 4.04.0 to Fedora Rawhide last week. There are loads
 url: https://rwmj.wordpress.com/2016/11/19/ocaml-4-04-risc-v-s390-power-and-more/
 date: 2016-11-19T14:46:11-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

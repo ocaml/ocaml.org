@@ -5,7 +5,6 @@ description: In part 1  and part 2  of this series, we made a simple Sudoku game
 url: http://ambassadortothecomputers.blogspot.com/2009/05/sudoku-in-ocamljs-part-3-functional.html
 date: 2009-05-12T04:51:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

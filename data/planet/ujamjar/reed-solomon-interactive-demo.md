@@ -4,7 +4,6 @@ description:
 url: http://www.ujamjar.com/demo/ocaml/2014/06/18/reed-solomon-demo.html
 date: 2014-06-18T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andy Ray
 source:

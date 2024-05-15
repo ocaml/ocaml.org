@@ -4,7 +4,6 @@ description:
 url: https://misterpingouin.blogspot.com/2009/07/illumination.html
 date: 2009-07-16T06:13:00-00:00
 preview_image:
-featured:
 authors:
 - mrpingouin
 source:

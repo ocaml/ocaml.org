@@ -7,7 +7,6 @@ description: We are pleased to announce the release of a second release candidat
 url: https://ocamlpro.com/blog/2018_05_22_opam_2.0.0_release_candidate_2_is_out
 date: 2018-05-22T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-is-hiring-a-specialized-engineer-for-2-years.html
 date: 2014-07-18T11:41:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

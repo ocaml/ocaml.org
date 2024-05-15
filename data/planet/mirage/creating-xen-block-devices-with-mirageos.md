@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/xen-block-devices-with-mirage
 date: 2013-07-18T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Dave Scott
 ---

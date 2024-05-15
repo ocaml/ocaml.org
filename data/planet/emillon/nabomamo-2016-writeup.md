@@ -4,7 +4,6 @@ description:
 url: http://blog.emillon.org/posts/2017-02-01-nabomamo-2016-writeup.html
 date: 2017-02-01T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Etienne Millon
 source:

@@ -5,7 +5,6 @@ description: We believe that Tezos will drive social, political and economic inn
 url: https://tezos.foundation
 date: 2018-05-23T00:00:00-00:00
 preview_image: https://tezos.foundation/wp-content/uploads/2020/04/blue-bg.png
-featured:
 authors:
 - Tarides
 source:

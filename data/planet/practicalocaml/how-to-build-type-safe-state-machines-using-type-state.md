@@ -6,7 +6,6 @@ description: Tired of writing state machines full of invalid transitions? Type-s
 url: https://practicalocaml.com/how-to-build-type-safe-state-machines-using-type-state/
 date: 2023-08-29T10:29:59-00:00
 preview_image:
-featured:
 authors:
 - Practical OCaml
 source:

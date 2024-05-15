@@ -5,7 +5,6 @@ description:
 url: http://www.cis.upenn.edu/proj/plclub/contest/results.php
 date: 2004-09-20T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Caml INRIA
 source:

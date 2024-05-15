@@ -7,7 +7,6 @@ description: "Alt-Ergo meeting Logo Alt-Ergo La deuxi\xE8me r\xE9union annuelle 
 url: https://ocamlpro.com/blog/2020_03_03_reunion_annuelle_du_club_des_utilisateurs_dalt_ergo
 date: 2020-03-03T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Aurore Dromby\n  "
 source:

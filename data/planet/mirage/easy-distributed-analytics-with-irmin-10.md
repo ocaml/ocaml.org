@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/irmin-1.0
 date: 2017-03-06T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Thomas Gazagnaire
 ---

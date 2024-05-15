@@ -4,7 +4,6 @@ description: Our favorite recommendations for getting started with OCaml
 url: https://tech.ahrefs.com/how-to-get-started-with-ocaml-in-2022-2f22b578b984?source=rss----303662d88bae--ocaml
 date: 2022-10-31T16:13:10-00:00
 preview_image: https://miro.medium.com/v2/resize:fit:1137/0*EgPCQlLR4C54N3Ge
-featured:
 authors:
 - Ahrefs
 source:

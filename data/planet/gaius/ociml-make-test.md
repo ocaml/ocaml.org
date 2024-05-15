@@ -6,7 +6,6 @@ description: "Before resuming feature implementation in OCI*ML I thought I ought
 url: https://gaius.tech/2013/08/15/ociml-make-test/
 date: 2013-08-15T16:01:03-00:00
 preview_image: https://gaiustech.files.wordpress.com/2013/08/maketest.png
-featured:
 authors:
 - Gaius Hammond
 source:

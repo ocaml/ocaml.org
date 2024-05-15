@@ -4,7 +4,6 @@ description:
 url: https://signals-threads.simplecast.com/episodes/what-is-an-operating-system-with-anil-madhavapeddy-q6Bgv_BW
 date: 2021-11-03T16:00:00-00:00
 preview_image:
-featured:
 authors:
 - Signals and Threads
 source:

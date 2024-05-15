@@ -5,7 +5,6 @@ description: OCaml with Jane Street extensions is available from our public opam
 url: https://blog.janestreet.com/oxidizing-ocaml-parallelism/
 date: 2023-09-01T00:00:00-00:00
 preview_image: https://blog.janestreet.com/oxidizing-ocaml-parallelism/oxidizing-ocaml-parallelism.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

@@ -4,7 +4,6 @@ description: Good introduction to both OCaml and (functional) programming
 url: http://www.amazon.co.uk/review/R28WYJ13WA94YL/ref=cm_cr_rdp_perm?ie=UTF8&ASIN=0957671105&linkCode=&nodeID=&tag=
 date: 2013-07-04T22:43:32-00:00
 preview_image:
-featured:
 authors:
 - "Daniel B\xFCnzli"
 source:

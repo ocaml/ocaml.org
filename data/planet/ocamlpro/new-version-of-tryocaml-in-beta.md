@@ -7,7 +7,6 @@ description: "We are happy to announce that our venerable \"TryOCaml\" service i
 url: https://ocamlpro.com/blog/2020_03_16_new_version_of_try_ocaml_in_beta
 date: 2020-03-16T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

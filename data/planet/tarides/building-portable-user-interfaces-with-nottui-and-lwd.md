@@ -5,7 +5,6 @@ description: "At Tarides, we build many tools and writing UI is usually a tediou
 url: https://tarides.com/blog/2020-09-24-building-portable-user-interfaces-with-nottui-and-lwd
 date: 2020-09-24T00:00:00-00:00
 preview_image: https://tarides.com/static/06fbdcdb40efa879b814b744c5ea3fbf/fcfee/nottui-rain.png
-featured:
 authors:
 - Tarides
 source:

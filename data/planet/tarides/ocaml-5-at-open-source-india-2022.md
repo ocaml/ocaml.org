@@ -5,7 +5,6 @@ description: "Open Source India 2022 With OCaml 5 just around the corner, it's b
 url: https://tarides.com/blog/2022-11-16-ocaml-5-at-open-source-india-2022
 date: 2022-11-16T00:00:00-00:00
 preview_image: https://tarides.com/static/6da02c5d6a3fd0a7b0098ae8b3e3c7e0/76288/osi_banner.png
-featured:
 authors:
 - Tarides
 source:

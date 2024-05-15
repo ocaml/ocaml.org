@@ -4,7 +4,6 @@ description:
 url: https://signalsandthreads.com/language-design/
 date: 2020-10-21T16:00:00-00:00
 preview_image: https://signalsandthreads.com/static/images/twitter/language_design.png
-featured:
 authors:
 - Signals and Threads
 source:

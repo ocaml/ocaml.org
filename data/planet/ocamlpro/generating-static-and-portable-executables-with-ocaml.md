@@ -9,7 +9,6 @@ description: 'Distributing OCaml software on opam is great (if I dare say so mys
 url: https://ocamlpro.com/blog/2021_09_02_generating_static_and_portable_executables_with_ocaml
 date: 2021-09-02T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

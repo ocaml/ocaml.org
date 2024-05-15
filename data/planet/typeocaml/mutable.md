@@ -6,7 +6,6 @@ description: This post describes when to use imperative style in OCaml. It uses 
 url: http://typeocaml.com/2015/01/20/mutable/
 date: 2015-01-21T01:09:42-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

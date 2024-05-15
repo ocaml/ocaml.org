@@ -5,7 +5,6 @@ description: Locations             Writing compilers and interpreters requires r
 url: http://blog.shaynefletcher.org/2017/03/dealing-with-source-code-locations-in.html
 date: 2017-03-30T19:58:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

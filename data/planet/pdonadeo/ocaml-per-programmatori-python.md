@@ -4,7 +4,6 @@ description:
 url: https://www.donadeo.net/post/2010/ocaml-per-programmatori-python
 date: 2010-08-22T22:08:00-00:00
 preview_image:
-featured:
 authors:
 - Paolo Donadeo
 source:

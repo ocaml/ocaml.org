@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/introducing-xen-minios-arm
 date: 2014-07-22T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Thomas Leonard
 ---

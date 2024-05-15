@@ -5,7 +5,6 @@ description: A little bit about everything, but mostly about fixing annoying tec
 url: http://yansnotes.blogspot.com/2014/10/ocaml-teaching-resource.html
 date: 2014-10-06T09:39:00-00:00
 preview_image:
-featured:
 authors:
 - Unknown
 source:

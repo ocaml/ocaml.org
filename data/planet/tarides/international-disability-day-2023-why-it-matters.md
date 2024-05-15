@@ -5,7 +5,6 @@ description: "When I was in my early 20s, I developed a chronic illness that (am
 url: https://tarides.com/blog/2023-12-05-international-disability-day-2023-why-it-matters
 date: 2023-12-05T00:00:00-00:00
 preview_image: https://tarides.com/static/0f8a2a3cc7f059c38bb90b52406329a2/0132d/locker.jpg
-featured:
 authors:
 - Tarides
 source:

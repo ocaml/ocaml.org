@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-83pl2-is-out.html
 date: 2011-04-25T17:44:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

@@ -5,7 +5,6 @@ description: If like me, you've always been a little hazy on the rules for defin
 url: http://blog.shaynefletcher.org/2016/09/custom-operators-in-ocaml.html
 date: 2016-09-20T20:08:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

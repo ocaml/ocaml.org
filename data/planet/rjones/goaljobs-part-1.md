@@ -6,7 +6,6 @@ description: "A little more than a year ago I released whenjobs which was an att
 url: https://rwmj.wordpress.com/2013/09/19/goaljobs-part-1/
 date: 2013-09-19T22:16:03-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

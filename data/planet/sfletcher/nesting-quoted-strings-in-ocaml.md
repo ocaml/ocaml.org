@@ -5,7 +5,6 @@ description: Quoting             According to the lexical conventions of OCaml, 
 url: http://blog.shaynefletcher.org/2017/10/nesting-quoted-strings-in-ocaml.html
 date: 2017-10-28T00:53:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

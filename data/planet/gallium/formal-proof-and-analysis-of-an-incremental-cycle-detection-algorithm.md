@@ -4,7 +4,6 @@ description:
 url: http://gallium.inria.fr/blog/incremental-cycle-detection
 date: 2019-02-12T08:00:00-00:00
 preview_image:
-featured:
 authors:
 - gallium
 ---

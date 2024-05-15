@@ -5,7 +5,6 @@ description: "I\u2019m happy to announce the release of Pumping, a library to le
 url: https://drup.github.io/2017/04/01/pumping/
 date: 2017-04-01T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gabriel Radanne
 source:

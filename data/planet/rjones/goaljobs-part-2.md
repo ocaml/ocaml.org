@@ -6,7 +6,6 @@ description: "In part 1 I showed how a simple make rule could be converted to a 
 url: https://rwmj.wordpress.com/2013/09/20/goaljobs-part-2/
 date: 2013-09-20T09:04:11-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

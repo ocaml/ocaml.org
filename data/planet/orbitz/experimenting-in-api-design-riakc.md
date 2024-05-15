@@ -5,7 +5,6 @@ description: 'Disclaimer: Riakc''s API is in flux so not all of the code here is
 url: http://functional-orbitz.blogspot.com/2013/07/experimenting-in-api-design-riakc.html
 date: 2013-07-09T18:37:00-00:00
 preview_image:
-featured:
 authors:
 - Orbitz
 source:

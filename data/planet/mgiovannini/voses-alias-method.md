@@ -5,7 +5,6 @@ description: This is a note regarding the implementation of Vose's Method  to co
 url: https://alaska-kamtchatka.blogspot.com/2011/12/voses-alias-method.html
 date: 2011-12-29T17:12:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

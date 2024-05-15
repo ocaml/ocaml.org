@@ -4,7 +4,6 @@ description: Here are some news about Tyre, along with release of version 0.3.
 url: https://drup.github.io/2017/04/17/tyre-news/
 date: 2017-04-17T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gabriel Radanne
 source:

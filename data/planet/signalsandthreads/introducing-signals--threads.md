@@ -4,7 +4,6 @@ description:
 url: https://signals-threads.simplecast.com/episodes/introducing-signals-threads-zLlapP9a
 date: 2020-08-24T01:25:54-00:00
 preview_image:
-featured:
 authors:
 - Signals and Threads
 source:

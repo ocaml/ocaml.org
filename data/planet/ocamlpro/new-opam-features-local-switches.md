@@ -7,7 +7,6 @@ description: Among the areas we wanted to improve on for opam 2.0 was the handli
 url: https://ocamlpro.com/blog/2017_04_27_new_opam_features_local_switches
 date: 2017-04-27T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

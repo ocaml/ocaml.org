@@ -5,7 +5,6 @@ description: "We are thrilled to have been selected by the Paris Open Source Sum
 url: https://tarides.com/blog/2019-12-04-mirageos-talk-at-the-paris-open-source-summit
 date: 2019-12-04T00:00:00-00:00
 preview_image: https://tarides.com/static/646b9e94e874374ddd8450022db7c3e2/96c5f/paris_from_window.jpg
-featured:
 authors:
 - Tarides
 source:

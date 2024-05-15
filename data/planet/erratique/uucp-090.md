@@ -4,7 +4,6 @@ description:
 url: https://erratique.ch/software/uucp
 date: 2014-06-28T21:53:49-00:00
 preview_image:
-featured:
 authors:
 - "Daniel B\xFCnzli"
 source:

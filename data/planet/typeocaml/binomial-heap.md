@@ -6,7 +6,6 @@ description: This post presents another functional heap - binomial heap in OCaml
 url: http://typeocaml.com/2015/03/17/binomial-heap/
 date: 2015-03-18T00:07:39-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

@@ -9,7 +9,6 @@ description: 'A new release of Alt-Ergo (version 2.4.0)  is available. You can g
 url: https://ocamlpro.com/blog/2021_01_22_release_of_alt_ergo_2_4_0
 date: 2021-01-22T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Albin Coquereau\n  "
 source:

@@ -6,7 +6,6 @@ description: "This is the answer to last post\u2019s puzzle. I gave an algorithm
 url: https://syntaxexclamation.wordpress.com/2014/04/18/547/
 date: 2014-04-18T16:13:34-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Matthias Puech
 source:

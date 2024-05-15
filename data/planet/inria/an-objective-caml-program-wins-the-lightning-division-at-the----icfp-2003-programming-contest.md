@@ -5,7 +5,6 @@ description:
 url: http://www.dtek.chalmers.se/groups/icfpcontest/
 date: 2003-08-01T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Caml INRIA
 source:

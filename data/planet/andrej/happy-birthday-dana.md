@@ -4,7 +4,6 @@ description:
 url: http://math.andrej.com/2022/10/11/happy-birthday-dana/
 date: 2022-10-11T07:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andrej Bauer
 source:

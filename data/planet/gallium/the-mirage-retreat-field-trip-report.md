@@ -4,7 +4,6 @@ description:
 url: http://gallium.inria.fr/blog/mirage-retreat-field-trip-report
 date: 2019-04-15T08:00:00-00:00
 preview_image:
-featured:
 authors:
 - gallium
 ---

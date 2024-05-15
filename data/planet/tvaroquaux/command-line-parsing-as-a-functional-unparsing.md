@@ -5,7 +5,6 @@ description: "Command line argument parsing is a puzzling subject: it seems simp
 url: https://till-varoquaux.blogspot.com/2010/07/command-line-parsing-as-functional.html
 date: 2010-07-13T01:16:00-00:00
 preview_image:
-featured:
 authors:
 - Till
 source:

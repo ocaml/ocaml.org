@@ -7,7 +7,6 @@ description: "Ce troisi\xE8me article consacr\xE9 \xE0 l\u2019am\xE9lioration du
 url: https://ocamlpro.com/blog/2019_02_05_fr_optimisation_du_stockage_dans_tezos_une_branche_de_test_sur_gitlab
 date: 2019-02-05T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

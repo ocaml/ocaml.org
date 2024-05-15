@@ -4,7 +4,6 @@ description:
 url: http://gallium.inria.fr/blog/florian-cw-2023-09-26
 date: 2023-09-26T08:00:00-00:00
 preview_image:
-featured:
 authors:
 - GaGallium
 source:

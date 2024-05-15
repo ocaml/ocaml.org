@@ -5,7 +5,6 @@ description: 'Disclaimer: I have not compiled any of the example code in this po
 url: http://functional-orbitz.blogspot.com/2013/01/experiences-using-resultt-vs-exceptions.html
 date: 2013-01-04T20:37:00-00:00
 preview_image:
-featured:
 authors:
 - Orbitz
 source:

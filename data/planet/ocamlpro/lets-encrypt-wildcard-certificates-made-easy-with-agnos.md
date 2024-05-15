@@ -7,7 +7,6 @@ description: It is with great pleasure that we announce the first beta release o
 url: https://ocamlpro.com/blog/2022_10_05_agnos_0.1.0-beta
 date: 2022-10-05T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Arthur Carcano\n  "
 source:

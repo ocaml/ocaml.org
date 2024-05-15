@@ -5,7 +5,6 @@ description: "Zero-day attacks have been getting increased media attention latel
 url: https://tarides.com/blog/2023-07-05-zero-day-attacks-what-are-they-and-can-a-language-like-ocaml-protect-you
 date: 2023-07-05T00:00:00-00:00
 preview_image: https://tarides.com/static/7d0d50bb374a8ab516e9c349f4225892/0132d/zeroday.jpg
-featured:
 authors:
 - Tarides
 source:

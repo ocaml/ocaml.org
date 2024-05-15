@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/a-tactic-for-deciding-kleene-algebras.html
 date: 2009-06-09T20:58:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

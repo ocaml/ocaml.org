@@ -6,7 +6,6 @@ description: "Jane Street is excited to announce our sponsorship ofSoME3, Grant 
 url: https://blog.janestreet.com/were-sponsoring-some3/
 date: 2023-07-06T00:00:00-00:00
 preview_image: https://blog.janestreet.com/were-sponsoring-some3/techblog-some3.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

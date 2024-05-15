@@ -5,7 +5,6 @@ description: Transpose               If we are to represent a row of a matrix as
 url: http://blog.shaynefletcher.org/2017/08/transpose.html
 date: 2017-08-12T19:38:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

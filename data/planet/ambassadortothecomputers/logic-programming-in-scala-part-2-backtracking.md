@@ -5,7 +5,6 @@ description: "In the previous post  we saw how to write computations in a logic 
 url: http://ambassadortothecomputers.blogspot.com/2011/04/logic-programming-in-scala-part-2.html
 date: 2011-04-30T05:07:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

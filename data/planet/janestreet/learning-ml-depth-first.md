@@ -5,7 +5,6 @@ description: "If you haven\u2019t heard of it, Depth FirstLearning is awonderful
 url: https://blog.janestreet.com/learning-ml-depth-first/
 date: 2019-04-17T00:00:00-00:00
 preview_image: https://blog.janestreet.com/learning-ml-depth-first/Depth_First_Realigned.svg
-featured:
 authors:
 - Jane Street Tech Blog
 source:

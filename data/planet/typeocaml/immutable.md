@@ -6,7 +6,6 @@ description: This post describes immutable in OCaml with details. It also illust
 url: http://typeocaml.com/2015/01/02/immutable/
 date: 2015-01-02T15:52:41-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

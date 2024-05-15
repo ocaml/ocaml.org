@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/Haskell/parMap.html
 date: 2013-01-22T11:08:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

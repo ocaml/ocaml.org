@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/ocaml-json-benchmark/
 date: 2014-02-05T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

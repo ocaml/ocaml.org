@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-received-acm-software-system-2013-award.html
 date: 2014-04-19T08:45:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

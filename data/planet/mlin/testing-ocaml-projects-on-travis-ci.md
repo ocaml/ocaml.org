@@ -5,7 +5,6 @@ description: "Update (Oct 2013):  Anil \_Madhavapeddy has fleshed this out furth
 url: http://blog.mlin.net/2013/02/testing-ocaml-projects-on-travis-ci.html
 date: 2013-02-11T04:18:00-00:00
 preview_image:
-featured:
 authors:
 - Unknown
 source:

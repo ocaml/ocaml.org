@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/a-locally-nameless-backend-for-ott.html
 date: 2009-03-10T12:29:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

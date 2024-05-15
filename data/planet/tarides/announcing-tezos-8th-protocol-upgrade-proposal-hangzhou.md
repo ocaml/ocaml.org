@@ -5,7 +5,6 @@ description: The last upgrade of the Tezos protocol, Granada, activated on Augus
 url: https://marigold.dev/blog/announcing-hangzhou/
 date: 2021-09-21T00:00:00-00:00
 preview_image: https://uploads-ssl.webflow.com/616ab4741d375d9bfbc19060/618160ee59e0d37af7286bb7_blog7.png
-featured:
 authors:
 - Tarides
 source:
