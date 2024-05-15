@@ -308,8 +308,7 @@ let blog req =
     paginate ~req ~n:10 Data.Planet.Post.all
   in
   let number_of_news =
-    List.length current_items
-    |> float_of_int |> ( *. ) 1.3 |> int_of_float
+    List.length current_items |> float_of_int |> ( *. ) 1.3 |> int_of_float
   in
   let news = Data.News.all |> List.take number_of_news in
   Dream.html
