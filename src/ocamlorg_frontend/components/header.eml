@@ -12,7 +12,7 @@ let string_of_nav_item = function
   | Packages -> "Packages"
   | Community -> "Community"
   | News -> "News"
-  | Playground -> "Try"
+  | Playground -> "Play"
 
 let url_of_nav_item = function
   | Learn -> Url.learn
