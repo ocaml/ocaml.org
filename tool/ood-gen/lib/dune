@@ -18,6 +18,7 @@
   fpath
   ppx_stable
   hilite
-  re)
+  re
+  xmlm)
  (preprocess
   (pps ppx_deriving_yaml ppx_stable ppx_deriving.show)))

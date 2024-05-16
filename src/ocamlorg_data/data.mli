@@ -205,3 +205,14 @@ module Workshop : sig
   val all : t list
   val get_by_slug : string -> t option
 end
+
+module Youtube : sig
+  type t = {
+    title : string;
+    content : string;
+    thumbnail : string;
+    description : string;
+  }
+
+  val all : t list
+end

@@ -1,0 +1,24 @@
+- name: Jane Street - Tech Talks
+  kind: playlist
+  id: PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+- name: Jane Street - OCaml Unboxed
+  kind: playlist
+  id: PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+- name: Jane Street - Signal & Threads
+  kind: playlist
+  id: PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+- name: Emelle TV
+  kind: channel
+  id: UCvVVfCa7-nzSuCdMKXnNJNQ
+- name: The Vimeagen
+  kind: channel
+  id: UCVk4b-svNJoeytrrlOixebQ
+- name: OCAML Worshop at ICFP 2023
+  kind: playlist
+  id: PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+- name: "OCaml Programming: Correct + Efficient + Beautiful"
+  kind: playlist
+  id: PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+- name: Collège de France - Sciences du logiciel
+  kind: playlist
+  id: PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im

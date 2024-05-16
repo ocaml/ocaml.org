@@ -244,3 +244,5 @@ module Workshop = struct
   let all = Workshop.all
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
+
+module Youtube = Youtube

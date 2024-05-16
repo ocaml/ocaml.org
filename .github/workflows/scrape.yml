@@ -47,6 +47,7 @@ jobs:
       - name: Run scrapers
         run: |
           opam exec -- dune exec tool/ood-gen/bin/scrape.exe planet
+          opam exec -- dune exec tool/ood-gen/bin/scrape.exe youtube
           opam exec -- dune exec tool/ood-gen/bin/watch_scrape.exe > data/watch.yml
 
       - name: Create Pull Request
