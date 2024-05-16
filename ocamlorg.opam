@@ -19,7 +19,7 @@ doc: "https://ocaml.github.io/ocaml.org/"
 bug-reports: "https://github.com/ocaml/ocaml.org/issues"
 depends: [
   "ocaml" {>= "4.14.0"}
-  "dune" {>= "3.6"}
+  "dune" {>= "3.15"}
   "cohttp"
   "cohttp-lwt-unix"
   "bos"
