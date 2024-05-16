@@ -3,18 +3,6 @@
  (public_name ocamlorg.data))
 
 (rule
- (target is_ocaml_yet.ml)
- (deps
-  (source_tree %{workspace_root}/data/is_ocaml_yet)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} is_ocaml_yet)))))
-
-(rule
  (target academic_institution.ml)
  (deps
   (source_tree %{workspace_root}/data/academic_institutions)
@@ -39,18 +27,6 @@
     (run %{ood_gen} book)))))
 
 (rule
- (target governance.ml)
- (deps
-  %{workspace_root}/data/governance.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} governance)))))
-
-(rule
  (target changelog.ml)
  (deps
   (source_tree %{workspace_root}/data/changelog)
@@ -63,40 +39,28 @@
     (run %{ood_gen} changelog)))))
 
 (rule
- (target job.ml)
+ (target cookbook.ml)
  (deps
-  %{workspace_root}/data/jobs.yml
+  (source_tree %{workspace_root}/data/cookbook)
   (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
   (chdir
    %{workspace_root}
    (with-stdout-to
     %{target}
-    (run %{ood_gen} job)))))
+    (run %{ood_gen} cookbook)))))
 
 (rule
- (target industrial_user.ml)
+ (target event.ml)
  (deps
-  (source_tree %{workspace_root}/data/industrial_users)
+  (source_tree %{workspace_root}/data/events)
   (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
   (chdir
    %{workspace_root}
    (with-stdout-to
     %{target}
-    (run %{ood_gen} industrial_user)))))
-
-(rule
- (target paper.ml)
- (deps
-  %{workspace_root}/data/papers.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} paper)))))
+    (run %{ood_gen} event)))))
 
 (rule
  (target exercise.ml)
@@ -111,6 +75,66 @@
     (run %{ood_gen} exercises)))))
 
 (rule
+ (target governance.ml)
+ (deps
+  %{workspace_root}/data/governance.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+ (action
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} governance)))))
+
+(rule
+ (target industrial_user.ml)
+ (deps
+  (source_tree %{workspace_root}/data/industrial_users)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+ (action
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} industrial_user)))))
+
+(rule
+ (target is_ocaml_yet.ml)
+ (deps
+  (source_tree %{workspace_root}/data/is_ocaml_yet)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+ (action
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} is_ocaml_yet)))))
+
+(rule
+ (target job.ml)
+ (deps
+  %{workspace_root}/data/jobs.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+ (action
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} job)))))
+
+(rule
+ (target paper.ml)
+ (deps
+  %{workspace_root}/data/papers.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+ (action
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} paper)))))
+
+(rule
  (target release.ml)
  (deps
   (source_tree %{workspace_root}/data/releases)
@@ -123,18 +147,6 @@
     (run %{ood_gen} release)))))
 
 (rule
- (target success_story.ml)
- (deps
-  (source_tree %{workspace_root}/data/success_stories)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} success_story)))))
-
-(rule
  (target resource.ml)
  (deps
   %{workspace_root}/data/resources.yml
@@ -145,6 +157,18 @@
    (with-stdout-to
     %{target}
     (run %{ood_gen} resource)))))
+
+(rule
+ (target success_story.ml)
+ (deps
+  (source_tree %{workspace_root}/data/success_stories)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+ (action
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} success_story)))))
 
 (rule
  (target tool.ml)
@@ -280,27 +304,3 @@
    (with-stdout-to
     %{target}
     (run %{ood_gen} code_example)))))
-
-(rule
- (target event.ml)
- (deps
-  (source_tree %{workspace_root}/data/events)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} event)))))
-
-(rule
- (target cookbook.ml)
- (deps
-  (source_tree %{workspace_root}/data/cookbook)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} cookbook)))))
