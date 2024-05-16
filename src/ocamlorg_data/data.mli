@@ -65,33 +65,143 @@ module Changelog : sig
   val get_by_slug : string -> t option
 end
 
-module Job : sig
-  type t = {
-    title : string;
-    link : string;
-    locations : string list;
-    publication_date : string option;
-    company : string;
-    company_logo : string;
-  }
+module Code_example : sig
+  type t = { title : string; body : string }
 
-  val all : t list
+  val get : string -> t
 end
 
-module Outreachy : sig
-  type project = {
+module Cookbook : sig
+  type category = {
     title : string;
-    description : string;
-    mentee : string;
-    blog : string option;
-    source : string;
-    mentors : string list;
-    video : string option;
+    slug : string;
+    subcategories : category list;
   }
 
-  type t = { name : string; projects : project list }
+  type task = {
+    title : string;
+    slug : string;
+    category_path : string list;
+    description : string option;
+  }
+
+  type code_block_with_explanation = { code : string; explanation : string }
+
+  type package = {
+    name : string;
+    tested_version : string;
+    used_libraries : string list;
+  }
+
+  type t = {
+    slug : string;
+    filepath : string;
+    task : task;
+    packages : package list;
+    code_blocks : code_block_with_explanation list;
+    code_plaintext : string;
+    discussion_html : string;
+  }
+
+  val top_categories : category list
+  val tasks : task list
+  val all : t list
+  val get_task_path_titles : category list -> string list -> string list
+  val get_tasks_by_category : category_slug:string -> task list
+  val get_by_task : task_slug:string -> t list
+  val get_by_slug : task_slug:string -> string -> t option
+  val full_title_of_recipe : t -> string
+  val main_package_of_recipe : t -> string
+end
+
+module Event : sig
+  type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
+  type location = { lat : float; long : float }
+
+  module RecurringEvent : sig
+    type t = {
+      slug : string;
+      title : string;
+      url : string;
+      textual_location : string;
+      location : location option;
+      event_type : event_type;
+    }
+
+    val all : t list
+    val get_by_slug : string -> t option
+  end
+
+  type utc_datetime = { yyyy_mm_dd : string; utc_hh_mm : string option }
+
+  type t = {
+    title : string;
+    url : string;
+    slug : string;
+    textual_location : string;
+    location : location option;
+    starts : utc_datetime;
+    ends : utc_datetime option;
+    body_md : string;
+    body_html : string;
+    recurring_event : RecurringEvent.t option;
+    event_type : event_type;
+  }
 
   val all : t list
+  val get_by_slug : string -> t option
+end
+
+module Exercise : sig
+  type difficulty = Beginner | Intermediate | Advanced
+
+  type t = {
+    title : string;
+    slug : string;
+    difficulty : difficulty;
+    tags : string list;
+    description : string;
+    statement : string;
+    solution : string;
+    tutorials : string list;
+  }
+
+  val all : t list
+  val filter_tag : ?tag:string -> t list -> t list
+  val get_by_slug : string -> t option
+end
+
+module Governance : sig
+  module Member : sig
+    type t = { name : string; github : string; role : string }
+
+    val compare : t -> t -> int
+  end
+
+  type contact_kind = GitHub | Email | Discord | Chat
+  type contact = { name : string; link : string; kind : contact_kind }
+
+  type dev_meeting = {
+    date : string;
+    time : string;
+    link : string;
+    calendar : string option;
+    notes : string;
+  }
+
+  type team = {
+    id : string;
+    name : string;
+    description : string;
+    contacts : contact list;
+    dev_meeting : dev_meeting option;
+    members : Member.t list;
+    subteams : team list;
+  }
+
+  val teams : team list
+  val working_groups : team list
+  val get_by_id : string -> team option
 end
 
 module Industrial_user : sig
@@ -111,6 +221,108 @@ module Industrial_user : sig
   val all : t list
   val featured : t list
   val get_by_slug : string -> t option
+end
+
+module Is_ocaml_yet : sig
+  type external_package = { url : string; synopsis : string }
+  type package = { name : string; extern : external_package option }
+
+  type category = {
+    name : string;
+    status : string;
+    description : string;
+    packages : package list;
+    slug : string;
+  }
+
+  type t = {
+    id : string;
+    question : string;
+    answer : string;
+    categories : category list;
+    body_html : string;
+  }
+
+  val all : t list
+end
+
+module Job : sig
+  type t = {
+    title : string;
+    link : string;
+    locations : string list;
+    publication_date : string option;
+    company : string;
+    company_logo : string;
+  }
+
+  val all : t list
+end
+
+module News : sig
+  type t = {
+    title : string;
+    slug : string;
+    description : string;
+    date : string;
+    tags : string list;
+    body_html : string;
+    authors : string list;
+  }
+
+  val all : t list
+  val get_by_slug : string -> t option
+end
+
+module Opam_user : sig
+  type t = {
+    name : string;
+    email : string option;
+    github_username : string option;
+    avatar : string option;
+  }
+
+  val all : t list
+
+  val make :
+    name:string ->
+    ?email:string ->
+    ?github_username:string ->
+    ?avatar:string ->
+    unit ->
+    t
+
+  val find_by_name : string -> t option
+end
+
+module Outreachy : sig
+  type project = {
+    title : string;
+    description : string;
+    mentee : string;
+    blog : string option;
+    source : string;
+    mentors : string list;
+    video : string option;
+  }
+
+  type t = { name : string; projects : project list }
+
+  val all : t list
+end
+
+module Page : sig
+  type t = {
+    slug : string;
+    title : string;
+    description : string;
+    meta_title : string;
+    meta_description : string;
+    body_md : string;
+    body_html : string;
+  }
+
+  val get : string -> t
 end
 
 module Paper : sig
@@ -133,23 +345,76 @@ module Paper : sig
   val get_by_slug : string -> t option
 end
 
-module Exercise : sig
-  type difficulty = Beginner | Intermediate | Advanced
+module Planet : sig
+  type source = {
+    id : string;
+    name : string;
+    url : string;
+    description : string;
+    disabled : bool;
+  }
+
+  module Post : sig
+    type t = {
+      title : string;
+      url : string option;
+      slug : string;
+      source : source;
+      description : string option;
+      authors : string list;
+      date : string;
+      preview_image : string option;
+      body_html : string;
+    }
+
+    val all : t list
+  end
+
+  module LocalBlog : sig
+    type t = { source : source; posts : Post.t list; rss_feed : string }
+
+    val all : t list
+    val get_by_id : string -> t option
+  end
+
+  val local_posts : Post.t list
+end
+
+module Release : sig
+  type kind = [ `Compiler ]
 
   type t = {
-    title : string;
-    slug : string;
-    difficulty : difficulty;
-    tags : string list;
-    description : string;
-    statement : string;
-    solution : string;
-    tutorials : string list;
+    kind : kind;
+    version : string;
+    date : string;
+    is_latest : bool;
+    is_lts : bool;
+    intro_md : string;
+    intro_html : string;
+    highlights_md : string;
+    highlights_html : string;
+    body_md : string;
+    body_html : string;
   }
 
   val all : t list
-  val filter_tag : ?tag:string -> t list -> t list
-  val get_by_slug : string -> t option
+  val get_by_version : string -> t option
+  val latest : t
+  val lts : t
+end
+
+module Resource : sig
+  type t = {
+    title : string;
+    description : string;
+    image : string;
+    online_url : string;
+    source_url : string option;
+    featured : bool;
+  }
+
+  val all : t list
+  val featured : t list
 end
 
 module Success_story : sig
@@ -272,62 +537,6 @@ module Watch : sig
   val all : t list
 end
 
-module Planet : sig
-  type source = {
-    id : string;
-    name : string;
-    url : string;
-    description : string;
-    disabled : bool;
-  }
-
-  module Post : sig
-    type t = {
-      title : string;
-      url : string option;
-      slug : string;
-      source : source;
-      description : string option;
-      authors : string list;
-      date : string;
-      preview_image : string option;
-      body_html : string;
-    }
-
-    val all : t list
-  end
-
-  module LocalBlog : sig
-    type t = { source : source; posts : Post.t list; rss_feed : string }
-
-    val all : t list
-    val get_by_id : string -> t option
-  end
-
-  val local_posts : Post.t list
-end
-
-module Opam_user : sig
-  type t = {
-    name : string;
-    email : string option;
-    github_username : string option;
-    avatar : string option;
-  }
-
-  val all : t list
-
-  val make :
-    name:string ->
-    ?email:string ->
-    ?github_username:string ->
-    ?avatar:string ->
-    unit ->
-    t
-
-  val find_by_name : string -> t option
-end
-
 module Workshop : sig
   type role = [ `Co_chair | `Chair ]
 
@@ -368,213 +577,4 @@ module Workshop : sig
 
   val all : t list
   val get_by_slug : string -> t option
-end
-
-module Release : sig
-  type kind = [ `Compiler ]
-
-  type t = {
-    kind : kind;
-    version : string;
-    date : string;
-    is_latest : bool;
-    is_lts : bool;
-    intro_md : string;
-    intro_html : string;
-    highlights_md : string;
-    highlights_html : string;
-    body_md : string;
-    body_html : string;
-  }
-
-  val all : t list
-  val get_by_version : string -> t option
-  val latest : t
-  val lts : t
-end
-
-module News : sig
-  type t = {
-    title : string;
-    slug : string;
-    description : string;
-    date : string;
-    tags : string list;
-    body_html : string;
-    authors : string list;
-  }
-
-  val all : t list
-  val get_by_slug : string -> t option
-end
-
-module Page : sig
-  type t = {
-    slug : string;
-    title : string;
-    description : string;
-    meta_title : string;
-    meta_description : string;
-    body_md : string;
-    body_html : string;
-  }
-
-  val get : string -> t
-end
-
-module Code_example : sig
-  type t = { title : string; body : string }
-
-  val get : string -> t
-end
-
-module Is_ocaml_yet : sig
-  type external_package = { url : string; synopsis : string }
-  type package = { name : string; extern : external_package option }
-
-  type category = {
-    name : string;
-    status : string;
-    description : string;
-    packages : package list;
-    slug : string;
-  }
-
-  type t = {
-    id : string;
-    question : string;
-    answer : string;
-    categories : category list;
-    body_html : string;
-  }
-
-  val all : t list
-end
-
-module Event : sig
-  type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
-  type location = { lat : float; long : float }
-
-  module RecurringEvent : sig
-    type t = {
-      slug : string;
-      title : string;
-      url : string;
-      textual_location : string;
-      location : location option;
-      event_type : event_type;
-    }
-
-    val all : t list
-    val get_by_slug : string -> t option
-  end
-
-  type utc_datetime = { yyyy_mm_dd : string; utc_hh_mm : string option }
-
-  type t = {
-    title : string;
-    url : string;
-    slug : string;
-    textual_location : string;
-    location : location option;
-    starts : utc_datetime;
-    ends : utc_datetime option;
-    body_md : string;
-    body_html : string;
-    recurring_event : RecurringEvent.t option;
-    event_type : event_type;
-  }
-
-  val all : t list
-  val get_by_slug : string -> t option
-end
-
-module Governance : sig
-  module Member : sig
-    type t = { name : string; github : string; role : string }
-
-    val compare : t -> t -> int
-  end
-
-  type contact_kind = GitHub | Email | Discord | Chat
-  type contact = { name : string; link : string; kind : contact_kind }
-
-  type dev_meeting = {
-    date : string;
-    time : string;
-    link : string;
-    calendar : string option;
-    notes : string;
-  }
-
-  type team = {
-    id : string;
-    name : string;
-    description : string;
-    contacts : contact list;
-    dev_meeting : dev_meeting option;
-    members : Member.t list;
-    subteams : team list;
-  }
-
-  val teams : team list
-  val working_groups : team list
-  val get_by_id : string -> team option
-end
-
-module Resource : sig
-  type t = {
-    title : string;
-    description : string;
-    image : string;
-    online_url : string;
-    source_url : string option;
-    featured : bool;
-  }
-
-  val all : t list
-  val featured : t list
-end
-
-module Cookbook : sig
-  type category = {
-    title : string;
-    slug : string;
-    subcategories : category list;
-  }
-
-  type task = {
-    title : string;
-    slug : string;
-    category_path : string list;
-    description : string option;
-  }
-
-  type code_block_with_explanation = { code : string; explanation : string }
-
-  type package = {
-    name : string;
-    tested_version : string;
-    used_libraries : string list;
-  }
-
-  type t = {
-    slug : string;
-    filepath : string;
-    task : task;
-    packages : package list;
-    code_blocks : code_block_with_explanation list;
-    code_plaintext : string;
-    discussion_html : string;
-  }
-
-  val top_categories : category list
-  val tasks : task list
-  val all : t list
-  val get_task_path_titles : category list -> string list -> string list
-  val get_tasks_by_category : category_slug:string -> task list
-  val get_by_task : task_slug:string -> t list
-  val get_by_slug : task_slug:string -> string -> t option
-  val full_title_of_recipe : t -> string
-  val main_package_of_recipe : t -> string
 end
