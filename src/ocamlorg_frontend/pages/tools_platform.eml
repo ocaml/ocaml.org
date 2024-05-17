@@ -22,14 +22,11 @@ let render_sidebar
   in
 
   <div class="flex flex-col gap-5">
-    <%s! Sidebar.sidebar_link_group "Overview"
-      (
-        Sidebar.sidebar_link ~current:(current_page = Some "platform") ~title:"The OCaml Platform" ~href:Url.platform ~tag:None
-    )%>
-
     <% categories |> List.iter (fun category -> %>
       <%s! Sidebar.sidebar_link_group category
-        (pages_by_category category) %>
+        (
+          (if category = "OCaml Platform" then Sidebar.sidebar_link ~current:(current_page = Some "platform") ~title:"The OCaml Platform" ~href:Url.platform ~tag:None else "")
+          ^ pages_by_category category) %>
     <% ); %>
   </div>
 
@@ -56,7 +53,7 @@ Tools_layout.three_column_layout
 ~canonical:Url.platform
 ~left_sidebar_html:(Some((render_sidebar ~pages ~current_page:"platform") ()))
 ~right_sidebar_html:None
-~current:Platform
+~current:Overview
 @@
   <div class="prose prose-orange max-w-none dark:prose-invert">
     <h1>The OCaml Platform</h1>

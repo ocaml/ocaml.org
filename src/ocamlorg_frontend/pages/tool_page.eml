@@ -34,7 +34,7 @@ Tools_layout.three_column_layout
 ~canonical
 ~left_sidebar_html:(Some(left_sidebar ~current_page:(page.slug) ~pages))
 ~right_sidebar_html:(Some(right_sidebar page))
-~current:Platform @@
+~current:Overview @@
   <div class="prose prose-orange dark:prose-invert max-w-full">
     <%s! render_title page %>
     <%s! page.body_html %>
