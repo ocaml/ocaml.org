@@ -77,7 +77,6 @@ let learn_get_started = "/docs/get-started"
 let learn_language = "/docs/language"
 let learn_guides = "/docs/guides"
 let learn_platform = "/docs/tools"
-let ocaml_on_windows = "/docs/ocaml-on-windows"
 let tools = "/tools"
 let platform = "/platform"
 let tool_page name = "/tools/" ^ name

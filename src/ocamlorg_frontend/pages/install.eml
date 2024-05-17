@@ -126,7 +126,7 @@ Layout.render
                 with Git and the Visual Studio compiler.
 
                 If you need a different OCaml version, check out the alternative installation instructions
-                provided in the <a href="<%s Url.ocaml_on_windows %>">"OCaml on Windows" guide</a>.
+                provided in the <a href="<%s Url.tutorial "ocaml-on-windows" %>">"OCaml on Windows" guide</a>.
               </p>
 
               <p>

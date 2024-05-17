@@ -394,7 +394,7 @@ let from_v2 =
     ("/ocamllabs/index.html", Url.index);
     ("/ocamllabs", Url.index);
     ("/platform/index.html", Url.learn_platform);
-    ("/platform/ocaml_on_windows.html", Url.ocaml_on_windows);
+    ("/platform/ocaml_on_windows.html", "/docs/ocaml-on-windows");
     ("/releases/3.12.1.html", Url.release "3.12.1");
     ("/releases/4.00.1.html", Url.release "4.00.1");
     ("/releases/4.01.0.fr.html", Url.release "4.01.0");

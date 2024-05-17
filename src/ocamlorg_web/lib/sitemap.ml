@@ -23,7 +23,6 @@ let urls =
     Url.jobs;
     Url.learn;
     Url.news;
-    Url.ocaml_on_windows;
     Url.outreachy;
     Url.packages;
     Url.packages_search;
