@@ -9,6 +9,8 @@ let term_templates =
     ("code_examples", Ood_gen.Code_example.template);
     ("cookbook", Ood_gen.Cookbook.template);
     ("event", Ood_gen.Event.template);
+    ("events_feed", Ood_gen.Event.EventsFeed.create_feed);
+    (* ("events_feed", Ood_gen.Event); *)
     ("exercises", Ood_gen.Exercise.template);
     ("governance", Ood_gen.Governance.template);
     ("industrial_user", Ood_gen.Industrial_user.template);

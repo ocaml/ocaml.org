@@ -40,4 +40,18 @@
      %{target}
      (run %{ood_gen} changelog_feed))))))
 
+(subdir
+ asset/
+ (rule
+  (target events.xml)
+  (deps
+   (source_tree %{workspace_root}/data/events)
+   (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+  (action
+   (chdir
+    %{workspace_root}
+    (with-stdout-to
+     %{target}
+     (run %{ood_gen} events_feed))))))
+
 (data_only_dirs playground data practice)

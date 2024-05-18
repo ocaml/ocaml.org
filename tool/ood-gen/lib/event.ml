@@ -141,6 +141,55 @@ let all () =
          in
          String.compare t2 t1)
 
+module EventsFeed = struct
+  let create_changelog_feed () =
+    let id = Uri.of_string "https://ocaml.org/events.xml" in
+    let title : Syndic.Atom.title = Text "OCaml Events" in
+    let now = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
+    let cutoff_date =
+      Ptime.sub_span now (Ptime.Span.v (365, 0L)) |> Option.get
+    in
+
+    let entries =
+      all ()
+      |> List.map (fun (log : t) ->
+             let id = Uri.of_string log.url in
+             let authors = (Syndic.Atom.author "Ocaml.org", []) in
+             let event_type = EventType.show log.event_type in
+             let textual_location = log.textual_location in
+
+             let start_date =
+               Syndic.Date.of_rfc3339
+                 (log.starts.yyyy_mm_dd ^ "T"
+                 ^ Option.value ~default:"00:00" log.starts.utc_hh_mm
+                 ^ ":00Z")
+             in
+             let location_summary =
+               match log.location with
+               | Some { lat; long } ->
+                   Printf.sprintf "%s (lat: %f, long: %f)" textual_location lat
+                     long
+               | None -> textual_location
+             in
+             Syndic.Atom.entry ~id ~authors ~title:(Syndic.Atom.Text log.title)
+               ~updated:start_date
+               ~links:[ Syndic.Atom.link id ]
+               ~categories:[ Syndic.Atom.category event_type ]
+               ~summary:(Syndic.Atom.Text location_summary) ())
+      |> List.filter (fun (entry : Syndic.Atom.entry) ->
+             Ptime.is_later entry.updated ~than:cutoff_date)
+      |> List.sort Syndic.Atom.descending
+    in
+
+    let updated = (List.hd entries).updated in
+    Syndic.Atom.feed ~id ~title ~updated entries
+
+  let create_feed () =
+    create_changelog_feed () |> Syndic.Atom.to_xml
+    |> Syndic.XML.to_string ~ns_prefix:(fun s ->
+           match s with "http://www.w3.org/2005/Atom" -> Some "" | _ -> None)
+end
+
 let template () =
   Format.asprintf
     {|
