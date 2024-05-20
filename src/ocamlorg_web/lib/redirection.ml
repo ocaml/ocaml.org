@@ -7,30 +7,37 @@ let pp_ocaml_version ppf (mj, mn) =
   else Format.fprintf ppf "%d.%02d" mj mn
 
 let notes_redirections v =
-  let fwd_v2_notes x =
-    fwd_v2 @@ Format.asprintf "/releases/%a/notes/%s" pp_ocaml_version v x
+  let fwd_notes x =
+    let source = Format.asprintf "/releases/%a/notes/%s" pp_ocaml_version v x in
+    (source, Format.asprintf "/manual/%a/notes/%s" pp_ocaml_version v x)
   in
   if v >= (4, 3) then
-    List.map fwd_v2_notes
+    List.map fwd_notes
       [
         "Changes"; "INSTALL.adoc"; "LICENSE"; "README.adoc"; "README.win32.adoc";
       ]
   else
-    List.map fwd_v2_notes
+    List.map fwd_notes
       [ "Changes"; "INSTALL"; "LICENSE"; "README"; "README.win32" ]
 
 let manual_redirections v =
-  let fwd_v2_manual x =
-    fwd_v2
-    @@ Format.asprintf "/releases/%a/ocaml-%a-refman%s" pp_ocaml_version v
-         pp_ocaml_version v x
+  let fwd_manual x =
+    let source =
+      Format.asprintf "/releases/%a/ocaml-%a-refman%s" pp_ocaml_version v
+        pp_ocaml_version v x
+    in
+    let target =
+      Format.asprintf "/manual/%a/ocaml-%a-refman%s" pp_ocaml_version v
+        pp_ocaml_version v x
+    in
+    (source, target)
   in
-  List.map fwd_v2_manual
+  List.map fwd_manual
     ((if v >= (4, 8) then [] else [ ".dvi.gz"; ".ps.gz" ])
     @ (if v > (3, 12) then [] else [ ".html.tar.gz"; ".html.zip" ])
     @ [ "-html.tar.gz"; "-html.zip"; ".html"; ".info.tar.gz"; ".pdf"; ".txt" ])
 
-let v2_manual_and_notes v = notes_redirections v @ manual_redirections v
+let manual_and_notes v = notes_redirections v @ manual_redirections v
 
 (* For assets previously hosted on V2, we redirect the requests to
    v2.ocaml.org. *)
@@ -70,35 +77,43 @@ let v2_assets =
         fwd_v2 "/meetings/ocaml/2013/slides/vaugon.pdf";
         fwd_v2 "/meetings/ocaml/2013/slides/white.pdf";
       ];
-      v2_manual_and_notes (3, 12);
-      v2_manual_and_notes (4, 0);
-      v2_manual_and_notes (4, 1);
-      v2_manual_and_notes (4, 2);
+      manual_and_notes (3, 12);
+      manual_and_notes (4, 0);
+      manual_and_notes (4, 1);
+      manual_and_notes (4, 2);
       [
-        fwd_v2 "/releases/4.02/ocaml-4.02-refman-html-0.tar.gz";
-        fwd_v2 "/releases/4.02/ocaml-4.02-refman-html-0.zip";
-        fwd_v2 "/releases/4.02/ocaml-4.02-refman-html-1.tar.gz";
-        fwd_v2 "/releases/4.02/ocaml-4.02-refman-html-1.zip";
+        ( "/releases/4.02/ocaml-4.02-refman-html-0.tar.gz",
+          "/manual/4.02/ocaml-4.02-refman-html-0.tar.gz" );
+        ( "/releases/4.02/ocaml-4.02-refman-html-0.zip",
+          "/manual/4.02/ocaml-4.02-refman-html-0.zip" );
+        ( "/releases/4.02/ocaml-4.02-refman-html-1.tar.gz",
+          "/manual/4.02/ocaml-4.02-refman-html-1.tar.gz" );
+        ( "/releases/4.02/ocaml-4.02-refman-html-1.zip",
+          "/manual/4.02/ocaml-4.02-refman-html-1.zip" );
       ];
-      v2_manual_and_notes (4, 3);
-      v2_manual_and_notes (4, 4);
-      v2_manual_and_notes (4, 5);
+      manual_and_notes (4, 3);
+      manual_and_notes (4, 4);
+      manual_and_notes (4, 5);
       [
-        fwd_v2 "/releases/4.06/notes/Changes.4.06.0+beta1.txt";
-        fwd_v2 "/releases/4.06/notes/Changes.4.06.0+beta2.txt";
-        fwd_v2 "/releases/4.06/notes/Changes.4.06.0+rc1.txt";
+        ( "/releases/4.06/notes/Changes.4.06.0+beta1.txt",
+          "/manual/4.06/Changes.4.06.0+beta1.txt" );
+        ( "/releases/4.06/notes/Changes.4.06.0+beta2.txt",
+          "/manual/4.06/Changes.4.06.0+beta2.txt" );
+        ( "/releases/4.06/notes/Changes.4.06.0+rc1.txt",
+          "/manual/4.06/Changes.4.06.0+rc1.txt" );
       ];
-      v2_manual_and_notes (4, 6);
-      v2_manual_and_notes (4, 7);
-      v2_manual_and_notes (4, 8);
-      v2_manual_and_notes (4, 9);
-      v2_manual_and_notes (4, 10);
-      v2_manual_and_notes (4, 11);
-      v2_manual_and_notes (4, 12);
-      v2_manual_and_notes (4, 13);
-      v2_manual_and_notes (4, 14);
-      v2_manual_and_notes (5, 0);
-      v2_manual_and_notes (5, 1);
+      manual_and_notes (4, 6);
+      manual_and_notes (4, 7);
+      manual_and_notes (4, 8);
+      manual_and_notes (4, 9);
+      manual_and_notes (4, 10);
+      manual_and_notes (4, 11);
+      manual_and_notes (4, 12);
+      manual_and_notes (4, 13);
+      manual_and_notes (4, 14);
+      manual_and_notes (5, 0);
+      manual_and_notes (5, 1);
+      manual_and_notes (5, 2);
     ]
 
 let lts_version = Data.Release.lts.version
