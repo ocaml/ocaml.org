@@ -1,0 +1,41 @@
+let hyphens text =
+  if String.length text <= 150 then text
+  else
+    let space = Option.value (String.rindex_from_opt text 149 ' ') ~default:149 in
+    String.sub text 0 (space + 1) ^ "..."
+
+let render ~(videos: Data.Youtube.t list) =
+Community_layout.single_column_layout
+~title:"Community YouTube Videos"
+~description:"Videos from the OCaml Community on YouTube."
+~canonical:Url.youtube
+~active_top_nav_item:Header.Community
+~current:Videos @@
+<div class="intro-section-simple dark:dark-intro-section-simple py-12 border-b border-solid border-separator_20 dark:border-dark-separator_30">
+  <div class="container-fluid">
+    <div class="flex items-center">
+      <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-title dark:text-dark-title">
+        YouTube Videos
+      </h1>
+    </div>
+    <div class="py-6 leading-5 text-content dark:text-dark-content">
+      <p class="text-lg text-content dark:text-dark-content mt-6">A curated list of videos on the OCaml from the community.</p>
+    </div>
+  </div>
+</div>
+<div class="bg-background dark:bg-dark-background py-12">
+  <div class="container-fluid">
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+% videos |> List.iter (fun (video: Data.Youtube.t) -> 
+      <%s! Cards.community_resource
+        ~title:video.title
+        ~desc:(hyphens video.description)
+        ~online_url:video.content
+        ~source_url:None
+        ~img:video.thumbnail
+        ()
+      %>
+% );
+    </div>
+  </div>
+</div>

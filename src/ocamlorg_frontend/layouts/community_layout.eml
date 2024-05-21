@@ -3,6 +3,7 @@ type section =
   | Jobs
   | Events
   | Resources
+  | Videos
 
 let tabs
 ~current =
@@ -11,12 +12,14 @@ let tabs
     | Jobs -> Url.jobs
     | Events -> Url.events
     | Resources -> Url.resources
+    | Videos -> Url.youtube
   in
   let title_of_section = function
     | Overview -> "Overview"
     | Jobs -> "Jobs"
     | Events -> "Events"
     | Resources -> "Resources"
+    | Videos -> "Videos"
   in
   Layout.subnav_tabs ~title:"Community" ~current ~sections:[Overview; Jobs; Events; Resources] ~url_of_section ~title_of_section
 

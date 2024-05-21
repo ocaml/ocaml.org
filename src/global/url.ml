@@ -97,3 +97,4 @@ let github_opam_file package_name package_version =
     package_name package_name package_version
 
 let is_ocaml_yet id = Printf.sprintf "/docs/is-ocaml-%s-yet" id
+let youtube = "/video"

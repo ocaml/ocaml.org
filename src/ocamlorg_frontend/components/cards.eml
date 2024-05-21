@@ -1,7 +1,10 @@
+let image_url img =
+if String.starts_with ~prefix:"http" img then img else Ocamlorg_static.Media.url ("resources/" ^ img)
+
 let community_resource ~title ~desc ~online_url ~source_url ?(img="") () =
   <div class="flex flex-col card dark:dark-card rounded-lg border border-separator_30">
     <a href="<%s online_url %>" class="grow">
-      <div class="w-full h-44 text-white rounded-t-xl bg-cover bg-center" style="background-image: url(<%s Ocamlorg_static.Media.url ("resources/" ^ img) %>)">
+      <div class="w-full h-44 text-white rounded-t-xl bg-cover bg-center" style="background-image: url(<%s image_url img %>)">
       </div>
       <div class="flex flex-col p-5 grow">
         <h2 class="text-xl font-bold text-title dark:text-dark-title mb-3"><%s title %></h2>

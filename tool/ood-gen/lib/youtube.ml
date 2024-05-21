@@ -77,8 +77,8 @@ let rec feed_media tags seq () =
   | Seq.Cons (None, seq) -> (
       let seq = feed_media [] seq in
       match tags_to_video (tags, None, None, None, None) with
-      | Some v -> Seq.Cons (v, seq)
-      | None -> seq ())
+      | Some v (* when Ocamlorg.Import.String.contains_s (String.lowercase_ascii v.description) "ocaml" *) -> Seq.Cons (v, seq)
+      | _ -> seq ())
   | Seq.Cons (Some tag, seq) -> feed_media (tag :: tags) seq ()
   | Seq.Nil -> Seq.Nil
 
@@ -109,12 +109,12 @@ let scrape () =
 
 let all () =
   let ( let* ) = Result.bind in
-  let yaml =
+  let videos =
     let file = "youtube.yml" in
     let* yaml = Utils.yaml_file file in
     yaml |> video_list_of_yaml |> Result.map_error (Utils.where file)
   in
-  match yaml with Ok yaml -> yaml | Error (`Msg msg) -> failwith msg
+  match videos with Ok videos -> videos |> List.filter (fun v -> Ocamlorg.Import.String.contains_s (String.lowercase_ascii v.description) "ocaml") | Error (`Msg msg) -> failwith msg
 
 let template () =
   Format.asprintf
