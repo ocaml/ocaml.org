@@ -11,6 +11,9 @@ module String = struct
       false
     with Exit -> true
 
+  let is_sub_ignore_case pattern text =
+    contains_s (lowercase_ascii text) (lowercase_ascii pattern)
+
   (* ripped off stringext, itself ripping it off from one of dbuenzli's libs *)
   let cut s ~on =
     let sep_max = length on - 1 in
