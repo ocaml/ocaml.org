@@ -27,9 +27,11 @@ let language_manual_version next_handler request =
     | "" :: "manual" :: something :: tl ->
         "" :: "manual" :: release ~insert:(minor Release.latest) something :: tl
     | "" :: "releases" :: version :: ("htmlman" | "manual") :: tl ->
-        "" :: "manual" :: release version :: tl
+        "" :: "manual" :: release version
+        :: (if tl = [] then [ "index.html" ] else tl)
     | "" :: "releases" :: version :: (("notes" | "api") as folder) :: tl ->
-        "" :: "manual" :: release version :: folder :: tl
+        "" :: "manual" :: release version :: folder
+        :: (if tl = [] && folder = "api" then [ "index.html" ] else tl)
     | [ ""; "releases"; version; man ] when String.contains_s man "refman" ->
         [ ""; "manual"; release version; man ]
     | u -> u

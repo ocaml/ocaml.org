@@ -368,13 +368,7 @@ let from_v2 =
     ("/releases/index.html", Url.releases);
     ("/releases", Url.releases);
     ("/releases/lts/index.html", Url.release lts_version);
-    ("/releases/lts/manual", Url.manual_with_version lts_version);
-    ("/releases/lts/htmlman", Url.manual_with_version lts_version);
-    ("/releases/lts/api", Url.api_with_version lts_version);
     ("/releases/latest/index.html", Url.release latest_version);
-    ("/releases/latest/manual", Url.manual_with_version latest_version);
-    ("/releases/latest/htmlman", Url.manual_with_version latest_version);
-    ("/releases/latest/api", Url.api_with_version latest_version);
     ("/docs/platform", Url.platform);
     ("/docs/platform-principles", Url.tool_page "platform-principles");
     ("/docs/platform-users", Url.tool_page "platform-users");
