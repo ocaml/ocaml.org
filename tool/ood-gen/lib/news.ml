@@ -1,3 +1,5 @@
+open Data_intf.News
+
 type metadata = {
   title : string;
   description : string;
@@ -5,23 +7,10 @@ type metadata = {
   tags : string list;
   authors : string list option;
 }
-[@@deriving of_yaml]
-
-type t = {
-  title : string;
-  description : string;
-  date : string;
-  slug : string;
-  tags : string list;
-  body_html : string;
-  authors : string list;
-}
 [@@deriving
-  stable_record ~version:metadata ~modify:[ authors ]
-    ~remove:[ slug; body_html ],
-    show { with_path = false }]
+  of_yaml, stable_record ~version:t ~modify:[ authors ] ~add:[ slug; body_html ]]
 
-let of_metadata m = of_metadata m ~modify_authors:(Option.value ~default:[])
+let of_metadata m = metadata_to_t m ~modify_authors:(Option.value ~default:[])
 
 let decode (fname, (head, body)) =
   let slug = Filename.basename (Filename.remove_extension fname) in
@@ -36,21 +25,11 @@ let decode (fname, (head, body)) =
 
 let all () =
   Utils.map_md_files decode "news/*/*.md"
-  |> List.sort (fun a b -> String.compare b.date a.date)
+  |> List.sort (fun (a : t) (b : t) -> String.compare b.date a.date)
 
 let template () =
-  Format.asprintf
-    {|
-type t =
-  { title : string
-  ; slug : string
-  ; description : string
-  ; date : string
-  ; tags : string list
-  ; body_html : string
-  ; authors: string list
-  }
-  
+  Format.asprintf {|
+include Data_intf.News
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))

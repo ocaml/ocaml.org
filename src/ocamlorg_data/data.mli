@@ -114,15 +114,7 @@ module Job : sig
 end
 
 module News : sig
-  type t = {
-    title : string;
-    slug : string;
-    description : string;
-    date : string;
-    tags : string list;
-    body_html : string;
-    authors : string list;
-  }
+  include module type of Data_intf.News
 
   val all : t list
   val get_by_slug : string -> t option

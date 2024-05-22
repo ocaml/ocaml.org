@@ -249,6 +249,19 @@ module Job = struct
   [@@deriving of_yaml, show]
 end
 
+module News = struct
+  type t = {
+    title : string;
+    description : string;
+    date : string;
+    slug : string;
+    tags : string list;
+    body_html : string;
+    authors : string list;
+  }
+  [@@deriving show]
+end
+
 module Outreachy = struct
   type project = {
     title : string;
