@@ -42,9 +42,6 @@ let v2_assets =
       ];
     ]
 
-let lts_version = Data.Release.lts.version
-let latest_version = Data.Release.latest.version
-
 let from_v2 =
   [
     ("/about.fr.html", Url.about);
@@ -327,96 +324,11 @@ let from_v2 =
     ("/releases/caml-light/license.html", Url.index);
     ("/releases/caml-light/releases/0.75.html", Url.index);
     ("/releases/index.fr.html", Url.releases);
-    ("/releases", Url.releases);
     ("/docs/platform", Url.platform);
     ("/docs/platform-principles", Url.tool_page "platform-principles");
     ("/docs/platform-users", Url.tool_page "platform-users");
     ("/docs/platform-roadmap", Url.tool_page "platform-roadmap");
   ]
-
-let default_index_html =
-  [
-    ("/manual", Url.manual_with_version latest_version);
-    ("/manual/latest", Url.manual_with_version latest_version);
-    ("/api", Url.api_with_version latest_version);
-    ("/api/latest", Url.api_with_version latest_version);
-    ("/manual/api", Url.api_with_version latest_version);
-    ("/manual/api/latest", Url.api_with_version latest_version);
-    ("/manual/3.12", Url.manual_with_version "3.12");
-    ("/manual/4.00", Url.manual_with_version "4.00");
-    ("/manual/4.01", Url.manual_with_version "4.01");
-    ("/manual/4.02", Url.manual_with_version "4.02");
-    ("/manual/4.03", Url.manual_with_version "4.03");
-    ("/manual/4.04", Url.manual_with_version "4.04");
-    ("/manual/4.05", Url.manual_with_version "4.05");
-    ("/manual/4.06", Url.manual_with_version "4.06");
-    ("/manual/4.07", Url.manual_with_version "4.07");
-    ("/manual/4.08", Url.manual_with_version "4.08");
-    ("/manual/4.09", Url.manual_with_version "4.09");
-    ("/manual/4.10", Url.manual_with_version "4.10");
-    ("/manual/4.11", Url.manual_with_version "4.11");
-    ("/manual/4.12", Url.manual_with_version "4.12");
-    ("/manual/4.12/api", Url.api_with_version "4.12");
-    ("/manual/4.13", Url.manual_with_version "4.13");
-    ("/manual/4.13/api", Url.api_with_version "4.13");
-    ("/manual/4.14", Url.manual_with_version "4.14");
-    ("/manual/4.14/api", Url.api_with_version "4.14");
-    ("/manual/5.0", Url.manual_with_version "5.0");
-    ("/manual/5.0/api", Url.api_with_version "5.0");
-    ("/manual/5.1", Url.manual_with_version "5.1");
-    ("/manual/5.1/api", Url.api_with_version "5.1");
-    ("/manual/5.2", Url.manual_with_version "5.2");
-    ("/manual/5.2/api", Url.api_with_version "5.2");
-    ("/manual/5.3", Url.manual_with_version "5.3");
-    ("/manual/5.3/api", Url.api_with_version "5.3");
-  ]
-
-let redirect_to_latest pattern =
-  let handler req =
-    let target = Dream.target req in
-    Dream.redirect req ("/manual/" ^ Url.minor latest_version ^ target)
-  in
-  Dream.get pattern handler
-
-let local_target target =
-  target |> String.split_on_char '/' |> List.tl |> List.tl |> String.concat "/"
-  |> ( ^ ) "/manual/"
-
-let redirect_p pattern =
-  let handler req =
-    let target = Dream.target req in
-    Dream.redirect req (local_target target)
-  in
-  Dream.get pattern handler
-
-let redirect_i origin =
-  let target =
-    match Filename.basename origin with
-    | "htmlman" | "manual" -> Filename.dirname origin
-    | _ -> origin
-  in
-  Dream.get origin (fun req ->
-      Dream.redirect req (local_target target ^ "/index.html"))
-
-let manual =
-  redirect_to_latest "/api/**"
-  :: (Data.Release.all
-     |> List.map (fun (release : Data.Release.t) -> Url.minor release.version)
-     |> List.sort_uniq compare
-     |> List.concat_map (fun version ->
-            List.append
-              [
-                redirect_p @@ "/releases/" ^ version ^ "/htmlman/**";
-                redirect_i @@ "/releases/" ^ version ^ "/htmlman";
-              ]
-              (if version < "4.12" then []
-               else
-                 [
-                   redirect_p @@ "/releases/" ^ version ^ "/api/**";
-                   redirect_i @@ "/releases/" ^ version ^ "/api";
-                   redirect_p @@ "/releases/" ^ version ^ "/manual/**";
-                   redirect_i @@ "/releases/" ^ version ^ "/manual";
-                 ])))
 
 let make ?(permanent = false) t =
   let status = if permanent then `Moved_Permanently else `See_Other in
@@ -440,10 +352,8 @@ let package_docs req =
 let t =
   Dream.scope "" []
     [
-      make default_index_html;
       make from_v2;
       make v2_assets;
-      Dream.scope "" [ Dream_encoding.compress ] manual;
       make [ ("/blog", "/ocaml-planet") ];
       make ~permanent:true [ ("/opportunities", "/jobs") ];
       make ~permanent:true
