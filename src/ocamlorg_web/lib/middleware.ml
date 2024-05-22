@@ -24,12 +24,20 @@ let language_manual_version next_handler request =
   in
   let path =
     match init_path with
-    | "" :: "manual" :: something :: tl ->
-        "" :: "manual" :: release ~insert:(minor Release.latest) something :: tl
+    | [ ""; ("manual" | "htmlman") ] ->
+        [ ""; "manual"; release ~insert:(minor Release.latest) "" ]
+    | "" :: ("manual" | "htmlman") :: something :: tl ->
+        "" :: "manual"
+        :: release ~insert:(minor Release.latest) something
+        ::
+        (if tl = [] && something <> "index.html" then [ "index.html" ]
+         else if tl = [ "api" ] then [ "api"; "index.html" ]
+         else tl)
     | [ ""; "releases"; version; "index.html" ] -> [ ""; "releases"; version ]
-    | [ ""; "releases"; something ] when String.ends_with ~suffix:".html" something ->
-      let prefix = String.(sub something 0 (length something - 5)) in
-      "" :: "releases" :: (if prefix = "index" then [] else [ prefix ])
+    | [ ""; "releases"; something ]
+      when String.ends_with ~suffix:".html" something ->
+        let prefix = String.(sub something 0 (length something - 5)) in
+        "" :: "releases" :: (if prefix = "index" then [] else [ prefix ])
     | "" :: "releases" :: version :: ("htmlman" | "manual") :: tl ->
         "" :: "manual" :: release version
         :: (if tl = [] then [ "index.html" ] else tl)

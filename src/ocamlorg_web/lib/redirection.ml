@@ -321,9 +321,6 @@ let from_v2 =
     ("/ocamllabs", Url.index);
     ("/platform/index.html", Url.learn_platform);
     ("/platform/ocaml_on_windows.html", "/docs/ocaml-on-windows");
-    ("/platform/index.html", Url.platform);
-    ("/platform", Url.platform);
-    ("/platform/ocaml_on_windows.html", Url.ocaml_on_windows);
     ("/releases/caml-light/faq.html", Url.index);
     ("/releases/caml-light/index.html", Url.index);
     ("/releases/caml-light", Url.index);
