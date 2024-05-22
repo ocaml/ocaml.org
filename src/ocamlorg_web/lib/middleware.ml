@@ -27,6 +27,9 @@ let language_manual_version next_handler request =
     | "" :: "manual" :: something :: tl ->
         "" :: "manual" :: release ~insert:(minor Release.latest) something :: tl
     | [ ""; "releases"; version; "index.html" ] -> [ ""; "releases"; version ]
+    | [ ""; "releases"; something ] when String.ends_with ~suffix:".html" something ->
+      let prefix = String.(sub something 0 (length something - 5)) in
+      "" :: "releases" :: (if prefix = "index" then [] else [ prefix ])
     | "" :: "releases" :: version :: ("htmlman" | "manual") :: tl ->
         "" :: "manual" :: release version
         :: (if tl = [] then [ "index.html" ] else tl)
