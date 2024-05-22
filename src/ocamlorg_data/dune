@@ -38,7 +38,6 @@
     %{target}
     (run %{ood_gen} changelog)))))
 
-
 (rule
  (target code_example.ml)
  (deps
@@ -194,7 +193,6 @@
    (with-stdout-to
     %{target}
     (run %{ood_gen} paper)))))
-
 
 (rule
  (target planet.ml)
