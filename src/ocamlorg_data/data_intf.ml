@@ -23,6 +23,40 @@ module Academic_institution = struct
   [@@deriving show]
 end
 
+module Book = struct
+  type difficulty = Beginner | Intermediate | Advanced [@@deriving show]
+
+  let difficulty_of_string = function
+    | "beginner" -> Ok Beginner
+    | "intermediate" -> Ok Intermediate
+    | "advanced" -> Ok Advanced
+    | s -> Error (`Msg ("Unknown difficulty type: " ^ s))
+
+  let difficulty_of_yaml = function
+    | `String s -> difficulty_of_string s
+    | _ -> Error (`Msg "Expected a string for difficulty type")
+
+  type link = { description : string; uri : string } [@@deriving of_yaml, show]
+
+  type t = {
+    title : string;
+    slug : string;
+    description : string;
+    recommendation : string option;
+    authors : string list;
+    language : string list;
+    published : string;
+    cover : string;
+    isbn : string option;
+    links : link list;
+    difficulty : difficulty;
+    pricing : string;
+    body_md : string;
+    body_html : string;
+  }
+  [@@deriving show]
+end
+
 module Outreachy = struct
   type project = {
     title : string;
