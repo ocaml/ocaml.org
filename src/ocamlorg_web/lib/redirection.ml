@@ -577,6 +577,7 @@ let t =
       make from_v2;
       make v2_assets;
       Dream.scope "" [ Dream_encoding.compress ] manual;
+      make [ ("/blog", "/ocaml-planet") ];
       make ~permanent:true [ ("/opportunities", "/jobs") ];
       make ~permanent:true
         [ ("/carbon-footprint", "/policies/carbon-footprint") ];
