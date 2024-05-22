@@ -46,3 +46,9 @@ let head handler request =
       in
       Dream.empty ~headers:(Dream.all_headers response) (Dream.status response)
   | _ -> handler request
+
+let i18n handler request =
+  match Dream.target request |> String.split_on_char '.' |> List.rev with
+  | "html" :: ("de" | "fr" | "it" | "ja" | "ko" | "zh") :: rest ->
+      Dream.redirect request ("html" :: rest |> List.rev |> String.concat ".")
+  | _ -> handler request

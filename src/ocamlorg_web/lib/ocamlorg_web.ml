@@ -14,7 +14,7 @@ let run () =
   try
     Dream.run ~interface:"0.0.0.0" ~port:Config.http_port
     @@ Dream.logger @@ Middleware.no_trailing_slash
-    @@ Middleware.language_manual_version @@ Middleware.head
+    @@ Middleware.language_manual_version @@ Middleware.i18n @@ Middleware.head
     @@ Router.router state
   with
   | Unix.Unix_error (err, fn, _) ->
