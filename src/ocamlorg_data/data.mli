@@ -199,17 +199,7 @@ module Success_story : sig
 end
 
 module Tool : sig
-  type lifecycle = [ `Incubate | `Active | `Sustain | `Deprecate ]
-
-  type t = {
-    name : string;
-    slug : string;
-    source : string;
-    license : string;
-    synopsis : string;
-    description : string;
-    lifecycle : lifecycle;
-  }
+  include module type of Data_intf.Tool
 
   val all : t list
   val get_by_slug : string -> t option

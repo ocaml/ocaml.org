@@ -1,16 +1,4 @@
-module Lifecycle = struct
-  type t = [ `Incubate | `Active | `Sustain | `Deprecate ]
-  [@@deriving show { with_path = false }]
-
-  let of_string = function
-    | "incubate" -> Ok `Incubate
-    | "active" -> Ok `Active
-    | "sustain" -> Ok `Sustain
-    | "deprecate" -> Ok `Deprecate
-    | s -> Error (`Msg ("Unknown lifecycle type: " ^ s))
-
-  let of_yaml = Utils.of_yaml of_string "Expected a string for lifecycle type"
-end
+open Data_intf.Tool
 
 type metadata = {
   name : string;
@@ -18,50 +6,21 @@ type metadata = {
   license : string;
   synopsis : string;
   description : string;
-  lifecycle : Lifecycle.t;
-}
-[@@deriving of_yaml]
-
-type t = {
-  name : string;
-  slug : string;
-  source : string;
-  license : string;
-  synopsis : string;
-  description : string;
-  lifecycle : Lifecycle.t;
+  lifecycle : lifecycle;
 }
 [@@deriving
-  stable_record ~version:metadata ~modify:[ description ] ~remove:[ slug ],
-    show { with_path = false }]
+  of_yaml, stable_record ~version:t ~modify:[ description ] ~add:[ slug ]]
 
 let of_metadata m =
-  of_metadata m ~slug:(Utils.slugify m.name) ~modify_description:(fun v ->
+  metadata_to_t m ~slug:(Utils.slugify m.name) ~modify_description:(fun v ->
       v |> Markdown.Content.of_string |> Markdown.Content.render)
 
 let decode s = Result.map of_metadata (metadata_of_yaml s)
 let all () = Utils.yaml_sequence_file decode "tools.yml"
 
 let template () =
-  Format.asprintf
-    {|
-type lifecycle =
-  [ `Incubate
-  | `Active
-  | `Sustain
-  | `Deprecate
-  ]
-
-type t =
-  { name : string
-  ; slug : string
-  ; source : string
-  ; license : string
-  ; synopsis : string
-  ; description : string
-  ; lifecycle : lifecycle
-  }
-  
+  Format.asprintf {|
+include Data_intf.Tool
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
