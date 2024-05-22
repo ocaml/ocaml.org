@@ -26,6 +26,7 @@ let language_manual_version next_handler request =
     match init_path with
     | "" :: "manual" :: something :: tl ->
         "" :: "manual" :: release ~insert:(minor Release.latest) something :: tl
+    | [ ""; "releases"; version; "index.html" ] -> [ ""; "releases"; version ]
     | "" :: "releases" :: version :: ("htmlman" | "manual") :: tl ->
         "" :: "manual" :: release version
         :: (if tl = [] then [ "index.html" ] else tl)

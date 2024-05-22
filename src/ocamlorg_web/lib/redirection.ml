@@ -367,8 +367,6 @@ let from_v2 =
     ("/releases/index.fr.html", Url.releases);
     ("/releases/index.html", Url.releases);
     ("/releases", Url.releases);
-    ("/releases/lts/index.html", Url.release lts_version);
-    ("/releases/latest/index.html", Url.release latest_version);
     ("/docs/platform", Url.platform);
     ("/docs/platform-principles", Url.tool_page "platform-principles");
     ("/docs/platform-users", Url.tool_page "platform-users");
