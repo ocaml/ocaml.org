@@ -1,18 +1,29 @@
 - name: Jane Street - Tech Talks
   kind: playlist
   id: PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+  filter: ocaml
 - name: Jane Street - OCaml Unboxed
   kind: playlist
   id: PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
 - name: Jane Street - Signal & Threads
   kind: playlist
   id: PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  filter: ocaml
 - name: Emelle TV
   kind: channel
   id: UCvVVfCa7-nzSuCdMKXnNJNQ
 - name: The Vimeagen
   kind: channel
   id: UCVk4b-svNJoeytrrlOixebQ
+- name: ThePrimeTimeagen
+  kind: channel
+  id: UCUyeluBRhGPCW4rPe_UvBZQ
+- name: ThePrimeagen
+  kind: channel
+  id: UC8ENHE5xdFSwx71u3fDH5Xw
+- name: ThePrimeagenClips
+  kind: channel
+  id: UChk6TQce1EJMn6_liKdHDog
 - name: OCAML Worshop at ICFP 2023
   kind: playlist
   id: PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E

@@ -1,3 +1,5 @@
+open Ocamlorg.Import
+
 (* https://news.ycombinator.com/item?id=32191947
 
    https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
@@ -13,7 +15,14 @@ let kind_of_string = function
 let kind_to_string = function Playlist -> "playlist" | Channel -> "channel"
 let kind_of_yaml = Utils.of_yaml kind_of_string "Expected a string for kind"
 
-type source = { name : string; kind : kind; id : string } [@@deriving of_yaml]
+type source = {
+  name : string;
+  kind : kind;
+  id : string;
+  filter : string option;
+}
+[@@deriving of_yaml]
+
 type source_list = source list [@@deriving of_yaml]
 
 let source_to_url { kind; id; _ } =
@@ -94,9 +103,15 @@ let scrape () =
       yaml |> source_list_of_yaml |> Result.map_error (Utils.where file)
     in
     sources |> List.to_seq
-    |> Seq.map (fun src -> src |> source_to_url |> Http_client.get_sync)
-    |> Seq.concat_map (fun feed ->
-           Xmlm.make_input (`String (0, feed)) |> walk_mrss |> feed_media [])
+    |> Seq.concat_map (fun src ->
+           src |> source_to_url |> Http_client.get_sync |> fun feed ->
+           Xmlm.make_input (`String (0, feed))
+           |> walk_mrss |> feed_media []
+           |> Seq.filter (fun video ->
+                  let filter = Option.value ~default:"" src.filter in
+                  String.(
+                    is_sub_ignore_case filter video.title
+                    || is_sub_ignore_case filter video.description)))
     |> List.of_seq |> video_list_to_yaml |> Result.ok
   in
   match yaml with
@@ -117,14 +132,7 @@ let all () =
     let* yaml = Utils.yaml_file file in
     yaml |> video_list_of_yaml |> Result.map_error (Utils.where file)
   in
-  match videos with
-  | Ok videos ->
-      videos
-      |> List.filter (fun v ->
-             Ocamlorg.Import.String.contains_s
-               (String.lowercase_ascii v.description)
-               "ocaml")
-  | Error (`Msg msg) -> failwith msg
+  match videos with Ok videos -> videos | Error (`Msg msg) -> failwith msg
 
 let template () =
   Format.asprintf
