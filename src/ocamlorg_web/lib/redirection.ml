@@ -367,26 +367,14 @@ let from_v2 =
     ("/releases/index.fr.html", Url.releases);
     ("/releases/index.html", Url.releases);
     ("/releases", Url.releases);
-    ("/releases/lts", Url.release lts_version);
     ("/releases/lts/index.html", Url.release lts_version);
-    ("/releases/lts/manual.html", Url.manual_with_version lts_version);
     ("/releases/lts/manual", Url.manual_with_version lts_version);
-    ("/releases/lts/manual/index.html", Url.manual_with_version lts_version);
     ("/releases/lts/htmlman", Url.manual_with_version lts_version);
-    ("/releases/lts/htmlman/index.html", Url.manual_with_version lts_version);
     ("/releases/lts/api", Url.api_with_version lts_version);
-    ("/releases/lts/pi/index.html", Url.api_with_version lts_version);
-    ("/releases/latest", Url.release latest_version);
     ("/releases/latest/index.html", Url.release latest_version);
-    ("/releases/latest/manual.html", Url.manual_with_version latest_version);
     ("/releases/latest/manual", Url.manual_with_version latest_version);
-    ( "/releases/latest/manual/index.html",
-      Url.manual_with_version latest_version );
     ("/releases/latest/htmlman", Url.manual_with_version latest_version);
-    ( "/releases/latest/htmlman/index.html",
-      Url.manual_with_version latest_version );
     ("/releases/latest/api", Url.api_with_version latest_version);
-    ("/releases/latest/api/index.html", Url.api_with_version latest_version);
     ("/docs/platform", Url.platform);
     ("/docs/platform-principles", Url.tool_page "platform-principles");
     ("/docs/platform-users", Url.tool_page "platform-users");
