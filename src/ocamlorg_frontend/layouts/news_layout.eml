@@ -1,76 +1,32 @@
 type section =
-  | Overview
-  | GetStarted
-  | Language
-  | Platform
-  | Guides
-  | Cookbook
-  | Exercises
-  | Books
+  (* | Overview *)
+  | Changelog
+  | OCamlPlanet
+  | Newsletters
+  | OpamBlog
 
 let tabs
 ~current =
   let url_of_section = function
-    | Overview -> Url.learn
-    | GetStarted -> Url.learn_get_started
-    | Language -> Url.learn_language
-    | Platform -> Url.learn_platform
-    | Guides -> Url.learn_guides
-    | Cookbook -> Url.cookbook
-    | Exercises -> Url.exercises
-    | Books -> Url.books
+    (*| Overview -> *)
+    | Changelog -> Url.changelog
+    | Newsletters -> Url.news
+    | OCamlPlanet -> Url.ocaml_planet
+    | OpamBlog -> Url.local_blog "opam"
   in
   let title_of_section = function
-    | Overview -> "Overview"
-    | GetStarted -> "Get Started"
-    | Language -> "Language"
-    | Platform -> "Platform"
-    | Guides -> "Guides"
-    | Cookbook -> "Cookbook"
-    | Exercises -> "Exercises"
-    | Books -> "Books"
+    (*| Overview -> "Overview"*)
+    | Changelog -> "Changelog"
+    | Newsletters -> "Newsletters"
+    | OCamlPlanet -> "OCaml Planet"
+    | OpamBlog -> "Opam Blog"
   in
-  Layout.subnav_tabs ~title:"Learn" ~current ~sections:[Overview; GetStarted; Language; Platform; Guides; Cookbook; Exercises; Books] ~url_of_section ~title_of_section
-
-let render_sidebar
-  ~current_tutorial
-  ~tutorials
-  ~(section: section)
-  =
-    let render_tutorial_link ~title ~slug =
-      Sidebar.sidebar_link ~title ~href:(Url.tutorial slug) ~current:(current_tutorial = Some (slug))
-    in
-    let render_tutorial (tutorial : Data.Tutorial.t) = render_tutorial_link ~title:tutorial.short_title ~slug:tutorial.slug ~tag:(Option.map (fun (et: Data.Tutorial.external_tutorial) -> et.tag) tutorial.external_tutorial) in
-    let tutorial_sidebar_links_by_category category =
-      tutorials |> List.filter (fun (x : Data.Tutorial.t) -> x.category = category) |> List.map render_tutorial |> String.concat "\n"
-    in
-    let categories =
-      let unique lst =
-        let rec unique' acc = function
-          | [] -> List.rev acc
-          | h::t -> unique' (if List.mem h acc then acc else h :: acc) t
-        in
-        unique' [] lst
-      in
-      tutorials |> List.map (fun (tutorial : Data.Tutorial.t) -> tutorial.category) |> unique
-    in
-
-    <% categories |> List.iter (fun category -> %>
-      <%s! Sidebar.sidebar_link_group category
-        (tutorial_sidebar_links_by_category category) %>
-    <% ); %>
-
-    <% if section = Guides then ( %>
-      <%s! Sidebar.sidebar_link_group "Is OCaml Yet"
-        (tutorial_sidebar_links_by_category "is-ocaml-yet")
-        ~extra_html:(
-          (render_tutorial_link ~title:"Is OCaml web yet?" ~slug:"is-ocaml-web-yet" ~tag:None)
-          ^ (render_tutorial_link ~title:"Is OCaml GUI yet?" ~slug:"is-ocaml-gui-yet" ~tag:None)) %>
-    <% ); %>
+  Layout.subnav_tabs ~title:"News" ~current ~sections:[Changelog; OCamlPlanet; Newsletters] ~url_of_section ~title_of_section
 
 let single_column_layout
 ?use_swiper
 ?styles
+?alternate
 ~title
 ~description
 ~canonical
@@ -80,10 +36,11 @@ inner_html
   Layout.render
   ?use_swiper
   ?styles
+  ?alternate
   ~title
   ~description
   ~canonical
-  ~active_top_nav_item:Header.Learn @@
+  ~active_top_nav_item:News @@
   <%s! tabs ~current %>
   <div class="bg-background dark:bg-dark-background">
     <div class="flex-1 z-0 z- min-w-0 pb-12">
@@ -94,6 +51,7 @@ inner_html
 let three_column_layout
 ?use_swiper
 ?styles
+?alternate
 ~title
 ~description
 ~canonical
@@ -105,10 +63,11 @@ inner_html
   Layout.base
   ?use_swiper
   ?styles
+  ?alternate
   ~title
   ~description
   ~canonical
-  ~active_top_nav_item:Header.Learn @@
+  ~active_top_nav_item:Header.News @@
   <%s! tabs ~current %>
   <div class="bg-background dark:bg-dark-background" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
   <% if left_sidebar_html != None then ( %>  

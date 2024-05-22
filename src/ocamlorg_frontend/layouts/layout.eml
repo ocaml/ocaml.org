@@ -51,7 +51,7 @@ let base
 ~title
 ?canonical
 ?alternate
-?(active_top_nav_item: Header.active_nav_item option)
+?(active_top_nav_item: Header.nav_item option)
 ?(footer_html = "")
 inner =
   <!DOCTYPE html>

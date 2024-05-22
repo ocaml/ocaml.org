@@ -137,11 +137,11 @@ let from_v2 =
     ("/community/mailing_lists.fr.html", Url.community);
     ("/community/mailing_lists.html", Url.community);
     ("/community/media.html", Url.community);
-    ("/community/planet.html", Url.blog);
-    ("/community/planet/index.html", Url.blog);
-    ("/community/planet", Url.blog);
-    ("/community/planet/older.html", Url.blog);
-    ("/community/planet/syndication.html", Url.blog);
+    ("/community/planet.html", Url.ocaml_planet);
+    ("/community/planet/index.html", Url.ocaml_planet);
+    ("/community/planet", Url.ocaml_planet);
+    ("/community/planet/older.html", Url.ocaml_planet);
+    ("/community/planet/syndication.html", Url.ocaml_planet);
     ("/community/support.fr.html", Url.community);
     ("/community/support.html", Url.community);
     ("/consortium/index.fr.html", Url.index);
@@ -393,9 +393,8 @@ let from_v2 =
     ("/meetings/ocaml", Url.community);
     ("/ocamllabs/index.html", Url.index);
     ("/ocamllabs", Url.index);
-    ("/platform/index.html", Url.platform);
-    ("/platform", Url.platform);
-    ("/platform/ocaml_on_windows.html", Url.ocaml_on_windows);
+    ("/platform/index.html", Url.learn_platform);
+    ("/platform/ocaml_on_windows.html", "/docs/ocaml-on-windows");
     ("/releases/3.12.1.html", Url.release "3.12.1");
     ("/releases/4.00.1.html", Url.release "4.00.1");
     ("/releases/4.01.0.fr.html", Url.release "4.01.0");
@@ -462,6 +461,10 @@ let from_v2 =
       Url.manual_with_version latest_version );
     ("/releases/latest/api", Url.api_with_version latest_version);
     ("/releases/latest/api/index.html", Url.api_with_version latest_version);
+    ("/docs/platform", Url.platform);
+    ("/docs/platform-principles", Url.tool_page "platform-principles");
+    ("/docs/platform-users", Url.tool_page "platform-users");
+    ("/docs/platform-roadmap", Url.tool_page "platform-roadmap");
   ]
 
 let default_index_html =

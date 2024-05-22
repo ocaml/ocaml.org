@@ -100,7 +100,7 @@ Layout.render
           <h2>Set Up an OCaml Development Environment</h2>
 
           <p>
-            The <a href="<%s Url.platform %>">OCaml Platform Tools</a>,
+            The <a href="<%s Url.learn_platform %>">OCaml Platform Tools</a>,
             which includes the <a target="_blank" href="https://dune.build/">build system Dune</a>,
             complete your OCaml development environment. To install them in your current opam switch, run this command:
           </p>
@@ -126,7 +126,7 @@ Layout.render
                 with Git and the Visual Studio compiler.
 
                 If you need a different OCaml version, check out the alternative installation instructions
-                provided in the <a href="<%s Url.ocaml_on_windows %>">"OCaml on Windows" guide</a>.
+                provided in the <a href="<%s Url.tutorial "ocaml-on-windows" %>">"OCaml on Windows" guide</a>.
               </p>
 
               <p>
@@ -156,11 +156,11 @@ Layout.render
         </ol>
 
         <p>
-          Congratulations, you have now installed OCaml as well as the <a href="<%s Url.platform %>">OCaml Platform Tools</a>!
+          Congratulations, you have now installed OCaml as well as the <a href="<%s Url.learn_platform %>">OCaml Platform Tools</a>!
         </p>
 
         <p>
-          The <a href="<%s Url.platform %>">OCaml Platform Tools</a> include the <a target="_blank" href="https://dune.build/">build system Dune</a>
+          The <a href="<%s Url.learn_platform %>">OCaml Platform Tools</a> include the <a target="_blank" href="https://dune.build/">build system Dune</a>
           and provide you with a complete OCaml development environment.
         </p>
 

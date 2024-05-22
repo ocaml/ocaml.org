@@ -194,6 +194,12 @@ module Tool = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
+module Tool_page = struct
+  include Tool_page
+
+  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+end
+
 module Tutorial = struct
   include Tutorial
 

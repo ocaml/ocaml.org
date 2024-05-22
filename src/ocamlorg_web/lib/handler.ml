@@ -42,13 +42,12 @@ let learn_guides req =
   in
   Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
 
-let platform _req =
-  let tools = Data.Tool.all in
+let learn_platform req =
   let tutorials =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Platform)
   in
-  Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
 
 let community _req =
   let current_date =
@@ -301,17 +300,13 @@ let workshop req =
   in
   Dream.html (Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed workshop)
 
-let blog req =
+let ocaml_planet req =
   let page, number_of_pages, current_items =
     paginate ~req ~n:10 Data.Planet.Post.all
   in
-  let number_of_news =
-    List.length current_items |> float_of_int |> ( *. ) 1.3 |> int_of_float
-  in
-  let news = Data.News.all |> List.take number_of_news in
   Dream.html
-    (Ocamlorg_frontend.blog ~planet:current_items ~planet_page:page
-       ~planet_pages_number:number_of_pages ~news)
+    (Ocamlorg_frontend.ocaml_planet ~planet:current_items ~planet_page:page
+       ~planet_pages_number:number_of_pages)
 
 let local_blog req =
   let source = Dream.param req "source" in
@@ -433,11 +428,23 @@ let papers req =
 let resources _req =
   Dream.html (Ocamlorg_frontend.resources ~resources:Data.Resource.all)
 
+let tools req = Dream.redirect req ~code:307 Url.platform
+
+let tools_platform _req =
+  let tools = Data.Tool.all in
+  Dream.html (Ocamlorg_frontend.tools_platform ~pages:Data.Tool_page.all tools)
+
+let tool_page commit_hash req =
+  let slug = Dream.param req "id" in
+  let</>? page = Data.Tool_page.get_by_slug slug in
+  let pages = Data.Tool_page.all in
+  Dream.html
+    (Ocamlorg_frontend.tool_page commit_hash ~pages
+       ~canonical:(Url.tool_page page.slug) page)
+
 let tutorial commit_hash req =
   let slug = Dream.param req "id" in
-  let</>? tutorial =
-    List.find_opt (fun (x : Data.Tutorial.t) -> x.slug = slug) Data.Tutorial.all
-  in
+  let</>? tutorial = Data.Tutorial.get_by_slug slug in
   let all_tutorials = Data.Tutorial.all in
 
   let tutorials =

@@ -7,7 +7,7 @@ let urls =
   [
     Url.about;
     Url.academic_users;
-    Url.blog;
+    Url.ocaml_planet;
     Url.books;
     Url.carbon_footprint;
     Url.changelog;
@@ -23,7 +23,6 @@ let urls =
     Url.jobs;
     Url.learn;
     Url.news;
-    Url.ocaml_on_windows;
     Url.outreachy;
     Url.packages;
     Url.packages_search;
@@ -50,6 +49,7 @@ let urlables =
         (Planet.local_posts, fun r -> to_url @@ Url.blog_post r.source.id r.slug);
       Urlable (Release.all, fun r -> to_url @@ Url.release r.version);
       Urlable (Success_story.all, fun r -> to_url @@ Url.success_story r.slug);
+      Urlable (Tool_page.all, fun r -> to_url @@ Url.tool_page r.slug);
       Urlable (Tutorial.all, fun r -> to_url @@ Url.tutorial r.slug);
       Urlable (Workshop.all, fun r -> to_url @@ Url.workshop r.slug);
     ]

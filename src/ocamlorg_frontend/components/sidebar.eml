@@ -1,0 +1,18 @@
+let sidebar_link ~title ~href ~current ~tag =
+  let render_tag tag = match tag with
+    | None -> ""
+    | Some t ->
+    <span class="inline-block px-1 bg-primary text-white rounded-md mr-1">
+      <%s t %>
+    </span>
+  in
+  <a class="border-l-2 py-2 px-3 rounded-sm leading-6 font-normal <%s if current then {|text-title dark:text-dark-title bg-primary_nav_block_hover_10 dark:bg-primary_nav_block_hover_10 border-primary dark:border-dark-primary|} else {|text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary border-transparent|} %>" href="<%s href %>">
+    <%s! render_tag tag %>
+    <%s title %>
+  </a>
+let sidebar_link_group ?(extra_html="") title link_html =
+  <div class="pl-2 pr-8 flex flex-col">
+    <div class="text-lg font-normal text-title dark:text-dark-title leading-10 flex py-1 uppercase"><%s title %></div>
+    <%s! link_html %>
+    <%s! extra_html %>
+  </div>

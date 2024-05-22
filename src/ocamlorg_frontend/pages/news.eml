@@ -1,62 +1,61 @@
 let render ~pages_number ~page (news : Data.News.t list) =
-Layout.render
-~title:"OCaml News"
-~description:"Read the latest news, releases, and updates from the OCaml community."
+News_layout.single_column_layout
+~title:"News from the OCaml teams"
+~description:"Read the latest news, releases, and updates from the OCaml compiler and platform developers."
 ~canonical:(Url.news ^ if page = 1 then "" else "?p=" ^ string_of_int page)
-~active_top_nav_item:Header.Blog @@
-<div class="bg-background dark:bg-dark-background py-24">
+~current:Newsletters @@
+<div class="intro-section-simple dark:dark-intro-section-simple py-12">
   <div class="container-fluid">
-    <div class="prose dark:prose-invert prose-orange">
-      <a href="<%s Url.blog %>"
-        class="flex justify-start space-x-3 items-center text-primary dark:text-dark-primary hover:underline font-semibold mb-4 h-12">
-        <%s! Icons.arrow_left "h-5 w-5" %>
-        <div>Back to Blog</div>
-      </a>
-      <h1 class="font-bold">News</h1>
-      <p class="text-lg text-content mt-6">Read the latest news, from the OCaml teams.</p>
+    <div class="flex items-center">
+      <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-title dark:text-dark-title">
+        News
+      </h1>
     </div>
 
-    <div class="mt-20">
-      <div class="mt-12 space-y-12">
-        <% news |> List.iter (fun (item : Data.News.t) -> %>
-        <div class="flex flex-col-reverse lg:flex-row lg:space-x-12">
-          <div class="space-y-3 mt-6 lg:mt-0 flex flex-col flex-1">
-              <div class="space-y-2">
-                  <a href="<%s Url.news_post item.slug %>"
-                      class="block text-xl font-semibold text-title dark:text-dark-title hover:text-primary dark:hover:text-dark-primary"><%s item.title %></a>
-              </div>
-              <a href="<%s Url.news_post item.slug %>" class="text-content dark:text-dark-content">
-                  <%s item.description %>
-              </a>
-              <div class="text-content dark:text-dark-content flex space-x-2.5 text-sm">
-                  <div><%s item.date %></div>
-              </div>
-          </div>
+    <p class="text-lg text-content dark:text-dark-content mt-6">The latest news from the OCaml teams.</p>
+  </div>
+</div>
+<div class="bg-background dark:bg-dark-background py-10">
+  <div class="container-fluid">
+    <div class="mt-12 space-y-12">
+      <% news |> List.iter (fun (item : Data.News.t) -> %>
+      <div class="flex flex-col-reverse lg:flex-row lg:space-x-12">
+        <div class="space-y-3 mt-6 lg:mt-0 flex flex-col flex-1">
+            <div class="space-y-2">
+                <a href="<%s Url.news_post item.slug %>"
+                    class="block text-xl font-semibold text-title dark:text-dark-title hover:text-primary dark:hover:text-dark-primary"><%s item.title %></a>
+            </div>
+            <a href="<%s Url.news_post item.slug %>" class="text-content dark:text-dark-content">
+                <%s item.description %>
+            </a>
+            <div class="text-content dark:text-dark-content flex space-x-2.5 text-sm">
+                <div><%s item.date %></div>
+            </div>
         </div>
-        <% ); %>
+      </div>
+      <% ); %>
 
-        <div class="pt-16 flex items-center justify-center space-x-2.5">
-          <a href="<%s Url.news %>?p=<%i page - 1 %>"
-              class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-content hover:bg-gray-50 hover:no-underline">
-              <%s! Icons.chevron_left "h-5 w-5" %>
-          </a>
-          <% (for i = 1 to (pages_number - 1) do
-                if i = page then ( %>
-          <a href="<%s Url.news %>?p=<%i i %>"
-              class="w-10 h-10 lg:w-14 lg:h-14  border-2 border-current rounded-lg flex items-center justify-center text-primary">
-              <%i i %>
-          </a>
-          <% ) else ( %>
-          <a href="<%s Url.news %>?p=<%i i %>"
-              class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-content hover:bg-gray-50 hover:no-underline">
-              <%i i %>
-          </a>
-          <% ) done); %>
-          <a href="<%s Url.news %>?p=<%i page + 1 %>"
-              class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-content hover:bg-gray-50 hover:no-underline">
-              <%s! Icons.chevron_right "h-5 w-5" %>
-          </a>
-        </div>
+      <div class="pt-16 flex items-center justify-center space-x-2.5">
+        <a href="<%s Url.news %>?p=<%i page - 1 %>"
+            class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-content hover:bg-gray-50 hover:no-underline">
+            <%s! Icons.chevron_left "h-5 w-5" %>
+        </a>
+        <% (for i = 1 to (pages_number - 1) do
+              if i = page then ( %>
+        <a href="<%s Url.news %>?p=<%i i %>"
+            class="w-10 h-10 lg:w-14 lg:h-14  border-2 border-current rounded-lg flex items-center justify-center text-primary">
+            <%i i %>
+        </a>
+        <% ) else ( %>
+        <a href="<%s Url.news %>?p=<%i i %>"
+            class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-content hover:bg-gray-50 hover:no-underline">
+            <%i i %>
+        </a>
+        <% ) done); %>
+        <a href="<%s Url.news %>?p=<%i page + 1 %>"
+            class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-content hover:bg-gray-50 hover:no-underline">
+            <%s! Icons.chevron_right "h-5 w-5" %>
+        </a>
       </div>
     </div>
   </div>

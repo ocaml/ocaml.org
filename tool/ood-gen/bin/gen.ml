@@ -25,6 +25,7 @@ let term_templates =
     ("resource", Ood_gen.Resource.template);
     ("success_story", Ood_gen.Success_story.template);
     ("tool", Ood_gen.Tool.template);
+    ("tool_page", Ood_gen.Tool_page.template);
     ("tutorial", Ood_gen.Tutorial.template);
     ("video", Ood_gen.Video.template);
     ("watch", Ood_gen.Watch.template);
