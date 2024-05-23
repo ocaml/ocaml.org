@@ -90,6 +90,7 @@ module Governance = struct
 end
 
 module Industrial_user = struct
+  include Data_intf.Industrial_user
   include Industrial_user
 
   let featured = all |> List.filter (fun user -> user.featured)

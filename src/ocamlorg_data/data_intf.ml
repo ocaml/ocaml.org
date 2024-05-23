@@ -195,6 +195,22 @@ module Governance = struct
   [@@deriving of_yaml, show]
 end
 
+module Industrial_user = struct
+  type t = {
+    name : string;
+    slug : string;
+    description : string;
+    logo : string option;
+    url : string;
+    locations : string list;
+    consortium : bool;
+    featured : bool;
+    body_md : string;
+    body_html : string;
+  }
+  [@@deriving show]
+end
+
 module Outreachy = struct
   type project = {
     title : string;
