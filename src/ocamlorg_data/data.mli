@@ -78,18 +78,7 @@ module Event : sig
 end
 
 module Exercise : sig
-  type difficulty = Beginner | Intermediate | Advanced
-
-  type t = {
-    title : string;
-    slug : string;
-    difficulty : difficulty;
-    tags : string list;
-    description : string;
-    statement : string;
-    solution : string;
-    tutorials : string list;
-  }
+  include module type of Data_intf.Exercise
 
   val all : t list
   val filter_tag : ?tag:string -> t list -> t list

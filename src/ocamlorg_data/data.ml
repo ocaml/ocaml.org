@@ -69,6 +69,7 @@ module Event = struct
 end
 
 module Exercise = struct
+  include Data_intf.Exercise
   include Exercise
 
   let filter_tag ?tag =

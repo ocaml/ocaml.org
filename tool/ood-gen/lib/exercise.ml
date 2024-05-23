@@ -1,25 +1,16 @@
-module Proficiency = struct
-  type t = Beginner | Intermediate | Advanced
-  [@@deriving show { with_path = false }]
-
-  let of_string = function
-    | "beginner" -> Ok Beginner
-    | "intermediate" -> Ok Intermediate
-    | "advanced" -> Ok Advanced
-    | s -> Error (`Msg ("Unknown proficiency type: " ^ s))
-
-  let of_yaml = Utils.of_yaml of_string "Expected a string for difficulty type"
-end
+open Data_intf.Exercise
 
 type metadata = {
   title : string;
   slug : string;
-  difficulty : Proficiency.t;
+  difficulty : difficulty;
   tags : string list;
   description : string;
   tutorials : string list option;
 }
-[@@deriving of_yaml]
+[@@deriving
+  of_yaml,
+    stable_record ~version:t ~add:[ statement; solution ] ~modify:[ tutorials ]]
 
 let get_title (h : Cmarkit.Block.Heading.t) =
   let title =
@@ -39,22 +30,7 @@ let split_statement_solution (body : string) =
       | _ -> Error (`Msg "Failed to split on '# Statement' heading"))
   | _ -> Error (`Msg "Failed to split on '# Solution' heading")
 
-type t = {
-  title : string;
-  slug : string;
-  difficulty : Proficiency.t;
-  tags : string list;
-  description : string;
-  statement : string;
-  solution : string;
-  tutorials : string list;
-}
-[@@deriving
-  stable_record ~version:metadata ~remove:[ statement; solution ]
-    ~modify:[ tutorials ],
-    show { with_path = false }]
-
-let of_metadata m = of_metadata m ~modify_tutorials:(Option.value ~default:[])
+let of_metadata m = metadata_to_t m ~modify_tutorials:(Option.value ~default:[])
 
 let decode (fpath, (head, body)) : (t, [> `Msg of string ]) result =
   let ( let* ) = Result.bind in
@@ -73,7 +49,7 @@ let decode (fpath, (head, body)) : (t, [> `Msg of string ]) result =
   Ok (metadata |> of_metadata ~statement ~solution)
 
 let compare_by_slug =
-  let key exercise : int * string =
+  let key (exercise : t) : int * string =
     Scanf.sscanf exercise.slug "%d%[A-Z]" (fun s c -> (s, c))
   in
   fun (x : t) (y : t) -> compare (key x) (key y)
@@ -82,21 +58,7 @@ let all () =
   Utils.map_files decode "exercises/*.md" |> List.sort compare_by_slug
 
 let template () =
-  Format.asprintf
-    {|
-type difficulty = Beginner | Intermediate | Advanced
-
-type t =
-  { title : string
-  ; slug : string
-  ; difficulty : difficulty
-  ; tags : string list
-  ; description : string
-  ; statement : string
-  ; solution : string
-  ; tutorials : string list;
-  }
-  
+  Format.asprintf {|
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))

@@ -19,8 +19,8 @@ module Academic_institution = struct
     location : location option;
     body_md : string;
     body_html : string;
-  }
-  [@@deriving show]
+    }
+    [@@deriving show]
 end
 
 module Book = struct
@@ -105,6 +105,32 @@ module Cookbook = struct
     code_blocks : code_block_with_explanation list;
     code_plaintext : string;
     discussion_html : string;
+  }
+  [@@deriving show]
+end
+
+module Exercise = struct
+  type difficulty = Beginner | Intermediate | Advanced [@@deriving show]
+
+  let of_string = function
+    | "beginner" -> Ok Beginner
+    | "intermediate" -> Ok Intermediate
+    | "advanced" -> Ok Advanced
+    | s -> Error (`Msg ("Unknown difficulty type: " ^ s))
+
+  let difficulty_of_yaml = function
+    | `String s -> of_string s
+    | _ -> Error (`Msg "Expected a string for difficulty type")
+
+  type t = {
+    title : string;
+    slug : string;
+    difficulty : difficulty;
+    tags : string list;
+    description : string;
+    statement : string;
+    solution : string;
+    tutorials : string list;
   }
   [@@deriving show]
 end
