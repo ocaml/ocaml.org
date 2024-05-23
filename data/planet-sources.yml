@@ -209,7 +209,7 @@
   url: https://melange.re/blog/feed.rss
 - id: chshersh
   name: Dmitrii Kovanikov
-  url: https://dev.to/feed
+  url: https://dev.to/feed/chshersh
   only_ocaml: true
 - id: xavier-leroy-sciences-du-logiciel
   name: Collège de France - Sciences du logiciel
