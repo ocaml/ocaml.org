@@ -97,7 +97,11 @@ module Industrial_user = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
-module Is_ocaml_yet = Is_ocaml_yet
+module Is_ocaml_yet = struct
+  include Data_intf.Is_ocaml_yet
+  include Is_ocaml_yet
+end
+
 module Job = Job
 
 module News = struct

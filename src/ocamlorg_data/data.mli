@@ -102,24 +102,7 @@ module Industrial_user : sig
 end
 
 module Is_ocaml_yet : sig
-  type external_package = { url : string; synopsis : string }
-  type package = { name : string; extern : external_package option }
-
-  type category = {
-    name : string;
-    status : string;
-    description : string;
-    packages : package list;
-    slug : string;
-  }
-
-  type t = {
-    id : string;
-    question : string;
-    answer : string;
-    categories : category list;
-    body_html : string;
-  }
+  include module type of Data_intf.Is_ocaml_yet
 
   val all : t list
 end
