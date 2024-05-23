@@ -262,15 +262,7 @@ module Tutorial : sig
 end
 
 module Watch : sig
-  type t = {
-    name : string;
-    embed_path : string;
-    thumbnail_path : string;
-    description : string option;
-    published_at : string;
-    language : string;
-    category : string;
-  }
+  include module type of Data_intf.Watch
 
   val all : t list
 end
