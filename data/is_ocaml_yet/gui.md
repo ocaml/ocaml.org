@@ -45,6 +45,11 @@ categories:
     packages:
       - name: oplot
       - name: gr
+      - name: jupyter-archimedes
+      - name: gnuplot
+      - name: matplotlib
+      - name: plplot
+      - name: plotly
   - name: Events
     status: 🟡
     description: |
