@@ -16,6 +16,7 @@
 - id: hannes
   name: Hannes Mehnert
   url: https://hannes.robur.coop/atom
+  only_ocaml: true
 - id: watch-ocaml
   name: Watch OCaml
   url: https://watch.ocaml.org/feeds/videos.xml
@@ -25,6 +26,7 @@
 - id: andrej
   name: Andrej Bauer
   url: http://math.andrej.com/feed.xml
+  only_ocaml: true
 - id: ujamjar
   name: Andy Ray
   url: http://www.ujamjar.com/ocaml.xml
@@ -43,12 +45,14 @@
 - id: coq
   name: Coq
   url: https://coq.inria.fr/rss.xml
+  only_ocaml: true
 - id: cburnout
   name: Cranial Burnout
   url: http://www.blogger.com/feeds/9108979482982930820/posts/default/-/OCaml
 - id: erratique
   name: Daniel Bünzli
   url: https://erratique.ch/feeds/news.atom
+  only_ocaml: true
 - id: dbaelde
   name: David Baelde
   url: http://www.blogger.com/feeds/17133288/posts/default/-/ocaml
@@ -58,15 +62,18 @@
 - id: mega-nerd
   name: Erik de Castro Lopo
   url: http://www.mega-nerd.com/erikd/Blog/index.rss20
+  only_ocaml: true
 - id: emillon
   name: Etienne Millon
   url: http://blog.emillon.org/feeds/ocaml.xml
 - id: frama-c
   name: Frama-C
   url: http://frama-c.com/rss.xml
+  only_ocaml: true
 - id: gallium
   name: GaGallium
   url: http://gallium.inria.fr/blog/index.rss
+  only_ocaml: true
 - id: gaius
   name: Gaius Hammond
   url: https://gaius.tech/category/ocaml/feed/
@@ -75,39 +82,46 @@
   name: Gemma Gordon (OCaml Labs)
   url: http://reynard.io/feed.xml
   disabled: true
+  only_ocaml: true
 - id: camlcity
   name: Gerd Stolpmann
   url: http://blog.camlcity.org/blog/rss
 - id: hongboz
   name: Hong bo Zhang
   url: https://hongboz.wordpress.com/feed/
+  only_ocaml: true
 - id: ambassadortothecomputers
   name: Jake Donham
   url: http://ambassadortothecomputers.blogspot.com/feeds/posts/default?alt=rss
+  only_ocaml: true
 - id: kcsrk
   name: KC Sivaramakrishnan
   url: https://kcsrk.info/atom-ocaml.xml
 - id: lpw25
   name: Leo White
   url: http://lpw25.net/rss.xml
+  only_ocaml: true
 - id: skjegstad
   name: Magnus Skjegstad
   url: http://www.skjegstad.com/feeds/ocaml.tag.atom.xml
 - id: 0branch
   name: Marc Simpson
   url: https://blog.0branch.com/rss.xml
+  only_ocaml: true
 - id: syntaxexclamation
   name: Matthias Puech
   url: https://syntaxexclamation.wordpress.com/tag/ocaml/feed/
 - id: mgiovannini
   name: Matías Giovannini
   url: http://www.blogger.com/feeds/5888658295182480819/posts/default
+  only_ocaml: true
 - id: mlin
   name: Mike Lin
   url: http://www.blogger.com/feeds/3693082774051755513/posts/default/-/OCaml
 - id: mcclurmc
   name: Mike McClurg
   url: https://mcclurmc.wordpress.com/feed/
+  only_ocaml: true
 - id: mirage
   name: MirageOS
   url: https://mirage.io/feed.xml
@@ -132,12 +146,14 @@
 - id: psellos
   name: Psellos
   url: http://psellos.com/atom.xml
+  only_ocaml: true
 - id: rjones
   name: Richard Jones
   url: https://rwmj.wordpress.com/tag/ocaml/feed/
 - id: rgrinberg
   name: Rudi Grinberg
   url: http://rgrinberg.com/blog/atom.xml
+  only_ocaml: true
 - id: smondet
   name: Sebastien Mondet
   url: https://seb.mondet.org/b/OCaml.rss
@@ -153,6 +169,7 @@
 - id: tvaroquaux
   name: Till Varoquaux
   url: http://www.blogger.com/feeds/6115529230232389198/posts/default
+  only_ocaml: true
 - id: yansnotes
   name: Yan Shvartzshnaider
   url: http://yansnotes.blogspot.com/feeds/posts/default/-/ocaml
@@ -168,22 +185,32 @@
 - id: bap
   name: The BAP Blog
   url: https://binaryanalysisplatform.github.io/feed.xml
+  only_ocaml: true
 - id: baturin
   name: Daniil Baturin
   url: https://baturin.org/blog/atom-ocaml.xml
 - id: signalsandthreads
   name: Signals and Threads
   url: https://feeds.simplecast.com/L9810DOa
-  filter: ocaml
+  only_ocaml: true
 - id: robur.coop
   name: Robur Cooperative
   url: https://blog.robur.coop/feed.xml
+  only_ocaml: true
 - id: dinosaure
   name: Romain Calascibetta
   url: https://blog.osau.re/feed.xml
+  only_ocaml: true
 - id: emilpriver
   name: Emil Privér
   url: https://priver.dev/tags/ocaml/index.xml
 - id: melange
   name: Melange Blog
   url: https://melange.re/blog/feed.rss
+- id: chshersh
+  name: Dmitrii Kovanikov
+  url: https://dev.to/feed
+  only_ocaml: true
+- id: xavier-leroy-sciences-du-logiciel
+  name: Collège de France - Sciences du logiciel
+  url: https://www.college-de-france.fr/fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire/audio-video.xml
