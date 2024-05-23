@@ -1,24 +1,5 @@
 module Academic_institution : sig
-  type location = { lat : float; long : float }
-
-  type course = {
-    name : string;
-    acronym : string option;
-    online_resource : string option;
-  }
-
-  type t = {
-    name : string;
-    slug : string;
-    description : string;
-    url : string;
-    logo : string option;
-    continent : string;
-    courses : course list;
-    location : location option;
-    body_md : string;
-    body_html : string;
-  }
+  include module type of Data_intf.Academic_institution
 
   val all : t list
   val get_by_slug : string -> t option
