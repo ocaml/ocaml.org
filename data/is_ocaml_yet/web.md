@@ -409,6 +409,5 @@ allow you to program your Web and mobile application in a single code.
 
 Here are some projects that would help make OCaml a stronger candidate for Web applications:
 - Improve [ocaml-swagger](https://github.com/andrenth/ocaml-swagger) to be able to generate API for popular Web APIs like Stripe.
-- Implement a converter from [JSON Schema](https://json-schema.org/) to [ATD](https://github.com/ahrefs/atd). This would allow generating OCaml serializers for data formats that provide a JSON Schema (a lot of them do!).
 - Create an Oauth2 client library.
 - Create clients to the Azure services APIs.
