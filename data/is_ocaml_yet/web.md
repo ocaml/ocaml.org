@@ -1,6 +1,6 @@
 ---
 id: web
-question: Is OCaml Web yet?
+question: Is OCaml Web Yet?
 answer: Yes, but some parts are still missing
 categories:
   - name: Web Frameworks
@@ -228,7 +228,7 @@ categories:
   - name: Serializers
     status: 🟡
     description: |
-      Packages for serializing and deserializing data in different formats.
+      Packages for serializing and deserialising data in different formats.
     packages:
     - name: atd
     - name: yojson
@@ -287,7 +287,7 @@ categories:
     - name: ocaml-twttr
       extern:
         url: https://github.com/besport/ocaml-twttr
-        synopsis: Binding to the twttr Javascript plugin (Twitter)
+        synopsis: Binding to the `twttr` Javascript plugin (Twitter)
     - name: ocaml-gtag
       extern:
         url: https://github.com/besport/ocaml-gtag
@@ -400,7 +400,7 @@ APIs.
 However, this is often more than offset by the time you save thanks to
 the advantages of the language and the power of certain tools. The
 language's powerful type system will save you a lot of debugging time by
-eliminating many problems at compile time (such as html conformity).
+eliminating many problems at compile time (such as HTML conformity).
 Innovative solutions such as multi-tier programming can drastically
 simplify client-server communication. Last but not least, OCaml can even
 allow you to program your Web and mobile application in a single code.
@@ -409,5 +409,5 @@ allow you to program your Web and mobile application in a single code.
 
 Here are some projects that would help make OCaml a stronger candidate for Web applications:
 - Improve [ocaml-swagger](https://github.com/andrenth/ocaml-swagger) to be able to generate API for popular Web APIs like Stripe.
-- Create an Oauth2 client library.
+- Create an OAuth2 client library.
 - Create clients to the Azure services APIs.
