@@ -13,7 +13,7 @@ case, _n_ is the number of valid elements in the container.
 Note that the big-O cost given for some operations reflects the current
 implementation but is not guaranteed by the official documentation.
 Hopefully it will not become worse. Anyway, if you want more details,
-you can read the [documentation](/manual/latest/api/index.html) about each of the modules or the OCaml [source code](https://github.com/ocaml/ocaml/tree/trunk/stdlib). Often, it
+you can read the [documentation](/manual/api/index.html) about each of the modules or the OCaml [source code](https://github.com/ocaml/ocaml/tree/trunk/stdlib). Often, it
 is also instructive to read the corresponding implementation.
 
 ## Lists: Immutable Singly-Linked Lists
