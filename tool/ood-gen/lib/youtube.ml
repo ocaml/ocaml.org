@@ -15,13 +15,22 @@ let kind_of_string = function
 let kind_to_string = function Playlist -> "playlist" | Channel -> "channel"
 let kind_of_yaml = Utils.of_yaml kind_of_string "Expected a string for kind"
 
-type source = {
+type source_metadata = {
   name : string;
   kind : kind;
   id : string;
-  filter : string option;
+  only_ocaml : bool option;
 }
 [@@deriving of_yaml]
+
+type source = { name : string; kind : kind; id : string; only_ocaml : bool }
+[@@deriving stable_record ~version:source_metadata ~modify:[ only_ocaml ]]
+
+let source_of_yaml x =
+  x |> source_metadata_of_yaml
+  |> Result.map
+       (source_of_source_metadata
+          ~modify_only_ocaml:(Option.value ~default:false))
 
 type source_list = source list [@@deriving of_yaml]
 
@@ -108,10 +117,10 @@ let scrape () =
            Xmlm.make_input (`String (0, feed))
            |> walk_mrss |> feed_media []
            |> Seq.filter (fun video ->
-                  let filter = Option.value ~default:"" src.filter in
-                  String.(
-                    is_sub_ignore_case filter video.title
-                    || is_sub_ignore_case filter video.description)))
+                  (not src.only_ocaml)
+                  || String.(
+                       is_sub_ignore_case "ocaml" video.title
+                       || is_sub_ignore_case "ocaml" video.description)))
     |> List.of_seq |> video_list_to_yaml |> Result.ok
   in
   match yaml with

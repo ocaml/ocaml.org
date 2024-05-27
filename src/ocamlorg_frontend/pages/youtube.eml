@@ -9,7 +9,6 @@ Community_layout.single_column_layout
 ~title:"Community YouTube Videos"
 ~description:"Videos from the OCaml Community on YouTube."
 ~canonical:Url.youtube
-~active_top_nav_item:Header.Community
 ~current:Videos @@
 <div class="intro-section-simple dark:dark-intro-section-simple py-12 border-b border-solid border-separator_20 dark:border-dark-separator_30">
   <div class="container-fluid">
