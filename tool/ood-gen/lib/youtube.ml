@@ -43,6 +43,7 @@ type t = {
   content : string;
   thumbnail : string;
   description : string;
+  published : string;
 }
 [@@deriving yaml, show { with_path = false }]
 
@@ -55,6 +56,7 @@ type tag =
   | Content of string
   | Thumbnail of string
   | Description of string
+  | Published of string
 
 let walk_mrss xml =
   let rec loop xml tag depth =
@@ -66,35 +68,38 @@ let walk_mrss xml =
         Seq.cons (Some (Content (get_url attrs))) (loop xml None (depth + 1))
     | `El_start ((ns, "thumbnail"), attrs) when ns = mrss ->
         Seq.cons (Some (Thumbnail (get_url attrs))) (loop xml None (depth + 1))
-    | `El_start ((ns, tag), _) when ns = mrss -> loop xml (Some tag) (depth + 1)
-    | `El_start _ -> loop xml None (depth + 1)
+    | `El_start ((_, tag), _) -> loop xml (Some tag) (depth + 1)
     | `El_end -> if depth = 1 then Seq.empty else loop xml None (depth - 1)
     | `Data data when tag = Some "title" ->
         Seq.cons (Some (Title data)) (loop xml tag depth)
     | `Data data when tag = Some "description" ->
         Seq.cons (Some (Description data)) (loop xml tag depth)
+    | `Data data when tag = Some "published" ->
+          Seq.cons (Some (Published data)) (loop xml tag depth)
     | _ -> loop xml tag depth
   in
   loop xml None 0
 
 let rec tags_to_video = function
-  | Title title :: tags, _, content, thumbnail, description ->
-      tags_to_video (tags, Some title, content, thumbnail, description)
-  | Content content :: tags, title, _, thumbnail, description ->
-      tags_to_video (tags, title, Some content, thumbnail, description)
-  | Thumbnail thumbnail :: tags, title, content, _, description ->
-      tags_to_video (tags, title, content, Some thumbnail, description)
-  | Description description :: tags, title, content, thumbnail, _ ->
-      tags_to_video (tags, title, content, thumbnail, Some description)
-  | [], Some title, Some content, Some thumbnail, Some description ->
-      Some { title; content; thumbnail; description }
+  | Title title :: tags, _, content, thumbnail, description, published ->
+      tags_to_video (tags, Some title, content, thumbnail, description, published)
+  | Content content :: tags, title, _, thumbnail, description, published ->
+      tags_to_video (tags, title, Some content, thumbnail, description, published)
+  | Thumbnail thumbnail :: tags, title, content, _, description, published ->
+      tags_to_video (tags, title, content, Some thumbnail, description, published)
+  | Description description :: tags, title, content, thumbnail, _, published ->
+      tags_to_video (tags, title, content, thumbnail, Some description, published)
+  | Published published :: tags, title, content, thumbnail, description, _ ->
+        tags_to_video (tags, title, content, thumbnail, description, Some published)
+  | [], Some title, Some content, Some thumbnail, Some description, Some published ->
+      Some { title; content; thumbnail; description; published }
   | _ -> None
 
 let rec feed_media tags seq () =
   match seq () with
   | Seq.Cons (None, seq) -> (
       let seq = feed_media [] seq in
-      match tags_to_video (tags, None, None, None, None) with
+      match tags_to_video (tags, None, None, None, None, None) with
       | Some v
       (* when Ocamlorg.Import.String.contains_s (String.lowercase_ascii
          v.description) "ocaml" *) ->
@@ -103,9 +108,24 @@ let rec feed_media tags seq () =
   | Seq.Cons (Some tag, seq) -> feed_media (tag :: tags) seq ()
   | Seq.Nil -> Seq.Nil
 
+let all () =
+  let ( let* ) = Result.bind in
+  let videos =
+    let file = "youtube.yml" in
+    let* yaml = Utils.yaml_file file in
+    yaml |> video_list_of_yaml |> Result.map_error (Utils.where file)
+  in
+  match videos with Ok videos -> videos | Error _ -> []
+
+module VideoSet = Set.Make (struct
+  type nonrec t = t
+
+  let compare a b = compare a.content b.content
+end)
+
 let scrape () =
   let ( let* ) = Result.bind in
-  let yaml =
+  let fetched =
     let file = "youtube-sources.yml" in
     let* yaml = Utils.yaml_file file in
     let* sources =
@@ -121,10 +141,15 @@ let scrape () =
                   || String.(
                        is_sub_ignore_case "ocaml" video.title
                        || is_sub_ignore_case "ocaml" video.description)))
-    |> List.of_seq |> video_list_to_yaml |> Result.ok
+    |> VideoSet.of_seq |> Result.ok
   in
-  match yaml with
-  | Ok yaml ->
+  let scraped = all () |> VideoSet.of_list in
+  match fetched with
+  | Ok fetched ->
+      let yaml =
+        VideoSet.union fetched scraped
+        |> VideoSet.to_seq |> List.of_seq |> List.sort (fun a b -> compare b.published a.published) |> video_list_to_yaml
+      in
       let output =
         Yaml.pp Format.str_formatter yaml;
         Format.flush_str_formatter ()
@@ -134,15 +159,6 @@ let scrape () =
       close_out oc
   | Error (`Msg msg) -> failwith msg
 
-let all () =
-  let ( let* ) = Result.bind in
-  let videos =
-    let file = "youtube.yml" in
-    let* yaml = Utils.yaml_file file in
-    yaml |> video_list_of_yaml |> Result.map_error (Utils.where file)
-  in
-  match videos with Ok videos -> videos | Error (`Msg msg) -> failwith msg
-
 let template () =
   Format.asprintf
     {ocaml|
@@ -151,6 +167,7 @@ type t = {
   content : string;
   thumbnail : string;
   description : string;
+  published : string;
 }
 
 let all =%a
