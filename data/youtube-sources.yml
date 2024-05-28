@@ -16,7 +16,7 @@
   kind: channel
   id: UCVk4b-svNJoeytrrlOixebQ
   only_ocaml: true
-- name: OCAML Worshop at ICFP 2023
+- name: OCAML Workshop at ICFP 2023
   kind: playlist
   id: PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
 - name: "OCaml Programming: Correct + Efficient + Beautiful"
