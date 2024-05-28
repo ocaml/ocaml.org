@@ -15,13 +15,10 @@ issues will unfortunately not
 caught by OCaml's strong type system, meaning they may go unnoticed
 when introducing parallelism into an existing OCaml code base. In this
 guide, we will therefore study a step-wise workflow that utilises the
-[ThreadSanitizer (TSan)](https://github.com/ocaml-multicore/ocaml-tsan)
+[ThreadSanitizer (TSan)]([https://github.com/ocaml-multicore/ocaml-tsan](https://ocaml.org/manual/latest/tsan.html))
 tool to help make your OCaml code 5.x ready.
 
-**Note:** TSan is currently only supported under Linux with AMD/Intel
-cpus. It furthermore requires at least GCC 11 or Clang 11 and the
-`libunwind` library.
-
+**Note:** TSan support for OCaml is currently available for the x86_64 architecture, on FreeBSD, Linux and macOS, and for the arm64 architecture on Linux and macOS. Building OCaml with TSan support requires at least GCC 11 or Clang 14 installed as your C compiler. Note that TSan data race reports with GCC 11 are known to result in poor stack trace reporting (no line numbers), which is fixed in GCC 12.
 
 ## An Example Application
 
@@ -91,12 +88,9 @@ application.
 
 ### Install the Instrumenting TSan Compiler (Step 0)
 
-For now, convenient `5.1.0+tsan` and `5.0.0+tsan` opam switches are available
-until TSan is officially included with the forthcoming 5.2.0 OCaml
-release. You can install such a TSan switch as follows:
-
+TSan is included in OCaml starting from OCaml 5.2, but has to be explicitly enabled. You can install a TSan switch as follows:
 ``` shell
-opam switch create 5.1.0+tsan
+opam switch create my_switch_name ocaml-option-tsan
 ```
 
 
