@@ -101,10 +101,11 @@ module ChangelogFeed = struct
       ()
 
   let create_feed () =
+    let open Rss in
     () |> all
-    |> Rss.create_feed ~id:"changelog.xml" ~title:"OCaml Changelog"
-         ~create_entry ~span:365
-    |> Rss.feed_to_string
+    |> create_feed ~id:"changelog.xml" ~title:"OCaml Changelog" ~create_entry
+         ~span:365
+    |> feed_to_string
 end
 
 let template () =

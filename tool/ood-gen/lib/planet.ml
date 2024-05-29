@@ -259,11 +259,13 @@ module LocalBlog = struct
       ()
 
   let create_feed source posts =
-    posts |> Rss.create_feed
-      ~id:("blog/" ^ source.id ^ "/feed.xml")
-      ~title:(source.name ^ " @ OCaml.org")
-      ~create_entry
-    |> Rss.feed_to_string
+    let open Rss in
+    posts
+    |> create_feed
+         ~id:("blog/" ^ source.id ^ "/feed.xml")
+         ~title:(source.name ^ " @ OCaml.org")
+         ~create_entry
+    |> feed_to_string
 
   let all () =
     let all_posts = Local.Post.all () in
@@ -341,10 +343,11 @@ module GlobalFeed = struct
       ()
 
   let create_feed () =
+    let open Rss in
     () |> all
-    |> Rss.create_feed ~id:"feed.xml" ~title:"The OCaml Planet" ~create_entry
+    |> create_feed ~id:"feed.xml" ~title:"The OCaml Planet" ~create_entry
          ~span:90
-    |> Rss.feed_to_string
+    |> feed_to_string
 end
 
 module Scraper = struct

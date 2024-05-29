@@ -1,5 +1,3 @@
-let option_unfold p x = if p x then Some x else None
-
 let create_feed ~id ~title ~create_entry ?span u =
   let id = Uri.of_string ("https://ocaml.org/" ^ id) in
   let title : Syndic.Atom.title = Text title in
