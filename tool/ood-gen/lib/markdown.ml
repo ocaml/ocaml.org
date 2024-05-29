@@ -2,7 +2,7 @@ open Ocamlorg.Import
 
 module Toc = struct
   type t = { title : string; href : string; children : t list }
-  [@@deriving show { with_path = false }]
+  [@@deriving of_yaml, show]
 
   let id_to_href id =
     match id with

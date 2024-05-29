@@ -213,47 +213,7 @@ module Tool_page : sig
 end
 
 module Tutorial : sig
-  module Section : sig
-    type t = GetStarted | Language | Platform | Guides
-  end
-
-  type toc = { title : string; href : string; children : toc list }
-  type contribute_link = { url : string; description : string }
-  type banner = { image : string; url : string; alt : string }
-
-  type external_tutorial = {
-    tag : string;
-    banner : banner;
-    contribute_link : contribute_link;
-  }
-
-  type recommended_next_tutorials = string list
-  type prerequisite_tutorials = string list
-  type search_document_section = { title : string; id : string }
-
-  type search_document = {
-    title : string;
-    category : string;
-    section : search_document_section option;
-    content : string;
-    slug : string;
-  }
-
-  type t = {
-    title : string;
-    short_title : string;
-    fpath : string;
-    slug : string;
-    description : string;
-    section : Section.t;
-    category : string;
-    external_tutorial : external_tutorial option;
-    body_md : string;
-    toc : toc list;
-    body_html : string;
-    recommended_next_tutorials : recommended_next_tutorials;
-    prerequisite_tutorials : prerequisite_tutorials;
-  }
+  include module type of Data_intf.Tutorial
 
   val all : t list
   val all_search_documents : search_document list
