@@ -24,7 +24,7 @@
     %{workspace_root}
     (with-stdout-to
      %{target}
-     (run %{ood_gen} planet_feed))))))
+     (run %{ood_gen} planet))))))
 
 (subdir
  asset/
@@ -38,6 +38,6 @@
     %{workspace_root}
     (with-stdout-to
      %{target}
-     (run %{ood_gen} changelog_feed))))))
+     (run %{ood_gen} changelog))))))
 
 (data_only_dirs playground data practice)
