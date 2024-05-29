@@ -345,7 +345,7 @@ module GlobalFeed = struct
   let create_feed () =
     let open Rss in
     () |> all
-    |> create_feed ~id:"feed.xml" ~title:"The OCaml Planet" ~create_entry
+    |> create_feed ~id:"planet.xml" ~title:"The OCaml Planet" ~create_entry
          ~span:90
     |> feed_to_string
 end

@@ -14,11 +14,11 @@
 (subdir
  asset/
  (rule
-  (target feed.xml)
+  (target planet.xml)
   (deps
    (source_tree %{workspace_root}/data/planet)
    (source_tree %{workspace_root}/data/planet-local-blogs)
-   (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+   (:ood_gen %{workspace_root}/tool/ood-gen/bin/feed.exe))
   (action
    (chdir
     %{workspace_root}
@@ -32,7 +32,7 @@
   (target changelog.xml)
   (deps
    (source_tree %{workspace_root}/data/changelog)
-   (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+   (:ood_gen %{workspace_root}/tool/ood-gen/bin/feed.exe))
   (action
    (chdir
     %{workspace_root}

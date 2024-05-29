@@ -352,6 +352,7 @@ let package_docs req =
 let t =
   Dream.scope "" []
     [
+      make ~permanent:true [ ("/feed.xml", "planet.xml") ];
       make from_v2;
       make v2_assets;
       make [ ("/blog", "/ocaml-planet") ];

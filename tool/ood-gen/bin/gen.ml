@@ -1,11 +1,11 @@
 open Cmdliner
+open Ood_gen
 
 let term_templates =
   [
     ("academic_institution", Ood_gen.Academic_institution.template);
     ("book", Ood_gen.Book.template);
     ("changelog", Ood_gen.Changelog.template);
-    ("changelog_feed", Ood_gen.Changelog.ChangelogFeed.create_feed);
     ("code_examples", Ood_gen.Code_example.template);
     ("cookbook", Ood_gen.Cookbook.template);
     ("event", Ood_gen.Event.template);
@@ -20,7 +20,6 @@ let term_templates =
     ("pages", Ood_gen.Page.template);
     ("paper", Ood_gen.Paper.template);
     ("planet", Ood_gen.Planet.template);
-    ("planet_feed", Ood_gen.Planet.GlobalFeed.create_feed);
     ("release", Ood_gen.Release.template);
     ("resource", Ood_gen.Resource.template);
     ("success_story", Ood_gen.Success_story.template);

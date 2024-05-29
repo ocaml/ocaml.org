@@ -6,7 +6,7 @@
  (target asset.ml)
  (deps
   %{workspace_root}/asset/css/main.css
-  %{workspace_root}/asset/feed.xml
+  %{workspace_root}/asset/planet.xml
   %{workspace_root}/asset/changelog.xml
   (source_tree %{workspace_root}/asset))
  (action
