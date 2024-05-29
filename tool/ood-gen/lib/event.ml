@@ -153,17 +153,17 @@ module EventsFeed = struct
     let entries =
       all ()
       |> List.map (fun (log : t) ->
-             let id = Uri.of_string log.url in
              let authors = (Syndic.Atom.author "Ocaml.org", []) in
              let event_type = EventType.show log.event_type in
              let textual_location = log.textual_location in
-
              let start_date =
                Syndic.Date.of_rfc3339
                  (log.starts.yyyy_mm_dd ^ "T"
                  ^ Option.value ~default:"00:00" log.starts.utc_hh_mm
                  ^ ":00Z")
              in
+             let start_date_str = Syndic.Date.to_rfc3339 start_date in
+             let id = Uri.of_string (log.slug ^ " " ^ start_date_str) in
              let location_summary =
                match log.location with
                | Some { lat; long } ->
@@ -171,11 +171,12 @@ module EventsFeed = struct
                      long
                | None -> textual_location
              in
-             Syndic.Atom.entry ~id ~authors ~title:(Syndic.Atom.Text log.title)
+             Syndic.Atom.entry ~id ~authors
+               ~title:(Syndic.Atom.Text (log.title ^ " " ^ start_date_str))
                ~updated:start_date
-               ~links:[ Syndic.Atom.link id ]
+               ~links:[ Syndic.Atom.link (Uri.of_string log.url) ]
                ~categories:[ Syndic.Atom.category event_type ]
-               ~summary:(Syndic.Atom.Text location_summary) ())
+               ~content:(Syndic.Atom.Text location_summary) ())
       |> List.filter (fun (entry : Syndic.Atom.entry) ->
              Ptime.is_later entry.updated ~than:cutoff_date)
       |> List.sort Syndic.Atom.descending
