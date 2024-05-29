@@ -2,43 +2,6 @@ open Ocamlorg
 
 let fwd_v2 target = (target, Url.v2 ^ target)
 
-let pp_ocaml_version ppf (mj, mn) =
-  if mj >= 5 then Format.fprintf ppf "%d.%d" mj mn
-  else Format.fprintf ppf "%d.%02d" mj mn
-
-let notes_redirections v =
-  let fwd_notes x =
-    let source = Format.asprintf "/releases/%a/notes/%s" pp_ocaml_version v x in
-    (source, Format.asprintf "/manual/%a/notes/%s" pp_ocaml_version v x)
-  in
-  if v >= (4, 3) then
-    List.map fwd_notes
-      [
-        "Changes"; "INSTALL.adoc"; "LICENSE"; "README.adoc"; "README.win32.adoc";
-      ]
-  else
-    List.map fwd_notes
-      [ "Changes"; "INSTALL"; "LICENSE"; "README"; "README.win32" ]
-
-let manual_redirections v =
-  let fwd_manual x =
-    let source =
-      Format.asprintf "/releases/%a/ocaml-%a-refman%s" pp_ocaml_version v
-        pp_ocaml_version v x
-    in
-    let target =
-      Format.asprintf "/manual/%a/ocaml-%a-refman%s" pp_ocaml_version v
-        pp_ocaml_version v x
-    in
-    (source, target)
-  in
-  List.map fwd_manual
-    ((if v >= (4, 8) then [] else [ ".dvi.gz"; ".ps.gz" ])
-    @ (if v > (3, 12) then [] else [ ".html.tar.gz"; ".html.zip" ])
-    @ [ "-html.tar.gz"; "-html.zip"; ".html"; ".info.tar.gz"; ".pdf"; ".txt" ])
-
-let manual_and_notes v = notes_redirections v @ manual_redirections v
-
 (* For assets previously hosted on V2, we redirect the requests to
    v2.ocaml.org. *)
 let v2_assets =
@@ -77,47 +40,7 @@ let v2_assets =
         fwd_v2 "/meetings/ocaml/2013/slides/vaugon.pdf";
         fwd_v2 "/meetings/ocaml/2013/slides/white.pdf";
       ];
-      manual_and_notes (3, 12);
-      manual_and_notes (4, 0);
-      manual_and_notes (4, 1);
-      manual_and_notes (4, 2);
-      [
-        ( "/releases/4.02/ocaml-4.02-refman-html-0.tar.gz",
-          "/manual/4.02/ocaml-4.02-refman-html-0.tar.gz" );
-        ( "/releases/4.02/ocaml-4.02-refman-html-0.zip",
-          "/manual/4.02/ocaml-4.02-refman-html-0.zip" );
-        ( "/releases/4.02/ocaml-4.02-refman-html-1.tar.gz",
-          "/manual/4.02/ocaml-4.02-refman-html-1.tar.gz" );
-        ( "/releases/4.02/ocaml-4.02-refman-html-1.zip",
-          "/manual/4.02/ocaml-4.02-refman-html-1.zip" );
-      ];
-      manual_and_notes (4, 3);
-      manual_and_notes (4, 4);
-      manual_and_notes (4, 5);
-      [
-        ( "/releases/4.06/notes/Changes.4.06.0+beta1.txt",
-          "/manual/4.06/Changes.4.06.0+beta1.txt" );
-        ( "/releases/4.06/notes/Changes.4.06.0+beta2.txt",
-          "/manual/4.06/Changes.4.06.0+beta2.txt" );
-        ( "/releases/4.06/notes/Changes.4.06.0+rc1.txt",
-          "/manual/4.06/Changes.4.06.0+rc1.txt" );
-      ];
-      manual_and_notes (4, 6);
-      manual_and_notes (4, 7);
-      manual_and_notes (4, 8);
-      manual_and_notes (4, 9);
-      manual_and_notes (4, 10);
-      manual_and_notes (4, 11);
-      manual_and_notes (4, 12);
-      manual_and_notes (4, 13);
-      manual_and_notes (4, 14);
-      manual_and_notes (5, 0);
-      manual_and_notes (5, 1);
-      manual_and_notes (5, 2);
     ]
-
-let lts_version = Data.Release.lts.version
-let latest_version = Data.Release.latest.version
 
 let from_v2 =
   [
@@ -395,161 +318,17 @@ let from_v2 =
     ("/ocamllabs", Url.index);
     ("/platform/index.html", Url.learn_platform);
     ("/platform/ocaml_on_windows.html", "/docs/ocaml-on-windows");
-    ("/releases/3.12.1.html", Url.release "3.12.1");
-    ("/releases/4.00.1.html", Url.release "4.00.1");
-    ("/releases/4.01.0.fr.html", Url.release "4.01.0");
-    ("/releases/4.01.0.html", Url.release "4.01.0");
-    ("/releases/4.02.0.html", Url.release "4.02.0");
-    ("/releases/4.02.1.html", Url.release "4.02.1");
-    ("/releases/4.02.2.html", Url.release "4.02.2");
-    ("/releases/4.02.3.html", Url.release "4.02.3");
-    ("/releases/4.02.html", Url.release "4.02.0");
-    ("/releases/4.03.0.html", Url.release "4.03.0");
-    ("/releases/4.03.html", Url.release "4.03.0");
-    ("/releases/4.04.0.html", Url.release "4.04.0");
-    ("/releases/4.04.1.html", Url.release "4.04.1");
-    ("/releases/4.04.2.html", Url.release "4.04.2");
-    ("/releases/4.04.html", Url.release "4.04.0");
-    ("/releases/4.05.0.html", Url.release "4.05.0");
-    ("/releases/4.05.html", Url.release "4.05.0");
-    ("/releases/4.06.0.html", Url.release "4.06.0");
-    ("/releases/4.06.1.html", Url.release "4.06.1");
-    ("/releases/4.06.html", Url.release "4.06.0");
-    ("/releases/4.07.0.html", Url.release "4.07.0");
-    ("/releases/4.07.1.html", Url.release "4.07.1");
-    ("/releases/4.08.0.html", Url.release "4.08.0");
-    ("/releases/4.08.1.html", Url.release "4.08.1");
-    ("/releases/4.09.0.html", Url.release "4.09.0");
-    ("/releases/4.09.1.html", Url.release "4.09.1");
-    ("/releases/4.10.0.html", Url.release "4.10.0");
-    ("/releases/4.10.1.html", Url.release "4.10.1");
-    ("/releases/4.10.2.html", Url.release "4.10.2");
-    ("/releases/4.11.0.html", Url.release "4.11.0");
-    ("/releases/4.11.1.html", Url.release "4.11.1");
-    ("/releases/4.11.2.html", Url.release "4.11.2");
-    ("/releases/4.12.0.html", Url.release "4.12.0");
-    ("/releases/4.12.1.html", Url.release "4.12.1");
-    ("/releases/4.13.0.html", Url.release "4.13.0");
-    ("/releases/4.13.1.html", Url.release "4.13.1");
-    ("/releases/4.14.0.html", Url.release "4.14.0");
-    ("/releases/5.0.0.html", Url.release "5.0.0");
     ("/releases/caml-light/faq.html", Url.index);
     ("/releases/caml-light/index.html", Url.index);
     ("/releases/caml-light", Url.index);
     ("/releases/caml-light/license.html", Url.index);
     ("/releases/caml-light/releases/0.75.html", Url.index);
     ("/releases/index.fr.html", Url.releases);
-    ("/releases/index.html", Url.releases);
-    ("/releases", Url.releases);
-    ("/releases/lts", Url.release lts_version);
-    ("/releases/lts/index.html", Url.release lts_version);
-    ("/releases/lts/manual.html", Url.manual_with_version lts_version);
-    ("/releases/lts/manual", Url.manual_with_version lts_version);
-    ("/releases/lts/manual/index.html", Url.manual_with_version lts_version);
-    ("/releases/lts/htmlman", Url.manual_with_version lts_version);
-    ("/releases/lts/htmlman/index.html", Url.manual_with_version lts_version);
-    ("/releases/lts/api", Url.api_with_version lts_version);
-    ("/releases/lts/pi/index.html", Url.api_with_version lts_version);
-    ("/releases/latest", Url.release latest_version);
-    ("/releases/latest/index.html", Url.release latest_version);
-    ("/releases/latest/manual.html", Url.manual_with_version latest_version);
-    ("/releases/latest/manual", Url.manual_with_version latest_version);
-    ( "/releases/latest/manual/index.html",
-      Url.manual_with_version latest_version );
-    ("/releases/latest/htmlman", Url.manual_with_version latest_version);
-    ( "/releases/latest/htmlman/index.html",
-      Url.manual_with_version latest_version );
-    ("/releases/latest/api", Url.api_with_version latest_version);
-    ("/releases/latest/api/index.html", Url.api_with_version latest_version);
     ("/docs/platform", Url.platform);
     ("/docs/platform-principles", Url.tool_page "platform-principles");
     ("/docs/platform-users", Url.tool_page "platform-users");
     ("/docs/platform-roadmap", Url.tool_page "platform-roadmap");
   ]
-
-let default_index_html =
-  [
-    ("/manual", Url.manual_with_version latest_version);
-    ("/manual/latest", Url.manual_with_version latest_version);
-    ("/api", Url.api_with_version latest_version);
-    ("/api/latest", Url.api_with_version latest_version);
-    ("/manual/api", Url.api_with_version latest_version);
-    ("/manual/api/latest", Url.api_with_version latest_version);
-    ("/manual/3.12", Url.manual_with_version "3.12");
-    ("/manual/4.00", Url.manual_with_version "4.00");
-    ("/manual/4.01", Url.manual_with_version "4.01");
-    ("/manual/4.02", Url.manual_with_version "4.02");
-    ("/manual/4.03", Url.manual_with_version "4.03");
-    ("/manual/4.04", Url.manual_with_version "4.04");
-    ("/manual/4.05", Url.manual_with_version "4.05");
-    ("/manual/4.06", Url.manual_with_version "4.06");
-    ("/manual/4.07", Url.manual_with_version "4.07");
-    ("/manual/4.08", Url.manual_with_version "4.08");
-    ("/manual/4.09", Url.manual_with_version "4.09");
-    ("/manual/4.10", Url.manual_with_version "4.10");
-    ("/manual/4.11", Url.manual_with_version "4.11");
-    ("/manual/4.12", Url.manual_with_version "4.12");
-    ("/manual/4.12/api", Url.api_with_version "4.12");
-    ("/manual/4.13", Url.manual_with_version "4.13");
-    ("/manual/4.13/api", Url.api_with_version "4.13");
-    ("/manual/4.14", Url.manual_with_version "4.14");
-    ("/manual/4.14/api", Url.api_with_version "4.14");
-    ("/manual/5.0", Url.manual_with_version "5.0");
-    ("/manual/5.0/api", Url.api_with_version "5.0");
-    ("/manual/5.1", Url.manual_with_version "5.1");
-    ("/manual/5.1/api", Url.api_with_version "5.1");
-    ("/manual/5.2", Url.manual_with_version "5.2");
-    ("/manual/5.2/api", Url.api_with_version "5.2");
-    ("/manual/5.3", Url.manual_with_version "5.3");
-    ("/manual/5.3/api", Url.api_with_version "5.3");
-  ]
-
-let redirect_to_latest pattern =
-  let handler req =
-    let target = Dream.target req in
-    Dream.redirect req ("/manual/" ^ Url.minor latest_version ^ target)
-  in
-  Dream.get pattern handler
-
-let local_target target =
-  target |> String.split_on_char '/' |> List.tl |> List.tl |> String.concat "/"
-  |> ( ^ ) "/manual/"
-
-let redirect_p pattern =
-  let handler req =
-    let target = Dream.target req in
-    Dream.redirect req (local_target target)
-  in
-  Dream.get pattern handler
-
-let redirect_i origin =
-  let target =
-    match Filename.basename origin with
-    | "htmlman" | "manual" -> Filename.dirname origin
-    | _ -> origin
-  in
-  Dream.get origin (fun req ->
-      Dream.redirect req (local_target target ^ "/index.html"))
-
-let manual =
-  redirect_to_latest "/api/**"
-  :: (Data.Release.all
-     |> List.map (fun (release : Data.Release.t) -> Url.minor release.version)
-     |> List.sort_uniq compare
-     |> List.concat_map (fun version ->
-            List.append
-              [
-                redirect_p @@ "/releases/" ^ version ^ "/htmlman/**";
-                redirect_i @@ "/releases/" ^ version ^ "/htmlman";
-              ]
-              (if version < "4.12" then []
-               else
-                 [
-                   redirect_p @@ "/releases/" ^ version ^ "/api/**";
-                   redirect_i @@ "/releases/" ^ version ^ "/api";
-                   redirect_p @@ "/releases/" ^ version ^ "/manual/**";
-                   redirect_i @@ "/releases/" ^ version ^ "/manual";
-                 ])))
 
 let make ?(permanent = false) t =
   let status = if permanent then `Moved_Permanently else `See_Other in
@@ -573,10 +352,8 @@ let package_docs req =
 let t =
   Dream.scope "" []
     [
-      make default_index_html;
       make from_v2;
       make v2_assets;
-      Dream.scope "" [ Dream_encoding.compress ] manual;
       make [ ("/blog", "/ocaml-planet") ];
       make ~permanent:true [ ("/opportunities", "/jobs") ];
       make ~permanent:true
