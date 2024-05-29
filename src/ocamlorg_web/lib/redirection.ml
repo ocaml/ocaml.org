@@ -5,42 +5,39 @@ let fwd_v2 target = (target, Url.v2 ^ target)
 (* For assets previously hosted on V2, we redirect the requests to
    v2.ocaml.org. *)
 let v2_assets =
-  List.concat
-    [
       [
-        fwd_v2 "/meetings/ocaml/2013/proposals/core-bench.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/ctypes.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/formats-as-gadts.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/frenetic.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/goji.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/gpgpu.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/injectivity.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/merlin.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/ocamlot.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/optimizations.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/platform.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/profiling-memory.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/runtime-types.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/weather-related-data.pdf";
-        fwd_v2 "/meetings/ocaml/2013/proposals/wxocaml.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/bourgoin.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/bozman.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/canou.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/carty.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/chambart.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/garrigue.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/guha.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/henry.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/james.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/lefessant.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/leroy.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/madhavapeddy.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/padioleau.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/sheets.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/vaugon.pdf";
-        fwd_v2 "/meetings/ocaml/2013/slides/white.pdf";
-      ];
-    ]
+        "/meetings/ocaml/2013/proposals/core-bench.pdf";
+        "/meetings/ocaml/2013/proposals/ctypes.pdf";
+        "/meetings/ocaml/2013/proposals/formats-as-gadts.pdf";
+        "/meetings/ocaml/2013/proposals/frenetic.pdf";
+        "/meetings/ocaml/2013/proposals/goji.pdf";
+        "/meetings/ocaml/2013/proposals/gpgpu.pdf";
+        "/meetings/ocaml/2013/proposals/injectivity.pdf";
+        "/meetings/ocaml/2013/proposals/merlin.pdf";
+        "/meetings/ocaml/2013/proposals/ocamlot.pdf";
+        "/meetings/ocaml/2013/proposals/optimizations.pdf";
+        "/meetings/ocaml/2013/proposals/platform.pdf";
+        "/meetings/ocaml/2013/proposals/profiling-memory.pdf";
+        "/meetings/ocaml/2013/proposals/runtime-types.pdf";
+        "/meetings/ocaml/2013/proposals/weather-related-data.pdf";
+        "/meetings/ocaml/2013/proposals/wxocaml.pdf";
+        "/meetings/ocaml/2013/slides/bourgoin.pdf";
+        "/meetings/ocaml/2013/slides/bozman.pdf";
+        "/meetings/ocaml/2013/slides/canou.pdf";
+        "/meetings/ocaml/2013/slides/carty.pdf";
+        "/meetings/ocaml/2013/slides/chambart.pdf";
+        "/meetings/ocaml/2013/slides/garrigue.pdf";
+        "/meetings/ocaml/2013/slides/guha.pdf";
+        "/meetings/ocaml/2013/slides/henry.pdf";
+        "/meetings/ocaml/2013/slides/james.pdf";
+        "/meetings/ocaml/2013/slides/lefessant.pdf";
+        "/meetings/ocaml/2013/slides/leroy.pdf";
+        "/meetings/ocaml/2013/slides/madhavapeddy.pdf";
+        "/meetings/ocaml/2013/slides/padioleau.pdf";
+        "/meetings/ocaml/2013/slides/sheets.pdf";
+        "/meetings/ocaml/2013/slides/vaugon.pdf";
+        "/meetings/ocaml/2013/slides/white.pdf";
+      ]
 
 let from_v2 =
   [
@@ -353,7 +350,7 @@ let t =
   Dream.scope "" []
     [
       make from_v2;
-      make v2_assets;
+      make (List.map fwd_v2 v2_assets);
       make [ ("/blog", "/ocaml-planet") ];
       make ~permanent:true [ ("/opportunities", "/jobs") ];
       make ~permanent:true
