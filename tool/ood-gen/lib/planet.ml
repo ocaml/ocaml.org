@@ -259,10 +259,10 @@ module LocalBlog = struct
       ()
 
   let create_feed source posts =
-    Rss.create_feed
+    posts |> Rss.create_feed
       ~id:("blog/" ^ source.id ^ "/feed.xml")
       ~title:(source.name ^ " @ OCaml.org")
-      ~create_entry posts
+      ~create_entry
     |> Rss.feed_to_string
 
   let all () =

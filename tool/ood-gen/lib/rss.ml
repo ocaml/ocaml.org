@@ -1,18 +1,17 @@
+let option_unfold p x = if p x then Some x else None
+
 let create_feed ~id ~title ~create_entry ?span u =
   let id = Uri.of_string ("https://ocaml.org/" ^ id) in
   let title : Syndic.Atom.title = Text title in
-  let f =
+  let is_fresh =
     let some span (entry : Syndic.Atom.entry) =
       let now = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
       let than = Ptime.sub_span now (Ptime.Span.v (span, 0L)) |> Option.get in
-      Ptime.is_later entry.updated ~than
+      if Ptime.is_later entry.updated ~than then Some entry else None
     in
-    Option.fold ~none:(Fun.const true) ~some span
+    Option.fold ~none:Option.some ~some span
   in
-  let entries =
-    u |> List.map create_entry |> List.filter f
-    |> List.sort Syndic.Atom.descending
-  in
+  let entries = u |> List.filter_map (fun x -> x |> create_entry |> is_fresh) in
   let updated = (List.hd entries).updated in
   Syndic.Atom.feed ~id ~title ~updated entries
 
