@@ -1,10 +1,5 @@
 open Ocamlorg.Import
 
-(* https://news.ycombinator.com/item?id=32191947
-
-   https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
-   https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU *)
-
 type kind = Playlist | Channel
 
 let kind_of_string = function
@@ -75,23 +70,33 @@ let walk_mrss xml =
     | `Data data when tag = Some "description" ->
         Seq.cons (Some (Description data)) (loop xml tag depth)
     | `Data data when tag = Some "published" ->
-          Seq.cons (Some (Published data)) (loop xml tag depth)
+        Seq.cons (Some (Published data)) (loop xml tag depth)
     | _ -> loop xml tag depth
   in
   loop xml None 0
 
 let rec tags_to_video = function
   | Title title :: tags, _, content, thumbnail, description, published ->
-      tags_to_video (tags, Some title, content, thumbnail, description, published)
+      tags_to_video
+        (tags, Some title, content, thumbnail, description, published)
   | Content content :: tags, title, _, thumbnail, description, published ->
-      tags_to_video (tags, title, Some content, thumbnail, description, published)
+      tags_to_video
+        (tags, title, Some content, thumbnail, description, published)
   | Thumbnail thumbnail :: tags, title, content, _, description, published ->
-      tags_to_video (tags, title, content, Some thumbnail, description, published)
+      tags_to_video
+        (tags, title, content, Some thumbnail, description, published)
   | Description description :: tags, title, content, thumbnail, _, published ->
-      tags_to_video (tags, title, content, thumbnail, Some description, published)
+      tags_to_video
+        (tags, title, content, thumbnail, Some description, published)
   | Published published :: tags, title, content, thumbnail, description, _ ->
-        tags_to_video (tags, title, content, thumbnail, description, Some published)
-  | [], Some title, Some content, Some thumbnail, Some description, Some published ->
+      tags_to_video
+        (tags, title, content, thumbnail, description, Some published)
+  | ( [],
+      Some title,
+      Some content,
+      Some thumbnail,
+      Some description,
+      Some published ) ->
       Some { title; content; thumbnail; description; published }
   | _ -> None
 
@@ -125,6 +130,7 @@ end)
 
 let scrape () =
   let ( let* ) = Result.bind in
+  let scraped = all () |> VideoSet.of_list in
   let fetched =
     let file = "youtube-sources.yml" in
     let* yaml = Utils.yaml_file file in
@@ -143,12 +149,13 @@ let scrape () =
                        || is_sub_ignore_case "ocaml" video.description)))
     |> VideoSet.of_seq |> Result.ok
   in
-  let scraped = all () |> VideoSet.of_list in
   match fetched with
   | Ok fetched ->
       let yaml =
         VideoSet.union fetched scraped
-        |> VideoSet.to_seq |> List.of_seq |> List.sort (fun a b -> compare b.published a.published) |> video_list_to_yaml
+        |> VideoSet.to_seq |> List.of_seq
+        |> List.sort (fun a b -> compare b.published a.published)
+        |> video_list_to_yaml
       in
       let output =
         Yaml.pp Format.str_formatter yaml;
