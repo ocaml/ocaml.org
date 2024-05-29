@@ -79,6 +79,15 @@ This defines a module `Funkt.StringSet`. What `Set.Make` needs are:
 - Type `t`, here `string`
 - Function allowing to compare two values of type `t`, here `String.compare`
 
+**Note**: A type `t` must be defined in the parameter module, here
+`StringCompare`. Most often, as shown in this example, `t` is an alias for
+another type, here `string`. If that other type is also called `t`, the compiler
+will trigger an error _“The type abbreviation t is cyclic”_. This can be worked
+around by adding the `nonrec` keyword to the type definition, like this:
+```ocaml
+type nonrec t = t
+```
+
 This can be simplified using an _anonymous module_ expression:
 ```ocaml
 module StringSet = Set.Make(struct
