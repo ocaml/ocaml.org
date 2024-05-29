@@ -5,7 +5,6 @@ description: I got a new job where I am hacking some Scala. I thought I would le
 url: http://ambassadortothecomputers.blogspot.com/2011/04/logic-programming-in-scala-part-1.html
 date: 2011-04-07T05:03:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

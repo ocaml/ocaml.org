@@ -4,7 +4,6 @@ description:
 url: https://ocsigen.github.io/blog/2019/07/18/releases/
 date: 2019-07-18T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The Ocsigen Team
 source:

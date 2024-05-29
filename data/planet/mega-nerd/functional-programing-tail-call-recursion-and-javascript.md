@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/fp-tail-js.html
 date: 2010-11-30T10:47:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

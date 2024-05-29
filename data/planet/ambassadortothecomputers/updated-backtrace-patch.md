@@ -5,7 +5,6 @@ description: "I\u2019ve updated my backtrace  patch  to work with OCaml 3.11.x a
 url: http://ambassadortothecomputers.blogspot.com/2010/03/updated-backtrace-patch.html
 date: 2010-03-28T01:19:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

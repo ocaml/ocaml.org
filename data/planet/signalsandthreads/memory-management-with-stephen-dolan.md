@@ -4,7 +4,6 @@ description:
 url: https://signals-threads.simplecast.com/episodes/memory-management-with-stephen-dolan-VnWeJYgk
 date: 2022-01-05T17:30:00-00:00
 preview_image:
-featured:
 authors:
 - Signals and Threads
 source:

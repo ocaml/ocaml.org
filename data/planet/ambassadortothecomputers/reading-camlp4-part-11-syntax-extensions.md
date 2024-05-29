@@ -5,7 +5,6 @@ description: In this final (?) post in my series on Camlp4, I want at last to co
 url: http://ambassadortothecomputers.blogspot.com/2010/09/reading-camlp4-part-11-syntax.html
 date: 2010-09-11T00:16:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/bitcoin-pinata-results
 date: 2015-06-29T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

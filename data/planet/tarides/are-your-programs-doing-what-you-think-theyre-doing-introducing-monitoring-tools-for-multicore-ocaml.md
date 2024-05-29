@@ -6,7 +6,6 @@ description: "As programs grow in size and complexity, they become more challeng
 url: https://tarides.com/blog/2024-01-31-are-your-programs-doing-what-you-think-they-re-doing-introducing-monitoring-tools-for-multicore-ocaml
 date: 2024-01-31T00:00:00-00:00
 preview_image: https://tarides.com/static/3758d75acbb3fe101c3c53003544c91b/684c6/monitoring_desk.jpg
-featured:
 authors:
 - Tarides
 source:

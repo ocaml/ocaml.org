@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/static-binaries-tutorial/
 date: 2017-11-03T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/configurator-reborn/
 date: 2018-06-12T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - ""
 source:

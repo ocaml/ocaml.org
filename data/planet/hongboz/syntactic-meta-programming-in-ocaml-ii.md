@@ -6,7 +6,6 @@ description: "In this post, we continue discussing syntactic meta-programming fo
 url: https://hongboz.wordpress.com/2013/02/05/syntactic-meta-programming-in-ocaml-ii-5/
 date: 2013-02-05T19:57:31-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Hong bo Zhang
 source:

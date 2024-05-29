@@ -4,7 +4,6 @@ description:
 url: http://reynard.io/events/2017/03/27/DataboxLaunchMarch2017.html
 date: 2017-03-27T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gemma Gordon (OCaml Labs)
 source:

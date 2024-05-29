@@ -7,7 +7,6 @@ description: Update - TZScan.io can now work on top of the zeronet (zeronet.tzsc
 url: https://ocamlpro.com/blog/2018_03_14_new_updates_on_tzscan
 date: 2018-03-14T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

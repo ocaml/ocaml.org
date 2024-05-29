@@ -4,7 +4,6 @@ description:
 url: http://math.andrej.com/2023/06/15/types-2023-isomorphism-invariance-and-isomorphism-reflection/
 date: 2023-06-14T22:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andrej Bauer
 source:

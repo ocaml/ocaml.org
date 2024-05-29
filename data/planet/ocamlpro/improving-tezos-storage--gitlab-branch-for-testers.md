@@ -7,7 +7,6 @@ description: This article is the third post of a series of posts on improving Te
 url: https://ocamlpro.com/blog/2019_02_04_improving_tezos_storage_gitlab_branch_for_testers
 date: 2019-02-04T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

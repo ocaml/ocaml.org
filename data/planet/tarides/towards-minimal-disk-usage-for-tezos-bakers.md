@@ -5,7 +5,6 @@ description: "Over the last few months, Tarides has focused on designing,\nproto
 url: https://tarides.com/blog/2022-11-10-towards-minimal-disk-usage-for-tezos-bakers
 date: 2022-11-10T00:00:00-00:00
 preview_image: https://tarides.com/static/f40f61613e381ebad045c51adb0241ed/18869/context-pruning-minimal.jpg
-featured:
 authors:
 - Tarides
 source:

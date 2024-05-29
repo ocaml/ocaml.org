@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/an-outing-to-cufp
 date: 2011-09-29T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

@@ -7,7 +7,6 @@ description: At OCamlPro, the main ongoing task on the OCaml Compiler is to impr
 url: https://ocamlpro.com/blog/2024_03_18_the_flambda2_snippets_0
 date: 2024-03-18T14:46:44-00:00
 preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
-featured:
 authors:
 - "\n    Pierre Chambart\n  "
 source:

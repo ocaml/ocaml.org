@@ -51,7 +51,7 @@ let base
 ~title
 ?canonical
 ?alternate
-?(active_top_nav_item: Header.active_nav_item option)
+?(active_top_nav_item: Header.nav_item option)
 ?(footer_html = "")
 inner =
   <!DOCTYPE html>
@@ -105,8 +105,10 @@ inner =
 
     <body>
       <script>
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
           document.body.classList.add("dark");
+        } else {
+          document.body.classList.remove("dark");
         }
       </script>
       <% if banner then ( %>

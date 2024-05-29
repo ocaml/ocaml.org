@@ -7,7 +7,6 @@ description: As we are preparing to work on the Tezos Protocol, we're still acti
 url: https://ocamlpro.com/blog/2018_04_13_taskforce_on_the_tezos_protocol_and_tzscan_evolution
 date: 2018-04-13T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Michael Laporte\n  "
 source:

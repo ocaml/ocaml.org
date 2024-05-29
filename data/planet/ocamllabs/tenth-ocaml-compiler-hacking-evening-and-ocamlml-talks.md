@@ -4,7 +4,6 @@ description:
 url: http://ocamllabs.github.com/compiler-hacking/2015/08/20/mini-workshop
 date: 2015-08-20T13:00:00-00:00
 preview_image:
-featured:
 authors:
 - OCaml Labs compiler hacking
 source:

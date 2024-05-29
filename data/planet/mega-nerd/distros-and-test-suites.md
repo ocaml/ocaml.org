@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/libsndfile/distros_and_test_suites.html
 date: 2010-10-03T11:58:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

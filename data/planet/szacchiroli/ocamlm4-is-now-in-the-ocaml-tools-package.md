@@ -4,7 +4,6 @@ description:
 url: http://upsilon.cc/~zack/blog/posts/2009/07/ocaml.m4_is_now_in_the_ocaml-tools_package/
 date: 2009-07-19T18:17:01-00:00
 preview_image:
-featured:
 authors:
 - Stefano Zacchiroli
 source:

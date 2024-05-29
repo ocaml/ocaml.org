@@ -5,7 +5,6 @@ description: "RFC 1951 is one of the most used standards. Indeed,\nwhen you laun
 url: https://tarides.com/blog/2019-08-26-decompress-the-new-decompress-api
 date: 2019-08-26T00:00:00-00:00
 preview_image: https://tarides.com/static/eeb13afbb9190097a8d04be9e1361642/6b50e/hammock.jpg
-featured:
 authors:
 - Tarides
 source:

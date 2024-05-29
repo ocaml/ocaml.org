@@ -5,7 +5,6 @@ description: Protobuf is an Ocaml library for communicating with Google's protob
 url: http://functional-orbitz.blogspot.com/2013/03/ann-protobuf-002.html
 date: 2013-03-17T14:21:00-00:00
 preview_image:
-featured:
 authors:
 - Orbitz
 source:

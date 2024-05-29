@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/2018-visiting-the-camels
 date: 2018-04-20T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Stefanie Schirmer
 ---

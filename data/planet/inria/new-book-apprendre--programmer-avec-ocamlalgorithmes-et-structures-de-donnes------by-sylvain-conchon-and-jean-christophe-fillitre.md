@@ -5,7 +5,6 @@ description:
 url: http://programmer-avec-ocaml.lri.fr/
 date: 2014-09-11T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Caml INRIA
 source:

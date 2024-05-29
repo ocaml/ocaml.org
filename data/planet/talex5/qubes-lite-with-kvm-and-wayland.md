@@ -4,7 +4,6 @@ description:
 url: https://roscidus.com/blog/blog/2021/03/07/qubes-lite-with-kvm-and-wayland/
 date: 2021-03-07T15:00:00-00:00
 preview_image:
-featured:
 authors:
 - Thomas Leonard
 source:

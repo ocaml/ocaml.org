@@ -7,7 +7,6 @@ description: "When you are beginning in a new programming language, it is someti
 url: https://ocamlpro.com/blog/2011_06_03_ocaml_cheat_sheets
 date: 2011-06-03T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

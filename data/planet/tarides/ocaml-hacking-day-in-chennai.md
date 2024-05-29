@@ -5,7 +5,6 @@ description: "It is a truth universally acknowledged, that a programmer in posse
 url: https://tarides.com/blog/2023-11-09-ocaml-hacking-day-in-chennai
 date: 2023-11-09T00:00:00-00:00
 preview_image: https://tarides.com/static/18ab75716002f9a9cc41bf009fc2fcba/2070e/groupchennai2.jpg
-featured:
 authors:
 - Tarides
 source:

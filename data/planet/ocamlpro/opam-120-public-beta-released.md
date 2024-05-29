@@ -7,7 +7,6 @@ description: It has only been 18 months since the first release of OPAM, but it 
 url: https://ocamlpro.com/blog/2014_08_14_opam_1.2.0_public_beta_released
 date: 2014-08-14T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    OCaml Platform Team\n  "
 source:

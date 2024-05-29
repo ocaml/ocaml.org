@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/DDC/llvm_milestone3.html
 date: 2010-12-01T09:41:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

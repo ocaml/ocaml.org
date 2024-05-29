@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2014/10/2014.10.atom-table-undef.html
 date: 2014-11-03T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

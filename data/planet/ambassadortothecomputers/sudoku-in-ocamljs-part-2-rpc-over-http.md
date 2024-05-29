@@ -5,7 +5,6 @@ description: Last time  we made a simple user interface for Sudoku with the Dom 
 url: http://ambassadortothecomputers.blogspot.com/2009/05/sudoku-in-ocamljs-part-2-rpc-over-http.html
 date: 2009-05-04T05:35:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/emacs-table-display/
 date: 2016-12-23T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

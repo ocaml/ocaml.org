@@ -5,7 +5,6 @@ description: 'Last month my brother  came to visit and we did what every normal 
 url: https://till-varoquaux.blogspot.com/2011/10/gdb-debugging.html
 date: 2011-10-07T16:23:00-00:00
 preview_image:
-featured:
 authors:
 - Till
 source:

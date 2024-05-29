@@ -5,7 +5,6 @@ description: 'Enhancing User Experience and Developer Productivity: implementing
 url: https://tech.ahrefs.com/building-react-server-components-in-ocaml-81c276713f19?source=rss----303662d88bae--ocaml
 date: 2023-11-02T18:29:55-00:00
 preview_image: https://miro.medium.com/v2/resize:fit:697/1*YsvzQSnttCQcxFPnA-DtfA.png
-featured:
 authors:
 - Ahrefs
 source:

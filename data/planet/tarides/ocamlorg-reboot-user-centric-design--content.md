@@ -5,7 +5,6 @@ description: "Tarides is pleased to announce the launch of the updated community
 url: https://tarides.com/blog/2022-05-02-ocaml-org-reboot-user-centric-design-content
 date: 2022-05-02T00:00:00-00:00
 preview_image: https://tarides.com/static/bf189f9a441457db28e841197a73e7c5/24883/camel_V3.jpg
-featured:
 authors:
 - Tarides
 source:

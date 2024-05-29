@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/Haskell/integer_pt1.html
 date: 2013-12-28T23:08:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

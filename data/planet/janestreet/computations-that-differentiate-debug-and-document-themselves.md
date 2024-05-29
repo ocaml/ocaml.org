@@ -5,7 +5,6 @@ description: One of the problems we wrestle with at Jane Street is how tounderst
 url: https://blog.janestreet.com/computations-that-differentiate-debug-and-document-themselves/
 date: 2022-11-17T00:00:00-00:00
 preview_image: https://blog.janestreet.com/computations-that-differentiate-debug-and-document-themselves/./cover.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

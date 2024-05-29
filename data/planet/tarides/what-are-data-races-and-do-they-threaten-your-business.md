@@ -5,7 +5,6 @@ description: "Imagine you have a brand-new coffee machine. One morning, you trai
 url: https://tarides.com/blog/2024-01-17-what-are-data-races-and-do-they-threaten-your-business
 date: 2024-01-17T00:00:00-00:00
 preview_image: https://tarides.com/static/7a1f116c59d462b95296e8d7770a69a2/d0eb8/dataracehurdle.png
-featured:
 authors:
 - Tarides
 source:

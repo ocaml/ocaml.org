@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-85beta2-is-out.html
 date: 2015-04-22T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

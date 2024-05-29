@@ -7,7 +7,6 @@ description: Running a Tezos node currently costs a lot of disk space, about 59 
 url: https://ocamlpro.com/blog/2019_01_15_improving_tezos_storage
 date: 2019-01-15T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

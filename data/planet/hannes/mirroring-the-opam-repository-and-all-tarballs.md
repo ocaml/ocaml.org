@@ -4,7 +4,6 @@ description:
 url: https://hannes.robur.coop/Posts/OpamMirror
 date: 2022-09-29T13:04:14-00:00
 preview_image:
-featured:
 authors:
 - hannes
 source:

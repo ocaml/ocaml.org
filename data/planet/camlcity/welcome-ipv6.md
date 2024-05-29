@@ -4,7 +4,6 @@ description:
 url: http://blog.camlcity.org/blog/ipv6.html
 date: 2013-06-21T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gerd Stolpmann
 source:

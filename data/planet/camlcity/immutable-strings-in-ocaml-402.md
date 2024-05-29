@@ -4,7 +4,6 @@ description:
 url: http://blog.camlcity.org/blog/bytes1.html
 date: 2014-07-04T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gerd Stolpmann
 source:

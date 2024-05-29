@@ -6,7 +6,6 @@ description: "Nous sommes fiers d\u2019annoncer la release (mineure) d\u2019 opa
 url: https://ocamlpro.com/blog/2019_07_23_fr_release_dopam_2.0.5
 date: 2019-07-23T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Raja Boujbel\n  "
 source:

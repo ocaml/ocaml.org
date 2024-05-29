@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/CodeHacking/Haskell/what_do_you_mean.html
 date: 2017-04-30T02:22:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

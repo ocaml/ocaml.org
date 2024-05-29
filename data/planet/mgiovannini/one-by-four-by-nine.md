@@ -5,7 +5,6 @@ description: The four nines puzzle  asks which positive numbers can be obtained 
 url: https://alaska-kamtchatka.blogspot.com/2011/12/one-by-four-by-nine.html
 date: 2011-12-30T18:50:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

@@ -5,7 +5,6 @@ description: A little bit about everything, but mostly about fixing annoying tec
 url: http://yansnotes.blogspot.com/2014/10/learning-ocaml-idealy-one-function-at.html
 date: 2014-10-02T11:01:00-00:00
 preview_image:
-featured:
 authors:
 - Unknown
 source:

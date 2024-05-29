@@ -7,7 +7,6 @@ description: Once again, here is the summary of our activities for last month. T
 url: https://ocamlpro.com/blog/2013_08_05_news_from_july
 date: 2013-08-05T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

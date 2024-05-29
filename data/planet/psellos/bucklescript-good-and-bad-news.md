@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2020/08/2020.08.east-van-girls.html
 date: 2020-08-26T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

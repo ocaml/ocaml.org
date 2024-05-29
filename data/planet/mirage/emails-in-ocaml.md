@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/2022-04-01-Mr-MIME
 date: 2022-04-01T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Romain Calascibetta
 ---

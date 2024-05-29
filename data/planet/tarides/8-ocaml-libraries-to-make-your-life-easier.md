@@ -5,7 +5,6 @@ description: "OCaml is a statically-typed programming language that emphasizes r
 url: https://tarides.com/blog/2022-10-12-8-ocaml-libraries-to-make-your-life-easier
 date: 2022-10-12T00:00:00-00:00
 preview_image: https://tarides.com/static/da4d4c8781817f2c0a20b1f4b424b4c9/97432/libraries.jpg
-featured:
 authors:
 - Tarides
 source:

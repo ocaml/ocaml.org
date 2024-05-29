@@ -5,7 +5,6 @@ description: "Reaping the plentiful benefits of parallel programming requires th
 url: https://tarides.com/blog/2024-02-14-multicore-testing-tools-dscheck-pt-1
 date: 2024-02-14T00:00:00-00:00
 preview_image: https://tarides.com/static/2d393154f74a70cdef55681a90c7a38c/d850a/verifying.jpg
-featured:
 authors:
 - Tarides
 source:

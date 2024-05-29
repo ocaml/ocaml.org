@@ -7,7 +7,6 @@ description: Feedback on this post is welcomed on Discuss! We are happy to annou
 url: https://ocamlpro.com/blog/2021_08_04_opam_2.1.0_is_released
 date: 2021-08-04T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    David Allsopp (OCamlLabs)\n  "
 source:

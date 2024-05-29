@@ -5,7 +5,6 @@ description: "It has been a few months since we announced our new product for bo
 url: https://tarides.com/blog/2023-12-29-announcing-the-orchide-project-powering-satellite-innovation
 date: 2023-12-29T00:00:00-00:00
 preview_image: https://tarides.com/static/e3e33d67d94b07cf3c0f363f980d79fa/69f4d/satellitesun.jpg
-featured:
 authors:
 - Tarides
 source:

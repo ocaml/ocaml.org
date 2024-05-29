@@ -4,7 +4,6 @@ description:
 url: http://www.ocamlcore.com/wp/2013/10/ocamlcore-sarl-is-now-officially-closed/
 date: 2013-10-17T22:30:21-00:00
 preview_image:
-featured:
 authors:
 - OCamlCore.com
 source:

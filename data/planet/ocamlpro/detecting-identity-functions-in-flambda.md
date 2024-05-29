@@ -7,7 +7,6 @@ description: In some discussions among OCaml developers around the empty type (P
 url: https://ocamlpro.com/blog/2021_07_16_detecting_identity_functions_in_flambda
 date: 2021-07-16T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Leo Boitel\n  "
 source:

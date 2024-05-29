@@ -8,7 +8,6 @@ description: This post explores the concepts of functional programming, includin
 url: https://priver.dev/blog/functional-programming/concepts-of-functional-programming/
 date: 2024-01-16T20:01:38-00:00
 preview_image: https://priver.dev/images/ocaml.jpeg
-featured:
 authors:
 - "Emil Priv\xE9r"
 source:

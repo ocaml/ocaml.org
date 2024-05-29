@@ -8,7 +8,6 @@ description: "Article \xE9crit par Mattias. Le module Format d\u2019OCaml est un
 url: https://ocamlpro.com/blog/2020_06_01_fr_tutoriel_format
 date: 2020-06-01T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    OCamlPro\n  "
 source:

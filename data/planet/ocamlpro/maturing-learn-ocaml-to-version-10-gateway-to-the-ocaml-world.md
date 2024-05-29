@@ -7,7 +7,6 @@ description: From the very start OCamlPro has been trying to help ease the learn
 url: https://ocamlpro.com/blog/2023_12_13_learn_ocaml_gateway_to_the_ocaml_world
 date: 2023-12-13T16:49:04-00:00
 preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
-featured:
 authors:
 - "\n    Dario Pinto\n  "
 source:

@@ -6,7 +6,6 @@ description: "I hate writing resumes because there are no good tools for the job
 url: https://mcclurmc.wordpress.com/2010/02/09/xml-for-resumes/
 date: 2010-02-10T00:01:53-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Mike McClurg
 source:

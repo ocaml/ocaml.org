@@ -4,7 +4,6 @@ description:
 url: https://ocsigen.github.io/blog/2016/03/30/tuto-graffiti2/
 date: 2016-03-30T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Ocsigen team
 source:

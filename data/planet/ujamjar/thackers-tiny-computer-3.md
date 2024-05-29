@@ -4,7 +4,6 @@ description:
 url: http://www.ujamjar.com/ocaml/2014/07/13/thackers-tiny-computer.html
 date: 2014-07-13T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andy Ray
 source:

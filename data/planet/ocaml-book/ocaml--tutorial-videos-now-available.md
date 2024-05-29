@@ -7,7 +7,6 @@ description: 'I''ve made a few little tutorial videos to go with the book. Just 
 url: http://ocaml-book.com/blog/2013/9/27/ocaml-tutorial-videos-now-available
 date: 2013-09-27T14:04:48-00:00
 preview_image:
-featured:
 authors:
 - OCaml Book
 source:

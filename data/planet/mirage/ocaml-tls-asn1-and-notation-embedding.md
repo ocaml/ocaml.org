@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/introducing-asn1
 date: 2014-07-11T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - David Kaloper
 ---

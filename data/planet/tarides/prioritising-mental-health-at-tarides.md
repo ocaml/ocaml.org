@@ -5,7 +5,6 @@ description: "In a world that never stops, it's easy to get lost in the hustle a
 url: https://tarides.com/blog/2023-10-10-prioritising-mental-health-at-tarides
 date: 2023-10-10T00:00:00-00:00
 preview_image: https://tarides.com/static/f0873a10dcc0bac175c8ab5d3cd52cb0/eee8e/mentalhealth.jpg
-featured:
 authors:
 - Tarides
 source:

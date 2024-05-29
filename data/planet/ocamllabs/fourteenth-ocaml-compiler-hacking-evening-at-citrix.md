@@ -4,7 +4,6 @@ description:
 url: http://ocamllabs.github.com/compiler-hacking/2016/06/26/summer-at-citrix
 date: 2016-06-26T20:15:00-00:00
 preview_image:
-featured:
 authors:
 - OCaml Labs compiler hacking
 source:

@@ -5,7 +5,6 @@ description: Let's make a Sudoku game with ocamljs  and the Dom  library for pro
 url: http://ambassadortothecomputers.blogspot.com/2009/04/sudoku-in-ocamljs-part-1-dom.html
 date: 2009-04-27T05:30:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

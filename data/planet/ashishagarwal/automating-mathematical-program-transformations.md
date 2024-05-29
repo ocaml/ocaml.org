@@ -6,7 +6,6 @@ description: Abstract Mathematical programs (MPs) are a class of constrained opt
 url: http://ashishagarwal.org/2010/01/18/automating-mp-transformations/
 date: 2010-01-18T19:13:17-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Ashish Agarwal
 source:

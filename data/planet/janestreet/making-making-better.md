@@ -6,7 +6,6 @@ description: "We spend a lot of time and effort on training new people, and it n
 url: https://blog.janestreet.com/making-making-better/
 date: 2015-01-31T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

@@ -7,7 +7,6 @@ description: "A reflection on the new year\u2026 Today, Tezos is a global networ
 url: https://ocamlpro.com/blog/2019_01_29_tezos_and_ocamlpro
 date: 2019-01-29T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Arthur Breitman\n  "
 source:

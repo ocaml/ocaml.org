@@ -5,7 +5,6 @@ description: "With the release of Irmin 2.0.0, we are happy to announce a new pa
 url: https://tarides.com/blog/2019-11-27-introducing-the-graphql-api-for-irmin-2-0
 date: 2019-11-27T00:00:00-00:00
 preview_image: https://tarides.com/static/774a33033c774c2c0c5b638f61694621/0d665/irmin-graphql.png
-featured:
 authors:
 - Tarides
 source:

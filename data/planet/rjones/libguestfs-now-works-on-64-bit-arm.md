@@ -6,7 +6,6 @@ description: "Pictured above is my 64 bit ARM server. It\u2019s under NDA so I c
 url: https://rwmj.wordpress.com/2014/07/23/libguestfs-now-works-on-64-bit-arm/
 date: 2014-07-23T20:49:26-00:00
 preview_image: https://rwmj.files.wordpress.com/2014/07/arm.jpg
-featured:
 authors:
 - Richard Jones
 source:

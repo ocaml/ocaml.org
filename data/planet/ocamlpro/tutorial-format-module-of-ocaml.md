@@ -4,7 +4,6 @@ description: '...'
 url: https://ocamlpro.com/blog/2021_05_06_tutorial_format_module_of_ocaml
 date: 2021-05-06T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    OCamlPro\n  "
 source:

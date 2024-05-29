@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/introducing-x509
 date: 2014-07-10T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

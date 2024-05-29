@@ -4,7 +4,6 @@ description:
 url: http://www.mega-nerd.com/erikd/Blog/michael_mak.html
 date: 2011-10-09T01:07:00-00:00
 preview_image:
-featured:
 authors:
 - Erik de Castro Lopo
 source:

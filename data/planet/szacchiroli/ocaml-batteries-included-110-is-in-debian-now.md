@@ -4,7 +4,6 @@ description:
 url: http://upsilon.cc/~zack/blog/posts/2010/03/ocaml_batteries_included_1.1.0_is_in_debian_now/
 date: 2010-03-06T16:39:15-00:00
 preview_image:
-featured:
 authors:
 - Stefano Zacchiroli
 source:

@@ -4,7 +4,6 @@ description:
 url: https://kcsrk.info/multicore/opam/ocaml/2015/09/10/ocaml-experimental-compilers/
 date: 2015-09-10T13:11:00-00:00
 preview_image:
-featured:
 authors:
 - KC Sivaramakrishnan
 source:

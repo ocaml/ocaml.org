@@ -7,7 +7,6 @@ description: "On April 2020, Sylvain Conchon joined the OCamlPro team as our Chi
 url: https://ocamlpro.com/blog/2020_06_06_interview_sylvain_conchon_joins_ocamlpro
 date: 2020-06-06T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Aurore Dombry\n  "
 source:

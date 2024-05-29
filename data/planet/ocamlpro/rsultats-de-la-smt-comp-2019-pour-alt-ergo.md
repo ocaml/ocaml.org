@@ -7,7 +7,6 @@ description: "Les r\xE9sultats de la comp\xE9tition SMT-COMP 2019 ont \xE9t\xE9 
 url: https://ocamlpro.com/blog/2019_07_10_results_smt_comp_2019
 date: 2019-07-10T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Albin Coquereau\n  "
 source:

@@ -5,7 +5,6 @@ description: "Everyone at Tarides recently had the opportunity to meet up in per
 url: https://tarides.com/blog/2022-06-23-team-tarides-visits-a-17th-century-chateau
 date: 2022-06-23T00:00:00-00:00
 preview_image: https://tarides.com/static/9b02d5c43d0c20f929e47979768821d4/3f2a2/team_tarides.png
-featured:
 authors:
 - Tarides
 source:

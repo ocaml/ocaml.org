@@ -9,7 +9,6 @@ description: 'Feedback on this post is welcomed on Discuss! We are pleased to an
 url: https://ocamlpro.com/blog/2022_08_12_opam_2.1.3_release
 date: 2022-08-12T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Raja Boujbel\n  "
 source:

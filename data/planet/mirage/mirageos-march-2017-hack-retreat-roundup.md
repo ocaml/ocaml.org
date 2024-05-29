@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/2017-march-hackathon-roundup
 date: 2017-04-15T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

@@ -6,7 +6,6 @@ description: "Here is a quick hack. A few months ago, I advocated for pointer eq
 url: https://syntaxexclamation.wordpress.com/2013/11/21/quick-dirty-and-shallow-definitions/
 date: 2013-11-21T14:21:29-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Matthias Puech
 source:

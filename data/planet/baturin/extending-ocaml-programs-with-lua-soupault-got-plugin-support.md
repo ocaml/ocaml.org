@@ -4,7 +4,6 @@ description:
 url: https://www.baturin.org/blog/extending-ocaml-programs-with-lua-soupault-got-plugin-support
 date: 2019-08-10T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Daniil Baturin
 source:

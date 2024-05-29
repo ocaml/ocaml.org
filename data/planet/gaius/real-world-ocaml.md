@@ -6,7 +6,6 @@ description: "In the course of my work with OCaml I have traditionally resisted 
 url: https://gaius.tech/2013/08/30/real-world-ocaml/
 date: 2013-08-30T15:26:15-00:00
 preview_image: https://gaiustech.files.wordpress.com/2018/07/cropped-lynx.jpg?w=180
-featured:
 authors:
 - Gaius Hammond
 source:

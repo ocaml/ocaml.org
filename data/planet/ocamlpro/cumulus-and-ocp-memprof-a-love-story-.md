@@ -7,7 +7,6 @@ description: 'In this blog post, we went on the hunt of memory leaks in Cumulus 
 url: https://ocamlpro.com/blog/2015_03_04_cumulus_and_ocp_memprof_a_love_story
 date: 2015-03-04T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

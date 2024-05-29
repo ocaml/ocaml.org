@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2015/05/2015.05.example-app-slide24.html
 date: 2015-05-18T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

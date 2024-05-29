@@ -5,7 +5,6 @@ description: To my Planet OCaml readers, I apologize for veering into Java. I've
 url: https://alaska-kamtchatka.blogspot.com/2012/06/2d-interpolation-part-1-digital.html
 date: 2012-06-25T15:00:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

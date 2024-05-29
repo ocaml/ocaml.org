@@ -4,7 +4,6 @@ description:
 url: https://kcsrk.info/multicore/ocaml/benchmarks/2018/09/13/1543-multicore-ci/
 date: 2018-09-13T15:43:00-00:00
 preview_image:
-featured:
 authors:
 - KC Sivaramakrishnan
 source:

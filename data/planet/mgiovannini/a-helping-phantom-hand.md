@@ -5,7 +5,6 @@ description: You don't have to be writing an interpreter or some other kind of a
 url: https://alaska-kamtchatka.blogspot.com/2012/08/a-helping-phantom-hand.html
 date: 2012-08-02T13:59:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

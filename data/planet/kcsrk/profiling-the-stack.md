@@ -4,7 +4,6 @@ description:
 url: https://kcsrk.info/ocaml/profiling/2015/10/27/profiling-the-stack/
 date: 2015-10-27T17:29:30-00:00
 preview_image:
-featured:
 authors:
 - KC Sivaramakrishnan
 source:

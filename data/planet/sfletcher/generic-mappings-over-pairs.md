@@ -5,7 +5,6 @@ description: Browsing around on Oleg Kiselyov's  excellent site, I came across a
 url: http://blog.shaynefletcher.org/2016/06/generic-mappings-over-pairs.html
 date: 2016-06-17T19:39:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

@@ -5,7 +5,6 @@ description: "American Fuzzy Lop or AFL is a fuzzer: a program that tries to fin
 url: https://tarides.com/blog/2019-09-04-an-introduction-to-fuzzing-ocaml-with-afl-crowbar-and-bun
 date: 2019-09-04T00:00:00-00:00
 preview_image: https://tarides.com/static/4eed05522f6733d728f6dc01bbe33e09/eee8e/feather.jpg
-featured:
 authors:
 - Tarides
 source:

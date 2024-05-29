@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/announcing-mirage-25-release
 date: 2015-06-26T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Amir Chaudhry
 ---

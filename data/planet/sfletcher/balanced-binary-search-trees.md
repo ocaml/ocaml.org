@@ -6,7 +6,6 @@ description: "The type of \"association tables\" (binary search trees).  type (\
 url: http://blog.shaynefletcher.org/2016/08/perfectly-balanced-binary-search-trees.html
 date: 2016-08-27T13:18:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

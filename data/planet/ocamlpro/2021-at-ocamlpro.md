@@ -7,7 +7,6 @@ description: OCamlPro was created in 2011 to advocate the adoption of the OCaml 
 url: https://ocamlpro.com/blog/2022_01_31_2021_at_ocamlpro
 date: 2022-01-31T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Muriel\n  "
 source:

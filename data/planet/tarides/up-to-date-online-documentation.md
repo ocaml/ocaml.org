@@ -5,7 +5,6 @@ description: "Into the Fire The OCaml ecosystem relies on various resources and 
 url: https://tarides.com/blog/2022-10-20-up-to-date-online-documentation
 date: 2022-10-20T00:00:00-00:00
 preview_image: https://tarides.com/static/0c807033635ee6b82101e60222093da0/af462/cover.jpg
-featured:
 authors:
 - Tarides
 source:

@@ -5,7 +5,6 @@ description: "This year marks the 25th anniversary of the OCaml Language! It's a
 url: https://tarides.com/blog/2021-08-26-tarides-engineers-to-present-at-icfp-2021
 date: 2021-08-26T00:00:00-00:00
 preview_image: https://tarides.com/static/3ffd2661c6cd98ccc55ced480bc5e65a/eee8e/camel_party.jpg
-featured:
 authors:
 - Tarides
 source:

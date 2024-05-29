@@ -5,7 +5,6 @@ description: "Introduction Over the past six months, I have been working on usin
 url: https://tarides.com/blog/2022-08-02-irmin-in-the-browser
 date: 2022-08-02T00:00:00-00:00
 preview_image: https://tarides.com/static/2878361a6dba26b0fa43b0b048f42cd4/10057/joy_img.jpg
-featured:
 authors:
 - Tarides
 source:

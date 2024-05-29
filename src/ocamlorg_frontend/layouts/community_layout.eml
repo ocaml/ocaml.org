@@ -2,6 +2,7 @@ type section =
   | Overview
   | Jobs
   | Events
+  | Resources
 
 let tabs
 ~current =
@@ -9,13 +10,15 @@ let tabs
     | Overview -> Url.community
     | Jobs -> Url.jobs
     | Events -> Url.events
+    | Resources -> Url.resources
   in
   let title_of_section = function
     | Overview -> "Overview"
     | Jobs -> "Jobs"
     | Events -> "Events"
+    | Resources -> "Resources"
   in
-  Layout.subnav_tabs ~title:"Community" ~current ~sections:[Overview; Jobs; Events] ~url_of_section ~title_of_section
+  Layout.subnav_tabs ~title:"Community" ~current ~sections:[Overview; Jobs; Events; Resources] ~url_of_section ~title_of_section
 
 let single_column_layout
 ?use_swiper
@@ -23,7 +26,6 @@ let single_column_layout
 ~title
 ~description
 ~canonical
-?active_top_nav_item
 ~current
 inner_html
 =
@@ -33,7 +35,7 @@ inner_html
   ~title
   ~description
   ~canonical
-  ?active_top_nav_item @@
+  ~active_top_nav_item:Community @@
   <%s! tabs ~current %>
   <div class="bg-background dark:bg-dark-background">
     <div class="flex-1 z-0 z- min-w-0 pb-12">

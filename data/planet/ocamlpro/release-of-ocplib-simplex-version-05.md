@@ -9,7 +9,6 @@ description: 'On last November, we released version 0.5 of ocplib-simplex, a gen
 url: https://ocamlpro.com/blog/2022_11_25_ocplib-simplex-0.5
 date: 2023-01-05T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Steven de Oliveira\n  "
 source:

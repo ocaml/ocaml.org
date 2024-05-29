@@ -6,7 +6,6 @@ description: "So this title probably doesn\u2019t even parse correctly if you ha
 url: https://mcclurmc.wordpress.com/2012/11/05/go-lang-and-juju/
 date: 2012-11-05T10:07:29-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Mike McClurg
 source:

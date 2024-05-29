@@ -5,7 +5,6 @@ description: "Introduction The CI team at Tarides provides critical infrastuctur
 url: https://tarides.com/blog/2023-08-02-obuilder-on-macos
 date: 2023-08-02T00:00:00-00:00
 preview_image: https://tarides.com/static/838569cdf42276596862e3c38773ec0d/b5380/tarides_og.png
-featured:
 authors:
 - Tarides
 source:

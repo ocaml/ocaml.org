@@ -7,7 +7,6 @@ description: We are pleased to announce the first release of Techelson, availabl
 url: https://ocamlpro.com/blog/2019_03_06_techelson_a_test_execution_engine_for_michelson
 date: 2019-03-06T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Adrien Champion\n  "
 source:

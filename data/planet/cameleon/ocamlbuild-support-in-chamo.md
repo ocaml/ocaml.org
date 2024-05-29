@@ -5,7 +5,6 @@ description: 'The Chamo editor now includes some ocamlbuild support through the 
 url: https://ocameleon.blogspot.com/2008/04/ocamlbuild-support-in-chamo.html
 date: 2008-04-30T14:33:00-00:00
 preview_image: //2.bp.blogspot.com/_RT8DPiBmxGY/SBiIKhuVATI/AAAAAAAAAAM/WBh5pChCVHw/w1200-h630-p-k-no-nu/ocamlbuild_asks.png
-featured:
 authors:
 - Zoggy
 source:

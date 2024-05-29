@@ -4,7 +4,6 @@ description:
 url: http://upsilon.cc/~zack/blog/posts/2010/10/ocaml-http_has_moved/
 date: 2010-10-20T11:09:22-00:00
 preview_image:
-featured:
 authors:
 - Stefano Zacchiroli
 source:

@@ -5,7 +5,6 @@ description: "This year, Tarides attended the 2022 Functional Conf in India. Tar
 url: https://tarides.com/blog/2022-06-21-functional-conf-2022
 date: 2022-06-21T00:00:00-00:00
 preview_image: https://tarides.com/static/4d5420ccbe5b1f58d02f3d8dce60eb35/0132d/group_mtg.jpg
-featured:
 authors:
 - Tarides
 source:

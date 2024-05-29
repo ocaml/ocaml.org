@@ -5,7 +5,6 @@ description: In this post I want to complicate the JSON quotation library from t
 url: http://ambassadortothecomputers.blogspot.com/2010/08/reading-camlp4-part-9-implementing.html
 date: 2010-08-06T00:55:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

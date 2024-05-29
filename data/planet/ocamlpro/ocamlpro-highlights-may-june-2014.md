@@ -7,7 +7,6 @@ description: 'Here is a short report on some of our public activities in May and
 url: https://ocamlpro.com/blog/2014_07_16_ocamlpro_highlights_may_june_2014
 date: 2014-07-16T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

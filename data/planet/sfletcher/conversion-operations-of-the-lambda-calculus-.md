@@ -5,7 +5,6 @@ description: Conversion            Abstract           This note provides a super
 url: http://blog.shaynefletcher.org/2016/10/conversion-operations-of-lambda-calculus.html
 date: 2016-10-05T20:27:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

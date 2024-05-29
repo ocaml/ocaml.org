@@ -4,7 +4,6 @@ description:
 url: http://www.ocamlcore.com/wp/2009/12/ocamlautobuild-presentation-at-caml-consortium-meeting-2009/
 date: 2009-12-14T16:03:29-00:00
 preview_image:
-featured:
 authors:
 - OCamlCore.com
 source:

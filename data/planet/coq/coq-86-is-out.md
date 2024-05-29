@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-86-is-out.html
 date: 2016-12-14T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

@@ -4,7 +4,6 @@ description:
 url: https://www.donadeo.net/post/2010/installing-batteries
 date: 2010-12-13T22:55:00-00:00
 preview_image:
-featured:
 authors:
 - Paolo Donadeo
 source:

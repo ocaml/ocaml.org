@@ -5,7 +5,6 @@ description: Note, this post is written against the 2.0.1 version of gen_server 
 url: http://functional-orbitz.blogspot.com/2013/12/genserver-in-ocaml.html
 date: 2013-12-23T23:17:00-00:00
 preview_image:
-featured:
 authors:
 - Orbitz
 source:

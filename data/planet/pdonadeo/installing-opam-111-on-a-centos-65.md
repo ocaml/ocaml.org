@@ -4,7 +4,6 @@ description:
 url: https://www.donadeo.net/post/2014/installing-opam-1-1-1-on-a-cenos-6-5
 date: 2014-05-21T23:00:00-00:00
 preview_image:
-featured:
 authors:
 - Paolo Donadeo
 source:

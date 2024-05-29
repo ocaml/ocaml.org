@@ -6,7 +6,6 @@ description: "So I took a look at the Haskell Stream Fusion library the other da
 url: https://mcclurmc.wordpress.com/2010/03/21/creating-stream-combinators/
 date: 2010-03-21T21:42:12-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Mike McClurg
 source:

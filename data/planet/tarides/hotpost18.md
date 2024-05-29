@@ -6,7 +6,6 @@ description: "The 10th International Workshop on Hot Topics in Pervasive Mobile 
 url: http://infocom2018.ieee-infocom.org/content/workshop-hotpost-hot-topics-pervasive-mobile-and-online-social-networking-program
 date: 2018-04-16T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Tarides
 source:

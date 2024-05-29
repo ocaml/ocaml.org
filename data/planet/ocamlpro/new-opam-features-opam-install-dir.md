@@ -7,7 +7,6 @@ description: 'After the opam build feature was announced followed a lot of discu
 url: https://ocamlpro.com/blog/2017_05_04_new_opam_features_opam_install_dir
 date: 2017-05-04T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

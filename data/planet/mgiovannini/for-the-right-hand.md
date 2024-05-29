@@ -5,7 +5,6 @@ description: Useful generic functions are usually the result of composing useful
 url: https://alaska-kamtchatka.blogspot.com/2012/02/for-right-hand.html
 date: 2012-02-22T13:43:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

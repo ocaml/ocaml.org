@@ -6,7 +6,6 @@ description: "OCaml 4 beta 2 has been released, and so I quickly tested OCI*ML w
 url: https://gaius.tech/2012/06/07/ocaml-4-beta/
 date: 2012-06-07T18:17:03-00:00
 preview_image: https://gaiustech.files.wordpress.com/2018/07/cropped-lynx.jpg?w=180
-featured:
 authors:
 - Gaius Hammond
 source:

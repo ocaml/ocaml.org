@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/introducing-solo5
 date: 2016-01-07T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Dan Williams
 ---

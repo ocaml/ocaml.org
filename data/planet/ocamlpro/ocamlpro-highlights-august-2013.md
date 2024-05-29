@@ -7,7 +7,6 @@ description: Here is a short report on the different projects we have been worki
 url: https://ocamlpro.com/blog/2013_09_04_ocamlpro_highlights_august_2013
 date: 2013-09-04T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

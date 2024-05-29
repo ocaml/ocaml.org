@@ -7,7 +7,6 @@ description: 'In this technical blog post, we will briefly introduce Tezos RPCs 
 url: https://ocamlpro.com/blog/2018_11_15_an-introduction_to_tezos_rpcs_a_basic_wallet
 date: 2018-11-15T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

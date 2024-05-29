@@ -7,7 +7,6 @@ description: 'New Team Members We are pleased to welcome three new members in ou
 url: https://ocamlpro.com/blog/2013_12_02_ocamlpro_highlights_november_2013
 date: 2013-12-03T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

@@ -4,7 +4,6 @@ description:
 url: http://blog.emillon.org/posts/2014-05-21-making-type-inference-explode.html
 date: 2014-05-21T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Etienne Millon
 source:

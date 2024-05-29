@@ -7,7 +7,6 @@ description: "Here is a short report of our activities in September-October 2013
 url: https://ocamlpro.com/blog/2013_11_01_ocamlpro_highlights_sept_oct_2013
 date: 2013-11-01T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

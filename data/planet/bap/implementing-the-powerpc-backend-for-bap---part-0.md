@@ -4,7 +4,6 @@ description: The Binary Analysis Platform Blog
 url: http://binaryanalysisplatform.github.io/powerpc-intro
 date: 2017-10-13T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - The BAP Blog
 source:

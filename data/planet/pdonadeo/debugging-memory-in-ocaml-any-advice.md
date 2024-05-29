@@ -4,7 +4,6 @@ description:
 url: https://www.donadeo.net/post/2012/debugging-memory-in-ocaml-any-advice
 date: 2012-02-27T23:37:00-00:00
 preview_image:
-featured:
 authors:
 - Paolo Donadeo
 source:

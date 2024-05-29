@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/unikernel-org
 date: 2015-12-17T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Amir Chaudhry
 ---

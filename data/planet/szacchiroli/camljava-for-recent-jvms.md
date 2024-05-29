@@ -4,7 +4,6 @@ description:
 url: http://upsilon.cc/~zack/blog/posts/2009/12/camljava_for_recent_JVMs/
 date: 2009-12-01T14:25:37-00:00
 preview_image:
-featured:
 authors:
 - Stefano Zacchiroli
 source:

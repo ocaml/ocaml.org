@@ -6,7 +6,6 @@ description: "PG\u2019OCaml is a type-safe macro binding to PostgreSQL from OCam
 url: https://rwmj.wordpress.com/2014/05/28/pgocaml-2-0-has-been-released/
 date: 2014-05-28T16:57:56-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Richard Jones
 source:

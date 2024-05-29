@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/tls-1-3-mirageos
 date: 2020-05-20T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

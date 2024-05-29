@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/2022-04-08.robur
 date: 2022-04-08T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

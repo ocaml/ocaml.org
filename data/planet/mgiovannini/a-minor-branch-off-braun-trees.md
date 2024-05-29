@@ -5,7 +5,6 @@ description: Revisiting the post on Braun Trees  I noticed that, while pedagogic
 url: https://alaska-kamtchatka.blogspot.com/2012/07/minor-branch-off-braun-trees.html
 date: 2012-07-12T15:00:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

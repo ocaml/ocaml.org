@@ -4,7 +4,6 @@ description:
 url: https://hannes.robur.coop/Posts/Summer2019
 date: 2019-07-08T19:29:05-00:00
 preview_image:
-featured:
 ---
 
 <h2>Working at <a href="https://robur.io">robur</a></h2>

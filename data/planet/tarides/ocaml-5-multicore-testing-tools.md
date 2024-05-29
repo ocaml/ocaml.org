@@ -5,7 +5,6 @@ description: "The new version of OCaml 5 is here! It brings the ability to progr
 url: https://tarides.com/blog/2022-12-22-ocaml-5-multicore-testing-tools
 date: 2022-12-22T00:00:00-00:00
 preview_image: https://tarides.com/static/982dc8891224a366db621bea7a32ad66/309a6/MC_testing.jpg
-featured:
 authors:
 - Tarides
 source:

@@ -7,7 +7,6 @@ description: 'Thanks to a grant from the OCaml Software Foundation ( ocaml-sf.or
 url: http://ocaml-book.com/blog/2022/2/18/ocaml-from-the-very-beginning-now-free-in-html-and-pdf-formats
 date: 2022-02-18T16:49:32-00:00
 preview_image:
-featured:
 authors:
 - OCaml Book
 source:

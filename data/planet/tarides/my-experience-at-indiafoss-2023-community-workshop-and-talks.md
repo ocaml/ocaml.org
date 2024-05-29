@@ -5,7 +5,6 @@ description: "There are plenty of exciting computer programming events happening
 url: https://tarides.com/blog/2024-03-13-my-experience-at-indiafoss-2023-community-workshop-and-talks
 date: 2024-03-13T00:00:00-00:00
 preview_image: https://tarides.com/static/5b2bd383b72e85e0c2e77394bfeeefd5/20850/indiafoss.png
-featured:
 authors:
 - Tarides
 source:

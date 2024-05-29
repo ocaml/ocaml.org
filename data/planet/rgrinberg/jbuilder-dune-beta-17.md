@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/jbuilder-beta-17/
 date: 2018-01-23T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - ""
 source:

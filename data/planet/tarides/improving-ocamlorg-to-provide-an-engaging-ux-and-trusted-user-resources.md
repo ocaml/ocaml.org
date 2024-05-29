@@ -5,7 +5,6 @@ description: "The OCaml.org team, which includes members from Tarides, have been
 url: https://tarides.com/blog/2024-02-07-improving-ocaml-org-to-provide-an-engaging-ux-and-trusted-user-resources
 date: 2024-02-07T00:00:00-00:00
 preview_image: https://tarides.com/static/9eda20e4f60f86faa2c054524c483341/d0eb8/packages.png
-featured:
 authors:
 - Tarides
 source:

@@ -6,7 +6,6 @@ description: "This post is aimed at readers who are already familiar withstochas
 url: https://blog.janestreet.com/does-batch-size-matter/
 date: 2017-10-31T00:00:00-00:00
 preview_image: https://blog.janestreet.com/does-batch-size-matter/batch-01.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

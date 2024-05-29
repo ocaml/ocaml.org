@@ -6,7 +6,6 @@ description: "Tides come and tides go. Two years ago, I accepted to join MLstate
 url: https://dutherenverseauborddelatable.wordpress.com/2011/09/06/goodbye-mlstate-goodbye-opa/
 date: 2011-09-06T15:36:40-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - David Teller
 source:

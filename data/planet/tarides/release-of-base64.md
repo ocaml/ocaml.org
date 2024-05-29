@@ -5,7 +5,6 @@ description: "MirageOS is a library operating system written from the ground up 
 url: https://tarides.com/blog/2019-02-08-release-of-base64
 date: 2019-02-08T00:00:00-00:00
 preview_image: https://tarides.com/static/50a0344945c9df2a67b60ef32ee43a0f/0132d/mailboxes.jpg
-featured:
 authors:
 - Tarides
 source:

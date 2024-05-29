@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/self-hosting-mirage-website
 date: 2010-10-11T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

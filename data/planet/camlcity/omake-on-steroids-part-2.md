@@ -4,7 +4,6 @@ description:
 url: http://blog.camlcity.org/blog/omake2.html
 date: 2015-06-19T12:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gerd Stolpmann
 source:

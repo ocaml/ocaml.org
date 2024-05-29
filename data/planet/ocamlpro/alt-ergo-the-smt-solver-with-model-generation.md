@@ -7,7 +7,6 @@ description: 'The Alt-Ergo automatic theorem prover developed at OCamlPro has ju
 url: https://ocamlpro.com/blog/2022_11_16_alt-ergo-models
 date: 2022-11-16T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Steven de Oliveira\n  "
 source:

@@ -5,7 +5,6 @@ description: "ICFP 2023 The 28th ACM Sigplan International Conference on Functio
 url: https://tarides.com/blog/2023-09-08-the-state-of-the-art-in-functional-programming-tarides-at-icfp-2023
 date: 2023-09-08T00:00:00-00:00
 preview_image: https://tarides.com/static/fe9eb35add201369afb8c7a48b6fe1d2/19504/seattle.jpg
-featured:
 authors:
 - Tarides
 source:

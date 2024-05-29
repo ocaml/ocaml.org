@@ -4,7 +4,6 @@ description:
 url: https://misterpingouin.blogspot.com/2008/02/ocaml-write-only.html
 date: 2008-02-03T21:23:00-00:00
 preview_image:
-featured:
 authors:
 - mrpingouin
 source:

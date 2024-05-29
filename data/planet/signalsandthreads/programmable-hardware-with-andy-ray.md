@@ -4,7 +4,6 @@ description:
 url: https://signalsandthreads.com/programmable-hardware/
 date: 2020-09-09T15:17:14-00:00
 preview_image: https://signalsandthreads.com/static/images/twitter/programmable_hardware.png
-featured:
 authors:
 - Signals and Threads
 source:

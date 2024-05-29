@@ -5,7 +5,6 @@ description: "Today we're taking a little pause from our OCaml 5 series to talk 
 url: https://tarides.com/blog/2023-01-12-lambda-retreat-report
 date: 2023-01-12T00:00:00-00:00
 preview_image: https://tarides.com/static/9f22d11ae4e2bed027c4f8669055f956/0132d/lambda.jpg
-featured:
 authors:
 - Tarides
 source:

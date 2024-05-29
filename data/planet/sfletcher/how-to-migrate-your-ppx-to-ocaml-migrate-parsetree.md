@@ -5,7 +5,6 @@ description: OCaml migrate parse tree          OCaml migrate parse tree     Earl
 url: http://blog.shaynefletcher.org/2017/12/how-to-migrate-your-ppx-to-ocaml.html
 date: 2017-12-09T15:40:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

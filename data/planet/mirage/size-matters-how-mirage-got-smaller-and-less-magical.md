@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/mirage-3-smaller
 date: 2017-02-27T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

@@ -4,7 +4,6 @@ description:
 url: https://blog.osau.re/articles/spoke.html
 date: 2022-06-02T10:00:00-00:00
 preview_image:
-featured:
 authors:
 - Romain Calascibetta
 source:

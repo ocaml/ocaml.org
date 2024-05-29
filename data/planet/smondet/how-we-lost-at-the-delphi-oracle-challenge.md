@@ -4,7 +4,6 @@ description:
 url: https://seb.mondet.org/b/0010-delphi-challenge-post-vivum.html
 date: 2020-12-22T13:00:42-00:00
 preview_image:
-featured:
 authors:
 - Sebastien Mondet
 source:

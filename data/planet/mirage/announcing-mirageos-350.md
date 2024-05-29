@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/announcing-mirage-35-release
 date: 2019-03-05T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Hannes Mehnert
 ---

@@ -4,7 +4,6 @@ description:
 url: https://ocsigen.github.io/blog/2015/08/17/releases/
 date: 2015-08-17T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gabriel Radanne
 source:

@@ -6,7 +6,6 @@ description: "Testing is important, and it\u2019s hard to get people to do as mu
 url: https://blog.janestreet.com/testing-with-expectations/
 date: 2015-12-02T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

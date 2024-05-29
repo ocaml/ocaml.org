@@ -7,7 +7,6 @@ description: Welcome, dear reader, to a new opam blog post! Today we take an add
 url: https://ocamlpro.com/blog/2024_03_25_opam_102_pinning_packages
 date: 2024-03-25T13:48:01-00:00
 preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
-featured:
 authors:
 - "\n    Dario Pinto\n  "
 source:

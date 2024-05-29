@@ -4,7 +4,6 @@ description:
 url: https://hannes.robur.coop/Posts/NGI
 date: 2021-01-25T12:45:54-00:00
 preview_image:
-featured:
 authors:
 - hannes
 source:

@@ -6,7 +6,6 @@ description: "Nous sommes fiers d\u2019annoncer la premi\xE8re release de Techel
 url: https://ocamlpro.com/blog/2019_03_07_fr_release_de_techelson_moteur_de_tests_pour_michelson_et_liquidity
 date: 2019-03-07T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Adrien Champion\n  "
 source:

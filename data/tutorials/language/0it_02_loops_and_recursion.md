@@ -908,8 +908,8 @@ slow for some types of operation. For example, getting the head of a
 list, or iterating over a list to perform some operation on each element,
 is reasonably fast. However, when jumping to the n<sup>th</sup> element of a
 list or trying to randomly access a list, you'll find that both are slow operations.
-The OCaml [`Array`](/manual/latest/api/Array.html) type is a real array, so random access is fast, but
-insertion and deletion of elements is slow. [`Array`](/manual/latest/api/Array.html)s are also mutable, so
+The OCaml [`Array`](/manual/api/Array.html) type is a real array, so random access is fast, but
+insertion and deletion of elements is slow. [`Array`](/manual/api/Array.html)s are also mutable, so
 you can randomly change elements, too.
 
 The basics of arrays are simple:

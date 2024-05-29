@@ -6,7 +6,6 @@ description: "Fan is a metaprogramming tool for OCaml. I believe it would be an 
 url: https://hongboz.wordpress.com/2013/09/16/code-layout-of-fan-a-metaprogramming-tool-for-ocaml/
 date: 2013-09-16T19:04:58-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Hong bo Zhang
 source:

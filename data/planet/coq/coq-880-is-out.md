@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-88-is-out.html
 date: 2018-04-17T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

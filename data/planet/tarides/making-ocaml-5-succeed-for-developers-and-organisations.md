@@ -5,7 +5,6 @@ description: "OCaml recently won the ACM SIGPLAN PL Software Award. The award re
 url: https://tarides.com/blog/2023-07-07-making-ocaml-5-succeed-for-developers-and-organisations
 date: 2023-07-07T00:00:00-00:00
 preview_image: https://tarides.com/static/71303e9b0247fa3f8902a886efde6bfc/0132d/ocaml_caravan.jpg
-featured:
 authors:
 - Tarides
 source:

@@ -5,7 +5,6 @@ description: "Over the past few months, we have been heavily engaged in release\
 url: https://tarides.com/blog/2019-05-13-on-the-road-to-irmin-v2
 date: 2019-05-13T00:00:00-00:00
 preview_image: https://tarides.com/static/76876b69b77bdec1f25009b2ef2a6d33/ed333/tree_canopy2.jpg
-featured:
 authors:
 - Tarides
 source:

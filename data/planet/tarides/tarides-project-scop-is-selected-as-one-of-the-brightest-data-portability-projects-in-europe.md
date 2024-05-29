@@ -6,7 +6,6 @@ description: "Tarides is taking part in the Data Portability & Services Incubato
 url: https://tarides.com/blog/2021-04-30-scop-selected-for-dapsi-initiative
 date: 2021-04-30T00:00:00-00:00
 preview_image: https://tarides.com/static/1a54502893f8f38db2c6e37811c75b0c/7d5a2/DAPSI_scop_banner.jpg
-featured:
 authors:
 - Tarides
 source:

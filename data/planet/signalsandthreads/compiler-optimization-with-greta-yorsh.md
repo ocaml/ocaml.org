@@ -4,7 +4,6 @@ description:
 url: https://signalsandthreads.com/compiler-optimization/
 date: 2020-09-30T16:00:00-00:00
 preview_image: https://signalsandthreads.com/static/images/twitter/compiler_optimization.png
-featured:
 authors:
 - Signals and Threads
 source:

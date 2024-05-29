@@ -5,7 +5,6 @@ description: "After two years of online conferences, it was fantastic to have IC
 url: https://tarides.com/blog/2022-10-10-icfp-2022-review
 date: 2022-10-10T00:00:00-00:00
 preview_image: https://tarides.com/static/6c443b0e99fcb7218da7c27532aaf232/2070e/ljubljana.jpg
-featured:
 authors:
 - Tarides
 source:

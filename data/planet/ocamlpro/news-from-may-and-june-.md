@@ -11,7 +11,6 @@ description: 'It is time to give a brief summary of our recent activities. As us
 url: https://ocamlpro.com/blog/2013_07_01_news_from_may_and_june
 date: 2013-07-01T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

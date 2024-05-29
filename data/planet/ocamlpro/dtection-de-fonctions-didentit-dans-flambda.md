@@ -8,7 +8,6 @@ description: "Au cours de discussions parmi les d\xE9veloppeurs OCaml sur le typ
 url: https://ocamlpro.com/blog/2021_07_15_fr_detection_de_fonctions_didentite_dans_flambda
 date: 2021-07-15T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Leo Boitel\n  "
 source:

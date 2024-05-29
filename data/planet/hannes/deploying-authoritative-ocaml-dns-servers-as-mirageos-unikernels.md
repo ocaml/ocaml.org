@@ -4,7 +4,6 @@ description:
 url: https://hannes.robur.coop/Posts/DnsServer
 date: 2019-12-23T21:30:53-00:00
 preview_image:
-featured:
 authors:
 - hannes
 source:

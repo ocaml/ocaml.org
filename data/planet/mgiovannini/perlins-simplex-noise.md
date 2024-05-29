@@ -5,7 +5,6 @@ description: Graphics pioneer Ken Perlin is well-known for his work on procedura
 url: https://alaska-kamtchatka.blogspot.com/2012/01/perlins-simplex-noise.html
 date: 2012-01-06T16:39:00-00:00
 preview_image: //1.bp.blogspot.com/-gXpVR4Hw4To/TwcgQ7nguxI/AAAAAAAAAQ8/_h5VGb2YKN4/w1200-h630-p-k-no-nu/basisvec.png
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

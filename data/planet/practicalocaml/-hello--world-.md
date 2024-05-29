@@ -7,7 +7,6 @@ description: And here we are! After writing my share of ReScript at Practical Re
 url: https://practicalocaml.com/hello-world/
 date: 2023-08-23T00:30:16-00:00
 preview_image:
-featured:
 authors:
 - Practical OCaml
 source:

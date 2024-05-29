@@ -5,7 +5,6 @@ description: Here are two well known "classic" functions over polymorphic       
 url: http://blog.shaynefletcher.org/2017/05/proving-mem-map-property.html
 date: 2017-05-11T20:17:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

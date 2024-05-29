@@ -5,7 +5,6 @@ description: "Over the past year, the OCaml.org team has been hard at work addre
 url: https://tarides.com/blog/2024-04-03-updates-to-ocaml-org-s-learn-section-enhancing-ui-and-ux
 date: 2024-04-03T00:00:00-00:00
 preview_image: https://tarides.com/static/d1c727f20fc28ec12fa7b995d2b4b661/2070e/ocamlorg_learn.jpg
-featured:
 authors:
 - Tarides
 source:

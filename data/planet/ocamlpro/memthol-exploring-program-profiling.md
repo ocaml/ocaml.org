@@ -7,7 +7,6 @@ description: "Memthol is a visualizer and analyzer for program profiling. It wor
 url: https://ocamlpro.com/blog/2020_12_01_memthol_exploring_program_profiling
 date: 2020-12-01T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Adrien Champion\n  "
 source:

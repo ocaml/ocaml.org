@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/mirage-seal
 date: 2015-07-07T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Mindy Preston
 ---

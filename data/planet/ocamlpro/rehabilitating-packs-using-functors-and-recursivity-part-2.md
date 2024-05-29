@@ -7,7 +7,6 @@ description: This blog post and the previous one about functor packs covers two 
 url: https://ocamlpro.com/blog/2020_09_30_rehabilitating_packs_using_functors_and_recursivity_part_2
 date: 2020-09-30T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Pierrick Couderc\n  "
 source:

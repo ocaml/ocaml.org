@@ -4,7 +4,6 @@ description:
 url: https://hannes.robur.coop/Posts/Pinata
 date: 2018-04-18T11:38:17-00:00
 preview_image:
-featured:
 ---
 
 <h2>History</h2>

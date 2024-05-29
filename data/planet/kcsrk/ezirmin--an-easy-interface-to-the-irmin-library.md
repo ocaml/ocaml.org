@@ -4,7 +4,6 @@ description:
 url: https://kcsrk.info/ocaml/irmin/crdt/2017/02/15/an-easy-interface-to-irmin-library/
 date: 2017-02-15T13:46:00-00:00
 preview_image:
-featured:
 authors:
 - KC Sivaramakrishnan
 source:

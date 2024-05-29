@@ -5,7 +5,6 @@ description: I have the pleasure to announce the release of TyXML 4.4.0, with sp
 url: https://drup.github.io/2020/03/06/tyxml440/
 date: 2020-03-06T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gabriel Radanne
 source:

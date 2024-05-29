@@ -5,7 +5,6 @@ description: "Effective documentation is a cornerstone of software development. 
 url: https://tarides.com/blog/2024-01-10-meet-odoc-ocaml-s-documentation-generator
 date: 2024-01-10T00:00:00-00:00
 preview_image: https://tarides.com/static/aeca76dab2b01438e2c3009c525cb9e9/0132d/odoc.jpg
-featured:
 authors:
 - Tarides
 source:

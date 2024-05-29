@@ -5,7 +5,6 @@ description: This post presents the recursive modelling skills for binary search
 url: http://typeocaml.com/2014/12/19/how-to-become-a-bst-ninja-genin/
 date: 2014-12-19T12:28:00-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

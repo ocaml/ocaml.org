@@ -4,7 +4,6 @@ description:
 url: http://www.ocamlcore.com/wp/2010/12/ocaml-forge-has-been-upgraded/
 date: 2010-12-29T12:02:39-00:00
 preview_image:
-featured:
 authors:
 - OCamlCore.com
 source:

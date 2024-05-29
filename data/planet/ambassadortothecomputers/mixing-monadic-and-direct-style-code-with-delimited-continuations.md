@@ -5,7 +5,6 @@ description: "The Lwt  library is a really nice way to write concurrent programs
 url: http://ambassadortothecomputers.blogspot.com/2010/08/mixing-monadic-and-direct-style-code.html
 date: 2010-08-21T00:50:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

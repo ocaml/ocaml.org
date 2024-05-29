@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/monadic-generators-ocaml/
 date: 2017-07-25T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - ""
 source:

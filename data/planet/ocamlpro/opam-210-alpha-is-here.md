@@ -7,7 +7,6 @@ description: We are happy to announce a alpha for opam 2.1.0, one year and a hal
 url: https://ocamlpro.com/blog/2020_04_22_opam_2.1.0_alpha_is_here
 date: 2020-04-22T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Raja Boujbel\n  "
 source:

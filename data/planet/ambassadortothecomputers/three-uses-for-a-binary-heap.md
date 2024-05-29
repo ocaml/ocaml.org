@@ -5,7 +5,6 @@ description: Lately I have been interviewing for jobs, so doing a lot of whitebo
 url: http://ambassadortothecomputers.blogspot.com/2010/11/three-uses-for-binary-heap.html
 date: 2010-11-25T04:58:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

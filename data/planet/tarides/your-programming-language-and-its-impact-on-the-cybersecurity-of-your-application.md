@@ -5,7 +5,6 @@ description: "Did you know that the programming language you use can have a huge
 url: https://tarides.com/blog/2023-08-17-your-programming-language-and-its-impact-on-the-cybersecurity-of-your-application
 date: 2023-08-17T00:00:00-00:00
 preview_image: https://tarides.com/static/70275227498eaa34249beb282f986523/2070e/memory-safe-programming-languages.jpg
-featured:
 authors:
 - Tarides
 source:

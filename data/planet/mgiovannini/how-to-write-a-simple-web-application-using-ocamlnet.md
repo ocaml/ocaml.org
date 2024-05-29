@@ -5,7 +5,6 @@ description: 'This post might seem to be in apparent contradiction: Ocamlnet  is
 url: https://alaska-kamtchatka.blogspot.com/2012/10/how-to-write-simple-web-application.html
 date: 2012-10-25T14:58:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

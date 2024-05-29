@@ -5,7 +5,6 @@ description: This is an "oldie but a goodie". It's super easy.   A dictionary is
 url: http://blog.shaynefletcher.org/2016/04/dictionaries-as-functions.html
 date: 2016-04-13T16:58:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

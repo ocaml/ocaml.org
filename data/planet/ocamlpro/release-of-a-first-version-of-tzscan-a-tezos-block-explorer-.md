@@ -10,7 +10,6 @@ description: 'OCamlPro is proud to release a first version of TzScan, its Tezos 
 url: https://ocamlpro.com/blog/2018_02_14_release_of_a_first_version_of_tzscan_io_a_tezos_block_explorer
 date: 2018-02-14T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\t\n  "
 source:

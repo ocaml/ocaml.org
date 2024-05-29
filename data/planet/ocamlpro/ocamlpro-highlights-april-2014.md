@@ -7,7 +7,6 @@ description: Here is a short report on some of our activities in April 2014, and
 url: https://ocamlpro.com/blog/2014_05_20_ocamlpro_highlights_april_2014
 date: 2014-05-20T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

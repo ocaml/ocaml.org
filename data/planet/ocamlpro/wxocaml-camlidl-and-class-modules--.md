@@ -7,7 +7,6 @@ description: "Last week, I was bored doing some paperwork, so I decided to hack 
 url: https://ocamlpro.com/blog/2013_04_02_wxocaml_camlidl_and_class_modules
 date: 2013-04-02T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

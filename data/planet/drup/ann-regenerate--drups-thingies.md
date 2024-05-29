@@ -5,7 +5,6 @@ description: "I\u2019m happy to announce the release of Regenerate, a library, t
 url: https://drup.github.io/2018/05/08/regenerate/
 date: 2018-05-08T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gabriel Radanne
 source:

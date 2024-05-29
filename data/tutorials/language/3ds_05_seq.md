@@ -176,7 +176,7 @@ instance:
 * `Seq.map`
 * `Seq.fold_left`
 
-All those are also available for [`Array`](/manual/latest/api/Array.html), `List`, and `Set` and behave
+All those are also available for [`Array`](/manual/api/Array.html), `List`, and `Set` and behave
 essentially the same. Observe that there is no `fold_right` function. Since
 OCaml 4.11, there is something which isn't (yet) available on other types:
 `unfold`. Here is how it is implemented:
@@ -365,11 +365,11 @@ There used to be a module called [`Stream`](/releases/4.13/api/Stream.html) in
 the OCaml standard library. It was
 [removed](https://github.com/ocaml/ocaml/pull/10482) in 2021 with the release of
 OCaml 4.14. Beware books and documentation written before may still mention it.
-
+<!-- 
 ## Exercises
 
 * [Streams](/problems#100)
-* [Diagonal](/problems#101)
+* [Diagonal](/problems#101) -->
 
 <!--
 ## Credits

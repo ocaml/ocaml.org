@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/spacemacs-useful-buffer/
 date: 2017-01-14T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

@@ -4,7 +4,6 @@ description:
 url: http://www.ocamlcore.com/wp/2010/07/oasis-db-a-cpan-for-ocaml/
 date: 2010-07-15T13:18:22-00:00
 preview_image:
-featured:
 authors:
 - OCamlCore.com
 source:

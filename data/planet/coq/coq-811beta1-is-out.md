@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/coq-8-11beta1-is-out.html
 date: 2019-12-06T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

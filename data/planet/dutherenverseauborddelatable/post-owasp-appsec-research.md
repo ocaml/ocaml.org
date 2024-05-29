@@ -6,7 +6,6 @@ description: "Well, I\u2019m just back from the Way to Valhalla and OWASP AppSec
 url: https://dutherenverseauborddelatable.wordpress.com/2010/06/28/post-owasp-appsec-research/
 date: 2010-06-28T09:28:53-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - David Teller
 source:

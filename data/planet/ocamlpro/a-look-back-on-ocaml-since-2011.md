@@ -7,7 +7,6 @@ description: "A look back on OCaml since 2011 As you already know if you\u2019ve
 url: https://ocamlpro.com/blog/2019_09_20_look_back_ocaml_since_2011
 date: 2019-09-20T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Thomas Blanc\n  "
 source:

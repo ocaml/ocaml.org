@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/modular-foreign-function-bindings
 date: 2014-07-15T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Jeremy Yallop
 ---

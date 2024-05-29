@@ -4,7 +4,6 @@ description:
 url: http://math.andrej.com/2021/02/22/burali-forti-in-hott-uf/
 date: 2021-02-22T08:00:00-00:00
 preview_image:
-featured:
 authors:
 - Martin Escardo
 source:

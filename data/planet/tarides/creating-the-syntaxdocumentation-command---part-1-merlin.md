@@ -5,7 +5,6 @@ description: "OCaml development has never been more enchanting, thanks to Merlin
 url: https://tarides.com/blog/2024-04-17-creating-the-syntaxdocumentation-command-part-1-merlin
 date: 2024-04-17T00:00:00-00:00
 preview_image: https://tarides.com/static/51d265b4859973fb259a8f7ec6093ff5/0132d/merlin_syntax.jpg
-featured:
 authors:
 - Tarides
 source:

@@ -1,0 +1,51 @@
+resources:
+  - title: OFronds
+    description: |
+      A set of exercises for learning and practicing OCaml programming that involves
+      fixing errors in provided OCaml programs.
+    image: ofronds.png
+    online_url: https://github.com/gs0510/ofronds
+    source_url: https://github.com/gs0510/ofronds
+    featured: false
+  - title: Materials from Jane Street's IndiaFOSS 2023 OCaml Workshop
+    description: |
+      Exercises, projects, and resources to help users get
+      familiar with the OCaml programming language.
+    image: janestreet-indiafoss-2023-workshop.png
+    online_url: https://github.com/sudha247/learn-ocaml-workshop
+    source_url: https://github.com/sudha247/learn-ocaml-workshop
+    featured: true
+  - title: "CS3100: Paradigms of Programming (IITM Fall 2019)"
+    description: |
+      You will find course materials such as assignments,
+      lecture notes, and other educational resources related to the course.
+    image: cs3100-iitm-fall-2019.png
+    online_url: https://kcsrk.info/cs3100_f19/
+    source_url: https://github.com/kayceesrk/cs3100_f19
+    featured: false
+  - title: Sherlocode
+    description: "Search across 17 million lines of OCaml available on opam"
+    online_url: "https://sherlocode.com"
+    image: "sherlocode.png"
+    featured: true
+  - title: Sherlodoc
+    description: "Fuzzy search in OCaml's documentation for almost all opam packages"
+    online_url: "https://doc.sherlocode.com"
+    image: "sherlodoc.png"
+    featured: true
+  - title: Awesome OCaml
+    description: "A curated list of references to awesome OCaml tools, frameworks, libraries, and articles"
+    online_url: "https://github.com/ocaml-community/awesome-ocaml"
+    image: "awesome-ocaml.png"
+    featured: true
+  - title: OCamlverse
+    description: "OCamlverse is an effort to document everything worth knowing about OCaml, an industrial-strength functional programming language"
+    online_url: "https://ocamlverse.net/"
+    image: "ocamlverse.png"
+    featured: true
+  - title: "Learn-OCaml platform"
+    description: "A platform for learning the OCaml language, featuring a Web toplevel, an exercise environment, and a directory of lessons and tutorials."
+    online_url: https://ocaml-sf.org/learn-ocaml/
+    source_url: https://github.com/ocaml-sf/learn-ocaml
+    image: "learn-ocaml.png"
+    featured: true

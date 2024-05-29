@@ -4,7 +4,6 @@ description:
 url: http://math.andrej.com/2021/11/20/proof-assistants-stackexchange-site/
 date: 2021-11-20T08:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andrej Bauer
 source:

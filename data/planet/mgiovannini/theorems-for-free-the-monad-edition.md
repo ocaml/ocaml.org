@@ -5,7 +5,6 @@ description: 'This is for the record, since the derivations took me a while and 
 url: https://alaska-kamtchatka.blogspot.com/2012/07/theorems-for-free-monad-edition.html
 date: 2012-07-19T15:00:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

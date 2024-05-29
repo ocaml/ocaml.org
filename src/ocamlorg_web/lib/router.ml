@@ -29,7 +29,7 @@ let page_routes t =
       Dream.get Url.learn_get_started Handler.learn_get_started;
       Dream.get Url.learn_language Handler.learn_language;
       Dream.get Url.learn_guides Handler.learn_guides;
-      Dream.get Url.platform Handler.platform;
+      Dream.get Url.learn_platform Handler.learn_platform;
       Dream.get Url.cookbook Handler.cookbook;
       Dream.get (Url.cookbook_task ":task_slug") Handler.cookbook_task;
       Dream.get
@@ -45,9 +45,10 @@ let page_routes t =
       Dream.get Url.about Handler.about;
       Dream.get Url.books Handler.books;
       Dream.get Url.releases Handler.releases;
+      Dream.get Url.resources Handler.resources;
       Dream.get (Url.release ":id") Handler.release;
       Dream.get (Url.workshop ":id") Handler.workshop;
-      Dream.get Url.blog Handler.blog;
+      Dream.get Url.ocaml_planet Handler.ocaml_planet;
       Dream.get (Url.local_blog ":source") Handler.local_blog;
       Dream.get (Url.blog_post ":source" ":slug") Handler.blog_post;
       Dream.get Url.news Handler.news;
@@ -62,6 +63,9 @@ let page_routes t =
       Dream.get Url.governance_policy Handler.governance_policy;
       Dream.get Url.papers Handler.papers;
       Dream.get Url.exercises Handler.exercises;
+      Dream.get Url.tools Handler.tools;
+      Dream.get Url.platform Handler.tools_platform;
+      Dream.get (Url.tool_page ":id") (Handler.tool_page Commit.hash);
       Dream.get (Url.tutorial "is-ocaml-web-yet") (Handler.is_ocaml_yet t "web");
       Dream.get (Url.tutorial "is-ocaml-gui-yet") (Handler.is_ocaml_yet t "gui");
       Dream.get Url.tutorial_search Handler.learn_documents_search;

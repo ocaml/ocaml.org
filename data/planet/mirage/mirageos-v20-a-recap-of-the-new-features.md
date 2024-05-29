@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/announcing-mirage-20-release
 date: 2014-07-22T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Anil Madhavapeddy
 ---

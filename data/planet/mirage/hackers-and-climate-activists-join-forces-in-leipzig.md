@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/ccc-2019-leipzig
 date: 2020-01-08T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Damien Leloup
 ---

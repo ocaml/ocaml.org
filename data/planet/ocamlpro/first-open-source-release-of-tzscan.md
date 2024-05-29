@@ -7,7 +7,6 @@ description: In October 2017, after the Tezos ICO, OCamlPro started to work on a
 url: https://ocamlpro.com/blog/2018_11_08_first_open_source_release_of_tzscan
 date: 2018-11-08T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:

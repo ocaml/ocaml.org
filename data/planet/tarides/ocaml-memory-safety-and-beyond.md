@@ -5,7 +5,6 @@ description: "Your choice of programming language matters. A recent press releas
 url: https://tarides.com/blog/2023-12-14-ocaml-memory-safety-and-beyond
 date: 2023-12-14T00:00:00-00:00
 preview_image: https://tarides.com/static/39183b3a4ca497e6bdc75ebf592bde59/eee8e/memorysafety1.jpg
-featured:
 authors:
 - Tarides
 source:

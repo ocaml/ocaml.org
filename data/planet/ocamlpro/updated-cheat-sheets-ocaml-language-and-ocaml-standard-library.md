@@ -7,7 +7,6 @@ description: "In 2011, we shared several cheat sheets for OCaml. Cheat sheets ar
 url: https://ocamlpro.com/blog/2019_09_13_updated_cheat_sheets_language_stdlib_2
 date: 2019-09-13T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Thomas Blanc\n  "
 source:

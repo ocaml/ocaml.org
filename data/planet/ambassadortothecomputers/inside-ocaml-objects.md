@@ -5,7 +5,6 @@ description: In the ocamljs  project I wanted to implement the OCaml object syst
 url: http://ambassadortothecomputers.blogspot.com/2010/03/inside-ocaml-objects.html
 date: 2010-03-23T22:32:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

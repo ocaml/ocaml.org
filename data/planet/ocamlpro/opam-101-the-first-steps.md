@@ -7,7 +7,6 @@ description: Welcome, dear reader, to a new series of blog posts! This series wi
 url: https://ocamlpro.com/blog/2024_01_23_opam_101_the_first_steps
 date: 2024-01-23T14:15:10-00:00
 preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
-featured:
 authors:
 - "\n    Dario Pinto\n  "
 source:

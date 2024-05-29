@@ -6,7 +6,6 @@ description: "In the spirit of reinventing the wheel for fun, I hacked this toge
 url: https://blog.janestreet.com/reverse-web-proxy-in-50-lines-of-bash/
 date: 2015-05-01T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

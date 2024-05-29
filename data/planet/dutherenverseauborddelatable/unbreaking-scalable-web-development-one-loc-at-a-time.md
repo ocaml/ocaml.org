@@ -6,7 +6,6 @@ description: "The Opa platform was created to address the problem of developing 
 url: https://dutherenverseauborddelatable.wordpress.com/2011/05/23/unbreaking-scalable-web-development-one-loc-at-a-time/
 date: 2011-05-23T12:59:29-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - David Teller
 source:

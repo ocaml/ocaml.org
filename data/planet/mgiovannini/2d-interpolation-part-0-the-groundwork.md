@@ -5,7 +5,6 @@ description: (First of a series)  My process for going from a textbook implement
 url: https://alaska-kamtchatka.blogspot.com/2012/06/2d-interpolation-part-0-groundwork.html
 date: 2012-06-22T17:51:00-00:00
 preview_image: //1.bp.blogspot.com/-C81JH1sLZ28/T-Svs29viNI/AAAAAAAAAUU/YThJ1cQShNY/w1200-h630-p-k-no-nu/interp0.png
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

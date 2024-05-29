@@ -4,7 +4,6 @@ description:
 url: http://www.ocamljava.org/2014/09/22/alpha2/
 date: 2014-09-22T21:00:00-00:00
 preview_image:
-featured:
 authors:
 - Xavier Clerc
 source:

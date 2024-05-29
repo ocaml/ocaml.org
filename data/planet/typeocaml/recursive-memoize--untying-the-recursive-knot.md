@@ -5,7 +5,6 @@ description: This post explains recursive memoize function in OCaml and also int
 url: http://typeocaml.com/2015/01/25/memoize-rec-untying-the-recursive-knot/
 date: 2015-01-25T13:22:15-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

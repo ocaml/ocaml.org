@@ -5,7 +5,6 @@ description: "Tarides engineer Zach Shipko answers a few questions about why he 
 url: https://tarides.com/blog/2023-01-05-engineer-spotlight-zach-shipko
 date: 2023-01-05T00:00:00-00:00
 preview_image: https://tarides.com/static/05e1ac13a4bcc3da2909310f1f777822/0132d/zach_image.jpg
-featured:
 authors:
 - Tarides
 source:

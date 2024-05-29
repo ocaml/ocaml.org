@@ -4,7 +4,6 @@ description:
 url: http://ocamllabs.github.com/compiler-hacking/2014/02/04/handler-case
 date: 2014-02-04T16:05:05-00:00
 preview_image:
-featured:
 authors:
 - OCaml Labs compiler hacking
 source:

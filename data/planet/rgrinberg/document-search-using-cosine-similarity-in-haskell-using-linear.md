@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/haskell-vsse/
 date: 2013-12-26T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

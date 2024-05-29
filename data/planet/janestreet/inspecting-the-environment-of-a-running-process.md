@@ -5,7 +5,6 @@ description: Sometimes its useful to be able see the values of environment varia
 url: https://blog.janestreet.com/inspecting-the-environment-of-a-running-process/
 date: 2014-12-01T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 ---
 
 <p>Sometimes its useful to be able see the values of environment variables in

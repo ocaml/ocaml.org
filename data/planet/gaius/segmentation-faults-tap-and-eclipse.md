@@ -6,7 +6,6 @@ description: "This is quite a neat trick. Consider: Referencing that NULL pointe
 url: https://gaius.tech/2011/09/09/segmentation-faults-tap-and-eclipse/
 date: 2011-09-09T11:14:41-00:00
 preview_image: https://gaiustech.files.wordpress.com/2011/09/segfault1.png
-featured:
 authors:
 - Gaius Hammond
 source:

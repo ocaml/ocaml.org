@@ -6,7 +6,6 @@ description: "I\u2019ve recently stumbled upon a useful OCaml design pattern for
 url: https://mcclurmc.wordpress.com/2012/12/18/ocaml-pattern-easy-functor/
 date: 2012-12-18T23:31:33-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Mike McClurg
 source:

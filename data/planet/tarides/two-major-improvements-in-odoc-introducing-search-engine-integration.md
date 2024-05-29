@@ -5,7 +5,6 @@ description: "In the world of OCaml documentation generation, there have been tw
 url: https://tarides.com/blog/2024-02-28-two-major-improvements-in-odoc-introducing-search-engine-integration
 date: 2024-02-28T00:00:00-00:00
 preview_image: https://tarides.com/static/a71f075f9953971ee0f14a65da5293a6/0132d/odoc-search.jpg
-featured:
 authors:
 - Tarides
 source:

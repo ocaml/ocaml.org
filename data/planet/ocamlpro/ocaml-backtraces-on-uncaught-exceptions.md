@@ -7,7 +7,6 @@ description: 'Uncaught exception: Not_found This blog post probably won''t teach
 url: https://ocamlpro.com/blog/2024_04_25_ocaml_backtraces_on_uncaught_exceptions
 date: 2024-04-25T12:44:14-00:00
 preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

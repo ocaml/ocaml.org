@@ -7,7 +7,6 @@ description: "Since 2017 is just over, now is probably the best time to review w
 url: https://ocamlpro.com/blog/2018_01_15_2017_at_ocamlpro
 date: 2018-01-15T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Muriel\n  "
 source:

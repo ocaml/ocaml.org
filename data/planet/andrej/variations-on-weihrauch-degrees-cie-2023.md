@@ -4,7 +4,6 @@ description:
 url: http://math.andrej.com/2023/07/28/variations-on-weihrauch-degrees/
 date: 2023-07-27T22:00:00-00:00
 preview_image:
-featured:
 authors:
 - Andrej Bauer
 source:

@@ -7,7 +7,6 @@ description: 'More OCaml: Algorithms, Methods &amp; Diversions is now available 
 url: http://ocaml-book.com/blog/2014/8/27/more-ocaml-algorithms-methods-diversions
 date: 2014-08-27T12:00:32-00:00
 preview_image:
-featured:
 authors:
 - OCaml Book
 source:

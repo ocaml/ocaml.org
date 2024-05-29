@@ -5,7 +5,6 @@ description: After linearizing all array accesses , interpolating ARGB values is
 url: https://alaska-kamtchatka.blogspot.com/2012/06/2d-interpolation-part-4-argb.html
 date: 2012-06-28T15:00:00-00:00
 preview_image: //4.bp.blogspot.com/-y__nUozm2S4/T-XDJWhHuKI/AAAAAAAAAU8/AnMnevHLMC4/w1200-h630-p-k-no-nu/interp3.png
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

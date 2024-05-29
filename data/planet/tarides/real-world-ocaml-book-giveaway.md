@@ -5,7 +5,6 @@ description: "Real World OCaml is a fantastic book on OCaml and functional progr
 url: https://tarides.com/blog/2022-10-14-real-world-ocaml-book-giveaway
 date: 2022-10-14T00:00:00-00:00
 preview_image: https://tarides.com/static/df0abfcc235a96544a680387e82a0633/2070e/RWO_Camels.jpg
-featured:
 authors:
 - Tarides
 source:

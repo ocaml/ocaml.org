@@ -4,7 +4,6 @@ description:
 url: https://misterpingouin.blogspot.com/2007/07/application.html
 date: 2007-07-18T10:21:00-00:00
 preview_image:
-featured:
 authors:
 - mrpingouin
 source:

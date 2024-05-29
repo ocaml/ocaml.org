@@ -5,7 +5,6 @@ description: "Over the last year, the Tarides\nstorage team has been focused on 
 url: https://tarides.com/blog/2022-04-26-lightning-fast-with-irmin-tezos-storage-is-6x-faster-with-1000-tps-surpassed
 date: 2022-04-26T00:00:00-00:00
 preview_image: https://tarides.com/static/efce619e39c2a72fb0b935be481a220b/0132d/banner.jpg
-featured:
 authors:
 - Tarides
 source:

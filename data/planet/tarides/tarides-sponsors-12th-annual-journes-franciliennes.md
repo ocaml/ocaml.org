@@ -5,7 +5,6 @@ description: "Tarides is proud to sponsor the 12th annual programming contest Jo
 url: https://tarides.com/blog/2022-06-02-tarides-sponsors-12th-annual-journ-e-francilienne
 date: 2022-06-02T00:00:00-00:00
 preview_image: https://tarides.com/static/930a9e58dfb30f421390682fdf24f0db/188d7/sailboats.jpg
-featured:
 authors:
 - Tarides
 source:

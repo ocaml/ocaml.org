@@ -4,7 +4,6 @@ description:
 url: https://coq.inria.fr/news/release-candidate-of-coq-84-is-out.html
 date: 2012-08-08T21:28:00-00:00
 preview_image:
-featured:
 authors:
 - Coq
 source:

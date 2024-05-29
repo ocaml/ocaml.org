@@ -5,7 +5,6 @@ description: How to render trees like Unix 'tree'            The Unix tree  util
 url: http://blog.shaynefletcher.org/2017/10/how-to-render-trees-like-unix-tree.html
 date: 2017-10-14T19:20:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

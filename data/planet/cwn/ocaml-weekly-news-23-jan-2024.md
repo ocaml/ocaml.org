@@ -4,7 +4,6 @@ description:
 url: https://alan.petitepomme.net/cwn/2024.01.23.html
 date: 2024-01-23T12:00:00-00:00
 preview_image:
-featured:
 authors:
 - Caml Weekly News
 source:

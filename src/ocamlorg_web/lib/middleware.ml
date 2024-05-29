@@ -1,3 +1,5 @@
+open Ocamlorg.Import
+
 let no_trailing_slash next_handler request =
   let target = "///" ^ Dream.target request in
   (* FIXME: https://github.com/aantron/dream/issues/248 *)
@@ -10,22 +12,44 @@ let no_trailing_slash next_handler request =
   else Dream.redirect request target
 
 let language_manual_version next_handler request =
+  let open Data in
   let init_path = request |> Dream.target |> String.split_on_char '/' in
+  let minor (release : Release.t) = Ocamlorg.Url.minor release.version in
+  let release ?insert candidate =
+    Option.(
+      fold
+        ~none:(fold ~none:candidate ~some:(fun v -> v ^ "/" ^ candidate) insert)
+        ~some:minor
+        (Release.get_by_version candidate))
+  in
   let path =
-    let minor (release : Data.Release.t) = Ocamlorg.Url.minor release.version in
     match init_path with
-    | "" :: "manual" :: something :: tl ->
+    | [ ""; ("manual" | "htmlman") ] ->
+        [ ""; "manual"; release ~insert:(minor Release.latest) "" ]
+    | "" :: ("manual" | "htmlman") :: something :: tl ->
         "" :: "manual"
-        :: Data.Release.(
-             Option.fold
-               ~none:(minor latest ^ "/" ^ something)
-               ~some:minor (get_by_version something))
-        :: tl
+        :: release ~insert:(minor Release.latest) something
+        ::
+        (if tl = [] && something <> "index.html" then [ "index.html" ]
+         else if tl = [ "api" ] then [ "api"; "index.html" ]
+         else tl)
+    | [ ""; "releases"; version; "index.html" ] -> [ ""; "releases"; version ]
+    | [ ""; "releases"; something ]
+      when String.ends_with ~suffix:".html" something ->
+        let prefix = String.(sub something 0 (length something - 5)) in
+        "" :: "releases" :: (if prefix = "index" then [] else [ prefix ])
+    | "" :: "releases" :: version :: ("htmlman" | "manual") :: tl ->
+        "" :: "manual" :: release version
+        :: (if tl = [] then [ "index.html" ] else tl)
+    | "" :: "releases" :: version :: (("notes" | "api") as folder) :: tl ->
+        "" :: "manual" :: release version :: folder
+        :: (if tl = [] && folder = "api" then [ "index.html" ] else tl)
+    | [ ""; "releases"; version; man ] when String.contains_s man "refman" ->
+        [ ""; "manual"; release version; man ]
     | u -> u
   in
-  let target = String.concat "/" path in
   if init_path = path then next_handler request
-  else Dream.redirect request target
+  else Dream.redirect request (String.concat "/" path)
 
 let head handler request =
   match Dream.method_ request with

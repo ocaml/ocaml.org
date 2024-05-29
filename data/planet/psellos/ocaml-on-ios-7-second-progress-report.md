@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2014/08/2014.08.ocamlxarm-progress.html
 date: 2014-08-12T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

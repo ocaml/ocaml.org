@@ -5,7 +5,6 @@ description: "Tarides is pleased to have contributed to the dune 1.9.0 release w
 url: https://tarides.com/blog/2019-04-10-dune-1-9-0
 date: 2019-04-10T00:00:00-00:00
 preview_image: https://tarides.com/static/a7294df7159db3785da6121fc6ecadf8/10057/sand_dune2.jpg
-featured:
 authors:
 - Tarides
 source:

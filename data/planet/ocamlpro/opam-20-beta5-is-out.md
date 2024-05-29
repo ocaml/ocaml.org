@@ -7,7 +7,6 @@ description: After a few more months brewing, we are pleased to announce a new b
 url: https://ocamlpro.com/blog/2017_11_27_opam_2.0_beta5_is_out
 date: 2017-11-27T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    Louis Gesbert\n  "
 source:

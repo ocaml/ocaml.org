@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/announcing-mirage-40-beta-release
 date: 2022-02-10T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Thomas Gazagnaire
 ---

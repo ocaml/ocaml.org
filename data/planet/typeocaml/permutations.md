@@ -5,7 +5,6 @@ description: This post describes the ways of generating permutations, with 2 com
 url: http://typeocaml.com/2015/05/05/permutation/
 date: 2015-05-05T19:15:23-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

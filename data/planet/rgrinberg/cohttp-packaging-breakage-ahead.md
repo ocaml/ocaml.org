@@ -4,7 +4,6 @@ description:
 url: http://rgrinberg.com/posts/cohttp-breakage-ahead/
 date: 2017-05-14T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Rudi Grinberg
 source:

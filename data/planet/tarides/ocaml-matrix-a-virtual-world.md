@@ -5,7 +5,6 @@ description: "Introduction One of Tarides' projects is to create an open and sec
 url: https://tarides.com/blog/2022-06-09-ocaml-matrix-a-virtual-world
 date: 2022-06-09T00:00:00-00:00
 preview_image: https://tarides.com/static/e9b419de22b0b69cf32ea16dc41e00a8/0132d/matrix.jpg
-featured:
 authors:
 - Tarides
 source:

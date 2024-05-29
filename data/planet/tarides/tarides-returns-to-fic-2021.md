@@ -5,7 +5,6 @@ description: "Last year, Tarides had the honour of winning the \u201CCoup de Coe
 url: https://tarides.com/blog/2021-09-06-tarides-returns-to-fic-2021
 date: 2021-09-06T00:00:00-00:00
 preview_image: https://tarides.com/static/b65b5b10c49eebfc82b9e474d0d5ffe8/0132d/cyber_lock.jpg
-featured:
 authors:
 - Tarides
 source:

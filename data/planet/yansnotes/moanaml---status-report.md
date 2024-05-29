@@ -5,7 +5,6 @@ description: A little bit about everything, but mostly about fixing annoying tec
 url: http://yansnotes.blogspot.com/2014/10/moanaml-status-report.html
 date: 2014-10-23T11:11:00-00:00
 preview_image: http://4.bp.blogspot.com/-G2Jz8HOV2Zk/VEkcgRQC9dI/AAAAAAAAWK4/bcqvVhCB2_I/w1200-h630-p-k-no-nu/MoanaML(1).png
-featured:
 authors:
 - Unknown
 source:

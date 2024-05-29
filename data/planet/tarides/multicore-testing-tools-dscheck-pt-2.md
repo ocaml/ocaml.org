@@ -5,7 +5,6 @@ description: "Welcome to part two! If you haven't already, check out part one, w
 url: https://tarides.com/blog/2024-04-10-multicore-testing-tools-dscheck-pt-2
 date: 2024-04-10T00:00:00-00:00
 preview_image: https://tarides.com/static/2a97b296e84c067e346ff826cce2b2ee/2070e/DSCheck2.jpg
-featured:
 authors:
 - Tarides
 source:

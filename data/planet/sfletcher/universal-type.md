@@ -5,7 +5,6 @@ description: Universal type      A universal type is a type into which all other
 url: http://blog.shaynefletcher.org/2017/03/universal-type.html
 date: 2017-03-10T18:06:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

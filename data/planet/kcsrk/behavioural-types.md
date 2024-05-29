@@ -4,7 +4,6 @@ description:
 url: https://kcsrk.info/ocaml/types/2016/06/30/behavioural-types/
 date: 2016-06-30T09:31:00-00:00
 preview_image:
-featured:
 authors:
 - KC Sivaramakrishnan
 source:

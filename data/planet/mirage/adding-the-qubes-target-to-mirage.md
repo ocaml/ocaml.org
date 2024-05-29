@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/qubes-target
 date: 2017-03-01T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Mindy Preston
 ---

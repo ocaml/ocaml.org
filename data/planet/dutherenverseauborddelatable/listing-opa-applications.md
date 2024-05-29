@@ -6,7 +6,6 @@ description: "Short update The opalang website now lists applications developed 
 url: https://dutherenverseauborddelatable.wordpress.com/2011/06/07/centralizing-opa-applications/
 date: 2011-06-07T15:27:50-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - David Teller
 source:

@@ -5,7 +5,6 @@ description: In this post I want to build on the backtracking logic monad we cov
 url: http://ambassadortothecomputers.blogspot.com/2011/06/logic-programming-in-scala-part-3.html
 date: 2011-06-09T03:41:00-00:00
 preview_image:
-featured:
 authors:
 - Jake Donham
 source:

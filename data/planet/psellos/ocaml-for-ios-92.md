@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2016/01/2016.01.man-out-of-time.html
 date: 2016-01-15T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

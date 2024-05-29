@@ -4,7 +4,6 @@ description:
 url: http://gallium.inria.fr/blog/rethinking-ocaml-abstract-signatures
 date: 2023-12-01T08:00:00-00:00
 preview_image:
-featured:
 authors:
 - GaGallium
 source:

@@ -4,7 +4,6 @@ description:
 url: https://mirage.io/blog/2016-spring-hackathon
 date: 2016-05-04T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gemma Gordon
 ---

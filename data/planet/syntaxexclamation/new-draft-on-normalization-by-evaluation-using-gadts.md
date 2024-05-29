@@ -6,7 +6,6 @@ description: "There is a new draft on my web page! It is called Tagless and Type
 url: https://syntaxexclamation.wordpress.com/2013/10/29/new-draft-on-normalization-by-evaluation-using-gadts/
 date: 2013-10-29T13:10:26-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Matthias Puech
 source:

@@ -4,7 +4,6 @@ description: This is the 3rd pearl (the saddleback search problem) in the book
 url: http://typeocaml.com/2015/03/31/pearl-no-3-saddleback-search/
 date: 2015-03-31T17:30:00-00:00
 preview_image:
-featured:
 authors:
 - Xinuo Chen
 source:

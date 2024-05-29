@@ -4,6 +4,7 @@ slug: "87"
 difficulty: intermediate
 tags: [ "graph" ]
 description: "Generate a depth-first order graph traversal sequence using the given adjacency-list representation, starting from a specified point."
+tutorials: [ "maps"]
 ---
 
 ```ocaml

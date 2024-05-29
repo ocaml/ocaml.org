@@ -4,7 +4,6 @@ description:
 url: http://blog.emillon.org/posts/2011-12-14-what-s-in-an-adt.html
 date: 2011-12-14T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Etienne Millon
 source:

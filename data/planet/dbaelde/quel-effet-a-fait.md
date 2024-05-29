@@ -4,7 +4,6 @@ description:
 url: https://misterpingouin.blogspot.com/2010/02/quel-effet-ca-fait.html
 date: 2010-02-08T19:04:00-00:00
 preview_image:
-featured:
 authors:
 - mrpingouin
 source:

@@ -8,7 +8,6 @@ description: "OCamlPro lance un cycle de formations r\xE9guli\xE8res \xE0 OCaml,
 url: https://ocamlpro.com/blog/2019_09_26_fr_formations_ocaml_par_ocamlpro_5_6_et_7_8_novembre_2019
 date: 2019-09-26T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    OCamlPro\n  "
 source:

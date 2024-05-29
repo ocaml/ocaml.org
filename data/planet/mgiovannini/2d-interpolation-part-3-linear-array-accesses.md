@@ -5,7 +5,6 @@ description: Last time I've hoisted all accesses  to the source array. This open
 url: https://alaska-kamtchatka.blogspot.com/2012/06/2d-interpolation-part-3-linear-array.html
 date: 2012-06-27T15:00:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

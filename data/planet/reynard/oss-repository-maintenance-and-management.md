@@ -4,7 +4,6 @@ description:
 url: http://reynard.io/2016/12/13/OSSWorkflow.html
 date: 2016-12-13T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gemma Gordon (OCaml Labs)
 source:

@@ -7,7 +7,6 @@ description: "OCaml from the Very Beginning (204pp, paperback) is now available 
 url: http://ocaml-book.com/blog/2013/6/6/now-available-on-amazon
 date: 2013-06-07T14:21:23-00:00
 preview_image:
-featured:
 authors:
 - OCaml Book
 source:

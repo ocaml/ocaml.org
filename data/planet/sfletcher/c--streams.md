@@ -5,7 +5,6 @@ description: In this blog post , types and functions were presented in OCaml for
 url: http://blog.shaynefletcher.org/2016/04/streams-in-c.html
 date: 2016-04-03T15:00:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

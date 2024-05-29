@@ -5,7 +5,6 @@ description: Haskell type-classes in OCaml and C++            This article exami
 url: http://blog.shaynefletcher.org/2016/10/haskell-type-classes-in-ocaml-and-c.html
 date: 2016-10-26T19:25:00-00:00
 preview_image:
-featured:
 authors:
 - Shayne Fletcher
 source:

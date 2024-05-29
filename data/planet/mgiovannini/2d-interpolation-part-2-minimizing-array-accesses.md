@@ -5,7 +5,6 @@ description: Last time I massaged the interpolator  to avoid computing every tim
 url: https://alaska-kamtchatka.blogspot.com/2012/06/2d-interpolation-part-2-minimizing.html
 date: 2012-06-26T13:00:00-00:00
 preview_image:
-featured:
 authors:
 - "Mat\xEDas Giovannini"
 source:

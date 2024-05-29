@@ -4,7 +4,6 @@ description:
 url: http://ocamllabs.github.com/compiler-hacking/2014/07/24/compiler-hacking-at-citrix
 date: 2014-07-24T10:00:00-00:00
 preview_image:
-featured:
 authors:
 - OCaml Labs compiler hacking
 source:

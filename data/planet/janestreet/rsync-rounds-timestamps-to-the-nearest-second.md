@@ -5,7 +5,6 @@ description: "I\u2019m not sure how I\u2019ve managed to use rsync for so many y
 url: https://blog.janestreet.com/rsync-rounds-timestamps-to-the-nearest-second/
 date: 2015-10-07T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
-featured:
 authors:
 - Jane Street Tech Blog
 source:

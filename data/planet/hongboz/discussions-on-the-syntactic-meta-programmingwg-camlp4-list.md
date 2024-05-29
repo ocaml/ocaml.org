@@ -6,7 +6,6 @@ description: "There are some interesting discussions in the wg-camlp4 mailing li
 url: https://hongboz.wordpress.com/2013/01/31/discussions-on-the-syntactic-meta-programmingwg-camlp4-list/
 date: 2013-01-31T04:47:09-00:00
 preview_image: https://s0.wp.com/i/blank.jpg
-featured:
 authors:
 - Hong bo Zhang
 source:

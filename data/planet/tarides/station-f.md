@@ -7,7 +7,6 @@ description: With more than 30 startup programs, 35 public administrations, 150 
 url: https://stationf.co/
 date: 2018-07-17T00:00:00-00:00
 preview_image: https://stationf.co/img/cards/og_image.png
-featured:
 authors:
 - Tarides
 source:

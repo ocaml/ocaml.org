@@ -5,7 +5,6 @@ description: "Tarides is excited to sponsor the Paradigm Conference (previously 
 url: https://tarides.com/blog/2022-09-23-tarides-sponsors-high-school-hackers
 date: 2022-09-23T00:00:00-00:00
 preview_image: https://tarides.com/static/ef4a627bd5fecdf6d8f80a4d8054242a/b5854/sunset4paradigm.jpg
-featured:
 authors:
 - Tarides
 source:

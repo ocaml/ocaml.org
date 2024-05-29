@@ -4,7 +4,6 @@ description:
 url: http://ocamllabs.github.com/compiler-hacking/2017/01/24/february-compiler-hacking
 date: 2017-01-24T00:30:00-00:00
 preview_image:
-featured:
 authors:
 - OCaml Labs compiler hacking
 source:

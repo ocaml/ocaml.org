@@ -5,7 +5,6 @@ description: This was long overdue, after a lot of ocsigen-cohttp hacking (duh),
 url: https://drup.github.io/2015/04/09/intro_mirage/
 date: 2015-04-09T00:00:00-00:00
 preview_image:
-featured:
 authors:
 - Gabriel Radanne
 source:

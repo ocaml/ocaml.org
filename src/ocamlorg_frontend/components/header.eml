@@ -1,9 +1,28 @@
-type active_nav_item =
+type nav_item =
   | Learn
+  | Tools
   | Packages
   | Community
-  | Blog
+  | News
   | Playground
+
+let string_of_nav_item = function
+  | Learn -> "Learn"
+  | Tools -> "Tools"
+  | Packages -> "Packages"
+  | Community -> "Community"
+  | News -> "News"
+  | Playground -> "Play"
+
+let url_of_nav_item = function
+  | Learn -> Url.learn
+  | Tools -> Url.tools
+  | Packages -> Url.packages
+  | Community -> Url.community
+  | News -> Url.changelog
+  | Playground -> Url.playground
+
+let nav_items = [ Learn; Tools; Packages; Community; News; Playground ]
 
 let menu_link
 ~(active: bool)
@@ -17,7 +36,7 @@ let menu_link
 
 let render
 ?(show_get_started=true)
-?(active_top_nav_item: active_nav_item option)
+?(active_top_nav_item: nav_item option)
 ()
 =
 let search_dropdown () =
@@ -56,11 +75,9 @@ in
       </li>
     </ul>
     <ul class="order-1 mr-auto items-center hidden lg:flex font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
-      <li><%s! menu_link ~active:(active_top_nav_item=Some Learn) ~href:Url.learn ~title:"Learn" () %></li>
-      <li><%s! menu_link ~active:(active_top_nav_item=Some Packages) ~href:Url.packages ~title:"Packages" () %></li>
-      <li><%s! menu_link ~active:(active_top_nav_item=Some Community) ~href:Url.community ~title:"Community" () %></li>
-      <li><%s! menu_link ~active:(active_top_nav_item=Some Blog) ~href:Url.blog ~title:"Blog" () %></li>
-      <li><%s! menu_link ~active:(active_top_nav_item=Some Playground) ~href:Url.playground ~title:"Playground" () %></li>
+      <% nav_items |> List.iter (fun (n : nav_item) -> %>
+      <li><%s! menu_link ~active:(active_top_nav_item=Some n) ~href:(url_of_nav_item n) ~title:(string_of_nav_item n) () %></li>
+      <% ); %>
     </ul>
     <% if show_get_started then (%>
     <ul class="order-3 hidden lg:flex items-center">
@@ -108,11 +125,9 @@ in
         </form>
       </li>
 
-      <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Learn) ~href:Url.learn ~title:"Learn" () %></li>
-      <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Packages) ~href:Url.packages ~title:"Packages" () %></li>
-      <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Community) ~href:Url.community ~title:"Community" () %></li>
-      <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Blog) ~href:Url.blog ~title:"Blog" () %></li>
-      <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Playground) ~href:Url.playground ~title:"Playground" () %></li>
+      <% nav_items |> List.iter (fun (n : nav_item) -> %>
+      <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some n) ~href:(url_of_nav_item n) ~title:(string_of_nav_item n) () %></li>
+      <% ); %>
       <li>
         <a href="<%s Url.api %>" class="flex py-3 px-1 gap-4 font-semibold text-primary dark:text-dark-primary">Standard Library API<%s! Icons.arrow_top_right_on_square "w-6 h-6" %></a>
       </li>

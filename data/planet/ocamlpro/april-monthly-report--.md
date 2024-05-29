@@ -7,7 +7,6 @@ description: 'This post aims at summarizing the activities of OCamlPro for the p
 url: https://ocamlpro.com/blog/2013_04_22_april_monthly_report
 date: 2013-04-22T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:

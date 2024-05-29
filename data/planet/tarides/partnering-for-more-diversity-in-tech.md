@@ -5,7 +5,6 @@ description: "Tarides is very glad to announce our partnership with Ada Tech\nSc
 url: https://tarides.com/blog/2021-02-15-partnering-for-more-diversity-in-tech
 date: 2021-02-15T00:00:00-00:00
 preview_image: https://tarides.com/static/6b03b0cada1534ce78483ee37b3475c8/7d5a2/ada_tech_school.jpg
-featured:
 authors:
 - Tarides
 source:

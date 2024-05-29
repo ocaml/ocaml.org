@@ -20,7 +20,7 @@ jobs:
       - France
     publication_date: 2023-02-10
     company: OCamlPro
-    company_logo: https://ocamlpro.com/assets/img/logo_ocamlpro_orange.png
+    company_logo: https://ocamlpro.com/assets/img/logo_ocamlpro.svg
   - title: Cryptography Engineer
     link: https://boards.greenhouse.io/o1labs/jobs/4023646004
     locations:

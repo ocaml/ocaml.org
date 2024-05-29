@@ -5,7 +5,6 @@ description: 'An example of the GUI in use.    There are plenty of existing GUIs
 url: https://cranialburnout.blogspot.com/2014/03/a-component-based-gui-with-functional.html
 date: 2014-03-04T09:30:00-00:00
 preview_image: //1.bp.blogspot.com/-DqbG0LlxpXE/UxWbAtjz7wI/AAAAAAAAAD0/UWDHWQ5Z7Rs/w1200-h630-p-k-no-nu/certa.png
-featured:
 authors:
 - Tony Tavener
 source:

@@ -8,7 +8,6 @@ description: "2019 at OCamlPro OCamlPro a pour ambition d\u2019aider les industr
 url: https://ocamlpro.com/blog/2020_02_05_fr_2019_chez_ocamlpro
 date: 2020-02-05T13:19:46-00:00
 preview_image: URL_de_votre_image
-featured:
 authors:
 - "\n    OCamlPro\n  "
 source:

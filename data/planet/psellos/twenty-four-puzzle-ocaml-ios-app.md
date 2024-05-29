@@ -4,7 +4,6 @@ description:
 url: http://psellos.com/2016/02/2016.02.i-met-up-with-the-king.html
 date: 2016-02-18T19:00:00-00:00
 preview_image:
-featured:
 authors:
 - Psellos
 source:

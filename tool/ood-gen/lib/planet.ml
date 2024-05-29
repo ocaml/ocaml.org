@@ -20,7 +20,6 @@ type post = {
   authors : string list;
   date : string;
   preview_image : string option;
-  featured : bool;
   body_html : string;
 }
 [@@deriving show { with_path = false }]
@@ -67,7 +66,6 @@ module Local = struct
       description : string;
       date : string;
       preview_image : string option;
-      featured : bool option;
       authors : string list option;
     }
     [@@deriving yaml]
@@ -84,7 +82,6 @@ module Local = struct
         authors = Option.value ~default:[] m.authors;
         date = m.date;
         preview_image = m.preview_image;
-        featured = Option.value ~default:false m.featured;
         body_html;
       }
 
@@ -173,7 +170,6 @@ module External = struct
       url : string;
       date : string;
       preview_image : string option;
-      featured : bool option;
       authors : string list option;
       source : source_on_external_post option;
     }
@@ -201,7 +197,6 @@ module External = struct
         authors = Option.value ~default:[] m.authors;
         date = m.date;
         preview_image = m.preview_image;
-        featured = Option.value ~default:false m.featured;
         body_html;
       }
 
@@ -250,34 +245,27 @@ let feed_authors source authors =
   | [] -> (Syndic.Atom.author source.name, [])
 
 module LocalBlog = struct
-  let rss_feed source posts =
+  let create_entry (post : post) =
+    let content = Syndic.Atom.Html (None, post.body_html) in
     let id =
-      Uri.of_string ("https://ocaml.org/blog/" ^ source.id ^ "/feed.xml")
+      Uri.of_string
+        ("https://ocaml.org/blog/" ^ post.source.id ^ "/" ^ post.slug)
     in
-    let title : Syndic.Atom.title = Text (source.name ^ " @ OCaml.org") in
+    let authors = feed_authors post.source post.authors in
+    let updated = Syndic.Date.of_rfc3339 post.date in
+    Syndic.Atom.entry ~content ~id ~authors ~title:(Syndic.Atom.Text post.title)
+      ~updated
+      ~links:[ Syndic.Atom.link id ]
+      ()
 
-    let entries =
-      posts
-      |> List.map (fun (post : post) ->
-             let content = Syndic.Atom.Html (None, post.body_html) in
-             let id =
-               Uri.of_string
-                 ("https://ocaml.org/blog/" ^ post.source.id ^ "/" ^ post.slug)
-             in
-             let authors = feed_authors post.source post.authors in
-             let updated = Syndic.Date.of_rfc3339 post.date in
-             Syndic.Atom.entry ~content ~id ~authors
-               ~title:(Syndic.Atom.Text post.title) ~updated
-               ~links:[ Syndic.Atom.link id ]
-               ())
-      |> List.sort Syndic.Atom.descending
-    in
-
-    let updated = (List.hd entries).updated in
-    Syndic.Atom.feed ~id ~title ~updated entries
-    |> Syndic.Atom.to_xml
-    |> Syndic.XML.to_string ~ns_prefix:(fun s ->
-           match s with "http://www.w3.org/2005/Atom" -> Some "" | _ -> None)
+  let create_feed source posts =
+    let open Rss in
+    posts
+    |> create_feed
+         ~id:("blog/" ^ source.id ^ "/feed.xml")
+         ~title:(source.name ^ " @ OCaml.org")
+         ~create_entry
+    |> feed_to_string
 
   let all () =
     let all_posts = Local.Post.all () in
@@ -287,7 +275,7 @@ module LocalBlog = struct
              all_posts
              |> List.filter (fun (p : post) -> p.source.id = source.id)
            in
-           { source; posts; rss_feed = rss_feed source posts })
+           { source; posts; rss_feed = create_feed source posts })
 end
 
 let all () =
@@ -309,7 +297,6 @@ module Post = struct
     ; authors : string list
     ; date : string
     ; preview_image : string option
-    ; featured : bool
     ; body_html : string
     }
     
@@ -332,53 +319,35 @@ end
     (LocalBlog.all ())
 
 module GlobalFeed = struct
-  let create_ocamlorg_feed () =
-    let id = Uri.of_string "https://ocaml.org/feed.xml" in
-    let title : Syndic.Atom.title = Text "The OCaml Planet" in
-    let now = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
-    let cutoff_date =
-      Ptime.sub_span now (Ptime.Span.v (365, 0L)) |> Option.get
+  let create_entry (post : post) =
+    let content = Syndic.Atom.Html (None, post.body_html) in
+    let url = Uri.of_string post.source.url in
+    let source : Syndic.Atom.source =
+      Syndic.Atom.source ~authors:[] ~id:url
+        ~title:(Syndic.Atom.Text post.source.name)
+        ~links:[ Syndic.Atom.link url ]
+        ?updated:None ?categories:None ?contributors:None ?generator:None
+        ?icon:None ?logo:None ?rights:None ?subtitle:None
     in
-
-    let entries =
-      all ()
-      |> List.map (fun (post : post) ->
-             let content = Syndic.Atom.Html (None, post.body_html) in
-             let url = Uri.of_string post.source.url in
-             let source : Syndic.Atom.source =
-               Syndic.Atom.source ~authors:[] ~id:url
-                 ~title:(Syndic.Atom.Text post.source.name)
-                 ~links:[ Syndic.Atom.link url ]
-                 ?updated:None ?categories:None ?contributors:None
-                 ?generator:None ?icon:None ?logo:None ?rights:None
-                 ?subtitle:None
-             in
-             let id =
-               Uri.of_string
-                 (match post.url with
-                 | Some url -> url
-                 | None ->
-                     "https://ocaml.org/blog/" ^ post.source.id ^ "/"
-                     ^ post.slug)
-             in
-             let authors = feed_authors post.source post.authors in
-             let updated = Syndic.Date.of_rfc3339 post.date in
-             Syndic.Atom.entry ~content ~source ~id ~authors
-               ~title:(Syndic.Atom.Text post.title) ~updated
-               ~links:[ Syndic.Atom.link id ]
-               ())
-      |> List.filter (fun (entry : Syndic.Atom.entry) ->
-             Ptime.is_later entry.updated ~than:cutoff_date)
-      |> List.sort Syndic.Atom.descending
+    let id =
+      Uri.of_string
+        (match post.url with
+        | Some url -> url
+        | None -> "https://ocaml.org/blog/" ^ post.source.id ^ "/" ^ post.slug)
     in
-
-    let updated = (List.hd entries).updated in
-    Syndic.Atom.feed ~id ~title ~updated entries
+    let authors = feed_authors post.source post.authors in
+    let updated = Syndic.Date.of_rfc3339 post.date in
+    Syndic.Atom.entry ~content ~source ~id ~authors
+      ~title:(Syndic.Atom.Text post.title) ~updated
+      ~links:[ Syndic.Atom.link id ]
+      ()
 
   let create_feed () =
-    create_ocamlorg_feed () |> Syndic.Atom.to_xml
-    |> Syndic.XML.to_string ~ns_prefix:(fun s ->
-           match s with "http://www.w3.org/2005/Atom" -> Some "" | _ -> None)
+    let open Rss in
+    () |> all
+    |> create_feed ~id:"feed.xml" ~title:"The OCaml Planet" ~create_entry
+         ~span:90
+    |> feed_to_string
 end
 
 module Scraper = struct
@@ -421,7 +390,6 @@ module Scraper = struct
               date;
               preview_image;
               description;
-              featured = None;
               authors = Some [ author ];
               source = None;
             }
