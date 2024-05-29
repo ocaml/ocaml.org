@@ -13,26 +13,16 @@ let color_for_event_type = function
   | Retreat -> "bg-avatar-9"
 
 let render ~recurring_events ~upcoming_events =
-  Community_layout.single_column_layout
-    ~title:"The Events"
-    ~description:"The Events page!"
-    ~canonical:Url.events
-    ~active_top_nav_item:Header.Community
-    ~current:Events @@
-  <div class="w-full section-blue-gradient dark:bg-none">
-    <div class="container-fluid py-9">
-      <div class="flex items-center">
-            <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-title dark:text-dark-title">
-              OCaml Events
-            </h1>
-            <a href="/events.xml" class="text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary ml-4 lg:ml-6">
-              <span class="sr-only">RSS</span>
-              <%s! Icons.rss "h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" %>
-            </a>
-          </div>
-      <% if List.length upcoming_events > 0 then ( %>
-      <div class="w-full">
-        <div class="container-fluid pt-6 pb-12">
+Community_layout.single_column_layout
+~title:"The Events"
+~description:"The Events page!"
+~canonical:Url.events
+~current:Events @@
+<div class="w-full section-blue-gradient dark:bg-none">
+  <div class="container-fluid py-9">
+<% if List.length upcoming_events > 0 then ( %>
+    <div class="w-full">
+      <div class="container-fluid pt-6 pb-12">
           <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">events</p>
           <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Upcoming Events</h2>
           <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-12">

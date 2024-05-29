@@ -1,8 +1,9 @@
 let render ?(search = "") (releases : Data.Release.t list) =
-Layout.render
+Tools_layout.single_column_layout
 ~title:"OCaml Releases"
 ~description:"The history of OCaml releases with a summary and a complete changelog, as well as the manual at that time."
-~canonical:Url.releases @@
+~canonical:Url.releases
+~current:Releases @@
 <div class="intro-section-simple dark:dark-intro-section-simple">
     <div class="container-fluid">
         <div class="w-full m-auto">

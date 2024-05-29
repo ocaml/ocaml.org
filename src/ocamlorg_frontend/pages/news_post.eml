@@ -1,16 +1,16 @@
 let render (news : Data.News.t) =
-Layout.render
+News_layout.single_column_layout
 ~title:news.title
 ~description:news.description
 ~canonical:(Url.news_post news.slug)
-~active_top_nav_item:Blog @@
+~current:Newsletters @@
 <div class="bg-background dark:bg-dark-background py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">
-      <a href="<%s Url.blog %>"
+      <a href="<%s Url.news %>"
         class="flex justify-start space-x-3 items-center text-primary dark:text-dark-primary hover:underline font-semibold mb-4 h-12">
         <%s! Icons.arrow_left "h-5 w-5" %>
-        <div>Back to Blog</div>
+        <div>Back to News</div>
       </a>
     </div>
 

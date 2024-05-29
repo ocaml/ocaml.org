@@ -1,0 +1,57 @@
+let render ~(planet : Data.Planet.Post.t list) ~planet_pages_number ~planet_page =
+News_layout.single_column_layout
+~title:"The OCaml Planet"
+~description:"The RSS aggregator for the OCaml community."
+~canonical:(Url.ocaml_planet ^ if planet_page = 1 then "" else "?p=" ^ string_of_int planet_page)
+~alternate:{ href = "/feed.xml"; title = "The OCaml Planet"; type_ = "application/atom+xml" }
+~current:OCamlPlanet @@
+<div class="intro-section-simple dark:dark-intro-section-simple py-12">
+  <div class="container-fluid">
+    <div class="flex items-center">
+      <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-title dark:text-dark-title">
+        The OCaml Planet
+      </h1>
+      <a href="/feed.xml" class="text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary ml-4 lg:ml-6" title="OCaml Planet RSS Feed">
+        <%s! Icons.rss "h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" %>
+      </a>
+    </div>
+
+    <p class="text-lg text-content dark:text-dark-content mt-6">The RSS aggregator for the OCaml community.</p>
+  </div>
+</div>
+<div class="bg-background dark:bg-dark-background py-10">
+    <div class="container-fluid">
+        <h1 class="text-lg mt-0 font-semibold border-b border-primary dark:border-dark-primary text-primary dark:text-dark-primary pb-3">The OCaml Planet</h1>
+
+        <div class="mt-12 space-y-12">
+            <% planet |> List.iter (fun (item : Data.Planet.Post.t) -> %>
+            <div class="flex flex-col-reverse lg:flex-row lg:gap-12">
+                <div class="space-y-3 mt-6 lg:mt-0 flex flex-col flex-1">
+                    <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"
+                        class="block text-xl font-semibold text-title dark:text-dark-title hover:text-primary dark:hover:text-dark-primary"><%s item.title %></a>
+                    <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>" class="text-content dark:text-dark-content">
+                        <%s Option.value ~default:"" item.description %>
+                    </a>
+                    <div class="text-content dark:text-dark-content flex space-x-2.5 text-sm">
+                        <div><%s Utils.human_time item.date %> - <%s item.source.name %></div>
+                    </div>
+                </div>
+                <% (match item.preview_image with | None -> %> 
+                    <div class="flex-none w-64">
+                        <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"><img class="w-full" src="<%s Ocamlorg_static.Asset.url "logo.svg" %>" alt="default logo"></a>
+                    </div>
+                <% | Some image -> %>
+                    <div class="flex-none w-64">
+                        <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
+                    </div>
+                <% ); %>
+            </div>
+            <% ); %>
+
+            <%s! Pagination.render ~total_page_count:planet_pages_number ~page_number:planet_page ~base_url:Url.ocaml_planet ~queries:[]%>
+        </div>
+        <div class="prose dark:prose-invert max-w-none mt-8">
+            If you want to contribute a blog post, or add your RSS feed, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-blog" target="_blank">Contributing Guide</a> on GitHub.
+        </div>
+    </div>
+</div>

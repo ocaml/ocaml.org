@@ -1,0 +1,179 @@
+let render_sidebar
+~pages
+?current_page
+()
+=
+  let render_page_link ~title ~slug =
+    Sidebar.sidebar_link ~title ~href:(Url.tool_page slug) ~current:(current_page = Some slug)
+  in
+  let render_page (page : Data.Tool_page.t) = render_page_link ~title:page.short_title ~slug:page.slug ~tag:None in
+  let pages_by_category category =
+    pages |> List.filter (fun (x : Data.Tool_page.t) -> x.category = category) |> List.map render_page |> String.concat "\n"
+  in
+  let categories =
+    let unique lst =
+      let rec unique' acc = function
+        | [] -> List.rev acc
+        | h::t -> unique' (if List.mem h acc then acc else h :: acc) t
+      in
+      unique' [] lst
+    in
+    pages |> List.map (fun (page : Data.Tool_page.t) -> page.category) |> unique
+  in
+
+  <div class="flex flex-col gap-5">
+    <% categories |> List.iter (fun category -> %>
+      <%s! Sidebar.sidebar_link_group category
+        (
+          (if category = "OCaml Platform" then Sidebar.sidebar_link ~current:(current_page = Some "platform") ~title:"The OCaml Platform" ~href:Url.platform ~tag:None else "")
+          ^ pages_by_category category) %>
+    <% ); %>
+  </div>
+
+let render_tool_card ~(item: Data.Tool.t) =
+  <a href="<%s item.source %>" class="flex flex-col gap-1 border-2 rounded-md p-4 bg-white dark:bg-dark-card hover:border-primary dark:hover-dark-border-primary hover:ring-4 hover:ring-primary_nav_block_hover_10 dark:hover:ring-dark-primary_nav_block_hover_10">
+    <div class="flex gap-4 items-center">
+      <%s! Icons.tools "h-5 w-5 text-primary dark:text-dark-primary" %>
+      <div class="text-primary dark:text-dark-primary text-lg font-normal"><%s item.name %></div>
+    </div>
+    <div class="flex gap-4 items-center mb-2">
+      <div class="w-5"></div>
+      <div class="text-content dark:text-dark-content h-10 w-10/12"><%s item.synopsis %></div>
+    </div>
+    <%s! Icons.arrow_small_right "h-5 w-5 text-primary dark:text-dark-primary rotate-45 place-self-end" %>
+  </a>
+
+let render
+~(pages : Data.Tool_page.t list)
+(tools : Data.Tool.t list)
+=
+Tools_layout.three_column_layout
+~title:"OCaml Platform"
+~description:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml."
+~canonical:Url.platform
+~left_sidebar_html:(Some((render_sidebar ~pages ~current_page:"platform") ()))
+~right_sidebar_html:None
+~current:Overview
+@@
+  <div class="prose prose-orange max-w-none dark:prose-invert">
+    <h1>The OCaml Platform</h1>
+    <p>
+      The OCaml Platform combines the core OCaml compiler with
+      a coherent set of tools, documentation, libraries, and testing resources.
+    </p>
+    <p>
+      Detailed instructions to install OCaml and the
+      Platform tools are available in <a class="text-primary"
+      href="<%s Url.installing_ocaml %>">"Installing OCaml"</a>.
+    <h2 class="font-bold mt-8 text-title dark:text-dark-title">The Tools of the OCaml Platform</h2>
+    <p>
+      The individual OCaml Platform Tools go through a lifecycle from incubation to deprecation.
+      Here is a list of all Platform Tools sorted by their lifecycle state.
+    </p>
+    <p>
+      Tools with a status of "active" or "sustain" are considered stable and mature.
+      It is recommended to migrate away from "deprecating" platform tools in favor of supported alternatives,
+      while "incubating" platform tools are under active development and may see substantial changes
+      before they become ready for wider adoption.
+    </p>
+  </div>
+  <div class="flex flex-col mb-12">
+    <div>
+      <hr class="mt-12 mb-6 border-separator_20 border-t border-separator_30">
+      <h4 class="text-title dark:text-dark-title font-bold">Active</h4>
+      <div class="text-content dark:text-dark-content mt-3">
+        The work-horse tools that are used daily with strong backwards compatibility guarantees from the community.
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
+        <% tools |> List.filter (fun (item : Data.Tool.t) -> item.lifecycle = `Active) |> List.iter (fun (item : Data.Tool.t) -> %>
+          <%s! render_tool_card ~item %>
+        <% ); %>
+      </div>
+    </div>
+    <div class="mt-8">
+      <hr class="mb-6 border-b border-separator_20 dark:border-dark-separator_30 ">
+      <h4 class="font-bold text-title dark:text-dark-title">Incubate</h4>
+      <div class="text-content dark:text-dark-content mt-3">
+        New tools that fill a gap in the ecosystem but are not quite ready for wide-scale release and adoption.
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
+        <% tools |> List.filter (fun (item : Data.Tool.t) -> item.lifecycle = `Incubate) |> List.iter (fun (item : Data.Tool.t) -> %>
+          <%s! render_tool_card ~item %>
+        <% ); %>
+      </div>
+    </div>
+    <div class="mt-8">
+      <hr class="mb-6 border-b border-separator_20 dark:border-dark-separator_30 ">
+      <h4 class="font-bold text-title dark:text-dark-title">Sustain</h4>
+      <div class="text-content dark:text-dark-content mt-3">
+        Tools that will not likely see any major feature added but can be used reliably even if not being actively
+        developed.
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
+        <% tools |> List.filter (fun (item : Data.Tool.t) -> item.lifecycle = `Sustain) |> List.iter (fun (item : Data.Tool.t) -> %>
+          <%s! render_tool_card ~item %>
+        <% ); %>
+      </div>
+    </div>
+    <div class="mt-8">
+      <hr class="mb-6 border-b border-separator_20 dark:border-dark-separator_30 ">
+      <h4 class="font-bold text-title dark:text-dark-title">Deprecate</h4>
+      <div class="text-content dark:text-dark-content mt-3">
+        Tools that are gradually being phased out, with clear paths to better workflows.
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:pr-20 mt-8 items-start">
+        <% tools |> List.filter (fun (item : Data.Tool.t) -> item.lifecycle = `Deprecate) |> List.iter (fun (item : Data.Tool.t) -> %>
+          <%s! render_tool_card ~item %>
+        <% ); %>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="font-bold mt-8 text-title dark:text-dark-title">The State of the OCaml Platform</h2>
+  <div
+    class="my-12 cursor-pointer z-0 relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-[#FEF0E9] dark:border-dark-primary_20 video-shadow md:w-[640px]"
+    x-data='{
+        isPlaying: false,
+        embed_url: "https://watch.ocaml.org/videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516",
+        iframe_param: "?autoplay=1&mute=1",
+        iframe_url() {
+          return this.embed_url + this.iframe_param;
+        },
+      }'
+  >
+    <div
+      class="bg-background dark:bg-dark-background text-center relative aspect-w-16 aspect-h-9 h-full"
+      @click="
+                isPlaying = !isPlaying;
+                $nextTick(() => { $refs.iframeElement.setAttribute('src', iframe_url()) });"
+    >
+      <div x-show.transition.in.opacity.duration.500ms="isPlaying">
+        <iframe
+          class="absolute top-0 rounded-lg h-full w-full"
+          x-ref="iframeElement"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+      <div class="flex h-full justify-center" x-show="!isPlaying">
+        <div class="z-10 mb-10 lg:mb-0">
+          <img width="160" class="m-auto mt-10 md:mt-20 dark:hidden" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml logo">
+          <img width="160" class="m-auto mt-10 md:mt-20 hidden dark:inline" src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" alt="OCaml logo">
+          <div class="text-content dark:text-dark-content mt-2">OCaml Workshop 2020</div>
+          <h3 class="font-bold text-[#1A202C] dark:text-dark-title mt-16">State of the OCaml Platform 2020</h3>
+          <div class="mt-16 flex justify-center text-titl dark:text-dark-title">
+            Presented by&nbsp;
+            <div class="font-semibold text-[1A202C] dark:text-dark-title">Anil Madhavapeddy</div>
+          </div>
+          <div class="text-content dark-text-dark-content mt-2">University of Cambridge</div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="rounded-full bg-primary dark:bg-dark-primary text-white dark:text-dark-title w-16 h-16 right-0 left-0 m-auto bottom-5 md:left-auto md:right-10 md:bottom-10 absolute flex items-center z-10 justify-center"
+      x-show="!isPlaying"
+    >
+      <%s! Icons.play "h-9 w-9" %>
+    </div>
+  </div>

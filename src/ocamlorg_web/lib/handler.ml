@@ -42,13 +42,12 @@ let learn_guides req =
   in
   Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
 
-let platform _req =
-  let tools = Data.Tool.all in
+let learn_platform req =
   let tutorials =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Platform)
   in
-  Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
 
 let community _req =
   let current_date =
@@ -172,9 +171,7 @@ let academic_users req =
     let open Data.Academic_institution in
     let pattern = String.lowercase_ascii pattern in
     let name_is_s { name; _ } = String.lowercase_ascii name = pattern in
-    let name_contains_s { name; _ } =
-      String.contains_s (String.lowercase_ascii name) pattern
-    in
+    let name_contains_s { name; _ } = String.is_sub_ignore_case pattern name in
     let score user =
       if name_is_s user then -1
       else if name_contains_s user then 0
@@ -233,18 +230,17 @@ let books req =
 let releases req =
   let search_release pattern t =
     let open Data.Release in
-    let pattern = String.lowercase_ascii pattern in
-    let version_is_s { version; _ } =
-      String.lowercase_ascii version = pattern
+    let is_version { version; _ } =
+      String.(lowercase_ascii version = lowercase_ascii pattern)
     in
     let version_contains_s { version; _ } =
-      String.contains_s (String.lowercase_ascii version) pattern
+      String.is_sub_ignore_case pattern version
     in
     let body_contains_s { body_md; _ } =
-      String.contains_s (String.lowercase_ascii body_md) pattern
+      String.is_sub_ignore_case pattern body_md
     in
     let score release =
-      if version_is_s release then -1
+      if is_version release then -1
       else if version_contains_s release then 0
       else if body_contains_s release then 2
       else failwith "impossible release score"
@@ -304,17 +300,13 @@ let workshop req =
   in
   Dream.html (Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed workshop)
 
-let blog req =
+let ocaml_planet req =
   let page, number_of_pages, current_items =
     paginate ~req ~n:10 Data.Planet.Post.all
   in
-  let number_of_news =
-    List.length current_items |> float_of_int |> ( *. ) 1.3 |> int_of_float
-  in
-  let news = Data.News.all |> List.take number_of_news in
   Dream.html
-    (Ocamlorg_frontend.blog ~planet:current_items ~planet_page:page
-       ~planet_pages_number:number_of_pages ~news)
+    (Ocamlorg_frontend.ocaml_planet ~planet:current_items ~planet_page:page
+       ~planet_pages_number:number_of_pages)
 
 let local_blog req =
   let source = Dream.param req "source" in
@@ -400,18 +392,17 @@ let governance_team req =
 let papers req =
   let search_paper pattern t =
     let open Data.Paper in
-    let pattern = String.lowercase_ascii pattern in
-    let title_is_s { title; _ } = String.lowercase_ascii title = pattern in
+    let title_is_s { title; _ } =
+      String.(lowercase_ascii title = lowercase_ascii pattern)
+    in
     let title_contains_s { title; _ } =
-      String.contains_s (String.lowercase_ascii title) pattern
+      String.is_sub_ignore_case pattern title
     in
     let abstract_contains_s { abstract; _ } =
-      String.contains_s (String.lowercase_ascii abstract) pattern
+      String.is_sub_ignore_case pattern abstract
     in
     let has_tag_s { tags; _ } =
-      List.exists
-        (fun tag -> String.contains_s (String.lowercase_ascii tag) pattern)
-        tags
+      List.exists (fun tag -> String.is_sub_ignore_case pattern tag) tags
     in
     let score paper =
       if title_is_s paper then -1
@@ -437,11 +428,23 @@ let papers req =
 let resources _req =
   Dream.html (Ocamlorg_frontend.resources ~resources:Data.Resource.all)
 
+let tools req = Dream.redirect req ~code:307 Url.platform
+
+let tools_platform _req =
+  let tools = Data.Tool.all in
+  Dream.html (Ocamlorg_frontend.tools_platform ~pages:Data.Tool_page.all tools)
+
+let tool_page commit_hash req =
+  let slug = Dream.param req "id" in
+  let</>? page = Data.Tool_page.get_by_slug slug in
+  let pages = Data.Tool_page.all in
+  Dream.html
+    (Ocamlorg_frontend.tool_page commit_hash ~pages
+       ~canonical:(Url.tool_page page.slug) page)
+
 let tutorial commit_hash req =
   let slug = Dream.param req "id" in
-  let</>? tutorial =
-    List.find_opt (fun (x : Data.Tutorial.t) -> x.slug = slug) Data.Tutorial.all
-  in
+  let</>? tutorial = Data.Tutorial.get_by_slug slug in
   let all_tutorials = Data.Tutorial.all in
 
   let tutorials =
