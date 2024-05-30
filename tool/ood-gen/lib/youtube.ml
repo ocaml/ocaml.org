@@ -33,85 +33,110 @@ let source_to_url { kind; id; _ } =
   Uri.of_string @@ "https://www.youtube.com/feeds/videos.xml?"
   ^ kind_to_string kind ^ "_id=" ^ id
 
+let source_to_id { kind; id; _ } =
+  Printf.sprintf "yt:%s:%s" (kind_to_string kind) id
+
 type t = {
   title : string;
   content : string;
   thumbnail : string;
   description : string;
   published : string;
+  author_name : string;
+  author_uri : string;
+  source_link : string;
+  source_title : string;
 }
 [@@deriving yaml, show { with_path = false }]
 
 type video_list = t list [@@deriving yaml]
 
-let mrss = "http://search.yahoo.com/mrss/"
-
 type tag =
+  | Entry
   | Title of string
   | Content of string
   | Thumbnail of string
   | Description of string
   | Published of string
+  | Author_name of string
+  | Author_uri of string
 
 let walk_mrss xml =
-  let rec loop xml tag depth =
+  let rec loop tags () =
+    let open Seq in
     let get_url = List.assoc ("", "url") in
-    match Xmlm.input xml with
-    | `El_start ((ns, "group"), _) when ns = mrss ->
-        Seq.cons None (loop xml None (depth + 1))
-    | `El_start ((ns, "content"), attrs) when ns = mrss ->
-        Seq.cons (Some (Content (get_url attrs))) (loop xml None (depth + 1))
-    | `El_start ((ns, "thumbnail"), attrs) when ns = mrss ->
-        Seq.cons (Some (Thumbnail (get_url attrs))) (loop xml None (depth + 1))
-    | `El_start ((_, tag), _) -> loop xml (Some tag) (depth + 1)
-    | `El_end -> if depth = 1 then Seq.empty else loop xml None (depth - 1)
-    | `Data data when tag = Some "title" ->
-        Seq.cons (Some (Title data)) (loop xml tag depth)
-    | `Data data when tag = Some "description" ->
-        Seq.cons (Some (Description data)) (loop xml tag depth)
-    | `Data data when tag = Some "published" ->
-        Seq.cons (Some (Published data)) (loop xml tag depth)
-    | _ -> loop xml tag depth
+    match (Xmlm.input xml, tags) with
+    | `El_start ((_, "entry"), _), _ -> Cons (Entry, loop ("entry" :: tags))
+    | `El_start ((_, "content"), attrs), "group" :: _ ->
+        Cons (Content (get_url attrs), loop ("content" :: tags))
+    | `El_start ((_, "thumbnail"), attrs), "group" :: _ ->
+        Cons (Thumbnail (get_url attrs), loop ("thumbnail" :: tags))
+    | `El_start ((_, tag), _), _ -> loop (tag :: tags) ()
+    | `El_end, [ _ ] -> Nil
+    | `El_end, _ -> loop (List.tl tags) ()
+    | `Data data, "title" :: "group" :: _ -> Cons (Title data, loop tags)
+    | `Data data, "description" :: "group" :: _ ->
+        Cons (Description data, loop tags)
+    | `Data data, "published" :: "entry" :: _ -> Cons (Published data, loop tags)
+    | `Data data, "name" :: "author" :: "entry" :: _ ->
+        Cons (Author_name data, loop tags)
+    | `Data data, "uri" :: "author" :: "entry" :: _ ->
+        Cons (Author_uri data, loop tags)
+    | _ -> loop tags ()
   in
-  loop xml None 0
+  loop []
 
-let rec tags_to_video = function
-  | Title title :: tags, _, content, thumbnail, description, published ->
-      tags_to_video
-        (tags, Some title, content, thumbnail, description, published)
-  | Content content :: tags, title, _, thumbnail, description, published ->
-      tags_to_video
-        (tags, title, Some content, thumbnail, description, published)
-  | Thumbnail thumbnail :: tags, title, content, _, description, published ->
-      tags_to_video
-        (tags, title, content, Some thumbnail, description, published)
-  | Description description :: tags, title, content, thumbnail, _, published ->
-      tags_to_video
-        (tags, title, content, thumbnail, Some description, published)
-  | Published published :: tags, title, content, thumbnail, description, _ ->
-      tags_to_video
-        (tags, title, content, thumbnail, description, Some published)
-  | ( [],
-      Some title,
+let set_0 (_, x1, x2, x3, x4, x5, x6) x0 = (Some x0, x1, x2, x3, x4, x5, x6)
+let set_1 (x0, _, x2, x3, x4, x5, x6) x1 = (x0, Some x1, x2, x3, x4, x5, x6)
+let set_2 (x0, x1, _, x3, x4, x5, x6) x2 = (x0, x1, Some x2, x3, x4, x5, x6)
+let set_3 (x0, x1, x2, _, x4, x5, x6) x3 = (x0, x1, x2, Some x3, x4, x5, x6)
+let set_4 (x0, x1, x2, x3, _, x5, x6) x4 = (x0, x1, x2, x3, Some x4, x5, x6)
+let set_5 (x0, x1, x2, x3, x4, _, x6) x5 = (x0, x1, x2, x3, x4, Some x5, x6)
+let set_6 (x0, x1, x2, x3, x4, x5, _) x6 = (x0, x1, x2, x3, x4, x5, Some x6)
+
+let video_opt source = function
+  | ( Some title,
       Some content,
       Some thumbnail,
       Some description,
-      Some published ) ->
-      Some { title; content; thumbnail; description; published }
+      Some published,
+      Some author_name,
+      Some author_uri ) ->
+      Some
+        {
+          title;
+          content;
+          thumbnail;
+          description;
+          published;
+          author_name;
+          author_uri;
+          source_link = source |> source_to_url |> Uri.to_string;
+          source_title = source.name;
+        }
   | _ -> None
 
-let rec feed_media tags seq () =
+let rec tags_to_video source vect = function
+  | Title v :: tags -> tags_to_video source (set_0 vect v) tags
+  | Content v :: tags -> tags_to_video source (set_1 vect v) tags
+  | Thumbnail v :: tags -> tags_to_video source (set_2 vect v) tags
+  | Description v :: tags -> tags_to_video source (set_3 vect v) tags
+  | Published v :: tags -> tags_to_video source (set_4 vect v) tags
+  | Author_name v :: tags -> tags_to_video source (set_5 vect v) tags
+  | Author_uri v :: tags -> tags_to_video source (set_6 vect v) tags
+  | [] -> video_opt source vect
+  | _ -> None
+
+let rec feed_entry source tags seq =
   match seq () with
-  | Seq.Cons (None, seq) -> (
-      let seq = feed_media [] seq in
-      match tags_to_video (tags, None, None, None, None, None) with
-      | Some v
-      (* when Ocamlorg.Import.String.contains_s (String.lowercase_ascii
-         v.description) "ocaml" *) ->
-          Seq.Cons (v, seq)
-      | _ -> seq ())
-  | Seq.Cons (Some tag, seq) -> feed_media (tag :: tags) seq ()
-  | Seq.Nil -> Seq.Nil
+  | Seq.Cons (Entry, seq) -> (
+      match
+        tags_to_video source (None, None, None, None, None, None, None) tags
+      with
+      | Some v -> Some (v, seq)
+      | _ -> feed_entry source [] seq)
+  | Cons (tag, seq) -> feed_entry source (tag :: tags) seq
+  | Seq.Nil -> None
 
 let all () =
   let ( let* ) = Result.bind in
@@ -141,7 +166,8 @@ let scrape () =
     |> Seq.concat_map (fun src ->
            src |> source_to_url |> Http_client.get_sync |> fun feed ->
            Xmlm.make_input (`String (0, feed))
-           |> walk_mrss |> feed_media []
+           |> walk_mrss
+           |> Seq.unfold (feed_entry src [])
            |> Seq.filter (fun video ->
                   (not src.only_ocaml)
                   || String.(
@@ -175,9 +201,40 @@ type t = {
   thumbnail : string;
   description : string;
   published : string;
+  author_name : string;
+  author_uri : string;
+  source_link : string;
+  source_title : string;
 }
 
 let all =%a
 |ocaml}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
     (all ())
+
+let create_entry (v : t) =
+  let url = Uri.of_string v.content in
+  let source : Syndic.Atom.source =
+    Syndic.Atom.source ~authors:[]
+      ~id:(Uri.of_string v.source_link)
+      ~title:(Syndic.Atom.Text v.source_title)
+      ~links:[ Syndic.Atom.link (Uri.of_string v.source_link) ]
+      ?updated:None ?categories:None ?contributors:None ?generator:None
+      ?icon:None ?logo:None ?rights:None ?subtitle:None
+  in
+  let content = Syndic.Atom.Text v.description in
+  let id = url in
+  let authors =
+    (Syndic.Atom.author ~uri:(Uri.of_string v.author_uri) v.author_name, [])
+  in
+  let updated = Syndic.Date.of_rfc3339 v.published in
+  Syndic.Atom.entry ~content ~source ~id ~authors
+    ~title:(Syndic.Atom.Text v.title) ~updated
+    ~links:[ Syndic.Atom.link id ]
+    ()
+
+let create_feed () =
+  let open Rss in
+  () |> all
+  |> create_feed ~id:"video.xml" ~title:"OCaml Videos" ~create_entry ~span:3653
+  |> feed_to_string

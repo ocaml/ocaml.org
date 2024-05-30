@@ -213,6 +213,10 @@ module Youtube : sig
     thumbnail : string;
     description : string;
     published : string;
+    author_name : string;
+    author_uri : string;
+    source_link : string;
+    source_title : string;
   }
 
   val all : t list

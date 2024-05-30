@@ -5,6 +5,7 @@ let term_templates =
   [
     ("changelog", Changelog.ChangelogFeed.create_feed);
     ("planet", Planet.GlobalFeed.create_feed);
+    ("video", Youtube.create_feed);
   ]
 
 let cmds =
