@@ -24,8 +24,10 @@ let language_manual_version next_handler request =
   in
   let path =
     match init_path with
-    | [ ""; ("manual" | "htmlman") ] ->
-        [ ""; "manual"; release ~insert:(minor Release.latest) "" ]
+    | [ ""; ("manual" | "htmlman" | "api" as top) ] ->
+        "" :: "manual" :: release ~insert:(minor Release.latest) "" :: if top = "api" then ["api"] else []
+    | "" :: "api" :: something :: tl ->
+      "" :: "manual" :: release ~insert:(minor Release.latest ^ "/api") something :: tl
     | "" :: ("manual" | "htmlman") :: something :: tl ->
         "" :: "manual"
         :: release ~insert:(minor Release.latest) something
