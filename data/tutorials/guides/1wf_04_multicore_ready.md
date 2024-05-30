@@ -15,7 +15,7 @@ issues will unfortunately not
 caught by OCaml's strong type system, meaning they may go unnoticed
 when introducing parallelism into an existing OCaml code base. In this
 guide, we will therefore study a step-wise workflow that utilises the
-[ThreadSanitizer (TSan)]([https://github.com/ocaml-multicore/ocaml-tsan](https://ocaml.org/manual/latest/tsan.html))
+[ThreadSanitizer (TSan)](https://ocaml.org/manual/latest/tsan.html)
 tool to help make your OCaml code 5.x ready.
 
 **Note:** TSan support for OCaml is currently available for the x86_64 architecture, on FreeBSD, Linux and macOS, and for the arm64 architecture on Linux and macOS. Building OCaml with TSan support requires at least GCC 11 or Clang 14 installed as your C compiler. Note that TSan data race reports with GCC 11 are known to result in poor stack trace reporting (no line numbers), which is fixed in GCC 12.
