@@ -49,3 +49,18 @@ resources:
     source_url: https://github.com/ocaml-sf/learn-ocaml
     image: "learn-ocaml.png"
     featured: true
+  - title: "Introduction to Functional Programming in OCaml"
+    description: "A course teaching the principles of functional programming from Université de Paris"
+    online_url: "https://www.youtube.com/playlist?list=PLGC2in6hSHQcmT_cz4t7ePeQtTCkNkvll"
+    image: "intro-fp-paris-diderot.png"
+    featured: false
+  - title: "OCaml Track on Exercism"
+    description: "Exercism is an online coding platform that offers a variety of programming exercises and challenges. It offers a free mentoring service."
+    online_url: "https://exercism.org/tracks/ocaml"
+    image: "exercism.png"
+    featured: false
+  - title: "OCaml by Examples"
+    description: "Learn the OCaml language by following a series of examples."
+    online_url: "https://o1-labs.github.io/ocamlbyexample/"
+    image: "ocaml-by-examples.png"
+    featured: false
