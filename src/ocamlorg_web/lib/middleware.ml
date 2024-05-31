@@ -15,26 +15,32 @@ let language_manual_version next_handler request =
   let open Data in
   let init_path = request |> Dream.target |> String.split_on_char '/' in
   let minor (release : Release.t) = Ocamlorg.Url.minor release.version in
-  let release ?insert candidate =
-    Option.(
-      fold
-        ~none:(fold ~none:candidate ~some:(fun v -> v ^ "/" ^ candidate) insert)
-        ~some:minor
-        (Release.get_by_version candidate))
+  let release str =
+    str |> Release.get_by_version
+    |> Option.value ~default:Release.latest
+    |> minor
+  in
+  let release_path = function
+    | [] -> (minor Release.latest, [ "index.html" ])
+    | x :: u -> (
+        match Release.get_by_version x with
+        | None -> (minor Release.latest, x :: u)
+        | Some v -> (minor v, u))
+  in
+  let tweak_base u =
+    match List.rev u with
+    | _ :: "notes" :: _ -> u
+    | base :: _ when String.contains base '.' -> u
+    | htap -> List.rev ("index.html" :: htap)
   in
   let path =
     match init_path with
-    | [ ""; ("manual" | "htmlman" | "api" as top) ] ->
-        "" :: "manual" :: release ~insert:(minor Release.latest) "" :: if top = "api" then ["api"] else []
-    | "" :: "api" :: something :: tl ->
-      "" :: "manual" :: release ~insert:(minor Release.latest ^ "/api") something :: tl
-    | "" :: ("manual" | "htmlman") :: something :: tl ->
-        "" :: "manual"
-        :: release ~insert:(minor Release.latest) something
-        ::
-        (if tl = [] && something <> "index.html" then [ "index.html" ]
-         else if tl = [ "api" ] then [ "api"; "index.html" ]
-         else tl)
+    | "" :: ("manual" | "htmlman") :: path ->
+        let version, path = release_path path in
+        "" :: "manual" :: version :: tweak_base path
+    | "" :: "api" :: path ->
+        let version, path = release_path path in
+        "" :: "manual" :: version :: "api" :: tweak_base path
     | [ ""; "releases"; version; "index.html" ] -> [ ""; "releases"; version ]
     | [ ""; "releases"; something ]
       when String.ends_with ~suffix:".html" something ->
