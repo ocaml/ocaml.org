@@ -258,6 +258,7 @@ categories:
     description: |
       Packages that provide OCaml bindings and clients for interacting with external Web APIs.
     packages:
+    - name: jsonschema2atd
     - name: spotify-web-api
     - name: disml
     - name: openai
