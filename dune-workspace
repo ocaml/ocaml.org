@@ -1,4 +1,4 @@
-(lang dune 3.6)
+(lang dune 3.15)
 
 (pin
  (name tailwindcss)
@@ -11,6 +11,4 @@
  (package (name olinkcheck)))
 
 (lock_dir
- (constraints ocaml-system)
  (pins tailwindcss olinkcheck))
-
