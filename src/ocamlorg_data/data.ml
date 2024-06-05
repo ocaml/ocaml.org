@@ -82,6 +82,7 @@ module Exercise = struct
 end
 
 module Governance = struct
+  include Data_intf.Governance
   include Governance
 
   let get_by_id id =
