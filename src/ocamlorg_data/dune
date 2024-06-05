@@ -1,6 +1,17 @@
 (library
+ (name data_intf)
+ (public_name ocamlorg.data_intf)
+ (modules data_intf)
+ (libraries ppx_show.runtime)
+ (preprocess
+  (pps ppx_deriving_yaml ppx_show)))
+
+(library
  (name data)
- (public_name ocamlorg.data))
+ (public_name ocamlorg.data)
+ (libraries ocamlorg.data_intf)
+ (modules
+  (:standard \ data_intf)))
 
 (rule
  (target academic_institution.ml)
