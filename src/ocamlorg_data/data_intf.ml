@@ -35,7 +35,5 @@ module Outreachy = struct
   }
   [@@deriving of_yaml, show]
 
-  type t = { name : string; projects : project list }
-  [@@deriving of_yaml, show]
-
+  type t = { name : string; projects : project list } [@@deriving of_yaml, show]
 end
