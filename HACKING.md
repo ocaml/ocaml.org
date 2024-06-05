@@ -136,6 +136,10 @@ opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>
 
 Where `<commit-hash>` is the pinned hash specified in the files mentioned above.
 
+Once this is done, you can do `opam update` and `opam upgrade`. If ocamlformat
+was upgraded in the process, the file `.ocamlformat` must be modified with the
+currently installed version of ocamlformat.
+
 ## Repository structure
 
 The following snippet describes the repository structure.
