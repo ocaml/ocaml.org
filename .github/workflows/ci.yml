@@ -49,7 +49,7 @@ jobs:
         run: opam install --deps-only --with-test .
 
       - name: Install ocamlformat
-        run: opam install ocamlformat.0.25.1
+        run: opam install ocamlformat.0.26.2
 
       - name: Build project
         run: opam exec -- dune build @install
