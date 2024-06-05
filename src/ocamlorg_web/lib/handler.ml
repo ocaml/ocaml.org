@@ -832,8 +832,8 @@ let package_overview t kind req =
   let dev_dependencies, dependencies =
     dependencies
     |> List.partition
-         (fun (item : Ocamlorg_frontend.Package_overview.dependency_or_conflict)
-         ->
+         (fun
+           (item : Ocamlorg_frontend.Package_overview.dependency_or_conflict) ->
            let s = Option.value ~default:"" item.cstr in
            String.contains_s s "with-" || String.contains_s s "dev")
   in
