@@ -35,36 +35,7 @@ module Code_example : sig
 end
 
 module Cookbook : sig
-  type category = {
-    title : string;
-    slug : string;
-    subcategories : category list;
-  }
-
-  type task = {
-    title : string;
-    slug : string;
-    category_path : string list;
-    description : string option;
-  }
-
-  type code_block_with_explanation = { code : string; explanation : string }
-
-  type package = {
-    name : string;
-    tested_version : string;
-    used_libraries : string list;
-  }
-
-  type t = {
-    slug : string;
-    filepath : string;
-    task : task;
-    packages : package list;
-    code_blocks : code_block_with_explanation list;
-    code_plaintext : string;
-    discussion_html : string;
-  }
+  include module type of Data_intf.Cookbook
 
   val top_categories : category list
   val tasks : task list
