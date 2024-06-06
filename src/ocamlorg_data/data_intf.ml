@@ -5,6 +5,9 @@ module Academic_institution = struct
     name : string;
     acronym : string option;
     online_resource : string option;
+    professor : string option;
+    enrollment : string option;
+    last_check : string option;
   }
   [@@deriving of_yaml, show]
 

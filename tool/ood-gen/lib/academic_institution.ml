@@ -17,17 +17,17 @@ let decode (fpath, (head, body_md)) =
   let metadata =
     metadata_of_yaml head |> Result.map_error (Utils.where fpath)
   in
-  let body_html =
-    Markdown.Content.of_string body_md |> Markdown.Content.render
-  in
+  let body_html = Markdown.Content.(body_md |> of_string |> render) in
   Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () = Utils.map_md_files decode "academic_institutions/*.md"
 
+type t_list = t list [@@deriving show]
+
 let template () =
-  Format.asprintf {|
+  Format.asprintf
+    {ocaml|
 include Data_intf.Academic_institution
 let all = %a
-|}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+|ocaml}
+    pp_t_list (all ())
