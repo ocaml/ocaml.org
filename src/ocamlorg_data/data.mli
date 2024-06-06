@@ -277,17 +277,7 @@ module Opam_user : sig
 end
 
 module Outreachy : sig
-  type project = {
-    title : string;
-    description : string;
-    mentee : string;
-    blog : string option;
-    source : string;
-    mentors : string list;
-    video : string option;
-  }
-
-  type t = { name : string; projects : project list }
+  include module type of Data_intf.Outreachy
 
   val all : t list
 end

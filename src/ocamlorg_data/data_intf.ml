@@ -22,3 +22,18 @@ module Academic_institution = struct
   }
   [@@deriving show]
 end
+
+module Outreachy = struct
+  type project = {
+    title : string;
+    description : string;
+    mentee : string;
+    blog : string option;
+    source : string;
+    mentors : string list;
+    video : string option;
+  }
+  [@@deriving of_yaml, show]
+
+  type t = { name : string; projects : project list } [@@deriving of_yaml, show]
+end
