@@ -332,3 +332,34 @@ module Paper = struct
   }
   [@@deriving show]
 end
+
+module Planet = struct
+  type source = {
+    id : string;
+    name : string;
+    url : string;
+    description : string;
+    disabled : bool;
+  }
+  [@@deriving show]
+
+  module Post = struct
+    type t = {
+      title : string;
+      url : string option;
+      slug : string;
+      source : source;
+      description : string option;
+      authors : string list;
+      date : string;
+      preview_image : string option;
+      body_html : string;
+    }
+    [@@deriving show]
+  end
+
+  module LocalBlog = struct
+    type t = { source : source; posts : Post.t list; rss_feed : string }
+    [@@deriving show]
+  end
+end

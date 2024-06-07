@@ -1,31 +1,5 @@
 open Ocamlorg.Import
-
-type source = {
-  id : string;
-  name : string;
-  url : string;
-  description : string;
-  disabled : bool;
-}
-[@@deriving show { with_path = false }]
-
-type post = {
-  title : string;
-  source : source;
-  url : string option;
-      (* if the post has a URL, it's a link to an external post, otherwise it's
-         hosted on ocaml.org *)
-  slug : string;
-  description : string option;
-  authors : string list;
-  date : string;
-  preview_image : string option;
-  body_html : string;
-}
-[@@deriving show { with_path = false }]
-
-type local_blog = { source : source; posts : post list; rss_feed : string }
-[@@deriving show { with_path = false }]
+open Data_intf.Planet
 
 module Local = struct
   (* blogs hosted on ocaml.org, e.g. Opam blog *)
@@ -72,7 +46,7 @@ module Local = struct
 
     let all_sources = Source.all ()
 
-    let of_metadata ~slug ~source ~body_html m =
+    let of_metadata ~slug ~source ~body_html m : Post.t =
       {
         title = m.title;
         source;
@@ -115,9 +89,10 @@ module Local = struct
       |> Result.map_error (Utils.where fpath)
       |> Result.map (of_metadata ~slug ~source ~body_html)
 
-    let all () : post list =
+    let all () : Post.t list =
       Utils.map_md_files decode "planet-local-blogs/*/*.md"
-      |> List.sort (fun (a : post) b -> String.compare b.date a.date)
+      |> List.sort (fun (a : Post.t) (b : Post.t) ->
+             String.compare b.date a.date)
   end
 end
 
@@ -177,7 +152,7 @@ module External = struct
 
     let all_sources = Source.all ()
 
-    let of_metadata ~source ~body_html m =
+    let of_metadata ~source ~body_html m : Post.t =
       {
         title = m.title;
         source =
@@ -233,9 +208,10 @@ module External = struct
       |> Result.map_error (Utils.where fpath)
       |> Result.map (of_metadata ~source ~body_html)
 
-    let all () : post list =
+    let all () : Post.t list =
       Utils.map_md_files decode "planet/*/*.md"
-      |> List.sort (fun (a : post) b -> String.compare b.date a.date)
+      |> List.sort (fun (a : Post.t) (b : Post.t) ->
+             String.compare b.date a.date)
   end
 end
 
@@ -245,7 +221,7 @@ let feed_authors source authors =
   | [] -> (Syndic.Atom.author source.name, [])
 
 module LocalBlog = struct
-  let create_entry (post : post) =
+  let create_entry (post : Post.t) =
     let content = Syndic.Atom.Html (None, post.body_html) in
     let id =
       Uri.of_string
@@ -270,56 +246,32 @@ module LocalBlog = struct
   let all () =
     let all_posts = Local.Post.all () in
     Local.Source.all ()
-    |> List.map (fun (source : source) ->
+    |> List.map (fun (source : source) : LocalBlog.t ->
            let posts =
              all_posts
-             |> List.filter (fun (p : post) -> p.source.id = source.id)
+             |> List.filter (fun (p : Post.t) -> p.source.id = source.id)
            in
            { source; posts; rss_feed = create_feed source posts })
 end
 
 let all () =
   Local.Post.all () @ External.Post.all ()
-  |> List.sort (fun a b -> String.compare b.date a.date)
+  |> List.sort (fun (a : Post.t) (b : Post.t) -> String.compare b.date a.date)
 
 let template () =
   Format.asprintf
-    {|
-type source = { id : string; name : string; url : string ; description : string; disabled : bool }
-
-module Post = struct
-  type t =
-    { title : string
-    ; url : string option
-    ; slug : string
-    ; source : source
-    ; description : string option
-    ; authors : string list
-    ; date : string
-    ; preview_image : string option
-    ; body_html : string
-    }
-    
-  let all = %a
-end
-
-module LocalBlog = struct
-  type t =
-  { source : source
-  ; posts : Post.t list
-  ; rss_feed : string
-  }
-
-  let all = %a
-end
-|}
-    (Fmt.brackets (Fmt.list pp_post ~sep:Fmt.semi))
+    {ocaml|
+include Data_intf.Planet
+let post_all = %a
+let local_blog_all = %a
+|ocaml}
+    (Fmt.brackets (Fmt.list Post.pp ~sep:Fmt.semi))
     (all ())
-    (Fmt.brackets (Fmt.list pp_local_blog ~sep:Fmt.semi))
+    (Fmt.brackets (Fmt.list Data_intf.Planet.LocalBlog.pp ~sep:Fmt.semi))
     (LocalBlog.all ())
 
 module GlobalFeed = struct
-  let create_entry (post : post) =
+  let create_entry (post : Post.t) =
     let content = Syndic.Atom.Html (None, post.body_html) in
     let url = Uri.of_string post.source.url in
     let source : Syndic.Atom.source =

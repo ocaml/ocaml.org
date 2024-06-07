@@ -157,32 +157,16 @@ module Paper : sig
 end
 
 module Planet : sig
-  type source = {
-    id : string;
-    name : string;
-    url : string;
-    description : string;
-    disabled : bool;
-  }
+  type source = Data_intf.Planet.source
 
   module Post : sig
-    type t = {
-      title : string;
-      url : string option;
-      slug : string;
-      source : source;
-      description : string option;
-      authors : string list;
-      date : string;
-      preview_image : string option;
-      body_html : string;
-    }
+    type t = Data_intf.Planet.Post.t
 
     val all : t list
   end
 
   module LocalBlog : sig
-    type t = { source : source; posts : Post.t list; rss_feed : string }
+    type t = Data_intf.Planet.LocalBlog.t
 
     val all : t list
     val get_by_id : string -> t option
