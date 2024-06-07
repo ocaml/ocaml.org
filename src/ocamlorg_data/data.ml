@@ -148,14 +148,10 @@ end
 module Planet = struct
   include Planet
 
-  module Post = struct
-    include Planet.Post
-  end
-
   module LocalBlog = struct
-    include Planet.LocalBlog
+    include LocalBlog
 
-    let get_by_id id = List.find_opt (fun x -> String.equal x.source.id id) all
+    let get_by_id id = List.find_opt (fun (x : t) -> String.equal x.source.id id) all
   end
 
   let local_posts =
