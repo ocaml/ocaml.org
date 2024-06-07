@@ -57,6 +57,44 @@ module Book = struct
   [@@deriving show]
 end
 
+module Cookbook = struct
+  type category = {
+    title : string;
+    slug : string;
+    subcategories : category list;
+  }
+  [@@deriving show]
+
+  type task = {
+    title : string;
+    slug : string;
+    category_path : string list;
+    description : string option;
+  }
+  [@@deriving show]
+
+  type code_block_with_explanation = { code : string; explanation : string }
+  [@@deriving show]
+
+  type package = {
+    name : string;
+    tested_version : string;
+    used_libraries : string list;
+  }
+  [@@deriving of_yaml, show]
+
+  type t = {
+    slug : string;
+    filepath : string;
+    task : task;
+    packages : package list;
+    code_blocks : code_block_with_explanation list;
+    code_plaintext : string;
+    discussion_html : string;
+  }
+  [@@deriving show]
+end
+
 module Outreachy = struct
   type project = {
     title : string;
