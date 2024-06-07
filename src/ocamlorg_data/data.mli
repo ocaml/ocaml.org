@@ -207,17 +207,7 @@ module Workshop : sig
 end
 
 module Youtube : sig
-  type t = {
-    title : string;
-    content : string;
-    thumbnail : string;
-    description : string;
-    published : string;
-    author_name : string;
-    author_uri : string;
-    source_link : string;
-    source_title : string;
-  }
+  include module type of Data_intf.Youtube
 
   val all : t list
 end

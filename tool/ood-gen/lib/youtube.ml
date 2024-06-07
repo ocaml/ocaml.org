@@ -1,4 +1,5 @@
 open Ocamlorg.Import
+open Data_intf.Youtube
 
 type kind = Playlist | Channel
 
@@ -36,20 +37,7 @@ let source_to_url { kind; id; _ } =
 let source_to_id { kind; id; _ } =
   Printf.sprintf "yt:%s:%s" (kind_to_string kind) id
 
-type t = {
-  title : string;
-  content : string;
-  thumbnail : string;
-  description : string;
-  published : string;
-  author_name : string;
-  author_uri : string;
-  source_link : string;
-  source_title : string;
-}
-[@@deriving yaml, show { with_path = false }]
-
-type video_list = t list [@@deriving yaml]
+type video_list = t list [@@deriving yaml, show]
 
 type tag =
   | Entry
@@ -193,24 +181,11 @@ let scrape () =
   | Error (`Msg msg) -> failwith msg
 
 let template () =
-  Format.asprintf
-    {ocaml|
-type t = {
-  title : string;
-  content : string;
-  thumbnail : string;
-  description : string;
-  published : string;
-  author_name : string;
-  author_uri : string;
-  source_link : string;
-  source_title : string;
-}
-
+  Format.asprintf {ocaml|
+include Data_intf.Youtube
 let all =%a
 |ocaml}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    pp_video_list (all ())
 
 let create_entry (v : t) =
   let url = Uri.of_string v.content in
