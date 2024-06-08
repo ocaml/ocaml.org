@@ -1,17 +1,17 @@
 span[class*="keyword"] {
-  color: #A626A4;
+  color: #879A39;
 }
 
 span[class*="constant"] {
-  color: #986801;
+  color: #D0A215;
 }
 
 span[class*="function-binding"] {
-  color: #4078F2;
+  color: #DA702C;
 }
 
 span[class*="variable"] {
-  color: #4078F2;
+  color: #4385BE;
   font-style: italic;
 }
 
