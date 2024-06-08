@@ -82,6 +82,31 @@ let all () =
          in
          String.compare t2 t1)
 
+module EventsFeed = struct
+  let create_entry (event : t) =
+    let content = Syndic.Atom.Html (None, event.body_html) in
+    let id = Uri.of_string ("https://ocaml.org/events/" ^ event.slug) in
+    let authors = (Syndic.Atom.author "Ocaml.org", []) in
+    let updated =
+      match event.starts.utc_hh_mm with
+      | Some utc_hh_mm ->
+          Syndic.Date.of_rfc3339
+            (event.starts.yyyy_mm_dd ^ "T" ^ utc_hh_mm ^ ":00-00:00")
+      | None ->
+          Syndic.Date.of_rfc3339 (event.starts.yyyy_mm_dd ^ "T00:00:00-00:00")
+    in
+    Syndic.Atom.entry ~content ~id ~authors
+      ~title:(Syndic.Atom.Text event.title) ~updated
+      ~links:[ Syndic.Atom.link id ]
+      ()
+
+  let create_feed () =
+    let open Rss in
+    () |> all
+    |> create_feed ~id:"events.xml" ~title:"OCaml Events" ~create_entry
+    |> feed_to_string
+end
+
 let template () =
   Format.asprintf
     {|
