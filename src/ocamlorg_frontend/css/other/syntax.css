@@ -20,7 +20,7 @@ span[class*="support"] {
 }
 
 span[class*="comment"] {
-  color: #A0A1A7;
+  color: #6F6E69;
   font-style: italic;
 }
 
@@ -29,11 +29,11 @@ span[class*="literal"] {
 }
 
 span[class*="string"] {
-  color: #50A14F;
+  color: #3AA99F;
 }
 
 span[class*="numeric"] {
-  color: #986801;
+  color: #8B7EC8;
 }
 
 
