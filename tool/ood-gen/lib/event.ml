@@ -83,7 +83,6 @@ let all () =
          String.compare t2 t1)
 
 module EventsFeed = struct
-
   let create_entry (log : t) =
     let authors = (Syndic.Atom.author "Ocaml.org", []) in
     let event_type = EventType.show log.event_type in
