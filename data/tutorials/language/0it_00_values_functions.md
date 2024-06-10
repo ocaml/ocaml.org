@@ -194,13 +194,13 @@ Above, the pattern does not contain any identifier, meaning no name is defined. 
 
 This also works with user-defined types.
 ```ocaml
-# let robin_with_age : live_person = (20, robin);;
-val robin_with_age : live_person = (20, {first = "Robin"; last = "Milner"})
+# type citizen = string * name;;
+type citizen = string * name
 
-# let (years, { first; last }) = robin_with_age;;
-val years : int = 20
-val first : string = "Robin"
-val last : string = "Milner"
+# let ((country, { first = forename; last = surname }) : citizen) = ("United Kingdom", robin);;
+val country : string = "United Kingdom"
+val forename : string = "Robin"
+val surname : string = "Milner"
 ```
 
 ### Discarding Values Using Pattern Matching
