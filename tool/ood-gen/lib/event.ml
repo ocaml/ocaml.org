@@ -82,6 +82,8 @@ let all () =
          in
          String.compare t2 t1)
 
+  module EventsFeed = struct
+
   let create_entry (log : t) =
     let authors = (Syndic.Atom.author "Ocaml.org", []) in
     let event_type = EventType.show log.event_type in
@@ -112,6 +114,7 @@ let all () =
     () |> all
     |> create_feed ~id:"events.xml" ~title:"OCaml Events" ~create_entry
     |> feed_to_string
+    end
 let template () =
   Format.asprintf
     {|
