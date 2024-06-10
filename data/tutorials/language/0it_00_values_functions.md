@@ -121,9 +121,9 @@ In both examples, `d` and `e` are local definitions.
 <!-- FIXME: review & revise this entire section :: Sabine -->
 
 <!--the example illustrates tuples::-->
-When pattern matching only has one case it can be used in name definitions, in
+When pattern matching only has one case, it can be used in name definitions and in
 `let ... =` and `fun ... ->` expressions. In that case, less or more than one
-name may be defined. This applies to tuples, records and custom single-variant
+name may be defined. This applies to tuples, records, and custom single-variant
 types.
 
 ### Pattern Matching on Tuples
