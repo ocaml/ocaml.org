@@ -108,8 +108,6 @@ let all () =
                ~links:[ Syndic.Atom.link (Uri.of_string log.url) ]
                ~categories:[ Syndic.Atom.category event_type ]
                ~content:(Syndic.Atom.Text location_summary) ()
-            
-      
             let create_feed () =
               let open Rss in
               () |> all
