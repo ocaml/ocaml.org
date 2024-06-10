@@ -13,7 +13,7 @@ We couldn't do it without all the amazing people who help us review, revise, and
 
 This newsletter covers:
 - **Recipes for the OCaml Cookbook:** Help us make the OCaml Cookbook really useful by contributing and reviewing recipes for common tasks!
-- **Community & Marketing Pages Rework:** We have UI designs for the reworked and new pages of the community section and are starting work to implement these. We made progress towards showing videos from the community on the OCaml Planet.
+- **Community & Marketing Pages Rework:** We have UI designs for the reworked and new pages of the community section and are starting to implement these. We made progress towards showing videos from the community on the OCaml Planet.
 - **General Improvements:** As usual, we also worked on general maintenance and improvements, so we're highlighting some of the work that happened below.
 
 ## Open Issues for Contributors
@@ -54,14 +54,14 @@ Here's how you can help:
 - PR: Cookbook getenv [ocaml/ocaml.org#2407](https://github.com/ocaml/ocaml.org/pull/2407)
 - PR: Cookbook shell [ocaml/ocaml.org#2408](https://github.com/ocaml/ocaml.org/pull/2408)
 - PR: Cookbook geodesic [ocaml/ocaml.org#2409](https://github.com/ocaml/ocaml.org/pull/2409)
-- PR: Add cookbooks for JSON serialization and deserialization [ocaml/ocaml.org#2415](https://github.com/ocaml/ocaml.org/pull/2415) by [@gpopides](https://github.com/gpopides)
+- PR: Add cookbooks for JSON serialisation and deserialisation [ocaml/ocaml.org#2415](https://github.com/ocaml/ocaml.org/pull/2415) by [@gpopides](https://github.com/gpopides)
 - PR: Cookbook Encode and Decode Bytestrings from Hex-Strings [ocaml/ocaml.org#2445](https://github.com/ocaml/ocaml.org/pull/2445) by [@ggsmith842](https://github.com/ggsmith842)
 
 ## Community & Marketing Pages Rework
 
-This month, we made some progress towards adding videos from the OCaml community (e.g. from YouTube and watch.ocaml.org) to the OCaml Planet.
+This month, we made some progress towards adding videos from the OCaml community (e.g., from YouTube and watch.ocaml.org) to the OCaml Planet.
 
-Since the size of the OCaml Planet RSS feed grew so large that automation tools (dlvr.it) could no longer process it, we reduced the timeframe for posts to show up in the RSS feed to the last 90 days.
+Since the size of the OCaml Planet RSS feed grew so large that automation tools (`dlvr.it`) could no longer process it, we reduced the timeframe for posts to show up in the RSS feed to the last 90 days.
 
 Contributor [@ishar19](https://github.com/ishar19) opened a pull request to add an RSS feed for the Community/Events page. This will allow posting new events to various social media automatically and allow you to subscribe to the Events RSS feed with a RSS reader of your choice.
 
@@ -81,24 +81,24 @@ We have [UI designs for the reworked and new pages of the community section](htt
 
 ## Outreachy Internship on Interactive Exercises
 
-On May 27, [Divyanka Chaudhari](https://github.com/divyankachaudhari) started working with the team, as an Outreachy intern. She's implementing support for running the exercises as a stand-alone project, either in GitHub Codespace, in repl.it, using Jupyter or LearnOcaml.
+On May 27, [Divyanka Chaudhari](https://github.com/divyankachaudhari) started working with the team, as an Outreachy intern. She's implementing support for running the exercises as a stand-alone project, either in GitHub Codespace, in `repl.it`, using Jupyter or LearnOcaml.
 
 **Relevant PRs and Activities:**
 - PR: Fix 007 answer folder not running test cases [ocaml/ocaml.org#2458](https://github.com/ocaml/ocaml.org/pull/2458) by [@divyankachaudhari](https://github.com/divyankachaudhari)
 
 ## General Improvements and Data Additions
 
-**Notable changes:**
+**Notable Changes:**
 * We restructured the main navigation to have a "Tools" section that holds the OCaml Platform page and the OCaml compiler releases page. This should make the OCaml Platform page easier to find.
 * The Changelog can now be found under "News", from the main navigation. You can also find the OCaml Planet and the Newsletters in this new section.
-* The OCaml Language Manual is now served from ocaml.org, instead of v2.ocaml.org.
+* The OCaml Language Manual is now served from OCaml.org, instead of v2.ocaml.org.
 * We added some more links to learning resources to the Resources page at https://ocaml.org/resources.
 * Some documentation updates on "Is OCaml Web Yet?", "Is OCaml GUI Yet?", the ThreadSanitizer tutorial, and the "Functors" tutorial. 
 
 **Relevant PRs and Activities:**
 - Features
     - PR: Introduce a tools section for platform page, releases page, and a news section for changelog, OCaml Planet and Newsletters [ocaml/ocaml.org#2410](https://github.com/ocaml/ocaml.org/pull/2410) by [@sabine](https://github.com/sabine)
-- Migration of the Language Manual from v2.ocaml.org to ocaml.org
+- Migration of the Language Manual from v2.ocaml.org to OCaml.org
     - PR: fix: language manual redirect, remove unnecessary append of index.html [ocaml/ocaml.org#2470](https://github.com/ocaml/ocaml.org/pull/2470)  by [@sabine](https://github.com/sabine)
     - PR: Fix: redirect to downloadable manual files [ocaml/ocaml.org#2439](https://github.com/ocaml/ocaml.org/pull/2439)  by [@sabine](https://github.com/sabine)
     - PR: Simplify and extend /releases/ redirects from legacy v2.ocaml.org URLs [ocaml/ocaml.org#2448](https://github.com/ocaml/ocaml.org/pull/2448) by [@cuihtlauac](https://github.com/cuihtlauac)
@@ -113,7 +113,7 @@ On May 27, [Divyanka Chaudhari](https://github.com/divyankachaudhari) started wo
     - PR: OCaml 5.2.0 announce and release page [ocaml/ocaml.org#2421](https://github.com/ocaml/ocaml.org/pull/2421) by [@Octachron](https://github.com/Octachron)
     - PR: Update OCamlPro's logo [ocaml/ocaml.org#2436](https://github.com/ocaml/ocaml.org/pull/2436) by [@hra687261](https://github.com/hra687261)
     - PR: Changelog entry for OCaml 5.2.0~rc1 [ocaml/ocaml.org#2391](https://github.com/ocaml/ocaml.org/pull/2391) by [@Octachron](https://github.com/Octachron)
-    - PR: changelog: add dune 3.15.1 and 3.15.2 [ocaml/ocaml.org#2389](https://github.com/ocaml/ocaml.org/pull/2389) by [@emillon](https://github.com/emillon)
+    - PR: changelog: add Dune 3.15.1 and 3.15.2 [ocaml/ocaml.org#2389](https://github.com/ocaml/ocaml.org/pull/2389) by [@emillon](https://github.com/emillon)
     - PR: Add changelog entry for Merlin 5.0 [ocaml/ocaml.org#2472](https://github.com/ocaml/ocaml.org/pull/2472) by [@pitag-ha](https://github.com/pitag-ha)
 - Bugfixes
     - PR: fix dark style of package version pages [ocaml/ocaml.org#2438](https://github.com/ocaml/ocaml.org/pull/2438) by [@FrugBatt](https://github.com/FrugBatt)
