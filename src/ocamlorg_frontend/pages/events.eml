@@ -13,18 +13,18 @@ Community_layout.single_column_layout
           <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Upcoming Events</h2>
           <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
               <% upcoming_events |> List.iter (fun (event : Data.Event.t) -> %>
-               <%s! Cards.upcoming_event event %>
+               <%s! Cards.Event.upcoming_event event %>
               <% ); %>
           </div>
       </div>
     </div>
 <% ); %>
-<%s! Toc.time_script %>
+<%s! Cards.Event.script %>
     <p class="uppercase text-sm text-white tracking-widest opacity-60 font-medium mb-2">events</p>
     <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Recurring Events</h2>
     <div class="grid lg:grid-cols-3 gap-8 lg:gap-10 mt-12">
       <% recurring_events |> List.iter (fun (recurring_event : Data.Event.RecurringEvent.t) -> %>
-       <%s! Cards.recurring_event recurring_event %>
+       <%s! Cards.Event.recurring_event recurring_event %>
       <% ); %>
     </div>
     <p class="text-white dark:text-dark-content my-6">
