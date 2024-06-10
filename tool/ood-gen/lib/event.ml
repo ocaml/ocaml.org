@@ -82,39 +82,40 @@ let all () =
          in
          String.compare t2 t1)
 
-module EventsFeed = struct
-  let create_entry (log : t) =
-    let authors = (Syndic.Atom.author "Ocaml.org", []) in
-    let event_type = EventType.show log.event_type in
-    let textual_location = log.textual_location in
-    let start_date =
-      Syndic.Date.of_rfc3339
-        (log.starts.yyyy_mm_dd ^ "T"
-        ^ Option.value ~default:"00:00" log.starts.utc_hh_mm
-        ^ ":00Z")
-    in
-    let start_date_str = Syndic.Date.to_rfc3339 start_date in
-    let id = Uri.of_string (log.slug ^ " " ^ start_date_str) in
-    let location_summary =
-      match log.location with
-      | Some { lat; long } ->
-          Printf.sprintf "%s (lat: %f, long: %f)" textual_location lat long
-      | None -> textual_location
-    in
-
-    Syndic.Atom.entry ~id ~authors
-      ~title:(Syndic.Atom.Text (log.title ^ " " ^ start_date_str))
-      ~updated:start_date
-      ~links:[ Syndic.Atom.link (Uri.of_string log.url) ]
-      ~categories:[ Syndic.Atom.category event_type ]
-      ~content:(Syndic.Atom.Text location_summary) ()
-
-  let create_feed () =
-    let open Rss in
-    () |> all
-    |> create_feed ~id:"events.xml" ~title:"OCaml Events" ~create_entry
-    |> feed_to_string
-end
+         module EventsFeed = struct
+          let create_entry (log : t) =
+            let authors = (Syndic.Atom.author "Ocaml.org", []) in
+            let event_type = EventType.show log.event_type in
+            let textual_location = log.textual_location in
+             let start_date =
+               Syndic.Date.of_rfc3339
+                 (log.starts.yyyy_mm_dd ^ "T"
+                 ^ Option.value ~default:"00:00" log.starts.utc_hh_mm
+                 ^ ":00Z")
+             in
+             let start_date_str = Syndic.Date.to_rfc3339 start_date in
+             let id = Uri.of_string (log.slug ^ " " ^ start_date_str) in
+             let location_summary =
+               match log.location with
+               | Some { lat; long } ->
+                   Printf.sprintf "%s (lat: %f, long: %f)" textual_location lat
+                     long
+               | None -> textual_location
+             in
+             Syndic.Atom.entry ~id ~authors
+               ~title:(Syndic.Atom.Text (log.title ^ " " ^ start_date_str))
+               ~updated:start_date
+               ~links:[ Syndic.Atom.link (Uri.of_string log.url) ]
+               ~categories:[ Syndic.Atom.category event_type ]
+               ~content:(Syndic.Atom.Text location_summary) ()
+            
+      
+            let create_feed () =
+              let open Rss in
+              () |> all
+              |> create_feed ~id:"events.xml" ~title:"OCaml Events" ~create_entry
+              |> feed_to_string
+              end
 
 let template () =
   Format.asprintf
