@@ -183,7 +183,7 @@ type citizen = string * name
 # let ((country, { first = forename; last = surname }) : citizen) = ("United Kingdom", robin);;
 val country : string = "United Kingdom"
 val forename : string = "Robin"
-val sirname : string = "Milner"
+val surname : string = "Milner"
 ```
 
 ### Discarding Values Using Pattern Matching
