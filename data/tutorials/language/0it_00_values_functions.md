@@ -121,7 +121,10 @@ In both examples, `d` and `e` are local definitions.
 <!-- FIXME: review & revise this entire section :: Sabine -->
 
 <!--the example illustrates tuples::-->
-Some definitions can introduce more than one name or no name.
+When pattern matching only has one case, it can be used in name definitions and in
+`let ... =` and `fun ... ->` expressions. In that case, less or more than one
+name may be defined. This applies to tuples, records, and custom single-variant
+types.
 
 ### Pattern Matching on Tuples
 
@@ -148,9 +151,9 @@ type name = { first : string; last : string; }
 # let robin = { first = "Robin"; last = "Milner" };;
 val robin : name = {first = "Robin"; last = "Milner"}
 
-# let { first; last } = robin;;
-val first : string = "Robin"
-val last : string = "Milner"
+# let { first = given_name; last = family_name } = robin;;
+val given_name : string = "Robin"
+val family_name : string = "Milner"
 ```
 
 ### Pattern Matching on `unit`
@@ -174,11 +177,13 @@ Above, the pattern does not contain any identifier, meaning no name is defined. 
 
 This also works with user-defined types.
 ```ocaml
-# type live_person = int * name;;
-type live_person = int * name
+# type citizen = string * name;;
+type citizen = string * name
 
-# let age ((years, { first; last }) : live_person) = years;;
-val age : live_person -> int = <fun>
+# let ((country, { first = forename; last = surname }) : citizen) = ("United Kingdom", robin);;
+val country : string = "United Kingdom"
+val forename : string = "Robin"
+val sirname : string = "Milner"
 ```
 
 ### Discarding Values Using Pattern Matching
