@@ -13,16 +13,7 @@ module Book : sig
 end
 
 module Changelog : sig
-  type t = {
-    title : string;
-    slug : string;
-    date : string;
-    tags : string list;
-    changelog_html : string option;
-    body_html : string;
-    body : string;
-    authors : string list;
-  }
+  include module type of Data_intf.Changelog
 
   val all : t list
   val get_by_slug : string -> t option
