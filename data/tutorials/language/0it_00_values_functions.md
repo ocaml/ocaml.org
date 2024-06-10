@@ -156,6 +156,29 @@ val given_name : string = "Robin"
 val family_name : string = "Milner"
 ```
 
+### Pattern Matching in Function Parameters
+
+Single-case pattern matching can also be used for parameter declaration.
+
+Here is an example with tuples:
+```ocaml
+# let get_country ((country, { first; last }) : citizen) = country;;
+val get_countruy : citizen -> string = <fun>
+```
+
+Here is an example with the `name` record:
+```ocaml
+# let introduce {first; last} = "I am " ^ first ^ " " ^ last;;
+val introduce : name -> string = <fun>
+```
+
+**Note** Using the `discard` pattern for parameter declaration is also possible.
+```ocaml
+# let get_meaning _ = 42;;
+val get_meaning : 'a -> int = <fun>
+```
+
+
 ### Pattern Matching on `unit`
 <!--Unit example-->
 A special case of combined definition and pattern matching involves the `unit` type:
@@ -609,6 +632,7 @@ val spicy_cat : string * string -> string = <fun>
 It looks like two arguments have been passed: `"hello"` and `"world"`. However, only one, the `("hello", "world")` tuple, has been passed. Inspection of the generated assembly would show it isn't the same function as `sweet_cat`. It contains some more code. The contents of the tuple passed to `spicy_cat` (`x` and `y`) must be extracted before evaluation of the `x ^ " " ^ y` expression. This is the role of the additional assembly instructions.
 
 In many imperative languages, the `spicy_cat ("hello", "world")` syntax reads as a function call with two arguments; but in OCaml, it denotes applying the function `spicy_cat` to a tuple containing `"hello"` and `"world"`.
+
 
 ### Currying and Uncurrying
 
