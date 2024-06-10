@@ -19,8 +19,8 @@ module Academic_institution = struct
     location : location option;
     body_md : string;
     body_html : string;
-    }
-    [@@deriving show]
+  }
+  [@@deriving show]
 end
 
 module Book = struct
