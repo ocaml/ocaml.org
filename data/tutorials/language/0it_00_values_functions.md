@@ -158,20 +158,26 @@ val last : string = "Milner"
 
 ### Pattern Matching in Function Parameters
 
-It is possible to use pattern matching to specify function parameters. For tuples:
-```ocaml
-# type live_person = int * name;;
-type live_person = int * name
+Single-case pattern matching can also be used for parameter declaration.
 
-# let age ((years, full_name) : live_person) = years;;
-val age : live_person -> int = <fun>
+Here is an example with tuples:
+```ocaml
+# let get_country ((country, { first; last }) : citizen) = country;;
+val get_countruy : citizen -> string = <fun>
 ```
 
-For records:
+Here is an example with the `name` record:
 ```ocaml
-# let introduce ({first; last}) : name) = "I am " ^ first ^ " " ^ last;;
+# let introduce {first; last} = "I am " ^ first ^ " " ^ last;;
 val introduce : name -> string = <fun>
 ```
+
+**Note** Using the `discard` pattern for parameter declaration is also possible.
+```ocaml
+# let get_meaning _ = 42;;
+val get_meaning : 'a -> int = <fun>
+```
+
 
 ### Pattern Matching on `unit`
 <!--Unit example-->
