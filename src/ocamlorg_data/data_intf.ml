@@ -211,6 +211,32 @@ module Industrial_user = struct
   [@@deriving show]
 end
 
+module Is_ocaml_yet = struct
+  type external_package = { url : string; synopsis : string }
+  [@@deriving of_yaml, show]
+
+  type package = { name : string; extern : external_package option }
+  [@@deriving of_yaml, show]
+
+  type category = {
+    name : string;
+    status : string;
+    description : string;
+    packages : package list;
+    slug : string;
+  }
+  [@@deriving show]
+
+  type t = {
+    id : string;
+    question : string;
+    answer : string;
+    categories : category list;
+    body_html : string;
+  }
+  [@@deriving show]
+end
+
 module Outreachy = struct
   type project = {
     title : string;
