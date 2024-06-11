@@ -21,6 +21,7 @@ let all () =
 let template () =
   let t = all () in
   Format.asprintf {|
+include Data_intf.Governance
 let teams = %a
 
 let working_groups = %a

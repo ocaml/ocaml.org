@@ -82,7 +82,6 @@ module Exercise = struct
 end
 
 module Governance = struct
-  include Data_intf.Governance
   include Governance
 
   let get_by_id id =
@@ -90,7 +89,6 @@ module Governance = struct
 end
 
 module Industrial_user = struct
-  include Data_intf.Industrial_user
   include Industrial_user
 
   let featured = all |> List.filter (fun user -> user.featured)
@@ -98,7 +96,6 @@ module Industrial_user = struct
 end
 
 module Is_ocaml_yet = struct
-  include Data_intf.Is_ocaml_yet
   include Is_ocaml_yet
 end
 
@@ -133,7 +130,6 @@ module Opam_user = struct
 end
 
 module Outreachy = struct
-  include Data_intf.Outreachy
   include Outreachy
 end
 

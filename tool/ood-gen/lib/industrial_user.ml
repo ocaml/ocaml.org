@@ -26,6 +26,7 @@ let all () = Utils.map_files decode "industrial_users/*.md"
 
 let template () =
   Format.asprintf {|
+include Data_intf.Industrial_user
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
