@@ -199,12 +199,6 @@ module Tutorial : sig
   val search_documents : string -> search_document list
 end
 
-module Watch : sig
-  include module type of Watch
-
-  val all : t list
-end
-
 module Workshop : sig
   include module type of Workshop
 
