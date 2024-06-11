@@ -14,11 +14,10 @@
   river
   syndic
   uri
-  ppx_show.runtime
   lambdasoup
   fpath
   ppx_stable
   hilite
   re)
  (preprocess
-  (pps ppx_deriving_yaml ppx_stable ppx_show)))
+  (pps ppx_deriving_yaml ppx_stable ppx_deriving.show)))

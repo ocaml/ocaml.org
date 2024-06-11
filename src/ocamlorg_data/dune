@@ -2,9 +2,9 @@
  (name data_intf)
  (public_name ocamlorg.data_intf)
  (modules data_intf)
- (libraries ppx_show.runtime)
+ (libraries ptime)
  (preprocess
-  (pps ppx_deriving_yaml ppx_show)))
+  (pps ppx_deriving_yaml ppx_deriving.show)))
 
 (library
  (name data)
