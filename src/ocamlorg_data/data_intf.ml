@@ -4,14 +4,15 @@ module Academic_institution = struct
   let pp_ptime fmt t =
     Format.pp_print_string fmt "Ptime.of_rfc3339 \"";
     Ptime.pp_rfc3339 () fmt t;
-    Format.pp_print_string fmt "\" |> function Ok (t, _, _) -> t | Error _ -> failwith \"RFC 3339\""
+    Format.pp_print_string fmt
+      "\" |> function Ok (t, _, _) -> t | Error _ -> failwith \"RFC 3339\""
 
   let pp_print_option pp fmt = function
-  | None -> Format.pp_print_string fmt "None"
-  | Some x ->
-      Format.pp_print_string fmt "Some (";
-      pp fmt x;
-      Format.pp_print_string fmt ")"
+    | None -> Format.pp_print_string fmt "None"
+    | Some x ->
+        Format.pp_print_string fmt "Some (";
+        pp fmt x;
+        Format.pp_print_string fmt ")"
 
   type course = {
     name : string;
