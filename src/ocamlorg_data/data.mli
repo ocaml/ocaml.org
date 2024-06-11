@@ -399,29 +399,6 @@ module Tutorial : sig
   val search_documents : string -> search_document list
 end
 
-module Video : sig
-  type kind = [ `Conference | `Mooc | `Lecture ]
-
-  val kind_of_string : string -> (kind, [> `Msg of string ]) result
-  val kind_to_string : kind -> string
-
-  type t = {
-    title : string;
-    slug : string;
-    description : string;
-    people : string list;
-    kind : kind;
-    tags : string list;
-    paper : string option;
-    link : string;
-    embed : string option;
-    year : int;
-  }
-
-  val all : t list
-  val get_by_slug : string -> t option
-end
-
 module Watch : sig
   type t = {
     name : string;
