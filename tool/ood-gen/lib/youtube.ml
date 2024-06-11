@@ -53,10 +53,11 @@ let walk_mrss xml =
   let rec loop tags () =
     let open Seq in
     let get_url = List.assoc ("", "url") in
+    let tweak url = url |> String.split_on_char '/' |> List.filter_map (function "?version=3" -> None | "v" -> Some "watch" | str -> Some str) |> String.concat "/" in
     match (Xmlm.input xml, tags) with
     | `El_start ((_, "entry"), _), _ -> Cons (Entry, loop ("entry" :: tags))
     | `El_start ((_, "content"), attrs), "group" :: _ ->
-        Cons (Content (get_url attrs), loop ("content" :: tags))
+        Cons (Content (get_url attrs |> tweak), loop ("content" :: tags))
     | `El_start ((_, "thumbnail"), attrs), "group" :: _ ->
         Cons (Thumbnail (get_url attrs), loop ("thumbnail" :: tags))
     | `El_start ((_, tag), _), _ -> loop (tag :: tags) ()
