@@ -2,9 +2,9 @@
   content: https://www.youtube.com/v/jz66PE4PkV8?version=3
   thumbnail: https://i3.ytimg.com/vi/jz66PE4PkV8/hqdefault.jpg
   description: 'This is the seventh in a series about locals in OCaml. This episode
-    explains the challenges around tail-call optimisation and how to keep local variables
+    explains the challenges around tail-call optimization and how to keep local variables
     from escaping their region. I introduce the [@nontail] annotation to prevent tail-call
-    optimisation, which is often needed when writing code with locals.
+    optimization, which is often needed when writing code with locals.
 
 
     Code used in this video: https://github.com/goldfirere/janestreet-videos/blob/main/locals/07-tails/local.ml
@@ -83,7 +83,7 @@
     language design in OCaml!
 
 
-    Oxidising OCaml Blog Posts:
+    Oxidizing OCaml blog posts:
 
     - Locality: https://blog.janestreet.com/oxidizing-ocaml-locality
 
@@ -457,7 +457,7 @@
     locals.
 
     In this video, I explain how locality is a *mode* and how sub-moding works. (It''s
-    kinda like subtyping.)
+    kinda like sub-typing.)
 
 
     To get the compiler I''m using here, see the instructions at https://github.com/janestreet/opam-repository/tree/with-extensions'
@@ -638,7 +638,7 @@
   author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
   source_title: OCAML Workshop at ICFP 2023
-- title: '[OCaML''23] Building a Lock-Free STM for OCaml'
+- title: '[OCaML''23] Building a lock-free STM for OCaml'
   content: https://www.youtube.com/v/Mt8wPCHU1ZU?version=3
   thumbnail: https://i2.ytimg.com/vi/Mt8wPCHU1ZU/hqdefault.jpg
   description: '[OCaML''23] Building a lock-free STM for OCaml
@@ -648,9 +648,9 @@
     YSS Narasimha Naidu, Sudha Parimala
 
 
-    The `kcas` library was originally developed to provide a primitive atomic lock-free,
-    multi-word, compare-and-set operation. This talk introduces `kcas` and discusses
-    the recent development of `kcas` turning it into a proper lock-free software transactional
+    The kcas library was originally developed to provide a primitive atomic lock-free
+    multi-word compare-and-set operation. This talk introduces kcas and discusses
+    the recent development of kcas turning it into a proper lock-free software transactional
     memory implementation for OCaml that provides composable transactions, scheduler
     friendly modular blocking, and comes with a companion library of composable lock-free
     data structures.'
@@ -668,7 +668,7 @@
     a lot of C bindings due to the removal of naked pointer support. Writing OCaml
     user-defined primitives in C is a necessity, but is unsafe and error-prone. It
     does not benefit from either OCaml\u2019s or C\u2019s type checking, and existing
-    C static analysers are not aware of the OCaml GC safety rules and cannot infer
+    C static analysers are not aware of the OCaml GC safety rules, and cannot infer
     them from existing macros alone. The alternative is automatically generating C
     stubs, which requires correctly managing value lifetimes. Having a static analyser
     for OCaml to C interfaces is useful outside the OCaml 5 porting effort too. \nAfter
@@ -696,10 +696,10 @@
     automate the grading of programming exercises, scaling to hundreds of submissions.
     We describe how to disable language and library features that should not be used
     to solve a given exercise. We present an overview of an implementation of a mock
-    I/O system to allow testing of I/O-related exercises in a controlled environment.
+    IO system to allow testing of IO-related exercises in a controlled environment.
     Finally, we detail a number of security considerations to ensure submitted code
     remains sandboxed, allowing automatic grading to be trusted without manual verification.
-    The source code of our implementation is publicly available [1]. \n[1] As a Git
+    The source code of our implementation is publicly available [1]. \n[1] As a git
     repository at https://github.com/just-max/less-power."
   published: 2023-12-01T14:23:16+00:00
   author_name: ACM SIGPLAN
@@ -715,17 +715,17 @@
     Andrew Tao
 
 
-    I present my implementation of a parallel sequences abstraction that utilises
-    the support for shared memory parallelism in the new OCaml 5.0.0 Multicore runtime.
-    This abstraction allows clients to create highly parallelisable programs without
+    I present my implementation of a parallel sequences abstraction that utilizes
+    the support for shared memory parallelism in the new OCaml 5.0.0 multicore runtime.
+    This abstraction allows clients to create highly parallelizable programs without
     needing to write, or even understand, the low-level implementation details necessary
-    to parallelise large tasks.'
+    to parallelize large tasks.'
   published: 2023-12-01T14:23:16+00:00
   author_name: ACM SIGPLAN
   author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
   source_title: OCAML Workshop at ICFP 2023
-- title: '[OCaML''23] Efficient OCaml Compilation With Flambda 2'
+- title: '[OCaML''23] Efficient OCaml compilation with Flambda 2'
   content: https://www.youtube.com/v/eI5GBpT2Brs?version=3
   thumbnail: https://i2.ytimg.com/vi/eI5GBpT2Brs/hqdefault.jpg
   description: '[OCaML''23] Efficient OCaml compilation with Flambda 2
@@ -748,8 +748,8 @@
   description: "[OCaML'23] State of the OCaml Platform 2023\n\nThibaut Mattio, Anil
     Madhavapeddy, Thomas Gazagnaire, David Allsopp\n\nThis paper reflects on a decade
     of progress and developments within the OCaml Platform, from its inception in
-    2013 with the release of opam 1.0 to today where it stands as a robust toolchain
-    for OCaml developers. We review the last three years in detail, emphasising the
+    2013 with the release of opam 1.0, to today where it stands as a robust toolchain
+    for OCaml developers. We review the last three years in detail, emphasizing the
     advancements and innovations that have shaped the OCaml development landscape
     and highlighting key milestones such as the migration to Dune as the primary build
     system, and the development of a Language Server Protocol (LSP) server for OCaml.
@@ -766,13 +766,13 @@
 - title: "[OCaML'23] Eio 1.0 \u2013 Effects-based IO for OCaml 5"
   content: https://www.youtube.com/v/jr4LsCVQBj4?version=3
   thumbnail: https://i3.ytimg.com/vi/jr4LsCVQBj4/hqdefault.jpg
-  description: "[OCaML'23] Eio 1.0 \u2013 Effects-based I/O for OCaml 5\n\nThomas Leonard,
+  description: "[OCaML'23] Eio 1.0 \u2013 Effects-based IO for OCaml 5\n\nThomas Leonard,
     Patrick Ferris, Christiano Haesbaert, Lucas Pluvinage, Vesa Karvonen, Sudha Parimala,
-    KC Sivaramakrishnan, Vincent Balat, Anil Madhavapeddy\n\nEio provides an effects-based,
-    direct-style I/O stack for OCaml 5. This talk introduces Eio\u2019s main features,
-    such as use of effects, multicore support, and lock-free data-structures; support
-    for modular programming; interoperability with other concurrency libraries such
-    as Lwt, Async, and Domainslib; and interactive monitoring support enabled by the
+    KC Sivaramakrishnan, Vincent Balat, Anil Madhavapeddy\n\nEio provides an effects-based
+    direct-style IO stack for OCaml 5. This talk introduces Eio\u2019s main features,
+    such as use of effects, multi-core support and lock-free data-structures, support
+    for modular programming, interoperability with other concurrency libraries such
+    as Lwt, Async and Domainslib, and interactive monitoring support enabled by the
     custom runtime events in OCaml 5.1. We will report on our experiences porting
     existing applications to Eio."
   published: 2023-12-01T14:23:16+00:00
@@ -805,10 +805,10 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
-- title: 'EmelleTV #18 With KC About OCaml, Multicore, and Runtimes'
+- title: 'emelletv #18 with KC about OCaml, Multicore and runtimes'
   content: https://www.youtube.com/v/eSLdBuaVSFM?version=3
   thumbnail: https://i2.ytimg.com/vi/eSLdBuaVSFM/hqdefault.jpg
-  description: 'Talking with KC about Multicore, OCaml 5, and runtimes.
+  description: 'Talking with KC about Multicore, OCaml 5 and runtimes.
 
 
     Support the show at https://www.patreon.com/emelletv or don''t miss it live by
@@ -818,10 +818,11 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
-- title: 'EmelleTV #17  With Gabriel Nordeborn (@zth) About ReScript, Graphql, and Relay'
+- title: 'emelletv #17  with Gabriel Nordeborn (@zth) about ReScript, Graphql and
+    Relay'
   content: https://www.youtube.com/v/WNDxnpZSUD4?version=3
   thumbnail: https://i4.ytimg.com/vi/WNDxnpZSUD4/hqdefault.jpg
-  description: 'Talking with  Gabriel Nordeborn about ReScript, Graphql, and Relay
+  description: 'Talking with  Gabriel Nordeborn about ReScript, Graphql and Relay
 
 
     Support the show at https://www.patreon.com/emelletv or don''t miss it live https://www.twitch.tv/emelletv'
@@ -830,11 +831,12 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
-- title: 'EmelleTV #16 With Simon "c-cube" Cruanes About OCaml, Containers, and Automated Theorem Proving'
+- title: 'emelletv #16 with  Simon "c-cube" Cruanes about OCaml, Containers and Automated
+    Theorem Proving'
   content: https://www.youtube.com/v/9ZlGSghBbnk?version=3
   thumbnail: https://i2.ytimg.com/vi/9ZlGSghBbnk/hqdefault.jpg
   description: 'Talking with Simon Cruanes (c-cube) about Imandra, Automated Theorem
-    Proving, dev tooling, and more
+    Proving, dev tooling and more
 
 
     Support the show at https://www.patreon.com/emelletv'
@@ -843,10 +845,10 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
-- title: 'EmelleTV #15 With Rudi Grinberg About OCaml, Dune, Opium, and dev tools'
+- title: 'emelletv #15 with Rudi Grinberg about OCaml, Dune, Opium and dev tools'
   content: https://www.youtube.com/v/tjqLBsLaFvM?version=3
   thumbnail: https://i1.ytimg.com/vi/tjqLBsLaFvM/hqdefault.jpg
-  description: 'Talking with Rudi Grinberg about OCaml, Opium, and Dune
+  description: 'Talking with Rudi Grinberg about OCaml, Opium and Dune
 
 
     Support the show at https://www.patreon.com/emelletv'
@@ -855,10 +857,10 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
-- title: 'EmelleTV #14 With Thomas Gazagnaire Talking About OCaml and Tarides'
+- title: 'emelletv #14 with Thomas Gazagnaire talking about OCaml and Tarides'
   content: https://www.youtube.com/v/cgYL5oJEJWY?version=3
   thumbnail: https://i4.ytimg.com/vi/cgYL5oJEJWY/hqdefault.jpg
-  description: 'Support the show for more content about OCaml, Reason and ReScript. You
+  description: 'Support the show for more content about OCaml, Reason and ReScript  you
     can now do so at https://www.patreon.com/emelletv or by sending any tez amount
     to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
 
@@ -869,11 +871,12 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
-- title: 'EmelleTV #13 With Camilo Azevedo About Learning, OCaml, Open Source, and communities'
+- title: 'emelletv #13 with Camilo Azevedo about Learning, OCaml, Open Source and
+    communities'
   content: https://www.youtube.com/v/QZroVxQstRM?version=3
   thumbnail: https://i2.ytimg.com/vi/QZroVxQstRM/hqdefault.jpg
   description: 'If you''d like to support the show for more content about OCaml, Reason
-    and ReScript, you can now do so at https://www.patreon.com/emelletv or by sending
+    and ReScript  you can now do so at https://www.patreon.com/emelletv or by sending
     any tez amount to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
 
 
@@ -883,7 +886,7 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
-- title: 'EmelleTV #12 With Hongbo Zhang About ReScript'
+- title: 'emelletv #12 with Hongbo Zhang about ReScript'
   content: https://www.youtube.com/v/aqqc93BmNBs?version=3
   thumbnail: https://i2.ytimg.com/vi/aqqc93BmNBs/hqdefault.jpg
   description: 'Hongbo Zhang (@bobzhang1988), author of BuckleScript and core maintainer
@@ -891,7 +894,7 @@
 
 
     Enjoying the video? Please, support the show for more content about OCaml, Reason
-    and ReScript. You can now do so at https://www.patreon.com/emelletv or by sending
+    and ReScript  you can now do so at https://www.patreon.com/emelletv or by sending
     any tez amount to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
 
 
@@ -907,7 +910,7 @@
   description: 'Anil Madhavapeddy (@avsm), the face of OCaml
 
 
-    If you''d like to support the show for more content about OCaml, Reason and ReScript, you
+    If you''d like to support the show for more content about OCaml, Reason and ReScript  you
     can now do so at https://www.patreon.com/emelletv or by sending any tez amount
     to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
 
@@ -925,7 +928,7 @@
   description: 'Calascibetta Romain (@Dinoosaure) core maintainer at Mirage OS
 
 
-    If you''d like to support the show for more content about OCaml, Reason and ReScript, you
+    If you''d like to support the show for more content about OCaml, Reason and ReScript  you
     can now do so at https://www.patreon.com/emelletv or by sending any tez amount
     to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
 
@@ -948,7 +951,7 @@
     memory.\n\nSome links to topics that came up in the discussion:\n\nStephen\u2019s
     command-line JSON processor, jq: https://github.com/stedolan/jq\nStephen\u2019s
     Cambridge dissertation, \u201CAlgebraic Subtyping\u201D: https://www.cs.tufts.edu/~nr/cs257/archive/stephen-dolan/thesis.pdf\nand
-    a protoype implementation of `mlsub`: https://github.com/stedolan/mlsub, a language
+    a protoype implementation of mlsub: https://github.com/stedolan/mlsub, a language
     based on those ideas.\nA post from Stephen on how to benchmark different memory
     allocators: https://blog.janestreet.com/memory-allocator-showdown/\nA Jane Street
     tech talk on \u201CUnboxed Types for OCaml\u201D: https://www.janestreet.com/tech-talks/unboxed-types-for-ocaml/
@@ -956,7 +959,7 @@
     paper from Stephen and KC Sivaramakrishnan (https://kcsrk.info/) called \u201CBounding
     Data Races in Space and Time\u201D, which is all about a new and better memory
     model for Multicore OCaml: https://kcsrk.info/papers/pldi18-memory.pdf\nAnother
-    paper describing the design of OCaml\u2019s Multicore GC: https://arxiv.org/pdf/2004.11663.pdf\nThe
+    paper describing the design of OCaml\u2019s multicore GC: https://arxiv.org/pdf/2004.11663.pdf\nThe
     Rust RFC for Higher-ranked trait bounds: https://rust-lang.github.io/rfcs/0387-higher-ranked-trait-bounds.html\n\nYou
     can find the transcript for this episode and all past episodes at signalsandthreads.com."
   published: 2022-01-05T18:56:38+00:00
@@ -964,13 +967,13 @@
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
   source_title: Jane Street - Signal & Threads
-- title: 'EmelleTV #9 With Sean Grove talking About GraphQL, OneGraph, and ReasonML'
+- title: 'emelletv #9 with Sean Grove talking about GraphQL, OneGraph and ReasonML'
   content: https://www.youtube.com/v/9-i_7Ldkc_8?version=3
   thumbnail: https://i2.ytimg.com/vi/9-i_7Ldkc_8/hqdefault.jpg
   description: 'Sean Grove Founder of OneGraph
 
 
-    If you''d like to support the show for more content about OCaml, Reason, and ReScript, you
+    If you''d like to support the show for more content about OCaml, Reason and ReScript  you
     can now do so at https://www.patreon.com/emelletv or by sending any tez amount
     to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
 
@@ -981,7 +984,8 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
-- title: 'EmelleTV #8 With Gabriel "Drup" Radanne About OCaml, Meta-Programming, and ML History'
+- title: 'emelletv #8 with Gabriel "Drup" Radanne about OCaml, meta-programming and
+    ML history'
   content: https://www.youtube.com/v/VgbZT-NPrcA?version=3
   thumbnail: https://i3.ytimg.com/vi/VgbZT-NPrcA/hqdefault.jpg
   description: 'Gabriel "Drup" Radanne researcher at Inria in the CASH research team
@@ -989,7 +993,7 @@
 
 
 
-    If you''d like to support the show for more content about OCaml, Reason, and ReScript, you
+    If you''d like to support the show for more content about OCaml, Reason and ReScript  you
     can now do so at https://www.patreon.com/emelletv or by sending any tez amount
     to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
 
@@ -1000,11 +1004,12 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
-- title: 'EmelleTV #7 With Oscar Spencer talking About Grain Lang, WASM, Programming Language Theory, and ML'
+- title: 'emelletv #7 with Oscar Spencer talking about Grain Lang, WASM, Programming
+    Language Theory and ML'
   content: https://www.youtube.com/v/UcqeMJbW3y0?version=3
   thumbnail: https://i2.ytimg.com/vi/UcqeMJbW3y0/hqdefault.jpg
   description: "Oscar Spencer (@oscar_spen) is the co-author of Grain Lang\n \n\nIf
-    you'd like to support the show for more content about OCaml, Reason, and ReScript,
+    you'd like to support the show for more content about OCaml, Reason and ReScript
     \ you can now do so at https://www.patreon.com/emelletv or by sending any tez
     amount to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)\n\nWatch live at
     https://www.twitch.tv/emelletv"
@@ -1013,7 +1018,7 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
-- title: What is an Operating System? With Anil Madhavapeddy
+- title: What is an Operating System? with Anil Madhavapeddy
   content: https://www.youtube.com/v/QQKD3ul0R0U?version=3
   thumbnail: https://i2.ytimg.com/vi/QQKD3ul0R0U/hqdefault.jpg
   description: "Anil Madhavapeddy is an academic, author, engineer, entrepreneur,
@@ -1024,7 +1029,7 @@
     time Anil went to a party, got drunk, and woke up with a job working on the Mars
     Polar Lander.\n\nSome links to topics that came up in the discussion:\n\nThe latest
     edition of Real World OCaml: https://dev.realworldocaml.org/\nThe MirageOS library
-    operating system: https://mirage.io/\nDocker for Mac and Windows, which is based
+    operating system: https://mirage.io/\nDocker for Mac and Windows , which is based
     on MirageOS: https://www.docker.com/blog/docker-unikernels-open-source/\nCambridge
     University\u2019s OCaml Labs: https://ocamllabs.io/\nNASA\u2019s Mars Polar Lander\nThe
     Xen Project (https://xenproject.org/), which made extensive use of OCaml (https://ocaml.org/meetings/ocaml/2012/abstracts/oud2012-paper14.pdf)
@@ -1036,7 +1041,7 @@
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
   source_title: Jane Street - Signal & Threads
-- title: Building a UI Framework With Ty Overby
+- title: Building a UI Framework with Ty Overby
   content: https://www.youtube.com/v/NT1_A1AfBL0?version=3
   thumbnail: https://i3.ytimg.com/vi/NT1_A1AfBL0/hqdefault.jpg
   description: "Ty Overby is a programmer in Jane Street\u2019s web platform group
@@ -1058,7 +1063,7 @@
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
   source_title: Jane Street - Signal & Threads
-- title: Writing, Technically With James Somers
+- title: Writing, Technically with James Somers
   content: https://www.youtube.com/v/Oh_iFh7Rofs?version=3
   thumbnail: https://i4.ytimg.com/vi/Oh_iFh7Rofs/hqdefault.jpg
   description: "James Somers is Jane Street\u2019s writer-in-residence, splitting
