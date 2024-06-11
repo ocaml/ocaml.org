@@ -140,6 +140,61 @@ module Exercise = struct
   [@@deriving show]
 end
 
+module Governance = struct
+  module Member = struct
+    type t = { name : string; github : string; role : string }
+    [@@deriving of_yaml, show]
+
+    let compare a b = String.compare a.github b.github
+  end
+
+  type contact_kind = GitHub | Email | Discord | Chat [@@deriving show]
+
+  let contact_kind_of_yaml = function
+    | `String "github" -> Ok GitHub
+    | `String "email" -> Ok Email
+    | `String "discord" -> Ok Discord
+    | `String "chat" -> Ok Chat
+    | x -> (
+        match Yaml.to_string x with
+        | Ok str ->
+            Error
+              (`Msg
+                ("\"" ^ str
+               ^ "\" is not a valid contact_kind! valid options are: github, \
+                  email, discord, chat"))
+        | Error _ -> Error (`Msg "Invalid Yaml value"))
+
+  let contact_kind_to_yaml = function
+    | GitHub -> `String "github"
+    | Email -> `String "email"
+    | Discord -> `String "discord"
+    | Chat -> `String "chat"
+
+  type contact = { name : string; link : string; kind : contact_kind }
+  [@@deriving of_yaml, show]
+
+  type dev_meeting = {
+    date : string;
+    time : string;
+    link : string;
+    calendar : string option;
+    notes : string;
+  }
+  [@@deriving of_yaml, show]
+
+  type team = {
+    id : string;
+    name : string;
+    description : string;
+    contacts : contact list;
+    dev_meeting : dev_meeting option; [@default None] [@key "dev-meeting"]
+    members : Member.t list; [@default []]
+    subteams : team list; [@default []]
+  }
+  [@@deriving of_yaml, show]
+end
+
 module Outreachy = struct
   type project = {
     title : string;

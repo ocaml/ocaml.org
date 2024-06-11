@@ -467,10 +467,10 @@ working-groups:
     kind: chat
   dev-meeting:
     date: Biweekly on Mondays
-    time: 10:00 AM BST
-    link: http://meet.google.com/byo-dfiz-dou
-    calendar: https://calendar.google.com/calendar/u/4?cid=Y19iMDA5ZDA4MDg0YzIwYWMzMDQ4NjJhN2FkZWJiYjdmOTU0NGIxYzEwMmU0MDMyMTAzMDFiY2ZhYjcwMDBmMjNlQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20
-    notes: https://docs.google.com/document/d/1ZBfbjAkvEkv9ldumpZV5VXrEc_HpPeYjHPW_TiwJe4Q/
+    time: "10:00 AM BST"
+    link: "http://meet.google.com/byo-dfiz-dou"
+    calendar: "https://calendar.google.com/calendar/u/4?cid=Y19iMDA5ZDA4MDg0YzIwYWMzMDQ4NjJhN2FkZWJiYjdmOTU0NGIxYzEwMmU0MDMyMTAzMDFiY2ZhYjcwMDBmMjNlQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20"
+    notes: "https://docs.google.com/document/d/1ZBfbjAkvEkv9ldumpZV5VXrEc_HpPeYjHPW_TiwJe4Q/"
   members:
   - name: Sudha Parimala
     github: Sudha247
