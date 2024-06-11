@@ -94,18 +94,7 @@ module Governance : sig
 end
 
 module Industrial_user : sig
-  type t = {
-    name : string;
-    slug : string;
-    description : string;
-    logo : string option;
-    url : string;
-    locations : string list;
-    consortium : bool;
-    featured : bool;
-    body_md : string;
-    body_html : string;
-  }
+  include module type of Data_intf.Industrial_user
 
   val all : t list
   val featured : t list
