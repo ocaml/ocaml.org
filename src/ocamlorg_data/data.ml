@@ -95,9 +95,7 @@ module Industrial_user = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
-module Is_ocaml_yet = struct
-  include Is_ocaml_yet
-end
+module Is_ocaml_yet = Is_ocaml_yet
 
 module Job = Job
 
@@ -129,9 +127,7 @@ module Opam_user = struct
            contains pattern (String.lowercase_ascii name))
 end
 
-module Outreachy = struct
-  include Outreachy
-end
+module Outreachy = Outreachy
 
 module Page = struct
   include Page
