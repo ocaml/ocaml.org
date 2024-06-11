@@ -390,3 +390,15 @@ module Release = struct
   }
   [@@deriving show]
 end
+
+module Resource = struct
+  type t = {
+    title : string;
+    description : string;
+    image : string;
+    online_url : string;
+    source_url : string option;
+    featured : bool;
+  }
+  [@@deriving of_yaml, show]
+end
