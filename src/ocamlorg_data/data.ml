@@ -96,7 +96,6 @@ module Industrial_user = struct
 end
 
 module Is_ocaml_yet = Is_ocaml_yet
-
 module Job = Job
 
 module News = struct
