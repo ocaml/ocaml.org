@@ -47,6 +47,7 @@ let all () = Utils.map_files decode "is_ocaml_yet/*.md"
 
 let template () =
   Format.asprintf {|
+include Data_intf.Is_ocaml_yet
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
