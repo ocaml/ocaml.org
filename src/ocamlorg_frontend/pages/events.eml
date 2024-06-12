@@ -1,17 +1,3 @@
-let string_from_event_type = function
-  | Data.Event.Meetup -> "Meetup"
-  | Conference -> "Conference"
-  | Seminar -> "Seminar"
-  | Hackathon -> "Hackathon"
-  | Retreat -> "Retreat"
-
-let color_for_event_type = function
-  | Data.Event.Meetup -> "bg-avatar-6"
-  | Conference -> "bg-avatar-0"
-  | Seminar -> "bg-avatar-11"
-  | Hackathon -> "bg-avatar-8"
-  | Retreat -> "bg-avatar-9"
-
 let render ~recurring_events ~upcoming_events =
 Community_layout.single_column_layout
 ~title:"The Events"
@@ -27,55 +13,18 @@ Community_layout.single_column_layout
           <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Upcoming Events</h2>
           <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
               <% upcoming_events |> List.iter (fun (event : Data.Event.t) -> %>
-              <a href="<%s event.url %>" class="card dark:dark-card p-5 rounded-xl">
-                <p class="font-bold text-title dark:text-dark-title mb-2"><%s event.title %></p>
-                <div class="px-3 mb-2 inline-block <%s color_for_event_type event.event_type %> rounded-3xl font-mono text-sm text-center text-white">
-                  <%s string_from_event_type event.event_type %>
-                </div>
-                <div class="flex items-center space-x-2 mb-3">
-                  <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
-                  <p class="text-content dark:text-dark-content"><%s event.textual_location %></p>
-                </div>
-                <div class="flex items-center space-x-2 mt-2">
-                  <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
-                  <p class="text-content dark:text-dark-content">
-                    <%s event.starts.yyyy_mm_dd %>
-                    <%s event.starts.utc_hh_mm |> Option.map (fun s -> s ^ " UTC") |> Option.value ~default:"" %>
-                  </p>
-                </div>
-                <% (match event.ends with | None -> () | Some ends -> ( %>
-                <div class="flex items-center space-x-2 mt-2">
-                  <p class="ml-9 text-content dark:text-dark-content">
-                    to
-                    <%s ends.yyyy_mm_dd %>
-                    <%s ends.utc_hh_mm |> Option.map (fun s -> s ^ " UTC") |> Option.value ~default:"" %>
-                  </p>
-                </div>
-                <% )); %>
-              </a>
+               <%s! Cards.Event.upcoming_event event %>
               <% ); %>
           </div>
       </div>
     </div>
 <% ); %>
+<%s! Cards.Event.script %>
     <p class="uppercase text-sm text-white tracking-widest opacity-60 font-medium mb-2">events</p>
     <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Recurring Events</h2>
     <div class="grid lg:grid-cols-3 gap-8 lg:gap-10 mt-12">
       <% recurring_events |> List.iter (fun (recurring_event : Data.Event.RecurringEvent.t) -> %>
-      <a href="<%s recurring_event.url %>" class="card dark:dark-card p-5 rounded-xl">
-          <p class="font-bold text-lg text-title dark:text-dark-title mb-3">
-              <%s recurring_event.title %>
-          </p>
-          <div class="px-3 mb-2 inline-block <%s color_for_event_type recurring_event.event_type %> rounded-3xl font-mono text-sm text-center text-white">
-            <%s string_from_event_type recurring_event.event_type %>
-          </div>
-          <div class="flex items-center space-x-2">
-            <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary" %>
-            <p class="text-content dark:text-dark-content">
-                <%s recurring_event.textual_location %>
-            </p class="text-content dark:text-dark-content">
-          </div>
-      </a>
+       <%s! Cards.Event.recurring_event recurring_event %>
       <% ); %>
     </div>
     <p class="text-white dark:text-dark-content my-6">
@@ -83,3 +32,4 @@ Community_layout.single_column_layout
     </p>
   </div>
 </div>
+

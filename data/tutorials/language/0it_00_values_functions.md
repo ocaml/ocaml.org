@@ -121,7 +121,10 @@ In both examples, `d` and `e` are local definitions.
 <!-- FIXME: review & revise this entire section :: Sabine -->
 
 <!--the example illustrates tuples::-->
-Some definitions can introduce more than one name or no name.
+When pattern matching only has one case, it can be used in name definitions and in
+`let ... =` and `fun ... ->` expressions. In that case, less or more than one
+name may be defined. This applies to tuples, records, and custom single-variant
+types.
 
 ### Pattern Matching on Tuples
 
@@ -148,10 +151,33 @@ type name = { first : string; last : string; }
 # let robin = { first = "Robin"; last = "Milner" };;
 val robin : name = {first = "Robin"; last = "Milner"}
 
-# let { first; last } = robin;;
-val first : string = "Robin"
-val last : string = "Milner"
+# let { first = given_name; last = family_name } = robin;;
+val given_name : string = "Robin"
+val family_name : string = "Milner"
 ```
+
+### Pattern Matching in Function Parameters
+
+Single-case pattern matching can also be used for parameter declaration.
+
+Here is an example with tuples:
+```ocaml
+# let get_country ((country, { first; last }) : citizen) = country;;
+val get_countruy : citizen -> string = <fun>
+```
+
+Here is an example with the `name` record:
+```ocaml
+# let introduce {first; last} = "I am " ^ first ^ " " ^ last;;
+val introduce : name -> string = <fun>
+```
+
+**Note** Using the `discard` pattern for parameter declaration is also possible.
+```ocaml
+# let get_meaning _ = 42;;
+val get_meaning : 'a -> int = <fun>
+```
+
 
 ### Pattern Matching on `unit`
 <!--Unit example-->
@@ -174,11 +200,13 @@ Above, the pattern does not contain any identifier, meaning no name is defined. 
 
 This also works with user-defined types.
 ```ocaml
-# type live_person = int * name;;
-type live_person = int * name
+# type citizen = string * name;;
+type citizen = string * name
 
-# let age ((years, { first; last }) : live_person) = years;;
-val age : live_person -> int = <fun>
+# let ((country, { first = forename; last = surname }) : citizen) = ("United Kingdom", robin);;
+val country : string = "United Kingdom"
+val forename : string = "Robin"
+val surname : string = "Milner"
 ```
 
 ### Discarding Values Using Pattern Matching
@@ -604,6 +632,7 @@ val spicy_cat : string * string -> string = <fun>
 It looks like two arguments have been passed: `"hello"` and `"world"`. However, only one, the `("hello", "world")` tuple, has been passed. Inspection of the generated assembly would show it isn't the same function as `sweet_cat`. It contains some more code. The contents of the tuple passed to `spicy_cat` (`x` and `y`) must be extracted before evaluation of the `x ^ " " ^ y` expression. This is the role of the additional assembly instructions.
 
 In many imperative languages, the `spicy_cat ("hello", "world")` syntax reads as a function call with two arguments; but in OCaml, it denotes applying the function `spicy_cat` to a tuple containing `"hello"` and `"world"`.
+
 
 ### Currying and Uncurrying
 

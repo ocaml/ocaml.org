@@ -69,6 +69,7 @@ module Event = struct
 end
 
 module Exercise = struct
+  include Data_intf.Exercise
   include Exercise
 
   let filter_tag ?tag =
@@ -125,10 +126,7 @@ module Opam_user = struct
            contains pattern (String.lowercase_ascii name))
 end
 
-module Outreachy = struct
-  include Data_intf.Outreachy
-  include Outreachy
-end
+module Outreachy = Outreachy
 
 module Page = struct
   include Page
@@ -148,10 +146,14 @@ end
 module Planet = struct
   include Planet
 
-  module LocalBlog = struct
-    include LocalBlog
+  module Post = struct
+    include Planet.Post
+  end
 
-    let get_by_id id = List.find_opt (fun (x : t) -> String.equal x.source.id id) all
+  module LocalBlog = struct
+    include Planet.LocalBlog
+
+    let get_by_id id = List.find_opt (fun x -> String.equal x.source.id id) all
   end
 
   let local_posts =

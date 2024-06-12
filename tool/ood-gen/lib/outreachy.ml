@@ -15,6 +15,7 @@ let all () =
 
 let template () =
   Format.asprintf {|
+include Data_intf.Outreachy
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
