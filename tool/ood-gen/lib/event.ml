@@ -87,13 +87,10 @@ module EventsFeed = struct
     let authors = (Syndic.Atom.author "Ocaml.org", []) in
     let event_type = EventType.show log.event_type in
     let textual_location = log.textual_location in
-    let start_date =
-      Syndic.Date.of_rfc3339
-        (log.starts.yyyy_mm_dd ^ "T"
-        ^ Option.value ~default:"00:00" log.starts.utc_hh_mm
-        ^ ":00Z")
-    in
-    let start_date_str = Syndic.Date.to_rfc3339 start_date in
+    let start_date_str = 
+      log.starts.yyyy_mm_dd ^ "T"
+      ^ Option.value ~default:"00:00" log.starts.utc_hh_mm
+      ^ ":00Z"
     let id = Uri.of_string (log.slug ^ " " ^ start_date_str) in
     let location_summary =
       match log.location with
