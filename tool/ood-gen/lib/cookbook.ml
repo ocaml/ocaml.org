@@ -117,7 +117,7 @@ let all_categories_and_tasks () =
 let tasks, top_categories = all_categories_and_tasks ()
 
 let all () =
-  Utils.map_files (decode tasks) "cookbook/*/*.ml"
+  Utils.map_md_files (decode tasks) "cookbook/*/*.ml"
   |> List.sort (fun (a : t) (b : t) -> String.compare b.slug a.slug)
   |> List.rev
 

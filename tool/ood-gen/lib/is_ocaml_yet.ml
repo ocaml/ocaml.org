@@ -43,7 +43,7 @@ let decode (fpath, (head, body_md)) =
   in
   Result.map (metadata_to_t ~body_html ~modify_categories) metadata
 
-let all () = Utils.map_files decode "is_ocaml_yet/*.md"
+let all () = Utils.map_md_files decode "is_ocaml_yet/*.md"
 
 let template () =
   Format.asprintf {|

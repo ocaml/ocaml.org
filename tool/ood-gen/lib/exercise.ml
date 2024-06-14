@@ -55,7 +55,7 @@ let compare_by_slug =
   fun (x : t) (y : t) -> compare (key x) (key y)
 
 let all () =
-  Utils.map_files decode "exercises/*.md" |> List.sort compare_by_slug
+  Utils.map_md_files decode "exercises/*.md" |> List.sort compare_by_slug
 
 let template () =
   Format.asprintf {|

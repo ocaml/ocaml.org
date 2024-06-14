@@ -76,7 +76,7 @@ let decode (fname, (head, body)) =
     metadata
 
 let all () =
-  Utils.map_files decode "changelog/*/*.md"
+  Utils.map_md_files decode "changelog/*/*.md"
   |> List.sort (fun a b -> String.compare b.slug a.slug)
 
 module ChangelogFeed = struct

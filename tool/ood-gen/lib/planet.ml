@@ -116,7 +116,7 @@ module Local = struct
       |> Result.map (of_metadata ~slug ~source ~body_html)
 
     let all () : post list =
-      Utils.map_files decode "planet-local-blogs/*/*.md"
+      Utils.map_md_files decode "planet-local-blogs/*/*.md"
       |> List.sort (fun (a : post) b -> String.compare b.date a.date)
   end
 end
@@ -234,7 +234,7 @@ module External = struct
       |> Result.map (of_metadata ~source ~body_html)
 
     let all () : post list =
-      Utils.map_files decode "planet/*/*.md"
+      Utils.map_md_files decode "planet/*/*.md"
       |> List.sort (fun (a : post) b -> String.compare b.date a.date)
   end
 end

@@ -22,7 +22,7 @@ let decode (fpath, (head, body_md)) =
   in
   Result.map (of_metadata ~body_md ~body_html) metadata
 
-let all () = Utils.map_files decode "industrial_users/*.md"
+let all () = Utils.map_md_files decode "industrial_users/*.md"
 
 let template () =
   Format.asprintf {|

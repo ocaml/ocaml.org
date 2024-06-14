@@ -43,7 +43,7 @@ let decode (fpath, (head, body_md)) =
   Result.map (of_metadata ~fpath ~toc ~body_md ~body_html) metadata
 
 let all () =
-  Utils.map_files decode "tool_pages/*/*.md"
+  Utils.map_md_files decode "tool_pages/*/*.md"
   |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
 
 let template () =
