@@ -1,38 +1,39 @@
 span[class*="keyword"] {
-  color: #fede5d;
+  color: #879A39;
 }
 
 span[class*="constant"] {
-  color: #fabd2f;
+  color: #D0A215;
 }
 
 span[class*="function-binding"] {
-  color: #36f9f6;
+  color: #DA702C;
 }
 
 span[class*="variable"] {
-  color: #85ebeb;
+  color: #4385BE;
   font-style: italic;
 }
 
 span[class*="support"] {
-  color: #83a598;
+  color: #0184BC;
 }
 
 span[class*="comment"] {
+  color: #6F6E69;
   font-style: italic;
 }
 
 span[class*="literal"] {
-  color: #d3869b;
+  color: #50A14F;
 }
 
 span[class*="string"] {
-  color: #b8bb26;
+  color: #3AA99F;
 }
 
 span[class*="numeric"] {
-  color: #ff5683;
+  color: #8B7EC8;
 }
 
 
