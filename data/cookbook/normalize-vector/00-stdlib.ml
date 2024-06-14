@@ -1,8 +1,5 @@
 ---
-packages: 
-discussion: |
-  - **How to normalize a vector, v using the standard library. We create a helper function to sum a list, calculate the magnitude, then compute the unit vector.**
-  - **Works with float data only since we rely on the Float.sqrt function. This is reasonable though since we expect a float most of the time for a square root.**
+packages: []
 ---
 
 (**[sum] returns the sum of all elements in the list [lst] *)
