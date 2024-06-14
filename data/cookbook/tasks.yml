@@ -92,6 +92,12 @@ categories:
       slug: deserialise-from-yaml
     - title: Deserialise and Post-Process YAML Data
       slug: deserialise-post-process-from-yaml
+  - title: XML
+    tasks:
+    - title: Parse XML
+      slug: xml-parse
+    - title: Generate XML
+      slug: xml-generate
 - title: Date and Time
   tasks:
   - title: Get Today's Date
