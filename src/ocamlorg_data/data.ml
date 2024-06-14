@@ -234,23 +234,6 @@ module Tutorial = struct
     |> List.map fst
 end
 
-module Video = struct
-  include Video
-
-  let kind_to_string = function
-    | `Conference -> "conference"
-    | `Mooc -> "mooc"
-    | `Lecture -> "lecture"
-
-  let kind_of_string = function
-    | "conference" -> Ok `Conference
-    | "mooc" -> Ok `Mooc
-    | "lecture" -> Ok `Lecture
-    | s -> Error (`Msg ("Unknown proficiency type: " ^ s))
-
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
-end
-
 module Watch = Watch
 
 module Workshop = struct

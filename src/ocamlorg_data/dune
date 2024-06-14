@@ -293,18 +293,6 @@
     (run %{ood_gen} tool_page)))))
 
 (rule
- (target video.ml)
- (deps
-  %{workspace_root}/data/videos.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} video)))))
-
-(rule
  (target watch.ml)
  (deps
   %{workspace_root}/data/watch.yml
