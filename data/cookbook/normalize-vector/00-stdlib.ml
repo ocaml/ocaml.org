@@ -6,7 +6,7 @@ packages: []
 let sum lst = List.fold_left ( +. ) 0. lst
 
 (** returns the [magnitude] for a sum of squares [sqs]*)
-let rec magnitude sqs = Float.sqrt (sum sqs)
+let magnitude sqs = Float.sqrt (sum sqs)
 
 (** [normalize] accepts a list [v] of float values and returns the unit vector as a list*)
 let normalize v =
