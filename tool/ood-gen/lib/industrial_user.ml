@@ -1,3 +1,5 @@
+open Data_intf.Industrial_user
+
 type metadata = {
   name : string;
   description : string;
@@ -7,25 +9,9 @@ type metadata = {
   consortium : bool;
   featured : bool;
 }
-[@@deriving of_yaml]
+[@@deriving of_yaml, stable_record ~version:t ~add:[ slug; body_md; body_html ]]
 
-type t = {
-  name : string;
-  slug : string;
-  description : string;
-  logo : string option;
-  url : string;
-  locations : string list;
-  consortium : bool;
-  featured : bool;
-  body_md : string;
-  body_html : string;
-}
-[@@deriving
-  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ],
-    show { with_path = false }]
-
-let of_metadata m = of_metadata m ~slug:(Utils.slugify m.name)
+let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.name)
 
 let decode (fpath, (head, body_md)) =
   let metadata =
@@ -36,24 +22,11 @@ let decode (fpath, (head, body_md)) =
   in
   Result.map (of_metadata ~body_md ~body_html) metadata
 
-let all () = Utils.map_files decode "industrial_users/*.md"
+let all () = Utils.map_md_files decode "industrial_users/*.md"
 
 let template () =
-  Format.asprintf
-    {|
-type t =
-  { name : string
-  ; slug : string
-  ; description : string
-  ; logo : string option
-  ; url : string
-  ; locations : string list
-  ; consortium : bool
-  ; featured : bool
-  ; body_md : string
-  ; body_html : string
-  }
-  
+  Format.asprintf {|
+include Data_intf.Industrial_user
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))

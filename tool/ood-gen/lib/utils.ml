@@ -53,7 +53,7 @@ let read_from_dir glob =
 
 let where path (`Msg err) = `Msg (path ^ ": " ^ err)
 
-let map_files f glob =
+let map_md_files f glob =
   let f (path, data) =
     let* metadata =
       extract_metadata_body path data |> Result.map_error (where path)

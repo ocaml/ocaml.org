@@ -128,7 +128,7 @@ let decode (recurring_events : RecurringEvent.t list) (fpath, (head, body_md)) =
     metadata
 
 let all () =
-  Utils.map_files (decode (RecurringEvent.all ())) "events/*.md"
+  Utils.map_md_files (decode (RecurringEvent.all ())) "events/*.md"
   |> List.sort (fun e1 e2 ->
          (* Sort the events by reversed start date. *)
          let t1 =

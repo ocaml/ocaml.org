@@ -1,4 +1,5 @@
 module Academic_institution = struct
+  include Data_intf.Academic_institution
   include Academic_institution
 
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
@@ -68,6 +69,7 @@ module Event = struct
 end
 
 module Exercise = struct
+  include Data_intf.Exercise
   include Exercise
 
   let filter_tag ?tag =
@@ -230,23 +232,6 @@ module Tutorial = struct
       all_search_documents
     |> List.sort (fun (_, score1) (_, score2) -> Float.compare score2 score1)
     |> List.map fst
-end
-
-module Video = struct
-  include Video
-
-  let kind_to_string = function
-    | `Conference -> "conference"
-    | `Mooc -> "mooc"
-    | `Lecture -> "lecture"
-
-  let kind_of_string = function
-    | "conference" -> Ok `Conference
-    | "mooc" -> Ok `Mooc
-    | "lecture" -> Ok `Lecture
-    | s -> Error (`Msg ("Unknown proficiency type: " ^ s))
-
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Watch = Watch

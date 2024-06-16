@@ -1,65 +1,19 @@
 module Academic_institution : sig
-  type location = { lat : float; long : float }
-
-  type course = {
-    name : string;
-    acronym : string option;
-    online_resource : string option;
-  }
-
-  type t = {
-    name : string;
-    slug : string;
-    description : string;
-    url : string;
-    logo : string option;
-    continent : string;
-    courses : course list;
-    location : location option;
-    body_md : string;
-    body_html : string;
-  }
+  include module type of Data_intf.Academic_institution
 
   val all : t list
   val get_by_slug : string -> t option
 end
 
 module Book : sig
-  type difficulty = Beginner | Intermediate | Advanced
-  type link = { description : string; uri : string }
-
-  type t = {
-    title : string;
-    slug : string;
-    description : string;
-    recommendation : string option;
-    authors : string list;
-    language : string list;
-    published : string;
-    cover : string;
-    isbn : string option;
-    links : link list;
-    difficulty : difficulty;
-    pricing : string;
-    body_md : string;
-    body_html : string;
-  }
+  include module type of Data_intf.Book
 
   val all : t list
   val get_by_slug : string -> t option
 end
 
 module Changelog : sig
-  type t = {
-    title : string;
-    slug : string;
-    date : string;
-    tags : string list;
-    changelog_html : string option;
-    body_html : string;
-    body : string;
-    authors : string list;
-  }
+  include module type of Data_intf.Changelog
 
   val all : t list
   val get_by_slug : string -> t option
@@ -72,36 +26,7 @@ module Code_example : sig
 end
 
 module Cookbook : sig
-  type category = {
-    title : string;
-    slug : string;
-    subcategories : category list;
-  }
-
-  type task = {
-    title : string;
-    slug : string;
-    category_path : string list;
-    description : string option;
-  }
-
-  type code_block_with_explanation = { code : string; explanation : string }
-
-  type package = {
-    name : string;
-    tested_version : string;
-    used_libraries : string list;
-  }
-
-  type t = {
-    slug : string;
-    filepath : string;
-    task : task;
-    packages : package list;
-    code_blocks : code_block_with_explanation list;
-    code_plaintext : string;
-    discussion_html : string;
-  }
+  include module type of Data_intf.Cookbook
 
   val top_categories : category list
   val tasks : task list
@@ -153,18 +78,7 @@ module Event : sig
 end
 
 module Exercise : sig
-  type difficulty = Beginner | Intermediate | Advanced
-
-  type t = {
-    title : string;
-    slug : string;
-    difficulty : difficulty;
-    tags : string list;
-    description : string;
-    statement : string;
-    solution : string;
-    tutorials : string list;
-  }
+  include module type of Data_intf.Exercise
 
   val all : t list
   val filter_tag : ?tag:string -> t list -> t list
@@ -172,32 +86,7 @@ module Exercise : sig
 end
 
 module Governance : sig
-  module Member : sig
-    type t = { name : string; github : string; role : string }
-
-    val compare : t -> t -> int
-  end
-
-  type contact_kind = GitHub | Email | Discord | Chat
-  type contact = { name : string; link : string; kind : contact_kind }
-
-  type dev_meeting = {
-    date : string;
-    time : string;
-    link : string;
-    calendar : string option;
-    notes : string;
-  }
-
-  type team = {
-    id : string;
-    name : string;
-    description : string;
-    contacts : contact list;
-    dev_meeting : dev_meeting option;
-    members : Member.t list;
-    subteams : team list;
-  }
+  include module type of Data_intf.Governance
 
   val teams : team list
   val working_groups : team list
@@ -205,18 +94,7 @@ module Governance : sig
 end
 
 module Industrial_user : sig
-  type t = {
-    name : string;
-    slug : string;
-    description : string;
-    logo : string option;
-    url : string;
-    locations : string list;
-    consortium : bool;
-    featured : bool;
-    body_md : string;
-    body_html : string;
-  }
+  include module type of Data_intf.Industrial_user
 
   val all : t list
   val featured : t list
@@ -224,24 +102,7 @@ module Industrial_user : sig
 end
 
 module Is_ocaml_yet : sig
-  type external_package = { url : string; synopsis : string }
-  type package = { name : string; extern : external_package option }
-
-  type category = {
-    name : string;
-    status : string;
-    description : string;
-    packages : package list;
-    slug : string;
-  }
-
-  type t = {
-    id : string;
-    question : string;
-    answer : string;
-    categories : category list;
-    body_html : string;
-  }
+  include module type of Data_intf.Is_ocaml_yet
 
   val all : t list
 end
@@ -296,17 +157,7 @@ module Opam_user : sig
 end
 
 module Outreachy : sig
-  type project = {
-    title : string;
-    description : string;
-    mentee : string;
-    blog : string option;
-    source : string;
-    mentors : string list;
-    video : string option;
-  }
-
-  type t = { name : string; projects : project list }
+  include module type of Data_intf.Outreachy
 
   val all : t list
 end
@@ -518,29 +369,6 @@ module Tutorial : sig
   val all_search_documents : search_document list
   val get_by_slug : string -> t option
   val search_documents : string -> search_document list
-end
-
-module Video : sig
-  type kind = [ `Conference | `Mooc | `Lecture ]
-
-  val kind_of_string : string -> (kind, [> `Msg of string ]) result
-  val kind_to_string : kind -> string
-
-  type t = {
-    title : string;
-    slug : string;
-    description : string;
-    people : string list;
-    kind : kind;
-    tags : string list;
-    paper : string option;
-    link : string;
-    embed : string option;
-    year : int;
-  }
-
-  val all : t list
-  val get_by_slug : string -> t option
 end
 
 module Watch : sig

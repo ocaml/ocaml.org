@@ -1,12 +1,4 @@
-type location = { lat : float; long : float }
-[@@deriving of_yaml, show { with_path = false }]
-
-type course = {
-  name : string;
-  acronym : string option;
-  online_resource : string option;
-}
-[@@deriving of_yaml, show { with_path = false }]
+open Data_intf.Academic_institution
 
 type metadata = {
   name : string;
@@ -17,25 +9,9 @@ type metadata = {
   courses : course list;
   location : location option;
 }
-[@@deriving of_yaml]
+[@@deriving of_yaml, stable_record ~version:t ~add:[ body_md; body_html; slug ]]
 
-type t = {
-  name : string;
-  slug : string;
-  description : string;
-  url : string;
-  logo : string option;
-  continent : string;
-  courses : course list;
-  location : location option;
-  body_md : string;
-  body_html : string;
-}
-[@@deriving
-  stable_record ~version:metadata ~remove:[ body_md; body_html; slug ],
-    show { with_path = false }]
-
-let of_metadata m = of_metadata m ~slug:(Utils.slugify m.name)
+let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.name)
 
 let decode (fpath, (head, body_md)) =
   let metadata =
@@ -46,32 +22,10 @@ let decode (fpath, (head, body_md)) =
   in
   Result.map (of_metadata ~body_md ~body_html) metadata
 
-let all () = Utils.map_files decode "academic_institutions/*.md"
+let all () = Utils.map_md_files decode "academic_institutions/*.md"
 
 let template () =
-  Format.asprintf
-    {|
-type location = { lat : float; long : float }
-
-type course =
-  { name : string
-  ; acronym : string option
-  ; online_resource : string option
-  }
-
-type t =
-  { name : string
-  ; slug : string
-  ; description : string
-  ; url : string
-  ; logo : string option
-  ; continent : string
-  ; courses : course list
-  ; location : location option
-  ; body_md : string
-  ; body_html : string
-  }
-
+  Format.asprintf {|
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))

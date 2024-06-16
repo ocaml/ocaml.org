@@ -116,7 +116,7 @@ module Local = struct
       |> Result.map (of_metadata ~slug ~source ~body_html)
 
     let all () : post list =
-      Utils.map_files decode "planet-local-blogs/*/*.md"
+      Utils.map_md_files decode "planet-local-blogs/*/*.md"
       |> List.sort (fun (a : post) b -> String.compare b.date a.date)
   end
 end
@@ -234,7 +234,7 @@ module External = struct
       |> Result.map (of_metadata ~source ~body_html)
 
     let all () : post list =
-      Utils.map_files decode "planet/*/*.md"
+      Utils.map_md_files decode "planet/*/*.md"
       |> List.sort (fun (a : post) b -> String.compare b.date a.date)
   end
 end
@@ -345,7 +345,7 @@ module GlobalFeed = struct
   let create_feed () =
     let open Rss in
     () |> all
-    |> create_feed ~id:"feed.xml" ~title:"The OCaml Planet" ~create_entry
+    |> create_feed ~id:"planet.xml" ~title:"The OCaml Planet" ~create_entry
          ~span:90
     |> feed_to_string
 end

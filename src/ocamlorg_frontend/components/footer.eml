@@ -39,7 +39,7 @@ let socials = [
   ("https://discord.gg/cCYQbqN", "Discord", Icons.discord);
   ("https://twitter.com/ocaml_org", "Twitter", Icons.twitter);
   ("https://watch.ocaml.org/", "Peertube", Icons.peertube);
-  ("/feed.xml", "RSS", Icons.rss);
+  ("/planet.xml", "RSS", Icons.rss);
 ]
 
 module LightDarkModeSwitch = struct

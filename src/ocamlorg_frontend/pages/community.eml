@@ -107,40 +107,19 @@ Community_layout.single_column_layout
   </div>
 </div>
 <% if List.length upcoming_events > 0 then ( %>
-<div class="w-full">
-  <div class="container-fluid pt-6 pb-12">
-      <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">events</p>
-      <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Upcoming Events</h2>
-      <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
-          <% upcoming_events |> List.iter (fun (event : Data.Event.t) -> %>
-          <a href="<%s event.url %>" class="card dark:dark-card p-5 rounded-xl">
-            <p class="font-bold text-title dark:text-dark-title mb-2"><%s event.title %></p>
-            <div class="flex items-center space-x-2 mb-3">
-              <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
-              <p class="text-content dark:text-dark-content"><%s event.textual_location %></p>
-            </div>
-            <div class="flex items-center space-x-2 mt-2">
-              <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
-              <p class="text-content dark:text-dark-content">
-                <%s event.starts.yyyy_mm_dd %>
-                <%s event.starts.utc_hh_mm |> Option.map (fun s -> s ^ " UTC") |> Option.value ~default:"" %>
-              </p>
-            </div>
-            <% (match event.ends with | None -> () | Some ends -> ( %>
-            <div class="flex items-center space-x-2 mt-2">
-              <p class="ml-9 text-content dark:text-dark-content">
-                to
-                <%s ends.yyyy_mm_dd %>
-                <%s ends.utc_hh_mm |> Option.map (fun s -> s ^ " UTC") |> Option.value ~default:"" %>
-              </p>
-            </div>
-            <% )); %>
-          </a>
-          <% ); %>
+    <div class="w-full">
+      <div class="container-fluid pt-6 pb-12">
+          <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">events</p>
+          <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Upcoming Events</h2>
+          <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+              <% upcoming_events |> List.iter (fun (event : Data.Event.t) -> %>
+              <%s! Cards.Event.upcoming_event event %>
+              <% ); %>
+          </div>
       </div>
-  </div>
-</div>
+    </div>
 <% ); %>
+<%s! Cards.Event.script %>
 <div class="w-full border-b">
   <div class="container-fluid pt-6 pb-12">
     <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">workshop</p>
@@ -224,3 +203,4 @@ Community_layout.single_column_layout
       </div>
   </div>
 </div>
+

@@ -31,7 +31,7 @@ let decode (file, (head, body_md)) =
   in
   Result.map (of_metadata ~slug ~body_md ~body_html) metadata
 
-let all () = Utils.map_files decode "pages/*.md"
+let all () = Utils.map_md_files decode "pages/*.md"
 
 let template () =
   Format.asprintf

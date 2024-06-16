@@ -109,7 +109,7 @@ let decode (fpath, (head, body_md)) =
   Result.map (of_metadata ~fpath ~section ~toc ~body_md ~body_html) metadata
 
 let all () =
-  Utils.map_files decode "tutorials/*/*.md"
+  Utils.map_md_files decode "tutorials/*/*.md"
   |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
 
 module TutorialSearch = struct
@@ -160,7 +160,7 @@ module TutorialSearch = struct
     | Error msg -> Error msg
 
   let all () : search_document list =
-    Utils.map_files decode_search_document "tutorials/*/*.md" |> List.flatten
+    Utils.map_md_files decode_search_document "tutorials/*/*.md" |> List.flatten
 end
 
 let template () =

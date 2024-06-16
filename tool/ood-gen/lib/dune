@@ -3,6 +3,7 @@
  (libraries
   bos
   ocamlorg.global
+  ocamlorg.data_intf
   cmarkit
   yaml
   unix

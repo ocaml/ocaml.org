@@ -1,3 +1,5 @@
+open Data_intf.Cookbook
+
 type task_metadata = {
   title : string;
   slug : string;
@@ -12,45 +14,14 @@ type category_metadata = {
 }
 [@@deriving of_yaml]
 
-type category = { title : string; slug : string; subcategories : category list }
-[@@deriving show { with_path = false }]
-
-type task = {
-  title : string;
-  slug : string;
-  category_path : string list;
-  description : string option;
-}
-[@@deriving show { with_path = false }]
-
-type code_block_with_explanation = { code : string; explanation : string }
-[@@deriving show { with_path = false }]
-
-type package = {
-  name : string;
-  tested_version : string;
-  used_libraries : string list;
-}
-[@@deriving of_yaml, show { with_path = false }]
-
 type metadata = { packages : package list; discussion : string option }
-[@@deriving of_yaml]
-
-type t = {
-  filepath : string;
-  slug : string;
-  task : task;
-  packages : package list;
-  code_blocks : code_block_with_explanation list;
-  code_plaintext : string;
-  discussion_html : string;
-}
 [@@deriving
-  stable_record ~version:metadata
-    ~remove:
-      [ slug; filepath; task; discussion_html; code_blocks; code_plaintext ]
-    ~add:[ discussion ],
-    show { with_path = false }]
+  of_yaml,
+    stable_record ~version:t
+      ~add:
+        [ slug; filepath; task; discussion_html; code_blocks; code_plaintext ]
+      ~remove:[ discussion ],
+    show]
 
 let decode (tasks : task list) (fpath, (head, body)) =
   let ( let* ) = Result.bind in
@@ -106,7 +77,7 @@ let decode (tasks : task list) (fpath, (head, body)) =
       let discussion_html =
         metadata.discussion |> Option.value ~default:"" |> render_markdown
       in
-      of_metadata ~slug ~filepath:fpath ~task ~discussion_html ~code_blocks
+      metadata_to_t ~slug ~filepath:fpath ~task ~discussion_html ~code_blocks
         ~code_plaintext:body metadata)
     metadata
   |> Result.map_error (Utils.where fpath)
@@ -146,47 +117,18 @@ let all_categories_and_tasks () =
 let tasks, top_categories = all_categories_and_tasks ()
 
 let all () =
-  Utils.map_files (decode tasks) "cookbook/*/*.ml"
-  |> List.sort (fun a b -> String.compare b.slug a.slug)
+  Utils.map_md_files (decode tasks) "cookbook/*/*.ml"
+  |> List.sort (fun (a : t) (b : t) -> String.compare b.slug a.slug)
   |> List.rev
 
 let template () =
   Format.asprintf
-    {|
-type category =
-  { title : string
-  ; slug : string
-  ; subcategories : category list
-  }
-type task =
-  { title : string
-  ; slug : string
-  ; category_path : string list
-  ; description : string option
-  }
-type package =
-  { name : string
-  ; tested_version : string
-  ; used_libraries : string list
-  }
-type code_block_with_explanation =
-  { code : string
-  ; explanation : string
-  }
-type t =
-  { slug: string
-  ; filepath: string
-  ; task : task
-  ; packages : package list
-  ; code_blocks : code_block_with_explanation list
-  ; code_plaintext : string
-  ; discussion_html : string
-  }
-
+    {ocaml|
+include Data_intf.Cookbook
 let top_categories = %a
 let tasks = %a
 let all = %a
-|}
+|ocaml}
     (Fmt.brackets (Fmt.list pp_category ~sep:Fmt.semi))
     top_categories
     (Fmt.brackets (Fmt.list pp_task ~sep:Fmt.semi))

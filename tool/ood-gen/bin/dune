@@ -4,6 +4,11 @@
  (libraries cmdliner ood_gen))
 
 (executable
+ (name feed)
+ (modules feed)
+ (libraries cmdliner ood_gen))
+
+(executable
  (name scrape)
  (modules scrape)
  (libraries cmdliner ood_gen))

@@ -34,7 +34,7 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
           opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#8cc107f96e33a4601f7c39346eb19fbbe46486d3
+            pin: git+https://github.com/ocaml/opam-repository#c45f5bab71d3589f41f9603daca5acad14df0ab0
           opam-disable-sandboxing: true
 
       - name: Install system dependencies (Linux)
@@ -49,7 +49,7 @@ jobs:
         run: opam install --deps-only --with-test .
 
       - name: Install ocamlformat
-        run: opam install ocamlformat.0.25.1
+        run: opam install ocamlformat.0.26.2
 
       - name: Build project
         run: opam exec -- dune build @install

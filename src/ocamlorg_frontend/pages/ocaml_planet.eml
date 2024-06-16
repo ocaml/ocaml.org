@@ -3,7 +3,7 @@ News_layout.single_column_layout
 ~title:"The OCaml Planet"
 ~description:"The RSS aggregator for the OCaml community."
 ~canonical:(Url.ocaml_planet ^ if planet_page = 1 then "" else "?p=" ^ string_of_int planet_page)
-~alternate:{ href = "/feed.xml"; title = "The OCaml Planet"; type_ = "application/atom+xml" }
+~alternate:{ href = "/planet.xml"; title = "The OCaml Planet"; type_ = "application/atom+xml" }
 ~current:OCamlPlanet @@
 <div class="intro-section-simple dark:dark-intro-section-simple py-12">
   <div class="container-fluid">
@@ -11,7 +11,7 @@ News_layout.single_column_layout
       <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-title dark:text-dark-title">
         The OCaml Planet
       </h1>
-      <a href="/feed.xml" class="text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary ml-4 lg:ml-6" title="OCaml Planet RSS Feed">
+      <a href="/planet.xml" class="text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary ml-4 lg:ml-6" title="OCaml Planet RSS Feed">
         <%s! Icons.rss "h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" %>
       </a>
     </div>
