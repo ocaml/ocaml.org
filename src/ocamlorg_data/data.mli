@@ -203,6 +203,7 @@ module Planet : sig
     url : string;
     description : string;
     disabled : bool;
+    only_ocaml : bool;
   }
 
   module Post : sig
