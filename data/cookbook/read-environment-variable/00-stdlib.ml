@@ -9,7 +9,10 @@ packages: []
 *)
 let path = Sys.getenv "PATH"
 let () =
-  Printf.printf "The path is %s\n" path
+  try
+    Printf.printf "The path is %s\n" path
+  with Not_found ->
+    print_string "Api key is not set.\n"
 
 (*
   In contrast, `Sys.getenv_opt` returns a value of type `string option`: `Some value` if the variable exists and `None` if it doesn't.
@@ -17,7 +20,7 @@ let () =
 let () =
   match Sys.getenv_opt "API_KEY" with
   | Some p ->
-      Printf.printf "Ahpi key is %s\n" p
+      Printf.printf "Api key is %s\n" p
   | None ->
       print_string "Api key is not set.\n"
 
