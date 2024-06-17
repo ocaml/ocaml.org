@@ -30,7 +30,7 @@ let validation_pattern =
   Str.regexp {regexp|[A-Za-z0-9]+.?[A-Za-z0-9]+@[a-zA-Z]+\.[a-za-z-a-z]|regexp}
 ;;
 
-(**[validate_email_str] accepts a string [email]
+(* `validate_email_str` accepts a string `email`
    and checks it against the validation pattern *)
 let validate_email_str email =
   if Str.string_match validation_pattern email 0
@@ -38,6 +38,7 @@ let validate_email_str email =
   else Printf.printf "%s has an invalid email format\n" email
 ;;
 
+(* Print test results to console *)
 test_pattern validate_email_str emails
 
 (* Using the Re package *)
@@ -51,6 +52,7 @@ let validate_email_re email =
   else Printf.printf "%s has an invalid email format\n" email
 ;;
 
+(* Print test results to console *)
 test_pattern validate_email_re emails
 
 (* Validate for specific top-level domains *)
@@ -64,4 +66,5 @@ let validate_email_domain_re email =
   else Printf.printf "!! %s has an invalid email format !!\n" email
 ;;
 
+(* Print test results to console *)
 test_pattern validate_email_domain_re emails
