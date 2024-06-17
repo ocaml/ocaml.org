@@ -1,16 +1,23 @@
 ---
 packages: []
-discussion: |
-  - **Understanding `Sys.getenv` and `Sys.getenv_opt`:** Both `Sys.getenv` and `Sys.getenv_opt` functions take a environment variable name and return its value. `Sys.getenv` returns directly the value, but raises a `Not_found` exception if the variable doesn't exist. `Sys.getenv_opt` returns an `option` type: `Some value` if the variable exists and `None` if not.
 ---
 
+(*
+  Both `Sys.getenv` and `Sys.getenv_opt` are functions that take the name of an environment and read its value.
+
+  `Sys.getenv` returns the value directly, but raises a `Not_found` exception if the variable doesn't exist.
+*)
 let path = Sys.getenv "PATH"
 let () =
   Printf.printf "The path is %s\n" path
 
+(*
+  In contrast, `Sys.getenv_opt` returns a value of type `string option`: `Some value` if the variable exists and `None` if it doesn't.
+*)
 let () =
-  match Sys.getenv_opt "OPAM_SWITCH_PREFIX" with
+  match Sys.getenv_opt "API_KEY" with
   | Some p ->
-      Printf.printf "The Opam switch prefix is %s\n" p
+      Printf.printf "Ahpi key is %s\n" p
   | None ->
-      print_string "The Opam switch prefix is not set.\n"
+      print_string "Api key is not set.\n"
+
