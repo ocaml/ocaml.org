@@ -237,6 +237,18 @@ module Is_ocaml_yet = struct
   [@@deriving show]
 end
 
+module Job = struct
+  type t = {
+    title : string;
+    link : string;
+    locations : string list;
+    publication_date : string option;
+    company : string;
+    company_logo : string;
+  }
+  [@@deriving of_yaml, show]
+end
+
 module Outreachy = struct
   type project = {
     title : string;
