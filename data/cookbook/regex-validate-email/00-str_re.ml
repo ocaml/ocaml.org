@@ -25,22 +25,6 @@ let test_pattern validation_func emails =
   Array.map (fun x -> validation_func x) emails
 ;;
 
-(* Using Str package *)
-let validation_pattern =
-  Str.regexp {regexp|[A-Za-z0-9]+.?[A-Za-z0-9]+@[a-zA-Z]+\.[a-za-z-a-z]|regexp}
-;;
-
-(* `validate_email_str` accepts a string `email`
-   and checks it against the validation pattern *)
-let validate_email_str email =
-  if Str.string_match validation_pattern email 0
-  then Printf.printf "%s has a valid email format\n" email
-  else Printf.printf "%s has an invalid email format\n" email
-;;
-
-(* Print test results to console *)
-test_pattern validate_email_str emails
-
 (* Using the Re package *)
 let validation_pattern_re = Re.Perl.re "[a-zA-Z0-9.$_!]+@[a-zA-Z0-9]+\\.[a-z]{2,3}"
 let email_re = Re.compile validation_pattern_re
