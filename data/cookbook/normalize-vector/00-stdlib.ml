@@ -19,10 +19,9 @@ let normalize v =
 (* Example Usage *)
 let vector = [4.;6.;-1.]
 let vhat = normalize vector;;
-List.iter (Printf.printf "%.2f ") vhat
-
 (* Note the values are rounded to the 2nd decimal place for readability.
-          In practice, you should not round until your final calculation.*)
+   In practice, you should not round until your final calculation.*)
+List.iter (Printf.printf "%.2f ") vhat
 
 
 
