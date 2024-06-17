@@ -2,7 +2,7 @@
 packages: []
 ---
 
-(**[sum] returns the sum of all elements in the list [lst] *)
+(* `sum` returns the sum of all elements in the list `lst` *)
 let sum lst = List.fold_left ( +. ) 0. lst
 
 (** returns the [magnitude] for a sum of squares [sqs]*)
