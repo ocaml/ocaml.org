@@ -13,8 +13,8 @@ type language = {
   url: string 
 } [@@deriving yojson]
 
-(* First we convert the json string to Yojson.Safe.t and then we use the generated function to create the record *)
-(* If the parsing fails the result will be None. Otherwise it will be the deserialized record*)
+(* First we convert the json string to Yojson.Safe.t and then we use the generated function to create the record.
+   If the parsing fails the result will be None. Otherwise it will be the deserialized record*)
 let ocaml_language = { 
   name: "ocaml"; 
   url: "https://ocaml.org/" 
