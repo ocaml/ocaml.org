@@ -8,12 +8,11 @@ let sum lst = List.fold_left ( +. ) 0. lst
 (* returns the `magnitude` for a sum of squares `sqs`*)
 let magnitude sqs = Float.sqrt (sum sqs)
 
-(** `normalize` accepts a list `v` of float values and returns the unit vector as a list*)
+(* `normalize` accepts a list `v` of float values and returns the unit vector as a list*)
 let normalize v =
   let sqs = List.map (fun x -> x *. x) v in
   let m = magnitude sqs in
   List.map (fun x -> x /. m) v
-;;
 
 
 (* Example Usage *)
