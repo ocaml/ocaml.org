@@ -216,6 +216,11 @@ teams:
   - id: odoc-dev
     name: odoc
     description: Documentation compiler for OCaml and Reason
+    dev-meeting:
+      date: Weekly on Wednesdays
+      time: 14:00 / 2:00 PM CET
+      link: https://www.google.com/url?q=https://us06web.zoom.us/j/7989424717?pwd%3DLzlUdWVTN3dlcWpHYlVTNjJyc01EZz09&sa=D&source=calendar&ust=1719044946737160&usg=AOvVaw1FuCIyvahK1Go_IG-6j9yT
+      notes: https://hackmd.io/WgTSaqlrRoqAlEGLsDcXsA
     contacts:
     - name: GitHub
       link: https://github.com/ocaml/odoc
