@@ -5,8 +5,8 @@ packages:
     used_libraries:
       - re
 discussion: |
-  - **Example:** `re` supports a variety of regex flavors and can be used to create a regular expression to validate email addresses. 
-  - **Advantages of `re`:** Re provides better support for regex syntax encountered in other languages such as python.
+  - **Example:** `re` supports a variety of RegEx flavors and can be used to create a regular expressions to validate email addresses. 
+  - **Advantages of `re`:** Re provides better support for ReGex syntax encountered in other languages, such as Python.
 ---
 
 (* an array of sample data for testing *)
