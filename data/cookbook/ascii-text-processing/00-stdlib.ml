@@ -2,9 +2,9 @@
 packages: []
 discussion: |
   - **Understanding `String`: `String` is a module from the `stdlib` library.
-    It contains many functions which process ASCII strings.
+    It contains many functions that process ASCII strings.
     Their use may be not adequate with accentuated strings.
-    (The `length` return simply the number of bytes used by the string
+    (The `length` returns simply the number of bytes used by the string
     without taking into account characters coded with multiple characters.)\
     The documentation of the `String` module is in the [API reference](https://v2.ocaml.org/api/Stdlib.String.html).
   - **Alternative Libraries:** There are other libraries that are more adequate
