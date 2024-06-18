@@ -22,21 +22,21 @@ packages:
   used_libraries:
   - ppx_rapper_lwt
 discussion: |
-  - **Understanding `Caqti` and `ppx_rapper`:** The `Caqti` library permits a portable programming with SQLite, MariaDB and PostgreSQL. The declaration of its queries is a bit complex, however the the `ppx_rapper` can be used to convert annotated SQL strings into `Caqti` queries. This preprocessor makes all type conversion transparent and leverage the strong typing of OCaml. It also checks the SQL syntax of the given query. The `Lwt` library is a scheduling library which permits concurrent tasks. It has been used because of `ppx_rapper` constraints. See [the Caqti reference page](https://github.com/paurkedal/ocaml-caqti) and [the ppx_rapper reference page](https://github.com/roddyyaga/ppx_rapper).
-  - **Alternative Libraries:** There are multiple alternatives to `Caqti`, but this library proposed a unified interface to 3 databases. `gensqlite` and `ppx_sqlexpr` are comparable to `ppx_rapper` but only work with SQLite libraries. `Petrol` supports SQLite and PostgreSQL and permits the type safety by declaring the database schema with OCaml structures (SQL statements are generated).
+  - **Understanding `Caqti` and `ppx_rapper`:** The `Caqti` library permits portable programming with SQLite, MariaDB, and PostgreSQL. The declaration of its queries is a bit complex; however, the `ppx_rapper` can be used to convert annotated SQL strings into `Caqti` queries. This preprocessor makes all type conversions transparent and leverages OCaml's strong typing. It also checks the SQL syntax of the given query. The `Lwt` library is a scheduling library that permits concurrent tasks. It has been used because of `ppx_rapper` constraints. See [the `Caqti` reference page](https://github.com/paurkedal/ocaml-caqti) and [the `ppx_rapper` reference page](https://github.com/roddyyaga/ppx_rapper).
+  - **Alternative Libraries:** There are multiple alternatives to `Caqti`, but this library proposed a unified interface to 3 databases. `gensqlite` and `ppx_sqlexpr` are comparable with `ppx_rapper`, but they only work with SQLite libraries. `Petrol` supports SQLite and PostgreSQL, and it permits the type safety by declaring the database schema with OCaml structures (SQL statements are generated).
 ---
 
-(* The `Caqti/ppx_rapper` combo uses a Lwt environment (see concurency cookbook).
+(* The `Caqti/ppx_rapper` combo uses an Lwt environment (see concurency cookbook).
    Let operators `( let* )` and `( let*? )` are defined and permits the Lwt promise sequencing.
-   `( let*? )` add an error handling: it extracts the result from a returned `Ok result` or
+   `( let*? )` adds an error handling. It extracts the result from a returned `Ok result` or
    stops the execution in case of an `Error err` value.
 *)
 let ( let* ) = Lwt.bind
 let ( let*? ) = Lwt_result.bind
 
 (* The following function will be used later in this cookbook.
-   It schedules sequentially a set of queries. Each query from the
-   list `queries` is a function which has an argument which is the
+   It sequentially schedules a set of queries. Each query from the
+   list `queries` is a function that has an argument, which is the
    connection handle of the database. *)
 let iter_queries queries cnx =
   List.fold_left
@@ -44,7 +44,7 @@ let iter_queries queries cnx =
     (Lwt.return (Ok ()))
     queries
 
-(* Table creation: the `CREATE` query is simple: no data in input
+(* Table creation: the `CREATE` query is simple, as there is no data in input
    nor in output. The `execute` type indicates the absence of result.
    Then when this query is called, `()` is returned (`Ok ()` to be accurate). *)
 let create_query =
@@ -54,7 +54,7 @@ let create_query =
                 |sql}
   ]
 
-(* Insertion query: the `INSERT` query is a query which has some parameters which should be used during the execution of the query. `name`, `firstname`, `age` will be replaced by the values from the parameter (presented as record because of the `record_out` tag). The `%` notation tell the `ppx_rapper` preprocessor which conversions should be performed. *)
+(* Insertion query: the `INSERT` query is a query that has some parameters to use during the query's execution. `name`, `firstname`, `age` will be replaced by the parameter's values (presented as record because of the `record_out` tag). The `%` notation tells the `ppx_rapper` preprocessor which conversions to perform. *)
 type person = { name:string; firstname:string; age:int }
 let persons = [ {name="Dupont"; firstname="Jacques"; age=36};
                 {name="Legendre"; firstname="Patrick"; age=42} ]
@@ -67,15 +67,15 @@ let insert_query =
   ]
 
 (* Select query: the first `SELECT` query has a `get_many`
-   type, then, it will return a list of values. Each item
-   of the list is a record, as specified by the `record_out` tag.
+   type, then it will return a list of values. Each list item 
+   is a record, as specified by the `record_out` tag.
    Output values (generated by the query) are annotated with
-   a `@` notation. A second query has output values and
+   an `@` notation. A second query has output values and
    also an input value used in the `WHERE` clause.
    Here the absence of `record_in` implies passing
-   input values as named arguments instead of a record,
-   the `get_opt` tag indicates it will return an option
-   type: `None` if nothing is found, `Some r` if a row match the criteria. *)
+   input values as named arguments instead of a record.
+   The `get_opt` tag indicates it will return an option
+   type: `None` if nothing is found, and `Some r` if a row match the criteria. *)
 let select_query =
   [%rapper
       get_many {sql|SELECT @string{name}, @string{firstname}, @int{age}
@@ -94,8 +94,8 @@ let select_query_with_where_clause =
 
 (* The main program starts by establishing an Lwt environment.
    The function `with_connexion` opens the database,
-   executes a function with `cnx` database handle. And catches
-   exception to ensure the closure of the database. *)
+   executes a function with the `cnx` database handle, and catches
+   exception to ensure the database closes. *)
 let () =
   match Lwt_main.run @@
   Caqti_lwt.with_connection (Uri.of_string "sqlite3:essai.sqlite")
@@ -124,7 +124,7 @@ the queries in sequence. *)
       end;
       Lwt_result.return ())
 (*
-The error handling just matches the result with `Ok` or `Error`. The `Lwt_result.bind` called by each `(let*?)` stops the chain of queries at the first error. We just have to check the presence of error. `Caqti_error.show` can be used to convert the error into a text.
+The error handling just matches the result with `Ok` or `Error`. The `Lwt_result.bind` called by each `(let*?)` stops the chain of queries at the first error. We just have to check the presence of `Error`. `Caqti_error.show` can be used to convert the error into a text.
 *)
   with
   | Result.Ok () ->
