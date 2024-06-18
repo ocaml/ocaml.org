@@ -25,15 +25,15 @@ steps:
 - add flour
 |}
 
-(* The `[@@deriving of_yaml]` attribute makes library `ppx_deriving_yaml` generate the function
+(* The `[@@deriving of_yaml]` attribute makes the `ppx_deriving_yaml` library generate the function
   ``ingredient_of_yaml : Yaml.value -> (ingredient, [> `Msg of string]) result``
-  If both serialising and deserialising are needed, replace `of_yaml` by `yaml`. *)
+  If both serialising and deserialising are needed, replace `of_yaml` with `yaml`. *)
 type ingredient = {
   name: string;
   weight: int;
 } [@@deriving of_yaml]
 
-(* The `[@@deriving of_yaml]` attribute makes library `ppx_deriving_yaml` generate the function
+(* The `[@@deriving of_yaml]` attribute makes the `ppx_deriving_yaml` library generate the function
   ``recipe_of_yaml : Yaml.value -> (ingredient, [> `Msg of string]) result``. *)
 type recipe = {
   name: string; [@key "french name"]
@@ -42,7 +42,7 @@ type recipe = {
 } [@@deriving of_yaml]
 
 (* Post-processing is needed before using `recipe_of_yaml`.
-  This what function `add_keys` and `at_ingredients` do. *)
+  This is what function `add_keys` and `at_ingredients` do. *)
 let add_keys : Yaml.value -> Yaml.value = function
   | `O [(name, `Float weight)] ->
       `O [
@@ -63,7 +63,7 @@ let at_ingredients f : Yaml.value -> Yaml.value = function
     ]
   | v -> v
 
-(* Parsing, post-processing and conversion into recordd are chained. *)
+(* Parsing, post-processing, and conversion into recordd are chained. *)
 let pate_sucree =
   yaml
   |> Yaml.of_string
