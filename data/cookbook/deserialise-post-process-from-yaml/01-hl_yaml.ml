@@ -25,7 +25,7 @@ steps:
 - add flour
 |}
 
-(* The `[@@deriving of_yojson]` attribute makes library `ppx_deriving_yojson` generate the function
+(* The `[@@deriving of_yojson]` attribute makes the `ppx_deriving_yojson` library generate the function
   `ingredient_of_yojson : Yojson.Safe.t -> (ingredient, string) result`.
   If both serialising and deserialising are needed, replace `of_yojson` by `yojson`. *)
 type ingredient = {
@@ -33,7 +33,7 @@ type ingredient = {
   weight: int;
 } [@@deriving of_yojson]
 
-(* The `[@@deriving of_yojson]` attribute makes library `ppx_deriving_yojson` generate the function
+(* The `[@@deriving of_yojson]` attribute makes the `ppx_deriving_yojson` library generate the function
   ``recipe_of_yojson : Yojson.Safe.t -> (ingredient, string) result``. *)
 type recipe = {
   name: string; [@key "french name"]
@@ -42,7 +42,7 @@ type recipe = {
 } [@@deriving of_yojson]
 
 (* Post-processing is needed before using `recipe_of_yojson`.
-  This what function `add_keys` and `at_ingredients` do. *)
+  This is what the functions `add_keys` and `at_ingredients` do. *)
 let add_keys : Yojson.Safe.t -> Yojson.Safe.t = function
   | `Assoc [(name, `Int weight)] ->
       `Assoc [
