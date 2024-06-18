@@ -42,7 +42,7 @@ type recipe = {
 } [@@deriving of_yaml]
 
 (* Post-processing is needed before using `recipe_of_yaml`.
-  This is what function `add_keys` and `at_ingredients` do. *)
+  This is what the functions `add_keys` and `at_ingredients` do. *)
 let add_keys : Yaml.value -> Yaml.value = function
   | `O [(name, `Float weight)] ->
       `O [
@@ -63,7 +63,7 @@ let at_ingredients f : Yaml.value -> Yaml.value = function
     ]
   | v -> v
 
-(* Parsing, post-processing, and conversion into recordd are chained. *)
+(* Parsing, post-processing, and conversion into record are chained. *)
 let pate_sucree =
   yaml
   |> Yaml.of_string
