@@ -197,7 +197,7 @@ sections:
     data:
     - label: "Support the development and evolution of the wider OCaml library and ecosystem"
       value: 76.8
-    - label: "Support the development of the OCaml language, compiler and core tools"
+    - label: "Support the development of the OCaml language, compiler, and core tools"
       value: 65.8
     - label: "Promote the language in the Industrial world (through conferences and events sponsorship)"
       value: 46.3
@@ -205,7 +205,7 @@ sections:
       value: 39.7
     - label: "Animate the OCaml community"
       value: 28.7
-    - label: "Fund better support across OSes and architectures"
+    - label: "Fund better support across OSs and architectures"
       value: 26.8
     - label: "Increase the diversity of the OCaml community"
       value: 21.3
@@ -399,9 +399,9 @@ sections:
   - question: "Which installation methods do you use?"
     chart: bar
     data:
-    - label: "Opam (using the public repository)"
+    - label: "opam (using the public repository)"
       value: 88.4
-    - label: "Opam (using a private repository)"
+    - label: "opam (using a private repository)"
       value: 20.0
     - label: "Manual compilation and installation"
       value: 14.5
@@ -413,7 +413,7 @@ sections:
       value: 6.5
     - label: "npm"
       value: 2.9
-    - label: "Manual installation of pre-compiled binaries"
+    - label: "Manual installation of precompiled binaries"
       value: 2.5
   - question: "How long do you typically wait after an OCaml release to test your codebase with the new version?"
     chart: bar
@@ -450,47 +450,47 @@ sections:
   - question: "How do you feel about the compiler's every-six-month release schedule?"
     chart: bar
     data:
-    - label: "It's just right"
+    - label: "It's just right."
       value: 52.9
-    - label: "I'm indifferent or unsure"
+    - label: "I'm indifferent or unsure."
       value: 27.2
-    - label: "I was not aware of it"
+    - label: "I was not aware of it."
       value: 16.7
-    - label: "It's too slow"
+    - label: "It's too slow."
       value: 1.8
-    - label: "It's too fast"
+    - label: "It's too fast."
       value: 1.4
 - name: Tooling
   questions:
-  - question: "Which build tools are you using, as of January 1st 2022?"
+  - question: "Which build tools are you using as of January 1st 2022?"
     chart: bar
     data:
-    - label: "dune"
+    - label: "Dune"
       value: 91.0
-    - label: "makefiles"
+    - label: "Makefiles"
       value: 42.6
-    - label: "ocamlbuild"
+    - label: "OCamlBuild"
       value: 11.9
     - label: "Other (ocp-build, jenga, remake, etc.)"
       value: 4.7
-    - label: "bsb"
+    - label: "BSB"
       value: 3.2
-    - label: "bazel"
+    - label: "Bazel"
       value: 2.2
-    - label: "omake"
+    - label: "OMake"
       value: 1.1
-  - question: "What kind of pre-processors do you use, as of January 1st 2022?"
+  - question: "What kind of preprocessors do you use as of January 1st 2022?"
     chart: bar
     data:
-    - label: "ppx extensions created by others"
+    - label: "PPX extensions created by others"
       value: 75.1
-    - label: "ppx extensions created by yourself or for the project you are contributing to"
+    - label: "PPX extensions created by yourself or for the project you are contributing to"
       value: 22.7
-    - label: "cpp-style conditional-compilation directives"
+    - label: "CPP-style conditional-compilation directives"
       value: 6.6
-    - label: "Other pre-processing tools"
+    - label: "Other preprocessing tools"
       value: 5.1
-    - label: "camlp4/camlp5 default pre-processors"
+    - label: "camlp4/camlp5 default preprocessors"
       value: 3.7
     - label: "Custom camlp4/camlp5 extensions"
       value: 1.8
@@ -524,7 +524,7 @@ sections:
       value: 14.6
     - label: "Other SaaS forge"
       value: 7.3
-  - question: "Which tools do you use to test OCaml code, as of January 1st 2022?"
+  - question: "Which tools do you use to test OCaml code as of January 1st 2022?"
     chart: bar
     data:
     - label: "Separate unit tests (unit tests in a separate module, as assertions)"
@@ -537,7 +537,7 @@ sections:
       value: 24.1
     - label: "AFL/Crowbar (whitebox fuzzing)"
       value: 8.6
-  - question: "Which tools do you use to benchmark OCaml code, as of January 1st 2022?"
+  - question: "Which tools do you use to benchmark OCaml code as of January 1st 2022?"
     chart: bar
     data:
     - label: "Whole program time measurements (time, perf-stat, valgrind, gprof, etc.)"
@@ -557,7 +557,7 @@ sections:
       value: 37.9
     - label: "Through the user's package manager"
       value: 33.8
-    - label: "As docker images"
+    - label: "As Docker images"
       value: 32.1
     - label: "Through the Web"
       value: 30.0
@@ -723,7 +723,7 @@ sections:
     data:
     - label: "An effect system (a type system for side-effects)"
       value: 70.4
-    - label: "A builtin 'deriving' mechanism"
+    - label: "A built-in 'deriving' mechanism"
       value: 56.8
     - label: "Typeclasses/implicits"
       value: 54.7
