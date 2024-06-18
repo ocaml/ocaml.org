@@ -5,7 +5,7 @@ packages:
   used_libraries:
   - ppx_yojson_conv
 ---
-(* We need to open Ppx_yojson_conv_lib.Yojson_conv.Primitives to bring the functions that deserialize primitive types in scope. *)
+(* We need to open `Ppx_yojson_conv_lib.Yojson_conv.Primitives` to bring the functions that deserialize primitive types in scope. *)
 open Ppx_yojson_conv_lib.Yojson_conv.Primitives
 
 let json = {|
@@ -20,7 +20,7 @@ type language = {
   url: string 
 } [@@deriving yojson]
 
-(* First we convert the `json` string to `Yojson.Safe.t` and then we use the generated function to create the record.
+(* First we convert the json string to `Yojson.Safe.t` and then we use the generated function to create the record.
    If parsing fails, an exception is thrown that we can handle. *)
 try
   let result = 
