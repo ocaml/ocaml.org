@@ -1,5 +1,4 @@
 module Academic_institution = struct
-  include Data_intf.Academic_institution
   include Academic_institution
 
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
@@ -69,7 +68,6 @@ module Event = struct
 end
 
 module Exercise = struct
-  include Data_intf.Exercise
   include Exercise
 
   let filter_tag ?tag =

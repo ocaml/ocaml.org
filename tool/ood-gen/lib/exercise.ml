@@ -59,6 +59,7 @@ let all () =
 
 let template () =
   Format.asprintf {|
+include Data_intf.Exercise
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
