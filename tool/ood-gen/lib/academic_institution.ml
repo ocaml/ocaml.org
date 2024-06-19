@@ -26,6 +26,7 @@ let all () = Utils.map_md_files decode "academic_institutions/*.md"
 
 let template () =
   Format.asprintf {|
+include Data_intf.Academic_institution
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
