@@ -1,12 +1,28 @@
 module Academic_institution = struct
   type location = { lat : float; long : float } [@@deriving of_yaml, show]
 
+  let pp_ptime fmt t =
+    Format.pp_print_string fmt "Ptime.of_rfc3339 \"";
+    Ptime.pp_rfc3339 () fmt t;
+    Format.pp_print_string fmt
+      "\" |> function Ok (t, _, _) -> t | Error _ -> failwith \"RFC 3339\""
+
+  let pp_print_option pp fmt = function
+    | None -> Format.pp_print_string fmt "None"
+    | Some x ->
+        Format.pp_print_string fmt "Some (";
+        pp fmt x;
+        Format.pp_print_string fmt ")"
+
   type course = {
     name : string;
     acronym : string option;
     online_resource : string option;
+    professor : string option;
+    enrollment : string option;
+    last_check : Ptime.t option; [@printer pp_print_option pp_ptime]
   }
-  [@@deriving of_yaml, show]
+  [@@deriving show]
 
   type t = {
     name : string;
