@@ -143,15 +143,7 @@ module Outreachy : sig
 end
 
 module Page : sig
-  type t = {
-    slug : string;
-    title : string;
-    description : string;
-    meta_title : string;
-    meta_description : string;
-    body_md : string;
-    body_html : string;
-  }
+  include module type of Data_intf.Page
 
   val get : string -> t
 end

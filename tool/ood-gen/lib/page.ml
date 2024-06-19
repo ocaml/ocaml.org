@@ -1,23 +1,12 @@
+open Data_intf.Page
+
 type metadata = {
   title : string;
   description : string;
   meta_title : string;
   meta_description : string;
 }
-[@@deriving of_yaml]
-
-type t = {
-  slug : string;
-  title : string;
-  description : string;
-  meta_title : string;
-  meta_description : string;
-  body_md : string;
-  body_html : string;
-}
-[@@deriving
-  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ],
-    show { with_path = false }]
+[@@deriving of_yaml, stable_record ~version:t ~add:[ slug; body_md; body_html ]]
 
 let decode (file, (head, body_md)) =
   let metadata = metadata_of_yaml head |> Result.map_error (Utils.where file) in
@@ -29,24 +18,13 @@ let decode (file, (head, body_md)) =
     file |> Filename.basename |> Filename.remove_extension
     |> String.map (function '_' -> '-' | c -> c)
   in
-  Result.map (of_metadata ~slug ~body_md ~body_html) metadata
+  Result.map (metadata_to_t ~slug ~body_md ~body_html) metadata
 
 let all () = Utils.map_md_files decode "pages/*.md"
 
 let template () =
-  Format.asprintf
-    {|
-
-type t =
-  { slug : string
-  ; title : string
-  ; description : string
-  ; meta_title : string
-  ; meta_description : string
-  ; body_md : string
-  ; body_html : string
-  }
-
+  Format.asprintf {|
+include Data_intf.Page
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))

@@ -286,3 +286,16 @@ module Outreachy = struct
 
   type t = { name : string; projects : project list } [@@deriving of_yaml, show]
 end
+
+module Page = struct
+  type t = {
+    slug : string;
+    title : string;
+    description : string;
+    meta_title : string;
+    meta_description : string;
+    body_md : string;
+    body_html : string;
+  }
+  [@@deriving show]
+end
