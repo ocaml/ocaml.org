@@ -8,14 +8,14 @@ continent: North America
 courses:
     - name: Compilers
       professor: Steve Zdancewic
-      last_check: "2024-03-06T00:00:00+01:00"
+      last_check: "2024-03-06"
       acronym: CIS 3410
       enrollment: "70"
       online_resource: "https://www.seas.upenn.edu/~cis3410/current/"
     - name: Programming Languages and Techniques I
       acronym: CIS 1200
       professor: Steve Zdancewic
-      last_check: "2024-03-06T00:00:00+01:00"
+      last_check: "2024-03-06"
       enrollment: "700"
       online_resource: "https://www.seas.upenn.edu/~cis120/current/"
 location:

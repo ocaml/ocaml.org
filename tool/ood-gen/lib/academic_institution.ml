@@ -16,7 +16,7 @@ let course_of_yaml yaml =
   let* metadata = course_metadata_of_yaml yaml in
   try
     let modify_last_check str =
-      str |> Ptime.of_rfc3339 |> Ptime.rfc3339_string_error |> function
+      str ^ "T00:00:00+00:00" |> Ptime.of_rfc3339 |> Ptime.rfc3339_string_error |> function
       | Ok (t, _, _) -> t
       | Error msg -> failwith msg
     in
