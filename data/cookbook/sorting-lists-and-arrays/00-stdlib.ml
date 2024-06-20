@@ -2,9 +2,9 @@
 packages: []
 ---
 
-(* Sorting a list of `int` values, returning a sorted copy, using the integer `compare` function.
+(* Sorting a list of `int` values, returning a sorted copy, using the `compare` function.
 
-  **Note:** Different types have different compare functions, you need to look up the one for the type of values you're sorting. *)
+  **Note:** the `compare` function is polymorphic and works over all types. *)
 let l = [ 1; 90; 42; 27 ]
 let l' = List.sort compare a
 
