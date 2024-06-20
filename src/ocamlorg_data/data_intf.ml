@@ -315,3 +315,20 @@ module Page = struct
   }
   [@@deriving show]
 end
+
+module Paper = struct
+  type link = { description : string; uri : string } [@@deriving of_yaml, show]
+
+  type t = {
+    title : string;
+    slug : string;
+    publication : string;
+    authors : string list;
+    abstract : string;
+    tags : string list;
+    year : int;
+    links : link list;
+    featured : bool;
+  }
+  [@@deriving show]
+end

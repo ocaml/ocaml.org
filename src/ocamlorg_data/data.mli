@@ -149,19 +149,7 @@ module Page : sig
 end
 
 module Paper : sig
-  type link = { description : string; uri : string }
-
-  type t = {
-    title : string;
-    slug : string;
-    publication : string;
-    authors : string list;
-    abstract : string;
-    tags : string list;
-    year : int;
-    links : link list;
-    featured : bool;
-  }
+  include module type of Data_intf.Paper
 
   val all : t list
   val featured : t list
