@@ -363,3 +363,30 @@ module Planet = struct
     [@@deriving show]
   end
 end
+
+module Release = struct
+  type kind = [ `Compiler ] [@@deriving show]
+
+  let kind_of_string = function
+    | "compiler" -> Ok `Compiler
+    | s -> Error (`Msg ("Unknown release type: " ^ s))
+
+  let kind_of_yaml = function
+    | `String s -> kind_of_string s
+    | _ -> Error (`Msg "Expected a string for release type")
+
+  type t = {
+    kind : kind;
+    version : string;
+    date : string;
+    is_latest : bool;
+    is_lts : bool;
+    intro_md : string;
+    intro_html : string;
+    highlights_md : string;
+    highlights_html : string;
+    body_md : string;
+    body_html : string;
+  }
+  [@@deriving show]
+end

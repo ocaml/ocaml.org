@@ -176,21 +176,7 @@ module Planet : sig
 end
 
 module Release : sig
-  type kind = [ `Compiler ]
-
-  type t = {
-    kind : kind;
-    version : string;
-    date : string;
-    is_latest : bool;
-    is_lts : bool;
-    intro_md : string;
-    intro_html : string;
-    highlights_md : string;
-    highlights_html : string;
-    body_md : string;
-    body_html : string;
-  }
+  include module type of Data_intf.Release
 
   val all : t list
   val get_by_version : string -> t option

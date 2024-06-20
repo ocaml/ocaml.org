@@ -1,15 +1,7 @@
-module Kind = struct
-  type t = [ `Compiler ] [@@deriving show { with_path = false }]
-
-  let of_string = function
-    | "compiler" -> Ok `Compiler
-    | s -> Error (`Msg ("Unknown release type: " ^ s))
-
-  let of_yaml = Utils.of_yaml of_string "Expected a string for release type"
-end
+open Data_intf.Release
 
 type metadata = {
-  kind : Kind.t;
+  kind : kind;
   version : string;
   date : string;
   is_latest : bool option;
@@ -17,32 +9,22 @@ type metadata = {
   intro : string;
   highlights : string;
 }
-[@@deriving of_yaml]
-
-type t = {
-  kind : Kind.t;
-  version : string;
-  date : string;
-  is_latest : bool;
-  is_lts : bool;
-  intro_md : string;
-  intro_html : string;
-  highlights_md : string;
-  highlights_html : string;
-  body_md : string;
-  body_html : string;
-}
 [@@deriving
-  stable_record ~version:metadata ~add:[ intro; highlights ]
-    ~modify:[ is_latest; is_lts ]
-    ~remove:
-      [
-        intro_md; intro_html; highlights_md; highlights_html; body_md; body_html;
-      ],
-    show { with_path = false }]
+  of_yaml,
+    stable_record ~version:t ~remove:[ intro; highlights ]
+      ~modify:[ is_latest; is_lts ]
+      ~add:
+        [
+          intro_md;
+          intro_html;
+          highlights_md;
+          highlights_html;
+          body_md;
+          body_html;
+        ]]
 
 let of_metadata m =
-  of_metadata m ~intro_md:m.intro
+  metadata_to_t m ~intro_md:m.intro
     ~intro_html:
       (m.intro |> Markdown.Content.of_string |> Markdown.Content.render)
     ~highlights_md:m.highlights
@@ -52,7 +34,7 @@ let of_metadata m =
     ~modify_is_latest:(Option.value ~default:false)
     ~modify_is_lts:(Option.value ~default:false)
 
-let sort_by_decreasing_version x y =
+let sort_by_decreasing_version (x : t) (y : t) =
   let to_list s = List.map int_of_string_opt @@ String.split_on_char '.' s in
   compare (to_list y.version) (to_list x.version)
 
@@ -73,7 +55,7 @@ let all () =
 let template () =
   let all = all () in
   let latest =
-    try List.find (fun r -> r.is_latest) all
+    try List.find (fun (r : t) -> r.is_latest) all
     with Not_found ->
       raise
         (Invalid_argument
@@ -81,7 +63,7 @@ let template () =
             true")
   in
   let lts =
-    try List.find (fun r -> r.is_lts) all
+    try List.find (fun (r : t) -> r.is_lts) all
     with Not_found ->
       raise
         (Invalid_argument
@@ -89,22 +71,7 @@ let template () =
   in
   Format.asprintf
     {|
-type kind = [ `Compiler ]
-
-type t =
-  { kind : kind
-  ; version : string
-  ; date : string
-  ; is_latest: bool
-  ; is_lts: bool
-  ; intro_md : string
-  ; intro_html : string
-  ; highlights_md : string
-  ; highlights_html : string
-  ; body_md : string
-  ; body_html : string
-  }
-  
+include Data_intf.Release
 let all = %a
 let latest = %a
 let lts = %a
