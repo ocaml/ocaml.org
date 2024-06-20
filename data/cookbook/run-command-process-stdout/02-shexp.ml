@@ -6,16 +6,14 @@ packages:
   - shexp
   - shexp.process
 ---
-(* We just declare the `|-` (pipe) operator *)
+(* The module Shexp_process.Infix contains the `|-` (pipe) operator. *)
 open Shexp_process.Infix
 
-(* We use the pipe operator and build a sequence of commands, then `eval` it *)
-let ps_output =
-  let open Shexp_process in
-    eval (run "ps" ["-x"] |- read_all)
-
-(* A simple processing *)
+(* We use the pipe operator to build a sequence consisting of the single command
+  `ps -x`, then `read_all` to obtain its standard output. *)
 let () =
-  ps_output
-  |> String.split_on_char '\n'
-  |> List.iter (fun l -> Printf.printf "%s\n" l)
+  let ps_output =
+    let open Shexp_process in
+      eval (run "ps" ["-x"] |- read_all)
+  in
+  print_endline ps_output

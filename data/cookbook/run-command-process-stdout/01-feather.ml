@@ -5,12 +5,11 @@ packages:
   used_libraries:
   - feather
 ---
-(* `process` executes a program and `collect` returns a single string containing the whole stdout *)
-let ps_output = Feather.(process "ps" ["-x"] |> collect stdout)
 
-(* A simple processing *)
+(* `Feather.process` executes a program and `Feather.collect` returns a single string containing the whole standard output. *)
 let () =
-  ps_output
-  |> String.split_on_char '\n'
-  |> List.iter (fun l -> Printf.printf "%s\n" l)
-
+  let ps_output =
+    Feather.(process "ps" ["-x"]
+    |> collect stdout)
+  in
+  print_endline ps_output
