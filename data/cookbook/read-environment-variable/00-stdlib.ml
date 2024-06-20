@@ -7,12 +7,12 @@ packages: []
 
   `Sys.getenv` returns the value directly, but raises a `Not_found` exception if the variable doesn't exist.
 *)
-let path = Sys.getenv "PATH"
 let () =
   try
+    let path = Sys.getenv "PATH" in
     Printf.printf "The path is %s\n" path
   with Not_found ->
-    print_string "Api key is not set.\n"
+    print_string "The path is not set.\n"
 
 (*
   In contrast, `Sys.getenv_opt` returns a value of type `string option`: `Some value` if the variable exists and `None` if it doesn't.
