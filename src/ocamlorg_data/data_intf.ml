@@ -402,3 +402,18 @@ module Resource = struct
   }
   [@@deriving of_yaml, show]
 end
+
+module Success_story = struct
+  type t = {
+    title : string;
+    slug : string;
+    logo : string;
+    background : string;
+    theme : string;
+    synopsis : string;
+    url : string;
+    body_md : string;
+    body_html : string;
+  }
+  [@@deriving show]
+end
