@@ -1,30 +1,12 @@
-type metadata = {
-  title : string;
-  description : string;
-  image : string;
-  online_url : string;
-  source_url : string option;
-  featured : bool;
-}
-[@@deriving of_yaml, show { with_path = false }]
+open Data_intf.Resource
 
-type t = metadata [@@deriving of_yaml, show { with_path = false }]
-
-let all () = Utils.yaml_sequence_file metadata_of_yaml "resources.yml"
+let all () = Utils.yaml_sequence_file of_yaml "resources.yml"
 
 let template () =
   let all_resources = all () in
   Format.asprintf
     {|
-type t =
-  { title : string
-  ; description : string
-  ; image : string
-  ; online_url : string
-  ; source_url : string option
-  ; featured : bool
-  }
-  
+include Data_intf.Resource
 let all = %a
 let featured = %a
 |}

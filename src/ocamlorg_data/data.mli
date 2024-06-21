@@ -185,14 +185,7 @@ module Release : sig
 end
 
 module Resource : sig
-  type t = {
-    title : string;
-    description : string;
-    image : string;
-    online_url : string;
-    source_url : string option;
-    featured : bool;
-  }
+  include module type of Data_intf.Resource
 
   val all : t list
   val featured : t list
