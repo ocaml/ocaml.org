@@ -126,7 +126,7 @@ Dune creates libraries from folders. Let's look at an example. Here the folder i
 $ mkdir lib
 ```
 
-The `lib` folder is populated with the following files.
+The `lib` folder is populated with the following files:
 
 **`lib/dune`**
 ```lisp
@@ -264,9 +264,8 @@ Here `foo` is the project name and `foo.dir` is its container folder, the names 
 
 ## Remove Duplicated Interfaces
 
-In the previous stages, interfaces are duplicated. In the section
-[Libraries](#libraries) files `lib/cumulus.mli` and `lib/status.mli` are the
-same. In section [Include Subdirectories](#include-subdirectories) files
+In the previous stages, interfaces were duplicated. It's the same in the 
+[Libraries](#libraries) files `lib/cumulus.mli` and `lib/status.mli` section. In the [Include Subdirectories](#include-subdirectories) section, files
 `lib/cumulus/m.mli` and `lib/status/m.mli` are the same too.
 
 Here is a possible way to fix this using named module types (also known as
