@@ -41,7 +41,7 @@ To compile them using [Dune](https://dune.build/), at least two
 configuration files are required:
 * The `dune-project` file contains project-wide configuration.
   ```lisp
-   (lang dune 3.7)
+  (lang dune 3.7)
   ```
 * The `dune` file contains actual build directives. A project may have several
   `dune` files, one per folder containing things to build. This single line is
@@ -323,9 +323,7 @@ executable:
 (executables (names berlin delhi) (modules athens berlin cairo delhi))
 (executable (name glasgow) (modules florence glasgow))
 (library (name exeter) (modules exeter))
-
 ```
-
 
 ### Submodule With Signatures
 
