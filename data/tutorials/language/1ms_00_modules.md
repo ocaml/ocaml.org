@@ -200,7 +200,6 @@ Create files named `exeter.mli` and `exeter.ml` with the following contents:
 **Interface: `exeter.mli`**
 
 ```ocaml
-
 type aleph = Ada | Alan | Alonzo
 
 type gimel
@@ -232,7 +231,7 @@ let dalet_of = function
 ```
 
 Update file `dune` to have three targets; two executables: `berlin` and `delhi`; and a library `exeter`.
-```
+```lisp
 (executables (names berlin delhi) (modules athens berlin cairo delhi))
 (library (name exeter) (modules exeter))
 ```
