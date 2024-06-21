@@ -262,6 +262,40 @@ This is sufficient for `dune build` to work. It will not build anything.
 Here `foo` is the project name and `foo.dir` is its container folder, the names don't have to be the same.
 -->
 
+## Remove Duplicated Interfaces
+
+In the previous stages, interfaces are duplicated. In the section
+[Libraries](#libraries) files `lib/cumulus.mli` and `lib/status.mli` are the
+same. In section [Include Subdirectories](#include-subdirectories) files
+`lib/cumulus/m.mli` and `lib/status/m.mli` are the same too.
+
+Here is a possible way to fix this using named module types (also known as
+signatures). First, delete the files `lib/cumulus/m.mli` and `lib/status/m.mli`.
+Then modify module `Wmo` interface and implementation.
+
+**`wmo.mli`**
+```ocaml
+module type Nimbus = sig
+  val nimbus : string
+end
+
+module Cumulus : Nimbus
+module Stratus : Nimbus
+```
+
+**`wmo.ml`**
+```ocaml
+module type Nimbus = sig
+  val nimbus : string
+end
+
+module Cumulus = Cumulus.M
+module Stratus = Stratus.M
+```
+
+This result is the same, except implementations `Cumulus.M` and `Stratus.M` are
+explicitly bound to the same interface, defined in module `Wmo`.
+
 ## Conclusion
 
 The OCaml module system allows organising a project in many ways. Dune provides several means to arrange modules into libraries.
