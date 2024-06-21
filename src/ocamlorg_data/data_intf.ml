@@ -417,3 +417,30 @@ module Success_story = struct
   }
   [@@deriving show]
 end
+
+module Tool = struct
+  type lifecycle = [ `Incubate | `Active | `Sustain | `Deprecate ]
+  [@@deriving show]
+
+  let lifecycle_of_string = function
+    | "incubate" -> Ok `Incubate
+    | "active" -> Ok `Active
+    | "sustain" -> Ok `Sustain
+    | "deprecate" -> Ok `Deprecate
+    | s -> Error (`Msg ("Unknown lifecycle type: " ^ s))
+
+  let lifecycle_of_yaml = function
+    | `String s -> lifecycle_of_string s
+    | _ -> Error (`Msg "Expected a string for lifecycle type")
+
+  type t = {
+    name : string;
+    slug : string;
+    source : string;
+    license : string;
+    synopsis : string;
+    description : string;
+    lifecycle : lifecycle;
+  }
+  [@@deriving show]
+end
