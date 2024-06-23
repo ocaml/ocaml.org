@@ -188,6 +188,12 @@ categories:
     tasks:
     - title: Calculate Geodistance Between Two Points
       slug: calculate-geodistance-between-points
+  - title: Measures of Central Tendency
+    tasks:
+    - title: Calculate the Mean 
+      slug: calculate-the-mean
+    - title: Calculate the Median
+      slug: calculate-the-median
 - title: Operating System
   tasks:
   - title: Run an External Command and Process Stdout
