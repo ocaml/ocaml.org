@@ -4,6 +4,9 @@ title: Modules
 description: >
   Modules are collections of definitions. This is the basic means to organise OCaml software.
 category: "Module System"
+prerequisite_tutorials:
+  - values-and-functions
+  - basic-data-types
 ---
 
 ## Introduction
@@ -12,7 +15,7 @@ In this tutorial, we look at how to use and define modules.
 
 Modules are collections of definitions grouped together. This is the basic means to organise OCaml software. Separate concerns can and should be isolated into separate modules.
 
-**Prerequisites**: [Values and Functions](/docs/values-and-functions) and [Basic Data Types and Pattern Matching](/docs/basic-data-types)
+**Note**: The files that illustrate this tutorial are available as git [repo](https://github.com/ocaml-web/city).
 
 ## Basic Usage
 
