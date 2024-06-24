@@ -206,20 +206,7 @@ module Tool : sig
 end
 
 module Tool_page : sig
-  type toc = { title : string; href : string; children : toc list }
-  type contribute_link = { url : string; description : string }
-
-  type t = {
-    title : string;
-    short_title : string;
-    fpath : string;
-    slug : string;
-    description : string;
-    category : string;
-    body_md : string;
-    toc : toc list;
-    body_html : string;
-  }
+  include module type of Data_intf.Tool_page
 
   val all : t list
   val get_by_slug : string -> t option
