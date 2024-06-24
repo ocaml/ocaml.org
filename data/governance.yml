@@ -442,9 +442,9 @@ teams:
     kind: discord
   dev-meeting:
     date: Weekly on Mondays
-    time: alternating between 8:15 and 17:00 CET
-    link: https://us06web.zoom.us/j/89060017288?pwd=n6aCx10TBEXQA79aYHR3wXVRKD7JO5.1
-    calendar: https://calendar.google.com/calendar/u/0/embed?src=c_02e41b2ad00165b404789fad7c5df7ea3a4ae62744c13307ee7fb3fd7382f1dd@group.calendar.google.com
+    time: 8:15 AM CET
+    link: https://us06web.zoom.us/j/88375318760?pwd=TUUsVXPFMreM96cnMR3am8oSWj6Yhk.1
+    calendar: https://us06web.zoom.us/meeting/tZwucOyrrzMtHNT2s4W_iVDN-qjfaKEq4ikn/ics
     notes: https://docs.google.com/document/d/1ricnsicOB35TmuOM86guYr6HWo8A1iyVrHdb0cNxOXg/edit
   members:
   - name: Anil Madhavapeddy
