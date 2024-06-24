@@ -465,3 +465,52 @@ module Tool_page = struct
   }
   [@@deriving show]
 end
+
+module Workshop = struct
+  type role = [ `Co_chair | `Chair ] [@@deriving show]
+
+  let role_of_string = function
+    | "chair" -> Ok `Chair
+    | "co-chair" -> Ok `Co_chair
+    | s -> Error (`Msg ("Unknown role type: " ^ s))
+
+  let role_of_yaml = function
+    | `String s -> role_of_string s
+    | _ -> Error (`Msg "Expected a string for role type")
+
+  type important_date = { date : string; info : string }
+  [@@deriving of_yaml, show]
+
+  type committee_member = {
+    name : string;
+    role : role option;
+    affiliation : string option;
+    picture : string option;
+  }
+  [@@deriving of_yaml, show]
+
+  type presentation = {
+    title : string;
+    authors : string list;
+    link : string option;
+    video : string option;
+    slides : string option;
+    poster : bool;
+    additional_links : string list;
+  }
+  [@@deriving of_yaml, show]
+
+  type t = {
+    title : string;
+    slug : string;
+    location : string;
+    date : string;
+    important_dates : important_date list;
+    presentations : presentation list;
+    program_committee : committee_member list;
+    organising_committee : committee_member list;
+    body_md : string;
+    body_html : string;
+  }
+  [@@deriving of_yaml, show]
+end
