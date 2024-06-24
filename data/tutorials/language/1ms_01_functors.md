@@ -4,6 +4,8 @@ title: Functors
 description: >
   In OCaml, a functor is a function at the module-level. Functors take modules as arguments and return a new module.
 category: "Module System"
+prerequisite_tutorials:
+  - modules
 ---
 
 ## Introduction
@@ -12,7 +14,7 @@ In this tutorial, we look at how to apply functors and how to write functors. We
 
 As suggested by the name, a _functor_ is almost like a function. However, while functions are between values, functors are between modules. A functor has a module as a parameter and returns a module as a result. A functor in OCaml is a parametrised module, not to be confused with a [functor in mathematics](https://en.wikipedia.org/wiki/Functor).
 
-**Prerequisites**: [Modules](/docs/modules).
+**Note**: The files illustrating this tutorial are available as a [git repo](https://github.com/ocaml-web/funkt).
 
 ## Project Setup
 
