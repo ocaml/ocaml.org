@@ -240,12 +240,6 @@ module Watch = Watch
 module Workshop = struct
   include Workshop
 
-  let role_to_string = function `Chair -> "chair" | `Co_chair -> "co-chair"
-
-  let role_of_string = function
-    | "chair" -> Ok `Chair
-    | "co-chair" -> Ok `Co_chair
-    | _ -> Error (`Msg "Unknown role type")
-
+  let all = Workshop.all
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end

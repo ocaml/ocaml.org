@@ -206,20 +206,7 @@ module Tool : sig
 end
 
 module Tool_page : sig
-  type toc = { title : string; href : string; children : toc list }
-  type contribute_link = { url : string; description : string }
-
-  type t = {
-    title : string;
-    short_title : string;
-    fpath : string;
-    slug : string;
-    description : string;
-    category : string;
-    body_md : string;
-    toc : toc list;
-    body_html : string;
-  }
+  include module type of Data_intf.Tool_page
 
   val all : t list
   val get_by_slug : string -> t option
@@ -275,56 +262,13 @@ module Tutorial : sig
 end
 
 module Watch : sig
-  type t = {
-    name : string;
-    embed_path : string;
-    thumbnail_path : string;
-    description : string option;
-    published_at : string;
-    language : string;
-    category : string;
-  }
+  include module type of Data_intf.Watch
 
   val all : t list
 end
 
 module Workshop : sig
-  type role = [ `Co_chair | `Chair ]
-
-  val role_to_string : role -> string
-  val role_of_string : string -> (role, [> `Msg of string ]) result
-
-  type important_date = { date : string; info : string }
-
-  type committee_member = {
-    name : string;
-    role : role option;
-    affiliation : string option;
-    picture : string option;
-  }
-
-  type presentation = {
-    title : string;
-    authors : string list;
-    link : string option;
-    video : string option;
-    slides : string option;
-    poster : bool;
-    additional_links : string list;
-  }
-
-  type t = {
-    title : string;
-    slug : string;
-    location : string;
-    date : string;
-    important_dates : important_date list;
-    presentations : presentation list;
-    program_committee : committee_member list;
-    organising_committee : committee_member list;
-    body_md : string;
-    body_html : string;
-  }
+  include module type of Data_intf.Workshop
 
   val all : t list
   val get_by_slug : string -> t option

@@ -1,7 +1,5 @@
 open Ocamlorg.Import
-
-type contribute_link = { url : string; description : string }
-[@@deriving of_yaml, show { with_path = false }]
+open Data_intf.Tool_page
 
 type metadata = {
   id : string;
@@ -10,28 +8,20 @@ type metadata = {
   description : string;
   category : string;
 }
-[@@deriving of_yaml]
-
-type t = {
-  title : string;
-  short_title : string;
-  slug : string;
-  fpath : string;
-  description : string;
-  category : string;
-  toc : Markdown.Toc.t list;
-  body_md : string;
-  body_html : string;
-}
 [@@deriving
-  stable_record ~version:metadata ~add:[ id ] ~modify:[ short_title ]
-    ~remove:[ slug; fpath; toc; body_md; body_html ],
-    show { with_path = false }]
+  of_yaml,
+    stable_record ~version:t ~remove:[ id ] ~modify:[ short_title ]
+      ~add:[ slug; fpath; toc; body_md; body_html ]]
 
 let of_metadata m =
-  of_metadata m ~slug:m.id ~modify_short_title:(function
+  metadata_to_t m ~slug:m.id ~modify_short_title:(function
     | None -> m.title
     | Some u -> u)
+
+let rec toc_toc (toc : Markdown.Toc.t list) = List.map toc_f toc
+
+and toc_f { title; href; children } =
+  { title; href; children = toc_toc children }
 
 let decode (fpath, (head, body_md)) =
   let metadata =
@@ -40,7 +30,9 @@ let decode (fpath, (head, body_md)) =
   let doc = Markdown.Content.of_string body_md in
   let toc = Markdown.Toc.generate ~start_level:2 ~max_level:4 doc in
   let body_html = Markdown.Content.render ~syntax_highlighting:true doc in
-  Result.map (of_metadata ~fpath ~toc ~body_md ~body_html) metadata
+  Result.map
+    (of_metadata ~fpath ~toc:(toc_toc toc) ~body_md ~body_html)
+    metadata
 
 let all () =
   Utils.map_md_files decode "tool_pages/*/*.md"
@@ -49,31 +41,8 @@ let all () =
 let template () =
   let _ = all () in
 
-  Format.asprintf
-    {|
-type toc =
-  { title : string
-  ; href : string
-  ; children : toc list
-  }
-
-type contribute_link =
-  { url : string
-  ; description : string
-  }
-
-type t =
-  { title : string
-  ; short_title: string
-  ; fpath : string
-  ; slug : string
-  ; description : string
-  ; category : string
-  ; body_md : string
-  ; toc : toc list
-  ; body_html : string
-  }
-  
+  Format.asprintf {|
+include Data_intf.Tool_page
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))

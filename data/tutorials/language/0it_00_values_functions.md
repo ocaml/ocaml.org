@@ -163,7 +163,7 @@ Single-case pattern matching can also be used for parameter declaration.
 Here is an example with tuples:
 ```ocaml
 # let get_country ((country, { first; last }) : citizen) = country;;
-val get_countruy : citizen -> string = <fun>
+val get_country : citizen -> string = <fun>
 ```
 
 Here is an example with the `name` record:

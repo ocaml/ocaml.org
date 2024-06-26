@@ -32,6 +32,8 @@ Once you've completed this tutorial, you should be able to:
 How to work on several OCaml projects simultaneously is out of the scope of this tutorial. Currently (Summer 2023), this requires using opam local [_switches_](https://opam.ocaml.org/doc/man/opam-switch.html). This allows handling different sets of dependencies per project. Check the Best Practices document on [Dependencies](https://ocaml.org/docs/managing-dependencies) addressing that matter for detailed instructions. This document was written and tested using a global switch, which is created by default when installing opam and can be ignored in the beginning.
 -->
 
+**Note**: The files illustrating this tutorial are available as a [Git repo](https://github.com/ocaml-web/ocamlorg-docs-your-first-program).
+
 ## Working Within an opam Switch
 
 When you installed OCaml, a global opam switch was created automatically. This tutorial can be completed while working inside this global opam switch.

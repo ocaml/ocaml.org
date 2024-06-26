@@ -4,6 +4,9 @@ title: Modules
 description: >
   Modules are collections of definitions. This is the basic means to organise OCaml software.
 category: "Module System"
+prerequisite_tutorials:
+  - values-and-functions
+  - basic-data-types
 ---
 
 ## Introduction
@@ -12,7 +15,7 @@ In this tutorial, we look at how to use and define modules.
 
 Modules are collections of definitions grouped together. This is the basic means to organise OCaml software. Separate concerns can and should be isolated into separate modules.
 
-**Prerequisites**: [Values and Functions](/docs/values-and-functions) and [Basic Data Types and Pattern Matching](/docs/basic-data-types)
+**Note**: The files that illustrate this tutorial are available as a Git [repo](https://github.com/ocaml-web/ocamlorg-docs-modules).
 
 ## Basic Usage
 
@@ -41,7 +44,7 @@ To compile them using [Dune](https://dune.build/), at least two
 configuration files are required:
 * The `dune-project` file contains project-wide configuration.
   ```lisp
-   (lang dune 3.7)
+  (lang dune 3.7)
   ```
 * The `dune` file contains actual build directives. A project may have several
   `dune` files, one per folder containing things to build. This single line is
@@ -200,7 +203,6 @@ Create files named `exeter.mli` and `exeter.ml` with the following contents:
 **Interface: `exeter.mli`**
 
 ```ocaml
-
 type aleph = Ada | Alan | Alonzo
 
 type gimel
@@ -231,10 +233,10 @@ let dalet_of = function
   | Some (Either.Right x) -> Donald x
 ```
 
-Update file `dune`:
+Update file `dune` to have three targets; two executables: `berlin` and `delhi`; and a library `exeter`.
 ```lisp
-(executables (names berlin delhi) (modules berlin delhi))
-(library (name exeter) (modules exeter) (modes byte))
+(executables (names berlin delhi) (modules athens berlin cairo delhi))
+(library (name exeter) (modules exeter))
 ```
 
 Run the `opam exec -- dune utop` command. This triggers `Exeter`'s compilation, launches `utop`, and loads `Exeter`.
@@ -316,7 +318,15 @@ let () =
 ```
 
 Definitions from a submodule are accessed by chaining module names, here
-`Florence.Hello.print`.
+`Florence.Hello.print`. Here is the updated `dune` file, with an additional
+executable:
+
+**`dune`**
+```lisp
+(executables (names berlin delhi) (modules athens berlin cairo delhi))
+(executable (name glasgow) (modules florence glasgow))
+(library (name exeter) (modules exeter))
+```
 
 ### Submodule With Signatures
 
