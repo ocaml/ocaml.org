@@ -14,7 +14,7 @@ In this tutorial, we look at how to apply functors and how to write functors. We
 
 As suggested by the name, a _functor_ is almost like a function. However, while functions are between values, functors are between modules. A functor has a module as a parameter and returns a module as a result. A functor in OCaml is a parametrised module, not to be confused with a [functor in mathematics](https://en.wikipedia.org/wiki/Functor).
 
-**Note**: The files illustrating this tutorial are available as a [Git repo](https://github.com/ocaml-web/funkt).
+**Note**: The files illustrating this tutorial are available as a [Git repo](https://github.com/ocaml-web/ocamlorg-docs-functors).
 
 ## Project Setup
 

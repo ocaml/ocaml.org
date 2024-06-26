@@ -15,7 +15,7 @@ In this tutorial, we look at how to use and define modules.
 
 Modules are collections of definitions grouped together. This is the basic means to organise OCaml software. Separate concerns can and should be isolated into separate modules.
 
-**Note**: The files that illustrate this tutorial are available as a Git [repo](https://github.com/ocaml-web/city).
+**Note**: The files that illustrate this tutorial are available as a Git [repo](https://github.com/ocaml-web/ocamlorg-docs-modules).
 
 ## Basic Usage
 
