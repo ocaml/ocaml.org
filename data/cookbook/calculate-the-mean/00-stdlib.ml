@@ -28,7 +28,6 @@ let mean data =
     let total_elements = float_of_int (List.length data) in
     let summed_elements = List.fold_left ( +. ) 0. data in
     summed_elements /. total_elements
-;;
 
 (* Example usage. Note the final value is rounded to the second decimal place in the print statment. *)
 Printf.printf "The mean value is %.2f" (mean data)
