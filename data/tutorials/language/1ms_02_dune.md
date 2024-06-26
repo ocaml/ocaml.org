@@ -4,6 +4,9 @@ title: Libraries With Dune
 description: >
   Dune provides several means to arrange modules into libraries. We look at Dune's mechanisms for structuring projects with libraries that contain modules.
 category: "Module System"
+prerequisite_tutorials:
+  - modules
+  - functors
 ---
 
 ## Introduction
@@ -11,8 +14,6 @@ category: "Module System"
 Dune provides several means to arrange modules into libraries. We look at Dune's mechanisms for structuring projects with libraries that contain modules.
 
 This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have version 3.7 or later installed.
-
-**Requirements**: [Modules](/docs/modules) and [Functors](/docs/modules).
 
 ## Minimum Project Setup
 
@@ -260,6 +261,55 @@ This is sufficient for `dune build` to work. It will not build anything.
 
 Here `foo` is the project name and `foo.dir` is its container folder, the names don't have to be the same.
 -->
+
+## Disable Library Wrapping
+
+This section details how Dune wraps a library's contents into a dedicated
+module. It also shows how to disable this mechanism.
+
+The `lib` folder contents are trimmed down back to a state close to what it was
+in the [Libraries](#libraries) section. Delete file `lib/cumulus/m.ml`,
+`lib/stratus/m.ml`, `lib/wmo.mli` and `lib/wmo.ml`. Here are the only files we
+need:
+
+**`lib/dune`**
+```lisp
+(library (name wmo))
+```
+
+**`lib/cumulus.ml`**
+```ocaml
+let nimbus = "Cumulonimbus (Cb)"
+```
+
+**`lib/stratus.ml`**
+```ocaml
+let nimbus = "Nimbostratus (Ns)"
+```
+
+In this set-up, running `dune utop` allows to explore what's available.
+```ocaml
+# #show Wmo;;
+module Wmo : sig module Cumulus = Wmo.Cumulus module Stratus = Wmo.Stratus end
+
+# #show Wmo.Cumulus;;
+module Cumulus : sig val nimbus : string end
+
+# #show Wmo.Stratus;;
+# module Stratus : sig val nimbus : string end
+
+# #show Wmo__Cumulus;;
+module Cumulus : sig val nimbus : string end
+
+# #show Wmo__Stratus;;
+# module Stratus : sig val nimbus : string end
+```
+
+Five modules are defined. 
+
+
+
+
 
 ## Conclusion
 
