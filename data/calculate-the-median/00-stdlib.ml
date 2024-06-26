@@ -4,7 +4,7 @@ discussion: |
   - **Description:** The [Median](https://statistics.laerd.com/statistical-guides/measures-central-tendency-mean-mode-median.php) measure of central tendency
   is the middle value in an ordered set of data. It is useful for statistical analysis as it isn't easily influenced by extreme values (outliers)
   - **Data Assumption:** This code assumes the data is of type float. While we can calculate the median for any numeric value, it makes sense to use floats in OCaml since all
-  integers i.e 1 can be represented as floats 1. but not all floats can be represented by integer data types i.e. 1.5 does not equal 1 or 2
+  integers can be represented as floats (i.e., 1 can be written 1.0), but not all floats can be represented by integer data types. For example, 1.5 does not equal 1 or 2.
   - **Note:** When there is an even number of elements in the data, the median will be the average of the two middle values.
 ---
 
