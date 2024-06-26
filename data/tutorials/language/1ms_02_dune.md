@@ -261,10 +261,6 @@ This is sufficient for `dune build` to work. It will not build anything.
 Here `foo` is the project name and `foo.dir` is its container folder, the names don't have to be the same.
 -->
 
-## Disable Library Wrapping
-
-Section [Library Wrapper Modules](#library-wrapper-modules). 
-
 ## Conclusion
 
 The OCaml module system allows organising a project in many ways. Dune provides several means to arrange modules into libraries.
