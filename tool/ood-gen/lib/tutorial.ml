@@ -53,7 +53,7 @@ let decode (fpath, (head, body_md)) =
   let metadata =
     metadata_of_yaml head |> Result.map_error (Utils.where fpath)
   in
-  let section : Section.t =
+  let section =
     List.nth (String.split_on_char '/' fpath) 1
     |> Section.of_string
     |> Result.get_ok ~error:(fun (`Msg msg) ->
