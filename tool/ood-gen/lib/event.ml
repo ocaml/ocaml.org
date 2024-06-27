@@ -16,17 +16,18 @@ let event_type_of_yaml = function
 type location = { lat : float; long : float }
 [@@deriving of_yaml, show { with_path = false }]
 
-  type recurring_event = {
-    title : string;
-    url : string;
-    slug : string;
-    textual_location : string;
-    location : location option;
-    event_type : event_type;
-  }
-  [@@deriving of_yaml, show { with_path = false }]
+type recurring_event = {
+  title : string;
+  url : string;
+  slug : string;
+  textual_location : string;
+  location : location option;
+  event_type : event_type;
+}
+[@@deriving of_yaml, show { with_path = false }]
 
-  let recurring_event_all () : recurring_event list = Utils.yaml_sequence_file recurring_event_of_yaml "events/recurring.yml"
+let recurring_event_all () : recurring_event list =
+  Utils.yaml_sequence_file recurring_event_of_yaml "events/recurring.yml"
 
 type utc_datetime = { yyyy_mm_dd : string; utc_hh_mm : string option }
 [@@deriving of_yaml, show { with_path = false }]
@@ -83,9 +84,7 @@ let decode (recurring_events : recurring_event list) (fpath, (head, body_md)) =
           metadata.recurring_event_slug
       in
       let recurring_event_type =
-        Option.map
-          (fun (re : recurring_event) -> re.event_type)
-          recurring_event
+        Option.map (fun (re : recurring_event) -> re.event_type) recurring_event
       in
       let event_type =
         match (metadata.event_type, recurring_event_type) with
