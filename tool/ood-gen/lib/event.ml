@@ -1,36 +1,7 @@
-type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
-[@@deriving show { with_path = false }]
-
-let event_type_of_string = function
-  | "meetup" -> Ok Meetup
-  | "conference" -> Ok Conference
-  | "seminar" -> Ok Seminar
-  | "hackathon" -> Ok Hackathon
-  | "retreat" -> Ok Retreat
-  | s -> Error (`Msg ("Unknown event type: " ^ s))
-
-let event_type_of_yaml = function
-  | `String s -> event_type_of_string s
-  | _ -> Error (`Msg "Expected a string for difficulty type")
-
-type location = { lat : float; long : float }
-[@@deriving of_yaml, show { with_path = false }]
-
-type recurring_event = {
-  title : string;
-  url : string;
-  slug : string;
-  textual_location : string;
-  location : location option;
-  event_type : event_type;
-}
-[@@deriving of_yaml, show { with_path = false }]
+open Data_intf.Event
 
 let recurring_event_all () : recurring_event list =
   Utils.yaml_sequence_file recurring_event_of_yaml "events/recurring.yml"
-
-type utc_datetime = { yyyy_mm_dd : string; utc_hh_mm : string option }
-[@@deriving of_yaml, show { with_path = false }]
 
 type metadata = {
   title : string;
@@ -42,28 +13,14 @@ type metadata = {
   recurring_event_slug : string option;
   event_type : event_type option;
 }
-[@@deriving of_yaml, show { with_path = false }]
-
-type t = {
-  title : string;
-  url : string;
-  slug : string;
-  textual_location : string;
-  location : location option;
-  starts : utc_datetime;
-  ends : utc_datetime option;
-  body_md : string;
-  body_html : string;
-  recurring_event : recurring_event option;
-  event_type : event_type;
-}
 [@@deriving
-  stable_record ~version:metadata
-    ~remove:[ slug; body_md; body_html; recurring_event ]
-    ~add:[ recurring_event_slug ] ~set:[ event_type ],
+  of_yaml,
+    stable_record ~version:t
+      ~add:[ slug; body_md; body_html; recurring_event ]
+      ~remove:[ recurring_event_slug ] ~set:[ event_type ],
     show { with_path = false }]
 
-let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
+let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.title)
 
 let decode (recurring_events : recurring_event list) (fpath, (head, body_md)) =
   let metadata =
@@ -112,7 +69,7 @@ let decode (recurring_events : recurring_event list) (fpath, (head, body_md)) =
 
 let all () =
   Utils.map_md_files (decode (recurring_event_all ())) "events/*.md"
-  |> List.sort (fun e1 e2 ->
+  |> List.sort (fun (e1 : t) (e2 : t) ->
          (* Sort the events by reversed start date. *)
          let t1 =
            e1.starts.yyyy_mm_dd ^ " "
@@ -127,40 +84,8 @@ let all () =
 let template () =
   Format.asprintf
     {|
-type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
-type location = { lat : float; long : float }
-
-  type recurring_event = {
-    slug : string
-    ; title : string
-    ; url : string
-    ; textual_location : string
-    ; location : location option
-    ; event_type : event_type
-  }
-
-  let recurring_event_all = %a
-
-
-type utc_datetime = {
-  yyyy_mm_dd: string;
-  utc_hh_mm: string option;
-}
-
-type t =
-  { title : string
-  ; url : string
-  ; slug : string
-  ; textual_location : string
-  ; location : location option
-  ; starts : utc_datetime
-  ; ends : utc_datetime option
-  ; body_md : string
-  ; body_html : string
-  ; recurring_event : recurring_event option
-  ; event_type : event_type
-  }
-
+include Data_intf.Event
+let recurring_event_all = %a
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp_recurring_event ~sep:Fmt.semi))
