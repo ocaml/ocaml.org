@@ -496,7 +496,9 @@ module Tutorial = struct
 
   type recommended_next_tutorials = string list [@@deriving of_yaml, show]
   type prerequisite_tutorials = string list [@@deriving of_yaml, show]
-  type search_document_section = { title : string; id : string } [@@deriving show]
+
+  type search_document_section = { title : string; id : string }
+  [@@deriving show]
 
   type search_document = {
     title : string;
@@ -504,7 +506,8 @@ module Tutorial = struct
     section : search_document_section option;
     content : string;
     slug : string;
-  } [@@deriving show]
+  }
+  [@@deriving show]
 
   type t = {
     title : string;

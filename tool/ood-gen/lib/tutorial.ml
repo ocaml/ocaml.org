@@ -71,7 +71,6 @@ let all () =
   |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
 
 module TutorialSearch = struct
-
   let document_from_section
       ((section : Search.section option), (content : Cmarkit.Block.t list))
       ~(metadata : metadata) : search_document =
