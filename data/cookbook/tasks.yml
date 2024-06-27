@@ -230,6 +230,8 @@ categories:
       slug: download-file-to-temporary-dir
     - title: Make a Partial Download with HTTP Range Header
       slug: make-partial-download-with-http-range-header
+    - title: Miscellaneous
+      slug: http-misc
   - title: Dealing with HTML
     tasks:
     - title: Render a HTML Template
