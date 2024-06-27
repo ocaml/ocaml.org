@@ -264,7 +264,7 @@ Here `foo` is the project name and `foo.dir` is its container folder, the names 
 
 ## Remove Duplicated Interfaces
 
-In the previous stages, interfaces were duplicated. In the “[Libraries](#libraries)” section of this tutorial, two files are the same: `lib/cumulus.mli` and `lib/status.mli`
+In the previous stages, interfaces were duplicated. In the “[Libraries](#libraries)” section of this tutorial, two files are the same: `lib/cumulus.mli` and `lib/status.mli`.
 Later, in the “[Include Subdirectories](#include-subdirectories)” section, the files `lib/cumulus/m.mli` and `lib/status/m.mli` are also the same.
 
 Here is a possible way to fix this using named module types (also known as
