@@ -59,9 +59,9 @@ module Event = struct
   include Event
 
   module RecurringEvent = struct
-    include Event.RecurringEvent
-
-    let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+    type t = recurring_event
+    let all = recurring_event_all
+    let get_by_slug slug = List.find_opt (fun (x : t) -> String.equal slug x.slug) all
   end
 
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all

@@ -43,15 +43,17 @@ module Event : sig
   type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
   type location = { lat : float; long : float }
 
+  type recurring_event = {
+    slug : string;
+    title : string;
+    url : string;
+    textual_location : string;
+    location : location option;
+    event_type : event_type;
+  }
+
   module RecurringEvent : sig
-    type t = {
-      slug : string;
-      title : string;
-      url : string;
-      textual_location : string;
-      location : location option;
-      event_type : event_type;
-    }
+    type t = recurring_event
 
     val all : t list
     val get_by_slug : string -> t option
