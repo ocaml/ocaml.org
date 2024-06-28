@@ -40,38 +40,14 @@ module Cookbook : sig
 end
 
 module Event : sig
-  type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
-  type location = { lat : float; long : float }
+  include module type of Data_intf.Event
 
   module RecurringEvent : sig
-    type t = {
-      slug : string;
-      title : string;
-      url : string;
-      textual_location : string;
-      location : location option;
-      event_type : event_type;
-    }
+    type t = recurring_event
 
     val all : t list
     val get_by_slug : string -> t option
   end
-
-  type utc_datetime = { yyyy_mm_dd : string; utc_hh_mm : string option }
-
-  type t = {
-    title : string;
-    url : string;
-    slug : string;
-    textual_location : string;
-    location : location option;
-    starts : utc_datetime;
-    ends : utc_datetime option;
-    body_md : string;
-    body_html : string;
-    recurring_event : RecurringEvent.t option;
-    event_type : event_type;
-  }
 
   val all : t list
   val get_by_slug : string -> t option

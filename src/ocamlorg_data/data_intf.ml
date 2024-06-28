@@ -88,8 +88,7 @@ module Changelog = struct
 end
 
 module Code_examples = struct
-  type t = { title : string; body : string }
-  [@@deriving show { with_path = false }]
+  type t = { title : string; body : string } [@@deriving show]
 end
 
 module Cookbook = struct
@@ -126,6 +125,53 @@ module Cookbook = struct
     code_blocks : code_block_with_explanation list;
     code_plaintext : string;
     discussion_html : string;
+  }
+  [@@deriving show]
+end
+
+module Event = struct
+  type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
+  [@@deriving show]
+
+  let event_type_of_string = function
+    | "meetup" -> Ok Meetup
+    | "conference" -> Ok Conference
+    | "seminar" -> Ok Seminar
+    | "hackathon" -> Ok Hackathon
+    | "retreat" -> Ok Retreat
+    | s -> Error (`Msg ("Unknown event type: " ^ s))
+
+  let event_type_of_yaml = function
+    | `String s -> event_type_of_string s
+    | _ -> Error (`Msg "Expected a string for difficulty type")
+
+  type location = { lat : float; long : float } [@@deriving of_yaml, show]
+
+  type recurring_event = {
+    title : string;
+    url : string;
+    slug : string;
+    textual_location : string;
+    location : location option;
+    event_type : event_type;
+  }
+  [@@deriving of_yaml, show]
+
+  type utc_datetime = { yyyy_mm_dd : string; utc_hh_mm : string option }
+  [@@deriving of_yaml, show]
+
+  type t = {
+    title : string;
+    url : string;
+    slug : string;
+    textual_location : string;
+    location : location option;
+    starts : utc_datetime;
+    ends : utc_datetime option;
+    body_md : string;
+    body_html : string;
+    recurring_event : recurring_event option;
+    event_type : event_type;
   }
   [@@deriving show]
 end
