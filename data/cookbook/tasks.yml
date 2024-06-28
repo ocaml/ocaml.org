@@ -262,9 +262,7 @@ categories:
       slug: parse-mime-type-of-http-response
   - title: URL and URI processing
     tasks:
-    - title: Parse a URL from String And Access Individual Parts
-      slug: parse-url-from-string
-    - title: URI encoding
-      slug: uri-encoding
-    - title: URI parsing
+    - title: Parse a URI from String And Access Individual Parts
       slug: uri-parsing
+    - title: Encode a URI to String
+      slug: uri-encoding
