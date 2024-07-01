@@ -13,8 +13,8 @@ recommended_next_tutorials:
 
 This tutorial introduces OCaml's basic features: values, expressions, lists, functions, pattern matching, and more.
 
-No OCaml or functional programming knowledge is required; however, it is assumed the reader has some basic software development knowledge.
-Please ensure you've installed OCaml and set up the environment, as described on the [install OCaml](/docs/installing-ocaml) page.
+No OCaml or any functional programming knowledge is required; however, it is assumed the reader has some basic software development knowledge.
+Please ensure you've installed OCaml and set up the environment, as described on the [Install OCaml](/docs/installing-ocaml) page.
 
 We recommend that you execute the examples we provide, and to experiment with them, to get a feel for coding in OCaml.
 To do this, you can use UTop (Universal Toplevel).
