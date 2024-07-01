@@ -41,7 +41,7 @@ $ port install opam
 
 **For Linux**
 
-It's preferable to install opam with your system's package manager on Linux, as superuser. On the opam site, find [details of all installation methods](https://opam.ocaml.org/doc/Install.html). Versions of opam above 2.0 are packaged by all supported Linux distributions. If you are using an unsupported Linux distribution, please either download a precompiled binary or build opam from sources.
+It's preferable to install opam with your system's package manager on Linux, as superuser. On the opam site, find [details of all installation methods](https://opam.ocaml.org/doc/Install.html). A version of opam above 2.0 is packaged in all supported Linux distributions. If you are using an unsupported Linux distribution, please either download a precompiled binary or build opam from sources.
 
 If you are installing in Debian or Ubuntu:
 ```shell
