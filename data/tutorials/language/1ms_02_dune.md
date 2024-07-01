@@ -296,6 +296,7 @@ module Stratus = Stratus.M
 
 This result is the same, except implementations `Cumulus.M` and `Stratus.M` are
 explicitly bound to the same interface, defined in module `Wmo`.
+
 ## Disable Library Wrapping
 
 This section details how Dune wraps a library's contents into a dedicated
