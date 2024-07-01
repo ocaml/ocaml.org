@@ -19,7 +19,7 @@ Please ensure you've installed OCaml and set up the environment, as described on
 We recommend that you execute the examples we provide, and to experiment with them, to get a feel for coding in OCaml.
 To do this, you can use UTop (Universal Toplevel).
 
-UTop allows interacting with OCaml by reading and evaluating OCaml phrases like expressions or value definitions and printing the result on the screen. Use the `utop` command to run UTop. Exit it by pressing `Ctrl+D`. For more information, you can read the [Introduction to the OCaml Toplevel](/docs/toplevel-introduction).
+UTop allows users to interact with OCaml by reading and evaluating OCaml phrases, like expressions or value definitions, and printing the result on the screen. Use the `utop` command to run UTop. Exit it by pressing `Ctrl+D`. For more information, you can read the [Introduction to the OCaml Toplevel](/docs/toplevel-introduction).
 
 <!--
 The goal of this tutorial is to provide the following capabilities:
