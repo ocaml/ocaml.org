@@ -262,7 +262,6 @@ This is sufficient for `dune build` to work. It will not build anything.
 Here `foo` is the project name and `foo.dir` is its container folder, the names don't have to be the same.
 -->
 
-<<<<<<< HEAD
 ## Remove Duplicated Interfaces
 
 In the previous stages, interfaces were duplicated. In the
@@ -297,7 +296,6 @@ module Stratus = Stratus.M
 
 This result is the same, except implementations `Cumulus.M` and `Stratus.M` are
 explicitly bound to the same interface, defined in module `Wmo`.
-=======
 ## Disable Library Wrapping
 
 This section details how Dune wraps a library's contents into a dedicated
@@ -389,7 +387,6 @@ module Stratus : sig val nimbus : string end
   prevents it from being bundled in the library
 * When the file `lib/wmo.ml` doesn't exist, the `wrapped false` stanza prevents
    the creation of the `Wmo` wrapper
->>>>>>> d90300f78 (Unwrapped libraries)
 
 ## Conclusion
 
