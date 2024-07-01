@@ -53,7 +53,7 @@ If you are installing in Arch Linux:
 $ sudo pacman -S opam
 ```
 
-**Note**: The Debian package for opam, which is also used in Ubuntu, has the OCaml compiler as a recommended dependency. By default, such dependencies are installed. If you want to only install opam without ocaml, you need to run something like this:
+**Note**: The Debian package for opam, which is also used in Ubuntu, has the OCaml compiler as a recommended dependency. By default, such dependencies are installed. If you want to only install opam without OCaml, you need to run something like this:
 ```shell
 sudo apt-get install --no-install-recommends opam
 ```
