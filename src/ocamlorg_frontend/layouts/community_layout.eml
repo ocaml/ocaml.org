@@ -12,7 +12,7 @@ let tabs
     | Jobs -> Url.jobs
     | Events -> Url.events
     | Resources -> Url.resources
-    | Videos -> Url.youtube
+    | Videos -> Url.video
   in
   let title_of_section = function
     | Overview -> "Overview"

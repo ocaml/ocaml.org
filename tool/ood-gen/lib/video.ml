@@ -1,5 +1,5 @@
 open Ocamlorg.Import
-open Data_intf.Youtube
+open Data_intf.Video
 
 type kind = Playlist | Channel
 
@@ -192,7 +192,7 @@ let scrape () =
 
 let template () =
   Format.asprintf {ocaml|
-include Data_intf.Youtube
+include Data_intf.Video
 let all =%a
 |ocaml}
     pp_video_list (all ())

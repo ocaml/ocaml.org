@@ -301,9 +301,9 @@
     --workspace
     %{workspace_root})))
  (rule
-  (target youtube.ml)
+  (target video.ml)
   (action
-   (run %{bin:dream_eml} %{dep:youtube.eml} --workspace %{workspace_root}))))
+   (run %{bin:dream_eml} %{dep:video.eml} --workspace %{workspace_root}))))
 
 (subdir
  components/

@@ -199,6 +199,12 @@ module Tutorial : sig
   val search_documents : string -> search_document list
 end
 
+module Video : sig
+  include module type of Video
+
+  val all : t list
+end
+
 module Workshop : sig
   include module type of Workshop
 
@@ -206,8 +212,3 @@ module Workshop : sig
   val get_by_slug : string -> t option
 end
 
-module Youtube : sig
-  include module type of Data_intf.Youtube
-
-  val all : t list
-end

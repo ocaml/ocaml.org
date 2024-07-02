@@ -1093,5 +1093,5 @@ let sitemap _request =
 
 let logos _req = Dream.html (Ocamlorg_frontend.logos ())
 
-let youtube _req =
-  Dream.html (Ocamlorg_frontend.youtube ~videos:Data.Youtube.all)
+let video _req =
+  Dream.html (Ocamlorg_frontend.video ~videos:Data.Video.all)

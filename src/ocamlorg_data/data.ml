@@ -238,11 +238,11 @@ module Tutorial = struct
     |> List.map fst
 end
 
+module Video = Video
+
 module Workshop = struct
   include Workshop
 
   let all = Workshop.all
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
-
-module Youtube = Youtube
