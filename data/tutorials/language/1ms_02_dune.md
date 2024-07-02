@@ -79,10 +79,11 @@ $ tree
 └── wmo.ml
 ```
 
-Dune stores the files it creates in a directory named `_build`. In a project managed using Git, the `_build` directory should be ignored
+Dune stores the files it creates, and a copy of the sources, in a directory named `_build`. You don't need to edit anything there. In a project managed using Git, the `_build` directory should be ignored
 ```shell
 $ echo _build >> .gitignore
 ```
+You can also configure your editor or IDE to ignore it too.
 
 In OCaml, each `.ml` file defines a module. In the `mixtli` project, the file `cloud.ml` defines the `Cloud` module, the file `wmo.ml` defines the `Wmo` module that contains two submodules: `Stratus` and `Cumulus`.
 
