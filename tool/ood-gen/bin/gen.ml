@@ -26,6 +26,7 @@ let term_templates =
     ("tool", Tool.template);
     ("tool_page", Tool_page.template);
     ("tutorial", Tutorial.template);
+    ("video", Video.template);
     ("watch", Watch.template);
     ("workshops", Workshop.template);
   ]

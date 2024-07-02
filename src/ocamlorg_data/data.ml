@@ -238,6 +238,7 @@ module Tutorial = struct
     |> List.map fst
 end
 
+module Video = Video
 module Watch = Watch
 
 module Workshop = struct

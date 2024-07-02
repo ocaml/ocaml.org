@@ -40,4 +40,18 @@
      %{target}
      (run %{gen_feed} changelog))))))
 
+(subdir
+ asset/
+ (rule
+  (target video.xml)
+  (deps
+   (source_tree %{workspace_root}/data/youtube.yml)
+   (:gen_feed %{workspace_root}/tool/ood-gen/bin/feed.exe))
+  (action
+   (chdir
+    %{workspace_root}
+    (with-stdout-to
+     %{target}
+     (run %{gen_feed} video))))))
+
 (data_only_dirs playground data practice)
