@@ -4,7 +4,7 @@
  (name worker)
  (modes byte)
  (modules worker)
- (libraries js-top-worker))
+ (libraries js-top-worker joy))
 
 (executable
  (name merlin_worker)
@@ -14,17 +14,17 @@
 
 (rule
  (target cmis.ml)
- (deps gen_cmis_ml.sh ../asset/stdlib)
+ (deps gen_cmis_ml.sh ../asset/stdlib ../asset/joy)
  (action
   (with-stdout-to
    %{target}
-   (run ./gen_cmis_ml.sh))))
+   (run ./gen_cmis_ml.sh stdlib joy))))
 
 (rule
  (targets export.txt)
  (deps worker.bc)
  (action
-  (run jsoo_listunits -o %{targets} stdlib)))
+  (run jsoo_listunits -o %{targets} stdlib joy)))
 
 (rule
  (targets worker.js)
@@ -32,9 +32,9 @@
   (run
    %{bin:js_of_ocaml}
    --toplevel
+   --no-cmis
    --export
    %{dep:export.txt}
-   --no-cmis
    --pretty
    --enable=effects
    --linkall
@@ -56,4 +56,5 @@
   code-mirror
   merlin-js.code-mirror
   js-top-worker.client
-  rpclib-lwt))
+  rpclib-lwt
+  joy))

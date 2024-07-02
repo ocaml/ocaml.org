@@ -14,6 +14,7 @@ copylibcmis()  (
 )
 
 copylibcmis ocaml stdlib
+copylibcmis joy joy
 
 # Extras!
 
@@ -22,4 +23,3 @@ EXTRA="std_exit unix/unix unix/unixLabels compiler-libs/topdirs"
 for i in $EXTRA; do
   cp $(opam var ocaml:lib)/$i.cmi stdlib/
 done
-
