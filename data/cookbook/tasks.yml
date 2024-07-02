@@ -18,8 +18,14 @@ categories:
       C library, using the OCaml foreign function interface.
 - title: Compression
   tasks:
-  - title: Read a gzip compressed text file
-    slug: read-gzip-text-file
+  - title: Decompress a Single File Compressed With GZIP
+    slug: decompress-single-file-gzip
+  - title: Compress a Single File with GZIP
+    slug: compress-single-file-gzip
+  - title: Decompress a ZIP Archive Containing Multiple Files
+    slug: decompress-zip-archive
+  - title: Create a ZIP Archive Containing Multiple Files
+    slug: create-zip-archive
   - title: Decompressing a Tarball
     slug: decompressing-a-tarball
   - title: Compress a Directory Into a Tarball
