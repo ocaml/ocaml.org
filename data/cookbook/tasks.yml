@@ -224,12 +224,20 @@ categories:
       slug: make-http-get-request
       description: >
         Make an HTTP GET request, process response code, follow redirects
-    - title: Make a HTTP GET Request with Basic Authentication
+    - title: Make an HTTP GET Request with Basic Authentication
       slug: make-http-get-basic-auth
     - title: Download a File to a Temporary Directory
       slug: download-file-to-temporary-dir
     - title: Make a Partial Download with HTTP Range Header
       slug: make-partial-download-with-http-range-header
+    - title: Make an HTTP POST Request with Bearer Token Authentication
+      slug: make-http-post-request-bearer-auth
+      description: >
+        Make an HTTP POST request to create a resource
+    - title: Make an HTTP PATCH Request with Bearer Token Authentication
+      slug: make-http-patch-request-bearer-auth
+      description: >
+        Make an HTTP PATCH request to update a resource 
   - title: Dealing with HTML
     tasks:
     - title: Render a HTML Template
