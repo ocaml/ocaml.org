@@ -264,41 +264,11 @@ let release req =
   Dream.html (Ocamlorg_frontend.release version)
 
 let workshop req =
-  let watch_ocamlorg_embed =
-    let presentations =
-      List.concat_map
-        (fun (w : Data.Workshop.t) -> w.presentations)
-        Data.Workshop.all
-    in
-    let rec get_last = function
-      | [] -> ""
-      | [ x ] -> x
-      | _ :: xs -> get_last xs
-    in
-    let watch =
-      List.map
-        (fun (w : Data.Watch.t) ->
-          String.split_on_char '/' w.embed_path |> get_last |> fun v -> (v, w))
-        Data.Watch.all
-    in
-    let tbl = Hashtbl.create 100 in
-    let add_video (p : Data.Workshop.presentation) =
-      match p.video with
-      | Some video ->
-          let uuid = String.split_on_char '/' video |> get_last in
-          let find (v, w) = if String.equal uuid v then Some w else None in
-          let w = List.find_map find watch in
-          Option.iter (fun w -> Hashtbl.add tbl p.title w) w
-      | None -> ()
-    in
-    List.iter add_video presentations;
-    tbl
-  in
   let slug = Dream.param req "id" in
   let</>? workshop =
     List.find_opt (fun (x : Data.Workshop.t) -> x.slug = slug) Data.Workshop.all
   in
-  Dream.html (Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed workshop)
+  Dream.html (Ocamlorg_frontend.workshop workshop)
 
 let ocaml_planet req =
   let page, number_of_pages, current_items =

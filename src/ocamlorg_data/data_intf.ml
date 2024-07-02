@@ -573,19 +573,6 @@ module Tutorial = struct
   [@@deriving show]
 end
 
-module Watch = struct
-  type t = {
-    name : string;
-    description : string option;
-    embed_path : string;
-    thumbnail_path : string;
-    published_at : string;
-    language : string;
-    category : string;
-  }
-  [@@deriving of_yaml, show]
-end
-
 module Workshop = struct
   type role = [ `Co_chair | `Chair ] [@@deriving show]
 
