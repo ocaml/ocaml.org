@@ -9,9 +9,10 @@ let kind_of_string = function
   | s -> Error (`Msg ("Unknown difficulty type: " ^ s))
 
 let kind_to_string = function Playlist -> "playlist" | Channel -> "channel"
+
 let kind_of_yaml = function
-| `String s -> kind_of_string s
-| _ -> Error (`Msg "Expected a string for kind")
+  | `String s -> kind_of_string s
+  | _ -> Error (`Msg "Expected a string for kind")
 
 type source_metadata = {
   name : string;

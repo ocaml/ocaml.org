@@ -1092,6 +1092,4 @@ let sitemap _request =
       Dream.flush stream)
 
 let logos _req = Dream.html (Ocamlorg_frontend.logos ())
-
-let video _req =
-  Dream.html (Ocamlorg_frontend.video ~videos:Data.Video.all)
+let video _req = Dream.html (Ocamlorg_frontend.video ~videos:Data.Video.all)

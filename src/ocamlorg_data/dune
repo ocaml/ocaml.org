@@ -315,4 +315,3 @@
    (with-stdout-to
     %{target}
     (run %{ood_gen} workshops)))))
-
