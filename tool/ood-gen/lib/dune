@@ -5,6 +5,7 @@
   ocamlorg.global
   ocamlorg.data_intf
   cmarkit
+  ezjsonm
   yaml
   unix
   ptime

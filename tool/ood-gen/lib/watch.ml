@@ -1,12 +1,7 @@
-type watch = {
-  name : string;
-  embed_path : string;
-  thumbnail_path : string;
-  description : string option;
-  published_at : string;
-  language : string;
-  category : string;
-}
+open Ocamlorg.Import
+open Data_intf.Video
+
+type video_list = t list [@@deriving yaml, show]
 
 (* Extract published_at date, I believe `originallyPublishedAt` applies to
    videos imported from other platforms and `publishedAt` to this videos
@@ -20,39 +15,38 @@ let get_publish_date json =
   | `String s -> s
   | _ -> failwith "Couldn't calculate the videos original publish date"
 
-(* extract value of language and category *)
-let get_language_category json =
-  let label = Ezjsonm.find json [ "label" ] in
-  Ezjsonm.get_string label
-
-let get_string_or_none = function `String s -> Some s | _ -> None
+let get_string_or_none = function `String s -> s | _ -> ""
 
 let of_json json =
   {
-    name = Ezjsonm.find json [ "name" ] |> Ezjsonm.get_string;
+    title = Ezjsonm.find json [ "name" ] |> Ezjsonm.get_string;
     description = Ezjsonm.find json [ "description" ] |> get_string_or_none;
-    embed_path = Ezjsonm.find json [ "embedPath" ] |> Ezjsonm.get_string;
-    thumbnail_path = Ezjsonm.find json [ "thumbnailPath" ] |> Ezjsonm.get_string;
-    published_at = get_publish_date json;
-    language = Ezjsonm.find json [ "language" ] |> get_language_category;
-    category = Ezjsonm.find json [ "category" ] |> get_language_category;
+    content = Ezjsonm.find json [ "url" ] |> Ezjsonm.get_string;
+    thumbnail =
+      "https://watch.ocaml.org"
+      ^ (Ezjsonm.find json [ "thumbnailPath" ] |> Ezjsonm.get_string);
+    published = get_publish_date json;
+    author_name = "Unknown";
+    author_uri = "https://watch.ocaml.org/";
+    source_link = "https://watch.ocaml.org/";
+    source_title = "Watch OCaml";
   }
 
 let watch_to_yaml t =
   `O
-    ([ ("name", `String t.name) ]
-    @ (match t.description with
-      | Some s -> [ ("description", `String s) ]
-      | None -> [])
-    @ [
-        ("embed_path", `String t.embed_path);
-        ("thumbnail_path", `String t.thumbnail_path);
-        ("published_at", `String t.published_at);
-        ("language", `String t.language);
-        ("category", `String t.category);
-      ])
+    [
+      ("title", `String t.title);
+      ("description", `String t.description);
+      ("content", `String t.content);
+      ("thumbnail", `String t.thumbnail);
+      ("published", `String t.published);
+      ("author_name", `String t.author_name);
+      ("author_uri", `String t.author_uri);
+      ("source_link", `String t.source_link);
+      ("source_title", `String t.source_title);
+    ]
 
-let to_yaml t = `O [ ("watch", `A (List.map watch_to_yaml t)) ]
+let to_yaml t = `A (List.map watch_to_yaml t)
 let videos_url = Uri.of_string "https://watch.ocaml.org/api/v1/videos"
 
 (* 100 is current maximum the API can return:
@@ -70,7 +64,7 @@ let get_videos ?start () =
         ]
   in
   let uri = Uri.add_query_params videos_url query_params in
-  let response = Ood_gen.Http_client.get_sync uri in
+  let response = Http_client.get_sync uri in
   let body = Ezjsonm.value_from_string response in
   let data = Ezjsonm.(find body [ "data" ]) in
   let total = Ezjsonm.find body [ "total" ] |> Ezjsonm.get_int in
@@ -86,16 +80,25 @@ let get_all_videos () =
   in
   aux data
 
-let () =
+let scrape yaml_file =
   let watch =
     get_all_videos ()
-    |> List.stable_sort (fun w1 w2 -> String.compare w1.name w2.name)
+    |> List.stable_sort (fun w1 w2 -> String.compare w1.title w2.title)
   in
   let yaml = to_yaml watch in
   let output =
     Yaml.pp Format.str_formatter yaml;
     Format.flush_str_formatter ()
   in
-  let oc = open_out "data/watch.yml" in
+  let oc = open_out yaml_file in
   Printf.fprintf oc "%s" output;
   close_out oc
+
+let all () =
+  let ( let* ) = Result.bind in
+  let videos =
+    let file = "video-watch.yml" in
+    let* yaml = Utils.yaml_file file in
+    yaml |> video_list_of_yaml |> Result.map_error (Utils.where file)
+  in
+  Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg) videos

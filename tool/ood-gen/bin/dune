@@ -12,8 +12,3 @@
  (name scrape)
  (modules scrape)
  (libraries cmdliner ood_gen))
-
-(executable
- (name watch_scrape)
- (modules watch_scrape)
- (libraries yaml ezjsonm ood_gen))
