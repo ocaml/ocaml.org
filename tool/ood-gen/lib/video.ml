@@ -143,12 +143,8 @@ let all () =
     let* yaml = Utils.yaml_file file in
     yaml |> video_list_of_yaml |> Result.map_error (Utils.where file)
   in
-  let youtube = f "video-watch.yml" in
-  (*
-  let watch = f "video-watch.yml" in
-  let videos = Result.(apply (apply (Ok List.append) watch) youtube) in
-  *)
-  let videos = youtube in
+  let ( <@> ) = Result.apply in
+  let videos = Ok (List.append) <@> f "video-youtube.yml" <@> f "video-watch.yml" in
   Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg) videos
 
 module VideoSet = Set.Make (struct
