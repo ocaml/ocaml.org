@@ -139,11 +139,16 @@ let rec feed_entry source tags seq =
 
 let all () =
   let ( let* ) = Result.bind in
-  let videos =
-    let file = "youtube.yml" in
+  let f file =
     let* yaml = Utils.yaml_file file in
     yaml |> video_list_of_yaml |> Result.map_error (Utils.where file)
   in
+  let youtube = f "video-watch.yml" in
+  (*
+  let watch = f "video-watch.yml" in
+  let videos = Result.(apply (apply (Ok List.append) watch) youtube) in
+  *)
+  let videos = youtube in
   match videos with Ok videos -> videos | Error _ -> []
 
 module VideoSet = Set.Make (struct
@@ -186,7 +191,7 @@ let scrape () =
         Yaml.pp Format.str_formatter yaml;
         Format.flush_str_formatter ()
       in
-      let oc = open_out "data/youtube.yml" in
+      let oc = open_out "data/video-youtube.yml" in
       Printf.fprintf oc "%s" output;
       close_out oc
   | Error (`Msg msg) -> failwith msg
