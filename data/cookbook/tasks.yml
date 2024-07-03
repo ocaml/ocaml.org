@@ -18,6 +18,7 @@ categories:
       C library, using the OCaml foreign function interface.
 - title: Compression
   tasks:
+<<<<<<< HEAD
   - title: Decompress a Single File Compressed With GZIP
     slug: decompress-single-file-gzip
   - title: Compress a Single File with GZIP
@@ -26,6 +27,10 @@ categories:
     slug: decompress-zip-archive
   - title: Create a ZIP Archive Containing Multiple Files
     slug: create-zip-archive
+=======
+  - title: Read a gzip Compressed Text File
+    slug: read-gzip-text-file
+>>>>>>> 12c7e2ef (Mostly capitalization in titles)
   - title: Decompressing a Tarball
     slug: decompressing-a-tarball
   - title: Compress a Directory Into a Tarball
@@ -36,10 +41,14 @@ categories:
     tasks:
     - title: Create and Await Promises
       slug: create-and-await-promises
+<<<<<<< HEAD
       description: |
         Create promises and run them in parallel,
         as well as sequentially. Includes a sleep task.
   - title: Parallelism & Multi-Threading
+=======
+  - title: Parallelism & Multithreading
+>>>>>>> 12c7e2ef (Mostly capitalization in titles)
     tasks:
     - title: Spawn a Thread and Receive a Response
       slug: spawn-a-thread-and-receive-a-response
@@ -118,7 +127,7 @@ categories:
 
   - title: Display Formatted Date and Time
     slug: display-formatted-date-time
-  - title: Parse Date and Time from String
+  - title: Parse Date and Time From String
     slug: parse-date-time-from-string
 - title: Debugging
   tasks:
@@ -224,11 +233,11 @@ categories:
   subcategories:
   - title: HTTP Clients
     tasks:
-    - title: Make a HTTP GET Request
+    - title: Make an HTTP GET Request
       slug: make-http-get-request
       description: >
         Make an HTTP GET request, process response code, follow redirects
-    - title: Make a HTTP GET Request With Basic Authentication
+    - title: Make an HTTP GET Request With Basic Authentication
       slug: make-http-get-basic-auth
     - title: Download a File to a Temporary Directory
       slug: download-file-to-temporary-dir
@@ -264,3 +273,5 @@ categories:
       slug: uri-parsing
     - title: Encode a URI to String
       slug: uri-encoding
+    - title: Parse a URL From String and Access Individual Parts
+      slug: parse-url-from-string
