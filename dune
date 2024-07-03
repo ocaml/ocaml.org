@@ -46,8 +46,8 @@
   (target video.xml)
   (deps
    (:gen_feed %{workspace_root}/tool/ood-gen/bin/feed.exe)
-   (source_tree %{workspace_root}/data/video-youtube.yml)
-   (source_tree %{workspace_root}/data/video-watch.yml))
+   %{workspace_root}/data/video-youtube.yml
+   %{workspace_root}/data/video-watch.yml)
   (action
    (chdir
     %{workspace_root}

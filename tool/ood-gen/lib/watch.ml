@@ -3,6 +3,15 @@ open Data_intf.Video
 
 type video_list = t list [@@deriving yaml, show]
 
+let all () =
+  let ( let* ) = Result.bind in
+  let videos =
+    let file = "video-watch.yml" in
+    let* yaml = Utils.yaml_file file in
+    yaml |> video_list_of_yaml |> Result.map_error (Utils.where file)
+  in
+  Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg) videos
+
 (* Extract published_at date, I believe `originallyPublishedAt` applies to
    videos imported from other platforms and `publishedAt` to this videos
    directly uploaded. Either way one should exist. *)
@@ -93,12 +102,3 @@ let scrape yaml_file =
   let oc = open_out yaml_file in
   Printf.fprintf oc "%s" output;
   close_out oc
-
-let all () =
-  let ( let* ) = Result.bind in
-  let videos =
-    let file = "video-watch.yml" in
-    let* yaml = Utils.yaml_file file in
-    yaml |> video_list_of_yaml |> Result.map_error (Utils.where file)
-  in
-  Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg) videos

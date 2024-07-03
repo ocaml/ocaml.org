@@ -51,9 +51,10 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          title: '[scrape.yml] New OCaml Planet blog posts and videos from watch.ocaml.org'
+          title: '[scrape.yml] New OCaml blog posts and videos'
           add-paths: |
-            data/watch.yml
+            data/video-watch.yml
+            data/video-youtube.yml
             data/planet/*/*.md
           commit-message: |
-            [scrape.yml] New OCaml Planet blog posts and videos from watch.ocaml.org
+            [scrape.yml] New OCaml Planet blog posts and videos
