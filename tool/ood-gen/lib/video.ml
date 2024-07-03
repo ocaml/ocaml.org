@@ -149,7 +149,7 @@ let all () =
   let videos = Result.(apply (apply (Ok List.append) watch) youtube) in
   *)
   let videos = youtube in
-  match videos with Ok videos -> videos | Error _ -> []
+  Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg) videos
 
 module VideoSet = Set.Make (struct
   type nonrec t = t

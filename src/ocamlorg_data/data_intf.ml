@@ -578,7 +578,7 @@ module Video = struct
     title : string;
     content : string;
     thumbnail : string;
-    description : string;
+    description : string; [@default ""]
     published : string;
     author_name : string;
     author_uri : string;

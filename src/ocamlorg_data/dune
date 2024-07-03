@@ -295,7 +295,7 @@
 (rule
  (target video.ml)
  (deps
-  %{workspace_root}/data/video-youtube.yml
+  %{workspace_root}/data/video-watch.yml
   (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
   (chdir
