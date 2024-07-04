@@ -27,6 +27,7 @@ module Local = struct
                    url = "https://ocaml.org/blog/" ^ s.id;
                    description = s.description;
                    disabled = false;
+                   scrape_all = false;
                  }))
       in
       result
@@ -106,6 +107,7 @@ module External = struct
       name : string;
       url : string;
       disabled : bool option;
+      scrape_all : bool option;
     }
     [@@deriving yaml]
 
@@ -121,13 +123,14 @@ module External = struct
         in
         Ok
           (sources
-          |> List.map (fun { id; name; url; disabled } ->
+          |> List.map (fun { id; name; url; disabled; scrape_all } ->
                  {
                    id;
                    name;
                    url;
                    description = "";
                    disabled = Option.value ~default:false disabled;
+                   scrape_all = Option.value ~default:false scrape_all;
                  }))
       in
       result
@@ -161,7 +164,14 @@ module External = struct
           | Error (`Msg e) -> (
               match m.source with
               | Some { name; url } ->
-                  { id = ""; name; url; description = ""; disabled = false }
+                  {
+                    id = "";
+                    name;
+                    url;
+                    description = "";
+                    disabled = false;
+                    scrape_all = false;
+                  }
               | None ->
                   failwith
                     (e ^ " and there is no source defined in the markdown file")
@@ -329,28 +339,39 @@ module Scraper = struct
                source.id slug)
       | Some url, Some date ->
           if not (Sys.file_exists source_path) then Sys.mkdir source_path 0o775;
-          let oc = open_out output_file in
           let content = River.content post in
-          let url = String.trim (Uri.to_string url) in
-          let preview_image = River.seo_image post in
           let description = River.meta_description post in
-          let author = River.author post in
-          let metadata : External.Post.metadata =
-            {
-              title;
-              url;
-              date;
-              preview_image;
-              description;
-              authors = Some [ author ];
-              source = None;
-            }
-          in
-          let s =
-            Format.asprintf "%a\n%s\n" External.Post.pp_meta metadata content
-          in
-          Printf.fprintf oc "%s" s;
-          close_out oc
+          let has_caml = String.is_sub_ignore_case "caml" in
+          if
+            source.scrape_all || has_caml content
+            || has_caml (Option.value ~default:"" description)
+            || has_caml title
+          then (
+            let url = String.trim (Uri.to_string url) in
+            let preview_image = River.seo_image post in
+            let author = River.author post in
+            let metadata : External.Post.metadata =
+              {
+                title;
+                url;
+                date;
+                preview_image;
+                description;
+                authors = Some [ author ];
+                source = None;
+              }
+            in
+            let s =
+              Format.asprintf "%a\n%s\n" External.Post.pp_meta metadata content
+            in
+            let oc = open_out output_file in
+            Printf.fprintf oc "%s" s;
+            close_out oc)
+          else
+            print_endline
+              (Printf.sprintf
+                 "skipping %s/%s: item does not contain caml keyword" source.id
+                 slug)
 
   let scrape_source source =
     try

@@ -386,6 +386,7 @@ module Planet = struct
     url : string;
     description : string;
     disabled : bool;
+    scrape_all : bool;
   }
   [@@deriving show]
 
