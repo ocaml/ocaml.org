@@ -15,13 +15,13 @@ the content of the `href` tags.
 
 `parse` from the `Soup` library produces a document node representing the HTML string.
 
-`$$` selects the links in the document.
+`$$` selects nodes in the document using the selector query.
 
 *)
 open Soup
 
 let find_links html_content =
-  let document_node = Soup.parse html_content in 
+  let document_node = parse html_content in 
   document_node $$ "a[href]" |> iter (fun a -> print_endline (R.attribute "href" a))
 
 
