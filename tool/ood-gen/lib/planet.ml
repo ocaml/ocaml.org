@@ -349,6 +349,7 @@ module Scraper = struct
                source.id slug)
       | Some url, Some date ->
           if not (Sys.file_exists source_path) then Sys.mkdir source_path 0o775;
+          let oc = open_out output_file in
           let url = String.trim (Uri.to_string url) in
           let preview_image = River.seo_image post in
           let author = River.author post in
@@ -366,7 +367,6 @@ module Scraper = struct
           let s =
             Format.asprintf "%a\n%s\n" External.Post.pp_meta metadata content
           in
-          let oc = open_out output_file in
           Printf.fprintf oc "%s" s;
           close_out oc
 
