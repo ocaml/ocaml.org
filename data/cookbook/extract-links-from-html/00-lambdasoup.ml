@@ -1,9 +1,11 @@
 ---
 packages:
-  - name: "re"
-    tested_version: "1.11.0"
+  - name: "lambdasoup"
+    tested_version: "1.0.0"
     used_libraries:
-      - re
+      - lambdasoup
+discussion: |
+  - **Refernce:** The lambdasoup package provides a robust toolset for working with HTML. [github.com/lambdasoup](https://github.com/aantron/lambdasoup?tab=readme-ov-file)
 ---
 
 (*
@@ -11,18 +13,16 @@ packages:
 `find_links` accepts an argument `html_content` of type string that contains our HTML content and returns
 the content of the `href` tags.
 
-You can view the pattern using [Regex101](https://regex101.com/r/2Bs442/1)
-to understand more about what is going on. 
+`parse` from the `Soup` library produces a document node representing the HTML string.
 
-`Re.all` searches the entire `html_content` string for the `pattern`. Passing `1` to `Re.Group.get` returns the 
-substring versus the entire matching group.
+`$$` selects the links in the document.
 
 *)
-let find_links html_content = 
-  let pattern = Re.compile (Re.Perl.re "<a[^>]* href=\"([^\"]*)") in
-  let links = Re.all pattern html_content 
-  |> List.map (fun group -> Re.Group.get group 1) in
-  List.iter print_endline links
+open Soup
+
+let find_links html_content =
+  let document_node = Soup.parse html_content in 
+  document_node $$ "a[href]" |> iter (fun a -> print_endline (R.attribute "href" a))
 
 
 (* Example usage *)
@@ -51,11 +51,9 @@ let html_content = "
 </html>"  
   
 (*Expected output:
-
 https://ocaml.org/docs
 https://pola.rs/
 https://www.nonexistentwebsite.com
-
 *)
 let () = find_links html_content
 
