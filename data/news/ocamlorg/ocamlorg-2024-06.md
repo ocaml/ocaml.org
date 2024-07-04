@@ -5,8 +5,6 @@ date: "2024-07-03"
 tags: [ocamlorg]
 ---
 
-**WIP INTERNAL TO OCAML.ORG TEAM - DO NOT SHARE**
-
 Welcome to the June 2024 edition of the OCaml.org newsletter! This update has been compiled by the OCaml.org team. You can find [previous updates](https://discuss.ocaml.org/tag/ocamlorg-newsletter) on Discuss.
 
 Our goal is to make OCaml.org the best resource for anyone who wants to get started and be productive in OCaml. The OCaml.org newsletter provides an update on our progress towards that goal and an overview of the changes we are working on.
