@@ -1,3 +1,4 @@
+---
 packages:
   - name: "lambdasoup"
     tested_version: "1.1.0"
@@ -14,8 +15,8 @@ packages:
 discussion: |
   - **Cohttp:** This is a library for HTTP clients and servers. It is used to test if a link returns a response.
   - **HTML Parsing:** This example uses the lambdasoup library to parse the HTMl string for links. 
-  - **Synchronous**: This solution is synchronous.
-
+  - **Synchronous:** This solution is synchronous.
+---
 
 open Soup
 open Cohttp
@@ -37,11 +38,11 @@ let test_link link =
   | exn -> Printf.printf "%s\n" (Printexc.to_string exn)
 
 
-  (* `validate_links` parses an html string for links and executes 
+(* `validate_links` parses an html string for links and executes 
   the `test_link` function on each url. 
   
   Prints "No links found in document" if no links are in the document.
-  *)
+*)
 let validate_links html_content =
   let document = parse html_content in
   let links = document $$ "a[href]" |> to_list in
@@ -62,7 +63,6 @@ Expected Outcome:
 Link: https://ocaml.org/docs returned an http code 200
 Link: https://pola.rs/ returned an http code 200
 Link https://www.nonexistentwebsite.com returned an error TLS...
-
 *)
 let () =
   let html_content =
