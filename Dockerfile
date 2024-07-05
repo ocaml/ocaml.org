@@ -1,4 +1,4 @@
-FROM ocaml/opam:alpine-3.18-ocaml-4.14 as build
+FROM ocaml/opam:alpine-3.20-ocaml-4.14 as build
 
 # Install system dependencies
 RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev oniguruma-dev inotify-tools curl-dev autoconf
@@ -22,7 +22,7 @@ ENV OCAMLORG_REPO_PATH opam-repository
 ENV OCAMLORG_PKG_STATE_PATH package.state
 RUN touch package.state && ./init-cache package.state
 
-FROM alpine:3.18 as run
+FROM alpine:3.20 as run
 
 RUN apk update && apk add --update libev gmp git
 

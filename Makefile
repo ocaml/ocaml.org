@@ -6,12 +6,12 @@ all:
 
 .PHONY: deps
 deps: create_switch ## Install development dependencies
-	opam install -y ocamlformat=0.25.1 ocaml-lsp-server
+	opam install -y ocamlformat=0.26.2 ocaml-lsp-server
 	opam install -y --deps-only --with-test --with-doc .
 
 .PHONY: create_switch
 create_switch: ## Create switch and pinned opam repo
-	opam switch create . 4.14.1 --no-install --repos pin=git+https://github.com/ocaml/opam-repository#c45f5bab71d3589f41f9603daca5acad14df0ab0
+	opam switch create . 4.14.2 --no-install --repos pin=git+https://github.com/ocaml/opam-repository#c45f5bab71d3589f41f9603daca5acad14df0ab0
 
 .PHONY: switch
 switch: deps ## Create an opam switch and install development dependencies
