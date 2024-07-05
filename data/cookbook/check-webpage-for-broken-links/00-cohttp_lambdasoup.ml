@@ -14,7 +14,7 @@ packages:
       - cohttp-lwt-unix
 discussion: |
   - **Cohttp:** This is a library for HTTP clients and servers. It is used to test if a link returns a response.
-  - **HTML Parsing:** This example uses the lambdasoup library to parse the HTMl string for links. 
+  - **HTML Parsing:** This example uses the Lambda Soup library to parse the HTML string for links. 
   - **Synchronous:** This solution is synchronous.
 ---
 
@@ -22,7 +22,7 @@ open Soup
 open Cohttp
 open Cohttp_lwt_unix
 
-(* `test_link` executes a GET request against the url string `link` 
+(* `test_link` executes a GET request against the URL string `link` 
 printing a message based on the response code or error message. *)
 let test_link link =
   let uri = Uri.of_string link in
