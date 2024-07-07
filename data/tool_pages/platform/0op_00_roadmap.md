@@ -102,7 +102,7 @@ important:
   becoming the frontend for the Platform, installing OCaml should be as simple
   as `apt install dune` or `winget install dune`.
 - **Debugging:** The OCaml compiler offers support for debugging
-  with`ocamldebug`. To make debugging OCaml programs easier; however, users
+  with `ocamldebug`. To make debugging OCaml programs easier; however, users
   should be able to run the debugger from Dune, or their editor. The OCaml
   Platform should provide a
   [Debugger Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol//)
