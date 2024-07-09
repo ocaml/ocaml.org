@@ -50,7 +50,7 @@ jobs:
           opam exec -- dune exec tool/ood-gen/bin/watch_scrape.exe > data/watch.yml
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           title: '[scrape.yml] New OCaml Planet blog posts and videos from watch.ocaml.org'
           add-paths: |
