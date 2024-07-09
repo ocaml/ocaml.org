@@ -18,7 +18,7 @@ jobs:
         os:
           - ubuntu-latest
         ocaml-compiler:
-          - ocaml-base-compiler.4.14.2
+          - “4.14”
 
     steps:
       - name: Checkout code
