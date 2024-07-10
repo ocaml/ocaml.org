@@ -53,7 +53,7 @@ let () =
 (* Now, we check for specific top-level domains in an email.
   Notice the `|` operator (regular expression OR) at the end of the pattern *)
 let validate_email_domain_re =
-  Re.Perl.re "^[a-zA-Z0-9.$_!]+@[a-zA-Z0-9]+\\.[com|org|edu|io|gov|me]$"
+  Re.Perl.re "^[a-zA-Z0-9.$_!]+@[a-zA-Z0-9]+\\.(com|org|edu|io|gov|me)$"
   |> Re.compile 
 
 (* Let's test this by mapping the function returned by `(validate_email validate_email_domain_re)`
