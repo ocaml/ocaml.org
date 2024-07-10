@@ -39,7 +39,7 @@ let validate_email regex email =
   then Printf.printf "%s has a valid email format\n" email
   else Printf.printf "%s has an invalid email format\n" email
 
-(* Let's test this by mapping the function returned by `(validate_email validate_email_re)`
+(* Let's test this by mapping the function returned by `validate_email` and each regex.
   over the `emails` array. *)
 let () =
   print_endline "Email Verification Results (RFC5322):";
