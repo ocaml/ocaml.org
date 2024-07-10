@@ -28,7 +28,7 @@ Re.Perl.re "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*
 (* A simpler regular expression can be used, but may fail to match
    valid addresses *)
 let validate_email_simple_re =
-  Re.Perl.re "^[a-zA-Z0-9.$_!+]+@[a-zA-Z0-9-]+\\.[a-z]{2,3}$"
+  Re.Perl.re "^[a-zA-Z0-9.$_!+-]+@[a-zA-Z0-9-]+\\.[a-z]{2,3}$"
   |> Re.compile
 
 (* Using the `Re.execp` function, we check whether the given `regex` matches
