@@ -1,4 +1,7 @@
-let render ~(videos : (string, Data.Watch.t) Hashtbl.t) (workshop : Data.Workshop.t) =
+let video_embed_path url =
+  url |> String.split_on_char '/' |> List.map (function "watch" -> "embed" | str -> str) |> String.concat "/"
+
+let render (workshop : Data.Workshop.t) =
 Layout.render
 ~title:workshop.title
 ~description:(Printf.sprintf "A description of the workshop %s held on %s" workshop.title workshop.date)
@@ -142,23 +145,22 @@ Layout.render
     </div>
   </div>
 </div>
-<% let videos = List.filter_map (fun (p : Data.Workshop.presentation) -> Hashtbl.find_opt videos p.title)
+<% let videos = List.filter (fun (p : Data.Workshop.presentation) -> Option.is_some p.video)
 workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
 <div class="bg-background dark:bg-dark-background py-16">
   <div class="container-fluid">
     <h3 class="font-bold mb-12 text-title dark:text-dark-title">Some Videos</h3>
     <div class="grid lg:grid-cols-3 gap-14">
-      <% let videos = List.filteri (fun i _ -> i < 6) videos in videos |> List.iter (fun (video : Data.Watch.t) -> %>
+      <% let videos = List.filteri (fun i _ -> i < 6) videos in videos |> List.iter (fun (video : Data.Workshop.presentation) -> %>
       <div class="inline-block">
         <iframe
           loading="lazy"
           class="w-full"
           sandbox="allow-scripts allow-popups"
-          src="https://watch.ocaml.org<%s video.embed_path %>"
+          src="<%s video.video |> Option.get |> video_embed_path %>"
           allowfullscreen
         ></iframe>
-        <h6 class="font-bold mt-4 text-title dark:text-dark-title"><%s video.name %></h6>
-        <div class="mt-4 text-content dark:text-dark-content"><%s Option.value ~default:"" video.description %></div>
+        <h6 class="font-bold mt-4 text-title dark:text-dark-title"><%s video.title %></h6>
       </div>
       <% ); %>
     </div>

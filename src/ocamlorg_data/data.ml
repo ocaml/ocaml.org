@@ -238,8 +238,6 @@ module Tutorial = struct
     |> List.map fst
 end
 
-module Watch = Watch
-
 module Workshop = struct
   include Workshop
 
