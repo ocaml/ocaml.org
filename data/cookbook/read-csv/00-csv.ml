@@ -1,9 +1,9 @@
 ---
 packages: 
-- name: csv
-  tested_version: 2.4
+- name: "csv"
+  tested_version: "2.4"
   used_libraries:
-  - csv
+  - "csv"
 ---
 
 (** This is a basic example of reading data from a CSV formatted string into a
