@@ -46,7 +46,7 @@ let iter_queries queries cnx =
 
 (* Table creation: the `CREATE` query is simple, as there is no data in input
    nor in output. The `execute` type indicates the absence of result.
-   Then when this query is called, `()` is returned (`Ok ()` to be accurate). *)
+   Then when this query is called, `Ok ()` is returned. *)
 let create_query =
   [%rapper
       execute {sql|CREATE TABLE personal
