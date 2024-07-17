@@ -201,6 +201,7 @@ function anchor_os_loc () {
   window.location.hash = detect_os();
 }
 
+// Calling Function Here
 anchor_os_loc();
 
 
