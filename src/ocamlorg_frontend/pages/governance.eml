@@ -44,7 +44,7 @@ and what makes it unique." @@
           </p>
         </div> 
         <div class="flex h-max flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto mt-8 md:mt-0">
-        <%s!  Hero_section.hero_button ~left_icon:(Icons.book "w-5 h-5") ~right_icon:("") ~text:("Read the Governance Policy") ~href:("https://ocaml.org/policies/governance") %>
+        <%s!  Hero_section.hero_button ~left_icon:(Icons.book "w-5 h-5") ~right_icon:("") ~text:("Read the Governance Policy") ~href:("https://ocaml.org/policies/governance") "" %>
        </div>
       </div>
   </div>

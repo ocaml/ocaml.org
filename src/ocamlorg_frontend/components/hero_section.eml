@@ -23,9 +23,9 @@ let search_input ?button_attrs ?input_attrs ?dropdown_html ~label ~name _class =
     <%s! Option.fold ~none:"" ~some:form_dropdown dropdown_html %>
   </div>
 
-let hero_button ~left_icon ~right_icon ~text ~href =
-  <a href="<%s href %>" class="group whitespace-nowrap h-16 flex p-4 px-5 gap-2 items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-[3px] rounded-lg text-title dark:text-dark-title">
-    <span class="group-hover:text-white dark:group-hover:text-dark-title text-primary dark:text-dark-primary"><%s! left_icon %></span>
-    <span class="flex-grow"><%s text %></span>
-    <%s! right_icon %>
+let hero_button ?(extra_html = "") ~left_icon ~right_icon ~text ~href _class =
+  <a href="<%s href %>" class="group whitespace-nowrap h-16 flex p-4 px-5 w-full items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-[3px] rounded-lg text-title dark:text-dark-title <%s _class %>">
+    <span class="group-hover:text-white dark:group-hover:text-dark-title text-primary dark:text-dark-primary mr-2"><%s! left_icon %></span> 
+    <p class="flex-grow"><%s! extra_html %> <span><%s text %></span></p>
+    <span class="ml-2"><%s! right_icon %></span>
   </a>

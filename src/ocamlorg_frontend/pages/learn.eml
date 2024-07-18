@@ -25,9 +25,9 @@ Learn_layout.single_column_layout
       </div>
 
       <div class="flex flex-col gap-4 md:gap-6 md:w-80">
-        <%s!  Hero_section.hero_button ~left_icon:(Icons.ocaml "w-5 h-5") ~right_icon:(Icons.download "w-5 h-5") ~text:("Install OCaml " ^ latest_version) ~href:(Url.install) %>
-        <%s!  Hero_section.hero_button ~left_icon:(Icons.book "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("Standard Library API") ~href:(Url.api) %>
-        <%s!  Hero_section.hero_button ~left_icon:(Icons.book "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("OCaml Language Manual") ~href:(Url.manual) %>
+        <%s!  Hero_section.hero_button ~left_icon:(Icons.ocaml "w-5 h-5") ~right_icon:(Icons.download "w-5 h-5") ~text:("Install OCaml " ^ latest_version) ~href:(Url.install) "" %>
+        <%s!  Hero_section.hero_button ~left_icon:(Icons.book "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("Standard Library API") ~href:(Url.api) "" %>
+        <%s!  Hero_section.hero_button ~left_icon:(Icons.book "w-5 h-5") ~right_icon:(Icons.link "w-5 h-5") ~text:("OCaml Language Manual") ~href:(Url.manual) "" %>
       </div>
     </div>
   </div>
@@ -107,7 +107,7 @@ Learn_layout.single_column_layout
     </div>
   </div>
 
-  <div class="section-mild-contrast dark:dark-section-mild-contrast">
+  <div class="section-mild-contrast dark-section-strong-contrast">
     <div class="container-fluid flex flex-col py-9">
       <%s! Learn_components.block_heading ~icon:"" ~title:"PLATFORM TOOLS" ~heading:"The OCaml Platform" %>
       <div class="mt-10 flex flex-col md:flex-row gap-10">
