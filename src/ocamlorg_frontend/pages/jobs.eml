@@ -46,12 +46,13 @@ OCaml community."
                 target="_blank"
                 class="card dark:dark-card rounded-xl overflow-hidden"
                 :class="{ 'hidden': location != 'All' && ([<%s! String.concat "," (List.map (fun s -> "\'" ^ Dream.html_escape s ^ "\'") item.locations) %>].indexOf(location) == -1)  }">
-                <div class="w-full bg-inherit bg-white dark:bg-dark-white flex justify-center items-center h-28 px-12 py-8"><img class="h-full max-w-full" src="<%s item.company_logo %>" alt=""></div>
-                <div class="p-5">
-                    <p class="text-base mb-2 text-content dark:text-dark-content opacity-80">
-                        <%s item.company %>
-                    </p>
-                    <p class="text-lg mb-4 font-bold text-title dark:text-dark-title truncate">
+                <div class="flex h-20 items-end mb-4">
+                 <img class="h-full rounded border-2 border-separator_30 p-2 max-w-[100px] bg-dark-white" src="<%s item.company_logo %>" alt="">
+                 <p class="text-base px-2 text-content dark:text-dark-content opacity-80">
+                 <%s item.company %></p>
+                </div>
+                <div class="">
+                    <p class="text-lg mb-4 text-title dark:text-dark-title truncate">
                         <%s item.title %>
                     </p>
                     <div class="flex items-center space-x-2">
