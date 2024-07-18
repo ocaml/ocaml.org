@@ -14,7 +14,7 @@ The `opam env` command is used to set environment variables for a specific opam 
 
 Usage:
 ```bash
-$ eval $(opam env)
+$ eval "$(opam env)"
 ```
 
 This command evaluates the output of opam env and sets the necessary environment variables for the currently active switch. After running this command, you'll have access to the packages installed in the opam switch.
@@ -47,7 +47,7 @@ Ensure `direnv` is installed on your system. You can install it using a package 
 
 Add the following line to your shell profile (e.g., `~/.bashrc` or `~/.zshrc`):
 ```bash
-$ eval $(direnv hook <shell>)
+$ eval "$(direnv hook <shell>)"
 ```
 Replace `<shell>` with your actual shell type (`bash`, `zsh`, `fish`, etc.).
 
