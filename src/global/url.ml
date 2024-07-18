@@ -1,7 +1,4 @@
 let index = "/"
-
-
-let opr_sys = "#" ^ Stdlib.Sys.os_type
 let install = "/install"
 let packages = "/packages"
 let packages_search = "/packages/search"
