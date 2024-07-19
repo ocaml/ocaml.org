@@ -91,13 +91,6 @@ let community _req =
       )
     |> Ocamlorg.Import.List.take 6
   in
-  let old_workshops =
-    match List.filter
-      (fun (w : Data.Workshop.t) -> w.date < current_date)
-      Data.Workshop.all with
-      | [] -> []
-      | x :: _ -> [x]
-  in
   let event_types =
     Data.Event.all
     |> List.map (fun (event : Data.Event.t) ->
@@ -110,6 +103,16 @@ let community _req =
        )
     |> List.sort_uniq String.compare
   in
+  let events = 
+    (upcoming_events, event_types)
+  in
+  let old_workshops =
+    match List.filter
+      (fun (w : Data.Workshop.t) -> w.date < current_date)
+      Data.Workshop.all with
+      | [] -> []
+      | x :: _ -> [x]
+  in
   let jobs =
     match Data.Job.all with
     | [] -> []
@@ -117,9 +120,9 @@ let community _req =
     | [a; b] -> [a; b]
     | a :: b :: c :: _ -> [a; b; c]
   in
-  let jobs_count =
-      List.length Data.Job.all
-    in
+  let jobs_with_count = 
+    (jobs, List.length Data.Job.all)
+  in
   let outreachy_latest_project =
     match Data.Outreachy.all with
     | [] -> []
@@ -129,7 +132,7 @@ let community _req =
       | first_project :: _ -> [(first_round.name, first_project)]
   in
   Dream.html
-    (Ocamlorg_frontend.community ~old_workshops ~outreachy_latest_project ~jobs_count ~event_types ?selected_event:query ~upcoming_events jobs) 
+    (Ocamlorg_frontend.community ~old_workshops ~outreachy_latest_project ?selected_event:query ~events jobs_with_count) 
 
 let events _req =
   let recurring_events = Data.Event.RecurringEvent.all in

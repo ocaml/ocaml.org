@@ -1,4 +1,4 @@
-let render ?(selected_event = "All") ~old_workshops ~upcoming_events ~outreachy_latest_project ~jobs_count ~event_types (jobs : Data.Job.t list) =
+let render ?(selected_event = "All") ~old_workshops ~(events: Data.Event.t list * string list) ~outreachy_latest_project (jobs_with_count : Data.Job.t list * int) =
 Community_layout.single_column_layout
 ~title:"The OCaml Community"
 ~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!"
@@ -171,6 +171,7 @@ Community_layout.single_column_layout
 </div>
 <div id="events" class="w-full bg-sand dark:dark-section-strong-contrast">
   <div class="container-fluid pt-6 pb-12">
+      <% let (upcoming_events, event_types) = events in %>
       <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-4">Events</p>
       <% let event_num = match List.length upcoming_events with 0 -> "No Event" | 1 -> "Upcoming Events (1)" | l -> Printf.sprintf "Upcoming Events (%i)" l in %>
       <h5 class="font-bold text-title dark:text-dark-white mb-4">
@@ -196,6 +197,7 @@ Community_layout.single_column_layout
 </div>
 <div class="w-full bg-white dark:bg-dark-background">
   <div class="container-fluid pt-6 pb-12">
+  <% let (jobs, jobs_count) = jobs_with_count in %>
     <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-4">Jobs</p>
        <h5 class="font-bold text-title dark:text-dark-white mb-4">
            <%s Printf.sprintf "Ocaml Jobs (%i)" jobs_count %>
