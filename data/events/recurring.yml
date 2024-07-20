@@ -35,7 +35,7 @@ recurring:
       lat: 52.2053
       long: 0.1218 
     url: https://www.meetup.com/Cambridge-NonDysFunctional-Programmers/
-  - title: "MirageOS hack retreat"
+  - title: "MirageOS Hack Retreat"
     slug: "mirageos-hack-retreat"
     event_type: retreat
     country: "Morocco"
