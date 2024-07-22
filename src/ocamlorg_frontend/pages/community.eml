@@ -169,6 +169,7 @@ Community_layout.single_column_layout
       </ul>
   </div>
 </div>
+<%s! Cards.Event.script %>
 <div id="events" class="w-full bg-sand dark:dark-section-strong-contrast">
   <div class="container-fluid pt-6 pb-12">
       <% let (upcoming_events, event_types) = events in %>
