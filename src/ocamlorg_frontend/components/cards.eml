@@ -90,20 +90,20 @@ module Event = struct
     </script>
 
   let upcoming_event (event : Data.Event.t) =
-    <a href="<%s event.url %>" class="card dark:dark-card rounded-xl">
-        <div class="relative w-full h-32 rounded-t-xl overflow-hidden bg-event-<%s string_of_int ((Hashtbl.hash event.city) mod 6 )%>">
+    <a href="<%s event.url %>" class="card dark:dark-card rounded-xl overflow-hidden">
+        <div class="relative w-full h-40 rounded-t-xl overflow-hidden bg-event-<%s string_of_int ((Hashtbl.hash event.city) mod 6 )%>">
           <!-- <div class="absolute inset-0 bg-[red-500] clip-triangle-1 p-5"></div> -->
           <div class="flex flex-col justify-center items-center z-10 absolute top-0 right-0 bottom-0 left-0">
             <img class="w-[60px] mb-2" src="<%s! Ocamlorg_static.Asset.url "img/community/camel.svg" %>" alt="camel head illustration">
             <p class="uppercase lg:text-4xl text-2xl tracking-widest text-white">[<%s event.city %>]</p>
           </div>
-          <div class="absolute inset-0 bg-[#C546000D] clip-triangle-2"></div>
+          <div class="absolute inset-0 bg-[#c545001a] clip-triangle-2"></div>
         </div>
       <div class="p-5">
         <div class="px-3 mb-2 inline-block <%s color_for_event_type event.event_type %> rounded-3xl font-mono text-sm text-center text-white">
           <%s string_from_event_type event.event_type %>
         </div>
-        <p class="text-title dark:text-dark-title mb-8"><%s event.title %></p>
+        <p class="text-xl text-title dark:text-dark-title mb-8"><%s event.title %></p>
         <div class="flex items-center mb-3">
           <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
           <p class="text-content dark:text-dark-content"><%s event.city %>, <%s event.country %></p>
@@ -127,14 +127,14 @@ module Event = struct
         <% )); %>
         <div class="flex items-center mt-2">
           <%s! Icons.link "h-5 w-10 text-primary dark:text-dark-primary max-w-[6%]" %>
-          <p class="text-primary dark:text-dark-primary hover:underline truncate max-w-[90%] ml-2"><%s event.url %></p>
+          <p class="text-primary dark:text-dark-white hover:dark:text-dark-primary underline truncate max-w-[90%] ml-2"><%s event.url %></p>
       </div>
       </div> 
     </a>
 
   let recurring_event (recurring_event : Data.Event.RecurringEvent.t) =
     <a href="<%s recurring_event.url %>" class="card dark:dark-card rounded-xl">
-      <div class="relative w-full h-32 rounded-t-xl overflow-hidden bg-event-<%s string_of_int ((Hashtbl.hash recurring_event.city) mod 6 )%>">
+      <div class="relative w-full h-40 rounded-t-xl overflow-hidden bg-event-<%s string_of_int ((Hashtbl.hash recurring_event.city) mod 6 )%>">
         <!-- <div class="absolute inset-0 bg-[red-500] clip-triangle-1 p-5"></div> -->
         <div class="flex flex-col justify-center items-center z-10 absolute top-0 right-0 bottom-0 left-0">
           <img class="w-[60px] mb-2" src="<%s! Ocamlorg_static.Asset.url "img/community/camel.svg" %>" alt="camel head illustration">

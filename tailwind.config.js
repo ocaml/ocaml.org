@@ -198,13 +198,29 @@ module.exports = {
       },
       boxShadow: {
         'custom': '0 4px 8px rgba(213, 64, 0, 0.5)'
-      }
+      },
+
+      clipPath: {
+        'triangle-1': 'polygon(0 0, 100% 0, 0 100%)',
+        'triangle-2': 'polygon(100% 100%, 100% 0, 0 100%)',
+      },
     },
   },
   plugins: [
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
     require("@tailwindcss/aspect-ratio"),
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.clip-triangle-1': {
+          clipPath: 'polygon(0 0, 100% 0, 0 100%)',
+        },
+        '.clip-triangle-2': {
+          clipPath: 'polygon(100% 100%, 100% 0, 0 100%)',
+        },
+      }
+      addUtilities(newUtilities);
+    }
   ],
   safelist: [
     'bg-avatar-0',

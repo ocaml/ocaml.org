@@ -25,152 +25,152 @@ Community_layout.single_column_layout
   </div>
 </div>
 <div class="w-full">
-  <div class="container-fluid pt-6 pb-12">
+  <div class="container-fluid pt-6 pb-6">
       <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-4">Ocaml on the internet</p>
       <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-4">Join Our Communities!</h2>
       <p class="text-content dark:text-dark-content mt-4 mb-6">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators</p>
       <ul>
         <p class="text-title dark:text-dark-title text-xl font-mono mb-2">Discussion</p>
-        <li class="flex mb-3 border-b border-separator_30 dark:border-code_window">
-            <%s! Icons.discourse "h-12 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
+        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
+            <%s! Icons.discourse "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
           <div class="flex flex-col">
             <div class="flex items-center mb-2 md:mb-0">
-              <%s! Icons.discourse "h-12 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-              <p class="text-lg text-title dark:text-dark-title font-bold mb-2">Discuss</p>
+              <%s! Icons.discourse "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
+              <p class="text-lg text-title dark:text-dark-title font-bold">Discuss</p>
             </div>
-            <p class="text-content dark:text-dark-content mb-4">Discuss with the community, ask questions and share your work on OCaml <a href="https://discuss.ocaml.org/" class="text-primary dark:text-dark-primary">discuss.ocaml.org/</a></p>
+            <p class="text-content dark:text-dark-content">Discuss with the community, ask questions and shareit your work on OCaml <a href="https://discuss.ocaml.org/" class="text-primary dark:text-dark-primary hover:underline">discuss.ocaml.org/</a></p>
           </div>
         </li>
-        <li class="flex mb-3 border-b border-separator_30 dark:border-code_window">
-          <%s! Icons.reddit "h-12 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
+        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
+          <%s! Icons.reddit "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
         <div class="flex flex-col">
           <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.reddit "h-12 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold mb-2">Reddits</p>
+            <%s! Icons.reddit "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
+            <p class="text-lg text-title dark:text-dark-title font-bold">Reddits</p>
           </div>
-          <p class="text-content dark:text-dark-content mb-4">Subreddit for discussions, memes, project updates, and sharing web articles and news - <a href="https://reddit.com/r/ocaml/" class="text-primary dark:text-dark-primary">reddit.com/r/ocaml/</a></p>
+          <p class="text-content dark:text-dark-content">Subreddit for discussions, memes, project updates, and sharing web articles and news - <a href="https://reddit.com/r/ocaml/" class="text-primary dark:text-dark-primary hover:underline">reddit.com/r/ocaml/</a></p>
         </div>
       </li>
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title text-xl font-mono mb-2">Development</p>
-        <li class="flex mb-3 border-b border-separator_30 dark:border-code_window">
-          <%s! Icons.github "h-12 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
+        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
+          <%s! Icons.github "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
          <div class="flex flex-col">
           <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.github "h-12 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold mb-2">GitHub</p>
+            <%s! Icons.github "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
+            <p class="text-lg text-title dark:text-dark-title font-bold">GitHub</p>
           </div>
-          <p class="text-content dark:text-dark-content mb-4">Submit bug reports and feature requests for the OCaml compiler - github.com/ocaml -  <a href="https://github.com/ocaml" class="text-primary dark:text-dark-primary">github.com/ocaml</a></p>
+          <p class="text-content dark:text-dark-content">Submit bug reports and feature requests for the OCaml compiler - github.com/ocaml -  <a href="https://github.com/ocaml" class="text-primary dark:text-dark-primary hover:underline">github.com/ocaml</a></p>
          </div>
         </li>
-        <li class="flex mb-3 border-b border-separator_30 dark:border-code_window">
-          <%s! Icons.stackoverflow "h-12 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
+        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
+          <%s! Icons.stackoverflow "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
          <div class="flex flex-col">
           <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.stackoverflow "h-12 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold mb-2">Stackoverflow</p>
+            <%s! Icons.stackoverflow "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
+            <p class="text-lg text-title dark:text-dark-title font-bold">Stackoverflow</p>
           </div>
-          <p class="text-content dark:text-dark-content mb-4">Ask and help answer OCaml questions. stackoverflow.com/questions/tagged/ocaml <a href="https://stackoverflow.com/questions/tagged/ocaml" class="text-primary dark:text-dark-primary">stackoverflow.com/questions/tagged/ocaml</a></p>
+          <p class="text-content dark:text-dark-content">Ask and help answer OCaml questions. stackoverflow.com/questions/tagged/ocaml <a href="https://stackoverflow.com/questions/tagged/ocaml" class="text-primary dark:text-dark-primary hover:underline">stackoverflow.com/questions/tagged/ocaml</a></p>
          </div>
         </li>
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Chat</p>
-        <li class="flex mb-3 border-b border-separator_30 dark:border-code_window">
-          <%s! Icons.discord "h-12 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
+        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
+          <%s! Icons.discord "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
          <div class="flex flex-col">
           <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.discord "h-12 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
+            <%s! Icons.discord "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
             <p class="text-lg text-title dark:text-dark-title tracking-widest font-bold mb-2">Discord</p>
           </div>
-          <p class="text-content dark:text-dark-content mb-4">Chat with other members of the community on Discord -  <a href="https://discuss.ocaml.org/" class="text-primary dark:text-dark-primary">discord.com/invite/cCYQbqN</a></p>
+          <p class="text-content dark:text-dark-content">Chat with other members of the community on Discord -  <a href="https://discuss.ocaml.org/" class="text-primary dark:text-dark-primary hover:underline">discord.com/invite/cCYQbqN</a></p>
          </div>
         </li>
-        <li class="flex mb-3 border-b border-separator_30 dark:border-code_window"> 
-          <%s! Icons.hashtag "h-12 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
+        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2"> 
+          <%s! Icons.hashtag "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
          <div class="flex flex-col">
           <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.hashtag "h-12 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold mb-2">IRC Chat</p>
+            <%s! Icons.hashtag "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
+            <p class="text-lg text-title dark:text-dark-title font-bold">IRC Chat</p>
           </div>
-          <p class="text-content dark:text-dark-content mb-4">Chat with other members of the community at #ocaml on the Libera Chat IRC network </p>
+          <p class="text-content dark:text-dark-content">Chat with other members of the community at #ocaml on the Libera Chat IRC network </p>
          </div>
         </li>
-        <li class="flex mb-3 border-b border-separator_30 dark:border-code_window">
+        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
           <%s! Icons.matrix "h-8 mr-4 hidden md:block text-primary dark:text-dark-primary" %>
          <div class="flex flex-col">
           <div class="flex items-center mb-2 md:mb-0">
             <%s! Icons.matrix "h-8 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold mb-2">Matrix</p>
+            <p class="text-lg text-title dark:text-dark-title font-bold">Matrix</p>
           </div>
-          <p class="text-content dark:text-dark-content mb-4">Chat in the <span class="text-primary dark:text-dark-primary">#ocaml-lang</span> Matrix chat room, or join the <span class="text-primary dark:text-dark-primary">#ocaml-space</span> Matrix space</p>
+          <p class="text-content dark:text-dark-content">Chat in the <span class="text-primary dark:text-dark-primary">#ocaml-lang</span> Matrix chat room, or join the <span class="text-primary dark:text-dark-primary">#ocaml-space</span> Matrix space</p>
          </div>
         </li>
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Video</p>
-        <li class="flex mb-3 border-b border-separator_30 dark:border-code_window">
-          <%s! Icons.peertube "h-12 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
+        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
+          <%s! Icons.peertube "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
          <div class="flex flex-col">
           <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.peertube "h-12 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold mb-2">Watch</p>
+            <%s! Icons.peertube "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
+            <p class="text-lg text-title dark:text-dark-title font-bold">Watch</p>
           </div>
-          <p class="text-content dark:text-dark-content mb-4">Community videos such as previous OCaml Workshop presentation - watch.ocaml.org/videos/recently-added</p>
+          <p class="text-content dark:text-dark-content">Community videos such as previous OCaml Workshop presentation - watch.ocaml.org/videos/recently-added</p>
          </div>
         </li>
-        <li class="flex mb-3 border-b border-separator_30 dark:border-code_window">
-          <%s! Icons.twitch "h-12 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
+        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
+          <%s! Icons.twitch "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
          <div class="flex flex-col">
           <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.twitch "h-12 mr-6 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold mb-2">Twitch</p>
+            <%s! Icons.twitch "h-10 mr-6 md:hidden block text-primary dark:text-dark-primary" %>
+            <p class="text-lg text-title dark:text-dark-title font-bold">Twitch</p>
           </div>
-          <p class="text-content dark:text-dark-content mb-4"> Live Streams about OCaml - <a href="https://twitch.tv/search?term=ocaml" class="text-primary dark:text-primary">twitch.tv/search?term=ocaml</a></p>
+          <p class="text-content dark:text-dark-content"> Live Streams about OCaml - <a href="https://twitch.tv/search?term=ocaml" class="text-primary dark:text-dark-primary hover:underline">twitch.tv/search?term=ocaml</a></p>
          </div>
         </li>
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Microblogging</p>
-        <li class="flex mb-3 border-b border-separator_30 dark:border-code_window">
-          <%s! Icons.twitter "h-12 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
+        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
+          <%s! Icons.twitter "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
          <div class="flex flex-col">
           <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.twitter "h-12 mr-6 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold mb-2">Twitter</p>
+            <%s! Icons.twitter "h-10 mr-6 md:hidden block text-primary dark:text-dark-primary" %>
+            <p class="text-lg text-title dark:text-dark-title font-bold">Twitter</p>
           </div>
-          <p class="text-content dark:text-dark-content mb-4"> Latest announcements and events from the community - <a href="https://twitter.com/ocamllang " class="text-primary dark:text-primary">twitter.com/ocamllang</a></p>
+          <p class="text-content dark:text-dark-content"> Latest announcements and events from the community - <a href="https://twitter.com/ocamllang " class="text-primary dark:text-dark-primary hover:underline">twitter.com/ocamllang</a></p>
          </div>
         </li>
-        <li class="flex mb-3 border-b border-separator_30 dark:border-code_window">
-          <%s! Icons.mastodon "h-12 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
+        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
+          <%s! Icons.mastodon "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
          <div class="flex flex-col">
           <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.mastodon "h-12 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold mb-2">Mastodon</p>
+            <%s! Icons.mastodon "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
+            <p class="text-lg text-title dark:text-dark-title font-bold">Mastodon</p>
           </div>
-          <p class="text-content dark:text-dark-content mb-4"> Both <span class="text-primary dark:text-dark-primary">types.pl</span> and <span class="text-primary dark:text-dark-primary">discuss.systems</span> Mastodon homeservers enjoy popularity</p> 
+          <p class="text-content dark:text-dark-content"> Both <span class="text-primary dark:text-dark-primary">types.pl</span> and <span class="text-primary dark:text-dark-primary">discuss.systems</span> Mastodon homeservers enjoy popularity</p> 
          </div>
         </li>
       </ul>
       <ul>
         <p class="text-title text-xl font-mono dark:text-dark-title mb-2">Mailing Lists</p>
         <li class="flex mb-3">
-          <%s! Icons.email "h-12 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
+          <%s! Icons.email "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
          <div class="flex flex-col">
           <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.email "h-12 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold mb-2">Caml User's Mailing List</p>
+            <%s! Icons.email "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
+            <p class="text-lg text-title dark:text-dark-title font-bold">Caml User's Mailing List</p>
           </div>
-          <p class="text-content dark:text-dark-content mb-4"> Share experience, exchange ideas and code, and report on applications - <a href="https://inbox.vuxu.org/caml-list/" class="text-primary dark:text-primary">inbox.vuxu.org/caml-list/</a></p>
+          <p class="text-content dark:text-dark-content"> Share experience, exchange ideas and code, and report on applications - <a href="https://inbox.vuxu.org/caml-list/" class="text-primary dark:text-dark-primary hover:underline">inbox.vuxu.org/caml-list/</a></p>
          </div>
         </li>
       </ul>
   </div>
 </div>
 <%s! Cards.Event.script %>
-<div id="events" class="w-full bg-sand dark:dark-section-strong-contrast">
+<div id="events" class="w-full bg-sand dark:dark-section-strong-contrast border border-separator_20">
   <div class="container-fluid pt-6 pb-12">
       <% let (upcoming_events, event_types) = events in %>
       <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-4">Events</p>
@@ -193,7 +193,8 @@ Community_layout.single_column_layout
                <%s! Cards.Event.upcoming_event event %>
               <% ); %>
         </div>
-        <a href="<%s Url.events %>" class="text-primary dark:text-dark-white pr-2 flex mt-4 items-center dark:underline">View all Events <div><%s! Icons.arrow_small_right "h-5 w-5 text-primary dark:text-dark-white place-self-end ml-1" %></div></a>
+        <a href="<%s Url.events %>" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View all Events<%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
+        </a>   
   </div>
 </div>
 <div class="w-full bg-white dark:bg-dark-background">
@@ -231,13 +232,14 @@ Community_layout.single_column_layout
         <% ); %>
         <div class="flex items-center mt-2">
           <%s! Icons.link "h-5 w-10 text-primary dark:text-dark-primary max-w-[7%]" %>
-        <p class="text-primary dark:text-dark-primary hover:underline truncate max-w-[90%] ml-2"><%s job.link %></p>
+        <p class="text-primary dark:text-dark-white hover:dark:text-dark-primary underline truncate max-w-[90%] ml-2"><%s job.link %></p>
           </div>
         </div>
       </a>
       <% ); %>
     </div>
-    <a href="<%s Url.jobs %>" class="text-primary dark:text-dark-white pr-2 flex mt-4 items-center dark:underline">View all Jobs <div><%s! Icons.arrow_small_right "h-5 w-5 text-primary dark:text-dark-white place-self-end ml-1" %></div></a>
+    <a href="<%s Url.jobs %>" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View all Jobs<%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
+    </a> 
   </div>
 </div>
 <div class="w-full section-mild-contrast dark:dark-section-mild-contrast">
@@ -249,7 +251,7 @@ Community_layout.single_column_layout
         <p class="text-content dark:text-dark-content mb-6">Join us annually for the highly anticipated OCaml Workshop! It's an opportunity for you to immerse yourself in knowledge, connect with like-minded individuals, and  unlock new possibilities. Don't miss the chance to be part of this  international learning adventure.</p>
         <p class="text-content dark:text-dark-content">Below, you can find slides and documents from previous OCaml Conferences.</p>
         <% old_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
-        <div class="card dark:dark-card p-5 rounded-xl mt-4">
+        <a href="<%s Url.workshop workshop.slug %>"  class="card dark:dark-card p-5 rounded-xl mt-4">
             <p class="text-title dark:text-dark-title mb-2"><%s workshop.title %></p>
             <div class="flex items-center space-x-2 mb-3">
                 <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
@@ -259,11 +261,11 @@ Community_layout.single_column_layout
                 <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
                 <p class="text-content dark:text-dark-content"><%s workshop.date %></p>
             </div>
-            <a href="<%s Url.workshop workshop.slug %>" class="bg-primary dark:bg-dark-primary text-white dark:text-white py-1 px-2 rounded font-bold">Read More</a>
-          </div>
+            <div class="bg-primary dark:bg-dark-primary text-white dark:text-white py-1 px-2 rounded font-bold text-center w-32">Read More</div>
+          </a>
         <% ); %>
-        <a href="" class="text-primary dark:text-dark-white pr-2 flex mt-4 items-center dark:underline">View Conferences 
-          <div><%s! Icons.arrow_small_right "h-5 w-5 text-primary dark:text-dark-white place-self-end ml-1" %></div></a>
+        <a href="" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View Conferences <%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary  dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
+        </a> 
       </div> 
       <div class="flex flex-col">
         <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-4">Internships</p>
@@ -271,7 +273,7 @@ Community_layout.single_column_layout
         <p class="text-content dark:text-dark-content mb-6">Outreachy provides internships in open source and open science to people subject to systemic bias and  impacted by underrepresentation in the technical industry where they are  living.This is a record of OCaml Community Outreachy Internship projects.</p>
         <p class="text-content dark:text-dark-content">This is a record of OCaml Community Outreachy Internship projects.</p>
       <% outreachy_latest_project |> List.iter (fun (round_name, (project : Data.Outreachy.project)) -> %>
-        <div class="card dark:dark-card p-5 rounded-xl mt-4">
+        <a href="<%s Url.outreachy %>" class="card dark:dark-card p-5 overflow-hidden rounded-xl mt-4">
           <p class="text-title dark:text-dark-title mb-2"><%s project.title %></p></p>
           <div class="flex items-center space-x-2 mb-3">
               <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
@@ -281,10 +283,11 @@ Community_layout.single_column_layout
               <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
               <p class="text-content dark:text-dark-content"><%s round_name %></p>
           </div> 
-          <a href="<%s Url.outreachy %>" class="bg-primary dark:bg-dark-primary text-white dark:text-white py-1 px-2 rounded font-bold">Read More</a>
-        </div>
+          <div class="bg-primary dark:bg-dark-primary text-white dark:text-white py-1 px-2 rounded font-bold text-center w-32">Read More</div>
+        </a>
         <% ); %>
-        <a href="<%s Url.outreachy %>" class="text-primary dark:text-dark-white pr-2 flex mt-4 items-center dark:underline">View Internships <div><%s! Icons.arrow_small_right "h-5 w-5 text-primary dark:text-dark-white place-self-end ml-1" %></div></a>
+        <a href="<%s Url.outreachy %>" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View Internship <%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
+        </a> 
       </div>
      
   </div>
@@ -300,7 +303,7 @@ Community_layout.single_column_layout
           <p class="text-sm text-white dark:text-dark-white font-medium my-4">Read Blog Posts and Watch Videos from the OCaml community!</p>   
         </div>
         <div>
-          <div class="mt-12 inline-flex py-1 px-4 bg-white rounded-xl text-center text-primary dark:text-dark-primary hover:underline text-lg">
+          <div class="h-11 items-center mt-12 inline-flex py-1 px-4 bg-white rounded-xl text-center text-primary dark:text-dark-primary hover:underline text-lg ">
             View all Articles and Videos
           </div> 
         </div>      
@@ -311,7 +314,7 @@ Community_layout.single_column_layout
 </div>     
 <div class="w-full section-blue-gradient dark:dark-no-mild-contrast">
   <div class="container-fluid pt-6 pb-12">
-    <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-4">CODE OF CONDUCT</p>
+    <p class="uppercase text-sm text-dark-content dark:text-dark-content tracking-widest font-medium my-4">CODE OF CONDUCT</p>
     <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-8">OCaml's Code of Conduct: Online & Event Guidelines</h2>
     <div class="flex justify-between flex-wrap md:flex-nowrap gap-5">
         <div class="flex flex-col">
@@ -319,7 +322,7 @@ Community_layout.single_column_layout
             <%s! Icons.legal "h-12 mr-4 text-primary dark:text-dark-primary" %>
             <p class="text-white dark:text-dark-title italic">Code of Conduct</p>
           </div>
-          <p class="text-content dark:text-dark-content">We have a comprehensive Code of Conduct in place covering privacy, language choices, and prohibiting unrelated discussions.
+          <p class="text-dark-content dark:text-dark-content">We have a comprehensive Code of Conduct in place covering privacy, language choices, and prohibiting unrelated discussions.
           </p>
         </div> 
         <div class="flex flex-col">
@@ -327,7 +330,7 @@ Community_layout.single_column_layout
             <%s! Icons.environment "h-12 mr-4 text-primary dark:text-dark-primary" %>
             <p class="text-white dark:text-dark-title italic">Safe Environment</p>
           </div>
-          <p class="text-content dark:text-dark-content">Ground rules have been established to ensure a safe and welcoming atmosphere across platforms like GitHub and forums.
+          <p class="text-dark-content dark:text-dark-content">Ground rules have been established to ensure a safe and welcoming atmosphere across platforms like GitHub and forums.
           </p>
         </div> 
         <div class="flex flex-col">
@@ -335,12 +338,14 @@ Community_layout.single_column_layout
             <%s! Icons.lock "h-12 mr-4 text-primary dark:text-dark-primary" %>
             <p class="text-white dark:text-dark-title italic">Confidentiality</p>
           </div>
-          <p class="text-content dark:text-dark-content">Confidentiality is maintained during the reporting process to foster a positive, inclusive atmosphere for contributions.
+          <p class="text-dark-content dark:text-dark-content">Confidentiality is maintained during the reporting process to foster a positive, inclusive atmosphere for contributions.
           </p>
         </div> 
     </div>
-    <a href="<%s Url.code_of_conduct %>" class="text-primary dark:text-dark-white pr-2 flex mt-4 items-center dark:underline">View Code Of Conduct <div><%s! Icons.arrow_small_right "h-5 w-5 text-primary dark:text-dark-white place-self-end ml-1" %></div></a>
-      </div> 
+    <a href="<%s Url.code_of_conduct %>" class="text-white dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary underline group">
+      View Code Of Conduct <%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-white dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
+    </a>    
+    </div> 
   </div>
 </div>
 
