@@ -218,6 +218,13 @@ module.exports = {
         '.clip-triangle-2': {
           clipPath: 'polygon(100% 100%, 100% 0, 0 100%)',
         },
+
+        '.truncate-2-lines': {
+          display: '-webkit-box',
+          '-webkit-line-clamp': '2',
+          '-webkit-box-orient': 'vertical',
+          overflow: 'hidden',
+        },
       }
       addUtilities(newUtilities);
     }

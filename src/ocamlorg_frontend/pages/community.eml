@@ -232,7 +232,7 @@ Community_layout.single_column_layout
         <% ); %>
         <div class="flex items-center mt-2">
           <%s! Icons.link "h-5 w-10 text-primary dark:text-dark-primary max-w-[7%]" %>
-        <p class="text-primary dark:text-dark-white hover:dark:text-dark-primary underline truncate max-w-[90%] ml-2"><%s job.link %></p>
+        <p class="text-primary dark:text-dark-white hover:dark:text-dark-primary hover:underline truncate max-w-[90%] ml-2"><%s job.link %></p>
           </div>
         </div>
       </a>

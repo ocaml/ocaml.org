@@ -103,7 +103,8 @@ module Event = struct
         <div class="px-3 mb-2 inline-block <%s color_for_event_type event.event_type %> rounded-3xl font-mono text-sm text-center text-white">
           <%s string_from_event_type event.event_type %>
         </div>
-        <p class="text-xl text-title dark:text-dark-title mb-8"><%s event.title %></p>
+        <p class="text-xl text-title dark:text-dark-title mb-4 truncate-2-lines">
+          OCaml Users and Developers Workshop 2024</p>
         <div class="flex items-center mb-3">
           <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
           <p class="text-content dark:text-dark-content"><%s event.city %>, <%s event.country %></p>
@@ -127,7 +128,7 @@ module Event = struct
         <% )); %>
         <div class="flex items-center mt-2">
           <%s! Icons.link "h-5 w-10 text-primary dark:text-dark-primary max-w-[6%]" %>
-          <p class="text-primary dark:text-dark-white hover:dark:text-dark-primary underline truncate max-w-[90%] ml-2"><%s event.url %></p>
+          <p class="text-primary dark:text-dark-white hover:dark:text-dark-primary hover:underline truncate max-w-[90%] ml-2"><%s event.url %></p>
       </div>
       </div> 
     </a>
