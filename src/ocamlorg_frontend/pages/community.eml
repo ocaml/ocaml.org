@@ -1,3 +1,16 @@
+let social_list_item ?(extra_html="") ?(text="") ?(href="") ~left_icon ~title _class =
+  <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2 <%s _class %>">
+        <span class="h-10 mr-4 hidden md:block text-primary dark:text-dark-primary min-w-[76px]"><%s! left_icon %></span> 
+        <div class="flex flex-col">
+          <div class="flex items-center mb-2 md:mb-0">
+            <span class="h-10 mr-4 md:hidden block text-primary dark:text-dark-primary"><%s! left_icon %></span> 
+            <p class="text-lg text-title dark:text-dark-title font-bold"><%s title %></p>
+          </div>
+          <p class=""><%s! extra_html %></p>
+          <p class="text-content dark:text-dark-content"> <%s text %><a href="<%s href %>" class="text-primary dark:text-dark-primary hover:underline"><%s href %></a></p>
+        </div>
+  </li>
+
 let render ?(selected_event = "All") ~old_workshops ~(events: Data.Event.t list * string list) ~outreachy_latest_project (jobs_with_count : Data.Job.t list * int) =
 Community_layout.single_column_layout
 ~title:"The OCaml Community"
@@ -31,141 +44,34 @@ Community_layout.single_column_layout
       <p class="text-content dark:text-dark-content mt-4 mb-6">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators</p>
       <ul>
         <p class="text-title dark:text-dark-title text-xl font-mono mb-2">Discussion</p>
-        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
-            <%s! Icons.discourse "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
-          <div class="flex flex-col">
-            <div class="flex items-center mb-2 md:mb-0">
-              <%s! Icons.discourse "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-              <p class="text-lg text-title dark:text-dark-title font-bold">Discuss</p>
-            </div>
-            <p class="text-content dark:text-dark-content">Discuss with the community, ask questions and shareit your work on OCaml <a href="https://discuss.ocaml.org/" class="text-primary dark:text-dark-primary hover:underline">discuss.ocaml.org/</a></p>
-          </div>
-        </li>
-        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
-          <%s! Icons.reddit "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
-        <div class="flex flex-col">
-          <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.reddit "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold">Reddits</p>
-          </div>
-          <p class="text-content dark:text-dark-content">Subreddit for discussions, memes, project updates, and sharing web articles and news - <a href="https://reddit.com/r/ocaml/" class="text-primary dark:text-dark-primary hover:underline">reddit.com/r/ocaml/</a></p>
-        </div>
-      </li>
+        <%s! social_list_item ~text:("Discuss with the community, ask questions and share your work on OCaml ") ~href:("https://discuss.ocaml.org/") ~left_icon:(Icons.discourse "w-10 h-10") ~title:("Discuss") "" %>
+        <%s! social_list_item ~text:("Subreddit for discussions, memes, project updates, and sharing web articles and news - ") ~href:("https://reddit.com/r/ocaml/") ~left_icon:(Icons.reddit "w-10 h-10") ~title:("Reddits") "" %>    
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title text-xl font-mono mb-2">Development</p>
-        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
-          <%s! Icons.github "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
-         <div class="flex flex-col">
-          <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.github "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold">GitHub</p>
-          </div>
-          <p class="text-content dark:text-dark-content">Submit bug reports and feature requests for the OCaml compiler - github.com/ocaml -  <a href="https://github.com/ocaml" class="text-primary dark:text-dark-primary hover:underline">github.com/ocaml</a></p>
-         </div>
-        </li>
-        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
-          <%s! Icons.stackoverflow "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
-         <div class="flex flex-col">
-          <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.stackoverflow "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold">Stackoverflow</p>
-          </div>
-          <p class="text-content dark:text-dark-content">Ask and help answer OCaml questions. stackoverflow.com/questions/tagged/ocaml <a href="https://stackoverflow.com/questions/tagged/ocaml" class="text-primary dark:text-dark-primary hover:underline">stackoverflow.com/questions/tagged/ocaml</a></p>
-         </div>
-        </li>
+        <%s! social_list_item ~text:("Submit bug reports and feature requests for the OCaml compiler - github.com/ocaml - ") ~href:("https://reddit.com/r/ocaml/") ~left_icon:(Icons.github "w-10 h-10") ~title:("GitHub") "" %>  
+        <%s! social_list_item ~text:("Ask and help answer OCaml questions. stackoverflow.com/questions/tagged/ocaml ") ~href:("stackoverflow.com/questions/tagged/ocaml") ~left_icon:(Icons.stackoverflow "w-10 h-10") ~title:("Stackoverflow") "" %>        
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Chat</p>
-        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
-          <%s! Icons.discord "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
-         <div class="flex flex-col">
-          <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.discord "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title tracking-widest font-bold mb-2">Discord</p>
-          </div>
-          <p class="text-content dark:text-dark-content">Chat with other members of the community on Discord -  <a href="https://discuss.ocaml.org/" class="text-primary dark:text-dark-primary hover:underline">discord.com/invite/cCYQbqN</a></p>
-         </div>
-        </li>
-        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2"> 
-          <%s! Icons.hashtag "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
-         <div class="flex flex-col">
-          <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.hashtag "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold">IRC Chat</p>
-          </div>
-          <p class="text-content dark:text-dark-content">Chat with other members of the community at #ocaml on the Libera Chat IRC network </p>
-         </div>
-        </li>
-        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
-          <%s! Icons.matrix "h-8 mr-4 hidden md:block text-primary dark:text-dark-primary" %>
-         <div class="flex flex-col">
-          <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.matrix "h-8 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold">Matrix</p>
-          </div>
-          <p class="text-content dark:text-dark-content">Chat in the <span class="text-primary dark:text-dark-primary">#ocaml-lang</span> Matrix chat room, or join the <span class="text-primary dark:text-dark-primary">#ocaml-space</span> Matrix space</p>
-         </div>
-        </li>
+        <%s! social_list_item ~text:("Chat with other members of the community on Discord - ") ~href:("https://discuss.ocaml.org/") ~left_icon:(Icons.discord "w-10 h-10") ~title:("Discord") "" %>
+        <%s! social_list_item ~text:("Chat with other members of the community at #ocaml on the Libera Chat IRC network ") ~left_icon:(Icons.hashtag "w-10 h-10") ~title:("IRC Chat") "" %>
+        <%s! social_list_item ~extra_html:("<p class='text-content dark:text-dark-content'>Chat in the <span class='text-primary dark:text-dark-primary'>#ocaml-lang</span> Matrix chat room, or join the <span class='text-primary dark:text-dark-primary'>#ocaml-space</span> Matrix space</p>") ~left_icon:(Icons.matrix "h-8 mr-0") ~title:("Matrix") "" %>    
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Video</p>
-        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
-          <%s! Icons.peertube "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
-         <div class="flex flex-col">
-          <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.peertube "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold">Watch</p>
-          </div>
-          <p class="text-content dark:text-dark-content">Community videos such as previous OCaml Workshop presentation - watch.ocaml.org/videos/recently-added</p>
-         </div>
-        </li>
-        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
-          <%s! Icons.twitch "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
-         <div class="flex flex-col">
-          <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.twitch "h-10 mr-6 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold">Twitch</p>
-          </div>
-          <p class="text-content dark:text-dark-content"> Live Streams about OCaml - <a href="https://twitch.tv/search?term=ocaml" class="text-primary dark:text-dark-primary hover:underline">twitch.tv/search?term=ocaml</a></p>
-         </div>
-        </li>
+        <%s! social_list_item ~text:("Community videos such as previous OCaml Workshop presentation - ") ~href:("https://watch.ocaml.org/videos/recently-added") ~left_icon:(Icons.peertube "w-10 h-10") ~title:("Watch") "" %>
+        <%s! social_list_item ~text:("Live Streams about OCaml - ") ~href:("https://twitch.tv/search?term=ocaml") ~left_icon:(Icons.twitch "w-10 h-10") ~title:("Twitch") "" %>        
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Microblogging</p>
-        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
-          <%s! Icons.twitter "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
-         <div class="flex flex-col">
-          <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.twitter "h-10 mr-6 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold">Twitter</p>
-          </div>
-          <p class="text-content dark:text-dark-content"> Latest announcements and events from the community - <a href="https://twitter.com/ocamllang " class="text-primary dark:text-dark-primary hover:underline">twitter.com/ocamllang</a></p>
-         </div>
-        </li>
-        <li class="flex items-center item mb-3 border-b border-separator_30 dark:border-code_window pb-2">
-          <%s! Icons.mastodon "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
-         <div class="flex flex-col">
-          <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.mastodon "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold">Mastodon</p>
-          </div>
-          <p class="text-content dark:text-dark-content"> Both <span class="text-primary dark:text-dark-primary">types.pl</span> and <span class="text-primary dark:text-dark-primary">discuss.systems</span> Mastodon homeservers enjoy popularity</p> 
-         </div>
-        </li>
+        <%s! social_list_item ~text:("Latest announcements and events from the community - ") ~href:("https://twitter.com/ocamllang") ~left_icon:(Icons.twitter "w-10 h-10") ~title:("Twitter") "" %> 
+        <%s! social_list_item ~text:("Chat with other members of the community at #ocaml on the Libera Chat IRC network ") ~left_icon:(Icons.hashtag "w-10 h-10") ~title:("IRC Chat") "" %>
+        <%s! social_list_item ~extra_html:("<p class='text-content dark:text-dark-content'> Both <span class='text-primary dark:text-dark-primary'>types.pl</span> and <span class='text-primary dark:text-dark-primary'>discuss.systems</span> Mastodon homeservers enjoy popularity</p> ") ~left_icon:(Icons.mastodon "h-8 mr-0") ~title:("Mastodon") "" %>   
       </ul>
       <ul>
         <p class="text-title text-xl font-mono dark:text-dark-title mb-2">Mailing Lists</p>
-        <li class="flex mb-3">
-          <%s! Icons.email "h-10 mr-12 hidden md:block text-primary dark:text-dark-primary" %>
-         <div class="flex flex-col">
-          <div class="flex items-center mb-2 md:mb-0">
-            <%s! Icons.email "h-10 mr-4 md:hidden block text-primary dark:text-dark-primary" %>
-            <p class="text-lg text-title dark:text-dark-title font-bold">Caml User's Mailing List</p>
-          </div>
-          <p class="text-content dark:text-dark-content"> Share experience, exchange ideas and code, and report on applications - <a href="https://inbox.vuxu.org/caml-list/" class="text-primary dark:text-dark-primary hover:underline">inbox.vuxu.org/caml-list/</a></p>
-         </div>
-        </li>
+        <%s! social_list_item ~text:("Share experience, exchange ideas and code, and report on applications -") ~href:("https://inbox.vuxu.org/caml-list") ~left_icon:(Icons.email "w-10 h-10") ~title:("Caml User's Mailing List") "" %>
       </ul>
   </div>
 </div>

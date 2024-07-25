@@ -92,7 +92,6 @@ module Event = struct
   let upcoming_event (event : Data.Event.t) =
     <a href="<%s event.url %>" class="card dark:dark-card rounded-xl overflow-hidden">
         <div class="relative w-full h-40 rounded-t-xl overflow-hidden bg-event-<%s string_of_int ((Hashtbl.hash event.city) mod 6 )%>">
-          <!-- <div class="absolute inset-0 bg-[red-500] clip-triangle-1 p-5"></div> -->
           <div class="flex flex-col justify-center items-center z-10 absolute top-0 right-0 bottom-0 left-0">
             <img class="w-[60px] mb-2" src="<%s! Ocamlorg_static.Asset.url "img/community/camel.svg" %>" alt="camel head illustration">
             <p class="uppercase lg:text-4xl text-2xl tracking-widest text-white">[<%s event.city %>]</p>
