@@ -21,6 +21,15 @@ To do this, you can use UTop (Universal Toplevel).
 
 UTop allows users to interact with OCaml by reading and evaluating OCaml phrases, like expressions or value definitions, and printing the result on the screen. Use the `utop` command to run UTop. Exit it by pressing `Ctrl+D`. For more information, you can read the [Introduction to the OCaml Toplevel](/docs/toplevel-introduction).
 
+Some of the examples in this tour include comments. Comments in Ocaml start with `(*` and end with `*)` and can be nested. Because they are ignored by Ocaml, they can be used anywhere whitespace is permitted. When entering the code below into UTop, the comments can be left out. Here are some examples:
+
+```ocaml
+(* Here is a comment *)
+(* Outside of the nested comment is still a comment. (* Here is a nested comment *) Outside of the nested comment again. *)
+# 50 + (* A comment in between parts of an expression *) 50
+- : int = 100
+```
+
 <!--
 The goal of this tutorial is to provide the following capabilities:
 - Use UTop to evaluate OCaml expressions interactively
@@ -36,6 +45,7 @@ The goal of this tutorial is to provide the following capabilities:
 - Declare and update a mutable basic mutable values: references and arrays
 - Call functions defined in modules of the OCaml standard library
 -->
+
 
 ## Expressions and Definitions
 
@@ -56,6 +66,9 @@ Here are examples of other primitive values and types:
 
 # "This is really disco!";;
 - : string = "This is really disco!"
+
+# 'a';; (* note the single quotes *)
+- : char = 'a'
 
 # true;;
 - : bool = true
@@ -100,6 +113,16 @@ Bindings in OCaml are _immutable_, meaning that the value assigned to a name nev
 There is no overloading in OCaml, so inside a lexical scope, names have a single value, which only depends on its definition.
 
 Do not use dashes in names; use underscores instead. For example: `x_plus_y` works, `x-plus-y` does not.
+
+Bindings can be given special comments (sometimes called "docstrings") that editors and tooling treat as related to the binding. These are denoted by adding a second `*` to the opening of the comment. For example:
+
+```ocaml
+(** Feet in a mile *)
+let feets = 5280;;
+val feets : int = 5280
+```
+
+This is discussed further in [odoc for authors: Special Comments](https://ocaml.github.io/odoc/odoc_for_authors.html#special_comments).
 
 Names can be defined locally, within an expression, using the `let … = … in …` syntax:
 ```ocaml
@@ -345,7 +368,7 @@ In OCaml, _pattern matching_ provides a means to inspect data of any kind, excep
 # let rec sum u =
     match u with
     | [] -> 0
-    | x :: v -> x + sum v;;
+    | x :: v -> x + sum v;; (* :: in a pattern is not the cons operator *)
 val sum : int list -> int = <fun>
 
 # sum [1; 4; 3; 2; 5];;
@@ -359,7 +382,7 @@ Here is how to write a recursive function that computes the length of a list:
 # let rec length u =
     match u with
     | [] -> 0
-    | _ :: v -> 1 + length v;;
+    | _ :: v -> 1 + length v;; (* _ in a pattern is ignored and can't be used in the body *)
 val length : 'a list -> int = <fun>
 
 # length [1; 2; 3; 4];;
