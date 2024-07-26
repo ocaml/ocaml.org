@@ -6,11 +6,13 @@
   .card {
     @apply bg-white hover:shadow-lg rounded-2xl border;
   }
-  
-  .dark-card {
-    @apply bg-dark-card hover:bg-dark-card_hover hover:outline outline-[3px] hover:outline-dark-primary hover:shadow-[0px_0px_12px_0px_#00000050] rounded-2xl border;
-  }
 
+  .light-card{
+    @apply bg-light hover:shadow-lg rounded-2xl border;
+  }
+  .dark-card {
+    @apply bg-dark-card hover:outline outline-[3px] hover:outline-dark-primary hover:shadow-[0px_0px_12px_0px_#00000050] rounded-2xl border;
+  }
   .dark-inverted-card {
     @apply bg-white hover:outline outline-[3px] hover:outline-dark-primary hover:shadow-[0px_0px_12px_0px_#00000050] rounded-2xl border;
   }

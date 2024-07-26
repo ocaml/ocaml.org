@@ -151,7 +151,8 @@ module Event = struct
     title : string;
     url : string;
     slug : string;
-    textual_location : string;
+    country : string;
+    city : string;
     location : location option;
     event_type : event_type;
   }
@@ -164,7 +165,8 @@ module Event = struct
     title : string;
     url : string;
     slug : string;
-    textual_location : string;
+    country : string;
+    city : string;
     location : location option;
     starts : utc_datetime;
     ends : utc_datetime option;

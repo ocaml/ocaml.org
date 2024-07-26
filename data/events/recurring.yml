@@ -2,7 +2,8 @@ recurring:
   - title: "OCaml Users in Paris (OUPS)"
     slug: "ocaml-users-paris-oups"
     event_type: meetup
-    textual_location: Paris, France
+    country: "France"
+    city: "Paris"
     location:
       lat: 48.8566
       long: 2.3522
@@ -10,7 +11,8 @@ recurring:
   - title: "NYC OCaml Meetup"
     slug: "nyc-ocaml-meetup"
     event_type: meetup
-    textual_location: New York City, New York, USA
+    country: "USA"
+    city: "New York City"
     location:
       lat: 40.7128
       long: 74.0060
@@ -18,7 +20,8 @@ recurring:
   - title: "Silicon Valley OCaml Meetup"
     slug: "silicon-valley-ocaml-meetup"
     event_type: meetup
-    textual_location: San Francisco, California, USA
+    country: "USA"
+    city: "San Francisco"
     location:
       lat: 37.7749
       long: 122.4194
@@ -26,15 +29,17 @@ recurring:
   - title: "Cambridge NonDysFunctional Programmers"
     slug: "cambridge-nondysfunctional-programmers"
     event_type: meetup
-    textual_location: Cambridge, United Kingdom
+    country: "United Kingdom"
+    city: "Cambridge"
     location:
       lat: 52.2053
       long: 0.1218 
     url: https://www.meetup.com/Cambridge-NonDysFunctional-Programmers/
-  - title: "MirageOS hack retreat"
+  - title: "MirageOS Hack Retreat"
     slug: "mirageos-hack-retreat"
     event_type: retreat
-    textual_location: "Marrakesh, Morocco"
+    country: "Morocco"
+    city: "Marrakesh"
     location:
       lat: 31.628674
       long: -7.992047
@@ -42,20 +47,24 @@ recurring:
   - title: "South of England Regional Programming Language Seminar"
     slug: "s-repls-programming-languages-seminar"
     event_type: seminar
-    textual_location: "London, United Kingdom"
+    country: "United Kingdom"
+    city: "London"
     url: https://srepls.github.io/
   - title: "OCaml Retreat"
     slug: "ocaml-retreat"
     event_type: retreat
-    textual_location: "Auroville, India"
+    country: "India"
+    city: "Auroville"
     url: https://ocamlretreat.org/
   - title: "OCaml Manila Meetup"
     slug: "ocaml-manila-meetup"
     event_type: meetup
-    textual_location: "Manila, Philippines"
+    country: "Philippines"
+    city: "Manila"
     url: https://www.meetup.com/ocaml-manila/
   - title: "ReasonSTHLM Meetup"
     slug: "reason-stockholm-meetup"
     event_type: meetup
-    textual_location: "Stockholm, Sweden"
+    country: "Sweden"
+    city: "Stockholm"
     url: https://www.meetup.com/ReasonSTHLM/

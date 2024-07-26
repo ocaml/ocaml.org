@@ -50,21 +50,24 @@ let learn_platform req =
   Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
 
 let community _req =
+  let query = Dream.query _req "e" in
+  let string_to_event_type s =
+    match s with
+    | "meetup" -> Some Data.Event.Meetup
+    | "conference" -> Some Data.Event.Conference
+    | "seminar" -> Some Data.Event.Seminar
+    | "hackathon" -> Some Data.Event.Hackathon
+    | "retreat" -> Some Data.Event.Retreat
+    | _ -> None
+  in
+  let selected_event =
+    match query with Some s -> string_to_event_type s | _ -> None
+  in
   let current_date =
     let open Unix in
     let tm = localtime (Unix.gettimeofday ()) in
     Format.asprintf "%04d-%02d-%02d" (tm.tm_year + 1900) (tm.tm_mon + 1)
       tm.tm_mday
-  in
-  let old_workshops =
-    List.filter
-      (fun (w : Data.Workshop.t) -> w.date < current_date)
-      Data.Workshop.all
-  in
-  let upcoming_workshops =
-    List.filter
-      (fun (w : Data.Workshop.t) -> w.date >= current_date)
-      Data.Workshop.all
   in
   let upcoming_events =
     List.filter
@@ -75,12 +78,55 @@ let community _req =
               |> Option.map (fun (e : Data.Event.utc_datetime) -> e.yyyy_mm_dd)
               |> Option.get >= current_date)
       Data.Event.all
+    |> (match query with
+       | None | Some "All" -> fun e -> e
+       | _ ->
+           List.filter (fun (event : Data.Event.t) ->
+               match selected_event with
+               | None -> false
+               | Some eventType -> event.event_type = eventType))
     |> Ocamlorg.Import.List.take 6
   in
-  let resources = Data.Resource.featured in
+  let event_types =
+    Data.Event.all
+    |> List.map (fun (event : Data.Event.t) ->
+           match event.event_type with
+           | Meetup -> "meetup"
+           | Conference -> "conference"
+           | Seminar -> "seminar"
+           | Hackathon -> "hackathon"
+           | Retreat -> "retreat")
+    |> List.sort_uniq String.compare
+  in
+  let events = (upcoming_events, event_types) in
+  let old_workshops =
+    match
+      List.filter
+        (fun (w : Data.Workshop.t) -> w.date < current_date)
+        Data.Workshop.all
+    with
+    | [] -> []
+    | x :: _ -> [ x ]
+  in
+  let jobs =
+    match Data.Job.all with
+    | [] -> []
+    | [ a ] -> [ a ]
+    | [ a; b ] -> [ a; b ]
+    | a :: b :: c :: _ -> [ a; b; c ]
+  in
+  let jobs_with_count = (jobs, List.length Data.Job.all) in
+  let outreachy_latest_project =
+    match Data.Outreachy.all with
+    | [] -> []
+    | first_round :: _ -> (
+        match first_round.projects with
+        | [] -> []
+        | first_project :: _ -> [ (first_round.name, first_project) ])
+  in
   Dream.html
-    (Ocamlorg_frontend.community ~old_workshops ~upcoming_workshops
-       ~upcoming_events ~resources)
+    (Ocamlorg_frontend.community ~old_workshops ~outreachy_latest_project
+       ?selected_event:query ~events jobs_with_count)
 
 let events _req =
   let recurring_events = Data.Event.RecurringEvent.all in

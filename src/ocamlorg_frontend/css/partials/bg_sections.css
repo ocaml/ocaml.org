@@ -4,8 +4,11 @@
     background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
     @apply bg-sand border-b border-t;
   }
-
-  .dark-section-mild-contrast {
+  .dark-section-mild-contrast{
+    background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
+    @apply bg-mild_blue border-b border-t;
+  }
+  .dark-section-strong-contrast {
     background: linear-gradient(45deg, #010105, #10162D);
     @apply border-none;
   }

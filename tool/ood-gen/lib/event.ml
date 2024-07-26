@@ -6,7 +6,8 @@ let recurring_event_all () : recurring_event list =
 type metadata = {
   title : string;
   url : string;
-  textual_location : string;
+  country : string;
+  city : string;
   location : location option;
   starts : utc_datetime;
   ends : utc_datetime option;

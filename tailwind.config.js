@@ -24,6 +24,8 @@ const figma_colors = {
     separator_20: "#00000033",
     card_border: "#00000033",
     white: "#FFFFFF",
+    light:"#FCFCFC",
+    mild_blue: "#0E183A",
 
     background: "white",
     sand: "#FAF8F3",
@@ -181,6 +183,14 @@ module.exports = {
           10: "#ad35bc",
           11: "#c62d69"
         },
+        event:{
+          0: "#F9CC82",
+          1: "#F9BD72",
+          2: "#F9AE62",
+          3: "#F99F52",
+          4: "#F99042",
+          5: "#FA8654"
+        },
 
         code: {
           background: "rgba(30, 30, 30, 1)",
@@ -188,13 +198,33 @@ module.exports = {
       },
       boxShadow: {
         'custom': '0 4px 8px rgba(213, 64, 0, 0.5)'
-      }
+      },
+
+      clipPath: {
+        'triangle-1': 'polygon(0 0, 100% 0, 0 100%)',
+        'triangle-2': 'polygon(100% 100%, 100% 0, 0 100%)',
+      },
     },
   },
   plugins: [
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
     require("@tailwindcss/aspect-ratio"),
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.clip-triangle': {
+          clipPath: 'polygon(100% 100%, 100% 0, 0 100%)',
+        },
+
+        '.truncate-2-lines': {
+          display: '-webkit-box',
+          '-webkit-line-clamp': '2',
+          '-webkit-box-orient': 'vertical',
+          overflow: 'hidden',
+        },
+      }
+      addUtilities(newUtilities);
+    }
   ],
   safelist: [
     'bg-avatar-0',
@@ -209,5 +239,11 @@ module.exports = {
     'bg-avatar-9',
     'bg-avatar-10',
     'bg-avatar-11',
-  ]
+    'bg-event-0',
+    'bg-event-1',
+    'bg-event-2',
+    'bg-event-3',
+    'bg-event-4',
+    'bg-event-5',
+  ],
 };
