@@ -96,7 +96,7 @@ module Event = struct
             <img class="w-[60px] mb-2" src="<%s! Ocamlorg_static.Asset.url "img/community/camel.svg" %>" alt="camel head illustration">
             <p class="uppercase lg:text-4xl text-2xl tracking-widest text-white">[<%s event.city %>]</p>
           </div>
-          <div class="absolute inset-0 bg-[#c545001a] clip-triangle-2"></div>
+          <div class="absolute inset-0 bg-[#c545001a] clip-triangle"></div>
         </div>
       <div class="p-5">
         <div class="px-3 mb-2 inline-block <%s color_for_event_type event.event_type %> rounded-3xl font-mono text-sm text-center text-white">
@@ -140,7 +140,7 @@ module Event = struct
           <img class="w-[60px] mb-2" src="<%s! Ocamlorg_static.Asset.url "img/community/camel.svg" %>" alt="camel head illustration">
           <p class="uppercase lg:text-4xl text-2xl tracking-widest text-white"> [<%s recurring_event.city %>]</p>
         </div>
-        <div class="absolute inset-0 bg-[#C546000D] clip-triangle-2"></div>
+        <div class="absolute inset-0 bg-[#C546000D] clip-triangle"></div>
       </div>
     <div class="p-5">
       <p class="font-bold text-lg text-title dark:text-dark-title mb-3">

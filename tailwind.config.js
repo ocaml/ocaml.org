@@ -212,7 +212,7 @@ module.exports = {
     require("@tailwindcss/aspect-ratio"),
     function ({ addUtilities }) {
       const newUtilities = {
-        '.clip-triangle-2': {
+        '.clip-triangle': {
           clipPath: 'polygon(100% 100%, 100% 0, 0 100%)',
         },
 
