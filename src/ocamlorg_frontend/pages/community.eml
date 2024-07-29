@@ -30,7 +30,7 @@ Community_layout.single_column_layout
                 <%s!  Hero_section.hero_button ~left_icon:(Icons.discourse "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~extra_html:("<b>Discuss</b>") ~text:("With the Community") ~href:("https://discuss.ocaml.org/") "" %>
                </div>
                <div class="flex lg:flex-row mt-8 mr-4">
-                <%s!  Hero_section.hero_button ~left_icon:(Icons.peertube "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~extra_html:("<b>Watch</b>") ~text:("Ocaml Videos") ~href:("https://discuss.ocaml.org/") "" %>
+                <%s!  Hero_section.hero_button ~left_icon:(Icons.peertube "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~extra_html:("<b>Watch</b>") ~text:("OCaml Videos") ~href:("https://discuss.ocaml.org/") "" %>
                </div>
               </div>
           </div>
@@ -39,7 +39,7 @@ Community_layout.single_column_layout
 </div>
 <div class="w-full">
   <div class="container-fluid pt-6 pb-6">
-      <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-4">Ocaml on the internet</p>
+      <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-4">OCaml on the internet</p>
       <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-4">Join Our Communities!</h2>
       <p class="text-content dark:text-dark-content mt-4 mb-6">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators</p>
       <ul>
@@ -108,7 +108,7 @@ Community_layout.single_column_layout
   <% let (jobs, jobs_count) = jobs_with_count in %>
     <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-4">Jobs</p>
        <h5 class="font-bold text-title dark:text-dark-white mb-4">
-           <%s Printf.sprintf "Ocaml Jobs (%i)" jobs_count %>
+           <%s Printf.sprintf "OCaml Jobs (%i)" jobs_count %>
         </h5>   
     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
       <% jobs |> List.iter (fun (job : Data.Job.t) -> %>
@@ -205,7 +205,7 @@ Community_layout.single_column_layout
       <div class="bg-[url('/img/learn/banner-background.svg')] bg-cover flex justify-between px-14 py-9">
         <div>   
           <p class="uppercase text-sm text-white dark:text-dark-white tracking-widest font-medium my-4">Blog</p>
-          <h2 class="font-bold text-2xl text-white dark:text-dark-white mb-4">Ocam Planet</h2>
+          <h2 class="font-bold text-2xl text-white dark:text-dark-white mb-4">OCaml Planet</h2>
           <p class="text-sm text-white dark:text-dark-white font-medium my-4">Read Blog Posts and Watch Videos from the OCaml community!</p>   
         </div>
         <div>
