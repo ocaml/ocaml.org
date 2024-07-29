@@ -66,7 +66,7 @@ Here are examples of other primitive values and types:
 # "This is really disco!";;
 - : string = "This is really disco!"
 
-# 'a';; (* note the single quotes *)
+# 'a';; (* Note the single quotes *)
 - : char = 'a'
 
 # true;;
