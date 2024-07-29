@@ -46,7 +46,6 @@ The goal of this tutorial is to provide the following capabilities:
 - Call functions defined in modules of the OCaml standard library
 -->
 
-
 ## Expressions and Definitions
 
 Let's start with a simple expression:
