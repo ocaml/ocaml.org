@@ -3,8 +3,10 @@
 
 echo "let cmis = ["
 
-for i in $(ls ../asset/stdlib/); do
-  echo "\"$i\";"
+for d in "$@"; do
+  for i in $(ls ../asset/$d/); do
+    echo "(\"$d\", \"$i\");"
+  done
 done
 
 echo "]"
