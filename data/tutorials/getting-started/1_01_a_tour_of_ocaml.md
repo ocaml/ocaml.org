@@ -21,7 +21,7 @@ To do this, you can use UTop (Universal Toplevel).
 
 UTop allows users to interact with OCaml by reading and evaluating OCaml phrases, like expressions or value definitions, and printing the result on the screen. Use the `utop` command to run UTop. Exit it by pressing `Ctrl+D`. For more information, you can read the [Introduction to the OCaml Toplevel](/docs/toplevel-introduction).
 
-Some of the examples in this tour include comments. Comments in Ocaml start with `(*` and end with `*)` and can be nested. Because they are ignored by Ocaml, they can be used anywhere whitespace is permitted. When entering the code below into UTop, the comments can be left out. Here are some examples:
+Some of the examples in this tour include comments. Comments in OCaml start with `(*` and end with `*)` and can be nested. Since they are ignored by OCaml, they can be used anywhere whitespace is permitted. When entering the code below into UTop, the comments can be left out. Here are some examples:
 
 ```ocaml
 (* Here is a comment *)
