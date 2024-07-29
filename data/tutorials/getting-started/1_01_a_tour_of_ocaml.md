@@ -381,7 +381,7 @@ Here is how to write a recursive function that computes the length of a list:
 # let rec length u =
     match u with
     | [] -> 0
-    | _ :: v -> 1 + length v;; (* _ in a pattern is ignored and can't be used in the body *)
+    | _ :: v -> 1 + length v;; (* _ doesn't define a name; it can't be used in the body *)
 val length : 'a list -> int = <fun>
 
 # length [1; 2; 3; 4];;
