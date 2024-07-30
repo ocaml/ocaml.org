@@ -1,5 +1,72 @@
+- title: Regions with OCaml's Local Types | OCaml Unboxed
+  content: https://www.youtube.com/watch/tFGlT0mHBs0?version=3
+  thumbnail: https://i1.ytimg.com/vi/tFGlT0mHBs0/hqdefault.jpg
+  description: 'This OCaml Unboxed episode describes regions and the hidden regional
+    mode in OCaml''s local types, as developed by Jane Street. It turns out that local
+    parameters aren''t really local: they''re regional! This explains how some impossible-looking
+    programs actually work.
+
+
+
+    View instructions to get the compiler I use in this video: https://github.com/janestreet/opam-repository/tree/with-extensions
+
+
+
+    Full documentation of locals:
+
+    https://github.com/ocaml-flambda/flambda-backend/blob/main/ocaml/jane/doc/extensions/local/intro.md'
+  published: 2024-06-13T19:50:45+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
+- title: "Exploring the Hidden Secrets within OCaml\u2019s Local Function Types |
+    OCaml Unboxed"
+  content: https://www.youtube.com/watch/144cM-iMSjc?version=3
+  thumbnail: https://i2.ytimg.com/vi/144cM-iMSjc/hqdefault.jpg
+  description: 'This OCaml Unboxed episode demonstrates how partial application and
+    currying can cause trouble when mixed with locals. It turns out that putting "local_"
+    in your function type may do more than you bargained for!
+
+
+
+    Code used in this video:
+
+    https://github.com/goldfirere/janestreet-videos/blob/main/locals/08-function-types/local.ml
+
+
+
+    View instructions to get the compiler I use in this video: https://github.com/janestreet/opam-repository/tree/with-extensions
+
+
+    Full documentation of locals:
+
+    https://github.com/ocaml-flambda/flambda-backend/blob/main/ocaml/jane/doc/extensions/local/intro.md'
+  published: 2024-05-29T20:15:59+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
 - title: Pitfalls with Tail Calls and Locals in OCaml | OCaml Unboxed
   content: https://www.youtube.com/watch/jz66PE4PkV8
+  thumbnail: https://i3.ytimg.com/vi/jz66PE4PkV8/hqdefault.jpg
+  description: 'This is the seventh in a series about locals in OCaml. This episode
+    explains the challenges around tail-call optimization and how to keep local variables
+    from escaping their region. I introduce the [@nontail] annotation to prevent tail-call
+    optimization, which is often needed when writing code with locals.
+
+
+    Code used in this video: https://github.com/goldfirere/janestreet-videos/blob/main/locals/07-tails/local.ml
+
+
+    View instructions to get the compiler I use in this video: https://github.com/janestreet/opam-repository/tree/with-extensions'
+  published: 2024-05-07T18:24:15+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
+- title: Pitfalls with Tail Calls and Locals in OCaml | OCaml Unboxed
+  content: https://www.youtube.com/watch/jz66PE4PkV8?version=3
   thumbnail: https://i3.ytimg.com/vi/jz66PE4PkV8/hqdefault.jpg
   description: 'This is the seventh in a series about locals in OCaml. This episode
     explains the challenges around tail-call optimization and how to keep local variables
@@ -19,6 +86,29 @@
 - title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
     (14) - Xavier Leroy (2023-2024)"
   content: https://www.youtube.com/watch/A8dpmhXdjyw
+  thumbnail: https://i2.ytimg.com/vi/A8dpmhXdjyw/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nS\xE9minaire du 14 mars 2024 : Design and Compilation
+    of Efficient Effect Handlers in the Koka Language\n\nIntervenant : Daan Leijen,
+    Microsoft Research\n\nRetrouvez les enregistrements audios et vid\xE9os du cycle
+    et son texte de pr\xE9sentation :\nhttps://www.college-de-france.fr/fr/agenda/seminaire/structures-de-controle-de-goto-aux-effets-algebriques\n\nChaire
+    Sciences du logiciel\nProfesseur : Xavier Leroy\n\nRetrouvez tous les enseignements
+    du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-03-18T15:32:14+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (14) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/A8dpmhXdjyw?version=3
   thumbnail: https://i2.ytimg.com/vi/A8dpmhXdjyw/hqdefault.jpg
   description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
     \xBB aux effets alg\xE9briques\nS\xE9minaire du 14 mars 2024 : Design and Compilation
@@ -74,8 +164,64 @@
   author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
   source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (13) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/RCnbZBep9Tw?version=3
+  thumbnail: https://i3.ytimg.com/vi/RCnbZBep9Tw/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nCours du 14 mars 2024 : Logiques de programmes
+    pour le contr\xF4le et les effets\n\nProfesseur : Xavier Leroy\nChaire Sciences
+    du logiciel\n\nTout comme la logique math\xE9matique donne des lois pour raisonner
+    sur les d\xE9finitions et les \xE9nonc\xE9s math\xE9matiques, une logique de programmes
+    pour un langage de programmation donne des lois pour \xE9tablir des propri\xE9t\xE9s
+    vraies de toutes les ex\xE9cutions possibles d'un programme \xE9crit dans ce langage.
+    Apr\xE8s des rappels sur cette approche d\xE9ductive de la v\xE9rification de
+    programmes et sur la plus ancienne de ces logiques, celle publi\xE9e par C.A.R.
+    Hoare en 1969, ce cours a montr\xE9 comment cette logique de Hoare s'applique
+    \xE0 de nombreuses structures de contr\xF4le, dont plusieurs formes de boucles,
+    avec sortie pr\xE9matur\xE9e mono-niveau ou multi-niveaux, mais aussi \xE0 des
+    constructions non-d\xE9terministes comme les commandes gard\xE9es de Dijkstra,
+    et jusqu'aux coroutines asym\xE9triques et aux threads coop\xE9ratifs vus au deuxi\xE8me
+    cours. M\xEAme le branchement \xAB goto \xBB peut \xEAtre sp\xE9cifi\xE9 en logique
+    de Hoare, en prenant quelques pr\xE9cautions.\nLire la suite : https://www.college-de-france.fr/fr/agenda/cours/structures-de-controle-de-goto-aux-effets-algebriques/logiques-de-programmes-pour-le-controle-et-les-effets\n\nRetrouvez
+    les enregistrements audios et vid\xE9os du cycle et son texte de pr\xE9sentation
+    :\nhttps://www.college-de-france.fr/fr/agenda/cours/structures-de-controle-de-goto-aux-effets-algebriques\n\nRetrouvez
+    tous les enseignements du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-03-18T15:32:10+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
 - title: 'OCaml Unboxed: An Exploration of Jane Street''s Experiments with OCaml'
   content: https://www.youtube.com/watch/LwD3GxsY-pc
+  thumbnail: https://i1.ytimg.com/vi/LwD3GxsY-pc/hqdefault.jpg
+  description: 'This video introduces the OCaml Unboxed series, which will dive into
+    topics like local mode, unboxed types, and many more fun detours along the way.
+    Join me, Richard Eisenberg, as we explore the frontiers of functional programming
+    language design in OCaml!
+
+
+    Oxidizing OCaml blog posts:
+
+    - Locality: https://blog.janestreet.com/oxidizing-ocaml-locality
+
+    - Ownership: https://blog.janestreet.com/oxidizing-ocaml-ownership
+
+    - Data-race Freedom: https://blog.janestreet.com/oxidizing-ocaml-parallelism'
+  published: 2024-03-13T17:30:02+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
+- title: 'OCaml Unboxed: An Exploration of Jane Street''s Experiments with OCaml'
+  content: https://www.youtube.com/watch/LwD3GxsY-pc?version=3
   thumbnail: https://i1.ytimg.com/vi/LwD3GxsY-pc/hqdefault.jpg
   description: 'This video introduces the OCaml Unboxed series, which will dive into
     topics like local mode, unboxed types, and many more fun detours along the way.
@@ -119,8 +265,53 @@
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
   source_title: "Coll\xE8ge de France - Sciences du logiciel"
 - title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (12) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/mGlhlmr1ki4?version=3
+  thumbnail: https://i2.ytimg.com/vi/mGlhlmr1ki4/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nS\xE9minaire du 07 mars 2024 : Effect Handlers
+    and Mathematically Inspired Language Constructs\n\nIntervenant : Matija Pretnar,
+    Universit\xE9 de Ljubljana\n\nRetrouvez les enregistrements audios et vid\xE9os
+    du cycle et son texte de pr\xE9sentation :\nhttps://www.college-de-france.fr/fr/agenda/seminaire/structures-de-controle-de-goto-aux-effets-algebriques\n\nChaire
+    Sciences du logiciel\nProfesseur : Xavier Leroy\n\nRetrouvez tous les enseignements
+    du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-03-12T10:23:44+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
     (11) - Xavier Leroy (2023-2024)"
   content: https://www.youtube.com/watch/EQaAlrs4OKc
+  thumbnail: https://i2.ytimg.com/vi/EQaAlrs4OKc/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nCours du 07 mars 2024 : Typage et analyse statique
+    des effets\n\nProfesseur : Xavier Leroy\nChaire Sciences du logiciel\n\nRetrouvez
+    les enregistrements audios et vid\xE9os du cycle et son texte de pr\xE9sentation
+    :\nhttps://www.college-de-france.fr/fr/agenda/cours/structures-de-controle-de-goto-aux-effets-algebriques\n\nRetrouvez
+    tous les enseignements du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-03-12T10:23:40+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (11) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/EQaAlrs4OKc?version=3
   thumbnail: https://i2.ytimg.com/vi/EQaAlrs4OKc/hqdefault.jpg
   description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
     \xBB aux effets alg\xE9briques\nCours du 07 mars 2024 : Typage et analyse statique
@@ -164,8 +355,53 @@
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
   source_title: "Coll\xE8ge de France - Sciences du logiciel"
 - title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (10) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/7Q4WUG-KDec?version=3
+  thumbnail: https://i4.ytimg.com/vi/7Q4WUG-KDec/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nS\xE9minaire du 29 f\xE9vrier 2024 : Les continuations
+    : cinq minutes pour les apprendre, toute une vie pour les comprendre\n\nIntervenant
+    : Olivier Danvy, National University of Singapore\n\nRetrouvez les enregistrements
+    audios et vid\xE9os du cycle et son texte de pr\xE9sentation :\nhttps://www.college-de-france.fr/fr/agenda/seminaire/structures-de-controle-de-goto-aux-effets-algebriques\n\nChaire
+    Sciences du logiciel\nProfesseur : Xavier Leroy\n\nRetrouvez tous les enseignements
+    du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-03-05T10:54:51+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
     (9) - Xavier Leroy (2023-2024)"
   content: https://www.youtube.com/watch/hrBfygrPpHU
+  thumbnail: https://i1.ytimg.com/vi/hrBfygrPpHU/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nCours du 29 f\xE9vrier 2024 : Th\xE9orie des effets
+    : des monades aux effets alg\xE9briques\n\nProfesseur : Xavier Leroy\nChaire Sciences
+    du logiciel\n\nRetrouvez les enregistrements audios et vid\xE9os du cycle et son
+    texte de pr\xE9sentation :\nhttps://www.college-de-france.fr/fr/agenda/cours/structures-de-controle-de-goto-aux-effets-algebriques\n\nRetrouvez
+    tous les enseignements du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-03-05T10:54:48+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (9) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/hrBfygrPpHU?version=3
   thumbnail: https://i1.ytimg.com/vi/hrBfygrPpHU/hqdefault.jpg
   description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
     \xBB aux effets alg\xE9briques\nCours du 29 f\xE9vrier 2024 : Th\xE9orie des effets
@@ -197,9 +433,43 @@
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
   source_title: Jane Street - OCaml Unboxed
+- title: Stack Allocation with Locals in OCaml | OCaml Unboxed
+  content: https://www.youtube.com/watch/rHf3YryF7jc?version=3
+  thumbnail: https://i3.ytimg.com/vi/rHf3YryF7jc/hqdefault.jpg
+  description: "This is the sixth installment in the video series explaining OCaml's
+    locals. In this episode, I demonstrate how stack allocation works with locals.
+    (And yes, even though locals use stack allocation, I guarantee this is not the
+    stack you\u2019re thinking of!)\n\nCode used in this video: https://github.com/goldfirere/janestreet-videos/blob/main/locals/05-programming-with-locals/local.ml"
+  published: 2024-02-29T12:53:15+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
 - title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
     (8) - Xavier Leroy (2023-2024)"
   content: https://www.youtube.com/watch/qRORl7ZggMI
+  thumbnail: https://i2.ytimg.com/vi/qRORl7ZggMI/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nS\xE9minaire du 22 f\xE9vrier 2024 : Compiling
+    with Continuations\n\nIntervenant : Andrew Kennedy, Meta\n\nRetrouvez les enregistrements
+    audios et vid\xE9os du cycle et son texte de pr\xE9sentation :\nhttps://www.college-de-france.fr/fr/agenda/seminaire/structures-de-controle-de-goto-aux-effets-algebriques\n\nChaire
+    Sciences du logiciel\nProfesseur : Xavier Leroy\n\nRetrouvez tous les enseignements
+    du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-02-23T17:12:13+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (8) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/qRORl7ZggMI?version=3
   thumbnail: https://i2.ytimg.com/vi/qRORl7ZggMI/hqdefault.jpg
   description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
     \xBB aux effets alg\xE9briques\nS\xE9minaire du 22 f\xE9vrier 2024 : Compiling
@@ -241,8 +511,43 @@
   author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
   source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (7) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/eRF2OHzyivE?version=3
+  thumbnail: https://i2.ytimg.com/vi/eRF2OHzyivE/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nCours du 22 f\xE9vrier 2024 : Pratique des effets
+    : des exceptions aux gestionnaires d'effets\n\nProfesseur : Xavier Leroy\nChaire
+    Sciences du logiciel\n\nRetrouvez les enregistrements audios et vid\xE9os du cycle
+    et son texte de pr\xE9sentation :\nhttps://www.college-de-france.fr/fr/agenda/cours/structures-de-controle-de-goto-aux-effets-algebriques\n\nRetrouvez
+    tous les enseignements du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-02-23T17:12:10+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
 - title: OCaml Locals Save Allocations | OCaml Unboxed
   content: https://www.youtube.com/watch/AGu4AO5zO8o
+  thumbnail: https://i2.ytimg.com/vi/AGu4AO5zO8o/hqdefault.jpg
+  description: "This is the fifth video in a series about OCaml\u2019s locals. This
+    episode demonstrates how using locals reduces garbage-collected allocations. Watch
+    as I demonstrate how to use locals, fending off plenty of error messages along
+    the way.\n\nView instructions to get the compiler I use in this video: https://github.com/janestreet/opam-repository/tree/with-extensions\n\n\nCode
+    used in this video: https://github.com/goldfirere/janestreet-videos/blob/main/locals/05-programming-with-locals/local.ml"
+  published: 2024-02-20T21:30:01+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
+- title: OCaml Locals Save Allocations | OCaml Unboxed
+  content: https://www.youtube.com/watch/AGu4AO5zO8o?version=3
   thumbnail: https://i2.ytimg.com/vi/AGu4AO5zO8o/hqdefault.jpg
   description: "This is the fifth video in a series about OCaml\u2019s locals. This
     episode demonstrates how using locals reduces garbage-collected allocations. Watch
@@ -257,6 +562,49 @@
 - title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
     (6) - Xavier Leroy (2023-2024)"
   content: https://www.youtube.com/watch/FR3T3tQjpfg
+  thumbnail: https://i3.ytimg.com/vi/FR3T3tQjpfg/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nS\xE9minaire du 15 f\xE9vrier 2024 : Repr\xE9sentations
+    interm\xE9diaires pour la compilation : s'affranchir du graphe de flot de contr\xF4le\n\nIntervenante
+    : Delphine Demange, universit\xE9 de Rennes\n\nLe graphe de flot de contr\xF4le
+    est une repr\xE9sentation interm\xE9diaire classique des programmes dans les compilateurs
+    optimisants pour les langages imp\xE9ratifs. Cette repr\xE9sentation a permis
+    de formuler et de d\xE9velopper de nombreuses optimisations de programmes, des
+    plus simples jusqu'aux plus sophistiqu\xE9es.\n\nDans sa forme originelle, le
+    graphe de flot de contr\xF4le pr\xE9sente toutefois deux inconv\xE9nients pour
+    optimiser les programmes. D\u2019une part, beaucoup d'analyses de programmes sont
+    sensibles au nommage des variables du programme. D'autre part, un mod\xE8le d\u2019ex\xE9cution
+    enti\xE8rement dirig\xE9 par le contr\xF4le rend parfois difficile le r\xE9ordonnancement
+    des instructions.\n\nDans cet expos\xE9, nous nous int\xE9resserons \xE0 des repr\xE9sentations
+    interm\xE9diaires embl\xE9matiques qui visent \xE0 pallier ces inconv\xE9nients.
+    La premi\xE8re, SSA, permet d'exposer, \xE0 travers un sch\xE9ma sp\xE9cifique
+    de nommage, quelques relations de d\xE9pendances entre instructions. La seconde,
+    Sea-of-Nodes, s'appuie sur SSA et rel\xE2che certaines contraintes d'ordre d'ex\xE9cution
+    au sein de r\xE9gions du graphe. Issues de travaux de recherche, elles sont aujourd'hui
+    utilis\xE9es avec succ\xE8s dans des compilateurs optimisants de r\xE9f\xE9rence.
+    Nous pr\xE9senterons leur mod\xE8le d'ex\xE9cution respectif, ainsi que leurs
+    propri\xE9t\xE9s s\xE9mantiques clefs dans le cadre de l'optimisation de programmes.
+    Enfin, nous pr\xE9senterons quelques enjeux actuels du domaine, o\xF9 des repr\xE9sentations
+    interm\xE9diaires similaires sont utilis\xE9es pour basculer dans un mod\xE8le
+    d'ex\xE9cution dirig\xE9 par les donn\xE9es.\n\nRetrouvez les enregistrements
+    audios et vid\xE9os du cycle et son texte de pr\xE9sentation :\nhttps://www.college-de-france.fr/fr/agenda/seminaire/structures-de-controle-de-goto-aux-effets-algebriques\n\nChaire
+    Sciences du logiciel\nProfesseur : Xavier Leroy\n\nRetrouvez tous les enseignements
+    du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-02-17T09:17:59+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (6) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/FR3T3tQjpfg?version=3
   thumbnail: https://i3.ytimg.com/vi/FR3T3tQjpfg/hqdefault.jpg
   description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
     \xBB aux effets alg\xE9briques\nS\xE9minaire du 15 f\xE9vrier 2024 : Repr\xE9sentations
@@ -341,8 +689,85 @@
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
   source_title: "Coll\xE8ge de France - Sciences du logiciel"
 - title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (5) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/w384n7K77Cw?version=3
+  thumbnail: https://i4.ytimg.com/vi/w384n7K77Cw/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nCours du 15 f\xE9vrier 2024 : Programmer ses structures
+    de contr\xF4le : continuations et op\xE9rateurs de contr\xF4le\n\nProfesseur :
+    Xavier Leroy\nChaire Sciences du logiciel\n\nLe quatri\xE8me cours a introduit
+    la notion de continuation d'un point de programme dans un programme imp\xE9ratif,
+    ou d'une sous-expression dans un programme fonctionnel.  Il s'agit de la suite
+    des calculs restant \xE0 effectuer pour atteindre la fin du programme, repr\xE9sent\xE9e
+    soit par un objet du langage de programmation (commande, fonction, ...), soit
+    par un objet math\xE9matique.  Dans les travaux de recherche des ann\xE9es 1965\u20131975
+    sur la s\xE9mantique d\xE9notationnelle, les continuations apparaissent comme
+    moyen de donner une s\xE9mantique math\xE9matiquement pr\xE9cise aux branchements
+    \xABgoto\xBB non locaux du langage Algol.  Mais c'est dans le cadre des langages
+    de programmation fonctionnelle que les continuations montrent tout leur int\xE9r\xEAt
+    : tout d'abord, pour sp\xE9cifier compl\xE8tement les strat\xE9gies de r\xE9ductions
+    (comme l'appel par valeur et l'appel par nom) par transformation syst\xE9matique
+    des programmes, pour les mettre en style \xE0 passage de continuations (CPS, Continuation-Passing
+    Style); ensuite, pour programmer manuellement dans ce style \xE0 passage de continuations,
+    ce qui permet de d\xE9finir de nombreuses structures de contr\xF4le avanc\xE9es
+    (it\xE9rateurs, g\xE9n\xE9rateurs, coroutines, threads coop\xE9ratifs) dans le
+    langage m\xEAme, sous forme de biblioth\xE8ques.  Enfin, l'ajout d'op\xE9rateurs
+    de contr\xF4le \xE0 un langage fonctionnel, comme le call/cc du langage Scheme,
+    donne aux programmes de nouveaux moyens pour capturer, r\xE9ifier et relancer
+    leurs propres continuations, permettant ainsi de d\xE9finir des structures de
+    contr\xF4le avanc\xE9es dans le langage tout en gardant le programme en \xABstyle
+    direct\xBB, sans mise en forme CPS manuelle.\n\nRetrouvez les enregistrements
+    audios et vid\xE9os du cycle et son texte de pr\xE9sentation :\nhttps://www.college-de-france.fr/fr/agenda/cours/structures-de-controle-de-goto-aux-effets-algebriques\n\nRetrouvez
+    tous les enseignements du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-02-17T09:17:55+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
     (4) - Xavier Leroy (2023-2024)"
   content: https://www.youtube.com/watch/WDg0__zO_cU
+  thumbnail: https://i4.ytimg.com/vi/WDg0__zO_cU/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nS\xE9minaire du 8 f\xE9vrier 2024 : Comment concilier
+    parall\xE9lisme et contr\xF4le ? Approches des architectures de processeurs g\xE9n\xE9ralistes
+    et graphiques\n\nIntervenante : Caroline Collange, Inria\n\nDepuis la machine
+    analytique de Babbage et Lovelace, le langage machine ex\xE9cut\xE9 par les processeurs
+    consiste typiquement en une succession d'instructions dans l'ordre. Mais une mise
+    en \u0153uvre efficace en mat\xE9riel n\xE9cessite d'ex\xE9cuter des instructions
+    en parall\xE8le. Deux approches sont suivies respectivement dans les processeurs
+    g\xE9n\xE9ralistes et les processeurs graphiques pour combler ce foss\xE9.\n\nUn
+    c\u0153ur d'un processeur actuel maintient l'illusion d'une ex\xE9cution s\xE9quentielle,
+    mais traite en r\xE9alit\xE9 plusieurs centaines d'instructions en vol, et les
+    ex\xE9cute dans le d\xE9sordre. Ce jeu d'\xE9quilibriste repose sur de nombreux
+    m\xE9canismes mat\xE9riels, dont la pr\xE9diction de branchements et le renommage
+    de registres.\n\nLire la suite : https://www.college-de-france.fr/fr/agenda/seminaire/structures-de-controle-de-goto-aux-effets-algebriques/comment-concilier-parallelisme-et-controle-approches-des-architectures-de-processeurs-generalistes\n\nRetrouvez
+    les enregistrements audios et vid\xE9os du cycle et son texte de pr\xE9sentation
+    :\nhttps://www.college-de-france.fr/fr/agenda/seminaire/structures-de-controle-de-goto-aux-effets-algebriques\n\nChaire
+    Sciences du logiciel\nProfesseur : Xavier Leroy\n\nRetrouvez tous les enseignements
+    du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-02-11T10:17:33+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (4) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/WDg0__zO_cU?version=3
   thumbnail: https://i4.ytimg.com/vi/WDg0__zO_cU/hqdefault.jpg
   description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
     \xBB aux effets alg\xE9briques\nS\xE9minaire du 8 f\xE9vrier 2024 : Comment concilier
@@ -414,8 +839,62 @@
   author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
   source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (3) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/qXOEcvoALis?version=3
+  thumbnail: https://i2.ytimg.com/vi/qXOEcvoALis/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nCours du 8 f\xE9vrier 2024 : Chassez le contr\xF4le...
+    : la programmation d\xE9clarative\n\nLa programmation d\xE9clarative s'attache
+    \xE0 d\xE9crire les r\xE9sultats attendus du programme sans pour autant expliciter
+    l'encha\xEEnement des \xE9tapes de calcul \xE9l\xE9mentaires qui produisent ces
+    r\xE9sultats, au contraire de la programmation imp\xE9rative classique. Avons-nous
+    encore besoin de structures de contr\xF4le dans les programmes d\xE9claratifs
+    ? Le troisi\xE8me cours a tent\xE9 de r\xE9pondre \xE0 cette question en prenant
+    l'exemple de trois paradigmes de programmation d\xE9clarative : la programmation
+    r\xE9active synchrone (Lustre), la programmation purement fonctionnelle (Haskell,
+    Scheme pur), et la programmation logique (Prolog). Les s\xE9mantiques des programmes
+    \xE9crits dans ces langages reposent sur des principes \xE9l\xE9gants mais qui
+    ne suffisent pas pour garantir la terminaison et le co\xFBt (en temps, en espace)
+    des ex\xE9cutions d'un programme ; d'o\xF9 l'importance, m\xEAme dans un langage
+    d\xE9claratif, de donner aux programmeurs les moyens de contr\xF4ler la mani\xE8re
+    dont leurs programmes sont \xE9valu\xE9s. Nous avons mentionn\xE9 trois de ces
+    moyens : ajouter des op\xE9rations ad hoc comme la coupure en Prolog, sp\xE9cifier
+    les strat\xE9gies d'\xE9valuation utilis\xE9es (comme l'appel par valeur en Scheme
+    et l'appel par n\xE9cessit\xE9 en Haskell), ou encoder la strat\xE9gie d\xE9sir\xE9e
+    dans le programme lui-m\xEAme (par exemple en ajoutant des suspensions dans un
+    programme Scheme).\n\nProfesseur : Xavier Leroy\nChaire Sciences du logiciel\n\nRetrouvez
+    les enregistrements audios et vid\xE9os du cycle et son texte de pr\xE9sentation
+    :\nhttps://www.college-de-france.fr/fr/agenda/cours/structures-de-controle-de-goto-aux-effets-algebriques\n\nRetrouvez
+    tous les enseignements du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-02-11T10:17:30+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
 - title: Inferring Locality in OCaml | OCaml Unboxed
   content: https://www.youtube.com/watch/jvQ7fj9LlVA
+  thumbnail: https://i3.ytimg.com/vi/jvQ7fj9LlVA/hqdefault.jpg
+  description: "This is the fourth video in a series about OCaml\u2019s locals. It
+    covers how the compiler infers what variables can be marked as local_ and it gives
+    a glimpse into some compiler output that you can use to see the inferred modes
+    on variables. I also explain how the compiler infers conversions between locals
+    and globals and introduce *mode-crossing*, showing how ints can be both local
+    and global.\n\n\nView instructions to get the compiler I use in this video: https://github.com/janestreet/opam-repository/tree/with-extensions"
+  published: 2024-02-07T15:54:23+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
+- title: Inferring Locality in OCaml | OCaml Unboxed
+  content: https://www.youtube.com/watch/jvQ7fj9LlVA?version=3
   thumbnail: https://i3.ytimg.com/vi/jvQ7fj9LlVA/hqdefault.jpg
   description: "This is the fourth video in a series about OCaml\u2019s locals. It
     covers how the compiler infers what variables can be marked as local_ and it gives
@@ -431,6 +910,28 @@
 - title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
     (2) - Xavier Leroy (2023-2024)"
   content: https://www.youtube.com/watch/T_w3OlZ5ASc
+  thumbnail: https://i1.ytimg.com/vi/T_w3OlZ5ASc/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nCours du 1er f\xE9vrier 2024 : Structures de contr\xF4le
+    avanc\xE9es : des subroutines aux coroutines et au parall\xE9lisme\n\nProfesseur
+    : Xavier Leroy\nChaire Sciences du logiciel\n\nRetrouvez les enregistrements audios
+    et vid\xE9os du cycle et son texte de pr\xE9sentation :\nhttps://www.college-de-france.fr/fr/agenda/cours/structures-de-controle-de-goto-aux-effets-algebriques\n\nRetrouvez
+    tous les enseignements du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-02-02T09:18:32+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (2) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/T_w3OlZ5ASc?version=3
   thumbnail: https://i1.ytimg.com/vi/T_w3OlZ5ASc/hqdefault.jpg
   description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
     \xBB aux effets alg\xE9briques\nCours du 1er f\xE9vrier 2024 : Structures de contr\xF4le
@@ -466,9 +967,62 @@
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
   source_title: Jane Street - OCaml Unboxed
+- title: Understanding OCaml Locals as a Mode (with Sub-Moding) | OCaml Unboxed
+  content: https://www.youtube.com/watch/UqBk5DgqxRg?version=3
+  thumbnail: https://i2.ytimg.com/vi/UqBk5DgqxRg/hqdefault.jpg
+  description: 'This is the third installment in the video series explaining OCaml''s
+    locals.
+
+    In this video, I explain how locality is a *mode* and how sub-moding works. (It''s
+    kinda like sub-typing.)
+
+
+    To get the compiler I''m using here, see the instructions at https://github.com/janestreet/opam-repository/tree/with-extensions'
+  published: 2024-01-31T13:00:27+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
 - title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
     (1) - Xavier Leroy (2023-2024)"
   content: https://www.youtube.com/watch/ck9DjekcK4M
+  thumbnail: https://i4.ytimg.com/vi/ck9DjekcK4M/hqdefault.jpg
+  description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
+    \xBB aux effets alg\xE9briques\nCours du 25 janvier 2024 : Naissance des structures
+    de contr\xF4le : du \xAB goto \xBB \xE0 la programmation structur\xE9e\n\nProfesseur
+    : Xavier Leroy\nChaire Sciences du logiciel\n\nUn programme informatique d\xE9crit
+    non seulement les calculs \xE9l\xE9mentaires \xE0 effectuer sur les donn\xE9es
+    d'entr\xE9e, mais aussi dans quel ordre et sous quelles conditions effectuer ces
+    calculs. Pour exprimer cet encha\xEEnement des calculs, les langages de programmation
+    fournissent des m\xE9canismes appel\xE9s structures de contr\xF4le. Depuis les
+    branchements \xAB goto \xBB des premiers langages de programmation, de nombreuses
+    structures de contr\xF4le ont \xE9t\xE9 mises en \u0153uvre : boucles, proc\xE9dures
+    et fonctions, exceptions, it\xE9rateurs, coroutines, exceptions\u2026 Apr\xE8s
+    des rappels sur ces structures classiques et sur leur contexte historique d'apparition,
+    le cours d\xE9veloppera une approche plus moderne du contr\xF4le vu comme un objet
+    manipulable par le programme, permettant ainsi au programmeur de d\xE9finir ses
+    propres structures de contr\xF4les. Initi\xE9e au si\xE8cle dernier par les travaux
+    sur les continuations et leurs op\xE9rateurs de contr\xF4le, cette approche est
+    en plein renouvellement avec la th\xE9orie des effets alg\xE9briques et sa d\xE9clinaison
+    sous forme d'effets et de gestionnaires d'effets d\xE9finis par le programmeur
+    dans des langages comme OCaml 5.\n\nRetrouvez les enregistrements audios et vid\xE9os
+    du cycle et son texte de pr\xE9sentation :\nhttps://www.college-de-france.fr/fr/agenda/cours/structures-de-controle-de-goto-aux-effets-algebriques\n\nRetrouvez
+    tous les enseignements du Pr Xavier Leroy :\nhttps://www.college-de-france.fr/chaire/xavier-leroy-sciences-du-logiciel-chaire-statutaire\nhttps://www.youtube.com/playlist?list=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im\n\nLe
+    Coll\xE8ge de France est une institution de recherche fondamentale dans tous les
+    domaines de la connaissance et un lieu de diffusion du \xAB savoir en train de
+    se faire \xBB ouvert \xE0 tous.\nLes cours, s\xE9minaires, colloques sont enregistr\xE9s
+    puis mis \xE0 disposition du public sur le site internet du Coll\xE8ge de France.\n\nD\xE9couvrez
+    toutes les ressources du Coll\xE8ge de France : \nhttps://www.college-de-france.fr\n\nSuivez-nous
+    sur :\nFacebook : https://www.facebook.com/College.de.France\nInstagram : https://www.instagram.com/collegedefrance\nX
+    (ex-Twitter) : https://twitter.com/cdf1530\nLinkedIn : https://fr.linkedin.com/company/coll\xE8gedefrance"
+  published: 2024-01-30T09:03:57+00:00
+  author_name: "Math\xE9matiques et informatique - Coll\xE8ge de France"
+  author_uri: https://www.youtube.com/channel/UCk58LsWC9j892FUMBwN5AsQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  source_title: "Coll\xE8ge de France - Sciences du logiciel"
+- title: "Structures de contr\xF4le : de \xAB goto \xBB aux effets alg\xE9briques
+    (1) - Xavier Leroy (2023-2024)"
+  content: https://www.youtube.com/watch/ck9DjekcK4M?version=3
   thumbnail: https://i4.ytimg.com/vi/ck9DjekcK4M/hqdefault.jpg
   description: "Enseignement 2023-2024 : Structures de contr\xF4le : de \xAB goto
     \xBB aux effets alg\xE9briques\nCours du 25 janvier 2024 : Naissance des structures
@@ -526,8 +1080,46 @@
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
   source_title: Jane Street - OCaml Unboxed
+- title: Annotating OCaml Variables and Returns with local_ | OCaml Unboxed
+  content: https://www.youtube.com/watch/bTjJQT-SzgQ?version=3
+  thumbnail: https://i3.ytimg.com/vi/bTjJQT-SzgQ/hqdefault.jpg
+  description: 'This is the second installment in the video series explaining OCaml''s
+    locals.
+
+    In this video, I explain how we can annotate variables and return types with local_.
+
+
+
+    Code for this video: https://github.com/goldfirere/janestreet-videos/tree/main/locals/02-local-variables-and-returns
+
+
+
+    View instructions to get the compiler I use in this video: https://github.com/janestreet/opam-repository/tree/with-extensions
+
+
+    Playlist for videos in this series: https://www.youtube.com/playlist?list=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ'
+  published: 2024-01-23T10:38:12+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
 - title: Introducing the OCaml Local Mode | OCaml Unboxed
   content: https://www.youtube.com/watch/PgUsmO0YyQc
+  thumbnail: https://i1.ytimg.com/vi/PgUsmO0YyQc/hqdefault.jpg
+  description: 'This video introduces how to make and use local parameters in OCaml.
+    As demonstrated in the video, a local parameter to a function is not allowed to
+    be stored or returned. Using local parameters can allow us to allocate less garbage-collected
+    memory, as later videos will demonstrate.
+
+
+    View instructions to get the compiler I use in this video: https://github.com/janestreet/opam-repository/tree/with-extensions'
+  published: 2024-01-05T16:49:17+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
+- title: Introducing the OCaml Local Mode | OCaml Unboxed
+  content: https://www.youtube.com/watch/PgUsmO0YyQc?version=3
   thumbnail: https://i1.ytimg.com/vi/PgUsmO0YyQc/hqdefault.jpg
   description: 'This video introduces how to make and use local parameters in OCaml.
     As demonstrated in the video, a local parameter to a function is not allowed to
@@ -544,6 +1136,23 @@
 - title: '[OCaML''23] Modern DSL compiler architecture in OCaml our experience with
     Catala'
   content: https://www.youtube.com/watch/pO8Z4lcY0ys
+  thumbnail: https://i1.ytimg.com/vi/pO8Z4lcY0ys/hqdefault.jpg
+  description: "[OCaML'23] Modern DSL compiler architecture in OCaml our experience
+    with Catala\n\nLouis Gesbert, Denis Merigoux\n\nIn this presentation, we intend
+    to show a state-of-the-art DSL implementation in OCaml, with concrete examples
+    and experience reports. \nIn particular, we found that some advanced practices,
+    while accepted among the hardcore OCaml developers (e.g. use of row type variables
+    through object types), lacked visibility and documentation: some of them deserve
+    to be better known. \nOur experience is based on the Catala compiler, a DSL for
+    the implementation of algorithms defined in law."
+  published: 2023-12-01T14:23:18+00:00
+  author_name: ACM SIGPLAN
+  author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+  source_title: OCAML Workshop at ICFP 2023
+- title: '[OCaML''23] Modern DSL compiler architecture in OCaml our experience with
+    Catala'
+  content: https://www.youtube.com/watch/pO8Z4lcY0ys?version=3
   thumbnail: https://i1.ytimg.com/vi/pO8Z4lcY0ys/hqdefault.jpg
   description: "[OCaML'23] Modern DSL compiler architecture in OCaml our experience
     with Catala\n\nLouis Gesbert, Denis Merigoux\n\nIn this presentation, we intend
@@ -582,6 +1191,30 @@
   author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
   source_title: OCAML Workshop at ICFP 2023
+- title: '[OCaML''23] Runtime Detection of Data Races in OCaml with ThreadSanitizer'
+  content: https://www.youtube.com/watch/zr9S0Fr_Chc?version=3
+  thumbnail: https://i3.ytimg.com/vi/zr9S0Fr_Chc/hqdefault.jpg
+  description: '[OCaML''23] Runtime Detection of Data Races in OCaml with ThreadSanitizer
+
+
+    Olivier Nicole, Fabrice Buoro
+
+
+    The possibility to write truly parallel OCaml code brings forth new possibilities
+    of bugs. Among those, data races (concurrent accesses to the same data) are hard
+    to detect and dangerous, as they are non-deterministic, possibly silent, and can
+    lead to highly unexpected results. ThreadSanitizer (TSan) is an open-source library
+    and program instrumentation pass to reliably detect data races at runtime. TSan
+    has been instrumental in finding thousands of data races across many programming
+    languages. We will describe the core principles of data race detection in TSan,
+    explain why it was challenging to apply it to OCaml, and the adaptations needed
+    to the runtime system. We plan to demo how you can already use it in your own
+    code, and explain the limitations to be aware of.'
+  published: 2023-12-01T14:23:18+00:00
+  author_name: ACM SIGPLAN
+  author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+  source_title: OCAML Workshop at ICFP 2023
 - title: '[OCaML''23] Buck2 for OCaml Users & Developers'
   content: https://www.youtube.com/watch/l4X4BxEEe-w
   thumbnail: https://i1.ytimg.com/vi/l4X4BxEEe-w/hqdefault.jpg
@@ -596,8 +1229,42 @@
   author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
   source_title: OCAML Workshop at ICFP 2023
+- title: '[OCaML''23] Buck2 for OCaml Users & Developers'
+  content: https://www.youtube.com/watch/l4X4BxEEe-w?version=3
+  thumbnail: https://i1.ytimg.com/vi/l4X4BxEEe-w/hqdefault.jpg
+  description: "[OCaML'23] Buck2 for OCaml Users & Developers\n\nShayne Fletcher,
+    Neil Mitchell\n\nBuck2 is an open-source large scale build system used by thousands
+    of developers at Meta every day. Buck2 can be used to build OCaml with some useful
+    advantages over alternatives (e.g. Dune or Bazel). In this talk we\u2019ll discuss
+    what those advantages are, why they arise, and how to use Buck2 for your OCaml
+    development."
+  published: 2023-12-01T14:23:17+00:00
+  author_name: ACM SIGPLAN
+  author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+  source_title: OCAML Workshop at ICFP 2023
 - title: '[OCaML''23] MetaOCaml Theory and Implementation'
   content: https://www.youtube.com/watch/1fn1AEHeu2I
+  thumbnail: https://i2.ytimg.com/vi/1fn1AEHeu2I/hqdefault.jpg
+  description: '[OCaML''23] MetaOCaml Theory and Implementation
+
+
+    Oleg Kiselyov
+
+
+    Quasi-quotation (or, code templates) has long been used as a convenient tool for
+    code generation, commonly implemented as a pre-processing/translation into code-generation
+    combinators. The original MetaOCaml was also based on such translation, done post
+    type checking. BER MetaOCaml employs a significantly different, efficient (especially
+    in version N114) translation integrated with type-checking, in the least intrusive
+    way. This paper presents the integrated efficient translation for the first time.'
+  published: 2023-12-01T14:23:16+00:00
+  author_name: ACM SIGPLAN
+  author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+  source_title: OCAML Workshop at ICFP 2023
+- title: '[OCaML''23] MetaOCaml Theory and Implementation'
+  content: https://www.youtube.com/watch/1fn1AEHeu2I?version=3
   thumbnail: https://i2.ytimg.com/vi/1fn1AEHeu2I/hqdefault.jpg
   description: '[OCaML''23] MetaOCaml Theory and Implementation
 
@@ -638,8 +1305,51 @@
   author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
   source_title: OCAML Workshop at ICFP 2023
+- title: '[OCaML''23] Owi: an interpreter and a toolkit for WebAssembly written in
+    OCaml'
+  content: https://www.youtube.com/watch/IM76cMP3Eqo?version=3
+  thumbnail: https://i2.ytimg.com/vi/IM76cMP3Eqo/hqdefault.jpg
+  description: "[OCaML'23] Owi: an interpreter and a toolkit for WebAssembly written
+    in OCaml\n\nL\xE9o Andr\xE8s, Pierre Chambart, Eric Patrizio, Dario Pinto\n\nThis
+    presentation introduces Owi, an OCaml-based interpreter and toolkit for WebAssembly
+    (Wasm). Owi aims to provide a fast and easily maintainable solution for Wasm code
+    execution. Unlike competing interpreters, Owi focuses on facilitating experimentation,
+    research, and symbolic manipulations of Wasm. We describe the different passes
+    and intermediate representations of Owi. Additionally, we discuss the linker,
+    the interpreter and its support for various Wasm-specific extensions. Owi\u2019s
+    API leverages Generalized Algebraic Data Types (GADTs) for improved error detection
+    at link-time. We also describe the testing methods used, including a Crowbar-based
+    fuzzer. Future work includes incorporating missing Wasm extensions, implementing
+    advanced optimization passes, and potentially porting the WASP execution engine
+    to perform concolic execution."
+  published: 2023-12-01T14:23:16+00:00
+  author_name: ACM SIGPLAN
+  author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+  source_title: OCAML Workshop at ICFP 2023
 - title: '[OCaML''23] Building a lock-free STM for OCaml'
   content: https://www.youtube.com/watch/Mt8wPCHU1ZU
+  thumbnail: https://i2.ytimg.com/vi/Mt8wPCHU1ZU/hqdefault.jpg
+  description: '[OCaML''23] Building a lock-free STM for OCaml
+
+
+    Vesa Karvonen, Bartosz Modelski, Carine Morel, Thomas Leonard, KC Sivaramakrishnan,
+    YSS Narasimha Naidu, Sudha Parimala
+
+
+    The kcas library was originally developed to provide a primitive atomic lock-free
+    multi-word compare-and-set operation. This talk introduces kcas and discusses
+    the recent development of kcas turning it into a proper lock-free software transactional
+    memory implementation for OCaml that provides composable transactions, scheduler
+    friendly modular blocking, and comes with a companion library of composable lock-free
+    data structures.'
+  published: 2023-12-01T14:23:16+00:00
+  author_name: ACM SIGPLAN
+  author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+  source_title: OCAML Workshop at ICFP 2023
+- title: '[OCaML''23] Building a lock-free STM for OCaml'
+  content: https://www.youtube.com/watch/Mt8wPCHU1ZU?version=3
   thumbnail: https://i2.ytimg.com/vi/Mt8wPCHU1ZU/hqdefault.jpg
   description: '[OCaML''23] Building a lock-free STM for OCaml
 
@@ -686,9 +1396,56 @@
   author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
   source_title: OCAML Workshop at ICFP 2023
+- title: '[OCaML''23] Targeted Static Analysis for OCaml C Stubs: Eliminating gremlins
+    from the code'
+  content: https://www.youtube.com/watch/Of3dxdY3Z9M?version=3
+  thumbnail: https://i4.ytimg.com/vi/Of3dxdY3Z9M/hqdefault.jpg
+  description: "[OCaML'23] Targeted Static Analysis for OCaml C Stubs: Eliminating
+    gremlins from the code\n\nEdwin T\xF6r\xF6k\n\nMigration to OCaml 5 requires updating
+    a lot of C bindings due to the removal of naked pointer support. Writing OCaml
+    user-defined primitives in C is a necessity, but is unsafe and error-prone. It
+    does not benefit from either OCaml\u2019s or C\u2019s type checking, and existing
+    C static analysers are not aware of the OCaml GC safety rules, and cannot infer
+    them from existing macros alone. The alternative is automatically generating C
+    stubs, which requires correctly managing value lifetimes. Having a static analyser
+    for OCaml to C interfaces is useful outside the OCaml 5 porting effort too. \nAfter
+    some motivating examples of real bugs in C bindings a static analyser is presented
+    that finds these known classes of bugs. The tool works on the OCaml abstract parse
+    and typed trees, and generates a header file and a caller model. Together with
+    a simplified model of the OCaml runtime this is used as input to a static analysis
+    framework, Goblint. An analysis is developed that tracks dereferences of OCaml
+    values, and together with the existing framework reports incorrect dereferences.
+    An example is shown how to extend the analysis to cover more safety properties.
+    \nThe tools and runtime models are generic and could be reused with other static
+    analysis tools."
+  published: 2023-12-01T14:23:16+00:00
+  author_name: ACM SIGPLAN
+  author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+  source_title: OCAML Workshop at ICFP 2023
 - title: '[OCaML''23] Less Power for More Learning: Restricting OCaml Features for
     Effective Teaching'
   content: https://www.youtube.com/watch/Olt2mj_K2rk
+  thumbnail: https://i4.ytimg.com/vi/Olt2mj_K2rk/hqdefault.jpg
+  description: "[OCaML'23] Less Power for More Learning: Restricting OCaml Features
+    for Effective Teaching\n\nMax Lang, Nico Petzendorfer\n\nWe present a framework
+    for sandboxing and restricting features of the OCaml programming language to effectively
+    automate the grading of programming exercises, scaling to hundreds of submissions.
+    We describe how to disable language and library features that should not be used
+    to solve a given exercise. We present an overview of an implementation of a mock
+    IO system to allow testing of IO-related exercises in a controlled environment.
+    Finally, we detail a number of security considerations to ensure submitted code
+    remains sandboxed, allowing automatic grading to be trusted without manual verification.
+    The source code of our implementation is publicly available [1]. \n[1] As a git
+    repository at https://github.com/just-max/less-power."
+  published: 2023-12-01T14:23:16+00:00
+  author_name: ACM SIGPLAN
+  author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+  source_title: OCAML Workshop at ICFP 2023
+- title: '[OCaML''23] Less Power for More Learning: Restricting OCaml Features for
+    Effective Teaching'
+  content: https://www.youtube.com/watch/Olt2mj_K2rk?version=3
   thumbnail: https://i4.ytimg.com/vi/Olt2mj_K2rk/hqdefault.jpg
   description: "[OCaML'23] Less Power for More Learning: Restricting OCaml Features
     for Effective Teaching\n\nMax Lang, Nico Petzendorfer\n\nWe present a framework
@@ -725,8 +1482,44 @@
   author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
   source_title: OCAML Workshop at ICFP 2023
+- title: '[OCaML''23] Parallel Sequences in Multicore OCaml'
+  content: https://www.youtube.com/watch/cMsYwkMOB9M?version=3
+  thumbnail: https://i4.ytimg.com/vi/cMsYwkMOB9M/hqdefault.jpg
+  description: '[OCaML''23] Parallel Sequences in Multicore OCaml
+
+
+    Andrew Tao
+
+
+    I present my implementation of a parallel sequences abstraction that utilizes
+    the support for shared memory parallelism in the new OCaml 5.0.0 multicore runtime.
+    This abstraction allows clients to create highly parallelizable programs without
+    needing to write, or even understand, the low-level implementation details necessary
+    to parallelize large tasks.'
+  published: 2023-12-01T14:23:16+00:00
+  author_name: ACM SIGPLAN
+  author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+  source_title: OCAML Workshop at ICFP 2023
 - title: '[OCaML''23] Efficient OCaml compilation with Flambda 2'
   content: https://www.youtube.com/watch/eI5GBpT2Brs
+  thumbnail: https://i2.ytimg.com/vi/eI5GBpT2Brs/hqdefault.jpg
+  description: '[OCaML''23] Efficient OCaml compilation with Flambda 2
+
+
+    Pierre Chambart, Vincent LAVIRON, Mark Shinwell
+
+
+    Flambda 2 is an IR and optimisation pass for OCaml centred around inlining. We
+    discuss the engineering constraints that shaped it and the overall structure that
+    allows the compiler to be fast enough to handle very large industrial code bases.'
+  published: 2023-12-01T14:23:16+00:00
+  author_name: ACM SIGPLAN
+  author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+  source_title: OCAML Workshop at ICFP 2023
+- title: '[OCaML''23] Efficient OCaml compilation with Flambda 2'
+  content: https://www.youtube.com/watch/eI5GBpT2Brs?version=3
   thumbnail: https://i2.ytimg.com/vi/eI5GBpT2Brs/hqdefault.jpg
   description: '[OCaML''23] Efficient OCaml compilation with Flambda 2
 
@@ -763,8 +1556,46 @@
   author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
   source_title: OCAML Workshop at ICFP 2023
+- title: '[OCaML''23] State of the OCaml Platform 2023'
+  content: https://www.youtube.com/watch/i4ZQ2EGI8sY?version=3
+  thumbnail: https://i2.ytimg.com/vi/i4ZQ2EGI8sY/hqdefault.jpg
+  description: "[OCaML'23] State of the OCaml Platform 2023\n\nThibaut Mattio, Anil
+    Madhavapeddy, Thomas Gazagnaire, David Allsopp\n\nThis paper reflects on a decade
+    of progress and developments within the OCaml Platform, from its inception in
+    2013 with the release of opam 1.0, to today where it stands as a robust toolchain
+    for OCaml developers. We review the last three years in detail, emphasizing the
+    advancements and innovations that have shaped the OCaml development landscape
+    and highlighting key milestones such as the migration to Dune as the primary build
+    system, and the development of a Language Server Protocol (LSP) server for OCaml.
+    \nWe also outline our plan for the coming years. The roadmap is informed by community
+    feedback, discussions with Platform tool maintainers, and insights from industrial
+    users of OCaml. The final version of this evolving roadmap, designed to shape
+    the future of the OCaml developer experience, will be presented at the International
+    Conference on Functional Programming (ICFP)."
+  published: 2023-12-01T14:23:16+00:00
+  author_name: ACM SIGPLAN
+  author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+  source_title: OCAML Workshop at ICFP 2023
 - title: "[OCaML'23] Eio 1.0 \u2013 Effects-based IO for OCaml 5"
   content: https://www.youtube.com/watch/jr4LsCVQBj4
+  thumbnail: https://i3.ytimg.com/vi/jr4LsCVQBj4/hqdefault.jpg
+  description: "[OCaML'23] Eio 1.0 \u2013 Effects-based IO for OCaml 5\n\nThomas Leonard,
+    Patrick Ferris, Christiano Haesbaert, Lucas Pluvinage, Vesa Karvonen, Sudha Parimala,
+    KC Sivaramakrishnan, Vincent Balat, Anil Madhavapeddy\n\nEio provides an effects-based
+    direct-style IO stack for OCaml 5. This talk introduces Eio\u2019s main features,
+    such as use of effects, multi-core support and lock-free data-structures, support
+    for modular programming, interoperability with other concurrency libraries such
+    as Lwt, Async and Domainslib, and interactive monitoring support enabled by the
+    custom runtime events in OCaml 5.1. We will report on our experiences porting
+    existing applications to Eio."
+  published: 2023-12-01T14:23:16+00:00
+  author_name: ACM SIGPLAN
+  author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
+  source_title: OCAML Workshop at ICFP 2023
+- title: "[OCaML'23] Eio 1.0 \u2013 Effects-based IO for OCaml 5"
+  content: https://www.youtube.com/watch/jr4LsCVQBj4?version=3
   thumbnail: https://i3.ytimg.com/vi/jr4LsCVQBj4/hqdefault.jpg
   description: "[OCaML'23] Eio 1.0 \u2013 Effects-based IO for OCaml 5\n\nThomas Leonard,
     Patrick Ferris, Christiano Haesbaert, Lucas Pluvinage, Vesa Karvonen, Sudha Parimala,
@@ -791,8 +1622,33 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
+- title: "Talking with Louis Roche\u0301 about OCaml and Ahrefs"
+  content: https://www.youtube.com/watch/o2u9irv1tnE?version=3
+  thumbnail: https://i4.ytimg.com/vi/o2u9irv1tnE/hqdefault.jpg
+  description: "Talking with Louis Roche\u0301 about OCaml and Ahrefs\n\nSupport the
+    show at https://www.patreon.com/emelletv or don't miss it live by following us
+    https://www.twitch.tv/emelletv"
+  published: 2023-06-14T14:00:25+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
 - title: Talking with Antonio Monteiro about OCaml and Melange
   content: https://www.youtube.com/watch/zKO-Y2_a-yk
+  thumbnail: https://i3.ytimg.com/vi/zKO-Y2_a-yk/hqdefault.jpg
+  description: 'Talking with Antonio Monteiro about OCaml and Melange
+
+
+
+    Support the show at https://www.patreon.com/emelletv or don''t miss it live by
+    following us https://www.twitch.tv/emelletv'
+  published: 2023-06-14T13:59:18+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
+- title: Talking with Antonio Monteiro about OCaml and Melange
+  content: https://www.youtube.com/watch/zKO-Y2_a-yk?version=3
   thumbnail: https://i3.ytimg.com/vi/zKO-Y2_a-yk/hqdefault.jpg
   description: 'Talking with Antonio Monteiro about OCaml and Melange
 
@@ -818,9 +1674,35 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
+- title: 'emelletv #18 with KC about OCaml, Multicore and runtimes'
+  content: https://www.youtube.com/watch/eSLdBuaVSFM?version=3
+  thumbnail: https://i2.ytimg.com/vi/eSLdBuaVSFM/hqdefault.jpg
+  description: 'Talking with KC about Multicore, OCaml 5 and runtimes.
+
+
+    Support the show at https://www.patreon.com/emelletv or don''t miss it live by
+    following us https://www.twitch.tv/emelletv'
+  published: 2023-03-30T18:23:30+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
 - title: 'emelletv #17  with Gabriel Nordeborn (@zth) about ReScript, Graphql and
     Relay'
   content: https://www.youtube.com/watch/WNDxnpZSUD4
+  thumbnail: https://i4.ytimg.com/vi/WNDxnpZSUD4/hqdefault.jpg
+  description: 'Talking with  Gabriel Nordeborn about ReScript, Graphql and Relay
+
+
+    Support the show at https://www.patreon.com/emelletv or don''t miss it live https://www.twitch.tv/emelletv'
+  published: 2023-03-19T23:32:34+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
+- title: 'emelletv #17  with Gabriel Nordeborn (@zth) about ReScript, Graphql and
+    Relay'
+  content: https://www.youtube.com/watch/WNDxnpZSUD4?version=3
   thumbnail: https://i4.ytimg.com/vi/WNDxnpZSUD4/hqdefault.jpg
   description: 'Talking with  Gabriel Nordeborn about ReScript, Graphql and Relay
 
@@ -845,6 +1727,20 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
+- title: 'emelletv #16 with  Simon "c-cube" Cruanes about OCaml, Containers and Automated
+    Theorem Proving'
+  content: https://www.youtube.com/watch/9ZlGSghBbnk?version=3
+  thumbnail: https://i2.ytimg.com/vi/9ZlGSghBbnk/hqdefault.jpg
+  description: 'Talking with Simon Cruanes (c-cube) about Imandra, Automated Theorem
+    Proving, dev tooling and more
+
+
+    Support the show at https://www.patreon.com/emelletv'
+  published: 2023-01-29T19:23:01+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
 - title: 'emelletv #15 with Rudi Grinberg about OCaml, Dune, Opium and dev tools'
   content: https://www.youtube.com/watch/tjqLBsLaFvM
   thumbnail: https://i1.ytimg.com/vi/tjqLBsLaFvM/hqdefault.jpg
@@ -857,8 +1753,34 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
+- title: 'emelletv #15 with Rudi Grinberg about OCaml, Dune, Opium and dev tools'
+  content: https://www.youtube.com/watch/tjqLBsLaFvM?version=3
+  thumbnail: https://i1.ytimg.com/vi/tjqLBsLaFvM/hqdefault.jpg
+  description: 'Talking with Rudi Grinberg about OCaml, Opium and Dune
+
+
+    Support the show at https://www.patreon.com/emelletv'
+  published: 2023-01-02T14:02:49+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
 - title: 'emelletv #14 with Thomas Gazagnaire talking about OCaml and Tarides'
   content: https://www.youtube.com/watch/cgYL5oJEJWY
+  thumbnail: https://i4.ytimg.com/vi/cgYL5oJEJWY/hqdefault.jpg
+  description: 'Support the show for more content about OCaml, Reason and ReScript  you
+    can now do so at https://www.patreon.com/emelletv or by sending any tez amount
+    to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
+
+
+    Watch live at https://www.twitch.tv/emelletv'
+  published: 2022-08-06T19:04:39+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
+- title: 'emelletv #14 with Thomas Gazagnaire talking about OCaml and Tarides'
+  content: https://www.youtube.com/watch/cgYL5oJEJWY?version=3
   thumbnail: https://i4.ytimg.com/vi/cgYL5oJEJWY/hqdefault.jpg
   description: 'Support the show for more content about OCaml, Reason and ReScript  you
     can now do so at https://www.patreon.com/emelletv or by sending any tez amount
@@ -886,8 +1808,41 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
+- title: 'emelletv #13 with Camilo Azevedo about Learning, OCaml, Open Source and
+    communities'
+  content: https://www.youtube.com/watch/QZroVxQstRM?version=3
+  thumbnail: https://i2.ytimg.com/vi/QZroVxQstRM/hqdefault.jpg
+  description: 'If you''d like to support the show for more content about OCaml, Reason
+    and ReScript  you can now do so at https://www.patreon.com/emelletv or by sending
+    any tez amount to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
+
+
+    Watch live at https://www.twitch.tv/emelletv'
+  published: 2022-05-27T16:07:09+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
 - title: 'emelletv #12 with Hongbo Zhang about ReScript'
   content: https://www.youtube.com/watch/aqqc93BmNBs
+  thumbnail: https://i2.ytimg.com/vi/aqqc93BmNBs/hqdefault.jpg
+  description: 'Hongbo Zhang (@bobzhang1988), author of BuckleScript and core maintainer
+    of ReScript
+
+
+    Enjoying the video? Please, support the show for more content about OCaml, Reason
+    and ReScript  you can now do so at https://www.patreon.com/emelletv or by sending
+    any tez amount to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
+
+
+    Watch live at https://www.twitch.tv/emelletv -- Watch live at https://www.twitch.tv/emelletv'
+  published: 2022-05-27T16:02:38+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
+- title: 'emelletv #12 with Hongbo Zhang about ReScript'
+  content: https://www.youtube.com/watch/aqqc93BmNBs?version=3
   thumbnail: https://i2.ytimg.com/vi/aqqc93BmNBs/hqdefault.jpg
   description: 'Hongbo Zhang (@bobzhang1988), author of BuckleScript and core maintainer
     of ReScript
@@ -921,9 +1876,44 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
+- title: 'emelletv #11 with Anil Madhavapeddy about OCaml, Tezos and @TrustedCarbon'
+  content: https://www.youtube.com/watch/zrD-JiqML50?version=3
+  thumbnail: https://i3.ytimg.com/vi/zrD-JiqML50/hqdefault.jpg
+  description: 'Anil Madhavapeddy (@avsm), the face of OCaml
+
+
+    If you''d like to support the show for more content about OCaml, Reason and ReScript  you
+    can now do so at https://www.patreon.com/emelletv or by sending any tez amount
+    to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
+
+
+    Watch live at https://www.twitch.tv/emelletv'
+  published: 2022-04-18T14:03:56+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
 - title: 'emelletv #10 with Calascibetta "Dinoosaure" Romain about OCaml, Mirage OS
     and new 4.0 release'
   content: https://www.youtube.com/watch/DDgJ8tABOWU
+  thumbnail: https://i1.ytimg.com/vi/DDgJ8tABOWU/hqdefault.jpg
+  description: 'Calascibetta Romain (@Dinoosaure) core maintainer at Mirage OS
+
+
+    If you''d like to support the show for more content about OCaml, Reason and ReScript  you
+    can now do so at https://www.patreon.com/emelletv or by sending any tez amount
+    to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
+
+
+    Watch live at https://www.twitch.tv/emelletv -- Watch live at https://www.twitch.tv/emelletv'
+  published: 2022-03-31T13:15:46+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
+- title: 'emelletv #10 with Calascibetta "Dinoosaure" Romain about OCaml, Mirage OS
+    and new 4.0 release'
+  content: https://www.youtube.com/watch/DDgJ8tABOWU?version=3
   thumbnail: https://i1.ytimg.com/vi/DDgJ8tABOWU/hqdefault.jpg
   description: 'Calascibetta Romain (@Dinoosaure) core maintainer at Mirage OS
 
@@ -967,8 +1957,53 @@
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
   source_title: Jane Street - Signal & Threads
+- title: Memory Management with Stephen Dolan
+  content: https://www.youtube.com/watch/SetLtBH43_U?version=3
+  thumbnail: https://i4.ytimg.com/vi/SetLtBH43_U/hqdefault.jpg
+  description: "Stephen Dolan works on Jane Street\u2019s Tools and Compilers team
+    where he focuses on the OCaml compiler. In this episode, Stephen and Ron take
+    a trip down memory lane, discussing how to manage computer memory efficiently
+    and safely. They consider trade-offs between reference counting and garbage collection,
+    the surprising gains achieved by prefetching, and how new language features like
+    local allocation and unboxed types could give OCaml users more control over their
+    memory.\n\nSome links to topics that came up in the discussion:\n\nStephen\u2019s
+    command-line JSON processor, jq: https://github.com/stedolan/jq\nStephen\u2019s
+    Cambridge dissertation, \u201CAlgebraic Subtyping\u201D: https://www.cs.tufts.edu/~nr/cs257/archive/stephen-dolan/thesis.pdf\nand
+    a protoype implementation of mlsub: https://github.com/stedolan/mlsub, a language
+    based on those ideas.\nA post from Stephen on how to benchmark different memory
+    allocators: https://blog.janestreet.com/memory-allocator-showdown/\nA Jane Street
+    tech talk on \u201CUnboxed Types for OCaml\u201D: https://www.janestreet.com/tech-talks/unboxed-types-for-ocaml/
+    \nAn RFC in the OCaml RFC repo: https://github.com/ocaml/RFCs/blob/881b220adc1f358ab15f7743d5cd764222ab7d30/rfcs/unboxed-types.md\nA
+    paper from Stephen and KC Sivaramakrishnan (https://kcsrk.info/) called \u201CBounding
+    Data Races in Space and Time\u201D, which is all about a new and better memory
+    model for Multicore OCaml: https://kcsrk.info/papers/pldi18-memory.pdf\nAnother
+    paper describing the design of OCaml\u2019s multicore GC: https://arxiv.org/pdf/2004.11663.pdf\nThe
+    Rust RFC for Higher-ranked trait bounds: https://rust-lang.github.io/rfcs/0387-higher-ranked-trait-bounds.html\n\nYou
+    can find the transcript for this episode and all past episodes at signalsandthreads.com."
+  published: 2022-01-05T18:56:38+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  source_title: Jane Street - Signal & Threads
 - title: 'emelletv #9 with Sean Grove talking about GraphQL, OneGraph and ReasonML'
   content: https://www.youtube.com/watch/9-i_7Ldkc_8
+  thumbnail: https://i2.ytimg.com/vi/9-i_7Ldkc_8/hqdefault.jpg
+  description: 'Sean Grove Founder of OneGraph
+
+
+    If you''d like to support the show for more content about OCaml, Reason and ReScript  you
+    can now do so at https://www.patreon.com/emelletv or by sending any tez amount
+    to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
+
+
+    Watch live at https://www.twitch.tv/emelletv'
+  published: 2021-12-02T21:30:00+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
+- title: 'emelletv #9 with Sean Grove talking about GraphQL, OneGraph and ReasonML'
+  content: https://www.youtube.com/watch/9-i_7Ldkc_8?version=3
   thumbnail: https://i2.ytimg.com/vi/9-i_7Ldkc_8/hqdefault.jpg
   description: 'Sean Grove Founder of OneGraph
 
@@ -1004,6 +2039,26 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
+- title: 'emelletv #8 with Gabriel "Drup" Radanne about OCaml, meta-programming and
+    ML history'
+  content: https://www.youtube.com/watch/VgbZT-NPrcA?version=3
+  thumbnail: https://i3.ytimg.com/vi/VgbZT-NPrcA/hqdefault.jpg
+  description: 'Gabriel "Drup" Radanne researcher at Inria in the CASH research team
+
+
+
+
+    If you''d like to support the show for more content about OCaml, Reason and ReScript  you
+    can now do so at https://www.patreon.com/emelletv or by sending any tez amount
+    to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
+
+
+    Watch live at https://www.twitch.tv/emelletv'
+  published: 2021-11-24T16:00:25+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
 - title: 'emelletv #7 with Oscar Spencer talking about Grain Lang, WASM, Programming
     Language Theory and ML'
   content: https://www.youtube.com/watch/UcqeMJbW3y0
@@ -1018,8 +2073,45 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
+- title: 'emelletv #7 with Oscar Spencer talking about Grain Lang, WASM, Programming
+    Language Theory and ML'
+  content: https://www.youtube.com/watch/UcqeMJbW3y0?version=3
+  thumbnail: https://i2.ytimg.com/vi/UcqeMJbW3y0/hqdefault.jpg
+  description: "Oscar Spencer (@oscar_spen) is the co-author of Grain Lang\n \n\nIf
+    you'd like to support the show for more content about OCaml, Reason and ReScript
+    \ you can now do so at https://www.patreon.com/emelletv or by sending any tez
+    amount to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)\n\nWatch live at
+    https://www.twitch.tv/emelletv"
+  published: 2021-11-08T22:00:23+00:00
+  author_name: emelletv
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
 - title: What is an Operating System? with Anil Madhavapeddy
   content: https://www.youtube.com/watch/QQKD3ul0R0U
+  thumbnail: https://i2.ytimg.com/vi/QQKD3ul0R0U/hqdefault.jpg
+  description: "Anil Madhavapeddy is an academic, author, engineer, entrepreneur,
+    and OCaml aficionado. In this episode, Anil and Ron consider the evolving role
+    of operating systems, security on the internet, and the pending arrival (at last!)
+    of OCaml 5.0. They also discuss using Raspberry Pis to fight climate change; the
+    programming inspiration found in British pubs and on Moroccan beaches; and the
+    time Anil went to a party, got drunk, and woke up with a job working on the Mars
+    Polar Lander.\n\nSome links to topics that came up in the discussion:\n\nThe latest
+    edition of Real World OCaml: https://dev.realworldocaml.org/\nThe MirageOS library
+    operating system: https://mirage.io/\nDocker for Mac and Windows , which is based
+    on MirageOS: https://www.docker.com/blog/docker-unikernels-open-source/\nCambridge
+    University\u2019s OCaml Labs: https://ocamllabs.io/\nNASA\u2019s Mars Polar Lander\nThe
+    Xen Project (https://xenproject.org/), which made extensive use of OCaml (https://ocaml.org/meetings/ocaml/2012/abstracts/oud2012-paper14.pdf)
+    in their control stack.\nThe Multicore branch of OCaml: https://github.com/ocaml-multicore/ocaml-Multicoremulticore
+    monthly updates: https://discuss.ocaml.org/tag/multicore-monthly\n\nYou can find
+    the transcript for this episode and all past episodes at signalsandthreads.com."
+  published: 2021-11-03T16:28:14+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  source_title: Jane Street - Signal & Threads
+- title: What is an Operating System? with Anil Madhavapeddy
+  content: https://www.youtube.com/watch/QQKD3ul0R0U?version=3
   thumbnail: https://i2.ytimg.com/vi/QQKD3ul0R0U/hqdefault.jpg
   description: "Anil Madhavapeddy is an academic, author, engineer, entrepreneur,
     and OCaml aficionado. In this episode, Anil and Ron consider the evolving role
@@ -1063,8 +2155,52 @@
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
   source_title: Jane Street - Signal & Threads
+- title: Building a UI Framework with Ty Overby
+  content: https://www.youtube.com/watch/NT1_A1AfBL0?version=3
+  thumbnail: https://i3.ytimg.com/vi/NT1_A1AfBL0/hqdefault.jpg
+  description: "Ty Overby is a programmer in Jane Street\u2019s web platform group
+    where he works on Bonsai, our OCaml library for building interactive browser-based
+    UI. In this episode, Ty and Ron consider the functional approach to building user
+    interfaces. They also discuss Ty\u2019s programming roots in Neopets, what development
+    features they crave on the web, the unfairly maligned CSS, and why Excel is \u201Carguably
+    the greatest programming language ever developed.\u201D\n\nSome links to topics
+    that came up in the discussion:\n\nJane Street\u2019s Bonsai library: https://opensource.janestreet.com/bonsai/\nThe
+    3D design system OpenSCAD: https://openscad.org/\nMatt Keeter\u2019s libfive design
+    tools: https://libfive.com/\nTry .NET in-browser repl:  https://try.dot.net/\nJane
+    Street\u2019s Incr_dom library: https://opensource.janestreet.com/incr_dom/\nThe
+    Elm Architecture \u201Cpattern for architecting interactive programs\u201D: https://guide.elm-lang.org/architecture/\nReact
+    JavaScript library: https://reactjs.org/\nThe Houdini proposal: https://houdini.glitch.me/\nSvelte
+    UI toolkit: https://svelte.dev/\n\nYou can find the transcript for this episode
+    and all past episodes at signalsandthreads.com."
+  published: 2021-10-06T16:31:15+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  source_title: Jane Street - Signal & Threads
 - title: Writing, Technically with James Somers
   content: https://www.youtube.com/watch/Oh_iFh7Rofs
+  thumbnail: https://i4.ytimg.com/vi/Oh_iFh7Rofs/hqdefault.jpg
+  description: "James Somers is Jane Street\u2019s writer-in-residence, splitting
+    his time between English and OCaml, and helping to push forward all sorts of efforts
+    around knowledge-sharing at Jane Street. In this episode, James and Ron talk about
+    the role of technical writing in an organization like Jane Street, and how engineering
+    software relates to editing prose.\nSome links to topics that came up in the discussion:\n\nmdx,
+    the modified Markdown format that supports executing OCaml code blocks: https://github.com/realworldocaml/mdx\nMore
+    on the 4 types of technical writing that James references: https://documentation.divio.com/introduction/\nDonald
+    Knuth\u2019s original book on Literate Programming: https://en.wikipedia.org/wiki/Literate_programming\nMore
+    on John McPhee\u2019s use of KEDIT: https://www.newyorker.com/magazine/2013/01/14/structure\nPeter
+    Seibel\u2019s Coders at Work: https://codersatwork.com/\nDavid Goodsell\u2019s
+    The Machinery of Life: https://books.google.com/books/about/The_Machinery_of_Life.html?id=0nV-mIqPa5gC\nScott
+    Huler\u2019s Defining the Wind: https://books.google.com/books?id=oqGUXPWbieMC\nSome
+    of James\u2019s writing on our tech blog: https://blog.janestreet.com/author/jsomers/\n\nYou
+    can find the transcript for this episode and all past episodes at signalsandthreads.com."
+  published: 2021-09-01T17:05:39+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  source_title: Jane Street - Signal & Threads
+- title: Writing, Technically with James Somers
+  content: https://www.youtube.com/watch/Oh_iFh7Rofs?version=3
   thumbnail: https://i4.ytimg.com/vi/Oh_iFh7Rofs/hqdefault.jpg
   description: "James Somers is Jane Street\u2019s writer-in-residence, splitting
     his time between English and OCaml, and helping to push forward all sorts of efforts
@@ -1097,8 +2233,33 @@
   author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
   source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: Let Definitions | OCaml Programming | Chapter 2 Video 4
+  content: https://www.youtube.com/watch/eRnG4gwOTlI?version=3
+  thumbnail: https://i2.ytimg.com/vi/eRnG4gwOTlI/hqdefault.jpg
+  description: 'Using `let` definitions to bind values to names.
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-25T19:15:22+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
 - title: Scope and the Toplevel | OCaml Programming | Chapter 2 Video 7
   content: https://www.youtube.com/watch/4SqMkUwakEA
+  thumbnail: https://i1.ytimg.com/vi/4SqMkUwakEA/hqdefault.jpg
+  description: 'What looks like mutability in the toplevel is not -- it''s really
+    just a consequence of scope.
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-22T14:22:12+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: Scope and the Toplevel | OCaml Programming | Chapter 2 Video 7
+  content: https://www.youtube.com/watch/4SqMkUwakEA?version=3
   thumbnail: https://i1.ytimg.com/vi/4SqMkUwakEA/hqdefault.jpg
   description: 'What looks like mutability in the toplevel is not -- it''s really
     just a consequence of scope.
@@ -1122,8 +2283,32 @@
   author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
   source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: Variable Expressions and Scope | OCaml Programming | Chapter 2 Video 6
+  content: https://www.youtube.com/watch/_TpTC6eo34M?version=3
+  thumbnail: https://i4.ytimg.com/vi/_TpTC6eo34M/hqdefault.jpg
+  description: 'How `let` expressions create scope and shadowing.
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-22T14:20:31+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
 - title: Let Expressions | OCaml Programming | Chapter 2 Video 5
   content: https://www.youtube.com/watch/ug3L97FXC6A
+  thumbnail: https://i2.ytimg.com/vi/ug3L97FXC6A/hqdefault.jpg
+  description: '`let` expressions
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-22T14:19:19+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: Let Expressions | OCaml Programming | Chapter 2 Video 5
+  content: https://www.youtube.com/watch/ug3L97FXC6A?version=3
   thumbnail: https://i2.ytimg.com/vi/ug3L97FXC6A/hqdefault.jpg
   description: '`let` expressions
 
@@ -1146,8 +2331,32 @@
   author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
   source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: If Expressions | OCaml Programming | Chapter 2 Video 3
+  content: https://www.youtube.com/watch/XJ6QPtlPD7s?version=3
+  thumbnail: https://i1.ytimg.com/vi/XJ6QPtlPD7s/hqdefault.jpg
+  description: '`if-then-else` expressions.
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-22T14:10:32+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
 - title: Expressions | OCaml Programming | Chapter 2 Video 2
   content: https://www.youtube.com/watch/3fzrFY-2ZQ8
+  thumbnail: https://i4.ytimg.com/vi/3fzrFY-2ZQ8/hqdefault.jpg
+  description: 'Expressions and values; the OCaml toplevel, utop.
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-22T14:07:37+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: Expressions | OCaml Programming | Chapter 2 Video 2
+  content: https://www.youtube.com/watch/3fzrFY-2ZQ8?version=3
   thumbnail: https://i4.ytimg.com/vi/3fzrFY-2ZQ8/hqdefault.jpg
   description: 'Expressions and values; the OCaml toplevel, utop.
 
@@ -1171,8 +2380,33 @@
   author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
   source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: Five Aspects of Learning a Programming Language | OCaml Programming | Chapter
+    2 Video 1
+  content: https://www.youtube.com/watch/A5IHFZtRfBs?version=3
+  thumbnail: https://i2.ytimg.com/vi/A5IHFZtRfBs/hqdefault.jpg
+  description: 'Syntax, semantics, idioms, libraries, tools.
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-22T14:04:46+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
 - title: Lambdas | OCaml Programming | Chapter 2 Video 9
   content: https://www.youtube.com/watch/zHHCD7MOjmw
+  thumbnail: https://i3.ytimg.com/vi/zHHCD7MOjmw/hqdefault.jpg
+  description: 'More about anonymous functions, aka lambdas.
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-15T18:32:12+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: Lambdas | OCaml Programming | Chapter 2 Video 9
+  content: https://www.youtube.com/watch/zHHCD7MOjmw?version=3
   thumbnail: https://i3.ytimg.com/vi/zHHCD7MOjmw/hqdefault.jpg
   description: 'More about anonymous functions, aka lambdas.
 
@@ -1195,8 +2429,32 @@
   author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
   source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: Anonymous Functions | OCaml Programming | Chapter 2 Video 8
+  content: https://www.youtube.com/watch/JwoIIrj0bcM?version=3
+  thumbnail: https://i3.ytimg.com/vi/JwoIIrj0bcM/hqdefault.jpg
+  description: 'Unnamed function values.
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-15T18:28:12+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
 - title: OCaml | OCaml Programming | Chapter 1 Video 5
   content: https://www.youtube.com/watch/T-DIW1dhYzo
+  thumbnail: https://i1.ytimg.com/vi/T-DIW1dhYzo/hqdefault.jpg
+  description: 'Reasons why we use OCaml.
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-11T17:54:42+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: OCaml | OCaml Programming | Chapter 1 Video 5
+  content: https://www.youtube.com/watch/T-DIW1dhYzo?version=3
   thumbnail: https://i1.ytimg.com/vi/T-DIW1dhYzo/hqdefault.jpg
   description: 'Reasons why we use OCaml.
 
@@ -1220,6 +2478,19 @@
   author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
   source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: Functional Programming - Why Part 2 | OCaml Programming | Chapter 1 Video
+    4
+  content: https://www.youtube.com/watch/eNLm5Xbgmd0?version=3
+  thumbnail: https://i2.ytimg.com/vi/eNLm5Xbgmd0/hqdefault.jpg
+  description: 'More reasons you should learn functional programming.
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-11T17:53:34+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
 - title: Functional Programming - Why Part 1 | OCaml Programming | Chapter 1 Video
     3
   content: https://www.youtube.com/watch/SKr3ItChPSI
@@ -1233,8 +2504,33 @@
   author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
   source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: Functional Programming - Why Part 1 | OCaml Programming | Chapter 1 Video
+    3
+  content: https://www.youtube.com/watch/SKr3ItChPSI?version=3
+  thumbnail: https://i4.ytimg.com/vi/SKr3ItChPSI/hqdefault.jpg
+  description: 'Several reasons why you should learn functional programming.
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-11T17:49:45+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
 - title: Functional Programming - What | OCaml Programming | Chapter 1 Video 2
   content: https://www.youtube.com/watch/JTEwC3HihFc
+  thumbnail: https://i3.ytimg.com/vi/JTEwC3HihFc/hqdefault.jpg
+  description: 'What is functional programming? How does it differ from imperative?
+
+
+    Textbook: https://cs3110.github.io/textbook'
+  published: 2021-06-11T17:46:21+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: Functional Programming - What | OCaml Programming | Chapter 1 Video 2
+  content: https://www.youtube.com/watch/JTEwC3HihFc?version=3
   thumbnail: https://i3.ytimg.com/vi/JTEwC3HihFc/hqdefault.jpg
   description: 'What is functional programming? How does it differ from imperative?
 
@@ -1259,8 +2555,41 @@
   author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
   source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
+- title: Introduction | OCaml Programming | Chapter 1 Video 1
+  content: https://www.youtube.com/watch/MUcka_SvhLw?version=3
+  thumbnail: https://i2.ytimg.com/vi/MUcka_SvhLw/hqdefault.jpg
+  description: 'Learn to program in OCaml!
+
+
+    The textbook is "OCaml Programming: Correct + Efficient + Beautiful": https://cs3110.github.io/textbook
+
+    The lecturer is Michael Clarkson: https://www.cs.cornell.edu/~clarkson/'
+  published: 2021-06-11T14:42:56+00:00
+  author_name: Michael Ryan Clarkson
+  author_uri: https://www.youtube.com/channel/UCX3XfA9qjWjymue2I_hcW1A
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLre5AT9JnKShBOPeuiD9b-I4XROIJhkIU
+  source_title: 'OCaml Programming: Correct + Efficient + Beautiful'
 - title: Building a Functional Email Server with Dominick LoBraico
   content: https://www.youtube.com/watch/cM6mRLvFw54
+  thumbnail: https://i4.ytimg.com/vi/cM6mRLvFw54/hqdefault.jpg
+  description: "Despite a steady trickle of newcomers, email still reigns supreme
+    as the chief communication mechanism for the Information Age. At Jane Street,
+    it\u2019s just as critical as anywhere, but there\u2019s one difference: the system
+    at the heart of our email infrastructure is homegrown. This week, Ron talks to
+    Dominick LoBraico, an engineer working on Jane Street\u2019s technology infrastructure,
+    about how and why we built Mailcore, an email server written and configured in
+    OCaml. They delve into questions around how best to represent the configuration
+    of a complex system, when you should build your own and when you shouldn\u2019t,
+    and the benefits of bringing a code-focused approach to solving systems problems.
+    \n\nYou can find the transcript for this podcast episode along with links to things
+    we discussed at signalsandthreads.com."
+  published: 2020-10-28T15:54:44+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  source_title: Jane Street - Signal & Threads
+- title: Building a Functional Email Server with Dominick LoBraico
+  content: https://www.youtube.com/watch/cM6mRLvFw54?version=3
   thumbnail: https://i4.ytimg.com/vi/cM6mRLvFw54/hqdefault.jpg
   description: "Despite a steady trickle of newcomers, email still reigns supreme
     as the chief communication mechanism for the Information Age. At Jane Street,
@@ -1294,8 +2623,43 @@
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
   source_title: Jane Street - Signal & Threads
+- title: Language Design with Leo White
+  content: https://www.youtube.com/watch/t7eNBh-zrOQ?version=3
+  thumbnail: https://i1.ytimg.com/vi/t7eNBh-zrOQ/hqdefault.jpg
+  description: Equal parts science and art, programming language design is very much
+    an unsolved problem. This week, Ron speaks with Leo White, from Jane Street's
+    Tools & Compilers team, about cutting-edge language features, future work happening
+    on OCaml, and Jane Street's relationship with the broader open-source community.
+    The conversation covers everything from the paradox of language popularity, to
+    advanced type system features like modular implicits and dependent types. Listen
+    in, no programming languages PhD required! You can find the transcript for this
+    podcast episode along with links to things we discussed at signalsandthreads.com.
+  published: 2020-10-21T16:34:54+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  source_title: Jane Street - Signal & Threads
 - title: Python, OCaml, and Machine Learning with Laurent Mazare
   content: https://www.youtube.com/watch/d4SoT7rP28k
+  thumbnail: https://i1.ytimg.com/vi/d4SoT7rP28k/hqdefault.jpg
+  description: 'A conversation with Laurent Mazare about how your choice of programming
+    language interacts with the kind of work you do, and in particular about the tradeoffs
+    between Python and OCaml when doing machine learning and data analysis. Ron and
+    Laurent discuss the tradeoffs between working in a text editor and a Jupyter Notebook,
+    the importance of visualization and interactivity, how tools and practices vary
+    between language ecosystems, and how language features like borrow-checking in
+    Rust and ref-counting in Swift and Python can make machine learning easier.
+
+
+    You can find the transcript for this podcast episode along with links to things
+    we discussed at signalsandthreads.com.'
+  published: 2020-10-07T15:45:03+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  source_title: Jane Street - Signal & Threads
+- title: Python, OCaml, and Machine Learning with Laurent Mazare
+  content: https://www.youtube.com/watch/d4SoT7rP28k?version=3
   thumbnail: https://i1.ytimg.com/vi/d4SoT7rP28k/hqdefault.jpg
   description: 'A conversation with Laurent Mazare about how your choice of programming
     language interacts with the kind of work you do, and in particular about the tradeoffs
@@ -1334,6 +2698,27 @@
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
   source_title: Jane Street - Signal & Threads
+- title: Programmable Hardware with Andy Ray
+  content: https://www.youtube.com/watch/GJX5VbKvh90?version=3
+  thumbnail: https://i4.ytimg.com/vi/GJX5VbKvh90/hqdefault.jpg
+  description: "The ever-widening availability of FPGAs has opened the door to solving
+    a broad set of performance-critical problems in hardware. In this episode, Ron
+    speaks with Andy Ray, who leads Jane Street\u2019s hardware design team. Andy
+    has a long career prior to Jane Street shipping hardware designs for things like
+    modems and video codecs. That work led him to create Hardcaml, a domain-specific
+    language for expressing hardware designs. Ron and Andy talk about the current
+    state-of-the-art in hardware tooling, the economics of FPGAs, and how the process
+    of designing hardware can be improved by applying lessons from software engineering.\n\nHardcaml
+    itself is open-source software available on Github, along with a collection of
+    associated libraries and tools. Andy has also given a talk on Hardcaml called
+    OCaml All The Way Down, and has a post on Jane Street's blog about some of the
+    testing techniques used with Hardcaml.\n\nYou can find the transcript for this
+    episode along with links to related work at signalsandthreads.com."
+  published: 2020-09-17T20:04:22+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  source_title: Jane Street - Signal & Threads
 - title: Unboxed Types for OCaml
   content: https://www.youtube.com/watch/RV-4Xddk0Yc
   thumbnail: https://i3.ytimg.com/vi/RV-4Xddk0Yc/hqdefault.jpg
@@ -1353,8 +2738,59 @@
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
   source_title: Jane Street - Tech Talks
+- title: Unboxed Types for OCaml
+  content: https://www.youtube.com/watch/RV-4Xddk0Yc?version=3
+  thumbnail: https://i3.ytimg.com/vi/RV-4Xddk0Yc/hqdefault.jpg
+  description: "OCaml has a well-deserved reputation for compiling quickly. This is
+    thanks in part to its uniform representation: all values have the same memory
+    layout, so generic code does not need to be specialized and recompiled for each
+    use.\n\nThis uniformity has a downside: some programs waste a lot of time converting
+    back and forth to this uniform representation.\n\nIn this talk, I\u2019ll describe
+    some work-in-progress to remove this overhead, by extending OCaml\u2019s type
+    system to allow other memory layouts, giving the programmer more fine-grained
+    control over how code is compiled.  \n\nStephen is a programming languages researcher
+    and OCaml core developer on Jane Street's Tools and Compilers team. Prior to that,
+    he worked at OCaml Labs, did a PhD on subtyping, and wrote jq. His hobbies include
+    hiking, cooking, and writing about himself in the third person."
+  published: 2019-10-24T13:10:48+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+  source_title: Jane Street - Tech Talks
 - title: Playing Atari Games in OCaml
   content: https://www.youtube.com/watch/QDXfKXi_Q_A
+  thumbnail: https://i2.ytimg.com/vi/QDXfKXi_Q_A/hqdefault.jpg
+  description: 'At Jane Street, we enjoy using OCaml for lots of different things,
+    from FPGA designs to web development. When it comes to Machine Learning, Python
+    is one of the most commonly used languages. Machine learning frameworks such as
+    TensorFlow or PyTorch wrap some highly efficient C++ and GPU implementations of
+    tensor operations in easy to use Python apis. These frameworks also provide automatic
+    differentiation functionalities which are commonly used to train deep learning
+    models.
+
+
+    In this talk we see how we can leverage TensorFlow or PyTorch directly from OCaml
+    so that we can use our favorite programming language to build deep learning models
+    and train them on GPUs. We will consider the Reinforcement Learning setting where
+    an agent is trained to play Atari video games such as Space Invaders or Breakout.
+    Our agents will be based on the Deep Q-Learning approach introduced in 2014.
+
+
+
+    Laurent Mazare
+
+    Laurent first joined Jane Street as a developer in the London office back in 2013
+    working on trading systems. After a short stint at DeepMind in 2017/2018, he is
+    now back at Jane Street as a researcher working on the equities desk in London.
+    Laurent holds a PhD in theoretical computer science from Institut National Polytechnique
+    de Grenoble.'
+  published: 2019-08-13T18:00:45+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+  source_title: Jane Street - Tech Talks
+- title: Playing Atari Games in OCaml
+  content: https://www.youtube.com/watch/QDXfKXi_Q_A?version=3
   thumbnail: https://i2.ytimg.com/vi/QDXfKXi_Q_A/hqdefault.jpg
   description: 'At Jane Street, we enjoy using OCaml for lots of different things,
     from FPGA designs to web development. When it comes to Machine Learning, Python
@@ -1406,8 +2842,51 @@
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
   source_title: Jane Street - Tech Talks
+- title: Jane and the Compiler
+  content: https://www.youtube.com/watch/gXdMFxGdako?version=3
+  thumbnail: https://i4.ytimg.com/vi/gXdMFxGdako/hqdefault.jpg
+  description: "Most of the time, our relationship to programming languages is somewhat
+    remote; we depend on the arcane details of the languages we use, but we don\u2019t
+    usually have much of a say in how those languages evolve.\n\nAt Jane Street, we
+    started out in that mode, as a mere user of the language. But over the last 15
+    years, we\u2019ve moved to a more active stance, where today, we have a team of
+    compiler devs who actively contribute to OCaml, and where we\u2019re more deeply
+    involved in figuring out the future direction of the language.\n\nIn this talk,
+    we discuss that history, touching on how upstream changes impacted us along the
+    way, how we came to start making changes ourselves, and what ongoing projects
+    we\u2019re excited about.\n\nPresented by Yaron Minsky\n\nYaron Minsky joined
+    Jane Street back in 2002, and claims the dubious honor of having convinced the
+    firm to start using OCaml. He also spends way too much time teaching his kids
+    how to program."
+  published: 2018-12-07T19:52:27+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+  source_title: Jane Street - Tech Talks
 - title: OCaml All The Way Down
   content: https://www.youtube.com/watch/X1cgRXhpQLY
+  thumbnail: https://i1.ytimg.com/vi/X1cgRXhpQLY/hqdefault.jpg
+  description: "Did you know that Jane Street uses OCaml for, like, everything? \n\nDid
+    you also know that Jane Street builds FPGA designs? \n\nA problem? \n\nCome and
+    find out how we design and test our FPGAs. We'll have some fun (or terrible disasters)
+    with some demos on the Arty A7 hobbyist FPGA board, with the design expressed
+    using HardCaml, an OCaml library for creating hardware designs, and driven by
+    an embedded software stack written in OCaml and using ports of your favorite Jane
+    Street libraries. \n\nI'll round up with some thoughts on the pros and cons of
+    writing hardware in OCaml, and talk about some ideas we would like to explore
+    to make the process more productive in the future.\n\n \nPresented by: Andy Ray\nAndy
+    has been designing IP cores for nearly 20 years mainly in the areas of networking
+    and video coding. Frustration with standard RTL development processes led him
+    to develop the HardCaml suite of hardware design tools in OCaml. Then one day
+    while down at the pub he got an email from Jane Street wondering about some sort
+    of collaboration, and the rest is history."
+  published: 2018-05-10T14:01:12+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+  source_title: Jane Street - Tech Talks
+- title: OCaml All The Way Down
+  content: https://www.youtube.com/watch/X1cgRXhpQLY?version=3
   thumbnail: https://i1.ytimg.com/vi/X1cgRXhpQLY/hqdefault.jpg
   description: "Did you know that Jane Street uses OCaml for, like, everything? \n\nDid
     you also know that Jane Street builds FPGA designs? \n\nA problem? \n\nCome and
