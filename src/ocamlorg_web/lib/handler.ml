@@ -597,6 +597,13 @@ module Package_helper = struct
                publication = v.publication;
              })
 
+  let search_index_digest ~kind state name =
+    let open Lwt.Syntax in
+    let* search_index_digest =
+      Ocamlorg_package.search_index_digest ~kind state name
+    in
+    search_index_digest |> Option.map Dream.to_base64url |> Lwt.return
+
   let frontend_package ?on_latest_url ?documentation_status state
       (package : Ocamlorg_package.t) : Ocamlorg_frontend.Package.package =
     let name = Ocamlorg_package.name package
@@ -816,11 +823,8 @@ let package_overview t kind req =
   in
   let* sidebar_data = Package_helper.package_sidebar_data ~kind t package in
 
-  let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
-  let search_index_digest =
-    Option.map
-      (fun idx -> idx |> Digest.string |> Dream.to_base64url)
-      maybe_search_index
+  let* search_index_digest =
+    Package_helper.search_index_digest ~kind t package
   in
 
   let package_info = Ocamlorg_package.info package in
@@ -1025,11 +1029,8 @@ let package_documentation t kind req =
                  { title; href; kind = Library; children })
       in
       let* module_map = Ocamlorg_package.module_map ~kind package in
-      let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
-      let search_index_digest =
-        Option.map
-          (fun idx -> idx |> Digest.string |> Dream.to_base64url)
-          maybe_search_index
+      let* search_index_digest =
+        Package_helper.search_index_digest ~kind t package
       in
       let toc = Package_helper.frontend_toc doc.toc in
       let (maptoc : Ocamlorg_frontend.Navmap.toc list) =
@@ -1094,11 +1095,8 @@ let package_file t kind req =
   in
   let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
   let* sidebar_data = Package_helper.package_sidebar_data ~kind t package in
-  let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
-  let search_index_digest =
-    Option.map
-      (fun idx -> idx |> Digest.string |> Dream.to_base64url)
-      maybe_search_index
+  let* search_index_digest =
+    Package_helper.search_index_digest ~kind t package
   in
   let* maybe_doc = Ocamlorg_package.file ~kind package path in
   let</>? doc = maybe_doc in

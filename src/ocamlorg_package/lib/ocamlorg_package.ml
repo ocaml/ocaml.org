@@ -17,12 +17,18 @@ type documentation_status_cache_entry = {
   time : float;
 }
 
+(* TODO: this needs to be computed in ocaml-docs-ci / voodoo and be part of the
+   documentation status information *)
+type search_index_cache_entry = { hash_digest : string option; time : float }
+
 type state = {
   version : string;
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
   mutable stats : Statistics.t option;
-  mutable doc_status : documentation_status_cache_entry Version.Map.t Name.Map.t;
+  mutable doc_status_cache :
+    documentation_status_cache_entry Version.Map.t Name.Map.t;
+  mutable search_index_cache : search_index_cache_entry Version.Map.t Name.Map.t;
 }
 
 let mockup_state (pkgs : t list) =
@@ -41,7 +47,8 @@ let mockup_state (pkgs : t list) =
     packages;
     opam_repository_commit = None;
     stats = None;
-    doc_status = Name.Map.empty;
+    doc_status_cache = Name.Map.empty;
+    search_index_cache = Name.Map.empty;
   }
 
 let read_versions package_name versions =
@@ -104,7 +111,8 @@ let try_load_state () =
       version = Info.version;
       packages = Name.Map.empty;
       stats = None;
-      doc_status = Name.Map.empty;
+      doc_status_cache = Name.Map.empty;
+      search_index_cache = Name.Map.empty;
     }
 
 let save_state t =
@@ -382,6 +390,7 @@ let search_index ~kind t =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
   in
   let url = package_url ^ "index.js" in
+
   let open Lwt.Syntax in
   let* content = http_get url in
   match content with
@@ -390,6 +399,37 @@ let search_index ~kind t =
       Logs.info (fun m -> m "Failed to fetch search index at %s" url);
       Lwt.return None
 
+(* TODO: should be computed by ocaml-docs-ci / voodoo and be part of
+   status.json *)
+let search_index_digest ~kind state t : string option Lwt.t =
+  let open Lwt.Syntax in
+  let get_and_cache () =
+    let+ content = search_index ~kind t in
+    let digest =
+      match content with Some s -> Some (s |> Digest.string) | _ -> None
+    in
+    let entry = { hash_digest = digest; time = Unix.gettimeofday () } in
+    state.search_index_cache <-
+      Name.Map.update t.name
+        (Version.Map.add t.version entry)
+        (Version.Map.singleton t.version entry)
+        state.search_index_cache;
+    digest
+  in
+
+  let has_cache_expired time =
+    Unix.gettimeofday () -. time > Config.package_caches_ttl
+  in
+
+  match
+    Name.Map.find_opt t.name state.search_index_cache
+    |> Option.map (Version.Map.find_opt t.version)
+    |> Option.value ~default:None
+  with
+  | None -> get_and_cache ()
+  | Some { time; _ } when has_cache_expired time -> get_and_cache ()
+  | Some { hash_digest; _ } -> Lwt.return hash_digest
+
 module Documentation_status = Documentation_status
 
 let documentation_status ~kind state t : Documentation_status.t option Lwt.t =
@@ -397,10 +437,9 @@ let documentation_status ~kind state t : Documentation_status.t option Lwt.t =
   let package_url =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
   in
-  let url = package_url ^ "status.json" in
 
   let get_and_cache () =
-    let+ content = http_get url in
+    let+ content = http_get (package_url ^ "status.json") in
     let status =
       match content with
       | Ok s ->
@@ -410,20 +449,20 @@ let documentation_status ~kind state t : Documentation_status.t option Lwt.t =
     let status_entry =
       { documentation_status = status; time = Unix.gettimeofday () }
     in
-    state.doc_status <-
+    state.doc_status_cache <-
       Name.Map.update t.name
         (Version.Map.add t.version status_entry)
         (Version.Map.singleton t.version status_entry)
-        state.doc_status;
+        state.doc_status_cache;
     status
   in
 
   let has_cache_expired time =
-    Unix.gettimeofday () -. time > Config.documentation_status_cache_ttl
+    Unix.gettimeofday () -. time > Config.package_caches_ttl
   in
 
   match
-    Name.Map.find_opt t.name state.doc_status
+    Name.Map.find_opt t.name state.doc_status_cache
     |> Option.map (Version.Map.find_opt t.version)
     |> Option.value ~default:None
   with
