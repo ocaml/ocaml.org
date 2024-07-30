@@ -72,7 +72,6 @@ let page_routes t =
       Dream.get (Url.tutorial ":id") (Handler.tutorial Commit.hash);
       Dream.get Url.playground Handler.playground;
       Dream.get Url.logos Handler.logos;
-      Dream.get Url.video Handler.video;
     ]
 
 let package_route t =

@@ -299,11 +299,7 @@
     %{bin:dream_eml}
     %{dep:cookbook_recipe.eml}
     --workspace
-    %{workspace_root})))
- (rule
-  (target video.ml)
-  (action
-   (run %{bin:dream_eml} %{dep:video.eml} --workspace %{workspace_root}))))
+    %{workspace_root}))))
 
 (subdir
  components/
