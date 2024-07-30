@@ -367,7 +367,7 @@ In OCaml, _pattern matching_ provides a means to inspect data of any kind, excep
 # let rec sum u =
     match u with
     | [] -> 0
-    | x :: v -> x + sum v;; (* :: in a pattern is not the cons operator *)
+    | x :: v -> x + sum v;;
 val sum : int list -> int = <fun>
 
 # sum [1; 4; 3; 2; 5];;
