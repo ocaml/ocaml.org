@@ -238,6 +238,8 @@ module Tutorial = struct
     |> List.map fst
 end
 
+module Video = Video
+
 module Workshop = struct
   include Workshop
 

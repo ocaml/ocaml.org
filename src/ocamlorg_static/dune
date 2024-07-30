@@ -8,6 +8,7 @@
   %{workspace_root}/asset/css/main.css
   %{workspace_root}/asset/planet.xml
   %{workspace_root}/asset/changelog.xml
+  %{workspace_root}/asset/video.xml
   (source_tree %{workspace_root}/asset))
  (action
   (with-stdout-to

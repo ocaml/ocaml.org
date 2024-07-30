@@ -5,6 +5,7 @@
   ocamlorg.global
   ocamlorg.data_intf
   cmarkit
+  ezjsonm
   yaml
   unix
   ptime
@@ -18,6 +19,7 @@
   fpath
   ppx_stable
   hilite
-  re)
+  re
+  xmlm)
  (preprocess
   (pps ppx_deriving_yaml ppx_stable ppx_deriving.show)))

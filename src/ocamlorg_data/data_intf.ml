@@ -575,6 +575,21 @@ module Tutorial = struct
   [@@deriving show]
 end
 
+module Video = struct
+  type t = {
+    title : string;
+    content : string;
+    thumbnail : string;
+    description : string; [@default ""]
+    published : string;
+    author_name : string;
+    author_uri : string;
+    source_link : string;
+    source_title : string;
+  }
+  [@@deriving yaml, show]
+end
+
 module Workshop = struct
   type role = [ `Co_chair | `Chair ] [@@deriving show]
 

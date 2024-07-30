@@ -199,6 +199,12 @@ module Tutorial : sig
   val search_documents : string -> search_document list
 end
 
+module Video : sig
+  include module type of Video
+
+  val all : t list
+end
+
 module Workshop : sig
   include module type of Workshop
 
