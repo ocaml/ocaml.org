@@ -151,6 +151,10 @@ val search_index :
   kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
 (** Retrieve the search index of a given package. *)
 
+val search_index_digest :
+  kind:[< `Package | `Universe of string ] -> state -> t -> string option Lwt.t
+(** Retrieve the hash digest of the search index of a given package. *)
+
 val init : ?disable_polling:bool -> unit -> state
 (** [init ()] initialises the opam-repository state. By default
     [disable_polling] is set to [false], but can be disabled for tests. *)
