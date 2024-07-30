@@ -27,7 +27,6 @@ module Local = struct
                    url = "https://ocaml.org/blog/" ^ s.id;
                    description = s.description;
                    disabled = false;
-                   scrape_all = false;
                  }))
       in
       result
@@ -107,7 +106,6 @@ module External = struct
       name : string;
       url : string;
       disabled : bool option;
-      scrape_all : bool option;
     }
     [@@deriving yaml]
 
@@ -123,14 +121,13 @@ module External = struct
         in
         Ok
           (sources
-          |> List.map (fun { id; name; url; disabled; scrape_all } ->
+          |> List.map (fun { id; name; url; disabled } ->
                  {
                    id;
                    name;
                    url;
                    description = "";
                    disabled = Option.value ~default:false disabled;
-                   scrape_all = Option.value ~default:false scrape_all;
                  }))
       in
       result
@@ -164,14 +161,7 @@ module External = struct
           | Error (`Msg e) -> (
               match m.source with
               | Some { name; url } ->
-                  {
-                    id = "";
-                    name;
-                    url;
-                    description = "";
-                    disabled = false;
-                    scrape_all = false;
-                  }
+                  { id = ""; name; url; description = ""; disabled = false }
               | None ->
                   failwith
                     (e ^ " and there is no source defined in the markdown file")
@@ -325,9 +315,6 @@ module Scraper = struct
     let slug = Utils.slugify title in
     let source_path = "data/planet/" ^ source.id in
     let output_file = source_path ^ "/" ^ slug ^ ".md" in
-    let content = River.content post in
-    let description = River.meta_description post in
-    let no_caml str = not @@ String.is_sub_ignore_case "caml" str in
     if not (Sys.file_exists output_file) then
       let url = River.link post in
       let date = River.date post |> Option.map Syndic.Date.to_rfc3339 in
@@ -340,18 +327,13 @@ module Scraper = struct
           print_endline
             (Printf.sprintf "skipping %s/%s: item does not have a date"
                source.id slug)
-      | _
-        when (not source.scrape_all) && no_caml content
-             && no_caml (Option.value ~default:"" description)
-             && no_caml title ->
-          print_endline
-            (Printf.sprintf "skipping %s/%s: item does not contain caml keyword"
-               source.id slug)
       | Some url, Some date ->
           if not (Sys.file_exists source_path) then Sys.mkdir source_path 0o775;
           let oc = open_out output_file in
+          let content = River.content post in
           let url = String.trim (Uri.to_string url) in
           let preview_image = River.seo_image post in
+          let description = River.meta_description post in
           let author = River.author post in
           let metadata : External.Post.metadata =
             {
