@@ -18,7 +18,7 @@ let uri =
     ~fragment:"anchor"
     ()
 let () =
-  assert (Uri.to_string
+  assert (Uri.to_string uri
            = "https://login:password@ocaml.org:8080/search?param1=a,b&param2=d%C3%A9j%C3%A0%20#anchor")
 
 (* A different approach is to start with a known URI and change some of its components.
