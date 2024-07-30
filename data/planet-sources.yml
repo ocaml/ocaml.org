@@ -1,12 +1,15 @@
 - id: practicalocaml
   name: Practical OCaml
   url: https://practicalocaml.com/rss/
+  scrape_all: true
 - id: ocamlpro
   name: OCamlPro
   url: https://ocamlpro.com/blog/feed
+  scrape_all: true
 - id: ahrefs
   name: Ahrefs
   url: https://medium.com/feed/ahrefs/tagged/ocaml
+  scrape_all: true
 - id: tarides
   name: Tarides
   url: https://tarides.com/feed.xml
@@ -19,48 +22,58 @@
 - id: watch-ocaml
   name: Watch OCaml
   url: https://watch.ocaml.org/feeds/videos.xml
+  scrape_all: true
 - id: cwn
   name: Caml Weekly News
   url: https://alan.petitepomme.net/cwn/cwn.rss
+  scrape_all: true
 - id: andrej
   name: Andrej Bauer
   url: http://math.andrej.com/feed.xml
 - id: ujamjar
   name: Andy Ray
   url: http://www.ujamjar.com/ocaml.xml
+  scrape_all: true
 - id: ashishagarwal
   name: Ashish Agarwal
   url: http://ashishagarwal.org/tag/ocaml/feed/
+  scrape_all: true
 - id: cameleon
   name: Cameleon news
   url: http://www.blogger.com/feeds/7617521785419311079/posts/default
 - id: inria
   name: Caml INRIA
   url: http://caml.inria.fr/news.en.rss
+  scrape_all: true
 - id: coherentpdf
   name: Coherent Graphics
   url: https://coherentpdf.com/blog/?tag=ocaml&feed=rss2
+  scrape_all: true
 - id: coq
   name: Coq
   url: https://coq.inria.fr/rss.xml
 - id: cburnout
   name: Cranial Burnout
   url: http://www.blogger.com/feeds/9108979482982930820/posts/default/-/OCaml
+  scrape_all: true
 - id: erratique
   name: Daniel Bünzli
   url: https://erratique.ch/feeds/news.atom
 - id: dbaelde
   name: David Baelde
   url: http://www.blogger.com/feeds/17133288/posts/default/-/ocaml
+  scrape_all: true
 - id: dutherenverseauborddelatable
   name: David Teller
   url: https://dutherenverseauborddelatable.wordpress.com/category/ocaml/feed/
+  scrape_all: true
 - id: mega-nerd
   name: Erik de Castro Lopo
   url: http://www.mega-nerd.com/erikd/Blog/index.rss20
 - id: emillon
   name: Etienne Millon
   url: http://blog.emillon.org/feeds/ocaml.xml
+  scrape_all: true
 - id: frama-c
   name: Frama-C
   url: http://frama-c.com/rss.xml
@@ -71,6 +84,7 @@
   name: Gaius Hammond
   url: https://gaius.tech/category/ocaml/feed/
   disabled: true
+  scrape_all: true
 - id: reynard
   name: Gemma Gordon (OCaml Labs)
   url: http://reynard.io/feed.xml
@@ -78,6 +92,7 @@
 - id: camlcity
   name: Gerd Stolpmann
   url: http://blog.camlcity.org/blog/rss
+  scrape_all: true
 - id: hongboz
   name: Hong bo Zhang
   url: https://hongboz.wordpress.com/feed/
@@ -87,90 +102,111 @@
 - id: kcsrk
   name: KC Sivaramakrishnan
   url: https://kcsrk.info/atom-ocaml.xml
+  scrape_all: true
 - id: lpw25
   name: Leo White
   url: http://lpw25.net/rss.xml
 - id: skjegstad
   name: Magnus Skjegstad
   url: http://www.skjegstad.com/feeds/ocaml.tag.atom.xml
+  scrape_all: true
 - id: 0branch
   name: Marc Simpson
   url: https://blog.0branch.com/rss.xml
 - id: syntaxexclamation
   name: Matthias Puech
   url: https://syntaxexclamation.wordpress.com/tag/ocaml/feed/
+  scrape_all: true
 - id: mgiovannini
   name: Matías Giovannini
   url: http://www.blogger.com/feeds/5888658295182480819/posts/default
 - id: mlin
   name: Mike Lin
   url: http://www.blogger.com/feeds/3693082774051755513/posts/default/-/OCaml
+  scrape_all: true
 - id: mcclurmc
   name: Mike McClurg
   url: https://mcclurmc.wordpress.com/feed/
 - id: mirage
   name: MirageOS
   url: https://mirage.io/feed.xml
+  scrape_all: true
 - id: ocaml-book
   name: OCaml Book
   url: http://ocaml-book.com/blog?format=rss
+  scrape_all: true
 - id: ocamllabs
   name: OCaml Labs compiler hacking
   url: http://ocamllabs.io/compiler-hacking/rss.xml
+  scrape_all: true
 - id: ocamlcore
   name: OCamlCore.com
   url: http://www.ocamlcore.com/wp/feed/?amp;language=en&language=en
+  scrape_all: true
 - id: ocsigen
   name: Ocsigen project
   url: https://ocsigen.org/feed.xml
+  scrape_all: true
 - id: orbitz
   name: Orbitz
   url: http://functional-orbitz.blogspot.com/feeds/posts/default/-/planetocaml?alt=rss
+  scrape_all: true
 - id: pdonadeo
   name: Paolo Donadeo
   url: http://www.donadeo.net/facets/programming-languages/objective-caml/feed/
+  scrape_all: true
 - id: psellos
   name: Psellos
   url: http://psellos.com/atom.xml
 - id: rjones
   name: Richard Jones
   url: https://rwmj.wordpress.com/tag/ocaml/feed/
+  scrape_all: true
 - id: rgrinberg
   name: Rudi Grinberg
   url: http://rgrinberg.com/blog/atom.xml
 - id: smondet
   name: Sebastien Mondet
   url: https://seb.mondet.org/b/OCaml.rss
+  scrape_all: true
 - id: sfletcher
   name: Shayne Fletcher
   url: http://blog.shaynefletcher.org/feeds/posts/default/-/OCaml
+  scrape_all: true
 - id: szacchiroli
   name: Stefano Zacchiroli
   url: https://upsilon.cc/~zack/tags/ocaml/index.rss
+  scrape_all: true
 - id: talex5
   name: Thomas Leonard
   url: http://roscidus.com/blog/blog/categories/ocaml/atom.xml
+  scrape_all: true
 - id: tvaroquaux
   name: Till Varoquaux
   url: http://www.blogger.com/feeds/6115529230232389198/posts/default
 - id: yansnotes
   name: Yan Shvartzshnaider
   url: http://yansnotes.blogspot.com/feeds/posts/default/-/ocaml
+  scrape_all: true
 - id: ocamljava
   name: OCaml-Java
   url: http://www.ocamljava.org/feed.xml
+  scrape_all: true
 - id: typeocaml
   name: Xinuo Chen
   url: http://typeocaml.com/rss/
+  scrape_all: true
 - id: drup
   name: Gabriel Radanne
   url: http://drup.github.io/feed-ocaml.xml
+  scrape_all: true
 - id: bap
   name: The BAP Blog
   url: https://binaryanalysisplatform.github.io/feed.xml
 - id: baturin
   name: Daniil Baturin
   url: https://baturin.org/blog/atom-ocaml.xml
+  scrape_all: true
 - id: signalsandthreads
   name: Signals and Threads
   url: https://feeds.simplecast.com/L9810DOa
@@ -183,6 +219,11 @@
 - id: emilpriver
   name: Emil Privér
   url: https://priver.dev/tags/ocaml/index.xml
+  scrape_all: true
 - id: melange
   name: Melange Blog
   url: https://melange.re/blog/feed.rss
+  scrape_all: true
+- id: chshersh
+  name: Dmitrii Kovanikov
+  url: https://dev.to/feed/chshersh
