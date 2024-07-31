@@ -6,13 +6,15 @@ News_layout.single_column_layout
 ~alternate:{ href = "/planet.xml"; title = "The OCaml Planet"; type_ = "application/atom+xml" }
 ~current:OCamlPlanet @@
 <div class="bg-white dark:bg-dark-background py-12">
-  <div class="container-fluid">
+  <div class="container-fluid wide">
     <div class="grid grid:cols-1 lg:grid-cols-3 gap-4">
         <div class="col-span-2">
+          <!-- 
           <form action="">
             <label for="filter-type">Filter Type</label>
-            <!-- Add form elements here -->
+            Add form elements here
           </form>
+          -->
           <div class="flex flex-col">
             <% planet |> List.iter (fun (item : Data.Planet.Post.t) -> %>
             <div class="flex flex-col lg:flex-row lg:gap-12 dark:bg-dark-card dark:rounded-lg p-6 border-b border-separator_20 dark:border-none md:border-none mb-4">
@@ -58,18 +60,20 @@ News_layout.single_column_layout
         <div class="col-span-1 lg:flex flex-col p-4 hidden">
           <div class="border-b border-separator_20 dark:border-dark-separator_30 pb-4 mb-4">
             <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">Blog</p>
-            <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">The OCaml Planet</h2>
-            <p class="text-content dark:text-dark-content tracking-widest mb-4">
-              Articles and videos contributed by both experts and passionate from the OCaml community. Looking for in-depth technical articles, project highlights, community news, or insights into the latest projects, this blog has something for everyone.
+            <h1 class="font-bold text-2xl text-title dark:text-dark-title mb-2">The OCaml Planet</h1>
+            <p class="text-content dark:text-dark-content mb-4">
+              Articles and videos contributed by both experts, companies and passionate developers from the OCaml community.
+              From in-depth technical articles, project highlights, community news, or insights into Open Source projects,
+              the OCaml Planet RSS feed aggregator has something for everyone.
             </p>
           </div>
           <div class="mt-4">
-            <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Want your Content to Show Here?</h2>
-            <p class="text-content dark:text-dark-content tracking-widest mb-2">
+            <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Want your Blog Posts or Videos to Show Here?</h2>
+            <p class="text-content dark:text-dark-content mb-2">
               To contribute a blog post, or add your RSS feed, check out the Contributing Guide on GitHub.
             </p>
             <div class="flex lg:flex-row mt-8 mr-4">
-              <%s!  Hero_section.hero_button ~left_icon:(Icons.edit "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~text:("Add you RSS feed!") ~href:("https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md") "" %>
+              <%s!  Hero_section.hero_button ~left_icon:(Icons.edit "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~text:("Add your RSS feed!") ~href:("https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md") "" %>
              </div>
           </div>
         </div>
