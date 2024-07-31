@@ -167,7 +167,7 @@ Community_layout.single_column_layout
                 <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
                 <p class="text-content dark:text-dark-content"><%s workshop.date %></p>
             </div>
-            <div class="bg-primary dark:bg-dark-primary text-white dark:text-white py-1 px-2 rounded font-bold text-center w-32">Read More</div>
+            <div class="bg-primary dark:bg-dark-primary hover:bg-primary_dark dark:hover:bg-dark-primary_40 text-white dark:text-white py-1 px-2 rounded font-bold text-center w-32">Read More</div>
           </a>
         <% ); %>
         <a href="" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View Conferences <%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary  dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
@@ -189,7 +189,7 @@ Community_layout.single_column_layout
               <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
               <p class="text-content dark:text-dark-content"><%s round_name %></p>
           </div> 
-          <div class="bg-primary dark:bg-dark-primary text-white dark:text-white py-1 px-2 rounded font-bold text-center w-32">Read More</div>
+          <div class="bg-primary dark:bg-dark-primary hover:bg-primary_dark dark:hover:bg-dark-primary_40 text-white dark:text-white py-1 px-2 rounded font-bold text-center w-32">Read More</div>
         </a>
         <% ); %>
         <a href="<%s Url.outreachy %>" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View Internship <%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>

@@ -132,11 +132,6 @@ let download class_ =
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
   </svg>
 
-let edit class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-  </svg>
-
 let email class_ =
   <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
@@ -480,3 +475,8 @@ let lock class_=
     <path d="M13 9.5V5.75C13 4.55653 12.5259 3.41193 11.682 2.56802C10.8381 1.72411 9.69347 1.25 8.5 1.25C7.30653 1.25 6.16193 1.72411 5.31802 2.56802C4.47411 3.41193 4 4.55653 4 5.75V9.5M3.25 20.75H13.75C14.3467 20.75 14.919 20.5129 15.341 20.091C15.7629 19.669 16 19.0967 16 18.5V11.75C16 11.1533 15.7629 10.581 15.341 10.159C14.919 9.73705 14.3467 9.5 13.75 9.5H3.25C2.65326 9.5 2.08097 9.73705 1.65901 10.159C1.23705 10.581 1 11.1533 1 11.75V18.5C1 19.0967 1.23705 19.669 1.65901 20.091C2.08097 20.5129 2.65326 20.75 3.25 20.75Z" 
     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>  
+
+let edit class_=
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="<%s class_ %>">
+    <path d="M16.862 4.487L18.549 2.799C18.9007 2.44733 19.3777 2.24976 19.875 2.24976C20.3723 2.24976 20.8493 2.44733 21.201 2.799C21.5527 3.15068 21.7502 3.62766 21.7502 4.125C21.7502 4.62235 21.5527 5.09933 21.201 5.451L6.832 19.82C6.30332 20.3484 5.65137 20.7367 4.935 20.95L2.25 21.75L3.05 19.065C3.26328 18.3486 3.65163 17.6967 4.18 17.168L16.863 4.487H16.862ZM16.862 4.487L19.5 7.125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
