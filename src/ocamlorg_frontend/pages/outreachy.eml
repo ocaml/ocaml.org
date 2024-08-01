@@ -11,7 +11,7 @@ Community_layout.single_column_layout
             <h1 class="font-bold text-3xl md:text-4xl mb-4 text-dark-title dark:text-dark-title">OCaml Outreachy Internships</h1>
             <p class="text-dark-content dark:text-dark-content text-xl md:mb-4">Outreachy offers internship projects for people subject to systemic bias and impacted by underrepresentation in the technical industry. Outreachy internship projects include programming, research, documentation, data science, and more!</p>
             <p class="text-dark-content dark:text-dark-content mt-4 text-xl">In the past years, different entities from the OCaml community have been funding Outreachy internships on OCaml projects.</p>
-            <a href="https://www.outreachy.org/apply/project-selection/" class="bg-primary dark:bg-dark-primary hover:bg-primary_dark dark:hover:bg-dark-primary_40 text-white w-full md:w-auto dark:text-white px-4 md:px-16 py-4 rounded font-bold text-center mt-4 inline-block">Learn more at Outreachy Here</a>
+            <a href="https://www.outreachy.org/apply/project-selection/" class="bg-primary dark:bg-dark-primary hover:bg-primary_dark dark:hover:bg-dark-primary_40 text-white w-full md:w-auto dark:text-white px-4 md:px-16 py-4 rounded font-bold text-center mt-4 inline-block">Learn more at Outreachy</a>
         </div>
     </div>
 </div>
