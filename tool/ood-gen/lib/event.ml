@@ -82,6 +82,42 @@ let all () =
          in
          String.compare t2 t1)
 
+module EventsFeed = struct
+  let create_entry (log : t) =
+    let authors = (Syndic.Atom.author "OCaml Events", []) in
+    let event_type = show_event_type log.event_type in
+    let textual_location = log.city ^ ", " ^ log.country in
+    let start_date_str =
+      log.starts.yyyy_mm_dd ^ "T"
+      ^ Option.value ~default:"00:00" log.starts.utc_hh_mm
+      ^ ":00Z"
+    in
+    let start_date = Syndic.Date.of_rfc3339 start_date_str in
+    let human_readable_date =
+      Format.sprintf "%s %d, %d"
+        (Syndic.Date.month start_date |> Syndic.Date.string_of_month)
+        (Syndic.Date.day start_date)
+        (Syndic.Date.year start_date)
+    in
+    let content =
+      Format.sprintf {|%s takes place in %s starting %s.|} log.title
+        textual_location human_readable_date
+    in
+    let id = Uri.of_string (log.slug ^ " " ^ start_date_str) in
+    Syndic.Atom.entry ~id ~authors
+      ~title:(Syndic.Atom.Text (log.title ^ "  //  " ^ human_readable_date))
+      ~updated:start_date
+      ~links:[ Syndic.Atom.link (Uri.of_string log.url) ]
+      ~categories:[ Syndic.Atom.category event_type ]
+      ~content:(Syndic.Atom.Text content) ()
+
+  let create_feed () =
+    let open Rss in
+    () |> all
+    |> create_feed ~id:"events.xml" ~title:"OCaml Events" ~create_entry
+    |> feed_to_string
+end
+
 let template () =
   Format.asprintf
     {|
