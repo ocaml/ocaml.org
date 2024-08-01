@@ -222,9 +222,6 @@ module.exports = {
           '-webkit-box-orient': 'vertical',
           overflow: 'hidden',
         },
-        '.no-underline-important': {
-          'text-decoration': 'none !important',
-        },
       }
       addUtilities(newUtilities, ['responsive', 'hover'])
     }

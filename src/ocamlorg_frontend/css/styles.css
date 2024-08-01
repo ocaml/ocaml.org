@@ -254,3 +254,7 @@ details summary svg svg {
 summary::-webkit-details-marker {
   display: none;
 }
+
+.overlay {
+  backdrop-filter: blur(1px);
+}
