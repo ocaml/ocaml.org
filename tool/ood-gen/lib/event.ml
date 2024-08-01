@@ -114,7 +114,8 @@ module EventsFeed = struct
   let create_feed () =
     let open Rss in
     () |> all
-    |> create_feed ~id:"events.xml" ~title:"OCaml Events" ~create_entry
+    |> create_entries ~create_entry
+    |> entries_to_feed ~id:"events.xml" ~title:"OCaml Events"
     |> feed_to_string
 end
 

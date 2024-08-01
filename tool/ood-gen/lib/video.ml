@@ -35,7 +35,8 @@ let create_entry (v : t) =
 let create_feed () =
   let open Rss in
   () |> all
-  |> create_feed ~id:"video.xml" ~title:"OCaml Videos" ~create_entry ~span:3653
+  |> create_entries ~create_entry ~days:365
+  |> entries_to_feed ~id:"video.xml" ~title:"OCaml Videos"
   |> feed_to_string
 
 let scrape () =

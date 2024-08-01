@@ -237,10 +237,10 @@ module LocalBlog = struct
   let create_feed source posts =
     let open Rss in
     posts
-    |> create_feed
+    |> create_entries ~create_entry
+    |> entries_to_feed
          ~id:("blog/" ^ source.id ^ "/feed.xml")
          ~title:(source.name ^ " @ OCaml.org")
-         ~create_entry
     |> feed_to_string
 
   let all () =
@@ -271,6 +271,63 @@ let local_blog_all = %a
     (LocalBlog.all ())
 
 module GlobalFeed = struct
+  let create_events_announcement_entry () =
+    let now = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
+    let year, month, _ = now |> Ptime.to_date in
+
+    let start = Ptime.of_date (year, month, 1) |> Option.get in
+    let human_readable_date =
+      Format.sprintf "%s %d"
+        (Syndic.Date.month start |> Syndic.Date.string_of_month)
+        (Syndic.Date.year start)
+    in
+    let start = start |> Ptime.to_rfc3339 in
+    let events =
+      Event.all ()
+      |> List.filter (fun (e : Data_intf.Event.t) ->
+             String.compare e.starts.yyyy_mm_dd start > 0)
+    in
+    let authors = (Syndic.Atom.author "OCaml Events", []) in
+    let render_single_event (event : Data_intf.Event.t) =
+      let textual_location = event.city ^ ", " ^ event.country in
+      let start_date_str =
+        event.starts.yyyy_mm_dd ^ "T"
+        ^ Option.value ~default:"00:00" event.starts.utc_hh_mm
+        ^ ":00Z"
+      in
+      let start_date = Syndic.Date.of_rfc3339 start_date_str in
+      let human_readable_date =
+        Format.sprintf "%s %d, %d"
+          (Syndic.Date.month start_date |> Syndic.Date.string_of_month)
+          (Syndic.Date.day start_date)
+          (Syndic.Date.year start_date)
+      in
+      let content =
+        Format.sprintf {|<li><a href="%s">%s // %s // %s</a></li>|} event.url
+          event.title textual_location human_readable_date
+      in
+      content
+    in
+
+    let content =
+      events
+      |> List.map render_single_event
+      |> String.concat "\n"
+      |> Format.sprintf {|<p>Upcoming OCaml events:</p> <ul>%s</ul>|}
+    in
+
+    let period_start = Syndic.Date.of_rfc3339 start in
+
+    let id = Uri.of_string "https://ocaml.org/events" in
+    Syndic.Atom.entry ~id ~authors
+      ~title:
+        (Syndic.Atom.Text ("Upcoming OCaml Events: " ^ human_readable_date))
+      ~updated:period_start
+      ~links:[ Syndic.Atom.link (Uri.of_string "https://ocaml.org/events") ]
+      ~categories:[ Syndic.Atom.category "events" ]
+      ~content:(Syndic.Atom.Html (None, content))
+      ()
+
   let create_entry (post : Post.t) =
     let content = Syndic.Atom.Html (None, post.body_html) in
     let url = Uri.of_string post.source.url in
@@ -296,9 +353,11 @@ module GlobalFeed = struct
 
   let create_feed () =
     let open Rss in
-    () |> all
-    |> create_feed ~id:"planet.xml" ~title:"The OCaml Planet" ~create_entry
-         ~span:90
+    let blog_entries = all () |> create_entries ~create_entry ~days:90 in
+    let event_announcements = [ create_events_announcement_entry () ] in
+
+    blog_entries @ event_announcements
+    |> entries_to_feed ~id:"planet.xml" ~title:"The OCaml Planet"
     |> feed_to_string
 end
 

@@ -93,8 +93,8 @@ module ChangelogFeed = struct
   let create_feed () =
     let open Rss in
     () |> all
-    |> create_feed ~id:"changelog.xml" ~title:"OCaml Changelog" ~create_entry
-         ~span:365
+    |> create_entries ~create_entry ~days:365
+    |> entries_to_feed ~id:"changelog.xml" ~title:"OCaml Changelog"
     |> feed_to_string
 end
 
