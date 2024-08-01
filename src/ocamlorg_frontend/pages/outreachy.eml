@@ -1,44 +1,75 @@
 let render (metadata : Data.Outreachy.t list)
 =
-Layout.render
+Community_layout.single_column_layout
 ~title:"OCaml Outreachy Internships"
 ~description:"Records Of OCaml Community Past Outreachy Internship Projects"
-~canonical:Url.outreachy @@
-<div class="intro-section-simple dark:dark-intro-section-simple">
+~canonical:Url.outreachy
+~current:Outreachy @@
+<div class="md:bg-[url('/img/community/hero_banner_outreachy.png')] bg-[url('/img/community/hero_banner_outreachy_mobile.png')] bg-cover">
     <div class="container-fluid">
-        <div class="w-full m-auto">
-            <h1 class="font-bold mb-2 text-title dark:text-dark-title">OCaml Outreachy Internships</h1>
-            <p class="text-content dark:text-dark-content">This is a record of all past OCaml Community <a href="https://www.outreachy.org/" target="_blank" class="text-primary dark:text-dark-title hover:underline dark:underline hover:text-primary dark:hover:text-dark-primary">Outreachy</a> Internship Projects.</p>
+        <div class="w-full max-w-[1045px] py-10">
+            <h1 class="font-bold text-3xl md:text-4xl mb-4 text-dark-title dark:text-dark-title">OCaml Outreachy Internships</h1>
+            <p class="text-dark-content dark:text-dark-content text-xl md:mb-4">Outreachy offers internship projects for people subject to systemic bias and impacted by underrepresentation in the technical industry. Outreachy internship projects include programming, research, documentation, data science, and more!</p>
+            <p class="text-dark-content dark:text-dark-content mt-4 text-xl">In the past years, different entities from the OCaml community have been funding Outreachy internships on OCaml projects.</p>
+            <a href="https://www.outreachy.org/apply/project-selection/" class="bg-primary dark:bg-dark-primary hover:bg-primary_dark dark:hover:bg-dark-primary_40 text-white w-full md:w-auto dark:text-white px-4 md:px-16 py-4 rounded font-bold text-center mt-4 inline-block">Learn more at Outreachy</a>
         </div>
     </div>
 </div>
 <div class="py-12 bg-background dark:bg-dark-background">
     <div class="container-fluid">
+        <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-4">Internships</h2>
         <% metadata |> List.iter (fun (rounds : Data.Outreachy.t) -> %>
-            <h2 class="text-title dark:text-dark-title border-b border-primary dark:border-dark-primary p-6 my-2 font-bold"><%s rounds.name %></h2>
-            <div class="grid gap-10 prose dark:prose-invert max-w-4xl">
+        <p class="text-xl font-mono text-title dark:text-dark-white tracking-widest font-medium my-4"><%s rounds.name %></h2>
+            <div class="grid gap-10 max-w-[86rem]">
                 <% rounds.projects |> List.iter (fun (project : Data.Outreachy.project) -> %>
-                    <div x-data="{'is_shown': false}" class="p-5 flex flex-col gap-2">
-                        <h3 class="text-title dark:text-dark-title "><%s project.title %></h3>
-                        <div class="text-content dark:text-dark-content">Mentee: <i class="text-content dark:text-dark-content"><%s project.mentee %></i></div>
-                        <div class="text-content dark:text-dark-content">Mentor(s): <i class="text-content dark:text-dark-content"><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></i></div>
-                        <% if String.length project.description > 240 then ( %>
-                            <div :class="is_shown ? '' : 'relative max-h-20 overflow-hidden'">
-                                <div :class="is_shown? 'hidden' : ''" class="absolute bottom-0 h-10 left-0 right-0 bg-gradient-to-t from-white dark:from-dark-background dark:to-separator_20"></div>
-                                <%s! project.description %>
+                    <div x-data="{'is_shown': false}" class="flex flex-col rounded-lg p-4 border border-card_border dark:border-none bg-[#00000003] dark:bg-dark-card mb-4">
+                        <h3 class="text-title text-xl font-normal dark:text-dark-title m-0"><%s project.title %></h3>
+                        <div class="flex flex-col md:flex-row">
+                            <div class="flex flex-col mr-24">
+                                <p class="text-sm text-content dark:text-dark-content m-2">Mentee</p> 
+                                <div class="flex items-center">
+                                  <div class="shrink-0 inline-flex items-center justify-center text-xl font-medium h-10 w-10 rounded-full bg-avatar-<%s string_of_int ((Hashtbl.hash project.mentee) mod 12 )%> text-white mr-2">
+                                    <%s String.uppercase_ascii (String.sub project.mentee 0 1); %>
+                                    </div>
+                                    <p class="text-content dark:text-dark-content text-sm font-bold"><%s project.mentee %></p>
+                                </div>                                        
                             </div>
-                            <button x-on:click="is_shown= !is_shown" class='text-left hover:underline text-primary font-semibold dark:text-dark-primary hover:text-primary dark:hover:text-dark-primary' x-text="is_shown ? 'Show Less' : 'Show More'"></button>
-                        <% ) else ( %>
-                            <%s! project.description %>
-                        <% ); %>
-                        <div class='flex flex-row gap-4'>
+                            <div class="flex flex-col mr-6">
+                                <p class="text-sm text-content dark:text-dark-content m-2">Mentor(s)</p> 
+                            <div class="flex w-full flex-wrap">
+                              <% project.mentors |> List.iter (fun (mentor: string) -> %>
+                                <div class="flex items-center mr-5 mt-2 md:mt-0">
+                                  <div class="shrink-0 inline-flex items-center justify-center text-xl font-medium h-10 w-10 rounded-full bg-avatar-<%s string_of_int ((Hashtbl.hash mentor) mod 12 )%> text-white mr-2">
+                                    <%s String.uppercase_ascii (String.sub mentor 0 1); %>
+                                    </div>
+                                    <p class="text-content dark:text-dark-content text-sm font-bold"><%s mentor %></p>
+                                </div> 
+                              <% ); %>
+                            </div>                                       
+                            </div>
+                        </div>
+                        <div class="w-full max-w-full prose dark:prose-invert">
+                            <% if String.length project.description > 240 then ( %>
+                                <div :class="is_shown ? '' : 'relative max-h-24 overflow-hidden'">
+                                    <%s! project.description %>
+                                </div>
+                                <button x-show="!is_shown" x-on:click="is_shown= !is_shown" class='text-left text-sm flex items-center pt-2.5 hover:underline text-primary dark:text-dark-primary hover:text-primary dark:hover:text-dark-primary'><span class="mr-2">Show More</span><%s! Icons.caret_down "" %></button>
+                                <button x-show="is_shown" x-on:click="is_shown= !is_shown" class='text-left text-sm flex items-center pt-2.5 hover:underline text-primary dark:text-dark-primary hover:text-primary dark:hover:text-dark-primary'><span class="mr-2">Show Less</span><%s! Icons.caret_down "rotate-180" %></button>
+                            <% ) else ( %>
+                                <%s! project.description %>
+                            <% ); %>
+                        </div>
+                        <div class='flex flex-col md:flex-row gap-2 mt-3 md:mt-5 md:gap-8'>
                             <% (match project.blog with None -> () | Some blog -> %>
-                                <a href="<%s blog %>" target="_blank" class="">Blog</a>
+                                <a href="<%s blog %>" target="_blank" class="flex items-center hover:underline text-primary dark:text-dark-primary">
+                                 <%s! Icons.blog "h-5 mr-1 w-5" %>    
+                                 Blog
+                                </a>
                             <% ); %>
                             <% (match project.video with None -> () | Some video -> %>
-                                <a href="<%s video %>" target="_blank">Video</a>
+                                <a href="<%s video %>" target="_blank" class="flex items-center hover:underline text-primary dark:text-dark-primary"><%s! Icons.video "h-5 mr-1 w-5" %> Video</a>
                             <% ); %>
-                            <a href="<%s project.source %>" target="_blank">Source</a>
+                            <a href="<%s project.source %>" target="_blank" class="flex items-center hover:underline text-primary dark:text-dark-primary"><%s! Icons.github "h-6 mr-1 w-7" %> <span class="text-primary dark:text-dark-primary truncate w-[300px] md:overflow-visible md:text-ellipsis md:w-max"><%s project.source %></span></a>
                         </div>
                     </div>
                 <% ); %>
@@ -46,3 +77,17 @@ Layout.render
         <% ); %>
     </div>
 </div>
+<div class="w-full section-blue-gradient dark:section-blue-gradient">
+    <div class="container-fluid pt-6 pb-12">
+      <p class="uppercase text-sm text-dark-content dark:text-dark-content tracking-widest font-medium my-4">Outreachy</p>
+      <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Upcoming OCaml Outreachy Internships </h2>
+      <p class="text-xl text-dark-content dark:text-dark-content">These internships are specifically designed for people subject to systemic bias and impacted by underrepresentation in the technical industry where they are living. Learn more about opportunities and eligibility at Outreachy.</p>
+      <div class="flex lg:flex-row mt-8">
+        <a href="https://www.outreachy.org/apply/project-selection/" class="group h-16 flex py-4 items-center px-8 bg-white hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-[3px] rounded-lg text-title dark:text-title">
+            <span class="group-hover:text-white dark:group-hover:text-dark-title text-primary dark:text-dark-primary mr-2"><%s! Icons.magnify "h-8 w-8 text-primary dark:text-dark-primary group-hover:text-white dark:group-hover:text-dark-title" %></span> 
+            View all Outreachy Open Apllications
+          </a>
+       </div> 
+    </div>
+</div>
+

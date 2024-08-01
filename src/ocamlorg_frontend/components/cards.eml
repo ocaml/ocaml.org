@@ -2,28 +2,29 @@ let image_url img =
 if String.starts_with ~prefix:"http" img then img else Ocamlorg_static.Media.url ("resources/" ^ img)
 
 let community_resource ~title ~desc ~online_url ~source_url ?(img="") () =
-  <div class="flex flex-col card dark:dark-card rounded-lg border border-separator_30">
-    <a href="<%s online_url %>" class="grow">
+  <div class="flex flex-col card dark:dark-card rounded-lg border border-separator_30 overflow-hidden">
+    <a href="<%s online_url %>" class="flex flex-col grow">
       <div class="w-full h-44 text-white rounded-t-xl bg-cover bg-center" style="background-image: url(<%s image_url img %>)">
       </div>
-      <div class="flex flex-col p-5 grow">
+      <div class="flex flex-col p-5 grow border-t border-separator_30 bg-[#00000003]">
         <h2 class="text-xl font-bold text-title dark:text-dark-title mb-3"><%s title %></h2>
         <p class="text-base text-content dark:text-dark-content font-normal mb-2 grow">
           <%s desc %>
         </p>
+        <div>
+          <div class="flex items-center mt-2">
+            <%s! Icons.link "h-5 w-10 text-primary dark:text-dark-primary max-w-[7%]" %>
+          <p class="text-primary dark:text-dark-primary hover:dark:text-dark-primary hover:underline truncate max-w-[90%] ml-2"><%s online_url %></p>
+        </div>
+% (match source_url with | Some source_url when source_url <> online_url ->
+          <div class="flex items-center mt-2">
+            <%s! Icons.link "h-5 w-10 text-primary dark:text-dark-primary max-w-[7%]" %>
+            <p class="text-primary dark:text-dark-primary hover:underline truncate max-w-[90%] ml-2"><%s source_url %>/p>
+          </div>
+% | _ -> ()) ;
+        </div>
       </div>
     </a>
-
-    <div class="px-5 pb-5">
-      <a href="<%s online_url %>" class="block">
-        <span class="text-sm text-[#D54000] font-normal"><%s online_url %></span>
-      </a>
-% (match source_url with | Some source_url when source_url <> online_url ->
-      <a href="<%s source_url %>" class="block">
-        <span class="text-sm text-[#D54000] font-normal"><%s source_url %></span>
-      </a>
-% | _ -> ()) ;
-    </div>
   </div>
 
 let string_from_event_type = function

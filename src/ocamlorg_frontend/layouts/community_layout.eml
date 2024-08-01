@@ -3,6 +3,7 @@ type section =
   | Jobs
   | Events
   | Resources
+  | Outreachy
 
 let tabs
 ~current =
@@ -11,14 +12,16 @@ let tabs
     | Jobs -> Url.jobs
     | Events -> Url.events
     | Resources -> Url.resources
+    | Outreachy -> Url.outreachy
   in
   let title_of_section = function
     | Overview -> "Overview"
     | Jobs -> "Jobs"
     | Events -> "Events"
     | Resources -> "Resources"
+    | Outreachy -> "Outreachy Internships"
   in
-  Layout.subnav_tabs ~title:"Community" ~current ~sections:[Overview; Jobs; Events; Resources] ~url_of_section ~title_of_section
+  Layout.subnav_tabs ~title:"Community" ~current ~sections:[Overview; Jobs; Events; Resources; Outreachy] ~url_of_section ~title_of_section
 
 let single_column_layout
 ?use_swiper
@@ -38,7 +41,7 @@ inner_html
   ~active_top_nav_item:Community @@
   <%s! tabs ~current %>
   <div class="bg-background dark:bg-dark-background">
-    <div class="flex-1 z-0 z- min-w-0">
+    <div class="flex-1 z-0 min-w-0">
       <%s! inner_html %>
     </div>
   </div>

@@ -223,7 +223,7 @@ module.exports = {
           overflow: 'hidden',
         },
       }
-      addUtilities(newUtilities);
+      addUtilities(newUtilities, ['responsive', 'hover'])
     }
   ],
   safelist: [

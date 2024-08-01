@@ -4,15 +4,13 @@ Community_layout.single_column_layout
 ~description:"Resources from the OCaml Community."
 ~canonical:Url.events
 ~current:Resources @@
-<div class="intro-section-simple dark:dark-intro-section-simple py-12 border-b border-solid border-separator_20 dark:border-dark-separator_30">
+<div class="intro-section-simple dark:dark-intro-section-simple py-12 border-b border-solid border-separator_20 dark:border-none">
   <div class="container-fluid">
     <div class="flex items-center">
-      <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-title dark:text-dark-title">
-        Resources
-      </h1>
+      <h1 class="font-bold text-3xl md:text-4xl mb-4 text-title dark:text-dark-title">Resources from the Community</h1>
     </div>
     <div class="py-6 leading-5 text-content dark:text-dark-content">
-      <p class="text-lg text-content dark:text-dark-content mt-6">A curated list of projects, learning materials, and other resources from the OCaml ecosystem.</p>
+      <p class="text-xl text-content dark:text-dark-content">The OCaml community has a lot of resources created and shared by its members. There are excellent tools and comprehensive documentation available for learning and much more.</p>
     </div>
   </div>
 </div>

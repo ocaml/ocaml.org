@@ -476,7 +476,22 @@ let lock class_=
     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>  
 
+let blog class_ =
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none" class="<%s class_ %>">
+    <path d="M12 7.75H13.5M12 10.75H13.5M6 13.75H13.5M6 16.75H13.5M16.5 7.75H19.875C20.496 7.75 21 8.254 21 8.875V18.25C21 18.8467 20.7629 19.419 20.341 19.841C19.919 20.2629 19.3467 20.5 18.75 20.5M16.5 7.75V18.25C16.5 18.8467 16.7371 19.419 17.159 19.841C17.581 20.2629 18.1533 20.5 18.75 20.5M16.5 7.75V5.125C16.5 4.504 15.996 4 15.375 4H4.125C3.504 4 3 4.504 3 5.125V18.25C3 18.8467 3.23705 19.419 3.65901 19.841C4.08097 20.2629 4.65326 20.5 5.25 20.5H18.75M6 7.75H9V10.75H6V7.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+let magnify class_ =
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="<%s class_ %>">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+  </svg>
+
 let edit class_=
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="<%s class_ %>">
     <path d="M16.862 4.487L18.549 2.799C18.9007 2.44733 19.3777 2.24976 19.875 2.24976C20.3723 2.24976 20.8493 2.44733 21.201 2.799C21.5527 3.15068 21.7502 3.62766 21.7502 4.125C21.7502 4.62235 21.5527 5.09933 21.201 5.451L6.832 19.82C6.30332 20.3484 5.65137 20.7367 4.935 20.95L2.25 21.75L3.05 19.065C3.26328 18.3486 3.65163 17.6967 4.18 17.168L16.863 4.487H16.862ZM16.862 4.487L19.5 7.125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+let caret_down class_ =
+  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="8" viewBox="0 0 15 8" fill="none" class="<%s class_ %>">
+    <path d="M13.5 1L7.25 7.25L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
