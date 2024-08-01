@@ -91,11 +91,11 @@ let community _req =
     Data.Event.all
     |> List.map (fun (event : Data.Event.t) ->
            match event.event_type with
-           | Meetup -> "meetup"
-           | Conference -> "conference"
-           | Seminar -> "seminar"
-           | Hackathon -> "hackathon"
-           | Retreat -> "retreat")
+           | Meetup -> "Meetup"
+           | Conference -> "Conference"
+           | Seminar -> "Seminar"
+           | Hackathon -> "Hackathon"
+           | Retreat -> "Retreat")
     |> List.sort_uniq String.compare
   in
   let events = (upcoming_events, event_types) in
