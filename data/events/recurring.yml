@@ -1,4 +1,10 @@
 recurring:
+  - title: "OCaml Meetup Saar"
+    slug: "ocaml-meetup-saar"
+    event_type: meetup
+    country: "Germany"
+    city: "Saarbruecken"
+    url: https://meetup.com/de-DE/ocaml-meetup-saar/
   - title: "OCaml Users in Paris (OUPS)"
     slug: "ocaml-users-paris-oups"
     event_type: meetup

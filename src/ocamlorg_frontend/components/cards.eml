@@ -79,9 +79,9 @@ module Event = struct
       function formatDate(date) {
         if (!date) return '';
         var day = ('0' + date.getDate()).slice(-2);
-        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const month = date.toLocaleString('default', { month: 'short' });
         var year = date.getFullYear();
-        return day + '-' + month + '-' + year;
+        return month + ' ' + day + ', ' + year;
       }
 
       function getTimeZoneAbbreviation(date) {
@@ -106,7 +106,7 @@ module Event = struct
           <%s string_from_event_type event.event_type %>
         </div>
         <p class="text-xl text-title dark:text-dark-title mb-4 truncate-2-lines">
-          OCaml Users and Developers Workshop 2024</p>
+          <%s event.title %></p>
         <div class="flex items-center mb-3">
           <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
           <p class="text-content dark:text-dark-content"><%s event.city %>, <%s event.country %></p>

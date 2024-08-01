@@ -71,7 +71,7 @@ let decode (recurring_events : recurring_event list) (fpath, (head, body_md)) =
 let all () =
   Utils.map_md_files (decode (recurring_event_all ())) "events/*.md"
   |> List.sort (fun (e1 : t) (e2 : t) ->
-         (* Sort the events by reversed start date. *)
+         (* Sort the events by start date. *)
          let t1 =
            e1.starts.yyyy_mm_dd ^ " "
            ^ Option.value ~default:"00:00" e1.starts.utc_hh_mm
@@ -80,7 +80,7 @@ let all () =
            e2.starts.yyyy_mm_dd ^ " "
            ^ Option.value ~default:"00:00" e2.starts.utc_hh_mm
          in
-         String.compare t2 t1)
+         String.compare t1 t2)
 
 module EventsFeed = struct
   let create_entry (log : t) =
