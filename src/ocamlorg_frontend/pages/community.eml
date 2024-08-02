@@ -112,36 +112,7 @@ Community_layout.single_column_layout
         </h5>   
     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
       <% jobs |> List.iter (fun (job : Data.Job.t) -> %>
-      <a href="<%s job.link %>" class="light-card dark:dark-card rounded-xl overflow-hidden p-4">
-      <div class="flex h-20 items-end mb-4">
-        <img class="h-full rounded border-2 border-separator_30 p-2 max-w-[100px] bg-dark-white" src="<%s job.company_logo %>" alt="company logo">
-        <p class="text-base px-2 text-content dark:text-dark-content opacity-80">
-          <%s job.company %></p>
-      </div>
-      <div class="">
-         <p class="text-lg mb-4 text-title dark:text-dark-title truncate">
-            <%s job.title %>
-         </p>
-        <div class="flex items-center space-x-2">
-            <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary"  %>
-        <p class="text-title dark:text-dark-title">
-            <%s String.concat ", " job.locations %>
-        </p>
-        </div>
-          <% (match job.publication_date with None -> () | Some date -> %>
-        <div class="flex items-center space-x-2 mt-2">
-           <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary"  %>
-        <p class="text-content dark:text-dark-content">
-           <%s date %>
-        </p>
-        </div>
-        <% ); %>
-        <div class="flex items-center mt-2">
-          <%s! Icons.link "h-5 w-10 text-primary dark:text-dark-primary max-w-[7%]" %>
-        <p class="text-primary dark:text-dark-white hover:dark:text-dark-primary hover:underline truncate max-w-[90%] ml-2"><%s job.link %></p>
-          </div>
-        </div>
-      </a>
+      <%s! Cards.job_card job %>
       <% ); %>
     </div>
     <a href="<%s Url.jobs %>" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View all Jobs<%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>

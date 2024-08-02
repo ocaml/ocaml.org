@@ -66,4 +66,18 @@
      %{target}
      (run %{gen_feed} events))))))
 
+(subdir
+ asset/
+ (rule
+  (target job.xml)
+  (deps
+   (:gen_feed %{workspace_root}/tool/ood-gen/bin/feed.exe)
+   %{workspace_root}/data/jobs.yml)
+  (action
+   (chdir
+    %{workspace_root}
+    (with-stdout-to
+     %{target}
+     (run %{gen_feed} job))))))
+
 (data_only_dirs playground data practice)

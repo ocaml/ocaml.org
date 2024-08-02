@@ -5,6 +5,29 @@ let all () =
   Utils.yaml_sequence_file of_yaml "jobs.yml"
   |> List.sort (fun j1 j2 -> compare (job_date j2) (job_date j1))
 
+module JobFeed = struct
+  let create_entry (job : t) =
+    let content = 
+      Syndic.Atom.Text (Printf.sprintf "Company: %s\nLocations: %s\n" job.company (String.concat ", " job.locations)) 
+    in
+    let id = Uri.of_string (job.link) in
+    let authors = (Syndic.Atom.author "Ocaml.org", []) in
+    let updated = match job.publication_date with
+      | Some date_str -> Syndic.Date.of_rfc3339 (date_str ^ "T00:00:00-00:00")
+      | None -> Syndic.Date.of_rfc3339 "1970-01-01T00:00:00Z" in
+    Syndic.Atom.entry ~content ~id ~authors ~title:(Syndic.Atom.Text job.title)
+      ~updated
+      ~links:[ Syndic.Atom.link id ]
+      ()
+
+  let create_feed () =
+    let open Rss in
+    () |> all
+    |> create_entries ~create_entry ~days:365
+    |> entries_to_feed ~id:"job.xml" ~title:"OCaml Jobs"
+    |> feed_to_string
+end
+  
 let template () =
   Format.asprintf {|
 include Data_intf.Job
