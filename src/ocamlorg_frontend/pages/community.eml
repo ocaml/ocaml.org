@@ -85,7 +85,7 @@ Community_layout.single_column_layout
           <%s event_num %>
        </h5> 
         <div class="h-14 w-64 mt-2 border-primary dark:border-primary mb-4">
-          <form action="<%s Url.community %>" method="GET">
+          <form action="<%s Url.events %>" method="GET">
                 <label for="e" class="sr-only">Location</label>
                 <%s! Forms.select
                   ~attrs:{|id="e" name="e" onchange="this.form.submit()"|}
