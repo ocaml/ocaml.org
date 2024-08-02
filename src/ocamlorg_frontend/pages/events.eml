@@ -1,7 +1,7 @@
 let render ~recurring_events ~upcoming_events =
 Community_layout.single_column_layout
-~title:"The Events"
-~description:"The Events page!"
+~title:"Upcoming OCaml Events"
+~description:"Discover OCaml Events all around the world!"
 ~canonical:Url.events
 ~current:Events @@
 <div class="w-full section-blue-gradient dark:bg-none">
