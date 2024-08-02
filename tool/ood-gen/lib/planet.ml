@@ -281,11 +281,16 @@ module GlobalFeed = struct
         (Syndic.Date.month start |> Syndic.Date.string_of_month)
         (Syndic.Date.year start)
     in
+    let cutoff =
+      Ptime.add_span start (Ptime.Span.v (90, 0L))
+      |> Option.get |> Ptime.to_rfc3339
+    in
     let start = start |> Ptime.to_rfc3339 in
     let events =
       Event.all ()
       |> List.filter (fun (e : Data_intf.Event.t) ->
-             String.compare e.starts.yyyy_mm_dd start > 0)
+             String.compare e.starts.yyyy_mm_dd start > 0
+             && String.compare e.starts.yyyy_mm_dd cutoff < 0)
     in
     let authors = (Syndic.Atom.author "OCaml Events", []) in
     let render_single_event (event : Data_intf.Event.t) =
@@ -303,7 +308,8 @@ module GlobalFeed = struct
           (Syndic.Date.year start_date)
       in
       let content =
-        Format.sprintf {|<li><a href="%s">%s // %s // %s</a></li>|} event.url
+        Format.sprintf {|<li><a href="%s">%s // %s // %s</a></li>
+|} event.url
           event.title textual_location human_readable_date
       in
       content
@@ -313,7 +319,7 @@ module GlobalFeed = struct
       events
       |> List.map render_single_event
       |> String.concat "\n"
-      |> Format.sprintf {|<p>Upcoming OCaml events:</p> <ul>%s</ul>|}
+      |> Format.sprintf {|<ul>%s</ul>|}
     in
 
     let period_start = Syndic.Date.of_rfc3339 start in
@@ -321,7 +327,8 @@ module GlobalFeed = struct
     let id = Uri.of_string "https://ocaml.org/events" in
     Syndic.Atom.entry ~id ~authors
       ~title:
-        (Syndic.Atom.Text ("Upcoming OCaml Events: " ^ human_readable_date))
+        (Syndic.Atom.Text
+           ("Upcoming OCaml Events (" ^ human_readable_date ^ " and onwards)"))
       ~updated:period_start
       ~links:[ Syndic.Atom.link (Uri.of_string "https://ocaml.org/events") ]
       ~categories:[ Syndic.Atom.category "events" ]
