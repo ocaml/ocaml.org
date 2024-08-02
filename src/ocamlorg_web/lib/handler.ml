@@ -128,17 +128,16 @@ let community _req =
     (Ocamlorg_frontend.community ~old_workshops ~outreachy_latest_project
        ?selected_event:query ~events jobs_with_count)
 
-type common_event = [
-  | `Event of Data.Event.t
-  | `Recurring of Data.Event.recurring_event
-  ]
+type common_event =
+  [ `Event of Data.Event.t | `Recurring of Data.Event.recurring_event ]
+
 let events _req =
   let ut = Dream.query _req "ut" in
   let ul = Dream.query _req "ul" in
   let rt = Dream.query _req "rt" in
   let rl = Dream.query _req "rl" in
   let recurring_events = Data.Event.RecurringEvent.all in
-  
+
   let current_date =
     let open Unix in
     let tm = localtime (Unix.gettimeofday ()) in
@@ -166,18 +165,18 @@ let events _req =
            | Retreat -> "retreat")
     |> List.sort_uniq String.compare
   in
-  let event_locations = 
+  let event_locations =
     Data.Event.all
     |> List.map (fun (event : Data.Event.t) -> event.city)
     |> List.sort_uniq String.compare
   in
-  let matches_criteria (event: common_event) event_type location = 
+  let matches_criteria (event : common_event) event_type location =
     let event_type_value, city =
       match event with
-      | `Event e -> e.event_type, e.city
-      | `Recurring e -> e.event_type, e.city
+      | `Event e -> (e.event_type, e.city)
+      | `Recurring e -> (e.event_type, e.city)
     in
-    let matches_type = 
+    let matches_type =
       match event_type with
       | None | Some "All" -> true
       | Some e when e = "meetup" -> event_type_value = Data.Event.Meetup
@@ -196,29 +195,29 @@ let events _req =
     matches_type && matches_location
   in
 
-  let filtered_upcoming_events = 
-    List.filter_map (fun event ->
-      let event = `Event event in
-      if matches_criteria event ut ul then
-        match event with
-        | `Event e -> Some e
-        | _ -> None
-      else
-        None
-    ) upcoming_events in
-  let filtered_recurring_events = 
-    List.filter_map (fun event ->
-      let event = `Recurring event in
-      if matches_criteria event rt rl then
-        match event with
-        | `Recurring e -> Some e
-        | _ -> None
-      else
-        None
-    ) recurring_events in
+  let filtered_upcoming_events =
+    List.filter_map
+      (fun event ->
+        let event = `Event event in
+        if matches_criteria event ut ul then
+          match event with `Event e -> Some e | _ -> None
+        else None)
+      upcoming_events
+  in
+  let filtered_recurring_events =
+    List.filter_map
+      (fun event ->
+        let event = `Recurring event in
+        if matches_criteria event rt rl then
+          match event with `Recurring e -> Some e | _ -> None
+        else None)
+      recurring_events
+  in
 
-  Dream.html (Ocamlorg_frontend.events ~upcoming:filtered_upcoming_events ~recurring_events:filtered_recurring_events ?ut ?ul ?rt ?rl ~event_types event_locations)
-
+  Dream.html
+    (Ocamlorg_frontend.events ~upcoming:filtered_upcoming_events
+       ~recurring_events:filtered_recurring_events ?ut ?ul ?rt ?rl ~event_types
+       event_locations)
 
 let paginate ~req ~n items =
   let items_per_page = n in
