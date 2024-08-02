@@ -23,7 +23,7 @@ module JobFeed = struct
   let create_feed () =
     let open Rss in
     () |> all
-    |> create_entries ~create_entry ~days:365
+    |> create_entries ~create_entry
     |> entries_to_feed ~id:"job.xml" ~title:"OCaml Jobs"
     |> feed_to_string
 end
