@@ -334,18 +334,18 @@ conversions between many datatypes. For instance, here are the signatures of
 some of those functions:
 * Lists
   ```ocaml
-  val List.of_seq : 'a list -> 'a Seq.t
-  val List.to_seq : 'a Seq.t -> 'a list
+  val List.to_seq : 'a list -> 'a Seq.t
+  val List.of_seq : 'a Seq.t -> 'a list
   ```
 * Arrays
   ```ocaml
-  val Array.of_seq : 'a array -> 'a Seq.t
-  val Array.to_seq : 'a Seq.t -> 'a array
+  val Array.to_seq : 'a array -> 'a Seq.t
+  val Array.of_seq : 'a Seq.t -> 'a array
   ```
 * Strings
   ```ocaml
-  val String.of_seq : string -> char Seq.t
-  val String.to_seq : char Seq.t -> string
+  val String.to_seq : string -> char Seq.t
+  val String.of_seq : char Seq.t -> string
   ```
 Similar functions are also provided for sets, maps, hash tables (`Hashtbl`), and
 others. When implementing a datatype module, it is
