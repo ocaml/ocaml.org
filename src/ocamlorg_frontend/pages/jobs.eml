@@ -12,7 +12,7 @@ OCaml community."
             <p class="text-content dark:text-dark-content text-xl lg:max-w-[80%]">This is a space where groups, companies, and organisations can advertise their projects directly to the
                 OCaml community.</p>
                <div class="flex lg:flex-row mt-8 mr-4 max-w-[230px]">
-                <%s!  Hero_section.hero_button ~left_icon:(Icons.edit "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~text:("Add a Job Offer") ~href:("https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md") "" %>
+                <%s!  Hero_section.hero_button ~left_icon:(Icons.edit "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~text:("Add a Job Offer") ~href:("https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-job") "" %>
                </div> 
         </div>
     </div>
