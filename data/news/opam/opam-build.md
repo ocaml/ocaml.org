@@ -1,8 +1,9 @@
 ---
 title: "new opam features: \"opam build\""
 authors: [ "Louis Gesbert" ]
-date: 2017-03-16T00:00:00-00:00
+date: "2017-03-16"
 description: "Presentation of the opam build command introduced in opam 2.0"
+tags: [opam]
 ---
 
 > UPDATE: after discussions following this post, this feature was abandoned with

@@ -1,8 +1,9 @@
 ---
 title: "Urgent problem with camlp5"
 authors: [ "David Allsopp" ]
-date: 2018-05-04T00:00:00-00:00
+date: "2018-05-04"
 description: "Instruction to fix an urgent problem with camlp5 7.03 and macOS OCaml 4.06.1"
+tags: [opam]
 ---
 
 # Packaging problem with opam-repository camlp5 7.03 when upgrading to OCaml 4.06.1

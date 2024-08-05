@@ -13,6 +13,7 @@ let create_entries ~create_entry ?days u =
 let entries_to_feed ~id ~title (entries : Syndic.Atom.entry list) =
   let id = Uri.of_string ("https://ocaml.org/" ^ id) in
   let title : Syndic.Atom.title = Text title in
+  let entries = List.sort Syndic.Atom.descending entries in
   let updated = (List.hd entries).updated in
   Syndic.Atom.feed ~id ~title ~updated entries
 

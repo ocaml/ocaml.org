@@ -318,35 +318,11 @@ let workshop req =
 
 let ocaml_planet req =
   let page, number_of_pages, current_items =
-    paginate ~req ~n:10 Data.Planet.Post.all
+    paginate ~req ~n:10 Data.Planet.all
   in
   Dream.html
     (Ocamlorg_frontend.ocaml_planet ~planet:current_items ~planet_page:page
        ~planet_pages_number:number_of_pages)
-
-let local_blog req =
-  let source = Dream.param req "source" in
-  let</>? local_blog = Data.Planet.LocalBlog.get_by_id source in
-  Dream.html
-    (Ocamlorg_frontend.local_blog ~source:local_blog.source
-       ~posts:local_blog.posts)
-
-let blog_post req =
-  let source = Dream.param req "source" in
-  let slug = Dream.param req "slug" in
-  let</>? local_blog = Data.Planet.LocalBlog.get_by_id source in
-  match slug with
-  | "feed.xml" ->
-      Dream.respond
-        ~headers:[ ("Content-Type", "application/xml; charset=utf-8") ]
-        local_blog.rss_feed
-  | _ ->
-      let</>? post =
-        local_blog.posts
-        |> List.find_opt (fun (p : Data.Planet.Post.t) ->
-               String.equal p.slug slug)
-      in
-      Dream.html (Ocamlorg_frontend.blog_post post)
 
 let news req =
   let page, number_of_pages, current_items =

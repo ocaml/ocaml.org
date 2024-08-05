@@ -1,8 +1,9 @@
 ---
 title: "Security in opam's cache handling (before 2.1.5)"
 authors: [ "Reynir", "Hannes"]
-date: 2023-05-31T00:00:00-00:00
+date: "2023-05-31"
 description: We are pleased that opam 2.1.5 has hit the road, since it contains a security fix since the local cache is considered trusted, and not all checksums are verified.
+tags: [opam]
 ---
 
 We are pleased that opam 2.1.5 has hit the road, since it contains a security fix since the local cache is considered trusted, and not all checksums are verified.

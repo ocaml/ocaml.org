@@ -39,6 +39,32 @@ module Academic_institution = struct
   [@@deriving show]
 end
 
+module Blog = struct
+  type source = {
+    id : string;
+    name : string;
+    url : string;
+    description : string;
+    disabled : bool;
+  }
+  [@@deriving show]
+
+  module Post = struct
+    type t = {
+      title : string;
+      url : string;
+      slug : string;
+      source : source;
+      description : string option;
+      authors : string list;
+      date : string;
+      preview_image : string option;
+      body_html : string;
+    }
+    [@@deriving show]
+  end
+end
+
 module Book = struct
   type difficulty = Beginner | Intermediate | Advanced [@@deriving show]
 
@@ -381,37 +407,6 @@ module Paper = struct
   [@@deriving show]
 end
 
-module Planet = struct
-  type source = {
-    id : string;
-    name : string;
-    url : string;
-    description : string;
-    disabled : bool;
-  }
-  [@@deriving show]
-
-  module Post = struct
-    type t = {
-      title : string;
-      url : string option;
-      slug : string;
-      source : source;
-      description : string option;
-      authors : string list;
-      date : string;
-      preview_image : string option;
-      body_html : string;
-    }
-    [@@deriving show]
-  end
-
-  module LocalBlog = struct
-    type t = { source : source; posts : Post.t list; rss_feed : string }
-    [@@deriving show]
-  end
-end
-
 module Release = struct
   type kind = [ `Compiler ] [@@deriving show]
 
@@ -578,7 +573,7 @@ end
 module Video = struct
   type t = {
     title : string;
-    content : string;
+    url : string;
     thumbnail : string;
     description : string; [@default ""]
     published : string;
@@ -637,4 +632,14 @@ module Workshop = struct
     body_html : string;
   }
   [@@deriving of_yaml, show]
+end
+
+(* Depends on Video and Blog modules to define the different kinds of entries of
+   the OCaml Planet *)
+module Planet = struct
+  type entry = BlogPost of Blog.Post.t | Video of Video.t [@@deriving show]
+
+  let date_of_post = function
+    | BlogPost { date; _ } -> date
+    | Video { published; _ } -> published
 end

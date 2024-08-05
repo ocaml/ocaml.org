@@ -1,8 +1,9 @@
 ---
 title: Binary distribution with 0install
 description: 0install provides an easy way to distribute binaries to users, complementing OPAM's support for source distribution.
-date: 2014-10-14T00:00:00-00:00
+date: "2014-10-14"
 authors: [ "Thomas Leonard" ]
+tags: [opam]
 ---
 
 [0install][] provides an easy way to distribute binaries to users, complementing OPAM's support for source distribution.

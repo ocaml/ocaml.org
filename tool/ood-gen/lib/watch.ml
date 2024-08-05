@@ -30,7 +30,7 @@ let of_json json =
   {
     title = Ezjsonm.find json [ "name" ] |> Ezjsonm.get_string;
     description = Ezjsonm.find json [ "description" ] |> get_string_or_none;
-    content = Ezjsonm.find json [ "url" ] |> Ezjsonm.get_string;
+    url = Ezjsonm.find json [ "url" ] |> Ezjsonm.get_string;
     thumbnail =
       "https://watch.ocaml.org"
       ^ (Ezjsonm.find json [ "thumbnailPath" ] |> Ezjsonm.get_string);
@@ -46,7 +46,7 @@ let watch_to_yaml t =
     [
       ("title", `String t.title);
       ("description", `String t.description);
-      ("content", `String t.content);
+      ("url", `String t.url);
       ("thumbnail", `String t.thumbnail);
       ("published", `String t.published);
       ("author_name", `String t.author_name);

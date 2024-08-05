@@ -1,8 +1,9 @@
 ---
 title: "UTop: a much improved interface to the OCaml toplevel"
 description: This is a post about the utop toplevel provided in the OPAM repository as an alternative to the standard OCaml one.
-date: 2014-08-26T00:00:00-00:00
+date: "2014-08-26"
 authors: [ "Jérémie Dimino" ]
+tags: [opam]
 ---
 
 *This is a post about the `utop` toplevel provided in the OPAM

@@ -208,10 +208,11 @@
 (rule
  (target planet.ml)
  (deps
-  %{workspace_root}/data/planet-local-blogs.yml
   %{workspace_root}/data/planet-sources.yml
   (source_tree %{workspace_root}/data/planet)
-  (source_tree %{workspace_root}/data/planet-local-blogs)
+  %{workspace_root}/data/video-watch.yml
+  %{workspace_root}/data/video-youtube.yml
+  (source_tree %{workspace_root}/data/news)
   (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
   (chdir
