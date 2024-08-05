@@ -1,8 +1,9 @@
 ---
 title: "Last stretch! Repository upgrade and opam 2.0.0 roadmap"
 authors: [ "Raja Boujbel", "Louis Gesbert"]
-date: 2018-08-02T00:00:00-00:00
+date: "2018-08-02"
 description: "opam respository upgrade and opam 2.0.0 roadmap"
+tags: [opam]
 ---
 
 A few days ago, we released [opam 2.0.0~rc4](https://opam.ocaml.org/blog/opam-2-0-0-rc4/), and explained that this final release candidate was expected be promoted to 2.0.0, in sync with an upgrade to the [opam package repository](https://github.com/ocaml/opam-repository). So here are the details about this!

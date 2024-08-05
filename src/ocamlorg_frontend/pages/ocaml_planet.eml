@@ -1,4 +1,47 @@
-let render ~(planet : Data.Planet.Post.t list) ~planet_pages_number ~planet_page =
+let render_blog_post (post : Data_intf.Blog.Post.t) =
+  <div class="flex flex-col lg:flex-row lg:gap-12 dark:bg-dark-card dark:rounded-lg p-6 border-b border-separator_20 dark:border-none md:border-none mb-4">
+      <div class="space-y-3 mt-2 lg:mt-0 flex flex-col flex-1">
+          <a href="<%s post.url %>"
+              class="block text-xl text-title dark:text-dark-title hover:text-primary dark:hover:text-dark-primary"><%s post.title %></a>
+          <a href="<%s post.url %>" class="text-content dark:text-dark-content">
+              <%s Option.value ~default:"" post.description %>
+          </a>
+          <div class="flex items-center flex-wrap gap-[4px]">
+              <p class="text-content dark:text-dark-content text-sm mr-8 font-bold"><%s Utils.human_time post.date %></p>
+              <p class="text-content dark:text-dark-content font-bold text-sm mr-8"><%s post.source.name %></p>
+                <a href="<%s Url.events %>" class="text-primary dark:text-dark-primary flex items-center dark:hover:text-dark-primary hover:underline group"><%s! Icons.link "h-5 w-5 mr-1 text-primary dark:text-dark-primary group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>Read article</a>  
+          </div>
+      </div>
+      <div class="flex justify-center w-100 items-center mt-4 md:mt-4">
+      <% (match post.preview_image with | None -> %>                 
+          <div class="w-full md:w-[300px]">
+              <a href="<%s post.url %>">
+                <div class="relative w-full h-[194px] overflow-hidden bg-event-5">
+                  <div class="flex flex-col justify-center items-center z-10 absolute top-0 right-0 bottom-0 left-0">
+                    <img class="w-[60px] mb-2" src="<%s! Ocamlorg_static.Asset.url "img/community/camel.svg" %>" alt="camel head illustration">
+                    <p class="uppercase lg:text-4xl text-2xl tracking-widest text-white"> [ARTICLE]</p>
+                  </div>
+                  <div class="absolute inset-0 bg-[#C546000D] clip-triangle"></div>
+                </div>
+              </a>
+          </div>
+      <% | Some image -> %>
+          <div class="w-full md:w-[300px]">
+              <a href="<%s post.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
+          </div>   
+      <% ); %>
+      </div>
+  </div>
+
+let render_video (video : Data_intf.Video.t) =
+  <div class="flex flex-col lg:flex-row lg:gap-12 dark:bg-dark-card dark:rounded-lg p-6 border-b border-separator_20 dark:border-none md:border-none mb-4">
+    <a href="<%s video.url %>" target="_blank">
+      <h2 class="dark:text-dark-title text-title"><%s video.title %></h2>
+      <img src="<%s video.thumbnail %>">
+    </a>
+  </div>
+
+let render ~(planet : Data.Planet.entry list) ~planet_pages_number ~planet_page =
 News_layout.single_column_layout
 ~title:"The OCaml Planet"
 ~description:"The RSS aggregator for the OCaml community."
@@ -16,41 +59,11 @@ News_layout.single_column_layout
           </form>
           -->
           <div class="flex flex-col">
-            <% planet |> List.iter (fun (item : Data.Planet.Post.t) -> %>
-            <div class="flex flex-col lg:flex-row lg:gap-12 dark:bg-dark-card dark:rounded-lg p-6 border-b border-separator_20 dark:border-none md:border-none mb-4">
-                <div class="space-y-3 mt-2 lg:mt-0 flex flex-col flex-1">
-                    <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"
-                        class="block text-xl text-title dark:text-dark-title hover:text-primary dark:hover:text-dark-primary"><%s item.title %></a>
-                    <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>" class="text-content dark:text-dark-content">
-                        <%s Option.value ~default:"" item.description %>
-                    </a>
-                    <div class="flex items-center flex-wrap gap-[4px]">
-                        <p class="text-content dark:text-dark-content text-sm mr-8 font-bold"><%s Utils.human_time item.date %></p>
-                        <p class="text-content dark:text-dark-content font-bold text-sm mr-8"><%s item.source.name %></p>
-                         <a href="<%s Url.events %>" class="text-primary dark:text-dark-primary flex items-center dark:hover:text-dark-primary hover:underline group"><%s! Icons.link "h-5 w-5 mr-1 text-primary dark:text-dark-primary group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>Read article</a>  
-                    </div>
-                </div>
-                <div class="flex justify-center w-100 items-center mt-4 md:mt-4">
-                <% (match item.preview_image with | None -> %>                 
-                    <div class="w-full md:w-[300px]">
-                        <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>">
-                          <div class="relative w-full h-[194px] overflow-hidden bg-event-5">
-                            <div class="flex flex-col justify-center items-center z-10 absolute top-0 right-0 bottom-0 left-0">
-                              <img class="w-[60px] mb-2" src="<%s! Ocamlorg_static.Asset.url "img/community/camel.svg" %>" alt="camel head illustration">
-                              <p class="uppercase lg:text-4xl text-2xl tracking-widest text-white"> [ARTICLE]</p>
-                            </div>
-                            <div class="absolute inset-0 bg-[#C546000D] clip-triangle"></div>
-                          </div>
-                        </a>
-                    </div>
-                <% | Some image -> %>
-                    <div class="w-full md:w-[300px]">
-                        <a href="<%s Option.value ~default:(Url.blog_post item.source.id item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
-                    </div>   
-                <% ); %>
-                </div>
-            </div>
-            <% ); %>
+            <%s! planet
+              |> List.map (fun (item : Data.Planet.entry) -> match item with 
+                | BlogPost p -> render_blog_post p 
+                | Video v -> render_video v )
+              |> String.concat "\n" ; %>
           </div>
           <div class="flex items-start">
             <%s! Pagination.render ~total_page_count:planet_pages_number ~page_number:planet_page ~base_url:Url.ocaml_planet ~queries:[]%> 

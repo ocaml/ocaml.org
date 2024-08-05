@@ -1,7 +1,7 @@
 ---
 title: 'Building the OCaml GPT library'
 description: 'In this tutorial, we will explore the process I went through to build my first OCaml library.'
-date: 2023-08-07T06:32:00-00:00
+date: "2023-08-07"
 preview_image:
 featured:
 authors:

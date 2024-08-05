@@ -95,7 +95,7 @@ let set_6 (x0, x1, x2, x3, x4, x5, _) x6 = (x0, x1, x2, x3, x4, x5, Some x6)
 
 let video_opt source = function
   | ( Some title,
-      Some content,
+      Some url,
       Some thumbnail,
       Some description,
       Some published,
@@ -104,7 +104,7 @@ let video_opt source = function
       Some
         {
           title;
-          content;
+          url;
           thumbnail;
           description;
           published;
@@ -149,7 +149,7 @@ let all () =
 module VideoSet = Set.Make (struct
   type nonrec t = t
 
-  let compare a b = compare a.content b.content
+  let compare a b = compare a.url b.url
 end)
 
 let scrape yaml_file =

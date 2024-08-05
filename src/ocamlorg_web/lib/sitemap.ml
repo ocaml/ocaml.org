@@ -45,8 +45,6 @@ let urlables =
       Urlable (Governance.teams, fun r -> to_url @@ Url.governance_team r.id);
       Urlable (Is_ocaml_yet.all, fun r -> to_url @@ Url.is_ocaml_yet r.id);
       Urlable (News.all, fun r -> to_url @@ Url.news_post r.slug);
-      Urlable
-        (Planet.local_posts, fun r -> to_url @@ Url.blog_post r.source.id r.slug);
       Urlable (Release.all, fun r -> to_url @@ Url.release r.version);
       Urlable (Success_story.all, fun r -> to_url @@ Url.success_story r.slug);
       Urlable (Tool_page.all, fun r -> to_url @@ Url.tool_page r.slug);

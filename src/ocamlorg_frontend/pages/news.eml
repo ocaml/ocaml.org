@@ -10,6 +10,11 @@ News_layout.single_column_layout
       <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-title dark:text-dark-title">
         News
       </h1>
+
+       <a href="/news.xml" class="text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary ml-4 lg:ml-6">
+        <span class="sr-only">RSS</span>
+        <%s! Icons.rss "h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" %>
+      </a>
     </div>
 
     <p class="text-lg text-content dark:text-dark-content mt-6">The latest news from the OCaml teams.</p>
