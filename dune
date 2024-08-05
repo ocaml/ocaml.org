@@ -69,7 +69,7 @@
 (subdir
  asset/
  (rule
-  (target job.xml)
+  (target jobs.xml)
   (deps
    (:gen_feed %{workspace_root}/tool/ood-gen/bin/feed.exe)
    %{workspace_root}/data/jobs.yml)

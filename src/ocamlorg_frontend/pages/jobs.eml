@@ -27,7 +27,7 @@ OCaml community."
             </h5>
             <div class="ml-4 flex items-center">
                 <%s! Icons.rss "h-6 w-6 md:h-8 text-primary dark:text-dark-title pb-1" %>
-              <a href="/job.xml" class="text-primary dark:text-dark-white hover:dark:text-dark-primary hover:underline dark:underline ml-2">Subscribe by RSS to receive all Jobs
+              <a href="/jobs.xml" class="text-primary dark:text-dark-white hover:dark:text-dark-primary hover:underline dark:underline ml-2">Subscribe by RSS to receive all Jobs
                 <span class="sr-only">Job RSS</span>
               </a>
             </div>
