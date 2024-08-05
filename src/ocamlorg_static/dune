@@ -10,6 +10,7 @@
   %{workspace_root}/asset/changelog.xml
   %{workspace_root}/asset/video.xml
   %{workspace_root}/asset/events.xml
+  %{workspace_root}/asset/jobs.xml
   (source_tree %{workspace_root}/asset))
  (action
   (with-stdout-to

@@ -11,26 +11,37 @@ OCaml community."
             <h1 class="text-title dark:text-dark-title font-bold mb-2">OCaml Job Board</h1>
             <p class="text-content dark:text-dark-content text-xl lg:max-w-[80%]">This is a space where groups, companies, and organisations can advertise their projects directly to the
                 OCaml community.</p>
+               <div class="flex lg:flex-row mt-8 mr-4 max-w-[230px]">
+                <%s!  Hero_section.hero_button ~left_icon:(Icons.edit "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~text:("Add a Job Offer") ~href:("https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-job") "" %>
+               </div> 
         </div>
     </div>
 </div>
 <div class="py-12 bg-background dark:bg-dark-background">
     <div class="container-fluid">
-        <div class="flex justify-between items-center">
-            <% let job_num = match List.length jobs with 0 -> "No Job" | 1 -> "1 Job" | l -> Printf.sprintf "%i Jobs" l in %>
-                <h5 class="font-bold text-content dark:text-dark-content">
-                    <%s job_num %>
-                </h5>
-                <div class="h-14 w-64">
-                    <form action="<%s Url.jobs %>" method="GET">
-                        <label for="c" class="sr-only">Location</label>
+        <div class="flex flex-col justify-between">
+          <div class="flex item-center">
+            <% let job_num = match List.length jobs with 0 -> "No Job" | 1 -> "1 Job" | l -> Printf.sprintf "Jobs (%i)" l in %>
+            <h5 class="font-bold text-title dark:text-dark-title">
+                <%s job_num %>
+            </h5>
+            <div class="ml-4 flex items-center">
+                <%s! Icons.rss "h-6 w-6 md:h-8 text-primary dark:text-dark-title pb-1" %>
+              <a href="/jobs.xml" class="text-primary dark:text-dark-white hover:dark:text-dark-primary hover:underline dark:underline ml-2">Subscribe by RSS to receive all Jobs
+                <span class="sr-only">Job RSS</span>
+              </a>
+            </div>
+          </div>
+                <div class="mt-4 h-14 w-64">
+                   <form action="<%s Url.jobs %>" method="GET">
+                      <label for="c" class="sr-only">Location</label>
                         <%s! Forms.select
-                            ~attrs:{|id="c" name="c" onchange="this.form.submit()"|}
-                            ~options:([("All", "Location"); ("Remote", "Remote")] @ (locations |> List.map (fun item -> (item, item))))
-                            ~selected:location
-                            "" %>
+                         ~attrs:{|id="c" name="c" onchange="this.form.submit()"|}
+                         ~options:([("All", "Location"); ("Remote", "Remote")] @ (locations |> List.map (fun item -> (item, item))))
+                          ~selected:location
+                          "" %>
                     </form>
-                </div>
+                </div>   
         </div>
         <% (match List.length jobs with | 0 -> %>
         <div class="flex flex-col items-center justify-center pt-24 space-y-4 text-content">
@@ -40,42 +51,11 @@ OCaml community."
             <div class="text-xl">No Jobs found</div>
         </div>
         <% | _ -> %>
-        <div class="grid grid-cols-1 pb-8 lg:grid-cols-3 gap-8 mt-12" x-data="{ location: '<%s location %>' }">
+        <div class="grid grid-cols-1 pb-8 lg:grid-cols-3 gap-8 mt-4" x-data="{ location: '<%s location %>' }">
             <% jobs |> List.iter (fun (item : Data.Job.t) -> %>
-            <a href="<%s item.link %>"
-                target="_blank"
-                class="card dark:dark-card rounded-xl overflow-hidden p-4"
-                :class="{ 'hidden': location != 'All' && ([<%s! String.concat "," (List.map (fun s -> "\'" ^ Dream.html_escape s ^ "\'") item.locations) %>].indexOf(location) == -1)  }">
-                <div class="flex h-20 items-end mb-4">
-                 <img class="h-full rounded border-2 border-separator_30 p-2 max-w-[100px] bg-dark-white" src="<%s item.company_logo %>" alt="">
-                 <p class="text-base px-2 text-content dark:text-dark-content opacity-80">
-                 <%s item.company %></p>
-                </div>
-                <div class="">
-                    <p class="text-lg mb-4 text-title dark:text-dark-title truncate">
-                        <%s item.title %>
-                    </p>
-                    <div class="flex items-center space-x-2">
-                        <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary"  %>
-                        <p class="text-title dark:text-dark-title">
-                            <%s String.concat ", " item.locations %>
-                        </p>
-                    </div>
-                    <% (match item.publication_date with None -> () | Some date -> %>
-                    <div class="flex items-center space-x-2 mt-2">
-                        <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary"  %>
-                        <p class="text-content dark:text-dark-content">
-                            <%s date %>
-                        </p>
-                    </div>
-                    <% ); %>
-                </div>
-            </a>
+            <%s! Cards.job_card item %>
             <% ); %>
         </div>
         <% ); %>
-        <div class="prose dark:prose-invert">
-        If you want to contribute a job post, check out the <a class="text-primary dark:text-dark-primary" href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-job" target="_blank">Contributing Guide</a> on GitHub.
-        </div>
     </div>
 </div>
