@@ -1,12 +1,14 @@
 let render 
-?(ut = "All")
-?(ul = "All")
-?(rt = "All")
-?(rl = "All")
+?(upcoming_type = "All")
+?(upcoming_location = "All")
+?(recurring_type = "All")
+?(recurring_location = "All")
 ~upcoming
 ~recurring_events
-~event_types
-event_locations =
+~upcoming_event_types
+~recurring_event_types
+upcoming_event_locations
+recurring_event_locations =
 Community_layout.single_column_layout
 ~title:"Upcoming OCaml Events"
 ~description:"Discover OCaml Events all around the world!"
@@ -33,29 +35,35 @@ Community_layout.single_column_layout
       <div class="flex items-center mb-4"> 
         <% let event_num = match List.length upcoming with 0 -> "No Upcoming Event" | 1 -> "Upcoming Events (1)" | l -> Printf.sprintf "Upcoming Events (%i)" l in %>
         <h5 class="font-bold text-title dark:text-dark-white"> <%s event_num %> </h5>
-        <div class="ml-4 flex items-center">
+        <div class="ml-4 hidden md:flex items-center">
           <%s! Icons.rss "h-6 w-6 md:h-8 text-primary dark:text-dark-title pb-1" %>
         <a href="/events.xml" class="text-primary dark:text-dark-white hover:dark:text-dark-primary hover:underline dark:underline ml-2">Subscribe by RSS to receive all Events
           <span class="sr-only">Events RSS</span>
         </a>
       </div>
        </div>
-        <div class="h-14 mt-2 border-primary dark:border-primary flex mb-4">
-          <form class="flex w-max gap-2" action="<%s Url.events %>" method="GET">
-                <label for="location" class="sr-only">Location</label>
+        <div class="h-max mt-2 border-primary dark:border-primary flex mb-4">
+          <form class="flex flex-col md:flex-row w-[450px] gap-2" action="<%s Url.events %>" method="GET">
+                <label for="upcoming_location" class="sr-only mb-2 md:mb-0">Location</label>
                 <%s! Forms.select
-                  ~attrs:{|id="ul" name="ul" onchange="this.form.submit()"|}
-                  ~options:([("All", "Select a Location")] @ ( event_locations |> List.map (fun item -> (item, item))))
-                  ~selected:ul
+                  ~attrs:{|id="upcoming_location" name="upcoming_location" onchange="this.form.submit()"|}
+                  ~options:([("All", "Select a Location")] @ ( upcoming_event_locations |> List.map (fun item -> (item, item))))
+                  ~selected:upcoming_location
                  "" %>
-                 <label for="ut" class="sr-only">Location</label>
+                 <label for="upcoming_type" class="sr-only">Location</label>
                  <%s! Forms.select
-                  ~attrs:{|id="ut" name="ut" onchange="this.form.submit()"|}
-                  ~options:([("All", "Select Event Type")] @ ( event_types |> List.map (fun item -> (item, item))))
-                  ~selected:ut
+                  ~attrs:{|id="upcoming_type" name="upcoming_type" onchange="this.form.submit()"|}
+                  ~options:([("All", "Select Event Type")] @ ( upcoming_event_types |> List.map (fun item -> (item, item))))
+                  ~selected:upcoming_type
                  "" %>
           </form>
-        </div> 
+        </div>
+        <div class="flex md:hidden items-center mb-4">
+          <%s! Icons.rss "h-6 w-6 md:h-8 text-primary dark:text-dark-title pb-1" %>
+        <a href="/events.xml" class="text-primary dark:text-dark-white hover:dark:text-dark-primary hover:underline dark:underline ml-2">Subscribe by RSS to receive all Events
+          <span class="sr-only">Events RSS</span>
+        </a>
+      </div>
         <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
         <% upcoming |> List.iter (fun (event : Data.Event.t) -> %>
         <%s! Cards.Event.upcoming_event event %>
@@ -68,23 +76,23 @@ Community_layout.single_column_layout
       <% let event_num = match List.length recurring_events with 0 -> "No Recurring Event" | 1 -> "Recurring Events (1)" | l -> Printf.sprintf "Recurring Events (%i)" l in %>
       <h5 class="font-bold text-title dark:text-dark-white"> <%s event_num %> </h5>
     </div>
-    <div class="h-14 mt-2 border-primary dark:border-primary flex mb-2">
-      <form class="flex w-max gap-2" action="<%s Url.events %>" method="GET">
-            <label for="location" class="sr-only">Location</label>
+    <div class="h-max mt-2 border-primary dark:border-primary flex mb-4">
+      <form class="flex flex-col md:flex-row w-[450px] gap-2" action="<%s Url.events %>" method="GET">
+            <label for="recurring_location" class="sr-only">Location</label>
             <%s! Forms.select
-              ~attrs:{|id="rl" name="rl" onchange="this.form.submit()"|}
-              ~options:([("All", "Select a Location")] @ ( event_locations |> List.map (fun item -> (item, item))))
-              ~selected:rl
+              ~attrs:{|id="recurring_location" name="recurring_location" onchange="this.form.submit()"|}
+              ~options:([("All", "Select a Location")] @ ( recurring_event_locations |> List.map (fun item -> (item, item))))
+              ~selected:recurring_location
             "" %>
-            <label for="ut" class="sr-only">Location</label>
+            <label for="recurring_type" class="sr-only">Location</label>
             <%s! Forms.select
-              ~attrs:{|id="rt" name="rt" onchange="this.form.submit()"|}
-              ~options:([("All", "Select Event Type")] @ ( event_types |> List.map (fun item -> (item, item))))
-              ~selected:rt
+              ~attrs:{|id="recurring_type" name="recurring_type" onchange="this.form.submit()"|}
+              ~options:([("All", "Select Event Type")] @ ( recurring_event_types |> List.map (fun item -> (item, item))))
+              ~selected:recurring_type
             "" %>
       </form>
     </div> 
-    <div class="grid lg:grid-cols-3 gap-8 lg:gap-10">
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
       <% recurring_events |> List.iter (fun (recurring_events : Data.Event.RecurringEvent.t) -> %>
        <%s! Cards.Event.recurring_event recurring_events %>
       <% ); %>
