@@ -55,7 +55,7 @@ Replace `<shell>` with your actual shell type (`bash`, `zsh`, `fish`, etc.).
 
 In your OCaml project directory, create a file named `.envrc` and add the following line to automatically load the opam environment:
 ```bash
-eval $(opam env)
+layout opam
 ```
 
 4. Allow `direnv`
@@ -75,7 +75,7 @@ Now, whenever you navigate to your OCaml project directory, `direnv` will automa
 
 Suppose you have an OCaml project in directory `disco` and local opam switch is associated to it, and a `.envrc` file in that directory containing the following:
 ```bash
-eval $(opam env)
+layout opam
 ```
 After running `direnv allow`, `direnv` will handle the opam switch activation for you.
 
