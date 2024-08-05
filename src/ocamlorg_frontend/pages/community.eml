@@ -141,7 +141,7 @@ Community_layout.single_column_layout
             <div class="bg-primary dark:bg-dark-primary hover:bg-primary_dark dark:hover:bg-dark-primary_40 text-white dark:text-white py-1 px-2 rounded font-bold text-center w-32">Read More</div>
           </a>
         <% ); %>
-        <a href="" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View Conferences <%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary  dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
+        <a href="/workshops" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View Conferences <%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary  dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
         </a> 
       </div> 
       <div class="flex flex-col">
