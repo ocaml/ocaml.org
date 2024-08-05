@@ -49,7 +49,7 @@ let page_routes t =
       Dream.get (Url.release ":id") Handler.release;
       Dream.get (Url.workshop ":id") Handler.workshop;
       Dream.get Url.ocaml_planet Handler.ocaml_planet;
-      Dream.get "/news.xml" (Dream.static ~loader:asset_loader "news.xml");
+      Dream.get "/news.xml" (Dream.static ~loader:asset_loader "");
       Dream.get Url.news Handler.news;
       Dream.get (Url.news_post ":id") Handler.news_post;
       Dream.get Url.jobs Handler.jobs;
