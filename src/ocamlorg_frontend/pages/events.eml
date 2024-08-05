@@ -1,8 +1,8 @@
 let render 
-?(upcoming_type = "All")
-?(upcoming_location = "All")
-?(recurring_type = "All")
-?(recurring_location = "All")
+?(event_type = "All")
+?(event_location = "All")
+?(recurring_event_type = "All")
+?(recurring_event_location = "All")
 ~upcoming
 ~recurring_events
 ~upcoming_event_types
@@ -44,17 +44,17 @@ Community_layout.single_column_layout
        </div>
         <div class="h-max mt-2 border-primary dark:border-primary flex mb-4">
           <form class="flex flex-col md:flex-row w-[450px] gap-2" action="<%s Url.events %>" method="GET">
-                <label for="upcoming_location" class="sr-only mb-2 md:mb-0">Location</label>
+                <label for="event_location" class="sr-only mb-2 md:mb-0">Location</label>
                 <%s! Forms.select
-                  ~attrs:{|id="upcoming_location" name="upcoming_location" onchange="this.form.submit()"|}
+                  ~attrs:{|id="event_location" name="event_location" onchange="this.form.submit()"|}
                   ~options:([("All", "Select a Location")] @ ( upcoming_event_locations |> List.map (fun item -> (item, item))))
-                  ~selected:upcoming_location
+                  ~selected:event_location
                  "" %>
-                 <label for="upcoming_type" class="sr-only">Location</label>
+                 <label for="event_type" class="sr-only">Location</label>
                  <%s! Forms.select
-                  ~attrs:{|id="upcoming_type" name="upcoming_type" onchange="this.form.submit()"|}
+                  ~attrs:{|id="event_type" name="event_type" onchange="this.form.submit()"|}
                   ~options:([("All", "Select Event Type")] @ ( upcoming_event_types |> List.map (fun item -> (item, item))))
-                  ~selected:upcoming_type
+                  ~selected:event_type
                  "" %>
           </form>
         </div>
@@ -78,17 +78,17 @@ Community_layout.single_column_layout
     </div>
     <div class="h-max mt-2 border-primary dark:border-primary flex mb-4">
       <form class="flex flex-col md:flex-row w-[450px] gap-2" action="<%s Url.events %>" method="GET">
-            <label for="recurring_location" class="sr-only">Location</label>
+            <label for="recurring_event_location" class="sr-only">Location</label>
             <%s! Forms.select
-              ~attrs:{|id="recurring_location" name="recurring_location" onchange="this.form.submit()"|}
+              ~attrs:{|id="recurring_event_location" name="recurring_event_location" onchange="this.form.submit()"|}
               ~options:([("All", "Select a Location")] @ ( recurring_event_locations |> List.map (fun item -> (item, item))))
-              ~selected:recurring_location
+              ~selected:recurring_event_location
             "" %>
-            <label for="recurring_type" class="sr-only">Location</label>
+            <label for="recurring_event_type" class="sr-only">Location</label>
             <%s! Forms.select
-              ~attrs:{|id="recurring_type" name="recurring_type" onchange="this.form.submit()"|}
+              ~attrs:{|id="recurring_event_type" name="recurring_event_type" onchange="this.form.submit()"|}
               ~options:([("All", "Select Event Type")] @ ( recurring_event_types |> List.map (fun item -> (item, item))))
-              ~selected:recurring_type
+              ~selected:recurring_event_type
             "" %>
       </form>
     </div> 
