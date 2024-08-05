@@ -6,10 +6,11 @@
  (target asset.ml)
  (deps
   %{workspace_root}/asset/css/main.css
-  %{workspace_root}/asset/planet.xml
   %{workspace_root}/asset/changelog.xml
   %{workspace_root}/asset/events.xml
   %{workspace_root}/asset/jobs.xml
+  %{workspace_root}/asset/news.xml
+  %{workspace_root}/asset/planet.xml
   (source_tree %{workspace_root}/asset))
  (action
   (with-stdout-to
