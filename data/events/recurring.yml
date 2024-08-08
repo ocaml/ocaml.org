@@ -1,4 +1,10 @@
 recurring:
+  - title: "Chennai OCaml Meetup"
+    slug: ocaml-meetup-chennai
+    event_type: meetup
+    country: "India"
+    city: "Coimbatore"
+    url: https://www.meetup.com/chennai-ocaml-meetup/
   - title: "OCaml Meetup Saar"
     slug: "ocaml-meetup-saar"
     event_type: meetup
