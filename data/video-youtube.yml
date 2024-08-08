@@ -1,3 +1,25 @@
+- title: Programming with OCaml's Local Mode | OCaml Unboxed
+  url: https://www.youtube.com/watch/RBulw_Ik8QY?version=3
+  thumbnail: https://i3.ytimg.com/vi/RBulw_Ik8QY/hqdefault.jpg
+  description: 'This OCaml Unboxed episode demonstrates some of the twists and turns
+    you might encounter while programming with locals and introduces the *global modality*.
+    Watching this video might help you learn what to look for when programming with
+    locals!
+
+
+
+    View instructions to get the compiler I use in this video: https://github.com/janestreet/opam-repository/tree/with-extensions
+
+
+
+    Full documentation of locals:
+
+    https://github.com/ocaml-flambda/flambda-backend/blob/main/ocaml/jane/doc/extensions/local/intro.md'
+  published: 2024-06-24T12:40:46+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
 - title: Regions with OCaml's Local Types | OCaml Unboxed
   url: https://www.youtube.com/watch/tFGlT0mHBs0?version=3
   thumbnail: https://i1.ytimg.com/vi/tFGlT0mHBs0/hqdefault.jpg
