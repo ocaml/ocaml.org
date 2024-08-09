@@ -1,6 +1,11 @@
 (lang dune 3.15)
 
 (pin
+ (name ocamlnet)
+ (url "git+https://github.com/aantron/ocamlnet#7ef255a0a994ef2721f3359077b36bcdd0428ee4")
+ (package (name ocamlnet)))
+
+(pin
  (name tailwindcss)
  (url "git+https://github.com/tmattio/opam-tailwindcss#3e60fc32bbcf82525999d83ad0f395e16107026b")
  (package (name tailwindcss)))
@@ -11,4 +16,4 @@
  (package (name olinkcheck)))
 
 (lock_dir
- (pins tailwindcss olinkcheck))
+ (pins ocamlnet tailwindcss olinkcheck))

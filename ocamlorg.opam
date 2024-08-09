@@ -70,9 +70,6 @@ build: [
 ]
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
-  # See https://gitlab.com/gerdstolpmann/lib-ocamlnet3/-/merge_requests/24
-  # See https://github.com/aantron/ocamlnet/commit/7ef255a0a994ef2721f3359077b36bcdd0428ee4
-  ["ocamlnet.dev" "git+https://github.com/aantron/ocamlnet#7ef255a0a994ef2721f3359077b36bcdd0428ee4"]
   ["tailwindcss.dev" "https://github.com/tmattio/opam-tailwindcss/archive/3e60fc32bbcf82525999d83ad0f395e16107026b.tar.gz"]
   ["olinkcheck.~dev" "git+https://github.com/tarides/olinkcheck"]
 ]
