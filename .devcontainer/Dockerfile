@@ -1,4 +1,4 @@
-FROM ocaml/opam:debian-ocaml-4.14
+FROM ocaml/opam:debian-ocaml-5.2
 
 # Branch freeze was opam-repo HEAD at the time of commit
 RUN cd ~/opam-repository && git checkout -b freeze c45f5bab71d3589f41f9603daca5acad14df0ab0 && opam update
