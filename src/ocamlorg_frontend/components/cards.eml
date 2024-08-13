@@ -77,55 +77,44 @@ let job_card (job: Data.Job.t) =
   </a>
 
 module Event = struct
+  let format_date_opt (date : Data.Event.utc_datetime option) : string =
+    match date with
+    | Some { yyyy_mm_dd; utc_hh_mm } ->
+        (match utc_hh_mm with
+        | Some time -> yyyy_mm_dd ^ " " ^ time ^ " UTC"
+        | None -> yyyy_mm_dd)
+    | None -> "N/A"
+
+  let format_date_req (date : Data.Event.utc_datetime) : string =
+    match date.utc_hh_mm with
+    | Some time -> date.yyyy_mm_dd ^ " " ^ time ^ " UTC"
+    | None -> date.yyyy_mm_dd
+
   let script = 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var timeZoneDisplayed = false; 
+      document.addEventListener('alpine:init', () => {
+        Alpine.store('dateUtils', {
+            convertDate(dateString) {
+              if (dateString === 'N/A') return dateString
+              const hasTime = dateString.includes('UTC');
+              const date = new Date(dateString);
+              const options = hasTime ? {
+                  month: 'short',
+                  day: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  timeZoneName: 'short'
+              } : {
+                  month: 'short',
+                  day: '2-digit',
+                  year: 'numeric'
+              };
 
-      var eventStartTimeElements = document.querySelectorAll('.event-start-time');
-      eventStartTimeElements.forEach(function(eventStartTimeElement) {
-        var startTime = eventStartTimeElement.dataset.startTime ? new Date(eventStartTimeElement.dataset.startTime) : null;
-        var endTime = eventStartTimeElement.dataset.endTime ? new Date(eventStartTimeElement.dataset.endTime) : null;
-        var formattedStartDate = formatDate(startTime);
-        var formattedStartTime = startTime && startTime.getHours() !== 0 && startTime.getHours() !== 24 ? startTime.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' }) : '';
-        var startTimeZone = (!timeZoneDisplayed && startTime && !endTime && formattedStartTime) ? getTimeZoneAbbreviation(startTime) : '';
-        var timeString = formattedStartDate + (formattedStartTime ? ' ' + formattedStartTime : '') + (startTimeZone ? ' ' + startTimeZone : '');
-        eventStartTimeElement.textContent = timeString.trim();
-        if (startTime && startTimeZone) {
-          timeZoneDisplayed = true;
-        }
-      });
-
-    var eventEndTimeElements = document.querySelectorAll('.event-end-time');
-    eventEndTimeElements.forEach(function(eventEndTimeElement) {
-      var endTime = eventEndTimeElement.dataset.endTime ? new Date(eventEndTimeElement.dataset.endTime) : null;
-      var startTime = eventEndTimeElement.dataset.startTime ? new Date(eventEndTimeElement.dataset.startTime) : null;
-      var formattedEndDate = formatDate(endTime);
-      var formattedEndTime = endTime && endTime.getHours() !== 0 && endTime.getHours() !== 24 ? endTime.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' }) : '';
-      var endTimeZone = (!timeZoneDisplayed && endTime && !startTime) ? getTimeZoneAbbreviation(endTime) : '';   
-
-      var timeString = formattedEndDate + (formattedEndTime ? ' ' + formattedEndTime : '') + (endTimeZone && !startTime ? ' ' + endTimeZone : ''); // Include endTimeZone only when no startTime
-      eventEndTimeElement.textContent = timeString.trim();
-      if (endTime && endTimeZone && !startTime) {
-        timeZoneDisplayed = true;
-      }
-    });
-
-
-      function formatDate(date) {
-        if (!date) return '';
-        var day = ('0' + date.getDate()).slice(-2);
-        const month = date.toLocaleString('default', { month: 'short' });
-        var year = date.getFullYear();
-        return month + ' ' + day + ', ' + year;
-      }
-
-      function getTimeZoneAbbreviation(date) {
-        var options = { timeZoneName: 'short' };
-        var timeZone = Intl.DateTimeFormat('en', options).formatToParts(date).find(part => part.type === 'timeZoneName');
-        return timeZone ? timeZone.value : '';
-      }
-    });
+              return date.toLocaleString('en-US', options);
+            }
+        });
+      })
     </script>
 
   let upcoming_event (event : Data.Event.t) =
@@ -149,19 +138,12 @@ module Event = struct
         </div>
         <div class="flex items-center mt-2">
           <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
-          <p class="text-content dark:text-dark-content">
-            <span class="event-start-time" data-start-time="<%s event.starts.yyyy_mm_dd %> 
-              <%s event.starts.utc_hh_mm |> Option.map (fun s -> s ^ " UTC") |> Option.value ~default:"" %>"></span>
-          </p>
+          <p class="text-title dark:text-dark-title" x-data="{ start_date: '' }" x-init='start_date = $store.dateUtils.convertDate("<%s format_date_req event.starts %>")'><span x-text="start_date"></span></p>
         </div>
         
         <% (match event.ends with | None -> () | Some ends -> ( %>
         <div class="flex items-center mt-2">
-          <p class="ml-9 text-content dark:text-dark-content">
-            to
-            <span class="event-end-time" data-end-time="<%s ends.yyyy_mm_dd %> 
-              <%s ends.utc_hh_mm |> Option.map (fun s -> s ^ " UTC") |> Option.value ~default:"" %>"></span>
-          </p>
+          <p class="text-title dark:text-dark-title" x-data="{ end_date: '' }" x-init='end_date = $store.dateUtils.convertDate("<%s format_date_req ends %>")'>to <span x-text="end_date"></span></p>
         </div>
         <% )); %>
         <div class="flex items-center mt-2">
