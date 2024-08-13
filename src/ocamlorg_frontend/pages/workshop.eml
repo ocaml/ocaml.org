@@ -2,31 +2,39 @@ let video_embed_path url =
   url |> String.split_on_char '/' |> List.map (function "watch" -> "embed" | str -> str) |> String.concat "/"
 
 let render (workshop : Data.Workshop.t) =
-Layout.render
+Community_layout.single_column_layout
 ~title:workshop.title
 ~description:(Printf.sprintf "A description of the workshop %s held on %s" workshop.title workshop.date)
 ~canonical:(Url.workshop workshop.slug)
-~active_top_nav_item:Header.Community @@
-<div class="intro-section-simple dark:dark-intro-section-simple"">
+~current:Workshops @@
+<div class="intro-section-simple dark:dark-intro-section-simple">
   <div class="container-fluid">
     <div class="flex flex-col lg:flex-row justify-between items-center">
       <div>
-        <h1 class="font-bold mb-6 text-title dark:text-dark-title"><%s workshop.title %></h1>
-        <div class="text-content dark:text-dark-content"><%s workshop.date %><br><%s match workshop.location with | "Virtual" -> "Held virtually" | location -> location %></div>
+        <a href="/workshops" class="text-primary dark:text-dark-primary hover:text-primary pr-2 mb-3 flex mt-4 items-center dark:hover:text-dark-primary hover:underline  group"> <%s! Icons.chevron_left "h-5 w-5 text-primary dark:text-dark-primary group-hover:text-primary group-hover:underline dark:group-hover:text-dark-primary" %> Back to Workshops 
+        </a>
+        <h1 class="font-bold mb-3 text-title dark:text-dark-title"><%s workshop.title %></h1>
+        <div class="flex">
+           <div class="flex items-center">
+           <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary" %></s>
+           <p class="text-content dark:text-dark-content text-xl ml-2"><%s match workshop.location with | "Virtual" -> "Held virtually" | location -> location  %></p>
+           </div>
+           <div class="flex items-center ml-6">
+            <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary" %></s>
+            <p class="text-content dark:text-dark-content text-xl ml-2"><%s workshop.date %></p>
+            </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 <div class="bg-background dark:bg-dark-background">
     <div class="container-fluid">
-      <div class="flex flex-col md:flex-row justify-between my-8">
-        <div class="prose dark:prose-invert prose-orange pt-8">
+      <div class="flex flex-col lg:flex-row justify-between mt-10">
+        <div class="prose dark:prose-invert prose-orange">
           <%s! workshop.body_html %>
         </div>
-        <div class="flex flex-col space-y-6 relative">
-          <div class="absolute h-full pt-14 pb-5 lg:pt-11 lg:pb-4 ml-2 lg:ml-0 left-20 lg:left-32 -l-x">
-            <div class="-ml-px w-1 border-dashed border-r-2 border-primary_40 dark:border-dark-primary_40 h-full"></div>
-          </div>
+        <div class="flex flex-col space-y-6 relative mt-4 lg:mt-0">
           <% let seen_upcoming = ref false in
           workshop.important_dates |> List.iter (fun (date : Data.Workshop.important_date) ->
           match date.date > Utils.current_date with
@@ -43,106 +51,82 @@ Layout.render
             </div>
           </div>
           <% ) | _ -> %>
-          <div class="flex items-center space-x-10">
-            <div class="text-primary dark:text-dark-primary font-semibold w-10 lg:w-20 text-right">
-            <%s Utils.human_date date.date %></div>
-            <div class="bg-primary dark:bg-dark-primary h-5 w-5 rounded-full"></div>
-            <div class="flex-1 py-3 items-center flex">
-              <span class="text-title dark:text-dark-title"><%s date.info %></span>
-            </div>
-          </div>
+          <div class="flex flex-col">
+             <div class="flex">
+                <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+                <p class="text-content dark:text-dark-title text-right"> <%s Utils.human_date date.date %></p>
+              </div>
+              <div class="flex mt-6">
+               <div class="relative">
+                  <div class="absolute  w-2 h-2 bg-separator_20 dark:bg-dark-separator_30 rounded-full right-[-0.9rem] top-[-8px]"></div>
+                  <div class="absolute border-l border-separator_20 dark:border-dark-separator_30 h-[34px] right-[-0.67rem]"></div>
+                  <div class="absolute  w-2 h-2 bg-separator_20 dark:bg-dark-separator_30 rounded-full right-[-0.9rem] bottom-[-14px]"></div>
+               </div>
+                <p class="text-content dark:text-dark-content ml-8 mt-1"><%s date.info %></p>
+              </div> 
+           </div> 
           <% ); %>
         </div>
-      </div>
-      <div class="bg-background dark:bg-dark-background max-w-none my-16">
-        <h2 class="mb-4 text-title dark:text-dark-title">All Presentations</h2>
+      </div>     
+     <div class="bg-background dark:bg-dark-background max-w-none my-16">
+      <% let workshop_num = match List.length workshop.presentations with 0 -> "No Presentation" | 1 -> "Presentation (1)" | l -> Printf.sprintf "Presentations (%i)" l in %>
+        <h2 class="mb-4 text-title dark:text-dark-title"> <%s workshop_num %></h2>
         <% (match List.length workshop.presentations with | 0 -> %>
         <p>No presentations yet.</p>
         <% | _ -> %>
         <div class="not-prose overflow-x-scroll">
-          <table class="max-w-5xl lg:max-w-full">
-            <thead class="text-title dark:text-dark-title text-left rounded-xl">
-              <tr>
-                <th class="py-4 px-6 rounded-l-lg text-x w-2/5">Title</th>
-                <th class="py-4 px-6 w-2/5">Authors</th>
-                <th class="py-4 px-6 w-1/5 rounded-r-lg">Resources</th>
-              </tr>
-            </thead>
-            <tbody class="even:bg-gray-50 dark:bg-dark-background">
-              <% workshop.presentations |> List.iter (fun (presentation : Data.Workshop.presentation) -> %>
-              <tr>
-                <td class="py-4 px-6 font-semibold text-content dark:text-dark-content"><%s presentation.title %></td>
-                <td class="py-4 px-6 font-medium text-content dark:text-dark-content"><%s Fmt.(str "%a" (list ~sep:comma string) presentation.authors) %></td>
-                <td class="py-4 px-6 flex flex-col justify-between h-24">
-                  <% (match presentation.link with None -> () | Some link -> %>
-                  <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium block ml-8 dark:hover:text-dark-title"> <%s! Icons.link "h-5 w-5" %> </a>
-                  <% ); %>
-
-                  <% (match presentation.video with None -> () | Some link -> %>
-                  <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium block ml-8 dark:hover:text-dark-title"> <%s! Icons.video "h-6 w-6" %> </a>
-                  <% ); %>
-
-                  <% (match presentation.slides with None -> () | Some link -> %>
-                  <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium block ml-8 dark:hover:text-dark-title"> <%s! Icons.slide "h-6 w-6" %> </a>
-                  <% ); %>
-                </td>
-              </tr>
+          <% workshop.presentations |> List.iter (fun (presentation : Data.Workshop.presentation) -> %>
+          <div class="bg-[#00000003] dark:bg-dark-card border block border-separator_20 py-6 px-7 text-left rounded-md mb-4">
+            <p class="text-title dark:text-dark-title text-xl mb-4"><%s presentation.title %></p>
+            <div class="flex mb-2">
+              <%s! Icons.community "h-7 min-w-[25px] mr-2 text-primary dark:text-dark-primary" %>
+              <p class="text-content dark:text-dark-content">Authors(s):<span class="text-content dark:text-dark-content font-bold ml-1"><%s Fmt.(str "%a" (list ~sep:comma string) presentation.authors) %></span></p>
+            </div> 
+            <div class="flex">
+              <% (match presentation.link with None -> () | Some link -> %>
+              <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium flex dark:hover:text-dark-title mr-6"> <%s! Icons.link "h-6 w-6" %><p class="ml-2">Read Page</p></a>
               <% ); %>
-            </tbody>
-          </table>
+              <% (match presentation.video with None -> () | Some link -> %>
+              <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium flex dark:hover:text-dark-title"> <%s! Icons.video "h-6 w-6" %><p class="ml-2">View Video</p></a>
+              <% ); %>
+              <% (match presentation.slides with None -> () | Some link -> %>
+              <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium flex dark:hover:text-dark-title"> <%s! Icons.pdf_document "h-6 w-6" %><p class="ml-2">Download PDF Resources</p></a>
+              <% ); %>
+            </div>
+          </div>
+          <% ); %> 
         </div>
         <% ); %>
+      </div>
+      </div>
       </div>
     </div>
 </div>
-<div class="w-full deep-blue-gradient dark:dark-deep-blue-gradient">
-  <div class="container-fluid">
-    <div class="text-white dark:text-dark-title py-16">
-      <h2 class="text-sm font-bold text-white dark:text-dark-white opacity-60 mb-4 tracking-widest">Workshop Details</h2>
-      <div>
-        <% (match List.length workshop.organising_committee with | 0 -> () | _ -> %>
-        <h5 class="font-bold text-xl text-white dark:text-dark-white mb-4">Organising Committee</h5>
-        <div class="flex flex-wrap justify-center space-x-12">
-          <% 
-          let committee_with_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_some x.picture) workshop.organising_committee in
-          let committee_without_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_none x.picture) workshop.organising_committee in
-          let names = List.map (fun (x : Data.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
-          committee_with_pictures |> List.iter (fun (member : Data.Workshop.committee_member) -> %>
-          <div href="" class="mt-12">
-            <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="" />
-            <div class="font-medium mt-3"><%s member.name %></div>
-            <% (match member.affiliation with None -> () | Some affiliation -> %>
-            <div class="text-sm mt-1"><%s affiliation %></div>
-            <% ); %>
-          </div>
-          <% ); %>
-        </div>
-        <% (match names with [] -> () | _ -> %>
-        <div class="mt-8"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div>
-        <% ); %> <% ); %>
-      </div>
-      <div class="mt-4">
-        <h5 class="font-bold text-white dark:text-dark-white text-xl">Program Committee</h5>
-        <div class="flex flex-wrap justify-center space-x-12">
-          <% 
-          let committee_with_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_some x.picture) workshop.program_committee in
-          let committee_without_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_none x.picture) workshop.program_committee in
-          let names = List.map (fun (x : Data.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
-          committee_with_pictures |> List.iter (fun (member : Data.Workshop.committee_member) -> %>
-          <div href="" class="mt-12">
-            <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="" />
-            <div class="font-medium mt-3"><%s member.name %></div>
-            <% (match member.affiliation with None -> () | Some affiliation -> %>
-            <div class="text-sm mt-1"><%s affiliation %></div>
-            <% ); %>
-          </div>
-          <% ); %>
-        </div>
-        <% (match names with [] -> () | _ -> %>
-        <div class="mt-2 text-white dark:text-dark-white"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div>
+
+<div class="w-full deep-blue-gradient dark:section-blue-gradient">
+  <div class="container-fluid pt-6 pb-12">
+    <p class="uppercase text-sm text-dark-content dark:text-dark-content tracking-widest font-medium my-4">Workshop Details</p>
+    <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Program Committee</h2>
+    <div class="flex flex-wrap justify-center space-x-12 mt-8">
+      <% 
+      let committee_with_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_some x.picture) workshop.program_committee in
+      let committee_without_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_none x.picture) workshop.program_committee in
+      let names = List.map (fun (x : Data.Workshop.committee_member) -> match x.affiliation with None -> (x.name, "") | Some affiliation -> (x.name, affiliation)) committee_without_pictures in
+      committee_with_pictures |> List.iter (fun (member : Data.Workshop.committee_member) -> %>
+      <div href="" class="mt-12">
+        <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="" />
+        <div class="font-medium mt-3"><%s member.name %></div>
+        <% (match member.affiliation with None -> () | Some affiliation -> %>
+        <div class="text-sm mt-1"><%s affiliation %></div>
         <% ); %>
       </div>
+      <% ); %>
     </div>
+    <ul class="grid grid-cols-1 md:grid-cols-2">
+      <% names |> List.iter (fun (name, affiliation) -> %>
+        <li class="mb-4"><p class="text-dark-content"><span class="mr-2">•</span><span class="font-bold mr-2"><%s name %></span><span>(<%s affiliation %>)</span></p></li>
+      <% ); %>
+    </ul>
   </div>
 </div>
 <% let videos = List.filter (fun (p : Data.Workshop.presentation) -> Option.is_some p.video)
