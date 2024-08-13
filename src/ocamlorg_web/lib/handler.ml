@@ -393,6 +393,28 @@ let release req =
   let</>? version = Data.Release.get_by_version version in
   Dream.html (Ocamlorg_frontend.release version)
 
+let workshops _req = 
+  let past_conferences = Data.Workshop.all in
+  let current_date =
+    let open Unix in
+    let tm = localtime (Unix.gettimeofday ()) in
+    Format.asprintf "%04d-%02d-%02d" (tm.tm_year + 1900) (tm.tm_mon + 1)
+      tm.tm_mday
+  in
+  let upcoming_conferences =
+    List.filter
+      (fun (e : Data.Event.t) ->
+        (e.event_type = Data.Event.Conference) &&
+        (e.starts.yyyy_mm_dd >= current_date
+        || Option.is_some e.ends
+           && e.ends
+              |> Option.map (fun (e : Data.Event.utc_datetime) -> e.yyyy_mm_dd)
+              |> Option.get >= current_date))
+      Data.Event.all
+    |> Ocamlorg.Import.List.take 6
+  in
+  Dream.html (Ocamlorg_frontend.workshops ~upcoming_conferences past_conferences)
+
 let workshop req =
   let slug = Dream.param req "id" in
   let</>? workshop =
@@ -600,6 +622,7 @@ let cookbook_recipe req =
     (Ocamlorg_frontend.cookbook_recipe recipe other_recipes_for_this_task)
 
 let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Data.Outreachy.all)
+
 
 type package_kind = Package | Universe
 

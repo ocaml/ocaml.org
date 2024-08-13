@@ -359,7 +359,7 @@ let t =
       make ~permanent:true [ ("/privacy-policy", "/policies/privacy-policy") ];
       make ~permanent:true [ ("/code-of-conduct", "/policies/code-of-conduct") ];
       make ~permanent:true [ ("/opportunities", "/jobs") ];
-      make ~permanent:false [ (Url.workshops, Url.community ^ "#workshops") ];
+      (* make ~permanent:false [ (Url.workshops, Url.community ^ "#workshops") ]; *)
       Dream.get "/p/:name" package;
       Dream.get "/u/:hash/p/:name" package;
       Dream.get "/p/:name/doc" package_docs;

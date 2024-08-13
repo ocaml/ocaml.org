@@ -41,6 +41,7 @@ let tools_platform = Tools_platform.render
 let tool_page = Tool_page.render
 let tutorial = Tutorial.render
 let tutorial_search = Tutorial_search.render
+let workshops = Workshops.render
 let workshop = Workshop.render
 let outreachy = Outreachy.render
 let governance ~teams = Governance.render ~teams
