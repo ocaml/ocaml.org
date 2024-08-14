@@ -46,7 +46,7 @@ source:
   <p>Now the general strategy in writing a ppx is to provide a record
   of type <code class="code">Ast_mapper.mapper</code>. That record is based on
   the <code class="code">Ast_mapper.default_mapper</code> record but selectively
-  overriding those fields for those sytactic categories that the ppx
+  overriding those fields for those syntactic categories that the ppx
   is intending to transform.
   </p>
   <p>Now, as we determined above, the effect of the ppx is to provide
@@ -72,7 +72,7 @@ source:
   This program goes just a little bit further
   though. Any <code class="code">@id</code> or <code class="code">@@id_of</code> attributes that
   get as far as the OCaml compiler would be ignored. So, it's not
-  neccessary that they be removed by our ppx once they've been acted
+  necessary that they be removed by our ppx once they've been acted
   upon but it seems tidy to do so. Accordingly, there are two more
   syntactic constructs that this ppx operates on.
   </p><pre><code class="code"><span class="keyword">open</span> <span class="constructor">Ast_mapper</span>
@@ -164,7 +164,7 @@ source:
       <span class="comment">(*Many &quot;@id&quot;s*)</span>
       <span class="keywordsign">|</span> (_ :: _) <span class="keywordsign">-&gt;</span>
         raise (<span class="constructor">Location</span>.<span class="constructor">Error</span> (<span class="constructor">Location</span>.error ~loc
-        <span class="string">&quot;[@id] : Multiple occurences&quot;</span>))</code></pre>
+        <span class="string">&quot;[@id] : Multiple occurrences&quot;</span>))</code></pre>
   <p>One more utility function is required.</p>
   <p><code class="code">eval_structure_item item acc</code> computes structure
   items to push on the front of <code class="code">acc</code>. If <code class="code">item</code>
