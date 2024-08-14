@@ -22,7 +22,7 @@ let tabs
     | Events -> "Events"
     | Resources -> "Resources"
     | Outreachy -> "Outreachy Internships"
-    | Workshops -> "Ocaml Conferences"
+    | Workshops -> "Conferences"
   in
   Layout.subnav_tabs ~title:"Community" ~current ~sections:[Overview; Jobs; Events; Resources; Outreachy; Workshops] ~url_of_section ~title_of_section
 

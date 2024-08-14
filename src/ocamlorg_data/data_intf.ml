@@ -197,7 +197,6 @@ module Event = struct
     starts : utc_datetime;
     submission_deadline : utc_datetime option;
     author_notification_date : utc_datetime option;
-    proposal_submission_url: string option;
     ends : utc_datetime option;
     body_md : string;
     body_html : string;
