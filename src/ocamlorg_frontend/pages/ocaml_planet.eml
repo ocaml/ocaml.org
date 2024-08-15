@@ -9,7 +9,7 @@ let render_blog_post (post : Data_intf.Blog.Post.t) =
           <div class="flex items-center flex-wrap gap-[4px]">
               <p class="text-content dark:text-dark-content text-sm mr-8 font-bold"><%s Utils.human_time post.date %></p>
               <p class="text-content dark:text-dark-content font-bold text-sm mr-8"><%s post.source.name %></p>
-                <a href="<%s Url.events %>" class="text-primary dark:text-dark-primary flex items-center dark:hover:text-dark-primary hover:underline group"><%s! Icons.link "h-5 w-5 mr-1 text-primary dark:text-dark-primary group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>Read article</a>  
+                <a href="<%s post.url %>" class="text-primary dark:text-dark-primary flex items-center dark:hover:text-dark-primary hover:underline group"><%s! Icons.link "h-5 w-5 mr-1 text-primary dark:text-dark-primary group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>Read article</a>  
           </div>
       </div>
       <div class="flex justify-center w-100 items-center mt-4 md:mt-4">
