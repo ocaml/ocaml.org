@@ -393,7 +393,7 @@ let release req =
   let</>? version = Data.Release.get_by_version version in
   Dream.html (Ocamlorg_frontend.release version)
 
-let conferences _req = 
+let conferences _req =
   let past_conferences = Data.Conference.all in
   let current_date =
     let open Unix in
@@ -404,21 +404,25 @@ let conferences _req =
   let upcoming_conferences =
     List.filter
       (fun (e : Data.Event.t) ->
-        (e.event_type = Data.Event.Conference) &&
-        (e.starts.yyyy_mm_dd >= current_date
-        || Option.is_some e.ends
-           && e.ends
-              |> Option.map (fun (e : Data.Event.utc_datetime) -> e.yyyy_mm_dd)
-              |> Option.get >= current_date))
+        e.event_type = Data.Event.Conference
+        && (e.starts.yyyy_mm_dd >= current_date
+           || Option.is_some e.ends
+              && e.ends
+                 |> Option.map (fun (e : Data.Event.utc_datetime) ->
+                        e.yyyy_mm_dd)
+                 |> Option.get >= current_date))
       Data.Event.all
     |> Ocamlorg.Import.List.take 6
   in
-  Dream.html (Ocamlorg_frontend.conferences ~upcoming_conferences past_conferences)
+  Dream.html
+    (Ocamlorg_frontend.conferences ~upcoming_conferences past_conferences)
 
 let conference req =
   let slug = Dream.param req "id" in
   let</>? conference =
-    List.find_opt (fun (x : Data.Conference.t) -> x.slug = slug) Data.Conference.all
+    List.find_opt
+      (fun (x : Data.Conference.t) -> x.slug = slug)
+      Data.Conference.all
   in
   Dream.html (Ocamlorg_frontend.conference conference)
 
@@ -622,7 +626,6 @@ let cookbook_recipe req =
     (Ocamlorg_frontend.cookbook_recipe recipe other_recipes_for_this_task)
 
 let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Data.Outreachy.all)
-
 
 type package_kind = Package | Universe
 

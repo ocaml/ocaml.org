@@ -116,7 +116,11 @@
  (rule
   (target conferences.ml)
   (action
-   (run %{bin:dream_eml} %{dep:conferences.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:conferences.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target conference.ml)
   (action
