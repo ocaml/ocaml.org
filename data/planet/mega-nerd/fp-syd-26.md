@@ -38,7 +38,7 @@ which allows you to enter a small C program and view the LLVM output.
 Our second presenter for the evening was Eric Willigers who presented on the
 subject of the
 	<a href="http://www.ats-lang.org/">
-	ATS programming langauge</a>.
+	ATS programming language</a>.
 ATS is interesting because it offers functional programming with an advanced
 type system with things like
 	<a href="http://en.wikipedia.org/wiki/Dependent_type">
