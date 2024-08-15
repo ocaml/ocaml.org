@@ -1,0 +1,162 @@
+let video_embed_path url =
+  url |> String.split_on_char '/' |> List.map (function "watch" -> "embed" | str -> str) |> String.concat "/"
+
+let resource_link ~link extra_html title =
+  <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium flex gap-2 dark:hover:text-dark-title"> <%s! extra_html %><span><%s title %></span></a>
+
+let render (conference : Data.Conference.t) =
+Community_layout.single_column_layout
+~title:conference.title
+~description:(Printf.sprintf "A description of the conference %s held on %s" conference.title conference.date)
+~canonical:(Url.conference conference.slug)
+~current:Conferences @@
+<div class="intro-section-simple dark:dark-intro-section-simple">
+  <div class="container-fluid">
+    <div class="flex flex-col lg:flex-row justify-between items-center">
+      <div>
+        <a href="/conferences" class="text-primary dark:text-dark-primary hover:text-primary pr-2 mb-3 flex mt-4 items-center dark:hover:text-dark-primary hover:underline  group"> <%s! Icons.chevron_left "h-5 w-5 text-primary dark:text-dark-primary group-hover:text-primary group-hover:underline dark:group-hover:text-dark-primary" %> Back to Conferences 
+        </a>
+        <h1 class="font-bold mb-3 text-title dark:text-dark-title"><%s conference.title %></h1>
+        <div class="flex">
+           <div class="flex items-center">
+           <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary" %></s>
+           <p class="text-content dark:text-dark-content text-xl ml-2"><%s match conference.location with | "Virtual" -> "Held virtually" | location -> location  %></p>
+           </div>
+           <div class="flex items-center ml-6">
+            <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary" %></s>
+            <p class="text-content dark:text-dark-content text-xl ml-2"><%s conference.date %></p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-background dark:bg-dark-background">
+    <div class="container-fluid">
+      <div class="flex flex-col lg:flex-row justify-between mt-10">
+        <div class="prose dark:prose-invert prose-orange">
+          <%s! conference.body_html %>
+        </div>
+        <div class="flex flex-col space-y-6 relative mt-4 lg:mt-0">
+          <% let seen_upcoming = ref false in
+          conference.important_dates |> List.iter (fun (date : Data.Conference.important_date) ->
+          match date.date > Utils.current_date with
+          | true when not !seen_upcoming -> (
+          seen_upcoming := true; %>
+          <div class="flex items-center">
+            <div class="text-primary dark:text-dark-primary font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
+            <div class="bg-primary dark:bg-dark-primary h-5 w-5 rounded-full"></div>
+            <div class="bg-primary dark:bg-dark-primary flex-1 rounded-xl text-title dark:text-dark-title px-4 py-2 flex items-center">
+              <div>
+                <div class="text-xs font-semibold">UPCOMING</div>
+                <div><%s date.info %></div>
+              </div>
+            </div>
+          </div>
+          <% ) | _ -> %>
+          <div class="flex flex-col">
+             <div class="flex">
+                <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+                <p class="text-content dark:text-dark-title text-right"> <%s Utils.human_date date.date %></p>
+              </div>
+              <div class="flex mt-6">
+               <div class="relative">
+                  <div class="absolute  w-2 h-2 bg-separator_20 dark:bg-dark-separator_30 rounded-full right-[-0.9rem] top-[-8px]"></div>
+                  <div class="absolute border-l border-separator_20 dark:border-dark-separator_30 h-[34px] right-[-0.67rem]"></div>
+                  <div class="absolute  w-2 h-2 bg-separator_20 dark:bg-dark-separator_30 rounded-full right-[-0.9rem] bottom-[-14px]"></div>
+               </div>
+                <p class="text-content dark:text-dark-content ml-8 mt-1"><%s date.info %></p>
+              </div> 
+           </div> 
+          <% ); %>
+        </div>
+      </div>     
+     <div class="bg-background dark:bg-dark-background max-w-none my-16">
+      <% let conference_num = match List.length conference.presentations with 0 -> "No Presentation" | 1 -> "Presentation (1)" | l -> Printf.sprintf "Presentations (%i)" l in %>
+        <h2 class="mb-4 text-title dark:text-dark-title"> <%s conference_num %></h2>
+        <% (match List.length conference.presentations with | 0 -> %>
+        <p>No presentations yet.</p>
+        <% | _ -> %>
+        <div class="not-prose overflow-x-scroll">
+          <% conference.presentations |> List.iter (fun (presentation : Data.Conference.presentation) -> %>
+          <div class="bg-[#00000003] dark:bg-dark-card border block border-separator_20 py-6 px-7 text-left rounded-md mb-4">
+            <p class="text-title dark:text-dark-title text-xl mb-4"><%s presentation.title %></p>
+            <div class="flex mb-2">
+              <%s! Icons.community "h-7 min-w-[25px] mr-2 text-primary dark:text-dark-primary" %>
+              <p class="text-content dark:text-dark-content">Authors(s):<span class="text-content dark:text-dark-content font-bold ml-1"><%s Fmt.(str "%a" (list ~sep:comma string) presentation.authors) %></span></p>
+            </div> 
+            <div class="flex gap-x-6 gap-y-2">
+              <% (match presentation.link with None -> () | Some link -> %>
+              <%s! resource_link ~link (Icons.link "h-6 w-6") "Details" %>
+              <% ); %>
+              <% (match presentation.video with None -> () | Some link -> %>
+              <%s! resource_link ~link (Icons.video "h-6 w-6") "View Video" %>
+              <% ); %>
+              <% (match presentation.slides with None -> () | Some link -> %>
+              <%s! resource_link ~link (Icons.pdf_document "h-6 w-6") "Download PDF" %>
+              <% ); %>
+            </div>
+          </div>
+          <% ); %> 
+        </div>
+        <% ); %>
+      </div>
+      </div>
+      </div>
+    </div>
+</div>
+
+<div class="w-full deep-blue-gradient dark:section-blue-gradient">
+  <div class="container-fluid pt-6 pb-12">
+    <p class="uppercase text-sm text-dark-content dark:text-dark-content tracking-widest font-medium my-4">Conference Details</p>
+    <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Program Committee</h2>
+    <div class="flex flex-wrap justify-center space-x-12 mt-8">
+      <% 
+      let committee_with_pictures = List.filter (fun (x : Data.Conference.committee_member) -> Option.is_some x.picture) conference.program_committee in
+      let committee_without_pictures = List.filter (fun (x : Data.Conference.committee_member) -> Option.is_none x.picture) conference.program_committee in
+      let names = List.map (fun (x : Data.Conference.committee_member) -> match x.affiliation with None -> (x.name, "") | Some affiliation -> (x.name, affiliation)) committee_without_pictures in
+      committee_with_pictures |> List.iter (fun (member : Data.Conference.committee_member) -> %>
+      <div href="" class="mt-12">
+        <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="" />
+        <div class="font-medium mt-3"><%s member.name %></div>
+        <% (match member.affiliation with None -> () | Some affiliation -> %>
+        <div class="text-sm mt-1"><%s affiliation %></div>
+        <% ); %>
+      </div>
+      <% ); %>
+    </div>
+    <ul class="grid grid-cols-1 md:grid-cols-2">
+      <% names |> List.iter (fun (name, affiliation) -> %>
+        <li class="mb-4"><p class="text-dark-content"><span class="mr-2">•</span><span class="font-bold mr-2"><%s name %></span><span>(<%s affiliation %>)</span></p></li>
+      <% ); %>
+    </ul>
+  </div>
+</div>
+<% let videos = List.filter (fun (p : Data.Conference.presentation) -> Option.is_some p.video)
+conference.presentations in (match List.length videos with | 0 -> () | _ -> %>
+<div class="bg-background dark:bg-dark-background py-16">
+  <div class="container-fluid">
+    <h3 class="font-bold mb-12 text-title dark:text-dark-title">Some Videos</h3>
+    <div class="grid lg:grid-cols-3 gap-14">
+      <% let videos = List.filteri (fun i _ -> i < 6) videos in videos |> List.iter (fun (video : Data.Conference.presentation) -> %>
+      <div class="inline-block">
+        <iframe
+          loading="lazy"
+          class="w-full"
+          sandbox="allow-scripts allow-popups"
+          src="<%s video.video |> Option.get |> video_embed_path %>"
+          allowfullscreen
+        ></iframe>
+        <h6 class="font-bold mt-4 text-title dark:text-dark-title"><%s video.title %></h6>
+      </div>
+      <% ); %>
+    </div>
+    <div class="flex justify-end mt-12">
+      <a href="https://watch.ocaml.org" target="_blank" class="btn btn-ghost w-full md:w-auto">
+        More videos at watch.ocaml.org
+        <%s! Icons.chevron_right "h-5 w-5 inline-block" %>
+      </a>
+    </div>
+  </div>
+</div>
+<% ); %>

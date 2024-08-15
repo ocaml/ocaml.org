@@ -192,8 +192,8 @@ module Video : sig
   val all : t list
 end
 
-module Workshop : sig
-  include module type of Workshop
+module Conference : sig
+  include module type of Conference
 
   val all : t list
   val get_by_slug : string -> t option

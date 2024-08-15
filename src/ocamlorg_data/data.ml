@@ -224,9 +224,9 @@ end
 
 module Video = Video
 
-module Workshop = struct
-  include Workshop
+module Conference = struct
+  include Conference
 
-  let all = Workshop.all
+  let all = Conference.all
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end

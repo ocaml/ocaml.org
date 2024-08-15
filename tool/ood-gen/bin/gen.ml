@@ -27,7 +27,7 @@ let term_templates =
     ("tool_page", Tool_page.template);
     ("tutorial", Tutorial.template);
     ("video", Video.template);
-    ("workshops", Workshop.template);
+    ("conferences", Conference.template);
   ]
 
 let cmds =

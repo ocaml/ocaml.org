@@ -230,85 +230,85 @@ let from_v2 =
     ("/meetings/index.html", Url.community);
     ("/meetings", Url.community);
     ( "/meetings/ocaml/2008/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2008" );
+      Url.conference "ocaml-users-and-developers-conference-2008" );
     ( "/meetings/ocaml/2008",
-      Url.workshop "ocaml-users-and-developers-workshop-2008" );
+      Url.conference "ocaml-users-and-developers-conference-2008" );
     ( "/meetings/ocaml/2008/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2008" );
+      Url.conference "ocaml-users-and-developers-conference-2008" );
     ( "/meetings/ocaml/2008",
-      Url.workshop "ocaml-users-and-developers-workshop-2008" );
+      Url.conference "ocaml-users-and-developers-conference-2008" );
     ( "/meetings/ocaml/2009/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2009" );
+      Url.conference "ocaml-users-and-developers-conference-2009" );
     ( "/meetings/ocaml/2009",
-      Url.workshop "ocaml-users-and-developers-workshop-2009" );
+      Url.conference "ocaml-users-and-developers-conference-2009" );
     ( "/meetings/ocaml/2010/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2010" );
+      Url.conference "ocaml-users-and-developers-conference-2010" );
     ( "/meetings/ocaml/2010",
-      Url.workshop "ocaml-users-and-developers-workshop-2010" );
+      Url.conference "ocaml-users-and-developers-conference-2010" );
     ( "/meetings/ocaml/2011/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2011" );
+      Url.conference "ocaml-users-and-developers-conference-2011" );
     ( "/meetings/ocaml/2011",
-      Url.workshop "ocaml-users-and-developers-workshop-2011" );
+      Url.conference "ocaml-users-and-developers-conference-2011" );
     ( "/meetings/ocaml/2012/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2012" );
+      Url.conference "ocaml-users-and-developers-conference-2012" );
     ( "/meetings/ocaml/2013/call.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2013" );
+      Url.conference "ocaml-users-and-developers-conference-2013" );
     ( "/meetings/ocaml/2013",
-      Url.workshop "ocaml-users-and-developers-workshop-2013" );
+      Url.conference "ocaml-users-and-developers-conference-2013" );
     ( "/meetings/ocaml/2013/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2013" );
+      Url.conference "ocaml-users-and-developers-conference-2013" );
     ( "/meetings/ocaml/2013/program.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2013" );
+      Url.conference "ocaml-users-and-developers-conference-2013" );
     ( "/meetings/ocaml/2013",
-      Url.workshop "ocaml-users-and-developers-workshop-2013" );
+      Url.conference "ocaml-users-and-developers-conference-2013" );
     ( "/meetings/ocaml/2013/talks/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2013" );
+      Url.conference "ocaml-users-and-developers-conference-2013" );
     ( "/meetings/ocaml/2014/cfp.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2014" );
+      Url.conference "ocaml-users-and-developers-conference-2014" );
     ( "/meetings/ocaml/2014",
-      Url.workshop "ocaml-users-and-developers-workshop-2014" );
+      Url.conference "ocaml-users-and-developers-conference-2014" );
     ( "/meetings/ocaml/2014/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2014" );
+      Url.conference "ocaml-users-and-developers-conference-2014" );
     ( "/meetings/ocaml/2014/ocaml2014_10.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2014" );
+      Url.conference "ocaml-users-and-developers-conference-2014" );
     ( "/meetings/ocaml/2014/program.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2014" );
+      Url.conference "ocaml-users-and-developers-conference-2014" );
     ( "/meetings/ocaml/2015/cfp.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2015" );
+      Url.conference "ocaml-users-and-developers-conference-2015" );
     ( "/meetings/ocaml/2015",
-      Url.workshop "ocaml-users-and-developers-workshop-2015" );
+      Url.conference "ocaml-users-and-developers-conference-2015" );
     ( "/meetings/ocaml/2015/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2015" );
+      Url.conference "ocaml-users-and-developers-conference-2015" );
     ( "/meetings/ocaml/2015",
-      Url.workshop "ocaml-users-and-developers-workshop-2015" );
+      Url.conference "ocaml-users-and-developers-conference-2015" );
     ( "/meetings/ocaml/2015/program.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2015" );
+      Url.conference "ocaml-users-and-developers-conference-2015" );
     ( "/meetings/ocaml/2015",
-      Url.workshop "ocaml-users-and-developers-workshop-2015" );
+      Url.conference "ocaml-users-and-developers-conference-2015" );
     ( "/meetings/ocaml/2015/program.txt",
-      Url.workshop "ocaml-users-and-developers-workshop-2015" );
+      Url.conference "ocaml-users-and-developers-conference-2015" );
     ( "/meetings/ocaml/2015",
-      Url.workshop "ocaml-users-and-developers-workshop-2015" );
+      Url.conference "ocaml-users-and-developers-conference-2015" );
     ( "/meetings/ocaml/2016/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2016" );
+      Url.conference "ocaml-users-and-developers-conference-2016" );
     ( "/meetings/ocaml/2016",
-      Url.workshop "ocaml-users-and-developers-workshop-2016" );
+      Url.conference "ocaml-users-and-developers-conference-2016" );
     ( "/meetings/ocaml/2017/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2017" );
+      Url.conference "ocaml-users-and-developers-conference-2017" );
     ( "/meetings/ocaml/2017",
-      Url.workshop "ocaml-users-and-developers-workshop-2017" );
+      Url.conference "ocaml-users-and-developers-conference-2017" );
     ( "/meetings/ocaml/2018/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2018" );
+      Url.conference "ocaml-users-and-developers-conference-2018" );
     ( "/meetings/ocaml/2018",
-      Url.workshop "ocaml-users-and-developers-workshop-2018" );
+      Url.conference "ocaml-users-and-developers-conference-2018" );
     ( "/meetings/ocaml/2019/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2019" );
+      Url.conference "ocaml-users-and-developers-conference-2019" );
     ( "/meetings/ocaml/2019",
-      Url.workshop "ocaml-users-and-developers-workshop-2019" );
+      Url.conference "ocaml-users-and-developers-conference-2019" );
     ( "/meetings/ocaml/2020/index.html",
-      Url.workshop "ocaml-users-and-developers-workshop-2020" );
+      Url.conference "ocaml-users-and-developers-conference-2020" );
     ( "/meetings/ocaml/2020",
-      Url.workshop "ocaml-users-and-developers-workshop-2020" );
+      Url.conference "ocaml-users-and-developers-conference-2020" );
     ("/meetings/ocaml/index.html", Url.community);
     ("/meetings/ocaml", Url.community);
     ("/ocamllabs/index.html", Url.index);
@@ -338,6 +338,30 @@ let make ?(permanent = false) t =
            Some (Dream.get origin (fun req -> Dream.redirect ~status req new_)))
        t)
 
+let ocaml_workshops =
+  List.map
+    (fun (slug : string) ->
+      make ~permanent:true [ ("/workshop/" ^ slug, Url.conference slug) ])
+    [
+      "ocaml-users-and-developers-conference-2008";
+      "ocaml-users-and-developers-conference-2009";
+      "ocaml-users-and-developers-conference-2010";
+      "ocaml-users-and-developers-conference-2011";
+      "ocaml-users-and-developers-conference-2012";
+      "ocaml-users-and-developers-conference-2013";
+      "ocaml-users-and-developers-conference-2014";
+      "ocaml-users-and-developers-conference-2015";
+      "ocaml-users-and-developers-conference-2016";
+      "ocaml-users-and-developers-conference-2017";
+      "ocaml-users-and-developers-conference-2018";
+      "ocaml-users-and-developers-conference-2019";
+      "ocaml-users-and-developers-conference-2020";
+      "ocaml-users-and-developers-conference-2020";
+      "ocaml-users-and-developers-conference-2021";
+      "ocaml-users-and-developers-conference-2022";
+      "ocaml-users-and-developers-conference-2023";
+    ]
+
 let package req =
   let package = Dream.param req "name" in
   Dream.redirect req (Url.Package.overview package)
@@ -348,19 +372,22 @@ let package_docs req =
 
 let t =
   Dream.scope "" []
-    [
-      make ~permanent:true [ ("feed.xml", "planet.xml") ];
-      make from_v2;
-      make (List.map fwd_v2 v2_assets);
-      make [ ("/blog", "/ocaml-planet") ];
-      make ~permanent:true [ ("/opportunities", "/jobs") ];
-      make ~permanent:true
-        [ ("/carbon-footprint", "/policies/carbon-footprint") ];
-      make ~permanent:true [ ("/privacy-policy", "/policies/privacy-policy") ];
-      make ~permanent:true [ ("/code-of-conduct", "/policies/code-of-conduct") ];
-      make ~permanent:true [ ("/opportunities", "/jobs") ];
-      make ~permanent:false [ (Url.workshops, Url.community ^ "#workshops") ];
-      Dream.get "/p/:name" package;
-      Dream.get "/u/:hash/p/:name" package;
-      Dream.get "/p/:name/doc" package_docs;
-    ]
+    ([
+       make ~permanent:true [ ("feed.xml", "planet.xml") ];
+       make from_v2;
+       make (List.map fwd_v2 v2_assets);
+       make [ ("/blog", "/ocaml-planet") ];
+       make ~permanent:true [ ("/opportunities", "/jobs") ];
+       make ~permanent:true
+         [ ("/carbon-footprint", "/policies/carbon-footprint") ];
+       make ~permanent:true [ ("/privacy-policy", "/policies/privacy-policy") ];
+       make ~permanent:true
+         [ ("/code-of-conduct", "/policies/code-of-conduct") ];
+       make ~permanent:true [ ("/opportunities", "/jobs") ];
+       (* make ~permanent:false [ (Url.conferences, Url.community ^
+          "#conferences") ]; *)
+       Dream.get "/p/:name" package;
+       Dream.get "/u/:hash/p/:name" package;
+       Dream.get "/p/:name/doc" package_docs;
+     ]
+    @ ocaml_workshops)

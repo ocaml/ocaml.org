@@ -99,11 +99,11 @@ let community _req =
     |> List.sort_uniq String.compare
   in
   let events = (upcoming_events, event_types) in
-  let old_workshops =
+  let old_conferences =
     match
       List.filter
-        (fun (w : Data.Workshop.t) -> w.date < current_date)
-        Data.Workshop.all
+        (fun (w : Data.Conference.t) -> w.date < current_date)
+        Data.Conference.all
     with
     | [] -> []
     | x :: _ -> [ x ]
@@ -125,7 +125,7 @@ let community _req =
         | first_project :: _ -> [ (first_round.name, first_project) ])
   in
   Dream.html
-    (Ocamlorg_frontend.community ~old_workshops ~outreachy_latest_project
+    (Ocamlorg_frontend.community ~old_conferences ~outreachy_latest_project
        ?selected_event:query ~events jobs_with_count)
 
 type common_event =
@@ -393,12 +393,38 @@ let release req =
   let</>? version = Data.Release.get_by_version version in
   Dream.html (Ocamlorg_frontend.release version)
 
-let workshop req =
-  let slug = Dream.param req "id" in
-  let</>? workshop =
-    List.find_opt (fun (x : Data.Workshop.t) -> x.slug = slug) Data.Workshop.all
+let conferences _req =
+  let past_conferences = Data.Conference.all in
+  let current_date =
+    let open Unix in
+    let tm = localtime (Unix.gettimeofday ()) in
+    Format.asprintf "%04d-%02d-%02d" (tm.tm_year + 1900) (tm.tm_mon + 1)
+      tm.tm_mday
   in
-  Dream.html (Ocamlorg_frontend.workshop workshop)
+  let upcoming_conferences =
+    List.filter
+      (fun (e : Data.Event.t) ->
+        e.event_type = Data.Event.Conference
+        && (e.starts.yyyy_mm_dd >= current_date
+           || Option.is_some e.ends
+              && e.ends
+                 |> Option.map (fun (e : Data.Event.utc_datetime) ->
+                        e.yyyy_mm_dd)
+                 |> Option.get >= current_date))
+      Data.Event.all
+    |> Ocamlorg.Import.List.take 6
+  in
+  Dream.html
+    (Ocamlorg_frontend.conferences ~upcoming_conferences past_conferences)
+
+let conference req =
+  let slug = Dream.param req "id" in
+  let</>? conference =
+    List.find_opt
+      (fun (x : Data.Conference.t) -> x.slug = slug)
+      Data.Conference.all
+  in
+  Dream.html (Ocamlorg_frontend.conference conference)
 
 let ocaml_planet req =
   let page, number_of_pages, current_items =

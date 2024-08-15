@@ -195,6 +195,8 @@ module Event = struct
     city : string;
     location : location option;
     starts : utc_datetime;
+    submission_deadline : utc_datetime option;
+    author_notification_date : utc_datetime option;
     ends : utc_datetime option;
     body_md : string;
     body_html : string;
@@ -585,7 +587,7 @@ module Video = struct
   [@@deriving yaml, show]
 end
 
-module Workshop = struct
+module Conference = struct
   type role = [ `Co_chair | `Chair ] [@@deriving show]
 
   let role_of_string = function

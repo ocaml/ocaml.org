@@ -1,0 +1,152 @@
+let upcoming_conference_card (conference: Data.Event.t) = 
+  <div class="hidden lg:flex flex-col rounded-lg p-4 border border-card_border dark:border-none bg-[#00000003] dark:bg-dark-card mb-4">  
+    <p class="font-bold text-2xl text-title dark:text-dark-title"><%s conference.title %></p>
+    <div class="grid grid-cols-1 pb-8 lg:grid-cols-3 mt-2 gap-1">
+      <div class='flex mr-2 <%s Option.value ~default:"col-span-2" (Option.map (fun _ -> "") conference.author_notification_date) %>'>
+        <%s! Icons.calendar "h-5 text-primary dark:text-dark-primary mr-3" %>    
+        <div class="flex flex-col w-[100%]">
+          <div class="flex">
+            <p class="text-title dark:text-dark-title" x-data="{ submission_deadline: '' }" x-init='submission_deadline = $store.dateUtils.convertDate("<%s Cards.Event.format_date_opt conference.submission_deadline %>")'><span x-text="submission_deadline"></span></p>
+            <div class="relative ml-4 flex-grow">
+                <div class="absolute w-1 h-1 bg-separator_20 dark:bg-dark-separator_30 rounded-full left-[-3.5px] top-[9.6px]"></div>
+                <hr class="absolute border-t border-separator_20 dark:border-dark-separator_30 w-full top-[0.67rem]"></hr>
+                <div class="absolute w-1 h-1 bg-separator_20 dark:bg-dark-separator_30 rounded-full right-[-3.5px] top-[9.6px]"></div>
+            </div>   
+          </div>
+          <p class="text-sm text-content dark:text-dark-content">Submission deadline for talk proposal</p>
+        </div>
+      </div>
+      <div class='<%s Option.value ~default:"hidden" (Option.map (fun _ -> "flex mr-2") conference.author_notification_date) %>'>
+        <%s! Icons.calendar "h-5 text-primary dark:text-dark-primary mr-3" %>    
+        <div class="flex flex-col w-[100%]">
+          <div class="flex">
+            <p class="text-title dark:text-dark-title" x-data="{ author_notification_date: '' }" x-init='author_notification_date = $store.dateUtils.convertDate("<%s Cards.Event.format_date_opt conference.author_notification_date %>")'><span x-text="author_notification_date"></span></p>
+            <div class="relative ml-4 flex-grow">
+                <div class="absolute w-1 h-1 bg-separator_20 dark:bg-dark-separator_30 rounded-full left-[-3.5px] top-[9.6px]"></div>
+                <hr class="absolute border-t border-separator_20 dark:border-dark-separator_30 w-full top-[0.67rem]"></hr>
+                <div class="absolute w-1 h-1 bg-separator_20 dark:bg-dark-separator_30 rounded-full right-[-3.5px] top-[9.6px]"></div>
+            </div>   
+          </div>
+          <p class="text-sm text-content dark:text-dark-content">Author/Speaker notification</p>
+        </div>
+      </div>
+      <div class="flex">
+        <%s! Icons.calendar "h-5 text-primary dark:text-dark-primary mr-3" %>    
+        <div class="flex flex-col w-[100%]">
+          <div class="flex">
+            <p class="text-title dark:text-dark-title" x-data="{ start_date: '' }" x-init='start_date = $store.dateUtils.convertDate("<%s Cards.Event.format_date_req conference.starts %>")'><span x-text="start_date"></span></p>  
+          </div>
+          <p class="text-sm text-content dark:text-dark-content">Conference</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-between">
+    <div class="flex items-center mt-2">
+      <%s! Icons.map_pin "h-5 text-primary dark:text-dark-primary" %>
+      <p class="ml-2 text-content dark:text-dark-content"><%s conference.city %>, <%s conference.country %> </p>
+    </div>
+    <a href="<%s conference.url %>" class="bg-primary dark:bg-dark-primary hover:bg-primary_dark dark:hover:bg-dark-primary_40 text-white w-full md:w-auto dark:text-white px-4 md:px-8 py-2.5 rounded font-bold text-center mt-4 inline-block">Conference Details</a>
+    </div>
+  </div>
+
+let upcoming_conference_card_mobile (conference: Data.Event.t) = 
+  <div class="flex lg:hidden flex-col rounded-lg p-4 border border-card_border dark:border-none bg-[#00000003] dark:bg-dark-card mb-4">
+    <p class="font-bold text-2xl text-title dark:text-dark-title mb-2">OCaml Users and Developers Conference 2024</p>
+    <div class="flex flex-col mb-2">
+        <div class="flex">
+          <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+          <p class="text-title dark:text-dark-title text-right" x-data="{ submission_deadline: '' }" x-init='submission_deadline = $store.dateUtils.convertDate("<%s Cards.Event.format_date_opt conference.submission_deadline %>")'><span x-text="submission_deadline"></span></p>
+        </div>
+        <div class="flex items-center">
+          <div class="relative h-[45px] flex-shrink-0">
+            <div class="absolute w-2 h-2 bg-separator_20 dark:bg-dark-separator_30 rounded-full right-[-0.9rem] top-[0%]"></div>
+            <div class="absolute border-l border-separator_20 dark:border-dark-separator_30 h-[80%] top-[17%] right-[-0.67rem]"></div>
+            <div class="absolute w-2 h-2 bg-separator_20 dark:bg-dark-separator_30 rounded-full right-[-0.9rem] bottom-[-13.5%]"></div>
+          </div>
+          <p class="text-content dark:text-dark-content ml-8 mt-1 flex-grow">Submission deadline for talk proposal</p>
+        </div>
+    </div>
+    <div class='<%s Option.value ~default:"hidden" (Option.map (fun _ -> "flex flex-col mb-2") conference.author_notification_date) %>'>
+        <div class="flex">
+          <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+          <p class="text-title dark:text-dark-title text-right" x-data="{ author_notification_date: '' }" x-init='author_notification_date = $store.dateUtils.convertDate("<%s Cards.Event.format_date_opt conference.author_notification_date %>")'><span x-text="author_notification_date"></span></p>
+        </div>
+        <div class="flex items-center">
+          <div class="relative h-[45px] flex-shrink-0">
+            <div class="absolute w-2 h-2 bg-separator_20 dark:bg-dark-separator_30 rounded-full right-[-0.9rem] top-[0%]"></div>
+            <div class="absolute border-l border-separator_20 dark:border-dark-separator_30 h-[80%] top-[17%] right-[-0.67rem]"></div>
+            <div class="absolute w-2 h-2 bg-separator_20 dark:bg-dark-separator_30 rounded-full right-[-0.9rem] bottom-[-13.5%]"></div>
+          </div>
+          <p class="text-content dark:text-dark-content ml-8 mt-1 flex-grow">Submission deadline for talk proposal</p>
+        </div>
+    </div> 
+    <div class="flex flex-col">
+        <div class="flex">
+          <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
+          <p class="text-title dark:text-dark-title text-right" x-data="{ start_date: '' }" x-init='start_date = $store.dateUtils.convertDate("<%s Cards.Event.format_date_req conference.starts %>")'><span x-text="start_date"></span></p>
+        </div>
+        <div class="flex items-center">
+          <p class="text-content dark:text-dark-content ml-8 mt-1 flex-grow">Submission deadline for talk proposal</p>
+        </div>
+    </div>  
+    <div class="flex flex-col">
+      <div class="flex items-center mt-8 mb-2">
+        <%s! Icons.map_pin "h-5 text-primary dark:text-dark-primary" %>
+        <p class="text-content dark:text-dark-content"><%s conference.city %>, <%s conference.country %> </p>
+      </div>
+        <a href="<%s conference.url %>" class="bg-primary dark:bg-dark-primary hover:bg-primary_dark dark:hover:bg-dark-primary_40 text-white w-full md:w-auto dark:text-white px-4 md:px-8 py-2.5 rounded font-bold text-center mt-4 inline-block">Conference Details</a>
+      </div>
+  </div>
+
+let render ~upcoming_conferences (past_conferences: Data.Conference.t list) =
+Community_layout.single_column_layout
+~title:"Conferences"
+~description:"This is a record of all past OCaml Conferences. We provide resources for the individual talks, such as slides or video recordings of the talks."
+~canonical:Url.conferences
+~current:Conferences @@
+<div class="w-full intro-section-simple dark:dark-intro-section-simple">
+    <div class="container-fluid">
+        <div class="w-full m-auto">
+            <h1 class="text-title dark:text-dark-title font-bold mb-2">OCaml Conferences</h1>
+            <p class="text-content dark:text-dark-content text-xl lg:max-w-[80%]">We list upcoming OCaml conferences and provide resources from past OCaml conferences, such as slides or video recordings of the talks.</p>
+        </div>
+    </div>
+</div>
+<div class="py-6 md:py-12 bg-background dark:bg-dark-background">
+    <div class="container-fluid">
+      <% if List.length upcoming_conferences > 0 then ( %>
+        <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-4">Upcoming Conferences</p>
+        <% upcoming_conferences |> List.iter (fun (conference : Data.Event.t) -> %>
+        <%s! upcoming_conference_card conference %>
+        <%s! upcoming_conference_card_mobile conference %>
+        <% ); %>
+      <% ); %>
+      <div class="mt-8">
+        <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-2">Past Conferences</p>
+        <% (match List.length past_conferences with | 0 -> %>
+        <div class="flex flex-col items-center justify-center pt-24 space-y-4 text-content">
+            <div>
+                <%s! Icons.magnifying_glass "h-10 w-10" %>
+            </div>
+            <div class="text-xl">No Conferences found</div>
+        </div>
+        <% | _ -> %>
+        <div class="grid grid-cols-1 pb-8 lg:grid-cols-3 gap-8 mt-6">
+            <% past_conferences |> List.iter (fun (item: Data.Conference.t ) -> %>
+            <a href="/conferences/<%s item.slug %>" class="flex flex-col bg-[#00000003] dark:dark-card rounded-lg border border-separator_30 p-5">  
+                <p class="text-xl text-title dark:text-dark-title"><%s item.title %></p>
+                <div class="mt-auto">
+                  <div class="flex items-center mt-2">
+                    <%s! Icons.map_pin "h-5 text-primary dark:text-dark-primary max-w-[7%]" %>
+                    <p class="text-content dark:text-dark-content truncate max-w-[90%] ml-2"><%s item.location %></p>
+                   </div>
+                  <p class="mt-2 text-primary hover:underline dark:text-dark-title dark:underline dark:hover:text-dark-primary">Conference details & Presentations (<%d List.length item.presentations %>)</p>
+                </div>
+            </a>           
+            <% ); %>
+        </div>
+        <% ); %>  
+      </div>   
+    </div>  
+<%s! Cards.Event.script %>
+</div>
