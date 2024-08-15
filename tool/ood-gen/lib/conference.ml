@@ -1,4 +1,4 @@
-open Data_intf.Workshop
+open Data_intf.Conference
 
 type presentation_metadata = {
   title : string;
@@ -47,12 +47,12 @@ let decode (fpath, (head, body_md)) =
   Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () =
-  Utils.map_md_files decode "workshops/*.md"
+  Utils.map_md_files decode "conferences/*.md"
   |> List.sort (fun (w1 : t) (w2 : t) -> String.compare w2.date w1.date)
 
 let template () =
   Format.asprintf {|
-include Data_intf.Workshop
+include Data_intf.Conference
 let all = %a
 |}
     (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))

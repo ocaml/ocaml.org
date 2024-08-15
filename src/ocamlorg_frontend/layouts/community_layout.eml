@@ -4,7 +4,7 @@ type section =
   | Events
   | Resources
   | Outreachy
-  | Workshops
+  | Conferences
 
 let tabs
 ~current =
@@ -14,7 +14,7 @@ let tabs
     | Events -> Url.events
     | Resources -> Url.resources
     | Outreachy -> Url.outreachy
-    | Workshops -> Url.workshops
+    | Conferences -> Url.conferences
   in
   let title_of_section = function
     | Overview -> "Overview"
@@ -22,9 +22,9 @@ let tabs
     | Events -> "Events"
     | Resources -> "Resources"
     | Outreachy -> "Outreachy Internships"
-    | Workshops -> "Conferences"
+    | Conferences -> "Conferences"
   in
-  Layout.subnav_tabs ~title:"Community" ~current ~sections:[Overview; Jobs; Events; Resources; Outreachy; Workshops] ~url_of_section ~title_of_section
+  Layout.subnav_tabs ~title:"Community" ~current ~sections:[Overview; Jobs; Events; Resources; Outreachy; Conferences] ~url_of_section ~title_of_section
 
 let single_column_layout
 ?use_swiper

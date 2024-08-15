@@ -11,7 +11,7 @@ let social_list_item ?(extra_html="") ?(text="") ?(href="") ~left_icon ~title _c
         </div>
   </li>
 
-let render ?(selected_event = "All") ~old_workshops ~(events: Data.Event.t list * string list) ~outreachy_latest_project (jobs_with_count : Data.Job.t list * int) =
+let render ?(selected_event = "All") ~old_conferences ~(events: Data.Event.t list * string list) ~outreachy_latest_project (jobs_with_count : Data.Job.t list * int) =
 Community_layout.single_column_layout
 ~title:"The OCaml Community"
 ~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!"
@@ -60,7 +60,7 @@ Community_layout.single_column_layout
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Video</p>
-        <%s! social_list_item ~text:("Community videos such as previous OCaml Workshop presentation - ") ~href:("https://watch.ocaml.org/videos/recently-added") ~left_icon:(Icons.peertube "w-10 h-10") ~title:("Watch") "" %>
+        <%s! social_list_item ~text:("Community videos such as previous OCaml Conference presentation - ") ~href:("https://watch.ocaml.org/videos/recently-added") ~left_icon:(Icons.peertube "w-10 h-10") ~title:("Watch") "" %>
         <%s! social_list_item ~text:("Live Streams about OCaml - ") ~href:("https://twitch.tv/search?term=ocaml") ~left_icon:(Icons.twitch "w-10 h-10") ~title:("Twitch") "" %>        
       </ul>
       <ul>
@@ -125,23 +125,23 @@ Community_layout.single_column_layout
       <div class="flex flex-col">
         <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-4">Conference records</p>
         <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-4">Past Conference Recordings & Materials</h2>
-        <p class="text-content dark:text-dark-content mb-6">Join us annually for the highly anticipated OCaml Workshop! It's an opportunity for you to immerse yourself in knowledge, connect with like-minded individuals, and  unlock new possibilities. Don't miss the chance to be part of this  international learning adventure.</p>
+        <p class="text-content dark:text-dark-content mb-6">Join us annually for the highly anticipated OCaml Conference! It's an opportunity for you to immerse yourself in knowledge, connect with like-minded individuals, and  unlock new possibilities. Don't miss the chance to be part of this  international learning adventure.</p>
         <p class="text-content dark:text-dark-content">Below, you can find slides and documents from previous OCaml Conferences.</p>
-        <% old_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
-        <a href="<%s Url.workshop workshop.slug %>"  class="card dark:dark-card p-5 rounded-xl mt-4">
-            <p class="text-title dark:text-dark-title mb-2"><%s workshop.title %></p>
+        <% old_conferences |> List.iter (fun (conference : Data.Conference.t) -> %>
+        <a href="<%s Url.conference conference.slug %>"  class="card dark:dark-card p-5 rounded-xl mt-4">
+            <p class="text-title dark:text-dark-title mb-2"><%s conference.title %></p>
             <div class="flex items-center space-x-2 mb-3">
                 <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
-                <p class="text-content dark:text-dark-content"><%s workshop.location %></p>
+                <p class="text-content dark:text-dark-content"><%s conference.location %></p>
             </div>
             <div class="flex items-center space-x-2 mb-4">
                 <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
-                <p class="text-content dark:text-dark-content"><%s workshop.date %></p>
+                <p class="text-content dark:text-dark-content"><%s conference.date %></p>
             </div>
             <div class="bg-primary dark:bg-dark-primary hover:bg-primary_dark dark:hover:bg-dark-primary_40 text-white dark:text-white py-1 px-2 rounded font-bold text-center w-32">Read More</div>
           </a>
         <% ); %>
-        <a href="/workshops" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View Conferences <%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary  dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
+        <a href="/conferences" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View Conferences <%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary  dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
         </a> 
       </div> 
       <div class="flex flex-col">

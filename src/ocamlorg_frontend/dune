@@ -114,13 +114,13 @@
   (action
    (run %{bin:dream_eml} %{dep:events.eml} --workspace %{workspace_root})))
  (rule
-  (target workshops.ml)
+  (target conferences.ml)
   (action
-   (run %{bin:dream_eml} %{dep:workshops.eml} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:conferences.eml} --workspace %{workspace_root})))
  (rule
-  (target workshop.ml)
+  (target conference.ml)
   (action
-   (run %{bin:dream_eml} %{dep:workshop.eml} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:conference.eml} --workspace %{workspace_root})))
  (rule
   (target home.ml)
   (action

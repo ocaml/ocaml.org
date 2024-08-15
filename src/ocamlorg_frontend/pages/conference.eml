@@ -1,27 +1,30 @@
 let video_embed_path url =
   url |> String.split_on_char '/' |> List.map (function "watch" -> "embed" | str -> str) |> String.concat "/"
 
-let render (workshop : Data.Workshop.t) =
+let resource_link ~link extra_html title =
+  <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium flex gap-2 dark:hover:text-dark-title"> <%s! extra_html %><span><%s title %></span></a>
+
+let render (conference : Data.Conference.t) =
 Community_layout.single_column_layout
-~title:workshop.title
-~description:(Printf.sprintf "A description of the workshop %s held on %s" workshop.title workshop.date)
-~canonical:(Url.workshop workshop.slug)
-~current:Workshops @@
+~title:conference.title
+~description:(Printf.sprintf "A description of the conference %s held on %s" conference.title conference.date)
+~canonical:(Url.conference conference.slug)
+~current:Conferences @@
 <div class="intro-section-simple dark:dark-intro-section-simple">
   <div class="container-fluid">
     <div class="flex flex-col lg:flex-row justify-between items-center">
       <div>
-        <a href="/workshops" class="text-primary dark:text-dark-primary hover:text-primary pr-2 mb-3 flex mt-4 items-center dark:hover:text-dark-primary hover:underline  group"> <%s! Icons.chevron_left "h-5 w-5 text-primary dark:text-dark-primary group-hover:text-primary group-hover:underline dark:group-hover:text-dark-primary" %> Back to Workshops 
+        <a href="/conferences" class="text-primary dark:text-dark-primary hover:text-primary pr-2 mb-3 flex mt-4 items-center dark:hover:text-dark-primary hover:underline  group"> <%s! Icons.chevron_left "h-5 w-5 text-primary dark:text-dark-primary group-hover:text-primary group-hover:underline dark:group-hover:text-dark-primary" %> Back to Conferences 
         </a>
-        <h1 class="font-bold mb-3 text-title dark:text-dark-title"><%s workshop.title %></h1>
+        <h1 class="font-bold mb-3 text-title dark:text-dark-title"><%s conference.title %></h1>
         <div class="flex">
            <div class="flex items-center">
            <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary" %></s>
-           <p class="text-content dark:text-dark-content text-xl ml-2"><%s match workshop.location with | "Virtual" -> "Held virtually" | location -> location  %></p>
+           <p class="text-content dark:text-dark-content text-xl ml-2"><%s match conference.location with | "Virtual" -> "Held virtually" | location -> location  %></p>
            </div>
            <div class="flex items-center ml-6">
             <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary" %></s>
-            <p class="text-content dark:text-dark-content text-xl ml-2"><%s workshop.date %></p>
+            <p class="text-content dark:text-dark-content text-xl ml-2"><%s conference.date %></p>
             </div>
         </div>
       </div>
@@ -32,11 +35,11 @@ Community_layout.single_column_layout
     <div class="container-fluid">
       <div class="flex flex-col lg:flex-row justify-between mt-10">
         <div class="prose dark:prose-invert prose-orange">
-          <%s! workshop.body_html %>
+          <%s! conference.body_html %>
         </div>
         <div class="flex flex-col space-y-6 relative mt-4 lg:mt-0">
           <% let seen_upcoming = ref false in
-          workshop.important_dates |> List.iter (fun (date : Data.Workshop.important_date) ->
+          conference.important_dates |> List.iter (fun (date : Data.Conference.important_date) ->
           match date.date > Utils.current_date with
           | true when not !seen_upcoming -> (
           seen_upcoming := true; %>
@@ -69,28 +72,28 @@ Community_layout.single_column_layout
         </div>
       </div>     
      <div class="bg-background dark:bg-dark-background max-w-none my-16">
-      <% let workshop_num = match List.length workshop.presentations with 0 -> "No Presentation" | 1 -> "Presentation (1)" | l -> Printf.sprintf "Presentations (%i)" l in %>
-        <h2 class="mb-4 text-title dark:text-dark-title"> <%s workshop_num %></h2>
-        <% (match List.length workshop.presentations with | 0 -> %>
+      <% let conference_num = match List.length conference.presentations with 0 -> "No Presentation" | 1 -> "Presentation (1)" | l -> Printf.sprintf "Presentations (%i)" l in %>
+        <h2 class="mb-4 text-title dark:text-dark-title"> <%s conference_num %></h2>
+        <% (match List.length conference.presentations with | 0 -> %>
         <p>No presentations yet.</p>
         <% | _ -> %>
         <div class="not-prose overflow-x-scroll">
-          <% workshop.presentations |> List.iter (fun (presentation : Data.Workshop.presentation) -> %>
+          <% conference.presentations |> List.iter (fun (presentation : Data.Conference.presentation) -> %>
           <div class="bg-[#00000003] dark:bg-dark-card border block border-separator_20 py-6 px-7 text-left rounded-md mb-4">
             <p class="text-title dark:text-dark-title text-xl mb-4"><%s presentation.title %></p>
             <div class="flex mb-2">
               <%s! Icons.community "h-7 min-w-[25px] mr-2 text-primary dark:text-dark-primary" %>
               <p class="text-content dark:text-dark-content">Authors(s):<span class="text-content dark:text-dark-content font-bold ml-1"><%s Fmt.(str "%a" (list ~sep:comma string) presentation.authors) %></span></p>
             </div> 
-            <div class="flex">
+            <div class="flex gap-x-6 gap-y-2">
               <% (match presentation.link with None -> () | Some link -> %>
-              <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium flex dark:hover:text-dark-title mr-6"> <%s! Icons.link "h-6 w-6" %><p class="ml-2">Read Page</p></a>
+              <%s! resource_link ~link (Icons.link "h-6 w-6") "Details" %>
               <% ); %>
               <% (match presentation.video with None -> () | Some link -> %>
-              <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium flex dark:hover:text-dark-title"> <%s! Icons.video "h-6 w-6" %><p class="ml-2">View Video</p></a>
+              <%s! resource_link ~link (Icons.video "h-6 w-6") "View Video" %>
               <% ); %>
               <% (match presentation.slides with None -> () | Some link -> %>
-              <a href="<%s link %>" class="text-primary dark:text-dark-primary font-medium flex dark:hover:text-dark-title"> <%s! Icons.pdf_document "h-6 w-6" %><p class="ml-2">Download PDF Resources</p></a>
+              <%s! resource_link ~link (Icons.pdf_document "h-6 w-6") "Download PDF" %>
               <% ); %>
             </div>
           </div>
@@ -105,14 +108,14 @@ Community_layout.single_column_layout
 
 <div class="w-full deep-blue-gradient dark:section-blue-gradient">
   <div class="container-fluid pt-6 pb-12">
-    <p class="uppercase text-sm text-dark-content dark:text-dark-content tracking-widest font-medium my-4">Workshop Details</p>
+    <p class="uppercase text-sm text-dark-content dark:text-dark-content tracking-widest font-medium my-4">Conference Details</p>
     <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Program Committee</h2>
     <div class="flex flex-wrap justify-center space-x-12 mt-8">
       <% 
-      let committee_with_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_some x.picture) workshop.program_committee in
-      let committee_without_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_none x.picture) workshop.program_committee in
-      let names = List.map (fun (x : Data.Workshop.committee_member) -> match x.affiliation with None -> (x.name, "") | Some affiliation -> (x.name, affiliation)) committee_without_pictures in
-      committee_with_pictures |> List.iter (fun (member : Data.Workshop.committee_member) -> %>
+      let committee_with_pictures = List.filter (fun (x : Data.Conference.committee_member) -> Option.is_some x.picture) conference.program_committee in
+      let committee_without_pictures = List.filter (fun (x : Data.Conference.committee_member) -> Option.is_none x.picture) conference.program_committee in
+      let names = List.map (fun (x : Data.Conference.committee_member) -> match x.affiliation with None -> (x.name, "") | Some affiliation -> (x.name, affiliation)) committee_without_pictures in
+      committee_with_pictures |> List.iter (fun (member : Data.Conference.committee_member) -> %>
       <div href="" class="mt-12">
         <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="" />
         <div class="font-medium mt-3"><%s member.name %></div>
@@ -129,13 +132,13 @@ Community_layout.single_column_layout
     </ul>
   </div>
 </div>
-<% let videos = List.filter (fun (p : Data.Workshop.presentation) -> Option.is_some p.video)
-workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
+<% let videos = List.filter (fun (p : Data.Conference.presentation) -> Option.is_some p.video)
+conference.presentations in (match List.length videos with | 0 -> () | _ -> %>
 <div class="bg-background dark:bg-dark-background py-16">
   <div class="container-fluid">
     <h3 class="font-bold mb-12 text-title dark:text-dark-title">Some Videos</h3>
     <div class="grid lg:grid-cols-3 gap-14">
-      <% let videos = List.filteri (fun i _ -> i < 6) videos in videos |> List.iter (fun (video : Data.Workshop.presentation) -> %>
+      <% let videos = List.filteri (fun i _ -> i < 6) videos in videos |> List.iter (fun (video : Data.Conference.presentation) -> %>
       <div class="inline-block">
         <iframe
           loading="lazy"

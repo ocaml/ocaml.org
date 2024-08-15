@@ -306,13 +306,13 @@
     (run %{ood_gen} video)))))
 
 (rule
- (target workshop.ml)
+ (target conference.ml)
  (deps
-  (source_tree %{workspace_root}/data/workshops)
+  (source_tree %{workspace_root}/data/conferences)
   (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
   (chdir
    %{workspace_root}
    (with-stdout-to
     %{target}
-    (run %{ood_gen} workshops)))))
+    (run %{ood_gen} conferences)))))

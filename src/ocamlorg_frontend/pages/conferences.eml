@@ -36,7 +36,7 @@ let upcoming_conference_card (conference: Data.Event.t) =
           <div class="flex">
             <p class="text-title dark:text-dark-title" x-data="{ start_date: '' }" x-init='start_date = $store.dateUtils.convertDate("<%s Cards.Event.format_date_req conference.starts %>")'><span x-text="start_date"></span></p>  
           </div>
-          <p class="text-sm text-content dark:text-dark-content">Workshop</p>
+          <p class="text-sm text-content dark:text-dark-content">Conference</p>
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@ let upcoming_conference_card (conference: Data.Event.t) =
 
 let upcoming_conference_card_mobile (conference: Data.Event.t) = 
   <div class="flex lg:hidden flex-col rounded-lg p-4 border border-card_border dark:border-none bg-[#00000003] dark:bg-dark-card mb-4">
-    <p class="font-bold text-2xl text-title dark:text-dark-title mb-2">OCaml Users and Developers Workshop 2024</p>
+    <p class="font-bold text-2xl text-title dark:text-dark-title mb-2">OCaml Users and Developers Conference 2024</p>
     <div class="flex flex-col mb-2">
         <div class="flex">
           <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
@@ -98,12 +98,12 @@ let upcoming_conference_card_mobile (conference: Data.Event.t) =
       </div>
   </div>
 
-let render ~upcoming_conferences (past_conferences: Data.Workshop.t list) =
+let render ~upcoming_conferences (past_conferences: Data.Conference.t list) =
 Community_layout.single_column_layout
 ~title:"Conferences"
-~description:"This is a record of all past OCaml Workshops. We provide resources for the individual talks, such as slides or video recordings of the talks."
-~canonical:Url.workshops
-~current:Workshops @@
+~description:"This is a record of all past OCaml Conferences. We provide resources for the individual talks, such as slides or video recordings of the talks."
+~canonical:Url.conferences
+~current:Conferences @@
 <div class="w-full intro-section-simple dark:dark-intro-section-simple">
     <div class="container-fluid">
         <div class="w-full m-auto">
@@ -132,15 +132,15 @@ Community_layout.single_column_layout
         </div>
         <% | _ -> %>
         <div class="grid grid-cols-1 pb-8 lg:grid-cols-3 gap-8 mt-6">
-            <% past_conferences |> List.iter (fun (item: Data.Workshop.t ) -> %>
-            <a href="/workshops/<%s item.slug %>" class="flex flex-col bg-[#00000003] dark:dark-card rounded-lg border border-separator_30 p-5">  
+            <% past_conferences |> List.iter (fun (item: Data.Conference.t ) -> %>
+            <a href="/conferences/<%s item.slug %>" class="flex flex-col bg-[#00000003] dark:dark-card rounded-lg border border-separator_30 p-5">  
                 <p class="text-xl text-title dark:text-dark-title"><%s item.title %></p>
                 <div class="mt-auto">
                   <div class="flex items-center mt-2">
                     <%s! Icons.map_pin "h-5 text-primary dark:text-dark-primary max-w-[7%]" %>
                     <p class="text-content dark:text-dark-content truncate max-w-[90%] ml-2"><%s item.location %></p>
                    </div>
-                  <p class="mt-2 text-primary hover:underline dark:text-dark-title dark:underline dark:hover:text-dark-primary">Workshop details & Presentations (<%d List.length item.presentations %>)</p>
+                  <p class="mt-2 text-primary hover:underline dark:text-dark-title dark:underline dark:hover:text-dark-primary">Conference details & Presentations (<%d List.length item.presentations %>)</p>
                 </div>
             </a>           
             <% ); %>

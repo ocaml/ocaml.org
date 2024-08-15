@@ -587,7 +587,7 @@ module Video = struct
   [@@deriving yaml, show]
 end
 
-module Workshop = struct
+module Conference = struct
   type role = [ `Co_chair | `Chair ] [@@deriving show]
 
   let role_of_string = function

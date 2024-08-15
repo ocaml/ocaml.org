@@ -160,7 +160,7 @@ Tools_layout.three_column_layout
         <div class="z-10 mb-10 lg:mb-0">
           <img width="160" class="m-auto mt-10 md:mt-20 dark:hidden" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml logo">
           <img width="160" class="m-auto mt-10 md:mt-20 hidden dark:inline" src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" alt="OCaml logo">
-          <div class="text-content dark:text-dark-content mt-2">OCaml Workshop 2020</div>
+          <div class="text-content dark:text-dark-content mt-2">OCaml Conference 2020</div>
           <h3 class="font-bold text-[#1A202C] dark:text-dark-title mt-16">State of the OCaml Platform 2020</h3>
           <div class="mt-16 flex justify-center text-titl dark:text-dark-title">
             Presented by&nbsp;

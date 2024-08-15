@@ -31,7 +31,7 @@ let urls =
     Url.playground;
     Url.privacy_policy;
     Url.releases;
-    Url.workshops;
+    Url.conferences;
   ]
 
 let to_url u = "\n<url><loc>https://ocaml.org" ^ u ^ "</loc></url>"
@@ -49,7 +49,7 @@ let urlables =
       Urlable (Success_story.all, fun r -> to_url @@ Url.success_story r.slug);
       Urlable (Tool_page.all, fun r -> to_url @@ Url.tool_page r.slug);
       Urlable (Tutorial.all, fun r -> to_url @@ Url.tutorial r.slug);
-      Urlable (Workshop.all, fun r -> to_url @@ Url.workshop r.slug);
+      Urlable (Conference.all, fun r -> to_url @@ Url.conference r.slug);
     ]
 
 let manual =
