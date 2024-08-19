@@ -80,6 +80,9 @@ teams:
   - name: Vincent Laviron
     github: lthls
     role: Maintainer
+  - name: Olivier Nicole
+    github: OlivierNicole
+    role: Maintainer
 - id: platform
   name: Platform
   description: The Platform team is responsible for the development and maintenance
