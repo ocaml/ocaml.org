@@ -176,6 +176,11 @@ teams:
   - id: ocaml-lsp-dev
     name: OCaml-LSP
     description: The OCaml Language Server Protocol (LSP) implementation
+    dev-meeting:
+      date: Every Month
+      time: Alternating 9:00 AM CET and 6:00 PM CET
+      link: https://discuss.ocaml.org/search?q=tags%3Adev-meetings%2Beditor
+      notes: https://github.com/ocaml/merlin/wiki/Public-dev%E2%80%90meetings
     contacts:
     - name: GitHub
       link: https://github.com/ocaml/ocaml-lsp
@@ -193,9 +198,17 @@ teams:
     - name: Rafał Gwoździński
       github: 3Rafal
       role: Maintainer
+    - name: Xavier Van de Woestyne
+      github: xvw
+      role: Maintainer
   - id: merlin-dev
     name: Merlin
     description: Context sensitive completion for OCaml in Vim and Emacs
+    dev-meeting:
+      date: Every Month
+      time: Alternating 9:00 AM CET and 6:00 PM CET
+      link: https://discuss.ocaml.org/search?q=tags%3Adev-meetings%2Beditor
+      notes: https://github.com/ocaml/merlin/wiki/Public-dev%E2%80%90meetings
     contacts:
     - name: Mailing List
       link: https://lists.ocaml.org/listinfo/merlin
@@ -215,6 +228,9 @@ teams:
       role: Maintainer
     - name: Thomas Refis
       github: trefis
+      role: Maintainer
+    - name: Xavier Van de Woestyne
+      github: xvw
       role: Maintainer
   - id: odoc-dev
     name: odoc
