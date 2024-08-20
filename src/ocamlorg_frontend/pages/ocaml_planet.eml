@@ -11,7 +11,7 @@ let render_blog_post (post : Data.Planet.entry) =
           </p>
           <div class="flex items-center flex-wrap gap-[4px]">
               <p class="text-content dark:text-dark-content text-sm mr-8 font-bold">
-                <%s match post with | BlogPost p -> Utils.human_time p.date | Video v -> Utils.human_time v.published %>\
+                <%s match post with | BlogPost p -> Utils.human_time p.date | Video v -> Utils.human_time v.published %>
               </p>
               <p class="text-content dark:text-dark-content font-bold text-sm mr-8">
                 <%s match post with | BlogPost p -> p.source.name | Video v -> v.source_title %>

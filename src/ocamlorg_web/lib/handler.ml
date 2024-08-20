@@ -430,23 +430,19 @@ let ocaml_planet req =
   let category = Dream.query req "category" in
   let matches_criteria (item : Data.Planet.entry) cat =
     match cat with
-      | Some d when d = "All" -> true
-      | Some d when d = "Article" -> (
-        match item with
-        | BlogPost _ -> true
-        | Video _ -> false)
-      | Some d when d = "Video" -> (
-        match item with
-        | BlogPost _ -> false
-        | Video _ -> true)
-      | Some _ -> true
-      | None -> true
+    | Some d when d = "All" -> true
+    | Some d when d = "Article" -> (
+        match item with BlogPost _ -> true | Video _ -> false)
+    | Some d when d = "Video" -> (
+        match item with BlogPost _ -> false | Video _ -> true)
+    | Some _ -> true
+    | None -> true
   in
-  let filtred_planet = Data.Planet.all |> List.filter
-  (fun item -> matches_criteria item category)
-in
+  let filtered_entries =
+    Data.Planet.all |> List.filter (fun item -> matches_criteria item category)
+  in
   let page, number_of_pages, current_items =
-    paginate ~req ~n:10 filtred_planet
+    paginate ~req ~n:10 filtered_entries
   in
   Dream.html
     (Ocamlorg_frontend.ocaml_planet ~planet_page:page
