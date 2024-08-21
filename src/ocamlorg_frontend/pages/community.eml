@@ -44,13 +44,13 @@ Community_layout.single_column_layout
       <p class="text-content dark:text-dark-content mt-4 mb-6">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators</p>
       <ul>
         <p class="text-title dark:text-dark-title text-xl font-mono mb-2">Discussion</p>
-        <%s! social_list_item ~text:("Discuss with the community, ask questions and share your work on OCaml ") ~href:("https://discuss.ocaml.org/") ~left_icon:(Icons.discourse "w-10 h-10") ~title:("Discuss") "" %>
+        <%s! social_list_item ~text:("Discuss with the community, ask questions and share your work on OCaml - ") ~href:("https://discuss.ocaml.org/") ~left_icon:(Icons.discourse "w-10 h-10") ~title:("Discuss") "" %>
         <%s! social_list_item ~text:("Subreddit for discussions, memes, project updates, and sharing web articles and news - ") ~href:("https://reddit.com/r/ocaml/") ~left_icon:(Icons.reddit "w-10 h-10") ~title:("Reddits") "" %>    
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title text-xl font-mono mb-2">Development</p>
-        <%s! social_list_item ~text:("Submit bug reports and feature requests for the OCaml compiler - github.com/ocaml - ") ~href:("https://reddit.com/r/ocaml/") ~left_icon:(Icons.github "w-10 h-10") ~title:("GitHub") "" %>  
-        <%s! social_list_item ~text:("Ask and help answer OCaml questions. stackoverflow.com/questions/tagged/ocaml ") ~href:("stackoverflow.com/questions/tagged/ocaml") ~left_icon:(Icons.stackoverflow "w-10 h-10") ~title:("Stackoverflow") "" %>        
+        <%s! social_list_item ~text:("Submit bug reports and feature requests for the OCaml compiler - ") ~href:("https://github.com/ocaml") ~left_icon:(Icons.github "w-10 h-10") ~title:("GitHub") "" %>
+        <%s! social_list_item ~text:("Ask and help answer OCaml questions - ") ~href:("https://stackoverflow.com/questions/tagged/ocaml") ~left_icon:(Icons.stackoverflow "w-10 h-10") ~title:("Stackoverflow") "" %>
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Chat</p>
@@ -71,7 +71,7 @@ Community_layout.single_column_layout
       </ul>
       <ul>
         <p class="text-title text-xl font-mono dark:text-dark-title mb-2">Mailing Lists</p>
-        <%s! social_list_item ~text:("Share experience, exchange ideas and code, and report on applications -") ~href:("https://inbox.vuxu.org/caml-list") ~left_icon:(Icons.email "w-10 h-10") ~title:("Caml User's Mailing List") "" %>
+        <%s! social_list_item ~text:("Share experience, exchange ideas and code, and report on applications - ") ~href:("https://inbox.vuxu.org/caml-list") ~left_icon:(Icons.email "w-10 h-10") ~title:("Caml User's Mailing List") "" %>
       </ul>
   </div>
 </div>
