@@ -2,7 +2,7 @@
 packages: [owl]
 ---
 
-(* Creates an Owl `float` matrix using random numbers drawn from an uniform distribution with `Owl.Mat.uniform`. It is very likely that it will be invertible but we ensure it by checking that the determinat is not zero with `Owl.Linalg.D.dat`. The dimensions of the matrix are defined by m. *)
+(* Creates an Owl `float` matrix using random numbers drawn from a uniform distribution with `Owl.Mat.uniform`. It is very likely that it will be invertible but we ensure it by checking that the determinat is not zero with `Owl.Linalg.D.dat`. The dimensions of the matrix are defined by `m`. *)
 let rec create_invertible m =
         let input = Owl.Mat.uniform m m in
         match Owl.Linalg.D.det input with
@@ -18,7 +18,7 @@ let inverse = Owl.Mat.inv input
 (* Calculates the matrix product of input and inverse. It is used the operator `*@` available in `Owl.Mat` to perform the matrix product. *)
 let id_test = Owl.Mat.(input *@ inverse)
 
-(* id_test should be a diagonal matrix with ones. The non-diagonal elements should be reasonably close zero (round-off effect). We can test this using the operator `=~` also available in `Owl.Mat` *)
+(* `id_test` should be a diagonal matrix with ones. The non-diagonal elements should be reasonably close to zero (round-off effect). We can test this using the operator `=~`, also available in `Owl.Mat` *)
 let test_result input inverse = 
         Owl.Mat.(input *@ inverse =~ eye 5);;
 
