@@ -88,42 +88,53 @@ Opam is now installed and configured! You can now move to [installing the OCaml 
 
 ## Installation on Windows
 
-In this section, we'll describe using the [DkML](https://gitlab.com/dkml/distributions/dkml#installing) Windows distribution. Expect to see another officially-supported Windows installation provided directly by opam in the coming months; it will be compatible with your DkML installation.
+<!-- In this section, we'll describe using the [DkML](https://gitlab.com/dkml/distributions/dkml#installing) Windows distribution. Expect to see another officially-supported Windows installation provided directly by opam in the coming months; it will be compatible with your DkML installation.
 
-Note that only OCaml version 4.14.0 is available via DkML.
+Note that only OCaml version 4.14.0 is available via DkML. -->
+
+OCaml's official package manager, opam, works on Windows from opam 2.2 onwards. You can use opam natively on Command Prompt or PowerShell.
 
 > **Advanced Users**: If you are familiar with Cygwin or WSL2, there are other installation methods described on the [OCaml on Windows](/docs/ocaml-on-windows) page.
 
-#### 1. Install the DkML Distribution
+#### 1. Install opam
 
 Run the following in a terminal (either Windows PowerShell or Command Prompt):
 
 ```powershell
-winget install Microsoft.VisualStudio.2019.BuildTools --override "--wait --passive --installPath C:\VS --addProductLang En-us --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
 winget install Git.Git
-winget install Diskuv.OCaml
+winget install OCaml.opam
 ```
 
-And then in a new terminal:
+> Any problems installing? Be sure to read the [latest release notes](https://opam.ocaml.org/blog/opam-2-2-0/).
+> You can file an issue at https://github.com/ocaml/opam/issues or https://github.com/ocaml-windows/papercuts/issues.
+
+#### 2. Initialise opam
+
+<!-- This step is necessary only if you want to create a new independent environment. `opam init` already set up a default opam switch for you to work in.
+
+You can create a new switch with the `dkml init` command. The only compiler version available is 4.14.0. Use PowerShell or a Command Prompt to create a directory anywhere and then create a switch: -->
+
+The following command will initialise opam on your system. This will take a while to complete. After it's done, you will have a default switch with the latest version of the compiler.
 
 ```powershell
-dkml init --system
+opam init
 ```
 
-> Any problems installing? Be sure to read the [latest release notes](https://gitlab.com/dkml/distributions/dkml/-/releases).
-> You can file an issue at https://gitlab.com/dkml/distributions/dkml/-/issues.
+Make sure you follow the instructions provided at the end of the output of `opam init` to complete the initialisation. Typically, this is:
 
-#### 2. Create an opam Switch
-
-This step is necessary only if you want to create a new independent environment. `dkml init` already set up a default opam switch for you to work in.
-
-You can create a new switch with the `dkml init` command. The only compiler version available is 4.14.0. Use PowerShell or a Command Prompt to create a directory anywhere and then create a switch:
-
-```powershell
-C:\Users\frank> mkdir someproject
-C:\Users\frank> cd someproject
-C:\Users\frank\someproject> dkml init
 ```
+for /f\"tokens=*\" %i in ('opam env') do @%i
+```
+
+on Command Prompt, and on PowerShell:
+
+```
+(& opam env) -split '\r?\n' | ForEach-Object { Invoke-Expression $_ }
+```
+
+Opam is now installed and configured! You can now move to installing the OCaml Platform development tools in the next section.
+
+**Note**: opam can manage something called _switches_. This is key when switching between several OCaml projects. However, in this “getting started” series of tutorials, switches are not needed. If interested, you can read an introduction to [opam switches here](/docs/opam-switch-introduction).
 
 ## Install Platform Tools
 
