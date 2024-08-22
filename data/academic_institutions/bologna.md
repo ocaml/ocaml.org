@@ -8,10 +8,10 @@ continent: Europe
 courses:
     - name: Emerging Programming Paradigms
       acronym: "81672"
-      online_resource: "https://www.unibo.it/en/study/phd-professional-masters-specialisation-schools-and-other-programmes/course-unit-catalogue/course-unit/2023/479059"
+      url: "https://www.unibo.it/en/study/phd-professional-masters-specialisation-schools-and-other-programmes/course-unit-catalogue/course-unit/2023/479059"
     - name: Logical basis of Computer Science
       acronym: "30214"
-      online_resource: "https://www.unibo.it/en/study/phd-professional-masters-specialisation-schools-and-other-programmes/course-unit-catalogue/course-unit/2023/479027"
+      url: "https://www.unibo.it/en/study/phd-professional-masters-specialisation-schools-and-other-programmes/course-unit-catalogue/course-unit/2023/479027"
 location:
      lat: 44.2938
      long: 11.2034

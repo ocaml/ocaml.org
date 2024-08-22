@@ -9,7 +9,7 @@ continent: Europe
 courses:
     - name: Foundations of Computer Science 
       acronym: FOCS1112
-      online_resource: "https://sites.google.com/site/focs1112/"
+      url: "https://sites.google.com/site/focs1112/"
 location:
      lat: 52.4508
      long: -1.9305

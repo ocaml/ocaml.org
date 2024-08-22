@@ -17,10 +17,14 @@ module Academic_institution = struct
   type course = {
     name : string;
     acronym : string option;
-    online_resource : string option;
+    url : string option;
     professor : string option;
     enrollment : string option;
+    year : int option;
+    description: string;
     last_check : Ptime.t option; [@printer pp_print_option pp_ptime]
+    lecture_notes : bool;
+    exercises : bool;
   }
   [@@deriving show]
 

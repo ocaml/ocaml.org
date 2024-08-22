@@ -11,13 +11,13 @@ courses:
       last_check: "2024-03-06"
       acronym: CIS 3410
       enrollment: "70"
-      online_resource: "https://www.seas.upenn.edu/~cis3410/current/"
+      url: "https://www.seas.upenn.edu/~cis3410/current/"
     - name: Programming Languages and Techniques I
       acronym: CIS 1200
       professor: Steve Zdancewic
       last_check: "2024-03-06"
       enrollment: "700"
-      online_resource: "https://www.seas.upenn.edu/~cis120/current/"
+      url: "https://www.seas.upenn.edu/~cis120/current/"
 location:
      lat: 39.9522
      long: -75.1932

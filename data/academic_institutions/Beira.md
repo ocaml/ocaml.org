@@ -7,19 +7,19 @@ logo: academic_institution/beira.jpg
 continent: Europe
 courses:
     - name: Certified Programming
-      online_resource: "https://www.di.ubi.pt/~desousa/PC/pc.html"
+      url: "https://www.di.ubi.pt/~desousa/PC/pc.html"
     - name: Computation Theory
-      online_resource: "https://www.di.ubi.pt/~desousa/TC/tcomp.html"
+      url: "https://www.di.ubi.pt/~desousa/TC/tcomp.html"
     - name: Computational Logic
-      online_resource: "https://www.di.ubi.pt/~desousa/LC/lc.html"
+      url: "https://www.di.ubi.pt/~desousa/LC/lc.html"
     - name: Functional Programming, Algorithms and Data-structures
-      online_resource: "https://www.di.ubi.pt/~desousa/PF/pf.html"
+      url: "https://www.di.ubi.pt/~desousa/PF/pf.html"
     - name: Programming Languages and Compilers Design
-      online_resource: "https://www.di.ubi.pt/~desousa/DLPC/dlpc.html"
+      url: "https://www.di.ubi.pt/~desousa/DLPC/dlpc.html"
     - name: Proof and Programming Theory
-      online_resource: "https://www.di.ubi.pt/~desousa/TPP/tpp.html"
+      url: "https://www.di.ubi.pt/~desousa/TPP/tpp.html"
     - name: Software Reliability and Security
-      online_resource: "https://www.di.ubi.pt/~desousa/Ciencia/"
+      url: "https://www.di.ubi.pt/~desousa/Ciencia/"
 location:
      lat: 40.2779
      long: -7.5090

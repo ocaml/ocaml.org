@@ -8,7 +8,7 @@ continent: North America
 courses:
     - name: Programming Languages and Paradigms 
       acronym: COMP 302
-      online_resource: "https://www.mcgill.ca/study/2023-2024/courses/comp-302"
+      url: "https://www.mcgill.ca/study/2023-2024/courses/comp-302"
 location:
      lat: 45.5048
      long: -73.5772

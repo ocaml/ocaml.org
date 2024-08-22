@@ -6,9 +6,12 @@ url: "https://www.bc.edu/"
 logo: academic_institution/boston.png
 continent: North America
 courses:
-    - name: Computer Science I 
-      acronym: CS1101
-      online_resource: "http://www.cs.bc.edu/~muller/teaching/cs1101/s16/"
+    - name: Computer Science 1 Honors
+      acronym: CSCI 1103
+      url: "https://github.com/BC-CSCI1103/f22"
+      year: 2022
+      professor: Robert Mueller
+      lecture_notes: true
 location:
      lat: 42.3355
      long: -71.1685

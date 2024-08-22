@@ -8,10 +8,10 @@ continent: Europe
 courses:
     - name: Advanced Functional Programming 
       acronym: PFAV
-      online_resource: "https://www.dicosmo.org/CourseNotes/pfav/"
+      url: "https://www.dicosmo.org/CourseNotes/pfav/"
     - name: Functional Programming
       acronym: PF5
-      online_resource: "https://www.irif.fr/~treinen/teaching/pf5/"
+      url: "https://www.irif.fr/~treinen/teaching/pf5/"
 location:
      lat: 48.8276
      long: 2.3822

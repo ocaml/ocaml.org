@@ -8,7 +8,7 @@ continent: North America
 courses:
     - name: Programming Languages and Compilers 
       acronym: CS 421
-      online_resource: "https://courses.engr.illinois.edu/cs421/fa2014/"
+      url: "https://courses.engr.illinois.edu/cs421/fa2014/"
 location:
      lat: 40.1020
      long: -88.2272

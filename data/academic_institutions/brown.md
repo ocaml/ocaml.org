@@ -8,7 +8,7 @@ continent: North America
 courses:
     - name:  An Integrated introducion (along with Racket, Scala and Java)
       acronym: CS 17/18
-      online_resource: "https://cs17-spring2021.github.io/"
+      url: "https://cs17-spring2021.github.io/"
 location:
      lat: 41.8268
      long: -71.4025

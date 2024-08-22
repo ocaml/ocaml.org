@@ -7,7 +7,7 @@ logo: academic_institution/arhus.png
 continent: Europe
 courses:
     - name: The compilation course (along with Java)
-      online_resource: "https://kursuskatalog.au.dk/en/course/100489/Compilation"
+      url: "https://kursuskatalog.au.dk/en/course/100489/Compilation"
 location:
      lat: 56.1681
      long: 10.2030

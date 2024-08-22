@@ -8,7 +8,7 @@ continent: North America
 courses:
     - name: Langages de programmation 
       acronym: IFT-3000
-      online_resource: "https://www.ulaval.ca/etudes/cours/ift-3000-langages-de-programmation"
+      url: "https://www.ulaval.ca/etudes/cours/ift-3000-langages-de-programmation"
 location:
      lat: 46.779
      long: -71.275

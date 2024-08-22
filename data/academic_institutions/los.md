@@ -8,7 +8,7 @@ continent: North America
 courses:
     - name: Programming Languages (along with Python and Java)
       acronym: CS 131
-      online_resource: "https://web.cs.ucla.edu/classes/winter18/cs131/"
+      url: "https://web.cs.ucla.edu/classes/winter18/cs131/"
 location:
      lat: 34.0689
      long: -118.4452
