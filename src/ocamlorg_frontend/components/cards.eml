@@ -47,7 +47,7 @@ let job_card (job: Data.Job.t) =
     class="card dark:dark-card rounded-xl overflow-hidden p-4"
     :class="{ 'hidden': location != 'All' && ([<%s! String.concat "," (List.map (fun s -> "\'" ^ Dream.html_escape s ^ "\'") job.locations) %>].indexOf(location) == -1)  }">
     <div class="flex h-20 items-end mb-4">
-    <img class="h-full rounded border-2 border-separator_30 p-2 max-w-[100px] bg-dark-white" src="<%s job.company_logo %>" alt="">
+    <img class="h-full rounded border-2 border-separator_30 p-2 max-w-[100px] bg-dark-white" src='<%s! if String.starts_with ~prefix:"https" job.company_logo then job.company_logo else Ocamlorg_static.Asset.url job.company_logo %>' alt="">
     <p class="text-base px-2 text-content dark:text-dark-content opacity-80">
     <%s job.company %></p>
     </div>
