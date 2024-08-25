@@ -21,11 +21,11 @@ module Academic_institution = struct
     teacher : string option;
     enrollment : string option;
     year : int option;
-    description: string;
+    description : string;
     last_check : Ptime.t option; [@printer pp_print_option pp_ptime]
     lecture_notes : bool;
     exercises : bool;
-    video_recordings: bool;
+    video_recordings : bool;
   }
   [@@deriving show]
 
