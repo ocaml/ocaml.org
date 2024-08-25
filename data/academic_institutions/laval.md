@@ -9,6 +9,7 @@ courses:
     - name: Langages de programmation 
       acronym: IFT-3000
       url: "https://www.ulaval.ca/etudes/cours/ift-3000-langages-de-programmation"
+      year: 2024
 location:
      lat: 46.779
      long: -71.275

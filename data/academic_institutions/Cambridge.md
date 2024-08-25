@@ -9,6 +9,8 @@ courses:
     - name: Advanced Functional Programming 
       acronym: L28
       url: "https://www.cl.cam.ac.uk/teaching/1415/L28/"
+      year: 2015
+      teacher: "Anil Madhavapeddy, Jeremy Yallop"
 location:
      lat: 52.2043
      long: 0.1149

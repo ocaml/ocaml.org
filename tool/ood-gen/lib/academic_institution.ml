@@ -4,13 +4,14 @@ type course_metadata = {
   name : string;
   acronym : string option;
   url : string option;
-  professor : string option;
+  teacher : string option;
   enrollment : string option;
   last_check : string option;
   year : int option;
   description: string option;
   lecture_notes : bool option;
   exercises : bool option;
+  video_recordings: bool option;
 }
 [@@deriving of_yaml]
 
@@ -20,7 +21,7 @@ let course_metadata_to_course ~modify_last_check (c : course_metadata) : course 
       name = c.name;
       acronym = c.acronym;
       url = c.url;
-      professor = c.professor;
+      teacher = c.teacher;
       enrollment = c.enrollment;
       last_check = modify_last_check c.last_check;
       year = c.year;
@@ -28,6 +29,7 @@ let course_metadata_to_course ~modify_last_check (c : course_metadata) : course 
       lecture_notes =
         c.lecture_notes |> Option.value ~default:false;
       exercises = c.exercises |> Option.value ~default:false;
+      video_recordings = c.video_recordings |> Option.value ~default:false;
     }
 
 let ( let* ) = Result.bind

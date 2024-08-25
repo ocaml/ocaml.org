@@ -9,9 +9,17 @@ courses:
     - name: Types and static analysis 
       acronym: 5I555
       url: "https://www-apr.lip6.fr/~chaillou/Public/enseignement/2014-2015/tas/"
+      teacher: "Emmanuel Chailloux"
+      year: 2015
+      lecture_notes: true
+      exercises: true
     - name: Models of programming and languages interoperability 
       acronym: LI332
       url: "https://www-licence.ufr-info-p6.jussieu.fr/lmd/licence/2014/ue/LI332-2014oct/"
+      teacher: "Emmanuel Chailloux & Carlos Agon"
+      year: 2014
+      lecture_notes: true
+      exercises: true
 location:
      lat: 48.8471
      long: 2.3575

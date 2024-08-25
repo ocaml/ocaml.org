@@ -9,6 +9,8 @@ courses:
     - name: Programming Languages (along with Python and Java)
       acronym: CS 131
       url: "https://web.cs.ucla.edu/classes/winter18/cs131/"
+      year: 2018
+      exercises: true
 location:
      lat: 34.0689
      long: -118.4452

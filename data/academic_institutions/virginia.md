@@ -8,6 +8,8 @@ continent: North America
 courses:
     - name: Programming Languages
       acronym: CS 4610
+      year: 2024
+      teacher: Raymond Pettit
 location:
      lat: 38.0336
      long: -78.5080

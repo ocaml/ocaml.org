@@ -18,13 +18,14 @@ module Academic_institution = struct
     name : string;
     acronym : string option;
     url : string option;
-    professor : string option;
+    teacher : string option;
     enrollment : string option;
     year : int option;
     description: string;
     last_check : Ptime.t option; [@printer pp_print_option pp_ptime]
     lecture_notes : bool;
     exercises : bool;
+    video_recordings: bool;
   }
   [@@deriving show]
 

@@ -9,6 +9,7 @@ courses:
     - name: Organization of Programming Languages-(along with Ruby, Prolog, Java) 
       acronym: CMSC 330
       url: "https://github.com/umd-cmsc330"
+      year: 2022
 location:
      lat: 38.9869
      long: -76.9426
