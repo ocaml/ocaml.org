@@ -6,7 +6,7 @@ url: "https://www.sorbonne-universite.fr/"
 logo: academic_institution/curie.jpg
 continent: Europe
 courses:
-    - name: Types and static analysis 
+    - name: Types and Static Analysis 
       acronym: 5I555
       url: "https://www-apr.lip6.fr/~chaillou/Public/enseignement/2014-2015/tas/"
       teacher: "Emmanuel Chailloux"
