@@ -5,7 +5,7 @@ jobs:
       - France
     publication_date: 2023-09-26
     company: Dassault Systèmes
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAAIVBMVEVHcEyXmZuXmZuXmZuXmZuXmZuXmZuXmZuXmZuXmZuXmZusYMLuAAAAC3RSTlMADjpni6ke3/5NxwSIMyEAAADWSURBVHgBdc6lQgRAEIDh/1wKLg1JR8It4VpwabglpCDtfLiCW8LlMZk912/dZodiKruWRtZJcZ6JSCjruGJzUhrJYpdrsjiEbM9Bsjhlliy+MFk8MoilgpTJEx7O5GIQg7ogNol+LyXfb4Er/e9BZ3853lRWq6LaPHKEQcvL3YQEWU195YTJmD5Oxp2A5xBOvWF4Avo+Ar5EsPo3rOaiLRFsdZ39GOovaO6G9fANNWli10V0tDS/dE7Lpdl77zVJqGgbOHUcAsvmy+064BAZJ8MdvqGkfxbVN5CAHFWcAAAAAElFTkSuQmCC
+    company_logo: img/community/jobs/dassault_systemes_svg.svg
   - title: Software Engineer
     link: https://boards.eu.greenhouse.io/trilitech/jobs/4038961101
     locations:
@@ -13,14 +13,14 @@ jobs:
       - United-Kingdom
     publication_date: 2023-02-13
     company: Trilitech
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAXVBMVEUPYf8AXP8AWv94mviYsPUAV/++y/D28+rw7+q6yPHv7uvr6+vx7+pzlviQqvZUg/tokPkub/3y8Op+nveCoffW3e3V3O0ATv+kufOgtvOovPPb4exzmPiVr/QAVf+bkDJCAAAAi0lEQVR4AcTPRQLDMAwAQTOFmfP/X5ZbS+qtuOFMwGZ/iwsSByYVSUbVxjqU9TqiDwkqfAaNTVEWIM9yUsYjFuW1qrqdFGgq9TnbtLcT8zygWjZ1HND7aGqMNUCR+w5i73PBog5jGtFNg2AgPUMcBcNYR6wJCrV0Xbdk6+WwYWRiP8f55SCOYxg4AAAiuRC1Mx4WYQAAAABJRU5ErkJggg==
+    company_logo: img/community/jobs/trilitech_svg.svg
   - title: Spontaneous Application
     link: https://ocamlpro.com/jobs/
     locations:
       - France
     publication_date: 2023-02-10
     company: OCamlPro
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAclBMVEX////n6OtdZnoAADWGjJkAADcLJkoZLk+rr7cAGUMAH0YAFUHS1NgvP1sWLE7v8PFjbH4AADkQKUsAAC5pcoMAIkfe4OMADz54gI+3usJyeoq9wMdJVWsAHEQrO1iiprCcoayWm6ZUXnMjNVQ+S2RGUmlqXTnwAAAA8ElEQVR4Aa2TBWLEIBBFiaEbkiHufv8rtpN6S6jtRJD/8A+5c3h+EPjetR5GlDEahRcyF5KdIRW3yLdYafYSKr59kpMUzCmZ5wTS5MPkMnrWU5HmsnjKZu8nW1ZYp6u6afMmrAyWqvIzoFnXKkqV3/WVtgFDU9Cz6Ug6Oth6mHCZ1PB5ImSB6DOg46V41P1uBNyGZLUDQwd6eN4nG2DWsGBOwK+phskJCFiIC8hxjx1Aj7ITIH8H2NZV1AmYvanhQO/4pQVAQrVNTpIcaNTiXG2GUfMMmC2i+cJyhXy2nO85TKvRtC7bC/63i2O/ev+PB/tIFntmbTUuAAAAAElFTkSuQmCC
+    company_logo: img/community/jobs/ocamlpro.svg.svg
   - title: Cryptography Engineer
     link: https://boards.greenhouse.io/o1labs/jobs/4023646004
     locations:
@@ -35,7 +35,7 @@ jobs:
       - France
       - India
     company: Tarides
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAz1BMVEVHcEx0wemH0/cFSm4DXo5Cl8gEcKcMYI0KP1sJaZkETHUNltQBd7GO2PwFXYsDWokBYJOAz/V4yvRZt+U4o9gPmNcKPloOldMBdrCF0vh4y/SV3/+H0fZwy/gGTXQ6q+AIYIwLP1wJO1YOl9YCc6wCdKxVtOMBW40Pl9Oa4v8BdK4BW4x1xe0OldIJaZk5tOsRpOYGY5IDb6UMiMMBcqp6yvJQsuKT2/0zsusnpN8PmNcFVH8sq+RivusLkMwfn9kKf7cng7VFn84JR2khquk5Oz2AAAAAK3RSTlMAHv4tSQp2FPsfW4nqdW/v1mb270rxxXjYO73WV5iHkK6kcavmx7O/OZmg7lqDfwAAAXJJREFUKJF90WdDwkAMBuBYOgEB2Q4ERFy5O7hOOizL//+bDAWxYPG+Pk2avAHIPwv+efpQu4zl9YtxEVXctK4KxTCghML320VYU8FAXPutIh3pAIi48Ys61z8yXHus+WfmUjylD1A6PmN35/iEfQMaaDvzT+bdnGFXVgltwpCx5ulvLVNULWi4hHPfY4MTLJs2YT9DaqyclI4zfN5jyJTrnBnm1iV09zhPlPuTrluXphVCOF9hmCRekOvbNXE1BUsI6cx2jwW3uVljJ5qAKqRIF7PZwmfB76qPKHjUg5qQdrQkpByOExl1XEXRG4yEXEWcSlkOHxFT3tG0hhAp58mM4j0maJlmzPmEbi1tzvmSujLvZ6CxGUsetaGGckXIE8aOZyuZMUreAXjddec8peSPV+vGSFihLaVYhhSBHyjKw+GQZCg7FuiUXZTsFgmCQ3qlOhmKClDqbjbODg+Faq1cVlVVA0PX9V6vV6kMB+/7Jb8B9cM8Wi/D5J4AAAAASUVORK5CYII=
+    company_logo: img/community/jobs/tarides_svg.svg
   - title: OCaml Developer
     link: https://ahrefs.com/jobs/ocaml-developer
     locations:
@@ -43,71 +43,71 @@ jobs:
       - Singapore
     publication_date: 2023-05-10
     company: Ahrefs
-    company_logo: https://static.ahrefs.com/static/assets/ahrefs-icon-OVYVQY4N.svg
+    company_logo: img/community/jobs/ahrefs_svg.svg
   - title: OCaml Developer
     link: https://functori.com/annonce-recrutement.pdf
     locations:
       - France
     publication_date: 2022-02-01
     company: Functori
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAM1BMVEVHcEwAAAAAAAAAAABxcXGGhob////Dw8Pv7+9AQECzs7MTExNRUVGenp7h4eEpKSnU1NSTDy3DAAAAA3RSTlMARdmIdxXuAAAAr0lEQVR4AbSQxQEEIRDA0Ozi9N/sCXLukg8WxoSQSt9Fyd27fogU6rGghH7CXwVjHwsWlofCAutDwYH9skhnHgsG/FFwehLcrSJX1nEfYbkWDECa12AvhQRALi0WQC3nQgXGTwbpTAAyANUACwC5HgXXPmcGusztFCzgZiXt1p4LC9CGscLoMtRTwUPVDd8rna3nWeSyFN2JNW0HD1MuoChZsUl/BQSzHsHMSzD7AwDLqg9poue1qAAAAABJRU5ErkJggg==
+    company_logo: img/community/jobs/functori_svg.svg
   - title: Build System Engineer
     link: https://www.janestreet.com/join-jane-street/position/4274814002/
     locations:
       - United-Kingdom
     company: Jane Street
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAP1BMVEVHcEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC6E+JdAAAAFXRSTlMAVo+xzRb/46cLdC/A9NhB7fqEIZ1Llw2sAAABM0lEQVR4AX3RQQ6kIBRF0QvCVRRQxf2vtZPqMnZq0GdGXvI/PHiFOKU0xcAv8uRj5kdUl5AhhyVA4cWsK1us85ziBqT2xs3OfvjVAl2fdLYyaQoZSkh+jsezr9M9N9bUWroYzZnkApCVyZnVr4tuRQcwue6eLBoHjKiVwxCsgHK4rZ6Zj9y8hidaCC6bCc18FaW6RwPREA2rkQeXV/DevZnMyZwcPMh27MVKklma8FJs2P8ffsaWn7Hzd2w0jMLlBY8xx/3vhYILULTwep6CwhiX7ZvmHYZyWj71bTaqXhnyqvtb31CqncuvSDKhG8BtYvYYxK5zLPnwoDrxcThRtQaAvWritr1NJ8LpI1D//YdDA/vdW+v3TtCWeS1q3AuUPZ4++x5b9WHd+FXCXXuvdyg8/gD48Q6x84DRLAAAAABJRU5ErkJggg==
+    company_logo: img/community/jobs/jane_street_svg.svg
   - title: Software Engineer
     link: https://www.lexifi.com/careers/software_engineer/
     locations:
       - France
     publication_date: 2021-04-22
     company: LexiFi
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAS1BMVEVHcEwKGToKGToKGToKGToKGTo8YKw8XaoKGTo8Xao9Y648Xao8XaoKGTpbxfJbxfNbxfJbxvNWtOdbxfJbxfJXuepRo9o6VqVSqd4yBS5nAAAAGXRSTlMATDW9mLIUTHbAWrR7GQhVv6uhtEnT/rBpw/EvoQAAAG5JREFUeAHFyTUCw0AQBMEVM+P/X2pnc9e2FAk6WSi7uSA4tjCK4hNMoGmmPYdmRVFSZVVVm6+BY1VqnkYNrJWGtK4fxDAbpwkqs7mX0sw6KQwKg9KkMCjN1ZImHZaVJl3Wdd18U/sXaY6OtDf6AC/GCHCFgaCAAAAAAElFTkSuQmCC
+    company_logo: img/community/jobs/lexifi_svg.svg
   - title: OCaml Programmer
     link: https://solvuu.com/company
     locations:
       - Remote
     company: Solvuu
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAYFBMVEVHcEwDZ5kEZ5kDZpkEZ5kDZplEofU0rtcFbppEofVEofVEofVEofVEofVEofUEZ5kXv6MXv6MXv6MXv6MXv6MXv6P0gF30gF30gF30gF31gF31gF30gF30gF2/eHMEZ5nNcSBuAAAAIHRSTlMAj9la/7kvGwi0//1TTfzri+3/zGpET20U/+m1loY7F21L8PwAAACuSURBVHgBfNBZDoMwDEVRh4yEsaEUAh32v8sSEWSBZd7v0fWHAScKAdykUkrzeKcFp8YCOEZLX9WcGr+tOVSe0bZZoaAItU9Ll3Wnbd+ftfFH6+ARAtHcgg0hDPRybocQngBM68YRyLClw5bsNc1sO8W4zFy7xqTXFktsib6TrvhJoglzW9mzfuLyFeKX1cB1Wqlu07r1JTHXqV2tATqhkjoKqAJuVHLo5H/IeQIA1l0Lp6GRh4YAAAAASUVORK5CYII=
+    company_logo: img/community/jobs/solvuu.svg.svg
   - title: Senior Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203826
     locations:
       - Poland
     company: SimCorp
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA0UlEQVR4Ae3XPwhBQQDHcaOy2EsWk+wTezG8DPbJ8MpmMr5Jyl5mpewpi7Kh7BllVCaKPN7zHa8k57k/1P3qc/N3u7sU2+JgDwdie54DXEAAT7MWwlcBHnSvhOu7gDoGirU/CegiVmzuAr4J2GGY0FJFwARJ11QZkEEZFQl5HQEl3BBL6LgAEwERTjgKQpMBFxSQFoxNBpyRg7iRCzAZcMcaC8HeREAkQUtAFg1JRQ0B9i6jDXoJTf/yQVJFXzFfIsD+szxATTMf4c98zWZY2fIAQv2tPf5I75AAAAAASUVORK5CYII=
+    company_logo: img/community/jobs/simcorp_svg.svg
   - title: Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/software-engineer--c-ocaml-r203358
     locations:
       - Ukraine
     company: SimCorp
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA0UlEQVR4Ae3XPwhBQQDHcaOy2EsWk+wTezG8DPbJ8MpmMr5Jyl5mpewpi7Kh7BllVCaKPN7zHa8k57k/1P3qc/N3u7sU2+JgDwdie54DXEAAT7MWwlcBHnSvhOu7gDoGirU/CegiVmzuAr4J2GGY0FJFwARJ11QZkEEZFQl5HQEl3BBL6LgAEwERTjgKQpMBFxSQFoxNBpyRg7iRCzAZcMcaC8HeREAkQUtAFg1JRQ0B9i6jDXoJTf/yQVJFXzFfIsD+szxATTMf4c98zWZY2fIAQv2tPf5I75AAAAAASUVORK5CYII=
+    company_logo: img/community/jobs/simcorp_svg.svg
   - title: Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/software-engineer---and-ocaml-r203759
     locations:
       - Denmark
     company: SimCorp
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA0UlEQVR4Ae3XPwhBQQDHcaOy2EsWk+wTezG8DPbJ8MpmMr5Jyl5mpewpi7Kh7BllVCaKPN7zHa8k57k/1P3qc/N3u7sU2+JgDwdie54DXEAAT7MWwlcBHnSvhOu7gDoGirU/CegiVmzuAr4J2GGY0FJFwARJ11QZkEEZFQl5HQEl3BBL6LgAEwERTjgKQpMBFxSQFoxNBpyRg7iRCzAZcMcaC8HeREAkQUtAFg1JRQ0B9i6jDXoJTf/yQVJFXzFfIsD+szxATTMf4c98zWZY2fIAQv2tPf5I75AAAAAASUVORK5CYII=
+    company_logo: img/community/jobs/simcorp_svg.svg
   - title: Senior Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203357
     locations:
       - Ukraine
     company: SimCorp
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA0UlEQVR4Ae3XPwhBQQDHcaOy2EsWk+wTezG8DPbJ8MpmMr5Jyl5mpewpi7Kh7BllVCaKPN7zHa8k57k/1P3qc/N3u7sU2+JgDwdie54DXEAAT7MWwlcBHnSvhOu7gDoGirU/CegiVmzuAr4J2GGY0FJFwARJ11QZkEEZFQl5HQEl3BBL6LgAEwERTjgKQpMBFxSQFoxNBpyRg7iRCzAZcMcaC8HeREAkQUtAFg1JRQ0B9i6jDXoJTf/yQVJFXzFfIsD+szxATTMf4c98zWZY2fIAQv2tPf5I75AAAAAASUVORK5CYII=
+    company_logo: img/community/jobs/simcorp_svg.svg
   - title: AI Pharma Developer
     link: https://www.nobiastx.com/careers
     locations:
       - United States
     publication_date: 2022-12-02
     company: Nobias Therapeutics
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAAAAABXZoBIAAAAYklEQVR4AWP4jwfglRyV/PYNi+S3+4eXNkcrMTBsR5L8eufwIrCgUnTz0sP3v4GN/QYSDBVnYFCP7ujY/ugPip2rpZM6Vp+ACCaV4HbQCQaGK7gk/zAAAU6df4CIlEAYlQQAt6buV28fls0AAAAASUVORK5CYII=
+    company_logo: img/community/jobs/nobias_svg.svg
   - title: OCaml Developer
     link: https://serokell.io/jobs/ocaml-new
     locations:
       - Remote
     publication_date: 2023-02-21
     company: Serokell
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAAAAABXZoBIAAAAu0lEQVR4Ac3SIQzDIBRF0ee9nlfzyTRzDQZJKnCYeVM9N1mBxsxnomo+U5XIuiZoBIqx0rIs7dA9jtzk8xNAKNhtbK438zdqgJjN6O04SkCa8cvN0XeCMgqA0Iw85mgqrOk5DqwQQ99IKcUJEbnIiXjmbf1kqADufLJs69xyPONwD79Rg3LOa+3CCzjW/IN2OSbxmtVC5dgxHgllQ5/HsmWss5O4A8NB2cSlmA01ULnN9/S9altldv7BCt49wHIDpfIXhwAAAABJRU5ErkJggg==
+    company_logo: img/community/jobs/serokell_svg.svg
   - title: Computer Scientist
     link: https://caisar-platform.com/positions
     locations:
@@ -129,21 +129,21 @@ jobs:
       - Remote
     publication_date: 2023-03-06
     company: TrustInSoft
-    company_logo: https://trust-in-soft.com/wp-content/uploads/sites/13/2021/12/group-9.png
+    company_logo: img/community/jobs/trustinsoft_svg.svg
   - title: Research engineer in software development
     link: https://www.irif.fr/postes/admin#ingenieur_e_de_recherche_en_developpement_logiciel
     locations:
       - Paris, France
     publication_date: 2023-03-06
     company: IRIF, Université Paris-Cité
-    company_logo: https://www.irif.fr/_media/logo_footer.png
+    company_logo: img/community/jobs/IRIF_university_city_paris_svg.svg
   - title: XenServer Toolstack - Software Engineer
     link: https://careers.cloud.com/jobs/software-engineer-xenserver-toolstack-cambridge-cambridgeshire-united-kingdom-79cbbe38-5430-4596-b39d-ffb4ed8a0f83
     locations:
       - Cambridge, United-Kingdom
     publication_date: 2024-05-07
     company: XenServer
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAolBMVEX////q6+zm5+jt8vfp8frx8fIAABIAFykACiJTWmL5+/0AY6tYir2NkpcYKDYnNEAAEibh4uONrdETaa3e5/HY2dvV1tjR3esAGSsgLjtgZ20Za65kkcHJy80AAAkGHi4AABuxsrS7zuSmvtmgo6ckMT44ebUAFCexx+BKU1xBS1Qgbq9OhLtbYmmYtNV0eoCCh4w5RE7J2OuDpcxvmcadn6LHaZFkAAABKklEQVR4Aa3SA5bEQBQF0Bc7P3ambWv/W5tfbR3OvBi3jH+MxJGhqPgSTTcM07IdF1/i+URBGMXJ9TlM0zRDktsA7IKorFA3uKb96XS6vb4zADC8why3WCWNCOMxAH8kYHyHQDYh6rTTeopeh2jyAoEZ0zkWSxDD1bXGe60GUZGtB+0ZrgV8oSzsywX1Wx/bQjQy4wKMdF2/QmDOlW0qhhYWbxAQtZUlN/oLhMbljkbcLDQLG2/Z+tyZ3Yh8L6mjdxiIYRBDYKCplU9IgH+m8SuVBOxN92LYJ2jiF7phWGLsgpvlb9X48AxNftfbx4PLVGvHWnmB1MFyYUMz3qkc8JtTHq8BbC80vq+vyiyKLpaOImrQi8LcqM4R16RhGMpILj/zfZgiSfCn/AJy/B2o5d/lGAAAAABJRU5ErkJggg==
+    company_logo: img/community/jobs/xenserver_svg.svg
   - title: Software Engineer
     link: https://base.routine.co/jobs/positions/backend-software-engineer
     locations:
@@ -151,4 +151,4 @@ jobs:
       - Remote
     publication_date: 2024-04-08
     company: Routine
-    company_logo: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAjklEQVR4Ae3UsQ2AIBCFYUs7xmAAB7C0uRFcwM6t2IAp2MQwA76CltOXSyzMFV9n8ueBOm2nfMqDFA960M6DHrzWJYLA0QlEPqhHAuxQoA3k/kwwBfuiBO2l9LRYj/VVpKJFR7GZWTZYOjNBgWoIVhAlSK4zrLTfHXmX9uMkj1X7FLJRgki8pXb+8/5n8AbXB9+WvmFltQAAAABJRU5ErkJggg==
+    company_logo: img/community/jobs/routine_svg.svg

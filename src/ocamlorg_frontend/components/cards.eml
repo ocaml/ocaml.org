@@ -41,56 +41,80 @@ let color_for_event_type = function
   | Hackathon -> "bg-avatar-8"
   | Retreat -> "bg-avatar-9"
 
+let job_card (job: Data.Job.t) = 
+  <a href="<%s job.link %>"
+    target="_blank"
+    class="card dark:dark-card rounded-xl overflow-hidden p-4"
+    :class="{ 'hidden': location != 'All' && ([<%s! String.concat "," (List.map (fun s -> "\'" ^ Dream.html_escape s ^ "\'") job.locations) %>].indexOf(location) == -1)  }">
+    <div class="flex h-20 items-end mb-4">
+    <img class="h-full rounded border-2 border-separator_30 p-2 max-w-[100px] bg-dark-white" src='<%s! if String.starts_with ~prefix:"https" job.company_logo then job.company_logo else Ocamlorg_static.Asset.url job.company_logo %>' alt="">
+    <p class="text-base px-2 text-content dark:text-dark-content opacity-80">
+    <%s job.company %></p>
+    </div>
+    <div class="">
+        <p class="text-lg mb-4 text-title dark:text-dark-title truncate">
+            <%s job.title %>
+        </p>
+        <div class="flex items-center space-x-2">
+            <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary"  %>
+            <p class="text-content dark:text-dark-content">
+                <%s String.concat ", " job.locations %>
+            </p>
+        </div>
+        <% (match job.publication_date with None -> () | Some date -> %>
+        <div class="flex items-center space-x-2 mt-2">
+            <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary"  %>
+            <p class="text-content dark:text-dark-content">
+                <%s date %>
+            </p>
+        </div>
+        <div class="flex items-center mt-2">
+            <%s! Icons.link "h-5 w-10 text-primary dark:text-dark-primary max-w-[7%]" %>
+          <p class="text-primary dark:text-dark-title hover:dark:text-dark-primary hover:underline dark:underline truncate max-w-[90%] ml-2"><%s job.link %></p>
+        </div>      
+        <% ); %>
+    </div>
+  </a>
+
 module Event = struct
+  let format_date_opt (date : Data.Event.utc_datetime option) : string =
+    match date with
+    | Some { yyyy_mm_dd; utc_hh_mm } ->
+        (match utc_hh_mm with
+        | Some time -> yyyy_mm_dd ^ " " ^ time ^ " UTC"
+        | None -> yyyy_mm_dd)
+    | None -> "N/A"
+
+  let format_date_req (date : Data.Event.utc_datetime) : string =
+    match date.utc_hh_mm with
+    | Some time -> date.yyyy_mm_dd ^ " " ^ time ^ " UTC"
+    | None -> date.yyyy_mm_dd
+
   let script = 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var timeZoneDisplayed = false; 
+      document.addEventListener('alpine:init', () => {
+        Alpine.store('dateUtils', {
+            convertDate(dateString) {
+              if (dateString === 'N/A') return dateString
+              const hasTime = dateString.includes('UTC');
+              const date = new Date(dateString);
+              const options = hasTime ? {
+                  month: 'short',
+                  day: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  timeZoneName: 'short'
+              } : {
+                  month: 'short',
+                  day: '2-digit',
+                  year: 'numeric'
+              };
 
-      var eventStartTimeElements = document.querySelectorAll('.event-start-time');
-      eventStartTimeElements.forEach(function(eventStartTimeElement) {
-        var startTime = eventStartTimeElement.dataset.startTime ? new Date(eventStartTimeElement.dataset.startTime) : null;
-        var endTime = eventStartTimeElement.dataset.endTime ? new Date(eventStartTimeElement.dataset.endTime) : null;
-        var formattedStartDate = formatDate(startTime);
-        var formattedStartTime = startTime && startTime.getHours() !== 0 && startTime.getHours() !== 24 ? startTime.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' }) : '';
-        var startTimeZone = (!timeZoneDisplayed && startTime && !endTime && formattedStartTime) ? getTimeZoneAbbreviation(startTime) : '';
-        var timeString = formattedStartDate + (formattedStartTime ? ' ' + formattedStartTime : '') + (startTimeZone ? ' ' + startTimeZone : '');
-        eventStartTimeElement.textContent = timeString.trim();
-        if (startTime && startTimeZone) {
-          timeZoneDisplayed = true;
-        }
-      });
-
-    var eventEndTimeElements = document.querySelectorAll('.event-end-time');
-    eventEndTimeElements.forEach(function(eventEndTimeElement) {
-      var endTime = eventEndTimeElement.dataset.endTime ? new Date(eventEndTimeElement.dataset.endTime) : null;
-      var startTime = eventEndTimeElement.dataset.startTime ? new Date(eventEndTimeElement.dataset.startTime) : null;
-      var formattedEndDate = formatDate(endTime);
-      var formattedEndTime = endTime && endTime.getHours() !== 0 && endTime.getHours() !== 24 ? endTime.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' }) : '';
-      var endTimeZone = (!timeZoneDisplayed && endTime && !startTime) ? getTimeZoneAbbreviation(endTime) : '';   
-
-      var timeString = formattedEndDate + (formattedEndTime ? ' ' + formattedEndTime : '') + (endTimeZone && !startTime ? ' ' + endTimeZone : ''); // Include endTimeZone only when no startTime
-      eventEndTimeElement.textContent = timeString.trim();
-      if (endTime && endTimeZone && !startTime) {
-        timeZoneDisplayed = true;
-      }
-    });
-
-
-      function formatDate(date) {
-        if (!date) return '';
-        var day = ('0' + date.getDate()).slice(-2);
-        const month = date.toLocaleString('default', { month: 'short' });
-        var year = date.getFullYear();
-        return month + ' ' + day + ', ' + year;
-      }
-
-      function getTimeZoneAbbreviation(date) {
-        var options = { timeZoneName: 'short' };
-        var timeZone = Intl.DateTimeFormat('en', options).formatToParts(date).find(part => part.type === 'timeZoneName');
-        return timeZone ? timeZone.value : '';
-      }
-    });
+              return date.toLocaleString('en-US', options);
+            }
+        });
+      })
     </script>
 
   let upcoming_event (event : Data.Event.t) =
@@ -114,25 +138,18 @@ module Event = struct
         </div>
         <div class="flex items-center mt-2">
           <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
-          <p class="text-content dark:text-dark-content">
-            <span class="event-start-time" data-start-time="<%s event.starts.yyyy_mm_dd %> 
-              <%s event.starts.utc_hh_mm |> Option.map (fun s -> s ^ " UTC") |> Option.value ~default:"" %>"></span>
-          </p>
+          <p class="text-title dark:text-dark-title" x-data="{ start_date: '' }" x-init='start_date = $store.dateUtils.convertDate("<%s format_date_req event.starts %>")'><span x-text="start_date"></span></p>
         </div>
         
         <% (match event.ends with | None -> () | Some ends -> ( %>
         <div class="flex items-center mt-2">
-          <p class="ml-9 text-content dark:text-dark-content">
-            to
-            <span class="event-end-time" data-end-time="<%s ends.yyyy_mm_dd %> 
-              <%s ends.utc_hh_mm |> Option.map (fun s -> s ^ " UTC") |> Option.value ~default:"" %>"></span>
-          </p>
+          <p class="text-title dark:text-dark-title" x-data="{ end_date: '' }" x-init='end_date = $store.dateUtils.convertDate("<%s format_date_req ends %>")'>to <span x-text="end_date"></span></p>
         </div>
         <% )); %>
         <div class="flex items-center mt-2">
           <%s! Icons.link "h-5 w-10 text-primary dark:text-dark-primary max-w-[6%]" %>
-          <p class="text-primary dark:text-dark-white hover:dark:text-dark-primary hover:underline truncate max-w-[90%] ml-2"><%s event.url %></p>
-      </div>
+          <p class="text-primary dark:text-dark-title hover:dark:text-dark-primary hover:underline dark:underline truncate max-w-[90%] ml-2"><%s event.url %></p>
+        </div>
       </div> 
     </a>
 
@@ -146,17 +163,21 @@ module Event = struct
         <div class="absolute inset-0 bg-[#C546000D] clip-triangle"></div>
       </div>
     <div class="p-5">
-      <p class="font-bold text-lg text-title dark:text-dark-title mb-3">
-        <%s recurring_event.title %>
-      </p>
       <div class="px-3 mb-2 inline-block <%s color_for_event_type recurring_event.event_type %> rounded-3xl font-mono text-sm text-center text-white">
         <%s string_from_event_type recurring_event.event_type %>
       </div>
+      <p class="font-bold text-lg text-title dark:text-dark-title mb-8">
+        <%s recurring_event.title %>
+      </p>
       <div class="flex items-center space-x-2">
         <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary" %>
         <p class="text-content dark:text-dark-content">
           <%s recurring_event.city %>, <%s recurring_event.country %>
         </p>
+      </div>
+      <div class="flex items-center mt-2">
+        <%s! Icons.link "h-5 w-10 text-primary dark:text-dark-primary max-w-[6%]" %>
+        <p class="text-primary dark:text-dark-title hover:dark:text-dark-primary hover:underline dark:underline truncate w-[300px] ml-2"><%s recurring_event.url %></p>
       </div>
     </div>
     </a>

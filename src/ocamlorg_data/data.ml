@@ -146,22 +146,6 @@ end
 
 module Planet = struct
   include Planet
-
-  module Post = struct
-    include Post
-
-    let all = post_all
-  end
-
-  module LocalBlog = struct
-    include LocalBlog
-
-    let all = local_blog_all
-    let get_by_id id = List.find_opt (fun x -> String.equal x.source.id id) all
-  end
-
-  let local_posts =
-    List.concat_map (fun (src : LocalBlog.t) -> src.posts) LocalBlog.all
 end
 
 module Release = struct
@@ -240,9 +224,9 @@ end
 
 module Video = Video
 
-module Workshop = struct
-  include Workshop
+module Conference = struct
+  include Conference
 
-  let all = Workshop.all
+  let all = Conference.all
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end

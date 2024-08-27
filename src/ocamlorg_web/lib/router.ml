@@ -47,10 +47,9 @@ let page_routes t =
       Dream.get Url.releases Handler.releases;
       Dream.get Url.resources Handler.resources;
       Dream.get (Url.release ":id") Handler.release;
-      Dream.get (Url.workshop ":id") Handler.workshop;
+      Dream.get Url.conferences Handler.conferences;
+      Dream.get (Url.conference ":id") Handler.conference;
       Dream.get Url.ocaml_planet Handler.ocaml_planet;
-      Dream.get (Url.local_blog ":source") Handler.local_blog;
-      Dream.get (Url.blog_post ":source" ":slug") Handler.blog_post;
       Dream.get Url.news Handler.news;
       Dream.get (Url.news_post ":id") Handler.news_post;
       Dream.get Url.jobs Handler.jobs;

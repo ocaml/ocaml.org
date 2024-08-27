@@ -353,7 +353,7 @@ Lists may be the most common data type in OCaml. They are ordered collections of
 The examples above read the following way:
 1. The empty list, nil
 1. A list containing the numbers 1, 2, and 3
-1. A list containing the Booleans `false`, `true`, and `false`. Repetitions are allowed.
+1. A list containing the Booleans `false`, `false`, and `true`. Repetitions are allowed.
 1. A list of lists
 
 Lists are defined as being either empty, written `[]`, or being an element `x` added at the front of another list `u`, which is written `x :: u` (the double colon operator is pronounced “cons”).

@@ -11,7 +11,7 @@ let social_list_item ?(extra_html="") ?(text="") ?(href="") ~left_icon ~title _c
         </div>
   </li>
 
-let render ?(selected_event = "All") ~old_workshops ~(events: Data.Event.t list * string list) ~outreachy_latest_project (jobs_with_count : Data.Job.t list * int) =
+let render ?(selected_event = "All") ~old_conferences ~(events: Data.Event.t list * string list) ~outreachy_latest_project (jobs_with_count : Data.Job.t list * int) =
 Community_layout.single_column_layout
 ~title:"The OCaml Community"
 ~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!"
@@ -44,34 +44,43 @@ Community_layout.single_column_layout
       <p class="text-content dark:text-dark-content mt-4 mb-6">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators</p>
       <ul>
         <p class="text-title dark:text-dark-title text-xl font-mono mb-2">Discussion</p>
-        <%s! social_list_item ~text:("Discuss with the community, ask questions and share your work on OCaml ") ~href:("https://discuss.ocaml.org/") ~left_icon:(Icons.discourse "w-10 h-10") ~title:("Discuss") "" %>
-        <%s! social_list_item ~text:("Subreddit for discussions, memes, project updates, and sharing web articles and news - ") ~href:("https://reddit.com/r/ocaml/") ~left_icon:(Icons.reddit "w-10 h-10") ~title:("Reddits") "" %>    
+        <%s! social_list_item ~text:("Discuss with the community, ask questions and share your work on OCaml - ") ~href:("https://discuss.ocaml.org/") ~left_icon:(Icons.discourse "w-10 h-10") ~title:("Discuss") "" %>
+        <%s! social_list_item ~text:("Subreddit for discussions, memes, project updates, and sharing web articles and news - ") ~href:("https://reddit.com/r/ocaml/") ~left_icon:(Icons.reddit "w-10 h-10") ~title:("Reddit") "" %>
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title text-xl font-mono mb-2">Development</p>
-        <%s! social_list_item ~text:("Submit bug reports and feature requests for the OCaml compiler - github.com/ocaml - ") ~href:("https://reddit.com/r/ocaml/") ~left_icon:(Icons.github "w-10 h-10") ~title:("GitHub") "" %>  
-        <%s! social_list_item ~text:("Ask and help answer OCaml questions. stackoverflow.com/questions/tagged/ocaml ") ~href:("stackoverflow.com/questions/tagged/ocaml") ~left_icon:(Icons.stackoverflow "w-10 h-10") ~title:("Stackoverflow") "" %>        
+        <%s! social_list_item ~text:("Submit bug reports and feature requests for the OCaml compiler - ") ~href:("https://github.com/ocaml") ~left_icon:(Icons.github "w-10 h-10") ~title:("GitHub") "" %>
+        <%s! social_list_item ~text:("Ask and help answer OCaml questions - ") ~href:("https://stackoverflow.com/questions/tagged/ocaml") ~left_icon:(Icons.stackoverflow "w-10 h-10") ~title:("Stackoverflow") "" %>
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Chat</p>
-        <%s! social_list_item ~text:("Chat with other members of the community on Discord - ") ~href:("https://discuss.ocaml.org/") ~left_icon:(Icons.discord "w-10 h-10") ~title:("Discord") "" %>
-        <%s! social_list_item ~text:("Chat with other members of the community at #ocaml on the Libera Chat IRC network ") ~left_icon:(Icons.hashtag "w-10 h-10") ~title:("IRC Chat") "" %>
-        <%s! social_list_item ~extra_html:("<p class='text-content dark:text-dark-content'>Chat in the <span class='text-primary dark:text-dark-primary'>#ocaml-lang</span> Matrix chat room, or join the <span class='text-primary dark:text-dark-primary'>#ocaml-space</span> Matrix space</p>") ~left_icon:(Icons.matrix "h-8 mr-0") ~title:("Matrix") "" %>    
+        <%s! social_list_item ~text:("Chat with other members of the community on Discord - ") ~href:("https://discord.gg/cCYQbqN") ~left_icon:(Icons.discord "w-10 h-10") ~title:("Discord") "" %>
+        <%s! social_list_item ~text:("Chat with other members of the community at #ocaml on the Libera Chat IRC network ") ~href:"irc://irc.libera.chat/#ocaml" ~left_icon:(Icons.hashtag "w-10 h-10") ~title:("IRC Chat") "" %>
+        <%s! social_list_item ~extra_html:({|
+          <p class='text-content dark:text-dark-content'>
+            Chat in the <a class='text-primary dark:text-dark-primary hover:underline' href='https://matrix.to/#/#ocaml-lang:matrix.org'>#ocaml-lang</a>
+            Matrix chat room, or join the <a class='text-primary dark:text-dark-primary hover:underline' href='https://matrix.to/#/#ocaml-space:matrix.org'>#ocaml-space</a> Matrix space
+          </p>
+          |}) ~left_icon:(Icons.matrix "h-8 mr-0") ~title:("Matrix") "" %>    
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Video</p>
-        <%s! social_list_item ~text:("Community videos such as previous OCaml Workshop presentation - ") ~href:("https://watch.ocaml.org/videos/recently-added") ~left_icon:(Icons.peertube "w-10 h-10") ~title:("Watch") "" %>
-        <%s! social_list_item ~text:("Live Streams about OCaml - ") ~href:("https://twitch.tv/search?term=ocaml") ~left_icon:(Icons.twitch "w-10 h-10") ~title:("Twitch") "" %>        
+        <%s! social_list_item ~text:("Community videos such as previous OCaml Conference presentation - ") ~href:("https://watch.ocaml.org/videos/recently-added") ~left_icon:(Icons.peertube "w-10 h-10") ~title:("Watch") "" %>
+        <%s! social_list_item ~text:("Live Streams about OCaml - ") ~href:("https://twitch.tv/search?term=ocaml") ~left_icon:(Icons.twitch "w-10 h-10") ~title:("Twitch") "" %>
+        <%s! social_list_item ~text:("OCaml on YouTube - ") ~href:("https://www.youtube.com/results?search_query=OCaml") ~left_icon:(Icons.youtube "w-10 h-10") ~title:("YouTube") "" %>
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Microblogging</p>
         <%s! social_list_item ~text:("Latest announcements and events from the community - ") ~href:("https://twitter.com/ocamllang") ~left_icon:(Icons.twitter "w-10 h-10") ~title:("Twitter") "" %> 
-        <%s! social_list_item ~text:("Chat with other members of the community at #ocaml on the Libera Chat IRC network ") ~left_icon:(Icons.hashtag "w-10 h-10") ~title:("IRC Chat") "" %>
-        <%s! social_list_item ~extra_html:("<p class='text-content dark:text-dark-content'> Both <span class='text-primary dark:text-dark-primary'>types.pl</span> and <span class='text-primary dark:text-dark-primary'>discuss.systems</span> Mastodon homeservers enjoy popularity</p> ") ~left_icon:(Icons.mastodon "h-8 mr-0") ~title:("Mastodon") "" %>   
+        <%s! social_list_item ~extra_html:({|
+          <p class='text-content dark:text-dark-content'> Both the <a class='text-primary dark:text-dark-primary hover:underline' href='https://types.pl/'>types.pl</a>
+          and <a class='text-primary dark:text-dark-primary hover:underline' href='https://discuss.systems/'>discuss.systems</a> Mastodon homeservers enjoy popularity
+          </p>|}
+          ) ~left_icon:(Icons.mastodon "h-8 mr-0") ~title:("Mastodon") "" %>   
       </ul>
       <ul>
         <p class="text-title text-xl font-mono dark:text-dark-title mb-2">Mailing Lists</p>
-        <%s! social_list_item ~text:("Share experience, exchange ideas and code, and report on applications -") ~href:("https://inbox.vuxu.org/caml-list") ~left_icon:(Icons.email "w-10 h-10") ~title:("Caml User's Mailing List") "" %>
+        <%s! social_list_item ~text:("Share experience, exchange ideas and code, and report on applications - ") ~href:("https://inbox.vuxu.org/caml-list") ~left_icon:(Icons.email "w-10 h-10") ~title:("Caml User's Mailing List") "" %>
       </ul>
   </div>
 </div>
@@ -85,7 +94,7 @@ Community_layout.single_column_layout
           <%s event_num %>
        </h5> 
         <div class="h-14 w-64 mt-2 border-primary dark:border-primary mb-4">
-          <form action="<%s Url.community %>" method="GET">
+          <form action="<%s Url.events %>" method="GET">
                 <label for="e" class="sr-only">Location</label>
                 <%s! Forms.select
                   ~attrs:{|id="e" name="e" onchange="this.form.submit()"|}
@@ -112,36 +121,7 @@ Community_layout.single_column_layout
         </h5>   
     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
       <% jobs |> List.iter (fun (job : Data.Job.t) -> %>
-      <a href="<%s job.link %>" class="light-card dark:dark-card rounded-xl overflow-hidden p-4">
-      <div class="flex h-20 items-end mb-4">
-        <img class="h-full rounded border-2 border-separator_30 p-2 max-w-[100px] bg-dark-white" src="<%s job.company_logo %>" alt="company logo">
-        <p class="text-base px-2 text-content dark:text-dark-content opacity-80">
-          <%s job.company %></p>
-      </div>
-      <div class="">
-         <p class="text-lg mb-4 text-title dark:text-dark-title truncate">
-            <%s job.title %>
-         </p>
-        <div class="flex items-center space-x-2">
-            <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary"  %>
-        <p class="text-title dark:text-dark-title">
-            <%s String.concat ", " job.locations %>
-        </p>
-        </div>
-          <% (match job.publication_date with None -> () | Some date -> %>
-        <div class="flex items-center space-x-2 mt-2">
-           <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary"  %>
-        <p class="text-content dark:text-dark-content">
-           <%s date %>
-        </p>
-        </div>
-        <% ); %>
-        <div class="flex items-center mt-2">
-          <%s! Icons.link "h-5 w-10 text-primary dark:text-dark-primary max-w-[7%]" %>
-        <p class="text-primary dark:text-dark-white hover:dark:text-dark-primary hover:underline truncate max-w-[90%] ml-2"><%s job.link %></p>
-          </div>
-        </div>
-      </a>
+      <%s! Cards.job_card job %>
       <% ); %>
     </div>
     <a href="<%s Url.jobs %>" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View all Jobs<%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
@@ -154,23 +134,23 @@ Community_layout.single_column_layout
       <div class="flex flex-col">
         <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium my-4">Conference records</p>
         <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-4">Past Conference Recordings & Materials</h2>
-        <p class="text-content dark:text-dark-content mb-6">Join us annually for the highly anticipated OCaml Workshop! It's an opportunity for you to immerse yourself in knowledge, connect with like-minded individuals, and  unlock new possibilities. Don't miss the chance to be part of this  international learning adventure.</p>
+        <p class="text-content dark:text-dark-content mb-6">Join us annually for the highly anticipated OCaml Conference! It's an opportunity for you to immerse yourself in knowledge, connect with like-minded individuals, and  unlock new possibilities. Don't miss the chance to be part of this  international learning adventure.</p>
         <p class="text-content dark:text-dark-content">Below, you can find slides and documents from previous OCaml Conferences.</p>
-        <% old_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
-        <a href="<%s Url.workshop workshop.slug %>"  class="card dark:dark-card p-5 rounded-xl mt-4">
-            <p class="text-title dark:text-dark-title mb-2"><%s workshop.title %></p>
+        <% old_conferences |> List.iter (fun (conference : Data.Conference.t) -> %>
+        <a href="<%s Url.conference conference.slug %>"  class="card dark:dark-card p-5 rounded-xl mt-4">
+            <p class="text-title dark:text-dark-title mb-2"><%s conference.title %></p>
             <div class="flex items-center space-x-2 mb-3">
                 <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
-                <p class="text-content dark:text-dark-content"><%s workshop.location %></p>
+                <p class="text-content dark:text-dark-content"><%s conference.location %></p>
             </div>
             <div class="flex items-center space-x-2 mb-4">
                 <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary mr-2" %>
-                <p class="text-content dark:text-dark-content"><%s workshop.date %></p>
+                <p class="text-content dark:text-dark-content"><%s conference.date %></p>
             </div>
             <div class="bg-primary dark:bg-dark-primary hover:bg-primary_dark dark:hover:bg-dark-primary_40 text-white dark:text-white py-1 px-2 rounded font-bold text-center w-32">Read More</div>
           </a>
         <% ); %>
-        <a href="" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View Conferences <%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary  dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
+        <a href="/conferences" class="text-primary dark:text-dark-white hover:text-primary pr-2 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group dark:underline"> View Conferences <%s! Icons.arrow_small_right "h-5 w-5 ml-2 text-primary  dark:text-dark-white group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %>
         </a> 
       </div> 
       <div class="flex flex-col">

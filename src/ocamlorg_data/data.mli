@@ -135,22 +135,9 @@ module Paper : sig
 end
 
 module Planet : sig
-  type source = Planet.source
+  include module type of Planet
 
-  module Post : sig
-    type t = Planet.Post.t
-
-    val all : t list
-  end
-
-  module LocalBlog : sig
-    type t = Planet.LocalBlog.t
-
-    val all : t list
-    val get_by_id : string -> t option
-  end
-
-  val local_posts : Post.t list
+  val all : entry list
 end
 
 module Release : sig
@@ -205,8 +192,8 @@ module Video : sig
   val all : t list
 end
 
-module Workshop : sig
-  include module type of Workshop
+module Conference : sig
+  include module type of Conference
 
   val all : t list
   val get_by_slug : string -> t option

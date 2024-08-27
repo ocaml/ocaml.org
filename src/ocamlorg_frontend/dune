@@ -82,10 +82,6 @@
     --workspace
     %{workspace_root})))
  (rule
-  (target blog_post.ml)
-  (action
-   (run %{bin:dream_eml} %{dep:blog_post.eml} --workspace %{workspace_root})))
- (rule
   (target changelog.ml)
   (action
    (run %{bin:dream_eml} %{dep:changelog.eml} --workspace %{workspace_root})))
@@ -118,9 +114,17 @@
   (action
    (run %{bin:dream_eml} %{dep:events.eml} --workspace %{workspace_root})))
  (rule
-  (target workshop.ml)
+  (target conferences.ml)
   (action
-   (run %{bin:dream_eml} %{dep:workshop.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:conferences.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
+  (target conference.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:conference.eml} --workspace %{workspace_root})))
  (rule
   (target home.ml)
   (action
@@ -137,10 +141,6 @@
   (target learn.ml)
   (action
    (run %{bin:dream_eml} %{dep:learn.eml} --workspace %{workspace_root})))
- (rule
-  (target local_blog.ml)
-  (action
-   (run %{bin:dream_eml} %{dep:local_blog.eml} --workspace %{workspace_root})))
  (rule
   (target install.ml)
   (action

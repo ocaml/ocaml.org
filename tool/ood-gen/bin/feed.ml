@@ -5,8 +5,9 @@ let term_templates =
   [
     ("changelog", Changelog.ChangelogFeed.create_feed);
     ("events", Event.EventsFeed.create_feed);
+    ("news", News.RssFeed.create_feed);
     ("planet", Planet.GlobalFeed.create_feed);
-    ("video", Video.create_feed);
+    ("job", Job.JobFeed.create_feed);
   ]
 
 let cmds =

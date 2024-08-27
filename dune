@@ -29,6 +29,20 @@
 (subdir
  asset/
  (rule
+  (target news.xml)
+  (deps
+   (source_tree %{workspace_root}/data/news)
+   (:gen_feed %{workspace_root}/tool/ood-gen/bin/feed.exe))
+  (action
+   (chdir
+    %{workspace_root}
+    (with-stdout-to
+     %{target}
+     (run %{gen_feed} news))))))
+
+(subdir
+ asset/
+ (rule
   (target changelog.xml)
   (deps
    (source_tree %{workspace_root}/data/changelog)
@@ -43,18 +57,6 @@
 (subdir
  asset/
  (rule
-  (target video.xml)
-  (deps
-   (:gen_feed %{workspace_root}/tool/ood-gen/bin/feed.exe)
-   %{workspace_root}/data/video-youtube.yml
-   %{workspace_root}/data/video-watch.yml)
-  (action
-   (chdir
-    %{workspace_root}
-    (with-stdout-to
-     %{target}
-     (run %{gen_feed} video)))))
- (rule
   (target events.xml)
   (deps
    (source_tree %{workspace_root}/data/events)
@@ -65,5 +67,19 @@
     (with-stdout-to
      %{target}
      (run %{gen_feed} events))))))
+
+(subdir
+ asset/
+ (rule
+  (target jobs.xml)
+  (deps
+   (:gen_feed %{workspace_root}/tool/ood-gen/bin/feed.exe)
+   %{workspace_root}/data/jobs.yml)
+  (action
+   (chdir
+    %{workspace_root}
+    (with-stdout-to
+     %{target}
+     (run %{gen_feed} job))))))
 
 (data_only_dirs playground data practice)
