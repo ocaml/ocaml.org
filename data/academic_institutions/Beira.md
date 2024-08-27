@@ -18,7 +18,7 @@ courses:
       year: 2017
       lecture_notes: true
       exercises: true
-    - name: Functional Programming, Algorithms and Data-structures
+    - name: Functional Programming, Algorithms, and Data Structures
       url: "https://www.di.ubi.pt/~desousa/PF/pf.html"
       lecture_notes: true
       exercises: true
