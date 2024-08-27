@@ -14,7 +14,7 @@ courses:
       url: "https://www.seas.upenn.edu/~cis3410/current/"
       exercises: true
       description: |
-        The provided homework projects of this compilers class progress from basic OCaml to building an X86lite simulator and an LLVMlite backend. Later assignments focus on developing and extending the Oat language compiler, as well as program analysis and optimizations.
+        The provided homework projects of this compilers class progress from basic OCaml to building an X86lite simulator and an LLVMlite backend. Later assignments focus on developing and extending the Oat language compiler, as well as program analysis and optimisations.
     - name: Programming Languages and Techniques I
       acronym: CIS 1200
       teacher: Steve Zdancewic
