@@ -13,7 +13,7 @@ courses:
       lecture_notes: true
       exercises: true
       description: |
-        The lectures cover core functional programming topics like logic, algebra, computation, and lambda calculus, advancing to polymorphism, monads, and generic programming. They also address practical aspects such as compilation, parsing, and optimization in OCaml. The course concludes with specialized topics like functional reactive programming, the Expression Problem, and self-adjusting computation.
+        The lectures cover core functional programming topics like logic, algebra, computation, and lambda calculus, advancing to polymorphism, monads, and generic programming. They also address practical aspects such as compilation, parsing, and optimisation in OCaml. The course concludes with specialised topics like functional reactive programming, the Expression Problem, and self-adjusting computation.
 location:
      lat: 51.1140
      long: 17.0345
