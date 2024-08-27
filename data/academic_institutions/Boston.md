@@ -13,7 +13,7 @@ courses:
       teacher: Robert Mueller
       lecture_notes: true
       description: |
-        The lecture series covered foundational OCaml programming concepts such as functions, recursion, and lists. It advanced into sorting algorithms, binary trees, and storage architecture, and also explored hardware concepts like numeral systems, logic gates, and virtual machines. The course concluded with imperative features and dynamic storage diagrams.
+        The lecture series covered foundational OCaml programming concepts such as functions, recursion, and lists. It advanced into sorting algorithms, binary trees, and storage architecture. This series also explored hardware concepts like numeral systems, logic gates, and virtual machines. The course concluded with imperative features and dynamic storage diagrams.
 location:
      lat: 42.3355
      long: -71.1685
