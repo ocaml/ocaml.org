@@ -122,7 +122,7 @@ Layout.render
           <li>
             <h3>Install the opam package manager</h3>
               <p>
-                OCaml's package manager opam's 2.2 version onwards supports Windows natively. It is the recmmended way to install OCaml on Windows machines.
+                OCaml's package manager, opam, supports Windows natively since version 2.2.0 and is the recommended way to install OCaml on Windows.
 
                 If you are looking for a different installation method, check out the alternative installation instructions
                 provided in the <a href="<%s Url.tutorial "ocaml-on-windows" %>">"OCaml on Windows" guide</a>.
@@ -132,8 +132,7 @@ Layout.render
                 Run the following in a terminal (either Windows PowerShell or Command Prompt):
               </p>
 
-              <%s! Copy_to_clipboard.small_code_snippet ~id:"install-winget-git" "winget install Git.Git" %>
-              <%s! Copy_to_clipboard.small_code_snippet ~id:"install-winget-dkml" "winget install OCaml.opam" %>
+              <%s! Copy_to_clipboard.small_code_snippet ~id:"install-winget" "winget install Git.Git OCaml.opam" %>
 
           </li>
 
@@ -151,7 +150,7 @@ Layout.render
 
             <p> During <code>opam init</code>, you will be asked about Unix
             support infrastructure. You can select option 1 to let opam manage
-            its own instance of Cygwin installation. For more details, see  </p>
+            it it for you. For details of more advanced alternatives, see  </p>
 
           </li>
 
