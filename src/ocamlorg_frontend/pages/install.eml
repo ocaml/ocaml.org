@@ -129,10 +129,6 @@ Layout.render
               </p>
 
               <p>
-                Before you run the installer: Make sure your Windows username does <b>not</b> contain a space character (e.g. for <code>C:\Users\Jane Smith</code>, OCaml will not install properly).
-              </p>
-
-              <p>
                 Run the following in a terminal (either Windows PowerShell or Command Prompt):
               </p>
 
