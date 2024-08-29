@@ -150,7 +150,7 @@ Layout.render
 
             <p> During <code>opam init</code>, you will be asked about Unix
             support infrastructure. You can select option 1 to let opam manage
-            it it for you. For details of more advanced alternatives, see  </p>
+            it for you. For details of more advanced alternatives, see  </p>
 
           </li>
 
