@@ -341,6 +341,17 @@ module Job = struct
   [@@deriving of_yaml, show]
 end
 
+module Testimonial = struct
+  type t = {
+    person : string;
+    testimony : string;
+    href : string;
+    role : string;
+    logo : string;
+  }
+  [@@deriving of_yaml, show]
+end
+
 module News = struct
   type t = {
     title : string;
@@ -457,6 +468,8 @@ module Success_story = struct
     theme : string;
     synopsis : string;
     url : string;
+    why_ocaml_reasons : string list option;
+    priority : int;
     body_md : string;
     body_html : string;
   }

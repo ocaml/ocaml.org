@@ -98,6 +98,7 @@ end
 
 module Is_ocaml_yet = Is_ocaml_yet
 module Job = Job
+module Testimonial = Testimonial
 
 module News = struct
   include News
