@@ -11,7 +11,7 @@ let arrow_left class_ =
   </svg>
 
 let arrow_small_right class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" aria-hidden="true">
     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
   </svg>
 
@@ -27,7 +27,7 @@ let arrow_top_right_on_square class_ =
   </svg>
 
 let bars_3 class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
   </svg>
 
@@ -335,7 +335,7 @@ let arrow_up class_ =
   </svg>
 
 let tools class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
     <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
   </svg>
 
@@ -411,17 +411,17 @@ let file_search class_ =
   </svg>
 
 let trash class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
     <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
   </svg>
 
 let share class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
     <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
   </svg>
 
 let play_triangle class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
     <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
   </svg>
 
@@ -455,29 +455,28 @@ let system_mode class_ =
   </svg>
 
 let twitch class_ = 
-  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none" class="<%s class_ %>">
-   <path fill-rule="evenodd" clip-rule="evenodd" d="M20 0C31.0461 0 40 8.95391 40 20C40 31.0461 31.0461 40 20 40C8.95391 40 0 31.0461 0 20C0 8.95391 8.95391 0 20 0Z" fill="currentColor"/>
-   <path d="M11.4406 9.63593L10.0883 13.2406V27.6594H15.0429V30.3641H17.7476L20.45 27.6594H24.5047L29.9117 22.2539V9.63593H11.4406ZM13.2414 11.4375H28.1093V21.3508L24.9554 24.5055H20L17.2984 27.207V24.5055H13.2414V11.4375ZM18.1976 20.4508H20V15.0445H18.1976V20.4508ZM23.1531 20.4508H24.9554V15.0445H23.1531V20.4508Z" fill="white"/>
+  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50" stroke="currentColor" fill="currentColor" class="<%s class_ %>"  aria-hidden="true">
+    <path d="M 5.3125 1 L 2 9.8125 L 2 43 L 13 43 L 13 49 L 20.40625 49 L 26.40625 43 L 35.40625 43 L 48 30.4375 L 48 1 Z M 11 6 L 43 6 L 43 28 L 37 34 L 25 34 L 19 40 L 19 34 L 11 34 Z M 20 13 L 20 27 L 26 27 L 26 13 Z M 30 13 L 30 27 L 36 27 L 36 13 Z"></path>
   </svg>
 
 let legal class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none" class="<%s class_ %>">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none" class="<%s class_ %>" aria-hidden="true">
     <path d="M10.75 1V18.25M10.75 18.25C9.278 18.25 7.868 18.515 6.565 19M10.75 18.25C12.222 18.25 13.632 18.515 14.935 19M17.5 2.97C15.2637 2.65611 13.0082 2.49906 10.75 2.5C8.459 2.5 6.205 2.66 4 2.97M17.5 2.97C18.51 3.113 19.51 3.287 20.5 3.49M17.5 2.97L20.12 13.696C20.242 14.195 20.014 14.724 19.531 14.898C18.8794 15.1319 18.1923 15.2509 17.5 15.25C16.8077 15.2509 16.1206 15.1319 15.469 14.898C14.986 14.724 14.758 14.195 14.879 13.696L17.5 2.971V2.97ZM4 2.97C2.99 3.113 1.99 3.287 1 3.49M4 2.97L6.62 13.696C6.742 14.195 6.514 14.724 6.031 14.898C5.37943 15.1318 4.69226 15.2509 4 15.25C3.30774 15.2509 2.62057 15.1318 1.969 14.898C1.486 14.724 1.258 14.195 1.379 13.696L4 2.971V2.97Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 
 let environment class_=
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" class="<%s class_ %>">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" class="<%s class_ %>" aria-hidden="true">
     <path d="M14.7116 2.32989C15.3114 2.69928 15.8658 3.1376 16.3636 3.63589C16.8736 4.14589 17.3076 4.69989 17.6696 5.28789M14.7116 2.32989L11.2636 6.46789M14.7116 2.32989C13.2937 1.46044 11.6629 1.00024 9.99965 1.00024C8.33639 1.00024 6.70556 1.46044 5.28765 2.32989M17.6696 5.28789L13.5316 8.73589M17.6696 5.28789C18.5391 6.70581 18.9993 8.33663 18.9993 9.99989C18.9993 11.6632 18.5391 13.294 17.6696 14.7119M11.2636 6.46789C11.7859 6.6546 12.26 6.9552 12.6516 7.34789C13.0444 7.73951 13.345 8.21364 13.5316 8.73589M11.2636 6.46789C10.4462 6.17654 9.55313 6.17654 8.73565 6.46789M5.28765 2.32989L8.73565 6.46789M5.28765 2.32989C4.6879 2.69926 4.13346 3.13758 3.63565 3.63589C3.13734 4.13371 2.69902 4.68815 2.32965 5.28789M13.5316 8.73589C13.823 9.55338 13.823 10.4464 13.5316 11.2639M17.6696 14.7119L13.5316 11.2639M17.6696 14.7119C17.3003 15.3116 16.8619 15.8661 16.3636 16.3639C15.8536 16.8739 15.2996 17.3079 14.7116 17.6699M13.5316 11.2639C13.3506 11.7699 13.0566 12.2459 12.6516 12.6519C12.26 13.0446 11.7859 13.3452 11.2636 13.5319M8.73565 6.46789C8.2134 6.65457 7.73926 6.95517 7.34765 7.34789C6.94265 7.75389 6.64865 8.22989 6.46765 8.73589M11.2636 13.5319L14.7116 17.6699M11.2636 13.5319C10.4462 13.8233 9.55313 13.8233 8.73565 13.5319M14.7116 17.6699C13.2937 18.5393 11.6629 18.9995 9.99965 18.9995C8.33639 18.9995 6.70556 18.5393 5.28765 17.6699M5.28765 17.6699L8.73565 13.5319M5.28765 17.6699C4.6879 17.3005 4.13346 16.8622 3.63565 16.3639C3.13735 15.8661 2.69904 15.3116 2.32965 14.7119M8.73565 13.5319C8.2134 13.3452 7.73926 13.0446 7.34765 12.6519C6.95495 12.2603 6.65435 11.7861 6.46765 11.2639M6.46765 11.2639L2.32965 14.7119M6.46765 11.2639C6.17629 10.4464 6.17629 9.55338 6.46765 8.73589M2.32965 14.7119C1.46019 13.294 1 11.6632 1 9.99989C1 8.33663 1.46019 6.70581 2.32965 5.28789M2.32965 5.28789L6.46765 8.73589" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 
 let lock class_=
-  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="22" viewBox="0 0 17 22" fill="none" class="<%s class_ %>">
+  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="22" viewBox="0 0 17 22" fill="none" class="<%s class_ %>" aria-hidden="true">
     <path d="M13 9.5V5.75C13 4.55653 12.5259 3.41193 11.682 2.56802C10.8381 1.72411 9.69347 1.25 8.5 1.25C7.30653 1.25 6.16193 1.72411 5.31802 2.56802C4.47411 3.41193 4 4.55653 4 5.75V9.5M3.25 20.75H13.75C14.3467 20.75 14.919 20.5129 15.341 20.091C15.7629 19.669 16 19.0967 16 18.5V11.75C16 11.1533 15.7629 10.581 15.341 10.159C14.919 9.73705 14.3467 9.5 13.75 9.5H3.25C2.65326 9.5 2.08097 9.73705 1.65901 10.159C1.23705 10.581 1 11.1533 1 11.75V18.5C1 19.0967 1.23705 19.669 1.65901 20.091C2.08097 20.5129 2.65326 20.75 3.25 20.75Z" 
     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>  
 
 let blog class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none" class="<%s class_ %>">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none" class="<%s class_ %>" aria-hidden="true">
     <path d="M12 7.75H13.5M12 10.75H13.5M6 13.75H13.5M6 16.75H13.5M16.5 7.75H19.875C20.496 7.75 21 8.254 21 8.875V18.25C21 18.8467 20.7629 19.419 20.341 19.841C19.919 20.2629 19.3467 20.5 18.75 20.5M16.5 7.75V18.25C16.5 18.8467 16.7371 19.419 17.159 19.841C17.581 20.2629 18.1533 20.5 18.75 20.5M16.5 7.75V5.125C16.5 4.504 15.996 4 15.375 4H4.125C3.504 4 3 4.504 3 5.125V18.25C3 18.8467 3.23705 19.419 3.65901 19.841C4.08097 20.2629 4.65326 20.5 5.25 20.5H18.75M6 7.75H9V10.75H6V7.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 
@@ -533,4 +532,8 @@ let quote_icon class_ =
     <rect width="38" height="31" fill="white"/>
     </clipPath>
     </defs>
+    
+let youtube class_ =
+  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 30 30" stroke="currentColor" fill="currentColor" class="<%s class_ %>" aria-hidden="true">
+    <path d="M 15 4 C 10.814 4 5.3808594 5.0488281 5.3808594 5.0488281 L 5.3671875 5.0644531 C 3.4606632 5.3693645 2 7.0076245 2 9 L 2 15 L 2 15.001953 L 2 21 L 2 21.001953 A 4 4 0 0 0 5.3769531 24.945312 L 5.3808594 24.951172 C 5.3808594 24.951172 10.814 26.001953 15 26.001953 C 19.186 26.001953 24.619141 24.951172 24.619141 24.951172 L 24.621094 24.949219 A 4 4 0 0 0 28 21.001953 L 28 21 L 28 15.001953 L 28 15 L 28 9 A 4 4 0 0 0 24.623047 5.0546875 L 24.619141 5.0488281 C 24.619141 5.0488281 19.186 4 15 4 z M 12 10.398438 L 20 15 L 12 19.601562 L 12 10.398438 z"></path>
   </svg>

@@ -44,34 +44,43 @@ Community_layout.single_column_layout
       <p class="text-content dark:text-dark-content mt-4 mb-6">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators</p>
       <ul>
         <p class="text-title dark:text-dark-title text-xl font-mono mb-2">Discussion</p>
-        <%s! social_list_item ~text:("Discuss with the community, ask questions and share your work on OCaml ") ~href:("https://discuss.ocaml.org/") ~left_icon:(Icons.discourse "w-10 h-10") ~title:("Discuss") "" %>
-        <%s! social_list_item ~text:("Subreddit for discussions, memes, project updates, and sharing web articles and news - ") ~href:("https://reddit.com/r/ocaml/") ~left_icon:(Icons.reddit "w-10 h-10") ~title:("Reddits") "" %>    
+        <%s! social_list_item ~text:("Discuss with the community, ask questions and share your work on OCaml - ") ~href:("https://discuss.ocaml.org/") ~left_icon:(Icons.discourse "w-10 h-10") ~title:("Discuss") "" %>
+        <%s! social_list_item ~text:("Subreddit for discussions, memes, project updates, and sharing web articles and news - ") ~href:("https://reddit.com/r/ocaml/") ~left_icon:(Icons.reddit "w-10 h-10") ~title:("Reddit") "" %>
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title text-xl font-mono mb-2">Development</p>
-        <%s! social_list_item ~text:("Submit bug reports and feature requests for the OCaml compiler - github.com/ocaml - ") ~href:("https://reddit.com/r/ocaml/") ~left_icon:(Icons.github "w-10 h-10") ~title:("GitHub") "" %>  
-        <%s! social_list_item ~text:("Ask and help answer OCaml questions. stackoverflow.com/questions/tagged/ocaml ") ~href:("stackoverflow.com/questions/tagged/ocaml") ~left_icon:(Icons.stackoverflow "w-10 h-10") ~title:("Stackoverflow") "" %>        
+        <%s! social_list_item ~text:("Submit bug reports and feature requests for the OCaml compiler - ") ~href:("https://github.com/ocaml") ~left_icon:(Icons.github "w-10 h-10") ~title:("GitHub") "" %>
+        <%s! social_list_item ~text:("Ask and help answer OCaml questions - ") ~href:("https://stackoverflow.com/questions/tagged/ocaml") ~left_icon:(Icons.stackoverflow "w-10 h-10") ~title:("Stackoverflow") "" %>
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Chat</p>
-        <%s! social_list_item ~text:("Chat with other members of the community on Discord - ") ~href:("https://discuss.ocaml.org/") ~left_icon:(Icons.discord "w-10 h-10") ~title:("Discord") "" %>
-        <%s! social_list_item ~text:("Chat with other members of the community at #ocaml on the Libera Chat IRC network ") ~left_icon:(Icons.hashtag "w-10 h-10") ~title:("IRC Chat") "" %>
-        <%s! social_list_item ~extra_html:("<p class='text-content dark:text-dark-content'>Chat in the <span class='text-primary dark:text-dark-primary'>#ocaml-lang</span> Matrix chat room, or join the <span class='text-primary dark:text-dark-primary'>#ocaml-space</span> Matrix space</p>") ~left_icon:(Icons.matrix "h-8 mr-0") ~title:("Matrix") "" %>    
+        <%s! social_list_item ~text:("Chat with other members of the community on Discord - ") ~href:("https://discord.gg/cCYQbqN") ~left_icon:(Icons.discord "w-10 h-10") ~title:("Discord") "" %>
+        <%s! social_list_item ~text:("Chat with other members of the community at #ocaml on the Libera Chat IRC network ") ~href:"irc://irc.libera.chat/#ocaml" ~left_icon:(Icons.hashtag "w-10 h-10") ~title:("IRC Chat") "" %>
+        <%s! social_list_item ~extra_html:({|
+          <p class='text-content dark:text-dark-content'>
+            Chat in the <a class='text-primary dark:text-dark-primary hover:underline' href='https://matrix.to/#/#ocaml-lang:matrix.org'>#ocaml-lang</a>
+            Matrix chat room, or join the <a class='text-primary dark:text-dark-primary hover:underline' href='https://matrix.to/#/#ocaml-space:matrix.org'>#ocaml-space</a> Matrix space
+          </p>
+          |}) ~left_icon:(Icons.matrix "h-8 mr-0") ~title:("Matrix") "" %>    
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Video</p>
         <%s! social_list_item ~text:("Community videos such as previous OCaml Conference presentation - ") ~href:("https://watch.ocaml.org/videos/recently-added") ~left_icon:(Icons.peertube "w-10 h-10") ~title:("Watch") "" %>
-        <%s! social_list_item ~text:("Live Streams about OCaml - ") ~href:("https://twitch.tv/search?term=ocaml") ~left_icon:(Icons.twitch "w-10 h-10") ~title:("Twitch") "" %>        
+        <%s! social_list_item ~text:("Live Streams about OCaml - ") ~href:("https://twitch.tv/search?term=ocaml") ~left_icon:(Icons.twitch "w-10 h-10") ~title:("Twitch") "" %>
+        <%s! social_list_item ~text:("OCaml on YouTube - ") ~href:("https://www.youtube.com/results?search_query=OCaml") ~left_icon:(Icons.youtube "w-10 h-10") ~title:("YouTube") "" %>
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Microblogging</p>
         <%s! social_list_item ~text:("Latest announcements and events from the community - ") ~href:("https://twitter.com/ocamllang") ~left_icon:(Icons.twitter "w-10 h-10") ~title:("Twitter") "" %> 
-        <%s! social_list_item ~text:("Chat with other members of the community at #ocaml on the Libera Chat IRC network ") ~left_icon:(Icons.hashtag "w-10 h-10") ~title:("IRC Chat") "" %>
-        <%s! social_list_item ~extra_html:("<p class='text-content dark:text-dark-content'> Both <span class='text-primary dark:text-dark-primary'>types.pl</span> and <span class='text-primary dark:text-dark-primary'>discuss.systems</span> Mastodon homeservers enjoy popularity</p> ") ~left_icon:(Icons.mastodon "h-8 mr-0") ~title:("Mastodon") "" %>   
+        <%s! social_list_item ~extra_html:({|
+          <p class='text-content dark:text-dark-content'> Both the <a class='text-primary dark:text-dark-primary hover:underline' href='https://types.pl/'>types.pl</a>
+          and <a class='text-primary dark:text-dark-primary hover:underline' href='https://discuss.systems/'>discuss.systems</a> Mastodon homeservers enjoy popularity
+          </p>|}
+          ) ~left_icon:(Icons.mastodon "h-8 mr-0") ~title:("Mastodon") "" %>   
       </ul>
       <ul>
         <p class="text-title text-xl font-mono dark:text-dark-title mb-2">Mailing Lists</p>
-        <%s! social_list_item ~text:("Share experience, exchange ideas and code, and report on applications -") ~href:("https://inbox.vuxu.org/caml-list") ~left_icon:(Icons.email "w-10 h-10") ~title:("Caml User's Mailing List") "" %>
+        <%s! social_list_item ~text:("Share experience, exchange ideas and code, and report on applications - ") ~href:("https://inbox.vuxu.org/caml-list") ~left_icon:(Icons.email "w-10 h-10") ~title:("Caml User's Mailing List") "" %>
       </ul>
   </div>
 </div>
