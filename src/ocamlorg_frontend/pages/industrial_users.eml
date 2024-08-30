@@ -203,7 +203,7 @@ the community and learn more about how they use OCaml."
       <p class="text-dark-title dark:text-dark-title font-bold text-2xl mb-4">Find skilled OCaml developers for your team!</p>
       <p class="text-dark-content dark:text-dark-content">Post a job listing to appear on our Jobs page to reach OCaml experts who are eager to collaborate.</p>
       <div class="flex lg:flex row mt-8">
-        <a href="https://www.outreachy.org/apply/project-selection/" class="group h-12 w-full md:w-max flex p-4 items-center font-normal btn-outline drop-shadow hover:drop-shadow-xl justify-center">
+        <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-job" class="group h-12 w-full md:w-max flex p-4 items-center font-normal btn-outline drop-shadow hover:drop-shadow-xl justify-center">
             <span class="group-hover:text-white dark:group-hover:text-dark-title text-primary dark:text-dark-primary mr-2"><%s! Icons.edit "h-5 w-5 text-primary dark:text-dark-primary group-hover:text-white dark:group-hover:text-dark-title" %></span> 
             Add a Job offer
           </a>
