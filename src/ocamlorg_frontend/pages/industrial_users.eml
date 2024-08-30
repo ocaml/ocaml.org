@@ -1,4 +1,59 @@
-let render ~(users : Data.Industrial_user.t list) ~success_stories =
+let get_background_class (item: Data.Success_story.t) = 
+  match item.theme with
+  | "green" -> "linear-gradient(180deg, rgba(14, 220, 174, 0.30) 3.68%, rgba(14, 220, 174, 0.70) 96.99%)"
+  | "red" -> "linear-gradient(180deg, rgba(255, 0, 64, 0.40) 3.68%, #FF0040 96.99%)"
+  | "blue" -> "linear-gradient(180deg, rgba(5, 74, 218, 0.30) 3.68%, #054ADA 96.99%)"
+  | "lemon" -> "linear-gradient(180deg, rgba(178, 220, 108, 0.60) 3.68%, #609902 96.99%)"
+  | _ -> "linear-gradient(180deg, rgba(16, 26, 50, 0.60) 3.68%, #101A32 96.99%)"
+
+let render_logo name url = 
+  <div class="flex justify-center items-start w-4/5 p-4 my-4 swiper-slide">
+    <img class="max-h-16 w-4/5" src="<%s! Ocamlorg_static.Asset.url url %>" alt="<%s name %> logo">
+  </div>
+
+let render_nav_btn ~btn_type _class = 
+  let icon cls = match btn_type with | "next" -> Icons.chevron_right cls | _ -> Icons.chevron_left cls in
+  let fn = match btn_type with | "next" -> "swiper.slideNext()" | "prev" -> "swiper.slidePrev()" | _ -> "" in
+  <button class="items-center justify-center w-[40px] h-[40px] rounded-full bg-separator_20 dark:bg-dark-separator_30 <%s _class %>" @click="<%s! fn %>">
+    <%s! icon "h-5 w-5 text-white dark:text-dark-white" %>
+  </button>
+
+let render_user (item: Data.Industrial_user.t) = 
+  let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in
+  <a href="<%s item.url %>" target="_blank" class="flex flex-col swiper-slide">
+    <div class="rounded-lg flex justify-center items-center border border-separator_20 dark:border-dark-separator_30 bg-white overflow-hidden py-4 h-[150px]">
+      <img class="max-h-16 m-auto" src="<%s logo %>" alt="<%s item.name %> logo">
+    </div>
+    <div>
+      <p class="text-title dark:text-dark-title my-4"><%s item.name %></p>
+      <p class="text-content text-base dark:text-dark-content"><%s item.description %></p>
+    </div>
+  </a>
+
+let job_card (job: Data.Job.t) = 
+  <a href="<%s job.link %>" target="_blank" class="bg-white dark:bg-dark-white flex md:flex-row flex-col rounded-lg swiper-slide">
+    <div class="md:border-r border-b border-separator_20 dark:border-dark-separator_20 p-4 pr-24 lg:w-9/12">
+      <p class="text-content dark:text-content"><%s job.company %></p>
+      <p class="font-bold text-title dark:text-title"><%s job.title %></p>
+      <div class="flex items-center mt-2">
+        <%s! Icons.map_pin "h-5 w-10 text-primary dark:text-dark-primary max-w-[7%]" %>
+        <p class="text-content max-w-[90%] ml-2">
+          <%s String.concat ", " job.locations %>
+        </p>
+      </div> 
+      <% (match job.publication_date with None -> () | Some date -> %>
+        <div class="flex items-center mt-2">
+          <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary"  %>
+          <p class="text-content"><%s date %></p>
+        </div>
+      <% ); %>
+    </div>
+    <div class="flex items-center justify-center md:pl-8 p-8 lg:w-3/12">
+      <img class="" src="<%s job.company_logo %>" alt="<%s job.company %> logo">
+    </div>
+  </a>
+  
+let render ~(users : Data.Industrial_user.t list) ~success_stories ~(top_story: Data.Success_story.t) ~(testimonials: Data.Testimonial.t list) ~jobs_with_count =
 Layout.render
 ~use_swiper:true
 ~title:"OCaml in Industry"
@@ -7,191 +62,239 @@ companies rely on OCaml to keep their data operating both safely and \
 efficiently. On this page, you can get an overview of the companies in \
 the community and learn more about how they use OCaml."
 ~canonical:Url.industrial_users @@
-<div class="lg:py-12 py-2 intro-section-simple dark:dark-intro-section-simple">
-  <div class="container-fluid">
-      <div class="flex flex-col lg:flex-row  justify-between space-x-0 lg:space-x-10">
-          <div class="">
-              <h1 class="font-bold text-title dark:text-dark-title">What Our Users Say About Ocaml</h1>
-              <p class="text-content dark:text-dark-content mt-6">Read our success stories to learn how OCaml helped our users achieve their goals.</p>
-          </div>
-      </div>
-    
-  </div>
-</div>
-<div class="bg-background dark:bg-dark-background py-16">
-  <div class="container-fluid">
-    <h2 class="font-bold text-title dark:text-dark-title">Trusted by Industry Leaders</h2>
-    <div class="text-content dark:text-dark-title text-base mt-3">
-      These companies and organizations rely on OCaml every day — along with thousands of other developers.
-    </div>
-    <div class="flex flex-row gap-4 flex-wrap pt-4 items-center">
-% let reference ~title ~logo class_ =
-<div class="dark:bg-dark-white flex items-center px-6 rounded-md h-20">
-    <img class="<%s class_ %>" src="<%s logo %>" alt="<%s title %>">
-</div>
-% in
-% reference ~title:"Facebook" ~logo:(Ocamlorg_static.Asset.url "logos/facebook.svg") "h-6";
-% reference ~title:"Microsoft" ~logo:(Ocamlorg_static.Asset.url "logos/microsoft.svg") "h-7";
-% reference ~title:"Docker" ~logo:(Ocamlorg_static.Asset.url "logos/docker.svg") "h-8";
-% reference ~title:"Jane Street" ~logo:(Ocamlorg_static.Asset.url "logos/janestreet.svg") "h-8";
-% reference ~title:"Bloomberg" ~logo:(Ocamlorg_static.Asset.url "logos/bloomberg.svg") "h-6";
-% reference ~title:"Tezos" ~logo:(Ocamlorg_static.Asset.url "logos/tezos.svg") "h-10";
-% reference ~title:"Ahrefs" ~logo:(Ocamlorg_static.Asset.url "logos/ahrefs.svg") "h-6";
-    </div>
-  </div>
-</div>
-<div class="intro-section-simple dark:dark-section-navigation">
-  <div class="container-fluid">
-      <div class="mt-6 lg:mt-0">
-          <h2 class="font-bold mb-6 text-title dark:text-dark-title">Case Studies</h2>
-          <p class="text-content dark:text-dark-content">
-              Read how OCaml users are solving real-world problems and how OCaml was a key to their success.
-          </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 lg:mt-12">
-        <% success_stories |> List.iter (fun (item : Data.Success_story.t) ->
-        let logo = Ocamlorg_static.Media.url item.logo in
-        let background_class = match item.theme with
-        | "cyan" -> "bg-cyan-600"
-        | "orange" -> "bg-orange-600"
-        | "blue" -> "bg-blue-600"
-        | "green" -> "bg-green-600"
-        | _ -> "bg-gray-600"
-        in %>
-        <div class="flex flex-col">
-          <a href="<%s Url.success_story item.slug %>" class="group text-base text-white dark:text-dark-white p-4 relative bg-cover h-[14.5rem]">
-            <div class="flex flex-col justify-between h-full relative z-10 text-white dark:text-dark-white">
-                <div class="h-8"><img class="h-full" src="<%s logo %>" alt=""></div>
-               
-                    <div class="opacity-0 transition-opacity flex space-x-3 items-center font-semibold group-hover:opacity-100">
-                        <span>Read full case study</span>
-                        <%s! Icons.chevron_right "h-5 w-5" %>
-                    </div>
-                
+<div class="w-full border-b bg-[#DDEAFC] dark:bg-[#101B3F] md:bg-transparent dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/industrial-users/industrial-hero-background.svg')] dark:md:bg-[url('/img/industrial-users/industrial-hero-background-dark.svg')]">
+  <div class="container-fluid py-4 md:py-8 md:flex md:gap-20">
+    <div class="w-full py-4 md:py-16 bg-[length:50%] bg-right bg-no-repeat lg:bg-[url('/img/industrial-users/hero-img.svg')] dark:lg:bg-[url('/img/industrial-users/hero-img-dark.svg')]">
+      <div class="flex flex-col md:flex-grow">
+        <h1 class="text-title dark:text-dark-title tracking-wider font-bold text-4xl lg:max-w-[50%]">What Industry Leaders Say About OCaml</h1>
+        <p class="text-content dark:text-dark-content my-6 lg:max-w-[50%] text-xl">
+          OCaml powers mission-critical systems for companies and and helps them achieve their goals.
+        </p>
+        <div class="flex lg:hidden dark:hidden" x-data="{swiper: null}" 
+        x-init="swiper = new Swiper('#companySwiper', {loop: true,slidesPerView: 1,spaceBetween: 10,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#companySwiper .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet'}})">
+          <div id="companySwiper" class="swiper-container relative overflow-hidden">
+            <div class="swiper-wrapper">
+              <%s! render_logo "facebook" "logos/lightmode/facebook.svg" %>
+              <%s! render_logo "microsoft" "logos/lightmode/microsoft.svg" %>
+              <%s! render_logo "docker" "logos/lightmode/docker.svg" %>
+              <%s! render_logo "jane_street" "logos/lightmode/jane_street.svg" %>
+              <%s! render_logo "anssi" "logos/lightmode/anssi.svg" %>
+              <%s! render_logo "bloomberg" "logos/lightmode/bloomberg.svg" %>
+              <%s! render_logo "ahrefs" "logos/lightmode/ahrefs.svg" %>
+              <%s! render_logo "wolfram" "logos/lightmode/wolfram.svg" %>
+              <%s! render_logo "dassault" "logos/lightmode/dassault.svg" %>
             </div>
-         
-            <div class="<%s background_class %> absolute left-0 top-0 w-full h-full opacity-40 z-[2]"></div>
-            <div class="absolute left-0 top-0 transition-transform transform ease-in-out w-full h-full bg-cover duration-300 z-[1]" style="background-image: url('<%s Ocamlorg_static.Media.url item.background %>');"></div>
-        </a>
-        <h4 class="text-title text-sm dark:text-dark-title mt-2">
-            <%s item.title %>
-        </h4>
+            <div class="swiper-pagination" style="bottom: 0px;">
+              <span class="cursor-pointer text-separator_20"></span>
+            </div> 
+          </div>
         </div>
+        <div class="hidden dark:flex dark:lg:hidden" x-data="{swiper: null}" 
+        x-init="swiper = new Swiper('#companySwiper', {loop: true,slidesPerView: 1,spaceBetween: 10,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#companySwiper .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet'}})">
+          <div id="companySwiper" class="swiper-container relative overflow-hidden">
+            <div class="swiper-wrapper">
+              <%s! render_logo "facebook" "logos/darkmode/facebook.svg" %>
+              <%s! render_logo "microsoft" "logos/darkmode/microsoft.svg" %>
+              <%s! render_logo "docker" "logos/darkmode/docker.svg" %>
+              <%s! render_logo "jane_street" "logos/darkmode/jane_street.svg" %>
+              <%s! render_logo "anssi" "logos/darkmode/anssi.svg" %>
+              <%s! render_logo "bloomberg" "logos/darkmode/bloomberg.svg" %>
+              <%s! render_logo "ahrefs" "logos/darkmode/ahrefs.svg" %>
+              <%s! render_logo "wolfram" "logos/darkmode/wolfram.svg" %>
+              <%s! render_logo "dassault" "logos/darkmode/dassault.svg" %>
+            </div>
+            <div class="swiper-pagination" style="bottom: 0px;">
+              <span class="cursor-pointer text-separator_20"></span>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="w-full dark:dark-section-navigation py-8 md:py-16">
+  <div class="container-fluid border-b border-separator_20 dark:border-dark-separator_30 pb-6">
+    <h2 class="font-bold mb-6 text-title text-2xl dark:text-dark-title">Case Study</h2>
+    <p class="text-content dark:text-dark-content">
+      Behind-the-scenes stories from businesses and organisations using OCaml to solve real-world problems.
+    </p>
+    <div class="flex gap-4 mt-6">
+      <div class="w-full md:max-w-[25%] flex flex-col">
+        <div class="dark:bg-background rounded-lg dark:p-4 max-w-max mb-4">
+          <img class="w-28 h-12" src="<%s! Ocamlorg_static.Media.url top_story.logo %>" alt="logo">
+        </div>   
+        <p class="text-content dark:text-dark-content mb-4"><%s top_story.title %></p>
+        <div class="flex items-center">
+          <%s! Icons.blog "h-5 w-10 text-primary dark:text-dark-primary max-w-[7%]" %>
+          <a href="<%s Url.success_story top_story.slug %>" class="text-primary dark:text-dark-primary hover:dark:text-dark-primary hover:underline truncate max-w-[90%] ml-2 cursor-pointer">Read Story</a>
+        </div>
+        <% (match top_story.why_ocaml_reasons with None -> () | Some reasons -> %>
+          <div class="flex flex-col">
+            <p class="text-content dark:text-dark-content text-2xl mt-6">Why Ocaml?</p>
+            <% reasons |> List.iter (fun (reason) -> %>
+              <div class="flex items-center mt-2">
+                <%s! Icons.circle_checkbox "h-5 w-10 text-secondary dark:text-dark-secondary max-w-[7%]" %>
+                <p class="text-content dark:text-dark-content max-w-[90%] ml-2"><%s reason %></p>
+              </div>
+            <% ); %>
+          </div>
         <% ); %>
       </div>
-       <div class="prose dark:prose-invert max-w-none mt-8">
-    If you want to contribute to a new success story, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-success-story" target="_blank">Contributing Guide</a> on GitHub.
-</div>
-  </div>
-</div>
-<div class="py-8 bg-sand dark:bg-dark-background">
-  <div
-  class="container-fluid overflow-hidden"
-  x-data="{swiper: null}"
-  x-init="swiper = new Swiper($refs.container, {loop: true,slidesPerView: 1,spaceBetween: 0,breakpoints: {640: {slidesPerView:1,
-          spaceBetween: 0,},768: {slidesPerView: 2,spaceBetween: 0,},1024: {slidesPerView: 3,
-          spaceBetween: 0,},},})">
-  <div class="container-fluid">
-    <div>
-      <h2 class="font-bold mb-4 md:mb-6 text-title dark:text-dark-title">Testimonials</h2>
-      <div class="text-content dark:text-dark-content">Read What Some Industry Users Say About OCaml.</div>
-    </div>
-    <div class="swiper-container" x-ref="container">
-      <div class="swiper-wrapper mt-6">
-% let testimonial ~href ~logo ~person ~role testimonial =
-<a href="<%s href %>" class="swiper-slide p-4">
-  <div class="overflow-hidden">
-    <div class="flex place-content-center dark:bg-dark-white h-20 w-36 p-4 rounded-md mb-2">
-      <img class="max-h-full max-w-full" src="<%s logo %>" class="h-8" alt="">
-    </div>
-    <div class="mb-4 text-content dark:text-dark-content text-sm"><%s testimonial %></div>
-    <div class="font-bold text-content dark:text-dark-content mb-6"><%s person %></div>
-    <div class="text-content dark:text-dark-content"><%s role %></div>
-  </div>
-</a>
-% in
-% testimonial ~href:"https://rescript-lang.org/" ~logo:(Ocamlorg_static.Asset.url "logos/rescript.svg")
-%             ~person:"Bob Zhang" ~role:"Maintainer, ReScript."
-%             "Thanks to the OCaml team, obviously, without such a beautiful yet practical language, this project would not exist. The original type system was inherited from it with lots of modifications to fit with JS ecosystem better.";
-
-% testimonial ~href:"https://www.janestreet.com/" ~logo:(Ocamlorg_static.Asset.url "logos/janestreet.svg")
-%             ~person:"Yaron Minsky" ~role:"CTO, Jane Street."
-%             "OCaml helps us to quickly adapt to changing market conditions and go from prototypes to production systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting it right matters.";
-
-% testimonial ~href:"https://ahrefs.com/" ~logo:(Ocamlorg_static.Asset.url "logos/ahrefs.svg")
-%             ~person:"Oleksiy Golovko" ~role:"Backend Developer, Ahrefs."
-%             "OCaml as the development environment acts as a very much trusted partner throughout the whole development process. As our requirements evolve, we change the implementation a lot, and this is where the language shines. Literally, I am not afraid to change others’ code when OCaml has my back!";
-
-% testimonial ~href:"https://www.marigold.dev" ~logo:"https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png"
-%             ~person:"Xavier Van de Woestyne" ~role:"Software engineer, Marigold."
-%             "Using OCaml as a programming language to write software has many benefits. For instance, it is able to describe the source code in an easy and understandable manner. The fear of refactoring in the source code can be eased as well. OCaml has a mature and very evolving ecosystem, which is a large, supportive and friendly community.";
-
-% testimonial ~href:"https://twitter.com/jack/status/47090747706580992" ~logo:(Ocamlorg_static.Asset.url "logos/old-twitter-logo.svg")
-%             ~person:"Jack Dorsey" ~role:"Founder, Twitter."
-%             "Originally I was going to program twttr in Python, C, & Ocaml. But, I got @florian who was a core contributor to Ruby on Rails.";
-      </div>
-    </div>
-    <div class="flex space-x-4">
-    <button aria-label="Previous" class="text-primary dark:text-dark-primary rounded-full py-4 px-4 hover:bg-primary_25 dark:hover:bg-dark-card_hover transition duration-300" @click="swiper.slidePrev()">
-        <%s! Icons.chevron_left "h-5 w-5" %>
-    </button>
-    <button aria-label="Next" class="text-primary dark:text-dark-primary rounded-full py-4 px-4 hover:bg-primary_25 dark:hover:bg-dark-card_hover transition duration-300" @click="swiper.slideNext()">
-        <%s! Icons.chevron_right "h-5 w-5" %>
-    </button>
-    </div>
-  </div>
-  </div>
-</div>
-<div class="py-5 md:py-10 md:pb-16 bg-background dark:bg-dark-background_navigation">
-  <div class="container-fluid">
-    <div class="">
-      <h2 class="font-bold mb-6 text-title dark:text-dark-title">Other Industry Users of OCaml</h2>
-      <p class="text-content dark:text-dark-content">With its strong security features and high performance, several companies rely on OCaml to keep<br> their data operating both safely and efficiently. On this page, you can get an overview of the<br> companies in the community and learn more about how they use OCaml.</p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 relative text-center bg-background dark:bg-dark-background_navigation mt-10 gap-3">
-      <% users |> List.iter (fun (item : Data.Industrial_user.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-4 h-full card dark:dark-inverted-card flex items-center flex-col">
-          <img src="<%s logo %>" class="m-auto max-h-16" alt="<%s item.name %> logo">
+      <a href="<%s Url.success_story top_story.slug %>" class="flex-1 relative hidden rounded-lg overflow-hidden md:flex max-h-[400px]">
+        <div class="absolute inset-0" style="background: <%s get_background_class (top_story) %>;"></div>
+        <img class="w-full object-cover" src="<%s! Ocamlorg_static.Media.url (top_story).background %>" alt="">
       </a>
-      <% ); %>
     </div>
-    <div class="prose dark:prose-invert max-w-none my-3 mx-2">
-        If you want to contribute to add a new industrial user, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-user" target="_blank">Contributing Guide</a> on GitHub.
   </div>
+  <div class="container-fluid grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+    <% success_stories |> List.iter (fun (item : Data.Success_story.t) -> let logo = Ocamlorg_static.Media.url item.logo in %>
+      <a href="<%s Url.success_story item.slug %>" class="relative rounded-lg overflow-hidden md:flex max-h-[300px] w-full">
+        <div class="absolute inset-0" style="background: <%s get_background_class (item) %>;"></div>
+        <img class="w-full object-cover" src="<%s! Ocamlorg_static.Media.url (item).background %>" alt="Image" />
+        <div class="absolute inset-0 flex flex-col justify-end text-dark-title p-6">
+          <div class="h-8 mb-2"><img class="h-full" src="<%s logo %>" alt=""></div>
+          <p class="mb-3 text-xl"><%s item.title %></p>
+          <div class="flex items-center">
+            <%s! Icons.blog "h-5" %>
+            <p class="underline ml-2 cursor-pointer">Read Story</p>
+          </div>
+        </div>
+      </a>
+    <% ); %>
   </div>
 </div>
-<div class="intro-section-simple dark:dark-intro-section-simple lg:py-12 py-8 border-t border-separator_20 dark:border-dark-primary_30">
+<div class="w-full bg-sand dark:dark-deep-blue-gradient py-8 md:py-16">
   <div class="container-fluid">
-      <div class="">
-        <h2 class="font-bold text-title dark:text-dark-title mb-4">Industrial Resources</h2>
-        <div class="text-content dark:text-dark-content mb-8">Here are some of the resources that may be helpful to you.</div>
+    <div class="flex flex-col items-center justify-center">
+      <p class="font-bold text-xl text-title dark:text-dark-title">Who Uses OCaml?</p>
+      <p class="text-content dark:text-dark-content text-center mt-6">With its strong security features and high performance, many companies rely on OCaml to keep their data operating both safely and efficiently.</p>
+    </div> 
+    <div class="flex mt-6 lg:hidden" x-data="{swiper: null}" 
+      x-init="swiper = new Swiper('#usersSwiper', {loop: true,slidesPerView: 1,spaceBetween: 10,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#usersSwiper .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet'}})">
+      <div id="usersSwiper" class="swiper-container relative overflow-hidden pb-10">
+        <div class="swiper-wrapper">
+          <% users |> List.iter (fun (item : Data.Industrial_user.t) -> %>
+            <%s! render_user item %>
+          <% ); %>
+        </div>
+        <div class="swiper-pagination" style="bottom: 0px;">
+          <span class="cursor-pointer text-separator_20"></span>
+        </div> 
       </div>
-      <div class="grid lg:grid-cols-3 gap-8 lg:gap-8">
-        <a href="<%s Url.install %>" class="card dark:dark-card p-4">
-           <div class="flex pb-2">
-            <%s! Icons.play_circle "w-6 text-primary dark:text-dark-primary" %>
-            <p class="font-bold text-base text-title dark:text-dark-title ml-2">Getting Started</p>
-           </div>
-          <p class="text-content dark:text-dark-content">Install OCaml, setup your favorite text editor, and start your first project.</p>
-        </a>
-        <a href="<%s Url.api %>" class="card dark:dark-card p-4">
-          <div class="flex pb-2">
-            <%s! Icons.command_line "w-6 text-primary dark:text-dark-primary" %>
-            <p class="font-bold text-base text-title dark:text-dark-title ml-2">Standard Library</p>
-          </div>
-          <p class="text-content dark:text-dark-content">Read the standard library documentation and search its API for functions.</p>
-        </a>
-        <a href="<%s Url.books %>" class="card dark:dark-card p-4">
-          <div class="flex pb-2">
-            <%s! Icons.book "w-6 text-primary dark:text-dark-primary" %>
-            <p class="font-bold text-base text-title dark:text-dark-title ml-2">Books</p>
-          </div>
-          <p class="text-content dark:text-dark-content">What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
-        </a>
+    </div>
+    <div class="hidden lg:grid lg:grid-cols-3 gap-4 mt-6">
+      <% users |> List.iter (fun (item : Data.Industrial_user.t) -> %>
+        <%s! render_user item %>
+      <% ); %>
+      
+    </div>
+      <div class="flex items-center justify-center">
+      <a href="<%s Url.industrial_businesses %>" class="h-11 border btn-outline text-primary items-center mt-5 lg:mt-12 inline-flex py-1 px-4 rounded-md md:text-lg">
+        View 50+ Businesses Using OCaml
+      </a>
       </div>
   </div>
 </div>
+</div>
+<div class="w-full section-blue-gradient dark:dark-section-navigation py-8">
+  <div class="container-fluid">
+    <div class="flex flex-col md:flex-row gap-16">
+     <div class="flex flex-col">
+      <p class="text-dark-title dark:text-dark-title font-bold text-2xl mb-4">Find skilled OCaml developers for your team!</p>
+      <p class="text-dark-content dark:text-dark-content">Post a job listing to appear on our Jobs page to reach OCaml experts who are eager to collaborate.</p>
+      <div class="flex lg:flex row mt-8">
+        <a href="https://www.outreachy.org/apply/project-selection/" class="group h-12 w-full md:w-max flex p-4 items-center font-normal btn-outline drop-shadow hover:drop-shadow-xl justify-center">
+            <span class="group-hover:text-white dark:group-hover:text-dark-title text-primary dark:text-dark-primary mr-2"><%s! Icons.edit "h-5 w-5 text-primary dark:text-dark-primary group-hover:text-white dark:group-hover:text-dark-title" %></span> 
+            Add a Job offer
+          </a>
+       </div> 
+     </div>
+     <div class="flex flex-col lg:w-1/2 overflow-hidden">
+      <p class="text-dark-title dark:text-dark-title font-bold text-2xl mb-4">Discover Your Next Opportunity, Unlock your potential!</p>
+      <p class="text-dark-content dark:text-dark-content">Post a job listing to appear on our Jobs page to reach OCaml experts who are eager to collaborate.</p>
+      <div 
+      x-data="{swiper: null}" 
+      x-init="swiper = new Swiper('#jobSwiper', {loop: true,slidesPerView: 1,spaceBetween: 10,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#jobSwiper .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet'}})">
+        <div id="jobSwiper" class="swiper-container relative overflow-hidden">
+          <% let (jobs, jobs_count) = jobs_with_count in %>
+          <div class="lg:max-h-[165px] mt-6 swiper-wrapper">
+            <% jobs |> List.iter (fun (job : Data.Job.t) -> %>
+            <%s! job_card job %>
+            <% ); %>
+          </div>
+          <div class="flex justify-end relative mt-2">
+            <div class="swiper-pagination" style="left: 0; bottom: 0; width: unset;">
+              <span class="cursor-pointer"></span>
+            </div>     
+            <div class="flex items-center justify-end group">
+              <%s! Icons.search_bar "w-10 text-white dark:text-dark-white group-hover:text-primary group-hover:text-dark-primary max-w-[7%]" %>
+              <a href="<%s Url.jobs %>" class="text-white dark:text-dark-white underline mr-2 hover:dark:text-dark-primary truncate max-w-[90%] ml-2 group-hover:text-primary">
+                <%s Printf.sprintf "Find a Job (%i)" jobs_count %>
+              </a>
+              <%s! Icons.arrow_small_right "w-20 text-white dark:text-dark-white group-hover:text-primary group-hover:text-dark-primary max-w-[7%]" %>
+            </div>
+          </div>
+        </div>
+      </div>
+     </div>
+    </div>
+  </div>
+</div>
+<div class="bg-background dark:dark-deep-blue-gradient py-8">
+ <div class="container-fluid">
+  <div class="flex flex-col lg:flex-row gap-2 items-center w-full" x-data="{swiper: null}"
+      x-init="swiper = new Swiper('#testimonialSwiper', {loop: true,slidesPerView: 1,spaceBetween: 10,breakpoints: {640: {slidesPerView:1,
+          spaceBetween: 10,},768: {slidesPerView: 2},},})">
+    <%s! render_nav_btn ~btn_type:"prev" "hidden lg:flex" %> 
+    <div class="w-full lg:w-11/12">
+      <h3 class="text-title dark:text-dark-title font-bold">Testimonials</h3>
+      <div class="flex w-full overflow-hidden">
+        <div id="testimonialSwiper" class="swiper-container relative overflow-hidden">
+          <div class="mt-6 swiper-wrapper">
+            <% testimonials |> List.iter (fun (item : Data.Testimonial.t) -> %>
+              <div class="flex flex-col swiper-slide">
+                <span class=""><%s! Icons.quote_icon "" %></span>
+                <p class="text-content italic dark:text-dark-content leading-7 pl-10"><%s item.testimony %></p>
+                <div class="flex mt-4 pl-10">
+                  <div class="bg-white dark:bg-dark-white overflow-hidden rounded-full border border-separator_20 dark:border-none flex justify-center items-center mr-4 pr-[5px] w-[44px] h-[44px]" >
+                  <img class="w-full" src="<%s! Ocamlorg_static.Asset.url "logos/smaller_logos/rescript.svg" %>" alt="">   
+                  </div>
+                  <div>
+                  <p class="text-title dark:text-dark-title"><%s item.person %></p>
+                  <p class="text-content dark:text-dark-content"><%s item.role %></p>
+                  </div>
+                </div>
+              </div>
+            <% ); %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%s! render_nav_btn ~btn_type:"next" "hidden lg:flex" %>
+    <div class="flex mt-5 lg:hidden">
+      <%s! render_nav_btn ~btn_type:"prev" "flex lg:hidden mr-2" %>
+      <%s! render_nav_btn ~btn_type:"next" "flex lg:hidden" %>
+    </div>
+  </div>
+ </div>
+</div>
+<div class="w-full section-blue-gradient dark:dark-section-blue-gradient py-8">
+  <div class="container-fluid md:flex-row flex flex-col gap-12 items-center">
+    <div class="flex flex-col w-full md:w-[90%]">
+      <h1 class="m-0 font-sans font-bold tracking-normal leading-8 capitalize lg:tracking-tight text-2xl text-dark-title dark:text-dark-title">
+        OCaml in Teaching and Research
+      </h1>
+      <p class="text-lg text-dark-content dark:text-dark-content mt-4">With its deep mathematical roots, OCaml has always been a beacon of academic excellence. It is taught in universities around the world, and has accrued an ever growing body of research.</p>
+    </div>
+    <div class="flex items-center justify-center md:min-w-max w-full md:w-[10%]">
+      <a href="<%s Url.academic_users %>" class="h-11 w-max btn-outline text-primary border text-base items-center justify-center inline-flex py-1 px-4 rounded-md md:text-lg">
+        Learn More
+      </a>      
+     </div>
+  </div>
+</div>
+<%s! Cards.Event.script %>
+
 <script>
   function videoFullWidth() {
       return {
