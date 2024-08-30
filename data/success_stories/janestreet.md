@@ -1,10 +1,11 @@
 ---
 title: Large Scale Trading System
-logo: success-stories/janestreet.png
+logo: success-stories/janestreet.svg
 background: /success-stories/janestreet-bg.png
-theme: cyan
+theme: lemon
 synopsis: "Jane Street is a quantitative trading firm and liquidity provider with a unique focus on technology and collaborative problem solving."
 url: https://janestreet.com/technology/
+priority: 1
 ---
 
 Jane Street, a quantitative trading firm with offices in London, New York, Hong Kong, and Amsterdam, chose OCaml because its rich type system improves the quality of their code and catches bugs early.

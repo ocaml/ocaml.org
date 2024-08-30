@@ -1,10 +1,11 @@
 ---
 title: Social Network for Sports and Athletes
-logo: success-stories/besport.svg
+logo: success-stories/white/besport.svg
 background: /success-stories/besport-bg.jpg
-theme: orange
+theme: red
 synopsis: "Be Sport is a sports-devoted open social network for sports fans, clubs, and athletes."
 url: https://www.besport.com/news
+priority: 4
 ---
 
 Be Sport is a sports-devoted open social network for sports fans, clubs, and athletes. It targets both amateurs and professionals, allowing everyone to create and organise its events, to disseminate information, and to receive personalised news. It has user pages (with friendship and follow); tree-structured groups for federations, clubs, and teams; tree-structured events for competitions and matches; instant messaging with your friends or groups; a personalised newsfeed; and many sport specific features to help clubs in their activities (calendar of training sessions, collaborative score-keeping, video streaming of events, and more)! It is the biggest sport database in France (160,000 grassroot clubs [98%], 650,000 teams indexed with automatic content update [calendar, scores, rankings, etc.], and a footprint of 1.5 million grassroot events per year, to name just a few).
