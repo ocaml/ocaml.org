@@ -292,10 +292,29 @@ let success_story req =
   Dream.html (Ocamlorg_frontend.success_story success_story)
 
 let industrial_users _req =
-  let users = Data.Industrial_user.featured in
-  let success_stories = Data.Success_story.all in
-  Dream.html (Ocamlorg_frontend.industrial_users ~users ~success_stories)
+  let sort_by_priority_desc lst =
+    List.sort (fun (a: Data.Success_story.t) (b: Data.Success_story.t) -> compare a.priority b.priority) lst
+  in
+  let top_story = List.hd (sort_by_priority_desc Data.Success_story.all) in
+  let users = Data.Industrial_user.featured |> Ocamlorg.Import.List.take 3 in
+  let success_stories = match (sort_by_priority_desc Data.Success_story.all) with
+    | [] -> []
+    | _ :: rest -> rest
+  in
+  let testimonials = Data.Testimonial.all in
+  let jobs =
+    match Data.Job.all with
+    | a :: b :: c :: d :: _ -> [a; b; c; d]
+    | _ -> []
+  in
+  let jobs_with_count = (jobs, List.length Data.Job.all) in
 
+  Dream.html (Ocamlorg_frontend.industrial_users ~users ~success_stories ~top_story ~testimonials ~jobs_with_count)
+
+let industrial_businesses _req =
+  let businesses = Data.Industrial_user.featured in
+
+  Dream.html (Ocamlorg_frontend.industrial_businesses ~businesses)
 let academic_users req =
   let search_user pattern t =
     let open Data.Academic_institution in
@@ -462,6 +481,7 @@ let jobs req =
            List.filter (( <> ) "Remote") job.locations)
     |> List.sort_uniq String.compare
   in
+
   Dream.html (Ocamlorg_frontend.jobs ?location ~locations jobs)
 
 let page canonical (_req : Dream.request) =

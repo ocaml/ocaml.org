@@ -20,6 +20,7 @@ let urls =
     Url.governance_policy;
     Url.index;
     Url.industrial_users;
+    Url.industrial_businesses;
     Url.jobs;
     Url.learn;
     Url.news;

@@ -12,6 +12,7 @@ let term_templates =
     ("exercises", Exercise.template);
     ("governance", Governance.template);
     ("industrial_user", Industrial_user.template);
+    ("industrial_businesses", Industrial_user.template);
     ("is_ocaml_yet", Is_ocaml_yet.template);
     ("job", Job.template);
     ("news", News.template);
@@ -28,6 +29,7 @@ let term_templates =
     ("tutorial", Tutorial.template);
     ("video", Video.template);
     ("conferences", Conference.template);
+    ("testimonial", Testimonial.template);
   ]
 
 let cmds =
