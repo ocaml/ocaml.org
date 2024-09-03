@@ -2,7 +2,7 @@
 packages: [owl]
 ---
 
-(* Creates an Owl `float` matrix using random numbers drawn from a uniform distribution with `Owl.Mat.uniform`. It is very likely that it will be invertible but we ensure it by checking that the determinat is not zero with `Owl.Linalg.D.dat`. The dimensions of the matrix are defined by `m`. *)
+(* Creates an Owl `float` matrix using random numbers drawn from a uniform distribution with `Owl.Mat.uniform`. It is very likely that it will be invertible, but we ensure it by checking that the determinant is not zero with `Owl.Linalg.D.det`. The dimensions of the matrix are defined by `m`. *)
 let rec create_invertible m =
         let input = Owl.Mat.uniform m m in
         match Owl.Linalg.D.det input with
