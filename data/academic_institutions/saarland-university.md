@@ -3,7 +3,7 @@ name: Saarland University
 description: >
  Saarland University is a research institution in Germany, known for its strong focus on computer science, interdisciplinary research, and international collaboration.
 url: "https://www.uni-saarland.de/en/home.html"
-logo: academic_institution/saarland-university.svg
+logo: academic_institution/saarland-university.png
 continent: Europe
 courses:
     - name:  "Programmierung 1"
