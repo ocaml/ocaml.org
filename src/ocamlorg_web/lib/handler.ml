@@ -722,7 +722,10 @@ module Package_helper = struct
     let package =
       if version = "latest" then Ocamlorg_package.get_latest t name
       else
-        Ocamlorg_package.get t name (Ocamlorg_package.Version.of_string version)
+        try
+          Ocamlorg_package.get t name
+            (Ocamlorg_package.Version.of_string version)
+        with _ -> None
     in
     package
     |> Option.map (fun package ->
