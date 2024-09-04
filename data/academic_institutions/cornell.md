@@ -8,7 +8,11 @@ continent: North America
 courses:
     - name: Data Structures and Functional Programming 
       acronym: CS 3110
-      online_resource: "https://www.cs.cornell.edu/courses/cs3110/2016fa/"
+      url: "https://www.cs.cornell.edu/courses/cs3110/"
+      year: 2024
+      teacher: Michael Clarkson
+      lecture_notes: true
+      video_recordings: true
 location:
      lat: 42.4534
      long: -76.4735

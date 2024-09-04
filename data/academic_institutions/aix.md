@@ -6,7 +6,8 @@ url: "https://www.univ-amu.fr/en"
 logo: academic_institution/aix.jpg
 continent: Europe
 courses:
-    - name: Functional Programming   
+    - name: Functional Programming
+      teacher: Eric Wurbel
 location:
      lat: 43.3048
      long: 5.3774

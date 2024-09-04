@@ -8,7 +8,9 @@ continent: North America
 courses:
     - name: Principles of Programming Languages
       acronym: COMP 311
-      online_resource: "https://www.cs.rice.edu/~javaplt/311/info.html"
+      url: "https://www.cs.rice.edu/~javaplt/311/info.html"
+      year: 2009
+      teacher: Robert Cartwright
 location:
      lat: 29.7174
      long: -95.4018

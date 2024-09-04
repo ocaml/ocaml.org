@@ -7,19 +7,28 @@ logo: academic_institution/beira.jpg
 continent: Europe
 courses:
     - name: Certified Programming
-      online_resource: "https://www.di.ubi.pt/~desousa/PC/pc.html"
+      url: "https://www.di.ubi.pt/~desousa/PC/pc.html"
+      year: 2016
     - name: Computation Theory
-      online_resource: "https://www.di.ubi.pt/~desousa/TC/tcomp.html"
+      url: "https://www.di.ubi.pt/~desousa/TC/tcomp.html"
+      year: 2023
+      lecture_notes: true
     - name: Computational Logic
-      online_resource: "https://www.di.ubi.pt/~desousa/LC/lc.html"
-    - name: Functional Programming, Algorithms and Data-structures
-      online_resource: "https://www.di.ubi.pt/~desousa/PF/pf.html"
+      url: "https://www.di.ubi.pt/~desousa/LC/lc.html"
+      year: 2017
+      lecture_notes: true
+      exercises: true
+    - name: Functional Programming, Algorithms, and Data Structures
+      url: "https://www.di.ubi.pt/~desousa/PF/pf.html"
+      lecture_notes: true
+      exercises: true
     - name: Programming Languages and Compilers Design
-      online_resource: "https://www.di.ubi.pt/~desousa/DLPC/dlpc.html"
+      url: "https://www.di.ubi.pt/~desousa/DLPC/dlpc.html"
+      lecture_notes: true
+      exercises: true
     - name: Proof and Programming Theory
-      online_resource: "https://www.di.ubi.pt/~desousa/TPP/tpp.html"
-    - name: Software Reliability and Security
-      online_resource: "https://www.di.ubi.pt/~desousa/Ciencia/"
+      url: "https://www.di.ubi.pt/~desousa/TPP/tpp.html"
+      year: 2016
 location:
      lat: 40.2779
      long: -7.5090

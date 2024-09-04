@@ -8,7 +8,11 @@ continent: North America
 courses:
     - name:  Programming Languages Principles and Paradigms (along with Python and Prolog)
       acronym: CSE130-a
-      online_resource: "https://cseweb.ucsd.edu/classes/wi14/cse130-a/"
+      url: "https://cseweb.ucsd.edu/classes/wi14/cse130-a/"
+      year: 2014
+      teacher: Ravi Chugh
+      lecture_notes: true
+      exercises: true
 location:
      lat: 32.8801
      long: -117.2340

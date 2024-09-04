@@ -3,12 +3,34 @@ open Data_intf.Academic_institution
 type course_metadata = {
   name : string;
   acronym : string option;
-  online_resource : string option;
-  professor : string option;
+  url : string option;
+  teacher : string option;
   enrollment : string option;
   last_check : string option;
+  year : int option;
+  description : string option;
+  lecture_notes : bool option;
+  exercises : bool option;
+  video_recordings : bool option;
 }
-[@@deriving of_yaml, stable_record ~version:course ~modify:[ last_check ]]
+[@@deriving of_yaml]
+
+let course_metadata_to_course ~modify_last_check (c : course_metadata) : course
+    =
+  Data_intf.Academic_institution.
+    {
+      name = c.name;
+      acronym = c.acronym;
+      url = c.url;
+      teacher = c.teacher;
+      enrollment = c.enrollment;
+      last_check = modify_last_check c.last_check;
+      year = c.year;
+      description = c.description |> Option.value ~default:"";
+      lecture_notes = c.lecture_notes |> Option.value ~default:false;
+      exercises = c.exercises |> Option.value ~default:false;
+      video_recordings = c.video_recordings |> Option.value ~default:false;
+    }
 
 let ( let* ) = Result.bind
 
