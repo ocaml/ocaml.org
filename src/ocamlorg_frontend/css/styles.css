@@ -68,8 +68,15 @@ body {
   background-color: #C24F1E !important;
 }
 
-.swiper-bullet {
+.swiper-separator_30 {
   background-color: #FFFFFF4D;
+}
+
+.swiper-separator_20 {
+  background-color: #00000033;
+}
+
+.swiper-bullet {
   display: inline-block;
   width: 8px;
   height: 8px;

@@ -7,7 +7,7 @@ logo: users/functori.png
 locations:
   - "Paris, France"
 consortium: false
-featured: true
+featured: false
 ---
 
 In addition to contributing tools and libraries in OCaml and for the

@@ -7,7 +7,7 @@ logo: users/dassault.png
 locations: 
   - France
 consortium: false
-featured: true
+featured: false
 ---
 
 Dassault Systèmes, the 3DEXPERIENCE Company, provides businesses and people with virtual universes to imagine sustainable innovations.

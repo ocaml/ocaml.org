@@ -296,7 +296,7 @@ let industrial_users _req =
     List.sort (fun (a: Data.Success_story.t) (b: Data.Success_story.t) -> compare a.priority b.priority) lst
   in
   let top_story = List.hd (sort_by_priority_desc Data.Success_story.all) in
-  let users = Data.Industrial_user.featured |> Ocamlorg.Import.List.take 3 in
+  let users = Data.Industrial_user.featured |> Ocamlorg.Import.List.take 6 in
   let success_stories = match (sort_by_priority_desc Data.Success_story.all) with
     | [] -> []
     | _ :: rest -> rest
@@ -312,7 +312,7 @@ let industrial_users _req =
   Dream.html (Ocamlorg_frontend.industrial_users ~users ~success_stories ~top_story ~testimonials ~jobs_with_count)
 
 let industrial_businesses _req =
-  let businesses = Data.Industrial_user.featured in
+  let businesses = Data.Industrial_user.all in
 
   Dream.html (Ocamlorg_frontend.industrial_businesses ~businesses)
 let academic_users req =

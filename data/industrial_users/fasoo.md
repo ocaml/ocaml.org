@@ -7,7 +7,7 @@ logo: users/fasoo.png
 locations: 
   - Korea
 consortium: false
-featured: true
+featured: false
 ---
 
 Fasoo uses OCaml to develop a static analysis tool.

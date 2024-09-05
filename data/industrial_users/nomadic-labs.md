@@ -9,7 +9,7 @@ logo: users/nomadic-labs.png
 locations: 
   - "Paris, France"
 consortium: false
-featured: true
+featured: false
 ---
 
 Nomadic Labs houses a team focused on Research and Development. Our

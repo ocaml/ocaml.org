@@ -7,7 +7,7 @@ logo: users/r2c.png
 locations: 
   - California, United States
 consortium: false
-featured: true
+featured: false
 ---
 
 r2c is a VC-funded security company headquartered in San Francisco and distributed worldwide. The main product as of 2021 is [Semgrep](https://semgrep.dev/), an open-source,syntax-aware grep that supports many languages. OCaml is used extensively for parsing and analyzing source code.

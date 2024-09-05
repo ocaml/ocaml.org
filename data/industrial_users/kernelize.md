@@ -9,7 +9,7 @@ logo: users/kernelyze-llc-logo.png
 locations: 
   - United States
 consortium: true
-featured: true
+featured: false
 ---
 
 

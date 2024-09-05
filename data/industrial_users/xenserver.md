@@ -7,7 +7,7 @@ url: "https://www.xenserver.com"
 locations: 
   - United Kingdom
 consortium: true
-featured: true
+featured: false
 ---
 
 XenServer, part of Cloud Software Group, is a world-class server virtualization system and includes many components written in OCaml.
