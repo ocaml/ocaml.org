@@ -6,9 +6,9 @@ let get_background_class (item: Data.Success_story.t) =
   | "lemon" -> "bg-gradient-to-b from-[rgba(178,220,108,0.60)] to-[rgb(96,153,2,0.60)] hover:from-[rgba(178,220,108,0.60)] hover:to-[rgba(96,153,2,0.9)] transition-all duration-700 ease-[cubic-bezier(.7,0,0,1)]"
   | _ -> "bg-gradient-to-b from-[rgba(16,26,50,0.60)] to-[rgb(16,26,50,0.60)] hover:from-[rgba(16,26,50,0.60)] hover:to-[rgba(16,26,50,0.90)] transition-all duration-700 ease-[cubic-bezier(.7,0,0,1)]"
 
-let render_logo name url = 
+let render_logo name url _class = 
   <div class="flex justify-center items-start w-4/5 px-4 pt-8 pb-12 swiper-slide">
-    <img class="max-h-16 w-4/5" src="<%s! Ocamlorg_static.Asset.url url %>" alt="<%s name %> logo">
+    <img class="w-4/5 <%s _class %>" src="<%s! Ocamlorg_static.Asset.url url %>" alt="<%s name %> logo">
   </div>
 
 let render_nav_btn ~btn_type _class = 
@@ -71,18 +71,18 @@ the community and learn more about how they use OCaml."
           OCaml powers mission-critical systems for companies and and helps them achieve their goals.
         </p>
         <div class="flex lg:hidden dark:hidden" x-data="{swiper: null}" 
-        x-init="swiper = new Swiper('#companySwiper1', {loop: true,slidesPerView: 1,spaceBetween: 10,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#companySwiper1 .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet swiper-separator_20'}})">
+        x-init="swiper = new Swiper('#companySwiper1', {loop: true,slidesPerView: 1,spaceBetween: 10,autoHeight: true,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#companySwiper1 .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet swiper-separator_20'}})">
           <div id="companySwiper1" class="swiper-container relative overflow-hidden">
             <div class="swiper-wrapper">
-              <%s! render_logo "facebook" "logos/lightmode/facebook.svg" %>
-              <%s! render_logo "microsoft" "logos/lightmode/microsoft.svg" %>
-              <%s! render_logo "docker" "logos/lightmode/docker.svg" %>
-              <%s! render_logo "jane_street" "logos/lightmode/jane_street.svg" %>
-              <%s! render_logo "anssi" "logos/lightmode/anssi.svg" %>
-              <%s! render_logo "bloomberg" "logos/lightmode/bloomberg.svg" %>
-              <%s! render_logo "ahrefs" "logos/lightmode/ahrefs.svg" %>
-              <%s! render_logo "wolfram" "logos/lightmode/wolfram.svg" %>
-              <%s! render_logo "dassault" "logos/lightmode/dassault.svg" %>
+              <%s! render_logo "facebook" "logos/lightmode/facebook.svg" "max-h-16" %>
+              <%s! render_logo "microsoft" "logos/lightmode/microsoft.svg" "max-h-16" %>
+              <%s! render_logo "docker" "logos/lightmode/docker.svg" "max-h-16" %>
+              <%s! render_logo "jane_street" "logos/lightmode/jane_street.svg" "max-h-16" %>
+              <%s! render_logo "anssi" "logos/lightmode/anssi.svg" "" %>
+              <%s! render_logo "bloomberg" "logos/lightmode/bloomberg.svg" "max-h-16" %>
+              <%s! render_logo "ahrefs" "logos/lightmode/ahrefs.svg" "max-h-16" %>
+              <%s! render_logo "wolfram" "logos/lightmode/wolfram.svg" "" %>
+              <%s! render_logo "dassault" "logos/lightmode/dassault.svg" "max-h-16" %>
             </div>
             <div class="swiper-pagination" style="bottom: 0px;">
               <span class="cursor-pointer bg-separator_30"></span>
@@ -90,18 +90,18 @@ the community and learn more about how they use OCaml."
           </div>
         </div>
         <div class="hidden dark:flex dark:lg:hidden" x-data="{swiper: null}" 
-        x-init="swiper = new Swiper('#companySwiper2', {loop: true,slidesPerView: 1,spaceBetween: 10,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#companySwiper2 .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet swiper-separator_30'}})">
+        x-init="swiper = new Swiper('#companySwiper2', {loop: true,slidesPerView: 1,spaceBetween: 10,autoHeight: true,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#companySwiper2 .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet swiper-separator_30'}})">
           <div id="companySwiper2" class="swiper-container relative overflow-hidden">
             <div class="swiper-wrapper">
-              <%s! render_logo "facebook" "logos/darkmode/facebook.svg" %>
-              <%s! render_logo "microsoft" "logos/darkmode/microsoft.svg" %>
-              <%s! render_logo "docker" "logos/darkmode/docker.svg" %>
-              <%s! render_logo "jane_street" "logos/darkmode/jane_street.svg" %>
-              <%s! render_logo "anssi" "logos/darkmode/anssi.svg" %>
-              <%s! render_logo "bloomberg" "logos/darkmode/bloomberg.svg" %>
-              <%s! render_logo "ahrefs" "logos/darkmode/ahrefs.svg" %>
-              <%s! render_logo "wolfram" "logos/darkmode/wolfram.svg" %>
-              <%s! render_logo "dassault" "logos/darkmode/dassault.svg" %>
+              <%s! render_logo "facebook" "logos/darkmode/facebook.svg" "max-h-16" %>
+              <%s! render_logo "microsoft" "logos/darkmode/microsoft.svg" "max-h-16" %>
+              <%s! render_logo "docker" "logos/darkmode/docker.svg" "max-h-16" %>
+              <%s! render_logo "jane_street" "logos/darkmode/jane_street.svg" "max-h-16" %>
+              <%s! render_logo "anssi" "logos/darkmode/anssi.svg" "" %>
+              <%s! render_logo "bloomberg" "logos/darkmode/bloomberg.svg" "max-h-16" %>
+              <%s! render_logo "ahrefs" "logos/darkmode/ahrefs.svg" "max-h-16" %>
+              <%s! render_logo "wolfram" "logos/darkmode/wolfram.svg" "" %>
+              <%s! render_logo "dassault" "logos/darkmode/dassault.svg" "max-h-16" %>
             </div>
             <div class="swiper-pagination" style="bottom: 0px;">
               <span class="cursor-pointer bg-separator_20"></span>

@@ -1,6 +1,6 @@
 ---
 title: Sensor Analytics and Automation Platform for Sustainable Agriculture
-logo: success-stories/hyper.png
+logo: success-stories/hyper.svg
 background: /success-stories/hyper-bg.jpg
 theme: green
 synopsis: "Hyper Uses OCaml to Build an IoT System for High-Performing Farms."
