@@ -913,7 +913,7 @@ let packages_autocomplete_fragment t req =
   | _ -> Dream.html ""
 
 let package_overview t kind req =
-  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
+  let</>? name = try Some (Ocamlorg_package.Name.of_string @@ Dream.param req "name") with _ -> None in
   let version_from_url = Dream.param req "version" in
   let</>? package, frontend_package =
     Package_helper.of_name_version t name version_from_url
