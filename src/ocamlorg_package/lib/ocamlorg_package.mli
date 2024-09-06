@@ -12,6 +12,7 @@ module Name : sig
   val compare : t -> t -> int
   val to_string : t -> string
   val of_string : string -> t
+  val of_string_opt : string -> t option
 
   module Map : OpamStd.MAP with type key := t
 end
