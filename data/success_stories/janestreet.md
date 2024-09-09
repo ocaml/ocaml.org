@@ -6,6 +6,7 @@ theme: lemon
 synopsis: "Jane Street is a quantitative trading firm and liquidity provider with a unique focus on technology and collaborative problem solving."
 url: https://janestreet.com/technology/
 priority: 1
+why_ocaml_reasons: [Rich Type System, Performance and Efficiency, Large-Scale Usage  (+500 OCaml programmers and 30M lines of code ), Powerful Static Analysis]
 ---
 
 Jane Street, a quantitative trading firm with offices in London, New York, Hong Kong, and Amsterdam, chose OCaml because its rich type system improves the quality of their code and catches bugs early.

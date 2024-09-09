@@ -132,8 +132,8 @@ the community and learn more about how they use OCaml."
           <div class="flex flex-col">
             <p class="text-content dark:text-dark-content text-2xl mt-6">Why Ocaml?</p>
             <% reasons |> List.iter (fun (reason) -> %>
-              <div class="flex items-center mt-2">
-                <%s! Icons.circle_checkbox "h-5 w-10 text-secondary dark:text-dark-secondary max-w-[7%]" %>
+              <div class="flex mt-2">
+                <%s! Icons.circle_checkbox "h-5 w-10 text-secondary dark:text-dark-secondary max-w-[7%] mt-[2px]" %>
                 <p class="text-content dark:text-dark-content max-w-[90%] ml-2"><%s reason %></p>
               </div>
             <% ); %>
@@ -141,7 +141,15 @@ the community and learn more about how they use OCaml."
         <% ); %>
       </div>
       <a href="<%s Url.success_story top_story.slug %>" class="flex-1 relative hidden rounded-lg overflow-hidden md:flex max-h-[400px] group">
-        <div class="absolute inset-0 z-10 <%s get_background_class (top_story) %>"></div>
+        <div class="absolute inset-0 z-10 flex flex-col justify-end text-dark-title p-6 <%s get_background_class (top_story) %>">
+          <% let logo = Str.split (Str.regexp "/") top_story.logo |> List.rev |> List.hd in %>
+          <div class="h-8 mb-2"><img class="h-full" src='<%s Ocamlorg_static.Media.url ("/success-stories/white/" ^ logo) %>' alt=""></div>
+          <p class="mb-3 text-xl"><%s top_story.title %></p>
+          <div class="flex items-center">
+            <%s! Icons.blog "h-5" %>
+            <p class="group-hover:underline ml-2 cursor-pointer">Read Story</p>
+          </div>
+        </div>
         <img class="w-full object-cover transition-transform duration-500 ease-[cubic-bezier(.7,0,0,1)] scale-105 group-hover:scale-100" src="<%s! Ocamlorg_static.Media.url (top_story).background %>" alt="">
       </a>
     </div>
