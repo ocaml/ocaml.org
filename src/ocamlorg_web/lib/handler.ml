@@ -236,7 +236,8 @@ let events _req =
 let paginate ~req ~n items =
   let items_per_page = n in
   let page =
-    Dream.query req "p" |> Option.map int_of_string |> Option.value ~default:1
+    Option.bind (Dream.query req "p") int_of_string_opt
+    |> Option.value ~default:1
   in
   let number_of_pages =
     int_of_float
