@@ -74,3 +74,9 @@ recurring:
     country: "Sweden"
     city: "Stockholm"
     url: https://www.meetup.com/ReasonSTHLM/
+  - title: "Reason OCaml India meetups"
+    slug: "reason-ocaml-india"
+    event_type: meetup
+    country: "India"
+    city: "online"
+    url: https://reason-ocaml.in
