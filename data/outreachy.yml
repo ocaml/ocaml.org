@@ -401,15 +401,15 @@ rounds:
 
 
           There's probably more. Each set of exercises uses a different execution
-          framework (such as Jupyter, Learn-OCaml or custom). They provide a range of user
-          experiences, from available solutions up to candidate solution testing. The main
-          goal of this internship is to build a common configuration that allows running
+          framework (such as Jupyter, Learn-OCaml, or custom). They provide a range of user
+          experiences, from available solutions up to candidate solution testing. The internship's main
+          goal is to build a common configuration that allows running
           each set of exercises in most known setups. This will have the following
           benefits:
 
-          - Exercises are no longer tied to a setup, they can be used in several
+          - Exercises are no longer tied to a specific setup, they can be used in several
           - Loose coupling between the learning content and the technical setup
-          - For learners: Feature parity among exercise sets, self-learning, unique, simple and quick start
+          - For learners: Feature parity among exercise sets, self-learning, unique, simple, and quick start
           - For teachers: Focus on exercise writing, using the common setup
           - For the community: More exercices, easier startup, improved learning curve for OCaml
 
