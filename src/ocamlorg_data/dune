@@ -26,6 +26,18 @@
     (run %{ood_gen} academic_institution)))))
 
 (rule
+ (target academic_testimonial.ml)
+ (deps
+  %{workspace_root}/data/academic-testimonials.yml
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+ (action
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} academic_testimonials)))))
+
+(rule
  (target book.ml)
  (deps
   (source_tree %{workspace_root}/data/books)

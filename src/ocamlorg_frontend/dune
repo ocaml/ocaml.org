@@ -55,7 +55,7 @@
  pages/
  (rule
   (target about.ml)
-  (action
+  (action 
    (run %{bin:dream_eml} %{dep:about.eml} --workspace %{workspace_root})))
  (rule
   (target academic_users.ml)
@@ -63,6 +63,14 @@
    (run
     %{bin:dream_eml}
     %{dep:academic_users.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
+  (target academic_institutions.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:academic_institutions.eml}
     --workspace
     %{workspace_root})))
  (rule
