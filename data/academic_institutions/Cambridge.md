@@ -5,6 +5,9 @@ description: >
 url: "https://www.cam.ac.uk/"
 logo: academic_institution/cambridge.jpg
 continent: Europe
+featured: true
+image: academic_institution/featured/images/cambridge.png
+alternate_logo: cambridge.png
 courses:
     - name: Advanced Functional Programming 
       acronym: L28

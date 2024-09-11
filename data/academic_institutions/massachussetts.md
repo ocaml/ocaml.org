@@ -5,6 +5,9 @@ description: >
 url: "https://www.massachusetts.edu/"
 logo: academic_institution/massachusetts.png
 continent: North America
+featured: true
+image: academic_institution/featured/images/mit.png
+alternate_logo: mit.png
 courses:
     - name: Programming Languages 
       acronym: CS691F

@@ -5,6 +5,9 @@ description: >
 url: "https://u-paris.fr/en/"
 logo: academic_institution/paris.jpg
 continent: Europe
+featured: true
+image: academic_institution/featured/images/paris_diderot.png
+alternate_logo: paris_diderot.png
 courses:
     - name: Advanced Functional Programming 
       acronym: PFAV
