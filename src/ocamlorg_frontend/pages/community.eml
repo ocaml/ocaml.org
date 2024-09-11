@@ -30,7 +30,7 @@ Community_layout.single_column_layout
                 <%s!  Hero_section.hero_button ~left_icon:(Icons.discourse "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~extra_html:("<b>Discuss</b>") ~text:("With the Community") ~href:("https://discuss.ocaml.org/") "" %>
                </div>
                <div class="flex lg:flex-row mt-8 mr-4">
-                <%s!  Hero_section.hero_button ~left_icon:(Icons.peertube "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~extra_html:("<b>Watch</b>") ~text:("OCaml Videos") ~href:("https://discuss.ocaml.org/") "" %>
+                <%s!  Hero_section.hero_button ~left_icon:(Icons.peertube "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~extra_html:("<b>Watch</b>") ~text:("OCaml Videos") ~href:("https://watch.ocaml.org/") "" %>
                </div>
               </div>
           </div>
