@@ -1,123 +1,266 @@
-let render (users : Data.Academic_institution.t list) =
+let render_nav_btn ~btn_type _class = 
+  let icon cls = match btn_type with | "next" -> Icons.chevron_right cls | _ -> Icons.chevron_left cls in
+  let fn = match btn_type with | "next" -> "swiper.slideNext()" | "prev" -> "swiper.slidePrev()" | _ -> "" in
+  <button class="items-center justify-center w-[40px] h-[40px] rounded-full bg-separator_20 dark:bg-dark-separator_30 <%s _class %>" @click="<%s! fn %>">
+    <%s! icon "h-5 w-5 text-white dark:text-dark-white" %>
+  </button>
+
+let link ~icon ~(link: Data.Paper.link) = 
+  <a href="<%s link.uri %>" class="flex items-center mt-2">
+    <%s! icon "text-primary dark:text-dark-primary hover:dark:text-dark-primary dark:underline hover:underline truncate max-w-[90%] ml-2" %>
+    <p class="text-primary dark:text-dark-primary hover:dark:text-dark-primary hover:underline truncate max-w-[90%] ml-2"><%s link.description %></p>
+  </a>
+
+let match_action (input : Data.Paper.link) : string =
+  match String.lowercase_ascii input.description with
+  | "download" -> link ~icon:Icons.blog ~link:input
+  | "read" | "view" -> link ~icon:Icons.video ~link:input
+  | _ -> link ~icon:Icons.blog ~link:input
+
+let render ~(featured_institutions : Data.Academic_institution.t list) ~papers ~books ~testimonials ~top_courses =
 Layout.render
+~use_swiper:true
 ~title:"Academic Users of OCaml"
 ~description:"OCaml is taught all around the world and used every day by programming language researchers. Learn more about the strong academic roots of the language."
 ~canonical:Url.academic_users @@
-<div class="w-full intro-section-simple dark:dark-intro-section-simple">
-  <div class="container-fluid">
-    <div class="w-full m-auto">
-      <h1 class="text-title dark:text-dark-title font-bold mb-2">Academic Users of OCaml</h1>
-      <p class="text-content dark:text-dark-content lg:text-xl lg:max-w-[80%]">
-        With its deep mathematical roots, OCaml has always had strong ties to academia. Currently, it is being taught in universities around the world, and has accrued an ever growing body of research. This page will provide you with an overview of the academic excellence that defines the culture of
-        OCaml.
-      </p>
+<div class="w-full border-b bg-[#DDEAFC] dark:bg-[#101B3F] md:bg-transparent dark:border-none md:bg-[length:100%_100%] md:bg-[url('/img/academic/academic-hero-background.svg')] dark:md:bg-[url('/img/academic/academic-hero-background-dark.svg')]">
+  <div class="container-fluid py-2 md:py-4 md:flex md:gap-20">
+    <div class="w-full py-6 md:py-20 bg-contain bg-right-bottom bg-no-repeat md:bg-[url('/img/academic/map.svg')]">
+      <div class="md:flex-grow">
+        <h1 class="text-title dark:text-dark-title tracking-wider font-bold text-4xl lg:text-5xl">OCaml in <br class="hidden lg:block">
+          Teaching & Research </h1>
+  
+        <p class="text-content dark:text-dark-content my-6 max-w-md text-xl">
+          With its deep mathematical roots, OCaml has has always had strong ties to academia. It is taught in universities around the world, and has accrued an ever growing body of research.
+        </p>
+      </div>
     </div>
   </div>
 </div>
-<div class="bg-background dark:bg-dark-background py-0 md:pt-10 lg:pt-20 lg:pb-0">
-  <div class="container-fluid" x-data="{ continent: 'All' }">
-    <div class="flex justify-between mb-0 md:mb-10 lg:mb-20 lg:flex-row flex-col items-center">
-      <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0 text-title dark:text-dark-title">30+ Academic Entries</h2>
-      <div class="flex justify-between flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto">
-        <form action="<%s Url.academic_users %>" method="GET">
-        <%s! Forms.search_input
-          ~name:"q"
-          ~label:"Search institutions"
-          ~button_attrs:{|type="submit"|}
-          "h-12 lg:w-96"
-         %>
-        </form>
-        <%s! Forms.select
-          ~attrs:{|name="All Regions" x-model="continent"|}
-          ~options:[("All", "All"); ("North America", "North America"); ("Europe", "Europe"); ("Asia", "Asia")]
-          "" %>
+<div class="w-full bg-background dark:dark-section-navigation py-8 border-b border-separator_20 dark:border-separator_30">
+  <div class="container-fluid">
+    <p class="font-bold dark:text-dark-title text-2xl">Top Universities Teach OCaml</p>
+    <div 
+      class="flex flex-col w-full" 
+      x-data="{swiper: null, activeIndex: 0}" 
+      x-init="swiper = new Swiper('#institutionSwiper', {loop: true,slidesPerView: 1,spaceBetween: 10,autoHeight: true,autoplay: false,pagination: { el: `#institutionSwiper .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet'}});swiper.on('slideChange', function (swiper) {
+      activeIndex=swiper.realIndex
+    })">
+      <div class="hidden lg:grid grid-cols-5 w-full dark:gap-4 lg:mb-10">
+        <% let len = List.length featured_institutions in %>
+        <% List.iteri (fun index (item : Data.Academic_institution.t) -> 
+          let logo = match item.alternate_logo with
+            | Some x -> Ocamlorg_static.Media.url ("academic_institution/featured/" ^ x)
+            | None -> "" 
+          in
+          let greyed_logo = match item.alternate_logo with
+            | Some x -> Ocamlorg_static.Media.url ("academic_institution/featured/uncolored/" ^ x)
+            | None -> "" 
+          in
+        %>
+          <button @click="swiper.slideTo(<%s Printf.sprintf "(%i)" (index + 1) %>)" class="group flex items-center py-4 border-b" :class="activeIndex === <%s Printf.sprintf "(%i)" index %> ? 'border-primary dark-border-dark-primary' : 'border-transparent hover:border-primary dark:hover:border-dark-primary'" >
+            <div 
+              class="px-8 flex items-center justify-center dark:rounded-lg dark:bg-white <%s if index = len - 1 then "" else "border-r" %>"
+            >
+              <img :class="activeIndex === <%s Printf.sprintf "(%i)" index %>? 'block' : 'hidden group-hover:block'" class="w-full" src='<%s logo %>' alt="" />
+              <img :class="activeIndex === <%s Printf.sprintf "(%i)" index %>? 'hidden' : 'group-hover:hidden'" class="w-full" src='<%s greyed_logo %>' alt="" />
+            </div>
+          </button>
+        <% ) featured_institutions; %>
       </div>
-    </div>
-    <div :class="continent != 'All' ? 'hidden' : 'grid-logos'">
-      <% users |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary dark:hover:text-dark-primary flex items-center flex-col">
-        <img src="<%s logo %>" class="m-auto dark:bg-dark-white" alt="">
-        <div class="font-bold mt-8 text-content dark:text-dark-content"><%s item.name %></div>
-      </a>
-      <% ); %>
-    </div>
-    <div :class="continent != 'North America' ? 'hidden' : 'grid-logos'">
-      <% users |> List.filter (fun (x : Data.Academic_institution.t) -> x.continent = "North America") |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary dark:hover:text-dark-primary flex items-center flex-col">
-        <img src="<%s logo %>" class="m-auto" alt="">
-        <div class="font-bold mt-8 text-content dark:text-dark-content"><%s item.name %></div>
-      </a>
-      <% ); %>
-    </div>
-    <div :class="continent != 'Europe' ? 'hidden' : 'grid-logos'">
-      <% users |> List.filter (fun (x : Data.Academic_institution.t) -> x.continent = "Europe") |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary dark:hover:text-dark-primary flex items-center flex-col">
-        <img src="<%s logo %>" class="m-auto" alt="">
-        <div class="font-bold mt-8 text-content dark:text-dark-content"><%s item.name %></div>
-      </a>
-      <% ); %>
-    </div>
-    <div :class="continent != 'Asia' ? 'hidden' : 'grid-logos'">
-      <% users |> List.filter (fun (x : Data.Academic_institution.t) -> x.continent = "Asia") |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary dark:hover:text-dark-primary flex items-center flex-col">
-        <img src="<%s logo %>" class="m-auto" alt="">
-        <div class="font-bold mt-8 text-content dark:text-dark-content"><%s item.name %></div>
-      </a>
-      <% ); %>  
-    </div>    
-    <div class="prose dark:prose-invert max-w-none m-2">
-        If you want to contribute to add a new academic user, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-user" target="_blank">Contributing Guide</a> on GitHub.
-  </div>
-  </div>
-  <div class="intro-section-simple dark:dark-intro-section-simple lg:py-12 py-8 border-t border-separator_20 dark:border-dark-primary_30">
-    <div class="container-fluid"> 
-        <div class="">
-          <h2 class="font-bold text-title dark:text-dark-title mb-4">Academic Resources</h2>
-          <div class="text-content dark:text-dark-content mb-8">Here are some of the resources that may be helpful to you</div>
-        </div>
-        <div class="grid lg:grid-cols-3 gap-8 lg:gap-8">
-          <a href="<%s Url.papers %>" class="card dark:dark-card p-4">
-            <div class="flex pb-2">
-              <%s! Icons.papers "w-6 text-primary dark:text-dark-primary" %>
-              <p class="font-bold text-base text-title dark:text-dark-title ml-2">Papers</p>
+      <div id="institutionSwiper" class="swiper-container relative overflow-hidden">
+        <%s! render_nav_btn ~btn_type:"prev" "flex lg:hidden absolute top-[120px] left-0 z-20" %>
+        <%s! render_nav_btn ~btn_type:"next" "flex lg:hidden absolute top-[120px] right-0 z-20" %>
+        <div class="swiper-wrapper">
+          <% featured_institutions |> List.iter (fun (item : Data.Academic_institution.t) -> 
+          let image = match item.image with
+            | Some x -> Ocamlorg_static.Media.url (x)
+            | None -> "" 
+          in
+          let logo = match item.alternate_logo with
+            | Some x -> Ocamlorg_static.Media.url ("academic_institution/featured/" ^ x)
+            | None -> "" 
+          in
+          %>
+            <div class="flex flex-col md:flex-row lg:gap-8 justify-between swiper-slide">
+              <div class="lg:hidden w-full flex justify-center p-8 dark:bg-white dark:rounded-lg dark:my-8 dark:w-[70%] dark:self-center">
+                <img class="w-3/4" src="<%s logo %>" alt="">
+              </div>
+              <div class="flex flex-col w-full md:w-[40%]">
+                <p class="text-title dark:text-dark-title text-lg"><%s item.name %></p>
+                <p class="text-base text-content dark:text-dark-content my-4"><%s item.description %></p>
+                <% item.courses |> List.iter (fun (course : Data.Academic_institution.course) ->
+                  let url = match course.online_resource with
+                    | Some x -> x
+                    | None -> "#" 
+                  in
+                %>
+                <div class="flex flex-col">
+                  <a class="flex text-primary dark:text-dark-white hover:dark:text-dark-primary dark:underline hover:underline " href="<%s url %>">
+                    <%s! Icons.link "h-5 mr-2 text-primary dark:text-dark-white max-w-[7%]" %>
+                    <%s course.name %>
+                  </a>
+                  <p class="px-3 mb-2 inline-block bg-avatar-9 max-w-max rounded-3xl font-mono text-sm text-center text-white ml-6 mt-3">Lecture Note</p>
+                </div>
+                <% ); %>
+              </div>
+              <div class="hidden lg:flex w-[60%] rounded-lg h-[380px] overflow-hidden">
+                <img class="w-full" src="<%s image %>" alt="<%s item.name %>">  
+              </div>
             </div>
-            <p class="text-content dark:text-dark-content">Papers that have influenced OCaml and other functional programming languages.</p>
-          </a>
-          <a href="<%s Url.manual %>" class="card dark:dark-card p-4">
-            <div class="flex pb-2">
-              <%s! Icons.document "w-6 text-primary dark:text-dark-primary" %>
-              <p class="font-bold text-base text-title dark:text-dark-title ml-2">Language Manual</p>
-            </div>
-            <p class="text-content dark:text-dark-content">Read the reference manual of the language and the documentation on the compiler tools.</p>
-          </a>
-          <a href="<%s Url.books %>" class="card dark:dark-card p-4">
-            <div class="flex pb-2">
-              <%s! Icons.book "w-6 text-primary dark:text-dark-primary" %>
-              <p class="font-bold text-base text-title dark:text-dark-title ml-2">Books</p>
-            </div>
-            <p class="text-content dark:text-dark-content">What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
-          </a>
-        </div>
-    </div>
-  </div>
-  <div class="container-fluid" aria-hidden="true">
-    <div class="text-center py-10 lg:py-28">
-      <h2 class="mb-6 font-bold text-title dark:text-dark-title">Our Influence</h2>
-      <div class="text-content dark:text-dark-content">See where we are located around the world at an academic level.</div>
-      <div class="mt-24 relative">
-        <img src="<%s Ocamlorg_static.Asset.url "img/academic/map.svg" %>" alt="A world map that illustrates where OCaml is taught or used for research.">
-      </div>
-    </div>
-  </div>
-  <div class="bg-primary dark:bg-dark-primary">
-    <div class="container-fluid">
-      <div class="text-center text-white dark:text-dark-title lg:p-16 py-10">
-        <h3 class="font-bold mb-6">Interested in Learning More?</h3>
-        <p class="text-lg mb-8 lg:px-28">Go to our success stories for a more in-depth understanding of how our users use OCaml.</p>
-        <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
-          <a class="btn btn-lg btn-ghost" href="<%s Url.industrial_users %>">Success Stories</a>
+          <% ); %>
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="py-16 bg-sand dark:dark-deep-blue-gradient border-b border-separator_20 dark:border-dark-separator_30">
+  <div class="container-fluid">
+    <div class="flex flex-col justify-center items-center">
+      <h1 class="m-0 font-sans font-bold tracking-normal leading-8 capitalize lg:tracking-tight text-2xl text-title dark:text-dark-title text-center">
+        Many more academic institutions teach OCaml!
+      </h1>
+      <div class="flex items-center justify-center mt-4 w-full md:max-w-max">
+        <a href="<%s Url.academic_institutions %>" class="h-11 border w-full min-w-max border-primary dark:border-dark-primary text-base items-center justify-center inline-flex py-1 px-4 bg-white dark:bg-dark-background rounded-md text-primary dark:text-dark-primary hover:text-white hover:dark:text-white hover:bg-primary hover:dark:bg-dark-primary md:text-lg cursor-pointer">
+          View All Institutions
+        </a>      
+       </div>
+    </div>
+  </div>
+</div>
+<div class="w-full bg-white dark:dark-section-navigation py-8 border-b border-separator_20 dark:border-separator_30">
+  <div class="container-fluid">
+    <p class="text-title dark:text-dark-title text-2xl font-bold mb-2">Course Materials from Top Universities</p>
+    <p class="text-content dark:text-dark-content mb-2">Discover lecture notes and exercises from OCaml curriculums all around the world</p>
+    <div class="grid grid-cols-1 pb-8 lg:grid-cols-3 gap-8 mt-6">
+      <% top_courses |> List.iter (fun ((institution, course) : (string * Data.Academic_institution.course)) ->
+        let url = match course.online_resource with
+          | Some x -> x
+          | None -> "#" 
+      in
+      %>
+      <a href="<%s url %>" class="flex flex-col bg-[#00000003] dark:dark-card rounded-lg border border-separator_30 p-5">
+        <p class="text-xl text-title dark:text-dark-title"><%s course.name %></p>
+        <div class="px-3 mb-2 inline-block bg-avatar-9 max-w-max rounded-3xl font-mono text-sm text-center text-white mt-3">
+          Lecture Note
+        </div>
+        <div class="flex items-center mt-auto">
+          <%s! Icons.graduation_cap "h-6 w-6 text-primary dark:text-dark-primary group-hover:text-primary group-hover:text-dark-primary max-w-[7%]" %>
+          <p class="text-content dark:text-dark-content max-w-[90%] ml-2"><%s institution %></p>
+        </div>
+      </a>
+      <% ); %>
+    </div>
+    <div class="flex group mt-4 cursor-pointer">
+      <p class="text-primary dark:text-dark-white dark:underline hover:underline mr-2 hover:dark:text-dark-primary truncate max-w-[90%] ml-2 group-hover:text-primary">
+        View all Course Materials
+      </p>
+      <%s! Icons.arrow_small_right "h-6 w-6 text-primary dark:text-dark-white group-hover:text-primary group-hover:text-dark-primary max-w-[7%]" %>
+    </div>
+  </div>
+</div>
+<div class="w-full bg-sand dark:dark-deep-blue-gradient py-8 border-b border-separator_20 dark:border-separator_30">
+  <div class="container-fluid">
+    <p class="text-title dark:text-dark-title text-2xl font-bold mb-2">Research Papers</p>
+    <p class="text-content dark:text-dark-content mb-2">Understand the theoretical foundations of the OCaml programming language and compiler</p>
+    <div class="grid grid-cols-1 pb-2 lg:grid-cols-3 gap-8 mt-6">
+      <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
+      <div class="flex flex-col bg-[#00000003] card dark:dark-card rounded-lg p-5">
+        <p class="text-xl text-title dark:text-dark-title font-bold"><%s paper.title %></p>
+        <p class="text-content dark:text-dark-content truncate-2-lines mt-2 leading-7"><%s paper.abstract %></p>
+        <p class="text-title dark:text-dark-title mt-2 text-sm"><%s String.concat ", " paper.authors %></p>
+        <div class="flex flex-row flex-wrap">
+          <% paper.tags |> List.iter (fun (tag : string) -> %>
+          <div class="px-3 mb-2 inline-block bg-primary dark:bg-dark-primary max-w-max rounded-3xl font-mono text-center text-sm text-white mt-3 mr-2">
+            <%s tag %>
+          </div>
+          <% ); %>
+        </div>
+        <div class="flex flex-row flex-wrap mt-auto">
+          <% paper.links |> List.iter (fun (link : Data.Paper.link) -> %>
+          <%s! match_action link %>
+          <% ); %>
+        </div>
+      </div> 
+      <% ); %>
+    </div>  
+    <div class="flex group mt-4">
+      <a href="<%s Url.papers %>" class="text-primary dark:text-dark-white dark:underline hover:underline mr-2 hover:dark:text-dark-primary truncate max-w-[90%] ml-2 group-hover:text-primary cursor-pointer">
+        View all Papers
+      </a>
+      <%s! Icons.arrow_small_right "h-6 w-6 text-primary dark:text-dark-white group-hover:text-primary group-hover:text-dark-primary max-w-[7%]" %>
+    </div>
+  </div>
+</div>
+<div class="w-full bg-white dark:dark-section-navigation py-8 border-b border-separator_20 dark:border-separator_30">
+  <div class="container-fluid">
+  <div class="flex flex-col lg:flex-row gap-2 items-center w-full" x-data="{swiper: null}"
+      x-init="swiper = new Swiper('#testimonialSwiper', {loop: true,slidesPerView: 'auto',autoHeight: true,spaceBetween: 10,breakpoints: {640: {slidesPerView:'auto',
+          spaceBetween: 10,},768: {slidesPerView: 2},},})">
+    <%s! render_nav_btn ~btn_type:"prev" "hidden lg:flex" %> 
+    <div class="w-full lg:w-11/12">
+      <h3 class="text-title dark:text-dark-title font-bold">What Researchers Say About Ocaml</h3>
+      <div class="flex w-full overflow-hidden">
+        <div id="testimonialSwiper" class="swiper-container relative overflow-hidden">
+          <div class="mt-6 swiper-wrapper">
+            <% testimonials |> List.iter (fun (item : Data.Academic_testimonial.t) -> %>
+              <div class="flex flex-col swiper-slide">
+                <span class=""><%s! Icons.quote_icon "" %></span>
+                <p class="text-content italic dark:text-dark-content leading-7 pl-10"><%s item.testimony %></p>
+                <div class="flex mt-4 pl-10">
+                  <div>
+                  <p class="text-title dark:text-dark-title"><span><%s item.authors %></span>(<span><%s item.year %></span>)</p>
+                  <p class="text-content dark:text-dark-content"><%s item.publication %></p>
+                  </div>
+                </div>
+              </div>
+            <% ); %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%s! render_nav_btn ~btn_type:"next" "hidden lg:flex" %>
+    <div class="flex mt-5 lg:hidden">
+      <%s! render_nav_btn ~btn_type:"prev" "flex lg:hidden mr-2" %>
+      <%s! render_nav_btn ~btn_type:"next" "flex lg:hidden" %>
+    </div>
+  </div>
+ </div>
+</div>
+<div class="py-8 bg-sand dark:dark-deep-blue-gradient">
+  <% let (recommended_books, total) = books in %>
+  <div class="container-fluid">
+    <p class="text-title dark:text-dark-title text-2xl font-bold mb-2">Recommended Books</p>
+    <div class="grid gap-6 mt-6 lg:grid-cols-2">
+      <% recommended_books |> List.iter (fun (book : Data.Book.t) -> %>
+      <%s! Learn_components.book_recommendation
+        (book) ~link:{href = ""; title = ""} %>
+      <% ); %>
+    </div>
+    <a href="<%s Url.books %>" class="flex group mt-4">
+      <p class="text-primary dark:text-dark-white dark:underline hover:underline mr-2 hover:dark:text-dark-primary truncate max-w-[90%] ml-2 group-hover:text-primary">
+        <%s Printf.sprintf "View all books (%i)" total %>
+      </p>
+      <%s! Icons.arrow_small_right "h-6 w-6 text-primary dark:text-dark-white group-hover:text-primary group-hover:text-dark-primary max-w-[7%]" %>
+    </a>
+  </div>
+</div>
+<div class="w-full section-blue-gradient dark:dark-section-blue-gradient py-8">
+  <div class="container-fluid">
+    <p class="uppercase text-sm text-dark-content tracking-widest font-medium my-4">Industry</p>
+   <div class="md:flex-row flex flex-col gap-12">
+     <div class="flex flex-col w-full md:w-[90%]">
+      <h1 class="m-0 font-sans font-bold tracking-normal leading-8 capitalize lg:tracking-tight text-2xl text-dark-title dark:text-dark-title">
+        Curious about How OCaml is Used in Industry?
+      </h1>
+     <p class="text-lg text-dark-content dark:text-dark-content mt-4">Go to our success stories to see how businesses use OCaml.</p>
+     </div>
+     <div class="flex lg:flex-row">
+      <a href="https://www.outreachy.org/apply/project-selection/" class="group h-11 border w-full min-w-max border-primary dark:border-dark-primary text-base items-center justify-center inline-flex py-1 px-4 bg-white dark:bg-dark-background rounded-md hover:bg-primary hover:dark:bg-dark-primary md:text-lg cursor-pointer">
+        <%s! Icons.industry "h-8 w-8 mr-2 text-primary dark:text-dark-primary group-hover:text-white" %>
+        <span class="text-primary group-hover:text-white dark:text-white">Read about OCaml in Industry</span> 
+      </a>
+     </div> 
+   </div>
   </div>
 </div>
