@@ -276,8 +276,8 @@ the community and learn more about how they use OCaml."
                 <span class=""><%s! Icons.quote_icon "" %></span>
                 <p class="text-content italic dark:text-dark-content leading-7 pl-10"><%s item.testimony %></p>
                 <div class="flex mt-4 pl-10">
-                  <div class="bg-white dark:bg-dark-white overflow-hidden rounded-full border border-separator_20 dark:border-none flex justify-center items-center mr-4 pr-[5px] w-[44px] h-[44px]" >
-                  <img class="w-full" src="<%s! Ocamlorg_static.Asset.url "logos/smaller_logos/rescript.svg" %>" alt="">   
+                  <div class="bg-white dark:bg-dark-white overflow-hidden rounded-full border border-separator_20 dark:border-none flex justify-center items-center mr-4 p-[5px] w-[44px] h-[44px]" >
+                  <img class="w-full" src="<%s! if String.starts_with ~prefix:"https" item.logo then item.logo else  Ocamlorg_static.Asset.url item.logo %>" alt="">   
                   </div>
                   <div>
                   <p class="text-title dark:text-dark-title"><%s item.person %></p>

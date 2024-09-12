@@ -8,7 +8,7 @@ type metadata = {
   synopsis : string;
   url : string;
   why_ocaml_reasons : string list option;
-  priority : int
+  priority : int;
 }
 [@@deriving of_yaml, stable_record ~version:t ~add:[ slug; body_md; body_html ]]
 
