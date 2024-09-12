@@ -302,19 +302,29 @@ let academic_users _req =
   let books = Data.Book.all |> Ocamlorg.Import.List.take 2 in
   let testimonials = Data.Academic_testimonial.all in
   let books_with_count = (books, List.length Data.Book.all) in
-  let extract_courses_with_university (institutions : Data.Academic_institution.t list) =
-    List.fold_left (fun acc (institution : Data.Academic_institution.t) ->
-      match List.find_opt (fun (course : Data.Academic_institution.course) ->
-        match course.online_resource with
-          | Some _ -> true
-          | None -> false
-        ) institution.courses with
-      | Some course -> (institution.name, course) :: acc  (* Add the first course found *)
-      | None -> acc
-      ) [] institutions in
-  let top_courses = extract_courses_with_university featured_institutions |> Ocamlorg.Import.List.take 3 in
+  let extract_courses_with_university
+      (institutions : Data.Academic_institution.t list) =
+    List.fold_left
+      (fun acc (institution : Data.Academic_institution.t) ->
+        match
+          List.find_opt
+            (fun (course : Data.Academic_institution.course) ->
+              match course.online_resource with Some _ -> true | None -> false)
+            institution.courses
+        with
+        | Some course ->
+            (institution.name, course) :: acc (* Add the first course found *)
+        | None -> acc)
+      [] institutions
+  in
+  let top_courses =
+    extract_courses_with_university featured_institutions
+    |> Ocamlorg.Import.List.take 3
+  in
 
-  Dream.html (Ocamlorg_frontend.academic_users ~featured_institutions ~papers ~books:books_with_count ~testimonials ~top_courses)
+  Dream.html
+    (Ocamlorg_frontend.academic_users ~featured_institutions ~papers
+       ~books:books_with_count ~testimonials ~top_courses)
 
 let academic_institutions req =
   let query = Dream.query req "q" in
@@ -343,15 +353,16 @@ let academic_institutions req =
     | None | Some "All" -> users
     | Some c ->
         List.filter
-          (fun (user : Data.Academic_institution.t) ->
-            c = user.continent)
+          (fun (user : Data.Academic_institution.t) -> c = user.continent)
           users
   in
   let page, number_of_pages, institutions =
     paginate ~req ~n:10 filtered_by_continent
   in
 
-  Dream.html (Ocamlorg_frontend.academic_institutions ?search:query ?continent:continent ~page ~pages_number:number_of_pages institutions)
+  Dream.html
+    (Ocamlorg_frontend.academic_institutions ?search:query ?continent ~page
+       ~pages_number:number_of_pages institutions)
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
 
