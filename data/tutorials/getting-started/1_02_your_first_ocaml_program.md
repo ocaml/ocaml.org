@@ -286,23 +286,20 @@ $ opam exec -- dune exec hello
 
 <!-- https://github.com/ocaml/ocaml.org/pull/2249 -->
 **Note**: This example was successfully tested on Windows using DkML 2.1.0. Run `dkml version` to see the version.
- 
-Let's assume we'd like `hello` to display its output as if it was a list of strings in UTop: `["hello"; "using"; "an"; "opam"; "library"]`. To do that, we need a function turning a `string list` into a `string`, adding brackets, spaces, and commas. Instead of defining it ourselves, let's generate it automatically with a package. We'll use [`ppx_show`](https://github.com/thierry-martinez/ppx_show), which was written by [Thierry Martinez.](https://github.com/thierry-martinez) Here is how to install it:
+
+Let's assume we'd like `hello` to display its output as if it was a list of strings in UTop: `["hello"; "using"; "an"; "opam"; "library"]`. To do that, we need a function turning a `string list` into a `string`, adding brackets, spaces, and commas. Instead of defining it ourselves, let's generate it automatically with a package. We'll use [`ppx_deriving`](https://github.com/ocaml-ppx/ppx_deriving). Here is how to install it:
 ```shell
-$ opam install ppx_show
+$ opam install ppx_deriving
 ```
 
 Dune needs to be told how to use it, which is done in the `lib/dune` file. Note that this is different from the `bin/dune` file that you edited earlier! Open up the `lib/dune` file, and edit it to look like this:
 ```lisp
 (library
  (name hello)
- (preprocess (pps ppx_show))
- (libraries ppx_show.runtime))
+ (preprocess (pps ppx_deriving.show)))
 ```
 
-Here is the meaning of the two new lines:
-- `(libraries ppx_show.runtime)` means our project is using definitions found in the `ppx_show.runtime` library, provided by the package `ppx_show`;
-- `(preprocess (pps ppx_show))` means that before compilation the source needs to be transformed using the preprocessor provided by the package `ppx_show`.
+The line `(preprocess (pps ppx_deriving.show))` means that before compilation the source needs to be transformed using the preprocessor `show` provided by the package `ppx_deriving`. It is not required to write `(libraries ppx_deriving)`, Dune infers that from the `preprocess` stanza.
 
 The files `lib/en.ml` and `lib/en.mli` need to be edited, too:
 
@@ -314,9 +311,7 @@ val v : string list
 
 **`lib/en.ml`**
 ```ocaml
-let string_list_pp = [%show: string list]
-
-let string_of_string_list = Format.asprintf "@[%a@]" string_list_pp
+let string_of_string_list = [%show: string list]
 
 let v = String.split_on_char ' ' "Hello using an opam library"
 ```
@@ -324,7 +319,6 @@ let v = String.split_on_char ' ' "Hello using an opam library"
 Let's read this from the bottom up:
 - `v` has the type `string list`. We're using `String.split_on_char` to turn a `string` into a `string list` by splitting the string on space characters.
 - `string_of_string_list` has type `string list -> string`. This converts a list of strings into a string, applying the expected formatting.
-- `string_list_pp` has type `Format.formatter -> string list -> unit`, which means it is a custom formatter that turns a `string list` into a `string` (this type does not appear in the signature).
 
 Finally, you'll also need to edit `bin/main.ml`
 ```ocaml
