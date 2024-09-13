@@ -19,7 +19,7 @@ val last_two : 'a list -> ('a * 'a) option = <fun>
 
 # Statement
 
-Find the last but one (last and penultimate) elements of a list.
+Find the last two (last and penultimate) elements of a list.
 
 ```ocaml
 # last_two ["a"; "b"; "c"; "d"];;

@@ -11,7 +11,8 @@ alternate_logo: mit.png
 courses:
     - name: Programming Languages 
       acronym: CS691F
-      online_resource: "https://people.cs.umass.edu/~arjun/courses/cs691f/"
+      url: "https://people.cs.umass.edu/~arjun/courses/cs691f/"
+      teacher: "Arjun Guha"
 location:
      lat: 42.3142
      long: -71.0365

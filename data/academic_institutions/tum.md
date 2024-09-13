@@ -8,7 +8,10 @@ continent: Europe
 courses:
     - name: Functional Programming and Verification
       acronym: FPV
-      online_resource: "https://www.cs.cit.tum.de/pl/lehre/sommersemester-23/vorlesungen/functional-programming-and-verification-1/"
+      url: "https://www.cs.cit.tum.de/pl/lehre/sommersemester-23/vorlesungen/functional-programming-and-verification-1/"
+      year: 2024
+      enrollment: "900"
+      teacher: "Helmut Seidl"
 location:
      lat: 48.2667
      long: 11.6704

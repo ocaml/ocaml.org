@@ -236,7 +236,8 @@ let events _req =
 let paginate ~req ~n items =
   let items_per_page = n in
   let page =
-    Dream.query req "p" |> Option.map int_of_string |> Option.value ~default:1
+    Option.bind (Dream.query req "p") int_of_string_opt
+    |> Option.value ~default:1
   in
   let number_of_pages =
     int_of_float
@@ -768,7 +769,10 @@ module Package_helper = struct
     let package =
       if version = "latest" then Ocamlorg_package.get_latest t name
       else
-        Ocamlorg_package.get t name (Ocamlorg_package.Version.of_string version)
+        try
+          Ocamlorg_package.get t name
+            (Ocamlorg_package.Version.of_string version)
+        with _ -> None
     in
     package
     |> Option.map (fun package ->
@@ -840,6 +844,7 @@ let is_ocaml_yet t id req =
            category.packages)
     |> List.filter_map (fun (p : Data.Is_ocaml_yet.package) ->
            let name = Ocamlorg_package.Name.of_string p.name in
+           (* FIXME: Failure *)
            match Ocamlorg_package.get_latest t name with
            | Some x -> Some x
            | None ->
@@ -956,7 +961,9 @@ let packages_autocomplete_fragment t req =
   | _ -> Dream.html ""
 
 let package_overview t kind req =
-  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
+  let</>? name =
+    Ocamlorg_package.Name.of_string_opt @@ Dream.param req "name"
+  in
   let version_from_url = Dream.param req "version" in
   let</>? package, frontend_package =
     Package_helper.of_name_version t name version_from_url
@@ -1086,7 +1093,9 @@ let package_overview t kind req =
        ~search_index_digest ~toc ~deps_and_conflicts frontend_package)
 
 let package_versions t _kind req =
-  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
+  let</>? name =
+    Ocamlorg_package.Name.of_string_opt @@ Dream.param req "name"
+  in
   let version_from_url = Dream.param req "version" in
   let</>? _package, frontend_package =
     Package_helper.of_name_version t name version_from_url
@@ -1094,7 +1103,9 @@ let package_versions t _kind req =
   Dream.html (Ocamlorg_frontend.package_versions frontend_package)
 
 let package_documentation t kind req =
-  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
+  let</>? name =
+    Ocamlorg_package.Name.of_string_opt @@ Dream.param req "name"
+  in
   let version_from_url = Dream.param req "version" in
   let</>? package, frontend_package =
     Package_helper.of_name_version t name version_from_url
@@ -1228,7 +1239,9 @@ let package_documentation t kind req =
            ~content:doc.content frontend_package)
 
 let package_file t kind req =
-  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
+  let</>? name =
+    Ocamlorg_package.Name.of_string_opt @@ Dream.param req "name"
+  in
   let version_from_url = Dream.param req "version" in
   let</>? package, frontend_package =
     Package_helper.of_name_version t name version_from_url
@@ -1253,7 +1266,9 @@ let package_file t kind req =
        ~search_index_digest ~content_title:path ~toc frontend_package)
 
 let package_search_index t kind req =
-  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
+  let</>? name =
+    Ocamlorg_package.Name.of_string_opt @@ Dream.param req "name"
+  in
   let version_from_url = Dream.param req "version" in
   let</>? package, _ = Package_helper.of_name_version t name version_from_url in
   let open Lwt.Syntax in

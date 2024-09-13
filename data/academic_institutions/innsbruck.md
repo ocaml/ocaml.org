@@ -6,9 +6,12 @@ url: "https://www.uibk.ac.at/index.html.en"
 logo: academic_institution/university-of-innsbruck-logo.jpg
 continent: Europe
 courses:
-    - name: Programming in OCAML
+    - name: Programming in OCaml
       acronym: SS 06
-      online_resource: http://cl-informatik.uibk.ac.at/teaching/ss06/ocaml/schedule.php
+      url: http://cl-informatik.uibk.ac.at/teaching/ws13/fp/content.php
+      year: 2014
+      lecture_notes: true
+      exercises: true
 location:
      lat: 47.2692
      long: 11.4041

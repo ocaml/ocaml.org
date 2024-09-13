@@ -1,6 +1,12 @@
 module Import = Import
 open Import
-module Name = OpamPackage.Name
+
+module Name = struct
+  include OpamPackage.Name
+
+  let of_string_opt str = try Some (of_string str) with _ -> None
+end
+
 module Version = OpamPackage.Version
 module Info = Info
 module Statistics = Packages_stats
