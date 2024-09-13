@@ -1,41 +1,40 @@
 span[class*="keyword"] {
-  color: #879A39;
+  color: #879a39;
 }
 
 span[class*="constant"] {
-  color: #D0A215;
+  color: #d0a215;
 }
 
 span[class*="function-binding"] {
-  color: #DA702C;
+  color: #da702c;
 }
 
 span[class*="variable"] {
-  color: #4385BE;
+  color: #4385be;
   font-style: italic;
 }
 
 span[class*="support"] {
-  color: #0184BC;
+  color: #0184bc;
 }
 
 span[class*="comment"] {
-  color: #6F6E69;
+  color: #6f6e69;
   font-style: italic;
 }
 
 span[class*="literal"] {
-  color: #50A14F;
+  color: #50a14f;
 }
 
 span[class*="string"] {
-  color: #3AA99F;
+  color: #3aa99f;
 }
 
 span[class*="numeric"] {
-  color: #8B7EC8;
+  color: #8b7ec8;
 }
-
 
 /* Diff */
 

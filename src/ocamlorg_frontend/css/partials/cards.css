@@ -2,12 +2,12 @@
   .resources-card {
     @apply rounded-xl py-4 px-4 text-white dark:text-dark-white bg-opacity-5 bg-white dark:bg-dark-background transform hover:scale-105 transition-transform;
   }
-  
+
   .card {
     @apply bg-white hover:shadow-lg rounded-2xl border;
   }
 
-  .light-card{
+  .light-card {
     @apply bg-light hover:shadow-lg rounded-2xl border;
   }
   .dark-card {

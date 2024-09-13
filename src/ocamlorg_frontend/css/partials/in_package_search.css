@@ -36,7 +36,7 @@
 }
 
 #in-package-search-results .search-entry .entry-kind {
-    background: var(--entry-color);
+  background: var(--entry-color);
 }
 
 #in-package-search-results .search-entry.mod {
@@ -97,7 +97,9 @@
 }
 
 @media (min-width: 40em) {
-  #in-package-search-results .search-entry:not(.active):not(.open) .entry-comment {
+  #in-package-search-results
+    .search-entry:not(.active):not(.open)
+    .entry-comment {
     @apply whitespace-nowrap;
   }
 }

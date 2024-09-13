@@ -1,12 +1,12 @@
 {
-    "name": "OCaml.org",
-    "dockerFile": "Dockerfile",
-    "customizations": {
-        "vscode": {
-            "extensions": ["ocamllabs.ocaml-platform"]
-        }
-    },
-    "containerUser": "opam",
-    "forwardPorts": [8080],
-    "onCreateCommand": "opam install --deps-only --with-doc --with-test --yes ."
+  "name": "OCaml.org",
+  "dockerFile": "Dockerfile",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ocamllabs.ocaml-platform"]
+    }
+  },
+  "containerUser": "opam",
+  "forwardPorts": [8080],
+  "onCreateCommand": "opam install --deps-only --with-doc --with-test --yes ."
 }

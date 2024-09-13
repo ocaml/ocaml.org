@@ -47,10 +47,9 @@
     @apply bg-tertiary_bt_hover;
   }
 
-  .btn-transparent{
+  .btn-transparent {
     @apply rounded font-normal text-lg text-white whitespace-nowrap transition-colors inline-flex items-center justify-center space-x-3 dark:text-dark-white px-4 py-2 hover:border-primary dark:hover:border-dark-primary hover:text-primary dark:hover:text-dark-primary;
   }
-
 
   .btn-ghost {
     @apply bg-transparent dark:bg-transparent border-primary text-primary dark:border-white dark:text-white border text-base font-semibold;

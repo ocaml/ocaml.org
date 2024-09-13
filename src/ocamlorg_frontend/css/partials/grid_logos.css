@@ -8,7 +8,7 @@
 }
 
 .grid-logos > a {
-  @apply  border-b border-r border-solid border-separator_20 dark:border-dark-separator_30
+  @apply border-b border-r border-solid border-separator_20 dark:border-dark-separator_30;
 }
 
 @media (min-width: 1024px) {

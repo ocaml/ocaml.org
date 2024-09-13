@@ -1,24 +1,29 @@
 /* different page section backgrounds from Figma */
 @layer utilities {
   .section-mild-contrast {
-    background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
+    background: url("/img/innerbottombg.png") left bottom no-repeat,
+      url("/img/innertopbg.png") right top no-repeat;
     @apply bg-sand border-b border-t;
   }
-  .dark-section-mild-contrast{
-    background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
+  .dark-section-mild-contrast {
+    background: url("/img/innerbottombg.png") left bottom no-repeat,
+      url("/img/innertopbg.png") right top no-repeat;
     @apply bg-mild_blue border-b border-t;
   }
   .dark-section-strong-contrast {
-    background: linear-gradient(45deg, #010105, #10162D);
+    background: linear-gradient(45deg, #010105, #10162d);
     @apply border-none;
   }
 
   .dark-blue-section-mild-contrast {
-    background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat, linear-gradient(273deg, rgba(14, 25, 62, 0.90) -0.63%, #0E193E 98.13%);;
+    background: url("/img/innerbottombg.png") left bottom no-repeat,
+      url("/img/innertopbg.png") right top no-repeat,
+      linear-gradient(273deg, rgba(14, 25, 62, 0.9) -0.63%, #0e193e 98.13%);
   }
 
   .pkg-section-mild-contrast {
-    background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
+    background: url("/img/innerbottombg.png") left bottom no-repeat,
+      url("/img/innertopbg.png") right top no-repeat;
     @apply bg-sand border-b border-t;
   }
 
@@ -28,22 +33,23 @@
   }
 
   .section-blue-gradient {
-    background: linear-gradient(45deg, #0B1228, #0F264F);
+    background: linear-gradient(45deg, #0b1228, #0f264f);
     @apply border-none;
   }
 
   .dark-section-blue-gradient {
-    background: linear-gradient(45deg, #022E50, #0063A8);
+    background: linear-gradient(45deg, #022e50, #0063a8);
     @apply border-none;
   }
 
   .intro-section-simple {
-    background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
+    background: url("/img/innerbottombg.png") left bottom no-repeat,
+      url("/img/innertopbg.png") right top no-repeat;
     @apply pt-16 pb-16 bg-sand;
   }
 
   .dark-intro-section-simple {
-    background: linear-gradient(45deg, #010105, #10162D);
+    background: linear-gradient(45deg, #010105, #10162d);
     @apply pt-16 pb-16;
   }
 
@@ -51,13 +57,13 @@
     background: none;
     @apply pt-16 pb-16 bg-dark-background_navigation;
   }
- .deep-blue-gradient {
-  background: linear-gradient(45deg, #0B1229, #0F254C);
-  @apply border-none;
- }
+  .deep-blue-gradient {
+    background: linear-gradient(45deg, #0b1229, #0f254c);
+    @apply border-none;
+  }
 
- .dark-deep-blue-gradient {
-  background: linear-gradient(45deg, #0B1228, #0E254E);
-  @apply border-none;
-}
+  .dark-deep-blue-gradient {
+    background: linear-gradient(45deg, #0b1228, #0e254e);
+    @apply border-none;
+  }
 }
