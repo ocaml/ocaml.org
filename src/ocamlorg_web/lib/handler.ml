@@ -350,13 +350,29 @@ let academic_institutions req =
     | None -> Data.Academic_institution.all
     | Some search -> search_user search Data.Academic_institution.all
   in
-  let matches_criteria (institution : Data.Academic_institution.t) continent resource_type =
+  let matches_criteria (institution : Data.Academic_institution.t) continent
+      resource_type =
     let matches_resource_type =
       match resource_type with
       | None | Some "All" -> true
-      | Some d when d = "lecture_notes" -> List.mem true (List.map (fun (x: Data.Academic_institution.course) -> x.lecture_notes = true) institution.courses)
-      | Some d when d = "exercises" -> List.mem true (List.map (fun (x: Data.Academic_institution.course) -> x.exercises = true) institution.courses)
-      | Some d when d = "video_recordings" -> List.mem true (List.map (fun (x: Data.Academic_institution.course) -> x.video_recordings = true) institution.courses)
+      | Some d when d = "lecture_notes" ->
+          List.mem true
+            (List.map
+               (fun (x : Data.Academic_institution.course) ->
+                 x.lecture_notes = true)
+               institution.courses)
+      | Some d when d = "exercises" ->
+          List.mem true
+            (List.map
+               (fun (x : Data.Academic_institution.course) ->
+                 x.exercises = true)
+               institution.courses)
+      | Some d when d = "video_recordings" ->
+          List.mem true
+            (List.map
+               (fun (x : Data.Academic_institution.course) ->
+                 x.video_recordings = true)
+               institution.courses)
       | Some _ -> true
     in
     let matches_continent =
@@ -366,37 +382,18 @@ let academic_institutions req =
     in
     matches_continent && matches_resource_type
   in
-  (* let filter_courses_by_resource_type (institution: Data.Academic_institution.t) resource_type =
-    let filter_fn = match resource_type with
-      | Some "lecture_notes" -> fun course -> course.lecture_notes
-      | Some "exercises" -> fun course -> course.exercises
-      | Some "video_recordings" -> fun course -> course.video_recordings
-      | _ -> fun _ -> true
-    in
-    List.filter filter_fn institution.courses
-   *)
-  let filtered_institutions = 
-    let filtered = List.filter
-    (fun institution -> matches_criteria institution continent resource_type)
-    users in
-    filtered 
-    (* |> List.map(fun ins -> ({ins with courses = ins.courses})) *)
+  let filtered_institutions =
+    List.filter
+      (fun institution -> matches_criteria institution continent resource_type)
+      users
   in
-  (* let filtered_by_continent =
-    match continent with
-    | None | Some "All" -> users
-    | Some c ->
-        List.filter
-          (fun (user : Data.Academic_institution.t) -> c = user.continent)
-          users
-  in *)
   let page, number_of_pages, institutions =
     paginate ~req ~n:10 filtered_institutions
   in
 
   Dream.html
-    (Ocamlorg_frontend.academic_institutions ?search:query ?continent ?resource_type ~page
-       ~pages_number:number_of_pages institutions)
+    (Ocamlorg_frontend.academic_institutions ?search:query ?continent
+       ?resource_type ~page ~pages_number:number_of_pages institutions)
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
 
