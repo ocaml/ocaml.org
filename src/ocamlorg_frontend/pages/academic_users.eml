@@ -1,3 +1,11 @@
+let render_tag tag show =
+    let (name, _cls) = match tag with
+        | "lecture_notes" -> ("Lecture Notes", "bg-avatar-9")
+        | "exercises" -> ("Exercises", "bg-avatar-6")
+        | _ -> ("Video Recordings", "bg-avatar-11")
+    in
+    <p class="px-3 mb-2 inline-block max-w-max rounded-3xl font-mono text-sm text-center text-white ml-3 mt-3 <%s _cls %> <%s if show then "" else "hidden" %>"><%s name %></p>
+
 let render_nav_btn ~btn_type _class = 
   let icon cls = match btn_type with | "next" -> Icons.chevron_right cls | _ -> Icons.chevron_left cls in
   let fn = match btn_type with | "next" -> "swiper.slideNext()" | "prev" -> "swiper.slidePrev()" | _ -> "" in
@@ -90,7 +98,7 @@ Layout.render
                 <p class="text-title dark:text-dark-title text-lg"><%s item.name %></p>
                 <p class="text-base text-content dark:text-dark-content my-4"><%s item.description %></p>
                 <% item.courses |> List.iter (fun (course : Data.Academic_institution.course) ->
-                  let url = match course.online_resource with
+                  let url = match course.url with
                     | Some x -> x
                     | None -> "#" 
                   in
@@ -100,7 +108,11 @@ Layout.render
                     <%s! Icons.link "h-5 mr-2 text-primary dark:text-dark-white max-w-[7%]" %>
                     <%s course.name %>
                   </a>
-                  <p class="px-3 mb-2 inline-block bg-avatar-9 max-w-max rounded-3xl font-mono text-sm text-center text-white ml-6 mt-3">Lecture Note</p>
+                  <div class="flex flex-wrap ml-3">
+                    <%s! render_tag "lecture_notes" course.lecture_notes %>
+                    <%s! render_tag "exercises" course.exercises %>
+                    <%s! render_tag "video_recordings" course.video_recordings %>
+                  </div>
                 </div>
                 <% ); %>
               </div>
@@ -134,15 +146,17 @@ Layout.render
     <p class="text-content dark:text-dark-content mb-2">Discover lecture notes and exercises from OCaml curriculums all around the world</p>
     <div class="grid grid-cols-1 pb-8 lg:grid-cols-3 gap-8 mt-6">
       <% top_courses |> List.iter (fun ((institution, course) : (string * Data.Academic_institution.course)) ->
-        let url = match course.online_resource with
+        let url = match course.url with
           | Some x -> x
           | None -> "#" 
       in
       %>
       <a href="<%s url %>" class="flex flex-col bg-[#00000003] dark:dark-card rounded-lg border border-separator_30 p-5">
         <p class="text-xl text-title dark:text-dark-title"><%s course.name %></p>
-        <div class="px-3 mb-2 inline-block bg-avatar-9 max-w-max rounded-3xl font-mono text-sm text-center text-white mt-3">
-          Lecture Note
+        <div class="flex flex-wrap ml-3">
+          <%s! render_tag "lecture_notes" course.lecture_notes %>
+          <%s! render_tag "exercises" course.exercises %>
+          <%s! render_tag "video_recordings" course.video_recordings %>
         </div>
         <div class="flex items-center mt-auto">
           <%s! Icons.graduation_cap "h-6 w-6 text-primary dark:text-dark-primary group-hover:text-primary group-hover:text-dark-primary max-w-[7%]" %>
@@ -151,12 +165,12 @@ Layout.render
       </a>
       <% ); %>
     </div>
-    <div class="flex group mt-4 cursor-pointer">
+    <a href="<%s Url.academic_institutions %>" class="flex group mt-4 cursor-pointer">
       <p class="text-primary dark:text-dark-white dark:underline hover:underline mr-2 hover:dark:text-dark-primary truncate max-w-[90%] ml-2 group-hover:text-primary">
         View all Course Materials
       </p>
       <%s! Icons.arrow_small_right "h-6 w-6 text-primary dark:text-dark-white group-hover:text-primary group-hover:text-dark-primary max-w-[7%]" %>
-    </div>
+    </a>
   </div>
 </div>
 <div class="w-full bg-sand dark:dark-deep-blue-gradient py-8 border-b border-separator_20 dark:border-separator_30">

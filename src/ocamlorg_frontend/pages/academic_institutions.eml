@@ -1,4 +1,12 @@
-let render ?(search = "") ?(continent = "All") ~pages_number ~page (institutions : Data.Academic_institution.t list) =
+let render_tag tag show =
+    let (name, _cls) = match tag with
+        | "lecture_notes" -> ("Lecture Notes", "bg-avatar-9")
+        | "exercises" -> ("Exercises", "bg-avatar-6")
+        | _ -> ("Video Recordings", "bg-avatar-11")
+    in
+    <p class="px-3 mb-2 inline-block max-w-max rounded-3xl font-mono text-sm text-center text-white ml-3 mt-3 <%s _cls %> <%s if show then "" else "hidden" %>"><%s name %></p>
+    
+let render ?(search = "") ?(continent = "All") ?(resource_type = "All") ~pages_number ~page (institutions : Data.Academic_institution.t list) =
 Layout.render
 ~title:"Academic Institutions"
 ~description:"Many more academic institutions teach OCaml"
@@ -30,7 +38,12 @@ Layout.render
             ~input_attrs:("value=\"" ^ Dream.html_escape search ^ "\"")
             "h-12 lg:w-96"
             %>
-             <%s! Forms.select
+            <%s! Forms.select
+            ~attrs:{|id="resource_type" name="resource_type" onchange="this.form.submit()"|}
+            ~options:[("All", "Resource Type"); ("lecture_notes", "Lecture Notes"); ("exercises", "Exercises"); ("video_recordings", "Video Recordings")]
+            ~selected:resource_type
+            "w-full lg:w-max" %>
+            <%s! Forms.select
             ~attrs:{|id="continent" name="continent" onchange="this.form.submit()"|}
             ~options:[("All", "Select a Continent"); ("North America", "North America"); ("Europe", "Europe"); ("Asia", "Asia")]
             ~selected:continent
@@ -44,18 +57,29 @@ Layout.render
                 <div class="flex flex-col flex-grow">
                     <p class="font-bold text-lg text-title dark:text-dark-title mb-2"><%s item.name %></p>
                     <ul class="w-full flex flex-col">
-                        <% item.courses |> List.iter (fun (course : Data.Academic_institution.course) ->
-                            let url = match course.online_resource with
+                        <% item.courses 
+                        |> List.filter (fun (course : Data.Academic_institution.course) -> match resource_type with
+                           | "lecture_notes" -> course.lecture_notes
+                           | "exercises" -> course.exercises
+                           | "video_recordings" -> course.video_recordings
+                           | _ -> true
+                        )
+                        |> List.iter (fun (course : Data.Academic_institution.course) ->
+                            let url = match course.url with
                                 | Some x -> x
                                 | None -> "#" 
                             in
                             %>
-                            <li class="w-full flex flex-col lg:flex-row justify-between">
-                            <a class="flex group text-primary dark:text-dark-white hover:dark:text-dark-primary dark:underline hover:underline " href="<%s url %>">
-                                <%s! Icons.link "h-5 mr-2 text-primary dark:text-dark-white group-hover:text-primary dark:group-hover:text-dark-primary w-4 h-5" %>
-                                <%s course.name %>
-                            </a>
-                            <p class="px-3 mb-2 inline-block bg-avatar-9 max-w-max rounded-3xl font-mono text-sm text-center text-white ml-6 mt-3">Lecture Note</p>
+                            <li class="w-full flex flex-col justify-between">
+                                <a class="flex group text-primary dark:text-dark-white hover:dark:text-dark-primary dark:underline hover:underline " href="<%s url %>">
+                                    <%s! Icons.link "h-5 mr-2 text-primary dark:text-dark-white group-hover:text-primary dark:group-hover:text-dark-primary w-4 h-5" %>
+                                    <%s course.name %>
+                                </a>
+                                <div class="flex flex-wrap ml-3">
+                                    <%s! render_tag "lecture_notes" course.lecture_notes %>
+                                    <%s! render_tag "exercises" course.exercises %>
+                                    <%s! render_tag "video_recordings" course.video_recordings %>
+                                </div>
                             </li>
                         <% ); %>
                     </ul>
