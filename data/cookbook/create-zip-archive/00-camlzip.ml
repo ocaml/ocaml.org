@@ -18,7 +18,7 @@ let rec traverse_fs f directory =
     Sys.readdir directory
     |> Array.iter
          (fun entry ->
-            traverse
+            traverse_fs
               f (directory ^ "/" ^ entry))
   else
     f directory
