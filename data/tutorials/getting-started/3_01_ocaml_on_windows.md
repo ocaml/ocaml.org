@@ -6,8 +6,211 @@ description: >
 category: "Resources"
 ---
 
-There is a [DkML] Windows
-installer that we recommend for new users. However, while [DkML] has a modern OCaml 4.14.0 compiler,
+## opam
+
+Opam now features a fully native Windows compatible installation process that we
+recommend new users to follow below.
+
+In order to have access to OCaml on a Windows PC, users have to use opam so that's our
+first step.
+
+Windows Developers out there will already be familiar with `winget` which is
+the default package installer for Windows. Opam is now distributed with it. 
+
+```shell-session
+$ winget show OCaml.opam
+Found opam [OCaml.opam]
+Version : 2.2.1
+Publisher : OCaml, Inc.
+[...]
+```
+
+Installing opam is done by running the following command in your terminal:
+
+```shell-session
+> winget install OCaml.opam
+Found opam [OCaml.opam] Version 2.2.1
+This application is licensed to you by its owner.
+Microsoft is not responsible for, nor does it grant any licenses to, third-party packages.
+Downloading https://github.com/ocaml/opam/releases/download/2.2.1/opam-2.2.1-x86_64-windows.exe
+  ██████████████████████████████  9.89 MB / 9.89 MB
+Successfully verified installer hash
+Starting package install...
+Path environment variable modified; restart your shell to use the new value.
+Command line alias added: "opam"
+Successfully installed
+Notes: See https://opam.ocaml.org/blog for the latest news on how to use opam.
+```
+
+Once the package is installed, you can launch a new shell to have access to
+your fresh opam binary.
+
+```shell-session
+$ opam --version
+2.2.1
+```
+
+As for any other platform out there, you have to initialise your opam
+installation with the `opam init` command. 
+
+The first thing to know is that opam requires a UNIX-like environment to
+function. By default, opam relies on `cygwin` and is also compatible with
+`msys2`.
+
+At *init-time*, opam scans your machine for available UNIX environments and
+prompts you to choose your favourite option. That being said, it is recommended
+to let it create its own internal Cygwin installation that will remain managed
+by opam. This allows to cut down the possible interferences that other tools
+that interact with such environments might introduce. Think of it as a
+sandboxed environment.
+
+You will notice that the repository information fetching stage takes a while to
+complete. This is normal and related to how files are handled on Windows, we
+advice our users to go get themselves their favourite hot beverage while it
+runs.
+
+```shell-session
+> opam init
+No configuration file found, using built-in defaults.
+
+<><> Windows Developer Mode <><><><><><><><><><><><><><><><><><><><><><><><>  🐫
+opam does not require Developer Mode to be enabled on Windows, but it is
+recommended, in particular because it enables support for symlinks without
+requiring opam to be run elevated (which we do not recommend doing).
+
+More information on enabling Developer Mode may be obtained from
+https://learn.microsoft.com/en-gb/windows/apps/get-started/enable-your-device-for-development
+
+<><> Unix support infrastructure ><><><><><><><><><><><><><><><><><><><><><>  🐫
+
+opam and the OCaml ecosystem in general require various Unix tools in order to operate correctly. At present, this requires the installation of Cygwin to provide these tools.
+
+How should opam obtain Unix tools?
+> 1. Automatically create an internal Cygwin installation that will be managed by opam (recommended)
+  2. Use Cygwin installation found in C:\cygwin64
+  3. Use MSYS2 installation found in C:\msys64
+  4. Use another existing Cygwin/MSYS2 installation
+  5. Abort initialisation
+
+[1/2/3/4/5]
+Checking for available remotes: rsync and local, git.
+  - you won't be able to use mercurial repositories unless you install the hg command on your system.
+  - you won't be able to use darcs repositories unless you install the darcs command on your system.
+
+<><> Fetching repository information ><><><><><><><><><><><><><><><><><><><>  🐫
+[default] Initialised
+
+<><> Required setup - please read <><><><><><><><><><><><><><><><><><><><><>  🐫
+
+  In normal operation, opam only alters files within ~\AppData\Local\opam.
+
+  However, to best integrate with your system, some environment variables
+  should be set. When you want to access your opam installation, you will
+  need to run:
+
+    for /f "tokens=*" %i in ('opam env') do @%i
+
+  You can always re-run this setup with 'opam init' later.
+
+opam doesn't have any configuration options for cmd; you will have to run for /f "tokens=*" %i in ('opam env') do @%i
+whenever you change you current 'opam switch' or start a new terminal session. Alternatively, would you like to select a
+different shell? [y/n] n
+```
+
+One detail to address about having a fully functional opam installation is
+related to Git.
+
+On Windows, there are many ways to have a functioning Git installation. Opam will
+look for a compatible Git and, if none is found, it will prompt you with a set of
+options to install one. 
+
+```shell-session
+<><> Git ><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>  🐫
+Cygwin Git is functional but can have credentials issues for private repositories, we recommend using:
+  - Install via 'winget install Git.Git'
+  - Git for Windows can be downloaded and installed from https://gitforwindows.org
+
+Which Git should opam use?
+> 1. Install Git with along with Cygwin internally
+  2. Enter the location of your Git installation
+  3. Abort initialisation to restart your shell.
+
+[1/2/3]
+```
+
+Opam's default behaviour when initialising is to install a fresh `switch` as
+well as an ocaml compiler of version `> 4.05`.
+
+```shell-session
+<><> Creating initial switch 'default' (invariant ["ocaml" {>= "4.05.0"}] - initially with ocaml-base-compiler)
+
+<><> Installing new switch packages <><><><><><><><><><><><><><><><><><><><>  🐫
+Switch invariant: ["ocaml" {>= "4.05.0"}]
+
+The following system packages will first need to be installed:
+    mingw64-x86_64-gcc-core
+
+<><> Handling external dependencies <><><><><><><><><><><><><><><><><><><><>  🐫
+
+[Installing external dependencies]
+
+<><> Processing actions <><><><><><><><><><><><><><><><><><><><><><><><><><>  🐫
+∗ installed arch-x86_64.1
+∗ installed base-bigarray.base
+∗ installed base-threads.base
+∗ installed base-unix.base
+∗ installed host-arch-x86_64.1
+∗ installed host-system-mingw.1
+⬇ retrieved mingw-w64-shims.0.2.0  (https://opam.ocaml.org/cache)
+⬇ retrieved flexdll.0.43  (https://opam.ocaml.org/cache)
+∗ installed flexdll.0.43
+∗ installed ocaml-options-vanilla.1
+∗ installed conf-mingw-w64-gcc-x86_64.1
+∗ installed ocaml-env-mingw64.1
+∗ installed system-mingw.1
+⬇ retrieved ocaml-config.3  (2 extra sources)
+⬇ retrieved ocaml-config.3  (2 extra sources)
+∗ installed mingw-w64-shims.0.2.0
+⬇ retrieved ocaml-base-compiler.5.2.0  (https://opam.ocaml.org/cache)
+∗ installed ocaml-base-compiler.5.2.0
+∗ installed ocaml-config.3
+∗ installed ocaml.5.2.0
+∗ installed base-domains.base
+∗ installed base-nnp.base
+Done.
+# Run for /f "tokens=*" %i in ('opam env --switch=default') do @%i to update the current shell environment
+```
+
+You can see that in this specific run of the command, opam chose `mingw` as
+a C compiler but know that you can very well choose an alternative to it
+instead, like `msvc` with the following command:
+
+```shell-session
+$ opam install system-msvc
+```
+
+Once your environment has been updated with the given hint, you will have a
+fully functional OCaml compiler available to you:
+
+```shell-session
+> for /f "tokens=*" %i in ('opam env --switch=default') do @%i
+
+> ocaml --version
+The OCaml toplevel, version 5.2.0
+
+> ocaml
+OCaml version 5.2.0
+Enter #help;; for help.
+
+# print_endline "Hello OCamleers!!";;
+Hello OCamleers!!
+- : unit = ()
+#
+```
+
+## DkML
+
+There is also [DkML] Windows installer. However, while [DkML] has a modern OCaml 4.14.0 compiler,
 it does not track the latest OCaml compilers. We will officially support Windows as a Tier 1
 platform with a [major release of opam](#opam-22) in the coming months, and it will be compatible with
 DkML installations.
@@ -37,15 +240,6 @@ The guidance is based on the availability table below:
 │ Tier 3 │ 4.14.1 with Docker                | User supported. Available now               │
 ╰──────────────────────────────────────────────────────────────────────────────────────────╯
 ```
-
-## opam 2.2
-
-After the [successful release](https://github.com/ocaml/opam/releases/tag/2.1.0)
-of opam 2.1.0, the [next version](https://github.com/ocaml/opam/projects/2) of
-opam will focus on closing the gap to fully support Windows. This includes
-supporting an external dependency installation for Windows and integrating it with the
-Windows shell. From an `opam-repository` perspective, the `ocaml-base-compiler`
-packages will support the MinGW-w64 and MSVC variants.
 
 ## Installation Environments
 
@@ -91,6 +285,8 @@ easier way to get a working Windows environment on your machine.
 ## Editor Support for OCaml on Windows
 
 ### Visual Studio Code on Windows
+
+**If you use opam installation**, you will need to add opam switch prefix on your path that runs VSCode.
 
 **If you use the recommended DkML installer**, you will need to:
 
