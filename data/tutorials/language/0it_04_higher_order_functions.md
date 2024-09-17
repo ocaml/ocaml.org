@@ -175,6 +175,7 @@ We can let `repeat` call `say_hi` many times by _delaying_ the function's execut
 # repeat 3 (
 fun () ->
     say_hi "Camel");;
+```
 
 This means we must refactor our `repeat` function, by replacing `thing_to_do` with `thing_to_do ()`, to _call_ our new function:
 
