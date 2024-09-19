@@ -99,7 +99,7 @@ $ eval $(opam env)
 on Unix, and from the Windows Command Prompt:
 
 ```
-for /f\"tokens=*\" %i in ('opam env') do @%i
+for /f \"tokens=*\" %i in ('opam env') do @%i
 ```
 
 or from PowerShell:
