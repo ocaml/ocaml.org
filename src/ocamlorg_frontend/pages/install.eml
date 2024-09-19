@@ -163,7 +163,7 @@ Layout.render
             <p>
               You need to activate the opam switch by running on cmd
 
-              <%s! Copy_to_clipboard.small_code_snippet ~id:"cmd-activate" "for /f\"tokens=*\" %i in ('opam env') do @%i" %>
+              <%s! Copy_to_clipboard.small_code_snippet ~id:"cmd-activate" "for /f \"tokens=*\" %i in ('opam env') do @%i" %>
 
               or on PowerShell
 
