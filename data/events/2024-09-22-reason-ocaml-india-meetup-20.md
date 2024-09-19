@@ -1,5 +1,5 @@
 ---
-title: "Online meetup - Parser combinators in OCaml by @injuly"
+title: "Online Meetup - Parser Combinators in OCaml by @injuly"
 event_type: meetup
 country: "India"
 city: "Online"
