@@ -110,7 +110,7 @@ would alter the compilation:
 $ cat hello.ml
 print_endline "Hello, World!";;
 
-$ ocamlopt -pp preprocessor.sh hello.ml
+$ ocamlopt -pp ./preprocessor.sh hello.ml
 $ ./a.out
 Hello, Universe!
 ```
@@ -131,10 +131,10 @@ module files using our previously written `preprocessor.sh`:
 
 ```dune
 (executable
- (name main)
+ (name hello)
  (preprocess
   (action
-   (system "./preprocessor.sh %{input-file}"))))
+   (run ./preprocessor.sh %{input-file}))))
 ```
 
 ### The Limits of Manipulating Text Files
