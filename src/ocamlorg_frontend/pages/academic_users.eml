@@ -66,9 +66,10 @@ Layout.render
             | None -> "" 
           in
         %>
-          <button @click="swiper.slideTo(<%s Printf.sprintf "(%i)" (index + 1) %>)" class="group flex items-center py-4 border-b" :class="activeIndex === <%s Printf.sprintf "(%i)" index %> ? 'border-primary dark-border-dark-primary' : 'border-transparent hover:border-primary dark:hover:border-dark-primary'" >
+          <button @click="swiper.slideTo(<%s Printf.sprintf "(%i)" (index + 1) %>)" class="group flex items-center py-4 border-b" :class="activeIndex === <%s Printf.sprintf "(%i)" index %> ? 'border-primary dark:border-transparent' : 'border-transparent hover:border-primary dark:hover:border-transparent'" >
             <div 
-              class="px-8 flex items-center justify-center dark:rounded-lg dark:bg-white <%s if index = len - 1 then "" else "border-r" %>"
+              class="px-8 flex items-center justify-center dark:rounded-lg dark:bg-white dark:border-b-4 <%s if index = len - 1 then "" else "border-r" %>"
+              :class="activeIndex === <%s Printf.sprintf "(%i)" index %> ? 'dark:border-b-primary' : 'dark:hover:border-b-primary dark:border-b-transparent'"
             >
               <img :class="activeIndex === <%s Printf.sprintf "(%i)" index %>? 'block' : 'hidden group-hover:block'" class="w-full" src='<%s logo %>' alt="" />
               <img :class="activeIndex === <%s Printf.sprintf "(%i)" index %>? 'hidden' : 'group-hover:hidden'" class="w-full" src='<%s greyed_logo %>' alt="" />
@@ -151,7 +152,7 @@ Layout.render
           | None -> "#" 
       in
       %>
-      <a href="<%s url %>" class="flex flex-col bg-[#00000003] dark:dark-card rounded-lg border border-separator_30 p-5">
+      <a href="<%s url %>" class="flex flex-col bg-[#00000003] card dark:dark-card rounded-lg border border-separator_30 p-5">
         <p class="text-xl text-title dark:text-dark-title"><%s course.name %></p>
         <div class="flex flex-wrap ml-3">
           <%s! render_tag "lecture_notes" course.lecture_notes %>
