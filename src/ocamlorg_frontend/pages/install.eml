@@ -167,7 +167,7 @@ Layout.render
 
               or on PowerShell
 
-              <%s! Copy_to_clipboard.small_code_snippet ~id:"powershell-activate" "(& opam env) -split '\r?\n' | ForEach-Object { Invoke-Expression $_ }" %>
+              <%s! Copy_to_clipboard.small_code_snippet ~id:"powershell-activate" "(& opam env) -split '\\r?\\n' | ForEach-Object { Invoke-Expression $_ }" %>
             </p>
           </li>
         </ol>
