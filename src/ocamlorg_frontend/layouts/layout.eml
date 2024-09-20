@@ -113,16 +113,16 @@ inner =
         }
       </script>
       <% if banner then ( %>
-      <div class="relative bg-primary_dark text-white">
+      <div class="relative bg-[#B0A687] text">
         <div class="mx-auto py-3 px-6 sm:px-16 max-w-6xl sm:text-center">
           <p class="font-medium">
-            <span class="md:hidden">We've released the OCaml Changelog!</span>
+            <span class="md:hidden">We've released the Dune Developer Preview!</span>
             <span class="hidden md:inline">
-              <strong class="font-semibold">OCaml Changelog</strong><svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>
-              The OCaml Changelog is a feed of the latest releases and features of official OCaml projects.
+              <strong class="font-semibold">Dune Developer Preview</strong><svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>
+              It gives you access to nightly build of Dune with early fetures available out of the box (such as Package Management).
             </span>
             <span class="block sm:ml-2 sm:inline-block">
-              <a href="<%s Url.changelog %>" class="font-bold text-white underline">
+              <a href="/tools/dune-developer-preview" class="font-bold text underline">
                 Read it now
                 <span aria-hidden="true"> &rarr;</span>
               </a>
