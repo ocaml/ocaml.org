@@ -168,6 +168,8 @@ Layout.render
               or on PowerShell
 
               <%s! Copy_to_clipboard.small_code_snippet ~id:"powershell-activate" "(& opam env) -split '\\r?\\n' | ForEach-Object { Invoke-Expression $_ }" %>
+
+              Opam initialisation may take several minutes. Start <a href="<%s Url.tutorial "tour-of-ocaml" %>">A Tour of OCaml</a> while waiting.
             </p>
           </li>
         </ol>

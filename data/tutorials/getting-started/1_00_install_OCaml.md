@@ -108,7 +108,7 @@ or from PowerShell:
 (& opam env) -split '\r?\n' | ForEach-Object { Invoke-Expression $_ }
 ```
 
-Opam is now installed and configured!
+Opam initialisation may take several minutes. While waiting its installation and configuration to complete, start reading [A Tour of OCaml](tour-of-ocaml).
 
 **Note**: opam can manage something called _switches_. This is key when switching between several OCaml projects. However, in this “getting started” series of tutorials, switches are not needed. If interested, you can read an introduction to [opam switches here](/docs/opam-switch-introduction).
 
