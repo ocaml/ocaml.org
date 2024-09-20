@@ -333,9 +333,9 @@ $ opam exec -- dune exec hello
 
 ## A Sneak-Peek at Dune as a One-Stop Shop
 
-This section explains the purpose of the files and directories created by `dune proj init` which haven't been mentioned earlier.
+This section explains the purpose of the files and directories created by `dune init proj` which haven't been mentioned earlier.
 
-Along the history of OCaml, several build systems have been used. As of writing this tutorial (Summer 2023), Dune is the mainstream one, which is why it is used in the tutorial. Dune automatically extracts the dependencies between the modules from the files and compiles them in a compatible order. It only needs one `dune` file per directory where there is something to build. The three directories created by `dune proj init` have the following purposes:
+Along the history of OCaml, several build systems have been used. As of writing this tutorial (Summer 2023), Dune is the mainstream one, which is why it is used in the tutorial. Dune automatically extracts the dependencies between the modules from the files and compiles them in a compatible order. It only needs one `dune` file per directory where there is something to build. The three directories created by `dune init proj` have the following purposes:
 - `bin`: executable programs
 - `lib`: libraries
 - `test`: tests
