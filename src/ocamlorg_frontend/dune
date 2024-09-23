@@ -66,6 +66,14 @@
     --workspace
     %{workspace_root})))
  (rule
+  (target academic_institutions.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:academic_institutions.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
   (target is_ocaml_yet.ml)
   (action
    (run

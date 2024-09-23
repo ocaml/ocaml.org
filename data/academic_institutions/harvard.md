@@ -5,6 +5,9 @@ description: >
 url: "https://www.harvard.edu/"
 logo: academic_institution/harvard.png
 continent: North America
+featured: true
+image: academic_institution/featured/images/harvard.png
+alternate_logo: harvard.png
 courses:
     - name: Principles of Programming Language Compilation 
       acronym: CS153

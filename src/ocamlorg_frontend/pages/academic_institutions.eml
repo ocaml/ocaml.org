@@ -1,0 +1,112 @@
+let render_tag tag show =
+    let (name, _cls) = match tag with
+        | "lecture_notes" -> ("Lecture Notes", "bg-avatar-9")
+        | "exercises" -> ("Exercises", "bg-avatar-6")
+        | _ -> ("Video Recordings", "bg-avatar-11")
+    in
+    <span class="px-3 inline-block max-w-max rounded-3xl font-mono text-sm text-center text-white <%s _cls %> <%s if show then "" else "hidden" %>"><%s name %></span>
+    
+let render ?(search = "") ?(continent = "All") ?(resource_type = "All") ~pages_number ~page (institutions : Data.Academic_institution.t list) =
+Layout.render
+~title:"Academic Institutions"
+~description:"Many more academic institutions teach OCaml"
+~canonical:(Url.academic_institutions) @@
+<div class="intro-section-simple dark:dark-intro-section-simple">
+  <div class="container-fluid">
+    <div class="mx-auto px-4 sm:px-6">
+      <div class="flex justify-between">
+        <div class="text-title dark:text-dark-title">
+          <div class="flex justify-start space-x-3 items-center text-primary dark:text-dark-primary hover:underline font-semibold mb-4 h-12">
+            <%s! Icons.arrow_left "h-5 w-5" %>
+            <a href="<%s Url.academic_users %>" class="hover:underline text-primary dark:text-dark-primary ">Back</a>
+          </div>
+          <h2 class="font-bold pb-6 lg:max-w-[80%]">Academic Institutions Teach OCaml!</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-background dark:bg-dark-background w-full py-8">
+    <div class="container-fluid">
+        <h3 class="text-2xl text-title dark:text-dark-title font-bold">30+ Academic Entries</h3>
+        <p class="text-content dark:text-dark-content text-base mb-4">To list an academic institution, check out the <a class="text-primary dark:text-white dark:underline" href="#">Contributing Guide</a> on GitHub.</p>
+        <form action="<%s Url.academic_institutions %>" method="GET" class="flex gap-2 flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto mb-6">
+            <%s! Forms.search_input
+            ~name:"q"
+            ~label:"Search institutions"
+            ~button_attrs:{|type="submit"|}
+            ~input_attrs:("value=\"" ^ Dream.html_escape search ^ "\"")
+            "h-12 lg:w-96"
+            %>
+            <%s! Forms.select
+            ~attrs:{|id="resource_type" name="resource_type" onchange="this.form.submit()"|}
+            ~options:[("All", "Resource Type"); ("lecture_notes", "Lecture Notes"); ("exercises", "Exercises"); ("video_recordings", "Video Recordings")]
+            ~selected:resource_type
+            "w-full lg:w-max" %>
+            <%s! Forms.select
+            ~attrs:{|id="continent" name="continent" onchange="this.form.submit()"|}
+            ~options:[("All", "Select a Continent"); ("North America", "North America"); ("Europe", "Europe"); ("Asia", "Asia")]
+            ~selected:continent
+            "w-full lg:w-max" %>
+        </form>
+        <% institutions |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
+            <div class="flex flex-col md:flex-row items-start lg:items-center border-b border-separator_20 dark:border-dark-separator_30 py-4">
+                <div class="w-44 h-24 rounded-lg flex justify-center items-center border border-separator_20 dark:border-dark-separator_30 bg-white overflow-hidden p-4 mr-5 mb-4">
+                    <img class="max-h-16 m-auto" src="<%s logo %>" alt="<%s item.name %> logo">
+                </div>
+                <div class="flex flex-col flex-grow">
+                    <p class="font-bold text-lg text-title dark:text-dark-title mb-2"><%s item.name %></p>
+                    <ul class="w-full flex flex-col">
+                        <% item.courses 
+                        |> List.filter (fun (course : Data.Academic_institution.course) -> match resource_type with
+                           | "lecture_notes" -> course.lecture_notes
+                           | "exercises" -> course.exercises
+                           | "video_recordings" -> course.video_recordings
+                           | _ -> true
+                        )
+                        |> List.iter (fun (course : Data.Academic_institution.course) ->
+                            let url = match course.url with
+                                | Some x -> x
+                                | None -> "#" 
+                            in
+                            %>
+                            <li class="w-full flex flex-wrap gap-2 justify-between">
+                                <a class="flex group text-primary dark:text-dark-white hover:dark:text-dark-primary dark:underline hover:underline " href="<%s url %>">
+                                    <%s! Icons.link "h-5 mr-2 text-primary dark:text-dark-white group-hover:text-primary dark:group-hover:text-dark-primary w-4 h-5" %>
+                                    <%s course.name %>
+                                </a>
+                                <%s! render_tag "lecture_notes" course.lecture_notes %>
+                                <%s! render_tag "exercises" course.exercises %>
+                                <%s! render_tag "video_recordings" course.video_recordings %>
+                            </li>
+                        <% ); %>
+                    </ul>
+                </div>
+            </div>
+        <% ); %>
+    </div>
+    <div class="container-fluid">
+        <div class="pt-16 flex items-center justify-center space-x-2.5 w-full">
+            <a href="<%s Url.academic_institutions %>?p=<%i page - 1 %>"
+                class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-content hover:bg-gray-50 hover:no-underline">
+                <%s! Icons.chevron_left "h-5 w-5" %>
+            </a>
+            <% (for i = 1 to (pages_number - 1) do
+                  if i = page then ( %>
+            <a href="<%s Url.academic_institutions %>?p=<%i i %>"
+                class="w-10 h-10 lg:w-14 lg:h-14  border-2 border-current rounded-lg flex items-center justify-center text-primary">
+                <%i i %>
+            </a>
+            <% ) else ( %>
+            <a href="<%s Url.academic_institutions %>?p=<%i i %>"
+                class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-content hover:bg-gray-50 hover:no-underline">
+                <%i i %>
+            </a>
+            <% ) done); %>
+            <a href="<%s Url.academic_institutions %>?p=<%i page + 1 %>"
+                class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-content hover:bg-gray-50 hover:no-underline">
+                <%s! Icons.chevron_right "h-5 w-5" %>
+            </a>
+          </div>
+    </div>
+</div>

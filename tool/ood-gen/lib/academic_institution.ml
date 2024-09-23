@@ -55,6 +55,9 @@ type metadata = {
   continent : string;
   courses : course list;
   location : location option;
+  featured : bool option;
+  image : string option;
+  alternate_logo : string option;
 }
 [@@deriving of_yaml, stable_record ~version:t ~add:[ body_md; body_html; slug ]]
 

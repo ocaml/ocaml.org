@@ -54,7 +54,7 @@ let block_heading ~icon ~title ~heading =
   <h2 class="overflow-hidden mt-2 text-title dark:text-dark-title text-2xl font-bold leading-7"><%s heading %></h2>
 
 let block_container ~icon ~title ~heading inner_html =
-  <div class="md:h-full bg-background dark:bg-dark-background">
+  <div class="md:h-full">
     <div class="max-w-sm md:h-full md:max-w-full md:w-[32rem] flex flex-col">
       <%s! block_heading ~icon ~title ~heading %>
       <%s! inner_html %>
@@ -121,7 +121,7 @@ let book_recommendation ~(link : link) (book: Data.Book.t) =
         </div>
       </div>
     </div>
-    <a href="<%s link.href %>" class="pt-6 text-primary dark:text-dark-title hover:underline dark:underline hover:text-primary dark:hover:text-dark-primary items-center leading-10">
+    <a href="<%s link.href %>" class="pt-6 w-max text-primary dark:text-dark-title hover:underline dark:underline hover:text-primary dark:hover:text-dark-primary items-center leading-10">
       <%s link.title %>
     </a>
 

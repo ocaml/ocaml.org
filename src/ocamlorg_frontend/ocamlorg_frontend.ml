@@ -6,6 +6,7 @@ module Package = Package
 
 let about = About.render
 let academic_users = Academic_users.render
+let academic_institutions = Academic_institutions.render
 let is_ocaml_yet = Is_ocaml_yet.render
 let ocaml_planet = Ocaml_planet.render
 let changelog = Changelog.render

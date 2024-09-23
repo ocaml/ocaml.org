@@ -321,7 +321,40 @@ let industrial_businesses _req =
 
   Dream.html (Ocamlorg_frontend.industrial_businesses ~businesses)
 
-let academic_users req =
+let academic_users _req =
+  let featured_institutions = Data.Academic_institution.featured in
+  let papers = Data.Paper.featured |> Ocamlorg.Import.List.take 3 in
+  let books = Data.Book.all |> Ocamlorg.Import.List.take 2 in
+  let testimonials = Data.Academic_testimonial.all in
+  let books_with_count = (books, List.length Data.Book.all) in
+  let extract_courses_with_university
+      (institutions : Data.Academic_institution.t list) =
+    List.fold_left
+      (fun acc (institution : Data.Academic_institution.t) ->
+        match
+          List.find_opt
+            (fun (course : Data.Academic_institution.course) ->
+              match course.url with Some _ -> true | None -> false)
+            institution.courses
+        with
+        | Some course ->
+            (institution.name, course) :: acc (* Add the first course found *)
+        | None -> acc)
+      [] institutions
+  in
+  let top_courses =
+    extract_courses_with_university featured_institutions
+    |> Ocamlorg.Import.List.take 3
+  in
+
+  Dream.html
+    (Ocamlorg_frontend.academic_users ~featured_institutions ~papers
+       ~books:books_with_count ~testimonials ~top_courses)
+
+let academic_institutions req =
+  let query = Dream.query req "q" in
+  let continent = Dream.query req "continent" in
+  let resource_type = Dream.query req "resource_type" in
   let search_user pattern t =
     let open Data.Academic_institution in
     let pattern = String.lowercase_ascii pattern in
@@ -337,11 +370,54 @@ let academic_users req =
     |> List.sort (fun user_1 user_2 -> compare (score user_1) (score user_2))
   in
   let users =
-    match Dream.query req "q" with
+    match query with
     | None -> Data.Academic_institution.all
     | Some search -> search_user search Data.Academic_institution.all
   in
-  Dream.html (Ocamlorg_frontend.academic_users users)
+  let matches_criteria (institution : Data.Academic_institution.t) continent
+      resource_type =
+    let matches_resource_type =
+      match resource_type with
+      | None | Some "All" -> true
+      | Some d when d = "lecture_notes" ->
+          List.mem true
+            (List.map
+               (fun (x : Data.Academic_institution.course) ->
+                 x.lecture_notes = true)
+               institution.courses)
+      | Some d when d = "exercises" ->
+          List.mem true
+            (List.map
+               (fun (x : Data.Academic_institution.course) ->
+                 x.exercises = true)
+               institution.courses)
+      | Some d when d = "video_recordings" ->
+          List.mem true
+            (List.map
+               (fun (x : Data.Academic_institution.course) ->
+                 x.video_recordings = true)
+               institution.courses)
+      | Some _ -> true
+    in
+    let matches_continent =
+      match continent with
+      | None | Some "All" -> true
+      | Some c -> c = institution.continent
+    in
+    matches_continent && matches_resource_type
+  in
+  let filtered_institutions =
+    List.filter
+      (fun institution -> matches_criteria institution continent resource_type)
+      users
+  in
+  let page, number_of_pages, institutions =
+    paginate ~req ~n:10 filtered_institutions
+  in
+
+  Dream.html
+    (Ocamlorg_frontend.academic_institutions ?search:query ?continent
+       ?resource_type ~page ~pages_number:number_of_pages institutions)
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
 

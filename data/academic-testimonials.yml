@@ -1,0 +1,11 @@
+academic-testimonials:
+  - testimony: To us, OCaml has been proven quite productive for software prototyping in Chemoinformatics and Structural Bioinformatics method development. The software demonstrated here was used intensively and timely during scientific validation campaigns, on many molecules and protein targets. We have never regretted our choice of OCaml and still use it today.
+    authors: Francois Berenger , Kam Y. J. Zhang and Yoshihiro Yamanishi.
+    title: "Using Functional Programming within an Industrial Product Group: Perspectives and Perceptions."
+    publication: ACM SIGPLAN Notices. 45. 87-92. 10.1145/1863543.1863557.
+    year: '2019'
+  - testimony: Despite all this testing, we have never had a single XenServer defect reported from internal testing or from the field that can be traced back to a bug in the OCaml runtime or compiler. (During development we did once find a minor compiler bug, triggered when compiling auto-generated OCaml code with many function arguments, but this was already fixed in the development branch by the time we reported it. No interaction with the maintainers at INRIA was required.)
+    authors: Scott, D. & Sharp, R. & Gazagnaire, T. & Madhavapeddy, A.
+    title: "Using Functional Programming within an Industrial Product Group: Perspectives and Perceptions. "
+    publication: "Journal of Cheminformatics volume 11, Article number: 10"
+    year: '2010'

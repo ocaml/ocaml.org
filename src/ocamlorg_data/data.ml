@@ -1,8 +1,15 @@
 module Academic_institution = struct
   include Academic_institution
 
+  let featured =
+    all
+    |> List.filter (fun institution ->
+           match institution.featured with Some true -> true | _ -> false)
+
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
+
+module Academic_testimonial = Academic_testimonial
 
 module Book = struct
   include Book

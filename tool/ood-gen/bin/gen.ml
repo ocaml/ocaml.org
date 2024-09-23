@@ -3,7 +3,9 @@ open Ood_gen
 
 let term_templates =
   [
-    ("academic_institution", Academic_institution.template);
+    ("academic_users", Academic_institution.template);
+    ("academic_institutions", Academic_institution.template);
+    ("academic_testimonials", Academic_testimonial.template);
     ("book", Book.template);
     ("changelog", Changelog.template);
     ("code_examples", Code_example.template);

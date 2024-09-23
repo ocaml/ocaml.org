@@ -38,10 +38,24 @@ module Academic_institution = struct
     continent : string;
     courses : course list;
     location : location option;
+    featured : bool option;
+    image : string option;
+    alternate_logo : string option;
     body_md : string;
     body_html : string;
   }
   [@@deriving show]
+end
+
+module Academic_testimonial = struct
+  type t = {
+    testimony : string;
+    authors : string;
+    title : string;
+    publication : string;
+    year : string;
+  }
+  [@@deriving of_yaml, show]
 end
 
 module Blog = struct

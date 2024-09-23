@@ -4,7 +4,14 @@ module Academic_institution : sig
   include module type of Academic_institution
 
   val all : t list
+  val featured : t list
   val get_by_slug : string -> t option
+end
+
+module Academic_testimonial : sig
+  include module type of Academic_testimonial
+
+  val all : t list
 end
 
 module Book : sig

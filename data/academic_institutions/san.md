@@ -5,6 +5,9 @@ description: >
 url: "https://ucsd.edu/"
 logo: academic_institution/ucsd_logo.png
 continent: North America
+featured: true
+image: academic_institution/featured/images/san_diego.png
+alternate_logo: san_diego.png
 courses:
     - name:  Programming Languages Principles and Paradigms (along with Python and Prolog)
       acronym: CSE130-a
