@@ -4,7 +4,7 @@ let render_tag tag show =
         | "exercises" -> ("Exercises", "bg-avatar-6")
         | _ -> ("Video Recordings", "bg-avatar-11")
     in
-    <p class="px-3 mb-2 inline-block max-w-max rounded-3xl font-mono text-sm text-center text-white ml-3 mt-3 <%s _cls %> <%s if show then "" else "hidden" %>"><%s name %></p>
+    <span class="px-3 inline-block max-w-max rounded-3xl font-mono text-sm text-center text-white <%s _cls %> <%s if show then "" else "hidden" %>"><%s name %></span>
     
 let render ?(search = "") ?(continent = "All") ?(resource_type = "All") ~pages_number ~page (institutions : Data.Academic_institution.t list) =
 Layout.render
@@ -20,7 +20,7 @@ Layout.render
             <%s! Icons.arrow_left "h-5 w-5" %>
             <a href="<%s Url.academic_users %>" class="hover:underline text-primary dark:text-dark-primary ">Back</a>
           </div>
-          <h2 class="font-bold pb-6 lg:max-w-[80%]">Many more academic institutions teach OCaml!</h2>
+          <h2 class="font-bold pb-6 lg:max-w-[80%]">Academic Institutions Teach OCaml!</h2>
         </div>
       </div>
     </div>
@@ -70,16 +70,14 @@ Layout.render
                                 | None -> "#" 
                             in
                             %>
-                            <li class="w-full flex flex-col justify-between">
+                            <li class="w-full flex flex-wrap gap-2 justify-between">
                                 <a class="flex group text-primary dark:text-dark-white hover:dark:text-dark-primary dark:underline hover:underline " href="<%s url %>">
                                     <%s! Icons.link "h-5 mr-2 text-primary dark:text-dark-white group-hover:text-primary dark:group-hover:text-dark-primary w-4 h-5" %>
                                     <%s course.name %>
                                 </a>
-                                <div class="flex flex-wrap ml-3">
-                                    <%s! render_tag "lecture_notes" course.lecture_notes %>
-                                    <%s! render_tag "exercises" course.exercises %>
-                                    <%s! render_tag "video_recordings" course.video_recordings %>
-                                </div>
+                                <%s! render_tag "lecture_notes" course.lecture_notes %>
+                                <%s! render_tag "exercises" course.exercises %>
+                                <%s! render_tag "video_recordings" course.video_recordings %>
                             </li>
                         <% ); %>
                     </ul>
