@@ -122,7 +122,7 @@ inner =
               It gives you access to nightly build of Dune with early fetures available out of the box (such as Package Management).
             </span>
             <span class="block sm:ml-2 sm:inline-block">
-              <a href="/tools/dune-developer-preview" class="font-bold text underline">
+              <a href="https://dune.ocaml.org" class="font-bold text underline">
                 Read it now
                 <span aria-hidden="true"> &rarr;</span>
               </a>

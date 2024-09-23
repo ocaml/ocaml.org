@@ -12,21 +12,22 @@ manage package in the OCaml ecosystem. It allows interacting with a central
 package repository called `opam-repository`. It contains around 5000 packages of
 the OCaml ecosystem.
 
-However, with time, the OCaml Community has raised concerned about having a
-unified tool to manage an OCaml project. One of the principal objectives of the
-[OCaml Platform
+With time, the OCaml Community has suggested having a unified tool to manage an
+OCaml project from build to dependency management. One of the principal
+objectives of the [OCaml Platform
 roadmap](/tools/platform-roadmap#g1-dune-is-the-frontend-of-the-ocaml-platform)
-is to have a unified Fronted. `Dune` - the recommended OCaml build system - has
-endorsed this responsibility.
+is to have a unified Fronted for all of this feature. `Dune` - the recommended
+OCaml build system - has endorsed this responsibility.
 
 In this context, the Dune developers have decided to provide an "early" access
-version of the functionalities developed under this context to get feedback
+version of the functionalities developed to achieve this goal to get feedback
 from the users regularly.
 
 If you want to help us improve `dune`, you can either open an issue on
 [ocaml/dune](https://github.com/ocaml/dune/issues/new/choose) if you face a bug
-or fill the [Google Form survey](TODO) to give us feedback about your experience
-with it.
+or fill the [Google Form
+survey](https://docs.google.com/forms/d/e/1FAIpQLSda-mOTHIdATTt_e9dFmNgUCy-fD55Qzr3bGGsxpfY_Ecfyxw/viewform?usp=sf_link)
+to give us feedback about your experience with it.
 
 ## Access the Dune Developer Preview Binaries
 
@@ -37,7 +38,7 @@ repository. The builds are done on the [dune](https://github.com/ocaml/dune)
 management, ...).
 
 To download the binaries, follow the instructions on
-[dune.ci.dev](https://dune.ci.dev).
+[dune.ci.dev](https://dune.ocaml.org).
 
 Note these binaries are unstable as they are built directly from the `main`
 branch. Use at your **own risks**.
