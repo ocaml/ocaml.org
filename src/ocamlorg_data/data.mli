@@ -91,6 +91,12 @@ module Job : sig
   val all : t list
 end
 
+module Testimonial : sig
+  include module type of Testimonial
+
+  val all : t list
+end
+
 module News : sig
   include module type of News
 

@@ -64,6 +64,26 @@ body {
   max-width: 100vw;
 }
 
+.swiper-bullet-active {
+  background-color: #C24F1E !important;
+}
+
+.swiper-separator_30 {
+  background-color: #FFFFFF4D;
+}
+
+.swiper-separator_20 {
+  background-color: #00000033;
+}
+
+.swiper-bullet {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 4px;
+}
+
 .testimonials .swiper-wrapper .swiper-slide:nth-child(even) div:first-child {
   background: #d23e3e14;
 }

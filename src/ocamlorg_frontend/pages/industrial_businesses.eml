@@ -1,0 +1,36 @@
+let render ~(businesses : Data.Industrial_user.t list) =
+Layout.render
+~title:"Success Stories"
+~description:"Who Uses OCaml?"
+~canonical:(Url.industrial_businesses) @@
+<div class="intro-section-simple dark:dark-intro-section-simple">
+  <div class="container-fluid">
+    <div class="mx-auto px-4 sm:px-6">
+      <div class="flex justify-between">
+        <div class="text-title dark:text-dark-title">
+          <div class="flex justify-start space-x-3 items-center text-primary dark:text-dark-primary hover:underline font-semibold mb-4 h-12">
+            <%s! Icons.arrow_left "h-5 w-5" %>
+            <a href="<%s Url.industrial_users %>" class="hover:underline text-primary dark:text-dark-primary ">Back</a>
+          </div>
+          <h2 class="font-bold pb-6">Who Uses Ocaml?</h2>
+          <p class="text-content dark:text-dark-content">With its strong security features and high performance, several companies rely on OCaml to keep their data operating both safely and efficiently. On this page, you can get an overview of the companies in the community and learn more about how they use OCaml.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-background dark:bg-dark-background w-full py-8">
+    <div class="container-fluid">
+        <h3 class="text-2xl text-title dark:text-dark-title">Other Industry Users of OCaml</h3>
+        <p class="text-content dark:text-dark-content text-base mb-4">With its strong security features and high performance, several companies rely on OCaml to keep their data operating both safely and efficiently. On this page, you can get an overview of the companies in the community and learn more about how they use OCaml.</p>
+        <p class="text-content dark:text-dark-content text-base mb-4">If you want to contribute to add a new industrial user, check out the <a class="text-primary dark:text-white dark:underline" href="#">Contributing Guide</a> on GitHub.</p>
+        <% businesses |> List.iter (fun (item : Data.Industrial_user.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
+            <a href="<%s item.url %>" class="flex flex-col md:flex-row items-center border-b border-separator_20 dark:border-dark-separator_30 py-4">
+                <div class="w-44 h-24 rounded-lg flex justify-center items-center border border-separator_20 dark:border-dark-separator_30 bg-white overflow-hidden p-4 mr-5">
+                    <img class="max-h-16 m-auto" src="<%s logo %>" alt="<%s item.name %> logo">
+                </div>
+                <p class="text-content text-base dark:text-dark-content w-full lg:w-[80%]"><%s item.description %></p>
+            </a>
+        <% ); %>
+    </div>
+</div>

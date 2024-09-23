@@ -62,4 +62,11 @@
   .btn-ghost:active {
     @apply text-white bg-primary_dark;
   }
+
+  .btn-outline {
+    @apply border-[3px] rounded-lg bg-white dark:bg-dark-background border-primary dark:border-dark-primary text-title dark:text-white text-base font-semibold;
+  }
+  .btn-outline:hover {
+    @apply text-white bg-primary dark:bg-dark-primary;
+  }
 }

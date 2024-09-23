@@ -7,7 +7,7 @@ logo: users/tarides.png
 locations: 
   - France
 consortium: false
-featured: true
+featured: false
 ---
 
 We are building and maintaining open-source infrastructure tools in OCaml:

@@ -1,10 +1,11 @@
 ---
 title: Sensor Analytics and Automation Platform for Sustainable Agriculture
-logo: success-stories/hyper.png
+logo: success-stories/white/hyper.svg
 background: /success-stories/hyper-bg.jpg
 theme: green
 synopsis: "Hyper Uses OCaml to Build an IoT System for High-Performing Farms."
 url: https://www.hyper.ag/
+priority: 3
 ---
 
 Hyper.ag provides a scalable sensor analytics and automation infrastructure for indoor and vertical farming. With their product, farmers continuously optimise the crop quality and reduce operational costs by getting access to actionable growth insights and climate control profiles without a dedicated engineering team.

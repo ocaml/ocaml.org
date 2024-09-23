@@ -16,6 +16,7 @@ let events = Events.render
 let home = Home.render
 let install = Install.render
 let industrial_users = Industrial_users.render
+let industrial_businesses = Industrial_businesses.render
 let jobs = Jobs.render
 let learn = Learn.render
 let news = News.render

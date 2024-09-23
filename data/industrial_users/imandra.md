@@ -8,7 +8,7 @@ locations:
   - United States
   - United Kingdom
 consortium: false
-featured: true
+featured: false
 ---
 
 Imandra powers a new generation of tools for the rigorous design, analysis, and governance of complex algorithms.

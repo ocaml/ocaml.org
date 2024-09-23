@@ -138,6 +138,14 @@
     --workspace
     %{workspace_root})))
  (rule
+  (target industrial_businesses.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:industrial_businesses.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
   (target learn.ml)
   (action
    (run %{bin:dream_eml} %{dep:learn.eml} --workspace %{workspace_root})))

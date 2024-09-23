@@ -7,7 +7,7 @@ logo: users/microsoft.png
 locations: 
   - United States
 consortium: true
-featured: true
+featured: false
 ---
 
 Microsoft Corporation is an American multinational technology corporation which produces computer software, consumer electronics, personal computers, and related services.

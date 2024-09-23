@@ -7,7 +7,7 @@ logo: users/besport.png
 locations: 
   - France
 consortium: true
-featured: true
+featured: false
 ---
 
 Be Sport's mission is to enhance the value that sport brings to our lives with appropriate use of digital and social media innovations.

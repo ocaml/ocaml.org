@@ -38,6 +38,7 @@ let resources = "/resources"
 let events = "/events"
 let success_story v = "/success-stories/" ^ v
 let industrial_users = "/industrial-users"
+let industrial_businesses = "/industrial-users/businesses"
 let academic_users = "/academic-users"
 let about = "/about"
 

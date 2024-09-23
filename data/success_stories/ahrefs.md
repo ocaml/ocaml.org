@@ -1,10 +1,11 @@
 ---
 title: Peta-Byte Scale Web Crawler
-logo: success-stories/ahrefs.svg
+logo: success-stories/white/ahrefs.svg
 background: /success-stories/ahrefs-bg.jpg
 theme: blue
 synopsis: "Ahrefs crawls the entire internet constantly to collect, process, and store data to build an all-in-one SEO toolkit."
 url: https://ahrefs.com/
+priority: 2
 ---
 
 Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to index the entire Web. The company also builds various analytical services for end users. Ahrefs’s data processing system uses OCaml as its primary language, which currently processes up to 6 billion pages a day, and they also use OCaml for their website’s backend. Ahrefs has a multinational team with roots in the Ukraine, an office in Singapore, and remote collaborators all around the world.

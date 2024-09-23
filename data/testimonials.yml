@@ -1,0 +1,26 @@
+testimonials:
+  - person: Bob Zhang
+    testimony: Thanks to the OCaml team, obviously, without such a beautiful yet practical language, this project would not exist. The original type system was inherited from it with lots of modifications to fit with JS ecosystem better.
+    role: Maintainer, ReScript.
+    href: https://rescript-lang.org/
+    logo: logos/rescript.svg
+  - person: Yaron Minsky
+    testimony: OCaml helps us to quickly adapt to changing market conditions and go from prototypes to production systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting it right matters.
+    role: CTO, Jane Street.
+    href: https://www.janestreet.com/
+    logo: logos/janestreet.svg
+  - person: Oleksiy Golovko
+    testimony: OCaml as the development environment acts as a very much trusted partner throughout the whole development process. As our requirements evolve, we change the implementation a lot, and this is where the language shines. Literally, I am not afraid to change others’ code when OCaml has my back!
+    role: Backend Developer, Ahrefs.
+    href: https://ahrefs.com/
+    logo: logos/ahrefs.svg
+  - person: Jack Dorsey
+    testimony: Originally I was going to program twttr in Python, C, & Ocaml. But, I got @florian who was a core contributor to Ruby on Rails.
+    role: Founder, Twitter.
+    href: https://twitter.com/jack/status/47090747706580992
+    logo: logos/old-twitter-logo.svg
+  - person: Xavier Van de Woestyne
+    testimony: Using OCaml as a programming language to write software has many benefits. For instance, it is able to describe the source code in an easy and understandable manner. The fear of refactoring in the source code can be eased as well. OCaml has a mature and very evolving ecosystem, which is a large, supportive and friendly community.
+    role: Software engineer, Marigold.
+    href: https://www.marigold.dev
+    logo: https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png

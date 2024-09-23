@@ -7,7 +7,7 @@ logo: users/sleekersoft.png
 locations: 
   - Australia
 consortium: false
-featured: true
+featured: false
 ---
 
 Specialises in functional programming software development, consultation, and training.

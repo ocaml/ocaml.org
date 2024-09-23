@@ -1,10 +1,11 @@
 ---
 title: Modeling Language for Finance
-logo: success-stories/lexifi.png
+logo: success-stories/white/lexifi.svg
 background: /success-stories/lexifi-bg.jpg
-theme: orange
+theme: black
 synopsis: "Integrated end-user software solution to efficiently manage all types of structured investment products and provide superior client services."
 url: https://www.lexifi.com/
+priority: 5
 ---
 
 [LexiFi](https://www.lexifi.com/) was founded in the 2000s, taking the ideas of [this paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/contracts-icfp.pdf) and developing them into an industrial-strength offer. Today, [LexiFi](https://www.lexifi.com/) is a leading provider of software solutions used to manage derivative contracts.

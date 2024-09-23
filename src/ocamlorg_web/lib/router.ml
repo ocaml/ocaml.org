@@ -41,6 +41,7 @@ let page_routes t =
       Dream.get (Url.changelog_entry ":id") Handler.changelog_entry;
       Dream.get (Url.success_story ":id") Handler.success_story;
       Dream.get Url.industrial_users Handler.industrial_users;
+      Dream.get Url.industrial_businesses Handler.industrial_businesses;
       Dream.get Url.academic_users Handler.academic_users;
       Dream.get Url.about Handler.about;
       Dream.get Url.books Handler.books;
