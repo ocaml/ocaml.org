@@ -218,7 +218,7 @@ the community and learn more about how they use OCaml."
 </div>
 <div class="w-full section-blue-gradient dark:dark-section-navigation py-8">
   <div class="container-fluid">
-    <div class="flex flex-col md:flex-row gap-16">
+    <div class="flex flex-col lg:flex-row gap-16">
      <div class="flex flex-col">
       <p class="text-dark-title dark:text-dark-title font-bold text-2xl mb-4">Find skilled OCaml developers for your team!</p>
       <p class="text-dark-content dark:text-dark-content">Post a job listing to appear on our Jobs page to reach OCaml experts who are eager to collaborate.</p>
@@ -230,8 +230,7 @@ the community and learn more about how they use OCaml."
        </div> 
      </div>
      <div class="flex flex-col lg:w-1/2 overflow-hidden">
-      <p class="text-dark-title dark:text-dark-title font-bold text-2xl mb-4">Discover Your Next Opportunity, Unlock your potential!</p>
-      <p class="text-dark-content dark:text-dark-content">Post a job listing to appear on our Jobs page to reach OCaml experts who are eager to collaborate.</p>
+      <p class="text-dark-title dark:text-dark-title font-bold text-2xl mb-4">Discover Your Next Opportunity!</p>
       <div 
       x-data="{swiper: null}" 
       x-init="swiper = new Swiper('#jobSwiper', {loop: true,slidesPerView: 1,spaceBetween: 10,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#jobSwiper .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet swiper-separator_30'}})">
@@ -263,7 +262,7 @@ the community and learn more about how they use OCaml."
 <div class="bg-background dark:dark-deep-blue-gradient py-8">
  <div class="container-fluid">
   <div class="flex flex-col lg:flex-row gap-2 items-center w-full" x-data="{swiper: null}"
-      x-init="swiper = new Swiper('#testimonialSwiper', {loop: true,slidesPerView: 'auto',autoHeight: true,spaceBetween: 10,breakpoints: {640: {slidesPerView:'auto',
+      x-init="swiper = new Swiper('#testimonialSwiper', {loop: true,slidesPerView: 'auto',spaceBetween: 10,breakpoints: {640: {slidesPerView:'auto',
           spaceBetween: 10,},768: {slidesPerView: 2},},})">
     <%s! render_nav_btn ~btn_type:"prev" "hidden lg:flex" %> 
     <div class="w-full lg:w-11/12">
