@@ -61,7 +61,7 @@ The project is stored in a directory named `hello`. The `tree` command lists the
 
 **Note 3**: If you get an error in Homebrew from this in an Apple silicon macOS, it's likely an issue with the architecture switch from Intel to ARM. Please refer to the [ARM64 Fix](/docs/arm64-fix) to remedy the ARM64 error.
 
-**Note 4**: Unlike in Unix where they contain compiled binaries, folders `lib` and `bin` contain source code files, for libraries and programs, respectively. This is the a convention used in many OCaml projects, and the canned project created by Dune. All the built artifacts, and a copy of the sources, are stored in the `_build` folder. You shall not edit anything in the `_build` folder.
+**Note 4**: Unlike in Unix where they contain compiled binaries, directories `lib` and `bin` contain source code files, for libraries and programs, respectively. This is the a convention used in many OCaml projects, and the canned project created by Dune. All the built artifacts, and a copy of the sources, are stored in the `_build` directory. You shall not edit anything in the `_build` directory.
 ```shell
 $ cd hello
 $ tree

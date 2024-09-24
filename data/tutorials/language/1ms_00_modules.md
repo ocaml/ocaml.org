@@ -63,8 +63,8 @@ Hello from Athens
 ```
 
 **Note**: Dune stores the build artifacts, and a copy of the sources, in the
-`_build` folder, where you shall not edit anything. OCaml projects often contain
-`bin` and `lib` folders. Unlike in Unix, they don't contain compiled binaries,
+`_build` directory, where you shall not edit anything. OCaml projects often contain
+`bin` and `lib` directories. Unlike in Unix, they don't contain compiled binaries,
 but source code for programs and libraries.
 
 Actually, `opam exec -- dune build` is optional. Running `opam exec -- dune exec ./berlin.exe` would have
