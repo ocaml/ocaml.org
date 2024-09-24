@@ -79,10 +79,11 @@ $ tree
 └── wmo.ml
 ```
 
-Dune stores the files it creates in a directory named `_build`. In a project managed using Git, the `_build` directory should be ignored
+Dune stores the files it creates, and a copy of the sources, in a directory named `_build`. You don't need to edit anything there. In a project managed using Git, the `_build` directory should be ignored
 ```shell
 $ echo _build >> .gitignore
 ```
+You can also configure your editor or IDE to ignore it too.
 
 In OCaml, each `.ml` file defines a module. In the `mixtli` project, the file `cloud.ml` defines the `Cloud` module, the file `wmo.ml` defines the `Wmo` module that contains two submodules: `Stratus` and `Cumulus`.
 
@@ -121,12 +122,12 @@ The `dune describe` command allows having a look at the project's module structu
 <!--This contrasts with the `struct ... end` syntax where modules are aggregated top-down by nesting submodules into container modules. -->
 In OCaml, a library is a collection of modules. By default, when Dune builds a library, it wraps the bundled modules into a module. This allows having several modules with the same name, inside different libraries, in the same project. That feature is known as [_namespaces_](https://en.wikipedia.org/wiki/Namespace) for module names. This is similar to what module do for definitions; they avoid name clashes.
 
-Dune creates libraries from directories. Let's look at an example. Here the directory is `lib`:
+Dune creates libraries from directories. Let's look at an example. Here the `lib` directory contains its sources. This is different from the Unix standard, where `lib` stores compiled library binaries.
 ```shell
 $ mkdir lib
 ```
 
-The `lib` directory is populated with the following files:
+The `lib` directory is populated with the following source files:
 
 **`lib/dune`**
 ```lisp
