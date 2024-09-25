@@ -390,9 +390,9 @@ val message : string
 val hello : unit -> unit
 ```
 
-You can also use Anil Madhavapeddy [`ocaml-print-intf`](https://github.com/avsm/ocaml-print-intf) tool to do the same. You have to install it using `opam install ocaml-print-intf`. You can either:
+You can also use Anil Madhavapeddy's [`ocaml-print-intf`](https://github.com/avsm/ocaml-print-intf) tool to do the same. You have to install it using `opam install ocaml-print-intf`. You can either:
 * Call it on a `.cmi` file (Compiled ML Interface): `ocaml-print-intf cairo.cmi`.
-* Call it using dune: `dune exec -- ocaml-print-intf cairo.ml`
+* Call it using Dune: `dune exec -- ocaml-print-intf cairo.ml`
 
 If you are using Dune, `.cmi` file are in the `_build` directory. Otherwise, you can compile manually to generate them. The command `ocamlc -c cairo.ml` will create `cairo.cmo` (the executable bytecode) and `cairo.cmi` (the compiled interface). See [Compiling OCaml Projects](docs/compiling-ocaml-projects) for details on compilation without Dune.
 
