@@ -6,11 +6,6 @@
  (package (name river)))
 
 (pin
- (name tailwindcss)
- (url "git+https://github.com/tmattio/opam-tailwindcss#3e60fc32bbcf82525999d83ad0f395e16107026b")
- (package (name tailwindcss)))
-
-(pin
  (name olinkcheck)
  (url "git+https://github.com/tarides/olinkcheck")
  (package (name olinkcheck)))
