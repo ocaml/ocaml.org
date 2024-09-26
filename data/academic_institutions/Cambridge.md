@@ -9,6 +9,12 @@ featured: true
 image: academic_institution/featured/images/cambridge.png
 alternate_logo: cambridge.png
 courses:
+    - name: Foundations of Computer Science 
+      acronym: 2024–25
+      url: "https://www.cl.cam.ac.uk/teaching/2425/FoundsCS/materials.html"
+      year: 2024
+      teacher: "Anil Madhavapeddy"
+      lecture_notes: true
     - name: Advanced Functional Programming 
       acronym: L28
       url: "https://www.cl.cam.ac.uk/teaching/1415/L28/"
