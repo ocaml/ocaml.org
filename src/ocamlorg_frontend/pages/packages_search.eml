@@ -1,4 +1,4 @@
-let render ~total ~search ~page ~number_of_pages (packages : Package.package list) = Layout.render ~title:"OCaml Packages · Search Result"
+let render ~total ~search ~(pagination_info : Pagination.t) (packages : Package.package list) = Layout.render ~title:"OCaml Packages · Search Result"
 ~description:"Find the package you need to build your application in the thousands of available OCaml packages."
 ~canonical:(Url.packages_search ^ "?q=" ^ search)
 ~active_top_nav_item:Header.Packages @@
@@ -43,7 +43,7 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
 
         <% if List.length packages > 0 then ( %>
           <div class="text-title dark:text-dark-content mb-4">
-            Showing <%i ((page - 1) * 50 + 1) %> - <%i (min (page * 50) total) %>
+            Showing <%i ((pagination_info.page_number - 1) * 50 + 1) %> - <%i (min (pagination_info.page_number * 50) total) %>
           </div>
         <ol class="flex flex-col">
           <% packages |> List.iter (fun (package : Package.package) -> %>
@@ -122,7 +122,7 @@ let render ~total ~search ~page ~number_of_pages (packages : Package.package lis
           <% ); %>
         </ol>
         <% ); %>
-        <%s! Pagination.render ~total_page_count:number_of_pages ~page_number:page ~base_url:Url.packages_search ~queries:[("q", search)] %>
+        <%s! Pagination.render pagination_info %>
       </div>
     </div>
   </div>

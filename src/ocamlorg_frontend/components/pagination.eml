@@ -1,3 +1,10 @@
+type t = {
+  total_page_count : int;
+  page_number : int;
+  base_url : string;
+  queries : ( string * string ) list;
+}
+
 let rec construct_query_string = function
   | h :: t -> "&" ^ (fst h) ^ "=" ^ (snd h) ^ construct_query_string t
   | [] -> ""
@@ -26,7 +33,7 @@ let right_arrow ~base_url page ~queries =
     <%s! Icons.chevron_right "h-5 w-5" %>
   </a>
 
-let render ~total_page_count ~page_number ~base_url ~queries =
+let render { total_page_count; page_number; base_url; queries } =
   <div class="pt-16 flex items-center justify-center space-x-2.5">
   <% if  total_page_count > 1 then ( %>
     <%s! if page_number != 1 then (left_arrow ~base_url page_number ~queries) else "" %>

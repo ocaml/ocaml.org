@@ -1,8 +1,8 @@
-let render ~pages_number ~page (news : Data.News.t list) =
+let render ~(pagination_info : Pagination.t) (news : Data.News.t list) =
 News_layout.single_column_layout
 ~title:"News from the OCaml teams"
 ~description:"Read the latest news, releases, and updates from the OCaml compiler and platform developers."
-~canonical:(Url.news ^ if page = 1 then "" else "?p=" ^ string_of_int page)
+~canonical:(Url.news ^ if pagination_info.page_number = 1 then "" else "?p=" ^ string_of_int pagination_info.page_number)
 ~current:Newsletters @@
 <div class="intro-section-simple dark:dark-intro-section-simple py-12">
   <div class="container-fluid">
@@ -41,26 +41,7 @@ News_layout.single_column_layout
       <% ); %>
 
       <div class="pt-16 flex items-center justify-center space-x-2.5">
-        <a href="<%s Url.news %>?p=<%i page - 1 %>"
-            class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-content hover:bg-gray-50 hover:no-underline">
-            <%s! Icons.chevron_left "h-5 w-5" %>
-        </a>
-        <% (for i = 1 to (pages_number - 1) do
-              if i = page then ( %>
-        <a href="<%s Url.news %>?p=<%i i %>"
-            class="w-10 h-10 lg:w-14 lg:h-14  border-2 border-current rounded-lg flex items-center justify-center text-primary">
-            <%i i %>
-        </a>
-        <% ) else ( %>
-        <a href="<%s Url.news %>?p=<%i i %>"
-            class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-content hover:bg-gray-50 hover:no-underline">
-            <%i i %>
-        </a>
-        <% ) done); %>
-        <a href="<%s Url.news %>?p=<%i page + 1 %>"
-            class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-content hover:bg-gray-50 hover:no-underline">
-            <%s! Icons.chevron_right "h-5 w-5" %>
-        </a>
+        <%s! Pagination.render pagination_info %>
       </div>
     </div>
   </div>
