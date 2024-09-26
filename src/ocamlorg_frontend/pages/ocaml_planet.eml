@@ -96,7 +96,7 @@ News_layout.single_column_layout
               To contribute a blog post, or add your RSS feed, check out the Contributing Guide on GitHub.
             </p>
             <div class="flex lg:flex-row mt-8 mr-4">
-              <%s!  Hero_section.hero_button ~left_icon:(Icons.edit "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~text:("Add your RSS feed!") ~href:("https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-blog") "" %>
+              <%s!  Hero_section.hero_button ~left_icon:(Icons.edit "w-6 h-6") ~right_icon:(Icons.link "w-5 h-5") ~text:("Add your RSS feed!") ~href:("https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#ocaml-planet") "" %>
              </div>
           </div>
         </div>
