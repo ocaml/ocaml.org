@@ -19,7 +19,7 @@ Please include images and browser-specific information if the bug is related to 
 We've provided a list of community-driven content below. When adding content to any of these sections, it's best to fork the repo, add your file, and open a pull request (PR).
 
 - [Images](#images)
-- [The OCaml Planet Blog](#content-blog)
+- [The OCaml Planet](#ocaml-planet)
 - [Job Board](#content-job)
 - [Success Stories](#content-success-story)
 - [Academic and Industrial Users](#content-user)
@@ -41,14 +41,15 @@ For example, to add a university logo associated with an academic institution, y
 
 Videos or other media should not be added to the OCaml.org GitHub repository.
 
-### <a name="content-blog"></a>Add an RSS Feed to the Blog
+### <a name="ocaml-planet"></a>Add Your RSS Feed or YouTube Channel to the OCaml Planet
 
-Anyone can contribute to the [OCaml Blog](https://ocaml.org/blog), which is composed of two types of content:
+Anyone can contribute to the [OCaml Planet](https://ocaml.org/ocaml-planet), which is composed of three types of content:
 
 - Community blog posts fetched from RSS feeds
+- Videos fetched from YouTube channels
 - Original blog posts linked from original source
 
-#### Fetched from RSS Feed
+#### Add Your RSS Feed
 
 If you write about OCaml and have an RSS or Atom feed, you can add your feed to [`data/planet-sources.yml`](data/planet-sources.yml).
 
@@ -56,9 +57,13 @@ When compiling, the feed entries will be downloaded, and Markdown files for each
 
 Please, make sure your feed only contains articles about OCaml.
 
+#### Add Your YouTube Channel
+
+If you have a YouTube channel and publish videos about OCaml (mention "OCaml" in the description of every video that should appear on the OCaml Planet!), you can add your channel to [`data/youtube.yml`].
+
 #### Link Original Blog Post
 
-To contribute a link to your original blog post (under [OCaml Community Blog](https://ocaml.org/blog)), add a new Markdown file in [`data/planet/-individual_external_links/`](data/planet/-individual_external_links/).
+To contribute an individual link to your original blog post to the OCaml Planet, add a new Markdown file in [`data/planet/-individual_external_links/`](data/planet/-individual_external_links/).
 
 Create a `.md` file with the following header:
 
