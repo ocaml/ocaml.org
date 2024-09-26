@@ -250,16 +250,30 @@ let paginate ~req ~n items =
   in
   (page, number_of_pages, current_items)
 
+let query_param ~name value =
+  match value with None -> [] | Some v -> [ (name, v) ]
+
 let learn_documents_search req =
-  let q = Dream.query req "q" |> Option.value ~default:"" in
-  let search_results = Data.Tutorial.search_documents q in
-  let page, number_of_pages, current_items =
-    paginate ~req ~n:50 search_results
+  let q = Dream.query req "q" in
+  let search_results =
+    Data.Tutorial.search_documents (q |> Option.value ~default:"")
   in
   let total = List.length search_results in
+  let page_number, total_page_count, current_items =
+    paginate ~req ~n:50 search_results
+  in
+  let pagination_info =
+    Ocamlorg_frontend.Pagination.
+      {
+        total_page_count;
+        page_number;
+        base_url = Url.tutorial_search;
+        queries = query_param ~name:"q" q;
+      }
+  in
   Dream.html
-    (Ocamlorg_frontend.tutorial_search current_items ~total ~page
-       ~number_of_pages ~search:q)
+    (Ocamlorg_frontend.tutorial_search current_items ~total ~pagination_info
+       ~search:(q |> Option.value ~default:""))
 
 let changelog req =
   let current_tag = Dream.query req "t" in
@@ -277,10 +291,23 @@ let changelog req =
             List.exists (( = ) tag) change.tags)
           Data.Changelog.all
   in
-  let page, number_of_pages, current_changes = paginate ~req ~n:30 changes in
+
+  let page_number, total_page_count, current_changes =
+    paginate ~req ~n:50 changes
+  in
+  let pagination_info =
+    Ocamlorg_frontend.Pagination.
+      {
+        total_page_count;
+        page_number;
+        base_url = Url.changelog;
+        queries = query_param ~name:"t" current_tag;
+      }
+  in
+
   Dream.html
-    (Ocamlorg_frontend.changelog ?current_tag ~tags ~number_of_pages
-       ~current_page:page current_changes)
+    (Ocamlorg_frontend.changelog ?current_tag ~tags ~pagination_info
+       current_changes)
 
 let changelog_entry req =
   let slug = Dream.param req "id" in
@@ -411,13 +438,24 @@ let academic_institutions req =
       (fun institution -> matches_criteria institution continent resource_type)
       users
   in
-  let page, number_of_pages, institutions =
+  let page_number, total_page_count, institutions =
     paginate ~req ~n:10 filtered_institutions
   in
-
+  let pagination_info =
+    Ocamlorg_frontend.Pagination.
+      {
+        total_page_count;
+        page_number;
+        base_url = Url.academic_institutions;
+        queries =
+          query_param ~name:"q" query
+          @ query_param ~name:"resource_type" resource_type
+          @ query_param ~name:"continent" continent;
+      }
+  in
   Dream.html
     (Ocamlorg_frontend.academic_institutions ?search:query ?continent
-       ?resource_type ~page ~pages_number:number_of_pages institutions)
+       ?resource_type ~pagination_info institutions)
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
 
@@ -542,19 +580,31 @@ let ocaml_planet req =
   let filtered_entries =
     Data.Planet.all |> List.filter (fun item -> matches_criteria item category)
   in
-  let page, number_of_pages, current_items =
+  let page_number, total_page_count, current_items =
     paginate ~req ~n:10 filtered_entries
   in
+  let pagination_info =
+    Ocamlorg_frontend.Pagination.
+      {
+        total_page_count;
+        page_number;
+        base_url = Url.ocaml_planet;
+        queries = query_param ~name:"category" category;
+      }
+  in
+
   Dream.html
-    (Ocamlorg_frontend.ocaml_planet ~planet_page:page
-       ~planet_pages_number:number_of_pages ?category current_items)
+    (Ocamlorg_frontend.ocaml_planet ~pagination_info ?category current_items)
 
 let news req =
-  let page, number_of_pages, current_items =
+  let page_number, total_page_count, current_items =
     paginate ~req ~n:10 Data.News.all
   in
-  Dream.html
-    (Ocamlorg_frontend.news ~page ~pages_number:number_of_pages current_items)
+  let pagination_info =
+    Ocamlorg_frontend.Pagination.
+      { total_page_count; page_number; base_url = Url.news; queries = [] }
+  in
+  Dream.html (Ocamlorg_frontend.news ~pagination_info current_items)
 
 let news_post req =
   let slug = Dream.param req "id" in
@@ -982,18 +1032,30 @@ let packages_search t req =
     | None -> Ocamlorg_package.all_latest t
   in
   let total = List.length packages in
-  let page, number_of_pages, current_items = paginate ~req ~n:50 packages in
+
   let search =
     Dream.from_percent_encoded
       (match Dream.query req "q" with Some search -> search | None -> "")
+  in
+
+  let page_number, total_page_count, current_items =
+    paginate ~req ~n:50 packages
+  in
+  let pagination_info =
+    Ocamlorg_frontend.Pagination.
+      {
+        total_page_count;
+        page_number;
+        base_url = Url.packages_search;
+        queries = [ ("q", search) ];
+      }
   in
 
   let open Lwt.Syntax in
   let* results = prepare_search_result_packages t current_items in
 
   Dream.html
-    (Ocamlorg_frontend.packages_search ~total ~search ~page ~number_of_pages
-       results)
+    (Ocamlorg_frontend.packages_search ~total ~search ~pagination_info results)
 
 let packages_autocomplete_fragment t req =
   match Dream.query req "q" with

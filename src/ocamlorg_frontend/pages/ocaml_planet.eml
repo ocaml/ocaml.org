@@ -49,11 +49,12 @@ let render_blog_post (post : Data.Planet.entry) =
         <% ); %>
       </div>
   </div>
-let render ?(category = "All") ~planet_pages_number ~planet_page (planet : Data.Planet.entry list) =
+
+let render ?(category = "All") ~(pagination_info : Pagination.t) (planet : Data.Planet.entry list) =
 News_layout.single_column_layout
 ~title:"The OCaml Planet"
 ~description:"The RSS aggregator for the OCaml community."
-~canonical:(Url.ocaml_planet ^ if planet_page = 1 then "" else "?p=" ^ string_of_int planet_page)
+~canonical:(Url.ocaml_planet ^ if pagination_info.page_number = 1 then "" else "?p=" ^ string_of_int pagination_info.page_number)
 ~alternate:{ href = "/planet.xml"; title = "The OCaml Planet"; type_ = "application/atom+xml" }
 ~current:OCamlPlanet @@
 <div class="bg-white dark:bg-dark-background py-12">
@@ -76,7 +77,7 @@ News_layout.single_column_layout
               |> String.concat "\n" ; %>
           </div>
           <div class="flex items-start">
-            <%s! Pagination.render ~total_page_count:planet_pages_number ~page_number:planet_page ~base_url:Url.ocaml_planet ~queries:[("category", category)]%> 
+            <%s! Pagination.render pagination_info %> 
           </div>
          
         </div> 

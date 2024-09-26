@@ -1,8 +1,7 @@
 let render 
 ~search
 ~total
-~number_of_pages
-~page
+~(pagination_info : Pagination.t)
 (documents : Data.Tutorial.search_document list) =
 Learn_layout.single_column_layout
 ~title:"OCaml Tutorial Documents Search"
@@ -40,7 +39,7 @@ Learn_layout.single_column_layout
 
           <% if List.length documents > 0 then ( %>
             <div class="text-content dark:text-dark-content mb-2 lg:mb-4">
-              Showing <%i ((page - 1) * 50 + 1) %> - <%i (min (page * 50) total) %>
+              Showing <%i ((pagination_info.page_number - 1) * 50 + 1) %> - <%i (min (pagination_info.page_number * 50) total) %>
             </div>
           <ol class="flex flex-col">
             <% documents |> List.iter (fun (doc : Data.Tutorial.search_document) -> %>
@@ -62,7 +61,7 @@ Learn_layout.single_column_layout
             <% ); %>
           </ol>
           <% ); %>
-        <%s! Pagination.render ~total_page_count:number_of_pages ~page_number:page ~base_url:Url.tutorial_search ~queries:[("q", search)] %>
+        <%s! Pagination.render pagination_info %>
       </div>
     </div>
   </div>
