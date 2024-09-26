@@ -51,11 +51,6 @@ module GlobalFeed = struct
     match events with
     | [] -> None
     | _ ->
-        let human_readable_date =
-          Format.sprintf "%s %d, %d"
-            (Syndic.Date.month start |> Syndic.Date.string_of_month)
-            (Syndic.Date.day start) (Syndic.Date.year start)
-        in
         let authors = (Syndic.Atom.author "OCaml Events", []) in
         let render_single_event (event : Data_intf.Event.t) =
           let textual_location = event.city ^ ", " ^ event.country in
@@ -83,7 +78,7 @@ module GlobalFeed = struct
           events
           |> List.map render_single_event
           |> String.concat "\n"
-          |> Format.sprintf {|<ul>%s</ul>|}
+          |> Format.sprintf {|<br><ul>%s</ul>|}
         in
 
         let id =
@@ -99,8 +94,7 @@ module GlobalFeed = struct
           (Syndic.Atom.entry ~id ~authors
              ~title:
                (Syndic.Atom.Text
-                  ("Upcoming OCaml Events (" ^ human_readable_date
-                 ^ " and onwards)"))
+                  ("Upcoming OCaml Events"))
              ~updated:start
              ~links:
                [ Syndic.Atom.link (Uri.of_string "https://ocaml.org/events") ]
