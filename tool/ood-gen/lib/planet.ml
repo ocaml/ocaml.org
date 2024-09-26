@@ -92,10 +92,7 @@ module GlobalFeed = struct
         in
         Some
           (Syndic.Atom.entry ~id ~authors
-             ~title:
-               (Syndic.Atom.Text
-                  ("Upcoming OCaml Events"))
-             ~updated:start
+             ~title:(Syndic.Atom.Text "Upcoming OCaml Events") ~updated:start
              ~links:
                [ Syndic.Atom.link (Uri.of_string "https://ocaml.org/events") ]
              ~categories:[ Syndic.Atom.category "events" ]
