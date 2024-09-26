@@ -52,7 +52,6 @@
    (>= 2.0.0))
   yojson
   lwt
-  tailwindcss
   (hilite
    (>= 0.4.0))
   (river
