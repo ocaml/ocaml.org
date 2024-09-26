@@ -16,7 +16,7 @@ jobs:
           - macos-latest
           - ubuntu-latest
         ocaml-compiler:
-          - "4.14"
+          - "5.2"
 
     steps:
       - name: Checkout Repo
@@ -38,6 +38,9 @@ jobs:
       - name: Install system dependencies (macOS)
         run: brew update && brew reinstall libev openssl@3 # Openssl is a workaround for https://github.com/ocaml/opam-repository/issues/19676
         if: runner.os == 'macOS'
+
+      - name: Create ocamlorg.opam
+        run: opam exec -- dune build ocamlorg.opam
 
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
