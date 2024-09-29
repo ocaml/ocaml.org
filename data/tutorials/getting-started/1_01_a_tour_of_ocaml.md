@@ -26,7 +26,7 @@ Some of the examples in this tour include comments. Comments in OCaml start with
 ```ocaml
 (* Here is a comment *)
 (* Outside of the nested comment is still a comment. (* Here is a nested comment *) Outside of the nested comment again. *)
-# 50 + (* A comment in between parts of an expression *) 50
+# 50 + (* A comment in between parts of an expression *) 50;;
 - : int = 100
 ```
 
