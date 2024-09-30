@@ -269,7 +269,7 @@ Layout.render
      <p class="text-lg text-dark-content dark:text-dark-content mt-4">Go to our success stories to see how businesses use OCaml.</p>
      </div>
      <div class="flex lg:flex-row">
-      <a href="https://www.outreachy.org/apply/project-selection/" class="group h-11 border w-full min-w-max border-primary dark:border-dark-primary text-base items-center justify-center inline-flex py-1 px-4 bg-white dark:bg-dark-background rounded-md hover:bg-primary hover:dark:bg-dark-primary md:text-lg cursor-pointer">
+      <a href="<%s Url.industrial_users %>" class="group h-11 border w-full min-w-max border-primary dark:border-dark-primary text-base items-center justify-center inline-flex py-1 px-4 bg-white dark:bg-dark-background rounded-md hover:bg-primary hover:dark:bg-dark-primary md:text-lg cursor-pointer">
         <%s! Icons.industry "h-8 w-8 mr-2 text-primary dark:text-dark-primary group-hover:text-white" %>
         <span class="text-primary group-hover:text-white dark:text-white">Read about OCaml in Industry</span> 
       </a>
