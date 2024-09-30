@@ -5,6 +5,9 @@ description: >
 url: "https://www.cornell.edu/"
 logo: academic_institution/cornell.png
 continent: North America
+featured: true
+image: academic_institution/featured/images/cornell.png
+alternate_logo: cornell.png
 courses:
     - name: Data Structures and Functional Programming 
       acronym: CS 3110
