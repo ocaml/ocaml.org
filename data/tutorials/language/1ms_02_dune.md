@@ -120,7 +120,7 @@ The `dune describe` command allows having a look at the project's module structu
 ## Libraries
 
 <!--This contrasts with the `struct ... end` syntax where modules are aggregated top-down by nesting submodules into container modules. -->
-In OCaml, a library is a collection of modules. By default, when Dune builds a library, it wraps the bundled modules into a module. This allows having several modules with the same name, inside different libraries, in the same project. That feature is known as [_namespaces_](https://en.wikipedia.org/wiki/Namespace) for module names. This is similar to what module do for definitions; they avoid name clashes.
+In OCaml, a library is a collection of modules. By default, when Dune builds a library, it wraps the bundled modules into a module. This allows having several modules with the same name, inside different libraries, in the same project. That feature is known as [_namespaces_](https://en.wikipedia.org/wiki/Namespace) for module names. This is similar to what modules do for definitions; they avoid name clashes.
 
 Dune creates libraries from directories. Let's look at an example. Here the `lib` directory contains its sources. This is different from the Unix standard, where `lib` stores compiled library binaries.
 ```shell
@@ -247,7 +247,7 @@ Create a fresh directory.
 $ mkdir foo.dir; cd foo.dir
 ```
 
-Create a `dune-prtoject` file looking like this.
+Create a `dune-project` file looking like this.
 
 **`dune-project`**
 ```lisp
@@ -297,6 +297,98 @@ module Stratus = Stratus.M
 
 This result is the same, except implementations `Cumulus.M` and `Stratus.M` are
 explicitly bound to the same interface, defined in module `Wmo`.
+
+## Disable Library Wrapping
+
+This section details how Dune wraps a library's contents into a dedicated
+module. It also shows how to disable this mechanism.
+
+The `lib` folder contents are trimmed down back to a state close to what it was
+in the [Libraries](#libraries) section. Delete file `lib/cumulus/m.ml`,
+`lib/stratus/m.ml`, `lib/wmo.mli`, and `lib/wmo.ml`. Here are the contents of the
+only files we need:
+
+**`lib/dune`**
+```lisp
+(library (name wmo))
+```
+
+**`lib/cumulus.ml`**
+```ocaml
+let nimbus = "Cumulonimbus (Cb)"
+let altus = "Altocumulus (Ac)"
+```
+
+**`lib/stratus.ml`**
+```ocaml
+let nimbus = "Nimbostratus (Ns)"
+```
+
+In this setup, running `dune utop` allows discovering what's available.
+```ocaml
+# #show Wmo;;
+module Wmo : sig module Cumulus = Wmo.Cumulus module Stratus = Wmo.Stratus end
+
+# #show Wmo.Cumulus;;
+module Cumulus : sig val nimbus : string val altus : string end
+
+# #show Wmo.Stratus;;
+# module Stratus : sig val nimbus : string end
+
+# #show Wmo__Cumulus;;
+module Wmo__Cumulus : sig val nimbus : string val altus : string end
+
+# #show Wmo__Stratus;;
+# module Stratus : sig val nimbus : string end
+```
+
+Five modules are defined. `Wmo` is the wrapper module having `Cumulus` and
+`Stratus` as submodules. Compilation of files `lib/cumulus.ml` and
+`lib/stratus.ml` respectively produce modules `Wmo__Cumulus` and `Wmo__Stratus`.
+The former submodules of `Wmo` are respective aliases of the latter.
+
+The wrapper `Wmo` can be written manually. This one illustrates how a wrapped
+submodule's interface can be restrained.
+
+**`lib/wmo.ml`**
+```ocaml
+module Cumulus : sig val nimbus : string end = Cumulus
+module Stratus = Stratus
+```
+
+Here is what it looks like in `dune utop`:
+
+```ocaml
+# #show Wmo.Cumulus;;
+module Cumulus : sig val nimbus : string end
+
+# #show Wmo__Cumulus;;
+module Wmo__Cumulus : sig val nimbus : string val altus : string end
+```
+
+Wrapping can be disabled in Dune's configuration.
+
+**`lib/dune`**
+```ocaml
+(library (name wmo) (wrapped false) (modules cumulus stratus))
+```
+
+In that case, the “library” only contains the modules `Cumulus` and `Stratus`,
+bundled together, side by side. Check the following in `dune utop`, twice. Once
+with file `lib/wmo.ml` unchanged, and a second time after deleting it.
+```ocaml
+# #show Cumulus;;
+module Cumulus : sig val nimbus : string val altus : string end
+
+# #show Stratus;;
+module Stratus : sig val nimbus : string end
+```
+
+**Remarks**:
+* When the file `lib/wmo.ml` exists, the `modules` stanza that doesn't list it
+  prevents it from being bundled in the library
+* When the file `lib/wmo.ml` doesn't exist, the `wrapped false` stanza prevents
+   the creation of the `Wmo` wrapper
 
 ## Conclusion
 
