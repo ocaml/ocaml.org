@@ -429,4 +429,31 @@ rounds:
           - Sayo Bamigbade <sayobamigbade@gmail.com>
           - Shakthi Kannan <shakthi@tarides.com>
         video: https://watch.ocaml.org/w/peT3MdWjS1BYYMbowEJ1gv?start=13m48s
+      - title: Experimenting with an accessible diff viewer
+        description: >
+          Looking at the difference between two files is one of the most common
+          activity in open source work.  It happens when reviewing a pull
+          request, inspecting a commit and in many other situation.
+
+          However, reading such diff is not always easy. Many tools have been to
+          made to improve the situation and make the diff reviewing easier: The
+          use of colours to distinguish between added and removed lines
+          (traditionally green and red), use of a bold face to get the attention
+          on the modified part of the line at the word level, the display of the
+          two files side-by-side, ...
+
+          However, most of the improvements mentioned above:
+
+          - Are made for "generic" diffing of files. Some files may have very long lines and be unsuitable for the current diff output.
+          - Are restricted to sighted people.
+
+          The goal of this project is to develop a visualization tool on top of
+          Git diff. The visualization tool is a terminal UI, and the main task
+          of the internship is to make it highly accessible to screen readers.
+        mentee: "Alan Matthew"
+        source: https://github.com/panglesd/diffcessible
+        mentors:
+          - Paul-Elliot Anglès d'Auriac <peada@free.fr>
+          - Jules Aguillon <juloo.dsi@gmail.com>
+        video: https://watch.ocaml.org/w/peT3MdWjS1BYYMbowEJ1gv?start=2m53s
 
