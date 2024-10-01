@@ -39,6 +39,15 @@ For instance, if you've put your `dune` file in `bin/dune` with the following co
 
 You can run it with `dune exec bin/main.exe` or `dune exec my-app`.
 
+## Automatic Recompiling on File Changes
+
+Compiling a project with `dune exec <executable_path>.exe` can take time, especially with many files. To speed this up, you can use `dune build --watch`, which automatically recompiles files as they change.
+
+Keep in mind:
+
+* `dune build --watch` monitors files and triggers necessary recompilation.
+* Dune locks the build directory, so you can't run two Dune commands simultaneously.
+* To run the application, stop the watch process (Ctrl-C) or execute the app directly with `_build\default\<executable_path>.exe`.
 ## Running Tests
 
 > **TL;DR**
