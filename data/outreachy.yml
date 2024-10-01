@@ -12,13 +12,13 @@ rounds:
       - title: "MirageOS Cloud API Support"
         description: >
           MirageOS (see http://xenproject.org/developers/teams/mirage-os.html,
-          http://www.openmirage.org/) is a type-safe unikernel written in OCaml
-          which generates highly specialised "appliance" VMs that run directly
+          http://www.openmirage.org/) is a type-safe unikernel written in OCaml.
+          It generates highly specialised "appliance" VMs that run directly
           on Xen without requiring an intervening kernel. A MirageOS
           application typically runs via several communicating kernel instances
           on the cloud. Today these instances are difficult to manage; we would
           like to explore strategies for managing these distributed
-          computations using common public cloud APIs such as those exposed by
+          computations using common public cloud APIs, such as those exposed by
           Amazon EC2 and Rackspace.
 
           First we need to create pure OCaml API bindings for (e.g.) EC2 and
@@ -387,3 +387,46 @@ rounds:
           - Guillaume Petiot
           - Moazzam Moriani
         video: https://watch.ocaml.org/w/b7sv1LQSVZQH6trf4xpwFX?start=34m6s
+  - name: Summer 2024
+    projects:
+      - title: Run OCaml Exercises Everywhere
+        description: >
+          At present, several groups of exercises aimed at learning OCaml are available:
+
+          https://github.com/gs0510/ofronds
+          https://github.com/sudha247/learn-ocaml-workshop
+          https://github.com/kayceesrk/cs3100_f19
+          https://github.com/ocaml-sf/learn-ocaml, source for: http://ocaml-sf.org/learn-ocaml-public
+          https://github.com/ocaml.org, source for: https://ocaml.org/exercises
+
+
+          There's probably more. Each set of exercises uses a different execution
+          framework (such as Jupyter, Learn-OCaml, or custom). They provide a range of user
+          experiences, from available solutions up to candidate solution testing. The internship's main
+          goal is to build a common configuration that allows running
+          each set of exercises in most known setups. This will have the following
+          benefits:
+
+          - Exercises are no longer tied to a specific setup, they can be used in several
+          - Loose coupling between the learning content and the technical setup
+          - For learners: Feature parity among exercise sets, self-learning, unique, simple, and quick start
+          - For teachers: Focus on exercise writing, using the common setup
+          - For the community: More exercices, easier startup, improved learning curve for OCaml
+
+          The goal is not to have all exercises from all the projects in all the setups.
+          Instead, the goal is to show it is possible to do it. However, this will be
+          established by porting a meaningful fraction of each exercise group into several
+          setups or forks, if required.
+
+          As a design constraint, we want to provide exercises at https://ocaml.org/. We
+          consider automatically processing exercise groups to generate the
+          https://ocaml.org/exercises page. The common setup should allow that, although
+          it is not part of the internship.
+        mentee: "Divyanka Chaudhari"
+        source: https://github.com/divyankachaudhari/ocaml-practice-exercises
+        mentors:
+          - Cuihtlauac Alvarado <cuihtlauac@tarides.com>
+          - Sayo Bamigbade <sayobamigbade@gmail.com>
+          - Shakthi Kannan <shakthi@tarides.com>
+        video: https://watch.ocaml.org/w/peT3MdWjS1BYYMbowEJ1gv?start=13m48s
+
