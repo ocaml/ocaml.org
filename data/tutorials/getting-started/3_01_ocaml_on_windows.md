@@ -11,7 +11,7 @@ category: "Resources"
 Opam now features a fully native Windows compatible installation process that we
 recommend new users to follow below.
 
-In order to have access to OCaml on a Windows PC, users have to use opam so that's our
+In order to have access to OCaml on a Windows PC, users must use opam, so that's our
 first step.
 
 Windows Developers out there will already be familiar with `winget` which is
@@ -53,14 +53,14 @@ $ opam --version
 As for any other platform out there, you have to initialise your opam
 installation with the `opam init` command. 
 
-The first thing to know is that opam requires a UNIX-like environment to
+The first thing to know is that opam requires a Unix-like environment to
 function. By default, opam relies on `cygwin` and is also compatible with
 `msys2`.
 
-At *init-time*, opam scans your machine for available UNIX environments and
+At *init-time*, opam scans your machine for available Unix environments and
 prompts you to choose your favourite option. That being said, it is recommended
 to let it create its own internal Cygwin installation that will remain managed
-by opam. This allows to cut down the possible interferences that other tools
+by opam. This cuts down the possible interferences of other tools
 that interact with such environments might introduce. Think of it as a
 sandboxed environment.
 
@@ -121,7 +121,7 @@ One detail to address about having a fully functional opam installation is
 related to Git.
 
 On Windows, there are many ways to have a functioning Git installation. Opam will
-look for a compatible Git and, if none is found, it will prompt you with a set of
+look for a compatible Git, and if none is found, it will prompt you with a set of
 options to install one. 
 
 ```shell-session
@@ -182,7 +182,7 @@ Done.
 ```
 
 You can see that in this specific run of the command, opam chose `mingw` as
-a C compiler but know that you can very well choose an alternative to it
+a C compiler, but know that you can very well choose an alternative to it
 instead, like `msvc` with the following command:
 
 ```shell-session
@@ -245,8 +245,8 @@ The guidance is based on the availability table below:
 
 ### `opam-repository-mingw`
 
-[opam-repository-mingw](https://github.com/fdopen/opam-repository-mingw) is an
-[opam repository](https://opam.ocaml.org/doc/Manual.html#Repositories)
+[`opam-repository-mingw`](https://github.com/fdopen/opam-repository-mingw) is an
+[`opam repository`](https://opam.ocaml.org/doc/Manual.html#Repositories)
 that contains patches for packages to build and install on Windows as well as
 MinGW-w64 and MSVC compiler variants (in both 32- and 64-bit). For a long time, this has been
 maintained by [@fdopen](https://fdopen.github.io/opam-repository-mingw/) along
