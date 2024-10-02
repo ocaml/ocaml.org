@@ -1,3 +1,39 @@
+- title: OCaml's New Proposed "include functor" Syntax | OCaml Unboxed
+  url: https://www.youtube.com/watch/SWURUDr_i3w?version=3
+  thumbnail: https://i4.ytimg.com/vi/SWURUDr_i3w/hqdefault.jpg
+  description: 'A well-designed interface offers lots of expressiveness with minimal
+    implementation. OCaml programmers thus often implement just a few functions in
+    an interface (module type), then use a functor to define the rest based on these
+    definitions. This idiom, though useful, can be awkward, requiring a little repetition.
+    To make this easier, Jane Street designed the "include functor" syntax. This video
+    shows how it works and why you might want to use it.
+
+
+
+    View instructions to get the compiler I use in this video: https://github.com/janestreet/opam-repository/tree/with-extensions
+
+
+
+    Reference documentation for the "include functor" feature:
+
+    https://github.com/ocaml-flambda/flambda-backend/blob/main/ocaml/jane/doc/extensions/include-functor.md
+
+
+
+    Code written in this video:
+
+    https://github.com/goldfirere/janestreet-videos/blob/main/include-functor/include_functor.ml
+
+
+
+    Proposal to include "include functor" in mainstream OCaml:
+
+    https://github.com/ocaml/RFCs/pull/43'
+  published: 2024-08-07T18:14:54+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
 - title: Programming with OCaml's Local Mode | OCaml Unboxed
   url: https://www.youtube.com/watch/RBulw_Ik8QY?version=3
   thumbnail: https://i3.ytimg.com/vi/RBulw_Ik8QY/hqdefault.jpg
