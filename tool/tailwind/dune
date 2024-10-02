@@ -58,6 +58,8 @@
  (action
   (copy tailwindcss-macos-arm64 tailwindcss)))
 
+(alias (name default) (deps tailwindcss))
+
 (install
  (section bin)
  (files tailwindcss))
