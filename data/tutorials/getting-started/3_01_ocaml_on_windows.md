@@ -64,9 +64,8 @@ that interact with such environments might introduce. Think of it as a
 sandboxed environment.
 
 You will notice that the repository information fetching stage takes a while to
-complete. This is normal and related to how files are handled on Windows, we
-advice our users to go get themselves their favourite hot beverage while it
-runs.
+complete. This is normal (for the moment), we advice our users to go get 
+themselves their favourite hot beverage while it runs.
 
 ```shell-session
 > opam init
