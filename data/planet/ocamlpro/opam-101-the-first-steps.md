@@ -112,7 +112,7 @@ The cli of <code>opam</code> is made to remain consistent between versions so, u
 have a very old version, or if you read this article in the very distant
 future, you should not have problems by not using the <strong>exact</strong> same version as
 we do. For the sake of consistency though, I will use this specific version.</p>
-<pre><code class="language-shell-session">$ bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.1.5&quot;
+<pre><code class="language-shell-session">$ bash -c &quot;sh &lt;(curl -fsSL https://opam.ocaml.org/install.sh) --version 2.1.5&quot;
 </code></pre>
 <p>This script will download the necessary binaries for a proper installation of
 <code>opam</code>. Once done, you can move on to the nitty gritty of having a working

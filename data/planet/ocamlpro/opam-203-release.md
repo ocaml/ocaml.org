@@ -31,7 +31,7 @@ source:
 <li>From binaries: run
 </li>
 </ol>
-<pre><code class="language-shell-session">sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+<pre><code class="language-shell-session">sh &lt;(curl -sL https://opam.ocaml.org/install.sh)
 </code></pre>
 <p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.3">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.</p>
 <ol start="2">

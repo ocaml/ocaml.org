@@ -26,7 +26,7 @@ source:
 <li>Either from binaries: run
 </li>
 </ol>
-<pre><code class="language-shell-session">bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.1.0~rc2&quot;
+<pre><code class="language-shell-session">bash -c &quot;sh &lt;(curl -fsSL https://opam.ocaml.org/install.sh) --version 2.1.0~rc2&quot;
 </code></pre>
 <p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.1.0-rc2">the Github &quot;Releases&quot; page</a> to your PATH.</p>
 <ol start="2">
