@@ -208,7 +208,7 @@ Hello OCamleers!!
 
 ## DkML
 
-There is also [DkML] Windows installer. However, while [DkML] has a modern OCaml 4.14.0 compiler,
+There is also [DkML] Windows installer. However, while [DkML] has a modern OCaml 4.14.2 compiler,
 it does not track the latest OCaml compilers. We will officially support Windows as a Tier 1
 platform with a [major release of opam](#opam-22) in the coming months, and it will be compatible with
 DkML installations.
