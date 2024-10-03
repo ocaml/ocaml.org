@@ -401,17 +401,28 @@ report these.
 
 ### Installing a TSan Switch
 
-To install the TSan mode
-1. Install the [`libunwind`](https://github.com/libunwind/libunwind)
-   dependency. On macOS `libunwind` should already be installed by default.
-   On a Linux system with the `apt` package manager, installing
-   `libunwind` should be as simple as `sudo apt install libunwind-dev`.
-2. Create a TSan switch by running `opam switch create 5.0.0+tsan`.
+To install the TSan mode, create a dedicated TSan switch by running the
+following command (here we create a 5.2.0 switch):
+```
+opam switch create 5.2.0+tsan ocaml-variants.5.2.0+options ocaml-option-tsan
+```
 
 To confirm that the TSan switch is installed correctly, run `opam
-switch show` and confirm that it prints `5.0.0+tsan`.
+switch show` and confirm that it prints `5.2.0+tsan`.
 
-Note: TSan is only supported on x86-64 architectures for now.
+Note: TSan is supported on all architectures with a native code
+compiler since OCaml 5.2.0.
+
+Trouble shooting:
+- if the above fails during installation of `conf-unwind` with `No
+  package 'libunwind' found`, try setting the environment variable
+  `PKG_CONFIG_PATH` to point to the location of `libunwind.pc`, for
+  example, `PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig`
+- if the above fails with an error along the lines of
+  `FATAL: ThreadSanitizer: unexpected memory mapping 0x61a1a94b2000-0x61a1a94ca000`
+  this is [a known issue with older versions of TSan](https://github.com/google/sanitizers/issues/1716)
+  and can be addressed by reducing ASLR entropy by running
+  `sudo sysctl vm.mmap_rnd_bits=28`
 
 ### Detecting a Data Race
 
@@ -443,7 +454,7 @@ Here is a corresponding `dune` file:
  (libraries unix))
 ```
 
-If we compile and run the program using `dune` under a regular `5.0.0` switch the
+If we compile and run the program using `dune` under a regular `5.2.0` switch the
 program appears to work:
 ```
 $ opam exec -- dune build ./race.exe
@@ -452,32 +463,30 @@ v.x is 11
 ```
 
 However, if we compile and run the program with Dune from the new
-`5.0.0+tsan` switch TSan warns us of a data race:
+`5.2.0+tsan` switch TSan warns us of a data race:
 ```
-$ opam switch 5.0.0+tsan
+$ opam switch 5.2.0+tsan
 $ opam exec -- dune build ./race.exe
 $ opam exec -- dune exec ./race.exe
 ==================
 WARNING: ThreadSanitizer: data race (pid=19414)
   Write of size 8 at 0x7fb9d72fe498 by thread T4 (mutexes: write M87):
     #0 camlDune__exe__Race__fun_560 /home/user/race/_build/default/race.ml:6 (race.exe+0x60c65)
-    #1 camlStdlib__Domain__body_696 /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/stdlib/domain.ml:202 (race.exe+0x9c38c)
+    #1 camlStdlib__Domain__body_696 /home/user/.opam/5.2.0+tsan/.opam-switch/build/ocaml-variants.5.2.0+tsan/stdlib/domain.ml:202 (race.exe+0x9c38c)
     #2 caml_start_program <null> (race.exe+0x110117)
-    #3 caml_callback_exn runtime/callback.c:168 (race.exe+0xe00fe)
-    #4 caml_callback runtime/callback.c:256 (race.exe+0xe0bb8)
-    #5 domain_thread_func runtime/domain.c:1093 (race.exe+0xe3e83)
+    #3 caml_callback_exn runtime/callback.c:201 (race.exe+0xe00fe)
+    #4 domain_thread_func runtime/domain.c:1215 (race.exe+0xe3e83)
 
   Previous write of size 8 at 0x7fb9d72fe498 by thread T1 (mutexes: write M83):
     #0 camlDune__exe__Race__fun_556 /home/user/race/_build/default/race.ml:5 (race.exe+0x60c05)
-    #1 camlStdlib__Domain__body_696 /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/stdlib/domain.ml:202 (race.exe+0x9c38c)
+    #1 camlStdlib__Domain__body_696 /home/user/.opam/5.2.0+tsan/.opam-switch/build/ocaml-variants.5.2.0+tsan/stdlib/domain.ml:202 (race.exe+0x9c38c)
     #2 caml_start_program <null> (race.exe+0x110117)
-    #3 caml_callback_exn runtime/callback.c:168 (race.exe+0xe00fe)
-    #4 caml_callback runtime/callback.c:256 (race.exe+0xe0bb8)
-    #5 domain_thread_func runtime/domain.c:1093 (race.exe+0xe3e83)
+    #3 caml_callback_exn runtime/callback.c:201 (race.exe+0xe00fe)
+    #4 domain_thread_func runtime/domain.c:1215 (race.exe+0xe3e83)
 
   Mutex M87 (0x560c0b4fc438) created at:
     #0 pthread_mutex_init ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1295 (libtsan.so.2+0x50468)
-    #1 caml_plat_mutex_init runtime/platform.c:54 (race.exe+0x1022f8)
+    #1 caml_plat_mutex_init runtime/platform.c:57 (race.exe+0x1022f8)
   [...]
 
 SUMMARY: ThreadSanitizer: data race (/tmp/race/race.exe+0x4efb15) in camlRace__fun_560
@@ -523,7 +532,7 @@ v is 11
 
 The TSan instrumentation benefits from compiling programs with debug
 information, which happens by default under `dune`. To manually invoke
-the `ocamlopt` compiler under our `5.0.0+tsan` switch it is thus
+the `ocamlopt` compiler under our `5.2.0+tsan` switch it is thus
 suffient to pass it the `-g` flag:
 ```
 $ ocamlopt -g -o race.exe -I +unix unix.cmxa race.ml
