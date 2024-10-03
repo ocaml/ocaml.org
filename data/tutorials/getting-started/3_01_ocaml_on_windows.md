@@ -14,8 +14,7 @@ recommend new users to follow below.
 In order to have access to OCaml on a Windows PC, users must use opam, so that's our
 first step.
 
-Windows Developers out there will already be familiar with `winget` which is
-the default package installer for Windows. Opam is now distributed with it. 
+Opam is now distributed via `winget` for Windows.
 
 ```shell-session
 $ winget show OCaml.opam
