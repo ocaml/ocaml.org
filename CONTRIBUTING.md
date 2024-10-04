@@ -174,6 +174,7 @@ The [OCaml Changelog](https://ocaml.org/changelog) is a feed of the latest relea
 
 - [The OCaml Compiler](https://github.com/ocaml/ocaml)
 - [OCaml Platform Tools](https://ocaml.org/docs/platform)
+- [OCaml Infrastructure](https://infra.ocaml.org/)
 
 Before a release of the above tools land on the `opam-repository`, the project's release manager opens a pull request (PR) on OCaml.org with the release announcement.
 
