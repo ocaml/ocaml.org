@@ -59,7 +59,7 @@ will also make backups if you migrate from 1.x, and has an option to revert
 back:
 </li>
 </ol>
-<pre><code class="language-shell-session">sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+<pre><code class="language-shell-session">sh &lt;(curl -sL https://opam.ocaml.org/install.sh)
 </code></pre>
 <p>This uses the binaries from https://github.com/ocaml/opam/releases/tag/2.0.0-beta5</p>
 <ol start="2">

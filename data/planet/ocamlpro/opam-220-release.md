@@ -26,10 +26,10 @@ source:
 </li>
 </ol>
 <p>For Unix systems</p>
-<pre><code class="language-shell-session">bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.2.0&quot;
+<pre><code class="language-shell-session">bash -c &quot;sh &lt;(curl -fsSL https://opam.ocaml.org/install.sh) --version 2.2.0&quot;
 </code></pre>
 <p>or from PowerShell for Windows systems</p>
-<pre><code class="language-shell-session">Invoke-Expression &quot;&amp; { $(Invoke-RestMethod https://raw.githubusercontent.com/ocaml/opam/master/shell/install.ps1) }&quot;
+<pre><code class="language-shell-session">Invoke-Expression &quot;&amp; { $(Invoke-RestMethod https://opam.ocaml.org/install.ps1) }&quot;
 </code></pre>
 <p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.2.0">the Github &quot;Releases&quot; page</a> to your PATH.</p>
 <ol start="2">

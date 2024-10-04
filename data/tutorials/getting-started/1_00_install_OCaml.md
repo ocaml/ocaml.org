@@ -70,13 +70,13 @@ If you want the latest release of opam, install it through the binary distributi
 
 The following command will install the latest version of opam that applies to your system:
 ```shell
-$ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
+$ bash -c "sh <(curl -fsSL https://opam.ocaml.org/install.sh)"
 ```
 
 On Windows, the winget package is maintained by opam's developers and uses the binaries released [on GitHub](https://github.com/ocaml/opam/releases), however you can also install using an equivalent PowerShell script:
 
 ```powershell
-Invoke-Expression "& { $(Invoke-RestMethod https://raw.githubusercontent.com/ocaml/opam/master/shell/install.ps1) }"
+Invoke-Expression "& { $(Invoke-RestMethod https://opam.ocaml.org/install.ps1) }"
 ```
 
 > **Advanced Windows Users**: If you are familiar with Cygwin or WSL2, there are other installation methods described on the [OCaml on Windows](/docs/ocaml-on-windows) page.

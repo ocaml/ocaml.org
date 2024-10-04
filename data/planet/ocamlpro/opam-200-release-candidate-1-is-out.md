@@ -20,7 +20,7 @@ source:
 <li>From binaries: run
 </li>
 </ol>
-<pre><code class="language-shell-session">sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+<pre><code class="language-shell-session">sh &lt;(curl -sL https://opam.ocaml.org/install.sh)
 </code></pre>
 <p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.0-rc">the Github &quot;Releases&quot; page</a> to your PATH.</p>
 <ol start="2">

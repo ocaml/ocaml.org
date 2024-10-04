@@ -47,7 +47,7 @@ Layout.render
             run the following in your terminal to download and install the newest version of opam:
             </p>
 
-            <%s! Copy_to_clipboard.small_code_snippet ~id:"install-opam" "bash -c \"sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)\"" %>
+            <%s! Copy_to_clipboard.small_code_snippet ~id:"install-opam" "bash -c \"sh <(curl -fsSL https://opam.ocaml.org/install.sh)\"" %>
             <a target="_blank" href="https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh" class="flex justify-end gap-1 pt-1 items-center"><%s! Icons.github "h-6 w-6" %> view script on GitHub</a>
 
             <details>
