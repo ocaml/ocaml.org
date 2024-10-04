@@ -18,7 +18,7 @@ guide, we will therefore study a step-wise workflow that utilises the
 [ThreadSanitizer (TSan)](https://ocaml.org/manual/latest/tsan.html)
 tool to help make your OCaml code 5.x ready.
 
-**Note:** Since OCaml 5.2.0 TSan support is available for [all Tier 1 architectures, on FreeBSD, Linux and macOS](https://github.com/ocaml/ocaml#overview). Building OCaml with TSan support requires at least GCC 11 or Clang 14 installed as your C compiler. Note that TSan data race reports with GCC 11 are known to result in poor stack trace reporting (no line numbers), which is fixed in GCC 12.
+**Note:** Since OCaml 5.2.0 TSan support is available for [all Tier 1 architectures, on FreeBSD, Linux, and macOS](https://github.com/ocaml/ocaml#overview). Building OCaml with TSan support requires at least GCC 11 or Clang 14 installed as your C compiler. Note that TSan data race reports with GCC 11 are known to result in poor stack trace reporting (no line numbers), which is fixed in GCC 12.
 
 ## An Example Application
 
