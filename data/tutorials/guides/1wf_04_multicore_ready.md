@@ -18,7 +18,7 @@ guide, we will therefore study a step-wise workflow that utilises the
 [ThreadSanitizer (TSan)](https://ocaml.org/manual/latest/tsan.html)
 tool to help make your OCaml code 5.x ready.
 
-**Note:** TSan support for OCaml is currently available for the x86_64 architecture, on FreeBSD, Linux and macOS, and for the arm64 architecture on Linux and macOS. Building OCaml with TSan support requires at least GCC 11 or Clang 14 installed as your C compiler. Note that TSan data race reports with GCC 11 are known to result in poor stack trace reporting (no line numbers), which is fixed in GCC 12.
+**Note:** Since OCaml 5.2.0 TSan support is available for [all Tier 1 architectures, on FreeBSD, Linux, and macOS](https://github.com/ocaml/ocaml#overview). Building OCaml with TSan support requires at least GCC 11 or Clang 14 installed as your C compiler. Note that TSan data race reports with GCC 11 are known to result in poor stack trace reporting (no line numbers), which is fixed in GCC 12.
 
 ## An Example Application
 
@@ -88,11 +88,16 @@ application.
 
 ### Install the Instrumenting TSan Compiler (Step 0)
 
-TSan is included in OCaml starting from OCaml 5.2, but has to be explicitly enabled. You can install a TSan switch as follows:
+TSan is included in OCaml starting from OCaml 5.2, but has to be explicitly enabled. You can install a TSan switch as follows (here we create a 5.2.0 switch named `5.2.0+tsan`):
 ``` shell
-opam switch create my_switch_name ocaml-option-tsan
+opam switch create 5.2.0+tsan ocaml-variants.5.2.0+options ocaml-option-tsan
 ```
 
+Troubleshooting:
+
+- If the above fails during installation of `conf-unwind` with `No package 'libunwind' found`, try setting the environment variable `PKG_CONFIG_PATH` to point to the location of `libunwind.pc`, for
+example, `PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig`
+- If the above fails with an error along the lines of `FATAL: ThreadSanitizer: unexpected memory mapping 0x61a1a94b2000-0x61a1a94ca000`, this is [a known issue with older versions of TSan](https://github.com/google/sanitizers/issues/1716) and can be addressed by reducing ASLR entropy by running `sudo sysctl vm.mmap_rnd_bits=28`
 
 ### Write a Parallel Test Runner (Step 1)
 
@@ -135,7 +140,7 @@ each and then runs two loops in parallel with:
 - Another one repeatedly printing the account balances with `print_balances`:
 
 ``` shell
-$ opam switch 5.1.0
+$ opam switch 5.2.0
 $ opam exec -- dune runtest
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
@@ -162,7 +167,7 @@ Let us now perform the same test run under TSan. Doing so is as simple
 as follows and immediately complains about races:
 
 ``` shell
-$ opam switch 5.1.0+tsan
+$ opam switch 5.2.0+tsan
 $ opam exec -- dune runtest
 File "test/dune", line 2, characters 7-16:
 2 |  (name bank_test)
@@ -184,20 +189,18 @@ WARNING: ThreadSanitizer: data race (pid=26148)
   Write of size 8 at 0x7f5b0c0fd6d8 by thread T4 (mutexes: write M85):
     #0 camlBank.transfer_322 lib/bank.ml:11 (bank_test.exe+0x6de4d)
     #1 camlDune__exe__Bank_test.money_shuffle_270 test/bank_test.ml:8 (bank_test.exe+0x6d7c5)
-    #2 camlStdlib__Domain.body_703 /home/opam/.opam/5.1.0+tsan/.opam-switch/build/ocaml-variants.5.1.0+tsan/stdlib/domain.ml:202 (bank_test.exe+0xb06b0)
+    #2 camlStdlib__Domain.body_703 /home/opam/.opam/5.2.0+tsan/.opam-switch/build/ocaml-variants.5.2.0+tsan/stdlib/domain.ml:202 (bank_test.exe+0xb06b0)
     #3 caml_start_program <null> (bank_test.exe+0x13fdfb)
-    #4 caml_callback_exn runtime/callback.c:197 (bank_test.exe+0x106053)
-    #5 caml_callback runtime/callback.c:293 (bank_test.exe+0x106b70)
-    #6 domain_thread_func runtime/domain.c:1102 (bank_test.exe+0x10a2b1)
+    #4 caml_callback_exn runtime/callback.c:201 (bank_test.exe+0x106053)
+    #5 domain_thread_func runtime/domain.c:1215 (bank_test.exe+0x10a2b1)
 
   Previous read of size 8 at 0x7f5b0c0fd6d8 by thread T1 (mutexes: write M81):
-    #0 camlStdlib__Array.iteri_367 /home/opam/.opam/5.1.0+tsan/.opam-switch/build/ocaml-variants.5.1.0+tsan/stdlib/array.ml:136 (bank_test.exe+0xa0f36)
+    #0 camlStdlib__Array.iteri_367 /home/opam/.opam/5.2.0+tsan/.opam-switch/build/ocaml-variants.5.2.0+tsan/stdlib/array.ml:136 (bank_test.exe+0xa0f36)
     #1 camlDune__exe__Bank_test.print_balances_496 test/bank_test.ml:15 (bank_test.exe+0x6d8f4)
-    #2 camlStdlib__Domain.body_703 /home/opam/.opam/5.1.0+tsan/.opam-switch/build/ocaml-variants.5.1.0+tsan/stdlib/domain.ml:202 (bank_test.exe+0xb06b0)
+    #2 camlStdlib__Domain.body_703 /home/opam/.opam/5.2.0+tsan/.opam-switch/build/ocaml-variants.5.2.0+tsan/stdlib/domain.ml:202 (bank_test.exe+0xb06b0)
     #3 caml_start_program <null> (bank_test.exe+0x13fdfb)
-    #4 caml_callback_exn runtime/callback.c:197 (bank_test.exe+0x106053)
-    #5 caml_callback runtime/callback.c:293 (bank_test.exe+0x106b70)
-    #6 domain_thread_func runtime/domain.c:1102 (bank_test.exe+0x10a2b1)
+    #4 caml_callback_exn runtime/callback.c:201 (bank_test.exe+0x106053)
+    #5 domain_thread_func runtime/domain.c:1205 (bank_test.exe+0x10a2b1)
 
   [...]
 ```
