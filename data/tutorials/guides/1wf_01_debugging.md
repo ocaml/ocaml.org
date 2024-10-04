@@ -413,13 +413,13 @@ switch show` and confirm that it prints `5.2.0+tsan`.
 Note: TSan is supported on all architectures with a native code
 compiler since OCaml 5.2.0.
 
-Trouble shooting:
-- if the above fails during installation of `conf-unwind` with `No
+Troubleshooting:
+- If the above fails during installation of `conf-unwind` with `No
   package 'libunwind' found`, try setting the environment variable
   `PKG_CONFIG_PATH` to point to the location of `libunwind.pc`, for
   example, `PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig`
-- if the above fails with an error along the lines of
-  `FATAL: ThreadSanitizer: unexpected memory mapping 0x61a1a94b2000-0x61a1a94ca000`
+- If the above fails with an error along the lines of
+  `FATAL: ThreadSanitizer: unexpected memory mapping 0x61a1a94b2000-0x61a1a94ca000`,
   this is [a known issue with older versions of TSan](https://github.com/google/sanitizers/issues/1716)
   and can be addressed by reducing ASLR entropy by running
   `sudo sysctl vm.mmap_rnd_bits=28`
@@ -442,7 +442,7 @@ let () =
   Printf.printf "v.x is %i\n" v.x
 ```
 
-It builds a record `v` with a mutable field `x` initialized to `0`.
+It builds a record `v` with a mutable field `x` initialised to `0`.
 Next, it spawns two parallel `Domain`s `t1` and `t2` that both update
 the field `v.x`.
 
