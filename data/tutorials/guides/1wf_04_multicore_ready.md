@@ -93,11 +93,11 @@ TSan is included in OCaml starting from OCaml 5.2, but has to be explicitly enab
 opam switch create 5.2.0+tsan ocaml-variants.5.2.0+options ocaml-option-tsan
 ```
 
-Trouble shooting:
+Troubleshooting:
 
-- if the above fails during installation of `conf-unwind` with `No package 'libunwind' found`, try setting the environment variable `PKG_CONFIG_PATH` to point to the location of `libunwind.pc`, for
+- If the above fails during installation of `conf-unwind` with `No package 'libunwind' found`, try setting the environment variable `PKG_CONFIG_PATH` to point to the location of `libunwind.pc`, for
 example, `PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig`
-- if the above fails with an error along the lines of `FATAL: ThreadSanitizer: unexpected memory mapping 0x61a1a94b2000-0x61a1a94ca000` this is [a known issue with older versions of TSan](https://github.com/google/sanitizers/issues/1716) and can be addressed by reducing ASLR entropy by running `sudo sysctl vm.mmap_rnd_bits=28`
+- If the above fails with an error along the lines of `FATAL: ThreadSanitizer: unexpected memory mapping 0x61a1a94b2000-0x61a1a94ca000`, this is [a known issue with older versions of TSan](https://github.com/google/sanitizers/issues/1716) and can be addressed by reducing ASLR entropy by running `sudo sysctl vm.mmap_rnd_bits=28`
 
 ### Write a Parallel Test Runner (Step 1)
 
