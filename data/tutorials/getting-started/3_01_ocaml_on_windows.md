@@ -64,7 +64,7 @@ that interact with such environments might introduce. Think of it as a
 sandboxed environment.
 
 You will notice that the repository information fetching stage takes a while to
-complete. This is normal (for the moment), we advice our users to go get 
+complete. This is normal (for the moment), so we advise our users to get 
 themselves their favourite hot beverage while it runs.
 
 ```shell-session
