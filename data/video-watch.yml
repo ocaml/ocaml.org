@@ -1028,6 +1028,17 @@
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
   source_title: Watch OCaml
+- title: Outreachy May 2024 Demo
+  description: The OCaml community participated in the May 2024 round of [Outreachy](https://www.outreachy.org/)
+    internships. Three interns worked on a range of projects including tools to diff
+    OCaml APIs, more accessible diffing tools and running OCaml exercise...
+  url: https://watch.ocaml.org/videos/watch/bc32514d-b431-4cb1-80b7-e7d11d130eb3
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/1d2a2bf4-5494-4c96-9227-0c6d663288e8.jpg
+  published: 2024-09-07T15:07:21.999Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
 - title: Outreachy Presentations for the December 2021 Round
   description: The OCaml community participated in the December 2021 round of [Outreachy](https://www.outreachy.org/)
     internships. Three interns worked on a range of projects including OCaml's pre-processor
@@ -1660,6 +1671,191 @@
   url: https://watch.ocaml.org/videos/watch/5020256d-eeb0-4e0b-81db-cde8ba00e3d7
   thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/bf412566-70b3-4be4-99e4-46789e33b447.jpg
   published: 2018-11-26T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaML''23] Buck2 for OCaml Users & Developers'
+  description: '[OCaML''23] Buck2 for OCaml Users & Developers
+
+
+    Shayne Fletcher, Neil Mitchell
+
+
+    Buck2 is an open-source large scale build system used by thousands of developers
+    at Meta every day. Buck2 can be used to build OCaml with some useful advantages
+    over al...'
+  url: https://watch.ocaml.org/videos/watch/60f11df8-14ed-489a-a85a-457659f3e911
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/86b07f08-f89c-4c92-a268-c3b352e6fb63.jpg
+  published: 2023-12-01T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaML''23] Building a lock-free STM for OCaml'
+  description: '[OCaML''23] Building a lock-free STM for OCaml
+
+
+    Vesa Karvonen, Bartosz Modelski, Carine Morel, Thomas Leonard, KC Sivaramakrishnan,
+    YSS Narasimha Naidu, Sudha Parimala
+
+
+    The kcas library was originally developed to provide a primitive atomic lock-fr...'
+  url: https://watch.ocaml.org/videos/watch/eb3bea49-8fe0-441b-a4fc-3f36e478d8c9
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/b1112b17-a84a-45d5-80b7-d7dbba4a18f8.jpg
+  published: 2023-12-01T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaML''23] Efficient OCaml compilation with Flambda 2'
+  description: '[OCaML''23] Efficient OCaml compilation with Flambda 2
+
+
+    Pierre Chambart, Vincent LAVIRON, Mark Shinwell
+
+
+    Flambda 2 is an IR and optimisation pass for OCaml centred around inlining. We
+    discuss the engineering constraints that shaped it and the overa...'
+  url: https://watch.ocaml.org/videos/watch/c80d75b9-88dd-42f4-9c11-c96b699e9e7d
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/add0528c-59d2-4107-80d5-16a752a8d186.jpg
+  published: 2023-12-01T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: "[OCaML'23] Eio 1.0 \u2013 Effects-based IO for OCaml 5"
+  description: "[OCaML'23] Eio 1.0 \u2013 Effects-based IO for OCaml 5\n\nThomas Leonard,
+    Patrick Ferris, Christiano Haesbaert, Lucas Pluvinage, Vesa Karvonen, Sudha Parimala,
+    KC Sivaramakrishnan, Vincent Balat, Anil Madhavapeddy\n\nEio provides an effects-based
+    direct-st..."
+  url: https://watch.ocaml.org/videos/watch/4695d391-9e90-4b54-b6c9-407fa1ed3a34
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/bcc3f2e9-bae2-4cdf-a5b3-ac5408ab6a95.jpg
+  published: 2023-12-01T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaML''23] Less Power for More Learning: Restricting OCaml Features for
+    Effective Teaching'
+  description: '[OCaML''23] Less Power for More Learning: Restricting OCaml Features
+    for Effective Teaching
+
+
+    Max Lang, Nico Petzendorfer
+
+
+    We present a framework for sandboxing and restricting features of the OCaml programming
+    language to effectively automate the g...'
+  url: https://watch.ocaml.org/videos/watch/e7951952-00d7-4346-aaa3-b4773397c3ef
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/15f092e5-7a77-42e8-843b-8567c22ade38.jpg
+  published: 2023-12-01T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaML''23] MetaOCaml Theory and Implementation'
+  description: '[OCaML''23] MetaOCaml Theory and Implementation
+
+
+    Oleg Kiselyov
+
+
+    Quasi-quotation (or, code templates) has long been used as a convenient tool for
+    code generation, commonly implemented as a pre-processing/translation into code-generation
+    combinators....'
+  url: https://watch.ocaml.org/videos/watch/cd8140d6-e474-4076-bf94-2d9c55f8dd3b
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/46603480-ba59-4b26-afaf-4c9b47cbffcd.jpg
+  published: 2023-12-01T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaML''23] Modern DSL compiler architecture in OCaml our experience with
+    Catala'
+  description: '[OCaML''23] Modern DSL compiler architecture in OCaml our experience
+    with Catala
+
+
+    Louis Gesbert, Denis Merigoux
+
+
+    In this presentation, we intend to show a state-of-the-art DSL implementation
+    in OCaml, with concrete examples and experience reports. ...'
+  url: https://watch.ocaml.org/videos/watch/389fcac9-135f-4b6e-9afd-6215ddecdaa4
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/dc4c7f91-9ea8-4901-b51a-a33d6cc6aa88.jpg
+  published: 2023-12-01T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaML''23] Osiris: an Iris-based program logic for OCaml'
+  description: "[OCaML'23] Osiris: an Iris-based program logic for OCaml\n\nArnaud
+    Daby-Seesaram, Fran\xE7ois Pottier, Arma\xEBl Gu\xE9neau\n\nOsiris is a project
+    that aims to help OCaml developers verify their code using Separation Logic. The
+    project is still young: we curre..."
+  url: https://watch.ocaml.org/videos/watch/05c24df6-ce44-4571-ab46-43970f44e4f1
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/23651eeb-a9d4-41ee-a39d-54e9037581b5.jpg
+  published: 2023-12-01T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaML''23] Owi: an interpreter and a toolkit for WebAssembly written in
+    OCaml'
+  description: "[OCaML'23] Owi: an interpreter and a toolkit for WebAssembly written
+    in OCaml\n\nL\xE9o Andr\xE8s, Pierre Chambart, Eric Patrizio, Dario Pinto\n\nThis
+    presentation introduces Owi, an OCaml-based interpreter and toolkit for WebAssembly
+    (Wasm). Owi aims to pr..."
+  url: https://watch.ocaml.org/videos/watch/138b52f3-7867-4a37-9b9a-81d08c3983e2
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/372aa447-5e78-4748-8486-7eaf2f36a5f0.jpg
+  published: 2023-12-01T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaML''23] Parallel Sequences in Multicore OCaml'
+  description: '[OCaML''23] Parallel Sequences in Multicore OCaml
+
+
+    Andrew Tao
+
+
+    I present my implementation of a parallel sequences abstraction that utilizes
+    the support for shared memory parallelism in the new OCaml 5.0.0 multicore runtime.
+    This abstraction allows...'
+  url: https://watch.ocaml.org/videos/watch/2e829712-4a69-465f-a8e7-94f102e737c7
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/872f631d-7b82-4700-aafd-51984c131dfd.jpg
+  published: 2023-12-01T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaML''23] State of the OCaml Platform 2023'
+  description: '[OCaML''23] State of the OCaml Platform 2023
+
+
+    Thibaut Mattio, Anil Madhavapeddy, Thomas Gazagnaire, David Allsopp
+
+
+    This paper reflects on a decade of progress and developments within the OCaml
+    Platform, from its inception in 2013 with the release o...'
+  url: https://watch.ocaml.org/videos/watch/466fec6a-4ce5-451f-8cdc-859916d8dc4d
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/3b6c229d-0671-4e60-aeee-8843e914c56e.jpg
+  published: 2023-12-01T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaML''23] Targeted Static Analysis for OCaml C Stubs: Eliminating gremlins
+    from the code'
+  description: "[OCaML'23] Targeted Static Analysis for OCaml C Stubs: Eliminating
+    gremlins from the code\n\nEdwin T\xF6r\xF6k\n\nMigration to OCaml 5 requires updating
+    a lot of C bindings due to the removal of naked pointer support. Writing OCaml
+    user-defined primitives i..."
+  url: https://watch.ocaml.org/videos/watch/d513a6e6-86c6-4202-9431-d3479ff60b68
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/c5717695-9ee2-4553-afff-78c5aed46aa7.jpg
+  published: 2023-12-01T00:00:00.000Z
   author_name: Unknown
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
