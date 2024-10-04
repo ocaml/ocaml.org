@@ -16,9 +16,6 @@
 - id: hannes
   name: Hannes Mehnert
   url: https://hannes.robur.coop/atom
-- id: watch-ocaml
-  name: Watch OCaml
-  url: https://watch.ocaml.org/feeds/videos.xml
 - id: cwn
   name: Caml Weekly News
   url: https://alan.petitepomme.net/cwn/cwn.rss

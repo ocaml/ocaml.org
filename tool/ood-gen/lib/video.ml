@@ -13,4 +13,4 @@ let all =%a
 
 let scrape () =
   Youtube.scrape "data/video-youtube.yml";
-  Watch.scrape "data/vide-watch.yml"
+  Watch.scrape "data/video-watch.yml"
