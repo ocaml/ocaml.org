@@ -79,7 +79,7 @@ On Windows, the winget package is maintained by opam's developers and uses the b
 Invoke-Expression "& { $(Invoke-RestMethod https://opam.ocaml.org/install.ps1) }"
 ```
 
-> **Advanced Windows Users**: If you are familiar with Cygwin or WSL2, there are other installation methods described on the [OCaml on Windows](/docs/ocaml-on-windows) page.
+**Advanced Windows Users**: If you are familiar with Cygwin or WSL2, there are other installation methods described on the [OCaml on Windows](/docs/ocaml-on-windows) page.
 
 ## Initialise opam
 
@@ -112,8 +112,7 @@ Opam initialisation may take several minutes. While waiting for its installation
 
 **Note**: opam can manage something called _switches_. This is key when switching between several OCaml projects. However, in this “getting started” series of tutorials, switches are not needed. If interested, you can read an introduction to [opam switches here](/docs/opam-switch-introduction).
 
-> Any problems installing? Be sure to read the [latest release notes](https://opam.ocaml.org/blog/opam-2-2-0/).
-> You can file an issue at https://github.com/ocaml/opam/issues or https://github.com/ocaml-windows/papercuts/issues.
+**Any problems installing?** Be sure to read the [latest release notes](https://opam.ocaml.org/blog/opam-2-2-0/). You can file an issue at https://github.com/ocaml/opam/issues or https://github.com/ocaml-windows/papercuts/issues.
 
 ## Install Platform Tools
 
