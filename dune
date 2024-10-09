@@ -3,15 +3,15 @@
  (rule
   (target main.css)
   (deps
-   %{workspace_root}/tool/tailwind/tailwindcss
-   (:config %{workspace_root}/tailwind.config.js)
-   (:input %{workspace_root}/src/ocamlorg_frontend/css/styles.css)
-   (source_tree %{workspace_root}/src/ocamlorg_frontend))
+   %{project_root}/tool/tailwind/tailwindcss
+   (:config %{project_root}/tailwind.config.js)
+   (:input %{project_root}/src/ocamlorg_frontend/css/styles.css)
+   (source_tree %{project_root}/src/ocamlorg_frontend))
   (action
    (chdir
-    %{workspace_root}
+    %{project_root}
     (run
-     %{workspace_root}/tool/tailwind/tailwindcss
+     %{project_root}/tool/tailwind/tailwindcss
      -m
      -c
      %{config}
@@ -25,12 +25,12 @@
  (rule
   (target planet.xml)
   (deps
-   (source_tree %{workspace_root}/data/planet)
-   (source_tree %{workspace_root}/data/planet-local-blogs)
-   (:gen_feed %{workspace_root}/tool/ood-gen/bin/feed.exe))
+   (source_tree %{project_root}/data/planet)
+   (source_tree %{project_root}/data/planet-local-blogs)
+   (:gen_feed %{project_root}/tool/ood-gen/bin/feed.exe))
   (action
    (chdir
-    %{workspace_root}
+    %{project_root}
     (with-stdout-to
      %{target}
      (run %{gen_feed} planet))))))
@@ -40,11 +40,11 @@
  (rule
   (target news.xml)
   (deps
-   (source_tree %{workspace_root}/data/news)
-   (:gen_feed %{workspace_root}/tool/ood-gen/bin/feed.exe))
+   (source_tree %{project_root}/data/news)
+   (:gen_feed %{project_root}/tool/ood-gen/bin/feed.exe))
   (action
    (chdir
-    %{workspace_root}
+    %{project_root}
     (with-stdout-to
      %{target}
      (run %{gen_feed} news))))))
@@ -54,11 +54,11 @@
  (rule
   (target changelog.xml)
   (deps
-   (source_tree %{workspace_root}/data/changelog)
-   (:gen_feed %{workspace_root}/tool/ood-gen/bin/feed.exe))
+   (source_tree %{project_root}/data/changelog)
+   (:gen_feed %{project_root}/tool/ood-gen/bin/feed.exe))
   (action
    (chdir
-    %{workspace_root}
+    %{project_root}
     (with-stdout-to
      %{target}
      (run %{gen_feed} changelog))))))
@@ -68,11 +68,11 @@
  (rule
   (target events.xml)
   (deps
-   (source_tree %{workspace_root}/data/events)
-   (:gen_feed %{workspace_root}/tool/ood-gen/bin/feed.exe))
+   (source_tree %{project_root}/data/events)
+   (:gen_feed %{project_root}/tool/ood-gen/bin/feed.exe))
   (action
    (chdir
-    %{workspace_root}
+    %{project_root}
     (with-stdout-to
      %{target}
      (run %{gen_feed} events))))))
@@ -82,11 +82,11 @@
  (rule
   (target jobs.xml)
   (deps
-   (:gen_feed %{workspace_root}/tool/ood-gen/bin/feed.exe)
-   %{workspace_root}/data/jobs.yml)
+   (:gen_feed %{project_root}/tool/ood-gen/bin/feed.exe)
+   %{project_root}/data/jobs.yml)
   (action
    (chdir
-    %{workspace_root}
+    %{project_root}
     (with-stdout-to
      %{target}
      (run %{gen_feed} job))))))

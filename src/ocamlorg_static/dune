@@ -5,39 +5,33 @@
 (rule
  (target asset.ml)
  (deps
-  %{workspace_root}/asset/css/main.css
-  %{workspace_root}/asset/changelog.xml
-  %{workspace_root}/asset/events.xml
-  %{workspace_root}/asset/jobs.xml
-  %{workspace_root}/asset/news.xml
-  %{workspace_root}/asset/planet.xml
-  (source_tree %{workspace_root}/asset))
+  %{project_root}/asset/css/main.css
+  %{project_root}/asset/changelog.xml
+  %{project_root}/asset/events.xml
+  %{project_root}/asset/jobs.xml
+  %{project_root}/asset/news.xml
+  %{project_root}/asset/planet.xml
+  (source_tree %{project_root}/asset))
  (action
   (with-stdout-to
    %{null}
-   (run %{bin:ocaml-crunch} -m plain %{workspace_root}/asset -o %{target}))))
+   (run %{bin:ocaml-crunch} -m plain %{project_root}/asset -o %{target}))))
 
 (rule
  (target media.ml)
  (deps
-  (source_tree %{workspace_root}/data/media))
+  (source_tree %{project_root}/data/media))
  (action
   (with-stdout-to
    %{null}
-   (run
-    %{bin:ocaml-crunch}
-    -m
-    plain
-    %{workspace_root}/data/media
-    -o
-    %{target}))))
+   (run %{bin:ocaml-crunch} -m plain %{project_root}/data/media -o %{target}))))
 
 (rule
  (target playground_digests.ml)
  (deps
-  %{workspace_root}/tool/static-file-digest/main.exe
-  (source_tree %{workspace_root}/playground/asset))
+  %{project_root}/tool/static-file-digest/main.exe
+  (source_tree %{project_root}/playground/asset))
  (action
   (with-stdout-to
    %{null}
-   (run %{deps} %{workspace_root}/playground/asset/ -s -o %{target}))))
+   (run %{deps} %{project_root}/playground/asset/ -s -o %{target}))))
