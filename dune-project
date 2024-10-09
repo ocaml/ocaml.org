@@ -70,7 +70,7 @@
   ppx_stable
   ezjsonm
   lambdasoup
-  ptime
+  (ptime (>= 1.1.0))
   (cmdliner
    (>= 1.1.0))
   xmlm
