@@ -5,14 +5,18 @@ Layout.render
 ~description:"Quick setup instructions to install OCaml on your system."
 ~canonical:"" @@
 <div class="lg:py-8 py-6">
-  <div class="container-fluid" x-data='{ operating_system: detect_os () }'>
+  <div class="container-fluid" x-data='{ operating_system: persist_os_link() }'>
     <div class="prose dark:prose-invert mb-6">
       <h1 class="sr-only ">
         Install OCaml
       </h1>
       <div class="hidden lg:flex gap-2">
-        <button class="btn flex gap-2" :class='operating_system == "linux_mac_bsd"? "": "btn-ghost"' @click="operating_system = 'linux_mac_bsd'; change_anchor('linux_mac_bsd'); "> Linux, macOS or *BSD</button>
-        <button class="btn flex gap-2" :class='operating_system == "win"? "": "btn-ghost"' @click="operating_system = 'win'; change_anchor('windows'); ""><%s! Icons.microsoft_windows "w-6 h-6" %> Windows</button>
+        <button class="btn flex gap-2" :class='operating_system == "linux_mac_bsd"? "": "btn-ghost"' @click='operating_system = "linux_mac_bsd"; change_anchor("linux_mac_bsd"); '>
+          Linux, macOS or *BSD
+        </button>
+        <button class="btn flex gap-2" :class='operating_system == "win"? "": "btn-ghost"' @click='operating_system = "win"; change_anchor("windows"); '>
+          <%s! Icons.microsoft_windows "w-6 h-6" %> Windows
+        </button>
       </div>
       <div class="w-full flex md:hidden">
 % let render_multi_button ~title ~active_tab ~class_ =
@@ -200,25 +204,37 @@ Layout.render
   </div>
 </div>
 <script>
-function detect_os ()
-{
-    let os = navigator.userAgent;
-    let result="linux_mac_bsd";
-    if (os.search('Win')!==-1){
-        result="win";
-    }
-    return result;
+function detect_os() {
+  const agent = navigator.userAgent;
+  if (agent.includes('Win')) {
+    return "win";
+  }
+  return "linux_mac_bsd";
 }
 
-function change_anchor (os_str) 
-{
-  window.location.hash = os_str
+function change_anchor (os_str) {
+  window.location.hash = os_str;
 }
 
-function anchor_os_loc () 
-{
+function anchor_os_loc() {
+  if (window.location.hash) {
+    return;
+  }
   window.location.hash = detect_os();
 }
 
+function persist_os_link () {
+  const hash_to_system = {
+    "#windows": "win",
+    "#linux_mac_bsd": "linux_mac_bsd"
+  };
+  if (window.location.hash) {
+    return hash_to_system[window.location.hash]
+  }
+  return detect_os () 
+}
+
+
 anchor_os_loc();
+
 </script>
