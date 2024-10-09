@@ -44,7 +44,7 @@ depends: [
   "alcotest" {with-test}
   "mdx" {with-test & >= "1.10.0"}
   "olinkcheck"
-  "ppx_deriving_yaml"
+  "ppx_deriving_yaml" {>= "0.3"}
   "ppx_stable"
   "ezjsonm"
   "lambdasoup"
