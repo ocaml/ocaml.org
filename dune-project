@@ -38,6 +38,7 @@
   bos
   crunch
   mirage-kv-mem
+  (mirage-crypto-rng (>= 0.11.0))
   dream-accept
   dream-encoding
   (graphql
