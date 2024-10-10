@@ -77,3 +77,7 @@
  (deps tailwindcss-macos-arm64)
  (action
   (copy %{deps} tailwindcss)))
+
+(alias
+ (name default)
+ (deps tailwindcss))
