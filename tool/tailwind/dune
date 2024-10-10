@@ -2,28 +2,40 @@
  (target tailwindcss-linux-x64)
  (action
   (progn
-   (run curl -sLO %{read:URL}/%{read:RELEASE}/%{target})
+   (run
+    curl
+    -sLO
+    https://github.com/tailwindlabs/tailwindcss/releases/download/v3.3.6/%{target})
    (run chmod +x %{target}))))
 
 (rule
  (target tailwindcss-linux-arm64)
  (action
   (progn
-   (run curl -sLO %{read:URL}/%{read:RELEASE}/%{target})
+   (run
+    curl
+    -sLO
+    https://github.com/tailwindlabs/tailwindcss/releases/download/v3.3.6/%{target})
    (run chmod +x %{target}))))
 
 (rule
  (target tailwindcss-macos-x64)
  (action
   (progn
-   (run curl -sLO %{read:URL}/%{read:RELEASE}/%{target})
+   (run
+    curl
+    -sLO
+    https://github.com/tailwindlabs/tailwindcss/releases/download/v3.3.6/%{target})
    (run chmod +x %{target}))))
 
 (rule
  (target tailwindcss-macos-arm64)
  (action
   (progn
-   (run curl -sLO %{read:URL}/%{read:RELEASE}/%{target})
+   (run
+    curl
+    -sLO
+    https://github.com/tailwindlabs/tailwindcss/releases/download/v3.3.6/%{target})
    (run chmod +x %{target}))))
 
 (rule
@@ -31,37 +43,37 @@
   (and
    (= %{architecture} amd64)
    (= %{system} linux)))
+ (target tailwindcss)
+ (deps tailwindcss-linux-x64)
  (action
-  (copy tailwindcss-linux-x64 tailwindcss)))
+  (copy %{deps} tailwindcss)))
 
 (rule
  (enabled_if
   (and
    (= %{architecture} arm64)
    (= %{system} linux)))
+ (target tailwindcss)
+ (deps tailwindcss-linux-arm64)
  (action
-  (copy tailwindcss-linux-arm64 tailwindcss)))
+  (copy %{deps} tailwindcss)))
 
 (rule
  (enabled_if
   (and
    (= %{architecture} amd64)
    (= %{system} macosx)))
+ (target tailwindcss)
+ (deps tailwindcss-macos-x64)
  (action
-  (copy tailwindcss-macos-x64 tailwindcss)))
+  (copy %{deps} tailwindcss)))
 
 (rule
  (enabled_if
   (and
    (= %{architecture} arm64)
    (= %{system} macosx)))
+ (target tailwindcss)
+ (deps tailwindcss-macos-arm64)
  (action
-  (copy tailwindcss-macos-arm64 tailwindcss)))
-
-(alias
- (name default)
- (deps tailwindcss))
-
-(install
- (section bin)
- (files tailwindcss))
+  (copy %{deps} tailwindcss)))
