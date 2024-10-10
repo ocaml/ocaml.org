@@ -7,8 +7,8 @@
 
 (rule
  (alias run)
- (deps main.exe %{workspace_root}/asset/css/main.css)
+ (deps main.exe %{project_root}/asset/css/main.css)
  (action
   (chdir
-   %{workspace_root}
+   %{project_root}
    (run %{bin:server}))))
