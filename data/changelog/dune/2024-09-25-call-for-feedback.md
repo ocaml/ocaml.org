@@ -5,12 +5,12 @@ tags: [dune, platform, developer-preview]
 
 Hello folks! 👋 
 
-We'd like to welcome everyone to try and play with the [Dune Developer Preview](https://dune.ci.dev)! 🎉 
+We'd like to welcome everyone to try and play with the [Dune Developer Preview](https://preview.dune.build)! 🎉
 
 This experimental nightly release of dune includes a lot of improvements, including the much expected package management features, and it can be installed from that website or by using the new installation script:
 
 ```bash
-$ curl https://dune.ci.dev/install | bash
+$ curl -fsSL https://get.dune.build/install | bash
 ```
 
 In a few seconds you should be ready to OCaml by calling `dune`:
@@ -66,7 +66,7 @@ We're working with @Claire_Vandenberghe on redesigning the Developer Preview web
 
 We'll be iterating on this design in the coming weeks until it fits perfectly within the OCaml.org design system 🎨 
 
-You can check the new website here: https://dune.ci.dev 
+You can check the new website here: https://preview.dune.build
 
 #### Upcoming Blog posts
 In the near future we'll be publishing blog posts about the Developer Preview and Package Management, which we're working on with @professor.rose 👏
