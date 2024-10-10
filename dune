@@ -10,7 +10,15 @@
   (action
    (chdir
     %{workspace_root}
-    (run %{workspace_root}/tool/tailwind/tailwindcss -m -c %{config} -i %{input} -o %{target})))))
+    (run
+     %{workspace_root}/tool/tailwind/tailwindcss
+     -m
+     -c
+     %{config}
+     -i
+     %{input}
+     -o
+     %{target})))))
 
 (subdir
  asset/
