@@ -64,17 +64,11 @@ by opam. This cuts down the possible interferences of other tools
 that interact with such environments might introduce. Think of it as a
 sandboxed environment.
 
-At *init-time*, opam scans your machine for available Unix environments and
-prompts you to choose your favorite option. We recommend
-letting it create its own internal Cygwin installation that will remain managed
-by opam. This cuts down the possible interferences that other tools
-interacting with such environments might introduce. Think of it as a
-sandboxed environment.
 
 Opam's default behavior when initializing is to install a fresh `switch` as
 well as an OCaml compiler of version `> 4.05`. By default, opam chooses `mingw` as
-a C compiler when creating switches, but know that you can choose an alternative to it
-instead, like `msvc` with the following command:
+a C compiler when creating switches, but know that you can specify to install an 
+alternative to it instead, like `msvc`, with the following command:
 
 ```
 opam install system-msvc
@@ -82,9 +76,15 @@ opam install system-msvc
 
 After `opam init` completes, run the following command to update your environment:
 
+On CMD:
 ```
 > for /f "tokens=*" %i in ('opam env --switch=default') do @%i
 ```
+On PowerShell:
+```
+> (& opam env --switch=default) -split '\\r?\\n' | ForEach-Object { Invoke-Expression $_ }
+```
+Opam will display the shell update command each time it is needed.
 
 You can verify your installation with
 
