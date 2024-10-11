@@ -9,8 +9,10 @@ packages:
   used_libraries:
   - ppx_deriving_yaml
 ---
-(* The syntax `{| ... |}` is a quoted string. *)
-let yaml = {|
+
+(* This YAML string contains a list of ingredients where the ingredients are represented as
+  a YAML object, with keys representing names and values representing amounts.  *)
+let yaml_string = {|
 french name: pâte sucrée
 ingredients:
 - flour: 250
@@ -26,8 +28,7 @@ steps:
 |}
 
 (* The `[@@deriving of_yaml]` attribute makes the `ppx_deriving_yaml` library generate the function
-  ``ingredient_of_yaml : Yaml.value -> (ingredient, [> `Msg of string]) result``
-  If both serialising and deserialising are needed, replace `of_yaml` with `yaml`. *)
+  ``ingredient_of_yaml : Yaml.value -> (ingredient, [> `Msg of string]) result``. *)
 type ingredient = {
   name: string;
   weight: int;
@@ -41,9 +42,13 @@ type recipe = {
   steps: string list;
 } [@@deriving of_yaml]
 
-(* Post-processing is needed before using `recipe_of_yaml`.
-  This is what the functions `add_keys` and `at_ingredients` do. *)
-let add_keys : Yaml.value -> Yaml.value = function
+(* Since the structure of the YAML file does not exactly match the `recipe` type,
+  we (1) parse the YAML file to the internal representation `Yaml.value` of the `yaml` package,
+  and then (2) change the structure to match the `recipe` type, so we can use the `recipe_of_yaml`
+  function.
+
+  The functions `add_keys` and `at_ingredients` perform this post-processing. *)
+let add_keys = function
   | `O [(name, `Float weight)] ->
       `O [
         ("name", `String name);
@@ -51,21 +56,22 @@ let add_keys : Yaml.value -> Yaml.value = function
       ]
   | v -> v
 
-let at_ingredients f : Yaml.value -> Yaml.value = function
+let at_ingredients f = function
   | `O [
       ("french name", `String name);
       ("ingredients", `A ingredients);
       ("steps", `A steps)
     ] -> `O [
       ("french name", `String name);
-      ("ingredients", Yaml.Util.map_exn f (`A ingredients));
+      ("ingredients",
+        Yaml.Util.map_exn f (`A ingredients));
       ("steps", `A steps);
     ]
   | v -> v
 
-(* Parsing, post-processing, and conversion into record are chained. *)
+(* Parse, post-process, and convert the YAML string into an OCaml value of type `recipe`. *)
 let pate_sucree =
-  yaml
+  yaml_string
   |> Yaml.of_string
   |> Result.map (at_ingredients add_keys)
   |> fun yaml -> Result.bind yaml recipe_of_yaml

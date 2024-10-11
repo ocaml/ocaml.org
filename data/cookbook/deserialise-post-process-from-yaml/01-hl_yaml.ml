@@ -9,7 +9,9 @@ packages:
   used_libraries:
   - ppx_deriving_yojson
 ---
-(* The syntax `{| ... |}` is a quoted string. *)
+
+(* This YAML string contains a list of ingredients where the ingredients are represented as
+  a YAML object, with keys representing names and values representing amounts.  *)
 let yaml = {|
 french name: pâte sucrée
 ingredients:
@@ -26,8 +28,7 @@ steps:
 |}
 
 (* The `[@@deriving of_yojson]` attribute makes the `ppx_deriving_yojson` library generate the function
-  `ingredient_of_yojson : Yojson.Safe.t -> (ingredient, string) result`.
-  If both serialising and deserialising are needed, replace `of_yojson` by `yojson`. *)
+  `ingredient_of_yojson : Yojson.Safe.t -> (ingredient, string) result`. *)
 type ingredient = {
   name: string;
   weight: int;
@@ -41,9 +42,13 @@ type recipe = {
   steps: string list;
 } [@@deriving of_yojson]
 
-(* Post-processing is needed before using `recipe_of_yojson`.
-  This is what the functions `add_keys` and `at_ingredients` do. *)
-let add_keys : Yojson.Safe.t -> Yojson.Safe.t = function
+(* Since the structure of the YAML file does not exactly match the `recipe` type,
+  we (1) parse the YAML file to the representation `Yojson.Safe.t`,
+  and then (2) modify the `Yojson.Safe.t` value to change the structure to match the `recipe` type,
+  so we can use the `recipe_of_yojson` function.
+
+  The functions `add_keys` and `at_ingredients` perform this post-processing. *)
+let add_keys = function
   | `Assoc [(name, `Int weight)] ->
       `Assoc [
         ("name", `String name);
@@ -51,19 +56,20 @@ let add_keys : Yojson.Safe.t -> Yojson.Safe.t = function
       ]
   | v -> v
 
-let at_ingredients f : Yojson.Safe.t -> Yojson.Safe.t = function
+let at_ingredients f = function
   | `Assoc [
       ("french name", `String name);
       ("ingredients", `List ingredients);
       ("steps", `List steps)
     ] -> `Assoc [
       ("french name", `String name);
-      ("ingredients", Yojson.Safe.Util.map f (`List ingredients));
+      ("ingredients",
+        Yojson.Safe.Util.map f (`List ingredients));
       ("steps", `List steps);
     ]
   | v -> v
 
-(* Parsing receives post-processing and conversion into record as an argument. *)
+(* Parse, post-process, and convert the YAML string into an OCaml value of type `recipe`. *)
 let pate_sucree =
   let of_yojson json =
     json

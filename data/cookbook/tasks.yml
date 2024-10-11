@@ -96,8 +96,12 @@ categories:
       slug: serialise-to-yaml
     - title: Deserialise YAML Data
       slug: deserialise-from-yaml
+      description: |
+        Deserialise a YAML file whose structure maps to some OCaml types.
     - title: Deserialise and Post-Process YAML Data
       slug: deserialise-post-process-from-yaml
+      description: |
+        Deserialise a YAML file whose structure does not directly map to some OCaml types.
 - title: Date and Time
   tasks:
   - title: Get Today's Date
