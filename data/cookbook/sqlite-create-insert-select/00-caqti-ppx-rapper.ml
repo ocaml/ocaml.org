@@ -1,134 +1,174 @@
 ---
 packages:
+- name: "ppx_rapper_lwt"
+  tested_version: "3.1.0"
+  used_libraries:
+  - ppx_rapper_lwt
+- name: "ppx_rapper"
+  tested_version: "3.1.0"
+  used_libraries:
+  - ppx_rapper
+- name: "caqti-driver-sqlite3"
+  tested_version: "1.9.0"
+  used_libraries:
+  - caqti-driver-sqlite3
+- name: "caqti-lwt"
+  tested_version: "1.9.0"
+  used_libraries:
+  - caqti-lwt
 - name: "lwt"
   tested_version: "5.7.0"
   used_libraries:
   - lwt
   - lwt.unix
-- name: "caqti-lwt"
-  tested_version: "1.9.0"
-  used_libraries:
-  - caqti-lwt
-- name: "caqti-driver-sqlite3"
-  tested_version: "1.9.0"
-  used_libraries:
-  - caqti-driver-sqlite3
-- name: "ppx_rapper"
-  tested_version: "3.1.0"
-  used_libraries:
-  - ppx_rapper
-- name: "ppx_rapper_lwt"
-  tested_version: "3.1.0"
-  used_libraries:
-  - ppx_rapper_lwt
 discussion: |
-  - **Understanding `Caqti` and `ppx_rapper`:** The `Caqti` library permits portable programming with SQLite, MariaDB, and PostgreSQL. The declaration of its queries is a bit complex; however, the `ppx_rapper` can be used to convert annotated SQL strings into `Caqti` queries. This preprocessor makes all type conversions transparent and leverages OCaml's strong typing. It also checks the SQL syntax of the given query. The `Lwt` library is a scheduling library that permits concurrent tasks. It has been used because of `ppx_rapper` constraints. See [the `Caqti` reference page](https://github.com/paurkedal/ocaml-caqti) and [the `ppx_rapper` reference page](https://github.com/roddyyaga/ppx_rapper).
-  - **Alternative Libraries:** There are multiple alternatives to `Caqti`, but this library proposed a unified interface to 3 databases. `gensqlite` and `ppx_sqlexpr` are comparable with `ppx_rapper`, but they only work with SQLite libraries. `Petrol` supports SQLite and PostgreSQL, and it permits the type safety by declaring the database schema with OCaml structures (SQL statements are generated).
+  The `Caqti` library permits portable programming
+    with SQLite, MariaDB, and PostgreSQL. The declaration of its queries is quite sophisticated:
+    `ppx_rapper` converts annotated SQL strings into `Caqti` queries.
+    This preprocessor makes all type conversions transparent and leverages OCaml's strong typing.
+    It also checks the SQL syntax of the given query.
+    See [the `Caqti` reference page](https://github.com/paurkedal/ocaml-caqti)
+    and [the `ppx_rapper` reference page](https://github.com/roddyyaga/ppx_rapper).
 ---
 
-(* The `Caqti/ppx_rapper` combo uses an Lwt environment (see concurency cookbook).
-   Let operators `( let* )` and `( let*? )` are defined and permits the Lwt promise sequencing.
-   `( let*? )` adds an error handling. It extracts the result from a returned `Ok result` or
+(* The `Caqti/ppx_rapper` combo uses an Lwt environment.
+   Let operators `( let* )` and `( let*? )` are defined as usual for lwt, to have a clean
+   notation for chaining promises. `( let*? )` extracts the result from a returned `Ok result` or
    stops the execution in case of an `Error err` value.
 *)
 let ( let* ) = Lwt.bind
 let ( let*? ) = Lwt_result.bind
 
-(* The following function will be used later in this cookbook.
-   It sequentially schedules a set of queries. Each query from the
-   list `queries` is a function that has an argument, which is the
-   connection handle of the database. *)
-let iter_queries queries cnx =
+(* The helper function `iter_queries` sequentially schedules a list of queries.
+   Each query is a function that takes the
+   connection handle of the database as an argument. *)
+let iter_queries queries connection =
   List.fold_left
-    (fun a f -> Lwt_result.bind a (fun () -> f cnx))
+    (fun a f ->
+      Lwt_result.bind a (fun () -> f connection))
     (Lwt.return (Ok ()))
     queries
 
-(* Table creation: the `CREATE` query is simple, as there is no data in input
-   nor in output. The `execute` type indicates the absence of result.
-   Then when this query is called, `Ok ()` is returned. *)
-let create_query =
+(* The `%rapper` node here makes `ppx_rapper` generate code, such that, when applying
+  the `create_person_table () connection` function,
+  the provided SQL `CREATE` query will be run without any parameters and without
+  receiving any data from the database.
+
+  In case of successful execution of the query, we get back an `Ok ()` value, otherwise
+  we get an `Error` value.
+  *)
+let create_person_table =
   [%rapper
-      execute {sql|CREATE TABLE personal
-                    (name VARCHAR, firstname VARCHAR, age INTEGER)
-                |sql}
+    execute {sql| CREATE TABLE person
+              (name VARCHAR,
+              firstname VARCHAR,
+              age INTEGER)
+            |sql}
   ]
 
-(* Insertion query: the `INSERT` query is a query that has some parameters to use during the query's execution. `name`, `firstname`, `age` will be replaced by the parameter's values (presented as record because of the `record_out` tag). The `%` notation tells the `ppx_rapper` preprocessor which conversions to perform. *)
-type person = { name:string; firstname:string; age:int }
-let persons = [ {name="Dupont"; firstname="Jacques"; age=36};
-                {name="Legendre"; firstname="Patrick"; age=42} ]
-let insert_query =
-  [%rapper
-      execute {sql|INSERT INTO personal VALUES
-                    (%string{name}, %string{firstname}, %int{age})
-                |sql}
-      record_in
+type person =
+  { name:string; firstname:string; age:int }
+let people = [
+  {name = "Dupont"; firstname = "Jacques"; age = 36};
+  {name = "Legendre"; firstname = "Patrick"; age = 42}
   ]
 
-(* Select query: the first `SELECT` query has a `get_many`
-   type, then it will return a list of values. Each list item 
-   is a record, as specified by the `record_out` tag.
-   Output values (generated by the query) are annotated with
-   an `@` notation. A second query has output values and
-   also an input value used in the `WHERE` clause.
-   Here the absence of `record_in` implies passing
-   input values as named arguments instead of a record.
-   The `get_opt` tag indicates it will return an option
-   type: `None` if nothing is found, and `Some r` if a row match the criteria. *)
-let select_query =
+(* For the SQL `INSERT` query, `ppx_rapper` generates a function `insert_person (p: person) connection`.
+  The tag `record_in` tag tells `ppx_rapper` to read the values `name`, `firstname`,
+  and `age` from the provided record value, while the `%[TYPE_NAME]{..}` notation specifies
+  which conversions to perform on the input values. *)
+let insert_person =
   [%rapper
-      get_many {sql|SELECT @string{name}, @string{firstname}, @int{age}
-                    FROM personal
-                |sql}
-      record_out
-  ]
-let select_query_with_where_clause =
-  [%rapper
-      get_opt {sql|SELECT @string{name}, @string{firstname}, @int{age}
-                    FROM personal
-                    WHERE name=%string{name}
-                |sql}
-      record_out
+    execute
+    {sql| INSERT INTO person VALUES
+        (%string{name},
+        %string{firstname},
+        %int{age})
+    |sql}
+    record_in
   ]
 
-(* The main program starts by establishing an Lwt environment.
-   The function `with_connexion` opens the database,
-   executes a function with the `cnx` database handle, and catches
-   exception to ensure the database closes. *)
-let () =
-  match Lwt_main.run @@
-  Caqti_lwt.with_connection (Uri.of_string "sqlite3:essai.sqlite")
-    (fun cnx ->
+(* The `get_many` tag makes `ppx_rapper` generate code that queries the database and
+   receives a list of values. The `record_out` tag specifies that each list item
+   will be a record.
 
-(* Executing queries uses `()` and `cnx` parameters when no values should be
-passed to the query. The `insert_query` must be called with
-`record_of_person` and `cnx`. If multiple records from
+   The `@[TYPE_NAME]{..}` notation specifies
+   which conversions to perform on the output values.
+   *)
+let get_all_person =
+  [%rapper
+    get_many
+    {sql|SELECT
+        @string{name},
+        @string{firstname},
+        @int{age}
+      FROM person
+    |sql}
+    record_out
+  ]
+
+(* Here's another example query that selects a single row via the SQL `WHERE` clause, using the `get_opt` tag.
+   This query has both input (`name`) and output values (`name`, `firstname`, `age`).
+
+   Here the absence of the `record_in` tag makes `ppx_rapper` generate code where the
+   input values are passed as named arguments.
+   The `get_opt` tag means that the result will be an option: `None` if no rows matching the criteria
+    is found, and `Some r` if a row match the criteria.
+   *)
+let get_person_by_name =
+  [%rapper
+    get_opt
+    {sql|SELECT
+        @string{name},
+        @string{firstname},
+        @int{age}
+      FROM personal
+      WHERE name=%string{name}
+    |sql}
+    record_out
+  ]
+
+
+(* All query functions generated by `ppx_rapper` take an argument and a `connection` parameter.
+The function `insert_person` must be called with
+`record_of_person` and `connection`. If multiple records from
 a list should be inserted, `List.map` creates a list
 of functions. Each of these functions will execute its
-associated query when called. The `iter_queries` schedule
+associated query when called. The function `iter_queries` runs
 the queries in sequence. *)
-      let*? () = create_query () cnx in
-      let*? () = iter_queries (List.map insert_query persons) cnx in
-      let*? persons = select_query () cnx in
-      persons |> List.iter (fun person ->
-                      Printf.printf "name=%s, firstname=%s, age=%d\n"
-                        person.name  person.firstname  person.age);
-      let*? person = select_query_with_where_clause ~name:"Dupont" cnx in
-      begin
-        match person with
-        | Some person' ->
-            Printf.printf "found:name=%s, firstname=%s, age=%d\n"
-              person'.name  person'.firstname  person'.age
-        | None -> print_string "Not found"
-      end;
-      Lwt_result.return ())
-(*
-The error handling just matches the result with `Ok` or `Error`. The `Lwt_result.bind` called by each `(let*?)` stops the chain of queries at the first error. We just have to check the presence of `Error`. `Caqti_error.show` can be used to convert the error into a text.
-*)
+let execute_queries connection =
+  let*? () = create_person_table () connection in
+  let*? () =
+    iter_queries (List.map insert_person people) connection
+  in
+  let*? people = get_all_person () connection in
+  people |> List.iter (fun person ->
+      Printf.printf "name=%s, firstname=%s, age=%d\n"
+      person.name  person.firstname  person.age);
+  let*? person =
+    get_person_by_name ~name:"Dupont" connection
+  in
+  match person with
+  | Some person' ->
+    Printf.printf "found:name=%s, firstname=%s, age=%d\n"
+      person'.name  person'.firstname  person'.age;
+    Lwt_result.return ()
+  | None ->
+    print_string "Not found";
+    Lwt_result.return ()
+
+(* The main program starts by establishing an Lwt environment.
+   The function `with_connection` opens the database,
+   executes a function with the `connection` database handle,
+   and closes the database connection again, even when an exception is raised. *)
+let () =
+  match Lwt_main.run @@
+  Caqti_lwt.with_connection
+    (Uri.of_string "sqlite3:essai.sqlite")
+    execute_queries
   with
   | Result.Ok () ->
-        print_string "OK\n"
+    print_string "OK\n"
   | Result.Error err ->
-        print_string (Caqti_error.show err)
+    print_string (Caqti_error.show err)
 
