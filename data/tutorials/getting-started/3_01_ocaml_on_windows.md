@@ -54,8 +54,8 @@ You will notice that the repository information fetching stage takes a while to
 complete. This is normal (for the moment), so we advise our users to get 
 themselves their favourite hot beverage while it runs.
 
-opam requires a Unix-like environment to function. By default, opam relies on `cygwin` and is also compatible with
-`msys2`.
+opam requires a Unix-like environment to function. By default, 
+opam relies on Cygwin and is also compatible with MSYS2.
 
 At *init-time*, opam scans your machine for available Unix environments and
 prompts you to choose your favourite option. We recommend
