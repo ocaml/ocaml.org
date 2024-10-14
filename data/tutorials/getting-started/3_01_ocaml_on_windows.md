@@ -39,7 +39,7 @@ Opam is distributed via winget for Windows. To install it, run the following com
 ```
 
 We recommend installing Git from `winget`; however, you can omit this step and install Git using your preferred method if needed.
-Opam will look for a compatible Git and if none is found, it will prompt you with a set of options to install one.
+Opam will look for a compatible Git, and if none is found, it will prompt you with a set of options to install one.
 
 After installation, launch a new shell to access the opam binary.
 
@@ -60,15 +60,15 @@ opam relies on Cygwin and is also compatible with MSYS2.
 At *init-time*, opam scans your machine for available Unix environments and
 prompts you to choose your favourite option. We recommend
 to let it create its own internal Cygwin installation that will remain managed
-by opam. This cuts down the possible interferences of other tools
-that interact with such environments might introduce. Think of it as a
+by opam. This cuts down possible interferences from other tools
+that interact with such environments. Think of it as a
 sandboxed environment.
 
 
-Opam's default behavior when initializing is to install a fresh `switch` as
+Opam's default behavior when initialising is to install a fresh `switch` as
 well as an OCaml compiler of version `> 4.05`. By default, opam chooses `mingw` as
-a C compiler when creating switches, but know that you can specify to install an 
-alternative to it instead, like `msvc`, with the following command:
+a C compiler when creating switches, but know that you can choose to install an 
+alternative instead, like `msvc`, with the following command:
 
 ```
 opam install system-msvc
@@ -122,9 +122,9 @@ easier way to get a working Windows environment on your machine.
 
 ### Diskuv OCaml
 
-Diskuv OCaml ("DKML") is a distribution of OCaml that supports software development in pure OCaml.
-The distribution is unique in its:
-* full compatibility with OCaml standards like opam, Dune, and OCamlfind.
+Diskuv OCaml ("DKML") is an OCaml distribution that supports software development in pure OCaml.
+The distribution is unique because of its:
+* full compatibility with OCaml standards like opam, Dune, and OCamlFind.
 * focus on "native" development (desktop software, mobile apps, and embedded software) through support for the standard native compilers,
   like Visual Studio and Xcode.
 * ease-of-use through simplified installers and simple productivity commands. High school, college, and university students should be
@@ -174,7 +174,7 @@ Diskuv OCaml documentation](https://diskuv-ocaml.gitlab.io/distributions/dkml/#i
 
 ## Editor Support for OCaml on Windows
 
-### Visual Studio Code
+### Visual Studio Code (VSCode)
 
 **If you use opam installation**, you will need to add opam switch prefix on your path that runs VSCode.
 
@@ -185,7 +185,7 @@ Diskuv OCaml documentation](https://diskuv-ocaml.gitlab.io/distributions/dkml/#i
 3. **Uncheck** `OCaml: Use OCaml Env`.
 
 **If you use WSL2**, you will remotely connect to your WSL2 instance from
-Visual Studio Code. Microsoft has a [useful blog post](https://code.visualstudio.com/blogs/2019/09/03/wsl2)
+VSCode. Microsoft has a [useful blog post](https://code.visualstudio.com/blogs/2019/09/03/wsl2)
 that covers getting WSL2 and Visual Studio Code connected.
 
 ### Vim and Emacs
