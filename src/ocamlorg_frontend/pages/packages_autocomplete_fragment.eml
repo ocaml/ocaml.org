@@ -5,7 +5,7 @@ let form_attributes =
        @submit="if (row !== null) { window.location = document.getElementById('package-autocomplete-'+row+'-'+col).getAttribute('href'); $event.stopPropagation(); $event.preventDefault(); return false }" |js}
 
 (* When the user types, htmx fetches the fragment rendered by
-   the function [render] below, and and inserts it into the
+   the function [render] below, and inserts it into the
    HTMLElement selected by [target_sel].
    While htmx's HTTP request is in progress, the HTMLElement
    with selected by [indicator_sel] is shown. *)

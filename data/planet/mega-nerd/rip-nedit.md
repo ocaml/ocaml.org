@@ -106,7 +106,7 @@ The Ocaml syntax highlighting is particularly poor.
 </p>
 
 <p>
-I'm now going to try to use Gedit, by customising its setup and and using the
+I'm now going to try to use Gedit, by customising its setup and using the
 plugin system to see if I can regain the features that made Nedit such a
 pleasure to use.
 </p>
