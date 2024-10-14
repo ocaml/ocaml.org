@@ -12,7 +12,7 @@ source:
 
 
 <p>
-For serious programmers, the text editor they user is an intensely personal
+For serious programmers, the text editor they use is an intensely personal
 thing.
 Try suggesting to an Emacs user that they should switch to Vim or vice-versa.
 Most would shudder at the thought.
