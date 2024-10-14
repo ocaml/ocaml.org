@@ -303,7 +303,7 @@ the community and learn more about how they use OCaml."
       <h1 class="m-0 font-sans font-bold tracking-normal leading-8 capitalize lg:tracking-tight text-2xl text-dark-title dark:text-dark-title">
         OCaml in Teaching and Research
       </h1>
-      <p class="text-lg text-dark-content dark:text-dark-content mt-4">With its deep mathematical roots, OCaml has always been a beacon of academic excellence. It is taught in universities around the world, and has accrued an ever growing body of research.</p>
+      <p class="text-lg text-dark-content dark:text-dark-content mt-4">With its deep mathematical roots, OCaml has always been a beacon of academic excellence. It is taught in universities around the world and has accrued an ever-growing body of research.</p>
     </div>
     <div class="flex items-center justify-center md:min-w-max w-full md:w-[10%]">
       <a href="<%s Url.academic_users %>" class="h-11 w-max btn-outline text-primary border text-base items-center justify-center inline-flex py-1 px-4 rounded-md md:text-lg">
