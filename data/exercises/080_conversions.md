@@ -22,7 +22,7 @@ edge is a pair of different nodes.*
 There are several ways to represent graphs in OCaml.
 
 * One method is to list all edges, an edge being a pair of nodes. In
- this form, the graph depicted opposite is represented as the
+ this form, the graph depicted above is represented as the
  following expression:
 
 ```ocaml
@@ -67,10 +67,19 @@ may want to define a similar type using sets instead of lists.
  **adjacency-list form**. In our example:
 
 ```ocaml
-    (* example pending *)
+let adjacency_example = ['b', ['c'; 'f'];
+                         'c', ['b'; 'f'];
+                         'd', [];
+                         'f', ['b'; 'c'; 'k'];
+                         'g', ['h'];
+                         'k', ['f']
+                         ];;
+val adjacency_example : (char * char list) list =
+  [('b', ['c'; 'f']); ('c', ['b'; 'f']); ('d', []); ('f', ['b'; 'c'; 'k']);
+   ('g', ['h']); ('k', ['f'])]
 ```
 
-* The representations we introduced so far well suited for automated
+* The representations we introduced so far are well suited for automated
  processing, but their syntax is not very user-friendly. Typing the
  terms by hand is cumbersome and error-prone. We can define a more
  compact and "human-friendly" notation as follows: A graph (with char
