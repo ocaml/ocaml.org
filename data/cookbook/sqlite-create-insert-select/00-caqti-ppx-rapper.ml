@@ -32,7 +32,7 @@ discussion: |
 ---
 
 (* The `Caqti/ppx_rapper` combo uses an Lwt environment.
-   Let operators `( let* )` and `( let*? )` are defined as usual for lwt, to have a clean
+   Let operators `( let* )` and `( let*? )` are defined as usual for Lwt, to have a clean
    notation for chaining promises. `( let*? )` extracts the result from a returned `Ok result` or
    stops the execution in case of an `Error err` value.
 *)
