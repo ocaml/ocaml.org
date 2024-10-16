@@ -4,46 +4,73 @@ packages:
   tested_version: "0.4.2"
   used_libraries:
   - ezsqlite
-discussion: |
-  - **Understanding `Ezsqlite`:** The `Ezsqlite` libraies proposes a set of function which permits the usage of a SQLite3 database. They are described in the [`Ezsqlite` library documentation](https://github.com/zshipko/ocaml-ezsqlite/blob/master/lib/ezsqlite.mli). It uses exception for error handling.
-  - **Alternative Libraries:** `sqlite3` is an other SQLite library. The `gensqlite` is a preprocessor for `sqlite3`. `sqlexpr` is another SQLite library which comes with a PPX preprocessor. `caqti` is a portable interface which supports SQLite3, MariaDB and PostgreSQL. It may be used with the `ppx_rapper` preprocessor.
 ---
 
-(* Use the `ezsqlite` library, which permits the use of a SQLite3 database. Before any use, the database much be opened. The `load` creates the database is it doesn't exist: *)
-let db = Ezsqlite.load "personal.sqlite"
+(* Open or create (if it doesn't exist) the SQLite database *)
+let db = Ezsqlite.load "employees.sqlite"
 
-(* Table creation. The `run_ign` function is used when no values are returned by the query. *)
+(* Create the `employees` table.
+   The function `run_ign` ("run and ignore") executes the query and discards the database response.
+   *)
 let () =
   Ezsqlite.run_ign db
-    "CREATE TABLE personal (name VARCHAR, firstname VARCHAR, age INTEGER)"
+    "CREATE TABLE employees (
+        name VARCHAR NOT NULL,
+        firstname VARCHAR NOT NULL,
+        age INTEGER NOT NULL
+    )"
     ()
 
-(* Row insertions. First, the statement is prepared (parsed, compiled), then each ":id" is bound to actual values. Then the query is executed. It is recommended to have constant query strings and use bindings to deal with variable values, especially with values from an unstrusted source. *)
-type person = { name:string; firstname:string; age:int }
+type employee =
+  { name:string; firstname:string; age:int }
 
-let persons = [ {name="Dupont"; firstname="Jacques"; age=36};
-                {name="Legendre"; firstname="Patrick"; age=42} ]
+let employees = [
+  {name = "Dupont"; firstname = "Jacques"; age = 36};
+  {name = "Legendre"; firstname = "Patrick"; age = 42}
+  ]
 
 let () =
+(* The function `Ezsqlite.prepare` prepares the statement, so that later actual values
+  can be bound to the variables `:name`, `:firstname`, and `:age`. *)
   let stmt = Ezsqlite.prepare db
-                "INSERT into personal VALUES (:name, :firstname, :age)" in
-  persons
-  |> List.iter (fun r ->
-          Ezsqlite.clear stmt;
-          Ezsqlite.bind_dict stmt
-            [":name", Ezsqlite.Value.Text r.name;
-            ":firstname", Ezsqlite.Value.Text r.firstname;
-            ":age", Ezsqlite.Value.Integer (Int64.of_int r.age)];
-          Ezsqlite.exec stmt)
+    {| 
+      INSERT into employees
+      VALUES (:name, :firstname, :age)
+    |}
+  in
+(* Running these `Ezsqlite` functions in sequence binds the values from the
+   `employee` record and executes the query. *)
+  let insert_employee (employee: employee) =
+    Ezsqlite.clear stmt;
+    Ezsqlite.bind_dict stmt
+      [":name", Ezsqlite.Value.Text employee.name;
+      ":firstname", Ezsqlite.Value.Text
+        employee.firstname;
+      ":age", Ezsqlite.Value.Integer
+        (Int64.of_int employee.age)];
+    Ezsqlite.exec stmt
+  in
+  employees
+  |> List.iter insert_employee 
 
-(* Selection of rows. The `iter` function can execute a query while executing a given function for each row. The `text`, `blob`, `int64`, `int`, `double` functions can be used to get the values returned by the query. `column` and `Value.is_null` functions can be used if we have to check the nullity (NULL SQL value) of some values.  *)
+(* The `iter` function executes a query and then maps a given function over all
+   rows returned by the database.
+   *)
 let () =
   let stmt = Ezsqlite.prepare db
-                "SELECT name, firstname, age from personal" in
-  Ezsqlite.iter stmt
-    (fun stmt ->
-      let name=Ezsqlite.text stmt 0
-      and firstname=Ezsqlite.text stmt 1
-      and age=Ezsqlite.int stmt 2
-      in
-      Printf.printf "name=%s, firstname=%s, age=%d\n" name firstname age)
+    "SELECT name, firstname, age from employees"
+  in
+  let print_employee row =
+(* The `Ezsqlite.text`, `blob`, `int64`, `int`, `double`
+   functions can be used to read the values of individual columns.
+   
+   Note that this is not type-safe, since you need to provide the correct type
+   for the column here. *)
+    let name = Ezsqlite.text row 0
+    and firstname = Ezsqlite.text row 1
+    and age = Ezsqlite.int row 2
+    in
+    Printf.printf "name=%s, firstname=%s, age=%d\n"
+      name firstname age
+  in
+  Ezsqlite.iter stmt print_employee
