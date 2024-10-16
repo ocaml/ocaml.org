@@ -1,5 +1,5 @@
 ---
-title: Ocamlformat 0.26.0
+title: OCamlFormat 0.26.0
 tags: [ocamlformat, platform]
 changelog: |
   _Items marked with an asterisk (`*`) are changes that are likely to format

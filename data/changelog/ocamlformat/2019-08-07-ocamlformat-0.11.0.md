@@ -1,5 +1,5 @@
 ---
-title: Ocamlformat 0.11.0
+title: OCamlFormat 0.11.0
 tags: [ocamlformat, platform]
 changelog: |
   - Improve: generalize API of Config_option (#952, @gpetiot)

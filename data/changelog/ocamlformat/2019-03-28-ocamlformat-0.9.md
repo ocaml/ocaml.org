@@ -1,5 +1,5 @@
 ---
-title: Ocamlformat 0.9
+title: OCamlFormat 0.9
 tags: [ocamlformat, platform]
 changelog: |
   - Admin: remove CHANGES.md that was essentially git log (@jberdine)
@@ -140,6 +140,6 @@ changelog: |
   - Build: a few simplifications enabled by dune 1.1.1 (#457, @jberdine)
   - Improve: record fields with attributes and docs in type definitions (#458, @jberdine)
   - Fix exception comments (#459, @gpetiot)
-  - Ocamlformat diff tool (#450, @gpetiot)
+  - OCamlFormat diff tool (#450, @gpetiot)
 ---
 

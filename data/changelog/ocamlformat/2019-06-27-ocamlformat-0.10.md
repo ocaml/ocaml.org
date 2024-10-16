@@ -1,5 +1,5 @@
 ---
-title: Ocamlformat 0.10
+title: OCamlFormat 0.10
 tags: [ocamlformat, platform]
 changelog: |
   - Improve: align cases horizontally (#883, @gpetiot)
