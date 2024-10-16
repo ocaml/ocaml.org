@@ -1,5 +1,5 @@
 ---
-title: Ocamlformat 0.15.0
+title: OCamlFormat 0.15.0
 tags: [ocamlformat, platform]
 changelog: |
   ### Changes

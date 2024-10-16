@@ -1,5 +1,5 @@
 ---
-title: Ocamlformat 0.7
+title: OCamlFormat 0.7
 tags: [ocamlformat, platform]
 changelog: |
   - Improve: simplify setting option defaults, slight --help improvement (#350, @jberdine)

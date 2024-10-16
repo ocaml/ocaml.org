@@ -1,5 +1,5 @@
 ---
-title: Ocamlformat 0.8
+title: OCamlFormat 0.8
 tags: [ocamlformat, platform]
 changelog: |
   - Improve: set break-sequences in sparse and compact profiles (#455, @jberdine)
