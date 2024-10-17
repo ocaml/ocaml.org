@@ -85,3 +85,14 @@
  (url "git+https://github.com/tarides/olinkcheck")
  (package
   (name olinkcheck)))
+
+(dialect
+ (name eml)
+ (implementation
+  (extension eml)
+  (preprocess
+   (run
+    %{bin:dream_eml}
+    %{input-file}
+    --workspace %{workspace_root}
+    --stdout))))
