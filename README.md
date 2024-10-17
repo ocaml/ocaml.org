@@ -40,8 +40,6 @@ And run it with:
 make start
 ```
 
-See our [contributing guide](./CONTRIBUTING.md) for more detailed instructions.
-
 ## Maintainers
 
 The OCaml.org maintainers team is composed of the following community members:
