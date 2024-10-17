@@ -17,10 +17,11 @@ This repository contains the sources of the OCaml website. It is served at https
   the look and feel of the webpage, as well as make it easier to navigate and more
   accessible (particularly on mobile devices).
 
-- **Separation of data editing from HTML/CSS generation:** The data used in the website
-  is stored in YAML or Markdown, so users can easily edit it and contribute to the website.
-  We generate OCaml code from this data to serve the site content and OCurrent to
-  automate the data pipelines. All the data used in the site can be found in [`./data`](./data).
+- **Separation of data editing from HTML/CSS generation:** The data used in the
+  website is stored in Yaml or Markdown, so users can easily edit it and
+  contribute to the website. Ocurrent is used to generate OCaml code from this
+  data. The data turned in OCaml is the site served content. All the data used
+  in the site can be found in [`./data`](./data).
 
 ## Getting Started
 
