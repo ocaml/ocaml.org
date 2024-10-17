@@ -68,7 +68,7 @@ the community and learn more about how they use OCaml."
       <div class="flex flex-col md:flex-grow">
         <h1 class="text-title dark:text-dark-title tracking-wider font-bold text-4xl lg:max-w-[50%]">What Industry Leaders Say About OCaml</h1>
         <p class="text-content dark:text-dark-content mt-6 lg:my-6 lg:max-w-[50%] text-xl">
-          OCaml powers mission-critical systems for companies and and helps them achieve their goals.
+          OCaml powers mission-critical systems for companies and helps them achieve their goals.
         </p>
         <div class="flex lg:hidden dark:hidden" x-data="{swiper: null}" 
         x-init="swiper = new Swiper('#companySwiper1', {loop: true,slidesPerView: 1,spaceBetween: 10,autoHeight: true,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#companySwiper1 .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet swiper-separator_20'}})">
@@ -303,7 +303,7 @@ the community and learn more about how they use OCaml."
       <h1 class="m-0 font-sans font-bold tracking-normal leading-8 capitalize lg:tracking-tight text-2xl text-dark-title dark:text-dark-title">
         OCaml in Teaching and Research
       </h1>
-      <p class="text-lg text-dark-content dark:text-dark-content mt-4">With its deep mathematical roots, OCaml has always been a beacon of academic excellence. It is taught in universities around the world, and has accrued an ever growing body of research.</p>
+      <p class="text-lg text-dark-content dark:text-dark-content mt-4">With its deep mathematical roots, OCaml has always been a beacon of academic excellence. It is taught in universities around the world and has accrued an ever-growing body of research.</p>
     </div>
     <div class="flex items-center justify-center md:min-w-max w-full md:w-[10%]">
       <a href="<%s Url.academic_users %>" class="h-11 w-max btn-outline text-primary border text-base items-center justify-center inline-flex py-1 px-4 rounded-md md:text-lg">
