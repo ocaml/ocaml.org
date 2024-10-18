@@ -81,13 +81,13 @@ module Event = struct
     match date with
     | Some { yyyy_mm_dd; utc_hh_mm } ->
         (match utc_hh_mm with
-        | Some time -> yyyy_mm_dd ^ " " ^ time ^ " UTC"
+        | Some time -> yyyy_mm_dd ^ "T" ^ time ^ "Z"
         | None -> yyyy_mm_dd)
     | None -> "N/A"
 
   let format_date_req (date : Data.Event.utc_datetime) : string =
     match date.utc_hh_mm with
-    | Some time -> date.yyyy_mm_dd ^ " " ^ time ^ " UTC"
+    | Some time -> date.yyyy_mm_dd ^ "T" ^ time ^ "Z"
     | None -> date.yyyy_mm_dd
 
   let script = 
@@ -96,7 +96,7 @@ module Event = struct
         Alpine.store('dateUtils', {
             convertDate(dateString) {
               if (dateString === 'N/A') return dateString
-              const hasTime = dateString.includes('UTC');
+              const hasTime = dateString.includes('Z');
               const date = new Date(dateString);
               const options = hasTime ? {
                   month: 'short',
