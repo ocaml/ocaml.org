@@ -12,7 +12,7 @@ source:
 
 
 <p>
-For serious programmers, the text editor they user is an intensely personal
+For serious programmers, the text editor they use is an intensely personal
 thing.
 Try suggesting to an Emacs user that they should switch to Vim or vice-versa.
 Most would shudder at the thought.
@@ -106,7 +106,7 @@ The Ocaml syntax highlighting is particularly poor.
 </p>
 
 <p>
-I'm now going to try to use Gedit, by customising its setup and and using the
+I'm now going to try to use Gedit, by customising its setup and using the
 plugin system to see if I can regain the features that made Nedit such a
 pleasure to use.
 </p>
