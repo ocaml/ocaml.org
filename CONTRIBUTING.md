@@ -170,17 +170,42 @@ You can add a new upcoming event by creating a new Markdown file in [data/events
 
 ### <a name="content-changelog"></a>OCaml Changelog
 
-The [OCaml Changelog](https://ocaml.org/changelog) is a feed of the latest releases and feature highlights for official OCaml projects. As of today, it features the following projects:
+The [OCaml Changelog](https://ocaml.org/changelog) is a user-oriented blog that serves as a newsfeed for the OCaml ecosystem. It's important to note that despite its name, it's not a traditional changelog, but rather a curated blog of significant updates and news.
+
+The Changelog covers developments across:
 
 - [The OCaml Compiler](https://github.com/ocaml/ocaml)
 - [OCaml Platform Tools](https://ocaml.org/docs/platform)
 - [OCaml Infrastructure](https://infra.ocaml.org/)
+- [OCaml.org itself](https://ocaml.org/)
 
-Before a release of the above tools land on the `opam-repository`, the project's release manager opens a pull request (PR) on OCaml.org with the release announcement.
+#### Purpose and Audience
 
-This announcement is proofread by the OCaml.org team, who will also suggest highlighting release features.
+The primary audience for the Changelog is OCaml users. Content should focus on changes, updates, and news that directly impact users of OCaml and its ecosystem. 
 
-To contribute a new release announcement or feature highlight, add a Markdown file in `data/changelog/`.
+Good candidates for Changelog posts include:
+
+1. Announcements of new releases
+2. Significant feature additions or changes
+3. Important updates to OCaml.org that affect user experience
+4. Infrastructure changes that impact users
+5. Regular updates on ongoing development as part of Developer Previews
+
+The Changelog is not meant for:
+
+1. Internal refactoring that doesn't result in user-visible changes
+2. Highly technical details that are only relevant to OCaml core developers
+3. Sharing complete changelogs (although there is a `changelog` tag where you can include the changelogs as part of release announcements)
+
+#### Contributing a Post
+
+To contribute a new post to the Changelog:
+
+1. Create a new Markdown file in the `data/changelog/` directory.
+2. Use a clear, descriptive filename (e.g., `2023-06-15-ocaml-5-1-release.md`).
+3. Include relevant metadata at the top of the file (date, title, tags, etc.).
+4. Write the post content, focusing on how the news or change affects OCaml users.
+5. Submit a pull request with your new file.
 
 ## Git and GitHub Workflow
 
