@@ -209,7 +209,7 @@ end
 <p>All the application programmer needs to do is define functionality in relation to <code>flow</code> for sending and receiving data, establish this function as a callback with <code>listen_tcpv4</code>, and start a listening thread with <code>listen</code>.</p>
 <h2>More Complex Uses</h2>
 <p>An OCaml HTTP server, <a href="http://www.github.com/mirage/ocaml-cohttp">Cohttp</a>, is currently powering this very blog.  A simple static webserver using Cohttp <a href="https://github.com/mirage/mirage-skeleton/tree/master/static_website">is included in <code>mirage-skeleton</code></a>.</p>
-<p><a href="https://tls.nqsb.io/">The OCaml-TLS demonstration server</a> announced here <a href="http://mirage.io/blog/introducing-ocaml-tls">just a few days ago</a> is also running atop Cohttp - <a href="https://github.com/mirleft/tls-demo-server">source is available on Github</a>.</p>
+<p>The OCaml-TLS demonstration server (not available anymore) announced here <a href="http://mirage.io/blog/introducing-ocaml-tls">just a few days ago</a> is also running atop Cohttp - <a href="https://github.com/mirleft/tls-demo-server">source is available on Github</a>.</p>
 <h2>The future</h2>
 <p>Mirage's TCP/IP stack is under active development!  <a href="https://github.com/mirage/mirage-tcpip/search?q=TODO&amp;ref=cmdform">Some low-level details</a> are still stubbed out, and we're working on implementing some of the trickier corners of TCP, as well as <a href="http://somerandomidiot.com/blog/2014/05/22/throwing-some-fuzzy-dice/">doing automated testing</a> on the stack.  We welcome testing tools, bug reports, bug fixes, and new protocol implementations!</p>
 

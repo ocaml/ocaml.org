@@ -65,7 +65,7 @@ signed the outermost certificate. Further constraints, such as the
 maximum chain length and the validity period, are checked as
 well. Finally, the server name in the server certificate is checked to
 match the expected identity.
-For an example, you can see the sequence diagram of the TLS handshake your browser makes when you visit our <a href="https://tls.nqsb.io">demonstration server</a>.</p>
+For an example, you can see the sequence diagram of the TLS handshake your browser makes when you visit our demonstration server (not available anymore).</p>
 <h3>Example code for verification</h3>
 <p>OpenSSL implements <a href="https://tools.ietf.org/html/rfc5280">RFC5280</a> path validation, but there is no
 implementation to validate the identity of a certificate. This has to
