@@ -8,10 +8,6 @@ categories:
     description: >
       Use ANSI escape codes for cursor location, font, and colour in video text
       terminal emulators.
-- title: File System
-  tasks:
-  - title: Miscellaneous File System Operations
-    slug: file-system
 - title: Compilation & Linking
   tasks:
   - title: Compile and Link to a Bundled C Library
@@ -142,46 +138,21 @@ categories:
   - title: Read and Write Integers in Little-Endian Byte Order
     slug: read-write-integers-little-endian
 - title: File System
-  subcategories:
-  - title: Files
-    tasks:
-    - title: Open File
-      slug: open-file
-    - title: Read a Text File
-      slug: read-text-file
-    - title: Write to a File
-      slug: write-file
-    - title: Rename a File
-      slug: rename-file
-    - title: Delete a File
-      slug: delete-file
-    - title: Check if a File Exists
-      slug: check-exist-file
-    - title: File Size
-      slug: file-size
-    - title: Change File Permissions
-      slug: change-file-permissions
-    - title: Create Temporary File
-      slug: create-temporary-file
-  - title: Directories
-    tasks:
-    - title: Create Directory
-      slug: create-directory
-    - title: List Directory Contents
-      slug: list-directory
-    - title: Get Current Directory
-      slug: get-current-directory
-    - title: Change Current Directory
-      slug: change-current-directory
-    - title: Find Files Matching a Pattern
-      slug: find-files-matching-a-pattern
-    - title: Walk File Tree
-      slug: walk-file-tree
-  - title: File Paths
-#- title: Garbage Collector
-#  tasks:
-#  - title: Trigger a Minor / Major Collection
-#    slug: trigger-minor-major-collection
+  tasks:
+  - title: Read and Write from a Text File
+    slug: read-and-write-text-file
+  - title: Basic File and Directory Operations
+    slug: basic-file-system-operations
+    description: |
+      Exists, copy, move (rename), delete, change directory, list directory, delete directory.
+  - title: File Size
+    slug: file-size
+  - title: Change File Permissions
+    slug: change-file-permissions
+  - title: Walk File Tree
+    slug: walk-file-tree
+  - title: Find Files Matching a Pattern
+    slug: find-files-matching-a-pattern
 - title: Random Values
   tasks:
   - title: Generate Random `int`, `float`, and `char`
