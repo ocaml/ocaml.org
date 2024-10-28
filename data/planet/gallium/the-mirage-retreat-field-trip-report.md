@@ -117,7 +117,7 @@ annotation, hoping it would improve performances.</p>
 most people think, it is extremely rare that it can make programs
 noticeably faster, because the GC is quite fast and combines allocations
 together &ndash; many allocations of a boxed object are combined with an
-allocation for their content or container, and often the indirection
+allocation for their content or container, and and often the indirection
 points to an immediately adjacent place in memory so is basically free
 to dereference. It may help in some extreme low-latency scenario where
 code is written to not allocate at all, but I have never personally seen
