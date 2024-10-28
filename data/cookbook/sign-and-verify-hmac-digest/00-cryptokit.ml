@@ -5,12 +5,11 @@ packages:
   used_libraries:
   - cryptokit
 ---
-(* `hmac` computes the MAC (Message Authentication Code) for the given message
-   and the given secret key.  The MAC function used is HMAC-SHA256. *)
+
+(* We use `Cryptokit.MAC.hmac_sha256` to create a hash function using HMAC-SHA256
+from the given key, and then apply the hash function to the message. *)
 let hmac ~key msg =
-  (* Use HMAC-SHA256 to create a hash function from the given key *)
   let hash = Cryptokit.MAC.hmac_sha256 key in
-  (* Run the message through this hash function *)
   Cryptokit.hash_string hash msg
 
 (* Sign the given message.  Return a pair of the message and its MAC. *)
@@ -22,7 +21,6 @@ let sign ~key msg =
 let verify ~key (msg, mac) =
   hmac ~key msg = mac
 
-(* A simple test. *)
 let _ =
   let key = "supercalifragilisticexpialidocious"
   and msg = "Mary Poppins" in
