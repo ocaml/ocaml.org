@@ -64,3 +64,14 @@ let display_surrounding_text ~search (text : string) =
         ^ render_item (shorten_from_right ~length:100) b
     | [] -> shorten_from_right ~length:200 text
   else shorten_from_right ~length:200 text
+
+
+let script =
+  <script>
+    window.addEventListener('keydown', function(event) {
+        if (event.key === "/") {
+          event.preventDefault();
+          document.querySelector("input[type='search']").focus()
+        }
+      })
+  </script>
