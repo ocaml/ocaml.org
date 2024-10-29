@@ -1,7 +1,7 @@
 ---
 title: How has robur financially been doing since 2018?
 description:
-url: https://blog.robur.coop//articles/finances.html
+url: https://blog.robur.coop/articles/finances.html
 date: 2024-10-21T00:00:00-00:00
 preview_image:
 authors:
