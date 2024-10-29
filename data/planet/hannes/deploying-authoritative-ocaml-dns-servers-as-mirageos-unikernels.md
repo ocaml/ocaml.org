@@ -10,7 +10,7 @@ source:
 ---
 
 <h2>Goal</h2>
-<p>Have your domain served by OCaml-DNS authoritative name servers. Data is stored in a git remote, and let's encrypt certificates can be requested to DNS. This software is deployed since more than two years for several domains such as <code>nqsb.io</code> and <code>robur.coop</code>. This present the authoritative server side, and certificate library of the OCaml-DNS implementation formerly known as <a href="https://hannes.robur.coop/Posts/DNS">&micro;DNS</a>.</p>
+<p>Have your domain served by OCaml-DNS authoritative name servers. Data is stored in a git remote, and let's encrypt certificates can be requested to DNS. This software is deployed since more than two years for several domains such as <code>robur.coop</code>. This present the authoritative server side, and certificate library of the OCaml-DNS implementation formerly known as <a href="https://hannes.robur.coop/Posts/DNS">&micro;DNS</a>.</p>
 <h2>Prerequisites</h2>
 <p>You need to own a domain, and be able to delegate the name service to your own servers.
 You also need two spare public IPv4 addresses (in different /24 networks) for your name servers.

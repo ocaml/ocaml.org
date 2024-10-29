@@ -78,7 +78,7 @@ You can also find us on <a href="https://twitter.com/tarides_">Twitter</a> and <
 <ul>
 <li><a href="https://queue.acm.org/detail.cfm?id=2566628">ACM Queue: Unikernels: Rise of the Virtual Library Operating System</a></li>
 <li><a href="https://mirage.io/blog/bitcoin-pinata-results">MirageOS Bitcoin Pi&ntilde;ata Results</a></li>
-<li><a href="https://hannes.nqsb.io/Posts/Pinata">Full Stack Engineer: The Bitcoin Pi&ntilde;ata - No Candy for You</a></li>
+<li><a href="https://hannes.robur.coop/Posts/Pinata">Full Stack Engineer: The Bitcoin Pi&ntilde;ata - No Candy for You</a></li>
 <li><a href="https://robur.coop/Our%20Work/Projects">Robur: Robur Reproducible Builds</a></li>
 </ul>
 <p><em>OCaml-tls</em></p>

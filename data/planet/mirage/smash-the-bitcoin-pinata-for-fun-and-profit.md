@@ -14,7 +14,7 @@ authors:
 TLS in pure OCaml, alongside a <a href="https://mirage.io/blog/introducing-ocaml-tls">series of blog posts</a> that described
 the libraries and the thinking behind them.  It took two hackers six months
 &mdash; starting on <a href="https://goo.gl/maps/GpcQs">the beach</a> &mdash;  to get the stack to that point and
-their <a href="https://tls.nqsb.io">demo server</a> is still going strong. Since then, the team has
+their demo server (not available anymore) is still going strong. Since then, the team has
 continued working and recently <a href="http://media.ccc.de/browse/congress/2014/31c3_-_6443_-_en_-_saal_2_-_201412271245_-_trustworthy_secure_modular_operating_system_engineering_-_hannes_-_david_kaloper.html#video">presented</a> at the 31st Chaos
 Communication Congress.</p>
 <p>The authors are putting their stack to the test again and this time they've

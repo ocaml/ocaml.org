@@ -24,7 +24,7 @@ authors:
 </ul>
 <p>For general information regarding MirageOS Security Advisories,
 please visit <a href="https://mirage.io/security">https://mirage.io/security</a>.</p>
-<p>Hannes published a <a href="https://hannes.nqsb.io/Posts/BadRecordMac">blog article</a> about
+<p>Hannes published a <a href="https://hannes.robur.coop/Posts/BadRecordMac">blog article</a> about
 the analysis of this issue.</p>
 <h3>Background</h3>
 <p>MirageOS is a library operating system using cooperative multitasking, which can

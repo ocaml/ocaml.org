@@ -15,7 +15,7 @@ You might like to begin with the <a href="http://mirage.io/blog/introducing-ocam
 that we've been working on for the past six months. In this post we
 try to document some of its internal design, the reasons for the
 decisions we made, and the current security status of that work. Try
-our <a href="https://tls.nqsb.io">live interactive demonstration server</a> which visualises TLS
+our live interactive demonstration server (not available anymore) which visualises TLS
 sessions.</p>
 <h3>The OCaml-TLS architecture</h3>
 <p>The OCaml ecosystem has several distinct ways of interacting with the outside world
@@ -361,12 +361,12 @@ fragmented alerts.</p>
 <p>Within six months, two hackers managed to develop a clean-slate TLS
 stack, together with required crypto primitives, ASN.1, and X.509
 handling, in a high-level pure language. We interoperate with widely
-deployed TLS stacks, as shown by our <a href="https://tls.nqsb.io">demo server</a>.  The code
+deployed TLS stacks, as shown by our demo server (not available anymore).  The code
 size is nearly two orders of magnitude smaller than OpenSSL, the most
 widely used open source library (written in C, which a lot of
 programming languages wrap instead of providing their own TLS
-implementation). Our code base seems to be robust -- the <a href="https://tls.nqsb.io">demo
-server</a> successfully finished over 22500 sessions in less than a
+implementation). Our code base seems to be robust -- the demo
+server (not available anymore) successfully finished over 22500 sessions in less than a
 week, with only 11 failing traces.</p>
 <p>There is a huge need for high quality TLS implementations, because
 several TLS implementations suffered this year from severe security

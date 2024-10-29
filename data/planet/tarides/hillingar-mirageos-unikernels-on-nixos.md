@@ -342,7 +342,7 @@ Despite these two projects having different motivations and goals, Hillingar aim
 <li><a href="https://www.tweag.io/blog/2020-10-22-nickel-open-sourcing/">www.tweag.io/blog/2020-10-22-nickel-open-sourcing</a><a href="https://tarides.com/feed.xml#fnref-26" class="footnote-backref">&#8617;</a></li>
 <li><a href="https://hannes.robur.coop/Posts/VMM">hannes.robur.coop/Posts/VMM</a><a href="https://tarides.com/feed.xml#fnref-27" class="footnote-backref">&#8617;</a></li>
 <li><a href="https://github.com/roburio/albatross/pull/120">https://github.com/roburio/albatross/pull/120</a><a href="https://tarides.com/feed.xml#fnref-28" class="footnote-backref">&#8617;</a></li>
-<li><a href="https://hannes.nqsb.io/Posts/ReproducibleOPAM">hannes.nqsb.io/Posts/ReproducibleOPAM</a><a href="https://tarides.com/feed.xml#fnref-29" class="footnote-backref">&#8617;</a></li>
+<li><a href="https://hannes.robur.coop/Posts/ReproducibleOPAM">hannes.robur.coop/Posts/ReproducibleOPAM</a><a href="https://tarides.com/feed.xml#fnref-29" class="footnote-backref">&#8617;</a></li>
 <li><a href="https://www.tweag.io/blog/2022-07-14-taming-unix-with-nix/">tweag.io/blog/2022-07-14-taming-unix-with-nix</a><a href="https://tarides.com/feed.xml#fnref-30" class="footnote-backref">&#8617;</a></li>
 </ol>
 </div>
