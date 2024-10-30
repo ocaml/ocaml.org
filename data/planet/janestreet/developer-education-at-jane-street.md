@@ -4,7 +4,7 @@ description: Like most places, Jane Street largely teaches developers through a 
   of apprenticeshipmodel. A team matching process tries to thoughtfully match new
   devs ...
 url: https://blog.janestreet.com/developer-education-at-jane-street-index/
-date: 2025-10-01T00:00:00-00:00
+date: 2024-10-01T00:00:00-00:00
 preview_image: https://blog.janestreet.com/developer-education-at-jane-street-index/classroom.png
 authors:
 - Jane Street Tech Blog
