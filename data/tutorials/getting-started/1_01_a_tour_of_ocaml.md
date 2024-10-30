@@ -94,7 +94,7 @@ In OCaml, `if … then … else …` is not a statement; it is an expression.
 - : int = 10
 ```
 
-The source beginning at `if` and ending at `5` is parsed as a single integer expression that is multiplied by 2. OCaml has no need for two different test constructions.The [ternary conditional operator](https://en.wikipedia.org/wiki/Ternary_conditional_operator) and the `if … then … else …` are the same. Also note parentheses are not needed here, which is often the case in OCaml.
+The source beginning at `if` and ending at `5` is parsed as a single integer expression that is multiplied by 2. OCaml has no need for two different test constructions. The [ternary conditional operator](https://en.wikipedia.org/wiki/Ternary_conditional_operator) and the `if … then … else …` are the same. Also note parentheses are not needed here, which is often the case in OCaml.
 
 Values can be given names using the `let` keyword. This is called _binding_ a value to a name. For example:
 ```ocaml
