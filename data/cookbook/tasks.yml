@@ -36,14 +36,15 @@ categories:
     tasks:
     - title: Create and Await Promises
       slug: create-and-await-promises
+      description: |
+        Create promises and run them in parallel,
+        as well as sequentially. Includes a sleep task.
   - title: Parallelism & Multi-Threading
     tasks:
     - title: Spawn a Thread and Receive a Response
       slug: spawn-a-thread-and-receive-a-response
     - title: Pass Data Between Parallel Threads
       slug: pass-data-between-parallel-threads
-    - title: Miscellaneous
-      slug: concurrency-misc
 - title: Cryptography
   tasks:
   - title: Calculate the SHA-256 Digest of a File
