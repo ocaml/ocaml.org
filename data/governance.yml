@@ -414,14 +414,17 @@ teams:
   - name: Anil Madhavapeddy
     github: avsm
     role: Maintainer
-  - name: Kate Deplaix
-    github: kit-ty-kate
-    role: Maintainer
   - name: Marcello Seri
     github: mseri
     role: Maintainer
+  - name: Raphaël Proust
+    github: raphael-proust
+    role: Maintainer
   - name: Thomas Gazagnaire
     github: samoht
+    role: Maintainer
+  - name: Shon Feder
+    github: shonfeder
     role: Maintainer
 - id: infrastructure
   name: Infrastructure
@@ -436,17 +439,17 @@ teams:
   - name: Anil Madhavapeddy
     github: avsm
     role: Owner
-  - name: Tim McGilchrist
-    github: tmcgilchrist
-    role: Maintainer
-  - name: Kate
-    github: kit-ty-kate
-    role: Maintainer
   - name: Mark Elvers
     github: mtelvers
     role: Maintainer
   - name: Thomas Gazagnaire
     github: samoht
+    role: Maintainer
+  - name: Shon Feder
+    github: shonfeder
+    role: Maintainer
+  - name: Puneeth Chaganti
+    github: punchagan
     role: Maintainer
 - id: ocamlorg
   name: OCaml.org
