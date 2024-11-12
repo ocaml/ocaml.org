@@ -1,9 +1,9 @@
-# Load Tests
+# Locust Load Tests
 
 This directory contains a [locust](https://locust.io/) script for load testing
 ocaml.org endpoints.
 
-## Running the load tests
+## Running simple load tests
 
 1. Start the test framework running with
 
@@ -17,6 +17,14 @@ ocaml.org endpoints.
   - the max number of users to simulate
   - the number of new users to add to the simulation every second
   - the host (`https://staging.ocaml.org`, `https://ocaml.org`, etc.)
+
+## Running load tests with multiple cores
+
+``` sh
+./main.sh n
+```
+
+where `n` is the number of processes to run concurrently.
 
 ## Reviewing the load tests
 
