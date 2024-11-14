@@ -1,2 +1,38 @@
+# "The Meta-ExternalAgent crawler crawls the web for use cases such as training
+# AI models or improving products by indexing content directly"
+# See https://developers.facebook.com/docs/sharing/webmasters/web-crawlers
+User-agent: meta-externalagent
+Disallow: /
+
+# https://platform.openai.com/docs/bots
+User-agent: GPTBot
+Disallow: /
+
+# A SEO consultancy
+# https://www.semrush.com/bot/
+User-agent: SemrushBot
+Disallow: /
+
+# We don't want these robots crawling our expensive documentation pages, as they
+# hit with high frequency
+
+User-agent: Amazonbot
+Disallow: /p/
+
+User-agent: Bingbot
+Disallow: /p/
+
+# A chinese search site
+# https://www-sogou-com.translate.goog/docs/help/webmasters.htm?_x_tr_sch=http&_x_tr_sl=la&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp#07
+User-agent: Sogou web spider
+Disallow: /p/
+
+# A korean web search
+# https://naver.me/spd
+User-agent: Yeti
+Disallow: /p/
+
+# Everything else is OK
+
 User-agent: *
 Allow: /
