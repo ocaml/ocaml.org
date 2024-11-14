@@ -15,7 +15,7 @@ RESULTS="${RESULTS_DIR}/${TIME}-results.gz"
 GRAPH="${RESULTS_DIR}/${TIME}-report.html"
 
 
-mkdir "$RESULTS_DIR"
+mkdir -p "$RESULTS_DIR"
 
 docker run --rm \
     -u "$USER_ID" \

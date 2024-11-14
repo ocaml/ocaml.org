@@ -53,8 +53,9 @@ export const options = {
 // See https://grafana.com/docs/k6/latest/examples/get-started-with-k6/ to learn more
 // about authoring k6 scripts.
 
-const base_url = "https://staging.ocaml.org";
-// base_url = "https://ocaml.com"
+const base_url = "https://staging.ci.dev";
+// const base_url = "https://staging.ocaml.org";
+// const base_url = "https://ocaml.com"
 
 function endpoint(u) {
   return base_url + u;
