@@ -8,6 +8,7 @@ on:
   schedule:
     # Prime the caches every Monday
     - cron: 0 1 * * MON
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,7 +23,7 @@ jobs:
           - macos-latest
           - ubuntu-latest
         ocaml-compiler:
-          - "5.2"
+          - "5.2.0"
 
     steps:
       - name: Checkout Repo

@@ -16,7 +16,7 @@ jobs:
           - macos-latest
           - ubuntu-latest
         ocaml-compiler:
-          - "4.14"
+          - "5.2.0"
 
     steps:
       - name: Checkout Repo
@@ -42,9 +42,15 @@ jobs:
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
 
+      - name: Install ocamlformat
+        run: opam install ocamlformat.0.26.2
+
       - name: Build project
         run: opam exec -- dune build @install
 
       - name: Run tests
         run: opam exec -- dune test
 
+      - name: Format code
+        run: opam exec -- dune build --auto-promote @fmt
+        if: runner.os == 'Linux'
