@@ -33,6 +33,7 @@
   (ocaml
    (>= 4.14.0))
   dune
+  ppx_deriving
   cohttp
   cohttp-lwt-unix
   bos
