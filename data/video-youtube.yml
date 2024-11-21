@@ -1,3 +1,419 @@
+- title: Universal React in OCaml - David Sancho Moreno - FUN OCaml 2024
+  url: https://www.youtube.com/watch/Oy3lZl2kE-0?version=3
+  thumbnail: https://i4.ytimg.com/vi/Oy3lZl2kE-0/hqdefault.jpg
+  description: 'David Sancho Moreno''s FUN OCaml 2024 talk recording!
+
+
+    Overview by David:
+
+
+
+    server-reason-react implements react-dom/server and some of React''s internals
+    in OCaml. Its purpose is to natively render HTML markup from the server for a
+    Reason React application. This pushes the idea for universal code (sharing code
+    between the browser and native) and this talk is the story of all of this, and
+    what are the solutions we applied at Ahrefs.
+
+
+
+    server-reason-react: https://github.com/ml-in-barcelona/server-reason-react
+
+
+    Connect with us
+
+    Website: https://fun-ocaml.com/
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+  published: 2024-11-20T09:24:00+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: "Using odoc to Write Documentation - Paul-Elliot Angl\xE8s d'Auriac - FUN
+    OCaml 2024"
+  url: https://www.youtube.com/watch/Qzf_ZB1TKLQ?version=3
+  thumbnail: https://i2.ytimg.com/vi/Qzf_ZB1TKLQ/hqdefault.jpg
+  description: "Paul-Elliot Angl\xE8s d'Auriac's FUN OCaml 2024 talk recording!\n\nOverview
+    by Paul-Elliot:\n\nThis talk is a gentle introduction to the documenting part
+    of the OCaml ecosystem. We will see how to use `odoc` to build nice documentation
+    for your `dune`-based project, from a bare repository to a documentation with
+    both API pages and documentation pages.\n\nodoc: https://github.com/ocaml/odoc\n\nConnect
+    with us\nWebsite: https://fun-ocaml.com/\nTwitter: https://x.com/FunOCaml\nBluesky:
+    https://bsky.app/profile/fun-ocaml.com"
+  published: 2024-11-20T09:24:00+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: How the Multicore Garbage Collector works - Sudha Parimala - FUN OCaml 2024
+  url: https://www.youtube.com/watch/fgdB_9DcJj4?version=3
+  thumbnail: https://i3.ytimg.com/vi/fgdB_9DcJj4/hqdefault.jpg
+  description: 'Sudha''s FUN OCaml 2024 talk recording!
+
+
+    Overview by Sudha:
+
+
+    In a first, OCaml 5.0 shipped with native support for parallelism and concurrency.
+    This was a multi-year effort by the Multicore team and the OCaml development team
+    that culminated in OCaml 5.0. The most challenging aspect was designing a multicore-capable
+    garbage collector that remains backwards compatible in terms of features, performance,
+    and latency. This is described in the paper ''Retrofitting Parallelism onto OCaml,''
+    which appeared in ICFP 2020. In this talk, we will explore the ideas presented
+    in the paper through doodle illustrations and zines.
+
+
+
+    Connect with us
+
+    Website: https://fun-ocaml.com/
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+  published: 2024-11-20T09:24:00+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: MirageOS - Developing Operating Systems in OCaml - Hannes Mehnert - FUN OCaml
+    2024
+  url: https://www.youtube.com/watch/g7Kl5mRDCDo?version=3
+  thumbnail: https://i4.ytimg.com/vi/g7Kl5mRDCDo/hqdefault.jpg
+  description: 'Hannes Mehnert''s FUN OCaml 2024 talk recording!
+
+
+    Overview by Hannes:
+
+
+
+    OCaml is a great systems programming language. We use it since more than a decade
+    to develop MirageOS unikernels: run OCaml as a virtual machine, no Linux kernel
+    involved. Since OCaml is statically typed (and type safe), and memory safe, we
+    use a single address space, and avoided a lot of complexity of general purpose
+    operating systems. Security-wise this is excellent: less attack surface, fewer
+    attack vectors. Also less resource-heavy than contemporary OS. The result are
+    tiny unikernels (e.g. a firewall with ~3MB as the full virtual machine image)
+    that only contain the code really needed. I''ll present what MirageOS is today
+    and where it is used, its future, and our learnings so far.
+
+
+    https://mirage.io
+
+
+    Connect with us
+
+    Website: https://fun-ocaml.com/
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+  published: 2024-11-20T09:24:00+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: The Story Behind the Fastest Image Comparison Library  - Dmitriy Kovalenko
+    - FUN OCaml 2024
+  url: https://www.youtube.com/watch/hTAvAKolWd8?version=3
+  thumbnail: https://i1.ytimg.com/vi/hTAvAKolWd8/hqdefault.jpg
+  description: 'Dmitriy Kovalenko''s FUN OCaml 2024 talk recording!
+
+
+    Overview by Dmitriy:
+
+
+    I am the author of dmtrKovalenko/odiff which claims to be and it is the fastest
+    in the world (on my banchmarks lol) implementation of the pixel-by-pixel image
+    comparison library which is written in OCaml (and a little bit of C). This is
+    a story about standing the project. Why not to write it in C or Rust? How do we
+    tune the garbage collector to avoid major collections at all? All this and much
+    more like the hidden superpower of unboxed floats and some challenges about naked
+    pointers and upgrading to OCaml v5 in my talk!
+
+
+    odiff: https://github.com/dmtrKovalenko/odiff
+
+
+    Connect with us
+
+    Website: https://fun-ocaml.com/
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+  published: 2024-11-20T09:24:00+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: Easy GADTs by Repeating Yourself - Eduardo Rafael - FUN OCaml 2024
+  url: https://www.youtube.com/watch/-XYO_ILJG2M?version=3
+  thumbnail: https://i2.ytimg.com/vi/-XYO_ILJG2M/hqdefault.jpg
+  description: 'Eduardo Rafael''s FUN OCaml 2024 talk recording!
+
+
+    Overview by Eduardo:
+
+
+
+    Traditionally GADT''s are used for lightweight tasks as the code complexity increases
+    quite. I will be arguing that this is mostly a lack of common "design patterns"
+    and maybe some tools. The talk will go through describing what you can fundamentally
+    do with GADT''s, how you should think about them and a general technique to mimic
+    dependent types in OCaml, Hopefully by the end, a show case of a proposal for
+    the Michelson interpreter.
+
+
+
+    Connect with us
+
+    Website: https://fun-ocaml.com/
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+  published: 2024-11-20T09:23:58+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: Maybe OCaml Was the Friends We Made Along the Way - Dillon Mulroy - FUN OCaml
+    2024
+  url: https://www.youtube.com/watch/1HlIHPa38gY?version=3
+  thumbnail: https://i2.ytimg.com/vi/1HlIHPa38gY/hqdefault.jpg
+  description: 'Dillon Mulroy''s FUN OCaml 2024 talk recording!
+
+
+    Overview by Dillon:
+
+
+    In my decade-long journey as a software engineer, the most transformative experience
+    came from an unexpected source: learning and using OCaml. I will share how this
+    functional programming language reshaped my approach to problem-solving, coding
+    practices, and overall mindset about programming. Beyond the technical skills,
+    OCaml connected me with incredibly bright, kind, and talented mentors and peers
+    who have become lifelong friends. This journey also paved the way for my success
+    on Twitch, allowing me to share my passion and knowledge with a broader audience.
+    Join me as I explore the personal and professional growth that OCaml facilitated
+    and celebrate the community that made it possible.
+
+
+    Connect with us
+
+    Website: https://fun-ocaml.com/
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+  published: 2024-11-20T09:23:58+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: OCANNL, the `neural_nets_lib` - Lukasz Stafiniak - FUN OCaml 2024
+  url: https://www.youtube.com/watch/1J2XyHLb2J0?version=3
+  thumbnail: https://i2.ytimg.com/vi/1J2XyHLb2J0/hqdefault.jpg
+  description: 'Lukasz Stafiniak''s FUN OCaml 2024 talk recording!
+
+
+    Overview by Lukasz:
+
+
+
+    Using OCANNL, we will build a toy feed forward network, we will train it, visualize
+    its outputs. We will take a peek at the actual computation generated at various
+    levels of abstraction: tensor node assignments, optimized C-language-like programs,
+    translations to actual C (for CPUs, or CUDA but it is still work-in-progress).
+    Lastly, we will parallelize training across multiple devices.
+
+
+    Connect with us
+
+    Website: https://fun-ocaml.com/
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+  published: 2024-11-20T09:23:58+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: Learning OCaml with Tiny Code Xmas - Michael Dales - FUN OCaml 2024
+  url: https://www.youtube.com/watch/2ZswyN4aP2o?version=3
+  thumbnail: https://i3.ytimg.com/vi/2ZswyN4aP2o/hqdefault.jpg
+  description: 'Michael Dales''s FUN OCaml 2024 talk recording!
+
+
+    Overview by Michael:
+
+
+
+    Each year the demo community run Tiny Code Xmas - using fantasy consoles like
+    TIC-80 and PICO-8 to teach people to do retro graphics effects and size coding.
+    But I didn''t want to learn size coding, I wanted to learn OCaml! So for my first
+    OCaml project I built a small fantasy console engine using OCaml, and implemented
+    both Tiny Code Xmas and most of Genuary (generate art January) in it. In this
+    talk I''ll show why demo coding suits functional programming, look at how I built
+    my first OCaml library, and show some examples of generative art using it.
+
+
+
+    Tiny Code Xmas: https://tcc.lovebyte.party/
+
+
+    Connect with us
+
+    Website: https://fun-ocaml.com/
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+  published: 2024-11-20T09:23:58+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: Let Signals in OCaml - Rizo Isrof - FUN OCaml 2024
+  url: https://www.youtube.com/watch/34bceAuSRXE?version=3
+  thumbnail: https://i4.ytimg.com/vi/34bceAuSRXE/hqdefault.jpg
+  description: 'Rizo Isrof''s FunOCaml 2024 talk recording!
+
+
+    Overview by Rizo:
+
+
+    Signals and fine-grained reactivity are two popular concepts in the JavaScript
+    world, thanks to their simplicity, ergonomics and excellent performance. What
+    are signals? What is their type? How can we use them in OCaml? Let''s build a
+    reactive UI library from scratch to find out! From simple callbacks, layers are
+    added to support batching, resource cleanup and `let` syntax for composing effects.
+    DOM interactions are implemented to allow predictable, minimal and efficient UI
+    updates. Finally, helix is revealed, a library based on the presented reactivity
+    principles. I review some examples and discuss how helix is used to implement
+    real-world applications at Hyper and Tarides.
+
+
+    Find speaker: https://github.com/rizo, https://x.com/rizo_isrof
+
+
+
+    Connect with us
+
+    Website: https://fun-ocaml.com/
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+  published: 2024-11-20T09:23:58+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: A 'Melange' of Tooling Coming Together - Antonio Monteiro - FUN OCaml 2024
+  url: https://www.youtube.com/watch/3oCXT-ycHHs?version=3
+  thumbnail: https://i4.ytimg.com/vi/3oCXT-ycHHs/hqdefault.jpg
+  description: 'Antonio Monteiro''s FUN OCaml 2024 talk recording!
+
+
+
+    Overview by Antonio:
+
+
+    Melange is a new compiler for OCaml targeting JavaScript. Melange codebases integrate
+    with the OCaml Platform: install from OPAM, build with Dune, preprocess with `ppxlib`,
+    format with OCamlformat and publish with `dune-release`. Merlin, OCaml-LSP and
+    `odoc` work out of the box. In this talk, I will tell you about the Melange success
+    story and give a glimpse of what''s coming in the near future.
+
+
+
+    Melange: https://melange.re
+
+
+    Connect with us
+
+    Website: https://fun-ocaml.com/
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+  published: 2024-11-20T09:23:58+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: Building Incremental and Reproducible Data Pipelines  - Patrick Ferris -
+    FUN OCaml 2024
+  url: https://www.youtube.com/watch/6mxx2j1jmhE?version=3
+  thumbnail: https://i3.ytimg.com/vi/6mxx2j1jmhE/hqdefault.jpg
+  description: 'Patrick Ferris''s FUN OCaml 2024 talk recording!
+
+
+    Overview by Patrick:
+
+
+    We present the good and the bad of building a dataflow engine in OCaml. The engine
+    underpins a complex ecological analysis of avoided deforestation projects in tropical
+    moist rainforests. We will discuss: Onboarding experienced developers who are
+    new to OCaml. - Building an operating system in OCaml to run Python/R code.Developing
+    geospatial libraries and how this benefited from Outreachy internships and the
+    compiler''s backwards compatibility. Managing a transition from monadic, asynchronous
+    libraries to direct-style code. This work is part of a multi-year collaboration
+    between the departments of Computer Science, Ecology, Zoology and Geography at
+    the University of Cambridge.
+
+
+
+    Full title: Building Incremental and Reproducible Data Pipelines for Tackling
+    Climate Change
+
+
+    Connect with us
+
+    Website: https://fun-ocaml.com/
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+  published: 2024-11-20T09:23:58+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: The Future of Dune - Leandro Ostera - FUN OCaml 2024
+  url: https://www.youtube.com/watch/7_bv3EvQANY?version=3
+  thumbnail: https://i4.ytimg.com/vi/7_bv3EvQANY/hqdefault.jpg
+  description: 'Leandro Ostera''s FUN OCaml 2024 talk recording!
+
+
+    Overview by Leandro:
+
+
+
+    In this talk Leandro Ostera, the PM of OCaml Build System team at Tarides shows
+    the future of developer experience in dune. He will present the new features that
+    are being developed and the roadmap for the next releases.
+
+
+    Try the Dune Developer Preview: https://preview.dune.build
+
+
+    Connect with us
+
+    Website: https://fun-ocaml.com/
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+  published: 2024-11-20T09:23:58+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
 - title: OCaml's New Proposed "include functor" Syntax | OCaml Unboxed
   url: https://www.youtube.com/watch/SWURUDr_i3w?version=3
   thumbnail: https://i4.ytimg.com/vi/SWURUDr_i3w/hqdefault.jpg
