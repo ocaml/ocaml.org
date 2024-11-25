@@ -36,6 +36,9 @@ categories:
     tasks:
     - title: Create and Await Promises
       slug: create-and-await-promises
+      description: |
+        Create promises and run them in parallel,
+        as well as sequentially. Includes a sleep task.
   - title: Parallelism & Multi-Threading
     tasks:
     - title: Spawn a Thread and Receive a Response
