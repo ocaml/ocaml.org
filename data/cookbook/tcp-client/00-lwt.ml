@@ -9,9 +9,6 @@ packages:
   tested_version: "0.7.0"
   used_libraries:
   - logs
-discussion: |
-  - **Understanding TCP client:** Implementing a TCP client needs to initialise a socket file descriptor that will be used to both connect to the remote host and also to exchange with it.
-  - **Alternative Libraries:** Other concurrent libraries can be used (`Async`, `Eio`). The `Unix` library can also be used and will be simpler to use (no monadic functions or operator), especially if the protocol is a plain alternance of question/answer. If the protocol needs some concurrency, an adequate library should be used.
 ---
 
 (* Defines some constants about the remote host. The `( let* )` operator permits the chaining of multiple Lwt statements. *)
