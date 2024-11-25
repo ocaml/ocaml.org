@@ -4,8 +4,6 @@ packages:
   tested_version: "1.0.2"
   used_libraries:
   - camomile
-discussion: |
-  - **Understanding `camomile`:** The `camomile` package provides functions which handles correcly UTF-8 characters.
 ---
 
 (* Initialize the `camomile` library, which offer a large set of functions

@@ -1,14 +1,5 @@
 ---
 packages: []
-discussion: |
-  - **Understanding `String`: `String` is a module from the `stdlib` library.
-    It contains many functions that process ASCII strings.
-    Their use may be not adequate with accentuated strings.
-    (The `length` returns simply the number of bytes used by the string
-    without taking into account characters coded with multiple characters.)\
-    The documentation of the `String` module is in the [API reference](https://v2.ocaml.org/api/Stdlib.String.html).
-  - **Alternative Libraries:** There are other libraries that are more adequate
-  if we need to deal with UTF-8 strings (`camomile` for example).
 ---
 
 (*
@@ -19,7 +10,7 @@ let () = assert (String.length "string" = 6)
 (*
 Get a character at a given index (the first character index is 0):
 *)
-let () = assert (String.get 2 "string" = 'r')
+let () = assert (String.get "string" 2 = 'r')
 
 (*
 Concatenate two strings or a list of strings:
@@ -29,20 +20,34 @@ let () = assert ("aze" ^ "rty" = "azerty")
 let () = assert (String.concat "," ["aze";"rty";"uiop"] = "aze,rty,uiop")
 
 (*
-Verifying if a string starts or ends with a prefix/suffix:
+Check if a string starts or ends with a prefix/suffix:
 *)
 let () = assert (String.starts_with ~prefix:"a=" "a=42")
 let () = assert (String.ends_with ~suffix:"**" "str**")
 
 (*
-Verifying if the string contains a given char. `contains_from` ignore characters before a given index. `rcontains_from` ignore characters after the given index. (The character pointed by the index is always considered).
+String character search functions:
+- `String.contains`: checks if a character exists anywhere in the string
+- `String.contains_from s i c`: searches for character 'c' in string 's' starting at index 'i'
+  (ignores characters at positions 0 to i-1)
+- `String.rcontains_from s i c`: searches for character 'c' in string 's' from start up to index 'i'
+  (ignores characters at positions i+1 onwards)
+
+All functions return true if the character is found, false otherwise.
 *)
 let () = assert (String.contains_from "azerty" 3 'y')
 let () = assert (String.rcontains_from "azerty" 3 'a')
 let () = assert (String.contains "azerty" 'y')
 
 (*
-Searching a character in a string, returning its index. These functions are similar to the previous ones. The `_opt` versions return `None` if the character is not found, and `Some index` if it exists. The other functions raise a `Not_found` if no characters are found. The `r` functions search backward from the index (or the end with `rindex`).
+Search a character in a string:
+- index_from: searches forward starting from given position
+- rindex_from: searches backward from given position
+- index: searches forward from start
+- rindex: searches backward from end
+
+The _opt variants return None if character isn't found, instead of
+raising the Not_found exception.
 *)
 let () = assert (String.index_from "azerty" 3 'y' = 5)
 let () = assert (String.index_from_opt "azerty" 3 'y' = Some 5)
@@ -51,29 +56,34 @@ let () = assert (String.rindex_from_opt "azerty" 3 'a' = Some 0)
 let () = assert (String.index "azerty-azerty" 'y' = 5)
 let () = assert (String.index_opt "azerty" 'y' = Some 5)
 let () = assert (String.rindex "azerty-azerty" 'y' = 12)
-let () = assert (String.rindex_opt "azerty" 'y' = Some 12)
+let () = assert (String.rindex_opt "azerty-azerty" 'y' = Some 12)
 
 (*
-Extracting a substring at a given index with a given length
+Extract a substring at a given index with a given length
 *)
 let () = assert (String.sub "azerty" 2 3 = "ert")
 
 (*
-Spliting a string using a given character as a separator returning a list of substrings:
+Split a string using a given character as a separator,
+returning a list of substrings:
 *)
-let () = assert (String.split_on_char ',' "abc,def,ghi" = [ "abc"; "def"; "ghi"])
+let () = assert
+  (String.split_on_char ',' "abc,def,ghi"
+    = [ "abc"; "def"; "ghi"])
 
 (*
-Suppressing a tailling whitspace: ' ', '\t', '\r', '\n', '\x0C' (form-feed)
+Remove whitspace (' ', '\t', '\r', '\n', '\x0C' (form-feed))
+at the beginning and end of the string.
 *)
-let () = assert (String.trim "abcd   \r\n" = "abcd")
+let () = assert (String.trim "  abcd   \r\n" = "abcd")
 
 (*
-Replacing each character by an escaped version if '\\' or '"'.
+Escape special characters like quotes and control characters.
+Useful when generating string literals programmatically.
 *)
-let () = assert (String.escaped {|"abcd"|} = "\\\"abcdef\\\""
+let () = assert (String.escaped {|"abcd"|} = "\\\"abcd\\\"")
 
-(* Some lower/uppercase functions: *)
+(* Case conversion functions: *)
 let () = assert (String.uppercase_ascii "abcdef" = "ABCDEF")
 let () = assert (String.lowercase_ascii "ABCDEF" = "abcdef")
 let () = assert (String.capitalize_ascii "abcdef" = "Abcdef")
