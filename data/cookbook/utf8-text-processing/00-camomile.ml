@@ -6,7 +6,7 @@ packages:
   - camomile
 ---
 
-(* Initialize the `camomile` library, which offers a large set of functions
+(* Initialise the `camomile` library, which offers a large set of functions
    to deal with strings presented in various encoding. The `Camomile`
    module declaration is required with the version 1 of `camomile`
    and mustn't be declared with the version 2: *)
@@ -28,7 +28,7 @@ let () = assert (Camomile.UChar.code (Camomile.UTF8.get "déjà" 3)
 (* Using bytes oriented indexes. Using functions which works
    directly with the byte indexes of characters can be more efficient
    than using functions like `get` or `length` that have to parse
-   the string counting characaters. `first`, `next`, `prev`, `last`
+   the string counting characaters. `first`, `next`, `prev`, `last`,
    and `look` all deals with bytes indexes. `nth` convert of position
    expressed as a character index to a byte index. *)
 let () = assert (Camomile.UTF8.first "déjà" = 0)
