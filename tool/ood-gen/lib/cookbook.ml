@@ -23,6 +23,12 @@ type metadata = { packages : package list; discussion : string option }
       ~remove:[ discussion ],
     show]
 
+let render_markdown str =
+  str |> String.trim
+  |> Cmarkit.Doc.of_string ~strict:true
+  |> Hilite.Md.transform
+  |> Cmarkit_html.of_doc ~safe:false
+
 let decode (tasks : task list) (fpath, (head, body)) =
   let ( let* ) = Result.bind in
   let name = Filename.basename (Filename.remove_extension fpath) in
@@ -34,13 +40,6 @@ let decode (tasks : task list) (fpath, (head, body)) =
   in
   let slug = String.sub name 3 (String.length name - 3) in
   let metadata = metadata_of_yaml head in
-
-  let render_markdown str =
-    str |> String.trim
-    |> Cmarkit.Doc.of_string ~strict:true
-    |> Hilite.Md.transform
-    |> Cmarkit_html.of_doc ~safe:false
-  in
 
   let code_blocks =
     let rec extract_explanation_code_pairs split_result =
@@ -97,7 +96,7 @@ let all_categories_and_tasks () =
                title = t.title;
                slug = t.slug;
                category_path = List.rev (cat_slug :: path);
-               description = t.description;
+               description = t.description |> Option.map render_markdown;
              })
     in
     let subcategories_tasks, subcategories =
