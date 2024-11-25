@@ -6,7 +6,7 @@ packages:
   - camomile
 ---
 
-(* Initialize the `camomile` library, which offer a large set of functions
+(* Initialize the `camomile` library, which offers a large set of functions
    to deal with strings presented in various encoding. The `Camomile`
    module declaration is required with the version 1 of `camomile`
    and mustn't be declared with the version 2: *)
