@@ -1,62 +1,54 @@
 ---
 packages:
 - name: "camomile"
-  tested_version: "1.0.2"
+  tested_version: "2.0.0"
   used_libraries:
   - camomile
 ---
 
-(* Initialise the `camomile` library, which offers a large set of functions
-   to deal with strings presented in various encoding. The `Camomile`
-   module declaration is required with the version 1 of `camomile`
-   and mustn't be declared with the version 2: *)
-module Camomile = CamomileLibrary.Make(CamomileDefaultConfig)
+(* Returns the number of Unicode characters in a UTF-8 string *)
+let () = assert (CamomileLibrary.UTF8.length "déjà" = 4)
 
-(* Get the length (number of characters) of a UTF-8 string: *)
-let () = assert (Camomile.UTF8.length "déjà" = 4)
+(* Checks if a string contains valid UTF-8 encoding.
+   Raises CamomileLibrary__UTF8.Malformed_code for invalid UTF-8 *)
+let () = assert (
+   CamomileLibrary.UTF8.validate "déjà" = ())
 
-(* Validate a UTF-8 string. Would raise a `CamomileLibrary__UTF8.Malformed_code`
-   with a string like "\233\233" *)
-let () = assert (Camomile.UTF8.validate "déjà" = ())
-
-(* Extract the nth character from a string (the first character has a 0 index).
-   The character has a `Camomile.UChar.uchar` type which can represent
-   any Unicode character: *)
-let () = assert (Camomile.UChar.code (Camomile.UTF8.get "déjà" 3)
-                    = 224)
-
-(* Using bytes oriented indexes. Using functions which works
-   directly with the byte indexes of characters can be more efficient
-   than using functions like `get` or `length` that have to parse
-   the string counting characaters. `first`, `next`, `prev`, `last`,
-   and `look` all deals with bytes indexes. `nth` convert of position
-   expressed as a character index to a byte index. *)
-let () = assert (Camomile.UTF8.first "déjà" = 0)
-let () = assert (Camomile.UTF8.last "déjà" = 4)
-let () = assert (Camomile.UTF8.next "déjà" 1 = 3)
-let () = assert (Camomile.UTF8.prev "déjà" 3 = 1)
-let () = assert (Camomile.UTF8.nth "déjà" 2 = 3)
+(* Gets the Unicode character at a given position (0-based index).
+   Returns a CamomileLibrary.UChar.uchar representing the Unicode codepoint *)
 let () =
-  assert (Camomile.UChar.code (Camomile.UTF8.look "déjà" 4) = 224)
+   assert CamomileLibrary.(
+      UChar.code (UTF8.get "déjà" 3) = 224)
 
-(* If we want to get a substring of an UTF-8, we can use the
-   `String.sub` but with indexes calculated by `Camomile.UTF8.nth`: *)
+(* Byte-oriented functions for efficient string manipulation.
+   These work with byte positions rather than character positions,
+   avoiding the need to count UTF-8 characters from the start *)
+let () = assert (CamomileLibrary.UTF8.first "déjà" = 0)
+let () = assert (CamomileLibrary.UTF8.last "déjà" = 4)
+let () = assert (CamomileLibrary.UTF8.next "déjà" 1 = 3)
+let () = assert (CamomileLibrary.UTF8.prev "déjà" 3 = 1)
+let () = assert (CamomileLibrary.UTF8.nth "déjà" 2 = 3)
+let () = assert CamomileLibrary.(
+   UChar.code (UTF8.look "déjà" 4) = 224)
+
+(* UTF-8 aware substring extraction using character positions.
+   Converts character positions to byte positions for String.sub *)
 let utf8_sub str index length =
-  let index' = Camomile.UTF8.nth str index in
-  let length' = Camomile.UTF8.nth str (index + length) - index' in
+  let index' = CamomileLibrary.UTF8.nth str index in
+  let length' =
+    CamomileLibrary.UTF8.nth str (index + length)
+    - index'
+  in
   String.sub str index' length'
 let () = assert (utf8_sub "décélération" 3 4 = "élér")
 
-(* Functions which deal with the case of UTF-8 strings need
-   to declare a module associated with the encoding (here UTF-8).
-   `compare_caseless s1 s2` compare two strings considering
-   lowercase characters equal to their corresponding uppercase.
-   The usual convention is used: 1 if `s1` is greater,
-    0 if equal and -1 if lower than `s2`. *)
-module CaseMap = Camomile.CaseMap.Make(Camomile.UTF8)
+(* Unicode-aware case operations. Handles special rules for different scripts
+   and provides case-insensitive string comparison *)
+module CaseMap =
+   CamomileLibrary.CaseMap.Make(CamomileLibrary.UTF8)
 assert (CaseMap.uppercase "déjà" = "DÉJÀ")
 assert (CaseMap.lowercase "DÉJÀ" = "déjà")
 assert (CaseMap.capitalize "élément" = "Élément")
-assert (CaseMap.titlecase "le quatrième élément" = "Le Quatrième Élément"
+assert (CaseMap.titlecase "l'élément" = "L'Élément")
 assert (CaseMap.casefolding "DÉJÀ" = "déjà")
 assert (CaseMap.compare_caseless "DÉJÀ" "déjà" = 0)
