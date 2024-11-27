@@ -16,19 +16,6 @@ categories:
   - title: Generate OCaml Bindings for a C Library
     slug: generate-ocaml-bindings-c-library
       C library, using the OCaml foreign function interface.
-- title: Networking
-  tasks:
-  - title: TCP Client
-    slug: tcp-client
-    description: |
-      TCP client that makes requests to the echo TCP
-      server from the [TCP server recipe](https://ocaml.org/cookbook/tcp-server).
-  - title: TCP Server
-    slug: tcp-server
-    description: |
-      TCP server that responds to every incoming message by
-      sending the received message back to the client. The
-      [TCP client recipe](https://ocaml.org/cookbook/tcp-client) provides a matching client.
 - title: Compression
   tasks:
   - title: Decompress a Single File Compressed With GZIP
@@ -189,6 +176,19 @@ categories:
     tasks:
     - title: Calculate Geodistance Between Two Points
       slug: calculate-geodistance-between-points
+- title: Networking
+  tasks:
+  - title: TCP Client
+    slug: tcp-client
+    description: |
+      TCP client that makes requests to the echo TCP
+      server from the [TCP server recipe](https://ocaml.org/cookbook/tcp-server).
+  - title: TCP Server
+    slug: tcp-server
+    description: |
+      TCP server that responds to every incoming message by
+      sending the received message back to the client. The
+      [TCP client recipe](https://ocaml.org/cookbook/tcp-client) provides a matching client.
 - title: Operating System
   tasks:
   - title: Run an External Command and Process Stdout
