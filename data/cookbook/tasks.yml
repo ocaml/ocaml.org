@@ -18,7 +18,6 @@ categories:
       C library, using the OCaml foreign function interface.
 - title: Compression
   tasks:
-<<<<<<< HEAD
   - title: Decompress a Single File Compressed With GZIP
     slug: decompress-single-file-gzip
   - title: Compress a Single File with GZIP
@@ -27,10 +26,6 @@ categories:
     slug: decompress-zip-archive
   - title: Create a ZIP Archive Containing Multiple Files
     slug: create-zip-archive
-=======
-  - title: Read a gzip Compressed Text File
-    slug: read-gzip-text-file
->>>>>>> 12c7e2ef (Mostly capitalization in titles)
   - title: Decompressing a Tarball
     slug: decompressing-a-tarball
   - title: Compress a Directory Into a Tarball
@@ -41,14 +36,15 @@ categories:
     tasks:
     - title: Create and Await Promises
       slug: create-and-await-promises
-<<<<<<< HEAD
       description: |
         Create promises and run them in parallel,
         as well as sequentially. Includes a sleep task.
+    - title: Timeout Reading From Stdin With Promises
+      slug: timeout-promise
+      description: |
+        Prompt the user to input some text on stdin -
+        if the user does not finish before the timeout, abort.
   - title: Parallelism & Multi-Threading
-=======
-  - title: Parallelism & Multithreading
->>>>>>> 12c7e2ef (Mostly capitalization in titles)
     tasks:
     - title: Spawn a Thread and Receive a Response
       slug: spawn-a-thread-and-receive-a-response
@@ -114,6 +110,12 @@ categories:
       slug: deserialise-post-process-from-yaml
       description: |
         Deserialise a YAML file whose structure does not directly map to some OCaml types.
+  - title: XML
+    tasks:
+    - title: Parse XML
+      slug: xml-parse
+    - title: Generate XML
+      slug: xml-generate
 - title: Date and Time
   tasks:
   - title: Get Today's Date
@@ -124,10 +126,9 @@ categories:
     slug: convert-time-to-another-time-zone
   - title: Convert Between Date and Unix Timestamp
     slug: convert-date-unix-timestamp
-
   - title: Display Formatted Date and Time
     slug: display-formatted-date-time
-  - title: Parse Date and Time From String
+  - title: Parse Date and Time from String
     slug: parse-date-time-from-string
 - title: Debugging
   tasks:
@@ -227,18 +228,18 @@ categories:
       slug: regex-extract-phone-numbers
     - title: Replace All Occurrences of a Text Pattern With Another Pattern
       slug: regex-replace-pattern
-    - title: Miscellaneous
-      slug: regex-misc
+    - title: Match on Groups in Regular Expressions
+      slug: regex-parse-date
+      description: |
+        Use Regexp to parse a YYYY-MM-DD date.
 - title: Web Programming
   subcategories:
   - title: HTTP Clients
     tasks:
-    - title: Make an HTTP GET Request
-      slug: make-http-get-request
-      description: >
-        Make an HTTP GET request, process response code, follow redirects
-    - title: Make an HTTP GET Request With Basic Authentication
-      slug: make-http-get-basic-auth
+    - title: Make a HTTP GET Request
+      slug: http-get-request
+    - title: Make a HTTP GET Request With Basic Authentication
+      slug: http-get-basic-auth
     - title: Download a File to a Temporary Directory
       slug: download-file-to-temporary-dir
     - title: Make a Partial Download With HTTP Range Header
@@ -273,5 +274,3 @@ categories:
       slug: uri-parsing
     - title: Encode a URI to String
       slug: uri-encoding
-    - title: Parse a URL From String and Access Individual Parts
-      slug: parse-url-from-string
