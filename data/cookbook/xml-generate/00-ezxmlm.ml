@@ -4,36 +4,61 @@ packages:
   tested_version: "1.1.0"
   used_libraries:
   - ezxmlm
-discussion: |
-  - **Understanding `ezxmlm`:** The `ezxmlm` package provides high level functions that can be used to parse and generate an XML file. This package is based on `xmlm` which which works with element start/end callbacks.
-  - **Alternatives:** TODO
 ---
 
-(* Lets take a simple structure: a pair list representing an ID and an associated text *)
+(* Define a simple record type for our data items *)
+type item = {
+  id: string;
+  data: string;
+}
 
-let item_list = [ ("1", "Text 1"); ("2", "Text 2")]
+(* Sample data *)
+let item_list = [
+    { id = "1"; data = "Name 1"};
+    { id = "2"; data = "Name 2"}
+  ]
 
-(* We will convert each item into an XML node. Each XML node must have one of the form:
-- \`Data text
-- \`El ((("","tag"), attribute_list), node_list)
-
-The attribute_list must have the form [("", "name"), "value"); ...]
-
-Then we can type:
+(*
+Each XML node is either
+- a data node \`Data text, or
+- an element node \`El ((("","tag"), attribute_list), node_list).
 *)
+let make_xml_element tag attrs children =
+  `El ((("", tag), attrs), children)
 
-let item_nodes = item_list |> List.map (fun (id, text) ->
-   `El ((("","item"), [("","id"), id]), [ `Data text ]))
+let make_xml_text text =
+  `Data text
 
-(* We can enclose these items in a list element *)
+(* Convert an item to its XML representation *)
+let item_to_xml {id; data} =
+  make_xml_element "item" [("", "id"), id] [
+    make_xml_text data
+  ]
 
-let list_node = `El ((("","list"), []), item_nodes)
+(* Create XML nodes for all items and wrap them in a root <list> element. *)
+let xml_doc = List.map item_to_xml item_list
+  |> make_xml_element "list" []
 
-(* Then create and export the XML tree, in a string or in a file *)
+(* Convert the XML to a string *)
+let xml_string = Ezxmlm.to_string [ xml_doc ]
 
-let xml_string = Ezxmlm.to_string [list_node]
+(* Write the XML to a file.
 
-let xml_header = {xml|<?xml version="1.0" encoding="utf-8"?>|xml}
+The resulting XML will look like:
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<list>
+  <item id="1">Name 1</item>
+  <item id="2">Name 2</item>
+</list>
+```*)
 let () =
+  let
+    xml_header = {xml|<?xml version="1.0" encoding="utf-8"?>|xml}
+  in
   Out_channel.with_open_bin "file.xml"
-  (fun oc -> Ezxmlm.to_channel oc (Some xml_header) [list_node])
+  (fun oc ->
+    Ezxmlm.to_channel
+      oc
+      (Some xml_header)
+      [xml_doc])
