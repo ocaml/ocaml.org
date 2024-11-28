@@ -13,6 +13,10 @@ discussion: |
   function. More details about the monad `bind` function is given in the [monad
   section](/docs/monads). The `let` operators are detailed in the [operator
   section](/docs/operators). Refer to [the Lwt manual](https://ocsigen.org/lwt/latest/manual/manual).
+
+  [`ppx_let`](https://ocaml.org/p/ppx_let/latest) can be used
+  to enable the syntax `let%lwt` instead of defining `let*` as a shorthand for `Lwt.bind.
+  This makes it obvious on first glance which monad we're operating in.
 ---
 
 (* We define shorthands for the Lwt binding operators to make our concurrent code more readable.
@@ -39,12 +43,12 @@ let task' n =
 
 let () =
 (* Run two tasks in parallel and collect the results. *)
-  let run_two_parallel_tasks () = 
+  let run_two_parallel_tasks () =
     Lwt_main.run @@ Lwt.both (task 1) (task 2)
   in
   Printf.printf "\n= Running Two Parallel Tasks =\n";
   let (result1, result2) = run_two_parallel_tasks () in
-  Printf.printf "Results: (%s, %s)\n" 
+  Printf.printf "Results: (%s, %s)\n"
     (string_of_int result1)
     (string_of_int result2);
 
@@ -54,7 +58,7 @@ let () =
   in
   Printf.printf "\n= Parallel Map Example =\n";
   let parallel_results = parallel_map () in
-  Printf.printf "Results: [%s]\n" 
+  Printf.printf "Results: [%s]\n"
     (String.concat "; "
       (List.map string_of_int parallel_results));
 

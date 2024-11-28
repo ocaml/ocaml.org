@@ -39,6 +39,11 @@ categories:
       description: |
         Create promises and run them in parallel,
         as well as sequentially. Includes a sleep task.
+    - title: Timeout Reading From Stdin With Promises
+      slug: timeout-promise
+      description: |
+        Prompt the user to input some text on stdin -
+        if the user does not finish before the timeout, abort.
   - title: Parallelism & Multi-Threading
     tasks:
     - title: Spawn a Thread and Receive a Response
@@ -115,7 +120,6 @@ categories:
     slug: convert-time-to-another-time-zone
   - title: Convert Between Date and Unix Timestamp
     slug: convert-date-unix-timestamp
-
   - title: Display Formatted Date and Time
     slug: display-formatted-date-time
   - title: Parse Date and Time from String
