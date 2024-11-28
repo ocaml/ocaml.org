@@ -110,6 +110,12 @@ categories:
       slug: deserialise-post-process-from-yaml
       description: |
         Deserialise a YAML file whose structure does not directly map to some OCaml types.
+  - title: XML
+    tasks:
+    - title: Parse XML
+      slug: xml-parse
+    - title: Generate XML
+      slug: xml-generate
 - title: Date and Time
   tasks:
   - title: Get Today's Date
