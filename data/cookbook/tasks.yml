@@ -115,7 +115,6 @@ categories:
     slug: convert-time-to-another-time-zone
   - title: Convert Between Date and Unix Timestamp
     slug: convert-date-unix-timestamp
-
   - title: Display Formatted Date and Time
     slug: display-formatted-date-time
   - title: Parse Date and Time from String
@@ -230,7 +229,7 @@ categories:
       slug: download-file-to-temporary-dir
     - title: Make a Partial Download With HTTP Range Header
       slug: make-partial-download-with-http-range-header
-  - title: Dealing with HTML
+  - title: Dealing With HTML
     tasks:
     - title: Render an HTML Template
       slug: render-html-template
