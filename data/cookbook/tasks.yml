@@ -233,11 +233,9 @@ categories:
   - title: HTTP Clients
     tasks:
     - title: Make a HTTP GET Request
-      slug: make-http-get-request
-      description: >
-        Make an HTTP GET request, process response code, follow redirects
+      slug: http-get-request
     - title: Make a HTTP GET Request With Basic Authentication
-      slug: make-http-get-basic-auth
+      slug: http-get-basic-auth
     - title: Download a File to a Temporary Directory
       slug: download-file-to-temporary-dir
     - title: Make a Partial Download With HTTP Range Header
