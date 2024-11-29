@@ -1,7 +1,7 @@
 ---
 name: TrustInSoft
 description: > 
-  TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the publisher of the [TrustInSoft Analyzer](https://www.trust-in-soft.com/trustinsoft-analyzer) software analysis tool.
+  TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the publisher of the TrustInSoft Analyzer tool.
 url: "https://trust-in-soft.com"
 logo: users/trustinsoft.png
 locations: 
