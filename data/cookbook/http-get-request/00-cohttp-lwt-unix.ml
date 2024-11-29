@@ -1,18 +1,18 @@
 ---
 packages:
+- name: "cohttp-lwt-unix"
+  tested_version: "5.3.0"
+  used_libraries:
+  - cohttp-lwt-unix
+- name: "cohttp"
+  tested_version: "5.3.1"
+  used_libraries:
+  - cohttp
 - name: "lwt"
   tested_version: "5.7.0"
   used_libraries:
   - lwt
   - lwt.unix
-- name: "cohttp"
-  tested_version: "5.3.1"
-  used_libraries:
-  - cohttp
-- name: "cohttp-lwt-unix"
-  tested_version: "5.3.0"
-  used_libraries:
-  - cohttp-lwt-unix
 discussion: |
   The `cohttp` package provides a client and a server implementation of HTTP(S).
 
