@@ -341,14 +341,17 @@ The first expression is another anonymous function. It is the _identity_ functio
 
 Remember, the `'a` is a _type parameter_, so values of any type can be passed to the function and their type replaces the type parameter. The identity function has the same input and output type, whatever it may be.
 
-The two following expressions show that the identity function can apply to arguments of different types:
+The following example shows that the identity function can apply to arguments of different types:
 
 ```ocaml
-# let f = fun x -> x * x;;
+# let f = fun x -> x;;
 val f : int -> int = <fun>
 
 # f 9;;
 - : int = 81
+
+# f "hello";;
+- : string = "hello"
 ```
 
 Defining a function is the same as naming a value, as illustrated in the first expression:
