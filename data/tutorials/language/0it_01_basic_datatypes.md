@@ -4,7 +4,7 @@ title: Basic Data Types and Pattern Matching
 description: |
   Predefined Types, Variants, Records, and Pattern Matching
 category: "Introduction"
-prerequisite_tutorials: 
+prerequisite_tutorials:
   - "tour-of-ocaml"
   - "values-and-functions"
 ---
@@ -115,7 +115,7 @@ The module [`Uchar`](/manual/api/Uchar.html) provides support for Unicode charac
 Strings are finite and fixed-sized sequences of char values. Strings are immutable, meaning it is impossible to change a character's value inside a string. The string concatenation operator symbol is ^
 -->
 
-Strings are immutable, meaning it is impossible to change a character's value inside a string. 
+Strings are immutable, meaning it is impossible to change a character's value inside a string.
 ```ocaml
 # "hello" ^ " " ^ "world!";;
 - : string = "hello world!"
@@ -123,7 +123,7 @@ Strings are immutable, meaning it is impossible to change a character's value in
 Strings are finite and fixed-sized sequences of `char` values. The string concatenation operator symbol is `^`.
 
 <!--CR
-I'm not sure how to rearrange this to have the definition after the example? I've split the original paragraph to wrap around the example, but I wonder if it should be all before or after. If after, we could come up with a brief introductory sentence so the section doesn't start with an example without context. 
+I'm not sure how to rearrange this to have the definition after the example? I've split the original paragraph to wrap around the example, but I wonder if it should be all before or after. If after, we could come up with a brief introductory sentence so the section doesn't start with an example without context.
 -->
 
 Indexed access to string characters is possible using the following syntax:
@@ -137,7 +137,7 @@ Operations on `string` values are provided by the [`Stdlib`](/manual/api/Stdlib.
 
 <!--CR
 Moved intro pp to after example, as it contains the definition. Perhaps a short intro sentence here for context?
---> 
+-->
 
 ```ocaml
 # String.to_bytes "hello";;
@@ -145,7 +145,7 @@ Moved intro pp to after example, as it contains the definition. Perhaps a short 
 ```
 Like strings, byte sequences are finite and fixed-sized. Each individual byte is represented by a `char` value. Like arrays, byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence (type `bytes`) is a mutable string that can't be printed. There is no way to write `bytes` literally, so they must be produced by a function.
 
-Operations on `bytes` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Bytes`](/manual/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. Unlike arrays, there is no direct access operator on byte sequences. 
+Operations on `bytes` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Bytes`](/manual/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. Unlike arrays, there is no direct access operator on byte sequences.
 
 The memory representation of `bytes` is four times more compact that `char array`.
 ### Arrays & Lists
@@ -345,7 +345,7 @@ The following example shows that the identity function can apply to arguments of
 
 ```ocaml
 # let f = fun x -> x;;
-val f : int -> int = <fun>
+val f : 'a -> 'a = <fun>
 
 # f 9;;
 - : int = 81
@@ -663,7 +663,7 @@ In the OCaml community, as well as in the larger functional programming communit
 Here are the terms applicable to data types:
 1. `'a list`, `'a option`, and `'a tree` are very often said to be polymorphic types. Formally, `bool list` or `int option` are the types, whilst `list` and `option` are [type operators](https://en.wikipedia.org/wiki/Type_constructor) that take a type parameter and result in a type. This is a form of [parametric polymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism). `'a list` and `'a option` denote [type families](https://en.wikipedia.org/wiki/Type_family), which are all the types created by applying type parameters to the operators.
 
-<!-- 
+<!--
 
 FIXME
 
