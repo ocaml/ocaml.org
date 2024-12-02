@@ -228,6 +228,10 @@ categories:
       slug: regex-extract-phone-numbers
     - title: Replace All Occurrences of a Text Pattern With Another Pattern
       slug: regex-replace-pattern
+    - title: Match on Groups in Regular Expressions
+      slug: regex-parse-date
+      description: |
+        Use Regexp to parse a YYYY-MM-DD date.
 - title: Web Programming
   subcategories:
   - title: HTTP Clients
