@@ -244,7 +244,9 @@ categories:
       slug: download-file-to-temporary-dir
     - title: Make a Partial Download With HTTP Range Header
       slug: make-partial-download-with-http-range-header
-  - title: Dealing With HTML
+    - title: Make an HTTP POST/PATCH Request with Bearer Token Authentication
+      slug: http-post-patch-request-bearer-auth
+  - title: Dealing with HTML
     tasks:
     - title: Render an HTML Template
       slug: render-html-template
