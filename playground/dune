@@ -5,7 +5,7 @@
   (mode
    (promote (until-clean)))
   (deps
-   (:js %{workspace_root}/src/main.bc.js))
+   (:js %{project_root}/src/main.bc.js))
   (action
    (run
     esbuild
@@ -23,7 +23,7 @@
   (mode
    (promote (until-clean)))
   (deps
-   (:js %{workspace_root}/src/worker.js)
+   (:js %{project_root}/src/worker.js)
    stdlib)
   (action
    (run jsoo_minify %{js} -o %{targets})))
@@ -32,7 +32,7 @@
   (mode
    (promote (until-clean)))
   (deps
-   (:js %{workspace_root}/src/merlin_worker.bc.js))
+   (:js %{project_root}/src/merlin_worker.bc.js))
   (action
    (run jsoo_minify %{js} -o %{targets})))
  (rule

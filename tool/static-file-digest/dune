@@ -1,8 +1,6 @@
 (library
  (name digest_map)
- (wrapped false)
- (modules digest_map)
- (flags :standard -safe-string))
+ (modules digest_map))
 
 (executable
  (name main)
