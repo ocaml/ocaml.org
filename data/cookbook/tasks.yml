@@ -252,8 +252,6 @@ categories:
       slug: render-html-template
     - title: Extract All Links From an HTML String
       slug: extract-links-from-html
-    - title: Check a Webpage for Broken Links
-      slug: check-webpage-for-broken-links
   - title: Running a Web Server
     tasks:
     - title: Start a Web Server With a 'Hello World' Endpoint
