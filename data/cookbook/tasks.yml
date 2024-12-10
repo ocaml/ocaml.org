@@ -184,10 +184,8 @@ categories:
       slug: nearest-neighbour-search
   - title: Geographical Calculations
     tasks:
-    - title: Calculate Geodistance Between Two Points (spherical approximation)
-      slug: calculate-geodistance-between-points-spherical
-    - title: Calculate Geodistance Between Two Points (WGS84 ellipsoid)
-      slug: calculate-geodistance-between-points-wgs84
+    - title: Calculate Geodistance Between Two Points
+      slug: calculate-geodistance-between-points
 - title: Networking
   tasks:
   - title: TCP Client
