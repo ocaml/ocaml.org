@@ -20,7 +20,7 @@ Layout.render
           </a>
         </div>
         <div class="mt-12 h-[5rem] w-[33rem] hidden sm:block pl-4">
-          <img class="p-3 dark:bg-dark-white rounded-md" src="<%s Ocamlorg_static.Media.url story.logo %>" alt="">
+          <img class="p-3 w-full dark:bg-dark-white rounded-md" src="<%s Ocamlorg_static.Media.url story.logo %>" alt="">
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-let get_background_class (item: Data.Success_story.t) = 
+let get_background_class (item: Data.Success_story.t) =
   match item.theme with
   | "green" -> "bg-gradient-to-b from-[rgba(14,220,174,0.60)] to-[rgba(14,220,174,0.60)] hover:from-[rgba(14,220,174,0.60)] hover:to-[rgba(14,220,174,0.90)] transition-all duration-700 ease-[cubic-bezier(.7,0,0,1)]"
   | "red" -> "bg-gradient-to-b from-[rgba(255,0,64,0.60)] to-[rgb(255,0,64,0.60)] hover:from-[rgba(255,0,64,0.60)] hover:to-[rgba(255,0,64,0.90)] transition-all duration-700 ease-[cubic-bezier(.7,0,0,1)]"
@@ -6,19 +6,19 @@ let get_background_class (item: Data.Success_story.t) =
   | "lemon" -> "bg-gradient-to-b from-[rgba(178,220,108,0.60)] to-[rgb(96,153,2,0.60)] hover:from-[rgba(178,220,108,0.60)] hover:to-[rgba(96,153,2,0.9)] transition-all duration-700 ease-[cubic-bezier(.7,0,0,1)]"
   | _ -> "bg-gradient-to-b from-[rgba(16,26,50,0.60)] to-[rgb(16,26,50,0.60)] hover:from-[rgba(16,26,50,0.60)] hover:to-[rgba(16,26,50,0.90)] transition-all duration-700 ease-[cubic-bezier(.7,0,0,1)]"
 
-let render_logo name url _class = 
+let render_logo name url _class =
   <div class="flex justify-center items-start w-4/5 px-4 pt-8 pb-12 swiper-slide">
     <img class="w-4/5 <%s _class %>" src="<%s! Ocamlorg_static.Asset.url url %>" alt="<%s name %> logo">
   </div>
 
-let render_nav_btn ~btn_type _class = 
+let render_nav_btn ~btn_type _class =
   let icon cls = match btn_type with | "next" -> Icons.chevron_right cls | _ -> Icons.chevron_left cls in
   let fn = match btn_type with | "next" -> "swiper.slideNext()" | "prev" -> "swiper.slidePrev()" | _ -> "" in
   <button class="items-center justify-center w-[40px] h-[40px] rounded-full bg-separator_20 dark:bg-dark-separator_30 <%s _class %>" @click="<%s! fn %>">
     <%s! icon "h-5 w-5 text-white dark:text-dark-white" %>
   </button>
 
-let render_user (item: Data.Industrial_user.t) = 
+let render_user (item: Data.Industrial_user.t) =
   let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in
   <a href="<%s item.url %>" target="_blank" class="flex flex-col swiper-slide group">
     <div class="rounded-lg flex justify-center items-center border border-separator_20 dark:border-dark-separator_30 bg-white overflow-hidden py-4 h-[150px] group-hover:shadow-lg dark:group-hover:shadow-[0px_0px_12px_0px_#00000050]">
@@ -30,7 +30,7 @@ let render_user (item: Data.Industrial_user.t) =
     </div>
   </a>
 
-let job_card (job: Data.Job.t) = 
+let job_card (job: Data.Job.t) =
   <a href="<%s job.link %>" target="_blank" class="bg-white dark:bg-dark-white flex md:flex-row flex-col rounded-lg swiper-slide">
     <div class="md:border-r border-b border-separator_20 dark:border-dark-separator_20 p-4 pr-24 lg:w-9/12">
       <p class="text-content dark:text-content"><%s job.company %></p>
@@ -40,7 +40,7 @@ let job_card (job: Data.Job.t) =
         <p class="text-content max-w-[90%] ml-2">
           <%s String.concat ", " job.locations %>
         </p>
-      </div> 
+      </div>
       <% (match job.publication_date with None -> () | Some date -> %>
         <div class="flex items-center mt-2">
           <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary"  %>
@@ -52,7 +52,7 @@ let job_card (job: Data.Job.t) =
       <img class="" src="<%s job.company_logo %>" alt="<%s job.company %> logo">
     </div>
   </a>
-  
+
 let render ~(users : Data.Industrial_user.t list) ~success_stories ~(top_story: Data.Success_story.t) ~(testimonials: Data.Testimonial.t list) ~jobs_with_count =
 Layout.render
 ~use_swiper:true
@@ -70,7 +70,7 @@ the community and learn more about how they use OCaml."
         <p class="text-content dark:text-dark-content mt-6 lg:my-6 lg:max-w-[50%] text-xl">
           OCaml powers mission-critical systems for companies and helps them achieve their goals.
         </p>
-        <div class="flex lg:hidden dark:hidden" x-data="{swiper: null}" 
+        <div class="flex lg:hidden dark:hidden" x-data="{swiper: null}"
         x-init="swiper = new Swiper('#companySwiper1', {loop: true,slidesPerView: 1,spaceBetween: 10,autoHeight: true,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#companySwiper1 .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet swiper-separator_20'}})">
           <div id="companySwiper1" class="swiper-container relative overflow-hidden">
             <div class="swiper-wrapper">
@@ -86,10 +86,10 @@ the community and learn more about how they use OCaml."
             </div>
             <div class="swiper-pagination" style="bottom: 0px;">
               <span class="cursor-pointer bg-separator_30"></span>
-            </div> 
+            </div>
           </div>
         </div>
-        <div class="hidden dark:flex dark:lg:hidden" x-data="{swiper: null}" 
+        <div class="hidden dark:flex dark:lg:hidden" x-data="{swiper: null}"
         x-init="swiper = new Swiper('#companySwiper2', {loop: true,slidesPerView: 1,spaceBetween: 10,autoHeight: true,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#companySwiper2 .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet swiper-separator_30'}})">
           <div id="companySwiper2" class="swiper-container relative overflow-hidden">
             <div class="swiper-wrapper">
@@ -105,7 +105,7 @@ the community and learn more about how they use OCaml."
             </div>
             <div class="swiper-pagination" style="bottom: 0px;">
               <span class="cursor-pointer bg-separator_20"></span>
-            </div> 
+            </div>
           </div>
         </div>
       </div>
@@ -118,11 +118,11 @@ the community and learn more about how they use OCaml."
     <p class="text-content dark:text-dark-content">
       Behind-the-scenes stories from businesses and organisations using OCaml to solve real-world problems.
     </p>
-    <div class="flex gap-4 mt-6">
+    <div class="flex flex-col lg:flex-row gap-4 mt-6">
       <div class="w-full md:max-w-[25%] flex flex-col">
         <div class="dark:bg-background rounded-lg dark:p-4 max-w-max mb-4">
           <img class="w-28 h-12" src="<%s! Ocamlorg_static.Media.url top_story.logo %>" alt="logo">
-        </div>   
+        </div>
         <p class="text-content dark:text-dark-content mb-4"><%s top_story.title %></p>
         <div class="flex items-center">
           <%s! Icons.blog "h-5 w-10 text-primary dark:text-dark-primary max-w-[7%]" %>
@@ -140,10 +140,9 @@ the community and learn more about how they use OCaml."
           </div>
         <% ); %>
       </div>
-      <a href="<%s Url.success_story top_story.slug %>" class="flex-1 relative hidden rounded-lg overflow-hidden md:flex max-h-[400px] group">
+      <a href="<%s Url.success_story top_story.slug %>" class="flex-1 relative rounded-lg overflow-hidden md:flex max-h-[400px] group">
         <div class="absolute inset-0 z-10 flex flex-col justify-end text-dark-title p-6 <%s get_background_class (top_story) %>">
-          <% let logo = Str.split (Str.regexp "/") top_story.logo |> List.rev |> List.hd in %>
-          <div class="h-8 mb-2"><img class="h-full" src='<%s Ocamlorg_static.Media.url ("/success-stories/white/" ^ logo) %>' alt=""></div>
+          <div class="h-10 mb-2"><img class="h-full" src='<%s Ocamlorg_static.Media.url top_story.card_logo %>' alt=""></div>
           <p class="mb-3 text-xl"><%s top_story.title %></p>
           <div class="flex items-center">
             <%s! Icons.blog "h-5" %>
@@ -155,11 +154,11 @@ the community and learn more about how they use OCaml."
     </div>
   </div>
   <div class="container-fluid grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-    <% success_stories |> List.iter (fun (item : Data.Success_story.t) -> let logo = Ocamlorg_static.Media.url item.logo in %>
+    <% success_stories |> List.iter (fun (item : Data.Success_story.t) -> let logo = Ocamlorg_static.Media.url item.card_logo in %>
       <a href="<%s Url.success_story item.slug %>" class="group relative rounded-lg overflow-hidden md:flex max-h-[300px] w-full group">
-        <img class="w-full object-cover transition-transform duration-500 ease-[cubic-bezier(.7,0,0,1)] scale-105 group-hover:scale-100" src="<%s! Ocamlorg_static.Media.url (item).background %>" alt="Image" />
-        <div class="absolute inset-0 flex flex-col justify-end text-dark-title p-6 <%s get_background_class (item) %> z-10">
-          <div class="h-8 mb-2"><img class="h-full" src="<%s logo %>" alt=""></div>
+        <img class="w-full object-cover transition-transform duration-500 ease-[cubic-bezier(.7,0,0,1)] scale-105 group-hover:scale-100" src="<%s! Ocamlorg_static.Media.url item.background %>" alt="Image" />
+        <div class="absolute inset-0 flex flex-col justify-end text-dark-title p-6 <%s get_background_class item %> z-10">
+          <div class="h-10 mb-2"><img class="h-full" src="<%s logo %>" alt=""></div>
           <p class="mb-3 text-xl"><%s item.title %></p>
           <div class="flex items-center">
             <%s! Icons.blog "h-5" %>
@@ -175,8 +174,8 @@ the community and learn more about how they use OCaml."
     <div class="flex flex-col items-center justify-center">
       <p class="font-bold text-xl text-title dark:text-dark-title">Who Uses OCaml?</p>
       <p class="text-content dark:text-dark-content text-center mt-6">With its strong security features and high performance, many companies rely on OCaml to keep their data operating both safely and efficiently.</p>
-    </div> 
-    <div class="flex mt-6 lg:hidden dark:hidden" x-data="{swiper: null}" 
+    </div>
+    <div class="flex mt-6 lg:hidden dark:hidden" x-data="{swiper: null}"
       x-init="swiper = new Swiper('#usersSwiper1', {loop: true,slidesPerView: 1,spaceBetween: 10,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#usersSwiper1 .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet swiper-separator_20'}})">
       <div id="usersSwiper1" class="swiper-container relative overflow-hidden pb-10">
         <div class="swiper-wrapper">
@@ -189,7 +188,7 @@ the community and learn more about how they use OCaml."
         </div>
       </div>
     </div>
-    <div class="mt-6 hidden dark:flex dark:lg:hidden" x-data="{swiper: null}" 
+    <div class="mt-6 hidden dark:flex dark:lg:hidden" x-data="{swiper: null}"
       x-init="swiper = new Swiper('#usersSwiper2', {loop: true,slidesPerView: 1,spaceBetween: 10,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#usersSwiper2 .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet swiper-separator_30'}})">
       <div id="usersSwiper2" class="swiper-container relative overflow-hidden pb-10">
         <div class="swiper-wrapper">
@@ -206,7 +205,7 @@ the community and learn more about how they use OCaml."
       <% users |> List.iter (fun (item : Data.Industrial_user.t) -> %>
         <%s! render_user item %>
       <% ); %>
-      
+
     </div>
       <div class="flex items-center justify-center">
       <a href="<%s Url.industrial_businesses %>" class="h-11 border btn-outline text-primary items-center mt-5 lg:mt-12 inline-flex py-1 px-4 rounded-md md:text-lg">
@@ -224,15 +223,15 @@ the community and learn more about how they use OCaml."
       <p class="text-dark-content dark:text-dark-content">Post a job listing to appear on our Jobs page to reach OCaml experts who are eager to collaborate.</p>
       <div class="flex lg:flex row mt-8">
         <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-job" class="group h-12 w-full md:w-max flex p-4 items-center font-normal btn-outline drop-shadow hover:drop-shadow-xl justify-center">
-            <span class="group-hover:text-white dark:group-hover:text-dark-title text-primary dark:text-dark-primary mr-2"><%s! Icons.edit "h-5 w-5 text-primary dark:text-dark-primary group-hover:text-white dark:group-hover:text-dark-title" %></span> 
+            <span class="group-hover:text-white dark:group-hover:text-dark-title text-primary dark:text-dark-primary mr-2"><%s! Icons.edit "h-5 w-5 text-primary dark:text-dark-primary group-hover:text-white dark:group-hover:text-dark-title" %></span>
             Add a Job offer
           </a>
-       </div> 
+       </div>
      </div>
      <div class="flex flex-col lg:w-1/2 overflow-hidden">
       <p class="text-dark-title dark:text-dark-title font-bold text-2xl mb-4">Discover Your Next Opportunity!</p>
-      <div 
-      x-data="{swiper: null}" 
+      <div
+      x-data="{swiper: null}"
       x-init="swiper = new Swiper('#jobSwiper', {loop: true,slidesPerView: 1,spaceBetween: 10,autoplay: { delay: 2500, disableOnInteraction: false},pagination: { el: `#jobSwiper .swiper-pagination`, clickable: true, type: 'bullets',bulletActiveClass: 'swiper-bullet-active',bulletClass: 'swiper-bullet swiper-separator_30'}})">
         <div id="jobSwiper" class="swiper-container relative overflow-hidden">
           <% let (jobs, jobs_count) = jobs_with_count in %>
@@ -244,7 +243,7 @@ the community and learn more about how they use OCaml."
           <div class="flex justify-end relative mt-2">
             <div class="swiper-pagination" style="left: 0; bottom: 0; width: unset;">
               <span class="cursor-pointer"></span>
-            </div>     
+            </div>
             <div class="flex items-center justify-end group">
               <%s! Icons.search_bar "w-10 text-white dark:text-dark-white group-hover:text-primary group-hover:text-dark-primary max-w-[7%]" %>
               <a href="<%s Url.jobs %>" class="text-white dark:text-dark-white underline mr-2 hover:dark:text-dark-primary truncate max-w-[90%] ml-2 group-hover:text-primary">
@@ -264,7 +263,7 @@ the community and learn more about how they use OCaml."
   <div class="flex flex-col lg:flex-row gap-2 items-center w-full" x-data="{swiper: null}"
       x-init="swiper = new Swiper('#testimonialSwiper', {loop: true,slidesPerView: 'auto',spaceBetween: 10,breakpoints: {640: {slidesPerView:'auto',
           spaceBetween: 10,},768: {slidesPerView: 2},},})">
-    <%s! render_nav_btn ~btn_type:"prev" "hidden lg:flex" %> 
+    <%s! render_nav_btn ~btn_type:"prev" "hidden lg:flex" %>
     <div class="w-full lg:w-11/12">
       <h3 class="text-title dark:text-dark-title font-bold">Testimonials</h3>
       <div class="flex w-full overflow-hidden">
@@ -276,7 +275,7 @@ the community and learn more about how they use OCaml."
                 <p class="text-content italic dark:text-dark-content leading-7 pl-10"><%s item.testimony %></p>
                 <div class="flex mt-4 pl-10">
                   <div class="bg-white dark:bg-dark-white overflow-hidden rounded-full border border-separator_20 dark:border-none flex justify-center items-center mr-4 p-[5px] w-[44px] h-[44px]" >
-                  <img class="w-full" src="<%s! if String.starts_with ~prefix:"https" item.logo then item.logo else  Ocamlorg_static.Asset.url item.logo %>" alt="">   
+                  <img class="w-full" src="<%s! if String.starts_with ~prefix:"https" item.logo then item.logo else  Ocamlorg_static.Asset.url item.logo %>" alt="">
                   </div>
                   <div>
                   <p class="text-title dark:text-dark-title"><%s item.person %></p>
@@ -308,7 +307,7 @@ the community and learn more about how they use OCaml."
     <div class="flex items-center justify-center md:min-w-max w-full md:w-[10%]">
       <a href="<%s Url.academic_users %>" class="h-11 w-max btn-outline text-primary border text-base items-center justify-center inline-flex py-1 px-4 rounded-md md:text-lg">
         Learn More
-      </a>      
+      </a>
      </div>
   </div>
 </div>

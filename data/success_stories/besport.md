@@ -1,6 +1,7 @@
 ---
 title: Social Network for Sports and Athletes
-logo: success-stories/white/besport.svg
+logo: success-stories/besport.svg
+card_logo: success-stories/white/besport.svg
 background: /success-stories/besport-bg.jpg
 theme: red
 synopsis: "Be Sport is a sports-devoted open social network for sports fans, clubs, and athletes."

@@ -3,6 +3,7 @@ open Data_intf.Success_story
 type metadata = {
   title : string;
   logo : string;
+  card_logo : string;
   background : string;
   theme : string;
   synopsis : string;

@@ -1,6 +1,7 @@
 ---
 title: Modeling Language for Finance
-logo: success-stories/white/lexifi.svg
+logo: success-stories/lexifi.png
+card_logo: success-stories/white/lexifi.svg
 background: /success-stories/lexifi-bg.jpg
 theme: black
 synopsis: "Integrated end-user software solution to efficiently manage all types of structured investment products and provide superior client services."
