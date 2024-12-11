@@ -24,8 +24,8 @@ testimonials:
     role: Software engineer, Marigold.
     href: https://www.marigold.dev
     logo: https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png
-  - person: Josh Pollara
+  - person: Malcolm Matalka
     testimony: "OCaml has been instrumental in the success of Terrateam. Its strong type system and performance capabilities have allowed us to build a scalable, high-performance platform with minimal resources. We’ve been able to develop and maintain our entire system with a lean team while ensuring rapid, error-free iterations. OCaml’s simplicity, reliability, and flexibility make it the perfect tool for building complex infrastructure solutions."
-    role: Founder and CEO, Terrateam.io
+    role: CTO, Terrateam.io
     href: https://terrateam.io
     logo: logos/terrateam.svg
