@@ -2,9 +2,9 @@
 title: N'th Element of a List
 slug: "3"
 difficulty: beginner
-tags: [ "list" ]
+tags: ["list"]
 description: "Find the N'th element of a list."
-tutorials: [ "options"]
+tutorials: ["options"]
 ---
 
 # Solution
@@ -19,6 +19,13 @@ val at : int -> 'a list -> 'a option = <fun>
 # Statement
 
 Find the N'th element of a list.
+
+```ocaml
+# at 2 ["a"; "b"; "c"; "d"; "e"];;
+- : string option = Some "c"
+# at 2 ["a"];;
+- : string option = None
+```
 
 **Remark:** OCaml has `List.nth` which numbers elements from `0` and
 raises an exception if the index is out of bounds.
