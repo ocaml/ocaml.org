@@ -483,6 +483,7 @@ module Success_story = struct
     title : string;
     slug : string;
     logo : string;
+    card_logo : string;
     background : string;
     theme : string;
     synopsis : string;
