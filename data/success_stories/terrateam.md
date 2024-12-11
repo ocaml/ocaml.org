@@ -62,3 +62,7 @@ For companies considering OCaml, we advise leveraging the module system fully, a
 While we haven't encountered unexpected benefits from using OCaml, it has met our expectations perfectly. The best tool for the job is one you enjoy using every day, and for us, that’s OCaml.
 
 One challenge we are still addressing is delivering OCaml-based components that run on end-user systems, which requires either supporting multiple system configurations or using Docker containers. Delivering a seamless experience in these environments remains an area for improvement.
+
+## Open Source
+
+Our product is Open Source and you can inspect the [source code of Terrateam.io on GitHub](https://github.com/terrateamio/terrateam)!
