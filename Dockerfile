@@ -16,7 +16,7 @@ RUN cd ~/opam-repository && git fetch -q origin master && git reset --hard c45f5
 WORKDIR /home/opam
 
 # Install opam dependencies
-COPY --chown=opam --link ocamlorg.opam .
+COPY --chown=opam ocamlorg.opam .
 RUN opam install . --deps-only
 
 # Build project
