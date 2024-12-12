@@ -1,7 +1,7 @@
 FROM ocaml/opam:alpine-3.19-ocaml-5.2 AS build
 
 # Install system dependencies
-RUN apk -U upgrade --no-cache && apk add --no-cache \
+RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
     autoconf \
     curl-dev \
     gmp-dev \
