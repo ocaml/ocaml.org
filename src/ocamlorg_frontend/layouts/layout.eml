@@ -9,14 +9,14 @@ let subnav_tabs
   let first_section = List.hd sections in
   let breadcrumb_options current =
     let selected_option section = if section = current then "selected" else "" in
-    let options_list option = 
+    let options_list option =
         <option value="<%s url_of_section option %>" <%s selected_option option %>>
           <%s title_of_section option %>
-        </option> 
+        </option>
     in
     <nav aria-label="breadcrumbs" class="px-4 flex bg-title dark:bg-[#111827] text-white dark:text-dark-title md:hidden">
       <ul>
-        <li class="inline-block"> 
+        <li class="inline-block">
             <a href="<%s url_of_section first_section %>" class="flex items-center px-2 py-2 border-transparent border-2 border-b-4"> <%s title %>
               <span> <%s! Icons.chevron_right "w-3 h-3 ml-2" %> </span> </a>
         </li>
@@ -47,6 +47,7 @@ let base
 ?(use_swiper=false)
 ?(banner = false)
 ?description
+?social_media_image
 ?styles
 ~title
 ?canonical
@@ -54,6 +55,12 @@ let base
 ?(active_top_nav_item: Header.nav_item option)
 ?(footer_html = "")
 inner =
+  let social_media_image_url =
+    "https://ocaml.org" ^
+    match social_media_image with
+    | None -> Ocamlorg_static.Asset.url "ocaml_org_social_media.png"
+    | Some path -> path
+  in
   <!DOCTYPE html>
   <html lang="en">
     <head id="htmx-head">
@@ -66,14 +73,14 @@ inner =
       <% (match description with | Some description -> %>
       <meta name="twitter:description" content="<%s description %>">
       <% | None -> ()); %>
-      <meta name="twitter:image" content="https://ocaml.org<%s Ocamlorg_static.Asset.url "ocaml_org_social_media.png" %>">
+      <meta name="twitter:image" content="<%s social_media_image_url %>">
       <meta property="og:site_name" content="OCaml">
       <meta property="og:type" content="object">
       <meta property="og:title" content="<%s title %>">
       <% (match description with | Some description -> %>
       <meta property="og:description" content="<%s description %>">
       <% | None -> ()); %>
-      <meta name="og:image" content="https://ocaml.org<%s Ocamlorg_static.Asset.url "ocaml_org_social_media.png" %>">
+      <meta name="og:image" content="<%s social_media_image_url %>">
       <meta name="theme-color" content="#fff" >
       <meta name="color-scheme" content="white">
       <% (match canonical with | Some canonical -> %>
