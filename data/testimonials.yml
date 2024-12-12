@@ -29,3 +29,8 @@ testimonials:
     role: CTO, Terrateam.io
     href: https://terrateam.io
     logo: logos/terrateam.svg
+  - person: Jan Suhr
+    testimony: Using OCaml and MirageOS to build NetHSM has been a game-changer for us. The reliability and security afforded by OCaml’s strong type system, combined with MirageOS’s unikernel approach, have allowed us to create a product that leads its niche in both trustworthiness and flexibility. Despite the challenges of working with a niche language, we’ve found that the benefits—especially the confidence that comes from a bug-free environment—far outweigh the drawbacks. NetHSM is a testament to the power of OCaml and MirageOS in building innovative and secure solutions.
+    role: Founder and CEO, Nitrokey
+    href: https://www.nitrokey.com/
+    logo: logos/nitrokey.svg
