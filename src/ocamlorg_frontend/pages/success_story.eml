@@ -2,6 +2,7 @@ let render (story : Data.Success_story.t) =
 Layout.render
 ~title:(Printf.sprintf "%s · Success Stories" story.title)
 ~description:story.synopsis
+~social_media_image:(Ocamlorg_static.Media.url story.background)
 ~canonical:(Url.success_story story.slug) @@
 <div class="intro-section-simple dark:dark-intro-section-simple">
   <div class="container-fluid">
