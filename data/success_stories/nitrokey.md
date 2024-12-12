@@ -16,11 +16,11 @@ why_ocaml_reasons:
 
 ## Challenge
 
-We were facing the challenge of developing a highly secure system, one that didn't yet exist in the way we envisioned. Specifically, we wanted to create a system based on a formally-verified, unikernel architecture. Our aim was to build the very first Open Source HSM (Hardware Security Module) in an industry traditionally dominated by proprietary solutions. The goal was to develop something that was extremely secure and trustworthy, essentially building "an HSM but purely in software." Given our stringent requirements, MirageOS was the only solution that met our security criteria at that time.
+We were facing the challenge of developing a highly secure system, one that didn't yet exist in the way we envisioned. Specifically, we wanted to create a system based on a formally-verified, unikernel architecture. Our aim was to build the very first Open Source HSM (Hardware Security Module) in an industry traditionally dominated by proprietary solutions. The goal was to develop something that was extremely secure and trustworthy, essentially building "a HSM but purely in software." Given our stringent requirements, MirageOS was the only solution that met our security criteria at that time.
 
 The resulting product, NetHSM, is a secure, open-source store for cryptographic keys used for applications such as TLS, DNSSEC, PKI, Certificate Authorities (CA), and blockchain. The open-source nature of NetHSM allows users to verify that there are no hidden backdoors, and it’s also user-friendly, featuring a modern REST interface. Additionally, it is developed in Germany, which further bolsters its trustworthiness.
 
-Our key technical requirements included the need for a memory-safe language that was more abstract and less prone to errors. This was essential for security reasons. We also needed a unikernel—a highly-condensed operating system that contains only the necessary parts—to ensure a secure binary. Back then, MirageOS was the only viable option that supported these features and ran on ordinary x86 hardware, compatible with different hypervisors.
+Our key technical requirements included the need for a memory-safe language that was more abstract and less prone to errors. This was essential for security reasons. We also needed a unikernel—a highly-condensed operating system that contains only the necessary parts—to ensure a minimal attack vector. Back then, MirageOS was the only viable option that supported these features and ran on ordinary x86 hardware, compatible with different hypervisors.
 
 ## Result
 
