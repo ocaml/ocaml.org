@@ -11,12 +11,13 @@ RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
     openssl-dev
 
 # Branch freeze was opam-repo HEAD at the time of commit
-RUN cd ~/opam-repository && git fetch -q origin master && git reset --hard c45f5bab71d3589f41f9603daca5acad14df0ab0 && opam update
+RUN cd ~/opam-repository && git reset --hard c45f5bab71d3589f41f9603daca5acad14df0ab0 && opam update
 
 WORKDIR /home/opam
 
 # Install opam dependencies
 COPY --chown=opam ocamlorg.opam .
+ENV OPAMRETRIES=0
 RUN opam install . --deps-only
 
 # Build project
@@ -24,7 +25,7 @@ COPY --chown=opam . .
 RUN opam exec -- dune build @install --profile=release
 
 # Launch project in order to generate the package state cache
-RUN cd ~/opam-repository && git checkout master && opam update
+RUN cd ~/opam-repository && git checkout master && git pull origin master && opam update
 ENV OCAMLORG_PKG_STATE_PATH=package.state \
     OCAMLORG_REPO_PATH=opam-repository
 RUN touch package.state && ./init-cache package.state
