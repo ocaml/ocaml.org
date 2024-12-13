@@ -67,7 +67,7 @@ scrape: ## Generate the po files
 
 .PHONY: docker
 docker: ## Generate docker container
-	docker build -f Dockerfile . -t ocamlorg:latest
+	docker build --network host -f Dockerfile . -t ocamlorg:latest
 
 .PHONY: linkcheck
 linkcheck:
