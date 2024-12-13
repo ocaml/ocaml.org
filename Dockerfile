@@ -17,7 +17,6 @@ WORKDIR /home/opam
 
 # Install opam dependencies
 COPY --chown=opam ocamlorg.opam .
-ENV OPAMRETRIES=0
 RUN opam install . --deps-only
 
 # Build project
