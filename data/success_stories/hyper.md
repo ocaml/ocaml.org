@@ -5,7 +5,7 @@ card_logo: success-stories/white/hyper.svg
 background: /success-stories/hyper-bg.jpg
 theme: green
 synopsis: "Hyper Uses OCaml to Build an IoT System for High-Performing Farms."
-url: https://www.hyper.ag/
+url: https://hyper.systems/
 priority: 3
 ---
 
