@@ -11,7 +11,7 @@ RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
     openssl-dev
 
 # Branch freeze was opam-repo HEAD at the time of commit
-RUN cd ~/opam-repository && git reset --hard c45f5bab71d3589f41f9603daca5acad14df0ab0 && opam update
+RUN cd ~/opam-repository && git reset --hard 2c9566f0b0de5ab6dad7ce8d22b68a2999a1861f && opam update
 
 WORKDIR /home/opam
 
