@@ -183,3 +183,6 @@
 - id: melange
   name: Melange Blog
   url: https://melange.re/blog/feed.rss
+- id: chshersh
+  name: Dmitrii Kovanikov
+  url: https://chshersh.com/atom.xml
