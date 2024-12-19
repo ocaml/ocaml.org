@@ -1,4 +1,4 @@
-let create_entries ~create_entry u = List.map create_entry u
+let create_entries ~create_entry = List.map create_entry
 
 let entries_to_feed ~id ~title (entries : Syndic.Atom.entry list) =
   let id = Uri.of_string ("https://ocaml.org/" ^ id) in
