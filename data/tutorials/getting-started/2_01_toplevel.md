@@ -66,6 +66,7 @@ Error: Unbound module Str
 # Str.quote {|"hello"|};;
 - : string = "\"hello\""
 ```
+**Tip**: UTop knows about the available libraries and completion works. Outside `utop` you can use `ocamlfind list` to display the complete list of libraries. Note that opam package may bundle several libraries and libraries may bundle several modules.
 
 ### Using a Pre-Processor Extension (PPX) in UTop
 
