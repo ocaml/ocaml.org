@@ -59,7 +59,7 @@ Please, make sure your feed only contains articles about OCaml.
 
 #### Add Your YouTube Channel
 
-If you have a YouTube channel and publish videos about OCaml (mention "OCaml" in the description of every video that should appear on the OCaml Planet!), you can add your channel to [`data/youtube.yml`].
+If you have a YouTube channel and publish videos about OCaml (mention "OCaml" in the description of every video that should appear on the OCaml Planet!), you can add your channel to [`data/youtube.yml`](data/youtube.yml).
 
 #### Link Original Blog Post
 
