@@ -54,7 +54,8 @@ module RssFeed = struct
   let create_feed () =
     let open Rss in
     all ()
-    |> create_entries ~create_entry ~days:9000 (* FIXME *)
+    |> create_entries ~create_entry
+    |> Ocamlorg.Import.List.take 90
     |> entries_to_feed ~id:"news.xml" ~title:"OCaml News @ OCaml.org"
     |> feed_to_string
 end
