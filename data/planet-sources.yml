@@ -186,3 +186,7 @@
 - id: chshersh
   name: Dmitrii Kovanikov
   url: https://chshersh.com/atom.xml
+- id: lthms
+  name: "Thomas Letan’s Blog"
+  url: https://soap.coffee/~lthms/posts/index.xml
+  only_ocaml: true
