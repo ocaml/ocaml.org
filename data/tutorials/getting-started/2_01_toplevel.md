@@ -67,7 +67,10 @@ Error: Unbound module Str
 - : string = "\"hello\""
 ```
 
-### Using a PPX in UTop
+### Using a Pre-Processor Extension (PPX) in UTop
+
+Pre-Processor Extensions enable code generation through annotations of your code
+(for an example, see [section "Using the Preprocessor to Generate Code" in "Your First OCaml Program"](/docs/your-first-program#using-the-preprocessor-to-generate-code).
 
 To activate a PPX in UTop, all you need to do is to load the corresponding library.
 
