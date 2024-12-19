@@ -5,7 +5,13 @@ open Data_intf.Blog
    scrape.yml workflow *)
 
 module Source = struct
-  type t = { id : string; name : string; url : string; disabled : bool option }
+  type t = {
+    id : string;
+    name : string;
+    url : string;
+    only_ocaml : bool option;
+    disabled : bool option;
+  }
   [@@deriving yaml]
 
   type sources = t list [@@deriving yaml]
@@ -20,12 +26,13 @@ module Source = struct
       in
       Ok
         (sources
-        |> List.map (fun { id; name; url; disabled } ->
+        |> List.map (fun { id; name; url; only_ocaml; disabled } ->
                {
                  id;
                  name;
                  url;
                  description = "";
+                 only_ocaml = Option.value ~default:false only_ocaml;
                  disabled = Option.value ~default:false disabled;
                }))
     in
@@ -60,7 +67,14 @@ module Post = struct
         | Error (`Msg e) -> (
             match m.source with
             | Some { name; url } ->
-                { id = ""; name; url; description = ""; disabled = false }
+                {
+                  id = "";
+                  name;
+                  url;
+                  description = "";
+                  only_ocaml = false;
+                  disabled = false;
+                }
             | None ->
                 failwith
                   (e ^ " and there is no source defined in the markdown file")));
@@ -138,26 +152,33 @@ module Scraper = struct
                source.id slug)
       | Some url, Some date ->
           if not (Sys.file_exists source_path) then Sys.mkdir source_path 0o775;
-          let oc = open_out output_file in
           let content = River.content post in
-          let url = String.trim (Uri.to_string url) in
-          let preview_image = River.seo_image post in
-          let description = River.meta_description post in
-          let author = River.author post in
-          let metadata : Post.metadata =
-            {
-              title;
-              url;
-              date;
-              preview_image;
-              description;
-              authors = Some [ author ];
-              source = None;
-            }
-          in
-          let s = Format.asprintf "%a\n%s\n" Post.pp_meta metadata content in
-          Printf.fprintf oc "%s" s;
-          close_out oc
+          if
+            (not source.only_ocaml)
+            || String.(
+                 is_sub_ignore_case "ocaml" content
+                 || is_sub_ignore_case "ocaml" title)
+          then (
+            let url = String.trim (Uri.to_string url) in
+            let preview_image = River.seo_image post in
+            let description = River.meta_description post in
+            let author = River.author post in
+            let metadata : Post.metadata =
+              {
+                title;
+                url;
+                date;
+                preview_image;
+                description;
+                authors = Some [ author ];
+                source = None;
+              }
+            in
+            let s = Format.asprintf "%a\n%s\n" Post.pp_meta metadata content in
+            let oc = open_out output_file in
+            Printf.fprintf oc "%s" s;
+            close_out oc)
+          else ()
 
   let scrape_source source =
     try
