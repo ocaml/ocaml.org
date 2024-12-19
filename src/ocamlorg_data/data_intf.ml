@@ -64,6 +64,7 @@ module Blog = struct
     name : string;
     url : string;
     description : string;
+    only_ocaml : bool;
     disabled : bool;
   }
   [@@deriving show]
