@@ -1,14 +1,4 @@
-let create_entries ~create_entry ?days u =
-  let is_fresh =
-    let some days (entry : Syndic.Atom.entry) =
-      let now = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
-      let than = Ptime.sub_span now (Ptime.Span.v (days, 0L)) |> Option.get in
-      if Ptime.is_later entry.updated ~than then Some entry else None
-    in
-    Option.fold ~none:Option.some ~some days
-  in
-  let entries = u |> List.filter_map (fun x -> x |> create_entry |> is_fresh) in
-  entries
+let create_entries ~create_entry = List.map create_entry
 
 let entries_to_feed ~id ~title (entries : Syndic.Atom.entry list) =
   let id = Uri.of_string ("https://ocaml.org/" ^ id) in

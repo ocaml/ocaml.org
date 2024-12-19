@@ -148,7 +148,9 @@ module GlobalFeed = struct
 
   let create_feed () =
     let open Rss in
-    let entries = all () |> create_entries ~create_entry ~days:90 in
+    let entries =
+      all () |> create_entries ~create_entry |> Ocamlorg.Import.List.take 90
+    in
 
     match create_events_announcement_entry () with
     | None ->
