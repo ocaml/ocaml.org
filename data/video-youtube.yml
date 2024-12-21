@@ -414,6 +414,19 @@
   author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
   source_title: FUN OCaml
+- title: How to Use OCaml's Coercion Operator
+  url: https://www.youtube.com/watch/HNLSyxN-rPE?version=3
+  thumbnail: https://i1.ytimg.com/vi/HNLSyxN-rPE/hqdefault.jpg
+  description: "Description: OCaml supports a subtyping relation, where the type system
+    recognizes that all values of one type are also values of another. It allows coercions
+    from one type to another using the coercion operator. This video demonstrates
+    how it works. (Note: This video doesn\u2019t include anything specific to Jane
+    Street!)\n\nCode written in this video:\nhttps://github.com/goldfirere/janestreet-videos/blob/b6aaa2ea731af13dcbd1c5a50a621574f79dd37e/variance/variance.ml"
+  published: 2024-10-01T20:02:27+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
+  source_title: Jane Street - OCaml Unboxed
 - title: OCaml's New Proposed "include functor" Syntax | OCaml Unboxed
   url: https://www.youtube.com/watch/SWURUDr_i3w?version=3
   thumbnail: https://i4.ytimg.com/vi/SWURUDr_i3w/hqdefault.jpg
