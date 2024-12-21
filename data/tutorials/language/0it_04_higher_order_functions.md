@@ -42,14 +42,14 @@ In OCaml, working with functions quickly becomes second nature. We like to think
 
 Take for example a function that says hello to a person by name:
 
-```ocaml 
+```ocaml
 # let say_hi name = print_string ("Hello, " ^ name ^ "!\n") ;;
 val say_hi : string -> unit = <fun>
 ```
 
 We can call this function several times, to say "hello" to several people:
 
-```ocaml 
+```ocaml
 #say_hi "Xavier";;
 Hello, Xavier!
 - : unit = ()
@@ -65,7 +65,7 @@ Hello, Joe!
 
 If we wanted to say "hello" to the same person multiple times, we'd just _repeat_ the same line of code.
 
-```ocaml 
+```ocaml
 # say_hi "Camel";;
 Hello, Camel!
 - : unit = ()
@@ -81,7 +81,7 @@ Hello, Camel!
 
 One way we can avoid having to repeat these lines every time is by writing a function to say "hi" 3 times:
 
-```ocaml 
+```ocaml
 # let say_hi_3_times name =
   say_hi name;
   say_hi name;
@@ -100,7 +100,7 @@ When this happens, it usually means that the function is making certain decision
 
 So instead, we will create a function that **let's the caller decide** how many times to say "hi." We do this by requiring a new argument, in this case, `times`:
 
-```ocaml 
+```ocaml
 # let rec say_many_hi times name =
   if times < 1 then ()
   else begin
@@ -136,11 +136,11 @@ Hello, Camel!
 - : unit = ()
 ```
 
-Unfortunately, reusing this _repetition_ behaviour isn't so easy because we have hard-coded our call to `say_hi`. 
+Unfortunately, reusing this _repetition_ behaviour isn't so easy because we have hard-coded our call to `say_hi`.
 
 To make this reusable, we can **let the caller decide** what our function should do:
 
-```ocaml 
+```ocaml
 # let rec repeat times thing_to_do =
   if times < 1 then ()
   else begin
@@ -153,7 +153,7 @@ val repeat : int -> 'a -> unit = <fun>
 
 But what should `thing_to_do` be? Our intuition may be that we can call:
 
-```ocaml 
+```ocaml
 # repeat 3 (say_hi "Camel");;
 Hello, Camel!
 - : unit = ()
@@ -206,7 +206,7 @@ And we can use `repeat` to recreate our original `say_many_hi`, or to repeat any
 ```ocaml
 # let say_many_hi times name = repeat times (fun () -> say_hi name);;
 val say_many_hi : int -> string -> unit = <fun>
-  
+
 # let print_big_space () = repeat 10 print_newline;;
 val print_big_space : unit -> unit = <fun>
 ```
@@ -233,13 +233,13 @@ module StringSet :
   |> StringSet.of_list
   |> StringSet.iter fn;;
 val only_once : (string -> unit) -> string list -> unit = <fun>
- 
+
 # let yell_hi name =
   name
   |> String.uppercase_ascii
   |> say_hi;;
 val yell_hi : string -> unit = <fun>
-  
+
 # let call_for_dinner names = only_once yell_hi names;;
 val call_for_dinner : string list -> unit = <fun>
 ```
@@ -259,7 +259,7 @@ In the wild, there's certain patterns that repeat over and over again. It's usef
 
 ### Currying and Uncurrying
 
-Since in OCaml all functions really just take one parameter, when you call `add x y`, you're actually calling two functions! `((add x) y)` 
+Since in OCaml all functions really just take one parameter, when you call `add x y`, you're actually calling two functions! `((add x) y)`
 
 Sometimes it helps to apply _parts_ of a function in different orders, and sometimes it helps to make a function really take all its parameters _at once_.
 
@@ -280,7 +280,7 @@ The output function will have type `('a * 'b) -> 'c`. Notice how the arguments `
 
 Here's our helper:
 
-```ocaml 
+```ocaml
 (* [uncurry] takes a function that is normally curried,
    and returns a function that takes all arguments at once. *)
 # let uncurry f (x, y) = f x y;;
@@ -393,14 +393,14 @@ Sometimes it makes sense to curry a function, and sometimes the clearer thing is
 
 For example, this is a pipeline with a lot of currying/uncurrying that would most likely be easier to read and maintain if we manually wrote out the wrapper functions:
 
-```ocaml 
+```ocaml
 let do_and_return f x = f x; x
 ;;
 
 let flip (x, y) = (y, x)
 ;;
 
-names 
+names
 |> List.map (do_and_return (greet "👋🏼"))
 |> List.map (Fun.flip List.assoc (List.map flip people))
 |> List.iter (curry reveal "The OCamler")
@@ -449,7 +449,7 @@ But this is not so easy read sometimes, especially as the number of functions gr
 To avoid this we have use the `|>` operator:
 
 ```ocaml
-let c = foo () |> bar |> baz in 
+let c = foo () |> bar |> baz in
 (* ... *)
 ```
 
@@ -462,7 +462,7 @@ let (|>) x fn = fn x
 
 It receives a value `x` and a function `fn` and as soon as it has both, it calls `fn` with `x`. This lets us invert the order and build pipelines that read left-to-right or top-to-bottom instead of inside-out.
 
-But what happens when our functions have more than one argument? 
+But what happens when our functions have more than one argument?
 
 Let's look at an example of string manipulation. We want to get the domain name from an email.
 
@@ -500,9 +500,11 @@ email
 ;;
 ```
 
-(** NOTE(@leostera): this example kinda sucks, i'd like one where the use of labels greatly improves the readability but since `ListLabels.nth_opt` doesn't take an argument then we still need that nasty fun flip :( will get back t othis)
+<!--
+NOTE(@leostera): this example kinda sucks, i'd like one where the use of labels greatly improves the readability but since `ListLabels.nth_opt` doesn't take an argument then we still need that nasty fun flip :( will get back t othis)
+-->
 
-   
+
 ### Iterating
 
 We usually think of iteration when we think of looping, and going through collections of things:
@@ -516,7 +518,7 @@ Iterating in OCaml means that if there is a value (or more), we'd like to apply 
 
 #### Iterating over Lists
 
-A list in OCaml is a linked-list that is composed by a head (the first element) and a tail (the rest of the list). 
+A list in OCaml is a linked-list that is composed by a head (the first element) and a tail (the rest of the list).
 
 We can iterate over lists by pattern matching on then. When doing so, we either get an empty list (`[]`), or we get a pattern with a head and a tail (`n :: rest`). On the branch with a head and a tail, we can directly use the head value and apply a function to it, and then recurse with the tail.
 
@@ -560,7 +562,7 @@ let run_if_some opt fn =
   | Some value -> fn value
   | None -> ()
 ;;
- 
+
 let run_if_ok res fn =
   match res with
   | Ok value -> fn value
@@ -580,10 +582,10 @@ With either of those functions, we can put together an iterator over maps or set
 
 ```ocaml
 let iter values collection fn  =
-  let values : 'a list = values collection in 
+  let values : 'a list = values collection in
   List.iter fn values
 ;;
-  
+
 module StringSet = Set.Make(String);;
 module IntMap = Map.Make(Int);;
 
@@ -604,10 +606,10 @@ But some data is _lazy_, and it only lets us access one element at a time. So if
 Lazy sequences in OCaml are represented with the `Seq` module, which has a function called `uncons` to get the next element. This function also returns the new sequence that we can use to get the 2nd element, and so on.
 
 ```ocaml
-let rec iter seq fn = 
+let rec iter seq fn =
   match Seq.uncons seq with
   | None -> ()
-  | Some (value, seq2) -> 
+  | Some (value, seq2) ->
     fn value;
     iter seq2 fn
 ;;
@@ -625,7 +627,7 @@ We'll define our tree type to include 2 constructors. One for a leaf node, which
 
 ```ocaml
 type 'value tree =
- | Leaf of 'value 
+ | Leaf of 'value
  | Node of 'value tree * 'value
 ;;
 ```
@@ -648,10 +650,10 @@ Now before we define our iteration function, its important to define what iterat
 For our example, we'll iterate from the top down as we go along:
 
 ```ocaml
-let rec iter tree fn = 
+let rec iter tree fn =
   match tree with
   | Leaf value -> fn value
-  | Node (tree2, value) -> 
+  | Node (tree2, value) ->
       fn value;
       iter tree2 fn
 ;;
@@ -749,7 +751,7 @@ If we wanted to implement a sum over the custom tree type we saw in the Iteratin
 
 ```ocaml
 type 'value tree =
- | Leaf of 'value 
+ | Leaf of 'value
  | Node of 'value tree * 'value
 ;;
 
@@ -772,7 +774,7 @@ let rec fold_tree tree fn =
 
 But we quickly run into a problem: our `fn` function is meant to combine two items, so in the `Leaf` branch, what is the second item?
 
-Folding requires us to define a _zero value_, a starting point for an accumulator, that will be used when the collection or data type is "empty". 
+Folding requires us to define a _zero value_, a starting point for an accumulator, that will be used when the collection or data type is "empty".
 
 Some data types don't have a good "empty" value. Our tree for example does not. Lists do have an empty list. Options have a `None` constructor. Results' don't have a good "empty" value either.
 
@@ -787,7 +789,7 @@ let rec fold_tree tree fn acc =
 ```
 
 And voila! Our function now types correctly and we can use it to reduce our trees down to any value.
- 
+
 ### Sorting
 
 Another common behavior usually implemented with higher-order functions is sorting collections.
@@ -955,7 +957,7 @@ type ('input, 'output) operations = {
 <!--
 Comment
 
-let f () = 42 
+let f () = 42
 let f () = g 42
 
 One possible issue with the repeat function used in the intro comes from the fact
@@ -970,7 +972,7 @@ In CS3110, `twice` and `repeat` are pure functions
 ```ocaml
 let twice f x = f (f x)
 
-let rec repeat f n x = if n = 0 then x else repeat f (n - 1) (f x) 
+let rec repeat f n x = if n = 0 then x else repeat f (n - 1) (f x)
 ```
 
 Trouble with those function is they aren't very realistic, but they are easier to understand (I believe).
