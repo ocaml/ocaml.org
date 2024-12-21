@@ -7,8 +7,12 @@ let create_entries ~create_entry ?days u =
     in
     Option.fold ~none:Option.some ~some days
   in
-  let entries = u |> List.filter_map (fun x -> x |> create_entry |> is_fresh) in
-  entries
+  let entries =
+    List.tl u |> List.map create_entry |> List.sort Syndic.Atom.descending
+  in
+  match List.filter_map is_fresh entries with
+  | [] -> [ List.hd entries ]
+  | xs -> xs
 
 let entries_to_feed ~id ~title (entries : Syndic.Atom.entry list) =
   let id = Uri.of_string ("https://ocaml.org/" ^ id) in
