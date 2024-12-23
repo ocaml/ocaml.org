@@ -16,7 +16,7 @@ ocaml.org endpoints.
 3. Configure
   - the max number of users to simulate
   - the number of new users to add to the simulation every second
-  - the host (`https://staging.ocaml.org`, `https://ocaml.org`, etc.)
+  - the host (e.g., `http://localhost:8080`)
 
 ## Running load tests with multiple cores
 
