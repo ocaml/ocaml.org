@@ -190,3 +190,7 @@
   name: "Thomas Letan’s Blog"
   url: https://soap.coffee/~lthms/posts/index.xml
   only_ocaml: true
+- id: debajyatidey
+  name: Debajyati's Blog
+  url: https://debajyatidey.hashnode.dev/rss.xml
+  only_ocaml: true
