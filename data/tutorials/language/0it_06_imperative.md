@@ -511,7 +511,7 @@ In this example, the `while` loop continues to execute as long as the value held
 
 Throwing the `Exit` exception is a recommended way to immediately exit from a loop.
 
-The following example uses the `get_char` function we defined earlier (in the section [Example: `get_char` Function](#example-getchar-function)).
+The following example uses the `get_char` function we defined earlier (in the section [Example: `get_char` Function](#example-get_char-function)).
 ```ocaml
 # try
     print_endline "Press Escape to exit";
