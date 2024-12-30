@@ -776,7 +776,7 @@ Wednesday Tuesday Monday val s : string = "Monday Tuesday Wednesday "
 
 The function `id_print` returns its input unchanged. However, it has a side effect: it first prints the string it receives as an argument.
 
-In the second line, we apply `id_print` to the arguments `"Monday"`, `"Tuesday"`, and `"Wednesday"`. Then `Printf.sprintf "%s %s %s "` is applied to the results.
+In the second line, we apply `id_print` to the arguments `"Monday"`, `"Tuesday"`, and `"Wednesday"`. Then `Printf.sprintf "%s %s %s"` is applied to the results.
 
 Since the evaluation order for function arguments in OCaml is not explicitly defined, the order in which the `id_print` side effects take place is unreliable. In this example, the arguments are evaluated from right to left, but this could change in future compiler releases.
 
