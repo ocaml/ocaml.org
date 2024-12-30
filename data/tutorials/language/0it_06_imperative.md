@@ -238,7 +238,7 @@ You can think of byte sequences as either:
 In this section, we compare two ways to implement a `get_char` function. The function waits until a key is pressed and returns the corresponding character without echoing it. This function will also be used later on in this tutorial.
 
 We use two functions from the `Unix` module to read and update attributes of the terminal associated with standard input:
-* `tcgetattr stdin TCSAFLUSH` returns the terminal attributes as a record (similar to `deref`)
+* `tcgetattr stdin` returns the terminal attributes as a record (similar to `deref`)
 * `tcsetattr stdin TCSAFLUSH` updates the terminal attributes (similar to `assign`)
 
 These attributes need to be set correctly (i.e., turn off echoing and disable canonical mode) in order to read it the way we want. The logic is the same in both implementations:
