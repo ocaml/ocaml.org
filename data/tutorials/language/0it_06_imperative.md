@@ -227,7 +227,7 @@ You can think of byte sequences as either:
 * updatable strings that can't be printed, or
 * `char` arrays without syntactic sugar for indexed read and update.
 
-**Note**: the `bytes` type uses a much more compact memory representation than `char array`. As of writing this tutorial, there is an 8-factor between `bytes`` and `char array`. The former should always be preferred, except when `array` is required by polymorphic functions handling arrays.
+**Note**: the `bytes` type uses a much more compact memory representation than `char array`. As of writing this tutorial, there is an 8-factor between `bytes` and `char array`. The former should always be preferred, except when `array` is required by polymorphic functions handling arrays.
 
 <!-- FIXME: link to a dedicated Byte Sequences tutorial -->
 
