@@ -59,11 +59,18 @@ This will restart the server on filesystem changes.
 
 ### Running Tests
 
+#### Unit tests
+
 You can run the unit test suite with:
 
 ```bash
 make test
 ```
+
+#### Load tests
+
+See the readme's for running load tests via [k6](./test/load-test/k6/README.md)
+or [locust](./test/load-test/locust/README.md).
 
 ### Building the Playground
 
