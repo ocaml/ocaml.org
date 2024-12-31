@@ -227,7 +227,7 @@ You can think of byte sequences as either:
 * updatable strings that can't be printed, or
 * `char` arrays without syntactic sugar for indexed read and update.
 
-**Note**: the `bytes` type uses a much more compact memory representation than `char array`. As of writing this tutorial, there is an 8-factor between `bytes`` and `char array`. The former should always be preferred, except when `array` is required by polymorphic functions handling arrays.
+**Note**: the `bytes` type uses a much more compact memory representation than `char array`. As of writing this tutorial, there is an 8-factor between `bytes` and `char array`. The former should always be preferred, except when `array` is required by polymorphic functions handling arrays.
 
 <!-- FIXME: link to a dedicated Byte Sequences tutorial -->
 
@@ -238,7 +238,7 @@ You can think of byte sequences as either:
 In this section, we compare two ways to implement a `get_char` function. The function waits until a key is pressed and returns the corresponding character without echoing it. This function will also be used later on in this tutorial.
 
 We use two functions from the `Unix` module to read and update attributes of the terminal associated with standard input:
-* `tcgetattr stdin TCSAFLUSH` returns the terminal attributes as a record (similar to `deref`)
+* `tcgetattr stdin` returns the terminal attributes as a record (similar to `deref`)
 * `tcsetattr stdin TCSAFLUSH` updates the terminal attributes (similar to `assign`)
 
 These attributes need to be set correctly (i.e., turn off echoing and disable canonical mode) in order to read it the way we want. The logic is the same in both implementations:
@@ -511,7 +511,7 @@ In this example, the `while` loop continues to execute as long as the value held
 
 Throwing the `Exit` exception is a recommended way to immediately exit from a loop.
 
-The following example uses the `get_char` function we defined earlier (in the section [Example: `get_char` Function](#example-getchar-function)).
+The following example uses the `get_char` function we defined earlier (in the section [Example: `get_char` Function](#example-get_char-function)).
 ```ocaml
 # try
     print_endline "Press Escape to exit";
@@ -776,7 +776,7 @@ Wednesday Tuesday Monday val s : string = "Monday Tuesday Wednesday "
 
 The function `id_print` returns its input unchanged. However, it has a side effect: it first prints the string it receives as an argument.
 
-In the second line, we apply `id_print` to the arguments `"Monday"`, `"Tuesday"`, and `"Wednesday"`. Then `Printf.sprintf "%s %s %s "` is applied to the results.
+In the second line, we apply `id_print` to the arguments `"Monday"`, `"Tuesday"`, and `"Wednesday"`. Then `Printf.sprintf "%s %s %s"` is applied to the results.
 
 Since the evaluation order for function arguments in OCaml is not explicitly defined, the order in which the `id_print` side effects take place is unreliable. In this example, the arguments are evaluated from right to left, but this could change in future compiler releases.
 
