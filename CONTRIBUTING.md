@@ -209,47 +209,33 @@ To contribute a new post to the Changelog:
 4. Write the post content, focusing on how the news or change affects OCaml users.
 5. Submit a pull request with your new file.
 
-### <a name="content-cookbook"></a>Add a Recipe to the OCaml Cookbook
+### <a name="content-cookbook"></a>OCaml Cookbook Recipe Review Checklist
 
-Here are the steps to contribute a recipe for an existing task:
-* Find the task in the [data/cookbook/tasks.yml](data/cookbook/tasks.yml) file.
-* Go to the task folder inside [data/cookbook/](data/cookbook/) that has the same name as the task's `slug`.
-* Create a `.ml` file containing the recipe and a YAML header with metadata about the recipe.
+#### Guidelines for New Recipes
 
-If the recipe does not fit into any existing task, you also need to create a task.
+When contributing new recipes to the OCaml Cookbook, please adhere to the following:
 
-Add a `task:` entry in [data/cookbook/tasks.yml](data/cookbook/tasks.yml) file. 
+1. **Task Selection**:
+   - Focus on practical, reusable tasks relevant to a wide audience.
+   - Ensure the task demonstrates idiomatic OCaml usage.
+   - Avoid tasks that are overly trivial or highly specific to niche cases.
 
-Fields `title`, `description`, and `slug` are mandatory. 
+2. **Code Standards**:
+   - Write clear, idiomatic OCaml code.
+   - Ensure the code compiles without errors or warnings.
+   - Use standard OCaml libraries and tools wherever possible.
 
-The task must be located under a relevant `category:` field.
+3. **Evaluation Criteria**:
+   - Does the recipe address a useful real-world task?
+   - Is the code ready for production use?
+   - If using a package, does it implicitly recommend the package for production?
+   - Avoid duplicating existing recipes unless demonstrating package differences.
 
-Finally, it is also possible to create and organize groups of tasks by creating new categories. 
+4. **Submission Process**:
+   - Link your PR to the relevant issue or discussion thread.
+   - Use the provided PR template to ensure all guidelines are met.
 
-Categories are recursive and may have subcategories, which are full categories too.
-
-A task listed in [data/cookbook/tasks.yml](data/cookbook/tasks.yml) may have no recipes yet. 
-
-On the other hand, it is not allowed to have a task folder in [data/cookbook/](data/cookbook/) that does not correspond to a task from the [data/cookbook/tasks.yml](data/cookbook/tasks.yml) file because it triggers a compilation error.
-
-Each recipe is a way to perform a task using a combination of open-source libraries.
-
-#### OCaml Cookbook Recipe Review Checklist
-
-Checklist for reviewing OCaml cookbook submissions:
-
-1. **Is this task useful when writing real-world applications?**
-2. **Is the code ready/safe to copy-paste into a production codebase?** 
-    - Is the code structured such that it’s easy to adapt it?
-    - Are things named well?
-    - Are there any security implications or uncaught exceptions?
-3. **In case of Standard Library code:** 
-    - Is an LLM able to easily generate the code? (If yes, no use to include it in the cookbook)
-4. **In case the code uses a package:** 
-    - Is it worthwhile to include it in the cookbook because this constitutes an explicit recommendation to use this package in production?
-5. **Do the other recipes for the same task implement the exact same task?** 
-    - When there are multiple packages that can be used to do a thing, it’s helpful to see how the packages differ, so the task itself should be the same between different implementations with different packages.
-
+Following these guidelines will help us maintain a high-quality and consistent OCaml Cookbook. 
 
 ## Git and GitHub Workflow
 
