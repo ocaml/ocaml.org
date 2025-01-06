@@ -28,6 +28,7 @@ We've provided a list of community-driven content below. When adding content to 
 - [Recurring Events](#content-recurring-event)
 - [Upcoming Events](#content-upcoming_event)
 - [The OCaml Changelog](#content-changelog)
+- [PR Template](#content-cookbook)
 
 The following sections give more details on how to contribute to each.
 
@@ -179,6 +180,7 @@ The Changelog covers developments across:
 - [OCaml Infrastructure](https://infra.ocaml.org/)
 - [OCaml.org itself](https://ocaml.org/)
 
+
 #### Purpose and Audience
 
 The primary audience for the Changelog is OCaml users. Content should focus on changes, updates, and news that directly impact users of OCaml and its ecosystem. 
@@ -206,6 +208,48 @@ To contribute a new post to the Changelog:
 3. Include relevant metadata at the top of the file (date, title, tags, etc.).
 4. Write the post content, focusing on how the news or change affects OCaml users.
 5. Submit a pull request with your new file.
+
+### <a name="content-cookbook"></a>Add a Recipe to the OCaml Cookbook
+
+Here are the steps to contribute a recipe for an existing task:
+* Find the task in the [data/cookbook/tasks.yml](data/cookbook/tasks.yml) file.
+* Go to the task folder inside [data/cookbook/](data/cookbook/) that has the same name as the task's `slug`.
+* Create a `.ml` file containing the recipe and a YAML header with metadata about the recipe.
+
+If the recipe does not fit into any existing task, you also need to create a task.
+
+Add a `task:` entry in [data/cookbook/tasks.yml](data/cookbook/tasks.yml) file. 
+
+Fields `title`, `description`, and `slug` are mandatory. 
+
+The task must be located under a relevant `category:` field.
+
+Finally, it is also possible to create and organize groups of tasks by creating new categories. 
+
+Categories are recursive and may have subcategories, which are full categories too.
+
+A task listed in [data/cookbook/tasks.yml](data/cookbook/tasks.yml) may have no recipes yet. 
+
+On the other hand, it is not allowed to have a task folder in [data/cookbook/](data/cookbook/) that does not correspond to a task from the [data/cookbook/tasks.yml](data/cookbook/tasks.yml) file because it triggers a compilation error.
+
+Each recipe is a way to perform a task using a combination of open-source libraries.
+
+#### OCaml Cookbook Recipe Review Checklist
+
+Checklist for reviewing OCaml cookbook submissions:
+
+1. **Is this task useful when writing real-world applications?**
+2. **Is the code ready/safe to copy-paste into a production codebase?** 
+    - Is the code structured such that it’s easy to adapt it?
+    - Are things named well?
+    - Are there any security implications or uncaught exceptions?
+3. **In case of Standard Library code:** 
+    - Is an LLM able to easily generate the code? (If yes, no use to include it in the cookbook)
+4. **In case the code uses a package:** 
+    - Is it worthwhile to include it in the cookbook because this constitutes an explicit recommendation to use this package in production?
+5. **Do the other recipes for the same task implement the exact same task?** 
+    - When there are multiple packages that can be used to do a thing, it’s helpful to see how the packages differ, so the task itself should be the same between different implementations with different packages.
+
 
 ## Git and GitHub Workflow
 
