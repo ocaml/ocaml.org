@@ -74,7 +74,7 @@ The project is stored in a directory named `hello` with the following contents:
     └── hello.ml
 ```
 
-Unlike in Unix where they contain compiled binaries, directories `lib` and `bin` contain source code files, for libraries and programs, respectively. This is the a convention used in many OCaml projects, including those created by Dune. All the built artifacts, and a copy of the sources, are stored in the `_build` directory. You shall not edit anything in the `_build` directory.
+Unlike in Unix where they contain compiled binaries, directories `lib` and `bin` contain source code files, for libraries and programs, respectively. This is the a convention used in many OCaml projects, including those created by Dune. All the built artifacts, and a copy of the sources, are stored in the `_build` directory. Do not edit anything in the `_build` directory, since any manual edits will be overwritten during subsequent builds.
 
 OCaml source files have the `.ml` extension, which stands for “Meta Language.” Meta Language (ML) is an ancestor of OCaml. This is also what the “ml” stands for in “OCaml.” Here is the content of the `bin/main.ml` file:
 ```ocaml
