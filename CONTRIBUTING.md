@@ -28,7 +28,6 @@ We've provided a list of community-driven content below. When adding content to 
 - [Recurring Events](#content-recurring-event)
 - [Upcoming Events](#content-upcoming_event)
 - [The OCaml Changelog](#content-changelog)
-- [PR Template](#content-cookbook)
 
 The following sections give more details on how to contribute to each.
 
@@ -157,6 +156,32 @@ Checklist for reviewing OCaml cookbook submissions:
 3. is the code explained sufficiently without overexplaining (be short and focus on what matters)?
 4. is the code such that you would put it into production? I.e. are the libraries used stable enough and is the code readable?
 
+#### Guidelines for New Recipes
+
+When contributing new recipes to the OCaml Cookbook, please adhere to the following:
+
+1. **Task Selection**:
+   - Focus on practical, reusable tasks relevant to a wide audience.
+   - Ensure the task demonstrates idiomatic OCaml usage.
+   - Avoid tasks that are overly trivial or highly specific to niche cases.
+
+2. **Code Standards**:
+   - Write clear, idiomatic OCaml code.
+   - Ensure the code compiles without errors or warnings.
+   - Use standard OCaml libraries and tools wherever possible.
+
+3. **Evaluation Criteria**:
+   - Does the recipe address a useful real-world task?
+   - Is the code ready for production use?
+   - If using a package, does it implicitly recommend the package for production?
+   - Avoid duplicating existing recipes unless demonstrating package differences.
+
+4. **Submission Process**:
+   - Link your PR to the relevant issue or discussion thread.
+   - Use the provided PR template to ensure all guidelines are met.
+
+Following these guidelines will help us maintain a high-quality and consistent OCaml Cookbook. 
+
 ### <a name="content-recurring-event"></a>Add A Recurring Event
 
 > Contribute a [Recurring Event](https://ocaml.org/community).
@@ -209,33 +234,6 @@ To contribute a new post to the Changelog:
 4. Write the post content, focusing on how the news or change affects OCaml users.
 5. Submit a pull request with your new file.
 
-### <a name="content-cookbook"></a>OCaml Cookbook Recipe Review Checklist
-
-#### Guidelines for New Recipes
-
-When contributing new recipes to the OCaml Cookbook, please adhere to the following:
-
-1. **Task Selection**:
-   - Focus on practical, reusable tasks relevant to a wide audience.
-   - Ensure the task demonstrates idiomatic OCaml usage.
-   - Avoid tasks that are overly trivial or highly specific to niche cases.
-
-2. **Code Standards**:
-   - Write clear, idiomatic OCaml code.
-   - Ensure the code compiles without errors or warnings.
-   - Use standard OCaml libraries and tools wherever possible.
-
-3. **Evaluation Criteria**:
-   - Does the recipe address a useful real-world task?
-   - Is the code ready for production use?
-   - If using a package, does it implicitly recommend the package for production?
-   - Avoid duplicating existing recipes unless demonstrating package differences.
-
-4. **Submission Process**:
-   - Link your PR to the relevant issue or discussion thread.
-   - Use the provided PR template to ensure all guidelines are met.
-
-Following these guidelines will help us maintain a high-quality and consistent OCaml Cookbook. 
 
 ## Git and GitHub Workflow
 
