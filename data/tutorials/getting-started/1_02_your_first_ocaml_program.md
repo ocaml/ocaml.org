@@ -60,6 +60,7 @@ Success: initialized project component named hello
 The project is stored in a directory named `hello` with the following contents:
 
 ```shell
+hello
 ├── bin
 │   ├── dune
 │   └── main.ml
