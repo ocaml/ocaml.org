@@ -17,7 +17,7 @@ On this page, you'll find installation instructions for Linux, macOS, Windows, a
 
 OCaml has an official package manager, [opam](https://opam.ocaml.org/), which allows users to download and install OCaml tools and libraries. Opam also makes it practical to deal with different projects which require different versions of OCaml.
 
-Opam also installs the OCaml compiler. Alternatives exist, but opam is the best way to install OCaml. Although OCaml is available as a package in most Linux distributions, it is often outdated. 
+Opam also installs the OCaml compiler. Alternatives exist, but opam is the best way to install OCaml. Although OCaml is available as a package in most Linux distributions, it is often outdated.
 
 To install opam, you can [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system) or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in these links, but for convenience, we use package distributions:
 
@@ -151,6 +151,8 @@ You're now in an OCaml toplevel, and you can start typing OCaml expressions. For
 # 21 * 2;;
 - : int = 42
 ```
+
+Exit UTop by typing `#exit;;` or pressing `Ctrl+D`.
 
 **Congratulations**! You've installed OCaml! 🎉
 
