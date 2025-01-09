@@ -152,9 +152,9 @@ You're now in an OCaml toplevel, and you can start typing OCaml expressions. For
 - : int = 42
 ```
 
-Exit UTop by typing `#exit;;` or pressing `Ctrl+D`.
-
 **Congratulations**! You've installed OCaml! 🎉
+
+Exit UTop by typing `#exit;;` or pressing `Ctrl+D`.
 
 ## Join the Community
 
