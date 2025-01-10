@@ -142,7 +142,8 @@ At this point, the steps that are given are to compile this into
 bytecode. I don't yet have much experience compiling to native so I'll
 let some else help out (or wait until I learn how to do it).
 
-```
-prompt> ocamlc -c gtd6.ml prompt> ocamlc -o test gtd6.cmo wrapper.so
-```
+`prompt> ocamlc -c gtd6.ml`
+
+`prompt> ocamlc -o test gtd6.cmo wrapper.so`
+
 And voila, we've called the fortran function from OCaml.
