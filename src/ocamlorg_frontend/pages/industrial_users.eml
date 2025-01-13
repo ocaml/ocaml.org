@@ -209,7 +209,7 @@ the community and learn more about how they use OCaml."
     </div>
       <div class="flex items-center justify-center">
       <a href="<%s Url.industrial_businesses %>" class="h-11 border btn-outline text-primary items-center mt-5 lg:mt-12 inline-flex py-1 px-4 rounded-md md:text-lg">
-        View 50+ Businesses Using OCaml
+        View <%s List.length users |> string_of_int %> Businesses Using OCaml
       </a>
       </div>
   </div>
