@@ -48,8 +48,7 @@ let () = (Node (0.3,
                 Leaf 0.2, Leaf 0.3),
             Leaf 0.1) ) |> show_tree |> print_endline
 
-(* user-defined type *)
-(* excluding path *)
+(* user-defined type, excluding path *)
 type tree_char =
     | Leaf of char
     | Node of char * tree_char * tree_char
