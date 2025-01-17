@@ -53,7 +53,7 @@ let job_card (job: Data.Job.t) =
     </div>
   </a>
 
-let render ~number_of_industrial_users ~(users : Data.Industrial_user.t list) ~success_stories ~(top_story: Data.Success_story.t) ~(testimonials: Data.Testimonial.t list) ~jobs_with_count =
+let render ~(users : Data.Industrial_user.t list) ~success_stories ~(top_story: Data.Success_story.t) ~(testimonials: Data.Testimonial.t list) ~jobs_with_count =
 Layout.render
 ~use_swiper:true
 ~title:"OCaml in Industry"
@@ -138,7 +138,18 @@ the community and learn more about how they use OCaml."
               </div>
             <% ); %>
           </div>
-        <% ); %>List.length users |> string_of_inttion-500 ease-[cubic-bezier(.7,0,0,1)] scale-105 group-hover:scale-100" src="<%s! Ocamlorg_static.Media.url (top_story).background %>" alt="">
+        <% ); %>
+      </div>
+      <a href="<%s Url.success_story top_story.slug %>" class="flex-1 relative rounded-lg overflow-hidden md:flex max-h-[400px] group">
+        <div class="absolute inset-0 z-10 flex flex-col justify-end text-dark-title p-6 <%s get_background_class (top_story) %>">
+          <div class="h-10 mb-2"><img class="h-full" src='<%s Ocamlorg_static.Media.url top_story.card_logo %>' alt=""></div>
+          <p class="mb-3 text-xl"><%s top_story.title %></p>
+          <div class="flex items-center">
+            <%s! Icons.blog "h-5" %>
+            <p class="group-hover:underline ml-2 cursor-pointer">Read Story</p>
+          </div>
+        </div>
+        <img class="w-full object-cover transition-transform duration-500 ease-[cubic-bezier(.7,0,0,1)] scale-105 group-hover:scale-100" src="<%s! Ocamlorg_static.Media.url (top_story).background %>" alt="">
       </a>
     </div>
   </div>
@@ -198,7 +209,7 @@ the community and learn more about how they use OCaml."
     </div>
       <div class="flex items-center justify-center">
       <a href="<%s Url.industrial_businesses %>" class="h-11 border btn-outline text-primary items-center mt-5 lg:mt-12 inline-flex py-1 px-4 rounded-md md:text-lg">
-        View <%s number_of_industrial_users |> string_of_int %> Businesses Using OCaml
+        View <%s List.length users |> string_of_int %> Businesses Using OCaml
       </a>
       </div>
   </div>
