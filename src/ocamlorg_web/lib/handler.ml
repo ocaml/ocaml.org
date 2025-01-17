@@ -328,6 +328,7 @@ let industrial_users _req =
   in
   let top_story = List.hd (sort_by_priority_desc Data.Success_story.all) in
   let users = Data.Industrial_user.featured |> Ocamlorg.Import.List.take 6 in
+  let number_of_users = List.length Data.Industrial_user.all in
   let success_stories =
     match sort_by_priority_desc Data.Success_story.all with
     | [] -> []
@@ -340,8 +341,8 @@ let industrial_users _req =
   let jobs_with_count = (jobs, List.length Data.Job.all) in
 
   Dream.html
-    (Ocamlorg_frontend.industrial_users ~users ~success_stories ~top_story
-       ~testimonials ~jobs_with_count)
+    (Ocamlorg_frontend.industrial_users ~number_of_users ~users
+       ~success_stories ~top_story ~testimonials ~jobs_with_count)
 
 let industrial_businesses _req =
   let businesses = Data.Industrial_user.all in
