@@ -5,22 +5,7 @@ packages:
   used_libraries:
   - ppx_deriving
 discussion: |
-    To create a minimal project:
-    ```
-    mkdir printDebug
-    cd printDebug
-    printf "\
-    (executable
-     (name minimo)
-       (preprocess (pps ppx_deriving.show))
-       )" > ./dune
-    printf "(lang dune 3.17)" > ./dune-project
-    printf "let () = print_endline ([%%show: string] \"hello world\")" > ./minimo.ml
-    opam switch create ./
-    opam install dune ppx_deriving
-    ```
-    Check your dune version by `opam exec -- dune --version` and modify `dune-project` file if needed. Build and execute the project by `opam exec -- dune exec ./minimo.exe`.
-    For a background, see [minimum setup](https://ocaml.org/docs/your-first-program#minimum-setup), [opam switch intro](https://ocaml.org/docs/opam-switch-introduction), and [ppx](https://ocaml.org/docs/metaprogramming).
+    It is required to have `(preprocess (pps ppx_deriving.show))` in `dune` file.
 ---
 
 (* string *)
@@ -31,14 +16,14 @@ let () = print_endline ([%show: string] "hello world")
 let show_int = [%show: int]
 let () = print_endline (show_int 7)
 
-(* tuple *)
+(* tuple of integer and string *)
 let show_pair : (int * string) -> string = [%show: (int * string)]
 let () = print_endline (show_pair (3, "hello"))
 
-(* list of tuples *)
+(* list of tuples, each is a boolean and character *)
 let () = print_endline @@ [%show: (bool * char) list] [ (true, 'a'); (false, 'b') ]
 
-(* user-defined type *)
+(* user-defined type; binary tree with weighted vertices *)
 type tree =
     | Leaf of float
     | Node of float * tree * tree
@@ -48,7 +33,7 @@ let () = (Node (0.3,
                 Leaf 0.2, Leaf 0.3),
             Leaf 0.1) ) |> show_tree |> print_endline
 
-(* user-defined type, excluding path *)
+(* Excluding path in printing from a user-defined type *)
 type tree_char =
     | Leaf of char
     | Node of char * tree_char * tree_char
@@ -56,14 +41,14 @@ type tree_char =
 let foo : tree_char = Node('a', Leaf 'b', Leaf 'c')
 let () = foo |> show_tree_char |> print_endline
 
-(* list of option *)
+(* list of boolean option *)
 let () = print_endline @@ [%show: (bool option) list] @@ [Some true; None; Some false]
 
-(* result *)
+(* string integer result *)
 let () = Ok "hello" |> [%show: (string, int) result] |> print_endline
 let () = Error 404 |> [%show: (string, int) result] |> print_endline
 
-(* record *)
+(* record of a string, integer, and boolean *)
 type person = {
     last_name : string;
     age : int;
@@ -77,7 +62,7 @@ let gerard = {
 }
 let () = print_endline @@ show_person @@ gerard
 
-(* formatter *)
+(* all strings generated above can be used with a formatter like Printf or anything else that works with strings *)
 let () =
     let i = 20 in
     Printf.printf "At line 20 - and variable i is %i" i
