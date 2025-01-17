@@ -341,8 +341,8 @@ let industrial_users _req =
   let jobs_with_count = (jobs, List.length Data.Job.all) in
 
   Dream.html
-    (Ocamlorg_frontend.industrial_users ~number_of_users ~users
-       ~success_stories ~top_story ~testimonials ~jobs_with_count)
+    (Ocamlorg_frontend.industrial_users ~number_of_users ~users ~success_stories
+       ~top_story ~testimonials ~jobs_with_count)
 
 let industrial_businesses _req =
   let businesses = Data.Industrial_user.all in
