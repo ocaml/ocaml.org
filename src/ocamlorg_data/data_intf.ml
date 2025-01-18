@@ -336,7 +336,6 @@ module Industrial_user = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Is_ocaml_yet = struct
@@ -396,7 +395,6 @@ module News = struct
     body_html : string;
     authors : string list;
   }
-  [@@deriving show]
 end
 
 module Opam_user = struct
@@ -433,7 +431,6 @@ module Page = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Paper = struct
@@ -506,7 +503,6 @@ module Success_story = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Tool = struct

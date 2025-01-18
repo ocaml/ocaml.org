@@ -1,4 +1,4 @@
-open Data_intf.Page
+type t = [%import: Data_intf.Page.t] [@@deriving show]
 
 type metadata = {
   title : string;
