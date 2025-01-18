@@ -55,7 +55,6 @@ module Academic_testimonial = struct
     publication : string;
     year : string;
   }
-  [@@deriving of_yaml, show]
 end
 
 module Blog = struct
