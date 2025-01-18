@@ -1,4 +1,4 @@
-open Data_intf.Success_story
+type t = [%import: Data_intf.Success_story.t] [@@deriving show]
 
 type metadata = {
   title : string;

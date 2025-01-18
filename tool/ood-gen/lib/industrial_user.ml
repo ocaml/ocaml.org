@@ -1,4 +1,4 @@
-open Data_intf.Industrial_user
+type t = [%import: Data_intf.Industrial_user.t] [@@deriving show]
 
 type metadata = {
   name : string;
