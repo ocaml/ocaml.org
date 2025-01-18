@@ -1,4 +1,4 @@
-open Data_intf.Changelog
+type t = [%import: Data_intf.Changelog.t] [@@deriving of_yaml, show]
 
 type metadata = {
   title : string;
