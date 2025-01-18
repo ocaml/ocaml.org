@@ -8,13 +8,8 @@ discussion: |
     It is required to have `(preprocess (pps ppx_deriving.show))` in `dune` file.
 ---
 
-(* string *)
-let () = print_endline "hello world"
-let () = print_endline ([%show: string] "hello world")
-
-(* integer *)
-let show_int = [%show: int]
-let () = print_endline (show_int 7)
+(* converting an integer to string *)
+let () = print_endline (string_of_int 7)
 
 (* tuple of integer and string *)
 let show_pair : (int * string) -> string = [%show: (int * string)]
