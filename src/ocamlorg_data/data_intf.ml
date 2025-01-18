@@ -132,7 +132,7 @@ module Changelog = struct
 end
 
 module Code_examples = struct
-  type t = { title : string; body : string } [@@deriving show]
+  type t = { title : string; body : string }
 end
 
 module Cookbook = struct
@@ -141,7 +141,6 @@ module Cookbook = struct
     slug : string;
     subcategories : category list;
   }
-  [@@deriving show]
 
   type task = {
     title : string;
@@ -149,17 +148,14 @@ module Cookbook = struct
     category_path : string list;
     description : string option;
   }
-  [@@deriving show]
 
   type code_block_with_explanation = { code : string; explanation : string }
-  [@@deriving show]
 
   type package = {
     name : string;
     tested_version : string;
     used_libraries : string list;
   }
-  [@@deriving of_yaml, show]
 
   type t = {
     slug : string;
@@ -170,7 +166,6 @@ module Cookbook = struct
     code_plaintext : string;
     discussion_html : string;
   }
-  [@@deriving show]
 end
 
 module Event = struct
@@ -322,10 +317,8 @@ end
 
 module Is_ocaml_yet = struct
   type external_package = { url : string; synopsis : string }
-  [@@deriving of_yaml, show]
 
   type package = { name : string; extern : external_package option }
-  [@@deriving of_yaml, show]
 
   type category = {
     name : string;
@@ -334,7 +327,6 @@ module Is_ocaml_yet = struct
     packages : package list;
     slug : string;
   }
-  [@@deriving show]
 
   type t = {
     id : string;
@@ -343,7 +335,6 @@ module Is_ocaml_yet = struct
     categories : category list;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Job = struct
@@ -398,9 +389,8 @@ module Outreachy = struct
     mentors : string list;
     video : string option;
   }
-  [@@deriving of_yaml, show]
 
-  type t = { name : string; projects : project list } [@@deriving of_yaml, show]
+  type t = { name : string; projects : project list }
 end
 
 module Page = struct
@@ -416,7 +406,7 @@ module Page = struct
 end
 
 module Paper = struct
-  type link = { description : string; uri : string } [@@deriving of_yaml, show]
+  type link = { description : string; uri : string }
 
   type t = {
     title : string;
@@ -429,7 +419,6 @@ module Paper = struct
     links : link list;
     featured : bool;
   }
-  [@@deriving show]
 end
 
 module Release = struct
@@ -516,10 +505,8 @@ end
 
 module Tool_page = struct
   type toc = { title : string; href : string; children : toc list }
-  [@@deriving of_yaml, show]
 
   type contribute_link = { url : string; description : string }
-  [@@deriving of_yaml, show]
 
   type t = {
     title : string;
@@ -532,7 +519,6 @@ module Tool_page = struct
     toc : toc list;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Tutorial = struct
