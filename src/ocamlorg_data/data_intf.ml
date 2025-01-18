@@ -129,7 +129,6 @@ module Changelog = struct
     body : string;
     authors : string list;
   }
-  [@@deriving of_yaml, show]
 end
 
 module Code_examples = struct
@@ -357,7 +356,6 @@ module Job = struct
     company : string;
     company_logo : string;
   }
-  [@@deriving of_yaml, show]
 end
 
 module Testimonial = struct
@@ -368,7 +366,6 @@ module Testimonial = struct
     role : string;
     logo : string;
   }
-  [@@deriving of_yaml, show]
 end
 
 module News = struct
@@ -391,7 +388,6 @@ module Opam_user = struct
     github_username : string option;
     avatar : string option;
   }
-  [@@deriving of_yaml, show]
 end
 
 module Outreachy = struct
@@ -475,7 +471,6 @@ module Resource = struct
     source_url : string option;
     featured : bool;
   }
-  [@@deriving of_yaml, show]
 end
 
 module Success_story = struct
