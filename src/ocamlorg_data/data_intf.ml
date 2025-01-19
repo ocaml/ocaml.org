@@ -103,19 +103,9 @@ module Blog = struct
 end
 
 module Book = struct
-  type difficulty = Beginner | Intermediate | Advanced [@@deriving show]
+  type difficulty = Beginner | Intermediate | Advanced
 
-  let difficulty_of_string = function
-    | "beginner" -> Ok Beginner
-    | "intermediate" -> Ok Intermediate
-    | "advanced" -> Ok Advanced
-    | s -> Error (`Msg ("Unknown difficulty type: " ^ s))
-
-  let difficulty_of_yaml = function
-    | `String s -> difficulty_of_string s
-    | _ -> Error (`Msg "Expected a string for difficulty type")
-
-  type link = { description : string; uri : string } [@@deriving of_yaml, show]
+  type link = { description : string; uri : string }
 
   type t = {
     title : string;
@@ -133,7 +123,6 @@ module Book = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Changelog = struct
@@ -188,21 +177,8 @@ end
 
 module Event = struct
   type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
-  [@@deriving show]
 
-  let event_type_of_string = function
-    | "meetup" -> Ok Meetup
-    | "conference" -> Ok Conference
-    | "seminar" -> Ok Seminar
-    | "hackathon" -> Ok Hackathon
-    | "retreat" -> Ok Retreat
-    | s -> Error (`Msg ("Unknown event type: " ^ s))
-
-  let event_type_of_yaml = function
-    | `String s -> event_type_of_string s
-    | _ -> Error (`Msg "Expected a string for difficulty type")
-
-  type location = { lat : float; long : float } [@@deriving of_yaml, show]
+  type location = { lat : float; long : float }
 
   type recurring_event = {
     title : string;
@@ -213,10 +189,8 @@ module Event = struct
     location : location option;
     event_type : event_type;
   }
-  [@@deriving of_yaml, show]
 
   type utc_datetime = { yyyy_mm_dd : string; utc_hh_mm : string option }
-  [@@deriving of_yaml, show]
 
   type t = {
     title : string;
@@ -234,21 +208,10 @@ module Event = struct
     recurring_event : recurring_event option;
     event_type : event_type;
   }
-  [@@deriving show]
 end
 
 module Exercise = struct
-  type difficulty = Beginner | Intermediate | Advanced [@@deriving show]
-
-  let of_string = function
-    | "beginner" -> Ok Beginner
-    | "intermediate" -> Ok Intermediate
-    | "advanced" -> Ok Advanced
-    | s -> Error (`Msg ("Unknown difficulty type: " ^ s))
-
-  let difficulty_of_yaml = function
-    | `String s -> of_string s
-    | _ -> Error (`Msg "Expected a string for difficulty type")
+  type difficulty = Beginner | Intermediate | Advanced
 
   type t = {
     title : string;
@@ -260,7 +223,6 @@ module Exercise = struct
     solution : string;
     tutorials : string list;
   }
-  [@@deriving show]
 end
 
 module Governance = struct
@@ -440,15 +402,7 @@ module Paper = struct
 end
 
 module Release = struct
-  type kind = [ `Compiler ] [@@deriving show]
-
-  let kind_of_string = function
-    | "compiler" -> Ok `Compiler
-    | s -> Error (`Msg ("Unknown release type: " ^ s))
-
-  let kind_of_yaml = function
-    | `String s -> kind_of_string s
-    | _ -> Error (`Msg "Expected a string for release type")
+  type kind = [ `Compiler ] 
 
   type t = {
     kind : kind;
@@ -463,7 +417,6 @@ module Release = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Resource = struct
@@ -496,18 +449,6 @@ end
 
 module Tool = struct
   type lifecycle = [ `Incubate | `Active | `Sustain | `Deprecate ]
-  [@@deriving show]
-
-  let lifecycle_of_string = function
-    | "incubate" -> Ok `Incubate
-    | "active" -> Ok `Active
-    | "sustain" -> Ok `Sustain
-    | "deprecate" -> Ok `Deprecate
-    | s -> Error (`Msg ("Unknown lifecycle type: " ^ s))
-
-  let lifecycle_of_yaml = function
-    | `String s -> lifecycle_of_string s
-    | _ -> Error (`Msg "Expected a string for lifecycle type")
 
   type t = {
     name : string;
@@ -518,7 +459,6 @@ module Tool = struct
     description : string;
     lifecycle : lifecycle;
   }
-  [@@deriving show]
 end
 
 module Tool_page = struct
@@ -616,19 +556,9 @@ module Video = struct
 end
 
 module Conference = struct
-  type role = [ `Co_chair | `Chair ] [@@deriving show]
-
-  let role_of_string = function
-    | "chair" -> Ok `Chair
-    | "co-chair" -> Ok `Co_chair
-    | s -> Error (`Msg ("Unknown role type: " ^ s))
-
-  let role_of_yaml = function
-    | `String s -> role_of_string s
-    | _ -> Error (`Msg "Expected a string for role type")
+  type role = [ `Co_chair | `Chair ]
 
   type important_date = { date : string; info : string }
-  [@@deriving of_yaml, show]
 
   type committee_member = {
     name : string;
@@ -636,7 +566,6 @@ module Conference = struct
     affiliation : string option;
     picture : string option;
   }
-  [@@deriving of_yaml, show]
 
   type presentation = {
     title : string;
@@ -648,7 +577,6 @@ module Conference = struct
     poster : bool;
     additional_links : string list;
   }
-  [@@deriving of_yaml, show]
 
   type t = {
     title : string;
@@ -662,7 +590,6 @@ module Conference = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving of_yaml, show]
 end
 
 (* Depends on Video and Blog modules to define the different kinds of entries of

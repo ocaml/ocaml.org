@@ -1,4 +1,17 @@
-open Data_intf.Tool
+type lifecycle = [%import: Data_intf.Tool.lifecycle] [@@deriving show]
+
+let lifecycle_of_string = function
+| "incubate" -> Ok `Incubate
+| "active" -> Ok `Active
+| "sustain" -> Ok `Sustain
+| "deprecate" -> Ok `Deprecate
+| s -> Error (`Msg ("Unknown lifecycle type: " ^ s))
+
+let lifecycle_of_yaml = function
+| `String s -> lifecycle_of_string s
+| _ -> Error (`Msg "Expected a string for lifecycle type")
+
+type t = [%import: Data_intf.Tool.t] [@@deriving show]
 
 type metadata = {
   name : string;
