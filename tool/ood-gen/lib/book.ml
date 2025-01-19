@@ -1,4 +1,18 @@
-open Data_intf.Book
+type difficulty = [%import: Data_intf.Book.difficulty] [@@deriving show]
+
+let difficulty_of_string = function
+| "beginner" -> Ok Beginner
+| "intermediate" -> Ok Intermediate
+| "advanced" -> Ok Advanced
+| s -> Error (`Msg ("Unknown difficulty type: " ^ s))
+
+let difficulty_of_yaml = function
+| `String s -> difficulty_of_string s
+| _ -> Error (`Msg "Expected a string for difficulty type")
+
+type link = [%import: Data_intf.Book.link] [@@deriving of_yaml, show]
+
+type t = [%import: Data_intf.Book.t] [@@deriving show]
 
 type metadata = {
   title : string;
