@@ -1,22 +1,24 @@
 type event_type = [%import: Data_intf.Event.event_type] [@@deriving show]
 
 let event_type_of_string = function
-| "meetup" -> Ok Meetup
-| "conference" -> Ok Conference
-| "seminar" -> Ok Seminar
-| "hackathon" -> Ok Hackathon
-| "retreat" -> Ok Retreat
-| s -> Error (`Msg ("Unknown event type: " ^ s))
+  | "meetup" -> Ok Meetup
+  | "conference" -> Ok Conference
+  | "seminar" -> Ok Seminar
+  | "hackathon" -> Ok Hackathon
+  | "retreat" -> Ok Retreat
+  | s -> Error (`Msg ("Unknown event type: " ^ s))
 
 let event_type_of_yaml = function
-| `String s -> event_type_of_string s
-| _ -> Error (`Msg "Expected a string for difficulty type")
+  | `String s -> event_type_of_string s
+  | _ -> Error (`Msg "Expected a string for difficulty type")
 
 type location = [%import: Data_intf.Event.location] [@@deriving of_yaml, show]
 
-type recurring_event = [%import: Data_intf.Event.recurring_event] [@@deriving of_yaml, show]
+type recurring_event = [%import: Data_intf.Event.recurring_event]
+[@@deriving of_yaml, show]
 
-type utc_datetime = [%import: Data_intf.Event.utc_datetime] [@@deriving of_yaml, show]
+type utc_datetime = [%import: Data_intf.Event.utc_datetime]
+[@@deriving of_yaml, show]
 
 type t = [%import: Data_intf.Event.t] [@@deriving show]
 
