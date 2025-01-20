@@ -480,38 +480,24 @@ module Tool_page = struct
 end
 
 module Tutorial = struct
-  module Section = struct
-    type t = GetStarted | Language | Platform | Guides [@@deriving show]
-
-    let of_string = function
-      | "getting-started" -> Ok GetStarted
-      | "language" -> Ok Language
-      | "platform" -> Ok Platform
-      | "guides" -> Ok Guides
-      | s -> Error (`Msg ("Unknown section: " ^ s))
-  end
+  type section = GetStarted | Language | Platform | Guides
 
   type toc = { title : string; href : string; children : toc list }
-  [@@deriving show]
 
   type contribute_link = { url : string; description : string }
-  [@@deriving of_yaml, show]
 
   type banner = { image : string; url : string; alt : string }
-  [@@deriving of_yaml, show]
 
   type external_tutorial = {
     tag : string;
     banner : banner;
     contribute_link : contribute_link;
   }
-  [@@deriving of_yaml, show]
 
-  type recommended_next_tutorials = string list [@@deriving of_yaml, show]
-  type prerequisite_tutorials = string list [@@deriving of_yaml, show]
+  type recommended_next_tutorials = string list
+  type prerequisite_tutorials = string list
 
   type search_document_section = { title : string; id : string }
-  [@@deriving show]
 
   type search_document = {
     title : string;
@@ -520,7 +506,6 @@ module Tutorial = struct
     content : string;
     slug : string;
   }
-  [@@deriving show]
 
   type t = {
     title : string;
@@ -528,7 +513,7 @@ module Tutorial = struct
     fpath : string;
     slug : string;
     description : string;
-    section : Section.t;
+    section : section;
     category : string;
     external_tutorial : external_tutorial option;
     body_md : string;
@@ -537,7 +522,6 @@ module Tutorial = struct
     recommended_next_tutorials : recommended_next_tutorials;
     prerequisite_tutorials : prerequisite_tutorials;
   }
-  [@@deriving show]
 end
 
 module Video = struct
