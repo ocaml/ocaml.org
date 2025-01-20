@@ -45,6 +45,7 @@ depends: [
   "mdx" {with-test & >= "1.10.0"}
   "olinkcheck"
   "ppx_deriving_yaml"
+  "ppx_import"
   "ppx_stable"
   "ezjsonm"
   "lambdasoup"
