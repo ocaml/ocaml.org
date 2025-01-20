@@ -1,6 +1,10 @@
 open Ocamlorg.Import
+
 type toc = [%import: Data_intf.Tool_page.toc] [@@deriving of_yaml, show]
-type contribute_link = [%import: Data_intf.Tool_page.contribute_link] [@@deriving of_yaml, show]
+
+type contribute_link = [%import: Data_intf.Tool_page.contribute_link]
+[@@deriving of_yaml, show]
+
 type t = [%import: Data_intf.Tool_page.t] [@@deriving show]
 
 type metadata = {

@@ -1,5 +1,9 @@
-type external_package = [%import: Data_intf.Is_ocaml_yet.external_package] [@@deriving of_yaml, show]
-type package = [%import: Data_intf.Is_ocaml_yet.package] [@@deriving of_yaml, show]
+type external_package = [%import: Data_intf.Is_ocaml_yet.external_package]
+[@@deriving of_yaml, show]
+
+type package = [%import: Data_intf.Is_ocaml_yet.package]
+[@@deriving of_yaml, show]
+
 type category = [%import: Data_intf.Is_ocaml_yet.category] [@@deriving show]
 type t = [%import: Data_intf.Is_ocaml_yet.t] [@@deriving show]
 

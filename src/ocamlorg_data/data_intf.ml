@@ -104,7 +104,6 @@ end
 
 module Book = struct
   type difficulty = Beginner | Intermediate | Advanced
-
   type link = { description : string; uri : string }
 
   type t = {
@@ -177,7 +176,6 @@ end
 
 module Event = struct
   type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
-
   type location = { lat : float; long : float }
 
   type recurring_event = {
@@ -297,7 +295,6 @@ end
 
 module Is_ocaml_yet = struct
   type external_package = { url : string; synopsis : string }
-
   type package = { name : string; extern : external_package option }
 
   type category = {
@@ -402,7 +399,7 @@ module Paper = struct
 end
 
 module Release = struct
-  type kind = [ `Compiler ] 
+  type kind = [ `Compiler ]
 
   type t = {
     kind : kind;
@@ -463,7 +460,6 @@ end
 
 module Tool_page = struct
   type toc = { title : string; href : string; children : toc list }
-
   type contribute_link = { url : string; description : string }
 
   type t = {
@@ -481,11 +477,8 @@ end
 
 module Tutorial = struct
   type section = GetStarted | Language | Platform | Guides
-
   type toc = { title : string; href : string; children : toc list }
-
   type contribute_link = { url : string; description : string }
-
   type banner = { image : string; url : string; alt : string }
 
   type external_tutorial = {
@@ -496,7 +489,6 @@ module Tutorial = struct
 
   type recommended_next_tutorials = string list
   type prerequisite_tutorials = string list
-
   type search_document_section = { title : string; id : string }
 
   type search_document = {
@@ -541,7 +533,6 @@ end
 
 module Conference = struct
   type role = [ `Co_chair | `Chair ]
-
   type important_date = { date : string; info : string }
 
   type committee_member = {

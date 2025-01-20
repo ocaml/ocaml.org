@@ -9,9 +9,14 @@ let role_of_yaml = function
   | `String s -> role_of_string s
   | _ -> Error (`Msg "Expected a string for role type")
 
-type important_date = [%import: Data_intf.Conference.important_date] [@@deriving of_yaml, show]
-type committee_member = [%import: Data_intf.Conference.committee_member] [@@deriving of_yaml, show]
-type presentation = [%import: Data_intf.Conference.presentation] [@@deriving of_yaml, show]
+type important_date = [%import: Data_intf.Conference.important_date]
+[@@deriving of_yaml, show]
+
+type committee_member = [%import: Data_intf.Conference.committee_member]
+[@@deriving of_yaml, show]
+
+type presentation = [%import: Data_intf.Conference.presentation]
+[@@deriving of_yaml, show]
 
 type t = [%import: Data_intf.Conference.t] [@@deriving of_yaml, show]
 
