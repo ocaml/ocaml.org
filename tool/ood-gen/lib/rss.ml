@@ -8,7 +8,7 @@ let create_entries ~create_entry ?days u =
     Option.fold ~none:Option.some ~some days
   in
   let entries =
-    List.tl u |> List.map create_entry |> List.sort Syndic.Atom.descending
+    u |> List.map create_entry |> List.sort Syndic.Atom.descending
   in
   match List.filter_map is_fresh entries with
   | [] -> [ List.hd entries ]
