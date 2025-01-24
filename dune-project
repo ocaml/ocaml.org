@@ -67,6 +67,7 @@
   olinkcheck
   ; tools/ood-gen
   ppx_deriving_yaml
+  ppx_import
   ppx_stable
   ezjsonm
   lambdasoup
