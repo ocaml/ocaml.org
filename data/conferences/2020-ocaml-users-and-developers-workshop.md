@@ -18,22 +18,22 @@ presentations:
     authors:
       - Luis Eduardo de Souza Amorim
       - Eelco Visser
-    video: https://watch.ocaml.org/videos/watch/a5b86864-8e43-4138-b6d6-ed48d2d4b63d
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/a5b86864-8e43-4138-b6d6-ed48d2d4b63d
   - title: "A Simple State-Machine Framework for Property-Based Testing in OCaml"
     authors:
       - Jan Midtgaard
-    video: https://watch.ocaml.org/videos/watch/08b429ea-2eb8-427d-a625-5495f4ee0fef
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/08b429ea-2eb8-427d-a625-5495f4ee0fef
   - title: "AD-OCaml: Algorithmic Differentiation for OCaml"
     authors: 
       - Markus Mottl
-    video: https://watch.ocaml.org/videos/watch/c9e85690-732f-4b03-836f-2ee0fd8f0658
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/c9e85690-732f-4b03-836f-2ee0fd8f0658
   - title: "API Migration: compare transformed"
     authors:
       - Joseph Harrison
       - Steven Varoumas
       - Simon Thompson 
       - Reuben Rowe
-    video: https://watch.ocaml.org/videos/watch/c46b925b-bd77-404f-ac5d-5dab65047529
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/c46b925b-bd77-404f-ac5d-5dab65047529
   - title: "Irmin v2"
     authors:
       - Clément Pascutto
@@ -41,16 +41,16 @@ presentations:
       - Craig Ferguson
       - Thomas Gazagnaire
       - Romain Liautaud
-    video: https://watch.ocaml.org/videos/watch/53e497b0-898f-4c85-8da9-39f65ef0e0b1
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/53e497b0-898f-4c85-8da9-39f65ef0e0b1
   - title: "LexiFi Runtime Types"
     authors:
       - Patrik Keller
       - Marc Lasson
-    video: https://watch.ocaml.org/videos/watch/cc7e3242-0bef-448a-aa13-8827bba933e3 
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/cc7e3242-0bef-448a-aa13-8827bba933e3 
   - title: "OCaml Under The Hood: SmartPy"
     authors:
       - Sebastien Mondet
-    video: https://watch.ocaml.org/videos/watch/7446ad4d-4ae2-4e1a-bc38-af8f71e8ebd8
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/7446ad4d-4ae2-4e1a-bc38-af8f71e8ebd8
   - title: "OCaml-CI: A Zero-Configuration CI"
     authors: 
       - Thomas Leonard
@@ -58,7 +58,7 @@ presentations:
       - Kate Deplaix
       - Magnus Skjegstad
       - Anil Madhavapeddy
-    video: https://watch.ocaml.org/videos/watch/da88d6ac-7ba1-4261-9308-d03fe21e35b9 
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/da88d6ac-7ba1-4261-9308-d03fe21e35b9 
   - title: "Parallelising your OCaml Code with Multicore OCaml"
     authors:
       - Sadiq Jaffer
@@ -66,23 +66,23 @@ presentations:
       - KC Sivaramakrishnan
       - Tom Kelly
       - Anil Madhavapeddy
-    video: https://watch.ocaml.org/videos/watch/ce20839e-4bfc-4d74-925b-485a6b052ddf
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/ce20839e-4bfc-4d74-925b-485a6b052ddf
     link: https://github.com/ocaml-multicore/multicore-talks/tree/master/ocaml2020-workshop-parallel
   - title: "The ImpFS filesystem"
     authors:
       - Tom Ridge
-    video: https://watch.ocaml.org/videos/watch/28545b27-4637-47a5-8edd-6b904daef19c
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/28545b27-4637-47a5-8edd-6b904daef19c
   - title: "The Final Pieces of the OCaml Documentation Puzzle"
     authors: 
       - Jonathan Ludlam
       - Gabriel Radanne
       - Leo White
-    video: https://watch.ocaml.org/videos/watch/2acebff9-25fa-4733-83cc-620a65b12251
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/2acebff9-25fa-4733-83cc-620a65b12251
   - title: "Types in amber"
     authors:
       - Paul Steckler
       - Matthew Ryan
-    video: https://watch.ocaml.org/videos/watch/99b3dc75-9f93-4677-9f8b-076546725512
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/99b3dc75-9f93-4677-9f8b-076546725512
 program_committee: 
   - name: Ivan Gotovchits
     affiliation: CMU, USA
