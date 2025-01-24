@@ -5,7 +5,7 @@ type presentation_metadata = {
   authors : string list;
   link : string option;
   watch_ocamlorg_video : string option;
-  youtube_video : string option; 
+  youtube_video : string option;
   slides : string option;
   poster : bool option;
   additional_links : string list option;
