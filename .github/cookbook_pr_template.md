@@ -1,5 +1,3 @@
-## Pull Request Template for OCaml Cookbook Contributions
-
 #### Checklist
 Ensure the following are addressed before submitting your PR:
 
@@ -16,4 +14,3 @@ Ensure the following are addressed before submitting your PR:
 
 4. **Recipe Redundancy**:
    - [ ] Does this recipe duplicate an existing task? If so, does it add value by showing differences between packages or approaches?
-
