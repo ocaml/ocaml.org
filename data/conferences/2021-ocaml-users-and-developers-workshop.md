@@ -13,12 +13,12 @@ presentations:
   - title: "25 Years of OCaml"
     authors:
       - Xavier Leroy
-    video: https://watch.ocaml.org/videos/watch/e1ee0fc0-50ef-4a1c-894a-17df181424cb
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/e1ee0fc0-50ef-4a1c-894a-17df181424cb
   - title: "A Multiverse of Glorious Documentation"
     authors:
       - Lucas Pluvinage
       - Jonathan Ludlam
-    video: https://watch.ocaml.org/videos/watch/9bb452d6-1829-4dac-a6a2-46b31050c931
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/9bb452d6-1829-4dac-a6a2-46b31050c931
     link: https://icfp21.sigplan.org/details/ocaml-2021-papers/15/A-Multiverse-of-Glorious-Documentation 
   - title: "Adapting the OCaml Ecosystem for Multicore OCaml"
     authors:
@@ -28,32 +28,32 @@ presentations:
       - Tom Kelly
       - KC Sivaramakrishnan
     link: https://icfp21.sigplan.org/details/ocaml-2021-papers/7/Adapting-the-OCaml-ecosystem-for-Multicore-OCaml
-    video: https://watch.ocaml.org/videos/watch/629b89a8-bbd5-490d-98b0-d0c740912b02
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/629b89a8-bbd5-490d-98b0-d0c740912b02
   - title: "Binary Analysis Platform (BAP). Using Universal Algebra and Tagless-Final Style for Developing Representation-Agnostic Frameworks"
     authors:
       - Ivan Gotovchits
       - David Brumley
-    video: https://watch.ocaml.org/videos/watch/8dc2d8d3-c140-4c3d-a8fe-a6fcf6fba988
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/8dc2d8d3-c140-4c3d-a8fe-a6fcf6fba988
     link: https://icfp21.sigplan.org/details/ocaml-2021-papers/10/Binary-Analysis-Platform-BAP-Using-Universal-Algebra-and-Tagless-Final-Style-for-D
   - title: "Continuous Benchmarking for OCaml Projects"
     authors:
       - Gargi Sharma
       - Rizo Isrof
       - Magnus Skjegstad
-    video: https://watch.ocaml.org/videos/watch/1c994370-1aaa-4db6-b901-d762786e4904
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/1c994370-1aaa-4db6-b901-d762786e4904
   - title: "Deductive Verification of Realistic OCaml Code"
     authors:
       - Carlos Pinto
       - Mário Pereira
       - Simão Melo de Sousa
-    video: https://watch.ocaml.org/videos/watch/92309d92-8cbf-4545-980c-209c96e42a79
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/92309d92-8cbf-4545-980c-209c96e42a79
   - title: "Digodoc and Docs"
     authors:
       - Mohamed Hernouf
       - Fabrice Le Fessant
       - Thomas Blanc
       - Louis Gesbert
-    video: https://watch.ocaml.org/videos/watch/db6ed2c4-e940-4d5f-82ee-d3d20eb4ceb7
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/db6ed2c4-e940-4d5f-82ee-d3d20eb4ceb7
   - title: "Experiences with Effects"
     authors:
       - Thomas Leonard
@@ -64,37 +64,37 @@ presentations:
       - KC Sivaramakrishnan
       - Anil Madhavapeddy
     link: https://icfp21.sigplan.org/details/ocaml-2021-papers/16/Experiences-with-Effects
-    video: https://watch.ocaml.org/videos/watch/74ece0a8-380f-4e2a-bef5-c6bb9092be89
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/74ece0a8-380f-4e2a-bef5-c6bb9092be89
   - title: "From 2n+1 to n"
     authors:
       - Nandor Licker
       - Timothy M. Jones
-    video: https://watch.ocaml.org/videos/watch/74b32dae-11c6-4713-be1b-946260196e50
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/74b32dae-11c6-4713-be1b-946260196e50
     link: https://icfp21.sigplan.org/details/ocaml-2021-papers/14/From-2n-1-to-n
   - title: "GopCaml: A Structural Editor for OCaml"
     authors:
       - Kiran Gopinathan
     link: https://icfp21.sigplan.org/details/ocaml-2021-papers/11/GopCaml-A-Structural-Editor-for-OCaml
-    video: https://watch.ocaml.org/videos/watch/e0a6e6f2-0d40-4dfc-9308-001c8e0f64d6
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/e0a6e6f2-0d40-4dfc-9308-001c8e0f64d6
   - title: "Leveraging Formal Specifications to Generate Fuzzing Suites"
     authors:
       - Nicolas Osborne
       - Clément Pascutto
-    video: https://watch.ocaml.org/videos/watch/d9a36c9f-1611-42f9-8854-981b1e2d7d75
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/d9a36c9f-1611-42f9-8854-981b1e2d7d75
   - title: "Love: a readable language interpreted by a blockchain"
     authors:
       - Steven de Oliveira
       - David Declerck
-    video: https://watch.ocaml.org/videos/watch/d3b2b31e-1739-406e-8de7-d5f21bc01836
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/d3b2b31e-1739-406e-8de7-d5f21bc01836
   - title: "OCaml and Python: Getting the Best of Both Worlds"
     authors:
       - Laurent Mazare
-    video: https://watch.ocaml.org/videos/watch/9eafdb1e-9be9-4a52-98b4-f4696eda4c18
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/9eafdb1e-9be9-4a52-98b4-f4696eda4c18
   - title: "Opam-bin: Binary Packages with Opam"
     authors:
       - Fabrice Le Fessant
     link: https://icfp21.sigplan.org/details/ocaml-2021-papers/5/Opam-bin-Binary-Packages-with-Opam
-    video: https://watch.ocaml.org/videos/watch/a889e4d3-0508-4734-b667-7060b0a253cd
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/a889e4d3-0508-4734-b667-7060b0a253cd
   - title: "Parafuzz: Coverage-guided Property Fuzzing for Multicore OCaml programs"
     authors:
       - Sumit Padhiyar
@@ -102,30 +102,30 @@ presentations:
       - KC Sivaramakrishnan
     link: https://icfp21.sigplan.org/details/ocaml-2021-papers/9/Parafuzz-Coverage-guided-Property-Fuzzing-for-Multicore-OCaml-programs
     slides: https://speakerdeck.com/kayceesrk/parafuzz-fuzzing-multicore-ocaml-programs
-    video: https://watch.ocaml.org/videos/watch/c0d591e0-91c9-4eaa-a4d7-c4f514de0a57
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/c0d591e0-91c9-4eaa-a4d7-c4f514de0a57
   - title: "Probabilistic resource limits, or: Programming with interrupts in OCaml"
     authors: 
       - Guillaume Munch-Maccagnoni
-    video: https://watch.ocaml.org/videos/watch/bc297e85-82dd-4baf-8556-4a3a934978f9
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/bc297e85-82dd-4baf-8556-4a3a934978f9
   - title: "Property-Based Testing for OCaml through Coq"
     authors:
       - Paaras Bhandari
       - Leonidas Lampropoulos
-    video: https://watch.ocaml.org/videos/watch/9324fba4-2482-4bab-bfdd-b8881b3ed94a
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/9324fba4-2482-4bab-bfdd-b8881b3ed94a
   - title: "Safe Protocol Updates via Propositional Logic"
     authors:
       - Michael O'Connor
-    video: https://watch.ocaml.org/videos/watch/c6176f51-0277-46f0-937b-1e2721044492
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/c6176f51-0277-46f0-937b-1e2721044492
   - title: "Semgrep, a fast, lightweight, polyglot, static analysis tool to find bugs"
     authors:
       - Yoann Padioleau
     link: https://icfp21.sigplan.org/details/ocaml-2021-papers/18/Semgrep-a-fast-lightweight-polyglot-static-analysis-tool-to-find-bugs
-    video: https://watch.ocaml.org/videos/watch/c0d07213-1426-46a1-98e0-0b0c4515c841
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/c0d07213-1426-46a1-98e0-0b0c4515c841
   - title: "Wibbily Wobbly Timey Camly"
     authors: 
       - Di Long Li
       - Gabriel Radanne
-    video: https://watch.ocaml.org/videos/watch/ec641446-823b-40ec-a207-85157a18f88e
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/ec641446-823b-40ec-a207-85157a18f88e
 organising_committee: 
   - name: Frédéric Bour
     affiliation: Tarides, France
