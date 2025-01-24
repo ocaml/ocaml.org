@@ -30,28 +30,28 @@ presentations:
       - Stephen Dolan
       - Leo White
       - Anil Madhavapeddy
-    video: https://watch.ocaml.org/videos/watch/490b5363-01b6-45d8-9b7e-c883a20026a1
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/490b5363-01b6-45d8-9b7e-c883a20026a1
   - title: Ephemerons meet OCaml GC
     authors:
       - François Bobot 
-    video: https://watch.ocaml.org/videos/watch/556c8f75-b456-43a3-b9cb-97ae35b82072
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/556c8f75-b456-43a3-b9cb-97ae35b82072
   - title: Introduction to 0install
     authors:
       - Thomas Leonard
-    video: https://watch.ocaml.org/videos/watch/21a21c83-a35d-4c09-b13c-8f060590c45c
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/21a21c83-a35d-4c09-b13c-8f060590c45c
   - title: Transport Layer Security purely in OCaml 
     authors:
       - Hannes Mehnert
       - David Kaloper Meršinjak
-    video: https://watch.ocaml.org/videos/watch/03721258-b275-4c98-8a0b-9e4606b32fec
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/03721258-b275-4c98-8a0b-9e4606b32fec
   - title: 'OCamlOScope: a New OCaml API Search'
     authors:
       - Jun Furuse 
-    video: https://watch.ocaml.org/videos/watch/c3e3cf25-0fa7-46ad-b0bf-f313bad7142d
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/c3e3cf25-0fa7-46ad-b0bf-f313bad7142d
   - title: The State of OCaml (invited)
     authors:
       - Xavier Leroy
-    video: https://watch.ocaml.org/videos/watch/11844424-be9b-4427-b3dd-24c3e4ff85a9
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/11844424-be9b-4427-b3dd-24c3e4ff85a9
   - title: The OCaml Platform v1.0
     authors:
       - Anil Madhavapeddy 
@@ -64,22 +64,22 @@ presentations:
       - Mark Shinwell
       - Leo White
       - Jeremy Yallop
-    video: https://watch.ocaml.org/videos/watch/37eaef0e-d826-4452-bf84-f04244a85ce9
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/37eaef0e-d826-4452-bf84-f04244a85ce9
   - title: A Proposal for Non-Intrusive Namespaces in OCaml
     authors:
       - Pierrick Couderc
       - Fabrice Le Fessant
       - Benjamin Canou
       - Pierre Chambart
-    video: https://watch.ocaml.org/videos/watch/ded6e8bb-aebd-4fd2-989f-3f0b2b8efaf3
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/ded6e8bb-aebd-4fd2-989f-3f0b2b8efaf3
   - title: Improving Type Error Messages in OCaml
     authors:
       - Arthur Charguéraud 
-    video: https://watch.ocaml.org/videos/watch/9fa54aee-6b2f-492f-abbe-51affc07ec24
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/9fa54aee-6b2f-492f-abbe-51affc07ec24
   - title: 'Github Pull Requests for OCaml development: a field report'
     authors:
       - Gabriel Scherer
-    video: https://watch.ocaml.org/videos/watch/f0021d24-9104-4672-a363-de5c1c514c2e
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/f0021d24-9104-4672-a363-de5c1c514c2e
   - title: Irminsule; a branch-consistent distributed library database
     authors:
       - Thomas Gazagnaire 
@@ -90,29 +90,29 @@ presentations:
       - David Sheets
       - Gregory Tsipenyuk 
       - Jon Crowcroft
-    video: https://watch.ocaml.org/videos/watch/5546bb89-93a3-4407-a810-2d437479025f
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/5546bb89-93a3-4407-a810-2d437479025f
   - title: A Case for Multi-Switch Constraints in OPAM
     authors:
       - Fabrice Le Fessant
-    video: https://watch.ocaml.org/videos/watch/744d4a0b-a44c-4040-853c-6be5223ec43b
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/744d4a0b-a44c-4040-853c-6be5223ec43b
   - title: 'LibreS3: design, challenges, and steps toward reusable libraries'
     authors:
       - Edwin Török
-    video: https://watch.ocaml.org/videos/watch/c1b00980-3a4f-4222-b539-392815f7954f
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/c1b00980-3a4f-4222-b539-392815f7954f
   - title: Nullable Type Inference
     authors:
       - Michel Mauny
       - Benoit Vaugon
-    video: https://watch.ocaml.org/videos/watch/380b1c2e-6298-49fc-88a1-c440ece29c76
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/380b1c2e-6298-49fc-88a1-c440ece29c76
   - title: Coq of OCaml
     authors:
       - Guillaume Claret
-    video: https://watch.ocaml.org/videos/watch/fc7201df-ec27-4735-a51d-d3170d390346
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/fc7201df-ec27-4735-a51d-d3170d390346
   - title: High Performance Client-Side Web Programming with SPOC and Js of ocaml
     authors:
       - Mathias Bourgoin
       - Emmmanuel Chailloux 
-    video: https://watch.ocaml.org/videos/watch/9e68174a-5c92-41f1-abdf-387a6cca7cf1
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/9e68174a-5c92-41f1-abdf-387a6cca7cf1
   - title: Using Preferences to Tame your Package Manager
     authors:
       - Roberto Di Cosmo
@@ -120,11 +120,11 @@ presentations:
       - Stefano Zacchiroli
       - Fabrice Le Fessant 
       - Louis Gesbert
-    video: https://watch.ocaml.org/videos/watch/43536918-a6e5-4a53-a680-bed527319e31
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/43536918-a6e5-4a53-a680-bed527319e31
   - title: Simple, efficient, sound-and-complete combinator parsing for all context-free grammars, using an oracle
     authors:
       - Tom Ridge
-    video: https://watch.ocaml.org/videos/watch/7a0a6d3c-dad0-4fe8-9c35-78cbfbd431d9
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/7a0a6d3c-dad0-4fe8-9c35-78cbfbd431d9
 organising_committee: []
 program_committee: 
   - name: Esther Baruk

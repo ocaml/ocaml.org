@@ -12,32 +12,32 @@ presentations:
     authors: 
       - Fabrice Le Fessant
       - Pierre Chambart
-    video: https://watch.ocaml.org/videos/watch/e1a22cf8-5522-4c05-a8d4-af445bc73556
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/e1a22cf8-5522-4c05-a8d4-af445bc73556
   - title: 'Operf: Benchmarking the OCaml Compiler'
     authors: 
       - Pierre Chambart
       - Fabrice Le Fessant
       - Vincent Bernardoff
-    video: https://watch.ocaml.org/videos/watch/eb229518-1108-46bd-b8b2-3ce8b886c96f
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/eb229518-1108-46bd-b8b2-3ce8b886c96f
   - title: 'Core.Time_stamp_counter: A fast high resolution time source'
     authors: 
       - Roshan James
       - Christopher Hardin
-    video: https://watch.ocaml.org/videos/watch/b6c7860d-e6eb-4404-96c3-917b81ee1f98
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/b6c7860d-e6eb-4404-96c3-917b81ee1f98
   - title: Specialization of Generic Array Accesses After Inlining
     authors: 
       - Ryohei Tokuda
       - Eijiro Sumii
       - Akinori Abe
-    video: https://watch.ocaml.org/videos/watch/515689cc-4736-4e1e-9f9f-be363b4551af
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/515689cc-4736-4e1e-9f9f-be363b4551af
   - title: Inline Assembly in OCaml 
     authors: 
       - Vladimir Brankov
-    video: https://watch.ocaml.org/videos/watch/736857f3-99d9-46fb-9b4a-92eba42b2672
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/736857f3-99d9-46fb-9b4a-92eba42b2672
   - title: The State of OCaml (invited talk) 
     authors: 
       - Xavier Leroy
-    video: https://watch.ocaml.org/videos/watch/69e486cd-191d-430b-8a41-0be0f806096b
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/69e486cd-191d-430b-8a41-0be0f806096b
   - title: 'The State of the OCaml Platform: September 2015'
     authors: 
       - Anil Madhavapeddy
@@ -45,7 +45,7 @@ presentations:
       - Thomas Gazagnaire
       - Jeremy Yallop
       - David Sheets
-    video: https://watch.ocaml.org/videos/watch/0eeab9cb-8984-4323-bad7-0630192c635d
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/0eeab9cb-8984-4323-bad7-0630192c635d
   - title: Modular macros
     authors: 
       - Jeremy Yallop

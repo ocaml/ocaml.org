@@ -29,14 +29,14 @@ presentations:
     authors:
       - Runhang Li
       - Jeremy Yallop  
-    video: https://watch.ocaml.org/videos/watch/8d5a83f5-ad98-4f45-9259-c84194134c20
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/8d5a83f5-ad98-4f45-9259-c84194134c20
     link: https://github.com/ocaml/ocaml.org-media/blob/master/meetings/ocaml/2017/extended-abstract__2017__runhang-li_jeremy-yallop__extending-ocaml-s-open.pdf
     additional_links:
       - https://github.com/objmagic/ocaml-workshop-17-open-ext-talk
   - title: "Genspio: Generating Shell Phrases In OCaml"
     authors: 
       - Sebastien Mondet  
-    video: https://watch.ocaml.org/videos/watch/9a7bf8cc-38c5-4f67-ab25-0ea1388100d3
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/9a7bf8cc-38c5-4f67-ab25-0ea1388100d3
     link: https://github.com/ocaml/ocaml.org-media/blob/master/meetings/ocaml/2017/extended-abstract__2017__sebastien-mondet__genspio-generating-shell-phrases-in-ocaml.pdf
     slides: http://wr.mondet.org/slides/OCaml2017-Genspio/
     additional_links: 
@@ -44,7 +44,7 @@ presentations:
   - title: "Owl: A General-Purpose Numerical Library in OCaml"
     authors:  
       - Liang Wang  
-    video: https://watch.ocaml.org/videos/watch/d258fa91-ddb6-40d8-96de-e9ac97e8c899
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/d258fa91-ddb6-40d8-96de-e9ac97e8c899
     link: https://arxiv.org/abs/1707.09616
     slides: https://github.com/ocaml/ocaml.org-media/blob/master/meetings/ocaml/2017/slides__2017__liang_wang__owl-a-general-purpose-numerical-library-in-ocaml.pdf
   - title: "ROTOR: First Steps Towards a Refactoring Tool for OCaml"
@@ -72,7 +72,7 @@ presentations:
   - title: "The State of the OCaml Platform: September 2017"
     authors:
       - Anil Madhavapeddy  
-    video: https://watch.ocaml.org/videos/watch/3940b98a-6b33-41f7-b0e7-4b7ae5ec2b4b
+    watch_ocamlorg_video: https://watch.ocaml.org/videos/watch/3940b98a-6b33-41f7-b0e7-4b7ae5ec2b4b
     slides: https://speakerdeck.com/avsm/ocaml-platform-2017
     link: https://github.com/ocaml/ocaml.org-media/blob/master/meetings/ocaml/2017/slides__2017__anil-madhavapeddy__the-state-of-the-ocaml-platform-september-2017.pdf
   - title: "Wodan: a pure OCaml, flash-aware filesystem library" 
