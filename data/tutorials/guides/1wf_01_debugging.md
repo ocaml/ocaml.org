@@ -166,8 +166,7 @@ For example,
 ```ocaml
 match Message.unpack response with
 | Some y -> y
-| None -> Printf.printf "Invalid message at %s" __LOC__; flush stdout;
-          raise Invalid_argument
+| None -> (Printf.eprintf "Invalid message at %s" __LOC__; raise Invalid_argument)
 ```
 At compile time, the `__LOC__` builtin is substituted with its location in the program, described as a string `"File %S, line %d, characters %d-%d"`. One can also get the file name, line number, start character and end character directly through the `__POS__` builtin:
 ```ocaml
