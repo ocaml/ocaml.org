@@ -89,7 +89,10 @@ Community_layout.single_column_layout
               <% (match presentation.link with None -> () | Some link -> %>
               <%s! resource_link ~link (Icons.link "h-6 w-6") "Details" %>
               <% ); %>
-              <% (match presentation.video with None -> () | Some link -> %>
+              <% (match presentation.youtube_video with None -> () | Some link -> %>
+              <%s! resource_link ~link (Icons.youtube "h-6 w-6") "View on YouTube" %>
+              <% ); %>
+              <% (match presentation.watch_ocamlorg_video with None -> () | Some link -> %>
               <%s! resource_link ~link (Icons.video "h-6 w-6") "View Video" %>
               <% ); %>
               <% (match presentation.slides with None -> () | Some link -> %>
@@ -106,6 +109,7 @@ Community_layout.single_column_layout
     </div>
 </div>
 
+<% if conference.program_committee <> [] then ( %>
 <div class="w-full deep-blue-gradient dark:section-blue-gradient">
   <div class="container-fluid pt-6 pb-12">
     <p class="uppercase text-sm text-dark-content dark:text-dark-content tracking-widest font-medium my-4">Conference Details</p>
@@ -132,22 +136,57 @@ Community_layout.single_column_layout
     </ul>
   </div>
 </div>
-<% let videos = List.filter (fun (p : Data.Conference.presentation) -> Option.is_some p.video)
+<% ); %>
+
+<% if conference.organising_committee <> [] then ( %>
+<div class="w-full deep-blue-gradient dark:section-blue-gradient">
+  <div class="container-fluid pt-6 pb-12">
+    <p class="uppercase text-sm text-dark-content dark:text-dark-content tracking-widest font-medium my-4">Conference Details</p>
+    <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Organisers</h2>
+    <div class="flex flex-wrap justify-center space-x-12 mt-8">
+      <% 
+      let committee_with_pictures = List.filter (fun (x : Data.Conference.committee_member) -> Option.is_some x.picture) conference.organising_committee in
+      let committee_without_pictures = List.filter (fun (x : Data.Conference.committee_member) -> Option.is_none x.picture) conference.organising_committee in
+      let names = List.map (fun (x : Data.Conference.committee_member) -> match x.affiliation with None -> (x.name, "") | Some affiliation -> (x.name, affiliation)) committee_without_pictures in
+      committee_with_pictures |> List.iter (fun (member : Data.Conference.committee_member) -> %>
+      <div href="" class="mt-12">
+        <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="" />
+        <div class="font-medium mt-3"><%s member.name %></div>
+        <% (match member.affiliation with None -> () | Some affiliation -> %>
+        <div class="text-sm mt-1"><%s affiliation %></div>
+        <% ); %>
+      </div>
+      <% ); %>
+    </div>
+    <ul class="grid grid-cols-1 md:grid-cols-2">
+      <% names |> List.iter (fun (name, affiliation) -> %>
+        <li class="mb-4"><p class="text-dark-content"><span class="mr-2">•</span><span class="font-bold mr-2"><%s name %></span><span>
+        <% (match affiliation with "" -> () | _ -> %>
+        (<%s affiliation %>)
+        <% ); %>
+        </span></p></li>
+      <% ); %>
+    </ul>
+  </div>
+</div>
+<% ); %>
+
+<% let videos = List.filter (fun (p : Data.Conference.presentation) -> Option.is_some p.watch_ocamlorg_video)
 conference.presentations in (match List.length videos with | 0 -> () | _ -> %>
 <div class="bg-background dark:bg-dark-background py-16">
   <div class="container-fluid">
     <h3 class="font-bold mb-12 text-title dark:text-dark-title">Some Videos</h3>
     <div class="grid lg:grid-cols-3 gap-14">
-      <% let videos = List.filteri (fun i _ -> i < 6) videos in videos |> List.iter (fun (video : Data.Conference.presentation) -> %>
+      <% let videos = List.filteri (fun i _ -> i < 6) videos in videos |> List.iter (fun (presentation : Data.Conference.presentation) -> %>
       <div class="inline-block">
         <iframe
           loading="lazy"
           class="w-full"
           sandbox="allow-scripts allow-popups"
-          src="<%s video.video |> Option.get |> video_embed_path %>"
+          src="<%s presentation.watch_ocamlorg_video |> Option.get |> video_embed_path %>"
           allowfullscreen
         ></iframe>
-        <h6 class="font-bold mt-4 text-title dark:text-dark-title"><%s video.title %></h6>
+        <h6 class="font-bold mt-4 text-title dark:text-dark-title"><%s presentation.title %></h6>
       </div>
       <% ); %>
     </div>
