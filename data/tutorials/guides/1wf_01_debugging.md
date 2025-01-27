@@ -179,8 +179,8 @@ match Message.unpack response with
     flush stdout; raise Invalid_argument
 ```
 
-Documentation for all debugging compiler builtins is in the 
-[standard library documentation](https://ocaml.org/manual/5.2/api/Stdlib.html#1_Debugging).
+Compiler builtins are described in the
+[standard library](https://ocaml.org/manual/5.2/api/Stdlib.html#1_Debugging) documentation.
 
 ## The OCaml Debugger
 
