@@ -161,8 +161,7 @@ purpose formats are more suited to get the relevant information, than what can
 be output automatically by the generic pretty-printer used by the trace
 mechanism.
 
-Print debugging is assisted by compiler builtins that allow a printed error 
-message to refer to the program location that the error was raised from. 
+Compiler builtins improve debugging messages. The location of the error in the program can be displayed. 
 For example,
 ```ocaml
 match Message.unpack response with
