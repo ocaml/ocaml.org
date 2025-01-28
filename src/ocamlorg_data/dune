@@ -352,10 +352,10 @@
    (with-stdout-to
     %{target}
     (progn
-     (echo "let assets = [")
+     (echo "let assets = [\n")
      (pipe-stdout
       (run find . -type f)
       (run cut -b 2-)
-      (run sed "s/^/\"/")
+      (run sed "s/^/  \"/")
       (run sed "s/$/\";/"))
-     (echo "]"))))))
+     (echo "]\n"))))))
