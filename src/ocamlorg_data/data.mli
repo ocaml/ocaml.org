@@ -211,3 +211,5 @@ module Conference : sig
   val all : t list
   val get_by_slug : string -> t option
 end
+
+module V2 : module type of V2
