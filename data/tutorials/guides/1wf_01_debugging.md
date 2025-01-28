@@ -161,6 +161,27 @@ purpose formats are more suited to get the relevant information, than what can
 be output automatically by the generic pretty-printer used by the trace
 mechanism.
 
+Compiler builtins help display useful debugging messages. They indicate a location in the program's source. 
+For example,
+```ocaml
+match Message.unpack response with
+| Some y -> y
+| None -> (Printf.eprintf "Invalid message at %s" __LOC__; raise Invalid_argument)
+```
+At compile time, the `__LOC__` builtin is substituted with its location in the program, described as a string `"File %S, line %d, characters %d-%d"`. File name, line number, start character and end character are also available through the `__POS__` builtin:
+```ocaml
+match Message.unpack response with
+| Some y -> y
+| None ->
+    let fname, lnum, _cstart, _cend = __POS__ in
+    Printf.printf "At line %d in file %s, an incorrect response was passed to Message.unpack"
+    lnum fname;
+    flush stdout; raise Invalid_argument
+```
+
+Compiler builtins are described in the
+[standard library](https://ocaml.org/manual/5.2/api/Stdlib.html#1_Debugging) documentation.
+
 ## The OCaml Debugger
 
 We now give a quick tutorial for the OCaml debugger (`ocamldebug`).  Before
