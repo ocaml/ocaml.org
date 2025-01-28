@@ -1,4 +1,4 @@
-open Data_intf.Code_examples
+type t = [%import: Data_intf.Code_examples.t] [@@deriving show]
 
 let all () =
   Utils.read_from_dir "code_examples/*.ml"
