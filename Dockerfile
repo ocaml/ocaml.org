@@ -52,7 +52,7 @@ ENV DREAM_VERBOSITY=info \
     OCAMLORG_MANUAL_PATH=/manual \
     OCAMLORG_PKG_STATE_PATH=/var/package.state \
     OCAMLORG_REPO_PATH=/var/opam-repository/ \
-    OCAMLORG_V2_PATH /v2
+    OCAMLORG_V2_PATH=/v2
 
 EXPOSE 8080
 
