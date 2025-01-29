@@ -300,11 +300,11 @@ module Governance = struct
     name : string;
     description : string;
     contacts : contact list;
-    dev_meeting : dev_meeting option; [@default None] [@key "dev-meeting"]
-    members : Member.t list; [@default []]
-    subteams : team list; [@default []]
+    dev_meeting : dev_meeting option;
+    members : Member.t list;
+    subteams : team list;
   }
-  [@@deriving of_yaml, show]
+  [@@deriving show]
 end
 
 module Industrial_user = struct
@@ -611,7 +611,7 @@ module Video = struct
     title : string;
     url : string;
     thumbnail : string;
-    description : string; [@default ""]
+    description : string;
     published : string;
     author_name : string;
     author_uri : string;
