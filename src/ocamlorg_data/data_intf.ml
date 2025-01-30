@@ -1,33 +1,51 @@
 module Academic_institution = struct
   type location = { lat : float; long : float } [@@deriving of_yaml, show]
 
-  let pp_ptime fmt t =
-    Format.pp_print_string fmt "Ptime.of_rfc3339 \"";
-    Ptime.pp_rfc3339 () fmt t;
-    Format.pp_print_string fmt
-      "\" |> function Ok (t, _, _) -> t | Error _ -> failwith \"RFC 3339\""
+  include (
+    struct
+      module Ptime = struct
+        include Ptime
 
-  let pp_print_option pp fmt = function
-    | None -> Format.pp_print_string fmt "None"
-    | Some x ->
-        Format.pp_print_string fmt "Some (";
-        pp fmt x;
-        Format.pp_print_string fmt ")"
+        let pp fmt t =
+          Format.pp_print_string fmt "(Ptime.of_rfc3339 \"";
+          Ptime.pp_rfc3339 () fmt t;
+          Format.pp_print_string fmt
+            "\" |> function Ok (t, _, _) -> t | Error _ -> failwith \"RFC \
+             3339\")"
+      end
 
-  type course = {
-    name : string;
-    acronym : string option;
-    url : string option;
-    teacher : string option;
-    enrollment : string option;
-    year : int option;
-    description : string;
-    last_check : Ptime.t option; [@printer pp_print_option pp_ptime]
-    lecture_notes : bool;
-    exercises : bool;
-    video_recordings : bool;
-  }
-  [@@deriving show]
+      type course = {
+        name : string;
+        acronym : string option;
+        url : string option;
+        teacher : string option;
+        enrollment : string option;
+        year : int option;
+        description : string;
+        last_check : Ptime.t option;
+        lecture_notes : bool;
+        exercises : bool;
+        video_recordings : bool;
+      }
+      [@@deriving show]
+    end :
+      sig
+        type course = {
+          name : string;
+          acronym : string option;
+          url : string option;
+          teacher : string option;
+          enrollment : string option;
+          year : int option;
+          description : string;
+          last_check : Ptime.t option;
+          lecture_notes : bool;
+          exercises : bool;
+          video_recordings : bool;
+        }
+
+        val pp_course : Format.formatter -> course -> unit
+      end)
 
   type t = {
     name : string;
