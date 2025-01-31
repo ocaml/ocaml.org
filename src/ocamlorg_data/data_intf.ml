@@ -99,7 +99,7 @@ module Changelog = struct
     authors : string list;
     contributors : string list;
     project_name : string;
-    version : string option;
+    versions : string list;
   }
 
   type post = {

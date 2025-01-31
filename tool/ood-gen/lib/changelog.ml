@@ -105,17 +105,18 @@ module Releases = struct
     contributors : string list option;
     description : string option;
     changelog : string option;
+    versions : string list option;
   }
   [@@deriving
     of_yaml,
       stable_record ~version:release ~remove:[ changelog; description ]
-        ~modify:[ authors; contributors ]
-        ~add:
-          [ slug; changelog_html; body_html; body; date; project_name; version ]]
+        ~modify:[ authors; contributors; versions ]
+        ~add:[ slug; changelog_html; body_html; body; date; project_name ]]
 
   let of_release_metadata m =
     release_metadata_to_release m ~modify_authors:(Option.value ~default:[])
       ~modify_contributors:(Option.value ~default:[])
+      ~modify_versions:(Option.value ~default:[])
 
   let decode (fname, (head, body)) =
     let project_name = Filename.basename (Filename.dirname fname) in
@@ -140,7 +141,7 @@ module Releases = struct
                 |> Hilite.Md.transform
                 |> Cmarkit_html.of_doc ~safe:false)
         in
-        let date, version =
+        let date, slug_version =
           match parse_slug slug with
           | Some x -> x
           | None ->
@@ -148,8 +149,13 @@ module Releases = struct
                 ("date is not present in metadata and could not be parsed from \
                   slug: " ^ slug)
         in
+        let metadata =
+          match (metadata.versions, slug_version) with
+          | None, Some v -> { metadata with versions = Some [ v ] }
+          | _ -> metadata
+        in
         of_release_metadata ~slug ~changelog_html ~body ~body_html ~date
-          ~project_name ~version metadata)
+          ~project_name metadata)
       metadata
 
   let all () =
@@ -286,9 +292,9 @@ module Scraper = struct
   let group_releases_by_project all =
     List.fold_left
       (fun acc t ->
-        match t.version with
-        | Some version -> SMap.add_to_list t.project_name version acc
-        | None -> acc)
+        List.fold_left
+          (fun acc v -> SMap.add_to_list t.project_name v acc)
+          acc t.versions)
       SMap.empty all
 
   let check_if_uptodate project known_versions =
