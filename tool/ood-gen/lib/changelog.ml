@@ -41,6 +41,26 @@ type t = [%import: Data_intf.Changelog.t] [@@deriving of_yaml, show]
    a pull request to mirror a release announcement that likely already happened
    on discuss.ocaml.org. *)
 
+(** Location from where to check for new releases while scraping. Keys are
+    'tags' listed in changelogs. *)
+let projects_release_feeds =
+  [
+    ("ocamlformat", `Github "https://github.com/ocaml-ppx/ocamlformat");
+    ("dune", `Github "https://github.com/ocaml/dune");
+    ("dune-release", `Github "https://github.com/tarides/dune-release");
+    ("mdx", `Github "https://github.com/realworldocaml/mdx");
+    ("merlin", `Github "https://github.com/ocaml/merlin");
+    ("ocaml", `Github "https://github.com/ocaml/ocaml");
+    ("ocaml-lsp", `Github "https://github.com/ocaml/ocaml-lsp");
+    ("ocp-indent", `Github "https://github.com/OCamlPro/ocp-indent");
+    ("odoc", `Github "https://github.com/ocaml/odoc");
+    ("opam", `Github "https://github.com/ocaml/opam/");
+    ("opam-publish", `Github "https://github.com/ocaml-opam/opam-publish");
+    ("ppxlib", `Github "https://github.com/ocaml-ppx/ppxlib");
+    ("utop", `Github "https://github.com/ocaml-community/utop");
+    ("omp", `Github "https://github.com/ocaml-ppx/ocaml-migrate-parsetree");
+  ]
+
 let re_slug =
   let open Re in
   let re_project_name =
@@ -244,3 +264,54 @@ include Data_intf.Changelog
 let all = %a
 |ocaml}
     (Fmt.Dump.list pp) (all ())
+
+module Scraper = struct
+  module SMap = Map.Make (String)
+  module SSet = Set.Make (String)
+
+  let warning_count = ref 0
+
+  let warn fmt =
+    let flush out =
+      Printf.fprintf out "\n%!";
+      incr warning_count
+    in
+    Printf.kfprintf flush stderr fmt
+
+  let fetch_github repo =
+    [ River.fetch { River.name = repo; url = repo ^ "/releases.atom" } ]
+    |> River.posts
+    |> List.map (fun post -> River.title post)
+
+  let group_releases_by_project all =
+    List.fold_left
+      (fun acc t ->
+        match t.version with
+        | Some version -> SMap.add_to_list t.project_name version acc
+        | None -> acc)
+      SMap.empty all
+
+  let check_if_uptodate project known_versions =
+    let known_versions = SSet.of_list known_versions in
+    let check scraped_versions =
+      List.iter
+        (fun v ->
+          if not (SSet.mem v known_versions) then
+            warn "No changelog entry for %S version %S\n%!" project v)
+        scraped_versions
+    in
+    match List.assoc_opt project projects_release_feeds with
+    | Some (`Github repo) -> check (fetch_github repo)
+    | None ->
+        warn
+          "Don't know how to lookup project %S. Please update \
+           'tool/ood-gen/lib/changelog.ml'\n\
+           %!"
+          project
+
+  (** This does not generate any file. Instead, it exits with an error if a
+      changelog entry is missing. *)
+  let scrape () =
+    Releases.all () |> group_releases_by_project |> SMap.iter check_if_uptodate;
+    if !warning_count > 0 then exit 1
+end
