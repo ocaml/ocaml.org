@@ -56,6 +56,8 @@ categories:
     slug: calculate-sha-256-digest-of-file
   - title: Sign and Verify a Message With an HMAC Digest
     slug: sign-and-verify-hmac-digest
+  - title: Salt and Hash a Password With Argon2
+    slug: salt-and-hash-password-with-argon2
   - title: Salt and Hash a Password With PBKDF2
     slug: salt-and-hash-password-with-pkgdf2
 - title: Data Structures & Algorithms
