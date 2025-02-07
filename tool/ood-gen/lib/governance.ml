@@ -1,6 +1,20 @@
 open Ocamlorg.Import
 open Data_intf.Governance
 
+type team_metadata = {
+  id : string;
+  name : string;
+  description : string;
+  contacts : contact list;
+  dev_meeting : dev_meeting option; [@default None] [@key "dev-meeting"]
+  members : Member.t list; [@default []]
+  subteams : team_metadata list; [@default []]
+}
+[@@deriving of_yaml, stable_record ~version:team]
+
+let team_of_yaml yml =
+  yml |> team_metadata_of_yaml |> Result.map team_metadata_to_team
+
 type metadata = {
   teams : team list;
   working_groups : team list; [@key "working-groups"]

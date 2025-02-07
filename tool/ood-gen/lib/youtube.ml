@@ -1,6 +1,19 @@
 open Ocamlorg.Import
 open Data_intf.Video
 
+let to_yaml video =
+  match to_yaml video with
+  | `O u -> `O (List.filter (( <> ) ("description", `String "")) u)
+  | x -> x
+
+let add_key_default k v = function
+  | `O u when u |> List.split |> fst |> List.mem k |> not ->
+      prerr_endline k;
+      `O ((k, v) :: u)
+  | x -> x
+
+let of_yaml yml = yml |> add_key_default "description" (`String "") |> of_yaml
+
 type kind = Playlist | Channel
 
 let kind_of_string = function

@@ -1,33 +1,51 @@
 module Academic_institution = struct
   type location = { lat : float; long : float } [@@deriving of_yaml, show]
 
-  let pp_ptime fmt t =
-    Format.pp_print_string fmt "Ptime.of_rfc3339 \"";
-    Ptime.pp_rfc3339 () fmt t;
-    Format.pp_print_string fmt
-      "\" |> function Ok (t, _, _) -> t | Error _ -> failwith \"RFC 3339\""
+  include (
+    struct
+      module Ptime = struct
+        include Ptime
 
-  let pp_print_option pp fmt = function
-    | None -> Format.pp_print_string fmt "None"
-    | Some x ->
-        Format.pp_print_string fmt "Some (";
-        pp fmt x;
-        Format.pp_print_string fmt ")"
+        let pp fmt t =
+          Format.pp_print_string fmt "(Ptime.of_rfc3339 \"";
+          Ptime.pp_rfc3339 () fmt t;
+          Format.pp_print_string fmt
+            "\" |> function Ok (t, _, _) -> t | Error _ -> failwith \"RFC \
+             3339\")"
+      end
 
-  type course = {
-    name : string;
-    acronym : string option;
-    url : string option;
-    teacher : string option;
-    enrollment : string option;
-    year : int option;
-    description : string;
-    last_check : Ptime.t option; [@printer pp_print_option pp_ptime]
-    lecture_notes : bool;
-    exercises : bool;
-    video_recordings : bool;
-  }
-  [@@deriving show]
+      type course = {
+        name : string;
+        acronym : string option;
+        url : string option;
+        teacher : string option;
+        enrollment : string option;
+        year : int option;
+        description : string;
+        last_check : Ptime.t option;
+        lecture_notes : bool;
+        exercises : bool;
+        video_recordings : bool;
+      }
+      [@@deriving show]
+    end :
+      sig
+        type course = {
+          name : string;
+          acronym : string option;
+          url : string option;
+          teacher : string option;
+          enrollment : string option;
+          year : int option;
+          description : string;
+          last_check : Ptime.t option;
+          lecture_notes : bool;
+          exercises : bool;
+          video_recordings : bool;
+        }
+
+        val pp_course : Format.formatter -> course -> unit
+      end)
 
   type t = {
     name : string;
@@ -300,11 +318,11 @@ module Governance = struct
     name : string;
     description : string;
     contacts : contact list;
-    dev_meeting : dev_meeting option; [@default None] [@key "dev-meeting"]
-    members : Member.t list; [@default []]
-    subteams : team list; [@default []]
+    dev_meeting : dev_meeting option;
+    members : Member.t list;
+    subteams : team list;
   }
-  [@@deriving of_yaml, show]
+  [@@deriving show]
 end
 
 module Industrial_user = struct
@@ -611,7 +629,7 @@ module Video = struct
     title : string;
     url : string;
     thumbnail : string;
-    description : string; [@default ""]
+    description : string;
     published : string;
     author_name : string;
     author_uri : string;
