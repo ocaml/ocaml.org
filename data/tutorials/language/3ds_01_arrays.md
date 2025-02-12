@@ -139,6 +139,7 @@ These functions derive a single value from the whole array. For example, they ca
 To sort an array, we can use the `Array.sort` function. This function takes as arguments:
 - a comparison function
 - an array
+
 It sorts the provided array in place and in ascending order, according to the provided comparison function. Sorting performed by `Array.sort` modifies the content of the provided array, which is why it returns `unit`. For example, to sort the array `even_numbers` created above, we can use:
 
 ```ocaml
