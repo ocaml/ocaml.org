@@ -9,7 +9,7 @@ prerequisite_tutorials:
   - functors
 ---
 
-## Introduction To This Lesson
+## Introduction
 
 Dune provides several means to arrange modules into libraries. We look at Dune's mechanisms for structuring projects with libraries that contain modules.
 
@@ -17,26 +17,12 @@ This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have
 
 In the following toy project, we will be creating a simple OCaml library for the World Meteorological Organization, with its subject being clouds.
 
-We will be using unique terms for different elements of our project to make the examples clear and unambiguous. For example, if a directory contains a `cloud.ml` file we could name the directory `cloud`, however this may be confusing in our examples below.
+We will be using unique terms for different elements of our project to make the examples clear and unambiguous. For example, if a directory contains a `cloud.ml` file we could name the directory `cloud`, however this may be confusing in our examples below. For example, we will use the Spanish word "nube" and the [Nahuatl](https://en.wikipedia.org/wiki/Nahuatl) word "mixtli", where both terms mean "cloud".
 
-The terms we will be using are:
+.. note::
 
-- WMO (World Meteorological Organization):
-  - a specialized agency of the United Nations (UN) responsible for promoting international cooperation in meteorology, climatology, hydrology, and related geophysical sciences.
-- Cloud:
-  - a cloud is a visible mass of tiny liquid water droplets, ice crystals, or both, suspended in the atmosphere.
-- Nimbus:
-  - a type of cloud associated with precipitation.
-- Stratonimbus
-  - A nimbostratus cloud is a multilevel, amorphous, nearly uniform, and often dark-grey cloud that usually produces continuous rain, snow, or sleet, but no lightning or thunder.
-- Cumulonimbus:
-  - a type of cloud that is fluffy and white and produces rain
-- Altocumulus
-  - a cumulous cloud at high altitude that does not produce rain
-- Mixtli:
-  - the word for *cloud* in Nahuatl (also known as Aztec)
-- Nube:
-  - the word for *cloud* in Spanish
+The other terms we will be using are classifications of clouds. These include "[cumulus](https://en.wikipedia.org/wiki/Cumulus_cloud)" (fluffy clouds), "[nimbus](https://www.merriam-webster.com/dictionary/nimbus)" (precipitating clouds), "[cumulonimbus](https://en.wikipedia.org/wiki/Cumulonimbus_cloud)" (fluffy clouds that precipitate), "[stratonimbus](https://en.wikipedia.org/wiki/Nimbostratus_cloud)" (flat, amorphous clouds that precipitate), and "[altocumulus](https://en.wikipedia.org/wiki/Altocumulus_cloud)" (high altitude fluffy clouds).
+
 
 ## Minimum Project Setup
 
