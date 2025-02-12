@@ -111,7 +111,7 @@ You can also configure your editor or IDE to ignore it too.
 In OCaml, each `.ml` file defines a module. In the `mixtli` project, the file `cloud.ml` defines the `Cloud` module, the file `wmo.ml` defines the `Wmo` module that contains two submodules: `Stratus` and `Cumulus`.
 
 Here are the different names:
-* `mixtli` is the project's name.
+* `mixtli` is the project's name (it means *cloud* in [Nahuatl](https://en.wikipedia.org/wiki/Nahuatl)
 * `cloud.ml` is the OCaml source file's name, referred as `cloud` in the `dune` file.
 * `nube` is the executable command's name.
 * `Cloud` is the name of the module associated with the file `cloud.ml`.
