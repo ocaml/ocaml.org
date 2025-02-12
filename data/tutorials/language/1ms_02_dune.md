@@ -9,11 +9,34 @@ prerequisite_tutorials:
   - functors
 ---
 
-## Introduction
+## Introduction To This Lesson
 
 Dune provides several means to arrange modules into libraries. We look at Dune's mechanisms for structuring projects with libraries that contain modules.
 
 This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have version 3.7 or later installed.
+
+In the following toy project, we will be creating a simple OCaml library for the World Meteorological Organization, with its subject being clouds.
+
+We will be using unique terms for different elements of our project to make the examples clear and unambiguous. For example, if a directory contains a `cloud.ml` file we could name the directory `cloud`, however this may be confusing in our examples below.
+
+The terms we will be using are:
+
+- WMO (World Meteorological Organization):
+  - a specialized agency of the United Nations (UN) responsible for promoting international cooperation in meteorology, climatology, hydrology, and related geophysical sciences.
+- Cloud:
+  - a cloud is a visible mass of tiny liquid water droplets, ice crystals, or both, suspended in the atmosphere.
+- Nimbus:
+  - a type of cloud associated with precipitation.
+- Stratonimbus
+  - A nimbostratus cloud is a multilevel, amorphous, nearly uniform, and often dark-grey cloud that usually produces continuous rain, snow, or sleet, but no lightning or thunder.
+- Cumulonimbus:
+  - a type of cloud that is fluffy and white and produces rain
+- Altocumulus
+  - a cumulous cloud at high altitude that does not produce rain
+- Mixtli:
+  - the word for *cloud* in Nahuatl (also known as Aztec)
+- Nube:
+  - the word for *cloud* in Spanish
 
 ## Minimum Project Setup
 
@@ -88,9 +111,9 @@ You can also configure your editor or IDE to ignore it too.
 In OCaml, each `.ml` file defines a module. In the `mixtli` project, the file `cloud.ml` defines the `Cloud` module, the file `wmo.ml` defines the `Wmo` module that contains two submodules: `Stratus` and `Cumulus`.
 
 Here are the different names:
-* `mixtli` is the project's name (it means *cloud* in Nahuatl).
+* `mixtli` is the project's name.
 * `cloud.ml` is the OCaml source file's name, referred as `cloud` in the `dune` file.
-* `nube` is the executable command's name (it means *cloud* in Spanish).
+* `nube` is the executable command's name.
 * `Cloud` is the name of the module associated with the file `cloud.ml`.
 * `Wmo` is the name of the module associated with the file `wmo.ml`.
 * `wmo-clouds` is the name of the package built by this project.
