@@ -1,4 +1,4 @@
-open Data_intf.News
+type t = [%import: Data_intf.News.t] [@@deriving show]
 
 type metadata = {
   title : string;

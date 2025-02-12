@@ -73,7 +73,6 @@ module Academic_testimonial = struct
     publication : string;
     year : string;
   }
-  [@@deriving of_yaml, show]
 end
 
 module Blog = struct
@@ -104,19 +103,8 @@ module Blog = struct
 end
 
 module Book = struct
-  type difficulty = Beginner | Intermediate | Advanced [@@deriving show]
-
-  let difficulty_of_string = function
-    | "beginner" -> Ok Beginner
-    | "intermediate" -> Ok Intermediate
-    | "advanced" -> Ok Advanced
-    | s -> Error (`Msg ("Unknown difficulty type: " ^ s))
-
-  let difficulty_of_yaml = function
-    | `String s -> difficulty_of_string s
-    | _ -> Error (`Msg "Expected a string for difficulty type")
-
-  type link = { description : string; uri : string } [@@deriving of_yaml, show]
+  type difficulty = Beginner | Intermediate | Advanced
+  type link = { description : string; uri : string }
 
   type t = {
     title : string;
@@ -134,7 +122,6 @@ module Book = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Changelog = struct
@@ -148,11 +135,10 @@ module Changelog = struct
     body : string;
     authors : string list;
   }
-  [@@deriving of_yaml, show]
 end
 
 module Code_examples = struct
-  type t = { title : string; body : string } [@@deriving show]
+  type t = { title : string; body : string }
 end
 
 module Cookbook = struct
@@ -161,7 +147,6 @@ module Cookbook = struct
     slug : string;
     subcategories : category list;
   }
-  [@@deriving show]
 
   type task = {
     title : string;
@@ -169,17 +154,14 @@ module Cookbook = struct
     category_path : string list;
     description : string option;
   }
-  [@@deriving show]
 
   type code_block_with_explanation = { code : string; explanation : string }
-  [@@deriving show]
 
   type package = {
     name : string;
     tested_version : string;
     used_libraries : string list;
   }
-  [@@deriving of_yaml, show]
 
   type t = {
     slug : string;
@@ -190,26 +172,11 @@ module Cookbook = struct
     code_plaintext : string;
     discussion_html : string;
   }
-  [@@deriving show]
 end
 
 module Event = struct
   type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
-  [@@deriving show]
-
-  let event_type_of_string = function
-    | "meetup" -> Ok Meetup
-    | "conference" -> Ok Conference
-    | "seminar" -> Ok Seminar
-    | "hackathon" -> Ok Hackathon
-    | "retreat" -> Ok Retreat
-    | s -> Error (`Msg ("Unknown event type: " ^ s))
-
-  let event_type_of_yaml = function
-    | `String s -> event_type_of_string s
-    | _ -> Error (`Msg "Expected a string for difficulty type")
-
-  type location = { lat : float; long : float } [@@deriving of_yaml, show]
+  type location = { lat : float; long : float }
 
   type recurring_event = {
     title : string;
@@ -220,10 +187,8 @@ module Event = struct
     location : location option;
     event_type : event_type;
   }
-  [@@deriving of_yaml, show]
 
   type utc_datetime = { yyyy_mm_dd : string; utc_hh_mm : string option }
-  [@@deriving of_yaml, show]
 
   type t = {
     title : string;
@@ -241,21 +206,10 @@ module Event = struct
     recurring_event : recurring_event option;
     event_type : event_type;
   }
-  [@@deriving show]
 end
 
 module Exercise = struct
-  type difficulty = Beginner | Intermediate | Advanced [@@deriving show]
-
-  let of_string = function
-    | "beginner" -> Ok Beginner
-    | "intermediate" -> Ok Intermediate
-    | "advanced" -> Ok Advanced
-    | s -> Error (`Msg ("Unknown difficulty type: " ^ s))
-
-  let difficulty_of_yaml = function
-    | `String s -> of_string s
-    | _ -> Error (`Msg "Expected a string for difficulty type")
+  type difficulty = Beginner | Intermediate | Advanced
 
   type t = {
     title : string;
@@ -267,7 +221,6 @@ module Exercise = struct
     solution : string;
     tutorials : string list;
   }
-  [@@deriving show]
 end
 
 module Governance = struct
@@ -338,15 +291,11 @@ module Industrial_user = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Is_ocaml_yet = struct
   type external_package = { url : string; synopsis : string }
-  [@@deriving of_yaml, show]
-
   type package = { name : string; extern : external_package option }
-  [@@deriving of_yaml, show]
 
   type category = {
     name : string;
@@ -355,7 +304,6 @@ module Is_ocaml_yet = struct
     packages : package list;
     slug : string;
   }
-  [@@deriving show]
 
   type t = {
     id : string;
@@ -364,7 +312,6 @@ module Is_ocaml_yet = struct
     categories : category list;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Job = struct
@@ -376,7 +323,6 @@ module Job = struct
     company : string;
     company_logo : string;
   }
-  [@@deriving of_yaml, show]
 end
 
 module Testimonial = struct
@@ -387,7 +333,6 @@ module Testimonial = struct
     role : string;
     logo : string;
   }
-  [@@deriving of_yaml, show]
 end
 
 module News = struct
@@ -400,7 +345,6 @@ module News = struct
     body_html : string;
     authors : string list;
   }
-  [@@deriving show]
 end
 
 module Opam_user = struct
@@ -410,7 +354,6 @@ module Opam_user = struct
     github_username : string option;
     avatar : string option;
   }
-  [@@deriving of_yaml, show]
 end
 
 module Outreachy = struct
@@ -423,9 +366,8 @@ module Outreachy = struct
     mentors : string list;
     video : string option;
   }
-  [@@deriving of_yaml, show]
 
-  type t = { name : string; projects : project list } [@@deriving of_yaml, show]
+  type t = { name : string; projects : project list }
 end
 
 module Page = struct
@@ -438,11 +380,10 @@ module Page = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Paper = struct
-  type link = { description : string; uri : string } [@@deriving of_yaml, show]
+  type link = { description : string; uri : string }
 
   type t = {
     title : string;
@@ -455,19 +396,10 @@ module Paper = struct
     links : link list;
     featured : bool;
   }
-  [@@deriving show]
 end
 
 module Release = struct
-  type kind = [ `Compiler ] [@@deriving show]
-
-  let kind_of_string = function
-    | "compiler" -> Ok `Compiler
-    | s -> Error (`Msg ("Unknown release type: " ^ s))
-
-  let kind_of_yaml = function
-    | `String s -> kind_of_string s
-    | _ -> Error (`Msg "Expected a string for release type")
+  type kind = [ `Compiler ]
 
   type t = {
     kind : kind;
@@ -482,7 +414,6 @@ module Release = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Resource = struct
@@ -494,7 +425,6 @@ module Resource = struct
     source_url : string option;
     featured : bool;
   }
-  [@@deriving of_yaml, show]
 end
 
 module Success_story = struct
@@ -512,23 +442,10 @@ module Success_story = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Tool = struct
   type lifecycle = [ `Incubate | `Active | `Sustain | `Deprecate ]
-  [@@deriving show]
-
-  let lifecycle_of_string = function
-    | "incubate" -> Ok `Incubate
-    | "active" -> Ok `Active
-    | "sustain" -> Ok `Sustain
-    | "deprecate" -> Ok `Deprecate
-    | s -> Error (`Msg ("Unknown lifecycle type: " ^ s))
-
-  let lifecycle_of_yaml = function
-    | `String s -> lifecycle_of_string s
-    | _ -> Error (`Msg "Expected a string for lifecycle type")
 
   type t = {
     name : string;
@@ -539,15 +456,11 @@ module Tool = struct
     description : string;
     lifecycle : lifecycle;
   }
-  [@@deriving show]
 end
 
 module Tool_page = struct
   type toc = { title : string; href : string; children : toc list }
-  [@@deriving of_yaml, show]
-
   type contribute_link = { url : string; description : string }
-  [@@deriving of_yaml, show]
 
   type t = {
     title : string;
@@ -560,42 +473,23 @@ module Tool_page = struct
     toc : toc list;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Tutorial = struct
-  module Section = struct
-    type t = GetStarted | Language | Platform | Guides [@@deriving show]
-
-    let of_string = function
-      | "getting-started" -> Ok GetStarted
-      | "language" -> Ok Language
-      | "platform" -> Ok Platform
-      | "guides" -> Ok Guides
-      | s -> Error (`Msg ("Unknown section: " ^ s))
-  end
-
+  type section = GetStarted | Language | Platform | Guides
   type toc = { title : string; href : string; children : toc list }
-  [@@deriving show]
-
   type contribute_link = { url : string; description : string }
-  [@@deriving of_yaml, show]
-
   type banner = { image : string; url : string; alt : string }
-  [@@deriving of_yaml, show]
 
   type external_tutorial = {
     tag : string;
     banner : banner;
     contribute_link : contribute_link;
   }
-  [@@deriving of_yaml, show]
 
-  type recommended_next_tutorials = string list [@@deriving of_yaml, show]
-  type prerequisite_tutorials = string list [@@deriving of_yaml, show]
-
+  type recommended_next_tutorials = string list
+  type prerequisite_tutorials = string list
   type search_document_section = { title : string; id : string }
-  [@@deriving show]
 
   type search_document = {
     title : string;
@@ -604,7 +498,6 @@ module Tutorial = struct
     content : string;
     slug : string;
   }
-  [@@deriving show]
 
   type t = {
     title : string;
@@ -612,7 +505,7 @@ module Tutorial = struct
     fpath : string;
     slug : string;
     description : string;
-    section : Section.t;
+    section : section;
     category : string;
     external_tutorial : external_tutorial option;
     body_md : string;
@@ -621,7 +514,6 @@ module Tutorial = struct
     recommended_next_tutorials : recommended_next_tutorials;
     prerequisite_tutorials : prerequisite_tutorials;
   }
-  [@@deriving show]
 end
 
 module Video = struct
@@ -640,19 +532,8 @@ module Video = struct
 end
 
 module Conference = struct
-  type role = [ `Co_chair | `Chair ] [@@deriving show]
-
-  let role_of_string = function
-    | "chair" -> Ok `Chair
-    | "co-chair" -> Ok `Co_chair
-    | s -> Error (`Msg ("Unknown role type: " ^ s))
-
-  let role_of_yaml = function
-    | `String s -> role_of_string s
-    | _ -> Error (`Msg "Expected a string for role type")
-
+  type role = [ `Co_chair | `Chair ]
   type important_date = { date : string; info : string }
-  [@@deriving of_yaml, show]
 
   type committee_member = {
     name : string;
@@ -660,7 +541,6 @@ module Conference = struct
     affiliation : string option;
     picture : string option;
   }
-  [@@deriving of_yaml, show]
 
   type presentation = {
     title : string;
@@ -672,7 +552,6 @@ module Conference = struct
     poster : bool;
     additional_links : string list;
   }
-  [@@deriving of_yaml, show]
 
   type t = {
     title : string;
@@ -686,7 +565,6 @@ module Conference = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving of_yaml, show]
 end
 
 (* Depends on Video and Blog modules to define the different kinds of entries of

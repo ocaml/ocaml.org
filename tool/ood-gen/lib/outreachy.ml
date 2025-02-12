@@ -1,4 +1,5 @@
-open Data_intf.Outreachy
+type project = [%import: Data_intf.Outreachy.project] [@@deriving of_yaml, show]
+type t = [%import: Data_intf.Outreachy.t] [@@deriving of_yaml, show]
 
 let modify_project (p : project) =
   {

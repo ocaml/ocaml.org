@@ -53,7 +53,7 @@ let source_to_url { kind; id; _ } =
 let source_to_id { kind; id; _ } =
   Printf.sprintf "yt:%s:%s" (kind_to_string kind) id
 
-type video_list = t list [@@deriving yaml, show]
+type video_list = t list [@@deriving yaml]
 
 type tag =
   | Entry
