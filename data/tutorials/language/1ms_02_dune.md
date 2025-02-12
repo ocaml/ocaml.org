@@ -113,7 +113,7 @@ In OCaml, each `.ml` file defines a module. In the `mixtli` project, the file `c
 Here are the different names:
 * `mixtli` is the project's name (it means *cloud* in [Nahuatl](https://en.wikipedia.org/wiki/Nahuatl)
 * `cloud.ml` is the OCaml source file's name, referred as `cloud` in the `dune` file.
-* `nube` is the executable command's name.
+* `nube` is the executable command's name (it means *cloud* in Spanish).
 * `Cloud` is the name of the module associated with the file `cloud.ml`.
 * `Wmo` is the name of the module associated with the file `wmo.ml`.
 * `wmo-clouds` is the name of the package built by this project.
