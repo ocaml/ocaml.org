@@ -127,6 +127,18 @@ let graphql_route t =
       Dream.get "/graphiql" (Dream.graphiql "/graphql");
     ]
 
+let ( let+ ) x f = Lwt.map f x
+
+let middleware_text_utf8 handler request =
+  let+ response = handler request in
+  let ( let& ) opt some = Option.fold ~none:response ~some opt in
+  let headers = Dream.all_headers response in
+  let& content_type = List.assoc_opt "Content-Type" headers in
+  let& _ = if String.starts_with ~prefix:"text/plain" content_type then Some () else None in
+  Dream.drop_header response "Content-Type";
+  Dream.add_header response "Content-Type" (content_type ^ "; charset=utf-8");
+  response
+
 let router t =
   Dream.router
     [
@@ -137,7 +149,7 @@ let router t =
       graphql_route t;
       sitemap_routes;
       Dream.scope ""
-        [ Dream_encoding.compress ]
+        [ Dream_encoding.compress; middleware_text_utf8 ]
         [ Dream.get "/manual/**" (Dream.static Config.manual_path) ];
       Dream.scope ""
         [ Dream_encoding.compress ]
