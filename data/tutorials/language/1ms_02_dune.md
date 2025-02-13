@@ -19,10 +19,7 @@ In the following toy project, we will be creating a simple OCaml library for the
 
 We will be using unique terms for different elements of our project to make the examples clear and unambiguous. For example, if a directory contains a `cloud.ml` file we could name the directory `cloud`, however this may be confusing in our examples below. For example, we will use the Spanish word "nube" and the [Nahuatl](https://en.wikipedia.org/wiki/Nahuatl) word "mixtli", where both terms mean "cloud".
 
-.. note::
-
-The other terms we will be using are classifications of clouds. These include "[cumulus](https://en.wikipedia.org/wiki/Cumulus_cloud)" (fluffy clouds), "[nimbus](https://www.merriam-webster.com/dictionary/nimbus)" (precipitating clouds), "[cumulonimbus](https://en.wikipedia.org/wiki/Cumulonimbus_cloud)" (fluffy clouds that precipitate), "[stratonimbus](https://en.wikipedia.org/wiki/Nimbostratus_cloud)" (flat, amorphous clouds that precipitate), and "[altocumulus](https://en.wikipedia.org/wiki/Altocumulus_cloud)" (high altitude fluffy clouds).
-
+**Note**: The other terms we will be using are classifications of clouds. These include "[cumulus](https://en.wikipedia.org/wiki/Cumulus_cloud)" (fluffy clouds), "[nimbus](https://www.merriam-webster.com/dictionary/nimbus)" (precipitating clouds), "[cumulonimbus](https://en.wikipedia.org/wiki/Cumulonimbus_cloud)" (fluffy clouds that precipitate), "[stratonimbus](https://en.wikipedia.org/wiki/Nimbostratus_cloud)" (flat, amorphous clouds that precipitate), and "[altocumulus](https://en.wikipedia.org/wiki/Altocumulus_cloud)" (high altitude fluffy clouds).
 
 ## Minimum Project Setup
 
