@@ -134,7 +134,10 @@ let middleware_text_utf8 handler request =
   let ( let& ) opt some = Option.fold ~none:response ~some opt in
   let headers = Dream.all_headers response in
   let& content_type = List.assoc_opt "Content-Type" headers in
-  let& _ = if String.starts_with ~prefix:"text/plain" content_type then Some () else None in
+  let& _ =
+    if String.starts_with ~prefix:"text/plain" content_type then Some ()
+    else None
+  in
   Dream.drop_header response "Content-Type";
   Dream.add_header response "Content-Type" (content_type ^ "; charset=utf-8");
   response
