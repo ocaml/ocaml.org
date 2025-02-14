@@ -15,7 +15,7 @@ Dune provides several means to arrange modules into libraries. We look at Dune's
 
 This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have version 3.7 or later installed.
 
-In the following toy project, we will be creating a simple OCaml library for the World Meteorological Organization, with its subject being clouds.
+In the following toy project, we create an OCaml library for the World Meteorological Organization, with clouds as its subject.
 
 We will be using unique terms for different elements of our project to make the examples clear and unambiguous. For example, if a directory contains a `cloud.ml` file we could name the directory `cloud`, however this may be confusing in our examples below. For example, we will use the Spanish word "nube" and the [Nahuatl](https://en.wikipedia.org/wiki/Nahuatl) word "mixtli", where both terms mean "cloud".
 
