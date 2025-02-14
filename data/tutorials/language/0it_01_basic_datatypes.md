@@ -11,7 +11,7 @@ prerequisite_tutorials:
 
 ## Introduction
 
-This document covers atomic types, such as integers and Booleans; predefined compound types, like strings and lists; and user-defined types, namely variants and records. We show how to pattern matching on those types.
+This document covers atomic types, such as integers and Booleans; predefined compound types, like strings and lists; and user-defined types, namely variants and records. We show how to pattern match on those types.
 
 In OCaml, there are no type checks at runtime, and values don't change type unless explicitly converted. This is what being statically- and strongly-typed means. This allows safe processing of structured data.
 
@@ -632,7 +632,7 @@ Even integers and floats can be seen as enumerated-like variant types, with many
 
 In the end, the only type construction that does not reduce to a variant is the function arrow type. Pattern matching allows the inspection of values of any type, except functions.
 
-#### User-Defined Polymorphic
+#### User-Defined Polymorphic Types
 
 Here is an example of a variant type that combines constructors with data, constructors without data, polymorphism, and recursion:
 ```ocaml
