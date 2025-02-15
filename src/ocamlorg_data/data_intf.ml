@@ -147,6 +147,8 @@ module Changelog = struct
     body_html : string;
     body : string;
     authors : string list;
+    project_name : string;
+    versions : string list;
   }
   [@@deriving of_yaml, show]
 end
