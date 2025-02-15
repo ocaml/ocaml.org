@@ -6,7 +6,7 @@ packages: []
 
   **Note:** The `compare` function is polymorphic and works over all types. *)
 let l = [ 1; 90; 42; 27 ]
-let l' = List.sort compare a
+let l' = List.sort compare l
 
 (* Sorting an array while modifying it in place. *)
 let a = [| 1; 90; 42; 27 |]
