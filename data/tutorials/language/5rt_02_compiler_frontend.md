@@ -288,7 +288,6 @@ illustrate their use without requiring any external tools.  Let's first look
 at the use of the standalone attribute `@@@warning` to toggle an OCaml
 compiler warning.
 
-
 ```ocaml env=main
 # module Abc = struct
 
@@ -1195,7 +1194,6 @@ $ ocamlc -dparsetree typedef.ml 2>&1
           None
     ]
 ]
-
 ```
 
 This is rather a lot of output for a simple two-line program, but it shows
@@ -1247,7 +1245,6 @@ $ ocamlc -dtypedtree typedef.ml 2>&1
           []
     ]
 ]
-
 ```
 
 The typed AST is more explicit than the untyped syntax tree. For instance,

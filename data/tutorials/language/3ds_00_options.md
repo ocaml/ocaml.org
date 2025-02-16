@@ -9,6 +9,7 @@ category: "Data Structures"
 ## Introduction
 
 An [option](https://en.wikipedia.org/wiki/Option_type) value wraps another value or contains nothing if there isn't anything to wrap. The predefined type `option` represents such values.
+
 <!-- $MDX non-deterministic=command -->
 ```ocaml
 # #show option;;
@@ -16,6 +17,7 @@ type 'a option = None | Some of 'a
 ```
 
 Here are option values:
+
 ```ocaml
 # Some 42;;
 - : int option = Some 42
@@ -33,6 +35,7 @@ The option type is useful when the lack of data is better handled as the special
 ## Exceptions _vs_ Options
 
 The function `Sys.getenv : string -> string` from the OCaml standard library queries the value of an environment variable; however, it throws an exception if the variable is not defined. On the other hand, the function `Sys.getenv_opt : string -> string option` does the same, except it returns `None` if the variable is not defined. Here is what may happen if we try to access an undefined environment variable:
+
 ```ocaml
 # Sys.getenv "UNDEFINED_ENVIRONMENT_VARIABLE";;
 Exception: Not_found.
@@ -50,6 +53,7 @@ Most of the functions in this section, as well as other useful ones, are provide
 ### Map Over an Option
 
 Using pattern matching, it is possible to define functions, allowing to work with option values. Here is `map` of type `('a -> 'b) -> 'a option -> 'b option`. It allows to apply a function to the wrapped value inside an `option`, if present:
+
 ```ocaml
 let map f = function
   | None -> None
@@ -57,6 +61,7 @@ let map f = function
 ```
 
 In the standard library, this is `Option.map`.
+
 ```ocaml
 # Option.map (fun x -> x * x) (Some 3);;
 - : int option = Some 9
@@ -77,6 +82,7 @@ let join = function
 ```
 
 In the standard library, this is `Option.join`.
+
 ```ocaml
 # Option.join (Some (Some 42));;
 - : int option = Some 42
@@ -91,6 +97,7 @@ In the standard library, this is `Option.join`.
 ### Access the Content of an Option
 
 The function `get` of type `'a option -> 'a` allows access to the value contained inside an `option`.
+
 ```ocaml
 let get = function
   | Some v -> v
@@ -98,6 +105,7 @@ let get = function
 ```
 
 Beware, `get o` throws an exception if `o` is `None`. To access the content of an `option` without the risk of raising an exception, the function `value` of type `'a option -> 'a -> 'a` can be used:
+
 ```ocaml
 let value opt ~default = match opt with
   | Some v -> v
@@ -111,6 +119,7 @@ In the standard library, these functions are `Option.get` and `Option.value`.
 ### Fold an Option
 
 The function `fold` of type `none:'a -> some:('b -> 'a) -> 'b option -> 'a` can be seen as a combination of `map` and `value`
+
 ```ocaml
 let fold ~none ~some o = o |> Option.map some |> Option.value ~default:none
 ```
@@ -118,6 +127,7 @@ let fold ~none ~some o = o |> Option.map some |> Option.value ~default:none
 In the standard library, this function is `Option.fold`.
 
 The `Option.fold` function can be used to implement a fall-back logic without writing pattern matching. For instance, here is a function that turns the contents of the `$PATH` environment variable into a list of strings, or the empty list if undefined. This version uses pattern matching:
+
 ```ocaml
 # let path () =
     let split_on_colon = String.split_on_char ':' in
@@ -129,6 +139,7 @@ val path : unit -> string list = <fun>
 ```
 
 Here is the same function, using `Option.fold`:
+
 ```ocaml
 # let path () =
     let split_on_colon = String.split_on_char ':' in
@@ -141,6 +152,7 @@ val path : unit -> string list = <fun>
 The `bind` function of type `'a option -> ('a -> 'b option) -> 'b option` works a bit like `map`. But whilst `map` expects a function parameter `f` that returns an unwrapped value of type `b`, `bind` expects an `f` that returns a value already wrapped in an option `'b option`.
 
 Here, we display the type of `Option.map`, with parameters flipped and show a possible implementation of `Option.bind`.
+
 ```ocaml
 # Fun.flip Option.map;;
 - : 'a option -> ('a -> 'b) -> 'b option = <fun>

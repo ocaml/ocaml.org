@@ -33,6 +33,7 @@ The goal of this tutorial is to provide for the following capabilities:
 #### Integers
 
 The `int` type is the default and basic integer type in OCaml. When you enter a whole number, OCaml recognises it as an integer, as shown in this example:
+
 ```ocaml
 # 42;;
 - : int = 42
@@ -49,6 +50,7 @@ There are no dedicated types for unsigned integers in OCaml. Bitwise operations 
 Float numbers have type `float`.
 
 OCaml does not perform any implicit type conversion between values. Therefore, arithmetic expressions can't mix integers and floats. Arguments are either all `int` or all `float`. Arithmetic operators on floats are not the same, and they are written with a dot suffix: `+.`,  `-.`, `*.`, `/.`.
+
 ```ocaml
 # let pi = 3.14159;;
 val pi : float = 3.14159
@@ -64,11 +66,13 @@ Error: This expression has type int but an expression was expected of type
 Error: This expression has type float but an expression was expected of type
          int
 ```
+
 Operations on `float` are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Float`](/manual/api/Float.html) modules.
 
 #### Booleans
 
 Boolean values are represented by the type `bool`.
+
 ```ocaml
 # true;;
 - : bool = true
@@ -83,6 +87,7 @@ Boolean values are represented by the type `bool`.
 Operations on `bool` are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Bool`](/manual/api/Bool.html) modules. The conjunction “and” is written `&&` and disjunction “or” is written `||`. Both are short-circuited, meaning that they don't evaluate the argument on the right if the left one's value is sufficient to decide the whole expression's value.
 
 In OCaml, `if … then … else …` is a _conditional expression_. It has the same type as its branches.
+
 ```ocaml
 # 3 * if "foo" = "bar" then 5 else 5 + 2;;
 - : int = 21
@@ -91,6 +96,7 @@ In OCaml, `if … then … else …` is a _conditional expression_. It has the s
 The test subexpression must have type `bool`. Branches subexpressions must have the same type.
 
 Conditional expression and pattern matching on a Boolean are the same:
+
 ```ocaml
 # 3 * match "foo" = "bar" with true -> 5 | false -> 5 + 2;;
 - : int = 21
@@ -99,10 +105,12 @@ Conditional expression and pattern matching on a Boolean are the same:
 #### Characters
 
 Values of type `char` correspond to the 256 symbols of the Latin-1 set. Character literals are surrounded by single quotes, as shown below:
+
 ```ocaml
 # 'd';;
 - : char = 'd'
 ```
+
 Operations on `char` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Char`](/manual/api/Char.html) modules.
 
 The module [`Uchar`](/manual/api/Uchar.html) provides support for Unicode characters.
@@ -116,10 +124,12 @@ Strings are finite and fixed-sized sequences of char values. Strings are immutab
 -->
 
 Strings are immutable, meaning it is impossible to change a character's value inside a string.
+
 ```ocaml
 # "hello" ^ " " ^ "world!";;
 - : string = "hello world!"
 ```
+
 Strings are finite and fixed-sized sequences of `char` values. The string concatenation operator symbol is `^`.
 
 <!--CR
@@ -127,10 +137,12 @@ I'm not sure how to rearrange this to have the definition after the example? I'v
 -->
 
 Indexed access to string characters is possible using the following syntax:
+
 ```ocaml
 # "buenos dias".[4];;
 - : char : 'o'
 ```
+
 Operations on `string` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`String`](/manual/api/String.html) modules.
 
 #### Byte Sequences
@@ -143,6 +155,7 @@ Moved intro pp to after example, as it contains the definition. Perhaps a short 
 # String.to_bytes "hello";;
 - : bytes = Bytes.of_string "hello"
 ```
+
 Like strings, byte sequences are finite and fixed-sized. Each individual byte is represented by a `char` value. Like arrays, byte sequences are mutable, meaning they can't be extended or shortened, but each component byte may be updated. Essentially, a byte sequence (type `bytes`) is a mutable string that can't be printed. There is no way to write `bytes` literally, so they must be produced by a function.
 
 Operations on `bytes` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Bytes`](/manual/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. Unlike arrays, there is no direct access operator on byte sequences.
@@ -153,6 +166,7 @@ The memory representation of `bytes` is four times more compact that `char array
 #### Arrays
 
 Arrays are finite and fixed-sized sequences of values of the same type. Here are a couple of examples:
+
 ```ocaml
 # [| 0; 1; 2; 3; 4; 5 |];;
 - : int array = [|0; 1; 2; 3; 4; 5|]
@@ -165,19 +179,23 @@ Arrays are finite and fixed-sized sequences of values of the same type. Here are
 ```
 
 Arrays may contain values of any type. Here arrays are `int array`, `char array`, and `string array`, but any type of data can be used in an array. Usually, `array` is said to be a polymorphic type. Strictly speaking, it is a type operator, and it accepts a type as argument (here `int`, `char`, and `string`) to form another type (those inferred here). This is the empty array.
+
 ```ocaml
 # [||];;
 - : 'a array = [||]
 ```
+
 Remember, `'a` ("alpha") is a type parameter that will be replaced by another type.
 
 Like `string` and `bytes`, arrays support direct access, but the syntax is not the same.
+
 ```ocaml
 # [| 'x'; 'y'; 'z' |].(2);;
 - : char = 'z'
 ```
 
 Arrays are mutable, meaning they can't be extended or shortened, but each element may be updated.
+
 ```ocaml
 # let letter = [| 'v'; 'x'; 'y'; 'z' |];;
 val letter : char array = [|'v'; 'x'; 'y'; 'z'|]
@@ -196,6 +214,7 @@ Operations on arrays are provided by the [`Array`](/manual/api/Array.html) modul
 #### Lists
 
 As literals, lists are very much like arrays. Here are the same previous examples turned into lists.
+
 ```ocaml
 # [ 0; 1; 2; 3; 4; 5 ];;
 - : int list = [0; 1; 2; 3; 4; 5]
@@ -216,6 +235,7 @@ There are symbols of special importance with respect to lists:
 - The list constructor operator, written `::` and pronounced “cons,” is used to add a value at the head of a list.
 
 Together, they are the basic means to build a list and access the data it stores. For instance, here is how lists are built by successively applying the cons (`::`) operator:
+
 ```ocaml
 # 3 :: [];;
 - : int list = [3]
@@ -228,6 +248,7 @@ Together, they are the basic means to build a list and access the data it stores
 ```
 
 Pattern matching provides the basic means to access data stored inside a list.
+
 ```ocaml
 # match [1; 2; 3] with
   | x :: u -> x
@@ -248,6 +269,7 @@ In the above expressions, `[1; 2; 3]` is the value that is matched over. Each ex
 #### Options
 
 The `option` type is also a polymorphic type. Option values can store any kind of data or represent the absence of any such data. Option values can only be constructed in two different ways: either `None`, when no data is available, or `Some`, otherwise.
+
 ```ocaml
 # None;;
 - : 'a option = None
@@ -260,6 +282,7 @@ The `option` type is also a polymorphic type. Option values can store any kind o
 ```
 
 Here is an example of pattern matching on an option value:
+
 ```ocaml
 # match Some 42 with None -> raise Exit | Some x -> x;;
 - : int = 42
@@ -283,6 +306,7 @@ Operations on results are provided by the [`Result`](/manual/api/Result.html) mo
 ### Tuples
 
 Here is a tuple containing two values, also known as a pair.
+
 ```ocaml
 # (3, 'K');;
 - : int * char = (3, 'K')
@@ -293,6 +317,7 @@ That pair contains the integer `3` and the character `'K'`; its type is `int * c
 This generalises to tuples with 3 or more elements. For instance, `(6.28, true, "hello")` has type `float * bool * string`. The types `int * char` and `float * bool * string` are called _product types_. The `*` symbol is used to denote types bundled together in products.
 
 The predefined function `fst` returns the first element of a pair, while `snd` returns the second element of a pair.
+
 ```ocaml
 # fst (3, 'g');;
 - : int = 3
@@ -302,6 +327,7 @@ The predefined function `fst` returns the first element of a pair, while `snd` r
 ```
 
 In the standard library, both are defined using pattern matching. Here is how a function extracts the third element of the product of four types:
+
 ```ocaml
 # let f x = match x with (h, i, j, k) -> j;;
 val f : 'a * 'b * 'c * 'd -> 'c = <fun>
@@ -314,6 +340,7 @@ Note that types `int * char * bool`, `int * (char * bool)`, and `(int * char) * 
 ### Functions
 
 The type of functions from type `m` to type `n` is written `m -> n`. Here are a few examples:
+
 ```ocaml
 # fun x -> x * x;;
 - : int -> int = <fun>
@@ -367,6 +394,7 @@ val g : int -> int = <fun>
 Executable OCaml code consists primarily of functions, so it's beneficial to make them as concise and clear as possible. The function `g` is defined here using a shorter, more common, and maybe more intuitive syntax.
 
 In OCaml, functions may terminate without returning the expected type value by throwing an exception (of type `exn`), which does not appear in its type. There is no way to know if a function may raise an exception without inspecting its code.
+
 ```ocaml
 # raise;;
 - : exn -> 'a' = <fun>
@@ -375,6 +403,7 @@ In OCaml, functions may terminate without returning the expected type value by t
 Exceptions are discussed in the [Error Handling](/docs/error-handling) guide.
 
 Functions may have several parameters.
+
 ```ocaml
 # fun s r -> s ^ " " ^ r;;
 - : string -> string -> string = <fun>
@@ -392,6 +421,7 @@ Like the product type symbol `*`, the function type symbol `->` is not associati
 Uniquely, the type `unit` has only one value. It is written `()` and pronounced “unit.”
 
 The `unit` type has several uses. Mainly, it serves as a token when a function does not need to be passed data or doesn't have any data to return once it has completed its computation. This happens when functions have side effects such as OS-level I/O. Functions need to be applied to something for their computation to be triggered, and they also must return something. When nothing meaningful can be passed or returned, `()` should be used.
+
 ```ocaml
 # read_line;;
 - : unit -> string = <fun>
@@ -401,6 +431,7 @@ The `unit` type has several uses. Mainly, it serves as a token when a function d
 ```
 
 The function `read_line` reads an end-of-line terminated sequence of characters from standard input and returns it as a string. Reading input begins when `()` is passed.
+
 ```ocaml
  # read_line ();;
 foo bar
@@ -432,6 +463,7 @@ Variants are also called [_tagged unions_](https://en.wikipedia.org/wiki/Tagged_
 The simplest form of a variant type corresponds to an [enumerated type](https://en.wikipedia.org/wiki/Enumerated_type). It is defined by an explicit list of named values. Defined values are called constructors and must be capitalised.
 
 For example, here is how variant data types could be defined to represent Dungeons & Dragons character classes and alignment.
+
 ```ocaml
 # type character_class =
     | Barbarian
@@ -471,6 +503,7 @@ ordering is defined on values following the definition order (e.g., `Druid
 < Ranger`).
 
 Pattern matching can be performed on the types defined above:
+
 ```ocaml
 # let rectitude_to_french = function
     | Evil -> "Mauvais"
@@ -487,6 +520,7 @@ Note that:
 #### Constructors With Data
 
 It is possible to wrap data in constructors. The following type has several constructors with data (e.g., `Hash of string`) and some without (e.g., `Head`). It represents the different means to refer to a Git [revision](https://git-scm.com/docs/gitrevisions).
+
 ```ocaml
 # type commit =
   | Hash of string
@@ -508,6 +542,7 @@ type commit =
 ```
 
 Here is how to convert a `commit` to a `string` using pattern matching:
+
 ```ocaml
 # let commit_to_string = function
   | Hash sha -> sha
@@ -521,6 +556,7 @@ val commit_to_string : commit -> string = <fun>
 ```
 
 Above, the `function …` construct is used instead of the `match … with …` construct used previously:
+
 ```ocaml
 let commit_to_string' x = match x with
   | Hash sha -> sha
@@ -532,9 +568,11 @@ let commit_to_string' x = match x with
   | Merge_head -> "MERGE_HEAD";;
 val commit_to_string' : commit -> string = <fun>
 ```
+
 We need to pass an inspected expression to the `match … with …` construct. The `function …` is a special form of an anonymous function that takes a parameter and forwards it to a `match … with …` construct, as shown above.
 
 **Warning**: Wrapping product types with parentheses turns them into a single parameter.
+
 ```ocaml
 # type t =
   | C1 of int * bool
@@ -559,6 +597,7 @@ The constructor `C1` has two parameters of type `int` and `bool`, whilst the con
 A variant definition referring to itself is recursive. A constructor may wrap data from the type being defined.
 
 This is the case for the following definition, which can be used to store JSON values.
+
 ```ocaml
 # type json =
   | Null
@@ -581,6 +620,7 @@ type json =
 Both constructors `Array` and `Object` contain values of type `json`.
 
 Functions defined using pattern matching on recursive variants are often recursive too. This function checks if a name is present in a whole JSON tree:
+
 ```ocaml
 # let rec has_field name = function
   | Array u ->
@@ -606,12 +646,14 @@ type 'a option = None | Some of 'a
 ```
 
 The predefined type `list` is polymorphic in the same sense. It is a variant with two constructors and can hold data of any type. Here is how it is defined in the standard library:
+
 ```ocaml
 # #show list;;
 type 'a list = [] | (::) of 'a * 'a list
 ```
 
 The only magic here is turning constructors into symbols, which we don't cover in this tutorial. The types `bool` and `unit` also are regular variants, with the same magic:
+
 ```ocaml
 # #show unit;;
 type unit = ()
@@ -621,6 +663,7 @@ type bool = false | true
 ```
 
 Implicitly, product types also behave as variant types. For instance, pairs can be seen as inhabitants of this type:
+
 ```ocaml
 # type ('a, 'b) pair = Pair of 'a * 'b;;
 type ('a, 'b) pair = Pair of 'a * 'b
@@ -635,6 +678,7 @@ In the end, the only type construction that does not reduce to a variant is the 
 #### User-Defined Polymorphic Types
 
 Here is an example of a variant type that combines constructors with data, constructors without data, polymorphism, and recursion:
+
 ```ocaml
 # type 'a tree =
   | Leaf
@@ -643,6 +687,7 @@ type 'a tree = Leaf | Node of 'a * 'a tree * 'a tree
 ```
 
 It can be used to represent arbitrarily labelled binary trees. Assuming such a tree would be labelled with integers, here is a possible way to compute the sum of its integers, using recursion and pattern matching.
+
 ```ocaml
 # let rec sum = function
   | Leaf -> 0
@@ -651,6 +696,7 @@ val sum : int tree -> int = <fun>
 ```
 
 Here is how the map function can be defined in this type:
+
 ```ocaml
 # let rec map f = function
   | Leaf -> Leaf
@@ -677,6 +723,7 @@ issue - "The polymorphic variants tutorial is unreleased, so the best at this po
 Records are like tuples in that several values are bundled together. In a tuple, elements are identified by their position in the corresponding product type. They are either first, second, third, or at some other position. In a record, each element has a name and a value. This name-value pair is known as a field. That's why record types must be declared before being used.
 
 For instance, here is the definition of a record type meant to partially represent a Dungeons & Dragons character class. Please note that the following code is dependent upon the definitions earlier in this tutorial. Ensure you have entered the definitions in the [Enumerated Data Types](/docs/basic-data-types#enumerated-data-types) section.
+
 ```ocaml
 # type character = {
   name : string;
@@ -695,9 +742,11 @@ type character = {
   armor_class : int;
 }
 ```
+
 Values of type `character` carry the same data as inhabitants of this product: `string * int * string * character_class * character_alignment * int`.
 
 Access the fields by using the dot notation, as shown:
+
 ```ocaml
 # let ghorghor_bey = {
     name = "Ghôrghôr Bey";
@@ -722,6 +771,7 @@ val ghorghor_bey : character =
 ```
 
 To construct a new record with some field values changed without typing in the unchanged fields we can use record update syntax as shown:
+
 ```ocaml
 # let togrev  = { ghorghor_bey with name = "Togrev"; level = 20; armor_class = -6 };;
 val togrev : character =
@@ -730,6 +780,7 @@ val togrev : character =
 ```
 
 Note that records behave like single constructor variants. That allows pattern matching on them.
+
 ```ocaml
 # match ghorghor_bey with { level; _ } -> level;;
 - : int = 17
@@ -740,6 +791,7 @@ Note that records behave like single constructor variants. That allows pattern m
 #### Type Aliases
 
 Just like values, any type can be given a name.
+
 ```ocaml
 # type latitude_longitude = float * float;;
 type latitude_longitude = float * float
@@ -750,6 +802,7 @@ This is mostly useful as a means of documentation or to shorten long type expres
 #### Function Parameter Aliases
 
 Function parameters can also be given a name with pattern matching for tuples and records.
+
 ```ocaml
 (* Tuples as parameters *)
 # let tuple_sum (x, y) = x + y;;
@@ -780,6 +833,7 @@ val meaning_of_life : int option -> int option = <fun>
 ## A Complete Example: Mathematical Expressions
 
 This example shows how to represent simple mathematical expressions like `n * (x + y)` and multiply them out symbolically to get `n * x + n * y`:
+
 ```ocaml env=expr
 # type expr =
   | Plus of expr * expr        (* a + b *)
@@ -796,6 +850,7 @@ type expr =
 ```
 
 The expression `n * (x + y)` would be written:
+
 ```ocaml env=expr
 # let e = Times (Var "n", Plus (Var "x", Var "y"));;
 val e : expr = Times (Var "n", Plus (Var "x", Var "y"))
@@ -803,6 +858,7 @@ val e : expr = Times (Var "n", Plus (Var "x", Var "y"))
 
 Here is a function that prints out `Times (Var "n", Plus (Var "x", Var "y"))`
 as something more like `n * (x + y)`:
+
 ```ocaml env=expr
 # let rec to_string = function
   | Plus (e1, e2) -> "(" ^ to_string e1 ^ " + " ^ to_string e2 ^ ")"
@@ -815,6 +871,7 @@ val to_string : expr -> string = <fun>
 
 We can write a function to multiply out expressions of the form `n * (x + y)`
 or `(x + y) * n`, and for this we will use a nested pattern:
+
 ```ocaml env=expr
 # let rec distrib = function
   | Times (e1, Plus (e2, e3)) ->
@@ -832,6 +889,7 @@ val distrib : expr -> expr = <fun>
 ```
 
 This is how it can be used:
+
 ```ocaml env=expr
 # e |> distrib |> to_string |> print_endline;;
 ((n * x) + (n * y))
@@ -852,6 +910,7 @@ the remaining patterns with a simple `e -> e` rule.)
 
 The reverse operation, i.e., factorising out common subexpressions, can be
 implemented in a similar fashion. The following version only works for the top-level expression.
+
 ```ocaml env=expr
 # let top_factorise = function
   | Plus (Times (e1, e2), Times (e3, e4)) when e1 = e3 ->
