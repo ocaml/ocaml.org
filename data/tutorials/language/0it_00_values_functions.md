@@ -114,6 +114,11 @@ Arbitrary combinations of chaining or nesting are allowed.
 
 In both examples, `d` and `e` are local definitions.
 
+## Introduction to Pattern Matching
+
+[Pattern matching](https://en.wikipedia.org/wiki/Pattern_matching) is a mechanism in programming language design that enables the destructuring of values and facilitates case analysis in a concise and expressive manner.
+
+In the following sections, we explore definitional pattern matching using `let` bindings. In the next chapter on [Basic Data Types and Pattern Matching](/docs/basic-data-types), we examine pattern matching in the construction of conditional expressions using `match...with` and compare it to `if...then...else`. In the chapter on [Error Handling](/docs/error-handling), we explore how destructuring values aids in error handling when using `try...with`.
 
 ## Pattern Matching in Definitions
 
@@ -126,6 +131,7 @@ When pattern matching only has one case, it can be used in name definitions and 
 name may be defined. This applies to tuples, records, and custom single-variant
 types.
 
+<!--the example illustrates tuples::-->
 ### Pattern Matching on Tuples
 
 A common case is tuples. It allows the creation of two names with a single `let`.
@@ -194,7 +200,6 @@ Above, the pattern does not contain any identifier, meaning no name is defined. 
 **Note**: In order for compiled files to only evaluate an expression for its side effects, you must write them after `let () =`.
 
 <!-- user-defined single constructor variant example -->
-<!-- FIXME: create an example nested pattern matching -->
 
 ### Pattern Matching on User-Defined Types
 
@@ -209,15 +214,103 @@ val forename : string = "Robin"
 val surname : string = "Milner"
 ```
 
-### Discarding Values Using Pattern Matching
-<!-- `_` example-->
-As seen in the last example, the catch-all pattern (`_`) can be used in definitions.
+### Nested Pattern Matching on User-Defined Types
+
+Pattern matching also works with nested user-defined types.
+
+In the example below, we deconstruct nested tuples:
 ```ocaml
-# let (_, y) = List.split [(1, 2); (3, 4); (5, 6); (7, 8)];;
-val y : int list = [2; 4; 6; 8]
+# let (name, (street, city, zip), (email, phone)) =
+  ("John Doe", ("123 Elm St", "Springfield", 12345), ("john@example.com", 1234567890));;
+val name : string = "John Doe"
+val street : string = "123 Elm St"
+val city : string = "Springfield"
+val zip : int = 12345
+val email : string = "john@example.com"
+val phone : int = 1234567890
+```
+In the following example, we deconstruct nested records and an associated tuple.
+
+First, define an address record type
+```ocaml
+# type address = {
+  street: string;
+  city: string;
+  zip: int
+  };;
+type address = { street : string; city : string; zip : int; }
 ```
 
-The `List.split` function returns a pair of lists. We're only interested in the second list, we give it the name `y` and discard the first list by using `_`.
+Define a person record type, containing the nested address record type
+```ocaml
+# type person = {
+  name : string;
+  address : address;  (* Reference the address type *)
+  contact: string * int;
+  };;
+type person = { name : string; address : address; contact : string * int; }
+```
+
+Create an instance of the person type interface
+```ocaml
+# let john = {
+  name = "John Doe";
+  address = { street = "123 Elm St"; city = "Springfield"; zip = 12345 };
+  contact = ("john@example.com", 1234567890);
+};;
+val john : person =
+  {name = "John Doe";
+   address = {street = "123 Elm St"; city = "Springfield"; zip = 12345};
+   contact = ("john@example.com", 1234567890)}
+```
+
+Deconstructure the nested structure
+```ocaml
+# let { name; address = { street; city; zip }; contact = (email, phone) } = john;;
+val name : string = "John Doe"
+val street : string = "123 Elm St"
+val city : string = "Springfield"
+val zip : int = 12345
+val email : string = "john@example.com"
+val phone : int = 1234567890
+```
+**note**: `address` and `contact` are not defined as variables available in your scope. Instead, they serve as binding patterns that help destructure the nested structure.
+
+Now, we can use `name`, `street`, `city`, `zip`, `email`, and `phone` as bindings
+```ocaml
+# let () =
+  Printf.printf "Name: %s\nStreet: %s\nCity: %s\nZip: %d\nEmail: %s\nPhone: %d\n"
+    name street city zip email phone;;
+Name: John Doe
+Street: 123 Elm St
+City: Springfield
+Zip: 12345
+Email: john@example.com
+Phone: 1234567890
+```
+
+### Discarding Values Using Pattern Matching
+<!-- `_` example-->
+When pattern matching, it is possible to discard values that are not needed. The method by which this is done depends on the data structure being destructured.
+
+Continuing from the above `john` record example, we can simply omit the `zip` field in the pattern:
+```ocaml
+# let { name; address = { street; city; }; contact = (email, phone) } = john;;
+val name : string = "John Doe"
+val street : string = "123 Elm St"
+val city : string = "Springfield"
+val email : string = "john@example.com"
+val phone : int = 1234567890
+```
+
+Tuples behave differently from records because they require positional consistency. To discard the `email` value from the tuple of the `contact` field, we need to use the catch-all pattern (`_`):
+```ocaml
+# let { name; address = { street; city; }; contact = (_, phone) } = john;;
+val name : string = "John Doe"
+val street : string = "123 Elm St"
+val city : string = "Springfield"
+val phone : int = 1234567890
+```
 
 ## Scopes and Environments
 
