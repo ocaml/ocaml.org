@@ -275,7 +275,6 @@ Estimated testing time 750ms (3 benchmarks x 250ms). Change using '-quota'.
   Monomorphic large pattern     6.54ns       67.89%
   Monomorphic small pattern     9.63ns      100.00%
   Polymorphic large pattern     9.63ns       99.97%
-
 ```
 
 These results confirm the performance hypothesis that we obtained earlier by
@@ -346,7 +345,6 @@ L2:	closure L1, 0
 	makeblock 1, 0
 	pop 1
 	setglobal Pattern_monomorphic_small!
-
 ```
 
 The preceding bytecode has been simplified from the lambda form into a set of
@@ -420,7 +418,6 @@ bytecode archive:
 
 ```
 $ ocamlc -a -o mylib.cma a.cmo b.cmo -dllib -lmylib
-
 ```
 
 The `dllib` flag embeds the arguments in the archive file. Any subsequent
@@ -434,7 +431,6 @@ a *custom runtime* mode and is built as follows:
 
 ```
 $ ocamlc -a -o mylib.cma -custom a.cmo b.cmo -cclib -lmylib
-
 ```
 
 The custom mode is the most similar mode to native code compilation, as both
@@ -846,8 +842,6 @@ output:
   (name      alternate_list)
   (libraries core))
 ```
-
-
 
 ```sh dir=examples/back-end/alternate_list
 $ opam exec -- dune build alternate_list.exe

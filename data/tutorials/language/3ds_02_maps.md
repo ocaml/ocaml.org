@@ -20,6 +20,7 @@ To use `Map`, we first have to use the [`Map.Make`](/manual/api/Map.Make.html) f
 map module. Refer to the [Functors](/docs/functors) for more information on
 functors. This functor has a module parameter that defines the keys' type to
 be used in the maps, and a function for comparing them.
+
 ```ocaml
 # module StringMap = Map.Make(String);;
 
@@ -50,6 +51,7 @@ The `StringMap` module has an `empty` value that has a type parameter `'a` in
 its type: `empty : 'a t`.
 
 This means that we can use `empty` to create new empty maps where the value is of any type.
+
 ```ocaml
 # let int_map : int StringMap.t = StringMap.empty;;
 val int_map : int StringMap.t = <abstr>
@@ -61,6 +63,7 @@ val float_map : float StringMap.t = <abstr>
 The type of the values can be specified in two ways:
 * When you create your new map with an annotation
 * By adding an element to the map:
+
 ```ocaml
 # let int_map = StringMap.(empty |> add "one" 1);;
 val int_map : int StringMap.t = <abstr>
@@ -69,6 +72,7 @@ val int_map : int StringMap.t = <abstr>
 ## Working With Maps
 
 Throughout the rest of this tutorial, we use the following map:
+
 ```ocaml
 # let lucky_numbers = StringMap.of_seq @@ List.to_seq [
     ("leostera", 2112);
@@ -81,6 +85,7 @@ val lucky_numbers : int StringMap.t = <abstr>
 ## Finding Entries in a Map
 
 To find entries in a map, use the `find_opt` or `find` functions:
+
 ```ocaml
 # StringMap.find_opt "leostera" lucky_numbers;;
 - : int option = Some 2112
@@ -99,6 +104,7 @@ When the searched key is absent from the map:
 
 We can also use `find_first_opt` and `find_last_opt` if we want to use a
 predicate function:
+
 ```ocaml
 # let first_under_10_chars : (string * int) option =
   StringMap.find_first_opt
@@ -117,6 +123,7 @@ not just the value.
 
 To add an entry to a map, use the `add` function that takes a key, a value, and
 a map. It returns a new map with that key-value pair added:
+
 ```ocaml
 # let more_lucky_numbers = lucky_numbers |> StringMap.add "paguzar" 108;;
 val more_lucky_numbers : int StringMap.t = <abstr>
@@ -136,6 +143,7 @@ Note that the initial map `lucky_numbers` remains unchanged.
 
 To remove an entry from a map, use the `remove` function, which takes a key and
 a map. It returns a new map with that key's entry removed.
+
 ```ocaml
 # let less_lucky_numbers = lucky_numbers |> StringMap.remove "divagnz";;
 val less_lucky_numbers : int StringMap.t = <abstr>
@@ -175,6 +183,7 @@ You should experiment with different update functions; several behaviors are pos
 ## Checking if a Key is Contained in a Map
 
 To check if a map contains a key, use the `mem` function:
+
 ```ocaml
 # StringMap.mem "paguzar" less_lucky_numbers;;
 - : bool = false
@@ -185,6 +194,7 @@ To check if a map contains a key, use the `mem` function:
 To merge two maps, use the `union` function, which takes two maps, and a
 function deciding how to handle entries with identical keys. It returns a new map.
 Note that the input maps are not modified.
+
 ```ocaml
 # StringMap.union;;
 - : (string -> 'a -> 'a -> 'a option) ->
@@ -193,6 +203,7 @@ Note that the input maps are not modified.
 ```
 
 Here are examples of duplicate key resolution functions:
+
 ```ocaml
 # let pick_fst key v1 _ = Some v1;;
 val pick_fst : 'a -> 'b -> 'c -> 'b option = <fun>
@@ -233,6 +244,7 @@ val drop : 'a -> 'b -> 'c -> 'd option = <fun>
 To filter a map, use the `filter` function. It takes a predicate to filter
 entries and a map. It returns a new map containing the entries satisfying the
 predicate.
+
 ```ocaml
 # let even_numbers =
   StringMap.filter
@@ -244,24 +256,28 @@ val even_numbers : int StringMap.t = <abstr>
 ## Map a Map
 
 Map modules have a `map` function:
+
 ```ocaml
 StringMap.map;;
 - : ('a -> 'b) -> 'a StringMap.t -> 'b StringMap.t = <fun>
 ```
 
 The `lucky_numbers` map associates string keys with integer values.
+
 ```ocaml
 # lucky_numbers;;
 - : int StringMap.t = <abstr>
 ```
 
 Using `StringMap.map`, we create a map associating keys with string values:
+
 ```ocaml
 # let lucky_strings = StringMap.map string_of_int lucky_numbers;;
 val lucky_strings : string StringMap.t = <abstr>
 ```
 
 The keys are the same in both maps. For each key, a value in `lucky_numbers` is converted into a value in `lucky_strings` using `string_of_int`.
+
 ```ocaml
 # lucky_numbers |> StringMap.find "leostera" |> string_of_int;;
 - : string = "2112"
@@ -281,6 +297,7 @@ functor with a module of your own, provided that it implements two things:
 Let's define our custom map below for non-negative numbers.
 
 We'll start by defining a module for strings that compares them in case-insensitive way.
+
 ```ocaml
 # module Istring : sig
     type t

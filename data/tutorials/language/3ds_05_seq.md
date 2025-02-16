@@ -24,19 +24,23 @@ Still in the intro: for people familiar with Python, I believe it would be very 
 One way to look at a value of type `'a Seq.t` is to consider it as a list, but it contains
 a twist when it's not empty: its tail is frozen. To understand this analogy,
 consider how sequences are defined in the standard library:
+
 ```ocaml
 type 'a node =
   | Nil
   | Cons of 'a * 'a t
 and 'a t = unit -> 'a node
 ```
+
 This is the mutually recursive definition of two types: `Seq.node`, which is
 almost the same as `list`:
+
 ```ocaml
 type 'a list =
   | []
   | (::) of 'a * 'a list
 ```
+
 and `Seq.t`, which is merely a type alias for `unit -> 'a Seq.node`. The whole
 point of this definition is `Seq.Cons` second component's type, which is a
 function returning a sequence while its `list` counterpart is a list. Let's
@@ -65,10 +69,12 @@ writing `fun _ -> a` or `fun () -> a`. The latter function is called a
 values are thunks. With the analogy used earlier, `a` is frozen in its thunk.
 
 Here is how to build seemingly infinite sequences of integers:
+
 ```ocaml
 # let rec ints n : int Seq.t = fun () -> Seq.Cons (n, ints (n + 1));;
 val ints : int -> int Seq.t = <fun>
 ```
+
 The function `ints n` looks as if building the infinite sequence `(n; n + 1; n +
 2; n + 3;...)`. In reality, since machine integers have bounds, the sequence
 isn't indefinitely increasing. When reaching `max_int`, it will circle
@@ -77,15 +83,19 @@ down to `min_int`.
 The OCaml standard library contains a module on sequences called
 [`Seq`](/releases/5.0/api/Seq.html). It contains a `Seq.iter` function, which
 has the same behaviour as `List.iter`. Writing this:
+
 ```ocaml
 # Seq.iter print_int (ints 0);;
 ```
+
 in an OCaml toplevel means “print integers forever,” and you have to press
 `Ctrl-C` to interrupt the execution. The following code is the same infinite
 loop without any output:
+
 ```ocaml
 # Seq.iter ignore (ints 0);;
 ```
+
 The key point is: it doesn't leak memory. This example is running in constant
 space. It is effectively nothing more than an infinite loop, which can be
 confirmed by monitoring the space consumption of the program and by noticing
@@ -99,6 +109,7 @@ pretty quickly.
 The `Seq` module of the OCaml standard library contains the definition of the
 function `Seq.take`, which returns a specified number of elements from the
 beginning of a sequence. Here is a simplified implementation:
+
 ```ocaml
 let rec take n seq () =
   if n <= 0 then
@@ -108,6 +119,7 @@ let rec take n seq () =
     | Seq.Cons (x, seq) -> Seq.Cons (x, take (n - 1) seq)
     | _ -> Seq.Nil
 ```
+
 `take n seq` returns, at most, the `n` first elements of the sequence `seq`. If
 `seq` contains less than `n` elements, an identical sequence is returned. In
 particular, if `seq` is empty, or `n` is negative, an empty sequence is returned.
@@ -124,6 +136,7 @@ seq` does not compute anything. It is a partial application and returns a
 function needing a `unit` to produce a result.
 
 This can be used to print integers without looping forever, as shown previously:
+
 ```ocaml
 # Seq.ints 0 |> Seq.take 43 |> List.of_seq;;
 - : int list =
@@ -133,13 +146,16 @@ This can be used to print integers without looping forever, as shown previously:
 ```
 
 The `Seq` module also has a function `Seq.filter`:
+
 ```ocaml
 # Seq.filter;;
 - : ('a -> bool) -> 'a Seq.t -> 'a Seq.t = <fun>
 ```
+
 It builds a sequence of elements satisfying a condition.
 
 Using `Seq.filter`, taking inspiration from the [trial division](https://en.wikipedia.org/wiki/Trial_division) algorithm, it is possible to define a function which seemingly generates the list of all primes numbers.
+
 ```ocaml
 let rec trial_div seq () = match seq () with
   | Seq.Cons (m, seq) -> Seq.Cons (m, trial_div (Seq.filter (fun n -> n mod m > 0) seq))
@@ -150,6 +166,7 @@ val primes : int Seq.t = <fun>
 ```
 
 For instance, here is the list of 100 first prime numbers:
+
 ```ocaml
 # primes |> Seq.take 100 |> List.of_seq;;
 - : int list =
@@ -180,25 +197,32 @@ All those are also available for [`Array`](/manual/api/Array.html), `List`, and 
 essentially the same. Observe that there is no `fold_right` function. Since
 OCaml 4.11, there is something which isn't (yet) available on other types:
 `unfold`. Here is how it is implemented:
+
 ```ocaml
 let rec unfold f x () = match f x with
   | None -> Seq.Nil
   | Some (x, seq) -> Seq.Cons (x, unfold f seq)
 ```
+
 And here is its type:
+
 ```ocaml
 val unfold : ('a -> ('b * 'a) option) -> 'a -> 'b Seq.t = <fun>
 ```
+
 Unlike previously mentioned iterators, `Seq.unfold` does not have a sequence
 parameter, but a sequence result. `unfold` provides a general means to build
 sequences. The result returned by `Seq.unfold f x` is the sequence built by accumulating the results of successive calls to `f` until it returns `None`. This is:
+
 ```
 (fst p₀, fst p₁, fst p₂, fst p₃, fst p₄, ...)
 ```
+
 where `Some p₀ = f x` and `Some pₙ₊₁ = f (snd pₙ)`.
 
 For instance, `Seq.ints` can be implemented using `Seq.unfold` in a
 fairly compact way:
+
 ```ocaml
 # let ints = Seq.unfold (fun n -> Some (n, n + 1));;
 val ints : int -> int Seq.t = <fun>
@@ -207,25 +231,32 @@ val ints : int -> int Seq.t = <fun>
 
 As a fun fact, one should observe `map` over sequences can be implemented using
 `Seq.unfold`. Here is how to write it:
+
 ```ocaml
 # let map f = Seq.unfold (fun seq -> seq |> Seq.uncons |> Option.map (fun (x, seq) -> (f x, seq)));;
 val map : ('a -> 'b) -> 'a Seq.t -> 'b Seq.t = <fun>
 ```
+
 Here is a quick check:
+
 ```ocaml
 # Seq.ints 0 |> map (fun x -> x * x) |> Seq.take 10 |> List.of_seq;;
 - : int list = [0; 1; 4; 9; 16; 25; 36; 49; 64; 81]
 ```
+
 The function `Seq.uncons` returns the head and tail of a sequence if it is not
 empty. Otherwise, it returns `None`.
 
 Using this function:
+
 ```ocaml
 let input_line_opt chan =
   try Some (input_line chan, chan)
   with End_of_file -> None
 ```
+
 It is possible to read a file using `Seq.unfold`:
+
 ```ocaml
 let cin = open_in "README.md" in
 cin |> Seq.unfold input_line_opt |> Seq.iter print_endline;
@@ -268,6 +299,7 @@ let primes =
 ## Sequences Are Functions
 
 The `Seq` module contains this definition:
+
 ```ocaml
 val cons : 'a -> 'a Seq.t -> 'a Seq.t
 ```
@@ -275,35 +307,45 @@ val cons : 'a -> 'a Seq.t -> 'a Seq.t
 Although `Seq.cons x seq` and `Seq.Cons (x, seq)` are the same, `Seq.cons` is a function and `Seq.Cons` is a variant's constructor, which is not the same in OCaml. This can lead to subtle bugs. This section illustrates this.
 <!--
 No need to introduce another mathematical sequence, we can reuse earlier examples (better for pedagogy):
+
 ```
 let rec ints n = Seq.cons n (ints (n+1))
 ```
 -->
+
 Although this looks like a possible way to define the [Fibonacci
 sequence](https://en.wikipedia.org/wiki/Fibonacci_number):
+
 ```ocaml
 # let rec fibs m n = Seq.cons m (fibs n (n + m));;
 val fibs : int -> int -> int Seq.t = <fun>
 ```
+
 It actually isn't. It's an unending recursion which blows away the stack.
 
 <!--
 At that point, Seq.cons has not been introduced yet, so the reader only knows fun () -> Seq.Cons … and would not have fallen into the trap of writing Seq.cons … instead. Besides, she may not understand this section at all because Seq.cons is not explained here. The progression of this section should be turned upside down.
 -->
+
 ```
 # fibs 0 1;;
 Stack overflow during evaluation (looping recursion?).
 ```
+
 This definition is behaving as expected (spot the differences, there are four): <!-- How do you count four? -->
+
 ```ocaml
 # let rec fibs m n () = Seq.Cons (m, fibs n (n + m));;
 val fibs : int -> int -> int Seq.t = <fun>
 ```
+
 It can be used to produce some Fibonacci numbers:
+
 ```ocaml
 # fibs 0 1 |> Seq.take 10 |> List.of_seq;;
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
+
 Why is it so? The key difference lies in the recursive call `fibs n (n + m)`. In
 the former definition, the application is complete because `fibs` is provided
 with all the arguments it expects. In the latter definition, the application is
@@ -315,10 +357,12 @@ applied function is immediately returned as a
 [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
 
 Sequences are functions, as stated by their type:
+
 ```ocaml
 # #show Seq.t;;
 type 'a t = unit -> 'a Seq.node
 ```
+
 Functions working with sequences must be written accordingly.
 * Sequence consumer: partially applied function parameter
 * Sequence producer: partially applied function result
@@ -333,20 +377,26 @@ Throughout the standard library, sequences are used as a bridge to perform
 conversions between many datatypes. For instance, here are the signatures of
 some of those functions:
 * Lists
+
   ```ocaml
   val List.to_seq : 'a list -> 'a Seq.t
   val List.of_seq : 'a Seq.t -> 'a list
   ```
+
 * Arrays
+
   ```ocaml
   val Array.to_seq : 'a array -> 'a Seq.t
   val Array.of_seq : 'a Seq.t -> 'a array
   ```
+
 * Strings
+
   ```ocaml
   val String.to_seq : string -> char Seq.t
   val String.of_seq : char Seq.t -> string
   ```
+
 Similar functions are also provided for sets, maps, hash tables (`Hashtbl`), and
 others. When implementing a datatype module, it is
 advised to expose `to_seq` and `of_seq` functions.

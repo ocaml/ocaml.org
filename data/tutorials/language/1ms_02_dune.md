@@ -24,6 +24,7 @@ We use unique terms for different elements of our project to avoid ambiguity. Fo
 ## Minimum Project Setup
 
 This section details the structure of an almost-minimum Dune project setup. Check [Your First OCaml Program](/docs/your-first-program) for automatic setup using the `dune init proj` command.
+
 ```shell
 $ mkdir mixtli; cd mixtli
 ```
@@ -68,6 +69,7 @@ let () =
 ```
 
 Here is the resulting output:
+
 ```shell
 $ opam exec -- dune exec nube
 Nimbostratus (Ns)
@@ -76,6 +78,7 @@ Cumulonimbus (Cb)
 
 
 Here is the directory contents:
+
 ```shell
 $ tree
 .
@@ -86,9 +89,11 @@ $ tree
 ```
 
 Dune stores the files it creates, and a copy of the sources, in a directory named `_build`. You don't need to edit anything there. In a project managed using Git, the `_build` directory should be ignored
+
 ```shell
 $ echo _build >> .gitignore
 ```
+
 You can also configure your editor or IDE to ignore it too.
 
 In OCaml, each `.ml` file defines a module. In the `mixtli` project, the file `cloud.ml` defines the `Cloud` module, the file `wmo.ml` defines the `Wmo` module that contains two submodules: `Stratus` and `Cumulus`.
@@ -102,6 +107,7 @@ Here are the different names:
 * `wmo-clouds` is the name of the package built by this project.
 
 The `dune describe` command allows having a look at the project's module structure. Here is its output:
+
 ```lisp
 ((root /home/cuihtlauac/caml/mixtli-dune)
  (build_context _build/default)
@@ -129,6 +135,7 @@ The `dune describe` command allows having a look at the project's module structu
 In OCaml, a library is a collection of modules. By default, when Dune builds a library, it wraps the bundled modules into a module. This allows having several modules with the same name, inside different libraries, in the same project. That feature is known as [_namespaces_](https://en.wikipedia.org/wiki/Namespace) for module names. This is similar to what modules do for definitions; they avoid name clashes.
 
 Dune creates libraries from directories. Let's look at an example. Here the `lib` directory contains its sources. This is different from the Unix standard, where `lib` stores compiled library binaries.
+
 ```shell
 $ mkdir lib
 ```
@@ -144,6 +151,7 @@ The `lib` directory is populated with the following source files:
 ```ocaml
 val nimbus : string
 ```
+
 <!-- FIXME: <> strings, no behaviour -->
 **`lib/cumulus.ml`**
 ```ocaml
@@ -161,6 +169,7 @@ let nimbus = "Nimbostratus (Ns)"
 ```
 
 All the modules found in the `lib` directory are bundled into the `Wmo` module. This module is the same as what we had in the `wmo.ml` file. To avoid redundancy, we delete it:
+
 ```shell
 $ rm wmo.ml
 ```
@@ -215,6 +224,7 @@ Using a wrapper file makes several things possible:
 By default, Dune builds a library from the modules found in the same directory as the `dune` file, but it doesn't look into subdirectories. It is possible to change this behaviour.
 
 In this example, we create subdirectories and move files there.
+
 ```shell
 $ mkdir lib/cumulus lib/stratus
 $ mv lib/cumulus.ml lib/cumulus/m.ml
@@ -249,6 +259,7 @@ The `include_subdirs qualified` stanza works recursively, except on subdirectori
 It is possible to start an empty Dune project from a single file.
 
 Create a fresh directory.
+
 ```shell
 $ mkdir foo.dir; cd foo.dir
 ```
@@ -331,6 +342,7 @@ let nimbus = "Nimbostratus (Ns)"
 ```
 
 In this setup, running `dune utop` allows discovering what's available.
+
 ```ocaml
 # #show Wmo;;
 module Wmo : sig module Cumulus = Wmo.Cumulus module Stratus = Wmo.Stratus end
@@ -382,6 +394,7 @@ Wrapping can be disabled in Dune's configuration.
 In that case, the “library” only contains the modules `Cumulus` and `Stratus`,
 bundled together, side by side. Check the following in `dune utop`, twice. Once
 with file `lib/wmo.ml` unchanged, and a second time after deleting it.
+
 ```ocaml
 # #show Cumulus;;
 module Cumulus : sig val nimbus : string val altus : string end

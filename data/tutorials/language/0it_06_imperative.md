@@ -40,6 +40,7 @@ In the following sections, we introduce OCaml's language features for dealing wi
 ## References
 
 There is a special kind of value, called _reference_, whose contents can be updated:
+
 ```ocaml
 # let d = ref 0;;
 val d : int ref = {contents = 0}
@@ -79,6 +80,7 @@ The update takes place as a [side effect](https://en.wikipedia.org/wiki/Side_eff
 # ( ! );;
 - : 'a ref -> 'a = <fun>
 ```
+
 The dereference operator is a function that takes a reference and returns its contents.
 
 Refer to the [Operators](/docs/operators) documentation for more information on how unary and binary operators work in OCaml.
@@ -90,6 +92,7 @@ When working with mutable data in OCaml,
 ## Mutable Record Fields
 
 Any field in a record can be tagged using the `mutable` keyword. Such a field can be updated.
+
 ```ocaml
 # type book = {
   series : string;
@@ -112,6 +115,7 @@ For instance, here is how a bookshop could track its inventory:
 * Field `stock` is mutable because this value changes with each sale or restocking.
 
 Such a database should have an entry like this:
+
 ```ocaml
 # let vol_7 = {
     series = "Murderbot Diaries";
@@ -126,6 +130,7 @@ val vol_7 : book =
 ```
 
 When the bookshop receives a delivery of 10 of these books, we update the mutable `stock` field:
+
 ```ocaml
 # vol_7.stock <- vol_7.stock + 10;;
 - : unit = ()
@@ -145,6 +150,7 @@ In contrast to references, there is no special syntax to dereference a mutable r
 ### Remark: References Are Single Field Records
 
 In OCaml, references are records with a single mutable field:
+
 ```ocaml
 # #show_type ref;;
 type 'a ref = { mutable contents : 'a; }
@@ -153,6 +159,7 @@ type 'a ref = { mutable contents : 'a; }
 The type `'a ref` is a record with a single field `contents`, which is marked with the `mutable` keyword.
 
 Since references are single field records, we can define functions `create`, `assign`, and `deref` using the mutable record field update syntax:
+
 ```ocaml
 # let create v = { contents = v };;
 val create : 'a -> 'a ref = <fun>
@@ -184,6 +191,7 @@ The functions:
 ## Arrays
 
 In OCaml, an array is a mutable, fixed-size data structure that can store a sequence of elements of the same type. Arrays are indexed by integers, provide constant-time access, and allow the update of elements.
+
 ```ocaml
 # let g = [| 2; 3; 4; 5; 6; 7; 8 |];;
 val g : int array = [|2; 3; 4; 5; 6; 7; 8|]
@@ -207,6 +215,7 @@ For a more detailed discussion on arrays, see the [Arrays](/docs/arrays) tutoria
 ## Byte Sequences
 
 The `bytes` type in OCaml represents a fixed-length, mutable byte sequence. In a value of type `bytes`, each element has 8 bits. Since characters in OCaml are represented using 8 bits, `bytes` values are mutable `char` sequences. Like arrays, byte sequences support indexed access.
+
 ```ocaml
 # let h = Bytes.of_string "abcdefghijklmnopqrstuvwxyz";;
 val h : bytes = Bytes.of_string "abcdefghijklmnopqrstuvwxyz"
@@ -251,6 +260,7 @@ These attributes need to be set correctly (i.e., turn off echoing and disable ca
 We read characters from standard input using the `input_char` function from the OCaml standard library.
 
 Below is the first implementation. If you're working in macOS, run `#require "unix";;` first to avoid an `Unbound module error`.
+
 ```ocaml
 # let get_char () =
     let open Unix in
@@ -272,6 +282,7 @@ In this implementation, we update the fields of `termio`
 * after `input_char`, restoring the initial values.
 
 Here is the second implementation:
+
 ```ocaml
 # let get_char () =
     let open Unix in
@@ -321,9 +332,11 @@ Hello,
 world!
 - : int = 42
 ```
+
 In this example, the first two expressions are `print_endline` function calls, which produce side effects (printing to the console), and the last expression is simply the integer `42`, which becomes the value of the entire sequence. The `;` operator is used to separate these expressions.
 
 **Remark** Even though it's called the sequence operator, the semicolon is not truly an operator because it is not a function of type `unit -> 'a -> 'a`. It is rather a _construct_ of the language. It allows adding a semicolon at the end of a sequence expression.
+
 ```ocaml
 # (); 42; ;;
 - : int = 42
@@ -340,12 +353,14 @@ Imagine we want to write a function that:
 2. Updates the reference's contents to _2 &times; (n + 1)_
 
 This is arguably convoluted and does not work:
+
 ```ocaml
 # let f r = r := incr r; 2 * !r;;
 Error: This expression has type unit but an expression was expected of type int
 ```
 
 But here is how it can be made to work:
+
 ```ocaml
 # let f r = r := begin incr r; 2 * !r end;;
 val f : int ref -> unit = <fun>
@@ -359,6 +374,7 @@ The error came from assign `:=`, which associates stronger than a semicolon `;`.
 Remember the value of a semicolon-separated sequence is the value of its last expression. Grouping the first two steps with `begin … end` fixes the error.
 
 **Fun fact**: `begin … end` and parentheses are literally the same:
+
 ```ocaml
 # begin end;;
 - : unit = ()
@@ -367,12 +383,14 @@ Remember the value of a semicolon-separated sequence is the value of its last ex
 ### `if … then … else …` and Side Effects
 
 In OCaml, `if … then … else …` is an expression.
+
 ```ocaml
 # 6 * if "foo" = "bar" then 5 else 5 + 2;;
 - : int = 42
 ```
 
 A conditional expression return type can be `unit` if both branches are too.
+
 ```ocaml
 # if 0 = 1 then print_endline "foo" else print_endline "bar";;
 bar
@@ -380,6 +398,7 @@ bar
 ```
 
 The above can also be expressed this way:
+
 ```ocaml
 # print_endline (if 0 = 1 then "foo" else "bar");;
 bar
@@ -387,18 +406,21 @@ bar
 ```
 
 The `unit` value `()` can serve as a [no-op](https://en.wikipedia.org/wiki/Noop) when only one branch has something to execute.
+
 ```ocaml
 # if 0 = 1 then print_endline "foo" else ();;
 - : unit = ()
 ```
 
 But OCaml also allows writing `if … then … ` expressions without an `else` branch, which is the same as the above.
+
 ```ocaml
 # if 0 = 1 then print_endline "foo";;
 - : unit = ()
 ```
 
 In parsing, conditional expressions groups more than sequencing:
+
 ```ocaml
 # if true then print_endline "A" else print_endline "B"; print_endline "C";;
 A
@@ -409,7 +431,8 @@ C
 Here `; print_endline "C"` is executed after the whole conditional expression, not after `print_endline "B"`.
 
 If you want to have two prints in a conditional expression branch, use `begin … end`.
- ```ocaml
+
+```ocaml
 # if true then
     print_endline "A"
   else begin
@@ -421,6 +444,7 @@ A
 ```
 
 Here is an error you might encounter:
+
 ```ocaml
 # if true then
     print_endline "A";
@@ -435,6 +459,7 @@ Failing to group in the first branch results in a syntax error. What's before th
 ### For Loop
 
 A `for` loop is an expression of type `unit`. Here, `for`, `to`, `do`, and `done` are keywords.
+
 ```ocaml
 # for i = 0 to 5 do Printf.printf "%i\n" i done;;
 0
@@ -455,6 +480,7 @@ Here:
 The iteration evaluates the body expression (which may contain `i`) until `i` reaches `5`.
 
 The body of a `for` loop must be an expression of type `unit`:
+
 ```ocaml
 # let j = [| 2; 3; 4; 5; 6; 7; 8 |];;
 val j : int array = [|2; 3; 4; 5; 6; 7; 8|]
@@ -468,6 +494,7 @@ Warning 10 [non-unit-statement]: this expression should have type unit.
 When you use the `downto` keyword (instead of the `to` keyword), the counter decreases on every iteration of the loop.
 
 `for` loops are convenient to iterate over and modify arrays:
+
 ```ocaml
 # let sum = ref 0 in
   for i = 0 to Array.length j - 1 do sum := !sum + j.(i) done;
@@ -476,6 +503,7 @@ When you use the `downto` keyword (instead of the `to` keyword), the counter dec
 ```
 
 **Note:** Here is how to do the same thing using an iterator function:
+
 ```ocaml
 # let sum = ref 0 in Array.iter (fun i -> sum := !sum + i) j; !sum;;
 - : int = 35
@@ -484,6 +512,7 @@ When you use the `downto` keyword (instead of the `to` keyword), the counter dec
 ### While Loop
 
 A `while` loop is an expression of type `unit`. Here, `while`, `do`, and `done` are keywords.
+
 ```ocaml
 # let i = ref 0 in
   while !i <= 5 do
@@ -512,6 +541,7 @@ In this example, the `while` loop continues to execute as long as the value held
 Throwing the `Exit` exception is a recommended way to immediately exit from a loop.
 
 The following example uses the `get_char` function we defined earlier (in the section [Example: `get_char` Function](#example-get_char-function)).
+
 ```ocaml
 # try
     print_endline "Press Escape to exit";
@@ -536,6 +566,7 @@ In the following example, the function `create_counter` returns a closure that h
   fun () -> incr n; !n;;
 val create_counter : unit -> unit -> int = <fun>
 ```
+
 First, we define a function named `create_counter` that takes no arguments. Inside `create_counter`, a reference `n` is initialised with the value 0. This reference will hold the state of the counter. Next, we define a closure that takes no arguments (fun () ->). The closure increments the value of `n` (the counter) using `incr n`, then returns the current value of `n` using `!n`.
 
 ```ocaml
@@ -545,6 +576,7 @@ val c1 : unit -> int = <fun>
 # let c2 = create_counter ();;
 val c2 : unit -> int = <fun>
 ```
+
 Now, we shall create a closure `c1` that encapsulates a counter. Calling `c1 ()` will increment the counter associated with `c1` and return its current value. Similarly, we create another closure `c2` with its own independent counter.
 
 ```ocaml
@@ -560,6 +592,7 @@ Now, we shall create a closure `c1` that encapsulates a counter. Calling `c1 ()`
 # c1 ();;
 - : int = 3
 ```
+
 Calling `c1 ()` increments the counter associated with `c1` and returns its current value. Since this is the first call, the counter starts at 1. Another call to `c1 ()` increments the counter again, so it returns 2.
 
 Calling `c2 ()` increments the counter associated with `c2`. Since `c2` has its own independent counter, it starts at 1. Another call to `c1 ()` increments its counter, resulting in 3.
@@ -571,6 +604,7 @@ Functional and imperative programming styles are often used together. However, n
 ### Good: Function-Encapsulated Mutability
 
 Here is a function that computes the sum of an array of integers.
+
 ```ocaml
 # let sum m =
     let result = ref 0 in
@@ -592,6 +626,7 @@ Some applications maintain some state while they are running. Here are a couple 
 - A cache.
 
 The following is a toy line editor, using the `get_char` function [defined earlier](#example-getchar-function). It waits for characters on standard input and exits on end-of-file, carriage return, or newline. Otherwise, if the character is printable, it prints it and records it in a mutable list used as a stack. If the character is the delete code, the stack is popped and the last printed character is erased.
+
 ```ocaml
 # let record_char state c =
     (String.make 1 c, c :: state);;
@@ -635,6 +670,7 @@ This is a possible way to handle an application-wide state. As in the [Function-
 ### Good: Precomputing Values
 
 Let's imagine you store angles as fractions of the circle in 8-bit unsigned integers, storing them as `char` values. In this system, 64 is 90 degrees, 128 is 180 degrees, 192 is 270 degrees, 256 is full circle, and so on. If you need to compute cosine on those values, an implementation might look like this:
+
 ```ocaml
 # let char_cos c =
     c |> int_of_char |> float_of_int |> ( *. ) (Float.pi /. 128.0) |> cos;;
@@ -642,6 +678,7 @@ val char_cos : char -> float = <fun>
 ```
 
 However, it is possible to make a faster implementation by precomputing all the possible values in advance. There are only 256 of them, which you'll see listed after the first result below:
+
 ```ocaml
 # let char_cos_tab = Array.init 256 (fun i -> i |> char_of_int |> char_cos);;
 val char_cos_tab : float array =
@@ -678,6 +715,7 @@ A module may expose or encapsulate a state in several different ways:
 1. Bad: mutable state with no explicit initialisation function or no name referring to the mutable state
 
 For example, the [`Hashtbl`](/manual/api/Hashtbl.html) module provides an interface of the first kind. It has the type `Hashtbl.t` representing mutable data. It also exposes `create`, `clear`, and `reset` functions. The `clear` and `reset` functions return `unit`. This strongly signals the reader that they perform the side-effect of updating the mutable data.
+
 ```ocaml
 # #show Hashtbl.t;;
 type ('a, 'b) t = ('a, 'b) Hashtbl.t
@@ -697,6 +735,7 @@ On the other hand, a module may define mutable data internally impacting its beh
 ### Bad: Undocumented Mutation
 
 Here's an example of bad code:
+
 ```ocaml
 # let partition p k =
     let m = Array.copy k in
@@ -739,6 +778,7 @@ GOTCHA: This is the dual of the previous anti-pattern. “Mutable in disguise”
 ### Bad: Undocumented Side Effects
 
 Consider this code:
+
 ```ocaml
 # module Array = struct
     include Stdlib.Array
@@ -762,6 +802,7 @@ If you're writing functions with non-obvious side effects, don't shadow existing
 ### Bad: Side Effects Depending on Order of Evaluation
 
 Consider the following code:
+
 ```ocaml
 # let id_print s = print_string (s ^ " "); s;;
 val id_print : string -> string = <fun>
@@ -781,6 +822,7 @@ In the second line, we apply `id_print` to the arguments `"Monday"`, `"Tuesday"`
 Since the evaluation order for function arguments in OCaml is not explicitly defined, the order in which the `id_print` side effects take place is unreliable. In this example, the arguments are evaluated from right to left, but this could change in future compiler releases.
 
 This issue also arises when applying arguments to variant constructors, building tuple values, or initialising record fields. Here, it is illustrated on a tuple value:
+
 ```ocaml
 # let r = ref 0 in ((incr r; !r), (decr r; !r));;
 - : int * int = (0, -1)
@@ -792,6 +834,7 @@ To ensure that evaluation takes place in a specific order, use the means to put 
 
 <!--
 You can use the sequence operator `;` to execute expressions in a particular order:
+
 ```ocaml
 # print_endline "ha"; print_endline "ho";;
 ha
@@ -800,6 +843,7 @@ ho
 ```
 
 `let` expressions are executed in the order they appear, so you can nest them to achieve a particular order of evaluation:
+
 ```ocaml
 # let () = print_endline "ha" in print_endline "hu";;
 ha

@@ -167,7 +167,6 @@ profile). This setting can be overridden via the `s=<words>` argument to
 `OCAMLRUNPARAM`. You can change it after the program has started by calling
 the `Gc.set` function:
 
-
 ```ocaml env=tune
 # open Core;;
 # let c = Gc.get ();;

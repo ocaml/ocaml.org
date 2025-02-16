@@ -15,6 +15,7 @@ create a hash table we could write:
 # let my_hash = Hashtbl.create 123456;;
 val my_hash : ('_weak1, '_weak2) Hashtbl.t = <abstr>
 ```
+
 The 123456 is the initial size of the hashtbl. This initial number is
 just your best guess as to the amount of data that you will be putting
 into the hash table. The hash table can grow if you under-estimate the

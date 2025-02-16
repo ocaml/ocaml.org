@@ -13,6 +13,7 @@ category: "Data Structures"
 **Disclaimer:** The examples in this tutorial require OCaml 5.1. If you're running a previous version of OCaml , you can either use `elements` instead of `to_list`, which is a new function in OCaml 5.1, or upgrade OCaml by running `opam update`, then `opam upgrade ocaml`. Check your current version with `ocaml --version`. 
 
 If you need to work with string sets, you must invoke `Set.Make(String)`. That returns a new module.
+
 ```ocaml
 # module StringSet = Set.Make(String);;
 module StringSet :
@@ -38,6 +39,7 @@ This module also defines two types:
 ## Creating a Set
 
 1. We can create an empty set using `StringSet.empty`:
+
 ```ocaml
 # StringSet.empty ;;
 - : StringSet.t = <abstr>
@@ -51,6 +53,7 @@ For `StringSet.empty`, you can see that the OCaml toplevel displays the placehol
 (Remember, for OCaml versions before 5.1, it will be `StringeSet.empty |> StringSet.elements;;`)
 
 2. A set with a single element is created using `StringSet.singleton`:
+
 ```ocaml
 # StringSet.singleton "hello";;
 - : StringSet.t = <abstr>
@@ -60,6 +63,7 @@ For `StringSet.empty`, you can see that the OCaml toplevel displays the placehol
 ```
 
 3. Converting a list into a set using `StringSet.of_list`:
+
 ```ocaml
 # StringSet.of_list ["hello"; "hi"];;
 - : StringSet.t = <abstr>
@@ -73,6 +77,7 @@ There's another relevant function `StringSet.of_seq: string Seq.t -> StringSet.t
 ## Working With Sets
 
 Let's look at a few functions for working with sets using these two sets.
+
 ```ocaml
 # let first_set = ["hello"; "hi"] |> StringSet.of_list;;
 - : val first_set : StringSet.t = <abstr>
@@ -189,9 +194,11 @@ You can see that this module has the intended behavior:
 # CISS.singleton "hello" |> CISS.add "HELLO" |> CISS.to_list;;
 - : string list = ["hello"]
 ```
+
 The value `"HELLO"` is not added to the set because it is considered equal to the value `"hello"`, which is already contained in the set.
 
 You can use any type for elements, as long as you define a meaningful `compare` operation.
+
 ```ocaml
 # type color = Red | Green | Blue;;
 type color = Red | Green | Blue
