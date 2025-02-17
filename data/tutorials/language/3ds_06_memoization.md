@@ -292,6 +292,7 @@ example
 ```
 
 Note that the optimal splitting is:
+
 ```text
 this may be
 a difficult

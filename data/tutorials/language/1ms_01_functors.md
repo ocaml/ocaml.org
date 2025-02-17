@@ -25,12 +25,14 @@ $ mkdir funkt; cd funkt
 ```
 
 Place the following in the file **`dune-project`**:
+
 ```lisp
 (lang dune 3.7)
 (package (name funkt))
 ```
 
 The content of the file **`dune`** should be this:
+
 ```lisp
 (executable
   (name funkt)
@@ -47,6 +49,7 @@ Check that this works using the `opam exec -- dune exec funkt` command. It shoul
 The standard library contains a [`Set`](/manual/api/Set.html) module which is designed to handle sets. This module enables you to perform operations such as union, intersection, and difference on sets. You may check the [Set](/docs/sets) tutorial to learn more about this module, but it is not required to follow the present tutorial.
 
 To create a set module for a given element type (which allows you to use the provided type and its associated [functions](/manual/api/Set.S.html)), it's necessary to use the functor `Set.Make` provided by the `Set` module. Here is a simplified version of `Set`'s interface:
+
 ```ocaml
 module type OrderedType = sig
   type t
@@ -67,7 +70,6 @@ Here is how this reads (starting from the bottom, then going up):
 Here is an example of how to use `Set.Make`:
 
 **`funkt.ml`**
-
 ```ocaml
 module StringCompare = struct
   type t = string
@@ -86,11 +88,13 @@ This defines a module `Funkt.StringSet`. What `Set.Make` needs are:
 another type, here `string`. If that other type is also called `t`, the compiler
 will trigger an error _“The type abbreviation t is cyclic”_. This can be worked
 around by adding the `nonrec` keyword to the type definition, like this:
+
 ```ocaml
 type nonrec t = t
 ```
 
 This can be simplified using an _anonymous module_ expression:
+
 ```ocaml
 module StringSet = Set.Make(struct
   type t = string
@@ -105,6 +109,7 @@ However, since the module `String` already defines
 - Function `compare` of type `t -> t -> bool` compares two strings
 
 This can be simplified even further into this:
+
 ```ocaml
 module StringSet = Set.Make(String)
 ```
@@ -178,6 +183,7 @@ That's the case for the sets, maps, and hash tables provided by the standard lib
 * The functor returns a module that implements what is promised, as described by the result interface
 
 Here is the module's signature that the functors `Set.Make` and `Map.Make` expect:
+
 ```ocaml
 module type OrderedType = sig
   type t
@@ -186,6 +192,7 @@ end
 ```
 
 Here is the module's signature that the functor `Hashtbl.Make` expects:
+
 ```ocaml
 module type HashedType = sig
   type t
@@ -208,6 +215,7 @@ There are many kinds of [heap](https://en.wikipedia.org/wiki/Heap_(data_structur
 The kind of data structures and algorithms used to implement a heap is not discussed in this document.
 
 The common prerequisite to implement any heap is a means to compare the elements they contain. That's the same signature as the parameter of `Set.Make` and `Map.Make`:
+
 ```ocaml
 module type OrderedType = sig
   type t
@@ -216,6 +224,7 @@ end
 ```
 
 Using such a parameter, a heap implementation must provide at least this interface:
+
 ```ocaml
 module type HeapType = sig
   type elt
@@ -345,7 +354,6 @@ The module `IterPrint` is refactored into a functor that takes a module providin
 **Note**: An OCaml interface file (`.mli`) must be a module, not a functor. Functors must be embedded inside modules. Therefore, it is customary to call them `Make`.
 
 **`funkt.ml`**
-
 ```ocaml
 module StringSet = Set.Make(String)
 module IterPrint = IterPrint.Make(List)
@@ -535,6 +543,7 @@ end
 ```
 
 Create this file and launch `utop`.
+
 ```ocaml
 # #mod_use "random.ml";;
 

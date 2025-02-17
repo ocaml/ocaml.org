@@ -16,6 +16,7 @@ it's an example of how to write the code.
 OCaml supports a rather limited form of the familiar `for` loop:
 
 <!-- $MDX skip -->
+
 ```ocaml
 for variable = start_value to end_value do
   expression
@@ -25,6 +26,7 @@ for variable = start_value downto end_value do
   expression
 done
 ```
+
 A simple but real example from LablGtk:
 
 <!-- $MDX skip -->
@@ -33,6 +35,7 @@ for i = 1 to n_jobs () do
   do_next_job ()
 done
 ```
+
 In OCaml, `for` loops are just shorthand for writing:
 
 <!-- $MDX skip -->
@@ -64,6 +67,7 @@ Line 1, characters 20-21:
 Warning 10 [non-unit-statement]: this expression should have type unit.
 - : unit = ()
 ```
+
 Functional programmers tend to use recursion instead of explicit loops,
 and it's wise to regard **for** loops with suspicion since it can't return anything,
 hence OCaml's relatively powerless **for** loop. We talk about recursion
@@ -77,6 +81,7 @@ while boolean-condition do
   expression
 done
 ```
+
 As with `for` loops, the language doesn't provide a way to break out
 of a `while` loop, except by throwing an exception, so this means that
 `while` loops have fairly limited use. Again, remember that functional
@@ -97,6 +102,7 @@ let quit_loop = false in
         (* how do I set quit_loop to true ?!? *)
   done
 ```
+
 Remember that `quit_loop` is not a real "variable." The let-binding
 just makes `quit_loop` shorthand for `false`. This means the `while`
 loop condition (shown in red) is always true, and the loop runs on
@@ -423,6 +429,7 @@ directory:
     End_of_file -> None;;
 val readdir_no_ex : dir_handle -> string option = <fun>
 ```
+
 The type of `readdir_no_ex` is this. Recall our earlier discussion about
 null pointers.
 
@@ -560,6 +567,7 @@ let rec loop () =
   | base case -> []
   | recursive case -> element :: loop ()
 ```
+
 Compare this to our previous `range` function. The pattern of recursion
 is exactly the same:
 
@@ -581,6 +589,7 @@ let rec read_directory path =
   else
     Leaf file
 ```
+
 All that remains now to make this a working program is a little bit of
 code to call `read_directory` and display the result:
 
@@ -601,6 +610,7 @@ let rec loop () =
   | base case -> []
   | recursive case -> element :: loop ()
 ```
+
 The key here is actually the use of the match / base case / recursive
 case pattern. In this example (finding the maximum element in a list),
 we'll have two base cases and one recursive case. But before we
@@ -651,6 +661,7 @@ Let's now code those rules above to get a working function:
       max x (list_max remainder);;
 val list_max : 'a list -> 'a = <fun>
 ```
+
 I've added comments so you can see how the rules / special cases we
 decided upon above really correspond to lines of code.
 
@@ -666,6 +677,7 @@ Exception: Failure "list_max called on empty list".
 # list_max [5; 4; 3; 2; 1; 100];;
 - : int = 100
 ```
+
 Notice how the solution proposed is both (a) very different from the
 imperative for-loop solution, and (b) much more closely tied to the
 problem specification. Functional programmers will tell you that it's
@@ -686,6 +698,7 @@ Let's look at the `range` function again for about the twentieth time:
   else a :: range (a+1) b;;
 val range : int -> int -> int list = <fun>
 ```
+
 I'm going to rewrite it slightly to make something about the structure
 of the program clearer (still the same function however):
 
@@ -696,6 +709,7 @@ of the program clearer (still the same function however):
       a :: result;;
 val range : int -> int -> int list = <fun>
 ```
+
 Let's call it:
 
 ```ocaml
@@ -704,6 +718,7 @@ Let's call it:
 # List.length (range 1 1000000);;
 Stack overflow during evaluation (looping recursion?).
 ```
+
 Hmmm ... at first sight this looks like a problem with recursive
 programming, and hence with the whole of functional programming! If you
 write your code recursively instead of iteratively then you necessarily
@@ -724,6 +739,7 @@ let rec loop () =
   (* do something *)
   loop ()
 ```
+
 Because the recursive call to `loop ()` happens last,
 `loop` is tail-recursive and the compiler will turn the whole thing into
 a `while` loop.
@@ -760,6 +776,7 @@ let rec range2 a b accum =
   else
     (* ... *)
 ```
+
 If `a > b` (i.e., if we've reached the end of the recursion), then stop
 and return the result (`accum`).
 
@@ -773,6 +790,7 @@ tail-recursive:
   else range2 (a + 1) b (a :: accum);;
 val range2 : int -> int -> int list -> int list = <fun>
 ```
+
 There's only one slight problem with this function. It constructs the
 list backwards! However, this is easy to rectify by redefining range as:
 
@@ -780,6 +798,7 @@ list backwards! However, this is easy to rectify by redefining range as:
 # let range a b = List.rev (range2 a b []);;
 val range : int -> int -> int list = <fun>
 ```
+
 It works this time, although it's a bit slow to run because it really
 does have to construct a list with a million elements in it:
 
@@ -787,6 +806,7 @@ does have to construct a list with a million elements in it:
 # List.length (range 1 1000000);;
 - : int = 1000000
 ```
+
 The following implementation is twice as fast as the previous one,
 because it does not need to reverse a list:
 
@@ -799,6 +819,7 @@ val range2 : int -> int -> int list -> int list = <fun>
   range2 a b [];;
 val range : int -> int -> int list = <fun>
 ```
+
 That was a brief overview of tail recursion, but in real world
 situations, determining if a function is tail-recursive can be quite
 hard. 
@@ -886,6 +907,7 @@ let you:
 Line 1, characters 1-23:
 Error: The record field name is not mutable
 ```
+
 References, with which we should be familiar by now, are implemented
 using records with a mutable `contents` field. Check out the definition
 in `Stdlib`:
@@ -927,6 +949,7 @@ val a : int array = [|0; 0; 0; 0; 0; 0; 0; 0; 0; 0|]
 # a;;
 - : int array = [|0; 1; 2; 3; 4; 5; 6; 7; 8; 9|]
 ```
+
 Notice the syntax for writing arrays: `[| element; element; ... |]`
 
 The OCaml compiler was designed with heavy numerical processing in mind

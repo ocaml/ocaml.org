@@ -93,6 +93,7 @@ object. We use the familiar `new` operator:
 # let s = new stack_of_ints;;
 val s : stack_of_ints = <obj>
 ```
+
 Now we'll push and pop some elements off the stack:
 
 ```ocaml
@@ -115,6 +116,7 @@ Popped 2 off the stack.
 Popped 1 off the stack.
 - : unit = ()
 ```
+
 Notice the syntax. `object#method` means call `method` on `object`. This
 is the same as `object.method` or `object->method` that you will be
 familiar with in imperative languages.
@@ -245,6 +247,7 @@ widget  (superclass for all widgets)
   |
   +-------------> label
 ```
+
 (Notice that a `button` is a `container` because it can contain either a
 label or an image, depending on what is displayed on the button).
 
@@ -265,6 +268,7 @@ Error: Some type variables are unbound in this type:
            object method get_name : 'a method virtual repaint : unit end
        The method get_name has type 'a where 'a is unbound
 ```
+
 Oops! I forgot that OCaml cannot infer the type of `name` so will assume
 that it is `'a`. But that defines a polymorphic class, and I didn't
 declare the class as polymorphic (`class ['a] widget`). I need to narrow
@@ -280,6 +284,7 @@ the type of `name` like this:
 class virtual widget :
   string -> object method get_name : string method virtual repaint : unit end
 ```
+
 Now there are several new things going on in this code. Firstly, the
 class contains an **initialiser**. This is an argument to the class
 (`name`) which you can think of as exactly the equivalent of an argument
@@ -294,6 +299,7 @@ public class Widget
   }
 }
 ```
+
 In OCaml, a constructor constructs the whole class; it's not just a
 specially named function, so we write the arguments as if they are
 arguments to the class:
@@ -366,10 +372,10 @@ Notes:
  basically comes down to the fact that OCaml's linked lists are
  immutable. Let's imagine that someone wrote this code:
 
-  ```ocaml
-  # let list = container#get_widgets in
-    x :: list;;
-  ```
+```ocaml
+# let list = container#get_widgets in
+  x :: list;;
+```
 
 Would this modify the private internal representation of my `container`
 class, by prepending `x` to the list of widgets? No it wouldn't. If you run 
@@ -393,6 +399,7 @@ and I also use an anonymous function expression that might be unfamiliar:
 # (fun w -> w#repaint);;
 - : < repaint : 'a; .. > -> 'a = <fun>
 ```
+
 This defines an anonymous function with one argument `w` that just
 calls `w#repaint` (the `repaint` method on widget `w`).
 
@@ -490,6 +497,7 @@ class label :
   string ->
   string -> object method get_name : string method repaint : unit end
 ```
+
 Let's create a label which says "Press me!" and add it to the button:
 
 ```ocaml
@@ -513,6 +521,7 @@ class name =
     (* ... *)
   end
 ```
+
 The reference to `self` names the object,
 allowing you to call methods in the same class or pass the object to
 functions outside the class. In other words, it's exactly the same as
@@ -535,6 +544,7 @@ Error: This expression has type label but an expression was expected of type
          button
        The first object type has no method add
 ```
+
 We created a button `b` and a label `l` and then tried to create a list
 containing both, but we got an error. Yet `b` and `l` are both `widget`s,
 so maybe we can't put them into the same list because OCaml can't guess
@@ -629,6 +639,7 @@ but doing so can make things clearer. We can do it like this:
 # type counter = <get : int; incr : unit>;;
 type counter = < get : int; incr : unit >
 ```
+
 Compare with an equivalent record type definition:
 
 ```ocaml
@@ -637,6 +648,7 @@ Compare with an equivalent record type definition:
    incr : unit -> unit};;
 type counter_r = { get : unit -> int; incr : unit -> unit; }
 ```
+
 The implementation of a record working like our object would be:
 
 ```ocaml
@@ -646,6 +658,7 @@ The implementation of a record working like our object would be:
      incr = (fun () -> incr n)};;
 val r : counter_r = {get = <fun>; incr = <fun>}
 ```
+
 In terms of functionality, both the object and the record are similar,
 but each solution has its own advantages:
 

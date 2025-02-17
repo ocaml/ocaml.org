@@ -19,7 +19,6 @@ preprocessor](https://github.com/ocaml-ppx/ppxlib/tree/main/examples/simple-exte
 <!-- $MDX skip -->
 ```ocaml
 Printf.printf "This program has been compiled by user: %s" [%get_env "USER"]
-
 ```
 
 When you compile the code with the preprocessor, it will replace [%get_env "USER"] with the content of the USER environment variable. If the USER environment variable is set to "JohnDoe" for example, the line would become:
@@ -27,7 +26,6 @@ When you compile the code with the preprocessor, it will replace [%get_env "USER
 <!-- $MDX skip -->
 ```ocaml
 Printf.printf "This program has been compiled by user: %s" "JohnDoe"
-
 ```
 
 
@@ -200,7 +198,6 @@ or even directly with the OCaml toplevel using the option `-dparsetree` (also
 available in UTop).
 
 ```shell
-
 $ ocaml -dparsetree
 [Omitted output]
 # let x = 1 + 2 ;;
@@ -434,6 +431,7 @@ type t = int [@@deriving_inline yojson]
 ```
 
 Now, we run the PPX and promote the generated code in the original file:
+
 ```shell
 $ opam exec -- dune build @lint
 File "lib/lib.ml", line 1, characters 0-0:
@@ -452,8 +450,10 @@ index 4999e06..5516d41 100644
  [@@@deriving.end]
 Promoting _build/default/lib/lib.ml.lint-corrected to lib/lib.ml.
 ```
+
 The file now contains the generated value. While it is still a development
 dependency, the PPX dependency can be dropped for compiling the project:
+
 ```shell
 $ cat lib.ml
 type t = int [@@deriving_inline yojson]

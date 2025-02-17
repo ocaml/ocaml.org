@@ -29,12 +29,14 @@ Here is a program using two files: `athens.ml` and `berlin.ml`. Each file
 defines a module named `Athens` and `Berlin`, respectively.
 
 Here is the file `athens.ml`:
+
 <!-- $MDX file=examples/athens.ml -->
 ```ocaml
 let hello () = print_endline "Hello from Athens"
 ```
 
 Here is the file `berlin.ml`:
+
 <!-- $MDX file=examples/berlin.ml -->
 ```ocaml
 let () = Athens.hello ()
@@ -43,17 +45,21 @@ let () = Athens.hello ()
 To compile them using [Dune](https://dune.build/), at least two
 configuration files are required:
 * The `dune-project` file contains project-wide configuration.
+
   ```lisp
   (lang dune 3.7)
   ```
+
 * The `dune` file contains actual build directives. A project may have several
   `dune` files, one per directory containing things to build. This single line is
   sufficient in this example:
+
   ```lisp
   (executable (name berlin))
   ```
 
 After you create those files, build and run them:
+
 <!-- $MDX dir=examples -->
 ```bash
 $ opam exec -- dune build
@@ -88,6 +94,7 @@ anything the module provides.
 If you are using a module heavily, you might want to `open` it. This brings the
 module's definitions into scope. In our example, `berlin.ml` could have been
 written:
+
 <!-- $MDX skip -->
 ```ocaml
 open Athens
@@ -98,6 +105,7 @@ Using `open` is optional. Usually, we don't open a module like `List` because it
 provides names other modules also provide, such as [`Array`](/manual/api/Array.html) or `Option`. Modules
 like `Printf` provide names that aren't subject to conflicts, such as `printf`.
 Placing `open Printf` at the top of a file avoids writing `Printf.printf` repeatedly.
+
 ```ocaml
 open Printf
 let data = ["a"; "beautiful"; "day"]
@@ -110,6 +118,7 @@ let () = List.iter (printf "%s\n") data
  at the top of every file. Refer to Dune documentation if you need to opt-out.
 
 You can open a module inside a definition, using the `let open ... in` construct:
+
 ```ocaml
 # let list_sum_sq m =
     let open List in
@@ -118,6 +127,7 @@ val list_sum_sq : int -> int = <fun>
 ```
 
 The module access notation can be applied to an entire expression:
+
 ```ocaml
 # let array_sum_sq m =
     Array.(init m Fun.id |> map (fun i -> i * i) |> fold_left ( + ) 0);;
@@ -139,6 +149,7 @@ interface. By default, when no corresponding `.mli` file is provided, an
 implementation has a default interface where everything is public.
 
 Copy the `athens.ml` file into `cairo.ml` and change its contents:
+
 <!-- $MDX file=examples/cairo.ml -->
 ```ocaml
 let message = "Hello from Cairo"
@@ -146,6 +157,7 @@ let hello () = print_endline message
 ```
 
 As it is, `Cairo` has the following interface:
+
 <!-- $MDX skip -->
 ```ocaml
 val message : string
@@ -158,6 +170,7 @@ acts as a mask over the module's implementation. The `cairo.ml` file defines
 Filenames without extensions must be the same.
 
 To turn `message` into a private definition, don't list it in the `cairo.mli` file:
+
 <!-- $MDX file=examples/cairo.mli -->
 ```ocaml
 val hello : unit -> unit
@@ -178,11 +191,13 @@ let () = Cairo.hello ()
 
 Update the `dune` file to allow this example's compilation aside from the
 previous one.
+
 ```lisp
 (executables (names berlin delhi))
 ```
 
 Compile and execute both programs:
+
 ```shell
 $ opam exec -- dune exec ./berlin.exe
 Hello from Athens
@@ -192,6 +207,7 @@ Hello from Cairo
 ```
 
 You can check that `Cairo.message` is not public by attempting to compile a `delhi.ml` file containing:
+
 ```ocaml
 let () = print_endline Cairo.message
 ```
@@ -239,12 +255,14 @@ let dalet_of = function
 ```
 
 Update file `dune` to have three targets; two executables: `berlin` and `delhi`; and a library `exeter`.
+
 ```lisp
 (executables (names berlin delhi) (modules athens berlin cairo delhi))
 (library (name exeter) (modules exeter))
 ```
 
 Run the `opam exec -- dune utop` command. This triggers `Exeter`'s compilation, launches `utop`, and loads `Exeter`.
+
 ```ocaml
 # open Exeter;;
 
@@ -253,12 +271,14 @@ type aleph = Ada | Alan | Alonzo
 ```
 
 Type `aleph` is public. Values can be created or accessed.
+
 ```ocaml
 # #show bet;;
 Unknown element.
 ```
 
 Type `bet` is private. It is not available outside of the implementation where it is defined, here `Exeter`.
+
 ```ocaml
 # #show gimel;;
 type gimel
@@ -277,6 +297,7 @@ val gimel_of_bool : bool -> gimel
 ```
 
 Type `gimel` is _abstract_. Values can be created or manipulated, but only as function results or arguments. Just the provided functions `gimel_of_bool`, `gimel_flip`, and `gimel_to_string` or polymorphic functions can receive or return `gimel` values.
+
 ```ocaml
 # #show dalet;;
 type dalet = private Dennis of int | Donald of string | Dorothy
@@ -337,6 +358,7 @@ executable:
 
 To define a submodule's interface, we can provide a _module signature_. This
 is done in this second version of the `florence.ml` file:
+
 ```ocaml
 module Hello : sig
  val print : unit -> unit
@@ -353,6 +375,7 @@ The first version made `Florence.Hello.message` public. In this version it can't
 ### Module Signatures are Types
 
 The role played by module signatures to implementations is akin to the role played by types to values. Here is a third possible way to write file `florence.ml`:
+
 ```ocaml
 module type HelloType = sig
   val print : unit -> unit
@@ -389,6 +412,7 @@ module Unit :
 ```
 
 The OCaml compiler tool chain can be used to dump an `.ml` file's default interface.
+
 ```shell
 $ ocamlc -i cairo.ml
 val message : string
@@ -423,6 +447,7 @@ module from another `.ml` file, we need to add `open Extlib` at the beginning.
 ## Stateful Modules
 
 A module may have an internal state. This is the case for the `Random` module from the standard library. The functions `Random.get_state` and `Random.set_state` provide read and write access to the internal state, which is nameless and has an abstract type.
+
 ```ocaml
 # let s = Random.get_state ();;
 val s : Random.State.t = <abstr>

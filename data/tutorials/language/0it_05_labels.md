@@ -15,12 +15,14 @@ Throughout this tutorial, the code is written in UTop. In this document paramete
 ## Passing Labelled Arguments
 
 The function `Option.value` from the standard library has a parameter labelled `default`.
+
 ```ocaml
 # Option.value;;
 - : 'a option -> default:'a -> 'a = <fun>
 ```
 
 Labelled arguments are passed using a tilde `~` and can be placed at any position and in any order.
+
 ```ocaml
 # Option.value (Some 10) ~default:42;;
 - : int = 10
@@ -42,6 +44,7 @@ Error: Syntax error
 ## Labelling Parameters
 
 Here is how to name parameters in a function definition:
+
 ```ocaml
 # let rec range ~first:lo ~last:hi =
     if lo > hi then []
@@ -54,6 +57,7 @@ The parameters of `range` are named
 - `first` and `last` when calling the function; these are the labels.
 
 Here is how `range` is used:
+
 ```ocaml
 # range ~first:1 ~last:10;;
 - : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
@@ -63,6 +67,7 @@ Here is how `range` is used:
 ```
 
 It is possible to use a shorter syntax when using the same name as label and parameter.
+
 ```ocaml
 # let rec range ~first ~last =
     if first > last then []
@@ -75,6 +80,7 @@ At parameter definition `~first` is the same as `~first:first`. Passing argument
 ## Passing Optional Arguments
 
 Optional arguments can be omitted. When passed, a tilde `~` or a question mark `?` must be used. They can be placed at any position and in any order.
+
 ```ocaml
 # let sum ?(init=0) u = List.fold_left ( + ) init u;;
 val sum : ?init:int -> int list -> int = <fun>
@@ -87,6 +93,7 @@ val sum : ?init:int -> int list -> int = <fun>
 ```
 
 It is also possible to pass optional arguments as values of type `option`. This is done using a question mark when passing the argument.
+
 ```ocaml
 # sum [0; 1; 2; 3; 4; 5] ?init:(Some 100);;
 - : int = 115
@@ -98,6 +105,7 @@ It is also possible to pass optional arguments as values of type `option`. This 
 ## Defining Optional Parameters With Default Values
 
 In the previous section, we've defined a function with an optional parameter without explaining how it works. Let's look at a different variant of this function:
+
 ```ocaml
 # let sum ?init:(x=0) u = List.fold_left ( + ) x u;;
 val sum : ?init:int -> int list -> int = <fun>
@@ -128,6 +136,7 @@ val get_ok : ?exn:('a -> exn) -> ('b, 'a) result -> 'b = <fun>
 <!-- TODO: consider list take instead -->
 
 An optional parameter can be declared without specifying a default value.
+
 ```ocaml
 # let sub ?(pos=0) ?len:len_opt s =
     let default = String.length s - pos in
@@ -146,6 +155,7 @@ When an optional parameter isn't given a default value, its type inside the func
 <!-- TODO: consider a simpler example without any logic or exmplain use-case -->
 
 This enables the following usages:
+
 ```ocaml
 # sub ~len:5 ~pos:2 "immutability";;
 - : string = "mutab"
@@ -161,6 +171,7 @@ This enables the following usages:
 ```
 
 It is possible to use the same name for the `len` parameter and label name.
+
 ```ocaml
 # let sub ?(pos=0) ?len s =
     let default = String.length s - pos in
@@ -174,6 +185,7 @@ val sub : ?pos:int -> ?len:int -> string -> string = <fun>
 Let's compare two possible variants of the `String.concat` function from the standard library which has type `string -> string list -> string`.
 
 In the first version, the optional separator is the last declared parameter.
+
 ```ocaml
 # let concat_warn ss ?(sep="") = String.concat sep ss;;
 Line 1, characters 15-18:
@@ -192,6 +204,7 @@ val concat_warn : string list -> ?sep:string -> string = <fun>
 ```
 
 In the second version, the optional separator is the first declared parameter.
+
 ```ocaml
 # let concat ?(sep="") ss = String.concat sep ss;;
 val concat : ?sep:string -> string list -> string = <fun>
@@ -232,6 +245,7 @@ val range : int -> first:int -> last:int -> int list = <fun>
 ## Function with Only Optional Arguments
 
 When all parameters of a function need to be optional, a dummy, positional and occurring last parameter must be added. The unit `()` value comes in handy for this. This is what is done here.
+
 ```ocaml
 # let hello ?(who="world") () = "hello, " ^ who;;
 val hello : ?who:string -> string = <fun>
@@ -260,6 +274,7 @@ Without the unit parameter, the `optional argument cannot be erased` warning wou
 ## Forwarding an Optional Argument
 
 Passing an optional argument with a question mark sign `?` allows forwarding it without unwrapping. These examples reuse the `sub` function defined in the [Optional Arguments Without Default Values](#optional-arguments-without-default-values) section.
+
 ```ocaml
 # let take ?len s = sub ?len s;;
 val take : ?len:int -> string -> string = <fun>

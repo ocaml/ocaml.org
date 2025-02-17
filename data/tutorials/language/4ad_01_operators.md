@@ -16,6 +16,7 @@ The learning goals of this tutorial are:
 ## Using Binary Operators
 
 In OCaml, almost all binary operators are regular functions. The function underlying an operator is referred by surrounding the operator symbol with parentheses. Here are the addition, string concatenation, and equality functions:
+
 ```ocaml
 # (+);;
 - : int -> int -> int = <fun>
@@ -26,12 +27,14 @@ In OCaml, almost all binary operators are regular functions. The function underl
 ```
 
 **Note**: the operator symbol for multiplication is ` * `, but can't be referred as `(*)`. This is because comments in OCaml are delimited by `(*` and `*)`. To resolve the parsing ambiguity, space characters must be inserted to get the multiplication function.
+
 ```ocaml
 # ( * );;
 - : int -> int -> int = <fun>
 ```
 
 Using operators as functions is convenient when combined with partial application. For instance, here is how to get the values that are greater than or equal to 10 in a list of integers, using the function `List.filter` and an operator.
+
 ```ocaml
 # List.filter;;
 - : ('a -> bool) -> 'a list -> 'a list = <fun>
@@ -56,6 +59,7 @@ Finally, in the third line, all the arguments expected by `List.filter` are prov
 ## Defining Binary Operators
 
 It is also possible to define binary operators. Here is an example:
+
 ```ocaml
 # let cat s1 s2 = s1 ^ " " ^ s2;;
 val cat : string -> string -> string = <fun>
@@ -71,6 +75,7 @@ It is a recommended practice to define operators in two steps, like shown in the
 ## Unary Operators
 
 Unary operators are also called prefix operators. In some contexts, it can make sense to shorten a function's name into a symbol. This is often used as a way to shorten the name of a function that performs some sort of conversion over its argument.
+
 ```ocaml
 # let ( !! ) = Lazy.force;;
 val ( !! ) : 'a lazy_t -> 'a = <fun>
@@ -123,6 +128,7 @@ Tips:
 ## Operator Associativity and Precedence
 
 Let's illustrate operator associativity with an example. The following function concatenates its string arguments, surrounded by `|` characters and separated by a `_` character.
+
 ```ocaml
 # let par s1 s2 = "|" ^ s1 ^ "_" ^ s2 ^ "|";;
 val par : string -> string -> string = <fun>
@@ -132,6 +138,7 @@ val par : string -> string -> string = <fun>
 ```
 
 Let's turn `par` into two different operators:
+
 ```ocaml
 # let ( @^ ) = par;;
 val ( @^ ) : string -> string -> string = <fun>
@@ -141,6 +148,7 @@ val ( &^ ) : string -> string -> string = <fun>
 ```
 
 At first sight, operators `@^` and `&^` are the same. However, the OCaml parser allows forming expressions using several operators without parentheses.
+
 ```ocaml
 # "foo" @^ "bar" @^ "bus";;
 - : string = "|foo_|bar_bus||"
@@ -154,6 +162,7 @@ Although both expressions are calling the same function (`par`), they are evalua
 1. Expression `"foo" &^ "bar" &^ "bus"` is evaluated as if it was `"(foo" &^ "bar") &^ "bus"`. Parentheses are added at the left, therefore `&^` _associates to the left_
 
 Operator _precedence_ rules how expressions combining different operators without parentheses are interpreted. For instance, using the same operators, here is how expressions using both are evaluated:
+
 ```ocaml
 # "foo" &^ "bar" @^ "bus";;
 - : string = "|foo_|bar_bus||"
@@ -176,6 +185,7 @@ The complete list of precedence is longer because it includes the predefined ope
 OCaml allows the creation of custom `let` operators. This is often used on monad-related functions such as `Option.bind` or `List.concat_map`. See [Monads](/docs/monads) for more on this topic.
 
 The `doi_parts` function attempts to extract the registrant and identifier parts from string expected to contain a [Digital Object Identifier (DOI)](https://en.wikipedia.org/wiki/Digital_object_identifier).
+
 ```ocaml
 # let ( let* ) = Option.bind;;
 val ( let* ) : 'a option -> ('a -> 'b option) -> 'b option = <fun>
@@ -198,7 +208,6 @@ val ( let* ) : 'a option -> ('a -> 'b option) -> 'b option = <fun>
 
 # doi_parts "https://doi.org/10.1000/182";;
 - : (string * string) option = Some ("1000", "182")
-
 ```
 
 This function is using `Option.bind` as a custom binder over the calls to `rindex_opt` and `rindex_from_opt`. This allows to only consider the case where both searches are successful and return the positions of the found characters. If any of them fails, `doi_parts` implicitly returns `None`.

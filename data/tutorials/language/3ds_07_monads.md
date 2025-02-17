@@ -270,6 +270,7 @@ function:
 ```ocaml
 let return (x : int) : int option = Some x
 ```
+
 This function has the *trivial effect* of putting a value into the metaphorical
 box.
 
@@ -491,6 +492,7 @@ calls a function and produces a log message:
 let log (name : string) (f : int -> int) : int -> int * string =
   fun x -> (f x, Printf.sprintf "Called %s on %i; " name x)
 ```
+
 The second helper produces a logging function of type
 `'a * string -> 'b * string` out of a non-loggable function:
 
@@ -547,6 +549,7 @@ the empty string. That's what `e` does. We could rename it `return`:
 ```ocaml
 let return (x : int) : int * string = (x, "")
 ```
+
 This function has the *trivial effect* of putting a value into the metaphorical
 box along with the empty log message.
 
