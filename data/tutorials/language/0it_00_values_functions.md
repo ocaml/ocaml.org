@@ -232,9 +232,9 @@ In the following example, we deconstruct nested records and an associated tuple.
 First, define an address record type
 ```ocaml
 # type address = {
-  street: string;
-  city: string;
-  zip: int
+  street : string;
+  city : string;
+  zip : int
   };;
 type address = { street : string; city : string; zip : int; }
 ```
