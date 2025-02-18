@@ -118,7 +118,7 @@ In both examples, `d` and `e` are local definitions.
 
 [Pattern matching](https://en.wikipedia.org/wiki/Pattern_matching) is a programming language construct that generalizes case analysis, it makes subexpression inspection possible and applies to values of any type. 
 
-In the following sections, we explore definitional pattern matching using `let` bindings. In the next chapter on [Basic Data Types and Pattern Matching](/docs/basic-data-types), we examine pattern matching in the construction of conditional expressions using `match...with` and compare it to `if...then...else`. In the chapter on [Error Handling](/docs/error-handling), we explore how destructuring values aids in error handling when using `try...with`.
+In the following sections, we explore matching inside `let` bindings. In the next chapter on [Basic Data Types and Pattern Matching](/docs/basic-data-types), we examine pattern matching in the construction of conditional expressions using `match...with` and compare it to `if...then...else`. In the chapter on [Error Handling](/docs/error-handling), we explore how destructuring values aids in error handling when using `try...with`.
 
 ## Pattern Matching in Definitions
 
