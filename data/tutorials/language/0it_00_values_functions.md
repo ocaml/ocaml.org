@@ -217,6 +217,7 @@ val surname : string = "Milner"
 ### Nested Pattern Matching on User-Defined Types
 
 Pattern matching also works with nested user-defined types. In the example below, we deconstruct nested tuples:
+
 ```ocaml
 # let (name, (street, city, zip), (email, phone)) =
   ("John Doe", ("123 Elm St", "Springfield", 12345), ("john@example.com", 1234567890));;
@@ -227,87 +228,110 @@ val zip : int = 12345
 val email : string = "john@example.com"
 val phone : int = 1234567890
 ```
-In the following example, we deconstruct nested records and an associated tuple.
 
-First, define an address record type
-```ocaml
-# type address = {
-  street : string;
-  city : string;
-  zip : int
-  };;
-type address = { street : string; city : string; zip : int; }
-```
+In the following example, we deconstruct a tuple nested within a record.
 
-Define a person record type, containing the nested address record type
+Records require explicit type definitions wherein field names are annotated with field types. We first define a `person` record type, then create an instance of that type named `jane`:
+
 ```ocaml
 # type person = {
-  name : string;
-  address : address;  (* Reference the address type *)
-  contact: string * int;
+    name : string;
+    street : string;
+    city : string;
+    zip : int;
+    contact: string * int;
   };;
-type person = { name : string; address : address; contact : string * int; }
+type person = {
+  name : string;
+  street : string;
+  city : string;
+  zip : int;
+  contact : string * int;
+
+# let jane = {
+    name = "Jane Doe";
+    street = "123 Elm St";
+    city = "Springfield";
+    zip = 12345;
+    contact = ("jane@example.com", 1234567890);
+  };;
+val jane : person =
+  {name = "Jane Doe"; street = "123 Elm St"; city = "Springfield"; zip = 12345;
+   contact = ("jane@example.com", 1234567890)}
 ```
 
-Create an instance of the person type interface
-```ocaml
-# let john = {
-  name = "John Doe";
-  address = { street = "123 Elm St"; city = "Springfield"; zip = 12345 };
-  contact = ("john@example.com", 1234567890);
-};;
-val john : person =
-  {name = "John Doe";
-   address = {street = "123 Elm St"; city = "Springfield"; zip = 12345};
-   contact = ("john@example.com", 1234567890)}
-```
+The following examples demonstrate two methods by which we can extract Jane's `email` and `phone` number data in the nested `contact` tuple. We will do so first by using nested deconstruction, then demonstrate a brute force approach by first extracting `content` followed by accessing the `email` and `phone` by deconstructing `contact`. <!-- Note: This sequence is pedagologically backwards perhaps, but the goal is to show that `contact` does not become a bound variable when using nested deconstruction. This is difficult to demonstrate in a single utop session if `contact` is bound in the brute force approach first, as it will not show the desired error message -->  
 
-Deconstructure the nested structure
+First, lets use nested deconstruction to access the contents of the `contact` tuple directly:
+
 ```ocaml
-# let { name; address = { street; city; zip }; contact = (email, phone) } = john;;
-val name : string = "John Doe"
+# let { name; street; city; zip; contact = (email, phone) } = jane;;
+val name : string = "Jane Doe"
 val street : string = "123 Elm St"
 val city : string = "Springfield"
 val zip : int = 12345
-val email : string = "john@example.com"
+val email : string = "jane@example.com"
 val phone : int = 1234567890
 ```
-**note**: `address` and `contact` are not defined as variables available in your scope. Instead, they serve as binding patterns that help destructure the nested structure.
 
-Now, we can use `name`, `street`, `city`, `zip`, `email`, and `phone` as bindings
+Notice that `contact` is not available in our top-level scope:
+
 ```ocaml
-# Printf.printf "Name: %s\nStreet: %s\nCity: %s\nZip: %d\nEmail: %s\nPhone: %d\n"
-    name street city zip email phone;;
-Name: John Doe
-Street: 123 Elm St
-City: Springfield
-Zip: 12345
-Email: john@example.com
-Phone: 1234567890
+# contact;;
+Error: Unbound value contact
+```
+
+This is because "contact" is not a bound variable, rather it is an intermediate pattern for deconstructive pattern-matching.
+
+Next, we demonstrate the brute force approach for accessing `email` and `phone`. This brings `contact` into our top-level scope and requires two steps:
+
+```ocaml
+(* Step 1: deconstruct all record fields *)
+# let { name; street; city; zip; contact } = jane;;
+val name : string = "Jane Doe"
+val street : string = "123 Elm St"
+val city : string = "Springfield"
+val zip : int = 12345
+val contact : string * int = ("jane@example.com", 1234567890)
+
+(* Step 2: deconstruct the tuple *)
+# let ( email, phone ) = contact;;
+val email : string = "jane@example.com"
+val phone : int = 1234567890
+```
+
+Notice that `contact` is now available at the top-level as a bound variable:
+
+```ocaml
+# contact;;
+- : string * int = ("jane@example.com", 1234567890)
 ```
 
 ### Discarding Values Using Pattern Matching
-<!-- `_` example-->
-When pattern matching, it is possible to discard values that are not needed. The method by which this is done depends on the data structure being destructured.
 
-Continuing from the above `john` record example, we can simply omit the `zip` field in the pattern:
+When pattern matching, it is possible to discard or ignore values that are not desired. The method by which this is done depends on the data structure being destructured.
+
+Continuing from the above `jane` record example, we can simply omit the `zip` field in the pattern if we don't want to bind it to a variable:
+
 ```ocaml
-# let { name; address = { street; city; }; contact = (email, phone) } = john;;
-val name : string = "John Doe"
+# let { name; street; city; contact = (email, phone) } = john;;
+val name : string = "Nohn Doe"
 val street : string = "123 Elm St"
 val city : string = "Springfield"
-val email : string = "john@example.com"
+val email : string = "jane@example.com"
 val phone : int = 1234567890
 ```
 
 Tuples behave differently from records because they require positional consistency. To discard the `email` value from the tuple of the `contact` field, we need to use the catch-all pattern (`_`):
+
 ```ocaml
-# let { name; address = { street; city; }; contact = (_, phone) } = john;;
-val name : string = "John Doe"
+# let { name; street; city; contact = (_, phone) } = john;;
+val name : string = "Jane Doe"
 val street : string = "123 Elm St"
 val city : string = "Springfield"
 val phone : int = 1234567890
 ```
+<!-- END Version Two -->
 
 ## Scopes and Environments
 
