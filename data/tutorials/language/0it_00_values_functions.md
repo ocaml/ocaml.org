@@ -216,9 +216,7 @@ val surname : string = "Milner"
 
 ### Nested Pattern Matching on User-Defined Types
 
-Pattern matching also works with nested user-defined types.
-
-In the example below, we deconstruct nested tuples:
+Pattern matching also works with nested user-defined types. In the example below, we deconstruct nested tuples:
 ```ocaml
 # let (name, (street, city, zip), (email, phone)) =
   ("John Doe", ("123 Elm St", "Springfield", 12345), ("john@example.com", 1234567890));;
