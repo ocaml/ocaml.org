@@ -276,8 +276,7 @@ val phone : int = 1234567890
 
 Now, we can use `name`, `street`, `city`, `zip`, `email`, and `phone` as bindings
 ```ocaml
-# let () =
-  Printf.printf "Name: %s\nStreet: %s\nCity: %s\nZip: %d\nEmail: %s\nPhone: %d\n"
+# Printf.printf "Name: %s\nStreet: %s\nCity: %s\nZip: %d\nEmail: %s\nPhone: %d\n"
     name street city zip email phone;;
 Name: John Doe
 Street: 123 Elm St
