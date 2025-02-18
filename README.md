@@ -2,7 +2,7 @@
 
 [![Actions Status](https://github.com/ocaml/ocaml.org/workflows/CI/badge.svg)](https://github.com/ocaml/ocaml.org/actions)
 
-This repository contains the sources of the OCaml website. It is served at https://ocaml.org/.
+This repository contains the sources of the OCaml website. It is served at <https://ocaml.org/>.
 
 ## Features
 
@@ -62,6 +62,7 @@ Thank you to everyone who contributed to the development of this new version of 
 In particular:
 
 For the groundwork on rethinking the sitemap, user flows, new content, design, and frontend, and package docs:
+
 - Ashish Agarwal (Solvuu)
 - Kanishka Azimi (Solvuu)
 - Richard Davison (Solvuu)
@@ -72,18 +73,22 @@ For the groundwork on rethinking the sitemap, user flows, new content, design, a
 - Anil Madhavapeddy (University of Cambridge)
 
 For the work on the package site infrastructure and UI:
+
 - Jon Ludlam (OCaml Labs)
 - Jules Aguillon (Tarides)
 - Lucas Pluvinage (Tarides)
 
 For meticulously going through the website to find issues:
+
 - Paul-Elliot Anglès d’Auriac (Tarides)
 
 For the work on the frontend designs and bringing them to life:
+
 - Isabella Leandersson (OCaml Labs)
 - Asaad Mahmood (Tarides)
 
 For the work on the new content and reviewing the existing one:
+
 - Christine Rose (Tarides)
 - Isabella Leandersson (OCaml Labs)
 

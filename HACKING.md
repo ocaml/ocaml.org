@@ -5,16 +5,17 @@
 ### Setting Up the Project
 
 Before starting to hack, you need a properly configured development environment. Linux and macOS are supported and used daily by the core team. System dependencies include:
-* Libev: http://software.schmorp.de/pkg/libev.html
-* Oniguruma: https://github.com/kkos/oniguruma
-* OpenSSL: https://www.openssl.org/
-* GNU Multiple Precision: https://gmplib.org/
 
-The project [`Dockerfile`](./Dockerfile) contains up-to-date system configuration instructions, as used to ship into production. It is written for the Alpine Linux distribution, but it is meant to be adapted to other environments such as Ubuntu, macOS+Homebrew, or others. The GitHub workflow file [`.github/workflows/ci.yml`](.github/workflows/ci.yml) also contains useful commands for Ubuntu and macOS. Since OCaml.org is mostly written in OCaml, a properly configured OCaml development environment is also required, but is not detailed here. Although Docker is used to ship, it is not a requirement to begin hacking. Currently, OCaml.org doesn't yet compile using OCaml 5; version 4.14 of the language is used. It is possible to run workflow files in `.github/workflows` using the [`nektos/act`](https://github.com/nektos/act) tool. For instance, the following command runs the CI checks through GitHub on each pull request (where `ghghgh` is replace by an _ad-hoc_ GitHub token, see: https://github.com/nektos/act#github_token)
+* Libev: <http://software.schmorp.de/pkg/libev.html>
+* Oniguruma: <https://github.com/kkos/oniguruma>
+* OpenSSL: <https://www.openssl.org/>
+* GNU Multiple Precision: <https://gmplib.org/>
+
+The project [`Dockerfile`](./Dockerfile) contains up-to-date system configuration instructions, as used to ship into production. It is written for the Alpine Linux distribution, but it is meant to be adapted to other environments such as Ubuntu, macOS+Homebrew, or others. The GitHub workflow file [`.github/workflows/ci.yml`](.github/workflows/ci.yml) also contains useful commands for Ubuntu and macOS. Since OCaml.org is mostly written in OCaml, a properly configured OCaml development environment is also required, but is not detailed here. Although Docker is used to ship, it is not a requirement to begin hacking. Currently, OCaml.org doesn't yet compile using OCaml 5; version 4.14 of the language is used. It is possible to run workflow files in `.github/workflows` using the [`nektos/act`](https://github.com/nektos/act) tool. For instance, the following command runs the CI checks through GitHub on each pull request (where `ghghgh` is replace by an _ad-hoc_ GitHub token, see: <https://github.com/nektos/act#github_token>)
+
 ```
 act -s GITHUB_TOKEN=ghghgh .github/workflows/ci.yml -j build
 ```
-
 
 The Makefile contains many commands that can get you up and running. A typical workflow is to clone the repository after forking it.
 
@@ -91,13 +92,13 @@ After the dependencies have been installed, simply build the project to regenera
 make playground
 ```
 
-Once the compilation is complete and successuful, commit the newly-generated assets in OCaml.org's Git repo and merge the pull request. 
+Once the compilation is complete and successuful, commit the newly-generated assets in OCaml.org's Git repo and merge the pull request.
 
 ### Deploying
 
 Commits added on some branches are automatically deployed:
-- `main` on <https://OCaml.org/>
-- `staging` on <https://staging.OCaml.org/>
+* `main` on <https://OCaml.org/>
+* `staging` on <https://staging.OCaml.org/>
 
 The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer>, which listens to the `main` and `staging` branches and builds the site using the `Dockerfile` at the project's root. You can monitor the state of each deployment on [`deploy.ci.OCaml.org`](https://deploy.ci.OCaml.org/?repo=ocaml/OCaml.org).
 
@@ -112,7 +113,7 @@ This will build the Docker image and run a Docker container with the port `8080`
 
 With the Docker container running, visit the site at <http://localhost:8080/>.
 
-The Docker images automatically build from the `live` and `staging` branches. They are then pushed to Docker Hub: https://hub.docker.com/r/ocurrent/v3.OCaml.org-server.
+The Docker images automatically build from the `live` and `staging` branches. They are then pushed to Docker Hub: <https://hub.docker.com/r/ocurrent/v3.OCaml.org-server>.
 
 ### Staging Pull Requests
 
@@ -127,6 +128,7 @@ before they get merged.
 ### Managing Dependencies
 
 OCaml.org is using an opam switch that is local and bound to a pinned commit in `opam-repository`. This is intended to protect the build from upstream regressions. The opam repository is specified in three (3) places:
+
 ```
 Dockerfile
 Makefile
@@ -136,6 +138,7 @@ Makefile
 When bringing up OCaml.org to a newer pin, the commit hash found it those files must be changed all at once.
 
 Once the opam repo pin is updated, the local switch must be updated using the following command:
+
 ```sh
 opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>
 ```
