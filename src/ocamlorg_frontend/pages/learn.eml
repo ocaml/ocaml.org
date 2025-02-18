@@ -70,8 +70,8 @@ Learn_layout.single_column_layout
               ]
               ~see_more:{href = Url.getting_started; title = "Get Started"}
               %>
-      <%s! Learn_components.tutorial_block ~icon:Learn_components.beginner_section_icon ~title:"LANGUAGE" ~heading:"The OCaml Language" 
-              ~description:"An in-depth explanation of language features and data structures from the Standard Library" 
+      <%s! Learn_components.tutorial_block ~icon:Learn_components.beginner_section_icon ~title:"LANGUAGE" ~heading:"The OCaml Language"
+              ~description:"An in-depth explanation of language features and data structures from the Standard Library"
               ~tutorial_links:[
                   {href = Url.tutorial "values-and-functions"; title = "Values and Functions"};
                   {href = Url.tutorial "basic-data-types"; title = "Data Types and Pattern Matching"};
@@ -129,8 +129,8 @@ Learn_layout.single_column_layout
     </h2>
 
     <div class="grid gap-6 md:gap-10 mt-6 md:grid-cols-2">
-      <%s! Learn_components.tutorial_block ~icon:Learn_components.intermediate_section_icon ~title:"GUIDES" ~heading:"Practical-Minded Tutorials and Guides" 
-              ~description:"How to solve real-world problems in OCaml" 
+      <%s! Learn_components.tutorial_block ~icon:Learn_components.intermediate_section_icon ~title:"GUIDES" ~heading:"Practical-Minded Tutorials and Guides"
+              ~description:"How to solve real-world problems in OCaml"
               ~tutorial_links:[
                   {href = Url.tutorial "formatting-text"; title = "Formatting and Wrapping Text"};
                   {href = Url.tutorial "debugging"; title = "Debugging"};
@@ -139,13 +139,13 @@ Learn_layout.single_column_layout
               ]
               ~see_more:{href = Url.learn_guides; title = "See More Guides"}
               %>
-      <%s! Learn_components.tutorial_block ~icon:Learn_components.intermediate_section_icon ~title:"PLATFORM" ~heading:"The OCaml Platform" 
-          ~description:"Learn to leverage the tooling around OCaml and create your own projects and libraries" 
+      <%s! Learn_components.tutorial_block ~icon:Learn_components.intermediate_section_icon ~title:"PLATFORM" ~heading:"The OCaml Platform"
+          ~description:"Learn to leverage the tooling around OCaml and create your own projects and libraries"
           ~tutorial_links:[
               {href = Url.tutorial "bootstrapping-a-dune-project"; title = "Bootstrapping a Project"};
               {href = Url.tutorial "managing-dependencies"; title = "Managing Dependencies"};
               {href = Url.tutorial "install-a-specific-ocaml-compiler-version"; title = "Install a Specific Compiler Version"};
-              {href = Url.tutorial "configuring-your-editor"; title = "Configuring Your Editor"}
+              {href = Url.tutorial "set-up-editor"; title = "Configuring Your Editor"}
           ]
           ~see_more:{href = Url.learn_platform; title = "Platform Tools Documentation"}
           %>
