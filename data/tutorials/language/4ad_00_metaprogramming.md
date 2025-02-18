@@ -139,7 +139,7 @@ module files using our previously written `preprocessor.sh`:
 
 The complexities of a programming language syntax makes it very hard to
 manipulate text in a way that is tied to the syntax. Suppose for instance that,
-similarly to the previous example, you want to rewrite all occurences of "World"
+similarly to the previous example, you want to rewrite all occurrences of "World"
 by "Universe," but _inside the OCaml strings of the program_ only. It is quite
 involved and requires a good knowledge of the OCaml syntax to do so, as there
 are several delimiters for strings (such as `{| ...|}`) and line breaks, or

@@ -85,7 +85,7 @@ In this November and December edition, we are excited to bring you the latest on
 **Activities:**
 <!--FROM EMILE-->
 - After merging [the PR that added support for search to `odoc`](https://github.com/ocaml/odoc/pull/972) in October, we continued work on building an `odoc`-compatible search engine based on [Sherlodoc](https://doc.sherlocode.com/). This will give a search engine with type-based search for every package that uses `odoc`. The plan is to make Sherlodoc the search engine in Dune's documentation generation. You can try an early demo on [Varray's doc](https://art-w.github.io/varray/varray/Varray) -- [art-w/sherlodoc#4](https://github.com/art-w/sherlodoc/pull/4)
-- Buiding on `odoc`'s support for search, we merged a PR that adds occurrences information to the search index. This will allows `odoc` search engines to improve the order of search results by using the number of occurences. -- [ocaml/odoc#976](https://github.com/ocaml/odoc/pull/976)
+- Buiding on `odoc`'s support for search, we merged a PR that adds occurrences information to the search index. This will allows `odoc` search engines to improve the order of search results by using the number of occurrences. -- [ocaml/odoc#976](https://github.com/ocaml/odoc/pull/976)
 
 ## **[`odoc`]** Syntax for Images and Assets in `odoc` ([W25](https://ocaml.org/docs/platform-roadmap#w25-generate-documentation))
 

@@ -17,9 +17,9 @@ release of OCaml 5.1.1, some review work on occurrences analysis for
 OCaml projects and a bit of on-going work on structured logs.</p>
 
 
-  
 
-  
+
+
   <h3>OCaml 5.1.1</h3>
 <p>OCaml 5.1.0 has been released nearly three months ago, in those
 months we have discovered a few significant bugs that were impeding the
@@ -179,7 +179,7 @@ increase to a less dramatic factor 6.</p>
 experimental runtime. And while waiting for a better solution, the
 collection of bug fixes integrated in OCaml 5.1.1 should made it
 possible to use numerical code in OCaml.</p>
-<h3>Project-wide occurence index</h3>
+<h3>Project-wide occurrence index</h3>
 <p>Beyond the release of OCaml 5.1.1, I have been working on reviewing
 PRs.</p>
 <p>With Gabriel Scherer and Ulysse G&eacute;rard, we spend an afternoon reading
@@ -248,6 +248,3 @@ identifiers are as fresh as we need them to be:</p>
 <span class="k">module</span> <span class="nc">New_record</span><span class="o">(</span><span class="nc">Root</span><span class="o">:</span><span class="nc">Def</span><span class="o">)</span><span class="bp">()</span><span class="o">:</span> <span class="nc">Record</span> <span class="k">with</span> <span class="k">type</span> <span class="n">root</span> <span class="o">:=</span> <span class="nn">Root</span><span class="p">.</span><span class="n">id</span>
 <span class="k">module</span> <span class="nc">New_sum</span><span class="o">(</span><span class="nc">Root</span><span class="o">:</span><span class="nc">Def</span><span class="o">)</span><span class="bp">()</span><span class="o">:</span> <span class="nc">Sum</span> <span class="k">with</span> <span class="k">type</span> <span class="n">root</span> <span class="o">:=</span> <span class="nn">Root</span><span class="p">.</span><span class="n">id</span>
 </pre></div>
-
-
-  

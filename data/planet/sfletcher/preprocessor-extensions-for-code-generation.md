@@ -13,7 +13,7 @@ source:
 
 <html>
   <head>
-    
+
     <title>PPX</title>
   </head>
   <body>
@@ -26,8 +26,8 @@ source:
   </p>
   <p>The problem treated here is one posed in Whitequark's blog :
   &quot;Implement a syntax extension that would accept type declarations of
-  the form 
-  <code class="code">type t = A [@id 1] | B of int [@id 4] [@@id_of]</code> 
+  the form
+  <code class="code">type t = A [@id 1] | B of int [@id 4] [@@id_of]</code>
   to generate a function mapping a value of type <code class="code">t</code> to its
   integer representation.&quot;
   </p>
@@ -39,7 +39,7 @@ source:
   items. Type declarations are structure items as are let-bindings to
   functions.
   </p>
-  <p>In this program, analysis of an inductive type declaration <code class="code">t</code> 
+  <p>In this program, analysis of an inductive type declaration <code class="code">t</code>
   may result in the production of a new structure item, the AST of an <code class="code">of_id</code> function
   to be appended to the structure containing <code class="code">t</code>.
   </p>
@@ -96,7 +96,7 @@ source:
     type_declaration = type_declaration_mapper;
     constructor_declaration = constructor_declaration_mapper
 }</code></pre>
-  
+
   <h3>Implementing the mappings</h3>
   <p>To warm up, lets start with the easy mappers.</p>
   <p>The role of <code class="code">type_declaration_mapper</code> is a function
@@ -130,7 +130,7 @@ source:
     {(default_mapper.constructor_declaration mapper decl)
     <span class="keyword">with</span> pcd_attributes=attrs}</code></pre>
   <p>Now to the raison d'etre of the
-  ppx, <code class="code">structure_mapper</code>. 
+  ppx, <code class="code">structure_mapper</code>.
   </p>
   <p>First, a utility function that computes from
   a <code class="code">constructor_declaration</code> with an <code class="code">@id</code>
@@ -164,7 +164,7 @@ source:
       <span class="comment">(*Many &quot;@id&quot;s*)</span>
       <span class="keywordsign">|</span> (_ :: _) <span class="keywordsign">-&gt;</span>
         raise (<span class="constructor">Location</span>.<span class="constructor">Error</span> (<span class="constructor">Location</span>.error ~loc
-        <span class="string">&quot;[@id] : Multiple occurences&quot;</span>))</code></pre>
+        <span class="string">&quot;[@id] : Multiple occurrences&quot;</span>))</code></pre>
   <p>One more utility function is required.</p>
   <p><code class="code">eval_structure_item item acc</code> computes structure
   items to push on the front of <code class="code">acc</code>. If <code class="code">item</code>
@@ -194,7 +194,7 @@ source:
           <span class="comment">(*No [@@id_of]*)</span>
           <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> default_mapper.structure_item mapper item :: acc
 
-          <span class="comment">(*At least one [@@id_of] (treat multiple occurences as if
+          <span class="comment">(*At least one [@@id_of] (treat multiple occurrences as if
             one)*)</span>
           <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span>
             <span class="comment">(*Cases of an [id_of] function for [t], one for each
@@ -219,7 +219,7 @@ source:
   <span class="comment">(*Case this structure item is something other than a single type
     declaration*)</span>
   <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> default_mapper.structure_item mapper item :: acc</code></pre>
-  
+
   <p>Finally we can write <code class="code">structure_mapper</code> itself as a
   simple fold over a structure.
   </p><pre><code class="code"><span class="keyword">let</span> structure_mapper
@@ -233,7 +233,7 @@ source:
   </p><pre>ocamlc -o ppx_id_of.exe  -I +compiler-libs ocamlcommon.cma ppx_id_of.ml</pre>
   When built, it can be tested with a command like
   <code class="code"> ocamlc -dsource -ppx ppx_id_of.exe test.ml</code>.
-  
+
   <p>
   For example, when invoked on the following program,
 </p><pre><code class="code"><span class="keyword">type</span> t =
@@ -278,7 +278,7 @@ source:
                           <span class="keyword">let</span> id_of = <span class="keyword">function</span> <span class="keywordsign">|</span> <span class="constructor">U</span>  <span class="keywordsign">-&gt;</span> 0  <span class="keyword">end</span>
       <span class="keyword">end</span>
   <span class="keyword">end</span></code></pre>
-  
+
   <hr/>
   <p>
     References:<br/>
@@ -288,6 +288,3 @@ source:
   </p>
   </body>
 </html>
-
-
-

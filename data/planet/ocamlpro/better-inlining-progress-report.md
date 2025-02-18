@@ -74,7 +74,7 @@ and b = (a.v, a.v)
 </code></pre>
 <p>I have a few solutions, but not sure yet which one is best. This probably won't appear in any normal test. This bug manifests through a segmentation fault (<code>cmmgen</code> fails to compile that recursive value reasonably).</p>
 <h3>Pattern-Matching</h3>
-<p>The new passes assume that every identifier is declared only once in a given module, but this assumption can be broken on some rare pattern matching cases. I will have to dig through <code>matching.ml</code> to add a substitution in these cases. (the only non hand-built occurence that I found is in <code>ocamlnet</code>)</p>
+<p>The new passes assume that every identifier is declared only once in a given module, but this assumption can be broken on some rare pattern matching cases. I will have to dig through <code>matching.ml</code> to add a substitution in these cases. (the only non hand-built occurrence that I found is in <code>ocamlnet</code>)</p>
 <h2>Known Mis-compilations</h2>
 <ul>
 <li>since there is no cross-module information at the moment, calls to functions from other modules are always slow.
@@ -84,4 +84,3 @@ and b = (a.v, a.v)
 </ul>
 <h2>What's next ?</h2>
 <p>I would now like to add back cross-module information, and after a bit of cleanup the first series of patches should be ready to propose upstream.</p>
-

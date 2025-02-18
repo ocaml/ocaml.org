@@ -45,7 +45,7 @@ operations that are available and how to define atomic operations; and
 <p>Irmin now exposes <code>Irmin.Type</code> to create new mergeable contents more
 easily. For instance, the following type defines the property of
 simple metrics, where <code>name</code> is a human-readable name and <code>gauge</code> is a
-metric counting the number of occurences for some kind of event:</p>
+metric counting the number of occurrences for some kind of event:</p>
 <pre><code class="language-ocaml">type metric = {
   name : string;
   gauge: int64;
@@ -232,5 +232,3 @@ operations to read and write atomically. Finally, flexible first-class
 support for immutable trees has also been added.</p>
 <p>Send us feedback on the <a href="https://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel">MirageOS mailing-list</a> or on the <a href="https://github.com/mirage/irmin">Irmin
 issue tracker on GitHub</a>.</p>
-
-      
