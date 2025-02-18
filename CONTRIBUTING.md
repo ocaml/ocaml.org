@@ -124,10 +124,10 @@ The OCaml Cookbook is a place where OCaml developers share how to solve common
 tasks in OCaml using packages from the OCaml ecosystem.
 
 Here are the steps to contribute a recipe for an existing task:
-* Find the task in the [data/cookbook/tasks.yml](data/cookbook/tasks.yml) file.
-* Go to the task folder inside [data/cookbook/](data/cookbook/) that has the
+- Find the task in the [data/cookbook/tasks.yml](data/cookbook/tasks.yml) file.
+- Go to the task folder inside [data/cookbook/](data/cookbook/) that has the
   same name as the task's `slug`.
-* Create a `.ml` file containing the recipe and a YAML header with metadata about
+- Create a `.ml` file containing the recipe and a YAML header with metadata about
   the recipe.
 
 If the recipe does not fit into any existing task, you also need to create a
@@ -138,7 +138,7 @@ located under a relevant `category:` field.
 Finally, it is also possible to create and organise groups of tasks by creating
 new categories. Categories are recursive and may have subcategories, which are
 full categories too. A task listed in
-[data/cookbook/tasks.yml](data/cookbook/tasks.yml) may have no recipes yet. On the 
+[data/cookbook/tasks.yml](data/cookbook/tasks.yml) may have no recipes yet. On the
 other hand, it is not allowed to have a task folder in
 [data/cookbook/](data/cookbook/) that does not correspond to a task from the
 [data/cookbook/tasks.yml](data/cookbook/tasks.yml) file because it triggers a
@@ -167,7 +167,7 @@ When contributing new recipes to the OCaml Cookbook, please adhere to the follow
    - If using a package, does it implicitly recommend the package for production?
    - Avoid duplicating existing recipes unless demonstrating package differences.
 
-Following these guidelines will help us maintain a high-quality and consistent OCaml Cookbook. 
+Following these guidelines will help us maintain a high-quality and consistent OCaml Cookbook.
 
 ### <a name="content-recurring-event"></a>Add A Recurring Event
 
@@ -192,10 +192,9 @@ The Changelog covers developments across:
 - [OCaml Infrastructure](https://infra.ocaml.org/)
 - [OCaml.org itself](https://ocaml.org/)
 
-
 #### Purpose and Audience
 
-The primary audience for the Changelog is OCaml users. Content should focus on changes, updates, and news that directly impact users of OCaml and its ecosystem. 
+The primary audience for the Changelog is OCaml users. Content should focus on changes, updates, and news that directly impact users of OCaml and its ecosystem.
 
 Good candidates for Changelog posts include:
 
@@ -220,7 +219,6 @@ To contribute a new post to the Changelog:
 3. Include relevant metadata at the top of the file (date, title, tags, etc.).
 4. Write the post content, focusing on how the news or change affects OCaml users.
 5. Submit a pull request with your new file.
-
 
 ## Git and GitHub Workflow
 
