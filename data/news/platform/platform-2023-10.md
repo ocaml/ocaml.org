@@ -97,7 +97,7 @@ In this October edition, we bring you the latest on the OCaml Platform, continui
 
 **Why:** Project-wide reference as an editor feature is a great way for developers to navigate their codebase and understand it better. It's also a feature that users expect to have coming from other ecosystems, so having support for it in Merlin and OCaml LSP will both improve OCaml editor experience and make it on par with other languages.
 
-**What:** We're adding a new `merlin single occurrences` command and support for the LSP `textDocument/references` request. To do that, we're extending the compiler's Shapes to support global occurences, building a tool that generates an index of identifiers in a codebase and adding support for it in Dune, Merlin, and OCaml LSP.
+**What:** We're adding a new `merlin single occurrences` command and support for the LSP `textDocument/references` request. To do that, we're extending the compiler's Shapes to support global occurrences, building a tool that generates an index of identifiers in a codebase and adding support for it in Dune, Merlin, and OCaml LSP.
 
 **Activities:**
 - We continued working on the compiler PR for project-wide occurrences, notably adding support for inline records' labels. The PR is now ready for the next round of reviews. -- [ocaml/ocaml#12508](https://github.com/ocaml/ocaml/pull/12508)

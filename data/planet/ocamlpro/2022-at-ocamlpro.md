@@ -22,7 +22,7 @@ source:
     </p><div class="caption">
       Clear skies on OCamlPro's way of life.
     </div>
-  
+
 </div>
 
 <p>For 12 years now, OCamlPro has been empowering a large range of customers,
@@ -155,7 +155,7 @@ application (<a href="https://ocamlpro.com/blog/feed#cobol">COBOL</a>).</p>
     </p><div class="caption">
       The M language, designed in the 80s to compute the French Income Tax, is still being rewritten in OCaml!
     </div>
-  
+
 </div>
 
 <p>In 2022, our work on MLANG has passed a significant milestone: our work may no
@@ -188,7 +188,7 @@ post</a> on the matter.</p>
     </p><div class="caption">
       Cobol is ran in gargantuan infrastructures of many an insurance companies and banks across the globe.
     </div>
-  
+
 </div>
 
 <p>In 2022, we started contributing to <a href="https://github.com/ocamlpro/gnucobol">the GnuCOBOL
@@ -229,7 +229,7 @@ standard. More on this next year, hopefully !</p>
     </p><div class="caption">
       Kind words sent our way by Florian Gilcher (skade), managing director at Ferrous Systems!
     </div>
-  
+
 </div>
 
 <p>OCamlPro's culture is one of human values and appeal for everything scientific.</p>
@@ -257,7 +257,7 @@ contributions and missions, some of which we will share with you right now.</p>
     </p><div class="caption">
       Ecore is the code generator at the heart of the EMF Architecture.
     </div>
-  
+
 </div>
 
 <p>In 2022, we have seized the opportunity to work at the threshold between Java
@@ -296,7 +296,7 @@ future iterations of their internal projects.</p>
     </p><div class="caption">
       Ferris the Crab is the mascot of the Rust Language. No wonder why we converged as well!
     </div>
-  
+
 </div>
 
 <p>As we continue scouring the market for more and more Rust projects, and whenever
@@ -373,7 +373,7 @@ DNS provider, and strives to offer a user-friendly and easy configuration.</p>
     </p><div class="caption">
       WebAssembly is used to compile many languages to an efficient portable code for web-browsers.
     </div>
-  
+
 </div>
 
 <p>Late 2022 was finally time for us to put into practice the knowledge we have
@@ -444,7 +444,7 @@ of Paris-Saclay</a>.</p>
     </p><div class="caption">
       Alt-Ergo proves mathematical formulas corresponding to software program properties.
     </div>
-  
+
 </div>
 
 <h4>
@@ -469,7 +469,7 @@ full-time R&amp;D engineer.</p>
     </p><div class="caption">
       The dedicated members of the Club!
     </div>
-  
+
 </div>
 
 <p>This is the reason why we would like to thank our partners from the <a href="https://alt-ergo.ocamlpro.com/#club">Alt-Ergo
@@ -527,7 +527,7 @@ the Formal Methods Lab (LMF) and the ProofinUse consortium members. Stay tuned!<
     </p><div class="caption">
       Dolmens are Neolithic megalithic structures composed of menhirs and they can range from a few centimeters to several meters high!
     </div>
-  
+
 </div>
 
 <p><a href="https://github.com/Gbury/dolmen">Dolmen</a> is an OCaml Library developed by
@@ -568,7 +568,7 @@ scientists.</p>
     </p><div class="caption">
       opam, the OCaml Package Manager, remains one of OCamlPro's greatest achievements!
     </div>
-  
+
 </div>
 
 <p>2022 has been the theatre of a sustained and continuous effort from the opam
@@ -616,7 +616,7 @@ repository, OCaml tooling) and the public's feedback and vision.</p>
     </p><div class="caption">
       Flambda2 is a powerful code optimizer for the OCaml compiler strong of many years of R&amp;D.
     </div>
-  
+
 </div>
 
 <p>OCamlPro is proud to be working on Flambda2, an ambitious OCaml
@@ -667,7 +667,7 @@ OCaml distribution!</p>
     </p><div class="caption">
       Camels going to their pluri-annual OUPS Meet-up.
     </div>
-  
+
 </div>
 
 <p>Just under 10 years ago, Fabrice Le Fessant initiated the <a href="https://www.meetup.com/fr-FR/ocaml-paris/events/99222322/">very first OCaml
@@ -709,14 +709,14 @@ Foundation</a> who graciously pays for the pizzas.</p>
     </p><div class="caption">
       Toulouse also has its set of enthousiastic OCaml supporters.
     </div>
-  
+
 </div>
 
 <p>Fortunately for OCaml Users that live in the French South-West, <a href="https://www.meetup.com/ocaml-toulouse/events/288464047/">a new Meet-up
 is now available</a> to
 them. On the 11th of October 2022, the first OCaml meet-up in
 <a href="https://en.wikipedia.org/wiki/Toulouse">Toulouse</a> happened.</p>
-<p>The first occurence of the OCaml Users in Toulouse Meetup kicked off with Erik
+<p>The first occurrence of the OCaml Users in Toulouse Meetup kicked off with Erik
 Martin-Dorel (OCaml Software Foundation) presenting
 <a href="https://ocaml-sf.org/learn-ocaml/"><code>Learn-OCaml</code></a> who was then followed by
 David Declerck (OCamlPro) presenting his
@@ -742,7 +742,7 @@ OCaml.</p>
     </p><div class="caption">
       ICFP 2022 took place in the beautiful town of Ljubjana, Slovenia.
     </div>
-  
+
 </div>
 
 <p>The OCaml Workshop is an international conference that focuses on everything
@@ -771,7 +771,7 @@ editions of the conference!</p>
     </p><div class="caption">
       the JFLA'2022 took place in the beautiful Domaine d'Essendi&eacute;ras in P&eacute;rigord, France.
     </div>
-  
+
 </div>
 
 <p>Among the many scientific conferences we attend on an annual basis, the
@@ -803,4 +803,3 @@ support and collaboration throughout the year,</p>
 <p>And to you, dear reader, thank you for tagging along,</p>
 <p>Since 2011 with love,</p>
 <p>The OCamlPro Team</p>
-

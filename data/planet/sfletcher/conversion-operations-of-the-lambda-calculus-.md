@@ -13,8 +13,8 @@ source:
 
 <html>
   <head>
-     
-    
+
+
     <title>Conversion</title>
   </head>
   <body>
@@ -40,9 +40,9 @@ source:
       \end{eqnarray}
       \]
     The $\textbf{semantics}$ of the the $\lambda$-calculus is defined
-    by three $\textit{conversion rules}$. To understand them 
+    by three $\textit{conversion rules}$. To understand them
     requires the terminology of $\textit{free}$ and
-    $\textit{bound}$ variables. An occurence of a variable in a
+    $\textit{bound}$ variables. An occurrence of a variable in a
     $\lambda$-expression is bound if there is an enclosing abstraction
     that binds it, and is free otherwise. For example, in $\lambda x.+\;
     ((\lambda y. +\;y\; z)\;7)\;x$, $x$ and $y$ appear bound whereas $z$
@@ -56,10 +56,10 @@ source:
       denotes the application of a particular $\lambda$-abstraction to
       the argument $4$. The result of applying a $\lambda$-abstraction
       to an argument is an instance of the body of the
-      $\lambda$-abstraction in which (free) occurences of the formal
+      $\lambda$-abstraction in which (free) occurrences of the formal
       parameter in the body are replaced with (copies of) the
       argument. Thus, $\left(\lambda x.+\;x\;1\right)\; 4 \rightarrow
-      +\;4\;1 \rightarrow 5$. In the event there are no occurences of
+      +\;4\;1 \rightarrow 5$. In the event there are no occurrences of
       the formal parameter in the abstraction body, the argument is
       discarded unused so, $(\lambda x.\;3)\;4 \rightarrow 3$. Care is
       needed when formal parameter names are not unique. For example,
@@ -86,10 +86,10 @@ source:
       <pre>
       auto add = [](int x) { return [=](int y) { return x + y; }; };
       auto sub = [](int x) { return [=](int y) { return x - y; }; };
-      [=](int x) { 
+      [=](int x) {
         return [=](int x) {
-          return add (sub (x) (1)); 
-          } (x) (3); 
+          return add (sub (x) (1));
+          } (x) (3);
       } (9) ; //is the value '11'
       </pre>
 
@@ -103,7 +103,7 @@ source:
     way to look at $\beta$ conversion is that it is saying something
     about $\lambda$-expressions that look different but mean the same
     thing.
-    
+
 
     <h4>$\alpha$-conversion</h4>
     <p>
@@ -124,7 +124,7 @@ source:
       does not occur free in $f$, then $\lambda x.f\;x
       \underset{\eta}{\leftrightarrow} f$. For example, in OCaml if we
       define <code>f</code> by
-      <code>let f x = x + 1</code> then clearly 
+      <code>let f x = x + 1</code> then clearly
       <code>fun x -&gt; f x</code> produces the same results for
       all values <code>x</code> in the domain of <code>f</code>.
     </p>
@@ -153,7 +153,6 @@ source:
     <p>
       References:<br/>
       [1] <cite>The Implementation of Functional Programming Languages</cite> by Simon L. Peyton Jones. 1987.</p>
-    
+
   </body>
 </html>
-
