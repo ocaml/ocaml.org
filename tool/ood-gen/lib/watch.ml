@@ -1,7 +1,7 @@
 open Ocamlorg.Import
 open Data_intf.Video
 
-type video_list = t list [@@deriving yaml, show]
+type video_list = t list [@@deriving yaml]
 
 let all () =
   let ( let* ) = Result.bind in

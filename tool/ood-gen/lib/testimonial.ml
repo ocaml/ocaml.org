@@ -1,4 +1,4 @@
-open Data_intf.Testimonial
+type t = [%import: Data_intf.Testimonial.t] [@@deriving of_yaml, show]
 
 let all () = Utils.yaml_sequence_file of_yaml "testimonials.yml"
 
