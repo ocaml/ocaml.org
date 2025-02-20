@@ -1,6 +1,6 @@
 open Data_intf.Video
 
-type video_list = t list [@@deriving yaml, show]
+type video_list = t list [@@deriving show]
 
 let all () = Youtube.all () @ Watch.all ()
 
