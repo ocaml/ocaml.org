@@ -6,7 +6,7 @@ description: >
   This book is a compilation of Bartosz Milewski's blog posts
   on Category Theory from the prespective of a practical programmer.
   It is written primarily with Haskell examples, but variants of the
-  book exist with OCaml, Scala, It is highly (and unusually)
+  book exist with OCaml, Reason, and Scala. It is highly (and unusually)
   approachable, however familiarity with either Haskell or OCaml is
   recommended as these languages provide the window by which Category
   Theory is explored. Passing familiarity with Category Theory is
