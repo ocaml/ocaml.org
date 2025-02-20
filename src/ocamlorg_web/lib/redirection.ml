@@ -251,6 +251,7 @@ let from_v2 =
     ("/docs/platform-principles", Url.tool_page "platform-principles");
     ("/docs/platform-users", Url.tool_page "platform-users");
     ("/docs/platform-roadmap", Url.tool_page "platform-roadmap");
+    ("/docs/configuring-your-editor", Url.tutorial "set-up-editor");
   ]
 
 let make ?(permanent = false) t =
