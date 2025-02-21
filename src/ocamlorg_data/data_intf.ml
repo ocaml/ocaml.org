@@ -1,51 +1,19 @@
 module Academic_institution = struct
-  type location = { lat : float; long : float } [@@deriving of_yaml, show]
+  type location = { lat : float; long : float }
 
-  include (
-    struct
-      module Ptime = struct
-        include Ptime
-
-        let pp fmt t =
-          Format.pp_print_string fmt "(Ptime.of_rfc3339 \"";
-          Ptime.pp_rfc3339 () fmt t;
-          Format.pp_print_string fmt
-            "\" |> function Ok (t, _, _) -> t | Error _ -> failwith \"RFC \
-             3339\")"
-      end
-
-      type course = {
-        name : string;
-        acronym : string option;
-        url : string option;
-        teacher : string option;
-        enrollment : string option;
-        year : int option;
-        description : string;
-        last_check : Ptime.t option;
-        lecture_notes : bool;
-        exercises : bool;
-        video_recordings : bool;
-      }
-      [@@deriving show]
-    end :
-      sig
-        type course = {
-          name : string;
-          acronym : string option;
-          url : string option;
-          teacher : string option;
-          enrollment : string option;
-          year : int option;
-          description : string;
-          last_check : Ptime.t option;
-          lecture_notes : bool;
-          exercises : bool;
-          video_recordings : bool;
-        }
-
-        val pp_course : Format.formatter -> course -> unit
-      end)
+  type course = {
+    name : string;
+    acronym : string option;
+    url : string option;
+    teacher : string option;
+    enrollment : string option;
+    year : int option;
+    description : string;
+    last_check : Ptime.t option;
+    lecture_notes : bool;
+    exercises : bool;
+    video_recordings : bool;
+  }
 
   type t = {
     name : string;
@@ -62,7 +30,6 @@ module Academic_institution = struct
     body_md : string;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Academic_testimonial = struct
