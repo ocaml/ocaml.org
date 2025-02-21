@@ -1,8 +1,7 @@
 open Ocamlorg.Import
-open Data_intf.Video
 
 let to_yaml video =
-  match to_yaml video with
+  match Vid.to_yaml video with
   | `O u -> `O (List.filter (( <> ) ("description", `String "")) u)
   | x -> x
 
@@ -12,7 +11,8 @@ let add_key_default k v = function
       `O ((k, v) :: u)
   | x -> x
 
-let of_yaml yml = yml |> add_key_default "description" (`String "") |> of_yaml
+let of_yaml yml =
+  yml |> add_key_default "description" (`String "") |> Vid.of_yaml
 
 type kind = Playlist | Channel
 
@@ -52,8 +52,6 @@ let source_to_url { kind; id; _ } =
 
 let source_to_id { kind; id; _ } =
   Printf.sprintf "yt:%s:%s" (kind_to_string kind) id
-
-type video_list = t list [@@deriving yaml, show]
 
 type tag =
   | Entry
@@ -116,7 +114,7 @@ let video_opt source = function
       Some author_uri ) ->
       Some
         {
-          title;
+          Vid.title;
           url;
           thumbnail;
           description;
@@ -155,14 +153,14 @@ let all () =
   let videos =
     let file = "video-youtube.yml" in
     let* yaml = Utils.yaml_file file in
-    yaml |> video_list_of_yaml |> Result.map_error (Utils.where file)
+    yaml |> Vid.video_list_of_yaml |> Result.map_error (Utils.where file)
   in
   Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg) videos
 
 module VideoSet = Set.Make (struct
-  type nonrec t = t
+  type nonrec t = Vid.t
 
-  let compare a b = compare a.url b.url
+  let compare a b = compare a.Vid.url b.Vid.url
 end)
 
 let scrape yaml_file =
@@ -183,8 +181,8 @@ let scrape yaml_file =
            |> Seq.filter (fun video ->
                   (not src.only_ocaml)
                   || String.(
-                       is_sub_ignore_case "ocaml" video.title
-                       || is_sub_ignore_case "ocaml" video.description)))
+                       is_sub_ignore_case "ocaml" video.Vid.title
+                       || is_sub_ignore_case "ocaml" video.Vid.description)))
     |> VideoSet.of_seq |> Result.ok
   in
   match fetched with
@@ -192,8 +190,8 @@ let scrape yaml_file =
       let yaml =
         VideoSet.union fetched scraped
         |> VideoSet.to_seq |> List.of_seq
-        |> List.sort (fun a b -> compare b.published a.published)
-        |> video_list_to_yaml
+        |> List.sort (fun a b -> compare b.Vid.published a.Vid.published)
+        |> Vid.video_list_to_yaml
       in
       let output =
         Yaml.pp Format.str_formatter yaml;

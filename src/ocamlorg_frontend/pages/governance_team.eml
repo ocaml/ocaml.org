@@ -4,7 +4,7 @@ let contact_icon (kind : Data.Governance.contact_kind) = match kind with
   | Discord -> Icons.discord
   | Chat -> Icons.chat
 
-let render_team_member (member : Data.Governance.Member.t) =
+let render_team_member (member : Data.Governance.member) =
   <a href="https://github.com/<%s member.github %>" class="flex gap-x-2 p-4 card dark:dark-card">
     <img src="https://github.com/<%s member.github %>.png" alt="" class="h-32 w-32 mr-3 inline-block rounded-full">
     <div class="flex flex-col h-full">
@@ -58,7 +58,7 @@ let render_subteam (team : Data.Governance.team) =
     </div>
     <% ); %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-6 mb-4 pb-12">
-      <%s! team.members |> List.map (fun (member : Data.Governance.Member.t) -> render_team_member member ) |> String.concat "\n" %>
+      <%s! team.members |> List.map (fun (member : Data.Governance.member) -> render_team_member member ) |> String.concat "\n" %>
     </div>
   </div>
 
@@ -107,7 +107,7 @@ Layout.render
      <div class="">
       <h2 class="font-bold gradient mb-6 mt-12 md:mt-16 text-4xl text-title dark:text-dark-title">People</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-4">
-        <%s! t.members |> List.map (fun (member : Data.Governance.Member.t) -> render_team_member member ) |> String.concat "\n" %>
+        <%s! t.members |> List.map (fun (member : Data.Governance.member) -> render_team_member member ) |> String.concat "\n" %>
       </div>
      </div>
       <% ); %>

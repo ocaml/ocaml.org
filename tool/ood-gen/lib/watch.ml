@@ -1,14 +1,11 @@
 open Ocamlorg.Import
-open Data_intf.Video
-
-type video_list = t list [@@deriving yaml, show]
 
 let all () =
   let ( let* ) = Result.bind in
   let videos =
     let file = "video-watch.yml" in
     let* yaml = Utils.yaml_file file in
-    yaml |> video_list_of_yaml |> Result.map_error (Utils.where file)
+    yaml |> Vid.video_list_of_yaml |> Result.map_error (Utils.where file)
   in
   Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg) videos
 
@@ -28,7 +25,7 @@ let get_string_or_none = function `String s -> s | _ -> ""
 
 let of_json json =
   {
-    title = Ezjsonm.find json [ "name" ] |> Ezjsonm.get_string;
+    Vid.title = Ezjsonm.find json [ "name" ] |> Ezjsonm.get_string;
     description = Ezjsonm.find json [ "description" ] |> get_string_or_none;
     url = Ezjsonm.find json [ "url" ] |> Ezjsonm.get_string;
     thumbnail =
@@ -44,7 +41,7 @@ let of_json json =
 let watch_to_yaml t =
   `O
     [
-      ("title", `String t.title);
+      ("title", `String t.Vid.title);
       ("description", `String t.description);
       ("url", `String t.url);
       ("thumbnail", `String t.thumbnail);
@@ -92,7 +89,7 @@ let get_all_videos () =
 let scrape yaml_file =
   let watch =
     get_all_videos ()
-    |> List.stable_sort (fun w1 w2 -> String.compare w1.title w2.title)
+    |> List.stable_sort (fun w1 w2 -> String.compare w1.Vid.title w2.Vid.title)
   in
   let yaml = to_yaml watch in
   let output =

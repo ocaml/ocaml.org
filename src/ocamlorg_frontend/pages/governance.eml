@@ -1,4 +1,4 @@
-module MemberSet = Set.Make (Data.Governance.Member)
+module MemberSet = Set.Make (struct type t = Data.Governance.member let compare a b = let open Data.Governance in String.compare a.github b.github end)
 
 let count_members (team : Data.Governance.team) =
    MemberSet.cardinal (MemberSet.of_list (team.members @ List.concat (List.map (fun (team : Data.Governance.team) -> team.members) team.subteams)))

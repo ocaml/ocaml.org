@@ -152,9 +152,7 @@ module Paper = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
-module Planet = struct
-  include Planet
-end
+module Planet = Planet
 
 module Release = struct
   include Release
