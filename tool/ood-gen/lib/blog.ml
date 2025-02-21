@@ -1,8 +1,9 @@
 open Ocamlorg.Import
-open Data_intf.Blog
 
 (* external RSS feeds that we aggregate - they will all be scraped by the
    scrape.yml workflow *)
+
+type source = [%import: Data_intf.Blog.source] [@@deriving show]
 
 module Source = struct
   type t = {
@@ -16,7 +17,7 @@ module Source = struct
 
   type sources = t list [@@deriving yaml]
 
-  let all () : source list =
+  let all () : Data_intf.Blog.source list =
     let file = "planet-sources.yml" in
     let result =
       let ( let* ) = Result.bind in
@@ -28,7 +29,7 @@ module Source = struct
         (sources
         |> List.map (fun { id; name; url; only_ocaml; disabled } ->
                {
-                 id;
+                 Data_intf.Blog.id;
                  name;
                  url;
                  description = "";
@@ -40,6 +41,8 @@ module Source = struct
     |> Result.get_ok ~error:(fun (`Msg msg) ->
            Exn.Decode_error (file ^ ": " ^ msg))
 end
+
+type post = [%import: Data_intf.Blog.post] [@@deriving show]
 
 module Post = struct
   type source_on_external_post = { name : string; url : string }
@@ -58,7 +61,7 @@ module Post = struct
 
   let all_sources = Source.all ()
 
-  let of_metadata ~source ~body_html m : post =
+  let of_metadata ~source ~body_html m : Data_intf.Blog.post =
     {
       title = m.title;
       source =
@@ -106,7 +109,9 @@ module Post = struct
       match Str.split (Str.regexp_string "/") fpath with
       | _ :: second :: _ -> (
           match
-            List.find_opt (fun (s : source) -> s.id = second) all_sources
+            List.find_opt
+              (fun (s : Data_intf.Blog.source) -> s.id = second)
+              all_sources
           with
           | Some source -> Ok source
           | None -> Error (`Msg ("No source found for: " ^ fpath)))
@@ -120,9 +125,10 @@ module Post = struct
     |> Result.map_error (Utils.where fpath)
     |> Result.map (of_metadata ~source ~body_html)
 
-  let all () : post list =
+  let all () : Data_intf.Blog.post list =
     Utils.map_md_files decode "planet/*/*.md"
-    |> List.sort (fun (a : post) (b : post) -> String.compare b.date a.date)
+    |> List.sort (fun (a : Data_intf.Blog.post) (b : Data_intf.Blog.post) ->
+           String.compare b.date a.date)
 end
 
 module Scraper = struct
@@ -136,7 +142,7 @@ module Scraper = struct
   let scrape_post ~source (post : River.post) =
     let title = River.title post in
     let slug = Utils.slugify title in
-    let source_path = "data/planet/" ^ source.id in
+    let source_path = "data/planet/" ^ source.Data_intf.Blog.id in
     let output_file = source_path ^ "/" ^ slug ^ ".md" in
     if not (Sys.file_exists output_file) then
       let url = River.link post in
@@ -144,8 +150,8 @@ module Scraper = struct
       match (url, date) with
       | None, _ ->
           print_endline
-            (Printf.sprintf "skipping %s/%s: item does not have a url" source.id
-               slug)
+            (Printf.sprintf "skipping %s/%s: item does not have a url"
+               source.Data_intf.Blog.id slug)
       | _, None ->
           print_endline
             (Printf.sprintf "skipping %s/%s: item does not have a date"
@@ -193,6 +199,7 @@ module Scraper = struct
   let scrape () =
     let sources = Source.all () in
     sources
-    |> List.filter (fun ({ disabled; _ } : source) -> not disabled)
+    |> List.filter (fun ({ disabled; _ } : Data_intf.Blog.source) ->
+           not disabled)
     |> List.iter scrape_source
 end

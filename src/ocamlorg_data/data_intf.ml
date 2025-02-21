@@ -51,7 +51,6 @@ module Blog = struct
     only_ocaml : bool;
     disabled : bool;
   }
-  [@@deriving show]
 
   type post = {
     title : string;
@@ -64,7 +63,6 @@ module Blog = struct
     preview_image : string option;
     body_html : string;
   }
-  [@@deriving show]
 end
 
 module Book = struct
@@ -462,7 +460,6 @@ module Video = struct
     source_link : string;
     source_title : string;
   }
-  [@@deriving yaml, show]
 end
 
 module Conference = struct
@@ -504,9 +501,5 @@ end
 (* Depends on Video and Blog modules to define the different kinds of entries of
    the OCaml Planet *)
 module Planet = struct
-  type entry = BlogPost of Blog.post | Video of Video.t [@@deriving show]
-
-  let date_of_post = function
-    | BlogPost { date; _ } -> date
-    | Video { published; _ } -> published
+  type entry = BlogPost of Blog.post | Video of Video.t
 end
