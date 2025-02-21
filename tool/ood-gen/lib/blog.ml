@@ -58,7 +58,7 @@ module Post = struct
 
   let all_sources = Source.all ()
 
-  let of_metadata ~source ~body_html m : Post.t =
+  let of_metadata ~source ~body_html m : post =
     {
       title = m.title;
       source =
@@ -120,9 +120,9 @@ module Post = struct
     |> Result.map_error (Utils.where fpath)
     |> Result.map (of_metadata ~source ~body_html)
 
-  let all () : Post.t list =
+  let all () : post list =
     Utils.map_md_files decode "planet/*/*.md"
-    |> List.sort (fun (a : Post.t) (b : Post.t) -> String.compare b.date a.date)
+    |> List.sort (fun (a : post) (b : post) -> String.compare b.date a.date)
 end
 
 module Scraper = struct

@@ -3,7 +3,7 @@ open Data_intf.Planet
 
 let all () =
   let external_posts =
-    Blog.Post.all () |> List.map (fun (p : Data_intf.Blog.Post.t) -> BlogPost p)
+    Blog.Post.all () |> List.map (fun (p : Data_intf.Blog.post) -> BlogPost p)
   in
   let videos =
     Video.all () |> List.map (fun (v : Data_intf.Video.t) -> Video v)
@@ -99,7 +99,7 @@ module GlobalFeed = struct
              ~content:(Syndic.Atom.Html (None, content))
              ())
 
-  let entry_of_post (post : Data_intf.Blog.Post.t) =
+  let entry_of_post (post : Data_intf.Blog.post) =
     let content = Syndic.Atom.Html (None, post.body_html) in
     let url = Uri.of_string post.source.url in
     let source : Syndic.Atom.source =
