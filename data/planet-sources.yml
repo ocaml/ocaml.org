@@ -194,3 +194,6 @@
   name: Debajyati's Blog
   url: https://debajyatidey.hashnode.dev/rss.xml
   only_ocaml: true
+- id: bbatsov
+  name: Bozhidar Batsov
+  url: https://batsov.com/feeds/OCaml.xml
