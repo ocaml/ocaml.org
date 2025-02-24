@@ -831,7 +831,7 @@ This issue also arises when applying arguments to variant constructors, building
 
 The value of this expression depends on the order of subexpression evaluation. Since this order is not specified, there is no reliable way to know what this value is. At the time of writing this tutorial, the evaluation produced `(0, -1)`, but if you see something else, it is not a bug. Such an unreliable value must a avoided.
 
-To ensure that evaluation takes place in a specific order, use the means to put expressions in sequences using either `let … in` expressions or the semi-colon sequence opertor (`;`). Check the [Evaluating Expressions in Sequence](#evaluating-expressions-in-sequence) section.
+To ensure that evaluation takes place in a specific order, use the means to put expressions in sequences using either `let … in` expressions or the semi-colon sequence operator (`;`). Check the [Evaluating Expressions in Sequence](#evaluating-expressions-in-sequence) section.
 
 <!--
 You can use the sequence operator `;` to execute expressions in a particular order:
