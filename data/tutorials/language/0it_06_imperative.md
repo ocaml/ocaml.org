@@ -147,6 +147,8 @@ Mutable record fields are updated using the left arrow symbol `<-`. In the expre
 
 In contrast to references, there is no special syntax to dereference a mutable record field.
 
+**Remark** the left arrow symbol `<-` for mutating mutable record field values is not an operator like the assignment operator `( := )` is for `refs`. It is rather a _construct_ of the language. 
+
 ### Remark: References Are Single Field Records
 
 In OCaml, references are records with a single mutable field:
@@ -366,7 +368,7 @@ But here is how it can be made to work:
 val f : int ref -> unit = <fun>
 ```
 
-The error came from assign `:=`, which associates stronger than a semicolon `;`. Here is what we want to do, in order:
+The error came from the assign operator `:=`, which associates stronger than a semicolon `;`. Here is what we want to do, in order:
 1. Increment `r`
 2. Compute `2 * !r`
 3. Assign into `r`
@@ -695,9 +697,7 @@ However, instead of precomputing everything, memoization uses a cache that is po
 * are found in the cache (it is a hit) and the stored result is returned, or they
 * are not found in the cache (it's a miss), and the result is computed, stored in the cache, and returned.
 
-You can find a concrete example of memoization and a more in-depth explanation in the chapter on [Memoization](https://cs3110.github.io/textbook/chapters/ds/memoization.html) of "OCaml Programming: Correct + Efficient + Beautiful."
-
-<!-- FIXME: reference CS3110 memoization documented on ocaml.org after it is merged -->
+You can find a concrete example of memoization and a more in-depth explanation in the chapter on [Memoization](https://ocaml.org/docs/memoization) of "OCaml Programming: Correct + Efficient + Beautiful."
 
 ### Good: Functional by Default
 
@@ -705,13 +705,13 @@ By default, OCaml programs should be written in a mostly functional style. This 
 
 It is possible to use an imperative programming style without losing the benefits of type and memory safety. However, it doesn't usually make sense to only program in an imperative style. Not using functional programming idioms at all would result in non-idiomatic OCaml code.
 
-Most existing modules provide an interface meant to be used in a functional way. Some would require the development and maintenance of [wrapper libraries](https://en.wikipedia.org/wiki/Wrapper_library) to be used in an imperative setting and such use would in many cases be inefficient.
+Most existing modules provide an interface meant to be used in a functional way. Some require the development and maintenance of [wrapper libraries](https://en.wikipedia.org/wiki/Wrapper_library) to be used in an imperative setting and such use results in inefficient code.
 
 ###  It Depends: Module State
 
 A module may expose or encapsulate a state in several different ways:
 1. Good: expose a type representing a state, with state creation or reset functions
-1. It depends: only expose state initialisation, which implies there only is a single state
+1. It depends: only expose state initialisation, which implies there is only a single state
 1. Bad: mutable state with no explicit initialisation function or no name referring to the mutable state
 
 For example, the [`Hashtbl`](/manual/api/Hashtbl.html) module provides an interface of the first kind. It has the type `Hashtbl.t` representing mutable data. It also exposes `create`, `clear`, and `reset` functions. The `clear` and `reset` functions return `unit`. This strongly signals the reader that they perform the side-effect of updating the mutable data.
@@ -734,6 +734,8 @@ On the other hand, a module may define mutable data internally impacting its beh
 
 ### Bad: Undocumented Mutation
 
+**Note**: The following example code will not run in your REPL; the function `Array.truncate` is not defined. It is provided as an example to contemplate.
+
 Here's an example of bad code:
 
 ```ocaml
@@ -754,7 +756,6 @@ Here's an example of bad code:
 Error: Unbound value Array.truncate
 ```
 
-**Note:** This example will not run in the REPL, since the function `Array.truncate` is not defined.
 
 To understand why this is bad code, assume that the function `Array.truncate` has type `int -> 'a array -> 'a array`. It behaves such that `Array.truncate 3 [5; 6; 7; 8; 9]` returns `[5; 6; 7]`, and the returned array physically corresponds to the 3 first cells of the input array.
 
@@ -779,6 +780,8 @@ GOTCHA: This is the dual of the previous anti-pattern. “Mutable in disguise”
 
 Consider this code:
 
+**Note**: The following example will not run in your REPL; there is no module `Analytics` defined. It is provided as an example to contemplate. [Analytics](https://en.wikipedia.org/wiki/Web_analytics) are remote monitoring libraries.
+
 ```ocaml
 # module Array = struct
     include Stdlib.Array
@@ -788,8 +791,6 @@ Consider this code:
     end;;
 Error: Unbound module Analytics
 ```
-
-**Note:** This code will not run because there is no module called `Analytics`. [Analytics](https://en.wikipedia.org/wiki/Web_analytics) are remote monitoring libraries.
 
 A module called `Array` is defined; it shadows and includes the [`Stdlib.Array`](/manual/api/Array.html) module. See the [Module Inclusion](docs/modules#module-inclusion) part of the [Modules](docs/modules) tutorial for details about this pattern.
 
@@ -830,7 +831,7 @@ This issue also arises when applying arguments to variant constructors, building
 
 The value of this expression depends on the order of subexpression evaluation. Since this order is not specified, there is no reliable way to know what this value is. At the time of writing this tutorial, the evaluation produced `(0, -1)`, but if you see something else, it is not a bug. Such an unreliable value must a avoided.
 
-To ensure that evaluation takes place in a specific order, use the means to put expressions in sequences. Check the [Evaluating Expressions in Sequence](#evaluating-expressions-in-sequence) section.
+To ensure that evaluation takes place in a specific order, use the means to put expressions in sequences using either `let … in` expressions or the semi-colon sequence operator (`;`). Check the [Evaluating Expressions in Sequence](#evaluating-expressions-in-sequence) section.
 
 <!--
 You can use the sequence operator `;` to execute expressions in a particular order:
