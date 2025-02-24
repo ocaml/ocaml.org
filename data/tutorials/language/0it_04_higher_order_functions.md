@@ -444,16 +444,16 @@ let c = baz (bar (foo ())) in
 (* ... *)
 ```
 
-But this is not so easy read sometimes, especially as the number of functions grows, as it goes from the inside out.
+But this is not so easy to read sometimes, especially as the number of functions grows, as it goes from the inside out.
 
-To avoid this we have use the `|>` operator:
+To avoid this we have to use the `|>` operator:
 
 ```ocaml
 let c = foo () |> bar |> baz in
 (* ... *)
 ```
 
-This operator translates to the exact same nested calls we would've done by hand, and is really no magic. It is defined as a function:
+This operator translates to the exact same nested calls we would've done by hand (there is really no magic to it). It is defined as a function:
 
 ```ocaml
 (* the pipeline operator *)
@@ -481,6 +481,9 @@ email
 Thanks to OCaml currying functions by default, it is practical to _partially apply_ a function with only some of its arguments, and leave the last one to be passed along in the pipeline.
 
 This is true for functions that have the most important argument in the last position (which we call **t-last**) and for functions that use labeled arguments and allow the most important argument to be passed last by passing all the names arguments first (which we usually call **t-first**).
+
+**Note**:
+The "t" in "**t-first**" and "**t-last**" stand for "**target argument**", as in "**target argument first**" and "**target argument last**".
 
 These two cases sound very similar, but have a big practical difference when it comes to usability. Let's revisit our example above using labeled argument versions of those functions:
 
@@ -514,13 +517,13 @@ We usually think of iteration when we think of looping, and going through collec
 
 But in OCaml the pattern for iteration can be extended to other kinds of data types, like optional values or results, or trees and lazy sequences.
 
-Iterating in OCaml means that if there is a value (or more), we'd like to apply a function to it.
+Iterating in OCaml means that if there is one value (or more), we'd like to apply a function to it.
 
 #### Iterating over Lists
 
-A list in OCaml is a linked-list that is composed by a head (the first element) and a tail (the rest of the list).
+A list in OCaml is a linked-list that is composed of a head (the first element) and a tail (the rest of the list).
 
-We can iterate over lists by pattern matching on then. When doing so, we either get an empty list (`[]`), or we get a pattern with a head and a tail (`n :: rest`). On the branch with a head and a tail, we can directly use the head value and apply a function to it, and then recurse with the tail.
+We can iterate over lists by pattern matching on them. When doing so, we either get an empty list (`[]`), or we get a pattern with a head and a tail (`n :: rest`). On the branch with a head and a tail we can directly use the head value and apply a function to it and then recurse with the tail.
 
 ```ocaml
 let rec print_nums nums =
@@ -574,7 +577,7 @@ This is how `Option.iter` and `Result.iter` are defined in the standard library.
 
 #### Iterating over Maps and Sets
 
-Larger collections of data like maps and sets, are also common in OCaml. We have dedicated modules for them but they have a _functor_ interface. This means you can't really use `Set` or `Map` directly, but you have to call the module-level function `Set.Make` to create your own custom version of the Set module for the specific types you want to store in it.
+Larger collections of data like maps and sets are also common in OCaml. We have dedicated modules for them but they have a _functor_ interface. This means you can't really use `Set` or `Map` directly, but you have to call the module-level function `Set.Make` to create your own custom version of the Set module for the specific types you want to store in it.
 
 Once you create your Set or Map module, you'll find they provide functions to convert their values into lists.
 
@@ -593,7 +596,7 @@ let iter_map map fn = iter IntMap.bindings map fn ;;
 let iter_set set fn = iter StringSet.elements set fn ;;
 ```
 
-You'll notice that we did not use pattern-matching this time around to iterate over the values of the Map or the Set directly. This is because   the representation of Sets and Maps is private.
+You'll notice that we did not use pattern-matching this time around to iterate over the values of the Map or the Set directly. This is because the representation of Sets and Maps is private.
 
 The actual implementation of iteration functions for Maps and Sets does use pattern-matching under the hood.
 
@@ -623,7 +626,7 @@ This is almost exactly how `Seq.iter` is defined in the standard library.
 
 So far we've seen how to iterate over data types from the standard library. Now we'll see how to iterate over our own data type for trees.
 
-We'll define our tree type to include 2 constructors. One for a leaf node, which is a node at the _end_ of the tree. The other one for nodes that have children.
+We'll define our tree type to include 2 constructors. One is for a leaf node (which is a node at the _end_ of the tree), and the other is for nodes that have children.
 
 ```ocaml
 type 'value tree =
@@ -673,7 +676,7 @@ This is called _mapping_.
 
 Mapping lists is very similar to iterating over them. We pattern match on a list, get the head of it, run a function over it, and recurse over the body.
 
-The main difference is that instead of throwing away the resulting value from running our function over the elemnts, we will _reconstruct_ a list from it.
+The main difference is that instead of throwing away the resulting value from running our function over the elements, we will _reconstruct_ a list from it.
 
 ```ocaml
 let rec map list fn =
@@ -788,7 +791,7 @@ let rec fold_tree tree fn acc =
 ;;
 ```
 
-And voila! Our function now types correctly and we can use it to reduce our trees down to any value.
+And voila! Our function now type-checks correctly and we can use it to reduce our trees down to any value.
 
 ### Sorting
 
@@ -820,6 +823,7 @@ Most OCaml modules include a `compare` function that can be pass in to `sort`:
 
 ```ocaml
 let int_array = [|3;0;100|];;
+
 Array.sort Int.compare int_array;;
 
 List.sort String.compare ["z";"b";"a"];;
@@ -831,7 +835,7 @@ List.sort Bool.compare [true;false;false];;
 
 One last common higher-order pattern in functional programming is the ability to _join_ data from within. For historical reasons, this is normally called a _bind_.
 
-For example, if we have a list, and map over it with a function that returns a list, then we'll have a list of lists. Sometimes we want this, but some times we would rather the new list was _flattened_ instead of _nested_.
+For example, if we have a list and we map over it with a function that returns a list, then we'll have a list of lists. Sometimes we want this, but sometimes we would rather the new list was _flattened_ instead of _nested_.
 
 To do this with lists we can use the `concat_map` function, which looks like this:
 
