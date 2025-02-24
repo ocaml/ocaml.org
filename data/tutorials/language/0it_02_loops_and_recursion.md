@@ -89,7 +89,7 @@ programmers like recursion, so `while` loops are second-class citizens
 in OCaml.
 
 If you stop to consider `while` loops, you may see that they aren't really
-any use at all, except in conjunction with our old friend *references*.
+any use at all except in conjunction with our old friend *references*.
 Let's imagine that OCaml didn't have references for a moment:
 
 <!-- $MDX skip -->
@@ -129,7 +129,7 @@ If you want to loop over a list, don't be an imperative programmer and
 reach for your trusty six-shooter Mr. `For` Loop! OCaml has some better
 and faster ways to loop over lists, and they are all located in the
 `List` module. In fact, there are dozens of good functions in `List`, but
-I'll only talk about the most useful ones here.
+we'll restrict ourselves to the most useful ones in this chapter.
 
 First off, let's define a list for us to use:
 
@@ -196,8 +196,8 @@ For operating over two lists at the same time, there are "-2" variants
 of some of these functions, namely `iter2`, `map2`, `for_all2`,
 `exists2`.
 
-The `map` and `filter` functions operate on individual list elements in
-isolation. **Fold** is a more unusual operation that is best
+While `map` and `filter` functions operate on individual list elements in
+isolation, **Fold** is a more unusual operation that is best
 thought about as "inserting an operator between each element of the
 list." Suppose I wanted to add all the numbers in my list together. In
 hand-waving terms, I want to insert a plus (+) sign between the
@@ -275,7 +275,7 @@ this:
 
 ### Approach 1
 Get the length of the file and read it all at once using the
-`really_input` method. This is the simplest, but it might not work on
+[`really_input`](https://ocaml.org/manual/5.3/api/Stdlib.html#VALreally_input) method. This is the simplest, but it might not work on
 channels that are not really files (e.g., reading keyboard input), which
 is why we have two other approaches.
 
@@ -367,7 +367,7 @@ has a polymorphic type, so it will unify with whatever value is returned
 by the `with` branch.
 
 Here's the recursive version. Notice that it's *shorter* than Approach
-2, but it's not so easy to understand, for imperative programmers at least:
+2, but it's not so easy to understand (for imperative programmers at least):
 
 ```ocaml
 (* Read whole file: Approach 3 *)
