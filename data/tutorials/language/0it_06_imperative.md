@@ -147,7 +147,7 @@ Mutable record fields are updated using the left arrow symbol `<-`. In the expre
 
 In contrast to references, there is no special syntax to dereference a mutable record field.
 
-**Remark** the left arrow symbol `<-` for mutating mutable record field values is not an operator like the assignment operator `( := )` is for `refs`. It is rather a _construct_ of the language. 
+**Remark**: the left arrow symbol `<-` for mutating mutable record field values is not an operator function, like the assignment operator `( := )` is for `refs`. It is rather a _construct_ of the language, it has no type. 
 
 ### Remark: References Are Single Field Records
 
