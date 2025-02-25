@@ -734,7 +734,7 @@ On the other hand, a module may define mutable data internally impacting its beh
 
 ### Bad: Undocumented Mutation
 
-**Note**: The following example code will not run in your REPL; the function `Array.truncate` is not defined. It is provided as an example to contemplate.
+**Note**: The following example code will purposely not run in your REPL; the function `Array.truncate` is not defined. It is provided as an example to contemplate and avoid.
 
 Here's an example of bad code:
 
