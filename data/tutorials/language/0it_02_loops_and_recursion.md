@@ -275,7 +275,7 @@ this:
 
 ### Approach 1
 Get the length of the file and read it all at once using the
-[`really_input`](https://ocaml.org/manual/5.3/api/Stdlib.html#VALreally_input) method. This is the simplest, but it might not work on
+[`really_input`](https://ocaml.org/manual/api/Stdlib.html#VALreally_input) method. This is the simplest, but it might not work on
 channels that are not really files (e.g., reading keyboard input), which
 is why we have two other approaches.
 
