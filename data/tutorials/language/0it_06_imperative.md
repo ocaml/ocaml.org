@@ -697,7 +697,7 @@ However, instead of precomputing everything, memoization uses a cache that is po
 * are found in the cache (it is a hit) and the stored result is returned, or they
 * are not found in the cache (it's a miss), and the result is computed, stored in the cache, and returned.
 
-You can find a concrete example of memoization and a more in-depth explanation in the chapter on [Memoization](https://ocaml.org/docs/memoization) of "OCaml Programming: Correct + Efficient + Beautiful."
+You can find a concrete example of memoization and an in-depth explanation in the chapter on [Memoization](https://ocaml.org/docs/memoization) of "OCaml Programming: Correct + Efficient + Beautiful."
 
 ### Good: Functional by Default
 
