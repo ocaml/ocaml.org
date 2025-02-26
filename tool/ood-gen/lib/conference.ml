@@ -1,4 +1,24 @@
-open Data_intf.Conference
+type role = [%import: Data_intf.Conference.role] [@@deriving show]
+
+let role_of_string = function
+  | "chair" -> Ok `Chair
+  | "co-chair" -> Ok `Co_chair
+  | s -> Error (`Msg ("Unknown role type: " ^ s))
+
+let role_of_yaml = function
+  | `String s -> role_of_string s
+  | _ -> Error (`Msg "Expected a string for role type")
+
+type important_date = [%import: Data_intf.Conference.important_date]
+[@@deriving of_yaml, show]
+
+type committee_member = [%import: Data_intf.Conference.committee_member]
+[@@deriving of_yaml, show]
+
+type presentation = [%import: Data_intf.Conference.presentation]
+[@@deriving of_yaml, show]
+
+type t = [%import: Data_intf.Conference.t] [@@deriving of_yaml, show]
 
 type presentation_metadata = {
   title : string;

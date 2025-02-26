@@ -18,7 +18,7 @@ let left_sidebar ~tutorials ~current_tutorial ~section =
     <%s! Learn_layout.render_sidebar ~tutorials ~current_tutorial ~section %>
   </div>
 
-let of_tutorial_section (s: Data.Tutorial.Section.t) =
+let of_tutorial_section (s: Data.Tutorial.section) =
   match s with
   | GetStarted -> Learn_layout.GetStarted
   | Language -> Learn_layout.Language

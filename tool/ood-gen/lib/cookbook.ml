@@ -1,4 +1,12 @@
-open Data_intf.Cookbook
+type category = [%import: Data_intf.Cookbook.category] [@@deriving show]
+type task = [%import: Data_intf.Cookbook.task] [@@deriving show]
+
+type code_block_with_explanation =
+  [%import: Data_intf.Cookbook.code_block_with_explanation]
+[@@deriving show]
+
+type package = [%import: Data_intf.Cookbook.package] [@@deriving of_yaml, show]
+type t = [%import: Data_intf.Cookbook.t] [@@deriving show]
 
 type task_metadata = {
   title : string;
