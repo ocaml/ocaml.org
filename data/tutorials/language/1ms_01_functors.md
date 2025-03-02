@@ -12,7 +12,7 @@ prerequisite_tutorials:
 
 In this tutorial, we look at how to apply functors and how to write functors. We also show some use cases involving functors.
 
-As suggested by the name, a _functor_ is almost like a function. However, while functions are between values, functors are between modules. A functor has a module as a parameter and returns a module as a result. A functor in OCaml is a parametrised module, not to be confused with a [functor in mathematics](https://en.wikipedia.org/wiki/Functor).
+As suggested by the name, a _functor_ is almost like a function. However, while the inputs and outputs of functions are values, functors are between modules. A functor has a module as a parameter and returns a module as a result. A functor in OCaml is a parametrised module, not to be confused with a [functor in mathematics](https://en.wikipedia.org/wiki/Functor).
 
 **Note**: The files illustrating this tutorial are available as a [Git repo](https://github.com/ocaml-web/ocamlorg-docs-functors).
 
@@ -330,7 +330,7 @@ Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
 
 [Dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) is a way to parametrise over a dependency.
 
-Here is a refactoring of the module `IterPrint` to use this technique:
+Here is a refactoring of the module `IterPrint` to use dependency injection:
 
 **`iterPrint.ml`**
 ```ocaml
@@ -349,9 +349,9 @@ module Make(Dep: Iterable) : S with type 'a t := 'a Dep.t = struct
 end
 ```
 
-The module `IterPrint` is refactored into a functor that takes a module providing the function `iter` as a parameter. The `with type 'a t := 'a Dep.t` constraint means the type `t` from the parameter `Dep` replaces the type `t` in the result module. This allows `f`'s type to use `Dep`'s `t` type. With this refactoring, `IterPrint` only has one dependency. At its compilation time, no implementation of function `iter` is available yet.
+The module `IterPrint` is refactored into a functor that takes a module providing the function `iter` as a parameter. The `with type 'a t := 'a Dep.t` is called a "destructive type substitution", and it is a constraint that means the type `t` from the parameter `Dep` replaces the type `t` in the result module. This allows `f`'s type to use `Dep`'s `t` type. With this refactoring, `IterPrint` only has one dependency. At its compilation time, no implementation of function `iter` is available yet.
 
-**Note**: An OCaml interface file (`.mli`) must be a module, not a functor. Functors must be embedded inside modules. Therefore, it is customary to call them `Make`.
+**Note**: While an OCaml interface file (`.mli`) is a module, an interface file is not allowed to be a functor. Functors must be embedded inside modules. Therefore, it is customary to call them `Make`. <!-- I find this confusing; is "Make" a synononym for OCaml functors? -Jakub -->
 
 **`funkt.ml`**
 ```ocaml
@@ -433,7 +433,9 @@ module Make(Dep: Iterable) : S with type 'a t := 'a Dep.t = struct
 end
 ```
 
-In the example above, `t` from `with type` takes precedence over the local `t`, which only has a local scope. Don't shadow names too often because it makes the code harder to understand.
+In the example above, `t` from `with type` takes precedence over the local `t`, which only has a local scope. 
+
+**Warning**: Don't shadow names too often because it makes the code harder to understand.
 
 ## Write a Functor to Extend Modules
 
