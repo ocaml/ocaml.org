@@ -1,5 +1,5 @@
 ---
-title: "Platform Newsletter: September-December 2024"
+title: "Platform Newsletter: September 2024 - January 2025"
 description: Update from the OCaml Platform.
 date: "2025-03-04"
 tags: [platform]
@@ -7,7 +7,7 @@ tags: [platform]
 
 Welcome to the thirteenth edition of the OCaml Platform newsletter!
 
-In this September-December 2024 edition, we are excited to bring you the latest on the OCaml Platform, continuing our tradition of highlighting recent developments as seen in [previous editions](https://discuss.ocaml.org/tag/platform-newsletter). To understand the direction we're headed, especially regarding development workflows and user experience improvements, check out our [roadmap](https://ocaml.org/docs/platform-roadmap).
+In this September 2024 - January 2025 edition, we are excited to bring you the latest on the OCaml Platform, continuing our tradition of highlighting recent developments as seen in [previous editions](https://discuss.ocaml.org/tag/platform-newsletter). To understand the direction we're headed, especially regarding development workflows and user experience improvements, check out our [roadmap](https://ocaml.org/docs/platform-roadmap).
 
 **Highlights:**
 * **Dune Enables Cache By Default, Adds WebAssembly Support**
@@ -21,6 +21,10 @@ Recent updates across the platform focus on performance and reliability. Dune op
 
 **Feature Guides & Announcements:**
 
+* [[ANN] Odoc 3 Beta Release](https://discuss.ocaml.org/t/ann-odoc-3-beta-release/16043)
+* [[ANN] Merlin and OCaml-LSP support experimental project-wide renaming](https://discuss.ocaml.org/t/ann-merlin-and-ocaml-lsp-support-experimental-project-wide-renaming/16008)
+* [[ANN] Release of ocaml-eglot 1.0.0](https://discuss.ocaml.org/t/ann-release-of-ocaml-eglot-1-0-0/15978)
+* [[ANN] ppxlib.034.0](https://discuss.ocaml.org/t/ann-ppxlib-034-0/15952)
 * [Installing Developer Tools with Dune](https://ocaml.org/changelog/2024-11-15-installing-developer-tools-with-dune)
 * [Shell Completions in Dune Developer Preview](https://ocaml.org/changelog/2024-10-29-shell-completions-in-dune-developer-preview)
 * [OCaml Infrastructure: Enhancing Platform Support and User Experience](https://ocaml.org/changelog/2024-10-02-updates)
@@ -28,6 +32,8 @@ Recent updates across the platform focus on performance and reliability. Dune op
 
 **Releases:**
 
+* [Dune 3.17.2](https://ocaml.org/changelog/2025-01-23-dune.3.17.2)
+* [Release of OCaml 5.3.0](https://ocaml.org/changelog/2025-01-08-ocaml-5.3.0)
 * [OCaml-LSP 1.20.1](https://ocaml.org/changelog/2024-12-23-ocaml-lsp-1.20.1)
 * [opam-publish 2.5.0](https://github.com/ocaml-opam/opam-publish/releases/tag/2.5.0)
 * [Merlin 5.3-502 for OCaml 5.2 and 4.18-414 for OCaml 4.14](https://ocaml.org/changelog/2024-12-23-merlin-5.3.502-and-4.18.414)
