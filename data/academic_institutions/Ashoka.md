@@ -6,10 +6,12 @@ url: "https://www.ashoka.edu.in/"
 logo: academic_institution/ashoka.png
 continent: Asia
 courses:
-    - name: Introduction to Computational Science
+    - name: Introduction to Computer Science
       acronym: ICS
       url: "https://aalok-thakkar.github.io/teaching/ics2025/ics2025.html"
       year: 2025
+      lecture_notes: true
+      exercises: true
       enrollment: "150"
       teacher: Aalok Thakkar, Debayan Gupta
       description: |
