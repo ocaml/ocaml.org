@@ -57,7 +57,7 @@ The addition of [Wasm_of_ocaml support in Dune](https://github.com/ocaml/dune/pu
 - Added support for [Codeberg](https://github.com/ocaml/dune/pull/10904) and [GitLab organizations](https://github.com/ocaml/dune/pull/10766) in the `(source)` stanza
 - [Added support for `-H` compiler flag](https://github.com/ocaml/dune/pull/10644) enabling better semantics for `(implicit_transitive_deps false)`
 
-**Maintained by:** Rudi Grinberg (@rgrinberg, Jane Street), Nicolás Ojeda Bär (@nojb, LexiFi), Marek Kubica (@Leonidas-from-XIV, Tarides), Etienne Millon (@emillon, Tarides), Stephen Sherratt (@gridbugs, Tarides), Antonio Nuno Monteiro (@anmonteiro)
+**Maintained by:** Rudi Grinberg (@rgrinberg, Jane Street), Nicolás Ojeda Bär (@nojb, LexiFi), Marek Kubica (@Leonidas-from-XIV, Tarides), Etienne Millon (@emillon, Tarides), Stephen Sherratt (@gridbugs, Tarides), Antonio Nuno Monteiro (@anmonteiro), Étienne Marais (@maiste, Tarides)
 
 ## **Editor Tools**
 
