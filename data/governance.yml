@@ -195,11 +195,11 @@ teams:
     - name: Ulysse
       github: voodoos
       role: Maintainer
-    - name: Rafał Gwoździński
-      github: 3Rafal
-      role: Maintainer
     - name: Xavier Van de Woestyne
       github: xvw
+      role: Maintainer
+    - name: Muluh Godson
+      github: PizieDust
       role: Maintainer
   - id: merlin-dev
     name: Merlin
@@ -220,8 +220,8 @@ teams:
     - name: Ulysse Gérard
       github: voodoos
       role: Maintainer
-    - name: Sonja Heinze
-      github: pitag-ha
+    - name: Muluh Godson
+      github: PizieDust
       role: Maintainer
     - name: "Fr\xE9d\xE9ric Bour"
       github: let-def
@@ -262,12 +262,6 @@ teams:
       role: Maintainer
     - name: Paul-Elliot Anglès D'Auriac
       github: panglesd
-      role: Maintainer
-    - name: Emile Trotignon
-      github: EmileTrotignon
-      role: Maintainer
-    - name: Guillaume Petiot
-      github: gpetiot
       role: Maintainer
   - id: ppxlib-dev
     name: Ppxlib
