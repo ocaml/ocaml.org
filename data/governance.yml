@@ -127,6 +127,9 @@ teams:
     - name: Stephen Sherratt
       github: gridbugs
       role: Maintainer
+    - name: Etienne Marais
+      github: maiste
+      role: Maintainer
     - name: Antonio Nuno Monteiro
       github: anmonteiro
       role: Maintainer
