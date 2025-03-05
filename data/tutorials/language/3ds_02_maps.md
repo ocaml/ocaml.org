@@ -10,7 +10,7 @@ category: "Data Structures"
 
 In the most general sense, the [`Map`](/manual/api/Map.html) module lets you create _immutable_ key-value
 [associative array](https://en.wikipedia.org/wiki/Associative_array) for your types. More concretely, 
-OCaml's Map module is implemented using a binary search tree alogorithm to support fast lookups (of O(Log n)). 
+OCaml's `Map` module is implemented using a binary search tree alogorithm to support fast lookups (of O(Log n)). 
 
 **Note**: The concept of a `Map` in this tutorial refers to a data structure that stores a
 set of key-value pairs. It is sometimes called a dictionary or an association table. This
@@ -47,8 +47,8 @@ After naming the newly-created module `StringMap`, OCaml's toplevel displays the
 module's signature. Since it contains a large number of functions, the output
 copied here is shortened for brevity `(...)`.
 
-When we created the StringMap module, we fed the Map.Make functor the `String` module to
-define the type of the map's keys, which we can observe in the StringMap's signature
+When we created the `StringMap` module, we fed the `Map.Make` functor the `String` module to
+define the type of the map's keys, which we can observe in the `StringMap`'s signature
 (`type key string`). However, we did not yet define the value's type. The value's type will
 be defined when we create our first map.
 
@@ -200,7 +200,7 @@ To check if a key is a member of a map, use the `mem` function:
 To merge two maps, use the `union` function. This function takes two maps, a
 function deciding how to handle entries with identical keys, and it returns a new map.
 
-**Note**: As with all the other functions of Map, the input maps are not modified.
+**Note**: As with all the other functions of `Map`, the input maps are not modified.
 
 ```ocaml
 # StringMap.union;;
