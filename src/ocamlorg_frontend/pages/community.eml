@@ -67,7 +67,7 @@ Community_layout.single_column_layout
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Video</p>
         <%s! social_list_item ~text:("Community videos such as previous OCaml Conference presentation - ") ~href:("https://watch.ocaml.org/videos/recently-added") ~left_icon:(Icons.peertube "w-10 h-10") ~title:("Watch") "" %>
         <%s! social_list_item ~text:("Live Streams about OCaml - ") ~href:("https://twitch.tv/search?term=ocaml") ~left_icon:(Icons.twitch "w-10 h-10") ~title:("Twitch") "" %>
-        <%s! social_list_item ~text:("OCaml on YouTube - ") ~href:("https://www.youtube.com/results?search_query=OCaml") ~left_icon:(Icons.youtube "w-10 h-10") ~title:("YouTube") "" %>
+        <%s! social_list_item ~text:("OCaml on YouTube - ") ~href:("https://www.youtube.com/@OCamlVideos") ~left_icon:(Icons.youtube "w-10 h-10") ~title:("YouTube") "" %>
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Microblogging</p>
