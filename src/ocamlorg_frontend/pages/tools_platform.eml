@@ -67,7 +67,7 @@ Tools_layout.three_column_layout
       href="<%s Url.installing_ocaml %>">"Installing OCaml"</a>.
     <h2 class="font-bold mt-8 text-title dark:text-dark-title">The Tools of the OCaml Platform</h2>
     <p>
-      The individual OCaml Platform Tools go through a lifecycle from incubation to deprecation.
+      The individual OCaml Platform Tools go through a <a href="/policies/governance#b-tool-lifecycle-stages">lifecycle from incubation to deprecation</a>.
       Here is a list of all Platform Tools sorted by their lifecycle state.
     </p>
     <p>
