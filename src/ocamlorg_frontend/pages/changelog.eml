@@ -16,7 +16,7 @@ News_layout.single_column_layout
       </a>
     </div>
 
-    <p class="text-lg text-content dark:text-dark-content mt-6">Read the latest releases and updates from the OCaml ecosystem.</p>
+    <p class="text-lg text-content dark:text-dark-content mt-6">Read the latest releases and updates from the OCaml compiler, OCaml infrastructure and the OCaml Platform Tools.</p>
 
     <div class="flex flex-wrap gap-2 mt-6">
       <a href="?t=ocaml" class="group whitespace-nowrap h-12 flex p-3 px-4 items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-2 rounded-lg text-title dark:text-dark-title text-sm">
