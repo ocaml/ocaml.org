@@ -31,5 +31,4 @@ let template () =
 include Data_intf.Success_story
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())

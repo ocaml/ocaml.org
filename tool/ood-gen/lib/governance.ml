@@ -75,7 +75,4 @@ let teams = %a
 
 let working_groups = %a
 |}
-    (Fmt.brackets (Fmt.list pp_team ~sep:Fmt.semi))
-    t.teams
-    (Fmt.brackets (Fmt.list pp_team ~sep:Fmt.semi))
-    t.working_groups
+    (Fmt.Dump.list pp_team) t.teams (Fmt.Dump.list pp_team) t.working_groups

@@ -150,7 +150,5 @@ include Data_intf.Event
 let recurring_event_all = %a
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp_recurring_event ~sep:Fmt.semi))
-    (recurring_event_all ())
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp_recurring_event)
+    (recurring_event_all ()) (Fmt.Dump.list pp) (all ())

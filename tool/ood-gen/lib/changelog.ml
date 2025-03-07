@@ -103,5 +103,4 @@ let template () =
 include Data_intf.Changelog
 let all = %a
 |ocaml}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())

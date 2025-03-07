@@ -57,5 +57,4 @@ let template () =
 include Data_intf.Is_ocaml_yet
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())

@@ -7,5 +7,4 @@ let template () =
 include Data_intf.Academic_testimonial
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())
