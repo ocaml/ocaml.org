@@ -86,5 +86,4 @@ let all = %a
 let latest = %a
 let lts = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    all pp latest pp lts
+    (Fmt.Dump.list pp) all pp latest pp lts

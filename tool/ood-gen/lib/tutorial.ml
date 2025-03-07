@@ -153,7 +153,6 @@ include Data_intf.Tutorial
 let all = %a
 let all_search_documents = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
-    (Fmt.brackets (Fmt.list pp_search_document ~sep:Fmt.semi))
+    (Fmt.Dump.list pp) (all ())
+    (Fmt.Dump.list pp_search_document)
     (TutorialSearch.all ())

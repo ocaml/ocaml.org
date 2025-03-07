@@ -74,5 +74,4 @@ let template () =
 include Data_intf.Exercise
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())

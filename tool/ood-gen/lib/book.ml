@@ -51,6 +51,5 @@ let template () =
   Format.asprintf {|
 include Data_intf.Book
 let all = %a
-|}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+|} (Fmt.Dump.list pp)
     (all ())

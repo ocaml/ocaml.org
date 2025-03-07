@@ -23,8 +23,7 @@ let template () =
 include Data_intf.Planet
 let all = %a
 |ocaml}
-    (Fmt.brackets (Fmt.list pp_entry ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp_entry) (all ())
 
 module GlobalFeed = struct
   let feed_authors (source : Data_intf.Blog.source) authors =

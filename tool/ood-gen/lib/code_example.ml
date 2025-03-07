@@ -11,5 +11,4 @@ let template () =
 include Data_intf.Code_examples
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())

@@ -37,6 +37,5 @@ let template () =
   Format.asprintf {|
 include Data_intf.Job
 let all = %a
-|}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+|} (Fmt.Dump.list pp)
     (all ())
