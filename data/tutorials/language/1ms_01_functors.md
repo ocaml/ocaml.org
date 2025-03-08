@@ -351,7 +351,7 @@ end
 
 The module `IterPrint` is refactored into a functor that takes a module providing the function `iter` as a parameter. The `with type 'a t := 'a Dep.t` is called a "destructive type substitution", and it is a constraint that means the type `t` from the parameter `Dep` replaces the type `t` in the result module. This allows `f`'s type to use `Dep`'s `t` type. With this refactoring, `IterPrint` only has one dependency. At its compilation time, no implementation of function `iter` is available yet.
 
-**Note**: While an OCaml interface file (`.mli`) is a module, an interface file is not allowed to be a functor. Functors must be embedded inside modules. Therefore, it is customary to call them `Make`. <!-- I find this confusing; is "Make" a synononym for OCaml functors? -Jakub -->
+**Note**: An OCaml file (`.ml`) defines a module, not a functor. Functors must be embedded inside modules. It is customary to call the functor `Make`. This allows writing `module IntSet = Set.Make(Int)`.
 
 **`funkt.ml`**
 ```ocaml
