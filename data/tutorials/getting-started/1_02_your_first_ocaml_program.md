@@ -125,7 +125,7 @@ However, it is common practice to single out a value that triggers all the side 
 Let's summarise what was said about modules in the [Tour of OCaml](/docs/tour-of-ocaml):
 - A module is a collection of named values.
 - Identical names from distinct modules don't clash.
-- The standard library is collection of several modules.
+- The standard library is a collection of several modules.
 
 Modules aid in organising projects; concerns can be separated into isolated modules. This is outlined in the next section. Before creating a module ourselves, we'll demonstrate using a definition from a module of the standard library. Change the content of the file `bin/main.ml` to this:
 ```ocaml
@@ -259,7 +259,7 @@ let exp1 = Sexplib.Sexp.of_string "(This (is an) (s expression))"
 let () = Printf.printf "%s\n" (Sexplib.Sexp.to_string exp1)
 ```
 The string you entered representing a valid S-expression is parsed into
-an S-expression type, which is defined as either an `Atom` (string) or a `List` 
+an S-expression type, which is defined as either an `Atom` (string) or a `List`
 of S-expressions (it's a recursive type). Refer to the [Sexplib documentation](https://github.com/janestreet/sexplib) for more information.
 
 Before the example will build and run, you need to tell Dune that it needs `Sexplib` to compile the project. Do this by adding `Sexplib` to the `library` stanza of the `bin/dune` file. The full `bin/dune` file should then match the following.
