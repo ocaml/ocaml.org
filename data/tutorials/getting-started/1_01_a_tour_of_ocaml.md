@@ -177,7 +177,7 @@ The REPL indicates that the type of `square` is `int -> int`. This means it is a
 - : bool = true
 ```
 
-Some functions, such as `String.ends_with` have labelled parameters. Labels are useful when a function has several parameters of the same type; naming arguments allows to guess their purpose. Above, `~suffix:"less"` indicates `"less"` is passed as labelled argument `suffix`. Labelled arguments are detailed in the [Labelled Arguments](/docs/labels) tutorial. 
+Some functions, such as `String.ends_with` have labelled parameters. Labels are useful when a function has several parameters of the same type; naming arguments allows to guess their purpose. Above, `~suffix:"less"` indicates `"less"` is passed as labelled argument `suffix`. Labelled arguments are detailed in the [Labelled Arguments](/docs/labels) tutorial.
 
 ### Anonymous Functions
 
@@ -373,6 +373,7 @@ val sum : int list -> int = <fun>
 # sum [1; 4; 3; 2; 5];;
 - : int = 15
 ```
+Note that the `x :: v` pattern in the second matching expression is used to destructure the list into its head `x` and tail `v`, where _head_ is the first element of the list and _tail_ is the rest of the list.
 
 #### Polymorphic Functions on Lists
 
