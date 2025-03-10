@@ -118,7 +118,7 @@ In both examples, `d` and `e` are local definitions.
 
 [Pattern matching](https://en.wikipedia.org/wiki/Pattern_matching) is a programming language construct that generalizes case analysis, it makes subexpression inspection possible and applies to values of any type. 
 
-In the following sections, we explore matching inside `let` bindings. In the next chapter on [Basic Data Types and Pattern Matching](/docs/basic-data-types), we examine pattern matching in the construction of conditional expressions using `match...with` and compare it to `if...then...else`. In the chapter on [Error Handling](/docs/error-handling), we explore how destructuring values aids in error handling when using `try...with`.
+In the following sections, we explore matching inside `let` bindings, which is a special case. In the next chapter on [Basic Data Types and Pattern Matching](/docs/basic-data-types), we examine pattern matching in general cases using `match...with`. The chapter on [Error Handling](/docs/error-handling) explores how destructuring values aids in error handling when using `try...with`.
 
 ## Pattern Matching in Definitions
 
@@ -231,7 +231,7 @@ val phone : int = 1234567890
 
 In the following example, we deconstruct a tuple nested within a record.
 
-Records require explicit type definitions wherein field names are annotated with field types. We first define a `person` record type, then create an instance of that type named `jane`:
+Records require explicit type definitions wherein field names are annotated with types. We first define a `person` record type, then create an instance of that type named `jane`:
 
 ```ocaml
 # type person = {
@@ -260,7 +260,7 @@ val jane : person =
    contact = ("jane@example.com", 1234567890)}
 ```
 
-The following examples demonstrate two methods by which we can extract Jane's `email` and `phone` number data in the nested `contact` tuple. We will do so first by using nested deconstruction, then demonstrate a brute force approach by first extracting `content` followed by accessing the `email` and `phone` by deconstructing `contact`. <!-- Note: This sequence is pedagologically backwards perhaps, but the goal is to show that `contact` does not become a bound variable when using nested deconstruction. This is difficult to demonstrate in a single utop session if `contact` is bound in the brute force approach first, as it will not show the desired error message -->  
+The following examples demonstrate two methods by which we can extract Jane's `email` and `phone` number data in the nested `contact` tuple. We will do so first by using nested deconstruction, then demonstrate another approach by first extracting `content` followed by accessing the `email` and `phone` by deconstructing `contact`. 
 
 First, lets use nested deconstruction to access the contents of the `contact` tuple directly:
 
@@ -281,9 +281,9 @@ Notice that `contact` is not available in our top-level scope:
 Error: Unbound value contact
 ```
 
-This is because "contact" is not a bound variable, rather it is an intermediate pattern for deconstructive pattern-matching.
+This is because "contact" is not a top-level definition; rather, it is a local definition from deconstructive pattern-matching.
 
-Next, we demonstrate the brute force approach for accessing `email` and `phone`. This brings `contact` into our top-level scope and requires two steps:
+Next, we demonstrate the two-phase approach for accessing `email` and `phone`. This brings `contact` into our top-level scope and requires two steps:
 
 ```ocaml
 (* Step 1: deconstruct all record fields *)
@@ -322,7 +322,7 @@ val email : string = "jane@example.com"
 val phone : int = 1234567890
 ```
 
-Tuples behave differently from records because they require positional consistency. To discard the `email` value from the tuple of the `contact` field, we need to use the catch-all pattern (`_`):
+Tuples behave differently from records; contained data is anonymous, and its position is used to access it. To discard the `email` value from the tuple of the `contact` field, we need to use the catch-all pattern (`_`):
 
 ```ocaml
 # let { name; street; city; contact = (_, phone) } = john;;
