@@ -15,6 +15,7 @@ intended to break lines in a nice way (let's say “automatically when it
 is necessary”).
 
 ## Principles
+
 Line breaking is based on three concepts:
 
 * **boxes**: a box is a logical pretty-printing unit, which defines a
@@ -29,19 +30,20 @@ Line breaking is based on three concepts:
 * **Indentation rules**: When a line break occurs, the pretty-printing
  engines fixes the indentation (or amount of leading spaces) of the
  new line using indentation rules, as follows:
-    * A box can state the extra indentation of every new line opened
+  * A box can state the extra indentation of every new line opened
  in its scope. This extra indentation is named **box breaking
  indentation**.
-    * A break hint can also set the additional indentation of the new
+  * A break hint can also set the additional indentation of the new
  line it may fire. This extra indentation is named **hint
  breaking indentation**.
-    * If break hint `bh` fires a new line within box `b`, then the
+  * If break hint `bh` fires a new line within box `b`, then the
  indentation of the new line is simply the sum of: the current
  indentation of box `b` `+` the additional box breaking
  indentation, as defined by box `b` `+` the additional hint
  breaking indentation, as defined by break hint `bh`.
 
 ## Boxes
+
 There are 4 types of boxes. (The most often used is the “hov” box type,
 so skip the rest at first reading).
 
@@ -90,6 +92,7 @@ the value of the break that is explained below):
     ```text
     --b--b--
     ```
+
     But "---b---b---" that cannot fit on the line is written
 
     ```text
@@ -105,12 +108,14 @@ the value of the break that is explained below):
     ```text
     --b--b--
     ```
+
     But if "---b---b---" cannot fit on the line, it is written as
 
     ```text
     ---b---b
     ---
     ```
+
     The first break hint does not lead to a new line, since there is
     enough room on the line. The second one leads to a new line since
     there is no more room to print the material following it. If the
@@ -123,8 +128,8 @@ the value of the break that is explained below):
     ---
     ```
 
-
 ## Printing Spaces
+
 Break hints are also used to output spaces (if the line is not split
 when the break is encountered, otherwise the new line indicates properly
 the separation between printing items). You output a break hint using
@@ -153,6 +158,7 @@ For instance, if b is `break 1 0` in the output "--b--b--", we get
     ```text
     -- -- --
     ```
+
     or, according to the remaining room on the line:
 
     ```text
@@ -169,8 +175,8 @@ instead. (For instance `print_space ()` that is a convenient
 abbreviation for `print_break 1 0` and outputs a single space or break
 the line.)
 
-
 ## Indentation of New Lines
+
 The user gets 2 ways to fix the indentation of new lines:
 
 * **when defining the box**: when you open a box, you can fix the
@@ -183,12 +189,14 @@ The user gets 2 ways to fix the indentation of new lines:
     ---[--b--b
          --b--
     ```
+
     with `open_hovbox 2`, we get
 
     ```text
     ---[--b--b
           --b--
     ```
+
     Note: the `[` sign in the display is not visible on the screen, it
     is just there to materialise the aperture of the pretty-printing
     box. Last “screen” stands for:
@@ -214,8 +222,8 @@ The user gets 2 ways to fix the indentation of new lines:
           --
     ```
 
-
 ## Refinement on “hov” Boxes
+
 ### Packing and Structural “hov” Boxes
 
 The “hov” box type is refined into two categories.
@@ -231,6 +239,7 @@ The “hov” box type is refined into two categories.
  to new lines even if there is enough room on the current line.
 
 ### Differences Between a Packing and a Structural “hov” Box
+
 The difference between a packing and a structural “hov” box is shown by
 a routine that closes boxes and parentheses at the end of printing: with
 packing boxes, the closure of boxes and parentheses do not lead to new
@@ -245,6 +254,7 @@ box (open_hovbox), `[(---[(----[(---b)]b)]b)]` is printed as follows:
  (----
   (---)))
 ```
+
 If we replace the packing boxes by structural boxes (open_box), each
 break hint that precedes a closing parenthesis can show the boxes
 structure, if it leads to a new line; hence `[(---[(----[(---b)]b)]b)]`
@@ -277,7 +287,7 @@ When writing a pretty-printing routine, follow these simple rules:
  definition. You will probably treat the first three spaces as
  “unbreakable spaces” and write them directly in the string constants
  for keywords, and print `"let rec "` before the identifier, and
- similarly write ` =` to get an unbreakable space after the
+ similarly write `=` to get an unbreakable space after the
  identifier; in contrast, the space after the `=` sign is certainly a
  break hint, since breaking the line after `=` is a usual (and
  elegant) way to indent the expression part of a definition. In
@@ -301,6 +311,7 @@ When writing a pretty-printing routine, follow these simple rules:
  input.)
 
 ## Printing to `stdout`: Using `printf`
+
 The `format` module provides a general printing facility “à la”
 `printf`. In addition to the usual conversion facility provided by
 `printf`, you can write pretty-printing indications directly inside the
@@ -350,6 +361,7 @@ type lambda =
   | Var of string
   | Apply of lambda * lambda
 ```
+
 I use the format library to print the lambda-terms:
 
 ```ocaml
@@ -373,6 +385,7 @@ and print_lambda = function
       close_box()
   | e -> print_app e
 ```
+
 In Caml Light, replace the first line by:
 
 <!-- $MDX skip -->

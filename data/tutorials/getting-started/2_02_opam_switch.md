@@ -6,13 +6,14 @@ description: |
 category: "Tooling"
 ---
 
-OCaml's package manager, opam, introduces the concept of a _switch_, which is an isolated OCaml environment. These switches often cause confusion amongst OCaml newcomers, so this document aims to provide a better understanding of opam switches and their usage for managing dependencies and project-specific configurations. 
+OCaml's package manager, opam, introduces the concept of a _switch_, which is an isolated OCaml environment. These switches often cause confusion amongst OCaml newcomers, so this document aims to provide a better understanding of opam switches and their usage for managing dependencies and project-specific configurations.
 
 Opam is designed to manage multiple concurrent installation prefixes called "switches." Similar to Python's `virtualenv`, an opam switch is a tool that creates isolated environments. They are independent of each other and have their own set of installed packages, repositories, and configuration options. Switches also have their own OCaml compiler, libraries, and binaries. This enables you to have multiple compiler versions available at once.
 
 ## Listing Switches
 
 The command below will display the opam switches that are configured on your system. After completing installation of OCaml, such as outlined in [Installing OCaml](/docs/installing-ocaml), a single switch called `default` will have been created. At that point, listing the switches will only show that switch.
+
 ```shell
 $ opam switch list
 #   switch   compiler      description
@@ -33,7 +34,7 @@ Next, **activate** your new switch. This will set it as the currently selected s
 
 ```
 opam switch my_project
-``` 
+```
 
 Replace `my_project` with the name of your new switch.
 
@@ -42,13 +43,14 @@ Replace `my_project` with the name of your new switch.
 ```
 opam switch
 ```
+
 If the output is the name of your new switch, you've successfully activated it! Now you can use it for your OCaml projects and install OCaml packages, libraries, and dependencies specific to this switch without affecting other switches or the system-wide OCaml environment.
 
 ## Types of Switches
 
 ### Global Switches
 
-Global switches are often used for system-wide OCaml installations and are not tied to a particular project or directory. A switch is created and configured at the system level and is typically used to manage OCaml and its ecosystem on a global scale. 
+Global switches are often used for system-wide OCaml installations and are not tied to a particular project or directory. A switch is created and configured at the system level and is typically used to manage OCaml and its ecosystem on a global scale.
 
 When creating an opam switch, it's global by default unless otherwise configured. You can also explicitly select a global switch by using the opam switch command with the `--global` flag.
 
@@ -78,6 +80,4 @@ Most package-related commands in opam operate within the context of a selected s
 
 ---
 
-> Learn more details and uses of opam switches in the [opam manual's File Hierarchies page](https://opam.ocaml.org/doc/Manual.html) and its [page dedicated to switches](https://opam.ocaml.org/doc/man/opam-switch.html). 
-
-
+> Learn more details and uses of opam switches in the [opam manual's File Hierarchies page](https://opam.ocaml.org/doc/Manual.html) and its [page dedicated to switches](https://opam.ocaml.org/doc/man/opam-switch.html).

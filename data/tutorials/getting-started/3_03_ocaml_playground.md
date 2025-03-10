@@ -7,7 +7,7 @@ description: |
 category: "Resources"
 ---
 
-Welcome to OCaml's in-browser playground! 
+Welcome to OCaml's in-browser playground!
 
 The [OCaml Playground](https://ocaml.org/play) is made to make it easier for users, especially beginners, to get started with OCaml without worrying about installing anything. Everything is ready to use once you open it.
 
@@ -38,6 +38,7 @@ Let's start with something simple. Type the following on your editor panel and c
 ```
 2+3
 ```
+
 You should see the following output.
 
 `- : int = 5`
@@ -47,6 +48,7 @@ Now, clear the output and also delete the things on the editor panel. Let's try 
 ```
 "OCaml is amazing"
 ```
+
 You should see the following output.
 
 `- : string = "OCaml is amazing"`
@@ -72,6 +74,7 @@ let () =
   let res = fib_par n num_domains in
   Printf.printf "fib(%d) = %d\n" n res
 ```
+
 The output will be the following.
 
 ```
@@ -82,6 +85,7 @@ val n : int = 20
 val fib : int -> int = <fun>
 val fib_par : int -> int -> int = <fun>
 ```
+
 ## Autocomplete
 
 The playground also supports code completion. It helps users by suggesting and completing their input based on the context.
