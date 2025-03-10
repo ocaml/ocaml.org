@@ -114,6 +114,11 @@ Arbitrary combinations of chaining or nesting are allowed.
 
 In both examples, `d` and `e` are local definitions.
 
+## Forms of Pattern Matching
+
+[Pattern matching](https://en.wikipedia.org/wiki/Pattern_matching) is a programming language construct that generalizes case analysis, it makes subexpression inspection possible and applies to values of any type. 
+
+In the following sections, we explore matching inside `let` bindings, which is a special case. In the next chapter on [Basic Data Types and Pattern Matching](/docs/basic-data-types), we examine pattern matching in general cases using `match...with`. The chapter on [Error Handling](/docs/error-handling) explores how destructuring values aids in error handling when using `try...with`.
 
 ## Pattern Matching in Definitions
 
@@ -126,6 +131,7 @@ When pattern matching only has one case, it can be used in name definitions and 
 name may be defined. This applies to tuples, records, and custom single-variant
 types.
 
+<!--the example illustrates tuples::-->
 ### Pattern Matching on Tuples
 
 A common case is tuples. It allows the creation of two names with a single `let`.
@@ -194,7 +200,6 @@ Above, the pattern does not contain any identifier, meaning no name is defined. 
 **Note**: In order for compiled files to only evaluate an expression for its side effects, you must write them after `let () =`.
 
 <!-- user-defined single constructor variant example -->
-<!-- FIXME: create an example nested pattern matching -->
 
 ### Pattern Matching on User-Defined Types
 
@@ -209,15 +214,124 @@ val forename : string = "Robin"
 val surname : string = "Milner"
 ```
 
-### Discarding Values Using Pattern Matching
-<!-- `_` example-->
-As seen in the last example, the catch-all pattern (`_`) can be used in definitions.
+### Nested Pattern Matching on User-Defined Types
+
+Pattern matching also works with nested user-defined types. In the example below, we deconstruct nested tuples:
+
 ```ocaml
-# let (_, y) = List.split [(1, 2); (3, 4); (5, 6); (7, 8)];;
-val y : int list = [2; 4; 6; 8]
+# let (name, (street, city, zip), (email, phone)) =
+  ("John Doe", ("123 Elm St", "Springfield", 12345), ("john@example.com", 1234567890));;
+val name : string = "John Doe"
+val street : string = "123 Elm St"
+val city : string = "Springfield"
+val zip : int = 12345
+val email : string = "john@example.com"
+val phone : int = 1234567890
 ```
 
-The `List.split` function returns a pair of lists. We're only interested in the second list, we give it the name `y` and discard the first list by using `_`.
+In the following example, we deconstruct a tuple nested within a record.
+
+Records require explicit type definitions wherein field names are annotated with types. We first define a `person` record type, then create an instance of that type named `jane`:
+
+```ocaml
+# type person = {
+    name : string;
+    street : string;
+    city : string;
+    zip : int;
+    contact: string * int;
+  };;
+type person = {
+  name : string;
+  street : string;
+  city : string;
+  zip : int;
+  contact : string * int;
+
+# let jane = {
+    name = "Jane Doe";
+    street = "123 Elm St";
+    city = "Springfield";
+    zip = 12345;
+    contact = ("jane@example.com", 1234567890);
+  };;
+val jane : person =
+  {name = "Jane Doe"; street = "123 Elm St"; city = "Springfield"; zip = 12345;
+   contact = ("jane@example.com", 1234567890)}
+```
+
+The following examples demonstrate two methods by which we can extract Jane's `email` and `phone` number data in the nested `contact` tuple. We will do so first by using nested deconstruction, then demonstrate another approach by first extracting `content` followed by accessing the `email` and `phone` by deconstructing `contact`. 
+
+First, lets use nested deconstruction to access the contents of the `contact` tuple directly:
+
+```ocaml
+# let { name; street; city; zip; contact = (email, phone) } = jane;;
+val name : string = "Jane Doe"
+val street : string = "123 Elm St"
+val city : string = "Springfield"
+val zip : int = 12345
+val email : string = "jane@example.com"
+val phone : int = 1234567890
+```
+
+Notice that `contact` is not available in our top-level scope:
+
+```ocaml
+# contact;;
+Error: Unbound value contact
+```
+
+This is because "contact" is not a top-level definition; rather, it is a local definition from deconstructive pattern-matching.
+
+Next, we demonstrate the two-phase approach for accessing `email` and `phone`. This brings `contact` into our top-level scope and requires two steps:
+
+```ocaml
+(* Step 1: deconstruct all record fields *)
+# let { name; street; city; zip; contact } = jane;;
+val name : string = "Jane Doe"
+val street : string = "123 Elm St"
+val city : string = "Springfield"
+val zip : int = 12345
+val contact : string * int = ("jane@example.com", 1234567890)
+
+(* Step 2: deconstruct the tuple *)
+# let ( email, phone ) = contact;;
+val email : string = "jane@example.com"
+val phone : int = 1234567890
+```
+
+Notice that `contact` is now available at the top-level as a bound variable:
+
+```ocaml
+# contact;;
+- : string * int = ("jane@example.com", 1234567890)
+```
+
+### Discarding Values Using Pattern Matching
+
+When pattern matching, it is possible to discard or ignore values that are not desired. The method by which this is done depends on the data structure being destructured.
+
+Continuing from the above `jane` record example, we can simply omit the `zip` field in the pattern if we don't want to bind it to a variable:
+
+```ocaml
+# let { name; street; city; contact = (email, phone) } = john;;
+val name : string = "Nohn Doe"
+val street : string = "123 Elm St"
+val city : string = "Springfield"
+val email : string = "jane@example.com"
+val phone : int = 1234567890
+```
+
+Tuples behave differently from records; contained data is anonymous, and its position is used to access it. To discard the `email` value from the tuple of the `contact` field, we need to use the catch-all pattern (`_`):
+
+```ocaml
+# let { name; street; city; contact = (_, phone) } = john;;
+val name : string = "Jane Doe"
+val street : string = "123 Elm St"
+val city : string = "Springfield"
+val phone : int = 1234567890
+```
+<!-- END Version Two -->
 
 ## Scopes and Environments
 
