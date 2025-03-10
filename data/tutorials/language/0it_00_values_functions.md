@@ -114,7 +114,7 @@ Arbitrary combinations of chaining or nesting are allowed.
 
 In both examples, `d` and `e` are local definitions.
 
-## Introduction to Pattern Matching
+## Forms of Pattern Matching
 
 [Pattern matching](https://en.wikipedia.org/wiki/Pattern_matching) is a programming language construct that generalizes case analysis, it makes subexpression inspection possible and applies to values of any type. 
 
