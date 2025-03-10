@@ -11,6 +11,7 @@ In this tutorial, we look at how to use the `Gc` module and how to write your ow
 At the end of the tutorial, we give some exercises you might try in order to develop a better understanding.
 
 ## The `Gc` Module
+
 The `Gc` module contains some useful functions for querying and calling
 the garbage collector from OCaml programs.
 
@@ -85,6 +86,7 @@ but it should be mostly obvious what it does). The above code
 causes the GC to print a message at the start of every major collection.
 
 ## Finalisation and the Weak Module
+
 We can write a function called a **finaliser** which is called when an
 object is about to be freed by the GC.
 
@@ -156,7 +158,6 @@ the in-memory copy is written back out to the file, the program must
 release the lock. Here is some code to define the on-disk format and
 some low-level functions to read, write, lock, and unlock records:
 
-
 <!-- $MDX file=examples/objcache.ml,part=0 -->
 ```ocaml
 (* In-memory format. *)
@@ -199,7 +200,6 @@ let new_record () =
   { name = String.make name_size ' '; address = String.make addr_size ' ' }
 ```
 
-
 Because this is a really simple program, we're going to fix the number
 of records in advance:
 
@@ -230,7 +230,6 @@ yet, or it has been written out to disk (finalised) and dropped
 from the cache. If the cache gives us `Some record`, then we just return
 `record` (this promotes the weak pointer to the record to a normal
 pointer).
-
 
 <!-- $MDX file=examples/objcache.ml,part=4 -->
 ```ocaml
@@ -263,17 +262,17 @@ records. But it doesn't necessarily mean that the GC *will* collect the
 records straightaway. In fact it's not likely that it will, so to force
 the GC to collect the records immediately, we also invoke a major cycle.
 
-
 Finally, we have some test code. I won't reproduce the test code here, but you
 can download the complete program and test code
 [objcache.ml](/media/tutorials/objcache.ml) and compile it with:
 
 <!-- $MDX dir=examples -->
 ```sh
-$ ocamlc unix.cma objcache.ml -o objcache
+ocamlc unix.cma objcache.ml -o objcache
 ```
 
 ## Exercises
+
 Here are some ways to extend the example above, in approximately
 increasing order of difficulty:
 

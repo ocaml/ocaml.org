@@ -7,6 +7,7 @@ category: "Guides"
 ---
 
 ## Speed
+
 Why is OCaml fast? Indeed, step back and ask *is OCaml fast?* How can we
 make programs faster? In this chapter we'll look at what actually
 happens when you compile your OCaml programs down to machine code. This
@@ -22,6 +23,7 @@ into a C-like pseudocode (after all C is just a portable assembly
 language).
 
 ### Basics of Assembly Language
+
 The examples I give in this chapter are all compiled on an x86 Linux
 machine. The x86 is, of course, a 32 bit machine, so an x86 "word" is 4
 bytes (= 32 bits) long. At this level OCaml deals mostly with word-sized
@@ -66,6 +68,7 @@ writing into the data segment (part) of the executable.
   .globl foo
 foo:
 ```
+
 This declares a global symbol called `foo`. It means the address of the
 next thing to come can be named `foo`. Writing just `foo:` without the
 preceding `.globl` directive declares a local symbol (local to just the
@@ -77,18 +80,21 @@ current file).
 .ascii "hello"
 .space 4
 ```
+
 `.long` writes a word (4 bytes) to the current segment. `.byte` writes a
 single byte. `.ascii` writes a string of bytes (NOT nul-terminated).
 `.space` writes the given number of zero bytes. Normally you use these
 in the data segment.
 
 ### The “hello, world” Program
+
 Enough assembler. Put the following program into a file called
 `smallest.ml`:
 
 ```ocaml
 print_string "hello, world\n"
 ```
+
 And compile it to a native code executable using:
 
 ```shell
@@ -110,6 +116,7 @@ lest__1:
     .space  2                        ; padding ..
     .byte   2                        ;  .. after string
 ```
+
 Next up the text (program code) segment:
 
 ```assembly
@@ -201,6 +208,7 @@ length of the object in words:  0000 0000 0000 0000 0001 00 (4 words)
 color (used by GC):             00
 tag:                            1111 1100 (String_tag)
 ```
+
 See `/usr/include/caml/mlvalues.h` for more information about
 the format of heap allocated objects in OCaml.
 
@@ -225,6 +233,7 @@ millisecond), compared to several seconds for starting up a reasonable
 Java program and a second or so for a Perl script.
 
 ### Tail Recursion
+
 We mentioned in chapter 6 that OCaml can turn tail-recursive function
 calls into simple loops. Is this actually true? Let's look at what
 simple tail recursion compiles to:
@@ -268,6 +277,7 @@ jump back, and so on forever. It's a simple loop, *not* a recursive
 function call, so it doesn't use any stack space.
 
 ### Digression: Where Are the Types?
+
 OCaml is statically typed as we've said before on many occasions, so at
 compile time, OCaml knows that the type of `loop` is `unit -> unit`. It
 knows that the type of `"hello, world\n"` is `string`. It doesn't make
@@ -299,6 +309,7 @@ work at run time in Java. None of this is allowed with OCaml's static
 types.
 
 ### Polymorphic Types
+
 As you might have guessed from the discussion above, polymorphism, which
 is where the compiler *doesn't* have a fully known type for a function
 at compile time, might have an impact on performance. Suppose we require
@@ -383,6 +394,7 @@ OCaml will generate a specialised version of `max` which only works on
   if a > b then a else b;;
 val max : int -> int -> int = <fun>
 ```
+
 Here is the assembly code generated for this function:
 
 ```assembly
@@ -403,6 +415,7 @@ Max_int__max_56:
         movl    %ebx, %eax
         ret
 ```
+
 That's just 5 lines of assembler, and is about as simple as you can make
 it.
 
@@ -441,6 +454,7 @@ you can help the compiler by specifying types for one or more of the
 arguments.
 
 ### The Representation of Integers, Tag Bits, Heap-Allocated Values
+
 There are a number of peculiarities about integers in OCaml. One of
 these is that integers are 31 bit entities, not 32 bit entities. What
 happens to the "missing" bit?
@@ -532,9 +546,9 @@ It uses the following decision tree:
  heap-allocated memory blocks. Look at the header word of the memory
  blocks, specifically the bottom 8 bits of the header word, which tag
  the content of the block.
-     * **String_tag:** Compare two strings.
-     * **Double_tag:** Compare two floats.
-     * etc.
+  * **String_tag:** Compare two strings.
+  * **Double_tag:** Compare two floats.
+  * etc.
 
 Note that because \> has type `'a -> 'a -> bool`, both arguments must
 have the same type. The compiler should enforce this at compile time. I
@@ -542,12 +556,14 @@ would assume that `greaterthan` probably contains code to sanity-check
 this at run time however.
 
 ### Floats
+
 Floats are, by default, boxed (allocated on the heap). Save this as
 `float.ml` and compile it with `ocamlopt -S float.ml -o float`:
 
 ```ocamltop
 print_float 3.0
 ```
+
 The number is not passed directly to `string_of_float` in the `%eax`
 register as happened above with ints. Instead, it is created statically
 in the data segment:
@@ -559,12 +575,14 @@ in the data segment:
 Float__1:
         .double 3.0
 ```
+
 and a pointer to the float is passed in `%eax` instead:
 
 ```assembly
         movl    $Float__1, %eax
         call    Pervasives__string_of_float_157
 ```
+
 Note the structure of the floating point number: it has a header (2301),
 followed by the 8 byte (2 word) representation of the number itself. The
 header can be decoded by writing it as binary:
@@ -574,6 +592,7 @@ Length of the object in words:  0000 0000 0000 0000 0000 10 (8 bytes)
 Color:                          00
 Tag:                            1111 1101 (Double_tag)
 ```
+
 `string_of_float` isn't polymorphic, but suppose we have a polymorphic
 function `foo : 'a -> unit` taking one polymorphic argument. If we call
 `foo` with `%eax` containing 7, then this is equivalent to `foo 3`,
@@ -581,6 +600,7 @@ whereas if we call `foo` with `%eax` containing a pointer to `Float__1`
 above, then this is equivalent to `foo 3.0`.
 
 ### Arrays
+
 I mentioned earlier that one of OCaml's targets was numerical computing.
 Numerical computing does a lot of work on vectors and matrices, which
 are essentially arrays of floats. As a special hack to make this go
@@ -591,6 +611,7 @@ means that in the special case where we have an object of type
 ```C
 double array[10];
 ```
+
 ... instead of having an array of pointers to ten separately allocated
 floats on the heap.
 
@@ -616,6 +637,7 @@ first line, which creates the array, is compiled to a simple C call:
         movl    %eax, Arrayfloats   ; Store the resulting pointer to the
                                     ; array at this place on the heap.
 ```
+
 The loop is compiled to this relatively simple assembly language:
 
 ```assembly
@@ -643,12 +665,14 @@ The loop is compiled to this relatively simple assembly language:
         jle     .L101
 .L100:
 ```
+
 The important statement is the one which stores the float into the
 array. It is:
 
 ```assembly
         fstpl   -4(%ecx, %eax, 4)
 ```
+
 The assembler syntax is rather complex, but the bracketed expression
 `-4(%ecx, %eax, 4)` means "at the address `%ecx + 4*%eax - 4`". Recall
 that `%eax` is the OCaml representation of i, complete with tag bit, so
@@ -661,11 +685,13 @@ multiply it out:
 = %ecx + 4*i*2 + 4 - 4
 = %ecx + 8*i
 ```
+
 (Each float in the array is 8 bytes long.)
 
 So arrays of floats are unboxed, as expected.
 
 ### Partially Applied Functions and Closures
+
 How does OCaml compile functions which are only partially applied? Let's
 compile this code:
 
@@ -687,6 +713,7 @@ code which allocates the array:
         leal    4(%eax), %eax       ; Let %eax point to 4 bytes into the
                                     ;   allocated memory.
 ```
+
 All heap allocations have the same format: 4 byte header + data. In this
 case the data is 5 integers, so we allocate 4 bytes for the header plus
 5 * 4 bytes for the data. We update the pointer to point at the first
@@ -702,6 +729,7 @@ Next OCaml generates code to initialise the array:
         movl    $9, 12(%eax)
         movl    $11, 16(%eax)
 ```
+
 The header word is 5120, which if you write it in binary means a block
 containing 5 words, with tag zero. The tag of zero means it's a
 "structured block" a.k.a. an array. We also copy the numbers 1, 2, 3, 4
@@ -724,6 +752,7 @@ Closure__1:
         .long   5
         .long   Closure__fun_58
 ```
+
 The header is 3319, indicating a `Closure_tag` with length 3 words. The
 3 words in the block are the address of the function `caml_curry2`, the
 integer number 2 and the address of this function:
@@ -739,6 +768,7 @@ Closure__fun_58:
         lea     -1(%eax, %ebx), %eax
         ret
 ```
+
 What does this function do? On the face of it, it adds the two
 arguments, and subtracts one. But remember that `%eax` and `%ebx` are in
 the OCaml representation for integers. Let's represent them as:
@@ -755,6 +785,7 @@ returns:
 = 2 * a + 2 * b + 1
 = 2 * (a + b) + 1
 ```
+
 In other words, this function returns the OCaml integer representation
 of the sum `a + b`. This function is `(+)`!
 
@@ -783,6 +814,7 @@ even possible). However, if you had a more substantial closure than just
 expensive *programmer* time versus writing the imperative loop.
 
 ## Profiling Tools
+
 There are two types of profiling that you can do on OCaml programs:
 
 1. Get execution counts for bytecode.
@@ -818,9 +850,9 @@ And can be run and compiled with
 
 <!-- $MDX skip -->
 ```
-$ ocamlcp -p a graphics.cma graphtest.ml -o graphtest
-$ ./graphtest
-$ ocamlprof graphtest.ml
+ocamlcp -p a graphics.cma graphtest.ml -o graphtest
+./graphtest
+ocamlprof graphtest.ml
 ```
 
 The comments `(* nnn *)` are added by `ocamlprof`, showing how many
@@ -870,7 +902,7 @@ Each sample counts as 0.01 seconds.
 
 ### Using `perf` on Linux
 
-Assuming `perf `is installed and your program is compiled into
+Assuming `perf`is installed and your program is compiled into
 native code with `-g` (or ocamlbuild tag `debug`), you just need to type
 
 <!-- $MDX skip -->
@@ -892,7 +924,7 @@ macOS ships with a performance monitoring and debugging application called
 `Instruments` that comes with a CPU counter, a Time Profiler, and a System
 Trace templates.
 
-Once you launch it and select the template you want, you must start _recording_
+Once you launch it and select the template you want, you must start *recording*
 before you launch your application.
 
 As you launch your application, real-time results will appear listed in
@@ -904,6 +936,7 @@ From there, you can click on your program there and dig to see which functions a
 taking the longest to execute.
 
 ## Summary
+
 In summary here are some tips for getting the best performance out of
 your programs:
 
@@ -922,6 +955,7 @@ your programs:
  optimization will help you.
 
 ### Further Reading
+
 You can find out more about how OCaml represents different types by
 reading the ("Interfacing C with OCaml") chapter in the OCaml manual and also
 looking at the `mlvalues.h` header file.

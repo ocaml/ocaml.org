@@ -41,9 +41,10 @@ But if you want to try `ocamlc`, you can go ahead and try the following.
 Create a new directory named `hello` and navigate to the directory:
 
 ```shell
-$ mkdir hello
-$ cd hello
+mkdir hello
+cd hello
 ```
+
 Next, create a file named `hello.ml` and add the following code with your favorite text editor:
 
 ```shell
@@ -53,12 +54,12 @@ let () = print_endline "Hello OCaml!"
 Now, we are ready to run the code. Save the file and return to the command line. Let's compile the code:
 
 ```dune
-$ ocamlc -o hello hello.ml
+ocamlc -o hello hello.ml
 ```
 
-The `-o hello` option tells the compiler to name the output executable as `hello`. The executable `hello` contains compiled OCaml bytecode. In addition, two other files are produced, `hello.cmi` and `hello.cmo`. 
+The `-o hello` option tells the compiler to name the output executable as `hello`. The executable `hello` contains compiled OCaml bytecode. In addition, two other files are produced, `hello.cmi` and `hello.cmo`.
 
-`hello.cmi` contains compiled interface information for OCaml modules. An interface file includes type information and module signatures but doesn't contain the actual code. 
+`hello.cmi` contains compiled interface information for OCaml modules. An interface file includes type information and module signatures but doesn't contain the actual code.
 
 `hello.cmo` contains the compiled bytecode for OCaml modules. Bytecode is an intermediate representation of the code that is executed by the OCaml interpreter or runtime system.
 
@@ -70,6 +71,7 @@ Now let's run the executable and see what happens:
 $ ./hello
 Hello OCaml!
 ```
+
 Voilà! It says, `Hello OCaml!`.
 
 We can change the string or add more content, save the file, recompile, and rerun.
@@ -215,13 +217,13 @@ structure, build, and run dune projects.
 
 ### Bytecode Using Dune
 
-Dune is a build system for OCaml projects, and it allows you to configure different modes for building your executables. We will use `(modes byte exe)` stanza in the `dune` file, which will produce both bytecode (interpreted) and native executable versions of the OCaml program. 
+Dune is a build system for OCaml projects, and it allows you to configure different modes for building your executables. We will use `(modes byte exe)` stanza in the `dune` file, which will produce both bytecode (interpreted) and native executable versions of the OCaml program.
 
 Let's create an example project named `myproject`.
 
 ```dune
-$ mkdir myproject
-$ cd myproject
+mkdir myproject
+cd myproject
 ```
 
 Create a `dune-project` file, add the following content.
@@ -253,7 +255,7 @@ let () = print_endline "Hello Dune!"
 Finally, we compile and execute it.
 
 ```shell
-$ dune build main.bc
+dune build main.bc
 ```
 
 The `.bc` stands for generic bytecode file, and it can be an executable or library.
@@ -262,16 +264,18 @@ The `.bc` stands for generic bytecode file, and it can be an executable or libra
 $ dune exec ./main.bc
 Hello Dune!
 ```
+
 We can also do that with `.exe`.
 
 ```shell
-$ dune build main.exe
+dune build main.exe
 ```
 
 ```shell
 $ dune exec ./main.exe
 Hello Dune!
 ```
+
 ## Other Build Systems
 
 - [OMake](https://github.com/ocaml-omake/omake) Another OCaml build system.
