@@ -96,7 +96,7 @@ isn't indefinitely increasing. For technical reasons, when `max_int` is reached,
 down to `min_int`.
 
 The OCaml Standard Library contains a module for sequences called
-[`Seq`](/releases/5.0/api/Seq.html). It contains `Seq.int`, which we implemented above.
+[`Seq`](/releases/api/Seq.html). It contains `Seq.int`, which we implemented above.
 
 ## Iterating Over Sequences
 
@@ -205,7 +205,7 @@ it down into its constituent parts. It is defined using the `rec` keyword, allow
 function to call itself. For each loop in the recursive call, it pattern-matches
 on either `Seq.Cons (m, seq)` or the end of the sequence, `Seq.Nil`.
 
-If it matches on the first branch (`Seq.Cons (m, seq)`), we filter the
+If it matches on the first branch `Seq.Cons (m, seq)`, we filter the
 remaining sequence of all integers that are divisible by `m` before recursively
 calling `trial_div` on the filtered sequence. This branch is matched on until we
 reach the end of the sequence for every recursive call.
@@ -217,13 +217,12 @@ filtered sequence beginning with `Seq.Nil`.
 
 **Side Note**: It may be interesting to learn that `trial_div`, while it can
 colloquially be called a recursive, is an example of a kind of recursion called
-[corecursive](https://en.wikipedia.org/wiki/Corecursion). Corecursion differs
-from recursion in that it constructs values incrementally rather than computing
-a final result all at once. Unlike traditional recursion, which works towards a
-base case, corecursive functions can produce an infinite stream of values,
-generating only as much as needed. The `trial_div` function is corecursive
-because it does not compute the full sequence of primes immediately. Instead, it
-produces prime numbers lazily, filtering and deferring further computation until
+[corecursion](https://en.wikipedia.org/wiki/Corecursion). Corecursion differs
+from recursion in that it constructs results incrementally rather than consuming
+it's input incrementally. Unlike traditional recursion, which works towards a
+base case, corecursive functions must indefinitely produce values as a stream. The `trial_div` function is corecursive
+because it does not immediately compute the complete sequence of primes. Instead, it
+produces prime numbers on-demand, filtering and deferring further computation until
 more elements are requested. This allows the sequence to be processed
 incrementally rather than requiring a complete traversal upfront.
 
@@ -296,8 +295,8 @@ empty. Otherwise, it returns `None`.
 For the next example, we will demonstrate the versatility of `Seq.unfold` by
 using it to read a file.
 
-Before doing so, lets define a function that processes a file's contents from a
-provided channel:
+Before doing so, let's define a function that reads a file's line from a
+provided channel, with the type signature needed by `Seq.unfold`.
 
 ```ocaml
 # let input_line_opt chan =
@@ -315,8 +314,7 @@ This is the second line.
 EOF
 ```
 
-Finally, lets define a variable that holds the file's contents and is
-constructed using `Seq.unfold`:
+Finally, let's read the file's contents using `Seq.unfold`. Mind that `cin` is a local definition.
 
 ```ocaml
 # let cin = open_in "README.md" in
@@ -398,7 +396,7 @@ Stack overflow during evaluation (looping recursion?).
 
 This definition is behaving as expected (spot the differences, there are four): <!-- How do you count four?
 
-1. Seq.Cons vs Seq.cons
+1. `Seq.Cons` vs `Seq.cons`
 2. Input is a tuple vs being a pair of parameters
 3. Possesses a Unit value parameter
 4. ?
