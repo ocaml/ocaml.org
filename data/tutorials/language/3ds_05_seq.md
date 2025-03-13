@@ -12,7 +12,7 @@ prerequisite_tutorials:
 ## Introduction
 
 Sequences are very much like lists. However, from a pragmatic perspective, one
-should imagine they are infinite. That's the key intuition to understanding
+should imagine they can be either finite or infinite. That's the key intuition to understanding
 and using sequences. To achieve this, sequence elements are computed on demand
 and not stored in memory. Perhaps more frequently, sequences also allow for
 reducing memory consumption from linear to constant space
