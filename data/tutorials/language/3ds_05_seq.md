@@ -82,8 +82,8 @@ let my_seq  =
 the effect of providing a means of acquiring a value rather than providing a
 value directly.
 
-We can also construct sequences using functions. Here is how to build seemingly
-infinite sequences of integers:
+We can also construct sequences using functions. Here is how to build an
+infinite sequence of integers:
 
 ```ocaml
 # let rec ints n : int Seq.t = fun () -> Seq.Cons (n, ints (n + 1));;
@@ -419,8 +419,7 @@ the former definition, the application is complete because `fibs` is provided
 with all the arguments it expects. In the latter definition, the application is
 partial because the `()` argument is missing. Since evaluation is
 [eager](https://en.wikipedia.org/wiki/Evaluation_strategy#Eager_evaluation) in
-OCaml, in the former case evaluation of the recursive call is triggered and
-a non-terminating looping occurs. By contrast in the latter case, the partially
+OCaml, in the former case evaluation of the recursive call is triggered again and again, without ever terminating (this is what "looping recursion" in the error message refers to). In the latter case, the partially
 applied function is immediately returned as a
 [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
 
