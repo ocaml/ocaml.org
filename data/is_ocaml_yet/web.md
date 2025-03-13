@@ -4,7 +4,7 @@ question: Is OCaml Web Yet?
 answer: Yes, but some parts are still missing
 categories:
   - name: Web Frameworks
-    status: 🟡
+    status: •
     description: |
       Web development frameworks for building OCaml Web applications.
     packages:
@@ -14,7 +14,7 @@ categories:
     - name: sihl
     - name: ocsigen-start
   - name: Browser
-    status: 🟢
+    status: •
     description: |
       OCaml has excellent support for running in the browser!
       The [Js_of_ocaml](/p/js_of_ocaml/latest) compiler, which translates OCaml into JavaScript, is a well-established tool dating back to 2010. It integrates seamlessly with the existing OCaml ecosystem and powers numerous production applications.
@@ -34,7 +34,7 @@ categories:
     - name: ocaml-vdom
     - name: fmlib_browser
   - name: WebAssembly
-    status: 🟡
+    status: •
     description: |
       Packages and tools for compiling OCaml code to WebAssembly.
     packages:
@@ -49,7 +49,7 @@ categories:
     - name: wasm
     - name: owi
   - name: Lower Web-Stack
-    status: 🟡
+    status: •
     description: |
       Packages that provide foundational networking and communication capabilities.
     packages:
@@ -73,7 +73,7 @@ categories:
     - name: mimic
     - name: tiny_httpd
   - name: HTTP Clients
-    status: 🔴
+    status: •
     description: |
       HTTP client libraries for making HTTP requests.
     packages:
@@ -83,7 +83,7 @@ categories:
     - name: http-lwt-client
     - name: ezcurl
   - name: Templating
-    status: 🟡
+    status: •
     description: |
       Packages that assist in generating dynamic HTML or text content.
     packages:
@@ -94,7 +94,7 @@ categories:
     - name: mustache
     - name: jingoo
   - name: Static Site Generation
-    status: 🟡
+    status: •
     description: |
       Packages for generating static websites.
     packages:
@@ -112,7 +112,7 @@ categories:
         url: https://github.com/ocsigen/html_of_wiki
         synopsis: Static website generator for software projects
   - name: Mobile apps
-    status: 🟡
+    status: •
     description: Packages for creating mobile applications
     packages:
     - name: eliom
@@ -162,7 +162,7 @@ categories:
     - name: cordova-plugin-vibration
     - name: cordova-plugin-videoplayer
   - name: Authentication
-    status: 🔴
+    status: •
     description: |
       Packages for authentication-related functionality in OCaml Web applications.
     packages:
@@ -176,7 +176,7 @@ categories:
     - name: oidc
     - name: spoke
   - name: Binary protocols
-    status: 🟡
+    status: •
     description: |
       There are implementations for a lot of popular protocols, some of them are solid, but some of them are still incomplete and need more testing. Some useful protocols for which there is no package include FlatBuffers and AMQP.
     packages:
@@ -193,7 +193,7 @@ categories:
     - name: mqtt
     - name: msgpck
   - name: Database
-    status: 🟠
+    status: •
     description: |
       Database-related packages for interacting with databases in OCaml Web applications, from simple connectors to type-safe SQL wrappers.
     packages:
@@ -210,14 +210,14 @@ categories:
     - name: sqlgg
     - name: mariadb
   - name: Internationalization
-    status: 🆘
+    status: •
     description: |
       Internationalization and localization for OCaml applications.
     packages:
     - name: gettext
     - name: ocsigen-i18n
   - name: Message Queues & Key-Value Stores
-    status: 🆘
+    status: •
     description: |
       Packages for interacting with popular message queues and key-value stores.
     packages:
@@ -226,7 +226,7 @@ categories:
     - name: redis
     - name: zmq
   - name: Serializers
-    status: 🟡
+    status: •
     description: |
       Packages for serializing and deserialising data in different formats.
     packages:
@@ -246,7 +246,7 @@ categories:
     - name: csexp
     - name: data-encoding
   - name: Syndication/RSS
-    status: 🟡
+    status: •
     description: |
       Packages for syndicating content and working with RSS feeds.
     packages:
@@ -254,7 +254,7 @@ categories:
     - name: river
     - name: rss
   - name: External Web APIs
-    status: 🆘
+    status: •
     description: |
       Packages that provide OCaml bindings and clients for interacting with external Web APIs.
     packages:
@@ -302,7 +302,7 @@ categories:
         url: https://github.com/besport/ocaml-js-video-players
         synopsis: Add different video players to your OCaml Web or mobile app (Youtube, Dailymotion, Vimeo)
   - name: Logging
-    status: 🟠
+    status: •
     description: |
       Packages for logging and monitoring that assist in tracking application behavior and performance.
     packages:
@@ -313,7 +313,7 @@ categories:
     - name: opentelemetry
     - name: prometheus
   - name: Email
-    status: 🟠
+    status: •
     description: |
       Packages for sending and managing email communications.
     packages:
@@ -329,7 +329,7 @@ categories:
     - name: dkim
     - name: uspf
   - name: Compression
-    status: 🟡
+    status: •
     description: |
       Packages that enable compression and decompression of data in OCaml Web applications.
     packages:
@@ -346,7 +346,7 @@ categories:
     - name: zstandard
     - name: carton
   - name: Cryptography
-    status: 🟡
+    status: •
     description: |
       Packages for secure communication, encryption, hashing, and other cryptographic operations.
     packages:
@@ -365,7 +365,7 @@ categories:
     - name: dirsp-proscript
     - name: digestif
   - name: En- & Decoding
-    status: 🟠
+    status: •
     description: |
       Encoding and decoding various data formats.
     packages:

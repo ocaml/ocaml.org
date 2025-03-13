@@ -4,7 +4,7 @@ question: Is OCaml GUI Yet?
 answer: Not quite yet, but we're getting there!
 categories:
   - name: Frameworks
-    status: 🟡
+    status: •
     description: |
       These libraries provide a rich toolkit to develop GUI applications.
     packages:
@@ -14,7 +14,7 @@ categories:
       - name: tsdl
       - name: sfml
   - name: 3d graphics
-    status: 🟡
+    status: •
     description: |
       These are libraries that are for manipulating 3D graphics. They offer a wide range of functionalities, including geometric transformations, rendering, shading, and handling user input.
     packages:
@@ -22,7 +22,7 @@ categories:
       - name: glMLite
       - name: irrlicht
   - name: 2d graphics
-    status: 🟡
+    status: •
     description: |
       These libraries provides the necessary functionalities to create and manipulate 2D graphics.
     packages:
@@ -31,7 +31,7 @@ categories:
       - name: async_graphics
       - name: cairo2
   - name: image processing
-    status: 🟢
+    status: •
     description: |
       Packages for image-processing.
     packages:
@@ -39,7 +39,7 @@ categories:
       - name: bimage
       - name: ocamlsdl2-image
   - name: Plotting
-    status: 🟢
+    status: •
     description: |
       These libraries are used to create visual representations of data. They provide functionalities to generate various types of plots, charts, and diagrams.
     packages:
@@ -51,7 +51,7 @@ categories:
       - name: plplot
       - name: plotly
   - name: Events
-    status: 🟡
+    status: •
     description: |
       These libraries are used to handle events, which are signals or occurrences in the program’s environment that require a specific action or response.
     packages:
