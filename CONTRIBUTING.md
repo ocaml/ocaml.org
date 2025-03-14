@@ -105,7 +105,7 @@ The success stories should be structured in the following way:
 
 You can read [Ahref's Success Story](https://ocaml.org/success-stories/peta-byte-scale-web-crawler) for a good example.
 
-### <a name="content-academic-user"></a>Add an Academic or Industrial User
+### <a name="content-academic-user"></a>Add an Academic User
 
 > Contribute to the [Academic Users](https://ocaml.org/academic-users).
 
@@ -129,7 +129,7 @@ Location
 
 For instance: [cornell.md](data/academic_institutions/cornell.md).
 
-### <a name="content-industrial-user"></a>Add an Academic or Industrial User
+### <a name="content-industrial-user"></a>Add an Industrial User
 
 > Contribute to the [Industrial Users](https://ocaml.org/industrial-users).
 
