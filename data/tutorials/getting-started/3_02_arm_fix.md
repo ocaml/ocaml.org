@@ -11,17 +11,18 @@ Since [Homebrew has changed](https://github.com/Homebrew/brew/issues/9177) the w
 Before we get started, let's check where Homebrew is installed. We can do this by running this in the CLI:
 
 ```shell
-$ where brew
+where brew
 ```
-If the response is `/usr/local/bin/brew`, we'll need to make the changes. It needs to be `/opt/homebrew/bin/brew`. 
+
+If the response is `/usr/local/bin/brew`, we'll need to make the changes. It needs to be `/opt/homebrew/bin/brew`.
 
 ### Install CLT
 
-First, ensure the Command Line Tools (CLT) are installed by running 
+First, ensure the Command Line Tools (CLT) are installed by running
 
 ```shell
 $ ls /Library/Developer/CommandLineTools
-Library	SDKs	usr
+Library SDKs usr
 ```
 
 If they're not installed, let's install them now. You don't have to install all of XCode; you can install just the CLT by [downloading them directly from Apple's Developer](https://developer.apple.com/download/all/). Look for a non-beta version for stability, like "Command Line Tools for XCode 14.3.1"
@@ -33,14 +34,14 @@ Next, it's necessary to disable Rosetta if you have it installed. This [Apple Su
 1. Uninstall Homebrew by running the following:
 
 ```shell
-$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
-$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
 ```
 
 2. Reinstall Homebrew:
 
 ```Shell
-$ brew install /Users/tarides/Library/Caches/Homebrew/downloads/9e6d2a225119ad88cde6474d39696e66e4f87dc4a4d101243b91986843df691e--libev--4.33.arm64_monterey.bottle.tar.gz
+brew install /Users/tarides/Library/Caches/Homebrew/downloads/9e6d2a225119ad88cde6474d39696e66e4f87dc4a4d101243b91986843df691e--libev--4.33.arm64_monterey.bottle.tar.gz
 ```
 
 3. Check to see if Homebrew is in the correct location now. It should return what's shown below:

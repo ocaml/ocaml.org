@@ -17,7 +17,6 @@ This tutorial presents four techniques for debugging OCaml programs:
   OCaml program
 * [Using Thread Sanitizer to detect a data race](#detecting-a-data-race-with-thread-sanitizer) in an OCaml 5 program
 
-
 ## Tracing Functions Calls in the Toplevel
 
 The simplest way to debug programs in the toplevel is to follow the function
@@ -161,14 +160,17 @@ purpose formats are more suited to get the relevant information, than what can
 be output automatically by the generic pretty-printer used by the trace
 mechanism.
 
-Compiler builtins help display useful debugging messages. They indicate a location in the program's source. 
+Compiler builtins help display useful debugging messages. They indicate a location in the program's source.
 For example,
+
 ```ocaml
 match Message.unpack response with
 | Some y -> y
 | None -> (Printf.eprintf "Invalid message at %s" __LOC__; raise Invalid_argument)
 ```
+
 At compile time, the `__LOC__` builtin is substituted with its location in the program, described as a string `"File %S, line %d, characters %d-%d"`. File name, line number, start character and end character are also available through the `__POS__` builtin:
+
 ```ocaml
 match Message.unpack response with
 | Some y -> y
@@ -186,9 +188,10 @@ Compiler builtins are described in the
 
 We now give a quick tutorial for the OCaml debugger (`ocamldebug`).  Before
 starting, please note that
-- `ocamldebug` runs on `ocamlc` bytecode programs (it does not work on
+
+* `ocamldebug` runs on `ocamlc` bytecode programs (it does not work on
   native code executables), and
-- it does not work under native Windows ports of OCaml (but it runs
+* it does not work under native Windows ports of OCaml (but it runs
   under the Cygwin port).
 
 ### Launching the Debugger
@@ -206,6 +209,7 @@ let () =
   add_address "IRIA" "Rocquencourt";;
   print_string (find_address "INRIA"); print_newline ();;
 ```
+
 ```mdx-error
 val l : (string * string) list ref = {contents = [("IRIA", "Rocquencourt")]}
 val find_address : string -> string = <fun>
@@ -286,7 +290,6 @@ let rec assoc x = function
 
 The function that calls it is in module `Uncaught`, file `uncaught.ml`
 line 8, char 38:
-
 
 <!-- $MDX skip -->
 ```ocaml
@@ -393,7 +396,6 @@ From this back trace it should be clear that we receive a `Not_found`
 exception in `List.assoc` from the `Stdlib` when calling
 `find_address` on line 8.
 
-
 The environment variable `OCAMLRUNPARAM` also works when working on a
 program built with `dune`:
 
@@ -404,6 +406,7 @@ program built with `dune`:
  (modules uncaught)
 )
 ```
+
 ```
 OCAMLRUNPARAM=b dune exec ./uncaught.exe
 Fatal error: exception Not_found
@@ -411,7 +414,6 @@ Raised at Stdlib__List.assoc in file "list.ml", line 191, characters 10-25
 Called from Dune__exe__Uncaught.find_address in file "uncaught.ml" (inlined), line 3, characters 24-42
 Called from Dune__exe__Uncaught in file "uncaught.ml", line 8, characters 15-37
 ```
-
 
 ## Detecting a Data Race with Thread Sanitizer
 
@@ -424,6 +426,7 @@ report these.
 
 To install the TSan mode, create a dedicated TSan switch by running the
 following command (here we create a 5.2.0 switch):
+
 ```
 opam switch create 5.2.0+tsan ocaml-variants.5.2.0+options ocaml-option-tsan
 ```
@@ -435,11 +438,12 @@ Note: TSan is supported on all architectures with a native code
 compiler since OCaml 5.2.0.
 
 Troubleshooting:
-- If the above fails during installation of `conf-unwind` with `No
+
+* If the above fails during installation of `conf-unwind` with `No
   package 'libunwind' found`, try setting the environment variable
   `PKG_CONFIG_PATH` to point to the location of `libunwind.pc`, for
   example, `PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig`
-- If the above fails with an error along the lines of
+* If the above fails with an error along the lines of
   `FATAL: ThreadSanitizer: unexpected memory mapping 0x61a1a94b2000-0x61a1a94ca000`,
   this is [a known issue with older versions of TSan](https://github.com/google/sanitizers/issues/1716)
   and can be addressed by reducing ASLR entropy by running
@@ -468,6 +472,7 @@ Next, it spawns two parallel `Domain`s `t1` and `t2` that both update
 the field `v.x`.
 
 Here is a corresponding `dune` file:
+
 ```dune
 (executable
  (name race)
@@ -477,6 +482,7 @@ Here is a corresponding `dune` file:
 
 If we compile and run the program using `dune` under a regular `5.2.0` switch the
 program appears to work:
+
 ```
 $ opam exec -- dune build ./race.exe
 $ opam exec -- dune exec ./race.exe
@@ -485,6 +491,7 @@ v.x is 11
 
 However, if we compile and run the program with Dune from the new
 `5.2.0+tsan` switch TSan warns us of a data race:
+
 ```
 $ opam switch 5.2.0+tsan
 $ opam exec -- dune build ./race.exe
@@ -521,9 +528,10 @@ this required no change to our `dune` file.
 
 The TSan report warns of a data race between two uncoordinated writes
 happening in parallel and prints a back trace for both:
-- The first back trace reports a write at `race.ml` in line
+
+* The first back trace reports a write at `race.ml` in line
   6 of `thread T4` and
-- the second back trace reports a previous write at
+* the second back trace reports a previous write at
   `race.ml` in line 5 of `thread T1`
 
 Looking again at our program, we realize that these two writes are in
@@ -545,6 +553,7 @@ let () =
 
 If we recompile and run our program with this change, it now completes
 without TSan warnings:
+
 ```
 $ opam exec -- dune build ./race.exe
 $ opam exec -- dune exec ./race.exe
@@ -555,6 +564,7 @@ The TSan instrumentation benefits from compiling programs with debug
 information, which happens by default under `dune`. To manually invoke
 the `ocamlopt` compiler under our `5.2.0+tsan` switch it is thus
 suffient to pass it the `-g` flag:
+
 ```
-$ ocamlopt -g -o race.exe -I +unix unix.cmxa race.ml
+ocamlopt -g -o race.exe -I +unix unix.cmxa race.ml
 ```

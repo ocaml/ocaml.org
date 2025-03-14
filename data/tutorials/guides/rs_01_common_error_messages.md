@@ -11,7 +11,9 @@ messages that are emitted by the OCaml compilers. Longer explanations
 are usually given in dedicated sections of this tutorial.
 
 ## Type Errors
+
 ### `This expression has type ... but is here used with type ...`
+
 When the type of an object is not compatible with the context in which
 it is used, it is frequent to obtain this kind of message:
 
@@ -21,6 +23,7 @@ Line 1, characters 5-8:
 Error: This expression has type float but an expression was expected of type
          int
 ```
+
 "This expression has type *X* but is here used with type *Y*" means that
 if the contents of the expression is isolated (2.5), its type is
 inferred as *X* (float). But the context, i.e. everything which is
@@ -32,6 +35,7 @@ More disturbing is the following message:
 ```text
 This expression has type my_type but is here used with type my_type
 ```
+
 This error happens often while testing some type definitions using the
 interactive toplevel.  In OCaml, it is perfectly legal
 to define a type with a name
@@ -54,6 +58,7 @@ Error: This expression has type my_type/1
          toplevel session. Some toplevel values still refer to old versions
          of this type. Did you try to redefine them?
 ```
+
 For the compiler, the second definition of my_type is totally
 independent from the first definition. So we have defined two types
 which have the same name. Since "a" was defined earlier, it belongs to
@@ -64,6 +69,7 @@ the same name for the same type in the same module, which is highly
 discouraged.
 
 ### `Warning: This optional argument cannot be erased`
+
 Functions with optional arguments must have at least one non-labelled
 argument. For instance, this is not OK:
 
@@ -75,16 +81,19 @@ Line 1, characters 9-14:
 Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
 val f : ?x:int -> ?y:int -> unit = <fun>
 ```
+
 The solution is simply to add one argument of type unit, like this:
 
 ```ocaml
 # let f ?(x = 0) ?(y = 0) () = print_int (x + y);;
 val f : ?x:int -> ?y:int -> unit -> unit = <fun>
 ```
+
 See the [Labels](/docs/labels) section for more details on
 functions with labelled arguments.
 
 ### `The type of this expression... contains type variables that cannot be generalized`
+
 This happens in some cases when the full type of an object is not known
 by the compiler when it reaches the end of the compilation unit (file)
 but for some reason it cannot remain polymorphic. Example:
@@ -93,6 +102,7 @@ but for some reason it cannot remain polymorphic. Example:
 # let x = ref None;;
 val x : '_weak1 option ref = {contents = None}
 ```
+
 triggers the following message during the compilation:
 
 ```text
@@ -106,6 +116,7 @@ Solution: help the compiler with a type annotation, like for instance:
 # let x : string option ref = ref None;;
 val x : string option ref = {contents = None}
 ```
+
 or:
 
 ```ocaml env=ref
@@ -130,6 +141,7 @@ using `x` later, the compiler can infer the type of `x`:
 # x := Some 0;;
 - : unit = ()
 ```
+
 Now `x` has a known type:
 
 ```ocaml env=ref
@@ -138,7 +150,9 @@ Now `x` has a known type:
 ```
 
 ## Pattern Matching Warnings and Errors
+
 ### `This pattern is unused`
+
 This warning should be considered as an error, since there is no reason
 to intentionally keep such code. It may happen when the programmer
 introduced a catch-all pattern unintentionally such as in the following
@@ -158,6 +172,7 @@ Only the first match will be used to evaluate the guard expression.
 (See manual section 11.5)
 val test_member : 'a -> 'a * 'a -> bool = <fun>
 ```
+
 Obviously, the programmer had a misconception of what OCaml's pattern
 matching is about. Remember the following:
 
@@ -178,7 +193,9 @@ will ever be tested. This leads to the following results:
 # test_member 1 (0, 1);;
 - : bool = false
 ```
+
 ### `This pattern-matching is not exhaustive`
+
 OCaml's pattern matching can check whether a set of patterns is
 exhaustive or not, based on the *type* only. So in the following
 example, the compiler doesn't know what range of ints the "mod" operator
@@ -190,12 +207,14 @@ let is_even x =
   | 0 -> true
   | 1 | -1 -> false
 ```
+
 A short solution without pattern matching would be:
 
 ```ocaml
 # let is_even x = x mod 2 = 0;;
 val is_even : int -> bool = <fun>
 ```
+
 In general, that kind of simplification is not possible and the best
 solution is to add a catch-all case which should never be reached:
 
@@ -209,7 +228,9 @@ val is_even : int -> bool = <fun>
 ```
 
 ## Problems Recompiling Valid Programs
+
 ### `x.cmi is not a compiled interface`
+
 When recompiling some old program or compiling a program from an
 external source that was not cleaned properly, it is possible to get
 this error message:
@@ -220,10 +241,11 @@ some_module.cmi is not a compiled interface
 
 It means that some_module.cmi is not valid according to the *current
 version* of the OCaml compiler. Most of the time, removing the old
-compiled files (*.cmi, *.cmo, *.cmx, ...) and recompiling is
+compiled files (*.cmi,*.cmo, *.cmx, ...) and recompiling is
 sufficient to solve this problem.
 
 ### `Warning: Illegal backslash escape in string`
+
 Recent versions of OCaml warn you against unprotected backslashes in
 strings since they should be doubled. Such a message may be displayed
 when compiling an older program, and can be turned off with the `-w x`

@@ -14,6 +14,7 @@ Official documentation for the modules of interest:
 the core library including the initially opened module Stdlib and Printf.
 
 ## Buffered Channels
+
 The normal way of opening a file in OCaml returns a **channel**. There
 are two kinds of channels:
 
@@ -21,6 +22,7 @@ are two kinds of channels:
 * channels that read from a file: type `in_channel`
 
 ### Writing
+
 For writing into a file, you would do this:
 
 1. Open the file to obtain an `out_channel`
@@ -36,6 +38,7 @@ Commonly used functions: `open_out`, `open_out_bin`, `flush`,
 Standard `out_channel`s: `stdout`, `stderr`
 
 ### Reading
+
 For reading data from a file you would do this:
 
 1. Open the file to obtain an `in_channel`
@@ -52,6 +55,7 @@ Commonly used functions: `open_in`, `open_in_bin`, `close_in`,
 Standard `in_channel`: `stdin`
 
 ### Seeking
+
 Whenever you write or read something to or from a channel, the current
 position changes to the next character after what you just wrote or
 read. Occasionally, you may want to skip to a particular position in the
@@ -59,6 +63,7 @@ file, or restart reading from the beginning. This is possible for
 channels that point to regular files, use `seek_in` or `seek_out`.
 
 ### Gotchas
+
 * Don't forget to flush your `out_channel`s if you want to actually
  write something. This is particularly important if you are writing
  to non-files such as the standard output (`stdout`) or a socket.
