@@ -257,9 +257,6 @@ teams:
     - name: Leo White
       github: lpw25
       role: Maintainer
-    - name: Thomas Refis
-      github: trefis
-      role: Maintainer
     - name: Jules Aguillon
       github: Julow
       role: Maintainer
