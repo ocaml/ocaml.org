@@ -22,7 +22,8 @@ We've provided a list of community-driven content below. When adding content to 
 - [The OCaml Planet](#ocaml-planet)
 - [Job Board](#content-job)
 - [Success Stories](#content-success-story)
-- [Academic and Industrial Users](#content-user)
+- [Academic Users](#content-academic-user)
+- [Industrial Users](#content-industrial-user)
 - [OCaml Books](#content-book)
 - [OCaml Cookbook Recipes](#content-cookbook)
 - [Recurring Events](#content-recurring-event)
@@ -104,13 +105,50 @@ The success stories should be structured in the following way:
 
 You can read [Ahref's Success Story](https://ocaml.org/success-stories/peta-byte-scale-web-crawler) for a good example.
 
-### <a name="content-user"></a>Add an Academic or Industrial User
+### <a name="content-academic-user"></a>Add an Academic or Industrial User
 
-> Contribute to the [Academic Users](https://ocaml.org/academic-users) and [Industrial Users](https://ocaml.org/industrial-users).
+> Contribute to the [Academic Users](https://ocaml.org/academic-users).
 
-Add a new industrial user by creating a new Markdown file in [data/industrial_users/](data/industrial_users/). For instance: [cryptosense.md](data/industrial_users/cryptosense.md).
+You can add a new academic user by creating a new Markdown file in [data/academic_institutions/](data/academic_institutions). When submitting an academic institution to our webpage, please structure the data as follows:
 
-You can add a new academic user by creating a new Markdown file in [data/academic_institutions/](data/academic_institutions). For instance: [cornell.md](data/academic_institutions/cornell.md).
+Information about the institution
+- **`name`**: The full name of the academic institution.  
+- **`description`**: A brief overview of the institution, including its background and key details.  
+- **`url`**: The official website of the institution.  
+- **`logo`**: A link to the institution’s logo image.  
+- **`continent`**: The continent where the institution is located.  
+
+A list of courses available at the institution. Each course entry must include:  
+- **`name`**: The full name of the course.  
+- **`acronym`**: The course code or identifier.  
+- **`url`**: A direct link to the course webpage.  
+
+Location
+- **`lat`**: The latitude of the institution’s location.  
+- **`long`**: The longitude of the institution’s location. 
+
+For instance: [cornell.md](data/academic_institutions/cornell.md).
+
+### <a name="content-industrial-user"></a>Add an Academic or Industrial User
+
+> Contribute to the [Industrial Users](https://ocaml.org/industrial-users).
+
+Add a new industrial user by creating a new Markdown file in [data/industrial_users/](data/industrial_users/). When submitting an industrial user to our webpage, please structure the data as follows:
+  
+Information about the organization
+- **`name`**: The full name of the organization.  
+- **`description`**: A brief overview of the organization, including its mission and key details.  
+- **`logo`**: A link to the organization’s logo image.  
+- **`url`**: The official website of the organization.  
+
+Locations  
+- A list of countries where the organization operates.  
+
+Additional Information  
+- **`consortium`**: Indicates whether the organization is part of a consortium (`true` or `false`).  
+- **`featured`**: Indicates whether the organization is highlighted as a featured entity (`true` or `false`). 
+
+For instance: [cryptosense.md](data/industrial_users/cryptosense.md).
 
 ### <a name="content-book"></a>Add a Book
 
