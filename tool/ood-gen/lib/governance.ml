@@ -1,5 +1,36 @@
 open Ocamlorg.Import
-open Data_intf.Governance
+
+type member = [%import: Data_intf.Governance.member] [@@deriving of_yaml, show]
+
+type contact_kind = [%import: Data_intf.Governance.contact_kind]
+[@@deriving show]
+
+let contact_kind_of_yaml = function
+  | `String "github" -> Ok GitHub
+  | `String "email" -> Ok Email
+  | `String "discord" -> Ok Discord
+  | `String "chat" -> Ok Chat
+  | x -> (
+      match Yaml.to_string x with
+      | Ok str ->
+          Error
+            (`Msg
+              ("\"" ^ str
+             ^ "\" is not a valid contact_kind! valid options are: github, \
+                email, discord, chat"))
+      | Error _ -> Error (`Msg "Invalid Yaml value"))
+
+let contact_kind_to_yaml = function
+  | GitHub -> `String "github"
+  | Email -> `String "email"
+  | Discord -> `String "discord"
+  | Chat -> `String "chat"
+
+type contact = [%import: Data_intf.Governance.contact]
+[@@deriving of_yaml, show]
+
+type dev_meeting = [%import: Data_intf.Governance.dev_meeting]
+[@@deriving of_yaml, show]
 
 type team_metadata = {
   id : string;
@@ -7,13 +38,16 @@ type team_metadata = {
   description : string;
   contacts : contact list;
   dev_meeting : dev_meeting option; [@default None] [@key "dev-meeting"]
-  members : Member.t list; [@default []]
+  members : member list; [@default []]
   subteams : team_metadata list; [@default []]
 }
-[@@deriving of_yaml, stable_record ~version:team]
+[@@deriving of_yaml, stable_record ~version:Data_intf.Governance.team]
 
 let team_of_yaml yml =
-  yml |> team_metadata_of_yaml |> Result.map team_metadata_to_team
+  yml |> team_metadata_of_yaml
+  |> Result.map team_metadata_to_Data_intf_Governance_team
+
+type team = [%import: Data_intf.Governance.team] [@@deriving show]
 
 type metadata = {
   teams : team list;
@@ -41,7 +75,4 @@ let teams = %a
 
 let working_groups = %a
 |}
-    (Fmt.brackets (Fmt.list pp_team ~sep:Fmt.semi))
-    t.teams
-    (Fmt.brackets (Fmt.list pp_team ~sep:Fmt.semi))
-    t.working_groups
+    (Fmt.Dump.list pp_team) t.teams (Fmt.Dump.list pp_team) t.working_groups

@@ -1,9 +1,15 @@
 open Ocamlorg.Import
-open Data_intf.Planet
+
+type entry = BlogPost of Blog.post | Video of Vid.t
+[@@deriving show { with_path = false }]
+
+let date_of_post = function
+  | BlogPost { date; _ } -> date
+  | Video { published; _ } -> published
 
 let all () =
   let external_posts =
-    Blog.Post.all () |> List.map (fun (p : Data_intf.Blog.Post.t) -> BlogPost p)
+    Blog.Post.all () |> List.map (fun (p : Blog.post) -> BlogPost p)
   in
   let videos =
     Video.all () |> List.map (fun (v : Data_intf.Video.t) -> Video v)
@@ -17,8 +23,7 @@ let template () =
 include Data_intf.Planet
 let all = %a
 |ocaml}
-    (Fmt.brackets (Fmt.list pp_entry ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp_entry) (all ())
 
 module GlobalFeed = struct
   let feed_authors (source : Data_intf.Blog.source) authors =
@@ -99,7 +104,7 @@ module GlobalFeed = struct
              ~content:(Syndic.Atom.Html (None, content))
              ())
 
-  let entry_of_post (post : Data_intf.Blog.Post.t) =
+  let entry_of_post (post : Blog.post) =
     let content = Syndic.Atom.Html (None, post.body_html) in
     let url = Uri.of_string post.source.url in
     let source : Syndic.Atom.source =

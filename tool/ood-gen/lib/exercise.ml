@@ -1,4 +1,16 @@
-open Data_intf.Exercise
+type difficulty = [%import: Data_intf.Exercise.difficulty] [@@deriving show]
+
+let of_string = function
+  | "beginner" -> Ok Beginner
+  | "intermediate" -> Ok Intermediate
+  | "advanced" -> Ok Advanced
+  | s -> Error (`Msg ("Unknown difficulty type: " ^ s))
+
+let difficulty_of_yaml = function
+  | `String s -> of_string s
+  | _ -> Error (`Msg "Expected a string for difficulty type")
+
+type t = [%import: Data_intf.Exercise.t] [@@deriving show]
 
 type metadata = {
   title : string;
@@ -62,5 +74,4 @@ let template () =
 include Data_intf.Exercise
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())

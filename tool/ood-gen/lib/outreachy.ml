@@ -1,4 +1,5 @@
-open Data_intf.Outreachy
+type project = [%import: Data_intf.Outreachy.project] [@@deriving of_yaml, show]
+type t = [%import: Data_intf.Outreachy.t] [@@deriving of_yaml, show]
 
 let modify_project (p : project) =
   {
@@ -18,5 +19,4 @@ let template () =
 include Data_intf.Outreachy
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())

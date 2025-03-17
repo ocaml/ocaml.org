@@ -12,7 +12,7 @@ prerequisite_tutorials:
 ## Introduction
 
 Sequences are very much like lists. However, from a pragmatic perspective, one
-should imagine they may be infinite. That's the key intuition to understanding
+should imagine they can be either finite or infinite. That's the key intuition to understanding
 and using sequences. To achieve this, sequence elements are computed on demand
 and not stored in memory. Perhaps more frequently, sequences also allow for
 reducing memory consumption from linear to constant space
@@ -23,7 +23,7 @@ Still in the intro: for people familiar with Python, I believe it would be very 
 
 One way to look at a value of type `'a Seq.t` is to consider it as a list, but it contains
 a twist when it's not empty: its tail is frozen. To understand this analogy,
-consider how sequences are defined in the standard library:
+consider how sequences are defined in the Standard Library:
 
 ```ocaml
 type 'a node =
@@ -68,7 +68,22 @@ writing `fun _ -> a` or `fun () -> a`. The latter function is called a
 [_thunk_](https://en.wikipedia.org/wiki/Thunk). Using this terminology, `Seq.t`
 values are thunks. With the analogy used earlier, `a` is frozen in its thunk.
 
-Here is how to build seemingly infinite sequences of integers:
+## Constructing Sequences
+
+With this understanding, we can manually construct a sequence like so:
+
+``` ocaml
+let my_seq  =
+  fun () ->
+  Seq.Cons (1, fun () -> Seq.Cons (2, fun () -> Seq.Cons (3, fun () -> Seq.Nil)))
+```
+
+**Note:** The second component of each `Seq.Con`'s tuple is a function. This has
+the effect of providing a means of acquiring a value rather than providing a
+value directly.
+
+We can also construct sequences using functions. Here is how to build an
+infinite sequence of integers:
 
 ```ocaml
 # let rec ints n : int Seq.t = fun () -> Seq.Cons (n, ints (n + 1));;
@@ -77,12 +92,16 @@ val ints : int -> int Seq.t = <fun>
 
 The function `ints n` looks as if building the infinite sequence `(n; n + 1; n +
 2; n + 3;...)`. In reality, since machine integers have bounds, the sequence
-isn't indefinitely increasing. When reaching `max_int`, it will circle
+isn't indefinitely increasing. For technical reasons, when `max_int` is reached, it will circle
 down to `min_int`.
 
-The OCaml standard library contains a module on sequences called
-[`Seq`](/releases/5.0/api/Seq.html). It contains a `Seq.iter` function, which
-has the same behaviour as `List.iter`. Writing this:
+The OCaml Standard Library contains a module for sequences called
+[`Seq`](/releases/api/Seq.html). It contains `Seq.int`, which we implemented above.
+
+## Iterating Over Sequences
+
+The OCaml Standard Library also contains a `Seq.iter` function, which has the
+same behavior as `List.iter`. Writing this:
 
 ```ocaml
 # Seq.iter print_int (ints 0);;
@@ -96,7 +115,7 @@ loop without any output:
 # Seq.iter ignore (ints 0);;
 ```
 
-The key point is: it doesn't leak memory. This example is running in constant
+The key point is that it doesn't leak memory. This example runs in constant
 space. It is effectively nothing more than an infinite loop, which can be
 confirmed by monitoring the space consumption of the program and by noticing
 that it spins forever without crashing. Whereas a version of this with a list
@@ -104,9 +123,9 @@ that it spins forever without crashing. Whereas a version of this with a list
 proportional to the running time, and thus would crash by running out of memory
 pretty quickly.
 
-## Example
+## Taking Parts of a Sequence
 
-The `Seq` module of the OCaml standard library contains the definition of the
+The `Seq` module of the OCaml Standard Library contains the definition of the
 function `Seq.take`, which returns a specified number of elements from the
 beginning of a sequence. Here is a simplified implementation:
 
@@ -124,7 +143,7 @@ let rec take n seq () =
 `seq` contains less than `n` elements, an identical sequence is returned. In
 particular, if `seq` is empty, or `n` is negative, an empty sequence is returned.
 
-Observe the first line of `take`. It is the common pattern for recursive
+Observe the first line of our `take` function. It is the common pattern for recursive
 functions over sequences. The last two parameters are:
 * a sequence called `seq`
 * a `unit` value
@@ -145,6 +164,8 @@ This can be used to print integers without looping forever, as shown previously:
  41; 42]
 ```
 
+## Filtering a Sequence
+
 The `Seq` module also has a function `Seq.filter`:
 
 ```ocaml
@@ -158,14 +179,14 @@ Using `Seq.filter`, taking inspiration from the [trial division](https://en.wiki
 
 ```ocaml
 let rec trial_div seq () = match seq () with
-  | Seq.Cons (m, seq) -> Seq.Cons (m, trial_div (Seq.filter (fun n -> n mod m > 0) seq))
-  | seq -> seq
+  | Seq.Cons (m, seq_rest) -> Seq.Cons (m, trial_div (Seq.filter (fun n -> n mod m > 0) seq_rest))
+  | Seq.Nil -> Seq.Nil
 let primes = Seq.ints 2 |> trial_div;;
 val trial_div : int Seq.t -> int Seq.t = <fun>
 val primes : int Seq.t = <fun>
 ```
 
-For instance, here is the list of 100 first prime numbers:
+For instance, here is a list of 100 first prime numbers:
 
 ```ocaml
 # primes |> Seq.take 100 |> List.of_seq;;
@@ -179,11 +200,31 @@ For instance, here is the list of 100 first prime numbers:
  509; 521; 523; 541]
 ```
 
-The function `trial_div` is recursive in OCaml and common sense. It is defined
-using the `rec` keyword and calls itself. However, some call that kind of
-function [corecursive](https://en.wikipedia.org/wiki/Corecursion). This word is
-used to emphasise that, although it may not terminate, it can indefinitely
-produce valid output.
+The function `trial_div` is recursive in OCaml and can be understood if we break
+it down into its constituent parts. It is defined using the `rec` keyword, allowing the
+function to call itself. For each loop in the recursive call, it pattern-matches
+on either `Seq.Cons (m, seq)` or the end of the sequence, `Seq.Nil`.
+
+If it matches on the first branch `Seq.Cons (m, seq)`, we filter the
+remaining sequence of all integers that are divisible by `m` before recursively
+calling `trial_div` on the filtered sequence. This branch is matched on until we
+reach the end of the sequence for every recursive call.
+
+So far, we recursively traveled down our sequence until we reached the 100th
+prime number. Next, we retrace our steps up the recursive trail, wherein we
+construct our result by calling `Seq.Cons` on `m` and the previously constructed
+filtered sequence beginning with `Seq.Nil`.
+
+**Side Note**: It may be interesting to learn that `trial_div`, while it can
+colloquially be called a recursive, is an example of a kind of recursion called
+[corecursion](https://en.wikipedia.org/wiki/Corecursion). Corecursion differs
+from recursion in that it constructs results incrementally rather than consuming
+it's input incrementally. Unlike traditional recursion, which works towards a
+base case, corecursive functions must indefinitely produce values as a stream. The `trial_div` function is corecursive
+because it does not immediately compute the complete sequence of primes. Instead, it
+produces prime numbers on-demand, filtering and deferring further computation until
+more elements are requested. This allows the sequence to be processed
+incrementally rather than requiring a complete traversal upfront.
 
 ## Unfolding Sequences
 
@@ -193,10 +234,11 @@ instance:
 * `Seq.map`
 * `Seq.fold_left`
 
-All those are also available for [`Array`](/manual/api/Array.html), `List`, and `Set` and behave
-essentially the same. Observe that there is no `fold_right` function. Since
-OCaml 4.11, there is something which isn't (yet) available on other types:
-`unfold`. Here is how it is implemented:
+All of these kinds of higher-order functions are also available for
+[`Array`](/manual/api/Array.html), `List`, and `Set` and behave essentially the
+same. Observe that there is no `fold_right` function. Since OCaml 4.11, there is
+something which isn't (yet) available on other types: `unfold`. Here is how it
+is implemented:
 
 ```ocaml
 let rec unfold f x () = match f x with
@@ -212,7 +254,9 @@ val unfold : ('a -> ('b * 'a) option) -> 'a -> 'b Seq.t = <fun>
 
 Unlike previously mentioned iterators, `Seq.unfold` does not have a sequence
 parameter, but a sequence result. `unfold` provides a general means to build
-sequences. The result returned by `Seq.unfold f x` is the sequence built by accumulating the results of successive calls to `f` until it returns `None`. This is:
+sequences. The result returned by `Seq.unfold f x` is the sequence built by
+accumulating the results of successive calls to `f` until it returns `None`.
+This is:
 
 ```
 (fst p₀, fst p₁, fst p₂, fst p₃, fst p₄, ...)
@@ -228,8 +272,7 @@ fairly compact way:
 val ints : int -> int Seq.t = <fun>
 ```
 
-
-As a fun fact, one should observe `map` over sequences can be implemented using
+As a fun fact, we can observe that a `map` over sequences can be implemented using
 `Seq.unfold`. Here is how to write it:
 
 ```ocaml
@@ -237,7 +280,7 @@ As a fun fact, one should observe `map` over sequences can be implemented using
 val map : ('a -> 'b) -> 'a Seq.t -> 'b Seq.t = <fun>
 ```
 
-Here is a quick check:
+We can check our `map` function by applying a square root function to a sequence:
 
 ```ocaml
 # Seq.ints 0 |> map (fun x -> x * x) |> Seq.take 10 |> List.of_seq;;
@@ -247,20 +290,39 @@ Here is a quick check:
 The function `Seq.uncons` returns the head and tail of a sequence if it is not
 empty. Otherwise, it returns `None`.
 
-Using this function:
+### Reading a File with `Seq.Unfold`
+
+For the next example, we will demonstrate the versatility of `Seq.unfold` by
+using it to read a file.
+
+Before doing so, let's define a function that reads a file's line from a
+provided channel, with the type signature needed by `Seq.unfold`.
 
 ```ocaml
-let input_line_opt chan =
-  try Some (input_line chan, chan)
-  with End_of_file -> None
+# let input_line_opt chan =
+    try Some (In_Channel.input_line chan, chan)
+    with End_of_file -> None;;
+val input_line_opt : in_channel -> (string * in_channel) option = <fun>
 ```
 
-It is possible to read a file using `Seq.unfold`:
+**Note**: To make the code in the next section work, create a file named "README.md" and add dummy content. We use a file generated by the following command:
+
+``` shell
+cat > README.md <<EOF
+This is the first line.
+This is the second line.
+EOF
+```
+
+Finally, let's read the file's contents using `Seq.unfold`. Mind that `cin` is a local definition.
 
 ```ocaml
-let cin = open_in "README.md" in
-cin |> Seq.unfold input_line_opt |> Seq.iter print_endline;
-close_in cin
+# let cin = open_in "README.md" in
+    cin |> Seq.unfold In_channel.input_line_opt |> Seq.iter print_endline;
+    close_in cin;;
+This is the first line.
+This is the second line.
+- : unit = ()
 ```
 
 <!--
@@ -332,7 +394,13 @@ At that point, Seq.cons has not been introduced yet, so the reader only knows fu
 Stack overflow during evaluation (looping recursion?).
 ```
 
-This definition is behaving as expected (spot the differences, there are four): <!-- How do you count four? -->
+This definition is behaving as expected (spot the differences, there are four): <!-- How do you count four?
+
+1. `Seq.Cons` vs `Seq.cons`
+2. Input is a tuple vs being a pair of parameters
+3. Possesses a Unit value parameter
+4. ?
+-->
 
 ```ocaml
 # let rec fibs m n () = Seq.Cons (m, fibs n (n + m));;
@@ -351,8 +419,7 @@ the former definition, the application is complete because `fibs` is provided
 with all the arguments it expects. In the latter definition, the application is
 partial because the `()` argument is missing. Since evaluation is
 [eager](https://en.wikipedia.org/wiki/Evaluation_strategy#Eager_evaluation) in
-OCaml, in the former case, evaluation of the recursive call is triggered and a
-non-terminating looping occurs. In contrast, in the latter case, the partially
+OCaml, in the former case evaluation of the recursive call is triggered again and again, without ever terminating (this is what "looping recursion" in the error message refers to). In the latter case, the partially
 applied function is immediately returned as a
 [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
 
@@ -415,7 +482,7 @@ There used to be a module called [`Stream`](/releases/4.13/api/Stream.html) in
 the OCaml standard library. It was
 [removed](https://github.com/ocaml/ocaml/pull/10482) in 2021 with the release of
 OCaml 4.14. Beware books and documentation written before may still mention it.
-<!-- 
+<!--
 ## Exercises
 
 * [Streams](/problems#100)

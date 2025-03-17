@@ -1,4 +1,4 @@
-open Data_intf.Academic_testimonial
+type t = [%import: Data_intf.Academic_testimonial.t] [@@deriving of_yaml, show]
 
 let all () = Utils.yaml_sequence_file of_yaml "academic-testimonials.yml"
 
@@ -7,5 +7,4 @@ let template () =
 include Data_intf.Academic_testimonial
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())

@@ -1,4 +1,14 @@
-open Data_intf.Release
+type kind = [%import: Data_intf.Release.kind] [@@deriving show]
+
+let kind_of_string = function
+  | "compiler" -> Ok `Compiler
+  | s -> Error (`Msg ("Unknown release type: " ^ s))
+
+let kind_of_yaml = function
+  | `String s -> kind_of_string s
+  | _ -> Error (`Msg "Expected a string for release type")
+
+type t = [%import: Data_intf.Release.t] [@@deriving show]
 
 type metadata = {
   kind : kind;
@@ -76,5 +86,4 @@ let all = %a
 let latest = %a
 let lts = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    all pp latest pp lts
+    (Fmt.Dump.list pp) all pp latest pp lts

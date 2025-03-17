@@ -1,4 +1,4 @@
-open Data_intf.News
+type t = [%import: Data_intf.News.t] [@@deriving show]
 
 type metadata = {
   title : string;
@@ -31,8 +31,7 @@ let template () =
   Format.asprintf {|
 include Data_intf.News
 let all = %a
-|}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+|} (Fmt.Dump.list pp)
     (all ())
 
 module RssFeed = struct

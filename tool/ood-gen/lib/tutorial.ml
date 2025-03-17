@@ -1,5 +1,40 @@
 open Ocamlorg.Import
-open Data_intf.Tutorial
+
+type section = [%import: Data_intf.Tutorial.section] [@@deriving show]
+
+let section_of_string = function
+  | "getting-started" -> Ok GetStarted
+  | "language" -> Ok Language
+  | "platform" -> Ok Platform
+  | "guides" -> Ok Guides
+  | s -> Error (`Msg ("Unknown section: " ^ s))
+
+type toc = [%import: Data_intf.Tutorial.toc] [@@deriving show]
+
+type contribute_link = [%import: Data_intf.Tutorial.contribute_link]
+[@@deriving of_yaml, show]
+
+type banner = [%import: Data_intf.Tutorial.banner] [@@deriving of_yaml, show]
+
+type external_tutorial = [%import: Data_intf.Tutorial.external_tutorial]
+[@@deriving of_yaml, show]
+
+type recommended_next_tutorials =
+  [%import: Data_intf.Tutorial.recommended_next_tutorials]
+[@@deriving of_yaml, show]
+
+type prerequisite_tutorials =
+  [%import: Data_intf.Tutorial.prerequisite_tutorials]
+[@@deriving of_yaml, show]
+
+type search_document_section =
+  [%import: Data_intf.Tutorial.search_document_section]
+[@@deriving of_yaml, show]
+
+type search_document = [%import: Data_intf.Tutorial.search_document]
+[@@deriving show]
+
+type t = [%import: Data_intf.Tutorial.t] [@@deriving show]
 
 type metadata = {
   id : string;
@@ -55,7 +90,7 @@ let decode (fpath, (head, body_md)) =
   in
   let section =
     List.nth (String.split_on_char '/' fpath) 1
-    |> Section.of_string
+    |> section_of_string
     |> Result.get_ok ~error:(fun (`Msg msg) ->
            Exn.Decode_error (fpath ^ ":" ^ msg))
   in
@@ -118,7 +153,6 @@ include Data_intf.Tutorial
 let all = %a
 let all_search_documents = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
-    (Fmt.brackets (Fmt.list pp_search_document ~sep:Fmt.semi))
+    (Fmt.Dump.list pp) (all ())
+    (Fmt.Dump.list pp_search_document)
     (TutorialSearch.all ())

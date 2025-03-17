@@ -1,4 +1,5 @@
-open Data_intf.Paper
+type link = [%import: Data_intf.Paper.link] [@@deriving of_yaml, show]
+type t = [%import: Data_intf.Paper.t] [@@deriving show]
 
 type metadata = {
   title : string;
@@ -24,6 +25,5 @@ let template () =
   Format.asprintf {|
 include Data_intf.Paper
 let all = %a
-|}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+|} (Fmt.Dump.list pp)
     (all ())

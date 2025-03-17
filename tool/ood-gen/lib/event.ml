@@ -1,4 +1,26 @@
-open Data_intf.Event
+type event_type = [%import: Data_intf.Event.event_type] [@@deriving show]
+
+let event_type_of_string = function
+  | "meetup" -> Ok Meetup
+  | "conference" -> Ok Conference
+  | "seminar" -> Ok Seminar
+  | "hackathon" -> Ok Hackathon
+  | "retreat" -> Ok Retreat
+  | s -> Error (`Msg ("Unknown event type: " ^ s))
+
+let event_type_of_yaml = function
+  | `String s -> event_type_of_string s
+  | _ -> Error (`Msg "Expected a string for difficulty type")
+
+type location = [%import: Data_intf.Event.location] [@@deriving of_yaml, show]
+
+type recurring_event = [%import: Data_intf.Event.recurring_event]
+[@@deriving of_yaml, show]
+
+type utc_datetime = [%import: Data_intf.Event.utc_datetime]
+[@@deriving of_yaml, show]
+
+type t = [%import: Data_intf.Event.t] [@@deriving show]
 
 let recurring_event_all () : recurring_event list =
   Utils.yaml_sequence_file recurring_event_of_yaml "events/recurring.yml"
@@ -128,7 +150,5 @@ include Data_intf.Event
 let recurring_event_all = %a
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp_recurring_event ~sep:Fmt.semi))
-    (recurring_event_all ())
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp_recurring_event)
+    (recurring_event_all ()) (Fmt.Dump.list pp) (all ())

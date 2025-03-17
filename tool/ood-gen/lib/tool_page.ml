@@ -1,5 +1,11 @@
 open Ocamlorg.Import
-open Data_intf.Tool_page
+
+type toc = [%import: Data_intf.Tool_page.toc] [@@deriving of_yaml, show]
+
+type contribute_link = [%import: Data_intf.Tool_page.contribute_link]
+[@@deriving of_yaml, show]
+
+type t = [%import: Data_intf.Tool_page.t] [@@deriving show]
 
 type metadata = {
   id : string;
@@ -45,5 +51,4 @@ let template () =
 include Data_intf.Tool_page
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())

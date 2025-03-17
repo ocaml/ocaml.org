@@ -1,4 +1,4 @@
-open Data_intf.Changelog
+type t = [%import: Data_intf.Changelog.t] [@@deriving of_yaml, show]
 
 type metadata = {
   title : string;
@@ -103,5 +103,4 @@ let template () =
 include Data_intf.Changelog
 let all = %a
 |ocaml}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())

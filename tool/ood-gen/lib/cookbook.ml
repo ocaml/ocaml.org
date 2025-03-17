@@ -1,4 +1,12 @@
-open Data_intf.Cookbook
+type category = [%import: Data_intf.Cookbook.category] [@@deriving show]
+type task = [%import: Data_intf.Cookbook.task] [@@deriving show]
+
+type code_block_with_explanation =
+  [%import: Data_intf.Cookbook.code_block_with_explanation]
+[@@deriving show]
+
+type package = [%import: Data_intf.Cookbook.package] [@@deriving of_yaml, show]
+type t = [%import: Data_intf.Cookbook.t] [@@deriving show]
 
 type task_metadata = {
   title : string;
@@ -128,9 +136,5 @@ let top_categories = %a
 let tasks = %a
 let all = %a
 |ocaml}
-    (Fmt.brackets (Fmt.list pp_category ~sep:Fmt.semi))
-    top_categories
-    (Fmt.brackets (Fmt.list pp_task ~sep:Fmt.semi))
-    tasks
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp_category)
+    top_categories (Fmt.Dump.list pp_task) tasks (Fmt.Dump.list pp) (all ())

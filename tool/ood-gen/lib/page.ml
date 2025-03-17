@@ -1,4 +1,4 @@
-open Data_intf.Page
+type t = [%import: Data_intf.Page.t] [@@deriving show]
 
 type metadata = {
   title : string;
@@ -26,6 +26,5 @@ let template () =
   Format.asprintf {|
 include Data_intf.Page
 let all = %a
-|}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+|} (Fmt.Dump.list pp)
     (all ())

@@ -1,4 +1,4 @@
-open Data_intf.Code_examples
+type t = [%import: Data_intf.Code_examples.t] [@@deriving show]
 
 let all () =
   Utils.read_from_dir "code_examples/*.ml"
@@ -11,5 +11,4 @@ let template () =
 include Data_intf.Code_examples
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())

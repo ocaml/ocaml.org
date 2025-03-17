@@ -1,4 +1,4 @@
-open Data_intf.Industrial_user
+type t = [%import: Data_intf.Industrial_user.t] [@@deriving show]
 
 type metadata = {
   name : string;
@@ -29,5 +29,4 @@ let template () =
 include Data_intf.Industrial_user
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    (all ())
+    (Fmt.Dump.list pp) (all ())

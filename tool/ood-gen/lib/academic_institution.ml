@@ -1,5 +1,3 @@
-open Data_intf.Academic_institution
-
 type course_metadata = {
   name : string;
   acronym : string option;
@@ -14,6 +12,18 @@ type course_metadata = {
   video_recordings : bool option;
 }
 [@@deriving of_yaml]
+
+module Ptime = struct
+  include Ptime
+
+  let pp fmt t =
+    Format.pp_print_string fmt "(Ptime.of_rfc3339 \"";
+    Ptime.pp_rfc3339 () fmt t;
+    Format.pp_print_string fmt
+      "\" |> function Ok (t, _, _) -> t | Error _ -> failwith \"RFC 3339\")"
+end
+
+type course = [%import: Data_intf.Academic_institution.course] [@@deriving show]
 
 let course_metadata_to_course ~modify_last_check (c : course_metadata) : course
     =
@@ -47,6 +57,9 @@ let course_of_yaml yaml =
     Ok (course_metadata_to_course ~modify_last_check metadata)
   with Failure msg -> Error (`Msg msg)
 
+type location = [%import: Data_intf.Academic_institution.location]
+[@@deriving of_yaml, show]
+
 type metadata = {
   name : string;
   description : string;
@@ -59,9 +72,15 @@ type metadata = {
   image : string option;
   alternate_logo : string option;
 }
-[@@deriving of_yaml, stable_record ~version:t ~add:[ body_md; body_html; slug ]]
+[@@deriving
+  of_yaml,
+    stable_record ~version:Data_intf.Academic_institution.t
+      ~add:[ body_md; body_html; slug ]]
 
-let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.name)
+type t = [%import: Data_intf.Academic_institution.t] [@@deriving show]
+
+let of_metadata m =
+  metadata_to_Data_intf_Academic_institution_t m ~slug:(Utils.slugify m.name)
 
 let decode (fpath, (head, body_md)) =
   let metadata =

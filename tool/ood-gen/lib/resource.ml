@@ -1,4 +1,4 @@
-open Data_intf.Resource
+type t = [%import: Data_intf.Resource.t] [@@deriving of_yaml, show]
 
 let all () = Utils.yaml_sequence_file of_yaml "resources.yml"
 
@@ -10,7 +10,5 @@ include Data_intf.Resource
 let all = %a
 let featured = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
-    all_resources
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+    (Fmt.Dump.list pp) all_resources (Fmt.Dump.list pp)
     (all_resources |> List.filter (fun (r : t) -> r.featured = true))
