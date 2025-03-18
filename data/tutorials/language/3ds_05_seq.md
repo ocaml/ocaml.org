@@ -73,10 +73,12 @@ values are thunks. With the analogy used earlier, `a` is frozen in its thunk.
 With this understanding, we can manually construct a sequence like so:
 
 ``` ocaml
-# let my_seq  =
-    fun () ->
-      Seq.Cons (1, fun () -> Seq.Cons (2, fun () -> Seq.Cons (3, fun () -> Seq.Nil)))
-val my_seq : unit -> int Seq.node = <fun>
+# let seq_123  =
+    fun () -> Seq.Cons (1,
+      fun () -> Seq.Cons (2,
+        fun () -> Seq.Cons (3,
+          fun () -> Seq.Nil)))
+val seq_123 : unit -> int Seq.node = <fun>
 ```
 
 **Note:** The second component of each `Seq.Con`'s tuple is a function. This has
@@ -324,39 +326,33 @@ This is the second line.
 
 ## Consumers vs Producers
 
-Sequences can be viewed as functions that are either consumers or
-producers. This distinction refers to how functions interact with sequences in
-terms of evaluation strategy, specifically when and how they consume or produce
-elements.
+A function with a sequence parameter consumes it; it's a sequence consumer. A function with a sequence result produces it; it's a sequence producer. In both cases, consumption and production occurs on only one element before continuing with the rest.
 
 ### Sequence Consumers: Partially Applied Functions as Parameters
 
 A consumer is a function that **processes** a sequence, consuming its
 elements. Consumers should be written as higher-order functions that take a
-partially applied function as an argument. This allows for lazy evaluation,
+function parameter. This allows for deferred evaluation,
 ensuring that elements are fetched one at a time instead of forcing the entire
 sequence to be evaluated upfront.
 
-#### Example: `Seq.iter` (Consumer)
+#### Consumer Example: `Seq.iter`
 
 ```ocaml
-# let print_seq s = Seq.iter print_int s;;
+# let print_seq = Seq.iter print_int;;
 val print_seq : int Seq.t -> unit = <fun>
 
 ```
 
-In `print_seq`, `Seq.iter` takes a function (`print_int`) and applies it to each
-element as they are generated. If `Seq.iter` were to be fully applied, it would
-start consuming elements immediately. The consumer function (`print_int`) is a
-partially applied function that only takes one argument at a time.
+In `print_seq`, `Seq.iter` takes the function `print_int` and applies it to each
+element as they are generated. If `List.iter` was used, the whole integer list would be needed before displaying them starts.
 
-### Sequence Producers: Partially Applied Functions as Results
+### Sequence Producers: Functions as Results
 
-A producer is a function that **generates** a sequence. Producers return a
-partially applied function so that elements are only computed when needed.  This
-ensures lazy evaluation and avoids unnecessary computation.
+A producer is a function that **generates** a sequence. Producers return a function so that elements are only computed when needed.  This
+ensures defered evaluation and avoids unnecessary computation.
 
-#### Example: `Seq.unfold` (Producer)
+#### Producer Example: `Seq.unfold`
 
 ```ocaml
  # let naturals =
@@ -364,12 +360,7 @@ ensures lazy evaluation and avoids unnecessary computation.
 val naturals : int Seq.t = <fun>
 ```
 
-`Seq.unfold` returns a function of type `unit -> 'a Seq.node`, making it a lazy
-producer. Each time this function is called, a new element is produced.
-
-To recap, consumers fetch elements only when needed and producers delay
-computation until elements are requested. This pattern ensures that sequences
-remain lazy.
+This application of `Seq.unfold` has type  `unit -> int Seq.node`, making it a function, a deferred producer. Each time this function is called, a new element is produced.
 
 ## Be Aware of Seq.Cons vs Seq.cons
 
@@ -378,19 +369,15 @@ The `Seq` module in the OCaml Standard Library contains two version of
 behavior.
 
 We have already been introduced to the `Seq.Cons` variant constructor. As a
-refresher, below is the type declaration for the `Seq` module:
+refresher, here is how to display its definition:
 
  ``` ocaml
-# type +'a node =
-    | Nil
-    | Cons of 'a * 'a t
-  and 'a t = unit -> 'a node;;
-type 'a node = Nil | Cons of 'a * 'a t
-and 'a t = unit -> 'a node
+# #show Seq.node;;
+type 'a node = 'a Seq.node = Nil | Cons of 'a * 'a Seq.t
 
  ```
 
-The other version of "cons-ing" supported by the Standard Library is the
+The other version of "cons-ing" is the
 function `Seq.cons` (with a lowercase "c") with the following value declaration:
 
 ```ocaml
@@ -398,7 +385,7 @@ val cons : 'a -> 'a Seq.t -> 'a Seq.t
 ```
 
 From the signature, we gather that it is a function that takes two parameters, a
-value and a sequence. Its function declaration is the following:
+value and a sequence. Its definition is the following:
 
 ``` ocaml
  # let cons x next () = Cons (x, next);;
@@ -459,7 +446,7 @@ Stack overflow during evaluation (looping recursion?).
 
 This produces a never-ending recursion that leads to a stack overflow.
 
-### Figs with `Seq.Cons`
+### Fibs with `Seq.Cons`
 
 Next, lets define `fibs_v2` using the constructor `Seq.Cons`:
 
