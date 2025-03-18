@@ -411,11 +411,6 @@ Now that we have seen these two versions of "cons-ing" can construct the same
 sequence, it begs the question: what does the function `Seq.cons` provide us
 that the constructor `Seq.Cons` does not?
 
-In short, `Seq.Cons` provides a convenient means of recursively defining a
-sequence generator and a clumsy means to prepend a value to a sequence.
-Conversely, `Seq.cons` provides a convenient means to prepend a value to a
-sequence and an impossible means to recursively defining a sequence generator.
-
 Lets look at how confusing `Seq.Cons` and `Seq.con` can lead to unintended
 behavior.
 
@@ -441,7 +436,7 @@ val fibs : int -> int -> int Seq.t = <fun>
 # let res = ints_v1 0;;
 Stack overflow during evaluation (looping recursion?).
 
-```
+n```
 -->
 
 This produces a never-ending recursion that leads to a stack overflow.
@@ -497,6 +492,14 @@ If the distinction remains a mystery, take a moment to compare the inputs to the
 `Seq.Cons` constructor and `Seq.cons` function. They look deceptively similar,
 but one takes as input a value of type `'a * 'a t` and the other takes as input
 arguments of `'a` and `'a t`.
+
+### A Mental Model for `Seq.Cons` vs `Seq.cons`
+
+It useful to think of `Seq.Cons` and `Seq.cons` as accomplishing different
+tasks. `Seq.Cons` provides a convenient means of recursively defining a sequence
+generator and a clumsy means to prepend a value to a sequence.  Conversely,
+`Seq.cons` provides a convenient means to prepend a value to a sequence and an
+impossible means to recursively defining a sequence generator.
 
 ## Sequences for Conversions
 
