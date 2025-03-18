@@ -396,15 +396,18 @@ val cons : 'a -> 'a t -> unit -> 'a node = <fun>
 sequence:
 
  ``` ocaml
-# let base_cons = List.to_seq [2; 3; 4; 5; 6; 7; 8; 9]
+# let ints_from_2 = Seq.ints 2
+  let ints_a () = Seq.Cons (1, ints_from_2)  (* With Seq.Cons *)
+  let ints_b = Seq.cons 1 ints_from_2;;      (* With Seq.cons *)
+val ints_from_2 : int Seq.t = <fun>
+val ints_a : unit -> int Seq.node = <fun>
+val ints_b : int Seq.t = <fun>
 
-  let new_cons_v1 = (fun () -> Seq.Cons(1, base_cons))
-                                 |> List.of_seq            (* With Seq.Cons *)
+# ints_a |> Seq.take 3 |> List.of_seq;;
+- : int list = [1; 2; 3]
 
-  let new_cons_v2 = Seq.cons 1 base_cons |> List.of_seq;;  (* With Seq.cons *)
-val base_cons : int Seq.t = <fun>
-val new_cons_v1 : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
-val new_cons_v2 : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
+# ints_b |> Seq.take 3 |> List.of_seq;;
+- : int list = [1; 2; 3]
 ```
 
 Now that we have seen these two versions of "cons-ing" can construct the same
