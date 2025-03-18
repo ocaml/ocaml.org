@@ -77,11 +77,11 @@ With this understanding, we can manually construct a sequence like so:
     fun () -> Seq.Cons (1,
       fun () -> Seq.Cons (2,
         fun () -> Seq.Cons (3,
-          fun () -> Seq.Nil)))
+          fun () -> Seq.Nil)));;
 val seq_123 : unit -> int Seq.node = <fun>
 ```
 
-**Note:** The second component of each `Seq.Con`'s tuple is a function. This has
+**Note:** The second component of each `Seq.Cons`' tuple is a function. This has
 the effect of providing a means of acquiring a value rather than providing a
 value directly.
 
@@ -350,7 +350,7 @@ element as they are generated. If `List.iter` was used, the whole integer list w
 ### Sequence Producers: Functions as Results
 
 A producer is a function that **generates** a sequence. Producers return a function so that elements are only computed when needed.  This
-ensures defered evaluation and avoids unnecessary computation.
+ensures deferred evaluation and avoids unnecessary computation.
 
 #### Producer Example: `Seq.unfold`
 
@@ -378,7 +378,7 @@ type 'a node = 'a Seq.node = Nil | Cons of 'a * 'a Seq.t
  ```
 
 The other version of "cons-ing" is the
-function `Seq.cons` (with a lowercase "c") with the following value declaration:
+function `Seq.cons` (with a lowercase `c`) with the following value declaration:
 
 ```ocaml
 val cons : 'a -> 'a Seq.t -> 'a Seq.t
@@ -408,8 +408,7 @@ val new_cons_v2 : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
 ```
 
 Now that we have seen these two versions of "cons-ing" can construct the same
-sequence, it begs the question: what does the function `Seq.cons` provide us
-that the constructor `Seq.Cons` does not?
+sequence, it begs the question: what makes `Seq.cons` and `Seq.Cons` different?
 
 Lets look at how confusing `Seq.Cons` and `Seq.con` can lead to unintended
 behavior.
