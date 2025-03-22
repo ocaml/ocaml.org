@@ -9,6 +9,7 @@ category: "Tooling"
 An OCaml toplevel is a chat between the user and OCaml. The user writes OCaml code, and UTop evaluates it. This is why it is also called a Read-Eval-Print-Loop (REPL). Several OCaml toplevels exist, like `ocaml` and `utop`. We recommend using UTop, which is part of the [OCaml Platform](/docs/platform) toolchain.
 
 To run UTop, we use the `utop` command, which looks like this:
+
 ```shell
 $ utop
 ────────┬─────────────────────────────────────────────────────────────┬─────────
@@ -30,6 +31,7 @@ Lines ending with double semicolons trigger the parsing, type checking, and eval
 Code samples beginning with `#` are intended to be copied/pasted into UTop.
 
 For instance, consider the following code snippet:
+
 ```ocaml
 # 2 + 2;;
 - : int = 4
@@ -43,7 +45,7 @@ Commands beginning with a hash character `#`, such as `#quit` or `#help`, are no
 
 You're now ready to hack with UTop! If you hit any issue with the toplevel, don't hesitate to [ask on Discuss](https://discuss.ocaml.org/).
 
->  Note: The double semicolon `;;` is also a valid token in the OCaml syntax outside the toplevel. In OCaml source code, it is a [no-op](https://en.wikipedia.org/wiki/NOP_(code)), i.e., it does not trigger any behaviour, so it is ignored by the compiler. If your intention is to compile or interpret files as scripts, double semicolons can and should be avoided when writing in OCaml. Leaving them does not raise errors, but they are useless. The compiler tolerates them to allow copy-paste from UTop to a file without having to remove them.
+> Note: The double semicolon `;;` is also a valid token in the OCaml syntax outside the toplevel. In OCaml source code, it is a [no-op](https://en.wikipedia.org/wiki/NOP_(code)), i.e., it does not trigger any behaviour, so it is ignored by the compiler. If your intention is to compile or interpret files as scripts, double semicolons can and should be avoided when writing in OCaml. Leaving them does not raise errors, but they are useless. The compiler tolerates them to allow copy-paste from UTop to a file without having to remove them.
 
 ## Using Packages in UTop
 
@@ -66,6 +68,7 @@ Error: Unbound module Str
 # Str.quote {|"hello"|};;
 - : string = "\"hello\""
 ```
+
 **Tip**: UTop knows about the available libraries and completion works. Outside `utop` you can use `ocamlfind list` to display the complete list of libraries. Note that opam package may bundle several libraries and libraries may bundle several modules.
 
 ### Using a Pre-Processor Extension (PPX) in UTop

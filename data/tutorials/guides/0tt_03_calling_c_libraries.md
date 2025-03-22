@@ -7,6 +7,7 @@ category: "Tutorials"
 ---
 
 ## MiniGtk
+
 While the structure of lablgtk outlined in [Introduction to
 Gtk](https://v2.ocaml.org/learn/tutorials/introduction_to_gtk.html) seems perhaps
 over-complex, it's worth considering exactly why the author chose two
@@ -43,6 +44,7 @@ win#add lbl;;
 let () =
   Gtk.main ()
 ```
+
 I defined a single abstract type to cover all `GtkObject`s (and
 "subclasses" of this C structure). In the `Gtk` module you'll find this
 type definition:
@@ -82,6 +84,7 @@ gtk_label_new_c (value str)
     gtk_label_new (String_val (str)))));
  }
 ```
+
 Before explaining this function further, I'm going to take a step back
 and look at the hierarchy of our Gtk classes. I've chosen to reflect the
 actual Gtk widget hierarchy as closely as possible. All Gtk widgets are
@@ -141,6 +144,7 @@ class virtual widget ?show obj =
     initializer if show <> Some false then self#show
   end
 ```
+
 This class is considerably more complex. Let's look at the
 initialization code first:
 
@@ -266,6 +270,7 @@ class label ~text
       may (gtk_label_set_line_wrap obj) line_wrap
   end
 ```
+
 Although this class is bigger than the ones we've looked at up til now,
 it's really more of the same idea, *except* that this class isn't
 virtual. You can create instances of this class which means it finally
@@ -280,12 +285,14 @@ class label ~text ... () =
     inherit misc ... obj
   end
 ```
+
 (Pop quiz: what happens if we need to define a class which is both a
 base class from which other classes can be derived, and is also a
 non-virtual class of which the user should be allowed to create
 instances?)
 
 #### Wrapping Calls to C Libraries
+
 Now we'll look in more detail at actually wrapping up calls to C library
 functions. Here's a simple example:
 
@@ -303,6 +310,7 @@ gtk_label_set_text_c (value obj, value str)
   CAMLreturn (Val_unit);
 }
 ```
+
 Comparing the OCaml prototype for the external function call (in the
 comment) with the definition of the function we can see two things:
 
@@ -374,6 +382,7 @@ caml__roots_obj.ntables = 2;
 caml__roots_obj.tables [0] = &obj;
 caml__roots_obj.tables [1] = &str;
 ```
+
 And for `CAMLreturn (foo)`:
 
 ```C

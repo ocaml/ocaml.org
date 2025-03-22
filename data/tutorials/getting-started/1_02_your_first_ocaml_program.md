@@ -28,7 +28,6 @@ Once you've completed this tutorial, you should be able to:
 - Make a definition private
 - Download, install, and use a package from the open source repository
 
-
 How to work on several OCaml projects simultaneously is out of the scope of this tutorial. Currently (Summer 2023), this requires using opam local [_switches_](https://opam.ocaml.org/doc/man/opam-switch.html). This allows handling different sets of dependencies per project. Check the Best Practices document on [Dependencies](https://ocaml.org/docs/managing-dependencies) addressing that matter for detailed instructions. This document was written and tested using a global switch, which is created by default when installing opam and can be ignored in the beginning.
 -->
 
@@ -78,6 +77,7 @@ hello
 Unlike in Unix where they contain compiled binaries, directories `lib` and `bin` contain source code files, for libraries and programs, respectively. This is the convention used in many OCaml projects, including those created by Dune. All the built artifacts, and a copy of the sources, are stored in the `_build` directory. Do not edit anything in the `_build` directory, since any manual edits will be overwritten during subsequent builds.
 
 OCaml source files have the `.ml` extension, which stands for “Meta Language.” Meta Language (ML) is an ancestor of OCaml. This is also what the “ml” stands for in “OCaml.” Here is the content of the `bin/main.ml` file:
+
 ```ocaml
 let () = print_endline "Hello, World!"
 ```
@@ -87,11 +87,13 @@ The project-wide metadata is available in the `dune-project` file. It contains i
 Each directory containing source files that need to be built must contain a `dune` file describing how.
 
 This builds the project:
+
 ```shell
-$ opam exec -- dune build
+opam exec -- dune build
 ```
 
 This launches the executable it creates:
+
 ```shell
 $ opam exec -- dune exec hello
 Hello, World!
@@ -108,8 +110,8 @@ In the rest of this tutorial, we will make more changes to this project in order
 Before we dive in, note that you will typically want to use Dune's watch mode to continually compile and optionally restart your program. This ensures that the language server has the freshest possible data about your project, so your editor support will be top-notch. To use watch mode, just add the `-w` flag:
 
 ```shell
-$ opam exec -- dune build -w
-$ opam exec -- dune exec hello -w
+opam exec -- dune build -w
+opam exec -- dune exec hello -w
 ```
 
 ## Why Isn't There a Main Function?
@@ -123,11 +125,13 @@ However, it is common practice to single out a value that triggers all the side 
 ## Modules and the Standard Library, Cont'd
 
 Let's summarise what was said about modules in the [Tour of OCaml](/docs/tour-of-ocaml):
+
 - A module is a collection of named values.
 - Identical names from distinct modules don't clash.
 - The standard library is a collection of several modules.
 
 Modules aid in organising projects; concerns can be separated into isolated modules. This is outlined in the next section. Before creating a module ourselves, we'll demonstrate using a definition from a module of the standard library. Change the content of the file `bin/main.ml` to this:
+
 ```ocaml
 let () = Printf.printf "%s\n" "Hello, World!"
 ```
@@ -139,16 +143,19 @@ This replaces the function `print_endline` with the function `printf` from the `
 Each OCaml file defines a module, once compiled. This is how separate compilation works in OCaml. Each sufficiently standalone concern should be isolated into a module. References to external modules create dependencies. Circular dependencies between modules are not allowed.
 
 To create a module, let's create a new file named `lib/en.ml` containing this:
+
 ```ocaml
 let v = "Hello, world!"
 ```
 
 Here is a new version of the `bin/main.ml` file:
+
 ```ocaml
 let () = Printf.printf "%s\n" Hello.En.v
 ```
 
 Now execute the resulting project:
+
 ```shell
 $ opam exec -- dune exec hello
 Hello, world!
@@ -156,13 +163,14 @@ Hello, world!
 
 The file `lib/en.ml` creates the module named `En`, which in turn defines a string value named `v`. Dune wraps `En` into another module called `Hello`; this name is defined by the stanza `name hello` in the file `lib/dune`. The string definition is `Hello.En.v` from the `bin/main.ml` file.
 
-
 Dune can launch UTop to access the modules exposed by a project interactively. Here's how:
+
 ```shell
-$ opam exec -- dune utop
+opam exec -- dune utop
 ```
 
 Then, inside the `utop` toplevel, it is possible to inspect our `Hello.En` module:
+
 ```ocaml
 # #show Hello.En;;
 module Hello : sig val v : string end
@@ -171,6 +179,7 @@ module Hello : sig val v : string end
 Now exit `utop` with `Ctrl-D` or enter `#quit;;` before going to the next section.
 
 **Note**: If you add a file named `hello.ml` in the `lib` directory, Dune will consider this the whole `Hello` module and it will make `En` unreachable. If you want your module `En` to be visible, you need to add this in your `hello.ml` file:
+
 ```ocaml
 module En = En
 ```
@@ -179,6 +188,7 @@ module En = En
 ## Defining Module Interfaces
 
 UTop's `#show` command displays an [API](https://en.wikipedia.org/wiki/API#Libraries_and_frameworks) (in the software library sense): the list of definitions provided by a module. In OCaml, this is called a _module interface_. An `.ml` file defines a module. In a similar way, an `.mli` file defines a module interface. The module interface file corresponding to a module file must have the same base name, e.g., `en.mli` is the module interface for module `en.ml`. Create a `lib/en.mli` file with this content:
+
 ```ocaml
 val v : string
 ```
@@ -195,11 +205,13 @@ let v = hello ^ ", world!"
 ```
 
 Also edit the `bin/main.ml` file like this:
+
 ```ocaml
 let () = Printf.printf "%s\n" Hello.En.hello
 ```
 
 Trying to compile this fails.
+
 ```shell
 $ opam exec -- dune build
 File "hello/bin/main.ml", line 1, characters 30-43:
@@ -212,6 +224,7 @@ This is because we haven't changed `lib/en.mli`. Since it does not list
 `hello`, it is therefore private.
 
 ## Defining Multiple Modules in a Library
+
 Multiple modules can be defined in a single library. To demonstrate this,
 create a new file named `lib/es.ml` with the following content:
 
@@ -220,6 +233,7 @@ let v = "¡Hola, mundo!"
 ```
 
 And use the new module in `bin/main.ml`:
+
 ```ocaml
 let () = Printf.printf "%s\n" Hello.Es.v
 let () = Printf.printf "%s\n" Hello.En.v
@@ -241,8 +255,9 @@ A more detailed introduction to modules can be found at [Modules](/docs/modules)
 OCaml has an active community of open-source contributors. Most projects are available using the opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows you how to install and use a package from opam's open-source repository.
 
 To illustrate this, let's update our `hello` project to parse a string containing an [S-expression](https://en.wikipedia.org/wiki/S-expression) and print back to a string, both using [Sexplib](https://github.com/janestreet/sexplib). First, update the package list for opam by running `opam update`. Then, install the `Sexplib` package with this command:
+
 ```shell
-$ opam install sexplib
+opam install sexplib
 ```
 
 Next, define a string containing a valid S-expression in `bin/main.ml`. Parse
@@ -258,6 +273,7 @@ let exp1 = Sexplib.Sexp.of_string "(This (is an) (s expression))"
 (* Convert back to a string to print *)
 let () = Printf.printf "%s\n" (Sexplib.Sexp.to_string exp1)
 ```
+
 The string you entered representing a valid S-expression is parsed into
 an S-expression type, which is defined as either an `Atom` (string) or a `List`
 of S-expressions (it's a recursive type). Refer to the [Sexplib documentation](https://github.com/janestreet/sexplib) for more information.
@@ -274,6 +290,7 @@ Before the example will build and run, you need to tell Dune that it needs `Sexp
 **Fun fact**: Dune configuration files are S-expressions.
 
 Finally, execute as before:
+
 ```shell
 $ opam exec -- dune exec hello
 (This(is an)(s expression))
@@ -285,11 +302,13 @@ $ opam exec -- dune exec hello
 **Note**: This example was successfully tested on Windows using DkML 2.1.0. Run `dkml version` to see the version.
 
 Let's assume we'd like `hello` to display its output as if it was a list of strings in UTop: `["hello"; "using"; "an"; "opam"; "library"]`. To do that, we need a function turning a `string list` into a `string`, adding brackets, spaces, and commas. Instead of defining it ourselves, let's generate it automatically with a package. We'll use [`ppx_deriving`](https://github.com/ocaml-ppx/ppx_deriving). Here is how to install it:
+
 ```shell
-$ opam install ppx_deriving
+opam install ppx_deriving
 ```
 
 Dune needs to be told how to use it, which is done in the `lib/dune` file. Note that this is different from the `bin/dune` file that you edited earlier! Open up the `lib/dune` file, and edit it to look like this:
+
 ```lisp
 (library
  (name hello)
@@ -301,12 +320,14 @@ The line `(preprocess (pps ppx_deriving.show))` means that before compilation th
 The files `lib/en.ml` and `lib/en.mli` need to be edited, too:
 
 **`lib/en.mli`**
+
 ```ocaml
 val string_of_string_list : string list -> string
 val v : string list
 ```
 
 **`lib/en.ml`**
+
 ```ocaml
 let string_of_string_list = [%show: string list]
 
@@ -314,15 +335,18 @@ let v = String.split_on_char ' ' "Hello using an opam library"
 ```
 
 Let's read this from the bottom up:
+
 - `v` has the type `string list`. We're using `String.split_on_char` to turn a `string` into a `string list` by splitting the string on space characters.
 - `string_of_string_list` has type `string list -> string`. This converts a list of strings into a string, applying the expected formatting.
 
 Finally, you'll also need to edit `bin/main.ml`
+
 ```ocaml
 let () = print_endline Hello.En.(string_of_string_list v)
 ```
 
 Here is the result:
+
 ```shell
 $ opam exec -- dune exec hello
 ["Hello"; "using"; "an"; "opam"; "library"]
@@ -333,11 +357,13 @@ $ opam exec -- dune exec hello
 This section explains the purpose of the files and directories created by `dune init proj` which haven't been mentioned earlier.
 
 Along the history of OCaml, several build systems have been used. As of writing this tutorial (Summer 2023), Dune is the mainstream one, which is why it is used in the tutorial. Dune automatically extracts the dependencies between the modules from the files and compiles them in a compatible order. It only needs one `dune` file per directory where there is something to build. The three directories created by `dune init proj` have the following purposes:
+
 - `bin`: executable programs
 - `lib`: libraries
 - `test`: tests
 
 There will be a tutorial dedicated to Dune. This tutorial will present the many features of Dune, a few of which are listed here:
+
 - Running tests
 - Generating documentation
 - Producing packaging metadata (here in `hello.opam`)
@@ -348,30 +374,35 @@ The `_build` directory is where Dune stores all the files it generates. It can b
 ## Minimum Setup
 
 In this last section, let's create a bare minimum project, highlighting what's really needed for Dune to work. We begin by creating a fresh project directory:
+
 ```shell
-$ cd ..
-$ mkdir minimo
-$ cd minimo
+cd ..
+mkdir minimo
+cd minimo
 ```
 
 At the very least, Dune only needs two files: `dune-project` and one `dune` file. Here is how to write them with as little text as possible:
 
 `dune-project`
+
 ```lisp
 (lang dune 3.6)
 ```
 
 `dune`
+
 ```lisp
 (executable (name minimo))
 ```
 
 `minimo.ml`
+
 ```ocaml
 let () = print_endline "My name is Minimo"
 ```
 
 That's all! This is sufficient for Dune to build and execute the `minimo.ml` file.
+
 ```shell
 $ opam exec -- dune exec ./minimo.exe
 My name is Minimo

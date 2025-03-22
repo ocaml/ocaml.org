@@ -67,7 +67,6 @@ let iter_accounts t f = (* inspect the bank accounts *)
   Array.iteri (fun account balance -> f ~account ~balance) t;
 ```
 
-
 ## A Proposed Workflow
 
 Now if we want to see if this code is Multicore ready for OCaml 5.x,
@@ -79,16 +78,15 @@ we can utilise the following workflow:
 3. If TSan complains about data races, address the reported issue and
    go to step 2.
 
-
 ## Following the Workflow
 
 We will now go through the proposed workflow for our example
 application.
 
-
 ### Install the Instrumenting TSan Compiler (Step 0)
 
 TSan is included in OCaml starting from OCaml 5.2, but has to be explicitly enabled. You can install a TSan switch as follows (here we create a 5.2.0 switch named `5.2.0+tsan`):
+
 ``` shell
 opam switch create 5.2.0+tsan ocaml-variants.5.2.0+options ocaml-option-tsan
 ```
@@ -104,6 +102,7 @@ example, `PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig`
 For a start, we can test our library under parallel usage by running
 two `Domain`s in parallel. Here's a quick little test runner in
 `bank_test.ml` utilising this idea:
+
 ``` ocaml
 let num_accounts = 7
 
@@ -136,6 +135,7 @@ let _ =
 
 The runner creates a bank with 7 accounts containing $100
 each and then runs two loops in parallel with:
+
 - One transfering money with `money_shuffle`
 - Another one repeatedly printing the account balances with `print_balances`:
 
@@ -159,7 +159,6 @@ $ opam exec -- dune runtest
 From the above run under a regular `5.1.0` compiler, one may get the
 impression that everything is OK, as the balances sum to a total of
 $700 as expected, indicating that no money is lost.
-
 
 ### Run the Parallel Tests Under TSan (Step 2)
 
@@ -206,12 +205,12 @@ WARNING: ThreadSanitizer: data race (pid=26148)
 ```
 
 Notice we obtain a back trace of the two racing accesses, with
+
 - A write in one `Domain` coming from the array assignment in
-  `Bank.transfer` 
+  `Bank.transfer`
 - A read in another `Domain` coming from a call to
   `Stdlib.Array.iteri` to read and print the array entries in
   `print_balances`.
-
 
 ### Address the Reported Races and Rerun the Tests (Steps 3 and 2)
 
@@ -257,7 +256,6 @@ Fatal error: exception Sys_error("Mutex.lock: Resource deadlock avoided")
 How come we may hit a resource deadlock error when adding just two
 pairs of `Mutex.lock` and `Mutex.unlock` calls?
 
-
 ### Address the Reported Races and Rerun the Tests, Take 2 (Steps 3 and 2)
 
 Oh, wait! When raising an exception in `transfer`, we forgot to unlock
@@ -279,6 +277,7 @@ let transfer t ~src_acc ~dst_acc ~amount =
 ```
 
 We can now rerun our tests under TSan to confirm the fix:
+
 ``` shell
 $ opam exec -- dune runtest
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
@@ -298,16 +297,18 @@ $ opam exec -- dune runtest
 This works well and TSan no longer complains, so our little library is
 ready for OCaml 5.x parallelism, hurrah!
 
-
 ### Final Remarks and a Word of Warning
 
 The programming pattern of 'always-having-to-do-something-at-the-end'
 that we encountered with the missing `Mutex.unlock` is a recurring
 one for which OCaml offers a dedicate function:
+
 ```ocaml
  Fun.protect : finally:(unit -> unit) -> (unit -> 'a) -> 'a
 ```
+
 Using `Fun.protect`, we could have written our final fix as follows:
+
 ```ocaml
 let transfer t ~src_acc ~dst_acc ~amount =
   begin

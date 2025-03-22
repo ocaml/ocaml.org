@@ -31,6 +31,7 @@ these have been tested with the GNU fortran 90 compiler (gfort) and will
 not be until it has proven itself through some time.
 
 ### Step 1: Compile the Fortran Routine
+
 Where C/C++ have only one category of subroutine (the function), Fortran
 has two: the function and the subroutine. The function is the equivalent
 to a non-void C function in that it takes parameters and always returns
@@ -65,7 +66,7 @@ Reals are equivalent to C doubles and integers are equivalent to C
 longs. In addition, Fortran passes everything by reference so the
 corresponding C prototype for our gtd6 function is
 
-` int gtd6_(integer *iyd, real* sec, real* alt, real* glat, real* glong, real* dens, real* temp);`
+`int gtd6_(integer *iyd, real* sec, real* alt, real* glat, real* glong, real* dens, real* temp);`
 
 Note that its up to the caller to know that `dens` and `temp` are
 actually arrays. Failure to pass an array will cause a segmentation
@@ -73,6 +74,7 @@ violation since the gtd6_ function is using them as arrays (yet another
 reason OCaml shines).
 
 ### Step 2: Create the C Wrapper
+
 Because OCaml's foreign function interface is C based, it is necessary
 to create a C wrapper. To avoid difficulties in passing back arrays of
 values, we are going to simply create a function that will return the
@@ -93,6 +95,7 @@ CAMLprim value gtd6_t (value iydV, value secVal, value altVal, value latVal, val
    CAMLreturn( caml_copy_double( t[1] ) );
 }
 ```
+
 A few points of interest
 
 1. The file must include the OCaml header files `alloc.h`, `memory.h`,
@@ -107,14 +110,15 @@ A few points of interest
  macro to create a new value containing the return value and to
  return it respectively.
 
-### Step 3: Compile the Shared Library.
+### Step 3: Compile the Shared Library
+
 Now having the two source files funcs.f and wrapper.c we need to create
 a shared library that can be loaded by OCaml. Its easier to do this as a
 multistep process, so here are the commands:
 
 `prompt> g77 -c funcs.f`
 
-`prompt> cc -I<ocaml include path> -c wrapper.c `
+`prompt> cc -I<ocaml include path> -c wrapper.c`
 
 `prompt> cc -shared -o wrapper.so wrapper.o funcs.o -lg2c`
 
@@ -124,6 +128,7 @@ required to provide the implementations of the built in fortran
 functions that are used.
 
 ### Step 4: Now to OCaml
+
 Now in an OCaml file (gtd6.ml) we have to define the external reference
 to the function and a function to call it.
 
@@ -135,6 +140,7 @@ let () =
   print_double (temp 1 2.0 3.0 4.0 5.0);
   print_newline ()
 ```
+
 This tells OCaml that the temp function takes 5 parameters and returns a
 single floating point and calls the C function gtd6_t.
 

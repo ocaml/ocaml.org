@@ -51,10 +51,10 @@ $ opam --version
 Once opam is installed, run the `opam init` command to set up your opam environment.
 
 You will notice that the repository information fetching stage takes a while to
-complete. This is normal (for the moment), so we advise our users to get 
+complete. This is normal (for the moment), so we advise our users to get
 themselves their favourite hot beverage while it runs.
 
-opam requires a Unix-like environment to function. By default, 
+opam requires a Unix-like environment to function. By default,
 opam relies on Cygwin and is also compatible with MSYS2.
 
 At *init-time*, opam scans your machine for available Unix environments and
@@ -64,10 +64,9 @@ by opam. This cuts down possible interferences from other tools
 that interact with such environments. Think of it as a
 sandboxed environment.
 
-
 Opam's default behavior when initialising is to install a fresh `switch` as
 well as an OCaml compiler of version `> 4.05`. By default, opam chooses `mingw` as
-a C compiler when creating switches, but know that you can choose to install an 
+a C compiler when creating switches, but know that you can choose to install an
 alternative instead, like `msvc`, with the following command:
 
 ```
@@ -77,13 +76,17 @@ opam install system-msvc
 After `opam init` completes, run the following command to update your environment:
 
 On CMD:
+
 ```
 > for /f "tokens=*" %i in ('opam env --switch=default') do @%i
 ```
+
 On PowerShell:
+
 ```
 > (& opam env --switch=default) -split '\\r?\\n' | ForEach-Object { Invoke-Expression $_ }
 ```
+
 Opam will display the shell update command each time it is needed.
 
 You can verify your installation with
@@ -108,7 +111,7 @@ You should now have a functioning OCaml environment ready for development. If yo
 
 ### WSL2
 
-If you only need to _run_ OCaml programs on a Windows machine, the simplest solution is to use the Windows Subsystem for Linux 2 (WSL2). WSL2 is a feature that allows Linux programs to run directly on Windows. WSL2 is substantially easier and faster to use than WSL1. Microsoft has comprehensive installation steps for [setting up WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+If you only need to *run* OCaml programs on a Windows machine, the simplest solution is to use the Windows Subsystem for Linux 2 (WSL2). WSL2 is a feature that allows Linux programs to run directly on Windows. WSL2 is substantially easier and faster to use than WSL1. Microsoft has comprehensive installation steps for [setting up WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 After you have installed WSL2 and chosen one Linux distribution (we suggest [Ubuntu LTS](https://apps.microsoft.com/store/detail/ubuntu/9PDXGNCFSCZV?hl=en-us&gl=US)), you can follow the
 [Installing OCaml: Installation for Linux and macOS](/docs/installing-ocaml) steps.
@@ -124,6 +127,7 @@ easier way to get a working Windows environment on your machine.
 
 Diskuv OCaml ("DKML") is an OCaml distribution that supports software development in pure OCaml.
 The distribution is unique because of its:
+
 * full compatibility with OCaml standards like opam, Dune, and OCamlFind.
 * focus on "native" development (desktop software, mobile apps, and embedded software) through support for the standard native compilers,
   like Visual Studio and Xcode.
@@ -194,7 +198,7 @@ that covers getting WSL2 and Visual Studio Code connected.
 system using opam:
 
 ```console
-$ opam install merlin
+opam install merlin
 ```
 
 The installation procedure will print instructions on how to link Merlin with

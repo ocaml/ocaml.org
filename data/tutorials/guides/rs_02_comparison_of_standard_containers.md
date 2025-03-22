@@ -6,7 +6,7 @@ description: >
 category: "Resources"
 ---
 
-This is a rough comparison of the different container types 
+This is a rough comparison of the different container types
 provided by the OCaml standard library. In each
 case, _n_ is the number of valid elements in the container.
 
@@ -17,6 +17,7 @@ you can read the [documentation](/manual/api/index.html) about each of the modul
 is also instructive to read the corresponding implementation.
 
 ## Lists: Immutable Singly-Linked Lists
+
 Adding an element always creates a new list _l_ from an element _x_ List
 _tl_. _tl_ remains unchanged, but it is not copied either.
 
@@ -30,6 +31,7 @@ Well-suited for: I/O, pattern-matching
 Not very efficient for: random access, indexed elements
 
 ## Arrays: Mutable Vectors
+
 Arrays are mutable data structures with a fixed length and random access.
 
 * Adding an element (by creating a new array): _O(n)_
@@ -40,6 +42,7 @@ Arrays are mutable data structures with a fixed length and random access.
 Well-suited for the following cases: dealing with sets of elements of known size, accessing elements by numeric index, and modifying in-place elements. Basic arrays have a fixed length.
 
 ## Strings: Immutable Vectors
+
 Strings are very similar to arrays, but they are immutable. Strings are
 specialised for storing chars (bytes) and have some convenient syntax.
 Strings have a fixed length. For extensible strings, the standard buffer
@@ -51,6 +54,7 @@ module can be used (see below).
 * Finding an element: _O(n)_
 
 ## Set and Map: Immutable Trees
+
 Like lists, these are immutable, and they may share some subtrees. These trees
 are a good solution for keeping older versions of sets of items.
 
@@ -62,6 +66,7 @@ Sets and maps are very useful in compilation and metaprogramming, but
 in other situations, hash tables are often more appropriate (see below).
 
 ## Hashtbl: Automatically Growing Hash Tables
+
 OCaml hash tables are mutable data structures, which are a good solution
 for storing (key, data) pairs in one single place.
 
@@ -73,6 +78,7 @@ for storing (key, data) pairs in one single place.
 * Finding an element: _O(1)_
 
 ## Buffer: Extensible Strings
+
 Buffers provide an efficient way to accumulate a byte sequence in a
 single place. They are mutable.
 
@@ -84,6 +90,7 @@ single place. They are mutable.
 * Accessing cell `i`: _O(1)_
 
 ## Queue
+
 OCaml queues are mutable first-in-first-out (FIFO) data structures.
 
 * Adding an element: _O(1)_
@@ -91,6 +98,7 @@ OCaml queues are mutable first-in-first-out (FIFO) data structures.
 * Length: _O(1)_
 
 ## Stack
+
 OCaml stacks are mutable last-in-first-out (LIFO) data structures. They
 are just like lists except they are mutable, i.e., adding an
 element doesn't create a new stack but simply adds it to the stack.
