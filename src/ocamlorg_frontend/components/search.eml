@@ -68,10 +68,15 @@ let display_surrounding_text ~search (text : string) =
 
 let script =
   <script>
-    window.addEventListener('keydown', function(event) {
-        if (event.key === "/") {
-          event.preventDefault();
-          document.querySelector("input[type='search']").focus()
+    window.addEventListener('keydown', function(event) { 
+      if (event.key === "/") {
+        // Check if the focused element is inside #editor1
+        if (document.activeElement.closest("#editor1")) {
+          return;
         }
-      })
+
+        event.preventDefault(); 
+        document.querySelector("input[type='search']").focus()
+      }
+    });
   </script>
