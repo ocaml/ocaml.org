@@ -9,26 +9,23 @@ let simplest_parser () =
   |> Array.to_list
   |> List.iteri (Printf.printf "argument %d: %s\n")
 
-
 (* `Arg` is a module for parsing command-line arguments, and it is part of
    OCaml's standard library
    ([documentation](https://ocaml.org/manual/5.3/api/Arg.html)).
    In this function we define the structure of the command-line arguments we
    expect, the argument types types and their documentation. This is basically
-   the same function defined in the module's documentation.
-
- *)
+   the same function defined in the module's documentation. *)
 let arg_module_parser () =
   let usage_msg =
     "mycmd [--verbose] <file1> [<file2>] ... -o <output>"
   and verbose = ref false
   and input_files = ref []
   and output_file = ref "" in
-  (* This function is called once for each anonymous argument. *)
+(* This function is called once for each anonymous argument. *)
   let anonymous_args_f filename =
     input_files := filename :: !input_files
-  (* The spec list defines argument keywords, "setter" functions to handle the
-     values, and their corresponding documentation. *)
+(* The spec list defines argument keywords, "setter" functions to handle the
+   values, and their corresponding documentation. *)
   and spec_list =
     [("--verbose", Arg.Set verbose, "Output debug information");
      ("-o", Arg.Set_string output_file, "Set output file name")]
