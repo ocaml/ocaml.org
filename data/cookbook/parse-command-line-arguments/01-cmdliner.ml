@@ -18,18 +18,18 @@ packages:
    [this page](https://erratique.ch/software/cmdliner/doc/examples.html).
  *)
 let cmdliner_parser () =
-  (* `Cmdliner` is a library that allows the declarative definition of
-     command-line interfaces
-     ([documentation page](https://erratique.ch/software/cmdliner/doc/index.html)).
-   *)
+(* `Cmdliner` is a library that allows the declarative definition of
+   command-line interfaces
+   ([documentation page](https://erratique.ch/software/cmdliner/doc/index.html)).
+ *)
   let open Cmdliner in
-  (* First we declare the expected arguments of our command-line, and how
-     `Cmdliner` should parse them. *)
+(* First we declare the expected arguments of our command-line, and how
+   `Cmdliner` should parse them. *)
   let verbose =
     let doc = "Output debug information" in
-    (* `&` is a right associative composition operator
-       ([documentation](https://erratique.ch/software/cmdliner/doc/Cmdliner/Arg/index.html#val-(&))).
-     *)
+(* `&` is a right associative composition operator
+   ([documentation](https://erratique.ch/software/cmdliner/doc/Cmdliner/Arg/index.html#val-(&))).
+ *)
     Arg.(value & flag & info ["v" ; "verbose"] ~doc)
   and input_files =
     let doc = "Input file(s)" in
@@ -40,8 +40,8 @@ let cmdliner_parser () =
     and docv = "OUTPUT" in
     Arg.(value & opt (some string) None
          & info ["o"] ~docv ~doc)
-  (* `mycmd` is the function that the program will apply to the parsed
-     arguments. *)
+(* `mycmd` is the function that the program will apply to the parsed
+   arguments. *)
   and mycmd verbose input_files output_file =
     Printf.printf "verbose: %b\n" verbose;
     Printf.printf "input files: %s\n"
@@ -49,8 +49,8 @@ let cmdliner_parser () =
     Printf.printf "output file: %s\n"
       (Option.value ~default:"" output_file)
   in
-  (* Declaration of the complete command, including its man-like
-     documentation. *)
+(* Declaration of the complete command, including its man-like
+   documentation. *)
   let cmd =
     let doc = "An example command"
     and man = [
