@@ -266,7 +266,7 @@ Sometimes it helps to apply _parts_ of a function in different orders, and somet
 This is what we call currying and uncurrying:
 
 * A curried `add` function will be called like `add x y`.
-* An uncurried `add` functoin will be called liked `add (x, y)`. Note how this is really just one argument!
+* An uncurried `add` function will be called liked `add (x, y)`. Note how this is really just one argument!
 
 Before we get to some examples, let's define some helper functions that will help us curry and uncurry functions.
 
