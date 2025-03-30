@@ -1,13 +1,10 @@
 ---
 name: BITS Pilani (Pilani Campus) 
 description: >
- BITS Pilani is a private university in India. 
+ BITS Pilani is a private science and engineering university in India. 
 url: "https://bits-pilani.ac.in/"
-logo: academic_institution/bitspilani.webp
+logo: academic_institution/bitspilani.png
 continent: Asia
-featured: true
-image: academic_institution/featured/images/bitspilani.webp
-alternate_logo: bitspilani.webp
 courses:
     - name: Principles of Programming Languages
       acronym: CS F301
