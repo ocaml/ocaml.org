@@ -1,3 +1,28 @@
+- title: Making OCaml Safe for Performance Engineering
+  url: https://www.youtube.com/watch/g3qd4zpm1LA?version=3
+  thumbnail: https://i4.ytimg.com/vi/g3qd4zpm1LA/hqdefault.jpg
+  description: "Jane Street is a trading firm that uses a variety of high-performance
+    systems built in OCaml to provide liquidity to financial markets worldwide. Over
+    the last couple of years, we have started developing major extensions to OCaml\u2019s
+    type system, with the primary goal of making OCaml a better language for writing
+    high-performance systems. In this talk, we will attempt to provide a developer's-eye
+    view of these changes. We\u2019ll cover two major directions of innovation: first,
+    the addition of modal types to OCaml, which opens up a variety of ambitious features,
+    like memory-safe stack-allocation; type-level tracking of effects, and data-race
+    freedom guarantees for multicore code. The second is the addition of a kind system
+    to OCaml, which provides more control over the representation of memory, in particular
+    allowing for structured data to be represented in a cache-and-prefetch-friendly
+    tabular form. Together, these features pull together some of the most important
+    features for writing high performance code in Rust, while maintaining the relative
+    simplicity of programming in OCaml. In all of this, we will focus less on the
+    type theory, and more on how these features are surfaced to users, the practical
+    problems that they help us solve, and the place in the design space of programming
+    languages that this leaves us in."
+  published: 2025-04-03T20:44:20+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+  source_title: Jane Street - Tech Talks
 - title: Universal React in OCaml - David Sancho Moreno - FUN OCaml 2024
   url: https://www.youtube.com/watch/Oy3lZl2kE-0?version=3
   thumbnail: https://i4.ytimg.com/vi/Oy3lZl2kE-0/hqdefault.jpg
@@ -72,7 +97,10 @@
 
     Twitter: https://x.com/FunOCaml
 
-    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+    Bluesky: https://bsky.app/profile/fun-ocaml.com
+
+
+    #ocaml'
   published: 2024-11-20T09:24:00+00:00
   author_name: FUN OCaml
   author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
