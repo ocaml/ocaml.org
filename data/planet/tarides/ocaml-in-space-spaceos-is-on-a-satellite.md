@@ -1,0 +1,25 @@
+---
+title: 'OCaml in Space: SpaceOS is on a Satellite!'
+description: Our sister company Parsimoni sends OCaml into space aboard DPhi Space's
+  Clustergate ride-sharing platform to test the cababilities of SpaceOS.
+url: https://tarides.com/blog/2025-04-03-ocaml-in-space-spaceos-is-on-a-satellite
+date: 2025-04-03T00:00:00-00:00
+preview_image: https://tarides.com/blog/images/rocket-launch-1360w.webp
+authors:
+- Tarides
+source:
+---
+
+<p>OCaml is in space! With its impressive performance and security guarantees, OCaml is a great choice for the many interconnected devices that power our world. Satellites are not only crucial to the functioning of these devices, but the <a href="https://tarides.com/blog/2023-07-31-ocaml-in-space-welcome-spaceos/">new generation of satellites</a> are beginning to function like Cloud servers, where one device hosts more than one software and performs more than one service.</p>
+<p>The natural next step, considering the growing need for agile multi-purpose satellites and the suitability of OCaml-based solutions, is to put OCaml to work in space! Following up on our sister company <a href="https://parsimoni.co/index.html">Parsimoni</a>’s SpaceOS project, there has been an <a href="https://parsimoni.co/blog/2025-02-11-parsimoni-to-demonstrate-its-spaceos-in-orbit-on-clustergate-1.html">exciting development</a> on this front. Parsimoni has partnered with <a href="https://www.dphispace.com/">DPhi Space</a> and put <a href="https://parsimoni.co/blog/2025-03-24-spaceos-is-now-in-orbit-on-clustergate-1.html">SpaceOS software aboard their Clustergate ride-sharing platform for hosted payloads</a>. OCaml launched into space aboard <a href="https://nextspaceflight.com/launches/details/7136">Transporter-13</a> on the 15th of March.</p>
+<h2>The Clustergate Platform</h2>
+<p>Clustergate is a payload platform developed by DPhi Space and deployed on a host satellite. The goal of this platform is to offer the power and computing capabilities of a larger satellite to cube-sat-sized payloads at a lower cost, where customers only pay for what they need. Making satellite deployment more accessible and agile will change the future of space innovation, incentivising new actors and services.</p>
+<p>Parsimoni is changing the way that satellite software is designed, centring on the security, efficiency, and scalability of satellite payload management. By utilising <a href="https://mirage.io/">unikernel technology written in OCaml</a>, SpaceOS can host multiple applications with a reduced attack surface, safe from a multitude of common security vulnerabilities, without the overhead of typical virtual machines.</p>
+<h2>What’s on the Satellite?</h2>
+<p>DPhi Space has embedded its own Clustergate computer on Transporter-13, and the team behind SpaceOS has onboarded OCaml 5 software on the satellite. As part of a larger ‘rideshare’ mission, DPhi Space’s computer hosts a variety of software and hardware from different partners.</p>
+<p>So, what OCaml code is on the satellite? All in all, the team have included a simple version of Petrel to manage unikernels, the necessary ‘glue code’ to give unikernels access to orbital data, the basic functionality needed to manage data transfers and send commands, plus a ‘hello world’ unikernel. Petrel is an experimental unikernel manager and orchestrator (written in OCaml 5 with <a href="https://github.com/ocaml-multicore/eio">Eio</a> concurrency) based on <a href="https://github.com/robur-coop/albatross">Albatross</a> by <a href="https://robur.coop/">Robur</a>. Instead of hardware virtualisation (which is not available on this flight), our team uses the <code>solo5-spt</code> backend of MirageOS as the unikernel runtime, which leverages Linux’s <code>seccomp</code> feature to isolate the software payloads.</p>
+<p>During the mission, they will test whether the system works by sending new MirageOS unikernels using the data onboard. Parsimoni expects to start testing the software onboard in May. The goal is to show SpaceOS in action, sending and receiving interesting data and deploying self-contained applications on a limited bandwidth. They will start with the hello world and move on to more complex tasks utilising orbital data.</p>
+<h2>Until Next Time</h2>
+<p>You can watch <a href="https://www.youtube.com/watch?v=zLxXLmTzHkk">the launch of Transporter-13</a> to see the moment when OCaml travels through the atmosphere! If you want to discuss the opportunities that SpaceOS offers for deploying specialised and secure applications that use limited resources efficiently, you can <a href="https://tarides.com/contact/">contact us</a> or <a href="https://parsimoni.co/index.html#contact">Parsimoni</a> to find out more.</p>
+<p>Connect with Tarides online on <a href="https://bsky.app/profile/tarides.com">Bluesky</a>, <a href="https://mastodon.social/@tarides">Mastodon</a>, <a href="https://www.threads.net/@taridesltd">Threads</a>, and <a href="https://www.linkedin.com/company/tarides">LinkedIn</a> or sign up for our mailing list to stay updated on our latest projects.</p>
+
