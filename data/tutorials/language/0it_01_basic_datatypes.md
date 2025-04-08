@@ -375,7 +375,7 @@ The following example shows that the identity function can apply to arguments of
 val f : 'a -> 'a = <fun>
 
 # f 9;;
-- : int = 81
+- : int = 9
 
 # f "hello";;
 - : string = "hello"
