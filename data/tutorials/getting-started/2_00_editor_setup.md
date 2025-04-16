@@ -49,10 +49,74 @@ If you used the DkML distribution, you will need to:
     1. Go to `File` > `Preferences` > `Settings` view (or press `Ctrl ,`)
     2. Select `User` > `Extensions` > `OCaml Platform`
     3. Uncheck `OCaml: Use OCaml Env`. That's it!
+    
+## Emacs
 
-## Vim and Emacs
+Using Emacs as the main OCaml editor requires at least two modes:
 
-**For Vim and Emacs**, we won't use the LSP server but rather directly talk to Merlin.
+- A major mode, which, among other things, supports syntax highlighting and the structuring of indentation levels
+- A minor mode, which will interact with a server language (such as `ocaml-lsp-server` or `merlin`). In this tutorial, we will focus on using `ocaml-lsp-server` as a server.
+
+### Choosing a major mode
+
+There are several major modes dedicated to OCaml, although there are 3 main ones:
+
+- [Tuareg](https://github.com/ocaml/tuareg): an old-fashioned (but still updated), very complete method, often recommended
+- [Caml](https://github.com/ocaml/caml-mode): a mode even older than `tuareg` (but still updated), lighter than `tuareg`
+- [Neocaml](https://github.com/bbatsov/neocaml): a brand new mode, based on modern tools (like [tree-sitter](https://tree-sitter.github.io/tree-sitter/)). Currently still very experimental!
+
+For the purposes of this tutorial, we're going to focus on the use of `tuareg` as the main mode, but that's a detail and you're free to experiment and choose your favourite mode! You can add these lines to your Emacs configuration:
+
+```elisp
+(use-package tuareg
+  :ensure t
+  :mode (("\\.ocamlinit\\'" . tuareg-mode)))
+```
+
+> If your version of Emacs does not support the `use-package` macro (or is not set up to take MELPA packages into account), please update it and follow these instructions for [`use-package`](https://github.com/jwiegley/use-package) and to [add MELPA](https://melpa.org/#/getting-started).
+
+### LSP setup for OCaml
+
+Since version `29.1`, Emacs has had a mode for interacting with an LSP server, [Eglot](https://www.gnu.org/software/emacs/manual/html_mono/eglot.html). If you are using an earlier version of Emacs, you will need to install it this way:
+
+```elisp
+(use-package eglot
+  :ensure t)
+```
+
+Next, we need to bridge the gap between our major mode (in this case, `tuareg`) and `eglot`. This is done using the [`ocaml-eglot`](https://github.com/tarides/ocaml-eglot) package:
+
+```elisp
+(use-package ocaml-eglot
+  :ensure t
+  :after tuareg
+  :hook
+  (tuareg-mode . ocaml-eglot)
+  (ocaml-eglot . eglot-ensure))
+```
+
+And that's all there is to it! Now all we need to do is install `ocaml-lsp-server` and `ocamlformat` in our [switch](/docs/opam-switch-introduction), exactly as we did for Visual Studio Code:
+
+```shell
+opam install ocaml-lsp-server ocamlformat
+```
+
+And you're ready to edit OCaml code _productively_ with Emacs!
+
+> OCaml-eglot can be finely configured, the project [README](https://github.com/tarides/ocaml-eglot/blob/main/README.md) gives several configuration paths to adapt perfectly to your usual workflow! You'll also find an exhaustive presentation of the different functions offered by the mode!
+
+#### Getting Type Information
+
+Opening an OCaml file should launch an `ocaml-lsp` server, and you can convince yourself that it's working by using, for example, the `ocaml-eglot-type-enclosing` command (or using the `C-c C-t` binding) on an expression of your choice:
+
+![Emacs Type information](/media/tutorials/emacs-type-info.gif)
+
+OCaml-eglot [README](https://github.com/tarides/ocaml-eglot/blob/main/README.md) provides a comprehensive overview of all the functions available in this mode!
+
+
+## Vim
+
+For Vim, we won't use the LSP server but rather directly talk to Merlin.
 
 ```shell
 opam install merlin
@@ -68,8 +132,6 @@ opam user-setup install
 
 #### Getting Type Information
 
-**Vim**
-
 ![Vim Type information](/media/tutorials/vim-type-info.gif)
 
 - In the Vim editor, press the <kbd>Esc</kbd> to enter command mode.
@@ -77,12 +139,3 @@ opam user-setup install
 - Type `:MerlinTypeOf` and press <kbd>Enter</kbd>.
 - The type information will be displayed in the command bar.
 Other Merlin commands for Vim are available and you can checkout their usage on the [Merlin official documentation for Vim](https://ocaml.github.io/merlin/editor/vim/).
-
-**Emacs**
-
-![Emacs Type information](/media/tutorials/emacs-type-info.gif)
-
-- In the Emacs editor, place you cursor over the variable.
-- Use the keyboard shortcut <kbd>Alt + x</kbd> followed by `merlin-type-enclosing`
-- The type information will be displayed in the mini-buffer.
-Other Merlin commands for Emacs are available and you can checkout their usage on the [Merlin Official documentation for Emacs](https://ocaml.github.io/merlin/editor/emacs/).
