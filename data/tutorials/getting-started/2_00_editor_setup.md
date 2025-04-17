@@ -73,7 +73,10 @@ For the purposes of this tutorial, we're going to focus on the use of `tuareg` a
   :mode (("\\.ocamlinit\\'" . tuareg-mode)))
 ```
 
-> If your version of Emacs does not support the `use-package` macro (or is not set up to take MELPA packages into account), please update it and follow these instructions for [`use-package`](https://github.com/jwiegley/use-package) and to [add MELPA](https://melpa.org/#/getting-started).
+
+#### Melpa and `use-package`
+
+If your version of Emacs does not support the `use-package` macro (or is not set up to take MELPA packages into account), please update it and follow these instructions for [`use-package`](https://github.com/jwiegley/use-package) and to [add MELPA](https://melpa.org/#/getting-started).
 
 ### LSP setup for OCaml
 
@@ -103,7 +106,9 @@ opam install ocaml-lsp-server ocamlformat
 
 And you're ready to edit OCaml code _productively_ with Emacs!
 
-> OCaml-eglot can be finely configured, the project [README](https://github.com/tarides/ocaml-eglot/blob/main/README.md) gives several configuration paths to adapt perfectly to your usual workflow! You'll also find an exhaustive presentation of the different functions offered by the mode!
+#### Finer configuration
+
+OCaml-eglot can be finely configured, the project [README](https://github.com/tarides/ocaml-eglot/blob/main/README.md) gives several configuration paths to adapt perfectly to your usual workflow! You'll also find an exhaustive presentation of the different functions offered by the mode!
 
 #### Getting Type Information
 
