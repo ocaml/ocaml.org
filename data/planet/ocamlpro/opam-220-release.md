@@ -46,7 +46,7 @@ support! A big thank you is due to Andreas Hauptmann (<a href="https://github.co
 whose <a href="https://github.com/fdopen/godi-repo">WODI</a> and <a href="https://fdopen.github.io/opam-repository-mingw/">OCaml for Windows</a>
 projects were for many years the principal downstream way to obtain OCaml on
 Windows, Jun Furuse (<a href="https://github.com/camlspotter">@camlspotter</a>) whose
-<a href="https://inbox.vuxu.org/caml-list/CAAoLEWsQK7=qER66Uixx5pq4wLExXovrQWM6b69_fyMmjYFiZA@mail.gmail.com/">initial experimentation with OPAM from Cygwin</a>
+<a href="https://inbox.ci.dev/caml-list/CAAoLEWsQK7=qER66Uixx5pq4wLExXovrQWM6b69_fyMmjYFiZA@mail.gmail.com/">initial experimentation with OPAM from Cygwin</a>
 formed the basis of opam-repository-mingw, and, most recently,
 Jonah Beckford (<a href="https://github.com/JonahBeckford">@jonahbeckford</a>) whose
 <a href="https://diskuv.com/dkmlbook/">DkML</a> distribution kept - and keeps - a full

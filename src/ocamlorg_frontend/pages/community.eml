@@ -81,7 +81,7 @@ Community_layout.single_column_layout
       </ul>
       <ul>
         <p class="text-title text-xl font-mono dark:text-dark-title mb-2">Mailing Lists</p>
-        <%s! social_list_item ~text:("Share experience, exchange ideas and code, and report on applications - ") ~href:("https://inbox.vuxu.org/caml-list") ~left_icon:(Icons.email "w-10 h-10") ~title:("Caml User's Mailing List") "" %>
+        <%s! social_list_item ~text:("Share experience, exchange ideas and code, and report on applications - ") ~href:("https://inbox.ci.dev/caml-list") ~left_icon:(Icons.email "w-10 h-10") ~title:("Caml User's Mailing List") "" %>
       </ul>
   </div>
 </div>
