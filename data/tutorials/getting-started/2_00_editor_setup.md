@@ -98,13 +98,13 @@ Next, we need to bridge the gap between our major mode (in this case, `tuareg`) 
   (ocaml-eglot . eglot-ensure))
 ```
 
-And that's all there is to it! Now all we need to do is install `ocaml-lsp-server` and `ocamlformat` in our [switch](/docs/opam-switch-introduction), exactly as we did for Visual Studio Code:
+And that's all there is to it! Now all you need to do is install `ocaml-lsp-server` and `ocamlformat` in our [switch](/docs/opam-switch-introduction):
 
 ```shell
 opam install ocaml-lsp-server ocamlformat
 ```
 
-And you're ready to edit OCaml code _productively_ with Emacs!
+You are now ready to edit OCaml code _productively_ with Emacs!
 
 #### Finer configuration
 
