@@ -1139,6 +1139,18 @@
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
   source_title: Watch OCaml
+- title: Outreachy December 2024 Demo
+  description: "The OCaml community participated in the December 2024 round of [Outreachy
+    internships](https://www.outreachy.org). One intern worked on a tool for diffing
+    OCaml APIs.\r\n\r\nThis meeting was an opportunity for our intern to present their
+    work and for ..."
+  url: https://watch.ocaml.org/videos/watch/70ef58ff-ff7c-40d6-ab19-e886e4e98205
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/9d342118-1e60-4653-b6a4-fc500d0ea002.jpg
+  published: 2025-04-17T09:45:05.088Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
 - title: Outreachy May 2024 Demo
   description: The OCaml community participated in the May 2024 round of [Outreachy](https://www.outreachy.org/)
     internships. Three interns worked on a range of projects including tools to diff
