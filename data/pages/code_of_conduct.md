@@ -110,7 +110,7 @@ The members of the team are currently:
 * Marcello Seri <[marcello@ocaml.org](mailto:marcello@ocaml.org)>
 * Raja Boujbel <[raja@ocaml.org](mailto:raja@ocaml.org)>
 * Simon Cruanes <[simon@ocaml.org](mailto:simon@ocaml.org)>
-* Sonja Heinze <[sonja@ocaml.org](mailto:sonja@ocaml.org)>
+* Shon Feder <[shon@ocaml.org](mailto:shon@ocaml.org)>
 
 ## Strained Situations ##
 
