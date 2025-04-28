@@ -664,7 +664,7 @@ And here is how it is written:
 ```ocaml
 let map_error f = function
 | Ok x -> Ok x
-| Error e -> f e
+| Error e -> Error (f e)
 ```
 
 The same reasoning applies to `Result.bind`, except there's no `bind_error`.
