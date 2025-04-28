@@ -5,7 +5,7 @@ packages:
   used_libraries:
   - ppx_deriving
 discussion: |
-    It is required to have `(preprocess (pps ppx_deriving.show))` in `dune` file.
+    To use `[@@deriving show]`, you need to add the `ppx_deriving.show` preprocessor in your dune file, like this: `(preprocess (pps ppx_deriving.show))`.
 ---
 
 (* converting an integer to string *)
