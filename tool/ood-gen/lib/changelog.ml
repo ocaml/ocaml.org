@@ -101,10 +101,8 @@ module Posts = struct
       stable_record ~version:post ~modify:[ authors ]
         ~add:[ slug; body_html; body; date ]]
 
-        let of_post_metadata m =
-          post_metadata_to_post m ~modify_authors:(Option.value ~default:[])
-            
-      
+  let of_post_metadata m =
+    post_metadata_to_post m ~modify_authors:(Option.value ~default:[])
 
   let decode (fname, (head, body)) =
     let slug = Filename.basename (Filename.remove_extension fname) in
@@ -194,8 +192,7 @@ module ChangelogFeed = struct
 end
 
 let template () =
-  Format.asprintf
-    {ocaml|
+  Format.asprintf {ocaml|
 include Data_intf.Changelog
 let all = %a
 |ocaml}
