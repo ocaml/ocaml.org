@@ -11,3 +11,11 @@ Subsequent releases `1.1.0` and [`1.2.0`](https://discuss.ocaml.org/t/ann-releas
 `flycheck` as a configurable alternative to `flymake` (`1.0.0` release),
 Emacs `30.1` support, better user experience and error handling, as
 well as support for new features. 
+
+<!--
+Notes:
+
+What else can we write here?
+
+Should this be a post announcing only ocaml-eglot, or are there other ocaml-lsp related efforts worth talking about? I.e. a post giving updates on what has happened about editor support based on ocaml-lsp in general?
+-->
