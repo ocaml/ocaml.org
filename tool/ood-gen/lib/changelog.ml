@@ -170,9 +170,11 @@ module Posts = struct
 end
 
 let all () =
+  let slug_of_t r = match r with Release r -> r.slug | Post p -> p.slug in
   let releases = Releases.all () in
   let posts = Posts.all () in
   List.map (fun x -> Release x) releases @ List.map (fun x -> Post x) posts
+  |> List.sort (fun (a : t) b -> String.compare (slug_of_t b) (slug_of_t a))
 
 module ChangelogFeed = struct
   let to_author name = Syndic.Atom.{ name; uri = None; email = None }
