@@ -1,5 +1,5 @@
 ---
-title: Relocation of opam.ci.ocaml.org and ocaml.ci.dev
+title: "OCaml Infrastructure: Relocation of opam.ci.ocaml.org and ocaml.ci.dev"
 tags: [infrastructure]
 ---
 

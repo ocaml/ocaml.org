@@ -1,5 +1,5 @@
 ---
-title: Now using Tarsnap for VM backups
+title: "OCaml Infrastructure: Now using Tarsnap for VM Backups"
 tags: [infrastructure]
 ---
 

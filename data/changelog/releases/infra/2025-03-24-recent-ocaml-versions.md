@@ -1,5 +1,5 @@
 ---
-title: "OCaml-version 4.0.0 released"
+title: "OCaml Infrastructure: OCaml-version 4.0.0 released"
 tags: [infrastructure]
 changelog: |
   - ocaml-version 4.0.0 released (by ~mtelvers, https://github.com/ocurrent/ocaml/version)

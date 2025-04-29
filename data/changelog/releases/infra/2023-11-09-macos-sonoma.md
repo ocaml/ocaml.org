@@ -1,5 +1,5 @@
 ---
-title: macOS Sonoma Update
+title: "OCaml Infrastructure: macOS Sonoma Update"
 tags: [infrastructure]
 ---
 

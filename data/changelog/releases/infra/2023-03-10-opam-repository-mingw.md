@@ -1,5 +1,5 @@
 ---
-title: Sunsetting opam-repository-mingw
+title: "OCaml Infrastructure: Sunsetting opam-repository-mingw"
 tags: [infrastructure]
 ---
 

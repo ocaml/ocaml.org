@@ -1,5 +1,5 @@
 ---
-title: check.ocamllabs.io moved to check.ci.ocaml.org
+title: "OCaml Infrastructure: check.ocamllabs.io moved to check.ci.ocaml.org"
 tags: [infrastructure]
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Temporary relocation of opam.ci.ocaml.org
+title: "OCaml Infrastructure: Temporary relocation of opam.ci.ocaml.org"
 tags: [infrastructure]
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: FreeBSD is now tested in opam-repo-ci
+title: "OCaml Infrastructure: FreeBSD is Now Tested in opam-repo-ci"
 tags: [infrastructure]
 ---
 
