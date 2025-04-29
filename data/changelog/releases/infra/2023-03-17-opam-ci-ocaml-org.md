@@ -1,5 +1,5 @@
 ---
-title: Renaming opam.ci.ocaml.org / opam.ci3.ocamllabs.io
+title: "OCaml Infrastructure: Renaming opam.ci.ocaml.org / opam.ci3.ocamllabs.io"
 tags: [infrastructure]
 ---
 

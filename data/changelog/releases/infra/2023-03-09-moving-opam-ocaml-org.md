@@ -1,5 +1,5 @@
 ---
-title: opam.ocaml.org move to Scaleway
+title: "OCaml Infrastructure: opam.ocaml.org Moves to Scaleway"
 tags: [infrastructure]
 ---
 

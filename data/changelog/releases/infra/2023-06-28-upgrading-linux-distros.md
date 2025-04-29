@@ -1,5 +1,5 @@
 ---
-title: OCaml infra upgrading to Debian 12 for OCaml docker images
+title: "OCaml Infrastructure: Upgrading to Debian 12 for OCaml docker images"
 tags: [infrastructure]
 changelog: |
   * OCaml Debian images upgraded to Debian 12 ([ocaml-dockerfile#172](https://github.com/ocurrent/ocaml-dockerfile/pull/172/files), @MisterDA)

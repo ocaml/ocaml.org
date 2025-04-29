@@ -1,5 +1,5 @@
 ---
-title: Updated Linux Distros and OCaml versions
+title: "OCaml Infrastructure: Updated Linux Distros and OCaml versions"
 tags: [infrastructure]
 ---
 

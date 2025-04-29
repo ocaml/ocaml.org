@@ -1,5 +1,5 @@
 ---
-title: Relocating OCaml.org
+title: "OCaml Infrastructure: Relocating OCaml.org"
 tags: [infrastructure]
 ---
 

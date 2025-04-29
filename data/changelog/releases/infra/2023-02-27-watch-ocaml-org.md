@@ -1,5 +1,5 @@
 ---
-title: Promote watch.ocaml.org to non-beta
+title: "OCaml Infrastructure: Promote watch.ocaml.org to Non-Beta Status"
 tags: [infrastructure]
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Grafana Dashboard Changes
+title: "OCaml Infrastructure: Grafana Dashboard Changes"
 tags: [infrastructure]
 ---
 
