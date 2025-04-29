@@ -2,52 +2,44 @@ type release = [%import: Data_intf.Changelog.release] [@@deriving of_yaml, show]
 type post = [%import: Data_intf.Changelog.post] [@@deriving of_yaml, show]
 type t = [%import: Data_intf.Changelog.t] [@@deriving of_yaml, show]
 
-(*
-  The OCaml.org Changelog has two categories:
+(* The OCaml.org Changelog has two categories:
 
-  - posts
-  - release announcements
+   - posts - release announcements
 
-  POSTS
-  =====
+   POSTS =====
 
-  These OCaml.org Changelog entries are posted automatically
-  to various OCaml social media accounts.
+   These OCaml.org Changelog entries are posted automatically to various OCaml
+   social media accounts.
 
-  The main accounts will automatically receive posts that
-  (a) describe how the user-facing surface of the tools as a whole changes and
-  (b) empower the reader to make better use of the OCaml Platform tools.
-  
-  These entries are represented by the RSS feed category "posts".
+   The main accounts will automatically receive posts that (a) describe how the
+   user-facing surface of the tools as a whole changes and (b) empower the
+   reader to make better use of the OCaml Platform tools.
 
-  Example content:
-  - celebrating major releases or milestones
-  - how to use new features
-  - which new workflows are possible now (sometimes involving releases from multiple tools)
-  - announcing that workarounds for bugs that are now fixed can be retired
+   These entries are represented by the RSS feed category "posts".
 
-  Generally, these will be written together with a release announcement, or after,
-  and reference zero or more earlier relevant release announcements.
+   Example content: - celebrating major releases or milestones - how to use new
+   features - which new workflows are possible now (sometimes involving releases
+   from multiple tools) - announcing that workarounds for bugs that are now
+   fixed can be retired
 
+   Generally, these will be written together with a release announcement, or
+   after, and reference zero or more earlier relevant release announcements.
 
-  RELEASE ANNOUNCEMENTS
-  =====================
+   RELEASE ANNOUNCEMENTS =====================
 
-  We also collect and broadcast release announcements for all the GitHub repositories
-  that directly support the OCaml Platform Tools.
-  
-  Release announcements will not go out through the main social media accounts,
-  but through dedicated accounts sharing releases. From these, the main OCaml accounts
-  can repost and comment on major releases to give more details or highlight
-  particular milestones.
-  
-  These entries are represented by the RSS feed category "releases".
+   We also collect and broadcast release announcements for all the GitHub
+   repositories that directly support the OCaml Platform Tools.
 
-  Generally, software engineers of the OCaml Platform will add these by opening
-  a pull request to mirror a release announcement that likely already happened on
-  discuss.ocaml.org.
+   Release announcements will not go out through the main social media accounts,
+   but through dedicated accounts sharing releases. From these, the main OCaml
+   accounts can repost and comment on major releases to give more details or
+   highlight particular milestones.
 
-*)
+   These entries are represented by the RSS feed category "releases".
+
+   Generally, software engineers of the OCaml Platform will add these by opening
+   a pull request to mirror a release announcement that likely already happened
+   on discuss.ocaml.org. *)
 
 let re_date_slug =
   let open Re in
@@ -195,7 +187,6 @@ module ChangelogFeed = struct
         let authors =
           (Syndic.Atom.author "OCaml.org", List.map to_author release.authors)
         in
-        (* FIXME: use authors from changelog if available *)
         let updated =
           Syndic.Date.of_rfc3339 (release.date ^ "T00:00:00-00:00")
         in
@@ -215,7 +206,6 @@ module ChangelogFeed = struct
         let authors =
           (Syndic.Atom.author "OCaml.org", List.map to_author post.authors)
         in
-        (* FIXME: use authors from changelog if available *)
         let updated = Syndic.Date.of_rfc3339 (post.date ^ "T00:00:00-00:00") in
         let categories =
           [
