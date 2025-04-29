@@ -1,3 +1,65 @@
+let render_changelog_entry ?current_tag (item: Data.Changelog.t) = match item with
+  | Release item ->
+    <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
+      <div class="relative md:w-72 pb-6 lg:pb-8">
+        <div class="sticky" style="top: 128px; word-break: keep-all;">
+          <div class="hidden md:absolute md:block -left-11 bg-background dark:bg-dark-background w-6 h-6 mt-0.5 text-primary dark:text-dark-primary">
+            <%s! Icons.changelog_release "w-6 h-6" %>
+          </div>
+          <h2
+            class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 text-title dark:text-dark-title">
+            <a href="<%s Url.changelog_entry item.slug %>"><%s item.title %></a>
+          </h2>
+          <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-content dark:text-dark-content"><%s Utils.human_date item.date %></time>
+          <% (match item.tags with [] -> () | _ ->  %>
+          <div class="mt-3 flex flex-row flex-wrap justify-start gap-4">
+            <% item.tags |> List.iter (fun tag -> %>
+            <a href="<%s Url.changelog %>?t=<%s tag %>" class="whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold <%s if current_tag = (Some tag) then "bg-primary dark:bg-dark-primary text-white dark:text-dark-white hover:bg-primary_dark dark:hover:bg-dark-card_hover" else "bg-white dark:bg-dark-card_hover text-title dark:text-dark-title hover:bg-tertiary_25 dark:hover:bg-dark-primary_nav_block_hover_10 border border-separator_20 dark:border-dark-separator_30" %>"><%s tag %></a>
+            <% ); %>
+          </div>
+          <% ); %>
+        </div>
+      </div>
+      <div class="grow border-b border-separator_20 dark:border-dark-separator_30 border-solid pb-6 lg:pb-8">
+        <div class="prose dark:prose-invert prose-orange">
+          <%s! item.body_html %>
+          <% (match item.changelog_html with | None -> () | Some changelog -> %>
+          <details>
+            <summary>See full changelog</summary>
+            <%s! changelog %>
+          </details>
+          <% ); %>
+        </div>
+      </div>
+    </article>
+  | Post item ->
+    <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
+      <div class="relative md:w-72 pb-6 lg:pb-8">
+        <div class="sticky" style="top: 128px; word-break: keep-all;">
+          <div class="hidden md:absolute md:block -left-11 bg-background dark:bg-dark-background w-6 h-6 mt-0.5 text-primary dark:text-dark-primary">
+            <%s! Icons.changelog_post "w-6 h-6" %>
+          </div>
+          <h2
+            class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 text-title dark:text-dark-title">
+            <a href="<%s Url.changelog_entry item.slug %>"><%s item.title %></a>
+          </h2>
+          <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-content dark:text-dark-content"><%s Utils.human_date item.date %></time>
+          <% (match item.tags with [] -> () | _ ->  %>
+          <div class="mt-3 flex flex-row flex-wrap justify-start gap-4">
+            <% item.tags |> List.iter (fun tag -> %>
+            <a href="<%s Url.changelog %>?t=<%s tag %>" class="whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold <%s if current_tag = (Some tag) then "bg-primary dark:bg-dark-primary text-white dark:text-dark-white hover:bg-primary_dark dark:hover:bg-dark-card_hover" else "bg-white dark:bg-dark-card_hover text-title dark:text-dark-title hover:bg-tertiary_25 dark:hover:bg-dark-primary_nav_block_hover_10 border border-separator_20 dark:border-dark-separator_30" %>"><%s tag %></a>
+            <% ); %>
+          </div>
+          <% ); %>
+        </div>
+      </div>
+      <div class="grow border-b border-separator_20 dark:border-dark-separator_30 border-solid pb-6 lg:pb-8">
+        <div class="prose dark:prose-invert prose-orange">
+          <%s! item.body_html %>
+        </div>
+      </div>
+    </article>
+
 let render ~tags ?current_tag ~(pagination_info : Pagination.t) (news : Data.Changelog.t list) =
 News_layout.single_column_layout
 ~title:"OCaml Changelog"
@@ -55,40 +117,7 @@ News_layout.single_column_layout
   <div class="container-fluid">
     <div class="mt-20 md:pl-8 md:border-l-2 border-separator_20 dark:border-dark-separator_30">
       <div class="flex flex-col gap-6 lg:gap-8 mx-auto">
-        <% news |> List.iter (fun (item : Data.Changelog.t) -> %>
-        <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
-          <div class="relative md:w-72 pb-6 lg:pb-8">
-            <div class="sticky" style="top: 128px; word-break: keep-all;">
-              <div class="hidden md:absolute md:block -left-11 bg-background dark:bg-dark-background w-6 h-6 mt-0.5 text-primary dark:text-dark-primary">
-                <%s! Icons.changelog "w-6 h-6" %>
-              </div>
-              <h2
-                class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 text-title dark:text-dark-title">
-                <a href="<%s Url.changelog_entry item.slug %>"><%s item.title %></a>
-              </h2>
-              <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-content dark:text-dark-content"><%s Utils.human_date item.date %></time>
-              <% (match item.tags with [] -> () | _ ->  %>
-              <div class="mt-3 flex flex-row flex-wrap justify-start gap-4">
-                <% item.tags |> List.iter (fun tag -> %>
-                <a href="<%s Url.changelog %>?t=<%s tag %>" class="whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold <%s if current_tag = (Some tag) then "bg-primary dark:bg-dark-primary text-white dark:text-dark-white hover:bg-primary_dark dark:hover:bg-dark-card_hover" else "bg-white dark:bg-dark-card_hover text-title dark:text-dark-title hover:bg-tertiary_25 dark:hover:bg-dark-primary_nav_block_hover_10 border border-separator_20 dark:border-dark-separator_30" %>"><%s tag %></a>
-                <% ); %>
-              </div>
-              <% ); %>
-            </div>
-          </div>
-          <div class="grow border-b border-separator_20 dark:border-dark-separator_30 border-solid pb-6 lg:pb-8">
-            <div class="prose dark:prose-invert prose-orange">
-              <%s! item.body_html %>
-              <% (match item.changelog_html with | None -> () | Some changelog -> %>
-              <details>
-                <summary>See full changelog</summary>
-                <%s! changelog %>
-              </details>
-              <% ); %>
-            </div>
-          </div>
-        </article>
-        <% ); %>
+        <%s! news |> List.map (fun (item : Data.Changelog.t) -> render_changelog_entry ?current_tag item ) |> String.concat "" %>
         <%s! Pagination.render pagination_info %>
       </div>
     </div>

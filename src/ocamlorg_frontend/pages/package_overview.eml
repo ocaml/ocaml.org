@@ -68,10 +68,10 @@ in
       <%s! side_box_link ~icon_html:(Icons.package_homepage "h-4 w-4 mr-2 inline-block") ~href:homepage ~title:(Utils.host_of_uri homepage) %>
       <% ); %>
       <% (match sidebar_data.readme_filename with Some readme_filename -> %>
-      <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ?version ~filepath:(readme_filename ^ ".html")) ~title:"Readme" %>
+      <%s! side_box_link ~icon_html:(Icons.document "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ?version ~filepath:(readme_filename ^ ".html")) ~title:"Readme" %>
       <% | _ -> ()); %>
       <% (match sidebar_data.changes_filename with Some changes_filename -> %>
-      <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ?version ~filepath:(changes_filename ^ ".html")) ~title:"Changelog" %>
+      <%s! side_box_link ~icon_html:(Icons.document "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ?version ~filepath:(changes_filename ^ ".html")) ~title:"Changelog" %>
       <% | _ -> ()); %>
       <% (match sidebar_data.license_filename with Some license_filename -> %>
       <%s! side_box_link ~icon_html:(Icons.license "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ?version ~filepath:(license_filename ^ ".html")) ~title:( package.license ^ " License") %>
