@@ -12,6 +12,48 @@ let package_card ~href ~img_path ~name description =
       </div>
   </a>
   
+let render_small_changelog_entry (item : Data.Changelog.t) = match item with
+  | Release item ->
+    <div class="pl-8 border-l-2 border-separator_20 dark:border-dark-separator_30">
+      <div class="flex flex-col">   
+        <div class="mb-6">
+            <div class="relative pb-2">
+                <div class="absolute block -left-11 w-6 h-6 mt-0.5 text-primary dark:text-dark-primary bg-white dark:bg-dark-card">
+                  <%s! Icons.changelog_release "w-6 h-6" %>
+                </div>
+                <a href="<%s Url.changelog_entry item.slug %>" class="my-0 font-sans text-xl tracking-normal font-extrabold leading-7 changelog-title whitespace-normal break-all text-title dark:text-dark-title hover:underline"><%s item.title %></a>
+                <time datetime="<%s item.date %>" class="block mt-1 font-sans text-sm text-content dark:text-dark-content"><%s Utils.human_date item.date %></time>
+            </div>
+            <p class="prose dark:prose-invert prose-orange">
+              <%s! String.sub item.body 0 (min (String.length item.body - 1) 100) %>...
+            </p>
+            <a href="<%s Url.changelog %>" class="text-primary dark:text-dark-primary mt-2 hover:underline">
+              See full changelog
+            </a>
+        </div>
+      </div>
+    </div>
+  | Post item ->
+    <div class="pl-8 border-l-2 border-separator_20 dark:border-dark-separator_30">
+      <div class="flex flex-col">   
+        <div class="mb-6">
+            <div class="relative pb-2">
+                <div class="absolute block -left-11 w-6 h-6 mt-0.5 text-primary dark:text-dark-primary bg-white dark:bg-dark-card">
+                  <%s! Icons.changelog_post "w-6 h-6" %>
+                </div>
+                <a href="<%s Url.changelog_entry item.slug %>" class="my-0 font-sans text-xl tracking-normal font-extrabold leading-7 changelog-title whitespace-normal break-all text-title dark:text-dark-title hover:underline"><%s item.title %></a>
+                <time datetime="<%s item.date %>" class="block mt-1 font-sans text-sm text-content dark:text-dark-content"><%s Utils.human_date item.date %></time>
+            </div>
+            <p class="prose dark:prose-invert prose-orange">
+              <%s! String.sub item.body 0 (min (String.length item.body - 1) 100) %>...
+            </p>
+            <a href="<%s Url.changelog %>" class="text-primary dark:text-dark-primary mt-2 hover:underline">
+              See full changelog
+            </a>
+        </div>
+      </div>
+    </div>
+
 let render
   ~(latest_release: Data.Release.t)
   ~(lts_release: Data.Release.t)
@@ -295,28 +337,9 @@ Layout.render
               Compiler and Platform Tools
             </h3>
             </a>
-            <% let changelogs_length = List.length changelogs in changelogs |> 
-                    List.iteri (fun index (item : Data.Changelog.t) -> %>
-            <div class="<%s if index = changelogs_length - 1 then "pl-8" else "pl-8 border-l-2 border-separator_20 dark:border-dark-separator_30" %>">
-              <div class="flex flex-col">   
-                <div class="mb-6">
-                    <div class="relative pb-2">
-                        <div class="absolute block -left-11 w-6 h-6 mt-0.5 text-primary dark:text-dark-primary bg-white dark:bg-dark-card">
-                          <%s! Icons.changelog "w-6 h-6" %>
-                        </div>
-                        <a href="<%s Url.changelog_entry item.slug %>" class="my-0 font-sans text-xl tracking-normal font-extrabold leading-7 changelog-title whitespace-normal break-all text-title dark:text-dark-title hover:underline"><%s item.title %></a>
-                        <time datetime="<%s item.date %>" class="block mt-1 font-sans text-sm text-content dark:text-dark-content"><%s Utils.human_date item.date %></time>
-                    </div>
-                    <p class="prose dark:prose-invert prose-orange">
-                      <%s! String.sub item.body 0 (min (String.length item.body - 1) 100) %>...
-                    </p>
-                    <a href="<%s Url.changelog %>" class="text-primary dark:text-dark-primary mt-2 hover:underline">
-                      See full changelog
-                    </a>
-                </div>
-              </div>
-            </div>
-            <% ); %>
+            <%s! changelogs
+                   |> List.map (fun (item : Data.Changelog.t) -> render_small_changelog_entry item )
+                   |> String.concat "" %>
             <a href="<%s Url.changelog %>" class="btn btn-ghost rounded mt-8">
             <span>See Full Changelog</span>
             <%s! Icons.chevron_right "h-5 w-5" %>

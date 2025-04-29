@@ -88,7 +88,7 @@ module Book = struct
 end
 
 module Changelog = struct
-  type t = {
+  type release = {
     title : string;
     slug : string;
     date : string;
@@ -97,7 +97,20 @@ module Changelog = struct
     body_html : string;
     body : string;
     authors : string list;
+    contributors : string list;
   }
+
+  type post = {
+    title : string;
+    slug : string;
+    date : string;
+    tags : string list;
+    body_html : string;
+    body : string;
+    authors : string list;
+  }
+
+  type t = Release of release | Post of post
 end
 
 module Code_examples = struct

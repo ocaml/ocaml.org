@@ -277,9 +277,13 @@ let learn_documents_search req =
 
 let changelog req =
   let current_tag = Dream.query req "t" in
+  let tags_from_change change =
+    match change with Data.Changelog.Release r -> r.tags | Post p -> p.tags
+  in
   let tags =
     Data.Changelog.all
-    |> List.concat_map (fun (change : Data.Changelog.t) -> change.tags)
+    |> List.concat_map (fun (change : Data.Changelog.t) ->
+           tags_from_change change)
     |> List.sort_uniq String.compare
   in
   let changes =
@@ -288,7 +292,7 @@ let changelog req =
     | Some tag ->
         List.filter
           (fun (change : Data.Changelog.t) ->
-            List.exists (( = ) tag) change.tags)
+            List.exists (( = ) tag) (tags_from_change change))
           Data.Changelog.all
   in
 
