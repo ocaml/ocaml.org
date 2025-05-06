@@ -277,6 +277,12 @@ teams:
       calendar: https://calendar.google.com/calendar/u/4?cid=Y19iMDA5ZDA4MDg0YzIwYWMzMDQ4NjJhN2FkZWJiYjdmOTU0NGIxYzEwMmU0MDMyMTAzMDFiY2ZhYjcwMDBmMjNlQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20
       notes: https://github.com/ocaml-ppx/ppxlib/wiki
     members:
+    - name: Patrick Ferris
+      github: patricoferris
+      role: Maintainer
+    - name: Nathan Rebours
+      github: NathanReb
+      role: Maintainer
     - name: Sonja Heinze
       github: pitag-ha
       role: Maintainer
