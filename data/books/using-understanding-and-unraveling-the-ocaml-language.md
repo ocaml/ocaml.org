@@ -14,7 +14,7 @@ description: >
 authors:
   - Didier Rémy
 published: "2001"
-cover: books/using-understanding-and-unraveling-the-ocaml-language.jpg
+cover: books/using-understanding-and-unraveling-the-ocaml-language.png
 language:
   - english
 links:
