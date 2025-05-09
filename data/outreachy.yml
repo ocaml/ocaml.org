@@ -456,4 +456,38 @@ rounds:
           - Paul-Elliot Anglès d'Auriac <peada@free.fr>
           - Jules Aguillon <juloo.dsi@gmail.com>
         video: https://watch.ocaml.org/w/peT3MdWjS1BYYMbowEJ1gv?start=3m07s
+  - name: December 2024
+    projects:
+      - title: Structural Diffing Algorithm for OCaml Libraries API
+        description: >
+          OCaml is a functional programming language. As with most languages, users
+          eventually package bits of their code into libraries so that others may also
+          benefit from their work. Those libraries evolve through time and multiple
+          versions are released along the way, each with its own set of changes. Some
+          changes are transparent to the library users, such as bug fixes that improve
+          a faulty behaviour. Some others modify the interface of the library: its API,
+          i.e. the set of types, values and functions it provides, sometimes requiring
+          its users to change parts of their code to adapt.
 
+          As libraries grow in size and complexity, it can become difficult for
+          maintainers to keep track of how a change in their codebase impacts the public
+          API.
+
+          [ocaml-api-watch](https://github.com/NathanReb/ocaml-api-watch) is a fresh
+          project that aims at providing a suite of tools to help OCaml library
+          maintainers and users deal with changes in the public API of their libraries or
+          the ones they use. This includes tools to detect potentially unwanted breaking
+          changes before releasing a new version or to determine the version of a library
+          that introduced a new function.
+
+          The first prototype of the api diffing tool was completed during the previous
+          outreachy round.
+          The goal of the internship this time will be to extend the prototype to support
+          a wider part of the OCaml interface representation and to implement a proper
+          structural diffing algorithm.
+        mentee: "Abdulaziz Alkurd"
+        source: https://github.com/ocaml-semver/ocaml-api-watch
+        mentors:
+          - Nathan Rebours <nathan.p.rebours@gmail.com>
+          - Paul-Elliot <peada@free.fr>
+        video: https://watch.ocaml.org/w/eWRikkpwoox1SboAwrDshD
