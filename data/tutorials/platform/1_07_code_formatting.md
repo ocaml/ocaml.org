@@ -14,7 +14,7 @@ Automatic formatting with OCamlFormat requires an `.ocamlformat` configuration f
 An empty file is accepted, but since different versions of OCamlFormat will vary in formatting, it
 is good practice to specify the version you're using. Running
 
-```shell
+```shell-session
 $ echo "version = `ocamlformat --version`" > .ocamlformat
 ```
 
@@ -22,6 +22,6 @@ creates a configuration file for the currently installed version of OCamlFormat.
 
 In addition to editor plugins that use OCamlFormat for automatic code formatting, Dune also offers a command to run OCamlFormat to automatically format all files from your codebase:
 
-```shell
+```shell-session
 $ opam exec -- dune fmt
 ```
