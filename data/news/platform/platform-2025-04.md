@@ -9,6 +9,8 @@ Welcome to the fourteenth edition of the OCaml Platform newsletter!
 
 In this February to April 2025 edition, we are excited to bring you the latest on the OCaml Platform, continuing our tradition of highlighting recent developments as seen in [previous editions](https://discuss.ocaml.org/tag/platform-newsletter). To understand the direction we're headed, especially regarding development workflows and user experience improvements, check out our [roadmap](https://ocaml.org/docs/platform-roadmap).
 
+You can [comment on this newsletter on the OCaml Discuss Forums](https://discuss.ocaml.org/t/ocaml-platform-newsletter-february-to-april-2025/16644)!
+
 **Highlights:**
 - **Dune Package Management is now Compatible with Large Parts of the Ecosystem**: The majority of Dune-based packages in opam-repository now build successfully with Dune package management. Continuous monitoring is available at [dune.check.ci.dev](https://dune.check.ci.dev). Technical barriers are being systematically addressed while maintaining compatibility with both opam and Dune workflows to ensure teams can transition at their own pace.
 - **Odoc 3.0 Release**: A major upgrade, introducing powerful features like type-based search through Sherlodoc, global sidebar navigation, integrated source code display, multimedia support, hierarchical documentation pages, and cross-package linking that creates truly connected documentation.
