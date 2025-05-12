@@ -8,7 +8,8 @@ continent: Asia
 courses:
     - name: Introduction to Computers and Programming (along with Pascal and Java)
       acronym: CSL 101
-      url: "https://www.cse.iitd.ac.in/~ssen/csl101/details.html"
+      url: "https://www.cse.iitd.ac.in/~parags/teaching/2013/sp13/csl101/"
+      year: 2013
 location:
      lat: 28.5457
      long: 77.1928
