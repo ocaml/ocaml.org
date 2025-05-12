@@ -9,6 +9,7 @@ courses:
     - name: Programming Languages 
       acronym: CS691F
       url: "https://people.cs.umass.edu/~arjun/courses/cs691f/"
+      year: 2019
       teacher: "Arjun Guha"
 location:
      lat: 42.3142
