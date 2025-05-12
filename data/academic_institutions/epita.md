@@ -7,6 +7,7 @@ logo: academic_institution/epita.png
 continent: Europe
 courses:
     - name:  Introduction to Algorithms (Year 1 & 2)
+      year: 2018
 location:
      lat: 48.8157
      long: 2.3628

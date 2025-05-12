@@ -20,10 +20,12 @@ courses:
       exercises: true
     - name: Functional Programming, Algorithms, and Data Structures
       url: "https://www.di.ubi.pt/~desousa/PF/pf.html"
+      year: 2023
       lecture_notes: true
       exercises: true
     - name: Programming Languages and Compilers Design
       url: "https://www.di.ubi.pt/~desousa/DLPC/dlpc.html"
+      year: 2023
       lecture_notes: true
       exercises: true
     - name: Proof and Programming Theory
