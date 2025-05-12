@@ -73,7 +73,7 @@ Layout.render
                             <li class="w-full flex flex-wrap gap-2 justify-between">
                                 <a class="flex group text-primary dark:text-dark-white hover:dark:text-dark-primary dark:underline hover:underline " href="<%s url %>">
                                     <%s! Icons.link "h-5 mr-2 text-primary dark:text-dark-white group-hover:text-primary dark:group-hover:text-dark-primary w-4 h-5" %>
-                                    <%s course.name %>
+                                    <%s Data.Academic_institution.full_course_name course %> (<%i course.year %>)
                                 </a>
                                 <div class="flex gap-2">
                                     <%s! render_tag "lecture_notes" course.lecture_notes %>

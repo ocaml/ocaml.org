@@ -5,7 +5,7 @@ type course_metadata = {
   teacher : string option;
   enrollment : string option;
   last_check : string option;
-  year : int option;
+  year : int;
   description : string option;
   lecture_notes : bool option;
   exercises : bool option;
