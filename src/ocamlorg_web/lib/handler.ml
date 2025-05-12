@@ -443,6 +443,7 @@ let academic_institutions req =
       (fun institution -> matches_criteria institution continent resource_type)
       users
   in
+  let number_of_institutions = List.length filtered_institutions in
   let page_number, total_page_count, institutions =
     paginate ~req ~n:10 filtered_institutions
   in
@@ -460,7 +461,7 @@ let academic_institutions req =
   in
   Dream.html
     (Ocamlorg_frontend.academic_institutions ?search:query ?continent
-       ?resource_type ~pagination_info institutions)
+       ?resource_type ~number_of_institutions ~pagination_info institutions)
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
 

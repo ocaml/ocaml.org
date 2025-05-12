@@ -6,7 +6,7 @@ let render_tag tag show =
     in
     <span class="px-3 inline-block max-w-max rounded-3xl font-mono text-sm text-center text-white <%s _cls %> <%s if show then "" else "hidden" %>"><%s name %></span>
     
-let render ?(search = "") ?(continent = "All") ?(resource_type = "All") ~pagination_info (institutions : Data.Academic_institution.t list) =
+let render ?(search = "") ?(continent = "All") ?(resource_type = "All") ~pagination_info ~number_of_institutions (institutions : Data.Academic_institution.t list) =
 Layout.render
 ~title:"Academic Institutions"
 ~description:"Many more academic institutions teach OCaml"
@@ -20,7 +20,7 @@ Layout.render
             <%s! Icons.arrow_left "h-5 w-5" %>
             <a href="<%s Url.academic_users %>" class="hover:underline text-primary dark:text-dark-primary ">Back</a>
           </div>
-          <h2 class="font-bold pb-6 lg:max-w-[80%]">Academic Institutions Teach OCaml!</h2>
+          <h2 class="font-bold pb-6 lg:max-w-[80%]">Courses from Academic Institutions that Teach OCaml</h2>
         </div>
       </div>
     </div>
@@ -28,7 +28,6 @@ Layout.render
 </div>
 <div class="bg-background dark:bg-dark-background w-full py-8">
     <div class="container-fluid">
-        <h3 class="text-2xl text-title dark:text-dark-title font-bold">30+ Academic Entries</h3>
         <p class="text-content dark:text-dark-content text-base mb-4">To list an academic institution, check out the <a class="text-primary dark:text-white dark:underline" href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-academic-user">Contributing Guide</a> on GitHub.</p>
         <form action="<%s Url.academic_institutions %>" method="GET" class="flex gap-2 flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto mb-6">
             <%s! Forms.search_input
@@ -49,6 +48,7 @@ Layout.render
             ~selected:continent
             "w-full lg:w-max" %>
         </form>
+        <h3 class="text-2xl text-title dark:text-dark-title font-bold"><%i number_of_institutions %> Institutions</h3>
         <% institutions |> List.iter (fun (item : Data.Academic_institution.t) -> let logo = match item.logo with | Some x -> Ocamlorg_static.Media.url x | None -> "" in %>
             <div class="flex flex-col md:flex-row items-start lg:items-center border-b border-separator_20 dark:border-dark-separator_30 py-4">
                 <a href="<%s item.url %>" class="w-44 h-24 rounded-lg flex justify-center items-center border border-separator_20 dark:border-dark-separator_30 bg-white overflow-hidden p-4 mr-5 mb-4">
