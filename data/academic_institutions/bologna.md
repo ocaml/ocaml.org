@@ -9,9 +9,11 @@ courses:
     - name: Emerging Programming Paradigms
       acronym: "81672"
       url: "https://www.unibo.it/en/study/phd-professional-masters-specialisation-schools-and-other-programmes/course-unit-catalogue/course-unit/2023/479059"
+      year: 2023
     - name: Logical Basis of Computer Science
       acronym: "30214"
       url: "https://www.unibo.it/en/study/phd-professional-masters-specialisation-schools-and-other-programmes/course-unit-catalogue/course-unit/2023/479027"
+      year: 2023
 location:
      lat: 44.2938
      long: 11.2034
