@@ -506,11 +506,11 @@ Modules can hold a state. Functors can provide a means to initialise stateful mo
 
 **`random.ml`**
 ```ocaml
-module type SeedType : sig
+module type SeedType = sig
   val v : int array
 end
 
-module type S : sig
+module type S = sig
   val reset_state : unit -> unit
 
   val bits : unit -> int
