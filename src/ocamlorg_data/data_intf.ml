@@ -7,7 +7,7 @@ module Academic_institution = struct
     url : string option;
     teacher : string option;
     enrollment : string option;
-    year : int option;
+    year : int;
     description : string;
     last_check : Ptime.t option;
     lecture_notes : bool;

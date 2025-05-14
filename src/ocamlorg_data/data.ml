@@ -7,6 +7,11 @@ module Academic_institution = struct
            match institution.featured with Some true -> true | _ -> false)
 
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+
+  let full_course_name course =
+    match course.acronym with
+    | None -> course.name
+    | Some acronym -> acronym ^ " - " ^ course.name
 end
 
 module Academic_testimonial = Academic_testimonial

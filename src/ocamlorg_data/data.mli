@@ -6,6 +6,7 @@ module Academic_institution : sig
   val all : t list
   val featured : t list
   val get_by_slug : string -> t option
+  val full_course_name : course -> string
 end
 
 module Academic_testimonial : sig

@@ -6,8 +6,11 @@ url: "https://www.caltech.edu/"
 logo: academic_institution/caltech.png
 continent: North America
 courses:
-    - name: Fundamentals of Computer Programming
-      url: "http://users.cms.caltech.edu/~mvanier/"
+    - name: "Compilers"
+      acronym: CS 164
+      url: "https://mvanier.github.io/cs164/Fall2024/book/"
+      year: 2024
+      teacher: Mike Vanier
 location:
      lat: 34.1377
      long: -118.1253
