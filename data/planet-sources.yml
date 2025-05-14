@@ -200,10 +200,10 @@
   only_ocaml: true
 - id: jonludlam
   name: Jon Ludlam's Blog at recoil.org
-  url: "TODO: rss feed URL"
+  url: https://jon.recoil.org/atom.xml
 - id: patricoferris
   name: Patrick Ferris' Blog
-  url: "TODO: rss feed URL"
+  url: https://patrick.sirref.org/posts/atom.xml
 - id: dra27
   name: David Allsopp's Blog
   url: https://www.dra27.uk/feed.xml
