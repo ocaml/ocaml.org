@@ -55,7 +55,7 @@ The roles and responsibilities are explained in the governance, don't hesitate t
 
 We're always looking for new maintainers! If you're interested in helping us make OCaml.org the best resource to learn OCaml and discover the ecosystem, [reach out to us](mailto:thibaut@tarides.com)!
 
-## Acknowlegements
+## Acknowledgements
 
 Thank you to everyone who contributed to the development of this new version of the website!
 
