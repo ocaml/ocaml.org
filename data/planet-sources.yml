@@ -197,3 +197,21 @@
 - id: bbatsov
   name: Bozhidar Batsov
   url: https://batsov.com/feeds/OCaml.xml
+  only_ocaml: true
+- id: jonludlam
+  name: Jon Ludlam's Blog at recoil.org
+  url: https://jon.recoil.org/atom.xml
+- id: patricoferris
+  name: Patrick Ferris' Blog
+  url: https://patrick.sirref.org/posts/atom.xml
+- id: dra27
+  name: David Allsopp's Blog
+  url: https://www.dra27.uk/feed.xml
+- id: anil
+  name: Anil Madhavapeddy's Blog
+  url: https://anil.recoil.org/news.xml
+  only_ocaml: true
+- id: ryangibb
+  name: Ryan Gibb's Blog
+  url: https://ryan.freumh.org/atom.xml
+  only_ocaml: true
