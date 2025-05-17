@@ -1,0 +1,13 @@
+---
+title: <a href="https://jon.recoil.org/blog/2025/05/ticks-solved-by-ai.html">Solving
+  First-year OCaml exercises with AI</a>
+description:
+url: https://jon.recoil.org/blog/2025/05/ticks-solved-by-ai.html
+date: 2025-05-07T00:00:00-00:00
+preview_image:
+authors:
+- Jon Ludlam
+source:
+---
+
+<section><h1><a href="https://jon.recoil.org/atom.xml#solving-first-year-ocaml-exercises-with-ai" class="anchor"></a>Solving First-year OCaml exercises with AI</h1><ul class="at-tags"><li class="published"><span class="at-tag">published</span> <p>2025-05-07</p></li></ul><p>My colleague <a href="https://toao.com">Sadiq Jaffer</a> and I have been working on a little project to see how well small AI models can solve the OCaml exercises we give to our first-year students at the University of Cambridge. Sadiq has done an excellent <a href="https://toao.com/blog/ocaml-local-code-models">write up</a> of our initial results, which you should all go and read! The tl;dr though, as Sadiq writes, is that even some of the smaller models would score top marks on these exercises!</p><p>One interesting aspect we discovered quite quickly is that we had to make the testing feedback a little more generous than just "exception raised"! The problems are presented as a Jupyter notebook using <a href="https://github.com/akabe">akabe's</a> excellent OCaml kernel, with <a href="https://nbgrader.readthedocs.io/en/stable/">nbgrader</a> to do the assessment. Our students can see the tests that are run, and if they fail they're able to copy the test cell out and play with their code to figure out exactly what went wrong. The AI models, however, have a far less interactive experience, and get just 3 chances to write code that passes the tests. We found that the performance of the models increased hugely when we adjusted the test cells such that they clearly indicated which test failed, the results that were expected, and the results the code actually produced.</p><p>Of course, we <a href="https://anil.recoil.org/notes/claude-copilot-sandbox">already knew</a> that AI models can code OCaml very well, and we (along with the rest of the teaching world) are still ruminating on the implications of this from a pedagogical perspective. Our plan, though, is to try and make the 'problem' worse by training these models on more OCaml code, and see just how well we can get them to perform! It's pretty amazing, and a little startling to know that a model that'll run pretty comfortably on my laptop can solve these problems so well even without extra training, though given how hot it gets, I'd rather not have the laptop on my actual lap while it's doing so!</p></section><p>Continue reading <a href="https://jon.recoil.org/blog/2025/05/ticks-solved-by-ai.html">here</a></p>
