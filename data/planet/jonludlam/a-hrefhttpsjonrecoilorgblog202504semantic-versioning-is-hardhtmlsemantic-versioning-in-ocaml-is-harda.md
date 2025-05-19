@@ -1,6 +1,5 @@
 ---
-title: <a href="https://jon.recoil.org/blog/2025/04/semantic-versioning-is-hard.html">Semantic
-  Versioning in OCaml is Hard</a>
+title: Semantic Versioning in OCaml is Hard
 description:
 url: https://jon.recoil.org/blog/2025/04/semantic-versioning-is-hard.html
 date: 2025-04-20T00:00:00-00:00

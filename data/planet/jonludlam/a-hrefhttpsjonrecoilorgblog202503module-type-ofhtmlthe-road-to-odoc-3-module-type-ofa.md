@@ -1,6 +1,5 @@
 ---
-title: '<a href="https://jon.recoil.org/blog/2025/03/module-type-of.html">The Road
-  to Odoc 3: Module Type Of</a>'
+title: 'The Road to Odoc 3: Module Type Of'
 description:
 url: https://jon.recoil.org/blog/2025/03/module-type-of.html
 date: 2025-03-08T00:00:00-00:00

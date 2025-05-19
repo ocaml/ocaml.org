@@ -1,5 +1,5 @@
 ---
-title: '<a href="https://jon.recoil.org/blog/2025/04/odoc-3.html">Odoc 3: So what?</a>'
+title: 'Odoc 3: So what?'
 description:
 url: https://jon.recoil.org/blog/2025/04/odoc-3.html
 date: 2025-04-25T00:00:00-00:00

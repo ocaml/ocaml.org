@@ -1,6 +1,5 @@
 ---
-title: <a href="https://jon.recoil.org/blog/2025/05/oxcaml-gets-closer.html">OxCaml
-  is getting closer...</a>
+title: OxCaml is getting closer...
 description:
 url: https://jon.recoil.org/blog/2025/05/oxcaml-gets-closer.html
 date: 2025-05-02T00:00:00-00:00

@@ -1,5 +1,5 @@
 ---
-title: <a href="https://jon.recoil.org/blog/2025/04/this-site.html">This site</a>
+title: This site
 description:
 url: https://jon.recoil.org/blog/2025/04/this-site.html
 date: 2025-04-07T00:00:00-00:00
