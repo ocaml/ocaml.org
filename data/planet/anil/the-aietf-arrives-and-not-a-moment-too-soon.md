@@ -8,6 +8,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <p>The <a href="https://ietf.org">IETF</a> <a href="https://bsky.app/profile/ietf.org/post/3lj6w5fpjx22u">announced</a> their new <a href="https://www.ietf.org/blog/aipref-wg/">AI Preferences Working Group</a> (AIPREF), which will <em>"work on standardizing building blocks that allow for the expression of preferences about how content is collected and processed for Artificial Intelligence models"</em>. This is quite well timed; the IETF tries not to standardise too early before there is <a href="https://www.ietf.org/runningcode/">running code</a> but also needs to move before it's too late and a bad defacto standard is <a href="https://datatracker.ietf.org/doc/html/rfc7282">chosen</a>.  The AI world seems to be at that nexus point right about now, with <a href="https://openai.com/index/introducing-gpt-4-5/">GPT 4.5</a> seemingly hitting a <a href="https://www.newscientist.com/article/2470327-is-openai-hitting-a-wall-with-huge-and-expensive-gpt-4-5-model/">scaling wall</a> and possibly triggering the start of a renewed data scraping frenzy.</p>

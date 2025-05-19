@@ -7,6 +7,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <p>Over in my <a href="https://www.cst.cam.ac.uk/research/eeg">EEG</a> group, we have a <em>lot</em> of primary and secondary datasets lying around: 100s of terabytes of <a href="https://anil.recoil.org/projects/rsn">satellite imagery</a>, <a href="https://anil.recoil.org/projects/life">biodiversity data</a>, <a href="https://anil.recoil.org/projects/ce">academic literature</a>, and the intermediate computations that go along with them. Our trusty central shared storage server running <a href="https://www.truenas.com">TrueNAS</a> stores data in <a href="https://en.wikipedia.org/wiki/ZFS">ZFS</a> and serves it over <a href="https://en.wikipedia.org/wiki/Network_File_System">NFSv4</a> to a bunch of hosts. This is rapidly becoming a bottleneck as our group and datasets grow, and <a href="https://tarides.com/blog/author/mark-elvers/" class="contact">Mark Elvers</a> has been steadily adding <a href="https://www.tunbury.org/kingston-drives/">lots more raw capacity</a>.  The question now is how to configure this raw SSD capacity into a more nimble storage setup.  If anyone's seen any systems similar to the one sketched out below, I'd love to hear from you.</p>

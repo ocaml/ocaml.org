@@ -7,6 +7,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <p>Like many <a href="https://anil.recoil.org/notes/ai-ietf-aiprefs">others</a>, my website is under a constant barrage of crawling from bots. I need to figure out which one is hosing me, but I am also resisting having third-party trackers of any form. I took a look at hosting a <a href="https://plausible.io/">Plausible</a> instance as <a href="https://plausible.ci.dev/ocaml.org">OCaml does</a>, but it's yet another service to run and maintain. Then <a href="https://nick.recoil.org" class="contact">Nick Ludlam</a> pointed me to an old-fashioned server-side log analyser with builtin privacy called <a href="https://goaccess.io">Goaccess</a> he's using on his <a href="https://nick.recoil.org">site</a>, which is also perfect for my needs!</p>

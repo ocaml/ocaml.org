@@ -7,6 +7,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <p><a href="https://nick.recoil.org" class="contact">Nick Ludlam</a> and I have self-hosted recoil.org since around 1996, typically for

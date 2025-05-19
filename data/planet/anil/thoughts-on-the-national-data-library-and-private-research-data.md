@@ -8,6 +8,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <p>Over the past year, <a href="https://toao.com" class="contact">Sadiq Jaffer</a> and I have been getting an object lesson in how the modern Internet handles researcher access to data, as we've been downloading tens of millions of research papers towards our <a href="https://anil.recoil.org/projects/ce">Conservation Evidence</a> project. This is legally possible via our <a href="https://www.lib.cam.ac.uk/stories/student-guide-libraries">institutional subscriptions</a> that give us license to fulltexts, and the incredibly helpful <a href="https://uk.linkedin.com/in/james-caudwell-60681766">head of electronic services</a> at the University Library who wields encyclopedic knowledge of each of our agreements with the hundreds of publishers out there. My thoughts on this then segwayed into recent conversations I've been having about the emerging <a href="https://takes.jamesomalley.co.uk/p/wtf-is-the-national-data-library">National Data Library</a> and also with the UK <a href="https://www.wildlifetrusts.org/">Wildlife Trusts</a>...</p>

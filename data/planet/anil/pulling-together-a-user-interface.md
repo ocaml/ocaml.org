@@ -8,6 +8,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <p>We’ve been <a href="http://github.com/avsm/perscon">hacking</a> away on fleshing out the <a href="http://code.google.com/appengine">App Engine</a> node for personal containers. We’re building this node first because, crucially, deploying an App Engine VM is free to anyone with a Google account.  The service itself is limited since you can only respond to HTTP or XMPP requests and do HTTP fetches, and so its primary use is as an always-on data collection service with a webmail-style UI written using <a href="http://www.extjs.com/">extjs</a>.</p>
