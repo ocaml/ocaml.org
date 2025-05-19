@@ -287,6 +287,7 @@ module Documentation = struct
     match Yojson.Safe.from_string s with
     | `Assoc
         [
+          ("header", `String _TODO);
           ("type", `String _page_type);
           ("uses_katex", `Bool uses_katex);
           ("breadcrumbs", `List json_breadcrumbs);
@@ -295,11 +296,7 @@ module Documentation = struct
           ("preamble", `String preamble);
           ("content", `String content);
         ] ->
-        let breadcrumbs =
-          match List.map breadcrumb_from_json json_breadcrumbs with
-          | _ :: _ :: _ :: _ :: breadcrumbs -> breadcrumbs
-          | _ -> failwith "Not enough breadcrumbs"
-        in
+        let breadcrumbs = List.map breadcrumb_from_json json_breadcrumbs in
         {
           uses_katex;
           breadcrumbs;
