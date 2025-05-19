@@ -1,5 +1,6 @@
 (library
  (name ocamlorg_package)
+ (preprocess (pps ppx_deriving_yojson))
  (libraries
   opam-format
   bos
