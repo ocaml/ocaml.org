@@ -16,9 +16,9 @@ The OCaml ecosystem is supported by a [robust infrastructure built around OCurre
 
 The OCaml infrastructure services can be grouped into three main categories: Community infrastructure services, services for individual projects, and infrastructure operation services. Here we present a brief overview of the major services from the first two categories.
 
-### Community Infrastructure Services
+### Services for Individual Projects
 
-These services power the broader OCaml ecosystem, supporting package repositories, documentation, and other essential community resources:
+These services used for your own projects to help with reproducible builds, testing, benchmarking, and continuous integration:
 
 #### Docker Base Images
 
@@ -28,35 +28,6 @@ These services power the broader OCaml ecosystem, supporting package repositorie
 This service builds the official `ocaml/opam` Docker images for various Linux distributions, OCaml versions, compiler flags, and architectures (including x86, ARM, PowerPC, s390x, and RISC-V). These images provide a consistent environment for development and testing and are used by many other CI services.
 
 **Using the pre-built OCaml Docker images:** You can view the available [pre-built Docker images for various OCaml configurations at DockerHub](https://hub.docker.com/r/ocaml/opam).
-
-#### Package Submission CI (opam-repo-ci)
-
-**Service:** [opam-repo-ci](https://github.com/ocurrent/opam-repo-ci)  
-**Website:** [opam.ci.ocaml.org](https://opam.ci.ocaml.org)
-
-Tests package submissions to the opam repository. When you submit a pull request to opam-repository, this service verifies that your package builds correctly and also tests all dependent packages to ensure compatibility.
-
-**Publishing a package to opam-repository:** After creating a GitHub release and opening an opam-repository PR with `dune-release`, monitor your opam-repository PR to ensure all tests pass.
-
-#### Documentation CI
-
-**Service:** [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci)  
-**Website:** [docs.ci.ocaml.org](https://docs.ci.ocaml.org)
-
-Builds documentation for all packages in the opam repository, with correct cross-package linking. Generated documentation is published to the OCaml.org website.
-
-**Package documentation on OCaml.org:** After publishing your package to opam-repository, the documentation will automatically be built and integrated with the [OCaml.org website's package area](https://ocaml.org/packages).
-
-#### Package Health Check
-
-**Service:** [opam-health-check](https://github.com/ocurrent/opam-health-check)  
-**Website:** [check.ci.ocaml.org](https://check.ci.ocaml.org)
-
-Regularly tests that all packages in the opam repository still build correctly. This service is used by OCaml compiler developers when preparing major changes like new OCaml compiler releases.
-
-### Services for Individual Projects
-
-These services can be enabled for your own GitHub repositories to help with testing, benchmarking, and continuous integration:
 
 #### OCaml CI
 
@@ -84,6 +55,33 @@ Provides continuous benchmarking for OCaml projects to track performance across 
 Tests OCaml projects against multicore OCaml versions - particularly useful if you want to ensure your code is compatible with OCaml 5.x.
 
 **How to enable OCaml-Multicore-CI on your GitHub project:** Check out the [OCaml-Multicore-CI README on GitHub](https://github.com/ocurrent/ocaml-multicore-ci).
+
+### Community Infrastructure Services
+
+These services power the broader OCaml ecosystem, supporting package repositories, documentation, and other essential community resources:
+
+#### Package Submission CI (opam-repo-ci)
+
+**Service:** [opam-repo-ci](https://github.com/ocurrent/opam-repo-ci)
+**Website:** [opam.ci.ocaml.org](https://opam.ci.ocaml.org)
+
+Tests package submissions to the opam repository. When you submit a pull request to opam-repository, this service verifies that your package builds correctly and also tests all dependent packages to ensure compatibility.
+
+**Maintaining compatibility for packages in the opam-repository:** After publishing a package by creating a GitHub release and opening an opam-repository PR (e.g. by [using `dune-release`](/publishing-packages-w-dune)), monitor your opam-repository PR to ensure all tests pass.
+
+#### Documentation CI
+
+**Service:** [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci)
+**Website:** [docs.ci.ocaml.org](https://docs.ci.ocaml.org)
+
+Builds **documentation for all packages in the opam repository**, with correct cross-package linking. After publishing your package to opam-repository, the documentation will automatically be built and published to the [OCaml.org website's package area](https://ocaml.org/packages).
+
+#### Package Health Check
+
+**Service:** [opam-health-check](https://github.com/ocurrent/opam-health-check)
+**Website:** [check.ci.ocaml.org](https://check.ci.ocaml.org)
+
+Regularly tests that all packages in the opam repository still build correctly. This service is used by OCaml compiler developers when preparing major changes like new OCaml compiler releases.
 
 ## Platform Support
 
