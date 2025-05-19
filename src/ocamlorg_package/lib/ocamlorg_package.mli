@@ -111,15 +111,7 @@ val info : t -> Info.t
 val create : name:Name.t -> version:Version.t -> Info.t -> t
 (** This is added to enable demo test package to use Package.t with abstraction *)
 
-module Documentation_status : sig
-  type otherdocs = {
-    readme : string option;
-    license : string option;
-    changes : string option;
-  }
-
-  type t = { failed : bool; otherdocs : otherdocs }
-end
+module Documentation_status = Documentation_status
 
 val documentation_status :
   kind:[< `Package | `Universe of string ] ->

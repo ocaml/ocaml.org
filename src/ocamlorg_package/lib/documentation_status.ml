@@ -1,34 +1,27 @@
-type otherdocs = {
-  readme : string option;
-  license : string option;
-  changes : string option;
+type redirection = { old_path : string; new_path : string } [@@deriving yojson]
+
+type t = {
+  name : string;
+  version : string;
+  failed : bool;
+  files : string list;
+  redirections : redirection list;
 }
+[@@deriving yojson]
 
-type t = { failed : bool; otherdocs : otherdocs }
+let has_file (v : t) (options : string list) : string option =
+  let children = v.files in
+  try
+    List.find_map
+      (fun x ->
+        let fname = Fpath.(v x |> rem_ext |> filename) in
+        if List.mem fname options then Some fname else None)
+      children
+  with Not_found -> None
 
-let first_opt = function x :: _ -> Some x | [] -> None
+let license (v : t) = has_file v [ "LICENSE"; "LICENCE" ]
+let readme (v : t) = has_file v [ "README"; "Readme"; "readme" ]
 
-let strip_prefix (p : string option) =
-  let v : string list option = Option.map (String.split_on_char '/') p in
-  match v with
-  | None -> None
-  | Some (_ :: _ :: _ :: _ :: _ :: xs) -> Some (String.concat "/" xs)
-  | _ -> None
-
-let of_yojson (v : Yojson.Safe.t) : t =
-  let status = Voodoo_serialize.Status.of_yojson v in
-  {
-    failed = status.failed;
-    otherdocs =
-      {
-        readme =
-          status.otherdocs.readme |> first_opt |> Option.map Fpath.to_string
-          |> strip_prefix;
-        license =
-          status.otherdocs.license |> first_opt |> Option.map Fpath.to_string
-          |> strip_prefix;
-        changes =
-          status.otherdocs.changes |> first_opt |> Option.map Fpath.to_string
-          |> strip_prefix;
-      };
-  }
+let changelog (v : t) =
+  has_file v
+    [ "CHANGELOG"; "Changelog"; "changelog"; "CHANGES"; "Changes"; "changes" ]

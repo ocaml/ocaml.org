@@ -445,9 +445,13 @@ let documentation_status ~kind state t : Documentation_status.t option Lwt.t =
     let+ content = http_get (package_url ^ "status.json") in
     let status =
       match content with
-      | Ok s ->
-          Some (s |> Yojson.Safe.from_string |> Documentation_status.of_yojson)
-      | _ -> None
+      | Ok s -> (
+          match
+            s |> Yojson.Safe.from_string |> Documentation_status.of_yojson
+          with
+          | Ok status -> Some status
+          | Error _TODO -> None)
+      | Error _TODO -> None
     in
     let status_entry =
       { documentation_status = status; time = Unix.gettimeofday () }

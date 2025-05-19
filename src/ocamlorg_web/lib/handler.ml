@@ -892,29 +892,18 @@ module Package_helper = struct
 
   let package_sidebar_data ~kind t package =
     let open Lwt.Syntax in
-    let* package_documentation_status =
-      Ocamlorg_package.documentation_status ~kind t package
-    in
+    let* doc_status = Ocamlorg_package.documentation_status ~kind t package in
     let readme_filename =
-      Option.fold ~none:None
-        ~some:(fun (s : Ocamlorg_package.Documentation_status.t) ->
-          s.otherdocs.readme)
-        package_documentation_status
+      Option.bind doc_status Ocamlorg_package.Documentation_status.readme
     in
     let changes_filename =
-      Option.fold ~none:None
-        ~some:(fun (s : Ocamlorg_package.Documentation_status.t) ->
-          s.otherdocs.changes)
-        package_documentation_status
+      Option.bind doc_status Ocamlorg_package.Documentation_status.changelog
     in
     let license_filename =
-      Option.fold ~none:None
-        ~some:(fun (s : Ocamlorg_package.Documentation_status.t) ->
-          s.otherdocs.license)
-        package_documentation_status
+      Option.bind doc_status Ocamlorg_package.Documentation_status.license
     in
     let documentation_status =
-      match package_documentation_status with
+      match doc_status with
       | Some { failed = false; _ } -> Ocamlorg_frontend.Package.Success
       | Some { failed = true; _ } -> Failure
       | None -> Unknown
