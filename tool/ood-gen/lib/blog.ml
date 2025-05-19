@@ -33,7 +33,7 @@ module Source = struct
                  name;
                  url;
                  description = "";
-                 only_ocaml = Option.value ~default:false only_ocaml;
+                 only_ocaml = Option.value ~default:true only_ocaml;
                  disabled = Option.value ~default:false disabled;
                }))
     in
