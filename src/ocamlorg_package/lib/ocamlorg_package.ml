@@ -392,7 +392,7 @@ let search_index ~kind t =
   let package_url =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
   in
-  let url = package_url ^ "index.js" in
+  let url = package_url ^ "doc/index.js" in
 
   let open Lwt.Syntax in
   let* content = http_get url in
