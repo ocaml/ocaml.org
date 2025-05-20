@@ -33,6 +33,7 @@ let title_style = "flex-1 flex-nowrap py-1 md:py-0.5 pr-1 text-title dark:text-d
 let htmx_attributes = "hx-boost=\"true\" hx-ext=\"multi-swap\" hx-swap=\"multi:#htmx-head,#htmx-sidebar,#htmx-content,#htmx-right-sidebar,#htmx-breadcrumbs\" hx-push-url=\"true\""
 
 let icon_style = function
+  | Page -> "navmap-tag page-tag"
   | Library -> "navmap-tag library-tag"
   | Module -> "navmap-tag module-tag"
   | Module_type -> "navmap-tag module-type-tag"
@@ -128,6 +129,7 @@ let render
   <% | _ -> %>
     <div class="py-24 text-title dark:text-dark-title">
     Legend:<br>
+    <span class="<%s icon_style Page %>" style="display:inline-block;color:white"></span>Page<br>
     <span class="<%s icon_style Library %>" style="display:inline-block;color:white"></span>Library<br>
     <span class="<%s icon_style Module %>" style="display:inline-block;color:white"></span>Module<br>
     <span class="<%s icon_style Module_type %>" style="display:inline-block;color:white"></span>Module type<br>

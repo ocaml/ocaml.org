@@ -92,6 +92,7 @@ module Documentation : sig
 end
 
 module Package_info = Package_info
+module Sidebar = Sidebar
 
 type state
 type t
@@ -120,9 +121,8 @@ val documentation_status :
   Documentation_status.t option Lwt.t
 (** Get the build status of the documentation of a package *)
 
-val module_map :
-  kind:[< `Package | `Universe of string ] -> t -> Package_info.t Lwt.t
-(** Get the module map of a package *)
+val sidebar : kind:[ `Package | `Universe of string ] -> t -> Sidebar.t Lwt.t
+(** Get the sidebar of a package *)
 
 val documentation_page :
   kind:[< `Package | `Universe of string ] ->
