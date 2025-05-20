@@ -314,6 +314,15 @@ div.odoc .comment-delim {
   border-color: rgb(32, 68, 165);
 }
 
+.navmap-tag.page-tag::after {
+  content: "P";
+}
+.page-tag{
+  color: rgb(32, 68, 165);
+  background-color: rgb(32, 68, 165);
+  border-color: rgb(32, 68, 165);
+}
+
 span.icon-expand > .navmap-tag,
 span.no-expand > .navmap-tag {
   color: white;
