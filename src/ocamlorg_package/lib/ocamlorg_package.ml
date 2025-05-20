@@ -287,7 +287,7 @@ module Documentation = struct
     match Yojson.Safe.from_string s with
     | `Assoc
         [
-          ("header", `String _TODO);
+          ("header", `String header);
           ("type", `String _page_type);
           ("uses_katex", `Bool uses_katex);
           ("breadcrumbs", `List json_breadcrumbs);
@@ -301,7 +301,7 @@ module Documentation = struct
           uses_katex;
           breadcrumbs;
           toc = List.map toc_of_json json_toc;
-          content = preamble ^ content;
+          content = header ^ preamble ^ content;
         }
     | _ -> raise (Invalid_argument "malformed .html.json file")
 end
