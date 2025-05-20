@@ -22,7 +22,8 @@ These services used for your own projects to help with reproducible builds, test
 
 #### Docker Base Images
 
-**Service:** [docker-base-images](https://github.com/ocurrent/docker-base-images)  
+**Service:** [docker-base-images](https://github.com/ocurrent/docker-base-images)
+
 **Website:** [images.ci.ocaml.org](https://images.ci.ocaml.org)
 
 This service builds the official `ocaml/opam` Docker images for various Linux distributions, OCaml versions, compiler flags, and architectures (including x86, ARM, PowerPC, s390x, and RISC-V). These images provide a consistent environment for development and testing and are used by many other CI services.
@@ -31,7 +32,8 @@ This service builds the official `ocaml/opam` Docker images for various Linux di
 
 #### OCaml CI
 
-**Service:** [ocaml-ci](https://github.com/ocurrent/ocaml-ci)  
+**Service:** [ocaml-ci](https://github.com/ocurrent/ocaml-ci)
+
 **Website:** [ocaml.ci.dev](https://ocaml.ci.dev)
 
 A CI service for OCaml projects hosted on GitHub. It automatically tests projects against multiple OCaml versions and OS platforms by examining your opam files to determine build requirements.
@@ -40,7 +42,8 @@ A CI service for OCaml projects hosted on GitHub. It automatically tests project
 
 #### Continuous Benchmarking
 
-**Service:** [current-bench](https://github.com/ocurrent/current-bench)  
+**Service:** [current-bench](https://github.com/ocurrent/current-bench)
+
 **Website:** [bench.ci.dev](https://bench.ci.dev)
 
 Provides continuous benchmarking for OCaml projects to track performance across different commits and branches.
@@ -49,7 +52,8 @@ Provides continuous benchmarking for OCaml projects to track performance across 
 
 #### OCaml-Multicore-CI
 
-**Service:** [ocaml-multicore-ci](https://github.com/ocurrent/ocaml-multicore-ci)  
+**Service:** [ocaml-multicore-ci](https://github.com/ocurrent/ocaml-multicore-ci)
+
 **Website:** [ocaml-multicore.ci.dev](https://ocaml-multicore.ci.dev)
 
 Tests OCaml projects against multicore OCaml versions - particularly useful if you want to ensure your code is compatible with OCaml 5.x.
@@ -63,6 +67,7 @@ These services power the broader OCaml ecosystem, supporting package repositorie
 #### Package Submission CI (opam-repo-ci)
 
 **Service:** [opam-repo-ci](https://github.com/ocurrent/opam-repo-ci)
+
 **Website:** [opam.ci.ocaml.org](https://opam.ci.ocaml.org)
 
 Tests package submissions to the opam repository. When you submit a pull request to opam-repository, this service verifies that your package builds correctly and also tests all dependent packages to ensure compatibility.
@@ -72,16 +77,18 @@ Tests package submissions to the opam repository. When you submit a pull request
 #### Documentation CI
 
 **Service:** [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci)
+
 **Website:** [docs.ci.ocaml.org](https://docs.ci.ocaml.org)
 
 Builds **documentation for all packages in the opam repository**, with correct cross-package linking. After publishing your package to opam-repository, the documentation will automatically be built and published to the [OCaml.org website's package area](https://ocaml.org/packages).
 
-#### Package Health Check
+#### Health Check Services
 
-**Service:** [opam-health-check](https://github.com/ocurrent/opam-health-check)
-**Website:** [check.ci.ocaml.org](https://check.ci.ocaml.org)
-
-Regularly tests that all packages in the opam repository still build correctly. This service is used by OCaml compiler developers when preparing major changes like new OCaml compiler releases.
+* [check.ci.ocaml.org](https://check.ci.ocaml.org): Regularly tests that all packages in the opam repository still build correctly. This service is used by OCaml compiler developers when preparing major changes like new OCaml compiler releases. **GitHub**: [opam-health-check](https://github.com/ocurrent/opam-health-check)
+* [dune.check.ci.dev](https://dune.check.ci.dev): Regularly tests OCaml packages with the Dune build system to ensure compatibility and correctness.
+* [windows.check.ci.dev](https://windows.check.ci.dev): Tests OCaml packages on Windows platforms to identify Windows-specific issues in the OCaml ecosystem and to assist package maintainers in supporting Windows environments.
+* [freebsd.check.ci.dev](https://freebsd.check.ci.dev): This service helps package maintainers identify and fix FreeBSD-specific issues in their packages, by testing OCaml packages on FreeBSD to ensure compatibility.
+* [oxcaml.check.ci.dev](https://oxcaml.check.ci.dev): Tests OCaml packages with OxCaml, an alternative OCaml compiler implementation. This service helps identify compatibility issues between packages and the OxCaml compiler variant.
 
 ## Platform Support
 
