@@ -211,7 +211,3 @@
   name: Anil Madhavapeddy's Blog
   url: https://anil.recoil.org/news.xml
   only_ocaml: true
-- id: ryangibb
-  name: Ryan Gibb's Blog
-  url: https://ryan.freumh.org/atom.xml
-  only_ocaml: true
