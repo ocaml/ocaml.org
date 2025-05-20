@@ -1229,11 +1229,6 @@ let package_documentation t kind req =
   in
   let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
   let hash = match kind with `Package -> None | `Universe u -> Some u in
-  let root =
-    Url.Package.documentation ?hash ~page:""
-      ?version:(Ocamlorg_frontend.Package.url_version frontend_package)
-      (Ocamlorg_package.Name.to_string name)
-  in
   let* docs = Ocamlorg_package.documentation_page ~kind package path in
   match docs with
   | None ->
@@ -1258,51 +1253,37 @@ let package_documentation t kind req =
                  (Ocamlorg_package.Name.to_string name))
       else response_404_page
   | Some doc ->
-      let module Package_info = Ocamlorg_package.Package_info in
-      let rec toc_of_module ~root
-          (module' : Ocamlorg_package.Package_info.Module.t) :
-          Ocamlorg_frontend.Navmap.toc =
-        let title = Package_info.Module.name module' in
-        let kind = Package_info.Module.kind module' in
-        let href = Some (root ^ Package_info.Module.path module') in
-        let children =
-          module' |> Package_info.Module.submodules |> String.Map.bindings
-          |> List.map (fun (_, module') -> toc_of_module ~root module')
-        in
-        let kind =
-          match (kind : Package_info.Kind.t) with
-          | Page -> Ocamlorg_frontend.Navmap.Page
-          | Module -> Module
-          | LeafPage -> Leaf_page
-          | ModuleType -> Module_type
-          | Parameter _ -> Parameter
-          | Class -> Class
-          | ClassType -> Class_type
-          | File -> File
-        in
-        Ocamlorg_frontend.Navmap.{ title; href; kind; children }
+      let map_url = Option.map (fun url -> "/" ^ url) in
+      let rec navmap_of_sidebar (sidebar : Ocamlorg_package.Sidebar.tree) =
+        Ocamlorg_frontend.Navmap.
+          {
+            title = sidebar.node.content;
+            kind =
+              (match sidebar.node.kind with
+              | Some "module" -> Module
+              | (Some ("page" | "leaf-page") | None)
+                when String.starts_with ~prefix:"Library " sidebar.node.content
+                ->
+                  Library
+              | Some ("page" | "leaf-page") -> Page
+              | Some "module-type" -> Module_type
+              | Some "parameter" -> Parameter
+              | Some "class" -> Class
+              | Some "class-type" -> Class_type
+              | Some "file" -> File
+              | None -> Page
+              | _ -> File);
+            href = map_url sidebar.node.url;
+            children = List.map navmap_of_sidebar sidebar.children;
+          }
       in
-      let toc_of_map ~root (map : Ocamlorg_package.Package_info.t) :
-          Ocamlorg_frontend.Navmap.t =
-        let libraries = map.libraries in
-        String.Map.bindings libraries
-        |> List.map (fun (_, (library : Package_info.library)) ->
-               let title = library.name in
-               let href = None in
-               let children =
-                 String.Map.bindings library.modules
-                 |> List.map (fun (_, module') -> toc_of_module ~root module')
-               in
-               Ocamlorg_frontend.Navmap.
-                 { title; href; kind = Library; children })
-      in
-      let* module_map = Ocamlorg_package.module_map ~kind package in
+      let* sidebar = Ocamlorg_package.sidebar ~kind package in
       let* search_index_digest =
         Package_helper.search_index_digest ~kind t package
       in
-      let toc = Package_helper.frontend_toc doc.toc in
-      let (maptoc : Ocamlorg_frontend.Navmap.toc list) =
-        toc_of_map ~root module_map
+      let local_toc = Package_helper.frontend_toc doc.toc in
+      let (global_toc : Ocamlorg_frontend.Navmap.toc list) =
+        List.map navmap_of_sidebar sidebar
       in
       let (breadcrumb_path : Ocamlorg_frontend.Package_breadcrumbs.path) =
         let breadcrumbs = doc.breadcrumbs in
@@ -1335,7 +1316,7 @@ let package_documentation t kind req =
                       (fun (t : Ocamlorg_frontend.Navmap.toc) ->
                         t.title = first_path_item.name)
                       toc.children)
-                  maptoc
+                  global_toc
               in
 
               Ocamlorg_frontend.Package_breadcrumbs.Documentation
@@ -1346,7 +1327,7 @@ let package_documentation t kind req =
       in
       Dream.html
         (Ocamlorg_frontend.package_documentation ~page:(Some path)
-           ~search_index_digest ~path:breadcrumb_path ~toc ~maptoc
+           ~search_index_digest ~path:breadcrumb_path ~local_toc ~global_toc
            ~content:doc.content frontend_package)
 
 let package_file t kind req =

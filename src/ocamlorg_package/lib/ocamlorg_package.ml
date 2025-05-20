@@ -10,6 +10,7 @@ end
 module Version = OpamPackage.Version
 module Info = Info
 module Statistics = Packages_stats
+module Sidebar = Sidebar
 
 type t = { name : Name.t; version : Version.t; info : Info.t }
 
@@ -342,20 +343,56 @@ let http_get url =
           Logs.err (fun m -> m "%s" (Printexc.to_string e));
           Lwt.return (Error (`Msg (Printexc.to_string e))))
 
-let module_map ~kind t =
+module Sidebar_cache : sig
+  val add :
+    Name.t ->
+    Version.t ->
+    [ `Package | `Universe of string ] ->
+    Sidebar.t ->
+    unit
+
+  val get :
+    Name.t ->
+    Version.t ->
+    [ `Package | `Universe of string ] ->
+    Sidebar.t option
+end = struct
+  let cache = Hashtbl.create 100
+
+  let add name version kind sidebar =
+    let name = Name.to_string name in
+    let version = Version.to_string version in
+    Hashtbl.add cache (name, version, kind) sidebar
+
+  let get name version kind =
+    let name = Name.to_string name in
+    let version = Version.to_string version in
+    Hashtbl.find_opt cache (name, version, kind)
+end
+
+let sidebar ~kind t =
   let package_url =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
   in
   let open Lwt.Syntax in
-  let url = package_url ^ "package.json" in
-  let+ content = http_get url in
-  match content with
-  | Ok v ->
-      let json = Yojson.Safe.from_string v in
-      Package_info.of_yojson json
-  | Error _ ->
-      Logs.info (fun m -> m "Failed to fetch module map at %s" url);
-      { Package_info.libraries = String.Map.empty }
+  match Sidebar_cache.get t.name t.version kind with
+  | Some sidebar -> Lwt.return sidebar
+  | None -> (
+      let url = package_url ^ "doc/sidebar.json" in
+      let+ content = http_get url in
+      match content with
+      | Ok v -> (
+          let json = Yojson.Safe.from_string v in
+          match Sidebar.of_yojson json with
+          | Ok x ->
+              Sidebar_cache.add t.name t.version kind x;
+              x
+          | Error msg ->
+              Logs.info (fun m -> m "Failed to parse sidebar at %s: %s" url msg);
+              [])
+      | Error _ ->
+          Logs.info (fun m -> m "Failed to fetch sidebar at %s" url);
+          [])
 
 let odoc_page ~url =
   let open Lwt.Syntax in

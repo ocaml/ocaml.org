@@ -1,33 +1,33 @@
 let sidebar
 ~str_path
-~toc
-~maptoc
+~local_toc
+~global_toc
 (package : Package.package)
 =
   <div class="flex flex-col font-normal text-content dark:text-dark-content" id="htmx-sidebar">
-    <% if (toc != []) then ( %>
+    <% if (local_toc != []) then ( %>
     <div class="xl:hidden mb-6 xl:mb-0">
-    <%s! Toc.render toc %>
+    <%s! Toc.render local_toc %>
     </div><% ); %>
     <div class="space-y-6 flex flex-col overflow-x:scroll">
       <div>
-      <%s! Navmap.render ~package ~path:str_path maptoc %>
+      <%s! Navmap.render ~package ~path:str_path global_toc %>
       </div>
     </div>
   </div>
 
 let right_sidebar
-~toc
+~local_toc
 =
   <div class="pt-6" id="htmx-right-sidebar">
-    <%s! Toc.render toc %>
+    <%s! Toc.render local_toc %>
   </div>
 
 let render
 ~(path: Package_breadcrumbs.path)
 ~page
-~toc
-~maptoc
+~local_toc
+~global_toc
 ~content
 (package : Package.package)
 =
@@ -54,8 +54,8 @@ Package_layout.render
 ~documentation_status:Success
 ~canonical:(Url.Package.documentation package.name ~version:(Package.specific_version package) ~page:(Url.Package.documentation ?version:(Some (Package.specific_version package)) package.name))
 ~styles:["css/main.css"; "css/doc.css"]
-~left_sidebar_html:(sidebar ~str_path ~toc ~maptoc package)
-~right_sidebar_html:(right_sidebar ~toc) @@
+~left_sidebar_html:(sidebar ~str_path ~local_toc ~global_toc package)
+~right_sidebar_html:(right_sidebar ~local_toc) @@
 <div id="htmx-content">
   <%s! Package_breadcrumbs.render ~path package %>
   <div class="odoc prose dark:prose-invert prose-orange">
