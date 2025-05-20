@@ -353,10 +353,12 @@ span.arrow-expand.open {
 }
 
 span.sign-expand::before {
-  content: " \002B";
+  content: "\002B";
   display: flex;
+  justify-content: center;
   align-items: center;
   font-size: 1.25rem;
+  width: 1.25rem;
   margin-top: -0.25rem;
 }
 
