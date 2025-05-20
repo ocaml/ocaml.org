@@ -1,6 +1,5 @@
 ---
-title: <a href="https://jon.recoil.org/blog/2025/04/ocaml-docs-ci-and-odoc-3.html">OCaml-Docs-CI
-  and Odoc 3</a>
+title: OCaml-Docs-CI and Odoc 3
 description:
 url: https://jon.recoil.org/blog/2025/04/ocaml-docs-ci-and-odoc-3.html
 date: 2025-04-29T00:00:00-00:00

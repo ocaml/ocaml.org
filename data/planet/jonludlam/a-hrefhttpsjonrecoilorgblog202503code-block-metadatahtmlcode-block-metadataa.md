@@ -1,6 +1,5 @@
 ---
-title: <a href="https://jon.recoil.org/blog/2025/03/code-block-metadata.html">Code
-  block metadata</a>
+title: Code block metadata
 description:
 url: https://jon.recoil.org/blog/2025/03/code-block-metadata.html
 date: 2025-03-07T00:00:00-00:00

@@ -7,6 +7,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <h1>Analysis of the Raft Consensus Protocol</h1>

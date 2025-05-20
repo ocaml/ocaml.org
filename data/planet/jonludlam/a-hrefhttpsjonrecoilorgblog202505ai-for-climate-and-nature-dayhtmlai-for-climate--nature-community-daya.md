@@ -1,6 +1,5 @@
 ---
-title: <a href="https://jon.recoil.org/blog/2025/05/ai-for-climate-and-nature-day.html">AI
-  for Climate & Nature Community Day</a>
+title: AI for Climate & Nature Community Day
 description:
 url: https://jon.recoil.org/blog/2025/05/ai-for-climate-and-nature-day.html
 date: 2025-05-01T00:00:00-00:00
@@ -8,6 +7,7 @@ preview_image:
 authors:
 - Jon Ludlam
 source:
+ignore: true
 ---
 
 <section><h1><a href="https://jon.recoil.org/atom.xml#ai-for-climate-%26-nature-community-day" class="anchor"></a>AI for Climate &amp; Nature Community Day</h1><ul class="at-tags"><li class="published"><span class="at-tag">published</span> <p>2025-05-01</p></li></ul><p>

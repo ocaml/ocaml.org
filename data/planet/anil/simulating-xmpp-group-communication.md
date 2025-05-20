@@ -7,6 +7,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <h1>Simulating XMPP Group Communication</h1>

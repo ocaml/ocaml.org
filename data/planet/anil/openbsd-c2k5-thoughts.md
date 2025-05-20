@@ -7,6 +7,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <p>Finally had some time to get back from the OpenBSD hackathon and take

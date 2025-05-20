@@ -33,7 +33,7 @@ module Source = struct
                  name;
                  url;
                  description = "";
-                 only_ocaml = Option.value ~default:false only_ocaml;
+                 only_ocaml = Option.value ~default:true only_ocaml;
                  disabled = Option.value ~default:false disabled;
                }))
     in
@@ -56,39 +56,44 @@ module Post = struct
     preview_image : string option;
     authors : string list option;
     source : source_on_external_post option;
+    ignore : bool option;
   }
   [@@deriving yaml]
 
   let all_sources = Source.all ()
 
-  let of_metadata ~source ~body_html m : Data_intf.Blog.post =
-    {
-      title = m.title;
-      source =
-        (match source with
-        | Ok s -> s
-        | Error (`Msg e) -> (
-            match m.source with
-            | Some { name; url } ->
-                {
-                  id = "";
-                  name;
-                  url;
-                  description = "";
-                  only_ocaml = false;
-                  disabled = false;
-                }
-            | None ->
-                failwith
-                  (e ^ " and there is no source defined in the markdown file")));
-      url = m.url;
-      slug = "";
-      description = m.description;
-      authors = Option.value ~default:[] m.authors;
-      date = m.date;
-      preview_image = m.preview_image;
-      body_html;
-    }
+  let of_metadata ~source ~body_html m : Data_intf.Blog.post option =
+    if Option.value ~default:false m.ignore then None
+    else
+      Some
+        {
+          title = m.title;
+          source =
+            (match source with
+            | Ok s -> s
+            | Error (`Msg e) -> (
+                match m.source with
+                | Some { name; url } ->
+                    {
+                      id = "";
+                      name;
+                      url;
+                      description = "";
+                      only_ocaml = false;
+                      disabled = false;
+                    }
+                | None ->
+                    failwith
+                      (e
+                     ^ " and there is no source defined in the markdown file")));
+          url = m.url;
+          slug = "";
+          description = m.description;
+          authors = Option.value ~default:[] m.authors;
+          date = m.date;
+          preview_image = m.preview_image;
+          body_html;
+        }
 
   let pp_meta ppf v =
     Fmt.pf ppf {|---
@@ -127,6 +132,7 @@ module Post = struct
 
   let all () : Data_intf.Blog.post list =
     Utils.map_md_files decode "planet/*/*.md"
+    |> List.filter_map (fun x -> x)
     |> List.sort (fun (a : Data_intf.Blog.post) (b : Data_intf.Blog.post) ->
            String.compare b.date a.date)
 end
@@ -178,6 +184,7 @@ module Scraper = struct
                 description;
                 authors = Some [ author ];
                 source = None;
+                ignore = None;
               }
             in
             let s = Format.asprintf "%a\n%s\n" Post.pp_meta metadata content in

@@ -8,6 +8,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <p><a href="https://svr-sk818-web.cl.cam.ac.uk/keshav/wiki/index.php/Main_Page" class="contact">Srinivasan Keshav</a> organised this week's <a href="https://www.cst.cam.ac.uk/research/eeg">EEG</a> group <a href="https://www.cst.cam.ac.uk/seminars/list/229027">discussion</a> on what AI tools we use for our daily work.  I was immediately struck by how <em>few</em> tools there are that are actually making us more productive, so I jotted down notes as the discussion was going on.</p>

@@ -7,6 +7,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <p>I joined Cambridge's loftily named <a href="https://www.governance.cam.ac.uk/committees/essc/Pages/default.aspx">Environment Sustainability Strategy Committee</a> this academic year, and have attended a couple of meetings with the latest one being held today. While a lot of what goes on is intricately tied into the University's rather <a href="https://www.governance.cam.ac.uk/Pages/default.aspx">special</a> governance structure and the complexity of the College system, there has been significant progress on making all of this more visible more widely.</p>

@@ -7,6 +7,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <p>It's about the time of the academic year to come up with project <a href="https://anil.recoil.org/ideas">ideas</a>! <a href="https://kcsrk.info" class="contact">KC Sivaramakrishnan</a>, <a href="https://github.com/andrewray" class="contact">Andy Ray</a> and I have been looking into <a href="https://anil.recoil.org/notes/fpgas-hardcaml">FPGA/OCaml matters</a> recently so I thought I'd review the latest in the land of <a href="https://webassembly.org">Webassembly</a> for non-traditional hardware targets.  It turns out that there are very fun systems projects going on to turn wasm into a "real" target architecture on several fronts: a native port of Linux to run in wasm, a port of wasm to run in kernel space, a POSIX mapping of wasm, and fledgling wasm-CPUs-on-FPGAs.</p>

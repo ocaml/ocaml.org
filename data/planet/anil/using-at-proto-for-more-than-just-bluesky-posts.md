@@ -8,6 +8,7 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+ignore: true
 ---
 
 <p>While <a href="https://bsky.app">Bluesky</a> is taking off like a rocket, a number of us <a href="https://anil.recoil.org/notes/enter-the-matrix-hookshot">moving</a> towards <a href="https://anil.recoil.org/news.xml">self sovereign</a> digital infrastructure have been looking at how to use the Bluesky network for other uses than just short-form notes. This is possible because of my colleague <a href="https://martin.kleppmann.com" class="contact">Martin Kleppmann</a>'s hard work on the "<a href="https://atproto.com/">AT Protocol</a>" that underpins the Bluesky network. Martin recently gave us a <a href="https://talks.cam.ac.uk/talk/index/224767">deep-dive into the AT proto</a> in the Cambridge <a href="https://www.cl.cam.ac.uk/research/security/">security group</a>, which made me look into other uses of it more closely. As background, you may wish to read <a href="https://arxiv.org/abs/2402.03239">his paper</a> on the subject which explains the technical architecture extremely clearly.</p>

@@ -1,6 +1,5 @@
 ---
-title: <a href="https://jon.recoil.org/blog/2025/05/ticks-solved-by-ai.html">Solving
-  First-year OCaml exercises with AI</a>
+title: Solving First-year OCaml exercises with AI
 description:
 url: https://jon.recoil.org/blog/2025/05/ticks-solved-by-ai.html
 date: 2025-05-07T00:00:00-00:00
