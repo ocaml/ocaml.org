@@ -1236,7 +1236,7 @@ let package_documentation t kind req =
         Dream.html ~code:404
           (Ocamlorg_frontend.package_documentation_not_found ~page:path
              ~search_index_digest:None
-             ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation Index)
+             ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation [])
              frontend_package)
       in
       if version_from_url = "latest" then
@@ -1287,43 +1287,25 @@ let package_documentation t kind req =
       in
       let (breadcrumb_path : Ocamlorg_frontend.Package_breadcrumbs.path) =
         let breadcrumbs = doc.breadcrumbs in
-        if breadcrumbs != [] then
-          let first_path_item = List.hd breadcrumbs in
-          let doc_breadcrumb_to_library_path_item
-              (p : Ocamlorg_package.Documentation.breadcrumb) =
-            let breadcrumb : Ocamlorg_frontend.Package_breadcrumbs.breadcrumb =
-              { name = p.name; href = p.href }
-            in
-            match p.kind with
-            | Module -> Ocamlorg_frontend.Package_breadcrumbs.Module breadcrumb
-            | ModuleType -> ModuleType breadcrumb
-            | Parameter number -> Parameter (breadcrumb, number)
-            | Class -> Class breadcrumb
-            | ClassType -> ClassType breadcrumb
-            | Page | LeafPage | File ->
-                failwith "library paths do not contain Page, LeafPage or File"
+        let doc_breadcrumb_to_library_path_item
+            (p : Ocamlorg_package.Documentation.breadcrumb) =
+          let b =
+            {
+              Ocamlorg_frontend.Package_breadcrumbs.name = p.name;
+              href = p.href;
+            }
           in
+          match p.kind with
+          | Module -> Ocamlorg_frontend.Package_breadcrumbs.Module b
+          | ModuleType -> ModuleType b
+          | Parameter i -> Parameter (b, i)
+          | Class -> Class b
+          | ClassType -> ClassType b
+          | Page | LeafPage | File -> Page b
+        in
 
-          match first_path_item.kind with
-          | Page | LeafPage | File ->
-              Ocamlorg_frontend.Package_breadcrumbs.Documentation
-                (Page first_path_item.name)
-          | Module | ModuleType | Parameter _ | Class | ClassType ->
-              let library =
-                List.find_opt
-                  (fun (toc : Ocamlorg_frontend.Navmap.toc) ->
-                    List.exists
-                      (fun (t : Ocamlorg_frontend.Navmap.toc) ->
-                        t.title = first_path_item.name)
-                      toc.children)
-                  global_toc
-              in
-
-              Ocamlorg_frontend.Package_breadcrumbs.Documentation
-                (Library
-                   ( (match library with Some l -> l.title | None -> "unknown"),
-                     List.map doc_breadcrumb_to_library_path_item breadcrumbs ))
-        else Ocamlorg_frontend.Package_breadcrumbs.Documentation Index
+        Ocamlorg_frontend.Package_breadcrumbs.Documentation
+          (List.map doc_breadcrumb_to_library_path_item breadcrumbs)
       in
       Dream.html
         (Ocamlorg_frontend.package_documentation ~page:(Some path)
