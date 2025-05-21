@@ -257,7 +257,11 @@ module Documentation = struct
           Parameter (int_of_string i)
         else raise (Invalid_argument ("kind not recognized: " ^ s))
 
-  type breadcrumb = { name : string; href : string; kind : breadcrumb_kind }
+  type breadcrumb = {
+    name : string;
+    href : string option;
+    kind : breadcrumb_kind;
+  }
 
   type t = {
     uses_katex : bool;
@@ -281,7 +285,10 @@ module Documentation = struct
         [
           ("name", `String name); ("href", `String href); ("kind", `String kind);
         ] ->
-        { name; href; kind = breadcrumb_kind_from_string kind }
+        { name; href = Some href; kind = breadcrumb_kind_from_string kind }
+    | `Assoc [ ("name", `String name); ("href", `Null); ("kind", `String kind) ]
+      ->
+        { name; href = None; kind = breadcrumb_kind_from_string kind }
     | _ -> raise (Invalid_argument "malformed breadcrumb field")
 
   let doc_from_string s =
