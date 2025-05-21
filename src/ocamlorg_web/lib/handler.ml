@@ -1296,8 +1296,8 @@ let package_documentation t kind req =
                 Ocamlorg_frontend.Package_breadcrumbs.Module
                   { name = p.name; href = p.href }
             | ModuleType -> ModuleType { name = p.name; href = p.href }
-            | Parameter i ->
-                Parameter { name = p.name; href = p.href; number = i }
+            | Parameter number ->
+                Parameter ({ name = p.name; href = p.href }, number)
             | Class -> Class { name = p.name; href = p.href }
             | ClassType -> ClassType { name = p.name; href = p.href }
             | Page | LeafPage | File ->
