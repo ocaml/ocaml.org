@@ -42,6 +42,7 @@ let str_path =
             | Parameter  ({ name ; _ }, _) -> name
             | Class { name ; _ } -> name
             | ClassType { name ; _ } -> name
+            | Page { name; _ } -> name
           ) p
         | Page s -> [""; s])
 in
