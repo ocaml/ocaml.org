@@ -39,7 +39,7 @@ let str_path =
         | Library (s, p) -> s :: List.map (function
             | Package_breadcrumbs.Module { name ; _ } -> name
             | ModuleType { name ; _ } -> name
-            | Parameter  { name ; _ } -> name
+            | Parameter  ({ name ; _ }, _) -> name
             | Class { name ; _ } -> name
             | ClassType { name ; _ } -> name
           ) p

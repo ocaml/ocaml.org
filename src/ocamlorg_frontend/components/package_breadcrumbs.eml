@@ -1,9 +1,14 @@
+type breadcrumb = {
+  name: string;
+  href: string;
+}
+
 type library_path_item =
-  | Module of { name: string; href: string; }
-  | ModuleType of { name: string; href: string; }
-  | Parameter of { name: string; href: string; number: int; }
-  | Class of { name: string; href: string; }
-  | ClassType of { name: string; href: string; }
+  | Module of breadcrumb
+  | ModuleType of breadcrumb
+  | Parameter of breadcrumb * int
+  | Class of breadcrumb
+  | ClassType of breadcrumb
 
 type docs_path =
   | Index
@@ -15,7 +20,7 @@ let kind_tag (m : library_path_item) = match m with
     <span tabindex="0" aria-label="module" class="breadcrumbs-tag module-tag">Module</span>
   | ModuleType _ ->
     <span tabindex="0" aria-label="module type" class="breadcrumbs-tag module-type-tag">Module type</span>
-  | Parameter { number; _ } ->
+  | Parameter (_, number) ->
     <span tabindex="0" aria-label="<%s "Parameter #" ^ (Int.to_string number) %>" class="breadcrumbs-tag parameter-tag"><%s "Parameter #" ^ (Int.to_string number) %></span>
   | Class _ ->
     <span tabindex="0" aria-label="class" class="breadcrumbs-tag class-tag">Class</span>
@@ -57,17 +62,8 @@ let render_package_and_version
     </select>
   </div>
 
-type breadcrumb = {
-  name: string;
-  href: string;
-}
-
 let library_path_item_to_breadcrumb = function
-  | Module x -> { name = x.name; href = x.href }
-  | ModuleType x -> { name = x.name; href = x.href }
-  | Class x -> { name = x.name; href = x.href }
-  | ClassType x -> { name = x.name; href = x.href }
-  | Parameter x -> { name = x.name; href = x.href }
+  | Module x | ModuleType x | Class x | ClassType x | Parameter (x, _) -> x
 
 let render_library_path_breadcrumbs
 ~library_name
