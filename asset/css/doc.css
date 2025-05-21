@@ -1,3 +1,5 @@
+[x-cloak] { display: none !important; }
+
 div.odoc {
   max-width: 56rem /* 896px */;
   position: relative;
