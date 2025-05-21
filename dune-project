@@ -75,6 +75,7 @@
   ezjsonm
   lambdasoup
   ptime
+  ppx_deriving_yojson
   (cmdliner
    (>= 1.1.0))
   xmlm
