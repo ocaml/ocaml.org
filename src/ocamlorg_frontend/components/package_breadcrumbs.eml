@@ -9,6 +9,7 @@ type library_path_item =
   | Parameter of breadcrumb * int
   | Class of breadcrumb
   | ClassType of breadcrumb
+  | Page of breadcrumb
 
 type docs_path =
   | Index
@@ -26,6 +27,8 @@ let kind_tag (m : library_path_item) = match m with
     <span tabindex="0" aria-label="class" class="breadcrumbs-tag class-tag">Class</span>
   | ClassType _ ->
     <span tabindex="0" aria-label="class type" class="breadcrumbs-tag class-type-tag">Class type</span>
+  | Page _ ->
+    <span tabindex="0" aria-label="page" class="breadcrumbs-tag page-tag">Page</span>
 
 type path =
   | Overview of string option
@@ -63,29 +66,48 @@ let render_package_and_version
   </div>
 
 let library_path_item_to_breadcrumb = function
-  | Module x | ModuleType x | Class x | ClassType x | Parameter (x, _) -> x
+  | Module x | ModuleType x | Class x | ClassType x | Parameter (x, _) | Page x
+    ->
+      x
+
+let is_page : library_path_item -> bool = function Page _ -> true | _ -> false
 
 let render_library_path_breadcrumbs
 ~library_name
 ~(path: library_path_item list) =
-  let render_breadcrumb i b =
+  let pages, modules = List.partition is_page path in
+  let render_breadcrumb max i b =
     match b.href with
-    | None when i < List.length path - 1 ->
+    | None when i < max ->
       <span class="font-semibold underline text-content dark:text-dark-title"><%s b.name %></span>
     | None ->
       <span aria-current="page" class="text-content dark:text-dark-title mr-2"><%s b.name %></span>
-    | Some href when i < List.length path - 1 ->
+    | Some href when i < max ->
       <a href="<%s! href %>" class="font-semibold underline text-content dark:text-dark-title"><%s b.name %></a>
     | Some href ->
       <a href="<%s! href %>" aria-current="page" class="text-content dark:text-dark-title mr-2"><%s b.name %></a>
   in
-  <li>
-    <span tabindex="0" class="text-content dark:text-dark-content"><%s library_name %> lib</span>
-  </li>
-  <li class="flex flex-wrap items-center">
-    <%s! String.concat "<span>.</span>" (path |> List.map library_path_item_to_breadcrumb |> List.mapi render_breadcrumb); %>
-    <%s! kind_tag (List.hd (List.rev path)) %>
-  </li>
+  let library_name =
+    <li>
+      <span tabindex="0" class="text-content dark:text-dark-content"><%s library_name %> lib</span>
+    </li>
+  in
+  let li content =
+    <li class="flex flex-wrap items-center">
+    <%s! content %>
+    </li>
+  in
+  let page_items = List.fold_left (fun (i, acc) item ->
+    (i+1, acc ^ li (render_breadcrumb (List.length pages - 1) i (library_path_item_to_breadcrumb item)))) (0,"") pages |> snd in
+  let ms =
+      <%s! String.concat "<span>.</span>" (List.mapi (render_breadcrumb (List.length modules - 1)) (List.map library_path_item_to_breadcrumb modules)) %>
+  in
+  let last = kind_tag (List.hd (List.rev path)) in
+  library_name ^
+  if List.length modules > 0 then
+    page_items ^ li (ms ^ last)
+  else
+    page_items
 
 let render_docs_path_breadcrumbs
 ~(path: docs_path)
