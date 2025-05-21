@@ -3,7 +3,7 @@ type breadcrumb = {
   href: string option;
 }
 
-type library_path_item =
+type path_item =
   | Module of breadcrumb
   | ModuleType of breadcrumb
   | Parameter of breadcrumb * int
@@ -14,9 +14,9 @@ type library_path_item =
 type docs_path =
   | Index
   | Page of string
-  | Library of string * library_path_item list
+  | Library of string * path_item list
 
-let kind_tag (m : library_path_item) = match m with
+let kind_tag (m : path_item) = match m with
   | Module _ ->
     <span tabindex="0" aria-label="module" class="breadcrumbs-tag module-tag">Module</span>
   | ModuleType _ ->
@@ -65,16 +65,16 @@ let render_package_and_version
     </select>
   </div>
 
-let library_path_item_to_breadcrumb = function
+let path_item_to_breadcrumb = function
   | Module x | ModuleType x | Class x | ClassType x | Parameter (x, _) | Page x
     ->
       x
 
-let is_page : library_path_item -> bool = function Page _ -> true | _ -> false
+let is_page : path_item -> bool = function Page _ -> true | _ -> false
 
-let render_library_path_breadcrumbs
+let render_path_breadcrumbs
 ~library_name
-~(path: library_path_item list) =
+~(path: path_item list) =
   let pages, modules = List.partition is_page path in
   let render_breadcrumb max i b =
     match b.href with
@@ -98,9 +98,9 @@ let render_library_path_breadcrumbs
     </li>
   in
   let page_items = List.fold_left (fun (i, acc) item ->
-    (i+1, acc ^ li (render_breadcrumb (List.length pages - 1) i (library_path_item_to_breadcrumb item)))) (0,"") pages |> snd in
+    (i+1, acc ^ li (render_breadcrumb (List.length pages - 1) i (path_item_to_breadcrumb item)))) (0,"") pages |> snd in
   let ms =
-      <%s! String.concat "<span>.</span>" (List.mapi (render_breadcrumb (List.length modules - 1)) (List.map library_path_item_to_breadcrumb modules)) %>
+      <%s! String.concat "<span>.</span>" (List.mapi (render_breadcrumb (List.length modules - 1)) (List.map path_item_to_breadcrumb modules)) %>
   in
   let last = kind_tag (List.hd (List.rev path)) in
   library_name ^
@@ -122,7 +122,7 @@ let render_docs_path_breadcrumbs
       <% (match path with
          | Index -> %>
       <% | Library (library_name, library_path) -> %>
-        <%s! if library_path != [] then render_library_path_breadcrumbs ~library_name ~path:library_path else "ERROR: library path is []" %>
+        <%s! if library_path != [] then render_path_breadcrumbs ~library_name ~path:library_path else "ERROR: library path is []" %>
       <% | Page page_name  -> %>
         <li>
           <span><%s page_name %></span>
