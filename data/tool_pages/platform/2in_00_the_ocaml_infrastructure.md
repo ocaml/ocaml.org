@@ -30,26 +30,6 @@ This service builds the official `ocaml/opam` Docker images for various Linux di
 
 **Using the pre-built OCaml Docker images:** You can view the available [pre-built Docker images for various OCaml configurations at DockerHub](https://hub.docker.com/r/ocaml/opam).
 
-#### OCaml CI
-
-**Service:** [ocaml-ci](https://github.com/ocurrent/ocaml-ci)
-
-**Website:** [ocaml.ci.dev](https://ocaml.ci.dev)
-
-A CI service for OCaml projects hosted on GitHub. It automatically tests projects against multiple OCaml versions and OS platforms by examining your opam files to determine build requirements.
-
-**How to enable OCaml CI on your GitHub project:** Check out the ["Getting Started" guide on the OCaml CI website](https://ocaml.ci.dev/getting-started).
-
-#### Continuous Benchmarking
-
-**Service:** [current-bench](https://github.com/ocurrent/current-bench)
-
-**Website:** [bench.ci.dev](https://bench.ci.dev)
-
-Provides continuous benchmarking for OCaml projects to track performance across different commits and branches.
-
-**How to enable current-bench on your GitHub project:** Check out the [current-bench User Manual](https://github.com/ocurrent/current-bench/blob/main/doc/user_manual.md).
-
 #### OCaml-Multicore-CI
 
 **Service:** [ocaml-multicore-ci](https://github.com/ocurrent/ocaml-multicore-ci)
