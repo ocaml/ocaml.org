@@ -81,7 +81,7 @@ module Documentation : sig
     | ClassType
     | File
 
-  type breadcrumb = { name : string; href : string; kind : breadcrumb_kind }
+  type breadcrumb = { name : string; href : string option; kind : breadcrumb_kind }
 
   type t = {
     uses_katex : bool;

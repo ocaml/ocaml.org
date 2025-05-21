@@ -1291,15 +1291,15 @@ let package_documentation t kind req =
           let first_path_item = List.hd breadcrumbs in
           let doc_breadcrumb_to_library_path_item
               (p : Ocamlorg_package.Documentation.breadcrumb) =
+            let breadcrumb : Ocamlorg_frontend.Package_breadcrumbs.breadcrumb =
+              { name = p.name; href = p.href }
+            in
             match p.kind with
-            | Module ->
-                Ocamlorg_frontend.Package_breadcrumbs.Module
-                  { name = p.name; href = p.href }
-            | ModuleType -> ModuleType { name = p.name; href = p.href }
-            | Parameter number ->
-                Parameter ({ name = p.name; href = p.href }, number)
-            | Class -> Class { name = p.name; href = p.href }
-            | ClassType -> ClassType { name = p.name; href = p.href }
+            | Module -> Ocamlorg_frontend.Package_breadcrumbs.Module breadcrumb
+            | ModuleType -> ModuleType breadcrumb
+            | Parameter number -> Parameter (breadcrumb, number)
+            | Class -> Class breadcrumb
+            | ClassType -> ClassType breadcrumb
             | Page | LeafPage | File ->
                 failwith "library paths do not contain Page, LeafPage or File"
           in
