@@ -34,17 +34,15 @@ let render
 let str_path =
   match path with
     | Overview _ -> []
-    | Documentation (docs_path) -> (match docs_path with
-        | Package_breadcrumbs.Index -> []
-        | Library (s, p) -> s :: List.map (function
-            | Package_breadcrumbs.Module { name ; _ } -> name
-            | ModuleType { name ; _ } -> name
-            | Parameter  ({ name ; _ }, _) -> name
-            | Class { name ; _ } -> name
-            | ClassType { name ; _ } -> name
-            | Page { name; _ } -> name
-          ) p
-        | Page s -> [""; s])
+    | Documentation (docs_path) ->
+        List.map (function
+          | Package_breadcrumbs.Module { name ; _ }
+          | ModuleType { name ; _ }
+          | Parameter  ({ name ; _ }, _)
+          | Class { name ; _ }
+          | ClassType { name ; _ }
+          | Page { name; _ } -> name
+        ) docs_path |> List.tl
 in
 Package_layout.render
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
@@ -58,7 +56,7 @@ Package_layout.render
 ~left_sidebar_html:(sidebar ~str_path ~local_toc ~global_toc package)
 ~right_sidebar_html:(right_sidebar ~local_toc) @@
 <div id="htmx-content">
-  <%s! Package_breadcrumbs.render ~path package %>
+  <%s! Package_breadcrumbs.render ~path %>
   <div class="odoc prose dark:prose-invert prose-orange">
     <%s! content %>
   </div>

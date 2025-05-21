@@ -11,11 +11,6 @@ type path_item =
   | ClassType of breadcrumb
   | Page of breadcrumb
 
-type docs_path =
-  | Index
-  | Page of string
-  | Library of string * path_item list
-
 let kind_tag (m : path_item) = match m with
   | Module _ ->
     <span tabindex="0" aria-label="module" class="breadcrumbs-tag module-tag">Module</span>
@@ -32,7 +27,7 @@ let kind_tag (m : path_item) = match m with
 
 type path =
   | Overview of string option
-  | Documentation of (docs_path)
+  | Documentation of path_item list
 
 let render_package_and_version
 ~path
@@ -73,7 +68,6 @@ let path_item_to_breadcrumb = function
 let is_page : path_item -> bool = function Page _ -> true | _ -> false
 
 let render_path_breadcrumbs
-~library_name
 ~(path: path_item list) =
   let pages, modules = List.partition is_page path in
   let render_breadcrumb max i b =
@@ -87,11 +81,6 @@ let render_path_breadcrumbs
     | Some href ->
       <a href="<%s! href %>" aria-current="page" class="text-content dark:text-dark-title mr-2"><%s b.name %></a>
   in
-  let library_name =
-    <li>
-      <span tabindex="0" class="text-content dark:text-dark-content"><%s library_name %> lib</span>
-    </li>
-  in
   let li content =
     <li class="flex flex-wrap items-center">
     <%s! content %>
@@ -103,31 +92,17 @@ let render_path_breadcrumbs
       <%s! String.concat "<span>.</span>" (List.mapi (render_breadcrumb (List.length modules - 1)) (List.map path_item_to_breadcrumb modules)) %>
   in
   let last = kind_tag (List.hd (List.rev path)) in
-  library_name ^
   if List.length modules > 0 then
     page_items ^ li (ms ^ last)
   else
     page_items
 
 let render_docs_path_breadcrumbs
-~(path: docs_path)
-(package: Package.package)
+~(path: path_item list)
   =
-  let version = Package.url_version package in
   <nav aria-label="breadcrumb" class="flex mb-6 border-b pb-6">
     <ul class="flex flex-wrap gap-x-2 text-base leading-7 package-breadcrumbs">
-      <li>
-        <a class="underline font-semibold text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary" href="<%s! Url.Package.documentation package.name ?version %>">Documentation</a>
-      </li>
-      <% (match path with
-         | Index -> %>
-      <% | Library (library_name, library_path) -> %>
-        <%s! if library_path != [] then render_path_breadcrumbs ~library_name ~path:library_path else "ERROR: library path is []" %>
-      <% | Page page_name  -> %>
-        <li>
-          <span><%s page_name %></span>
-        </li>
-      <% ); %>
+      <%s! if path != [] then render_path_breadcrumbs ~path else "ERROR: library path is []" %>
     </ul>
   </nav>
 
@@ -145,8 +120,7 @@ let render_overview_breadcrumbs
 
 let render
 ~(path: path)
-(package: Package.package)
 =
   match path with
     | Overview page -> render_overview_breadcrumbs page
-    | Documentation (docs_path) -> render_docs_path_breadcrumbs ~path:docs_path package
+    | Documentation (docs_path) -> render_docs_path_breadcrumbs ~path:docs_path
