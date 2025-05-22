@@ -62,7 +62,7 @@ module Post = struct
 
   let all_sources = Source.all ()
 
-  let of_metadata ~source ~body_html m : Data_intf.Blog.post option =
+  let of_metadata ~source m : Data_intf.Blog.post option =
     if Option.value ~default:false m.ignore then None
     else
       Some
@@ -92,7 +92,6 @@ module Post = struct
           authors = Option.value ~default:[] m.authors;
           date = m.date;
           preview_image = m.preview_image;
-          body_html;
         }
 
   let pp_meta ppf v =
@@ -102,13 +101,9 @@ module Post = struct
       (metadata_to_yaml v |> Yaml.to_string
       |> Result.get_ok ~error:(fun (`Msg m) -> Exn.Decode_error m))
 
-  let decode (fpath, (head, body_md)) =
+  let decode (fpath, (head, _)) =
     let metadata =
       metadata_of_yaml head |> Result.map_error (Utils.where fpath)
-    in
-    let body_html =
-      body_md |> Markdown.Content.of_string
-      |> Markdown.Content.render ~syntax_highlighting:true
     in
     let source =
       match Str.split (Str.regexp_string "/") fpath with
@@ -128,7 +123,7 @@ module Post = struct
     in
     metadata
     |> Result.map_error (Utils.where fpath)
-    |> Result.map (of_metadata ~source ~body_html)
+    |> Result.map (of_metadata ~source)
 
   let all () : Data_intf.Blog.post list =
     Utils.map_md_files decode "planet/*/*.md"
@@ -183,7 +178,7 @@ module Scraper = struct
                 ignore = None;
               }
             in
-            let s = Format.asprintf "%a\n%s\n" Post.pp_meta metadata content in
+            let s = Format.asprintf "%a" Post.pp_meta metadata in
             let oc = open_out output_file in
             Printf.fprintf oc "%s" s;
             close_out oc)

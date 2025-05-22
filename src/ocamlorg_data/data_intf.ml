@@ -61,7 +61,6 @@ module Blog = struct
     authors : string list;
     date : string;
     preview_image : string option;
-    body_html : string;
   }
 end
 
