@@ -9,7 +9,7 @@ let () =
   Logs.set_level (Some Info)
 
 let run () =
-  Mirage_crypto_rng_lwt.initialize (module Mirage_crypto_rng.Fortuna);
+  Mirage_crypto_rng_unix.use_default ();
   let state = Ocamlorg_package.init () in
   try
     Dream.run ~interface:"0.0.0.0" ~port:Config.http_port
