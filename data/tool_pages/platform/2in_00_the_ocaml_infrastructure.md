@@ -26,7 +26,7 @@ These services used for your own projects to help with reproducible builds, test
 
 **Website:** [images.ci.ocaml.org](https://images.ci.ocaml.org)
 
-This service builds the official `ocaml/opam` Docker images for various Linux distributions, OCaml versions, compiler flags, and architectures (including x86, ARM, PowerPC, s390x, and RISC-V). These images provide a consistent environment for development and testing and are used by many other CI services.
+This service builds the official [`ocaml/opam`](https://hub.docker.com/r/ocaml/opam) Docker images for various Linux distributions, OCaml versions, compiler flags, and architectures (including x86, ARM, PowerPC, s390x, and RISC-V). These images provide a consistent environment for development and testing and are used by many other CI services.
 
 **Using the pre-built OCaml Docker images:** You can view the available [pre-built Docker images for various OCaml configurations at DockerHub](https://hub.docker.com/r/ocaml/opam/tags).
 
