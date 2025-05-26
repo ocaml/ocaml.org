@@ -1,4 +1,4 @@
-FROM ocaml/opam:alpine-3.19-ocaml-5.2 AS build
+FROM ocaml/opam:alpine-3.21-ocaml-5.2 AS build
 
 # Install system dependencies
 RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
