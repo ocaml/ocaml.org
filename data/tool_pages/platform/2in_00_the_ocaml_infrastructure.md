@@ -18,9 +18,9 @@ The OCaml infrastructure services can be grouped into three main categories: Com
 
 #### Docker Base Images
 
-**Source:** [docker-base-images](https://github.com/ocurrent/docker-base-images)
+**Source Code:** [docker-base-images](https://github.com/ocurrent/docker-base-images)
 
-**Service:** [images.ci.ocaml.org](https://images.ci.ocaml.org)
+**Website:** [images.ci.ocaml.org](https://images.ci.ocaml.org)
 
 This service builds the official [`ocaml/opam`](https://hub.docker.com/r/ocaml/opam) Docker images for various Linux distributions, OCaml versions, compiler flags, and architectures (including x86, ARM, PowerPC, s390x, and RISC-V). These images provide a consistent environment for development and testing and are used by many other CI services.
 
@@ -28,7 +28,7 @@ This service builds the official [`ocaml/opam`](https://hub.docker.com/r/ocaml/o
 
 #### Package Submission CI (opam-repo-ci)
 
-**Service:** [opam-repo-ci](https://github.com/ocurrent/opam-repo-ci)
+**Source Code:** [opam-repo-ci](https://github.com/ocurrent/opam-repo-ci)
 
 **Website:** [opam.ci.ocaml.org](https://opam.ci.ocaml.org)
 
@@ -38,7 +38,7 @@ Tests package submissions to the opam repository. When you submit a pull request
 
 #### Documentation CI
 
-**Service:** [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci)
+**Source Code:** [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci)
 
 **Website:** [docs.ci.ocaml.org](https://docs.ci.ocaml.org)
 
