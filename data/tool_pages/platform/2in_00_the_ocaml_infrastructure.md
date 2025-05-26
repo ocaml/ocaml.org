@@ -16,10 +16,6 @@ The OCaml ecosystem is supported by a [robust infrastructure built around OCurre
 
 The OCaml infrastructure services can be grouped into three main categories: Community infrastructure services, services for individual projects, and infrastructure operation services. Here we present a brief overview of the major services from the first two categories.
 
-### Services for Individual Projects
-
-These services used for your own projects to help with reproducible builds, testing, benchmarking, and continuous integration:
-
 #### Docker Base Images
 
 **Source:** [docker-base-images](https://github.com/ocurrent/docker-base-images)
@@ -28,21 +24,7 @@ These services used for your own projects to help with reproducible builds, test
 
 This service builds the official [`ocaml/opam`](https://hub.docker.com/r/ocaml/opam) Docker images for various Linux distributions, OCaml versions, compiler flags, and architectures (including x86, ARM, PowerPC, s390x, and RISC-V). These images provide a consistent environment for development and testing and are used by many other CI services.
 
-**Using the pre-built OCaml Docker images:** You can view the available [pre-built Docker images for various OCaml configurations at DockerHub](https://hub.docker.com/r/ocaml/opam/tags).
-
-#### OCaml-Multicore-CI
-
-**Service:** [ocaml-multicore-ci](https://github.com/ocurrent/ocaml-multicore-ci)
-
-**Website:** [ocaml-multicore.ci.dev](https://ocaml-multicore.ci.dev)
-
-Tests OCaml projects against multicore OCaml versions - particularly useful if you want to ensure your code is compatible with OCaml 5.x.
-
-**How to enable OCaml-Multicore-CI on your GitHub project:** Check out the [OCaml-Multicore-CI README on GitHub](https://github.com/ocurrent/ocaml-multicore-ci).
-
-### Community Infrastructure Services
-
-These services power the broader OCaml ecosystem, supporting package repositories, documentation, and other essential community resources:
+**Using the pre-built OCaml Docker images:** You can view the available [pre-built Docker images for various OCaml configurations at DockerHub](https://hub.docker.com/r/ocaml/opam/tags), and use them in your own deployments.
 
 #### Package Submission CI (opam-repo-ci)
 
