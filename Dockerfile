@@ -10,6 +10,10 @@ RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
     oniguruma-dev \
     openssl-dev
 
+# Use Opam 2.2 and enable the backup mirror if primary sources of packages are unavailable
+RUN sudo mv /usr/bin/opam-2.2 /usr/bin/opam && opam update
+RUN opam option --global 'archive-mirrors+="https://opam.ocaml.org/cache"'
+
 # Branch freeze was opam-repo HEAD at the time of commit
 RUN cd ~/opam-repository && git reset --hard c45f5bab71d3589f41f9603daca5acad14df0ab0 && opam update
 
