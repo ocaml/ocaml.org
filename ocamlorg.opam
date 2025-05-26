@@ -18,8 +18,8 @@ homepage: "https://github.com/ocaml/ocaml.org"
 doc: "https://ocaml.github.io/ocaml.org/"
 bug-reports: "https://github.com/ocaml/ocaml.org/issues"
 depends: [
-  "ocaml" {>= "4.14.0"}
   "dune" {>= "3.15"}
+  "ocaml" {>= "5.2.0"}
   "ppx_deriving"
   "cohttp"
   "cohttp-lwt-unix"
