@@ -10,8 +10,22 @@
  (package
   (name olinkcheck)))
 
+; workaround: temporary pin for ocamlbuild, to be removed when ocamlbuild works with dune pkg
+(pin
+(name ocamlbuild)
+ (url "https://github.com/gridbugs/ocamlbuild/archive/refs/tags/0.16.1+dune.tar.gz")
+ (package
+  (name ocamlbuild)))
+
+; workaround: temporary pin as for ocamlfind, to be removed when ocamlfind works with dune pkg
+(pin
+(name ocamlfind)
+ (url "https://github.com/Leonidas-from-XIV/ocamlfind/releases/download/findlib-1.9.6%2Bdune/findlib-1.9.6+dune.tar.gz")
+ (package
+  (name ocamlfind)))
+
 (lock_dir
   (repositories pinned_opam_repository)
-  (pins olinkcheck)
+  (pins olinkcheck ocamlbuild ocamlfind)
    (version_preference newest)
   )
