@@ -24,8 +24,30 @@ type 'a mult_tree = T of 'a * 'a mult_tree list
     let buf = Buffer.create 128 in
     add_string_of_tree buf t;
     Buffer.contents buf;;
+
+  let tree_of_string s =
+    let rec parse_node chars =
+      match chars with
+      | [] -> failwith "Unexpected end of input (expecting node)"
+      | c :: rest ->
+          let (children, rest') = parse_children rest in
+          (T (c, children), rest')
+    and parse_children chars =
+      match chars with
+      | [] -> failwith "Unexpected end of input (expecting ^)"
+      | '^' :: rest -> ([], rest)
+      | _ ->
+          let (child, rest') = parse_node chars in
+          let (siblings, rest'') = parse_children rest' in
+          (child :: siblings, rest'')
+    in
+    let (tree, remaining) = parse_node (List.of_seq (String.to_seq s)) in
+    match remaining with
+    | [] -> tree
+    | _ -> failwith "Extra input after tree";;
 val add_string_of_tree : Buffer.t -> char mult_tree -> unit = <fun>
 val string_of_tree : char mult_tree -> string = <fun>
+val tree_of_string : string -> char mult_tree = <fun>
 ```
 
 # Statement
