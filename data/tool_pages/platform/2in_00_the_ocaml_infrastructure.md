@@ -16,7 +16,7 @@ The OCaml ecosystem is supported by a [robust infrastructure built around OCurre
 
 The OCaml infrastructure services can be grouped into three main categories: Community infrastructure services, services for individual projects, and infrastructure operation services. Here we present a brief overview of the major services from the first two categories.
 
-#### Docker Base Images
+### Docker Base Images
 
 **Source Code:** [docker-base-images](https://github.com/ocurrent/docker-base-images)
 
@@ -26,7 +26,7 @@ This service builds the official [`ocaml/opam`](https://hub.docker.com/r/ocaml/o
 
 **Using the pre-built OCaml Docker images:** You can view the available [pre-built Docker images for various OCaml configurations at DockerHub](https://hub.docker.com/r/ocaml/opam/tags), and use them in your own deployments.
 
-#### Package Submission CI (opam-repo-ci)
+### Package Submission CI (opam-repo-ci)
 
 **Source Code:** [opam-repo-ci](https://github.com/ocurrent/opam-repo-ci)
 
@@ -36,7 +36,7 @@ Tests package submissions to the opam repository. When you submit a pull request
 
 **Maintaining compatibility for packages in the opam-repository:** After publishing a package by creating a GitHub release and opening an opam-repository PR (e.g. by [using `dune-release`](/publishing-packages-w-dune)), monitor your opam-repository PR to ensure all tests pass.
 
-#### Documentation CI
+### Documentation CI
 
 **Source Code:** [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci)
 
@@ -44,7 +44,7 @@ Tests package submissions to the opam repository. When you submit a pull request
 
 Builds **documentation for all packages in the opam repository**, with correct cross-package linking. After publishing your package to opam-repository, the documentation will automatically be built and published to the [OCaml.org website's package area](https://ocaml.org/packages).
 
-#### Health Check Services
+### Health Check Services
 
 * [check.ci.ocaml.org](https://check.ci.ocaml.org): Regularly tests that all packages in the opam repository still build correctly. This service is used by OCaml compiler developers when preparing major changes like new OCaml compiler releases. **GitHub**: [opam-health-check](https://github.com/ocurrent/opam-health-check)
 * [dune.check.ci.dev](https://dune.check.ci.dev): Regularly tests OCaml packages with the Dune build system to ensure compatibility and correctness.
@@ -55,16 +55,18 @@ Builds **documentation for all packages in the opam repository**, with correct c
 ## Platform Support
 
 The OCaml infrastructure supports building and testing on multiple platforms:
-- Linux: Various distributions (Debian, Ubuntu, Alpine, etc.)
-- Architecture diversity: x86_64, ARM64, ARM32, PowerPC, s390x, RISC-V
-- macOS: Through [macos-infra](https://github.com/ocurrent/macos-infra)
-- FreeBSD: Through [freebsd-infra](https://github.com/ocurrent/freebsd-infra)
+
+* Linux: Various distributions (Debian, Ubuntu, Alpine, etc.)
+* Architecture diversity: x86_64, ARM64, ARM32, PowerPC, s390x, RISC-V
+* macOS: Through [macos-infra](https://github.com/ocurrent/macos-infra)
+* FreeBSD: Through [freebsd-infra](https://github.com/ocurrent/freebsd-infra)
 
 ## Getting Involved
 
 The OCaml infrastructure is open source and welcomes contributions. You can:
-- [Contribute to the various codebases on GitHub](https://github.com/ocurrent/overview)
-- Report issues or suggest improvements on [discuss.ocaml.org](https://discuss.ocaml.org)
-- Deploy the tools locally to test your projects (see the individual documentation of the service you want to run)
+
+* [Contribute to the various codebases on GitHub](https://github.com/ocurrent/overview)
+* Report issues or suggest improvements on [discuss.ocaml.org](https://discuss.ocaml.org)
+* Deploy the tools locally to test your projects (see the individual documentation of the service you want to run)
 
 For more information on OCurrent and these services, visit [ocurrent.org](https://ocurrent.org) or explore the [OCurrent GitHub organization](https://github.com/ocurrent).
