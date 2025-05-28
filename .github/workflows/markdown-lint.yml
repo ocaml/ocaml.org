@@ -18,5 +18,5 @@ jobs:
       if: steps.changed-files.outputs.any_changed == 'true'
       with:
         globs: ${{ steps.changed-files.outputs.all_changed_files }}
-        config: '{"MD013":{"line_length":999,"heading_line_length":80,"code_block_line_length":55}}'
+        config: '.markdownlint-cli2.jsonc'
         separator: ","
