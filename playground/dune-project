@@ -1,4 +1,4 @@
-(lang dune 3.0)
+(lang dune 3.19)
 
 (using directory-targets 0.1)
 
@@ -21,8 +21,6 @@
  "Jiae Kam")
 
 (maintainers "Thibaut Mattio" "Patrick Ferris")
-
-(generate_opam_files true)
 
 (using mdx 0.1)
 
