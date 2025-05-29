@@ -1,5 +1,5 @@
 ---
-title: Installing Developer Tools with Dune
+title: "Dune Developer Preview: Installing Developer Tools with Dune"
 tags: [dune, developer-preview]
 ---
 
