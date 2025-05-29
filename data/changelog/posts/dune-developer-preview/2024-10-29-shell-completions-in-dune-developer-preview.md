@@ -1,5 +1,5 @@
 ---
-title: Shell Completions in Dune Developer Preview
+title: "Dune Developer Preview: Shell Completions in Dune Developer Preview"
 tags: [dune, developer-preview]
 ---
 

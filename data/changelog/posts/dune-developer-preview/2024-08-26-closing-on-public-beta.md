@@ -1,5 +1,5 @@
 ---
-title: Getting Ready for the Public Beta
+title: "Dune Developer Preview: Getting Ready for the Public Beta"
 tags: [dune, platform, developer-preview]
 ---
 
