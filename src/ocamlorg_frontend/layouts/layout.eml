@@ -108,6 +108,7 @@ inner =
           posthog.init('phc_OCqqItGZelQ6GJ5spVGiClX6FMqxWoDGBloGJVVSY5n', {
               api_host: 'https://posthog.ci.dev',
               person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+              enable_heatmaps: true,
           })
       </script>
       <% if use_swiper then ( %>
