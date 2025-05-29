@@ -25,7 +25,7 @@ lock directories into version control.
 
 In Opam the dependencies of a package can be different depending on properties
 of the computer where the package is being installed. A package might have a
-different set of dependencies when being installed on MacOS verses Linux verses
+different set of dependencies when being installed on MacOS verses Linux versus
 Windows, or the dependencies might vary depending on the CPU architecture. It's
 even possible (though quite rare in practice) for the dependencies of a package
 to vary between operating system distributions, or even operating system
