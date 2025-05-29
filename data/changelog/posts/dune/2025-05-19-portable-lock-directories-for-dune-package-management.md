@@ -1,5 +1,5 @@
 ---
-title: Portable Lock Directories for Dune Package Management
+title: Dune Developer Preview: Portable Lock Directories for Dune Package Management
 tags: [dune, developer-preview]
 ---
 
