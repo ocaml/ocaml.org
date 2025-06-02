@@ -1271,6 +1271,7 @@ let package_documentation t kind req =
               | Some "class" -> Class
               | Some "class-type" -> Class_type
               | Some "file" -> File
+              | Some "source" -> Source
               | None -> Page
               | _ -> File);
             href = map_url sidebar.node.url;
@@ -1301,7 +1302,7 @@ let package_documentation t kind req =
           | Parameter i -> Parameter (b, i)
           | Class -> Class b
           | ClassType -> ClassType b
-          | Page | LeafPage | File -> Page b
+          | Page | LeafPage | File | Source -> Page b
         in
 
         Ocamlorg_frontend.Package_breadcrumbs.Documentation
