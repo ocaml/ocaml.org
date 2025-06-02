@@ -325,6 +325,15 @@ div.odoc .comment-delim {
   border-color: rgb(32, 68, 165);
 }
 
+.navmap-tag.source-tag::after {
+  content: "S";
+}
+.source-tag{
+  color: rgb(97, 8, 138);
+  background-color: rgb(97, 8, 138);
+  border-color: rgb(97, 8, 138);
+}
+
 span.icon-expand > .navmap-tag,
 span.no-expand > .navmap-tag {
   color: white;
@@ -372,3 +381,34 @@ span.sign-expand.open::before {
 /* Lists of modules */
 
 .modules { list-style-type: none; padding-left:0; }
+
+/* Source links float inside preformated text or headings. */
+a.source_link {
+  float: right;
+  color: var(--source-link-color);
+  font-family: "Fira Sans", sans-serif;
+  font-size: initial;
+}
+
+
+.source_container {
+  display: flex;
+}
+
+.source_line_column {
+  padding-right: 0.5em;
+  text-align: right;
+  color: var(--source-line-column);
+  background: var(--source-line-column-bg);
+}
+
+.source_line {
+  padding: 0 1em;
+}
+
+.source_code {
+  flex-grow: 1;
+  background: var(--code-background);
+  padding: 0 0.3em;
+  color: var(--code-color);
+}

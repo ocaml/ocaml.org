@@ -241,6 +241,7 @@ module Documentation = struct
     | Class
     | ClassType
     | File
+    | Source
 
   let breadcrumb_kind_from_string s =
     match s with
@@ -251,6 +252,7 @@ module Documentation = struct
     | "class" -> Class
     | "class-type" -> ClassType
     | "file" -> File
+    | "source" -> Source
     | _ ->
         if String.starts_with ~prefix:"argument-" s then
           let i = List.hd (List.tl (String.split_on_char '-' s)) in
@@ -311,6 +313,17 @@ module Documentation = struct
           toc = List.map toc_of_json json_toc;
           content = header ^ preamble ^ content;
         }
+    | `Assoc
+        [
+          ("type", `String "source");
+          ("breadcrumbs", `List json_breadcrumbs);
+          ("global_toc", _);
+          ("header", `String header);
+          ("content", `String content);
+        ] ->
+        let breadcrumbs = List.map breadcrumb_from_json json_breadcrumbs in
+        let content = header ^ content in
+        { uses_katex = false; breadcrumbs; toc = []; content }
     | _ -> raise (Invalid_argument "malformed .html.json file")
 end
 

@@ -80,6 +80,7 @@ module Documentation : sig
     | Class
     | ClassType
     | File
+    | Source
 
   type breadcrumb = {
     name : string;

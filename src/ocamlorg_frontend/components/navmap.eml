@@ -8,6 +8,7 @@ type kind =
   | Class
   | Class_type
   | File
+  | Source
 
 type toc = {
   title : string;
@@ -26,6 +27,7 @@ let kind_title = function
   | Parameter -> "Parameter"
   | Class -> "Class"
   | Class_type -> "Class type"
+  | Source -> "Source"
   | _ -> "?"
 
 let title_style = "flex-1 flex-nowrap py-1 md:py-0.5 pr-1 text-title dark:text-dark-title truncate"
@@ -40,6 +42,7 @@ let icon_style = function
   | Parameter -> "navmap-tag parameter-tag"
   | Class -> "navmap-tag class-tag"
   | Class_type -> "navmap-tag class-type-tag"
+  | Source -> "navmap-tag source-tag"
   | _ -> "navmap-tag"
 
 let rec nested_render ~path (item : toc) =
@@ -135,6 +138,7 @@ let render
     <span class="<%s icon_style Module_type %>" style="display:inline-block;color:white"></span>Module type<br>
     <span class="<%s icon_style Parameter %>" style="display:inline-block;color:white"></span>Parameter<br>
     <span class="<%s icon_style Class %>" style="display:inline-block;color:white"></span>Class<br>
-    <span class="<%s icon_style Class_type %>" style="display:inline-block;color:white"></span>Class type
+    <span class="<%s icon_style Class_type %>" style="display:inline-block;color:white"></span>Class type<br>
+    <span class="<%s icon_style Source %>" style="display:inline-block;color:white"></span>Source
     </div>
   <% ); %>
