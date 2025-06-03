@@ -188,7 +188,7 @@ div.odoc span.at-tag {
   font-weight: bold;
 }
 
-div.odoc a {
+div.odoc a:not(.source_code a) {
   font-weight: bold;
   color: #cc4e0c;
 }
@@ -411,4 +411,227 @@ a.source_link {
   background: var(--code-background);
   padding: 0 0.3em;
   color: var(--code-color);
+}
+
+/* Taken from odoc's css sheet */
+
+:root,
+.light:root {
+
+  /* light gruvbox theme colors */
+  --bg_h: #f9f5d7;
+  --bg:   #f6f8fa; /*#fbf1c7;*/
+  --bg_s: #f2e5bc;
+  --bg1:  #ebdbb2;
+  --bg2:  #d5c4a1;
+  --bg3:  #bdae93;
+  --bg4:  #a89984;
+
+  --fg:  #282828;
+  --fg1: #3c3836;
+  --fg2: #504945;
+  --fg3: #665c54;
+  --fg4: #7c6f64;
+
+  --red:    #9d0006;
+  --green:  #79740e;
+  --yellow: #b57614;
+  --blue:   #076678;
+  --purple: #8f3f71;
+  --aqua:   #427b58;
+  --orange: #af3a03;
+  --gray:   #928374;
+
+  --red-dim:    #cc2412;
+  --green-dim:  #98971a;
+  --yellow-dim: #d79921;
+  --blue-dim:   #458598;
+  --purple-dim: #b16286;
+  --aqua-dim:   #689d6a;
+  --orange-dim: #d65d0e;
+  --gray-dim:   #7c6f64;
+
+  /* odoc colors */
+  --odoc-blue: #5c9cf5;
+  --odoc-bg: #FFFFFF;
+  --odoc-bg1: #f6f8fa;
+  --odoc-fg: #333333;
+  --odoc-fg1: #1F2D3D;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* dark gruvbox theme colors */
+    --bg_h: #1d2021;
+    --bg:   #282828;
+    --bg_s: #32302f;
+    --bg1:  #3c3836;
+    --bg2:  #504945;
+    --bg3:  #665c54;
+    --bg4:  #7c6f64;
+
+    --fg:  #fbf1c7;
+    --fg1: #ebdbb2;
+    --fg2: #d5c4a1;
+    --fg3: #bdae93;
+    --fg4: #a89984;
+
+    --red:    #fb4934;
+    --green:  #b8bb26;
+    --yellow: #fabd2f;
+    --blue:   #83a598;
+    --purple: #d3869b;
+    --aqua:   #8ec07c;
+    --gray:   #928374;
+    --orange: #fe8019;
+
+    --red-dim:    #cc2412;
+    --green-dim:  #98971a;
+    --yellow-dim: #d79921;
+    --blue-dim:   #458588;
+    --purple-dim: #b16286;
+    --aqua-dim:   #689d6a;
+    --gray-dim:   #a89984;
+    --orange-dim: #d65d0e;
+
+    /* odoc colors */
+    --odoc-blue: #5c9cf5;
+    --odoc-bg: #202020;
+    --odoc-bg1: #252525;
+    --odoc-fg: #bebebe;
+    --odoc-fg1: #777;
+  }
+}
+
+:root {
+  --source-link-color: var(--fg4);
+  --source-line-column: var(--fg3);
+  --source-line-column-bg: var(--bg_h);
+
+  --source-code-comment: var(--gray);
+  --source-code-docstring: var(--green-dim);
+  --source-code-lident: var(--fg1);
+  --source-code-uident: var(--blue);
+  --source-code-literal: var(--yellow);
+  --source-code-keyword: var(--red);
+  --source-code-underscore: var(--fg3);
+  --source-code-operator: var(--purple);
+  --source-code-parens: var(--orange-dim);
+  --source-code-separator: var(--orange-dim);
+}
+
+
+/* Linked highlight */
+.source_code *:target {
+  border-radius: 1px;
+  border: var(--orange-dim) 2px solid !important;
+}
+
+/* Keywords */
+.AND, .ANDOP, .AS, .ASSERT,
+.BAR, .BEGIN,
+.CLASS, .CONSTRAINT,
+.DO, .DONE, .DOWNTO,
+.ELSE, .END, .EXCEPTION, .EXTERNAL,
+.FOR, .FUN, .FUNCTION, .FUNCTOR,
+.IF, .IN, .INCLUDE, .INHERIT, .INITIALIZER,
+.LAZY, .LESSMINUS, .LET, .LETOP,
+.MATCH, .METHOD, .MINUSGREATER, .MODULE, .MUTABLE,
+.NEW, .NONREC,
+.OBJECT, .OF, .OPEN,
+.PERCENT, .PRIVATE,
+.REC,
+.SEMISEMI, .SIG, .STRUCT,
+.THEN, .TO, .TRY, .TYPE,
+.VAL, .VIRTUAL,
+.WHEN, .WITH, .WHILE
+{
+  color: var(--source-code-keyword);;
+}
+
+/* Separators */
+.COMMA, .COLON, .COLONGREATER, .SEMI {
+  color: var(--source-code-separator);
+}
+
+/* Parens
+   `begin` and `end ` are excluded because `end` is used in other, more
+   keyword-y contexts*/
+.BARRBRACKET,
+.LBRACE,
+.LBRACELESS,
+.LBRACKET,
+.LBRACKETAT,
+.LBRACKETATAT,
+.LBRACKETATATAT,
+.LBRACKETBAR,
+.LBRACKETGREATER,
+.LBRACKETLESS,
+.LBRACKETPERCENT,
+.LBRACKETPERCENTPERCENT,
+.LPAREN,
+.RBRACE,
+.RBRACKET,
+.RPAREN
+{
+  color: var(--source-code-parens);
+}
+
+/* Prefix operators */
+.ASSERT, .BANG, .PREFIXOP,
+/* Infix operators.
+   A choice had to be made for equal `=` which is both a keyword and an operator.
+   It looked better having it as an operator, because when it is a keyword,
+   there are already loads of keyword around.
+   It would look even nicer if there was a way to distinguish between these
+   two cases.*/
+.INFIXOP0, .INFIXOP1, .INFIXOP2, .INFIXOP3, .INFIXOP4,
+.BARBAR, .PLUS, .STAR, .AMPERAMPER, .AMPERAND, .COLONEQUAL, .GREATER, .LESS,
+.MINUS, .MINUSDOT, .MINUSGREATER, .OR, .PLUSDOT, .PLUSEQ, .EQUAL
+{
+  color: var(--source-code-operator);
+}
+
+/* Upper case ident
+   `true` and `false` are considered uident here, because you can bind them in a
+   constructor defintion :
+   ```ocaml
+   type my_bool =
+     | true of string
+     | false
+     | Other of int
+   ```
+*/
+.UIDENT, .COLONCOLON, .TRUE, .FALSE {
+  color: var(--source-code-uident);
+
+}
+
+/* Lower case idents.
+   Quotes are here because of `type 'a t = 'a list`,
+   and question mark and tildes because of
+   ```ocaml
+   let f ~a ?b () = Option.map a b
+   ```
+*/
+.LIDENT, .QUESTION, .QUOTE, .TILDE {
+  color: var(--source-code-lident);
+}
+
+/* Litterals */
+ .STRING, .CHAR, .INT, .FLOAT, .QUOTED_STRING_EXPR, .QUOTED_STRING_ITEM {
+  color: var(--source-code-literal);
+}
+
+.UNDERSCORE {
+  color: var(--source-code-underscore);
+}
+
+.DOCSTRING {
+  color: var(--source-code-docstring);
+}
+
+.COMMENT {
+  color: var(--source-code-comment);
 }
