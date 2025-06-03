@@ -73,13 +73,13 @@ let render_path_breadcrumbs
   let render_breadcrumb max i b =
     match b.href with
     | None when i < max ->
-      <span class="font-semibold underline text-content dark:text-dark-title"><%s b.name %></span>
+      <span class="font-semibold underline text-content dark:text-dark-title"><%s! b.name %></span>
     | None ->
-      <span aria-current="page" class="text-content dark:text-dark-title mr-2"><%s b.name %></span>
+      <span aria-current="page" class="text-content dark:text-dark-title mr-2"><%s! b.name %></span>
     | Some href when i < max ->
-      <a href="<%s! href %>" class="font-semibold underline text-content dark:text-dark-title"><%s b.name %></a>
+      <a href="<%s! href %>" class="font-semibold underline text-content dark:text-dark-title"><%s! b.name %></a>
     | Some href ->
-      <a href="<%s! href %>" aria-current="page" class="text-content dark:text-dark-title mr-2"><%s b.name %></a>
+      <a href="<%s! href %>" aria-current="page" class="text-content dark:text-dark-title mr-2"><%s! b.name %></a>
   in
   let li content =
     <li class="flex flex-wrap items-center">
