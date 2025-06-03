@@ -1230,6 +1230,29 @@ let package_documentation t kind req =
   in
   let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
   let hash = match kind with `Package -> None | `Universe u -> Some u in
+  let url =
+    Url.Package.documentation ?hash ~page:path ~version:version_from_url
+    @@ Dream.param req "name"
+  in
+  let* package_documentation_status =
+    Ocamlorg_package.documentation_status ~kind t package
+  in
+  let redirect =
+    match package_documentation_status with
+    | None -> None
+    | Some { redirections; _ } ->
+        List.find_map
+          (function
+            | { Ocamlorg_package.Documentation_status.old_path; new_path } -> (
+                match String.cut ~on:old_path url with
+                | Some (prefix, "") -> Some (prefix ^ new_path)
+                | _ -> None))
+          redirections
+  in
+  let handle_redirect redirect continue =
+    match redirect with Some r -> Dream.redirect req r | None -> continue ()
+  in
+  handle_redirect redirect @@ fun () ->
   let* docs = Ocamlorg_package.documentation_page ~kind package path in
   match docs with
   | None ->
