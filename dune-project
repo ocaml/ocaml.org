@@ -34,7 +34,7 @@
   "This repository contains the server that serves the official OCaml website at https://ocaml.org.")
  (depends
   (ocaml
-   (>= 5.2.0))
+   (>= 4.14.0))
   ppx_deriving
   cohttp
   cohttp-lwt-unix
