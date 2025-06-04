@@ -66,7 +66,6 @@
    (and
     :with-test
     (>= 1.10.0)))
-  olinkcheck
   ; tools/ood-gen
   ppx_deriving_yaml
   ppx_import
@@ -84,11 +83,6 @@
   "git+https://github.com/aantron/river#476dc945a908a69548bddd267f143a3e5d9c8a1a")
  (package
   (name river)))
-
-(pin
- (url "git+https://github.com/tarides/olinkcheck")
- (package
-  (name olinkcheck)))
 
 (dialect
  (name eml)
