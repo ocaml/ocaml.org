@@ -1,6 +1,5 @@
 ---
-title: <a href="https://jon.recoil.org/blog/2025/05/docs-progress.html">Progress in
-  OCaml docs</a>
+title: Progress in OCaml docs
 description:
 url: https://jon.recoil.org/blog/2025/05/docs-progress.html
 date: 2025-05-29T00:00:00-00:00
