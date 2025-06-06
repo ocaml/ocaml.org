@@ -199,7 +199,7 @@ Layout.base
 
           let list_item = document.createElement("li");
           let a = document.createElement("a");
-          let href = "/" + entry.url;
+          let href = entry.url;
           a.href = href;
           a.id = "search-result-"+entry.id;
           a.classList.add("search-entry", kind.innerText.slice(0,3));
