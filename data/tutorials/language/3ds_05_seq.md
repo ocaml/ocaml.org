@@ -21,9 +21,10 @@ reducing memory consumption from linear to constant space
 Still in the intro: for people familiar with Python, I believe it would be very useful to mention Python’s generators: OCaml sequences are similar to Python generators. The main difference is that each element of a Python generator is consumed only once and never seen again, while an element in an OCaml sequence can be queried several times, but is re-computed each time (more expressive but opportunity for bugs). Also, OCaml does not have all the convenient syntax that Python has (there is no yield in OCaml [at least, until algebraic effects land in OCaml 5!]). The contrast between list and Seq.t in OCaml is the same as between range and xrange in old Python 2 (or [i for i in range(100)] versus range(100) in Python 3).
 -->
 
-One way to look at a value of type `'a Seq.t` is to consider it as a list, but it contains
-a twist when it's not empty: its tail is frozen. To understand this analogy,
-consider how sequences are defined in the Standard Library:
+One way to look at a value of type `'a Seq.t` is to consider it as a "lazy list"
+where each element is wrapped in a function that must be "called" to reveal the value.
+
+Consider it as a listonsider how sequences are defined in the Standard Library:
 
 ```ocaml
 type 'a node =
@@ -52,13 +53,14 @@ compare the constructors of `list` and `Seq.node`:
 1. However, the latter member in lists is recursively a `list`, while in
    sequences, it is a function returning a `Seq.node`.
 
-A value of type `Seq.t` is “frozen” because the data it contains isn't
+A value of type `Seq.t` is not a list because the data it contains isn't
 immediately available. A `unit` value has to be supplied to recover it, which we
-may see as “unfreezing.” However, unfreezing only gives access to the tip of the
+may see as forcing evaluation to retrieve the first element of the list.
+However, this only gives access to the tip of the
 sequence, since the second argument of `Seq.Cons` is a function too.
 
-Frozen-by-function tails explain why sequences may be considered potentially
-infinite. Until a `Seq.Nil` value has been found in the sequence, one can't say
+This explain why sequences may be considered potentially
+infinite: Until a `Seq.Nil` value has been found in the sequence, one can't say
 for sure if some will ever appear. The sequence could be a stream of incoming
 requests in a server, readings from an embedded sensor, or system logs. All have
 unforeseeable termination, and it is easier to consider them potentially infinite.
@@ -66,19 +68,22 @@ unforeseeable termination, and it is easier to consider them potentially infinit
 In OCaml, any value `a` of type `t` can be turned into a constant function by
 writing `fun _ -> a` or `fun () -> a`. The latter function is called a
 [_thunk_](https://en.wikipedia.org/wiki/Thunk). Using this terminology, `Seq.t`
-values are thunks. With the analogy used earlier, `a` is frozen in its thunk.
+values are thunks.
 
 ## Constructing Sequences
 
 With this understanding, we can manually construct a sequence like so:
 
 ``` ocaml
-let my_seq  =
-  fun () ->
-  Seq.Cons (1, fun () -> Seq.Cons (2, fun () -> Seq.Cons (3, fun () -> Seq.Nil)))
+# let seq_123  =
+    fun () -> Seq.Cons (1,
+      fun () -> Seq.Cons (2,
+        fun () -> Seq.Cons (3,
+          fun () -> Seq.Nil)));;
+val seq_123 : unit -> int Seq.node = <fun>
 ```
 
-**Note:** The second component of each `Seq.Con`'s tuple is a function. This has
+**Note:** The second component of each `Seq.Cons`' tuple is a function. This has
 the effect of providing a means of acquiring a value rather than providing a
 value directly.
 
@@ -130,13 +135,14 @@ function `Seq.take`, which returns a specified number of elements from the
 beginning of a sequence. Here is a simplified implementation:
 
 ```ocaml
-let rec take n seq () =
-  if n <= 0 then
-    Seq.Nil
-  else
-    match seq () with
-    | Seq.Cons (x, seq) -> Seq.Cons (x, take (n - 1) seq)
-    | _ -> Seq.Nil
+# let rec take n seq () =
+    if n <= 0 then
+      Seq.Nil
+    else
+      match seq () with
+      | Seq.Cons (x, seq) -> Seq.Cons (x, take (n - 1) seq)
+      | _ -> Seq.Nil;;
+val take : int -> 'a Seq.t -> 'a Seq.t = <fun>
 ```
 
 `take n seq` returns, at most, the `n` first elements of the sequence `seq`. If
@@ -163,6 +169,8 @@ This can be used to print integers without looping forever, as shown previously:
  22; 23; 24; 25; 26; 27; 28; 29; 30; 31; 32; 33; 34; 35; 36; 37; 38; 39; 40;
  41; 42]
 ```
+
+([`Seq.ints i`](/manual/api/Seq.html) is the infinite sequence of the integers beginning at i and counting up.)
 
 ## Filtering a Sequence
 
@@ -241,14 +249,9 @@ something which isn't (yet) available on other types: `unfold`. Here is how it
 is implemented:
 
 ```ocaml
-let rec unfold f x () = match f x with
+# let rec unfold f x () = match f x with
   | None -> Seq.Nil
-  | Some (x, seq) -> Seq.Cons (x, unfold f seq)
-```
-
-And here is its type:
-
-```ocaml
+  | Some (x, seq) -> Seq.Cons (x, unfold f seq);;
 val unfold : ('a -> ('b * 'a) option) -> 'a -> 'b Seq.t = <fun>
 ```
 
@@ -280,7 +283,7 @@ As a fun fact, we can observe that a `map` over sequences can be implemented usi
 val map : ('a -> 'b) -> 'a Seq.t -> 'b Seq.t = <fun>
 ```
 
-We can check our `map` function by applying a square root function to a sequence:
+We can check our `map` function by applying a square function to a sequence:
 
 ```ocaml
 # Seq.ints 0 |> map (fun x -> x * x) |> Seq.take 10 |> List.of_seq;;
@@ -325,124 +328,194 @@ This is the second line.
 - : unit = ()
 ```
 
-<!--
-Suggestion: perhaps it would be enlightening to illustrate the use of Seq.unfold by re-implementing the already seen function primes? Perhaps in an exercise rather than in the main text of the tutorial.
+Note: production code should handle file opening errors, this example has been
+kept short to focus only on how files relate to sequences.
+
+## Consumers vs Producers
+
+A function with a sequence parameter consumes it; it's a sequence consumer. A function with a sequence result produces it; it's a sequence producer. In both cases, consumption and production occurs on only one element before continuing with the rest.
+
+### Sequence Consumers: Partially Applied Functions as Parameters
+
+A consumer is a function that **processes** a sequence, consuming its
+elements. Consumers should be written as higher-order functions that take a
+function parameter. This allows for deferred evaluation,
+ensuring that elements are fetched one at a time instead of forcing the entire
+sequence to be evaluated upfront.
+
+#### Consumer Example: `Seq.iter`
+
+```ocaml
+# let print_seq = Seq.iter print_int;;
+val print_seq : int Seq.t -> unit = <fun>
 
 ```
-let rec next_prime prime_list n =
-  if List.for_all (fun p -> n mod p <> 0) prime_list then
-    n
-  else next_prime prime_list (n+1)
 
-let primes =
-  Seq.unfold
-    begin fun (prime_list, n) ->
-      let p = next_prime prime_list n in
-      Some (p, (p::prime_list, p+1))
-    end
-    ([], 2)
+In `print_seq`, `Seq.iter` takes the function `print_int` and applies it to each
+element as they are generated. If `List.iter` was used, the whole integer list would be needed before displaying them starts.
+
+### Sequence Producers: Functions as Results
+
+A producer is a function that **generates** a sequence. Producers return a function so that elements are only computed when needed.  This
+ensures deferred evaluation and avoids unnecessary computation.
+
+#### Producer Example: `Seq.unfold`
+
+```ocaml
+ # let naturals =
+  Seq.unfold (fun x -> Some (x, x + 1)) 0;;
+val naturals : int Seq.t = <fun>
 ```
 
-This example illustrates a non-trivial use of the accumulator, and also the fact that the producer function loops until it finds a new prime to yield, because Seq.unfold does not allow the producer to “skip” a value: it must produce a new element or end the sequence. If we were allowed to skip values, we could more simply do:
+This application of `Seq.unfold` has type  `unit -> int Seq.node`, making it a function, a deferred producer. Each time this function is called, a new element is produced.
 
-```
-let primes =
-  Seq.unfold_skippable
-    begin fun (prime_list, n) ->
-      if List.for_all (fun p -> n mod p <> 0) prime_list then
-        Yield (n, (n::prime_list, n+1))
-      else
-        Skip (prime_list, n+1)
-    end
-    ([], 2)
-```
--->
+## Be Aware of Seq.Cons vs Seq.cons
 
-## Sequences Are Functions
+The `Seq` module in the OCaml Standard Library contains two version of
+"cons-ing" that warrant special attention due to their similar names and distinct
+behavior.
 
-The `Seq` module contains this definition:
+We have already been introduced to the `Seq.Cons` variant constructor. As a
+refresher, here is how to display its definition:
+
+ ``` ocaml
+# #show Seq.node;;
+type 'a node = 'a Seq.node = Nil | Cons of 'a * 'a Seq.t
+
+ ```
+
+The other version of "cons-ing" is the
+function `Seq.cons` (with a lowercase `c`) with the following value declaration:
 
 ```ocaml
 val cons : 'a -> 'a Seq.t -> 'a Seq.t
 ```
 
-Although `Seq.cons x seq` and `Seq.Cons (x, seq)` are the same, `Seq.cons` is a function and `Seq.Cons` is a variant's constructor, which is not the same in OCaml. This can lead to subtle bugs. This section illustrates this.
-<!--
-No need to introduce another mathematical sequence, we can reuse earlier examples (better for pedagogy):
+From the signature, we gather that it is a function that takes two parameters, a
+value and a sequence. Its definition is the following:
 
+``` ocaml
+ # let cons x next () = Cons (x, next);;
+val cons : 'a -> 'a t -> unit -> 'a node = <fun>
 ```
-let rec ints n = Seq.cons n (ints (n+1))
-```
--->
 
-Although this looks like a possible way to define the [Fibonacci
-sequence](https://en.wikipedia.org/wiki/Fibonacci_number):
+`Seq.Cons` and `Seq.cons` are similar in that both are capable of creating a new
+sequence:
+
+ ``` ocaml
+# let ints_from_2 = Seq.ints 2
+  let ints_a () = Seq.Cons (1, ints_from_2)  (* With Seq.Cons *)
+  let ints_b = Seq.cons 1 ints_from_2;;      (* With Seq.cons *)
+val ints_from_2 : int Seq.t = <fun>
+val ints_a : unit -> int Seq.node = <fun>
+val ints_b : int Seq.t = <fun>
+
+# ints_a |> Seq.take 3 |> List.of_seq;;
+- : int list = [1; 2; 3]
+
+# ints_b |> Seq.take 3 |> List.of_seq;;
+- : int list = [1; 2; 3]
+```
+
+Now that we have seen these two versions of "cons-ing" can construct the same
+sequence, it begs the question: what makes `Seq.cons` and `Seq.Cons` different?
+
+Lets look at how confusing `Seq.Cons` and `Seq.con` can lead to unintended
+behavior.
+
+### Fibs with `Seq.cons`
+
+Although the following looks like a possible way to define the [Fibonacci
+sequence](https://en.wikipedia.org/wiki/Fibonacci_number), it leads to trouble:
 
 ```ocaml
-# let rec fibs m n = Seq.cons m (fibs n (n + m));;
+# let rec fibs_v1 m n = Seq.cons m (fibs_v1 n (n + m));;
 val fibs : int -> int -> int Seq.t = <fun>
-```
 
-It actually isn't. It's an unending recursion which blows away the stack.
-
-<!--
-At that point, Seq.cons has not been introduced yet, so the reader only knows fun () -> Seq.Cons … and would not have fallen into the trap of writing Seq.cons … instead. Besides, she may not understand this section at all because Seq.cons is not explained here. The progression of this section should be turned upside down.
--->
-
-```
-# fibs 0 1;;
+# let fibs_v1 0 1;;
 Stack overflow during evaluation (looping recursion?).
 ```
 
-This definition is behaving as expected (spot the differences, there are four): <!-- How do you count four?
+<!-- Or with an int version:
 
-1. `Seq.Cons` vs `Seq.cons`
-2. Input is a tuple vs being a pair of parameters
-3. Possesses a Unit value parameter
-4. ?
+```ocaml
+# let rec ints_v1 n = Seq.cons n (n + 1);;
+val fibs : int -> int -> int Seq.t = <fun>
+
+# let res = ints_v1 0;;
+Stack overflow during evaluation (looping recursion?).
+
+n```
 -->
 
+This produces a never-ending recursion that leads to a stack overflow.
+
+### Fibs with `Seq.Cons`
+
+Next, lets define `fibs_v2` using the constructor `Seq.Cons`:
+
 ```ocaml
-# let rec fibs m n () = Seq.Cons (m, fibs n (n + m));;
-val fibs : int -> int -> int Seq.t = <fun>
+# let rec fibs_v2 m n () = Seq.Cons (m, fibs_v2 n (n + m));;
+val fibs_v2 : int -> int -> int Seq.t = <fun>
 ```
 
-It can be used to produce some Fibonacci numbers:
+<!-- Or with an int version:
+``` ocaml
+# let rec ints_v2 n () = Seq.Cons (n, ints_v2 (n + 1));;
+val ints_v2 : int -> int Seq.t = <fun>
+
+```
+-->
+
+This implementation successfully defines a producer of lazy sequences with which
+we can produce and then consume Fibonacci numbers:
 
 ```ocaml
-# fibs 0 1 |> Seq.take 10 |> List.of_seq;;
+# fibs_v2 0 1 |> Seq.take 10 |> List.of_seq;;
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
 
-Why is it so? The key difference lies in the recursive call `fibs n (n + m)`. In
-the former definition, the application is complete because `fibs` is provided
-with all the arguments it expects. In the latter definition, the application is
-partial because the `()` argument is missing. Since evaluation is
-[eager](https://en.wikipedia.org/wiki/Evaluation_strategy#Eager_evaluation) in
-OCaml, in the former case evaluation of the recursive call is triggered again and again, without ever terminating (this is what "looping recursion" in the error message refers to). In the latter case, the partially
+<!-- Or with an int version
+``` ocaml
+# ints_v2 1 |> Seq.take 10 |> List.of_seq;;
+- : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
+```
+-->
+
+### Understanding the Difference
+
+Why is it so? The issue with `fibs_v1`  lies in the recursive call `fibs_v1 n (n + m)`.
+Function application is complete because `fibs_v1` is provided with all the
+arguments it expects, triggering runaway recursion without a base case. In the
+latter definition of `fibs_v2`, function application is partial because the `()` argument is missing.
+Since evaluation is [eager](https://en.wikipedia.org/wiki/Evaluation_strategy#Eager_evaluation) in
+OCaml, in the former case evaluation of the recursive call is triggered and a
+non-terminating looping occurs. By contrast in the latter case, the partially
 applied function is immediately returned as a
 [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
 
-Sequences are functions, as stated by their type:
+For this reason, it is not possible to create a Fibonacci function using
+`Seq.cons`.
 
-```ocaml
-# #show Seq.t;;
-type 'a t = unit -> 'a Seq.node
-```
+If the distinction remains a mystery, take a moment to compare the inputs to the
+`Seq.Cons` constructor and `Seq.cons` function. They look deceptively similar,
+but one takes as input a value of type `'a * 'a t` and the other takes as input
+arguments of `'a` and `'a t`.
 
-Functions working with sequences must be written accordingly.
-* Sequence consumer: partially applied function parameter
-* Sequence producer: partially applied function result
+### A Mental Model for `Seq.Cons` vs `Seq.cons`
 
-When code dealing with sequences does not behave as expected, like if it is
-crashing or hanging, there's a fair chance a mistake like in the first
-definition of `fibs` was made.
+It useful to think of `Seq.Cons` and `Seq.cons` as accomplishing different
+tasks. `Seq.Cons` provides a convenient means of recursively defining a sequence
+generator and a clumsy means to prepend a value to a sequence.  Conversely,
+`Seq.cons` provides a convenient means to prepend a value to a sequence and an
+impossible means to recursively defining a sequence generator.
 
 ## Sequences for Conversions
 
-Throughout the standard library, sequences are used as a bridge to perform
+Throughout the OCaml Standard Library, sequences are used as a bridge to perform
 conversions between many datatypes. For instance, here are the signatures of
 some of those functions:
+
 * Lists
 
   ```ocaml
@@ -504,5 +577,32 @@ OCaml 4.14. Beware books and documentation written before may still mention it.
   * Guillaume Petiot [@gpetiot](https://github.com/gpetiot)
   * Xavier Van de Woestyne [@xvw](https://github.com/xvw)
   * Simon Cruanes [@c-cube](https://github.com/c-cube)
-  * Glen Mével [gmevel](https://github.com/gmevel)
--->
+  * Glen Mével [gmevel](https://github.com/gmevel) -->
+
+
+
+
+
+<!--
+Suggestion: perhaps it would be enlightening to illustrate the use of Seq.unfold by re-implementing the already seen function primes? Perhaps in an exercise rather than in the main text of the tutorial.
+
+```
+let rec next_prime prime_list n =
+  if List.for_all (fun p -> n mod p <> 0) prime_list then
+    n
+  else next_prime prime_list (n+1)
+
+let primes =
+  Seq.unfold
+    begin fun (prime_list, n) ->
+      let p = next_prime prime_list n in
+      Some (p, (p::prime_list, p+1))
+    end
+    ([], 2)
+```
+
+This example illustrates a non-trivial use of the accumulator, and also the fact that the producer function loops until it finds a new prime to yield, because Seq.unfold does not allow the producer to “skip” a value: it must produce a new element or end the sequence. If we were allowed to skip values, we could more simply do:
+
+``` let primes = Seq.unfold_skippable begin fun (prime_list, n) -> if
+List.for_all (fun p -> n mod p <> 0) prime_list then Yield (n, (n::prime_list,
+n+1)) else Skip (prime_list, n+1) end ([], 2) ``` -->
