@@ -4,7 +4,7 @@ title: "Generating Documentation With odoc"
 short_title: "Generating Documentation"
 description: |
   How to use odoc to generate documentation.
-category: "Documentation"
+category: "Tooling"
 ---
 
 The documentation rendering tool `odoc` generates documentation
