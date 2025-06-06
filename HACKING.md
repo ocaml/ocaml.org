@@ -24,31 +24,17 @@ git clone https://github.com/<username>/OCaml.org.git
 cd OCaml.org
 ```
 
-Ensure you have `opam` installed. Opam will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. By this point, we should all be using some Unix-like system (Linux, macOS, WSL2), so you should [run the opam install script](https://opam.OCaml.org/doc/Install.html#Binary-distribution). There are also manual instructions for people that don't want to run a script from the internet. We assume you are using `opam.2.1.0` or later, which provides a cleaner, friendlier experience when installing system dependencies.
-
-With opam installed, you can now initialise opam with `opam init`. Note that in containers or WSL2, you will have to run `opam init --disable-sandboxing`. Opam might complain about some missing system dependencies like `unzip`, `cc` (a C compiler like `gcc`), etc. Make sure to install these before `opam init`.
-
-Finally from the root of your project, you can setup a [local opam switch](https://opam.OCaml.org/doc/Manual.html#Switches) and install the dependencies. There is a single `make` target to do just that.
-
-```bash
-make switch
-```
-
-If you don't want a local opam switch and are happy to install everything globally (in the opam sense), then you can just install the dependencies directly.
-
-```bash
-make deps
-```
-
-Opam will likely ask questions about installing system dependencies. Ror the project to work, you will have to answer yes to installing these.
+Ensure you have [Dune Developer Preview](https://preview.dune.build) installed. Dune will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. By this point, we should all be using some Unix-like system (Linux, macOS, WSL2). We assume you are using the most recent version of Dune Developer Preview.
 
 ### Running the Server
 
-After building the project, you can run the server with:
+From the root of your project, you can just build and run the project with
 
-```bash
+```
 make start
 ```
+
+Dune will install the OCaml compiler, as well as all the dependencies needed by the project.
 
 To start the server in watch mode, you can run:
 
@@ -80,13 +66,7 @@ The OCaml Playground is compiled separately from the rest of the server. The gen
 
 You can build the playground from the root of the project. There is no need to move to the `./playground/` directory for the following commands.
 
-To regenerate the playground, you need to install the playground's dependencies first:
-
-```bash
-make deps -C playground
-```
-
-After the dependencies have been installed, simply build the project to regenerate the JavaScript assets:
+Simply build the project to regenerate the JavaScript assets:
 
 ```bash
 make playground
@@ -128,30 +108,13 @@ before they get merged.
 
 ### Managing Dependencies
 
-OCaml.org is using an opam switch that is local and bound to a pinned commit in `opam-repository`. This is intended to protect the build from upstream regressions. The opam repository is specified in three (3) places:
+OCaml.org is using an pinned version of `opam-repository`. This is intended to protect the build from upstream regressions. The opam repository is specified in one place:
 
-```bash
-Dockerfile
-Makefile
-.github/workflows/*.yml
+```
+dune-workspace
 ```
 
-When bringing up OCaml.org to a newer pin, the commit hash found it those files must be changed all at once.
-
-Once the opam repo pin is updated, the local switch must be updated using the following command:
-
-```sh
-opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>
-```
-
-Where `<commit-hash>` is the pinned hash specified in the files mentioned above.
-
-Once this is done, you can run `opam update` and `opam upgrade`. If OCamlFormat
-was upgraded in the process, the files `.ocamlformat` and
-`.github/workflows/ci.yml` must be modified with the currently installed version
-of OCamlFormat.
-
-### Handling the Tailwind CSS
+### Handling the Tailwind CSS CLI
 
 The Tailwind CSS framework. The tailwind binary pulled from its GitHub [repo](https://github.com/tailwindlabs/tailwindcss). Download is performed by Dune during the build. When working on a local switch for hacking, you don't want `dune clean` to delete this binary. Just do `dune install tailwind` to have it installed in the local switch.
 
@@ -192,11 +155,10 @@ The following snippet describes the repository structure:
 ├── dune
 ├── dune-project
 │   Dune file used to mark the root of the project and define project-wide parameters.
-│   For the documentation of the syntax, see https://dune.readthedocs.io/en/stable/dune-files.html#dune-project.
-│
-├── ocamlorg.opam
-├── ocamlorg.opam.template
-│   opam package definitions.
+│   For the documentation of the syntax, see https://dune.readthedocs.io/en/latest/reference/dune-project/index.html.
+├── dune-workspace
+│   Dune file used to define the repositories used for dependencies by Dune package management
+│   For the documentation of the syntax, see https://dune.readthedocs.io/en/latest/reference/dune-workspace/index.html.
 │
 ├── CONTRIBUTING.md
 │
