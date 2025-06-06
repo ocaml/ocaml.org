@@ -21,9 +21,10 @@ reducing memory consumption from linear to constant space
 Still in the intro: for people familiar with Python, I believe it would be very useful to mention Python’s generators: OCaml sequences are similar to Python generators. The main difference is that each element of a Python generator is consumed only once and never seen again, while an element in an OCaml sequence can be queried several times, but is re-computed each time (more expressive but opportunity for bugs). Also, OCaml does not have all the convenient syntax that Python has (there is no yield in OCaml [at least, until algebraic effects land in OCaml 5!]). The contrast between list and Seq.t in OCaml is the same as between range and xrange in old Python 2 (or [i for i in range(100)] versus range(100) in Python 3).
 -->
 
-One way to look at a value of type `'a Seq.t` is to consider it as a list, but it contains
-a twist when it's not empty: its tail is frozen. To understand this analogy,
-consider how sequences are defined in the Standard Library:
+One way to look at a value of type `'a Seq.t` is to consider it as a "lazy list"
+where each element is wrapped in a function that must be "called" to reveal the value.
+
+Consider it as a listonsider how sequences are defined in the Standard Library:
 
 ```ocaml
 type 'a node =
@@ -52,13 +53,14 @@ compare the constructors of `list` and `Seq.node`:
 1. However, the latter member in lists is recursively a `list`, while in
    sequences, it is a function returning a `Seq.node`.
 
-A value of type `Seq.t` is “frozen” because the data it contains isn't
+A value of type `Seq.t` is not a list because the data it contains isn't
 immediately available. A `unit` value has to be supplied to recover it, which we
-may see as “unfreezing.” However, unfreezing only gives access to the tip of the
+may see as forcing evaluation to retrieve the first element of the list.
+However, this only gives access to the tip of the
 sequence, since the second argument of `Seq.Cons` is a function too.
 
-Frozen-by-function tails explain why sequences may be considered potentially
-infinite. Until a `Seq.Nil` value has been found in the sequence, one can't say
+This explain why sequences may be considered potentially
+infinite: Until a `Seq.Nil` value has been found in the sequence, one can't say
 for sure if some will ever appear. The sequence could be a stream of incoming
 requests in a server, readings from an embedded sensor, or system logs. All have
 unforeseeable termination, and it is easier to consider them potentially infinite.
@@ -66,7 +68,7 @@ unforeseeable termination, and it is easier to consider them potentially infinit
 In OCaml, any value `a` of type `t` can be turned into a constant function by
 writing `fun _ -> a` or `fun () -> a`. The latter function is called a
 [_thunk_](https://en.wikipedia.org/wiki/Thunk). Using this terminology, `Seq.t`
-values are thunks. With the analogy used earlier, `a` is frozen in its thunk.
+values are thunks.
 
 ## Constructing Sequences
 
@@ -167,6 +169,8 @@ This can be used to print integers without looping forever, as shown previously:
  22; 23; 24; 25; 26; 27; 28; 29; 30; 31; 32; 33; 34; 35; 36; 37; 38; 39; 40;
  41; 42]
 ```
+
+([`Seq.ints i`](/manual/api/Seq.html) is the infinite sequence of the integers beginning at i and counting up.)
 
 ## Filtering a Sequence
 
@@ -279,7 +283,7 @@ As a fun fact, we can observe that a `map` over sequences can be implemented usi
 val map : ('a -> 'b) -> 'a Seq.t -> 'b Seq.t = <fun>
 ```
 
-We can check our `map` function by applying a square root function to a sequence:
+We can check our `map` function by applying a square function to a sequence:
 
 ```ocaml
 # Seq.ints 0 |> map (fun x -> x * x) |> Seq.take 10 |> List.of_seq;;
@@ -323,6 +327,9 @@ This is the first line.
 This is the second line.
 - : unit = ()
 ```
+
+Note: production code should handle file opening errors, this example has been
+kept short to focus only on how files relate to sequences.
 
 ## Consumers vs Producers
 
@@ -448,8 +455,8 @@ This produces a never-ending recursion that leads to a stack overflow.
 Next, lets define `fibs_v2` using the constructor `Seq.Cons`:
 
 ```ocaml
-# let rec fibs_v2 m n () = Seq.Cons (m, fibs n (n + m));;
-val fibs : int -> int -> int Seq.t = <fun>
+# let rec fibs_v2 m n () = Seq.Cons (m, fibs_v2 n (n + m));;
+val fibs_v2 : int -> int -> int Seq.t = <fun>
 ```
 
 <!-- Or with an int version:
