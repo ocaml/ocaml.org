@@ -1,5 +1,5 @@
 ---
-name: CEA
+name: CEA-List
 description: >
   CEA-List brings together experts in smart digital systems. They are committed to developing high-added-value innovations that respond to the major challenges facing our economy and society.
 url: "https://list.cea.fr/en/"
