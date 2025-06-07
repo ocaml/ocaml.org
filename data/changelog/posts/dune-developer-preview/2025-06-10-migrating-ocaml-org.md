@@ -1,6 +1,7 @@
 ---
 title: "Setting up OCaml.org as a Testing Ground for Dune Developer Preview"
 tags: [dune, developer-preview, ocaml-org]
+authors: ["Sabine Schmaltz"]
 ---
 
 The OCaml.org website is undergoing a significant build setup change as it migrates to use Dune Developer Preview. This migration serves a dual purpose: modernizing the website's build process to use Dune package management while providing a real-world testing environment for Dune's experimental features exposed through the Dune Developer Preview.
