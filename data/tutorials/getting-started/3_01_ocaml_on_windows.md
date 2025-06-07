@@ -174,7 +174,7 @@ The OCaml toplevel, version 4.14.0
 ```
 
 To learn more about Diskuv OCaml, see the [official
-Diskuv OCaml documentation](https://diskuv-ocaml.gitlab.io/distributions/dkml/#introduction).
+Diskuv OCaml documentation](https://dkml.gitlab.io/distributions/dkml/#introduction).
 
 ## Editor Support for OCaml on Windows
 
