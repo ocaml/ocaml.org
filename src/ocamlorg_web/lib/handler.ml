@@ -1169,7 +1169,7 @@ let package_overview t kind req =
     match sidebar_data.readme_filename with
     | Some path ->
         let* maybe_readme =
-          Ocamlorg_package.file ~kind package (path ^ ".html")
+          Ocamlorg_package.documentation_page ~kind package (path ^ ".html")
         in
         Lwt.return
           (Option.map
@@ -1356,7 +1356,9 @@ let package_file t kind req =
     | Package -> `Package
     | Universe -> `Universe (Dream.param req "hash")
   in
-  let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
+  let path =
+    "doc" :: (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/"
+  in
   let* sidebar_data = Package_helper.package_sidebar_data ~kind t package in
   let* search_index_digest =
     Package_helper.search_index_digest ~kind t package
