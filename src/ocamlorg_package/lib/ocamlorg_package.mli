@@ -137,6 +137,11 @@ val documentation_page :
 (** Get the rendered content of an HTML page for a package given its URL
     relative to the root page of the documentation. *)
 
+val documentation_asset :
+  kind:[< `Package | `Universe of string ] -> t -> string -> string option Lwt.t
+(** Get the rendered content of an HTML page for a package given its URL
+    relative to the root page of the documentation. *)
+
 val file :
   kind:[< `Package | `Universe of string ] ->
   t ->
