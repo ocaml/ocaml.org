@@ -66,7 +66,7 @@ The OCaml infrastructure supports building and testing on multiple platforms:
 The OCaml infrastructure is open source and welcomes contributions. You can:
 
 * [Contribute to the various codebases on GitHub](https://github.com/ocurrent/overview)
-* Report issues or suggest improvements on [discuss.ocaml.org](https://discuss.ocaml.org)
+* Report issues or suggest improvements on [the OCaml infrastructure repository on GitHub](https://github.com/ocaml/infrastructure/), or on [discuss.ocaml.org](https://discuss.ocaml.org)
 * Deploy the tools locally to test your projects (see the individual documentation of the service you want to run)
 
 For more information on OCurrent and these services, visit [ocurrent.org](https://ocurrent.org) or explore the [OCurrent GitHub organization](https://github.com/ocurrent).
