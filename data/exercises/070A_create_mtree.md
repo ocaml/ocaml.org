@@ -19,13 +19,17 @@ type 'a mult_tree = T of 'a * 'a mult_tree list
   let rec add_string_of_tree buf (T (c, sub)) =
     Buffer.add_char buf c;
     List.iter (add_string_of_tree buf) sub;
-    Buffer.add_char buf '^'
-  let string_of_tree t =
+    Buffer.add_char buf '^';;
+val add_string_of_tree : Buffer.t -> char mult_tree -> unit = <fun>
+
+# let string_of_tree t =
     let buf = Buffer.create 128 in
     add_string_of_tree buf t;
     Buffer.contents buf;;
 
-  let tree_of_string s =
+val string_of_tree : char mult_tree -> string = <fun>
+
+# let tree_of_string s =
     let rec parse_node chars =
       match chars with
       | [] -> failwith "Unexpected end of input (expecting node)"
@@ -45,8 +49,6 @@ type 'a mult_tree = T of 'a * 'a mult_tree list
     match remaining with
     | [] -> tree
     | _ -> failwith "Extra input after tree";;
-val add_string_of_tree : Buffer.t -> char mult_tree -> unit = <fun>
-val string_of_tree : char mult_tree -> string = <fun>
 val tree_of_string : string -> char mult_tree = <fun>
 ```
 
