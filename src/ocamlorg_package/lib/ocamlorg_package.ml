@@ -438,6 +438,24 @@ let documentation_page ~kind t path =
   let url = package_url ^ "doc/" ^ path ^ ".json" in
   odoc_page ~url
 
+let odoc_asset ~url =
+  let open Lwt.Syntax in
+  let+ content = http_get url in
+  match content with
+  | Ok content ->
+      Logs.info (fun m -> m "Found documentation page for %s" url);
+      Some content
+  | Error _ ->
+      Logs.info (fun m -> m "Failed to fetch asset for %s" url);
+      None
+
+let documentation_asset ~kind t path =
+  let package_url =
+    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
+  in
+  let url = package_url ^ "doc/" ^ path in
+  odoc_asset ~url
+
 let file ~kind t path =
   let package_url =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
