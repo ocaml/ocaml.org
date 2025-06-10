@@ -1283,7 +1283,8 @@ let package_documentation t kind req =
       else response_404_page
   | Some doc ->
       let map_url = Option.map (fun url -> "/" ^ url) in
-      let rec navmap_of_sidebar (sidebar : Ocamlorg_package.Sidebar.tree) =
+      let rec navmap_of_sidebar ?(first_layer = false)
+          (sidebar : Ocamlorg_package.Sidebar.tree) =
         Ocamlorg_frontend.Navmap.
           {
             title = sidebar.node.content;
@@ -1304,7 +1305,24 @@ let package_documentation t kind req =
               | None -> Page
               | _ -> File);
             href = map_url sidebar.node.url;
-            children = List.map navmap_of_sidebar sidebar.children;
+            children =
+              (let children =
+                 List.map
+                   (navmap_of_sidebar ~first_layer:false)
+                   sidebar.children
+               in
+               (* The docs CI generates readme files in the wring place, and
+                  they end up in the toc, so we filter them out here *)
+               if first_layer then
+                 List.filter
+                   (function
+                     | Ocamlorg_frontend.Navmap.{ title; _ }
+                       when Ocamlorg_package.Documentation_status.is_special
+                              title ->
+                         false
+                     | _ -> true)
+                   children
+               else children);
           }
       in
       let* sidebar = Ocamlorg_package.sidebar ~kind package in
@@ -1313,7 +1331,7 @@ let package_documentation t kind req =
       in
       let local_toc = Package_helper.frontend_toc doc.toc in
       let (global_toc : Ocamlorg_frontend.Navmap.toc list) =
-        List.map navmap_of_sidebar sidebar
+        List.map (navmap_of_sidebar ~first_layer:true) sidebar
       in
       let (breadcrumb_path : Ocamlorg_frontend.Package_breadcrumbs.path) =
         let breadcrumbs = doc.breadcrumbs in

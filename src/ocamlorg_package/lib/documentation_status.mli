@@ -16,3 +16,4 @@ type t = {
 val readme : t -> string option
 val license : t -> string option
 val changelog : t -> string option
+val is_special : string -> bool
