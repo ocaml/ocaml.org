@@ -26,13 +26,13 @@ The solution we went with was to use **two separate `dune-workspace` files** - o
 
 **Step-by-step solution for the OCaml.org structure:**
 
-1. **Create the main [`dune-workspace`]()** file in the repository root:
+1. **Create the main [`dune-workspace`](https://github.com/ocaml/ocaml.org/blob/main/dune-workspace)** file in the repository root:
    ```lisp
    ; dune-workspace (at repository root)
    (lang dune 3.19)
    ```
 
-2. **Create a separate [`dune-workspace`]()** file for the playground:
+2. **Create a separate [`dune-workspace`](https://github.com/ocaml/ocaml.org/blob/main/playground/dune-workspace)** file for the playground:
    ```lisp
    ; playground/dune-workspace
    (lang dune 3.19)
