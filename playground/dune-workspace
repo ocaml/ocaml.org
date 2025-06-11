@@ -18,7 +18,7 @@
 
 (pin
 (name merlin-js)
- (url "git+https://github.com/voodoos/merlin-js#3a8c83e03d629228b8a8394ecafc04523b0ab93f")
+ (url "git+https://github.com/sudha247/merlin-js#exp")
  (package
   (name merlin-js)))
 
