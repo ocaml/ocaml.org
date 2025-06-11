@@ -193,7 +193,7 @@ div.odoc a:not(.source_code a) {
   color: #cc4e0c;
 }
 
-.dark div.odoc a {
+.dark div.odoc a:not(.source_code a) {
   text-decoration: underline;
   color:white;
 }
@@ -382,41 +382,9 @@ span.sign-expand.open::before {
 
 .modules { list-style-type: none; padding-left:0; }
 
-/* Source links float inside preformated text or headings. */
-a.source_link {
-  float: right;
-  color: var(--source-link-color);
-  font-family: "Fira Sans", sans-serif;
-  font-size: initial;
-}
-
-
-.source_container {
-  display: flex;
-}
-
-.source_line_column {
-  padding-right: 0.5em;
-  text-align: right;
-  color: var(--source-line-column);
-  background: var(--source-line-column-bg);
-}
-
-.source_line {
-  padding: 0 1em;
-}
-
-.source_code {
-  flex-grow: 1;
-  background: var(--code-background);
-  padding: 0 0.3em;
-  color: var(--code-color);
-}
-
 /* Taken from odoc's css sheet */
 
-:root,
-.light:root {
+.source_container {
 
   /* light gruvbox theme colors */
   --bg_h: #f9f5d7;
@@ -460,51 +428,53 @@ a.source_link {
 
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* dark gruvbox theme colors */
-    --bg_h: #1d2021;
-    --bg:   #282828;
-    --bg_s: #32302f;
-    --bg1:  #3c3836;
-    --bg2:  #504945;
-    --bg3:  #665c54;
-    --bg4:  #7c6f64;
+body.dark .source_container {
+  /* dark gruvbox theme colors */
+  --bg_h: #1d2021;
+  --bg:   #282828;
+  --bg_s: #32302f;
+  --bg1:  #3c3836;
+  --bg2:  #504945;
+  --bg3:  #665c54;
+  --bg4:  #7c6f64;
 
-    --fg:  #fbf1c7;
-    --fg1: #ebdbb2;
-    --fg2: #d5c4a1;
-    --fg3: #bdae93;
-    --fg4: #a89984;
+  --fg:  #fbf1c7;
+  --fg1: #ebdbb2;
+  --fg2: #d5c4a1;
+  --fg3: #bdae93;
+  --fg4: #a89984;
 
-    --red:    #fb4934;
-    --green:  #b8bb26;
-    --yellow: #fabd2f;
-    --blue:   #83a598;
-    --purple: #d3869b;
-    --aqua:   #8ec07c;
-    --gray:   #928374;
-    --orange: #fe8019;
+  --red:    #fb4934;
+  --green:  #b8bb26;
+  --yellow: #fabd2f;
+  --blue:   #83a598;
+  --purple: #d3869b;
+  --aqua:   #8ec07c;
+  --gray:   #928374;
+  --orange: #fe8019;
 
-    --red-dim:    #cc2412;
-    --green-dim:  #98971a;
-    --yellow-dim: #d79921;
-    --blue-dim:   #458588;
-    --purple-dim: #b16286;
-    --aqua-dim:   #689d6a;
-    --gray-dim:   #a89984;
-    --orange-dim: #d65d0e;
+  --red-dim:    #cc2412;
+  --green-dim:  #98971a;
+  --yellow-dim: #d79921;
+  --blue-dim:   #458588;
+  --purple-dim: #b16286;
+  --aqua-dim:   #689d6a;
+  --gray-dim:   #a89984;
+  --orange-dim: #d65d0e;
 
-    /* odoc colors */
-    --odoc-blue: #5c9cf5;
-    --odoc-bg: #202020;
-    --odoc-bg1: #252525;
-    --odoc-fg: #bebebe;
-    --odoc-fg1: #777;
-  }
+  /* odoc colors */
+  --odoc-blue: #5c9cf5;
+  --odoc-bg: #202020;
+  --odoc-bg1: #252525;
+  --odoc-fg: #bebebe;
+  --odoc-fg1: #777;
 }
 
-:root {
+
+.source_container {
+  --code-color: var(--fg);
+  --code-background: var(--bg);
+
   --source-link-color: var(--fg4);
   --source-line-column: var(--fg3);
   --source-line-column-bg: var(--bg_h);
@@ -521,6 +491,42 @@ a.source_link {
   --source-code-separator: var(--orange-dim);
 }
 
+.source_container .source_code a:not(:hover) {
+  text-decoration: inherit;
+}
+
+/* Source links float inside preformated text or headings. */
+a.source_link {
+  float: right;
+  color: var(--source-link-color);
+  font-family: "Fira Sans", sans-serif;
+  font-size: initial;
+}
+
+
+.source_container {
+  display: flex;
+  padding: 0;
+}
+
+.source_line_column {
+  padding-right: 0.5em;
+  text-align: right;
+  color: var(--source-line-column);
+  background: var(--source-line-column-bg);
+}
+
+.source_line {
+  padding: 0 1em;
+}
+
+.source_code {
+  flex-grow: 1;
+  background: var(--code-background);
+  padding: 0 0.3em;
+  color: var(--code-color);
+}
+
 
 /* Linked highlight */
 .source_code *:target {
@@ -529,7 +535,7 @@ a.source_link {
 }
 
 /* Keywords */
-.AND, .ANDOP, .AS, .ASSERT,
+.source_code :is(.AND, .ANDOP, .AS, .ASSERT,
 .BAR, .BEGIN,
 .CLASS, .CONSTRAINT,
 .DO, .DONE, .DOWNTO,
@@ -545,20 +551,20 @@ a.source_link {
 .SEMISEMI, .SIG, .STRUCT,
 .THEN, .TO, .TRY, .TYPE,
 .VAL, .VIRTUAL,
-.WHEN, .WITH, .WHILE
+.WHEN, .WITH, .WHILE)
 {
   color: var(--source-code-keyword);;
 }
 
 /* Separators */
-.COMMA, .COLON, .COLONGREATER, .SEMI {
+.source_code :is(.COMMA, .COLON, .COLONGREATER, .SEMI) {
   color: var(--source-code-separator);
 }
 
 /* Parens
    `begin` and `end ` are excluded because `end` is used in other, more
    keyword-y contexts*/
-.BARRBRACKET,
+.source_code :is(.BARRBRACKET,
 .LBRACE,
 .LBRACELESS,
 .LBRACKET,
@@ -573,13 +579,13 @@ a.source_link {
 .LPAREN,
 .RBRACE,
 .RBRACKET,
-.RPAREN
+.RPAREN)
 {
   color: var(--source-code-parens);
 }
 
 /* Prefix operators */
-.ASSERT, .BANG, .PREFIXOP,
+.source_code :is(.ASSERT, .BANG, .PREFIXOP,
 /* Infix operators.
    A choice had to be made for equal `=` which is both a keyword and an operator.
    It looked better having it as an operator, because when it is a keyword,
@@ -588,7 +594,7 @@ a.source_link {
    two cases.*/
 .INFIXOP0, .INFIXOP1, .INFIXOP2, .INFIXOP3, .INFIXOP4,
 .BARBAR, .PLUS, .STAR, .AMPERAMPER, .AMPERAND, .COLONEQUAL, .GREATER, .LESS,
-.MINUS, .MINUSDOT, .MINUSGREATER, .OR, .PLUSDOT, .PLUSEQ, .EQUAL
+.MINUS, .MINUSDOT, .MINUSGREATER, .OR, .PLUSDOT, .PLUSEQ, .EQUAL)
 {
   color: var(--source-code-operator);
 }
@@ -603,7 +609,7 @@ a.source_link {
      | Other of int
    ```
 */
-.UIDENT, .COLONCOLON, .TRUE, .FALSE {
+.source_code :is(.UIDENT, .COLONCOLON, .TRUE, .FALSE) {
   color: var(--source-code-uident);
 
 }
@@ -615,23 +621,23 @@ a.source_link {
    let f ~a ?b () = Option.map a b
    ```
 */
-.LIDENT, .QUESTION, .QUOTE, .TILDE {
+.source_code :is(.LIDENT, .QUESTION, .QUOTE, .TILDE) {
   color: var(--source-code-lident);
 }
 
 /* Litterals */
- .STRING, .CHAR, .INT, .FLOAT, .QUOTED_STRING_EXPR, .QUOTED_STRING_ITEM {
+.source_code :is( .STRING, .CHAR, .INT, .FLOAT, .QUOTED_STRING_EXPR, .QUOTED_STRING_ITEM) {
   color: var(--source-code-literal);
 }
 
-.UNDERSCORE {
+.source_code :is(.UNDERSCORE) {
   color: var(--source-code-underscore);
 }
 
-.DOCSTRING {
+.source_code :is(.DOCSTRING) {
   color: var(--source-code-docstring);
 }
 
-.COMMENT {
+.source_code :is(.COMMENT) {
   color: var(--source-code-comment);
 }
