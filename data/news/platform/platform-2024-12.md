@@ -50,7 +50,7 @@ Recent updates across the platform focus on performance and reliability. Dune op
 
 [Dune 3.17 was released](https://discuss.ocaml.org/t/ann-dune-3-17/15770) with significant improvements to package management. Key features include binary distribution support, better error messages for missing packages, and Windows support without requiring OPAM.
 
-The [Dune Developer Preview website](https://preview.dune.build) now provides editor setup instructions and package management tutorials.
+The [Dune Developer Preview website](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=news) now provides editor setup instructions and package management tutorials.
 
 Dune's package management features [were tested across hundreds of packages](https://dune.check.ci.dev/) in the opam repository, and a coverage tool was developed to track build success rates. For local development, Dune added support for building dependencies via `@pkg-install`, caching for package builds, and automated binary builds of development tools. The system supports both monorepo and polyrepo workflows, with options for installing individual dependencies or complete development environments.
 

@@ -7,7 +7,7 @@ _Discuss this post on [Discuss](https://discuss.ocaml.org/t/installing-developer
 
 Dune can install and run developer tools in the context of a project. This
 feature is available in the [Dune Developer
-Preview](https://preview.dune.build/) and in the upcoming release of Dune 3.17.
+Preview](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=changelog) and in the upcoming release of Dune 3.17.
 As with all of Dune's package management features, consider this feature to be unstable as
 its UI and semantics may change without notice.
 
@@ -93,7 +93,7 @@ to OCaml's editor integration and it has a couple of quirks that are worth
 mentioning here.
 
 TL;DR: Install Dune with the install script on the [Developer Preview
-page](https://preview.dune.build/) and you'll get an [`ocamllsp` shell
+page](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=changelog) and you'll get an [`ocamllsp` shell
 script](https://github.com/ocaml-dune/binary-distribution/blob/main/tool-wrappers/ocamllsp)
 that will install and run the correct version of `ocamllsp` for your project.
 
@@ -184,7 +184,7 @@ if it doesn't detect a Dune lockdir so the same script should work for non-Dune
 projects. Because the script is named the same as the `ocamllsp` executable,
 most editors don't require special configuration to run it. See the "Editor
 Configuration" section of the [Dune Developer
-Preview page](https://preview.dune.build/) for more information about setting up
+Preview page](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=changelog) for more information about setting up
 your editor.
 
 
