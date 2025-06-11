@@ -72,7 +72,7 @@ Technical barriers have been and are being systematically addressed, e.g. improv
 
 ### **Dune Developer Preview**
 
-[Dune Developer Preview](https://preview.dune.build/) is an experimental channel that introduces cutting-edge features to streamline OCaml development workflows. Building upon Dune's foundation as OCaml's official build system, this initiative allows us to iterate quickly on ideas and experiment with improving the developer experience and with experimental features. For example, one feature that came out of Dune Developer Preview and made it into the upstream codebase is package management: by enabling Dune to deal with project dependencies, we eliminate the need to juggle multiple tools.
+[Dune Developer Preview](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=news) is an experimental channel that introduces cutting-edge features to streamline OCaml development workflows. Building upon Dune's foundation as OCaml's official build system, this initiative allows us to iterate quickly on ideas and experiment with improving the developer experience and with experimental features. For example, one feature that came out of Dune Developer Preview and made it into the upstream codebase is package management: by enabling Dune to deal with project dependencies, we eliminate the need to juggle multiple tools.
 
 The tooling includes built-in LSP support, formatting capabilities, and a shared cache that dramatically improves build performance. Early adopters are encouraged to [provide feedback](https://docs.google.com/forms/u/2/d/e/1FAIpQLSda-mOTHIdATTt_e9dFmNgUCy-fD55Qzr3bGGsxpfY_Ecfyxw/viewform?usp=send_form) as these experimental features mature toward stable releases.
 

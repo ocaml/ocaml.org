@@ -6,7 +6,7 @@ tags: [dune, developer-preview]
 _Discuss this post on [Discuss](https://discuss.ocaml.org/t/portable-lock-directories-for-dune-package-management/16669)!_
 
 We've recently made a change to how lock directories work in the [Dune Developer
-Preview](https://preview.dune.build/).
+Preview](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=changelog).
 
 Previously when Dune would solve dependencies for a project and generate a lock
 directory, the lock directory would be specialized for the computer where it was
@@ -125,7 +125,7 @@ filename.
 ## How do I get it?
 
 This feature is live in the latest version of the [Dune Developer
-Preview](https://preview.dune.build/). Follow the instructions on that page to
+Preview](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=changelog). Follow the instructions on that page to
 install a version of Dune with this feature. With portable lock directories
 enabled, Dune will temporarily remain backwards compatible with the original
 lock directory format, though support will likely be dropped at some point.

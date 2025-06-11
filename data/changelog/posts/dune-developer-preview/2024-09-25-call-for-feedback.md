@@ -5,7 +5,7 @@ tags: [dune, platform, developer-preview]
 
 Hello folks! 👋 
 
-We'd like to welcome everyone to try and play with the [Dune Developer Preview](https://preview.dune.build)! 🎉
+We'd like to welcome everyone to try and play with the [Dune Developer Preview](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=changelog)! 🎉
 
 This experimental nightly release of dune includes a lot of improvements, including the much expected package management features, and it can be installed from that website or by using the new installation script:
 

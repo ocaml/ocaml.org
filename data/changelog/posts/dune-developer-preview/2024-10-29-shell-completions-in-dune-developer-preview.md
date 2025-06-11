@@ -6,9 +6,9 @@ tags: [dune, developer-preview]
 _Discuss this post on [Discuss](https://discuss.ocaml.org/t/shell-completions-in-dune-developer-preview/15522)!_
 
 Support for dune shell completions for bash and zsh has just landed in the
-[Dune Developer Preview](https://preview.dune.build/)!
+[Dune Developer Preview](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=changelog)!
 
-Running the [installer](https://preview.dune.build/#download) adds a snippet to
+Running the [installer](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=changelog#download) adds a snippet to
 your shell config (e.g. ~/.bashrc) that installs a completion handler for `dune`.
 The completion script was taken from
 [here](https://github.com/gridbugs/dune-completion-scripts), and that page has

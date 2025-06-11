@@ -11,7 +11,7 @@ projects or their dependencies. Currently this information is not portable
 because Dune only stores the names of system packages within the package
 repository on the machine where the lock directory is generated. We've recently
 changed how Dune stores the names of system packages in the [Dune Developer
-Preview](https://preview.dune.build/) so that the names of packages in all
+Preview](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=changelog) so that the names of packages in all
 known package repositories are stored. This allows a lock directory generated
 on one machine to be used on a different machine.
 
@@ -231,4 +231,4 @@ be computed on demand rather than just at solve time.
 This bring us a step closer to a world where Dune users can check their lock
 directories into version control with confidence that their builds are
 reproducible across different platforms. To try out the latest version of the
-Dune Developer Preview, go to [preview.dune.build](https://preview.dune.build/).
+Dune Developer Preview, go to [preview.dune.build](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=changelog).
