@@ -1,7 +1,7 @@
 ---
 title: "Setting up OCaml.org as a Testing Ground for Dune Developer Preview"
 tags: [dune, developer-preview, ocaml-org]
-authors: ["Sabine Schmaltz"]
+authors: ["Sabine Schmaltz", "Leandro Ostera", "Sudha Parimala"]
 ---
 
 The OCaml.org website is undergoing a significant build setup change as it migrates to use Dune Developer Preview. This migration serves a dual purpose: modernizing the website's build process to use Dune package management while providing a real-world testing environment for Dune's experimental features exposed through the Dune Developer Preview.
@@ -10,7 +10,7 @@ The OCaml.org website is undergoing a significant build setup change as it migra
 
 OCaml.org is one of the most visible projects in the OCaml ecosystem. By migrating it to Dune Developer Preview, the team is creating an environment that will help identify issues and refine new Dune workflows before the stable release.
 
-The state of the migration is currently tracked in [pull request #3132](https://github.com/ocaml/ocaml.org/pull/3132). We aim to complete and merge the patch soon!
+The state of the migration is currently tracked in [pull request #3132](https://github.com/ocaml/ocaml.org/pull/3132). We're about to finish the work and merge the PR soon!
 
 ## Technical Challenges and Solutions
 
@@ -18,17 +18,21 @@ Migrating OCaml.org to use Dune Developer Preview has revealed several interesti
 
 ### How to Configure Nested Dune Projects
 
-One of the first hurdles encountered was dealing with nested Dune projects. The OCaml.org codebase contains a playground project nested within the main website project, which made workspace management not immediately obvious. The solution we went with was to use **two separate `dune-workspace` files** - one for the main OCaml.org site and one for the playground.
+One of the first hurdles encountered was dealing with nested Dune projects. The OCaml.org codebase contains a playground project nested within the main website project, which made workspace management not immediately obvious.
+
+> **Note:** This is not a standard or recommended setup, but happens to be how OCaml.org as a project historically has grown. The playground is a part of the site that is not updated very often, and we only regenerate it (and commit the build artifacts) when the playground is updated to a new version or gets new features. Specifically, the OCaml version used in the playground does not have to be the same as the one used for the main site.
+
+The solution we went with was to use **two separate `dune-workspace` files** - one for the main OCaml.org site and one for the playground.
 
 **Step-by-step solution for the OCaml.org structure:**
 
-1. **Create the main `dune-workspace`** file in the repository root:
+1. **Create the main [`dune-workspace`]()** file in the repository root:
    ```lisp
    ; dune-workspace (at repository root)
    (lang dune 3.19)
    ```
 
-2. **Create a separate `dune-workspace`** file for the playground:
+2. **Create a separate [`dune-workspace`]()** file for the playground:
    ```lisp
    ; playground/dune-workspace
    (lang dune 3.19)
@@ -59,7 +63,7 @@ One of the first hurdles encountered was dealing with nested Dune projects. The 
 
 ### OCaml.org's Stable Dependency Management Setup
 
-OCaml.org uses a fixed commit hash of opam-repository to ensure a stable environment for contributors and maintainers. This avoids running into dependency upgrade issues during feature development or when working on bugfixes.
+OCaml.org uses a fixed commit hash of opam-repository to ensure a stable environment between contributors, maintainers, and the continuous integration service. This avoids running into dependency upgrade issues during feature development or when working on bugfixes.
 
 **Step-by-step workspace configuration for OCaml.org:**
 
@@ -129,7 +133,9 @@ This way, the patched dependencies `ocamlbuild` and `ocamlfind` are picked up by
 
 ### Dependency Compatibility
 
-The migration uncovered compatibility issues with upstream dependencies. Specifically, the `merlin-js` dependency, which hasn't been upstreamed to the main Merlin project, appears to have compatibility issues with Dune package management. This highlights an important consideration for the broader ecosystem: some packages may need updates to work seamlessly with the new package management features.
+The migration uncovered compatibility issues with upstream dependencies. Specifically, the `merlin-js` dependency, which hasn't been upstreamed to the main Merlin project, appears to have compatibility issues with Dune package management. This highlights an important consideration for the broader ecosystem: a few packages may need updates to work seamlessly with the new package management features.
+
+FIXME: write a bit about `merlin-js` compatibility fix, or promise some upcoming guide? Or just write what we know right now, about this being related to use of symlinks in the projects, and how this can easily be fixed?
 
 ## Current Status and Next Steps
 
@@ -141,7 +147,6 @@ The migration is progressing through three key phases:
 
 Once these phases are complete, OCaml.org will officially adopt Dune package management as its standard build method.
 
-
 ## Further Reading
 
 For more detailed information about the Dune features used in this migration, consult the official Dune documentation:
@@ -152,3 +157,8 @@ For more detailed information about the Dune features used in this migration, co
 - **[Pinning Dependencies](https://dune.readthedocs.io/en/stable/tutorials/dune-package-management/pinning.html)** - Guide to pinning packages to specific versions or Git commits
 - **[Repository Configuration](https://dune.readthedocs.io/en/stable/tutorials/dune-package-management/repos.html)** - How to configure opam repositories in Dune workspaces
 
+## Conclusion
+
+Despite OCaml.org having a non-standard project setup and having to deal with custom dependencies for the playground, we found the migration to Dune package management to be mostly straightforward: OCaml.org itself didn't need us to touch any upstream dependencies, they just worked out of the box with Dune package management.
+
+The playground uses a few custom dependencies which needed to be updated to work with Dune package management. To get an understanding of how much of the OCaml ecosystem supports Dune package management, here's an interesting read: ["Opam Health Check: or How we Got to 90+% of Packages Building with Dune Package Management"](https://tarides.com/blog/2025-06-05-opam-health-check-or-how-we-got-to-90-of-packages-building-with-dune-package-management/). That post also contains a link to the health check service where you can get an up-to-date view of which packages build successfully.
