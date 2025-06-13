@@ -145,6 +145,7 @@ let middleware_text_utf8 handler request =
 let router t =
   Dream.router
     [
+      Dream.get "/.well-known/assetlinks.json" (Dream.from_filesystem "asset/.well-known" "assetlinks.json");
       Redirection.t;
       Dream.get "/conferences/ocaml/**" Handler.v2_asset;
       page_routes t;
