@@ -1,4 +1,8 @@
 [{
   "relation": ["lookalikes/allowlist"],
+  "target" : { "namespace": "web", "site": "https://ocaml.org"}
+},
+{
+  "relation": ["lookalikes/allowlist"],
   "target" : { "namespace": "web", "site": "https://oxcaml.org"}
 }]
