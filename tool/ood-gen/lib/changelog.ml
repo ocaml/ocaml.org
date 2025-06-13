@@ -41,8 +41,12 @@ type t = [%import: Data_intf.Changelog.t] [@@deriving of_yaml, show]
    a pull request to mirror a release announcement that likely already happened
    on discuss.ocaml.org. *)
 
-(** Location from where to check for new releases while scraping. Keys are
-    'tags' listed in changelogs. *)
+(** A scraper is provided to check whether changelog entries are missing. Run it
+    like this:
+    {v
+     dune exec -- tool/ood-gen/bin/scrape.exe changelog
+    v}
+    The list below describes how to query the latest releases. *)
 let projects_release_feeds =
   [
     ("ocamlformat", `Github "https://github.com/ocaml-ppx/ocamlformat");
