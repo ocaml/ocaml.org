@@ -4,11 +4,11 @@ tags: [dune, developer-preview, ocaml-org]
 authors: ["Sabine Schmaltz", "Leandro Ostera", "Sudha Parimala"]
 ---
 
-The OCaml.org website is undergoing a significant build setup change as it migrates to use Dune Developer Preview. This migration serves a dual purpose: modernizing the website's build process to use Dune package management while providing a real-world testing environment for Dune's experimental features exposed through the [Dune Developer Preview](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=changelog).
+The OCaml.org website is undergoing a build setup change as it migrates to use Dune Developer Preview. This migration serves a dual purpose: modernizing the website's build process to use Dune package management while providing a real-world testing environment for Dune's experimental features exposed through the [Dune Developer Preview](https://preview.dune.build?utm_source=ocaml.org&utm_medium=referral&utm_campaign=changelog).
 
 ## Why This Migration Matters
 
-OCaml.org is one of the most visible projects in the OCaml ecosystem. By migrating it to Dune Developer Preview, the team is creating an environment that will help identify issues and refine new Dune workflows before the stable release.
+OCaml.org is one of the most visible projects in the OCaml ecosystem. By migrating it to Dune Developer Preview, we are creating an environment that will help identify issues and refine new Dune workflows before their stable release.
 
 The state of the migration is currently tracked in [pull request #3132](https://github.com/ocaml/ocaml.org/pull/3132). We're about to finish the work and merge the PR soon!
 
@@ -131,11 +131,13 @@ So, we added the overlay repository to the `dune-workspace` files and listed bot
 
 This way, the patched dependencies `ocamlbuild` and `ocamlfind` are picked up by Dune's solver when creating the `dune.lock` directory.
 
-### Dependency Compatibility
+### Compatibility of Dependencies Using Symlinks
 
-The migration uncovered compatibility issues with upstream dependencies. Specifically, the `merlin-js` dependency, which hasn't been upstreamed to the main Merlin project, appears to have compatibility issues with Dune package management. This highlights an important consideration for the broader ecosystem: a few packages may need updates to work seamlessly with the new package management features.
+The migration uncovered compatibility issues with an upstream dependency: `merlin-js` uses symlinks in its example programs. Dune package management doesn't support this at the moment, so we removed the use of symlinks to enable building `merlin-js` with Dune package management. This issue is similar to the issue with `ocamlbuild` and `ocamlfind`; both packages have patched versions removing symlinks for dune package management (and are provided via the repository https://github.com/ocaml-dune/opam-overlays).
 
-FIXME: write a bit about `merlin-js` compatibility fix, or promise some upcoming guide? Or just write what we know right now, about this being related to use of symlinks in the projects, and how this can easily be fixed?
+### Copying .cmi Files from the OCaml Standard Library
+
+FIXME: the playground needs `.cmi` files to be copied from the compiler build artifacts, we still need to update the script that finds and copies them from the build directory of the compiler.
 
 ## Current Status and Next Steps
 
