@@ -116,7 +116,7 @@ The playground has additional complexity because it requires specific versions o
 
 ### Updating the GitHub Actions CI to Use Dune Developer Preview
 
-Using the GitHub Actions package available at https://github.com/ocaml-dune/setup-dune, we updated the workflow `ci.yml` to use Dune Package Management. The change turned out straightforward and simplified the configuration in several ways: (1) instead of having explicit calls to the build tool, we rely on the existing Makefile, and (2) we do not specify the OCaml compiler version in the workflow anymore, since the compiler version is managed by Dune via `dune-project`.
+Using the GitHub Actions package available at https://github.com/ocaml-dune/setup-dune, we updated the workflow [`ci.yml`](https://github.com/ocaml/ocaml.org/blob/main/.github/workflows/ci.yml) to use Dune Package Management. The change turned out straightforward and simplified the configuration in several ways: (1) instead of having explicit calls to the build tool, we rely on the existing Makefile, and (2) we do not specify the OCaml compiler version in the workflow anymore, since the compiler version is managed by Dune via `dune-project`.
 
 
 ### Compatibility of Dependencies Using Symlinks
