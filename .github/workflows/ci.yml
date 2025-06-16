@@ -22,17 +22,14 @@ jobs:
         os:
           - macos-latest
           - ubuntu-latest
-        ocaml-compiler:
-          - "5.2.0"
 
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Use OCaml ${{ matrix.ocaml-compiler }}
-        uses: ocaml/setup-ocaml@v3
+      - name: Use Dune Developer Preview
+        uses: ocaml-dune/setup-dune@v0
         with:
-          ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
           opam-repositories: |
             pin: git+https://github.com/ocaml/opam-repository#584630e7a7e27e3cf56158696a3fe94623a0cf4f
@@ -45,12 +42,6 @@ jobs:
       - name: Install system dependencies (macOS)
         run: brew update && brew reinstall libev openssl@3 # Openssl is a workaround for https://github.com/ocaml/opam-repository/issues/19676
         if: runner.os == 'macOS'
-
-      - name: Install opam dependencies
-        run: opam install --deps-only --with-test .
-
-      - name: Install ocamlformat
-        run: opam install ocamlformat.0.26.2
 
       - name: Build project
         run: make
