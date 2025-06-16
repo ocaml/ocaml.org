@@ -24,8 +24,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Use OCaml ${{ matrix.ocaml-compiler }}
-        uses: ocaml/setup-ocaml@v3
+      - name: Use Dune Developer Preview
+        uses: ocaml-dune/setup-dune@v0
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
@@ -35,13 +35,6 @@ jobs:
 
       - name: Install system dependencies
         run: sudo apt update && sudo apt-get install libev-dev libonig-dev libcurl4-openssl-dev
-
-      - name: Install opam dependencies
-        run: opam install --deps-only --with-test .
-
-      - name: Build scraper
-        run: |
-          opam exec -- dune build tool/ood-gen/bin/scrape.exe
 
       - name: Run scrapers
         run: |
