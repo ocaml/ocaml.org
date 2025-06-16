@@ -137,7 +137,7 @@ The migration uncovered compatibility issues with an upstream dependency: `merli
 
 ### Copying .cmi Files from the OCaml Standard Library
 
-FIXME: the playground needs `.cmi` files to be copied from the compiler build artifacts, we still need to update the script that finds and copies them from the build directory of the compiler.
+FIXME: In order to load the standard library in the browser via the generated .js bundle, the playground needs `.cmi` files to be copied from the compiler build artifacts, we still need to update the script that finds and copies them from the build directory of the compiler.
 
 ## Current Status and Next Steps
 
