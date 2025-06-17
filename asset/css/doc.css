@@ -188,12 +188,12 @@ div.odoc span.at-tag {
   font-weight: bold;
 }
 
-div.odoc a:not(.source_container a) {
+div.odoc a:not(.source_container a):not(.source_link) {
   font-weight: bold;
   color: #cc4e0c;
 }
 
-.dark div.odoc a:not(.source_container a) {
+.dark div.odoc a:not(.source_container a):not(.source_link) {
   text-decoration: underline;
   color:white;
 }
@@ -504,13 +504,16 @@ body.dark .source_container {
 }
 
 /* Source links float inside preformated text or headings. */
-a.source_link {
+.odoc a.source_link {
   float: right;
-  color: var(--source-link-color);
-  font-family: "Fira Sans", sans-serif;
+  color: gray;
   font-size: initial;
+  text-decoration: none;
 }
 
+.odoc a.source_link:hover {
+  color: unset;
+}
 
 .source_container {
   display: flex;
