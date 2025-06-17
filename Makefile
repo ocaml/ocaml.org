@@ -49,6 +49,7 @@ utop: ## Run a REPL and link with the project's libraries
 
 .PHONY: scrape
 scrape: ## Generate the po files
+	dune build --root . tool/ood-gen/bin/scrape.exe
 	dune exec --root . tool/ood-gen/bin/scrape.exe planet
 	dune exec --root . tool/ood-gen/bin/scrape.exe video
 
