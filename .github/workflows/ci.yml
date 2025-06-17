@@ -29,11 +29,6 @@ jobs:
 
       - name: Use Dune Developer Preview
         uses: ocaml-dune/setup-dune@v0
-        with:
-          dune-cache: ${{ matrix.os != 'macos-latest' }}
-          opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#584630e7a7e27e3cf56158696a3fe94623a0cf4f
-          opam-disable-sandboxing: true
 
       - name: Install system dependencies (Linux)
         run: sudo apt update && sudo apt-get install libev-dev libonig-dev libcurl4-openssl-dev
