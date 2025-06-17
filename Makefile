@@ -48,9 +48,9 @@ utop: ## Run a REPL and link with the project's libraries
 	dune utop --root . . -- -implicit-bindings
 
 .PHONY: scrape_ocaml_planet
-scrape_ocaml_planet: ## Generate the po files
-	dune exec --root . tool/ood-gen/bin/scrape.exe planet
-	dune exec --root . tool/ood-gen/bin/scrape.exe video
+scrape_ocaml_planet: dune.lock ## Generate the po files
+	dune build --root . tool/ood-gen/bin/scrape.exe planet
+	dune build --root . tool/ood-gen/bin/scrape.exe video
 
 .PHONY: scrape_changelog
 scrape_changelog:
