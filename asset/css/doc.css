@@ -188,12 +188,12 @@ div.odoc span.at-tag {
   font-weight: bold;
 }
 
-div.odoc a:not(.source_code a) {
+div.odoc a:not(.source_container a) {
   font-weight: bold;
   color: #cc4e0c;
 }
 
-.dark div.odoc a:not(.source_code a) {
+.dark div.odoc a:not(.source_container a) {
   text-decoration: underline;
   color:white;
 }
@@ -470,6 +470,11 @@ body.dark .source_container {
   --odoc-bg1: #252525;
   --odoc-fg: #bebebe;
   --odoc-fg1: #777;
+}
+
+.source_container .source_line_column a {
+  text-decoration: none;
+  color:var(--fg4);
 }
 
 
