@@ -113,12 +113,6 @@ The playground has additional complexity because it requires specific versions o
    (version_preference newest))
 ```
 
-
-### Updating the GitHub Actions CI to Use Dune Developer Preview
-
-Using the GitHub Actions package available at https://github.com/ocaml-dune/setup-dune, we updated the workflow [`ci.yml`](https://github.com/ocaml/ocaml.org/blob/main/.github/workflows/ci.yml) to use Dune Package Management. The change turned out straightforward and simplified the configuration in several ways: (1) instead of having explicit calls to the build tool, we rely on the existing Makefile, and (2) we do not specify the OCaml compiler version in the workflow anymore, since the compiler version is managed by Dune via `dune-project`.
-
-
 ### Compatibility of Dependencies Using Symlinks
 
 
@@ -143,10 +137,15 @@ So, we added the overlays repository to the `dune-workspace` files and listed bo
 
 This way, the patched dependencies `ocamlbuild` and `ocamlfind` are picked up by Dune's solver when creating the `dune.lock` directory.
 
+### Updating GitHub Actions to Use Dune Developer Preview
+
+Using the GitHub Actions package available at https://github.com/ocaml-dune/setup-dune, we updated the workflows [`ci.yml`](https://github.com/ocaml/ocaml.org/blob/main/.github/workflows/ci.yml) and [`scrape.yml`](https://github.com/ocaml/ocaml.org/blob/main/.github/workflows/scrape.yml) to use Dune Package Management. The change turned out straightforward and we simplified the configuration in several ways: (1) instead of having explicit calls to the build tool, we invoke the existing Makefile, and (2) we do not need to specify the OCaml compiler version in the workflow anymore, since the compiler version is managed by Dune via `dune-project`.
 
 ### Playground: Copying .cmi Files from the OCaml Standard Library
 
-FIXME: In order to load the standard library in the browser via the generated .js bundle, the playground needs `.cmi` files to be copied from the compiler build artifacts, we still need to update the script that finds and copies them from the build directory of the compiler.
+For the playground to load the Standard Library in the browser via the generated .js bundle, we need the relevant `.cmi` files. Previously, we were using the `opam var ocaml:lib` command to discover the location from the compiler build artifacts, and we copied them to the `asset/` folder of the playground.
+
+To replicate this behavior with Dune Developer Preview, we invoke the OCaml compiler itself to tell us the path where we can find these `.cmi` files, by invoking `ocamlopt -config-var standard_library` through Dune Developer Preview from inside the [playground's dune file](https://github.com/ocaml/ocaml.org/blob/main/playground/dune).
 
 ## Current Status and Next Steps
 
