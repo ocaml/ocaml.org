@@ -394,6 +394,7 @@ span.sign-expand.open::before {
   --bg2:  #d5c4a1;
   --bg3:  #bdae93;
   --bg4:  #a89984;
+  --bg_highlighted: #fff3a0;
 
   --fg:  #282828;
   --fg1: #3c3836;
@@ -437,6 +438,7 @@ body.dark .source_container {
   --bg2:  #504945;
   --bg3:  #665c54;
   --bg4:  #7c6f64;
+  --bg_highlighted: #3c3836;
 
   --fg:  #fbf1c7;
   --fg1: #ebdbb2;
@@ -474,6 +476,7 @@ body.dark .source_container {
 .source_container {
   --code-color: var(--fg);
   --code-background: var(--bg);
+  --code-highligthed-background: var(--bg_highlighted);
 
   --source-link-color: var(--fg4);
   --source-line-column: var(--fg3);
@@ -530,8 +533,13 @@ a.source_link {
 
 /* Linked highlight */
 .source_code *:target {
-  border-radius: 1px;
-  border: var(--orange-dim) 2px solid !important;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone; /* for Safari/Chrome */
+  background-color: var(--code-highligthed-background);
+  padding: 3px 0 3px;
+  /* Extend the background without expanding the element's size. Without expansion
+   of background, lines background don't touch each other and make things look
+   weird on multilines targets */
 }
 
 /* Keywords */
