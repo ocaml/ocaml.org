@@ -19,9 +19,12 @@ let sidebar
 let right_sidebar
 ~local_toc
 =
-  <div class="pt-6" id="htmx-right-sidebar">
-    <%s! Toc.render local_toc %>
-  </div>
+    <div class="pt-6" id="htmx-right-sidebar">
+  ^ if local_toc = [] then "</div>" else
+    <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24">
+      <%s! Toc.render local_toc %>
+    </div>
+    </div>
 
 let render
 ~(path: Package_breadcrumbs.path)

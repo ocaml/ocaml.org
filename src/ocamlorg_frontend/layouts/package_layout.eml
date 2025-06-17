@@ -119,7 +119,6 @@ Layout.base
           <%s! Footer.secondary_footer ()  %>
         </div>
         <% (if right_sidebar_html <> "" then %>
-        <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24">
           <%s! right_sidebar_html %>
         </div>
         <% ); %>
