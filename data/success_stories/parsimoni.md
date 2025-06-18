@@ -1,5 +1,5 @@
 ---
-title: Multi-Tenant Operating System for Satellites
+title: "SpaceOS: A Multi-Tenant Operating System for Satellites"
 logo: success-stories/parsimoni.png
 card_logo: success-stories/white/parsimoni.png
 background: /success-stories/parsimoni-bg.jpg
