@@ -4,7 +4,7 @@ logo: success-stories/ahrefs.svg
 card_logo: success-stories/white/ahrefs.svg
 background: /success-stories/ahrefs-bg.jpg
 theme: blue
-synopsis: "Ahrefs leverages OCaml to achieve massive scalability, processing billions of daily requests, running the third biggest web crawler in the world, while maintaining a lean, efficient team."
+synopsis: "Ahrefs leverages full-stack OCaml to achieve massive scalability, processing billions of daily requests, running the third biggest web crawler in the world, while maintaining a lean, efficient team."
 url: https://ahrefs.com/
 priority: 2
 why_ocaml_reasons:
@@ -19,47 +19,52 @@ why_ocaml_reasons:
 
 ## Challenge
 
-Ahrefs has always been committed to operational efficiency and self-reliance, even as it grew to become a leader in the SEO industry. Unlike many VC-funded companies, Ahrefs has chosen to prioritize maintaining a small, focused team while achieving exceptional output. However, this approach came with its own set of challenges.
+Ahrefs is a Singapore-based SaaS company that provides comprehensive SEO tools and marketing intelligence powered by big data. Founded in 2011, they crawl the entire web daily to maintain extensive databases of backlinks, keywords, and website analytics that help businesses with SEO strategy, competitor analysis, and content optimization. Trusted by 44% of Fortune 500 companies, Ahrefs serves digital marketing agencies, content creators, and businesses looking to improve their organic search presence.
 
+Ahrefs has been built around OCaml from the beginning—not as an experiment, but as a core business strategy. As a self-funded company, efficiency isn't just nice to have; it's essential. The founders wanted to maximize output with a small team rather than building the biggest company with the biggest headcount. OCaml was chosen early for backend systems and crawling because of its expressiveness—you could develop features fast with very 
+few lines of code, write small programs that run reliably for months or years without surprises.
 
-One major challenge was maintaining high-quality standards across the codebase. Ahrefs needed a cohesive and type-safe technology stack that worked seamlessly across the frontend and backend, enabling developers to write reliable code with confidence and ensuring a consistent, high-quality output.
+In a world where competitors burn through venture capital and hire hundreds of engineers, Ahrefs has consistently chosen to do more with less, trusting that OCaml's expressiveness and reliability would let them punch above their weight. The question was whether this philosophy could sustain them not just as a scrappy startup, but as a dominant force in a competitive market.
 
-Another challenge was scaling operations. The lack of a integration between the different bricks often required teams to wait on one another, needing collaboration to create APIs, leading to delays and inefficiencies in delivering features. The team was looking for a unified stack, empowering all engineers to contribute to any part of the stack, reducing bottlenecks, increasing ownership and business knowledge, while maintaining a high trust in the final result.
+By 2017, Ahrefs faced a frontend bottleneck. Their frontend was built with PHP and jQuery, while their massive datasets lived in OCaml on the backend. Every time frontend developers needed data, backend engineers had to create APIs. With JavaScript tooling still poor in 2017 (before TypeScript matured), and limited interaction between teams, they saw an opportunity: what if they could extend their OCaml advantage to the entire stack?
 
 ## Result
 
-Adopting OCaml was a transformative decision for Ahrefs, enabling the company to overcome its challenges and significantly improve operations. By transitioning the entire frontend team from PHP and jQuery to OCaml, supported by Melange and React, Ahrefs achieved a full-stack evolution.
+Over a decade later, Ahrefs stands as one of the OCaml community's most enduring success stories—a company that didn't just survive betting on OCaml, but thrived because of it. What started as a small team writing crawlers in OCaml has evolved into a **$100M+ ARR company** with **150 employees** and **4000+ servers**, all while maintaining their original philosophy of doing more with less.
 
-One of the most impactful outcomes was the ability to share data types between the frontend and backend. This streamlined development processes, reduced friction, and allowed engineers to contribute meaningfully across the entire stack. With this new technology foundation, Ahrefs not only maintained but significantly scaled its operations.
+The full-stack OCaml vision became reality when Ahrefs successfully transitioned their entire frontend team from PHP and jQuery to OCaml using Melange and React. This eliminated the API bottleneck between teams—frontend developers could now work directly with backend data types, and everyone in the company could contribute across the entire stack. The result was a unified codebase of **1.5 million lines of OCaml** powering systems that handle **5 billion frontend requests** and **500 billion backend requests per day**. For more up-to-date statistics, see [Ahrefs' statistics and metrics page](https://ahrefs.com/big-data).
 
-Today, Ahrefs’ systems handle **millions of frontend requests per day** and process **billions of backend requests per day**. The codebase powering this scale has grown to **1.5 million lines of OCaml code**, underscoring the robustness and scalability of their technology stack. These advancements have helped Ahrefs become a trusted industry leader, relied upon by **44% of Fortune 500 companies**.
-For more up-to-date statistics, see [Ahrefs' statistics and metrics page](https://ahrefs.com/big-data).
+But the real victory isn't just the scale—it's the sustainability. Ahrefs proved that OCaml's "boring" reliability and expressiveness could power not just technical excellence, but business excellence. They've maintained their position as an industry leader trusted by **44% of Fortune 500 companies** while staying true to their original vision: a lean, efficient team empowered by a technology stack that amplifies rather than constrains their capabilities.
 
 ## Why OCaml
 
-Ahrefs chose OCaml as the backbone of its technology stack because of its unique ability to combine expressiveness and reliability. The language allowed developers to write concise, efficient code that remained stable over the long term, with systems often running for years without surprises.
+OCaml was the obvious choice for Ahrefs because it directly solved their core business constraint: how to build industry-leading software with a small, efficient team. OCaml's unique ability to combine expressiveness and reliability allowed developers to write concise, efficient code that remained stable over the long term, with systems often running for years without surprises. 
 
-One of the key reasons for selecting OCaml was its versatility in enabling a unified technology stack. The ability to use shared types between frontend and backend eliminated redundant work, improved collaboration, and ensured consistency across the board. Additionally, OCaml’s robust type system provided engineers with a high degree of confidence in their code, significantly reducing errors and simplifying maintenance.
+For data-intensive businesses like Ahrefs, OCaml's type system provides unmatched confidence when dealing with evolving data formats and billions of daily requests. The native compilation delivers the performance needed for web-scale crawling and processing, while the high-level abstractions keep the codebase manageable and comprehensible. This isn't just about avoiding bugs—it's about enabling a small team to reason confidently about complex systems.
 
-OCaml’s ecosystem, especially with the introduction of Melange (formerly BuckleScript), allowed Ahrefs to bridge the gap between OCaml’s strong typing and the flexibility of the JavaScript ecosystem. Initially adopted for crawling and data processing, OCaml’s utility expanded to the frontend when Melange made it possible to compile OCaml to JavaScript. This decision empowered Ahrefs to create tools that made their vast datasets more accessible and actionable.
+OCaml's ecosystem philosophy also aligns perfectly with lean teams: when you need something specific, you build it yourself rather than wrestling with heavyweight, one-size-fits-all frameworks. This approach requires more ownership but delivers exactly what your business needs—no more, no less.
 
 ## Solution
 
-OCaml addresses Ahrefs’ challenges, providing the tools needed to build a cohesive, scalable, and efficient technology stack. One of the most impactful features was its end-to-end type safety. Using tools like ATD, Ahrefs generated shared types for both frontend and backend development, ensuring consistency and reducing the likelihood of bugs.
+Ahrefs built their full-stack OCaml solution around a carefully chosen tech stack that maximizes both performance and developer productivity. At the core is **[OCaml](https://ocaml.org/)** for all backend systems and data processing, compiled natively for the performance needed to handle 500 billion backend requests per day. For the frontend, they use **[Melange](https://melange.re/)** (formerly BuckleScript) to compile OCaml to JavaScript, paired with **[React](https://react.dev/)** for the user interface.
 
-OCaml’s expressiveness allows Ahrefs to avoid relying on bloated, one-size-fits-all frameworks. Instead, the team could craft solutions tailored to their specific needs, resulting in more efficient and maintainable systems. This customization extended to their tech stack, which seamlessly integrated OCaml with complementary technologies like Melange, React, Clickhouse, MySQL, and Elasticsearch.
+A key part of their stack is the **[ATD (Adjustable Type Definitions) Syntax](https://github.com/ahrefs/atd)**, which they use to generate shared types between frontend and backend automatically. When Ahrefs switched to BuckleScript, they developed their own ATD runtime since none existed, ensuring type safety across the entire stack. This means data structure changes propagate safely from the crawling systems through to the user interface without manual coordination between teams.
 
-The unified OCaml stack also fosters a more collaborative environment. By allowing all engineers to contribute across domains, Ahrefs broke down silos and improved overall productivity. The result was a streamlined development process that enabled the company to maintain high standards of output while keeping its team small and focused.
+Their data infrastructure combines **[ClickHouse](https://clickhouse.com/)** for analytics workloads, **[MySQL](https://www.mysql.com/)** for transactional data, and **[Elasticsearch](https://www.elastic.co/)** for search functionality, all orchestrated on **[AWS](https://aws.amazon.com/)**. The key insight was treating the database as the synchronization point between tools rather than building extensive APIs—with shared OCaml types, different parts of the system can work with the same data structures directly.
+
+Ahrefs maintains their own standard libraries for both frontend and backend, following the philosophy of "we treat dependencies as if we implemented them." When something doesn't exist or doesn't fit their needs exactly, they build it themselves. This approach requires more ownership but delivers precisely tailored solutions that perform better and integrate more seamlessly than generic frameworks.
+
+The result is a unified codebase where any engineer can contribute across domains, eliminating the traditional silos between frontend and backend teams.
 
 ## Lessons Learned
 
-Ahrefs’ journey with OCaml provides valuable insights for other companies considering a similar path:
+Ahrefs' decade-plus journey with OCaml offers practical insights for companies considering a similar path:
 
-1. **Embrace Simplicity:** OCaml’s type system is intuitive yet powerful, enabling developers to build expressive and reliable applications without unnecessary complexity.
-2. **Invest in Learning:** Training the team in OCaml is essential but rewarding. Tools like the Melange playground can make the onboarding process smoother and more approachable.
-3. **Build Tailored Solutions:** By leveraging OCaml’s expressiveness, Ahrefs avoided generic frameworks in favor of custom-built solutions that addressed their unique needs. While this approach requires more ownership, it results in greater efficiency and precision.
-4. **You Will need to Write Bindings:** Writing bindings can be complex, but resources from the community simplify this process.
-5. **Adopt Gradually:** Starting with small contributions to libraries or limited integrations can help teams build confidence before transitioning fully to OCaml.
+* **Start with the fundamentals**: OCaml's type system is beautifully simple with just records, algebraic data types, and tuples, making errors obvious and easy to fix without fighting the type checker.
+* **Invest in team learning**: Training the team in OCaml is essential but rewarding. Tools like the [Melange playground](https://melange.re/v5.0.0/playground) make onboarding smoother and more approachable.
+* **Embrace "build it yourself"**: OCaml's expressiveness makes it cheap to create tailored solutions rather than wrestling with heavyweight frameworks, requiring more ownership but delivering exactly what your business needs.
+* **Writing bindings is learnable**: Yes, you'll need JavaScript bindings for frontend work, but [the official Melange documentation](https://melange.re/) and [community resources](https://github.com/melange-community/bindings) makes this much more approachable than it seems.
+* **Cultural shift matters most**: The biggest challenge isn't OCaml's technical complexity, but explaining the value to developers from mainstream ecosystems — though productivity gains from shared types become self-evident once experienced.
 
 ## Open Source
 
