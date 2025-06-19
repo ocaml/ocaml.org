@@ -105,10 +105,10 @@ Layout.render
 <span aria-label="OCaml responds with"><i class="text-content dark:text-dark-content "><%s "val square : int -> int = < fun >" %></i></span>
 <span><span title="prompt">#</span> square 3</span>
 <span aria-label="OCaml responds with"><i class="text-content dark:text-dark-content ">- : int = 9</i></span>
-<span><span title="prompt">#</span> <span class="text-blue-500 ">let rec</span> <span class="text-code-yellow ">fac</span> x =</span>
-<span><span class="text-blue-500  ml-4">if</span> <%s "x <= 1" %> <span class="text-blue-500 ">then</span> 1 <span class="text-blue-500">else</span> x * fac (x - 1)</span>
-<span aria-label="OCaml responds with"><i class="text-content dark:text-dark-content"><%s "val fac : int -> int = < fun >" %></i></span>
-<span><span title="prompt">#</span> fac 5</span>
+<span><span title="prompt">#</span> <span class="text-blue-500 ">let rec</span> <span class="text-code-yellow ">factorial</span> x =</span>
+<span><span class="text-blue-500  ml-4">if</span> <%s "x <= 1" %> <span class="text-blue-500 ">then</span> 1 <span class="text-blue-500">else</span> x * factorial (x - 1)</span>
+<span aria-label="OCaml responds with"><i class="text-content dark:text-dark-content"><%s "val factorial : int -> int = < fun >" %></i></span>
+<span><span title="prompt">#</span> factorial 5</span>
 <span aria-label="OCaml responds with"><i class="text-content dark:text-dark-content ">- : int = 120</i></span>
 <span><span title="prompt">#</span> square 120</span>
 <span aria-label="OCaml responds with"><i class="text-content dark:text-dark-content">- : int = 14400</i></span></code>
