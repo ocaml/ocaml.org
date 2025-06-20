@@ -10,7 +10,7 @@ The OCaml.org website is undergoing a build setup change as it migrates to Dune 
 
 OCaml.org is one of the most visible projects in the OCaml ecosystem. By migrating it to Dune Developer Preview, we are creating an environment that will help identify issues and refine new Dune workflows before their stable release.
 
-The state of the migration is currently tracked in [pull request #3132](https://github.com/ocaml/ocaml.org/pull/3132). We're about to finish the work and merge the PR soon!
+We are currently tracking the state of the migration in [pull request #3132](https://github.com/ocaml/ocaml.org/pull/3132). We're about to finish the work and merge the PR soon!
 
 ## Technical Challenges and Solutions
 
