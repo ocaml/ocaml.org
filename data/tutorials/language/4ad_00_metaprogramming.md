@@ -41,7 +41,7 @@ If you are interested in writing a PPX, jump to [this section](#writing-a-ppx).
 
 Some languages have built-in support for preprocessing, in the sense that a
 small part of the language is dedicated to being executed at compile time. This
-is the case for instance of C, where the C preprocessor syntax and semantic is
+is the case for instance of C, where the C preprocessor syntax and semantics is
 part of the language; and Rust with its macro system.
 
 In OCaml, there is no macro system part of the language, all preprocessors are
