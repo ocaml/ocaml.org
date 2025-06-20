@@ -18,9 +18,9 @@ Migrating OCaml.org to use Dune Developer Preview has revealed several interesti
 
 ### How to Configure Nested Dune Projects
 
-One of the first hurdles encountered was dealing with nested Dune projects. The OCaml.org codebase contains a playground project nested within the main website project, which made workspace management not immediately obvious.
+One of the first hurdles encountered was dealing with nested Dune projects. The OCaml.org codebase contains a playground project nested within the main website project, making workspace management slightly trickier than expected.
 
-> **Note:** This is not a standard or recommended setup, but happens to be how OCaml.org as a project historically has grown. The playground is a part of the site that is not updated very often, and we only regenerate it (and commit the build artifacts) when the playground is updated to a new version or gets new features. Specifically, the OCaml version used in the playground does not have to be the same as the one used for the main site.
+> **Note:** This is not a standard or recommended setup, but it happens to be how OCaml.org has historically grown as a project. The playground is a part of the site that is not updated very often, and we only regenerate it (and commit the build artefacts) when the playground is updated to a new version or gets new features. Specifically, the OCaml version used in the playground does not have to be the same as the one used for the main site.
 
 The solution we went with was to use **two separate `dune-workspace` files** - one for the main OCaml.org site and one for the playground.
 
@@ -56,7 +56,7 @@ The solution we went with was to use **two separate `dune-workspace` files** - o
    # Lock main OCaml.org dependencies
    dune pkg lock
    
-   # Lock playground dependencies (from playground directory)
+   # Lock playground dependencies (from the playground directory)
    cd playground
    dune pkg lock --root .
    ```
@@ -116,9 +116,9 @@ The playground has additional complexity because it requires specific versions o
 ### Compatibility of Dependencies Using Symlinks
 
 
-During the migration, we saw compatibility issues with an upstream dependencies relating to the use of symlinks in these upstream dependencies. For example, `merlin-js` uses symlinks in its example programs.
+During the migration, we saw compatibility issues with upstream dependencies relating to the use of symlinks. For example, `merlin-js` uses symlinks in its example programs.
 
-Dune package management doesn't support symlinks at the moment, so we removed the offending examples to enable building `merlin-js` with Dune package management from [this `merlin-js` branch](https://github.com/Sudha247/merlin-js/tree/exp).
+Currently, Dune package management doesn't support symlinks, so we removed the offending examples to enable building `merlin-js` with Dune package management from [this `merlin-js` branch](https://github.com/Sudha247/merlin-js/tree/exp).
 
 #### The Opam-repository Overlays for OCamlBuild and OCamlFind
 
@@ -139,7 +139,7 @@ This way, the patched dependencies `ocamlbuild` and `ocamlfind` are picked up by
 
 ### Updating GitHub Actions to Use Dune Developer Preview
 
-Using the GitHub Actions package available at https://github.com/ocaml-dune/setup-dune, we updated the workflows [`ci.yml`](https://github.com/ocaml/ocaml.org/blob/main/.github/workflows/ci.yml) and [`scrape.yml`](https://github.com/ocaml/ocaml.org/blob/main/.github/workflows/scrape.yml) to use Dune Package Management. The change turned out straightforward and we simplified the configuration in several ways: (1) instead of having explicit calls to the build tool, we invoke the existing Makefile, and (2) we do not need to specify the OCaml compiler version in the workflow anymore, since the compiler version is managed by Dune via `dune-project`.
+Using the GitHub Actions package available at https://github.com/ocaml-dune/setup-dune, we updated the workflows [`ci.yml`](https://github.com/ocaml/ocaml.org/blob/main/.github/workflows/ci.yml) and [`scrape.yml`](https://github.com/ocaml/ocaml.org/blob/main/.github/workflows/scrape.yml) to use Dune Package Management. The change turned out to be straightforward and we simplified the configuration in several ways: (1) instead of having explicit calls to the build tool, we invoke the existing Makefile, and (2) we do not need to specify the OCaml compiler version in the workflow anymore, since Dune manages the compiler version via `dune-project`.
 
 ### Playground: Copying .cmi Files from the OCaml Standard Library
 
@@ -171,4 +171,4 @@ For more detailed information about the Dune features used in this migration, co
 
 Despite OCaml.org having a non-standard project setup and having to deal with custom dependencies for the playground, we found the migration to Dune package management to be mostly straightforward: OCaml.org itself didn't need us to touch any upstream dependencies, they just worked out of the box with Dune package management.
 
-The playground uses a few custom dependencies which needed to be updated to work with Dune package management. To get an understanding of how much of the OCaml ecosystem supports Dune package management, here's an interesting read: ["Opam Health Check: or How we Got to 90+% of Packages Building with Dune Package Management"](https://tarides.com/blog/2025-06-05-opam-health-check-or-how-we-got-to-90-of-packages-building-with-dune-package-management/). That post also contains a link to the health check service where you can get an up-to-date view of which packages build successfully.
+The playground uses a few custom dependencies which needed to be updated to work with Dune package management. To get an understanding of how much of the OCaml ecosystem supports Dune package management, here's an interesting read: ["Opam Health Check: or How we Got to 90+% of Packages Building with Dune Package Management"](https://tarides.com/blog/2025-06-05-opam-health-check-or-how-we-got-to-90-of-packages-building-with-dune-package-management/). That post also contains a link to the health check service, where you can get an up-to-date view of which packages build successfully.
