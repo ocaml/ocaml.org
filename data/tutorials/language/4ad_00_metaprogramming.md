@@ -31,8 +31,8 @@ Printf.printf "This program has been compiled by user: %s" "JohnDoe"
 
 With this modification, the preprocessor will replace [%get_env "USER"] with the content of the USER environment variable during compile time, and this code should work on most systems without any additional configuration. At compile time, the preprocessor would replace [%get_env "USER"] by a string with the content of the USER environment variable, which usually contains the username of the person compiling the program. This happens at compile time, so at runtime, the value of the USER variable would have no effect, as it's used purely for informational purposes in the compiled program.
 
-In this guide, we explain the different mechanism behind preprocessors in OCaml,
-with as few prerequisite as possible. If you are only interested in how to use a
+In this guide, we explain the different mechanisms behind preprocessors in OCaml,
+with as few prerequisites as possible. If you are only interested in how to use a
 PPX in your project, jump to [this section](#using-ppxs) or to the [dune
 doc](https://dune.readthedocs.io/en/stable/reference/preprocessing-spec.html).
 If you are interested in writing a PPX, jump to [this section](#writing-a-ppx).
@@ -41,7 +41,7 @@ If you are interested in writing a PPX, jump to [this section](#writing-a-ppx).
 
 Some languages have built-in support for preprocessing, in the sense that a
 small part of the language is dedicated to being executed at compile time. This
-is the case for instance of C, where the C preprocessor syntax and semantic is
+is the case for instance of C, where the C preprocessor syntax and semantics is
 part of the language; and Rust with its macro system.
 
 In OCaml, there is no macro system part of the language, all preprocessors are
