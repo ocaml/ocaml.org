@@ -13,13 +13,13 @@ Before starting to hack, you need a properly configured development environment.
 
 The project [`Dockerfile`](./Dockerfile) contains up-to-date system configuration instructions, as used to ship into production. It is written for the Alpine Linux distribution, but it is meant to be adapted to other environments such as Ubuntu, macOS+Homebrew, or others. The GitHub workflow file [`.github/workflows/ci.yml`](.github/workflows/ci.yml) also contains useful commands for Ubuntu and macOS. Since OCaml.org is mostly written in OCaml, a properly configured OCaml development environment is also required, but is not detailed here. Although Docker is used to ship, it is not a requirement to begin hacking. Currently, OCaml.org doesn't yet compile using OCaml 5; version 4.14 of the language is used. It is possible to run workflow files in `.github/workflows` using the [`nektos/act`](https://github.com/nektos/act) tool. For instance, the following command runs the CI checks through GitHub on each pull request (where `ghghgh` is replace by an _ad-hoc_ GitHub token, see: <https://github.com/nektos/act#github_token>)
 
-```
+```bash
 act -s GITHUB_TOKEN=ghghgh .github/workflows/ci.yml -j build
 ```
 
 The Makefile contains many commands that can get you up and running. A typical workflow is to clone the repository after forking it.
 
-```
+```bash
 git clone https://github.com/<username>/OCaml.org.git
 cd OCaml.org
 ```
@@ -30,13 +30,13 @@ With opam installed, you can now initialise opam with `opam init`. Note that in 
 
 Finally from the root of your project, you can setup a [local opam switch](https://opam.OCaml.org/doc/Manual.html#Switches) and install the dependencies. There is a single `make` target to do just that.
 
-```
+```bash
 make switch
 ```
 
 If you don't want a local opam switch and are happy to install everything globally (in the opam sense), then you can just install the dependencies directly.
 
-```
+```bash
 make deps
 ```
 
@@ -82,13 +82,13 @@ You can build the playground from the root of the project. There is no need to m
 
 To regenerate the playground, you need to install the playground's dependencies first:
 
-```
+```bash
 make deps -C playground
 ```
 
 After the dependencies have been installed, simply build the project to regenerate the JavaScript assets:
 
-```
+```bash
 make playground
 ```
 
@@ -104,7 +104,7 @@ The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-depl
 
 To test the deployment locally, run the following commands:
 
-```
+```bash
 docker build -t ocamlorg .
 docker run -p 8080:8080  ocamlorg
 ```
@@ -129,7 +129,7 @@ before they get merged.
 
 OCaml.org is using an opam switch that is local and bound to a pinned commit in `opam-repository`. This is intended to protect the build from upstream regressions. The opam repository is specified in three (3) places:
 
-```
+```bash
 Dockerfile
 Makefile
 .github/workflows/*.yml
