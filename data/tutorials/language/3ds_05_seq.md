@@ -24,7 +24,7 @@ Still in the intro: for people familiar with Python, I believe it would be very 
 One way to look at a value of type `'a Seq.t` is to consider it as a "lazy list"
 where each element is wrapped in a function that must be "called" to reveal the value.
 
-Consider it as a listonsider how sequences are defined in the Standard Library:
+Consider how sequences are defined in the Standard Library:
 
 ```ocaml
 type 'a node =
