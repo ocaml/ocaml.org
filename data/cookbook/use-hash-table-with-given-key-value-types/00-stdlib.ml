@@ -4,9 +4,9 @@ packages: []
 let () =
   let open Format in
   (* `Hashtbl.t` is a hash table with in-place modification.
-     `Hashtbl.create ( -1 )` creates a table of default size.
-     If you know how large the table would become, it is better to set a size on creation.
-     But the table grows as needed, so setting the size accurately is technically not necessary.
+  `Hashtbl.create ( -1 )` creates a table of default size.
+  If you know how large the table would become, it is better to set a size on creation.
+  But the table grows as needed, so setting the size accurately is technically not necessary.
   *)
   let numbers = Hashtbl.create ( -1 ) in
 
@@ -28,7 +28,7 @@ let () =
   | None -> printf "There is no four.\n%!");
 
   (* `Hashtbl.add` adds an element, but hides the previous element under the same key.
-     The classical bahavior of replacing the previous element under the same key.
+  The classical bahavior of replacing the previous element under the same key.
    *)
   Hashtbl.add numbers "secret" 543;
   printf "%i\n%!" (Hashtbl.find numbers "secret");
