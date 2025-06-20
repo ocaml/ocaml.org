@@ -38,7 +38,7 @@ depends: [
   "yojson"
   "lwt"
   "hilite" {>= "0.4.0"}
-  "river" {>= "0.3"}
+  "river"
   "syndic"
   "ounit"
   "alcotest" {with-test}
