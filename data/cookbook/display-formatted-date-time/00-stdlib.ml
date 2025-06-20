@@ -1,5 +1,6 @@
 ---
 packages: []
+discussion: |
   - **Understanding `Unix.tm`:** The `Unix.tm` structure represents a local time. This structure includes fields like `tm_year`, `tm_mon`, and `tm_mday` for year, month, and day, respectively.
   - **Understanding `Format`:** Because `Unix.tm` is an abstract type, we must define a pretty printer for it.  The are usually two kinds of pretty printer for a type: `pp` uses `Format.formatter` to print a value, and `show` simply converts the value to a string.
 ---
