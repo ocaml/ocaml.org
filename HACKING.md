@@ -97,6 +97,7 @@ Once the compilation is complete and successuful, commit the newly-generated ass
 ### Deploying
 
 Commits added on some branches are automatically deployed:
+
 * `main` on <https://OCaml.org/>
 * `staging` on <https://staging.OCaml.org/>
 
