@@ -1,6 +1,7 @@
 ---
 title: OCamlFormat 0.24.1
 tags: [ocamlformat, platform]
+versions: ["0.24.0", "0.24.1"]
 changelog: |
   ### New features
 
