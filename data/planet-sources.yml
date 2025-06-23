@@ -211,3 +211,7 @@
   name: Anil Madhavapeddy's Blog
   url: https://anil.recoil.org/news.xml
   only_ocaml: true
+- id: joelr
+  name: Zen of Coding
+  url: https://joel.id/tag/ocaml/feed
+  only_ocaml: true
