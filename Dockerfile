@@ -33,7 +33,7 @@ ENV OCAMLORG_PKG_STATE_PATH=package.state \
     OCAMLORG_REPO_PATH=opam-repository
 RUN touch package.state && ./init-cache package.state
 
-FROM alpine:3.19
+FROM alpine:3.21
 
 RUN apk -U upgrade --no-cache && apk add --no-cache \
     git \
