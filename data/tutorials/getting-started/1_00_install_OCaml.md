@@ -162,7 +162,7 @@ You're now in an OCaml toplevel, and you can start typing OCaml expressions. For
 
 **Congratulations**! You've installed OCaml! 🎉
 
-Exit UTop by typing `#quit;;` or pressing `Ctrl+D`.
+Exit UTop by typing `#quit;;` (the `#` here is not the prompt, you have to type it) or pressing `Ctrl+D`.
 
 ## Join the Community
 
