@@ -53,11 +53,11 @@ jobs:
         run: opam install ocamlformat.0.26.2
 
       - name: Build project
-        run: opam exec -- dune build @install
+        run: make
 
       - name: Run tests
-        run: opam exec -- dune test
+        run: make test
 
       - name: Format code
-        run: opam exec -- dune build --auto-promote @fmt
+        run: make fmt
         if: runner.os == 'Linux'
