@@ -211,3 +211,7 @@
   name: Anil Madhavapeddy's Blog
   url: https://anil.recoil.org/news.xml
   only_ocaml: true
+- id: xvw
+  name: "Xavier Van de Woestyne's Blog"
+  url: https://xvw.lol/tags/en/ocaml.xml
+  only_ocaml: true
