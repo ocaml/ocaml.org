@@ -80,8 +80,13 @@ module Documentation : sig
     | Class
     | ClassType
     | File
+    | Source
 
-  type breadcrumb = { name : string; href : string; kind : breadcrumb_kind }
+  type breadcrumb = {
+    name : string;
+    href : string option;
+    kind : breadcrumb_kind;
+  }
 
   type t = {
     uses_katex : bool;
@@ -92,6 +97,7 @@ module Documentation : sig
 end
 
 module Package_info = Package_info
+module Sidebar = Sidebar
 
 type state
 type t
@@ -111,15 +117,7 @@ val info : t -> Info.t
 val create : name:Name.t -> version:Version.t -> Info.t -> t
 (** This is added to enable demo test package to use Package.t with abstraction *)
 
-module Documentation_status : sig
-  type otherdocs = {
-    readme : string option;
-    license : string option;
-    changes : string option;
-  }
-
-  type t = { failed : bool; otherdocs : otherdocs }
-end
+module Documentation_status = Documentation_status
 
 val documentation_status :
   kind:[< `Package | `Universe of string ] ->
@@ -128,15 +126,19 @@ val documentation_status :
   Documentation_status.t option Lwt.t
 (** Get the build status of the documentation of a package *)
 
-val module_map :
-  kind:[< `Package | `Universe of string ] -> t -> Package_info.t Lwt.t
-(** Get the module map of a package *)
+val sidebar : kind:[ `Package | `Universe of string ] -> t -> Sidebar.t Lwt.t
+(** Get the sidebar of a package *)
 
 val documentation_page :
   kind:[< `Package | `Universe of string ] ->
   t ->
   string ->
   Documentation.t option Lwt.t
+(** Get the rendered content of an HTML page for a package given its URL
+    relative to the root page of the documentation. *)
+
+val documentation_asset :
+  kind:[< `Package | `Universe of string ] -> t -> string -> string option Lwt.t
 (** Get the rendered content of an HTML page for a package given its URL
     relative to the root page of the documentation. *)
 
