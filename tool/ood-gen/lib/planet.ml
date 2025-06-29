@@ -109,10 +109,10 @@ module GlobalFeed = struct
     let url = Uri.of_string post.source.url in
     let source : Syndic.Atom.source =
       Syndic.Atom.source ~authors:[] ~id:url
-        ~title:(Syndic.Atom.Text post.source.name)
         ~links:[ Syndic.Atom.link url ]
         ?updated:None ?categories:None ?contributors:None ?generator:None
         ?icon:None ?logo:None ?rights:None ?subtitle:None
+        (Syndic.Atom.Text post.source.name)
     in
     let id = Uri.of_string post.url in
     let authors = feed_authors post.source post.authors in
@@ -127,10 +127,10 @@ module GlobalFeed = struct
     let source : Syndic.Atom.source =
       Syndic.Atom.source ~authors:[]
         ~id:(Uri.of_string video.source_link)
-        ~title:(Syndic.Atom.Text video.source_title)
         ~links:[ Syndic.Atom.link (Uri.of_string video.source_link) ]
         ?updated:None ?categories:None ?contributors:None ?generator:None
         ?icon:None ?logo:None ?rights:None ?subtitle:None
+        (Syndic.Atom.Text video.source_title)
     in
     let content = Syndic.Atom.Text video.description in
     let id = url in
