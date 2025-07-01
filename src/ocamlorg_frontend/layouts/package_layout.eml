@@ -301,7 +301,7 @@ Layout.base
       event.stopPropagation();
       if (event.key == "Enter") {
         if (results.length > 0) {
-          let url = "/"+results[search_results_position || 0].url;
+          let url = results[search_results_position || 0].url;
           goToUrl(event, url)
         }
         return false;
