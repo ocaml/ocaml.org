@@ -19,7 +19,7 @@ why_ocaml_reasons:
 
 ## Challenge
 
-Ahrefs is a Singapore-based SaaS company that provides comprehensive SEO tools and marketing intelligence powered by big data. Since 2011, they've been crawling the entire web daily to maintain extensive databases of backlinks, keywords, and website analytics that help businesses with SEO strategy, competitor analysis, and content optimization. Today, they're trusted by 44% of Fortune 500 companies.
+[Ahrefs](https://ahrefs.com/) is a Singapore-based SaaS company that provides comprehensive SEO tools and marketing intelligence powered by big data. Since 2011, they've been crawling the entire web daily to maintain extensive databases of backlinks, keywords, and website analytics that help businesses with SEO strategy, competitor analysis, and content optimization. Today, they're trusted by 44% of Fortune 500 companies.
 
 Building and operating a web crawler at internet scale presents extraordinary challenges. Ahrefs needed to index billions of web pages continuously, process petabytes of data in real-time, and turn this massive dataset into actionable insights for thousands of customers worldwide. The technical demands are staggering: their systems must handle **500 billion backend requests per day** while maintaining **over 100PB of storage**.
 

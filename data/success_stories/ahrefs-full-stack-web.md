@@ -1,8 +1,8 @@
 ---
-title: Full-Stack OCaml Web Application
+title: Full-Stack OCaml Web Application With React
 logo: success-stories/ahrefs.svg
 card_logo: success-stories/white/ahrefs.svg
-background: /success-stories/ahrefs-bg.jpg
+background: /success-stories/ahrefs-full-stack-bg.jpg
 theme: blue
 synopsis: "Ahrefs transitioned from PHP/jQuery to full-stack OCaml using Melange and React, eliminating team silos and enabling any engineer to contribute across their entire web application stack."
 url: https://ahrefs.com/
@@ -19,7 +19,7 @@ why_ocaml_reasons:
 
 ## Challenge
 
-Ahrefs is a Singapore-based SaaS company that provides SEO tools and marketing intelligence powered by big data. Since 2011, they've built their business around OCaml, using it for web crawling and data processing to serve thousands of customers worldwide. Today, they're trusted by 44% of Fortune 500 companies and operate as a lean, self-funded organization focused on efficiency.
+[Ahrefs](https://ahrefs.com/) is a Singapore-based SaaS company that provides SEO tools and marketing intelligence powered by big data. Since 2011, they've built their business around OCaml, using it for web crawling and data processing to serve thousands of customers worldwide. Today, they're trusted by 44% of Fortune 500 companies and operate as a lean, self-funded organization focused on efficiency.
 
 By 2017, Ahrefs had built a successful SEO tools business powered by OCaml on the backend, but they faced a bottleneck in web application development. Their frontend was built with PHP and jQuery while their data processing lived in OCaml. Every time frontend developers needed backend data, they had to coordinate with backend engineers to update the APIs.
 
