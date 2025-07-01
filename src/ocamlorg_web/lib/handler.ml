@@ -858,7 +858,7 @@ module Package_helper = struct
   let search_index_digest ~kind state name =
     let open Lwt.Syntax in
     let* search_index_digest =
-      Ocamlorg_package.search_index_digest ~kind state name
+      Ocamlorg_package.Documentation.search_index_digest ~kind state name
     in
     search_index_digest |> Option.map Dream.to_base64url |> Lwt.return
 
@@ -892,15 +892,15 @@ module Package_helper = struct
 
   let package_sidebar_data ~kind t package =
     let open Lwt.Syntax in
-    let* doc_status = Ocamlorg_package.documentation_status ~kind t package in
+    let* doc_status = Ocamlorg_package.Documentation.status ~kind t package in
     let readme_filename =
-      Option.bind doc_status Ocamlorg_package.Documentation_status.readme
+      Option.bind doc_status Ocamlorg_package.Documentation.Status.readme
     in
     let changes_filename =
-      Option.bind doc_status Ocamlorg_package.Documentation_status.changelog
+      Option.bind doc_status Ocamlorg_package.Documentation.Status.changelog
     in
     let license_filename =
-      Option.bind doc_status Ocamlorg_package.Documentation_status.license
+      Option.bind doc_status Ocamlorg_package.Documentation.Status.license
     in
     let documentation_status =
       match doc_status with
@@ -999,7 +999,7 @@ let is_author_match name pattern =
 let documentation_status_of_package t (pkg : Ocamlorg_package.t) =
   let open Lwt.Syntax in
   let* package_documentation_status =
-    Ocamlorg_package.documentation_status ~kind:`Package t pkg
+    Ocamlorg_package.Documentation.status ~kind:`Package t pkg
   in
   Lwt.return
     (match package_documentation_status with
@@ -1169,7 +1169,8 @@ let package_overview t kind req =
     match sidebar_data.readme_filename with
     | Some path ->
         let* maybe_readme =
-          Ocamlorg_package.documentation_page ~kind package (path ^ ".html")
+          Ocamlorg_package.Documentation.documentation_page ~kind package
+            (path ^ ".html")
         in
         Lwt.return
           (Option.map
@@ -1235,7 +1236,7 @@ let package_documentation t kind req =
     @@ Dream.param req "name"
   in
   let* package_documentation_status =
-    Ocamlorg_package.documentation_status ~kind t package
+    Ocamlorg_package.Documentation.status ~kind t package
   in
   let redirect =
     match package_documentation_status with
@@ -1243,7 +1244,7 @@ let package_documentation t kind req =
     | Some { redirections; _ } ->
         List.find_map
           (function
-            | { Ocamlorg_package.Documentation_status.old_path; new_path } -> (
+            | { Ocamlorg_package.Documentation.Status.old_path; new_path } -> (
                 match String.cut ~on:("/" ^ old_path) url with
                 | Some (prefix, "") -> Some (prefix ^ "/" ^ new_path)
                 | _ -> None))
@@ -1253,11 +1254,15 @@ let package_documentation t kind req =
     match redirect with Some r -> Dream.redirect req r | None -> continue ()
   in
   let handle_asset continue =
-    let* asset = Ocamlorg_package.documentation_asset ~kind package path in
+    let* asset =
+      Ocamlorg_package.Documentation.documentation_asset ~kind package path
+    in
     match asset with Some asset -> Dream.respond asset | None -> continue ()
   in
   handle_redirect redirect @@ fun () ->
-  let* docs = Ocamlorg_package.documentation_page ~kind package path in
+  let* docs =
+    Ocamlorg_package.Documentation.documentation_page ~kind package path
+  in
   match docs with
   | None ->
       handle_asset @@ fun () ->
@@ -1284,7 +1289,7 @@ let package_documentation t kind req =
   | Some doc ->
       let map_url = Option.map (fun url -> "/" ^ url) in
       let rec navmap_of_sidebar ?(first_layer = false)
-          (sidebar : Ocamlorg_package.Sidebar.tree) =
+          (sidebar : Ocamlorg_package.Documentation.Sidebar.tree) =
         Ocamlorg_frontend.Navmap.
           {
             title = sidebar.node.content;
@@ -1317,7 +1322,7 @@ let package_documentation t kind req =
                  List.filter
                    (function
                      | Ocamlorg_frontend.Navmap.{ title; _ }
-                       when Ocamlorg_package.Documentation_status.is_special
+                       when Ocamlorg_package.Documentation.Status.is_special
                               title ->
                          false
                      | _ -> true)
@@ -1325,7 +1330,7 @@ let package_documentation t kind req =
                else children);
           }
       in
-      let* sidebar = Ocamlorg_package.sidebar ~kind package in
+      let* sidebar = Ocamlorg_package.Documentation.sidebar ~kind package in
       let* search_index_digest =
         Package_helper.search_index_digest ~kind t package
       in
@@ -1381,7 +1386,7 @@ let package_file t kind req =
   let* search_index_digest =
     Package_helper.search_index_digest ~kind t package
   in
-  let* maybe_doc = Ocamlorg_package.file ~kind package path in
+  let* maybe_doc = Ocamlorg_package.Documentation.file ~kind package path in
   let</>? doc = maybe_doc in
   let content = doc.content in
   let toc = Package_helper.frontend_toc doc.toc in
@@ -1401,7 +1406,9 @@ let package_search_index t kind req =
     | Package -> `Package
     | Universe -> `Universe (Dream.param req "hash")
   in
-  let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
+  let* maybe_search_index =
+    Ocamlorg_package.Documentation.search_index ~kind package
+  in
   let</>? search_index = maybe_search_index in
   Lwt.return
     (Dream.response

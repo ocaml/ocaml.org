@@ -68,7 +68,15 @@ module Statistics : sig
   }
 end
 
+type state
+type t
+
 module Documentation : sig
+  module Sidebar = Documentation.Sidebar
+  module Status = Documentation.Status
+
+  type pkg := t
+  type doc_cache
   type toc = { title : string; href : string; children : toc list }
 
   type breadcrumb_kind =
@@ -94,13 +102,51 @@ module Documentation : sig
     breadcrumbs : breadcrumb list;
     content : string;
   }
+
+  val status :
+    kind:[< `Package | `Universe of string ] ->
+    state ->
+    pkg ->
+    Documentation.Status.t option Lwt.t
+  (** Get the build status of the documentation of a package *)
+
+  val sidebar :
+    kind:[ `Package | `Universe of string ] ->
+    pkg ->
+    Documentation.Sidebar.t Lwt.t
+  (** Get the sidebar of a package *)
+
+  val documentation_page :
+    kind:[< `Package | `Universe of string ] -> pkg -> string -> t option Lwt.t
+  (** Get the rendered content of an HTML page for a package given its URL
+      relative to the root page of the documentation. *)
+
+  val documentation_asset :
+    kind:[< `Package | `Universe of string ] ->
+    pkg ->
+    string ->
+    string option Lwt.t
+  (** Get the rendered content of an HTML page for a package given its URL
+      relative to the root page of the documentation. *)
+
+  val file :
+    kind:[< `Package | `Universe of string ] -> pkg -> string -> t option Lwt.t
+  (** Get the rendered content of an HTML page for a file accompanying a package
+      given its URL relative to the root of the package. *)
+
+  val search_index :
+    kind:[< `Package | `Universe of string ] -> pkg -> string option Lwt.t
+  (** Retrieve the search index of a given package. *)
+
+  val search_index_digest :
+    kind:[< `Package | `Universe of string ] ->
+    state ->
+    pkg ->
+    string option Lwt.t
+  (** Retrieve the hash digest of the search index of a given package. *)
 end
 
 module Package_info = Package_info
-module Sidebar = Sidebar
-
-type state
-type t
 
 val mockup_state : t list -> state
 (** [mockup_state ts] produces the opam-repository state from a list of packages *)
@@ -116,47 +162,6 @@ val info : t -> Info.t
 
 val create : name:Name.t -> version:Version.t -> Info.t -> t
 (** This is added to enable demo test package to use Package.t with abstraction *)
-
-module Documentation_status = Documentation_status
-
-val documentation_status :
-  kind:[< `Package | `Universe of string ] ->
-  state ->
-  t ->
-  Documentation_status.t option Lwt.t
-(** Get the build status of the documentation of a package *)
-
-val sidebar : kind:[ `Package | `Universe of string ] -> t -> Sidebar.t Lwt.t
-(** Get the sidebar of a package *)
-
-val documentation_page :
-  kind:[< `Package | `Universe of string ] ->
-  t ->
-  string ->
-  Documentation.t option Lwt.t
-(** Get the rendered content of an HTML page for a package given its URL
-    relative to the root page of the documentation. *)
-
-val documentation_asset :
-  kind:[< `Package | `Universe of string ] -> t -> string -> string option Lwt.t
-(** Get the rendered content of an HTML page for a package given its URL
-    relative to the root page of the documentation. *)
-
-val file :
-  kind:[< `Package | `Universe of string ] ->
-  t ->
-  string ->
-  Documentation.t option Lwt.t
-(** Get the rendered content of an HTML page for a file accompanying a package
-    given its URL relative to the root of the package. *)
-
-val search_index :
-  kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
-(** Retrieve the search index of a given package. *)
-
-val search_index_digest :
-  kind:[< `Package | `Universe of string ] -> state -> t -> string option Lwt.t
-(** Retrieve the hash digest of the search index of a given package. *)
 
 val init : ?disable_polling:bool -> unit -> state
 (** [init ()] initialises the opam-repository state. By default
