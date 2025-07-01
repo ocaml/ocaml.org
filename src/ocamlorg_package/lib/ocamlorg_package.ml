@@ -525,8 +525,12 @@ let documentation_status ~kind state t : Documentation_status.t option Lwt.t =
             s |> Yojson.Safe.from_string |> Documentation_status.of_yojson
           with
           | Ok status -> Some status
-          | Error _TODO -> None)
-      | Error _TODO -> None
+          | Error e ->
+              Logs.warn (fun m -> m "Error while parsing status.json: %s" e);
+              None)
+      | Error (`Msg e) ->
+          Logs.warn (fun m -> m "Error while fetching status.json: %s" e);
+          None
     in
     let status_entry =
       { documentation_status = status; time = Unix.gettimeofday () }
