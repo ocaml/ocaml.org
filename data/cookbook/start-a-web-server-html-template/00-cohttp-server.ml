@@ -8,8 +8,12 @@ packages:
   tested_version: "6.1.0"
   used_libraries:
   - cohttp
+- name: "tyxml"
+  tested_version: "4.6.0"
+  used_libraries:
+  - tyxml
 discussion: |
-  This example shows how to use `cohttp-lwt-unix` to start an HTTP server and render a HTML template in OCaml
+  This example demonstrates how to build an HTTP server using `cohttp-lwt-unix` and safely render an HTML template with `Tyxml` in OCaml
 ---
 (* The server:
   - Handles any incoming request on port 8080
@@ -21,24 +25,18 @@ discussion: |
 
 open Cohttp
 open Cohttp_lwt_unix
+open Tyxml.Html
 
-let template = {|
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Template Page</title>
-    </head>
-    <body>
-      <h1>Hello World!</h1>
-    </body>
-  </html>
-|}
+let html_template =
+  html
+    (head (title (txt "Template Page")) [meta ~a:[a_charset "UTF-8"] ()])
+    (body [h1 [txt "Hello World!"]])
+
+let response_body = Format.asprintf "%a" (pp ()) html_template
 
 let () =
   let callback _conn _req _body =
-    Server.respond_string ~status:`OK ~body:template 
+    Server.respond_string ~status:`OK ~body:response_body 
       ~headers:(Header.init_with "Content-Type" "text/html") ()
   in
   let server = Server.make ~callback () in
