@@ -72,7 +72,6 @@ type state
 type t
 
 module Documentation : sig
-  module Sidebar = Documentation.Sidebar
   module Status = Documentation.Status
 
   type pkg := t
@@ -113,7 +112,7 @@ module Documentation : sig
   val sidebar :
     kind:[ `Package | `Universe of string ] ->
     pkg ->
-    Documentation.Sidebar.t Lwt.t
+    Ocamlorg_frontend.Navmap.t Lwt.t
   (** Get the sidebar of a package *)
 
   val documentation_page :

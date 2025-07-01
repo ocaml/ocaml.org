@@ -49,6 +49,47 @@ module Sidebar = struct
 
   and tree = sidebar_node node
   and t = tree list [@@deriving of_yojson]
+
+  let to_navmap s =
+    let map_url = Option.map (fun url -> "/" ^ url) in
+    let rec navmap_of_sidebar ?(first_layer = false) (sidebar : tree) =
+      Ocamlorg_frontend.Navmap.
+        {
+          title = sidebar.node.content;
+          kind =
+            (match sidebar.node.kind with
+            | Some "module" -> Module
+            | (Some ("page" | "leaf-page") | None)
+              when String.starts_with ~prefix:"Library " sidebar.node.content ->
+                Library
+            | Some ("page" | "leaf-page") -> Page
+            | Some "module-type" -> Module_type
+            | Some "parameter" -> Parameter
+            | Some "class" -> Class
+            | Some "class-type" -> Class_type
+            | Some "file" -> File
+            | Some "source" -> Source
+            | None -> Page
+            | _ -> File);
+          href = map_url sidebar.node.url;
+          children =
+            (let children =
+               List.map (navmap_of_sidebar ~first_layer:false) sidebar.children
+             in
+             (* The docs CI generates readme files in the wring place, and they
+                end up in the toc, so we filter them out here *)
+             if first_layer then
+               List.filter
+                 (function
+                   | Ocamlorg_frontend.Navmap.{ title; _ }
+                     when Status.is_special title ->
+                       false
+                   | _ -> true)
+                 children
+             else children);
+        }
+    in
+    navmap_of_sidebar s
 end
 
 type documentation_status_cache_entry = {
@@ -186,14 +227,14 @@ module Sidebar_cache : sig
     Name.t ->
     Version.t ->
     [ `Package | `Universe of string ] ->
-    Sidebar.t ->
+    Ocamlorg_frontend.Navmap.t ->
     unit
 
   val get :
     Name.t ->
     Version.t ->
     [ `Package | `Universe of string ] ->
-    Sidebar.t option
+    Ocamlorg_frontend.Navmap.t option
 end = struct
   let cache = Hashtbl.create 100
 
@@ -229,6 +270,7 @@ let sidebar ~kind (t : Package.t) =
           let json = Yojson.Safe.from_string v in
           match Sidebar.of_yojson json with
           | Ok x ->
+              let x = List.map Sidebar.to_navmap x in
               Sidebar_cache.add t.name t.version kind x;
               x
           | Error msg ->
