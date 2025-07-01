@@ -21,10 +21,10 @@ why_ocaml_reasons:
 
 Ahrefs is a Singapore-based SaaS company that provides comprehensive SEO tools and marketing intelligence powered by big data. Founded in 2011, they crawl the entire web daily to maintain extensive databases of backlinks, keywords, and website analytics that help businesses with SEO strategy, competitor analysis, and content optimization. Trusted by 44% of Fortune 500 companies, Ahrefs serves digital marketing agencies, content creators, and businesses looking to improve their organic search presence.
 
-Ahrefs has been built around OCaml from the beginning—not as an experiment, but as a core business strategy. As a self-funded company, efficiency isn't just nice to have; it's essential. The founders wanted to maximize output with a small team rather than building the biggest company with the biggest headcount. OCaml was chosen early for backend systems and crawling because of its expressiveness—you could develop features fast with very 
-few lines of code, write small programs that run reliably for months or years without surprises.
+Ahrefs has been built around OCaml from the beginning—not as an experiment, but as a core business strategy. As a self-funded company, efficiency isn't just nice to have; it's essential. The founders wanted to maximize output with a small team rather than building the biggest company with the biggest headcount. Ahrefs chose OCaml for its backend systems and crawling because, in OCaml, you could develop features fast with very 
+few lines of code; resulting in small programs that run reliably for months or years without surprises.
 
-In a world where competitors burn through venture capital and hire hundreds of engineers, Ahrefs has consistently chosen to do more with less, trusting that OCaml's expressiveness and reliability would let them punch above their weight. The question was whether this philosophy could sustain them not just as a scrappy startup, but as a dominant force in a competitive market.
+In a world where competitors burn through venture capital and hire hundreds of engineers, Ahrefs has consistently chosen to do more with less, trusting that OCaml's expressiveness and reliability would let them punch above their weight.
 
 By 2017, Ahrefs faced a frontend bottleneck. Their frontend was built with PHP and jQuery, while their massive datasets lived in OCaml on the backend. Every time frontend developers needed data, backend engineers had to create APIs. With JavaScript tooling still poor in 2017 (before TypeScript matured), and limited interaction between teams, they saw an opportunity: what if they could extend their OCaml advantage to the entire stack?
 
@@ -42,9 +42,9 @@ But the real victory isn't just the scale—it's the sustainability. Ahrefs prov
 
 OCaml was the obvious choice for Ahrefs because it directly solved their core business constraint: how to build industry-leading software with a small, efficient team. OCaml's unique ability to combine expressiveness and reliability allowed developers to write concise, efficient code that remained stable over the long term, with systems often running for years without surprises. 
 
-For data-intensive businesses like Ahrefs, OCaml's type system provides unmatched confidence when dealing with evolving data formats and billions of daily requests. The native compilation delivers the performance needed for web-scale crawling and processing, while the high-level abstractions keep the codebase manageable and comprehensible. This isn't just about avoiding bugs—it's about enabling a small team to reason confidently about complex systems.
+OCaml's type system provides confidence when dealing with evolving data formats and billions of daily requests. Native compilation delivers the performance needed for web-scale crawling and processing, while high-level abstractions keep the codebase manageable and comprehensible.
 
-OCaml's ecosystem philosophy also aligns perfectly with lean teams: when you need something specific, you build it yourself rather than wrestling with heavyweight, one-size-fits-all frameworks. This approach requires more ownership but delivers exactly what your business needs—no more, no less.
+OCaml's ecosystem philosophy also aligns with lean teams: when you need something specific, you build it yourself rather than wrestling with heavyweight, one-size-fits-all frameworks.
 
 ## Solution
 
@@ -54,7 +54,7 @@ A key part of their stack is the **[ATD (Adjustable Type Definitions) Syntax](ht
 
 Their data infrastructure combines **[ClickHouse](https://clickhouse.com/)** for analytics workloads, **[MySQL](https://www.mysql.com/)** for transactional data, and **[Elasticsearch](https://www.elastic.co/)** for search functionality, all orchestrated on **[AWS](https://aws.amazon.com/)**. The key insight was treating the database as the synchronization point between tools rather than building extensive APIs—with shared OCaml types, different parts of the system can work with the same data structures directly.
 
-Ahrefs maintains their own standard libraries for both frontend and backend, following the philosophy of "we treat dependencies as if we implemented them." When something doesn't exist or doesn't fit their needs exactly, they build it themselves. This approach requires more ownership but delivers precisely tailored solutions that perform better and integrate more seamlessly than generic frameworks.
+Ahrefs maintains their own libraries for both frontend and backend, following the philosophy of "we treat dependencies as if we implemented them." When something doesn't exist or doesn't fit their needs exactly, they build it themselves. This approach requires more ownership but delivers precisely tailored solutions that perform better and integrate more seamlessly than generic frameworks.
 
 The result is a unified codebase where any engineer can contribute across domains, eliminating the traditional silos between frontend and backend teams.
 
