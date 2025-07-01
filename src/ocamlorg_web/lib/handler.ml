@@ -1244,8 +1244,8 @@ let package_documentation t kind req =
         List.find_map
           (function
             | { Ocamlorg_package.Documentation_status.old_path; new_path } -> (
-                match String.cut ~on:old_path url with
-                | Some (prefix, "") -> Some (prefix ^ new_path)
+                match String.cut ~on:("/" ^ old_path) url with
+                | Some (prefix, "") -> Some (prefix ^ "/" ^ new_path)
                 | _ -> None))
           redirections
   in
