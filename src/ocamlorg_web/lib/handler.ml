@@ -1254,18 +1254,20 @@ let package_documentation t kind req =
     match redirect with Some r -> Dream.redirect req r | None -> continue ()
   in
   let handle_asset continue =
-    let* asset =
-      Ocamlorg_package.Documentation.documentation_asset ~kind package path
-    in
-    match asset with Some asset -> Dream.respond asset | None -> continue ()
+    if String.ends_with ~suffix:".html" path then continue ()
+    else
+      let* asset =
+        Ocamlorg_package.Documentation.documentation_asset ~kind package path
+      in
+      match asset with Some asset -> Dream.respond asset | None -> continue ()
   in
   handle_redirect redirect @@ fun () ->
+  handle_asset @@ fun () ->
   let* docs =
     Ocamlorg_package.Documentation.documentation_page ~kind package path
   in
   match docs with
   | None ->
-      handle_asset @@ fun () ->
       let response_404_page =
         Dream.html ~code:404
           (Ocamlorg_frontend.package_documentation_not_found ~page:path
