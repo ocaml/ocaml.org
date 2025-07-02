@@ -5,6 +5,8 @@ module Info = Info
 module Statistics = Packages_stats
 open Package
 
+(* When this type changes, [Info.version] needs to be incremented to invalidate
+   the cache *)
 type state = {
   version : string;
   mutable opam_repository_commit : string option;
