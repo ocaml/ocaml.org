@@ -11,8 +11,6 @@ why_ocaml_reasons:
 - Performance
 - Reliability
 - Expressiveness
-- Native Compilation
-- Industrial Strength
 - Scalability
 - Maintainability
 ---
