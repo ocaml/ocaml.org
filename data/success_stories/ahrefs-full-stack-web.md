@@ -25,7 +25,7 @@ By 2017, Ahrefs had built a successful SEO tools business powered by OCaml on th
 
 Ahrefs wanted engineers to be productive across the entire stack, but the technology divide made this unnecessarily difficult. The JavaScript tooling used in 2017 for the frontend of the web application was lacking compared to today's TypeScript ecosystem. Ahrefs had already built years of expertise in OCaml. The question became: could they extend OCaml's benefits to the frontend?
 
-The challenge was both technical and cultural. Could they transition the entire frontend team to a OCaml? Even when some of the engineers hadn't used a functional programming language before? Would the benefits of a unified stack outweigh the costs?
+The challenge was both technical and cultural. Could they transition the entire frontend team to learn OCaml? Even when some of the engineers hadn't used a functional programming language before? Would the benefits of a unified stack outweigh the costs?
 
 ## Result
 
