@@ -8,9 +8,6 @@ synopsis: "Ahrefs transitioned from PHP/jQuery to full-stack OCaml using Melange
 url: https://ahrefs.com/
 priority: 2
 why_ocaml_reasons:
-- Type Safety
-- Unified Technology Stack
-- Team Efficiency
 - Integration with JavaScript Ecosystem
 - Shared Data Types
 - Developer Productivity
