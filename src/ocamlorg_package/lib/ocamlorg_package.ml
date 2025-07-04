@@ -1,40 +1,18 @@
 module Import = Import
 open Import
-
-module Name = struct
-  include OpamPackage.Name
-
-  let of_string_opt str = try Some (of_string str) with _ -> None
-end
-
-module Version = OpamPackage.Version
+include Package
 module Info = Info
 module Statistics = Packages_stats
+open Package
 
-type t = { name : Name.t; version : Version.t; info : Info.t }
-
-let name t = t.name
-let version t = t.version
-let info t = t.info
-let create ~name ~version info = { name; version; info }
-
-type documentation_status_cache_entry = {
-  documentation_status : Documentation_status.t option;
-  time : float;
-}
-
-(* TODO: this needs to be computed in ocaml-docs-ci / voodoo and be part of the
-   documentation status information *)
-type search_index_cache_entry = { hash_digest : string option; time : float }
-
+(* When this type changes, [Info.version] needs to be incremented to invalidate
+   the cache *)
 type state = {
   version : string;
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
   mutable stats : Statistics.t option;
-  mutable doc_status_cache :
-    documentation_status_cache_entry Version.Map.t Name.Map.t;
-  mutable search_index_cache : search_index_cache_entry Version.Map.t Name.Map.t;
+  docs : Documentation.doc_cache;
 }
 
 let mockup_state (pkgs : t list) =
@@ -53,8 +31,7 @@ let mockup_state (pkgs : t list) =
     packages;
     opam_repository_commit = None;
     stats = None;
-    doc_status_cache = Name.Map.empty;
-    search_index_cache = Name.Map.empty;
+    docs = Documentation.doc_cache_empty;
   }
 
 let read_versions package_name versions =
@@ -117,8 +94,7 @@ let try_load_state () =
       version = Info.version;
       packages = Name.Map.empty;
       stats = None;
-      doc_status_cache = Name.Map.empty;
-      search_index_cache = Name.Map.empty;
+      docs = Documentation.doc_cache_empty;
     }
 
 let save_state t =
@@ -228,253 +204,7 @@ let get t name version =
   Option.bind x (Version.Map.find_opt version)
   |> Option.map (fun info -> { version; info; name })
 
-module Documentation = struct
-  type toc = { title : string; href : string; children : toc list }
-
-  type breadcrumb_kind =
-    | Page
-    | LeafPage
-    | Module
-    | ModuleType
-    | Parameter of int
-    | Class
-    | ClassType
-    | File
-
-  let breadcrumb_kind_from_string s =
-    match s with
-    | "page" -> Page
-    | "leaf-page" -> LeafPage
-    | "module" -> Module
-    | "module-type" -> ModuleType
-    | "class" -> Class
-    | "class-type" -> ClassType
-    | "file" -> File
-    | _ ->
-        if String.starts_with ~prefix:"argument-" s then
-          let i = List.hd (List.tl (String.split_on_char '-' s)) in
-          Parameter (int_of_string i)
-        else raise (Invalid_argument ("kind not recognized: " ^ s))
-
-  type breadcrumb = { name : string; href : string; kind : breadcrumb_kind }
-
-  type t = {
-    uses_katex : bool;
-    toc : toc list;
-    breadcrumbs : breadcrumb list;
-    content : string;
-  }
-
-  let rec toc_of_json = function
-    | `Assoc
-        [
-          ("title", `String title);
-          ("href", `String href);
-          ("children", `List children);
-        ] ->
-        { title; href; children = List.map toc_of_json children }
-    | _ -> raise (Invalid_argument "malformed toc field")
-
-  let breadcrumb_from_json = function
-    | `Assoc
-        [
-          ("name", `String name); ("href", `String href); ("kind", `String kind);
-        ] ->
-        { name; href; kind = breadcrumb_kind_from_string kind }
-    | _ -> raise (Invalid_argument "malformed breadcrumb field")
-
-  let doc_from_string s =
-    match Yojson.Safe.from_string s with
-    | `Assoc
-        [
-          ("type", `String _page_type);
-          ("uses_katex", `Bool uses_katex);
-          ("breadcrumbs", `List json_breadcrumbs);
-          ("toc", `List json_toc);
-          ("source_anchor", _);
-          ("preamble", `String preamble);
-          ("content", `String content);
-        ] ->
-        let breadcrumbs =
-          match List.map breadcrumb_from_json json_breadcrumbs with
-          | _ :: _ :: _ :: _ :: breadcrumbs -> breadcrumbs
-          | _ -> failwith "Not enough breadcrumbs"
-        in
-        {
-          uses_katex;
-          breadcrumbs;
-          toc = List.map toc_of_json json_toc;
-          content = preamble ^ content;
-        }
-    | _ -> raise (Invalid_argument "malformed .html.json file")
-end
-
 module Package_info = Package_info
-
-let package_url ~kind name version =
-  match kind with
-  | `Package -> Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/"
-  | `Universe s ->
-      Config.documentation_url ^ "u/" ^ s ^ "/" ^ name ^ "/" ^ version ^ "/"
-
-let http_get url =
-  let open Lwt.Syntax in
-  Logs.info (fun m -> m "GET %s" url);
-  Lwt.catch
-    (fun () ->
-      let headers =
-        Cohttp.Header.of_list
-          [
-            ( "Accept",
-              "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-            );
-          ]
-      in
-      let* response, body =
-        Cohttp_lwt_unix.Client.get ~headers (Uri.of_string url)
-      in
-      match Cohttp.Code.(code_of_status response.status |> is_success) with
-      | true ->
-          let+ body = Cohttp_lwt.Body.to_string body in
-          Ok body
-      | false ->
-          let+ () = Cohttp_lwt.Body.drain_body body in
-          Error (`Msg ("Failed to fetch " ^ url)))
-    (function
-      | e ->
-          Logs.err (fun m -> m "%s" (Printexc.to_string e));
-          Lwt.return (Error (`Msg (Printexc.to_string e))))
-
-let module_map ~kind t =
-  let package_url =
-    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
-  in
-  let open Lwt.Syntax in
-  let url = package_url ^ "package.json" in
-  let+ content = http_get url in
-  match content with
-  | Ok v ->
-      let json = Yojson.Safe.from_string v in
-      Package_info.of_yojson json
-  | Error _ ->
-      Logs.info (fun m -> m "Failed to fetch module map at %s" url);
-      { Package_info.libraries = String.Map.empty }
-
-let odoc_page ~url =
-  let open Lwt.Syntax in
-  let* content = http_get url in
-  match content with
-  | Ok content ->
-      let maybe_doc =
-        try Some (Documentation.doc_from_string content)
-        with Invalid_argument err ->
-          Logs.err (fun m -> m "Invalid documentation page: %s" err);
-          None
-      in
-      Logs.info (fun m -> m "Found documentation page for %s" url);
-      Lwt.return maybe_doc
-  | Error _ ->
-      Logs.info (fun m -> m "Failed to fetch documentation page for %s" url);
-      Lwt.return None
-
-let documentation_page ~kind t path =
-  let package_url =
-    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
-  in
-  let url = package_url ^ "doc/" ^ path ^ ".json" in
-  odoc_page ~url
-
-let file ~kind t path =
-  let package_url =
-    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
-  in
-  let url = package_url ^ path ^ ".json" in
-  odoc_page ~url
-
-let search_index ~kind t =
-  let package_url =
-    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
-  in
-  let url = package_url ^ "index.js" in
-
-  let open Lwt.Syntax in
-  let* content = http_get url in
-  match content with
-  | Ok content -> Lwt.return (Some content)
-  | Error _ ->
-      Logs.info (fun m -> m "Failed to fetch search index at %s" url);
-      Lwt.return None
-
-(* TODO: should be computed by ocaml-docs-ci / voodoo and be part of
-   status.json *)
-let search_index_digest ~kind state t : string option Lwt.t =
-  let open Lwt.Syntax in
-  let get_and_cache () =
-    let+ content = search_index ~kind t in
-    let digest =
-      match content with Some s -> Some (s |> Digest.string) | _ -> None
-    in
-    let entry = { hash_digest = digest; time = Unix.gettimeofday () } in
-    state.search_index_cache <-
-      Name.Map.update t.name
-        (Version.Map.add t.version entry)
-        (Version.Map.singleton t.version entry)
-        state.search_index_cache;
-    digest
-  in
-
-  let has_cache_expired time =
-    Unix.gettimeofday () -. time > Config.package_caches_ttl
-  in
-
-  match
-    Name.Map.find_opt t.name state.search_index_cache
-    |> Option.map (Version.Map.find_opt t.version)
-    |> Option.value ~default:None
-  with
-  | None -> get_and_cache ()
-  | Some { time; _ } when has_cache_expired time -> get_and_cache ()
-  | Some { hash_digest; _ } -> Lwt.return hash_digest
-
-module Documentation_status = Documentation_status
-
-let documentation_status ~kind state t : Documentation_status.t option Lwt.t =
-  let open Lwt.Syntax in
-  let package_url =
-    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
-  in
-
-  let get_and_cache () =
-    let+ content = http_get (package_url ^ "status.json") in
-    let status =
-      match content with
-      | Ok s ->
-          Some (s |> Yojson.Safe.from_string |> Documentation_status.of_yojson)
-      | _ -> None
-    in
-    let status_entry =
-      { documentation_status = status; time = Unix.gettimeofday () }
-    in
-    state.doc_status_cache <-
-      Name.Map.update t.name
-        (Version.Map.add t.version status_entry)
-        (Version.Map.singleton t.version status_entry)
-        state.doc_status_cache;
-    status
-  in
-
-  let has_cache_expired time =
-    Unix.gettimeofday () -. time > Config.package_caches_ttl
-  in
-
-  match
-    Name.Map.find_opt t.name state.doc_status_cache
-    |> Option.map (Version.Map.find_opt t.version)
-    |> Option.value ~default:None
-  with
-  | None -> get_and_cache ()
-  | Some { time; _ } when has_cache_expired time -> get_and_cache ()
-  | Some { documentation_status; _ } -> Lwt.return documentation_status
 
 let doc_exists t name version =
   let package = get t name version in
@@ -482,7 +212,7 @@ let doc_exists t name version =
   match package with
   | None -> Lwt.return None
   | Some package -> (
-      let* doc_stat = documentation_status ~kind:`Package t package in
+      let* doc_stat = Documentation.status ~kind:`Package t.docs package in
       match doc_stat with
       | Some { failed = false; _ } -> Lwt.return (Some version)
       | _ -> Lwt.return None)
@@ -670,3 +400,12 @@ let search ~is_author_match ?(sort_by_popularity = false) t query =
   all_latest t
   |> List.filter (Search.match_request ~is_author_match request)
   |> List.sort (compare request)
+
+module Documentation = struct
+  include Documentation
+
+  let search_index_digest ~kind state pkg =
+    search_index_digest ~kind state.docs pkg
+
+  let status ~kind state pkg = status ~kind state.docs pkg
+end
