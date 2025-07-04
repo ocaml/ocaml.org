@@ -12,7 +12,7 @@ packages:
 (* `Ppx_yojson_conv_lib.Yojson_conv.Primitives` contains functions needed to serialise values of primitive types. *)
 open Ppx_yojson_conv_lib.Yojson_conv.Primitives
 
-(* The annotation `[@@deriving to_yojson]` causes the PPX from `ppx_yojson_conv` to generate a function
+(* The annotation `[@@deriving yojson]` causes the PPX from `ppx_yojson_conv` to generate a function
   `yojson_of_language` that converts values from type `language` to `Yojson.Safe.t`. *)
 type language = { 
   name: string; 
