@@ -219,4 +219,8 @@
   name: Yawar Amin
   url: https://dev.to/feed/yawaramin
   only_ocaml: true
+- id: tsmc
+  name: Tim McGilchrist
+  url: https://lambdafoo.com/rss.xml
+  only_ocaml: true
 
