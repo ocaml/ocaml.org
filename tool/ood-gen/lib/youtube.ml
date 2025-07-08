@@ -181,8 +181,8 @@ let scrape yaml_file =
            |> Seq.filter (fun video ->
                   (not src.only_ocaml)
                   || String.(
-                       is_sub_ignore_case "ocaml" video.Vid.title
-                       || is_sub_ignore_case "ocaml" video.Vid.description)))
+                       is_sub_ignore_case "caml" video.Vid.title
+                       || is_sub_ignore_case "caml" video.Vid.description)))
     |> VideoSet.of_seq |> Result.ok
   in
   match fetched with

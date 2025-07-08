@@ -168,8 +168,8 @@ module Scraper = struct
           if
             (not source.only_ocaml)
             || String.(
-                 is_sub_ignore_case "ocaml" content
-                 || is_sub_ignore_case "ocaml" title)
+                 is_sub_ignore_case "caml" content
+                 || is_sub_ignore_case "caml" title)
           then (
             let url = String.trim (Uri.to_string url) in
             let preview_image = River.seo_image post in
